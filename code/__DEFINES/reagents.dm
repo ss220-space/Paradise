@@ -21,3 +21,10 @@
 
 #define REAGENT_TOUCH 1
 #define REAGENT_INGEST 2
+
+#define GRENADE_EMPTY 0
+#define GRENADE_WIRED 1
+#define GRENADE_READY 2
+
+/// Water temperature
+#define COLD_WATER_TEMPERATURE 283.15 // 10 degrees celsius

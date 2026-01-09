@@ -40,7 +40,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	var/datum/mind/clonemind
 	var/grab_ghost_when = CLONER_MATURE_CLONE
 
-	var/obj/item/radio/Radio
 	var/radio_announce = TRUE
 
 	var/obj/effect/countdown/clonepod/countdown
@@ -58,9 +57,8 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		DATIVE = "капсуле клонирования",
 		ACCUSATIVE = "капсулу клонирования",
 		INSTRUMENTAL = "капсулой клонирования",
-		PREPOSITIONAL = "капсуле клонирования"
+		PREPOSITIONAL = "капсуле клонирования",
 	)
-
 
 /obj/machinery/clonepod/power_change(forced = FALSE)
 	..() //we don't check return here because we also care about the BROKEN flag
@@ -68,7 +66,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		set_light(2)
 	else
 		set_light_on(FALSE)
-
 
 /obj/machinery/clonepod/biomass
 	biomass = CLONE_BIOMASS
@@ -81,10 +78,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		req_access = list(ACCESS_SYNDICATE)
 
 	countdown = new(src)
-
-	Radio = new /obj/item/radio(src)
-	Radio.become_speaker_only(MED_FREQ)
-	Radio.follow_target = src
 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clonepod(null)
@@ -128,7 +121,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(clonemind)
 		UnregisterSignal(clonemind.current, COMSIG_LIVING_REVIVE)
 		UnregisterSignal(clonemind, COMSIG_MIND_TRANSER_TO)
-	QDEL_NULL(Radio)
 	QDEL_NULL(countdown)
 	QDEL_LIST(missing_organs)
 	return ..()
@@ -157,7 +149,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		DATIVE = "ДНК-дискете",
 		ACCUSATIVE = "ДНК-дискету",
 		INSTRUMENTAL = "ДНК-дискетой",
-		PREPOSITIONAL = "ДНК-дискете"
+		PREPOSITIONAL = "ДНК-дискете",
 	)
 
 /obj/item/disk/data/proc/initialize()
@@ -229,10 +221,11 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant && occupant.stat != DEAD)
 		. += span_notice("Процесс клонирования завершён на [round(get_completion())]%.")
 
-/obj/machinery/clonepod/return_air() //non-reactive air
+/obj/machinery/clonepod/return_obj_air()
+	//non-reactive air
 	var/datum/gas_mixture/GM = new
-	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
-	GM.temperature = T20C
+	GM.set_nitrogen(MOLES_O2STANDARD + MOLES_N2STANDARD)
+	GM.set_temperature(T20C)
 	return GM
 
 /obj/machinery/clonepod/proc/get_completion()
@@ -245,7 +238,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/announce_radio_message(message)
 	if(radio_announce)
-		Radio.autosay(message, name, HEADSET_FREQ_NAME)
+		radio_announce(message, name, MED_FREQ, src)
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, TRUE)
@@ -257,7 +250,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/machinery/clonepod/proc/growclone(datum/dna2/record/R)
 	if(mess || attempting || panel_open || stat & (NOPOWER|BROKEN))
 		return 0
-	clonemind = locate(R.mind)
+	clonemind = R.mind.resolve()
 	if(!istype(clonemind))	//not a mind
 		return 0
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
@@ -314,7 +307,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(is_taipan(z))
 		H.faction.Add("syndicate")	// So that Syndie guys remain Syndie guys after cloning
 
-
 	H.check_genes(MUTCHK_FORCED) // Ensures species that get powers by the species proc handle_dna keep them
 
 	if(efficiency > 2 && efficiency < 5 && prob(25))
@@ -337,7 +329,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 	if(grab_ghost_when == CLONER_FRESH_CLONE)
 		clonemind.transfer_to(H)
-		H.ckey = R.ckey
+		H.possess_by_player(R.ckey)
 		update_clone_antag(H) //Since the body's got the mind, update their antag stuff right now. Otherwise, wait until they get kicked out (as per the CLONER_MATURE_CLONE business) to do it.
 		var/message
 		message += "<b>Вы медленно обретаете сознание по мере того, как ваше тело восстанавливается.</b><br>"
@@ -417,7 +409,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		update_icon()
 		use_power(200)
 
-
 //Let's unlock this early I guess.  Might be too early, needs tweaking.
 /obj/machinery/clonepod/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -452,13 +443,13 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		if(!cleaning)
 			return ..()
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] счищать слизь с [declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] счищать слизь с [declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете счищать слизь с [declent_ru(GENITIVE)].")
 		)
 		if(!do_after(user, 5 SECONDS, src))
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_notice("[user] убира[pluralize_ru(user.gender, "ет", "ют")] слизь с [declent_ru(GENITIVE)]."),
+			span_notice("[user] убира[PLUR_ET_YUT(user)] слизь с [declent_ru(GENITIVE)]."),
 			span_notice("Вы убрали слизь с [declent_ru(GENITIVE)].")
 		)
 		REMOVE_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
@@ -475,7 +466,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/clonepod/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
@@ -510,7 +500,6 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		WRENCH_UNANCHOR_MESSAGE
 		connected.pods -= src
 		connected = null
-
 
 /obj/machinery/clonepod/emag_act(mob/user)
 	if(isnull(occupant))
@@ -553,10 +542,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	countdown.stop()
 	var/turf/T = get_turf(src)
 	if(mess) //Clean that mess and dump those gibs!
-		for(var/i in missing_organs)
-			var/obj/I = i
-			I.forceMove(T)
-		missing_organs.Cut()
+		for(var/obj/organ as anything in missing_organs)
+			organ.forceMove(T)
+
+		LAZYCLEARLIST(missing_organs)
 		mess = FALSE
 		new /obj/effect/gibspawner/generic(get_turf(src), occupant)
 		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
@@ -582,10 +571,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		occupant.flash_eyes(visual = TRUE)
 		clonemind = null
 
+	for(var/organ in missing_organs)
+		qdel(organ)
 
-	for(var/i in missing_organs)
-		qdel(i)
-	missing_organs.Cut()
+	LAZYCLEARLIST(missing_organs)
 	occupant.SetLoseBreath(0) // Stop friggin' dying, gosh damn
 	occupant.setOxyLoss(0)
 	for(var/datum/disease/critical/crit in occupant.diseases)
@@ -609,21 +598,20 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			occupant.grab_ghost() // We really just want to make you suffer.
 			var/message
 			message += "<b>Ваше тело выворачивает наизнанку, волна агонизирующей боли заливает ваше сознание.</b><br>"
-			message += "<i>Это и есть [pluralize_ru(occupant.gender, "моя", "наша")] смерть? Да, это она.</i>"
+			message += "<i>Это и есть моя смерть? Да, это она.</i>"
 			to_chat(occupant, span_warning("[message]"))
 			SEND_SOUND(occupant, sound('sound/hallucinations/veryfar_noise.ogg', 0, 1, 50))
-		for(var/i in missing_organs)
-			qdel(i)
-		missing_organs.Cut()
-		clonemind = null
-		spawn(40)
-			qdel(occupant)
 
+		for(var/organ in missing_organs)
+			qdel(organ)
+
+		LAZYCLEARLIST(missing_organs)
+		clonemind = null
+		QDEL_IN(occupant, 4 SECONDS)
 
 	playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, FALSE)
 	mess = TRUE
 	update_icon()
-
 
 /obj/machinery/clonepod/update_icon_state()
 	if(occupant && !(stat & NOPOWER))
@@ -633,12 +621,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	else
 		icon_state = "pod_idle"
 
-
 /obj/machinery/clonepod/update_overlays()
 	. = ..()
 	if(panel_open)
 		. += "panel_open"
-
 
 /obj/machinery/clonepod/relaymove(mob/user)
 	if(user.stat == CONSCIOUS)
@@ -668,10 +654,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	malfunction(go_easy = TRUE)
 
 /obj/machinery/clonepod/proc/maim_clone(mob/living/carbon/human/H)
-	LAZYINITLIST(missing_organs)
-	for(var/i in missing_organs)
-		qdel(i)
-	missing_organs.Cut()
+	for(var/organ in missing_organs)
+		qdel(organ)
+
+	LAZYCLEARLIST(missing_organs)
 
 	H.setCloneLoss(CLONE_INITIAL_DAMAGE, FALSE)
 	H.setBrainLoss(BRAIN_INITIAL_DAMAGE)
@@ -686,7 +672,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		// Make this support stuff that turns into items when removed
 		if(!QDELETED(thing))
 			thing.forceMove(src)
-			missing_organs += thing
+			LAZYADD(missing_organs, thing)
 
 	var/static/list/zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 	for(var/zone in zones)
@@ -694,7 +680,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		var/atom/movable/thing = bodypart.remove(H)
 		if(!QDELETED(thing))
 			thing.forceMove(src)
-			missing_organs += thing
+			LAZYADD(missing_organs, thing)
 
 	organs_number = LAZYLEN(missing_organs)
 	H.updatehealth()
@@ -713,7 +699,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/item/storage/box/disks
 	name = "Diskette Box"
 	desc = "Коробка для хранения дискет."
-	icon_state = "disk_kit"
+	icon_state = "box_disc"
 
 /obj/item/storage/box/disks/get_ru_names()
 	return list(
@@ -722,7 +708,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		DATIVE = "коробке с дискетами",
 		ACCUSATIVE = "коробку с дискетами",
 		INSTRUMENTAL = "коробкой с дискетами",
-		PREPOSITIONAL = "коробке с дискетами"
+		PREPOSITIONAL = "коробке с дискетами",
 	)
 
 /obj/item/storage/box/disks/populate_contents()

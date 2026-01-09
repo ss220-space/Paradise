@@ -46,9 +46,17 @@
 	loot = list(/obj/item/organ/internal/heart/demon/pulse)
 
 	/// List of sounds that is picked from when the demon speaks.
-	var/list/speech_sounds = list("sound/voice/pdvoice1.ogg", "sound/voice/pdvoice2.ogg", "sound/voice/pdvoice3.ogg")
+	var/list/speech_sounds = list(
+		'sound/voice/pdvoice1.ogg',
+		'sound/voice/pdvoice2.ogg',
+		'sound/voice/pdvoice3.ogg',
+	)
 	/// List of sounds that is picked from when the demon dies or is EMP'd.
-	var/list/hurt_sounds = list("sound/voice/pdwail1.ogg", "sound/voice/pdwail2.ogg", "sound/voice/pdwail3.ogg")
+	var/list/hurt_sounds = list(
+		'sound/voice/pdwail1.ogg',
+		'sound/voice/pdwail2.ogg',
+		'sound/voice/pdwail3.ogg',
+	)
 
 	/// Current quantity of power the demon currently holds, spent while purchasing, upgrading or using spells or upgrades. Use adjust_charge to modify this.
 	var/charge = 1000
@@ -208,7 +216,6 @@
 	mind.special_role = SPECIAL_ROLE_DEMON
 	give_objectives()
 
-
 /mob/living/simple_animal/demon/pulse_demon/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, charge))
 		// automatically adjusts maxcharge to allow the new value
@@ -223,7 +230,6 @@
 
 	if(var_name == NAMEOF(src, glow_color))
 		update_glow()
-
 
 /mob/living/simple_animal/demon/pulse_demon/forceMove(atom/destination)
 	var/old_location = loc
@@ -411,7 +417,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/move_up()
 	set name = "Подняться"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
@@ -428,7 +434,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
 	set name = "Опуститься"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
@@ -672,7 +678,6 @@
 	maxcharge = calc_maxcharge(length(hijacked_apcs)) + (maxcharge - calc_maxcharge(length(hijacked_apcs) - 1))
 	to_chat(src, span_notice("Hijacking complete! You now control [length(hijacked_apcs)] APCs."))
 
-
 /mob/living/simple_animal/demon/pulse_demon/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
@@ -680,7 +685,6 @@
 		return
 
 	try_shock_mob(arrived)
-
 
 /mob/living/simple_animal/demon/pulse_demon/proc/on_entering(datum/source, atom/destination, atom/oldloc, list/atom/old_locs)
 	SIGNAL_HANDLER
@@ -691,14 +695,13 @@
 	for(var/mob/living/mob in (destination.contents - src))
 		try_shock_mob(mob)
 
-
 /mob/living/simple_animal/demon/pulse_demon/proc/try_shock_mob(mob/living/L, siemens_coeff = 1)
 	var/dealt = 0
 	if(current_cable?.powernet && current_cable.powernet.avail)
 		// returns used energy, not damage dealt, but ez conversion with /20
 		dealt = electrocute_mob(L, current_cable.powernet, src, siemens_coeff) / 20
 	else if(charge >= 1000)
-		dealt = L.electrocute_act(30, "пульс-демона", siemens_coeff)
+		dealt = L.electrocute_act(30, src, siemens_coeff)
 		adjust_charge(-1000)
 	if(dealt > 0)
 		do_sparks(rand(2, 4), FALSE, src)
@@ -792,7 +795,6 @@
 			visible_message(span_danger("[M] [response_harm] [src]."))
 	try_attack_mob(M)
 
-
 /mob/living/simple_animal/demon/pulse_demon/attackby(obj/item/I, mob/user, params)
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	if(is_under_tile())
@@ -806,7 +808,6 @@
 		to_chat(src, span_notice("[user] touches you with [I] and you drain its power!"))
 	visible_message(span_notice("[I] goes right through [src]."))
 	try_shock_mob(user, I.siemens_coefficient)
-
 
 /mob/living/simple_animal/demon/pulse_demon/ex_act()
 	return
@@ -823,7 +824,7 @@
 		return ..()
 	visible_message(span_warning("[proj] goes right through [src]!"), projectile_message = TRUE)
 
-/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
 /mob/living/simple_animal/demon/pulse_demon/blob_act(obj/structure/blob/B)
@@ -845,8 +846,8 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference()
-	return // no thanks
+/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /mob/living/simple_animal/demon/pulse_demon/singularity_pull()
 	return
@@ -882,7 +883,7 @@
 /obj/item/organ/internal/heart/demon/pulse/on_life()
 	if(!owner)
 		return
-	for(var/obj/item/stock_parts/cell/cell_to_charge in owner.GetAllContents())
+	for(var/obj/item/stock_parts/cell/cell_to_charge in owner.get_all_contents())
 		var/newcharge = min(0.05 * cell_to_charge.maxcharge + cell_to_charge.charge, cell_to_charge.maxcharge)
 		if(cell_to_charge.charge < newcharge)
 			cell_to_charge.charge = newcharge

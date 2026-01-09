@@ -19,7 +19,6 @@
 	weapon_weight = WEAPON_HEAVY
 	can_holster = FALSE
 
-
 /obj/item/gun/pneumatic_rifle/Initialize(mapload)
 	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
@@ -36,10 +35,9 @@
 		if(chambered.BB)
 			. += span_notice("It is loaded.")
 		if(tank)
-			. += span_notice("[bicon(tank)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
+			. += span_notice("[icon2html(tank, user)] It has [tank] mounted onto it. It could be removed with a <b>screwdriver</b>.")
 		if(isBelted)
 			. += span_notice("It has a strap, now you can hold [src] on your back.")
-
 
 /obj/item/gun/pneumatic_rifle/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -53,7 +51,6 @@
 	user.put_in_hands(tank, ignore_anim = FALSE)
 	tank = null
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/gun/pneumatic_rifle/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/cable_coil))
@@ -101,7 +98,6 @@
 
 	return ..()
 
-
 /obj/item/gun/pneumatic_rifle/afterattack(atom/target, mob/living/carbon/human/user, flag, params)
 	. = ..()
 	if(target == loc)
@@ -127,7 +123,7 @@
 	to_chat(user, span_notice("You unload [S] from \the [src]!"))
 	return TRUE
 
-/obj/item/gun/pneumatic_rifle/process_chamber()
+/obj/item/gun/pneumatic_rifle/handle_chamber()
 	if(!length(syringes) || chambered.BB)
 		return
 
@@ -160,20 +156,20 @@
 	if(tank)
 		return tank.return_analyzable_air()
 
-
 /datum/crafting_recipe/pneumatic_rifle
 	name = "Pneumatic Rifle"
 	result = /obj/item/gun/pneumatic_rifle
 	tools = list(TOOL_SCREWDRIVER)
-	reqs = list(/obj/item/c_tube = 3,
-				/obj/item/weaponcrafting/receiver = 1,
-				/obj/item/weaponcrafting/stock = 1,
-				/obj/item/stack/tape_roll = 15,
-				/obj/item/stack/sheet/metal = 2)
+	reqs = list(
+		/obj/item/c_tube = 3,
+		/obj/item/weaponcrafting/receiver = 1,
+		/obj/item/weaponcrafting/stock = 1,
+		/obj/item/stack/tape_roll = 15,
+		/obj/item/stack/sheet/metal = 2,
+	)
 	time = 300
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
-
 
 /obj/item/gun/pneumatic_rifle/update_overlays()
 	. = ..()

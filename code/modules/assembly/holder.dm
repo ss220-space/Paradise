@@ -20,14 +20,12 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/item/assembly_holder/Destroy()
 	if(a_left)
 		a_left.holder = null
 	if(a_right)
 		a_right.holder = null
 	return ..()
-
 
 /obj/item/assembly_holder/proc/attach(obj/item/D, obj/item/D2, mob/user)
 	if(!D || !D2)
@@ -54,37 +52,27 @@
 	A2.holder = src
 	a_left = A1
 	a_right = A2
-	if(has_prox_sensors())
-		AddComponent(/datum/component/proximity_monitor)
 	name = "[A1.name]-[A2.name] assembly"
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
-
-
-/obj/item/assembly_holder/proc/has_prox_sensors()
-	if(isprox(a_left) || isprox(a_right))
-		return TRUE
-	return FALSE
-
 
 /obj/item/assembly_holder/proc/process_activation(obj/D, normal = TRUE, special = TRUE, mob/user)
 	if(!D)
 		return FALSE
 
-	if(normal && a_right && a_left)
-		if(a_right != D)
-			a_right.pulsed()
+	if(normal && a_left && a_right)
 		if(a_left != D)
 			a_left.pulsed()
+		if(a_right != D)
+			a_right.pulsed()
 
 	if(master)
 		var/datum/signal/signal = new
 		signal.source = src
 		signal.user = user
 		master.receive_signal(signal)
-		
-	return TRUE
 
+	return TRUE
 
 /obj/item/assembly_holder/update_overlays()
 	. = ..()
@@ -116,7 +104,6 @@
 
 	master?.update_icon()
 
-
 /obj/item/assembly_holder/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
@@ -125,19 +112,16 @@
 		else
 			. += span_notice("[src] need to be secured!")
 
-
 /obj/item/assembly_holder/HasProximity(atom/movable/AM)
 	if(a_left)
 		a_left.HasProximity(AM)
 	if(a_right)
 		a_right.HasProximity(AM)
 
-
 /obj/item/assembly_holder/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 
 	INVOKE_ASYNC(src, PROC_REF(assembly_crossed), arrived, old_loc)
-
 
 /obj/item/assembly_holder/proc/assembly_crossed(atom/movable/crossed, atom/old_loc)
 	if(a_left)
@@ -145,20 +129,19 @@
 	if(a_right)
 		a_right.assembly_crossed(crossed, old_loc)
 
-
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
 		a_left.on_found(finder)
 	if(a_right)
 		a_right.on_found(finder)
 
-
 /obj/item/assembly_holder/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
+
 	if(a_left)
 		a_left.hear_talk(M, message_pieces)
 	if(a_right)
 		a_right.hear_talk(M, message_pieces)
-
 
 /obj/item/assembly_holder/hear_message(mob/living/M, msg)
 	if(a_left)
@@ -166,29 +149,24 @@
 	if(a_right)
 		a_right.hear_message(M, msg)
 
-
 /obj/item/assembly_holder/proc/process_movement(mob/user) // infrared beams and prox sensors
 	if(a_left && a_right)
 		a_left.holder_movement(user)
 		a_right.holder_movement(user)
 
-
 /obj/item/assembly_holder/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	process_movement()
 
-
 /obj/item/assembly_holder/pickup(mob/user)
 	. = ..()
 	process_movement(user)
-
 
 /obj/item/assembly_holder/Bump(atom/bumped_atom)
 	. = ..()
 	if(. || !ismob(bumped_atom))
 		return .
 	process_movement(bumped_atom)
-
 
 /obj/item/assembly_holder/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // called when a throw stops
 	..()
@@ -197,13 +175,11 @@
 		triggered = throwing.thrower
 	process_movement(triggered)
 
-
 /obj/item/assembly_holder/attack_hand(mob/user)//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
 	if(a_left && a_right)
 		a_left.holder_movement(user)
 		a_right.holder_movement(user)
 	..()
-
 
 /obj/item/assembly_holder/screwdriver_act(mob/user, obj/item/I)
 	if(!a_left || !a_right)
@@ -220,7 +196,6 @@
 	else
 		to_chat(user, span_notice("[src] can now be taken apart!"))
 	update_icon()
-
 
 /obj/item/assembly_holder/attack_self(mob/user)
 	add_fingerprint(user)
@@ -245,10 +220,12 @@
 		if(a_left)
 			a_left.holder = null
 			a_left.forceMove(T)
+			a_left.on_detach()
 			user.put_in_hands(a_left, ignore_anim = FALSE)
 		if(a_right)
 			a_right.holder = null
 			a_right.forceMove(T)
+			a_right.on_detach()
 			user.put_in_hands(a_right, ignore_anim = FALSE)
 		qdel(src)
 

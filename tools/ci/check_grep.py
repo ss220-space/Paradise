@@ -27,6 +27,9 @@ def check_non_tgm_map_format(idx, line):
 NANOTRASEN_CAMEL_CASE_EN = re.compile(r"(NanoTrasen)")
 NANOTRASEN_CAMEL_CASE_RU = re.compile(r"(НаноТрейзен)")
 NANOTRASEN_MISSPELLING_N_RU = re.compile(r"(нанотрейзен)")
+
+NANOTRASEN_QUOTES_RU = re.compile(r'(..)Нанотрейзен(..)')
+
 def check_nanotrasen_style(idx, line):
     failures = []
     if match := NANOTRASEN_CAMEL_CASE_EN.search(line):
@@ -36,6 +39,22 @@ def check_nanotrasen_style(idx, line):
     if match := NANOTRASEN_MISSPELLING_N_RU.search(line):
         if 'UNLINT' not in line:
             failures.append((idx + 1, f"Found lowercase '{match.group(1)}', should be 'Нанотрейзен'."))
+
+    for match in NANOTRASEN_QUOTES_RU.finditer(line):
+        context_before = match.group(1)
+        context_after = match.group(2)
+
+        if context_before != '\\"' and context_after != '\\"':
+            surrounding_text = context_before[1] + "Нанотрейзен" + context_after[0]
+            failures.append((idx + 1, f"Found 'Нанотрейзен' without escaped quotes '{surrounding_text}', should be \\\"Нанотрейзен\\\"."))
+            continue
+        elif context_before[1] != '"' and context_after[0] != '"':
+            surrounding_text = context_before[1] + "Нанотрейзен" + context_after[0]
+            failures.append((idx + 1, f"Found 'Нанотрейзен' without escaped quotes '{surrounding_text}', should be \\\"Нанотрейзен\\\"."))
+            continue
+        else:
+            continue
+
     return failures
 
 HYPHEN_USAGE_RE = re.compile(r'(?:(?<=[а-яё]) - (?=[а-яё])|(?<=[а-яё]) - \d+|\d+ - (?=[а-яё]))', re.IGNORECASE)
@@ -53,11 +72,17 @@ def check_html_tags_case(idx, line):
     if match := HTML_TAGS_UPPERCASE_RE.search(line):
         return [(idx + 1, f"HTML tag '{match.group(0)}' should be in lowercase, not uppercase.")]
 
+SUSPICIOUS_SYMBOLS = re.compile(r'[<>]')
+def check_suspicious_symbols_in_maps(idx, line):
+    if SUSPICIOUS_SYMBOLS.search(line):
+        return [(idx + 1, f"HTML code in maps detected.")]
+
 CODE_CHECKS = [
     check_non_tgm_map_format,
     check_nanotrasen_style,
     check_dash_usage,
     check_html_tags_case,
+#    check_suspicious_symbols_in_maps,
 ]
 
 def lint_file(code_filepath: str) -> list[Failure]:

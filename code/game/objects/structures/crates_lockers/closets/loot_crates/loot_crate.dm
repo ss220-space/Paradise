@@ -1,5 +1,6 @@
 /obj/structure/closet/loot_crate
 	icon = 'icons/obj/supplypods.dmi'
+	icon_state = null
 	locked = TRUE
 	pixel_x = -16
 	ignore_shoves = TRUE
@@ -60,7 +61,6 @@
 
 /obj/structure/closet/loot_crate/toggle(mob/user)
 	return
-
 
 /obj/structure/closet/loot_crate/green
 	icon_state = "box_green"

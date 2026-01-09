@@ -1,3 +1,6 @@
+#define GOLEM_END_PR_1(gender) UNLINT(genderize_ru(gender, "ый", "ая", "ое", "ые"))
+#define GOLEM_END_PR_2(gender) UNLINT(genderize_ru(gender, "ой", "ая", "ое", "ые"))
+
 GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/species/golem
@@ -81,7 +84,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	var/golem_colour = rgb(170, 170, 170)
 
 	/// Description text shown to players when they become this golem type
-	var/info_text = "Будучи <span class='danger'>железным големом</span>, вы не обладаете отличительными особенностями."
+	var/info_text
 
 	/// Whether this golem species is eligible for random selection
 	var/random_eligible = TRUE
@@ -119,6 +122,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	/// Time required to perform self-healing (2 seconds)
 	var/self_heal_delay = 2 SECONDS
 
+
+/datum/species/golem/proc/get_info_text()
+	return info_text = "Будучи [span_danger("железным големом")], вы не обладаете отличительными особенностями."
 
 /**
  * Generates a random name for a golem
@@ -176,9 +182,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	var/end_pr
 	switch(prefix_type)
 		if(1)
-			end_pr = genderize_ru(gender_name,"ый","ая","ое","ые") // Male, Female, Neuter, Plural endings
+			end_pr = GOLEM_END_PR_1(gender_name) // Male, Female, Neuter, Plural endings
 		if(2)
-			end_pr = genderize_ru(gender_name,"ой","ая","ое","ые")
+			end_pr = GOLEM_END_PR_2(gender_name)
 		if(3)
 			end_pr = ""
 
@@ -200,7 +206,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 			human.mind.special_role = SPECIAL_ROLE_FREE_GOLEM
 	human.real_name = get_random_name()
 	human.name = human.real_name
-	to_chat(human, info_text)
+	var/golem_info = get_info_text()
+	to_chat(human, golem_info)
 
 	var/list/heal_material_types_list = get_heal_material_types_cached()
 	human.AddElement(/datum/element/material_heal, heal_material_types_list, amount_required_for_heal, material_heal, self_heal_delay)
@@ -209,14 +216,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	. = ..()
 	human.RemoveElement(/datum/element/material_heal)
 
-
 /datum/species/golem/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
 	..(target, default, max_level, FALSE)
 
-
 /datum/species/golem/get_vision_organ(mob/living/carbon/human/user)
 	return NO_VISION_ORGAN
-
 
 /// Returns a list of material types required for healing
 /datum/species/golem/proc/get_heal_material_types()
@@ -236,6 +240,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		return heal_materials
 	return
 
+/datum/species/golem/compressor_grind(location)
+	new skinned_type(location)
 
 //Random Golem
 
@@ -277,7 +283,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	)
 
 	golem_colour = rgb(68, 238, 221)
-	info_text = "Будучи <span class='danger'>адамантиновым големом</span>, вы обладаете особыми голосовыми связками, позволяющие вам «резонировать» послания всем големам."
 	prefix = "Адамантинов"
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
@@ -287,6 +292,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	material_heal = 40
 	amount_required_for_heal = 1
+
+/datum/species/golem/adamantine/get_info_text()
+	return info_text = "Будучи [span_danger("адамантиновым големом")], вы обладаете особыми голосовыми связками, позволяющие вам «резонировать» послания всем големам."
 
 /datum/species/golem/adamantine/get_heal_material_types()
 	return list(
@@ -306,7 +314,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	heat_level_1 = 360
 	heat_level_2 = 400
 	heat_level_3 = 460
-	info_text = "Будучи <span class='danger'>плазменным големом</span>, вы легко сгораете. Будьте осторожны, если вы сильно нагреетесь &mdash; взорвётесь!"
 	heatmod = 0 //fine until they blow up
 	prefix = "Плазменн"
 	special_names = list(
@@ -318,6 +325,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	material_heal = 25
 	amount_required_for_heal = 2
+
+/datum/species/golem/plasma/get_info_text()
+	return info_text = "Будучи [span_danger("плазменным големом")], , вы легко сгораете. Будьте осторожны, если вы сильно нагреетесь &mdash; взорвётесь!"
 
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
@@ -338,14 +348,12 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		H.adjust_fire_stacks(1)
 	..()
 
-
 /datum/species/golem/plasma/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/ignite/ignite = locate() in H.actions
 	if(!ignite)
 		ignite = new
 		ignite.Grant(H)
-
 
 /datum/species/golem/plasma/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -358,6 +366,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/sheet/mineral/plasma,
 	)
 
+/datum/species/golem/plasma/compressor_grind(location)
+	explosion(location, 0, 1, 3, flame_range = 5)
 
 /datum/action/innate/ignite
 	name = "Поджог"
@@ -390,7 +400,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	brain_mod = 0.3
 	stamina_mod = 0.3
 	skinned_type = /obj/item/stack/ore/diamond
-	info_text = "Будучи <span class='danger'>алмазным големом</span>, вы прочнее обычных големов."
 	prefix = "Алмазн"
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
@@ -405,6 +414,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	material_heal = 35
 	amount_required_for_heal = 2
 	self_heal_delay = 3 SECONDS
+
+/datum/species/golem/diamond/get_info_text()
+	return info_text = "Будучи [span_danger("алмазным големом")], вы прочнее обычных големов."
 
 /datum/species/golem/diamond/get_heal_material_types()
 	return list(
@@ -429,7 +441,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	brain_mod = 0.75
 	stamina_mod = 0.75
 	skinned_type = /obj/item/stack/ore/gold
-	info_text = "Будучи <span class='danger'>золотым големом</span>, вы более быстры, но менее прочны, нежели обычный голем."
 	prefix = "Золот"
 	prefix_type = 2
 	special_names = list(
@@ -441,6 +452,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	material_heal = 25
 	amount_required_for_heal = 3
+
+/datum/species/golem/gold/get_info_text()
+	return info_text = "Будучи [span_danger("золотым големом")], вы более быстры, но менее прочны, нежели обычный голем."
 
 /datum/species/golem/gold/get_heal_material_types()
 	return list(
@@ -458,7 +472,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	golem_colour = rgb(221, 221, 221)
 	punchstunthreshold = 9 // 60% chance, from 40%
 	skinned_type = /obj/item/stack/ore/silver
-	info_text = "Будучи <span class='danger'>серебряным големом</span>, вы с большей вероятностью можете оглушить противников атаками."
 	prefix = "Серебрян"
 	special_names = list(
 		MALE = list("Серфер", "Чарриот", "Мужик", "Глушитель", "Тихон", "Анестетик", "Ювелир", "Пупс"),
@@ -471,6 +484,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	material_heal = 25
 	amount_required_for_heal = 3
+
+/datum/species/golem/silver/get_info_text()
+	return info_text = "Будучи [span_danger("серебряным големом")], вы с большей вероятностью можете оглушить противников атаками."
 
 /datum/species/golem/silver/get_heal_material_types()
 	return list(
@@ -494,7 +510,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	punchstunthreshold = 18 // Still 40% stun chance
 	speed_mod = 4 // Pretty fucking slow
 	skinned_type = /obj/item/stack/sheet/plasteel
-	info_text = "Будучи <span class='danger'>пласталиевым големом</span>, вы медлительны, но вас сложнее оглушить, а ваши кулаки причиняют серьёзные повреждения."
 	prefix = "Пласталиев"
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Мужик", "Кусок", "Минерал", "Кирпич", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
@@ -502,6 +517,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		NEUTER = null
 		)
 	unarmed_type = /datum/unarmed_attack/golem/plasteel
+
+/datum/species/golem/plasteel/get_info_text()
+	return info_text = "Будучи [span_danger("пласталиевым големом")], вы медлительны, но вас сложнее оглушить, а ваши кулаки причиняют серьёзные повреждения."
 
 /datum/species/golem/plasteel/get_heal_material_types()
 	return list(
@@ -526,7 +544,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	name = SPECIES_GOLEM_TITANIUM
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/titanium
-	info_text = "Будучи <span class='danger'>титановым големом</span>, вы частично устойчивы к ожогам и невосприимчивы к пепельным бурям."
 	burn_mod = 0.405
 	prefix = "Титанов"
 	special_names = list(
@@ -548,6 +565,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	material_heal = 25
 	amount_required_for_heal = 3
 
+/datum/species/golem/titanium/get_info_text()
+	return info_text = "Будучи [span_danger("титановым големом")], вы частично устойчивы к ожогам и невосприимчивы к пепельным бурям."
+
 /datum/species/golem/titanium/get_heal_material_types()
 	return list(
 		/obj/item/stack/ore/titanium,
@@ -563,7 +583,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	name = SPECIES_GOLEM_PLASTITANIUM
 	golem_colour = rgb(136, 136, 136)
 	skinned_type = /obj/item/stack/sheet/mineral/plastitanium
-	info_text = "Будучи <span class='danger'>пластитановым големом</span>, вы крайне устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
 	burn_mod = 0.36
 	prefix = "Пластитанов"
 	special_names = list(
@@ -583,6 +602,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		TRAIT_LAVA_IMMUNE,
 	)
 
+/datum/species/golem/plastitanium/get_info_text()
+	return info_text = "Будучи [span_danger("пластитановым големом")], вы крайне устойчивы к ожогам и невосприимчивы к пепельным бурям и лаве."
 
 /datum/species/golem/plastitanium/get_heal_material_types()
 	return list(
@@ -606,7 +627,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	language = LANGUAGE_HIVE_GOLEM
 	default_language = LANGUAGE_HIVE_GOLEM
 	speed_mod = 1 // Faster
-	info_text = "Будучи <span class='danger'>големом из инопланетных сплавов</span>, вы быстрее двигаетесь и со временем регенерируете. Однако, вы можете разговаривать только с големами из того же материала, что и вы."
 	prefix = "Инопланетн"
 	special_names = list(
 		MALE = list("Инопришеленец", "Технологичный Голем", "Наблюдатель", "Незнакомец", "Странник", "Чужак", "Посланник", "Минерал", "Мужик", "Пришеленец", "Пупс"),
@@ -620,6 +640,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	amount_required_for_heal = 1
 	self_heal_delay = 1 SECONDS
 
+/datum/species/golem/alloy/get_info_text()
+	return info_text = "Будучи [span_danger("големом из инопланетных сплавов")], вы быстрее двигаетесь и со временем регенерируете. Однако, вы можете разговаривать только с големами из того же материала, что и вы."
 
 //Regenerates because self-repairing super-advanced alien tech
 /datum/species/golem/alloy/handle_life(mob/living/carbon/human/human)
@@ -630,7 +652,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	if(update)
 		human.updatehealth()
-
 
 /datum/species/golem/alloy/can_understand(mob/other) // Can understand everyone, but they can only speak over their mindlink
 	return TRUE
@@ -678,7 +699,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	heat_level_2 = 340
 	heat_level_3 = 400
 
-	info_text = "Будучи <span class='danger'>деревянным големом</span>, вы обладаете некоторыми особенностями растений: Вы получаете урон от экстремальных температур, вас можно поджечь и у вас меньше брони, чем у обычного голема. Вы регенерируете на свету и увядаете во тьме."
 	prefix = "Деревянн"
 	special_names = list(
 		MALE = list("Короед", "Грут", "Пень", "Дубень", "Дуболом", "Дуб", "Рогоз", "Сок", "Клен", "Вяз", "Тополь ", "Осина", "Ясень", "Бук", "Каштан", "Кедр", "Каштан", "Кипарис", "Пихта", "Боярышник", "Гикори", "Айронвуд", "Можжевельник", "Лист", "Мангровый Лес", "Тополь", "Редбад", "Сассафрас", "Ель", "Сумак", "Ствол", "Орех", "Тис", "Пупс"),
@@ -690,6 +710,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_name_chance = 100
 
 	amount_required_for_heal = 3
+
+/datum/species/golem/wood/get_info_text()
+	return info_text = "Будучи [span_danger("деревянным големом")], вы обладаете некоторыми особенностями растений: Вы получаете урон от экстремальных температур, вас можно поджечь и у вас меньше брони, чем у обычного голема. Вы регенерируете на свету и увядаете во тьме."
 
 /datum/species/golem/wood/handle_life(mob/living/carbon/human/H)
 	var/light_amount = 0 // How much light there is in the place, affects receiving nutrition and healing
@@ -736,7 +759,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	name = SPECIES_GOLEM_URANIUM
 	golem_colour = rgb(119, 255, 0)
 	skinned_type = /obj/item/stack/ore/uranium
-	info_text = "Будучи <span class='danger'>урановым големом</span>, вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
 	prefix = "Уранов"
 	special_names = list(
 		MALE = list("Оксид", "Стержень", "Мужик", "Сплав", "Расплав", "Светоч", "Сиятель", "Свет", "Блеск", "Лучезарец", "Луч", "Блестатель", "Пупс"),
@@ -749,6 +771,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 	material_heal = 25
 	amount_required_for_heal = 3
+
+/datum/species/golem/uranium/get_info_text()
+	return info_text = "Будучи [span_danger("урановым големом")], вы излучаете радиацию. Это не вредит другим големам, но влияет на органические формы жизни."
 
 /datum/species/golem/uranium/handle_life(mob/living/carbon/human/user)
 	for(var/mob/living/victim in range(2, user))
@@ -790,11 +815,13 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/sheet/plastic
-	info_text = "Будучи <span class='danger'>пластиковым големом</span>, вы способны ползать по вентиляции, если вы раздеты."
 
 	material_heal = 40
 	amount_required_for_heal = 4
 	self_heal_delay = 1 SECONDS
+
+/datum/species/golem/plastic/get_info_text()
+	return info_text = "Будучи [span_danger("пластиковым големом")], вы способны ползать по вентиляции, если вы раздеты."
 
 /datum/species/golem/plastic/get_heal_material_types()
 	return list(
@@ -817,7 +844,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	clone_mod = 1
 	brain_mod = 1
 	stamina_mod = 1
-	info_text = "Будучи <span class='danger'>песчаным големом</span>, вы невосприимчивы к физическим боеприпасам и получаете очень мало грубого урона. Однако вы чрезвычайно уязвимы к лучам лазерного и энергетического оружия, а также к ожогам. К тому же, вы превратитесь в песок после смерти, что предотвратит любую форму восстановления."
 	unarmed_type = /datum/unarmed_attack/golem/sand
 	prefix = "Песчан"
 	special_names = list(
@@ -830,8 +856,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	material_heal = 25
 	self_heal_delay = 1 SECONDS
 
+/datum/species/golem/sand/get_info_text()
+	return info_text = "Будучи [span_danger("песчаным големом")], вы невосприимчивы к физическим боеприпасам и получаете очень мало грубого урона. Однако вы чрезвычайно уязвимы к лучам лазерного и энергетического оружия, а также к ожогам. К тому же, вы превратитесь в песок после смерти, что предотвратит любую форму восстановления."
+
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message(span_danger("[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!"))
+	H.visible_message(span_danger("[H] рассыпал[GEND_SYA_AS_OS_IS(H)] в кучу песка!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -873,7 +902,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	clone_mod = 1
 	brain_mod = 1
 	stamina_mod = 1
-	info_text = "Будучи <span class='danger'>стеклянным големом</span>, вы отражаете лучи лазерного и энергетического оружия, а также крайне устойчивы к ожогам. Однако вы чрезвычайно уязвимы к грубому урону и баллистическому оружию. К тому же, после смерти вы разобьётесь без всякой надежды на восстановление."
 	unarmed_type = /datum/unarmed_attack/golem/glass
 	prefix = "Стеклянн"
 	special_names = list(
@@ -886,9 +914,12 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	chance_name_neuter = 30
 	special_name_chance = 50
 
+/datum/species/golem/glass/get_info_text()
+	return info_text = "Будучи [span_danger("стеклянным големом")], вы отражаете лучи лазерного и энергетического оружия, а также крайне устойчивы к ожогам. Однако вы чрезвычайно уязвимы к грубому урону и баллистическому оружию. К тому же, после смерти вы разобьётесь без всякой надежды на восстановление."
+
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, SFX_SHATTER, 70, TRUE)
-	H.visible_message(span_danger("[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!"))
+	H.visible_message(span_danger("[H] разбил[GEND_SYA_AS_OS_IS(H)] в дребезги!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
@@ -925,7 +956,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	name = SPECIES_GOLEM_BLUESPACE
 	golem_colour = rgb(51, 51, 255)
 	skinned_type = /obj/item/stack/ore/bluespace_crystal
-	info_text = "Будучи <span class='danger'>блюспейс-големом</span>, вы пространственно нестабильны: вы будете телепортироваться при получении ударов. Также вы можете телепортироваться вручную на большое расстояние."
 	prefix = "Блюспейс"
 	prefix_type = 3
 	special_names = list(
@@ -945,8 +975,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	amount_required_for_heal = 2
 	self_heal_delay = 1 SECONDS
 
+/datum/species/golem/bluespace/get_info_text()
+	return info_text = "Будучи [span_danger("блюспейс-големом")], вы пространственно нестабильны: вы будете телепортироваться при получении ударов. Также вы можете телепортироваться вручную на большое расстояние."
+
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -981,18 +1014,15 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	if(world.time > last_teleport + teleport_cooldown && M != H &&  M.a_intent != INTENT_HELP)
 		reactive_teleport(H)
 
-
 /datum/species/golem/bluespace/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
 	. = ..()
 	if(world.time > last_teleport + teleport_cooldown && defender != attacker && reactive_teleport(defender))
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 
-
 /datum/species/golem/bluespace/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
 	return TRUE
-
 
 /datum/species/golem/bluespace/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -1001,7 +1031,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		unstable_teleport = new
 		unstable_teleport.Grant(H)
 		last_teleport = world.time
-
 
 /datum/species/golem/bluespace/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -1014,7 +1043,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/sheet/bluespace_crystal,
 	)
 
-
 /datum/action/innate/unstable_teleport
 	name = "Нестабильный телепорт"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
@@ -1024,7 +1052,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	var/last_teleport = 0
 	var/tele_range = 6
 
-/datum/action/innate/unstable_teleport/IsAvailable()
+/datum/action/innate/unstable_teleport/IsAvailable(feedback = FALSE)
 	if(..())
 		if(world.time > last_teleport + cooldown && !activated)
 			return 1
@@ -1039,7 +1067,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы телепортировались!"))
+	H.visible_message(span_warning("[H] телепортировал[GEND_SYA_AS_OS_IS(H)]!"), span_danger("Вы телепортировались!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(isspaceturf(T))
@@ -1080,13 +1108,12 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	punchdamagehigh = 1
 	punchstunthreshold = 2 // Harmless and can't stun
 	skinned_type = /obj/item/stack/ore/bananium
-	info_text = "Будучи <span class='danger'>бананиевым големом</span>, вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Если вас ранить, вы будете бананоточить."
 	prefix = "Бананиев"
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
-		NEUTER = null
-		)
+		NEUTER = null,
+	)
 	unarmed_type = /datum/unarmed_attack/golem/bananium
 	default_genes = list(/datum/dna/gene/disability/comic)
 
@@ -1100,6 +1127,8 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	amount_required_for_heal = 2
 	self_heal_delay = 1 SECONDS
 
+/datum/species/golem/bananium/get_info_text()
+	return info_text = "Будучи [span_danger("бананиевым големом")], вы созданы для розыгрышей. Ваше тело издает естественные гудки, и удары по людям издают безвредные гудки. Если вас ранить, вы будете бананоточить."
 
 /datum/species/golem/bananium/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -1109,19 +1138,16 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	H.equip_to_slot_or_del(new /obj/item/bikehorn(H), ITEM_SLOT_POCKET_LEFT)
 	H.AddElement(/datum/element/waddling)
 
-
 /datum/species/golem/bananium/handle_dna(mob/living/carbon/human/H, remove = FALSE)
 	H.force_gene_block(GLOB.comicblock, !remove, TRUE, TRUE)
-
 
 /datum/species/golem/bananium/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.RemoveElement(/datum/element/waddling)
 
-
 /datum/species/golem/bananium/get_random_name()
 	var/clown_name = pick(GLOB.clown_names)
-	var/golem_name = "[prefix][genderize_ru(gender_name,"ый","ая","ое","ые")] [clown_name]"
+	var/golem_name = "[prefix][GOLEM_END_PR_1(gender_name)] [clown_name]"
 	return golem_name
 
 /datum/species/golem/bananium/spec_attack_hand(mob/living/carbon/human/M, mob/living/carbon/human/H, datum/martial_art/attacker_style)
@@ -1130,13 +1156,11 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
 
-
 /datum/species/golem/bananium/spec_proceed_attack_results(obj/item/I, mob/living/carbon/human/defender, mob/living/attacker, obj/item/organ/external/affecting)
 	. = ..()
 	if(world.time > last_banana + banana_cooldown && defender != attacker)
 		new /obj/item/grown/bananapeel/specialpeel(get_turf(defender))
 		last_banana = world.time
-
 
 /datum/species/golem/bananium/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)
@@ -1191,19 +1215,21 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = list(
 		MALE = null,
 		FEMALE = null,
-		NEUTER = null
-		)
+		NEUTER = null,
+	)
 	golem_colour = rgb(255, 255, 255)
 	skinned_type = /obj/item/stack/ore/tranquillite
-	info_text = "Будучи <span class='danger'>транквилитовым големом</span>, вы можете создавать невидимые стены и регенерировать, выпивая бутылки с ничем."
 	unarmed_type = /datum/unarmed_attack/golem/tranquillite
 
 	material_heal = 40
 	amount_required_for_heal = 1
 
+/datum/species/golem/tranquillite/get_info_text()
+	return info_text = "Будучи [span_danger("транквилитовым големом")], вы можете создавать невидимые стены и регенерировать, выпивая бутылки с ничем."
+
 /datum/species/golem/tranquillite/get_random_name()
 	var/mime_name = pick(GLOB.mime_names)
-	var/golem_name = "[prefix][genderize_ru(gender_name,"ый","ая","ое","ые")] [mime_name]"
+	var/golem_name = "[prefix][GOLEM_END_PR_1(gender_name)] [mime_name]"
 	return golem_name
 
 /datum/species/golem/tranquillite/on_species_gain(mob/living/carbon/human/H)
@@ -1225,7 +1251,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 /datum/unarmed_attack/golem/tranquillite
 	attack_sound = null
 
-
 /**
  * Clockwork Golem - Servant of Ratvar
  *
@@ -1238,11 +1263,10 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	special_names = null
 	golem_colour = rgb(176, 136, 32)
 	skinned_type = /obj/item/stack/sheet/brass
-	info_text = "Будучи <span class='danger'>латунный големом</span>, вы очень хрупкие, но взамен имеете силу Ратвара."
 	special_names = list(
 		MALE = list("Сплав", "Брусок", "Кусок", "Мужик", "Кирпич", "Минерал", "Буреходец", "Пожарник", "Лавоходец", "Лавоплавунец", "Тяжеступ", "Работяга", "Тяжеловес", "Увалень", "Бугай", "Пупс"),
 		FEMALE = list("Дева"),
-		NEUTER = null
+		NEUTER = null,
 	)
 	speed_mod = 0
 	chance_name_male = 70
@@ -1252,6 +1276,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	material_heal = 40
 	amount_required_for_heal = 2
 	self_heal_delay = 1 SECONDS
+
+/datum/species/golem/clockwork/get_info_text()
+	return info_text = "Будучи [span_danger("латунный големом")], вы очень хрупкие, но взамен имеете силу Ратвара."
 
 /datum/species/golem/clockwork/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -1269,3 +1296,6 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	return list(
 		/obj/item/stack/sheet/brass,
 	)
+
+#undef GOLEM_END_PR_1
+#undef GOLEM_END_PR_2

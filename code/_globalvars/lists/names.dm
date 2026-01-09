@@ -25,7 +25,5 @@ GLOBAL_LIST_INIT(verbs, world.file2list("strings/names/verbs.txt"))
 GLOBAL_LIST_INIT(wizard_first, world.file2list("strings/names/wizardfirst.txt"))
 GLOBAL_LIST_INIT(wizard_second, world.file2list("strings/names/wizardsecond.txt"))
 
-GLOBAL_LIST_EMPTY(cached_ru_names)
-
 //loaded on startup because of "
 //would include in rsc if ' was used

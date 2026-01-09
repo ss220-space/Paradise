@@ -18,7 +18,6 @@
 /datum/ai_law/sixsixsix/get_index()
 	return	666
 
-
 /datum/ai_laws
 	var/name = "Unknown Laws"
 	var/law_header = "Prime Directives"
@@ -102,7 +101,6 @@
 	for(var/datum/ai_law/law in supplied_laws)
 		if(law)
 			S.laws.add_supplied_law(law.index, law.law)
-
 
 /mob/living/silicon/proc/sync_zeroth(datum/ai_law/zeroth_law, datum/ai_law/zeroth_law_borg)
 	if(!is_special_character(src) || !mind.is_original_mob(src))

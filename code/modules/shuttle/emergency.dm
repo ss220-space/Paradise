@@ -6,7 +6,6 @@
 	var/auth_need = 3
 	var/list/authorized = list()
 
-
 /obj/machinery/computer/emergency_shuttle/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -73,7 +72,6 @@
 
 	return ..()
 
-
 /obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
 	if(!emagged && SSshuttle.emergency.mode == SHUTTLE_DOCKED && user)
 		var/time = SSshuttle.emergency.timeLeft()
@@ -87,7 +85,6 @@
 		SSshuttle.emergency.setTimer(100)
 		emagged = 1
 
-
 /obj/docking_port/mobile/emergency
 	name = "emergency shuttle"
 	id = "emergency"
@@ -97,12 +94,14 @@
 	height = 11
 	dir = 4
 	roundstart_move = "emergency_away"
-	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
-
-	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
-	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
+	/// If the launch sound has been sent to all players on the shuttle itself
+	var/sound_played = FALSE
+	/// No bad condom, do not recall the crew transfer shuttle!
+	var/canRecall = TRUE
+	/// Forced change of arrival at the syndicate base
+	var/force_hijacked = FALSE
+	/// Is devil on shuttle?
 	var/devil_on_shuttle = FALSE
-
 
 /obj/docking_port/mobile/emergency/register()
 	if(!..())
@@ -117,7 +116,6 @@
 		if(SSshuttle.emergency == src)
 			// If we're the selected emergency shuttle
 			SSshuttle.emergencyDeregister()
-
 
 	return ..()
 
@@ -208,7 +206,6 @@
 
 	return TRUE
 
-
 /obj/docking_port/mobile/emergency/check()
 	if(!timer)
 		return
@@ -257,7 +254,7 @@
 					"Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
-				sound_played = 0
+				sound_played = FALSE
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
@@ -265,7 +262,7 @@
 					"Шаттл заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
-				sound_played = 0
+				sound_played = FALSE
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 100) // 9 seconds left - start requesting transit zones for emergency and pods
@@ -274,7 +271,7 @@
 				check_transit_zone()
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
-				sound_played = 1
+				sound_played = TRUE
 				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
 				for(var/area/shuttle/escape/E in GLOB.areas)
 					SEND_SOUND(E, hyperspace_sound)
@@ -295,9 +292,6 @@
 					"Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
-				for(var/mob/M in GLOB.player_list)
-					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
-						to_chat(M, "<i>You have not yet spent your karma for the round; was there a player worthy of receiving your reward? Look under Special Verbs tab, Award Karma.</i>")
 
 		if(SHUTTLE_ESCAPE)
 			if(time_left <= 0)
@@ -312,7 +306,7 @@
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
 				var/destination_dock = "emergency_away"
-				if(is_hijacked() || forceHijacked)
+				if(is_hijacked())
 					destination_dock = "emergency_syndicate"
 					GLOB.major_announcement.announce(
 						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
@@ -320,7 +314,7 @@
 						new_sound = 'sound/misc/announce_syndi.ogg'
 					)
 
-				if(devil_on_shuttle)
+				if(devil_on_shuttle || force_hijacked)
 					GLOB.major_announcement.announce(
 						message = "Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
 						new_title = ANNOUNCE_PRIORITY_RU,
@@ -372,14 +366,11 @@
 	icon_state = "dorm_available"
 	density = FALSE
 
-
 /obj/machinery/computer/shuttle/pod/update_icon_state()
 	icon_state = "dorm_[emagged ? "emag" : "available"]"
 
-
 /obj/machinery/computer/shuttle/pod/update_overlays()
 	. = list()
-
 
 /obj/machinery/computer/shuttle/pod/emag_act(mob/user)
 	if(user)

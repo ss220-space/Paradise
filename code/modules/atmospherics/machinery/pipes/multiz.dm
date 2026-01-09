@@ -34,12 +34,6 @@
 /obj/machinery/atmospherics/pipe/multiz/pipeline_expansion()
 	return list(node, above, below)
 
-/obj/machinery/atmospherics/pipe/multiz/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
-
 /obj/machinery/atmospherics/pipe/multiz/Destroy()
 	. = ..()
 	if(node)
@@ -54,7 +48,6 @@
 		below.disconnect(src)
 		below.defer_build_network()
 		below = null
-
 
 /obj/machinery/atmospherics/pipe/multiz/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node)

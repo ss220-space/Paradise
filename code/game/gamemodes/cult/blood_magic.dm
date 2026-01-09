@@ -2,6 +2,7 @@
 	name = "Prepare Blood Magic"
 	button_icon_state = "carve"
 	desc = "Prepare blood magic by carving runes into your flesh. This is easier with an <b>empowering rune</b>."
+	default_button_position = DEFAULT_BLOODSPELLS
 	var/list/spells = list()
 	var/channeling = FALSE
 
@@ -10,21 +11,25 @@
 		qdel(X)
 	..()
 
-/datum/action/innate/cult/blood_magic/override_location()
-	button.ordered = FALSE
-	button.screen_loc = DEFAULT_BLOODSPELLS
-	button.moved = DEFAULT_BLOODSPELLS
-
 /datum/action/innate/cult/blood_magic/proc/Positioning()
-	var/list/screen_loc_split = splittext(button.screen_loc, ",")
-	var/list/screen_loc_X = splittext(screen_loc_split[1], ":")
-	var/list/screen_loc_Y = splittext(screen_loc_split[2], ":")
-	var/pix_X = text2num(screen_loc_X[2])
-	for(var/datum/action/innate/cult/blood_spell/B in spells)
-		if(B.button.locked)
-			var/order = pix_X + spells.Find(B) * 31
-			B.button.screen_loc = "[screen_loc_X[1]]:[order],[screen_loc_Y[1]]:[screen_loc_Y[2]]"
-			B.button.moved = B.button.screen_loc
+	for(var/datum/hud/hud as anything in viewers)
+		var/our_view = hud.mymob?.canon_client?.view || "15x15"
+		var/atom/movable/screen/movable/action_button/button = viewers[hud]
+		var/position = screen_loc_to_offset(button.screen_loc)
+		var/list/position_list = list()
+		for(var/possible_position in 1 to MAX_BLOODCHARGE)
+			position_list += possible_position
+		for(var/datum/action/innate/cult/blood_spell/blood_spell in spells)
+			if(blood_spell.positioned)
+				position_list.Remove(blood_spell.positioned)
+				continue
+			var/atom/movable/screen/movable/action_button/moving_button = blood_spell.viewers[hud]
+			if(!moving_button)
+				continue
+			var/first_available_slot = position_list[1]
+			var/our_x = position[1] + first_available_slot * ICON_SIZE_X // Offset any new buttons into our list
+			hud.position_action(moving_button, offset_to_screen_loc(our_x, position[2], our_view))
+			blood_spell.positioned = first_available_slot
 
 /datum/action/innate/cult/blood_magic/Activate()
 	var/rune = FALSE
@@ -76,6 +81,7 @@
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		spells += new_spell
 		new_spell.Grant(owner, src)
+		Positioning()
 		to_chat(owner, span_cult("Your wounds glow with power, you have prepared a [new_spell.name] invocation!"))
 	channeling = FALSE
 
@@ -95,6 +101,8 @@
 	var/base_desc //To allow for updating tooltips
 	var/invocation = "Hoi there something's wrong!"
 	var/health_cost = 0
+	/// Have we already been positioned into our starting location?
+	var/positioned = FALSE
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
@@ -103,7 +111,7 @@
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
-	button.ordered = FALSE
+	//button.ordered = FALSE
 
 	..()
 
@@ -114,7 +122,7 @@
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
-	button.ordered = FALSE
+	//button.ordered = FALSE
 	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
 		all_magic.spells -= src
 		owner.balloon_alert(owner, "лимит данного заклинания достигнут достигнут!")
@@ -122,9 +130,9 @@
 
 	..()
 
-/datum/action/innate/cult/blood_spell/override_location()
-	button.locked = TRUE
-	all_magic.Positioning()
+// /datum/action/innate/cult/blood_spell/override_location()
+// 	//button.locked = TRUE
+// 	all_magic.Positioning()
 
 /datum/action/innate/cult/blood_spell/Remove()
 	if(all_magic)
@@ -134,7 +142,7 @@
 		hand_magic = null
 	..()
 
-/datum/action/innate/cult/blood_spell/IsAvailable()
+/datum/action/innate/cult/blood_spell/IsAvailable(feedback = FALSE)
 	if(!iscultist(owner) || owner.incapacitated() || !charges)
 		return FALSE
 	return ..()
@@ -298,16 +306,16 @@
 
 /obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
-		return
+		return FALSE
 	if(ranged_ability_user.incapacitated() || !iscultist(user))
 		user.ranged_ability.remove_ranged_ability(user)
-		return
+		return FALSE
 	var/turf/T = get_turf(ranged_ability_user)
 	if(!isturf(T))
 		return FALSE
 	if(target in view(7, ranged_ability_user))
 		if(!ishuman(target) || iscultist(target))
-			return
+			return FALSE
 		var/mob/living/carbon/human/H = target
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
@@ -318,6 +326,8 @@
 		if(attached_action.charges <= 0)
 			to_chat(ranged_ability_user, span_cult("You have exhausted the spell's power!"))
 			qdel(src)
+			return TRUE
+	return FALSE
 
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
@@ -366,8 +376,6 @@
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
-
-
 // The "magic hand" items
 /obj/item/melee/blood_magic
 	name = "magical aura"
@@ -411,7 +419,6 @@
 /obj/item/melee/blood_magic/attack_self(mob/living/user)
 	afterattack(user, user, TRUE)
 
-
 /obj/item/melee/blood_magic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(user) || !iscultist(user))
 		uses = 0
@@ -420,7 +427,6 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	add_attack_logs(user, target, "used a cult spell ([src]) on")
 	target.lastattacker = user.real_name
-
 
 /obj/item/melee/blood_magic/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	. = ..()
@@ -489,7 +495,6 @@
 
 	uses--
 	return ..()
-
 
 //Teleportation
 /obj/item/melee/blood_magic/teleport
@@ -601,7 +606,6 @@
 	else
 		to_chat(user, span_warning("[C] is already bound."))
 
-
 /obj/item/restraints/handcuffs/energy/cult //For the shackling spell
 	name = "shadow shackles"
 	desc = "Shackles that bind the wrists with sinister magic."
@@ -611,7 +615,6 @@
 	user.visible_message(span_danger("[user]'s shackles shatter in a discharge of dark magic!"), \
 	span_userdanger("Your [name] shatter in a discharge of dark magic!"))
 	. = ..()
-
 
 //Construction: Converts 50 metal to a construct shell, plasteel to runed metal, or an airlock to brittle runed airlock
 /obj/item/melee/blood_magic/construction
@@ -656,7 +659,7 @@
 				playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 		//Airlock to cult airlock
-		else if(istype(target, /obj/machinery/door/airlock) && !istype(target, /obj/machinery/door/airlock/cult))
+		else if(is_airlock(target) && !istype(target, /obj/machinery/door/airlock/cult))
 			channeling = TRUE
 			playsound(T, 'sound/machines/airlockforced.ogg', 50, TRUE)
 			do_sparks(5, TRUE, target)
@@ -736,14 +739,12 @@
 		to_chat(user, span_warning("The spell will not work on [target]!"))
 		return ..()
 
-
 //Blood Rite: Absorb blood to heal cult members or summon weapons
 /obj/item/melee/blood_magic/manipulator
 	name = "Blood Rite Aura"
 	desc = "Absorbs blood from anything you touch. Touching cultists and constructs can heal them. Use in-hand to cast an advanced rite."
 	color = "#7D1717"
 	max_charges = 300
-
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()

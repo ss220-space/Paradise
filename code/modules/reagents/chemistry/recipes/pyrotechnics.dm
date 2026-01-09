@@ -400,7 +400,7 @@
 	var/turf/epicenter = get_turf(src)
 	for(var/mob/living/L in view(radius, src))
 		L.Beam(epicenter, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		L.electrocute_act(damage, "взрыва электричества")
+		L.electrocute_act(damage, src)
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)

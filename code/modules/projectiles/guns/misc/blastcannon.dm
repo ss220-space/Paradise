@@ -26,14 +26,12 @@
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	return ..()
 
-
 /obj/item/gun/blastcannon/update_name(updates = ALL)
 	. = ..()
 	if(bomb)
 		name = "blast cannon"
 	else
 		name = initial(name)
-
 
 /obj/item/gun/blastcannon/update_desc(updates = ALL)
 	. = ..()
@@ -42,13 +40,11 @@
 	else
 		desc = initial(desc)
 
-
 /obj/item/gun/blastcannon/update_icon_state()
 	if(bomb)
 		icon_state = icon_state_loaded
 	else
 		icon_state = initial(icon_state)
-
 
 /obj/item/gun/blastcannon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/transfer_valve))
@@ -71,7 +67,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/gun/blastcannon/proc/calculate_bomb()
 	if(!istype(bomb)||!istype(bomb.tank_one)||!istype(bomb.tank_two))
@@ -101,7 +96,7 @@
 	playsound(user, SFX_EXPLOSION, 100, TRUE)
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
-	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
+	BW.preparePixelProjectile(target, get_turf(src), params2list(params), 0)
 	BW.firer = user
 	BW.firer_source_atom = src
 	BW.fire()

@@ -11,7 +11,7 @@
 		/obj/item/wirecutters = 3,
 		/obj/item/organ/internal/kidneys = 2,
 		/obj/item/organ/internal/heart = 1,
-		/obj/effect/decal/cleanable/vomit = 2
+		/obj/effect/decal/cleanable/vomit = 2,
 	)
 	var/ritual_lock = FALSE
 
@@ -29,6 +29,10 @@
 	ritual_lock = TRUE
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", ROLE_DEVIL, TRUE, role_cleanname = "беса")
 	ritual_lock = FALSE
+
+	if(QDELETED(ritual_object))
+		return
+
 	if(!LAZYLEN(candidates))
 		ritual_object.balloon_alert(invoker, "призыв проигнорирован")
 		return RITUAL_FAILED_ON_PROCEED
@@ -36,7 +40,7 @@
 	var/mob/mob = pick(candidates)
 	var/mob/living/simple_animal/imp/ritual/imp = new(get_turf(ritual_object))
 
-	imp.key = mob.key
+	imp.possess_by_player(mob.key)
 	imp.master_commander = invoker
 
 	improve_imp(imp, invoker)
@@ -57,7 +61,7 @@
 	description = "Позволяет вам принести нужного вам гуманоида в жертву и получить его душу."
 	ritual_should_del_things = FALSE
 	required_things = list(
-		/mob/living/carbon/human = 1
+		/mob/living/carbon/human = 1,
 	)
 
 /datum/ritual/devil/sacrifice/get_ui_things()
@@ -102,13 +106,12 @@
 
 	return RITUAL_SUCCESSFUL
 
-
 /datum/ritual/devil/ascendetion
 	name = "Ритуал возвышения"
 	description = "Представляет собой улучшенный ритуал жертвоприношения, необходимый дьяволу, чтобы возвыситься до Архидьявола."
 	ritual_should_del_things = FALSE
 	required_things = list(
-		/mob/living/carbon/human = 2
+		/mob/living/carbon/human = 2,
 	)
 	var/static/list/timers_list = list(
 		FIRST_DEVIL_ASCEND_STAGE = 10 SECONDS,
@@ -249,7 +252,9 @@
 			stage = SEVENTH_DEVIL_ASCEND_STAGE
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
+			var/client/devil_client = invoker?.client
 			devil.try_update_rank(TRUE)
+			invoker = devil_client?.mob
 			GLOB.major_announcement.announce(
 				message = "Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
@@ -259,6 +264,7 @@
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
 			stage = EIGHTH_DEVIL_ASCEND_STAGE
+			devil_client?.give_award(/datum/award/achievement/misc/arch_devil, invoker)
 
 		if(EIGHTH_DEVIL_ASCEND_STAGE)
 			SSweather.run_weather(/datum/weather/hell)
@@ -276,7 +282,7 @@
 		/obj/item/clothing/head/helmet = 1,
 		/obj/item/organ/internal/heart = 1,
 		/obj/item/bikehorn = 1,
-		/obj/item/clothing/shoes/clown_shoes= 1
+		/obj/item/clothing/shoes/clown_shoes= 1,
 	)
 	charges = 3
 	var/static/sound/honk_sound = sound('sound/items/AirHorn.ogg')
@@ -325,7 +331,6 @@
 /datum/ritual/devil/change
 	name = "Ритуал замены"
 	description = "Позволяет заменить одну из целей на жертвоприношение ценой души."
-
 
 /datum/ritual/devil/change/check_contents(mob/living/carbon/invoker, list/used_things)
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
@@ -376,7 +381,6 @@
 
 	return RITUAL_SUCCESSFUL
 
-
 /datum/ritual/devil/slave
 	name = "Ритуал порабощения"
 	description = "Воскрешает труп и подчиняет его вашей воле. Уничтожает имплант защиты разума."
@@ -424,7 +428,6 @@
 		return FALSE
 
 	return TRUE
-
 
 /datum/ritual/devil/slave/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)

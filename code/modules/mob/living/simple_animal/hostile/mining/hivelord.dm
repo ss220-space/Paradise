@@ -36,9 +36,8 @@
 		DATIVE = "рою",
 		ACCUSATIVE = "рой",
 		INSTRUMENTAL = "роем",
-		PREPOSITIONAL = "рое"
+		PREPOSITIONAL = "рое",
 	)
-
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
@@ -103,7 +102,7 @@
 		DATIVE = "фрагменту роя",
 		ACCUSATIVE = "фрагмент роя",
 		INSTRUMENTAL = "фрагментом роя",
-		PREPOSITIONAL = "фрагменте роя"
+		PREPOSITIONAL = "фрагменте роя",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
@@ -111,7 +110,6 @@
 	addtimer(CALLBACK(src, PROC_REF(death)), life_time)
 	AddComponent(/datum/component/swarming)
 	AddElement(/datum/element/simple_flying)
-
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
@@ -129,7 +127,7 @@
 		DATIVE = "кровавому рою",
 		ACCUSATIVE = "кровавый рой",
 		INSTRUMENTAL = "кровавым роем",
-		PREPOSITIONAL = "кровавом рое"
+		PREPOSITIONAL = "кровавом рое",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
@@ -148,13 +146,13 @@
 		transfer_reagents(target, 1)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_hand(mob/living/carbon/human/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
@@ -178,7 +176,7 @@
 	reagents.trans_to(C, volume)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/C)
-	faction = list("\ref[src]", "\ref[C]") // Hostile to everyone except the host.
+	faction = list(PERSONAL_FACTION(src), PERSONAL_FACTION(C)) // Hostile to everyone except the host.
 	C.transfer_blood_to(src, 30)
 	color = mix_color_from_reagents(reagents.reagent_list)
 
@@ -214,7 +212,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
@@ -243,7 +241,7 @@
 		DATIVE = "легиону-карлику",
 		ACCUSATIVE = "легион-карлика",
 		INSTRUMENTAL = "легионом-карликом",
-		PREPOSITIONAL = "легионе-карлике"
+		PREPOSITIONAL = "легионе-карлике",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
@@ -297,7 +295,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
@@ -392,7 +390,7 @@
 		DATIVE = "легиону",
 		ACCUSATIVE = "легион",
 		INSTRUMENTAL = "легионом",
-		PREPOSITIONAL = "легионе"
+		PREPOSITIONAL = "легионе",
 	)
 
 /mob/living/simple_animal/hostile/big_legion/ComponentInitialize()
@@ -422,7 +420,7 @@
 		DATIVE = "обугленным останкам",
 		ACCUSATIVE = "обугленные останки",
 		INSTRUMENTAL = "обугленными останками",
-		PREPOSITIONAL = "об обугленных останках"
+		PREPOSITIONAL = "об обугленных останках",
 	)
 
 //Legion infested mobs
@@ -430,7 +428,6 @@
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	. = ..()
 	H.force_gene_block(GLOB.smallsizeblock, TRUE)
-
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))

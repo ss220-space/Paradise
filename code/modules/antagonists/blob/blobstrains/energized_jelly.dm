@@ -27,7 +27,6 @@
 	taste_description = "желатина"
 	color = "#EFD65A"
 
-
 /datum/reagent/blob/energized_jelly/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	. = ..()
 	reac_volume = return_mob_expose_reac_volume(exposed_mob, methods, reac_volume, show_message, touch_protection, overmind)
@@ -36,7 +35,7 @@
 	exposed_mob.apply_damage(0.6*reac_volume, OXY)
 	if(exposed_mob.reagents)
 		if(exposed_mob.reagents.has_reagent("teslium") && prob(0.6 * reac_volume))
-			exposed_mob.electrocute_act((0.5 * reac_volume), "разряда блоба", flags = SHOCK_NOGLOVES)
+			exposed_mob.electrocute_act((0.5 * reac_volume), overmind, flags = SHOCK_NOGLOVES)
 			exposed_mob.reagents.del_reagent("teslium")
 			return //don't add more teslium after you shock it out of someone.
 		exposed_mob.reagents.add_reagent("teslium", 0.125 * reac_volume)  // a little goes a long way

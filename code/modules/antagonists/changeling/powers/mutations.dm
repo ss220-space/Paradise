@@ -20,13 +20,11 @@
 	var/weapon_check_type
 	var/weapon_name_simple
 
-
 /datum/action/changeling/weapon/try_to_sting(mob/user, mob/target)
 	if(istype(user.get_active_hand(), weapon_check_type) || istype(user.get_inactive_hand(), weapon_check_type))
 		retract(user, any_hand = TRUE)
 		return
 	..(user, target)
-
 
 /datum/action/changeling/weapon/sting_action(mob/user)
 	SEND_SIGNAL(user, COMSIG_MOB_WEAPON_APPEARS)
@@ -42,7 +40,6 @@
 	playsound(owner.loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
 
 	return weapon
-
 
 /datum/action/changeling/weapon/proc/retract(mob/user, any_hand = FALSE)
 	SIGNAL_HANDLER
@@ -70,7 +67,6 @@
 								span_notice("We assimilate the [weapon_name_simple] back into our body."),
 								span_warning("You hear organic matter ripping and tearing!"))
 
-
 //Parent to space suits and armor.
 /datum/action/changeling/suit
 	name = "Organic Suit"
@@ -84,7 +80,6 @@
 	var/helmet_name_simple = "     "
 	var/recharge_slowdown = 0
 	var/blood_on_castoff = FALSE
-
 
 /datum/action/changeling/suit/try_to_sting(mob/living/carbon/human/user, mob/target)
 	if(!istype(user))
@@ -108,7 +103,6 @@
 		return FALSE
 	..(user, target)
 
-
 /datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.can_unEquip(user.wear_suit))
 		to_chat(user, "\the [user.wear_suit] is stuck to your body, you cannot grow a [suit_name_simple] over it!")
@@ -127,7 +121,6 @@
 	cling.chem_recharge_slowdown += recharge_slowdown
 	return TRUE
 
-
 //fancy headers yo
 /***************************************\
 |***************ARM BLADE***************|
@@ -145,7 +138,6 @@
 	weapon_type = /obj/item/melee/changeling/arm_blade
 	weapon_check_type = /obj/item/melee/changeling // so we can't have maul and armblade at the same time
 	weapon_name_simple = "blade"
-
 
 /obj/item/melee/changeling/arm_blade
 	name = "arm blade"
@@ -172,15 +164,13 @@
 		DATIVE = "руке-клинку",
 		ACCUSATIVE = "руку-клинок",
 		INSTRUMENTAL = "рукой-клинком",
-		PREPOSITIONAL = "руке-клинке"
+		PREPOSITIONAL = "руке-клинке",
 	)
-
 
 /obj/item/melee/changeling/arm_blade/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
-
 
 /obj/item/melee/changeling/arm_blade/ComponentInitialize()
 	. = ..()
@@ -188,7 +178,6 @@
 		/datum/component/cleave_attack, \
 		swing_sound = SFX_BLADE_SWING_LIGHT \
 	)
-
 
 /obj/item/melee/changeling/arm_blade/Destroy()
 	. = ..()
@@ -200,14 +189,13 @@
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 	parent_action = null
 
-
 /obj/item/melee/changeling/arm_blade/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
 
 	if(!proximity)
 		return
 
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		var/obj/machinery/door/airlock/airlock = target
 
 		if(!airlock.requiresID() || airlock.allowed(user)) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message.
@@ -238,7 +226,6 @@
 		if(O && O.brute_dam >= 50)
 			O.droplimb()
 
-
 /***************************************\
 |**************FLESHY MAUL**************|
 \***************************************/
@@ -256,7 +243,6 @@
 	weapon_check_type = /obj/item/melee/changeling
 	weapon_name_simple = "maul"
 
-
 /obj/item/melee/changeling/fleshy_maul
 	name = "fleshy maul"
 	desc = "An enormous maul made out of bone and flesh that crushes limbs in the dust"
@@ -266,7 +252,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 25
 	armour_penetration = 35
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
@@ -279,14 +265,13 @@
 		DATIVE = "молоту из плоти",
 		ACCUSATIVE = "молот из плоти",
 		INSTRUMENTAL = "молотом из плоти",
-		PREPOSITIONAL = "молоте из плоти"
+		PREPOSITIONAL = "молоте из плоти",
 	)
 
 /obj/item/melee/changeling/fleshy_maul/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
 	parent_action = new_parent_action
-
 
 /obj/item/melee/changeling/fleshy_maul/ComponentInitialize()
 	. = ..()
@@ -299,7 +284,6 @@
 		swing_sound = SFX_BLUNT_SWING_HEAVY, \
 	)
 
-
 /obj/item/melee/changeling/fleshy_maul/Destroy()
 	. = ..()
 
@@ -309,7 +293,6 @@
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
 	parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 	parent_action = null
-
 
 /obj/item/melee/changeling/fleshy_maul/afterattack(atom/target, mob/living/user, proximity, params)
 	. = ..()
@@ -341,16 +324,12 @@
 			if(O.brute_dam > 20)
 				O.fracture()
 
-
 /obj/item/melee/changeling/fleshy_maul/proc/bump_impact(mob/living/target, atom/hit_atom, throwingdatum)
 	if(target && !iscarbon(hit_atom) && hit_atom.density)
 		target.Weaken(1 SECONDS)
 
-
 /obj/item/melee/changeling/fleshy_maul/proc/unregister_bump_impact(mob/living/target)
 	UnregisterSignal(target, COMSIG_MOVABLE_IMPACT)
-
-
 
 /***************************************\
 |***********COMBAT TENTACLES*************|
@@ -372,7 +351,6 @@
 	weapon_name_simple = "tentacle"
 	silent = TRUE
 
-
 /obj/item/gun/magic/tentacle
 	name = "tentacle"
 	desc = "A fleshy tentacle that can stretch out and grab things or people."
@@ -392,7 +370,6 @@
 	throw_speed = 0
 	var/datum/action/changeling/weapon/parent_action
 
-
 /obj/item/gun/magic/tentacle/Initialize(mapload, silent, new_parent_action)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
@@ -406,7 +383,6 @@
 		else
 			to_chat(loc, span_notice("You prepare to extend a tentacle."))
 
-
 /obj/item/gun/magic/tentacle/Destroy()
 	if(parent_action)
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_KEY_DROP_ITEM_DOWN)
@@ -415,35 +391,30 @@
 		playsound(loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
 	return ..()
 
-
 /obj/item/gun/magic/tentacle/shoot_with_empty_chamber(mob/living/user as mob|obj)
 	to_chat(user, span_warning("The [name] is not ready yet."))
-
 
 /obj/item/gun/magic/tentacle/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] coils [src] tightly around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
-
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
-	desc = "a tentacle."
+	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
-
-/obj/item/ammo_casing/magic/tentacle/New(obj/item/gun/magic/tentacle/tentacle_gun)
-	gun = tentacle_gun
-	..()
-
+/obj/item/ammo_casing/magic/tentacle/Initialize(mapload)
+	gun = loc
+	. = ..()
 
 /obj/item/ammo_casing/magic/tentacle/Destroy()
 	gun = null
 	return ..()
-
 
 /obj/projectile/tentacle
 	name = "tentacle"
@@ -455,11 +426,9 @@
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
-
-/obj/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
-	source = tentacle_casing
-	..()
-
+/obj/projectile/tentacle/Initialize(mapload)
+	source = loc
+	. = ..()
 
 /obj/projectile/tentacle/fire(setAngle)
 	if(firer)
@@ -469,13 +438,11 @@
 			armour_penetration = 100   //ignore block_chance
 	..()
 
-
 /obj/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/user)
 	if(QDELETED(user))
 		return
 	if(user.in_throw_mode)
 		user.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
-
 
 /obj/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item, mob/living/carbon/user)
 	reset_throw(user)
@@ -494,7 +461,6 @@
 
 	user.put_in_active_hand(thrown_item)
 
-
 /obj/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/target, mob/living/carbon/user)
 	if(QDELETED(target) || QDELETED(user))
 		return
@@ -506,7 +472,6 @@
 		target.grippedby(user) //instant aggro grab
 		target.Weaken(4 SECONDS)
 
-
 /obj/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/target, mob/living/carbon/user)
 	if(QDELETED(target) || QDELETED(user))
 		return
@@ -515,10 +480,10 @@
 		return
 
 	var/obj/item/offarm_item = user.get_active_hand()
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		offarm_item = user.get_inactive_hand()
 
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		return
 
 	target.visible_message(span_danger("[user] impales [target] with [offarm_item]!"), \
@@ -529,7 +494,6 @@
 	user.do_attack_animation(target, used_item = offarm_item)
 	offarm_item.add_mob_blood(target)
 	playsound(get_turf(user), offarm_item.hitsound, 75, TRUE)
-
 
 /obj/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	qdel(source.gun) //one tentacle only unless you miss
@@ -610,12 +574,10 @@
 				l_target.throw_at(get_step_towards(user, l_target), 8, 2)
 				. = TRUE
 
-
 /obj/projectile/tentacle/Destroy()
 	qdel(chain)
 	source = null
 	return ..()
-
 
 /***************************************\
 |****************SHIELD*****************|
@@ -634,7 +596,6 @@
 	weapon_check_type = /obj/item/shield/changeling
 	weapon_name_simple = "shield"
 
-
 /datum/action/changeling/weapon/shield/sting_action(mob/user)
 	var/obj/item/shield/changeling/shield = ..(user)
 	if(!shield)
@@ -643,14 +604,12 @@
 	shield.remaining_uses = round(cling.absorbed_count * 3)
 	return TRUE
 
-
 /obj/item/shield/changeling
 	name = "shield-like mass"
 	desc = "A mass of tough, boney tissue. You can still see the fingers as a twisted pattern in the shield."
 	item_flags = DROPDEL
 	icon_state = "ling_shield"
 	var/remaining_uses //Set by the changeling ability.
-
 
 /obj/item/shield/changeling/Initialize(mapload)
 	. = ..()
@@ -660,7 +619,6 @@
 							span_warning("We inflate our hand into a strong shield."), \
 							span_italics("You hear organic matter ripping and tearing!"))
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
 
 /obj/item/shield/changeling/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(remaining_uses < 1)
@@ -676,7 +634,6 @@
 	else
 		remaining_uses--
 		return ..()
-
 
 /***************************************\
 |*********SPACE SUIT + HELMET***********|
@@ -698,7 +655,6 @@
 	recharge_slowdown = 0.5
 	blood_on_castoff = TRUE
 
-
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
 	icon_state = "lingspacesuit"
@@ -714,9 +670,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
-
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/space/changeling/Initialize(mapload)
 	. = ..()
@@ -727,12 +682,10 @@
 							span_italics("You hear organic matter ripping and tearing!"))
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/clothing/suit/space/changeling/process()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
 		user.reagents.add_reagent("perfluorodecalin", REAGENTS_METABOLISM)
-
 
 /obj/item/clothing/head/helmet/space/changeling
 	name = "flesh mass"
@@ -748,14 +701,12 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi'
-		)
-
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
+	)
 
 /obj/item/clothing/head/helmet/space/changeling/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CHANGELING_TRAIT)
-
 
 /***************************************\
 |*****************ARMOR*****************|
@@ -776,7 +727,6 @@
 	helmet_name_simple = "helmet"
 	recharge_slowdown = 0.25
 
-
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"
 	desc = "A tough, hard covering of black chitin."
@@ -795,9 +745,8 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
-
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 /obj/item/clothing/suit/armor/changeling/Initialize(mapload)
 	. = ..()
@@ -807,7 +756,6 @@
 							span_warning("We harden our flesh, creating a suit of armor!"), \
 							span_italics("You hear organic matter ripping and tearing!"))
 		playsound(loc, 'sound/effects/bone_break_1.ogg', 100, TRUE)
-
 
 /obj/item/clothing/head/helmet/changeling
 	name = "chitinous mass"
@@ -819,7 +767,6 @@
 	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 20, BOMB = 10, BIO = 4, RAD = 0, FIRE = 90, ACID = 90)
 	species_restricted = null
 	faction_restricted = null
-
 
 /obj/item/clothing/head/helmet/changeling/Initialize(mapload)
 	. = ..()

@@ -23,7 +23,7 @@
 		DATIVE = "промышленному шахтёрскому заряду",
 		ACCUSATIVE = "промышленный шахтёрский заряд",
 		INSTRUMENTAL = "промышленным шахтёрским зарядом",
-		PREPOSITIONAL = "промышленном шахтёрском заряде"
+		PREPOSITIONAL = "промышленном шахтёрском заряде",
 	)
 
 /obj/item/grenade/plastic/miningcharge/examine(mob/user)
@@ -43,9 +43,6 @@
 
 /obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(ismineralturf(AM) || hacked)
-		if(isancientturf(AM) && !hacked)
-			visible_message(span_notice("Эта порода, кажется, устойчива ко всем инструментам, кроме кирок!"))
-			return
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
 				return
@@ -65,7 +62,6 @@
 			return
 		..()
 
-
 /obj/item/grenade/plastic/miningcharge/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/detonator))
 		add_fingerprint(user)
@@ -81,7 +77,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/grenade/plastic/miningcharge/proc/detonate()
 	addtimer(CALLBACK(src, PROC_REF(prime)), 3 SECONDS)
@@ -138,7 +133,6 @@
 /obj/item/grenade/plastic/update_icon_state()
 	return //Remove plastic icon_state change logic override
 
-
 /obj/item/grenade/plastic/miningcharge/proc/override_safety()
 	hacked = TRUE
 	notify_admins = TRUE
@@ -165,7 +159,7 @@
 		DATIVE = "шахтёрскому заряду",
 		ACCUSATIVE = "шахтёрский заряд",
 		INSTRUMENTAL = "шахтёрским зарядом",
-		PREPOSITIONAL = "шахтёрском заряде"
+		PREPOSITIONAL = "шахтёрском заряде",
 	)
 
 /obj/item/grenade/plastic/miningcharge/mega
@@ -183,7 +177,7 @@
 		DATIVE = "экспериментальному шахтёрскому заряду",
 		ACCUSATIVE = "экспериментальный шахтёрский заряд",
 		INSTRUMENTAL = "экспериментальным шахтёрским зарядом",
-		PREPOSITIONAL = "экспериментальном шахтёрском заряде"
+		PREPOSITIONAL = "экспериментальном шахтёрском заряде",
 	)
 
 /obj/item/storage/backpack/duffel/miningcharges/populate_contents()
@@ -196,7 +190,6 @@
 	new /obj/item/detonator(src)
 	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
 	new /obj/item/storage/bag/ore/bigger(src)
-
 
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
@@ -237,7 +230,7 @@
 		DATIVE = "детонатору шахтёрских зарядов",
 		ACCUSATIVE = "детонатор шахтёрских зарядов",
 		INSTRUMENTAL = "детонатором шахтёрских зарядов",
-		PREPOSITIONAL = "детонаторе шахтёрских зарядов"
+		PREPOSITIONAL = "детонаторе шахтёрских зарядов",
 	)
 
 /obj/item/detonator/examine(mob/user)
@@ -245,15 +238,13 @@
 	if(length(bombs))
 		. += span_notice("Список синхронизированных зарядов:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += span_notice("[bicon(charge)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
-
+			. += span_notice("[icon2html(charge, user)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
 
 /obj/item/detonator/update_icon_state()
 	if(length(bombs))
 		icon_state = "Detonator-1"
 	else
 		icon_state = initial(icon_state)
-
 
 /obj/item/detonator/attack_self(mob/user)
 	playsound(src, 'sound/items/detonator.ogg', 40)

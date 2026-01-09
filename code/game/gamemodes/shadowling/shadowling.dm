@@ -35,14 +35,11 @@ Made by Xhuis
 /proc/is_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadowling_thralls)
 
-
 /proc/is_shadow_or_thrall(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && ((M.mind in SSticker.mode.shadowling_thralls) || (M.mind in SSticker.mode.shadows))
 
-
 /proc/is_shadow(mob/living/M)
 	return istype(M) && M.mind && SSticker?.mode && (M.mind in SSticker.mode.shadows)
-
 
 /datum/game_mode/shadowling
 	name = "shadowling"
@@ -81,7 +78,6 @@ Made by Xhuis
 	..()
 	return 1
 
-
 /datum/game_mode/shadowling/post_setup()
 	for(var/datum/mind/shadow in shadows)
 		add_game_logs("has been selected as a Shadowling.", shadow.current)
@@ -105,7 +101,6 @@ Made by Xhuis
 	messages.Add("<b>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadowling\">Тенеморф</a></b><br>")
 	return messages
 
-
 /datum/game_mode/proc/process_shadow_objectives(datum/mind/shadow_mind)
 	var/objective = "enthrall" //may be devour later, but for now it seems murderbone-y
 
@@ -114,7 +109,6 @@ Made by Xhuis
 		shadow_objectives += "enthrall"
 		shadow_mind.memory += "<b>Цель #1</b>: [objective_explanation]"
 		return "<b>Цель #1</b>: [objective_explanation]<br>"
-
 
 /datum/game_mode/proc/finalize_shadowling(datum/mind/shadow_mind)
 	var/mob/living/carbon/human/S = shadow_mind.current
@@ -125,7 +119,6 @@ Made by Xhuis
 		if(shadow_mind.assigned_role == JOB_TITLE_CLOWN)
 			to_chat(S, span_notice("Твоя натура позволяет тебе преодолеть твою клоунаду."))
 			S.force_gene_block(GLOB.clumsyblock, FALSE)
-
 
 /datum/game_mode/proc/add_thrall(datum/mind/new_thrall_mind)
 	if(!istype(new_thrall_mind))
@@ -164,7 +157,7 @@ Made by Xhuis
 			for(var/mob/shadowling in GLOB.alive_mob_list)
 				if(!is_shadow(shadowling))
 					continue
-				to_chat(shadowling, "<span class='shadowling'><b>Тебе хватает сил для трансформации в истинную форму.</b></span>")
+				to_chat(shadowling, span_shadowling("<b>Тебе хватает сил для трансформации в истинную форму.</b>"))
 
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
@@ -201,7 +194,6 @@ Made by Xhuis
 		M.visible_message(span_big("[M] looks like [M.p_their()] mind is [M.p_their()] own again!"), \
 						span_userdanger("Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом."))
 	return 1
-
 
 /*
 	GAME FINISH CHECKS
@@ -248,7 +240,7 @@ Made by Xhuis
 	else
 		M.visible_message(
 			span_big("[M] кричит и корчится!"), \
-			"<span class='userdanger'>СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i></span>"
+			span_userdanger("СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i>")
 		)
 		spawn(30)
 			if(!M || QDELETED(M))
@@ -266,32 +258,30 @@ Made by Xhuis
 		success = shadowling_ascended
 	return success
 
-
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "Победа тенелингов — тенелинги возвысились"
 		to_chat(world, span_fontsize3("<b>Победа тенелингов</b>"))
-		to_chat(world, "<span class='greentext'><b>Тенелинги возвысились и полностью захватили станцию!</b></span>")
+		to_chat(world, span_greentext("<b>Тенелинги возвысились и полностью захватили станцию!</b>"))
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		SSticker.mode_result = "Тенелинги проиграли — тенелинги погибли"
 		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
-		to_chat(world, "<span class='redtext'><b>Тенелинги были убиты экипажем!</b></span>")
+		to_chat(world, span_redtext("<b>Тенелинги были убиты экипажем!</b>"))
 	else if(!check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED)
 		SSticker.mode_result = "Тенелинги проиграли — экипаж сбежал"
 		to_chat(world, span_fontsize3("<b>Мелкая победа экипажа</b>"))
-		to_chat(world, "<span class='redtext'><b>Экипаж сбежал со станции до того, как тенелинги возвысились!</b></span>")
+		to_chat(world, span_redtext("<b>Экипаж сбежал со станции до того, как тенелинги возвысились!</b>"))
 	else
 		SSticker.mode_result = "Тенелинги проиграли — тенелинги не справились"
 		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
-		to_chat(world, "<span class='redtext'><b>Тенелинги не смогли возвыситься!</b></span>")
+		to_chat(world, span_redtext("<b>Тенелинги не смогли возвыситься!</b>"))
 	..()
 	return 1
-
 
 /datum/game_mode/proc/auto_declare_completion_shadowling()
 	var/list/text = list("")
 	if(length(shadows))
-		text += "<br><span class='big'><b>Тенелингами были:</b></span>"
+		text += "<br>[span_big("<b>Тенелингами были:</b>")]"
 		for(var/datum/mind/shadow in shadows)
 			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
 			if(shadow.current)
@@ -306,7 +296,7 @@ Made by Xhuis
 			text += ")"
 		text += "<br>"
 		if(length(shadowling_thralls))
-			text += "<br><span class='big'><b>Рабами были:</b></span>"
+			text += "<br>[span_big("<b>Рабами были:</b>")]"
 			for(var/datum/mind/thrall in shadowling_thralls)
 				text += "<br>[thrall.get_display_key()] was [thrall.name] ("
 				if(thrall.current)
@@ -322,7 +312,6 @@ Made by Xhuis
 	text += "<br>"
 	return text.Join("")
 
-
 /*
 	MISCELLANEOUS
 */
@@ -332,12 +321,10 @@ Made by Xhuis
 	shadow_hud.join_hud(shadow_mind.current)
 	set_antag_hud(shadow_mind.current, ((shadow_mind in shadows) ? "hudshadowling" : "hudshadowlingthrall"))
 
-
 /datum/game_mode/proc/update_shadow_icons_removed(datum/mind/shadow_mind) //This should never actually occur, but it's here anyway.
 	var/datum/atom_hud/antag/shadow_hud = GLOB.huds[ANTAG_HUD_SHADOW]
 	shadow_hud.leave_hud(shadow_mind.current)
 	set_antag_hud(shadow_mind.current, null)
-
 
 /datum/game_mode/proc/recount_required_thralls()
 	var/thrall_scaling = round(num_players() / 3)

@@ -2,7 +2,7 @@
 	. = ..()
 	var/msg = "<span class='notice'>"
 	if(src.stat == DEAD)
-		msg += "<span class='deadsay'>It appears to be powered-down.</span>\n"
+		msg += "[span_deadsay("It appears to be powered-down.")]\n"
 	else
 		msg += "<span class='warning'>"
 		if(src.getBruteLoss())
@@ -25,10 +25,9 @@
 	. += msg
 	user.showLaws(src)
 
-
 /mob/proc/showLaws(mob/living/silicon/S)
 	return
 
 /mob/dead/observer/showLaws(mob/living/silicon/S)
-	if(antagHUD || check_rights(R_ADMIN, 0, src))
+	if(antagHUD || check_rights(R_ADMIN, FALSE, src))
 		S.laws.show_laws(src)

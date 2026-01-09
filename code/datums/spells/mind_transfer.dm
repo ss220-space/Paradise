@@ -17,7 +17,6 @@
 	action_icon_state = "mindswap"
 	need_active_overlay = TRUE
 
-
 /obj/effect/proc_holder/spell/mind_transfer/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.allowed_type = /mob/living
@@ -25,10 +24,8 @@
 	T.click_radius = 0
 	return T
 
-
 /obj/effect/proc_holder/spell/mind_transfer/valid_target(mob/living/target, mob/user)
 	return target.stat != DEAD && target.key && target.mind
-
 
 /*
 Urist: I don't feel like figuring out how you store object spells so I'm leaving this for you to do.
@@ -73,7 +70,7 @@ Also, you never added distance checking after target is selected. I've went ahea
 	ghost.mind.transfer_to(caster)
 	if(ghost.key)
 		GLOB.non_respawnable_keys -= ghost.ckey //ghostizing with an argument of 0 will make them unable to respawn forever, which is bad
-		caster.key = ghost.key	//have to transfer the key since the mind was not active
+		caster.possess_by_player(ghost.ckey)	//have to transfer the key since the mind was not active
 	qdel(ghost)
 
 	if(length(caster.mind.special_verbs))//If they had any special verbs, we add them here.

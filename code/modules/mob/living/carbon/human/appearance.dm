@@ -99,7 +99,6 @@
 			if(!tail_marking.tails_allowed || !(bodypart_tail.body_accessory.name in tail_marking.tails_allowed))
 				return
 
-
 	if(location == "tail")
 		bodypart_tail.m_styles["tail"] = marking_style
 		stop_tail_wagging()
@@ -313,7 +312,6 @@
 		update_markings()
 	return 1
 
-
 /mob/living/carbon/human/proc/change_skin_color(colour = "#000000")
 	if(colour == skin_colour || !(dna.species.bodyflags & HAS_SKIN_COLOR))
 		return
@@ -361,7 +359,7 @@
 /mob/living/carbon/human/proc/generate_valid_species(check_whitelist = TRUE, list/whitelist = list(), list/blacklist = list())
 	var/list/valid_species = new()
 	for(var/current_species_name in GLOB.all_species)
-		if(check_whitelist && !check_rights(R_ADMIN, 0, src)) //If we're using the whitelist, make sure to check it!
+		if(check_whitelist && !check_rights(R_ADMIN, FALSE, src)) //If we're using the whitelist, make sure to check it!
 			if(length(whitelist) && !(current_species_name in whitelist))
 				continue
 			if(length(blacklist) && (current_species_name in blacklist))

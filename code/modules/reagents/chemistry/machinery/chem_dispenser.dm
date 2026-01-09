@@ -1,18 +1,9 @@
 #define UPDATE_TYPE_HACK 1
 #define UPDATE_TYPE_COMPONENTS 2
 
-
 /obj/machinery/chem_dispenser
 	name = "chem dispenser"
 	desc = "Высокотехнологичная машина, способная синтезировать определённые вещества с помощью сложных физико-химических процессов. Даже не спрашивайте, как оно работает — вы всё равно не поймёте."
-	ru_names = list(
-		NOMINATIVE = "химический раздатчик",
-		GENITIVE = "химического раздатчика",
-		DATIVE = "химическому раздатчику",
-		ACCUSATIVE = "химический раздатчик",
-		INSTRUMENTAL = "химическим раздатчиком",
-		PREPOSITIONAL = "химическом раздатчике"
-	)
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -30,12 +21,24 @@
 	var/componentscheck = FALSE
 	var/obj/item/reagent_containers/beaker = null
 	var/mutable_appearance/icon_beaker //cached overlay
+	/// Different dispensers have different overlay for installed beaker
+	var/beaker_overlay_name = "disp_beaker"
 	var/list/dispensable_reagents = list("hydrogen", "lithium", "carbon", "nitrogen", "oxygen", "fluorine",
 	"sodium", "aluminum", "silicon", "phosphorus", "sulfur", "chlorine", "potassium", "iron",
 	"copper", "mercury", "plasma", "radium", "water", "ethanol", "sugar", "iodine", "bromine", "silver", "chromium")
 	var/list/upgrade_reagents = list("oil", "ash", "acetone", "saltpetre", "ammonia", "diethylamine", "fuel")
 	var/list/hacked_reagents = list("toxin")
 	var/is_drink = FALSE
+
+/obj/machinery/chem_dispenser/get_ru_names()
+	return list(
+		NOMINATIVE = "химический раздатчик",
+		GENITIVE = "химического раздатчика",
+		DATIVE = "химическому раздатчику",
+		ACCUSATIVE = "химический раздатчик",
+		INSTRUMENTAL = "химическим раздатчиком",
+		PREPOSITIONAL = "химическом раздатчике",
+	)
 
 /obj/machinery/chem_dispenser/get_cell()
 	return cell
@@ -81,14 +84,6 @@
 /obj/machinery/chem_dispenser/mutagensaltpeter
 	name = "botanical chemical dispenser"
 	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
-	ru_names = list(
-		NOMINATIVE = "ботанический раздатчик",
-		GENITIVE = "ботанического раздатчика",
-		DATIVE = "ботаническому раздатчику",
-		ACCUSATIVE = "ботанический раздатчик",
-		INSTRUMENTAL = "ботаническим раздатчиком",
-		PREPOSITIONAL = "ботаническом раздатчике"
-	)
 	obj_flags = NODECONSTRUCT
 
 	dispensable_reagents = list(
@@ -103,8 +98,19 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 	upgrade_reagents = list()
+
+/obj/machinery/chem_dispenser/mutagensaltpeter/get_ru_names()
+	return list(
+		NOMINATIVE = "ботанический раздатчик",
+		GENITIVE = "ботанического раздатчика",
+		DATIVE = "ботаническому раздатчику",
+		ACCUSATIVE = "ботанический раздатчик",
+		INSTRUMENTAL = "ботаническим раздатчиком",
+		PREPOSITIONAL = "ботаническом раздатчике",
+	)
 
 /obj/machinery/chem_dispenser/mutagensaltpeter/Initialize(mapload)
 	. = ..()
@@ -143,8 +149,7 @@
 	if(panel_open)
 		. += span_notice("Панель техобслуживания открыта.")
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[declension_ru(recharge_amount, "у", "ы", "")] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
-
+		. += span_notice("<br>Монитор состояния сообщает: скорость зарядки - <b>[recharge_amount]</b> единиц[DECL_SEC_MIN(recharge_amount)] энергии за единицу времени.<br>Энергоэффективность увеличена на <b>[round((powerefficiency * 1000) - 100, 1)]%</b>")
 
 /obj/machinery/chem_dispenser/process()
 	if(recharge_counter >= 4)
@@ -156,7 +161,6 @@
 		recharge_counter = 0
 		return
 	recharge_counter++
-
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity > EXPLODE_LIGHT)
@@ -258,7 +262,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -285,7 +288,6 @@
 
 	return ..()
 
-
 /obj/machinery/chem_dispenser/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
 		balloon_alert(user, "техпанель закрыта!")
@@ -302,7 +304,6 @@
 		cell = null
 	return ..()
 
-
 /obj/machinery/chem_dispenser/proc/update_reagents(update_type)
 	switch(update_type)
 		if(UPDATE_TYPE_HACK)
@@ -315,7 +316,6 @@
 
 	dispensable_reagents = sortAssoc(dispensable_reagents)
 
-
 /obj/machinery/chem_dispenser/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -325,7 +325,6 @@
 	balloon_alert(user, "защитные протоколы [hackedcheck ? "активированы" : "дезактивированы"]")
 	update_reagents(UPDATE_TYPE_HACK)
 	SStgui.update_uis(src)
-
 
 /obj/machinery/chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "[initial(icon_state)]-o", "[initial(icon_state)]", I))
@@ -359,7 +358,6 @@
 	add_fingerprint(user)
 	ui_interact(user)
 
-
 /obj/machinery/chem_dispenser/update_overlays()
 	. = ..()
 
@@ -369,24 +367,16 @@
 	var/static/list/beaker_cache = list()
 	var/random_pixel = rand(-10, 5)	// randomize beaker overlay position
 	if(!beaker_cache["[random_pixel]"])
-		var/mutable_appearance/beaker_olay = mutable_appearance('icons/obj/chemical.dmi', "disp_beaker")
+		var/mutable_appearance/beaker_olay = mutable_appearance('icons/obj/chemical.dmi', beaker_overlay_name)
 		beaker_olay.pixel_w = random_pixel
 		beaker_cache["[random_pixel]"] = beaker_olay
 	. += beaker_cache["[random_pixel]"]
 
-
 /obj/machinery/chem_dispenser/soda
 	name = "soda fountain"
 	desc = "Машина, способная синтезировать целый ряд самых разных напитков. Круто!"
-	ru_names = list(
-		NOMINATIVE = "раздатчик напитков",
-		GENITIVE = "раздатчика напитков",
-		DATIVE = "раздатчику напитков",
-		ACCUSATIVE = "раздатчик напитков",
-		INSTRUMENTAL = "раздатчиком напитков",
-		PREPOSITIONAL = "раздатчике напитков"
-	)
 	icon_state = "soda_dispenser"
+	beaker_overlay_name = "bar_beaker"
 	ui_title = "Фонтан Напитков 10000"
 	dispensable_reagents = list("water", "ice", "soymilk", "coffee", "tea", "hot_coco", "cola", "spacemountainwind", "dr_gibb", "space_up",
 	"tonic", "sodawater", "lemon_lime", "grapejuice", "sugar", "orangejuice", "lemonjuice", "limejuice", "tomatojuice", "banana",
@@ -395,6 +385,16 @@
 	hacked_reagents = list("thirteenloko")
 	var/list/hackedupgrade_reagents = list("zaza") //I possess zaza
 	is_drink = TRUE
+
+/obj/machinery/chem_dispenser/soda/get_ru_names()
+	return list(
+		NOMINATIVE = "раздатчик напитков",
+		GENITIVE = "раздатчика напитков",
+		DATIVE = "раздатчику напитков",
+		ACCUSATIVE = "раздатчик напитков",
+		INSTRUMENTAL = "раздатчиком напитков",
+		PREPOSITIONAL = "раздатчике напитков",
+	)
 
 /obj/machinery/chem_dispenser/soda/Initialize(mapload)
 	. = ..()
@@ -420,7 +420,6 @@
 	component_parts += new cell_type(null)
 	RefreshParts()
 
-
 /obj/machinery/chem_dispenser/soda/update_reagents(update_type)
 	if(update_type == UPDATE_TYPE_HACK && componentscheck)
 		if(hackedcheck)
@@ -430,26 +429,28 @@
 
 	else if(update_type == UPDATE_TYPE_COMPONENTS && hackedcheck)
 		dispensable_reagents |= hackedupgrade_reagents
-	..()
-
+	return ..()
 
 /obj/machinery/chem_dispenser/beer
 	name = "booze dispenser"
 	desc = "Машина, способная синтезировать для вас любую алкогольную бурду, которая только может прийти в голову. Настоящее чудо алкологольных технологий!"
-	ru_names = list(
-		NOMINATIVE = "раздатчик алкоголя",
-		GENITIVE = "раздатчика алкоголя",
-		DATIVE = "раздатчику алкоголя",
-		ACCUSATIVE = "раздатчик алкоголя",
-		INSTRUMENTAL = "раздатчиком алкоголя",
-		PREPOSITIONAL = "раздатчике алкоголя"
-	)
 	icon_state = "booze_dispenser"
+	beaker_overlay_name = "bar_beaker"
 	ui_title = "Наливатель Бухла 9001"
 	dispensable_reagents = list("ice", "cream", "cider", "beer", "kahlua", "whiskey", "wine", "vodka", "gin", "rum", "tequila", "vermouth", "cognac", "ale", "mead", "synthanol", "jagermeister", "bluecuracao", "sambuka", "schnaps", "sheridan")
 	upgrade_reagents = list("iced_beer", "irishcream", "manhattan", "antihol", "synthignon", "bravebull")
 	hacked_reagents = list("goldschlager", "patron", "absinthe", "ethanol", "nothing", "sake", "bitter", "champagne", "aperol", "noalco_beer")
 	is_drink = TRUE
+
+/obj/machinery/chem_dispenser/beer/get_ru_names()
+	return list(
+		NOMINATIVE = "раздатчик алкоголя",
+		GENITIVE = "раздатчика алкоголя",
+		DATIVE = "раздатчику алкоголя",
+		ACCUSATIVE = "раздатчик алкоголя",
+		INSTRUMENTAL = "раздатчиком алкоголя",
+		PREPOSITIONAL = "раздатчике алкоголя",
+	)
 
 /obj/machinery/chem_dispenser/beer/Initialize(mapload)
 	. = ..()
@@ -479,17 +480,19 @@
 /obj/machinery/chem_dispenser/botanical
 	name = "botanical chemical dispenser"
 	desc = "Узкоспециализированная модель химического раздатчика, настроенная на синтез ограниченного числа веществ, специально для ботанических нужд."
-	ru_names = list(
+	ui_title = "Ботанический ХимРаздатчик"
+	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
+	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
+
+/obj/machinery/chem_dispenser/botanical/get_ru_names()
+	return list(
 		NOMINATIVE = "ботанический раздатчик",
 		GENITIVE = "ботанического раздатчика",
 		DATIVE = "ботаническому раздатчику",
 		ACCUSATIVE = "ботанический раздатчик",
 		INSTRUMENTAL = "ботаническим раздатчиком",
-		PREPOSITIONAL = "ботаническом раздатчике"
+		PREPOSITIONAL = "ботаническом раздатчике",
 	)
-	ui_title = "Ботанический ХимРаздатчик"
-	dispensable_reagents = list("mutagen", "saltpetre", "ammonia", "water")
-	upgrade_reagents = list("atrazine", "glyphosate", "pestkiller", "diethylamine", "ash")
 
 /obj/machinery/chem_dispenser/botanical/Initialize(mapload)
 	. = ..()
@@ -519,14 +522,6 @@
 /obj/item/handheld_chem_dispenser
 	name = "handheld chem dispenser"
 	desc = "Компактная версия химического раздатчика. Удобно!"
-	ru_names = list(
-		NOMINATIVE = "ручной химический раздатчик",
-		GENITIVE = "ручного химического раздатчика",
-		DATIVE = "ручному химическому раздатчику",
-		ACCUSATIVE = "ручной химический раздатчик",
-		INSTRUMENTAL = "ручным химическим раздатчиком",
-		PREPOSITIONAL = "ручном химическом раздатчике"
-	)
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "handheld_chem"
 	icon_state = "handheld_chem"
@@ -541,6 +536,16 @@
 	var/current_reagent = null
 	var/efficiency = 0.2
 	var/recharge_rate = 1 // Keep this as an integer
+
+/obj/item/handheld_chem_dispenser/get_ru_names()
+	return list(
+		NOMINATIVE = "ручной химический раздатчик",
+		GENITIVE = "ручного химического раздатчика",
+		DATIVE = "ручному химическому раздатчику",
+		ACCUSATIVE = "ручной химический раздатчик",
+		INSTRUMENTAL = "ручным химическим раздатчиком",
+		PREPOSITIONAL = "ручном химическом раздатчике",
+	)
 
 /obj/item/handheld_chem_dispenser/Initialize(mapload)
 	. = ..()
@@ -570,11 +575,11 @@
 			target.reagents.add_reagent(current_reagent, actual)
 			cell.charge -= actual / efficiency
 			if(actual)
-				to_chat(user, span_notice("Вы наливаете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
+				to_chat(user, span_notice("Вы наливаете [amount] единиц[DECL_SEC_MIN(amount)] [current_reagent] в [target.declent_ru(ACCUSATIVE)]."))
 			update_icon(UPDATE_OVERLAYS)
 		if("remove")
 			if(!target.reagents.remove_reagent(current_reagent, amount))
-				to_chat(user, span_notice("Вы удаляете [amount] единиц[declension_ru(amount, "у", "ы", "")] [current_reagent] из [target.declent_ru(GENITIVE)]."))
+				to_chat(user, span_notice("Вы удаляете [amount] единиц[DECL_SEC_MIN(amount)] [current_reagent] из [target.declent_ru(GENITIVE)]."))
 		if("isolate")
 			if(!target.reagents.isolate_reagent(current_reagent))
 				to_chat(user, span_notice("Вы удаляете всё, кроме [current_reagent] в [target.declent_ru(PREPOSITIONAL)]."))
@@ -615,7 +620,6 @@
 			chemicals.Add(list(list("title" = temp.name, "id" = temp.id, "commands" = list("dispense" = temp.id)))) // list in a list because Byond merges the first list...
 	data["chemicals"] = chemicals
 
-
 	return data
 
 /obj/item/handheld_chem_dispenser/ui_act(action, list/params)
@@ -644,7 +648,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/item/handheld_chem_dispenser/update_overlays()
 	. = ..()
 	if(cell?.charge)
@@ -668,7 +671,6 @@
 		chamber_contents.icon += R.color
 		. += chamber_contents
 
-
 /obj/item/handheld_chem_dispenser/process()
 	if(isrobot(loc))
 		var/mob/living/silicon/robot/R = loc
@@ -677,7 +679,6 @@
 
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
-
 
 /obj/item/handheld_chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -697,7 +698,6 @@
 
 	return ..()
 
-
 /obj/item/handheld_chem_dispenser/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(isrobot(loc))
@@ -716,18 +716,9 @@
 	cell = null
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/handheld_chem_dispenser/booze
 	name = "handheld bar tap"
 	desc = "Компактная версия алкогольного раздатчика. Удобно!"
-	ru_names = list(
-		NOMINATIVE = "ручной алкогольный раздатчик",
-		GENITIVE = "ручного алкогольного раздатчика",
-		DATIVE = "ручному алкогольному раздатчику",
-		ACCUSATIVE = "ручной алкогольный раздатчик",
-		INSTRUMENTAL = "ручным алкогольным раздатчиком",
-		PREPOSITIONAL = "ручном алкогольном раздатчике"
-	)
 	item_state = "handheld_booze"
 	icon_state = "handheld_booze"
 	is_drink = TRUE
@@ -736,17 +727,19 @@
 	"irishcream", "manhattan", "antihol", "synthignon", "bravebull", "goldschlager", "patron", "absinthe", "ethanol", "nothing",
 	"sake", "bitter", "champagne", "aperol", "noalco_beer")
 
+/obj/item/handheld_chem_dispenser/booze/get_ru_names()
+	return list(
+		NOMINATIVE = "ручной алкогольный раздатчик",
+		GENITIVE = "ручного алкогольного раздатчика",
+		DATIVE = "ручному алкогольному раздатчику",
+		ACCUSATIVE = "ручной алкогольный раздатчик",
+		INSTRUMENTAL = "ручным алкогольным раздатчиком",
+		PREPOSITIONAL = "ручном алкогольном раздатчике",
+	)
+
 /obj/item/handheld_chem_dispenser/soda
 	name = "handheld soda fountain"
 	desc = "Компактная версия раздатчика напитков. Удобно!"
-	ru_names = list(
-		NOMINATIVE = "ручной раздатчик напитков",
-		GENITIVE = "ручного раздатчика напитков",
-		DATIVE = "ручному раздатчику напитков",
-		ACCUSATIVE = "ручной раздатчик напитков",
-		INSTRUMENTAL = "ручным раздатчиком напитков",
-		PREPOSITIONAL = "ручном раздатчике напитков"
-	)
 	item_state = "handheld_soda"
 	icon_state = "handheld_soda"
 	is_drink = TRUE
@@ -755,17 +748,19 @@
 	"banana", "watermelonjuice", "carrotjuice", "potato", "berryjuice", "bananahonk", "milkshake", "cafe_latte", "cafe_mocha",
 	"triple_citrus", "icecoffe", "icetea", "thirteenloko")
 
+/obj/item/handheld_chem_dispenser/soda/get_ru_names()
+	return list(
+		NOMINATIVE = "ручной раздатчик напитков",
+		GENITIVE = "ручного раздатчика напитков",
+		DATIVE = "ручному раздатчику напитков",
+		ACCUSATIVE = "ручной раздатчик напитков",
+		INSTRUMENTAL = "ручным раздатчиком напитков",
+		PREPOSITIONAL = "ручном раздатчике напитков",
+	)
+
 /obj/item/handheld_chem_dispenser/botanical
 	name = "handheld botanical chemical dispenser"
 	desc = "Компактная версия ботанического раздатчика. Удобно!"
-	ru_names = list(
-		NOMINATIVE = "ручной ботанический раздатчик",
-		GENITIVE = "ручного ботанического раздатчика",
-		DATIVE = "ручному ботаническому раздатчику",
-		ACCUSATIVE = "ручной ботанический раздатчик",
-		INSTRUMENTAL = "ручным ботаническим раздатчиком",
-		PREPOSITIONAL = "ручном ботаническом раздатчике"
-	)
 	dispensable_reagents = list(
 		"mutagen",
 		"saltpetre",
@@ -778,26 +773,38 @@
 		"cryoxadone",
 		"ammonia",
 		"ash",
-		"diethylamine")
+		"diethylamine",
+	)
 
-
-/obj/item/handheld_chem_dispenser/cooking
-	name = "handheld cooking chemical dispenser"
-	desc = "Компактный кухонный раздатчик. Удобно!"
-	ru_names = list(
+/obj/item/handheld_chem_dispenser/botanical/get_ru_names()
+	return list(
 		NOMINATIVE = "компактный кухонный раздатчик",
 		GENITIVE = "компактного кухонного раздатчика",
 		DATIVE = "компактному кухонному раздатчику",
 		ACCUSATIVE = "компактный кухонный раздатчик",
 		INSTRUMENTAL = "компактным кухонным раздатчиком",
-		PREPOSITIONAL = "компактном кухонном раздатчике"
+		PREPOSITIONAL = "компактном кухонном раздатчике",
 	)
+
+/obj/item/handheld_chem_dispenser/cooking
+	name = "handheld cooking chemical dispenser"
+	desc = "Компактный кухонный раздатчик. Удобно!"
 	dispensable_reagents = list(
 		"sodiumchloride",
 		"blackpepper",
 		"ketchup",
-		"herbsmix")
+		"herbsmix",
+	)
+
+/obj/item/handheld_chem_dispenser/cooking/get_ru_names()
+	return list(
+		NOMINATIVE = "компактный кухонный раздатчик",
+		GENITIVE = "компактного кухонного раздатчика",
+		DATIVE = "компактному кухонному раздатчику",
+		ACCUSATIVE = "компактный кухонный раздатчик",
+		INSTRUMENTAL = "компактным кухонным раздатчиком",
+		PREPOSITIONAL = "компактном кухонном раздатчике",
+	)
 
 #undef UPDATE_TYPE_HACK
 #undef UPDATE_TYPE_COMPONENTS
-

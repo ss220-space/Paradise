@@ -12,7 +12,7 @@
 			DATIVE = "жучку",
 			ACCUSATIVE = "жучок",
 			INSTRUMENTAL = "жучком",
-			PREPOSITIONAL = "жучке"
+			PREPOSITIONAL = "жучке",
 		)
 
 /obj/item/radio/spy_spider/Initialize(mapload)
@@ -52,7 +52,6 @@
 	new /obj/item/encryptionkey/spy_spider(src)
 	new /obj/item/encryptionkey/spy_spider(src)
 
-
 /**
  * CLOTHING PART
  */
@@ -71,7 +70,7 @@
 
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in range(1, usr)
 
 	if(!ishuman(usr))
@@ -86,7 +85,6 @@
 
 	verbs -= /obj/item/clothing/proc/remove_spy_spider
 
-
 /**
  * HUMAN PART
  */
@@ -98,7 +96,7 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!w_uniform && !wear_suit)
-		to_chat(user, span_warning("У Вас нет желания лезть к [genderize_ru(gender, "нему", "ней", "этому", "ним")] в трусы. Жучок необходимо крепить на одежду!"))
+		to_chat(user, span_warning("У вас нет желания лезть к н[GEND_HIM_HER(src)] в трусы. Жучок необходимо крепить на одежду!"))
 		return .
 
 	var/obj/item/radio/spy_spider/spy_spider = I

@@ -11,7 +11,6 @@
 	to_chat(world, "<b>The current game mode is - Traitor+Changeling!</b>")
 	to_chat(world, "<b>There is an alien creature on the station along with some syndicate operatives out for their own gain! Do not let the changeling and the traitors succeed!</b>")
 
-
 /datum/game_mode/traitor/changeling/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs

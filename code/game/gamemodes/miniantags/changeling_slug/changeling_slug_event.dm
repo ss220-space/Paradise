@@ -1,4 +1,4 @@
-#define HI_MINPLAYERS_TRIGGER 59
+#define HI_MINPLAYERS_TRIGGER 30
 #define GAMEMODE_IS_SHADOWLING (SSticker && istype(SSticker.mode, /datum/game_mode/shadowling))
 #define GAMEMODE_IS_CULTS (SSticker && (istype(SSticker.mode, /datum/game_mode/cult) || istype(SSticker.mode, /datum/game_mode/clockwork)))
 
@@ -32,7 +32,6 @@
 		EC.next_event_time = world.time + (60 * 10)
 		return
 
-
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Хедслага?", ROLE_CHANGELING, TRUE, source = /mob/living/simple_animal/hostile/headslug/evented)
 	while(spawncount && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
@@ -40,7 +39,7 @@
 		if(C)
 			GLOB.respawnable_list -= C
 			var/mob/living/simple_animal/hostile/headslug/evented/new_slug = new(vent.loc)
-			new_slug.key = C.key
+			new_slug.possess_by_player(C.key)
 			new_slug.make_slug_antag() //give objective and plays coolsound
 			new_slug.move_into_vent(vent, FALSE)
 			spawncount--
@@ -48,9 +47,8 @@
 			log_game("[new_slug.key] has become Changeling Headslug.")
 
 /datum/event/headslug_infestation/proc/eventcheck()
-	if((num_station_players() <= HI_MINPLAYERS_TRIGGER) ||GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
+	if((num_station_players() <= HI_MINPLAYERS_TRIGGER) || GAMEMODE_IS_CULTS || GAMEMODE_IS_NUCLEAR || GAMEMODE_IS_SHADOWLING)
 		return TRUE
-
 
 #undef GAMEMODE_IS_CULTS
 #undef GAMEMODE_IS_SHADOWLING

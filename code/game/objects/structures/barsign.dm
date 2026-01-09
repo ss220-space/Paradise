@@ -10,7 +10,6 @@
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	var/list/barsigns=list()
 	var/list/hiddensigns
-	var/emagged = FALSE
 	var/panel_open = FALSE
 
 /obj/structure/sign/barsign/Initialize(mapload)
@@ -84,7 +83,6 @@
 
 	return TRUE
 
-
 /obj/structure/sign/barsign/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -109,7 +107,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/structure/sign/barsign/emp_act(severity)
 	set_sign(new /datum/barsign/hiddensigns/empbarsign)

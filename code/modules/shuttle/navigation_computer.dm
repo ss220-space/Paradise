@@ -34,21 +34,20 @@
 /obj/machinery/computer/camera_advanced/shuttle_docker/proc/CalculateAvailable_z_lvls() //Вынесла в отдельный прок, для удобства работы с VV
 	jumpto_ports = list()
 	var/list/levels = GLOB.space_manager.z_list.Copy()
-	var/iterator = 1
 	for(var/level in levels)
-		if(access_station && is_station_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+		var/num_level = text2num(level)
+		if(access_station && is_station_level(num_level))
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_admin_zone && is_admin_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_mining && is_mining_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_taipan && is_taipan(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_away && is_away_level(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
+			jumpto_ports += list("nav_z[level]" = 1)
 		else if(access_derelict && is_explorable_space(level))
-			jumpto_ports += list("nav_z[num2text(iterator)]" = 1)
-		iterator++
+			jumpto_ports += list("nav_z[level]" = 1)
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/Destroy()
 	. = ..()
@@ -82,7 +81,7 @@
 		shuttle_port = null
 		return
 
-	var/turf/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
+	var/turf/shuttle_eye_pos = get_turf(locate(/obj/effect/landmark/observer_start))
 
 	if(length(jumpto_ports))
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)
@@ -323,7 +322,7 @@
 
 /datum/action/innate/shuttledocker_rotate
 	name = "Повернуть"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/shuttledocker_rotate/Activate()
@@ -336,7 +335,7 @@
 
 /datum/action/innate/shuttledocker_place
 	name = "Выбрать место"
-	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
+	button_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/shuttledocker_place/Activate()

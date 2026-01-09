@@ -38,6 +38,7 @@
 				/obj/item/storage/fancy/cigarettes/cigpack_random = 6,
 				/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 1,
 				/obj/item/clothing/mask/cigarette/cigar/havana = 2,
+				/obj/item/ecig = 4,
 			),
 		),
 		list(
@@ -75,6 +76,7 @@
 		/obj/item/clothing/mask/cigarette/cigar/havana = 999,
 		/obj/item/storage/fancy/cigarettes/cigpack_robustgold = 699,
 		/obj/item/storage/fancy/cigarettes/cigpack_med = 499,
+		/obj/item/ecig = 599,
 	)
 
 /obj/machinery/vending/cigarette/get_ru_names()
@@ -84,7 +86,7 @@
 		DATIVE = "торговому автомату ShadyCigs Deluxe",
 		ACCUSATIVE = "торговый автомат ShadyCigs Deluxe",
 		INSTRUMENTAL = "торговым автоматом ShadyCigs Deluxe",
-		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe"
+		PREPOSITIONAL = "торговом автомате ShadyCigs Deluxe",
 	)
 
 /obj/machinery/vending/cigarette/free
@@ -122,7 +124,6 @@
 
 /obj/machinery/vending/cigarette/syndicate/free
 	prices = list()
-
 
 /obj/machinery/vending/cigarette/beach //Used in the lavaland_biodome_beach.dmm ruin
 	name = "ShadyCigs Ultra"
@@ -179,5 +180,5 @@
 		DATIVE = "торговому автомату ShadyCigs Ultra",
 		ACCUSATIVE = "торговый автомат ShadyCigs Ultra",
 		INSTRUMENTAL = "торговым автоматом ShadyCigs Ultra",
-		PREPOSITIONAL = "торговом автомате ShadyCigs Ultra"
+		PREPOSITIONAL = "торговом автомате ShadyCigs Ultra",
 	)

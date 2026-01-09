@@ -84,7 +84,6 @@
 			playsound(src, 'sound/machines/burglar_alarm.ogg', 50, FALSE)
 			sleep(74) // 7.4 seconds long
 
-
 /obj/structure/displaycase/update_overlays()
 	. = ..()
 	if(broken)
@@ -96,7 +95,6 @@
 		. += showpiece_overlay
 	if(!open && !broken)
 		. += "glassbox_closed"
-
 
 /obj/structure/displaycase/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -152,7 +150,6 @@
 
 	return ..()
 
-
 /obj/structure/displaycase/crowbar_act(mob/user, obj/item/I) //Only applies to the lab cage and player made display cases
 	if(alert || !openable)
 		return
@@ -206,7 +203,6 @@
 	icon_state = "glassbox_chassis"
 	var/obj/item/access_control/electronics
 
-
 /obj/structure/displaycase_chassis/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -257,7 +253,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/displaycase_chassis/wrench_act(mob/user, obj/item/I)
 	. = TRUE

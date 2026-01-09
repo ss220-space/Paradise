@@ -16,8 +16,8 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
-		)
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+	)
 
 /obj/item/clothing/head/helmet/space/capspace/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -47,8 +47,8 @@
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
-		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi'
-		)
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
+	)
 
 	//Deathsquad space suit, not hardsuits because no flashlight!
 /obj/item/clothing/head/helmet/space/deathsquad
@@ -83,7 +83,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 	//NEW SWAT suit
@@ -100,8 +100,8 @@
 
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi'
-		)
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
+	)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
@@ -115,7 +115,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret/supreme
@@ -184,8 +184,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
 	clothing_flags = STOPSPRESSUREDMAGE
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = /datum/dog_fashion/head/santa
@@ -215,7 +215,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 	species_restricted = null
@@ -238,7 +238,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/clothing/suit/space/pirate
@@ -258,7 +258,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
 	species_restricted = null
@@ -283,8 +283,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		)
-
+	)
 
 /obj/item/clothing/suit/space/eva/paramedic
 	name = "Paramedic EVA suit"
@@ -305,8 +304,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		)
-
+	)
 
 /obj/item/clothing/suit/space/eva
 	name = "EVA suit"
@@ -323,8 +321,7 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		)
-
+	)
 
 /obj/item/clothing/head/helmet/space/eva
 	name = "EVA helmet"
@@ -341,9 +338,8 @@
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi'
-		)
-
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
+	)
 
 //Mime's Hardsuit
 /obj/item/clothing/head/helmet/space/eva/mime
@@ -357,7 +353,6 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
 
-
 /obj/item/clothing/suit/space/eva/mime
 	name = "mime eva suit"
 //	icon = 'spaceciv.dmi'
@@ -368,7 +363,6 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
-
 
 /obj/item/clothing/head/helmet/space/eva/clown
 	name = "clown eva helmet"
@@ -381,7 +375,6 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi')
 
-
 /obj/item/clothing/suit/space/eva/clown
 	name = "clown eva suit"
 //	icon = 'spaceciv.dmi'
@@ -392,7 +385,6 @@
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
-
 
 //pirate-themed stuff
 /obj/item/clothing/suit/space/eva/pirate
@@ -409,8 +401,8 @@
 		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+	)
 
 /obj/item/clothing/head/helmet/space/eva/pirate
 	name = "pirate EVA helmet"
@@ -427,8 +419,8 @@
 		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/helmet.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
-		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi'
-		)
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/helmet.dmi',
+	)
 
 /obj/item/clothing/suit/space/eva/pirate/leader
 	name = "pirate leader EVA suit"

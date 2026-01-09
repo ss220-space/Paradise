@@ -8,24 +8,27 @@ Note: Must be placed west/left of and R&D console to function.
 
 */
 /obj/machinery/r_n_d/protolathe
-	name = "Protolathe"
-	desc = "Крупное устройство, предназначенное для печати сложных предметов и устройств из разнообразных ресурсов."
+	name = "protolathe"
+	desc = "Оборудование, предназначенное для печати изделий высокого уровня сложности \
+			на основе шаблонов для печати. Использует широкий спектр материалов в качестве сырья. \
+			Управление происходит с помощью подключаемой консоли."
 	icon_state = "protolathe"
 	base_icon_state = "protolathe"
 	container_type = OPENCONTAINER
 
 	categories = list(
-								"Bluespace",
-								"Equipment",
-								"Janitorial",
-								"Medical",
-								"Mining",
-								"Miscellaneous",
-								"Power",
-								"Stock Parts",
-								"Weapons",
-								"ILLEGAL",
-								)
+		PROTOLATHE_CATEGORY_BLUESPACE,
+		PROTOLATHE_CATEGORY_EQUIPMENT,
+		PROTOLATHE_CATEGORY_JANITORIAL,
+		PROTOLATHE_CATEGORY_MEDICAL,
+		PROTOLATHE_CATEGORY_MINING,
+		PROTOLATHE_CATEGORY_POWER,
+		PROTOLATHE_CATEGORY_STOCK_PARTS,
+		PROTOLATHE_CATEGORY_WEAPON,
+		PROTOLATHE_CATEGORY_MISC,
+		PROTOLATHE_CATEGORY_ILLEGAL,
+		PROTOLATHE_CATEGORY_CIRCUITRY,
+	)
 
 	reagents = new()
 
@@ -36,9 +39,8 @@ Note: Must be placed west/left of and R&D console to function.
 		DATIVE = "протолату",
 		ACCUSATIVE = "протолат",
 		INSTRUMENTAL = "протолатом",
-		PREPOSITIONAL = "протолате"
+		PREPOSITIONAL = "протолате",
 	)
-
 
 /obj/machinery/r_n_d/protolathe/Initialize(mapload)
 	. = ..()
@@ -93,7 +95,6 @@ Note: Must be placed west/left of and R&D console to function.
 		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-
 /obj/machinery/r_n_d/protolathe/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
@@ -110,12 +111,11 @@ Note: Must be placed west/left of and R&D console to function.
 
 	if(is_open_container)
 		if(panel_open)
-			to_chat(user, span_warning("Сначала закройте панель обслуживания."))
+			balloon_alert(user, "техпанель открыта!")
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
 
 	return ..()
-
 
 /obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
@@ -126,7 +126,6 @@ Note: Must be placed west/left of and R&D console to function.
 		linked_console.linked_lathe = null
 		linked_console = null
 
-
 /obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(shocked && shock(user, 50))
@@ -134,7 +133,7 @@ Note: Must be placed west/left of and R&D console to function.
 		return .
 	if(!panel_open)
 		add_fingerprint(user)
-		to_chat(user, span_warning("Сначала откройте панель обслуживания."))
+		balloon_alert(user, "техпанель закрыта!")
 		return .
 	var/atom/drop_loc = drop_location()
 	for(var/obj/component as anything in component_parts)

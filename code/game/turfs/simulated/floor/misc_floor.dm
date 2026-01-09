@@ -1,6 +1,13 @@
 /turf/simulated/floor/vault
 	icon_state = "rockvault"
 
+/turf/simulated/floor/vault/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/wall/vault
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "rockvault"
@@ -58,7 +65,6 @@
 	if(user)
 		to_chat(user, span_notice("Looks like someone has dug here already."))
 
-
 /turf/simulated/floor/beach/sand/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -78,7 +84,6 @@
 		new /obj/item/stack/ore/glass(src, 5)
 		dug = TRUE
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /turf/simulated/floor/beach/coastline
 	name = "coastline"
@@ -125,7 +130,6 @@
 	overlay_image.plane = GAME_PLANE
 	add_overlay(overlay_image)
 
-
 /turf/simulated/floor/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!linkedcontroller || !ismob(arrived))
@@ -163,10 +167,11 @@
 	return
 
 /turf/simulated/floor/noslip/lavaland
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/lubed
 	name = "slippery floor"
@@ -182,6 +187,13 @@
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
 		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
+
+/turf/simulated/floor/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //Clockwork floor: Slowly heals toxin damage on nearby servants.
 /turf/simulated/floor/clockwork
@@ -248,3 +260,10 @@
 		color = COLOR_CULT_RED
 		animate(src, color = previouscolor, time = 8)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_atom_colour)), 8)
+
+/turf/simulated/floor/clockwork/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND

@@ -21,7 +21,7 @@
 	health = 200
 	maxHealth = 200
 	speed = 8
-	projectiletype = /obj/projectile/beam/immolator/weak
+	projectiletype = /obj/projectile/beam/immolator/weak/hitscan
 	projectilesound = 'sound/weapons/laser3.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("malf_drone")
@@ -29,7 +29,6 @@
 	del_on_death = 1
 	var/passive_mode = TRUE // if true, don't target anything.
 	var/datum/effect_system/trail_follow/ion/ion_trail
-
 
 /mob/living/simple_animal/hostile/malf_drone/Initialize(mapload)
 	. = ..()
@@ -46,7 +45,6 @@
 /mob/living/simple_animal/hostile/malf_drone/Destroy()
 	QDEL_NULL(ion_trail)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/malf_drone/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -71,7 +69,6 @@
 	else
 		icon_state = "drone0"
 
-
 /mob/living/simple_animal/hostile/malf_drone/adjustHealth(
 	amount = 0,
 	updating_health = TRUE,
@@ -84,7 +81,6 @@
 		do_sparks(3, TRUE, src)
 		passive_mode = FALSE
 		update_icons()
-
 
 /mob/living/simple_animal/hostile/malf_drone/Life(seconds, times_fired)
 	. = ..()
@@ -216,7 +212,7 @@
 	declare_arrests = FALSE
 	idcheck = TRUE
 	arrest_type = TRUE
-	projectile = /obj/projectile/beam/immolator/weak
+	projectile = /obj/projectile/beam/immolator/weak/hitscan
 
 /mob/living/simple_animal/bot/ed209/combat_drone/Initialize(mapload)
 	. = ..()
@@ -230,7 +226,7 @@
 	return
 
 /mob/living/simple_animal/bot/ed209/combat_drone/set_weapon()
-	projectile = /obj/projectile/beam/immolator/weak
+	projectile = /obj/projectile/beam/immolator/weak/hitscan
 
 /mob/living/simple_animal/bot/ed209/combat_drone/turn_on()
 	. = ..()
@@ -279,10 +275,10 @@
 		if(length(candidates))
 			var/mob/living/simple_animal/hostile/malf_drone/syndicate/S = new /mob/living/simple_animal/hostile/malf_drone/syndicate(get_turf(src))
 			var/mob/M = pick(candidates)
-			S.key = M.key
+			S.possess_by_player(M.key)
 			S.master_commander = user
 			S.sentience_act()
-			to_chat(S, "Модуль активирован. Основная задача: подчинение [user.name]. Дополнительная задача: уничтожение враждебных единиц не относящихся к Синдикату в подконтрольном секторе.")
+			to_chat(S, "Модуль активирован. Основная задача: подчинение [user.name]. Дополнительная задача: уничтожение враждебных единиц не относящихся к \"Синдикату\" в подконтрольном секторе.")
 			S.mind.store_memory("<b>Подчиняться [user.name].</b>")
 			qdel(src)
 			qdel(I)
@@ -308,7 +304,7 @@
 		DATIVE = "странному руководству",
 		ACCUSATIVE = "странное руководство",
 		INSTRUMENTAL = "странным руководством",
-		PREPOSITIONAL = "странном руководстве"
+		PREPOSITIONAL = "странном руководстве",
 	)
 
 /obj/item/drone_manual/attack_self(mob/user)
@@ -342,7 +338,7 @@
 	name = "Drone IFFM"
 	desc = "Неплохо сделанная плата."
 	icon_state = "drone_IFF"
-	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений — а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне Синдиката."
+	explanation = "Это плата модуля Свой-Чужой для боевых дронов. Сделанная по схеме из книги, она не допускает изменений — а значит, дроны с подобным модулем всегда будут участвовать в бою на стороне \"Синдиката\"."
 
 /obj/item/drone_modules/drone_AI
 	name = "Drone AICM"

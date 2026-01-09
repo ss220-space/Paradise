@@ -22,12 +22,11 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/neck.dmi',
 		SPECIES_DRACONOID =  'icons/mob/clothing/species/unathi/neck.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
-		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi'
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi',
 	)
 
 /obj/item/clothing/neck/poncho/update_icon_state()
 	icon_state = "[item_color]poncho[flipped ? "_flip" : ""]"
-
 
 /obj/item/clothing/neck/poncho/click_alt(mob/living/carbon/human/user)
 	if(!(src in user))
@@ -35,15 +34,13 @@
 	flip(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/clothing/neck/poncho/verb/flip_poncho()
 	set name = "Перекинуть пончо"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Flip poncho behind your back"
 	set src in usr
 
 	flip(usr)
-
 
 /obj/item/clothing/neck/poncho/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -127,15 +124,13 @@
 /obj/item/clothing/neck/poncho/ponchoshame
 	name = "poncho of shame"
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
-	icon_state = "shameponcho"
+	icon_state = "ponchoshame"
 	item_color = "shame"
 	undyeable = TRUE
-
 
 /obj/item/clothing/neck/poncho/ponchoshame/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/neck/poncho/security
 	name = "corporate poncho"

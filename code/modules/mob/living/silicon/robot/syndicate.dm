@@ -107,7 +107,6 @@
 	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
-
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
 	SR.action(src)
 
@@ -116,24 +115,22 @@
 
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
-
 /mob/living/silicon/robot/syndicate/saboteur/proc/disposal_handling(disposal_source, obj/structure/disposalholder/disposal_holder, obj/machinery/disposal/disposal_machine, hasmob)
 	SIGNAL_HANDLER
 
 	if(mail_destination)
 		disposal_holder.destinationTag = mail_destination
 
-
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
 	set name = "Изменить имя"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
-	set category = STATPANEL_SABOTEUR
+	set category = VERB_CATEGORY_SABOTEUR
 	rename_self(braintype, TRUE, TRUE)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/toggle_chameleon()
 	set name = "Маскировка"
 	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
-	set category = STATPANEL_SABOTEUR
+	set category = VERB_CATEGORY_SABOTEUR
 
 	if(!cham_proj)
 		for(var/obj/item/borg_chameleon/C in contents)
@@ -151,7 +148,7 @@
 /mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
 	set name = "Почтовый адрес"
 	set desc = "Tag yourself for delivery through the disposals system."
-	set category = STATPANEL_SABOTEUR
+	set category = VERB_CATEGORY_SABOTEUR
 
 	var/tag = tgui_input_list(usr, "Select the desired destination.", "Set Mail Tag", GLOB.TAGGERLOCATIONS, null)
 
@@ -170,13 +167,11 @@
 
 	return
 
-
 /mob/living/silicon/robot/syndicate/saboteur/attackby(obj/item/I, mob/user, params)
 	cham_proj?.disrupt(src)
 
 	add_attack_logs(user, src, "disrupt [cham_proj] by [I]")
 	return ..()
-
 
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand(mob/living/carbon/human/user)
 	if(cham_proj)
@@ -202,4 +197,9 @@
 		cham_proj.disrupt(src)
 
 	..()
+
+/mob/living/silicon/robot/syndicate/air_push(direction, strength)
+	// Syndicate borgs ignore airflow, because they're bloody expensive.
+	// This should probably be revisited later, as part of a broader move_resist/move_force/pull_force rework.
+	return
 

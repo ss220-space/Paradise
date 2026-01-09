@@ -45,7 +45,7 @@ GLOBAL_PROTECT(log_end)
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "<span class='debug'>DEBUG: [text]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
+			to_chat(C, span_debug("DEBUG: [text]"), MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(CONFIG_GET(flag/log_game))
@@ -165,8 +165,13 @@ GLOBAL_PROTECT(log_end)
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
 /proc/log_world(text)
-	if(config && !CONFIG_GET(flag/disable_root_log))
+	#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
+	SEND_TEXT(world.log, text)
+	#else
+	if(config && CONFIG_GET(flag/enable_root_log))
 		SEND_TEXT(world.log, text)
+	#endif
+
 	if(config && CONFIG_GET(flag/log_world_output))
 		WRITE_LOG(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
@@ -208,7 +213,6 @@ GLOBAL_PROTECT(log_end)
 			to_chat(C, "GC DEBUG: [text]")
 #endif
 
-
 /proc/log_sql(text)
 	WRITE_LOG(GLOB.sql_log, "[text][GLOB.log_end]")
 	SEND_TEXT(world.log, text) // Redirect it to DD too
@@ -241,7 +245,6 @@ GLOBAL_PROTECT(log_end)
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"
 
-
 /proc/atom_loc_line(atom/A)
 	if(!istype(A))
 		return "(INVALID LOCATION)"
@@ -254,7 +257,6 @@ GLOBAL_PROTECT(log_end)
 		return "([AREACOORD(T)])"
 	else if(A.loc)
 		return "(UNKNOWN (?, ?, ?))"
-
 
 /mob/proc/simple_info_line()
 	return "[key_name(src)] ([x],[y],[z])"

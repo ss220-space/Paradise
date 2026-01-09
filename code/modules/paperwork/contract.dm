@@ -25,10 +25,9 @@
 	target = nOwner.mind
 	update_text()
 
-
 /obj/item/paper/contract/employment/update_text()
-	name = "Документ — Трудовой договор — [target]"
-	info = "<center>Условия трудоустройства</center><br><br><br><br>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией Нанотрейзен (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
+	name = "Документ — Трудовой договор — [target]"
+	info = "<center>Условия трудоустройства</center><br><br><br><br>Настоящий Договор заключён между [target] (в дальнейшем именуемый Раб) и корпорацией \"Нанотрейзен\" (в дальнейшем именуемой Вездесущим и полезным наблюдателем за человечеством). Договор вступает в силу с момента его подписания.\
 	<br>Преамбула \
 	<br>Раб, будучи рождённым естественным путём человеком (или иным гуманоидом), обладает навыками, которыми он может быть полезен Вездесущему и полезному наблюдателю за человечеством. Раб ищет трудоустройства в Вездесущем и полезном наблюдателе за человечеством.\
 	<br>При этом Вездесущий и полезный наблюдатель за человечеством согласен иногда выплачивать Рабу вознаграждение, в обмен на его постоянную службу.\
@@ -62,7 +61,7 @@
 		DATIVE = "адскому контракту [contract.contract_subject]",
 		ACCUSATIVE = "адский контракт [contract.contract_subject]",
 		INSTRUMENTAL = "адским контрактом [contract.contract_subject]",
-		PREPOSITIONAL = "адском контракте [contract.contract_subject]"
+		PREPOSITIONAL = "адском контракте [contract.contract_subject]",
 	)
 	update_text()
 
@@ -70,13 +69,12 @@
 	if(signed && (user == target.current) && istype(user,/mob/living/carbon/human))
 		var/mob/living/carbon/human/human = user
 		human.forcesay("О, ВЕЛИКИЙ АД! Я ТРЕБУЮ, ЧТОБЫ ТЫ НЕМЕДЛЕННО ЗАБРАЛ СВОЮ НАГРАДУ!")
-		human.visible_message(span_suicide("[human.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [genderize_ru(human.gender, "Он")] пытается покончить с собой!"))
+		human.visible_message(span_suicide("[human.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [GEND_HE_SHE(human)] пытается покончить с собой!"))
 		human.adjust_fire_stacks(20)
 		human.IgniteMob()
 		return FIRELOSS
 	else
 		..()
-
 
 /obj/item/paper/contract/infernal/update_text()
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
@@ -118,7 +116,7 @@
 		if(do_after(usr, 1 SECONDS, src, DA_IGNORE_LYING) && usr.mind == target \
 		&& usr.mind.hasSoul && usr.mind.soulOwner != owner && attempt_signature(usr, TRUE))
 			usr.visible_message(
-				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[pluralize_ru(usr.gender, "ет", "ют")] запястье [declent_ru(INSTRUMENTAL)] и вывод[pluralize_ru(usr.gender, "ит", "ят")] своё имя кровью."),
+				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[PLUR_ET_YUT(usr)] запястье [declent_ru(INSTRUMENTAL)] и вывод[PLUR_IT_YAT(usr)] своё имя кровью."),
 				span_danger("Вы разрезаете запястье и выводите своё имя кровью."),
 			)
 			balloon_alert(owner.current, "контракт подписан!")
@@ -133,8 +131,6 @@
 		return
 	. = ..()
 
-
-
 /obj/item/paper/contract/infernal/attackby(obj/item/I, mob/user, params)
 
 	if(istype(I, /obj/item/stamp))
@@ -143,7 +139,7 @@
 
 	if(I.get_heat())
 		user.visible_message(
-			("[user.declent_ru(NOMINATIVE)] поднос[pluralize_ru(user.gender, "ит", "ят")] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
+			("[user.declent_ru(NOMINATIVE)] поднос[PLUR_IT_YAT(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
 			span_danger("[declent_ru(NOMINATIVE)] не загорается!"),
 		)
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
@@ -160,7 +156,6 @@
 	. = contract.on_attack(src, target, victim, user)
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
-
 
 /obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)
 	add_fingerprint(user)
@@ -214,7 +209,6 @@
 	user.mind.soulOwner = owner
 	user.mind.damnation_type = contract.contract_type
 	devilinfo?.add_soul(user.mind)
-
 
 	update_text(user.real_name)
 	to_chat(user, span_notice("Глубокая пустота охватывает вас, когда вы теряете контроль над своей душой. Вы забываете настоящее имя того, кому продали свою душу."))

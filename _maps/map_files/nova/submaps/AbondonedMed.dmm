@@ -166,9 +166,7 @@
 /area/maintenance/kitchen)
 "bN" = (
 /obj/structure/table,
-/obj/item/radio/intercom{
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/item/clothing/head/welding/bigbrother,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -333,9 +331,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "dl" = (
-/obj/item/radio/intercom{
-	pixel_y = 22
-	},
+/obj/item/radio/intercom/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1725,7 +1721,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/flora/junglebush/c,
+/obj/structure/flora/junglebush,
 /obj/structure/window/reinforced{
 	dir = 4
 	},
@@ -1894,6 +1890,9 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "si" = (
@@ -2244,9 +2243,7 @@
 /turf/template_noop,
 /area/template_noop)
 "vn" = (
-/obj/item/radio/intercom{
-	pixel_x = 32
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/nanotrasen_logo{
 	pixel_x = -32
@@ -3047,7 +3044,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/structure/flora/grass/jungle/b,
+/obj/structure/flora/grass/jungle,
 /obj/structure/flora/ausbushes/lavendergrass,
 /turf/simulated/floor/grass,
 /area/maintenance/kitchen)
@@ -3208,6 +3205,15 @@
 	icon_state = "barber"
 	},
 /area/maintenance/medroom)
+"DZ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/glass,
+/obj/item/shard{
+	pixel_y = -3;
+	pixel_x = -5
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "Ei" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dust,
@@ -3419,6 +3425,13 @@
 	icon_state = "Dark"
 	},
 /area/maintenance/medroom)
+"Gp" = (
+/obj/structure/grille,
+/obj/structure/window/reinforced/tinted{
+	dir = 8
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/apmaint)
 "Gt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/blood/tracks,
@@ -3501,10 +3514,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/kitchen)
 "Hs" = (
-/obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_y = 28
-	},
+/obj/item/radio/intercom/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/body_bag,
 /obj/effect/spawner/lootdrop/maintenance,
@@ -3711,10 +3721,7 @@
 	pixel_y = 3
 	},
 /obj/item/scalpel,
-/obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_y = 28
-	},
+/obj/item/radio/intercom/directional/north,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/medroom)
@@ -3974,9 +3981,7 @@
 	},
 /area/maintenance/kitchen)
 "Ll" = (
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
+/obj/item/radio/intercom/directional/south,
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -4320,9 +4325,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "OS" = (
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
+/obj/item/radio/intercom/directional/south,
 /obj/structure/table,
 /obj/item/clothing/suit/straight_jacket,
 /obj/effect/decal/cleanable/dirt,
@@ -4574,10 +4577,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/abandonedhangar)
 "RL" = (
-/obj/item/radio/intercom{
-	name = "north station intercom (General)";
-	pixel_y = 23
-	},
+/obj/item/radio/intercom/directional/north,
 /obj/item/paper,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -4641,10 +4641,7 @@
 	scrub_Toxins = 1;
 	dir = 1
 	},
-/obj/item/radio/intercom{
-	name = "south station intercom (General)";
-	pixel_y = -28
-	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -4889,12 +4886,6 @@
 /area/maintenance/apmaint)
 "UV" = (
 /obj/machinery/shieldgen,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
@@ -5172,9 +5163,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "Yl" = (
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -7207,7 +7196,7 @@ ag
 cU
 ag
 cU
-ag
+Gp
 cU
 ag
 vj
@@ -7261,7 +7250,7 @@ tU
 Vx
 DQ
 Py
-tU
+DZ
 NH
 ag
 vj

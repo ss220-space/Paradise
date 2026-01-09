@@ -30,7 +30,7 @@
 			if(!length(possible_thieves))
 				break
 			var/datum/mind/thief = pick(possible_thieves)
-			listclearduplicates(thief, possible_thieves)
+			list_clear_duplicates(thief, possible_thieves)
 			pre_thieves += thief
 			thief.special_role = SPECIAL_ROLE_THIEF
 			thief.restricted_roles = restricted_jobs
@@ -39,12 +39,10 @@
 	else
 		return FALSE
 
-
 /datum/game_mode/thief/post_setup()
 	for(var/datum/mind/thief in pre_thieves)
 		thief.add_antag_datum(/datum/antagonist/thief)
 	..()
-
 
 /datum/game_mode/proc/auto_declare_completion_thief()
 	if(!length(thieves))

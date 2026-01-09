@@ -38,7 +38,7 @@
 		DATIVE = "ядру телекоммуникаций",
 		ACCUSATIVE = "ядро телекоммуникаций",
 		INSTRUMENTAL = "ядром телекоммуникаций",
-		PREPOSITIONAL = "ядре телекоммуникаций"
+		PREPOSITIONAL = "ядре телекоммуникаций",
 	)
 
 /**
@@ -170,7 +170,6 @@
 		if(R.active && !(R.stat & NOPOWER))
 			reachable_zlevels |= R.loc.z
 
-
 /**
  * Z-Level transit change helper
  *
@@ -253,7 +252,7 @@
 		if(R.active && !(R.stat & NOPOWER))
 			status = TRUE
 
-		relays += list(list("addr" = "\ref[R]", "net_id" = R.network_id, "sector" = R.loc.z, "status" = status))
+		relays += list(list("addr" = R.UID(), "net_id" = R.network_id, "sector" = R.loc.z, "status" = status))
 
 	data["relay_entries"] = relays
 	// End the shit
@@ -329,7 +328,6 @@
 			popup.set_content(nttc.nttc_serialize())
 			popup.open(FALSE)
 
-
 		// Set network ID
 		if("network_id")
 			var/new_id = tgui_input_text(usr, "Введите новый сетевой идентификатор", "Сетевой идентификатор", network_id)
@@ -340,9 +338,9 @@
 			network_id = new_id
 
 		if("unlink")
-			var/obj/machinery/tcomms/relay/R = locate(params["addr"])
+			var/obj/machinery/tcomms/relay/R = locateUID(params["addr"])
 			if(istype(R, /obj/machinery/tcomms/relay))
-				var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле?\nID: [R.network_id]\nADDR: \ref[R].", "Отвязка реле", list("Да", "Нет"))
+				var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле?\nID: [R.network_id]\nADDR: [R.UID()].", "Отвязка реле", list("Да", "Нет"))
 				if(confirm == "Да")
 					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
 					R.Reset()
@@ -379,7 +377,6 @@
 					nttc.filtering -= name_to_remove
 					log_action(usr, "has removed [name_to_remove] from the NTTC filter list on core with ID [network_id]", TRUE)
 					to_chat(usr, span_notice("Вы удаляете пользователя <b>[name_to_remove]</b> из чёрного списка системы телекоммуникаций."))
-
 
 #undef UI_TAB_CONFIG
 #undef UI_TAB_LINKS

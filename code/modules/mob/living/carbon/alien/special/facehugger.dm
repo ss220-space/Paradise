@@ -32,6 +32,7 @@
 
 	clothing_traits = list(TRAIT_NO_BREATH)
 
+	cares_about_temperature = TRUE
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
 
@@ -48,7 +49,7 @@
 		DATIVE = "лицехвату",
 		ACCUSATIVE = "лицехвата",
 		INSTRUMENTAL = "лицехватом",
-		PREPOSITIONAL = "лицехвате"
+		PREPOSITIONAL = "лицехвате",
 	)
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload, mob/hugger)
@@ -70,10 +71,8 @@
 /obj/item/clothing/mask/facehugger/allowed_for_alien()
 	return TRUE
 
-
 /obj/item/clothing/mask/facehugger/attackby(obj/item/I, mob/user, params)
 	return I.attack_obj(src, user, params)
-
 
 /obj/item/clothing/mask/facehugger/attack_alien(mob/user) //can be picked up by aliens
 	return attack_hand(user)
@@ -87,13 +86,11 @@
 		return FALSE
 	. = ..()
 
-
 /obj/item/clothing/mask/facehugger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.drop_item_ground(src) && Attach(target))
 		user.do_attack_animation(target, used_item = src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/clothing/mask/facehugger/examine(mob/user)
 	. = ..()
@@ -104,13 +101,12 @@
 			if(CONSCIOUS)
 				. += span_boldannounceic("[capitalize(declent_ru(NOMINATIVE))] кажется, активен!")
 		if(sterile)
-			. += span_boldannounceic("Похоже хоботок [genderize_ru(gender, "eго", "её", "его", "их")] удалили.")
+			. += span_boldannounceic("Похоже хоботок [GEND_HIS_HER(src)] удалили.")
 
-/obj/item/clothing/mask/facehugger/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/clothing/mask/facehugger/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		Die()
-
 
 /obj/item/clothing/mask/facehugger/equipped(mob/living/user, slot, initial = FALSE)
 	if(slot_flags && slot && !sterile)
@@ -122,7 +118,6 @@
 		return
 	. = ..()
 
-
 /obj/item/clothing/mask/facehugger/dropped(mob/living/user, slot, silent, mob/living/carbon/alien/alien)
 	. = ..()
 	addtimer(CALLBACK(src, PROC_REF(check_mob_inside)), 0.1 SECONDS)
@@ -131,7 +126,6 @@
 	SIGNAL_HANDLER
 
 	HasProximity(arrived)
-
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
 	if(stat != DEAD)
@@ -256,7 +250,6 @@
 	GoIdle() //so it doesn't jump the people that tear it off
 
 	return TRUE
-
 
 /obj/item/clothing/mask/facehugger/proc/impregnate_check(mob/living/attached_mob)
 	if(attached_mob.get_int_organ(/obj/item/organ/internal/xenos/hivenode))
@@ -399,7 +392,7 @@
 		DATIVE = "ламарр",
 		ACCUSATIVE = "ламарр",
 		INSTRUMENTAL = "ламарр",
-		PREPOSITIONAL = "ламарр"
+		PREPOSITIONAL = "ламарр",
 	)
 
 /obj/item/clothing/mask/facehugger/lamarr/Initialize(mapload, hugger)

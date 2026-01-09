@@ -141,14 +141,12 @@
 				return 1
 	return 0
 
-
 /obj/item/robot_parts/robot_suit/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!check_completion())
 		to_chat(user, span_warning("The endoskeleton must be assembled before debugging can begin!"))
 		return .
 	Interact(user)
-
 
 /obj/item/robot_parts/robot_suit/attackby(obj/item/I, mob/living/user, params)
 	if(is_pen(I))
@@ -246,7 +244,7 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!istype(I, /obj/item/mmi))
+	if(!is_mmi(I))
 		return ..()
 
 	. = ATTACK_CHAIN_PROCEED
@@ -351,7 +349,7 @@
 
 	SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-	if(!new_borg.mmi.greet(new_borg) && new_borg.mind?.special_role)
+	if(!new_mmi.greet(new_borg) && new_borg.mind?.special_role)
 		new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
@@ -382,7 +380,6 @@
 	if(!locomotion)
 		new_borg.set_lockcharge(TRUE)
 		to_chat(new_borg, span_warning("Error: Servo motors unresponsive."))
-
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <a href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
@@ -433,7 +430,6 @@
 	Interact(usr)
 	return
 
-
 /obj/item/robot_parts/chest/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))
 		add_fingerprint(user)
@@ -460,7 +456,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /obj/item/robot_parts/head/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/flash))
@@ -492,7 +487,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/robot_parts/emag_act(mob/user)
 	if(sabotaged)

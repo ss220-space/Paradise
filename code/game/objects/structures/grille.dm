@@ -12,6 +12,7 @@
 	armor = list(MELEE = 50, BULLET = 70, LASER = 70, ENERGY = 100, BOMB = 10, BIO = 100, RAD = 100, FIRE = 0, ACID = 0)
 	max_integrity = 50
 	integrity_failure = 20
+	cares_about_temperature = TRUE
 	var/rods_type = /obj/item/stack/rods
 	var/rods_amount = 2
 	var/rods_broken = 1
@@ -32,23 +33,12 @@
 			bound_width = ICON_SIZE_X
 			bound_height = width * ICON_SIZE_Y
 
-/obj/structure/grille/fence/east_west
-	//width=80
-	//height=42
-	icon='icons/obj/fence-ew.dmi'
-
-/obj/structure/grille/fence/north_south
-	//width=80
-	//height=42
-	icon='icons/obj/fence-ns.dmi'
-
-
 /obj/structure/grille/examine(mob/user)
 	. = ..()
 	if(anchored)
-		. += "<span class='notice'>It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.</span>"
+		. += span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")
 	if(!anchored)
-		. += "<span class='notice'>The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.</span>"
+		. += span_notice("The anchoring screws are <i>unscrewed</i>. The rods look like they could be <b>cut</b> through.")
 
 /obj/structure/grille/ratvar_act()
 	if(broken)
@@ -99,14 +89,12 @@
 	take_damage(25 * levels) //second time turn into broken
 	. &= ~(FALL_INTERCEPTED | FALL_NO_MESSAGE | FALL_RETAIN_PULL)
 
-
 /obj/structure/grille/Bumped(atom/movable/moving_atom)
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, shock_cooldown) || !ismob(moving_atom))
 		return .
 	shock(moving_atom, 70)
 	COOLDOWN_START(src, shock_cooldown, 1 SECONDS)
-
 
 /obj/structure/grille/attack_animal(mob/user)
 	. = ..()
@@ -135,7 +123,6 @@
 	if(!shock(user, 70))
 		take_damage(user.obj_damage, BRUTE, MELEE, 1, armour_penetration = user.armour_penetration)
 
-
 /obj/structure/grille/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -143,14 +130,12 @@
 	if(!. && isprojectile(mover))
 		return prob(30)
 
-
 /obj/structure/grille/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
 	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
 		return TRUE
 	return FALSE
-
 
 /obj/structure/grille/attackby(obj/item/I, mob/user, params)
 	var/obj/structure/window/window = locate() in loc
@@ -194,7 +179,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/grille/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -262,10 +246,10 @@
 		W.setDir(dir_to_set)
 		W.ini_dir = dir_to_set
 		W.set_anchored(FALSE)
+		recalculate_atmos_connectivity()
 		W.state = WINDOW_OUT_OF_FRAME
 		to_chat(user, span_notice("You place the [W] on [src]."))
 		W.update_nearby_icons()
-
 
 /obj/structure/grille/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -313,10 +297,10 @@
 			return FALSE
 	return FALSE
 
-/obj/structure/grille/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/grille/temperature_expose(temperature, volume)
 	..()
 	if(!broken)
-		if(exposed_temperature > T0C + 1500)
+		if(temperature > T0C + 1500)
 			take_damage(1, BURN, 0, 0)
 
 /obj/structure/grille/hitby(atom/movable/atom_movable, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

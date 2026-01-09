@@ -15,11 +15,11 @@
 	status_flags = CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	pixel_y_lying_offset = -20
+	hud_type = /datum/hud/devil
+	tts_seed = "Mannoroth"
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
-	hud_type = /datum/hud/devil
-	tts_seed = "Mannoroth"
 
 /mob/living/carbon/true_devil/get_ru_names()
 	return list(
@@ -28,9 +28,8 @@
 		DATIVE = "истинному Дьяволу",
 		ACCUSATIVE = "истинного Дьявола",
 		INSTRUMENTAL = "истинным Дьяволом",
-		PREPOSITIONAL = "истинном Дьяволе"
+		PREPOSITIONAL = "истинном Дьяволе",
 	)
-
 
 /mob/living/carbon/true_devil/ascended
 	name = "Arch Devil"
@@ -43,19 +42,6 @@
 
 /mob/living/carbon/true_devil/ascended/ex_act(severity, ex_target)
 	return FALSE
-
-/mob/living/carbon/true_devil/ascended/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/flamer_fire_act(damage)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/handle_flamer_fire_crossed(obj/flamer_fire/fire)
-	return FALSE
-
 
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
@@ -81,28 +67,26 @@
 	name = devilinfo.info.truename
 	real_name = name
 
-
 /mob/living/carbon/true_devil/death(gibbed)
 	. = ..(gibbed)
 	drop_all_held_items()
 
-
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = span_notice("Это [bicon(src)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
+	var/msg = span_notice("Это [icon2html(src, user)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
 
 	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
-			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(l_hand, user)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
 		else
-			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(l_hand, user)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
 
 	//right hand
 	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
-			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
+			msg += span_warning("[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(r_hand, user)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
 		else
-			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
+			msg += "[GEND_HE_SHE_CAP(src)] держ[PLUR_IT_AT(src)] [icon2html(r_hand, user)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
 
 	//Braindead
 	if(!client && stat != DEAD)
@@ -117,7 +101,6 @@
 		msg += span_warning("Внутри его ран можно разглядеть адское пламя.\n")
 
 	. = list(msg)
-
 
 /mob/living/carbon/true_devil/r_arm_broken()
 	return FALSE
@@ -137,7 +120,6 @@
 		// I am the worst
 		return atom.attack_hand(src)
 		// If the devil wants to actually attack, they have the pitchfork.
-
 
 /mob/living/carbon/true_devil/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	return TRUE
@@ -162,8 +144,8 @@
 		if(INTENT_HARM)
 			var/damage = rand(1, 5)
 			playsound(loc, SFX_PUNCH, 25, TRUE, -1)
-			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"), \
-					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] ударил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
+					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] ударил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
 			adjustBruteLoss(damage)
 			add_attack_logs(M, src, "attacked")
 
@@ -180,20 +162,19 @@
 				Paralyse(4 SECONDS)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 				add_attack_logs(M, src, "pushed")
-				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"), \
-						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] повалил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
+						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] повалил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
 				return FALSE
 
 			if(!prob(25))
 				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "попытался", "попыталась", "попыталось", "попытались")] обезоружить [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] попытал[GEND_SYA_AS_OS_IS(M)] обезоружить [declent_ru(ACCUSATIVE)]!"))
 				return FALSE
 
 			drop_from_active_hand()
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"), \
-			span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"))
-
+			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"), \
+			span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] обезоружил[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]!"))
 
 /mob/living/carbon/true_devil/handle_breathing()
 	return
@@ -215,7 +196,81 @@
 		adjustBruteLoss(b_loss)
 	return ..()
 
+/mob/living/carbon/true_devil/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	return FALSE
+
+/mob/living/carbon/true_devil/flamer_fire_act(damage)
+	return FALSE
+
+/mob/living/carbon/true_devil/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
+	return FALSE
+
+/mob/living/carbon/true_devil/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	return FALSE
+
 /mob/living/carbon/true_devil/handle_critical_condition()
 	if(health > 0)
 		return
 	adjustOxyLoss(10)
+
+/mob/living/carbon/true_devil/krampus
+	name = "Krampus"
+	desc = "Он пришел тебя наказать. Лучше беги."
+	icon_state = "arch_krampus"
+	health = 800
+	maxHealth = 800
+	var/list/bag_content
+	var/static/list/spell_list = list(
+		/obj/effect/proc_holder/spell/conjure_item/krampus_bag,
+		/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus,
+		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/aoe/devil_fire,
+		/obj/effect/proc_holder/spell/infernal_jaunt,
+	)
+
+/mob/living/carbon/true_devil/krampus/get_ru_names()
+	return list(
+		NOMINATIVE = "Крампус",
+		GENITIVE = "Крампуса",
+		DATIVE = "Крампусу",
+		ACCUSATIVE = "Крампуса",
+		INSTRUMENTAL = "Крампусом",
+		PREPOSITIONAL = "Крампусе",
+	)
+
+/mob/living/carbon/true_devil/krampus/Initialize(mapload, mob/living/carbon/dna_source)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SNOWSTORM_IMMUNE, INNATE_TRAIT)
+	for(var/spell in spell_list)
+		AddSpell(new spell)
+
+/mob/living/carbon/true_devil/krampus/Destroy()
+	var/turf/drop_loc = get_turf(src)
+
+	for(var/atom/movable/atom as anything in bag_content)
+		atom.forceMove(drop_loc)
+
+		if(!isliving(atom))
+			continue
+
+		var/mob/living/mob = atom
+		mob.revive()
+
+	. = ..()
+
+/mob/living/carbon/true_devil/krampus/Login()
+	. = ..()
+	mind.add_antag_datum(/datum/antagonist/krampus)
+
+/mob/living/carbon/true_devil/krampus/death(gibbed)
+	if(!gibbed)
+		dust()
+		return
+	. = ..()
+
+/mob/living/carbon/true_devil/krampus/gib()
+	dust()
+
+/mob/living/carbon/true_devil/krampus/melt()
+	dust()
+

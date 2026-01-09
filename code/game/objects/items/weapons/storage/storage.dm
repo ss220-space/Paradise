@@ -58,7 +58,6 @@
 	/// Lazy list of mobs which are currently viewing the storage inventory.
 	var/list/mobs_viewing
 
-
 /obj/item/storage/Initialize(mapload)
 	. = ..()
 
@@ -101,7 +100,6 @@
 	QDEL_LIST_ASSOC_VAL(storage_boxes)
 	LAZYCLEARLIST(mobs_viewing)
 
-
 /obj/item/storage/forceMove(atom/destination)
 	. = ..()
 	if(!destination || ismob(destination.loc))
@@ -122,11 +120,9 @@
 		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 		target.handle_item_insertion(thing, user)
 
-/obj/item/storage/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/storage/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!isliving(usr))
 		return FALSE
-
-	var/mob/living/user = usr
 
 	// Stops inventory actions in a mech, while ventcrawling and while being incapacitated
 	if(ismecha(user.loc) || is_ventcrawling(user) || user.incapacitated())
@@ -156,7 +152,7 @@
 
 		user.face_atom(over_object)
 		user.visible_message(
-			span_notice("[user] опустоша[pluralize_ru(user.gender, "ет", "ют")] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] опустоша[PLUR_ET_YUT(user)] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 		)
 		var/turf/object_turf = get_turf(over_object)
@@ -167,7 +163,6 @@
 		return FALSE
 
 	return ..()
-
 
 /obj/item/storage/click_alt(mob/user)
 	if(isobserver(user))
@@ -617,12 +612,12 @@
 	if(length(can_hold))
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[pluralize_ru(gender, "ит", "ят")] для [W.declent_ru(GENITIVE)]!"))
+			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	if(W.w_class > max_w_class)
@@ -663,7 +658,7 @@
 	// item unequip delay
 	if(usr && W.equip_delay_self > 0 && W.loc == usr && !usr.is_general_slot(usr.get_slot_by_item(W)))
 		usr.visible_message(
-			span_notice("[usr] начина[pluralize_ru(usr.gender, "ет", "ют")] снимать [W.declent_ru(ACCUSATIVE)]."),
+			span_notice("[usr] начина[PLUR_ET_YUT(usr)] снимать [W.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),
 		)
 		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE))
@@ -720,9 +715,9 @@
 				if(M == usr)
 					to_chat(usr, span_notice("Вы помещаете [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message(span_notice("[usr] помеща[pluralize_ru(usr.gender, "ет", "ют")] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message(span_notice("[usr] помеща[pluralize_ru(usr.gender, "ет", "ют")] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+					M.show_message(span_notice("[usr] помеща[PLUR_ET_YUT(usr)] [W.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 		orient2hud(usr)
 		if(usr.s_active)
@@ -787,7 +782,6 @@
 		remove_from_storage(I, drop_loc)
 	qdel(src)
 
-
 //This proc is called when you want to place an item into the storage item.
 /obj/item/storage/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -808,7 +802,6 @@
 
 	handle_item_insertion(I)
 	return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/storage/attack_hand(mob/user)
 	if(ishuman(user))
@@ -843,7 +836,7 @@
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Режим сбора"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
@@ -854,7 +847,7 @@
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Выбросить содержимое"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

@@ -11,18 +11,20 @@
 /// Seethrough component for the ratvar wreck, in shape of the ratvar wreck
 #define SEE_THROUGH_MAP_RATVAR_WRECK "ratvar"
 
-/** global statics for the see_through_component coordinate maps
-* For ease of use, include a comment in the shape of the coordinate map, where O is nothing, X is a hidden tile and A is the object
-* List-coordinate layout is list(relative_x, relative_y, relative_z)
-* Turf finding algorithm needs the z and you can totally use it, but I can't think of any reason to ever do it
-* Also it'd be really cool if you could keep the list-coordinates in here represent their actual relative coords, dont use tabs though since their spacing can differ
-*/
+/**
+ * global statics for the see_through_component coordinate maps
+ * 
+ * For ease of use, include a comment in the shape of the coordinate map, where O is nothing, X is a hidden tile and A is the object
+ * List-coordinate layout is list(relative_x, relative_y, relative_z)
+ * Turf finding algorithm needs the z and you can totally use it, but I can't think of any reason to ever do it
+ * Also it'd be really cool if you could keep the list-coordinates in here represent their actual relative coords, dont use tabs though since their spacing can differ
+ */
 GLOBAL_LIST_INIT(see_through_maps, list(
 	// X
 	// A
 	SEE_THROUGH_MAP_DEFAULT = list(
-	/*----------------*/list(0, 1, 0),
-	/*----------------*/list(0, 0, 0)
+		/*------------*/list(0, 1, 0),
+		/*------------*/list(0, 0, 0),
 	),
 
 	// XXX
@@ -32,16 +34,16 @@ GLOBAL_LIST_INIT(see_through_maps, list(
 	SEE_THROUGH_MAP_THREE_X_THREE = list(
 		list(-1, 3, 0), list(0, 3, 0), list(1, 3, 0),
 		list(-1, 2, 0), list(0, 2, 0), list(1, 2, 0),
-		list(-1, 1, 0), list(0, 1, 0), list(1, 1, 0)
+		list(-1, 1, 0), list(0, 1, 0), list(1, 1, 0),
 	),
 
 	// X
 	// X
 	// A
 	SEE_THROUGH_MAP_DEFAULT_TWO_TALL = list(
-	/*----------------*/list(0, 2, 0),
-	/*----------------*/list(0, 1, 0),
-	/*----------------*/list(0, 0, 0)
+		/*------------*/list(0, 2, 0),
+		/*------------*/list(0, 1, 0),
+		/*------------*/list(0, 0, 0),
 	),
 
 	// XXX
@@ -73,5 +75,4 @@ GLOBAL_LIST_INIT(see_through_maps, list(
 		list(0, 0, 0), list(1, 0, 0), list(2, 0, 0), list(3, 0, 0), list(4, 0, 0), list(5, 0, 0), list(6, 0, 0), list(7, 0, 0), list(8, 0, 0), list(9, 0, 0), list(10, 0, 0), list(11, 0, 0), list(12, 0, 0), list(13, 0, 0)
 	)
 ))
-
 

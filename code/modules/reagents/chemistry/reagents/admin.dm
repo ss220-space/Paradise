@@ -10,20 +10,25 @@
 	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
-	M.setCloneLoss(0, FALSE)
 	M.setOxyLoss(0, FALSE)
+	M.adjustCloneLoss(-5, FALSE)
 	M.radiation = 0
 	M.adjustBruteLoss(-5, FALSE)
 	M.adjustFireLoss(-5, FALSE)
 	M.adjustToxLoss(-5, FALSE)
-	M.setBrainLoss(0, FALSE)
+	M.adjustBrainLoss(-5, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
 			organ.internal_receive_damage(-5)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			if(!prob(40))
+				continue
+
 			bodypart.mend_fracture()
 			bodypart.stop_internal_bleeding()
+			bodypart.stop_arterial_bleeding()
+			bodypart.stop_bleeding()
 		H.remove_all_parasites()
 	M.SetEyeBlind(0)
 	M.CureNearsighted(FALSE)
@@ -44,7 +49,6 @@
 	M.SetSilence(0)
 	M.SetHallucinate(0)
 	M.SetDeaf(0)
-	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT))
 	M.SetDizzy(0)
 	M.SetDrowsy(0)
 	M.SetStuttering(0)
@@ -54,7 +58,7 @@
 	M.SetJitter(0)
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
-		if(D.severity == NONTHREAT)
+		if(D.severity == DISEASE_SEVERITY_POSITIVE)
 			continue
 		D.cure(need_immunity = FALSE)
 	..()
@@ -87,7 +91,7 @@
 		qdel(O)
 	if(istype(O, /obj/effect/decal/cleanable/blood) || istype(O, /obj/effect/decal/cleanable/vomit))
 		qdel(O)
-	if(istype(O, /obj/item/mmi))
+	if(is_mmi(O))
 		qdel(O)
 
 /datum/reagent/admin_cleaner/item
@@ -102,7 +106,7 @@
 /datum/reagent/admin_cleaner/all
 	name = "WD-2381-ALL"
 	id = "admincleaner_all"
-	description = "Невероятно опасный набор нанитов, созданный Уборщиками Синдиката, которые пожирают всё, к чему прикасаются."
+	description = "Невероятно опасный набор нанитов, созданный Уборщиками \"Синдиката\", которые пожирают всё, к чему прикасаются."
 
 /datum/reagent/admin_cleaner/all/reaction_obj(obj/O, volume)
 	if(istype(O, /obj/item/grenade/clusterbuster/segment))

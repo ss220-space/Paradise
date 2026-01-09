@@ -81,9 +81,9 @@
 	)
 
 	autohiss_basic_map = list(
-			"r" = list("r", "rr", "rrr"),
-			"р" = list("р", "рр", "ррр")
-		)
+		"r" = list("r", "rr", "rrr"),
+		"р" = list("р", "рр", "ррр"),
+	)
 	autohiss_exempt = list("Канилунц")
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
@@ -102,3 +102,6 @@
 	remove_verb(H, /mob/living/carbon/human/proc/emote_swag)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_howl)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_growl)
+
+/datum/species/vulpkanin/compressor_grind(location)
+	new /obj/item/reagent_containers/food/snacks/vulpix(location)

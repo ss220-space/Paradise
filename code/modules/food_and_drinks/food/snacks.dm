@@ -44,7 +44,7 @@
 	if(reagents && !reagents.total_volume)
 		if(M == user)
 			to_chat(user, span_notice("Вы доели [declent_ru(ACCUSATIVE)]."))
-		user.visible_message(span_notice("[M] доел[genderize_ru(M.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_notice("[M] доел[GEND_A_O_I(M)] [declent_ru(ACCUSATIVE)]."))
 		user.drop_item_ground(src)	//so icons update :[
 		Post_Consume(M)
 		var/obj/item/trash_item = generate_trash(user)
@@ -63,7 +63,6 @@
 		return ..()
 	else
 		return
-
 
 /obj/item/reagent_containers/food/snacks/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target) || (user.a_intent == INTENT_HARM && force))
@@ -94,7 +93,6 @@
 	bitecount++
 	On_Consume(target, user)
 
-
 /obj/item/reagent_containers/food/snacks/afterattack(obj/target, mob/user, proximity, params)
 	return
 
@@ -108,7 +106,6 @@
 				. += span_notice("[src] was bitten [bitecount] times!")
 			else
 				. += span_notice("[src] was bitten multiple times!")
-
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -144,7 +141,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/reagent_containers/food/snacks/proc/generate_trash(atom/location)
 	if(trash)
@@ -217,11 +213,10 @@
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/reagent_containers/food/snacks/sliceable/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I) || (slices_num <= 0 || !slices_num) || !slice_path)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || (slices_num <= 0 || !slices_num) || !slice_path)
 		return .
 
 	if(!isturf(loc))
@@ -261,20 +256,9 @@
 		reagents.trans_to(slice, reagents_per_slice)
 	qdel(src)
 
-
 ////////////////////////////////////////////////////////////////////////////////
 /// FOOD END
 ////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
 
 //////////////////////////////////////////////////
 ////////////////////////////////////////////Snacks

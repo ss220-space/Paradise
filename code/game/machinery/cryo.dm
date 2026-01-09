@@ -31,7 +31,6 @@
 
 	var/running_bob_animation = 0 // This is used to prevent threads from building up if update_icons is called multiple times
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/get_ru_names()
 	return list(
 		NOMINATIVE = "криогенная капсула",
@@ -39,28 +38,25 @@
 		DATIVE = "криогенной капсуле",
 		ACCUSATIVE = "криогенную капсулу",
 		INSTRUMENTAL = "криогенной капсулой",
-		PREPOSITIONAL = "криогенной капсуле"
+		PREPOSITIONAL = "криогенной капсуле",
 	)
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/power_change(forced = FALSE)
 	..()
 	if(stat & (BROKEN|NOPOWER))
 		set_light_on(FALSE)
 	else
-		set_light(2)
-
+		set_light(1.5, 1, LIGHT_COLOR_CYAN)
 
 /obj/machinery/atmospherics/unary/cryo_cell/examine(mob/user)
 	. = ..()
 	if(occupant)
 		if(occupant.is_dead())
-			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [genderize_ru(occupant.gender, "Он мёртв", "Она мертва", "Оно мертво", "Они мертвы")]!")
+			. += span_warning("Вы видите гуманоида внутри. Это [occupant.name]. [GEND_HE_SHE_CAP(occupant)] мертв[GEND_A_O_Y(occupant)]!")
 		else
 			. += span_notice("Вы видите гуманоида внутри. Это [occupant.name].")
 	if(Adjacent(user))
 		. += span_notice("Наведите курсор на пациента, зажмите <b>ЛКМ</b> и перетяните на [declent_ru(ACCUSATIVE)], чтобы поместить пациента внутрь.")
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/Initialize(mapload)
 	. = ..()
@@ -160,14 +156,14 @@
 		balloon_alert(user, "руки субъекта заняты!")
 		return TRUE
 	if(L.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[L] не помест[pluralize_ru(L.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(L.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(user, span_warning("[L] не помест[PLUR_IT_YAT(L)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(L)] сидит слайм!"))
 		return TRUE
 	. = TRUE
 	if(put_mob(L))
 		if(L == user)
-			visible_message("[user] начинает[pluralize_ru(user.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начинает[PLUR_ET_YUT(user)] залезать в [declent_ru(ACCUSATIVE)].")
 		else
-			visible_message("[user] начина[pluralize_ru(user.gender,"ет","ют")] укладывать [L] в [declent_ru(ACCUSATIVE)].")
+			visible_message("[user] начина[PLUR_ET_YUT(user)] укладывать [L] в [declent_ru(ACCUSATIVE)].")
 			add_attack_logs(user, L, "put into a cryo cell at [COORD(src)].", ATKLOG_ALL)
 			if(user.pulling == L)
 				user.stop_pulling()
@@ -198,16 +194,14 @@
 		return
 
 	if(air_contents)
-		temperature_archived = air_contents.temperature
+		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
-	if(abs(temperature_archived-air_contents.temperature) > 1)
+	if(abs(temperature_archived-air_contents.temperature()) > 1)
 		parent.update = 1
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/AllowDrop()
 	return FALSE
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/relaymove(mob/user)
 	if(user.stat)
@@ -257,11 +251,11 @@
 		occupantData["bodyTemperature"] = occupant.bodytemperature
 	data["occupant"] = occupantData
 
-	data["cellTemperature"] = round(air_contents.temperature)
+	data["cellTemperature"] = round(air_contents.temperature())
 	data["cellTemperatureStatus"] = "good"
-	if(air_contents.temperature > T0C) // if greater than 273.15 kelvin (0 celcius)
+	if(air_contents.temperature() > T0C) // if greater than 273.15 kelvin (0 celcius)
 		data["cellTemperatureStatus"] = "bad"
-	else if(air_contents.temperature > TCRYO)
+	else if(air_contents.temperature() > TCRYO)
 		data["cellTemperatureStatus"] = "average"
 
 	data["isBeakerLoaded"] = beaker ? TRUE : FALSE
@@ -314,7 +308,6 @@
 
 	add_fingerprint(usr)
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -332,13 +325,12 @@
 			return ..()
 		beaker = glass
 		add_attack_logs(user, null, "Added [glass] containing [glass.reagents.log_list()] to a cryo cell at [COORD(src)]")
-		visible_message(span_notice("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [glass] в [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] вставля[PLUR_ET_YUT(user)] [glass] в [declent_ru(ACCUSATIVE)]."))
 		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -351,11 +343,10 @@
 		balloon_alert(grabber, "внутри кто-то есть!")
 		return .
 	if(grabbed_thing.has_buckled_mobs()) //mob attached to us
-		to_chat(grabber, span_warning("[grabbed_thing] не помест[pluralize_ru(grabbed_thing.gender, "ит", "ят")]ся в [declent_ru(ACCUSATIVE)], пока на [genderize_ru(grabbed_thing.gender, "нём", "ней", "нём", "них")] сидит слайм!"))
+		to_chat(grabber, span_warning("[grabbed_thing] не помест[PLUR_IT_YAT(grabbed_thing)]ся в [declent_ru(ACCUSATIVE)], пока на [GEND_ON_IN_HIM(grabbed_thing)] сидит слайм!"))
 		return .
 	if(put_mob(grabbed_thing))
 		return
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/crowbar_act(mob/user, obj/item/I)
 	if(default_deconstruction_crowbar(user, I))
@@ -368,10 +359,8 @@
 	if(default_deconstruction_screwdriver(user, "pod0-o", "pod0", I))
 		return TRUE
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/update_icon_state()
 	icon_state = "pod[on]" //set the icon properly every time
-
 
 /obj/machinery/atmospherics/unary/cryo_cell/update_overlays()
 	. = ..()
@@ -397,7 +386,6 @@
 
 		. += mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/proc/process_occupant()
 	if(air_contents.total_moles() < 10)
 		return
@@ -407,7 +395,7 @@
 			var/stun_time = (max(5 / efficiency, (1 / occupant.bodytemperature) * 2000/efficiency)) STATUS_EFFECT_CONSTANT
 			occupant.Sleeping(stun_time)
 			occupant.Paralyse(stun_time)
-			if(air_contents.oxygen > 2)
+			if(air_contents.oxygen() > 2)
 				if(occupant.getOxyLoss())
 					occupant.adjustOxyLoss(-6)
 			else
@@ -427,16 +415,15 @@
 	if(next_trans == 17)
 		next_trans = 0
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/proc/heat_gas_contents()
 	if(!occupant)
 		return
 	var/cold_protection = 0
-	var/temperature_delta = air_contents.temperature - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
+	var/temperature_delta = air_contents.temperature() - occupant.bodytemperature // The only semi-realistic thing here: share temperature between the cell and the occupant.
 
 	if(ishuman(occupant))
 		var/mob/living/carbon/human/H = occupant
-		cold_protection = H.get_cold_protection(air_contents.temperature)
+		cold_protection = H.get_cold_protection(air_contents.temperature())
 
 	if(abs(temperature_delta) > 1)
 		var/air_heat_capacity = air_contents.heat_capacity()
@@ -444,7 +431,7 @@
 		var/heat = (1 - cold_protection) * conduction_coefficient * temperature_delta * \
 			(air_heat_capacity * current_heat_capacity / (air_heat_capacity + current_heat_capacity))
 
-		air_contents.temperature = clamp(air_contents.temperature - heat / air_heat_capacity, TCMB, INFINITY)
+		air_contents.set_temperature(clamp(air_contents.temperature() - heat / air_heat_capacity, TCMB, INFINITY))
 		occupant.adjust_bodytemperature(heat / current_heat_capacity, TCMB)
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/go_out()
@@ -489,9 +476,9 @@
 
 	add_fingerprint(usr)
 	if(M == usr)
-		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] залезать в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начина[PLUR_ET_YUT(usr)] залезать в [declent_ru(ACCUSATIVE)].")
 	else
-		visible_message("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] укладывать [M] в [declent_ru(ACCUSATIVE)].")
+		visible_message("[usr] начина[PLUR_ET_YUT(usr)] укладывать [M] в [declent_ru(ACCUSATIVE)].")
 
 	if(!do_after(usr, 2 SECONDS, M))
 		return
@@ -504,16 +491,14 @@
 	M.ExtinguishMob()
 	return TRUE
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/click_alt(mob/living/carbon/user)
 	go_out()
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_eject()
 	set name = "Извлечь пациента"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr == occupant)//If the user is inside the tube...
@@ -533,7 +518,6 @@
 		go_out()
 	add_fingerprint(usr)
 
-
 /obj/machinery/atmospherics/unary/cryo_cell/narsie_act()
 	go_out()
 	new /obj/effect/gibspawner/generic(get_turf(loc)) //I REPLACE YOUR TECHNOLOGY WITH FLESH!
@@ -547,7 +531,7 @@
 
 /obj/machinery/atmospherics/unary/cryo_cell/verb/move_inside()
 	set name = "Залезть внутрь"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.has_buckled_mobs()) //mob attached to us
@@ -562,8 +546,6 @@
 
 	put_mob(usr)
 	return
-
-
 
 /datum/data/function/proc/reset()
 	return

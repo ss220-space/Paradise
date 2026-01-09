@@ -7,7 +7,7 @@
 	cures = list("milk")
 	cure_prob = 50
 	permeability_mod = 0.75
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_BIOHAZARD
 	mutation_reagents = list("mutagen", "radium")
 	possible_mutations = list(/datum/disease/virus/kingstons_advanced)
 
@@ -55,7 +55,6 @@
 					var/mob/living/carbon/human/catface = affected_mob
 					catface?.set_species(/datum/species/tajaran, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
-
 /datum/disease/virus/kingstons_advanced
 	name = "Улучшенный Синдром Кингстона"
 	agent = "Бактерии AMB45DR"
@@ -65,7 +64,7 @@
 	cures = list("plasma")
 	cure_prob = 50
 	permeability_mod = 0.75
-	severity = BIOHAZARD
+	severity = DISEASE_SEVERITY_BIOHAZARD
 	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi, /datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona)
 	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/datum/species/chosentype
@@ -118,7 +117,6 @@
 						H.visible_message(span_danger("[H.declent_ru(ACCUSATIVE)] царапает свою кожу!"), span_userdanger("Вы царапаете свою кожу, чтобы избавиться от зуда!"))
 						H.adjustBruteLoss(5)
 						affected_mob.Stun(rand(2 SECONDS, 4 SECONDS))
-
 
 /datum/disease/virus/kingstons_advanced/proc/make_sound(mob/living/carbon/human/H)
 	if(!istype(H))

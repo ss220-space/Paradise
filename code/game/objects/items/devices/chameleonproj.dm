@@ -22,7 +22,7 @@
 		DATIVE = "\"Хамелеон\"-проектору",
 		ACCUSATIVE = "\"Хамелеон\"-проектор",
 		INSTRUMENTAL = "\"Хамелеон\"-проектором",
-		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
+		PREPOSITIONAL = "\"Хамелеон\"-проекторе",
 	)
 
 /obj/item/chameleon/Initialize(mapload)
@@ -109,7 +109,6 @@
 	M.forceMove(src)
 	master = C
 	master.active_dummy = src
-
 
 /obj/effect/dummy/chameleon/proc/notify_disrupt(mob/attacker, mob/defender, obj/item)
 	to_chat(defender, span_danger("Your chameleon projector deactivates."))

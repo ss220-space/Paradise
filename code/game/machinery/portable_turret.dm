@@ -83,6 +83,10 @@
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
 
+	/// What lethal mode projectile with the turret start with?
+	var/initial_eprojectile = null
+	/// What non-lethal mode projectile with the turret start with?
+	var/initial_projectile = null
 
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
@@ -92,9 +96,8 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
-	AddComponent(/datum/component/proximity_monitor, scan_range, TRUE)
+	proximity_monitor = new(src, scan_range)
 	setup()
-
 
 /obj/machinery/porta_turret/HasProximity(atom/movable/AM)
 	handleInterloper(AM)
@@ -113,6 +116,7 @@
 
 /obj/machinery/porta_turret/Destroy()
 	QDEL_NULL(spark_system)
+	QDEL_NULL(proximity_monitor)
 	return ..()
 
 /obj/machinery/porta_turret/proc/setup()
@@ -162,13 +166,17 @@
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)
-			eprojectile = /obj/projectile/beam/pulse
+			eprojectile = /obj/projectile/beam/pulse/hitscan
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
+	if(initial_eprojectile)
+		eprojectile = initial_eprojectile
+
+	if(initial_projectile)
+		projectile = initial_projectile
 
 /obj/machinery/porta_turret/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return (stat & BROKEN) || !pass_info.is_living
-
 
 GLOBAL_LIST_EMPTY(turret_icons)
 
@@ -321,12 +329,10 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				req_access = list()
 				check_one_access = !check_one_access
 
-
 /obj/machinery/porta_turret/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/porta_turret/crowbar_act(mob/living/user, obj/item/I)
 	//If the turret is destroyed, you can remove it with a crowbar to
@@ -350,7 +356,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	else
 		to_chat(user, span_notice("You remove the turret but did not manage to salvage anything."))
 	qdel(src)
-
 
 /obj/machinery/porta_turret/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -377,7 +382,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("You [anchored ? "" : "un"]secure the exterior bolts on the turret."))
 
-
 /obj/machinery/porta_turret/attackby(obj/item/I, mob/user, params)
 	if(I.GetID() || is_pda(I))
 		add_fingerprint(user)
@@ -400,7 +404,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return .
 	attacked = TRUE
 	addtimer(VARSET_CALLBACK(src, attacked, FALSE), 6 SECONDS)
-
 
 /obj/machinery/porta_turret/attack_animal(mob/living/simple_animal/M)
 	M.changeNext_move(CLICK_CD_MELEE)
@@ -445,8 +448,11 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(force < 5)
 			return
 
+	if(health <= 0) //already died
+		return
+
 	health -= force
-	if(force > 5 && prob(45) && spark_system)
+	if(force > 5 && prob(45) && spark_system && !spark_system.total_effects)
 		spark_system.start()
 	if(health <= 0)
 		die()	//the death process :(
@@ -498,6 +504,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			take_damage(initial(health) * 8 / 3)
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
+	if(stat & BROKEN)
+		return
 	health = 0
 	stat |= BROKEN	//enables the BROKEN bit
 	if(spark_system)
@@ -641,7 +649,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		targets -= M
 		if(target(M))
 			return TRUE
-
 
 /obj/machinery/porta_turret/proc/popUp()	//pops the turret up
 	if(disabled)
@@ -815,10 +822,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	/// List of some inserted gun data. Used to setup new gun.
 	var/list/old_gun_data = list()
 
-
 /obj/machinery/porta_turret_construct/update_icon_state()
 	icon_state = "turret_frame[build_step >= TURRET_BUILD_ARMORED ? "2" : ""]"
-
 
 /obj/machinery/porta_turret_construct/wrench_act(mob/living/user, obj/item/I)
 	if(build_step != TURRET_BUILD_LOOSEN && build_step != TURRET_BUILD_ANCHORED && build_step != TURRET_BUILD_ARMORED && build_step != TURRET_BUILD_ARMOR_SECURED)
@@ -854,7 +859,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			to_chat(user, span_notice("You remove the turret's metal armor bolts."))
 			build_step = TURRET_BUILD_ARMORED
 
-
 /obj/machinery/porta_turret_construct/crowbar_act(mob/living/user, obj/item/I)
 	if(build_step != TURRET_BUILD_LOOSEN)
 		return FALSE
@@ -864,7 +868,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	to_chat(user, span_notice("You dismantle the turret construction."))
 	new /obj/item/stack/sheet/metal(loc, 5)
 	qdel(src)
-
 
 /obj/machinery/porta_turret_construct/screwdriver_act(mob/living/user, obj/item/I)
 	if(build_step != TURRET_BUILD_PROX && build_step != TURRET_BUILD_HATCH_CLOSED)
@@ -879,7 +882,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(TURRET_BUILD_HATCH_CLOSED)
 			to_chat(user, span_notice("You open the internal access hatch."))
 			build_step = TURRET_BUILD_PROX
-
 
 /obj/machinery/porta_turret_construct/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -950,7 +952,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 	return ..()
 
-
 /obj/machinery/porta_turret_construct/welder_act(mob/user, obj/item/I)
 	if(build_step != TURRET_BUILD_ARMORED && build_step != TURRET_BUILD_COATED)
 		return FALSE
@@ -985,7 +986,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			turret.setup()
 			qdel(src)
 
-
 /obj/machinery/porta_turret_construct/attack_hand(mob/user)
 	switch(build_step)
 		if(TURRET_BUILD_GUN)
@@ -1012,7 +1012,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		else
 			return ..()
-
 
 /obj/machinery/porta_turret_construct/attack_ai()
 	return
@@ -1117,7 +1116,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	health = 100
 	projectile = /obj/projectile/bullet/weakbullet3
 	eprojectile = /obj/projectile/bullet/weakbullet3
-
 
 #undef TURRET_BUILD_LOOSEN
 #undef TURRET_BUILD_ANCHORED

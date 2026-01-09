@@ -76,7 +76,7 @@
 /**
  * returns every hearaing movable in view to the turf of source not taking into account lighting
  * useful when you need to maintain always being able to hear something if a sound is emitted from it and you can see it (and youre in range).
-	* otherwise this is just a more expensive version of get_hearers_in_LOS().
+ * otherwise this is just a more expensive version of get_hearers_in_LOS().
  *
  * * view_radius - what radius search circle we are using, worse performance as this increases
  * * source - object at the center of our search area. everything in get_turf(source) is guaranteed to be part of the search area
@@ -214,7 +214,6 @@
 	// Returns a list of mobs who can hear any of the radios given in @radios
 	for(var/obj/item/radio/radio as anything in radios)
 		. |= get_hearers_in_LOS(radio.canhear_range, radio)
-
 
 //Used when converting pixels to tiles to make them accurate
 #define OFFSET_X (0.5 / ICON_SIZE_X)
@@ -461,7 +460,6 @@
 			continue
 		sliced_turfs += checked_turf
 	return sliced_turfs
-
 
 /**
  * Behaves like the orange() proc, but only looks in the outer range of the function (The "peel" of the orange).

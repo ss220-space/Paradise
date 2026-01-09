@@ -8,10 +8,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_transform/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_transform/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
@@ -43,7 +41,6 @@
 	user.mind.transfer_to(Monster)
 	Monster.say(pick("RAAAAAAAARGH!", "HNNNNNNNNNGGGGGGH!", "GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", "AAAAAAARRRGH!" ))
 
-
 //HUMAN HULK
 
 //Dash
@@ -56,10 +53,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_dash/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_dash/cast(list/targets, mob/living/user)
 	var/turf/T = get_turf(get_step(user,user.dir))
@@ -81,8 +76,7 @@
 			if(M.pulling == user)
 				M.stop_pulling()
 
-
-		user.visible_message("<span class='warning'><b>[user.name]</b> dashes forward!</span>")
+		user.visible_message(span_warning("<b>[user.name]</b> dashes forward!"))
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(4 SECONDS)
@@ -200,7 +194,7 @@
 		to_chat(user, span_warning("You dash and slam your head against the inside of [container]! Ouch!"))
 		user.Paralyse(6 SECONDS)
 		user.Weaken(10 SECONDS)
-		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
+		container.visible_message(span_warning("<b>[user.loc]</b> emits a loud thump and rattles a bit."))
 		playsound(user, 'sound/effects/bang.ogg', CHANNEL_BUZZ)
 		var/wiggle = 6
 		while(wiggle > 0)
@@ -223,10 +217,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_jump/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_jump/cast(list/targets, mob/living/user)
 	var/failure = 0
@@ -247,7 +239,7 @@
 			if(M.pulling == user)
 				M.stop_pulling()
 
-		user.visible_message("<span class='warning'><b>[user.name]</b> takes a huge leap!</span>")
+		user.visible_message(span_warning("<b>[user.name]</b> takes a huge leap!"))
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(10 SECONDS)
@@ -317,7 +309,7 @@
 		to_chat(user, span_warning("You leap and slam your head against the inside of [container]! Ouch!"))
 		user.Paralyse(6 SECONDS)
 		user.Weaken(10 SECONDS)
-		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
+		container.visible_message(span_warning("<b>[user.loc]</b> emits a loud thump and rattles a bit."))
 		playsound(user, 'sound/effects/bang.ogg', CHANNEL_BUZZ)
 		var/wiggle = 6
 		while(wiggle > 0)
@@ -344,10 +336,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_honk/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_honk/cast(list/targets, mob/user)
 	if(user.incapacitated())
@@ -374,7 +364,6 @@
 			var /turf/simulated/victim_loc = M.loc
 			victim_loc.MakeSlippery(TURF_WET_LUBE, 5 SECONDS)
 
-
 //Hulk Joke
 /obj/effect/proc_holder/spell/hulk_joke
 	name = "Joke"
@@ -385,10 +374,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_joke/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_joke/cast(list/targets,mob/user)
 	if(user.incapacitated())
@@ -405,7 +392,6 @@
 	smoke.start()
 	playsound(user,pick('sound/spookoween/scary_clown_appear.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_horn3.ogg'),CHANNEL_BUZZ, 100)
 
-
 //Zilla
 
 //Hulk Mill
@@ -418,10 +404,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-
 /obj/effect/proc_holder/spell/hulk_mill/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/hulk_mill/cast(list/targets, mob/user = usr)
 	if(user.incapacitated())
@@ -448,9 +432,8 @@
 				M.apply_damage(2, used_weapon = "Tail")
 			playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
 			if(prob(3))
-				M.Weaken(4 SECONDS)
+				M.Knockdown(4 SECONDS)
 		sleep(1)
-
 
 //Harchok
 /obj/projectile/energy/hulkspit
@@ -462,10 +445,9 @@
 /obj/projectile/energy/hulkspit/on_hit(atom/target, def_zone = BODY_ZONE_CHEST, blocked = 0)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
-		M.Weaken(4 SECONDS)
+		M.Knockdown(4 SECONDS)
 		M.adjust_fire_stacks(20)
 		M.IgniteMob()
-
 
 /obj/effect/proc_holder/spell/fireball/hulk_spit
 	name = "Fire Spit"
@@ -473,22 +455,19 @@
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
-	selection_activated_message	= "<span class='notice'>Your prepare to spit fire! <b>Left-click to spit at a target!</b></span>"
+	selection_activated_message	= span_notice("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
 	selection_deactivated_message = span_notice("You swallow your spit...for now.")
 	fireball_type = /obj/projectile/energy/hulkspit
 	base_cooldown = 25 SECONDS
 	need_active_overlay = TRUE
-
 
 /obj/effect/proc_holder/spell/fireball/hulk_spit/can_cast(mob/living/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.incapacitated())
 		return FALSE
 	return ..()
 
-
 /obj/effect/proc_holder/spell/fireball/hulk_spit/update_icon_state()
 	return
-
 
 //Laser
 
@@ -496,7 +475,7 @@
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	action_icon_state = "lazer_hulk"
-	selection_activated_message	= "<span class='notice'>You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b></span>"
+	selection_activated_message	= span_notice("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
 	selection_deactivated_message = span_notice("You relax your eyes...for now.")
 	fireball_type = /obj/projectile/beam
 	base_cooldown = 7 SECONDS

@@ -47,7 +47,7 @@
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Гоняться за хвостом"
 	set desc = "d'awwww."
-	set category = STATPANEL_DOG
+	set category = VERB_CATEGORY_DOG
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
@@ -150,7 +150,6 @@
 			armorval += inventory_back.armor.getRating(attack_flag)
 	return armorval * 0.5
 
-
 /mob/living/simple_animal/pet/dog/corgi/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -182,7 +181,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 //Corgis are supposed to be simpler, so only a select few objects can actually be put
 //to be compatible with them. The objects are below.
@@ -334,13 +332,13 @@
 		inventory_head.forceMove(drop_location())
 		inventory_head = null
 	place_on_head(pick(possible_headwear))
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[pluralize_ru(gender, "ет", "ют")] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[PLUR_ET_YUT(src)] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
 
 ///Deadchat plays command that drops the current hat off Ian.
 /mob/living/simple_animal/pet/dog/corgi/proc/drop_hat()
 	if(!inventory_head)
 		return
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[pluralize_ru(gender, "ёт", "ут")] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[PLUR_YOT_UT(src)] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
 	inventory_head.forceMove(drop_location())
 	inventory_head = null
 	update_dog_fluff()
@@ -681,7 +679,7 @@
 	bark_sound = null	//No robo-bjork...
 	yelp_sound = null	//Or robo-Yelp.
 	tts_seed = "Glados"
-	var/emagged = 0
+	var/emagged = FALSE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1
@@ -734,7 +732,6 @@
 		if(target)
 			shootAt(target)
 
-
 /mob/living/simple_animal/pet/dog/corgi/borgi/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -754,7 +751,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /mob/living/simple_animal/pet/dog/corgi/borgi/death(gibbed)
 	// Only execute the below if we successfully died
@@ -788,7 +784,7 @@
 		DATIVE = "мопсу",
 		ACCUSATIVE = "мопса",
 		INSTRUMENTAL = "мопсом",
-		PREPOSITIONAL = "мопсе"
+		PREPOSITIONAL = "мопсе",
 	)
 
 /mob/living/simple_animal/pet/dog/pug/handle_automated_movement()

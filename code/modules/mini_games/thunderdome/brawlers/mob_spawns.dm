@@ -15,8 +15,8 @@
 		to_chat(user, span_warning("You are jobanned!"))
 		return
 	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
-		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
-			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] час[declension_ru(min_hours, "", "а", "ов")] типа [exp_type] для доступа к ней."))
+		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, FALSE, usr))
+			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] час[DECL_CREDIT(min_hours)] типа [exp_type] для доступа к ней."))
 			return
 	var/mob_use_prefs = FALSE
 	var/_mob_species = FALSE
@@ -32,7 +32,7 @@
 	create(plr = user, prefs = mob_use_prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 /obj/effect/mob_spawn/human/thunderdome/create(mob/dead/observer/plr, flavour, name, prefs, _mob_name, _mob_gender, _mob_species)
-	var/death_time_before = plr.timeofdeath
+	var/death_time_before = plr.persistent_client.time_of_death
 	var/mob/living/created = ..()
 	thunderdome.fighters += created
 	created.ignore_slowdown(THUNDERDOME_TRAIT)
@@ -43,6 +43,7 @@
 	name = "CQC Thunderdome Brawler"
 	mob_name = "Fighter"
 	icon = 'icons/mob/thunderdome_previews.dmi'
+	icon_state = "thunderman_preview_CqC"
 	flavour_text = "Станьте лучшим бойцом арены среди любителей ближнего боя!"
 	outfit = /datum/outfit/thunderdome/cqc
 
@@ -50,6 +51,7 @@
 	name = "Ranged Thunderdome Brawler"
 	mob_name = "Ranger"
 	icon = 'icons/mob/thunderdome_previews.dmi'
+	icon_state = "thunderman_preview_Ranged"
 	flavour_text = "Станьте лучшим бойцом арены среди любителей дальнего боя!"
 	outfit = /datum/outfit/thunderdome/ranged
 
@@ -57,5 +59,6 @@
 	name = "Mixed Thunderdome Brawler"
 	mob_name = "Gladiator"
 	icon = 'icons/mob/thunderdome_previews.dmi'
+	icon_state = "thunderman_preview_Mixed"
 	flavour_text = "Станьте лучшим бойцом арены среди любителей любого боя!"
 	outfit = /datum/outfit/thunderdome/mixed

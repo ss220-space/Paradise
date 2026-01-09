@@ -22,12 +22,6 @@
 /obj/machinery/atmospherics/pipe/cap/pipeline_expansion()
 	return list(node)
 
-/obj/machinery/atmospherics/pipe/cap/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
-
 /obj/machinery/atmospherics/pipe/cap/Destroy()
 	. = ..()
 	if(node)
@@ -51,7 +45,6 @@
 	if(node)
 		node.update_underlays()
 
-
 /obj/machinery/atmospherics/pipe/cap/update_overlays()
 	. = ..()
 	if(!check_icon_cache())
@@ -59,7 +52,6 @@
 
 	alpha = 255
 	. += SSair.icon_manager.get_atmos_icon("pipe", , pipe_color, "cap" + icon_connect_type)
-
 
 /obj/machinery/atmospherics/pipe/cap/atmos_init()
 	..()

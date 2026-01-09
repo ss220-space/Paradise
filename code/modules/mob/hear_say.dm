@@ -35,7 +35,7 @@
 		if(SP.speaking)
 			piece = SP.speaking.format_message(piece, speaker)
 		else
-			piece = "<span class='message'><span class='body'>[piece]</span></span>"
+			piece = span_message(span_body("[piece]"))
 		msg += (piece + " ")
 
 	if(msg == "")
@@ -90,10 +90,10 @@
 	return "[verb]: \"[message]\""
 
 /mob/proc/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
+	SEND_SIGNAL(src, COMSIG_MOVABLE_HEAR, speaker, message_pieces)
+
 	if(!client)
 		return 0
-
-
 
 	if(isobserver(src) && client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS)
 		if(speaker && !speaker.client && !(speaker in view(src)))
@@ -104,7 +104,7 @@
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
 	if(T && !isobserver(src))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
@@ -156,9 +156,9 @@
 		if(speaker == src)
 			to_chat(src, span_warning("Вы не слышите собственной речи!"))
 		else
-			to_chat(src, "[span_name(speaker.name)] что-то говор[pluralize_ru(speaker.gender, "ит", "ят")], но вы ничего не слышите!")
+			to_chat(src, "[span_name(speaker.name)] что-то говор[PLUR_IT_YAT(speaker)], но вы ничего не слышите!")
 	else
-		to_chat(src, span_gamesay("[span_name(speaker_name)][speaker.GetAltName()] [track][verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
+		to_chat(src, span_gamesay("[track][span_name(speaker_name)][speaker.GetAltName()] [verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
@@ -308,7 +308,6 @@
 
 	var/rendered = span_gamesay("[span_name(name)] [message]")
 	to_chat(src, rendered)
-
 
 /// Gets language for runechat message.
 /// Will return first found language if more than one is present, cause I have no time to remake this for now.

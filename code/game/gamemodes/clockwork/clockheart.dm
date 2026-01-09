@@ -145,7 +145,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 
 /obj/structure/clockwork/functional/heart/proc/heart_pulse()
 	if(!curse_dial)
-		obj_integrity = max(obj_integrity + 300, max_integrity)
+		obj_integrity = min(obj_integrity + 300, max_integrity)
 		enchanted_before = TRUE
 		select_pulse()
 		new /obj/effect/temp_visual/pulse(src.loc)
@@ -187,6 +187,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	GLOB.total_curses--
 	addtimer(CALLBACK(src, PROC_REF(heart_pulse)), 30 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), src, 'sound/magic/clockwork/heart_tick_tock.ogg', 100, FALSE, 0, SOUND_FALLOFF_EXPONENT, null, 0, TRUE, TRUE, SOUND_DEFAULT_FALLOFF_DISTANCE, TRUE), 4 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
+	SSticker.mode.check_clock_reveal()
 	qdel(dropping)
 	give_blessing(user)
 	update_icon(UPDATE_OVERLAYS)
@@ -231,7 +232,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	adjust_clockwork_power(-250)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] исчезает, и на его месте появляется Великий Ковчег!"))
 	var/area/summon_zone = get_area(src)
-	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
+	GLOB.major_announcement.announce("Была обнаружена аномально высокая концентрация энергии в [summon_zone.map_name]. Источник энергии указывает на попытку вызвать внепространственного бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.",
 		ANNOUNCE_CCPARANORMAL_RU,
 		'sound/AI/commandreport.ogg'
 	)
@@ -392,19 +393,16 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 	new /obj/effect/decal/cleanable/ash(user.loc)
 
-
 /obj/structure/part_dial/Initialize(mapload)
 	addtimer(CALLBACK(src, PROC_REF(pulse)), 10 SECONDS, TIMER_LOOP | TIMER_DELETE_ME)
 	GLOB.poi_list += src
 	. = ..()
-
 
 /obj/structure/part_dial/proc/pulse()
 	new /obj/effect/temp_visual/ratvar/reconstruct/part(src.loc)
 
 /obj/item/part_upper
 	name = "brass component"
-
 	desc = "Странная деталь из латуни."
 	icon ='icons/obj/clockwork.dmi'
 	icon_state = "ratvarpart3"
@@ -412,6 +410,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	resistance_flags = INDESTRUCTIBLE
 	mouse_drag_pointer = MOUSE_DRAG_POINTER
 	w_class = WEIGHT_CLASS_BULKY
+	can_put_in_closet = FALSE
 
 /obj/item/part_upper/get_ru_names()
 	return list(

@@ -6,12 +6,15 @@
 	fire_sound_text = "laser blast"
 	ammo_x_offset = 2
 
-	var/obj/item/stock_parts/cell/cell	//What type of power cell this uses
+	/// What type of power cell this uses
+	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell/laser
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
-	var/select = 1	//The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	/// The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	var/select = 1
 	var/modifystate = FALSE
-	var/shaded_charge = FALSE	//if this gun uses a stateful charge bar for more detail
+	/// If this gun uses a stateful charge bar for more detail
+	var/shaded_charge = FALSE
 	var/selfcharge = FALSE
 	/// Recharge rate if self-charging
 	var/recharge_rate = 100
@@ -25,8 +28,8 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
-
-	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
+	/// If a sibyl system's mod can be added or removed if it already has one
+	var/can_add_sibyl_system = TRUE
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
 	var/isclockwork = FALSE
 
@@ -34,7 +37,6 @@
 	. = ..()
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
-
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/sibyl_system_mod))
@@ -58,10 +60,9 @@
 
 	return ..()
 
-
 /obj/item/gun/energy/proc/toggle_voice()
 	set name = "Сменить голос Sibyl System"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Кликните для переключения голосовой подсистемы."
 
 	if(sibyl_mod)
@@ -140,7 +141,7 @@
 		return
 
 /obj/item/gun/energy/emp_act(severity)
-	cell.use(round(cell.charge / severity))
+	cell?.use(round(cell.charge / severity))
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -198,13 +199,11 @@
 /obj/item/gun/energy/proc/on_recharge()
 	newshot()
 
-
 /obj/item/gun/energy/attack_self(mob/living/user)
 	. = ..()
 	if(!. && length(ammo_type) > 1)
 		select_fire(user)
 		update_icon()
-
 
 /obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
 	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
@@ -216,7 +215,6 @@
 	if(!. && !silent)
 		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
 
-
 /obj/item/gun/energy/newshot()
 	if(!ammo_type || !cell)
 		return
@@ -227,7 +225,7 @@
 			if(!chambered.BB)
 				chambered.newshot()
 
-/obj/item/gun/energy/process_chamber()
+/obj/item/gun/energy/handle_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
 		var/obj/item/ammo_casing/energy/shot = chambered
 		cell.use(shot.e_cost)//... drain the cell cell
@@ -304,11 +302,9 @@
 	newshot()
 	update_icon()
 
-
 /obj/item/gun/energy/update_icon(updates = ALL)
 	. = ..()
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/gun/energy/update_icon_state()
 	icon_state = initial(icon_state)
@@ -328,7 +324,6 @@
 	if(current_skin)
 		icon_state = current_skin
 
-
 /obj/item/gun/energy/update_overlays()
 	. = ..()
 	if(isclockwork)
@@ -339,7 +334,7 @@
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
 		. += "[overlay_name]_[shot.select_name]"
-	if(cell.charge < shot.e_cost)
+	if(!cell || cell.charge < shot.e_cost)
 		. += "[overlay_name]_empty"
 	else
 		if(!shaded_charge)
@@ -349,8 +344,6 @@
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
-
-
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))
@@ -371,7 +364,6 @@
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
 
-
 /obj/item/gun/energy/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(var_name == NAMEOF(src, selfcharge))
@@ -379,7 +371,6 @@
 			START_PROCESSING(SSobj, src)
 		else
 			STOP_PROCESSING(SSobj, src)
-
 
 /obj/item/gun/energy/proc/robocharge()
 	if(cell.charge == cell.maxcharge)
@@ -392,18 +383,14 @@
 			if(R.cell.use(shot.e_cost))		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
 
-
 /obj/item/gun/energy/proc/turret_check()
 	return !HAS_TRAIT(src, TRAIT_NOT_TURRET_GUN)
-
 
 /obj/item/gun/energy/proc/turret_deconstruct(list/data)
 	return
 
-
 /obj/item/gun/energy/proc/prepare_gun_data(list/data)
 	return
-
 
 /obj/item/gun/energy/proc/setup_gun_for_turret(list/data)
 	return

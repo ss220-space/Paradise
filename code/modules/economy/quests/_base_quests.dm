@@ -66,7 +66,6 @@
 	if(length(customer.can_order))
 		quest_type = pick(customer.can_order)
 
-
 	if(!quest_type)
 		var/list/possible_types = list()
 		if((num_station_players() < MIN_PLAYERS_FOR_MIX) && (length(current_quests) == 2))
@@ -90,16 +89,15 @@
 
 	return new quest_type(src)
 
-
 /datum/cargo_quests_storage/proc/after_activated()
 	if(!fast_check_timer)
 		return
 	add_time()
-	if(world.time - time_start - 0.4 * quest_time + 120 SECONDS >= 0)
+	if(world.time - time_start - 0.4 * quest_time + 300 SECONDS >= 0)
 		deltimer(fast_check_timer)
 		fast_check_timer = addtimer(VARSET_CALLBACK(src, fast_failed, TRUE), 120 SECONDS, TIMER_STOPPABLE)
 
-/datum/cargo_quests_storage/proc/add_time(time = 3 MINUTES)
+/datum/cargo_quests_storage/proc/add_time(time = 5 MINUTES)
 	var/timeleft = time_start + quest_time - world.time
 	deltimer(quest_check_timer)
 	quest_time += time
@@ -163,7 +161,7 @@
 	/// Positions that will be paid. (Noooo I won't do part of this in new)
 	var/list/bounty_jobs = list()
 	/// The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
-	var/linked_departament = "Cargo"
+	var/linked_departament = STATION_DEPARTMENT_SUPPLY
 
 /datum/cargo_quest/New(storage, read_datum = FALSE)
 	if(!read_datum)

@@ -5,7 +5,7 @@
  */
 /datum/action/guardian
 	name = "Generic guardian host action"
-	icon_icon = 'icons/mob/guardian.dmi'
+	button_icon = 'icons/mob/guardian.dmi'
 	button_icon_state = "base"
 	var/mob/living/simple_animal/hostile/guardian/guardian
 
@@ -26,7 +26,7 @@
 	desc = "Телепатически свяжитесь со своим хранителем."
 	button_icon_state = "communicate"
 
-/datum/action/guardian/communicate/Trigger(left_click = TRUE)
+/datum/action/guardian/communicate/Trigger(mob/clicker, trigger_flags)
 	var/input = tgui_input_text(owner, "Введите сообщение для вашего хранителя:", "Сообщение")
 	if(!input)
 		return
@@ -39,7 +39,7 @@
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, span_changeling("<i>Сообщение от хранителя <b>[owner]</b> ([ghost_follow_link(owner, ghost=M)]): [input]</i>"))
+			to_chat(M, span_changeling("([ghost_follow_link(owner, ghost = M)])<i>Сообщение от хранителя <b>[owner]</b>: [input]</i>"))
 
 /**
  * # Recall guardian action
@@ -51,7 +51,7 @@
 	desc = "Принудительно отозвать вашего хранителя."
 	button_icon_state = "recall"
 
-/datum/action/guardian/recall/Trigger(left_click = TRUE)
+/datum/action/guardian/recall/Trigger(mob/clicker, trigger_flags)
 	guardian.Recall()
 
 /**
@@ -65,12 +65,12 @@
 	button_icon_state = "reset"
 	var/cooldown_timer
 
-/datum/action/guardian/reset_guardian/IsAvailable()
+/datum/action/guardian/reset_guardian/IsAvailable(feedback = FALSE)
 	if(cooldown_timer)
 		return FALSE
 	return TRUE
 
-/datum/action/guardian/reset_guardian/Trigger(left_click = TRUE)
+/datum/action/guardian/reset_guardian/Trigger(mob/clicker, trigger_flags)
 	if(cooldown_timer)
 		to_chat(owner, span_warning("Эта способность всё ещё перезаряжается."))
 		return
@@ -86,6 +86,9 @@
 	to_chat(owner, span_danger("Поиск подходящего призрака..."))
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
 
+	if(QDELETED(guardian) || QDELETED(owner))
+		return
+
 	if(!LAZYLEN(candidates))
 		to_chat(owner, span_danger("Не нашлось призраков, готовых взять управление вашим хранителем. Попробуйте снова через 5 минут."))
 		log_game("[owner](ckey: [owner.ckey]) has tried to replace their guardian, but there were no candidates willing to enroll.")
@@ -97,7 +100,7 @@
 	message_admins("[key_name_admin(new_stand)] has taken control of ([key_name_admin(guardian)])")
 
 	guardian.ghostize()
-	guardian.key = new_stand.key
+	guardian.possess_by_player(new_stand.key)
 	log_game("[guardian.key] has taken control of [guardian], owner: [guardian]")
 	qdel(src)
 

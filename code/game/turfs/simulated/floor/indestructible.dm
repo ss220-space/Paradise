@@ -22,10 +22,8 @@
 /turf/simulated/floor/indestructible/burn_down()
 	return
 
-
 /turf/simulated/floor/indestructible/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/indestructible/attack_hand(mob/user)
 	return
@@ -59,10 +57,11 @@
 	desc = "It's regarding you suspiciously."
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -84,10 +83,11 @@
 	icon_state = "boss"
 	smooth = SMOOTH_FALSE
 	baseturf = /turf/simulated/floor/indestructible/boss
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
 	oxygen = /turf/simulated/floor/lava::oxygen //lava near tendril
@@ -103,10 +103,11 @@
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	base_icon_state = "hierophant_floor"
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_HIERO_FLOOR
 	smoothing_groups = SMOOTH_GROUP_HIERO_FLOOR
@@ -197,7 +198,6 @@
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
-
 
 /turf/simulated/floor/indestructible/beach/sand/Initialize(mapload)
 	. = ..()			//adds some aesthetic randomness to the beach sand
@@ -297,7 +297,6 @@
 	density = TRUE
 	opacity = TRUE
 	explosion_block = 2
-
 
 /obj/effect/beach_water_overlay
 	name = "Water overlay that you shouldn't see"

@@ -61,12 +61,13 @@
 	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
 
 	//if true, we want to avoid any animation time, it'll tween and not rotate at all otherwise.
-	var/is_opposite_angle = SIMPLIFY_DEGREES(lying_angle + 180) == lying_prev
-	animate(src, transform = ntransform, time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+	var/is_opposite_angle = REVERSE_ANGLE(lying_angle) == lying_prev
+	var/animate_time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME
+	animate(src, transform = ntransform, time = animate_time, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+
 	handle_transform_change()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_UPDATE_TRANSFORM, resize, lying_angle, is_opposite_angle)
-
 
 /mob/living/proc/handle_transform_change()
 	return
@@ -76,7 +77,6 @@
 	if(.)
 		add_overlay(.)
 	SEND_SIGNAL(src, COMSIG_CARBON_APPLY_OVERLAY, cache_index, .)
-
 
 /mob/living/carbon/proc/remove_overlay(cache_index)
 	. = overlays_standing[cache_index]
@@ -172,14 +172,12 @@
 		return .
 	update_z_overlays(GET_TURF_PLANE_OFFSET(new_turf), TRUE)
 
-
 /mob/living/carbon/proc/refresh_loop(iter_cnt, rebuild = FALSE)
 	for(var/i in 1 to iter_cnt)
 		update_z_overlays(1, rebuild)
 		sleep(3)
 		update_z_overlays(0, rebuild)
 		sleep(3)
-
 
 // Rebuilding is a hack. We should really store a list of indexes into our existing overlay list or SOMETHING
 // IDK. will work for now though, which is a lot better then not working at all
@@ -193,7 +191,6 @@
 		if(!length(cache_grouping))
 			continue
 		overlays_standing[i] = update_appearance_planes(cache_grouping, new_offset)
-
 
 #define NEXT_PARENT_COMMAND "next_parent"
 /// Takes a list of mutable appearances
@@ -286,7 +283,6 @@
 	// And when walked backwards allow for proper plane updating
 	var/list/return_pack = list(queue, parent_indexes)
 	return return_pack
-
 
 /atom/proc/update_appearance_planes(list/mutable_appearance/appearances, new_offset)
 	var/list/build_list = build_planeed_apperance_queue(appearances)

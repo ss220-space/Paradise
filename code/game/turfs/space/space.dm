@@ -6,6 +6,7 @@
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = HEAT_CAPACITY_VACUUM
+	atmos_mode = ATMOS_MODE_SPACE
 
 	flags = NO_SCREENTIPS
 
@@ -17,9 +18,6 @@
 	// We do NOT want atmos adjacent turfs
 	init_air = FALSE
 
-	var/destination_z
-	var/destination_x
-	var/destination_y
 	plane = PLANE_SPACE
 	footstep = null
 	barefootstep = null
@@ -28,6 +26,10 @@
 	force_no_gravity = TRUE
 
 	transparent_floor = TURF_FULLTRANSPARENT
+
+	var/destination_z
+	var/destination_x
+	var/destination_y
 
 	//when this be added to vis_contents of something it be associated with something on clicking,
 	//important for visualisation of turf in openspace and interraction with openspace that show you turf.
@@ -90,7 +92,6 @@
 			set_light(2, l_on = TRUE)
 			return
 		set_light_on(FALSE)
-
 
 /turf/space/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -157,7 +158,6 @@
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
 
-
 /turf/space/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!arrived || !(src in arrived.locs))
@@ -174,7 +174,6 @@
 			if(current_pull.pulling == arrived) // pulling each other doesn't help but makes a loop
 				break
 			current_pull = current_pull.pulling
-
 
 /turf/space/proc/check_taipan_availability(atom/movable/arrived, destination_z)
 	if(!is_taipan(destination_z))
@@ -211,7 +210,6 @@
 	if(arrived_is_mob)
 		to_chat(arrived_mob, span_warning("Вы попадаете в загадочный сектор полный астероидов... Тут стоит быть осторожнее..."))
 	return destination_z
-
 
 /turf/space/proc/Sandbox_Spacemove(atom/movable/A as mob|obj)
 	var/cur_x

@@ -34,26 +34,22 @@
 		DATIVE = "защитному шлему плазмолюда",
 		ACCUSATIVE = "защитный шлем плазмолюда",
 		INSTRUMENTAL = "защитным шлемом плазмолюда",
-		PREPOSITIONAL = "защитном шлеме плазмолюда"
+		PREPOSITIONAL = "защитном шлеме плазмолюда",
 	)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/Initialize(mapload)
 	. = ..()
 	weldingvisortoggle(silent = TRUE)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/click_alt(mob/user)
 	weldingvisortoggle(user)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_helmet_light))
 		toggle_light(user)
 	else if(istype(action, /datum/action/item_action/toggle_welding_screen/plasmaman))
 		weldingvisortoggle(user)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/weldingvisortoggle(mob/user, silent = FALSE)
 	. = ..()
@@ -66,7 +62,6 @@
 	toggle_light()
 	if(user)
 		balloon_alert(user, "сварочный визор блокирует свет!")
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
 	if(!upgradable)
@@ -85,7 +80,6 @@
 			icon_state = "[initial(icon_state)]_reinf_full[on ? "-light":""]"
 			item_state = icon_state
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	if(!on && !up)
 		if(user)
@@ -98,11 +92,9 @@
 	update_equipped_item(update_speedmods = FALSE)
 	return TRUE
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/extinguish_light(force = FALSE)
 	if(on)
 		toggle_light()
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()
@@ -110,13 +102,11 @@
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.show_to(user)
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
 	. = ..()
 	if(HUDType && istype(user) && slot == ITEM_SLOT_HEAD)
 		var/datum/atom_hud/H = GLOB.huds[HUDType]
 		H.hide_from(user)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
 	name = "security plasma envirosuit helmet"
@@ -134,7 +124,7 @@
 		DATIVE = "защитному шлему службы безопасности",
 		ACCUSATIVE = "защитный шлем службы безопасности",
 		INSTRUMENTAL = "защитным шлемом службы безопасности",
-		PREPOSITIONAL = "защитном шлеме службы безопасности"
+		PREPOSITIONAL = "защитном шлеме службы безопасности",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/dec
@@ -152,7 +142,7 @@
 		DATIVE = "защитному шлему детектива",
 		ACCUSATIVE = "защитный шлем детектива",
 		INSTRUMENTAL = "защитным шлемом детектива",
-		PREPOSITIONAL = "защитном шлеме детектива"
+		PREPOSITIONAL = "защитном шлеме детектива",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/warden
@@ -168,7 +158,7 @@
 		DATIVE = "защитному шлему смотрителя",
 		ACCUSATIVE = "защитный шлем смотрителя",
 		INSTRUMENTAL = "защитным шлемом смотрителя",
-		PREPOSITIONAL = "защитном шлеме смотрителя"
+		PREPOSITIONAL = "защитном шлеме смотрителя",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/security/hos
@@ -184,7 +174,7 @@
 		DATIVE = "защитному шлему главы службы безопасности",
 		ACCUSATIVE = "защитный шлем главы службы безопасности",
 		INSTRUMENTAL = "защитным шлемом главы службы безопасности",
-		PREPOSITIONAL = "защитном шлеме главы службы безопасности"
+		PREPOSITIONAL = "защитном шлеме главы службы безопасности",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical
@@ -202,7 +192,7 @@
 		DATIVE = "защитному шлему врача",
 		ACCUSATIVE = "защитный шлем врача",
 		INSTRUMENTAL = "защитным шлемом врача",
-		PREPOSITIONAL = "защитном шлеме врача"
+		PREPOSITIONAL = "защитном шлеме врача",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical/brigphysician
@@ -218,7 +208,7 @@
 		DATIVE = "защитному шлему бригмедика",
 		ACCUSATIVE = "защитный шлем бригмедика",
 		INSTRUMENTAL = "защитным шлемом бригмедика",
-		PREPOSITIONAL = "защитном шлеме бригмедика"
+		PREPOSITIONAL = "защитном шлеме бригмедика",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical/coroner
@@ -234,7 +224,7 @@
 		DATIVE = "защитному шлему патологоанатома",
 		ACCUSATIVE = "защитный шлем патологоанатома",
 		INSTRUMENTAL = "защитным шлемом патологоанатома",
-		PREPOSITIONAL = "защитном шлеме патологоанатома"
+		PREPOSITIONAL = "защитном шлеме патологоанатома",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/medical/paramedic
@@ -250,7 +240,7 @@
 		DATIVE = "защитному шлему парамедика",
 		ACCUSATIVE = "защитный шлем парамедика",
 		INSTRUMENTAL = "защитным шлемом парамедика",
-		PREPOSITIONAL = "защитном шлеме парамедика"
+		PREPOSITIONAL = "защитном шлеме парамедика",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/cmo
@@ -269,7 +259,7 @@
 		DATIVE = "защитному шлему главного врача",
 		ACCUSATIVE = "защитный шлем главного врача",
 		INSTRUMENTAL = "защитным шлемом главного врача",
-		PREPOSITIONAL = "защитном шлеме главного врача"
+		PREPOSITIONAL = "защитном шлеме главного врача",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/genetics
@@ -286,7 +276,7 @@
 		DATIVE = "защитному шлему генетика",
 		ACCUSATIVE = "защитный шлем генетика",
 		INSTRUMENTAL = "защитным шлемом генетика",
-		PREPOSITIONAL = "защитном шлеме генетика"
+		PREPOSITIONAL = "защитном шлеме генетика",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/viro
@@ -303,7 +293,7 @@
 		DATIVE = "защитному шлему вирусолога",
 		ACCUSATIVE = "защитный шлем вирусолога",
 		INSTRUMENTAL = "защитным шлемом вирусолога",
-		PREPOSITIONAL = "защитном шлеме вирусолога"
+		PREPOSITIONAL = "защитном шлеме вирусолога",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/chemist
@@ -321,7 +311,7 @@
 		DATIVE = "защитному шлему химика",
 		ACCUSATIVE = "защитный шлем химика",
 		INSTRUMENTAL = "защитным шлемом химика",
-		PREPOSITIONAL = "защитном шлеме химика"
+		PREPOSITIONAL = "защитном шлеме химика",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/science
@@ -339,7 +329,7 @@
 		DATIVE = "защитному шлему учёного",
 		ACCUSATIVE = "защитный шлем учёного",
 		INSTRUMENTAL = "защитным шлемом учёного",
-		PREPOSITIONAL = "защитном шлеме учёного"
+		PREPOSITIONAL = "защитном шлеме учёного",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/science/xeno
@@ -356,7 +346,7 @@
 		DATIVE = "защитному шлему ксенобиолога",
 		ACCUSATIVE = "защитный шлем ксенобиолога",
 		INSTRUMENTAL = "защитным шлемом ксенобиолога",
-		PREPOSITIONAL = "защитном шлеме ксенобиолога"
+		PREPOSITIONAL = "защитном шлеме ксенобиолога",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/rd
@@ -375,7 +365,7 @@
 		DATIVE = "защитному шлему научного руководителя",
 		ACCUSATIVE = "защитный шлем научного руководителя",
 		INSTRUMENTAL = "защитным шлемом научного руководителя",
-		PREPOSITIONAL = "защитном шлеме научного руководителя"
+		PREPOSITIONAL = "защитном шлеме научного руководителя",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/robotics
@@ -392,7 +382,7 @@
 		DATIVE = "защитному шлему робототехника",
 		ACCUSATIVE = "защитный шлем робототехника",
 		INSTRUMENTAL = "защитным шлемом робототехника",
-		PREPOSITIONAL = "защитном шлеме робототехника"
+		PREPOSITIONAL = "защитном шлеме робототехника",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering
@@ -411,7 +401,7 @@
 		DATIVE = "защитному шлему инженера",
 		ACCUSATIVE = "защитный шлем инженера",
 		INSTRUMENTAL = "защитным шлемом инженера",
-		PREPOSITIONAL = "защитном шлеме инженера"
+		PREPOSITIONAL = "защитном шлеме инженера",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/mecha
@@ -421,7 +411,6 @@
 	item_state = "mechanic_envirohelm"
 	HUDType = DATA_HUD_DIAGNOSTIC
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/mecha/get_ru_names()
 	return list(
 		NOMINATIVE = "защитный шлем механика",
@@ -429,7 +418,7 @@
 		DATIVE = "защитному шлему механика",
 		ACCUSATIVE = "защитный шлем механика",
 		INSTRUMENTAL = "защитным шлемом механика",
-		PREPOSITIONAL = "защитном шлеме механика"
+		PREPOSITIONAL = "защитном шлеме механика",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
@@ -448,7 +437,7 @@
 		DATIVE = "защитному шлему старшего инженера",
 		ACCUSATIVE = "защитный шлем старшего инженера",
 		INSTRUMENTAL = "защитным шлемом старшего инженера",
-		PREPOSITIONAL = "защитном шлеме старшего инженера"
+		PREPOSITIONAL = "защитном шлеме старшего инженера",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/atmospherics
@@ -468,7 +457,7 @@
 		DATIVE = "защитному шлему атмосферного техника",
 		ACCUSATIVE = "защитный шлем атмосферного техника",
 		INSTRUMENTAL = "защитным шлемом атмосферного техника",
-		PREPOSITIONAL = "защитном шлеме атмосферного техника"
+		PREPOSITIONAL = "защитном шлеме атмосферного техника",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/cargo
@@ -484,7 +473,7 @@
 		DATIVE = "защитному шлему грузчика",
 		ACCUSATIVE = "защитный шлем грузчика",
 		INSTRUMENTAL = "защитным шлемом грузчика",
-		PREPOSITIONAL = "защитном шлеме грузчика"
+		PREPOSITIONAL = "защитном шлеме грузчика",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/qm
@@ -500,9 +489,8 @@
 		DATIVE = "защитному шлему Квартирмейстера",
 		ACCUSATIVE = "защитный шлем Квартирмейстера",
 		INSTRUMENTAL = "защитным шлемом Квартирмейстера",
-		PREPOSITIONAL = "защитном шлеме Квартирмейстера"
+		PREPOSITIONAL = "защитном шлеме Квартирмейстера",
 	)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining
 	name = "mining plasma envirosuit helmet"
@@ -523,7 +511,7 @@
 		DATIVE = "защитному шлему шахтёра",
 		ACCUSATIVE = "защитный шлем шахтёра",
 		INSTRUMENTAL = "защитным шлемом шахтёра",
-		PREPOSITIONAL = "защитном шлеме шахтёра"
+		PREPOSITIONAL = "защитном шлеме шахтёра",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/chaplain
@@ -540,7 +528,7 @@
 		DATIVE = "защитному шлему священника",
 		ACCUSATIVE = "защитный шлем священника",
 		INSTRUMENTAL = "защитным шлемом священника",
-		PREPOSITIONAL = "защитном шлеме священника"
+		PREPOSITIONAL = "защитном шлеме священника",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/white
@@ -550,7 +538,6 @@
 	item_state = "white_envirohelm"
 	examine_extensions = EXAMINE_HUD_SCIENCE
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/white/get_ru_names()
 	return list(
 		NOMINATIVE = "защитный шлем плазмолюда белого цвета",
@@ -558,7 +545,7 @@
 		DATIVE = "защитному шлему плазмолюда белого цвета",
 		ACCUSATIVE = "защитный шлем плазмолюда белого цвета",
 		INSTRUMENTAL = "защитным шлемом плазмолюда белого цвета",
-		PREPOSITIONAL = "защитном шлеме плазмолюда белого цвета"
+		PREPOSITIONAL = "защитном шлеме плазмолюда белого цвета",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt
@@ -571,17 +558,17 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt/get_ru_names()
 	return list(
-		NOMINATIVE = "защитный шлем Нанотрейзен",
-		GENITIVE = "защитного шлема Нанотрейзен",
-		DATIVE = "защитному шлему Нанотрейзен",
-		ACCUSATIVE = "защитный шлем Нанотрейзен",
-		INSTRUMENTAL = "защитным шлемом Нанотрейзен",
-		PREPOSITIONAL = "защитном шлеме Нанотрейзен"
+		NOMINATIVE = "защитный шлем \"Нанотрейзен\"",
+		GENITIVE = "защитного шлема \"Нанотрейзен\"",
+		DATIVE = "защитному шлему \"Нанотрейзен\"",
+		ACCUSATIVE = "защитный шлем \"Нанотрейзен\"",
+		INSTRUMENTAL = "защитным шлемом \"Нанотрейзен\"",
+		PREPOSITIONAL = "защитном шлеме \"Нанотрейзен\"",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt_rep
 	name = "nanotrasen representative envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, созданный специально для представителя Нанотрейзен."
+	desc = "Шлем защитного костюма плазмолюда, созданный специально для представителя \"Нанотрейзен\"."
 	icon_state = "ntrep_envirohelm"
 	item_state = "ntrep_envirohelm"
 	HUDType = DATA_HUD_SECURITY_BASIC
@@ -589,12 +576,12 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/nt_rep/get_ru_names()
 	return list(
-		NOMINATIVE = "защитный шлем представителя Нанотрейзен",
-		GENITIVE = "защитного шлема представителя Нанотрейзен",
-		DATIVE = "защитному шлему представителя Нанотрейзен",
-		ACCUSATIVE = "защитный шлем представителя Нанотрейзен",
-		INSTRUMENTAL = "защитным шлемом представителя Нанотрейзен",
-		PREPOSITIONAL = "защитном шлеме представителя Нанотрейзен"
+		NOMINATIVE = "защитный шлем представителя \"Нанотрейзен\"",
+		GENITIVE = "защитного шлема представителя \"Нанотрейзен\"",
+		DATIVE = "защитному шлему представителя \"Нанотрейзен\"",
+		ACCUSATIVE = "защитный шлем представителя \"Нанотрейзен\"",
+		INSTRUMENTAL = "защитным шлемом представителя \"Нанотрейзен\"",
+		PREPOSITIONAL = "защитном шлеме представителя \"Нанотрейзен\"",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/chef
@@ -610,7 +597,7 @@
 		DATIVE = "защитному шлему повара",
 		ACCUSATIVE = "защитный шлем повара",
 		INSTRUMENTAL = "защитным шлемом повара",
-		PREPOSITIONAL = "защитном шлеме повара"
+		PREPOSITIONAL = "защитном шлеме повара",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/librarian
@@ -628,7 +615,7 @@
 		DATIVE = "защитному шлему библиотекаря",
 		ACCUSATIVE = "защитный шлем библиотекаря",
 		INSTRUMENTAL = "защитным шлемом библиотекаря",
-		PREPOSITIONAL = "защитном шлеме библиотекаря"
+		PREPOSITIONAL = "защитном шлеме библиотекаря",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/botany
@@ -647,7 +634,7 @@
 		DATIVE = "защитному шлему ботаника",
 		ACCUSATIVE = "защитный шлем ботаника",
 		INSTRUMENTAL = "защитным шлемом ботаника",
-		PREPOSITIONAL = "защитном шлеме ботаника"
+		PREPOSITIONAL = "защитном шлеме ботаника",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/janitor
@@ -663,7 +650,7 @@
 		DATIVE = "защитному шлему уборщика",
 		ACCUSATIVE = "защитный шлем уборщика",
 		INSTRUMENTAL = "защитным шлемом уборщика",
-		PREPOSITIONAL = "защитном шлеме уборщика"
+		PREPOSITIONAL = "защитном шлеме уборщика",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/mime
@@ -680,7 +667,7 @@
 		DATIVE = "защитному шлему мима",
 		ACCUSATIVE = "защитный шлем мима",
 		INSTRUMENTAL = "защитным шлемом мима",
-		PREPOSITIONAL = "защитном шлеме мима"
+		PREPOSITIONAL = "защитном шлеме мима",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/clown
@@ -697,7 +684,7 @@
 		DATIVE = "защитному шлему клоуна",
 		ACCUSATIVE = "защитный шлем клоуна",
 		INSTRUMENTAL = "защитным шлемом клоуна",
-		PREPOSITIONAL = "защитном шлеме клоуна"
+		PREPOSITIONAL = "защитном шлеме клоуна",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
@@ -716,7 +703,7 @@
 		DATIVE = "защитному шлему главы персонала",
 		ACCUSATIVE = "защитный шлем главы персонала",
 		INSTRUMENTAL = "защитным шлемом главы персонала",
-		PREPOSITIONAL = "защитном шлеме главы персонала"
+		PREPOSITIONAL = "защитном шлеме главы персонала",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/captain
@@ -735,7 +722,7 @@
 		DATIVE = "защитному шлему капитана",
 		ACCUSATIVE = "защитный шлем капитана",
 		INSTRUMENTAL = "защитным шлемом капитана",
-		PREPOSITIONAL = "защитном шлеме капитана"
+		PREPOSITIONAL = "защитном шлеме капитана",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield
@@ -754,7 +741,7 @@
 		DATIVE = "защитному шлему офицера \"Синий Щит\"",
 		ACCUSATIVE = "защитный шлем офицера \"Синий Щит\"",
 		INSTRUMENTAL = "защитным шлемом офицера \"Синий Щит\"",
-		PREPOSITIONAL = "защитном шлеме офицера \"Синий Щит\""
+		PREPOSITIONAL = "защитном шлеме офицера \"Синий Щит\"",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/wizard
@@ -774,32 +761,30 @@
 		DATIVE = "магическому защитному шлему плазмолюда",
 		ACCUSATIVE = "магический защитный шлем плазмолюда",
 		INSTRUMENTAL = "магическим защитным шлемом плазмолюда",
-		PREPOSITIONAL = "магическом защитном шлеме плазмолюда"
+		PREPOSITIONAL = "магическом защитном шлеме плазмолюда",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/syndicate
 	name = "syndicate officer envirosuit helmet"
-	desc = "Тактический шлем защитного костюма плазмолюда, созданный для офицеров Синдиката."
+	desc = "Тактический шлем защитного костюма плазмолюда, созданный для офицеров \"Синдиката\"."
 	icon_state = "syndicatecentcomm_envirohelm"
 	item_state = "syndicatecentcomm_envirohelm"
 	vision_flags = SEE_MOBS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
-
 /obj/item/clothing/head/helmet/space/plasmaman/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "защитный шлем офицера Синдиката",
-		GENITIVE = "защитного шлема офицера Синдиката",
-		DATIVE = "защитному шлему офицера Синдиката",
-		ACCUSATIVE = "защитный шлем офицера Синдиката",
-		INSTRUMENTAL = "защитным шлемом офицера Синдиката",
-		PREPOSITIONAL = "защитном шлеме офицера Синдиката"
+		NOMINATIVE = "защитный шлем офицера \"Синдиката\"",
+		GENITIVE = "защитного шлема офицера \"Синдиката\"",
+		DATIVE = "защитному шлему офицера \"Синдиката\"",
+		ACCUSATIVE = "защитный шлем офицера \"Синдиката\"",
+		INSTRUMENTAL = "защитным шлемом офицера \"Синдиката\"",
+		PREPOSITIONAL = "защитном шлеме офицера \"Синдиката\"",
 	)
-
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcomm
 	name = "Central command officer envirosuit helmet"
-	desc = "Тактический шлем защитного костюма плазмолюда, созданный для офицеров Нанотрейзен."
+	desc = "Тактический шлем защитного костюма плазмолюда, созданный для офицеров \"Нанотрейзен\"."
 	icon_state = "centcomm_envirohelm"
 	item_state = "centcomm_envirohelm"
 	HUDType = DATA_HUD_SECURITY_BASIC
@@ -807,12 +792,12 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/centcomm/get_ru_names()
 	return list(
-		NOMINATIVE = "защитный шлем офицера ЦК",
-		GENITIVE = "защитного шлема офицера ЦК",
-		DATIVE = "защитному шлему офицера ЦК",
-		ACCUSATIVE = "защитный шлем офицера ЦК",
-		INSTRUMENTAL = "защитным шлемом офицера ЦК",
-		PREPOSITIONAL = "защитном шлеме офицера ЦК"
+		NOMINATIVE = "защитный шлем офицера ЦК \"Нанотрейзен\"",
+		GENITIVE = "защитного шлема офицера ЦК \"Нанотрейзен\"",
+		DATIVE = "защитному шлему офицера ЦК \"Нанотрейзен\"",
+		ACCUSATIVE = "защитный шлем офицера ЦК \"Нанотрейзен\"",
+		INSTRUMENTAL = "защитным шлемом офицера ЦК \"Нанотрейзен\"",
+		PREPOSITIONAL = "защитном шлеме офицера ЦК \"Нанотрейзен\"",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining_medic
@@ -830,7 +815,7 @@
 		DATIVE = "защитному шлему шахтёрского врача",
 		ACCUSATIVE = "защитный шлем шахтёрского врача",
 		INSTRUMENTAL = "защитным шлемом шахтёрского врача",
-		PREPOSITIONAL = "защитном шлеме шахтёрского врача"
+		PREPOSITIONAL = "защитном шлеме шахтёрского врача",
 	)
 
 /obj/item/clothing/head/helmet/space/plasmaman/syndie
@@ -847,5 +832,5 @@
 		DATIVE = "тактическому защитному шлему",
 		ACCUSATIVE = "тактический защитный шлем",
 		INSTRUMENTAL = "тактическим защитным шлемом",
-		PREPOSITIONAL = "тактическом защитном шлеме"
+		PREPOSITIONAL = "тактическом защитном шлеме",
 	)

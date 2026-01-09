@@ -70,7 +70,6 @@
 		add_fingerprint(H)
 		H.update_body()
 
-
 /obj/structure/dresser/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0))

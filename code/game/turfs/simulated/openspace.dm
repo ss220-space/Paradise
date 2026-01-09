@@ -15,23 +15,24 @@
 	transparent_floor = TURF_FULLTRANSPARENT // bruh
 	intact = FALSE //this means wires go on top
 
-
 /turf/simulated/openspace/airless
 	temperature = TCMB
 	oxygen = 0
 	nitrogen = 0
 
 /turf/simulated/openspace/lavaland
-	temperature = 300
-	oxygen = 14
-	nitrogen = 23
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/openspace/snow_atmosphere
 	oxygen = 22
 	nitrogen = 82
 	temperature = 180
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_COLD
 
 /turf/simulated/openspace/Initialize(mapload)
 	. = ..()
@@ -126,7 +127,6 @@
 /turf/simulated/openspace/proc/CanBuildHere()
 	return can_build_on
 
-
 /turf/simulated/openspace/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
@@ -191,7 +191,6 @@
 		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
-
 
 /turf/simulated/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))

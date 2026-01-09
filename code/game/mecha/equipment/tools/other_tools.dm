@@ -33,7 +33,6 @@
 	energy_drain = 1000
 	tele_precision = 1
 
-
 ////////////////////////////////////////////// WORMHOLE GENERATOR //////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/wormhole_generator
@@ -136,7 +135,6 @@
 			add_game_logs("used a Gravitational Catapult in [COORD(T)]", chassis.occupant)
 			start_cooldown()
 
-
 /obj/item/mecha_parts/mecha_equipment/gravcatapult/get_snowflake_data()
 	var/list/data = list(
 		"snowflake_id" = MECHA_SNOWFLAKE_ID_MODE,
@@ -172,7 +170,6 @@
 		start_cooldown()
 	return TRUE
 
-
 /obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster
 	name = "Armor Booster Module (Ranged Weaponry)"
 	desc = "Boosts exosuit armor against ranged attacks. Completely blocks taser shots. Requires energy to operate."
@@ -189,7 +186,6 @@
 	if(action_checks(src))
 		start_cooldown()
 		return TRUE
-
 
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
@@ -289,7 +285,6 @@
 	if(pow_chan)
 		return 1000 //making magic
 
-
 /obj/item/mecha_parts/mecha_equipment/tesla_energy_relay/proc/get_power_channel(area/A)
 	var/pow_chan
 	if(A)
@@ -349,7 +344,6 @@
 	var/power_per_cycle = 30
 	/// Generator is generating
 	var/generation = FALSE
-
 
 /obj/item/mecha_parts/mecha_equipment/generator/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -425,12 +419,10 @@
 		occupant_message(span_warning("[fuel_name] traces in target minimal! [I] cannot be used as fuel."))
 		return FALSE
 
-
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(obj/item/I, mob/user, params)
 	if(load_fuel(I))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/item/mecha_parts/mecha_equipment/generator/critfail()
 	..()
@@ -439,15 +431,16 @@
 		return
 	var/datum/gas_mixture/GM = new
 	if(prob(10))
-		GM.toxins += 100
-		GM.temperature = 1500+T0C //should be enough to start a fire
+		GM.set_toxins(100)
+		GM.set_temperature(1500 + T0C) //should be enough to start a fire
 		T.visible_message("[src] suddenly disgorges a cloud of heated plasma.")
 		qdel(src)
 	else
-		GM.toxins += 5
-		GM.temperature = istype(T) ? T.air.return_temperature() : T20C
+		GM.set_toxins(5)
+		var/datum/gas_mixture/air = T.get_readonly_air()
+		GM.set_temperature(air ? air.temperature() : T20C)
 		T.visible_message("[src] suddenly disgorges a cloud of plasma.")
-	T.assume_air(GM)
+	T.blind_release_air(GM)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)
@@ -573,8 +566,6 @@
 		W.slow_pressure_step_in = initial(W.slow_pressure_step_in)
 		W.fast_pressure_step_in = initial(W.fast_pressure_step_in)
 
-
-
 // SCS-3 CAGE
 
 /obj/item/mecha_parts/mecha_equipment/cage
@@ -602,7 +593,7 @@
 		DATIVE = "модулю \"Клетка SCS-3\"",
 		ACCUSATIVE = "модуль \"Клетка SCS-3\"",
 		INSTRUMENTAL = "модулем \"Клетка SCS-3\"",
-		PREPOSITIONAL = "модуле \"Клетка SCS-3\""
+		PREPOSITIONAL = "модуле \"Клетка SCS-3\"",
 	)
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_attach(obj/mecha/M)
@@ -662,7 +653,7 @@
 		insert_action(target)
 		return TRUE
 
-	occupant_message(span_notice("[target] не мо[pluralize_ru(target.gender, "жет", "гут")] быть удержа[genderize_ru(target.gender, "н", "на", "но", "ны")], так как [target] не наход[pluralize_ru(target.gender, "ит", "ят")]ся в критическом состоянии."))
+	occupant_message(span_notice("[target] не мо[PLUR_JET_GUT(target)] быть удержан[GEND_A_O_Y(target)], так как [target] не наход[PLUR_IT_YAT(target)]ся в критическом состоянии."))
 	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
@@ -717,7 +708,7 @@
 	stop_supressing(target)
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
-	occupant_message(span_notice("[target] успешно помещ[genderize_ru(target.gender, "ён", "ена", "ено", "ены")] в клетку."))
+	occupant_message(span_notice("[target] успешно помещен[GEND_A_O_Y(target)] в клетку."))
 	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
@@ -746,7 +737,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/on_escape(mob/living/carbon/target)
 	SIGNAL_HANDLER
-	occupant_message(span_warning("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки."))
+	occupant_message(span_warning("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки."))
 	prisoner = null
 	if(holding)
 		if(holding.handcuffed)
@@ -773,17 +764,16 @@
 
 	current_stage = stage_define
 
-
 /obj/item/mecha_parts/mecha_equipment/cage/proc/set_supress_effect(mob/living/carbon/target)
 	supress_effect = new(target.loc)
 	flick("effect_on_doll", supress_effect)
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/prisoner_insertion_check(mob/living/carbon/target)
 	if(target.buckled)
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, так как [target] прикова[genderize_ru(target.gender, "н", "на", "но", "ны")] к [target.buckled.declent_ru(DATIVE)]!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, так как [target] прикован[GEND_A_O_Y(target)] к [target.buckled.declent_ru(DATIVE)]!"))
 		return FALSE
 	if(target.has_buckled_mobs())
-		occupant_message(span_warning("[target] не помест[pluralize_ru(target.gender, "ит", "ят")]ся в клетку, пока на [genderize_ru(target.gender, "нём", "ней", "нём", "них")] висит слайм!"))
+		occupant_message(span_warning("[target] не помест[PLUR_IT_YAT(target)]ся в клетку, пока на [GEND_ON_IN_HIM(target)] висит слайм!"))
 		return FALSE
 	if(prisoner)
 		occupant_message(span_warning("Клетка уже занята!"))
@@ -805,15 +795,15 @@
 	UnregisterSignal(prisoner, COMSIG_MOVABLE_MOVED)
 	prisoner.forceMove(get_turf(src))
 	if(!force)
-		occupant_message("[prisoner] извлеч[genderize_ru(prisoner.gender, "ён", "ена", "ено", "ены")].")
+		occupant_message("[prisoner] извлечен[GEND_A_O_Y(prisoner)].")
 	else
-		occupant_message("[prisoner] сбежа[genderize_ru(prisoner.gender, "л", "ла", "ло", "ли")] из клетки.")
+		occupant_message("[prisoner] сбежал[GEND_A_O_I(prisoner)] из клетки.")
 	prisoner = null
 	change_state("mecha_cage")
 
 /obj/item/mecha_parts/mecha_equipment/cage/can_detach()
 	if(prisoner || holding)
-		occupant_message(span_warning("Невозможно отсоединить [declent_ru(ACCUSATIVE)] - модуль в работе!"))
+		occupant_message(span_warning("Невозможно отсоединить [declent_ru(ACCUSATIVE)] — модуль в работе!"))
 		return FALSE
 	return TRUE
 
@@ -861,5 +851,5 @@
 		DATIVE = "механическим клешням",
 		ACCUSATIVE = "механические клешни",
 		INSTRUMENTAL = "механическими клешнями",
-		PREPOSITIONAL = "механических клешнях"
+		PREPOSITIONAL = "механических клешнях",
 	)

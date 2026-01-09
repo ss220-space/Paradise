@@ -8,7 +8,7 @@
 
 /obj/structure/spacepoddoor/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/spacepoddoor/CanAtmosPass(turf/T, vertical)
 	return 0
@@ -16,14 +16,12 @@
 /obj/structure/spacepoddoor/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
-
+	T.recalculate_atmos_connectivity()
 
 /obj/structure/spacepoddoor/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(!isspacepod(mover) && !checkpass(mover))
 		return FALSE
-
 
 /obj/structure/spacepoddoor/invincible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF

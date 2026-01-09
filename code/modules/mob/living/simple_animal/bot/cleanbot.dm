@@ -45,15 +45,13 @@
 
 	get_targets()
 
-	var/datum/job/janitor/J = new/datum/job/janitor
+	var/datum/job/service/janitor/J = new/datum/job/service/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 	update_icon(UPDATE_OVERLAYS)
 
-
 /mob/living/simple_animal/bot/cleanbot/update_icon_state()
 	return
-
 
 /mob/living/simple_animal/bot/cleanbot/update_overlays()
 	. = ..()
@@ -70,19 +68,16 @@
 	if(mask_color)
 		. += mutable_appearance(icon, "cleanbot_mask", appearance_flags = RESET_COLOR, color = mask_color)
 
-
 /mob/living/simple_animal/bot/cleanbot/bot_reset()
 	..()
 	ignore_list.Cut() //Allows the bot to clean targets it previously ignored due to being unreachable.
 	target = null
 	oldloc = null
 
-
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
 	text_hack = "Вы взломали протоколы уборки [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили протоколы уборки [declent_ru(GENITIVE)]."
 	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] не отвечает на ваши команды!"
-
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -102,12 +97,10 @@
 
 	return ..()
 
-
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
 	if(emagged == 2 && user)
 		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит!"))
-
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)
@@ -115,7 +108,6 @@
 			if(locate(src.type) in D.loc)
 				return FALSE
 			return D
-
 
 /mob/living/simple_animal/bot/cleanbot/handle_automated_action()
 	if(!..())
@@ -180,7 +172,6 @@
 
 	oldloc = loc
 
-
 /mob/living/simple_animal/bot/cleanbot/proc/get_targets()
 	target_types = new/list()
 
@@ -208,14 +199,12 @@
 		target_types += /obj/effect/decal/cleanable/dirt
 		target_types += /obj/effect/decal/cleanable/trail_holder
 
-
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	set_anchored(TRUE)
 	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает очищать [target]."))
 	mode = BOT_CLEANING
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
-
 
 /mob/living/simple_animal/bot/cleanbot/proc/do_clean(obj/effect/decal/cleanable/target)
 	if(QDELETED(src))
@@ -225,7 +214,6 @@
 		set_anchored(FALSE)
 	mode = BOT_IDLE
 	update_icon()
-
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
@@ -238,17 +226,14 @@
 	do_sparks(3, TRUE, src)
 	return ..()
 
-
 /mob/living/simple_animal/bot/cleanbot/show_controls(mob/M)
 	ui_interact(M)
-
 
 /mob/living/simple_animal/bot/cleanbot/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "BotClean", name)
 		ui.open()
-
 
 /mob/living/simple_animal/bot/cleanbot/ui_data(mob/user)
 	var/list/data = list(
@@ -264,7 +249,6 @@
 		"cleanblood" = blood
 	)
 	return data
-
 
 /mob/living/simple_animal/bot/cleanbot/ui_act(action, params)
 	if(..())
@@ -293,13 +277,11 @@
 		if("ejectpai")
 			ejectpai()
 
-
 /mob/living/simple_animal/bot/cleanbot/OnUnarmedAttack(atom/A)
 	if(istype(A,/obj/effect/decal/cleanable))
 		start_clean(A)
 	else
 		..()
-
 
 /obj/machinery/bot_core/cleanbot
 	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)

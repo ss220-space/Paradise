@@ -19,7 +19,7 @@
 		DATIVE = "креплению для дефибриллятора",
 		ACCUSATIVE = "крепление для дефибриллятора",
 		INSTRUMENTAL = "креплением для дефибриллятора",
-		PREPOSITIONAL = "креплении для дефибриллятора"
+		PREPOSITIONAL = "креплении для дефибриллятора",
 	)
 
 /obj/machinery/defibrillator_mount/attack_ai()
@@ -65,7 +65,6 @@
 		defib.cell.give(180) //90% efficiency, slightly better than the cell charger's 87.5%
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/defibrillator_mount/update_overlays()
 	. = ..()
 	if(defib)
@@ -77,7 +76,6 @@
 			. += "charge[ratio]"
 		if(clamps_locked)
 			. += "clamps"
-
 
 //defib interaction
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/carbon/human/user = usr)
@@ -93,7 +91,6 @@
 	defib.dispence_paddles(user)
 	add_fingerprint(user)
 
-
 /obj/machinery/defibrillator_mount/attackby(obj/item/I, mob/living/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -105,7 +102,7 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		visible_message(span_notice("[user] прикрепил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+		visible_message(span_notice("[user] прикрепил[GEND_A_O_I(user)] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 		balloon_alert(user, "дефибриллятор установлен")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
@@ -132,7 +129,6 @@
 
 	return ..()
 
-
 /obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(defib)
@@ -143,7 +139,6 @@
 	WRENCH_UNANCHOR_WALL_MESSAGE
 	new /obj/item/mounted/frame/defib_mount(get_turf(user))
 	qdel(src)
-
 
 /obj/machinery/defibrillator_mount/click_alt(mob/living/carbon/human/user)
 	if(!defib)
@@ -159,13 +154,12 @@
 		return CLICK_ACTION_BLOCKING
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
-	visible_message(span_notice("[user] вынима[pluralize_ru(user.gender, "ет", "ют")] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[user] вынима[PLUR_ET_YUT(user)] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	balloon_alert(user, "дефибриллятор извлечён")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null
 	update_icon(UPDATE_OVERLAYS)
 	return CLICK_ACTION_SUCCESS
-
 
 //wallframe, for attaching the mounts easily
 /obj/item/mounted/frame/defib_mount
@@ -173,7 +167,6 @@
 	desc = "Крепление для дефибриллятора, которое предварительно нужно будет закрепить."
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
-	sheets_refunded = 0
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	w_class = WEIGHT_CLASS_BULKY
 
@@ -184,7 +177,7 @@
 		DATIVE = "разобранному креплению для дефибриллятора",
 		ACCUSATIVE = "разобранное крепление для дефибриллятора",
 		INSTRUMENTAL = "разобранным креплением для дефибриллятора",
-		PREPOSITIONAL = "разобранном креплении для дефибриллятора"
+		PREPOSITIONAL = "разобранном креплении для дефибриллятора",
 	)
 
 /obj/item/mounted/frame/defib_mount/do_build(turf/on_wall, mob/user)

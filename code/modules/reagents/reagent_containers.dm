@@ -24,7 +24,7 @@
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Установить объём перемещения"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(!ishuman(usr) && !isrobot(usr))
@@ -47,7 +47,7 @@
 		return
 
 	amount_per_transfer_from_this = N
-	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[pluralize_ru(gender, "ет", "ут")] перемещать по <b>[N]</b> единиц[declension_ru(N, "у", "ы", "")] вещества за раз."))
+	to_chat(usr, span_notice("Теперь [declent_ru(NOMINATIVE)] буд[PLUR_ET_UT(src)] перемещать по <b>[N]</b> единиц[DECL_SEC_MIN(N)] вещества за раз."))
 
 /obj/item/reagent_containers/click_alt(mob/user)
 	set_APTFT()
@@ -56,7 +56,7 @@
 /obj/item/reagent_containers/verb/empty()
 
 	set name = "Вылить содержимое"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -101,7 +101,6 @@
 	if(!QDELETED(src))
 		..()
 
-
 /obj/item/reagent_containers/proc/add_lid()
 	if(has_lid)
 		container_type ^= REFILLABLE | DRAINABLE
@@ -121,12 +120,10 @@
 			balloon_alert(user, "крышка снята")
 			remove_lid()
 
-
 /obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
-
 
 /obj/item/reagent_containers/wash(mob/user, atom/source)
 	if(is_open_container())

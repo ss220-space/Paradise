@@ -3,7 +3,6 @@
 	desc = "Why is this here?"
 	icon_state = "syndicate"
 
-
 /obj/structure/closet/syndicate/personal
 	desc = "It's a storage unit for operative gear."
 

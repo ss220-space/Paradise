@@ -16,10 +16,8 @@
 		/mob/living/simple_animal/pet/dog/corgi,
 		/mob/living/simple_animal/hostile/construct/armoured)
 
-
 /obj/effect/proc_holder/spell/shapeshift/create_new_targeting()
 	return new /datum/spell_targeting/self
-
 
 /obj/effect/proc_holder/spell/shapeshift/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(user.IsWeakened() || user.IsStunned())
@@ -29,7 +27,6 @@
 		return FALSE
 
 	return ..()
-
 
 /obj/effect/proc_holder/spell/shapeshift/cast(list/targets, mob/user = usr)
 	for(var/mob/living/M in targets)
@@ -47,7 +44,6 @@
 		else
 			Shapeshift(M)
 
-
 /obj/effect/proc_holder/spell/shapeshift/proc/Shapeshift(mob/living/caster)
 	for(var/mob/living/mob in caster)
 		if(HAS_TRAIT_FROM(mob, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src)))
@@ -64,7 +60,6 @@
 	human_req = FALSE
 
 	caster.mind.transfer_to(shape)
-
 
 /obj/effect/proc_holder/spell/shapeshift/proc/Restore(mob/living/shape)
 	var/mob/living/caster
@@ -85,7 +80,6 @@
 	shape.mind.transfer_to(caster)
 	qdel(shape) //Gib it maybe ?
 
-
 /obj/effect/proc_holder/spell/shapeshift/dragon
 	name = "Dragon Form"
 	desc = "Take on the shape a lesser ash drake after a short delay."
@@ -96,7 +90,6 @@
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/megafauna/dragon/lesser)
 
-
 /obj/effect/proc_holder/spell/shapeshift/dragon/Shapeshift(mob/living/caster)
 	caster.visible_message(
 		span_danger("[caster] screams in agony as bones and claws erupt out of their flesh!"),
@@ -106,7 +99,6 @@
 		to_chat(caster, span_warning("You lose concentration of the spell!"))
 		return
 	return ..()
-
 
 /obj/effect/proc_holder/spell/shapeshift/bats
 	name = "Bat Form"
@@ -121,7 +113,6 @@
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/scarybat/batswarm)
 
-
 /obj/effect/proc_holder/spell/shapeshift/hellhound
 	name = "Lesser Hellhound Form"
 	desc = "Take on the shape of a Hellhound."
@@ -135,7 +126,6 @@
 	current_shapes = list(/mob/living/simple_animal/hostile/hellhound)
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/hellhound)
-
 
 /obj/effect/proc_holder/spell/shapeshift/hellhound/greater
 	name = "Greater Hellhound Form"

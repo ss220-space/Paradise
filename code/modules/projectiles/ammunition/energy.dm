@@ -17,6 +17,7 @@
 	projectile_type = /obj/projectile/beam/laser
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
+	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/laser/light
 	projectile_type = /obj/projectile/beam/laser/light
@@ -30,6 +31,7 @@
 	muzzle_flash_color = COLOR_SOFT_RED
 	e_cost = 65
 	select_name = "kill"
+	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 75
@@ -55,14 +57,14 @@
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/pulse
-	projectile_type = /obj/projectile/beam/pulse
+	projectile_type = /obj/projectile/beam/pulse/hitscan
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
-	projectile_type = /obj/projectile/beam/pulse
+	projectile_type = /obj/projectile/beam/pulse/hitscan
 	e_cost = 200
 	select_name = "ANNIHILATE"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
@@ -90,6 +92,7 @@
 	projectile_type = /obj/projectile/beam/immolator
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	e_cost = 125
+	bullet_type = BULLET_TYPE_FIRE
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/projectile/beam/immolator/strong
@@ -180,7 +183,7 @@
 	delay = 10
 	e_cost = 675
 
-/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom)
+/obj/item/ammo_casing/energy/flora/gamma/fire(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, atom/firer_source_atom, damage_mod = 1, stamina_mod = 1)
 	playsound(src.loc, 'sound/weapons/floragun_gamma.ogg', 75, TRUE)
 	if(!do_after(user, 0.5 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE, progress = FALSE))
 		return FALSE
@@ -211,6 +214,8 @@
 	e_cost = 50
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
+	bullet_type = BULLET_TYPE_DISABLER
+
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 40
 
@@ -222,7 +227,7 @@
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/projectile/plasma
-	muzzle_flash_color = LIGHT_COLOR_PURPLE
+	muzzle_flash_color = LIGHT_COLOR_CYAN
 	select_name = "plasma burst"
 	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
@@ -335,7 +340,6 @@
 			to_chat(M, span_userdanger("Вы чувствуете жар от взрыва [declent_ru(GENITIVE)], но он почти не задевает вас."))
 			add_attack_logs(src, M, "Hit lightly by [src]")
 			M.apply_damage(rand(1, 5) * effects_mult, BURN)
-
 
 /obj/item/ammo_casing/energy/dart
 	projectile_type = /obj/projectile/energy/dart
@@ -528,6 +532,7 @@
 	select_name = "kill"
 	e_cost = 900
 	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
+	bullet_type = BULLET_TYPE_LASER
 
 /obj/item/ammo_casing/energy/specter/disable
 	caliber = CALIBER_SPECTER
@@ -537,22 +542,26 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	e_cost = 450
 	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
+	harmful = FALSE
+	bullet_type = BULLET_TYPE_DISABLER
 
 /obj/item/ammo_casing/energy/rat
 	name = "mechanical energy module"
-	ru_names = list(
-		NOMINATIVE = "механическая энергоячейка",
-		GENITIVE = "механической энергоячейки",
-		DATIVE = "механической энергоячейке",
-		ACCUSATIVE = "механическую энергоячейку",
-		INSTRUMENTAL = "механичекой энергоячейкой",
-		PREPOSITIONAL = "механической энергоячейке"
-	)
 	desc = "Несколько шестерней, запитывающих оружие энергией Ратвара."
 	caliber = "ratvar"
 	projectile_type = /obj/projectile/energy/rat
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	e_cost = 1
+
+/obj/item/ammo_casing/energy/rat/get_ru_names()
+	return list(
+		NOMINATIVE = "механическая энергоячейка",
+		GENITIVE = "механической энергоячейки",
+		DATIVE = "механической энергоячейке",
+		ACCUSATIVE = "механическую энергоячейку",
+		INSTRUMENTAL = "механичекой энергоячейкой",
+		PREPOSITIONAL = "механической энергоячейке",
+	)
 
 /obj/item/ammo_casing/energy/rat/slug
 	projectile_type = /obj/projectile/energy/rat/slug

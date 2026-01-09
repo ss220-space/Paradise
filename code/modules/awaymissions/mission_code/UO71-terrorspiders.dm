@@ -2,7 +2,6 @@
 	name = "UO71"
 	tele_proof = TRUE
 
-
 /area/awaymission/UO71/plaza
 	name = "UO71 Plaza"
 	icon_state = "awaycontent1"
@@ -100,7 +99,6 @@
 	Based on the situation, Commander, I advise immediate evacuation through the gateway.<br>
 	-Research Director Simons<br>
 	"}
-
 
 /obj/item/paper/terrorspiders3
 	name = "paper - 'Final Report'"
@@ -205,7 +203,6 @@
 	var/beenused = FALSE
 	var/door_to_open = "UO71_Start"
 
-
 /obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -233,7 +230,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
 
 /// Unlocks some blast doors on the gate level
 /obj/machinery/computer/id_upgrader/proc/unlock_doors()

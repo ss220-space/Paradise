@@ -195,14 +195,9 @@
 
 	qdel(log_query)
 
-//TODO remove with legacy admin system
-/client/proc/edit_admin_permissions()
-	set category = STATPANEL_ADMIN_ADMIN
-	set name = "Permissions Panel"
-	set desc = "Edit admin permissions"
-	if(!check_rights(R_PERMISSIONS))
-		return
-	usr.client.holder.edit_admin_permissions()
+// TODO: remove with legacy admin system
+ADMIN_VERB(edit_admin_permissions_legacy, R_PERMISSIONS, "Permissions Panel (Legacy)", "Edit admin permissions.", ADMIN_CATEGORY_MAIN)
+	user.holder.edit_admin_permissions()
 
 /datum/admins/proc/edit_admin_permissions()
 	if(!check_rights(R_PERMISSIONS))
@@ -232,8 +227,6 @@ td, th {
 	margin: 5px;
 	text-align:center;
 }
-
-
 
 </style>
 <div id='main'>
@@ -292,14 +285,14 @@ td, th {
 		var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
 		if(!new_ckey)	return
 		if(new_ckey in GLOB.admin_datums)
-			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential = TRUE)
 			return
 		adm_ckey = new_ckey
 		task = "rank"
 	else if(task != "show")
 		adm_ckey = ckey(ckey)
 		if(!adm_ckey)
-			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential = TRUE)
 			return
 
 	var/datum/admins/D = GLOB.admin_datums[adm_ckey]
@@ -331,7 +324,7 @@ td, th {
 			if("*Новый Ранг*")
 				new_rank = tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null, encode = FALSE)
 				if(!new_rank)
-					to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential=TRUE)
+					to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential = TRUE)
 					return
 				if(new_rank in GLOB.admin_ranks)
 					rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
@@ -365,9 +358,8 @@ td, th {
 		var/removed_bits = D.rights & ~new_value
 		D.rights = new_value
 		edit_admin_permissions()
-		message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
-		log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ - [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ - [rights2text(removed_bits, " ")]":""]")
+		message_admins("[key_name_admin(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ — [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ — [rights2text(removed_bits, " ")]":""]")
+		log_admin("[key_name(usr)] переключил флаги админу [adm_ckey]: [add_bits? " ВКЛ — [rights2text(add_bits, " ")]" : ""][removed_bits? " ВЫКЛ — [rights2text(removed_bits, " ")]":""]")
 		admin_permission_modification(adm_ckey, new_value )
-
 
 	edit_admin_permissions()

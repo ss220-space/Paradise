@@ -32,7 +32,7 @@
 		DATIVE = "консоли медицинских записей",
 		ACCUSATIVE = "консоль медицинских записей",
 		INSTRUMENTAL = "консолью медицинских записей",
-		PREPOSITIONAL = "консоли медицинских записей"
+		PREPOSITIONAL = "консоли медицинских записей",
 	)
 
 /obj/machinery/computer/med_data/Initialize(mapload)
@@ -71,7 +71,6 @@
 	active2 = null
 	return ..()
 
-
 /obj/machinery/computer/med_data/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -81,7 +80,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/computer/med_data/attack_hand(mob/user)
 	if(..())
@@ -114,7 +112,7 @@
 					data["records"] = records
 					for(var/datum/data/record/R in sortRecord(GLOB.data_core.general))
 						records[++records.len] = list(
-							"ref" = "\ref[R]",
+							"ref" = R.UID(),
 							"name" = R.fields["name"],
 							"id" = R.fields["id"],
 							"rank" = R.fields["rank"],
@@ -263,7 +261,7 @@
 					set_temp("Запись удалена.")
 					qdel(active2)
 			if("view_record")
-				var/datum/data/record/general_record = locate(params["view_record"] || "")
+				var/datum/data/record/general_record = locateUID(params["view_record"] || "")
 				if(!GLOB.data_core.general.Find(general_record))
 					set_temp("Запись не найдена.", "danger")
 					return
@@ -377,7 +375,7 @@
 					if(!length(answer) || !istype(active2) || !length(state.name))
 						return
 					active2.fields["comments"] += list(list(
-						header = "Создатель записи - [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
+						header = "Создатель записи — [state.name] ([state.rank]). Запись создана [GLOB.current_date_string] [station_time_timestamp()].",
 						text = answer
 					))
 				else
@@ -484,7 +482,7 @@
 		DATIVE = "медицинскому ноутбуку",
 		ACCUSATIVE = "медицинский ноутбук",
 		INSTRUMENTAL = "медицинским ноутбуком",
-		PREPOSITIONAL = "медицинском ноутбуке"
+		PREPOSITIONAL = "медицинском ноутбуке",
 	)
 
 #undef MED_DATA_R_LIST

@@ -71,7 +71,6 @@
 		return
 	ui_interact(user)
 
-
 /obj/machinery/ninja_bloodscan_machine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !istype(I, /obj/item/reagent_containers/glass/beaker))
 		return ..()
@@ -112,7 +111,6 @@
 	update_state_icon()
 	to_chat(user, span_notice("You place [blood_vial] in the machine."))
 	return  ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/ninja_bloodscan_machine/proc/start_scan()
 	if(!blood_samples || !vials)
@@ -173,9 +171,10 @@
 				return
 		objective.completed = TRUE
 		scan_state = list(
-		NINJA_BLOODSCAN_NOT_DONE,
-		NINJA_BLOODSCAN_NOT_DONE,
-		NINJA_BLOODSCAN_NOT_DONE) // initial() for some reason fully clears the list
+			NINJA_BLOODSCAN_NOT_DONE,
+			NINJA_BLOODSCAN_NOT_DONE,
+			NINJA_BLOODSCAN_NOT_DONE,
+		) // initial() for some reason fully clears the list
 		update_state_icon(BSM_CORRECT_STATE)
 		addtimer(CALLBACK(src, PROC_REF(update_state_icon), BSM_DEACTIVATION_STATE), 3 SECONDS)
 		addtimer(CALLBACK(src, PROC_REF(clear_important_vars), FALSE, TRUE), 8 SECONDS)

@@ -22,8 +22,6 @@
 	new /obj/item/clothing/suit/soldiercoat(src)	//added here deleted on maps
 	new /obj/item/clothing/under/soldieruniform(src)
 
-
-
 /obj/structure/closet/secure_closet/mime
 	name = "mime's locker"
 	req_access = list(ACCESS_MIME)
@@ -37,6 +35,7 @@
 			new /obj/item/storage/backpack/satchel_mime(src)
 	new /obj/item/clothing/head/beret(src)
 	new /obj/item/clothing/mask/gas/mime(src)
+	new /obj/item/clothing/mask/gas/mime/old(src)
 	new /obj/item/radio/headset/headset_service(src)
 	new /obj/item/clothing/under/mime(src)
 	new /obj/item/clothing/under/mimeskirt(src)

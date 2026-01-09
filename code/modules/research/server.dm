@@ -74,8 +74,9 @@
 	if(prob(3) && plays_sound)
 		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, TRUE)
 
-	var/datum/gas_mixture/environment = loc.return_air()
-	switch(environment.temperature)
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
+	switch(environment.temperature())
 		if(0 to T0C)
 			health = min(100, health + 1)
 		if(T0C to (T20C + 20))
@@ -105,7 +106,6 @@
 	griefProtection()
 	return ..()
 
-
 /obj/machinery/r_n_d/server/ex_act(severity, target)
 	griefProtection()
 	return ..()
@@ -120,26 +120,31 @@
 		files.push_data(C.files)
 
 /obj/machinery/r_n_d/server/proc/produce_heat(heat_amt)
-	if(!(stat & (NOPOWER|BROKEN))) // Blatantly stolen from space heater.
-		var/turf/simulated/L = loc
-		if(istype(L))
-			var/datum/gas_mixture/env = L.return_air()
-			if(env.temperature < (heat_amt+T0C))
+	var/datum/milla_safe/rnd_server_heat/milla = new()
+	milla.invoke_async(src, heat_amt)
 
-				var/transfer_moles = 0.25 * env.total_moles()
+/datum/milla_safe/rnd_server_heat
 
-				var/datum/gas_mixture/removed = env.remove(transfer_moles)
+/datum/milla_safe/rnd_server_heat/on_run(obj/machinery/r_n_d/server/server, heat)
+	var/turf/location = get_turf(server)
+	var/datum/gas_mixture/env = get_turf_air(location)
 
-				if(removed)
+	if(server.stat & (NOPOWER|BROKEN))
+		return
+	if(env.temperature() >= (heat + T0C))
+		return
 
-					var/heat_capacity = removed.heat_capacity()
-					if(heat_capacity == 0 || heat_capacity == null)
-						heat_capacity = 1
-					removed.temperature = min((removed.temperature*heat_capacity + heating_power)/heat_capacity, 1000)
+	var/transfer_moles = 0.25 * env.total_moles()
 
-				env.merge(removed)
-				air_update_turf()
+	var/datum/gas_mixture/removed = env.remove(transfer_moles)
+	if(!removed)
+		return
 
+	var/heat_capacity = removed.heat_capacity()
+	if(heat_capacity == 0 || heat_capacity == null)
+		heat_capacity = 1
+	removed.set_temperature(min((removed.temperature() * heat_capacity + server.heating_power) / heat_capacity, 1000))
+	env.merge(removed)
 
 /obj/machinery/r_n_d/server/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 50))
@@ -154,13 +159,11 @@
 
 	return ..()
 
-
 /obj/machinery/r_n_d/server/screwdriver_act(mob/living/user, obj/item/I)
 	if(shocked && shock(user, 50))
 		add_fingerprint(user)
 		return TRUE
 	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
-
 
 /obj/machinery/r_n_d/server/crowbar_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -173,7 +176,6 @@
 		return .
 	griefProtection()
 	default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/r_n_d/server/attack_hand(mob/user)
 	if(..())
@@ -248,7 +250,6 @@
 
 /obj/machinery/r_n_d/server/centcom/process()
 	return PROCESS_KILL	//don't need process()
-
 
 /obj/machinery/computer/rdservercontrol
 	name = "R&D server controller"
@@ -464,6 +465,6 @@
 
 /obj/machinery/r_n_d/server/robotics
 	name = "Robotics and Mechanic R&D Server"
-	id_with_upload_string = "1;2;4"
-	id_with_download_string = "1;2;4"
+	id_with_upload_string = "1;2;4;6"
+	id_with_download_string = "1;2;4;6"
 	server_id = 2

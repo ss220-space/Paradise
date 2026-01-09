@@ -121,12 +121,9 @@
 
 /obj/item/clothing/under/rank/clown/nodrop
 
-
 /obj/item/clothing/under/rank/clown/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 
 /obj/item/clothing/under/rank/head_of_personnel
 	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
@@ -177,8 +174,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
-		)
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/rank/internalaffairs
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
@@ -213,7 +210,6 @@
 	icon_state = "janitor"
 	item_color = "janitor"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
-
 
 /obj/item/clothing/under/lawyer
 	name = "Lawyer suit"
@@ -264,7 +260,6 @@
 	item_color = "oldman"
 	dying_key = DYE_REGISTRY_UNDER
 
-
 /obj/item/clothing/under/librarian
 	name = "sensible suit"
 	desc = "It's very... sensible."
@@ -282,28 +277,47 @@
 
 /obj/item/clothing/under/mime/nodrop
 
-
 /obj/item/clothing/under/mime/nodrop/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-
 /obj/item/clothing/under/rank/miner
-	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
 	name = "shaft miner's jumpsuit"
+	desc = "Стильный комбинезон с прочными подкладками. Покрыты тонким слоем грязи и пепла, \
+			который, видимо, уже никогда не смоется."
 	icon_state = "miner"
 	item_state = "miner"
 	item_color = "miner"
 
+/obj/item/clothing/under/rank/miner/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрский комбинезон",
+		GENITIVE = "шахтёрского комбинезона",
+		DATIVE = "шахтёрскому комбинезону",
+		ACCUSATIVE = "шахтёрский комбинезон",
+		INSTRUMENTAL = "шахтёрским комбинезоном",
+		PREPOSITIONAL = "шахтёрском комбинезоне"
+	)
+
 /obj/item/clothing/under/rank/miner/alt
-	desc = "Cozy, old-style work sweater."
 	name = "shaft miner's sweater"
+	desc = "Уютный рабочий свитер в старомодном стиле."
 	icon_state = "miner_alt"
 	item_state = "miner_alt"
 	item_color = "miner_alt"
 
+/obj/item/clothing/under/rank/miner/alt/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрский свитер",
+		GENITIVE = "шахтёрского свитера",
+		DATIVE = "шахтёрскому свитеру",
+		ACCUSATIVE = "шахтёрский свитер",
+		INSTRUMENTAL = "шахтёрским свитером",
+		PREPOSITIONAL = "шахтёрском свитере"
+	)
+
 /obj/item/clothing/under/rank/miner/lavaland
-	desc = "A green uniform for operating in hazardous environments."
+	desc = "Зелёная униформа, созданная для работы в опасных условиях."
 	icon_state = "explorer"
 	item_state = "explorer"
 	item_color = "explorer"

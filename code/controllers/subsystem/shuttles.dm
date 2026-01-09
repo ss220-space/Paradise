@@ -30,6 +30,10 @@ SUBSYSTEM_DEF(shuttle)
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
 	var/list/hostile_environment = list()
+	/// Do we prevent the recall of the shuttle?
+	var/emergency_no_recall = FALSE
+	/// Did admins force-prevent the recall of the shuttle?
+	var/admin_emergency_no_recall = FALSE
 
 		//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
@@ -50,11 +54,10 @@ SUBSYSTEM_DEF(shuttle)
 	var/list/hidden_shuttle_turfs = list() //all turfs hidden from navigation computers associated with a list containing the image hiding them and the type of the turf they are pretending to be
 	var/list/hidden_shuttle_turf_images = list() //only the images from the above list
 
-
 /datum/controller/subsystem/shuttle/Initialize()
 	ordernum = rand(1,9000)
 
-	cargo_money_account = GLOB.department_accounts["Cargo"]
+	cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 
 	if(!emergency)
 		log_runtime(EXCEPTION("No /obj/docking_port/mobile/emergency placed on the map!"))
@@ -81,10 +84,8 @@ SUBSYSTEM_DEF(shuttle)
 	UnregisterSignal(src, COMSIG_CRYOPOD_DESPAWN)
 	. = ..()
 
-
 /datum/controller/subsystem/shuttle/get_stat_details()
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
-
 
 /datum/controller/subsystem/shuttle/proc/initial_load()
 	for(var/obj/docking_port/D in world)
@@ -221,7 +222,7 @@ SUBSYSTEM_DEF(shuttle)
 		return 1
 
 /datum/controller/subsystem/shuttle/proc/canRecall()
-	if(emergency.mode != SHUTTLE_CALL)
+	if(emergency.mode != SHUTTLE_CALL || admin_emergency_no_recall || emergency_no_recall)
 		return
 	if(!emergency.canRecall)
 		return
@@ -236,7 +237,7 @@ SUBSYSTEM_DEF(shuttle)
 	return 1
 
 /datum/controller/subsystem/shuttle/proc/autoEvac()
-	var/callShuttle = 1
+	var/callShuttle = TRUE
 
 	for(var/thing in GLOB.shuttle_caller_list)
 		if(istype(thing, /mob/living/silicon/ai))
@@ -252,7 +253,7 @@ SUBSYSTEM_DEF(shuttle)
 
 		var/turf/T = get_turf(thing)
 		if(T && is_station_level(T.z))
-			callShuttle = 0
+			callShuttle = FALSE
 			break
 
 	if(callShuttle)
@@ -278,7 +279,6 @@ SUBSYSTEM_DEF(shuttle)
 			return 2
 	return 0	//dock successful
 
-
 /datum/controller/subsystem/shuttle/proc/moveShuttle(shuttleId, dockId, timed, mob/user)
 	var/obj/docking_port/mobile/mobile = getShuttle(shuttleId)
 	var/obj/docking_port/stationary/dockAt = getDock(dockId)
@@ -299,7 +299,6 @@ SUBSYSTEM_DEF(shuttle)
 			return 2
 	SEND_SOUND(area, hyperspace_mini)
 	return 0	//dock successful
-
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
@@ -333,7 +332,6 @@ SUBSYSTEM_DEF(shuttle)
 		if(EAST, WEST)
 			transit_width += M.height
 			transit_height += M.width
-
 
 	var/transit_path = /turf/space/transit
 	switch(travel_dir)
@@ -403,7 +401,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	M.assigned_transit = new_transit_dock
 	return new_transit_dock
-
 
 /datum/controller/subsystem/shuttle/proc/initial_move()
 	for(var/obj/docking_port/mobile/M in mobile)
@@ -505,6 +502,32 @@ SUBSYSTEM_DEF(shuttle)
 
 #undef CRYOPOD_POINTS
 
+/datum/controller/subsystem/shuttle/proc/block_recall(lockout_timer)
+	if(isnull(lockout_timer))
+		CRASH("Emergency shuttle block was called, but missing a value for the lockout duration")
+	if(admin_emergency_no_recall)
+		GLOB.major_announcement.announce(
+			message = "Обнаружены помехи в канале связи эвакуационного шаттла. Вызов шаттла отключен до завершения перезагрузки системы. Примерное время восстановления: [DisplayTimeText(lockout_timer, round_seconds_to = 60)].",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Обнаружены помехи.",
+			new_sound = 'sound/misc/announce_dig.ogg',
+		)
+		addtimer(CALLBACK(src, PROC_REF(unblock_recall)), lockout_timer)
+		return
+	emergency_no_recall = TRUE
+	addtimer(CALLBACK(src, PROC_REF(unblock_recall)), lockout_timer)
+
+/datum/controller/subsystem/shuttle/proc/unblock_recall()
+	if(admin_emergency_no_recall)
+		GLOB.major_announcement.announce(
+			message = "Канал связи эвакуационного шаттла восстановлен.",
+			new_title = "Канал связи эвакуационного шаттла.",
+			new_subtitle = "Связь восстановлена.",
+			new_sound = 'sound/misc/announce_dig.ogg',
+		)
+		return
+	emergency_no_recall = FALSE
+
 // Allow admins to fix shuttles ports list.
 /client/proc/reregister_docks()
 	set category = "Debug"
@@ -517,7 +540,6 @@ SUBSYSTEM_DEF(shuttle)
 
 	log_and_message_admins(span_notice("[key_name(usr)] re-registered docking ports for SSshuttle."))
 	BLACKBOX_LOG_ADMIN_VERB("Re-register Docking Ports")
-
 
 #undef CALL_SHUTTLE_REASON_LENGTH
 #undef MAX_TRANSIT_REQUEST_RETRIES

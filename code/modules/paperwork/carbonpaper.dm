@@ -3,7 +3,6 @@
 	var/copied = 0
 	var/iscopy = 0
 
-
 /obj/item/paper/carbon/update_icon_state()
 	if(iscopy)
 		if(info)
@@ -21,10 +20,9 @@
 			return
 		icon_state = "paper_stack"
 
-
 /obj/item/paper/carbon/verb/removecopy()
 	set name = "Удалить копию"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

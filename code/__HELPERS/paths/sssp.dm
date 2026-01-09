@@ -21,7 +21,6 @@
 	/// Are we currently being built
 	var/building = FALSE
 
-
 /// Gets a list of turfs reachable by this path_map from the distance first to the distance second, both inclusive
 /// first > second or first < second are both respected, and the return order will reflect the arg order
 /// We return a list of turf -> distance, or null if we error
@@ -48,7 +47,6 @@
 
 	return hand_back
 
-
 /**
  * Takes a turf to path to, returns the shortest path to it at the time of this datum's creation
  *
@@ -58,7 +56,6 @@
 /datum/path_map/proc/get_path_to(turf/path_to, skip_first = FALSE, min_target_dist = 0)
 	return generate_path(path_to, skip_first, min_target_dist)
 
-
 /**
  * Takes a turf to start from, returns a path to the source turf of this datum
  *
@@ -67,7 +64,6 @@
  */
 /datum/path_map/proc/get_path_from(turf/path_from, skip_first = FALSE, min_target_dist = 0)
 	return generate_path(path_from, skip_first, min_target_dist, reverse = TRUE)
-
 
 /**
  * Takes a turf to use as the other end, returns the path between the source node and it
@@ -94,7 +90,6 @@
 		path.Cut(length(path) + 1 - min_target_dist, length(path) + 1)
 	return path
 
-
 /datum/path_map/proc/display(delay = 10 SECONDS)
 	for(var/index in 1 to length(distances))
 		var/turf/next_turf = next_closest[index]
@@ -102,7 +97,6 @@
 		next_turf.color = COLOR_NAVY
 		animate(next_turf, color = null, delay)
 		animate(maptext = "", world.tick_lag)
-
 
 /// Copies the passed in path_map into this datum
 /// Saves some headache with updating refs if we want to modify a path_map
@@ -115,12 +109,10 @@
 	src.pass_space = read_from.pass_space
 	src.avoid = read_from.avoid
 
-
 /// Returns true if the passed in pass_map's pass logic matches ours
 /// False otherwise
 /datum/path_map/proc/compare_against(datum/path_map/map)
 	return compare_against_args(map.pass_info, map.start, map.pass_space, map.avoid)
-
 
 /// Returns true if the passed in pass_info and start/pass_space/avoid match ours
 /// False otherwise
@@ -134,7 +126,6 @@
 
 	return pass_info.compare_against(pass_info)
 
-
 /// Returns a new /datum/pathfind/sssp based off our settings
 /// Will have an invalid source mob, no max distance, and no ending callback
 /datum/path_map/proc/settings_to_path()
@@ -143,7 +134,6 @@
 	var/datum/pathfind/sssp/based_on_what = new()
 	based_on_what.setup(pass_info, null, INFINITY, pass_space, avoid)
 	return based_on_what
-
 
 /// Expands this pathmap to cover a new range, assuming the arg is greater then the current range
 /// Returns true if this succeeded or was not required, false otherwise
@@ -186,7 +176,6 @@
 	expanding = FALSE
 	return TRUE
 
-
 /datum/path_map/proc/sanity_check()
 	for(var/index in 1 to length(distances))
 		var/turf/next_turf = next_closest[index]
@@ -201,7 +190,6 @@
 		if(path.Find(next_turf) != length(path))
 			stack_trace("Starting turf [next_turf] was not the last entry in its list (instead it's at [path.Find(next_turf)])")
 
-
 /// Single source shortest path
 /// Generates a flow map of a reachable turf -> the turf next closest to the map's center
 /datum/pathfind/sssp
@@ -212,7 +200,6 @@
 	/// Our current position in the working queue
 	var/working_index
 
-
 /datum/pathfind/sssp/proc/setup(atom/movable/requester, list/access, turf/center, max_distance, simulated_only, turf/avoid, list/datum/callback/on_finish)
 	src.pass_info = new(requester, access)
 	src.start = center
@@ -221,7 +208,6 @@
 	src.avoid = avoid
 	src.on_finish = on_finish
 
-
 /datum/pathfind/sssp/proc/setup_from_canpass(datum/can_pass_info/info, turf/center, max_distance, simulated_only, turf/avoid, list/datum/callback/on_finish)
 	src.pass_info = info
 	src.start = center
@@ -229,7 +215,6 @@
 	src.simulated_only = simulated_only
 	src.avoid = avoid
 	src.on_finish = on_finish
-
 
 /datum/pathfind/sssp/start()
 	. = ..()
@@ -241,7 +226,6 @@
 	working_distances += 0
 	working_index = 0
 	return TRUE
-
 
 /datum/pathfind/sssp/search_step()
 	. = ..()
@@ -301,7 +285,6 @@
 		if(TICK_CHECK)
 			return TRUE
 	return TRUE
-
 
 /datum/pathfind/sssp/finished()
 	var/datum/path_map/flow_map = new()

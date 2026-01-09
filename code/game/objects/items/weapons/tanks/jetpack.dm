@@ -3,7 +3,6 @@
 	desc = "A tank of compressed gas for use as propulsion in zero-gravity areas. Use with caution."
 	icon_state = "jetpack"
 	w_class = WEIGHT_CLASS_BULKY
-	gender = MALE
 	item_state = "jetpack"
 	distribute_pressure = ONE_ATMOSPHERE * O2STANDARD
 	actions_types = list(/datum/action/item_action/set_internals, /datum/action/item_action/toggle_jetpack, /datum/action/item_action/jetpack_stabilization)
@@ -13,17 +12,14 @@
 	var/skip_trails = FALSE
 	var/thrust_callback
 
-
 /obj/item/tank/jetpack/Initialize(mapload)
 	. = ..()
 	thrust_callback = CALLBACK(src, PROC_REF(allow_thrust), 0.01)
 	configure_jetpack(stabilize, skip_trails)
 
-
 /obj/item/tank/jetpack/Destroy()
 	thrust_callback = null
 	return ..()
-
 
 /**
  * Configures/re-configures the jetpack component
@@ -48,33 +44,28 @@
 		src.skip_trails \
 	)
 
-
 /obj/item/tank/jetpack/populate_gas()
 	if(!gas_type)
 		return
 	switch(gas_type)
 		if("oxygen")
-			air_contents.oxygen = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
+			air_contents.set_oxygen(((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
 		if("carbon dioxide")
-			air_contents.carbon_dioxide = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
-
+			air_contents.set_carbon_dioxide(((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
 
 /obj/item/tank/jetpack/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_BACK)
 		return TRUE
-
 
 /obj/item/tank/jetpack/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(on && !(slot & ITEM_SLOT_BACK))
 		turn_off(user)
 
-
 /obj/item/tank/jetpack/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
 	if(on)
 		turn_off(user)
-
 
 /obj/item/tank/jetpack/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_jetpack))
@@ -87,7 +78,6 @@
 				existing.UpdateButtonIcon()
 	else
 		toggle_internals(user)
-
 
 /obj/item/tank/jetpack/proc/cycle(mob/user)
 	if(user.incapacitated())
@@ -106,10 +96,8 @@
 	for(var/datum/action/action as anything in actions)
 		action.UpdateButtonIcon()
 
-
 /obj/item/tank/jetpack/update_icon_state()
 	icon_state = "[initial(icon_state)][on ? "-on" : ""]"
-
 
 /obj/item/tank/jetpack/proc/turn_on(mob/user)
 	if(SEND_SIGNAL(src, COMSIG_JETPACK_ACTIVATED, user) & JETPACK_ACTIVATION_FAILED)
@@ -118,12 +106,10 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-
 /obj/item/tank/jetpack/proc/turn_off(mob/user)
 	SEND_SIGNAL(src, COMSIG_JETPACK_DEACTIVATED, user)
 	on = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /// num argument is set on jetpack init, in a CALLBACK
 /// use_fuel argument comes from an attached component (used to check if we can start and skips fuel usage)
@@ -140,20 +126,18 @@
 	if(!use_fuel)
 		return TRUE
 
-	var/datum/gas_mixture/removed = remove_air(num)
+	var/datum/gas_mixture/removed = air_contents.remove(num)
 	if(removed.total_moles() < 0.005)
 		turn_off(user)
 		return FALSE
 
 	var/turf/T = get_turf(src)
-	T.assume_air(removed)
+	T.blind_release_air(removed)
 	return TRUE
-
 
 /obj/item/tank/jetpack/proc/get_owner()
 	if(ishuman(loc))
 		return loc
-
 
 /obj/item/tank/jetpack/improvised
 	name = "improvised jetpack"
@@ -162,7 +146,6 @@
 	item_state = "jetpack-improvised"
 	volume = 20 //normal jetpacks have 70 volume
 	gas_type = null //it starts empty
-
 
 /obj/item/tank/jetpack/improvised/allow_thrust(num, use_fuel = TRUE)
 	var/mob/user = get_owner()
@@ -190,7 +173,7 @@
 		DATIVE = "вакуумному реактивному ранцу (Кислород)",
 		ACCUSATIVE = "вакуумный реактивный ранец (Кислород)",
 		INSTRUMENTAL = "вакуумным реактивным ранцем (Кислород)",
-		PREPOSITIONAL = "вакуумном реактивном ранце (Кислород)"
+		PREPOSITIONAL = "вакуумном реактивном ранце (Кислород)",
 	)
 
 /obj/item/tank/jetpack/oxygen
@@ -249,12 +232,10 @@
 	var/obj/item/tank/internals/tank
 	var/obj/item/clothing/suit/space/our_suit
 
-
 /obj/item/tank/jetpack/suit/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src)
 	temp_air_contents = air_contents
-
 
 /obj/item/tank/jetpack/suit/Destroy()
 	our_suit = null
@@ -262,23 +243,18 @@
 	temp_air_contents = null
 	return ..()
 
-
 /obj/item/tank/jetpack/suit/item_action_slot_check(slot, mob/user, datum/action/action)
 	return TRUE
-
 
 /obj/item/tank/jetpack/suit/get_owner()
 	if(our_suit && ishuman(our_suit.loc))
 		return our_suit.loc
 
-
 /obj/item/tank/jetpack/suit/attack_self()
 	return
 
-
 /obj/item/tank/jetpack/suit/examine(mob/user)
 	. = ..(user, show_contents_info = FALSE)
-
 
 /obj/item/tank/jetpack/suit/allow_thrust(num, use_fuel = TRUE)
 	if(!our_suit)
@@ -286,7 +262,6 @@
 	if(!istype(tank, /obj/item/tank))
 		return FALSE
 	return ..()
-
 
 /obj/item/tank/jetpack/suit/turn_on(mob/living/carbon/human/user)
 	if(!ishuman(user))
@@ -302,13 +277,11 @@
 	START_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/item/tank/jetpack/suit/turn_off(mob/living/carbon/human/user)
 	tank = null
 	air_contents = temp_air_contents
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/tank/jetpack/suit/ninja
 	name = "ninja jetpack upgrade"
@@ -316,7 +289,6 @@
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "ninja_jetpack"
 	actions_types = list(/datum/action/item_action/toggle_jetpack/ninja, /datum/action/item_action/jetpack_stabilization/ninja)
-
 
 /obj/item/tank/jetpack/suit/ninja/allow_thrust(num, use_fuel = TRUE)
 	var/mob/living/user = get_owner()
@@ -329,5 +301,4 @@
 		configure_jetpack(skip_trails = FALSE)
 
 	return ..()
-
 

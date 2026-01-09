@@ -1,6 +1,5 @@
 //Not to be confused with /obj/item/reagent_containers/food/drinks/bottle
 
-
 /obj/item/reagent_containers/glass/bottle
 	name = "bottle"
 	desc = "Небольшая стеклянная бутылочка."
@@ -17,12 +16,11 @@
 		DATIVE = "бутылке",
 		ACCUSATIVE = "бутылку",
 		INSTRUMENTAL = "бутылкой",
-		PREPOSITIONAL = "бутылке"
+		PREPOSITIONAL = "бутылке",
 	)
 
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
-
 
 /obj/item/reagent_containers/glass/bottle/update_overlays()
 	. = ..()
@@ -53,7 +51,6 @@
 	if(!is_open_container())
 		. += "lid_[icon_state]"
 
-
 /obj/item/reagent_containers/glass/bottle/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!reagents.total_volume)
 		C.stored_comms["glass"] += 3
@@ -73,7 +70,7 @@
 		DATIVE = "бутылке (Токсины)",
 		ACCUSATIVE = "бутылку (Токсины)",
 		INSTRUMENTAL = "бутылкой (Токсины)",
-		PREPOSITIONAL = "бутылке (Токсины)"
+		PREPOSITIONAL = "бутылке (Токсины)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/atropine
@@ -88,7 +85,7 @@
 		DATIVE = "бутылке (Атропин)",
 		ACCUSATIVE = "бутылку (Атропин)",
 		INSTRUMENTAL = "бутылкой (Атропин)",
-		PREPOSITIONAL = "бутылке (Атропин)"
+		PREPOSITIONAL = "бутылке (Атропин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/saline
@@ -103,7 +100,7 @@
 		DATIVE = "бутылке (Физраствор)",
 		ACCUSATIVE = "бутылку (Физраствор)",
 		INSTRUMENTAL = "бутылкой (Физраствор)",
-		PREPOSITIONAL = "бутылке (Физраствор)"
+		PREPOSITIONAL = "бутылке (Физраствор)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/salicylic
@@ -118,7 +115,7 @@
 		DATIVE = "бутылке (Салициловая кислота)",
 		ACCUSATIVE = "бутылку (Салициловая кислота)",
 		INSTRUMENTAL = "бутылкой (Салициловая кислота)",
-		PREPOSITIONAL = "бутылке (Салициловая кислота)"
+		PREPOSITIONAL = "бутылке (Салициловая кислота)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/cyanide
@@ -133,7 +130,7 @@
 		DATIVE = "бутылке (Цианид)",
 		ACCUSATIVE = "бутылку (Цианид)",
 		INSTRUMENTAL = "бутылкой (Цианид)",
-		PREPOSITIONAL = "бутылке (Цианид)"
+		PREPOSITIONAL = "бутылке (Цианид)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/mutagen
@@ -150,7 +147,7 @@
 		DATIVE = "бутылке (Нестабильный мутаген)",
 		ACCUSATIVE = "бутылку (Нестабильный мутаген)",
 		INSTRUMENTAL = "бутылкой (Нестабильный мутаген)",
-		PREPOSITIONAL = "бутылке (Нестабильный мутаген)"
+		PREPOSITIONAL = "бутылке (Нестабильный мутаген)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/ammonia
@@ -167,7 +164,7 @@
 		DATIVE = "бутылке (Аммиак)",
 		ACCUSATIVE = "бутылку (Аммиак)",
 		INSTRUMENTAL = "бутылкой (Аммиак)",
-		PREPOSITIONAL = "бутылке (Аммиак)"
+		PREPOSITIONAL = "бутылке (Аммиак)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/diethylamine
@@ -184,7 +181,7 @@
 		DATIVE = "бутылке (Диэтиламин)",
 		ACCUSATIVE = "бутылку (Диэтиламин)",
 		INSTRUMENTAL = "бутылкой (Диэтиламин)",
-		PREPOSITIONAL = "бутылке (Диэтиламин)"
+		PREPOSITIONAL = "бутылке (Диэтиламин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/facid
@@ -201,7 +198,7 @@
 		DATIVE = "бутылке (Фторсерная кислота)",
 		ACCUSATIVE = "бутылку (Фторсерная кислота)",
 		INSTRUMENTAL = "бутылкой (Фторсерная кислота)",
-		PREPOSITIONAL = "бутылке (Фторсерная кислота)"
+		PREPOSITIONAL = "бутылке (Фторсерная кислота)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/adminordrazine
@@ -218,7 +215,7 @@
 		DATIVE = "бутылке (Админордразин)",
 		ACCUSATIVE = "бутылку (Админордразин)",
 		INSTRUMENTAL = "бутылкой (Админордразин)",
-		PREPOSITIONAL = "бутылке (Админордразин)"
+		PREPOSITIONAL = "бутылке (Админордразин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/capsaicin
@@ -235,7 +232,7 @@
 		DATIVE = "бутылке (Капсаицин)",
 		ACCUSATIVE = "бутылку (Капсаицин)",
 		INSTRUMENTAL = "бутылкой (Капсаицин)",
-		PREPOSITIONAL = "бутылке (Капсаицин)"
+		PREPOSITIONAL = "бутылке (Капсаицин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/frostoil
@@ -252,7 +249,7 @@
 		DATIVE = "бутылке (Ледяное масло)",
 		ACCUSATIVE = "бутылку (Ледяное масло)",
 		INSTRUMENTAL = "бутылкой (Ледяное масло)",
-		PREPOSITIONAL = "бутылке (Ледяное масло)"
+		PREPOSITIONAL = "бутылке (Ледяное масло)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/morphine
@@ -269,7 +266,7 @@
 		DATIVE = "бутылке (Морфин)",
 		ACCUSATIVE = "бутылку (Морфин)",
 		INSTRUMENTAL = "бутылкой (Морфин)",
-		PREPOSITIONAL = "бутылке (Морфин)"
+		PREPOSITIONAL = "бутылке (Морфин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/ether
@@ -286,7 +283,7 @@
 		DATIVE = "бутылке (Эфир)",
 		ACCUSATIVE = "бутылку (Эфир)",
 		INSTRUMENTAL = "бутылкой (Эфир)",
-		PREPOSITIONAL = "бутылке (Эфир)"
+		PREPOSITIONAL = "бутылке (Эфир)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/charcoal
@@ -303,7 +300,7 @@
 		DATIVE = "бутылке (Активированный уголь)",
 		ACCUSATIVE = "бутылку (Активированный уголь)",
 		INSTRUMENTAL = "бутылкой (Активированный уголь)",
-		PREPOSITIONAL = "бутылке (Активированный уголь)"
+		PREPOSITIONAL = "бутылке (Активированный уголь)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/epinephrine
@@ -320,7 +317,7 @@
 		DATIVE = "бутылке (Эпинефрин)",
 		ACCUSATIVE = "бутылку (Эпинефрин)",
 		INSTRUMENTAL = "бутылкой (Эпинефрин)",
-		PREPOSITIONAL = "бутылке (Эпинефрин)"
+		PREPOSITIONAL = "бутылке (Эпинефрин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/pancuronium
@@ -337,7 +334,7 @@
 		DATIVE = "бутылке (Панкуроний)",
 		ACCUSATIVE = "бутылку (Панкуроний)",
 		INSTRUMENTAL = "бутылкой (Панкуроний)",
-		PREPOSITIONAL = "бутылке (Панкуроний)"
+		PREPOSITIONAL = "бутылке (Панкуроний)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/sulfonal
@@ -354,7 +351,7 @@
 		DATIVE = "бутылке (Сульфонал)",
 		ACCUSATIVE = "бутылку (Сульфонал)",
 		INSTRUMENTAL = "бутылкой (Сульфонал)",
-		PREPOSITIONAL = "бутылке (Сульфонал)"
+		PREPOSITIONAL = "бутылке (Сульфонал)",
 	)
 
 //Reagent bottles
@@ -379,7 +376,7 @@
 		DATIVE = "бутылке (Масло)",
 		ACCUSATIVE = "бутылку (Масло)",
 		INSTRUMENTAL = "бутылкой (Масло)",
-		PREPOSITIONAL = "бутылке (Масло)"
+		PREPOSITIONAL = "бутылке (Масло)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/phenol
@@ -396,7 +393,7 @@
 		DATIVE = "бутылке (Фенол)",
 		ACCUSATIVE = "бутылку (Фенол)",
 		INSTRUMENTAL = "бутылкой (Фенол)",
-		PREPOSITIONAL = "бутылке (Фенол)"
+		PREPOSITIONAL = "бутылке (Фенол)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/acetone
@@ -412,7 +409,7 @@
 		DATIVE = "бутылке (Ацетон)",
 		ACCUSATIVE = "бутылку (Ацетон)",
 		INSTRUMENTAL = "бутылкой (Ацетон)",
-		PREPOSITIONAL = "бутылке (Ацетон)"
+		PREPOSITIONAL = "бутылке (Ацетон)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/ammonia
@@ -428,7 +425,7 @@
 		DATIVE = "бутылке (Аммиак)",
 		ACCUSATIVE = "бутылку (Аммиак)",
 		INSTRUMENTAL = "бутылкой (Аммиак)",
-		PREPOSITIONAL = "бутылке (Аммиак)"
+		PREPOSITIONAL = "бутылке (Аммиак)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/diethylamine
@@ -445,7 +442,7 @@
 		DATIVE = "бутылке (Диэтиламин)",
 		ACCUSATIVE = "бутылку (Диэтиламин)",
 		INSTRUMENTAL = "бутылкой (Диэтиламин)",
-		PREPOSITIONAL = "бутылке (Диэтиламин)"
+		PREPOSITIONAL = "бутылке (Диэтиламин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/acid
@@ -462,7 +459,7 @@
 		DATIVE = "бутылке (Серная кислота)",
 		ACCUSATIVE = "бутылку (Серная кислота)",
 		INSTRUMENTAL = "бутылкой (Серная кислота)",
-		PREPOSITIONAL = "бутылке (Серная кислота)"
+		PREPOSITIONAL = "бутылке (Серная кислота)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/formaldehyde
@@ -477,7 +474,7 @@
 		DATIVE = "бутылке (Формальдегид)",
 		ACCUSATIVE = "бутылку (Формальдегид)",
 		INSTRUMENTAL = "бутылкой (Формальдегид)",
-		PREPOSITIONAL = "бутылке (Формальдегид)"
+		PREPOSITIONAL = "бутылке (Формальдегид)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/synaptizine
@@ -492,7 +489,7 @@
 		DATIVE = "бутылке (Синаптизин)",
 		ACCUSATIVE = "бутылку (Синаптизин)",
 		INSTRUMENTAL = "бутылкой (Синаптизин)",
-		PREPOSITIONAL = "бутылке (Синаптизин)"
+		PREPOSITIONAL = "бутылке (Синаптизин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/morphine
@@ -507,7 +504,7 @@
 		DATIVE = "бутылке (Морфин)",
 		ACCUSATIVE = "бутылку (Морфин)",
 		INSTRUMENTAL = "бутылкой (Морфин)",
-		PREPOSITIONAL = "бутылке (Морфин)"
+		PREPOSITIONAL = "бутылке (Морфин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/insulin
@@ -522,7 +519,7 @@
 		DATIVE = "бутылке (Инсулин)",
 		ACCUSATIVE = "бутылку (Инсулин)",
 		INSTRUMENTAL = "бутылкой (Инсулин)",
-		PREPOSITIONAL = "бутылке (Инсулин)"
+		PREPOSITIONAL = "бутылке (Инсулин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium
@@ -537,7 +534,7 @@
 		DATIVE = "бутылке (Власорост)",
 		ACCUSATIVE = "бутылку (Власорост)",
 		INSTRUMENTAL = "бутылкой (Власорост)",
-		PREPOSITIONAL = "бутылке (Власорост)"
+		PREPOSITIONAL = "бутылке (Власорост)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/hair_dye
@@ -552,7 +549,7 @@
 		DATIVE = "бутылке (Квантовая краска для волос)",
 		ACCUSATIVE = "бутылку (Квантовая краска для волос)",
 		INSTRUMENTAL = "бутылкой (Квантовая краска для волос)",
-		PREPOSITIONAL = "бутылке (Квантовая краска для волос)"
+		PREPOSITIONAL = "бутылке (Квантовая краска для волос)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/omnizine
@@ -567,7 +564,7 @@
 		DATIVE = "бутылке (Омнизин)",
 		ACCUSATIVE = "бутылку (Омнизин)",
 		INSTRUMENTAL = "бутылкой (Омнизин)",
-		PREPOSITIONAL = "бутылке (Омнизин)"
+		PREPOSITIONAL = "бутылке (Омнизин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/reagent/strange_reagent
@@ -582,7 +579,7 @@
 		DATIVE = "бутылке (Странный реагент)",
 		ACCUSATIVE = "бутылку (Странный реагент)",
 		INSTRUMENTAL = "бутылкой (Странный реагент)",
-		PREPOSITIONAL = "бутылке (Странный реагент)"
+		PREPOSITIONAL = "бутылке (Странный реагент)",
 	)
 
 ////////////////////Traitor Poison Bottle//////////////////////////////
@@ -593,7 +590,7 @@
 	volume = 40
 
 /obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
-	reagents.add_reagent(pick_list("chemistry_tools.json", "traitor_poison_bottle"), 40)
+	reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle"), 40)
 	. = ..()
 
 /obj/item/reagent_containers/glass/bottle/plasma
@@ -610,7 +607,7 @@
 		DATIVE = "бутылке (Плазменная пыль)",
 		ACCUSATIVE = "бутылку (Плазменная пыль)",
 		INSTRUMENTAL = "бутылкой (Плазменная пыль)",
-		PREPOSITIONAL = "бутылке (Плазменная пыль)"
+		PREPOSITIONAL = "бутылке (Плазменная пыль)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/diphenhydramine
@@ -627,7 +624,7 @@
 		DATIVE = "бутылке (Дифенгидрамин)",
 		ACCUSATIVE = "бутылку (Дифенгидрамин)",
 		INSTRUMENTAL = "бутылкой (Дифенгидрамин)",
-		PREPOSITIONAL = "бутылке (Дифенгидрамин)"
+		PREPOSITIONAL = "бутылке (Дифенгидрамин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/oculine
@@ -644,7 +641,7 @@
 		DATIVE = "бутылке (Окулин)",
 		ACCUSATIVE = "бутылку (Окулин)",
 		INSTRUMENTAL = "бутылкой (Окулин)",
-		PREPOSITIONAL = "бутылке (Окулин)"
+		PREPOSITIONAL = "бутылке (Окулин)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/potassium_iodide
@@ -661,7 +658,7 @@
 		DATIVE = "бутылке (Иодид калия)",
 		ACCUSATIVE = "бутылку (Иодид калия)",
 		INSTRUMENTAL = "бутылкой (Иодид калия)",
-		PREPOSITIONAL = "бутылке (Иодид калия)"
+		PREPOSITIONAL = "бутылке (Иодид калия)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/cold
@@ -678,7 +675,7 @@
 		DATIVE = "вирусной культуре (Простуда)",
 		ACCUSATIVE = "вирусную культуру (Простуда)",
 		INSTRUMENTAL = "вирусной культурой (Простуда)",
-		PREPOSITIONAL = "вирусной культуре (Простуда)"
+		PREPOSITIONAL = "вирусной культуре (Простуда)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/flu
@@ -695,7 +692,7 @@
 		DATIVE = "вирусной культуре (Грипп)",
 		ACCUSATIVE = "вирусную культуру (Грипп)",
 		INSTRUMENTAL = "вирусной культурой (Грипп)",
-		PREPOSITIONAL = "вирусной культуре (Грипп)"
+		PREPOSITIONAL = "вирусной культуре (Грипп)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/sneezing
@@ -712,7 +709,7 @@
 		DATIVE = "вирусной культуре (Чихание)",
 		ACCUSATIVE = "вирусную культуру (Чихание)",
 		INSTRUMENTAL = "вирусной культурой (Чихание)",
-		PREPOSITIONAL = "вирусной культуре (Чихание)"
+		PREPOSITIONAL = "вирусной культуре (Чихание)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/cough
@@ -729,7 +726,7 @@
 		DATIVE = "вирусной культуре (Кашель)",
 		ACCUSATIVE = "вирусную культуру (Кашель)",
 		INSTRUMENTAL = "вирусной культурой (Кашель)",
-		PREPOSITIONAL = "вирусной культуре (Кашель)"
+		PREPOSITIONAL = "вирусной культуре (Кашель)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/epiglottis_virion
@@ -746,7 +743,7 @@
 		DATIVE = "вирусной культуре (Надгортанник)",
 		ACCUSATIVE = "вирусную культуру (Надгортанник)",
 		INSTRUMENTAL = "вирусной культурой (Надгортанник)",
-		PREPOSITIONAL = "вирусной культуре (Надгортанник)"
+		PREPOSITIONAL = "вирусной культуре (Надгортанник)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/liver_enhance_virion
@@ -763,7 +760,7 @@
 		DATIVE = "вирусной культуре (Укрепление печени)",
 		ACCUSATIVE = "вирусную культуру (Укрепление печени)",
 		INSTRUMENTAL = "вирусной культурой (Укрепление печени)",
-		PREPOSITIONAL = "вирусной культуре (Укрепление печени)"
+		PREPOSITIONAL = "вирусной культуре (Укрепление печени)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/hullucigen_virion
@@ -780,7 +777,7 @@
 		DATIVE = "вирусной культуре (Галлюцинации)",
 		ACCUSATIVE = "вирусную культуру (Галлюцинации)",
 		INSTRUMENTAL = "вирусной культурой (Галлюцинации)",
-		PREPOSITIONAL = "вирусной культуре (Галлюцинации)"
+		PREPOSITIONAL = "вирусной культуре (Галлюцинации)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/pierrot_throat
@@ -797,7 +794,7 @@
 		DATIVE = "вирусной культуре (Горло Пьеро)",
 		ACCUSATIVE = "вирусную культуру (Горло Пьеро)",
 		INSTRUMENTAL = "вирусной культурой (Горло Пьеро)",
-		PREPOSITIONAL = "вирусной культуре (Горло Пьеро)"
+		PREPOSITIONAL = "вирусной культуре (Горло Пьеро)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/mind_restoration
@@ -814,7 +811,7 @@
 		DATIVE = "вирусной культуре (Восстановление сознания)",
 		ACCUSATIVE = "вирусную культуру (Восстановление сознания)",
 		INSTRUMENTAL = "вирусной культурой (Восстановление сознания)",
-		PREPOSITIONAL = "вирусной культуре (Восстановление сознания)"
+		PREPOSITIONAL = "вирусной культуре (Восстановление сознания)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/advanced_regeneration
@@ -831,7 +828,7 @@
 		DATIVE = "вирусной культуре (Улучшенная регенерация)",
 		ACCUSATIVE = "вирусную культуру (Улучшенная регенерация)",
 		INSTRUMENTAL = "вирусной культурой (Улучшенная регенерация)",
-		PREPOSITIONAL = "вирусной культуре (Улучшенная регенерация)"
+		PREPOSITIONAL = "вирусной культуре (Улучшенная регенерация)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/stealth_necrosis
@@ -848,7 +845,7 @@
 		DATIVE = "вирусной культуре (Некроз)",
 		ACCUSATIVE = "вирусную культуру (Некроз)",
 		INSTRUMENTAL = "вирусной культурой (Некроз)",
-		PREPOSITIONAL = "вирусной культуре (Некроз)"
+		PREPOSITIONAL = "вирусной культуре (Некроз)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/pre_kingstons
@@ -865,7 +862,7 @@
 		DATIVE = "вирусной культуре (Синдром Кингстона)",
 		ACCUSATIVE = "вирусную культуру (Синдром Кингстона)",
 		INSTRUMENTAL = "вирусной культурой (Синдром Кингстона)",
-		PREPOSITIONAL = "вирусной культуре (Синдром Кингстона)"
+		PREPOSITIONAL = "вирусной культуре (Синдром Кингстона)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/love
@@ -882,7 +879,7 @@
 		DATIVE = "вирусной культуре (Любовь)",
 		ACCUSATIVE = "вирусную культуру (Любовь)",
 		INSTRUMENTAL = "вирусной культурой (Любовь)",
-		PREPOSITIONAL = "вирусной культуре (Любовь)"
+		PREPOSITIONAL = "вирусной культуре (Любовь)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/aggression
@@ -899,7 +896,7 @@
 		DATIVE = "вирусной культуре (Агрессия)",
 		ACCUSATIVE = "вирусную культуру (Агрессия)",
 		INSTRUMENTAL = "вирусной культурой (Агрессия)",
-		PREPOSITIONAL = "вирусной культуре (Агрессия)"
+		PREPOSITIONAL = "вирусной культуре (Агрессия)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/obsession
@@ -916,7 +913,7 @@
 		DATIVE = "вирусной культуре (Одержимость)",
 		ACCUSATIVE = "вирусную культуру (Одержимость)",
 		INSTRUMENTAL = "вирусной культурой (Одержимость)",
-		PREPOSITIONAL = "вирусной культуре (Одержимость)"
+		PREPOSITIONAL = "вирусной культуре (Одержимость)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/confusion
@@ -933,7 +930,7 @@
 		DATIVE = "вирусной культуре (Замешательство)",
 		ACCUSATIVE = "вирусную культуру (Замешательство)",
 		INSTRUMENTAL = "вирусной культурой (Замешательство)",
-		PREPOSITIONAL = "вирусной культуре (Замешательство)"
+		PREPOSITIONAL = "вирусной культуре (Замешательство)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/bones
@@ -950,7 +947,7 @@
 		DATIVE = "вирусной культуре (Кости)",
 		ACCUSATIVE = "вирусную культуру (Кости)",
 		INSTRUMENTAL = "вирусной культурой (Кости)",
-		PREPOSITIONAL = "вирусной культуре (Кости)"
+		PREPOSITIONAL = "вирусной культуре (Кости)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/limb_throw
@@ -967,7 +964,7 @@
 		DATIVE = "вирусной культуре (Отстреливание конечностей)",
 		ACCUSATIVE = "вирусную культуру (Отстреливание конечностей)",
 		INSTRUMENTAL = "вирусной культурой (Отстреливание конечностей)",
-		PREPOSITIONAL = "вирусной культуре (Отстреливание конечностей)"
+		PREPOSITIONAL = "вирусной культуре (Отстреливание конечностей)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/laugh
@@ -984,7 +981,7 @@
 		DATIVE = "вирусной культуре (Смех)",
 		ACCUSATIVE = "вирусную культуру (Смех)",
 		INSTRUMENTAL = "вирусной культурой (Смех)",
-		PREPOSITIONAL = "вирусной культуре (Смех)"
+		PREPOSITIONAL = "вирусной культуре (Смех)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/moan
@@ -1001,7 +998,7 @@
 		DATIVE = "вирусной культуре (Стоны)",
 		ACCUSATIVE = "вирусную культуру (Стоны)",
 		INSTRUMENTAL = "вирусной культурой (Стоны)",
-		PREPOSITIONAL = "вирусной культуре (Стоны)"
+		PREPOSITIONAL = "вирусной культуре (Стоны)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/infection
@@ -1018,7 +1015,7 @@
 		DATIVE = "вирусной культуре (Инфекция)",
 		ACCUSATIVE = "вирусную культуру (Инфекция)",
 		INSTRUMENTAL = "вирусной культурой (Инфекция)",
-		PREPOSITIONAL = "вирусной культуре (Инфекция)"
+		PREPOSITIONAL = "вирусной культуре (Инфекция)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/loyalty
@@ -1035,7 +1032,7 @@
 		DATIVE = "вирусной культуре (Преданность)",
 		ACCUSATIVE = "вирусную культуру (Преданность)",
 		INSTRUMENTAL = "вирусной культурой (Преданность)",
-		PREPOSITIONAL = "вирусной культуре (Преданность)"
+		PREPOSITIONAL = "вирусной культуре (Преданность)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/pre_loyalty
@@ -1052,7 +1049,7 @@
 		DATIVE = "вирусной культуре (Пре-преданность)",
 		ACCUSATIVE = "вирусную культуру (Пре-преданность)",
 		INSTRUMENTAL = "вирусной культурой (Пре-преданность)",
-		PREPOSITIONAL = "вирусной культуре (Пре-преданность)"
+		PREPOSITIONAL = "вирусной культуре (Пре-преданность)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/retrovirus
@@ -1069,7 +1066,7 @@
 		DATIVE = "вирусной культуре (Ретровирус)",
 		ACCUSATIVE = "вирусную культуру (Ретровирус)",
 		INSTRUMENTAL = "вирусной культурой (Ретровирус)",
-		PREPOSITIONAL = "вирусной культуре (Ретровирус)"
+		PREPOSITIONAL = "вирусной культуре (Ретровирус)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/gbs
@@ -1087,7 +1084,7 @@
 		DATIVE = "вирусной культуре (ГБС+)",
 		ACCUSATIVE = "вирусную культуру (ГБС+)",
 		INSTRUMENTAL = "вирусной культурой (ГБС+)",
-		PREPOSITIONAL = "вирусной культуре (ГБС+)"
+		PREPOSITIONAL = "вирусной культуре (ГБС+)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/fake_gbs
@@ -1104,7 +1101,7 @@
 		DATIVE = "вирусной культуре (ГБС-)",
 		ACCUSATIVE = "вирусную культуру (ГБС-)",
 		INSTRUMENTAL = "вирусной культурой (ГБС-)",
-		PREPOSITIONAL = "вирусной культуре (ГБС-)"
+		PREPOSITIONAL = "вирусной культуре (ГБС-)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/brainrot
@@ -1121,7 +1118,7 @@
 		DATIVE = "вирусной культуре (Мозговая гниль)",
 		ACCUSATIVE = "вирусную культуру (Мозговая гниль)",
 		INSTRUMENTAL = "вирусной культурой (Мозговая гниль)",
-		PREPOSITIONAL = "вирусной культуре (Мозговая гниль)"
+		PREPOSITIONAL = "вирусной культуре (Мозговая гниль)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/magnitis
@@ -1138,7 +1135,7 @@
 		DATIVE = "вирусной культуре (Магнитис)",
 		ACCUSATIVE = "вирусную культуру (Магнитис)",
 		INSTRUMENTAL = "вирусной культурой (Магнитис)",
-		PREPOSITIONAL = "вирусной культуре (Магнитис)"
+		PREPOSITIONAL = "вирусной культуре (Магнитис)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/wizarditis
@@ -1155,7 +1152,7 @@
 		DATIVE = "вирусной культуре (Визардис)",
 		ACCUSATIVE = "вирусную культуру (Визардис)",
 		INSTRUMENTAL = "вирусной культурой (Визардис)",
-		PREPOSITIONAL = "вирусной культуре (Визардис)"
+		PREPOSITIONAL = "вирусной культуре (Визардис)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/anxiety
@@ -1172,7 +1169,7 @@
 		DATIVE = "вирусной культуре (Сильное беспокойство)",
 		ACCUSATIVE = "вирусную культуру (Сильное беспокойство)",
 		INSTRUMENTAL = "вирусной культурой (Сильное беспокойство)",
-		PREPOSITIONAL = "вирусной культуре (Сильное беспокойство)"
+		PREPOSITIONAL = "вирусной культуре (Сильное беспокойство)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/beesease
@@ -1189,7 +1186,7 @@
 		DATIVE = "вирусной культуре (Пчелораза)",
 		ACCUSATIVE = "вирусную культуру (Пчелораза)",
 		INSTRUMENTAL = "вирусной культурой (Пчелораза)",
-		PREPOSITIONAL = "вирусной культуре (Пчелораза)"
+		PREPOSITIONAL = "вирусной культуре (Пчелораза)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/fluspanish
@@ -1206,7 +1203,7 @@
 		DATIVE = "вирусной культуре (Испанский Грипп)",
 		ACCUSATIVE = "вирусную культуру (Испанский Грипп)",
 		INSTRUMENTAL = "вирусной культурой (Испанский Грипп)",
-		PREPOSITIONAL = "вирусной культуре (Испанский Грипп)"
+		PREPOSITIONAL = "вирусной культуре (Испанский Грипп)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/tuberculosis
@@ -1223,7 +1220,7 @@
 		DATIVE = "вирусной культуре (Грибковый туберкулёз)",
 		ACCUSATIVE = "вирусную культуру (Грибковый туберкулёз)",
 		INSTRUMENTAL = "вирусной культурой (Грибковый туберкулёз)",
-		PREPOSITIONAL = "вирусной культуре (Грибковый туберкулёз)"
+		PREPOSITIONAL = "вирусной культуре (Грибковый туберкулёз)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/regeneration
@@ -1240,7 +1237,7 @@
 		DATIVE = "вирусной культуре (Восстановление)",
 		ACCUSATIVE = "вирусную культуру (Восстановление)",
 		INSTRUMENTAL = "вирусной культурой (Восстановление)",
-		PREPOSITIONAL = "вирусной культуре (Восстановление)"
+		PREPOSITIONAL = "вирусной культуре (Восстановление)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/sensory_restoration
@@ -1257,7 +1254,7 @@
 		DATIVE = "вирусной культуре (Сенсорное восстановление)",
 		ACCUSATIVE = "вирусную культуру (Сенсорное восстановление)",
 		INSTRUMENTAL = "вирусной культурой (Сенсорное восстановление)",
-		PREPOSITIONAL = "вирусной культуре (Сенсорное восстановление)"
+		PREPOSITIONAL = "вирусной культуре (Сенсорное восстановление)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure
@@ -1274,7 +1271,7 @@
 		DATIVE = "бутылке (Био-вирусный антидот)",
 		ACCUSATIVE = "бутылку (Био-вирусный антидот)",
 		INSTRUMENTAL = "бутылкой (Био-вирусный антидот)",
-		PREPOSITIONAL = "бутылке (Био-вирусный антидот)"
+		PREPOSITIONAL = "бутылке (Био-вирусный антидот)",
 	)
 
 /obj/item/reagent_containers/glass/bottle/monkeylangue
@@ -1291,5 +1288,5 @@
 		DATIVE = "бутылке (Обезьяний язык)",
 		ACCUSATIVE = "бутылку (Обезьяний язык)",
 		INSTRUMENTAL = "бутылкой (Обезьяний язык)",
-		PREPOSITIONAL = "бутылке (Обезьяний язык)"
+		PREPOSITIONAL = "бутылке (Обезьяний язык)",
 	)

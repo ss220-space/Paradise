@@ -3,14 +3,6 @@
 /obj/item/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
 	desc = "Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования."
-	ru_names = list(
-		NOMINATIVE = "робо-гипоспрей",
-		GENITIVE = "робо-гипоспрея",
-		DATIVE = "робо-гипоспрею",
-		ACCUSATIVE = "робо-гипоспрей",
-		INSTRUMENTAL = "робо-гипоспреем",
-		PREPOSITIONAL = "робо-гипоспрее"
-	)
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "hypo"
 	icon_state = "borghypo"
@@ -31,19 +23,19 @@
 		"charcoal" = list('icons/mob/screen_corgi.dmi', "tox1"), \
 		"hydrocodone" = list('icons/mob/actions/actions.dmi', "magicm"))
 
-
+/obj/item/reagent_containers/borghypo/get_ru_names()
+	return list(
+		NOMINATIVE = "робо-гипоспрей",
+		GENITIVE = "робо-гипоспрея",
+		DATIVE = "робо-гипоспрею",
+		ACCUSATIVE = "робо-гипоспрей",
+		INSTRUMENTAL = "робо-гипоспреем",
+		PREPOSITIONAL = "робо-гипоспрее",
+	)
 
 /obj/item/reagent_containers/borghypo/syndicate
 	name = "syndicate cyborg hypospray"
-	desc = "Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования. Специальная версия, производимая Синдикатом для установки в боевых роботов поддержики, оснащённая передовыми лечебными препаратами."
-	ru_names = list(
-		NOMINATIVE = "Синди-робо-гипоспрей",
-		GENITIVE = "Синди-робо-гипоспрея",
-		DATIVE = "Синди-робо-гипоспрею",
-		ACCUSATIVE = "Синди-робо-гипоспрей",
-		INSTRUMENTAL = "Синди-робо-гипоспреем",
-		PREPOSITIONAL = "Синди-робо-гипоспрее"
-	)
+	desc = "Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования. Специальная версия, производимая \"Синдикатом\" для установки в боевых роботов поддержики, оснащённая передовыми лечебными препаратами."
 	icon_state = "borghypo_s"
 	charge_cost = 20
 	recharge_time = 2
@@ -56,18 +48,19 @@
 	bypass_protection = TRUE
 	upgrade_path = null //no upgrades
 
+/obj/item/reagent_containers/borghypo/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "Синди-робо-гипоспрей",
+		GENITIVE = "Синди-робо-гипоспрея",
+		DATIVE = "Синди-робо-гипоспрею",
+		ACCUSATIVE = "Синди-робо-гипоспрей",
+		INSTRUMENTAL = "Синди-робо-гипоспреем",
+		PREPOSITIONAL = "Синди-робо-гипоспрее",
+	)
 
 /obj/item/reagent_containers/borghypo/upgraded
 	name = "upgraded cyborg hypospray"
 	desc = "Улучшенная версия робо-гипоспрея. Передовой химический синтезатор, оборудованный системой инъекции, разработанный для тяжёлого медицинского оборудования."
-	ru_names = list(
-		NOMINATIVE = "улучшенный робо-гипоспрей",
-		GENITIVE = "улучшенного робо-гипоспрея",
-		DATIVE = "улучшенному робо-гипоспрею",
-		ACCUSATIVE = "улучшенный робо-гипоспрей",
-		INSTRUMENTAL = "улучшенным робо-гипоспреем",
-		PREPOSITIONAL = "улучшенном робо-гипоспрее"
-	)
 	reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"mannitol" = list('icons/obj/species_organs/grey.dmi', "brain2"), \
@@ -80,13 +73,22 @@
 		"oculine" = list('icons/obj/surgery.dmi', "eyes"))
 	upgrade_path = null //no upgrades
 
+/obj/item/reagent_containers/borghypo/upgraded/get_ru_names()
+	return list(
+		NOMINATIVE = "улучшенный робо-гипоспрей",
+		GENITIVE = "улучшенного робо-гипоспрея",
+		DATIVE = "улучшенному робо-гипоспрею",
+		ACCUSATIVE = "улучшенный робо-гипоспрей",
+		INSTRUMENTAL = "улучшенным робо-гипоспреем",
+		PREPOSITIONAL = "улучшенном робо-гипоспрее",
+	)
+
 /obj/item/reagent_containers/borghypo/upgraded/super
 	bypass_protection = TRUE
 
 /obj/item/reagent_containers/borghypo/empty()
 	set hidden = TRUE
 	return
-
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)
 	for(var/R in reagent_ids)
@@ -95,11 +97,9 @@
 
 	START_PROCESSING(SSobj, src)
 
-
 /obj/item/reagent_containers/borghypo/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/reagent_containers/borghypo/process() //Every [recharge_time] seconds, recharge some reagents for the cyborg
 	charge_tick++
@@ -126,7 +126,6 @@
 	//update_icon()
 	return TRUE
 
-
 // Use this to add more chemicals for the borghypo to produce.
 /obj/item/reagent_containers/borghypo/proc/add_reagent(reagent)
 	reagent_ids |= reagent
@@ -137,14 +136,12 @@
 	var/datum/reagents/R = reagent_list[length(reagent_list)]
 	R.add_reagent(reagent, 30)
 
-
 /obj/item/reagent_containers/borghypo/proc/refill_borghypo(datum/reagents/RG, reagent_id, mob/living/silicon/robot/R)
 	if(RG.total_volume < RG.maximum_volume)
 		RG.add_reagent(reagent_id, BORGHYPO_REFILL_VALUE)
 		R.cell.use(charge_cost)
 		return TRUE
 	return FALSE
-
 
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -169,12 +166,10 @@
 	var/contained = injected.name
 	var/trans = our_reagents.trans_to(target, amount_per_transfer_from_this)
 	add_attack_logs(user, target, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В хранилище осталось ещё <b>[our_reagents.total_volume]</b> единиц[declension_ru(our_reagents.total_volume, "а", "ы", "")] вещества."))
-
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)]. В хранилище осталось ещё <b>[our_reagents.total_volume]</b> единиц[declension_ru(our_reagents.total_volume, "а", "ы", "")] вещества."))
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	radial_menu(user)
-
 
 /obj/item/reagent_containers/borghypo/proc/radial_menu(mob/user)
 	var/list/choices = list()
@@ -190,7 +185,6 @@
 	amount_per_transfer_from_this  = (reagent_ids[mode] == "perfluorodecalin") ? 3 : 5
 	to_chat(user, span_notice("Конфигурация синтезатора обновлена. Активирован синтез вещества \"[R.name]\"."))
 
-
 /obj/item/reagent_containers/borghypo/examine(mob/user)
 	. = ..()
 
@@ -203,41 +197,33 @@
 		for(var/datum/reagents/RS in reagent_list)
 			var/datum/reagent/R = locate() in RS.reagent_list
 			if(R)
-				. += span_notice("Содержит в себе <b>[R.volume]</b> единиц[declension_ru(R.volume, "у", "ы", "")] вещества \"[R.name]\".")
+				. += span_notice("Содержит в себе <b>[R.volume]</b> единиц[DECL_SEC_MIN(R.volume)] вещества \"[R.name]\".")
 				empty = FALSE
 
 		if(empty)
 			. += span_notice("Пусто.")
 
-
 /obj/item/reagent_containers/borghypo/basic
 	name = "Basic Medical Hypospray"
 	desc = "Сильно упрощённая версия медицинского гипоспрея, способная ввести узко-ограниченный набор лекарственных медикаментов для оказания первой помощи."
-	ru_names = list(
-		NOMINATIVE = "стандартный медицинский гипоспрей",
-		GENITIVE = "стандартного медицинского гипоспрея",
-		DATIVE = "стандартному медицинскому гипоспрею",
-		ACCUSATIVE = "стандартный медицинский гипоспрей",
-		INSTRUMENTAL = "стандартным медицинским гипоспреем",
-		PREPOSITIONAL = "стандартном медицинском гипоспрее"
-	)
 	reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"))
 	upgrade_path = /obj/item/reagent_containers/borghypo/basic/upgraded
 
+/obj/item/reagent_containers/borghypo/basic/get_ru_names()
+	return list(
+		NOMINATIVE = "стандартный медицинский гипоспрей",
+		GENITIVE = "стандартного медицинского гипоспрея",
+		DATIVE = "стандартному медицинскому гипоспрею",
+		ACCUSATIVE = "стандартный медицинский гипоспрей",
+		INSTRUMENTAL = "стандартным медицинским гипоспреем",
+		PREPOSITIONAL = "стандартном медицинском гипоспрее",
+	)
 
 /obj/item/reagent_containers/borghypo/basic/upgraded
 	name = "Upgraded Basic Medical Hypospray"
 	desc = "Упрощённная версия медицинского гипоспрея, способная ввести ограниченный набор медикаментов для лечения пациентов."
-	ru_names = list(
-		NOMINATIVE = "улучшенный медицинский гипоспрей",
-		GENITIVE = "улучшенного медицинского гипоспрея",
-		DATIVE = "улучшенному медицинскому гипоспрею",
-		ACCUSATIVE = "улучшенный медицинский гипоспрей",
-		INSTRUMENTAL = "улучшенным медицинским гипоспреем",
-		PREPOSITIONAL = "улучшенном медицинском гипоспрее"
-	)
 	reagent_ids = list( \
 		"salglu_solution" = list('icons/effects/bleed.dmi', "bleed10"), \
 		"epinephrine" = list('icons/obj/surgery.dmi', "heart-on"), \
@@ -246,22 +232,23 @@
 		"salbutamol" = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
 
+/obj/item/reagent_containers/borghypo/basic/upgraded/get_ru_names()
+	return list(
+		NOMINATIVE = "улучшенный медицинский гипоспрей",
+		GENITIVE = "улучшенного медицинского гипоспрея",
+		DATIVE = "улучшенному медицинскому гипоспрею",
+		ACCUSATIVE = "улучшенный медицинский гипоспрей",
+		INSTRUMENTAL = "улучшенным медицинским гипоспреем",
+		PREPOSITIONAL = "улучшенном медицинском гипоспрее",
+	)
+
 /obj/item/reagent_containers/borghypo/emagged
 	name = "ERR3NU1l_INJ3C70R"
-	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом Синдиката. Кто бы мог подумать, что роботы Нанотрейзен способы синтезировать такое?"
-	ru_names = list(
-		NOMINATIVE = "0ШNBK4_IИБ3KT0Я",
-		GENITIVE = "0ШNBK4_IИБ3KT0Я",
-		DATIVE = "0ШNBK4_IИБ3KT0Я",
-		ACCUSATIVE = "0ШNBK4_IИБ3KT0Я",
-		INSTRUMENTAL = "0ШNBK4_IИБ3KT0Я",
-		PREPOSITIONAL = "0ШNBK4_IИБ3KT0Я"
-	)
+	desc = "Этот инъектор будет впрыскивать смертоносные химикаты в каждого, кому не посчастливилось оказаться врагом \"Синдиката\". Кто бы мог подумать, что роботы \"Нанотрейзен\" способы синтезировать такое?"
 	item_state = "borghypo_emag"
 	icon_state = "borghypo_emag"
 	amount_per_transfer_from_this = 10
-	// volume = 30
-	var/emagged = TRUE
+	emagged = TRUE
 	var/safety_hypo = FALSE
 	reagent_ids = list( \
 		"amanitin" = list('icons/obj/hydroponics/harvest.dmi', "amanita"), \
@@ -269,6 +256,14 @@
 		"sodium_thiopental" = list('icons/obj/surgery.dmi', "lungs"))
 	upgrade_path = null //no upgrades
 
-
+/obj/item/reagent_containers/borghypo/emagged/get_ru_names()
+	return list(
+		NOMINATIVE = "0ШNBK4_IИБ3KT0Я",
+		GENITIVE = "0ШNBK4_IИБ3KT0Я",
+		DATIVE = "0ШNBK4_IИБ3KT0Я",
+		ACCUSATIVE = "0ШNBK4_IИБ3KT0Я",
+		INSTRUMENTAL = "0ШNBK4_IИБ3KT0Я",
+		PREPOSITIONAL = "0ШNBK4_IИБ3KT0Я",
+	)
 
 #undef BORGHYPO_REFILL_VALUE

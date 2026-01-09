@@ -18,7 +18,7 @@
 		DATIVE = "фабрикатору дронов",
 		ACCUSATIVE = "фабрикатор дронов",
 		INSTRUMENTAL = "фабрикатором дронов",
-		PREPOSITIONAL = "фабрикаторе дронов"
+		PREPOSITIONAL = "фабрикаторе дронов",
 	)
 
 /obj/machinery/drone_fabricator/update_icon_state()
@@ -32,12 +32,10 @@
 
 	icon_state = "drone_fab_active"
 
-
 /obj/machinery/drone_fabricator/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/drone_fabricator/process()
 
@@ -96,7 +94,7 @@
 	user.become_drone()
 
 /mob/dead/verb/join_as_drone()
-	set category = STATPANEL_GHOST
+	set category = VERB_CATEGORY_GHOST
 	set name = "Стать дроном"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
 	become_drone(src)
@@ -152,7 +150,7 @@
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
 		to_chat(usr, "Вы были мертвы в течении[pluralcheck] [deathtimeseconds] секунд.")
-		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[declension_ru(CONFIG_GET(number/respawn_delay_drone), "у", "ы", "")], чтобы возродиться как дрон!"))
+		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[DECL_SEC_MIN(CONFIG_GET(number/respawn_delay_drone))], чтобы возродиться как дрон!"))
 		return
 
 	if(tgui_alert(usr, "Вы уверены, что хотите возродиться как дрон?", "Вы уверены?", list("Да", "Нет")) != "Да")

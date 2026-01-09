@@ -16,7 +16,6 @@
 /obj/structure/pit/AllowDrop()
 	return TRUE
 
-
 /obj/structure/pit/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -69,10 +68,8 @@
 
 	return ..()
 
-
 /obj/structure/pit/update_icon_state()
 	icon_state = "pit[open][icon_floor_type]"
-
 
 /obj/structure/pit/Initialize(mapload)
 	. = ..()
@@ -136,9 +133,6 @@
 				for(var/mob/living/carbon/M in A.contents)
 					M.overlay_fullscreen("tint", /atom/movable/screen/fullscreen/blind)
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/structure/pit/remove_air(amount)
-	return 0
 
 /obj/structure/pit/container_resist(mob/escapee)
 	var/breakout_time = 1.5 //2 minutes by default
@@ -238,7 +232,6 @@
 
 	message = "Здесь упокоен [nam], [born] - [died]."
 	update_appearance(UPDATE_DESC)
-
 
 /obj/structure/gravemarker/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

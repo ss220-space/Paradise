@@ -30,7 +30,6 @@ Notes:
 	- After testing and discussion (Wire, Remie, MrPerson, AnturK) ToolTips are ok and work for /tg/station13
 */
 
-
 /datum/tooltip
 	var/client/owner
 	var/control = "mainwindow.tooltip"
@@ -39,14 +38,12 @@ Notes:
 	var/queueHide = 0
 	var/init = 0
 
-
 /datum/tooltip/New(client/C)
 	if(C)
 		owner = C
 		owner << browse(wrap_file2text(file), "window=[control]")
 
 	..()
-
 
 /datum/tooltip/proc/show(atom/movable/thing, params = null, title = null, content = null, theme = "default", special = "none")
 	if(!thing || !params || (!title && !content) || !owner || !isnum(ICON_SIZE_ALL))
@@ -85,7 +82,6 @@ Notes:
 
 	return TRUE
 
-
 /datum/tooltip/proc/hide()
 	queueHide = showing ? TRUE : FALSE
 
@@ -103,7 +99,7 @@ Notes:
 //Theme is a CSS class in tooltip.html, by default this wrapper chooses a CSS class based on the user's UI_style (Midnight, Plasmafire, Retro, etc)
 //Includes sanity.checks
 /proc/openToolTip(mob/user = null, atom/movable/tip_src = null, params = null, title = "", content = "", theme = "")
-	if(!istype(user) || !user.client?.tooltips || !(user.client?.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS))
+	if(!istype(user) || !user.client?.tooltips)
 		return
 	var/ui_style = user.client?.prefs?.UI_style
 	if(!theme && ui_style)
@@ -111,7 +107,6 @@ Notes:
 	if(!theme)
 		theme = "default"
 	user.client.tooltips.show(tip_src, params, title, content, theme)
-
 
 //Arbitrarily close a user's tooltip
 //Includes sanity checks.

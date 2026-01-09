@@ -29,7 +29,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			return
 
 	if(href_list["download"])
-		var/obj/item/paicard/card = locate(href_list["device"])
+		var/obj/item/paicard/card = locateUID(href_list["device"])
 		if(card.pai)
 			return
 		if(usr.incapacitated() || isobserver(usr) || !card.Adjacent(usr))
@@ -41,7 +41,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			else
 				pai.name = candidate.name
 			pai.real_name = pai.name
-			pai.key = candidate.key
+			pai.possess_by_player(candidate.key)
 			card.setPersonality(pai)
 			card.looking_for_personality = 0
 
@@ -51,7 +51,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		return
 
 	if("signup" in href_list)
-		var/mob/dead/observer/O = locate(href_list["signup"])
+		var/mob/dead/observer/O = locateUID(href_list["signup"])
 		if(!O)
 			O = usr
 			if(!istype(O))
@@ -125,7 +125,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 				return
 		recruitWindow(usr)
 
-
 /datum/paiController/proc/recruitWindow(mob/M as mob)
 	var/datum/paiCandidate/candidate
 	for(var/datum/paiCandidate/c in pai_candidates)
@@ -137,7 +136,6 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		candidate = new /datum/paiCandidate()
 		candidate.key = M.key
 		pai_candidates.Add(candidate)
-
 
 	var/dat = ""
 
@@ -237,7 +235,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					</tr>
 				</table>
 				<table class="download">
-					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=\ref[p]' class="button"><b>Download [c.name]</b></a>
+					<td class="download"><a href='byond://?src=[UID()];download=1;candidate=[c.UID()];device=[p.UID()]' class="button"><b>Download [c.name]</b></a>
 					</td>
 				</table>
 				<br>
@@ -252,7 +250,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
-					to_chat(O, "<span class='boldnotice'>A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=\ref[P]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)</span>")
+					to_chat(O, span_boldnotice("A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=[P.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[O.UID()]'>Sign Up</a>)"))
 	if(P.is_syndicate_type)
 		if(summon_cooldown > world.time)
 			return

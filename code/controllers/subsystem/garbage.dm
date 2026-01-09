@@ -14,7 +14,6 @@ SUBSYSTEM_DEF(garbage)
 	var/delslasttick = 0			// number of del()'s we've done this tick
 	var/totaldels = 0
 
-
 	var/highest_del_time = 0
 	var/highest_del_tickusage = 0
 
@@ -43,7 +42,6 @@ SUBSYSTEM_DEF(garbage)
 	#endif
 	#endif
 
-
 #ifndef PASSIVE_GC
 /datum/controller/subsystem/garbage/PreInit()
 	if(isnull(queues)) // Only init the queues if they don't already exist, prevents overriding of recovered lists
@@ -55,7 +53,6 @@ SUBSYSTEM_DEF(garbage)
 			pass_counts[i] = 0
 			fail_counts[i] = 0
 #endif
-
 
 /datum/controller/subsystem/garbage/get_stat_details()
 	var/list/msg = list()
@@ -82,6 +79,21 @@ SUBSYSTEM_DEF(garbage)
 	#endif
 	return msg.Join("")
 
+/datum/controller/subsystem/garbage/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	if((delslasttick + gcedlasttick) == 0) // Account for DIV0
+		custom_data["gcr"] = 0
+	else
+		custom_data["gcr"] = (gcedlasttick / (delslasttick + gcedlasttick))
+	custom_data["total_harddels"] = totaldels
+	custom_data["total_softdels"] = totalgcs
+	var/index = 0
+	for(var/list/list in queues)
+		index++
+		custom_data["queue_[index]"] = length(list)
+
+	.["custom"] = custom_data
 
 /datum/controller/subsystem/garbage/Shutdown()
 	//Adds the del() log to the qdel log file
@@ -316,7 +328,6 @@ SUBSYSTEM_DEF(garbage)
 		for(var/i in 1 to length(SSgarbage.queues))
 			queues[i] |= SSgarbage.queues[i]
 #endif
-
 
 /datum/qdel_item
 	var/name = ""
@@ -633,30 +644,15 @@ SUBSYSTEM_DEF(garbage)
 
 #undef REFSEARCH_RECURSE_LIMIT
 
-/datum/proc/find_refs()
-	set category = "Debug"
-	set name = "Find References"
-
-	if(!check_rights(R_DEBUG))
-		return
+ADMIN_VERB(find_refs, R_DEBUG, "Find References", "Find references.", ADMIN_CATEGORY_DEBUG, datum/target in world)
 	find_references()
 
-/datum/proc/qdel_then_find_references()
-	set category = "Debug"
-	set name = "qdel() then Find References"
-	if(!check_rights(R_DEBUG))
-		return
-
-	qdel(src, TRUE) //force a qdel
+ADMIN_VERB(qdel_then_find_references, R_DEBUG, "qdel() then Find References", "qdel() then Find References", ADMIN_CATEGORY_DEBUG, datum/target in world)
+	qdel(target, TRUE) //force a qdel
 	if(!running_find_references)
 		find_references(TRUE)
 
-/datum/proc/qdel_then_if_fail_find_references()
-	set category = "Debug"
-	set name = "qdel() then Find References if GC failure"
-	if(!check_rights(R_DEBUG))
-		return
-
-	qdel_and_find_ref_if_fail(src, TRUE)
+ADMIN_VERB(qdel_then_if_fail_find_references, R_DEBUG, "qdel() then Find References if GC failure", "qdel() then Find References if GC failure", ADMIN_CATEGORY_DEBUG, datum/target in world)
+	qdel_and_find_ref_if_fail(target, TRUE)
 
 #endif

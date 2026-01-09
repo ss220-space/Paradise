@@ -19,10 +19,10 @@
 	var/secured = TRUE
 	var/list/attached_overlays = null
 	var/obj/item/assembly_holder/holder = null
-	var/cooldown = FALSE //To prevent spam
 	var/wires = WIRE_RECEIVE | WIRE_PULSE
 	var/datum/wires/connected = null // currently only used by timer/signaler
-
+	COOLDOWN_DECLARE(cooldown)
+	var/cooldown_time = 1 SECONDS
 
 /obj/item/assembly/Destroy()
 	if(istype(loc, /obj/item/assembly_holder) || istype(holder))
@@ -34,28 +34,20 @@
 		holder = null
 	return ..()
 
-
 /// Called when the holder is moved
 /obj/item/assembly/proc/holder_movement(mob/user)
 	return
 
-
 /obj/item/assembly/proc/assembly_crossed(atom/movable/crossed, atom/old_loc)
 	return
 
+/// Called when the parts of assembly holder were taken apart
+/obj/item/assembly/proc/on_detach(mob/user)
+	holder_movement(user)
 
 /// Called when attack_self is called
 /obj/item/assembly/interact(mob/user)
 	return
-
-
-/// Called via 1 SECONDS to have it count down the cooldown var
-/obj/item/assembly/proc/process_cooldown()
-	if(cooldown-- <= 0)
-		return FALSE
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 1 SECONDS)
-	return TRUE
-
 
 /// Called when another assembly acts on this one, var/radio will determine where it came from for wire calcs
 /obj/item/assembly/proc/pulsed(radio = FALSE)
@@ -63,8 +55,8 @@
 		activate()
 	if(radio && (wires & WIRE_RADIO_RECEIVE))
 		activate()
+	SEND_SIGNAL(src, COMSIG_ASSEMBLY_PULSED)
 	return TRUE
-
 
 /* Called when this device attempts to act on another device,
  * var/radio determines if it was sent via radio or direct
@@ -83,22 +75,19 @@
 		G.prime(user)                // Adios, muchachos
 	return TRUE
 
-
 /// What the device does when turned on
 /obj/item/assembly/proc/activate()
-	if(!secured || cooldown > 0)
+	if(!secured || !COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
-	cooldown = 2
-	addtimer(CALLBACK(src, PROC_REF(process_cooldown)), 10)
-	return TRUE
 
+	COOLDOWN_START(src, cooldown, cooldown_time)
+	return TRUE
 
 /// Code that has to happen when the assembly is un\secured goes here
 /obj/item/assembly/proc/toggle_secure()
 	secured = !secured
 	update_icon()
 	return secured
-
 
 /// Called when an assembly is attacked by another
 /obj/item/assembly/proc/attach_assembly(obj/item/assembly/assembly, mob/user)
@@ -109,7 +98,6 @@
 		return TRUE
 	QDEL_NULL(holder)
 	return FALSE
-
 
 /obj/item/assembly/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -131,7 +119,6 @@
 
 	return ..()
 
-
 /obj/item/assembly/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -141,10 +128,8 @@
 	else
 		to_chat(user, span_notice("[src] can now be attached!"))
 
-
 /obj/item/assembly/process()
 	return PROCESS_KILL
-
 
 /obj/item/assembly/examine(mob/user)
 	. = ..()
@@ -153,7 +138,6 @@
 			. += span_notice("[src] need to be secured!")
 		else
 			. += span_notice("[src] can be attached!")
-
 
 /obj/item/assembly/attack_self(mob/user)
 	if(!user)

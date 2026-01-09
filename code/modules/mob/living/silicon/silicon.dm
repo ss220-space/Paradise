@@ -18,7 +18,7 @@
 	var/designation = ""
 	var/obj/item/camera/siliconcam/aiCamera = null //photography
 //Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
-	var/speak_statement = "states"
+	var/speak_statement = "заявляет"
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
@@ -201,7 +201,6 @@
 		var/msg_text = msg.Join("")
 		to_chat(src, msg_text)
 
-
 	alarms_to_show.Cut()
 	alarms_to_clear.Cut()
 	for(var/key in alarm_types_show)
@@ -224,7 +223,7 @@
 /mob/living/silicon/drop_from_active_hand(force = FALSE)
 	return
 
-/mob/living/silicon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
+/mob/living/silicon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE //So borgs they don't die trying to fix wiring
 
 /mob/living/silicon/emp_act(severity)
@@ -240,7 +239,6 @@
 	to_chat(src, span_danger("*BZZZT*"))
 	to_chat(src, span_warning("Warning: Electromagnetic pulse detected."))
 
-
 /mob/living/silicon/proc/damage_mob(brute = 0, fire = 0, tox = 0)
 	return
 
@@ -252,14 +250,12 @@
 /mob/living/silicon/IsAdvancedToolUser()
 	return TRUE
 
-
 /mob/living/silicon/move_into_vent(obj/machinery/atmospherics/ventcrawl_target, message = TRUE)
 	. = ..()
 	if(. && inventory_head)
 		drop_hat(drop_on_turf = TRUE)
 		if(message)
 			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
-
 
 /mob/living/silicon/bullet_act(obj/projectile/Proj)
 
@@ -272,9 +268,7 @@
 			if(BURN)
 				adjustFireLoss(Proj.damage)
 
-
 	return 2
-
 
 /proc/islinked(mob/living/silicon/robot/bot, mob/living/silicon/ai/ai)
 	if(!istype(bot) || !istype(ai))
@@ -283,11 +277,9 @@
 		return 1
 	return 0
 
-
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
 	return list("System integrity:", stat ? "Nonfunctional" : "[round((health / maxHealth) * 100)]%")
-
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/get_status_tab_items()
@@ -329,7 +321,6 @@
 			var/synth = (language in speech_synthesizer_langs)
 			. += "<b>[language.name] (:[language.key])</b>[synth ? default_str : null]<br>Speech Synthesizer: <i>[synth ? "YES" : "NOT SUPPORTED"]</i><br>[language.desc]<br><br>"
 
-
 // this function displays the stations manifest in a separate window
 /mob/living/silicon/proc/show_station_manifest()
 	GLOB.generic_crew_manifest.ui_interact(usr)
@@ -340,14 +331,14 @@
 /mob/living/silicon/verb/pose()
 	set name = "Задать позу"
 	set desc = "Sets a description which will be shown when someone examines you."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	pose =  tgui_input_text(usr, "This is [src]. It is...", "Pose", null, max_length = MAX_MESSAGE_LEN)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Описание внешности"
 	set desc = "Sets an extended description of your character's features."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	update_flavor_text()
 
@@ -362,7 +353,6 @@
 	secsensor.hide_from(src)
 	medsensor.hide_from(src)
 
-
 /mob/living/silicon/proc/add_sec_hud()
 	var/datum/atom_hud/secsensor = GLOB.huds[sec_hud]
 	secsensor.show_to(src)
@@ -374,7 +364,6 @@
 /mob/living/silicon/proc/add_diag_hud()
 	for(var/datum/atom_hud/data/diagnostic/diagsensor in GLOB.huds)
 		diagsensor.show_to(src)
-
 
 /mob/living/silicon/proc/toggle_sensor_mode()
 	var/sensor_type = tgui_input_list(usr, "Please select sensor type.", "Sensor Integration", list("Security", "Medical","Diagnostic", "Multisensor","Disable"), null)
@@ -397,7 +386,6 @@
 		if("Disable")
 			to_chat(src, "Sensor augmentations disabled.")
 
-
 /mob/living/silicon/adjustToxLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -406,7 +394,6 @@
 	used_weapon = null,
 )
 	return STATUS_UPDATE_NONE
-
 
 /mob/living/silicon/get_access()
 	return IGNORE_ACCESS //silicons always have access
@@ -425,30 +412,23 @@
 /mob/living/silicon/can_hear()
 	return TRUE
 
-
 /mob/living/silicon/put_in_hand_check() // This check is for borgs being able to receive items, not put them in others' hands.
 	return FALSE
-
 
 /mob/living/silicon/on_handsblocked_start()
 	return // AIs and borgs have no hands
 
-
 /mob/living/silicon/on_handsblocked_end()
 	return // AIs and borgs have no hands
-
 
 /mob/living/silicon/on_floored_start()
 	return // Silicons are always standing by default.
 
-
 /mob/living/silicon/on_floored_end()
 	return // Silicons are always standing by default.
 
-
 /mob/living/silicon/on_lying_down()
 	return // Silicons are always standing by default.
-
 
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.

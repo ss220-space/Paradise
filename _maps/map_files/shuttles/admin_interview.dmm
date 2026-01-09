@@ -279,7 +279,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -989,7 +989,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"
@@ -1127,7 +1127,7 @@
 	rank = "Special Reaction Team Member";
 	registered_name = "Special Reaction Team Member"
 	},
-/obj/item/storage/box/responseteam,
+/obj/item/storage/box/survival/responseteam,
 /obj/item/clothing/under/fluff/jay_turtleneck{
 	desc = null;
 	name = "SRT uniform"

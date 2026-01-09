@@ -18,7 +18,7 @@
 		/obj/item/stack/sheet/glass = 5,
 		/obj/item/stock_parts/capacitor/super = 10,
 		/obj/item/stock_parts/scanning_module/phasic = 2,
-		/obj/item/stack/cable_coil = 20
+		/obj/item/stack/cable_coil = 20,
 	)
 
 /obj/machinery/brs_server
@@ -144,7 +144,6 @@
 	// Return index of the last element
 	return length(data)
 
-
 /obj/machinery/brs_server/update_icon_state()
 	var/prefix = initial(icon_state)
 
@@ -160,12 +159,10 @@
 
 	icon_state = "[prefix]-on"
 
-
 /obj/machinery/brs_server/update_overlays()
 	. = ..()
 	if(panel_open)
 		. += image(icon, "[initial(icon_state)]-panel")
-
 
 /obj/machinery/brs_server/proc/create_light()
 	if(stat & (BROKEN))
@@ -179,13 +176,11 @@
 		return
 	set_light(l_range = 1, l_power = 1, l_color = COLOR_BLUE_LIGHT, l_on = TRUE)
 
-
 /obj/machinery/brs_server/power_change(forced = FALSE)
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
 	create_light()
-
 
 /obj/machinery/brs_server/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -202,7 +197,7 @@
 	. = TRUE
 
 	// Add a delay, as server's points will be lost after disassembly
-	user.visible_message("[user] начина[pluralize_ru(user.gender, "ет", "ют")] разбирать [src].", "Вы начинаете разбирать [src].")
+	user.visible_message("[user] начина[PLUR_ET_YUT(user)] разбирать [src].", "Вы начинаете разбирать [src].")
 	if(!I.use_tool(src, user, 8 SECONDS, volume = I.tool_volume))
 		return
 

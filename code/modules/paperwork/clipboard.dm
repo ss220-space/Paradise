@@ -18,7 +18,6 @@
 	..()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/clipboard/click_alt(mob/user)
 	if(is_pen(user.get_active_hand()))
 		penPlacement(user, user.get_active_hand(), TRUE)
@@ -26,9 +25,8 @@
 		removePen(user)
 	return CLICK_ACTION_SUCCESS
 
-
 /obj/item/clipboard/verb/removePen()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Открепить ручку"
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -51,7 +49,6 @@
 	. += span_notice("<b>Alt-Click</b> to remove its pen.")
 	if(in_range(user, src) && toppaper)
 		. += toppaper.examine(user)
-
 
 /obj/item/clipboard/proc/penPlacement(mob/user, obj/item/pen/pen, placing)
 	if(placing)
@@ -76,21 +73,19 @@
 	update_icon(UPDATE_OVERLAYS)
 	return TRUE
 
-
 /obj/item/clipboard/proc/showClipboard(mob/user) //Show them what's on the clipboard
 	var/dat = {"<meta charset="UTF-8"><title>[src]</title>"}
 	dat += "<a href='byond://?src=[UID()];doPenThings=[containedpen ? "Remove" : "Add"]'>[containedpen ? "Remove pen" : "Add pen"]</a><br><hr>"
 	if(toppaper)
-		dat += "<a href='byond://?src=[UID()];remove=\ref[toppaper]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=\ref[toppaper]'>[toppaper.name]</a><br><hr>"
+		dat += "<a href='byond://?src=[UID()];remove=[toppaper.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[toppaper.UID()]'>[toppaper.name]</a><br><hr>"
 	for(var/obj/item/P in src)
 		if(isPaperwork(P) == PAPERWORK && P != toppaper)
-			dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><a href='byond://?src=[UID()];topPaper=\ref[P]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
+			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];topPaper=[P.UID()]'>Put on top</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
 		if(isPaperwork(P) == PHOTO)
-			dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=\ref[P]'>[P.name]</a><br>"
+			dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a><a href='byond://?src=[UID()];viewOrWrite=[P.UID()]'>[P.name]</a><br>"
 	var/datum/browser/popup = new(user, "clipboard", "[src]", 400, 400)
 	popup.set_content(dat)
 	popup.open()
-
 
 /obj/item/clipboard/update_overlays()
 	. = ..()
@@ -107,7 +102,6 @@
 			. += img
 			break
 	. += "clipboard_over"
-
 
 /obj/item/clipboard/attackby(obj/item/I, mob/user, params)
 	var/paperwork = isPaperwork(I)
@@ -153,7 +147,6 @@
 
 	return ..()
 
-
 /obj/item/clipboard/attack_self(mob/user)
 	showClipboard(user)
 
@@ -168,14 +161,14 @@
 		else
 			penPlacement(usr, containedpen, FALSE)
 	else if(href_list["remove"])
-		var/obj/item/P = locate(href_list["remove"]) in src
+		var/obj/item/P = locateUID(href_list["remove"])
 		if(isPaperwork(P))
 			P.forceMove_turf()
 			usr.put_in_hands(P, ignore_anim = FALSE)
 			to_chat(usr, span_notice("You remove [P] from [src]."))
 			checkTopPaper() //So we don't accidentally make the top sheet not be on the clipboard
 	else if(href_list["viewOrWrite"])
-		var/obj/item/P = locate(href_list["viewOrWrite"]) in src
+		var/obj/item/P = locateUID(href_list["viewOrWrite"])
 		if(!isPaperwork(P))
 			return
 		if(is_pen(I) && isPaperwork(P) != PHOTO) //Because you can't write on photos that aren't in your hand
@@ -186,7 +179,7 @@
 			var/obj/item/photo/Ph = P
 			Ph.show(usr)
 	else if(href_list["topPaper"])
-		var/obj/item/P = locate(href_list["topPaper"]) in src
+		var/obj/item/P = locateUID(href_list["topPaper"])
 		if(P == toppaper)
 			return
 		to_chat(usr, span_notice("You flick the pages so that [P] is on top."))

@@ -16,7 +16,6 @@
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
-	var/emagged = FALSE
 	var/z_cross = TRUE //Allows using remoters cross-sectory
 
 /obj/item/door_remote/New()
@@ -25,7 +24,7 @@
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
 	ID.access += additional_access
-	ID.access = uniquelist(ID.access)
+	ID.access = unique_list(ID.access)
 
 /obj/item/door_remote/Destroy()
 	QDEL_NULL(ID)
@@ -218,10 +217,8 @@
 	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
 
-
 /obj/item/door_remote/omni/access_tuner/update_icon_state()
 	icon_state = "hacktool[busy ? "-g" : ""]"
-
 
 /obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user, proximity, params)
 	if(!istype(D))
@@ -239,7 +236,6 @@
 		. = ..()
 	busy = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 #undef WAND_OPEN
 #undef WAND_BOLT

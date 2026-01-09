@@ -123,11 +123,9 @@
 	Goto(where, move_to_delay)
 	addtimer(CALLBACK(src, PROC_REF(start_automated_movement)), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 
-
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/start_automated_movement()
 	GLOB.move_manager.stop_looping(src)
 	stop_automated_movement = FALSE
-
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
@@ -182,7 +180,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/verb/Web()
 	set name = "Lay Web"
-	set category = STATPANEL_SPIDER
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Spread a sticky web to slow down prey."
 
 	var/T = src.loc
@@ -197,10 +195,9 @@
 			busy = 0
 			stop_automated_movement = 0
 
-
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/Wrap()
 	set name = "Wrap"
-	set category = STATPANEL_SPIDER
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Wrap up prey to feast upon and objects for safe keeping."
 
 	if(!cocoon_target)
@@ -270,7 +267,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/LayEggs()
 	set name = "Lay Eggs"
-	set category = STATPANEL_SPIDER
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)

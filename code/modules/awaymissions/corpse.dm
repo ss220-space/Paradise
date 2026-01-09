@@ -81,7 +81,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		to_chat(usr, span_warning("You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!"))
 		return
 	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
-		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
+		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, FALSE, usr))
 			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней."))
 			return
 	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
@@ -195,7 +195,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	equip(mob, use_prefs = prefs, _mob_name = _mob_name, _mob_gender = _mob_gender, _mob_species = _mob_species)
 
 	if(plr)
-		mob.ckey = plr.ckey
+		mob.possess_by_player(plr.ckey)
 		if(flavour)
 
 			to_chat(mob, chat_box_green(flavour_text))
@@ -274,7 +274,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		mob_name = id_job
 	return ..()
 
-
 /obj/effect/mob_spawn/human/use_prefs_prompt(mob/user)
 	if(!allow_prefs_prompt)
 		return FALSE
@@ -300,7 +299,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		return FALSE
 
 	return TRUE
-
 
 /obj/effect/mob_spawn/human/species_prompt()
 	var/selected_species = tgui_input_list(usr, "Select a species: ", "Species Selection", pickable_species)
@@ -435,13 +433,11 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/corpse/damaged
 	brute_damage = 1000
 
-
 /obj/effect/mob_spawn/human/alive
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	death = FALSE
 	roundstart = FALSE //you could use these for alive fake humans on roundstart but this is more common scenario
-
 
 //Non-human spawners
 
@@ -465,7 +461,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
 	flavour_text = "Moo!"
-
 
 ///////////Civilians//////////////////////
 
@@ -541,8 +536,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	suit = /obj/item/clothing/suit/space/hardsuit/engine
 	mask = /obj/item/clothing/mask/breath
 
-
-
 /obj/effect/mob_spawn/human/clown
 	name = "Clown"
 	mob_name = "Clown"
@@ -568,7 +561,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/corpse/clownoff/Initialize(mapload)
 	mob_name = "Honk Specialist [pick(GLOB.clown_names)]"
 	return ..()
-
 
 /datum/outfit/clownsoldier
 	name = "Clown Soldier"
@@ -687,7 +679,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/beach
 	outfit = /datum/outfit/beachbum
 
@@ -752,7 +743,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id
 
-
 /obj/effect/mob_spawn/human/commander
 	name = "Commander"
 	mob_name = "Commander"
@@ -769,8 +759,6 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	head = /obj/item/clothing/head/beret/centcom/officer
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/centcom
-
-
 
 /obj/effect/mob_spawn/human/abductor
 	name = "abductor"
@@ -855,7 +843,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /obj/effect/mob_spawn/human/corpse/syndicatesoldier/trader
 	name = "Syndi trader corpse"
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "secure"
+	icon_state = "securitypack" // idk, its trash
 	random = TRUE
 	outfit = /datum/outfit/syndicatetrader
 

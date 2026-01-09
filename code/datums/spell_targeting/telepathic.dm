@@ -3,7 +3,6 @@
  */
 /datum/spell_targeting/telepathic
 
-
 /datum/spell_targeting/telepathic/choose_targets(mob/user, obj/effect/proc_holder/spell/spell, params, atom/clicked_atom)
 	var/list/valid_targets = list()
 	var/turf/T = get_turf(user)

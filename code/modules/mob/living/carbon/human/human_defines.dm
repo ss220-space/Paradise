@@ -6,7 +6,7 @@
 	icon_state = "body_m_s"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
 	deathgasp_on_death = TRUE
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD,PACIFISM_HUD,DIABLERIE_AURA_HUD)
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD,PACIFISM_HUD,INSURANCE_HUD,DIABLERIE_AURA_HUD)
 	pressure_resistance = 25
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	max_grab = GRAB_KILL
@@ -102,3 +102,10 @@
 
 	/// Store what the body last looked like, so we only have to update it if something changed
 	var/previous_damage_appearance
+
+	/// Time required to repair cybernetic limbs
+	var/robotic_limb_repair_time = 1 SECONDS
+	/// EMP damage multiplier for internal organs
+	var/emp_damage_multiplier_internal = 1
+	/// EMP damage multiplier for external organs
+	var/emp_damage_multiplier_external = 1

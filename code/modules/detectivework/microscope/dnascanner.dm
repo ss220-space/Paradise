@@ -19,7 +19,6 @@
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 
-
 /obj/machinery/dnaforensics/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -37,7 +36,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/dnaforensics/attack_hand(mob/user)
 
@@ -69,7 +67,7 @@
 		if(bloodswab.dna != null)
 			data = "Спектрометрический анализ на предоставленном образце определил наличие нитей ДНК в количестве [length(bloodswab.dna)].<br><br>"
 			for(var/blood in bloodswab.dna)
-				data += "<span class='notice'>Группа крови: [bloodswab.dna[blood]]<br>\nДНК: [blood]</span><br><br>"
+				data += "[span_notice("Группа крови: [bloodswab.dna[blood]]<br>\nДНК: [blood]")]<br><br>"
 		else
 			data += "\nДНК не найдено.<br>"
 		report.info = "<b>Отчет №[report_num] по \n[src]</b><br>"
@@ -96,7 +94,7 @@
 	remove_sample(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/dnaforensics/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/machinery/dnaforensics/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(usr == over_object)
 		remove_sample(usr)
 		return FALSE

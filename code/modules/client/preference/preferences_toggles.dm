@@ -1,6 +1,6 @@
 /client/verb/setup_character()
 	set name = "Игровые настройки"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения — незамедлительно."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
@@ -81,6 +81,15 @@
 	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
 	blackbox_message = "Toggle GhostRadio"
 
+/datum/preference_toggle/toggle_ghost_radio/set_toggles(client/user)
+	. = ..()
+	var/mob/client_mob = user.mob
+	if(user.prefs.toggles & PREFTOGGLE_CHAT_GHOSTRADIO || !isobserver(client_mob))
+		GLOB.permanent_radio_listeners -= client_mob
+		return
+
+	GLOB.permanent_radio_listeners |= client_mob
+
 /datum/preference_toggle/toggle_admin_radio
 	name = "Админ-радио"
 	description = "Включает слышимость всех радиосообщений."
@@ -91,6 +100,7 @@
 	enable_message = "Теперь вы не будете слышать все радиосообщения."
 	disable_message = "Теперь вы будете слышать все радиосообщения."
 	blackbox_message = "Toggle RadioChatter"
+
 
 /datum/preference_toggle/toggle_ai_voice_annoucements
 	name = "Слышимость аудио-оповещений ИИ"
@@ -177,7 +187,6 @@
 	. = ..()
 	if(user.prefs.sound & ~SOUND_LOBBY)
 		usr.stop_sound_channel(CHANNEL_ADMIN)
-
 
 /datum/preference_toggle/toggle_end_of_round_sound
 	name = "Отключение звука в конце раунда"
@@ -292,7 +301,7 @@
 
 /client/verb/silence_current_midi()
 	set name = "Заглушить MIDI"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 	set desc = "Заглушает текущие MIDI-файлы, проигрываемые администрацией."
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "Текущие проигрываемые админ-MIDI были заглушены.")
@@ -408,6 +417,15 @@
 	disable_message = "Теперь вы не будете видеть информацию о подсистемах в панели действий."
 	blackbox_message = "MC tabs toggled"
 
+/datum/preference_toggle/toggle_mctabs/set_toggles(client/user)
+	. = ..()
+
+	if(!(user.prefs.toggles2 & preftoggle_bitflag))
+		return
+
+	user.stat_panel.send_message("add_mc_tab", user.holder.href_token)
+	SSstatpanels.set_MC_tab(user)
+
 /datum/preference_toggle/toggle_split_admins_tabs
 	name = "Разделение админ-вкладок"
 	description = "Включает разделение админ-действий на подкатегории."
@@ -456,7 +474,7 @@
 	var/new_ooccolor = tgui_input_color(usr, "Выберите цвет ваших сообщений в OOC-чате.", "Цвет OOC-сообщений", user.prefs.ooccolor)
 	if(!isnull(new_ooccolor))
 		user.prefs.ooccolor = new_ooccolor
-		to_chat(usr, "Выбранный цвет OOC-сообщений – [new_ooccolor].")
+		to_chat(usr, "Выбранный цвет OOC-сообщений — [new_ooccolor].")
 	else
 		user.prefs.ooccolor = initial(user.prefs.ooccolor)
 		to_chat(usr, "Цвет OOC-сообщений был сброшен.")
@@ -601,13 +619,13 @@
 	blackbox_message = "Toggle TGUI strip menu size"
 
 /datum/preference_toggle/toggle_item_description_tips
-	name = "Описания при наведении"
-	description = "Включает отображение описаний при наведении курсора."
-	preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
+	name = "Описания предметов при наведении"
+	description = "Включает отображение описаний предметов при наведении курсора."
+	preftoggle_bitflag = PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
 	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
-	enable_message = "Теперь вы будете видеть описание при наведении курсора."
-	disable_message = "Теперь вы не будете видеть описание при наведении курсора."
+	enable_message = "Теперь вы будете видеть описание предметов при наведении курсора."
+	disable_message = "Теперь вы не будете видеть описание предметов при наведении курсора."
 	blackbox_message = "Toggle item description tips on hover"
 
 /datum/preference_toggle/toggle_facing_to_mouse
@@ -660,16 +678,15 @@
 	disable_message = "Теперь содержимое UI не маштабируется."
 	blackbox_message = "Переключение маштабирования UI"
 
-
 /datum/preference_toggle/ui_scale/set_toggles(client/user)
 	. = ..()
 	if(!istype(user))
 		return
 	ASYNC
 		user.acquire_dpi()
-	INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
-	user.tgui_say?.load()
-
+		INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
+		user.tgui_say?.load()
+		user.fix_title_screen()
 
 /datum/preference_toggle/pain_blurb
 	name = "Переключить вывод боли на экран"

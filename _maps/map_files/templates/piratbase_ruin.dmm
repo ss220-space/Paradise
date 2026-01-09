@@ -632,6 +632,16 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
+"bQ" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
 "bS" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -1317,6 +1327,29 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
+"dv" = (
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/under/color/orange/prison,
+/obj/effect/mob_spawn/human/alive{
+	assignedrole = "Prisoner";
+	desc = "A cryo pod.";
+	description = "Вы похищенный пиратами гражданин.";
+	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
+	name = "Prisoner Cryo";
+	outfit = /datum/outfit/naked;
+	allow_gender_pick = 1;
+	allow_name_pick = 1;
+	allow_species_pick = 1;
+	pickable_species = list("Human");
+	allow_prefs_prompt = 1
+	},
+/obj/structure/sign/poster/official/obey{
+	pixel_x = 32
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/pirate_base/atrium)
 "dw" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -1694,11 +1727,6 @@
 /obj/structure/bed/nest,
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/xeno_lab)
-"ew" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/atmos)
 "ex" = (
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24;
@@ -2104,18 +2132,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
-"fJ" = (
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/obj/item/clothing/shoes/color/orange,
-/obj/item/clothing/head/beanie/orange,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "fK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -2410,26 +2426,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
-"gF" = (
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/item/card/id/prisoner/random,
-/obj/item/clothing/head/beanie/orange,
-/obj/item/clothing/under/color/orange/prison,
-/obj/effect/mob_spawn/human/alive{
-	assignedrole = "Prisoner";
-	desc = "A cryo pod.";
-	description = "Вы похищенный пиратами гражданин.";
-	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
-	name = "Prisoner Cryo";
-	outfit = /datum/outfit/naked;
-	allow_gender_pick = 1;
-	allow_name_pick = 1;
-	allow_species_pick = 1;
-	pickable_species = list("Human");
-	allow_prefs_prompt = 1
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/space/pirate_base/atrium)
 "gH" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access = list(160)
@@ -3174,29 +3170,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
-"iv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "rightpirat_blast";
-	name = "Right BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = 6
-	},
-/obj/machinery/door_control{
-	id = "leftpirat_blast";
-	name = "Left BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = -6
-	},
-/obj/machinery/light_switch{
-	pixel_y = -2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "ix" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -4022,29 +3995,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
-"lf" = (
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/item/card/id/prisoner/random,
-/obj/item/clothing/head/beanie/orange,
-/obj/item/clothing/under/color/orange/prison,
-/obj/effect/mob_spawn/human/alive{
-	assignedrole = "Prisoner";
-	desc = "A cryo pod.";
-	description = "Вы похищенный пиратами гражданин.";
-	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
-	name = "Prisoner Cryo";
-	outfit = /datum/outfit/naked;
-	allow_gender_pick = 1;
-	allow_name_pick = 1;
-	allow_species_pick = 1;
-	pickable_species = list("Human");
-	allow_prefs_prompt = 1
-	},
-/obj/structure/sign/poster/official/obey{
-	pixel_x = 32
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/space/pirate_base/atrium)
 "lg" = (
 /obj/machinery/door/airlock/glass{
 	req_access = list(162);
@@ -4995,12 +4945,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/xeno_lab)
-"nE" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/ruin/space/pirate_base/lab_medical)
 "nG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -5216,6 +5160,12 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"ol" = (
+/obj/structure/table,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/mining)
 "om" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -6213,6 +6163,12 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"rk" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/stack/medical/bruise_pack/extended,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/atmos)
 "rl" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -6303,19 +6259,6 @@
 "rw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
-"rx" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/card/id/prisoner/random,
-/obj/item/clothing/head/beanie/orange,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "rA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -6531,23 +6474,27 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"sl" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/item/card/id/prisoner/random,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet{
+"sk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rightpirat_blast";
+	name = "Right BlastDoor";
 	req_access = list(160);
-	name = "prison locker"
+	pixel_y = 6;
+	pixel_x = 6
 	},
+/obj/machinery/door_control{
+	id = "leftpirat_blast";
+	name = "Left BlastDoor";
+	req_access = list(160);
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	icon_state = "darkblue"
 	},
-/area/ruin/space/pirate_base/arrivals)
+/area/shuttle/pirate_corvette)
 "sn" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -7364,6 +7311,40 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_medical)
+"uB" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/stack/spacecash/c100,
+/obj/item/card/id/prisoner/random,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "uC" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing{
@@ -8334,6 +8315,10 @@
 	tag = "icon-whitepurple (NORTH)"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"xm" = (
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/entertainment)
 "xn" = (
 /obj/effect/turf_decal/siding/brown,
 /obj/effect/decal/cleanable/dirt,
@@ -8403,20 +8388,6 @@
 "xw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"xx" = (
-/obj/effect/turf_decal/box/red,
-/obj/machinery/quantumpad/cere/arrivals_cargo{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/obj/machinery/door/window/brigdoor{
-	req_access = list(160);
-	dir = 2
-	},
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/observ)
 "xz" = (
 /obj/structure/table/tray,
 /obj/item/storage/backpack/duffel/syndie/surgery,
@@ -9108,6 +9079,30 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"zI" = (
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/clothing/shoes/color/orange,
+/obj/item/clothing/head/beanie/orange,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/clothing/head/beanie/orange,
+/obj/item/stack/spacecash/c10,
+/obj/item/clothing/shoes/orange,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "zJ" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/orange,
@@ -9117,18 +9112,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
-"zQ" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 4
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "zR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -9473,13 +9456,6 @@
 /obj/item/inflatable/door,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
-"AV" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "AW" = (
 /obj/structure/rack,
 /obj/item/analyzer,
@@ -9775,11 +9751,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
-"BQ" = (
-/obj/structure/table,
-/obj/item/stack/medical/splint,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/mining)
 "BR" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -10368,6 +10339,14 @@
 	icon_state = "cmo"
 	},
 /area/ruin/space/pirate_base/security_medical)
+"DD" = (
+/obj/structure/table,
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "DE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -10914,11 +10893,6 @@
 "Fg" = (
 /turf/simulated/wall,
 /area/ruin/space/pirate_base/entertainment)
-"Fh" = (
-/obj/structure/closet,
-/obj/item/toy/plushie/plasmamanplushie,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Fi" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom";
@@ -12087,19 +12061,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/pirate_corvette)
-"Ir" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "Is" = (
 /turf/simulated/wall,
 /area/ruin/space/pirate_base/arrivals)
@@ -12349,14 +12310,6 @@
 	tag = "icon-whitepurplecorner (EAST)"
 	},
 /area/ruin/space/pirate_base/laboratory)
-"Jh" = (
-/obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Jk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -12781,25 +12734,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"Ko" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = -2
-	},
-/obj/structure/curtain/open/shower,
-/obj/effect/turf_decal{
-	icon_state = "plumbing";
-	name = "plumbing"
-	},
-/obj/item/clothing/shoes/color/orange/prison,
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/ruin/space/pirate_base/atrium)
 "Kp" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/observ)
@@ -12877,6 +12811,21 @@
 /obj/item/stack/sheet/glass,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
+"KG" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/clothing/head/beanie/orange,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/card/id/prisoner/random,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "KH" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -13044,17 +12993,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
-"Lk" = (
-/obj/effect/turf_decal/box,
-/obj/structure/closet/crate/medical,
-/obj/item/handheld_defibrillator,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/firstaid/with_mousetrap/tactical,
-/turf/simulated/floor/plasteel{
-	icon_state = "sepia"
-	},
-/area/ruin/space/pirate_base/security_medical)
 "Ll" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -13179,21 +13117,6 @@
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
-"LG" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/item/clothing/head/beanie/orange,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/card/id/prisoner/random,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "LH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -13633,6 +13556,19 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"MW" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "MX" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
@@ -13761,6 +13697,13 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"Nn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/space/pirate_base/lab_medical)
 "No" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -13994,6 +13937,12 @@
 	icon_state = "whitebluefull"
 	},
 /area/ruin/space/pirate_base/security_medical)
+"NU" = (
+/obj/structure/closet,
+/obj/item/stack/medical/ointment/extended,
+/obj/item/toy/plushie/plasmamanplushie,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "NV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/dark,
@@ -15154,16 +15103,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
-"Rr" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "Rs" = (
 /obj/structure/table/wood,
 /obj/item/candle{
@@ -15731,6 +15670,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_medical)
+"Ta" = (
+/obj/effect/turf_decal/box/red,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	req_access = list(160);
+	name = "piratepad"
+	},
+/obj/machinery/door/window/brigdoor{
+	req_access = list(160);
+	dir = 2
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/observ)
 "Tb" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced{
@@ -15821,20 +15774,19 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
-"Tp" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+"To" = (
+/obj/effect/turf_decal/box,
+/obj/structure/closet/crate/medical,
+/obj/item/handheld_defibrillator,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/firstaid/with_mousetrap/tactical,
+/obj/item/stack/medical/suture/advanced,
+/obj/item/stack/medical/bruise_pack/military,
+/turf/simulated/floor/plasteel{
+	icon_state = "sepia"
 	},
-/obj/effect/turf_decal/box/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/quantumpad/cere/cargo_arrivals{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
+/area/ruin/space/pirate_base/security_medical)
 "Tq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -16244,6 +16196,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
+"UF" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	req_access = list(160);
+	name = "piratepad"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
 "UH" = (
 /obj/machinery/alarm/syndicate{
 	dir = 8;
@@ -16680,6 +16646,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
+"VZ" = (
+/obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "Wa" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -16836,6 +16811,25 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
+"WB" = (
+/obj/machinery/shower{
+	dir = 4;
+	pixel_x = -2
+	},
+/obj/structure/curtain/open/shower,
+/obj/effect/turf_decal{
+	icon_state = "plumbing";
+	name = "plumbing"
+	},
+/obj/item/clothing/shoes/color/orange/prison,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 30;
+	maxHealth = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/pirate_base/atrium)
 "WD" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -16867,6 +16861,17 @@
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/virology)
+"WG" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "WI" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -16958,6 +16963,14 @@
 /obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
+"WT" = (
+/obj/structure/table/glass,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/xeno_lab)
 "WW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -17215,6 +17228,20 @@
 	icon_state = "bar"
 	},
 /area/ruin/space/pirate_base/atrium)
+"XI" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/item/clothing/head/beanie/orange,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "XL" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -17948,6 +17975,26 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
+"ZP" = (
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/under/color/orange/prison,
+/obj/effect/mob_spawn/human/alive{
+	assignedrole = "Prisoner";
+	desc = "A cryo pod.";
+	description = "Вы похищенный пиратами гражданин.";
+	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
+	name = "Prisoner Cryo";
+	outfit = /datum/outfit/naked;
+	allow_gender_pick = 1;
+	allow_name_pick = 1;
+	allow_species_pick = 1;
+	pickable_species = list("Human");
+	allow_prefs_prompt = 1
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/pirate_base/atrium)
 "ZQ" = (
 /obj/structure/table,
 /obj/item/slimepotion/speed{
@@ -20021,7 +20068,7 @@ us
 SV
 Yf
 WD
-Ko
+WB
 SV
 Jx
 Jp
@@ -20328,7 +20375,7 @@ SV
 cQ
 PG
 SV
-BQ
+ol
 ak
 hJ
 Uj
@@ -21135,7 +21182,7 @@ Zw
 uG
 Ip
 SV
-gF
+ZP
 KM
 NV
 SV
@@ -21357,7 +21404,7 @@ wn
 YT
 Yj
 CQ
-rw
+xm
 IH
 jj
 cR
@@ -21543,7 +21590,7 @@ Hk
 ue
 pb
 SV
-lf
+dv
 Dh
 fS
 SV
@@ -22131,12 +22178,12 @@ qc
 qc
 qc
 ey
-iv
+sk
 FU
 sK
 FK
 Sz
-Tp
+UF
 iS
 Fi
 if
@@ -22235,7 +22282,7 @@ qc
 ey
 WE
 vJ
-zQ
+bQ
 wI
 DE
 bh
@@ -22355,7 +22402,7 @@ AK
 AK
 AK
 Iv
-fJ
+zI
 Dn
 Dn
 bd
@@ -22457,7 +22504,7 @@ AK
 AK
 AK
 Iv
-rx
+XI
 VY
 Dn
 CS
@@ -22559,7 +22606,7 @@ mM
 AK
 AK
 Iv
-LG
+KG
 VY
 Dn
 fj
@@ -22661,7 +22708,7 @@ ve
 AK
 AK
 Iv
-sl
+uB
 VY
 Dn
 Dn
@@ -22763,7 +22810,7 @@ mM
 AK
 bi
 Iv
-Ir
+MW
 VY
 Dn
 eL
@@ -22967,7 +23014,7 @@ AK
 AK
 AK
 Iv
-AV
+DD
 Vm
 Is
 Dn
@@ -23503,7 +23550,7 @@ yw
 SD
 Gf
 Gv
-nE
+Nn
 LN
 iM
 eU
@@ -24822,7 +24869,7 @@ cS
 cS
 Pt
 Mo
-Rr
+WG
 sj
 MV
 iK
@@ -24892,7 +24939,7 @@ AK
 AK
 mc
 xJ
-ew
+rk
 hO
 hO
 HF
@@ -25535,7 +25582,7 @@ AK
 AK
 MD
 bt
-Nv
+WT
 qW
 uv
 Md
@@ -25834,7 +25881,7 @@ TQ
 eF
 RG
 Yq
-Lk
+To
 yr
 AK
 AK
@@ -25913,7 +25960,7 @@ AK
 BX
 Pl
 MG
-Fh
+NU
 hO
 gq
 NY
@@ -26115,7 +26162,7 @@ AK
 bi
 bi
 BX
-Jh
+VZ
 XD
 yg
 Op
@@ -26838,7 +26885,7 @@ JU
 qU
 iB
 BX
-xx
+Ta
 Xy
 ty
 cJ

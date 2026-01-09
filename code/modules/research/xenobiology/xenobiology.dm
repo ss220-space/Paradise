@@ -14,7 +14,6 @@
 	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
 
-
 /obj/item/slime_extract/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/slimepotion/enhancer))
 		add_fingerprint(user)
@@ -29,7 +28,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/slime_extract/New()
 	..()
@@ -101,7 +99,6 @@
 /obj/item/slime_extract/oil/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	obj_destruction(MELEE)
 
-
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
 	icon_state = "adamantine slime extract"
@@ -149,7 +146,6 @@
 	icon_state = "bottle19"
 	var/being_used = FALSE
 
-
 /obj/item/slimepotion/slime/docility/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))
@@ -181,7 +177,6 @@
 	target.real_name = newname
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/slimepotion/sentience
 	name = "sentience potion"
@@ -253,15 +248,15 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(SM, "<span class='notice'>Ваше новое имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(SM, span_notice("Ваше новое имя - <b>\"[new_name]\"</b>!"))
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
 					var/mob/living/simple_animal/slime/SM_slime = SM
 					SM_slime.is_renamed = TRUE
 
-			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
+			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
 			return
 
@@ -282,12 +277,12 @@
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(!src)
+		if(QDELETED(src) || QDELETED(SM))
 			return
 
 		if(length(candidates))
 			var/mob/C = pick(candidates)
-			SM.key = C.key
+			SM.possess_by_player(C.ckey)
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
 			SM.master_commander = user
@@ -304,15 +299,15 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(SM, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(SM, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
 					var/mob/living/simple_animal/slime/SM_slime = SM
 					SM_slime.is_renamed = TRUE
 
-			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
+			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
 		else
 			to_chat(user, span_notice("[M] looks interested for a moment, but then looks back down. Maybe you should try again later."))
@@ -332,34 +327,34 @@
 		if(!reason_text)
 			return
 
-		to_chat(user, span_notice("Вы предлагаете [src] [LF]... Он[genderize_ru(LF.gender, "", "а", "о", "и")] осторожно осматрива[pluralize_ru(LF.gender,"ет","ют")] его"))
+		to_chat(user, span_notice("Вы предлагаете [src] [LF]... Он[GEND_A_O_I(LF)] осторожно осматрива[PLUR_ET_YUT(LF)] его"))
 		being_used = TRUE
 
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(!src)
+		if(QDELETED(src) || QDELETED(LF))
 			return
 
 		if(length(candidates))
 			var/mob/C = pick(candidates)
-			LF.key = C.key
+			LF.possess_by_player(C.key)
 			LF.faction = user.faction
 			LF.master_commander = user
 			LF.mind.madeby_sentience_potion = TRUE
 			to_chat(LF, span_warning("Труд из обезьяны сделал человека! А зелье разума сделало вас осознающим себя в этом мире. Вы по прежнему являетесь обезьяной и вашего ограниченного ума не хватает чтобы осознать всей окружающей вас аппаратуры и продвинутого окружения. Вы знаете что оно как-то работает у людей и вам этого хватает. Ваши желания просты и примитивны, как и вы сами. Но что точно вы знаете лучше всей своей жизни..."))
-			to_chat(LF, span_userdanger("Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [genderize_ru(user.gender, "ему", "ей", "этому", "им")] в выполнении [genderize_ru(user.gender, "его", "её", "этого", "их")] целей любой ценой!"))
-			to_chat(user, span_notice("[M] бер[pluralize_ru(LF.gender,"ет","ут")] зелье и дела[pluralize_ru(LF.gender,"ет","ют")] глоток. Он[genderize_ru(LF.gender, "", "а", "о", "и")] смотр[pluralize_ru(LF.gender,"ит","ят")] на вас грустными и понимающими глазами. Сработало!"))
+			to_chat(LF, span_userdanger("Вы самоосознались благодаря [user.name]. В качестве благодарности, теперь вы служите [user.name], и помогаете [GEND_HIM_HER(user)] в выполнении [GEND_HIS_HER(user)] целей любой ценой!"))
+			to_chat(user, span_notice("[M] бер[PLUR_ET_UT(LF)] зелье и дела[PLUR_ET_YUT(LF)] глоток. Он[GEND_A_O_I(LF)] смотр[PLUR_IT_YAT(LF)] на вас грустными и понимающими глазами. Сработало!"))
 			qdel(src)
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(LF, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(LF, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
 				LF.real_name = new_name
 				LF.name = new_name
 
-			LF.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
+			LF.mind.store_memory("<b>Мой хозяин [user.name], выполню [GEND_HIS_HER(user)] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", LF)
 		else
 			to_chat(user, span_notice("[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже."))
@@ -428,7 +423,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-
 /obj/item/slimepotion/slime/steroid/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 	if(!isslime(target))//If target is not a slime.
@@ -450,7 +444,6 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/slimepotion/enhancer
 	name = "extract enhancer"
 	id = "Enhancer"
@@ -464,7 +457,6 @@
 	desc = "A potent chemical mix that will reduce the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle15"
-
 
 /obj/item/slimepotion/slime/stabilizer/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -484,14 +476,12 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/slimepotion/slime/mutator
 	name = "slime mutator"
 	id = "Mutator"
 	desc = "A potent chemical mix that will increase the chance of a slime mutating."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle3"
-
 
 /obj/item/slimepotion/slime/mutator/attack(mob/living/simple_animal/slime/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
@@ -514,7 +504,6 @@
 	target.mutator_used = TRUE
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/item/slimepotion/speed
 	name = "slime speed potion"
@@ -559,13 +548,11 @@
 	to_chat(user, span_notice("You slather the red gunk over [O], making it faster.</span>"))
 	qdel(src)
 
-
-/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/speed/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
 
@@ -573,7 +560,6 @@
 		return FALSE
 
 	afterattack(over_object, user, TRUE, params, drop = TRUE)
-
 
 /obj/item/slimepotion/clothing
 	var/inapplicable_caption
@@ -625,21 +611,15 @@
 	if(!uses)
 		qdel(src)
 
-
-/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/clothing/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
-
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
-
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
-
 	afterattack(over_object, user, TRUE, params)
-
 
 /obj/item/slimepotion/clothing/fireproof
 	name = "slime chill potion"
@@ -797,7 +777,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/living/immune = list() // the one who creates the timestop is immune
 	var/list/stopped_atoms = list()
-	var/freezerange = 2
+	var/freezerange = 1
 	var/duration = 140
 	alpha = 125
 
@@ -808,7 +788,6 @@
 			continue
 		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/spell in living.mind.spell_list) //People who can stop time are immune to timestop
 			immune |= living
-
 
 /obj/effect/timestop/proc/timestop()
 	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
@@ -862,13 +841,6 @@
 /obj/effect/timestop/clockwork
 	duration = 80
 
-/obj/effect/timestop/clockwork/Initialize(mapload)
-	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
-		if(isclocker(M))
-			immune |= M
-	timestop()
-
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"
 	singular_name = "floor tile"
@@ -880,7 +852,6 @@
 	throw_speed = 3
 	throw_range = 7
 	turf_type = /turf/simulated/floor/bluespace
-
 
 /turf/simulated/floor/bluespace
 	slowdown = -1

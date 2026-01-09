@@ -1,9 +1,9 @@
 /obj/machinery/cooker/deepfryer
 	name = "deep fryer"
-	desc = "Deep fried <i>everything</i>."
+	desc = "Промышленный аппарат для глубокой прожарки в раскалённом масле. Позволяет придать хрустящую корочку <i>чему угодно</i>. Буквально."
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "fryer_off"
-	thiscooktype = "deep fried"
+	thiscooktype = "обжарено во фритюре"
 	burns = 1
 	firechance = 100
 	cooktime = 200
@@ -13,6 +13,16 @@
 	openicon = "fryer_open"
 	has_specials = 1
 	upgradeable = 1
+
+/obj/machinery/cooker/deepfryer/get_ru_names()
+	return list(
+		NOMINATIVE = "фритюрница",
+		GENITIVE = "фритюрницы",
+		DATIVE = "фритюрнице",
+		ACCUSATIVE = "фритюрницу",
+		INSTRUMENTAL = "фритюрницей",
+		PREPOSITIONAL = "фритюрнице"
+	)
 
 /obj/machinery/cooker/deepfryer/Initialize(mapload)
 	. = ..()
@@ -43,19 +53,18 @@
 	var/obj/item/reagent_containers/food/snacks/deepfryholder/type = new(get_turf(src))
 	return type
 
-
 /obj/machinery/cooker/deepfryer/special_grab_attack(atom/movable/grabbed_thing, mob/living/grabber)
 	if(!ishuman(grabbed_thing) || !Adjacent(grabbed_thing))
 		return
 	var/mob/living/carbon/human/victim = grabbed_thing
 	var/obj/item/organ/external/head/head = victim.get_organ(BODY_ZONE_HEAD)
 	if(!head)
-		to_chat(grabber, span_warning("This person doesn't have a head!"))
+		balloon_alert(grabber, "нет головы!")
 		return
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] dunks [victim]'s face into [src]!"),
-		span_userdanger("[grabber] dunks your face into [src]!"),
+		span_danger("[grabber.declent_ru(NOMINATIVE)] окуна[PLUR_ET_YUT(grabber)] [victim.declent_ru(ACCUSATIVE)] лицом в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[grabber.declent_ru(NOMINATIVE)] окуна[PLUR_ET_YUT(grabber)] вас в [declent_ru(ACCUSATIVE)]!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")
@@ -64,7 +73,6 @@
 	add_attack_logs(grabber, victim, "Deep-fried with [src]")
 	//Removes the grip so the person MIGHT have a small chance to run the fuck away and to prevent rapid dunks.
 	grabber.stop_pulling()
-
 
 /obj/machinery/cooker/deepfryer/checkSpecials(obj/item/I)
 	if(!I)

@@ -54,7 +54,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	logged_explosions.Cut()
 	return ..()
 
-
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -68,13 +67,11 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 	return ..()
 
-
 /obj/machinery/doppler_array/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!default_unfasten_wrench(user, I, 0))
 		return
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/doppler_array/attack_hand(mob/user)
 	if(..())
@@ -84,7 +81,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 
 /obj/machinery/doppler_array/attack_ghost(mob/user)
 	ui_interact(user)
-
 
 /obj/machinery/doppler_array/click_alt(mob/user)
 	rotate(user)
@@ -174,13 +170,11 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	for(var/message in messages)
 		atom_say(message, use_tts = FALSE)
 
-
 /obj/machinery/doppler_array/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "[base_icon_state]_broken"
 	else
 		icon_state = (!(stat & NOPOWER) && anchored) ? base_icon_state : "[base_icon_state]_off"
-
 
 /obj/machinery/doppler_array/power_change(forced = FALSE)	// overrides base power_change to check to make sure machine is anchored
 	if(powered(power_channel) && anchored)
@@ -188,7 +182,6 @@ GLOBAL_LIST_EMPTY(doppler_arrays)
 	else
 		stat |= NOPOWER
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/machinery/doppler_array/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

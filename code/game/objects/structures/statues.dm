@@ -5,9 +5,9 @@
 	icon_state = ""
 	density = TRUE
 	max_integrity = 100
+	cares_about_temperature = TRUE
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
-
 
 /obj/structure/statue/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -34,12 +34,10 @@
 
 	return ..()
 
-
 /obj/structure/statue/wrench_act(mob/living/user, obj/item/I)
 	if(obj_flags & NODECONSTRUCT)
 		return FALSE
 	return default_unfasten_wrench(user, I)
-
 
 /obj/structure/statue/welder_act(mob/user, obj/item/I)
 	if(anchored)
@@ -51,7 +49,6 @@
 	if(I.use_tool(src, user, 40, volume = I.tool_volume))
 		WELDER_SLICING_SUCCESS_MESSAGE
 		deconstruct(TRUE)
-
 
 /obj/structure/statue/attack_hand(mob/living/user)
 	. = ..()
@@ -99,7 +96,6 @@
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
 
-
 /obj/structure/statue/plasma
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
@@ -113,10 +109,10 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/statue/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+	if(temperature > 300)
+		PlasmaBurn(temperature)
 
 /obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
@@ -130,7 +126,6 @@
 			PlasmaBurn()
 	..()
 
-
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
@@ -138,7 +133,6 @@
 		ignite(I.get_heat())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/statue/plasma/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -250,12 +244,10 @@
 	honk()
 	. = ..()
 
-
 /obj/structure/statue/bananium/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		honk()
-
 
 /obj/structure/statue/bananium/attack_hand(mob/user)
 	honk()
@@ -374,8 +366,8 @@
 
 /obj/structure/statue/furukai
 	name = "София Вайт"
-	desc = "Загадочная девушка, ныне одна из множества офицеров синдиката. Получившая столь высокую позицию не за связи, а за свои способности. \
-			Движимая местью за потерю родной сестры из-за коррупционных верхушек Нанотрейзен, она вступила в Синдикат,  \
+	desc = "Загадочная девушка, ныне одна из множества офицеров \"Синдиката\". Получившая столь высокую позицию не за связи, а за свои способности. \
+			Движимая местью за потерю родной сестры из-за коррупционных верхушек \"Нанотрейзен\", она вступила в Синдикат,  \
 			где стала известна и как способный агент и как отличный инженер. Хоть ее позывной и отсылал на пушистых, в душе она их ненавидела..."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "furukai"
@@ -385,7 +377,7 @@
 
 /obj/structure/statue/ell_good
 	name = "Mr.Буум"
-	desc = "Загадочный клоун с жёлтым оттенком кожи и выразительными зелёными глазами. Лучший двойной агент синдиката умудрявшийся захватить власть множества объектов. \
+	desc = "Загадочный клоун с жёлтым оттенком кожи и выразительными зелёными глазами. Лучший двойной агент \"Синдиката\" умудрявшийся захватить власть множества объектов. \
 			Его имя часто произносят неправильно из-за чего его заслуги по документам принадлежат сразу нескольким Буумам. \
 			Так же знаменит тем, что убедил руководство НТ тратить время, силы и средства, на золотой унитаз."
 	icon = 'icons/obj/statuelarge.dmi'
@@ -455,25 +447,21 @@
 /obj/structure/statue/unknown/update_icon_state()
 	icon_state = "unknown[lit ? "_lit" : ""]"
 
-
 /obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
 	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-
 /obj/structure/statue/unknown/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-
 /obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!lit)
 		light()
 	return ..()
-
 
 /obj/structure/statue/unknown/proc/light(show_message)
 	if(lit)
@@ -482,9 +470,8 @@
 	lit = TRUE
 	if(show_message)
 		usr.visible_message(show_message)
-	set_light(CANDLE_LUM, l_on = TRUE)
+	set_light(3, l_on = TRUE)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/statue/unknown/attack_hand(mob/user)
 	if(lit)
@@ -516,7 +503,6 @@
 /obj/structure/snowman/built/has_prints()
 	return FALSE
 
-
 /obj/structure/snowman/built/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -531,7 +517,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
@@ -551,12 +536,10 @@
 /obj/structure/statue/cheese
 	material_drop_type = /obj/item/stack/sheet/cheese
 
-
 /obj/structure/statue/cheese/cheesus
 	name = "statue of cheesus"
 	desc = "Cheese expertly crafted into a representation of our mighty lord and saviour."
 	icon_state = "cheesus1"
-
 
 /obj/structure/statue/cheese/cheesus/update_icon_state()
 	switch(obj_integrity)
@@ -569,12 +552,10 @@
 		else
 			icon_state = "cheesus1"
 
-
 /obj/structure/statue/cheese/cheesus/take_damage(damage_amount, damage_type = BRUTE, damage_flag = "", sound_effect = TRUE, attack_dir, armour_penetration = 0)
 	. = ..()
 	if(. && !QDELETED(src))
 		update_icon(UPDATE_ICON_STATE)
-
 
 //////BONES
 /obj/structure/bones

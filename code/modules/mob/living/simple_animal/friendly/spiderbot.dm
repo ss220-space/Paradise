@@ -27,14 +27,17 @@
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
-	can_hide = 1
+	can_hide = TRUE
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1
 
-	var/emagged = 0               //is it getting ready to explode?
+	/// Is it getting ready to explode?
+	var/emagged = FALSE
+	/// MMI it contains
 	var/obj/item/mmi/mmi = null
-	var/mob/emagged_master = null //for administrative purposes, to see who emagged the spiderbot; also for a holder for if someone emags an empty frame first then inserts an MMI.
+	/// Who emagged the spiderbot
+	var/mob/emagged_master = null
 
 /mob/living/simple_animal/spiderbot/ComponentInitialize()
 	AddComponent( \
@@ -51,12 +54,11 @@
 		eject_brain()
 	return ..()
 
-
 /mob/living/simple_animal/spiderbot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/mmi))
+	if(is_mmi(I))
 		add_fingerprint(user)
 		var/obj/item/mmi/new_mmi = I
 		if(mmi) //There's already a brain in it.
@@ -117,7 +119,6 @@
 
 	return ..()
 
-
 /mob/living/simple_animal/spiderbot/welder_act(mob/user, obj/item/I)
 	if(user.a_intent != INTENT_HELP)
 		return
@@ -149,7 +150,6 @@
 		melee_damage_upper = 15
 		attack_sound = 'sound/machines/defib_zap.ogg'
 
-
 /mob/living/simple_animal/spiderbot/proc/transfer_personality(obj/item/mmi/M)
 	mind = M.brainmob.mind
 	mind.key = M.brainmob.key
@@ -158,7 +158,6 @@
 	if(emagged)
 		to_chat(src, span_userdanger("You have been emagged; you are now completely loyal to [emagged_master] and [emagged_master.p_their()] every order!"))
 
-
 /mob/living/simple_animal/spiderbot/update_name(updates = ALL)
 	. = ..()
 	if(mmi)
@@ -166,10 +165,9 @@
 	else
 		name = "Spider-bot"
 
-
 /mob/living/simple_animal/spiderbot/update_icon_state()
 	if(mmi)
-		if(istype(mmi, /obj/item/mmi))
+		if(is_mmi(mmi))
 			icon_state = "spiderbot-chassis-mmi"
 			icon_living = "spiderbot-chassis-mmi"
 		if(istype(mmi, /obj/item/mmi/robotic_brain))
@@ -179,7 +177,6 @@
 	else
 		icon_state = "spiderbot-chassis"
 		icon_living = "spiderbot-chassis"
-
 
 /mob/living/simple_animal/spiderbot/proc/eject_brain()
 	if(mmi)

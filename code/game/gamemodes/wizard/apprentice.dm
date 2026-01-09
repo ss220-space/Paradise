@@ -37,11 +37,15 @@
 			to_chat(teacher, span_notice("Apprentice waiting..."))
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [teacher.real_name]?", ROLE_WIZARD, TRUE, source = source)
+			
+			if(QDELETED(teacher))
+				return
+				
 			if(length(candidates))
 				var/mob/C = pick(candidates)
 				new /obj/effect/particle_effect/fluid/smoke(teacher.loc)
 				var/mob/living/carbon/human/apprentice = new/mob/living/carbon/human(teacher.loc)
-				apprentice.key = C.key
+				apprentice.possess_by_player(C.key)
 				to_chat(apprentice, span_notice("You are the [teacher.real_name]'s apprentice! You are bound by magic contract to follow [teacher.p_their()] orders and help [teacher.p_them()] in accomplishing their goals."))
 
 				school_href_choose(href_list, teacher, apprentice)
@@ -200,7 +204,6 @@
 		new /datum/magick_school/lavaland,
 	)
 
-
 /datum/magick_school
 	var/name = "Школа Безымянности (перешлите это разработчику)"
 	var/id = "no_name"
@@ -209,7 +212,6 @@
 
 /datum/magick_school/proc/kit()
 	return 0
-
 
 /datum/magick_school/healer
 	name = "Школа Исцеления"
@@ -259,7 +261,6 @@
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 30, BOMB = 20, BIO = 20, RAD = 20, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-
 /datum/magick_school/sabotage
 	name = "Школа Диверсии"
 	id = "sabotage"
@@ -284,7 +285,6 @@
 	put_on_delay = 5 SECONDS
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-
 /obj/item/clothing/head/fedora/head/saboteur
 	magical = TRUE
 	name = "Федора саботёра"
@@ -295,7 +295,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	strip_delay = 5 SECONDS
 	put_on_delay = 5 SECONDS
-
 
 /datum/magick_school/defense
 	name = "Школа Защиты"
@@ -311,7 +310,6 @@
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/magusdefender(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/magusdefender(owner), ITEM_SLOT_HEAD)
-
 
 /datum/magick_school/fire
 	name = "Школа Огня"
@@ -371,7 +369,6 @@
 	owner.equip_or_collect(new /obj/item/gun/magic/staff/slipping(owner), ITEM_SLOT_HAND_RIGHT)
 	owner.equip_or_collect(new /obj/item/bikehorn, ITEM_SLOT_BELT)
 
-
 /datum/magick_school/blood
 	name = "Школа Крови"
 	id = "blood"
@@ -411,7 +408,6 @@
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/necromage(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/necromage(owner), ITEM_SLOT_HEAD)
 
-
 /datum/magick_school/vision
 	name = "Школа Прозрения"
 	id = "vision"
@@ -430,7 +426,6 @@
 
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/visionmage(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/visionmage(owner), ITEM_SLOT_HEAD)
-
 
 /datum/magick_school/singulo
 	name = "Школа Сингулярности"
@@ -458,7 +453,6 @@
 	head.desc = "Древний шлем последователя школы сингулярности."
 	owner.equip_or_collect(head, ITEM_SLOT_HEAD)
 
-
 /datum/magick_school/replace
 	name = "Школа Подмены"
 	id = "replace"
@@ -471,7 +465,6 @@
 	//Нацепляем простой фиолетовый балахон
 	owner.equip_or_collect(new /obj/item/clothing/suit/wizrobe/psypurple(owner), ITEM_SLOT_CLOTH_OUTER)
 	owner.equip_or_collect(new /obj/item/clothing/head/wizard/amp(owner), ITEM_SLOT_HEAD)
-
 
 /datum/magick_school/destruction
 	name = "Школа Разрушения"

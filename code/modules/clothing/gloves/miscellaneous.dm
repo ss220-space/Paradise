@@ -29,7 +29,7 @@
 		DATIVE = "перчаткам из хитина ткача",
 		ACCUSATIVE = "перчатки из хитина ткача",
 		INSTRUMENTAL = "перчатками из хитина ткача",
-		PREPOSITIONAL = "перчатках из хитина ткача"
+		PREPOSITIONAL = "перчатках из хитина ткача",
 	)
 
 /obj/item/clothing/gloves/fingerless/weaver/Touch(atom/A, proximity)
@@ -53,7 +53,7 @@
 		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
 		add_attack_logs(user, target, "Melee attacked with weaver gloves")
 
-		target.visible_message(span_danger("[user] сокруша[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)]!"))
+		target.visible_message(span_danger("[user] сокруша[PLUR_ET_YUT(user)] [target] [declent_ru(INSTRUMENTAL)]!"))
 
 		target.apply_damage(damage, BRUTE, affecting)
 		target.apply_damage(stamindamage, STAMINA, affecting)
@@ -64,7 +64,6 @@
 	name = "cyborg gloves"
 	icon_state = "black"
 	item_state = "r_hands"
-
 
 /obj/item/clothing/gloves/color/black/forensics
 	name = "forensics gloves"
@@ -99,7 +98,7 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
 	)
 
 /obj/item/clothing/gloves/bracer
@@ -124,7 +123,7 @@
 		DATIVE = "костяным наручам",
 		ACCUSATIVE = "костяные наручи",
 		INSTRUMENTAL = "костяными наручами",
-		PREPOSITIONAL = "костяных наручах"
+		PREPOSITIONAL = "костяных наручах",
 	)
 
 /obj/item/clothing/gloves/botanic_leather
@@ -140,24 +139,15 @@
 	resistance_flags = NONE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
 
-/obj/item/clothing/gloves/batmangloves
-	desc = "Used for handling all things bat related."
-	name = "batgloves"
-	icon_state = "bmgloves"
-	item_state = "bmgloves"
-	item_color = "bmgloves"
-
 /obj/item/clothing/gloves/cursedclown
 	name = "cursed white gloves"
 	desc = "These things smell terrible, and they're all lumpy. Gross."
 	icon_state = "latex"
 	item_state = "lgloves"
 
-
 /obj/item/clothing/gloves/cursedclown/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
@@ -173,7 +163,7 @@
 		DATIVE = "оглушающим перчаткам",
 		ACCUSATIVE = "оглушающие перчатки",
 		INSTRUMENTAL = "оглушающими перчатками",
-		PREPOSITIONAL = "оглушающих перчатках"
+		PREPOSITIONAL = "оглушающих перчатках",
 	)
 
 /obj/item/clothing/gloves/color/yellow/stun/get_cell()
@@ -202,7 +192,7 @@
 				do_sparks(5, FALSE, loc)
 				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
-				visible_message(span_danger("[H] дотрагива[pluralize_ru(H.gender, "ет", "ют")]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
+				visible_message(span_danger("[H] дотрагива[PLUR_ET_YUT(H)]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
@@ -212,13 +202,11 @@
 			return TRUE
 	return FALSE
 
-
 /obj/item/clothing/gloves/color/yellow/stun/update_overlays()
 	. = ..()
 	. += "gloves_wire"
 	if(cell)
 		. += "gloves_cell"
-
 
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/I, mob/living/user, params)
 	if(iscell(I))
@@ -234,7 +222,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/item/clothing/gloves/color/yellow/stun/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -275,11 +262,10 @@
 /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling()
 	set name = "Атака по направлению"
 	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	var/mob/living/L = usr
 	L.dirslash_enabled = !L.dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [L.dirslash_enabled? "enabled" : "disabled"] now."))
-
 
 /obj/item/clothing/gloves/fingerless/rapid/Touch(mob/living/target, proximity = TRUE)
 	var/mob/living/M = loc
@@ -315,7 +301,6 @@
 	var/razor_damage_low = 8
 	var/razor_damage_high = 9
 
-
 /obj/item/clothing/gloves/color/black/razorgloves/sharpen_act(obj/item/whetstone/whetstone, mob/user)
 	if(razor_damage_low > initial(razor_damage_low))
 		to_chat(user, span_warning("[src] has already been refined before. It cannot be sharpened further!"))
@@ -323,7 +308,6 @@
 	razor_damage_low = clamp(razor_damage_low + whetstone.increment, 0, whetstone.max)
 	razor_damage_high = clamp(razor_damage_high + whetstone.increment, 0, whetstone.max)
 	return TRUE
-
 
 /obj/item/clothing/gloves/color/black/razorgloves/Touch(atom/A, proximity)
 	. = FALSE
@@ -450,8 +434,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+	)
 
 /obj/item/clothing/gloves/combat/swat
 	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Such gloves cost a fortune, you can say that wearing them, you literally have golden hands!"
@@ -467,9 +451,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi'
-		)
-
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+	)
 
 /obj/item/clothing/gloves/combat/swat/syndicate
 	desc = "A pair of gloves made of the best reinforced materials. Protects against the effects of electricity, as well as partially acid and fire. Show these NT pigs on your fingers who's the boss here!"
@@ -493,7 +476,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
-		)
+	)
 	var/list/reflect_zones = list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
 	var/hit_reflect_chance = 50
 
@@ -504,7 +487,7 @@
 		DATIVE = "рефлекторнным перчаткам",
 		ACCUSATIVE = "рефлекторнные перчатки",
 		INSTRUMENTAL = "рефлекторными перчатками",
-		PREPOSITIONAL = "рефлекторных перчатках"
+		PREPOSITIONAL = "рефлекторных перчатках",
 	)
 
 /obj/item/clothing/gloves/reflector/IsReflect(def_zone)
@@ -517,7 +500,7 @@
 	name = "reflector hat"
 	desc = "Высокотехнологичная шляпа, изготовленная из светоотражающего материала, предназначена для отражения энергетических лучей. В неё встроен защитный визор, который обладает повышенной устойчивостью к кислотам."
 	icon_state = "reflector"
-	item_state = "reflector"
+	item_state = "reflectorhat"
 	flags_inv = HIDEHEADSETS
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	dog_fashion = null
@@ -538,7 +521,7 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
-		)
+	)
 	var/list/reflect_zones = list(BODY_ZONE_HEAD)
 	var/hit_reflect_chance = 50
 
@@ -549,7 +532,7 @@
 		DATIVE = "рефлекторной шляпе",
 		ACCUSATIVE = "рефлекторную шляпу",
 		INSTRUMENTAL = "рефлекторной шляпой",
-		PREPOSITIONAL = "рефлекторной шляпе"
+		PREPOSITIONAL = "рефлекторной шляпе",
 	)
 
 /obj/item/clothing/head/helmet/reflector/IsReflect(def_zone)
@@ -562,7 +545,7 @@
 	name = "reflector boots"
 	desc = "Высокотехнологичные ботинки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Довольно лёгкая, но не очень удобная обувь."
 	icon_state = "reflector"
-	item_state = "reflector"
+	item_state = "reflectorboots"
 	armor = list(MELEE = 0, BULLET = 0, LASER = 50, ENERGY = 50, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 100)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	sprite_sheets = list(
@@ -577,7 +560,7 @@
 		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
-		)
+	)
 	var/list/reflect_zones = list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
 	var/hit_reflect_chance = 50
 
@@ -588,7 +571,7 @@
 		DATIVE = "рефлекторным ботинкам",
 		ACCUSATIVE = "рефлекторные ботинки",
 		INSTRUMENTAL = "рефлекторными ботинками",
-		PREPOSITIONAL = "рефлекторных ботинках"
+		PREPOSITIONAL = "рефлекторных ботинках",
 	)
 
 /obj/item/clothing/shoes/reflector/IsReflect(def_zone)

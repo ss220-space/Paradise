@@ -27,6 +27,8 @@
 	var/toxins = 0
 	var/sleeping_agent = 0
 	var/agent_b = 0
+	var/hydrogen = 0
+	var/water_vapor = 0
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05
@@ -83,8 +85,25 @@
 
 	var/pressure_difference = 0
 	var/pressure_direction = 0
-	var/list/atmos_adjacent_turfs = list()
 	var/atmos_supeconductivity = 0
+
+	/// The general behavior of atmos on this tile.
+	var/atmos_mode = ATMOS_MODE_SEALED
+	/// The external environment that this tile is exposed to for ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	var/atmos_environment
+
+	var/datum/gas_mixture/bound_to_turf/bound_air
+
+	/// The effect used to render a pressure overlay from this tile.
+	var/obj/effect/abstract/pressure_overlay/pressure_overlay
+
+	var/list/milla_atmos_airtight = list(FALSE, FALSE, FALSE, FALSE)
+	var/list/milla_superconductivity = list(
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT,
+		OPEN_HEAT_TRANSFER_COEFFICIENT)
+	var/list/milla_data = list()
 
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
@@ -134,6 +153,9 @@
 		force_no_gravity = TRUE
 
 	ComponentInitialize()
+
+	initialize_milla()
+
 	return INITIALIZE_HINT_NORMAL
 
 /turf/Destroy(force)
@@ -157,17 +179,14 @@
 		for(var/A in B.contents)
 			qdel(A)
 		return
-	// Adds the adjacent turfs to the current atmos processing
-	for(var/turf/simulated/T in atmos_adjacent_turfs)
-		SSair.add_to_active(T)
-	SSair.remove_from_active(src)
+
 	QDEL_LIST(blueprint_data)
 	flags &= ~INITIALIZED
+	bound_air = null
 	..()
 
 	if(length(vis_contents))
 		vis_contents.Cut()
-
 
 /// WARNING WARNING
 /// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
@@ -176,12 +195,10 @@
 /turf/_clear_signal_refs()
 	return
 
-
 /turf/attack_hand(mob/user)
 	. = ..()
 	if(!.)
 		user.Move_Pulled(src)
-
 
 /turf/attack_robot(mob/user)
 	user.Move_Pulled(src)
@@ -209,17 +226,12 @@
 		our_rpd.delete_all_pipes(user, src)
 
 /turf/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/bullet/gyro))
+		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = "[proj.type] fired by [key_name(proj.firer)] (hit turf)")
 	if(istype(proj, /obj/projectile/beam/pulse))
 		ex_act(EXPLODE_HEAVY)
 	..()
 	return FALSE
-
-/turf/bullet_act(obj/projectile/proj)
-	if(istype(proj, /obj/projectile/bullet/gyro))
-		explosion(src, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = proj)
-	..()
-	return FALSE
-
 
 // Enter, but hypothetical.
 /turf/proc/can_enter(atom/movable/mover)
@@ -238,7 +250,6 @@
 			return FALSE
 
 	return TRUE
-
 
 /turf/Enter(atom/movable/mover)
 	// Do not call ..()
@@ -289,7 +300,6 @@
 		mover.Bump(tompost_bump)
 		return (mover.movement_type & PHASING)
 	return TRUE
-
 
 /turf/proc/levelupdate()
 	for(var/obj/object in src)
@@ -437,10 +447,8 @@
 // I'm including `ignore_air` because BYOND lacks positional-only arguments
 /turf/proc/AfterChange(flags, oldType = null) //called after a turf has been replaced in ChangeTurf()
 	levelupdate()
-	CalculateAdjacentTurfs()
-
-	if(SSair && !(flags & CHANGETURF_IGNORE_AIR))
-		SSair.add_to_active(src)
+	initialize_milla()
+	recalculate_atmos_connectivity()
 
 	//update firedoor adjacency
 	var/list/turfs_to_check = get_adjacent_open_turfs(src) | src
@@ -517,7 +525,6 @@
 		L.Add(T)
 	return L
 
-
 //////////////////////////////
 //Distance procs
 //////////////////////////////
@@ -557,13 +564,11 @@
 /turf/proc/acid_melt()
 	return
 
-
 /turf/handle_fall(mob/living/carbon/faller)
 	if(!no_gravity(src))
 		playsound(src, SFX_BODYFALL, 50, TRUE)
 
 	faller.drop_from_hands()
-
 
 /turf/singularity_act()
 	if(intact)
@@ -574,7 +579,6 @@
 				O.singularity_act()
 	ChangeTurf(baseturf)
 	return 2
-
 
 /turf/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -610,14 +614,11 @@
 		. |= (ATTACK_CHAIN_BLOCKED_ALL)
 		return .
 
-
 /turf/proc/can_have_cabling()
 	return TRUE
 
-
 /turf/proc/can_lay_cable()
 	return can_have_cabling() && !intact && transparent_floor != TURF_TRANSPARENT
-
 
 /turf/proc/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = icon
@@ -652,11 +653,7 @@
 	if(!turf_type)
 		return
 
-	var/turf/new_turf = ChangeTurf(turf_type, after_flags = flags)
-	SSair.remove_from_active(new_turf)
-	new_turf.CalculateAdjacentTurfs()
-	SSair.add_to_active(new_turf, TRUE)
-
+	ChangeTurf(turf_type, after_flags = flags)
 
 /turf/AllowDrop()
 	return TRUE
@@ -672,11 +669,11 @@
 	return FALSE
 
 //direction is direction of travel of air
-/turf/proc/zAirIn(direction, turf/source)
+/turf/proc/zAirIn(direction)
 	return FALSE
 
 //direction is direction of travel of air
-/turf/proc/zAirOut(direction, turf/source)
+/turf/proc/zAirOut(direction)
 	return FALSE
 
 /turf/proc/multiz_turf_del(turf/T, dir)
@@ -750,7 +747,6 @@
 	target.zImpact(falling, levels, src)
 	return TRUE
 
-
 /**
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
  *
@@ -773,7 +769,6 @@
 			continue
 		. += turf_to_check
 
-
 /**
  * Makes an image of up to 20 things on a turf + the turf.
  */
@@ -791,18 +786,16 @@
 			return I
 	return I
 
-
 /turf/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[pluralize_ru(C.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	C.take_organ_damage(damage)
 	C.Weaken(0.1 SECONDS)
-
 
 /**
  * Check whether the specified turf is blocked by something dense inside it with respect to a specific atom.
@@ -845,7 +838,6 @@
 
 	return FALSE
 
-
 /turf/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	grabber.Move_Pulled(src)
@@ -858,7 +850,7 @@
 	underlay_appearance.icon_state = "0"
 	SET_PLANE(underlay_appearance, PLANE_SPACE, generate_for)
 	if(!generate_for.render_target)
-		generate_for.render_target = ref(generate_for)
+		generate_for.render_target = generate_for.UID()
 	var/atom/movable/emissive_blocker/em_block = new(null, generate_for)
 	underlay_appearance.overlays += em_block
 	// We used it because it's convienient and easy, but it's gotta go now or it'll hang refs
@@ -917,3 +909,171 @@
 	}
 
 	return target_space_turf
+
+/turf/proc/initialize_milla()
+	var/datum/milla_safe/initialize_turf/milla = new()
+	milla.invoke_async(src)
+
+/datum/milla_safe/initialize_turf
+
+/datum/milla_safe/initialize_turf/on_run(turf/T)
+	if(!isnull(T))
+		set_tile_atmos(T, atmos_mode = T.atmos_mode, environment_id = SSmapping.environments[T.atmos_environment], innate_heat_capacity = T.heat_capacity, temperature = T.temperature)
+
+/turf/simulated/proc/update_hotspot()
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	var/fuel_burnt = 0
+	if(isnull(active_hotspot))
+		active_hotspot = new(src)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+		active_hotspot.update_tick = rand(0, active_hotspot.update_interval - 1)
+
+	if(active_hotspot.data_tick != SSair.milla_tick)
+		if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+			air = get_readonly_air()
+		else
+			air = bound_air
+		fuel_burnt = air.fuel_burnt()
+		if(air.hotspot_volume() > 0)
+			active_hotspot.temperature = air.hotspot_temperature()
+			active_hotspot.volume = air.hotspot_volume() * CELL_VOLUME
+		else
+			active_hotspot.temperature = air.temperature()
+			active_hotspot.volume = CELL_VOLUME
+	else
+		fuel_burnt = active_hotspot.fuel_burnt
+
+	if(fuel_burnt < 0.001)
+		// If it's old, delete it.
+		if(active_hotspot.death_timer < SSair.milla_tick)
+			QDEL_NULL(active_hotspot)
+			return FALSE
+		else
+			return TRUE
+
+	active_hotspot.death_timer = SSair.milla_tick + 4
+
+	if(active_hotspot.update_tick == 0)
+		active_hotspot.update_visuals(active_hotspot.fuel_burnt)
+		active_hotspot.update_interval = max(1, floor(length(SSair.hotspots) / 1000))
+	active_hotspot.update_tick = (active_hotspot.update_tick + 1) % active_hotspot.update_interval
+	return TRUE
+
+/turf/simulated/proc/update_wind()
+	if(wind_tick != SSair.milla_tick)
+		QDEL_NULL(wind_effect)
+		wind_tick = null
+		return FALSE
+
+	if(isnull(wind_effect))
+		wind_effect = new(src)
+
+	wind_effect.dir = wind_direction(wind_x, wind_y)
+
+	// This is a horrible (but fast) way to do this. Don't copy it.
+	// It's only used here because we know we're in safe code and this method is called a ton.
+	var/datum/gas_mixture/air
+	if(isnull(bound_air) || bound_air.lastread < SSair.milla_tick)
+		air = get_readonly_air()
+	else
+		air = bound_air
+	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
+	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
+	wind_effect.alpha = min(255, 5 + wind_strength * 25)
+	return TRUE
+
+/// Do not call this directly. Use get_readonly_air or implement /datum/milla_safe.
+/turf/proc/private_unsafe_get_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(isnull(bound_air))
+		SSair.bind_turf(src)
+	return bound_air
+
+/// Gets a read-only version of this tile's air. Do not use if you intend to modify the air later, implement /datum/milla_safe instead.
+/turf/proc/get_readonly_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	// This is one of two intended places to call this otherwise-unsafe proc.
+	var/datum/gas_mixture/bound_to_turf/air = private_unsafe_get_air()
+	if(air.lastread < SSair.milla_tick)
+		var/list/milla_tile = new/list(MILLA_TILE_SIZE)
+		get_tile_atmos(src, milla_tile)
+		air.copy_from_milla(milla_tile)
+		air.lastread = SSair.milla_tick
+		air.readonly = null
+		air.dirty = FALSE
+		air.synchronized = FALSE
+	return air.get_readonly()
+
+/// Blindly releases air to this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_release_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_release/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_release
+
+/datum/milla_safe/turf_blind_release/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).merge(air)
+
+// Blindly sets the air in this tile. Do not use if you care what the tile previously held, implement /datum/milla_safe instead.
+/turf/proc/blind_set_air(datum/gas_mixture/air)
+	var/datum/milla_safe/turf_blind_set/milla = new()
+	milla.invoke_async(src, air)
+
+/datum/milla_safe/turf_blind_set
+
+/datum/milla_safe/turf_blind_set/on_run(turf/T, datum/gas_mixture/air)
+	get_turf_air(T).copy_from(air)
+
+/turf/return_analyzable_air()
+	return get_readonly_air()
+
+/obj/effect/abstract/pressure_overlay
+	name = null
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "nothing"
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	// I'm really not sure this is the right var for this, but it's what the suply shuttle is using to determine if anything is blocking a tile, so let's not do that.
+	simulated = FALSE
+
+	layer = OBJ_LAYER
+	invisibility = 0
+
+	var/image/overlay
+
+/obj/effect/abstract/pressure_overlay/Initialize(mapload)
+	. = ..()
+	overlay = new(icon, src, "white")
+	overlay.alpha = 0
+	overlay.plane = ABOVE_LIGHTING_PLANE
+	overlay.blend_mode = BLEND_OVERLAY
+	overlay.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+
+/obj/effect/abstract/pressure_overlay/onShuttleMove(turf/oldT, turf/T1, rotation, mob/requester)
+	// No, I don't think I will.
+	return FALSE
+
+/obj/effect/abstract/pressure_overlay/singularity_pull()
+	// I am not a physical object, you have no control over me!
+	return FALSE
+
+/obj/effect/abstract/pressure_overlay/singularity_act()
+	// I don't taste good, either!
+	return FALSE
+
+/turf/proc/ensure_pressure_overlay()
+	if(isnull(pressure_overlay))
+		for(var/obj/effect/abstract/pressure_overlay/found_overlay in src)
+			pressure_overlay = found_overlay
+	if(isnull(pressure_overlay))
+		pressure_overlay = new(src)
+
+	if(isnull(pressure_overlay.loc))
+		// Not sure how exactly this happens, but I've seen it happen, so fix it.
+		pressure_overlay.forceMove(src)
+
+	if(isnull(pressure_overlay.overlay))
+		pressure_overlay.Initialize()
+
+	return pressure_overlay

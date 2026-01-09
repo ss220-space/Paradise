@@ -4,6 +4,7 @@
 	anchored = TRUE
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
+	cares_about_temperature = TRUE
 	var/state = GIRDER_NORMAL
 	/// Percentage chance that a projectile passes through the girder.
 	var/girderpasschance = 20
@@ -21,14 +22,14 @@
 	. = ..()
 	switch(state)
 		if(GIRDER_REINF)
-			. += "<span class='notice'>The support struts are <b>screwed</b> in place.</span>"
+			. += span_notice("The support struts are <b>screwed</b> in place.")
 		if(GIRDER_REINF_STRUTS)
-			. += "<span class='notice'>The support struts are <i>unscrewed</i> and the inner <b>grille</b> is intact.</span>"
+			. += span_notice("The support struts are <i>unscrewed</i> and the inner <b>grille</b> is intact.")
 		if(GIRDER_NORMAL)
 			if(can_displace)
-				. += "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
+				. += span_notice("The bolts are <b>lodged</b> in place.")
 		if(GIRDER_DISPLACED)
-			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
+			. += span_notice("The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.")
 		if(GIRDER_DISASSEMBLED)
 			. += span_notice("[src] is disassembled! You probably shouldn't be able to see this examine message.")
 
@@ -36,12 +37,16 @@
 	for(var/i=0;i < metalAmount;i++)
 		new metal_type(get_turf(src))
 
-/obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
+/// Melting Temperatures for various specific objects
+#define GIRDER_MELTING_TEMP 5000
+
+/obj/structure/girder/temperature_expose(temperature, volume)
 	..()
-	var/temp_check = exposed_temperature
+	var/temp_check = temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
 
+#undef GIRDER_MELTING_TEMP
 
 /obj/structure/girder/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -153,36 +158,6 @@
 		to_chat(user, span_notice("You have finalized the metal wall."))
 		var/turf/floor = loc
 		floor.ChangeTurf(/turf/simulated/wall/mineral/iron)
-		transfer_fingerprints_to(floor)
-		floor.add_fingerprint(user)
-		qdel(src)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/stack/ore/glass/basalt))
-		var/obj/item/stack/ore/glass/basalt/glass = stack
-		if(state == GIRDER_DISPLACED)
-			if(glass.get_amount() < 2)
-				to_chat(user, span_warning("You need at least two piles of [glass] to create a false wall!"))
-				return .
-			to_chat(user, span_notice("You start building a false wall..."))
-			if(!do_after(user, 2 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(glass) || !glass.use(2))
-				return .
-			to_chat(user, span_notice("You created a false wall. Push on it to open or close the passage."))
-			var/obj/structure/falsewall/mineral_ancient/falsewall = new(loc)
-			transfer_fingerprints_to(falsewall)
-			falsewall.add_fingerprint(user)
-			qdel(src)
-			return ATTACK_CHAIN_BLOCKED_ALL
-
-		if(glass.get_amount() < 2)
-			to_chat(user, span_warning("You need at least two piles of [glass] to finalize the wall!"))
-			return .
-		to_chat(user, span_notice("You start adding [glass]..."))
-		if(!do_after(user, 4 SECONDS * glass.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || !isfloorturf(loc) || QDELETED(glass) || !glass.use(2))
-			return .
-		to_chat(user, span_notice("You have finalized basalt wall."))
-		var/turf/floor = loc
-		floor.ChangeTurf(/turf/simulated/mineral/ancient)
 		transfer_fingerprints_to(floor)
 		floor.add_fingerprint(user)
 		qdel(src)
@@ -333,7 +308,6 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/structure/girder/crowbar_act(mob/user, obj/item/I)
 	if(!can_displace || state != GIRDER_NORMAL)
 		return
@@ -428,7 +402,6 @@
 		refundMetal(metalUsed)
 		qdel(src)
 
-
 /obj/structure/girder/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -436,14 +409,12 @@
 	if(checkpass(mover, PASSGRILLE) || isprojectile(mover))
 		return prob(girderpasschance)
 
-
 /obj/structure/girder/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	if(!density)
 		return TRUE
 	if(pass_info.pass_flags == PASSEVERYTHING || (pass_info.pass_flags & PASSGRILLE))
 		return TRUE
 	return FALSE
-
 
 /obj/structure/girder/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -501,7 +472,6 @@
 	. = ..()
 	icon_state = SSticker.cultdat?.cult_girder_icon_state
 
-
 /obj/structure/girder/cult/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -542,7 +512,6 @@
 
 	return ..()
 
-
 /obj/structure/girder/cult_fake/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -582,7 +551,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/girder/cult/narsie_act()
 	return

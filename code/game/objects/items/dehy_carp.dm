@@ -8,7 +8,6 @@
 	var/mob/owner = null	// Carp doesn't attack owner, set when using in hand
 	var/owned = 1	// Boolean, no owner to begin with
 
-
 /obj/item/toy/carpplushie/dehy_carp/Destroy()
 	owner = null
 	return ..()
@@ -48,5 +47,5 @@
 	// Make space carp
 	var/mob/living/simple_animal/hostile/carp/megacarp/C = new /mob/living/simple_animal/hostile/carp/megacarp(get_turf(src))
 	// Make carp non-hostile to user, yes this means
-	C.faction |= list("syndicate", "\ref[owner]")
+	C.faction |= list("syndicate", PERSONAL_FACTION(owner))
 	qdel(src)

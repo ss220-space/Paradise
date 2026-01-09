@@ -17,7 +17,7 @@
 		DATIVE = "мешку для трупов",
 		ACCUSATIVE = "мешок для трупов",
 		INSTRUMENTAL = "мешком для трупов",
-		PREPOSITIONAL = "мешке для трупов"
+		PREPOSITIONAL = "мешке для трупов",
 	)
 
 /obj/item/bodybag/attack_self(mob/user)
@@ -39,7 +39,7 @@
  */
 /obj/item/bodybag/proc/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
-	item_bag.balloon_alert_to_viewers("мешок разложен")
+	item_bag.balloon_alert_to_viewers("раскладыва[PLUR_ET_YUT(user)] мешок", "мешок разложен")
 	item_bag.open(user)
 	item_bag.add_fingerprint(user)
 	item_bag.foldedbag_instance = src
@@ -49,7 +49,7 @@
 
 /obj/item/bodybag/suicide_act(mob/living/user)
 	if(isfloorturf(user.loc))
-		user.visible_message(span_suicide("[user] заполза[pluralize_ru(user.gender, "ет", "ют")] в [declent_ru(ACCUSATIVE)]! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+		user.visible_message(span_suicide("[user] заполза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)]! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
 		var/obj/structure/closet/body_bag/R = new unfoldedbag_path(user.loc)
 		R.add_fingerprint(user)
 		qdel(src)
@@ -74,7 +74,6 @@
 	var/foldedbag_path = /obj/item/bodybag
 	var/obj/item/bodybag/foldedbag_instance = null
 
-
 /obj/structure/closet/body_bag/get_ru_names()
 	return list(
 		NOMINATIVE = "мешок для трупов",
@@ -82,9 +81,8 @@
 		DATIVE = "мешку для трупов",
 		ACCUSATIVE = "мешок для трупов",
 		INSTRUMENTAL = "мешком для трупов",
-		PREPOSITIONAL = "мешке для трупов"
+		PREPOSITIONAL = "мешке для трупов",
 	)
-
 
 /obj/structure/closet/body_bag/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
@@ -93,7 +91,6 @@
 			update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 /obj/structure/closet/body_bag/wirecutter_act(mob/living/user, obj/item/I)
 	if(name == initial(name))
@@ -106,22 +103,18 @@
 	ru_names = get_ru_names()
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/structure/closet/body_bag/open()
 	. = ..()
 	if(.)
 		pull_push_slowdown = 0
-
 
 /obj/structure/closet/body_bag/close()
 	. = ..()
 	if(. && length(contents))
 		pull_push_slowdown = 1.3
 
-
 /obj/structure/closet/body_bag/update_icon_state()
 	icon_state = opened ? icon_opened : icon_closed
-
 
 /obj/structure/closet/body_bag/update_overlays()
 	. = list()
@@ -142,11 +135,11 @@
 /obj/structure/closet/body_bag/proc/perform_fold(mob/living/carbon/human/the_folder)
 	var/turf/turf = get_turf(src)
 	var/obj/item/folding_bodybag = new foldedbag_path(turf)
-	turf.balloon_alert_to_viewers("мешок сложен")
+	turf.balloon_alert_to_viewers("складыва[PLUR_ET_YUT(the_folder)] мешок", "мешок сложен")
 	the_folder.put_in_hands(folding_bodybag)
 
 
-/obj/structure/closet/body_bag/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/structure/closet/body_bag/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && !opened && !length(contents) && usr.Adjacent(src))
 		perform_fold(usr)
 		qdel(src)
@@ -171,10 +164,8 @@
 		if(!open())
 			loc.balloon_alert(user, "не поддаётся!")
 
-
 /obj/structure/closet/body_bag/welder_act(mob/user, obj/item/I)
 	return FALSE //Can't be weldled under any circumstances.
-
 
 /obj/item/bodybag/biohazard
 	name = "biohazard bodybag"
@@ -190,7 +181,7 @@
 		DATIVE = "мешку для инфицированных трупов",
 		ACCUSATIVE = "мешок для инфицированных трупов",
 		INSTRUMENTAL = "мешком для инфицированных трупов",
-		PREPOSITIONAL = "мешке для инфицированных трупов"
+		PREPOSITIONAL = "мешке для инфицированных трупов",
 	)
 
 /obj/structure/closet/body_bag/biohazard
@@ -201,7 +192,6 @@
 	icon_opened = "bodybag_biohazard_open"
 	foldedbag_path = /obj/item/bodybag/biohazard
 
-
 /obj/structure/closet/body_bag/biohazard/get_ru_names()
 	return list(
 		NOMINATIVE = "мешок для инфицированных трупов",
@@ -209,7 +199,7 @@
 		DATIVE = "мешку для инфицированных трупов",
 		ACCUSATIVE = "мешок для инфицированных трупов",
 		INSTRUMENTAL = "мешком для инфицированных трупов",
-		PREPOSITIONAL = "мешке для инфицированных трупов"
+		PREPOSITIONAL = "мешке для инфицированных трупов",
 	)
 
 /obj/item/bodybag/bluespace
@@ -226,9 +216,8 @@
 		DATIVE = "блюспейс мешку для трупов",
 		ACCUSATIVE = "блюспейс мешок для трупов",
 		INSTRUMENTAL = "блюспейс мешком для трупов",
-		PREPOSITIONAL = "блюспейс мешке для трупов"
+		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
-
 
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()
@@ -245,7 +234,7 @@
 
 /obj/item/bodybag/bluespace/deploy_bodybag(mob/user, atom/location)
 	var/obj/structure/closet/body_bag/item_bag = new unfoldedbag_path(location)
-	item_bag.balloon_alert_to_viewers("мешок разложен")
+	item_bag.balloon_alert_to_viewers("раскладыва[PLUR_ET_YUT(user)] мешок", "мешок разложен")
 	for(var/atom/movable/inside in contents)
 		inside.forceMove(item_bag)
 		if(isliving(inside))
@@ -271,7 +260,7 @@
 	// you are still in the bag? time to go unless you KO'd, honey!
 	// if they escape during this time and you rebag them the timer is still clocking down and does NOT reset so they can very easily get out.
 	if(user.incapacitated())
-		to_chat(loc, span_warning("Давление ослабевает. Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] переста[genderize_ru(user.gender, "л", "ла", "ло", "ли")] сопротивляться..."))
+		to_chat(loc, span_warning("Давление ослабевает. Похоже, [GEND_HE_SHE(user)] перестал[GEND_A_O_I(user)] сопротивляться..."))
 		return
 	loc.visible_message(span_warning("[user] внезапно появляется перед [loc.declent_ru(INSTRUMENTAL)]!"))
 	balloon_alert(user, "вы вырываетесь!")
@@ -285,7 +274,6 @@
 	icon_opened = "bluebag_open"
 	foldedbag_path = /obj/item/bodybag/bluespace
 
-
 /obj/structure/closet/body_bag/bluespace/get_ru_names()
 	return list(
 		NOMINATIVE = "блюспейс мешок для трупов",
@@ -293,9 +281,8 @@
 		DATIVE = "блюспейс мешку для трупов",
 		ACCUSATIVE = "блюспейс мешок для трупов",
 		INSTRUMENTAL = "блюспейс мешком для трупов",
-		PREPOSITIONAL = "блюспейс мешке для трупов"
+		PREPOSITIONAL = "блюспейс мешке для трупов",
 	)
-
 
 /obj/structure/closet/body_bag/bluespace/attempt_fold(mob/living/carbon/human/the_folder)
 	. = FALSE
@@ -319,11 +306,10 @@
 
 	return TRUE
 
-
 /obj/structure/closet/body_bag/bluespace/perform_fold(mob/living/carbon/human/the_folder)
 	var/turf/turf = get_turf(src)
 	var/obj/item/folding_bodybag = new foldedbag_path(turf)
-	turf.balloon_alert_to_viewers("мешок сложен")
+	turf.balloon_alert_to_viewers("складыва[PLUR_ET_YUT(the_folder)] мешок", "мешок сложен")
 	var/max_weight_of_contents = initial(folding_bodybag.w_class)
 	for(var/atom/movable/content as anything in contents)
 		content.forceMove(folding_bodybag)

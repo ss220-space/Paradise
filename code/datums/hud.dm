@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(), \
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(), \
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
+	DATA_HUD_PRESSURE = new/datum/atom_hud/data/pressure(), \
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_CLOCK = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(), \
@@ -75,7 +76,6 @@ GLOBAL_LIST_INIT(huds, list( \
 	///one target atom each. it will still go in the other global hud lists.
 	var/uses_global_hud_category = TRUE
 
-
 /datum/atom_hud/New()
 	GLOB.all_huds += src
 	for(var/z_level in 1 to world.maxz)
@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(huds, list( \
 		for(var/hud_icon in hud_icons)
 			GLOB.huds_by_category[hud_icon] += list(src)
 
-/datum/atom_hud/Destroy()
+/datum/atom_hud/Destroy(force)
 	for(var/mob/mob as anything in hud_users_all_z_levels)
 		hide_from(mob)
 
@@ -98,6 +98,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	if(uses_global_hud_category)
 		for(var/hud_icon in hud_icons)
 			LAZYREMOVEASSOC(GLOB.huds_by_category, hud_icon, src)
+
 	GLOB.all_huds -= src
 	return ..()
 
@@ -445,11 +446,11 @@ GLOBAL_LIST_INIT(huds, list( \
 	var/turf/our_turf = get_turf(src)
 	if(!our_turf)
 		return
+
 	for(var/datum/atom_hud/hud in GLOB.all_huds)
 		if(hud?.hud_users_all_z_levels[src])
 			for(var/atom/hud_atom as anything in hud.get_hud_atoms_for_z_level(our_turf.z))
 				hud.add_atom_to_single_mob_hud(src, hud_atom)
-
 
 /mob/new_player/reload_huds()
 	return

@@ -43,10 +43,10 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 /client/verb/get_revision_info()
 	set name = "Информация о сборке"
 	set desc = "Retrieve technical information about the server"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	var/list/msg = list()
-	msg += "<span class='notice'><b>Server Revision Info</b></span>"
+	msg += span_notice("<b>Server Revision Info</b>")
 	// Round ID first
 	msg += "<b>Round ID:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
 
@@ -55,7 +55,6 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 		msg += "<b>Server Commit:</b> <a href='[CONFIG_GET(string/githuburl)]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
-
 
 	// Show server BYOND version
 	msg += "<b>Server BYOND Version:</b> [world.byond_version].[world.byond_build]"

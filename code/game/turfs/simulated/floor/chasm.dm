@@ -24,53 +24,44 @@
 		DATIVE = "пропасти",
 		ACCUSATIVE = "пропасть",
 		INSTRUMENTAL = "пропастью",
-		PREPOSITIONAL = "пропасти"
+		PREPOSITIONAL = "пропасти",
 	)
-
 
 /turf/simulated/floor/chasm/Initialize(mapload)
 	. = ..()
 	apply_components(mapload)
 
-
 /// Handles adding the chasm component to the turf (So stuff falls into it!)
 /turf/simulated/floor/chasm/proc/apply_components(mapload)
 	AddComponent(/datum/component/chasm, GET_TURF_BELOW(src), mapload)
-
 
 /// Lets people walk into chasms.
 /turf/simulated/floor/chasm/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	return TRUE
 
-
 /turf/simulated/floor/chasm/proc/set_target(turf/target)
 	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)
 	chasm_component.target_turf = target
 
-
 /turf/simulated/floor/chasm/proc/drop(atom/movable/AM)
 	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)
 	chasm_component.drop(AM)
-
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-
 /turf/simulated/floor/chasm/is_safe()
 	if(HAS_TRAIT(src, TRAIT_CHASM_STOPPED) && ..())
 		return TRUE
 	return FALSE
 
-
 /turf/simulated/floor/chasm/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk/fireproof, src))
 		return TRUE
 	return FALSE
-
 
 /turf/simulated/floor/chasm/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -130,10 +121,8 @@
 		playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
 		return .|ATTACK_CHAIN_SUCCESS
 
-
 /turf/simulated/floor/chasm/proc/rod_checks(obj/item/twohanded/fishing_rod/rod)
 	return HAS_TRAIT(rod, TRAIT_WIELDED)
-
 
 /turf/simulated/floor/chasm/proc/get_fish()
 	. = list()
@@ -142,61 +131,49 @@
 		for(var/mob/fish in pool.contents)
 			. += fish
 
-
 /turf/simulated/floor/chasm/ex_act()
 	return
-
 
 /turf/simulated/floor/chasm/acid_act(acidpwr, acid_volume)
 	return
 
-
 /turf/simulated/floor/chasm/singularity_act()
 	return
-
 
 /turf/simulated/floor/chasm/singularity_pull(S, current_size)
 	return
 
-
 /turf/simulated/floor/chasm/crowbar_act()
 	return
-
 
 /turf/simulated/floor/chasm/make_plating()
 	return
 
-
 /turf/simulated/floor/chasm/remove_plating()
 	return
-
 
 /turf/simulated/floor/chasm/rcd_act()
 	return RCD_NO_ACT
 
-
 /turf/simulated/floor/chasm/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
 	return
 
-
 /turf/simulated/floor/chasm/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
 	return
-
 
 // Subtypes
 
 /turf/simulated/floor/chasm/straight_down
 
-
 /turf/simulated/floor/chasm/straight_down/apply_components(mapload)
 	AddComponent(/datum/component/chasm, null, mapload)	//Don't pass anything for below_turf.
 
-
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
 	light_range = 2
 	light_power = 0.75
@@ -214,4 +191,6 @@
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 

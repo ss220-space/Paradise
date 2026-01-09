@@ -34,8 +34,8 @@
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/experience_pressure_difference()
-	return
+/obj/effect/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /obj/effect/ex_act(severity, target)
 	switch(severity)
@@ -48,10 +48,8 @@
 			if(prob(25))
 				qdel(src)
 
-
 /obj/effect/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
-
 
 /**
  * # The abstract object

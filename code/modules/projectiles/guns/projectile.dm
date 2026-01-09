@@ -11,7 +11,6 @@
 	/// Register fireshoot component
 	var/can_air_shoot = FALSE
 
-
 /obj/item/gun/projectile/Initialize(mapload)
 	. = ..()
 	if(can_air_shoot)
@@ -34,7 +33,6 @@
 	else
 		name = initial(name)
 
-
 /obj/item/gun/projectile/update_desc(updates = ALL)
 	. = ..()
 	if(sawn_state)
@@ -48,18 +46,15 @@
 	else
 		icon_state = "[initial(icon_state)][sawn_state ? "-sawn" : ""][bolt_open ? "-open" : ""]"
 
-
 /obj/item/gun/projectile/update_overlays()
 	. = ..()
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
 
-
 /obj/item/gun/proc/update_weight()
 	return
 
-
-/obj/item/gun/projectile/process_chamber(eject_casing = TRUE, empty_chamber = TRUE)
+/obj/item/gun/projectile/handle_chamber(eject_casing = TRUE, empty_chamber = TRUE)
 	var/obj/item/ammo_casing/hold_casing = chambered //Find chambered round
 	if(isnull(hold_casing) || !istype(hold_casing))
 		chamber_round()
@@ -75,7 +70,6 @@
 	if(empty_chamber)
 		chambered = null
 	chamber_round()
-
 
 /obj/item/gun/projectile/proc/chamber_round()
 	if(chambered || !magazine)
@@ -96,20 +90,21 @@
 /obj/item/gun/projectile/proc/can_reload()
 	return !magazine
 
-
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
-	if(user && magazine.loc == user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
+	playsound(loc, magin_sound, 50, TRUE)
+	if(user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 		return FALSE
+
 	. = TRUE
 	magazine = new_magazine
 	if(magazine.loc != src)
 		magazine.forceMove(src)
-	playsound(loc, magin_sound, 50, TRUE)
+
 	chamber_round()
 	update_weight()
 	magazine.update_icon()
 	update_icon()
-
+	balloon_alert(user, "заряжено")
 
 /obj/item/gun/projectile/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/ammo_box/magazine))
@@ -122,14 +117,13 @@
 			if(!user.can_unEquip(new_magazine))
 				return ..()
 			reload(new_magazine, user)
-			balloon_alert(user, "заряжено")
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!can_tactical)
 			balloon_alert(user, "уже заряжено!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.can_unEquip(new_magazine))
 			return ..()
-		balloon_alert(user, "заряжено")
+		balloon_alert(user, "разряжено")
 		magazine.forceMove(drop_location())
 		magazine.update_appearance(UPDATE_ICON|UPDATE_DESC)
 		magazine = null
@@ -138,6 +132,18 @@
 
 	return ..()
 
+/obj/item/gun/projectile/proc/speedloader_reload(obj/item/item, mob/user)
+	. = TRUE
+	if(!isspeedloader(item) && !isammocasing(item))
+		return FALSE
+
+	add_fingerprint(user)
+	var/num_loaded = magazine.reload(item, user)
+	if(!num_loaded)
+		return
+
+	update_icon()
+	chamber_round(FALSE)
 
 /obj/item/gun/projectile/attack_self(mob/living/user)
 	add_fingerprint(user)
@@ -175,7 +181,7 @@
 /obj/item/gun/projectile/examine(mob/user)
 	. = ..()
 	var/ammo_num = get_ammo()
-	. += span_notice("Остал[declension_ru(ammo_num, "ся", "ось", "ось")] [ammo_num] патрон[declension_ru(ammo_num, "", "а", "ов")].")
+	. += span_notice("Остал[declension_ru(ammo_num, "ся", "ось", "ось")] [ammo_num] патрон[DECL_CREDIT(ammo_num)].")
 
 /obj/item/gun/projectile/proc/get_ammo(countchambered = TRUE, countempties = TRUE)
 	var/boolets = 0 //mature var names for mature people
@@ -200,7 +206,6 @@
 		user.visible_message(span_suicide("[user] is pretending to blow [user.p_their()] brains out with the [name]! It looks like [user.p_theyre()] trying to commit suicide!"))
 		playsound(loc, 'sound/weapons/empty.ogg', 50, TRUE, -1)
 		return OXYLOSS
-
 
 /obj/item/gun/projectile/proc/sawoff(mob/user)
 	. = FALSE
@@ -230,7 +235,6 @@
 		update_appearance()
 		update_equipped_item()
 		return TRUE
-
 
 // Sawing guns related proc
 /obj/item/gun/projectile/proc/blow_up(mob/user)

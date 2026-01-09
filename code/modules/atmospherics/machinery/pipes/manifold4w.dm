@@ -23,12 +23,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/pipeline_expansion()
 	return list(node1, node2, node3, node4)
 
-/obj/machinery/atmospherics/pipe/manifold4w/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
-
 /obj/machinery/atmospherics/pipe/manifold4w/Destroy()
 	. = ..()
 
@@ -87,7 +81,6 @@
 	if(node4)
 		node4.update_underlays()
 
-
 /obj/machinery/atmospherics/pipe/manifold4w/update_overlays()
 	. = ..()
 
@@ -99,7 +92,6 @@
 	. += SSair.icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "4way" + icon_connect_type)
 	. += SSair.icon_manager.get_atmos_icon("manifold", state = "clamps_4way" + icon_connect_type)
 	update_underlays()
-
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
 	if(!..())
@@ -126,7 +118,6 @@
 
 	for(var/check_dir in directions)
 		add_underlay(source_turf, direction = check_dir, icon_connect_type = src.icon_connect_type)
-
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/manifold4w/check_nodes_exist()

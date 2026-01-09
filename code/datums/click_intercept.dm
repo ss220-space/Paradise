@@ -30,7 +30,7 @@
 /**
  * Called when you want to cancel a client's click intercept and return to normal clicking.
  */
-/datum/click_intercept/proc/quit()
+/datum/click_intercept/proc/quit(force)
 	qdel(src)
 
 /**
@@ -50,4 +50,4 @@
  * * object - the atom that was just clicked.
  */
 /datum/click_intercept/proc/InterceptClickOn(mob/user, params, atom/object)
-	return
+	return FALSE

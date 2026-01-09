@@ -88,9 +88,9 @@
 	)
 
 	autohiss_basic_map = list(
-			"r" = list("rr", "rrr", "rrrr"),
-			"р" = list("рр", "ррр", "рррр")
-		)
+		"r" = list("rr", "rrr", "rrrr"),
+		"р" = list("рр", "ррр", "рррр"),
+	)
 	autohiss_exempt = list("Сик'таир")
 
 /datum/species/tajaran/handle_death(gibbed, mob/living/carbon/human/H)
@@ -117,3 +117,6 @@
 	remove_verb(H, /mob/living/carbon/human/proc/emote_purr)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_purrl)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)
+
+/datum/species/tajaran/compressor_grind(location)
+	new /obj/item/reagent_containers/food/snacks/tajaroni(location)

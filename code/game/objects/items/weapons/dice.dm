@@ -13,7 +13,7 @@
 		DATIVE = "мешку игральных костей",
 		ACCUSATIVE = "мешок игральных костей",
 		INSTRUMENTAL = "мешком игральных костей",
-		PREPOSITIONAL = "мешке игральных костей"
+		PREPOSITIONAL = "мешке игральных костей",
 	)
 
 /obj/item/storage/pill_bottle/dice/populate_contents()
@@ -35,11 +35,9 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
-
 /obj/item/storage/box/dice
 	name = "Коробка игральных костей"
 	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
-
 
 /obj/item/storage/box/dice/populate_contents()
 	new /obj/item/dice/d2(src)
@@ -50,9 +48,8 @@
 	new /obj/item/dice/d12(src)
 	new /obj/item/dice/d20(src)
 
-
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже, он[genderize_ru(user.gender,"","а","о","и")] пыта[pluralize_ru(user.gender,"ется","ются")] покончить жизнь самоубийством!"))
+	user.visible_message(span_suicide("[user] игра[PLUR_ET_YUT(user)] со смертью! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_YUT(user)]ся покончить жизнь самоубийством!"))
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
@@ -77,9 +74,8 @@
 		DATIVE = "игральной кости",
 		ACCUSATIVE = "игральную кость",
 		INSTRUMENTAL = "игральной костью",
-		PREPOSITIONAL = "игральной кости"
+		PREPOSITIONAL = "игральной кости",
 	)
-
 
 /obj/item/dice/Initialize(mapload)
 	. = ..()
@@ -87,11 +83,9 @@
 		result = roll(sides)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/dice/update_overlays()
 	. = ..()
 	. += "[icon_state][result]"
-
 
 /obj/item/dice/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] играет со смертью! Похоже [user.p_theyre()] пытается покончить жизнь самоубийством!"))
@@ -165,10 +159,8 @@
 	icon_state = "d100"
 	sides = 100
 
-
 /obj/item/dice/d100/update_overlays()
 	return list()
-
 
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
@@ -203,7 +195,7 @@
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
 		user.visible_message(
-			"[user] броса[pluralize_ru(user.gender,"ет","ют")] [src.name]. На [src.name] выпадает [result]. [comment]",
+			"[user] броса[PLUR_ET_YUT(user)] [src.name]. На [src.name] выпадает [result]. [comment]",
 			span_notice("Вы бросили [src.name] и выпало [result]. [comment]"),
 			span_italics("Вы слышите как катится [src.name], звучит как [fake_result].")
 		)
@@ -239,7 +231,6 @@
 	add_game_logs("threw E20, detonating at [AREACOORD(epicenter)] with a roll of [actual_result].", user)
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
 	explosion(epicenter, devastation_range = round(result * 0.25), heavy_impact_range = round(result * 0.5), light_impact_range = round(result), flash_range = round(result * 1.5), adminlog = TRUE, ignorecap = capped, cause = (key_name(user)+" E20"))
-
 
 // Die of Fate
 /obj/item/dice/d20/fate
@@ -394,11 +385,15 @@
 			servant_mind.transfer_to(H)
 
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 30 SECONDS, source = H)
+			
+			if(QDELETED(H))
+				return
+			
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")
-				H.key = C.key
-				to_chat(H, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [genderize_ru(user.gender, "его", "eё", "его", "их")] приказы."))
+				H.possess_by_player(C.key)
+				to_chat(H, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(user)] приказы."))
 
 			var/obj/effect/proc_holder/spell/summonmob/S = new
 			S.target_mob = H

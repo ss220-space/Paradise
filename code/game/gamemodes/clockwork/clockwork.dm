@@ -164,7 +164,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		to_chat(H, span_danger("You have a [item_name] in your [where]."))
 		return TRUE
 
-
 /datum/game_mode/proc/add_clocker(datum/mind/clock_mind)
 	if(!istype(clock_mind))
 		return FALSE
@@ -234,7 +233,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(crew_reveal)
 		return
 	var/clocker_players = get_clockers()
-	if(clocker_players < crew_reveal_number)
+	if(clocker_players < crew_reveal_number && GLOB.heart.curse_dial)
 		return
 	for(var/datum/mind/M in clockwork_cult)
 		if(!M.current)

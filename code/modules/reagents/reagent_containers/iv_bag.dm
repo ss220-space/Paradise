@@ -26,7 +26,7 @@
 		DATIVE = "капельнице",
 		ACCUSATIVE = "капельницу",
 		INSTRUMENTAL = "капельницей",
-		PREPOSITIONAL = "капельнице"
+		PREPOSITIONAL = "капельнице",
 	)
 
 /obj/item/reagent_containers/iv_bag/empty()
@@ -63,7 +63,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
-	add_attack_logs(injection_target, injection_target, "injection of [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"])  stopped.")
+	if(isprocessing)
+		add_attack_logs(injection_target, injection_target, "injection of [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"])  stopped.")
 	injection_target = null
 	injection_limb = null
 	STOP_PROCESSING(SSobj, src)
@@ -102,7 +103,6 @@
 				injection_target.reagents.trans_to(src, amount_per_transfer_from_this/10)
 			update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/reagent_containers/iv_bag/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
 
@@ -116,21 +116,21 @@
 			return .
 		if(target != user)
 			target.visible_message(
-				span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся убрать иглу [declent_ru(GENITIVE)] из руки [target]!"),
-				span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся убрать иглу [declent_ru(GENITIVE)] из вашей руки!"),
+				span_danger("[user] пыта[PLUR_ET_YUT(user)]ся убрать иглу [declent_ru(GENITIVE)] из руки [target]!"),
+				span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся убрать иглу [declent_ru(GENITIVE)] из вашей руки!"),
 				ignored_mobs = user,
 			)
 			to_chat(user, span_notice("Вы пытаетесь убрать иглу [declent_ru(GENITIVE)] из руки [target]."))
 			if(!do_after(user, 3 SECONDS, target, NONE) || !injection_target)
 				return .
 			target.visible_message(
-				span_danger("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из руки [target]!"),
-				span_userdanger("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из вашей руки!"),
+				span_danger("[user] убира[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] из руки [target]!"),
+				span_userdanger("[user] убира[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] из вашей руки!"),
 				ignored_mobs = user,
 			)
 			to_chat(user, span_notice("Вы убираете иглу [declent_ru(GENITIVE)] из руки [target]."))
 		else
-			user.visible_message(span_warning("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из своей руки!"))
+			user.visible_message(span_warning("[user] убира[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] из своей руки!"))
 			balloon_alert(user, "игла убрана")
 		end_processing()
 		return .|ATTACK_CHAIN_SUCCESS
@@ -145,26 +145,25 @@
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся вставить иглу [declent_ru(GENITIVE)] в руку [target]!"),
-			span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся вставить иглу [declent_ru(GENITIVE)] в вашу руку!"),
+			span_danger("[user] пыта[PLUR_ET_YUT(user)]ся вставить иглу [declent_ru(GENITIVE)] в руку [target]!"),
+			span_userdanger("[user] пыта[PLUR_ET_YUT(user)]ся вставить иглу [declent_ru(GENITIVE)] в вашу руку!"),
 			ignored_mobs = user,
 		)
 		to_chat(user, span_notice("Вы пытаетесь вставить иглу [declent_ru(GENITIVE)] в руку [target]."))
 		if(!do_after(user, 3 SECONDS, target, NONE) || injection_target)
 			return .
 		target.visible_message(
-				span_danger("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в руку [target]!"),
-				span_userdanger("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в вашу руку!"),
+				span_danger("[user] вставля[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] в руку [target]!"),
+				span_userdanger("[user] вставля[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] в вашу руку!"),
 			ignored_mobs = user,
 		)
 		balloon_alert(user, "игла вставлена")
 	else
-		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в свою руку!"))
+		user.visible_message(span_warning("[user] вставля[PLUR_ET_YUT(user)] иглу [declent_ru(GENITIVE)] в свою руку!"))
 		balloon_alert(user, "игла вставлена")
 	add_attack_logs(user, target, "Inserted [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"]) containing ([reagents.log_list()]), transfering [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 	begin_processing(target, def_zone)
 	return .|ATTACK_CHAIN_SUCCESS
-
 
 /obj/item/reagent_containers/iv_bag/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -180,12 +179,11 @@
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
 		after_transfer(target)
-		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества в [target.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[DECL_SEC_MIN(trans)] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
 		balloon_alert(user, "закрыто!")
 		return
-
 
 /obj/item/reagent_containers/iv_bag/update_overlays()
 	. = ..()
@@ -202,13 +200,11 @@
 			if(IV_INJECT)
 				. += "inject"
 
-
 /obj/item/reagent_containers/iv_bag/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I) || istype(I, /obj/item/flashlight/pen))
 		rename_interactive(user, I)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
-
 
 // PRE-FILLED IV BAGS BELOW
 
@@ -222,7 +218,7 @@
 		DATIVE = "капельнице (Физраствор)",
 		ACCUSATIVE = "капельницу (Физраствор)",
 		INSTRUMENTAL = "капельницей (Физраствор)",
-		PREPOSITIONAL = "капельнице (Физраствор)"
+		PREPOSITIONAL = "капельнице (Физраствор)",
 	)
 
 /obj/item/reagent_containers/iv_bag/salglu/Initialize(mapload)
@@ -252,12 +248,12 @@
 
 /obj/item/reagent_containers/iv_bag/blood/get_ru_names()
 	return list(
-			NOMINATIVE = "капельница - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])" ,
-			GENITIVE = "капельницы - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			DATIVE = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			ACCUSATIVE = "капельницу - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			INSTRUMENTAL = "капельницей - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
-			PREPOSITIONAL = "капельнице - [get_ru_names_for_blood_species()[blood_species]] ([blood_type])"
+			NOMINATIVE = "капельница — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])" ,
+			GENITIVE = "капельницы — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			DATIVE = "капельнице — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			ACCUSATIVE = "капельницу — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			INSTRUMENTAL = "капельницей — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
+			PREPOSITIONAL = "капельнице — [get_ru_names_for_blood_species()[blood_species]] ([blood_type])",
 		)
 
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
@@ -345,7 +341,7 @@
 			DATIVE = "капельнице — Синтетическая кровь (Кислород)",
 			ACCUSATIVE = "капельницу — Синтетическая кровь (Кислород)",
 			INSTRUMENTAL = "капельницей — Синтетическая кровь (Кислород)",
-			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)"
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Кислород)",
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
@@ -365,7 +361,7 @@
 			DATIVE = "капельнице — Синтетическая кровь (Азот)",
 			ACCUSATIVE = "капельницу — Синтетическая кровь (Азот)",
 			INSTRUMENTAL = "капельницей — Синтетическая кровь (Азот)",
-			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)"
+			PREPOSITIONAL = "капельнице — Синтетическая кровь (Азот)",
 		)
 
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
@@ -385,7 +381,7 @@
 		DATIVE = "капельнице — Слаймовое желе",
 		ACCUSATIVE = "капельницу — Слаймовое желе",
 		INSTRUMENTAL = "капельницей — Слаймовое желе",
-		PREPOSITIONAL = "капельнице — Слаймовое желе"
+		PREPOSITIONAL = "капельнице — Слаймовое желе",
 	)
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)

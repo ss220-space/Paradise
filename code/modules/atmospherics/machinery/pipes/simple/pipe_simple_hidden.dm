@@ -39,7 +39,6 @@
 	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
 
-
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_underlays()
 	if(!check_icon_cache())
 		return
@@ -61,7 +60,6 @@
 		universal_underlays(direction = dir)
 		universal_underlays(direction = turn(dir, -180))
 
-
 /obj/machinery/atmospherics/pipe/simple/hidden/yellow
 	color = PIPE_COLOR_YELLOW
 
@@ -73,3 +71,9 @@
 
 /obj/machinery/atmospherics/pipe/simple/hidden/purple
 	color = PIPE_COLOR_PURPLE
+
+/obj/machinery/atmospherics/pipe/simple/hidden/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/simple/hidden/blue
+	color = PIPE_COLOR_BLUE

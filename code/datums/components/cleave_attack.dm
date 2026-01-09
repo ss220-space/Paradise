@@ -1,6 +1,4 @@
 /datum/component/cleave_attack
-	/// We can toggle the component ON and OFF with item action, by default its ON
-	var/toggled = TRUE
 	var/datum/action/item_action/toggle_cleave_attack/toggle_action
 	/// Size of the attack arc in degrees
 	var/arc_size
@@ -20,7 +18,6 @@
 	var/swing_sound
 	/// Callback when the cleave attack is finished
 	var/datum/callback/cleave_end_callback
-
 
 /datum/component/cleave_attack/Initialize(
 		arc_size = 90,
@@ -50,7 +47,7 @@
 
 	var/obj/item/parent_item = parent
 	toggle_action = new /datum/action/item_action/toggle_cleave_attack(parent_item)
-
+	parent_item.add_item_action(toggle_action)
 
 /datum/component/cleave_attack/InheritComponent(
 		datum/component/C,
@@ -86,7 +83,6 @@
 		src.swing_sound = swing_sound
 	set_cleave_effect(cleave_effect)
 
-
 /// Sets the cleave effect to the specified effect, or based on arc size if one wasn't specified.
 /datum/component/cleave_attack/proc/set_cleave_effect(new_effect)
 	if(new_effect)
@@ -100,16 +96,12 @@
 		else
 			cleave_effect = /obj/effect/temp_visual/dir_setting/firing_effect/sweep_attack/full_circle
 
-
 /datum/component/cleave_attack/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
-	RegisterSignal(parent, COMSIG_TOGGLE_CLEAVE_ATTACK, PROC_REF(on_toggle_cleave_attack))
-
 
 /datum/component/cleave_attack/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_AFTERATTACK, COMSIG_TOGGLE_CLEAVE_ATTACK))
-
+	UnregisterSignal(parent, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_AFTERATTACK))
 
 /datum/component/cleave_attack/proc/on_examine(atom/examined_item, mob/user, list/examine_list)
 	var/arc_desc
@@ -124,9 +116,8 @@
 			arc_desc = "в радиусе вокруг себя"
 	examine_list += "Этим можно размахивать [arc_desc]."
 
-
 /datum/component/cleave_attack/proc/on_afterattack(obj/item/item, atom/target, mob/user, proximity_flag, click_parameters)
-	if(!toggled)
+	if(HAS_TRAIT(item, TRAIT_CLEAVE_BLOCKED))
 		return
 
 	if(proximity_flag || user.a_intent != INTENT_HARM)
@@ -137,11 +128,6 @@
 		return
 
 	perform_sweep(item, target, user, click_parameters)
-
-
-/datum/component/cleave_attack/proc/on_toggle_cleave_attack()
-	toggled = !toggled
-
 
 /datum/component/cleave_attack/proc/perform_sweep(obj/item/item, atom/target, mob/living/user, params)
 	if(user.next_move > world.time)
@@ -187,7 +173,6 @@
 	user.changeNext_move(item.attack_speed * swing_speed_mod)
 	user.apply_afterswing_slowdown(user, afterswing_slowdown, slowdown_duration)
 
-
 /// Hits all possible atoms on a turf, returns TRUE if the swing should end early
 /datum/component/cleave_attack/proc/hit_atoms_on_turf(obj/item/item, atom/target, mob/living/user, turf/hit_turf, params)
 	for(var/atom/movable/hit_atom in hit_turf)
@@ -213,7 +198,6 @@
 			return TRUE
 
 	return FALSE
-
 
 /datum/component/cleave_attack/Destroy(force)
 	cleave_end_callback = null

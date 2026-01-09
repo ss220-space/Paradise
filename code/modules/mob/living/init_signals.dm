@@ -42,13 +42,16 @@
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORING_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_IGNORING_GRAVITY)), PROC_REF(on_ignore_gravity))
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY)), PROC_REF(on_force_gravity))
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_loss))
+
 	// We hook for forced grav changes from our turf and ourselves
 	var/static/list/loc_connections = list(
 		SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
 		SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
-
 
 /// Called when [TRAIT_KNOCKEDOUT] is added to the mob.
 /mob/living/proc/on_knockedout_trait_gain(datum/source)
@@ -57,7 +60,6 @@
 	if(stat < UNCONSCIOUS)
 		set_stat(UNCONSCIOUS)
 
-
 /// Called when [TRAIT_KNOCKEDOUT] is removed from the mob.
 /mob/living/proc/on_knockedout_trait_loss(datum/source)
 	SIGNAL_HANDLER
@@ -65,30 +67,25 @@
 	if(stat <= UNCONSCIOUS)
 		update_stat("TRAIT_KNOCKEDOUT lost")
 
-
 /// Called when [TRAIT_FAKEDEATH] is added to the mob.
 /mob/living/proc/on_fakedeath_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
-
 
 /// Called when [TRAIT_FAKEDEATH] is removed from the mob.
 /mob/living/proc/on_fakedeath_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
 
-
 /// Called when [TRAIT_IMMOBILIZED] is added to the mob.
 /mob/living/proc/on_immobilized_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags &= ~MOBILITY_MOVE
 
-
 /// Called when [TRAIT_IMMOBILIZED] is removed from the mob.
 /mob/living/proc/on_immobilized_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= MOBILITY_MOVE
-
 
 /// Called when [TRAIT_FLOORED] is added to the mob.
 /mob/living/proc/on_floored_trait_gain(datum/source)
@@ -101,7 +98,6 @@
 	mobility_flags &= ~MOBILITY_STAND
 	on_floored_start()
 
-
 /// Called when [TRAIT_FLOORED] is removed from the mob.
 /mob/living/proc/on_floored_trait_loss(datum/source)
 	SIGNAL_HANDLER
@@ -109,13 +105,11 @@
 	mobility_flags |= MOBILITY_STAND
 	on_floored_end()
 
-
 /// Called when [TRAIT_FORCED_STANDING] is added to the mob.
 /mob/living/proc/on_forced_standing_trait_gain(datum/source)
 	SIGNAL_HANDLER
 
 	set_body_position(STANDING_UP)
-
 
 /// Called when [TRAIT_FORCED_STANDING] is removed from the mob.
 /mob/living/proc/on_forced_standing_trait_loss(datum/source)
@@ -127,20 +121,17 @@
 	else if(resting)
 		set_lying_on_rest()
 
-
 /// Called when [TRAIT_HANDS_BLOCKED] is added to the mob.
 /mob/living/proc/on_handsblocked_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags &= ~(MOBILITY_USE|MOBILITY_PICKUP|MOBILITY_STORAGE)
 	on_handsblocked_start()
 
-
 /// Called when [TRAIT_HANDS_BLOCKED] is removed from the mob.
 /mob/living/proc/on_handsblocked_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= (MOBILITY_USE|MOBILITY_PICKUP|MOBILITY_STORAGE)
 	on_handsblocked_end()
-
 
 /// Called when [TRAIT_UI_BLOCKED] is added to the mob.
 /mob/living/proc/on_ui_blocked_trait_gain(datum/source)
@@ -149,13 +140,11 @@
 	unset_machine()
 	update_action_buttons()
 
-
 /// Called when [TRAIT_UI_BLOCKED] is removed from the mob.
 /mob/living/proc/on_ui_blocked_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	mobility_flags |= MOBILITY_UI
 	update_action_buttons()
-
 
 /// Called when [TRAIT_PULL_BLOCKED] is added to the mob.
 /mob/living/proc/on_pull_blocked_trait_gain(datum/source)
@@ -169,13 +158,11 @@
 	SIGNAL_HANDLER
 	mobility_flags |= MOBILITY_PULL
 
-
 /// Called when [TRAIT_INCAPACITATED] is added to the mob.
 /mob/living/proc/on_incapacitated_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_INCAPACITATED)
 	//update_appearance()
-
 
 /// Called when [TRAIT_INCAPACITATED] is removed from the mob.
 /mob/living/proc/on_incapacitated_trait_loss(datum/source)
@@ -183,30 +170,25 @@
 	remove_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_INCAPACITATED)
 	//update_appearance()
 
-
 /// Called when [TRAIT_RESTRAINED] is added to the mob.
 /mob/living/proc/on_restrained_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
-
 
 /// Called when [TRAIT_RESTRAINED] is removed from the mob.
 /mob/living/proc/on_restrained_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_HANDS_BLOCKED, TRAIT_RESTRAINED)
 
-
 ///From [element/movetype_handler/on_movement_type_trait_gain()]
 /mob/living/proc/on_movement_type_flag_enabled(datum/source, flag, old_movement_type)
 	SIGNAL_HANDLER
 	update_movespeed()
 
-
 ///From [element/movetype_handler/on_movement_type_trait_loss()]
 /mob/living/proc/on_movement_type_flag_disabled(datum/source, flag, old_movement_type)
 	SIGNAL_HANDLER
 	update_movespeed()
-
 
 /// Called when [TRAIT_NEGATES_GRAVITY] is gained or lost
 /mob/living/proc/on_negate_gravity(datum/source)
@@ -217,24 +199,20 @@
 		else
 			REMOVE_TRAIT(src, TRAIT_IGNORING_GRAVITY, IGNORING_GRAVITY_NEGATION)
 
-
 /// Called when [TRAIT_IGNORING_GRAVITY] is gained or lost
 /mob/living/proc/on_ignore_gravity(datum/source)
 	SIGNAL_HANDLER
 	refresh_gravity()
-
 
 /// Called when [TRAIT_FORCED_GRAVITY] is gained or lost
 /mob/living/proc/on_force_gravity(datum/source)
 	SIGNAL_HANDLER
 	refresh_gravity()
 
-
 /// Called when our loc's [TRAIT_FORCED_GRAVITY] is gained or lost
 /mob/living/proc/on_loc_force_gravity(datum/source)
 	SIGNAL_HANDLER
 	refresh_gravity()
-
 
 /// Called when [TRAIT_UNDENSE] is gained or lost
 /mob/living/proc/undense_changed(datum/source)
@@ -249,7 +227,6 @@
 		set_density(FALSE)
 	else
 		set_density(TRUE)
-
 
 /// Called when [TRAIT_NO_BREATH] is gained or lost
 /mob/living/proc/on_no_breath_trait_gain(datum/source)
@@ -272,9 +249,22 @@
 	clear_alert(ALERT_TOO_MUCH_N2O)
 	clear_alert(ALERT_NOT_ENOUGH_N2O)
 
-
 /// Called when [TRAIT_IGNOREDAMAGESLOWDOWN] is gained or lost
 /mob/living/proc/on_ignore_damage_slowdown(datum/source)
 	SIGNAL_HANDLER
 	update_movespeed_damage_modifiers()
+
+/// Called when [TRAIT_PRESSURE_VISION] is added to the mob.
+/mob/living/proc/on_pressure_vision_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+	if(!(src in hud.hud_users_all_z_levels))
+		hud.show_to(src)
+
+/// Called when [TRAIT_PRESSURE_VISION] is removed from the mob.
+/mob/living/proc/on_pressure_vision_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+	if(src in hud.hud_users_all_z_levels)
+		hud.hide_from(src)
 

@@ -97,7 +97,7 @@
 	var/face_mouse = FALSE
 
 	var/pressure_resistance = 10
-	var/last_high_pressure_movement_air_cycle = 0
+	var/last_high_pressure_movement_time = 0
 
 	var/atom/orbiting = null
 	var/cached_transform = null
@@ -128,7 +128,6 @@
 		return
 	. = ..()
 
-
 /atom/movable/Initialize(mapload, ...)
 	. = ..()
 	switch(blocks_emissive)
@@ -155,7 +154,7 @@
 				managed_overlays = flat
 
 		if(EMISSIVE_BLOCK_UNIQUE)
-			render_target = ref(src)
+			render_target = UID()
 			em_block = new(null, src)
 			overlays += em_block
 			if(managed_overlays)
@@ -174,7 +173,6 @@
 			AddComponent(/datum/component/overlay_lighting)
 		if(MOVABLE_LIGHT_DIRECTIONAL)
 			AddComponent(/datum/component/overlay_lighting, is_directional = TRUE)
-
 
 /atom/movable/Destroy(force)
 	unbuckle_all_mobs(force = TRUE)
@@ -201,7 +199,6 @@
 
 	LAZYNULL(client_mobs_in_contents)
 
-
 	. = ..()
 
 	LAZYNULL(important_recursive_contents)//has to be before moveToNullspace() so that we can exit our spatial_grid cell if we're in it
@@ -212,17 +209,15 @@
 		qdel(AM)
 	move_to_null_space()
 
-
 /atom/movable/get_emissive_block()
 	switch(blocks_emissive)
 		if(EMISSIVE_BLOCK_GENERIC)
 			return fast_emissive_blocker(src)
 		if(EMISSIVE_BLOCK_UNIQUE)
 			if(!em_block && !QDELETED(src))
-				render_target = ref(src)
+				render_target = UID()
 				em_block = new(null, src)
 			return em_block
-
 
 /atom/movable/vv_edit_var(var_name, var_value)
 	var/static/list/banned_edits = list(NAMEOF_STATIC(src, step_x) = TRUE, NAMEOF_STATIC(src, step_y) = TRUE, NAMEOF_STATIC(src, step_size) = TRUE, NAMEOF_STATIC(src, bounds) = TRUE)
@@ -285,7 +280,6 @@
 		log_admin("[key_name(usr)] teleported [key_name(src)] to [AREACOORD(location)]")
 		forceMove(new_location)
 
-
 //Returns an atom's power cell, if it has one. Overload for individual items.
 /atom/movable/proc/get_cell()
 	return
@@ -294,7 +288,6 @@
 /atom/movable/proc/on_teleported()
 	SEND_SIGNAL(src, COMSIG_ATOM_TELEPORT_ACT)
 	return
-
 
 /atom/movable/proc/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE)
 	if(QDELETED(pulled_atom))
@@ -328,12 +321,11 @@
 		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(!supress_message)
 			pulled_mob.visible_message(
-				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
-				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[genderize_ru(gender,"","а","о","и")] Вас!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[GEND_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[GEND_A_O_I(src)] Вас!"),
 			)
 		pulled_mob.LAssailant = iscarbon(src) ? src : null
 	return TRUE
-
 
 /atom/movable/proc/stop_pulling()
 	if(!pulling)
@@ -345,14 +337,12 @@
 	SEND_SIGNAL(old_pulling, COMSIG_ATOM_NO_LONGER_PULLED, src)
 	SEND_SIGNAL(src, COMSIG_ATOM_NO_LONGER_PULLING, old_pulling)
 
-
 ///Reports the event of the change in value of the pulledby variable.
 /atom/movable/proc/set_pulledby(new_pulledby)
 	if(new_pulledby == pulledby)
 		return FALSE //null signals there was a change, be sure to return FALSE if none happened here.
 	. = pulledby
 	pulledby = new_pulledby
-
 
 /// Moves pulled thing to pull_loc with all the necessary checks.
 /atom/movable/proc/Move_Pulled(atom/pull_loc)
@@ -379,7 +369,6 @@
 		mob.changeNext_move(CLICK_CD_PULLING)
 	return pulling.Move(pull_turf, move_dir, glide_size)
 
-
 /**
  * Checks if the pulling and pulledby should be stopped because they're out of reach.
  * If z_allowed is TRUE, the z level of the pulling will be ignored.This is to allow things to be dragged up and down stairs.
@@ -398,7 +387,6 @@
 	if(!only_pulling && pulledby && moving_diagonally != FIRST_DIAG_STEP && (!in_range(src, pulledby) || (z != pulledby.z && !z_allowed))) //separated from our puller and not in the middle of a diagonal move.
 		pulledby.stop_pulling()
 
-
 /atom/movable/proc/can_be_pulled(atom/movable/puller, grab_state, force, supress_message)
 	if(src == puller || !isturf(loc))
 		return FALSE
@@ -406,16 +394,15 @@
 		return FALSE
 	if(anchored)
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикрепл[genderize_ru(src.gender,"ён","ена","ено","ены")] к полу!"))
+			to_chat(puller, span_warning("Похоже, [declent_ru(NOMINATIVE)] прикреплен[GEND_A_O_Y(src)] к полу!"))
 		return FALSE
 	if(throwing || move_resist == INFINITY)
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
+			to_chat(puller, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком тяжел[GEND_YI_AYA_OE_YE(src)]!"))
 		return FALSE
 	return TRUE
-
 
 /**
  * Updates the grab state of the movable
@@ -445,18 +432,15 @@
 			if(. <= GRAB_KILL)	// Grab got ugraded from neck grab.
 				ADD_TRAIT(pulling, TRAIT_FLOORED, CHOKEHOLD_TRAIT)
 
-
 /// Use this to override topmost bump thing in [/turf/proc/Enter()].
 /// Should return an atom to bump.
 /atom/movable/proc/tompost_bump_override(atom/movable/mover, border_dir)
 	return
 
-
 // Used in shuttle movement and AI eye stuff.
 // Primarily used to notify objects being moved by a shuttle/bluespace fuckup.
 /atom/movable/proc/setLoc(turf/destination, force_update = FALSE)
 	loc = destination
-
 
 /atom/movable/proc/set_glide_size(target = DEFAULT_GLIDE_SIZE)
 	if(HAS_TRAIT(src, TRAIT_NO_GLIDE))
@@ -482,7 +466,6 @@
 			mob_pulling.buckled.set_glide_size(target)
 			mob_pulling.buckled.pulling_glidesize_update = FALSE
 
-
 /**
  * meant for movement with zero side effects. only use for objects that are supposed to move "invisibly" (like camera mobs or ghosts)
  * if you want something to move onto a tile with a beartrap or recycler or tripmine or mouse without that object knowing about it at all, use this
@@ -494,7 +477,6 @@
 	var/direction = get_dir(old_loc, new_loc)
 	loc = new_loc
 	Moved(old_loc, direction, TRUE, momentum_change = FALSE)
-
 
 ////////////////////////////////////////
 // Here's where we rewrite how byond handles movement except slightly different
@@ -573,7 +555,6 @@
 		newarea.Entered(src, oldarea)
 
 	RESOLVE_ACTIVE_MOVEMENT
-
 
 /atom/movable/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/atom/movable/pullee = pulling
@@ -715,13 +696,11 @@
 		else
 			set_currently_z_moving(FALSE, TRUE)
 
-
 /// Called when src is being moved to a target turf because another movable (puller) is moving around.
 /atom/movable/proc/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
 	moving_from_pull = puller
 	Move(target_turf, get_dir(src, target_turf))
 	moving_from_pull = null
-
 
 /**
  * Called after a successful Move(). By this point, we've already moved.
@@ -777,7 +756,6 @@
 	SSdemo.mark_dirty(src)
 	return TRUE
 
-
 /**
  * Make sure you know what you're doing if you call this.
  * You probably want CanPass()
@@ -788,12 +766,10 @@
 	SEND_SIGNAL(crossed_atom, COMSIG_MOVABLE_CROSS_OVER, src, border_dir)
 	return CanPass(crossed_atom, border_dir)
 
-
 /// Default byond proc that is deprecated for us in lieu of signals, do not call
 /atom/movable/Crossed()
 	SHOULD_NOT_OVERRIDE(TRUE)
 	CRASH("atom/movable/Crossed() was called!")
-
 
 /**
  * `Uncross()` is a default BYOND proc that is called when something is *going*
@@ -815,7 +791,6 @@
 	SHOULD_NOT_OVERRIDE(TRUE)
 	CRASH("Uncross() should not be being called, please read the doc-comment for it if you wonder why.")
 
-
 /**
  * default byond proc that is normally called on everything inside the previous turf
  * a movable was in after moving to its current turf
@@ -825,7 +800,6 @@
 /atom/movable/Uncrossed()
 	SHOULD_NOT_OVERRIDE(TRUE)
 	CRASH("/atom/movable/Uncrossed() was called!")
-
 
 /atom/movable/Bump(atom/bumped_atom)
 	if(!bumped_atom)
@@ -839,7 +813,6 @@
 			return .
 	bumped_atom.Bumped(src)
 
-
 /// Sets the currently_z_moving variable to a new value. Used to allow some zMovement sources to have precedence over others.
 /atom/movable/proc/set_currently_z_moving(new_z_moving_value, forced = FALSE)
 	if(forced)
@@ -849,10 +822,8 @@
 	currently_z_moving = max(currently_z_moving, new_z_moving_value)
 	return (currently_z_moving > old_z_moving_value)
 
-
 /atom/movable/proc/move_to_null_space()
 	return doMove(null)
-
 
 /atom/movable/proc/forceMove(atom/destination)
 	. = FALSE
@@ -860,7 +831,6 @@
 		. = doMove(destination)
 	else
 		CRASH("No valid destination passed into forceMove")
-
 
 /atom/movable/proc/doMove(atom/destination)
 	. = FALSE
@@ -1136,7 +1106,6 @@
 		return zMove(direction, null, z_move_flags)
 	return step(src, direction)
 
-
 /// Returns a list of movables that should also be affected when src moves through zlevels, and src.
 /atom/movable/proc/get_z_move_affected(z_move_flags)
 	. = list(src)
@@ -1156,7 +1125,6 @@
 		//then uses recursion to run the same function again
 		if(pulling.pulling)
 			. |= pulling.pulling.get_z_move_affected(z_move_flags)
-
 
 /**
  * Checks if the destination turf is elegible for z movement from the start turf to a given direction and returns it if so.
@@ -1236,8 +1204,6 @@
 	for(var/atom/movable/content as anything in src) // Notify contents of Z-transition.
 		content.on_changed_z_level(old_turf, new_turf, same_z_layer)
 
-
-
 /**
  * Called whenever an object moves and by mobs when they attempt to move themselves through space
  * And when an object or action applies a force on src, see [newtonian_move][/atom/movable/proc/newtonian_move]
@@ -1271,7 +1237,6 @@
 
 	return FALSE
 
-
 /// Only moves the object if it's under no gravity
 /// Accepts the direction to move, if the push should be instant, and an optional parameter to fine tune the start delay
 /atom/movable/proc/newtonian_move(direction, instant = FALSE, start_delay = 0)
@@ -1285,7 +1250,6 @@
 
 	return TRUE
 
-
 //called when src is thrown into hit_atom
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = FALSE
@@ -1293,17 +1257,14 @@
 	if(!QDELETED(hit_atom))
 		return hit_atom.hitby(src, throwingdatum = throwingdatum)
 
-
 /// called after an items throw is ended.
 /atom/movable/proc/end_throw()
 	return
-
 
 /atom/movable/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked, datum/thrownthing/throwingdatum)
 	if(!anchored && hitpush && (!throwingdatum || (throwingdatum.force >= (move_resist * MOVE_FORCE_PUSH_RATIO))))
 		step(src, AM.dir)
 	..()
-
 
 /atom/movable/proc/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
 	if(throwing || !target || HAS_TRAIT(src, TRAIT_NODROP) || speed <= 0)
@@ -1387,22 +1348,18 @@
 	anchored = TRUE
 	simulated = FALSE
 
-
 /atom/movable/overlay/Initialize(mapload, ...)
 	. = ..()
 	verbs.Cut()
-
 
 /atom/movable/overlay/attackby(obj/item/I, mob/user, params)
 	if(master)
 		I.melee_attack_chain(user, master, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /atom/movable/overlay/attack_hand(mob/user)
 	if(master)
 		return master.attack_hand(user)
-
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
 	for(var/mob/living/buckled_mob as anything in buckled_mobs)
@@ -1412,29 +1369,26 @@
 			return FALSE
 	return TRUE
 
-
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
 
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] сильно толка[pluralize_ru(gender,"ет","ют")] [AM.declent_ru(ACCUSATIVE)]!"), span_warning("Вы сильно толкаете [AM.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] сильно толка[PLUR_ET_YUT(src)] [AM.declent_ru(ACCUSATIVE)]!"), span_warning("Вы сильно толкаете [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сокруша[pluralize_ru(gender,"ет","ют")] [AM.declent_ru(ACCUSATIVE)]!"), span_danger("Вы сокрушили [AM.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сокруша[PLUR_ET_YUT(src)] [AM.declent_ru(ACCUSATIVE)]!"), span_danger("Вы сокрушили [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
-
 
 /atom/movable/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(mover in buckled_mobs)
 		return TRUE
-
 
 /atom/movable/proc/get_spacemove_backup(moving_direction, continuous_move)
 	for(var/checked_range in orange(1, get_turf(src)))
@@ -1451,7 +1405,6 @@
 				continue
 			return checked_atom
 
-
 /atom/movable/proc/transfer_prints_to(atom/movable/target = null, overwrite = FALSE)
 	if(!target)
 		return
@@ -1462,7 +1415,6 @@
 		target.fingerprints += fingerprints
 		target.fingerprintshidden += fingerprintshidden
 	target.fingerprintslast = fingerprintslast
-
 
 /atom/movable/proc/do_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item, no_effect)
 	if(!no_effect && (visual_effect_icon || used_item))
@@ -1493,7 +1445,6 @@
 	var/matrix/rotated_transform = transform.Turn(15 * turn_dir)
 	animate(src, pixel_x = pixel_x + pixel_x_diff, pixel_y = pixel_y + pixel_y_diff, transform = rotated_transform, time = 0.1 SECONDS, easing = (BACK_EASING|EASE_IN), flags = ANIMATION_PARALLEL)
 	animate(pixel_x = pixel_x - pixel_x_diff, pixel_y = pixel_y - pixel_y_diff, transform = initial_transform, time = 0.2 SECONDS, easing = SINE_EASING, flags = ANIMATION_PARALLEL)
-
 
 /atom/movable/proc/do_item_attack_animation(atom/attacked_atom, visual_effect_icon, obj/item/used_item)
 	var/image/attack_image
@@ -1545,21 +1496,17 @@
 	animate(time = 0.1 SECONDS)
 	animate(alpha = 0, time = 0.3 SECONDS, easing = (CIRCULAR_EASING|EASE_OUT))
 
-
 /atom/movable/proc/portal_destroyed(obj/effect/portal/P)
 	return
 
-
 /atom/movable/proc/decompile_act(obj/item/matter_decompiler/C, mob/user) // For drones to decompile mobs and objs. See drone for an example.
 	return FALSE
-
 
 /// Returns true or false to allow src to move through the blocker, mover has final say
 /atom/movable/proc/CanPassThrough(atom/blocker, movement_dir, blocker_opinion)
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_BE_PURE(TRUE)
 	return blocker_opinion
-
 
 ///Sets the anchored var and returns if it was sucessfully changed or not.
 /atom/movable/proc/set_anchored(anchorvalue)
@@ -1572,7 +1519,6 @@
 		pulledby.stop_pulling()
 	SEND_SIGNAL(src, COMSIG_MOVABLE_SET_ANCHORED, anchorvalue)
 
-
 /atom/movable/set_opacity(new_opacity)
 	. = ..()
 	if(isnull(.) || !isturf(loc))
@@ -1581,8 +1527,6 @@
 		AddElement(/datum/element/light_blocking)
 	else
 		RemoveElement(/datum/element/light_blocking)
-
-
 
 /// Source is devoured by living mob.
 /atom/movable/proc/devoured(mob/living/carbon/gourmet)
@@ -1594,13 +1538,13 @@
 	var/target = isturf(loc) ? src : gourmet
 
 	gourmet.setDir(get_dir(gourmet, src))
-	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] пыта[pluralize_ru(gourmet.gender,"ет","ют")]ся поглотить [capitalize(declent_ru(ACCUSATIVE))]!"))
+	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] пыта[PLUR_ET_YUT(gourmet)]ся поглотить [capitalize(declent_ru(ACCUSATIVE))]!"))
 
 	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [capitalize(declent_ru(ACCUSATIVE))]!")))
-		gourmet.visible_message(span_notice("[capitalize(gourmet.declent_ru(NOMINATIVE))] прекраща[pluralize_ru(gourmet.gender,"ет","ют")] поглощать [capitalize(declent_ru(ACCUSATIVE))]!"))
+		gourmet.visible_message(span_notice("[capitalize(gourmet.declent_ru(NOMINATIVE))] прекраща[PLUR_ET_YUT(gourmet)] поглощать [capitalize(declent_ru(ACCUSATIVE))]!"))
 		return FALSE
 
-	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] поглоща[pluralize_ru(gourmet.gender,"ет","ют")] [capitalize(declent_ru(ACCUSATIVE))]!"))
+	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] поглоща[PLUR_ET_YUT(gourmet)] [capitalize(declent_ru(ACCUSATIVE))]!"))
 
 	if(victim.mind)
 		add_attack_logs(gourmet, src, "Devoured")
@@ -1620,7 +1564,6 @@
 	LAZYADD(gourmet.stomach_contents, victim)
 	return TRUE
 
-
 /// Does all the checking for the [/proc/devoured()] to see if a mob can eat another with the grab.
 /atom/movable/proc/can_devour(mob/living/carbon/gourmet)
 	if(isalienadult(gourmet))
@@ -1629,7 +1572,6 @@
 	if(ishuman(gourmet)) //species eating of other mobs
 		return is_type_in_list(src, gourmet.dna.species.allowed_consumed_mobs)
 	return FALSE
-
 
 /// Returns the time devourer has to wait before they eat a prey.
 /atom/movable/proc/get_devour_time(mob/living/carbon/gourmet)
@@ -1644,7 +1586,6 @@
 /atom/movable/proc/shove_impact(mob/living/target, mob/living/attacker)
 	return FALSE
 
-
 /**
 * A wrapper for setDir that should only be able to fail by living mobs.
 *
@@ -1652,7 +1593,6 @@
 */
 /atom/movable/proc/keybind_face_direction(direction)
 	setDir(direction)
-
 
 /**
  * Adds the deadchat_plays component to this atom with simple movement commands.
@@ -1677,7 +1617,6 @@
 		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
 	else
 		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
-
 
 /atom/movable/proc/fall_up_in_space()
 	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
@@ -1721,3 +1660,5 @@
 	forceMove(holder_obj.loc)
 	qdel(holder_obj)
 
+/atom/movable/proc/compressor_grind()
+	ex_act(EXPLODE_DEVASTATE)

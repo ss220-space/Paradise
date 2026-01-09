@@ -109,7 +109,6 @@
 	name = "Создать фабрику (ERROR)"
 	desc = "Производит фабрику за ERROR ресурсов.<br>Фабрики будут производить споры каждые несколько секунд."
 
-
 /atom/movable/screen/blob/FactoryBlob/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
 	name = "Создать фабрику ([BLOB_STRUCTURE_FACTORY_COST])"
@@ -119,7 +118,6 @@
 	if(isovermind(usr))
 		var/mob/camera/blob/B = usr
 		B.create_special(BLOB_STRUCTURE_FACTORY_COST, /obj/structure/blob/special/factory, BLOB_FACTORY_MIN_DISTANCE, TRUE)
-
 
 /atom/movable/screen/blob/ReadaptStrain
 	icon_state = "ui_chemswap"

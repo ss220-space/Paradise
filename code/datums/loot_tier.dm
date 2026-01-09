@@ -7,7 +7,7 @@
 	var/modules_spawn_chance = 0
 
 /datum/loot_tier/proc/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)
-	if(!istype(crate))
+	if(!isatom(crate))
 		return
 
 	for(var/i in 1 to loot_count)
@@ -30,7 +30,7 @@
 		DATIVE = "снаряжению зеленого кода",
 		ACCUSATIVE = "снаряжение зеленого кода",
 		INSTRUMENTAL = "снаряжением зеленого кода",
-		PREPOSITIONAL = "снаряжении зеленого кода"
+		PREPOSITIONAL = "снаряжении зеленого кода",
 	)
 	modules_spawn_chance = 1
 	loot_count = 3
@@ -86,8 +86,7 @@
 		/obj/item/clothing/suit/armor/vest/warden/alt,
 		/obj/item/clothing/suit/armor/vest/det_suit,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
-
-		)
+	)
 
 /datum/loot_tier/second
 	name = "снаряжение синего кода"
@@ -97,7 +96,7 @@
 		DATIVE = "снаряжению синего кода",
 		ACCUSATIVE = "снаряжение синего кода",
 		INSTRUMENTAL = "снаряжением синего кода",
-		PREPOSITIONAL = "снаряжении синего кода"
+		PREPOSITIONAL = "снаряжении синего кода",
 	)
 	modules_spawn_chance = 20
 	open_time = 7 SECONDS
@@ -119,9 +118,9 @@
 		/obj/item/gun/energy/xray,
 		list(
 			/obj/item/gun/energy/specter,
-			/obj/item/stock_parts/cell/specter,
-			/obj/item/stock_parts/cell/specter,
-			/obj/item/stock_parts/cell/specter,
+			/obj/item/weapon_cell/specter,
+			/obj/item/weapon_cell/specter,
+			/obj/item/weapon_cell/specter,
 		),
 		list(
 			/obj/item/gun/projectile/revolver/ga12,
@@ -130,7 +129,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/ppsh,
+			/obj/item/gun/projectile/automatic/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 			/obj/item/ammo_box/magazine/ppsh,
 		),
@@ -145,6 +144,14 @@
 			/obj/item/ammo_box/shotgun,
 			/obj/item/ammo_box/shotgun/buck,
 			/obj/item/ammo_box/speedloader/shotgun,
+		),
+		list(
+			/obj/item/gun/projectile/revolver/taurus,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/speedloader/rubber45colt/empty,
+			/obj/item/ammo_box/c45colt,
+			/obj/item/ammo_box/c45colt,
 		),
 		list(
 			/obj/item/gun/projectile/automatic/pistol,
@@ -205,6 +212,12 @@
 			/obj/item/ammo_box/magazine/smgm9mm,
 			/obj/item/ammo_box/magazine/smgm9mm,
 		),
+		list(
+			/obj/item/gun/projectile/automatic/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
+			/obj/item/ammo_box/magazine/sparkle_a12,
+		),
 		/obj/item/gun/syringe/rapidsyringe/experimental/preloaded,
 		/obj/item/storage/belt/security/judobelt,
 		/obj/item/twohanded/spear/bonespear/chitinspear,
@@ -245,7 +258,7 @@
 		DATIVE = "снаряжению красного кода",
 		ACCUSATIVE = "снаряжение красного кода",
 		INSTRUMENTAL = "снаряжением красного кода",
-		PREPOSITIONAL = "снаряжении красного кода"
+		PREPOSITIONAL = "снаряжении красного кода",
 	)
 	modules_spawn_chance = 30
 	open_time = 15 SECONDS
@@ -304,7 +317,7 @@
 			/obj/item/ammo_box/speedloader/shotgun,
 		),
 		list(
-			/obj/item/gun/projectile/automatic/rusted/aksu,
+			/obj/item/gun/projectile/automatic/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
 			/obj/item/ammo_box/magazine/aksu,
@@ -416,6 +429,7 @@
 		/obj/item/melee/energy/sword/pirate,
 		/obj/item/melee/energy/sword/saber,
 		/obj/item/weldingtool/sword,
+		/obj/item/twohanded/spear/secspear,
 		/obj/item/dnainjector/hulkmut,
 		/obj/item/dnainjector/farvisionmut,
 		/obj/item/relict_production/strange_teleporter,
@@ -464,7 +478,7 @@
 		DATIVE = "снаряжению кода ГАММА",
 		ACCUSATIVE = "снаряжение кода ГАММА",
 		INSTRUMENTAL = "снаряжением кода ГАММА",
-		PREPOSITIONAL = "снаряжении кода ГАММА"
+		PREPOSITIONAL = "снаряжении кода ГАММА",
 	)
 	modules_spawn_chance = 40
 	open_time = 20 SECONDS
@@ -591,7 +605,7 @@
 		DATIVE = "снаряжению кода ЭПСИЛОН",
 		ACCUSATIVE = "снаряжение кода ЭПСИЛОН",
 		INSTRUMENTAL = "снаряжением кода ЭПСИЛОН",
-		PREPOSITIONAL = "снаряжении кода ЭПСИЛОН"
+		PREPOSITIONAL = "снаряжении кода ЭПСИЛОН",
 	)
 	modules_spawn_chance = 70
 	open_time = 30 SECONDS
@@ -651,7 +665,7 @@
 		DATIVE = "патронам",
 		ACCUSATIVE = "патроны",
 		INSTRUMENTAL = "патронами",
-		PREPOSITIONAL = "патронах"
+		PREPOSITIONAL = "патронах",
 	)
 	loot_count = 6
 	loot_list = list(
@@ -739,10 +753,16 @@
 			/obj/item/ammo_box/shotgun/improvised,
 		),
 		CALIBER_SPECTER = list(
-			/obj/item/stock_parts/cell/specter,
+			/obj/item/weapon_cell/specter,
 		),
 		CALIBER_5_DOT_56X45MM = list(
 			/obj/item/ammo_box/a556,
+		),
+		CALIBER_DOT_45_COLT = list(
+			/obj/item/ammo_box/c45colt,
+			/obj/item/ammo_box/rubber45colt,
+			/obj/item/ammo_box/expansive45colt,
+			/obj/item/ammo_box/ap45colt,
 		),
 		CALIBER_5_DOT_45X39MM = list(
 			/obj/item/ammo_box/ak814/fusty,
@@ -780,7 +800,7 @@
 			/obj/item/mortar_shell/frag,
 			/obj/item/mortar_shell/incendiary,
 			/obj/item/mortar_shell/flare,
-		)
+		),
 	)
 
 /datum/loot_tier/ammo/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)
@@ -802,7 +822,7 @@
 		DATIVE = "медикаментам",
 		ACCUSATIVE = "медикаменты",
 		INSTRUMENTAL = "медикаментами",
-		PREPOSITIONAL = "медикаментах"
+		PREPOSITIONAL = "медикаментах",
 	)
 	loot_count = 8
 	loot_list = list(

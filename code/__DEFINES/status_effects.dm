@@ -9,13 +9,20 @@
 
 #define STATUS_EFFECT_REFRESH 3 // if it only allows one, and new instances just instead refresh the timer
 
-
 ///Processing flags - used to define the speed at which the status will work
 ///This is fast - 0.2s between ticks (I believe!)
 #define STATUS_EFFECT_FAST_PROCESS 0
 ///This is slower and better for more intensive status effects - 1s between ticks
 #define STATUS_EFFECT_NORMAL_PROCESS 1
 
+#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
+//several flags for the Necropolis curse status effect
+///makes the edges of the target's screen obscured
+#define CURSE_BLINDING (1<<0)
+///causes gradual damage
+#define CURSE_WASTING (1<<1)
+///hands reach out from the sides of the screen, doing damage and stunning if they hit the target
+#define CURSE_GRASPING (1<<2)
 
 ///////////
 // BUFFS //
@@ -84,6 +91,9 @@
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback
 
+/// Prevents you from automatically grabbing walls to stop moving in space.
+#define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -128,16 +138,6 @@
 
 #define STATUS_EFFECT_VOMIT /datum/status_effect/tox_vomit // When carbon got enough tox damage - he will vomit.
 
-//#define STATUS_EFFECT_NECROPOLIS_CURSE /datum/status_effect/necropolis_curse
-//#define CURSE_BLINDING	1 //makes the edges of the target's screen obscured
-//#define CURSE_SPAWNING	2 //spawns creatures that attack the target only
-//#define CURSE_WASTING	4 //causes gradual damage
-//#define CURSE_GRASPING	8 //hands reach out from the sides of the screen, doing damage and stunning if they hit the target
-
-//#define STATUS_EFFECT_KINDLE /datum/status_effect/kindle //A knockdown reduced by 1 second for every 3 points of damage the target takes.
-
-//#define STATUS_EFFECT_ICHORIAL_STAIN /datum/status_effect/ichorial_stain //Prevents a servant from being revived by vitality matrices for one minute.
-
 /// Whether a moth's wings are burnt
 #define STATUS_EFFECT_BURNT_WINGS /datum/status_effect/burnt_wings
 
@@ -148,6 +148,7 @@
 #define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_DIRECTIONAL_SLOW /datum/status_effect/incapacitating/directional_slow
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
@@ -182,6 +183,7 @@
 #define STATUS_EFFECT_HANDSHAKE /datum/status_effect/high_five/handshake
 
 #define STATUS_EFFECT_CHARGING /datum/status_effect/charging
+#define STATUS_EFFECT_LUNGING /datum/status_effect/lunging
 
 #define STATUS_EFFECT_DROPNROLL /datum/status_effect/stop_drop_roll
 
@@ -212,3 +214,13 @@
 #define STATUS_EFFECT_LEANING /datum/status_effect/leaning
 
 #define STATUS_EFFECT_TEMPERATURE /datum/status_effect/transient/temperature
+
+/// Causes the mob to become blind via the passed source
+#define become_blind(source) apply_status_effect(/datum/status_effect/transient/blindness, source)
+/// Cures the mob's blindness from the passed source, removing blindness wholesale if no sources are left
+#define cure_blind(source) remove_status_effect(/datum/status_effect/transient/blindness, source)
+
+/// Is the mob blind?
+#define is_blind(...) has_status_effect(/datum/status_effect/transient/blindness)
+/// Is the mob blind from the passed source or sources?
+#define is_blind_from(sources) has_status_effect_from_source(/datum/status_effect/transient/blindness, sources)

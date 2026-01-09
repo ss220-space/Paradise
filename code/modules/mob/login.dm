@@ -31,6 +31,8 @@
 
 	canon_client = client
 
+	client.persistent_client.set_mob(src)
+
 	add_to_player_list()
 	GLOB.left_player_list -= src
 
@@ -40,8 +42,6 @@
 
 	client.images = list()				//remove the images such as AIs being unable to see runes
 	client.screen = list()				//remove hud items just in case
-	if(client.click_intercept)
-		client.click_intercept.quit() // Let's not keep any old click_intercepts
 
 	if(!hud_used)
 		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect
@@ -73,7 +73,6 @@
 
 	reset_perspective(loc)
 
-
 	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors) || (ckey in GLOB.de_devs))
 		add_verb(src, /client/proc/readmin)
 
@@ -88,16 +87,28 @@
 
 	add_click_catcher()
 
-	if(viewing_alternate_appearances && length(viewing_alternate_appearances))
-		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
-			AA.display_to(list(src))
+	//Reload alternate appearances
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.check_hud(src)
 
 	update_client_colour(0)
 	update_morgue()
 	client.init_verbs()
 
+	for(var/datum/action/action as anything in persistent_client.player_actions)
+		action.Grant(src)
+
+	for(var/datum/callback/callback as anything in persistent_client.post_login_callbacks)
+		callback.Invoke()
+
+	if(client.click_intercept)
+		client.click_intercept.quit() // Let's not keep any old click_intercepts
+
 	clear_important_client_contents(client)
 	enable_client_mobs_in_contents(client)
+
+	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+	AddElement(/datum/element/weather_listener, /datum/weather/snow_storm, ZTRAIT_SNOWSTORM, GLOB.snowstorm_sounds)
 
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_SIGNAL(src, COMSIG_MOB_LOGIN)

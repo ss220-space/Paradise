@@ -120,14 +120,6 @@
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade
 	name = "tail tumour"
 	desc = "Небольшая странноватая опухоль, находящаяся в хвосте. На удивление, не делает ничего страшного, но значительно увеличивает мощность удара хвостом."
-	ru_names = list(
-		NOMINATIVE = "хвостовая опухоль",
-		GENITIVE = "хвостовой опухоли",
-		DATIVE = "хвостовой опухоли",
-		ACCUSATIVE = "хвостовую опухоль",
-		INSTRUMENTAL = "хвостовой опухолью",
-		PREPOSITIONAL = "хвостовом сгустке"
-	)
 	icon_state = "roro core"
 	slash_strength = 0
 	stamina_damage = 24
@@ -137,6 +129,16 @@
 	slash_sound = 'sound/weapons/slash.ogg'
 	biological = TRUE
 
+/obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/get_ru_names()
+	return list(
+		NOMINATIVE = "хвостовая опухоль",
+		GENITIVE = "хвостовой опухоли",
+		DATIVE = "хвостовой опухоли",
+		ACCUSATIVE = "хвостовую опухоль",
+		INSTRUMENTAL = "хвостовой опухолью",
+		PREPOSITIONAL = "хвостовом сгустке",
+	)
+
 /obj/item/organ/internal/cyberimp/tail/blade/organic_upgrade/update_icon_state()
 	return
 
@@ -145,10 +147,9 @@
 	button_icon_state = "tail_cut"
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE
 
-/datum/action/innate/tail_cut/Trigger(left_click = TRUE)
-	if(IsAvailable(show_message = TRUE))
+/datum/action/innate/tail_cut/Trigger(mob/clicker, trigger_flags)
+	if(IsAvailable(feedback = TRUE))
 		. = ..()
-
 
 /datum/action/innate/tail_cut/Activate()
 	var/mob/living/carbon/human/user = owner
@@ -202,7 +203,7 @@
 		if(HAS_TRAIT(user, TRAIT_RESTRAINED) && prob(50))
 			user.Weaken(4 SECONDS)
 			user.visible_message(
-				span_danger("[user.declent_ru(NOMINATIVE)] теря[pluralize_ru(user.gender,"ет","ют")] равновесие!"),
+				span_danger("[user.declent_ru(NOMINATIVE)] теря[PLUR_ET_YUT(user)] равновесие!"),
 				span_danger("Вы теряете равновесие!")
 			)
 			return
@@ -211,7 +212,7 @@
 			to_chat(user, span_warning("Вы выбились из сил!"))
 			return
 
-/datum/action/innate/tail_cut/IsAvailable(show_message = FALSE)
+/datum/action/innate/tail_cut/IsAvailable(feedback = FALSE)
 
 	if(!..())
 		return FALSE
@@ -219,7 +220,7 @@
 	var/mob/living/carbon/human/user = owner
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = user.get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(!user.bodyparts_by_name[BODY_ZONE_TAIL])
-		if(show_message)
+		if(feedback)
 			to_chat(user, span_warning("У вас НЕТ ХВОСТА!"))
 		return FALSE
 
@@ -228,17 +229,17 @@
 		active_implant = TRUE
 
 	if(!istype(user.bodyparts_by_name[BODY_ZONE_TAIL], /obj/item/organ/external/tail/unathi) && !active_implant)
-		if(show_message)
+		if(feedback)
 			to_chat(user, span_warning("У вас слабый хвост!"))
 		return FALSE
 
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled)
-		if(show_message)
+		if(feedback)
 			to_chat(user, span_warning("Вам нужно больше свободы движений для взмаха хвостом!"))
 		return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		if(show_message)
+		if(feedback)
 			to_chat(user, span_warning("Вы не хотите никому навредить.."))
 		return FALSE
 

@@ -39,7 +39,7 @@
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
 		if(seed.variant)
-			name += " \[[seed.variant]]"
+			name += " \[[seed.variant]\]"
 
 /obj/item/reagent_containers/food/snacks/grown/Destroy()
 	QDEL_NULL(seed)
@@ -59,14 +59,13 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/I, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
 
-	if(is_sharp(I) && slices_num && slice_path)
+	if(I.sharp && slices_num && slice_path)
 		add_fingerprint(user)
 		if(!isturf(loc))
 			to_chat(user, span_warning("You cannot slice [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
@@ -114,9 +113,6 @@
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			if(!QDELETED(src) && !QDELETED(I))
 				trait.on_attackby(src, I, user)
-
-
-
 
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
@@ -211,7 +207,6 @@
 
 	add_attack_logs(user, target, "[what_done] ([reagent_str] | [genes_str])")
 
-
 /obj/item/reagent_containers/food/snacks/grown/extinguish_light(force = FALSE)
 	if(!force)
 		return
@@ -220,7 +215,7 @@
 	set_light_on(FALSE)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/send_plant_details(mob/user)
-	var/msg = span_notice("This is \a [span_name(src)].\n")
+	var/msg = span_notice("This is \a [span_name(declent_ru(NOMINATIVE))].\n")
 	if(seed)
 		msg += seed.get_analyzer_text()
 		for(var/reagent_id in seed.reagents_add)

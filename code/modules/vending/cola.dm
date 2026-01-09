@@ -29,8 +29,12 @@
 		/obj/item/reagent_containers/food/drinks/cans/energy = 10,
 		/obj/item/reagent_containers/food/drinks/cans/energy/trop = 10,
 		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 10,
-		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 10)
-	contraband = list(/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5, /obj/item/reagent_containers/food/drinks/zaza = 1)
+		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 10,
+	)
+	contraband = list(
+		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 5,
+		/obj/item/reagent_containers/food/drinks/zaza = 1,
+	)
 	prices = list(
 		/obj/item/reagent_containers/food/drinks/cans/cola = 19,
 		/obj/item/reagent_containers/food/drinks/cans/space_mountain_wind = 19,
@@ -43,7 +47,8 @@
 		/obj/item/reagent_containers/food/drinks/cans/energy/milk = 39,
 		/obj/item/reagent_containers/food/drinks/cans/energy/grey = 39,
 		/obj/item/reagent_containers/food/drinks/cans/thirteenloko = 79,
-		/obj/item/reagent_containers/food/drinks/zaza = 199)
+		/obj/item/reagent_containers/food/drinks/zaza = 199,
+	)
 	refill_canister = /obj/item/vending_refill/cola
 
 /obj/machinery/vending/cola/get_ru_names()
@@ -53,7 +58,7 @@
 		DATIVE = "торговому автомату Robust Softdrinks",
 		ACCUSATIVE = "торговый автомат Robust Softdrinks",
 		INSTRUMENTAL = "торговым автоматом Robust Softdrinks",
-		PREPOSITIONAL = "торговом автомате Robust Softdrinks"
+		PREPOSITIONAL = "торговом автомате Robust Softdrinks",
 	)
 
 /obj/machinery/vending/cola/free

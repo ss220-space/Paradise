@@ -15,13 +15,14 @@
 	var/is_custom = FALSE
 	/// Is dead players allowed to vote
 	var/no_dead_vote = FALSE
+	/// Is offstation role players allowed to vote
+	var/no_offstation_vote = FALSE
 	/// Is we muted OOC for vote, and it should be enabled
 	var/ooc_auto_muted = 0
 	/// Choices available in the vote
 	var/list/choices = list()
 	// Assoc list of [ckeys => choice] who have voted. We dont want to hold client refs.
 	var/list/voted = list()
-
 
 /datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
 	if(SSvote.active_vote)
@@ -37,6 +38,7 @@
 	is_custom = _is_custom
 
 	no_dead_vote = CONFIG_GET(flag/vote_no_dead)
+	no_offstation_vote = CONFIG_GET(flag/vote_no_offstation_role)
 
 	// If we have no choices, dynamically generate them
 	if(!length(choices))
@@ -63,7 +65,6 @@
 
 /datum/vote/proc/remaining()
 	return max(((started_time + CONFIG_GET(number/vote_period)) - world.time), 0)
-
 
 // Returns the result
 /datum/vote/proc/calculate_result()
@@ -97,10 +98,10 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
 				else
 					// Make it normal
-					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
@@ -111,28 +112,24 @@
 			var/res = winning_options[1]
 
 			if(res in choices)
-				to_chat(world, span_interface("<b>Победитель голосования – [sanitize(capitalize(res))]</b>"))
+				to_chat(world, span_interface("<b>Победитель голосования — [sanitize(capitalize(res))]</b>"))
 				return res
 
-			to_chat(world, span_interface("Победитель голосования – [sanitize(capitalize(res))] не может считаться действительным выбором? Что за бред?!"))
+			to_chat(world, span_interface("Победитель голосования — [sanitize(capitalize(res))] не может считаться действительным выбором? Что за бред?!"))
 			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
 			return null
-
-
 
 /datum/vote/proc/announce(start_text)
 	to_chat(world, chat_box_purple(span_purple("<b>[start_text]</b>\n\
 		<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
-		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
+		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[DECL_SEC_MIN(CONFIG_GET(number/vote_period) / 10)], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
-
 
 /datum/vote/proc/tick()
 	if(remaining() == 0)
 		var/result = calculate_result()
 		handle_result(result)
 		qdel(src)
-
 
 /datum/vote/Destroy(force)
 	if(SSvote.active_vote == src)
@@ -142,13 +139,11 @@
 		addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, on_vote_end)), 3 SECONDS)
 	return ..()
 
-
 /datum/vote/proc/handle_result(result)
 	return
 
 /datum/vote/proc/generate_choices()
 	return
-
 
 /*
 	UI STUFFS
@@ -198,6 +193,9 @@
 		return
 
 	if(no_dead_vote && (usr.stat == DEAD || isanimal((usr))) && !usr.client.holder)
+		return FALSE
+
+	if(no_offstation_vote && usr.mind && usr.mind.offstation_role && !check_rights(R_ADMIN))
 		return FALSE
 
 	. = TRUE

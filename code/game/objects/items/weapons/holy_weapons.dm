@@ -41,7 +41,6 @@
 	user.visible_message(span_suicide("[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!"))
 	return BRUTELOSS|FIRELOSS
 
-
 /obj/item/nullrod/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 
@@ -59,7 +58,6 @@
 				vamp.adjust_nullification(30 + sanctify_force, 15 + sanctify_force)
 		return .
 
-
 /obj/item/nullrod/pickup(mob/living/user)
 	if(sanctify_force && !user.mind?.isholy)
 		user.take_overall_damage(force, sanctify_force)
@@ -72,7 +70,6 @@
 		return FALSE
 
 	return ..()
-
 
 /obj/item/nullrod/attack_self(mob/user)
 	if(user.mind?.isholy && !reskinned && reskin_selectable)
@@ -156,11 +153,9 @@
 	damtype = BURN
 	attack_verb = list("ударил", "освятил")
 
-
 /obj/item/nullrod/godhand/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
-
 
 /obj/item/nullrod/staff
 	name = "red holy staff"
@@ -338,13 +333,16 @@
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the spirit of [user.real_name]'s blade?", ROLE_PAI, FALSE, 10 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
+	
+	if(QDELETED(src))
+		return
 
 	if(length(candidates))
 		theghost = pick(candidates)
 		var/mob/living/simple_animal/shade/sword/S = new(src)
 		S.real_name = name
 		S.name = name
-		S.ckey = theghost.ckey
+		S.possess_by_player(theghost.ckey)
 		var/input = tgui_input_text(S, "What are you named?", "Change Name", max_length = MAX_NAME_LEN)
 
 		if(src && input)
@@ -392,7 +390,6 @@
 	sharp = TRUE
 	attack_verb = list("пропилил", "поранил", "порезал", "рубанул")
 	hitsound = 'sound/weapons/chainsaw.ogg'
-
 
 /obj/item/nullrod/chainsaw/Initialize(mapload)
 	. = ..()
@@ -462,7 +459,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	sharp = TRUE
 
-
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
@@ -499,7 +495,7 @@
 	block_chance = 40
 	slot_flags = ITEM_SLOT_BACK
 	sharp = FALSE
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	attack_verb = list("сокрушил", "ударил", "огрел")
 	icon_state = "bostaff0"
 	item_state = "bostaff0"
@@ -519,7 +515,6 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	var/mob/living/carbon/wielder
 
-
 /obj/item/nullrod/tribal_knife/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
@@ -536,23 +531,19 @@
 	wielder = null
 	return ..()
 
-
 /obj/item/nullrod/tribal_knife/process()
 	slowdown = rand(-2, 2)
 	wielder?.update_equipment_speed_mods()
-
 
 /obj/item/nullrod/tribal_knife/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	if(slot & ITEM_SLOT_HANDS)
 		wielder = user
 
-
 /obj/item/nullrod/tribal_knife/dropped(mob/user, slot, silent = FALSE)
 	slowdown = 0
 	wielder = null
 	return ..()
-
 
 /obj/item/nullrod/pitchfork
 	name = "unholy pitchfork"
@@ -582,7 +573,6 @@
 /obj/item/nullrod/rosary/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	return ..()
-
 
 /obj/item/nullrod/rosary/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!ishuman(target))
@@ -644,7 +634,6 @@
 	praying = FALSE
 	return .|ATTACK_CHAIN_SUCCESS
 
-
 /obj/item/nullrod/rosary/process()
 	if(!ishuman(loc))
 		return
@@ -668,7 +657,6 @@
 	throwforce = 0
 	var/ghostcall_CD = 0
 
-
 /obj/item/nullrod/salt/attack_self(mob/user)
 
 	if(!user.mind || !user.mind.isholy)
@@ -686,25 +674,60 @@
 		to_chat(user, span_notice("You need to wait before using [src] again."))
 		return
 
-
 /obj/item/nullrod/rosary/bread
 	name = "prayer bread"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "baguette"
-	desc = "a staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+	desc = "A staple of worshipers of the Silentfather, this holy mime artifact has an odd effect on clowns."
+	/// List of clowns currently affected by the silencing and grayscale effect.
+	var/list/smited_clowns
+
+/obj/item/nullrod/rosary/bread/get_ru_names()
+	return list(
+		NOMINATIVE = "молитвенный хлеб",
+		GENITIVE = "молитвенного хлеба",
+		DATIVE = "молитвенному хлебу",
+		ACCUSATIVE = "молитвенный хлеб",
+		INSTRUMENTAL = "молитвенным хлебом",
+		PREPOSITIONAL = "молитвенном хлебе"
+	)
+
+/obj/item/nullrod/rosary/bread/equipped(mob/user, slot, initial = FALSE)
+	. = ..()
+	if(!ishuman(user) || !(slot == ITEM_SLOT_HANDS))
+		STOP_PROCESSING(SSobj, src)
+		return
+
+	START_PROCESSING(SSobj, src)
+
+/obj/item/nullrod/rosary/bread/dropped(mob/user, silent)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/obj/item/nullrod/rosary/bread/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	for(var/clown in smited_clowns)
+		unsmite_clown(clown)
+	return ..()
 
 /obj/item/nullrod/rosary/bread/process()
-	if(ishuman(loc))
-		var/mob/living/carbon/human/holder = loc
-		//would like to make the holder mime if they have it in on thier person in general
-		if(src == holder.l_hand || src == holder.r_hand)
-			for(var/mob/living/carbon/human/H in range(5, loc))
-				if(H.mind?.assigned_role == JOB_TITLE_CLOWN)
-					H.Silence(20 SECONDS)
-					animate_fade_grayscale(H,20)
-					if(prob(10))
-						to_chat(H, span_userdanger("Being in the presence of [holder]'s [src] is interfering with your honk!"))
+	var/mob/living/carbon/human/holder = loc
+	// Would like to make the holder mime if they have it in on thier person in general
+	for(var/mob/living/carbon/human/human in range(5, loc))
+		if(human.mind.assigned_role != JOB_TITLE_CLOWN || LAZYACCESS(smited_clowns, human))
+			continue
 
+		LAZYSET(smited_clowns, human, TRUE)
+		human.Silence(20 SECONDS)
+		animate_fade_grayscale(human, 2 SECONDS)
+
+		addtimer(CALLBACK(src, PROC_REF(unsmite_clown), human), 20 SECONDS)
+		if(prob(10))
+			to_chat(human, span_danger("Присутствие [holder] с [declent_ru(INSTRUMENTAL)] не даёт вам хонкать!"))
+
+/obj/item/nullrod/rosary/bread/proc/unsmite_clown(mob/living/carbon/human/hell_spawn)
+	animate_fade_colored(hell_spawn, 2 SECONDS)
+	LAZYREMOVE(smited_clowns, hell_spawn)
 
 /obj/item/nullrod/missionary_staff
 	name = "holy staff"

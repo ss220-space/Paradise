@@ -5,7 +5,6 @@
  *		Medical Record Cabinets
  */
 
-
 /*
  * Filing Cabinets
  */
@@ -18,7 +17,6 @@
 	anchored = TRUE
 	var/opened = FALSE
 
-
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
 	icon_state = "chestdrawer"
@@ -30,17 +28,14 @@
 /obj/structure/filingcabinet/filingcabinet	//not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
 	icon_state = "tallcabinet"
 
-
 /obj/structure/filingcabinet/Initialize(mapload)
 	. = ..()
 	for(var/obj/item/I in loc)
 		if(istype(I, /obj/item/paper) || istype(I, /obj/item/folder) || istype(I, /obj/item/photo))
 			I.loc = src
 
-
 /obj/structure/filingcabinet/update_icon_state()
 	icon_state = "[initial(icon_state)][opened ? "-open" : ""]"
-
 
 /obj/structure/filingcabinet/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -69,7 +64,6 @@
 	to_chat(user, span_warning("You cannot put [I] into [src]!"))
 	return ATTACK_CHAIN_PROCEED
 
-
 /obj/structure/filingcabinet/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
@@ -90,7 +84,7 @@
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><center><table>"}
 	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='byond://?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='byond://?src=[UID()];retrieve=[P.UID()]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
 	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
 	popup.set_content(dat)
@@ -120,7 +114,7 @@
 		close_window(usr, "filingcabinet")		// Close the menu
 
 		//var/retrieveindex = text2num(href_list["retrieve"])
-		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
+		var/obj/item/P = locateUID(href_list["retrieve"])//contents[retrieveindex]
 		if(istype(P) && (P.loc == src) && src.Adjacent(usr))
 			P.forceMove_turf()
 			usr.put_in_hands(P, ignore_anim = FALSE)
@@ -131,13 +125,11 @@
 			opened = FALSE
 			update_icon(UPDATE_ICON_STATE)
 
-
 /*
  * Security Record Cabinets
  */
 /obj/structure/filingcabinet/security
 	var/populated = FALSE
-
 
 /obj/structure/filingcabinet/security/proc/populate()
 	if(!populated)
@@ -224,7 +216,6 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 			continue
 		if(G.fields["reference"])
 			addFile(G.fields["reference"])
-
 
 /obj/structure/filingcabinet/employment/proc/addFile(mob/living/carbon/human/employee)
 	new /obj/item/paper/contract/employment(src, employee)

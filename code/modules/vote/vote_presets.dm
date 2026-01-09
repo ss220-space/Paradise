@@ -6,7 +6,7 @@
 	question = "Завершение смены"
 	choices = list(
 		CREW_TRANSFER_CHOICE,
-		CONTINUE_SHIFT_CHOICE
+		CONTINUE_SHIFT_CHOICE,
 	)
 	vote_type_text = "crew transfer"
 
@@ -14,6 +14,8 @@
 	if(SSticker.current_state < GAME_STATE_PLAYING)
 		CRASH("Attempted to call a shuttle vote before the game starts!")
 	..()
+	no_dead_vote = TRUE
+	no_offstation_vote = TRUE
 
 /datum/vote/crew_transfer/handle_result(result)
 	if(result == CREW_TRANSFER_CHOICE)
@@ -33,7 +35,6 @@
 
 /datum/vote/map/generate_choices()
 	var/list/map_pool = subtypesof(/datum/map)
-	/*
 	if(CONFIG_GET(string/map_vote_mode) == "nodoubles")
 		map_pool -= SSmapping.map_datum.type
 
@@ -42,7 +43,7 @@
 			var/current_map = SSmapping.map_datum.type
 			if(current_map == SSmapping.previous_maps[1])
 				map_pool -= current_map
-	*/
+
 	for(var/datum/map/possible_map as anything in map_pool)
 		if(initial(possible_map.admin_only))
 			continue
@@ -67,7 +68,7 @@
 			// Set top voted map
 			if(result == "[initial(M.station_name)] ([initial(M.name)])")
 				top_voted_map = M
-	to_chat(world, "<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>")
+	to_chat(world, span_interface("<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>"))
 	SSmapping.next_map = new top_voted_map
 
 /datum/vote/gamemode
@@ -77,6 +78,7 @@
 /datum/vote/gamemode/New()
 	..()
 	no_dead_vote = FALSE
+	no_offstation_vote = FALSE
 
 /datum/vote/gamemode/generate_choices()
 	choices.Add(config.votable_modes)

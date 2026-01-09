@@ -200,7 +200,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		if(GRAV_NEEDS_WRENCH)
 			. += span_notice("The new plating just needs to be <b>bolted</b> into place now.")
 
-
 /obj/machinery/gravity_generator/main/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !(stat & BROKEN) || broken_state != GRAV_NEEDS_PLASTEEL || !istype(I, /obj/item/stack/sheet/plasteel))
 		return ..()
@@ -299,7 +298,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	. = ..()
 	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", INVESTIGATE_GRAVITY)
 	set_power()
-
 
 /obj/machinery/gravity_generator/main/get_status()
 	if(stat & BROKEN)
@@ -437,16 +435,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 			GLOB.gravity_generators["[z]"] -= src
 
 // MARK: Misc
-
-/obj/effect/warp_effect/gravity_generator
-
-/obj/effect/warp_effect/gravity_generator/Initialize(mapload)
-	. = ..()
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128, easing = CIRCULAR_EASING | EASE_IN)
-	QDEL_IN(src, 0.8 SECONDS)
-
 /obj/item/paper/gravity_gen
 	name = "paper - 'Generate your own gravity!'"
 	info = {"<h1>Generating Gravity For Dummies</h1>

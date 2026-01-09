@@ -17,7 +17,6 @@
 	var/force_teleport = 1 //if false, teleport will use Move() proc (dense objects will prevent teleportation)
 	var/ignore_area_flag = FALSE
 
-
 /datum/teleport/proc/start(ateleatom, adestination, aprecision = 0, afteleport = 1, aeffectin = null, aeffectout = null, asoundin = null, asoundout = null, bypass_area_flag = FALSE, ignore_bluespace_interference = FALSE)
 	if(!initTeleport(arglist(args)))
 		return FALSE
@@ -159,7 +158,6 @@
 		if(teleport())
 			return TRUE
 	return FALSE
-
 
 /datum/teleport/instant/science
 

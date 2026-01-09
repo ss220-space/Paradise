@@ -55,7 +55,7 @@ SUBSYSTEM_DEF(blackbox)
 //no touchie
 /datum/controller/subsystem/blackbox/can_vv_get(var_name)
 	if(var_name == NAMEOF(src, feedback))
-		return debug_variable(var_name, deepCopyList(feedback), 0, src)
+		return debug_variable(var_name, deep_copy_list(feedback), 0, src)
 	return ..()
 
 /datum/controller/subsystem/blackbox/vv_edit_var(var_name, var_value)
@@ -132,7 +132,6 @@ SUBSYSTEM_DEF(blackbox)
 	if(!(tech in research_levels) || research_levels[tech] < level)
 		research_levels[tech] = level
 
-
 /**
  * Radio broadcast logging helper
  *
@@ -176,7 +175,6 @@ SUBSYSTEM_DEF(blackbox)
 			record_feedback("tally", "radio_usage", 1, "procedure")
 		else
 			record_feedback("tally", "radio_usage", 1, "other")
-
 
 /**
  * Helper to find and return a feeedback datum

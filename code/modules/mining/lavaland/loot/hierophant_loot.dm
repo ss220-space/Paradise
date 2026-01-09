@@ -34,7 +34,7 @@
 		DATIVE = "посоху Иерофанта",
 		ACCUSATIVE = "посох Иерофанта",
 		INSTRUMENTAL = "посохом Иерофанта",
-		PREPOSITIONAL = "посохе Иерофанта"
+		PREPOSITIONAL = "посохе Иерофанта",
 	)
 
 /obj/item/hierophant_club/examine(mob/user)
@@ -43,10 +43,10 @@
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
-	user.visible_message(span_suicide("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в воздух! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] собира[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой!"))
+	user.visible_message(span_suicide("[user] поднима[PLUR_ET_YUT(user)] [declent_ru(NOMINATIVE)] в воздух! Похоже, [GEND_HE_SHE(user)] собира[PLUR_ET_YUT(user)]ся покончить с собой!"))
 	new/obj/effect/temp_visual/hierophant/telegraph(get_turf(user))
 	playsound(user,'sound/machines/airlock_open.ogg', 75, TRUE)
-	user.visible_message(span_hierophant_warning("[user] растворя[pluralize_ru(user.gender,"ет","ют")]ся в воздухе, оставляя свои вещи!"))
+	user.visible_message(span_hierophant_warning("[user] растворя[PLUR_ET_YUT(user)]ся в воздухе, оставляя свои вещи!"))
 	for(var/obj/item/I in user)
 		if(I != src)
 			user.drop_item_ground(I)
@@ -56,7 +56,6 @@
 	user.drop_item_ground(src) //Drop us last, so it goes on top of their stuff
 	qdel(user)
 	return OBLITERATION
-
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	..()
@@ -119,18 +118,15 @@
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health
 		blast_range -= round(health_percent * 10) //one additional range for each missing 10% of health
 
-
 /obj/item/hierophant_club/update_icon_state()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 	item_state = icon_state
 	update_equipped_item(update_speedmods = FALSE)
 
-
 /obj/item/hierophant_club/proc/prepare_icon_update()
 	update_icon(UPDATE_ICON_STATE)
 	sleep(timer - world.time)
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/item/hierophant_club/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...
@@ -148,7 +144,7 @@
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))
 			user.visible_message(
-				span_hierophant_warning("[user] воз[pluralize_ru(user.gender,"ит","ят")]ся с навершием [declent_ru(GENITIVE)]..."),
+				span_hierophant_warning("[user] воз[PLUR_IT_YAT(user)]ся с навершием [declent_ru(GENITIVE)]..."),
 				span_notice("Вы начинаете отсоединять маяк Иерофанта...")
 			)
 			timer = world.time + 51
@@ -160,7 +156,7 @@
 				beacon = new/obj/effect/hierophant(T)
 				beacon.add_fingerprint(user)
 				user.update_action_buttons_icon()
-				user.visible_message(span_hierophant_warning("[user] размеща[pluralize_ru(user.gender,"ет","ют")] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
+				user.visible_message(span_hierophant_warning("[user] размеща[PLUR_ET_YUT(user)] странный механизм у своих ног!"), "[span_hierophant("Вы отсоединяете маяк Иерофанта, позволяя телепортироваться к нему в любой момент!")]\n[span_notice("Можете ударить посохом, чтобы забрать его.")]")
 			else
 				timer = world.time
 				INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
@@ -182,7 +178,7 @@
 		return
 	teleporting = TRUE //start channel
 	user.update_action_buttons_icon()
-	user.visible_message(span_hierophant_warning("[user] начина[pluralize_ru(user.gender,"ет","ют")] слабо светиться..."))
+	user.visible_message(span_hierophant_warning("[user] начина[PLUR_ET_YUT(user)] слабо светиться..."))
 	timer = world.time + 50
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 	beacon.teleporting = TRUE
@@ -332,7 +328,7 @@
 		DATIVE = "дремлющему защитному талисману",
 		ACCUSATIVE = "дремлющий защитный талисман",
 		INSTRUMENTAL = "дремлющим защитным талисманом",
-		PREPOSITIONAL = "дремлющем защитном талисмане"
+		PREPOSITIONAL = "дремлющем защитном талисмане",
 	)
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attack_self(mob/living/user)
@@ -349,7 +345,6 @@
 			to_chat(user, span_hierophant("Этот талисман уже ваш! ЧЕГО ЕЩЁ ВЫ ХОТИТЕ!?"))
 		return
 
-
 	to_chat(user, span_hierophant("Вы пытаетесь пробудить мою сущность..."))
 
 	possessed = TRUE
@@ -357,10 +352,13 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите стать духом талисмана защиты [user.real_name]?", ROLE_PAI, FALSE, 15 SECONDS, source = src)
 	var/mob/dead/observer/theghost = null
 
+	if(QDELETED(slave) || QDELETED(src))
+		return
+
 	if(length(candidates))
 		theghost = pick(candidates)
 		slave = new(src)
-		slave.ckey = theghost.ckey
+		slave.possess_by_player(theghost.ckey)
 		slave.master = user.ckey
 		name = "Talisman of warding"
 		ru_names = list(
@@ -369,7 +367,7 @@
 			DATIVE = "защитному талисману",
 			ACCUSATIVE = "защитный талисман",
 			INSTRUMENTAL = "защитным талисманом",
-			PREPOSITIONAL = "защитном талисмане"
+			PREPOSITIONAL = "защитном талисмане",
 		)
 		slave.real_name = name
 		slave.name = name
@@ -387,11 +385,9 @@
 		to_chat(user, span_hierophant("Талисман дремлет... Попробуйте позже..."))
 		possessed = FALSE
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/update_icon_state()
 	icon_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
 	item_state = "hierpohant_talisman_[slave ? "active" : "nonactive"]"
-
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/Initialize(mapload)
 	.=..()
@@ -529,8 +525,7 @@
 	to_chat(usr, span_hierophant("Вы говорите в разум [choice]:</b> [msg]"))
 	to_chat(choice, "[span_deadsay(span_hierophant("Странные, магические и одновременно чуждые мысли обращаются к вам..."))] [span_hierophant("[msg]")]")
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		G.show_message(span_hierophant("Послание Иерофанта от <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) к <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")) //what the fuck...
-
+		G.show_message(span_hierophant("Послание Иерофанта от ([ghost_follow_link(usr, ghost = G)])<b>[usr]</b> к \[[ghost_follow_link(choice, ghost = G)]\]<b>[choice]</b>: [msg]</i>")) //what the fuck...
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()
@@ -538,25 +533,21 @@
 		return .
 	toggle_spell_actions(TRUE)
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/on_removed(mob/detacher)
 	. = ..()
 	if(!slave)
 		return .
 	toggle_spell_actions(FALSE)
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attached_equip(mob/user)
 	if(!ishuman(user) || !slave || slave.master != user.ckey)
 		return
 	toggle_spell_actions(TRUE)
 
-
 /obj/item/clothing/accessory/necklace/hierophant_talisman/attached_unequip(mob/user)
 	if(!slave)
 		return
 	toggle_spell_actions(FALSE)
-
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/proc/toggle_spell_actions(add_actions)
 	if(add_actions)
@@ -573,6 +564,5 @@
 		spell_heal.action.Remove(slave)
 		spell_teleport.action.Remove(slave)
 		spell_message.action.Remove(slave)
-
 
 #undef HIEROPHANT_CLUB_CARDINAL_DAMAGE

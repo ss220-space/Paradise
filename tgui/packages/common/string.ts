@@ -207,7 +207,6 @@ export const decodeHtmlEntities = (str: string): string => {
 
 /**
  * Accepts a number, returns one of the strings - for singular, dual, and plural numbers in Russian language.
- * Handles -es and -ies.
  * *
  * @example
  * ```tsx
@@ -238,4 +237,23 @@ export const declension_ru = (
   }
 
   return multiple_name; // 5, 6, 7, 8, 9, 0
+};
+
+/**
+ * Decode html tags
+ */
+export const decodeHTML = (html) => {
+  const entities = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#39;': "'",
+    '&nbsp;': ' ',
+  };
+
+  return html.replace(
+    /&(amp|lt|gt|quot|#39|nbsp);/g,
+    (match) => entities[match]
+  );
 };

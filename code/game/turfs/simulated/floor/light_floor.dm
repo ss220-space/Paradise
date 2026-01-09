@@ -23,10 +23,8 @@
 	. = ..()
 	update_icon()
 
-
 /turf/simulated/floor/light/broken_states()
 	return list("light_broken")
-
 
 /turf/simulated/floor/light/update_icon_state()
 	if(!on)
@@ -69,7 +67,6 @@
 			icon_state = "light_off"
 			set_light_on(FALSE)
 
-
 /turf/simulated/floor/light/BeforeChange()
 	set_light_on(FALSE)
 	..()
@@ -78,7 +75,6 @@
 	if(!can_modify_colour)
 		return
 	toggle_light(!on)
-
 
 /turf/simulated/floor/light/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -97,7 +93,6 @@
 		update_icon()
 		to_chat(user, span_notice("You replace the light bulb."))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -143,6 +138,12 @@
 	desc = "Funky floor."
 	state = LIGHTFLOOR_CYCLEB
 
+/turf/simulated/floor/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 #undef LIGHTFLOOR_ON
 #undef LIGHTFLOOR_WHITE

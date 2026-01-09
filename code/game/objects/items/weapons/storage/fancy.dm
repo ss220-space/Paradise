@@ -73,7 +73,6 @@
 		new /obj/item/reagent_containers/food/snacks/donut(src)
 	update_icon(UPDATE_OVERLAYS)
 
-
 /obj/item/storage/fancy/donut_box/empty/populate_contents()
 	update_icon(UPDATE_OVERLAYS)
 	return
@@ -215,7 +214,6 @@
 /*
  * MARK: Cig Pack
  */
-
 /obj/item/storage/fancy/cigarettes
 	name = "cigarette packet"
 	desc = "Самый популярный бренд Космических Сигарет, спонсор Космо-олимпийских игр."
@@ -230,18 +228,24 @@
 	storage_slots = 20
 	max_combined_w_class = 20
 	display_contents_with_number = 1
-	can_hold = list(/obj/item/clothing/mask/cigarette,
+	can_hold = list(
+		/obj/item/clothing/mask/cigarette,
 		/obj/item/lighter,
-		/obj/item/match)
-	cant_hold = list(/obj/item/clothing/mask/cigarette/cigar,
+		/obj/item/match,
+	)
+	cant_hold = list(
+		/obj/item/clothing/mask/cigarette/cigar,
 		/obj/item/clothing/mask/cigarette/pipe,
-		/obj/item/lighter/zippo)
+		/obj/item/lighter/zippo,
+	)
 	icon_type = "cigarette"
 	var/cigarette_type = /obj/item/clothing/mask/cigarette
-	var/static/list/cigpack_diseases = list("недоношенность", "онкозаболевания", "пародонтоз",\
-					"преждевременное старение", "ампутация", "зависимость",\
-					"импотенция", "мертворождение", "смерть в агонии",\
-					"туберкулёз", "отмирание органов")
+	var/static/list/cigpack_diseases = list(
+		"недоношенность", "онкозаболевания", "пародонтоз",
+		"преждевременное старение", "ампутация", "зависимость",
+		"импотенция", "мертворождение", "смерть в агонии",
+		"туберкулёз", "отмирание органов",
+	)
 
 /obj/item/storage/fancy/cigarettes/get_ru_names()
 	return list(
@@ -250,7 +254,7 @@
 		DATIVE = "пачке сигарет",
 		ACCUSATIVE = "пачку сигарет",
 		INSTRUMENTAL = "пачкой сигарет",
-		PREPOSITIONAL = "пачке сигарет"
+		PREPOSITIONAL = "пачке сигарет",
 	)
 
 /obj/item/storage/fancy/cigarettes/Initialize(mapload)
@@ -331,9 +335,8 @@
 		DATIVE = "пачке \"Марсианский Табак\"",
 		ACCUSATIVE = "пачку \"Марсианский Табак\"",
 		INSTRUMENTAL = "пачкой \"Марсианский Табак\"",
-		PREPOSITIONAL = "пачке \"Марсианский Табак\""
+		PREPOSITIONAL = "пачке \"Марсианский Табак\"",
 	)
-
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "Syndicate Cigarettes"
@@ -343,12 +346,12 @@
 
 /obj/item/storage/fancy/cigarettes/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "пачка сигарет Синдиката",
-		GENITIVE = "пачки сигарет Синдиката",
-		DATIVE = "пачке сигарет Синдиката",
-		ACCUSATIVE = "пачку сигарет Синдиката",
-		INSTRUMENTAL = "пачкой сигарет Синдиката",
-		PREPOSITIONAL = "пачке сигарет Синдиката"
+		NOMINATIVE = "пачка сигарет \"Синдиката\"",
+		GENITIVE = "пачки сигарет \"Синдиката\"",
+		DATIVE = "пачке сигарет \"Синдиката\"",
+		ACCUSATIVE = "пачку сигарет \"Синдиката\"",
+		INSTRUMENTAL = "пачкой сигарет \"Синдиката\"",
+		PREPOSITIONAL = "пачке сигарет \"Синдиката\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
@@ -371,7 +374,7 @@
 		DATIVE = "пачке сигарет \"Доктор Денчиго\"",
 		ACCUSATIVE = "пачку сигарет \"Доктор Денчиго\"",
 		INSTRUMENTAL = "пачкой сигарет \"Доктор Денчиго\"",
-		PREPOSITIONAL = "пачке сигарет \"Доктор Денчиго\""
+		PREPOSITIONAL = "пачке сигарет \"Доктор Денчиго\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
@@ -388,7 +391,7 @@
 		DATIVE = "пачке сигарет \"Лёгкие на подъём\"",
 		ACCUSATIVE = "пачку сигарет \"Лёгкие на подъём\"",
 		INSTRUMENTAL = "пачкой сигарет \"Лёгкие на подъём\"",
-		PREPOSITIONAL = "пачке сигарет \"Лёгкие на подъём\""
+		PREPOSITIONAL = "пачке сигарет \"Лёгкие на подъём\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
@@ -403,7 +406,7 @@
 		DATIVE = "пачке сигарет \"Ричард и Компания\"",
 		ACCUSATIVE = "пачку сигарет \"Ричард и Компания\"",
 		INSTRUMENTAL = "пачкой сигарет \"Ричард и Компания\"",
-		PREPOSITIONAL = "пачке сигарет \"Ричард и Компания\""
+		PREPOSITIONAL = "пачке сигарет \"Ричард и Компания\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
@@ -419,7 +422,7 @@
 		DATIVE = "пачке сигарет \"Робаст\"",
 		ACCUSATIVE = "пачку сигарет \"Робаст\"",
 		INSTRUMENTAL = "пачкой сигарет \"Робаст\"",
-		PREPOSITIONAL = "пачке сигарет \"Робаст\""
+		PREPOSITIONAL = "пачке сигарет \"Робаст\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
@@ -437,7 +440,7 @@
 		DATIVE = "пачке сигарет \"Золотой Робаст\"",
 		ACCUSATIVE = "пачку сигарет \"Золотой Робаст\"",
 		INSTRUMENTAL = "пачкой сигарет \"Золотой Робаст\"",
-		PREPOSITIONAL = "пачке сигарет \"Золотой Робаст\""
+		PREPOSITIONAL = "пачке сигарет \"Золотой Робаст\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
@@ -453,7 +456,7 @@
 		DATIVE = "пачке сигарет \"Дымящий Карп\"",
 		ACCUSATIVE = "пачку сигарет \"Дымящий Карп\"",
 		INSTRUMENTAL = "пачкой сигарет\"Дымящий Карп\"",
-		PREPOSITIONAL = "пачке сигарет \"Дымящий Карп\""
+		PREPOSITIONAL = "пачке сигарет \"Дымящий Карп\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
@@ -469,7 +472,7 @@
 		DATIVE = "пачке сигарет \"Табак Мидори\"",
 		ACCUSATIVE = "пачку сигарет \"Табак Мидори\"",
 		INSTRUMENTAL = "пачкой сигарет \"Табак Мидори\"",
-		PREPOSITIONAL = "пачке сигарет \"Табак Мидори\""
+		PREPOSITIONAL = "пачке сигарет \"Табак Мидори\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
@@ -490,7 +493,7 @@
 		DATIVE = "пачке сигарет \"от Шейди Джима\"",
 		ACCUSATIVE = "пачку сигарет \"от Шейди Джима\"",
 		INSTRUMENTAL = "пачкой сигарет \"от Шейди Джима\"",
-		PREPOSITIONAL = "пачке сигарет \"от Шейди Джима\""
+		PREPOSITIONAL = "пачке сигарет \"от Шейди Джима\"",
 	)
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
@@ -507,12 +510,12 @@
 		DATIVE = "пачке сигарет \"Энигма\"",
 		ACCUSATIVE = "пачку сигарет \"Энигма\"",
 		INSTRUMENTAL = "пачкой сигарет \"Энигма\"",
-		PREPOSITIONAL = "пачке сигарет \"Энигма\""
+		PREPOSITIONAL = "пачке сигарет \"Энигма\"",
 	)
 
 /obj/item/storage/fancy/rollingpapers
 	name = "rolling paper pack"
-	desc = "Упаковка рулонной бумаги Нанотрейзен."
+	desc = "Упаковка рулонной бумаги \"Нанотрейзен\"."
 	gender = FEMALE
 	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'
@@ -529,7 +532,7 @@
 		DATIVE = "упаковке рулонной бумаги",
 		ACCUSATIVE = "упаковку рулонной бумаги",
 		INSTRUMENTAL = "упаковкой рулонной бумаги",
-		PREPOSITIONAL = "упаковке рулонной бумаги"
+		PREPOSITIONAL = "упаковке рулонной бумаги",
 	)
 
 /obj/item/storage/fancy/rollingpapers/populate_contents()
@@ -565,7 +568,7 @@
 		DATIVE = "портсигару",
 		ACCUSATIVE = "портсигар",
 		INSTRUMENTAL = "портсигаром",
-		PREPOSITIONAL = "портсигаре"
+		PREPOSITIONAL = "портсигаре",
 	)
 
 /obj/item/storage/fancy/cigcase/update_icon_state()
@@ -621,11 +624,11 @@
 /*
  * MARK: Aquatic Starter Kit
  */
-
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
 	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."
-	icon_state = "AquaticKit"
+	icon_state = "acuatic_kit"
+	item_state = "fishkit"
 	med_bot_skin = "fish"
 
 /obj/item/storage/firstaid/aquatic_kit/get_ru_names()
@@ -635,7 +638,7 @@
 		DATIVE = "набору для ухода за аквариумом",
 		ACCUSATIVE = "набор для ухода за аквариумом",
 		INSTRUMENTAL = "набором для ухода за аквариумом",
-		PREPOSITIONAL = "наборе для ухода за аквариумом"
+		PREPOSITIONAL = "наборе для ухода за аквариумом",
 	)
 
 /obj/item/storage/firstaid/aquatic_kit/full/populate_contents()

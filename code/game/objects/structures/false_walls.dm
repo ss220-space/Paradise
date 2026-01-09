@@ -27,10 +27,11 @@
 	canSmoothWith = SMOOTH_GROUP_WALLS
 	smoothing_groups = SMOOTH_GROUP_WALLS
 	smooth = SMOOTH_BITMASK
+	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 /obj/structure/falsewall/examine_status(mob/user)
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -51,7 +52,7 @@
 
 /obj/structure/falsewall/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/falsewall/CanAtmosPass(turf/T, vertical)
@@ -64,7 +65,6 @@
 /obj/structure/falsewall/attack_hand(mob/user)
 	. = ..()
 	toggle(user)
-
 
 /obj/structure/falsewall/proc/toggle(mob/user)
 	if(opening)
@@ -88,10 +88,9 @@
 		obj_flags |= BLOCK_Z_IN_DOWN
 		sleep(0.4 SECONDS)
 		set_opacity(TRUE)
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
 
 /obj/structure/falsewall/proc/do_the_flick()
 	if(density)
@@ -101,7 +100,6 @@
 	else
 		flick("fwall_closing", src)
 
-
 /obj/structure/falsewall/update_icon_state()
 	if(density)
 		icon_state = initial(icon_state)
@@ -110,14 +108,12 @@
 	else
 		icon_state = "fwall_open"
 
-
 /obj/structure/falsewall/proc/ChangeToWall(delete = TRUE)
 	var/turf/T = get_turf(src)
 	T.ChangeTurf(walltype)
 	if(delete)
 		qdel(src)
 	return T
-
 
 /obj/structure/falsewall/attackby(obj/item/I, mob/user, params)
 	if(opening)
@@ -138,7 +134,6 @@
 
 	return ..()
 
-
 /obj/structure/falsewall/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!density)
@@ -158,7 +153,6 @@
 		span_warning("Вы затягиваете болты на стене."),
 	)
 	ChangeToWall()
-
 
 /obj/structure/falsewall/welder_act(mob/user, obj/item/I)
 	if(!density)
@@ -200,7 +194,6 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
-
 // Copy of `/turf/hit_by_thrown_carbon()`. A falsewall is just a wall after all.
 /obj/structure/falsewall/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
@@ -216,7 +209,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, hitby_react), AM), 0.2 SECONDS)
 
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
-
 
 /*
  * False R-Walls
@@ -272,7 +264,6 @@
 				rad_interaction_cooldown = 1.5 SECONDS \
 	)
 
-
 /*
  * Other misc falsewall types
  */
@@ -311,7 +302,6 @@
 	smoothing_groups = SMOOTH_GROUP_DIAMOND_WALLS
 	max_integrity = 800
 
-
 /obj/structure/falsewall/plasma
 	name = "plasma wall"
 	desc = "A wall with plasma plating. This is definately a bad idea."
@@ -322,7 +312,6 @@
 	walltype = /turf/simulated/wall/mineral/plasma
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
-
 
 /obj/structure/falsewall/plasma/attackby(obj/item/I, mob/user, params)
 	if(opening)
@@ -336,16 +325,15 @@
 
 	return ..()
 
-
 /obj/structure/falsewall/plasma/proc/burnbabyburn(user)
 	playsound(src, 'sound/items/welder.ogg', 100, TRUE)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
 
-/obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/falsewall/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		burnbabyburn()
 
 /obj/structure/falsewall/alien
@@ -358,7 +346,6 @@
 	walltype = /turf/simulated/wall/mineral/abductor
 	canSmoothWith = SMOOTH_GROUP_PLASMA_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASMA_WALLS
-
 
 /obj/structure/falsewall/bananium
 	name = "bananium wall"
@@ -493,19 +480,5 @@
 	if(I.use_tool(src, user, 120, volume = I.tool_volume)) // 20% more than double normal wall.
 		dismantle(user, TRUE)
 
-
 /obj/structure/falsewall/clockwork/screwdriver_act(mob/living/user, obj/item/I)
 	return FALSE	// wall change is unavailable, idk why
-
-
-/obj/structure/falsewall/mineral_ancient
-	name = "ancient rock"
-	desc = "A rare asteroid rock that appears to be resistant to all mining tools except pickaxes!"
-	icon = 'icons/turf/smoothrocks.dmi'
-	base_icon_state = "smoothrocks"
-	icon_state = "rock_ancient"
-	color = COLOR_ANCIENT_ROCK
-	smoothing_groups = SMOOTH_GROUP_MINERAL_WALLS
-	canSmoothWith = SMOOTH_GROUP_MINERAL_WALLS
-	mineral = /obj/item/stack/ore/glass/basalt/ancient
-	walltype = /turf/simulated/mineral/ancient

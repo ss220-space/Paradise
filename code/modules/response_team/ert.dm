@@ -5,14 +5,8 @@ GLOBAL_VAR_INIT(send_emergency_team, FALSE)
 GLOBAL_VAR_INIT(ert_request_answered, TRUE)
 GLOBAL_LIST_EMPTY(ert_request_messages)
 
-/client/proc/response_team()
-	set name = "Dispatch CentComm Response Team"
-	set category = STATPANEL_ADMIN_EVENT
-	set desc = "Отправляет на станцию ​Отряд Быстрого Реагирования."
-
-	if(!check_rights(R_EVENT))
-		return
-	send_response_team()
+ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an CentComm response team to the station.", ADMIN_CATEGORY_EVENTS)
+	user.send_response_team()
 
 /client/proc/send_response_team()
 	if(!SSticker)
@@ -27,8 +21,8 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 		to_chat(usr, span_warning("Центральное командование уже направило Отряд Быстрого Реагирования!"))
 		return
 
-	var/datum/ui_module/ert_manager/E = new()
-	E.ui_interact(usr)
+	var/datum/ui_module/ert_manager/ert_manager = new()
+	ert_manager.ui_interact(usr)
 
 /mob/dead/observer/proc/JoinResponseTeam()
 	if(!GLOB.send_emergency_team)
@@ -117,7 +111,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 				if(!user || !new_commando)
 					break
 				new_commando.mind.key = user.key
-				new_commando.key = user.key
+				new_commando.possess_by_player(user.ckey)
 				new_commando.update_icons()
 				new_commando.change_voice()
 				break
@@ -183,7 +177,6 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	M.update_dna()
 
 	return M
-
 
 /datum/response_team
 	var/list/slots = list(
@@ -340,7 +333,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	pda = /obj/item/pda/heads/ert
 	id = /obj/item/card/id/ert
 	l_ear = /obj/item/radio/headset/ert/alt
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/responseteam
 
 	implants = list(/obj/item/implant/mindshield/ert)
 

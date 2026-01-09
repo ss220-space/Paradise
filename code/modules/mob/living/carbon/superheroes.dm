@@ -23,13 +23,11 @@
 	for(var/obj/item/W in H.get_all_slots())
 		ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 
-
 /datum/superheroes/proc/assign_genes(mob/living/carbon/human/H)
 	H.force_gene_block(GLOB.regenerateblock, TRUE)
 	H.force_gene_block(GLOB.breathlessblock, TRUE)
 	H.force_gene_block(GLOB.coldblock, TRUE)
 	H.gene_stability = 100
-
 
 /datum/superheroes/proc/assign_spells(mob/living/carbon/human/H)
 	if(length(default_spells))
@@ -77,7 +75,6 @@
 	H.equip_to_slot_or_del(new /obj/item/storage/belt/bluespace/owlman(H), ITEM_SLOT_BELT)
 	H.equip_to_slot_or_del(new /obj/item/clothing/glasses/night(H), ITEM_SLOT_EYES)
 
-
 /datum/superheroes/griffin
 	name = "The Griffin"
 	default_spells = list(/obj/effect/proc_holder/spell/recruit)
@@ -97,7 +94,6 @@
 	var/obj/item/implant/freedom/L = new/obj/item/implant/freedom(H)
 	L.implant(H)
 
-
 /datum/superheroes/lightnian
 	name = "LightnIan"
 	class = "Superhero"
@@ -116,7 +112,6 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/yellow(H), ITEM_SLOT_GLOVES)
 	H.equip_to_slot_or_del(new /obj/item/bedsheet/orange(H), ITEM_SLOT_BACK)
 
-
 /datum/superheroes/electro
 	name = "Electro-Negmatic"
 	class = "Supervillain"
@@ -134,11 +129,7 @@
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), ITEM_SLOT_HEAD)
 	H.equip_to_slot_or_del(new /obj/item/bedsheet/cult(H), ITEM_SLOT_BACK)
 
-
-
-
 ///////////////////////////////POWERS/ABILITIES CODE/////////////////////////////////////////
-
 
 //The Griffin's special recruit abilitiy
 /obj/effect/proc_holder/spell/recruit
@@ -153,14 +144,11 @@
 	selection_deactivated_message	= span_notice("You decide to save your brilliance for another day.")
 	need_active_overlay = TRUE
 
-
-
 /obj/effect/proc_holder/spell/recruit/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.click_radius = -1
 	T.range = 1
 	return T
-
 
 /obj/effect/proc_holder/spell/recruit/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
 	if(length(SSticker.mode.greyshirts) >= 3)
@@ -174,10 +162,8 @@
 		return FALSE
 	return ..()
 
-
 /obj/effect/proc_holder/spell/recruit/valid_target(mob/living/carbon/human/target, user)
 	return target.ckey && !target.stat
-
 
 /obj/effect/proc_holder/spell/recruit/cast(list/targets,mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]

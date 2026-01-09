@@ -19,7 +19,7 @@
 #define PREFTOGGLE_CHAT_GHOSTEARS (1<<2)
 #define PREFTOGGLE_CHAT_GHOSTSIGHT (1<<3)
 #define PREFTOGGLE_CHAT_PRAYER (1<<4)
-#define PREFTOGGLE_CHAT_RADIO (1<<5)
+#define PREFTOGGLE_CHAT_RADIO (1<<5) // we have PREFTOGGLE_CHAT_GHOSTRADIO for all players
 // #define PREFTOGGLE_AZERTY (1<<6) // obsolete
 #define PREFTOGGLE_CHAT_DEBUGLOGS (1<<7)
 #define PREFTOGGLE_CHAT_LOOC (1<<8)
@@ -63,14 +63,14 @@
 #define PREFTOGGLE_2_BIG_STRIP_MENU (1<<17) // 131072
 #define PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE (1<<18) // 262144
 #define PREFTOGGLE_2_PIXELATED_MENU (1<<19) // 524288
-#define PREFTOGGLE_2_DESC_TIPS (1<<20) // 1048576
+#define PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS (1<<20) // 1048576
 #define PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE (1<<21) // 2097152
 #define PREFTOGGLE_2_SPLIT_ADMIN_TABS (1<<22) // 4194304
 #define PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES (1<<23) // 8388608
 
 #define TOGGLES_2_TOTAL 16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
-#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS|PREFTOGGLE_2_DESC_TIPS)
+#define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS)
 
 // Sanity checks
 #if TOGGLES_TOTAL > 16777215
@@ -116,7 +116,6 @@
 /// Interacts with the toggles3 bitflag
 #define PREFTOGGLE_TOGGLE3 5
 
-
 // Admin attack logs filter system, see /proc/add_attack_logs
 #define ATKLOG_ALL 0 // All. no exceptions
 #define ATKLOG_ALMOSTALL 1 // exceptions: NPC vs NPC, strip/equip, vamp bites and pushing
@@ -143,7 +142,6 @@
 
 #define EXP_DEPT_TYPE_LIST list(EXP_TYPE_SERVICE, EXP_TYPE_MEDICAL, EXP_TYPE_ENGINEERING, EXP_TYPE_SCIENCE, EXP_TYPE_SECURITY, EXP_TYPE_COMMAND, EXP_TYPE_SILICON, EXP_TYPE_SPECIAL)
 
-
 /// Tags for 'age needed for this job' list.
 #define SPECIES_AGE_MIN "Min"
 #define SPECIES_AGE_MAX "Max"
@@ -151,7 +149,6 @@
 #define JOB_MIN_AGE_COMMAND "Command"
 
 #define AGE_SHEET list(SPECIES_AGE_MIN = 18, SPECIES_AGE_MAX = 85, JOB_MIN_AGE_HIGH_ED = 30, JOB_MIN_AGE_COMMAND = 30)
-
 
 // Defines just for parallax because its levels make storing it in the regular prefs a pain in the ass
 // These dont need to be bitflags because there isnt going to be more than one at a time of these active
@@ -168,7 +165,6 @@
 #define MULTIZ_DETAIL_HIGH 2
 #define MULTIZ_DETAIL_MEDIUM 1
 #define MULTIZ_DETAIL_LOW 0
-
 
 // Categories
 #define PREF_CATEGORY_GENERAL "Основные настройки"
@@ -228,3 +224,14 @@
 #define PREF_GENDER_FEMALE "Женский"
 #define PREF_GENDER_PLURAL "Бесполый"
 
+// Exoframes (machines only)
+#define PREF_EXOFRAME_REINFORCED "EXO_REINFORCED"
+#define PREF_EXOFRAME_INDUSTRIAL "EXO_INDUSTRIAL"
+
+/// This isnt in client_defines due to scoping issues
+#define DEFAULT_CLIENT_VIEWSIZE "17x15"
+
+// Used for alternate_option
+#define GET_RANDOM_JOB 0
+#define BE_ASSISTANT 1
+#define RETURN_TO_LOBBY 2

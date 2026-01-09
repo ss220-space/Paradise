@@ -17,11 +17,9 @@
 /turf/simulated/floor/mineral/broken_states()
 	return list("[initial(icon_state)]_dam")
 
-
 /turf/simulated/floor/mineral/update_icon_state()
 	if(!broken && !burnt && !(icon_state in icons))
 		icon_state = initial(icon_state)
-
 
 //PLASMA
 /turf/simulated/floor/mineral/plasma
@@ -30,11 +28,10 @@
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
 
-/turf/simulated/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/turf/simulated/floor/mineral/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		PlasmaBurn()
-
 
 /turf/simulated/floor/mineral/plasma/attackby(obj/item/I, mob/user, params)
 	. = ..()
@@ -47,7 +44,6 @@
 		investigate_log("was [span_warning("ignited")] by [key_name_log(user)]",INVESTIGATE_ATMOS)
 		ignite(I.get_heat())
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-
 
 /turf/simulated/floor/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
@@ -86,6 +82,13 @@
 	icon_state = "silver"
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
+
+/turf/simulated/floor/mineral/silver/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/mineral/silver/fancy
 	icon_state = "silverfancy"
@@ -138,11 +141,27 @@
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
 
+/turf/simulated/floor/mineral/plastitanium/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+
 /turf/simulated/floor/mineral/plastitanium/broken_states()
 	return list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
 
 /turf/simulated/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
+
+/turf/simulated/floor/mineral/plastitanium/red/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 
 /turf/simulated/floor/mineral/plastitanium/red/airless
 	oxygen = 0
@@ -165,11 +184,9 @@
 	if(isliving(arrived))
 		squeek()
 
-
 /turf/simulated/floor/mineral/bananium/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	honk()
-
 
 /turf/simulated/floor/mineral/bananium/attack_hand(mob/user)
 	.=..()
@@ -191,7 +208,6 @@
 	nitrogen = 0
 	temperature = TCMB
 
-
 /turf/simulated/floor/mineral/bananium/lubed/Initialize(mapload)
 	. = ..()
 	MakeSlippery(TURF_WET_LUBE, INFINITY, 0, INFINITY, TRUE)
@@ -202,6 +218,13 @@
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
 		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
+
+/turf/simulated/floor/mineral/bananium/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
@@ -263,6 +286,14 @@
 				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
 
+/turf/simulated/floor/mineral/abductor/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+
 /turf/simulated/floor/plating/abductor2
 	name = "alien plating"
 	icon_state = "alienplating"
@@ -272,3 +303,10 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
+
+/turf/simulated/floor/plating/abductor/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND

@@ -178,9 +178,7 @@
 	},
 /area/shuttle/transport)
 "x" = (
-/obj/machinery/power/supermatter_shard{
-	anchored = 1
-	},
+/obj/machinery/atmospherics/supermatter_crystal,
 /turf/simulated/floor/engine,
 /area/shuttle/transport)
 "z" = (

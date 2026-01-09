@@ -26,7 +26,6 @@
 	)
 
 
-
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
 
@@ -45,7 +44,6 @@
 	icon_state = initial(new_color.icon_state)
 	item_state = initial(new_color.item_state)
 	item_color = initial(new_color.item_color)
-
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
@@ -84,7 +82,6 @@
 
 /obj/item/clothing/under/color/grey/greytide
 
-
 /obj/item/clothing/under/color/grey/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
@@ -104,7 +101,7 @@
 
 /obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
-	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	desc = "Старая одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
 	has_sensor = 2
 	sensor_mode = 3
 	icon_state = "jumpsuit"
@@ -137,12 +134,12 @@
 		DATIVE = "старому тюремному комбинезону",
 		ACCUSATIVE = "старый тюремный комбинезон",
 		INSTRUMENTAL = "старым тюремным комбинезоном",
-		PREPOSITIONAL = "старом тюремном комбинезоне"
+		PREPOSITIONAL = "старом тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/prison
 	name = "prison jumpsuit"
-	desc = "Cтандартная одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	desc = "Cтандартная одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
 	icon_state = "prison"
 	item_state = "prison"
 	item_color = "prison"
@@ -156,7 +153,7 @@
 		DATIVE = "тюремному комбинезону",
 		ACCUSATIVE = "тюремный комбинезон",
 		INSTRUMENTAL = "тюремным комбинезоном",
-		PREPOSITIONAL = "тюремном комбинезоне"
+		PREPOSITIONAL = "тюремном комбинезоне",
 	)
 
 /obj/item/clothing/under/color/pink
@@ -170,11 +167,9 @@
 
 /obj/item/clothing/under/color/red/dodgeball
 
-
 /obj/item/clothing/under/color/red/dodgeball/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
@@ -201,8 +196,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"

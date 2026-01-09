@@ -6,12 +6,12 @@
 
 /datum/action/innate/slime
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
-	icon_icon = 'icons/mob/actions/actions_slime.dmi'
+	button_icon = 'icons/mob/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
 	var/needs_growth = NO_GROWTH_NEEDED
 	var/needs_split = NO_SPLIT_NEEDED
 
-/datum/action/innate/slime/IsAvailable()
+/datum/action/innate/slime/IsAvailable(feedback = FALSE)
 	if(..())
 		var/mob/living/simple_animal/slime/S = owner
 		if(needs_growth == GROWTH_NEEDED)
@@ -23,7 +23,7 @@
 		return 1
 
 /mob/living/simple_animal/slime/verb/Feed()
-	set category = STATPANEL_SLIME
+	set category = VERB_CATEGORY_SLIME
 	set desc = "This will let you feed on any valid creature in the surrounding area. This should also be used to halt the feeding process."
 
 	if(stat)
@@ -46,7 +46,6 @@
 /datum/action/innate/slime/feed
 	name = "Поглощать"
 	button_icon_state = "slimeeat"
-
 
 /datum/action/innate/slime/feed/Activate()
 	var/mob/living/simple_animal/slime/S = owner
@@ -77,31 +76,31 @@
 	if(isslime(M))
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>I can't latch onto another slime...</i></span>")
+		to_chat(src, span_warning("<i>I can't latch onto another slime...</i>"))
 		return FALSE
 
 	if(docile)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='notice'><i>I'm not hungry anymore...</i></span>")
+		to_chat(src, span_notice("<i>I'm not hungry anymore...</i>"))
 		return FALSE
 
 	if(stat)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>I must be conscious to do this...</i></span>")
+		to_chat(src, span_warning("<i>I must be conscious to do this...</i>"))
 		return FALSE
 
 	if(M.stat == DEAD)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>This subject does not have a strong enough life energy...</i></span>")
+		to_chat(src, span_warning("<i>This subject does not have a strong enough life energy...</i>"))
 		return FALSE
 
 	if(locate(/mob/living/simple_animal/slime) in M.buckled_mobs)
 		if(silent)
 			return FALSE
-		to_chat(src, "<span class='warning'><i>Another slime is already feeding on this subject...</i></span>")
+		to_chat(src, span_warning("<i>Another slime is already feeding on this subject...</i>"))
 		return FALSE
 	return TRUE
 
@@ -112,7 +111,7 @@
 		M.visible_message(span_danger("[name] has latched onto [M]!"), \
 						span_userdanger("[name] has latched onto [M]!"))
 	else
-		to_chat(src, "<span class='warning'><i>I have failed to latch onto the subject!</i></span>")
+		to_chat(src, span_warning("<i>I have failed to latch onto the subject!</i>"))
 
 /mob/living/simple_animal/slime/proc/Feedstop(silent = FALSE, living = 1)
 	if(buckled)
@@ -123,12 +122,12 @@
 			"I do not feel nourished", "This subject is not food")]!"))
 		if(!silent)
 			visible_message(span_warning("[src] has let go of [buckled]!"), \
-							"<span class='notice'><i>I stopped feeding.</i></span>")
+							span_notice("<i>I stopped feeding.</i>"))
 		layer = initial(layer)
 		buckled.unbuckle_mob(src,force=TRUE)
 
 /mob/living/simple_animal/slime/verb/Evolve()
-	set category = STATPANEL_SLIME
+	set category = VERB_CATEGORY_SLIME
 	set desc = "This will let you evolve slime."
 
 	if(stat)
@@ -182,7 +181,7 @@
 		A.Grant(S)
 
 /mob/living/simple_animal/slime/verb/Reproduce()
-	set category = STATPANEL_SLIME
+	set category = VERB_CATEGORY_SLIME
 	set desc = "This will make you split into four Slimes."
 
 	if(stat)
@@ -257,7 +256,7 @@
 	if(src.mind)
 		src.mind.transfer_to(new_slime)
 	else
-		new_slime.key = src.key
+		new_slime.possess_by_player(key)
 	qdel(src)
 	return TRUE
 

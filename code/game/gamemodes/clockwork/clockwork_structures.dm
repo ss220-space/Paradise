@@ -41,7 +41,6 @@
 	var/atom/selected_type = choosable_items[hidden_type]
 	name = initial(selected_type.name)
 
-
 /obj/structure/clockwork/functional/update_desc(updates = ALL)
 	. = ..()
 	if(!hidden)
@@ -71,7 +70,6 @@
 	var/atom/selected_type = choosable_items[hidden_type]
 	icon = initial(selected_type.icon)
 	icon_state = initial(selected_type.icon_state)
-
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
@@ -104,7 +102,6 @@
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/clockwork/functional/obj_destruction()
 	visible_message(death_message)
@@ -183,8 +180,6 @@
 			if(ishuman(L) && !HAS_TRAIT(L, TRAIT_NO_BLOOD_RESTORE) && L.blood_volume < BLOOD_VOLUME_NORMAL)
 				L.AdjustBlood(1)
 
-
-
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)
@@ -256,7 +251,6 @@
 	else
 		icon_state = initial(selected_type.icon_state)
 
-
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		add_fingerprint(user)
@@ -305,7 +299,6 @@
 			START_PROCESSING(SSprocessing, src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
 
 /obj/structure/clockwork/functional/altar/process()
 	for(var/mob/living/M in range(1, src))
@@ -377,7 +370,6 @@
 	if(!silent)
 		visible_message(span_warning("[src] slowly stops glowing!"))
 
-
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/shard))
 		add_fingerprint(user)
@@ -392,9 +384,9 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар. Служба безопасности получает право свободно применять летальную силу для уничтожения угрозы. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+			ANNOUNCE_CCPARANORMAL_RU,
+			'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual(user)
@@ -459,7 +451,6 @@
 	if(!hidden && (isclocker(user) || isobserver(user)))
 		. += span_notice("There's [cog_slots - length(cogscarab_list)] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."].")
 
-
 /obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
 	. = ..()
 	GLOB.clockwork_fabricators += src
@@ -483,7 +474,6 @@
 	cog_slots -= 1
 	if(!timer_fabrictor)
 		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-
 
 /obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
@@ -510,7 +500,6 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-
 /obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
 	. = ..()
 	if(. && timer_fabrictor) // hidden
@@ -535,7 +524,7 @@
 			to_chat(user, span_notice("There's no empty shells to take!"))
 			return FALSE
 		var/mob/living/silicon/robot/cogscarab/cog = new(loc)
-		cog.key = user.key
+		cog.possess_by_player(user.key)
 		if(SSticker.mode.add_clocker(cog.mind))
 			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone")
 		cog.fabr = src

@@ -113,11 +113,10 @@
 	if(length(scramble_cache) > SCRAMBLE_CACHE_LEN)
 		scramble_cache.Cut(1, scramble_cache.len-SCRAMBLE_CACHE_LEN-1)
 
-
 	return scrambled_text
 
 /datum/language/proc/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return span_message("<span class='[colour]'>[message]</span>")
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -134,7 +133,7 @@
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = span_gamesay("[name], [span_name("[speaker_mask]")] ([ghost_follow_link(speaker, ghost=player)]) [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
+			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)])[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
@@ -160,7 +159,6 @@
 	name = "Шум"
 	desc = "Просто шум."
 	flags = RESTRICTED|NONGLOBAL|INNATE|NO_TALK_MSG|NO_STUTTER|NOBABEL
-
 
 /datum/language/noise/get_talkinto_msg_range(message)
 	// if you make a loud noise (screams etc), you'll be heard from 4 tiles over instead of two
@@ -256,7 +254,6 @@
 	flags = RESTRICTED
 	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
-
 #define SKRELL_ADDITIONAL_SYLLABLES 2 // Maximum of additional syllables for first and second names
 
 /datum/language/skrell/get_random_name() // Name generator authors: @saichi23 && @cadavrik
@@ -312,7 +309,6 @@
 	return "[trim(full_name)]"
 
 #undef SKRELL_ADDITIONAL_SYLLABLES
-
 
 /datum/language/vox
 	name = LANGUAGE_VOX
@@ -394,7 +390,6 @@
 	new_name += "[pick(list("Тристан","Зарлан","Клак","Краз","Крамн","Орлан","Зракс"))]"
 	return new_name
 
-
 /datum/language/slime
 	name = LANGUAGE_SLIME
 	desc = "Язык Плазмолюдов. Это смесь булькающих и хлюпающих звуков. Другим гуманоидам очень сложно говорить на нём без механической помощи."
@@ -434,7 +429,7 @@
 		to_chat(speaker, span_warning("Вы не можете поднести руки к голове для телепатии!"))
 		return FALSE
 
-	speaker.visible_message( span_notice("[speaker] прикладыва[pluralize_ru(speaker.gender, "ет", "ют")] пальцы к виску.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
+	speaker.visible_message( span_notice("[speaker] прикладыва[PLUR_ET_YUT(speaker)] пальцы к виску.")) //If placed in grey/broadcast, it will happen regardless of the success of the action.
 
 	return TRUE
 
@@ -631,7 +626,6 @@
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
 
-
 /datum/language/ling
 	name = LANGUAGE_HIVE_CHANGELING
 	desc = "Хотя обычно Генокрады относятся друг к другу с осторожностью и подозрением, они могут общаться на расстоянии."
@@ -640,7 +634,6 @@
 	key = "g"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
-
 
 /datum/language/ling/broadcast(mob/living/speaker, message, speaker_mask)
 	var/datum/antagonist/changeling/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling)
@@ -657,7 +650,6 @@
 	key = "gi"
 	flags = RESTRICTED | HIVEMIND | NOBABEL
 	follow = TRUE
-
 
 /datum/language/eventling/broadcast(mob/living/speaker, message, speaker_mask)
 	var/datum/antagonist/changeling/evented/cling = speaker?.mind?.has_antag_datum(/datum/antagonist/changeling/evented)
@@ -754,23 +746,31 @@
 
 	add_say_logs(speaker, message, language = "ROBOT")
 
-	var/message_start = "<i><span class='game say'>[name], [span_name("[speaker.name]")]"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i>[span_robot("\"[message]\"")]</span></span>"
+	var/list/message_start = list("<i><span class='game say'>[name], [span_name("[speaker.name]")]") //Strings as lists lets you add blocks of text much easier
+	var/list/message_body = list(span_message("[speaker.say_quote(message)],</i>[span_robot("\"[message]\"")]</span>"))
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], [span_name("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]"
-			M.show_message("[message_start_dead] [message_body]", 2)
+			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)])<i><span class='game say'>[name], [span_name("[speaker.name]")]")
+			var/list/dead_message = message_start_dead + message_body
+			M.show_message(dead_message.Join(" "), 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
-		if(drone_only && !(isdrone(S)||iscogscarab(S)))
+		if(!S.binarycheck())
+			continue
+		else if(drone_only && !(isdrone(S) || iscogscarab(S)))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'>[span_name("[speaker.name]")]</a>"
-		else if(!S.binarycheck())
-			continue
-
-		S.show_message("[message_start] [message_body]", 2)
+			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>")
+		else if(isrobot(S))
+			var/mob/living/silicon/robot/borg = S
+			if(borg.connected_ai?.name == speaker.name)
+				var/list/big_font_prefix = list("<span style='font-size: 18px;'>")
+				var/list/big_font_suffix = list("</span>")
+				message_start = big_font_prefix + message_start
+				message_body = message_body + big_font_suffix
+		var/list/final_message = message_start + message_body
+		S.show_message(final_message.Join(" "), 2)
 
 	var/list/listening = hearers(1, src)
 	listening -= src
@@ -778,7 +778,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message(span_gamesay("<i>[span_name("синтезированный голос")] [span_message("сообщает: \"бип бип бип\"")]</i>"),2)
+		M.show_message("<i>[span_gamesay("[span_name("synthesised voice")] [span_message("beeps, \"beep beep beep\"")]")]</i>", 2)
 
 /datum/language/binary/drone
 	name = LANGUAGE_DRONE_BINARY
@@ -839,27 +839,22 @@
 	desc = "Гаф-гав-гаф."
 	key = "vu"
 
-
 /datum/language/angel
 	name = LANGUAGE_ANGEL
 	colour = "colossus yell"
 	flags = RESTRICTED|NO_STUTTER|NOBABEL|NONGLOBAL|INNATE
-
 
 /datum/language/angel/proc/get_spans(mob/speaker)
 	. = colour //reset spans, just in case someone gets deculted or the cords change owner
 	if(iscultist(speaker))
 		. += " narsiesmall"
 
-
 /datum/language/angel/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[get_spans(speaker)]'>[message]</span></span>"
-
+	return span_message("<span class='[get_spans(speaker)]'>[message]</span>")
 
 // Can we speak this language, as opposed to just understanding it?
 /mob/proc/can_speak_language(datum/language/speaking)
 	return universal_speak || (speaking == GLOB.all_languages[LANGUAGE_NOISE]) || LAZYIN(languages, speaking)
-
 
 //TBD
 /mob/proc/check_lang_data()
@@ -868,7 +863,6 @@
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			. += "<b>[L.name] (:[L.key])</b><br/>[L.desc]<br><br>"
-
 
 /mob/living/check_lang_data()
 	. = ""
@@ -883,16 +877,14 @@
 			else
 				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.name]\">По умолчанию</a><br>[L.desc]<br><br>"
 
-
 /mob/verb/check_languages()
 	set name = "Меню языков"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set src = usr
 
 	var/datum/browser/popup = new(src, "checklanguage", "Меню языков", 420, 470)
 	popup.set_content(check_lang_data())
 	popup.open()
-
 
 /mob/living/Topic(href, href_list)
 	. = ..()
@@ -907,7 +899,6 @@
 				set_default_language(L)
 		check_languages()
 		return TRUE
-
 
 // Language handling.
 /mob/proc/add_language(language_name)
@@ -928,7 +919,6 @@
 	if(.)
 		LAZYADD(languages, new_language)
 
-
 /mob/proc/remove_language(language_name)
 	var/result_flags = SEND_SIGNAL(src, COMSIG_LANG_PRE_ACT, language_name)
 	if(SEND_SIGNAL(src, COMSIG_MOB_LANGUAGE_REMOVE, language_name, result_flags) & DISEASE_MOB_LANGUAGE_PROCESSED)
@@ -944,7 +934,6 @@
 	if(.)
 		LAZYREMOVE(languages, rem_language)
 
-
 /mob/living/remove_language(language_name)
 	var/datum/language/rem_language = GLOB.all_languages[language_name]
 	if(!istype(rem_language))
@@ -957,7 +946,6 @@
 
 	return ..()
 
-
 /mob/proc/grant_all_babel_languages()
 	for(var/la in GLOB.all_languages)
 		var/datum/language/new_language = GLOB.all_languages[la]
@@ -965,11 +953,9 @@
 			continue
 		LAZYOR(languages, new_language)
 
-
 /mob/proc/grant_all_languages()
 	for(var/la in GLOB.all_languages)
 		add_language(la)
-
 
 /proc/convert_lang_key_to_name(language_key)
 	var/static/list/language_keys_and_names = list()
@@ -979,7 +965,6 @@
 			language_keys_and_names[language.key] = language_name
 	return language_keys_and_names[language_key]
 
-
 /proc/get_language_prefix(language_name)
 	var/datum/language/language = GLOB.all_languages[language_name]
 	if(language)
@@ -987,6 +972,5 @@
 	else
 		. = "Non-existent key"
 		CRASH("[language_name] language does not exist.")
-
 
 #undef SCRAMBLE_CACHE_LEN

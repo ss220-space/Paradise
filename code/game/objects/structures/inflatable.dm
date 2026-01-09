@@ -25,22 +25,20 @@
 
 /obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 /obj/structure/inflatable/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
+/obj/structure/inflatable/CanAtmosPass(direction)
 	return !density
-
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (is_sharp(I) || is_pointed(I)))
+	if(!ATTACK_CHAIN_CANCEL_CHECK(.) && !QDELETED(src) && (I.sharp || is_pointed(I)))
 		deconstruct(FALSE)
-
 
 /obj/structure/inflatable/attack_hand(mob/user)
 	add_fingerprint(user)
@@ -48,7 +46,6 @@
 /obj/structure/inflatable/click_alt(mob/living/user)
 	deconstruct(TRUE)
 	return CLICK_ACTION_SUCCESS
-
 
 /obj/structure/inflatable/deconstruct(disassembled = TRUE)
 	playsound(loc, 'sound/machines/hiss.ogg', 75, TRUE)
@@ -61,7 +58,6 @@
 		visible_message("[src] slowly deflates.")
 		addtimer(CALLBACK(src, PROC_REF(deflate)), 5 SECONDS)
 
-
 /obj/structure/inflatable/proc/deflate()
 	var/obj/item/inflatable/R = new intact(loc)
 	transfer_fingerprints_to(R)
@@ -69,7 +65,7 @@
 
 /obj/structure/inflatable/verb/hand_deflate()
 	set name = "Сдуть"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -110,7 +106,6 @@
 /obj/structure/inflatable/door/attack_hand(mob/user)
 	return try_to_operate(user)
 
-
 /obj/structure/inflatable/door/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(checkpass(mover))
@@ -118,10 +113,8 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 
-
-/obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
+/obj/structure/inflatable/door/CanAtmosPass(direction)
 	return !density
-
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
 	if(is_operating)
@@ -138,7 +131,6 @@
 	else if(ismecha(user))
 		operate()
 
-
 /obj/structure/inflatable/door/proc/operate()
 	is_operating = TRUE
 	if(state_closed)
@@ -154,13 +146,11 @@
 	set_density(state_closed)
 	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	is_operating = FALSE
-
 
 /obj/structure/inflatable/door/update_icon_state()
 	icon_state = "door_[state_closed ? "closed" : "open"]"
-
 
 /obj/item/inflatable/torn
 	name = "torn inflatable wall"

@@ -5,12 +5,14 @@ import { Window } from '../layouts';
 type AtmosAlertData = {
   priority: string[];
   minor: string[];
+  mode: Record<string, string>;
 };
 
 export const AtmosAlertConsole = (props: unknown) => {
   const { act, data } = useBackend<AtmosAlertData>();
   const priorityAlerts = data.priority || [];
   const minorAlerts = data.minor || [];
+  const areaModes = data.mode || {};
   return (
     <Window width={350} height={300}>
       <Window.Content scrollable>
@@ -44,6 +46,14 @@ export const AtmosAlertConsole = (props: unknown) => {
                 >
                   {alert}
                 </Button>
+              </li>
+            ))}
+            {Object.keys(areaModes).length === 0 && (
+              <li className="color-good">All Areas Filtering</li>
+            )}
+            {Object.keys(areaModes).map((label, index) => (
+              <li key={index} className="color-good">
+                {label} mode is {areaModes[label]}
               </li>
             ))}
           </ul>

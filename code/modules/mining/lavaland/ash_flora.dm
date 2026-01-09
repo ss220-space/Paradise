@@ -30,7 +30,7 @@
 		DATIVE = "крупным грибам",
 		ACCUSATIVE = "крупные грибы",
 		INSTRUMENTAL = "крупными грибами",
-		PREPOSITIONAL = "крупных грибах"
+		PREPOSITIONAL = "крупных грибах",
 	)
 
 /obj/structure/flora/ash/Initialize(mapload)
@@ -70,15 +70,14 @@
 	desc = initial(desc)
 	harvested = FALSE
 
-
 /obj/structure/flora/ash/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(is_sharp(I) && !harvested && needs_sharp_harvest)
+	if(I.sharp && !harvested && needs_sharp_harvest)
 		add_fingerprint(user)
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] собирать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] собирать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
 		)
 		if(!do_after(user, harvest_time * I.toolspeed, src, category = DA_CAT_TOOL) || harvested)
@@ -88,11 +87,10 @@
 
 	return ..()
 
-
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] собирать [declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] начина[PLUR_ET_YUT(user)] собирать [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
 		)
 		if(do_after(user, harvest_time, src))
@@ -128,7 +126,7 @@
 		DATIVE = "лиственным грибам",
 		ACCUSATIVE = "лиственные грибы",
 		INSTRUMENTAL = "лиственными грибами",
-		PREPOSITIONAL = "лиственных грибах"
+		PREPOSITIONAL = "лиственных грибах",
 	)
 
 /obj/structure/flora/ash/cap_shroom
@@ -154,7 +152,7 @@
 		DATIVE = "высоким грибам",
 		ACCUSATIVE = "высокие грибы",
 		INSTRUMENTAL = "высокими грибами",
-		PREPOSITIONAL = "высоких грибах"
+		PREPOSITIONAL = "высоких грибах",
 	)
 
 /obj/structure/flora/ash/stem_shroom
@@ -183,7 +181,7 @@
 		DATIVE = "скоплению грибов",
 		ACCUSATIVE = "скопление грибов",
 		INSTRUMENTAL = "скоплением грибов",
-		PREPOSITIONAL = "скоплении грибов"
+		PREPOSITIONAL = "скоплении грибов",
 	)
 
 /obj/structure/flora/ash/cacti
@@ -209,7 +207,7 @@
 		DATIVE = "фруктовому кактусу",
 		ACCUSATIVE = "фруктовый кактус",
 		INSTRUMENTAL = "фруктовым кактусом",
-		PREPOSITIONAL = "фруктовом кактусе"
+		PREPOSITIONAL = "фруктовом кактусе",
 	)
 
 /obj/structure/flora/ash/cacti/Initialize(mapload)
@@ -243,7 +241,7 @@
 		DATIVE = "огнецвету",
 		ACCUSATIVE = "огнецвет",
 		INSTRUMENTAL = "огнецветом",
-		PREPOSITIONAL = "огнецвете"
+		PREPOSITIONAL = "огнецвете",
 	)
 
 /obj/structure/flora/ash/coaltree
@@ -270,7 +268,7 @@
 		DATIVE = "угледреву",
 		ACCUSATIVE = "угледрево",
 		INSTRUMENTAL = "угледревом",
-		PREPOSITIONAL = "угледреве"
+		PREPOSITIONAL = "угледреве",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
@@ -289,7 +287,7 @@
 		DATIVE = "грибной стружке",
 		ACCUSATIVE = "грибную стружку",
 		INSTRUMENTAL = "грибной стружкой",
-		PREPOSITIONAL = "грибной стружке"
+		PREPOSITIONAL = "грибной стружке",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/Initialize(mapload)
@@ -313,7 +311,7 @@
 		DATIVE = "грибному листу",
 		ACCUSATIVE = "грибной лист",
 		INSTRUMENTAL = "грибным листом",
-		PREPOSITIONAL = "грибном листе"
+		PREPOSITIONAL = "грибном листе",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
@@ -330,7 +328,7 @@
 		DATIVE = "грибной шляпке",
 		ACCUSATIVE = "грибную шляпку",
 		INSTRUMENTAL = "грибной шляпкой",
-		PREPOSITIONAL = "грибной шляпке"
+		PREPOSITIONAL = "грибной шляпке",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
@@ -347,7 +345,7 @@
 		DATIVE = "грибной ножке",
 		ACCUSATIVE = "грибную ножку",
 		INSTRUMENTAL = "грибной ножкой",
-		PREPOSITIONAL = "грибной ножке"
+		PREPOSITIONAL = "грибной ножке",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
@@ -364,7 +362,7 @@
 		DATIVE = "плоду кактуса",
 		ACCUSATIVE = "плод кактуса",
 		INSTRUMENTAL = "плодом кактуса",
-		PREPOSITIONAL = "плоде кактуса"
+		PREPOSITIONAL = "плоде кактуса",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
@@ -382,7 +380,7 @@
 		DATIVE = "цветку огнецвета",
 		ACCUSATIVE = "цветок огнецвета",
 		INSTRUMENTAL = "цветком огнецвета",
-		PREPOSITIONAL = "цветке огнецвета"
+		PREPOSITIONAL = "цветке огнецвета",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
@@ -404,11 +402,11 @@
 		DATIVE = "бревну угледрева",
 		ACCUSATIVE = "бревно угледрева",
 		INSTRUMENTAL = "бревном угледрева",
-		PREPOSITIONAL = "бревне угледрева"
+		PREPOSITIONAL = "бревне угледрева",
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		if(!isturf(loc))
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете рубить [declent_ru(ACCUSATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc.declent_ru(PREPOSITIONAL)]"]."))
@@ -474,7 +472,6 @@
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	reagents_add = list("nutriment" = 0.06, "vitfro" = 0.04, "nicotine" = 0.04)
 
-
 /obj/item/seeds/lavaland/inocybe
 	name = "pack of inocybe mycelium"
 	desc = "This mycelium grows into an inocybe mushroom, a species of Lavaland origin with hallucinatory and toxic effects."
@@ -526,7 +523,7 @@
 		DATIVE = "пачке семян угледрева",
 		ACCUSATIVE = "пачку семян угледрева",
 		INSTRUMENTAL = "пачкой семян угледрева",
-		PREPOSITIONAL = "пачке семян угледрева"
+		PREPOSITIONAL = "пачке семян угледрева",
 	)
 
 //CRAFTING
@@ -553,7 +550,7 @@
 		DATIVE = "грибной чаше",
 		ACCUSATIVE = "грибную чашу",
 		INSTRUMENTAL = "грибной чашей",
-		PREPOSITIONAL = "грибной чаше"
+		PREPOSITIONAL = "грибной чаше",
 	)
 
 /obj/item/reagent_containers/food/drinks/mushroom_bowl/attackby(obj/item/I, mob/user, params)

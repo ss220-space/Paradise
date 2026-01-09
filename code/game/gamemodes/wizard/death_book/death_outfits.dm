@@ -79,7 +79,7 @@
 		/obj/item/flash/cameraflash = 1,
 		/obj/item/twohanded/garrote = 1,
 		/obj/item/card/id/syndicate = 1,
-		/obj/item/gun_module/muzzle/suppressor = 1
+		/obj/item/gun_module/muzzle/suppressor = 1,
 	)
 
 /datum/outfit/radial_outfit/death_book/crusher
@@ -100,7 +100,7 @@
 		/obj/item/tank/internals/plasma = 5,
 		/obj/item/pickaxe/drill/jackhammer/phantom = 1,
 		/obj/item/grenade/clusterbuster/inferno = 1,
-		/obj/item/flamethrower/full/tank = 1
+		/obj/item/flamethrower/full/tank = 1,
 	)
 
 //I've got a bit of a problem, but this is the only way not to lose the component.
@@ -125,11 +125,14 @@
 	H.wear_suit.slowdown = 0
 	H.head.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	H.update_equipment_speed_mods()
+
 	if(!isvox(H))
 		return
+
 	var/obj/item/tank/internals/oxygen/red/prom = H.s_store
-	prom.air_contents.oxygen = 0
-	prom.air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * prom.volume / (R_IDEAL_GAS_EQUATION * T20C)
+	var/datum/gas_mixture/air_contents = prom.return_obj_air()
+	air_contents.set_oxygen(0)
+	air_contents.set_nitrogen((6 * ONE_ATMOSPHERE) * prom.volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /datum/outfit/radial_outfit/death_book/plague_inc
 	name = "Вестник чумы"
@@ -150,8 +153,8 @@
 		/obj/item/gun/syringe/rapidsyringe/syndicate = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno = 1,
-		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1
-		)
+		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1,
+	)
 
 /datum/outfit/radial_outfit/death_book/plague_inc/post_equip(mob/living/carbon/human/H, visualsOnly)
 	SEND_SIGNAL(H.wear_suit, COMSIG_EQUIP_HOOD)

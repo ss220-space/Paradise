@@ -113,10 +113,9 @@
 	..()
 	make_babies()
 
-
 /mob/living/simple_animal/pet/cat/verb/sit()
 	set name = "Сесть"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(resting)
 		set_resting(FALSE)
@@ -125,16 +124,13 @@
 	sitting = TRUE
 	set_resting(TRUE)
 
-
 /mob/living/simple_animal/pet/cat/post_lying_on_rest()
 	if(sitting)
 		custom_emote(EMOTE_VISIBLE, pick("сад%(ит,ят)%ся.", "приседа%(ет,ют)% на задних лапах.", "выгляд%(ит,ят)% настороженным%(*,и)%."))
 
-
 /mob/living/simple_animal/pet/cat/on_standing_up()
 	sitting = FALSE
 	. = ..()
-
 
 /mob/living/simple_animal/pet/cat/update_icons()
 	if(stat == DEAD)
@@ -152,7 +148,6 @@
 	else
 		icon_state = icon_living
 	regenerate_icons()
-
 
 /mob/living/simple_animal/pet/cat/handle_automated_action()
 	if(!stat && !buckled)
@@ -184,7 +179,6 @@
 				custom_emote(EMOTE_VISIBLE, "подбрасыва%(ет,ют)% игрушечную мышь своей лапой!")
 				toy.cooldown = world.time + 40 SECONDS
 
-
 /mob/living/simple_animal/pet/cat/handle_automated_movement()
 	. = ..()
 	if(!stat && !resting && !buckled)
@@ -205,7 +199,6 @@
 			if(movement_target)
 				stop_automated_movement = 1
 				GLOB.move_manager.move_to(src, movement_target, 1, 4)
-
 
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
@@ -240,7 +233,6 @@
 	melee_damage_lower = 5
 	melee_damage_upper = 15
 
-
 /mob/living/simple_animal/pet/cat/Syndi/Initialize(mapload)
 	. = ..()
 	add_language(LANGUAGE_GALACTIC_COMMON)
@@ -266,10 +258,10 @@
 		/obj/item/organ/internal/brain = 1,
 		/obj/item/organ/internal/heart = 1,
 		/obj/item/reagent_containers/food/snacks/birthdaycakeslice = 3,
-		/obj/item/reagent_containers/food/snacks/meat/slab = 2
+		/obj/item/reagent_containers/food/snacks/meat/slab = 2,
 	)
 	response_harm = "takes a bite out of"
-	attacked_sound = "sound/items/eatfood.ogg"
+	attacked_sound = 'sound/items/eatfood.ogg'
 	deathmessage = "loses its false life and collapses!"
 	death_sound = SFX_BODYFALL
 	holder_type = /obj/item/holder/cak
@@ -305,7 +297,7 @@
 	var/new_name = tgui_input_text(src, "Enter your name, or press \"Cancel\" to stick with Keeki.", "Name Change", name)
 	if(!new_name)
 		return
-	to_chat(src, "<span class='notice'>Your name is now <b>\"[new_name]\"</b>!</span>")
+	to_chat(src, span_notice("Your name is now <b>\"[new_name]\"</b>!"))
 	name = new_name
 
 /mob/living/simple_animal/pet/cat/white

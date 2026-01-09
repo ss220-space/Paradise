@@ -8,7 +8,6 @@
  * Step 7: Crowbar the door to complete
  */
 
-
 /obj/structure/windoor_assembly
 	icon = 'icons/obj/doors/windoor.dmi'
 	name = "windoor assembly"
@@ -37,18 +36,17 @@
 	if(set_dir)
 		dir = set_dir
 	ini_dir = dir
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/structure/windoor_assembly/Destroy()
 	set_density(FALSE)
 	QDEL_NULL(electronics)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	return ..()
 
 /obj/structure/windoor_assembly/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -61,7 +59,6 @@
 	if(temp_state == "03")
 		temp_state = "02"
 	icon_state = "[facing]_[secure ? "secure_" : ""]windoor_assembly[temp_state]"
-
 
 /obj/structure/windoor_assembly/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
@@ -76,12 +73,11 @@
 			if(!valid_build_direction(loc, object.dir, is_fulltile = fulltile))
 				return FALSE
 
-
-/obj/structure/windoor_assembly/CanAtmosPass(turf/T, vertical)
-	if(get_dir(loc, T) == dir)
+/obj/structure/windoor_assembly/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
-	return TRUE
-
+	else
+		return TRUE
 
 /obj/structure/windoor_assembly/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
 	SIGNAL_HANDLER
@@ -99,7 +95,6 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-
 /obj/structure/windoor_assembly/attack_hand(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
 		add_fingerprint(user)
@@ -107,7 +102,6 @@
 		attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		return
 	. = ..()
-
 
 /obj/structure/windoor_assembly/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -195,7 +189,6 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/structure/windoor_assembly/crowbar_act(mob/user, obj/item/I)	//Crowbar to complete the assembly, Step 7 complete.
 	if(state != "03")
@@ -319,7 +312,6 @@
 			R.add_fingerprint(user)
 		qdel(src)
 
-
 /obj/structure/windoor_assembly/click_alt(mob/user)
 	if(revrotate())
 		return CLICK_ACTION_SUCCESS
@@ -342,11 +334,10 @@
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
 
-
 //Flips the windoor assembly, determines whather the door opens to the left or the right
 /obj/structure/windoor_assembly/verb/flip()
 	set name = "Повернуть"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

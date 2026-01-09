@@ -138,7 +138,6 @@
 	tricked_mobs[fool] = user_overlay
 	RegisterSignal(fool, COMSIG_MOB_LOGOUT, PROC_REF(on_client_disconnect))
 
-
 /// Unrout ourselves after we somehow moved, and start a timer so we can re-restablish our behind area after standing still for a bit
 /datum/component/seethrough/proc/dismantle_perimeter()
 	SIGNAL_HANDLER

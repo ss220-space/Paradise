@@ -8,7 +8,7 @@
 	return say_dead(message)
 
 /mob/dead/observer/handle_track(message, verb = "говор%(ит,ят)%", atom/movable/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
-	return "[speaker_name] ([ghost_follow_link(follow_target, ghost=src)])"
+	return "([ghost_follow_link(follow_target, ghost = src)])[speaker_name]"
 
 /mob/dead/observer/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear, check_name_against)
 	var/speaker_name = ..()

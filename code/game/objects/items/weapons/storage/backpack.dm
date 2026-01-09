@@ -19,18 +19,16 @@
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/back.dmi',
 		SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi',
-		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi'
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/back.dmi',
 	) //For Armalis anything but this and the nitrogen tank will use the default backpack icon.
 	equip_sound = 'sound/items/handling/equip/backpack_equip.ogg'
 	pickup_sound = 'sound/items/handling/pickup/backpack_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/backpack_drop.ogg'
 
-
 /obj/item/storage/backpack/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(!ATTACK_CHAIN_CANCEL_CHECK(.))
 		playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
-
 
 /obj/item/storage/backpack/examine(mob/user)
 	var/space_used = 0
@@ -39,15 +37,15 @@
 		for(var/obj/item/I in contents)
 			space_used += I.w_class
 		if(!space_used)
-			. += span_notice(" [src] is empty.")
+			. += span_boldnotice("Пусто.")
 		else if(space_used <= max_combined_w_class*0.6)
-			. += span_notice(" [src] still has plenty of remaining space.")
+			. += span_boldnotice("Место начинает заканчиваться.")
 		else if(space_used <= max_combined_w_class*0.8)
-			. += span_notice(" [src] is beginning to run out of space.")
+			. += span_boldnotice("Близится к заполнению.")
 		else if(space_used < max_combined_w_class)
-			. += span_notice(" [src] doesn't have much space left.")
+			. += span_boldnotice("Почти заполнено.")
 		else
-			. += span_notice(" [src] is full.")
+			. += span_boldnotice("Заполнено.")
 
 /*
  * Backpack Types
@@ -65,7 +63,6 @@
 	item_flags = NO_MAT_REDEMPTION
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
-
 
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/storage/backpack/holding))
@@ -112,7 +109,6 @@
 	add_game_logs("created singularity using two bag of holding!", user)
 	qdel(src)
 
-
 /obj/item/storage/backpack/holding/satchel
 	name = "Satchel of holding"
 	desc = "A satchel that opens into a localized pocket of Blue Space."
@@ -125,11 +121,24 @@
 
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
-	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
+	desc = "Космический Санта использует его, чтобы доставлять игрушки всем милым детям в космосе на Рождество! Ух ты, какой он большой!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	max_combined_w_class = 400 // can store a ton of shit!
+	max_combined_w_class = 60
 
+/obj/item/storage/backpack/santabag/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок с подарками",
+		GENITIVE = "мешка с подарками",
+		DATIVE = "мешку с подарками",
+		ACCUSATIVE = "мешок с подарками",
+		INSTRUMENTAL = "мешком с подарками",
+		PREPOSITIONAL = "мешке с подарками"
+	)
+
+/obj/item/storage/backpack/santabag/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] надева[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на свою голову и туго затягива[PLUR_ET_UT(user)]! Похоже, [GEND_HE_SHE(user)] не в праздничном настроении..."))
+	return OXYLOSS
 
 /obj/item/storage/backpack/santabag/update_icon_state()
 	var/items_count = length(contents)
@@ -142,7 +151,6 @@
 			icon_state = "giftbag2"
 
 	update_equipped_item(update_speedmods = FALSE)
-
 
 /obj/item/storage/backpack/cultpack
 	name = "trophy rack"
@@ -214,9 +222,19 @@
 
 /obj/item/storage/backpack/explorer
 	name = "explorer bag"
-	desc = "A robust backpack for stashing your loot."
+	desc = "Вместительный рюкзак, в котором не потеряется ни один трофей."
 	icon_state = "explorerpack"
 	item_state = "explorerpack"
+
+/obj/item/storage/backpack/explorer/get_ru_names()
+	return list(
+		NOMINATIVE = "рюкзак исследователя",
+		GENITIVE = "рюкзака исследователя",
+		DATIVE = "рюкзаку исследователя",
+		ACCUSATIVE = "рюкзак исследователя",
+		INSTRUMENTAL = "рюкзаком исследователя",
+		PREPOSITIONAL = "рюкзаке исследователя"
+	)
 
 /obj/item/storage/backpack/botany
 	name = "botany backpack"
@@ -275,7 +293,7 @@
 
 /obj/item/storage/backpack/justice/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
+	soundloop = new(src)
 
 /obj/item/storage/backpack/justice/Destroy(force)
 	QDEL_NULL(soundloop)
@@ -302,41 +320,40 @@
 /obj/item/storage/backpack/justice/proc/turn_off()
 	soundloop.stop()
 
-
 /*
 *	Syndicate backpacks. Sprites by ElGood
 */
 /obj/item/storage/backpack/syndicate
-	name = "Рюкзак синдиката"
+	name = "Рюкзак \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных вещей. Не собственность НТ!"
 	icon_state = "syndi_backpack"
 	item_state = "syndi_backpack"
 
 /obj/item/storage/backpack/syndicate/science
-	name = "Рюкзак учёных синдиката"
+	name = "Рюкзак учёных \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных колбочек. Не собственность НТ!"
 	icon_state = "syndi_sci_backpack"
 	item_state = "syndi_sci_backpack"
 
 /obj/item/storage/backpack/syndicate/engineer
-	name = "Рюкзак инженеров синдиката"
+	name = "Рюкзак инженеров \"Синдиката\""
 	icon_state = "syndi_eng_backpack"
 	item_state = "syndi_eng_backpack"
 
 /obj/item/storage/backpack/syndicate/cargo
-	name = "Рюкзак грузчиков синдиката"
+	name = "Рюкзак грузчиков \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных грузов. Не собственность НТ!"
 	icon_state = "syndi_cargo_backpack"
 	item_state = "syndi_cargo_backpack"
 
 /obj/item/storage/backpack/syndicate/med
-	name = "Рюкзак медиков синдиката"
+	name = "Рюкзак медиков \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для подозрительных лекарств. Не собственность НТ!"
 	icon_state = "syndi_med_backpack"
 	item_state = "syndi_med_backpack"
 
 /obj/item/storage/backpack/syndicate/command
-	name = "Рюкзак командования синдиката"
+	name = "Рюкзак командования \"Синдиката\""
 	desc = "Крайне подозрительный рюкзак, для крайне подозрительных личностей. Не собственность НТ!"
 	icon_state = "syndi_com_backpack"
 	item_state = "syndi_com_backpack"
@@ -379,9 +396,19 @@
 
 /obj/item/storage/backpack/satchel_explorer
 	name = "explorer satchel"
-	desc = "A robust satchel for stashing your loot."
+	desc = "Прочная сумка, используемая авантюристами и исследователями разного рода."
 	icon_state = "satchel-explorer"
 	item_state = "securitypack"
+
+/obj/item/storage/backpack/satchel_explorer/get_ru_names()
+	return list(
+		NOMINATIVE = "сумка исследователя",
+		GENITIVE = "сумки исследователя",
+		DATIVE = "сумке исследователя",
+		ACCUSATIVE = "сумку исследователя",
+		INSTRUMENTAL = "сумкой исследователя",
+		PREPOSITIONAL = "сумке исследователя"
+	)
 
 /obj/item/storage/backpack/satchel_med
 	name = "medical satchel"
@@ -418,7 +445,6 @@
 	name = "security satchel"
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
-
 
 /obj/item/storage/backpack/satchel_detective
 	name = "forensic satchel"
@@ -457,7 +483,7 @@
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
 	set name = "Перекинуть ремешок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -467,7 +493,6 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_worn_back()
-
 
 /obj/item/storage/backpack/satchel/withwallet/populate_contents()
 	new /obj/item/storage/wallet/random(src)
@@ -581,7 +606,17 @@ TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/mining_conscript
 	name = "mining conscription kit"
-	desc = "A kit containing everything a crewmember needs to support a shaft miner in the field."
+	desc = "Набор с необходимым минимумом, чтобы превратить рядового члена экипажа в Шахтёра."
+
+/obj/item/storage/backpack/duffel/mining_conscript/get_ru_names()
+	return list(
+		NOMINATIVE = "стартовый набор Шахтёра",
+		GENITIVE = "стартового набора Шахтёра",
+		DATIVE = "стартовому набору Шахтёра",
+		ACCUSATIVE = "стартовый набор Шахтёра",
+		INSTRUMENTAL = "стартовым набором Шахтёра",
+		PREPOSITIONAL = "стартовом наборе Шахтёра"
+	)
 
 /obj/item/storage/backpack/duffel/mining_conscript/populate_contents()
 	new /obj/item/pickaxe/mini(src)
@@ -612,7 +647,17 @@ TODO Use this name and desc for localisation*/
 
 /obj/item/storage/backpack/duffel/vendor_ext
 	name = "extraction and rescue kit"
-	desc = "A kit containing everything to save your fellow miners from imminent death."
+	desc = "Набор, содержащий всё необходимое для спасения ваших товарищей-шахтёров от неминуемой смерти."
+
+/obj/item/storage/backpack/duffel/vendor_ext/get_ru_names()
+	return list(
+		NOMINATIVE = "набор для спасения и эвакуации",
+		GENITIVE = "набора для спасения и эвакуации",
+		DATIVE = "набору для спасения и эвакуации",
+		ACCUSATIVE = "набор для спасения и эвакуации",
+		INSTRUMENTAL = "набором для спасения и эвакуации",
+		PREPOSITIONAL = "наборе для спасения и эвакуации"
+	)
 
 /obj/item/storage/backpack/duffel/vendor_ext/populate_contents()
 	new /obj/item/extraction_pack(src)
@@ -942,8 +987,8 @@ TODO Use this name and desc for localisation*/
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/back.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/back.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/back.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/back.dmi'
-		)
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/back.dmi',
+	)
 	can_hold = list(/obj/item/instrument, /obj/item/gun)
 	cant_hold = list(/obj/item/instrument/accordion, /obj/item/instrument/harmonica)
 

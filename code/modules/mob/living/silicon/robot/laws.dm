@@ -1,5 +1,5 @@
 /mob/living/silicon/robot/verb/cmd_show_laws()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Список законов"
 	show_laws()
 
@@ -39,7 +39,6 @@
 	else
 		to_chat(who, "<b>Remember, you are not bound to any AI, you are not required to listen to them.</b>")
 
-
 /mob/living/silicon/robot/lawsync()
 	laws_sanity_check()
 	var/datum/ai_laws/master = connected_ai && lawupdate ? connected_ai.laws : null
@@ -49,6 +48,6 @@
 	return
 
 /mob/living/silicon/robot/proc/robot_checklaws()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Объявить законы"
 	subsystem_law_manager()

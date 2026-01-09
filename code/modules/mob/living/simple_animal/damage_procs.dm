@@ -41,7 +41,6 @@
 	if(updating_health)
 		updatehealth("adjustHealth")
 
-
 /**
  * Proc-setter for all damage types, simple mob can have.
  * Any passed damage will be converted to bruteloss. No resists will be applied.
@@ -96,7 +95,6 @@
 	if(updating_health)
 		updatehealth("setHealth")
 
-
 /mob/living/simple_animal/get_incoming_damage_modifier(
 	damage = 0,
 	damagetype = BRUTE,
@@ -106,7 +104,6 @@
 )
 	. = ..()
 	. *= damage_coeff[damagetype] || 0
-
 
 /mob/living/simple_animal/adjustBruteLoss(
 	amount = 0,
@@ -121,7 +118,6 @@
 )
 	return adjustHealth(amount, updating_health, blocked, BRUTE, forced)
 
-
 /mob/living/simple_animal/adjustFireLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -135,7 +131,6 @@
 )
 	return adjustHealth(amount, updating_health, blocked, BURN, forced)
 
-
 /mob/living/simple_animal/adjustOxyLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -145,10 +140,8 @@
 )
 	return adjustHealth(amount, updating_health, blocked, OXY, forced)
 
-
 /mob/living/simple_animal/setOxyLoss(amount, updating_health = TRUE)
 	return setDamage(amount, updating_health)
-
 
 /mob/living/simple_animal/adjustToxLoss(
 	amount = 0,
@@ -159,10 +152,8 @@
 )
 	return adjustHealth(amount, updating_health, blocked, TOX, forced)
 
-
 /mob/living/simple_animal/setToxLoss(amount, updating_health = TRUE)
 	return setDamage(amount, updating_health)
-
 
 /mob/living/simple_animal/adjustCloneLoss(
 	amount = 0,
@@ -173,10 +164,8 @@
 )
 	return adjustHealth(amount, updating_health, blocked, CLONE, forced)
 
-
 /mob/living/simple_animal/setCloneLoss(amount, updating_health = TRUE)
 	return setDamage(amount, updating_health)
-
 
 /mob/living/simple_animal/adjustStaminaLoss(
 	amount = 0,
@@ -187,8 +176,6 @@
 )
 	return adjustHealth(amount, updating_health, blocked, STAMINA, forced)
 
-
 /mob/living/simple_animal/setStaminaLoss(amount, updating_health = TRUE)
 	return setDamage(amount, updating_health)
-
 

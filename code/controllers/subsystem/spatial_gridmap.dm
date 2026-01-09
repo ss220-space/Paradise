@@ -443,7 +443,6 @@ SUBSYSTEM_DEF(spatial_grid)
 
 	return TRUE
 
-
 /// if for whatever reason this movable is "untracked" e.g. it breaks the assumption that a movable is only inside the contents of any grid cell associated with its loc,
 /// this will error. this checks every grid cell in the world so dont call this on live unless you have to.
 /// returns TRUE if this movable is untracked, FALSE otherwise
@@ -576,7 +575,6 @@ SUBSYSTEM_DEF(spatial_grid)
 		cell_coords += "([cell.cell_x], [cell.cell_y], [cell.cell_z]), "
 	message_admins(cell_coords)
 	message_admins("[src] is supposed to only be contained in the cell at indexes ([real_cell.cell_x], [real_cell.cell_y], [real_cell.cell_z]). but is contained at the cells at [cell_coords]")
-
 
 ///creates number_to_generate new oranges_ear's and adds them to the subsystems list of ears.
 ///i really fucking hope this never gets called after init :clueless:
@@ -810,23 +808,16 @@ SUBSYSTEM_DEF(spatial_grid)
 			RegisterSignal(thing, COMSIG_MOVABLE_MOVED, PROC_REF(update_color))
 		CHECK_TICK
 
-/client/proc/paint_grids()
-	set name = "Paint Grid Map"
-	set category = "Debug"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB(paint_grids, R_DEBUG, "Paint Grid Map", "Painting the world based on the cell its located in.", ADMIN_CATEGORY_DEBUG)
 	if(!SSspatial_grid)
 		return
 
 	SSspatial_grid.paint_grids()
 
 	log_and_message_admins("paint grid map")
-
 	BLACKBOX_LOG_ADMIN_VERB("Paint Grid Map")
 
-//A debugging proc that colors objects based on what grid they belong to
+///A debugging proc that colors objects based on what grid they belong to
 /datum/controller/subsystem/spatial_grid/proc/update_color(atom/movable/thing)
 	SIGNAL_HANDLER
 

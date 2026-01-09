@@ -30,7 +30,7 @@
 		to_chat(user, span_warning("You try to draw power from the [src], but you cannot hold the power at this time!"))
 		return
 	user.middleClickOverride = clickBehavior
-	to_chat(user, "<span class='notice'>You draw a bit of power from the [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!</span>")
+	to_chat(user, span_notice("You draw a bit of power from the [src], you can use <b>middle click</b> or <b>alt click</b> to release the power!"))
 
 /datum/middleClickOverride/badminClicker
 	var/summon_path = /obj/item/reagent_containers/food/snacks/cookie
@@ -62,7 +62,7 @@
 			to_chat(user, span_warning("There is no cable here to power the gloves."))
 			return
 	var/turf/target_turf = get_turf(A)
-	target_turf.hotspot_expose(2000, 400)
+	target_turf.hotspot_expose(2000, 1)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, TRUE)
 
 	var/atom/beam_from = user
@@ -78,7 +78,7 @@
 			else
 				add_attack_logs(user, L, "electrocuted with[P.unlimited_power ? " unlimited" : null] power gloves [!P.unlimited_power ? "dealing [C.powernet?.get_electrocute_damage()] damage." : "dealing 1000 damage!!"]")
 				if(P.unlimited_power)
-					L.electrocute_act(1000, "перчаток", flags = SHOCK_NOGLOVES) //Just kill them
+					L.electrocute_act(1000, P, flags = SHOCK_NOGLOVES) //Just kill them
 				else
 					electrocute_mob(L, C, P)
 			break

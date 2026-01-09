@@ -3,19 +3,17 @@
 	if(..())
 		return TRUE
 
-
 /mob/living/silicon/robot/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
 		return TRUE
 	if(message_mode)
 		used_radios += radio
 		if(!is_component_functioning("radio"))
-			to_chat(src, "<span class='warning'>Your radio isn't functional at this time.</span>")
+			to_chat(src, span_warning("Your radio isn't functional at this time."))
 			return FALSE
 		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		return radio.talk_into(src,message_pieces,message_mode,verb)
-
 
 /mob/living/silicon/ai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
@@ -26,12 +24,11 @@
 	else if(message_mode)
 		used_radios += aiRadio
 		if(aiRadio.disabledAi || aiRestorePowerRoutine || stat)
-			to_chat(src, "<span class='danger'>System Error - Transceiver Disabled.</span>")
+			to_chat(src, span_warning("System Error - Transceiver Disabled."))
 			return FALSE
 		if(message_mode == PUB_FREQ_NAME)
 			message_mode = null
 		return aiRadio.talk_into(src, message_pieces, message_mode, verb)
-
 
 /mob/living/silicon/pai/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	if(..())
@@ -45,7 +42,6 @@
 		used_radios += radio
 		return radio.talk_into(src, message_pieces, message_mode, verb)
 
-
 /mob/living/silicon/say_quote(text)
 	var/ending = copytext(text, length(text))
 
@@ -56,14 +52,12 @@
 
 	return speak_statement
 
-
 /mob/living/silicon/say_understands(mob/other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
 	if(!speaking && ismob(other))
 		if(iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other))
 			return TRUE
 	return ..()
-
 
 //For holopads only. Usable by AI.
 /mob/living/silicon/ai/proc/holopad_talk(list/message_pieces, verb)
@@ -84,12 +78,11 @@
 		log_debug("holopad_talk(): [message_clean]")
 		for(var/mob/M in hearers(T.loc))//The location is the object, default distance.
 			M.hear_holopad_talk(message_pieces, genderize_decode(src, verb), src, H)
-		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> [message]</span></i>")
+		to_chat(src, span_gamesay("<i>Holopad transmitted, [span_name(real_name)] [span_message(message)]</i>"))
 	else
 		to_chat(src, "No holopad connected.")
 		return
 	return TRUE
-
 
 /mob/living/silicon/ai/proc/holopad_emote(message) //This is called when the AI uses the 'me' verb while using a holopad.
 	message = trim(message)
@@ -99,8 +92,8 @@
 
 	var/obj/machinery/hologram/holopad/T = current
 	if(istype(T) && T.masters[src])
-		var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[message]</span></span>"
-		to_chat(src, "<i><span class='game say'>Holopad action relayed, <span class='name'>[real_name]</span> <span class='message'>[message]</span></span></i>")
+		var/rendered = span_gamesay("[span_name(name)] [span_message(message)]")
+		to_chat(src, span_gamesay("<i>Holopad action relayed, [span_name(real_name)] [span_message(message)]</i>"))
 
 		for(var/mob/M in viewers(T.loc))
 			M.show_message(rendered, EMOTE_VISIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
@@ -110,7 +103,6 @@
 		to_chat(src, "No holopad connected.")
 		return
 	return TRUE
-
 
 /mob/living/silicon/ai/emote(emote_key, type_override = null, message = null, intentional = FALSE, force_silence = FALSE, ignore_cooldowns = FALSE)
 	var/obj/machinery/hologram/holopad/T = current

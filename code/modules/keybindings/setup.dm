@@ -4,15 +4,12 @@
 	SHOULD_CALL_PARENT(TRUE)
 	return
 
-
 /datum/proc/key_up(key, client/user) // Called when a key is released
 	return
-
 
 /datum/proc/keyLoop(client/user) // Called once every frame
 	set waitfor = FALSE
 	return
-
 
 /client/proc/set_macros()
 	set waitfor = FALSE
@@ -37,7 +34,6 @@
 
 	calculate_move_dir()
 
-
 // removes all the existing macros
 /client/proc/erase_all_macros()
 	var/erase_output = ""
@@ -48,7 +44,6 @@
 		erase_output = "[erase_output];[macro_name].parent=null"
 	winset(src, null, erase_output)
 
-
 /// Manually clears any held keys, in case due to lag or other undefined behavior a key gets stuck.
 /client/proc/client_reset_held_keys()
 	for(var/key in keys_held)
@@ -57,7 +52,6 @@
 	//In case one got stuck and the previous loop didn't clean it, somehow.
 	for(var/key in key_combos_held)
 		KeyUp(key_combos_held[key])
-
 
 /client/proc/update_active_keybindings()
 	active_keybindings = list()
@@ -73,12 +67,5 @@
 			else
 				active_keybindings[key] += list(keybinding)
 	calculate_move_dir()
-	if(!mob) // Clients can join before world/new is setup, so we gotta mob check em
-		return active_keybindings
-	for(var/datum/action/action as anything in mob.actions)
-		if(action.button?.linked_keybind?.binded_to)
-			var/datum/keybinding/mob/trigger_action_button/linked_bind = action.button.linked_keybind
-			active_keybindings[linked_bind.binded_to] += list(linked_bind)
-
 	return active_keybindings
 

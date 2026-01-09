@@ -59,7 +59,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	new /obj/item/shard(location)
 	explosion(location, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, adminlog = TRUE, cause = "Emagged slotmachine self-destroy")
 
-
 /datum/slotmachine_prize/minimal
 	id = "minimal"
 	chance = 10
@@ -67,13 +66,11 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	resultlvl = "green"
 	say_phrase = "Победитель!"
 
-
 /datum/slotmachine_prize/minimal/New(list/allowed_uplink_items)
 	..(allowed_uplink_items)
 	for(var/datum/uplink_item/uplink_item as anything in allowed_uplink_items)
 		if(uplink_item.cost <= 5)
 			available_prizes += uplink_item.item
-
 
 /datum/slotmachine_prize/small
 	id = "small"
@@ -88,7 +85,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 		if(uplink_item.cost > 5 && uplink_item.cost <= 20)
 			available_prizes += uplink_item.item
 
-
 /datum/slotmachine_prize/medium
 	id = "medium"
 	chance = 1.6
@@ -99,7 +95,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /datum/slotmachine_prize/medium/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	slotmachine.give_custom_prize(user, /obj/item/storage/box/random_syndi)
-
 
 /datum/slotmachine_prize/big
 	id = "big"
@@ -114,7 +109,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	for(var/datum/uplink_item/uplink_item as anything in allowed_uplink_items)
 		if(uplink_item.cost >= 30 && uplink_item.cost <= 60)
 			available_prizes += uplink_item.item
-
 
 /datum/slotmachine_prize/jackpot
 	id = "jackpot"
@@ -133,8 +127,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /datum/slotmachine_prize/jackpot/apply_emagged_effect(obj/machinery/computer/slot_machine/slotmachine, mob/user)
 	slotmachine.give_custom_prize(user, /obj/item/radio/uplink)
-
-
 
 /obj/machinery/computer/slot_machine
 	name = "slot machine"
@@ -165,7 +157,6 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 /obj/machinery/computer/slot_machine/update_icon_state()
 	icon_state = "slots-[working ? "on" : "off"]"
 
-
 /obj/machinery/computer/slot_machine/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -189,7 +180,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	if(..())
 		return
 	if(issilicon(usr))
-		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции Нанотрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции \"Нанотрейзен\" #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
 		return
 	add_fingerprint(usr)
 
@@ -263,32 +254,32 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /obj/machinery/computer/slot_machine/verb/test_lose()
 	set name = "Проверить lose"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "lose")
 
 /obj/machinery/computer/slot_machine/verb/test_minimal()
 	set name = "Проверить minimal"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "minimal")
 
 /obj/machinery/computer/slot_machine/verb/test_small()
 	set name = "Проверить small"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "small")
 
 /obj/machinery/computer/slot_machine/verb/test_medium()
 	set name = "Проверить medium"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "medium")
 
 /obj/machinery/computer/slot_machine/verb/test_big()
 	set name = "Проверить big"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "big")
 
 /obj/machinery/computer/slot_machine/verb/test_jackpot()
 	set name = "Проверить jackpot"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "jackpot")
 
 /obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')

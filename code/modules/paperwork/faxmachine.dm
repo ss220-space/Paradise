@@ -21,7 +21,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/long_range_enabled = FALSE
 	req_access = list(ACCESS_LAWYER, ACCESS_HEADS, ACCESS_ARMORY)
 
-
 	/// ID card inserted into the machine, used to log in with
 	var/obj/item/card/id/scan = null
 
@@ -47,7 +46,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		DATIVE = "факсу",
 		ACCUSATIVE = "факс",
 		INSTRUMENTAL = "факсом",
-		PREPOSITIONAL = "факсе"
+		PREPOSITIONAL = "факсе",
 	)
 
 /obj/machinery/photocopier/faxmachine/New()
@@ -98,7 +97,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 /obj/machinery/photocopier/faxmachine/attack_ghost(mob/user)
 	ui_interact(user)
 
-
 /obj/machinery/photocopier/faxmachine/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -123,7 +121,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
-
 
 /obj/machinery/photocopier/faxmachine/emag_act(mob/user)
 	if(!emagged)
@@ -177,7 +174,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if(cooldown_seconds)
 			data["sendError"] = "Перенастройка через [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "у", "ы")]"
 	return data
-
 
 /obj/machinery/photocopier/faxmachine/ui_act(action, params)
 	if(..())
@@ -301,7 +297,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	if(.)
 		add_fingerprint(usr)
 
-
 /obj/machinery/photocopier/faxmachine/proc/scan(obj/item/card/id/card)
 	if(scan) // Card is in machine
 		if(ishuman(usr))
@@ -333,7 +328,6 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	scan = card
 	SStgui.update_uis(src)
 	return TRUE
-
 
 /obj/machinery/photocopier/faxmachine/verb/eject_id()
 	set name = "Достать ID-карту"
@@ -434,10 +428,10 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(mob/sender, faxname, faxtype, obj/item/sent, font_colour="#9A04D1")
 	// (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=[UID()]'>EVILFAX</a>) effects moved to smites.
-	var/msg = "[span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=\ref[sender][faxname == "USSP FAX" ? "USSPReply" : ""]=\ref[sender][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=\ref[sender]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")])")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "[span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=[sender.UID()];originfax=[UID()];faxtype=[faxtype];replyto=[sent.UID()]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=[UID()]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")])")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=[sent.UID()]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_EVENT, 0, C.mob))
+		if(check_rights(R_EVENT, FALSE, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(C, fax_sound)

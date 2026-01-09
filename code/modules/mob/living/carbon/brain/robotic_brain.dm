@@ -47,13 +47,11 @@
 	imprinted_master = null
 	return ..()
 
-
 /obj/item/mmi/robotic_brain/update_icon_state()
 	if(brainmob?.key)
 		icon_state = occupied_icon
 		return
 	icon_state = searching ? searching_icon : blank_icon
-
 
 /obj/item/mmi/robotic_brain/update_name(updates = ALL)
 	. = ..()
@@ -61,7 +59,6 @@
 		name = "[src] ([brainmob.name])"
 	else
 		name = initial(name)
-
 
 /obj/item/mmi/robotic_brain/attack_self(mob/user)
 	if(isgolem(user))
@@ -85,7 +82,6 @@
 		if(brainmob?.key)
 			to_chat(brainmob, span_warning("Your internal speaker has been toggled [silenced ? "off" : "on"]."))
 
-
 /obj/item/mmi/robotic_brain/proc/check_volunteers()
 	if(length(ghost_volunteers))
 		var/mob/dead/observer/observer
@@ -95,11 +91,10 @@
 			transfer_personality(observer)
 	reset_search()
 
-
 /obj/item/mmi/robotic_brain/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(check_observer(O))
-			to_chat(O, span_boldnotice("[src] has been activated. (<a href='byond://?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)"))
+			to_chat(O, span_boldnotice("[src] has been activated. (<a href='byond://?src=[O.UID()];jump=[src.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[O.UID()]'>Sign Up</a>)"))
 
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))
@@ -146,17 +141,15 @@
 	if(radio_action)
 		radio_action.UpdateButtonIcon()
 
-
 /obj/item/mmi/robotic_brain/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(. && imprinted_master)
 		to_chat(target, span_biggerdanger("You are permanently imprinted to [imprinted_master], obey [imprinted_master]'s every order and assist [imprinted_master.p_them()] in completing [imprinted_master.p_their()] goals at any cost."))
 
-
 /obj/item/mmi/robotic_brain/proc/transfer_personality(mob/candidate)
 	searching = FALSE
 	brainmob.revive() /// in case of death
-	brainmob.key = candidate.key
+	brainmob.possess_by_player(candidate.key)
 	to_chat(brainmob, "<b>You are a [src], brought into existence on [station_name()].</b>")
 	to_chat(brainmob, "<b>As a non-sentient synthetic intelligence, you answer to [imprinted_master], unless otherwise placed inside of a lawed synthetic structure or mech.</b>")
 	to_chat(brainmob, "<b>Remember, the purpose of your existence is to serve [imprinted_master]'s every word, unless lawed  or placed into a mech in the future.</b>")
@@ -166,7 +159,6 @@
 	if(radio_action)
 		radio_action.UpdateButtonIcon()
 
-
 /obj/item/mmi/robotic_brain/proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
 	if(brainmob?.key)
 		return
@@ -174,10 +166,9 @@
 	update_icon(UPDATE_ICON_STATE)
 	visible_message(span_notice("[src] buzzes quietly as the light fades out. Perhaps you could try again?"))
 
-
 /obj/item/mmi/robotic_brain/Topic(href, href_list)
 	if("signup" in href_list)
-		var/mob/dead/observer/O = locate(href_list["signup"])
+		var/mob/dead/observer/O = locateUID(href_list["signup"])
 		if(!O)
 			return
 		volunteer(O)
@@ -218,7 +209,6 @@
 		return
 	to_chat(O, span_notice("You've been added to the list of ghosts that may become this [src].  Click again to unvolunteer."))
 	ghost_volunteers.Add(O)
-
 
 /obj/item/mmi/robotic_brain/examine(mob/user)
 	. += span_notice("Its speaker is turned [silenced ? "off" : "on"].")

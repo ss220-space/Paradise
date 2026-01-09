@@ -30,7 +30,7 @@
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
 		/obj/item/clown_recorder = 1,
-		/obj/item/clothing/head/beret/sec = 1
+		/obj/item/clothing/head/beret/sec = 1,
 	)
 	implants = list(/obj/item/implant/mindshield, /obj/item/implant/sad_trombone)
 
@@ -132,7 +132,6 @@
 	H.update_hud_set()
 	H.grant_mimicking()
 
-
 //=========== security clown equipment ===========
 /obj/item/pda/clown/security
 	default_request_console_cartridge = /obj/item/cartridge/request_console/clown_security
@@ -142,7 +141,7 @@
 /obj/item/card/id/security/clown
 	name = "Security-Clown ID"
 	registered_name = "Officer Clown"
-	icon_state = "security_clown"
+	icon_state = "clownsecurity"
 	desc = "Смотря на эту карту, вы понимаете что Центральное командование обладает специфичным чувством юмора."
 	access = list(ACCESS_SECURITY, ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 

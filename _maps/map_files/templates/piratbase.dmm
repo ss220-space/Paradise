@@ -212,6 +212,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
+"aE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/space/pirate_base/lab_medical)
 "aF" = (
 /obj/structure/window/plasmareinforced{
 	dir = 8
@@ -1537,6 +1544,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
+"ea" = (
+/obj/structure/table,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/mining)
 "eb" = (
 /obj/item/stack/rods,
 /turf/simulated/floor/plating,
@@ -1677,11 +1690,6 @@
 /obj/effect/decal/remains/xeno,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
-"ew" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/atmos)
 "ex" = (
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24;
@@ -2082,18 +2090,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
-"fJ" = (
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/item/clothing/head/beanie/orange,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "fK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -3099,29 +3095,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
-"iv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "rightpirat_blast";
-	name = "Right BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = 6
-	},
-/obj/machinery/door_control{
-	id = "leftpirat_blast";
-	name = "Left BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = -6
-	},
-/obj/machinery/light_switch{
-	pixel_y = -2
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "ix" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -3862,6 +3835,16 @@
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
+"kO" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
 "kP" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -4890,12 +4873,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/xeno_lab)
-"nE" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/ruin/space/pirate_base/lab_medical)
 "nJ" = (
 /obj/machinery/power/terminal{
 	dir = 1
@@ -5041,6 +5018,20 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
+"ob" = (
+/obj/effect/turf_decal/box/red,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	req_access = list(160);
+	name = "piratepad"
+	},
+/obj/machinery/door/window/brigdoor{
+	req_access = list(160);
+	dir = 2
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/observ)
 "od" = (
 /obj/structure/table,
 /obj/item/folder/red,
@@ -5592,6 +5583,27 @@
 "py" = (
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/pirate_base/mining)
+"pz" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rightpirat_blast";
+	name = "Right BlastDoor";
+	req_access = list(160);
+	pixel_y = 6;
+	pixel_x = 6
+	},
+/obj/machinery/door_control{
+	id = "leftpirat_blast";
+	name = "Left BlastDoor";
+	req_access = list(160);
+	pixel_y = 6;
+	pixel_x = -6
+	},
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkblue"
+	},
+/area/shuttle/pirate_corvette)
 "pA" = (
 /obj/machinery/power/apc/noalarm{
 	req_access = list(160);
@@ -6163,6 +6175,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_medical)
+"rr" = (
+/obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "rs" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/spray/cleaner/medical{
@@ -6203,19 +6224,18 @@
 "rw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
-"rx" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/card/id/prisoner/random,
-/obj/item/clothing/head/beanie/orange,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
+"rz" = (
+/obj/structure/table/reinforced,
+/obj/item/paper{
+	info = "<color=black><i> Чёрный Рынок, работающий под покровительством \"Синдиката\", рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес \"Синдиката\", не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<br><br>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<br><br>Вот некоторые из доступных заданий и вознаграждения:<br><br>Похищение Определенного Человека: <br>Задача — похитить цель, живым. <br>Вознаграждение: до 120 000 кредитов.<br><br>Убийство Определенного Человека: <br>Задача — убить цель. <br>Вознаграждение: до 60 000 кредитов.<br><br>Сбор Редкой Фауны: <br>Найдите и захватите редких животных живыми. <br>Вознаграждение: до 40 000 кредитов.<br><br>Сбор Ядер Аномалии: <br>Опасная задача — собрать и доставить ядра из аномалий. <br>Вознаграждение: до 50 000 кредитов.<br><br>Выращивание Определенных Растений: <br>Поставьте и вырастите указанные растения. <br>Вознаграждение: до 20 000 кредитов.<br><br>Приготовление Особой Еды: <br>Подготовьте особую пиратскую пищу. <br>Вознаграждение: до 20 000 кредитов.<br><br>Половина заработанных вами кредитов будет уходить в уплату долга.<br><br>Пожалуйста, не забудьте отправить факс на адрес \"Синдиката\" для подтверждения. <br>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<br><br>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</i></font>";
+	info_links = "<color=black><i> Чёрный Рынок, работающий под покровительством \"Синдиката\", рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес \"Синдиката\", не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<br><br>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<br><br>Вот некоторые из доступных заданий и вознаграждения:<br><br>Похищение Определенного Человека: <br>Задача — похитить цель, живым. <br>Вознаграждение: до 120 000 кредитов.<br><br>Убийство Определенного Человека: <br>Задача — убить цель. <br>Вознаграждение: до 60 000 кредитов.<br><br>Сбор Редкой Фауны: <br>Найдите и захватите редких животных живыми. <br>Вознаграждение: до 40 000 кредитов.<br><br>Сбор Ядер Аномалии: <br>Опасная задача — собрать и доставить ядра из аномалий. <br>Вознаграждение: до 50 000 кредитов.<br><br>Выращивание Определенных Растений: <br>Поставьте и вырастите указанные растения. <br>Вознаграждение: до 20 000 кредитов.<br><br>Приготовление Особой Еды: <br>Подготовьте особую пиратскую пищу. <br>Вознаграждение: до 20 000 кредитов.<br><br>Половина заработанных вами кредитов будет уходить в уплату долга.<br><br>Пожалуйста, не забудьте отправить факс на адрес \"Синдиката\" для подтверждения. <br>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<br><br>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</i></font>";
+	name = "Чёрный Рынок"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/ruin/space/pirate_base/arrivals)
+/area/ruin/space/pirate_base/observ)
 "rA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -6431,23 +6451,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"sl" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/item/card/id/prisoner/random,
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "sn" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -8269,20 +8272,6 @@
 "xw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"xx" = (
-/obj/effect/turf_decal/box/red,
-/obj/machinery/quantumpad/cere/arrivals_cargo{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/obj/machinery/door/window/brigdoor{
-	req_access = list(160);
-	dir = 2
-	},
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/observ)
 "xz" = (
 /obj/structure/table/tray,
 /obj/item/storage/backpack/duffel/syndie/surgery,
@@ -8978,18 +8967,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
-"zQ" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 4
-	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "zR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -9334,13 +9311,6 @@
 /obj/item/inflatable/door,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
-"AV" = (
-/obj/structure/table,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "AW" = (
 /obj/structure/rack,
 /obj/item/analyzer,
@@ -9631,11 +9601,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
-"BQ" = (
-/obj/structure/table,
-/obj/item/stack/medical/splint,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/mining)
 "BR" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -9875,6 +9840,17 @@
 	icon_state = "brown"
 	},
 /area/ruin/space/pirate_base/mining)
+"Cy" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "Cz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10242,6 +10218,40 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"DJ" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/orange,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/stack/spacecash/c100,
+/obj/item/card/id/prisoner/random,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "DK" = (
 /obj/machinery/door_control{
 	id = "minerspirat_blast";
@@ -10366,18 +10376,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
-"Ef" = (
-/obj/structure/table/reinforced,
-/obj/item/paper{
-	info = "<color=black><i> Чёрный Рынок, работающий под покровительством Синдиката, рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес Синдиката, не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<br><br>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<br><br>Вот некоторые из доступных заданий и вознаграждения:<br><br>Похищение Определенного Человека: <br>Задача — похитить цель, живым. <br>Вознаграждение: до 120 000 кредитов.<br><br>Убийство Определенного Человека: <br>Задача — убить цель. <br>Вознаграждение: до 60 000 кредитов.<br><br>Сбор Редкой Фауны: <br>Найдите и захватите редких животных живыми. <br>Вознаграждение: до 40 000 кредитов.<br><br>Сбор Ядер Аномалии: <br>Опасная задача — собрать и доставить ядра из аномалий. <br>Вознаграждение: до 50 000 кредитов.<br><br>Выращивание Определенных Растений: <br>Поставьте и вырастите указанные растения. <br>Вознаграждение: до 20 000 кредитов.<br><br>Приготовление Особой Еды: <br>Подготовьте особую пиратскую пищу. <br>Вознаграждение: до 20 000 кредитов.<br><br>Половина заработанных вами кредитов будет уходить в уплату долга.<br><br>Пожалуйста, не забудьте отправить факс на адрес Синдиката для подтверждения. <br>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<br><br>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</i></font>";
-	info_links = "<color=black><i> Чёрный Рынок, работающий под покровительством Синдиката, рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес Синдиката, не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<br><br>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<br><br>Вот некоторые из доступных заданий и вознаграждения:<br><br>Похищение Определенного Человека: <br>Задача — похитить цель, живым. <br>Вознаграждение: до 120 000 кредитов.<br><br>Убийство Определенного Человека: <br>Задача — убить цель. <br>Вознаграждение: до 60 000 кредитов.<br><br>Сбор Редкой Фауны: <br>Найдите и захватите редких животных живыми. <br>Вознаграждение: до 40 000 кредитов.<br><br>Сбор Ядер Аномалии: <br>Опасная задача — собрать и доставить ядра из аномалий. <br>Вознаграждение: до 50 000 кредитов.<br><br>Выращивание Определенных Растений: <br>Поставьте и вырастите указанные растения. <br>Вознаграждение: до 20 000 кредитов.<br><br>Приготовление Особой Еды: <br>Подготовьте особую пиратскую пищу. <br>Вознаграждение: до 20 000 кредитов.<br><br>Половина заработанных вами кредитов будет уходить в уплату долга.<br><br>Пожалуйста, не забудьте отправить факс на адрес Синдиката для подтверждения. <br>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<br><br>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</i></font>";
-	name = "Чёрный Рынок"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/observ)
 "Eg" = (
 /obj/machinery/door_control{
 	id = "prison_block_shutters";
@@ -10735,11 +10733,6 @@
 "Fg" = (
 /turf/simulated/wall,
 /area/ruin/space/pirate_base/entertainment)
-"Fh" = (
-/obj/structure/closet,
-/obj/item/toy/plushie/plasmamanplushie,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Fi" = (
 /obj/machinery/door/airlock{
 	name = "Bathroom";
@@ -11131,6 +11124,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
+"Gs" = (
+/obj/structure/closet,
+/obj/item/stack/medical/ointment/extended,
+/obj/item/toy/plushie/plasmamanplushie,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "Gt" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -11689,6 +11688,20 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"HS" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/item/clothing/head/beanie/orange,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "HT" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -11869,19 +11882,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/pirate_corvette)
-"Ir" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "Is" = (
 /turf/simulated/wall,
 /area/ruin/space/pirate_base/arrivals)
@@ -12131,14 +12131,6 @@
 	tag = "icon-whitepurplecorner (EAST)"
 	},
 /area/ruin/space/pirate_base/laboratory)
-"Jh" = (
-/obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Jk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -12563,25 +12555,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"Ko" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = -2
-	},
-/obj/structure/curtain/open/shower,
-/obj/effect/turf_decal{
-	icon_state = "plumbing";
-	name = "plumbing"
-	},
-/obj/item/clothing/shoes/color/orange,
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/ruin/space/pirate_base/atrium)
 "Kp" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/observ)
@@ -12794,6 +12767,20 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/pirate_base/security_atrium)
+"La" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	req_access = list(160);
+	name = "piratepad"
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
 "Le" = (
 /obj/machinery/conveyor{
 	id = "pirategarbagebase";
@@ -12822,17 +12809,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
-"Lk" = (
-/obj/effect/turf_decal/box,
-/obj/structure/closet/crate/medical,
-/obj/item/handheld_defibrillator,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/firstaid/with_mousetrap/tactical,
-/turf/simulated/floor/plasteel{
-	icon_state = "sepia"
-	},
-/area/ruin/space/pirate_base/security_medical)
 "Ll" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -12957,21 +12933,6 @@
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
-"LG" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/color/orange/prison,
-/obj/item/clothing/head/beanie/orange,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/card/id/prisoner/random,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "LI" = (
 /obj/structure/table,
 /obj/machinery/door/window/eastright,
@@ -13015,6 +12976,25 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
+"LR" = (
+/obj/machinery/shower{
+	dir = 4;
+	pixel_x = -2
+	},
+/obj/structure/curtain/open/shower,
+/obj/effect/turf_decal{
+	icon_state = "plumbing";
+	name = "plumbing"
+	},
+/obj/item/clothing/shoes/color/orange,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 30;
+	maxHealth = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/pirate_base/atrium)
 "LS" = (
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/pirate_base/atrium)
@@ -13198,6 +13178,19 @@
 	icon_state = "darkblue"
 	},
 /area/ruin/space/pirate_base/lab_medical)
+"Mr" = (
+/obj/effect/turf_decal/box,
+/obj/structure/closet/crate/medical,
+/obj/item/handheld_defibrillator,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/firstaid/with_mousetrap/tactical,
+/obj/item/stack/medical/suture/advanced,
+/obj/item/stack/medical/bruise_pack/military,
+/turf/simulated/floor/plasteel{
+	icon_state = "sepia"
+	},
+/area/ruin/space/pirate_base/security_medical)
 "Mu" = (
 /obj/structure/rack,
 /obj/item/stock_parts/matter_bin/adv,
@@ -13238,6 +13231,14 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
+"MA" = (
+/obj/structure/table/glass,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/xeno_lab)
 "MB" = (
 /obj/machinery/computer/security{
 	network = list("PPrison")
@@ -13576,6 +13577,12 @@
 	icon_state = "darkredfull"
 	},
 /area/shuttle/pirate_corvette)
+"Nt" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/stack/medical/bruise_pack/extended,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/atmos)
 "Nv" = (
 /obj/structure/table/glass,
 /turf/simulated/floor/plasteel{
@@ -13911,6 +13918,14 @@
 /obj/machinery/pipedispenser/disposal,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
+"OD" = (
+/obj/structure/table,
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "OE" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -14467,6 +14482,30 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
+"Qc" = (
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/clothing/head/beanie/orange,
+/obj/merge_conflict_marker{
+	name = "---Merge Conflict Marker---";
+	
+	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
+	},
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/obj/item/clothing/head/beanie/orange,
+/obj/item/stack/spacecash/c10,
+/obj/item/clothing/shoes/orange,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "Qd" = (
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
@@ -14874,16 +14913,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
-"Rr" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "Rs" = (
 /obj/structure/table/wood,
 /obj/item/candle{
@@ -15296,6 +15325,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
+"SG" = (
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/entertainment)
 "SH" = (
 /obj/machinery/light{
 	active_power_usage = 0;
@@ -15526,20 +15559,6 @@
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
-"Tp" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/effect/turf_decal/box/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/quantumpad/cere/cargo_arrivals{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
 "Tq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15613,6 +15632,19 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virology)
+"TC" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "TE" = (
 /obj/effect/turf_decal/siding/wood/end{
 	dir = 8
@@ -15703,6 +15735,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/telecomms)
+"TT" = (
+/obj/effect/turf_decal/box,
+/obj/structure/closet/crate/engineering,
+/obj/item/analyzer,
+/obj/random/tool,
+/obj/random/tool,
+/obj/random/tool,
+/obj/item/clothing/head/welding,
+/obj/item/clothing/gloves/color/yellow,
+/obj/item/inflatable,
+/obj/item/inflatable,
+/obj/item/inflatable/door,
+/obj/item/stack/nanopaste,
+/turf/simulated/floor/plasteel{
+	icon_state = "sepia"
+	},
+/area/ruin/space/pirate_base/security_medical)
 "TU" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
 	dir = 8
@@ -16898,22 +16947,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atmos)
-"XC" = (
-/obj/effect/turf_decal/box,
-/obj/structure/closet/crate/engineering,
-/obj/item/analyzer,
-/obj/random/tool,
-/obj/random/tool,
-/obj/random/tool,
-/obj/item/clothing/head/welding,
-/obj/item/clothing/gloves/color/yellow,
-/obj/item/inflatable,
-/obj/item/inflatable,
-/obj/item/inflatable/door,
-/turf/simulated/floor/plasteel{
-	icon_state = "sepia"
-	},
-/area/ruin/space/pirate_base/security_medical)
 "XE" = (
 /obj/structure/table,
 /obj/item/kitchen/utensil/pfork,
@@ -16962,6 +16995,21 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/pirate_base/atrium)
+"XR" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/clothing/head/beanie/orange,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/card/id/prisoner/random,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "XS" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt,
@@ -19699,7 +19747,7 @@ us
 SV
 Yf
 WD
-Ko
+LR
 SV
 Jx
 Jp
@@ -20006,7 +20054,7 @@ SV
 cQ
 PG
 SV
-BQ
+ea
 ak
 hJ
 Uj
@@ -21035,7 +21083,7 @@ wn
 YT
 Yj
 CQ
-rw
+SG
 IH
 jj
 cR
@@ -21809,12 +21857,12 @@ qc
 qc
 qc
 ey
-iv
+pz
 FU
 sK
 FK
 Sz
-Tp
+La
 iS
 Fi
 if
@@ -21913,7 +21961,7 @@ qc
 ey
 WE
 vJ
-zQ
+kO
 wI
 DE
 bh
@@ -22033,7 +22081,7 @@ AK
 AK
 AK
 Iv
-fJ
+Qc
 Dn
 Dn
 bd
@@ -22135,7 +22183,7 @@ AK
 AK
 AK
 Iv
-rx
+HS
 VY
 Dn
 CS
@@ -22237,7 +22285,7 @@ mM
 AK
 AK
 Iv
-LG
+XR
 VY
 Dn
 fj
@@ -22339,7 +22387,7 @@ ve
 AK
 AK
 Iv
-sl
+DJ
 VY
 Dn
 Dn
@@ -22441,7 +22489,7 @@ mM
 AK
 bi
 Iv
-Ir
+TC
 VY
 Dn
 eL
@@ -22645,7 +22693,7 @@ AK
 AK
 AK
 Iv
-AV
+OD
 Vm
 Is
 Dn
@@ -23181,7 +23229,7 @@ yw
 SD
 Gf
 Gv
-nE
+aE
 LN
 iM
 eU
@@ -24500,7 +24548,7 @@ cS
 cS
 Pt
 Mo
-Rr
+Cy
 sj
 MV
 iK
@@ -24570,7 +24618,7 @@ AK
 AK
 mc
 xJ
-ew
+Nt
 hO
 hO
 HF
@@ -25213,7 +25261,7 @@ AK
 AK
 MD
 oB
-Nv
+MA
 qW
 uv
 Md
@@ -25501,7 +25549,7 @@ IK
 df
 lI
 lr
-Ef
+rz
 Nx
 Mg
 rR
@@ -25512,7 +25560,7 @@ TQ
 eF
 RG
 Yq
-Lk
+Mr
 yr
 AK
 AK
@@ -25591,7 +25639,7 @@ AK
 BX
 Pl
 MG
-Fh
+Gs
 hO
 gq
 NY
@@ -25793,7 +25841,7 @@ AK
 bi
 bi
 BX
-Jh
+rr
 Fn
 yg
 Op
@@ -25918,7 +25966,7 @@ Nx
 Sf
 TZ
 fy
-XC
+TT
 MH
 fR
 yr
@@ -26516,7 +26564,7 @@ JU
 Wh
 iB
 BX
-xx
+ob
 Xy
 ty
 cJ

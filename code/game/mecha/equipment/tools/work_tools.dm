@@ -81,8 +81,6 @@
 			start_cooldown()
 		return TRUE
 
-
-
 //This is pretty much just for the death-ripley
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	name = "KILL CLAMP"
@@ -299,7 +297,6 @@
 			return FALSE
 	return TRUE
 
-
 /obj/item/mecha_parts/mecha_equipment/multimodule/attach_act(obj/mecha/M)
 	for(var/thing in modules)
 		var/obj/item/mecha_parts/mecha_equipment/module = modules[thing]
@@ -362,7 +359,6 @@
 
 	return targeted_module.handle_ui_act(action, params)
 
-
 /obj/item/mecha_parts/mecha_equipment/multimodule/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/storage/bible))
 		var/obj/item/mecha_parts/mecha_equipment/extinguisher/extinguisher = locate() in src
@@ -372,14 +368,15 @@
 			return ATTACK_CHAIN_PROCEED
 	return ..()
 
-
 /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
 	name = "ATMOS module"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
 	icon_state = "mecha_atmos"
-	modules = list(/obj/item/mecha_parts/mecha_equipment/cable_layer,
-					/obj/item/mecha_parts/mecha_equipment/extinguisher,
-					/obj/item/mecha_parts/mecha_equipment/holowall)
+	modules = list(
+		/obj/item/mecha_parts/mecha_equipment/cable_layer,
+		/obj/item/mecha_parts/mecha_equipment/extinguisher,
+		/obj/item/mecha_parts/mecha_equipment/holowall,
+	)
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer
 	name = "cable layer"
@@ -430,7 +427,6 @@
 	else
 		occupant_message(span_warning("Unable to load from [target] - no cable found."))
 	return FALSE
-
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/handle_ui_act(action, list/params)
 	switch(action)
@@ -681,7 +677,6 @@
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 	var/obj/item/selected_item
 	var/emag_item = /obj/item/kitchen/knife/combat/cyborg/mecha
-	var/emagged = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/Initialize(mapload)
 	. = ..()

@@ -96,7 +96,6 @@
 	if(panel_open)
 		. += "dnamod-open"
 
-
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -139,16 +138,13 @@
 
 	return ..()
 
-
 /obj/machinery/plantgenes/screwdriver_act(mob/living/user, obj/item/I)
 	. = default_deconstruction_screwdriver(user, "dnamod", "dnamod", I)
 	if(.)
 		update_icon(UPDATE_OVERLAYS)
 
-
 /obj/machinery/plantgenes/crowbar_act(mob/living/user, obj/item/I)
 	return default_deconstruction_crowbar(user, I)
-
 
 /obj/machinery/plantgenes/proc/add_seed(obj/item/seeds/new_seed, mob/user)
 	add_fingerprint(user)
@@ -162,7 +158,6 @@
 	to_chat(user, span_notice("You add [new_seed] to the machine."))
 	ui_interact(user)
 
-
 /obj/machinery/plantgenes/proc/add_disk(obj/item/disk/plantgene/new_disk, mob/user)
 	add_fingerprint(user)
 	if(disk)
@@ -174,7 +169,6 @@
 	disk = new_disk
 	to_chat(user, span_notice("You add [new_disk] to the machine."))
 	ui_interact(user)
-
 
 /obj/machinery/plantgenes/attack_hand(mob/user)
 	if(..())
@@ -331,7 +325,6 @@
 				update_genes()
 				repaint_seed()
 				// this doesnt need a modal, its easy enough to just remove the inserted gene
-
 
 /obj/machinery/plantgenes/proc/gene_remove()
 	if(istype(target, /datum/plant_gene/core))

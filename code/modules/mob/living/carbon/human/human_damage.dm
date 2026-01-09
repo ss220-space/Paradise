@@ -17,11 +17,9 @@
 	if(((maxHealth - total_burn) < HEALTH_THRESHOLD_DEAD) && stat == DEAD)
 		ChangeToHusk()
 
-
 /mob/living/carbon/human/update_stamina()
 	. = ..()
 	update_movespeed_damage_modifiers()
-
 
 /mob/living/carbon/human/update_movespeed_damage_modifiers()
 	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
@@ -36,7 +34,6 @@
 	else
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown)
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
-
 
 /mob/living/carbon/human/adjustBrainLoss(
 	amount = 0,
@@ -59,12 +56,11 @@
 		if(sponge)
 			sponge.damage = clamp(round(sponge.damage + amount, DAMAGE_PRECISION), 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
-				visible_message(span_alert("<b>[capitalize(declent_ru(NOMINATIVE))]</b> обмяк[genderize_ru(src.gender, "", "ла", "ло", "лии")], [genderize_ru(src.gender, "его","её","его","их")] выражение лица совершенно пустое."))
+				visible_message(span_alert("<b>[capitalize(declent_ru(NOMINATIVE))]</b> обмяк[GEND_LA_LO_LI(src)], [GEND_HIS_HER(src)] выражение лица совершенно пустое."))
 				death()
 	if(updating_health)
 		update_stat("adjustBrainLoss")
 	return STATUS_UPDATE_STAT
-
 
 /mob/living/carbon/human/setBrainLoss(amount, updating_health = TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -75,12 +71,11 @@
 		if(sponge)
 			sponge.damage = clamp(round(amount, DAMAGE_PRECISION), 0, 120)
 			if(sponge.damage >= 120 && stat != DEAD)
-				visible_message(span_alert("<b>[capitalize(declent_ru(NOMINATIVE))]</b> обмяк[genderize_ru(src.gender, "", "ла", "ло", "лии")], [genderize_ru(src.gender, "его","её","его","их")] выражение лица совершенно пустое."))
+				visible_message(span_alert("<b>[capitalize(declent_ru(NOMINATIVE))]</b> обмяк[GEND_LA_LO_LI(src)], [GEND_HIS_HER(src)] выражение лица совершенно пустое."))
 				death()
 	if(updating_health)
 		update_stat("setBrainLoss")
 	return STATUS_UPDATE_STAT
-
 
 /mob/living/carbon/human/getBrainLoss()
 	. = 0
@@ -100,7 +95,6 @@
 
 	return 200
 
-
 /mob/living/carbon/human/adjustHeartLoss(amount, updating_health = TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return STATUS_UPDATE_NONE
@@ -112,7 +106,6 @@
 	if(updating_health)
 		update_stat("adjustHeartLoss")
 	return STATUS_UPDATE_STAT
-
 
 /mob/living/carbon/human/setHeartLoss(amount, updating_health = TRUE)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -130,7 +123,6 @@
 		update_stat("setHeartLoss")
 	return STATUS_UPDATE_STAT
 
-
 /mob/living/carbon/human/getHeartLoss()
 	. = 0
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
@@ -145,7 +137,6 @@
 
 	return 200
 
-
 /mob/living/carbon/human/proc/check_brain_for_complex_interactions()
 	if(getBrainLoss() >= 60 || prob(getBrainLoss()))
 		return FALSE
@@ -156,7 +147,6 @@
 			return FALSE
 	return TRUE
 
-
 //These procs fetch a cumulative total damage from all organs
 /mob/living/carbon/human/getBruteLoss()
 	. = 0
@@ -165,14 +155,12 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		. += bodypart.brute_dam
 
-
 /mob/living/carbon/human/getFireLoss()
 	. = 0
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return .
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		. += bodypart.burn_dam
-
 
 /mob/living/carbon/human/adjustBruteLoss(
 	amount = 0,
@@ -191,7 +179,6 @@
 	else
 		. |= heal_overall_damage(amount, 0, updating_health, FALSE, affect_robotic)
 
-
 /mob/living/carbon/human/adjustFireLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -209,14 +196,12 @@
 	else
 		. |= heal_overall_damage(0, amount, updating_health, FALSE, affect_robotic)
 
-
 /mob/living/carbon/human/setCloneLoss(amount, updating_health = TRUE)
 	. = ..()
 	if(!. || getCloneLoss() > 1)	//assuming cloneloss was set to 0
 		return .
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		bodypart.unmutate()
-
 
 /mob/living/carbon/human/adjustCloneLoss(
 	amount = 0,
@@ -256,7 +241,6 @@
 			if(bodypart.unmutate())
 				break
 
-
 /mob/living/carbon/human/adjustOxyLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -272,7 +256,6 @@
 		return STATUS_UPDATE_NONE
 	return ..()
 
-
 /mob/living/carbon/human/setOxyLoss(amount = 0, updating_health = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
 		var/old_oxyloss = getOxyLoss()
@@ -281,7 +264,6 @@
 			updatehealth("setOxyLoss")
 		return STATUS_UPDATE_NONE
 	return ..()
-
 
 /mob/living/carbon/human/adjustToxLoss(
 	amount = 0,
@@ -330,7 +312,6 @@
 			parts += bodypart
 	return parts
 
-
 //Returns a list of damageable organs
 /mob/living/carbon/human/proc/get_damageable_organs(affect_robotic = TRUE)
 	var/list/obj/item/organ/external/parts = list()
@@ -340,7 +321,6 @@
 		if(bodypart.brute_dam + bodypart.burn_dam < bodypart.max_damage)
 			parts += bodypart
 	return parts
-
 
 /mob/living/carbon/human/heal_organ_damage(
 	brute = 0,
@@ -361,7 +341,6 @@
 		. |= STATUS_UPDATE_HEALTH
 		if(updating_health)
 			updatehealth("heal organ damage")
-
 
 /mob/living/carbon/human/take_organ_damage(
 	brute = 0,
@@ -388,7 +367,6 @@
 		. |= STATUS_UPDATE_HEALTH
 		if(updating_health)
 			updatehealth("take organ damage")
-
 
 /mob/living/carbon/human/heal_overall_damage(
 	brute = 0,
@@ -432,7 +410,6 @@
 
 	if(update_damage_icon)
 		UpdateDamageIcon()
-
 
 /mob/living/carbon/human/take_overall_damage(
 	brute = 0,
@@ -486,7 +463,6 @@
 	if(update_damage_icon)
 		UpdateDamageIcon()
 
-
 ////////////////////////////////////////////
 
 /*
@@ -496,7 +472,6 @@ This function restores all organs.
 	for(var/obj/item/organ/external/current_organ as anything in bodyparts)
 		current_organ.rejuvenate()
 
-
 /mob/living/carbon/human/get_organ(zone)
 	if(!zone)
 		zone = BODY_ZONE_CHEST
@@ -504,6 +479,26 @@ This function restores all organs.
 		zone = BODY_ZONE_HEAD
 	return bodyparts_by_name[zone]
 
+/mob/living/carbon/human/proc/get_affecting_limb_bodypart(obj/item/organ/external/affecting)
+	switch(affecting.limb_zone)
+		if(BODY_ZONE_L_ARM)
+			return get_organ(BODY_ZONE_PRECISE_L_HAND)
+		if(BODY_ZONE_R_ARM)
+			return get_organ(BODY_ZONE_PRECISE_R_HAND)
+		if(BODY_ZONE_PRECISE_L_HAND)
+			return get_organ(BODY_ZONE_L_ARM)
+		if(BODY_ZONE_PRECISE_R_HAND)
+			return get_organ(BODY_ZONE_R_ARM)
+		if(BODY_ZONE_L_LEG)
+			return get_organ(BODY_ZONE_PRECISE_L_FOOT)
+		if(BODY_ZONE_R_LEG)
+			return get_organ(BODY_ZONE_PRECISE_R_FOOT)
+		if(BODY_ZONE_PRECISE_L_FOOT)
+			return get_organ(BODY_ZONE_L_LEG)
+		if(BODY_ZONE_PRECISE_R_FOOT)
+			return get_organ(BODY_ZONE_R_LEG)
+
+	return null
 
 /mob/living/carbon/human/apply_damage(
 	damage = 0,
@@ -536,7 +531,6 @@ This function restores all organs.
 	if(. && def_zone && (damagetype == BRUTE || damagetype == BURN))
 		damageoverlaytemp = 20
 
-
 /mob/living/carbon/human/apply_damages(
 	brute = 0,
 	burn = 0,
@@ -565,7 +559,6 @@ This function restores all organs.
 
 	return ..()
 
-
 /mob/living/carbon/human/get_blocking_resistance(
 	damage = 0,
 	damagetype = BRUTE,
@@ -579,7 +572,6 @@ This function restores all organs.
 	// Add relevant DR modifiers into blocked value
 	. += physiology.damage_resistance
 	. += dna.species.damage_resistance
-
 
 /mob/living/carbon/human/get_incoming_damage_modifier(
 	damage = 0,

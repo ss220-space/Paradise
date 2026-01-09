@@ -41,11 +41,9 @@
 	lefthand_file = 'icons/mob/inhands/twohanded_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/twohanded_righthand.dmi'
 
-
 /obj/item/twohanded/Initialize(mapload)
 	. = ..()
 	apply_twohanded_component()
-
 
 /**
  * Proc handles adding component during Initialize()
@@ -64,7 +62,6 @@
 		unwield_callback = CALLBACK(src, PROC_REF(unwield)) \
 	)
 
-
 /**
  * Generic CALLBACK when twohanded item get `wielded`. Avoid inheritance unless you know what you are doing.
  *
@@ -72,7 +69,6 @@
  */
 /obj/item/twohanded/proc/wield(obj/item/source, mob/living/carbon/user)
 	return
-
 
 /**
  * Generic CALLBACK when twohanded item get `UNwielded`. Avoid inheritance unless you know what you are doing.
@@ -82,18 +78,21 @@
 /obj/item/twohanded/proc/unwield(obj/item/source, mob/living/carbon/user)
 	return
 
+/obj/item/twohanded/proc/update_damage(force_wielded = src.force_wielded, force_unwielded = src.force_unwielded, force_multiplier)
+	src.force_wielded = force_wielded
+	src.force_unwielded = force_unwielded
+	force = wielded ? force_wielded : force_unwielded
+	SEND_SIGNAL(src, COMSIG_UPDATE_TWOHANDED_DAMAGE, force_wielded, force_unwielded, force_multiplier)
 
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/twohanded/required
 	w_class = WEIGHT_CLASS_HUGE
 
-
 //We are adding new parameter to old component
 /obj/item/twohanded/required/apply_twohanded_component()
 	..()
 	AddComponent(/datum/component/two_handed, require_twohands = TRUE)
-
 
 /*
  * Fireaxe
@@ -135,7 +134,6 @@
 /obj/item/twohanded/fireaxe/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "fireaxe[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-
 /obj/item/twohanded/fireaxe/afterattack(atom/A, mob/user, proximity, params)
 	. = ..()
 	if(!proximity)
@@ -159,9 +157,8 @@
 		DATIVE = "костяному топору",
 		ACCUSATIVE = "костяной топор",
 		INSTRUMENTAL = "костяным топором",
-		PREPOSITIONAL = "костяном топоре"
+		PREPOSITIONAL = "костяном топоре",
 	)
-
 
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -186,7 +183,7 @@
 		DATIVE = "гильотине",
 		ACCUSATIVE = "гильотину",
 		INSTRUMENTAL = "гильотиной",
-		PREPOSITIONAL = "гильотине"
+		PREPOSITIONAL = "гильотине",
 	)
 
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/ComponentInitialize()
@@ -218,13 +215,11 @@
 	var/charge = 30
 	var/max_charge = 30
 
-
 /obj/item/twohanded/fireaxe/energized/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		icon_state = "fireaxe2"
 	else
 		icon_state = "fireaxe0"
-
 
 /obj/item/twohanded/fireaxe/energized/Initialize(mapload)
 	. = ..()
@@ -246,10 +241,8 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/item/twohanded/fireaxe/energized/process()
 	charge = min(charge + 1, max_charge)
-
 
 /obj/item/twohanded/fireaxe/energized/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -259,14 +252,13 @@
 	charge = 0
 	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 	user.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[pluralize_ru(user.gender,"ет","ют")] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[PLUR_ET_YUT(user)] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
 	)
 	do_sparks(1, TRUE, src)
 	target.Weaken(6 SECONDS)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 5, 1)
-
 
 /*
  * Double-Bladed Energy Swords - Cheridan
@@ -300,8 +292,7 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
-
+	var/static/list/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 /obj/item/twohanded/dualsaber/Initialize(mapload)
 	. = ..()
@@ -325,22 +316,18 @@
 		to_chat(user, span_warning("Вам не хватает ловкости для этого!"))
 		return COMPONENT_TWOHANDED_BLOCK_WIELD
 
-
 //Specific wield () hulk checks due to reflection chance for balance
 /obj/item/twohanded/dualsaber/wield(obj/item/source, mob/living/carbon/user)
 	hitsound = 'sound/weapons/blade1.ogg'
 	w_class = w_class_on
 
-
 /obj/item/twohanded/dualsaber/unwield(obj/item/source, mob/living/carbon/user)
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	w_class = initial(w_class)
-
 
 /obj/item/twohanded/dualsaber/IsReflect()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return TRUE
-
 
 /obj/item/twohanded/dualsaber/update_icon_state()
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
@@ -350,7 +337,6 @@
 	else
 		icon_state = "dualsaber0"
 		set_light_on(FALSE)
-
 
 /obj/item/twohanded/dualsaber/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -365,7 +351,6 @@
 	if(prob(50))
 		INVOKE_ASYNC(src, GLOBAL_PROC_REF(jedi_spin), user)
 
-
 /proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))
 		user.setDir(i)
@@ -373,12 +358,10 @@
 			user.SpinAnimation(7, 1)
 		sleep(1)
 
-
 /obj/item/twohanded/dualsaber/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(HAS_TRAIT(src, TRAIT_WIELDED))
 		return ..()
 	return FALSE
-
 
 /obj/item/twohanded/dualsaber/green
 	blade_color = "green"
@@ -404,7 +387,6 @@
 /obj/item/twohanded/dualsaber/yellow
 	blade_color = "yellow"
 
-
 /obj/item/twohanded/dualsaber/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -416,7 +398,6 @@
 		update_icon()
 	else
 		to_chat(user, span_warning("Похоже на тройную радугу... хотя нет, показалось."))
-
 
 //spears
 /obj/item/twohanded/spear
@@ -450,13 +431,11 @@
 		DATIVE = "копью",
 		ACCUSATIVE = "копьё",
 		INSTRUMENTAL = "копьём",
-		PREPOSITIONAL = "копье"
+		PREPOSITIONAL = "копье",
 	)
-
 
 /obj/item/twohanded/spear/update_icon_state()
 	icon_state = "[icon_prefix][HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/spear/CheckParts(list/parts_list)
 	var/obj/item/shard/tip = locate() in parts_list
@@ -469,8 +448,8 @@
 	qdel(tip)
 	..()
 
-
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity, params)
+	. = ..()
 	if(!proximity)
 		return
 	if(isturf(AM)) //So you can actually melee with it
@@ -480,13 +459,11 @@
 		explosive.prime()
 		qdel(src)
 
-
 /obj/item/twohanded/spear/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(explosive)
 		explosive.prime()
 		qdel(src)
-
 
 /obj/item/twohanded/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
 	icon_state = "bone_spear0"
@@ -506,7 +483,7 @@
 		DATIVE = "костяному копью",
 		ACCUSATIVE = "костяное копьё",
 		INSTRUMENTAL = "костяным копьём",
-		PREPOSITIONAL = "костяном копье"
+		PREPOSITIONAL = "костяном копье",
 	)
 
 /obj/item/twohanded/spear/bonespear/chitinspear //like a mix of a bone spear and bone axe, but more like a bone spear. And better.
@@ -526,7 +503,7 @@
 		DATIVE = "хитиновому копью",
 		ACCUSATIVE = "хитиновое копьё",
 		INSTRUMENTAL = "хитиновым копьём",
-		PREPOSITIONAL = "хитиновом копье"
+		PREPOSITIONAL = "хитиновом копье",
 	)
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace
@@ -548,7 +525,7 @@
 		DATIVE = "копью \"Её Обжигающие Объятия\"",
 		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
 		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
-		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
+		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\"",
 	)
 
 /obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
@@ -570,7 +547,6 @@
 	throwforce = 21
 	icon_prefix = "spearplasma"
 
-
 //GREY TIDE
 /obj/item/twohanded/spear/grey_tide
 	name = "Grey Tide"
@@ -582,7 +558,7 @@
 	..()
 	if(!proximity)
 		return
-	user.faction |= "greytide(\ref[user])"
+	user.faction |= "greytide([user.UID()])"
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
@@ -594,7 +570,6 @@
 			M.Copy_Parent(user, 100, user.health/2.5, 12, 30)
 			M.GiveTarget(L)
 
-
 /obj/item/twohanded/spear/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/organ/external/head))	//Putting heads on spears
 		add_fingerprint(user)
@@ -603,7 +578,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
+			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
 			span_notice("Вы насаживаете [I.declent_ru(ACCUSATIVE)] на копьё и устанавливаете его вертикально.")
 		)
 		var/obj/structure/headspear/trophy = new(get_turf(src))
@@ -622,7 +597,6 @@
 
 	return ..()
 
-
 /obj/structure/headspear
 	name = "head on a spear"
 	desc = "Какое варварство."
@@ -638,7 +612,7 @@
 		DATIVE = "голове на копье",
 		ACCUSATIVE = "голову на копье",
 		INSTRUMENTAL = "головой на копье",
-		PREPOSITIONAL = "голове на копье"
+		PREPOSITIONAL = "голове на копье",
 	)
 
 /obj/structure/headspear/Destroy()
@@ -652,7 +626,7 @@
 
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] ногой!"),
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] ногой!"),
 		span_danger("Вы с пинаете [declent_ru(ACCUSATIVE)], опрокидывая его!")
 	)
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
@@ -664,7 +638,6 @@
 		mounted_head.forceMove(T)
 		mounted_head = null
 	qdel(src)
-
 
 // DIY CHAINSAW
 /obj/item/twohanded/chainsaw_handmade
@@ -681,18 +654,16 @@
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
 	actions_types = list(/datum/action/item_action/startchainsaw)
 	var/datum/looping_sound/chainsaw/soundloop
 
-
 /obj/item/twohanded/chainsaw_handmade/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
-
+	soundloop = new(src)
 
 /obj/item/twohanded/chainsaw_handmade/ComponentInitialize()
 	. = ..()
@@ -706,33 +677,27 @@
 		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
-
 /obj/item/twohanded/chainsaw_handmade/Destroy(force)
 	QDEL_NULL(soundloop)
 	return ..()
-
 
 /obj/item/twohanded/chainsaw_handmade/wield(obj/item/source, mob/living/carbon/user)
 	soundloop.start()
 	hitsound = 'sound/weapons/chainsaw.ogg'
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
 
-
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
-
 
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw_handmade[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/chainsaw_handmade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
-
 
 /obj/item/twohanded/chainsaw_handmade/doomslayer
 	name = "OOOH BABY"
@@ -740,14 +705,12 @@
 	armour_penetration = 100
 	force_wielded = 30
 
-
 /obj/item/twohanded/chainsaw_handmade/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атакует", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
 		owner.visible_message(span_danger("Дальние атаки только сильнее злят [owner.declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE
-
 
 ///CHAINSAW///
 /obj/item/twohanded/chainsaw
@@ -776,13 +739,12 @@
 		DATIVE = "бензопиле",
 		ACCUSATIVE = "бензопилу",
 		INSTRUMENTAL = "бензопилой",
-		PREPOSITIONAL = "бензопиле"
+		PREPOSITIONAL = "бензопиле",
 	)
 
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
-
+	soundloop = new(src)
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
@@ -796,11 +758,9 @@
 		swing_sound = SFX_CHAINSAW_SWING \
 	)
 
-
 /obj/item/twohanded/chainsaw/Destroy(force)
 	QDEL_NULL(soundloop)
 	return ..()
-
 
 /obj/item/twohanded/chainsaw/wield(obj/item/source, mob/living/carbon/user)
 	soundloop.start()
@@ -808,17 +768,14 @@
 	to_chat(user, "Дёргая стартовый шнур [declent_ru(GENITIVE)], вы слышите нарастающее гудение.")
 	ADD_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
-
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
-
 /obj/item/twohanded/chainsaw/update_icon_state()
 	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/chainsaw/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -838,7 +795,6 @@
 		return
 	target_limb.droplimb()
 
-
 // SINGULOHAMMER
 /obj/item/twohanded/singularityhammer
 	name = "singularity hammer"
@@ -856,7 +812,6 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/charged = 5
 	origin_tech = "combat=4;bluespace=4;plasmatech=7"
-
 
 /obj/item/twohanded/singularityhammer/Initialize(mapload)
 	. = ..()
@@ -879,14 +834,12 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
 /obj/item/twohanded/singularityhammer/process()
 	if(charged < 5)
 		charged++
 
 /obj/item/twohanded/singularityhammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/singularityhammer/afterattack(atom/A, mob/user, proximity, params)
 	. = ..()
@@ -904,10 +857,8 @@
 	for(var/atom/pulled_thing as anything in (orange(5, target) - user))
 		pulled_thing.singularity_hammer_act(target)
 
-
 /atom/proc/singularity_hammer_act(turf/pull)
 	return
-
 
 /atom/movable/singularity_hammer_act(turf/pull)
 	if(anchored)
@@ -919,10 +870,8 @@
 		if(!step_towards(src, pull))
 			return
 
-
 /mob/dead/observer/singularity_hammer_act(turf/pull)
 	return
-
 
 /mob/living/singularity_hammer_act(turf/pull)
 	if(HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
@@ -931,7 +880,6 @@
 	buckled?.unbuckle_mob(src)
 	Weaken(2 SECONDS)
 	..()
-
 
 /obj/item/twohanded/mjollnir
 	name = "Mjolnir"
@@ -965,13 +913,12 @@
 	target.Stun(4 SECONDS)
 	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
-		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[genderize_ru(target.gender,"", "а", "о", "ы")] разрядом [declent_ru(GENITIVE)]!"),
+		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[GEND_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
 		span_italics("Раздаётся оглушительный электрический треск!")
 	)
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	INVOKE_ASYNC(target, TYPE_PROC_REF(/atom/movable, throw_at), throw_target, 200, 4)
-
 
 /obj/item/twohanded/mjollnir/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -979,16 +926,13 @@
 		return .
 	shock(target)
 
-
 /obj/item/twohanded/mjollnir/throw_impact(atom/target, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(isliving(target))
 		shock(target)
 
-
 /obj/item/twohanded/mjollnir/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "mjollnir[HAS_TRAIT(src, TRAIT_WIELDED)]"
-
 
 /obj/item/twohanded/knighthammer
 	name = "singuloth knight's hammer"
@@ -1033,7 +977,6 @@
 /obj/item/twohanded/knighthammer/update_icon_state()  //Currently only here to fuck with the on-mob icons.
 	icon_state = "knighthammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
-
 /obj/item/twohanded/knighthammer/afterattack(atom/A, mob/user, proximity, params)
 	. = ..()
 	if(!proximity)
@@ -1044,7 +987,7 @@
 			var/mob/living/Z = A
 			if(Z.health >= 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[genderize_ru(Z.gender,"", "а", "о", "ы")] сокрушительным ударом [declent_ru(GENITIVE)]!"),
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[GEND_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
 					span_userdanger("Мощный удар разрывает ваше тело и отшвыривает вас!"),
 					span_danger("Слышен глухой удар и хлюпающий звук разрыва плоти!")
 				)
@@ -1053,7 +996,7 @@
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[pluralize_ru(Z.gender,"ет","ют")]ся на куски силой [declent_ru(GENITIVE)]!"),
+					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[PLUR_ET_YUT(Z)]ся на куски силой [declent_ru(GENITIVE)]!"),
 					span_userdanger("Вы чувствуете, как ваше тело разрывается на куски!"),
 					span_danger("Слышен мощный удар и звук разрывающейся плоти!")
 				)
@@ -1108,7 +1051,7 @@
 		DATIVE = "демоническим вилам",
 		ACCUSATIVE = "демонические вилы",
 		INSTRUMENTAL = "демоническими вилами",
-		PREPOSITIONAL = "демонических вилах"
+		PREPOSITIONAL = "демонических вилах",
 	)
 
 /obj/item/twohanded/pitchfork/demonic/greater
@@ -1123,11 +1066,23 @@
 	force_unwielded = 100
 	force_wielded = 500000 // Kills you DEAD.
 
+/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+
+	if(is_airlock(target))
+		var/obj/machinery/door/airlock/airlock = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
+		airlock.deconstruct()
+		return TRUE
+	..()
+
 /obj/item/twohanded/pitchfork/update_icon_state()
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[pluralize_ru(user.gender, "ет", "ют")] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[PLUR_ET_YUT(user)] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
@@ -1137,10 +1092,10 @@
 
 	var/mob/living/living_user = user
 
-	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind) //Burn hands unless they are a devil or have sold their soul
+	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind || isdevil(living_user)) //Burn hands unless they are a devil or have sold their soul
 		return
 
-	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[pluralize_ru(living_user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
+	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[PLUR_ET_YUT(living_user)] [declent_ru(ACCUSATIVE)], [GEND_HIS_HER(living_user)] руки на мгновение загораются."), \
 					span_warning("Когда вы поднимаете [declent_ru(ACCUSATIVE)], ваши руки воспламеняются, напоминая вам обо всех ваших прошлых грехах."))
 
 	if(!ishuman(living_user))
@@ -1156,12 +1111,11 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind) || isdevil(user))
 		return .
 
 	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))
 	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-
 
 // It's no fun being the lord of all hell if you can't get out of a simple room
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
@@ -1207,7 +1161,7 @@
 
 /obj/item/twohanded/sechammer
 	name = "tactical sledgehammer"
-	desc = "Тяжёлая кувалда, используемая силовыми структурами Нанотрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
+	desc = "Тяжёлая кувалда, используемая силовыми структурами \"Нанотрейзен\". Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
 	gender = FEMALE
 	icon_state = "sechammer0"
 	throwforce = 20
@@ -1236,7 +1190,7 @@
 		DATIVE = "тактической кувалде",
 		ACCUSATIVE = "тактическую кувалду",
 		INSTRUMENTAL = "тактической кувалдой",
-		PREPOSITIONAL = "тактической кувалде"
+		PREPOSITIONAL = "тактической кувалде",
 	)
 
 /obj/item/twohanded/sechammer/ComponentInitialize()
@@ -1257,7 +1211,6 @@
 
 /obj/item/twohanded/sechammer/wield(obj/item/source, mob/living/carbon/user)
 	slowdown = 0.5
-
 
 /obj/item/twohanded/sechammer/unwield(obj/item/source, mob/living/carbon/user)
 	slowdown = 0

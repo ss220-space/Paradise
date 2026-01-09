@@ -46,21 +46,23 @@
 		DATIVE = "магнитному захвату",
 		ACCUSATIVE = "магнитный захват",
 		INSTRUMENTAL = "магнитным захватом",
-		PREPOSITIONAL = "магнитном захвате"
+		PREPOSITIONAL = "магнитном захвате",
 	)
 
 /obj/item/gripper/medical
 	name = "medical gripper"
 	desc = "Захватывающий инструмент, используемый для удержания органов и помощи пациентам после завершения операции."
-	can_hold = list(/obj/item/organ,
-					/obj/item/reagent_containers/iv_bag,
-					/obj/item/robot_parts/head,
-					/obj/item/robot_parts/l_arm,
-					/obj/item/robot_parts/r_arm,
-					/obj/item/robot_parts/l_leg,
-					/obj/item/robot_parts/r_leg,
-					/obj/item/robot_parts/chest,
-					/obj/item/stack/sheet/mineral/plasma) //for repair plasmamans
+	can_hold = list(
+		/obj/item/organ,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/robot_parts/head,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_leg,
+		/obj/item/robot_parts/chest,
+		/obj/item/stack/sheet/mineral/plasma,
+	) //for repair plasmamans
 
 /obj/item/gripper/medical/get_ru_names()
 	return list(
@@ -69,7 +71,7 @@
 		DATIVE = "медицинскому захвату",
 		ACCUSATIVE = "медицинский захват",
 		INSTRUMENTAL = "медицинским захватом",
-		PREPOSITIONAL = "медицинском захвате"
+		PREPOSITIONAL = "медицинском захвате",
 	)
 
 /obj/item/gripper/medical/attack_self(mob/user)
@@ -87,8 +89,8 @@
 				H.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 			user.visible_message( \
-				span_notice("[user] тряс[pluralize_ru(user.gender,"ет","ут")] [H] пытаясь поднять [genderize_ru(H.gender,"его","её","его","их")]!"),\
-				span_notice("Вы трясёте [H] пытаясь поднять [genderize_ru(H.gender,"его","её","его","их")]!"),\
+				span_notice("[user] тряс[PLUR_ET_UT(user)] [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
+				span_notice("Вы трясёте [H] пытаясь поднять [GEND_HIS_HER(H)]!"),\
 				)
 			user.changeNext_move(CLICK_CD_MELEE)
 		return
@@ -100,14 +102,16 @@
 /obj/item/gripper/service
 	name = "Card gripper"
 	desc = "Захватывающий инструмент, используемый для изъятия ID-карт, для уплаты налогов, и пробуждения пьяных членов экипажа."
-	can_hold = list(/obj/item/card,
-					/obj/item/camera_film,
-					/obj/item/paper,
-					/obj/item/photo,
-					/obj/item/toy/plushie,
-					/obj/item/reagent_containers/food,
-					/obj/item/seeds,
-					/obj/item/disk/plantgene)
+	can_hold = list(
+		/obj/item/card,
+		/obj/item/camera_film,
+		/obj/item/paper,
+		/obj/item/photo,
+		/obj/item/toy/plushie,
+		/obj/item/reagent_containers/food,
+		/obj/item/seeds,
+		/obj/item/disk/plantgene,
+	)
 
 /obj/item/gripper/service/get_ru_names()
 	return list(
@@ -116,7 +120,7 @@
 		DATIVE = "карточному захвату",
 		ACCUSATIVE = "карточный захват",
 		INSTRUMENTAL = "карточным захватом",
-		PREPOSITIONAL = "карточном захвате"
+		PREPOSITIONAL = "карточном захвате",
 	)
 
 /obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
@@ -135,7 +139,7 @@
 		DATIVE = "древнему захвату",
 		ACCUSATIVE = "древний захват",
 		INSTRUMENTAL = "древним захватом",
-		PREPOSITIONAL = "древнем захвате"
+		PREPOSITIONAL = "древнем захвате",
 	)
 
 /obj/item/gripper/cogscarab/New()
@@ -152,7 +156,8 @@
 	name = "Universal gripper"
 	desc = "Универсальный захватывающий инструмент, используемый для выполнения сверх секретных заданий клана паука."
 	icon_state = "diskgripper"
-	can_hold = list(/obj/item/firealarm_electronics,
+	can_hold = list(
+		/obj/item/firealarm_electronics,
 		/obj/item/airalarm_electronics,
 		/obj/item/airlock_electronics,
 		/obj/item/firelock_electronics,
@@ -194,7 +199,8 @@
 		/obj/item/toy/plushie,
 		/obj/item/reagent_containers/food,
 		/obj/item/seeds,
-		/obj/item/disk/plantgene)
+		/obj/item/disk/plantgene,
+	)
 
 /obj/item/gripper/universal/get_ru_names()
 	return list(
@@ -203,7 +209,7 @@
 		DATIVE = "универсальному захвату",
 		ACCUSATIVE = "универсальный захват",
 		INSTRUMENTAL = "универсальным захватом",
-		PREPOSITIONAL = "универсальном захвате"
+		PREPOSITIONAL = "универсальном захвате",
 	)
 
 /obj/item/gripper/nuclear
@@ -219,7 +225,7 @@
 		DATIVE = "ядерному захвату",
 		ACCUSATIVE = "ядерный захват",
 		INSTRUMENTAL = "ядерным захватом",
-		PREPOSITIONAL = "ядерном захвате"
+		PREPOSITIONAL = "ядерном захвате",
 	)
 
 /obj/item/gripper/New()
@@ -229,7 +235,7 @@
 /obj/item/gripper/verb/drop_item_gripped()
 	set name = "Выкинуть предмет"
 	set desc = "Release an item from your magnetic gripper."
-	set category = STATPANEL_DRONE
+	set category = VERB_CATEGORY_DRONE
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	drop_gripped_item()
@@ -259,14 +265,12 @@
 		return
 	gripped_item ? usr.DblClickOn(gripped_item, params) : usr.ClickOn(src, params)
 
-
 /obj/item/gripper/attackby(obj/item/weapon, mob/user, params)
 	if(!gripped_item)
 		return ATTACK_CHAIN_PROCEED
 	. = gripped_item.attackby(weapon, user, params)
 	if(QDELETED(gripped_item)) // if item was dissasembled we need to clear the pointer
 		drop_gripped_item(TRUE) // silent = TRUE to prevent "You drop X" message from appearing without actually dropping anything
-
 
 /obj/item/gripper/proc/drop_gripped_item(silent = FALSE)
 	if(!gripped_item)
@@ -276,10 +280,8 @@
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
-
 /obj/item/gripper/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /// Grippers are snowflakey so this is needed to to prevent forceMoving grippers after `if(!user.drop_from_active_hand())` checks done in certain attackby's.
 /obj/item/gripper/forceMove(atom/destination)
@@ -287,7 +289,6 @@
 
 /obj/item/gripper/proc/isEmpty()
 	return isnull(gripped_item)
-
 
 /obj/item/gripper/melee_attack_chain(mob/user, atom/target, params)	// this shit requires massive refactoring
 	. = ATTACK_CHAIN_PROCEED
@@ -323,7 +324,6 @@
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
 		. |= ATTACK_CHAIN_SUCCESS
-
 
 /obj/item/gripper/proc/handle_item_moving()
 	SIGNAL_HANDLER
@@ -368,12 +368,11 @@
 		DATIVE = "декомпилятору материи",
 		ACCUSATIVE = "декомпилятор материи",
 		INSTRUMENTAL = "декомпилятором материи",
-		PREPOSITIONAL = "декомпиляторе материи"
+		PREPOSITIONAL = "декомпиляторе материи",
 	)
 
 /obj/item/matter_decompiler/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
-
 
 /obj/item/matter_decompiler/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity) return //Not adjacent.
@@ -406,18 +405,17 @@
 	if(!module)
 		module = new /obj/item/robot_module/drone(src)
 
-	var/dat = {"<meta charset="UTF-8"><head><title>Модули дрона</title><meta HTTP-EQUIV='Refresh' CONTENT='10'></head><body>\n"}
+	var/list/dat = list()
 	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Закрыть</a>
 	<br>
 	<br>
 	<b>Активированные модули</b>
 	<br>
-	Модуль 1: [module_state_1 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
-	Модуль 2: [module_state_2 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
-	Модуль 3: [module_state_3 ? "<a href=byond://?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
+	Модуль 1: [module_state_1 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_1)]>[module_state_1]<a>" : "Нет модуля"]<br>
+	Модуль 2: [module_state_2 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_2)]>[module_state_2]<a>" : "Нет модуля"]<br>
+	Модуль 3: [module_state_3 ? "<a href=byond://?src=[UID()];mod=[UID_of(module_state_3)]>[module_state_3]<a>" : "Нет модуля"]<br>
 	<br>
 	<b>Установленные модули</b><br><br>"}
-
 
 	var/tools = "<b>Инструменты и устройства</b><br>"
 	var/resources = "<br><b>Рекурсы</b><br>"
@@ -431,7 +429,7 @@
 		else if(activated(O))
 			module_string += text("[O]: <b>Активирован</b><br>")
 		else
-			module_string += text("[O]: <a href=byond://?src=[UID()];act=\ref[O]>Активировать</a><br>")
+			module_string += text("[O]: <a href=byond://?src=[UID()];act=[UID_of(O)]>Активировать</a><br>")
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -446,11 +444,11 @@
 		else if(activated(module.emag))
 			dat += text("[module.emag]: <b>Активирован</b><br>")
 		else
-			dat += text("[module.emag]: <a href=byond://?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
+			dat += text("[module.emag]: <a href=byond://?src=[UID()];act=[module.emag.UID()]>Активировать</a><br>")
 
 	dat += resources
 
-	var/datum/browser/popup = new(src, "robotmod", "Drone modules")
+	var/datum/browser/popup = new(src, "robotmod", "Модули дрона")
 	popup.set_content(dat)
 	popup.set_window_options("can_close=0;")
 	popup.open(FALSE)

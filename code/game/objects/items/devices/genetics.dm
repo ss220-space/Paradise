@@ -6,7 +6,6 @@
 #define DNA_EMPTY_DATA "Пустой"
 #define DNA_UNKNOWN_DISABILITY_DATA "Неизвестная болезнь"
 
-
 /obj/item/dna_notepad
 	name = "genetic notepad"
 	desc = "Планшет генетика, способный хранить данные блоков генов в удобном виде."
@@ -30,7 +29,7 @@
 		DATIVE = "планшету генетика",
 		ACCUSATIVE = "планшет генетика",
 		INSTRUMENTAL = "планшетом генетика",
-		PREPOSITIONAL = "планшете генетика"
+		PREPOSITIONAL = "планшете генетика",
 	)
 
 /obj/item/dna_notepad/Initialize(mapload)
@@ -59,7 +58,7 @@
 		current_dna_detail_data = list(
 			num = "[block]",
 			name = "[name]",
-			color = "[color]"
+			color = "[color]",
 		)
 		dna_data += list(current_dna_detail_data)
 	current_dna_detail_data["name"] = "[name]"
@@ -188,7 +187,7 @@
 
 /obj/item/dna_notepad/verb/print_report_verb()
 	set name = "Печать отчёта"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	var/mob/user = usr
 	if(!istype(user))
 		return
@@ -279,7 +278,6 @@
 		if(istype(gene, /datum/dna/gene/basic))
 			color = DNA_COLOR_POWER
 		write_dna_data(gene.block, gene.name, color)
-
 
 #undef DNA_COUNT
 #undef DNA_COLOR_UNKNOWN

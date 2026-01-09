@@ -30,7 +30,7 @@
 		DATIVE = "руководству \"[manual_title_ru]\"",
 		ACCUSATIVE = "руководство \"[manual_title_ru]\"",
 		INSTRUMENTAL = "руководством \"[manual_title_ru]\"",
-		PREPOSITIONAL = "руководстве \"[manual_title_ru]\""
+		PREPOSITIONAL = "руководстве \"[manual_title_ru]\"",
 	)
 
 /obj/item/book/manual/Initialize(mapload)
@@ -51,7 +51,6 @@
 		</html>
 
 		"}
-
 
 /obj/item/book/manual/engineering_construction
 	manual_title = "Maintenance and construction"
@@ -210,12 +209,9 @@
 
 				<p>If youve gotten this far, congratulations! You have mastered the art of cloning. Now, the real problem is how to resurrect yourself after that traitor had his way with you for cloning his target.
 
-
-
 				</body>
 				</html>
 				"}
-
 
 /obj/item/book/manual/ripley_build_and_repair
 	manual_title = "APLU \"Ripley\" Construction and Operation Manual"
@@ -292,7 +288,6 @@
 				<h2>Operation</h2>
 				Coming soon...
 			"}
-
 
 /obj/item/book/manual/experimentor
 	manual_title = "E.X.P.E.R.I-MENTOR for Dummies"
@@ -482,7 +477,6 @@
 				</html>
 			"}
 
-
 /obj/item/book/manual/robotics_cyborgs
 	manual_title = "Robotics for Dummies"
 	manual_title_ru = "Робототехника для чайников"
@@ -517,7 +511,6 @@
 					<li><a href="#Emergency">In Case of Emergency</a></li>
 				</ol>
 
-
 				<h2><a name="Equipment">Cyborg Related Equipment</h2>
 
 				<h3>Exosuit Fabricator</h3>
@@ -528,7 +521,6 @@
 
 				<h3>Robotics Control Console</h3>
 				This useful piece of equipment can be used to immobolize or destroy a cyborg. A word of warning: Cyborgs are expensive pieces of equipment, do not destroy them without good reason, or Nanotrasen may see to it that it never happens again.
-
 
 				<h2><a name="Modules">Cyborg Modules</h2>
 				When a cyborg is created it picks out of an array of modules to designate its purpose. There are 6 different cyborg modules.
@@ -691,11 +683,11 @@
 /obj/item/book/manual/security_space_law
 	manual_title = "Space Law"
 	manual_title_ru = "Космический закон"
-	desc = "Свод корпоративных правил Нанотрейзен для поддержания закона и порядка на своих объектах."
+	desc = "Свод корпоративных правил \"Нанотрейзен\" для поддержания закона и порядка на своих объектах."
 	icon_state = "bookSpaceLaw"
 	item_state = "bookSpaceLaw"
 	force = 4 //advanced magistrate tactics
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Космический_Закон"
 
 /obj/item/book/manual/security_space_law/black
@@ -720,7 +712,7 @@
 	desc = "Одна из частей сборника рецептов шеф-повара."
 	icon_state = "cooked_book"
 	item_state = "cooked_book"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Руководство_по_еде"
 
 /obj/item/book/manual/chef_recipes/part_one
@@ -778,7 +770,7 @@
 	manual_title_ru = "Сам себе бармен: Введение"
 	desc = "Одна из частей сборника рецептов бармена."
 	icon_state = "barbook"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Руководство_по_напиткам"
 
 /obj/item/book/manual/barman_recipes/part_one
@@ -827,7 +819,7 @@
 	desc = "Нуарная книга о том, как необходимо проводить расследования"
 	icon_state ="bookDetective"
 	item_state = "bookDetective"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	dat = {"<html>
 			<meta charset="UTF-8">
 			<head>
@@ -942,7 +934,6 @@
 				You are not going to learn what to do with them to be the super best person ever, or how to play guitar with passive gates,
 				or something like that. Just what stuff does.<br><br>
 
-
 				<h1><a name="Basic"><b>Basic Pipes</b></a></h1><br>
 				<i>The boring ones.</i><br>
 				TMost ordinary pipes are pretty straightforward. They hold gas. If gas is moving in a direction for some reason, gas will flow in that direction.
@@ -993,7 +984,6 @@
 				<li><i>Junction:</i><i>Junction:</i>The point where you connect your normal pipes to heat exchange pipes. Not necessary for heat exchangers, but necessary for H/E pipes/bent pipes.</li>
 				<li><i>Heat Exchanger:</i> These funky-looking bits attach to an open pipe end. Put another heat exchanger directly across from it, and you can transfer heat across two pipes without having to have the gases touch.
 				This normally shouldn't exchange with the ambient air, despite being totally exposed. Just don't ask questions...</li><br>
-
 
 				That's about it for pipes. Go forth, armed with this knowledge, and try not to break, burn down, or kill anything. Please.</font>
 
@@ -1075,10 +1065,10 @@
 /obj/item/book/manual/faxes
 	manual_title = "Faxes for dummies"
 	manual_title_ru = "Факсы для чайников"
-	desc = "Руководство по написанию факсов, одобренное руководством Нанотрейзен"
+	desc = "Руководство по написанию факсов, одобренное руководством \"Нанотрейзен\""
 	icon_state = "book6"
 	item_state = "book6"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	dat = {"
 
 		<html>
@@ -1140,7 +1130,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой научной деятельности."
 	icon_state = "sop_science"
 	item_state = "sop_science"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Исследование)"
 
 /obj/item/book/manual/sop_medical
@@ -1149,7 +1139,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой медицинской деятельности."
 	icon_state = "sop_medical"
 	item_state = "sop_medical"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Медицина)"
 
 /obj/item/book/manual/sop_engineering
@@ -1158,7 +1148,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой инженерной деятельности."
 	icon_state = "sop_engineering"
 	item_state = "sop_engineering"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Инженерия)"
 
 /obj/item/book/manual/sop_service
@@ -1167,7 +1157,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой обслуживающей деятельности."
 	icon_state = "sop_service"
 	item_state = "sop_service"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Сервис)"
 
 /obj/item/book/manual/sop_supply
@@ -1176,7 +1166,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой снабженческой деятельности."
 	icon_state = "sop_cargo"
 	item_state = "sop_cargo"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Снабжение)"
 
 /obj/item/book/manual/sop_security
@@ -1185,7 +1175,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой охранной деятельности."
 	icon_state = "sop_security"
 	item_state = "sop_security"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Охрана)"
 
 /obj/item/book/manual/sop_legal
@@ -1194,7 +1184,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой юридической деятельности."
 	icon_state = "sop_legal"
 	item_state = "sop_legal"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Закон)"
 
 /obj/item/book/manual/sop_general
@@ -1203,7 +1193,7 @@
 	desc = "Свод правил, направленных на безопасное ведение любой деятельности на объектах НТ."
 	icon_state = "sop"
 	item_state = "sop"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_Рабочие_Процедуры"
 
 /obj/item/book/manual/sop_command
@@ -1212,5 +1202,5 @@
 	desc = "Свод правил, направленных на безопасное ведение любой управленческой деятельности."
 	icon_state = "sop_command"
 	item_state = "sop_command"
-	author = "Нанотрейзен"
+	author = "\"Нанотрейзен\""
 	wiki_title = "Стандартные_рабочие_процедуры_(Командование)"

@@ -99,7 +99,6 @@
 	if(S.has_reagent("holywater", 10))
 		adjust_potency(rand(15, -5))
 
-
 /obj/item/reagent_containers/food/snacks/grown/kudzupod
 	seed = /obj/item/seeds/kudzu
 	name = "kudzu pod"

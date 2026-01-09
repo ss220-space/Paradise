@@ -100,7 +100,7 @@
 		S.enemies = enemies
 
 		if(!spider_awaymission && asigned_ghost)
-			S.key = asigned_ghost.key
+			S.possess_by_player(asigned_ghost.key)
 			S.add_datum_if_not_exist()
 			asigned_ghost = null
 		else if(!spider_awaymission)
@@ -192,8 +192,6 @@
 				GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 				break
 
-
-
 // --------------------------------------------------------------------------------
 // ----------------- TERROR SPIDERS: EGGS (USED BY NURSE AND QUEEN TYPES) ---------
 // --------------------------------------------------------------------------------
@@ -281,7 +279,7 @@
 		DATIVE = "яйцам [ru_prefix]",
 		ACCUSATIVE = "яйца [ru_prefix]",
 		INSTRUMENTAL = "яйцами [ru_prefix]",
-		PREPOSITIONAL = "яйцах [ru_prefix]"
+		PREPOSITIONAL = "яйцах [ru_prefix]",
 	)
 
 /obj/structure/spider/eggcluster/terror_eggcluster/Destroy()

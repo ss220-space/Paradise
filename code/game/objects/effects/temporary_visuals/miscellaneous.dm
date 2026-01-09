@@ -2,6 +2,7 @@
 
 /obj/effect/temp_visual/dir_setting/bloodsplatter
 	icon = 'icons/effects/blood.dmi'
+	icon_state = null
 	duration = 0.5 SECONDS
 	layer = ABOVE_ALL_MOB_LAYER
 	alpha = 200
@@ -17,10 +18,10 @@
 	splatter_visuals = new(src, /particles/splatter)
 	splatter_visuals.particles.velocity = list(x_component, y_component)
 	splatter_visuals.particles.color = blood_color
-
 	color = blood_color
 	icon_state = "[splatter_type][pick(1, 2, 3, 4, 5, 6)]"
-	..()
+
+	. = ..()
 	var/target_pixel_x = 0
 	var/target_pixel_y = 0
 	switch(angle)
@@ -252,7 +253,7 @@
 
 /obj/effect/temp_visual/kinetic_blast
 	name = "kinetic explosion"
-	icon = 'icons/obj/weapons/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "kinetic_blast"
 	duration = 4
 
@@ -358,13 +359,11 @@
 	duration = 12
 	shrink = FALSE
 
-
 /obj/effect/temp_visual/gib
 	name = "gib"
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "gibbed-h"
 	duration = 1.5 SECONDS
-
 
 /obj/effect/temp_visual/small_smoke
 	icon_state = "smoke"
@@ -374,8 +373,9 @@
 	duration = 5
 
 /obj/effect/temp_visual/dir_setting/firing_effect
+	icon = 'icons/effects/projectile.dmi'
 	icon_state = "firing_effect"
-	duration = 2
+	duration = 0.2 SECONDS
 
 /obj/effect/temp_visual/dir_setting/firing_effect/setDir(newdir)
 	switch(newdir)
@@ -407,10 +407,6 @@
 
 /obj/effect/temp_visual/dir_setting/firing_effect/energy
 	icon_state = "firing_effect_energy"
-	duration = 3
-
-/obj/effect/temp_visual/dir_setting/firing_effect/magic
-	icon_state = "shieldsparkles"
 	duration = 3
 
 /obj/effect/temp_visual/impact_effect
@@ -492,27 +488,6 @@
 	. = ..()
 	new /obj/effect/warp_effect/bsg(loc)
 
-/obj/effect/warp_effect/bsg
-
-/obj/effect/warp_effect/bsg/Initialize(mapload)
-	. = ..()
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
-	QDEL_IN(src, 0.8 SECONDS)
-
-/obj/effect/warp_effect/heart
-	var/range = 12
-
-/obj/effect/warp_effect/heart/Initialize(mapload)
-	. = ..()
-	if(GLOB.heart)
-		range = GLOB.heart.pulse_range * 4
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)
-	QDEL_IN(src, 0.1 * range SECONDS)
-
 /obj/effect/temp_visual/love_heart
 	name = "love heart"
 	icon_state = "heart"
@@ -523,17 +498,3 @@
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
-
-/obj/effect/warp_effect
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE
-	icon = 'icons/effects/seismic_stomp_effect.dmi'
-	icon_state = "stomp_effect"
-	pixel_y = -16
-	pixel_x = -16
-
-/obj/effect/warp_effect/ex_act(severity, target)
-	return
-
-/obj/effect/warp_effect/singularity_act()
-	return FALSE

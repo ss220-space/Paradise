@@ -10,7 +10,6 @@
 	var/icon_base = "heart"
 	var/item_base = "heart"
 
-
 /obj/item/organ/internal/heart/get_ru_names()
 	return list(
 		NOMINATIVE = "сердце человека",
@@ -18,7 +17,7 @@
 		DATIVE = "сердцу человека",
 		ACCUSATIVE = "сердце человека",
 		INSTRUMENTAL = "сердцем человека",
-		PREPOSITIONAL = "сердце человека"
+		PREPOSITIONAL = "сердце человека",
 	)
 
 /obj/item/organ/internal/heart/update_icon_state()
@@ -29,23 +28,19 @@
 		icon_state = "[icon_base]-off"
 		item_state = "[item_base]-off"
 
-
 /obj/item/organ/internal/heart/remove(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 12 SECONDS)
 	. = ..()
-
 
 /obj/item/organ/internal/heart/emp_act(intensity)
 	if(!is_robotic() || emp_proof)
 		return
 	Stop()
 
-
 /obj/item/organ/internal/heart/necrotize(silent = FALSE)
 	if(..())
 		Stop()
-
 
 /obj/item/organ/internal/heart/attack_self(mob/user)
 	..()
@@ -56,46 +51,32 @@
 		Restart()
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
-
 /obj/item/organ/internal/heart/safe_replace(mob/living/carbon/human/target)
 	Restart()
 	..()
 
-
 /obj/item/organ/internal/heart/proc/stop_if_unowned()
 	if(!owner)
 		Stop()
-
 
 /obj/item/organ/internal/heart/proc/Stop()
 	beating = FALSE
 	update_icon()
 	return TRUE
 
-
 /obj/item/organ/internal/heart/proc/Restart()
 	beating = TRUE
 	update_icon()
 	return TRUE
-
 
 /obj/item/organ/internal/heart/prepare_eat()
 	var/obj/S = ..()
 	S.icon_state = dead_icon
 	return S
 
-
 /obj/item/organ/internal/heart/cursed
 	name = "cursed heart"
 	desc = "Странно выглядящее сердце. Судя по всему, ему требуется постоянная подкачка..."
-	ru_names = list(
-		NOMINATIVE = "проклятое сердце",
-		GENITIVE = "проклятого сердца",
-		DATIVE = "проклятому сердцу",
-		ACCUSATIVE = "проклятое сердце",
-		INSTRUMENTAL = "проклятое сердцем",
-		PREPOSITIONAL = "проклятое сердце"
-	)
 	icon_state = "cursedheart-off"
 	icon_base = "cursedheart"
 	origin_tech = "biotech=6"
@@ -109,6 +90,15 @@
 	var/heal_burn = 0
 	var/heal_oxy = 0
 
+/obj/item/organ/internal/heart/cursed/get_ru_names()
+	return list(
+		NOMINATIVE = "проклятое сердце",
+		GENITIVE = "проклятого сердца",
+		DATIVE = "проклятому сердцу",
+		ACCUSATIVE = "проклятое сердце",
+		INSTRUMENTAL = "проклятое сердцем",
+		PREPOSITIONAL = "проклятое сердце",
+	)
 
 /obj/item/organ/internal/heart/cursed/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(target != user || !ishuman(target))
@@ -125,7 +115,6 @@
 	insert(user, ORGAN_MANIPULATION_TRANSPLANTATE)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
-
 /obj/item/organ/internal/heart/cursed/on_life()
 	if(world.time > (last_pump + pump_delay))
 		if(ishuman(owner) && owner.client) //While this entire item exists to make people suffer, they can't control disconnects.
@@ -138,19 +127,16 @@
 		else
 			last_pump = world.time //lets be extra fair *sigh*
 
-
 /obj/item/organ/internal/heart/cursed/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()
 	if(owner)
 		to_chat(owner, span_userdanger("Ваше сердце было заменено на проклятое! Вам придётся качать его вручную, иначе вы умрёте!"))
 
-
 /datum/action/item_action/organ_action/cursed_heart
 	name = "Подкачка крови"
 
-
 //You are now brea- pumping blood manually
-/datum/action/item_action/organ_action/cursed_heart/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/cursed_heart/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(. && istype(target, /obj/item/organ/internal/heart/cursed))
 		var/obj/item/organ/internal/heart/cursed/cursed_heart = target
@@ -177,18 +163,9 @@
 			if(update)
 				H.updatehealth()
 
-
 /obj/item/organ/internal/heart/cybernetic
 	name = "cybernetic heart"
 	desc = "Электронное устройство, имитирующее работу органического сердца. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
-	ru_names = list(
-		NOMINATIVE = "кибернетическое сердце",
-		GENITIVE = "кибернетического сердца",
-		DATIVE = "кибернетическому сердцу",
-		ACCUSATIVE = "кибернетическое сердце",
-		INSTRUMENTAL = "кибернетическим сердцем",
-		PREPOSITIONAL = "кибернетическом сердце"
-	)
 	icon_state = "heart-c-on"
 	icon_base = "heart-c"
 	dead_icon = "heart-c-off"
@@ -196,24 +173,33 @@
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 
+/obj/item/organ/internal/heart/cybernetic/get_ru_names()
+	return list(
+		NOMINATIVE = "кибернетическое сердце",
+		GENITIVE = "кибернетического сердца",
+		DATIVE = "кибернетическому сердцу",
+		ACCUSATIVE = "кибернетическое сердце",
+		INSTRUMENTAL = "кибернетическим сердцем",
+		PREPOSITIONAL = "кибернетическом сердце",
+	)
 
 /obj/item/organ/internal/heart/cybernetic/upgraded
 	name = "upgraded cybernetic heart"
 	desc = "Продвинутая версия кибернетического сердца. Даёт пользователю дополнительную выносливость и стабильность работы, но при этом является очень уязвимым к ЭМИ."
-	ru_names = list(
+	icon_state = "heart-c-u-on"
+	icon_base = "heart-c-u"
+	dead_icon = "heart-c-u-off"
+	var/attempted_restart = FALSE
+
+/obj/item/organ/internal/heart/cybernetic/upgraded/get_ru_names()
+	return list(
 		NOMINATIVE = "улучшенное кибернетическое сердце",
 		GENITIVE = "улучшенного кибернетического сердца",
 		DATIVE = "улучшенному кибернетическому сердцу",
 		ACCUSATIVE = "улучшенное кибернетическое сердце",
 		INSTRUMENTAL = "улучшенным кибернетическим сердцем",
-		PREPOSITIONAL = "улучшенном кибернетическом сердце"
+		PREPOSITIONAL = "улучшенном кибернетическом сердце",
 	)
-	icon_state = "heart-c-u-on"
-	icon_base = "heart-c-u"
-	dead_icon = "heart-c-u-off"
-	var/emagged = FALSE
-	var/attempted_restart = FALSE
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/insert(mob/living/carbon/target, special)
 	. = ..()
@@ -222,14 +208,12 @@
 		target.stam_regen_start_modifier *= 0.5
 		ADD_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/remove(mob/living/carbon/human/target, special)
 	if(HAS_TRAIT_FROM(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src)))
 		target.stam_regen_start_modifier /= 0.5
 		REMOVE_TRAIT(target, TRAIT_CYBERIMP_IMPROVED, UNIQUE_TRAIT_SOURCE(src))
 
 	. = ..()
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/on_life()
 	if(!ishuman(owner))
@@ -286,14 +270,11 @@
 		owner.SetSleeping(0)
 		owner.adjustStaminaLoss(-7 * boost)
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/message_to_owner(mob/M, message)
 	to_chat(M, message)
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/proc/recharge()
 	attempted_restart = FALSE
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/emag_act(mob/user)
 	if(!emagged)
@@ -307,7 +288,6 @@
 			balloon_alert(user, "протоколы безопасности восстановлены")
 		emagged = FALSE
 
-
 /obj/item/organ/internal/heart/cybernetic/upgraded/emp_act(severity)
 	..()
 
@@ -318,7 +298,6 @@
 		Stop()
 	else
 		necrotize()
-
 
 /obj/item/organ/internal/heart/cybernetic/upgraded/shock_organ(intensity)
 	if(!ishuman(owner))

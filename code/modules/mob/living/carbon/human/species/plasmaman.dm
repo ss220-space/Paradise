@@ -52,7 +52,7 @@
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
 
-	speciesbox = /obj/item/storage/box/survival_plasmaman
+	speciesbox = /obj/item/storage/box/survival/species/plasmaman
 	flesh_color = "#8b3fba"
 
 	toxic_food = NONE
@@ -67,15 +67,14 @@
 	)
 
 	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss"),
-			"с" = list("сс", "ссс", "сссс")
-		)
+		"s" = list("ss", "sss", "ssss"),
+		"с" = list("сс", "ссс", "сссс"),
+	)
 
 /datum/species/plasmaman/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	add_verb(H, /mob/living/carbon/human/proc/emote_rattle)
 	RegisterSignal(H, COMSIG_CARBON_RECEIVE_FRACTURE, PROC_REF(on_fracture))
-
 
 /datum/species/plasmaman/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
@@ -224,7 +223,6 @@
 	return FALSE
 
 /datum/species/plasmaman/handle_life(mob/living/carbon/human/H)
-	var/datum/gas_mixture/environment = H.loc.return_air()
 	var/atmos_sealed = FALSE
 	if(isclothing(H.wear_suit) && isclothing(H.head))
 		var/obj/item/clothing/suit = H.wear_suit
@@ -232,9 +230,16 @@
 		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDMAGE)
 			atmos_sealed = TRUE
 	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
+		var/datum/gas_mixture/environment = null
+		if(isobj(H.loc))
+			var/obj/O = H.loc
+			environment = O.return_obj_air()
+		if(isnull(environment))
+			var/turf/T = get_turf(H)
+			environment = T.get_readonly_air()
 		if(environment)
 			if(environment.total_moles())
-				if(environment.oxygen && environment.oxygen >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
+				if(environment.oxygen() && environment.oxygen() >= OXYCONCEN_PLASMEN_IGNITION) //Same threshhold that extinguishes fire
 					H.adjust_fire_stacks(0.5)
 					if(!H.on_fire && H.fire_stacks > 0)
 						H.visible_message(span_danger("Тело [H] вступает в реакцию с атмосферой и загорается!"),span_userdanger("Ваше тело вступает в реакцию с атмосферой и загорается!"))
@@ -272,3 +277,6 @@
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 			return FALSE
 	return ..()
+
+/datum/species/plasmaman/compressor_grind(location)
+	explosion(location, 0, 1, 2, flame_range = 4)

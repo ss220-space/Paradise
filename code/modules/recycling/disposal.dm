@@ -15,14 +15,6 @@
 /obj/machinery/disposal
 	name = "disposal unit"
 	desc = "Пневматическая система утилизации отходов."
-	ru_names = list(
-		NOMINATIVE = "мусоропровод",
-		GENITIVE = "мусоропровода",
-		DATIVE = "мусоропроводу",
-		ACCUSATIVE = "мусоропровод",
-		INSTRUMENTAL = "мусоропроводом",
-		PREPOSITIONAL = "мусоропроводе"
-	)
 	icon = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 	icon_state = "disposal"
 	base_icon_state = "disposal"
@@ -53,6 +45,15 @@
 	var/max_combined_w_class = 50
 	COOLDOWN_DECLARE(eject_effects_cd)
 
+/obj/machinery/disposal/get_ru_names()
+	return list(
+		NOMINATIVE = "мусоропровод",
+		GENITIVE = "мусоропровода",
+		DATIVE = "мусоропроводу",
+		ACCUSATIVE = "мусоропровод",
+		INSTRUMENTAL = "мусоропроводом",
+		PREPOSITIONAL = "мусоропроводе",
+	)
 
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/made_from)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
@@ -62,16 +63,32 @@
 		setDir(made_from.dir)
 	return INITIALIZE_HINT_LATELOAD
 
-
 /obj/machinery/disposal/LateInitialize()
 	. = ..()
-	var/datum/gas_mixture/env = new
-	env.copy_from(loc.return_air())
-	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
-	air_contents.merge(removed)
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 	trunk_check()
 	update()
 
+/datum/milla_safe/disposal_suck_air
+
+/datum/milla_safe/disposal_suck_air/on_run(obj/machinery/disposal/disposal)
+	var/turf/location = get_turf(disposal)
+	var/datum/gas_mixture/env = get_turf_air(location)
+
+	var/pressure_delta = (SEND_PRESSURE + 1) - disposal.air_contents.return_pressure()
+
+	if(env.temperature() > 0)
+		var/transfer_moles = 0.1 * pressure_delta*disposal.air_contents.volume / (env.temperature() * R_IDEAL_GAS_EQUATION)
+
+		//Actually transfer the gas
+		var/datum/gas_mixture/removed = env.remove(transfer_moles)
+		disposal.air_contents.merge(removed)
+
+	// if full enough, switch to ready mode
+	if(disposal.air_contents.return_pressure() >= SEND_PRESSURE)
+		disposal.mode = 2
+		disposal.update()
 
 /obj/machinery/disposal/proc/trunk_check()
 	var/obj/structure/disposalpipe/trunk/found_trunk = locate() in loc
@@ -83,7 +100,6 @@
 		flush = initial(flush)
 		found_trunk.set_linked(src) // link the pipe trunk to self
 		trunk = found_trunk
-
 
 //When the disposalsoutlet is forcefully moved. Due to meteorshot (not the recall spell)
 /obj/machinery/disposal/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
@@ -101,7 +117,6 @@
 	transfer_fingerprints_to(construct)
 	qdel(src)
 
-
 /obj/machinery/disposal/Destroy()
 	eject()
 	if(trunk)
@@ -109,12 +124,10 @@
 		trunk = null
 	return ..()
 
-
 /obj/machinery/disposal/singularity_pull(S, current_size)
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
 
 //This proc returns TRUE if the item can be picked up and FALSE if it can't.
 //Set the stop_messages to stop it from printing messages
@@ -144,7 +157,6 @@
 
 	return TRUE
 
-
 /obj/machinery/disposal/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || (stat & BROKEN))
 		return ..()
@@ -165,12 +177,12 @@
 				item.add_fingerprint(user)
 			if(length(storage))
 				user.visible_message(
-					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] выгружа[pluralize_ru(user.gender,"ет","ют")] предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] выгружа[PLUR_ET_YUT(user)] предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 					span_notice("Вы выгружаете предметы из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
 				)
 			else
 				user.visible_message(
-					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] опустоша[pluralize_ru(user.gender,"ет","ют")] [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+					span_notice("[capitalize(user.declent_ru(NOMINATIVE))] опустоша[PLUR_ET_YUT(user)] [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 					span_notice("Вы опустошаете [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)].")
 				)
 			update()
@@ -182,12 +194,11 @@
 	SEND_SIGNAL(I, COMSIG_DISPOSAL_INJECT, src)
 
 	user.visible_message(
-		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] помеща[pluralize_ru(user.gender,"ет","ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] помеща[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
 	)
 	update()
 	return ATTACK_CHAIN_BLOCKED_ALL
-
 
 /obj/machinery/disposal/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
@@ -204,7 +215,6 @@
 	add_attack_logs(grabber, grabbed_thing, "Disposal'ed")
 	update()
 
-
 /obj/machinery/disposal/screwdriver_act(mob/user, obj/item/I)
 	if(mode > OFF) // It's on
 		return
@@ -220,7 +230,6 @@
 		mode = OFF
 	to_chat(user, "Вы [mode ? "ослабляете" : "затягиваете"] винты питания.")
 	update()
-
 
 /obj/machinery/disposal/welder_act(mob/user, obj/item/I)
 	. = TRUE
@@ -240,11 +249,10 @@
 	construct.set_anchored(TRUE)
 	qdel(src)
 
-
 /obj/machinery/disposal/shove_impact(mob/living/target, mob/living/attacker)
 	target.visible_message(
-		span_warning("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(attacker.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"),
-		span_userdanger("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(attacker.gender,"ет","ют")] вас в [declent_ru(ACCUSATIVE)]!"),
+		span_warning("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[PLUR_ET_YUT(attacker)] [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(attacker.declent_ru(NOMINATIVE))] заталкива[PLUR_ET_YUT(attacker)] вас в [declent_ru(ACCUSATIVE)]!"),
 		span_warning("Слышен звук чего-то, брошенного в мусорку.")
 	)
 	target.forceMove(src)
@@ -252,7 +260,6 @@
 	playsound(src, 'sound/effects/bang.ogg', 30)
 	update()
 	return TRUE
-
 
 // mouse drop another mob or self
 //
@@ -268,12 +275,11 @@
 	add_fingerprint(user)
 	for(var/mob/viewer in viewers(user))
 		if(target == user)
-			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] залезать в мусоропровод.", 3)
+			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] залезать в мусоропровод.", 3)
 		else
-			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] заталкивать [target.declent_ru(ACCUSATIVE)] в мусоропровод.", 3)
+			viewer.show_message("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] заталкивать [target.declent_ru(ACCUSATIVE)] в мусоропровод.", 3)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/disposal, put_in), target, user)
 	return TRUE
-
 
 /obj/machinery/disposal/proc/put_in(mob/living/target, mob/living/user) // need this proc to use INVOKE_ASYNC in other proc. You're not recommended to use that one
 	var/msg
@@ -284,10 +290,10 @@
 		return
 	if(target == user && !user.incapacitated())	// if drop self, then climbed in
 											// must be awake, not stunned or whatever
-		msg = "[capitalize(user.declent_ru(NOMINATIVE))] залеза[pluralize_ru(user.gender,"ет","ют")] в [declent_ru(ACCUSATIVE)]."
+		msg = "[capitalize(user.declent_ru(NOMINATIVE))] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)]."
 		to_chat(user, "Вы залезаете в [declent_ru(ACCUSATIVE)].")
 	else if(target != user && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		msg = "[capitalize(user.declent_ru(NOMINATIVE))] заталкива[pluralize_ru(user.gender,"ет","ют")] [target.name] в [declent_ru(ACCUSATIVE)]!"
+		msg = "[capitalize(user.declent_ru(NOMINATIVE))] заталкива[PLUR_ET_YUT(user)] [target.name] в [declent_ru(ACCUSATIVE)]!"
 		to_chat(user, "Вы заталкиваете [target.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]!")
 		if(!iscarbon(user))
 			target.LAssailant = null
@@ -320,18 +326,18 @@
 		return
 	add_fingerprint(user)
 	if(user == target)
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться в [declent_ru(ACCUSATIVE)]."), span_notice("Вы начинаете забираться в [declent_ru(ACCUSATIVE)]..."))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] забираться в [declent_ru(ACCUSATIVE)]."), span_notice("Вы начинаете забираться в [declent_ru(ACCUSATIVE)]..."))
 	else
-		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] запихивать [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать вас в [declent_ru(ACCUSATIVE)]!"))
+		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] начина[PLUR_ET_YUT(user)] запихивать [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать вас в [declent_ru(ACCUSATIVE)]!"))
 	if(do_after(user, 2 SECONDS, target))
 		if(!loc)
 			return
 		target.forceMove(src)
 	if(user == target)
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся в [declent_ru(ACCUSATIVE)]."), span_notice("Вы забираетесь [declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[PLUR_ET_YUT(user)]ся в [declent_ru(ACCUSATIVE)]."), span_notice("Вы забираетесь [declent_ru(ACCUSATIVE)]."))
 		. = TRUE
 	else
-		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] запихива[pluralize_ru(user.gender,"ет","ют")] [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] запихивает вас в [declent_ru(ACCUSATIVE)]."))
+		target.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] запихива[PLUR_ET_YUT(user)] [target] в [declent_ru(ACCUSATIVE)]."), span_userdanger("[capitalize(user.declent_ru(NOMINATIVE))] запихивает вас в [declent_ru(ACCUSATIVE)]."))
 		add_attack_logs(user, target, "Disposal'ed")
 		. = TRUE
 	update()
@@ -341,7 +347,6 @@
 	if(user.stat || src.flushing)
 		return
 	go_out(user)
-
 
 // leave the disposal
 /obj/machinery/disposal/proc/go_out(mob/user)
@@ -356,7 +361,6 @@
 
 /obj/machinery/disposal/attack_ghost(mob/user)
 	ui_interact(user)
-
 
 // human interact with machine
 /obj/machinery/disposal/attack_hand(mob/user)
@@ -377,13 +381,11 @@
 		flush = !flush
 		update()
 
-
 /obj/machinery/disposal/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "DisposalBin", name)
 		ui.open()
-
 
 /obj/machinery/disposal/ui_data(mob/user)
 	var/list/data = list()
@@ -434,28 +436,25 @@
 				eject()
 	return TRUE
 
-
 // eject the contents of the disposal unit
 /obj/machinery/disposal/proc/eject()
 	pipe_eject(src, FALSE, FALSE)
 	update()
 
-
 /obj/machinery/disposal/click_alt(mob/user)
 	user.visible_message(
-		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] пыта[pluralize_ru(user.gender,"ет","ют")]ся вручную извлечь содержимое [declent_ru(GENITIVE)]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] пыта[PLUR_ET_YUT(user)]ся вручную извлечь содержимое [declent_ru(GENITIVE)]."),
 		span_notice("Вы активируете ручной рычаг извлечения [src].")
 	)
 	if(!do_after(user, 5 SECONDS, src))
 		return CLICK_ACTION_BLOCKING
 
 	user.visible_message(
-		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] извлека[pluralize_ru(user.gender,"ет","ют")] содержимое [declent_ru(GENITIVE)]."),
+		span_notice("[capitalize(user.declent_ru(NOMINATIVE))] извлека[PLUR_ET_YUT(user)] содержимое [declent_ru(GENITIVE)]."),
 		span_notice("Вы извлекаете содержимое [src].")
 	)
 	eject()
 	return CLICK_ACTION_SUCCESS
-
 
 // update the icon & overlays to reflect mode & status
 /obj/machinery/disposal/proc/update()
@@ -465,13 +464,11 @@
 
 	update_icon()
 
-
 /obj/machinery/disposal/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "disposal-broken"
 		return
 	icon_state = initial(icon_state)
-
 
 /obj/machinery/disposal/update_overlays()
 	. = ..()
@@ -499,7 +496,6 @@
 		if(CHARGED)
 			. += "dispover-ready"
 			underlays += emissive_appearance(icon, "dispover-lightmask", src)
-
 
 // timed process
 // charge the gas reservoir and perform flush if ready
@@ -530,24 +526,8 @@
 	// otherwise charge
 	use_power = ACTIVE_POWER_USE
 
-	var/atom/L = loc						// recharging from loc turf
-
-	var/datum/gas_mixture/env = L.return_air()
-	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
-
-	if(env.temperature > 0)
-		var/transfer_moles = 0.1 * pressure_delta*air_contents.volume/(env.temperature * R_IDEAL_GAS_EQUATION)
-
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = env.remove(transfer_moles)
-		air_contents.merge(removed)
-		air_update_turf()
-
-	// if full enough, switch to ready mode
-	if(air_contents.return_pressure() >= SEND_PRESSURE)
-		mode = CHARGED
-		update()
-
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()
@@ -573,10 +553,8 @@
 		mode = CHARGING	// switch to charging
 	update()
 
-
 /obj/machinery/disposal/proc/flush_animation()
 	flick("[icon_state]-flush", src)
-
 
 /obj/machinery/disposal/proc/manage_wrapping(obj/structure/disposalholder/holder)
 	for(var/atom/movable/thing as anything in contents)
@@ -584,13 +562,11 @@
 			holder.tomail = TRUE
 			return
 
-
 // called when area power changes
 /obj/machinery/disposal/power_change(forced = FALSE)
 	. = ..()
 	if(.)
 		update()	// do default setting/reset of stat NOPOWER bit
-
 
 // called when holder is expelled from a disposal
 // should usually only occur if the pipe network is modified
@@ -606,7 +582,6 @@
 	holder.vent_gas(loc)
 	qdel(holder)
 
-
 /obj/machinery/disposal/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
@@ -619,32 +594,30 @@
 			visible_message("[capitalize(mover.declent_ru(NOMINATIVE))] отскакивает от края [declent_ru(GENITIVE)]!")
 		return FALSE
 
-
 /obj/machinery/disposal/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 2)
 
-
 /obj/machinery/disposal/force_eject_occupant(mob/target)
 	target.forceMove(get_turf(src))
-
 
 /obj/machinery/disposal/deliveryChute
 	name = "Delivery chute"
 	desc = "Люк для транспортировки как больших, так и маленьких грузов!"
-	ru_names = list(
-		NOMINATIVE = "грузовой люк",
-		GENITIVE = "грузового люка",
-		DATIVE = "грузовому люку",
-		ACCUSATIVE = "грузовой люк",
-		INSTRUMENTAL = "грузовым люком",
-		PREPOSITIONAL = "грузовом люке"
-	)
 	icon_state = "intake"
 	base_icon_state = "intake"
 	/// Whether this chute directs all items into the cargo waste sorting area
 	var/to_waste = TRUE
 
+/obj/machinery/disposal/deliveryChute/get_ru_names()
+	return list(
+		NOMINATIVE = "грузовой люк",
+		GENITIVE = "грузового люка",
+		DATIVE = "грузовому люку",
+		ACCUSATIVE = "грузовой люк",
+		INSTRUMENTAL = "грузовым люком",
+		PREPOSITIONAL = "грузовом люке",
+	)
 
 /obj/machinery/disposal/deliveryChute/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -661,12 +634,10 @@
 
 	return  ..()
 
-
 /obj/machinery/disposal/deliveryChute/examine(mob/user)
 	. = ..()
 	. += span_notice("Люк настроен на [to_waste ? "мусорную" : "грузовую"] систему.")
 	. += span_notice("Используйте маркировщик для изменения пункта назначения.")
-
 
 /obj/machinery/disposal/deliveryChute/interact()
 	return
@@ -699,7 +670,6 @@
 	if(mode != OFF)
 		flush()
 
-
 /obj/machinery/disposal/deliveryChute/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(isprojectile(AM))
 		return ..() //chutes won't eat bullets
@@ -709,7 +679,6 @@
 
 /obj/machinery/disposal/deliveryChute/flush_animation()
 	flick("intake-closing", src)
-
 
 /obj/machinery/disposal/deliveryChute/manage_wrapping(obj/structure/disposalholder/holder)
 	var/wrap_check = FALSE
@@ -736,7 +705,6 @@
 		holder.tomail = TRUE
 	else if(!wrap_check && to_waste)
 		holder.destinationTag = 1
-
 
 #undef SEND_PRESSURE
 #undef UNSCREWED

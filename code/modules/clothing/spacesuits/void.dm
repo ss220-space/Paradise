@@ -30,7 +30,7 @@
 		DATIVE = "гермошлему ЦАГИ 10",
 		ACCUSATIVE = "гермошлем ЦАГИ 10",
 		INSTRUMENTAL = "гермошлемом ЦАГИ 10",
-		PREPOSITIONAL = "гермошлеме ЦАГИ 10"
+		PREPOSITIONAL = "гермошлеме ЦАГИ 10",
 	)
 
 /obj/item/clothing/suit/space/nasavoid
@@ -63,7 +63,7 @@
 		DATIVE = "скафандру ЦАГИ 10",
 		ACCUSATIVE = "скафандр ЦАГИ 10",
 		INSTRUMENTAL = "скафандром ЦАГИ 10",
-		PREPOSITIONAL = "скафандре ЦАГИ 10"
+		PREPOSITIONAL = "скафандре ЦАГИ 10",
 	)
 
 /obj/item/clothing/head/helmet/space/nasavoid/old
@@ -81,7 +81,7 @@
 		DATIVE = "промышленному гермошлему NASA",
 		ACCUSATIVE = "промышленный гермошлем NASA",
 		INSTRUMENTAL = "промышленным гермошлемом NASA",
-		PREPOSITIONAL = "промышленном гермошлеме NASA"
+		PREPOSITIONAL = "промышленном гермошлеме NASA",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/old
@@ -101,7 +101,7 @@
 		DATIVE = "промышленному гермоскафандру NASA",
 		ACCUSATIVE = "промышленный гермоскафандр NASA",
 		INSTRUMENTAL = "промышленным гермоскафандром NASA",
-		PREPOSITIONAL = "промышленном гермоскафандре NASA"
+		PREPOSITIONAL = "промышленном гермоскафандре NASA",
 	)
 
 /obj/item/clothing/head/helmet/space/nasavoid/green
@@ -118,7 +118,7 @@
 		DATIVE = "штурмовому гермошлему ЦАГИ 9",
 		ACCUSATIVE = "штурмовой гермошлем ЦАГИ 9",
 		INSTRUMENTAL = "штурмовым гермошлемом ЦАГИ 9",
-		PREPOSITIONAL = "штурмовом гермошлеме ЦАГИ 9"
+		PREPOSITIONAL = "штурмовом гермошлеме ЦАГИ 9",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/green
@@ -137,7 +137,7 @@
 		DATIVE = "штурмовому скафандру ЦАГИ 9",
 		ACCUSATIVE = "штурмовой скафандр ЦАГИ 9",
 		INSTRUMENTAL = "штурмовым скафандром ЦАГИ 9",
-		PREPOSITIONAL = "штурмовом скафандре ЦАГИ 9"
+		PREPOSITIONAL = "штурмовом скафандре ЦАГИ 9",
 	)
 
 //Nasa vip
@@ -156,7 +156,7 @@
 		DATIVE = "корпоративному гермошлему NASA",
 		ACCUSATIVE = "корпоративный гермошлем NASA",
 		INSTRUMENTAL = "корпоративным гермошлемом NASA",
-		PREPOSITIONAL = "корпоративном гермошлеме NASA"
+		PREPOSITIONAL = "корпоративном гермошлеме NASA",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/ntblue
@@ -175,7 +175,7 @@
 		DATIVE = "корпоративному скафандру NASA",
 		ACCUSATIVE = "корпоративный скафандр NASA",
 		INSTRUMENTAL = "корпоративным скафандром NASA",
-		PREPOSITIONAL = "корпоративном скафандре NASA"
+		PREPOSITIONAL = "корпоративном скафандре NASA",
 	)
 
 //Nasa RnD
@@ -194,7 +194,7 @@
 		DATIVE = "исследовательскому гермошлему NASA",
 		ACCUSATIVE = "исследовательский гермошлем NASA",
 		INSTRUMENTAL = "исследовательским гермошлемом NASA",
-		PREPOSITIONAL = "исследовательском гермошлеме NASA"
+		PREPOSITIONAL = "исследовательском гермошлеме NASA",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/purple
@@ -213,7 +213,7 @@
 		DATIVE = "исследовательскому скафандру NASA",
 		ACCUSATIVE = "исследовательский скафандр NASA",
 		INSTRUMENTAL = "исследовательским скафандром NASA",
-		PREPOSITIONAL = "исследовательском скафандре NASA"
+		PREPOSITIONAL = "исследовательском скафандре NASA",
 	)
 
 //Nasa Miner
@@ -232,7 +232,7 @@
 		DATIVE = "шахтёрскому гермошлему NASA",
 		ACCUSATIVE = "шахтёрский гермошлем NASA",
 		INSTRUMENTAL = "шахтёрским гермошлемом NASA",
-		PREPOSITIONAL = "шахтёрском гермошлеме NASA"
+		PREPOSITIONAL = "шахтёрском гермошлеме NASA",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/yellow
@@ -251,7 +251,7 @@
 		DATIVE = "шахтёрскому экзо-скафандру NASA",
 		ACCUSATIVE = "шахтёрский экзо-скафандр NASA",
 		INSTRUMENTAL = "шахтёрским экзо-скафандром NASA",
-		PREPOSITIONAL = "шахтёрском экзо-скафандре NASA"
+		PREPOSITIONAL = "шахтёрском экзо-скафандре NASA",
 	)
 
 //Nasa Med
@@ -270,7 +270,7 @@
 		DATIVE = "медицинскому гермошлему NASA",
 		ACCUSATIVE = "медицинский гермошлем NASA",
 		INSTRUMENTAL = "медицинским гермошлемом NASA",
-		PREPOSITIONAL = "медицинском гермошлеме NASA"
+		PREPOSITIONAL = "медицинском гермошлеме NASA",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/ltblue
@@ -288,7 +288,7 @@
 		DATIVE = "медицинскому скафандру NASA",
 		ACCUSATIVE = "медицинский скафандр NASA",
 		INSTRUMENTAL = "медицинским скафандром NASA",
-		PREPOSITIONAL = "медицинском скафандре NASA"
+		PREPOSITIONAL = "медицинском скафандре NASA",
 	)
 
 //Captian's Suit, like the other captian's suit, but looks better, at the cost of armor
@@ -296,7 +296,7 @@
 /obj/item/clothing/head/helmet/space/nasavoid/captain
 	name = "Captain's Hardsuit Helmet"
 	icon_state = "void_captian"
-	desc = "Эксклюзивный гермошлем Нанотрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Оборудован активной защитой визора и хвойным ароматизатором. Произведено NASA по заказу НТ."
+	desc = "Эксклюзивный гермошлем \"Нанотрейзен\" для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Оборудован активной защитой визора и хвойным ароматизатором. Произведено NASA по заказу \"Нанотрейзен\"."
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	flash_protect = FLASH_PROTECTION_FLASH
 	item_state = "void_captian_helmet"
@@ -308,12 +308,12 @@
 		DATIVE = "гермошлему Капитана",
 		ACCUSATIVE = "гермошлем Капитана",
 		INSTRUMENTAL = "гермошлемом Капитана",
-		PREPOSITIONAL = "гермошлеме Капитана"
+		PREPOSITIONAL = "гермошлеме Капитана",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/captain
 	name = "Captain's Hardsuit"
-	desc = "Эксклюзивный скафандр Нанотрейзен для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Улучшенная система вентиляции, позолоченные вставки. Не сковывает движений. Произведено NASA по заказу НТ."
+	desc = "Эксклюзивный скафандр \"Нанотрейзен\" для высшего командного состава. Пик корпоративной роскоши и технологий 2450-х. Улучшенная система вентиляции, позолоченные вставки. Не сковывает движений. Произведено NASA по заказу \"Нанотрейзен\"."
 	icon_state = "void_captian"
 	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 30, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 75, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
@@ -327,7 +327,7 @@
 		DATIVE = "скафандру Капитана",
 		ACCUSATIVE = "скафандр Капитана",
 		INSTRUMENTAL = "скафандром Капитана",
-		PREPOSITIONAL = "скафандре Капитана"
+		PREPOSITIONAL = "скафандре Капитана",
 	)
 
 //Syndi's suit, on par with a blood red softsuit
@@ -348,7 +348,7 @@
 		DATIVE = "кроваво-красному пехотному шлему",
 		ACCUSATIVE = "кроваво-красный пехотный шлем",
 		INSTRUMENTAL = "кроваво-красным пехотным шлемом",
-		PREPOSITIONAL = "кроваво-красном пехотном шлеме"
+		PREPOSITIONAL = "кроваво-красном пехотном шлеме",
 	)
 
 /obj/item/clothing/suit/space/nasavoid/syndi
@@ -367,7 +367,7 @@
 		DATIVE = "кроваво-красному пехотному скафандру",
 		ACCUSATIVE = "кроваво-красный пехотный скафандр",
 		INSTRUMENTAL = "кроваво-красным пехотным скафандром",
-		PREPOSITIONAL = "кроваво-красном пехотном скафандре"
+		PREPOSITIONAL = "кроваво-красном пехотном скафандре",
 	)
 
 //random spawner

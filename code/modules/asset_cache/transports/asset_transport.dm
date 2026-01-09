@@ -24,7 +24,6 @@
 	for(var/client/C in GLOB.clients)
 		addtimer(CALLBACK(src, PROC_REF(send_assets_slow), C, preload), 1 SECONDS)
 
-
 /**
  * Register a browser asset with the asset cache system.
  * returns a /datum/asset_cache_item.
@@ -59,6 +58,10 @@
 	SSassets.cache[asset_name] = ACI
 	return ACI
 
+/// Immediately removes an asset from the asset cache.
+/datum/asset_transport/proc/unregister_asset(asset_name)
+	SSassets.cache[asset_name] = null
+	SSassets.cache.Remove(null)
 
 /// Returns a url for a given asset.
 /// asset_name - Name of the asset.
@@ -75,7 +78,6 @@
 	if(keep_local_name)
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")
-
 
 /// Sends a list of browser assets to a client
 /// client - a client or mob
@@ -141,7 +143,6 @@
 		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, asset_cache_update_json)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 		return TRUE
 	return FALSE
-
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
 /datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 6)

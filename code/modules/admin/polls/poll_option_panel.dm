@@ -23,7 +23,7 @@
 	panel_pollo.ui_interact(usr)
 
 /datum/ui_module/poll_option_panel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ui_module/poll_option_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -50,7 +50,6 @@
 	option_list["desc_mid_text"] = option ? option.desc_mid : ""
 	option_list["desc_max_text"] = option ? option.desc_max : ""
 	.["option"] = option_list
-
 
 /datum/ui_module/poll_option_panel/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	. = ..()

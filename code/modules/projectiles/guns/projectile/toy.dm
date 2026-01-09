@@ -13,7 +13,6 @@
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_RIFLE
 
-
 /obj/item/gun/projectile/automatic/toy/pistol
 	name = "foam force pistol"
 	desc = "A small, easily concealable toy handgun. Ages 8 and up."
@@ -28,21 +27,17 @@
 	accuracy = GUN_ACCURACY_PISTOL
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-
 /obj/item/gun/projectile/automatic/toy/pistol/update_icon_state()
 	icon_state = "[initial(icon_state)][chambered ? "" : "-e"]"
-
 
 /obj/item/gun/projectile/automatic/toy/pistol/riot
 	name = "foam force riot pistol"
 	desc = "RIOT! Ages 8 and up."
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol/riot
 
-
 /obj/item/gun/projectile/automatic/toy/pistol/riot/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/toy/pistol/riot(src)
 	. = ..()
-
 
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer
 	name = "foam force enforcer"
@@ -50,12 +45,10 @@
 	icon_state = "enforcer"
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer
 
-
 /obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot
 	name = "foam force riot enforcer"
 	desc = "RIOT! Meant to be used for training new caddets who can't be trusted with rubber bullets."
 	mag_type = /obj/item/ammo_box/magazine/toy/enforcer/riot
-
 
 /obj/item/gun/projectile/shotgun/toy
 	name = "foam force shotgun"
@@ -73,7 +66,7 @@
 	pb_knockback = 0
 	accuracy = GUN_ACCURACY_SHOTGUN
 
-/obj/item/gun/projectile/shotgun/toy/process_chamber()
+/obj/item/gun/projectile/shotgun/toy/handle_chamber()
 	..()
 	if(chambered && !chambered.BB)
 		qdel(chambered)
@@ -133,9 +126,11 @@
 	icon = 'icons/obj/weapons/toy.dmi'
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 	needs_permit = FALSE
-	zoomable = FALSE
 	mag_type = /obj/item/ammo_box/magazine/toy/sniper_rounds
 	pickup_sound = 'sound/items/handling/pickup/generic_pickup1.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_drop3.ogg'
 	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_SNIPER_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
 
+/obj/item/gun/projectile/automatic/sniper_rifle/toy/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "-mag" : ""]"

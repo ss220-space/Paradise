@@ -8,14 +8,6 @@
 /obj/item/rcs
 	name = "rapid-crate-sender (RCS)"
 	desc = "Устройство для телепортации ящиков и шкафов на телепады карго."
-	ru_names = list(
-		NOMINATIVE = "система быстрой доставки (RCS)",
-		GENITIVE = "системы быстрой доставки (RCS)",
-		DATIVE = "системе быстрой доставки (RCS)",
-		ACCUSATIVE = "систему быстрой доставки (RCS)",
-		INSTRUMENTAL = "системой быстрой доставки (RCS)",
-		PREPOSITIONAL = "системе быстрой доставки (RCS)"
-	)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
 	item_state = "rcd"
@@ -33,8 +25,16 @@
 	var/teleporting = FALSE
 	/// How much power does each teleport use?
 	var/chargecost = 1000
-	/// Is emagged?
-	var/emagged = FALSE
+
+/obj/item/rcs/get_ru_names()
+	return list(
+		NOMINATIVE = "система быстрой доставки (RCS)",
+		GENITIVE = "системы быстрой доставки (RCS)",
+		DATIVE = "системе быстрой доставки (RCS)",
+		ACCUSATIVE = "систему быстрой доставки (RCS)",
+		INSTRUMENTAL = "системой быстрой доставки (RCS)",
+		PREPOSITIONAL = "системе быстрой доставки (RCS)",
+	)
 
 /obj/item/rcs/get_cell()
 	return rcell
@@ -45,7 +45,7 @@
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()
-	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
+	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)
@@ -85,7 +85,6 @@
 		pad = L[select]
 	playsound(src, 'sound/effects/pop.ogg', 25, TRUE) // And play a sound either way.
 
-
 /**
  * Returns a random location in a z level
  *
@@ -117,7 +116,6 @@
 			user.balloon_alert(user, "протокол безопасности отключен!")
 		return
 
-
 /obj/item/rcs/proc/try_send_container(mob/user, obj/structure/closet/C)
 	if(teleporting)
 		user.balloon_alert(user, "уже используется!")
@@ -141,7 +139,6 @@
 	teleport(user, C, pad)
 	return TRUE
 
-
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
 	to_chat(user, span_notice("Телепортация [C.declent_ru(ACCUSATIVE)]..."))
 	playsound(src, usesound, 50, TRUE)
@@ -154,4 +151,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
+	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[DECL_CREDIT(round(rcell.charge/chargecost))]."))

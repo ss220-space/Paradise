@@ -2,7 +2,6 @@
 #define BUBBLEGUM_CAN_ENRAGE (enrage_till + (enrage_time * 2) <= world.time)
 #define BUBBLEGUM_IS_ENRAGED (enrage_till > world.time)
 
-
 /*
 
 BUBBLEGUM
@@ -67,15 +66,16 @@ Difficulty: Hard
 	var/maximum_enraged_healing = 500
 	/// Enraged healing recived
 	var/enraged_healing = 0
-	medal_type = BOSS_MEDAL_BUBBLEGUM
-	score_type = BUBBLEGUM_SCORE
+	achievement_type = /datum/award/achievement/boss/bubblegum_kill
+	crusher_achievement_type = /datum/award/achievement/boss/bubblegum_crusher
+	score_achievement_type = /datum/award/score/bubblegum_score
 	deathmessage = "погружается в лужу крови, покидая битву. Вы победили... на сей раз."
 	death_sound = 'sound/misc/enter_blood.ogg'
 	attack_action_types = list(
 		/datum/action/innate/megafauna_attack/triple_charge,
 		/datum/action/innate/megafauna_attack/hallucination_charge,
 		/datum/action/innate/megafauna_attack/hallucination_surround,
-		/datum/action/innate/megafauna_attack/blood_warp
+		/datum/action/innate/megafauna_attack/blood_warp,
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/get_ru_names()
@@ -85,7 +85,7 @@ Difficulty: Hard
 		DATIVE = "Бубльгуму",
 		ACCUSATIVE = "Бубльгума",
 		INSTRUMENTAL = "Бубльгумом",
-		PREPOSITIONAL = "Бубльгуме"
+		PREPOSITIONAL = "Бубльгуме",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
@@ -100,28 +100,28 @@ Difficulty: Hard
 
 /datum/action/innate/megafauna_attack/triple_charge
 	name = "Тройной заряд"
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
 	chosen_message = span_colossus("Вы трижды атакуете цель, на которую нажмёте.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/hallucination_charge
 	name = "Заряд галлюцинаций"
-	icon_icon = 'icons/effects/bubblegum.dmi'
+	button_icon = 'icons/effects/bubblegum.dmi'
 	button_icon_state = "smack ya one"
 	chosen_message = span_colossus("Вы атакуете цель, на которую нажмёте, с галлюцинациями.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Окружение цели"
-	icon_icon = 'icons/turf/walls/wall.dmi'
+	button_icon = 'icons/turf/walls/wall.dmi'
 	button_icon_state = "wall"
 	chosen_message = span_colossus("Вы окружаете цель, на которую нажмёте, с галлюцинациями.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blood_warp
 	name = "Кровавый варп"
-	icon_icon = 'icons/effects/blood.dmi'
+	button_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "floor1"
 	chosen_message = span_colossus("Вы телепортируетесь к крови вокруг выбранной позиции.")
 	chosen_attack_num = 4
@@ -213,7 +213,6 @@ Difficulty: Hard
 	charge(delay = 3)
 	SetRecoveryTime(15)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hallucination_charge()
 	if(!BUBBLEGUM_SMASH || prob(33))
 		hallucination_charge_around(times = 6, delay = 12)
@@ -228,7 +227,6 @@ Difficulty: Hard
 		triple_charge()
 		SetRecoveryTime(20)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/surround_with_hallucinations()
 	for(var/i = 1 to 5)
 		INVOKE_ASYNC(src, PROC_REF(hallucination_charge_around), 2, 8, 2, FALSE, 4)
@@ -238,7 +236,6 @@ Difficulty: Hard
 		else
 			SLEEP_CHECK_DEATH(src, 2 SECONDS)
 	SetRecoveryTime(20)
-
 
 #define BUBLEGUM_CHARGE_SPEED 0.4
 
@@ -273,7 +270,6 @@ Difficulty: Hard
 
 #undef BUBLEGUM_CHARGE_SPEED
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/on_move(atom/source, atom/new_loc)
 	SIGNAL_HANDLER
 	if(!actively_moving)
@@ -281,11 +277,9 @@ Difficulty: Hard
 	new /obj/effect/temp_visual/decoy/fading(loc, src)
 	INVOKE_ASYNC(src, PROC_REF(DestroySurroundings))
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/pre_move(datum/source)
 	SIGNAL_HANDLER
 	actively_moving = TRUE
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/post_move(datum/source)
 	SIGNAL_HANDLER
@@ -293,14 +287,12 @@ Difficulty: Hard
 	if(get_turf(src) == charging)
 		qdel(source)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/charge_end(datum/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)
 	try_bloodattack()
 	actively_moving = FALSE
 	charging = null
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/get_mobs_on_blood()
 	var/list/targets = ListTargets()
@@ -522,7 +514,6 @@ Difficulty: Hard
 	if(useoriginal)
 		INVOKE_ASYNC(src, PROC_REF(charge), chargeat, delay, chargepast)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/adjustBruteLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -542,7 +533,6 @@ Difficulty: Hard
 		else
 			B.setDir(pick(GLOB.cardinal))
 
-
 /obj/effect/decal/cleanable/blood/gibs/bubblegum
 	name = "thick blood"
 	desc = "Густая, разбрызганная кровь."
@@ -555,7 +545,7 @@ Difficulty: Hard
 		DATIVE = "густой крови",
 		ACCUSATIVE = "густую кровь",
 		INSTRUMENTAL = "густой кровью",
-		PREPOSITIONAL = "густой крови"
+		PREPOSITIONAL = "густой крови",
 	)
 
 /obj/effect/decal/cleanable/blood/gibs/bubblegum/can_bloodcrawl_in()
@@ -585,22 +575,18 @@ Difficulty: Hard
 	severity = EXPLODE_LIGHT // puny mortals
 	return ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination))
 		return TRUE
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Goto(target, delay, minimum_distance)
 	if(!charging)
 		return ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/MoveToTarget(list/possible_targets)
 	if(!charging)
 		return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	update_approach()
@@ -608,7 +594,6 @@ Difficulty: Hard
 		new /obj/effect/decal/cleanable/blood/bubblegum(loc)
 	playsound(src, 'sound/effects/meteorimpact.ogg', 200, TRUE, 2, TRUE)
 	return ..()
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Bump(atom/bumped_atom)
 	. = ..()
@@ -628,18 +613,17 @@ Difficulty: Hard
 	shake_camera(bumped_living, 4, 3)
 	shake_camera(src, 2, 3)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/megafauna/bubblegum)) // hallucinations should not be stopping bubblegum or eachother
 		return TRUE
-
 
 /obj/effect/temp_visual/dragon_swoop/bubblegum
 	duration = 15
 
 /obj/effect/temp_visual/bubblegum_hands
 	icon = 'icons/effects/bubblegum.dmi'
+	icon_state = null
 	duration = 9
 
 /obj/effect/temp_visual/bubblegum_hands/rightthumb
@@ -669,8 +653,9 @@ Difficulty: Hard
 	maxHealth = 1
 	alpha = 127.5
 	crusher_loot = null
-	medal_type = null
-	score_type = null
+	achievement_type = null
+	crusher_achievement_type = null
+	score_achievement_type = null
 	deathmessage = "Взрывается в лужу крови!"
 	death_sound = 'sound/effects/splat.ogg'
 	true_spawn = FALSE
@@ -683,28 +668,24 @@ Difficulty: Hard
 		DATIVE = "галлюцинации Бубльгума",
 		ACCUSATIVE = "галлюцинацию Бубльгума",
 		INSTRUMENTAL = "галлюцинацией Бубльгума",
-		PREPOSITIONAL = "галлюцинации Бубльгума"
+		PREPOSITIONAL = "галлюцинации Бубльгума",
 	)
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Initialize(mapload)
 	. = ..()
 	toggle_ai(AI_OFF)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/charge_end(datum/source)
 	. = ..()
 	if(!QDELETED(src))
 		qdel(src)
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Destroy()
 	new /obj/effect/decal/cleanable/blood(get_turf(src))
 	. = ..()
 
-
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/Life()
 	return
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/adjustBruteLoss(
 	amount = 0,
@@ -718,7 +699,6 @@ Difficulty: Hard
 	affect_robotic = TRUE,
 )
 	return STATUS_UPDATE_NONE
-
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination/OpenFire()
 	return

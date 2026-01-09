@@ -65,12 +65,6 @@
 /obj/machinery/atmospherics/pipe/manifold/pipeline_expansion()
 	return list(node1, node2, node3)
 
-/obj/machinery/atmospherics/pipe/manifold/process_atmos()
-	if(!parent)
-		..()
-	else
-		. = PROCESS_KILL
-
 /obj/machinery/atmospherics/pipe/manifold/Destroy()
 	. = ..()
 
@@ -114,7 +108,6 @@
 	if(node3)
 		node3.update_underlays()
 
-
 /obj/machinery/atmospherics/pipe/manifold/update_overlays()
 	. = ..()
 
@@ -126,7 +119,6 @@
 	. += SSair.icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "core" + icon_connect_type)
 	. += SSair.icon_manager.get_atmos_icon("manifold", state = "clamps" + icon_connect_type)
 	update_underlays()
-
 
 /obj/machinery/atmospherics/pipe/manifold/update_underlays()
 	if(!..())
@@ -151,7 +143,6 @@
 
 	for(var/check_dir in directions)
 		add_underlay(source_turf, direction = check_dir, icon_connect_type = src.icon_connect_type)
-
 
 // A check to make sure both nodes exist - self-delete if they aren't present
 /obj/machinery/atmospherics/pipe/manifold/check_nodes_exist()
@@ -197,6 +188,12 @@
 
 /obj/machinery/atmospherics/pipe/manifold/visible/purple
 	color = PIPE_COLOR_PURPLE
+
+/obj/machinery/atmospherics/pipe/manifold/visible/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/manifold/visible/blue
+	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"

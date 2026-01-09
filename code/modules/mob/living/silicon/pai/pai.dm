@@ -50,7 +50,6 @@
 		"Canine" = list("гавкает", "лает", "вопросительно тявкает")
 		)
 
-
 	var/master				// Name of the one who commands us
 	var/master_dna			// DNA string for owner verification
 							// Keeping this separate from the laws var, it should be much more difficult to modify
@@ -203,7 +202,6 @@
 	if(card.upgrade)
 		ram += card.upgrade.extra_memory
 
-
 /mob/living/silicon/pai/update_icons()
 	if(stat == DEAD)
 		icon_state = "[chassis]_dead"
@@ -216,23 +214,19 @@
 		var/timeleft = round((silence_time - world.timeofday)/10 ,1)
 		return list("Перезагрузка систем связи через:", "[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
-
 /mob/living/silicon/pai/init_subsystems()
 	gps = new(src, gpstag = "pAI0", upgraded = TRUE, tracking = FALSE)
-
 
 /mob/living/silicon/pai/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = show_silenced()
 
-
 /mob/living/silicon/pai/blob_act()
 	if(stat != DEAD)
 		adjustBruteLoss(60)
 		return TRUE
 	return FALSE
-
 
 /mob/living/silicon/pai/emp_act(severity)
 	// Silence for 2 minutes
@@ -304,7 +298,7 @@
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
 /mob/living/silicon/pai/verb/fold_out()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "В мобильную форму"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
@@ -324,7 +318,6 @@
 	force_fold_out()
 	visible_message(span_notice("[name] раскладывается, переходя в мобильную форму."), span_notice("Вы раскладываетесь в мобильную форму."))
 
-
 /mob/living/silicon/pai/proc/force_fold_out()
 	if(ismob(card.loc))
 		var/mob/holder = card.loc
@@ -340,7 +333,7 @@
 	card.screen_loc = null
 
 /mob/living/silicon/pai/verb/fold_up()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Из мобильной формы"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
@@ -357,7 +350,7 @@
 	close_up()
 
 /mob/living/silicon/pai/proc/choose_chassis()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Мобильные формы"
 
 	var/list/my_choices = list()
@@ -403,9 +396,8 @@
 
 	chassis = my_choices[choice]
 
-
 /mob/living/silicon/pai/proc/choose_verbs()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Модуляция речи"
 
 	var/choice = tgui_input_list(usr, "Какой тип модуляции речи вы бы хотели использовать? Этот выбор можно сделать лишь единожды.", "Модуляция речи", possible_say_verbs)
@@ -418,13 +410,11 @@
 
 	remove_verb(src, /mob/living/silicon/pai/proc/choose_verbs)
 
-
 /mob/living/silicon/pai/proc/pai_change_voice()
 	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	change_voice()
-
 
 /mob/living/silicon/pai/post_lying_on_rest()
 	if(stat == DEAD)
@@ -433,14 +423,12 @@
 	ADD_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 
-
 /mob/living/silicon/pai/post_get_up()
 	REMOVE_TRAIT(src, TRAIT_IMMOBILIZED, RESTING_TRAIT)
 	update_icons()
 
-
 /mob/living/silicon/pai/verb/pAI_suicide()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Выгрузить личность"
 	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt.)"
 
@@ -448,7 +436,6 @@
 		do_suicide()
 	else
 		balloon_alert(src, "протокол выгрузки отменён")
-
 
 /mob/living/silicon/pai/update_sight()
 	if(!client)
@@ -482,7 +469,6 @@
 
 	..()
 
-
 //Overriding this will stop a number of headaches down the track.
 /mob/living/silicon/pai/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/nanopaste))
@@ -515,8 +501,8 @@
 	if(!I.force)
 		playsound(loc, 'sound/weapons/tap.ogg', I.get_clamped_volume(), TRUE, -1)
 		visible_message(
-			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] бережно стука[pluralize_ru(user.gender, "ет", "ют")] вас [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] бережно стука[PLUR_ET_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -524,8 +510,8 @@
 		playsound(loc, I.hitsound, I.get_clamped_volume(), TRUE, -1)
 	add_attack_logs(user, src, "Attacked with [I.name] ([uppertext(user.a_intent)]) ([uppertext(I.damtype)]), DMG: [I.force])", (ckey && I.force > 0 && I.damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 	visible_message(
-		span_danger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] сильно бь[pluralize_ru(user.gender, "ёт", "ют")] вас [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] сильно бь[PLUR_YOT_YUT(user)] по [name] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_userdanger("[user] сильно бь[PLUR_YOT_YUT(user)] вас [I.declent_ru(INSTRUMENTAL)]!"),
 	)
 
 	var/damage_type = I.damtype
@@ -538,8 +524,6 @@
 			close_up()
 
 	return ATTACK_CHAIN_PROCEED_SUCCESS
-
-
 
 /mob/living/silicon/pai/welder_act()
 	return
@@ -630,7 +614,6 @@
 
 // Handle being picked up.
 
-
 /mob/living/silicon/pai/get_scooped(mob/living/carbon/grabber)
 	var/obj/item/holder/H = ..()
 	if(!istype(H))
@@ -652,7 +635,7 @@
 
 	return H
 
-/mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+/mob/living/silicon/pai/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 
@@ -665,19 +648,12 @@
 					to_chat(src, span_warning("Вам нужно подойти поближе."))
 
 			if("Нет")
-				to_chat(src, span_warning("[user] не хо[pluralize_ru(user.gender,"чет","тят")] вас подбирать..."))
+				to_chat(src, span_warning("[user] не хо[PLUR_CHET_TYAT(user)] вас подбирать..."))
 	else
 		if(Adjacent(user))
 			get_scooped(user)
 		else
 			return ..()
-
-/mob/living/silicon/pai/on_forcemove(atom/newloc)
-	if(card)
-		card.loc = newloc
-	else //something went very wrong.
-		CRASH("pAI without card")
-	loc = card
 
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
@@ -687,7 +663,7 @@
 /datum/action/innate/pai_soft
 	name = "Программное обеспечение"
 	desc = "Активация вашего внутреннего интерфейса для выбора программ."
-	icon_icon = 'icons/obj/aicards.dmi'
+	button_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
 	check_flags = AB_CHECK_CONSCIOUS
 

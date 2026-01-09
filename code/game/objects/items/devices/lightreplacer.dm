@@ -48,7 +48,6 @@
 	force = 8
 	toolbox_radial_menu_compatibility = TRUE
 
-	var/emagged = FALSE
 	var/max_uses = 20
 	var/uses = 10
 	// How much to increase per each glass?
@@ -68,7 +67,6 @@
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
 	. += span_notice("[status_string()]")
-
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/glass))
@@ -150,14 +148,12 @@
 
 	return ..()
 
-
 /obj/item/lightreplacer/emag_act(mob/user)
 	if(!emagged)
 		emagged = TRUE
 		add_attack_logs(user, src, "emagged")
 		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
-
 
 /obj/item/lightreplacer/update_name(updates = ALL)
 	. = ..()
@@ -166,16 +162,13 @@
 	else
 		name = initial(name)
 
-
 /obj/item/lightreplacer/update_icon_state()
 	icon_state = "lightreplacer[emagged]"
-
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
 		ReplaceLight(target, user)
 	to_chat(user, status_string())
-
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."
@@ -241,7 +234,6 @@
 		to_chat(U, span_warning("There is a working [target.fitting] already inserted!"))
 		return
 
-
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
 	if(uses > 0)
@@ -272,9 +264,7 @@
 	if(!used)
 		to_chat(U, "[src]'s refill light blinks red.")
 
-
 /obj/item/lightreplacer/cyborg
-
 
 /obj/item/lightreplacer/bluespace
 	name = "bluespace light replacer"
