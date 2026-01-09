@@ -85,9 +85,12 @@ fn strip_metadata(path: &str) -> eyre::Result<()> {
     write_png(path, &reader, &frame_info, &image, true)
 }
 
-fn read_png(path: &str) -> eyre::Result<(Reader<File>, OutputInfo, Vec<u8>)> {
-    let mut reader = Decoder::new(File::open(path)?).read_info()?;
-    let mut buf = vec![0; reader.output_buffer_size()];
+fn read_png(path: &str) -> eyre::Result<(Reader<BufReader<File>>, OutputInfo, Vec<u8>)> {
+    let mut reader = Decoder::new(BufReader::new(File::open(path)?)).read_info()?;
+    let buffer_size = reader
+        .output_buffer_size()
+        .ok_or_else(|| eyre::eyre!("Failed to determine output buffer size"))?;
+    let mut buf = vec![0; buffer_size];
     let frame_info = reader.next_frame(&mut buf)?;
 
     Ok((reader, frame_info, buf))
@@ -95,7 +98,7 @@ fn read_png(path: &str) -> eyre::Result<(Reader<File>, OutputInfo, Vec<u8>)> {
 
 fn write_png(
     path: &str,
-    reader: &Reader<File>,
+    reader: &Reader<BufReader<File>>,
     info: &OutputInfo,
     image: &[u8],
     strip: bool,
