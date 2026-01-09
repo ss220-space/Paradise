@@ -9,6 +9,9 @@
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
 	integrity_failure = 100
 	cares_about_temperature = TRUE
+	volume = 1000
+	interact_offline = TRUE
+	pressure_resistance = 7 * ONE_ATMOSPHERE
 
 	var/icon/canister_overlay_file = 'icons/obj/pipes_and_stuff/atmospherics/canisters.dmi'
 
@@ -17,14 +20,20 @@
 
 	var/can_label = TRUE
 	var/filled = 0.5
-	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
-	volume = 1000
-	interact_offline = TRUE
+	///Window overlay showing the gas inside the canister
+	var/image/window
+	var/static/alpha_filter
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+	if(!alpha_filter)
+		alpha_filter = filter(type = "alpha", icon = icon(canister_overlay_file, "window-base"))
 	. = ..()
 	update_icon()
+
+/obj/machinery/portable_atmospherics/canister/LateInitialize()
+	update_icon()
+	. = ..()
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
@@ -53,8 +62,28 @@
 			pressure_light = "can-0"
 
 	. += mutable_appearance(canister_overlay_file, pressure_light)
-	underlays += emissive_appearance(icon, pressure_light, src)
+	underlays += emissive_appearance(canister_overlay_file, pressure_light, src)
+	update_window()
 
+/obj/machinery/portable_atmospherics/canister/update_greyscale()
+	. = ..()
+	update_window()
+
+/obj/machinery/portable_atmospherics/canister/proc/update_window()
+	if(!air_contents)
+		return
+
+	cut_overlay(window)
+	window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
+	var/list/window_overlays = list()
+	var/turf/tile = get_turf(src)
+	for(var/visual in air_contents.return_visuals(tile.z))
+		var/image/new_visual = image(visual, layer = FLOAT_PLANE)
+		new_visual.filters = alpha_filter
+		window_overlays += new_visual
+
+	window.overlays = window_overlays
+	add_overlay(window)
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(temperature, volume)
 	..()
@@ -346,36 +375,35 @@
 	greyscale_colors = "#c6c0b5#a63131"
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/toxins/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/toxins/init_internal_atmos()
 	. = ..()
 	air_contents.set_toxins((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/oxygen/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/oxygen/init_internal_atmos()
 	. = ..()
 	air_contents.set_oxygen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/sleeping_agent/init_internal_atmos()
 	. = ..()
 	air_contents.set_sleeping_agent((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/nitrogen/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/nitrogen/init_internal_atmos()
 	. = ..()
 	air_contents.set_nitrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/carbon_dioxide/init_internal_atmos()
 	. = ..()
 	air_contents.set_carbon_dioxide((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/hydrogen/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/hydrogen/init_internal_atmos()
 	. = ..()
 	air_contents.set_hydrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/water_vapor/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/water_vapor/init_internal_atmos()
 	. = ..()
 	air_contents.set_water_vapor((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/air/Initialize(mapload)
+/obj/machinery/portable_atmospherics/canister/air/init_internal_atmos()
 	. = ..()
 	air_contents.set_oxygen((O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	air_contents.set_nitrogen((N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
-

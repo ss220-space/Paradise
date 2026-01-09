@@ -156,11 +156,10 @@
 	icon_file = 'icons/mob/carp.dmi'
 	json_config = 'code/datums/greyscale/json_configs/carp.json'
 
+/*
 /datum/greyscale_config/carp/disk_mouth
 	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
 
-
-/*
 /datum/greyscale_config/prototype_canister
 	icon_file = 'icons/obj/atmospherics/prototype_canister.dmi'
 	json_config = 'code/datums/greyscale/json_configs/canister_proto.json'
