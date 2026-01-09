@@ -1,14 +1,11 @@
 /obj/machinery/atmospherics/unary/portables_connector
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/connector.dmi'
-	icon_state = "map_connector"
-
 	name = "connector port"
 	desc = "For connecting portables devices related to atmospherics control."
-
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/connector.dmi'
+	icon_state = "map_connector"
 	can_unwrench = TRUE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_FILTER_OFFSET
 	layer_offset = GAS_FILTER_OFFSET
-
 	var/obj/machinery/atmospherics/portable/connected_device
 
 /obj/machinery/atmospherics/unary/portables_connector/Destroy()
@@ -22,19 +19,18 @@
 /obj/machinery/atmospherics/unary/portables_connector/update_underlays()
 	if(..())
 		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
+		var/turf/turf = get_turf(src)
+		if(!istype(turf))
 			return
-		add_underlay(T, node, dir)
+		add_underlay(turf, node, dir)
 
 /obj/machinery/atmospherics/unary/portables_connector/process_atmos()
-	..()
 	if(!connected_device)
-		return 0
+		return FALSE
 	if(parent)
-		parent.update = 1
+		parent.update = TRUE
 
-/obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/item)
 	if(connected_device)
 		to_chat(user, span_warning("You cannot unwrench [src], detach [connected_device] first."))
 		return TRUE
