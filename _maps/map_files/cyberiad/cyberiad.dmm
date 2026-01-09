@@ -74577,7 +74577,7 @@
 	name = "Biohazard Shutter";
 	opacity = 0
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/effect/spawner/window/reinforced/plasma,
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
@@ -79443,7 +79443,7 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai)
 "soD" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel{
@@ -79717,7 +79717,7 @@
 /area/maintenance/fpmaint)
 "suX" = (
 /obj/structure/table/reinforced,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/machinery/ignition_switch{
 	id = "testigniter";
 	pixel_x = 3;

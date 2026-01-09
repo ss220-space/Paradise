@@ -3,7 +3,6 @@
 	desc = "A one meter section of regular pipe."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
 	icon_state = ""
-	alert_pressure = 55*ONE_ATMOSPHERE
 	volume = 70
 	initialize_directions = SOUTH|NORTH
 	level = 1
@@ -15,9 +14,6 @@
 
 	var/minimum_temperature_difference = 300
 	var/thermal_conductivity = 0 //WALL_HEAT_TRANSFER_COEFFICIENT No
-
-	var/maximum_pressure = 70*ONE_ATMOSPHERE
-	var/fatigue_pressure = 55*ONE_ATMOSPHERE
 
 /obj/machinery/atmospherics/pipe/simple/Initialize(mapload)
 	. = ..()
@@ -66,32 +62,8 @@
 
 		var/turf/our_turf = loc
 		if(our_turf.transparent_floor == TURF_NONTRANSPARENT)
-			hide(our_turf.intact)	// hide if turf is not intact
+			hide(our_turf.intact) // hide if turf is not intact
 		update_icon()
-
-/obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
-	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.get_readonly_air()
-
-	var/pressure_difference = pressure - environment.return_pressure()
-
-	if(pressure_difference > maximum_pressure)
-		burst()
-
-	else if(pressure_difference > fatigue_pressure)
-		//TODO: leak to turf, doing pfshhhhh
-		if(prob(5))
-			burst()
-
-	else return 1
-
-/obj/machinery/atmospherics/pipe/simple/proc/burst()
-	visible_message(span_danger("[src] bursts!"))
-	playsound(loc, 'sound/effects/bang.ogg', 25, TRUE)
-	var/datum/effect_system/fluid_spread/smoke/smoke = new
-	smoke.set_up(amount = 1, location = loc)
-	smoke.start()
-	qdel(src)
 
 /obj/machinery/atmospherics/pipe/simple/proc/normalize_dir()
 	if(dir == 3)

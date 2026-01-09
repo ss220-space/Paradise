@@ -12150,7 +12150,7 @@
 /area/security/permabrig)
 "bMr" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 10
 	},
 /obj/machinery/vending/wallmed{
@@ -34588,7 +34588,7 @@
 	},
 /area/engineering/mechanic_workshop/hangar)
 "ffB" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced,
@@ -60725,7 +60725,7 @@
 /area/maintenance/asmaint4)
 "jcr" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -93383,12 +93383,6 @@
 	icon_state = "red"
 	},
 /area/hallway/primary/central/second/west)
-"nVI" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
-	dir = 5
-	},
-/turf/simulated/floor/plasteel,
-/area/toxins/mixing)
 "nVS" = (
 /obj/machinery/door/airlock/command{
 	name = "Blueshield's Bedroom";
@@ -109489,7 +109483,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "qpk" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /obj/structure/window/plasmareinforced{
@@ -112380,7 +112374,7 @@
 	},
 /area/hallway/primary/fore)
 "qKP" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
 /turf/simulated/floor/plasteel,
@@ -142080,7 +142074,7 @@
 /area/hallway/secondary/entry)
 "uZr" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
@@ -206429,7 +206423,7 @@ xMj
 mLF
 qPb
 qKP
-nVI
+qPb
 vLW
 dfn
 kgS
