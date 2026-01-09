@@ -100,15 +100,15 @@
 		is_chamber_empty = 1
 		processing_chamber = "Ничего."
 	if(!beaker)
-		beaker_contents = "[declent_ru_cap(NOMINATIVE)] не имеет присоединённой ёмкости."
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] не имеет присоединённой ёмкости."
 	else if(!beaker.reagents.total_volume)
-		beaker_contents = "[declent_ru_cap(NOMINATIVE)] содержит пустую ёмкость."
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] содержит пустую ёмкость."
 		is_beaker_ready = 1
 	else if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
-		beaker_contents = "[declent_ru_cap(NOMINATIVE)] содержит ёмкость с чем-то внутри."
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] содержит ёмкость с чем-то внутри."
 		is_beaker_ready = 1
 	else
-		beaker_contents = "[declent_ru_cap(NOMINATIVE)] содержит заполненную ёмкость."
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] содержит заполненную ёмкость."
 
 	var/dat = {"<meta charset="UTF-8">
 <b>Камера обработки содержит:</b><br>

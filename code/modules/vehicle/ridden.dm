@@ -31,7 +31,7 @@
 	if(!key_type || is_key(inserted_key) || !is_key(I))
 		return ..()
 	if(!user.transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[I.declent_ru_cap(NOMINATIVE)] будто прилип к вашей руке!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] будто прилип к вашей руке!"))
 		return
 	to_chat(user, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 	if(inserted_key) //just in case there's an invalid key

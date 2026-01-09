@@ -94,13 +94,13 @@
 	. = ..()
 	switch(status)
 		if(TORCH_OK)
-			. += span_notice("[torch.declent_ru_cap(NOMINATIVE)] ярко горит.")
+			. += span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] ярко горит.")
 		if(TORCH_EMPTY)
 			. += span_notice("Внутри нет факела.")
 		if(TORCH_OFF)
-			. += span_notice("[torch.declent_ru_cap(NOMINATIVE)] не подожжён.")
+			. += span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] не подожжён.")
 		if(TORCH_BURNED)
-			. += span_notice("[torch.declent_ru_cap(NOMINATIVE)] выгорел.")
+			. += span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] выгорел.")
 
 /obj/structure/torch_holder/proc/update_light_state() //I can't make it better..
 	switch(status)
@@ -276,9 +276,9 @@
 /obj/structure/torch_holder/extinguish_light(force = FALSE)
 	if(force)
 		burnout()
-		visible_message(span_danger("[torch.declent_ru_cap(NOMINATIVE)] быстро выгорает!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(torch, NOMINATIVE)] быстро выгорает!"))
 	else
-		visible_message(span_notice("[torch.declent_ru_cap(NOMINATIVE)] ненадолго меркнет, после чего снова начинает освещать пространство вокруг."))
+		visible_message(span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] ненадолго меркнет, после чего снова начинает освещать пространство вокруг."))
 
 #undef TORCH_OK
 #undef TORCH_EMPTY

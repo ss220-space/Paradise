@@ -77,7 +77,7 @@
 		else
 			C.death()
 
-		visible_message(span_danger("[C.declent_ru_cap(NOMINATIVE)] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(C, NOMINATIVE)] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
 
 /obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))

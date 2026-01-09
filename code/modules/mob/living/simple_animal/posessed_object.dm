@@ -90,7 +90,7 @@
 		drop_r_hand()
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
-		visible_message(span_notice("[declent_ru_cap(NOMINATIVE)] разрывает оковы!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывает оковы!"))
 		var/turf/source_turf = get_turf(src)
 		if(source_turf)
 			forceMove(source_turf)
@@ -123,7 +123,7 @@
 
 	update_icon(1)
 
-	visible_message(span_shadowling("[declent_ru_cap(NOMINATIVE)] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
+	visible_message(span_shadowling("[DECLENT_RU_CAP(src, NOMINATIVE)] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src)
 
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.

@@ -101,7 +101,7 @@
 		return FALSE
 
 	if(anchored)
-		to_chat(usr, "[declent_ru_cap(NOMINATIVE)] надёжно закреплён болтами!")
+		to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] надёжно закреплён болтами!")
 		return FALSE
 
 	dir = turn(dir, -90)

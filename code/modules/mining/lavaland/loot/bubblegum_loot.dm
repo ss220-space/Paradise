@@ -452,7 +452,7 @@
 	projectile.firer = soul
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)
-	visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] стреля[PLUR_ET_YUT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] стреля[PLUR_ET_YUT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
 /obj/item/soulscythe/proc/slash_target(atom/attacked_atom)
@@ -462,12 +462,12 @@
 			give_blood(15)
 		attacked_mob.apply_damage(damage = force * (faction_check(attacked_mob.faction, MINING_FACTIONS) ? 2 : 1), sharp = TRUE)
 		to_chat(attacked_mob, span_userdanger("Вас разруба[PLUR_ET_YUT(src)] [declent_ru(NOMINATIVE)]!"))
-		visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] разруба[PLUR_ET_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] разруба[PLUR_ET_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	else if((ismachinery(attacked_atom) || isstructure(attacked_atom)) && use_blood(5))
 		var/obj/attacked_obj = attacked_atom
 		attacked_obj.take_damage(force, BRUTE, MELEE, FALSE)
-		visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] бь[PLUR_YOT_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] бь[PLUR_YOT_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 50, TRUE)
 	else
 		return
@@ -485,12 +485,12 @@
 	COOLDOWN_START(src, attack_cooldown, 5 SECONDS)
 	animate(src)
 	charging = TRUE
-	visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] начинает заряжаться..."))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает заряжаться..."))
 	balloon_alert(soul, "ты начинаешь заряжаться...")
 	if(!do_after(soul, 2 SECONDS, target = src, timed_action_flags = DA_IGNORE_TARGET_LOC_CHANGE))
 		balloon_alert(soul, "прервано!")
 		return
-	visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] бросается на [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты бросаешься на [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] бросается на [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты бросаешься на [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 	SpinAnimation(1)

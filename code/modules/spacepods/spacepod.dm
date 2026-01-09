@@ -484,7 +484,7 @@
 		balloon_alert(user, "откройте технический люк!")
 		return
 	if(health >= initial(health))
-		to_chat(user, span_boldnotice("[declent_ru_cap(NOMINATIVE)] полностью отремонтирован!"))
+		to_chat(user, span_boldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] полностью отремонтирован!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return

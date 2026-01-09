@@ -541,7 +541,7 @@
 
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
-	desc = lit ? "[declent_ru_cap(NOMINATIVE)], охваченная пламенем." : burnt ? "[declent_ru_cap(NOMINATIVE)]. Повидала всякое." : initial(desc)
+	desc = lit ? "[DECLENT_RU_CAP(src, NOMINATIVE)], охваченная пламенем." : burnt ? "[DECLENT_RU_CAP(src, NOMINATIVE)]. Повидала всякое." : initial(desc)
 
 /obj/item/match/get_heat()
 	return lit * 1000

@@ -40,7 +40,7 @@
 
 /obj/item/organ/internal/cyberimp/leg/examine(mob/user)
 	. = ..()
-	. += span_notice("[declent_ru_cap(NOMINATIVE)] собран для [parent_organ_zone == BODY_ZONE_R_LEG ? "правой" : "левой"] ноги. Можно пересобрать с помощью отвёртки.")
+	. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] собран для [parent_organ_zone == BODY_ZONE_R_LEG ? "правой" : "левой"] ноги. Можно пересобрать с помощью отвёртки.")
 	. += span_notice("Для правильной работы потребуется два импланта одного типа.")
 
 /obj/item/organ/internal/cyberimp/leg/screwdriver_act(mob/living/user, obj/item/I)

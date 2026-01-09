@@ -403,12 +403,12 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	if(emp_d)
-		to_chat(user, span_warning("[declent_ru_cap(NOMINATIVE)] отключён из-за электромагнитного импульса!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отключён из-за электромагнитного импульса!"))
 		return
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
-	to_chat(user, span_notice("[declent_ru_cap(NOMINATIVE)] теперь [active ? "активен" : "неактивен"]."))
+	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] теперь [active ? "активен" : "неактивен"]."))
 	update_equipped_item()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
@@ -418,7 +418,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
-		to_chat(user, span_warning("[declent_ru_cap(NOMINATIVE)] начинает глючить!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает глючить!"))
 		update_equipped_item()
 	..()
 
@@ -476,7 +476,7 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[declent_ru_cap(NOMINATIVE)] блокирует [attack_text], выпуская струи пламени!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], выпуская струи пламени!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		)
 		for(var/mob/living/carbon/C in range(6, owner))
@@ -515,7 +515,7 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[declent_ru_cap(NOMINATIVE)] блокирует [attack_text], испуская разряды молний!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], испуская разряды молний!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		)
 		for(var/mob/living/M in view(6, owner))

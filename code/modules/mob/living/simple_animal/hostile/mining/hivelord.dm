@@ -159,8 +159,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
 	C.visible_message(
-		span_notice("[declent_ru_cap(NOMINATIVE)] поглощается телом [C.declent_ru(GENITIVE)]."), \
-		span_notice("[declent_ru_cap(NOMINATIVE)] поглощается вашим телом.")
+		span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощается телом [C.declent_ru(GENITIVE)]."), \
+		span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощается вашим телом.")
 	)
 	transfer_reagents(C)
 	death()
@@ -311,7 +311,7 @@
 		var/mob/living/carbon/human/victim = target
 		if(victim.can_inject(null, FALSE, BODY_ZONE_CHEST, FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
 			new /obj/item/organ/internal/legion_tumour(victim)
-			visible_message(span_userdanger("[declent_ru_cap(NOMINATIVE)] вгрызается в шею [target], впрыскивая странную черную жидкость!")) //made it on russian to attract more attention from attacklogs
+			visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] вгрызается в шею [target], впрыскивая странную черную жидкость!")) //made it on russian to attract more attention from attacklogs
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] зарывается в плоть [H]!"))
@@ -320,7 +320,7 @@
 		L = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(H.loc)
 	else
 		L = new(H.loc)
-	visible_message(span_warning("[L.declent_ru_cap(NOMINATIVE)] с трудом поднимается на ноги!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(L, NOMINATIVE)] с трудом поднимается на ноги!"))
 	H.death()
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H

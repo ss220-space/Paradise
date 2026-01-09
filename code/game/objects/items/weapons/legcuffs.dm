@@ -75,7 +75,7 @@
 	if(istype(I, /obj/item/grenade/iedcasing))	//Let's get explosive.
 		add_fingerprint(user)
 		if(IED)
-			to_chat(user, span_warning("[IED.declent_ru_cap(NOMINATIVE)] уже прикреплен[GEND_A_O_Y(IED)] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(IED, NOMINATIVE)] уже прикреплен[GEND_A_O_Y(IED)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -90,10 +90,10 @@
 		var/obj/item/assembly/signaler/signaler = I
 		add_fingerprint(user)
 		if(sig)
-			to_chat(user, span_warning("[signaler.declent_ru_cap(NOMINATIVE)] уже подключен[GEND_A_O_Y(signaler)] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(signaler, NOMINATIVE)] уже подключен[GEND_A_O_Y(signaler)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(signaler.secured)
-			to_chat(user, span_notice("[signaler.declent_ru_cap(NOMINATIVE)] не долж[GEND_EN_NA_NO_NY(signaler)] быть закреплен[GEND_A_O_Y(signaler)]."))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(signaler, NOMINATIVE)] не долж[GEND_EN_NA_NO_NY(signaler)] быть закреплен[GEND_A_O_Y(signaler)]."))
 			balloon_alert(user, "невозможно")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
@@ -328,8 +328,8 @@
 		target.visible_message(span_danger("[target] отража[PLUR_ET_YUT(target)] [declent_ru(ACCUSATIVE)]!"))
 		return TRUE
 
-	target.visible_message(span_danger("[declent_ru_cap(NOMINATIVE)] сковыва[PLUR_ET_YUT(target)] ноги [target.declent_ru(GENITIVE)]!"))
-	to_chat(target, span_userdanger("[declent_ru_cap(NOMINATIVE)] сковыва[PLUR_ET_YUT(target)] ваши ноги!"))
+	target.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сковыва[PLUR_ET_YUT(target)] ноги [target.declent_ru(GENITIVE)]!"))
+	to_chat(target, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] сковыва[PLUR_ET_YUT(target)] ваши ноги!"))
 	target.apply_restraints(src, ITEM_SLOT_LEGCUFFED)
 	if(weaken_amt)
 		target.Weaken(weaken_amt)

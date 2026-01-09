@@ -228,7 +228,7 @@
 			var/obj/item/storage/lockbox/research/large/lockbox = new(get_step(src, dir))
 			real_item.forceMove(lockbox)
 			lockbox.name += " ([real_item.name])"
-			var/real_item_ru_name = real_item.declent_ru_cap(NOMINATIVE)
+			var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
 			lockbox.ru_names = list(
 				NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 				GENITIVE = "защищённого кейса ([real_item_ru_name])",
@@ -336,7 +336,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ExosuitFabricator", declent_ru_cap(NOMINATIVE))
+		ui = new(user, src, "ExosuitFabricator", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 

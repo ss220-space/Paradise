@@ -30,7 +30,7 @@
 	)
 
 /mob/living/simple_animal/circuit_drone/Destroy()
-	visible_message(span_userdanger("[declent_ru_cap(NOMINATIVE)] разлета[PLUR_ET_UT(src)]ся на части!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлета[PLUR_ET_UT(src)]ся на части!"))
 	do_sparks(3, TRUE, src)
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..()
@@ -49,14 +49,14 @@
 /mob/living/simple_animal/circuit_drone/examine(mob/user)
 	. = ..()
 	if(health >= maxHealth)
-		. += span_notice("[declent_ru_cap(NOMINATIVE)] в отличном состоянии.")
+		. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] в отличном состоянии.")
 		return
 
 	if(health > maxHealth / 3)
-		. += span_notice("[declent_ru_cap(NOMINATIVE)] выглядит слегка повреждённым.")
+		. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит слегка повреждённым.")
 		return
 
-	. += span_warning("[declent_ru_cap(NOMINATIVE)] выглядит сильно повреждённым!")
+	. += span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит сильно повреждённым!")
 
 /mob/living/simple_animal/circuit_drone/welder_act(mob/living/user, obj/item/tool)
 	. = ..()

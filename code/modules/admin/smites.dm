@@ -244,7 +244,7 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[clothing.declent_ru_cap(NOMINATIVE)] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[DECLENT_RU_CAP(clothing, NOMINATIVE)] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
 // MARK: Nugget
@@ -287,7 +287,7 @@
 	var/mob/living/simple_animal/hostile/mob = new type(turf)
 	mob.GiveTarget(mob)
 	mob.toggle_ai(AI_ON)
-	to_chat(target, span_userdanger("[mob.declent_ru_cap(NOMINATIVE)] появляется из воздуха! Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[DECLENT_RU_CAP(mob, NOMINATIVE)] появляется из воздуха! Боги наказали вас за [reason]!"))
 	logmsg = "summon angry [mob]."
 
 // MARK: HRP (off)

@@ -488,7 +488,7 @@
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CargoConsole", declent_ru_cap(NOMINATIVE))
+		ui = new(user, src, "CargoConsole", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/computer/supplycomp/ui_data(mob/user)

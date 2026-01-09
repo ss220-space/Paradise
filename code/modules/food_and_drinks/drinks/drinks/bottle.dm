@@ -794,7 +794,7 @@
 
 	add_fingerprint(user)
 	if(active)
-		to_chat(user, span_warning("[declent_ru_cap(NOMINATIVE)] уже горит."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже горит."))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	active = TRUE

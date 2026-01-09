@@ -159,14 +159,14 @@
 
 		if(!length(demon_candidates))
 			log_game("[src] has failed to spawn, because no one enrolled.")
-			visible_message(span_warning("[declent_ru_cap(NOMINATIVE)] исчезает во вспышке красного света!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает во вспышке красного света!"))
 			qdel(src)
 			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/demon/slaughter/cult/S = src
 		if(!M || !M.client)
 			log_game("[src] has failed to spawn, because enrolled player is missing.")
-			visible_message(span_warning("[declent_ru_cap(NOMINATIVE)] исчезает во вспышке красного света!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает во вспышке красного света!"))
 			qdel(src)
 			return
 		var/client/C = M.client

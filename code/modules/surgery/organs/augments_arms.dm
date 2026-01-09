@@ -105,7 +105,7 @@
 		return FALSE
 
 	owner.visible_message(span_notice("[owner] убира[PLUR_ET_YUT(owner)] [active_item.declent_ru(ACCUSATIVE)] обратно в [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
-		span_notice("[active_item.declent_ru_cap(NOMINATIVE)] втягивается в вашу [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
+		span_notice("[DECLENT_RU_CAP(active_item, NOMINATIVE)] втягивается в вашу [parent_organ_zone == BODY_ZONE_R_ARM ? "правую" : "левую"] руку."),
 		span_italics("Слышен короткий механический щелчок."))
 
 	owner.drop_item_ground(active_item, force = TRUE, silent = TRUE)

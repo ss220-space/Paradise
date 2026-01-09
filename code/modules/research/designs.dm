@@ -76,7 +76,7 @@ other types of metals and chemistry for reagents).
 		return
 
 	var/obj/item/design_item = new build_path
-	design_name = design_item.declent_ru_cap(NOMINATIVE)
+	design_name = DECLENT_RU_CAP(design_item, NOMINATIVE)
 	qdel(design_item)
 	build_object_name = design_name
 	GLOB.design_names_cached[id] = design_name

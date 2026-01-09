@@ -352,7 +352,7 @@
 	if(ui)
 		return
 
-	ui = new(user, src, "CircuitModule", declent_ru_cap(NOMINATIVE))
+	ui = new(user, src, "CircuitModule", DECLENT_RU_CAP(src, NOMINATIVE))
 	ui.open()
 	ui.set_autoupdate(FALSE)
 

@@ -71,9 +71,9 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	tracking = !tracking
 	update_icon(UPDATE_OVERLAYS)
 	if(tracking)
-		to_chat(user, "[declent_ru_cap(NOMINATIVE)] теперь отслеживается и виден другим GPS устройствам.")
+		to_chat(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь отслеживается и виден другим GPS устройствам.")
 	else
-		to_chat(user, "[declent_ru_cap(NOMINATIVE)] больше не отслеживается и не виден другим GPS устройствам.")
+		to_chat(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] больше не отслеживается и не виден другим GPS устройствам.")
 	SStgui.update_uis(src)
 
 /obj/item/gps/ui_data(mob/user)
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	if(istype(I, /obj/item/gpsupgrade))
 		add_fingerprint(user)
 		if(upgraded)
-			to_chat(user, span_warning("[declent_ru_cap(NOMINATIVE)] уже улучшен."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже улучшен."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
