@@ -153,11 +153,11 @@
 	update_icon(UPDATE_ICON_STATE)
 
 	for(var/obj/machinery/sparker/sparker in SSmachines.get_by_type(/obj/machinery/sparker))
-		if(sparker.id_tag == id_tag)
+		if(sparker.id == id_tag)
 			INVOKE_ASYNC(sparker, TYPE_PROC_REF(/obj/machinery/sparker, spark))
 
 	for(var/obj/machinery/igniter/igniter in SSmachines.get_by_type(/obj/machinery/igniter))
-		if(igniter.id_tag == id_tag)
+		if(igniter.id == id_tag)
 			use_power(50)
 			igniter.on = !igniter.on
 			igniter.icon_state = "igniter[igniter.on]"

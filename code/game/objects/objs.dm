@@ -102,7 +102,6 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	SStgui.close_uis(src)
-	QDEL_NULL(multitool_menu)
 	return ..()
 
 //user: The mob that is suiciding
