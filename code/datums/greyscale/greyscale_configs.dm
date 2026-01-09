@@ -152,6 +152,13 @@
 /datum/greyscale_config/sneakers_orange_worn/drask
 	icon_file = 'icons/mob/clothing/species/drask/shoes.dmi'
 
+/datum/greyscale_config/carp
+	icon_file = 'icons/mob/carp.dmi'
+	json_config = 'code/datums/greyscale/json_configs/carp.json'
+
+/datum/greyscale_config/carp/disk_mouth
+	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
+
 
 /*
 /datum/greyscale_config/prototype_canister
