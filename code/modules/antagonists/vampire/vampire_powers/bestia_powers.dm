@@ -1682,6 +1682,7 @@
 				qdel(removed)
 
 /obj/structure/closet/coffin/vampire/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return interior_air
 
 /obj/structure/closet/coffin/vampire/proc/return_pressure()

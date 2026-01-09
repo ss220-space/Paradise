@@ -6,7 +6,7 @@
 #define DIRECTION_OUT 1
 
 /obj/machinery/atmospherics/portable/scrubber
-	name = "Portable Air Scrubber"
+	name = "portable air scrubber"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "pscrubber:0"
 	density = TRUE
@@ -17,6 +17,13 @@
 	var/volume_rate = 101.325
 	/// Is this scrubber acting on the 3x3 area around it.
 	var/widenet = FALSE
+
+/obj/machinery/atmospherics/portable/scrubber/examine(mob/user)
+	. = ..()
+	. += span_notice("Filters the air, placing harmful gases into the internal gas container. The container can be emptied by \
+		connecting it to a connector port, you're unable to have [src] both connected, and on at the same time. \
+		Changing the target pressure will result in faster or slower filter speeds, higher pressure is faster. \
+		A tank of gas can also be attached, allowing you to remove harmful gases from the attached tank.")
 
 /obj/machinery/atmospherics/portable/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
