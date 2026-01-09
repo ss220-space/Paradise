@@ -20,12 +20,18 @@
 /obj/item/storage/box/survival/populate_contents()
 	if(breathmask)
 		new breathmask(src)
-	if(internals)
+	if(internals && !HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
 		new internals(src)
 	if(first_aid && !HAS_TRAIT(SSstation, STATION_TRAIT_CRAMPED_INTERNALS))
 		new first_aid(src)
 	if(glowstick && !HAS_TRAIT(SSstation, STATION_TRAIT_CRAMPED_INTERNALS))
 		new glowstick(src)
+
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		return
+	new /obj/item/tank/internals/emergency_oxygen/double(src)
+	new /obj/item/stack/medical/bruise_pack/advanced(src)
+	new /obj/item/stack/medical/ointment/advanced(src)
 
 //MARK: Job-specific survival boxes
 /obj/item/storage/box/survival/brigphys

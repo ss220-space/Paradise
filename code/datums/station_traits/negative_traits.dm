@@ -12,7 +12,7 @@
 	weight = 3
 	show_in_report = TRUE
 	report_message = "Из-за чрезвычайного происшествия с шаттлом снабжения, стоимость всех заказов была повышена."
-	// blacklist = list(/datum/station_trait/strong_supply_lines)
+	blacklist = list(/datum/station_trait/strong_supply_lines)
 
 /datum/station_trait/distant_supply_lines/on_round_start()
 	for(var/set_name in SSshuttle.supply_packs)
@@ -45,6 +45,7 @@
 	report_message = "Мммм... Обязательный для посещения корпоратив по случаю... мххггг... Возможно мы переборщили с алкоголем..."
 	trait_to_give = STATION_TRAIT_HANGOVER
 	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/random_spawns)
+	force = 1
 
 /datum/station_trait/hangover/New()
 	. = ..()
@@ -87,7 +88,7 @@
 	weight = 5
 	show_in_report = TRUE
 	report_message = "Прошлый экипаж провёл капитальную уборку объекта. Технические туннели были полностью очищены от грязи и мусора."
-	// blacklist = list(/datum/station_trait/filled_maint)
+	blacklist = list(/datum/station_trait/filled_maint)
 	trait_to_give = STATION_TRAIT_EMPTY_MAINT
 	// This station trait is checked when loot drops initialize, so it's too late
 	can_revert = FALSE
@@ -121,7 +122,7 @@
 	weight = 5
 	show_in_report = TRUE
 	report_message = "Из-за отклонения \"АКН Трурль\" от маршрута, шаттлу снабжения потребуется гораздо больше времени, чтобы добраться до объекта. Шаттл эвакуации это не затронет."
-	// blacklist = list(/datum/station_trait/quick_shuttle)
+	blacklist = list(/datum/station_trait/quick_shuttle)
 
 /datum/station_trait/slow_shuttle/on_round_start()
 	. = ..()
@@ -179,10 +180,10 @@
 	report_message = "Станция была расположена в эпицентре ионизированной туманности. Ожидайте повышенную вероятность ионных штормов, влияющих на работу роботизированных систем."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 3
-	event_names = ("Ионный тайфун")
+	event_names = list("Ионный тайфун")
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 5 //500 instead of 100
-	// blacklist = list(/datum/station_trait/unique_ai)
+	blacklist = list(/datum/station_trait/unique_ai)
 
 /datum/station_trait/random_event_weight_modifier/rad_storms
 	name = "Радиационная буря"
@@ -217,7 +218,7 @@
 	report_message = "Внимание! В космическом пространстве вокруг объекта замечена повышенная активность маломестных шаттлов без активного транспондера. Остерегайтесь вражеской активности."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Космический Ниндзя", "Ядерный оперативник", "Дрейфующий Контрактник")
+	event_names = list("Космический ниндзя", "Ядерный оперативник", "Дрейфующий Контрактник")
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 3
 	disable_is_one_shot = TRUE
@@ -236,7 +237,7 @@
 	report_message = "В секторе объекта был замечен замаскированный электромагнитный спутник \"Синдиката\". В ближайшее время возможны массовые повреждения электроники. Наши сотрудники уже занимаются его обезвреживанием."
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
-	event_names = list("Перегрузка ЛКП", "Сбой работы шлюзов", "Цифровой вирус", "Электрический шторм", "Телекоммуникационный сбой")
+	event_names = list("Перегрузка ЛКП", "Сбой работы дверей", "Цифровой вирус", "Электрический шторм", "Телекоммуникационный сбой")
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 5
 	disable_is_one_shot = TRUE
@@ -474,6 +475,7 @@
 	// blacklist = list(/datum/station_trait/upgraded_armory)
 
 /datum/station_trait/looted_armory/on_round_start()
+	. = ..()
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
 		if(get_supply_group_name(pack.group) != "Безопасность") //fuck

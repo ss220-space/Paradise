@@ -162,6 +162,9 @@
 /obj/effect/spawner/lootdrop/maintenance/spawn_loot()
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_EMPTY_MAINT))
 		return
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_FILLED_MAINT))
+		lootcount = FLOOR(lootcount * 1.5, 1)
+	return ..()
 
 /obj/effect/spawner/lootdrop/maintenance/double
 	icon_state = "x2"

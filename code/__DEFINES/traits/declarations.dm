@@ -421,3 +421,5 @@
 #define STATION_TRAIT_PDA_GLITCHED "station_trait_pda_glitched"
 #define STATION_TRAIT_CLASSIC_ASSISTANTS "station_trait_classic_assistants"
 #define STATION_TRAIT_BIRTHDAY "station_trait_birthday"
+#define STATION_TRAIT_PREMIUM_INTERNALS "station_trait_premium_internals"
+#define STATION_TRAIT_FILLED_MAINT "station_trait_filled_maint"

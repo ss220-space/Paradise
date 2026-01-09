@@ -156,13 +156,13 @@
 		spawned_mob.equip_to_slot_if_possible(hat, ITEM_SLOT_BACKPACK, disable_warning = TRUE)
 
 	var/obj/item/toy = pick_weight_classic(list(
-		/obj/item/toy/balloon = 2,
-		/obj/item/toy/toolbox = 2,
-		/obj/item/toy/carpplushie/void = 4,
-		/obj/item/toy/foamblade = 3,
+		/obj/item/toy/syndicateballoon = 3,
+		/obj/item/toy/syndicateballoon/contractor = 3,
+		/obj/item/toy/carpplushie/void = 1,
+		/obj/item/toy/foamblade = 1,
 	))
 	toy = new toy(spawned_mob)
-	if(istype(toy, /obj/item/toy/balloon))
+	if(istype(toy, /obj/item/toy/syndicateballoon))
 		spawned_mob.equip_to_slot_if_possible(toy, ITEM_SLOT_HAND_LEFT, disable_warning = TRUE) //Balloons do not fit inside of backpacks.
 	else
 		spawned_mob.equip_to_slot_if_possible(toy, ITEM_SLOT_BACK, disable_warning = TRUE)
@@ -192,4 +192,3 @@
 	desc = "Небольшая карточка, на которой сказано следующее: \"[birthday_name] сегодня празднует свой день рождения!\""
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "slip"
-

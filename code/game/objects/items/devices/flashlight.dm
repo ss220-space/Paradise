@@ -229,6 +229,7 @@
 
 /obj/item/flashlight/flare/proc/turn_on()
 	on = TRUE
+	START_PROCESSING(SSobj, src)
 	update_brightness()
 	force = on_damage
 	damtype = FIRE
@@ -240,7 +241,6 @@
 	update_brightness()
 
 /obj/item/flashlight/flare/attack_self(mob/user)
-	// Usual checks
 	if(!fuel)
 		to_chat(user, span_notice("[src] is out of fuel."))
 		return

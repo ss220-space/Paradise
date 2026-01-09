@@ -839,23 +839,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	. = ..()
 	create_debris(get_turf(src))
 
-///Spawns the mob with some drugginess/drunkenness, and some disgust.
-/obj/effect/landmark/start/hangover/proc/make_hungover(mob/hangover_mob)
-	if(!iscarbon(hangover_mob))
-		return
-	var/mob/living/carbon/spawned_carbon = hangover_mob
-	spawned_carbon.set_resting(TRUE, silent = TRUE, instant = TRUE)
-	var/obj/item/organ/internal/liver/our_liver
-	var/liver_multiplier = 1
-	our_liver = spawned_carbon.get_int_organ(/obj/item/organ/internal/liver)
-	if(our_liver)
-		liver_multiplier = our_liver.alcohol_intensity
-	spawned_carbon.AdjustDrunk((2 / liver_multiplier) MINUTES)
-
-/obj/effect/landmark/start/hangover/JoinPlayerHere(mob/joining_mob)
-	. = ..()
-	make_hungover(joining_mob)
-
 /obj/effect/landmark/start/hangover/proc/create_debris(turf/our_turf)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_BIRTHDAY))
 		party_debris += new /obj/effect/decal/cleanable/confetti(get_turf(src)) //a birthday celebration can also be a hangover
@@ -863,6 +846,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 		for(var/confettis in bonus_confetti)
 			var/party_turf_to_spawn_on = get_step(src, confettis)
 			if(!issimulatedturf(party_turf_to_spawn_on))
+				continue
+			if(iswallturf(party_turf_to_spawn_on))
 				continue
 			var/dense_object = FALSE
 			for(var/atom/content in party_turf_to_spawn_on)
@@ -886,6 +871,8 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 			var/turf/turf_to_spawn_on = get_step(our_turf, pick(GLOB.alldirs))
 			if(!issimulatedturf(turf_to_spawn_on))
 				continue
+			if(iswallturf(turf_to_spawn_on))
+				continue
 			var/dense_object = FALSE
 			for(var/atom/content in turf_to_spawn_on.contents)
 				if(content.density)
@@ -894,18 +881,3 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 			if(dense_object)
 				continue
 			hangover_debris += new /obj/item/reagent_containers/food/drinks/cans/beer/almost_empty(turf_to_spawn_on)
-
-
-/obj/effect/landmark/start/hangover/closet
-	name = "hangover spawn closet"
-	icon_state = "hangover_spawn_closet"
-
-/obj/effect/landmark/start/hangover/closet/JoinPlayerHere(mob/joining_mob)
-	for(var/obj/structure/closet/closet in get_turf(src))
-		if(closet.opened)
-			continue
-		joining_mob.forceMove(closet)
-		make_hungover(joining_mob)
-		return
-
-	return ..() //Call parent as fallback

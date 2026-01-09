@@ -1072,6 +1072,21 @@ SUBSYSTEM_DEF(jobs)
 /atom/proc/JoinPlayerHere(mob/joining_mob)
 	// By default, just place the mob on the same turf as the marker or whatever.
 	joining_mob.forceMove(get_turf(src))
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
+		make_hungover(joining_mob)
+
+/atom/proc/make_hungover(mob/hangover_mob)
+	if(!iscarbon(hangover_mob))
+		return
+	var/mob/living/carbon/spawned_carbon = hangover_mob
+	spawned_carbon.set_resting(TRUE, silent = TRUE, instant = TRUE)
+	var/obj/item/organ/internal/liver/our_liver
+	var/liver_multiplier = 1
+	our_liver = spawned_carbon.get_int_organ(/obj/item/organ/internal/liver)
+	if(our_liver)
+		liver_multiplier = our_liver.alcohol_intensity
+	spawned_carbon.AdjustDrunk((2 / liver_multiplier) MINUTES)
+	spawned_carbon.AdjustDisgust(2 MINUTES)
 
 /// Returns a list of jobs that we are allowed to fuck with during random events
 /datum/controller/subsystem/jobs/proc/get_valid_overflow_jobs()
