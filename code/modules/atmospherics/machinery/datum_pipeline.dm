@@ -28,7 +28,6 @@
 	if(update)
 		update = FALSE
 		reconcile_air()
-	return
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0

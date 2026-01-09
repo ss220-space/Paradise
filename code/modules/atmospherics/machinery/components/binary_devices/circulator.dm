@@ -6,34 +6,39 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/circulator.dmi'
 	icon_state = "circ8-off"
 	vent_movement = VENTCRAWL_CAN_SEE
+	density = TRUE
+	can_unwrench = TRUE
 
 	var/side = CIRC_LEFT
+	var/side_inverted = FALSE
 
 	var/last_pressure_delta = 0
 
-	var/obj/machinery/power/generator/generator
-
-	density = TRUE
-
-	can_unwrench = TRUE
-	var/side_inverted = 0
+	/// The Thermo-Electric Generator this circulator is connected to
+	var/obj/machinery/power/teg/generator
 
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
+
+/obj/machinery/atmospherics/binary/circulator/examine(mob/user)
+	. = ..()
+	. += span_notice("This generates electricity, depending on the difference in temperature between each side of the machine. \
+		The meter in the center of the machine gives an indicator of how much electricity is being generated.")
 
 // Creating a custom circulator pipe subtype to be delivered through cargo
 /obj/item/pipe/circulator
 	name = "circulator/heat exchanger fitting"
 
-/obj/item/pipe/circulator/Initialize(mapload)
-	var/obj/machinery/atmospherics/binary/circulator/C = new /obj/machinery/atmospherics/binary/circulator(null)
-	. = ..(mapload, make_from = C)
+/obj/item/pipe/circulator/Initialize(mapload, pipe_type, dir, obj/machinery/atmospherics/make_from)
+	. = ..(make_from = new /obj/machinery/atmospherics/binary/circulator(null))
 
 /obj/machinery/atmospherics/binary/circulator/Destroy()
 	if(generator && generator.cold_circ == src)
 		generator.cold_circ = null
+
 	else if(generator && generator.hot_circ == src)
 		generator.hot_circ = null
+
 	return ..()
 
 /obj/machinery/atmospherics/binary/circulator/proc/return_transfer_air()
@@ -58,8 +63,6 @@
 			last_pressure_delta = pressure_delta
 			update_icon()
 
-		//log_debug("pressure_delta = [pressure_delta]; transfer_moles = [transfer_moles];")
-
 		//Actually transfer the gas
 		var/datum/gas_mixture/removed = inlet.remove(transfer_moles)
 
@@ -73,39 +76,24 @@
 		update_icon()
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_air()
-	if(side_inverted==0)
-		return air2
-	else
-		return air1
+	return side_inverted ? air1 : air2
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_outlet_air()
-	if(side_inverted==0)
-		return air1
-	else
-		return air2
+	return side_inverted ? air2 : air1
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_inlet_side()
-	if(dir==SOUTH||dir==NORTH)
-		if(side_inverted==0)
-			return "South"
-		else
-			return "North"
+	if(dir & (SOUTH|NORTH))
+		return side_inverted ? "North" : "South"
 
 /obj/machinery/atmospherics/binary/circulator/proc/get_outlet_side()
-	if(dir==SOUTH||dir==NORTH)
-		if(side_inverted==0)
-			return "North"
-		else
-			return "South"
+	if(dir & (SOUTH|NORTH))
+		return side_inverted ? "South" : "North"
 
-/obj/machinery/atmospherics/binary/circulator/multitool_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/binary/circulator/multitool_act(mob/user, obj/item/item)
 	. = TRUE
-	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
+	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
 		return
-	if(!side_inverted)
-		side_inverted = TRUE
-	else
-		side_inverted = FALSE
+	side_inverted = !side_inverted
 	to_chat(user, span_notice("You reverse the circulator's valve settings. The inlet of the circulator is now on the [get_inlet_side(dir)] side."))
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 

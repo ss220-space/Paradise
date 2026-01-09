@@ -3,13 +3,11 @@
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/temperature_gate.dmi'
 	icon_state = "map"
 	can_unwrench = TRUE
-
-	// if the temperature of the input mix is lower than this, gas will flow (or higher if inverted)
+	/// if the temperature of the input mix is lower than this, gas will flow (or higher if inverted)
 	var/target_temperature = 273 // 0C but rounded to nearest whole number
-
-	// minimum allowed temperature - can't have anything under the coldest temperature, now can we?
+	/// minimum allowed temperature - can't have anything under the coldest temperature, now can we?
 	var/minimum_temperature = TCMB
-	// maximum allowed temperature
+	/// maximum allowed temperature
 	var/maximum_temperature = 4500
 
 	var/inverted = FALSE
@@ -52,7 +50,7 @@
 
 /obj/machinery/atmospherics/binary/temperature_gate/process_atmos()
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return 0
+		return FALSE
 
 	var/input_temp = air1.temperature()
 	var/allow_flow = FALSE
@@ -65,7 +63,7 @@
 			allow_flow = TRUE
 
 	if(!allow_flow)
-		return 1
+		return TRUE
 
 	var/datum/gas_mixture/removed = air1.remove(air1.total_moles())
 	if(removed && removed.total_moles() > 0)
@@ -74,7 +72,7 @@
 	parent1.update = TRUE
 	parent2.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/binary/temperature_gate/attack_hand(mob/user)
 	if(..())
@@ -116,7 +114,7 @@
 
 	switch(action)
 		if("power")
-			toggle()
+			toggle(user)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 

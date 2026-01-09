@@ -44,11 +44,11 @@
 		return
 	if(!in_range(src, user) && !issilicon(user))
 		return
-	toggle()
+	toggle(user)
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick()
-	toggle()
+	toggle(user)
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
@@ -218,7 +218,7 @@
 
 	switch(action)
 		if("power")
-			toggle()
+			toggle(user)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 

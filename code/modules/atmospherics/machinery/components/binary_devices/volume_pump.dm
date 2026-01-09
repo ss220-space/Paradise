@@ -13,17 +13,13 @@ Thus, the two variables affect pump operation are set in New():
 */
 
 /obj/machinery/atmospherics/binary/volume_pump
+	name = "volumetric gas pump"
+	desc = "A volumetric pump."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/volume_pump.dmi'
 	icon_state = "map_off"
-
-	name = "volumetric gas pump"
-	desc = "A volumetric pump"
-
 	can_unwrench = TRUE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
-
 	var/transfer_rate = 200
-
 	var/id = null
 
 /obj/machinery/atmospherics/binary/volume_pump/Initialize(mapload)
@@ -40,42 +36,29 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	if(!in_range(src, user) && !issilicon(user))
 		return
-	toggle()
+	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/binary/volume_pump/AICtrlClick()
-	toggle()
+	toggle(user)
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/click_alt(mob/living/user)
-	set_max()
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/binary/volume_pump/ai_click_alt()
-	set_max()
-	return ..()
-
-/obj/machinery/atmospherics/binary/volume_pump/proc/set_max()
-	if(powered())
-		transfer_rate = MAX_TRANSFER_RATE
-		update_icon()
-
-/obj/machinery/atmospherics/binary/volume_pump/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/binary/volume_pump/on
-	on = 1
+	on = TRUE
 	icon_state = "map_on"
 
-/obj/machinery/atmospherics/binary/volume_pump/atmos_init()
-	..()
-	set_frequency(frequency)
-
 /obj/machinery/atmospherics/binary/volume_pump/update_icon_state()
-	..()
-
 	if(!powered())
 		icon_state = "off"
 	else
@@ -84,23 +67,22 @@ Thus, the two variables affect pump operation are set in New():
 /obj/machinery/atmospherics/binary/volume_pump/update_underlays()
 	if(..())
 		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
+		var/turf/turf = get_turf(src)
+		if(!istype(turf))
 			return
-		add_underlay(T, node1, turn(dir, -180))
-		add_underlay(T, node2, dir)
+		add_underlay(turf, node1, turn(dir, -180))
+		add_underlay(turf, node2, dir)
 
 /obj/machinery/atmospherics/binary/volume_pump/process_atmos()
-	..()
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return 0
+		return FALSE
 
 	// Pump mechanism just won't do anything if the pressure is too high/too low
 	var/input_starting_pressure = air1.return_pressure()
 	var/output_starting_pressure = air2.return_pressure()
 
 	if((input_starting_pressure < 0.01) || (output_starting_pressure > 9000))
-		return 1
+		return TRUE
 
 	var/transfer_ratio = max(1, transfer_rate/air1.volume)
 
@@ -108,60 +90,10 @@ Thus, the two variables affect pump operation are set in New():
 
 	air2.merge(removed)
 
-	parent1.update = 1
-	parent2.update = 1
+	parent1.update = TRUE
+	parent2.update = TRUE
 
-	return 1
-
-/obj/machinery/atmospherics/binary/volume_pump/proc/broadcast_status()
-	if(!radio_connection)
-		return 0
-
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.source = src
-
-	signal.data = list(
-		"tag" = id,
-		"device" = "APV",
-		"power" = on,
-		"transfer_rate" = transfer_rate,
-		"sigtype" = "status"
-	)
-	radio_connection.post_signal(src, signal)
-
-	return 1
-
-/obj/machinery/atmospherics/binary/volume_pump/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id) || (signal.data["sigtype"]!="command"))
-		return 0
-
-	var/old_on = on //for logging
-
-	if(signal.data["power"])
-		on = text2num(signal.data["power"])
-
-	if(signal.data["power_toggle"])
-		on = !on
-
-	if(signal.data["set_transfer_rate"])
-		transfer_rate = between(
-			0,
-			text2num(signal.data["set_transfer_rate"]),
-			air1.volume
-		)
-
-	if(on != old_on)
-		investigate_log("was turned [on ? "on" : "off"] by a remote signal", INVESTIGATE_ATMOS)
-
-	if(signal.data["status"])
-		spawn(2)
-			broadcast_status()
-		return //do not update_icon
-
-	spawn(2)
-		broadcast_status()
-	update_icon()
+	return TRUE
 
 /obj/machinery/atmospherics/binary/volume_pump/attack_hand(mob/user)
 	if(..())
@@ -199,7 +131,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	switch(action)
 		if("power")
-			toggle()
+			toggle(user)
 			investigate_log("was turned [on ? "on" : "off"] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 
@@ -222,14 +154,14 @@ Thus, the two variables affect pump operation are set in New():
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/binary/volume_pump/attackby(obj/item/item, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+		return
 
 	. |= ATTACK_CHAIN_SUCCESS
-	rename_interactive(user, I)
+	rename_interactive(user, item)
 
 /obj/item/circuit_component/atmos_volume_pump
 	display_name = "Объёмный атмосферный насос"

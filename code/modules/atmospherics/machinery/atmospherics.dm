@@ -473,7 +473,7 @@ Pipelines + Other Objects -> Pipe network
  * Arguments:
  * * user - the mob who is setting the output pressure to maximum.
  */
-/obj/machinery/atmospherics/trinary/mixer/proc/set_max(mob/living/user)
+/obj/machinery/atmospherics/proc/set_max(mob/living/user)
 	if(!powered())
 		return
 

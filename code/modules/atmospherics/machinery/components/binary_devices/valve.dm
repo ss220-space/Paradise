@@ -1,11 +1,10 @@
 /obj/machinery/atmospherics/binary/valve
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/valve.dmi'
-	icon_state = "map_valve0"
-
 	name = "manual valve"
 	desc = "A pipe valve."
-
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/valve.dmi'
+	icon_state = "map_valve0"
 	can_unwrench = TRUE
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	var/open = FALSE
 	var/animating = FALSE
@@ -16,70 +15,69 @@
 	. += span_notice("Click this to turn the valve. If perpendicular, the pipes on each end are separated. If parallel, they are connected.")
 
 /obj/machinery/atmospherics/binary/valve/open
-	open = 1
+	open = TRUE
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/update_icon_state()
 	..()
 	if(animating)
-		flick("valve[open][!open]",src)
+		flick("valve[open][!open]", src)
 	else
 		icon_state = "valve[open]"
 
 /obj/machinery/atmospherics/binary/valve/update_underlays()
 	if(..())
 		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
+		var/turf/turf = get_turf(src)
+		if(!istype(turf))
 			return
-		add_underlay(T, node1, get_dir(src, node1))
-		add_underlay(T, node2, get_dir(src, node2))
+		add_underlay(turf, node1, get_dir(src, node1))
+		add_underlay(turf, node2, get_dir(src, node2))
 
 /obj/machinery/atmospherics/binary/valve/proc/open()
 	open = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	parent1.update = 0
-	parent2.update = 0
+	parent1.update = FALSE
+	parent2.update = FALSE
 	parent1.reconcile_air()
 	vent_movement |= VENTCRAWL_ALLOWED
 	investigate_log("was opened by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
-	return
 
 /obj/machinery/atmospherics/binary/valve/proc/close()
 	open =  FALSE
 	update_icon(UPDATE_ICON_STATE)
 	vent_movement &= ~VENTCRAWL_ALLOWED
 	investigate_log("was closed by [usr ? key_name_log(usr) : "a remote signal"]", INVESTIGATE_ATMOS)
-	return
 
 /obj/machinery/atmospherics/binary/valve/attack_ai(mob/user)
 	return
 
 /obj/machinery/atmospherics/binary/valve/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
-		return attack_hand(user)
+		attack_hand(user)
 
 /obj/machinery/atmospherics/binary/valve/attack_hand(mob/user)
 	add_fingerprint(usr)
 	animating = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	sleep(10)
+
+	addtimer(CALLBACK(src, PROC_REF(toggle_valve), user), 1 SECONDS)
+
+/obj/machinery/atmospherics/binary/valve/proc/toggle_valve(mob/user)
 	animating = FALSE
 	if(open)
 		close()
 	else
 		open()
-	to_chat(user, span_notice("You [open ? "open" : "close"] [src]."))
 
-/obj/machinery/atmospherics/binary/valve/digital		// can be controlled by AI
+	if(user)
+		to_chat(user, span_notice("You [open ? "open" : "close"] [src]."))
+
+/// can be controlled by AI
+/obj/machinery/atmospherics/binary/valve/digital
 	name = "digital valve"
 	desc = "A digitally controlled valve."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/digital_valve.dmi'
-
-	req_access = list(ACCESS_ATMOSPHERICS,ACCESS_ENGINE)
-
-	frequency = ATMOS_VENTSCRUB
-	var/id_tag = null
 
 /obj/machinery/atmospherics/binary/valve/digital/Initialize(mapload)
 	. = ..()
@@ -87,14 +85,8 @@
 		/obj/item/circuit_component/digital_valve
 	))
 
-/obj/machinery/atmospherics/binary/valve/digital/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
-	return ..()
-
 /obj/machinery/atmospherics/binary/valve/digital/attack_ai(mob/user)
-	return attack_hand(user)
+	attack_hand(user)
 
 /obj/machinery/atmospherics/binary/valve/digital/attack_hand(mob/user)
 	if(!powered())
@@ -102,10 +94,10 @@
 	if(!allowed(user) && !user.can_advanced_admin_interact())
 		to_chat(user, span_alert("Access denied."))
 		return
-	..()
+	return ..()
 
 /obj/machinery/atmospherics/binary/valve/digital/open
-	open = 1
+	open = TRUE
 	icon_state = "map_valve1"
 
 /obj/machinery/atmospherics/binary/valve/digital/power_change(forced = FALSE)
@@ -117,38 +109,7 @@
 	if(!powered())
 		icon_state = "valve[open]nopower"
 		return
-	..()
-
-/obj/machinery/atmospherics/binary/valve/digital/atmos_init()
-	..()
-	if(frequency)
-		set_frequency(frequency)
-
-/obj/machinery/atmospherics/binary/valve/digital/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id_tag))
-		return 0
-
-	switch(signal.data["command"])
-		if("valve_open")
-			if(!open)
-				open()
-
-		if("valve_close")
-			if(open)
-				close()
-
-		if("valve_toggle")
-			if(open)
-				close()
-			else
-				open()
-		if("valve_set")
-			if(signal.data["valve_set"] == 1)
-				if(!open)
-					open()
-			else
-				if(open)
-					close()
+	return ..()
 
 /obj/item/circuit_component/digital_valve
 	display_name = "Цифровой клапан"
