@@ -127,7 +127,7 @@
 ///		"sprites" = list("sprite_name" = list("size_id" = "32x32", "position" = 0), ...),
 ///		"dmi_hashes" = list("icons/path_to/an_icon.dmi" = "d6325c5b4304fb03", ...),
 ///		"sprites_hash" = "a2015e5ff403fb5c", // This is the xxh64 hash of the INPUT field "sprites".
-///		"error" = "[A string, empty if there were no errors.]"
+///		"error" = "[A string, empty if there were no errors.]",
 ///	)
 /// In the case of an unrecoverable panic from within Rust, this function ONLY returns a string containing the error.
 #define rustlib_iconforge_generate(file_path, spritesheet_name, sprites, hash_icons) RUSTLIB_CALL("iconforge_generate", file_path, spritesheet_name, sprites, "[hash_icons]")

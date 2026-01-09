@@ -30,6 +30,7 @@
 	return InternalGenerate(processed_colors, render_steps)
 
 /datum/greyscale_layer/proc/InternalGenerate(list/colors, list/render_steps)
+	return
 
 ////////////////////////////////////////////////////////
 // Subtypes

@@ -379,6 +379,3 @@
 	air_contents.set_oxygen((O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	air_contents.set_nitrogen((N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 
-/obj/machinery/portable_atmospherics/canister/custom_mix/Initialize(mapload)
-	. = ..()
-
