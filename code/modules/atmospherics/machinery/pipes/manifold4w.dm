@@ -171,7 +171,7 @@
 	name = "4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
@@ -181,7 +181,7 @@
 	name = "4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
@@ -207,7 +207,7 @@
 	name="4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
@@ -217,7 +217,7 @@
 	name="4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"

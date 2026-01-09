@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/unary/thermomachine
-	name = "Temperature control unit"
+	name = "temperature control unit"
 	desc = "Heats or cools gas in connected pipes."
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "freezer"

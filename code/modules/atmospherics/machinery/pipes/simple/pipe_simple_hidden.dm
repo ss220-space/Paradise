@@ -1,38 +1,51 @@
 /obj/machinery/atmospherics/pipe/simple/hidden
 	icon_state = "intact"
-	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
+	// set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 	// these are inherited, but it's nice to have them explicit here
+	alpha = 128
 
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers
-	name = "Scrubbers pipe"
-	desc = "A one meter section of scrubbers pipe"
+	name = "scrubbers pipe"
+	desc = "A one meter section of scrubbers pipe."
 	icon_state = "intact-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers/examine(mob/user)
+	. = ..()
+	. += span_notice("This is a special 'scrubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use a Universal Adapter pipe.")
+
 /obj/machinery/atmospherics/pipe/simple/hidden/supply
-	name = "Air supply pipe"
-	desc = "A one meter section of supply pipe"
+	name = "air supply pipe"
+	desc = "A one meter section of supply pipe."
 	icon_state = "intact-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
 	color = PIPE_COLOR_BLUE
 
+/obj/machinery/atmospherics/pipe/simple/hidden/supply/examine(mob/user)
+	. = ..()
+	. += span_notice("This is a special 'supply' pipe, which does not connect to 'normal' pipes. If you want to connect it, use a Universal Adapter pipe.")
+
 /obj/machinery/atmospherics/pipe/simple/hidden/universal
-	name="Universal pipe adapter"
-	desc = "An adapter for regular, supply and scrubbers pipes"
-	connect_types = list(1,2,3)
+	name = "universal pipe adapter"
+	desc = "An adapter for regular, supply and scrubbers pipes."
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 	icon_state = "map_universal"
+
+/obj/machinery/atmospherics/pipe/simple/hidden/universal/examine(mob/user)
+	. = ..()
+	. += span_notice("This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes.")
 
 /obj/machinery/atmospherics/pipe/simple/hidden/universal/update_overlays()
 	. = list()
 	if(!check_icon_cache())
-		return .
+		return
 
 	alpha = 255
 
@@ -50,11 +63,11 @@
 		if(node2)
 			universal_underlays(node2)
 		else
-			var/node2_dir = turn(get_dir(src,node1), -180)
+			var/node2_dir = turn(get_dir(src, node1), -180)
 			universal_underlays(direction = node2_dir)
 	else if(node2)
 		universal_underlays(node2)
-		var/node1_dir = turn(get_dir(src,node2), -180)
+		var/node1_dir = turn(get_dir(src, node2), -180)
 		universal_underlays(direction = node1_dir)
 	else
 		universal_underlays(direction = dir)
