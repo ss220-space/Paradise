@@ -88,3 +88,5 @@
 
 	if(in_owner)
 		owner.current.forceMove(serve_to.loc)
+
+#undefine MAX_DISTANCE
