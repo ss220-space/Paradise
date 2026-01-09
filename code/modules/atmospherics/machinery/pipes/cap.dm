@@ -1,18 +1,20 @@
 /obj/machinery/atmospherics/pipe/cap
 	name = "pipe endcap"
-	desc = "An endcap for pipes"
+	desc = "An endcap for pipes."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
 	icon_state = "cap"
-
 	volume = 35
-
 	initialize_directions = SOUTH
-
 	var/obj/machinery/atmospherics/node
 
-/obj/machinery/atmospherics/pipe/cap/New()
-	..()
+/obj/machinery/atmospherics/pipe/cap/Initialize(mapload)
+	. = ..()
+
 	initialize_directions = dir
+
+/obj/machinery/atmospherics/pipe/cap/examine(mob/user)
+	. = ..()
+	. += span_notice("Largely cosmetic as pipes automatically seal themselves off from leaking gases if not connected to another pipe. Will prevent a nasty ventcrawler from paying you a visit however.")
 
 /obj/machinery/atmospherics/pipe/cap/hide(i)
 	if(level == 1 && issimulatedturf(loc))
@@ -75,7 +77,7 @@
 
 /obj/machinery/atmospherics/pipe/cap/visible/scrubbers
 	name = "scrubbers pipe endcap"
-	desc = "An endcap for scrubbers pipes"
+	desc = "An endcap for scrubbers pipes."
 	icon_state = "cap-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -85,7 +87,7 @@
 
 /obj/machinery/atmospherics/pipe/cap/visible/supply
 	name = "supply pipe endcap"
-	desc = "An endcap for supply pipes"
+	desc = "An endcap for supply pipes."
 	icon_state = "cap-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PIPE_SUPPLY_OFFSET

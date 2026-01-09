@@ -1,22 +1,18 @@
 /obj/machinery/atmospherics/pipe/manifold
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/manifold.dmi'
-	icon_state = ""
 	name = "pipe manifold"
-	desc = "A manifold composed of regular pipes"
-
+	desc = "A manifold composed of regular pipes."
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/manifold.dmi'
+	icon_state = null
 	volume = 105
-
 	initialize_directions = EAST|NORTH|WEST
+	level = 1
 
 	var/obj/machinery/atmospherics/node1
 	var/obj/machinery/atmospherics/node2
 	var/obj/machinery/atmospherics/node3
 
-	level = 1
-
-/obj/machinery/atmospherics/pipe/manifold/New()
-
-	..()
+/obj/machinery/atmospherics/pipe/manifold/Initialize(mapload)
+	. = ..()
 
 	alpha = 255
 	icon = null
@@ -29,6 +25,10 @@
 			initialize_directions = SOUTH|WEST|NORTH
 		if(WEST)
 			initialize_directions = NORTH|EAST|SOUTH
+
+/obj/machinery/atmospherics/pipe/manifold/examine(mob/user)
+	. = ..()
+	. += SPAN_NOTICE("A pipe with three ends to connect to.")
 
 /obj/machinery/atmospherics/pipe/manifold/atmos_init()
 	..()
@@ -158,8 +158,8 @@
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
-	name="Scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	name = "scrubbers pipe manifold"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -168,8 +168,8 @@
 	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/visible/supply
-	name="Air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	name = "air supply pipe manifold"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
@@ -197,11 +197,11 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden
 	icon_state = "map"
-	alpha = 128		//set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
+	alpha = 128 //set for the benefit of mapping - this is reset to opaque when the pipe is spawned in game
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers
-	name = "Scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	name = "scrubbers pipe manifold"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map-scrubbers"
 	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
@@ -210,8 +210,8 @@
 	color = PIPE_COLOR_RED
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply
-	name = "Air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	name = "air supply pipe manifold"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map-supply"
 	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
@@ -230,3 +230,9 @@
 
 /obj/machinery/atmospherics/pipe/manifold/hidden/purple
 	color = PIPE_COLOR_PURPLE
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/red
+	color = PIPE_COLOR_RED
+
+/obj/machinery/atmospherics/pipe/manifold/hidden/blue
+	color = PIPE_COLOR_BLUE
