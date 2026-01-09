@@ -107,9 +107,8 @@ REPLACEMENTS = [
     (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(\1)', 'GEND_II_AYA_II_IE'),
     (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(src)', 'GEND_II_AYA_II_IE'),
 
-
     # capitalize(declent_ru())
-    (r'declent_ru_cap\((\w+)\)', r'DECLENT_RU_CAP(src, \1)', 'DECLENT_RU_CAP'),
+    (r'capitalize\(declent_ru_cap\((\w+)\)\)', r'DECLENT_RU_CAP(src, \1)', 'DECLENT_RU_CAP'),
     (r'capitalize\((\w+)\.declent_ru_cap\((\w+)\)\)', r'DECLENT_RU_CAP(\1, \2)', 'DECLENT_RU_CAP'),
 ]
 
