@@ -42,10 +42,15 @@
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
+	// Access levels, used in modules\jobs\access.dm
 	/// List of accesses needed to use this object: The user must possess all accesses in this list in order to use the object.
 	/// Example: If req_access = list(ACCESS_ENGINE, ACCESS_CE)- then the user must have both ACCESS_ENGINE and ACCESS_CE in order to use the object.
 	var/list/req_access
-	var/check_one_access = TRUE
+	/// List of accesses needed to use this object: The user must possess at least one access in this list in order to use the object.
+	/// Example: If req_one_access = list(ACCESS_ENGINE, ACCESS_CE)- then the user must have either ACCESS_ENGINE or ACCESS_CE in order to use the object.
+	var/list/req_one_access
+
+	var/check_one_access = TRUE // del this
 
 	/// Icon to use as a 32x32 preview in crafting menus and such
 	var/icon_preview

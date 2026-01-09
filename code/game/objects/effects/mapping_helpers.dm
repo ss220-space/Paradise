@@ -81,6 +81,9 @@
 /obj/effect/mapping_helpers/airlock
 	layer = DOOR_HELPER_LAYER
 
+/obj/effect/mapping_helpers/airlock/proc/payload(obj/machinery/door/airlock/payload)
+	return
+
 /obj/effect/mapping_helpers/airlock/unres
 	name = "airlock unresctricted side helper"
 	icon_state = "airlock_unres_helper"
