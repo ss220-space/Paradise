@@ -66,6 +66,9 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
             };
             let neighbor = prev.get_tile(neighbor_index);
             let my_new_tile = next.get_tile_mut(my_index);
+            let my_pressure = my_tile.pressure();
+            // How much pressure do these tiles have together?
+            let combined_pressure = my_tile.pressure() + neighbor.pressure();
 
             // No wind across walls.
             if my_new_tile.wall[axis] {
@@ -78,7 +81,7 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
             }
 
             // If there's no air, there's no wind.
-            if my_tile.pressure() + neighbor.pressure() <= 0.0 {
+            if combined_pressure <= 0.0 {
                 my_new_tile.wind[axis] = 0.0;
                 for i in 0..GAS_COUNT {
                     my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
@@ -87,18 +90,16 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
                 continue;
             }
 
-            // How much pressure do these tiles have together?
-            let combined_pressure = my_tile.pressure() + neighbor.pressure();
-
             // A bias from [-1.0, 1.0] representing how much air is flowing from the negative tile
             // to the positive one, based purely on pressure.
-            let pressure_bias = 2.0 * (my_tile.pressure() / combined_pressure) - 1.0;
-
+            let pressure_bias = 2.0 * (my_pressure / combined_pressure) - 1.0;
             // New wind mixes the pressure bias with the old wind, and clamps it to reasonable
             // bounds.
             my_new_tile.wind[axis] = (my_tile.wind[axis]
                 + WIND_ACCELERATION * (pressure_bias * WIND_STRENGTH - my_tile.wind[axis]))
                 .clamp(-MAX_WIND, MAX_WIND);
+
+            let wind_gas_flow = (1.0 + WIND_SPEED).powf(my_new_tile.wind[axis].abs()) - 1.0;
 
             for i in 0..GAS_COUNT {
                 my_new_tile.gas_flow[axis][i][GAS_FLOW_IN] = 0.0;
@@ -111,7 +112,6 @@ pub(crate) fn update_wind(prev: &ZLevel, next: &mut ZLevel) {
                     // Gas? What gas?
                     continue;
                 }
-                let wind_gas_flow = (1.0 + WIND_SPEED).powf(my_new_tile.wind[axis].abs()) - 1.0;
                 if my_new_tile.wind[axis] > 0.0 {
                     my_new_tile.gas_flow[axis][i][GAS_FLOW_OUT] += wind_gas_flow;
                 } else {
@@ -484,8 +484,9 @@ pub(crate) fn check_interesting(
     }
     let my_next_tile = next.get_tile(my_index);
     let mut wind_x: f32 = 0.0;
+    let my_next_tile_pressure = my_next_tile.pressure();
     if my_next_tile.wind[AXIS_X] > 0.0 {
-        wind_x += my_next_tile.wind[AXIS_X] * WIND_SPEED * BYOND_WIND_MULTIPLIER;
+        wind_x += my_next_tile.wind[AXIS_X] * WIND_SPEED_MULTIPLIER;
     }
     if let Some(index) = ZLevel::maybe_get_index(x - 1, y) {
         let their_next_tile = next.get_tile(index);
@@ -495,7 +496,7 @@ pub(crate) fn check_interesting(
             wind_x += their_next_tile.wind[AXIS_X] * BYOND_WIND_MULTIPLIER;
         }
     }
-    wind_x *= my_next_tile.pressure();
+    wind_x *= my_next_tile_pressure;
     let mut wind_y: f32 = 0.0;
     if my_next_tile.wind[AXIS_Y] > 0.0 {
         wind_y += my_next_tile.wind[AXIS_Y] * BYOND_WIND_MULTIPLIER;
@@ -508,8 +509,8 @@ pub(crate) fn check_interesting(
             wind_y += their_next_tile.wind[AXIS_Y] * BYOND_WIND_MULTIPLIER;
         }
     }
-    wind_y *= my_next_tile.pressure();
-    if wind_x.powi(2) + wind_y.powi(2) > 1.0 {
+    wind_y *= my_next_tile_pressure;
+    if wind_x * wind_x + wind_y * wind_y > 1.0 {
         // Pressure flowing out of this tile might move stuff.
         reasons |= ReasonFlags::WIND;
     }
@@ -718,39 +719,44 @@ pub(crate) fn react(my_next_tile: &mut Tile, hotspot_step: bool) {
 
 /// Apply the effects of the gas onto the turf itself
 pub(crate) fn do_turf_effects(my_next_tile: &mut Tile) -> bool {
-    let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
     // Calculate the water saturation pressure using the Arden Buck equation
     let saturation_pressure: f32;
+    let water_vapor: f32 = my_next_tile.gases.water_vapor();
+
+    if water_vapor < 0.0 {
+        return false;
+    }
+
+    let cached_temperature = my_next_tile.thermal_energy / my_next_tile.heat_capacity();
+    let temp_diff: f32 = cached_temperature - T0C;
+
     if cached_temperature > T0C {
         saturation_pressure = 0.61121
             * E.powf(
-                (18.678 - ((cached_temperature - T0C) / 234.5))
-                    * ((cached_temperature - T0C) / (cached_temperature + 257.14 - T0C)),
+                (18.678 - (temp_diff / 234.5)) * (temp_diff / (cached_temperature + 257.14 - T0C)),
             );
     } else {
         saturation_pressure = 0.61121
             * E.powf(
-                (23.036 - ((cached_temperature - T0C) / 333.7))
-                    * ((cached_temperature - T0C) / (cached_temperature + 279.82 - T0C)),
+                (23.036 - (temp_diff / 333.7)) * (temp_diff / (cached_temperature + 279.82 - T0C)),
             );
     }
-    let relative_humidity: f32 =
-        (my_next_tile.gases.water_vapor() * R_IDEAL_GAS_EQUATION * cached_temperature
-            / TILE_VOLUME)
-            / saturation_pressure;
-    if relative_humidity > 1.0 && my_next_tile.gases.water_vapor() > 0.0 {
+    let relative_humidity: f32 = (water_vapor * R_IDEAL_GAS_EQUATION * cached_temperature
+        / TILE_VOLUME)
+        / saturation_pressure;
+    if relative_humidity > 1.0 {
         // Condense all the water we cannot hold
-        let condensed_water: f32 =
-            my_next_tile.gases.water_vapor() - my_next_tile.gases.water_vapor() / relative_humidity;
+        let condensed_water: f32 = water_vapor - water_vapor / relative_humidity;
         my_next_tile
             .gases
-            .set_water_vapor(my_next_tile.gases.water_vapor() - condensed_water);
+            .set_water_vapor(water_vapor - condensed_water);
         //We lose gas, so we lose the thermal energy it had
         my_next_tile.thermal_energy = cached_temperature * my_next_tile.heat_capacity();
-        true
-    } else {
-        false
+        if water_vapor > WATER_VAPOR_MIN_SATURATION_MOLES {
+            return true;
+        }
     }
+    false
 }
 
 /// Apply effects caused by the tile's atmos mode.
@@ -821,13 +827,15 @@ pub(crate) fn superconduct(my_tile: &mut Tile, their_tile: &mut Tile, is_east: b
 
     let my_heat_capacity = my_tile.heat_capacity();
     let their_heat_capacity = their_tile.heat_capacity();
+    let my_temperature = my_tile.temperature();
+    let their_temperature = their_tile.temperature();
     if transfer_coefficient <= 0.0 || my_heat_capacity <= 0.0 || their_heat_capacity <= 0.0 {
         // Nothing to do.
         return;
     }
 
     // Temporary workaround to match LINDA better for high temperatures.
-    if my_tile.temperature() > T20C || their_tile.temperature() > T20C {
+    if my_temperature > T20C || their_temperature > T20C {
         transfer_coefficient = (transfer_coefficient * 100.0).min(OPEN_HEAT_TRANSFER_COEFFICIENT);
     }
 
@@ -835,14 +843,16 @@ pub(crate) fn superconduct(my_tile: &mut Tile, their_tile: &mut Tile, is_east: b
     // Positive means heat flow from us to them.
     // Negative means heat flow from them to us.
     let conduction = transfer_coefficient
-        * (my_tile.temperature() - their_tile.temperature())
+        * (my_temperature - their_temperature)
         * my_heat_capacity
         * their_heat_capacity
         / (my_heat_capacity + their_heat_capacity);
 
+    let partial_conduction = conduction / 2.0;
+
     // Half of the conduction always goes to the overall heat of the tile
-    my_tile.thermal_energy -= conduction / 2.0;
-    their_tile.thermal_energy += conduction / 2.0;
+    my_tile.thermal_energy -= partial_conduction;
+    their_tile.thermal_energy += partial_conduction;
 
     // The other half can spawn or expand hotspots.
     if conduction > 0.0
@@ -850,19 +860,19 @@ pub(crate) fn superconduct(my_tile: &mut Tile, their_tile: &mut Tile, is_east: b
         && their_tile.temperature() < PLASMA_BURN_OPTIMAL_TEMP
     {
         // Positive: Spawn or expand their hotspot.
-        adjust_hotspot(their_tile, conduction / 2.0);
-        my_tile.thermal_energy -= conduction / 2.0;
+        adjust_hotspot(their_tile, partial_conduction);
+        my_tile.thermal_energy -= partial_conduction;
     } else if conduction < 0.0
         && my_tile.temperature() < PLASMA_BURN_OPTIMAL_TEMP
         && their_tile.temperature() > PLASMA_BURN_OPTIMAL_TEMP
     {
         // Negative: Spawn or expand my hotspot.
-        adjust_hotspot(my_tile, -conduction / 2.0);
-        their_tile.thermal_energy += conduction / 2.0;
+        adjust_hotspot(my_tile, -partial_conduction);
+        their_tile.thermal_energy += partial_conduction;
     } else {
         // No need for hotspot adjustment.
-        my_tile.thermal_energy -= conduction / 2.0;
-        their_tile.thermal_energy += conduction / 2.0;
+        my_tile.thermal_energy -= partial_conduction;
+        their_tile.thermal_energy += partial_conduction;
     }
 }
 
