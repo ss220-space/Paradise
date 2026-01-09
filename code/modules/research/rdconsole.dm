@@ -86,6 +86,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	/// Flag for Syndicate base
 	var/syndicate = 0
+	/// Flag for simplified console
+	var/disk_only = FALSE
 
 	/// ID of the computer (for server restrictions).
 	var/id = 0
@@ -100,7 +102,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	/// for the search function
 	var/list/datum/design/matching_designs = list()
 
-	/// Тема интерфейса
+	/// TGUI theme
 	var/ui_theme = "Nanotrasen"
 
 /// A simple helper proc to find the name of a tech with a given ID.
@@ -156,6 +158,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
+				linked_imprinter.update_components_list()
 
 /// Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -183,6 +186,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		req_access = list(ACCESS_SYNDICATE_SCIENTIST)
 		id = 0027
 		update_icon()
+
 	SyncRDevices()
 
 /obj/machinery/computer/rdconsole/Destroy()
@@ -228,6 +232,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return ..()
 		if(tech_disk)
 			t_disk = I
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_disk", TECH_UPDATE_DELAY)
 		else
 			d_disk = I
 		SStgui.update_uis(src)
@@ -304,12 +310,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			server_processed = TRUE
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
+
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
+
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
 	clear_wait_message()
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
@@ -580,6 +592,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
 			add_wait_message("Обновление базы данных...", TECH_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", TECH_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
 		if("clear_tech") //Erase data on the technology disk.
@@ -616,6 +630,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Обновление базы данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), DESIGN_UPDATE_DELAY)
 
 		if("clear_design") //Erases data on the design disk.
@@ -633,6 +649,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
+			add_wait_message("Загрузка данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 			var/datum/design/design = files.known_designs[params["id"]]
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
@@ -668,6 +687,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				to_chat(usr, span_danger("Консоль не подключена к сети НИО!"))
 			else
 				add_wait_message("Синхронизация базы данных...", SYNC_RESEARCH_DELAY)
+				if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+					flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
 
@@ -743,13 +764,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 			for(var/v in files.known_designs)
 				var/datum/design/D = files.known_designs[v]
-				var/obj/design_item = new D.build_path
-				var/item_name = capitalize(design_item.declent_ru(NOMINATIVE))
 				if(!(D.build_type & compare))
 					continue
-				if(findtext(item_name, query))
+				if(findtext(D.build_object_name, query))
 					matching_designs.Add(D)
-				qdel(design_item)
 			submenu = SUBMENU_LATHE_CATEGORY
 
 			selected_category = "Результаты поиска по запросу \"[query]\""
@@ -798,17 +816,17 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(submenu == SUBMENU_LATHE_CATEGORY)
 		for(var/datum/design/D in matching_designs)
-			var/obj/design_item = new D.build_path
+			var/item_name = D.build_object_name
 			var/list/design_list = list()
 			designs_list[++designs_list.len] = design_list
 			var/list/design_materials_list = list()
+			var/obj/item/created_object = D.build_path
 			design_list["materials"] = design_materials_list
 			design_list["id"] = D.id
-			design_list["name"] = capitalize(design_item.declent_ru(NOMINATIVE))
-			design_list["desc"] = design_item.desc
-			design_list["icon"] = initial(design_item.icon)
-			design_list["icon_state"] = initial(design_item.icon_state)
-			qdel(design_item)
+			design_list["name"] = item_name
+			design_list["desc"] = created_object.desc
+			design_list["icon"] = created_object.icon
+			design_list["icon_state"] = created_object.icon_state
 			var/can_build = is_imprinter ? 1 : 50
 
 			for(var/M in D.materials)
@@ -838,7 +856,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		materials_list[++materials_list.len] = list("name" = "Серебро", "id" = MAT_SILVER, "amount" = machine.materials.amount(MAT_SILVER))
 		materials_list[++materials_list.len] = list("name" = "Твёрдая плазма", "id" = MAT_PLASMA, "amount" = machine.materials.amount(MAT_PLASMA))
 		materials_list[++materials_list.len] = list("name" = "Уран", "id" = MAT_URANIUM, "amount" = machine.materials.amount(MAT_URANIUM))
-		materials_list[++materials_list.len] = list("name" = "Алмазы", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
+		materials_list[++materials_list.len] = list("name" = "Алмаз", "id" = MAT_DIAMOND, "amount" = machine.materials.amount(MAT_DIAMOND))
 		materials_list[++materials_list.len] = list("name" = "Бананиум", "id" = MAT_BANANIUM, "amount" = machine.materials.amount(MAT_BANANIUM))
 		materials_list[++materials_list.len] = list("name" = "Транквилит", "id" = MAT_TRANQUILLITE, "amount" = machine.materials.amount(MAT_TRANQUILLITE))
 		materials_list[++materials_list.len] = list("name" = "Титан", "id" = MAT_TITANIUM, "amount" = machine.materials.amount(MAT_TITANIUM))
@@ -876,6 +894,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["src_ref"] = UID()
 	data["ui_theme"] = ui_theme
 
+	data["disk_only"] = disk_only
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
@@ -950,14 +969,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				var/datum/design/D = files.known_designs[v]
 				if(!can_copy_design(D))
 					continue
-				var/obj/design_item = new D.build_path
-				var/item_name = capitalize(design_item.declent_ru(NOMINATIVE))
 				var/list/item = list()
 				to_copy[++to_copy.len] = item
-				item["name"] = item_name
+				item["name"] = D.build_object_name
 				item["id"] = D.id
-				qdel(design_item)
-
 	else if(menu == MENU_DESTROY && linked_destroy?.loaded_item)
 		var/list/loaded_item_list = list()
 		data["loaded_item"] = loaded_item_list
@@ -1109,6 +1124,29 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ACCUSATIVE = "публичную консоль НИО",
 		INSTRUMENTAL = "публичной консолью НИО",
 		PREPOSITIONAL = "публичной консоли НИО",
+	)
+
+/obj/machinery/computer/rdconsole/cargo
+	name = "cargo R&D console"
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий. Специализированная версия, используемая в отделе Снабжения."
+	id = 6
+	req_access = list(ACCESS_CARGO)
+	circuit = /obj/item/circuitboard/rdconsole/cargo
+	frame = /obj/structure/computerframe/cargo
+	disk_only = TRUE
+	ui_theme = "cargo"
+	icon_state = "cargocomp"
+	icon_screen = "cargocomp_screen_passive"
+	icon_keyboard = null
+
+/obj/machinery/computer/rdconsole/cargo/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль НИО отдела Снабжения",
+		GENITIVE = "консоли НИО отдела Снабжения",
+		DATIVE = "консоли НИО отдела Снабжения",
+		ACCUSATIVE = "консоль НИО отдела Снабжения",
+		INSTRUMENTAL = "консолью НИО отдела Снабжения",
+		PREPOSITIONAL = "консоли НИО отдела Снабжения"
 	)
 
 #undef TECH_UPDATE_DELAY

@@ -777,10 +777,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_y = 24
-	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "TN" = (

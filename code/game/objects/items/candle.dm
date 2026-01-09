@@ -1,6 +1,8 @@
 #define TALL_CANDLE 1
 #define MID_CANDLE 2
 #define SHORT_CANDLE 3
+/// For how bright candles are
+#define CANDLE_LUM 3
 
 /obj/item/candle
 	name = "red candle"
@@ -111,7 +113,7 @@
 		qdel(src)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
-		T.hotspot_expose(700, 5)
+		T.hotspot_expose(700, 1)
 
 /obj/item/candle/proc/unlight()
 	if(lit)
@@ -148,4 +150,4 @@
 #undef TALL_CANDLE
 #undef MID_CANDLE
 #undef SHORT_CANDLE
-
+#undef CANDLE_LUM

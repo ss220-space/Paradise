@@ -71,7 +71,7 @@
 /obj/item/gun/throw/crossbow/get_throwrange()
 	return tension * range_multiplier
 
-/obj/item/gun/throw/crossbow/process_chamber()
+/obj/item/gun/throw/crossbow/handle_chamber()
 	..()
 	update_icon()
 
@@ -143,7 +143,7 @@
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Регулировка натяжения"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

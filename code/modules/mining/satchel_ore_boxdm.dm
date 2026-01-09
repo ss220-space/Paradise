@@ -110,7 +110,7 @@
 
 /obj/structure/ore_box/verb/empty_box()
 	set name = "Опустошить"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

@@ -3,9 +3,9 @@ GLOBAL_LIST_EMPTY(msays)
 GLOBAL_LIST_EMPTY(devsays)
 
 /**
-	* #Special says datum
-	* Used to store the history of special chat messages (achat, mchat, devchat) within a round
-**/
+ * # Special says datum
+ * Used to store the history of special chat messages (achat, mchat, devchat) within a round
+ */
 /datum/say
 	var/ckey
 	var/rank
@@ -18,35 +18,14 @@ GLOBAL_LIST_EMPTY(devsays)
 	src.message = message
 	src.time = time
 
-/client/proc/view_msays()
-	set name = "View msays"
-	set desc = "View Msays from the current round."
-	set category = STATPANEL_ADMIN_ADMIN
+ADMIN_VERB(view_msays, R_ADMIN|R_MENTOR, "Msays", "View current round Msays.", ADMIN_CATEGORY_MAIN)
+	user.display_says(GLOB.msays, "msay")
 
-	if(!check_rights(R_MENTOR | R_ADMIN))
-		return
+ADMIN_VERB(view_devsays, R_ADMIN|R_VIEWRUNTIMES, "Devsays", "View current round Devsays.", ADMIN_CATEGORY_MAIN)
+	user.display_says(GLOB.devsays, "devsay")
 
-	display_says(GLOB.msays, "msay")
-
-/client/proc/view_devsays()
-	set name = "View devsays"
-	set desc = "View Devsays from the current round."
-	set category = STATPANEL_ADMIN_ADMIN
-
-	if(!check_rights(R_VIEWRUNTIMES | R_ADMIN))
-		return
-
-	display_says(GLOB.devsays, "devsay")
-
-/client/proc/view_asays()
-	set name = "View asays"
-	set desc = "View Asays from the current round."
-	set category = STATPANEL_ADMIN_ADMIN
-
-	if(!check_rights(R_ADMIN | R_MOD))
-		return
-
-	display_says(GLOB.asays, "asay")
+ADMIN_VERB(view_asays, R_ADMIN|R_MOD, "Asays", "View current round Asays.", ADMIN_CATEGORY_MAIN)
+	user.display_says(GLOB.asays, "asay")
 
 /client/proc/display_says(list/say_list, title)
 	var/list/output = list({"

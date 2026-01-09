@@ -1,6 +1,7 @@
 #define CLOSE_DURATION 6
 #define OPEN_DURATION 6
 #define LAUNCH_COOLDOWN 30
+
 /**
  * A place where tube pods stop, and people can get in or out.
  * Mappers: use "Generate Instances from Directions" for this one.

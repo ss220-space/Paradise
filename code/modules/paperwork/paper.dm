@@ -639,10 +639,6 @@
 	name = "For stalkers"
 	info = "Sorry Mario, your wishgranter in another castle. Your Friendly God"
 
-/obj/item/paper/flag
-	icon_state = "flag_neutral"
-	anchored = TRUE
-
 /obj/item/paper/jobs
 	name = "Job Information"
 	info = "Information on all formal jobs that can be assigned on Space Station 13 can be found on this document.<br>\nThe data will be in the following form.<br>\nGenerally lower ranking positions come first in this list.<br>\n<br>\n<b>Job Name</b>   general access>lab access-engine access-systems access (atmosphere control)<br>\n\tJob Description<br>\nJob Duties (in no particular order)<br>\nTips (where applicable)<br>\n<br>\n<b>Research Assistant</b> 1>1-0-0<br>\n\tThis is probably the lowest level position. Anyone who enters the space station after the initial job\nassignment will automatically receive this position. Access with this is restricted. Head of Personnel should\nappropriate the correct level of assistance.<br>\n1. Assist the researchers.<br>\n2. Clean up the labs.<br>\n3. Prepare materials.<br>\n<br>\n<b>Staff Assistant</b> 2>0-0-0<br>\n\tThis position assists the security officer in his duties. The staff assisstants should primarily br\npatrolling the ship waiting until they are needed to maintain ship safety.\n(Addendum: Updated/Elevated Security Protocols admit issuing of low level weapons to security personnel)<br>\n1. Patrol ship/Guard key areas<br>\n2. Assist security officer<br>\n3. Perform other security duties.<br>\n<br>\n<b>Technical Assistant</b> 1>0-0-1<br>\n\tThis is yet another low level position. The technical assistant helps the engineer and the statian\ntechnician with the upkeep and maintenance of the station. This job is very important because it usually\ngets to be a heavy workload on station technician and these helpers will alleviate that.<br>\n1. Assist Station technician and Engineers.<br>\n2. Perform general maintenance of station.<br>\n3. Prepare materials.<br>\n<br>\n<b>Medical Assistant</b> 1>1-0-0<br>\n\tThis is the fourth position yet it is slightly less common. This position doesn't have much power\noutside of the med bay. Consider this position like a nurse who helps to upkeep medical records and the\nmaterials (filling syringes and checking vitals)<br>\n1. Assist the medical personnel.<br>\n2. Update medical files.<br>\n3. Prepare materials for medical operations.<br>\n<br>\n<b>Research Technician</b> 2>3-0-0<br>\n\tThis job is primarily a step up from research assistant. These people generally do not get their own lab\nbut are more hands on in the experimentation process. At this level they are permitted to work as consultants to\nthe others formally.<br>\n1. Inform superiors of research.<br>\n2. Perform research alongside of official researchers.<br>\n<br>\n<b>Detective</b> 3>2-0-0<br>\n\tThis job is in most cases slightly boring at best. Their sole duty is to\nperform investigations of crine scenes and analysis of the crime scene. This\nalleviates SOME of the burden from the security officer. This person's duty\nis to draw conclusions as to what happened and testify in court. Said person\nalso should stroe the evidence ly.<br>\n1. Perform crime-scene investigations/draw conclusions.<br>\n2. Store and catalogue evidence properly.<br>\n3. Testify to superiors/inquieries on findings.<br>\n<br>\n<b>Station Technician</b> 2>0-2-3<br>\n\tPeople assigned to this position must work to make sure all the systems aboard Space Station 13 are operable.\nThey should primarily work in the computer lab and repairing faulty equipment. They should work with the\natmospheric technician.<br>\n1. Maintain SS13 systems.<br>\n2. Repair equipment.<br>\n<br>\n<b>Atmospheric Technician</b> 3>0-0-4<br>\n\tThese people should primarily work in the atmospheric control center and lab. They have the very important\njob of maintaining the delicate atmosphere on SS13.<br>\n1. Maintain atmosphere on SS13<br>\n2. Research atmospheres on the space station. (safely please!)<br>\n<br>\n<b>Engineer</b> 2>1-3-0<br>\n\tPeople working as this should generally have detailed knowledge as to how the propulsion systems on SS13\nwork. They are one of the few classes that have unrestricted access to the engine area.<br>\n1. Upkeep the engine.<br>\n2. Prevent fires in the engine.<br>\n3. Maintain a safe orbit.<br>\n<br>\n<b>Medical Researcher</b> 2>5-0-0<br>\n\tThis position may need a little clarification. Their duty is to make sure that all experiments are safe and\nto conduct experiments that may help to improve the station. They will be generally idle until a new laboratory\nis constructed.<br>\n1. Make sure the station is kept safe.<br>\n2. Research medical properties of materials studied of Space Station 13.<br>\n<br>\n<b>Scientist</b> 2>5-0-0<br>\n\tThese people study the properties, particularly the toxic properties, of materials handled on SS13.\nTechnically they can also be called Plasma Technicians as plasma is the material they routinly handle.<br>\n1. Research plasma<br>\n2. Make sure all plasma is properly handled.<br>\n<br>\n<b>Medical Doctor (Officer)</b> 2>0-0-0<br>\n\tPeople working this job should primarily stay in the medical area. They should make sure everyone goes to\nthe medical bay for treatment and examination. Also they should make sure that medical supplies are kept in\norder.<br>\n1. Heal wounded people.<br>\n2. Perform examinations of all personnel.<br>\n3. Moniter usage of medical equipment.<br>\n<br>\n<b>Security Officer</b> 3>0-0-0<br>\n\tThese people should attempt to keep the peace inside the station and make sure the station is kept safe. One\nside duty is to assist in repairing the station. They also work like general maintenance personnel. They are not\ngiven a weapon and must use their own resources.<br>\n(Addendum: Updated/Elevated Security Protocols admit issuing of weapons to security personnel)<br>\n1. Maintain order.<br>\n2. Assist others.<br>\n3. Repair structural problems.<br>\n<br>\n<b>Head of Security</b> 4>5-2-2<br>\n\tPeople assigned as Head of Security should issue orders to the security staff. They should\nalso carefully moderate the usage of all security equipment. All security matters should be reported to this person.<br>\n1. Oversee security.<br>\n2. Assign patrol duties.<br>\n3. Protect the station and staff.<br>\n<br>\n<b>Head of Personnel</b> 4>4-2-2<br>\n\tPeople assigned as head of personnel will find themselves moderating all actions done by personnel. \nAlso they have the ability to assign jobs and access levels.<br>\n1. Assign duties.<br>\n2. Moderate personnel.<br>\n3. Moderate research. <br>\n<br>\n<b>Captain</b> 5>5-5-5 (unrestricted station wide access)<br>\n\tThis is the highest position youi can aquire on Space Station 13. They are allowed anywhere inside the\nspace station and therefore should protect their ID card. They also have the ability to assign positions\nand access levels. They should not abuse their power.<br>\n1. Assign all positions on SS13<br>\n2. Inspect the station for any problems.<br>\n3. Perform administrative duties.<br>\n"
@@ -781,9 +777,9 @@
 	<br>\n\t\t<font size = \"1\">~~~ <b>Твой Куратор:</b> Персональный Управляемый Помощник Согласования ~~~</span>"
 
 /obj/item/paper/dog_detective_explain
-	name = "Форма NT-PET- — Уведомление агента внутренних дел Нанотрейзен о питомце \"Гав Гавыч\""
-	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Отдел внутренних дел Нанотрейзен по надзору за животными.</h3><p style='text-align: center;font-family:Verdana;'>Официальное Уведомление</p></b><hr />"
-	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах Нанотрейзен.<br><hr>"
+	name = "Форма NT-PET- — Уведомление агента внутренних дел \"Нанотрейзен\" о питомце \"Гав Гавыч\""
+	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Отдел внутренних дел \"Нанотрейзен\" по надзору за животными.</h3><p style='text-align: center;font-family:Verdana;'>Официальное Уведомление</p></b><hr />"
+	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах \"Нанотрейзен\".<br><hr>"
 	footer = "<center><font size=\"4\"><b>Штампы и данные:</b></font></center><br>Время принятия отчета: <span class=\"paper_field\"></span><br><hr><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче агенту.<br>*Данный документ может содержать личную информацию. </font></font>"
 
 /obj/item/paper/evilfax
@@ -852,11 +848,13 @@
 		D.Contract(target)
 	else if(myeffect == "Death By Fire")
 		to_chat(target,span_userdanger("You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?"))
-		var/turf/simulated/T = get_turf(target)
-		new /obj/effect/hotspot(T)
+		var/turf/simulated/target_location = get_turf(target)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(target_location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
 		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 	else if(myeffect == "Total Brain Death")
-		to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
+		to_chat(target,span_userdanger("You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b>"))
 		ADD_TRAIT(target, TRAIT_NO_CLONE, EVIL_FAX_TRAIT)
 		target.adjustBrainLoss(125)
 	else if(myeffect == "Honk Tumor")
@@ -930,7 +928,7 @@
 
 /obj/item/paper/researchnotes/Initialize(mapload)
 	. = ..()
-	var/list/possible_techs = list("materials", "engineering", "plasmatech", "powerstorage", "bluespace", "biotech", "combat", "magnets", "programming", "syndicate")
+	var/list/possible_techs = list(RESEARCH_TREE_MATERIALS, RESEARCH_TREE_ENGINEERING, RESEARCH_TREE_PLASMA, RESEARCH_TREE_POWERSTORAGE, RESEARCH_TREE_BLUESPACE, RESEARCH_TREE_BIOTECH, RESEARCH_TREE_COMBAT, RESEARCH_TREE_MAGNETS, RESEARCH_TREE_PROGRAMMING, RESEARCH_TREE_ILLEGAL)
 	var/mytech = pick(possible_techs)
 	var/mylevel = rand(7, 9)
 	origin_tech = "[mytech]=[mylevel]"
@@ -949,12 +947,12 @@
 	var/is_header_needed = TRUE
 	var/const/footer_signstampfax = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Подписи глав являются доказательством их согласия.<br>Данный документ является недействительным при отсутствии релевантной печати.<br>Пожалуйста, отправьте обратно подписанную/проштампованную копию факсом.</font></center></font>"
 	var/const/footer_signstamp = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Подписи глав являются доказательством их согласия.<br>Данный документ является недействительным при отсутствии релевантной печати.</font></center></font>"
-	var/const/footer_confidential = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<br>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И Нанотрейзен, и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является Нанотрейзен или один из её агентов. Отмечаем, что ни Нанотрейзен, ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
+	var/const/footer_confidential = "<br><font face=\"Verdana\" color=black><hr><center><font size = \"1\">Данный документ является недействительным при отсутствии печати.<br>Отказ от ответственности: Данный факс является конфиденциальным и не может быть прочтен сотрудниками не имеющего доступа. Если вы получили данный факс по ошибке, просим вас сообщить отправителю и удалить его из вашего почтового ящика или любого другого носителя. И \"Нанотрейзен\", и любой её агент не несёт ответственность за любые сделанные заявления, они являются исключительно заявлениями отправителя, за исключением если отправителем является \"Нанотрейзен\" или один из её агентов. Отмечаем, что ни \"Нанотрейзен\", ни один из агентов корпорации не несёт ответственности за наличие вирусов, который могут содержаться в данном факсе или его приложения, и это только ваша прерогатива просканировать факс и приложения на них. Никакие контракты не могут быть заключены посредством факсимильной связи.</font></center></font>"
 	footer = footer_signstampfax
 
 /obj/item/paper/form/Initialize(mapload)
 	. = ..()
-	from = "Научная станция Нанотрейзен &#34;[SSmapping.map_datum.station_name]&#34;"
+	from = "Научная станция \"Нанотрейзен\" &#34;[SSmapping.map_datum.station_name]&#34;"
 	if(is_header_needed)
 		header = "<font face=\"Verdana\" color=black><table></td><tr><td><img src = ntlogo.png><td><table></td><tr><td><font size = \"1\">[name][confidential ? " \[КОНФИДЕНЦИАЛЬНО\]" : ""]</font></td><tr><td></td><tr><td><b><font size=\"4\">[altername]</font></b></td><tr><td><table></td><tr><td>[from]<td>[category]</td></tr></table></td></tr></table></td></tr></table><center><font size = \"1\">[notice]</font></center><br><hr><br></font>"
 	populatefields()
@@ -1007,7 +1005,7 @@
 	id = "NT-COM-OS"
 	altername = "Отчёт о выполнении цели"
 	category = "Главы станции"
-	info = "<font face=\"Verdana\" color=black><br>Цель станции: <span class=\"paper_field\"></span><br>Статус цели: <span class=\"paper_field\"></span><br>Общее состояние станции: <span class=\"paper_field\"></span><br>Активные угрозы: <span class=\"paper_field\"></span><br>Оценка работы экипажа: <span class=\"paper_field\"></span><br>Дополнительные замечания: <span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center>Должность уполномоченного лица: <span class=\"paper_field\"></span><br>Подпись уполномоченного лица: <span class=\"paper_field\"></span><hr><font size = \"1\"><i>*Данное сообщение должно сообщить вам о состоянии цели, установленной Центральным командованием Нанотрейзен для ИСН &#34;Керберос&#34;. Убедительная просьба внимательно прочитать данное сообщение для вынесения наиболее эффективных указаний для последующей деятельности станции.<br>*Данный документ считается официальным только при наличии подписи уполномоченного лица и соответствующего его должности штампа. В случае отсутствия любого из указанных элементов данный документ не является официальным и рекомендуется его удалить с любого информационного носителя. <br>ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Корпорация Нанотрейзен не несёт ответственности, если данный документ не попал в руки первоначального предполагаемого получателя. Однако, корпорация Nanotrasen запрещает использование любой имеющейся в данном документе информации третьими лицами и сообщает, что это преследуется по закону, даже если информация в данном документе не является достоверной. <center></font>"
+	info = "<font face=\"Verdana\" color=black><br>Цель станции: <span class=\"paper_field\"></span><br>Статус цели: <span class=\"paper_field\"></span><br>Общее состояние станции: <span class=\"paper_field\"></span><br>Активные угрозы: <span class=\"paper_field\"></span><br>Оценка работы экипажа: <span class=\"paper_field\"></span><br>Дополнительные замечания: <span class=\"paper_field\"></span><br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center>Должность уполномоченного лица: <span class=\"paper_field\"></span><br>Подпись уполномоченного лица: <span class=\"paper_field\"></span><hr><font size = \"1\"><i>*Данное сообщение должно сообщить вам о состоянии цели, установленной Центральным командованием \"Нанотрейзен\" для ИСН &#34;Керберос&#34;. Убедительная просьба внимательно прочитать данное сообщение для вынесения наиболее эффективных указаний для последующей деятельности станции.<br>*Данный документ считается официальным только при наличии подписи уполномоченного лица и соответствующего его должности штампа. В случае отсутствия любого из указанных элементов данный документ не является официальным и рекомендуется его удалить с любого информационного носителя. <br>ОТКАЗ ОТ ОТВЕТСТВЕННОСТИ: Корпорация \"Нанотрейзен\" не несёт ответственности, если данный документ не попал в руки первоначального предполагаемого получателя. Однако, корпорация Nanotrasen запрещает использование любой имеющейся в данном документе информации третьими лицами и сообщает, что это преследуется по закону, даже если информация в данном документе не является достоверной. <center></font>"
 
 // MARK: Медицинский отдел
 
@@ -1237,7 +1235,7 @@
 	id = "NT-SEC-11"
 	altername = "Ордер на обыск"
 	category = "Служба безопасности"
-	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><b>Информация о свидетеле</b></font></center><br><table></td><tr><td>Имя свидетеля:<br><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><br></td><tr><td>Номер аккаунта свидетеля:<br><font size = \"1\">Эта информация есть у главы персонала</font><td><span class=\"paper_field\"></span><br></td><tr><td>Должность свидетеля:<br><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><br></td></tr></table><br><hr><br><center><font size=\"4\"><b>Ордер</b></font></center><br><table></td><tr><td>В целях обыска:<br><font size = \"1\">(помещения, имущества, лица)</font><td><span class=\"paper_field\"></span></td></tr></table><br>Ознакомившись с письменными показаниями свидетеля(-ей), у меня появились основания полагать, что на лицах или помещениях, указанных выше, имеются соответствующие доказательства в этой связи или в пределах, в частности:<br><br><span class=\"paper_field\"></span><br><br>и другое имущество, являющееся доказательством уголовного преступления, контрабанды, плодов преступления или предметов, иным образом принадлежащих преступнику, или имущество, спроектированное или предназначенное для использования, или которое используется или использовалось в качестве средства совершения уголовного преступления, в частности заговор с целью совершения преступления, или совершения злонамеренного предъявления ложных и фиктивных претензий к или против корпорации Нанотрейзен или его дочерних компаний.<br><br>Я удовлетворен тем, что показания под присягой и любые записанные показания устанавливают вероятную причину полагать, что описанное имущество в данный момент скрыто в описанных выше помещениях, лицах или имуществе, и устанавливают законные основания для выдачи этого ордера.<br><br>ВЫ НАСТОЯЩИМ КОМАНДИРОВАНЫ для обыска вышеуказанного помещения, имущества или лица в течение <span class=\"paper_field\"></span> минут с даты выдачи настоящего ордера на указанное скрытое имущество, и если будет установлено, что имущество изъято, оставить копию этого ордера в качестве доказательства на реквизированную собственность, в соответствии с требованиями указа корпорации Nanotrasen.<br><br>Слава Корпорации Nanotrasen!<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><br></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><br></td></tr></table></font>"
+	info = "<font face=\"Verdana\" color=black><center><font size=\"4\"><b>Информация о свидетеле</b></font></center><br><table></td><tr><td>Имя свидетеля:<br><font size = \"1\">Полностью и без ошибок</font><td><span class=\"paper_field\"></span><br></td><tr><td>Номер аккаунта свидетеля:<br><font size = \"1\">Эта информация есть у главы персонала</font><td><span class=\"paper_field\"></span><br></td><tr><td>Должность свидетеля:<br><font size = \"1\">Указано на ID карте</font><td><span class=\"paper_field\"></span><br></td></tr></table><br><hr><br><center><font size=\"4\"><b>Ордер</b></font></center><br><table></td><tr><td>В целях обыска:<br><font size = \"1\">(помещения, имущества, лица)</font><td><span class=\"paper_field\"></span></td></tr></table><br>Ознакомившись с письменными показаниями свидетеля(-ей), у меня появились основания полагать, что на лицах или помещениях, указанных выше, имеются соответствующие доказательства в этой связи или в пределах, в частности:<br><br><span class=\"paper_field\"></span><br><br>и другое имущество, являющееся доказательством уголовного преступления, контрабанды, плодов преступления или предметов, иным образом принадлежащих преступнику, или имущество, спроектированное или предназначенное для использования, или которое используется или использовалось в качестве средства совершения уголовного преступления, в частности заговор с целью совершения преступления, или совершения злонамеренного предъявления ложных и фиктивных претензий к или против корпорации \"Нанотрейзен\" или его дочерних компаний.<br><br>Я удовлетворен тем, что показания под присягой и любые записанные показания устанавливают вероятную причину полагать, что описанное имущество в данный момент скрыто в описанных выше помещениях, лицах или имуществе, и устанавливают законные основания для выдачи этого ордера.<br><br>ВЫ НАСТОЯЩИМ КОМАНДИРОВАНЫ для обыска вышеуказанного помещения, имущества или лица в течение <span class=\"paper_field\"></span> минут с даты выдачи настоящего ордера на указанное скрытое имущество, и если будет установлено, что имущество изъято, оставить копию этого ордера в качестве доказательства на реквизированную собственность, в соответствии с требованиями указа корпорации Nanotrasen.<br><br>Слава Корпорации Nanotrasen!<br><hr><br><center><font size=\"4\"><b>Подписи и штампы</b></font></center><br><table></td><tr><td>Время:<td><span class=\"paper_field\"></span><br></td><tr><td>Подпись уполномоченного лица:<td><span class=\"paper_field\"></span><br></td><tr><td>Должность уполномоченного лица:<td><span class=\"paper_field\"></span><br></td></tr></table></font>"
 	footer = footer_confidential
 
 /obj/item/paper/form/NT_SEC_21
@@ -1379,7 +1377,7 @@
 	id = "NT-COM-01"
 	altername = "Запрос отчёта общего состояния станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1391,7 +1389,7 @@
 	id = "NT-COM-02"
 	altername = "Запрос отчёта состояния трудовых активов станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1403,7 +1401,7 @@
 	id = "NT-COM-03"
 	altername = "Запрос отчёта криминального статуса станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1418,7 +1416,7 @@
 	id = "NT-COM-04"
 	altername = "Запрос отчёта здравоохранения станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1430,7 +1428,7 @@
 	id = "NT-COM-05"
 	altername = "Запрос отчёта научно-технического прогресса станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1442,7 +1440,7 @@
 	id = "NT-COM-06"
 	altername = "Запрос отчёта инженерного обеспечения станции"
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1454,7 +1452,7 @@
 	id = "NT-COM-07"
 	altername = "Запрос отчёта статуса снабжения станции "
 	category = "Центральное командование"
-	from = "Административный корабль Нанотрейзен АКН Трурль"
+	from = "Административный корабль \"Нанотрейзен\" АКН Трурль"
 	notice = "Перед заполнением прочтите от начала до конца | Высокий приоритет"
 	confidential = TRUE
 	access = ACCESS_CENT_GENERAL
@@ -1521,7 +1519,7 @@
 	access = ACCESS_SYNDICATE
 	footer = footer_from_taipan
 	info = "<font face=\"Verdana\" color=black>\
-			<center><h2>Запрос особой доставки на станцию<br>Синдиката</h2></center><hr>\
+			<center><h2>Запрос особой доставки на станцию<br>\"Синдиката\"</h2></center><hr>\
 			<center><table>\
 			<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>\
 			<td><center><font size=\"4\">Данные<br>для<br>доставки</font></center><td>\

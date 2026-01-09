@@ -474,6 +474,10 @@ Difficulty: Very Hard
 	visible_message(span_biggerdanger("[declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
 	GLOB.move_manager.stop_looping(src)
 	playsound(src,'sound/machines/alarm.ogg',100, FALSE,5)
+	var/datum/status_effect/crusher_damage/crusher_damage = has_status_effect(STATUS_EFFECT_CRUSHERDAMAGETRACKING)
+	grant_achievement(achievement_type, score_achievement_type, crusher_damage && crusher_damage.total_damage >= maxHealth * 0.6)
+	SSblackbox.record_feedback("tally", "megafauna_kills", 1, "[initial(name)]")
+	elimination = TRUE
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/kaboom()
@@ -580,9 +584,11 @@ Difficulty: Very Hard
 		if(PYRO)
 			var/turf/C = get_turf(src)
 			new /obj/effect/temp_visual/lava_warning(C, enraged ? 18 SECONDS : 6 SECONDS)
-			for(var/turf/T in range (1,src))
-				new /obj/effect/hotspot(T)
-				T.hotspot_expose(700,50,1)
+			for(var/turf/turf in range (1, src))
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+				hotspot.temperature = 1000
+				hotspot.recolor()
+				turf.hotspot_expose(700, 50)
 		if(VORTEX)
 			var/turf/T = get_turf(src)
 			for(var/atom/A in T)

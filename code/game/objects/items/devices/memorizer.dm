@@ -60,7 +60,7 @@
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	visible_message(span_notice("The [name] burns out!"))
+	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] сгорел[GEND_A_O_I(src)]!"))
 
 /obj/item/memorizer/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2))	//if you use it 5 times in a minute it has a 10% chance to break!
@@ -178,7 +178,7 @@
 				to_chat(fucking_target, span_danger(span_reallybig("Ваша память о последних недавних событиях была стёрта!")))
 				if(is_taipan(fucking_target.z) && !fucking_target.mind.lost_memory)
 					var/objective = "Вы не помните ничего о последних событиях, так как ваша память была стёрта. \
-					В частности вы не помните о базе синдиката \"Тайпан\", о том как туда добраться и обо всём так или иначе с ней связанным!"
+					В частности вы не помните о базе \"Синдиката\" \"Тайпан\", о том как туда добраться и обо всём так или иначе с ней связанным!"
 					var/datum/objective/custom_objective = new(objective)
 					custom_objective.needs_target = FALSE
 					custom_objective.owner = fucking_target.mind

@@ -5,8 +5,8 @@
 	name = " "
 	var/base_name = " "
 	desc = " "
-	icon_state = "null"
-	item_state = "null"
+	icon_state = null
+	item_state = null
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,25,30,50)
 	volume = 50
@@ -200,7 +200,7 @@
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Отсоединить"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -250,6 +250,7 @@
 		assembly.on_found(finder)
 
 /obj/item/reagent_containers/glass/beaker/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
 	if(assembly)
 		assembly.hear_talk(M, message_pieces)
 

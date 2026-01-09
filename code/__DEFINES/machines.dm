@@ -20,6 +20,14 @@
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2
 
+// Definitions for power restoration types
+/// Charging without repair
+#define POWER_RESTORE_ONLY 0
+/// Repair without charging
+#define APC_REPAIR_ONLY 1
+/// Repair and charging
+#define APC_REPAIR_AND_CHARGE 2
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
 #define PROG_CRASH (1<<0) // Generic crash
 #define MISSING_PERIPHERAL (1<<1) // Missing hardware
@@ -47,17 +55,6 @@
 #define TARGET_DEPT_SCI 4
 #define TARGET_DEPT_ENG 5
 #define TARGET_DEPT_SUP 6
-
-// These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
-// These are warning defines, they should trigger before the state, not after.
-#define SUPERMATTER_ERROR -1 // Unknown status, shouldn't happen but just in case.
-#define SUPERMATTER_INACTIVE 0 // No or minimal energy
-#define SUPERMATTER_NORMAL 1 // Normal operation
-#define SUPERMATTER_NOTIFY 2 // Ambient temp > 80% of CRITICAL_TEMPERATURE
-#define SUPERMATTER_WARNING 3 // Ambient temp > CRITICAL_TEMPERATURE OR integrity damaged
-#define SUPERMATTER_DANGER 4 // Integrity < 75%
-#define SUPERMATTER_EMERGENCY 5 // Integrity < 50%
-#define SUPERMATTER_DELAMINATING 6 // Pretty obvious, Integrity < 25%
 
 // Status display maptext stuff
 #define DISPLAY_CHARS_PER_LINE 5
@@ -110,19 +107,32 @@
 #define ORE_REDEMPTION "Плавильная печь"
 
 // Research tree names
-#define RESEARCH_TREE_MATERIALS "Материаловедение"
-#define RESEARCH_TREE_ENGINEERING "Инженерные технологии"
-#define RESEARCH_TREE_PLASMA "Плазмотехнологии"
-#define RESEARCH_TREE_POWERSTORAGE "Энергетические системы"
-#define RESEARCH_TREE_BLUESPACE "Блюспейс-исследования"
-#define RESEARCH_TREE_BIOTECH "Биотехнологии"
-#define RESEARCH_TREE_COMBAT "Боевые системы"
-#define RESEARCH_TREE_MAGNETS "Электромагнитные технологии"
-#define RESEARCH_TREE_PROGRAMMING "Теория данных"
-#define RESEARCH_TREE_TOXINS "Токсинология"
+#define RESEARCH_TREE_MATERIALS_NAME "Материаловедение"
+#define RESEARCH_TREE_ENGINEERING_NAME "Инженерные технологии"
+#define RESEARCH_TREE_PLASMA_NAME "Плазмотехнологии"
+#define RESEARCH_TREE_POWERSTORAGE_NAME "Энергетические системы"
+#define RESEARCH_TREE_BLUESPACE_NAME "Блюспейс-исследования"
+#define RESEARCH_TREE_BIOTECH_NAME "Биотехнологии"
+#define RESEARCH_TREE_COMBAT_NAME "Боевые системы"
+#define RESEARCH_TREE_MAGNETS_NAME "Электромагнитные технологии"
+#define RESEARCH_TREE_PROGRAMMING_NAME "Теория данных"
+#define RESEARCH_TREE_TOXINS_NAME "Токсинология"
+#define RESEARCH_TREE_ILLEGAL_NAME "Запрещённые технологии"
+#define RESEARCH_TREE_ALIEN_NAME "Инопланетные технологии"
 
-#define RESEARCH_TREE_ILLEGAL "Запрещённые технологии"
-#define RESEARCH_TREE_ALIEN "Инопланетные технологии"
+// Research tree ids
+#define RESEARCH_TREE_MATERIALS "materials"
+#define RESEARCH_TREE_ENGINEERING "engineering"
+#define RESEARCH_TREE_PLASMA "plasmatech"
+#define RESEARCH_TREE_POWERSTORAGE "powerstorage"
+#define RESEARCH_TREE_BLUESPACE "bluespace"
+#define RESEARCH_TREE_BIOTECH "biotech"
+#define RESEARCH_TREE_COMBAT "combat"
+#define RESEARCH_TREE_MAGNETS "magnets"
+#define RESEARCH_TREE_PROGRAMMING "programming"
+#define RESEARCH_TREE_TOXINS "toxins"
+#define RESEARCH_TREE_ILLEGAL "syndicate"
+#define RESEARCH_TREE_ALIEN "abductor"
 
 // Categories, used in different types of printers
 #define PRINTER_CATEGORY_INITIAL "initial"
@@ -151,6 +161,7 @@
 #define PROTOLATHE_CATEGORY_POWER "Электроэнергия"
 #define PROTOLATHE_CATEGORY_MISC "Разное"
 #define PROTOLATHE_CATEGORY_ILLEGAL "Контрабанда"
+#define PROTOLATHE_CATEGORY_CIRCUITRY "Интегральные схемы"
 
 // Circuit Imprinter categories
 #define CIRCUIT_IMPRINTER_CATEGORY_AI "Станционный ИИ"
@@ -164,3 +175,48 @@
 #define CIRCUIT_IMPRINTER_CATEGORY_RESEARCH "Наука и исследование"
 #define CIRCUIT_IMPRINTER_CATEGORY_TELECOMS "Телекоммуникация"
 #define CIRCUIT_IMPRINTER_CATEGORY_TELEPORTATION "Телепортация"
+#define CIRCUIT_IMPRINTER_CATEGORY_CIRCUIT "Компоненты схем"
+
+// Mech fabricator categories
+#define MECH_FAB_CATEGORY_CYBORG "Части роботов"
+#define MECH_FAB_CATEGORY_CYBORG_REPAIR "Компоненты роботов"
+#define MECH_FAB_CATEGORY_CYBORG_EQUIPMENT "Оборудование роботов"
+#define MECH_FAB_CATEGORY_IPC "КПБ"
+#define MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT "Оборудование экзоскелетов"
+#define MECH_FAB_CATEGORY_EXOSUIT_PAINTKITS "Наборы кастомизации экзоскелетов"
+#define MECH_FAB_CATEGORY_RIPLEY "Рипли"
+#define MECH_FAB_CATEGORY_FIREFIGHTER "Огнеборец"
+#define MECH_FAB_CATEGORY_CLARKE "Кларк"
+#define MECH_FAB_CATEGORY_ODYSSEUS "Одиссей"
+#define MECH_FAB_CATEGORY_GYGAX "Гигакс"
+#define MECH_FAB_CATEGORY_DURAND "Дюран"
+#define MECH_FAB_CATEGORY_HONKER "Х.О.Н.К."
+#define MECH_FAB_CATEGORY_RETICENCE "Молчун"
+#define MECH_FAB_CATEGORY_PHAZON "Фазон"
+#define MECH_FAB_CATEGORY_MISC "Разное"
+#define MECH_FAB_CATEGORY_ROVER "Странник"
+#define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
+#define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
+
+// Engine types
+#define ENGTYPE_SING "Сингулярность"
+#define ENGTYPE_TESLA "Тесла"
+
+#define AALARM_MODE_FILTERING 1
+/// Makes draught
+#define AALARM_MODE_DRAUGHT 2
+/// Like siphon, but stronger (enables widenet)
+#define AALARM_MODE_PANIC 3
+/// Sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_CYCLE 4
+/// Scrubbers suck air
+#define AALARM_MODE_SIPHON 5
+/// Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_CONTAMINATED 6
+/// Just like normal, but disables low pressure check until normalized, then switches to normal
+#define AALARM_MODE_REFILL 7
+#define AALARM_MODE_OFF 8
+/// Emagged mode; turns off scrubbers and pressure checks on vents
+#define AALARM_MODE_FLOOD 9
+#define AALARM_MODE_CUSTOM 10
+

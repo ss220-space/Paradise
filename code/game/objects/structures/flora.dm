@@ -2,6 +2,14 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
 
+/obj/structure/flora/Initialize(mapload)
+	. = ..()
+	GLOB.world_flora |= src
+
+/obj/structure/flora/Destroy(force)
+	GLOB.world_flora -= src
+	. = ..()
+
 //trees
 /obj/structure/flora/tree
 	name = "tree"
@@ -35,6 +43,37 @@
 	name = "xmas tree"
 	icon_state = "pine_c"
 	randomize_tree = FALSE
+	var/gifts_count = 20
+	var/list/possible_turfs
+
+/obj/structure/flora/tree/pine/xmas/Initialize(mapload)
+	. = ..()
+	recalculate_spawns()
+
+/obj/structure/flora/tree/pine/xmas/proc/recalculate_spawns()
+	if(!isturf(loc))
+		return
+
+	LAZYCLEARLIST(possible_turfs)
+
+	var/list/new_possible_gifts = RANGE_TURFS(1, loc) - loc
+
+	for(var/turf/turf in new_possible_gifts)
+		if(turf.density || is_space_or_openspace(turf))
+			continue
+
+		LAZYADD(possible_turfs, turf)
+
+/obj/structure/flora/tree/pine/xmas/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	recalculate_spawns()
+
+/obj/structure/flora/tree/pine/xmas/proc/spawn_gifts()
+	if(!length(possible_turfs))
+		return
+
+	for(var/i in 1 to gifts_count)
+		new /obj/effect/spawner/lootdrop/evil_santa_gift/xmas_tree(pick(possible_turfs))
 
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'
@@ -304,7 +343,7 @@
 		return
 	var/image/I = image(icon = 'icons/obj/flora/plants.dmi' , icon_state = src.icon_state, loc = user)
 	I.override = 1
-	user.add_alt_appearance("sneaking_mission", I, GLOB.player_list)
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "sneaking_mission", I)
 
 /obj/item/twohanded/required/kirbyplants/dropped(mob/living/user, slot, silent = FALSE)
 	. = ..()
@@ -457,23 +496,21 @@
 
 	return ..()
 
-//Jungle grass
-
+// MARK: Jungle grass
 /obj/structure/flora/grass/jungle
 	name = "jungle grass"
 	desc = "Thick alien flora."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "grassa"
+	icon_state = "grass1"
+	base_icon_state = "grass"
+	/// Controls how many variants of the sprite exists
+	var/variations = 10
 
 /obj/structure/flora/grass/jungle/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 5)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/grass/jungle/b
-	icon_state = "grassb"
-
-//Jungle rocks
-
+// MARK: Jungle rocks
 /obj/structure/flora/rock/jungle
 	icon_state = "rock"
 	desc = "A pile of rocks."
@@ -483,40 +520,38 @@
 	. = ..()
 	icon_state = "[initial(icon_state)][rand(1,5)]"
 
-//Jungle bushes
-
+// MARK: Jungle bushes
 /obj/structure/flora/junglebush
 	name = "bush"
 	desc = "A wild plant that is found in jungles."
 	icon = 'icons/obj/flora/jungleflora.dmi'
-	icon_state = "busha"
+	icon_state = "bush1"
+	base_icon_state = "bush"
+	anchored = TRUE
+	/// Controls how many variants of the sprite exists
+	var/variations = 9
 
 /obj/structure/flora/junglebush/Initialize(mapload)
-	icon_state = "[icon_state][rand(1, 3)]"
+	icon_state = "[base_icon_state][rand(1, variations)]"
 	. = ..()
 
-/obj/structure/flora/junglebush/b
-	icon_state = "bushb"
-
-/obj/structure/flora/junglebush/c
-	icon_state = "bushc"
-
 /obj/structure/flora/junglebush/large
-	icon_state = "bush"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -12
 	layer = ABOVE_ALL_MOB_LAYER
+	variations = 3
 
 /obj/structure/flora/rock/pile/largejungle
-	icon_state = "rocks"
+	icon_state = "rocks1"
+	base_icon_state = "rocks"
 	icon = 'icons/obj/flora/largejungleflora.dmi'
 	pixel_x = -16
 	pixel_y = -16
 
 /obj/structure/flora/rock/pile/largejungle/Initialize(mapload)
 	. = ..()
-	icon_state = "[initial(icon_state)][rand(1,3)]"
+	icon_state = "[initial(base_icon_state)][rand(1,3)]"
 
 //hellflora from shiptest
 /obj/structure/flora/firebush

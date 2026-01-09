@@ -31,19 +31,12 @@
 	. = ..()
 	chamber_round(TRUE)
 
-/obj/item/gun/projectile/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/projectile/revolver/handle_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	return ..()
 
-/obj/item/gun/projectile/revolver/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/speedloader) || istype(I, /obj/item/ammo_casing))
-		add_fingerprint(user)
-		var/num_loaded = magazine.reload(I, user)
-		if(num_loaded)
-			update_icon()
-			chamber_round(FALSE)
-			return ATTACK_CHAIN_BLOCKED_ALL
+/obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, params)
+	if(speedloader_reload(item, user))
 		return ATTACK_CHAIN_PROCEED
-
 	return ..()
 
 /obj/item/gun/projectile/revolver/unload_act(mob/user)
@@ -73,7 +66,7 @@
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Вращать барабан"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Click to spin your revolver's chamber."
 	set src in usr
 

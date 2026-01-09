@@ -13,11 +13,11 @@
 	song.instrument_range = 0
 	song.allowed_instrument_ids = SSinstruments.synthesizer_instrument_ids
 	// To update the icon
-	RegisterSignal(src, COMSIG_SONG_START, PROC_REF(start_playing))
-	RegisterSignal(src, COMSIG_SONG_END, PROC_REF(stop_playing))
+	RegisterSignal(src, COMSIG_INSTRUMENT_START, PROC_REF(start_playing))
+	RegisterSignal(src, COMSIG_INSTRUMENT_END, PROC_REF(stop_playing))
 
 /obj/item/clothing/ears/headphones/Destroy()
-	UnregisterSignal(src, list(COMSIG_SONG_START, COMSIG_SONG_END))
+	UnregisterSignal(src, list(COMSIG_INSTRUMENT_START, COMSIG_INSTRUMENT_END))
 	QDEL_NULL(song)
 	return ..()
 
@@ -74,10 +74,10 @@
 // special subtype so it uses the correct item type
 /datum/song/headphones
 
-/datum/song/headphones/should_stop_playing(mob/user)
+/datum/song/headphones/should_stop_playing(atom/player)
 	. = ..()
 	if(.)
 		return TRUE
 	var/obj/item/clothing/ears/headphones/I = parent
-	return I.should_stop_playing(user)
+	return I.should_stop_playing(player)
 

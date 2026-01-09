@@ -15,11 +15,11 @@
 	status_flags = CANPUSH
 	mob_size = MOB_SIZE_LARGE
 	pixel_y_lying_offset = -20
+	hud_type = /datum/hud/devil
+	tts_seed = "Mannoroth"
 	var/datum/antagonist/devil/devilinfo
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
-	hud_type = /datum/hud/devil
-	tts_seed = "Mannoroth"
 
 /mob/living/carbon/true_devil/get_ru_names()
 	return list(
@@ -41,18 +41,6 @@
 	tts_seed = "Dread_bm"
 
 /mob/living/carbon/true_devil/ascended/ex_act(severity, ex_target)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/flamer_fire_act(damage)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
-	return FALSE
-
-/mob/living/carbon/true_devil/ascended/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	return FALSE
 
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
@@ -208,7 +196,81 @@
 		adjustBruteLoss(b_loss)
 	return ..()
 
+/mob/living/carbon/true_devil/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	return FALSE
+
+/mob/living/carbon/true_devil/flamer_fire_act(damage)
+	return FALSE
+
+/mob/living/carbon/true_devil/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
+	return FALSE
+
+/mob/living/carbon/true_devil/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	return FALSE
+
 /mob/living/carbon/true_devil/handle_critical_condition()
 	if(health > 0)
 		return
 	adjustOxyLoss(10)
+
+/mob/living/carbon/true_devil/krampus
+	name = "Krampus"
+	desc = "Он пришел тебя наказать. Лучше беги."
+	icon_state = "arch_krampus"
+	health = 800
+	maxHealth = 800
+	var/list/bag_content
+	var/static/list/spell_list = list(
+		/obj/effect/proc_holder/spell/conjure_item/krampus_bag,
+		/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus,
+		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/aoe/devil_fire,
+		/obj/effect/proc_holder/spell/infernal_jaunt,
+	)
+
+/mob/living/carbon/true_devil/krampus/get_ru_names()
+	return list(
+		NOMINATIVE = "Крампус",
+		GENITIVE = "Крампуса",
+		DATIVE = "Крампусу",
+		ACCUSATIVE = "Крампуса",
+		INSTRUMENTAL = "Крампусом",
+		PREPOSITIONAL = "Крампусе",
+	)
+
+/mob/living/carbon/true_devil/krampus/Initialize(mapload, mob/living/carbon/dna_source)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_SNOWSTORM_IMMUNE, INNATE_TRAIT)
+	for(var/spell in spell_list)
+		AddSpell(new spell)
+
+/mob/living/carbon/true_devil/krampus/Destroy()
+	var/turf/drop_loc = get_turf(src)
+
+	for(var/atom/movable/atom as anything in bag_content)
+		atom.forceMove(drop_loc)
+
+		if(!isliving(atom))
+			continue
+
+		var/mob/living/mob = atom
+		mob.revive()
+
+	. = ..()
+
+/mob/living/carbon/true_devil/krampus/Login()
+	. = ..()
+	mind.add_antag_datum(/datum/antagonist/krampus)
+
+/mob/living/carbon/true_devil/krampus/death(gibbed)
+	if(!gibbed)
+		dust()
+		return
+	. = ..()
+
+/mob/living/carbon/true_devil/krampus/gib()
+	dust()
+
+/mob/living/carbon/true_devil/krampus/melt()
+	dust()
+

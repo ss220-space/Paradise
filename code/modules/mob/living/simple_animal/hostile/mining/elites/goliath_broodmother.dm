@@ -182,7 +182,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/AltShiftClickOn(atom/A)
 	if(isliving(A))
 		var/mob/living/mob = A
-		var/mobref = "\ref[mob]"
+		var/mobref = PERSONAL_FACTION(mob)
 		if(mob == reviver)
 			return
 		if(mobref in faction)

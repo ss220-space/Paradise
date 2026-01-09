@@ -34,7 +34,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 		return 0
 
 	if(CONFIG_GET(flag/guest_jobban) && guest_jobbans(rank))
-		if(IsGuestKey(M.key))
+		if(is_guest_key(M.key))
 			return "Guest Job-ban"
 
 	if(GLOB.jobban_assoclist[M.ckey])
@@ -128,7 +128,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	return 0
 
 /mob/verb/displayjobbans()
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set name = "Текущие джоббаны"
 	set desc = "Displays all of your current jobbans."
 
@@ -163,9 +163,9 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			var/ackey = select_query.item[7]
 
 			if(bantype == "JOB_PERMABAN")
-				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]</span>")
+				to_chat(src, span_warning("[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]"))
 			else if(bantype == "JOB_TEMPBAN")
-				to_chat(src, "<span class='warning'>[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]</span>")
+				to_chat(src, span_warning("[bantype]: [job] - REASON: [reason], by [ackey]; [bantime]; [duration]; expires [expiration]"))
 
 			is_actually_banned = TRUE
 
@@ -173,6 +173,6 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 
 		if(is_actually_banned)
 			if(CONFIG_GET(string/banappeals))
-				to_chat(src, "<span class='warning'>You can appeal the bans at: [CONFIG_GET(string/banappeals)]</span>")
+				to_chat(src, span_warning("You can appeal the bans at: [CONFIG_GET(string/banappeals)]"))
 		else
-			to_chat(src, "<span class='warning'>You have no active jobbans!</span>")
+			to_chat(src, span_warning("You have no active jobbans!"))

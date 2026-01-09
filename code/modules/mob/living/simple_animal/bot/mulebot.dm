@@ -75,7 +75,7 @@
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/mulebot(src)
-	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
+	var/datum/job/supply/cargo_tech/J = new/datum/job/supply/cargo_tech
 	access_card.access = J.get_access()
 	prev_access = access_card.access
 	cell = new /obj/item/stock_parts/cell/upgraded(src)
@@ -914,12 +914,6 @@
 
 	new /obj/effect/decal/cleanable/blood/oil(loc)
 	return ..()
-
-/mob/living/simple_animal/bot/mulebot/remove_air(amount) //To prevent riders suffocating
-	if(loc)
-		return loc.remove_air(amount)
-	else
-		return null
 
 /mob/living/simple_animal/bot/mulebot/run_resist()
 	. = ..()

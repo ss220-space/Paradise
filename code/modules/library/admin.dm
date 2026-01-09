@@ -1,12 +1,5 @@
-/client/proc/delbook()
-	set name = "Delete Book"
-	set desc = "Permamently deletes a book from the database."
-	set category = STATPANEL_ADMIN_ADMIN
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	var/isbn = tgui_input_number(usr, "ISBN number?", "Delete Book")
+ADMIN_VERB(delbook, R_ADMIN, "Delete Book", "Permamently deletes a book from the database.", ADMIN_CATEGORY_MAIN)
+	var/isbn = tgui_input_number(user, "ISBN number?", "Delete Book")
 	if(!isbn)
 		return
 
@@ -18,18 +11,11 @@
 		return
 
 	qdel(query_delbook)
-	log_admin("[key_name_log(usr)] has deleted the book [isbn].")
-	message_admins("[key_name_admin(usr)] has deleted the book [isbn].")
+	log_admin("[key_name_log(user)] has deleted the book [isbn].")
+	message_admins("[key_name_admin(user)] has deleted the book [isbn].")
 
-/client/proc/view_flagged_books()
-	set name = "View Flagged Books"
-	set desc = "View books flagged for content."
-	set category = STATPANEL_ADMIN_ADMIN
-
-	if(!check_rights(R_ADMIN))
-		return
-
-	holder.view_flagged_books()
+ADMIN_VERB(view_flagged_books, R_ADMIN, "View Flagged Books", "View books flagged for content.", ADMIN_CATEGORY_MAIN)
+	user.holder.view_flagged_books()
 
 #define FLAGGED_BOOKS_PER_PAGE 10
 

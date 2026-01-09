@@ -961,13 +961,13 @@
 	taste_description = "проблем"
 
 /datum/reagent/consumable/ethanol/syndicatebomb
-	name = "Бомба Синдиката"
+	name = "Бомба \"Синдиката\""
 	id = "syndicatebomb"
 	description = "Пить аккуратно."
 	color = "#2E6671" // rgb: 46, 102, 113
 	alcohol_perc = 0.2
 	drink_icon = "syndicatebomb"
-	drink_name = "Бомба Синдиката"
+	drink_name = "Бомба \"Синдиката\""
 	drink_desc = "Бум. Пить осторожно."
 	taste_description = "предложения о работе"
 
@@ -1936,6 +1936,21 @@
 	drink_name = "Глинтвейн"
 	drink_desc = "Просто горячее вино со специями, но такое приятное."
 	taste_description = "горячего пряного вина"
+	var/temperature_effect = 40
+
+/datum/reagent/consumable/ethanol/mulled_wine/on_mob_life(mob/living/M)
+	var/normal_temperature = M?.dna?.species.body_temperature
+
+	if(!normal_temperature)
+		normal_temperature = BODYTEMP_NORMAL
+
+	var/difference = M.bodytemperature - normal_temperature
+
+	if(difference > 0)
+		return ..()
+
+	M.adjust_bodytemperature((min(temperature_effect, -difference)) * TEMPERATURE_DAMAGE_COEFFICIENT)
+	return ..()
 
 /datum/reagent/consumable/ethanol/white_bear
 	name = "Белый Медведь"

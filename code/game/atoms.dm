@@ -136,8 +136,6 @@
 	// These lists are built as necessary, so atoms aren't all lugging around empty lists
 	/// The alternate appearances we own
 	var/list/alternate_appearances
-	/// The alternate appearances we're viewing, stored here to reestablish them after Logout()s
-	var/list/viewing_alternate_appearances
 
 	/// Whenever we start dragging atom, this variable will contain world.time() of the moment we started dragging atom. It is required to check how long dragNdrop was to prevent abusing the feature of laggy dragNdrop click, otherwile will be 0.
 	var/drag_start = 0
@@ -162,6 +160,9 @@
 
 	/// Proximity monitor associated with this atom, needed for proximity checks.
 	var/datum/proximity_monitor/proximity_monitor
+
+	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
+	var/cares_about_temperature = FALSE
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -274,10 +275,9 @@
 
 /atom/Destroy(force)
 	if(alternate_appearances)
-		for(var/aakey in alternate_appearances)
-			var/datum/alternate_appearance/AA = alternate_appearances[aakey]
-			qdel(AA)
-		alternate_appearances = null
+		for(var/current_alternate_appearance in alternate_appearances)
+			var/datum/atom_hud/alternate_appearance/selected_alternate_appearance = alternate_appearances[current_alternate_appearance]
+			selected_alternate_appearance.remove_atom_from_hud(src)
 
 	QDEL_NULL(reagents)
 
@@ -309,8 +309,9 @@
 		newdir = dir
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
+	var/oldDir = dir
 	dir = newdir
-	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, dir, newdir)
+	SEND_SIGNAL(src, COMSIG_ATOM_POST_DIR_CHANGE, oldDir, newdir)
 
 /atom/proc/set_angle(degrees)
 	var/matrix/M = matrix()
@@ -369,19 +370,6 @@
 /atom/proc/intercept_zImpact(list/falling_movables, levels = 1)
 	SHOULD_CALL_PARENT(TRUE)
 	. |= SEND_SIGNAL(src, COMSIG_ATOM_INTERCEPT_Z_FALL, falling_movables, levels)
-
-/atom/proc/assume_air(datum/gas_mixture/giver)
-	qdel(giver)
-	return null
-
-/atom/proc/remove_air(amount)
-	return null
-
-/atom/proc/return_air()
-	if(loc)
-		return loc.return_air()
-	else
-		return null
 
 ///Return the air if we can analyze it
 /atom/proc/return_analyzable_air()
@@ -478,7 +466,7 @@
 			f_name += span_danger("в кровавых следах.")
 		else
 			f_name += "в масляных следах."
-	. = list("[icon2html(src, user)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
+	. = list("[icon2html(src, user)] Это <b>[declent_ru(NOMINATIVE)]</b>[f_name] [suffix]")
 	if(desc)
 		. += desc
 
@@ -714,17 +702,26 @@
 		reagents.temperature_reagents(exposed_temperature)
 
 /atom/proc/tool_act(mob/living/user, obj/item/I, tool_type)
+	var/signal_result = SEND_SIGNAL(src, COMSIG_ATOM_TOOL_ACT(tool_type), user, I)
+	if(signal_result)
+		return TRUE
+
 	switch(tool_type)
 		if(TOOL_CROWBAR)
 			return crowbar_act(user, I)
+
 		if(TOOL_MULTITOOL)
 			return multitool_act(user, I)
+
 		if(TOOL_SCREWDRIVER)
 			return screwdriver_act(user, I)
+
 		if(TOOL_WRENCH)
 			return wrench_act(user, I)
+
 		if(TOOL_WIRECUTTER)
 			return wirecutter_act(user, I)
+
 		if(TOOL_WELDER)
 			return welder_act(user, I)
 
@@ -1307,7 +1304,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	var/tts_test_str = "Так звучит мой голос."
 
 	var/tts_seeds
-	if(user && (check_rights(R_ADMIN, 0, user) || override))
+	if(user && (check_rights(R_ADMIN, FALSE, user) || override))
 		tts_seeds = SStts.tts_seeds_names
 	else
 		tts_seeds = SStts.get_available_seeds(src)
@@ -1422,14 +1419,16 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
 
+/// Are you allowed to drop stuff inside this atom
 /atom/proc/AllowDrop()
 	return FALSE
 
+/// Where atoms should drop if taken from this atom
 /atom/proc/drop_location()
-	var/atom/L = loc
-	if(!L)
+	var/atom/location = loc
+	if(!location)
 		return null
-	return L.AllowDrop() ? L : get_turf(L)
+	return location.AllowDrop() ? location : location.drop_location()
 
 /**
  * An atom has entered this atom's contents

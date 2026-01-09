@@ -29,7 +29,7 @@
 	proj.original = target
 	proj.firer = user
 	var/turf/target_turf = get_turf(target)
-	proj.preparePixelProjectile(target, target_turf, user, targeting.click_params)
+	proj.preparePixelProjectile(target, user, targeting.click_params)
 	proj.fire()
 	user.newtonian_move(get_dir(target_turf, T))
 	return TRUE

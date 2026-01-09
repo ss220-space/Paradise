@@ -60,6 +60,7 @@
 		TRAIT_NO_SCAN,
 		TRAIT_TEMPERATURE_MOVEMENT,
 		TRAIT_STRONG_PULLING,
+		TRAIT_RESIST_COLD,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
@@ -249,3 +250,6 @@
 /mob/living/carbon/human/proc/get_producing()
 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
 	return glands ? glands.producing : FALSE
+
+/datum/species/wryn/compressor_grind(location)
+	new /obj/item/reagent_containers/honeycomb(location)

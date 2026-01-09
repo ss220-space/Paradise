@@ -353,12 +353,6 @@
 	item_color = "rainbow"
 	dying_key = DYE_REGISTRY_UNDER
 
-/obj/item/clothing/under/cloud
-	name = "cloud"
-	desc = "cloud"
-	icon_state = "cloud"
-	item_color = "cloud"
-
 /obj/item/clothing/under/psysuit
 	name = "dark undersuit"
 	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."
@@ -1543,7 +1537,7 @@
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown
 	name = "baseball uniform (brown)"
-	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды \"Киберсан Инд\"."
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды \"Киберсан Индастриз\"."
 	icon_state = "baseball_uniform_brown"
 	item_state = "baseball_uniform_brown"
 

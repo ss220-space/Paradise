@@ -266,12 +266,12 @@
 
 /obj/item/mmi/syndie/get_ru_names()
 	return list(
-		NOMINATIVE = "НКИ Синдиката",
-		GENITIVE = "НКИ Синдиката",
-		DATIVE = "НКИ Синдиката",
-		ACCUSATIVE = "НКИ Синдиката",
-		INSTRUMENTAL = "НКИ Синдиката",
-		PREPOSITIONAL = "НКИ Синдиката",
+		NOMINATIVE = "НКИ \"Синдиката\"",
+		GENITIVE = "НКИ \"Синдиката\"",
+		DATIVE = "НКИ \"Синдиката\"",
+		ACCUSATIVE = "НКИ \"Синдиката\"",
+		INSTRUMENTAL = "НКИ \"Синдиката\"",
+		PREPOSITIONAL = "НКИ \"Синдиката\"",
 	)
 
 /obj/item/mmi/syndie/apply_effects(mob/living/silicon/robot/borg)

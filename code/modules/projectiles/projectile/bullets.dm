@@ -95,14 +95,16 @@
 	)
 
 /obj/projectile/bullet/hp38 //Detective hollow-point
-	damage = 33
+	damage = 35
 	armour_penetration = -50
 	ricochets_max = 0 //no ricochets for HP
+	sharp = TRUE //for dismember bodypart and double bleeding
 
 /obj/projectile/bullet/hp38/on_hit(atom/target, blocked, hit_zone)
 	if(..(target, blocked))
-		var/mob/living/M = target
-		M.Slowed(2 SECONDS)
+		var/mob/living/carbon/carbon_target = target
+		if(istype(carbon_target))
+			carbon_target.Slowed(2 SECONDS, 2)
 
 /obj/projectile/bullet/weakbullet2/invisible //finger gun bullets
 	name = "invisible bullet"
@@ -321,14 +323,14 @@
 	ricochet_chance = 20
 
 /obj/projectile/bullet/c45colt
-	damage = 28
+	damage = 26
 
 /obj/projectile/bullet/c45colt/hp
 	damage = 35
 	armour_penetration = -50
 
 /obj/projectile/bullet/c45colt/ap
-	damage = 20
+	damage = 18
 	armour_penetration = 30
 
 //.45 bullet casing
@@ -420,8 +422,10 @@
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
-		location.hotspot_expose(700, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		location.hotspot_expose(700, 50)
 	if(prob(10))
 		do_sparks(1, TRUE, src)
 
@@ -430,7 +434,6 @@
 	damage = 15
 	damage_type = BURN
 	range = 10
-	icon_state = "dragonbreath"
 
 /obj/projectile/bullet/incendiary/shell/dragonsbreath/get_ru_names()
 	return list(

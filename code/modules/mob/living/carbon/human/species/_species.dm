@@ -1,3 +1,7 @@
+#define MAX_WATER_TEMPERATURE_CHANGE 10
+#define MIN_TEMPERATURE_DIFF 10
+#define BASE_WATER_VOLUME 1
+
 /datum/species
 	var/name                     // Species name.
 	var/name_plural			 // Pluralized name (since "[name]s" is not always valid)
@@ -487,7 +491,7 @@
 /datum/species/proc/help(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(attacker_style && attacker_style.help_act(user, target) == TRUE)//adminfu only...
 		return TRUE
-	if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
+	if(target.health >= HEALTH_THRESHOLD_CRIT && !HAS_TRAIT(target, TRAIT_FAKEDEATH) || user == target)
 		target.help_shake_act(user)
 		return TRUE
 	else
@@ -507,6 +511,34 @@
 	else
 		target.grabbedby(user)
 		return TRUE
+
+/datum/species/proc/try_self_supress_bleeding(mob/living/carbon/human/user)
+	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	if(user.get_active_hand())
+		user.balloon_alert(user, "рука занята!")
+		return FALSE
+
+	var/obj/item/organ/external/hand/hand = user.get_organ(user.hand == ACTIVE_HAND_LEFT ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	if(!hand || !hand.is_usable())
+		user.balloon_alert(user, "рука не работает!")
+		return FALSE
+
+	var/obj/item/organ/external/target_limb = user.get_organ(user.zone_selected)
+	if(target_limb.bleeding_amount <= 0)
+		user.balloon_alert(user, "кровотечения нет!")
+		return
+
+	user.balloon_alert_to_viewers("зажима[PLUR_ET_YUT(user)] рану на [target_limb.declent_ru(PREPOSITIONAL)]", "зажатие раны на [target_limb.declent_ru(PREPOSITIONAL)]");
+
+	if(user.hand == ACTIVE_HAND_LEFT)
+		user.left_hand_bleed_suppress_lib = target_limb
+	else
+		user.right_hand_bleed_suppress_lib = target_limb
+
+	user.update_hands_HUD()
+
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
@@ -613,7 +645,7 @@
 				if(target.mind == objective.target)
 					objective.take_damage(damage, damage_type)
 
-		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
+		target.apply_damage(damage, damage_type, affecting, armor_block, sharp = attack?.sharp) //moving this back here means Armalis are going to knock you down  70% of the time, but they're pure adminbus anyway.
 		if((target.stat != DEAD) && damage >= (user.dna.species.punchstunthreshold + user.physiology.punch_stun_threshold))
 			target.visible_message(
 				span_danger("[user.declent_ru(NOMINATIVE)] ослабля[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]!"), \
@@ -1159,14 +1191,30 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(HAS_TRAIT(human, TRAIT_XRAY))
 		human.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))
 
+	if(HAS_TRAIT(human, TRAIT_MESON_VISION))
+		human.add_sight(SEE_TURFS)
+		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
 	if(human.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		human.set_invis_see(SEE_INVISIBLE_OBSERVER)
 
 	human.sync_lighting_plane_alpha()
 
 /datum/species/proc/water_act(mob/living/carbon/human/M, volume, temperature, source, method = REAGENT_TOUCH)
-	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
-		M.adjust_bodytemperature((temperature - M.bodytemperature) * 0.5)	// Approximation for gradual heating or cooling.
+	var/temperature_diff = temperature - M.bodytemperature
+	var/temperature_diff_abs = abs(temperature_diff)
+
+	if(temperature_diff_abs <= MIN_TEMPERATURE_DIFF)
+		return
+
+	var/effectiveness = min(volume / BASE_WATER_VOLUME, 1)
+
+
+	var/final_change = min(min(temperature_diff_abs, MAX_WATER_TEMPERATURE_CHANGE) * effectiveness, temperature_diff_abs)
+
+	final_change = (temperature_diff > 0)? final_change : -final_change
+
+	M.adjust_bodytemperature(final_change)
 
 /datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
@@ -1236,3 +1284,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		blood_overlays = icon_states(blood_mask)
 
 	return blood_overlays
+
+/datum/species/proc/compressor_grind(location)
+	return
+
+#undef MAX_WATER_TEMPERATURE_CHANGE
+#undef MIN_TEMPERATURE_DIFF
+#undef BASE_WATER_VOLUME

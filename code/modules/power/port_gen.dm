@@ -1,4 +1,3 @@
-#define SHEET_VOLUME 1000 //cm3
 
 #define TEMPERATURE_DIVISOR 40
 #define TEMPERATURE_CHANGE_MAX 20
@@ -21,7 +20,7 @@
 
 /obj/machinery/power/port_gen/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), active)
+	soundloop = new(src, active)
 
 /obj/machinery/power/port_gen/Destroy()
 	QDEL_NULL(soundloop)
@@ -209,10 +208,11 @@
 		Gives traitors more opportunities to sabotage the generator or allows enterprising engineers to build additional
 		cooling in order to get more power out.
 	*/
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		lower_limit += ambient*ratio
 		upper_limit += ambient*ratio
 
@@ -238,10 +238,11 @@
 
 /obj/machinery/power/port_gen/pacman/handleInactive()
 	var/cooling_temperature = 20
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		cooling_temperature += ambient*ratio
 
 	if(temperature > cooling_temperature)
@@ -478,6 +479,5 @@
 	explosion(loc, devastation_range = 3, heavy_impact_range = 6, light_impact_range = 12, flash_range = 16, adminlog = TRUE, cause = src)
 	qdel(src)
 
-#undef SHEET_VOLUME
 #undef TEMPERATURE_DIVISOR
 #undef TEMPERATURE_CHANGE_MAX

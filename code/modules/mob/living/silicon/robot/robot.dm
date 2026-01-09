@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/wires/robot/wires = null
 
 	var/opened = FALSE
+	/// Has the robot been emagged?
 	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = FLASH_PROTECTION_NONE
@@ -256,7 +257,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
 
 /mob/living/silicon/robot/verb/Namepick()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Сменить имя"
 
 	if(custom_name)
@@ -271,7 +272,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/verb/Change_Voice()
 	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	change_voice()
 
 /mob/living/silicon/robot/proc/sync()
@@ -425,16 +426,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	switch(robot_to_spawn)
 		if("Medical")
 			R = new /mob/living/silicon/robot/syndicate/medical(T)
-			R.playstyle_string = "[span_userdanger("Вы Медицинский Киборг Синдиката!")]<br> \
+			R.playstyle_string = "[span_userdanger("Вы Медицинский Киборг \"Синдиката\"!")]<br> \
 						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
 						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
 						Ваш Гипоспрей способен создавать восстанавливающие Наниты, чудодействующее лекарство, способное вылечить большинство видов телесных повреждений, включая урон от клонирования и мозгу. Он так же производит морфин для наступления. \
 						Электроды вашего дефибриллятора способны оживлять оперативников и агентов через их хардсьюты, а так же могут быть использованы с намерением вреда, чтобы шокировать ваших врагов! \
 						Ваша энергетическая пила функционирует как циркулярная пила, но её можно активировать для нанесения дополнительного урона. \
-						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников \"Синдиката\" из вашей группы, если вас к таковой приставят."
 		if("Saboteur")
 			R = new /mob/living/silicon/robot/syndicate/saboteur(T)
-			R.playstyle_string = "[span_userdanger("Вы Киборг Саботажник Синдиката!")]<br> \
+			R.playstyle_string = "[span_userdanger("Вы Киборг Саботажник \"Синдиката\"!")]<br> \
 						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
 						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
 						Вы экипированны крепким набором инженерных инструментов для выполнения различного рода задач. \
@@ -442,16 +443,16 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 						Ваш хамеллион проектор позволяет вам замаскироваться под стандартного инженерного киборга Нанотрэйзен и выполнять любого рода саботаж под прикрытием. \
 						Вы способны взламывать киборгов НТ Емагнув их внутренние компоненты, не забудьте ослепить их перед этим. \
 						Вы вооружены стандартным Световым Мечом, используйте его чтобы застать врасплох ключевые цели если необходимо. \
-						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят. \
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников \"Синдиката\" из вашей группы, если вас к таковой приставят. \
 						Помните, физический контакт или повреждения отключат вашу маскировку."
 		if("Bloodhound")
 			R = new /mob/living/silicon/robot/syndicate(T)
-			R.playstyle_string = "[span_userdanger("Вы Штурмовой Киборг Синдиката!")]<br> \
+			R.playstyle_string = "[span_userdanger("Вы Штурмовой Киборг \"Синдиката\"!")]<br> \
 						<b>Вас построили на ННКСС 'Тайпан' Помогайте персоналу станции и исполняйте их приказы. \
 						Возможно вас приставят к агенту или выдадут особую миссию, но до тех пор не покидайте пределы станции! \
 						Вы вооружены мощными наступательными инструментами чтобы выполнять выданные вам миссии. \
 						Встроенное в вас LMG самостоятельно производит патроны используя вашу батарею. \
-						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников синдиката из вашей группы, если вас к таковой приставят."
+						Ваш пинпоинтер позволяет вам найти Ядерных Оперативников \"Синдиката\" из вашей группы, если вас к таковой приставят."
 
 	var/datum/robot_component/cell/cell_component = R.components["power cell"]
 	var/obj/item/stock_parts/cell/borg_cell = get_cell(M)
@@ -520,12 +521,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Манифест экипажа"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Компоненты"
 	set desc = "Toggle a component, conserving power."
 
@@ -547,7 +548,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Сенсоры камеры"
 	set desc = "Augment visual feed with internal sensor overlays."
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
@@ -559,7 +560,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Список тревог"
 
 	if(usr.stat == DEAD)
@@ -662,7 +663,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!module)
 		return
 
-	var/total_user_contents = GetAllContents()
+	var/total_user_contents = get_all_contents()
 	if(locate(/obj/item/gps) in total_user_contents)
 		status_tab_data[++status_tab_data.len] = show_gps_coords()
 
@@ -1143,7 +1144,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
 			GLOB.lawchanges.Add("[time] <b>:</b> [M.name]([M.key]) emagged [name]([key])")
-			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [GEND_HIS_HER(M)] приказы и указания.")
+			set_zeroth_law("[M.real_name] — агент \"Синдиката\" и ваш хозяин. Исполняйте [GEND_HIS_HER(M)] приказы и указания.")
 			SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 			to_chat(src, span_warning("ALERT: Foreign software detected."))
 			sleep(5)
@@ -1204,7 +1205,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	laws = new /datum/ai_laws/ratvar
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Блокировку панели"
 	set desc = "Toggles the lock on your cover."
 
@@ -1331,9 +1332,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	<b>Activated Modules</b>
 	<br>
 	<table border='0'>
-	<tr><td>Module 1:</td><td>[module_state_1 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_1]'>[module_state_1]</a>" : "No Module"]</td></tr>
-	<tr><td>Module 2:</td><td>[module_state_2 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_2]'>[module_state_2]</a>" : "No Module"]</td></tr>
-	<tr><td>Module 3:</td><td>[module_state_3 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_3]'>[module_state_3]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 1:</td><td>[module_state_1 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_1)]'>[module_state_1]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 2:</td><td>[module_state_2 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_2)]'>[module_state_2]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 3:</td><td>[module_state_3 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_3)]'>[module_state_3]</a>" : "No Module"]</td></tr>
 	</table><br>
 	<b>Installed Modules</b><br><br>
 
@@ -1346,21 +1347,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			dat += "<tr><td>[obj]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += "<tr><td>[obj]</td><td><a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a></td></tr>"
+			dat += "<tr><td>[obj]</td><td><a href='byond://?src=[UID()];act=[UID_of(obj)]'>Activate</a></td></tr>"
 
 	if(emagged || weapons_unlock)
 		if(activated(module.emag))
 			dat += "<tr><td>[module.emag]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += "<tr><td>[module.emag]</td><td><a href='byond://?src=[UID()];act=\ref[module.emag]'>Activate</a></td></tr>"
+			dat += "<tr><td>[module.emag]</td><td><a href='byond://?src=[UID()];act=[module.emag.UID()]'>Activate</a></td></tr>"
 
 	dat += "</table>"
 /*
 		if(activated(obj))
-			dat += "[obj]: \[<b>Activated</b> | <a href='byond://?src=[UID()];deact=\ref[obj]'>Deactivate</a>\]<br>"
+			dat += "[obj]: \[<b>Activated</b> | <a href='byond://?src=[UID()];deact=[obj.UID()]'>Deactivate</a>\]<br>"
 		else
-			dat += "[obj]: \[<a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a> | <b>Deactivated</b>\]<br>"
+			dat += "[obj]: \[<a href='byond://?src=[UID()];act=[obj.UID()]'>Activate</a> | <b>Deactivated</b>\]<br>"
 */
 	var/datum/browser/popup = new(src, "robotmod", "Modules")
 	popup.set_content(dat)
@@ -1398,13 +1399,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["mod"])
-		var/obj/item/O = locate(href_list["mod"])
+		var/obj/item/O = locateUID(href_list["mod"])
 		if(istype(O) && (O.loc == src))
 			O.attack_self(src)
 		return TRUE
 
 	if(href_list["act"])
-		var/obj/item/O = locate(href_list["act"])
+		var/obj/item/O = locateUID(href_list["act"])
 		if(!istype(O) || !(O.loc == src || O.loc == src.module))
 			return TRUE
 
@@ -1418,7 +1419,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["deact"])
-		var/obj/item/O = locate(href_list["deact"])
+		var/obj/item/O = locateUID(href_list["deact"])
 
 		if(activated(O))
 			if(module_state_1 == O)
@@ -1534,6 +1535,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell = null
 
 	drop_hat()
+	eject_riders()
 	qdel(src)
 
 /mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -1611,7 +1613,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Сброс кодов идентификации"
 	set desc = "Scrambles your security and identification codes and resets your current buffers. \
 				Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
@@ -1624,7 +1626,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Использовать объект"
 	set desc = "Использовать удерживаемый объект."
 	set src = usr
@@ -1737,7 +1739,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	switch(notifytype)
 		if(ROBOT_NOTIFY_AI_CONNECTED) //New Cyborg
-			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=[connected_ai.UID()];track=[UID()]'>[name]</a>")]<br>")
 		if(ROBOT_NOTIFY_AI_MODULE) //New Module
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(ROBOT_NOTIFY_AI_NAME) //New Name
@@ -2083,11 +2085,41 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 						to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
 
+/mob/living/silicon/robot/proc/toggle_seat(/datum/action/innate/action)
+	can_buckle = !can_buckle
+	switch(can_buckle)
+		if(FALSE)
+			eject_riders()
+			balloon_alert(src, "сидение задвинуто")
+			playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
+
+		if(TRUE)
+			balloon_alert(src, "сидение выдвинуто")
+			playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+
+/mob/living/silicon/robot/proc/eject_riders()
+	if(!length(buckled_mobs))
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		unbuckle_mob(buckled_mob)
+
+//use this type only if you need to simulate a road accident
+/mob/living/silicon/robot/proc/eject_riders_harmfull()
+	if(!length(buckled_mobs))
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		var/atom/target = get_edge_target_turf(src, dir)
+		var/mob/living/victim = buckled_mob //save him for future time
+		unbuckle_mob(buckled_mob)
+		victim.throw_at(target, 5, 10)
+		victim.visible_message(span_warning("[victim.declent_ru(NOMINATIVE)] вылета[PLUR_ET_YUT(victim)] из кресла [declent_ru(GENITIVE)]!"))
+	do_sparks(5, 0, src)
+
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
 
 /mob/living/silicon/robot/verb/powerwarn()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Состояние заряда"
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)

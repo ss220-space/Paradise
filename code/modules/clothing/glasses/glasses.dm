@@ -78,14 +78,13 @@
 
 /obj/item/clothing/glasses/meson
 	name = "Optical Meson Scanner"
-	desc = "Used for seeing walls, floors, and stuff through anything."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве."
 	icon_state = "meson"
 	item_state = "meson"
 	origin_tech = "magnets=1;engineering=2"
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = TRUE
-
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -97,6 +96,27 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	var/active_on_equip = TRUE
+
+/obj/item/clothing/glasses/meson/get_ru_names()
+	return list(
+		NOMINATIVE = "мезонные очки",
+		GENITIVE = "мезонных очков",
+		DATIVE = "мезонным очкам",
+		ACCUSATIVE = "мезонные очки",
+		INSTRUMENTAL = "мезонными очками",
+		PREPOSITIONAL = "мезонных очках"
+	)
+
+/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && slot == ITEM_SLOT_EYES)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/clothing/glasses/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "Meson Sunglasses"
@@ -114,7 +134,8 @@
 
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
-	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
+			Данная модель оснащена светочувствительной матрицей, повышающей видимость в условиях ограниченного освещения."
 	icon_state = "nvgmeson"
 	item_state = "nvgmeson"
 	origin_tech = "magnets=4;engineering=5;plasmatech=4"
@@ -122,20 +143,41 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	prescription_upgradable = FALSE
 
+/obj/item/clothing/glasses/meson/night/get_ru_names()
+	return list(
+		NOMINATIVE = "мезонные очки ночного видения",
+		GENITIVE = "мезонных очков ночного видения",
+		DATIVE = "мезонным очкам ночного видения",
+		ACCUSATIVE = "мезонные очки ночного видения",
+		INSTRUMENTAL = "мезонными очками ночного видения",
+		PREPOSITIONAL = "мезонных очках ночного видения"
+	)
+
 /obj/item/clothing/glasses/meson/prescription
 	prescription = TRUE
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
+	desc = "Специальные очки, используемые для визуального обнаружения брешей и полостей в окружающем пространстве. \
+			Обладают уникальным дизайном."
 	icon_state = "garm"
 	item_state = "garm"
-	desc = "Do the impossible, see the invisible!"
 	force = 10
 	throwforce = 10
 	throw_speed = 4
 	attack_verb = list("полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
+
+/obj/item/clothing/glasses/meson/gar/get_ru_names()
+	return list(
+		NOMINATIVE = "гар-мезонные очки",
+		GENITIVE = "гар-мезонных очков",
+		DATIVE = "гар-мезонным очкам",
+		ACCUSATIVE = "гар-мезонные очки",
+		INSTRUMENTAL = "гар-мезонными очками",
+		PREPOSITIONAL = "гар-мезонных очках"
+	)
 
 /obj/item/clothing/glasses/meson/cyber
 	name = "Eye Replacement Implant"
@@ -175,6 +217,15 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+
+/obj/item/clothing/glasses/meson/atmos
+	name = "atmospherics scanner goggles"
+	desc = "Used by atmospherics techs to visualize pressure and see station structure."
+	icon_state = "trayson-pressure"
+	item_state =  null
+	origin_tech = "materials=3;magnets=2;engineering=2"
+	clothing_traits = list(TRAIT_PRESSURE_VISION)
+
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"

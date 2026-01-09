@@ -173,11 +173,6 @@
 	build_path = /obj/machinery/computer/teleporter
 	origin_tech = "programming=3;bluespace=3;plasmatech=3"
 
-/obj/item/circuitboard/teleporter/robotics
-	board_name = "Robotics Teleporter Console"
-	build_path = /obj/machinery/computer/teleporter/robotics
-	origin_tech = "programming=2;bluespace=3;plasmatech=2"
-
 /obj/item/circuitboard/secure_data
 	board_name = "Security Records"
 	build_path = /obj/machinery/computer/secure_data
@@ -290,7 +285,7 @@
 	desc = "Swipe a Scientist level ID or higher to reconfigure."
 	build_path = /obj/machinery/computer/rdconsole/core
 	req_access = list(ACCESS_TOX) // This is for adjusting the type of computer we're building - in case something messes up the pre-existing robotics or mechanics consoles
-	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public")
+	var/list/access_types = list("R&D Core", "Robotics", "E.X.P.E.R.I-MENTOR", "Mechanics", "Public", "Cargo")
 
 /obj/item/circuitboard/rdconsole/robotics
 	board_name = "RD Console - Robotics"
@@ -307,6 +302,10 @@
 /obj/item/circuitboard/rdconsole/public
 	board_name = "RD Console - Public"
 	build_path = /obj/machinery/computer/rdconsole/public
+
+/obj/item/circuitboard/rdconsole/cargo
+	name = "RD Console - Cargo"
+	build_path = /obj/machinery/computer/rdconsole/cargo
 
 /obj/item/circuitboard/roboquest
 	board_name = "Robotics Request Console"
@@ -523,6 +522,9 @@
 			if("Public")
 				board_name = "RD Console - Public"
 				build_path = /obj/machinery/computer/rdconsole/public
+			if("Cargo")
+				board_name = "RD Console - Cargo"
+				build_path = /obj/machinery/computer/rdconsole/cargo
 		format_board_name()
 		to_chat(user, span_notice("Access protocols set to '[console_choice]'."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -796,6 +798,11 @@
 
 /obj/structure/computerframe/abductor/drop_computer_materials(location)
 	new /obj/item/stack/sheet/mineral/abductor(location, 4)
+
+/obj/structure/computerframe/cargo
+	name = "cargo R&D console frame"
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "cargocomp_unscrewed"
 
 #undef STATE_EMPTY
 #undef STATE_CIRCUIT

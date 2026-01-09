@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 	name = "stok hide"
 	desc = "The by-product of stok farming."
 	singular_name = "stok hide piece"
-	icon_state = "sheet-lizzard"
+	icon_state = "sheet-lizard"
 
 /obj/item/stack/sheet/animalhide/neara
 	name = "neara hide"
@@ -138,6 +138,7 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	singular_name = "wet leather piece"
 	icon_state = "sheet-wetleather"
 	origin_tech = ""
+	cares_about_temperature = TRUE
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
@@ -372,7 +373,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 //Step one - dehairing.
 
 /obj/item/stack/sheet/animalhide/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		add_fingerprint(user)
 		if(loc == user && !user.can_unEquip(src))
 			return ATTACK_CHAIN_PROCEED
@@ -399,9 +400,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		qdel(src)
 
 //Step three - drying
-/obj/item/stack/sheet/wetleather/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/item/stack/sheet/wetleather/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature >= drying_threshold_temperature)
+	if(temperature >= drying_threshold_temperature)
 		wetness--
 		if(wetness == 0)
 			//Try locating an exisitng stack on the tile and add to there if possible

@@ -45,7 +45,7 @@
 
 	get_targets()
 
-	var/datum/job/janitor/J = new/datum/job/janitor
+	var/datum/job/service/janitor/J = new/datum/job/service/janitor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 	update_icon(UPDATE_OVERLAYS)

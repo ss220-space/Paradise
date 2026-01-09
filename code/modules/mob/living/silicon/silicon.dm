@@ -18,7 +18,7 @@
 	var/designation = ""
 	var/obj/item/camera/siliconcam/aiCamera = null //photography
 //Used in say.dm, allows for pAIs to have different say flavor text, as well as silicons, although the latter is not implemented.
-	var/speak_statement = "states"
+	var/speak_statement = "заявляет"
 	var/speak_exclamation = "declares"
 	var/speak_query = "queries"
 	var/pose //Yes, now AIs can pose too.
@@ -331,14 +331,14 @@
 /mob/living/silicon/verb/pose()
 	set name = "Задать позу"
 	set desc = "Sets a description which will be shown when someone examines you."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	pose =  tgui_input_text(usr, "This is [src]. It is...", "Pose", null, max_length = MAX_MESSAGE_LEN)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Описание внешности"
 	set desc = "Sets an extended description of your character's features."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	update_flavor_text()
 

@@ -12,6 +12,7 @@
 // -----------------------------
 /obj/item/storage/secure
 	name = "secstorage"
+	icon = 'icons/obj/storage/boxes.dmi'
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
 	var/icon_opened = "secure0"
@@ -21,7 +22,6 @@
 	var/l_set = FALSE
 	var/l_setshort = FALSE
 	var/l_hacking = FALSE
-	var/emagged = FALSE
 	var/open = FALSE
 
 /obj/item/storage/secure/examine(mob/user)
@@ -193,7 +193,10 @@
 	return FALSE
 
 /obj/item/storage/secure/hear_talk(mob/living/M, list/message_pieces)
-	return
+	if(locked)
+		return
+
+	..()
 
 /obj/item/storage/secure/hear_message(mob/living/M, msg)
 	return
@@ -207,7 +210,7 @@
 	icon_state = "secure"
 	item_state = "sec-case"
 	flags = CONDUCT
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
 	throw_range = 4

@@ -237,6 +237,7 @@
 	maxstack = 50
 
 /datum/design/rglass
+	desc = "Сталь + Стекло" // because this design is used in ore redemption
 	id = "rglass"
 	build_type = AUTOLATHE | SMELTER
 	materials = list(MAT_METAL = 1000, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -448,13 +449,6 @@
 	build_path = /obj/item/ammo_box/rubber45colt
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
-/datum/design/hp45colt
-	id = "hp45colt"
-	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 35000)
-	build_path = /obj/item/ammo_box/expansive45colt
-	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
-
 /datum/design/ap45colt
 	id = "ap45colt"
 	build_type = AUTOLATHE
@@ -600,6 +594,13 @@
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 500, MAT_GLASS = 3000)
 	build_path = /obj/item/reagent_containers/iv_bag
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
+
+/datum/design/handheld_defib
+	id = "handheld_defibrillator"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 2000)
+	build_path = /obj/item/handheld_defibrillator
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
 /datum/design/prox_sensor

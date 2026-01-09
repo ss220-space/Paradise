@@ -19,7 +19,7 @@
 
 /obj/projectile/energy/electrode
 	name = "electrode"
-	color = "#FFFF00"
+	color = COLOR_YELLOW
 	shockbull = TRUE
 	nodamage = TRUE
 	confused = 2.5 SECONDS
@@ -28,6 +28,9 @@
 	jitter = 30 SECONDS
 	hitsound = 'sound/weapons/tase.ogg'
 	range = 6
+	tracer_type = /obj/effect/projectile/tracer/stun
+	muzzle_type = /obj/effect/projectile/muzzle/stun
+	impact_type = /obj/effect/projectile/impact/stun
 	///Damage will be handled on the MOB side, to prevent window shattering.
 	var/tasered_duration = 8 SECONDS
 
@@ -374,7 +377,7 @@
 	icon_state = "brassshot"
 	damage = 70
 	armour_penetration = 60
-	weaken = 2
+	knockdown = 2 SECONDS
 
 /obj/projectile/energy/rat/snipe/get_ru_names()
 	return list(
@@ -395,8 +398,7 @@
 
 /obj/projectile/energy/rat/snipe/emp
 	name = "brass sniper EMP bullet"
-	icon_state = "brassshot_emp"
-	weaken = 0
+	icon_state = "brassslug_emp" // there is no "brassshot_emp"
 	damage = 0
 
 /obj/projectile/energy/rat/snipe/emp/get_ru_names()
@@ -423,7 +425,6 @@
 	name = "brass sniper heal bullet"
 	icon_state = "brassshot_heal"
 	damage = 0
-	weaken = 0
 
 /obj/projectile/energy/rat/snipe/heal/get_ru_names()
 	return list(
@@ -504,7 +505,7 @@
 		process_effects(target)
 
 /obj/projectile/energy/sphere/proc/process_effects(mob/living/target)
-		target.Beam(src, beam_icon, 'icons/obj/weapons/projectiles.dmi', time = 1 SECONDS, maxdistance = 2)
+		target.Beam(src, beam_icon, 'icons/obj/weapons/guns/projectiles.dmi', time = 1 SECONDS, maxdistance = 2)
 
 /obj/projectile/energy/sphere/attack
 	damage = 75

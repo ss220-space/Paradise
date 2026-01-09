@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(isp_whitelist, world.file2list("config/isp/isp_whitelist.txt"))
 	if(query.NextRow())
 		validckey = TRUE
 	if(!validckey)
-		if(!banned_mob || (banned_mob && !IsGuestKey(banned_mob.key)))
+		if(!banned_mob || (banned_mob && !is_guest_key(banned_mob.key)))
 			message_admins("<font color='red'>SyndiCat attempted to ban [ckey], but [ckey] does not exist in the player database. Please only ban actual players.</font>")
 			qdel(query)
 			return

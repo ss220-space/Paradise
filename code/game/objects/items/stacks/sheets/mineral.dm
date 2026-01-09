@@ -419,12 +419,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	. = ..()
 	recipes = GLOB.plastitanium_recipes
 
-/obj/item/stack/sheet/mineral/enruranium
-	name = "enriched uranium"
-	icon_state = "sheet-enruranium"
-	origin_tech = "materials=6"
-	materials = list(MAT_URANIUM=3000)
-
 //Alien Alloy
 /obj/item/stack/sheet/mineral/abductor
 	name = "alien alloy"

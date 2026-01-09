@@ -49,7 +49,7 @@
 /obj/machinery/vending/ntc/medal
 	name = "NT Cargo Encouragement"
 	desc = "Тяжелый кейс с медалями на любой вкус и цвет."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "medalbox"
 
 	products = list(
@@ -92,6 +92,7 @@
 		/obj/item/gun/medbeam = 10,
 		/obj/item/defibrillator/compact/loaded = 10,
 		/obj/item/handheld_defibrillator = 10,
+		/obj/item/handheld_defibrillator/advanced = 10,
 		/obj/item/vending_refill/medical = 10,
 	)
 

@@ -1,19 +1,13 @@
-/client/proc/bluespace_artillery(mob/living/target in GLOB.mob_list)
-	set name = "Bluespace Artillery"
-	set category = STATPANEL_ADMIN_FUN
-
-	if(!check_rights(R_ADMIN|R_EVENT))
-		return
-
+ADMIN_VERB(bluespace_artillery, R_ADMIN|R_EVENT, "Bluespace Artillery", "Выстрелить из БСА.", ADMIN_CATEGORY_FUN, mob/living/target in GLOB.mob_list)
 	if(!isliving(target))
-		to_chat(usr, span_warning("Это можно использовать только на объектах типа /mob/living"), confidential = TRUE)
+		to_chat(user, span_warning("Это можно использовать только на объектах типа /mob/living"), confidential = TRUE)
 		return
 
-	if(tgui_alert(usr, "Вы уверены, что хотите выстрелить по [key_name(target)] из Блюспейс Артиллерии?",  "Подтверждение выстрела?" , list("Да" , "Нет")) != "Да")
+	if(tgui_alert(user, "Вы уверены, что хотите выстрелить по [key_name(target)] из Блюспейс Артиллерии?",  "Подтверждение выстрела?" , list("Да" , "Нет")) != "Да")
 		return
 
 	if(GLOB.BSACooldown)
-		to_chat(usr, "Подождите. Идет цикл перезарядки. Артиллерийские расчеты будут готовы через пять секунд!")
+		to_chat(user, "Подождите. Идет цикл перезарядки. Артиллерийские расчеты будут готовы через пять секунд!")
 		return
 
 	GLOB.BSACooldown = 1
@@ -21,8 +15,8 @@
 		GLOB.BSACooldown = 0
 
 	to_chat(target, "По вам попала блюспейс артиллерия!")
-	log_admin("[key_name(target)] has been hit by Bluespace Artillery fired by [key_name(usr)]")
-	message_admins("[key_name_admin(target)] has been hit by Bluespace Artillery fired by [key_name_admin(usr)]")
+	log_admin("[key_name(target)] has been hit by Bluespace Artillery fired by [key_name(user)]")
+	message_admins("[key_name_admin(target)] has been hit by Bluespace Artillery fired by [key_name_admin(user)]")
 
 	var/turf/simulated/floor/T = get_turf(target)
 	if(istype(T))

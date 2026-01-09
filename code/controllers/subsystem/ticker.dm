@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Do we need to switch pacifism after Greentext
 	var/toggle_pacifism = TRUE
 	/// Do we need to make ghosts visible after greentext
-	var/toogle_gv = TRUE
+	var/toggle_gv = TRUE
 	/// List of ckeys who had antag rolling issues flagged
 	var/list/flagged_antag_rollers = list()
 
@@ -555,7 +555,7 @@ SUBSYSTEM_DEF(ticker)
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
 	GLOB.nologevent = TRUE //end of round murder and shenanigans are legal; there's no need to jam up  past this point.
-	if(toogle_gv)
+	if(toggle_gv)
 		set_observer_default_invisibility(0) //spooks things up
 	//Round statistics report
 	var/datum/station_state/ending_station_state = new /datum/station_state()
@@ -675,9 +675,11 @@ SUBSYSTEM_DEF(ticker)
 
 	return TRUE
 
+/// Whether the game has started, including roundend.
 /datum/controller/subsystem/ticker/proc/HasRoundStarted()
 	return current_state >= GAME_STATE_PLAYING
 
+///Whether the game is currently in progress, excluding roundend
 /datum/controller/subsystem/ticker/proc/IsRoundInProgress()
 	return current_state == GAME_STATE_PLAYING
 
@@ -702,7 +704,7 @@ SUBSYSTEM_DEF(ticker)
 	newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_NYX
 	newChannel.author = EDITOR_NYX
-	newChannel.description = "Новости Нанотрейзен!"
+	newChannel.description = "Новости \"Нанотрейзен\"!"
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
@@ -805,7 +807,7 @@ SUBSYSTEM_DEF(ticker)
 		}\
 	</style>"
 	parts += span_header("Получененные достижения!<br>")
-	parts += "В раунде получены следующие достижения: [span_bold(length(GLOB.achievements_unlocked))]!<br>"
+	parts += "В раунде получены следующие достижения([span_bold("[length(GLOB.achievements_unlocked)]")]):!<br>"
 	parts += "<ul class='playerlist'>"
 	for(var/datum/achievement_report/cheevo_report in GLOB.achievements_unlocked)
 		parts += "<br>[cheevo_report.winner_key] был(а) [span_bold(cheevo_report.winner)] и заработал(а) достижение [span_greentext("\"[cheevo_report.cheevo]\"")] в [cheevo_report.award_location]!<br>"

@@ -199,12 +199,12 @@
 
 /obj/item/clothing/mask/gas/syndicate/get_ru_names()
 	return list(
-		NOMINATIVE = "маска Синдиката",
-		GENITIVE = "маски Синдиката",
-		DATIVE = "маске Синдиката",
-		ACCUSATIVE = "маску Синдиката",
-		INSTRUMENTAL = "маской Синдиката",
-		PREPOSITIONAL = "маске Синдиката",
+		NOMINATIVE = "маска \"Синдиката\"",
+		GENITIVE = "маски \"Синдиката\"",
+		DATIVE = "маске \"Синдиката\"",
+		ACCUSATIVE = "маску \"Синдиката\"",
+		INSTRUMENTAL = "маской \"Синдиката\"",
+		PREPOSITIONAL = "маске \"Синдиката\"",
 	)
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -543,6 +543,23 @@
 		PREPOSITIONAL = "сексуальной маске мима",
 	)
 
+/obj/item/clothing/mask/gas/mime/old
+
+	name = "classic mime mask"
+	desc = "Маска мима прямиком из 2568."
+	icon_state = "mime_old"
+	item_state = "mime_old"
+
+/obj/item/clothing/mask/gas/mime/old/get_ru_names()
+	return list(
+		NOMINATIVE = "классическая маска мима",
+		GENITIVE = "классической маски мима",
+		DATIVE = "классической маске мима",
+		ACCUSATIVE = "классическую маску мима",
+		INSTRUMENTAL = "классической маской мима",
+		PREPOSITIONAL = "классической маске мима",
+	)
+
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Бип буп."
@@ -657,7 +674,7 @@
 
 /obj/item/clothing/mask/gas/sechailer/tactical
 	name = "Security gas mask FCO-26"
-	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности Нанотрейзен. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
+	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией \"Стальная Гвардия\" специально для сотрудников станционной службы безопасности \"Нанотрейзен\". Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешней среды."
 	icon_state = "tactical_mask"
 	armor = list(MELEE = 10, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 0, BIO = 50, RAD = 0, FIRE = 10, ACID = 30)
 	aggressiveness = 3

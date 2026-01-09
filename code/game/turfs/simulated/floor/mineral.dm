@@ -28,9 +28,9 @@
 	floor_tile = /obj/item/stack/tile/mineral/plasma
 	icons = list("plasma","plasma_dam")
 
-/turf/simulated/floor/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/turf/simulated/floor/mineral/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
+	if(temperature > 300)
 		PlasmaBurn()
 
 /turf/simulated/floor/mineral/plasma/attackby(obj/item/I, mob/user, params)
@@ -83,6 +83,13 @@
 	floor_tile = /obj/item/stack/tile/mineral/silver
 	icons = list("silver","silver_dam")
 
+/turf/simulated/floor/mineral/silver/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/mineral/silver/fancy
 	icon_state = "silverfancy"
 	floor_tile = /obj/item/stack/tile/mineral/silver/fancy
@@ -134,11 +141,27 @@
 	icon_state = "plastitanium"
 	floor_tile = /obj/item/stack/tile/mineral/plastitanium
 
+/turf/simulated/floor/mineral/plastitanium/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+
 /turf/simulated/floor/mineral/plastitanium/broken_states()
 	return list("plastitanium_dam1","plastitanium_dam2","plastitanium_dam3","plastitanium_dam4","plastitanium_dam5")
 
 /turf/simulated/floor/mineral/plastitanium/red
 	icon_state = "plastitanium_red"
+
+/turf/simulated/floor/mineral/plastitanium/red/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 
 /turf/simulated/floor/mineral/plastitanium/red/airless
 	oxygen = 0
@@ -195,6 +218,13 @@
 		to_chat(H, span_warning("You lose your footing trying to pry off the tile!"))
 		H.slip(10 SECONDS, src, TURF_WET_LUBE)
 	return
+
+/turf/simulated/floor/mineral/bananium/lubed/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 //TRANQUILLITE
 /turf/simulated/floor/mineral/tranquillite
@@ -256,6 +286,14 @@
 				user.put_in_hands(stack_dropped, ignore_anim = FALSE)
 	return ChangeTurf(/turf/simulated/floor/plating/abductor2)
 
+/turf/simulated/floor/mineral/abductor/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+
 /turf/simulated/floor/plating/abductor2
 	name = "alien plating"
 	icon_state = "alienplating"
@@ -265,3 +303,10 @@
 
 /turf/simulated/floor/plating/abductor2/burn_tile()
 	return //unburnable
+
+/turf/simulated/floor/plating/abductor/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND

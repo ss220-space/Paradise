@@ -5,6 +5,7 @@
 	icon_state = ""
 	density = TRUE
 	max_integrity = 100
+	cares_about_temperature = TRUE
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
@@ -108,10 +109,10 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/statue/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+	if(temperature > 300)
+		PlasmaBurn(temperature)
 
 /obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
@@ -365,8 +366,8 @@
 
 /obj/structure/statue/furukai
 	name = "София Вайт"
-	desc = "Загадочная девушка, ныне одна из множества офицеров синдиката. Получившая столь высокую позицию не за связи, а за свои способности. \
-			Движимая местью за потерю родной сестры из-за коррупционных верхушек Нанотрейзен, она вступила в Синдикат,  \
+	desc = "Загадочная девушка, ныне одна из множества офицеров \"Синдиката\". Получившая столь высокую позицию не за связи, а за свои способности. \
+			Движимая местью за потерю родной сестры из-за коррупционных верхушек \"Нанотрейзен\", она вступила в Синдикат,  \
 			где стала известна и как способный агент и как отличный инженер. Хоть ее позывной и отсылал на пушистых, в душе она их ненавидела..."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "furukai"
@@ -376,7 +377,7 @@
 
 /obj/structure/statue/ell_good
 	name = "Mr.Буум"
-	desc = "Загадочный клоун с жёлтым оттенком кожи и выразительными зелёными глазами. Лучший двойной агент синдиката умудрявшийся захватить власть множества объектов. \
+	desc = "Загадочный клоун с жёлтым оттенком кожи и выразительными зелёными глазами. Лучший двойной агент \"Синдиката\" умудрявшийся захватить власть множества объектов. \
 			Его имя часто произносят неправильно из-за чего его заслуги по документам принадлежат сразу нескольким Буумам. \
 			Так же знаменит тем, что убедил руководство НТ тратить время, силы и средства, на золотой унитаз."
 	icon = 'icons/obj/statuelarge.dmi'
@@ -469,7 +470,7 @@
 	lit = TRUE
 	if(show_message)
 		usr.visible_message(show_message)
-	set_light(CANDLE_LUM, l_on = TRUE)
+	set_light(3, l_on = TRUE)
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/statue/unknown/attack_hand(mob/user)

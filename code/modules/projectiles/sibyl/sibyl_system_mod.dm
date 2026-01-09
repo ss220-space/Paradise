@@ -1,5 +1,10 @@
 GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 
+// Sibyl System limit level
+#define SIBYL_NONLETHAL 1
+#define SIBYL_LETHAL 2
+#define SIBYL_DESTRUCTIVE 3
+
 /obj/item/sibyl_system_mod
 	name = "модуль Sibyl System"
 	desc = "Проприетарный модуль от правоохранительной организации на энергетические оружия для подключения к системе Sibyl System"
@@ -8,12 +13,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	item_state = "sibyl_chip"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "combat=4;magnets=3;engineering=3"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	var/obj/item/gun/energy/weapon = null
 	var/obj/item/card/id/auth_id = null
 	var/state = SIBSYS_STATE_UNINSTALLED
 	var/limit = SIBYL_NONLETHAL
-	var/emagged = FALSE
 
 	/// Flag for registering SSsecurity_level
 	var/registered = FALSE
@@ -213,3 +217,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	weapon = null
 	auth_id = null
 	return ..()
+
+#undef SIBYL_NONLETHAL
+#undef SIBYL_LETHAL
+#undef SIBYL_DESTRUCTIVE

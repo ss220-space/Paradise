@@ -378,7 +378,7 @@
 
 /obj/machinery/shower/Initialize(mapload, newdir = SOUTH, building = FALSE)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	if(building)
 		setDir(newdir)
 		pixel_x = 0
@@ -820,17 +820,6 @@
 	icon_state = "shower"
 	item_state = "buildpipe"
 
-/obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
-	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
-	if(!on_wall || !user)
-		return
-	if(proximity_flag != 1) //if we aren't next to the wall
-		return
-	if(!(get_dir(on_wall, user) in GLOB.cardinal))
-		to_chat(user, span_warning("You need to be standing next to a wall to place \the [src]."))
-		return
-	return 1
-
 /obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
 	var/obj/machinery/shower/S = new(get_turf(user), get_dir(on_wall, user), TRUE)
 	transfer_fingerprints_to(S)
@@ -839,7 +828,7 @@
 /obj/item/bathroom_parts
 	name = "toilet in a box"
 	desc = "An entire toilet in a box, straight from Space Sweden. It has an unpronounceable name."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "largebox"
 	w_class = WEIGHT_CLASS_BULKY
 	var/result = /obj/structure/toilet
