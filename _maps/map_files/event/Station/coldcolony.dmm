@@ -59146,7 +59146,7 @@
 	},
 /area/coldcolony/malta/bridge/vip)
 "vDz" = (
-/obj/machinery/power/generator,
+/obj/machinery/power/teg,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"

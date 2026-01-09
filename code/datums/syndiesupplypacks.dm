@@ -834,7 +834,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/engineering/engine/teg
 	name = "Thermo-Electric Generator Crate"
 	contains = list(
-		/obj/machinery/power/generator,
+		/obj/machinery/power/teg,
 		/obj/item/pipe/circulator,
 		/obj/item/pipe/circulator,
 	)

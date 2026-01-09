@@ -12247,7 +12247,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
-/obj/machinery/power/generator,
+/obj/machinery/power/teg,
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	d1 = 1;
