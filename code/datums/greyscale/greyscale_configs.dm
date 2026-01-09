@@ -48,6 +48,111 @@
 /datum/greyscale_config/screwdriver_belt
 	icon_file = 'icons/obj/clothing/belt_overlays.dmi'
 	json_config = 'code/datums/greyscale/json_configs/screwdriver_worn.json'
+
+
+/datum/greyscale_config/jumpsuit
+	icon_file = 'icons/obj/clothing/uniforms.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit.json'
+
+/datum/greyscale_config/jumpsuit_worn
+	icon_file = 'icons/mob/clothing/uniform.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit_worn.json'
+
+/datum/greyscale_config/jumpsuit_worn/vox
+	icon_file = 'icons/mob/clothing/species/vox/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_worn/drask
+	icon_file = 'icons/mob/clothing/species/drask/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_worn/monkey
+	icon_file = 'icons/mob/clothing/species/monkey/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_worn/grey
+	icon_file = 'icons/mob/clothing/species/grey/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_worn/unathi
+	icon_file = 'icons/mob/clothing/species/unathi/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_inhand_left
+	icon_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit_inhand.json'
+
+/datum/greyscale_config/jumpsuit_inhand_right
+	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit_inhand.json'
+
+/datum/greyscale_config/jumpsuit_prison
+	icon_file = 'icons/obj/clothing/uniforms.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison.json'
+
+/datum/greyscale_config/jumpsuit_prison_worn
+	icon_file = 'icons/mob/clothing/uniform.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison_worn.json'
+
+/datum/greyscale_config/jumpsuit_prison_worn/vox
+	icon_file = 'icons/mob/clothing/species/vox/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_prison_worn/drask
+	icon_file = 'icons/mob/clothing/species/drask/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_prison_worn/monkey
+	icon_file = 'icons/mob/clothing/species/monkey/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_prison_worn/grey
+	icon_file = 'icons/mob/clothing/species/grey/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_prison_worn/unathi
+	icon_file = 'icons/mob/clothing/species/unathi/uniform.dmi'
+
+/datum/greyscale_config/jumpsuit_prison_inhand_left
+	icon_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison_inhand.json'
+
+/datum/greyscale_config/jumpsuit_prison_inhand_right
+	icon_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/jumpsuit_prison_inhand.json'
+
+/datum/greyscale_config/sneakers
+	icon_file = 'icons/obj/clothing/shoes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers.json'
+
+/datum/greyscale_config/sneakers_worn
+	icon_file = 'icons/mob/clothing/feet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers_worn.json'
+
+/datum/greyscale_config/sneakers_orange
+	icon_file = 'icons/obj/clothing/shoes.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers_orange.json'
+
+/datum/greyscale_config/sneakers_orange_worn
+	icon_file = 'icons/mob/clothing/feet.dmi'
+	json_config = 'code/datums/greyscale/json_configs/sneakers_orange_worn.json'
+
+/datum/greyscale_config/sneakers_worn/vox
+	icon_file = 'icons/mob/clothing/species/vox/shoes.dmi'
+
+/datum/greyscale_config/sneakers_worn/drask
+	icon_file = 'icons/mob/clothing/species/drask/shoes.dmi'
+
+/datum/greyscale_config/sneakers_worn/monkey
+	icon_file = 'icons/mob/clothing/species/monkey/shoes.dmi'
+
+/datum/greyscale_config/sneakers_worn/unathi
+	icon_file = 'icons/mob/clothing/species/unathi/shoes.dmi'
+
+/datum/greyscale_config/sneakers_orange_worn/vox
+	icon_file = 'icons/mob/clothing/species/vox/shoes.dmi'
+
+/datum/greyscale_config/sneakers_orange_worn/monkey
+	icon_file = 'icons/mob/clothing/species/monkey/shoes.dmi'
+
+/datum/greyscale_config/sneakers_orange_worn/unathi
+	icon_file = 'icons/mob/clothing/species/unathi/shoes.dmi'
+
+/datum/greyscale_config/sneakers_orange_worn/drask
+	icon_file = 'icons/mob/clothing/species/drask/shoes.dmi'
+
+
 /*
 /datum/greyscale_config/prototype_canister
 	icon_file = 'icons/obj/atmospherics/prototype_canister.dmi'

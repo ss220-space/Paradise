@@ -65209,7 +65209,7 @@
 "kaO" = (
 /obj/item/clothing/under/color/orange/prison,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/structure/table,
 /obj/item/melee/bigiron,
 /turf/simulated/floor/plasteel{
@@ -90049,7 +90049,7 @@
 "pPR" = (
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},
@@ -108738,7 +108738,7 @@
 "tYs" = (
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/perma)

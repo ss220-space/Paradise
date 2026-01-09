@@ -32,7 +32,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
 	suit = /obj/item/clothing/suit/storage/labcoat/cmo
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
 	l_pocket = /obj/item/lighter/zippo/cmo
@@ -76,7 +76,7 @@
 
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
@@ -156,7 +156,7 @@
 
 	uniform = /obj/item/clothing/under/rank/medical/mortician
 	suit = /obj/item/clothing/suit/storage/labcoat/mortician
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
@@ -223,7 +223,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chemist
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/science
 	id = /obj/item/card/id/medical
@@ -261,7 +261,7 @@
 
 	uniform = /obj/item/clothing/under/rank/geneticist
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_medsci
 	id = /obj/item/card/id/genetics
 	suit_store = /obj/item/flashlight/pen
@@ -301,7 +301,7 @@
 
 	uniform = /obj/item/clothing/under/rank/virologist
 	suit = /obj/item/clothing/suit/storage/labcoat/virologist
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	mask = /obj/item/clothing/mask/surgical
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical

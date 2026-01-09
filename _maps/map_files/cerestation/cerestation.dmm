@@ -1942,7 +1942,7 @@
 /area/security/prisonlockers)
 "asa" = (
 /obj/structure/table,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/clothing/under/color/orange/prison,
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
@@ -22808,7 +22808,7 @@
 /area/maintenance/disposal/west)
 "cVO" = (
 /obj/structure/table,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/clothing/under/color/orange/prison,
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -39110,7 +39110,7 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/clothing/under/color/orange/prison,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
@@ -83590,7 +83590,7 @@
 /area/security/lobby)
 "uam" = (
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},

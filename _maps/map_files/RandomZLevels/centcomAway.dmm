@@ -5759,7 +5759,7 @@
 "ph" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/hatchet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -5796,7 +5796,7 @@
 "pl" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/hatchet,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

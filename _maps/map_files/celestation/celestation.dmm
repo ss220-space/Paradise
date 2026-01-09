@@ -786,7 +786,7 @@
 /area/civilian/vacantoffice)
 "ahP" = (
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /turf/simulated/floor/plating{
 	icon_state = "asteroidplating"
 	},
@@ -87820,7 +87820,7 @@
 "pAf" = (
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
@@ -130900,7 +130900,7 @@
 /area/engineering/mechanic_workshop/expedition)
 "xOq" = (
 /obj/structure/table,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/clothing/under/color/orange/prison,
 /turf/simulated/floor/plasteel{
 	dir = 10;

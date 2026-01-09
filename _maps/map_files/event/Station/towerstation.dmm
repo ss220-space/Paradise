@@ -16355,19 +16355,19 @@
 /area/crew_quarters/captain/bedroom)
 "kBV" = (
 /obj/structure/table,
-/obj/item/clothing/shoes/orange{
+/obj/item/clothing/shoes/color/orange/prison{
 	pixel_x = -6;
 	pixel_y = 10
 	},
-/obj/item/clothing/shoes/orange{
+/obj/item/clothing/shoes/color/orange/prison{
 	pixel_x = -6;
 	pixel_y = 4
 	},
-/obj/item/clothing/shoes/orange{
+/obj/item/clothing/shoes/color/orange/prison{
 	pixel_x = -6;
 	pixel_y = -2
 	},
-/obj/item/clothing/shoes/orange{
+/obj/item/clothing/shoes/color/orange/prison{
 	pixel_x = -6;
 	pixel_y = -8
 	},

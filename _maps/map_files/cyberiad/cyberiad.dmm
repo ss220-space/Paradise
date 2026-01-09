@@ -6961,7 +6961,7 @@
 	},
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "ayp" = (
@@ -11390,7 +11390,7 @@
 "aOe" = (
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/storage/box/prisoner,
 /turf/simulated/floor/plasteel,
 /area/security/prisonlockers)
@@ -53743,8 +53743,8 @@
 	},
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/clothing/under/redpyjamas,
 /obj/item/clothing/under/redpyjamas,
 /obj/item/clothing/under/bluepyjamas,
@@ -61472,7 +61472,7 @@
 /obj/item/clothing/head/beaverhat,
 /obj/item/clothing/head/beret,
 /obj/item/clothing/shoes/cowboy,
-/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/color/black,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood/fancy/light,
 /area/maintenance/apmaint)

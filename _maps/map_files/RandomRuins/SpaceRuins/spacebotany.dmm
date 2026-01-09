@@ -2788,7 +2788,7 @@
 /obj/item/clothing/head/soft/green,
 /obj/item/clothing/suit/cyberpunk/white,
 /obj/item/clothing/under/color/white,
-/obj/item/clothing/shoes/brown{
+/obj/item/clothing/shoes/color/brown{
 	pixel_y = -10
 	},
 /obj/item/seeds/random,
@@ -3189,7 +3189,7 @@
 /obj/item/clothing/suit/cyberpunk,
 /obj/item/clothing/mask/gas/syndicate,
 /obj/item/clothing/head/soft/purple,
-/obj/item/clothing/shoes/brown{
+/obj/item/clothing/shoes/color/brown{
 	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{

@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("White gloves", /obj/item/clothing/gloves/color/white, 3),
 	new /datum/stack_recipe("White jumpsuit", /obj/item/clothing/under/color/white, 3),
 	new /datum/stack_recipe("White scarf", /obj/item/clothing/accessory/scarf/white),
-	new /datum/stack_recipe("White shoes", /obj/item/clothing/shoes/white, 2),
+	new /datum/stack_recipe("White shoes", /obj/item/clothing/shoes/color/white, 2),
 	new /datum/stack_recipe("White footwraps", /obj/item/clothing/shoes/footwraps, 2),
 	new /datum/stack_recipe("White softcap", /obj/item/clothing/head/soft/mime, 2),
 	null,

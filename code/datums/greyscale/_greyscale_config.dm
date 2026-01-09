@@ -146,9 +146,10 @@
 	var/icon/new_icon
 	for(var/datum/greyscale_layer/layer as anything in group)
 		var/icon/layer_icon
+		var/list/list_layer = layer
 		if(islist(layer))
 			layer_icon = GenerateLayerGroup(colors, layer, render_steps)
-			layer = layer[1] // When there are multiple layers in a group like this we use the first one's blend mode
+			layer = list_layer[1] // When there are multiple layers in a group like this we use the first one's blend mode
 		else
 			layer_icon = layer.Generate(colors, render_steps)
 

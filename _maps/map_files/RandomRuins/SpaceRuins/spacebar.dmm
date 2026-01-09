@@ -628,7 +628,7 @@
 /area/ruin/powered/space_bar)
 "JZ" = (
 /obj/structure/closet,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/jacket/miljacket,
 /obj/item/clothing/head/det_hat,
 /turf/simulated/floor/wood,

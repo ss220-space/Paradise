@@ -41,7 +41,7 @@
 	jobtype = /datum/job/captain
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/caphat
 	l_ear = /obj/item/radio/headset/heads/captain/alt
 	glasses = /obj/item/clothing/glasses/hud/blueshield/cap
@@ -109,7 +109,7 @@
 	jobtype = /datum/job/hop
 	uniform = /obj/item/clothing/under/rank/head_of_personnel_alt
 	suit = /obj/item/clothing/suit/hop_jacket
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/hopcap
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
 	l_ear = /obj/item/radio/headset/heads/hop
@@ -333,7 +333,7 @@
 	jobtype = /datum/job/lawyer
 	uniform = /obj/item/clothing/under/rank/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
 	id = /obj/item/card/id/iaa

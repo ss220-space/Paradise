@@ -6080,7 +6080,7 @@
 /turf/simulated/wall,
 /area/mine/laborcamp)
 "GF" = (
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,

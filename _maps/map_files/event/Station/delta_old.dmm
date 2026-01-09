@@ -60294,7 +60294,7 @@
 "joq" = (
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/wrench,
 /turf/simulated/floor/plating,
 /area/maintenance/perma)
@@ -84423,7 +84423,7 @@
 "pPR" = (
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/radio/intercom{
 	pixel_x = 28
 	},

@@ -181,7 +181,7 @@
 "bJ" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/grenade/smokebomb,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
@@ -335,7 +335,7 @@
 /area/admin)
 "do" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/grenade/smokebomb,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
@@ -717,7 +717,7 @@
 /area/holodeck/source_thunderdomecourt)
 "gS" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/grenade/smokebomb,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
@@ -739,7 +739,7 @@
 "ha" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -755,7 +755,7 @@
 "hh" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/red,
@@ -833,7 +833,7 @@
 /area/admin)
 "ir" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/melee/energy/sword/saber/blue,
@@ -869,7 +869,7 @@
 /area/admin)
 "iA" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -1036,7 +1036,7 @@
 /area/holodeck/source_knightarena)
 "jD" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/melee/energy/sword/saber/blue,
@@ -1132,7 +1132,7 @@
 "ks" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -1151,7 +1151,7 @@
 /area/tdome/newtdome)
 "kA" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -1225,7 +1225,7 @@
 /obj/item/clothing/suit/storage/blacktrenchcoat{
 	icon_state = "nazi"
 	},
-/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/color/black,
 /turf/simulated/floor/wood,
 /area/admin)
 "lc" = (
@@ -1421,7 +1421,7 @@
 "nO" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/grenade/smokebomb,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
@@ -1745,7 +1745,7 @@
 /area/holodeck/source_snowfield)
 "tf" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -2013,7 +2013,7 @@
 /area/admin)
 "ws" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/melee/energy/sword/saber/blue,
@@ -2273,7 +2273,7 @@
 "zd" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -3396,7 +3396,7 @@
 "Nr" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/red,
@@ -4247,7 +4247,7 @@
 /area/admin)
 "XV" = (
 /obj/structure/rack,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -4281,7 +4281,7 @@
 "Ya" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,

@@ -2329,7 +2329,7 @@
 /area/ruin/space/crashedipcship/asteroid)
 "LH" = (
 /obj/item/organ/external/chest/ipc,
-/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/color/black,
 /obj/item/shard{
 	icon_state = "small"
 	},

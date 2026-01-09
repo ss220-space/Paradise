@@ -211,6 +211,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/list/greyscale_config_worn
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/list/greyscale_config_worn_species
+	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_left
+	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_right
+
 	//Tooltip vars
 	var/tip_timer = 0
 
@@ -244,6 +253,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/Initialize(mapload)
 	. = ..()
+	update_item_greyscale()
 
 	/// marks all items in storage as being such
 	if(isstorage(loc))
@@ -1237,6 +1247,22 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/update_atom_colour()
 	. = ..()
 	update_equipped_item()
+
+/// Checks if this atom uses the GAS system and if so updates the worn and inhand icons
+/obj/item/proc/update_item_greyscale()
+	if(!greyscale_colors)
+		return
+	if(greyscale_config_worn)
+		for(var/config in greyscale_config_worn)
+			onmob_sheets[config] = SSgreyscale.GetColoredIconByType(greyscale_config_worn[config], greyscale_colors)
+	if(greyscale_config_worn_species)
+		for(var/config in greyscale_config_worn_species)
+			sprite_sheets[config] = SSgreyscale.GetColoredIconByType(greyscale_config_worn_species[config], greyscale_colors)
+	if(greyscale_config_inhand_left)
+		lefthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_left, greyscale_colors)
+	if(greyscale_config_inhand_right)
+		righthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_right, greyscale_colors)
+	return
 
 
 /obj/item/proc/add_tape()

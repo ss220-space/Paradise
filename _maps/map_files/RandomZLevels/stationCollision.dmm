@@ -592,7 +592,7 @@
 	name = "Syndicate agent remains"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/toy/sword,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"

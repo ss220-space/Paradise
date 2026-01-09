@@ -991,7 +991,7 @@
 	new /obj/item/clothing/under/rank/medical (src)
 	new /obj/item/pda/heads/ert/medical (src)
 	new /obj/item/card/id/ert/registration/medic (src)
-	new /obj/item/clothing/shoes/white (src)
+	new /obj/item/clothing/shoes/color/white (src)
 	new /obj/item/clothing/gloves/combat (src)
 	new /obj/item/clothing/suit/armor/vest/ert/medical (src)
 	new /obj/item/gun/energy/gun/pdw9/ert (src)
@@ -1174,7 +1174,7 @@
 	new /obj/item/clothing/under/rank/medical (src)
 	new /obj/item/pda/heads/ert/medical (src)
 	new /obj/item/card/id/ert/registration/medic (src)
-	new /obj/item/clothing/shoes/white (src)
+	new /obj/item/clothing/shoes/color/white (src)
 	new /obj/item/clothing/gloves/combat (src)
 	new /obj/item/clothing/suit/space/hardsuit/ert/medical (src)
 	new /obj/item/clothing/glasses/hud/health/sunglasses (src)
@@ -1606,7 +1606,7 @@
 /obj/item/storage/box/bombsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)
 	new /obj/item/clothing/under/rank/security(src)
-	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/color/brown(src)
 	new /obj/item/clothing/head/bomb_hood/security(src)
 
 /*

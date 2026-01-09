@@ -5473,7 +5473,7 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/clothing/suit/tracksuit,
 /obj/item/clothing/under/pants/track,
-/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/color/black,
 /obj/item/clothing/head/soft/black,
 /obj/structure/closet,
 /turf/simulated/floor/plasteel/airless{

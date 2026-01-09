@@ -2109,7 +2109,7 @@
 	req_access = list(160);
 	name = "prison locker"
 	},
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange,
 /obj/item/clothing/head/beanie/orange,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2411,7 +2411,7 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "gF" = (
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/card/id/prisoner/random,
 /obj/item/clothing/head/beanie/orange,
 /obj/item/clothing/under/color/orange/prison,
@@ -4023,7 +4023,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "lf" = (
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/card/id/prisoner/random,
 /obj/item/clothing/head/beanie/orange,
 /obj/item/clothing/under/color/orange/prison,
@@ -6533,7 +6533,7 @@
 /area/ruin/space/pirate_base/lab_hall)
 "sl" = (
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/card/id/prisoner/random,
 /obj/machinery/light{
 	dir = 1
@@ -12089,7 +12089,7 @@
 /area/shuttle/pirate_corvette)
 "Ir" = (
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet{
 	req_access = list(160);
@@ -12791,7 +12791,7 @@
 	icon_state = "plumbing";
 	name = "plumbing"
 	},
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 30;
 	maxHealth = 30
@@ -13181,7 +13181,7 @@
 /area/ruin/space/pirate_base/atmos)
 "LG" = (
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/item/clothing/head/beanie/orange,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/card/id/prisoner/random,

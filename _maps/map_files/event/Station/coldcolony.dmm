@@ -35623,7 +35623,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
 "mYg" = (
 /obj/structure/closet/secure_closet/cabinet,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/head/fedora/brownfedora,
 /obj/item/storage/pill_bottle/random_drug_bottle,
 /obj/item/clothing/under/sovietofficer,

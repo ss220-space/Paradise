@@ -7597,16 +7597,10 @@
 /obj/item/clothing/shoes/laceup,
 /obj/item/clothing/shoes/leather,
 /obj/item/clothing/shoes/leather,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white/secshoes,
+/obj/item/clothing/shoes/color/white/secshoes,
 /obj/item/clothing/shoes/centcom{
 	desc = null;
 	name = "Dress shoes"
@@ -24492,16 +24486,10 @@
 /obj/item/clothing/shoes/laceup,
 /obj/item/clothing/shoes/leather,
 /obj/item/clothing/shoes/leather,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white/secshoes,
+/obj/item/clothing/shoes/color/white/secshoes,
 /obj/item/clothing/shoes/centcom{
 	desc = null;
 	name = "Dress shoes"

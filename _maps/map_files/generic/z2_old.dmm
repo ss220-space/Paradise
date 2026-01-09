@@ -10361,7 +10361,7 @@
 "hQm" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/grenade/smokebomb,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
@@ -10990,7 +10990,7 @@
 "ipG" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,
@@ -13818,7 +13818,7 @@
 /obj/item/clothing/suit/storage/blacktrenchcoat{
 	icon_state = "nazi"
 	},
-/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/color/black,
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
@@ -14633,7 +14633,7 @@
 "kVg" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/tdome/red,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/red,
@@ -15015,7 +15015,7 @@
 "lgX" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/tdome/green,
 /obj/item/clothing/head/helmet/thunderdome,
 /obj/item/melee/energy/sword/saber/green,
@@ -21594,16 +21594,10 @@
 /obj/item/clothing/shoes/laceup,
 /obj/item/clothing/shoes/leather,
 /obj/item/clothing/shoes/leather,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white/secshoes,
+/obj/item/clothing/shoes/color/white/secshoes,
 /obj/item/clothing/shoes/centcom{
 	desc = null;
 	name = "Dress shoes"
@@ -25345,7 +25339,7 @@
 "spy" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/grenade/smokebomb,
 /obj/item/restraints/legcuffs/beartrap,
 /obj/item/sleeping_carp_scroll,
@@ -33224,8 +33218,8 @@
 /obj/structure/closet,
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
 /turf/simulated/floor/indestructible{
 	icon_state = "dark"
 	},
@@ -33673,7 +33667,7 @@
 "yix" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet/swat,
 /obj/item/gun/energy/laser,

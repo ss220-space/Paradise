@@ -156,7 +156,7 @@
 	uniform = /obj/item/clothing/under/rank/cargotech
 	suit = /obj/item/clothing/suit/armor/vest
 	id = /obj/item/card/id/syndicate/cargo
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	back = /obj/item/storage/backpack/syndicate/cargo
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef
@@ -179,7 +179,7 @@
 	uniform = /obj/item/clothing/under/suit_jacket/charcoal
 	suit = /obj/item/clothing/suit/chef/classic
 	id = /obj/item/card/id/syndicate/kitchen
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	back = /obj/item/storage/backpack/syndicate
 
 /obj/effect/mob_spawn/human/space_base_syndicate/engineer
