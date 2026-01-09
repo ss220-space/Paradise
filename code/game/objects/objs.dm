@@ -38,9 +38,6 @@
 	var/on_blueprints = FALSE
 	/// Does this object require you to hold it to commit suicide with it?
 	var/suicidal_hands = FALSE
-	/// Typepath of a datum/multitool_menu subtype or null.
-	var/multitool_menu_type = null
-	var/datum/multitool_menu/multitool_menu
 
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
@@ -318,13 +315,6 @@
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
-
-/obj/proc/multitool_menu_interact(mob/user, obj/item/multitool)
-	if(!multitool_menu_type)
-		return
-	if(!multitool_menu)
-		multitool_menu = new multitool_menu_type(src)
-	multitool_menu.interact(user, multitool)
 
 /proc/get_obj_in_atom_without_warning(atom/A)
 	if(!istype(A))

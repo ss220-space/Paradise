@@ -4,6 +4,7 @@
 #define MASS_DRIVER_BUILD_WIRED 3
 #define MASS_DRIVER_BUILD_GRILLE 4
 
+// MARK: mass driver
 /obj/machinery/mass_driver
 	name = "mass driver"
 	desc = "Shoots things into space."
@@ -13,22 +14,28 @@
 	idle_power_usage = 2
 	active_power_usage = 50
 
-	var/power = 1.0
-	var/code = 1.0
+	/// Throw power
+	var/power = 1
+	/// ID tag, used for buttons
 	var/id_tag = "default"
-	var/drive_range = 50 //this is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
+	/// This is mostly irrelevant since current mass drivers throw into space, but you could make a lower-range mass driver for interstation transport or something I guess.
+	var/drive_range = 50
 
-	multitool_menu_type = /datum/multitool_menu/idtag/mass_driver
-
-/obj/machinery/mass_driver/multitool_act(mob/user, obj/item/I)
+/obj/machinery/mass_driver/multitool_act(mob/user, obj/item/item)
 	. = TRUE
-	multitool_menu_interact(user, I)
+	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
+		return
 
-/obj/machinery/mass_driver/screwdriver_act(mob/user, obj/item/I)
+	var/new_tag = tgui_input_text("Enter a new ID tag", "ID Tag", id_tag, user)
+
+	if(new_tag && Adjacent(user))
+		id_tag = new_tag
+
+/obj/machinery/mass_driver/screwdriver_act(mob/user, obj/item/item)
 	. = TRUE
 	to_chat(user, "You begin to unscrew the bolts off [src]...")
-	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
-		return .
+	if(!item.use_tool(src, user, 3 SECONDS, volume = item.tool_volume))
+		return
 	var/obj/machinery/mass_driver_frame/frame = new(loc)
 	frame.setDir(dir)
 	frame.set_anchored(TRUE)
@@ -39,54 +46,40 @@
 /obj/machinery/mass_driver/proc/drive(amount)
 	if(stat & (BROKEN|NOPOWER))
 		return
-	use_power(500*power)
-	var/O_limit = 0
-	var/atom/target = get_edge_target_turf(src, dir)
-	for(var/atom/movable/O in loc)
-		if((!O.anchored && O.move_resist != INFINITY) || ismecha(O)) //Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
-			O_limit++
-			if(O_limit >= 20)//so no more than 20 items are sent at a time, probably for counter-lag purposes
+
+	use_power(500 * power)
+	var/launched_count = 0
+	var/atom/launch_target = get_edge_target_turf(src, dir)
+	for(var/atom/movable/movable_atom in loc)
+		//Mechs need their launch platforms. Also checks if something is anchored or has move resist INFINITY, which should stop ghost flinging.
+		if((!movable_atom.anchored && movable_atom.move_resist != INFINITY) || ismecha(movable_atom))
+			launched_count++
+
+			if(launched_count >= 20) // so no more than 20 items are sent at a time, probably for counter-lag purposes
 				break
+
 			use_power(500)
-			spawn()
-				var/coef = 1
-				if(emagged)
-					coef = 5
-				O.throw_at(target, drive_range * power * coef, power * coef)
+			var/coefficient = 1
+			if(emagged)
+				coefficient = 5
+			INVOKE_ASYNC(movable_atom, TYPE_PROC_REF(/atom/movable, throw_at), launch_target, (drive_range * power * coefficient), (power * coefficient))
+
 	flick("mass_driver1", src)
-	return
 
 /obj/machinery/mass_driver/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
 	drive()
 	..(severity)
 
 /obj/machinery/mass_driver/emag_act(mob/user)
 	if(!emagged)
-		emagged = 1
-		if(user)
-			to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
-		return 1
-	return -1
+		emagged = TRUE
+		to_chat(user, "You hack the Mass Driver, radically increasing the force at which it'll throw things. Better not stand in its way.")
+		return TRUE
 
-////////////////MASS BUMPER///////////////////
-
-/obj/machinery/mass_driver/bumper
-	name = "mass bumper"
-	desc = "Now you're here, now you're over there."
-	density = TRUE
-
-/obj/machinery/mass_driver/bumper/Bumped(atom/movable/moving_atom)
-	. = ..()
-	set_density(FALSE)
-	step(moving_atom, get_dir(moving_atom, src))
-	spawn(1)
-		set_density(TRUE)
-	drive()
-
-////////////////MASS DRIVER FRAME///////////////////
-
+// MARK: mass driver frame
 /obj/machinery/mass_driver_frame
 	name = "mass driver frame"
 	icon = 'icons/obj/objects.dmi'
@@ -102,14 +95,14 @@
 		if(MASS_DRIVER_BUILD_LOOSE)
 			to_chat(user, "You begin to anchor [src] on the floor.")
 			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_LOOSE)
-				return .
+				return
 			set_anchored(TRUE)
 			build = MASS_DRIVER_BUILD_ANCHORED
 			to_chat(user, span_notice("You anchor [src]!"))
 		if(MASS_DRIVER_BUILD_ANCHORED)
 			to_chat(user, "You begin to de-anchor [src] from the floor.")
 			if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_ANCHORED)
-				return .
+				return
 			set_anchored(FALSE)
 			build = MASS_DRIVER_BUILD_LOOSE
 			to_chat(user, span_notice("You de-anchored [src]!"))
@@ -120,7 +113,7 @@
 	. = TRUE
 	to_chat(user, "You begin to remove the wiring from [src].")
 	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_WIRED)
-		return .
+		return
 	build = MASS_DRIVER_BUILD_WELDED
 	to_chat(user, span_notice("You've removed the cables from [src]."))
 
@@ -130,7 +123,7 @@
 	. = TRUE
 	to_chat(user, "You begin to pry off the grille from [src]...")
 	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || build != MASS_DRIVER_BUILD_GRILLE)
-		return .
+		return
 	build = MASS_DRIVER_BUILD_WIRED
 	new /obj/item/stack/rods(loc, 2)
 
@@ -139,7 +132,7 @@
 		return FALSE
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return .
+		return
 	to_chat(user, "You finalize the Mass Driver...")
 	var/obj/machinery/mass_driver/driver = new(loc)
 	driver.setDir(dir)
@@ -211,15 +204,12 @@
 			WELDER_FLOOR_SLICE_SUCCESS_MESSAGE
 			build = MASS_DRIVER_BUILD_ANCHORED
 
-/obj/machinery/mass_driver_frame/verb/rotate()
-	set category = VERB_CATEGORY_OBJECT
-	set name = "Повернуть каркас"
-	set src in view(1)
-
-	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
-		return
+/obj/machinery/mass_driver_frame/click_alt(mob/user)
+	if(user.stat || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || HAS_TRAIT(usr, TRAIT_FAKEDEATH))
+		return CLICK_ACTION_BLOCKING
 
 	setDir(turn(dir, -90))
+	return CLICK_ACTION_SUCCESS
 
 #undef MASS_DRIVER_BUILD_LOOSE
 #undef MASS_DRIVER_BUILD_ANCHORED

@@ -2,9 +2,8 @@
 	name = "abstract"
 	desc = "This shouldn't exist"
 	icon_state = "control"
-	materials = list(MAT_METAL=100, MAT_GLASS=50)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 50)
 	origin_tech = "programming=1"
-	multitool_menu_type = /datum/multitool_menu/idtag/multiple_tags/door_control
 	/// The control controls things that have matching id tag
 	var/list/ids = null
 	/// Should it only work on the same z-level
@@ -23,12 +22,15 @@
 	// Cooldown check
 	return ..()
 
-/obj/item/assembly/control/multitool_act(mob/living/user, obj/item/I)
+/obj/item/assembly/control/multitool_act(mob/living/user, obj/item/item)
 	. = TRUE
+	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
+		return
+
 	if(configurable)
-		multitool_menu_interact(user, I)
-	else
-		to_chat(user, span_warning("Это устройство надёжно защищено, изменить настройки нельзя."))
+		var/new_tag = tgui_input_text("Enter a new ID tag", "ID Tag", ids, user)
+		if(new_tag && Adjacent(user))
+			ids = new_tag
 
 /obj/item/assembly/control/poddoor
 	name = "blast door controller"
