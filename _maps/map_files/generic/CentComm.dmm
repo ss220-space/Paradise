@@ -3887,8 +3887,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/spacebar)
 "bRi" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
-/turf/simulated/floor/plasteel{
+/obj/machinery/atmospherics/unary/thermomachine/freezer/turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
 /area/centcom/zone1)
@@ -18431,7 +18430,7 @@
 /obj/structure/sign/poster/official/help_others{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

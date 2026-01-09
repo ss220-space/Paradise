@@ -206,11 +206,7 @@
 	},
 /area/shuttle/transport)
 "C" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 0;
-	dir = 1;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plasteel{
 	dir = 7;
 	icon_state = "yellow"

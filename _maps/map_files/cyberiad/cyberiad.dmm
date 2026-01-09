@@ -27484,7 +27484,7 @@
 	},
 /area/medical/cryo)
 "caH" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /obj/machinery/camera{
@@ -41358,9 +41358,8 @@
 	},
 /area/atmos)
 "daN" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 8;
-	icon_state = "freezer_0"
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -59717,7 +59716,7 @@
 	},
 /area/medical/patients_rooms)
 "jAH" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -77731,7 +77730,7 @@
 	},
 /area/medical/chemistry)
 "rzJ" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/southwest,
@@ -83836,8 +83835,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
 "uew" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
-/obj/machinery/alarm{
+/obj/machinery/atmospherics/unary/thermomachine/freezer/obj/machinery/alarm{
 	pixel_y = 24
 	},
 /obj/machinery/camera{
@@ -85120,9 +85118,9 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "uNv" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
 	dir = 8;
-	on = 1
+	
 	},
 /turf/simulated/floor/plasteel,
 /area/atmos/distribution)
@@ -89168,8 +89166,7 @@
 	},
 /area/toxins/misc_lab)
 "wto" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
-/obj/effect/decal/warning_stripes/northeast,
+/obj/machinery/atmospherics/unary/thermomachine/freezer/obj/effect/decal/warning_stripes/northeast,
 /obj/structure/extinguisher_cabinet{
 	name = "north extinguisher cabinet";
 	pixel_y = 30
@@ -92265,10 +92262,7 @@
 	},
 /area/security/prison/cell_block/A)
 "xIr" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/toxins/server)

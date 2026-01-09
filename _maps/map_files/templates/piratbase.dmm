@@ -11482,7 +11482,7 @@
 	pixel_x = 24;
 	req_access = list(160)
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
