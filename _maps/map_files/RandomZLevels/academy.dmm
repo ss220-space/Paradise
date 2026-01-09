@@ -439,7 +439,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/awaymission/academy/headmaster)
 "cg" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -714,7 +714,7 @@
 /area/awaymission/academy/academyaft)
 "dq" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "vault";
@@ -1399,7 +1399,7 @@
 	},
 /area/awaymission/academy/headmaster)
 "fX" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
 	},
@@ -2292,7 +2292,7 @@
 	},
 /area/awaymission/academy/academyaft)
 "jw" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -5105,7 +5105,7 @@
 	},
 /area/awaymission/academy/classrooms)
 "Kn" = (
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";

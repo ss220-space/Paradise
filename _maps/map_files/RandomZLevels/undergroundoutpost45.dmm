@@ -823,7 +823,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cv" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cw" = (
@@ -1023,7 +1023,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/structure/window/basic{
 	dir = 8;
 	tag = "icon-window (WEST)"
@@ -1052,7 +1052,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cW" = (
@@ -2192,7 +2192,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "fz" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/gateaway)
@@ -3314,7 +3314,7 @@
 	},
 /area/awaymission/UO45/gateaway)
 "ie" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/gateaway)
 "if" = (
@@ -4508,7 +4508,7 @@
 /area/awaymission/UO45/crew_quarters)
 "kD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/structure/window/basic{
 	dir = 4;
 	tag = "icon-window (EAST)"
@@ -5926,7 +5926,7 @@
 	dir = 10;
 	initialize_directions = 10
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -6603,7 +6603,7 @@
 	},
 /area/awaymission/UO45/crew_quarters)
 "om" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -7057,7 +7057,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/engineering)
 "pa" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
 "pb" = (
@@ -8067,7 +8067,7 @@
 /area/awaymission/UO45/crew_quarters)
 "rc" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -8192,7 +8192,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -9306,7 +9306,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape";
@@ -9353,7 +9353,7 @@
 /area/awaymission/UO45/research)
 "tt" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -9584,7 +9584,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tR" = (
@@ -9951,7 +9951,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "uD" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
@@ -10021,7 +10021,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
@@ -10029,7 +10029,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
@@ -10450,7 +10450,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vF" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vG" = (
@@ -10461,7 +10461,7 @@
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
 "vH" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
 "vI" = (

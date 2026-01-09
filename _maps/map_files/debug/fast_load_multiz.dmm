@@ -69,7 +69,7 @@
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
 "nx" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "oJ" = (

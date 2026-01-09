@@ -1390,7 +1390,7 @@
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
 	var/datum/gas_mixture/interior_air
-	var/obj/machinery/portable_atmospherics/canister/air/interior_tank
+	var/obj/machinery/atmospherics/portable/canister/air/interior_tank
 	var/no_manipulation = FALSE
 	/// UIDs of brave ones who ignore warnings and will loose their blood
 	var/list/lightheaded

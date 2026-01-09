@@ -6,7 +6,7 @@
 /// The pump will be pumping gas out.
 #define DIRECTION_OUT 1
 
-/obj/machinery/portable_atmospherics/pump
+/obj/machinery/atmospherics/portable/pump
 	name = "Portable Air Pump"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "psiphon:0"
@@ -19,17 +19,17 @@
 	/// The desired pressure the pump should be outputting, either into the atmosphere, or into a holding tank.
 	var/target_pressure = 101.325
 
-/obj/machinery/portable_atmospherics/pump/update_icon_state()
+/obj/machinery/atmospherics/portable/pump/update_icon_state()
 	icon_state = "psiphon:[on]"
 
-/obj/machinery/portable_atmospherics/pump/update_overlays()
+/obj/machinery/atmospherics/portable/pump/update_overlays()
 	. = ..()
 	if(holding)
 		. += "siphon-open"
 	if(connected_port)
 		. += "siphon-connector"
 
-/obj/machinery/portable_atmospherics/pump/emp_act(severity)
+/obj/machinery/atmospherics/portable/pump/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
@@ -45,14 +45,14 @@
 
 	..(severity)
 
-/obj/machinery/portable_atmospherics/pump/process_atmos()
+/obj/machinery/atmospherics/portable/pump/process_atmos()
 	..()
 	var/datum/milla_safe/portable_pump_process/milla = new()
 	milla.invoke_async(src)
 
 /datum/milla_safe/portable_pump_process
 
-/datum/milla_safe/portable_pump_process/on_run(obj/machinery/portable_atmospherics/pump/pump)
+/datum/milla_safe/portable_pump_process/on_run(obj/machinery/atmospherics/portable/pump/pump)
 	if(!pump.on)
 		return
 
@@ -92,11 +92,11 @@
 
 	pump.air_contents.merge(removed)
 
-/obj/machinery/portable_atmospherics/pump/return_obj_air()
+/obj/machinery/atmospherics/portable/pump/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
-/obj/machinery/portable_atmospherics/pump/replace_tank(mob/living/user, close_valve)
+/obj/machinery/atmospherics/portable/pump/replace_tank(mob/living/user, close_valve)
 	. = ..()
 	if(.)
 		if(close_valve)
@@ -106,26 +106,26 @@
 		else if(on && holding && direction == DIRECTION_OUT)
 			investigate_log("[key_name_log(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
 
-/obj/machinery/portable_atmospherics/pump/attack_ai(mob/user)
+/obj/machinery/atmospherics/portable/pump/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/pump/attack_ghost(mob/user)
+/obj/machinery/atmospherics/portable/pump/attack_ghost(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/pump/attack_hand(mob/user)
+/obj/machinery/atmospherics/portable/pump/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/portable_atmospherics/pump/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/portable/pump/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PortablePump", "Portable Pump")
 		ui.open()
 
-/obj/machinery/portable_atmospherics/pump/ui_data(mob/user)
+/obj/machinery/atmospherics/portable/pump/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"direction" = direction,
@@ -142,7 +142,7 @@
 
 	return data
 
-/obj/machinery/portable_atmospherics/pump/ui_act(action, list/params)
+/obj/machinery/atmospherics/portable/pump/ui_act(action, list/params)
 	if(..())
 		return
 

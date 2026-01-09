@@ -1028,7 +1028,7 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "pG" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/effect/decal/warning_stripes/southeastcorner,
 /obj/effect/decal/cleanable/cobweb,
@@ -1831,7 +1831,7 @@
 	dir = 4
 	},
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -6;
 	pixel_y = -30
@@ -2477,7 +2477,7 @@
 	},
 /obj/effect/decal/warning_stripes/north,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
@@ -2702,7 +2702,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/north,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -3637,7 +3637,7 @@
 /area/ruin/ussp_xeno/medbay)
 "Ym" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/structure/window/reinforced{
 	dir = 4
 	},

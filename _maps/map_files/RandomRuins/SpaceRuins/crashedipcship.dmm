@@ -264,7 +264,7 @@
 	},
 /area/ruin/space/crashedipcship/aft)
 "dQ" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/machinery/door/window/survival_pod,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/crashedipcship/engine)

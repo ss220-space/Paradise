@@ -1,4 +1,4 @@
-/obj/machinery/portable_atmospherics
+/obj/machinery/atmospherics/portable
 	name = "atmoalter"
 	use_power = NO_POWER_USE
 	max_integrity = 250
@@ -11,7 +11,7 @@
 	var/volume = 0
 	var/maximum_pressure = 90*ONE_ATMOSPHERE
 
-/obj/machinery/portable_atmospherics/Initialize(mapload)
+/obj/machinery/atmospherics/portable/Initialize(mapload)
 	. = ..()
 	SSair.atmos_machinery += src
 
@@ -24,34 +24,34 @@
 	check_for_port()
 
 // Late init this otherwise it shares with the port and it tries to div temperature by 0
-/obj/machinery/portable_atmospherics/LateInitialize()
+/obj/machinery/atmospherics/portable/LateInitialize()
 	check_for_port()
 
-/obj/machinery/portable_atmospherics/proc/check_for_port()
+/obj/machinery/atmospherics/portable/proc/check_for_port()
 	var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
 	if(port)
 		connect(port)
 
-/obj/machinery/portable_atmospherics/process_atmos()
+/obj/machinery/atmospherics/portable/process_atmos()
 	if(!connected_port) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
 		air_contents.react()
 		return
 
-/obj/machinery/portable_atmospherics/Destroy()
+/obj/machinery/atmospherics/portable/Destroy()
 	SSair.atmos_machinery -= src
 	disconnect()
 	QDEL_NULL(air_contents)
 	QDEL_NULL(holding)
 	return ..()
 
-/obj/machinery/portable_atmospherics/update_icon_state()
+/obj/machinery/atmospherics/portable/update_icon_state()
 	return
 
-/obj/machinery/portable_atmospherics/update_overlays()
+/obj/machinery/atmospherics/portable/update_overlays()
 	. = list()
 
-/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
+/obj/machinery/atmospherics/portable/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
 		return FALSE
@@ -73,7 +73,7 @@
 
 	return TRUE
 
-/obj/machinery/portable_atmospherics/proc/disconnect()
+/obj/machinery/atmospherics/portable/proc/disconnect()
 	if(!connected_port)
 		return FALSE
 
@@ -84,25 +84,25 @@
 
 	return TRUE
 
-/obj/machinery/portable_atmospherics/portableConnectorReturnAir()
+/obj/machinery/atmospherics/portable/portableConnectorReturnAir()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/click_alt(mob/living/user)
+/obj/machinery/atmospherics/portable/click_alt(mob/living/user)
 	if(!holding)
 		return NONE
 	to_chat(user, span_notice("You remove [holding] from [src]."))
 	replace_tank(user, TRUE)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/portable_atmospherics/examine(mob/user)
+/obj/machinery/atmospherics/portable/examine(mob/user)
 	. = ..()
 	if(holding)
 		. += span_notice("\The [src] contains [holding]. Alt-click [src] to remove it.")
 
-/obj/machinery/portable_atmospherics/return_analyzable_air()
+/obj/machinery/atmospherics/portable/return_analyzable_air()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+/obj/machinery/atmospherics/portable/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
 	if(holding)
 		holding.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
@@ -114,7 +114,7 @@
 	update_icon()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
+/obj/machinery/atmospherics/portable/attackby(obj/item/item, mob/user, params)
 	if((stat & BROKEN) || user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -135,7 +135,7 @@
 
 	return ..()
 
-/obj/machinery/portable_atmospherics/wrench_act(mob/user, obj/item/item)
+/obj/machinery/atmospherics/portable/wrench_act(mob/user, obj/item/item)
 	. = TRUE
 	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
 		return
@@ -156,7 +156,7 @@
 		else
 			to_chat(user, span_notice("Nothing happens."))
 
-/obj/machinery/portable_atmospherics/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+/obj/machinery/atmospherics/portable/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(item.get_final_force(user) < 10 && !(stat & BROKEN))
 		user.visible_message(
 			span_warning("[user] gently pokes [src] with [item]."),

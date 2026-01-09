@@ -118,7 +118,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/shuttle)
 "z" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/shuttle)
 "A" = (

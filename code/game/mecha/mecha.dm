@@ -57,7 +57,7 @@
 	//inner atmos
 	var/use_internal_tank = FALSE
 	var/internal_tank_valve = ONE_ATMOSPHERE
-	var/obj/machinery/portable_atmospherics/canister/internal_tank
+	var/obj/machinery/atmospherics/portable/canister/internal_tank
 	var/datum/gas_mixture/cabin_air
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port = null
 
@@ -202,7 +202,7 @@
 	return cell
 
 /obj/mecha/proc/add_airtank()
-	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
+	internal_tank = new /obj/machinery/atmospherics/portable/canister/air(src)
 	return internal_tank
 
 /obj/mecha/proc/add_cell(obj/item/stock_parts/cell/C=null)

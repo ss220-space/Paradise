@@ -552,7 +552,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
 "vq" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -1014,7 +1014,7 @@
 	},
 /area/ruin/space/gasthelizards/jail)
 "My" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/ruin/space/gasthelizards/viewzone)
 "MI" = (

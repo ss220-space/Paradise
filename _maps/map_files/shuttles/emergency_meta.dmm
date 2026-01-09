@@ -791,7 +791,7 @@
 /area/shuttle/escape)
 "cd" = (
 /obj/item/radio/intercom/directional/south,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light,
 /turf/simulated/floor/shuttle/plating{
 	icon_state = "bot"

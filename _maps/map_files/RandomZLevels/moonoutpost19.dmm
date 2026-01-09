@@ -813,7 +813,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "bU" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/alarm/monitor{
 	pixel_y = 23;
 	req_access = list(150)
@@ -822,7 +822,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "bV" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
@@ -1305,7 +1305,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
 "cP" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/syndicateoutpost)
@@ -1728,7 +1728,7 @@
 	name = "HOSTILE ATMOSPHERE AHEAD";
 	pixel_y = -32
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating/airless{
 	name = "plating"
@@ -1949,7 +1949,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19research)
@@ -2111,7 +2111,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/structure/alien/weeds{
 	icon_state = "weeds1"
 	},
@@ -3753,7 +3753,7 @@
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "hn" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19utilityroom)
 "ho" = (
@@ -6043,7 +6043,7 @@
 	},
 /area/moonoutpost19/mo19arrivals)
 "mk" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/window/basic{
 	dir = 1
@@ -6394,7 +6394,7 @@
 /turf/simulated/floor/plasteel,
 /area/moonoutpost19/mo19arrivals)
 "nb" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/moonoutpost19/mo19arrivals)
 "nc" = (

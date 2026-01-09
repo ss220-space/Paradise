@@ -1557,7 +1557,7 @@
 /turf/simulated/floor/plating,
 /area/template_noop)
 "Ng" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{

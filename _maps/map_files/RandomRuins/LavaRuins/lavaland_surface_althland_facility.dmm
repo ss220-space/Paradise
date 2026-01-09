@@ -60,7 +60,7 @@
 /area/ruin/unpowered)
 "cd" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -694,7 +694,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
 "Cd" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/lavaland_air,
 /area/ruin/unpowered)
@@ -775,7 +775,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/lavaland/surface/outdoors)
 "Gc" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
@@ -852,7 +852,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered)
 "Jq" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/light_construct/small{
 	dir = 4
 	},

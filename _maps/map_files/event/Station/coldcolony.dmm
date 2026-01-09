@@ -560,7 +560,7 @@
 /area/coldcolony/malta/security/securearmory)
 "ajS" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -1184,7 +1184,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/medbay)
 "auN" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -1252,7 +1252,7 @@
 	},
 /area/coldcolony/ruin/sm_lab)
 "avC" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -1614,7 +1614,7 @@
 /area/coldcolony/malta/hallway/service/central)
 "aCc" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -2030,7 +2030,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "aKR" = (
@@ -2151,7 +2151,7 @@
 /area/coldcolony/malta/quartermaster/miningeva)
 "aMK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -2747,7 +2747,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/outer/roadblock)
 "aWU" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3507,13 +3507,13 @@
 /area/coldcolony/malta/medical/medbay)
 "blM" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
 /area/coldcolony/malta/engineering/storage)
 "blS" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/o2{
@@ -5525,7 +5525,7 @@
 /area/coldcolony/malta/resid_serv/janitor)
 "bXh" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
 "bXt" = (
@@ -5711,7 +5711,7 @@
 /area/coldcolony/malta/maintenance/bar)
 "caK" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -6063,7 +6063,7 @@
 	},
 /area/coldcolony/malta/escape_toilet)
 "cih" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -6519,7 +6519,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "cqq" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -7956,7 +7956,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "cQv" = (
@@ -7998,7 +7998,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/eastsouthwest,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -8196,7 +8196,7 @@
 /area/coldcolony/malta/bridge/vip)
 "cUQ" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/north)
 "cUS" = (
@@ -9005,7 +9005,7 @@
 /area/coldcolony/malta/bridge/checkpoint)
 "diM" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10026,7 +10026,7 @@
 	},
 /area/coldcolony/malta/resid_serv/library/game_zone)
 "dDT" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
@@ -10037,7 +10037,7 @@
 "dDX" = (
 /obj/structure/closet/walllocker/emerglocker/west,
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/snow/sand/edge{
 	dir = 9
 	},
@@ -12742,7 +12742,7 @@
 	},
 /area/shuttle/pirate_corvette)
 "eCV" = (
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary,
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary,
 /obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -13484,7 +13484,7 @@
 	},
 /area/coldcolony/ruin/sm_division)
 "eQr" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/structure/safe/floor,
 /obj/item/clothing/gloves/color/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -14738,7 +14738,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_chamber)
 "frV" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/test_chamber)
 "fsn" = (
@@ -14755,7 +14755,7 @@
 /area/coldcolony/malta/bridge/ntrep)
 "fsS" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/virology)
 "fsU" = (
@@ -15850,7 +15850,7 @@
 /area/coldcolony/ruin/syndie_outpost)
 "fOs" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -16310,7 +16310,7 @@
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
 "fWX" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/air,
@@ -19408,7 +19408,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/storage)
 "hcH" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
@@ -19840,7 +19840,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "hkZ" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -20564,7 +20564,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/maintenance/research)
 "hzf" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen{
+/obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n2{
@@ -20598,7 +20598,7 @@
 /area/coldcolony/malta/chapel/office)
 "hzQ" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "hAq" = (
@@ -21295,7 +21295,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 6
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
 "hOD" = (
@@ -26178,7 +26178,7 @@
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/maintenance/garden)
 "jCC" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/permabrig)
@@ -26413,7 +26413,7 @@
 	},
 /area/coldcolony/malta/medical/virology)
 "jHa" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
 	dir = 8
@@ -28100,7 +28100,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
 "klG" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "caution"
@@ -28663,7 +28663,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "kwE" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = 26
@@ -30427,7 +30427,7 @@
 	},
 /area/coldcolony/malta/turret_protected/ai)
 "lfa" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/firealarm{
 	dir = 8;
@@ -31935,7 +31935,7 @@
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "lJK" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -32969,7 +32969,7 @@
 /area/coldcolony/malta/medical/surgery/west)
 "mcZ" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "tranquillite"
@@ -35822,7 +35822,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/effect/decal/warning_stripes/eastsouthwest,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -35906,7 +35906,7 @@
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "ngR" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -37050,7 +37050,7 @@
 /area/coldcolony/malta/resid_serv/kitchen)
 "nFt" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bridge)
 "nFw" = (
@@ -37745,7 +37745,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/effect/decal/warning_stripes/eastnorthwest,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -38754,7 +38754,7 @@
 /area/coldcolony/malta/bridge/blueshield)
 "oiS" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "purple"
@@ -40335,7 +40335,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/door/window/southright{
@@ -41416,7 +41416,7 @@
 /obj/effect/decal/snow/sand/edge{
 	dir = 6
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /obj/structure/sign/poster/official/help_others{
 	pixel_x = 32
@@ -42544,7 +42544,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_maintenance)
 "pBs" = (
@@ -43919,7 +43919,7 @@
 /area/coldcolony/malta/medical/cmo)
 "qdh" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/storage)
 "qdE" = (
@@ -45662,7 +45662,7 @@
 /area/coldcolony/malta/research/shallway)
 "qIo" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -45987,7 +45987,7 @@
 	},
 /area/coldcolony/malta/hallway/cargo_escape/port/east)
 "qOD" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
@@ -46147,7 +46147,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
 "qSa" = (
@@ -46344,7 +46344,7 @@
 	},
 /area/coldcolony/malta/resid_serv/bar)
 "qVY" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
@@ -46997,7 +46997,7 @@
 	},
 /area/ruin/unpowered/coldcolony_outside)
 "rfE" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
@@ -47606,7 +47606,7 @@
 	},
 /area/coldcolony/malta/resid_serv/janitor)
 "rpT" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "rpW" = (
@@ -47998,7 +47998,7 @@
 /area/coldcolony/malta/engineering/break_room)
 "rwh" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -48516,7 +48516,7 @@
 /area/coldcolony/malta/medical/cmo)
 "rGz" = (
 /obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -51075,7 +51075,7 @@
 /area/coldcolony/malta/engineering/control)
 "sGY" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
 	icon_state = "caution"
 	},
@@ -52064,7 +52064,7 @@
 /area/coldcolony/malta/engineering/atmos)
 "taP" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -54907,7 +54907,7 @@
 	},
 /area/coldcolony/malta/research/chargebay)
 "ucF" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/hallway)
 "ucM" = (
@@ -55008,7 +55008,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_maintenance)
 "ufq" = (
@@ -55839,7 +55839,7 @@
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "uvL" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -56190,7 +56190,7 @@
 	},
 /area/coldcolony/malta/security/securehallway)
 "uDL" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/science)
 "uDQ" = (
@@ -56765,7 +56765,7 @@
 /turf/simulated/wall,
 /area/ruin/unpowered/coldcolony_outside)
 "uQz" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/wood/cherry{
 	temperature = 180
 	},
@@ -58376,7 +58376,7 @@
 	},
 /area/coldcolony/malta/hallway/service/nw)
 "vsm" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/window/reinforced{
 	dir = 4
@@ -59485,7 +59485,7 @@
 /area/coldcolony/malta/hallway/service/north)
 "vIW" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
@@ -59528,7 +59528,7 @@
 	},
 /area/coldcolony/malta/engineering/atmos)
 "vJV" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/cargo)
 "vJY" = (
@@ -60297,7 +60297,7 @@
 /area/coldcolony/malta/bridge/tcomm)
 "vZz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -60907,7 +60907,7 @@
 /turf/simulated/floor/carpet/orange,
 /area/coldcolony/malta/bridge/hop)
 "wjU" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/light{
 	dir = 1
@@ -61706,7 +61706,7 @@
 	},
 /area/coldcolony/malta/security/processing)
 "wBe" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -61750,7 +61750,7 @@
 /turf/simulated/wall,
 /area/coldcolony/malta/escape_toilet)
 "wCe" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -63257,7 +63257,7 @@
 /area/ruin/unpowered)
 "xeA" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
@@ -64483,7 +64483,7 @@
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_chamber)
 "xAk" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -22
@@ -64521,7 +64521,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/eastnorthwest,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -65901,7 +65901,7 @@
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "ydu" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "caution"

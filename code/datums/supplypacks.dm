@@ -302,7 +302,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/emergency/scrubbercrate
 	name = "Очиститель воздуха"
 	contains = list(
-		/obj/machinery/portable_atmospherics/scrubber,
+		/obj/machinery/atmospherics/portable/scrubber,
 	)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/emergency/pumpcrate
 	name = "Воздушный насос"
 	contains = list(
-		/obj/machinery/portable_atmospherics/pump,
+		/obj/machinery/atmospherics/portable/pump,
 	)
 	cost = 25
 	containertype = /obj/structure/closet/crate/secure/engineering
@@ -1942,7 +1942,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/canister/nitrogen
 	name = "Канистра азота"
-	contains = list(/obj/machinery/portable_atmospherics/canister/nitrogen)
+	contains = list(/obj/machinery/atmospherics/portable/canister/nitrogen)
 	cost = 5
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой азота"
@@ -1957,7 +1957,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/canister/oxygen
 	name = "Канистра кислорода"
-	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
+	contains = list(/obj/machinery/atmospherics/portable/canister/oxygen)
 	cost = 5
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой кислорода"
@@ -1972,7 +1972,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/canister/air
 	name = "Канистра воздуха"
-	contains = list(/obj/machinery/portable_atmospherics/canister/air)
+	contains = list(/obj/machinery/atmospherics/portable/canister/air)
 	cost = 5
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой воздуха"
@@ -1987,7 +1987,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/canister/sleeping_agent
 	name = "Канистра оксида азота"
-	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
+	contains = list(/obj/machinery/atmospherics/portable/canister/sleeping_agent)
 	cost = 25
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой оксида азота"
@@ -2002,7 +2002,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/canister/carbon_dioxide
 	name = "Канистра углекислого газа"
-	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
+	contains = list(/obj/machinery/atmospherics/portable/canister/carbon_dioxide)
 	cost = 25
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой углекислого газа"
@@ -2017,7 +2017,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/canister/toxins
 	name = "Канистра плазмы"
-	contains = list(/obj/machinery/portable_atmospherics/canister/toxins)
+	contains = list(/obj/machinery/atmospherics/portable/canister/toxins)
 	cost = 25
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой плазмы"

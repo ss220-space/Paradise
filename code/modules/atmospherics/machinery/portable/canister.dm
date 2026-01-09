@@ -41,7 +41,7 @@
 
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
-/obj/machinery/portable_atmospherics/canister
+/obj/machinery/atmospherics/portable/canister
 	name = "canister"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "yellow"
@@ -73,7 +73,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	interact_offline = TRUE
 	var/update_flag = NONE
 
-/obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/Initialize(mapload)
 	. = ..()
 
 	canister_color = list(
@@ -116,7 +116,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 #define NEW_COLOR 64
 #define RESET 68
 
-/obj/machinery/portable_atmospherics/canister/proc/check_change()
+/obj/machinery/atmospherics/portable/canister/proc/check_change()
 	var/old_flag = update_flag
 
 	update_flag = NONE
@@ -141,7 +141,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	return update_flag != old_flag
 
-/obj/machinery/portable_atmospherics/canister/update_icon_state()
+/obj/machinery/atmospherics/portable/canister/update_icon_state()
 /*
 (note: colors has to be applied every icon update)
 */
@@ -154,7 +154,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	check_change()
 
-/obj/machinery/portable_atmospherics/canister/update_overlays()
+/obj/machinery/atmospherics/portable/canister/update_overlays()
 	. = ..()
 
 	if(stat & BROKEN)
@@ -191,12 +191,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 #undef NEW_COLOR
 #undef RESET
 
-/obj/machinery/portable_atmospherics/canister/temperature_expose(temperature, volume)
+/obj/machinery/atmospherics/portable/canister/temperature_expose(temperature, volume)
 	..()
 	if(temperature > temperature_resistance)
 		take_damage(5, BURN, 0)
 
-/obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
+/obj/machinery/atmospherics/portable/canister/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		if(!(stat & BROKEN))
 			canister_break()
@@ -206,12 +206,12 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			new /obj/item/stack/sheet/metal (loc, 5)
 	qdel(src)
 
-/obj/machinery/portable_atmospherics/canister/obj_break(damage_flag)
+/obj/machinery/atmospherics/portable/canister/obj_break(damage_flag)
 	if((stat & BROKEN) || (obj_flags & NODECONSTRUCT))
 		return
 	canister_break()
 
-/obj/machinery/portable_atmospherics/canister/proc/canister_break()
+/obj/machinery/atmospherics/portable/canister/proc/canister_break()
 	disconnect()
 	var/datum/gas_mixture/expelled_gas = air_contents.remove(air_contents.total_moles())
 
@@ -227,7 +227,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	turf.blind_release_air(expelled_gas)
 
 
-/obj/machinery/portable_atmospherics/canister/process_atmos()
+/obj/machinery/atmospherics/portable/canister/process_atmos()
 	..()
 	if(stat & BROKEN)
 		return
@@ -243,7 +243,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /datum/milla_safe/canister_release
 
-/datum/milla_safe/canister_release/on_run(obj/machinery/portable_atmospherics/canister/canister)
+/datum/milla_safe/canister_release/on_run(obj/machinery/atmospherics/portable/canister/canister)
 	var/datum/gas_mixture/environment
 	if(canister.holding)
 		environment = canister.holding.air_contents
@@ -265,23 +265,23 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		environment.merge(removed)
 		canister.update_icon()
 
-/obj/machinery/portable_atmospherics/canister/return_obj_air()
+/obj/machinery/atmospherics/portable/canister/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
-/obj/machinery/portable_atmospherics/canister/proc/return_temperature()
+/obj/machinery/atmospherics/portable/canister/proc/return_temperature()
 	var/datum/gas_mixture/GM = return_obj_air()
 	if(GM && GM.volume > 0)
 		return GM.temperature()
 	return
 
-/obj/machinery/portable_atmospherics/canister/proc/return_pressure()
+/obj/machinery/atmospherics/portable/canister/proc/return_pressure()
 	var/datum/gas_mixture/GM = return_obj_air()
 	if(GM && GM.volume>0)
 		return GM.return_pressure()
 	return 0
 
-/obj/machinery/portable_atmospherics/canister/replace_tank(mob/living/user, close_valve)
+/obj/machinery/atmospherics/portable/canister/replace_tank(mob/living/user, close_valve)
 	. = ..()
 	if(.)
 		if(close_valve)
@@ -291,7 +291,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		else if(valve_open && holding)
 			investigate_log("[key_name_log(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
-/obj/machinery/portable_atmospherics/canister/welder_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/portable/canister/welder_act(mob/user, obj/item/I)
 	if(!(stat & BROKEN))
 		return
 	. = TRUE
@@ -303,29 +303,29 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		new /obj/item/stack/sheet/metal(drop_location(), 3)
 		qdel(src)
 
-/obj/machinery/portable_atmospherics/canister/attack_ai(mob/user)
+/obj/machinery/atmospherics/portable/canister/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_ghost(mob/user)
+/obj/machinery/atmospherics/portable/canister/attack_ghost(mob/user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/attack_hand(mob/user)
+/obj/machinery/atmospherics/portable/canister/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
 	add_fingerprint(user)
 	return ui_interact(user)
 
-/obj/machinery/portable_atmospherics/canister/ui_state(mob/user)
+/obj/machinery/atmospherics/portable/canister/ui_state(mob/user)
 	return GLOB.physical_state
 
-/obj/machinery/portable_atmospherics/canister/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/portable/canister/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Canister", name)
 		ui.open()
 
-/obj/machinery/portable_atmospherics/canister/ui_data()
+/obj/machinery/atmospherics/portable/canister/ui_data()
 	var/data = list()
 	data["portConnected"] = connected_port ? 1 : 0
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
@@ -343,7 +343,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
 	return data
 
-/obj/machinery/portable_atmospherics/canister/ui_act(action, params)
+/obj/machinery/atmospherics/portable/canister/ui_act(action, params)
 	if(..())
 		return
 	var/can_min_release_pressure = round(ONE_ATMOSPHERE / 10)
@@ -417,82 +417,82 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	add_fingerprint(usr)
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/toxins
+/obj/machinery/atmospherics/portable/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
 	icon_state = "orange" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/oxygen
+/obj/machinery/atmospherics/portable/canister/oxygen
 	name = "Canister: \[O2\]"
 	icon_state = "blue" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/sleeping_agent
+/obj/machinery/atmospherics/portable/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
 	icon_state = "redws" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/nitrogen
+/obj/machinery/atmospherics/portable/canister/nitrogen
 	name = "Canister: \[N2\]"
 	icon_state = "red" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide
 	name = "Canister \[CO2\]"
 	icon_state = "black" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/hydrogen
+/obj/machinery/atmospherics/portable/canister/hydrogen
 	name = "Canister \[H2\]"
 	icon_state = "h2" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/water_vapor
+/obj/machinery/atmospherics/portable/canister/water_vapor
 	name = "Canister \[H2O\]"
 	icon_state = "water_vapor" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/air
+/obj/machinery/atmospherics/portable/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "grey" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/custom_mix
+/obj/machinery/atmospherics/portable/canister/custom_mix
 	name = "Canister \[Custom\]"
 	icon_state = "whiters" //See Initialize()
 	can_label = FALSE
 
-/obj/machinery/portable_atmospherics/canister/toxins/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/toxins/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "orange"
 	air_contents.set_toxins((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/oxygen/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/oxygen/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "blue"
 	air_contents.set_oxygen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/sleeping_agent/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/sleeping_agent/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "redws"
 	air_contents.set_sleeping_agent((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/nitrogen/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/nitrogen/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "red"
 	air_contents.set_nitrogen((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "black"
 	air_contents.set_carbon_dioxide((maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/hydrogen/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/hydrogen/Initialize(mapload)
 	. = ..()
 
 	canister_color["prim"] = "h2"
@@ -500,7 +500,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/water_vapor/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/water_vapor/Initialize(mapload)
 	. = ..()
 
 	canister_color["prim"] = "water_vapor"
@@ -508,14 +508,14 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/air/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/air/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "grey"
 	air_contents.set_oxygen((O2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	air_contents.set_nitrogen((N2STANDARD * maximum_pressure * filled) * air_contents.volume / (R_IDEAL_GAS_EQUATION * air_contents.temperature()))
 	update_icon()
 
-/obj/machinery/portable_atmospherics/canister/custom_mix/Initialize(mapload)
+/obj/machinery/atmospherics/portable/canister/custom_mix/Initialize(mapload)
 	. = ..()
 	canister_color["prim"] = "whiters"
 	update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD

@@ -56,7 +56,7 @@
 	var/obj/item/stock_parts/cell/battery
 
 	var/datum/gas_mixture/cabin_air
-	var/obj/machinery/portable_atmospherics/canister/internal_tank
+	var/obj/machinery/atmospherics/portable/canister/internal_tank
 	var/use_internal_tank = 0
 
 	var/hatch_open = 0
@@ -758,7 +758,7 @@
 	return cabin_air
 
 /obj/spacepod/proc/add_airtank()
-	internal_tank = new /obj/machinery/portable_atmospherics/canister/air(src)
+	internal_tank = new /obj/machinery/atmospherics/portable/canister/air(src)
 	return internal_tank
 
 /obj/spacepod/proc/moved_other_inside(mob/living/carbon/human/H as mob)

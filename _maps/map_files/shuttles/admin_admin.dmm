@@ -476,7 +476,7 @@
 	},
 /area/shuttle/administration)
 "jz" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light{
 	dir = 4
 	},

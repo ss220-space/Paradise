@@ -817,7 +817,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -1681,7 +1681,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/turf_decal/bot,
 /turf/simulated/floor/plasteel,
 /area/atmos)
@@ -1944,7 +1944,7 @@
 /turf/simulated/wall/r_wall,
 /area/hallway/primary/central)
 "XM" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "XO" = (
@@ -2042,7 +2042,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "YY" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
 "Zg" = (

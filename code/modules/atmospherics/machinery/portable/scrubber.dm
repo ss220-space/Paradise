@@ -5,7 +5,7 @@
 /// The pump will be pumping gas out.
 #define DIRECTION_OUT 1
 
-/obj/machinery/portable_atmospherics/scrubber
+/obj/machinery/atmospherics/portable/scrubber
 	name = "Portable Air Scrubber"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "pscrubber:0"
@@ -18,7 +18,7 @@
 	/// Is this scrubber acting on the 3x3 area around it.
 	var/widenet = FALSE
 
-/obj/machinery/portable_atmospherics/scrubber/emp_act(severity)
+/obj/machinery/atmospherics/portable/scrubber/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
 		..(severity)
 		return
@@ -29,17 +29,17 @@
 
 	..(severity)
 
-/obj/machinery/portable_atmospherics/scrubber/update_icon_state()
+/obj/machinery/atmospherics/portable/scrubber/update_icon_state()
 	icon_state = "pscrubber:[on]"
 
-/obj/machinery/portable_atmospherics/scrubber/update_overlays()
+/obj/machinery/atmospherics/portable/scrubber/update_overlays()
 	. = ..()
 	if(holding)
 		. += "scrubber-open"
 	if(connected_port)
 		. += "scrubber-connector"
 
-/obj/machinery/portable_atmospherics/scrubber/process_atmos()
+/obj/machinery/atmospherics/portable/scrubber/process_atmos()
 	..()
 	if(!on)
 		return
@@ -52,14 +52,14 @@
 
 /datum/milla_safe/portable_scrubber_scrub
 
-/datum/milla_safe/portable_scrubber_scrub/on_run(obj/machinery/portable_atmospherics/scrubber/scrubber)
+/datum/milla_safe/portable_scrubber_scrub/on_run(obj/machinery/atmospherics/portable/scrubber/scrubber)
 	var/turf/turf = get_turf(scrubber)
 	scrubber.scrub(get_turf_air(turf))
 	if(scrubber.widenet)
 		for(var/turf/simulated/tile as anything in turf.GetAtmosAdjacentTurfs(alldir = TRUE))
 			scrubber.scrub(get_turf_air(tile))
 
-/obj/machinery/portable_atmospherics/scrubber/proc/scrub(datum/gas_mixture/environment)
+/obj/machinery/atmospherics/portable/scrubber/proc/scrub(datum/gas_mixture/environment)
 	var/transfer_moles = min(1, volume_rate / environment.volume) * environment.total_moles()
 
 	//Take a gas sample
@@ -98,20 +98,20 @@
 
 	environment.merge(removed)
 
-/obj/machinery/portable_atmospherics/scrubber/return_obj_air()
+/obj/machinery/atmospherics/portable/scrubber/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
-/obj/machinery/portable_atmospherics/scrubber/return_analyzable_air()
+/obj/machinery/atmospherics/portable/scrubber/return_analyzable_air()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/scrubber/attack_ai(mob/user)
+/obj/machinery/atmospherics/portable/scrubber/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/scrubber/attack_ghost(mob/user)
+/obj/machinery/atmospherics/portable/scrubber/attack_ghost(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/portable_atmospherics/scrubber/attack_hand(mob/user)
+/obj/machinery/atmospherics/portable/scrubber/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -119,14 +119,14 @@
 	ui_interact(user)
 	return
 
-/obj/machinery/portable_atmospherics/scrubber/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/atmospherics/portable/scrubber/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "PortableScrubber", "Portable Scrubber")
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/portable_atmospherics/scrubber/ui_data(mob/user)
+/obj/machinery/atmospherics/portable/scrubber/ui_data(mob/user)
 	var/list/data = list(
 		"on" = on,
 		"port_connected" = connected_port ? TRUE : FALSE,
@@ -142,7 +142,7 @@
 
 	return data
 
-/obj/machinery/portable_atmospherics/scrubber/ui_act(action, list/params)
+/obj/machinery/atmospherics/portable/scrubber/ui_act(action, list/params)
 	if(..())
 		return
 
@@ -164,7 +164,7 @@
 
 	add_fingerprint(usr)
 
-/obj/machinery/portable_atmospherics/scrubber/huge
+/obj/machinery/atmospherics/portable/scrubber/huge
 	name = "Huge Air Scrubber"
 	icon_state = "scrubber:0"
 	anchored = TRUE
@@ -176,23 +176,23 @@
 	var/id = 0
 	var/stationary = 0
 
-/obj/machinery/portable_atmospherics/scrubber/huge/New()
+/obj/machinery/atmospherics/portable/scrubber/huge/New()
 	..()
 	id = gid
 	gid++
 
 	name = "[name] (ID [id])"
 
-/obj/machinery/portable_atmospherics/scrubber/huge/attack_hand(mob/user)
+/obj/machinery/atmospherics/portable/scrubber/huge/attack_hand(mob/user)
 	to_chat(usr, span_warning("You can't directly interact with this machine. Use the area atmos computer."))
 
-/obj/machinery/portable_atmospherics/scrubber/huge/update_icon_state()
+/obj/machinery/atmospherics/portable/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
 
-/obj/machinery/portable_atmospherics/scrubber/huge/update_overlays()
+/obj/machinery/atmospherics/portable/scrubber/huge/update_overlays()
 	. = list()
 
-/obj/machinery/portable_atmospherics/scrubber/huge/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(stationary)
 		to_chat(user, span_warning("The bolts are too tight for you to unscrew!"))
@@ -205,7 +205,7 @@
 	set_anchored(!anchored)
 	to_chat(user, span_notice("You [anchored ? "wrench" : "unwrench"] [src]."))
 
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary
+/obj/machinery/atmospherics/portable/scrubber/huge/stationary
 	name = "Stationary Air Scrubber"
 	stationary = 1
 

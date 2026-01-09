@@ -343,7 +343,7 @@
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "iz" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -772,7 +772,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/maintenance/livingcomplex)
 "tz" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
@@ -897,7 +897,7 @@
 /area/maintenance/livingcomplex)
 "xe" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "xh" = (
@@ -912,7 +912,7 @@
 /area/maintenance/livingcomplex)
 "xw" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
@@ -1299,7 +1299,7 @@
 /turf/simulated/floor/carpet/arcade,
 /area/maintenance/livingcomplex)
 "Jt" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
@@ -1637,7 +1637,7 @@
 /area/maintenance/livingcomplex)
 "SX" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
@@ -1716,7 +1716,7 @@
 /area/maintenance/abandonedwarehouse)
 "Vr" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)
 "VA" = (

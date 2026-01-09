@@ -350,7 +350,7 @@
 	to_chat(S, span_warning("Disrupting the power grid would bring no benefit to us. Aborting."))
 	return FALSE
 
-/obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
+/obj/machinery/atmospherics/portable/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	to_chat(S, span_warning("An inhospitable area may be created as a result of destroying this object. Aborting."))
 	return FALSE
 

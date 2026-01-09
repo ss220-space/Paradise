@@ -1237,7 +1237,7 @@
 	},
 /area/awaymission/spacebattle/syndicate1)
 "dQ" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -1845,7 +1845,7 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "fF" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	volume = 153
 	},
 /turf/space,
@@ -2716,7 +2716,7 @@
 	},
 /area/awaymission/spacebattle/syndicate7)
 "hO" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/space,
 /area/space)
 "hP" = (
@@ -3709,7 +3709,7 @@
 /turf/simulated/floor/plasteel/freezer,
 /area/awaymission/spacebattle/kitchen)
 "kC" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	volume = 285
 	},
 /turf/simulated/floor/plasteel{
@@ -4746,7 +4746,7 @@
 	},
 /area/awaymission/spacebattle/hallway8)
 "nz" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	volume = 0
 	},
 /obj/machinery/firealarm{
@@ -5447,7 +5447,7 @@
 	},
 /area/awaymission/spacebattle/hallway13)
 "pH" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/bot/right,
 /obj/machinery/light/small{
 	dir = 4
@@ -5581,7 +5581,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "qe" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/mineral/titanium,
 /area/awaymission/spacebattle/storage)
 "qf" = (
@@ -7950,12 +7950,12 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "wz" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/bot/right,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "wB" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/turf_decal/bot/right,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -8570,7 +8570,7 @@
 	},
 /area/awaymission/spacebattle/bridge)
 "ya" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /obj/effect/turf_decal/bot/right,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -8590,7 +8590,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "yd" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	volume = 526
 	},
 /turf/simulated/floor/plasteel,
@@ -8758,7 +8758,7 @@
 "yx" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
 /obj/structure/window/reinforced,
@@ -8832,7 +8832,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "neutral"
@@ -9185,7 +9185,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "zJ" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	filled = 0.1
 	},
 /turf/simulated/floor/plasteel/airless,
@@ -11685,7 +11685,7 @@
 	},
 /area/awaymission/spacebattle/medbay)
 "Gz" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
@@ -11823,7 +11823,7 @@
 /turf/simulated/mineral,
 /area/awaymission)
 "GW" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
@@ -12921,7 +12921,7 @@
 	},
 /area/awaymission/spacebattle/hallway11)
 "Km" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/cruiser)
@@ -13420,7 +13420,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "LC" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/bot/right,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -17732,7 +17732,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/living)
 "Xr" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	volume = 312
 	},
 /turf/simulated/floor/plasteel,

@@ -674,7 +674,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/abandonedhangar)
 "fv" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/contraband/missing_gloves{
@@ -2954,7 +2954,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/abandonedhangar)
 "BS" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -2971,7 +2971,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/apmaint)
 "Cg" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
@@ -3737,7 +3737,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/abandonedhangar)
 "Jb" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -4494,7 +4494,7 @@
 	},
 /area/maintenance/abandonedhangar)
 "QQ" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{

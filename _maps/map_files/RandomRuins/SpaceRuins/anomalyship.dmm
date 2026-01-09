@@ -3,7 +3,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	name = "Connector Port (Air Supply)"
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plasteel{
@@ -249,7 +249,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	maximum_pressure = 50000
 	},
 /obj/structure/spider/stickyweb,
@@ -787,7 +787,7 @@
 /area/ae13/hall)
 "tt" = (
 /obj/structure/alien/weeds,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1;
 	maximum_pressure = 50000
 	},
@@ -856,7 +856,7 @@
 /area/ae13/epicenter)
 "ur" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plasteel{
@@ -1185,7 +1185,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/ae13/energy)
 "Ae" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	maximum_pressure = 50000
 	},
 /obj/machinery/atmospherics/unary/portables_connector{

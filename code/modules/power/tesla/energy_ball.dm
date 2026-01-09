@@ -212,7 +212,7 @@
 /// Things that we don't want to shock.
 GLOBAL_LIST_INIT(blacklisted_tesla_types, typecacheof(list(
 		/obj/machinery/atmospherics,
-		/obj/machinery/portable_atmospherics,
+		/obj/machinery/atmospherics/portable,
 		/obj/machinery/power/emitter,
 		/obj/machinery/field/generator,
 		/mob/living/simple_animal/slime,

@@ -111,17 +111,17 @@
 /area/awaymission/northblock)
 "ax" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "ay" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "az" = (
 /obj/structure/window/reinforced/tinted,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel/airless,
 /area/awaymission/northblock)
 "aA" = (
@@ -221,7 +221,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/research)
 "aX" = (
-/obj/machinery/portable_atmospherics/canister/toxins{
+/obj/machinery/atmospherics/portable/canister/toxins{
 	stat = 1
 	},
 /turf/simulated/floor/shuttle/plating,
@@ -345,7 +345,7 @@
 /turf/simulated/wall/r_wall,
 /area/awaymission/research)
 "by" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/shuttle/plating,
 /area/awaymission/syndishuttle)
 "bz" = (
@@ -830,7 +830,7 @@
 	},
 /area/awaymission/research)
 "cR" = (
-/obj/machinery/portable_atmospherics/canister/toxins{
+/obj/machinery/atmospherics/portable/canister/toxins{
 	stat = 1
 	},
 /obj/effect/mapping_helpers/turfs/damage,
@@ -3593,7 +3593,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/arrivalblock)
 "jY" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
 "jZ" = (
@@ -3607,7 +3607,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
 "ka" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/awaymission/southblock)
 "kc" = (

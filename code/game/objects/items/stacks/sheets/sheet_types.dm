@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	)),
 	new /datum/stack_recipe_list("misc", list(
 		new /datum/stack_recipe("grenade casing", /obj/item/grenade/chem_grenade),
-		new /datum/stack_recipe("canister", /obj/machinery/portable_atmospherics/canister, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+		new /datum/stack_recipe("canister", /obj/machinery/atmospherics/portable/canister, 10, time = 1.5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
 	)),

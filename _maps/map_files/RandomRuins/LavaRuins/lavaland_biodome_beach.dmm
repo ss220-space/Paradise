@@ -395,7 +395,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "rC" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/ruin/powered/beach)
 "rX" = (

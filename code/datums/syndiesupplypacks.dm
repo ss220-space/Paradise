@@ -858,42 +858,42 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/engineering/canister/nitrogen
 	name = "Канистра азота"
-	contains = list(/obj/machinery/portable_atmospherics/canister/nitrogen)
+	contains = list(/obj/machinery/atmospherics/portable/canister/nitrogen)
 	cost = 50
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой азота"
 
 /datum/syndie_supply_packs/engineering/canister/oxygen
 	name = "Канистра кислорода"
-	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
+	contains = list(/obj/machinery/atmospherics/portable/canister/oxygen)
 	cost = 50
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой кислорода"
 
 /datum/syndie_supply_packs/engineering/canister/air
 	name = "Канистра воздуха"
-	contains = list(/obj/machinery/portable_atmospherics/canister/air)
+	contains = list(/obj/machinery/atmospherics/portable/canister/air)
 	cost = 50
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой воздуха"
 
 /datum/syndie_supply_packs/engineering/canister/sleeping_agent
 	name = "Канистра оксида азота"
-	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
+	contains = list(/obj/machinery/atmospherics/portable/canister/sleeping_agent)
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой оксида азота"
 
 /datum/syndie_supply_packs/engineering/canister/carbon_dioxide
 	name = "Канистра углекислого газа"
-	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
+	contains = list(/obj/machinery/atmospherics/portable/canister/carbon_dioxide)
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой углекислого газа"
 
 /datum/syndie_supply_packs/engineering/canister/toxins
 	name = "Канистра плазмы"
-	contains = list(/obj/machinery/portable_atmospherics/canister/toxins)
+	contains = list(/obj/machinery/atmospherics/portable/canister/toxins)
 	cost = 250
 	containertype = /obj/structure/largecrate
 	containername = "ящик с канистрой плазмы"

@@ -297,7 +297,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
@@ -2252,7 +2252,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "GZ" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light,
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
@@ -2572,7 +2572,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)
 "NS" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/spaceprison)

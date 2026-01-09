@@ -225,7 +225,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "aE" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "aF" = (
@@ -302,7 +302,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "aP" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "aQ" = (
@@ -1784,7 +1784,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "eX" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -1792,7 +1792,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/cafe)
 "eY" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/cafe)
@@ -1815,7 +1815,7 @@
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "fd" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/cafe)
@@ -2532,7 +2532,7 @@
 	},
 /area/awaymission/centcomAway/general)
 "hc" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/maint)
 "hd" = (
@@ -5686,7 +5686,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "oX" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 9
@@ -5735,7 +5735,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "pf" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "green"
@@ -5947,7 +5947,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcomAway/general)
 "pH" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	icon_state = "red";
 	dir = 10
@@ -5971,7 +5971,7 @@
 	},
 /area/awaymission/centcomAway/thunderdome)
 "pL" = (
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plasteel{
 	icon_state = "green";
 	dir = 6
