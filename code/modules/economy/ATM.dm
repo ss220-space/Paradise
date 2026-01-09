@@ -377,6 +377,22 @@ log transactions
 /obj/machinery/atm/proc/replenish_insurance(amount)
 	authenticated_account.addInsurancePoints(amount)
 
+/obj/machinery/atm/atmb
+	icon_state = "atmb"
+	density = TRUE
+
+/obj/machinery/atm/atmb/update_icon_state()
+	. = ..()
+	if(stat & NOPOWER)
+		icon_state = "atmb_off"
+	else
+		icon_state = "atmb"
+
+/obj/machinery/atm/atmb/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_icon()
+
 #undef DEFAULT_SCREEN
 #undef CHANGE_SECURITY_LEVEL
 #undef TRANSFER_FUNDS
@@ -384,3 +400,6 @@ log transactions
 #undef CHANGE_INSURANCE_TYPE
 #undef PRINT_DELAY
 #undef LOCKOUT_TIME
+
+MAPPING_DIRECTIONAL_HELPERS_CUSTOM(/obj/machinery/atm, 0,32,-9,9)
+MAPPING_DIRECTIONAL_HELPERS (/obj/machinery/atm/atmb, 0)

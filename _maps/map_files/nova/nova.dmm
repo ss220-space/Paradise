@@ -15526,26 +15526,6 @@
 	icon_state = "darkredfull"
 	},
 /area/turret_protected/aisat_interior/secondary)
-"cmc" = (
-/obj/machinery/atm{
-	pixel_y = -32
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "arrival"
-	},
-/area/hallway/secondary/entry)
 "cmh" = (
 /obj/machinery/requests_console{
 	announcementConsole = 1;
@@ -15846,13 +15826,12 @@
 	},
 /area/atmos)
 "cow" = (
-/obj/machinery/atm{
-	pixel_y = -32
-	},
+/obj/machinery/atm/directional/west,
 /turf/simulated/floor/plasteel{
-	icon_state = "neutral"
+	dir = 4;
+	icon_state = "darkbluealt"
 	},
-/area/hallway/primary/central/sw)
+/area/hallway/primary/command/east)
 "coJ" = (
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating,
@@ -21402,9 +21381,6 @@
 "dhc" = (
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/machinery/atm{
-	pixel_x = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -27340,9 +27316,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "ebK" = (
-/obj/machinery/atm{
-	pixel_x = -32
-	},
+/obj/machinery/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluealt"
@@ -28612,12 +28586,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "ekl" = (
-/obj/machinery/atm{
-	pixel_x = 32
-	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/machinery/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -45426,14 +45398,12 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
 	},
-/obj/machinery/atm{
-	pixel_x = 32
-	},
 /obj/machinery/camera{
 	c_tag = "Locker Room Antechamber";
 	dir = 9;
 	pixel_y = 0
 	},
+/obj/machinery/atm/directional/west,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "gKF" = (
@@ -62539,6 +62509,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -65223,9 +65196,7 @@
 	},
 /area/hallway/primary/central/second/north)
 "jJp" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -73785,13 +73756,11 @@
 	},
 /area/clownoffice)
 "kZw" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1;
 	in_use = 1
 	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -102191,9 +102160,7 @@
 	dir = 1;
 	in_use = 1
 	},
-/obj/machinery/atm{
-	pixel_y = 32
-	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -113706,13 +113673,6 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
-"qTX" = (
-/obj/effect/decal/warning_stripes/south,
-/obj/machinery/atm{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel,
-/area/hallway/secondary/entry/commercial)
 "qTZ" = (
 /obj/machinery/light{
 	dir = 8
@@ -113791,9 +113751,6 @@
 "qUD" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
-	},
-/obj/machinery/atm{
-	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
@@ -118151,9 +118108,7 @@
 	},
 /area/hallway/primary/central/second/east)
 "rCg" = (
-/obj/machinery/atm{
-	pixel_x = -32
-	},
+/obj/machinery/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -128086,13 +128041,13 @@
 /turf/space,
 /area/space)
 "sYa" = (
-/obj/machinery/atm{
-	pixel_y = -32
-	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
-	icon_state = "yellowcorner"
+	dir = 1;
+	icon_state = "neutral"
 	},
-/area/hallway/primary/starboard)
+/area/hallway/secondary/entry/lounge)
 "sYc" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/machinery/camera{
@@ -139221,13 +139176,11 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/hallway/secondary/exit)
 "uDc" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
 /obj/machinery/camera{
 	c_tag = "Security Lobby West";
 	network = list("SS13","Security")
 	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -140421,9 +140374,7 @@
 "uMA" = (
 /obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dust,
-/obj/machinery/atm{
-	pixel_y = 32
-	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/wood,
 /area/maintenance/casino)
 "uMB" = (
@@ -152843,16 +152794,11 @@
 "wEP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atm{
-	pixel_x = -32
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/light{
-	dir = 8
-	},
+/obj/machinery/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -155186,6 +155132,7 @@
 "wXU" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/arrow,
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "purple"
@@ -159163,6 +159110,7 @@
 	c_tag = "Arrivals West Hallway 3";
 	dir = 6
 	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -161972,9 +161920,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "xYo" = (
-/obj/machinery/atm{
-	pixel_x = 28
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -185080,7 +185025,7 @@ tkq
 rmv
 oxH
 tnk
-qTX
+bRL
 lGf
 tkq
 sbq
@@ -191075,7 +191020,7 @@ tkq
 thy
 lvV
 wmY
-cow
+sfN
 fDY
 wrb
 bGa
@@ -192795,7 +192740,7 @@ tkq
 tkq
 sbq
 xDD
-cmc
+jpO
 ucR
 ucR
 ucR
@@ -196403,7 +196348,7 @@ oOV
 jDD
 rxk
 awz
-eWx
+sYa
 tXg
 qUD
 csx
@@ -205450,7 +205395,7 @@ aAg
 aAg
 aAg
 aAg
-iIz
+jJp
 xdz
 uVy
 fZc
@@ -205709,7 +205654,7 @@ szH
 dVE
 pWT
 bib
-sYa
+rDT
 cbh
 cbh
 sbO
@@ -265537,7 +265482,7 @@ vzy
 nSA
 hKA
 uLw
-pIv
+cow
 dhc
 gXw
 lTQ

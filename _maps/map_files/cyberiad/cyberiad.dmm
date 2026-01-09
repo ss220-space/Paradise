@@ -20093,9 +20093,7 @@
 /obj/machinery/camera{
 	c_tag = "East Primary Hallway 2"
 	},
-/obj/machinery/atm{
-	pixel_y = 32
-	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/west)
 "bzh" = (
@@ -25554,6 +25552,7 @@
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 2
 	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -30648,9 +30647,7 @@
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "clJ" = (
-/obj/machinery/atm{
-	pixel_x = -32
-	},
+/obj/machinery/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "browncorner"
@@ -33469,18 +33466,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "cxa" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atm{
-	pixel_y = -32
-	},
+/obj/machinery/atm/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
 	},
@@ -37945,9 +37931,7 @@
 /obj/machinery/camera{
 	c_tag = "South Primary Hallway 3"
 	},
-/obj/machinery/atm{
-	pixel_y = 32
-	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -38656,9 +38640,7 @@
 /turf/simulated/wall,
 /area/toxins/xenobiology)
 "cRu" = (
-/obj/machinery/atm{
-	pixel_x = 32
-	},
+/obj/machinery/atm/directional/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/ne)
 "cRv" = (
@@ -50110,9 +50092,7 @@
 	},
 /area/security/securearmory)
 "fim" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/starboard/east)
 "fjo" = (
@@ -50833,13 +50813,11 @@
 	},
 /area/engineering/mechanic_workshop)
 "fzS" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
 /obj/machinery/camera{
 	c_tag = "West Hallway 2";
 	dir = 6
 	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -53152,15 +53130,13 @@
 /area/engineering/mechanic_workshop)
 "gBG" = (
 /obj/machinery/recharge_station,
-/obj/machinery/atm{
-	pixel_y = 32
-	},
 /obj/machinery/light{
 	dir = 1
 	},
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
 	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/wood,
 /area/crew_quarters/bar/atrium)
 "gCi" = (
@@ -53255,12 +53231,7 @@
 	pixel_x = 1;
 	pixel_y = 3
 	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/atm{
-	pixel_x = -32
-	},
+/obj/machinery/atm/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -69475,9 +69446,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "nPM" = (
-/obj/machinery/atm{
-	pixel_y = -32
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -81288,9 +81256,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/electrical)
 "tar" = (
-/obj/machinery/atm{
-	pixel_y = 32
-	},
+/obj/machinery/atm/directional/south,
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central/se)
 "taM" = (
@@ -88953,6 +88919,9 @@
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -89075,18 +89044,14 @@
 /area/medical/research)
 "wrt" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/machinery/atm{
-	pixel_x = -32
-	},
 /obj/structure/sign/securearea{
 	desc = "A warning sign which reads 'HIGH VOLTAGE'";
 	icon_state = "shock";
 	name = "HIGH VOLTAGE";
 	pixel_y = -32
 	},
+/obj/machinery/atm/directional/east,
+/obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "wrA" = (
@@ -129441,7 +129406,7 @@ aVo
 aWU
 bbi
 aJA
-cxa
+cwA
 aOI
 cEo
 dih
@@ -129954,7 +129919,7 @@ qFg
 aJA
 cjO
 aZD
-aZD
+cxa
 bdl
 aOI
 cHf
