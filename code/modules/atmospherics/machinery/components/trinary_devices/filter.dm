@@ -1,4 +1,3 @@
-
 /// Nothing will be filtered.
 #define FILTER_NOTHING -1
 /// Plasma, and Oxygen Agent B.
@@ -22,8 +21,7 @@
 	icon_state = "map"
 	can_unwrench = TRUE
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
-	/// The amount of pressure the filter wants to operate at.
-	var/target_pressure = ONE_ATMOSPHERE
+	target_pressure = ONE_ATMOSPHERE
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
 	var/filter_type = FILTER_TOXINS
 	/// A list of available filter options. Used with `ui_data`.
@@ -47,37 +45,28 @@
 	if(!in_range(src, user) && !issilicon(user))
 		return
 	toggle()
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/filter/AICtrlClick()
 	toggle()
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/click_alt(mob/living/user)
-	set_max()
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/trinary/filter/ai_click_alt()
-	set_max()
-	return ..()
-
-/obj/machinery/atmospherics/trinary/filter/proc/set_max()
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
-
-/obj/machinery/atmospherics/trinary/filter/Destroy()
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/filter/flipped
 	icon_state = "mmap"
-	flipped = 1
+	flipped = TRUE
 
 /obj/machinery/atmospherics/trinary/filter/update_icon_state()
-	..()
-
 	if(flipped)
 		icon_state = "m"
 	else
@@ -94,18 +83,18 @@
 /obj/machinery/atmospherics/trinary/filter/update_underlays()
 	if(..())
 		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
+		var/turf/turf = get_turf(src)
+		if(!istype(turf))
 			return
 
-		add_underlay(T, node1, turn(dir, -180))
+		add_underlay(turf, node1, turn(dir, -180))
 
 		if(flipped)
-			add_underlay(T, node2, turn(dir, 90))
+			add_underlay(turf, node2, turn(dir, 90))
 		else
-			add_underlay(T, node2, turn(dir, -90))
+			add_underlay(turf, node2, turn(dir, -90))
 
-		add_underlay(T, node3, dir)
+		add_underlay(turf, node3, dir)
 
 /obj/machinery/atmospherics/trinary/filter/power_change(forced = FALSE)
 	if(!..())
@@ -113,13 +102,13 @@
 	update_icon()
 
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
-	..()
-	if(!on)
+	if((stat & (NOPOWER|BROKEN)) || !on)
 		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
 
-	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure)
+	// Atmospheric filter truly acts like a pump when it filters nothing.
+	if(output_starting_pressure >= target_pressure || (filter_type != FILTER_NOTHING && air2.return_pressure() >= target_pressure))
 		//No need to mix if target is already full!
 		return TRUE
 
@@ -190,10 +179,6 @@
 
 	return TRUE
 
-/obj/machinery/atmospherics/trinary/filter/atmos_init()
-	set_frequency(frequency)
-	..()
-
 /obj/machinery/atmospherics/trinary/filter/attack_ghost(mob/user)
 	ui_interact(user)
 
@@ -256,14 +241,14 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/filter/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/trinary/filter/attackby(obj/item/item, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+		return
 
 	. |= ATTACK_CHAIN_SUCCESS
-	rename_interactive(user, I)
+	rename_interactive(user, item)
 
 #undef FILTER_NOTHING
 #undef FILTER_TOXINS

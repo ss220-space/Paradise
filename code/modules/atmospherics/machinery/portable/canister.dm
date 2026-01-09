@@ -41,6 +41,11 @@
 
 GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
+#define LOW_PRESSURE 0
+#define NORMAL_PRESSURE 1
+#define HIGH_PRESSURE 2
+#define EXTREME_PRESSURE 3
+
 /obj/machinery/atmospherics/portable/canister
 	name = "canister"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
@@ -50,6 +55,9 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
 	integrity_failure = 100
 	cares_about_temperature = TRUE
+	volume = 1000
+	interact_offline = TRUE
+	pressure_resistance = 7 * ONE_ATMOSPHERE
 
 	var/valve_open = FALSE
 	var/release_pressure = ONE_ATMOSPHERE
@@ -58,20 +66,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	var/list/canister_color
 	/// List which stores tgui color indexes for the recoloring options, to enable previously-set colors to show up right
 	var/list/color_index
-
-	/// Lists for check_change()
-	var/list/old_color
-
 	/// Passed to the ui to render the color lists
 	var/list/colorcontainer
 
 	var/can_label = TRUE
 	var/filled = 0.5
-	pressure_resistance = 7 * ONE_ATMOSPHERE
 	var/temperature_resistance = 1000 + T0C
-	volume = 1000
-	interact_offline = TRUE
-	var/update_flag = NONE
+	var/current_pressure_appearance
 
 /obj/machinery/atmospherics/portable/canister/Initialize(mapload)
 	. = ..()
@@ -82,8 +83,6 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		"ter" = "none",
 		"quart" = "none",
 	)
-
-	old_color = list()
 
 	colorcontainer = list(
 		"prim" = list(
@@ -107,44 +106,18 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	color_index = list()
 	update_icon()
 
-#define HOLDING_TANK 1
-#define CONNECTED_PORT 2
-#define LOW_PRESSURE 4
-#define NORMAL_PRESSURE 8
-#define HIGH_PRESSURE 16
-#define EXTREME_PRESSURE 32
-#define NEW_COLOR 64
-#define RESET 68
-
-/obj/machinery/atmospherics/portable/canister/proc/check_change()
-	var/old_flag = update_flag
-
-	update_flag = NONE
-	if(holding)
-		update_flag |= HOLDING_TANK
-	if(connected_port)
-		update_flag |= CONNECTED_PORT
-
-	var/tank_pressure = air_contents.return_pressure()
+/obj/machinery/atmospherics/portable/canister/proc/pressure_to_appearance(tank_pressure)
 	if(tank_pressure < 10)
-		update_flag |= LOW_PRESSURE
+		return LOW_PRESSURE
 	else if(tank_pressure < ONE_ATMOSPHERE)
-		update_flag |= NORMAL_PRESSURE
-	else if(tank_pressure < 15*ONE_ATMOSPHERE)
-		update_flag |= HIGH_PRESSURE
+		return NORMAL_PRESSURE
+	else if(tank_pressure < 15 * ONE_ATMOSPHERE)
+		return HIGH_PRESSURE
 	else
-		update_flag |= EXTREME_PRESSURE
-
-	if(list2params(old_color) != list2params(canister_color))
-		update_flag |= NEW_COLOR
-		old_color = canister_color.Copy()
-
-	return update_flag != old_flag
+		return EXTREME_PRESSURE
 
 /obj/machinery/atmospherics/portable/canister/update_icon_state()
-/*
-(note: colors has to be applied every icon update)
-*/
+	// Colors has to be applied every icon update
 	if(stat & BROKEN)
 		icon_state = "[canister_color["prim"]]-1"//yes, I KNOW the colours don't reflect when the can's borked, whatever.
 		return
@@ -152,44 +125,31 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	if(icon_state != canister_color["prim"])
 		icon_state = canister_color["prim"]
 
-	check_change()
-
 /obj/machinery/atmospherics/portable/canister/update_overlays()
 	. = ..()
-
 	if(stat & BROKEN)
 		return
 
-	for(var/C in canister_color)
-		if(C == "prim")
+	for(var/color in canister_color)
+		if(color == "prim")
 			continue
-		if(canister_color[C] == "none")
+		if(canister_color[color] == "none")
 			continue
-		. += canister_color[C]
+		. += canister_color[color]
 
-	if(update_flag & HOLDING_TANK)
+	if(holding_tank)
 		. += "can-open"
-	if(update_flag & CONNECTED_PORT)
+	if(connected_port)
 		. += "can-connector"
-	if(update_flag & LOW_PRESSURE)
+
+	if(current_pressure_appearance == LOW_PRESSURE)
 		. += "can-o0"
-	if(update_flag & NORMAL_PRESSURE)
+	else if(current_pressure_appearance == NORMAL_PRESSURE)
 		. += "can-o1"
-	else if(update_flag & HIGH_PRESSURE)
+	else if(current_pressure_appearance == HIGH_PRESSURE)
 		. += "can-o2"
-	else if(update_flag & EXTREME_PRESSURE)
+	else if(current_pressure_appearance == EXTREME_PRESSURE)
 		. += "can-o3"
-
-	update_flag &= ~RESET //the flag NEW_COLOR represents change, not states. As such, we have to reset them to be able to detect a change on the next go.
-
-#undef HOLDING_TANK
-#undef CONNECTED_PORT
-#undef LOW_PRESSURE
-#undef NORMAL_PRESSURE
-#undef HIGH_PRESSURE
-#undef EXTREME_PRESSURE
-#undef NEW_COLOR
-#undef RESET
 
 /obj/machinery/atmospherics/portable/canister/temperature_expose(temperature, volume)
 	..()
@@ -226,6 +186,11 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		holding = null
 	turf.blind_release_air(expelled_gas)
 
+/obj/machinery/atmospherics/portable/canister/proc/sync_pressure_appearance()
+	var/new_pressure_appearance = pressure_to_appearance(air_contents.return_pressure())
+	if(current_pressure_appearance != new_pressure_appearance)
+		current_pressure_appearance = new_pressure_appearance
+		update_icon()
 
 /obj/machinery/atmospherics/portable/canister/process_atmos()
 	..()
@@ -263,7 +228,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 		var/datum/gas_mixture/removed = canister.air_contents.remove(transfer_moles)
 
 		environment.merge(removed)
-		canister.update_icon()
+		canister.sync_pressure_appearance()
 
 /obj/machinery/atmospherics/portable/canister/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
@@ -346,21 +311,25 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 /obj/machinery/atmospherics/portable/canister/ui_act(action, params)
 	if(..())
 		return
+
 	var/can_min_release_pressure = round(ONE_ATMOSPHERE / 10)
 	var/can_max_release_pressure = round(ONE_ATMOSPHERE * 10)
 	. = TRUE
+
 	switch(action)
 		if("relabel")
 			if(can_label)
-				var/T = tgui_input_text(usr, "Choose canister label", "Name", name, max_length = MAX_NAME_LEN)
+				var/new_label = tgui_input_text(usr, "Choose canister label", "Name", name, max_length = MAX_NAME_LEN)
 				if(can_label) //Exploit prevention
-					if(T)
-						name = T
+					if(new_label)
+						name = new_label
 					else
 						name = "canister"
+					update_appearance(UPDATE_NAME)
 				else
 					to_chat(usr, span_warning("As you attempted to rename it the pressure rose!"))
 					. = FALSE
+
 		if("pressure")
 			var/pressure = params["pressure"]
 			if(pressure == "reset")
@@ -414,8 +383,9 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 				color_index[ctype] = newcolor
 				newcolor++ // javascript starts arrays at 0, byond (for some reason) starts them at 1, this converts JS values to byond values
 				canister_color[ctype] = colorcontainer[ctype]["options"][newcolor]["icon"]
+				update_icon()
+
 	add_fingerprint(usr)
-	update_icon()
 
 /obj/machinery/atmospherics/portable/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
@@ -520,3 +490,7 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	canister_color["prim"] = "whiters"
 	update_icon() // Otherwise new canisters do not have their icon updated with the pressure light, likely want to add this to the canister class constructor, avoiding at current time to refrain from screwing up code for other canisters. --DZD
 
+#undef LOW_PRESSURE
+#undef NORMAL_PRESSURE
+#undef HIGH_PRESSURE
+#undef EXTREME_PRESSURE

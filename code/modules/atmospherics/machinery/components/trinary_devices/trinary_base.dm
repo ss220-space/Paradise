@@ -16,7 +16,7 @@
 	var/datum/pipeline/parent2
 	var/datum/pipeline/parent3
 
-	var/flipped = 0
+	var/flipped = FALSE
 
 /obj/machinery/atmospherics/trinary/Initialize(mapload)
 	. = ..()
@@ -67,16 +67,16 @@
 
 /obj/machinery/atmospherics/trinary/atmos_init()
 	..()
-	//Mixer:
-	//1 and 2 is input
-	//Node 3 is output
-	//If we flip the mixer, 1 and 3 shall exchange positions
+	// Mixer:
+	// 1 and 2 is input
+	// Node 3 is output
+	// If we flip the mixer, 1 and 3 shall exchange positions
 
-	//Filter:
-	//Node 1 is input
-	//Node 2 is filtered output
-	//Node 3 is rest output
-	//If we flip the filter, 1 and 3 shall exchange positions
+	// Filter:
+	// Node 1 is input
+	// Node 2 is filtered output
+	// Node 3 is rest output
+	// If we flip the filter, 1 and 3 shall exchange positions
 
 	var/node1_connect = turn(dir, -180)
 	var/node2_connect = turn(dir, -90)
@@ -85,17 +85,17 @@
 	if(flipped)
 		node2_connect = turn(node2_connect, -180)
 
-	for(var/obj/machinery/atmospherics/target in get_step(src,node1_connect))
+	for(var/obj/machinery/atmospherics/target in get_step(src, node1_connect))
 		if(target.initialize_directions & get_dir(target,src))
 			node1 = target
 			break
 
-	for(var/obj/machinery/atmospherics/target in get_step(src,node2_connect))
+	for(var/obj/machinery/atmospherics/target in get_step(src, node2_connect))
 		if(target.initialize_directions & get_dir(target,src))
 			node2 = target
 			break
 
-	for(var/obj/machinery/atmospherics/target in get_step(src,node3_connect))
+	for(var/obj/machinery/atmospherics/target in get_step(src, node3_connect))
 		if(target.initialize_directions & get_dir(target,src))
 			node3 = target
 			break
@@ -115,69 +115,87 @@
 	if(!parent3)
 		parent3 = new /datum/pipeline()
 		parent3.build_pipeline(src)
-	..()
+
+	return ..()
 
 /obj/machinery/atmospherics/trinary/disconnect(obj/machinery/atmospherics/reference)
 	if(reference == node1)
 		if(istype(node1, /obj/machinery/atmospherics/pipe))
 			qdel(parent1)
 		node1 = null
+
 	else if(reference == node2)
 		if(istype(node2, /obj/machinery/atmospherics/pipe))
 			qdel(parent2)
 		node2 = null
+
 	else if(reference == node3)
 		if(istype(node3, /obj/machinery/atmospherics/pipe))
 			qdel(parent3)
 		node3 = null
+
 	update_icon()
 
-/obj/machinery/atmospherics/trinary/nullifyPipenet(datum/pipeline/P)
+/obj/machinery/atmospherics/trinary/nullifyPipenet(datum/pipeline/pipeline)
 	..()
-	if(!P)
+	if(!pipeline)
 		return
-	if(P == parent1)
+
+	if(pipeline == parent1)
 		parent1.other_airs -= air1
 		parent1 = null
-	else if(P == parent2)
+
+	else if(pipeline == parent2)
 		parent2.other_airs -= air2
 		parent2 = null
-	else if(P == parent3)
+
+	else if(pipeline == parent3)
 		parent3.other_airs -= air3
 		parent3 = null
 
-/obj/machinery/atmospherics/trinary/returnPipenetAir(datum/pipeline/P)
-	if(P == parent1)
+/obj/machinery/atmospherics/trinary/returnPipenetAir(datum/pipeline/pipeline)
+	if(pipeline == parent1)
 		return air1
-	else if(P == parent2)
+
+	else if(pipeline == parent2)
 		return air2
-	else if(P == parent3)
+
+	else if(pipeline == parent3)
 		return air3
 
-/obj/machinery/atmospherics/trinary/pipeline_expansion(datum/pipeline/P)
-	if(P)
-		if(parent1 == P)
-			return list(node1)
-		else if(parent2 == P)
-			return list(node2)
-		else if(parent3 == P)
-			return list(node3)
+/obj/machinery/atmospherics/trinary/pipeline_expansion(datum/pipeline/pipeline)
+	if(!pipeline)
+		return list(node1, node2, node3)
+
+	if(parent1 == pipeline)
+		return list(node1)
+
+	else if(parent2 == pipeline)
+		return list(node2)
+
+	else if(parent3 == pipeline)
+		return list(node3)
+
 	return list(node1, node2, node3)
 
-/obj/machinery/atmospherics/trinary/setPipenet(datum/pipeline/P, obj/machinery/atmospherics/A)
-	if(A == node1)
-		parent1 = P
-	else if(A == node2)
-		parent2 = P
-	else if(A == node3)
-		parent3 = P
+/obj/machinery/atmospherics/trinary/setPipenet(datum/pipeline/pipeline, obj/machinery/atmospherics/atmospheric)
+	if(atmospheric == node1)
+		parent1 = pipeline
 
-/obj/machinery/atmospherics/trinary/returnPipenet(obj/machinery/atmospherics/A)
-	if(A == node1)
+	else if(atmospheric == node2)
+		parent2 = pipeline
+
+	else if(atmospheric == node3)
+		parent3 = pipeline
+
+/obj/machinery/atmospherics/trinary/returnPipenet(obj/machinery/atmospherics/atmospheric)
+	if(atmospheric == node1)
 		return parent1
-	else if(A == node2)
+
+	else if(atmospheric == node2)
 		return parent2
-	else if(A == node3)
+
+	else if(atmospheric == node3)
 		return parent3
 
 /obj/machinery/atmospherics/trinary/return_pipenets()
@@ -186,17 +204,19 @@
 /obj/machinery/atmospherics/trinary/replacePipenet(datum/pipeline/Old, datum/pipeline/New)
 	if(Old == parent1)
 		parent1 = New
+
 	else if(Old == parent2)
 		parent2 = New
+
 	else if(Old == parent3)
 		parent3 = New
 
 /obj/machinery/atmospherics/trinary/unsafe_pressure_release(mob/user, pressures)
 	..()
 
-	var/turf/T = get_turf(src)
-	if(T)
-		//Remove the gas from air1+air2+air3 and assume it
+	var/turf/turf = get_turf(src)
+	if(turf)
+		// Remove the gas from (air1 + air2 + air3) and assume it
 		var/lost = pressures * CELL_VOLUME / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 		lost += pressures * CELL_VOLUME / (air2.temperature() * R_IDEAL_GAS_EQUATION)
 		lost += pressures * CELL_VOLUME / (air3.temperature() * R_IDEAL_GAS_EQUATION)
@@ -205,8 +225,4 @@
 		var/datum/gas_mixture/to_release = air1.remove(shared_loss)
 		to_release.merge(air2.remove(shared_loss))
 		to_release.merge(air3.remove(shared_loss))
-		T.blind_release_air(to_release)
-
-/obj/machinery/atmospherics/trinary/process_atmos()
-	..()
-	return parent1 && parent2 && parent3
+		turf.blind_release_air(to_release)

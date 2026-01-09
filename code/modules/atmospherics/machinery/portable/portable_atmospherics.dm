@@ -71,6 +71,8 @@
 
 	set_anchored(TRUE) //Prevent movement
 
+	update_icon()
+
 	return TRUE
 
 /obj/machinery/atmospherics/portable/proc/disconnect()
@@ -81,6 +83,8 @@
 
 	connected_port.connected_device = null
 	connected_port = null
+
+	update_icon()
 
 	return TRUE
 
@@ -97,7 +101,7 @@
 /obj/machinery/atmospherics/portable/examine(mob/user)
 	. = ..()
 	if(holding)
-		. += span_notice("\The [src] contains [holding]. Alt-click [src] to remove it.")
+		. += span_notice("[src] contains [holding]. Alt-click [src] to remove it.")
 
 /obj/machinery/atmospherics/portable/return_analyzable_air()
 	return air_contents
@@ -107,10 +111,12 @@
 		holding.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
 			user.put_in_hands(holding, ignore_anim = FALSE)
+
 	if(new_tank)
 		holding = new_tank
 	else
 		holding = null
+
 	update_icon()
 	return TRUE
 

@@ -29,6 +29,9 @@ Pipelines + Other Objects -> Pipe network
 	/// The bitflag that's being checked on ventcrawling. Default is to allow ventcrawling and seeing pipes.
 	var/vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE
 
+	/// The amount of pressure the machine wants to operate at.
+	var/target_pressure = 0
+
 	// Vars below this point are all pipe related
 	// I know not all subtypes are pipes, but this helps
 
@@ -462,3 +465,19 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	update_pipe_image()
 
+/**
+ * Maxes the output pressure of the machine. If this is done by a user, display a message to them.
+ *
+ * NOTE: Only applies to atmospherics machines which allow a `target_pressure` to be set, such as pumps, or other devices.
+ *
+ * Arguments:
+ * * user - the mob who is setting the output pressure to maximum.
+ */
+/obj/machinery/atmospherics/trinary/mixer/proc/set_max(mob/living/user)
+	if(!powered())
+		return
+
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	if(user)
+		to_chat(user, span_notice("You set the target pressure of [src] to maximum."))

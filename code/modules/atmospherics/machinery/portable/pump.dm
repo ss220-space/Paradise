@@ -7,17 +7,15 @@
 #define DIRECTION_OUT 1
 
 /obj/machinery/atmospherics/portable/pump
-	name = "Portable Air Pump"
+	name = "portable air pump"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
 	icon_state = "psiphon:0"
 	density = TRUE
 	volume = 1000
-	/// If the pump is turned on or off.
-	var/on = FALSE
 	/// The direction the pump is operating in. This should be either `DIRECTION_IN` or `DIRECTION_OUT`.
 	var/direction = DIRECTION_IN
 	/// The desired pressure the pump should be outputting, either into the atmosphere, or into a holding tank.
-	var/target_pressure = 101.325
+	target_pressure = 101.325
 
 /obj/machinery/atmospherics/portable/pump/update_icon_state()
 	icon_state = "psiphon:[on]"
@@ -47,6 +45,9 @@
 
 /obj/machinery/atmospherics/portable/pump/process_atmos()
 	..()
+	if(!on)
+		return
+
 	var/datum/milla_safe/portable_pump_process/milla = new()
 	milla.invoke_async(src)
 

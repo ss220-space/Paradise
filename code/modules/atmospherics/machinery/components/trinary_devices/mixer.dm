@@ -1,17 +1,13 @@
 /obj/machinery/atmospherics/trinary/mixer
+	name = "gas mixer"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/mixer.dmi'
 	icon_state = "map"
-
 	can_unwrench = TRUE
-
-	name = "gas mixer"
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
-
-	var/target_pressure = ONE_ATMOSPHERE
+	target_pressure = ONE_ATMOSPHERE
+	// node 3 is the outlet, nodes 1 & 2 are intakes
 	var/node1_concentration = 0.5
 	var/node2_concentration = 0.5
-
-	//node 3 is the outlet, nodes 1 & 2 are intakes
 
 /obj/machinery/atmospherics/trinary/mixer/CtrlClick(mob/living/user)
 	if(!ishuman(user) && !issilicon(user))
@@ -22,31 +18,28 @@
 	if(!in_range(src, user) && !issilicon(user))
 		return
 	toggle()
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
 	toggle()
+	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/click_alt(mob/living/user)
-	set_max()
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/trinary/mixer/ai_click_alt()
-	set_max()
+	set_max(user)
+	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
 
 /obj/machinery/atmospherics/trinary/mixer/flipped
 	icon_state = "mmap"
-	flipped = 1
-
-/obj/machinery/atmospherics/trinary/mixer/proc/set_max()
-	if(powered())
-		target_pressure = MAX_OUTPUT_PRESSURE
-		update_icon()
+	flipped = TRUE
 
 /obj/machinery/atmospherics/trinary/mixer/update_icon_state()
-	..()
-
 	if(flipped)
 		icon_state = "m"
 	else
@@ -63,18 +56,18 @@
 /obj/machinery/atmospherics/trinary/mixer/update_underlays()
 	if(..())
 		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
+		var/turf/turf = get_turf(src)
+		if(!istype(turf))
 			return
 
-		add_underlay(T, node1, turn(dir, -180))
+		add_underlay(turf, node1, turn(dir, -180))
 
 		if(flipped)
-			add_underlay(T, node2, turn(dir, 90))
+			add_underlay(turf, node2, turn(dir, 90))
 		else
-			add_underlay(T, node2, turn(dir, -90))
+			add_underlay(turf, node2, turn(dir, -90))
 
-		add_underlay(T, node3, dir)
+		add_underlay(turf, node3, dir)
 
 /obj/machinery/atmospherics/trinary/mixer/power_change()
 	if(!..())
@@ -86,8 +79,7 @@
 	air3.volume = 300
 
 /obj/machinery/atmospherics/trinary/mixer/process_atmos()
-	..()
-	if(!on)
+	if((stat & (NOPOWER|BROKEN)) || !on)
 		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
@@ -96,16 +88,14 @@
 		//No need to mix if target is already full!
 		return TRUE
 
-	/*
-	Pump mode:
-	If mixing ratio is set to 100:0 or 0:100, mixer will act like a gas pump, avoiding unnecessary checks for actual mixing process
-	pump = 0 - pump mode is OFF
-	pump = 1 - pump mode is ON, transfers gas from intake 1 to outlet (node 1 -> node 3)
-	pump = 2 - pump mode is ON, transfers gas from intake 2 to outlet (node 2 -> node 3)
-	*/
-
+	/**
+	 * Pump mode:
+	 * If mixing ratio is set to 100:0 or 0:100, mixer will act like a gas pump, avoiding unnecessary checks for actual mixing process
+	 * pump = 0 - pump mode is OFF
+	 * pump = 1 - pump mode is ON, transfers gas from intake 1 to outlet (node 1 -> node 3)
+	 * pump = 2 - pump mode is ON, transfers gas from intake 2 to outlet (node 2 -> node 3)
+	 */
 	var/pump = 0
-
 	if(!node1_concentration)
 		pump = 2
 
@@ -221,12 +211,12 @@
 	if(.)
 		investigate_log("was set to [target_pressure] kPa by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/I, mob/user, params)
+/obj/machinery/atmospherics/trinary/mixer/attackby(obj/item/item, mob/user, params)
 	. = ..()
 
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
-		return .
+		return 
 
 	. |= ATTACK_CHAIN_SUCCESS
-	rename_interactive(user, I)
+	rename_interactive(user, item)
 

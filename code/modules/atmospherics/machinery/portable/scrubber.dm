@@ -11,8 +11,6 @@
 	icon_state = "pscrubber:0"
 	density = TRUE
 	volume = 750
-	/// Whether the scrubber is switched on or off.
-	var/on = FALSE
 	/// The volume of gas that can be scrubbed every time `process_atmos()` is called (0.5 seconds).
 	var/volume_rate = 101.325
 	/// Is this scrubber acting on the 3x3 area around it.
@@ -50,6 +48,7 @@
 	..()
 	if(!on)
 		return
+
 	if(holding)
 		scrub(holding.air_contents)
 		return
