@@ -1,15 +1,16 @@
 /obj/machinery/atmospherics/portable
 	name = "atmoalter"
+	anchored = FALSE
+	layer = BELOW_OBJ_LAYER
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30)
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 	var/datum/gas_mixture/air_contents = new
-
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
 	var/obj/item/tank/holding_tank
 	var/volume = 0
-	var/maximum_pressure = 90*ONE_ATMOSPHERE
+	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
 /obj/machinery/atmospherics/portable/Initialize(mapload)
 	. = ..()
@@ -75,7 +76,7 @@
 
 	return TRUE
 
-/obj/machinery/atmospherics/portable/proc/disconnect()
+/obj/machinery/atmospherics/portable/disconnect()
 	if(!connected_port)
 		return FALSE
 

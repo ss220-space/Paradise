@@ -171,22 +171,22 @@
 	add_fingerprint(usr)
 
 /obj/machinery/atmospherics/portable/scrubber/huge
-	name = "Huge Air Scrubber"
+	name = "huge air scrubber"
 	icon_state = "scrubber:0"
 	anchored = TRUE
 	volume = 50000
 	volume_rate = 5000
-	widenet = 1
+	widenet = TRUE
 
 	var/global/gid = 1
 	var/id = 0
-	var/stationary = 0
+	var/stationary = FALSE
 
-/obj/machinery/atmospherics/portable/scrubber/huge/New()
-	..()
+/obj/machinery/atmospherics/portable/scrubber/huge/Initialize(mapload)
+	. = ..()
+
 	id = gid
 	gid++
-
 	name = "[name] (ID [id])"
 
 /obj/machinery/atmospherics/portable/scrubber/huge/attack_hand(mob/user)
@@ -194,9 +194,6 @@
 
 /obj/machinery/atmospherics/portable/scrubber/huge/update_icon_state()
 	icon_state = "scrubber:[on]"
-
-/obj/machinery/atmospherics/portable/scrubber/huge/update_overlays()
-	. = list()
 
 /obj/machinery/atmospherics/portable/scrubber/huge/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -212,8 +209,8 @@
 	to_chat(user, span_notice("You [anchored ? "wrench" : "unwrench"] [src]."))
 
 /obj/machinery/atmospherics/portable/scrubber/huge/stationary
-	name = "Stationary Air Scrubber"
-	stationary = 1
+	name = "stationary air scrubber"
+	stationary = TRUE
 
 #undef MAX_RATE
 #undef DIRECTION_IN

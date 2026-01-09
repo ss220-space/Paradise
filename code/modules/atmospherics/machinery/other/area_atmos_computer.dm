@@ -4,15 +4,12 @@
 	icon_screen = "area_atmos"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/area_atmos
+	light_color = LIGHT_COLOR_CYAN
 
 	var/list/connectedscrubbers = new()
 	var/status = ""
-
 	var/range = 25
-
-	light_color = LIGHT_COLOR_CYAN
-
-	//Simple variable to prevent me from doing attack_hand in both this and the child computer
+	///Simple variable to prevent me from doing attack_hand in both this and the child computer
 	var/zone = "This computer is working on a wireless range, the range is currently limited to 25 meters."
 
 /obj/machinery/computer/area_atmos/Initialize(mapload)
@@ -20,14 +17,14 @@
 	//So the scrubbers have time to spawn
 	addtimer(CALLBACK(src, PROC_REF(scanscrubbers)), 1 SECONDS)
 
-/obj/machinery/computer/area_atmos/attack_ai(mob/user as mob)
-	src.add_hiddenprint(user)
-	return src.attack_hand(user)
+/obj/machinery/computer/area_atmos/attack_ai(mob/user)
+	add_hiddenprint(user)
+	attack_hand(user)
 
-/obj/machinery/computer/area_atmos/attack_hand(mob/user as mob)
+/obj/machinery/computer/area_atmos/attack_hand(mob/user)
 	if(..(user))
 		return
-	src.add_fingerprint(usr)
+	add_fingerprint(usr)
 	var/dat = {"
 	<html>
 		<meta charset="UTF-8">

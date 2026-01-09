@@ -9,7 +9,6 @@
 	active_power_usage = 60
 	can_unwrench = TRUE
 	vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE|VENTCRAWL_ENTRANCE_ALLOWED
-	frequency = ATMOS_VENTSCRUB
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SCRUBBER) //connects to regular and scrubber pipes
 
 	var/area/initial_loc

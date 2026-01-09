@@ -11,7 +11,6 @@
 	vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE|VENTCRAWL_ENTRANCE_ALLOWED
 	can_unwrench = TRUE
 	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY) // connects to regular and supply pipes
-	frequency = ATMOS_VENTSCRUB
 
 	/// Is the vent open to put a piece of paper in it
 	var/open = FALSE // A living relic of papercult

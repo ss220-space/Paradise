@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 /obj/machinery/alarm
 	name = "air alarm"
 	desc = "A wall-mounted device used to control atmospheric equipment. It looks a little cheaply made..."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = TRUE
 	idle_power_usage = 4
@@ -76,7 +76,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 90, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	siemens_strength = 1
-	frequency = ATMOS_VENTSCRUB
 	/// Which MILLA tick were we initialized at?
 	var/init_tick
 	var/alarm_id = null
@@ -246,7 +245,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 	init_tick = SSair.milla_tick
 
-	set_frequency(frequency)
 	if(is_taipan(z))
 		req_access = list(ACCESS_SYNDICATE)
 
@@ -254,9 +252,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	SStgui.close_uis(wires)
 	GLOB.air_alarms -= src
 	alarm_area.air_alarms -= src
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
 	GLOB.air_alarm_repository.update_cache(src)
 	QDEL_NULL(wires)
 	alarm_area = null

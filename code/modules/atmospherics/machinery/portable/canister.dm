@@ -292,18 +292,18 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /obj/machinery/atmospherics/portable/canister/ui_data()
 	var/data = list()
-	data["portConnected"] = connected_port ? 1 : 0
+	data["portConnected"] = connected_port ? TRUE : FALSE
 	data["tankPressure"] = round(air_contents.return_pressure() ? air_contents.return_pressure() : 0)
 	data["releasePressure"] = round(release_pressure ? release_pressure : 0)
 	data["defaultReleasePressure"] = ONE_ATMOSPHERE
 	data["minReleasePressure"] = round(ONE_ATMOSPHERE / 10)
 	data["maxReleasePressure"] = round(ONE_ATMOSPHERE * 10)
-	data["valveOpen"] = valve_open ? 1 : 0
+	data["valveOpen"] = valve_open ? TRUE : FALSE
 	data["name"] = name
-	data["canLabel"] = can_label ? 1 : 0
+	data["canLabel"] = can_label ? TRUE : FALSE
 	data["colorContainer"] = colorcontainer.Copy()
 	data["color_index"] = color_index
-	data["hasHoldingTank"] = holding_tank ? 1 : 0
+	data["hasHoldingTank"] = holding_tank ? TRUE : FALSE
 	if(holding_tank)
 		data["holdingTank"] = list("name" = holding_tank.name, "tankPressure" = round(holding_tank.air_contents.return_pressure()))
 	return data

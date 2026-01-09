@@ -198,10 +198,6 @@
 	board_name = "Atmospheric Monitor"
 	build_path = /obj/machinery/computer/general_air_control
 
-/obj/item/circuitboard/injector_control
-	board_name = "Injector Control"
-	build_path = /obj/machinery/computer/general_air_control/fuel_injection
-
 /obj/item/circuitboard/pod
 	board_name = "Massdriver Control"
 	build_path = /obj/machinery/computer/pod
