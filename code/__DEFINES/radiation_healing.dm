@@ -8,3 +8,5 @@
 #define INTERNAL_HEAL_COST 3
 
 #define FRACTURE_HEAL_COST 10
+
+#define PASSIVE_RAD_DRAIN 1
