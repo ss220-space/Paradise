@@ -116,9 +116,9 @@
 	alpha = 255
 
 	if(node1 && node2)
-		. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "intact" + icon_connect_type)
+		. += GLOB.pipe_icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "intact" + icon_connect_type)
 	else
-		. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
+		. += GLOB.pipe_icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
 
 /obj/machinery/atmospherics/pipe/simple/update_underlays()
 	return

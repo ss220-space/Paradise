@@ -87,8 +87,8 @@
 
 	alpha = 255
 
-	. += SSair.icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "4way" + icon_connect_type)
-	. += SSair.icon_manager.get_atmos_icon("manifold", state = "clamps_4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", state = "clamps_4way" + icon_connect_type)
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_underlays()

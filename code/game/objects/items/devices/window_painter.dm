@@ -29,7 +29,7 @@
 			update_icon(UPDATE_OVERLAYS)
 		if("Color Presets")
 			mode = "paint"
-			colour = tgui_input_list(usr, "Which color do you want to use?", name, GLOB.pipe_colors, colour)
+			colour = tgui_input_list(usr, "Which color do you want to use?", name, GLOB.pipe_icon_manager.pipe_colors, colour)
 			update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pipe_painter/window_painter/afterattack(atom/A, mob/user, proximity, params)

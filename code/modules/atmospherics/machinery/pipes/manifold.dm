@@ -116,8 +116,8 @@
 
 	alpha = 255
 
-	. += SSair.icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "core" + icon_connect_type)
-	. += SSair.icon_manager.get_atmos_icon("manifold", state = "clamps" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "core" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", state = "clamps" + icon_connect_type)
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold/update_underlays()

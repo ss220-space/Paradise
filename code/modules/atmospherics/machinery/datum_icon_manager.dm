@@ -1,3 +1,5 @@
+GLOBAL_DATUM_INIT(pipe_icon_manager, /datum/pipe_icon_manager, new)
+
 //--------------------------------------------
 // Pipe colors
 //
@@ -7,15 +9,15 @@
 //--------------------------------------------
 
 /proc/pipe_color_lookup(color)
-	for(var/check_color in GLOB.pipe_colors)
-		if(color == GLOB.pipe_colors[check_color])
+	for(var/check_color in GLOB.pipe_icon_manager.pipe_colors)
+		if(color == GLOB.pipe_icon_manager.pipe_colors[check_color])
 			return "[check_color]"
 
 /proc/pipe_color_check(color)
 	if(!color)
 		return TRUE
-	for(var/check_color in GLOB.pipe_colors)
-		if(color == GLOB.pipe_colors[check_color])
+	for(var/check_color in GLOB.pipe_icon_manager.pipe_colors)
+		if(color == GLOB.pipe_icon_manager.pipe_colors[check_color])
 			return TRUE
 	return FALSE
 
@@ -28,6 +30,16 @@
 	var/list/manifold_icons
 	var/list/device_icons
 	var/list/underlays
+
+	var/list/pipe_colors = list(
+		"blue" = PIPE_COLOR_BLUE,
+		"cyan" = PIPE_COLOR_CYAN,
+		"green" = PIPE_COLOR_GREEN,
+		"grey" = PIPE_COLOR_GREY,
+		"purple" = PIPE_COLOR_PURPLE,
+		"red" = PIPE_COLOR_RED,
+		"yellow" = PIPE_COLOR_YELLOW,
+	)
 
 /datum/pipe_icon_manager/New()
 	check_icons()
@@ -74,10 +86,10 @@
 		var/image/img = image('icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi', icon_state = state)
 		pipe_icons[cache_name] = img
 
-		for(var/pipe_color in GLOB.pipe_colors)
+		for(var/pipe_color in pipe_colors)
 			img = image('icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi', icon_state = state)
-			img.color = GLOB.pipe_colors[pipe_color]
-			pipe_icons[state + "[GLOB.pipe_colors[pipe_color]]"] = img
+			img.color = pipe_colors[pipe_color]
+			pipe_icons[state + "[pipe_colors[pipe_color]]"] = img
 
 	pipe = icon('icons/obj/pipes_and_stuff/atmospherics/atmos/heat.dmi')
 	for(var/state in pipe.IconStates())
@@ -106,10 +118,10 @@
 		if(findtext(state, "core") || findtext(state, "4way"))
 			var/image/img = image('icons/obj/pipes_and_stuff/atmospherics/atmos/manifold.dmi', icon_state = state)
 			manifold_icons[state] = img
-			for(var/pipe_color in GLOB.pipe_colors)
+			for(var/pipe_color in pipe_colors)
 				img = image('icons/obj/pipes_and_stuff/atmospherics/atmos/manifold.dmi', icon_state = state)
-				img.color = GLOB.pipe_colors[pipe_color]
-				manifold_icons[state + GLOB.pipe_colors[pipe_color]] = img
+				img.color = pipe_colors[pipe_color]
+				manifold_icons[state + pipe_colors[pipe_color]] = img
 
 /datum/pipe_icon_manager/proc/gen_device_icons()
 	if(!device_icons)
@@ -142,8 +154,7 @@
 		for(var/change_dir in GLOB.cardinal)
 			var/image/img = image(icon('icons/obj/pipes_and_stuff/atmospherics/atmos/pipe_underlays.dmi', icon_state = state, dir = change_dir), layer = GAS_PIPE_HIDDEN_LAYER)
 			underlays[cache_name + "[change_dir]"] = img
-			for(var/pipe_color in GLOB.pipe_colors)
+			for(var/pipe_color in pipe_colors)
 				img = image(icon('icons/obj/pipes_and_stuff/atmospherics/atmos/pipe_underlays.dmi', icon_state = state, dir = change_dir), layer = GAS_PIPE_HIDDEN_LAYER)
-				img.color = GLOB.pipe_colors[pipe_color]
-				underlays[state + "[change_dir]" + "[GLOB.pipe_colors[pipe_color]]"] = img
-
+				img.color = pipe_colors[pipe_color]
+				underlays[state + "[change_dir]" + "[pipe_colors[pipe_color]]"] = img
