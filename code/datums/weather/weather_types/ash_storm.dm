@@ -47,7 +47,6 @@
 		else
 			weak_sounds[place] = /datum/looping_sound/weak_inside_ashstorm
 			strong_sounds[place] = /datum/looping_sound/active_inside_ashstorm
-		CHECK_TICK
 
 /datum/weather/ash_storm/proc/update_audio(next_stage)
 	switch(stage)

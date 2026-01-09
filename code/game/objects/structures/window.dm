@@ -38,6 +38,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	resistance_flags = ACID_PROOF
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
+	cares_about_temperature = TRUE
 	var/ini_dir = null
 	var/state = WINDOW_OUT_OF_FRAME
 	var/reinf = FALSE
@@ -56,6 +57,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 	/// If we added a leaning component to ourselves
 	var/added_leaning = FALSE
+
+	/// How well this window resists superconductivity.
+	var/superconductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/get_ru_names()
 	return list(
@@ -106,7 +110,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
@@ -124,7 +128,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/Destroy()
 	set_density(FALSE)
-	air_update_turf(1)
+	recalculate_atmos_connectivity()
 	update_nearby_icons()
 	return ..()
 
@@ -323,7 +327,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			set_anchored(!anchored)
-			air_update_turf(TRUE)
+			recalculate_atmos_connectivity()
 			update_nearby_icons()
 			to_chat(user, span_notice("Вы [anchored ? "закрепляете раму к ": "открепляете раму от"] пола."))
 
@@ -333,7 +337,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_anchored), anchored)))
 			return
 		set_anchored(!anchored)
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 		update_nearby_icons()
 		to_chat(user, span_notice("Вы [anchored ? "закрепляете окно на полу":"открепляете окно от пола"]."))
 
@@ -455,10 +459,15 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/window/CanAtmosPass(turf/T, vertical)
+/obj/structure/window/CanAtmosPass(direction)
 	if(!anchored || !density)
 		return TRUE
-	return !(FULLTILE_WINDOW_DIR == dir || dir == get_dir(loc, T))
+	return !(FULLTILE_WINDOW_DIR == dir || (dir & direction))
+
+/obj/structure/window/get_superconductivity(direction)
+	if(dir == FULLTILE_WINDOW_DIR || dir & direction)
+		return superconductivity
+	return ..()
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
@@ -481,10 +490,10 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.01), appearance_flags = RESET_COLOR)
 	. += crack_overlay
 
-/obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > (T0C + heat_resistance))
-		take_damage(round(exposed_volume / 100), BURN, 0, 0)
+	if(temperature > (T0C + heat_resistance))
+		take_damage(round(temperature/ 100), BURN, 0, 0)
 
 /obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/human, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	var/shattered = FALSE
@@ -675,6 +684,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 150
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmabasic/get_ru_names()
 	return list(
@@ -685,9 +695,6 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		INSTRUMENTAL = "плазменным окном",
 		PREPOSITIONAL = "плазменном окне",
 	)
-
-/obj/structure/window/plasmabasic/BlockSuperconductivity()
-	return 1
 
 /obj/structure/window/plasmareinforced
 	name = "reinforced plasma window"
@@ -701,6 +708,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	damage_deflection = 21
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plasmareinforced/get_ru_names()
 	return list(
@@ -712,11 +720,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		PREPOSITIONAL = "укреплённом плазменном окне",
 	)
 
-/obj/structure/window/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/plasmareinforced/temperature_expose(temperature, volume)
 	return
-
-/obj/structure/window/plasmareinforced/BlockSuperconductivity()
-	return 1 //okay this SHOULD MAKE THE TOXINS CHAMBER WORK
 
 /obj/structure/window/abductor
 	name = "alien window"
@@ -780,6 +785,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	smoothing_groups = SMOOTH_GROUP_WINDOW_FULLTILE
 	explosion_block = 1
 	armor = list(MELEE = 75, BULLET = 5, LASER = 0, ENERGY = 0, BOMB = 45, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmabasic/get_ru_names()
 	return list(
@@ -827,6 +833,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	max_integrity = 1000
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/full/plasmareinforced/get_ru_names()
 	return list(
@@ -838,11 +845,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		PREPOSITIONAL = "укреплённом плазменном окне",
 	)
 
-/obj/structure/window/full/plasmareinforced/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/window/full/plasmareinforced/temperature_expose(temperature, volume)
 	return
-
-/obj/structure/window/full/plasmareinforced/BlockSuperconductivity()
-	return TRUE
 
 /obj/structure/window/full/reinforced
 	name = "reinforced window"
@@ -1041,6 +1045,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	level = 3
 	glass_type = /obj/item/stack/sheet/plastitaniumglass
 	glass_amount = 2
+	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
 
 /obj/structure/window/plastitanium/get_ru_names()
 	return list(

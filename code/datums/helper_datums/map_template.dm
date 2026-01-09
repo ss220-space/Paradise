@@ -49,6 +49,9 @@
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
 	GLOB.space_manager.add_dirt(placement.z)
+	var/datum/milla_safe/freeze_z_level/milla_freeze = new()
+	milla_freeze.invoke_async(T.z)
+	UNTIL(milla_freeze.done)
 	SSicon_smooth.add_halt_source(src)
 	try
 		var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
@@ -61,12 +64,16 @@
 	catch(var/exception/e)
 		SSicon_smooth.remove_halt_source(src)
 		GLOB.space_manager.remove_dirt(placement.z)
+		var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
+		milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
 		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
 		throw e
 
 	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
+	var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
+	milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 

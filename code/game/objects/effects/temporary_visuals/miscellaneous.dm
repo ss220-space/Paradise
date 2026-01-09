@@ -488,27 +488,6 @@
 	. = ..()
 	new /obj/effect/warp_effect/bsg(loc)
 
-/obj/effect/warp_effect/bsg
-
-/obj/effect/warp_effect/bsg/Initialize(mapload)
-	. = ..()
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
-	QDEL_IN(src, 0.8 SECONDS)
-
-/obj/effect/warp_effect/heart
-	var/range = 12
-
-/obj/effect/warp_effect/heart/Initialize(mapload)
-	. = ..()
-	if(GLOB.heart)
-		range = GLOB.heart.pulse_range * 4
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)
-	QDEL_IN(src, 0.1 * range SECONDS)
-
 /obj/effect/temp_visual/love_heart
 	name = "love heart"
 	icon_state = "heart"
@@ -519,17 +498,3 @@
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
-
-/obj/effect/warp_effect
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE
-	icon = 'icons/effects/seismic_stomp_effect.dmi'
-	icon_state = "stomp_effect"
-	pixel_y = -16
-	pixel_x = -16
-
-/obj/effect/warp_effect/ex_act(severity, target)
-	return
-
-/obj/effect/warp_effect/singularity_act()
-	return FALSE

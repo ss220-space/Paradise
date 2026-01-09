@@ -16,6 +16,7 @@
 	armor = list(melee = 20, bullet = 10, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 100)
 	bubble_icon = "machine"
 	hud_possible = list (DIAG_STAT_HUD, DIAG_BATT_HUD, DIAG_MECH_HUD, DIAG_TRACK_HUD)
+	cares_about_temperature = TRUE
 	var/list/facing_modifiers = list(MECHA_FRONT_ARMOUR = 1.5, MECHA_SIDE_ARMOUR = 1, MECHA_BACK_ARMOUR = 0.5)
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/initial_icon = null //Mech type for resetting icon. Only used for reskinning kits (see custom items)
@@ -213,10 +214,10 @@
 
 /obj/mecha/proc/add_cabin()
 	cabin_air = new
-	cabin_air.temperature = T20C
+	cabin_air.set_temperature(T20C)
 	cabin_air.volume = 200
-	cabin_air.oxygen = O2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
-	cabin_air.nitrogen = N2STANDARD*cabin_air.volume/(R_IDEAL_GAS_EQUATION*cabin_air.temperature)
+	cabin_air.set_oxygen(O2STANDARD * cabin_air.volume / (R_IDEAL_GAS_EQUATION * cabin_air.temperature()))
+	cabin_air.set_nitrogen(N2STANDARD * cabin_air.volume / (R_IDEAL_GAS_EQUATION * cabin_air.temperature()))
 	return cabin_air
 
 /obj/mecha/proc/add_radio()
@@ -835,9 +836,9 @@
 		AI.gib() //No wreck, no AI to recover
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
-	if(loc)
-		loc.assume_air(cabin_air)
-		air_update_turf()
+	var/turf/location = get_turf(src)
+	if(location)
+		location.blind_release_air(cabin_air)
 	else
 		qdel(cabin_air)
 	cabin_air = null
@@ -855,9 +856,9 @@
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
-/obj/mecha/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/mecha/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > max_temperature)
+	if(temperature > max_temperature)
 		take_damage(5, BURN, 0, 1)
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
@@ -877,9 +878,9 @@
 	if(is_mmi(I))
 		add_fingerprint(user)
 		if(!mmi_move_inside(I, user))
-			to_chat(user, "[name]-MMI interface initialization failed.")
+			to_chat(user, span_notice("[name]-MMI interface initialization failed."))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, "[name]-MMI interface initialized successfuly")
+		to_chat(user, span_notice("[name]-MMI interface initialized successfuly"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/mecha_parts/mecha_equipment))
@@ -908,7 +909,7 @@
 				if(!operation_allowed(user))
 					return ATTACK_CHAIN_PROCEED
 				id_lock_on = !id_lock_on
-				to_chat(user, "Теперь ID [id_lock_on ? "" : "не"] требуется для управления.")
+				to_chat(user, span_notice("Теперь ID [id_lock_on ? "" : "не"] требуется для управления."))
 			if(TOGGLE_MAINTENANCE)
 				toggle_maintenance(user)
 
@@ -1001,24 +1002,24 @@
 
 /obj/mecha/proc/toggle_maintenance(mob/user)
 	if(!maint_access)
-		to_chat(user, "Режим техобслуживания заблокирован.")
+		to_chat(user, span_notice("Режим техобслуживания заблокирован."))
 		return
 
 	switch(maintenance_progress)
 		if(MECHA_LOCKED)
 			maintenance_progress = MECHA_SECURE_BOLTS
-			to_chat(user, "Крепежные болты зафиксированы.")
+			to_chat(user, span_notice("Крепежные болты зафиксированы."))
 			if(occupant)
 				occupant.throw_alert("locked", /atom/movable/screen/alert/mech_maintenance)
 			return
 		if(MECHA_SECURE_BOLTS)
 			maintenance_progress = MECHA_LOCKED
-			to_chat(user, "Крепежные болты убраны.")
+			to_chat(user, span_notice("Крепежные болты убраны."))
 			if(occupant)
 				occupant.clear_alert("locked")
 			return
 
-	to_chat(user, "[declent_ru(NOMINATIVE)] не готов к взаимодействию.")
+	to_chat(user, span_notice("[declent_ru(NOMINATIVE)] не готов к взаимодействию."))
 
 /obj/mecha/crowbar_act(mob/user, obj/item/I)
 	if(maintenance_progress != MECHA_LOOSE_BOLTS && maintenance_progress != MECHA_OPEN_HATCH && !(maintenance_progress == MECHA_UNSECURE_CELL && occupant))
@@ -1028,15 +1029,21 @@
 		return
 	if(maintenance_progress == MECHA_LOOSE_BOLTS)
 		maintenance_progress = MECHA_OPEN_HATCH
-		to_chat(user, "You open the hatch to the power unit")
+		to_chat(user, span_notice("You open the hatch to the power unit"))
 	else if(maintenance_progress == MECHA_OPEN_HATCH)
 		maintenance_progress = MECHA_LOOSE_BOLTS
-		to_chat(user, "You close the hatch to the power unit")
+		to_chat(user, span_notice( "You close the hatch to the power unit"))
 	else if(ishuman(occupant))
-		user.visible_message("[user] begins levering out the driver from the [src].", "You begin to lever out the driver from the [src].")
+		user.visible_message(
+			"[user] begins levering out the driver from the [src].",
+			"You begin to lever out the driver from the [src]."
+		)
 		to_chat(occupant, span_warning("[user] is prying you out of the exosuit!"))
 		if(I.use_tool(src, user, 80, volume = I.tool_volume))
-			user.visible_message(span_notice("[user] pries the driver out of the [src]!"), span_notice("You finish removing the driver from the [src]!"))
+			user.visible_message(
+				span_notice("[user] pries the driver out of the [src]!"),
+				span_notice("You finish removing the driver from the [src]!")
+			)
 			go_out()
 	else
 		// Since having maint protocols available is controllable by the MMI, I see this as a consensual way to remove an MMI without destroying the mech
@@ -1074,10 +1081,10 @@
 		return
 	if(maintenance_progress == MECHA_SECURE_BOLTS)
 		maintenance_progress = MECHA_LOOSE_BOLTS
-		to_chat(user, "You undo the securing bolts.")
+		to_chat(user, span_notice("You undo the securing bolts."))
 	else
 		maintenance_progress = MECHA_SECURE_BOLTS
-		to_chat(user, "You tighten the securing bolts.")
+		to_chat(user, span_notice("You tighten the securing bolts."))
 
 /obj/mecha/welder_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -1099,9 +1106,15 @@
 	if(I.use_tool(src, user, 15, volume = I.tool_volume))
 		if(internal_damage & MECHA_INT_TANK_BREACH)
 			clearInternalDamage(MECHA_INT_TANK_BREACH)
-			user.visible_message(span_notice("[user] repairs the damaged gas tank."), span_notice("You repair the damaged gas tank."))
+			user.visible_message(
+				span_notice("[user] repairs the damaged gas tank."),
+				span_notice("You repair the damaged gas tank.")
+			)
 		else if(obj_integrity < max_integrity)
-			user.visible_message(span_notice("[user] repairs some damage to [name]."), span_notice("You repair some damage to [name]."))
+			user.visible_message(
+				span_notice("[user] repairs some damage to [name]."),
+				span_notice("You repair some damage to [name].")
+			)
 			repair_damage(min(10, max_integrity - obj_integrity))
 		else
 			to_chat(user, span_notice("[src] is at full integrity!"))
@@ -1176,7 +1189,7 @@
 			AI.controlled_mech = null
 			AI.remote_control = null
 			update_icon(UPDATE_ICON_STATE)
-			to_chat(AI, "You have been downloaded to a mobile storage device. Wireless connection offline.")
+			to_chat(AI, span_notice("You have been downloaded to a mobile storage device. Wireless connection offline."))
 			to_chat(user, "[span_boldnotice("Transfer successful")]: [AI.name] ([rand(1000,9999)].exe) removed from [name] and stored within local memory.")
 
 		if(AI_MECH_HACK) //Called by AIs on the mech
@@ -1237,39 +1250,16 @@
 ////////  Atmospheric stuff  ////////
 /////////////////////////////////////
 
-/obj/mecha/proc/get_turf_air()
-	var/turf/T = get_turf(src)
-	if(T)
-		. = T.return_air()
-
-/obj/mecha/remove_air(amount)
-	if(use_internal_tank)
-		return cabin_air.remove(amount)
-	else
-		var/turf/T = get_turf(src)
-		if(T)
-			return T.remove_air(amount)
-
-/obj/mecha/return_air()
+/obj/mecha/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	if(use_internal_tank)
 		return cabin_air
-	return get_turf_air()
+	return null
 
 /obj/mecha/return_analyzable_air()
 	if(use_internal_tank)
 		return cabin_air
 	return null
-
-/obj/mecha/proc/return_pressure()
-	var/datum/gas_mixture/t_air = return_air()
-	if(t_air)
-		. = t_air.return_pressure()
-
-//skytodo: //No idea what you want me to do here, mate.
-/obj/mecha/proc/return_temperature()
-	var/datum/gas_mixture/t_air = return_air()
-	if(t_air)
-		. = t_air.return_temperature()
 
 /obj/mecha/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
@@ -1302,7 +1292,7 @@
 	return TRUE
 
 /obj/mecha/portableConnectorReturnAir()
-	return internal_tank.return_air()
+	return internal_tank.return_obj_air()
 
 /obj/mecha/proc/toggle_lights()
 	lights_action.Trigger()
@@ -1672,25 +1662,25 @@
 		if(!(internal_damage & MECHA_INT_TEMP_CONTROL) && prob(5))
 			clearInternalDamage(MECHA_INT_FIRE)
 		if(internal_tank)
-			var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+			var/datum/gas_mixture/int_tank_air = internal_tank.return_obj_air()
 			if(int_tank_air.return_pressure() > internal_tank.maximum_pressure && !(internal_damage & MECHA_INT_TANK_BREACH))
 				setInternalDamage(MECHA_INT_TANK_BREACH)
 
 			if(int_tank_air && int_tank_air.return_volume() > 0)
-				int_tank_air.temperature = min(6000 + T0C, cabin_air.return_temperature() + rand(10, 15))
+				int_tank_air.set_temperature(min(6000 + T0C, cabin_air.temperature() + rand(10, 15)))
 
-			if(cabin_air && cabin_air.return_volume()>0)
-				cabin_air.temperature = min(6000+T0C, cabin_air.return_temperature()+rand(10,15))
-				if(cabin_air.return_temperature() > max_temperature/2)
-					take_damage(4/round(max_temperature/cabin_air.return_temperature(),0.1), BURN, 0, 0)
+			if(cabin_air && cabin_air.return_volume() > 0)
+				cabin_air.set_temperature(min(6000 + T0C, cabin_air.temperature() + rand(10, 15)))
+				if(cabin_air.temperature() > max_temperature / 2)
+					take_damage(4 / round(max_temperature / cabin_air.temperature(), 0.1), BURN, 0, 0)
 
 	if(internal_damage & MECHA_INT_TANK_BREACH) //remove some air from internal tank
 		if(internal_tank)
-			var/datum/gas_mixture/int_tank_air = internal_tank.return_air()
+			var/datum/gas_mixture/int_tank_air = internal_tank.return_obj_air()
 			var/datum/gas_mixture/leaked_gas = int_tank_air.remove_ratio(0.10)
-			if(loc)
-				loc.assume_air(leaked_gas)
-				air_update_turf()
+			var/turf/location = get_turf(src)
+			if(location)
+				location.blind_release_air(leaked_gas)
 			else
 				qdel(leaked_gas)
 
@@ -1700,41 +1690,62 @@
 			cell.charge -= min(20,cell.charge)
 			cell.maxcharge -= min(20,cell.maxcharge)
 
+/obj/mecha/proc/release_gas(datum/gas_mixture/environment, datum/gas_mixture/leaked_gas)
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
+
+	environment.merge(leaked_gas)
+
 /obj/mecha/proc/regulate_temp()
 	if(internal_damage & MECHA_INT_TEMP_CONTROL)
 		return
 
 	if(cabin_air && cabin_air.return_volume() > 0)
-		var/delta = cabin_air.temperature - T20C
-		cabin_air.temperature -= max(-10, min(10, round(delta / 4, 0.1)))
+		var/delta = cabin_air.temperature() - T20C
+		cabin_air.set_temperature(cabin_air.temperature() - max(-10, min(10, round(delta / 4, 0.1))))
 
 /obj/mecha/proc/give_air()
 	if(!internal_tank)
 		return
 
-	var/datum/gas_mixture/tank_air = internal_tank.return_air()
+	var/datum/gas_mixture/tank_air = internal_tank.return_obj_air()
 
 	var/release_pressure = internal_tank_valve
 	var/cabin_pressure = cabin_air.return_pressure()
 	var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
 	var/transfer_moles = 0
 	if(pressure_delta > 0) //cabin pressure lower than release pressure
-		if(tank_air.return_temperature() > 0)
-			transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+		if(tank_air.temperature() > 0)
+			transfer_moles = pressure_delta * cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
 			var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
 			cabin_air.merge(removed)
-	else if(pressure_delta < 0) //cabin pressure higher than release pressure
-		var/datum/gas_mixture/t_air = return_air()
-		pressure_delta = cabin_pressure - release_pressure
-		if(t_air)
-			pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
-		if(pressure_delta > 0) //if location pressure is lower than cabin pressure
-			transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
-			var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
-			if(t_air)
-				t_air.merge(removed)
-			else //just delete the cabin gas, we're in space or some shit
-				qdel(removed)
+		return
+
+	if(pressure_delta == 0) //cabin pressure higher than release pressure
+		return
+
+	var/datum/gas_mixture/active_tank_air = return_obj_air()
+	pressure_delta = cabin_pressure - release_pressure
+
+	if(active_tank_air)
+		pressure_delta = min(cabin_pressure - active_tank_air.return_pressure(), pressure_delta)
+
+	if(pressure_delta <= 0) //if location pressure is lower than cabin pressure
+		return
+
+	transfer_moles = pressure_delta * cabin_air.return_volume() / (cabin_air.temperature() * R_IDEAL_GAS_EQUATION)
+	var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
+
+	if(active_tank_air)
+		active_tank_air.merge(removed)
+		return
+
+	var/turf/location = get_turf(src)
+
+	if(location)
+		location.blind_release_air(removed)
+	else
+		qdel(removed)
 
 /obj/mecha/proc/update_huds()
 	diag_hud_set_mechhealth()

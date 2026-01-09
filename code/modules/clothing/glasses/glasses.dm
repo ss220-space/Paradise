@@ -85,7 +85,6 @@
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	prescription_upgradable = TRUE
-
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
@@ -97,6 +96,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/eyes.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+	var/active_on_equip = TRUE
 
 /obj/item/clothing/glasses/meson/get_ru_names()
 	return list(
@@ -107,6 +107,16 @@
 		INSTRUMENTAL = "мезонными очками",
 		PREPOSITIONAL = "мезонных очках"
 	)
+
+/obj/item/clothing/glasses/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(active_on_equip && slot == ITEM_SLOT_EYES)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/clothing/glasses/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/glasses/meson/sunglasses
 	name = "Meson Sunglasses"
@@ -207,6 +217,15 @@
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi',
 	)
+
+/obj/item/clothing/glasses/meson/atmos
+	name = "atmospherics scanner goggles"
+	desc = "Used by atmospherics techs to visualize pressure and see station structure."
+	icon_state = "trayson-pressure"
+	item_state =  null
+	origin_tech = "materials=3;magnets=2;engineering=2"
+	clothing_traits = list(TRAIT_PRESSURE_VISION)
+
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"

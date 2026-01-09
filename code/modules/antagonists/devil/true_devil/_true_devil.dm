@@ -217,8 +217,8 @@
 	name = "Krampus"
 	desc = "Он пришел тебя наказать. Лучше беги."
 	icon_state = "arch_krampus"
-	health = 900
-	maxHealth = 900
+	health = 800
+	maxHealth = 800
 	var/list/bag_content
 	var/static/list/spell_list = list(
 		/obj/effect/proc_holder/spell/conjure_item/krampus_bag,
@@ -226,6 +226,16 @@
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
+	)
+
+/mob/living/carbon/true_devil/krampus/get_ru_names()
+	return list(
+		NOMINATIVE = "Крампус",
+		GENITIVE = "Крампуса",
+		DATIVE = "Крампусу",
+		ACCUSATIVE = "Крампуса",
+		INSTRUMENTAL = "Крампусом",
+		PREPOSITIONAL = "Крампусе",
 	)
 
 /mob/living/carbon/true_devil/krampus/Initialize(mapload, mob/living/carbon/dna_source)
@@ -244,20 +254,13 @@
 			continue
 
 		var/mob/living/mob = atom
-		mob.update_revive(force = TRUE)
-		mob.update_stat("krampus death")
+		mob.revive()
 
 	. = ..()
 
-/mob/living/carbon/true_devil/krampus/get_ru_names()
-	return list(
-		NOMINATIVE = "Крампус",
-		GENITIVE = "Крампуса",
-		DATIVE = "Крампусу",
-		ACCUSATIVE = "Крампуса",
-		INSTRUMENTAL = "Крампусом",
-		PREPOSITIONAL = "Крампусе",
-	)
+/mob/living/carbon/true_devil/krampus/Login()
+	. = ..()
+	mind.add_antag_datum(/datum/antagonist/krampus)
 
 /mob/living/carbon/true_devil/krampus/death(gibbed)
 	if(!gibbed)

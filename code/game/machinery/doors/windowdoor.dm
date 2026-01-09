@@ -15,6 +15,7 @@
 	set_dir_on_move = FALSE
 	max_integrity = 150 //If you change this, consider changing ../door/window/brigdoor/ max_integrity at the bottom of this .dm file
 	armor = list(MELEE = 20, BULLET = 50, LASER = 50, ENERGY = 50, BOMB = 10, BIO = 100, RAD = 100, FIRE = 70, ACID = 100)
+	cares_about_temperature = TRUE
 	var/obj/item/access_control/electronics
 	var/base_state = "left"
 	var/reinf = 0
@@ -131,11 +132,11 @@
 
 	return TRUE
 
-/obj/machinery/door/window/CanAtmosPass(turf/T, vertical)
-	if(get_dir(loc, T) == dir)
+/obj/machinery/door/window/CanAtmosPass(direction)
+	if(direction == dir)
 		return !density
 	else
-		return 1
+		return TRUE
 
 /obj/machinery/door/window/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
 	return !density || (dir != to_dir) || (check_access_list(pass_info.access) && hasPower() && !pass_info.no_id)
@@ -177,6 +178,7 @@
 		return FALSE
 	if(!operating) //in case of emag
 		operating = DOOR_OPENING
+	recalculate_atmos_connectivity()
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
 	playsound(loc, 'sound/machines/windowdoor.ogg', 100, TRUE)
@@ -185,7 +187,6 @@
 
 	set_density(FALSE)
 
-	air_update_turf(TRUE)
 	update_freelook_sight()
 
 	if(operating) //emag again
@@ -205,7 +206,7 @@
 
 	set_density(TRUE)
 	update_icon()
-	air_update_turf(TRUE)
+	recalculate_atmos_connectivity()
 	update_freelook_sight()
 	sleep(1 SECONDS)
 
@@ -246,10 +247,10 @@
 	C.name = name
 	qdel(src)
 
-/obj/machinery/door/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/window/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > T0C + (reinf ? 1600 : 800))
-		take_damage(round(exposed_volume / 200), BURN, 0, 0)
+	if(temperature > T0C + (reinf ? 1600 : 800))
+		take_damage(round(temperature / 200), BURN, 0, 0)
 
 /obj/machinery/door/window/attack_ai(mob/user)
 	return attack_hand(user)

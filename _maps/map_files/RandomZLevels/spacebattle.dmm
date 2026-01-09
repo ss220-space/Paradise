@@ -933,12 +933,7 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/structure{
-	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
-	icon = 'icons/obj/engines_and_power/supermatter.dmi';
-	icon_state = "darkmatter";
-	name = "supermatter shard"
-	},
+/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal,
 /turf/simulated/floor/engine,
 /area/awaymission/spacebattle/engine)
 "cT" = (

@@ -684,7 +684,7 @@
 
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Извлечь находящегося внутри"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.stat)
@@ -697,7 +697,7 @@
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
 	set name = "Спрятаться внутри"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other

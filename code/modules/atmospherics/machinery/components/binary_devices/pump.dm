@@ -107,11 +107,11 @@ Thus, the two variables affect pump operation are set in New():
 		return 1
 
 	//Calculate necessary moles to transfer using PV=nRT
-	if(!(air1.total_moles() > 0) || !(air1.temperature > 0))
+	if(!(air1.total_moles() > 0) || !(air1.temperature() > 0))
 		return 1
 
 	var/pressure_delta = target_pressure - output_starting_pressure
-	var/transfer_moles = pressure_delta*air2.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+	var/transfer_moles = pressure_delta * air2.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 
 	//Actually transfer the gas
 	var/datum/gas_mixture/removed = air1.remove(transfer_moles)
@@ -357,6 +357,6 @@ Thus, the two variables affect pump operation are set in New():
 
 	input_pressure.set_output(air_input.return_pressure())
 	output_pressure.set_output(air_output.return_pressure())
-	input_temperature.set_output(air_input.return_temperature())
-	output_temperature.set_output(air_output.return_temperature())
+	input_temperature.set_output(air_input.temperature())
+	output_temperature.set_output(air_output.temperature())
 

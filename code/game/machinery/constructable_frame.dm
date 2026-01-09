@@ -1269,3 +1269,15 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/capacitor = 2,
 	)
+
+/obj/item/circuitboard/electrolyzer
+	board_name = "Electrolyzer"
+	build_path = /obj/machinery/power/electrolyzer
+	board_type = "machine"
+	origin_tech = "programming=3;engineering=3"
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stack/cable_coil = 5,
+	)

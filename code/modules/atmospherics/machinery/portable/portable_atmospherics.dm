@@ -16,7 +16,7 @@
 	SSair.atmos_machinery += src
 
 	air_contents.volume = volume
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
 	if(mapload)
 		return INITIALIZE_HINT_LATELOAD
@@ -37,7 +37,6 @@
 		//Allow for reactions
 		air_contents.react()
 		return
-	update_icon()
 
 /obj/machinery/portable_atmospherics/Destroy()
 	SSair.atmos_machinery -= src

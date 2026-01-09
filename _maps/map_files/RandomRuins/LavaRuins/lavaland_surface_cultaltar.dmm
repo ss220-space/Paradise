@@ -21,11 +21,7 @@
 /obj/effect/decal/remains/human,
 /obj/item/clothing/shoes/cult,
 /obj/item/clothing/suit/hooded/cultrobes,
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "s" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
@@ -33,19 +29,11 @@
 "w" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "y" = (
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "B" = (
 /turf/simulated/floor/lava/lava_land_surface,
@@ -55,20 +43,12 @@
 /obj/item/clothing/shoes/cult,
 /obj/item/clothing/suit/hooded/cultrobes,
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "G" = (
 /obj/effect/decal/remains/human,
 /obj/item/melee/cultblade,
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "H" = (
 /obj/effect/rune/narsie{
@@ -88,26 +68,14 @@
 	message = "<span class='cult italic'><b><span class='big'>You've made a grave mistake, haven't you?</span></b></span>";
 	name = "ohfuck"
 	},
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "K" = (
 /obj/effect/decal/cleanable/blood/old,
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "L" = (
-/turf/simulated/floor/engine/cult{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/engine/cult/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"

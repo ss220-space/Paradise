@@ -123,5 +123,5 @@
 	base_name = "Gas Scanner"
 	icon = "tachometer-alt"
 
-/datum/data/pda/utility/scanmode/gas/scan_atom(atom/A, mob/user)
-	atmos_scan(user=user, target=A, silent=FALSE, print=TRUE)
+/datum/data/pda/utility/scanmode/gas/scan_atom(atom/scanned_atom, mob/user)
+	atmos_scan(user = user, target = scanned_atom, silent = FALSE, print = TRUE)

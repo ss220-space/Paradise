@@ -1,9 +1,20 @@
 /obj/item/grenade/smokebomb
-	desc = "It is set to detonate in 2 seconds."
 	name = "smoke bomb"
+	desc = "Взрывчатое устройство, предназначенное для ручного подрыва. При детонации испускает дым, \
+			создающий дымовую завесу."
 	icon_state = "smokebomb"
 	det_time = 2 SECONDS
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke
+
+/obj/item/grenade/smokebomb/get_ru_names()
+	return list(
+		NOMINATIVE = "дымовая граната",
+		GENITIVE = "дымовой гранаты",
+		DATIVE = "дымовой гранате",
+		ACCUSATIVE = "дымовую гранату",
+		INSTRUMENTAL = "дымовой гранатой",
+		PREPOSITIONAL = "дымовой гранате"
+	)
 
 /obj/item/grenade/smokebomb/New()
 	..()

@@ -1,4 +1,6 @@
 GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all tribbles, not just the new one being made.
+#define MAX_TRIBBLES 30
+#define MAX_GESTATION 30
 
 /mob/living/simple_animal/tribble
 	name = "tribble"
@@ -22,7 +24,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	response_harm   = "whacks"
 	harm_intent_damage = 5
 	var/gestation = 0
-	var/maxtribbles = 50     //change this to change the max limit
 
 /mob/living/simple_animal/tribble/New()
 	..()
@@ -36,16 +37,18 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	GLOB.totaltribbles += 1
 
 /mob/living/simple_animal/tribble/attack_hand(mob/user)
-	..()
-	if(src.stat != DEAD)
-		new /obj/item/toy/tribble(user.loc)
-		for(var/obj/item/toy/tribble/T in user.loc)
-			T.icon_state = src.icon_state
-			T.item_state = src.icon_state
-			T.gestation = src.gestation
-			T.pickup(user)
-			user.put_in_active_hand(T)
-			qdel(src)
+	. = ..()
+
+	if(stat == DEAD)
+		return
+
+	var/obj/item/toy/tribble/new_tribble = new /obj/item/toy/tribble(user.loc)
+	new_tribble.icon_state = icon_state
+	new_tribble.item_state = icon_state
+	new_tribble.gestation = gestation
+	new_tribble.pickup(user)
+	user.put_in_active_hand(new_tribble)
+	qdel(src)
 
 /mob/living/simple_animal/tribble/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/scalpel))
@@ -55,28 +58,48 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	return ..()
 
 /mob/living/simple_animal/tribble/proc/procreate()
-	if(GLOB.totaltribbles <= maxtribbles)
-		for(var/mob/living/simple_animal/tribble/F in src.loc)
-			if(!F || F == src)
-				new /mob/living/simple_animal/tribble(src.loc)
-				gestation = 0
+	if(GLOB.totaltribbles >= MAX_TRIBBLES)
+		return
+
+	var/list/possible_turfs = RANGE_TURFS(1, src)
+	shuffle(possible_turfs)
+
+	for(var/turf/possible_loc in possible_turfs)
+		if(locate(type) in possible_loc)
+			continue
+
+		gestation = 0
+		new /mob/living/simple_animal/tribble(possible_loc)
+		return
 
 /mob/living/simple_animal/tribble/Life(seconds, times_fired)
-	..()
-	if(src.health > 0) //no mostly dead procreation
-		if(gestation != null) //neuter check
-			if(gestation < 30)
-				gestation++
-			else if(gestation >= 30)
-				if(prob(80))
-					src.procreate()
+	. = ..()
+	if(health <= 0) //no mostly dead procreation
+		return
+
+	if(gestation < 0)
+		return
+
+	if(gestation < MAX_GESTATION)
+		gestation++
+		return
+
+	if(!SPT_PROB(80, seconds))
+		return
+
+	procreate()
 
 /mob/living/simple_animal/tribble/death(gibbed) // Gotta make sure to remove tribbles from the list on death
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
+
 	if(!.)
 		return FALSE
-	GLOB.totaltribbles -= 1
+
+	GLOB.totaltribbles = max(0, GLOB.totaltribbles - 1)
+
+#undef MAX_TRIBBLES
+#undef MAX_GESTATION
 
 //||Item version of the trible ||
 /obj/item/toy/tribble
@@ -85,9 +108,9 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "tribble1"
 	item_state = "tribble1"
-	w_class = 1
-	var/gestation = 0
+	w_class = WEIGHT_CLASS_TINY
 	item_flags = DROPDEL
+	var/gestation = 0
 
 /obj/item/toy/tribble/attack_self(mob/user) //hug that tribble (and play a sound if we add one)
 	..()
@@ -107,11 +130,11 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 /obj/item/toy/tribble/attackby(obj/item/I, mob/user, params) //neutering and un-neutering
 	. = ..()
 
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || isnull(gestation))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || gestation < 0)
 		return .
 
 	if(istype(I, /obj/item/scalpel))
-		gestation = null
+		gestation = -1
 		to_chat(user, span_notice("You neuter the tribble so that it can no longer re-produce."))
 		return .
 
