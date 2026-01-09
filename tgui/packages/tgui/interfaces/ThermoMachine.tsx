@@ -1,4 +1,10 @@
-import { AnimatedNumber, Button, LabeledList, NumberInput, Section } from '../components';
+import {
+  AnimatedNumber,
+  Button,
+  LabeledList,
+  NumberInput,
+  Section,
+} from '../components';
 import { toFixed } from 'common/math';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
@@ -71,7 +77,7 @@ export const ThermoMachine = (props: unknown) => {
                   })
                 }
               >
-              Minimum temperature
+                Minimum temperature
               </Button>
               <NumberInput
                 animated
@@ -98,7 +104,7 @@ export const ThermoMachine = (props: unknown) => {
                   })
                 }
               >
-              Maximum Temperature
+                Maximum Temperature
               </Button>
               <Button
                 icon="sync"
@@ -109,7 +115,7 @@ export const ThermoMachine = (props: unknown) => {
                   })
                 }
               >
-              Room Temperature
+                Room Temperature
               </Button>
             </LabeledList.Item>
           </LabeledList>
