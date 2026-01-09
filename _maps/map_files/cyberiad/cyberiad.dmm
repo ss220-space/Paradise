@@ -48708,13 +48708,10 @@
 	},
 /area/hallway/secondary/entry/south)
 "ePF" = (
-/obj/item/radio/intercom{
-	name = "south station intercom (General)";
-	pixel_y = -28
-	},
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/color/orange/prison,
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel,
 /area/security/prisonershuttle)
 "ePH" = (

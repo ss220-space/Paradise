@@ -42953,12 +42953,10 @@
 /obj/structure/table,
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/color/orange/prison,
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "red"
