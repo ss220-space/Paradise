@@ -2,21 +2,23 @@
 
 /obj/item/pipe
 	name = "pipe"
-	desc = "A pipe"
-	var/pipe_type = 0
-	var/pipename
-	var/connect_types[] = list(1) //1=regular, 2=supply, 3=scrubber
-	force = 7
+	desc = "A pipe."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
-	var/flipped = 0
+	force = 7
+	var/pipe_type = 0
+	var/pipename
+	/// CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER
+	var/list/connect_types = list(CONNECT_TYPE_NORMAL)
+	/// Will the constructed pipe be flipped
+	var/flipped = FALSE
 
 /obj/item/pipe/Initialize(mapload, pipe_type, dir, obj/machinery/atmospherics/make_from)
 	. = ..()
 	if(make_from)
-		src.dir = make_from.dir
-		src.pipename = make_from.name
+		dir = make_from.dir
+		pipename = make_from.name
 		color = make_from.pipe_color
 		var/is_bent
 		if(make_from.initialize_directions in list(NORTH|SOUTH, WEST|EAST))
@@ -105,8 +107,6 @@
 
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/outlet_injector))
 			src.pipe_type = PIPE_INJECTOR
-		else if(istype(make_from, /obj/machinery/atmospherics/binary/dp_vent_pump))
-			src.pipe_type = PIPE_DP_VENT
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/passive_vent))
 			src.pipe_type = PIPE_PASV_VENT
 
@@ -250,7 +250,6 @@
 			PIPE_TEMPERATURE_GATE ,\
 			PIPE_MVALVE, \
 			PIPE_DVALVE, \
-			PIPE_DP_VENT, \
 			PIPE_SUPPLY_STRAIGHT, \
 			PIPE_SCRUBBERS_STRAIGHT, \
 			PIPE_UNIVERSAL, \
@@ -342,7 +341,7 @@
 			to_chat(user, span_warning("There is already a pipe of the same type at this location."))
 			return 1
 
-	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE, PIPE_TEMPERATURE_GATE))
+	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_PASSIVE_GATE, PIPE_TEMPERATURE_GATE))
 		if(T.transparent_floor == TURF_TRANSPARENT) //stops jank with transparent floors and pipes
 			to_chat(user, span_warning("You can only fix simple pipes and devices over glass floors!"))
 			return 1
@@ -504,25 +503,18 @@
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
 
-		if(PIPE_DP_VENT)
-			var/obj/machinery/atmospherics/binary/dp_vent_pump/P = new(src.loc)
-			if(pipename)
-				P.name = pipename
-			P.on_construction(dir, pipe_dir, color)
-
 		if(PIPE_PASV_VENT)
 			var/obj/machinery/atmospherics/unary/passive_vent/P  = new(src.loc)
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)
 
-	user.visible_message( \
-		"[user] fastens the [src].", \
-		span_notice("You have fastened the [src]."), \
-		"You hear ratchet.")
+	user.visible_message(
+		span_notice("[user] fastens the [src]."),
+		span_notice("You have fastened the [src]."),
+		span_hear("You hear ratchet."),
+	)
 	qdel(src)	// remove the pipe item
-
-	return
 
 /obj/item/pipe_meter
 	name = "meter"
