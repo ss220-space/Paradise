@@ -56,9 +56,9 @@
 	var/int_damaged_organs_amount = length(int_damaged_organs)
 
 	if(int_damaged_organs_amount && human.radiation >= INTERNAL_HEAL_COST)
-		for(var/obj/item/organ/internal/organ in int_damaged_organs)
-			organ.unnecrotize()
-			organ.heal_internal_damage(INTERNAL_HEAL_AMOUNT / int_damaged_organs_amount)
+		var/obj/item/organ/internal/organ = pick(int_damaged_organs)
+		organ.unnecrotize()
+		organ.heal_internal_damage(INTERNAL_HEAL_AMOUNT)
 		human.radiation = max(human.radiation - INTERNAL_HEAL_COST, 0)
 
 	//healing fractures in low priotiry. Won't heal fractures while healing internal or external damage with radium
