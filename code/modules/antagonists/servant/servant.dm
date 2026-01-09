@@ -1,3 +1,4 @@
+#define MAX_DISTANCE 12
 /datum/antagonist/servant
 	name = "Magic servant"
 	job_rank = ROLE_WIZARD
@@ -33,9 +34,9 @@
 	if(owner.current.loc == serve_to)
 		in_owner = TRUE
 		ADD_TRAIT(owner.current, TRAIT_NO_BREATH, MAGIC_TRAIT)
-	else
-		in_owner = FALSE
-		REMOVE_TRAIT(owner.current, TRAIT_NO_BREATH, MAGIC_TRAIT)
+		return
+	in_owner = FALSE
+	REMOVE_TRAIT(owner.current, TRAIT_NO_BREATH, MAGIC_TRAIT)
 
 /datum/antagonist/servant/proc/heal()
 	if(!in_owner)
@@ -52,7 +53,7 @@
 /datum/antagonist/servant/proc/check_range()
 	SIGNAL_HANDLER
 
-	if(get_dist(serve_to, owner.current) <= 12)
+	if(get_dist(serve_to, owner.current) <= MAX_DISTANCE)
 		return
 	owner.current.forceMove(serve_to)
 	to_chat(owner.current, span_warningbig("Вы ушли слишком далеко от вашего хозяина!"))

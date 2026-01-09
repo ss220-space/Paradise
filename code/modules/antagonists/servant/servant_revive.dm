@@ -10,30 +10,30 @@
 
 /datum/servant_revive/proc/respawn()
 	var/servant_key
-	var/mob/living/carbon/human/Servant = new
-	Servant.equipOutfit(/datum/outfit/butler)
-	Servant.forceMove(master)
+	var/mob/living/carbon/human/servant = new
+	servant.equipOutfit(/datum/outfit/butler)
+	servant.forceMove(master)
 
 	for(var/mob/ghost as anything in GLOB.dead_mob_list)
 		if(ghost.client == servant_to_revive)
-			Servant.client = servant_to_revive
+			servant.client = servant_to_revive
 			servant_key = servant_to_revive.key
 
 	if(!servant_key)
-		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [master.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 10 SECONDS, source = Servant)
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [master.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 10 SECONDS, source = servant)
 		if(length(candidates))
 			var/mob/new_owner = pick(candidates)
 			servant_key = new_owner.key
 
 	if(!servant_key)
-		qdel(Servant)
+		qdel(servant)
 		to_chat(master, span_userdanger("Вы чувствуете, как часть жизненной энергии возвращается к вам. В ваших руках появляется монета."))
 		var/obj/item/coin/magic/new_coin = new(master.loc)
 		master.put_in_hands(new_coin)
 		return
-	Servant.possess_by_player(servant_key)
+	servant.possess_by_player(servant_key)
 	var/datum/antagonist/servant/serv = new /datum/antagonist/servant(master)
-	Servant.mind.add_antag_datum(serv)
+	servant.mind.add_antag_datum(serv)
 	qdel(src)
 
 /datum/servant_revive/proc/stop()
