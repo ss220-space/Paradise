@@ -587,3 +587,5 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_GAS_MINER_O2 "#007fff"
 #define COLOR_GAS_MINER_CO2 "#cdcdcd"
 #define COLOR_GAS_MINER_AGENT_B "#e81e24"
+
+#define COLOR_NUCLEATION_LIGHT "#afaf21"
