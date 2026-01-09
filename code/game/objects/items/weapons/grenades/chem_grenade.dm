@@ -278,10 +278,6 @@
 			add_attack_logs(user, src, "has completed with [contained]", ATKLOG_MOST)
 			log_game("[key_name(usr)] has completed [name] at [bombturf.x], [bombturf.y], [bombturf.z]. [contained]")
 
-//assembly stuff
-/obj/item/grenade/chem_grenade/receive_signal(datum/signal/signal)
-	prime(signal?.user)
-
 /obj/item/grenade/chem_grenade/HasProximity(atom/movable/AM)
 	if(nadeassembly)
 		nadeassembly.HasProximity(AM)

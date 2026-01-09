@@ -152,19 +152,5 @@
 		return
 	..()
 
-/obj/machinery/atmospherics/trinary/tvalve/digital/receive_signal(datum/signal/signal)
-	if(!signal.data["tag"] || (signal.data["tag"] != id))
-		return 0
-
-	switch(signal.data["command"])
-		if("valve_open")
-			go_to_side()
-
-		if("valve_close")
-			go_straight()
-
-		if("valve_toggle")
-			switch_side()
-
 #undef TVALVE_STATE_STRAIGHT
 #undef TVALVE_STATE_SIDE

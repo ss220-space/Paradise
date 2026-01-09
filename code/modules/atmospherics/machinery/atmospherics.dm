@@ -84,12 +84,6 @@ Pipelines + Other Objects -> Pipe network
 	if((vent_movement & VENTCRAWL_ENTRANCE_ALLOWED) && is_ventcrawler(user))
 		. += span_notice("Alt-click to crawl through it.")
 
-/obj/machinery/atmospherics/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon_state()
 	switch(level)

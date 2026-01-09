@@ -554,7 +554,7 @@
 
 /obj/item/pipe_gsensor
 	name = "gas sensor"
-	desc = "A sensor that can be hooked to a computer"
+	desc = "A sensor that can be hooked to a computer."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor0"
 	item_state = "buildpipe"
@@ -563,8 +563,11 @@
 /obj/item/pipe_gsensor/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return .
-	var/obj/machinery/atmospherics/air_sensor/sensor = new(loc)
+		return
+
+	var/obj/machinery/atmospherics/air_sensor/air_sensor = new /obj/machinery/atmospherics/air_sensor(loc)
+	air_sensor.bolts = FALSE
+
 	sensor.add_fingerprint(user)
 	to_chat(user, span_notice("You have fastened the gas sensor."))
 	qdel(src)

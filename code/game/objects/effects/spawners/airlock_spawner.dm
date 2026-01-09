@@ -11,11 +11,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #define DOOR_NORMAL_PLACEMENT 1
 #define DOOR_FLIPPED_PLACEMENT 2
 
-#define AIRPUMP_TAG "[id_to_link]_pump"
-#define SENSOR_TAG "[id_to_link]_sensor"
-#define OUTER_DOOR_TAG "[id_to_link]_outer"
-#define INNER_DOOR_TAG "[id_to_link]_inner"
-
 /obj/effect/spawner/airlock
 	name = "1 by 1 airlock spawner (interior north, exterior south)"
 	desc = "If you can see this, there's probably a missing airlock here. Better tell an admin and report this on the github."
@@ -32,7 +27,6 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	var/tiles_in_x_direction = 1
 	var/tiles_in_y_direction = 1
 	var/id_to_link
-	var/radio_frequency = 1379
 	var/required_access = list(ACCESS_EXTERNAL_AIRLOCKS)
 	var/door_name = "external access"
 	var/door_type = /obj/machinery/door/airlock/external/glass
@@ -59,7 +53,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 
 	handle_control_placement()
 
-	qdel(src)
+	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/airlock/proc/get_airlock_location(desired_direction) //Finds a turf to place an airlock and returns it, this turf will be in the middle of the relevant wall
 	var/turf/T
@@ -93,65 +87,57 @@ This spawner places pipe leading up to the interior door, you will need to finis
 		if(one_door_only == DOOR_FLIPPED_PLACEMENT)
 			the_button.forceMove(get_step(the_button, NORTH))
 
-/obj/effect/spawner/airlock/proc/handle_door_stuff(obj/machinery/door/airlock/A, is_this_an_interior_airlock) //This sets up the door vars correctly and then locks it before first use
-	A.set_frequency(radio_frequency)
-	A.id_tag = is_this_an_interior_airlock ? INNER_DOOR_TAG : OUTER_DOOR_TAG
-	A.req_access = required_access
-	A.name = door_name
-	A.lock()
+/// This sets up the door vars correctly and then locks it before first use
+/obj/effect/spawner/airlock/proc/handle_door_stuff(obj/machinery/door/airlock/airlock, is_this_an_interior_airlock)
+	airlock.id_tag = is_this_an_interior_airlock ? INT_DOOR_ID : EXT_DOOR_ID
+	airlock.req_access = required_access
+	airlock.name = door_name
+	airlock.lock()
 
-/obj/effect/spawner/airlock/proc/spawn_button(turf/T, some_direction, is_interior)
-	var/obj/machinery/access_button/the_button = new(T)
-	the_button.master_tag = id_to_link
-	the_button.set_frequency(radio_frequency)
-	if(is_interior)
-		the_button.command = "cycle_interior"
+/obj/effect/spawner/airlock/proc/spawn_button(turf/button_turf, some_direction, interior)
+	var/obj/machinery/access_button/button = new(button_turf)
+	if(interior)
+		button.autolink_id = INT_BTN_ID
 	else
-		the_button.command = "cycle_exterior"
+		button.autolink_id = EXT_BTN_ID
+
 	switch(some_direction)
 		if(NORTH)
-			the_button.pixel_x -= 25
-			the_button.pixel_y = 7
+			button.pixel_x -= 25
+			button.pixel_y = 7
 		if(EAST)
-			the_button.pixel_x = 7
-			the_button.pixel_y -= 25
+			button.pixel_x = 7
+			button.pixel_y -= 25
 		if(SOUTH)
-			the_button.pixel_x -= 25
-			the_button.pixel_y -= 7
+			button.pixel_x -= 25
+			button.pixel_y -= 7
 		if(WEST)
-			the_button.pixel_x -= 7
-			the_button.pixel_y -= 25
-	the_button.layer = ABOVE_WINDOW_LAYER
-	the_button.req_access = required_access
-	return the_button
+			button.pixel_x -= 7
+			button.pixel_y -= 25
+	button.req_access = required_access
+	return button
 
-/obj/effect/spawner/airlock/proc/handle_control_placement() //Stick the sensor and controller on the same bit of wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs
+/// Stick the controller on the wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs.
+/obj/effect/spawner/airlock/proc/handle_control_placement()
 	var/turf/T = get_turf(src)
-	var/obj/machinery/airlock_sensor/AS = new(T)
-	var/obj/machinery/embedded_controller/radio/airlock/airlock_controller/AC = new(T, id_to_link, radio_frequency, OUTER_DOOR_TAG, INNER_DOOR_TAG, AIRPUMP_TAG, SENSOR_TAG)
+	var/obj/machinery/airlock_controller/air_cycler/AC = new(T)
 	AC.req_access = required_access
-	AC.layer = ABOVE_WINDOW_LAYER
-	AS.layer = ABOVE_WINDOW_LAYER
-	AS.id_tag = SENSOR_TAG
-	AS.set_frequency(radio_frequency)
+	AC.vent_link_id = VENT_ID
+	AC.int_door_link_id = INT_DOOR_ID
+	AC.ext_door_link_id = EXT_DOOR_ID
+	AC.int_button_link_id = INT_BTN_ID
+	AC.ext_button_link_id = EXT_BTN_ID
 	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place stuff there
 		AC.pixel_x -= 25
 		AC.pixel_y += 9
-		AS.pixel_x -= 25
-		AS.pixel_y -= 9
 	else if(interior_direction != SOUTH && exterior_direction != SOUTH) //If south wall is free, place stuff there
 		AC.pixel_x += 9
 		AC.pixel_y -= 25
-		AS.pixel_x -= 9
-		AS.pixel_y -= 25
 	else //Send them over to the other side of the chamber
 		T = locate(x + tiles_in_x_direction - 1, y + tiles_in_y_direction - 1, z)
 		AC.forceMove(T)
-		AS.forceMove(T)
 		AC.pixel_x += 25
 		AC.pixel_y += 9
-		AS.pixel_x += 25
-		AS.pixel_y -= 9
 
 #define NORTH_OF_TURF(turf) locate(turf.x, turf.y + 1, turf.z)
 #define EAST_OF_TURF(turf) locate(turf.x + 1, turf.y, turf.z)
@@ -207,13 +193,12 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #undef EAST_OF_TURF
 
 /obj/effect/spawner/airlock/proc/pipe_creation_helper(path, location, direction, initialization_directions) //Create some kind of atmospherics machinery and initialize it properly
-	var/obj/machinery/atmospherics/A = new path(location)
-	A.dir = direction
-	A.on_construction(A.dir, initialization_directions ? initialization_directions : A.dir)
-	if(istype(A, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
-		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = A
-		created_pump.id_tag = AIRPUMP_TAG
-		created_pump.set_frequency(radio_frequency)
+	var/obj/machinery/atmospherics/atmospheric = new path(location)
+	atmospheric.dir = direction
+	atmospheric.on_construction(atmospheric.dir, initialization_directions ? initialization_directions : atmospheric.dir)
+	if(istype(atmospheric, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
+		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = atmospheric
+		created_pump.autolink_id = VENT_ID
 
 //Premade airlocks for mappers, probably won't need all of these but whatever
 /obj/effect/spawner/airlock/s_to_n
@@ -351,7 +336,3 @@ This spawner places pipe leading up to the interior door, you will need to finis
 #undef CHAMBER_BIGGER
 #undef DOOR_NORMAL_PLACEMENT
 #undef DOOR_FLIPPED_PLACEMENT
-#undef AIRPUMP_TAG
-#undef SENSOR_TAG
-#undef OUTER_DOOR_TAG
-#undef INNER_DOOR_TAG

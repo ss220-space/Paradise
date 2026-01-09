@@ -6,7 +6,7 @@
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
-	default_frequency = AIRLOCK_FREQ
+	default_frequency = ELECTROPACK_FREQ
 	var/code = 2
 	var/intensivity = TRUE
 
@@ -71,7 +71,6 @@
 
 	if(master)
 		master.receive_signal()
-	return
 
 /obj/item/radio/electropack/proc/intensify()
 	intensivity = TRUE

@@ -60,10 +60,6 @@
 	nadeassembly = null
 	update_icon(UPDATE_ICON_STATE)
 
-//assembly stuff
-/obj/item/grenade/plastic/receive_signal()
-	prime()
-
 /obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
 

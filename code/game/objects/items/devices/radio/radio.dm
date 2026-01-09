@@ -577,7 +577,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	// If we dont need tcomms and we have no connection
 	if(!requires_tcomms && !handled)
 		// If they dont need tcomms for their signal, set the type to intercoms
-		tcm.data = SIGNALTYPE_INTERCOM_SBR
+		tcm.signal_type = SIGNALTYPE_INTERCOM_SBR
 		tcm.zlevels = list(position.z)
 		if(!instant)
 			// Simulate two seconds of lag

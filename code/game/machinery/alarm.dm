@@ -79,7 +79,6 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	/// Which MILLA tick were we initialized at?
 	var/init_tick
 	var/alarm_id = null
-	var/alarm_frequency = ATMOS_FIRE_FREQ
 	var/remote_control = TRUE
 	var/rcon_setting = RCON_AUTO
 	var/rcon_time = 0

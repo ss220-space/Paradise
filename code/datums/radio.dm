@@ -61,16 +61,12 @@ GLOBAL_LIST_EMPTY(all_radios)
 /datum/radio_frequency/proc/add_listener(obj/device as obj, filter as text|null)
 	if(!filter)
 		filter = RADIO_DEFAULT
-	//log_admin("add_listener(device=[device],filter=[filter]) frequency=[frequency]")
+
 	var/list/obj/devices_line = devices[filter]
 	if(!devices_line)
 		devices_line = new
 		devices[filter] = devices_line
 	devices_line+=device
-//			var/list/obj/devices_line___ = devices[filter_str]
-//			var/l = devices_line___.len
-	//log_admin("DEBUG: devices_line.len=[length(devices_line)]")
-	//log_admin("DEBUG: devices(filter_str).len=[l]")
 
 /datum/radio_frequency/proc/remove_listener(obj/device)
 	for(var/devices_filter in devices)
@@ -133,6 +129,6 @@ GLOBAL_LIST_EMPTY(all_radios)
 	else
 		. = "Неопознанный"
 
-//callback used by objects to react to incoming radio signals
+///callback used by objects to react to incoming radio signals
 /obj/proc/receive_signal(datum/signal/signal, receive_method, receive_param)
 	return null

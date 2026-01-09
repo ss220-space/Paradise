@@ -22,22 +22,12 @@
 	var/power_channel = EQUIP
 	///list of all the parts used to build it, if made from certain kinds of frames.
 	var/list/component_parts = null
-	var/uid // legacy
-	var/global/gl_uid = 1 // legacy
-	var/custom_aghost_alerts = 0 // legacy
 	///Is the machines maintainence panel open.
 	var/panel_open = FALSE
-	var/area/myArea // legacy
 	/// Can the machine be interacted with while de-powered.
 	var/interact_offline = 0
-	/// Init this list if you wish to add logging to your machine - currently only viewable in VV
-	var/list/use_log // legacy
 	/// how badly will it shock you?
 	var/siemens_strength = 0.7
-	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
-	var/frequency = NONE // legacy
-	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
-	var/datum/radio_frequency/radio_connection
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 	/// Viable flags to go here are START_PROCESSING_ON_INIT, or START_PROCESSING_MANUALLY. See code\__DEFINES\machines.dm for more information on these flags.
@@ -45,14 +35,19 @@
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 
+	/// Init this list if you wish to add logging to your machine - currently only viewable in VV
+	var/list/use_log // legacy
+	/// This needs to die
+	var/area/myArea // legacy
+
 /obj/machinery/Initialize(mapload)
 	. = ..()
 	SSmachines.register_machine(src)
 
-	myArea = get_area(src)
-	if(myArea)
-		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
-		LAZYADD(myArea.machinery_cache, src)
+	myArea = get_area(src)// This needs to die
+	if(myArea)// This needs to die
+		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))// This needs to die
+		LAZYADD(myArea.machinery_cache, src)// This needs to die
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
 		begin_processing()
@@ -60,10 +55,10 @@
 	power_change()
 
 /obj/machinery/Destroy()
-	if(myArea)
-		LAZYREMOVE(myArea.machinery_cache, src)
-		myArea = null
-		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
+	if(myArea)// This needs to die
+		LAZYREMOVE(myArea.machinery_cache, src)// This needs to die
+		myArea = null// This needs to die
+		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)// This needs to die
 	SSmachines.unregister_machine(src)
 	end_processing()
 	return ..()
@@ -84,6 +79,7 @@
 /obj/machinery/proc/flicker()
 	return FALSE
 
+// This needs to die
 /obj/machinery/proc/onAreaExited()
 	SIGNAL_HANDLER
 	if(myArea == get_area(src))
@@ -134,10 +130,8 @@
 /obj/machinery/has_prints()
 	return TRUE
 
+// This needs to die
 /obj/machinery/proc/locate_machinery()
-	return
-
-/obj/machinery/proc/set_frequency()
 	return
 
 /obj/machinery/process() // If you dont use process or power why are you here
@@ -174,6 +168,7 @@
 		flicker()
 	return 1
 
+// IT NEEDS TO DIE
 /obj/machinery/Topic(href, href_list, nowindow = 0, datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
@@ -255,10 +250,6 @@
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-
-/obj/machinery/proc/assign_uid()
-	uid = gl_uid
-	gl_uid++
 
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

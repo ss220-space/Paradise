@@ -14,7 +14,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 /obj/machinery/atmospherics/air_sensor
 	name = "gas sensor"
 	icon_state = "gsensor1"
-	frequency = ATMOS_TANKS_FREQ
 	on = TRUE
 	var/bolts = TRUE
 	/// 1 - Pressure. 2 - Temperature. 4 - Oxygen. 8 - Toxins. 16 - Nitrogen. 32 - Carbon Dioxide. 64 - Nitrous Oxide.

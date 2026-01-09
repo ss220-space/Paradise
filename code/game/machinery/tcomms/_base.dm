@@ -207,8 +207,8 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/datum/radio_frequency/connection
 	/// Who sent it
 	var/atom/movable/sender
-	/// The signal data (See defines/radio.dm)
-	var/data
+	/// The signal type (See defines/radio.dm)
+	var/signal_type = SIGNALTYPE_NORMAL
 	/// Verbage used
 	var/verbage = "говор%(ит,ят)%"
 	/// Follow target for AI use
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 	// --- Broadcast only to intercom devices ---
 
-	if(tcm.data == SIGNALTYPE_INTERCOM && !bad_connection)
+	if(tcm.signal_type == SIGNALTYPE_INTERCOM && !bad_connection)
 
 		for(var/obj/item/radio/intercom/R in new_connection.devices["[RADIO_CHAT]"])
 			if(R.receive_range(display_freq, tcm.zlevels) > -1)
@@ -302,7 +302,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 	// --- Broadcast only to intercoms and station-bounced radios ---
 
-	else if(tcm.data == SIGNALTYPE_INTERCOM_SBR && !bad_connection)
+	else if(tcm.signal_type == SIGNALTYPE_INTERCOM_SBR && !bad_connection)
 
 		for(var/obj/item/radio/R in new_connection.devices["[RADIO_CHAT]"])
 
