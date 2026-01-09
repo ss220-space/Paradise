@@ -158,10 +158,10 @@
 
 /datum/dice_roll/proc/purify()
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(user)] очистившим[PLUR_I(user)]ся!"))
-	for(var/obj/item/I in user)
-		if(istype(I, /obj/item/organ))
+	for(var/obj/item/item in user)
+		if(is_organ(item))
 			continue
-		qdel(I)
+		qdel(item)
 	user.mind.remove_all_antag_datums()
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(!LAZYIN(user.dna.default_blocks, gene.block))
