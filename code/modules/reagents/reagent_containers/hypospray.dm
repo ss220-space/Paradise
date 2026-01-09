@@ -14,7 +14,6 @@
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/get_ru_names()
@@ -485,6 +484,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book
 	icon = 'icons/obj/death_book.dmi'
+	icon_state = null
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
@@ -496,7 +496,7 @@
 	name = "Зловещий зелёный инъектор"
 	desc = "Содержит в себе яйца настоящего ужаса, готового сокрушить станцию."
 	icon_state = "spider-injector"
-	list_reagents = list("terror_eggs" = 10)
+	list_reagents = list("terror_phantom_eggs" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror/get_ru_names()
 	return list(
@@ -757,4 +757,22 @@
 		ACCUSATIVE = "автоинъектор (Активированный уголь)",
 		INSTRUMENTAL = "автоинъектором (Активированный уголь)",
 		PREPOSITIONAL = "автоинъекторе (Активированный уголь)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguinius
+	name = "Sanguinius autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу \"Сангвиния\" для экстренной помощи при кровопотерях."
+	icon_state = "redinjector"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	list_reagents = list("sanguinius" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguinius/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Сангвиний)",
+		GENITIVE = "автоинъектора (Сангвиний)",
+		DATIVE = "автоинъектору (Сангвиний)",
+		ACCUSATIVE = "автоинъектор (Сангвиний)",
+		INSTRUMENTAL = "автоинъектором (Сангвиний)",
+		PREPOSITIONAL = "автоинъекторе (Сангвиний)",
 	)

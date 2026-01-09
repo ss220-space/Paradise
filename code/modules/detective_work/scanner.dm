@@ -53,7 +53,7 @@
 				break
 
 	if(name)
-		to_chat(user, "<span class='notice'>Совпадение найдено в записях станции: <b>[name]</b></span><br>\
+		to_chat(user, "[span_notice("Совпадение найдено в записях станции: <b>[name]</b>")]<br>\
 		<i>Отпечатки пальцев:</i>[span_notice(" [fingerprint]")]<br>\
 		<i>ДНК:</i>[span_notice(" [dna]")]")
 	else
@@ -116,10 +116,12 @@
 
 		scanning = TRUE
 
+		playsound(src, SFX_INDUSTRIAL_SCAN, 20, TRUE, -2, TRUE, FALSE)
 		user.visible_message(
 			"[user] points [src] at [scan_atom] and performs a forensic scan.",
 			span_notice("You scan [scan_atom]. The scanner is now analysing the results...")
 		)
+		to_chat(user, span_notice("You scan [scan_atom]. The scanner is now analysing the results..."))
 
 		// GATHER INFORMATION
 

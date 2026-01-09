@@ -8,6 +8,7 @@
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	gender = MALE
+	cares_about_temperature = TRUE
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -342,7 +343,7 @@
 	icon_state = "plasma"
 	materials = list(MAT_PLASMA = 1000)
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(temperature, volume)
 	..()
 	if(temperature > T0C + 200)
 		burn_up()
@@ -412,8 +413,6 @@
 	icon_state = "holobadge"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_ACCESSORY
 	actions_types = list(/datum/action/item_action/accessory/holobadge)
-
-	var/emagged = FALSE //Emagging removes Sec check.
 	var/stored_name = null
 
 /obj/item/clothing/accessory/holobadge/cord
@@ -498,7 +497,7 @@
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
 	set name = "Показать значок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

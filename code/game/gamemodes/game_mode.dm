@@ -1,3 +1,9 @@
+/// Amount of time after the rounds starts, that the player disconnect report is issued.
+#define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
+
+/// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1
+
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -726,6 +732,10 @@
 
 /datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
+	
+	if(QDELETED(player))
+		return
+	
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
@@ -954,3 +964,6 @@
 
 /datum/game_mode/proc/late_join(mob/new_player/player)
 	return FALSE
+
+#undef ROUNDSTART_LOGOUT_REPORT_TIME
+#undef STATION_GOAL_BUDGET

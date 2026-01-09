@@ -533,7 +533,7 @@
  */
 /mob/living/simple_animal/parrot/proc/steal_from_ground()
 	set name = "Схватить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Grabs a nearby item."
 
 	if(stat)
@@ -565,7 +565,7 @@
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
 	set name = "Украсть из рук"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Steals an item right out of a person's hand!"
 
 	if(stat)
@@ -598,7 +598,7 @@
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
 	set name = "Выбросить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -608,7 +608,7 @@
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
 	set name = "Выбросить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -639,7 +639,7 @@
 
 /mob/living/simple_animal/parrot/proc/perch_player()
 	set name = "Присесть"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Sit on a nice comfy perch."
 
 	if(stat || !client)

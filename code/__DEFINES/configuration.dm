@@ -22,3 +22,6 @@
 #define KEY_MODE_TYPE 1
 
 #define ASSET_TRANSPORT_WEBROOT "webroot"
+
+/// The SQL version required by this version of the code
+#define SQL_VERSION 40

@@ -167,7 +167,6 @@
 	desc = "Крепление для дефибриллятора, которое предварительно нужно будет закрепить."
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
-	sheets_refunded = 0
 	materials = list(MAT_METAL = 300, MAT_GLASS = 100)
 	w_class = WEIGHT_CLASS_BULKY
 

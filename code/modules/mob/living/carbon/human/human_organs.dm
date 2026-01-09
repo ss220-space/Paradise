@@ -146,6 +146,14 @@
 			bleeding_bodyparts += bodypart
 	return bleeding_bodyparts
 
+/mob/living/carbon/human/proc/check_arterial_bleedings()
+	var/list/bleeding_bodyparts = list()
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.has_arterial_bleeding())
+			bleeding_bodyparts += bodypart
+
+	return bleeding_bodyparts
+
 /mob/living/carbon/human/proc/update_splints()
 	for(var/obj/item/organ/external/bodypart as anything in splinted_limbs)
 		if(step_count >= bodypart.splinted_count + SPLINT_LIFE)

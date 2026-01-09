@@ -37,7 +37,7 @@
 	if(price > cashmoney.amount)
 		// This is not a status display message, since it's something the character
 		// themselves is meant to see BEFORE putting the money in
-		to_chat(user, "[icon2html(cashmoney, user)] <span class='warning'>That is not enough money.</span>")
+		to_chat(user, "[icon2html(cashmoney, user)] [span_warning("That is not enough money.")]")
 		return FALSE
 
 	// Bills (banknotes) cannot really have worth different than face value,
@@ -48,7 +48,7 @@
 	if(!cashmoney.use(price))
 		return FALSE
 
-	visible_message("<span class='notice'>[user] inserts a credit chip into [src].</span>")
+	visible_message(span_notice("[user] inserts a credit chip into [src]."))
 
 	// Vending machines have no idea who paid with cash
 	account_we_pay_on.credit(price, "Sale of [vended_name]", name, "(cash)")
@@ -56,13 +56,13 @@
 
 /obj/machinery/proc/pay_with_card(mob/M, price, vended_name, datum/money_account/account_we_pay_on = GLOB.vendor_account)
 	if(iscarbon(M))
-		visible_message("<span class='notice'>[M] swipes a card through [src].</span>")
+		visible_message(span_notice("[M] swipes a card through [src]."))
 	var/datum/money_account/customer_account = get_card_account(M)
 	if(!customer_account)
-		to_chat(M, "<span class='warning'>Error: Unable to access account. Please contact technical support if problem persists.</span>")
+		to_chat(M, span_warning("Error: Unable to access account. Please contact technical support if problem persists."))
 		return FALSE
 	if(customer_account.suspended)
-		to_chat(M, "<span class='warning'>Unable to access account: account suspended.</span>")
+		to_chat(M, span_warning("Unable to access account: account suspended."))
 		return FALSE
 	// Have the customer punch in the PIN before checking if there's enough money.
 	// Prevents people from figuring out acct is empty at high security levels
@@ -70,10 +70,10 @@
 		// If card requires pin authentication (ie seclevel 1 or 2)
 		var/attempt_pin = tgui_input_number(M, "Enter pin code", "Vendor Transaction", 111111, 999999, 111111)
 		if(!attempt_account_access(customer_account.account_number, attempt_pin, 2))
-			to_chat(M, "<span class='warning'>Unable to access account: incorrect credentials.</span>")
+			to_chat(M, span_warning("Unable to access account: incorrect credentials."))
 			return FALSE
 	if(price > customer_account.money)
-		to_chat(M, "<span class='warning'>Your bank account has insufficient money to purchase this.</span>")
+		to_chat(M, span_warning("Your bank account has insufficient money to purchase this."))
 		return FALSE
 	// Okay to move the money at this point
 	customer_account.charge(price, account_we_pay_on,
@@ -109,7 +109,7 @@
 // Charge is for transferring money from an account to another. The destination account can possibly not exist (Magical money sink)
 /datum/money_account/proc/charge(transaction_amount = 0, datum/money_account/dest, transaction_purpose, terminal_name = "", dest_name = UNKNOWN_STATUS_RUS, dest_purpose, dest_target_name)
 	if(suspended)
-		to_chat(usr, "<span class='warning'>Unable to access source account: account suspended.</span>")
+		to_chat(usr, span_warning("Unable to access source account: account suspended."))
 		return 0
 
 	if(transaction_amount <= money)
@@ -122,7 +122,7 @@
 			dest_purpose ? dest_purpose : transaction_purpose, terminal_name, dest_target_name ? dest_target_name : dest_name, FALSE)
 		return 1
 	else
-		to_chat(usr, "<span class='warning'>Insufficient funds in account.</span>")
+		to_chat(usr, span_warning("Insufficient funds in account."))
 		return 0
 
 // phantom_charge is for when you want to charge an account, without making any corresponding log (e.g. you make it yourself with custom date

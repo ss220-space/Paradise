@@ -252,7 +252,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 25
 	armour_penetration = 35
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
@@ -400,16 +400,17 @@
 
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
-	desc = "a tentacle."
+	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
 
-/obj/item/ammo_casing/magic/tentacle/New(obj/item/gun/magic/tentacle/tentacle_gun)
-	gun = tentacle_gun
-	..()
+/obj/item/ammo_casing/magic/tentacle/Initialize(mapload)
+	gun = loc
+	. = ..()
 
 /obj/item/ammo_casing/magic/tentacle/Destroy()
 	gun = null
@@ -425,9 +426,9 @@
 	var/intent = INTENT_HELP
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
-/obj/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
-	source = tentacle_casing
-	..()
+/obj/projectile/tentacle/Initialize(mapload)
+	source = loc
+	. = ..()
 
 /obj/projectile/tentacle/fire(setAngle)
 	if(firer)
@@ -479,10 +480,10 @@
 		return
 
 	var/obj/item/offarm_item = user.get_active_hand()
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		offarm_item = user.get_inactive_hand()
 
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		return
 
 	target.visible_message(span_danger("[user] impales [target] with [offarm_item]!"), \

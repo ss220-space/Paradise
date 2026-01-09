@@ -36,3 +36,6 @@
 
 /// Abstraction over using mob.client to just check if there's a connected player.
 #define HAS_CONNECTED_PLAYER(mob) (mob.client)
+
+/// Legacy define for icon_state space
+#define SPACE_ICON_STATE "[((x + y) ^ ~(x * y) + z) % 25]"

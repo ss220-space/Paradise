@@ -19,6 +19,12 @@ SUBSYSTEM_DEF(throwing)
 /datum/controller/subsystem/throwing/get_stat_details()
 	return "P:[length(processing)]"
 
+/datum/controller/subsystem/throwing/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(processing)
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if(!resumed)
 		src.currentrun = processing.Copy()
@@ -113,9 +119,8 @@ SUBSYSTEM_DEF(throwing)
 	src.dodgeable = dodgeable
 
 /datum/thrownthing/Destroy()
-	if(SSthrowing)
-		SSthrowing.processing -= thrownthing
-		SSthrowing.currentrun -= thrownthing
+	SSthrowing.processing -= thrownthing
+	SSthrowing.currentrun -= thrownthing
 	thrownthing.throwing = null
 	thrownthing = null
 	thrower = null

@@ -213,6 +213,37 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+/datum/objective/punish
+	name = "Punish"
+	antag_menu_name = "Наказать"
+
+/datum/objective/punish/find_target(list/target_blacklist)
+	. = ..()
+
+	if(!target?.current)
+		return
+
+	explanation_text = "[capitalize(target.current.real_name)], [target.assigned_role], очень плохо себя вел в этом году. Его нужно наказать. Избейте его до невозможности сопротивляться и поместите в мешок."
+
+	if(target in SSticker.mode.victims)
+		return
+
+	SSticker.mode.victims.Add(target)
+
+/datum/objective/punish/check_completion()
+	. = ..()
+	var/mob/living/carbon/true_devil/krampus/krampus = owner.current
+
+	if(!istype(krampus))
+		return
+
+	for(var/mob/mob as anything in krampus.bag_content)
+		if(mob.mind != target)
+			continue
+		return TRUE
+
+	return FALSE
+
 /datum/objective/mutiny
 	name = "Mutiny"
 	antag_menu_name = "Мятеж"
@@ -326,7 +357,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		if(QDELETED(player.current))
 			continue // Maybe someone who's alive has the brain.
 
-		if(target.current in player.current.GetAllContents())
+		if(target.current in player.current.get_all_contents())
 			return TRUE
 
 	return FALSE
@@ -1032,7 +1063,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/player in owners)
 		if(!isliving(player.current))
 			continue
-		all_items += player.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		all_items += player.current.get_all_contents()	//this should get things in cheesewheels, books, etc.
 
 	for(var/obj/item in all_items) //Check for wanted items
 		if(is_type_in_typecache(item, wanted_items))
@@ -1062,7 +1093,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	for(var/datum/mind/player in owners)
 		if(!isliving(player.current))
 			continue
-		all_items += player.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+		all_items += player.current.get_all_contents()	//this should get things in cheesewheels, books, etc.
 
 	for(var/obj/item in all_items) //Check for wanted items
 		if(istype(item, /obj/item/spellbook) && !istype(item, /obj/item/spellbook/oneuse))

@@ -1901,10 +1901,10 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике надувных заграждений",
 	)
 
-/datum/supply_packs/engineering/engine/supermatter_shard
+/datum/supply_packs/engineering/engine/supermatter_crystal
 	name = "Осколок суперматерии"
 	contains = list(
-		/obj/machinery/power/supermatter_shard,
+		/obj/machinery/atmospherics/supermatter_crystal/shard,
 	)
 	cost = 150 //So cargo thinks twice before killing themselves with it
 	containername = "ящик с осколком суперматерии"
@@ -1939,6 +1939,196 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_CE
 	announce_beacons = list("Engineering" = list("Chief Engineer's Desk", "Atmospherics"))
 	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_MATERIALS = 2)
+
+/datum/supply_packs/engineering/canister/nitrogen
+	name = "Канистра азота"
+	contains = list(/obj/machinery/portable_atmospherics/canister/nitrogen)
+	cost = 5
+	containertype = /obj/structure/largecrate
+	containername = "ящик с канистрой азота"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с канистрой азота",
+		GENITIVE = "ящика с канистрой азота",
+		DATIVE = "ящику с канистрой азота",
+		ACCUSATIVE = "ящик с канистрой азота",
+		INSTRUMENTAL = "ящиком с канистрой азота",
+		PREPOSITIONAL = "ящике с канистрой азота",
+	)
+
+/datum/supply_packs/engineering/canister/oxygen
+	name = "Канистра кислорода"
+	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
+	cost = 5
+	containertype = /obj/structure/largecrate
+	containername = "ящик с канистрой кислорода"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с канистрой кислорода",
+		GENITIVE = "ящика с канистрой кислорода",
+		DATIVE = "ящику с канистрой кислорода",
+		ACCUSATIVE = "ящик с канистрой кислорода",
+		INSTRUMENTAL = "ящиком с канистрой кислорода",
+		PREPOSITIONAL = "ящике с канистрой кислорода",
+	)
+
+/datum/supply_packs/engineering/canister/air
+	name = "Канистра воздуха"
+	contains = list(/obj/machinery/portable_atmospherics/canister/air)
+	cost = 5
+	containertype = /obj/structure/largecrate
+	containername = "ящик с канистрой воздуха"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с канистрой воздуха",
+		GENITIVE = "ящика с канистрой воздуха",
+		DATIVE = "ящику с канистрой воздуха",
+		ACCUSATIVE = "ящик с канистрой воздуха",
+		INSTRUMENTAL = "ящиком с канистрой воздуха",
+		PREPOSITIONAL = "ящике с канистрой воздуха",
+	)
+
+/datum/supply_packs/engineering/canister/sleeping_agent
+	name = "Канистра оксида азота"
+	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
+	cost = 25
+	containertype = /obj/structure/largecrate
+	containername = "ящик с канистрой оксида азота"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с канистрой оксида азота",
+		GENITIVE = "ящика с канистрой оксида азота",
+		DATIVE = "ящику с канистрой оксида азота",
+		ACCUSATIVE = "ящик с канистрой оксида азота",
+		INSTRUMENTAL = "ящиком с канистрой оксида азота",
+		PREPOSITIONAL = "ящике с канистрой оксида азота",
+	)
+
+/datum/supply_packs/engineering/canister/carbon_dioxide
+	name = "Канистра углекислого газа"
+	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
+	cost = 25
+	containertype = /obj/structure/largecrate
+	containername = "ящик с канистрой углекислого газа"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с канистрой углекислого газа",
+		GENITIVE = "ящика с канистрой углекислого газа",
+		DATIVE = "ящику с канистрой углекислого газа",
+		ACCUSATIVE = "ящик с канистрой углекислого газа",
+		INSTRUMENTAL = "ящиком с канистрой углекислого газа",
+		PREPOSITIONAL = "ящике с канистрой углекислого газа",
+	)
+
+/datum/supply_packs/engineering/canister/toxins
+	name = "Канистра плазмы"
+	contains = list(/obj/machinery/portable_atmospherics/canister/toxins)
+	cost = 25
+	containertype = /obj/structure/largecrate
+	containername = "ящик с канистрой плазмы"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с канистрой плазмы",
+		GENITIVE = "ящика с канистрой плазмы",
+		DATIVE = "ящику с канистрой плазмы",
+		ACCUSATIVE = "ящик с канистрой плазмы",
+		INSTRUMENTAL = "ящиком с канистрой плазмы",
+		PREPOSITIONAL = "ящике с канистрой плазмы",
+	)
+
+/datum/supply_packs/engineering/miner
+	required_tech = list(RESEARCH_TREE_TOXINS = 4)
+	cost = 150
+	containertype = /obj/structure/largecrate
+
+/datum/supply_packs/engineering/miner/n2o
+	name = "Майнер N2O"
+	contains = list(/obj/machinery/atmospherics/miner/n2o)
+	cost = 200
+	containername = "ящик с майнером N2O"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с майнером N2O",
+		GENITIVE = "ящика с майнером N2O",
+		DATIVE = "ящику с майнером N2O",
+		ACCUSATIVE = "ящик с майнером N2O",
+		INSTRUMENTAL = "ящиком с майнером N2O",
+		PREPOSITIONAL = "ящике с майнером N2O",
+	)
+
+/datum/supply_packs/engineering/miner/nitrogen
+	name = "Майнер N2"
+	contains = list(/obj/machinery/atmospherics/miner/nitrogen)
+	containername = "ящик с майнером N2"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с майнером N2",
+		GENITIVE = "ящика с майнером N2",
+		DATIVE = "ящику с майнером N2",
+		ACCUSATIVE = "ящик с майнером N2",
+		INSTRUMENTAL = "ящиком с майнером N2",
+		PREPOSITIONAL = "ящике с майнером N2",
+	)
+
+/datum/supply_packs/engineering/miner/oxygen
+	name = "Майнер O2"
+	contains = list(/obj/machinery/atmospherics/miner/oxygen)
+	containername = "ящик с майнером O2"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с майнером O2",
+		GENITIVE = "ящика с майнером O2",
+		DATIVE = "ящику с майнером O2",
+		ACCUSATIVE = "ящик с майнером O2",
+		INSTRUMENTAL = "ящиком с майнером O2",
+		PREPOSITIONAL = "ящике с майнером O2",
+	)
+
+/datum/supply_packs/engineering/miner/plasma
+	name = "Майнер плазмы"
+	contains = list(/obj/machinery/atmospherics/miner/plasma)
+	cost = 300
+	containername = "ящик с майнером плазмы"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с майнером плазмы",
+		GENITIVE = "ящика с майнером плазмы",
+		DATIVE = "ящику с майнером плазмы",
+		ACCUSATIVE = "ящик с майнером плазмы",
+		INSTRUMENTAL = "ящиком с майнером плазмы",
+		PREPOSITIONAL = "ящике с майнером плазмы",
+	)
+
+/datum/supply_packs/engineering/miner/carbon_dioxide
+	name = "Майнер CO2"
+	contains = list(/obj/machinery/atmospherics/miner/carbon_dioxide)
+	containername = "ящик с майнером CO2"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с майнером CO2",
+		GENITIVE = "ящика с майнером CO2",
+		DATIVE = "ящику с майнером CO2",
+		ACCUSATIVE = "ящик с майнером CO2",
+		INSTRUMENTAL = "ящиком с майнером CO2",
+		PREPOSITIONAL = "ящике с майнером CO2",
+	)
+
+/datum/supply_packs/engineering/miner/agent_b
+	name = "Майнер Agent B"
+	contains = list(/obj/machinery/atmospherics/miner/agent_b)
+	cost = 250
+	containername = "ящик с майнером Agent B"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с майнером Agent B",
+		GENITIVE = "ящика с майнером Agent B",
+		DATIVE = "ящику с майнером Agent B",
+		ACCUSATIVE = "ящик с майнером Agent B",
+		INSTRUMENTAL = "ящиком с майнером Agent B",
+		PREPOSITIONAL = "ящике с майнером Agent B",
+	)
+
+/datum/supply_packs/engineering/miner/hydrogen
+	name = "Майнер H2"
+	contains = list(/obj/machinery/atmospherics/miner/hydrogen)
+	cost = 400
+	containername = "ящик с майнером H2"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с майнером H2",
+		GENITIVE = "ящика с майнером H2",
+		DATIVE = "ящику с майнером H2",
+		ACCUSATIVE = "ящик с майнером H2",
+		INSTRUMENTAL = "ящиком с майнером H2",
+		PREPOSITIONAL = "ящике с майнером H2",
+	)
 
 /datum/supply_packs/engineering/conveyor
 	name = "Детали конвейерной ленты"

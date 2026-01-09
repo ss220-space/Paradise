@@ -157,3 +157,7 @@
 /datum/species/diona/pod //Same name and everything; we want the same limitations on them; we just want their regeneration to kick in at all times and them to have special factions
 	pod = TRUE
 	inherent_factions = list("plants", "vines")
+
+
+/datum/species/diona/compressor_grind(location)
+	new /obj/item/reagent_containers/food/snacks/vegisalad(location)

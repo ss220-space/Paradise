@@ -34,26 +34,30 @@
 	if(client.click_intercept)
 		client.click_intercept.InterceptClickOn(src, params, A)
 		return
+
 	if(world.time <= next_move)
 		return
 
 	var/list/modifiers = params2list(params)
-
 	if(check_rights(R_ADMIN, FALSE)) // Admin click shortcuts
-		var/mob/mob
+		var/mob/selected_mob
 		if(LAZYACCESS(modifiers, SHIFT_CLICK))
 			if(LAZYACCESS(modifiers, CTRL_CLICK))
 				client.debug_variables(A)
 				return
 			if(LAZYACCESS(modifiers, MIDDLE_CLICK))
-				mob = get_mob_in_atom_with_warning(A)
-				if(mob)
-					admin_mob_info(mob)
+				selected_mob = get_mob_in_atom_with_warning(A)
+				if(!selected_mob)
+					return
+				admin_mob_info(selected_mob)
 				return
 		if(LAZYACCESS(modifiers, CTRL_CLICK))
-			mob = get_mob_in_atom_with_warning(A)
-			if(mob)
-				client.holder.show_player_panel(mob)
+			selected_mob = get_mob_in_atom_with_warning(A)
+			if(!selected_mob)
+				return
+			usr.client.VUAP_selected_mob = selected_mob
+			usr.client.selectedPlayerCkey = selected_mob.ckey
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/vuap_personal, selected_mob)
 			return
 
 	if(LAZYACCESS(modifiers, MIDDLE_CLICK))

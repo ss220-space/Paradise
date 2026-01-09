@@ -83,6 +83,22 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	fdel(asset_path) // just in case, sadly we can't use rust_g stuff here.
 	fcopy(file_location, asset_path)
 
+/// Returns the data that will be JSON encoded
+/datum/asset/json/proc/generate()
+	SHOULD_CALL_PARENT(FALSE)
+	CRASH("generate() not implemented for [type]!")
+
+/// Unregisters any assets from the transport.
+/datum/asset/proc/unregister()
+	CRASH("unregister() not implemented for asset [type]!")
+
+/// Immediately regenerate the asset, overwriting any cache.
+/datum/asset/proc/regenerate()
+	unregister()
+	cached_serialized_url_mappings = null
+	cached_serialized_url_mappings_transport_type = null
+	register()
+
 /// If you don't need anything complicated.
 /datum/asset/simple
 	_abstract = /datum/asset/simple
@@ -132,16 +148,21 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	for(var/type in children)
 		load_asset_datum(type)
 
+/datum/asset/group/unregister()
+	for(var/type in children)
+		var/datum/asset/asset = get_asset_datum(type)
+		asset.unregister()
+
 /datum/asset/group/send(client/C)
 	for(var/type in children)
-		var/datum/asset/A = get_asset_datum(type)
-		. = A.send(C) || .
+		var/datum/asset/asset = get_asset_datum(type)
+		. = asset.send(C) || .
 
 /datum/asset/group/get_url_mappings()
 	. = list()
 	for(var/type in children)
-		var/datum/asset/A = get_asset_datum(type)
-		. += A.get_url_mappings()
+		var/datum/asset/asset = get_asset_datum(type)
+		. += asset.get_url_mappings()
 
 // spritesheet implementation - coalesces various icons into a single .png file
 // and uses CSS to select icons out of that file - saves on transferring some
@@ -503,6 +524,36 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/size_id = sprite[SPR_SIZE]
 	return "[name][size_id]"
 
+/datum/asset/spritesheet/unregister()
+	SSassets.transport.unregister_asset("spritesheet_[name].css")
+	if(length(sizes))
+		for(var/size_id in sizes)
+			SSassets.transport.unregister_asset("[name]_[size_id].png")
+		return
+
+	for(var/sheet in cached_spritesheets_needed)
+		SSassets.transport.unregister_asset(sheet)
+
+/datum/asset/spritesheet/regenerate()
+	unregister()
+	sprites = list()
+	fdel("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name].css")
+	for(var/sheet in cached_spritesheets_needed)
+		fdel("[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[sheet].png")
+	fdel("data/spritesheets/spritesheet_[name].css")
+	for(var/size_id in sizes)
+		fdel("data/spritesheets/[name]_[size_id].png")
+	sizes = list()
+	to_generate = list()
+	cached_serialized_url_mappings = null
+	cached_serialized_url_mappings_transport_type = null
+	fully_generated = FALSE
+	var/old_load = load_immediately
+	load_immediately = TRUE
+	create_spritesheets()
+	realize_spritesheets(yield = FALSE)
+	load_immediately = old_load
+
 #undef SPR_SIZE
 #undef SPR_IDX
 #undef SPRSZ_COUNT
@@ -633,6 +684,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	assets = sorted_assets
 	..()
 
+/datum/asset/simple/unregister()
+	for(var/asset_name in assets)
+		SSassets.transport.unregister_asset(asset_name)
+
 /*
  * Get a html string that will load a html asset.
  * Needed because byond doesn't allow you to browse() to a url.
@@ -661,9 +716,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	SSassets.transport.register_asset("[name].json", fcopy_rsc(filename))
 	fdel(filename)
 
-/// Returns the data that will be JSON encoded
-/datum/asset/json/proc/generate()
-	SHOULD_CALL_PARENT(FALSE)
-	CRASH("generate() not implemented for [type]!")
+/datum/asset/json/unregister()
+	SSassets.transport.unregister_asset("[name].json")
 
 #undef ASSET_CROSS_ROUND_CACHE_DIRECTORY

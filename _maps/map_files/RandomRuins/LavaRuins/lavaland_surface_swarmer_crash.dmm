@@ -9,11 +9,7 @@
 /turf/simulated/wall/mineral/plastitanium,
 /area/ruin/unpowered/misc_lavaruin)
 "d" = (
-/turf/simulated/floor/mineral/plastitanium/red{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/mineral/plastitanium/red/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -23,19 +19,11 @@
 /area/ruin/unpowered/misc_lavaruin)
 "f" = (
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon,
-/turf/simulated/floor/mineral/plastitanium/red{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/mineral/plastitanium/red/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 "g" = (
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/mineral/plastitanium/red{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/mineral/plastitanium/red/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"

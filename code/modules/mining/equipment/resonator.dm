@@ -136,11 +136,8 @@
 	var/turf/src_turf = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
-		if(isancientturf(src_turf))
-			visible_message(span_notice("Эта порода устойчива ко всем инструментам, кроме кирок!"))
-		else
-			var/turf/simulated/mineral/M = src_turf
-			M.attempt_drill(creator)
+		var/turf/simulated/mineral/mineral = src_turf
+		mineral.attempt_drill(creator)
 	check_pressure(src_turf)
 	playsound(src_turf,'sound/weapons/resonator_blast.ogg',50, TRUE)
 	for(var/mob/living/L in src_turf)

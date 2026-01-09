@@ -65,12 +65,30 @@
 
 /obj/machinery/disposal/LateInitialize()
 	. = ..()
-	var/datum/gas_mixture/env = new
-	env.copy_from(loc.return_air())
-	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
-	air_contents.merge(removed)
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 	trunk_check()
 	update()
+
+/datum/milla_safe/disposal_suck_air
+
+/datum/milla_safe/disposal_suck_air/on_run(obj/machinery/disposal/disposal)
+	var/turf/location = get_turf(disposal)
+	var/datum/gas_mixture/env = get_turf_air(location)
+
+	var/pressure_delta = (SEND_PRESSURE + 1) - disposal.air_contents.return_pressure()
+
+	if(env.temperature() > 0)
+		var/transfer_moles = 0.1 * pressure_delta*disposal.air_contents.volume / (env.temperature() * R_IDEAL_GAS_EQUATION)
+
+		//Actually transfer the gas
+		var/datum/gas_mixture/removed = env.remove(transfer_moles)
+		disposal.air_contents.merge(removed)
+
+	// if full enough, switch to ready mode
+	if(disposal.air_contents.return_pressure() >= SEND_PRESSURE)
+		disposal.mode = 2
+		disposal.update()
 
 /obj/machinery/disposal/proc/trunk_check()
 	var/obj/structure/disposalpipe/trunk/found_trunk = locate() in loc
@@ -508,23 +526,8 @@
 	// otherwise charge
 	use_power = ACTIVE_POWER_USE
 
-	var/atom/L = loc						// recharging from loc turf
-
-	var/datum/gas_mixture/env = L.return_air()
-	var/pressure_delta = (SEND_PRESSURE*1.01) - air_contents.return_pressure()
-
-	if(env.temperature > 0)
-		var/transfer_moles = 0.1 * pressure_delta*air_contents.volume/(env.temperature * R_IDEAL_GAS_EQUATION)
-
-		//Actually transfer the gas
-		var/datum/gas_mixture/removed = env.remove(transfer_moles)
-		air_contents.merge(removed)
-		air_update_turf()
-
-	// if full enough, switch to ready mode
-	if(air_contents.return_pressure() >= SEND_PRESSURE)
-		mode = CHARGED
-		update()
+	var/datum/milla_safe/disposal_suck_air/milla = new()
+	milla.invoke_async(src)
 
 // perform a flush
 /obj/machinery/disposal/proc/flush()

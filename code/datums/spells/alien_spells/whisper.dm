@@ -25,5 +25,5 @@
 	to_chat(target, "<span class='noticealien'>You hear a strange, alien voice in your head...<span class='noticealien'> [msg]")
 	to_chat(user, span_noticealien("You said: [msg] to [target]"))
 	for(var/mob/dead/observer/ghosts in GLOB.player_list)
-		ghosts.show_message("<i>Alien message from <b>[user]</b> ([ghost_follow_link(user, ghost=ghosts)]) to <b>[target]</b> ([ghost_follow_link(target, ghost=ghosts)]): [msg]</i>")
+		ghosts.show_message("<i>Alien message from ([ghost_follow_link(user, ghost = ghosts)])<b>[user]</b> to ([ghost_follow_link(target, ghost=ghosts)])<b>[target]</b>: [msg]</i>")
 

@@ -528,8 +528,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 
-//This should really be somewhere else but I don't know where. w/e
-
 /obj/item/inflatable_duck
 	name = "inflatable duck"
 	desc = "No bother to sink or swim when you can just float!"
@@ -541,7 +539,6 @@
 /*
  * Fake meteor
  */
-
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
 	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."
@@ -1577,6 +1574,22 @@
 
 #undef EVIL_MODE_CHANCE
 
+/obj/item/toy/plushie/manulplushie
+	name = "manul plushie"
+	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
+	icon_state = "kotik_plushie"
+	item_state = "kotik_hand"
+
+/obj/item/toy/plushie/manulplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушка Манула",
+		GENITIVE = "игрушки Манула",
+		DATIVE = "игрушке Манула",
+		ACCUSATIVE = "игрушку Манула",
+		INSTRUMENTAL = "игрушкой Манула",
+		PREPOSITIONAL = "игрушке Манула",
+	)
+
 /*
  * Foam Armblade
  */
@@ -1790,7 +1803,7 @@
 	force = 5
 	throwforce = 5
 	attack_verb = list("атаковал", "ударил", "окаменил")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 
 /obj/item/toy/pet_rock/fred
 	name = "fred"
@@ -1895,7 +1908,7 @@
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -2340,7 +2353,7 @@
 
 /obj/item/toy/desk/verb/rotate()
 	set name = "Повернуть"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -2369,7 +2382,7 @@
 
 /obj/item/toy/desk/newtoncradle/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
 	on = !on
@@ -2387,7 +2400,7 @@
 
 /obj/item/toy/desk/fan/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/fan/attack_self(mob/user)
 	on = !on

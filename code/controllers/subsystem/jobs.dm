@@ -7,12 +7,16 @@ SUBSYSTEM_DEF(jobs)
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "jobs"
 
-	//List of all jobs
+	/// List of all jobs
 	var/list/occupations = list()
-	var/list/name_occupations = list()	//Dict of all jobs, keys are titles
-	var/list/type_occupations = list()	//Dict of all jobs, keys are types
-	var/list/prioritized_jobs = list() // List of jobs set to priority by HoP/Captain
-	var/list/id_change_records = list() // List of all job transfer records
+	/// Dict of all jobs, keys are titles
+	var/list/name_occupations = list()
+	/// Dict of all jobs, keys are types
+	var/list/type_occupations = list()
+	/// List of jobs set to priority by HoP/Captain
+	var/list/prioritized_jobs = list()
+	/// List of all job transfer records
+	var/list/id_change_records = list()
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
@@ -40,13 +44,59 @@ SUBSYSTEM_DEF(jobs)
 		to_chat(world, span_warning("Ошибка выдачи профессий, датумы профессий не найдены."))
 		return
 
+	/// Order of departments, used to sort jobs in "occupations" list
+	var/list/department_order = list(
+		STATION_DEPARTMENT_COMMAND,
+		STATION_DEPARTMENT_ENGINEERING,
+		STATION_DEPARTMENT_SCIENCE,
+		STATION_DEPARTMENT_MEDICAL,
+		STATION_DEPARTMENT_SECURITY,
+		STATION_DEPARTMENT_SUPPLY,
+		STATION_DEPARTMENT_SERVICE,
+		STATION_DEPARTMENT_LEGAL,
+		STATION_DEPARTMENT_CIVILIAN,
+		STATION_DEPARTMENT_SILICON,
+		STATION_DEPARTMENT_OTHER,
+	)
+
+	var/list/department_groups = list()
+	for(var/department in department_order)
+		department_groups[department] = list()
+
 	for(var/J in all_jobs)
 		var/datum/job/job = new J()
-		if(!job)
+
+		if(!job || !job.title) // to avoid adding special cod-only datums without title
 			continue
-		occupations += job
+
 		name_occupations[job.title] = job
 		type_occupations[J] = job
+
+		// Splitting by departments
+		var/department = job.department
+		if(department in department_groups)
+			department_groups[department] += job
+
+	// Order: head_of_department -> department jobs
+	for(var/department in department_groups)
+		var/list/department_jobs = department_groups[department]
+		var/datum/job/head_of_department = null
+
+		for(var/datum/job/job in department_jobs)
+			if(job.head_position)
+				head_of_department = job
+				break
+
+		// Head goes first
+		if(!head_of_department)
+			continue
+
+		department_jobs -= head_of_department
+		department_jobs.Insert(1, head_of_department)
+
+	// Collecting a list in the right order
+	for(var/department in department_order)
+		occupations += department_groups[department]
 
 	LoadJobsFile("config/jobs.txt", FALSE)
 	LoadJobsFile("config/jobs_highpop.txt", TRUE)
@@ -465,7 +515,7 @@ SUBSYSTEM_DEF(jobs)
 		return human
 	var/list/L = list()
 	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
-	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_red(replacetext(job.supervisors,"the ",""))]. Особые обстоятельства могут это изменить.</b>")
+	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_notice(job.supervisors)]. </b>")
 	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
 		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
@@ -515,14 +565,14 @@ SUBSYSTEM_DEF(jobs)
 	if(!mark_spawn)
 		mark_spawn = locate("start*[rank]") // use old stype
 
-	if(!mark_spawn) // No spawn, then spawn on latejoin mark
+	if(!mark_spawn || SSticker.shuttle_start) // No spawn, then spawn on latejoin mark
 		log_runtime(EXCEPTION("No landmark start for [rank]."))
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = pick(GLOB.latejoin_prisoner)
 		else
 			mark_spawn = pick(GLOB.latejoin)
 
-	if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
+	if(!mark_spawn) // still no spawn, fall back to the arrivals shuttle
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = get_random_area_turf_for_spawn(/area/security/permabrig)
 		else
@@ -705,6 +755,8 @@ SUBSYSTEM_DEF(jobs)
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
+	if(human.client.donator_level > 0)
+		money_amount += human.client.donator_level * START_CREDITS_BY_DONATION_TIER
 	var/datum/money_account/M = create_account(human.real_name, money_amount, null, job, TRUE)
 	if(human.dna)
 		GLOB.dna2account[human.dna] = M
@@ -721,7 +773,7 @@ SUBSYSTEM_DEF(jobs)
 	human.mind.store_memory(remembered_info)
 
 	// If they're head, give them the account info for their department
-	if(job?.head_position)
+	if(job.head_position)
 		remembered_info = ""
 		var/datum/money_account/department_account = GLOB.department_accounts[job.department]
 

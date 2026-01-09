@@ -207,21 +207,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		PREPOSITIONAL = "вулканическом пепле",
 	)
 
-/obj/item/stack/ore/glass/basalt/ancient
-	name = "ancient sand"
-	item_state = "volcanic_sand"
-	singular_name = "ancient sand pile"
-
-/obj/item/stack/ore/glass/basalt/ancient/get_ru_names()
-	return list(
-		NOMINATIVE = "древний песок",
-		GENITIVE = "древнего песка",
-		DATIVE = "древнему песку",
-		ACCUSATIVE = "древний песок",
-		INSTRUMENTAL = "древним песком",
-		PREPOSITIONAL = "древнем песке",
-	)
-
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
 	icon_state = "Plasma ore"

@@ -141,7 +141,7 @@
 	. = ..()
 	if(isliving(A))
 		var/mob/living/mob = A
-		var/mobref = "\ref[mob]"
+		var/mobref = PERSONAL_FACTION(mob)
 		if(mob == reviver)
 			return
 		if(mobref in faction)
@@ -300,6 +300,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 						clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
+	if(QDELETED(src) || QDELETED(loc))
+		return
+	
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
@@ -512,7 +515,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
 			user.visible_message(span_warning("Похоже, [E.declent_ru(ACCUSATIVE)] сейчас невозможно воскресить. Попробуйте позже."))
 			return
-		E.faction = list("\ref[user]")
+		E.faction = list(PERSONAL_FACTION(user))
 		E.friends += user
 		E.reviver = user
 		E.revive()

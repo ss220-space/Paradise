@@ -789,10 +789,7 @@
 	dir = 6
 	},
 /obj/machinery/light/small,
-/obj/machinery/light_switch{
-	pixel_x = 12;
-	pixel_y = -26
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
 "Vd" = (

@@ -349,7 +349,7 @@
 	holder.update_integrity(holder.max_integrity)
 
 /datum/spacevine_mutation/woodening/on_hit(obj/structure/spacevine/holder, mob/living/hitter, obj/item/item, expected_damage)
-	if(!is_sharp(item))
+	if(!item.sharp)
 		. = expected_damage * 0.5
 	else
 		. = expected_damage
@@ -437,6 +437,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
+	cares_about_temperature = TRUE
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -548,7 +549,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return .
 
-	if(is_sharp(item) || item.damtype == BURN)
+	if(item.sharp || item.damtype == BURN)
 		damage_dealt *= 4
 
 	for(var/datum/spacevine_mutation/mutation as anything in mutations)
@@ -761,11 +762,11 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(null, temp, volume)
+/obj/structure/spacevine/temperature_expose(temperature, volume)
 	..()
 	var/override = 0
 	for(var/datum/spacevine_mutation/SM in mutations)
-		override += SM.process_temperature(src, temp, volume)
+		override += SM.process_temperature(src, temperature, volume)
 	if(!override)
 		wither()
 

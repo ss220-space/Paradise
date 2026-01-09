@@ -8,6 +8,7 @@
 	desc = "Постер оснащён собственной автоматической клеевой системой для удобного крепления на любую вертикальную поверхность. Его вульгарные темы сделали его контрабандой на объектах \"Нанотрейзен\"."
 	icon = 'icons/obj/contraband.dmi'
 	resistance_flags = FLAMMABLE
+	w_class = WEIGHT_CLASS_SMALL
 	var/poster_type
 	var/obj/structure/sign/poster/poster_structure
 
@@ -95,6 +96,14 @@
 		original_name = name
 		name = "Постер — [name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
+		ru_names = list(
+			NOMINATIVE = "постер \"[name]\"",
+			GENITIVE = "постера \"[name]\"",
+			DATIVE = "постеру \"[name]\"",
+			ACCUSATIVE = "постер \"[name]\"",
+			INSTRUMENTAL = "постером \"[name]\"",
+			PREPOSITIONAL = "постере \"[name]\"",
+		)
 
 /obj/structure/sign/poster/proc/randomise(base_type)
 	var/list/poster_types = subtypesof(base_type)
@@ -483,7 +492,7 @@
 
 /obj/structure/sign/poster/contraband/frag12
 	name = "FRAG12"
-	desc = "Общий план конструкции и наполнения особо опасного снаряда FRAG12.  Красным шрифтом выделена часть о ущербе что наносит этот патрон."
+	desc = "Общий план конструкции и наполнения особо опасного снаряда FRAG12. Красным шрифтом выделена часть о ущербе что наносит этот патрон."
 	icon_state = "poster_frag12"
 
 /obj/structure/sign/poster/contraband/incammo
@@ -545,6 +554,11 @@
 	name = "Освоил грейтайд"
 	desc = "Изображение ассистента, который демонстрирует свои достижения в освоении  техники: бомбарды, станпрода, копья."
 	icon_state = "poster_graytide"
+
+/obj/structure/sign/poster/contraband/imposter
+	name = "Я — постер"
+	desc = "Этот постер висит здесь явно не предвещая о добрых вестях. Возможно, среди нас есть предатель?"
+	icon_state = "im_poster"
 
 //MARK: Official posters
 /obj/structure/sign/poster/official
@@ -838,6 +852,31 @@
 	desc = "Изображение каргонца, который  демонстрирует свои достижения в освоении техники: мулботов, консоли заказов, системы доставки."
 	icon_state = "poster_cargo"
 
+/obj/structure/sign/poster/official/cargogorilas
+	name = "Каргорилаз"
+	desc = "На постере изображена обложка рок-группы \"Каргорилаз\". Вероятно, на фоне успеха данной группы, \"Нанотрейзен\" снабдила все свои станции питомцем по имени Марс."
+	icon_state = "poster_cargogorilas"
+
+/obj/structure/sign/poster/official/cargofriends
+	name = "Грузчики"
+	desc = "Постер демонстрирует, что снабжение — это не просто работа, а способ завести новых друзей."
+	icon_state = "poster_cargofriends"
+
+/obj/structure/sign/poster/official/mge
+	name = "Мускулистый Грузчик"
+	desc = "Изображение Грузчика с большими мышцами, который заявляет: \"Больше работай и станешь таким же накачанным!\"."
+	icon_state = "poster_mge"
+
+/obj/structure/sign/poster/official/qm
+	name = "Квартермейстерша" //Мне нравиться как это звучит
+	desc = "Изображение Квартирмейстерши, которая призывает работать в Отделе Снабжения."
+	icon_state = "poster_qm"
+
+/obj/structure/sign/poster/official/minegem
+	name = "НЕСИ"
+	desc = "Изображение драгоценного самоцвета с маленькой подписью, намекающей на то, что его нужно принести в Отдел Снабжения."
+	icon_state = "poster_minegem"
+
 // MARK: Secret posters
 
 /obj/structure/sign/poster/secret
@@ -868,5 +907,10 @@
 	name = "Развратная ящерица"
 	desc = "Этот похабный постер изображает ящерицу, которая готовится к брачному периоду."
 	icon_state = "poster3_secret"
+
+/obj/structure/sign/poster/secret/sexiqm
+	name = "Скромная Квартермейстерша"
+	desc = "На постере изображена скромная девушка в платье Квартирмейстера, которая сидит на том самом ящике."
+	icon_state = "poster4_secret"
 
 #undef PLACE_SPEED

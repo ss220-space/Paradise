@@ -1569,9 +1569,7 @@
 	},
 /obj/structure/closet/wardrobe/white,
 /obj/item/clothing/head/surgery/black,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -1597,9 +1595,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -1919,9 +1915,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -30
-	},
+/obj/item/radio/intercom/syndicate/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2473,9 +2467,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/chem_master,
 /obj/effect/decal/warning_stripes/southwest,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -30
-	},
+/obj/item/radio/intercom/syndicate/directional/west,
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "chL" = (
@@ -3077,9 +3069,7 @@
 	},
 /obj/machinery/chem_dispenser/soda,
 /obj/structure/table/wood,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6122,9 +6112,7 @@
 	dir = 4
 	},
 /obj/item/stack/tape_roll,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 30
-	},
+/obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7091,9 +7079,7 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/chem_master,
 /obj/effect/decal/warning_stripes/northwest,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -30
-	},
+/obj/item/radio/intercom/syndicate/directional/west,
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "gCj" = (
@@ -7979,9 +7965,7 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "hqe" = (
@@ -8525,9 +8509,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8721,9 +8703,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 30
-	},
+/obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -12581,9 +12561,7 @@
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/machinery/light,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -12647,9 +12625,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /obj/machinery/vending/hydroseeds,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -12904,9 +12880,7 @@
 	dir = 1
 	},
 /obj/machinery/kitchen_machine/oven,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15159,9 +15133,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16004,9 +15976,7 @@
 /obj/item/toy/plushie/slimeplushie{
 	pixel_x = 5
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_x = -30
-	},
+/obj/item/radio/intercom/syndicate/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16760,9 +16730,7 @@
 /obj/machinery/photocopier/faxmachine/longrange/syndie{
 	department = "Syndicate RaMSS Comms Office"
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16934,9 +16902,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/item/flashlight/lamp,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "oKa" = (
@@ -17075,9 +17041,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /obj/effect/mob_spawn/human/space_base_syndicate/chef{
 	dir = 4
 	},
@@ -18262,9 +18226,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "pJk" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
@@ -19171,10 +19133,8 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "qtc" = (
 /obj/effect/decal/warning_stripes/northeast,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 30
-	},
 /obj/machinery/computer/rdconsole/core,
+/obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault";
@@ -19309,9 +19269,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -19588,9 +19546,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -19947,9 +19903,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -20412,9 +20366,7 @@
 "rnz" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blue,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "rnT" = (
@@ -20922,9 +20874,7 @@
 	name = "Riot Control";
 	req_access = list(154)
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "rMe" = (
@@ -23617,9 +23567,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -23844,9 +23792,7 @@
 	dir = 8
 	},
 /obj/machinery/light,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -25107,9 +25053,7 @@
 	},
 /obj/structure/closet/wardrobe/white,
 /obj/item/clothing/head/surgery/black,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = 25
-	},
+/obj/item/radio/intercom/syndicate/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -25197,12 +25141,10 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 30
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -26042,12 +25984,10 @@
 /obj/item/paper_bin,
 /obj/item/pen/edagger,
 /obj/item/stamp/syndicate/taipan,
-/obj/item/radio/intercom/syndicate{
-	pixel_x = 30
-	},
 /obj/item/laser_pointer{
 	pixel_y = 11
 	},
+/obj/item/radio/intercom/syndicate/directional/east,
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "vBp" = (
@@ -28087,9 +28027,7 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /obj/structure/rack,
 /obj/item/shovel,
 /obj/item/pickaxe,
@@ -29239,9 +29177,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "xLQ" = (
-/obj/item/radio/intercom/syndicate{
-	pixel_y = -25
-	},
+/obj/item/radio/intercom/syndicate/directional/south,
 /obj/machinery/conveyor{
 	dir = 4;
 	id = "SQMLoad"

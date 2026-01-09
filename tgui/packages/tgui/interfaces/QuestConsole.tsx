@@ -73,7 +73,7 @@ type Quest = {
 export const QuestConsole = (_properties) => {
   const [tabName, setTab] = useState('centcomm');
   return (
-    <Window width={1000} height={820}>
+    <Window width={1000} height={820} theme="cargo">
       <Window.Content scrollable>
         <Stack fill vertical>
           <Tabs fluid>

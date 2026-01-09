@@ -20,6 +20,14 @@
 /// APC battery is at 100%
 #define APC_FULLY_CHARGED 2
 
+// Definitions for power restoration types
+/// Charging without repair
+#define POWER_RESTORE_ONLY 0
+/// Repair without charging
+#define APC_REPAIR_ONLY 1
+/// Repair and charging
+#define APC_REPAIR_AND_CHARGE 2
+
 //computer3 error codes, move lower in the file when it passes dev -Sayu
 #define PROG_CRASH (1<<0) // Generic crash
 #define MISSING_PERIPHERAL (1<<1) // Missing hardware
@@ -47,17 +55,6 @@
 #define TARGET_DEPT_SCI 4
 #define TARGET_DEPT_ENG 5
 #define TARGET_DEPT_SUP 6
-
-// These are used by supermatter and supermatter monitor program, mostly for UI updating purposes. Higher should always be worse!
-// These are warning defines, they should trigger before the state, not after.
-#define SUPERMATTER_ERROR -1 // Unknown status, shouldn't happen but just in case.
-#define SUPERMATTER_INACTIVE 0 // No or minimal energy
-#define SUPERMATTER_NORMAL 1 // Normal operation
-#define SUPERMATTER_NOTIFY 2 // Ambient temp > 80% of CRITICAL_TEMPERATURE
-#define SUPERMATTER_WARNING 3 // Ambient temp > CRITICAL_TEMPERATURE OR integrity damaged
-#define SUPERMATTER_DANGER 4 // Integrity < 75%
-#define SUPERMATTER_EMERGENCY 5 // Integrity < 50%
-#define SUPERMATTER_DELAMINATING 6 // Pretty obvious, Integrity < 25%
 
 // Status display maptext stuff
 #define DISPLAY_CHARS_PER_LINE 5
@@ -200,3 +197,26 @@
 #define MECH_FAB_CATEGORY_ROVER "Странник"
 #define MECH_FAB_CATEGORY_DARK_GYGAX "Тёмный Гигакс"
 #define MECH_FAB_CATEGORY_SYNDICATE "Синдикат"
+
+// Engine types
+#define ENGTYPE_SING "Сингулярность"
+#define ENGTYPE_TESLA "Тесла"
+
+#define AALARM_MODE_FILTERING 1
+/// Makes draught
+#define AALARM_MODE_DRAUGHT 2
+/// Like siphon, but stronger (enables widenet)
+#define AALARM_MODE_PANIC 3
+/// Sucks off all air, then refill and swithes to scrubbing
+#define AALARM_MODE_CYCLE 4
+/// Scrubbers suck air
+#define AALARM_MODE_SIPHON 5
+/// Turns on all filtering and widenet scrubbing.
+#define AALARM_MODE_CONTAMINATED 6
+/// Just like normal, but disables low pressure check until normalized, then switches to normal
+#define AALARM_MODE_REFILL 7
+#define AALARM_MODE_OFF 8
+/// Emagged mode; turns off scrubbers and pressure checks on vents
+#define AALARM_MODE_FLOOD 9
+#define AALARM_MODE_CUSTOM 10
+

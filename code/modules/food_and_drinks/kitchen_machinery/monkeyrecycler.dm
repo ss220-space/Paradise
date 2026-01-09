@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 
 /obj/machinery/monkey_recycler
 	name = "Monkey Recycler"
-	desc = "A machine used for recycling dead monkeys into monkey cubes."
+	desc = "Экологично перерабатывает органику обратно в удобные для хранения обезьяньи кубики."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "grinder"
 	density = TRUE
@@ -14,7 +14,23 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	var/cube_production = 1
 	var/cycle_through = 0
 	var/obj/item/reagent_containers/food/snacks/monkeycube/cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+	var/cubename = "шимпанзе"
 	var/list/connected = list()
+
+/obj/machinery/monkey_recycler/get_ru_names()
+	return list(
+		NOMINATIVE = "утилизатор обезьян",
+		GENITIVE = "утилизатора обезьян",
+		DATIVE = "утилизатору обезьян",
+		ACCUSATIVE = "утилизатор обезьян",
+		INSTRUMENTAL = "утилизатором обезьян",
+		PREPOSITIONAL = "утилизаторе обезьян"
+	)
+
+/obj/machinery/monkey_recycler/examine(mob/user)
+	. = ..()
+	. += span_notice("\nТип кубика: <b>[capitalize(cubename)]</b>")
+	. += span_notice("Осталось материала: <b>[grinded] ед.</b>")
 
 /obj/machinery/monkey_recycler/Initialize(mapload)
 	. = ..()
@@ -80,39 +96,44 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 			return .
 		var/obj/item/multitool/multitool = I
 		multitool.buffer = src
-		to_chat(user, span_notice("You log [src] in [multitool]'s buffer."))
+		to_chat(user, span_notice("Вы сохраняете [declent_ru(ACCUSATIVE)] в буфере [multitool.declent_ru(GENITIVE)]."))
 		return .
 	cycle_through++
 	switch(cycle_through)
 		if(1)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
+			cubename = "фарва"
 		if(2)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
+			cubename = "вульпин"
 		if(3)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
+			cubename = "сток"
 		if(4)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
+			cubename = "неара"
 		if(5)
 			cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
+			cubename = "шимпанзе"
 			cycle_through = 0
-	to_chat(user, span_notice("You have changed the monkeycube type to [initial(cube_type.name)]."))
+	balloon_alert(user, "тип кубика: <b>[cubename]</b>")
 
 /obj/machinery/monkey_recycler/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || (stat & (NOPOWER|BROKEN)))
 		return .
 	if(!ishuman(grabbed_thing))
-		to_chat(grabber, span_warning("This machine only accepts humanoid!"))
+		balloon_alert(grabber, "только для гуманоидов!")
 		return .
 	var/mob/living/carbon/human/victim = grabbed_thing
 	if(!is_monkeybasic(victim))
-		to_chat(grabber, span_warning("This machine only accepts lesser forms!"))
+		balloon_alert(grabber, "только для низших форм!")
 		return .
 	if(!victim.stat)
-		to_chat(grabber, span_warning("[victim] is struggling far too much to put it in the recycler."))
+		balloon_alert(grabber, "цель сопротивляется!")
 		return .
 	add_fingerprint(grabber)
-	to_chat(grabber, span_notice("You stuff [victim] in [src]."))
+	to_chat(grabber, span_notice("Вы запихиваете [victim] в [declent_ru(ACCUSATIVE)]."))
 	grabber.stop_pulling()
 	qdel(victim)
 	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
@@ -122,19 +143,17 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	grinded++
 	sleep(5 SECONDS)
 	pixel_x = initial(pixel_x)
-	to_chat(grabber, span_notice("The machine now has [grinded] monkey\s worth of material stored."))
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc
 		return
 	if(grinded >= required_grind)
 		add_fingerprint(user)
-		to_chat(user, span_notice("The machine hisses loudly as it condenses the grinded monkey meat. After a moment, it dispenses a brand new monkey cube."))
+		to_chat(user, span_notice("Машина громко шипит, сжимая переработанное мясо. Через мгновение она выдаёт новый кубик."))
 		playsound(loc, 'sound/machines/hiss.ogg', 50, TRUE)
 		grinded -= required_grind
 		for(var/i = 0, i < cube_production, i++) // Forgot to fix this bit the first time through
 			new cube_type(loc)
-		to_chat(user, span_notice("The machine's display flashes that it has [grinded] monkey\s worth of material left."))
 	else // I'm not sure if the \s macro works with a word in between; I'll play it safe
-		to_chat(user, span_warning("The machine needs at least [required_grind] monkey\s worth of material to compress [cube_production] monkey\s. It only has [grinded]."))
+		to_chat(user, span_warning("Для производства <b>[cube_production] кубик[declension_ru(cube_production, "а", "ов", "ов")]</b> машине требуется как минимум материал от <b>[required_grind] обезьян[declension_ru(required_grind, "ы", "", "")]</b>."))
 	return

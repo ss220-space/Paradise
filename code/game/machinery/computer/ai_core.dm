@@ -13,36 +13,7 @@
 	QDEL_NULL(laws)
 	QDEL_NULL(circuit)
 	QDEL_NULL(brain)
-	if(state == AI_READY_CORE)
-		INVOKE_ASYNC(src, PROC_REF(death_alarm))
-
 	return ..()
-
-/obj/structure/AIcore/proc/death_alarm()
-	var/static/msg = "Внимание! Обнаружено повреждение внутренних систем станционного ИИ. \
-					Требуется срочное вмешательство."
-	var/static/sender = "Автоматическая система оповещений"
-	radio_announce(msg, sender, COMM_FREQ, src)
-
-	var/obj/item/pda/dummy_pda = new /obj/item/pda()
-	dummy_pda.owner = sender
-	var/datum/data/pda/app/messenger/sender_messenger = dummy_pda.find_program(/datum/data/pda/app/messenger)
-	var/obj/machinery/message_server/message_server = find_pda_server()
-
-	if(!message_server)
-		return
-
-	for(var/obj/item/pda/pda in GLOB.PDAs)
-		if(!(pda.ownjob in GLOB.ai_death_alarm_jobs))
-			continue
-
-		var/datum/data/pda/app/messenger/messenger = pda.find_program(/datum/data/pda/app/messenger)
-		if(!messenger?.can_receive())
-			continue
-
-		sender_messenger.create_message(pda, message = msg)
-
-	qdel(dummy_pda)
 
 /obj/structure/AIcore/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -305,30 +276,28 @@
 		GLOB.empty_playable_ai_cores -= src
 	return ..()
 
-/client/proc/empty_ai_core_toggle_latejoin()
-	set name = "Toggle AI Core Latejoin"
-	set category = STATPANEL_ADMIN_TOGGLES
-
+ADMIN_VERB(empty_ai_core_toggle_latejoin, R_ADMIN, "Toggle AI Core Latejoin", "Toggle AI Core Latejoin.", ADMIN_CATEGORY_TOGGLES)
 	var/list/cores = list()
 	for(var/obj/structure/AIcore/deactivated/D in world)
 		cores["[D] ([D.loc.loc])"] = D
 
 	if(!length(cores))
-		to_chat(src, "No deactivated AI cores were found.")
+		to_chat(user, "No deactivated AI cores were found.")
 
-	var/id = tgui_input_list(usr, "Which core?", "Toggle AI Core Latejoin", cores, null)
+	var/id = tgui_input_list(user, "Which core?", "Toggle AI Core Latejoin", cores, null)
 	if(!id)
 		return
 
 	var/obj/structure/AIcore/deactivated/D = cores[id]
-	if(!D) return
+	if(!D)
+		return
 
 	if(D in GLOB.empty_playable_ai_cores)
 		GLOB.empty_playable_ai_cores -= D
-		to_chat(src, "\The [id] is now <font color=\"#ff0000\">not available</font> for latejoining AIs.")
+		to_chat(user, "[id] is now <font color=\"#ff0000\">not available</font> for latejoining AIs.")
 	else
 		GLOB.empty_playable_ai_cores += D
-		to_chat(src, "\The [id] is now <font color=\"#008000\">available</font> for latejoining AIs.")
+		to_chat(user, "[id] is now <font color=\"#008000\">available</font> for latejoining AIs.")
 
 /*
 This is a good place for AI-related object verbs so I'm sticking it here.

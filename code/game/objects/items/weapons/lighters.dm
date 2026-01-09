@@ -83,7 +83,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	icon_state = icon_off
 	damtype = BRUTE
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 0
 	attack_verb = null //human_defense.dm takes care of it
 
@@ -137,7 +137,7 @@
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 	return
 
 // Zippo lighters
@@ -502,7 +502,7 @@
 	if(smoketime < 1)
 		matchburnout()
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 
 /obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()

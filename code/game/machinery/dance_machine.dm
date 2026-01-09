@@ -3,7 +3,7 @@
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "disco0"
-	atom_say_verb = "states"
+	atom_say_verb = "заявляет"
 	density = TRUE
 	var/active = FALSE
 	var/list/rangers = list()
@@ -236,7 +236,7 @@
 			spotlights+=L
 			continue
 		continue
-	END_FOR_DVIEW
+	FOR_DVIEW_END
 
 /obj/machinery/disco/proc/hierofunk()
 	for(var/i in 1 to 10)

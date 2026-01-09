@@ -7,7 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "briefcase"
 	flags = CONDUCT
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
 	throw_range = 4

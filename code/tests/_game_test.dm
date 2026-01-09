@@ -50,7 +50,7 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
  * - Override /Run() to run your test code
  * - Call TEST_FAIL() to fail the test (You should specify a reason)
  * - You may use /New() and /Destroy() for setup/teardown respectively
- * - You can use the run_loc_bottom_left and run_loc_top_right to get turfs for testing
+ * - You can use the bottom_left and top_right to get turfs for testing
  */
 /datum/game_test
 	//Bit of metadata for the future maybe

@@ -300,24 +300,24 @@
 /obj/item/clothing/mask/bluescarf
 	name = "blue neck scarf"
 	desc = "A blue neck scarf."
-	icon_state = "blueneckscarf"
-	item_state = "blueneckscarf"
+	icon_state = "darkbluescarf"
+	item_state = "darkbluescarf"
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/redscarf
 	name = "red scarf"
 	desc = "A red and white checkered neck scarf."
-	icon_state = "redwhite_scarf"
-	item_state = "redwhite_scarf"
+	icon_state = "redscarf"
+	item_state = "redscarf"
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/greenscarf
 	name = "green scarf"
 	desc = "A green neck scarf."
-	icon_state = "green_scarf"
-	item_state = "green_scarf"
+	icon_state = "greenscarf"
+	item_state = "greenscarf"
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 

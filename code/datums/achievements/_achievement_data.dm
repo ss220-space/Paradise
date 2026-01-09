@@ -150,7 +150,7 @@
 		.["highscores"] += list(list("name" = score.name, "scores" = score.high_scores))
 
 /client/verb/checkachievements()
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set name = "Проверить достижения"
 	set desc = "Просмотрите все свои достижения!"
 

@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(!can_give_karma())
 		return
@@ -149,7 +149,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /mob/verb/spend_karma(mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
@@ -182,7 +182,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /client/verb/check_karma()
 	set name = "Check Karma"
 	set desc = "Reports how much karma you have accrued."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(CONFIG_GET(flag/disable_karma))
 		to_chat(src, span_warning("Karma is disabled."))

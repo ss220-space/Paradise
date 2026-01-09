@@ -1,0 +1,46 @@
+## Server map rotate strategy:
+##  none - select same map
+##  random - select random map
+##  rotate - select next map in list
+##  vote - players will decide what next map will be
+MAP_ROTATE vote
+
+## Server map voting mode:
+## all - all maps can be selected
+## nodoubles - current map can't be selected as next
+## notriples - if the current map and the previous one are identical, it cannot be chosen next
+MAP_VOTE_MODE all
+
+## Prohibits ghosts from voting
+VOTE_NO_DEAD
+
+## Default server map
+DEFAULT_MAP /datum/map/delta
+
+## Override away mission map. Spawns it even if it is not mentioned in away_mission_config.txt
+# OVERRIDE_AWAY_MISSION _maps/map_files/RandomZLevels/academy.dmm
+
+## Minimum number of space ruins levels to generate
+EXTRA_SPACE_RUIN_LEVELS_MIN 4
+
+## Maximum number of space ruins levels to generate
+EXTRA_SPACE_RUIN_LEVELS_MAX 8
+
+## Lavaland "Budget"
+# Lavaland ruin spawning has an imaginary budget to spend on ruins, where
+# a less lootfilled or smaller or less round effecting ruin costs less to
+# spawn, while the converse is true. Alter this number to affect the amount
+# of ruins.
+LAVALAND_BUDGET 100
+
+## Disable the loading of "Taipan"
+#DISABLE_TAIPAN
+
+## Disable the loading of Lavaland
+#DISABLE_LAVALAND
+
+## Disable the loading of away missions
+#DISABLE_AWAY_MISSIONS
+
+## Disable the loading of space ruins
+#DISABLE_SPACE_RUINS

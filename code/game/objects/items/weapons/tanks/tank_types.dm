@@ -20,7 +20,7 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/oxygen/populate_gas()
-	air_contents.oxygen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_oxygen((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
@@ -46,8 +46,8 @@
 	force = 10
 
 /obj/item/tank/internals/anesthetic/populate_gas()
-	air_contents.oxygen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD
-	air_contents.sleeping_agent = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD
+	air_contents.set_oxygen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD)
+	air_contents.set_sleeping_agent((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD)
 
 /*
  * Plasma
@@ -60,7 +60,7 @@
 	slot_flags = NONE	//they have no straps!
 
 /obj/item/tank/internals/plasma/populate_gas()
-	air_contents.toxins = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flamethrower))
@@ -83,7 +83,7 @@
 	return ..()
 
 /obj/item/tank/internals/plasma/full/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasma/empty/populate_gas()
 	return
@@ -99,10 +99,10 @@
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/plasmaman/populate_gas()
-	air_contents.toxins = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasmaman/full/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasmaman/belt
 	icon_state = "plasmaman_tank_belt"
@@ -113,7 +113,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
 	return
@@ -124,7 +124,7 @@
 	icon_state = "emergency_p"
 
 /obj/item/tank/internals/emergency_oxygen/plasma/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /*
  * Emergency Oxygen
@@ -140,7 +140,7 @@
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
-	air_contents.oxygen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_oxygen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/emergency_oxygen/empty/populate_gas()
 	return
@@ -182,7 +182,7 @@
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/nitrogen/populate_gas()
-	air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_nitrogen((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/emergency_oxygen/nitrogen
 	name = "emergency nitrogen tank"
@@ -190,7 +190,7 @@
 	icon_state = "emergency_nitrogen"
 
 /obj/item/tank/internals/emergency_oxygen/nitrogen/populate_gas()
-	air_contents.nitrogen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_nitrogen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/emergency_oxygen/double/vox
 	name = "vox specialized nitrogen tank"
@@ -200,7 +200,7 @@
 	volume = 35
 
 /obj/item/tank/internals/emergency_oxygen/double/vox/populate_gas()
-	air_contents.nitrogen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_nitrogen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /*
  * Air Mix
@@ -212,8 +212,8 @@
 	item_state = "air"
 
 /obj/item/tank/internals/air/populate_gas()
-	air_contents.oxygen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD
-	air_contents.nitrogen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD
+	air_contents.set_oxygen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD)
+	air_contents.set_nitrogen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD)
 
 /*
  * Generic

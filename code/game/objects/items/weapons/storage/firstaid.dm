@@ -14,6 +14,7 @@
 	gender = FEMALE
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "firstaid"
+	item_state = "medkit"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
@@ -462,7 +463,9 @@
 		/obj/item/stack/medical/bruise_pack,
 		/obj/item/stack/medical/ointment,
 		/obj/item/stack/medical/suture,
+		/obj/item/tourniquet,
 	)
+	storage_slots = 9
 
 /obj/item/storage/firstaid/crew/get_ru_names()
 	return list(
