@@ -186,23 +186,23 @@
 
 /datum/dice_roll/proc/infect()
 	var/virus_type = pick(
-		1; /datum/disease/virus/anxiety,
-		1; /datum/disease/virus/beesease,
-		1; /datum/disease/virus/brainrot,
-		1; /datum/disease/virus/cold,
-		1; /datum/disease/virus/flu,
-		1; /datum/disease/virus/fluspanish,
-		1; /datum/disease/virus/fake_gbs,
-		1; /datum/disease/virus/loyalty,
-		1; /datum/disease/virus/lycan,
-		1; /datum/disease/virus/magnitis,
-		1; /datum/disease/virus/pierrot_throat,
-		1; /datum/disease/virus/pierrot_throat/advanced,
-		1; /datum/disease/virus/tuberculosis,
-		1; /datum/disease/virus/babylonian_fever
+		/datum/disease/virus/anxiety,
+		/datum/disease/virus/beesease,
+		/datum/disease/virus/brainrot,
+		/datum/disease/virus/cold,
+		/datum/disease/virus/flu,
+		/datum/disease/virus/fluspanish,
+		/datum/disease/virus/fake_gbs,
+		/datum/disease/virus/loyalty,
+		/datum/disease/virus/lycan,
+		/datum/disease/virus/magnitis,
+		/datum/disease/virus/pierrot_throat,
+		/datum/disease/virus/pierrot_throat/advanced,
+		/datum/disease/virus/tuberculosis,
+		/datum/disease/virus/babylonian_fever,
 	)
-	var/datum/disease/virus/D = new virus_type()
-	if(D.Contract(user, is_carrier = TRUE))
+	var/datum/disease/virus/new_virus = new virus_type()
+	if(new_virus.Contract(user, is_carrier = TRUE))
 		to_chat(user, span_danger("На секунду вам становится трудно дышать!"))
 
 /datum/dice_roll/proc/medal()
