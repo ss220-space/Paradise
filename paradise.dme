@@ -2198,7 +2198,6 @@
 #include "code\modules\atmospherics\machinery\components\trinary_devices\mixer.dm"
 #include "code\modules\atmospherics\machinery\components\trinary_devices\trinary_base.dm"
 #include "code\modules\atmospherics\machinery\components\trinary_devices\tvalve.dm"
-#include "code\modules\atmospherics\machinery\components\unary_devices\generator_input.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\heat_exchanger.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\outlet_injector.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\passive_vent.dm"
