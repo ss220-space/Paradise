@@ -398,7 +398,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define INLET "Inlet"
 #define OUTLET "Outlet"
 #define SENSORS "Sensors"
-#define CANCEL "Cancel"
 
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/living/user, obj/item/item)
 	if(!ismultitool(item)) // Should never happen
@@ -421,7 +420,6 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #undef INLET
 #undef OUTLET
 #undef SENSORS
-#undef CANCEL
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/configure_inlet(mob/living/user, obj/item/multitool/multitool)
 	var/choice = tgui_alert(user, "Would you like to add an inlet, remove the existing inlet or clear it?", "Configuration", list(ADD, REMOVE, CLEAR, CANCEL))
