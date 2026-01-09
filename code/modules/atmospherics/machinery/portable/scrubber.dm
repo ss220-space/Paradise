@@ -39,7 +39,7 @@
 
 /obj/machinery/atmospherics/portable/scrubber/update_overlays()
 	. = ..()
-	if(holding)
+	if(holding_tank)
 		. += "scrubber-open"
 	if(connected_port)
 		. += "scrubber-connector"
@@ -49,8 +49,8 @@
 	if(!on)
 		return
 
-	if(holding)
-		scrub(holding.air_contents)
+	if(holding_tank)
+		scrub(holding_tank.air_contents)
 		return
 
 	var/datum/milla_safe/portable_scrubber_scrub/milla = new()
@@ -140,9 +140,9 @@
 		"rate" = round(volume_rate, 0.001),
 		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
 	)
-	if(holding)
+	if(holding_tank)
 		data["has_holding_tank"] = TRUE
-		data["holding_tank"] = list("name" = holding.name, "tank_pressure" = holding.air_contents.return_pressure() > 0 ? round(holding.air_contents.return_pressure(), 0.001) : 0)
+		data["holding_tank"] = list("name" = holding_tank.name, "tank_pressure" = holding_tank.air_contents.return_pressure() > 0 ? round(holding_tank.air_contents.return_pressure(), 0.001) : 0)
 	else
 		data["has_holding_tank"] = FALSE
 
@@ -159,7 +159,7 @@
 			return TRUE
 
 		if("remove_tank")
-			if(holding)
+			if(holding_tank)
 				replace_tank(usr, FALSE)
 			update_icon()
 			return TRUE

@@ -114,7 +114,7 @@
 
 	switch(action)
 		if("power")
-			toggle(user)
+			toggle()
 			investigate_log("was turned [on ? "on" : "off"] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 

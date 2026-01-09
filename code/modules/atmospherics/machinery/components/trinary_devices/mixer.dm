@@ -20,7 +20,7 @@
 	toggle(user)
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/trinary/mixer/AICtrlClick()
+/obj/machinery/atmospherics/trinary/mixer/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
@@ -30,7 +30,7 @@
 	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/trinary/mixer/ai_click_alt()
+/obj/machinery/atmospherics/trinary/mixer/ai_click_alt(mob/living/silicon/user)
 	set_max(user)
 	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
@@ -181,7 +181,7 @@
 
 	switch(action)
 		if("power")
-			toggle(user)
+			toggle()
 			investigate_log("was turned [on ? "on" : "off"] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 

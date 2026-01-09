@@ -39,7 +39,7 @@ Thus, the two variables affect pump operation are set in New():
 	toggle(user)
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 
-/obj/machinery/atmospherics/binary/volume_pump/AICtrlClick()
+/obj/machinery/atmospherics/binary/volume_pump/AICtrlClick(mob/living/silicon/user)
 	toggle(user)
 	investigate_log("was turned [on ? "on" : "off"] by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
@@ -49,7 +49,7 @@ Thus, the two variables affect pump operation are set in New():
 	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/atmospherics/binary/volume_pump/ai_click_alt()
+/obj/machinery/atmospherics/binary/volume_pump/ai_click_alt(mob/living/silicon/user)
 	set_max(user)
 	investigate_log("was set to [target_pressure] kPa by [key_name(user)]", INVESTIGATE_ATMOS)
 	return ..()
@@ -131,7 +131,7 @@ Thus, the two variables affect pump operation are set in New():
 
 	switch(action)
 		if("power")
-			toggle(user)
+			toggle()
 			investigate_log("was turned [on ? "on" : "off"] by [key_name_log(usr)]", INVESTIGATE_ATMOS)
 			return TRUE
 

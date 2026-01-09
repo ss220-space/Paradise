@@ -7,7 +7,7 @@
 	var/datum/gas_mixture/air_contents = new
 
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
-	var/obj/item/tank/holding
+	var/obj/item/tank/holding_tank
 	var/volume = 0
 	var/maximum_pressure = 90*ONE_ATMOSPHERE
 
@@ -42,7 +42,7 @@
 	SSair.atmos_machinery -= src
 	disconnect()
 	QDEL_NULL(air_contents)
-	QDEL_NULL(holding)
+	QDEL_NULL(holding_tank)
 	return ..()
 
 /obj/machinery/atmospherics/portable/update_icon_state()
@@ -92,30 +92,30 @@
 	return air_contents
 
 /obj/machinery/atmospherics/portable/click_alt(mob/living/user)
-	if(!holding)
+	if(!holding_tank)
 		return NONE
-	to_chat(user, span_notice("You remove [holding] from [src]."))
+	to_chat(user, span_notice("You remove [holding_tank] from [src]."))
 	replace_tank(user, TRUE)
 	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/atmospherics/portable/examine(mob/user)
 	. = ..()
-	if(holding)
-		. += span_notice("[src] contains [holding]. Alt-click [src] to remove it.")
+	if(holding_tank)
+		. += span_notice("[src] contains [holding_tank]. Alt-click [src] to remove it.")
 
 /obj/machinery/atmospherics/portable/return_analyzable_air()
 	return air_contents
 
 /obj/machinery/atmospherics/portable/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
-	if(holding)
-		holding.forceMove(drop_location())
+	if(holding_tank)
+		holding_tank.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(holding, ignore_anim = FALSE)
+			user.put_in_hands(holding_tank, ignore_anim = FALSE)
 
 	if(new_tank)
-		holding = new_tank
+		holding_tank = new_tank
 	else
-		holding = null
+		holding_tank = null
 
 	update_icon()
 	return TRUE
@@ -132,8 +132,8 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(new_tank, src))
 			return ..()
-		if(holding)
-			to_chat(user, span_notice("In one smooth motion you pop [holding] out of [src]'s connector and replace it with [new_tank]"))
+		if(holding_tank)
+			to_chat(user, span_notice("In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [new_tank]"))
 		else
 			to_chat(user, span_notice("You insert [new_tank] into [src]"))
 		replace_tank(user, FALSE, new_tank)

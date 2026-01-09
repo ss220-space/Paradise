@@ -22,7 +22,7 @@
 
 /obj/machinery/atmospherics/portable/pump/update_overlays()
 	. = ..()
-	if(holding)
+	if(holding_tank)
 		. += "siphon-open"
 	if(connected_port)
 		. += "siphon-connector"
@@ -59,8 +59,8 @@
 
 	var/datum/gas_mixture/environment
 
-	if(pump.holding)
-		environment = pump.holding.air_contents
+	if(pump.holding_tank)
+		environment = pump.holding_tank.air_contents
 	else
 		var/turf/turf = get_turf(pump)
 		environment = get_turf_air(turf)
@@ -104,8 +104,8 @@
 			if(on)
 				on = FALSE
 				update_icon()
-		else if(on && holding && direction == DIRECTION_OUT)
-			investigate_log("[key_name_log(user)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
+		else if(on && holding_tank && direction == DIRECTION_OUT)
+			investigate_log("[key_name_log(user)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/pump/attack_ai(mob/user)
 	return attack_hand(user)
@@ -135,9 +135,9 @@
 		"target_pressure" = round(target_pressure, 0.001),
 		"tank_pressure" = air_contents.return_pressure() > 0 ? round(air_contents.return_pressure(), 0.001) : 0
 	)
-	if(holding)
+	if(holding_tank)
 		data["has_holding_tank"] = TRUE
-		data["holding_tank"] = list("name" = holding.name, "tank_pressure" = holding.air_contents.return_pressure() > 0 ? round(holding.air_contents.return_pressure(), 0.001) : 0)
+		data["holding_tank"] = list("name" = holding_tank.name, "tank_pressure" = holding_tank.air_contents.return_pressure() > 0 ? round(holding_tank.air_contents.return_pressure(), 0.001) : 0)
 	else
 		data["has_holding_tank"] = FALSE
 
@@ -151,7 +151,7 @@
 		if("power")
 			on = !on
 			if(on && direction == DIRECTION_OUT)
-				investigate_log("[key_name_log(usr)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
+				investigate_log("[key_name_log(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			update_icon()
 			return TRUE
 
@@ -160,12 +160,12 @@
 				direction = DIRECTION_IN
 			else
 				direction = DIRECTION_OUT
-			if(on && holding)
-				investigate_log("[key_name_log(usr)] started a transfer into [holding].<br>", INVESTIGATE_ATMOS)
+			if(on && holding_tank)
+				investigate_log("[key_name_log(usr)] started a transfer into [holding_tank].<br>", INVESTIGATE_ATMOS)
 			return TRUE
 
 		if("remove_tank")
-			if(holding)
+			if(holding_tank)
 				on = FALSE
 				replace_tank(usr, FALSE)
 			update_icon()

@@ -181,9 +181,9 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	update_icon()
 
 	var/turf/turf = get_turf(src)
-	if(holding)
-		holding.forceMove(turf)
-		holding = null
+	if(holding_tank)
+		holding_tank.forceMove(turf)
+		holding_tank = null
 	turf.blind_release_air(expelled_gas)
 
 /obj/machinery/atmospherics/portable/canister/proc/sync_pressure_appearance()
@@ -210,8 +210,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 
 /datum/milla_safe/canister_release/on_run(obj/machinery/atmospherics/portable/canister/canister)
 	var/datum/gas_mixture/environment
-	if(canister.holding)
-		environment = canister.holding.air_contents
+	if(canister.holding_tank)
+		environment = canister.holding_tank.air_contents
 	else
 		var/turf/turf = get_turf(canister)
 		environment = get_turf_air(turf)
@@ -253,8 +253,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			valve_open = FALSE
 			update_icon()
 			investigate_log("Valve was <b>closed</b> by [key_name_log(user)].", INVESTIGATE_ATMOS)
-		else if(valve_open && holding)
-			investigate_log("[key_name_log(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
+		else if(valve_open && holding_tank)
+			investigate_log("[key_name_log(user)] started a transfer into [holding_tank].", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/portable/canister/welder_act(mob/user, obj/item/I)
 	if(!(stat & BROKEN))
@@ -303,9 +303,9 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 	data["canLabel"] = can_label ? 1 : 0
 	data["colorContainer"] = colorcontainer.Copy()
 	data["color_index"] = color_index
-	data["hasHoldingTank"] = holding ? 1 : 0
-	if(holding)
-		data["holdingTank"] = list("name" = holding.name, "tankPressure" = round(holding.air_contents.return_pressure()))
+	data["hasHoldingTank"] = holding_tank ? 1 : 0
+	if(holding_tank)
+		data["holdingTank"] = list("name" = holding_tank.name, "tankPressure" = round(holding_tank.air_contents.return_pressure()))
 	return data
 
 /obj/machinery/atmospherics/portable/canister/ui_act(action, params)
@@ -351,8 +351,8 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 			var/logmsg
 			valve_open = !valve_open
 			if(valve_open)
-				logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into [holding || "air"]."
-				if(!holding)
+				logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into [holding_tank || "air"]."
+				if(!holding_tank)
 					logmsg = "Valve was <b>opened</b> by [key_name_log(usr)], starting a transfer into the air."
 					if(air_contents.toxins() > 0)
 						message_admins("[key_name_admin(usr)] opened a canister that contains plasma in [ADMIN_VERBOSEJMP(src)]!")
@@ -364,13 +364,13 @@ GLOBAL_DATUM_INIT(canister_icon_container, /datum/canister_icons, new())
 						message_admins("[key_name_admin(usr)] opened a canister that contains Hydrogen in [ADMIN_VERBOSEJMP(src)]!")
 						log_admin("[key_name(usr)] opened a canister that contains Hydrogen at [AREACOORD(src)]")
 			else
-				logmsg = "Valve was <b>closed</b> by [key_name_log(usr)], stopping the transfer into the [holding || "air"]."
+				logmsg = "Valve was <b>closed</b> by [key_name_log(usr)], stopping the transfer into the [holding_tank || "air"]."
 			investigate_log(logmsg, INVESTIGATE_ATMOS)
 		if("eject")
-			if(holding)
+			if(holding_tank)
 				if(valve_open)
 					valve_open = FALSE
-					investigate_log("Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding]", INVESTIGATE_ATMOS)
+					investigate_log("Valve was <b>closed</b> by [key_name(usr)], stopping the transfer into the [holding_tank]", INVESTIGATE_ATMOS)
 				replace_tank(usr, FALSE)
 		if("recolor")
 			if(can_label)
