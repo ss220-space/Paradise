@@ -398,26 +398,25 @@ obj/item/proc1(input1, input2)
 
 - Имена файлов не должны содержать заглавных букв, пробелов или символов, требующих экранирования в URI.
 
-- Все файлы и пути, на которые есть ссылки в коде (кроме #include), должны быть **строго** в нижнем регистре, чтобы избежать проблем на чувствительных к регистру файловых системах.
+- Все файлы и пути, на которые есть ссылки в коде (кроме `#include`), должны быть **строго** в нижнем регистре, чтобы избежать проблем на чувствительных к регистру файловых системах.
 
 ### SQL
 
-- Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
+- Не используйте сокращённый синтаксис `INSERT` без указания названий колонок — это ломает запросы при малейших изменениях схемы и мешает использовать таблицы извне (например, на сайте).
 
-- Use parameters for queries (Mentioned above in) [###Develop Secure Code](###Develop Secure Code)
+- Используйте параметры в запросах (упомянуто в "[Пишите безопасный код](###Пишите_безопасный_код)")
 
-- Always check your queries for success with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
+- Всегда проверяйте успешность выполнения `if(!query.warn_execute())`. Использую данный стандартный формат вы можете быть уверены, что используются корректные сообщения для логов.
 
-- Always qdel() your queries after you are done with them, this cleans up the results and helps things run smoother
+- Всегда вызывайте `qdel()` для запросов после использования — это освобождает память.
 
-- All changes to the database's layout(schema) must be specified in the database changelog in SQL, as well as reflected in the schema files
+- Все изменения схемы БД должны быть задокументированы в  `changelog` базы данных в SQL и отражены в файлах схемы.
 
-- Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
-  in the SQL/updates folder.
+- При любом изменении схемы увеличивайте define `SQL_VERSION` и обновляйте пример конфига, а также добавляйте скрипт миграции в папку `SQL/updates`.
 
-- Queries must never specify the database, be it in code, or in text files in the repo.
+- Запросы **никогда** не должны указывать название базы данных — ни в коде, ни в файлах.
 
-## Изменение кода на языке Rust //TODO: перевести блин
+### Rust
 
 Некоторые части кода написаны на [Rust][] по соображениям производительности и надёжности:
 
@@ -437,156 +436,127 @@ obj/item/proc1(input1, input2)
 [Rust]: https://www.rust-lang.org/
 [rust-g]: https://github.com/ParadiseSS13/rust-g
 
-### Mapping Standards
+### Стандарты маппинга
 
-- Map Merge
+- **Map Merge**
 
-  - You MUST run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
-    - Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary
-      becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
+  - Перед созданием PR **обязательно** запустите `Map Merge`, чтобы убедиться в том, что разница файлов карт при изменении будет минимальной. Даже если вы использовали сторонние программы для маппинга (например, "StrongDMM").
 
-- Variable Editing (Var-edits)
-  - While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
-    - Subtypes only intended to be used on away mission or ruin maps should be contained within an .dm file with a name corresponding to that map within `code\modules\awaymissions` or `code\modules\ruins` respectively. This is so in the event that the map is removed, that subtype will be removed at the same time as well to minimize leftover/unused data within the repo.
-  - Please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example, due to how DM functions, changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`. Likewise this can happen when changing an item's icon to something else and then back. This can lead to some issues where an item's icon has changed within the code, but becomes broken on the map due to it still attempting to use the old entry.
-  - Areas should not be var-edited on a map to change it's name or attributes. All areas of a single type and it's altered instances are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
+- **Редактирование переменных ("var-edits")**
+  - Локальные правки переменных атомов через маппинг-редактор **недопустимы**. Если вы хотите изменить базовое поведение объекта — **обязательно** создавайте новый сабтайп в коде. Это упрощает изменение всех экземпляров атома одновременно и избавляет от необходимости искать и изменять каждый экземпляр вручную.
+    - Сабтайпы, предназначенные только для away-миссий, гейтов и подобного, **должны** находиться в `.dm` файлах, название которых соответствуют названию конкретной карты, хранящейся в `code\modules\awaymissions` или `code\modules\ruins`. Это упрощает удаление ненужных объектов при удалении карты, снижая вероятность **оставить мусор** в коде.
+  - Убирайте **"грязные" переменные** после редактирования (например, `pixel_x = 0`) если значение переменной совпадает с дефолтным.
+  - **Не редактируйте** зоны (`area`) через "var-editing" непосредственно на карте. Все зоны с одинаковыми типами (даже с изменёнными вручную переменными) DM-ом расцениваются как одна и та же зона, что может привести ко многим проблемам (например, ломаются подсистемы событий или системы электросетей, которые очень трудно дебаггатб).
 
-### Other Notes
+### Прочие замечания
 
-- Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
+- **Код должен быть модульным:** если вы добавляете новый функционал — он должен идти в отдельный файл в случае, если не подходящих для него файлов ещё не существует (например, но вый инструмент имеет смысл добавить в `tools.dm`, а не создавать новый файл с нуля).
 
-- Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
+- **Раздутый код иногда необходим**, но в любом случае, перед добавлением нового функционала хорошо подумайте — **стоит ли оно того?** Вам будет гораздо легче дать ответ на данный вопрос, если вы делаете свой код модульным.
 
-- You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
+- **Поддерживайте свой код:** если появятся ошибки — вас первым попросят исправить это. Конечно, некоторые возникающие в последствии баги и недочёты могут быть слишком трудными конкретно для вас и в таком случае стоит попросить кого-то более опытного о помощи. Но тем не менее, брать ответственность за сопровождение своего кода — правило хорошего тона.
 
-- If you used regex to replace code during development of your code, post the regex in your PR for the benefit of future developers and downstream users.
+- Если вы использовали **регулярные выражения ("regex")** для поиска и замены кода при рефакторинге, **укажите их** в описании к PR'у. Это может существенно упростить дальнейшую работу с затронутым кодом для будущим разработчиков.
 
-- All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.
+### Особенности Dream Maker
 
-### Dream Maker Quirks/Tricks
+Как люлой другой язык программирования, Dream Maker имеет свои особенности, нюансы и фишки. Знание некоторых из них может быть очень полезно, к примеру:
 
-Like all languages, Dream Maker has its quirks, some of them are beneficial to us, like these
+#### "In-To" `for`-циклы
 
-#### In-To for-loops
+`for(var/i = 1, i <= some_value, i++)` — это стандартный способ написания возрастающего цикла в большинстве языков (особенно "C"-подобных). Однако, существующий в DM вариант вида `for(var/i in 1 to some_value)` **работает быстрее**, как ни странно. Соответственно, лучше используйте DM синтаксис в целях **производительности**.
 
-`for(var/i = 1, i <= some_value, i++)` is a fairly standard way to write an incremental for loop in most languages (especially those in the C family), but
-DM's `for(var/i in 1 to some_value)` syntax is oddly faster than its implementation of the former syntax; where possible, it's advised to use DM's syntax. (
-Note, the `to` keyword is inclusive, so it automatically defaults to replacing `<=`; if you want `<` then you should write it as `1 to
-some_value-1`).
+Обратите внимание: `to` **включает** последнее значение, т.е. эквивалентно `<=`. Для использования `<` логики **пишите** `1 to some_value - 1`.
 
-HOWEVER, if either `some_value` or `i` changes within the body of the for (underneath the `for(...)` header) or if you are looping over a list AND
-changing the length of the list then you can NOT use this type of for-loop!
+**НО**, если `some_value` или `i` изменяются внутри тела цикла или если если длина итерируемого списка изменяется во время выполнения цикла, использование цикла данного вида **НЕВОЗМОЖНО**!
 
-### for(var/A in list) VS for(var/i in 1 to list.len)
+### `for(var/A in list)` против `for(var/i in 1 to list.len)`
 
-The former is faster than the latter, as shown by the following profile results:
-https://file.house/zy7H.png
-Code used for the test in a readable format:
-https://pastebin.com/w50uERkG
+**Первый вариант быстрее второго.**
 
-#### Istypeless for loops
+Результаты тестирования можно посмотреть здесь: https://file.house/zy7H.png. Использованный для тестирования код в читабельном виде: https://pastebin.com/w50uERkG
 
-A name for a differing syntax for writing for-each style loops in DM. It's NOT DM's standard syntax, hence why this is considered a quirk. Take a look at this:
+#### Циклы без проверки на тип
 
-```DM
-var/list/bag_of_items = list(sword, apple, coinpouch, sword, sword)
-var/obj/item/sword/best_sword
-for(var/obj/item/sword/S in bag_of_items)
-  if(!best_sword || S.damage > best_sword.damage)
-    best_sword = S
-```
+Если вы хотите итерировать какой-либо список с помощью цикла и при это уверены, что все объекты в списке имеют конкретный тип, мы можем оптимизировать работу данного списка, избавившись от какой-либо проверки на тип, не имеющий смысла.
 
-The above is a simple proc for checking all swords in a container and returning the one with the highest damage, and it uses DM's standard syntax for a
-for-loop by specifying a type in the variable of the for's header that DM interprets as a type to filter by. It performs this filter using `istype()` (or
-some internal-magic similar to `istype()` - this is BYOND, after all). This is fine in its current state for `bag_of_items`, but if `bag_of_items`
-contained ONLY swords, or only SUBTYPES of swords, then the above is inefficient. For example:
-
+То есть:
 ```DM
 var/list/bag_of_swords = list(sword, sword, sword, sword)
-var/obj/item/sword/best_sword
+
+// Плохо
 for(var/obj/item/sword/S in bag_of_swords)
-  if(!best_sword || S.damage > best_sword.damage)
-    best_sword = S
-```
+	...
 
-specifies a type for DM to filter by.
+// Плохо
+for(var/s in bag_of_swords)
+  if(istype(s, /obj/item/sword))
+  	var/obj/item/sword/S = s
+  ...
 
-With the previous example that's perfectly fine, we only want swords, but here the bag only contains swords? Is DM still going to try to filter because we gave
-it a type to filter by? YES, and here comes the inefficiency. Wherever a list (or other container, such as an atom (in which case you're technically accessing
-their special contents list, but that's irrelevant)) contains datums of the same datatype or subtypes of the datatype you require for your loop's body,
-you can circumvent DM's filtering and automatic `istype()` checks by writing the loop as such:
-
-```DM
-var/list/bag_of_swords = list(sword, sword, sword, sword)
-var/obj/item/sword/best_sword
+// Хорошо
 for(var/s in bag_of_swords)
   var/obj/item/sword/S = s
-  if(!best_sword || S.damage > best_sword.damage)
-    best_sword = S
+  ...
 ```
 
-Of course, if the list contains data of a mixed type then the above optimisation is DANGEROUS, as it will blindly typecast all data in the list as the
-specified type, even if it isn't really that type, causing runtime errors (AKA your shit won't work if this happens).
+Очевидно, если в списке будет объект отличного типа, то его обработка закономерно приведёт к рантаймам. В общем смысле, при использовании такой конструкции проверка на тип перекладывается с DM на кодера.
 
-#### Dot variable
+#### Точка `.` как оператор
 
-Like other languages in the C family, DM has a `.` or "Dot" operator, used for accessing variables/members/functions of an object instance.
-eg:
+Как и в других "C"-подобных языках, в DM существует оператор `.`, он же "dot-operator". Он используется для доступа к полям (переменным) и методам (функциям) экземлпярам объекта.
+
+Пример:
 
 ```DM
 var/mob/living/carbon/human/H = YOU_THE_READER
 H.gib()
 ```
 
-However, DM also has a dot variable, accessed just as `.` on its own, defaulting to a value of null. Now, what's special about the dot operator is that it is automatically returned (as in the `return` statement) at the end of a proc, provided the proc does not already manually return (`return count` for example.) Why is this special?
+Однако, в случае DM `.` может иметь форму переменной, по умолчанию имеющей `null` значение. Особенность `.` заключается в том, что оно автоматически возвращается (`return`) в конце процедуры (`proc`), если явный `return` не был указан ранее в теле процедуры. И что тут особенного, спросите вы?
 
-With `.` being everpresent in every proc, can we use it as a temporary variable? Of course we can! However, the `.` operator cannot replace a typecasted variable - it can hold data any other var in DM can, it just can't be accessed as one, although the `.` operator is compatible with a few operators that look weird but work perfectly fine, such as: `.++` for incrementing `.'s` value, or `.[1]` for accessing the first element of `.`, provided that it's a list.
+Как вы могли догадаться, оператор `.`, существующий в каждой процедуре, может быть использован как временная переменная. Хоть такая переменная не может заменить приведённую к типу переменную, она может хранить в себе значение, как и любой другой `var` в DM, хотя и прямой доступ как к обычной переменной невозможен.
 
-## Globals versus static
+`.` совместима с рядом операторов, таких как:
 
-DM has a var keyword, called global. This var keyword is for vars inside of types. For instance:
+```DM
+. = 5
+.++ // . == 6
+
+.[1] // если . — список
+
+```
+
+## `global` против `static`
+
+В DM есть ключевое слово `global`, но оно не делает переменную глобальной **в обычном смысле**. Это слово означает, что конкретная переменная является **общей** для всех экземпляров данного типа (как `static` в C++/Java)
+
+Пример:
 
 ```DM
 /mob
   var/global/thing = TRUE
 ```
 
-This does NOT mean that you can access it everywhere like a global var. Instead, it means that that var will only exist once for all instances of its type, in this case that var will only exist once for all mobs - it's shared across everything in its type. (Much more like the keyword `static` in other languages like PHP/C++/C#/Java)
+Помимо этого, также существует незадокументированное ключевое слово `static`, которое делает то же самое, но лучше отражает его суть (пункт ниже). Поэтому **всегда используйте** `static` вместо `global`.
 
-Isn't that confusing?
+### Глобальные переменные
 
-There is also an undocumented keyword called `static` that has the same behaviour as global but more correctly describes BYOND's behaviour. Therefore, we always use static instead of global where we need it, as it reduces suprise when reading BYOND code.
+А теперь о "по-настоящему" глобальных переменных. Они должны быть заданы с помощью `#define` в `code/DEFINES/globals.dm`. Примеры ниже.
 
-### Global Vars
-
-All new global vars must use the defines in code/\_\_DEFINES/\_globals.dm. Basic usage is as follows:
-
-To declare a global var:
+Объявление глобальной переменной:
 
 ```DM
 GLOBAL_VAR(my_global_here)
 ```
 
-To access it:
+Доступ к ней:
 
 ```
 GLOB.my_global_here = X
 ```
 
-There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be used unless you know exactly what you're doing.
-`GLOBAL_VAR_INIT` allows you to set an initial value on the var, like `GLOBAL_VAR_INIT(number_one, 1)`.
-`GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
-
-## Maintainers and Review Team
-
-There are two official roles for GitHub: `Maintainer` and `Review Team`. First ones have ability to merge and close
-pull requests by themselfs. The Review Team has ability to approve pull requests. After two approves PR will be sent
-to the Merge Queue.
-
-### Review Team instructions
-
-- Do not `self-approve`; this refers to the practice of opening a pull request, then
-  approve it yourself.
-- Wait for the CI build to complete. If it fails, the pull request may only be
-  merged if there is a very good reason (example: fixing the CI configuration).
-- PRs with MAP label must have at least one Map Review Team approve before sending to Merge Queue
+Также есть:
+ - GLOBAL_VAR_INIT(name, value) — с начальным значением переменной.
+ - GLOBAL_LIST_INIT — для объявления списков.
+ - И так далее.
