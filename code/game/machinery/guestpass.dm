@@ -89,7 +89,7 @@
 		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
 		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
 	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
+		dat += "<h3>Guest pass terminal #[global_terminal_id]</h3><br>"
 		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
 		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
 		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
@@ -221,7 +221,7 @@
 		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
 		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
 	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
+		dat += "<h3>Guest pass terminal #[global_terminal_id]</h3><br>"
 		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
 		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
 		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"

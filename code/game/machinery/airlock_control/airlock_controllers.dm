@@ -1,14 +1,13 @@
 //base type for controllers of two-door systems
 /obj/machinery/airlock_controller
-	layer = ON_EDGED_TURF_LAYER
+	layer = ABOVE_WINDOW_LAYER
 	name = "airlock controller"
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'icons/obj/machines/airlock_machines.dmi'
 	icon_state = "airlock_control_standby"
 	anchored = TRUE
-	idle_power_consumption = 10
+	idle_power_usage = 10
 
 	// Setup vars
-
 	/// Airlock ID for all exterior doors to link to.
 	var/ext_door_link_id
 	/// Airlock ID for all interior doors to link to.
@@ -73,12 +72,12 @@
 
 /obj/machinery/airlock_controller/attack_hand(mob/user)
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, SPAN_WARNING("You don't have the dexterity to do this!"))
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return FALSE
 	ui_interact(user)
 
 /obj/machinery/airlock_controller/update_icon_state()
-	if(has_power(power_channel))
+	if(powered(power_channel))
 		if(state != target_state)
 			icon_state = "airlock_control_process"
 		else
@@ -97,7 +96,7 @@
 	add_fingerprint(usr)
 
 	if(!allowed(usr))
-		to_chat(usr, SPAN_WARNING("Access denied."))
+		to_chat(usr, span_warning("Access denied."))
 		return TRUE
 
 	switch(action)
@@ -117,10 +116,10 @@
 			stop_cycling()
 
 		if("force_ext")
-			toggleDoors(exterior_doors, "toggle")
+			toggle_doors(exterior_doors, "toggle")
 
 		if("force_int")
-			toggleDoors(interior_doors, "toggle")
+			toggle_doors(interior_doors, "toggle")
 
 	return TRUE
 
@@ -139,7 +138,7 @@
 			state = CONTROL_STATE_PREPARE
 		else
 			//make sure to return to a sane idle state
-			signalPumps(FALSE)
+			signal_pumps(FALSE)
 
 	if((state == CONTROL_STATE_PRESSURIZE || state == CONTROL_STATE_DEPRESSURIZE) && !check_doors_secured())
 		//the airlock will not allow itself to continue to cycle when any of the doors are forced open.
@@ -152,11 +151,11 @@
 			if(check_doors_secured())
 				if(chamber_pressure < target_pressure)
 					state = CONTROL_STATE_PRESSURIZE
-					signalPumps(TRUE, TRUE, target_pressure)	//send a signal to start pressurizing
+					signal_pumps(TRUE, TRUE, target_pressure)	//send a signal to start pressurizing
 
 				else if(chamber_pressure > target_pressure)
 					state = CONTROL_STATE_DEPRESSURIZE
-					signalPumps(TRUE, FALSE, target_pressure)	//send a signal to start depressurizing
+					signal_pumps(TRUE, FALSE, target_pressure)	//send a signal to start depressurizing
 
 				else // Prevent airlock from deadlocking
 					cycleDoors(target_state)
@@ -175,7 +174,7 @@
 				state = CONTROL_STATE_IDLE
 				target_state = TARGET_NONE
 
-				signalPumps(FALSE) //send a signal to stop pumping
+				signal_pumps(FALSE) //send a signal to stop pumping
 
 
 		if(CONTROL_STATE_DEPRESSURIZE)
@@ -186,7 +185,7 @@
 				target_state = TARGET_NONE
 
 				//send a signal to stop pumping
-				signalPumps(FALSE)
+				signal_pumps(FALSE)
 
 	return TRUE
 
@@ -199,8 +198,8 @@
 	target_state = TARGET_OUTOPEN
 
 /obj/machinery/airlock_controller/proc/close_doors()
-	toggleDoors(interior_doors, "close")
-	toggleDoors(exterior_doors, "close")
+	toggle_doors(interior_doors, "close")
+	toggle_doors(exterior_doors, "close")
 
 /obj/machinery/airlock_controller/proc/stop_cycling()
 	state = CONTROL_STATE_IDLE
@@ -255,7 +254,7 @@
 
 		A.airlock_cycle_callback(command)
 
-/obj/machinery/airlock_controller/proc/signalPumps(power, direction, pressure)
+/obj/machinery/airlock_controller/proc/signal_pumps(power, direction, pressure)
 	for(var/vent_uid in vents)
 		var/obj/machinery/atmospherics/unary/vent_pump/V = locateUID(vent_uid)
 		if(QDELETED(V))
@@ -273,17 +272,17 @@
 /obj/machinery/airlock_controller/proc/cycleDoors(target)
 	switch(target)
 		if(TARGET_OUTOPEN)
-			toggleDoors(interior_doors, "close")
-			toggleDoors(exterior_doors, "open")
+			toggle_doors(interior_doors, "close")
+			toggle_doors(exterior_doors, "open")
 		if(TARGET_INOPEN)
-			toggleDoors(interior_doors, "open")
-			toggleDoors(exterior_doors, "close")
+			toggle_doors(interior_doors, "open")
+			toggle_doors(exterior_doors, "close")
 		if(TARGET_NONE)
 			signalDoors(interior_doors, "unlock")
 			signalDoors(exterior_doors, "unlock")
 
 /*----------------------------------------------------------
-toggleDoor()
+toggle_doors()
 Sends a radio command to a door to either open or close. If
 the command is 'toggle' the door will be sent a command that
 reverses it's current state.
@@ -293,7 +292,7 @@ Only sends a command if it is needed, i.e. if the door is
 already open, passing an open command to this proc will not
 send an additional command to open the door again.
 ----------------------------------------------------------*/
-/obj/machinery/airlock_controller/proc/toggleDoors(list/doors, command)
+/obj/machinery/airlock_controller/proc/toggle_doors(list/doors, command)
 	var/doorCommand = null
 
 	// Cache this. it will be expensive otherwise.
@@ -336,7 +335,7 @@ send an additional command to open the door again.
 	icon_state = "access_control_standby"
 
 /obj/machinery/airlock_controller/access_controller/update_icon_state()
-	if(has_power(power_channel))
+	if(powered(power_channel))
 		if(state != target_state)
 			icon_state = "access_control_process"
 		else
@@ -409,4 +408,4 @@ send an additional command to open the door again.
 		if(MODE_EXTERIOR)
 			begin_cycle_out()
 
-MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/air_cycler, 25, 25)
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/airlock_controller/air_cycler, 25)

@@ -1,13 +1,13 @@
 GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 
 /obj/machinery/access_button
-	icon = 'icons/obj/airlock_machines.dmi'
-	icon_state = "access_button_standby"
 	name = "airlock access button"
 	desc = "Controls an airlock controller, requesting the doors open on this side."
-	layer = ON_EDGED_TURF_LAYER
+	icon = 'icons/obj/machines/airlock_machines.dmi'
+	icon_state = "access_button_standby"
+	layer = BUTTONS_LAYER
 	anchored = TRUE
-	power_channel = PW_CHANNEL_ENVIRONMENT
+	power_channel = ENVIRON
 	/// Id to be used by the controller to grab us on spawn
 	var/autolink_id
 	/// UID of the airlock controller that owns us
@@ -26,16 +26,16 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 	return ..()
 
 /obj/machinery/access_button/update_icon_state()
-	if(has_power(power_channel))
+	if(powered(power_channel))
 		icon_state = "access_button_standby"
 	else
 		icon_state = "access_button_off"
 
-/obj/machinery/access_button/item_interaction(mob/living/user, obj/item/used, list/modifiers)
+/obj/machinery/access_button/attackby(obj/item/item, mob/user, params)
 	// Swiping ID on the access button
-	if(istype(used, /obj/item/card/id) || istype(used, /obj/item/pda))
+	if(istype(item, /obj/item/card/id) || istype(item, /obj/item/pda))
 		attack_hand(user)
-		return ITEM_INTERACT_COMPLETE
+		return ATTACK_CHAIN_BLOCKED
 
 	return ..()
 
@@ -48,22 +48,22 @@ GLOBAL_LIST_EMPTY(all_airlock_access_buttons)
 
 	var/obj/machinery/airlock_controller/C = locateUID(controller_uid)
 	if(!C)
-		to_chat(user, SPAN_WARNING("Could not communicate with controller."))
+		to_chat(user, span_warning("Could not communicate with controller."))
 		return
 
-	if(!C.has_power(C.power_channel))
-		to_chat(user, SPAN_WARNING("No response from controller, possibly offline."))
+	if(!C.powered(C.power_channel))
+		to_chat(user, span_warning("No response from controller, possibly offline."))
 		return
 
 	if(!allowed(user) && !user.can_advanced_admin_interact())
-		to_chat(user, SPAN_WARNING("Access denied."))
+		to_chat(user, span_warning("Access denied."))
 		return
 
 	C.handle_button(assigned_command)
 	flick("access_button_cycle", src)
 
-/obj/machinery/access_button/proc/setup(obj/machinery/airlock_controller/C, mode)
-	controller_uid = C.UID()
+/obj/machinery/access_button/proc/setup(obj/machinery/airlock_controller/controller, mode)
+	controller_uid = controller.UID()
 	assigned_command = mode
 
-BUTTON_HELPERS(/obj/machinery/access_button, 25, 7)
+MAPPING_DIRECTIONAL_BUTTON_HELPERS(/obj/machinery/access_button, 25, 7)

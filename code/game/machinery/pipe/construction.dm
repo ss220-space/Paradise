@@ -568,7 +568,7 @@
 	var/obj/machinery/atmospherics/air_sensor/air_sensor = new /obj/machinery/atmospherics/air_sensor(loc)
 	air_sensor.bolts = FALSE
 
-	sensor.add_fingerprint(user)
+	air_sensor.add_fingerprint(user)
 	to_chat(user, span_notice("You have fastened the gas sensor."))
 	qdel(src)
 

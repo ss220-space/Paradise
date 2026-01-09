@@ -51,7 +51,8 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	handle_door_creation(turf_exterior, FALSE, one_door_exterior)
 	handle_pipes_creation(turf_interior)
 
-	handle_control_placement()
+	var/obj/machinery/airlock_controller/controller = make_controller()
+	controller.link_all_items()
 
 	return INITIALIZE_HINT_QDEL
 
@@ -89,7 +90,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 
 /// This sets up the door vars correctly and then locks it before first use
 /obj/effect/spawner/airlock/proc/handle_door_stuff(obj/machinery/door/airlock/airlock, is_this_an_interior_airlock)
-	airlock.id_tag = is_this_an_interior_airlock ? INT_DOOR_ID : EXT_DOOR_ID
+	airlock.id_tag = is_this_an_interior_airlock ? INT_DOOR_ID(id_to_link) : EXT_DOOR_ID(id_to_link)
 	airlock.req_access = required_access
 	airlock.name = door_name
 	airlock.lock()
@@ -97,9 +98,9 @@ This spawner places pipe leading up to the interior door, you will need to finis
 /obj/effect/spawner/airlock/proc/spawn_button(turf/button_turf, some_direction, interior)
 	var/obj/machinery/access_button/button = new(button_turf)
 	if(interior)
-		button.autolink_id = INT_BTN_ID
+		button.autolink_id = INT_BTN_ID(id_to_link)
 	else
-		button.autolink_id = EXT_BTN_ID
+		button.autolink_id = EXT_BTN_ID(id_to_link)
 
 	switch(some_direction)
 		if(NORTH)
@@ -118,26 +119,28 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	return button
 
 /// Stick the controller on the wall, this will ONLY be unsuitable if airlocks are on both the south and west turfs.
-/obj/effect/spawner/airlock/proc/handle_control_placement()
-	var/turf/T = get_turf(src)
-	var/obj/machinery/airlock_controller/air_cycler/AC = new(T)
-	AC.req_access = required_access
-	AC.vent_link_id = VENT_ID
-	AC.int_door_link_id = INT_DOOR_ID
-	AC.ext_door_link_id = EXT_DOOR_ID
-	AC.int_button_link_id = INT_BTN_ID
-	AC.ext_button_link_id = EXT_BTN_ID
-	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place stuff there
-		AC.pixel_x -= 25
-		AC.pixel_y += 9
-	else if(interior_direction != SOUTH && exterior_direction != SOUTH) //If south wall is free, place stuff there
-		AC.pixel_x += 9
-		AC.pixel_y -= 25
-	else //Send them over to the other side of the chamber
-		T = locate(x + tiles_in_x_direction - 1, y + tiles_in_y_direction - 1, z)
-		AC.forceMove(T)
-		AC.pixel_x += 25
-		AC.pixel_y += 9
+/obj/effect/spawner/airlock/proc/make_controller()
+	var/turf/turf = get_turf(src)
+	var/obj/machinery/airlock_controller/air_cycler/air_cycler = new(turf)
+	air_cycler.req_access = required_access
+	air_cycler.vent_link_id = VENT_ID(id_to_link)
+	air_cycler.int_door_link_id = INT_DOOR_ID(id_to_link)
+	air_cycler.ext_door_link_id = EXT_DOOR_ID(id_to_link)
+	air_cycler.int_button_link_id = INT_BTN_ID(id_to_link)
+	air_cycler.ext_button_link_id = EXT_BTN_ID(id_to_link)
+	if(interior_direction != WEST && exterior_direction != WEST) //If west wall is free, place it there
+		air_cycler.pixel_x -= 25
+		air_cycler.pixel_y += 9
+	else if(interior_direction != SOUTH && exterior_direction != SOUTH) //If south wall is free, place it there
+		air_cycler.pixel_x += 9
+		air_cycler.pixel_y -= 25
+	else //Send it over to the other side of the chamber
+		turf = locate(x + tiles_in_x_direction - 1, y + tiles_in_y_direction - 1, z)
+		air_cycler.forceMove(turf)
+		air_cycler.pixel_x += 25
+		air_cycler.pixel_y += 9
+
+	return air_cycler
 
 #define NORTH_OF_TURF(turf) locate(turf.x, turf.y + 1, turf.z)
 #define EAST_OF_TURF(turf) locate(turf.x + 1, turf.y, turf.z)
@@ -198,7 +201,7 @@ This spawner places pipe leading up to the interior door, you will need to finis
 	atmospheric.on_construction(atmospheric.dir, initialization_directions ? initialization_directions : atmospheric.dir)
 	if(istype(atmospheric, /obj/machinery/atmospherics/unary/vent_pump/high_volume))
 		var/obj/machinery/atmospherics/unary/vent_pump/high_volume/created_pump = atmospheric
-		created_pump.autolink_id = VENT_ID
+		created_pump.autolink_id = VENT_ID(id_to_link)
 
 //Premade airlocks for mappers, probably won't need all of these but whatever
 /obj/effect/spawner/airlock/s_to_n

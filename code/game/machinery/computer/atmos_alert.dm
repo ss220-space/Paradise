@@ -20,7 +20,7 @@
 	alarm_cache["priority"] = list()
 	alarm_cache["minor"] = list()
 	alarm_cache["mode"] = list()
-	for(var/area/area in GLOB.all_areas)
+	for(var/area/area in GLOB.areas)
 		var/alarm_level = null
 		for(var/obj/machinery/alarm/air_alarm in area.air_alarms)
 			if(air_alarm.z != z)
