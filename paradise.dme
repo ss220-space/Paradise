@@ -2204,7 +2204,6 @@
 #include "code\modules\atmospherics\machinery\components\unary_devices\heat_exchanger.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\heat_source.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\outlet_injector.dm"
-#include "code\modules\atmospherics\machinery\components\unary_devices\oxygen_generator.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\passive_vent.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\portables_connector.dm"
 #include "code\modules\atmospherics\machinery\components\unary_devices\tank.dm"
