@@ -657,22 +657,25 @@
 	. = list()
 
 /// Checks if the colors given are different and if so causes a greyscale icon update
-/atom/proc/set_greyscale_colors(list/colors)
+/atom/proc/set_greyscale_colors(list/colors, update = TRUE)
 	SHOULD_CALL_PARENT(TRUE)
-	var/new_colors = colors.Join("")
-	if(greyscale_colors == new_colors)
+	if(istype(colors))
+		colors = colors.Join("")
+	if(greyscale_colors == colors)
 		return
-	greyscale_colors = new_colors
+	greyscale_colors = colors
 	if(!greyscale_config)
 		return
-	update_greyscale()
+	if(update)
+		update_greyscale()
 
 /// Checks if the greyscale config given is different and if so causes a greyscale icon update
-/atom/proc/set_greyscale_config(new_config)
+/atom/proc/set_greyscale_config(new_config, update = TRUE)
 	if(greyscale_config == new_config)
 		return
 	greyscale_config = new_config
-	update_greyscale()
+	if(update)
+		update_greyscale()
 
 /// Checks if this atom uses the GAS system and if so updates the icon
 /atom/proc/update_greyscale()

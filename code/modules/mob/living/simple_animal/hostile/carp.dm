@@ -115,13 +115,15 @@
 
 /mob/living/simple_animal/hostile/carp/death(gibbed)
 	. = ..()
+
 	if(!random_color || gibbed)
 		return
-	update_icon(UPDATE_GREYSCALE)
+
+	update_icon()
 
 /mob/living/simple_animal/hostile/carp/revive()
 	..()
-	update_icon(UPDATE_GREYSCALE)
+	update_icon()
 
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
