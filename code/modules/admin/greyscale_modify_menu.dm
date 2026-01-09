@@ -25,7 +25,7 @@
 	return ..()
 
 /datum/greyscale_modify_menu/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN|R_DEBUG)
 
 /datum/greyscale_modify_menu/ui_close()
 	qdel(src)

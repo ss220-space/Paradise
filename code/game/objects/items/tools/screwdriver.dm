@@ -51,13 +51,6 @@
 	. = ..()
 	AddComponent(/datum/component/surgery_initiator/robo)
 
-/obj/item/screwdriver/nuke
-	desc = "A screwdriver with an ultra thin tip."
-	icon_state = "screwdriver_nuke"
-	belt_icon = "screwdriver_nuke"
-	toolspeed = 0.5
-	random_color = FALSE
-
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в [pick("висок", "сердце")]! Это похоже на попытку самоубийства!"))
 	return BRUTELOSS
@@ -90,6 +83,7 @@
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
 			Оснащена ультратонким наконечником."
 	icon_state = "screwdriver_nuke"
+	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
 

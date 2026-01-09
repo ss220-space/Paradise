@@ -104,7 +104,6 @@
 	desc = "Старая одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
 	has_sensor = 2
 	sensor_mode = 3
-	icon_state = "jumpsuit"
 	greyscale_colors = "#ff8300"
 	greyscale_config = /datum/greyscale_config/jumpsuit_prison
 	greyscale_config_inhand_left = /datum/greyscale_config/jumpsuit_prison_inhand_left
