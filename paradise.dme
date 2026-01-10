@@ -3280,6 +3280,7 @@
 #include "code\modules\power\cable_multiz.dm"
 #include "code\modules\power\cell.dm"
 #include "code\modules\power\electrolyzer.dm"
+#include "code\modules\power\energy_accumulator.dm"
 #include "code\modules\power\generator.dm"
 #include "code\modules\power\gravitygenerator.dm"
 #include "code\modules\power\lighting.dm"

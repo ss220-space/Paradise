@@ -2700,7 +2700,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "axM" = (
@@ -8267,7 +8267,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "bjB" = (
@@ -8909,7 +8909,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "bmZ" = (
@@ -19282,7 +19282,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "cpk" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
@@ -19535,7 +19535,7 @@
 /area/storage/secure)
 "cqX" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "cqY" = (
@@ -19763,7 +19763,7 @@
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
 "csm" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
@@ -21860,7 +21860,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "cCl" = (
@@ -26950,7 +26950,7 @@
 	icon_state = "0-2"
 	},
 /obj/effect/decal/warning_stripes/south,
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "cZe" = (
@@ -33226,7 +33226,7 @@
 	},
 /area/security/permabrig)
 "dCn" = (
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -37218,7 +37218,7 @@
 "dUE" = (
 /obj/structure/cable/yellow,
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "dUG" = (
@@ -51876,7 +51876,7 @@
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/south)
 "hdZ" = (
-/obj/machinery/power/grounding_rod/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "hec" = (
@@ -52571,7 +52571,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/grounding_rod/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "hnd" = (
@@ -59229,7 +59229,7 @@
 /area/storage/eva)
 "iSS" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/power/grounding_rod/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "iST" = (
@@ -69746,7 +69746,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/warning_stripes/west,
-/obj/machinery/power/tesla_coil/anchored,
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored,
 /turf/simulated/floor/plating/airless,
 /area/space)
 "lvk" = (
@@ -75867,7 +75867,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "mPs" = (
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -84360,7 +84360,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/machinery/power/grounding_rod/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "oKG" = (
@@ -97807,7 +97807,7 @@
 /area/medical/research/shallway)
 "rLd" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/machinery/power/grounding_rod/anchored,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "rLh" = (

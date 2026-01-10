@@ -1228,7 +1228,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
@@ -1647,7 +1647,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
 "AK" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -2035,7 +2035,7 @@
 	dir = 10
 	},
 /obj/structure/cable,
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
 "Hv" = (
@@ -2080,7 +2080,7 @@
 	level = 1
 	},
 /obj/structure/cable,
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
 "HW" = (
@@ -2177,7 +2177,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
 "JU" = (
@@ -2815,7 +2815,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
 "UR" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/manifold4w/visible,
 /turf/simulated/floor/plating,
@@ -2848,7 +2848,7 @@
 	d2 = 2;
 	icon_state = "0-2"
 	},
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/shard)
 "Vs" = (

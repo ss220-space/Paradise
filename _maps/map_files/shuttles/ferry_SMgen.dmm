@@ -3,7 +3,7 @@
 /turf/simulated/wall/shuttle,
 /area/shuttle/transport)
 "d" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -37,7 +37,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -135,7 +135,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -182,7 +182,7 @@
 /turf/simulated/floor/engine,
 /area/shuttle/transport)
 "z" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
@@ -315,7 +315,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	pixel_x = -44;
 	anchored = 1
 	},

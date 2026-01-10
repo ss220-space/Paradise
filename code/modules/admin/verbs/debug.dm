@@ -653,7 +653,7 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 				S.energy = 800
 				break
 
-	for(var/obj/machinery/power/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/rad_collector))
+	for(var/obj/machinery/power/energy_accumulator/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/energy_accumulator/rad_collector))
 		if(Rad.anchored)
 			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)

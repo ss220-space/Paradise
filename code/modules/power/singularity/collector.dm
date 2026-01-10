@@ -1,35 +1,30 @@
-// stored_energy += (pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT
-#define RAD_COLLECTOR_THRESHOLD 80	// This gets subtracted from the value of absorbed radiation
-#define RAD_COLLECTOR_COEFFICIENT 400
-#define RAD_COLLECTOR_STORED_OUT 0.04	// (this * 100)% of stored power outputted per tick. Doesn't actualy change output total, lower numbers just means collectors output for longer in absence of a source
-#define RAD_COLLECTOR_OUTPUT min(stored_energy, (stored_energy * RAD_COLLECTOR_STORED_OUT) + 1000) //Produces at least 1000 watts if it has more than that stored
-
+///radiation needs to be over this amount to get power
+#define RAD_COLLECTOR_THRESHOLD 80
+///amount of joules created for each rad point over RAD_COLLECTOR_THRESHOLD
+#define RAD_COLLECTOR_COEFFICIENT 200
 
 GLOBAL_LIST_EMPTY(rad_collectors)
 
-/obj/machinery/power/rad_collector
+/obj/machinery/power/energy_accumulator/rad_collector
 	name = "radiation collector array"
 	desc = "Устройство, преобразующее радиацию в полезную электрическую энергию с использованием плазмы."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "ca"
-	anchored = FALSE
-	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	max_integrity = 350
 	integrity_failure = 80
 	///Stores the loaded tank instance
 	var/obj/item/tank/internals/plasma/loaded_tank = null
-	var/stored_energy = 0
 	///Is the collector working?
 	var/active = FALSE
 	///Is the collector locked with an id?
 	var/locked = FALSE
 	///Amount of gas removed per tick
-	var/drain_ratio = 1
+	var/drain_ratio = 0.5
 	///Multiplier for the amount of gas removed per tick
 	var/powerproduction_drain = 0.001
 
-/obj/machinery/power/rad_collector/get_ru_names()
+/obj/machinery/power/energy_accumulator/rad_collector/get_ru_names()
 	return list(
 		NOMINATIVE = "радиационный коллектор",
 		GENITIVE = "радиационного коллектора",
@@ -39,18 +34,18 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		PREPOSITIONAL = "радиационном коллекторе"
 	)
 
-/obj/machinery/power/rad_collector/anchored
+/obj/machinery/power/energy_accumulator/rad_collector/anchored
 	anchored = TRUE
 
-/obj/machinery/power/rad_collector/Initialize(mapload)
+/obj/machinery/power/energy_accumulator/rad_collector/Initialize(mapload)
 	. = ..()
 	GLOB.rad_collectors += src
 
-/obj/machinery/power/rad_collector/Destroy()
+/obj/machinery/power/energy_accumulator/rad_collector/Destroy()
 	GLOB.rad_collectors -= src
 	return ..()
 
-/obj/machinery/power/rad_collector/process()
+/obj/machinery/power/energy_accumulator/rad_collector/process(seconds_per_tick)
 	if(!loaded_tank)
 		return
 
@@ -58,17 +53,14 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		investigate_log(span_red("out of fuel."), INVESTIGATE_ENGINE)
 		playsound(src, 'sound/machines/ding.ogg', 50, TRUE)
 		eject()
-	else
-		var/gasdrained = min(powerproduction_drain * drain_ratio, loaded_tank.air_contents.toxins())
-		loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
+		return
 
-		var/power_produced = RAD_COLLECTOR_OUTPUT
-		add_avail(power_produced)
-		stored_energy -= power_produced
+	var/gasdrained = min(powerproduction_drain * drain_ratio, loaded_tank.air_contents.toxins())
+	loaded_tank.air_contents.set_toxins(loaded_tank.air_contents.toxins() - gasdrained)
 
 	return ..()
 
-/obj/machinery/power/rad_collector/attack_hand(mob/user)
+/obj/machinery/power/energy_accumulator/rad_collector/attack_hand(mob/user)
 	if(..())
 		return TRUE
 
@@ -84,7 +76,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		else
 			to_chat(user, span_warning("The controls are locked!"))
 
-/obj/machinery/power/rad_collector/attackby(obj/item/item, mob/user, params)
+/obj/machinery/power/energy_accumulator/rad_collector/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -118,7 +110,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 
 	return ..()
 
-/obj/machinery/power/rad_collector/wrench_act(mob/living/user, obj/item/item)
+/obj/machinery/power/energy_accumulator/rad_collector/wrench_act(mob/living/user, obj/item/item)
 	. = TRUE
 	if(loaded_tank)
 		add_fingerprint(user)
@@ -142,7 +134,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		)
 		disconnect_from_network()
 
-/obj/machinery/power/rad_collector/crowbar_act(mob/living/user, obj/item/item)
+/obj/machinery/power/energy_accumulator/rad_collector/crowbar_act(mob/living/user, obj/item/item)
 	. = TRUE
 	add_fingerprint(user)
 	if(!loaded_tank)
@@ -155,58 +147,55 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		return .
 	eject(user)
 
-/obj/machinery/power/rad_collector/return_analyzable_air()
+/obj/machinery/power/energy_accumulator/rad_collector/return_analyzable_air()
 	if(loaded_tank)
 		return loaded_tank.return_analyzable_air()
 	return null
 
-/obj/machinery/power/rad_collector/examine(mob/user)
+/obj/machinery/power/energy_accumulator/rad_collector/examine(mob/user)
 	. = ..()
 	if(!active)
 		. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
-	// stored_energy is converted directly to watts every SSmachines.wait * 0.1 seconds.
-	// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
-	// So joules = stored_energy * SSmachines.wait * 0.1
-	var/joules = stored_energy * SSmachines.wait * 0.1
-	. += span_notice("[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.")
+	. += span_notice("[src]'s display states that it has stored <b>[display_joules(get_stored_joules())]</b>, and is processing <b>[display_power(get_power_output())]</b>.")
 
-/obj/machinery/power/rad_collector/obj_break(damage_flag)
+/obj/machinery/power/energy_accumulator/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
 		eject()
 		stat |= BROKEN
 
-/obj/machinery/power/rad_collector/proc/receive_pulse(pulse_strength)
-	if(loaded_tank && active)
-		var/power_produced = RAD_COLLECTOR_OUTPUT
-		power_produced = loaded_tank.air_contents.toxins() * pulse_strength * 20
-		add_avail(power_produced)
-		stored_energy = power_produced
+/obj/machinery/power/energy_accumulator/rad_collector/proc/receive_pulse(pulse_strength)
+	if(loaded_tank && active && pulse_strength > RAD_COLLECTOR_THRESHOLD)
+		stored_energy += joules_to_energy((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT)
 
-/obj/machinery/power/rad_collector/proc/eject(mob/user)
+/obj/machinery/power/energy_accumulator/rad_collector/proc/eject(mob/user)
 	locked = FALSE
 	if(!loaded_tank)
 		return
+
 	loaded_tank.forceMove_turf()
 	user?.put_in_hands(loaded_tank, ignore_anim = FALSE)
 	loaded_tank = null
+
 	if(active)
 		toggle_power()
 	else
 		update_appearance()
 
-/obj/machinery/power/rad_collector/update_icon_state()
+/obj/machinery/power/energy_accumulator/rad_collector/update_icon_state()
 	icon_state = "ca[active ? "_on" : ""]"
 
-/obj/machinery/power/rad_collector/update_overlays()
+/obj/machinery/power/energy_accumulator/rad_collector/update_overlays()
 	. = ..()
 	if(loaded_tank)
 		add_overlay("ptank")
+
 	if(stat & (NOPOWER|BROKEN))
 		return
+
 	if(active)
 		add_overlay(loaded_tank ? "on" : "error")
 
-/obj/machinery/power/rad_collector/proc/toggle_power()
+/obj/machinery/power/energy_accumulator/rad_collector/proc/toggle_power()
 	active = !active
 	if(active)
 		icon_state = "ca_on"
@@ -214,5 +203,8 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	else
 		icon_state = "ca"
 		flick("ca_deactive", src)
+
 	update_appearance()
 
+#undef RAD_COLLECTOR_THRESHOLD
+#undef RAD_COLLECTOR_COEFFICIENT

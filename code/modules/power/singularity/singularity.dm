@@ -467,7 +467,7 @@
 	empulse(src, 8, 10)
 
 /obj/singularity/proc/pulse()
-	for(var/obj/machinery/power/rad_collector/collector as anything in GLOB.rad_collectors)
+	for(var/obj/machinery/power/energy_accumulator/rad_collector/collector as anything in GLOB.rad_collectors)
 		if(collector.z == z && get_dist(collector, src) <= 15) // Better than using orange() every process
 			collector.receive_pulse(energy)
 

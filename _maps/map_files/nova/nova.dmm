@@ -12645,7 +12645,7 @@
 	},
 /area/maintenance/fsmaint3)
 "bQb" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -19762,7 +19762,7 @@
 	},
 /area/security/permahallway)
 "cSO" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/east,
@@ -32565,7 +32565,7 @@
 	},
 /area/tcommsat/server)
 "eOZ" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
@@ -34146,7 +34146,7 @@
 /turf/simulated/floor/carpet/green,
 /area/maintenance/livingcomplex)
 "fbI" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/north,
@@ -37549,7 +37549,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
 	},
@@ -52486,7 +52486,7 @@
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "hRb" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -55611,7 +55611,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
 	},
@@ -62472,7 +62472,7 @@
 	},
 /area/security/processing)
 "jor" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -81986,7 +81986,7 @@
 	},
 /area/security/processing)
 "mlQ" = (
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/structure/cable/yellow{
 	d2 = 2;
 	icon_state = "0-2"
@@ -87894,7 +87894,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/redgrid,
@@ -91164,7 +91164,7 @@
 	d2 = 8;
 	icon_state = "0-8"
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
@@ -105947,7 +105947,7 @@
 	d2 = 4;
 	icon_state = "0-4"
 	},
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 9
 	},
@@ -126291,7 +126291,7 @@
 	},
 /area/security/permabrig)
 "sKR" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -161136,7 +161136,7 @@
 	},
 /area/chapel/office)
 "xSO" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/west,

@@ -1,10 +1,11 @@
-/obj/machinery/power/tesla_coil
+/// zap needs to be over this amount to get power
+#define TESLA_COIL_THRESHOLD 32000
+
+/obj/machinery/power/energy_accumulator/tesla_coil
 	name = "tesla coil"
 	desc = "For the union!"
 	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "coil0"
-	anchored = FALSE
-	density = TRUE
 
 	// Executing a traitor caught releasing tesla was never this fun!
 	can_buckle = TRUE
@@ -21,8 +22,6 @@
 	var/last_zap = 0
 
 	var/datum/wires/tesla_coil/wires = null
-	///Amount of power stored inside the coil to be released in the powernet
-	var/stored_energy = 0
 
 	// Variables to calculate sound based on stored_energy to give engineers an audioclue of the magnitude of energy production.
 	/// Calculated range of zap sounds based on power
@@ -30,10 +29,10 @@
 	/// Calculated volume of zap sounds based on power
 	var/zap_sound_volume = 0
 
-/obj/machinery/power/tesla_coil/anchored
+/obj/machinery/power/energy_accumulator/tesla_coil/anchored
 	anchored = TRUE
 
-/obj/machinery/power/tesla_coil/Initialize(mapload)
+/obj/machinery/power/energy_accumulator/tesla_coil/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/tesla_coil(null)
@@ -41,12 +40,12 @@
 	wires = new(src)
 	RefreshParts()
 
-/obj/machinery/power/tesla_coil/Destroy()
+/obj/machinery/power/energy_accumulator/tesla_coil/Destroy()
 	SStgui.close_uis(wires)
 	QDEL_NULL(wires)
 	return ..()
 
-/obj/machinery/power/tesla_coil/RefreshParts()
+/obj/machinery/power/energy_accumulator/tesla_coil/RefreshParts()
 	var/power_multiplier = 0
 	zap_cooldown = 100
 	for(var/obj/item/stock_parts/capacitor/C in component_parts)
@@ -55,12 +54,16 @@
 	zap_cooldown = max(zap_cooldown, 10)
 	input_power_multiplier = (0.85 * (power_multiplier * 0.25)) // Max out at 85% efficency.
 
-/obj/machinery/power/tesla_coil/examine(mob/user)
+/obj/machinery/power/energy_accumulator/tesla_coil/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += span_notice("На дисплее состояния отображается: Выработка электроэнергии составляет [span_bold("[input_power_multiplier*100]")]%.<br>Интервал между ударами составляет [span_bold("[zap_cooldown*0.1]")] секунд.")
+		. += span_notice("The status display reads:<br>" + \
+			"Power generation at <b>[input_power_multiplier * 100]%</b>.<br>" + \
+			"Shock interval at <b>[zap_cooldown * 0.1]</b> seconds.<br>" + \
+			"Stored <b>[display_joules(get_stored_joules())]</b>.<br>" + \
+			"Processing <b>[display_power(get_power_output())]</b>.")
 
-/obj/machinery/power/tesla_coil/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/energy_accumulator/tesla_coil/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -77,29 +80,29 @@
 
 	return ..()
 
-/obj/machinery/power/tesla_coil/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/tesla_coil/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/power/tesla_coil/multitool_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/tesla_coil/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(panel_open)
 		wires.Interact(user)
 
-/obj/machinery/power/tesla_coil/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/tesla_coil/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "coil_open[anchored]", "coil[anchored]", I)
 
-/obj/machinery/power/tesla_coil/wirecutter_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/tesla_coil/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(panel_open)
 		wires.Interact(user)
 
-/obj/machinery/power/tesla_coil/wrench_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/tesla_coil/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -109,13 +112,12 @@
 		else
 			connect_to_network()
 
-/obj/machinery/power/tesla_coil/process(seconds_per_tick)
-	var/power_produced = min(stored_energy, (stored_energy * 0.04) + 1000) * seconds_per_tick
-	stored_energy -= power_produced
+/obj/machinery/power/energy_accumulator/tesla_coil/process(seconds_per_tick)
+	. = ..()
 	zap_sound_volume = min(stored_energy / 200000, 100)
 	zap_sound_range = min(stored_energy / 4000000, 10)
 
-/obj/machinery/power/tesla_coil/zap_act(power, zap_flags)
+/obj/machinery/power/energy_accumulator/tesla_coil/zap_act(power, zap_flags)
 	if(!anchored || panel_open)
 		return ..()
 
@@ -131,12 +133,13 @@
 
 	zap_buckle_check(power)
 	var/power_removed = powernet ? power * input_power_multiplier : power
-	stored_energy += max(power_removed, 0)
+	stored_energy += max(joules_to_energy(power_removed - TESLA_COIL_THRESHOLD), 0)
 	return max(power - power_removed, 0) // You get back the amount we didn't use
 
-/obj/machinery/power/tesla_coil/proc/zap()
+/obj/machinery/power/energy_accumulator/tesla_coil/proc/zap()
 	if((last_zap + zap_cooldown) > world.time || !powernet)
 		return FALSE
+
 	last_zap = world.time
 	var/power = (powernet.avail) * 0.2 * input_power_multiplier  //Always always always use more then you output for the love of god
 	power = min(surplus(), power) //Take the smaller of the two
@@ -145,7 +148,7 @@
 	tesla_zap(source = src, zap_range = 10, power = power, cutoff = 1e3, zap_flags = zap_flags)
 	zap_buckle_check(power)
 
-/obj/machinery/power/grounding_rod
+/obj/machinery/power/energy_accumulator/grounding_rod
 	name = "grounding rod"
 	desc = "Keeps an area from being fried by Edison's Bane."
 	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
@@ -155,18 +158,26 @@
 	can_buckle = TRUE
 	buckle_lying = 0 // This is actually not TRUE/FALSE; this is an angle that gets multiplied by this number.
 	buckle_requires_restraints = TRUE
+	wants_powernet = FALSE
 
-/obj/machinery/power/grounding_rod/anchored
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored
 	anchored = TRUE
 
-/obj/machinery/power/grounding_rod/Initialize(mapload)
+/obj/machinery/power/energy_accumulator/grounding_rod/Initialize(mapload)
 	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/grounding_rod(null)
 	component_parts += new /obj/item/stock_parts/capacitor(null)
 	RefreshParts()
 
-/obj/machinery/power/grounding_rod/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/energy_accumulator/grounding_rod/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || isobserver(user))
+		. += span_notice("The status display reads:<br>" + \
+			"Recently grounded <b>[display_joules(get_stored_joules())]</b>.<br>" + \
+			"This energy would sustainably release <b>[display_power(get_power_output())]</b>.")
+
+/obj/machinery/power/energy_accumulator/grounding_rod/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -175,23 +186,25 @@
 
 	return ..()
 
-/obj/machinery/power/grounding_rod/screwdriver_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/grounding_rod/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, "grounding_rod_open[anchored]", "grounding_rod[anchored]", I)
 
-/obj/machinery/power/grounding_rod/wrench_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/grounding_rod/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
 
-/obj/machinery/power/grounding_rod/crowbar_act(mob/user, obj/item/I)
+/obj/machinery/power/energy_accumulator/grounding_rod/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)
 
-/obj/machinery/power/grounding_rod/zap_act(power, zap_flags)
+/obj/machinery/power/energy_accumulator/grounding_rod/zap_act(power, zap_flags)
 	if(anchored && !panel_open)
 		flick("grounding_rodhit", src)
 		zap_buckle_check(power)
-		//stored_energy += energy
+		stored_energy += joules_to_energy(power)
 		return FALSE
 	else
-		return ..()
+		. = ..()
+
+#undef TESLA_COIL_THRESHOLD

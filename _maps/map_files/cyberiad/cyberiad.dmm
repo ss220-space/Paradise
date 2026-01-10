@@ -36182,7 +36182,7 @@
 	},
 /area/chapel/office)
 "cIh" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -37610,7 +37610,7 @@
 	},
 /area/atmos)
 "cNZ" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
 /area/storage/secure)
@@ -38462,7 +38462,7 @@
 /turf/simulated/floor/plating,
 /area/atmos/distribution)
 "cQY" = (
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/item/tank/internals/plasma,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
@@ -39794,7 +39794,7 @@
 /area/engineering/engine)
 "cVn" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -42274,7 +42274,7 @@
 	},
 /area/quartermaster/qm)
 "deC" = (
-/obj/machinery/power/rad_collector/anchored,
+/obj/machinery/power/energy_accumulator/rad_collector/anchored,
 /obj/structure/cable/yellow,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
@@ -53264,7 +53264,7 @@
 /area/quartermaster/office)
 "gEO" = (
 /obj/effect/decal/warning_stripes/north,
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -60942,7 +60942,7 @@
 /turf/simulated/floor/plasteel,
 /area/bridge)
 "kgT" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
@@ -70029,7 +70029,7 @@
 	},
 /area/security/detectives_office)
 "ogY" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -74592,7 +74592,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "qhq" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -79111,7 +79111,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "sgP" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/east,
 /obj/machinery/light/small{
@@ -81866,7 +81866,7 @@
 /area/security/brig)
 "tna" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -84802,7 +84802,7 @@
 	},
 /area/crew_quarters/locker/locker_toilet)
 "uFb" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,

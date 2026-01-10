@@ -504,7 +504,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow,
@@ -813,7 +813,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -1681,7 +1681,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -2038,7 +2038,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 1
 	},
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -6800,7 +6800,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "tx" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	pixel_x = -1;
 	pixel_y = 3
@@ -6894,7 +6894,7 @@
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow,
@@ -7062,12 +7062,12 @@
 	},
 /area/awaymission/spacebattle/hallway13)
 "ug" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	pixel_x = -9;
 	pixel_y = -19
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	layer = 2.8;
 	pixel_x = 1;
@@ -7205,7 +7205,7 @@
 	layer = 2.8;
 	pixel_x = -6
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	layer = 2.7;
 	pixel_x = -9;
@@ -9381,7 +9381,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/spacebattle/syndicate2)
 "Ap" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	pixel_x = 4;
 	pixel_y = 3
@@ -11220,7 +11220,7 @@
 	d2 = 8;
 	icon_state = "4-8"
 	},
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -12705,7 +12705,7 @@
 	layer = 2.8;
 	pixel_x = 6
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	layer = 2.7;
 	pixel_x = 9;
@@ -18385,7 +18385,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
 "Zo" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	layer = 2.8;
 	pixel_x = -1;
@@ -18396,7 +18396,7 @@
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1;
 	pixel_x = 9;
 	pixel_y = -19

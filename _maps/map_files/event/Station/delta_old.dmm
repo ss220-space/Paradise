@@ -192,7 +192,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /obj/machinery/camera{
@@ -2582,7 +2582,7 @@
 	},
 /area/quartermaster/storage)
 "aCi" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/structure/cable/yellow{
 	d2 = 4;
 	icon_state = "0-4"
@@ -5887,7 +5887,7 @@
 /obj/structure/sign/electricshock{
 	pixel_y = -32
 	},
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plasteel,
@@ -7587,7 +7587,7 @@
 	},
 /area/hallway/primary/fore)
 "bjU" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/camera{
 	c_tag = "Supermatter Engine West";
 	network = list("SS13","Engineering")
@@ -15846,7 +15846,7 @@
 	},
 /area/magistrateoffice)
 "caA" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/structure/cable/yellow{
 	d2 = 8;
 	icon_state = "0-8"
@@ -19105,7 +19105,7 @@
 /area/janitor)
 "cqX" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
 "cqY" = (
@@ -19299,7 +19299,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/fitness)
 "csm" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/storage/secure)
@@ -20015,7 +20015,7 @@
 	},
 /area/crew_quarters/bar)
 "cvU" = (
-/obj/machinery/power/rad_collector,
+/obj/machinery/power/energy_accumulator/rad_collector,
 /obj/machinery/camera{
 	c_tag = "Supermatter Engine East";
 	network = list("SS13","Engineering")
@@ -26872,7 +26872,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "cZc" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -33626,7 +33626,7 @@
 	},
 /area/security/detectives_office)
 "dCn" = (
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -37781,7 +37781,7 @@
 /turf/simulated/wall/r_wall,
 /area/engineering/engine)
 "dUE" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow,
@@ -40935,7 +40935,7 @@
 	},
 /area/crew_quarters/locker)
 "ewr" = (
-/obj/machinery/power/tesla_coil,
+/obj/machinery/power/energy_accumulator/tesla_coil,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/cable{
@@ -51337,7 +51337,7 @@
 /turf/simulated/floor/plasteel,
 /area/bridge/checkpoint/south)
 "hdZ" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /turf/simulated/floor/plating/airless,
@@ -57664,7 +57664,7 @@
 /turf/simulated/wall/rust,
 /area/maintenance/tourist)
 "iSS" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/northwest,
@@ -66519,7 +66519,7 @@
 /turf/simulated/floor/plating,
 /area/hallway/primary/central/north)
 "lvh" = (
-/obj/machinery/power/tesla_coil{
+/obj/machinery/power/energy_accumulator/tesla_coil{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -71879,7 +71879,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/mixing)
 "mPs" = (
-/obj/machinery/power/rad_collector{
+/obj/machinery/power/energy_accumulator/rad_collector{
 	anchored = 1
 	},
 /obj/structure/cable/yellow{
@@ -90776,7 +90776,7 @@
 	},
 /area/medical/research/shallway)
 "rLd" = (
-/obj/machinery/power/grounding_rod{
+/obj/machinery/power/energy_accumulator/grounding_rod{
 	anchored = 1
 	},
 /obj/effect/decal/warning_stripes/southwest,
