@@ -11,11 +11,12 @@ import {
   Section,
   Stack,
   Table,
+  Divider,
 } from '../components';
 import { Window } from '../layouts';
 
 type ColorEntry = {
-  index: Number;
+  index: number;
   value: string;
 };
 
@@ -23,11 +24,13 @@ type SpriteData = {
   icon_states: string[];
   finished: string;
   steps: SpriteEntry[];
+  time_spent: number;
 };
 
 type SpriteEntry = {
   layer: string;
   result: string;
+  config_name: string;
 };
 
 type GreyscaleMenuData = {
@@ -89,6 +92,11 @@ const ColorDisplay = (_props: unknown) => {
     <Section title="Colors">
       <LabeledList>
         <LabeledList.Item label="Full Color String">
+          <Button
+            icon="dice"
+            onClick={() => act('random_all_colors')}
+            tooltip="Randomizes all color groups."
+          />
           <Input
             value={colors.map((item) => item.value).join('')}
             onChange={(value) =>
@@ -107,8 +115,14 @@ const ColorDisplay = (_props: unknown) => {
               icon="palette"
               onClick={() => act('pick_color', { color_index: item.index })}
             />
+            <Button
+              icon="dice"
+              onClick={() => act('random_color', { color_index: item.index })}
+              tooltip="Randomizes the color for this color group."
+            />
             <Input
               value={item.value}
+              width={7}
               onChange={(value) =>
                 act('recolor', { color_index: item.index, new_color: value })
               }
@@ -156,6 +170,7 @@ const SingleDirection = (props) => {
       <Button
         disabled={`${dir}` === data.sprites_dir ? true : false}
         textAlign="center"
+        tooltip={`Sets the direction of the preview sprite to ${dir}`}
         onClick={() => act('change_dir', { new_sprite_dir: dir })}
         lineHeight={3}
         m={-0.2}
@@ -210,23 +225,36 @@ const PreviewDisplay = (_props: unknown) => {
           )}
         </Table.Row>
       </Table>
+      {!!data.generate_full_preview &&
+        `Time Spent: ${data.sprites.time_spent}ms`}
+      <Divider />
       {!data.refreshing && (
         <Table>
           {!!data.generate_full_preview && data.sprites.steps !== null && (
             <Table.Row header>
-              <Table.Cell textAlign="center">Step Layer</Table.Cell>
-              <Table.Cell textAlign="center">Step Result</Table.Cell>
+              <Table.Cell width="50%" textAlign="center">
+                Layer Source
+              </Table.Cell>
+              <Table.Cell width="25%" textAlign="center">
+                Step Layer
+              </Table.Cell>
+              <Table.Cell width="25%" textAlign="center">
+                Step Result
+              </Table.Cell>
             </Table.Row>
           )}
           {!!data.generate_full_preview &&
             data.sprites.steps !== null &&
             data.sprites.steps.map((item) => (
               <Table.Row key={`${item.result}|${item.layer}`}>
-                <Table.Cell width="50%">
-                  <SingleSprite source={item.result} />
+                <Table.Cell verticalAlign="middle">
+                  {item.config_name}
                 </Table.Cell>
-                <Table.Cell width="50%">
+                <Table.Cell>
                   <SingleSprite source={item.layer} />
+                </Table.Cell>
+                <Table.Cell>
+                  <SingleSprite source={item.result} />
                 </Table.Cell>
               </Table.Row>
             ))}
