@@ -33,7 +33,7 @@ ADMIN_VERB(admin_ghost, R_ADMIN|R_MOD|R_POSSESS, "AGhost", "Become a ghost witho
 			var/mob/living/silicon/ai/ai = user.mob
 			ai.eyeobj.setLoc(old_turf)
 	else if(isnewplayer(user.mob))
-		to_chat(user, span_red("Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first."), confidential=TRUE)
+		to_chat(user, span_red("Error: Aghost: Can't admin-ghost whilst in the lobby. Join or observe first."), confidential = TRUE)
 	else
 		//ghostize
 		log_admin("[key_name(user)] admin ghosted.")
@@ -230,7 +230,7 @@ ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HI
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))
-			to_chat(M, span_userdanger("You are abruptly pulled through space!"), confidential=TRUE)
+			to_chat(M, span_userdanger("You are abruptly pulled through space!"), confidential = TRUE)
 			logmsg = "a teleport to arrivals."
 		if("Moderate Heal")
 			var/update = NONE
@@ -238,7 +238,7 @@ ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HI
 			update |= M.heal_damages(tox = 25, oxy = 25, updating_health = FALSE)
 			if(update)
 				M.updatehealth()
-			to_chat(M,span_userdanger("You feel invigorated!"), confidential=TRUE)
+			to_chat(M,span_userdanger("You feel invigorated!"), confidential = TRUE)
 			logmsg = "a moderate heal."
 		if("Heal Over Time")
 			H.reagents.add_reagent("salglu_solution", 30)
@@ -306,7 +306,7 @@ ADMIN_VERB(bless, R_EVENT, "Bless", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HI
 							P.mind.name = newname
 				logmsg = "pet ([P])."
 			else
-				to_chat(user, span_warning("WARNING: Nobody volunteered to play the special event pet."), confidential=TRUE)
+				to_chat(user, span_warning("WARNING: Nobody volunteered to play the special event pet."), confidential = TRUE)
 				logmsg = "pet (no volunteers)."
 		if("Human Protector")
 			user.create_eventmob_for(H, 0)
@@ -405,7 +405,7 @@ ADMIN_VERB(deadmin_self, R_ADMIN|R_MENTOR|R_VIEWRUNTIMES, "De-admin self", "De-a
 	user.update_active_keybindings()
 	update_byond_admin_configs(user.ckey, R_NONE)
 
-	to_chat(user, span_interface("You are now a normal player."), confidential=TRUE)
+	to_chat(user, span_interface("You are now a normal player."), confidential = TRUE)
 	log_admin("[key_name(user)] deadmined themself.")
 	message_admins("[key_name_admin(user)] deadmined themself.")
 	BLACKBOX_LOG_ADMIN_VERB("De-admin")
@@ -427,17 +427,17 @@ ADMIN_VERB(toggle_log_hrefs, R_SERVER, "Toggle href logging", "Toggle href loggi
 
 	if(CONFIG_GET(flag/log_hrefs))
 		CONFIG_SET(flag/log_hrefs, FALSE)
-		to_chat(user, "<b>Stopped logging hrefs</b>", confidential=TRUE)
+		to_chat(user, "<b>Stopped logging hrefs</b>", confidential = TRUE)
 	else
 		CONFIG_SET(flag/log_hrefs, TRUE)
-		to_chat(user, "<b>Started logging hrefs</b>", confidential=TRUE)
+		to_chat(user, "<b>Started logging hrefs</b>", confidential = TRUE)
 
 ADMIN_VERB(toggle_twitch_censor, R_SERVER, "Toggle Twitch censor", "Toggle Twitch censor.", ADMIN_CATEGORY_TOGGLES)
 	if(!config)
 		return
 
 	CONFIG_SET(flag/twitch_censor, !CONFIG_GET(flag/twitch_censor))
-	to_chat(user, "<b>Twitch censor is [CONFIG_GET(flag/twitch_censor) ? "enabled" : "disabled"]</b>", confidential=TRUE)
+	to_chat(user, "<b>Twitch censor is [CONFIG_GET(flag/twitch_censor) ? "enabled" : "disabled"]</b>", confidential = TRUE)
 
 ADMIN_VERB(check_ai_laws, R_ADMIN, "Check AI Laws", "View the current AI laws.", ADMIN_CATEGORY_GAME)
 	user.holder.output_ai_laws()
@@ -486,7 +486,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(change_human_appearance_self, R_EVENT, "C.M.A. - Se
 			return
 
 	if(!H.client)
-		to_chat(user, "Only mobs with clients can alter their own appearance.", confidential=TRUE)
+		to_chat(user, "Only mobs with clients can alter their own appearance.", confidential = TRUE)
 		return
 
 	switch(tgui_alert(user, "Do you wish for [H] to be allowed to select non-whitelisted races?", "Alter Mob Appearance", list("Yes", "No", "Cancel")))
@@ -529,7 +529,7 @@ ADMIN_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.",
 		if(job.current_positions >= job.total_positions && job.total_positions != -1)
 			jobs += job.title
 	if(!length(jobs))
-		to_chat(user, "There are no fully staffed jobs.", confidential=TRUE)
+		to_chat(user, "There are no fully staffed jobs.", confidential = TRUE)
 		return
 	var/selected_job = tgui_input_list(user, "Please select job slot to free", "Free Job Slot", jobs)
 	if(selected_job)

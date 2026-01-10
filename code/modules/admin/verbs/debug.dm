@@ -629,7 +629,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 
 ADMIN_VERB_VISIBILITY(start_singulo, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
 ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity and all machines to get power flowing through the station.", ADMIN_CATEGORY_DEBUG)
-	if(tgui_alert(user, "Are you sure? This will start up the engine. Should only be used during debug!",, list("Yes", "No")) != "Yes")
+	if(tgui_alert(user, "Are you sure? This will start up the engine. Should only be used during debug!", null, list("Yes", "No")) != "Yes")
 		return
 
 	for(var/obj/machinery/power/emitter/E in SSmachines.get_by_type(/obj/machinery/power/emitter))
@@ -655,11 +655,11 @@ ADMIN_VERB(start_singulo, R_DEBUG, "Start Singularity", "Sets up the singularity
 
 	for(var/obj/machinery/power/rad_collector/Rad in SSmachines.get_by_type(/obj/machinery/power/rad_collector))
 		if(Rad.anchored)
-			if(!Rad.P)
+			if(!Rad.loaded_tank)
 				var/obj/item/tank/internals/plasma/Plasma = new/obj/item/tank/internals/plasma(Rad)
 				Plasma.air_contents.set_toxins(70)
 				Rad.drainratio = 0
-				Rad.P = Plasma
+				Rad.loaded_tank = Plasma
 				Plasma.loc = Rad
 
 			if(!Rad.active)

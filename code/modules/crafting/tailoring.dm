@@ -417,6 +417,13 @@
 	reqs = list(/obj/item/stack/sheet/mineral/gold = 20)
 	category = CAT_CLOTHING
 
+/datum/crafting_recipe/headband
+	name = "Headband"
+	result = list(/obj/item/clothing/head/colour/headband)
+	reqs = list(/obj/item/stack/sheet/cloth = 1)
+	time = 0.5 SECONDS
+	category = CAT_CLOTHING
+
 /datum/crafting_recipe/flower_crown
 	name = "Flower Crown"
 	result = list(/obj/item/clothing/head/flower_crown)

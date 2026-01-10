@@ -907,10 +907,6 @@
 /obj/item/t_scanner,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
-"pD" = (
-/obj/machinery/power/supermatter_shard/anchored,
-/turf/simulated/floor/engine,
-/area/ruin/space/crashedipcship/shard)
 "pF" = (
 /obj/structure/table,
 /obj/item/tank/internals/plasma/empty{
@@ -2517,6 +2513,10 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
+"Oe" = (
+/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
+/turf/simulated/floor/engine,
+/area/ruin/space/crashedipcship/shard)
 "On" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -5966,7 +5966,7 @@ sH
 UR
 Ry
 MS
-pD
+Oe
 mF
 Ry
 vj

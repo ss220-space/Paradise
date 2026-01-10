@@ -34,7 +34,7 @@
 
 	else
 		if(!SSdbcore.IsConnected())
-			to_chat(src, "Warning, MYSQL database is not connected.", confidential=TRUE)
+			to_chat(src, "Warning, MYSQL database is not connected.", confidential = TRUE)
 			return
 
 		var/datum/db_query/rank_read = SSdbcore.NewQuery(
@@ -54,13 +54,13 @@
 		if(CONFIG_GET(flag/admin_legacy_system))
 			if(GLOB.admin_ranks[rank] == null)
 				error("Error while re-adminning [src], admin rank ([rank]) does not exist.")
-				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.", confidential=TRUE)
+				to_chat(src, "Error while re-adminning, admin rank ([rank]) does not exist.", confidential = TRUE)
 				return
 
 			D = new(rank, GLOB.admin_ranks[rank], ckey)
 		else
 			if(!SSdbcore.IsConnected())
-				to_chat(src, "Warning, MYSQL database is not connected.", confidential=TRUE)
+				to_chat(src, "Warning, MYSQL database is not connected.", confidential = TRUE)
 				return
 
 			var/datum/db_query/admin_read = SSdbcore.NewQuery(
@@ -77,11 +77,11 @@
 				var/admin_rank = admin_read.item[2]
 				var/flags = admin_read.item[3]
 				if(!admin_ckey)
-					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.", confidential=TRUE)
+					to_chat(src, "Error while re-adminning, ckey [admin_ckey] was not found in the admin database.", confidential = TRUE)
 					qdel(admin_read)
 					return
 				if(admin_rank == DELETED_RANK) //This person was de-adminned. They are only in the admin list for archive purposes.
-					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.", confidential=TRUE)
+					to_chat(src, "Error while re-adminning, ckey [admin_ckey] is not an admin.", confidential = TRUE)
 					qdel(admin_read)
 					return
 
@@ -107,7 +107,7 @@
 		BLACKBOX_LOG_ADMIN_VERB("Re-admin")
 		return
 	else
-		to_chat(src, "You are already an admin.", confidential=TRUE)
+		to_chat(src, "You are already an admin.", confidential = TRUE)
 		remove_verb(src, /client/proc/readmin)
 		GLOB.de_admins -= ckey
 		GLOB.de_mentors -= ckey
