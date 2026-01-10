@@ -1364,6 +1364,7 @@
 #include "code\game\objects\effects\spawners\bombspawner.dm"
 #include "code\game\objects\effects\spawners\gibspawner.dm"
 #include "code\game\objects\effects\spawners\lootdrop.dm"
+#include "code\game\objects\effects\spawners\new_year.dm"
 #include "code\game\objects\effects\spawners\random_barrier.dm"
 #include "code\game\objects\effects\spawners\random_spawners.dm"
 #include "code\game\objects\effects\spawners\vaultspawner.dm"
