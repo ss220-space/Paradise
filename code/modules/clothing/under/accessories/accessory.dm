@@ -971,10 +971,10 @@
 	else if(istype(t, /area/ussp_centcom))
 		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
-		radio_announce("[M] has been vandalized in Space!", "[M]'s Death Alarm", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
+		radio_announce("[M] подверг[GEND_SYA_AS_OS_IS(M)] вандализму в космосе", "Оповещение о смерти [M]", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		STOP_PROCESSING(SSobj, src)
 		return
-	radio_announce("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel, src)
+	radio_announce("[M] подверг[GEND_SYA_AS_OS_IS(M)] вандализму в [t.name]!", "Оповещение о смерти [M]", announce_channel, src)
 	STOP_PROCESSING(SSobj, src)
 
 /proc/accessory_list(obj/item/clothing/under/uniform)

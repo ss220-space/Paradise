@@ -248,7 +248,7 @@
 		user.show_message(span_abductor("Вы проецируете свой разум на [(target in user.get_visible_mobs()) ? target.name : "неизвестную сущность"]: [say]"))
 
 		for(var/mob/dead/observer/G in GLOB.player_list)
-			G.show_message(span_italics("Телепатическое сообщение от ([ghost_follow_link(user, ghost = G)])<b>[user]</b> для ([ghost_follow_link(target, ghost=G)])<b>[target]</b>: [say]"))
+			G.show_message(span_italics("Телепатическое сообщение от ([ghost_follow_link(user, ghost = G)]) <b>[user]</b> для ([ghost_follow_link(target, ghost = G)]) <b>[target]</b>: [say]"))
 
 /obj/effect/proc_holder/spell/mindscan
 	name = "Scan Mind"
@@ -318,7 +318,7 @@
 		user.show_message(span_abductor("Вы слышите голос [target.name]: [say]"))
 
 		for(var/mob/dead/observer/G in GLOB.player_list)
-			G.show_message(span_italics("Телепатический ответ от ([ghost_follow_link(target, ghost = G)])<b>[target]</b> для ([ghost_follow_link(user, ghost=G)])<b>[user]</b>: [say]"))
+			G.show_message(span_italics("Телепатический ответ от ([ghost_follow_link(target, ghost = G)]) <b>[target]</b> для ([ghost_follow_link(user, ghost = G)]) <b>[user]</b>: [say]"))
 
 /obj/effect/proc_holder/spell/mindscan/Destroy()
 	for(var/mob/living/target in available_targets)

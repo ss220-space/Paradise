@@ -525,7 +525,7 @@
 	to_chat(usr, span_hierophant("Вы говорите в разум [choice]:</b> [msg]"))
 	to_chat(choice, "[span_deadsay(span_hierophant("Странные, магические и одновременно чуждые мысли обращаются к вам..."))] [span_hierophant("[msg]")]")
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		G.show_message(span_hierophant("Послание Иерофанта от ([ghost_follow_link(usr, ghost = G)])<b>[usr]</b> к \[[ghost_follow_link(choice, ghost = G)]\]<b>[choice]</b>: [msg]</i>")) //what the fuck...
+		G.show_message(span_hierophant("Послание Иерофанта от ([ghost_follow_link(usr, ghost = G)]) <b>[usr]</b> к \[[ghost_follow_link(choice, ghost = G)]\] <b>[choice]</b>: [msg]</i>")) //what the fuck...
 
 /obj/item/clothing/accessory/necklace/hierophant_talisman/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
 	. = ..()

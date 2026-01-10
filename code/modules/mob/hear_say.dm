@@ -1,4 +1,4 @@
-#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%]"
+#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%\]"
 // At minimum every mob has a hear_say proc.
 
 /mob/proc/combine_message(list/message_pieces, atom/movable/speaker, always_stars = FALSE)
@@ -137,7 +137,7 @@
 	if(isobserver(src))
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
-		track = "([ghost_follow_link(speaker, ghost=src)]) "
+		track = "([ghost_follow_link(speaker, ghost = src)]) "
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
@@ -230,7 +230,7 @@
 		if(prob(20))
 			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
-		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
+		to_chat(src, "[track || speaker_name][part_a][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))
 		if(src != speaker || isrobot(src) || isAI(src))

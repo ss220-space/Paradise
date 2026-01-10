@@ -1187,7 +1187,7 @@
 /// If they are not an observer, will try to aghost them.
 /client/proc/admin_follow(atom/movable/target)
 	if(!isobserver(mob))
-		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_ghost)
+		SSadmin_verbs.dynamic_invoke_verb(src, /datum/admin_verb/admin_ghost)
 
 	var/mob/dead/observer/observer = mob
 	observer.ManualFollow(target)
