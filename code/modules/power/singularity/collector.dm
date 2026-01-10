@@ -1,6 +1,6 @@
-///radiation needs to be over this amount to get power
+/// Radiation needs to be over this amount to get power
 #define RAD_COLLECTOR_THRESHOLD 80
-///amount of joules created for each rad point over RAD_COLLECTOR_THRESHOLD
+/// Amount of joules created for each rad point over RAD_COLLECTOR_THRESHOLD
 #define RAD_COLLECTOR_COEFFICIENT 200
 
 GLOBAL_LIST_EMPTY(rad_collectors)
@@ -156,7 +156,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	. = ..()
 	if(!active)
 		. += span_notice("<b>[src]'s display displays the words:</b> \"Power production mode. Please insert <b>Plasma</b>.\"")
-	. += span_notice("[src]'s display states that it has stored <b>[display_joules(get_stored_joules())]</b>, and is processing <b>[display_power(get_power_output())]</b>.")
+	. += span_notice("[src]'s display states that it has stored <b>[display_energy(get_stored_joules())]</b>, and is processing <b>[display_power(calculate_sustainable_power(), convert = FALSE)]</b>.")
 
 /obj/machinery/power/energy_accumulator/rad_collector/obj_break(damage_flag)
 	if(!(stat & BROKEN) && !(obj_flags & NODECONSTRUCT))
@@ -164,8 +164,9 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 		stat |= BROKEN
 
 /obj/machinery/power/energy_accumulator/rad_collector/proc/receive_pulse(pulse_strength)
-	if(loaded_tank && active && pulse_strength > RAD_COLLECTOR_THRESHOLD)
-		stored_energy += joules_to_energy((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT)
+	if(!loaded_tank || !active || pulse_strength <= RAD_COLLECTOR_THRESHOLD)
+		return
+	stored_energy += energy_to_power((pulse_strength - RAD_COLLECTOR_THRESHOLD) * RAD_COLLECTOR_COEFFICIENT)
 
 /obj/machinery/power/energy_accumulator/rad_collector/proc/eject(mob/user)
 	locked = FALSE
