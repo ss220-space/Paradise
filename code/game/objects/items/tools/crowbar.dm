@@ -199,3 +199,21 @@
 	user.visible_message(span_suicide("[user] помеща[PLUR_ET_YUT(user)] свою голову между лезвиями [declent_ru(GENITIVE)]. Это похоже на попытку самоубийства!"))
 	playsound(loc, 'sound/items/jaws_pry.ogg', 50, TRUE, -1)
 	return BRUTELOSS
+
+/obj/item/crowbar/industrial
+	name = "industrial crowbar"
+	desc = "Инструмент, предназначенный для использования в качестве рычага. \
+			Инструмент удобнее лежит в руке чем обычный, из за чего работать с ним легче."
+	icon_state = "crowbar_industrial"
+	toolspeed = 0.7
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+
+/obj/item/crowbar/industrial/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутая монтировка",
+		GENITIVE = "продвинутой монтировки",
+		DATIVE = "продвинутой монтировке",
+		ACCUSATIVE = "продвинутю монтировку",
+		INSTRUMENTAL = "продвинутой монтировкой",
+		PREPOSITIONAL = "продвинутой монтировке"
+	)

@@ -5374,6 +5374,13 @@
 	},
 /turf/space,
 /area/solar/auxstarboard)
+"aPo" = (
+/obj/item/crowbar/industrial,
+/obj/item/wrench/industrial,
+/obj/item/screwdriver/industrial,
+/obj/item/wirecutters/industrial,
+/turf/simulated/floor/shuttle,
+/area/shuttle/arrival/station)
 "aPt" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -163625,7 +163632,7 @@ uBT
 uBT
 uBT
 uBT
-ahC
+aPo
 ugW
 bjM
 bqf
