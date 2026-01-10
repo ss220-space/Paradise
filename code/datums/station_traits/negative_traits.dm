@@ -505,14 +505,3 @@
 					if(istype(current_thing, /obj/machinery/suit_storage_unit) && prob(40))
 						qdel(current_thing)
 						continue
-
-/* Waiting for new vendors
-/datum/station_trait/spiked_drinks
-	name = "Отравленные напитки"
-	report_message = "Из-за сбоя в работе автоматической фабрики по разливу напитков корпорации \"Robust Softdrinks\", их продукция может содержать следы этанола и галлюциногенов."
-	trait_type = STATION_TRAIT_NEGATIVE
-	weight = 3
-	cost = STATION_TRAIT_COST_LOW
-	show_in_report = TRUE
-	trait_to_give = STATION_TRAIT_SPIKED_DRINKS
-*/

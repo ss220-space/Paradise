@@ -1497,6 +1497,11 @@
 	hijack_only = TRUE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/explosives/emp_bomb/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 3
+
 /datum/uplink_item/explosives/emp_bomb/nuke
 	cost = 50
 	excludefrom = list()
@@ -1591,6 +1596,11 @@
 	desc = "Коробка, содержащая две ЭМИ-гранаты и имплантер с ЭМИ-имплантом, имеющим два заряда."
 	item = /obj/item/storage/box/syndie_kit/emp
 	cost = 10
+
+/datum/uplink_item/explosives/emp/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 3
 
 /**
  * MARK: Stealthy Tools
@@ -1697,6 +1707,11 @@
 	item = /obj/item/flashlight/emp
 	cost = 19
 	surplus = 30
+
+/datum/uplink_item/stealthy_tools/emplight/New()
+	..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_CYBERNETIC_REVOLUTION))
+		cost *= 3
 
 /datum/uplink_item/stealthy_tools/syndigaloshes
 	name = "Ботинки с защитой от скольжения \"Хамелеон\""

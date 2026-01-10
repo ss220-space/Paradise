@@ -70,7 +70,6 @@
 	cost = STATION_TRAIT_COST_MINIMAL
 	weight = 10
 	trait_to_give = STATION_TRAIT_CLASSIC_ASSISTANTS
-	//blacklist = list(/datum/station_trait/assistant_gimmicks)
 
 /datum/station_trait/birthday
 	name = "День рождения сотрудника"

@@ -162,7 +162,7 @@
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	abstract_type = /datum/station_trait/deathrattle_department
-	// blacklist = list(/datum/station_trait/deathrattle_all)
+	blacklist = list(/datum/station_trait/deathrattle_all)
 
 	var/department_to_apply_to
 	var/department_name = "department"
@@ -206,7 +206,6 @@
 	department_to_apply_to = STATION_DEPARTMENT_ENGINEERING
 	department_name = "Engineering"
 	ru_department_name = "инженерного отдела"
-	force = 1
 
 /datum/station_trait/deathrattle_department/command
 	name = "Отдел командования с имплантом \"предсмертного отзвука\""
@@ -235,3 +234,112 @@
 	department_to_apply_to = STATION_DEPARTMENT_MEDICAL
 	department_name = "Medical"
 	ru_department_name = "медицинского отдела"
+
+/datum/station_trait/deathrattle_all
+	name = "Принудительная установка импланта \"предсмертного отзвука\""
+	report_message = "Всему экипажу на объекте был установлен имплант, который сообщает в случае, если кто-то погибнет."
+	show_in_report = TRUE
+	trait_type = STATION_TRAIT_POSITIVE
+	weight = 1
+	var/datum/deathrattle_group/deathrattle_group
+
+/datum/station_trait/deathrattle_all/New()
+	. = ..()
+	deathrattle_group = new("station group")
+	blacklist = subtypesof(/datum/station_trait/deathrattle_department)
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/deathrattle_all/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	SIGNAL_HANDLER
+
+	var/obj/item/implant/deathrattle/implant_to_give = new()
+	deathrattle_group.register(implant_to_give)
+	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
+
+/datum/station_trait/cybernetic_revolution
+	name = "Расцвет кибернетики"
+	report_message = "Новая мода на повальную аугментацию дошла и до вашего объекта, как мы слышали. Судя по медицинским записям, каждый член экипажа установил себе кибернетический имплант."
+	show_in_report = TRUE
+	weight = 1
+	trait_to_give = STATION_TRAIT_CYBERNETIC_REVOLUTION
+	/// List of all job types with the cybernetics they should receive.
+	var/static/list/job_to_cybernetic = list(
+		/datum/job/civilian = /obj/item/organ/internal/heart/cybernetic, //real cardiac
+		/datum/job/head_of_staff/chief_engineer = /obj/item/organ/internal/cyberimp/arm/hacking,
+		/datum/job/engineering/engineer = /obj/item/organ/internal/cyberimp/arm/toolset,
+		/datum/job/engineering/atmos = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/datum/job/engineering/mechanic = /obj/item/organ/internal/cyberimp/eyes/shield,
+		/datum/job/head_of_staff/cmo = /obj/item/organ/internal/cyberimp/arm/medibeam,
+		/datum/job/medical/doctor = /obj/item/organ/internal/cyberimp/arm/surgery,
+		/datum/job/medical/coroner = /obj/item/organ/internal/liver/cybernetic,
+		/datum/job/medical/chemist = /obj/item/organ/internal/cyberimp/eyes/hud/science,
+		/datum/job/medical/geneticist = /obj/item/organ/internal/kidneys/cybernetic,
+		/datum/job/medical/virologist = /obj/item/organ/internal/lungs/cybernetic,
+		/datum/job/medical/psychiatrist = /obj/item/organ/internal/cyberimp/eyes/hud/medical,
+		/datum/job/medical/paramedic = /obj/item/organ/internal/cyberimp/arm/medibeam,
+		/datum/job/head_of_staff/rd = /obj/item/organ/internal/cyberimp/brain/bci,
+		/datum/job/science/scientist = /obj/item/organ/internal/ears/cybernetic,
+		/datum/job/science/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+		/datum/job/head_of_staff/hos = /obj/item/organ/internal/cyberimp/eyes/thermals,
+		/datum/job/security/warden = /obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/datum/job/security/detective = /obj/item/organ/internal/lungs/cybernetic/upgraded,
+		/datum/job/security/officer = /obj/item/organ/internal/cyberimp/arm/flash,
+		/datum/job/security/brigdoc = /obj/item/organ/internal/cyberimp/arm/surgery,
+		/datum/job/security/pilot = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
+		/datum/job/head_of_staff/hop = /obj/item/organ/internal/eyes/cybernetic,
+		/datum/job/service/bartender = /obj/item/organ/internal/liver/cybernetic,
+		/datum/job/service/chef = /obj/item/organ/internal/cyberimp/chest/nutriment/plus,
+		/datum/job/service/botanist = /obj/item/organ/internal/cyberimp/chest/nutriment,
+		/datum/job/service/clown = /obj/item/organ/internal/cyberimp/brain/anti_stun, //honk
+		/datum/job/service/mime = /obj/item/organ/internal/heart/cybernetic,
+		/datum/job/service/janitor = /obj/item/organ/internal/cyberimp/arm/janitorial,
+		/datum/job/service/librarian = /obj/item/organ/internal/cyberimp/eyes/meson,
+		/datum/job/service/chaplain = /obj/item/organ/internal/cyberimp/brain/anti_drop,
+		/datum/job/service/explorer = /obj/item/organ/internal/heart/cybernetic,
+		/datum/job/captain = /obj/item/organ/internal/heart/cybernetic/upgraded,
+		/datum/job/head_of_staff/nanotrasenrep = /obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/datum/job/blueshield = /obj/item/organ/internal/cyberimp/arm/flash,
+		/datum/job/head_of_staff/judge = /obj/item/organ/internal/heart/cybernetic/upgraded,
+		/datum/job/lawyer =  /obj/item/organ/internal/cyberimp/eyes/hud/security,
+		/datum/job/head_of_staff/qm =  /obj/item/organ/internal/liver/cybernetic,
+		/datum/job/supply/cargo_tech = /obj/item/organ/internal/heart/cybernetic,
+		/datum/job/supply/mining = /obj/item/organ/internal/cyberimp/eyes/meson,
+		/datum/job/supply/mining_medic = /obj/item/organ/internal/cyberimp/arm/surgery,
+	)
+	force = 1
+
+
+/datum/station_trait/cybernetic_revolution/New()
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/cybernetic_revolution/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned, client/player_client)
+	SIGNAL_HANDLER
+
+	var/cybernetic_type = job_to_cybernetic[job.type]
+	if(!cybernetic_type)
+		if(isAI(spawned))
+			var/mob/living/silicon/ai/ai = spawned
+			ai.eyeobj.relay_speech = TRUE //surveillance upgrade. the ai gets cybernetics too.
+		return
+	var/obj/item/organ/internal/cybernetic = new cybernetic_type()
+	cybernetic.insert(spawned)
+
+/datum/station_trait/medbot_mania
+	name = "Модифицированные медботы"
+	report_message = "Все медботы на вашем объекте, включая новособранных, получили улучшение ПО. Ожидайте более качественную работу."
+	show_in_report = TRUE
+	weight = 5
+	trait_type = STATION_TRAIT_POSITIVE
+	trait_to_give = STATION_TRAIT_MEDBOT_MANIA
+
+/datum/station_trait/random_event_weight_modifier/tradeship
+	name = "Торговое партнёрство"
+	report_message = "Корпорация \"Нанотрейзен\" заключила торговое соглашение с ТСФ. Ожидайте скорого прибытия их коммерческого шаттла."
+	show_in_report = TRUE
+	weight = 5
+	trait_type = STATION_TRAIT_POSITIVE
+	event_names = list("Торговцы")
+	event_severity = /datum/event_container/moderate
+	weight_multiplier = 20 // you should be really unlucky
+
