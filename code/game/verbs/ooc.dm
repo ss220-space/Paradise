@@ -107,7 +107,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 	CONFIG_SET(flag/ooc_allowed, !CONFIG_GET(flag/ooc_allowed))
 	if(CONFIG_GET(flag/ooc_allowed))
 		to_chat(world, span_bold("Канал OOC стал доступен всем!"))
-		log_and_message_admins("OOC was toggled off automatically.")
+		log_and_message_admins("OOC was toggled on automatically.")
 	else
 		to_chat(world, span_bold("Канал OOC отключён для всех!"))
 		log_and_message_admins("OOC was toggled off automatically.")
