@@ -1,3 +1,8 @@
+/**
+ * Snow machine
+ *
+ * Generates snow and cools nearby air.
+ */
 /obj/machinery/snow_machine
 	name = "snow machine"
 	desc = "Добавьте немного воды, и у вас появится своя зимняя сказка!"
@@ -144,7 +149,12 @@
 	else
 		icon_state = "snow_machine_[active ? "on" : "off"]"
 
-/// Creates a snow cloud on the target turf if conditions are met.
+/**
+ * Creates a snow cloud on the target turf
+ *
+ * Arguments:
+ * * target_turf - The turf where the snow cloud should appear
+ */
 /obj/machinery/snow_machine/proc/make_snowcloud(turf/target_turf)
 	if(isspaceturf(target_turf))
 		return
@@ -163,7 +173,13 @@
 		power_used_this_cycle += 1000
 		return TRUE
 
-/// Toggles the active state of the machine.
+/**
+ * Toggles the machine's active state
+ *
+ * Arguments:
+ * * activate - If TRUE, turn the machine on; if FALSE, turn it off
+ * * give_message - If TRUE and turning off, show a visible warning message
+ */
 /obj/machinery/snow_machine/proc/turn_on_or_off(activate, give_message = FALSE)
 	active = activate ? TRUE : FALSE
 	if(!active && give_message)
@@ -174,3 +190,7 @@
 
 	update_icon(UPDATE_ICON_STATE)
 	return TRUE
+
+/obj/machinery/snow_machine/infinite
+	desc = "Добавьте немного воды, и у вас появится своя зимняя сказка! Кажется сказка будет длиться вечно..."
+	infinite_snow = TRUE
