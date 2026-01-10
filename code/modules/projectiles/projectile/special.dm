@@ -756,7 +756,5 @@
 		return FALSE
 
 	var/datum/disease/virus/nuclefication/virus = new()
-	virus.stage_prob = 20 // much faster progression
-	virus.fast_mode = TRUE
 	virus.Contract(M, need_protection_check = FALSE)
 	return TRUE
