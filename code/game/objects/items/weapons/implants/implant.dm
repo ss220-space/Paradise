@@ -149,6 +149,7 @@
 	return
 
 /obj/item/implant/proc/activate(cause)
+	SEND_SIGNAL(src, COMSIG_IMPLANT_ACTIVATED, cause, imp_in)
 	return
 
 /obj/item/implant/ui_action_click(mob/user, datum/action/action, leftclick)
@@ -209,6 +210,7 @@
 	if(user)
 		add_attack_logs(user, source, "Chipped with [src]")
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, source, user, force)
 	return TRUE
 
 /**
@@ -245,6 +247,7 @@
 
 	unregister_emotes()
 
+	SEND_SIGNAL(src, COMSIG_IMPLANT_REMOVED, source)
 	return TRUE
 
 /**

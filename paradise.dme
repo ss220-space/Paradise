@@ -1579,6 +1579,7 @@
 #include "code\game\objects\items\weapons\implants\implant_cooldown.dm"
 #include "code\game\objects\items\weapons\implants\implant_cortical_stack.dm"
 #include "code\game\objects\items\weapons\implants\implant_death_alarm.dm"
+#include "code\game\objects\items\weapons\implants\implant_deathrattle.dm"
 #include "code\game\objects\items\weapons\implants\implant_dust.dm"
 #include "code\game\objects\items\weapons\implants\implant_emp.dm"
 #include "code\game\objects\items\weapons\implants\implant_exile.dm"

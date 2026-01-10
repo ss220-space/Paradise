@@ -156,3 +156,82 @@
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
 	SSshuttle.supply.callTime *= 0.5
+
+/datum/station_trait/deathrattle_department
+	name = "Один из отделов с имплантом \"предсмертного отзвука\""// too long
+	show_in_report = TRUE
+	trait_type = STATION_TRAIT_POSITIVE
+	abstract_type = /datum/station_trait/deathrattle_department
+	// blacklist = list(/datum/station_trait/deathrattle_all)
+
+	var/department_to_apply_to
+	var/department_name = "department"
+	var/ru_department_name = "обыкновенного отдела"
+	var/datum/deathrattle_group/deathrattle_group
+
+/datum/station_trait/deathrattle_department/New()
+	. = ..()
+	deathrattle_group = new("[department_name] group")
+	blacklist += subtypesof(/datum/station_trait/deathrattle_department) - type //All but ourselves
+	report_message = "Все членам [ru_department_name] были установлены экспериментальные импланты, уведомляющие о смерти других носителей данного импланта."
+	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
+
+/datum/station_trait/deathrattle_department/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned)
+	SIGNAL_HANDLER
+
+	if(!(job.department = department_to_apply_to))
+		return
+
+	var/obj/item/implant/deathrattle/implant_to_give = new()
+	deathrattle_group.register(implant_to_give)
+	implant_to_give.implant(spawned, spawned, TRUE)
+
+/datum/station_trait/deathrattle_department/service
+	name = "Отдел сервиса с имплантом \"предсмертного отзвука\""
+	weight = 1
+	department_to_apply_to = STATION_DEPARTMENT_SERVICE
+	department_name = "Service"
+	ru_department_name = "отдела сервиса"
+
+/datum/station_trait/deathrattle_department/cargo
+	name = "Отдел снабжения с имплантом \"предсмертного отзвука\""
+	weight = 1
+	department_to_apply_to = STATION_DEPARTMENT_SUPPLY
+	department_name = "Cargo"
+	ru_department_name = "отдела снабжения"
+
+/datum/station_trait/deathrattle_department/engineering
+	name = "Инженерный отдел с имплантом \"предсмертного отзвука\""
+	weight = 1
+	department_to_apply_to = STATION_DEPARTMENT_ENGINEERING
+	department_name = "Engineering"
+	ru_department_name = "инженерного отдела"
+	force = 1
+
+/datum/station_trait/deathrattle_department/command
+	name = "Отдел командования с имплантом \"предсмертного отзвука\""
+	weight = 1
+	department_to_apply_to = STATION_DEPARTMENT_COMMAND
+	department_name = "Command"
+	ru_department_name = "отдела командования"
+
+/datum/station_trait/deathrattle_department/science
+	name = "Исследовательский отдел с имплантом \"предсмертного отзвука\""
+	weight = 1
+	department_to_apply_to = STATION_DEPARTMENT_SCIENCE
+	department_name = "Science"
+	ru_department_name = "исследовательского отдела"
+
+/datum/station_trait/deathrattle_department/security
+	name = "ОЗА с имплантом \"предсмертного отзвука\""
+	weight = 1
+	department_to_apply_to = STATION_DEPARTMENT_SECURITY
+	department_name = "Security"
+	ru_department_name = "отдела защиты активов"
+
+/datum/station_trait/deathrattle_department/medical
+	name = "Медицинский отдел с имплантом \"предсмертного отзвука\""
+	weight = 1
+	department_to_apply_to = STATION_DEPARTMENT_MEDICAL
+	department_name = "Medical"
+	ru_department_name = "медицинского отдела"

@@ -149,7 +149,7 @@
 
 /mob/living/silicon/proc/get_random_lawset()
 	var/list/law_options[0]
-	var/paths = subtypesof(/datum/ai_laws)
+	var/paths = subtypesof(/datum/ai_laws) - subtypesof(/datum/ai_laws/unique) // only generic laws in lawlist
 	for(var/law in paths)
 		var/datum/ai_laws/L = new law
 		if(!L.default)

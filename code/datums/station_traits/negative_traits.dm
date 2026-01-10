@@ -45,7 +45,6 @@
 	report_message = "Мммм... Обязательный для посещения корпоратив по случаю... мххггг... Возможно мы переборщили с алкоголем..."
 	trait_to_give = STATION_TRAIT_HANGOVER
 	blacklist = list(/datum/station_trait/late_arrivals, /datum/station_trait/random_spawns)
-	force = 1
 
 /datum/station_trait/hangover/New()
 	. = ..()
