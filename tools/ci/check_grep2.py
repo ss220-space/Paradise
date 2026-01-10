@@ -166,7 +166,8 @@ def check_global_list_empty(idx, line):
         return [(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")]
 
 # makes sure arguments contained within "ui = new" are valid
-TGUI_UI_NEW = re.compile(r'ui = new\((?:[^,\(\)]+(?:\([^)]*\))?|"[^"]*")(?:\s*,\s*(?:[^,\(\)]+(?:\([^)]*\))?|"[^"]*")){1,3}\)')
+ARG = r'(?:[^,\(\)]+(?:\([^)]*\))?|"[^"]*")'
+TGUI_UI_NEW = re.compile(rf'ui = new\({ARG}(?:\s*,\s*{ARG}){{1,3}}\)')
 def check_tgui_ui_new_argument(idx, line):
     if "\tui = new" in line and not TGUI_UI_NEW.search(line):
         return [(idx + 1, "Invalid argument within constructor, please make sure window sizing is in corresponding TypeScript file.")]
