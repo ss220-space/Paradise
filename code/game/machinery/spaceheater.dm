@@ -31,7 +31,7 @@
 /obj/machinery/space_heater/update_overlays()
 	. = ..()
 	if(open)
-		. += "sheater-open"
+		. += "sheater_open"
 
 /obj/machinery/space_heater/examine(mob/user)
 	. = ..()
