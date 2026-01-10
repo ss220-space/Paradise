@@ -187,9 +187,9 @@
 /obj/item/wirecutters/industrial/get_ru_names()
 	return list(
 		NOMINATIVE = "продвинутые кусачки",
-		GENITIVE = "продвинуте кусачеки",
+		GENITIVE = "продвинутых кусачек",
 		DATIVE = "продвинутым кусачкам",
-		ACCUSATIVE = "продвинуте кусачки",
+		ACCUSATIVE = "родвинутые кусачки",
 		INSTRUMENTAL = "продвинутыми кусачками",
 		PREPOSITIONAL = "продвинутых кусачках"
 	)

@@ -23,7 +23,6 @@
 		/obj/item/screwdriver = 5,
 		/obj/item/clothing/gloves/color/fyellow = 2,
 		/obj/item/weldingtool/hugetank = 3,
-		/obj/item/weldingtool/hugetank = 3,
 		/obj/item/wrench/industrial = 3,
 		/obj/item/crowbar/industrial = 3,
 		/obj/item/wirecutters/industrial = 3,
