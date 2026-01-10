@@ -24,16 +24,18 @@
 	///Window overlay showing the gas inside the canister
 	var/image/window
 	var/static/alpha_filter
+	var/static/list/possible_configs = list(
+		/datum/greyscale_config/canister,
+		/datum/greyscale_config/canister/stripe,
+		/datum/greyscale_config/canister/double_stripe,
+		/datum/greyscale_config/canister/hazard,
+	)
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
 	if(!alpha_filter)
 		alpha_filter = filter(type = "alpha", icon = icon(canister_overlay_file, "window-base"))
 	. = ..()
 	update_icon()
-
-/obj/machinery/portable_atmospherics/canister/LateInitialize()
-	update_icon()
-	. = ..()
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
@@ -58,7 +60,7 @@
 			pressure_light = "can-2"
 		if((5 * ONE_ATMOSPHERE) to (10 * ONE_ATMOSPHERE))
 			pressure_light = "can-1"
-		if((10) to (5 * ONE_ATMOSPHERE))
+		if(0 to (5 * ONE_ATMOSPHERE))
 			pressure_light = "can-0"
 
 	. += mutable_appearance(canister_overlay_file, pressure_light)
@@ -314,10 +316,13 @@
 				replace_tank(usr, FALSE)
 
 		if("select_color")
-			if(can_label)
-				var/primary = params["primary_color"]
-				var/secondary = params["secondary_color"]
-				set_greyscale_colors(list(primary, secondary))
+			var/datum/greyscale_modify_menu/menu = new(
+				src, usr, possible_configs,
+				starting_icon_state = icon_state,
+				starting_config = greyscale_config,
+				starting_colors = greyscale_colors
+			)
+			menu.ui_interact(usr)
 
 	add_fingerprint(usr)
 	update_icon()

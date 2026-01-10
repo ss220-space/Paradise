@@ -12,6 +12,7 @@
 	desc = "Плата стационарного сканера блюспейс разлома."
 	build_path = /obj/machinery/power/brs_stationary_scanner
 	icon_state = "bluespace_scannerplat"
+	greyscale_config = null
 	board_type = "machine"
 	origin_tech = "engineering=6;bluespace=5"
 	req_components = list(

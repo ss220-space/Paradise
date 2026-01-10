@@ -216,7 +216,8 @@
 
 	SET_PLANE_IMPLICIT(src, plane)
 
-	update_greyscale()
+	if(greyscale_config && greyscale_colors)
+		update_greyscale()
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
@@ -645,21 +646,20 @@
 	greyscale_colors = colors
 	if(!greyscale_config)
 		return
-	if(update)
+	if(update && greyscale_config && greyscale_colors)
 		update_greyscale()
 
 /// Checks if the greyscale config given is different and if so causes a greyscale icon update
-/atom/proc/set_greyscale_config(new_config, update = TRUE)
+/atom/proc/set_greyscale_config(new_config, update=TRUE)
 	if(greyscale_config == new_config)
 		return
 	greyscale_config = new_config
-	if(update)
+	if(update && greyscale_config && greyscale_colors)
 		update_greyscale()
 
 /// Checks if this atom uses the GAS system and if so updates the icon
 /atom/proc/update_greyscale()
-	if(greyscale_config && greyscale_colors)
-		icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+	icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
 
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()

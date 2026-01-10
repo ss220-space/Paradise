@@ -355,6 +355,7 @@
 /obj/item/circuitboard/machine/station_map/engineering
 	name = "Engineering Station Map"
 	desc = "A virtual map of the surrounding station. Also shows any active fire and atmos alarms."
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/station_map/engineering/directional/north
 	origin_tech = "programming=4;engineering=4"
 	req_components = list(/obj/item/stock_parts/scanning_module = 3, /obj/item/stock_parts/micro_laser = 4, /obj/item/stack/ore/bluespace_crystal = 1)

@@ -262,7 +262,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/Initialize(mapload)
 	. = ..()
-	update_item_greyscale()
 
 	/// marks all items in storage as being such
 	if(isstorage(loc))
@@ -1252,7 +1251,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	update_equipped_item()
 
 /// Checks if this atom uses the GAS system and if so updates the worn and inhand icons
-/obj/item/proc/update_item_greyscale()
+/obj/item/update_greyscale()
+	. = ..()
 	if(!greyscale_colors)
 		return
 	if(greyscale_config_worn)

@@ -9,6 +9,7 @@ import {
   Input,
   LabeledList,
   Section,
+  Stack,
   Table,
 } from '../components';
 import { Window } from '../layouts';
@@ -19,8 +20,9 @@ type ColorEntry = {
 };
 
 type SpriteData = {
-  finished: SpriteEntry;
-  steps: Array<SpriteEntry>;
+  icon_states: string[];
+  finished: string;
+  steps: SpriteEntry[];
 };
 
 type SpriteEntry = {
@@ -30,9 +32,13 @@ type SpriteEntry = {
 
 type GreyscaleMenuData = {
   greyscale_config: string;
-  colors: Array<ColorEntry>;
+  colors: ColorEntry[];
   sprites: SpriteData;
+  generate_full_preview: boolean;
+  unlocked: boolean;
   sprites_dir: string;
+  icon_state: string;
+  refreshing: boolean;
 };
 
 enum Direction {
@@ -60,9 +66,9 @@ const DirectionAbbreviation: Record<Direction, string> = {
 const ConfigDisplay = (_props) => {
   const { act, data } = useBackend<GreyscaleMenuData>();
   return (
-    <Section title="Config">
+    <Section title="Designs">
       <LabeledList>
-        <LabeledList.Item label="Config Type">
+        <LabeledList.Item label="Design Type">
           <Button icon="cogs" onClick={() => act('select_config')} />
           <Input
             value={data.greyscale_config}
@@ -116,27 +122,29 @@ const ColorDisplay = (_props: unknown) => {
 
 const PreviewCompassSelect = (_props) => {
   return (
-    <Section>
-      <Flex mx="25%" fluid>
-        <SingleDirection dir={Direction.NorthWest} />
-        <SingleDirection dir={Direction.North} />
-        <SingleDirection dir={Direction.NorthEast} />
-      </Flex>
-      <Flex mx="25%">
-        <SingleDirection dir={Direction.West} />
-        <Flex.Item grow={1} basis={0}>
-          <Button lineHeight={3} m={-0.2} fluid>
-            <Icon name="arrows-alt" size={1.5} m="20%" />
-          </Button>
-        </Flex.Item>
-        <SingleDirection dir={Direction.East} />
-      </Flex>
-      <Flex mx="25%">
-        <SingleDirection dir={Direction.SouthWest} />
-        <SingleDirection dir={Direction.South} />
-        <SingleDirection dir={Direction.SouthEast} />
-      </Flex>
-    </Section>
+    <Box>
+      <Stack vertical>
+        <Flex>
+          <SingleDirection dir={Direction.NorthWest} />
+          <SingleDirection dir={Direction.North} />
+          <SingleDirection dir={Direction.NorthEast} />
+        </Flex>
+        <Flex>
+          <SingleDirection dir={Direction.West} />
+          <Flex.Item grow={1} basis={0}>
+            <Button lineHeight={3} m={-0.2} fluid>
+              <Icon name="arrows-alt" size={1.5} m="20%" />
+            </Button>
+          </Flex.Item>
+          <SingleDirection dir={Direction.East} />
+        </Flex>
+        <Flex>
+          <SingleDirection dir={Direction.SouthWest} />
+          <SingleDirection dir={Direction.South} />
+          <SingleDirection dir={Direction.SouthEast} />
+        </Flex>
+      </Stack>
+    </Box>
   );
 };
 
@@ -159,27 +167,71 @@ const SingleDirection = (props) => {
   );
 };
 
+const IconStatesDisplay = (_props) => {
+  const { data, act } = useBackend<GreyscaleMenuData>();
+  return (
+    <Section title="Icon States">
+      <Flex>
+        {data.sprites.icon_states.map((item) => (
+          <Flex.Item key={item}>
+            <Button
+              mx={0.5}
+              disabled={item === data.icon_state}
+              onClick={() => act('select_icon_state', { new_icon_state: item })}
+            >
+              {item ? item : 'Blank State'}
+            </Button>
+          </Flex.Item>
+        ))}
+      </Flex>
+    </Section>
+  );
+};
+
 const PreviewDisplay = (_props: unknown) => {
   const { data } = useBackend<GreyscaleMenuData>();
   return (
     <Section title={`Preview (${data.sprites_dir})`}>
-      <PreviewCompassSelect />
       <Table>
-        <Table.Row header>
-          <Table.Cell textAlign="center">Step Layer</Table.Cell>
-          <Table.Cell textAlign="center">Step Result</Table.Cell>
+        <Table.Row>
+          <Table.Cell width="50%">
+            <PreviewCompassSelect />
+          </Table.Cell>
+          {data.sprites?.finished ? (
+            <Table.Cell>
+              <Image src={data.sprites.finished} m={0} width="75%" mx="10%" />
+            </Table.Cell>
+          ) : (
+            <Table.Cell>
+              <Box>
+                <Icon name="image" ml="25%" size={5} />
+              </Box>
+            </Table.Cell>
+          )}
         </Table.Row>
-        {data.sprites.steps.map((item) => (
-          <Table.Row key={`${item.result}|${item.layer}`}>
-            <Table.Cell width="50%">
-              <SingleSprite source={item.result} />
-            </Table.Cell>
-            <Table.Cell width="50%">
-              <SingleSprite source={item.layer} />
-            </Table.Cell>
-          </Table.Row>
-        ))}
       </Table>
+      {!data.refreshing && (
+        <Table>
+          {!!data.generate_full_preview && data.sprites.steps !== null && (
+            <Table.Row header>
+              <Table.Cell textAlign="center">Step Layer</Table.Cell>
+              <Table.Cell textAlign="center">Step Result</Table.Cell>
+            </Table.Row>
+          )}
+          {!!data.generate_full_preview &&
+            data.sprites.steps !== null &&
+            data.sprites.steps.map((item) => (
+              <Table.Row key={`${item.result}|${item.layer}`}>
+                <Table.Cell width="50%">
+                  <SingleSprite source={item.result} />
+                </Table.Cell>
+                <Table.Cell width="50%">
+                  <SingleSprite source={item.layer} />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+        </Table>
+      )}
     </Section>
   );
 };
@@ -193,18 +245,35 @@ const SingleSprite = (props: SingleSpriteProps) => {
   return <Image src={source} width="100%" />;
 };
 
-export const GreyscaleModifyMenu = (_props: unknown) => {
-  const { act } = useBackend<GreyscaleMenuData>();
+const LoadingAnimation = () => {
   return (
-    <Window title="Greyscale Modification" width={325} height={800}>
+    <Box height={0} mt="-100%">
+      <Icon name="cog" height={22.7} opacity={0.5} size={25} spin />
+    </Box>
+  );
+};
+
+export const GreyscaleModifyMenu = (_props: unknown) => {
+  const { act, data } = useBackend<GreyscaleMenuData>();
+  return (
+    <Window title="Color Configuration" width={325} height={800}>
       <Window.Content scrollable>
         <ConfigDisplay />
         <ColorDisplay />
-        <Button onClick={() => act('refresh_file')}>
-          Refresh Icon File
-        </Button>{' '}
+        <IconStatesDisplay />
+        {!!data.unlocked && (
+          <Button onClick={() => act('refresh_file')}>Refresh Icon File</Button>
+        )}
         <Button onClick={() => act('apply')}>Apply</Button>
+        <Button.Checkbox
+          disabled={!data.generate_full_preview && !data.unlocked}
+          checked={data.generate_full_preview}
+          onClick={() => act('toggle_full_preview')}
+        >
+          Full Preview
+        </Button.Checkbox>
         <PreviewDisplay />
+        {!!data.refreshing && <LoadingAnimation />}
       </Window.Content>
     </Window>
   );

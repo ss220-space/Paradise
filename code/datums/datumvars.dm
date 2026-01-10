@@ -1565,7 +1565,8 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		if(!check_rights(NONE))
 			return
 		var/atom/object = locateUID(href_list["modify_greyscale"])
-		var/datum/greyscale_modify_menu/menu = new(object, usr)
+		var/datum/greyscale_modify_menu/menu = new(object, usr, SSgreyscale.configurations)
+		menu.Unlock()
 		menu.ui_interact(usr)
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)

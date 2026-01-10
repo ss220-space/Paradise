@@ -14,9 +14,6 @@ import {
 } from '../components';
 import { formatSiUnit } from '../format';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
-import { ColorSelector } from './common/ColorSelector';
-import { hexToHsva, hsvaToHex } from 'common/color';
 
 type CanisterData = {
   portConnected: boolean;
@@ -28,7 +25,6 @@ type CanisterData = {
   valveOpen: boolean;
   name: string;
   canLabel: boolean;
-  colorContainer: ColorContainer;
   hasHoldingTank: boolean;
   holdingTank: HoldingTank;
 };
@@ -38,12 +34,7 @@ type HoldingTank = {
   tankPressure: number;
 };
 
-type ColorContainer = {
-  primaryColor: string;
-  secondaryColor: string;
-};
-
-export const Canister = (props: unknown) => {
+export const Canister = (_props: unknown) => {
   const { act, data } = useBackend<CanisterData>();
   const {
     portConnected,
@@ -55,63 +46,35 @@ export const Canister = (props: unknown) => {
     valveOpen,
     name,
     canLabel,
-    colorContainer,
     hasHoldingTank,
     holdingTank,
   } = data;
 
-  let paintSection: ReactNode = '';
-  if (canLabel) {
-    paintSection = (
-      <Section title="Paint">
-        <Stack vertical>
-          <LabeledControls.Item minWidth="110px" label="Primary Color">
-            <ColorSelector
-              color={hexToHsva(colorContainer.primaryColor || '#000')}
-              defaultColor="red"
-              minimalize
-              setColor={(color) =>
-                act('select_color', {
-                  primary_color: hsvaToHex(color),
-                  secondary_color: colorContainer.secondaryColor,
-                })
-              }
-            />
-          </LabeledControls.Item>
-          <LabeledControls.Item
-            minWidth="110px"
-            label="Secondary Color(if exist)"
-          >
-            <ColorSelector
-              color={hexToHsva(colorContainer.secondaryColor || '#000')}
-              defaultColor="white"
-              minimalize
-              setColor={(color) =>
-                act('select_color', {
-                  primary_color: colorContainer.primaryColor,
-                  secondary_color: hsvaToHex(color),
-                })
-              }
-            />
-          </LabeledControls.Item>
-        </Stack>
-      </Section>
-    );
-  }
-
   return (
-    <Window width={600} height={canLabel ? 500 : 230}>
+    <Window width={600} height={230}>
       <Window.Content>
         <Section
           title={name}
           buttons={
-            <Button
-              icon="pencil-alt"
-              disabled={!canLabel}
-              onClick={() => act('relabel')}
-            >
-              Relabel
-            </Button>
+            <Stack>
+              <Stack.Item>
+                <Button
+                  icon="pencil-alt"
+                  disabled={!canLabel}
+                  onClick={() => act('relabel')}
+                >
+                  Relabel
+                </Button>
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  fluid
+                  icon="palette"
+                  disabled={!canLabel}
+                  onClick={() => act('select_color')}
+                />
+              </Stack.Item>
+            </Stack>
           }
         >
           <LabeledControls>
@@ -225,7 +188,6 @@ export const Canister = (props: unknown) => {
           )}
           {!hasHoldingTank && <Box color="average">No Holding Tank</Box>}
         </Section>
-        {paintSection}
       </Window.Content>
     </Window>
   );

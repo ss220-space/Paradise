@@ -55,6 +55,7 @@
 /obj/item/circuitboard/machine/bfl_emitter
 	board_name = "BFL Emitter"
 	desc = "Be cautious, when emitter will be done it move up by one step"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
@@ -68,6 +69,7 @@
 /obj/item/circuitboard/machine/bfl_receiver
 	board_name = "BFL Receiver"
 	desc = "Must be built in the middle of the deposit"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
