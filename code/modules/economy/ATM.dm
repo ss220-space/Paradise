@@ -34,7 +34,7 @@ log transactions
 	var/editing_security_level = 0
 	var/view_screen = DEFAULT_SCREEN
 	var/lastprint = 0 // Printer needs time to cooldown
-	var/base_icon_state = "atm"
+	var/active = TRUE
 
 /obj/machinery/atm/Initialize(mapload)
 	. = ..()
@@ -86,11 +86,10 @@ log transactions
 				break
 
 /obj/machinery/atm/update_icon_state()
-	. = ..()
-	if(stat & NOPOWER)
-		icon_state = "[base_icon_state]_off"
+	if(!active || (stat & NOPOWER))
+		icon_state = "[initial(icon_state)]_off"
 	else
-		icon_state = base_icon_state
+		icon_state = initial(icon_state)
 
 /obj/machinery/atm/power_change(forced = FALSE)
 	. = ..()

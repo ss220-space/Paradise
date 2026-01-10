@@ -82116,6 +82116,7 @@
 	},
 /area/bridge/checkpoint/south)
 "omD" = (
+/obj/machinery/atm/atmb/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
