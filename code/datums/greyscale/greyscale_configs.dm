@@ -205,6 +205,21 @@
 	icon_file = 'icons/obj/module.dmi'
 	json_config = 'code/datums/greyscale/json_configs/circuit.json'
 
+/datum/greyscale_config/plush_lizard
+	name = "Plushie Lizard"
+	icon_file = 'icons/obj/toy.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_lizard.json'
+
+/datum/greyscale_config/plush_lizard_left
+	name = "Held Plushie Lizard, Left"
+	icon_file = 'icons/mob/inhands/items_lefthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_lizard_inhand.json'
+
+/datum/greyscale_config/plush_lizard_right
+	name = "Held Plushie Lizard, Right"
+	icon_file = 'icons/mob/inhands/items_righthand.dmi'
+	json_config = 'code/datums/greyscale/json_configs/plushie_lizard_inhand.json'
+
 /*
 /datum/greyscale_config/carp/disk_mouth
 	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'

@@ -144,8 +144,8 @@
 /datum/greyscale_config/proc/GenerateBundle(list/colors, list/render_steps)
 	if(!istype(colors))
 		colors = ParseColorString(colors)
-	if(length(colors) != expected_colors)
-		CRASH("[DebugName()] expected [expected_colors] color arguments but only received [length(colors)]")
+	if(length(colors) < expected_colors)
+		CRASH("[DebugName()] expected [expected_colors] or more color arguments but only received [length(colors)]")
 
 	var/list/generated_icons = list()
 	for(var/icon_state in icon_states)
@@ -155,7 +155,7 @@
 		generated_icon.GetPixel(1, 1)
 		generated_icons[icon_state] = generated_icon
 
-	var/icon/icon_bundle = icon('icons/Testing/greyscale_error.dmi')
+	var/icon/icon_bundle = icon('icons/testing/greyscale_error.dmi')
 	for(var/icon_state in generated_icons)
 		icon_bundle.Insert(generated_icons[icon_state], icon_state)
 
