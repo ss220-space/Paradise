@@ -34,6 +34,7 @@ log transactions
 	var/editing_security_level = 0
 	var/view_screen = DEFAULT_SCREEN
 	var/lastprint = 0 // Printer needs time to cooldown
+	var/base_icon_state = "atm"
 
 /obj/machinery/atm/Initialize(mapload)
 	. = ..()
@@ -87,9 +88,9 @@ log transactions
 /obj/machinery/atm/update_icon_state()
 	. = ..()
 	if(stat & NOPOWER)
-		icon_state = "atm_off"
+		icon_state = "[base_icon_state]_off"
 	else
-		icon_state = "atm"
+		icon_state = base_icon_state
 
 /obj/machinery/atm/power_change(forced = FALSE)
 	. = ..()
@@ -103,7 +104,7 @@ log transactions
 	if(stat & NOPOWER)
 		return
 
-	underlays += emissive_appearance(icon, "atm_lightmask", src)
+	underlays += emissive_appearance(icon, "[base_icon_state]_lightmask", src)
 
 /obj/machinery/atm/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
@@ -379,19 +380,8 @@ log transactions
 
 /obj/machinery/atm/atmb
 	icon_state = "atmb"
+	base_icon_state = "atmb"
 	density = TRUE
-
-/obj/machinery/atm/atmb/update_icon_state()
-	. = ..()
-	if(stat & NOPOWER)
-		icon_state = "atmb_off"
-	else
-		icon_state = "atmb"
-
-/obj/machinery/atm/atmb/power_change(forced = FALSE)
-	. = ..()
-	if(.)
-		update_icon()
 
 #undef DEFAULT_SCREEN
 #undef CHANGE_SECURITY_LEVEL
