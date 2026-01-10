@@ -205,7 +205,7 @@
 	desc = "Инструмент, предназначенный для использования в качестве рычага. \
 			Инструмент удобнее лежит в руке чем обычный, из за чего работать с ним легче."
 	icon_state = "crowbar_industrial"
-	toolspeed = 0.7
+	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
 /obj/item/crowbar/industrial/get_ru_names()

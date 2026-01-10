@@ -193,14 +193,14 @@
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
 			Инструмент удобнее лежит в руке чем обычный, из за чего работать с ним легче."
 	icon_state = "screwdriver_industrial"
-	toolspeed = 0.7
+	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	random_color = FALSE
 
 /obj/item/screwdriver/industrial/get_ru_names()
 	return list(
-		NOMINATIVE = "продвинутый отвёртка",
-		GENITIVE = "продвинутого отвёртки",
+		NOMINATIVE = "продвинутая отвёртка",
+		GENITIVE = "продвинутой отвёртки",
 		DATIVE = "продвинутой отвёртке",
 		ACCUSATIVE = "продвинутю отвёртку",
 		INSTRUMENTAL = "продвинутой отвёрткой",

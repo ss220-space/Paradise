@@ -178,7 +178,7 @@
 			Инструмент удобнее лежит в руке чем обычный, из за чего работать с ним легче."
 	icon_state = "cutters_industrial"
 	random_color = FALSE
-	toolspeed = 0.7
+	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	hitsound = 'sound/items/wirecutter2.ogg'
 	usesound = 'sound/items/wirecutter2.ogg'
