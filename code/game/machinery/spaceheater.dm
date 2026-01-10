@@ -1,7 +1,7 @@
 /obj/machinery/space_heater
 	density = TRUE
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
-	icon_state = "sheater0"
+	icon_state = "sheater_off"
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
 	max_integrity = 250
