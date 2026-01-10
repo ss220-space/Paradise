@@ -743,7 +743,7 @@
 
 /obj/projectile/energy/nucle_transformer
 	name = "nucle transformation bolt"
-	icon_state = "nucle_transformer"
+	icon_state = "gauss"
 	damage_type = TOX
 	nodamage = TRUE
 
