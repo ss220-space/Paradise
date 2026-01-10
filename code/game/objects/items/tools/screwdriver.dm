@@ -3,6 +3,7 @@
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_map"
+	item_state = "screwdriver"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	belt_icon = "screwdriver"
@@ -62,7 +63,6 @@
 	if(random_color)
 		var/our_color = param_color || pick(screwdriver_colors)
 		set_greyscale_colors(list(screwdriver_colors[our_color]))
-		item_state = null
 		colored_belt_appearance = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/screwdriver_belt, greyscale_colors))
 	. = ..()
 	if(prob(75))
@@ -86,6 +86,8 @@
 	belt_icon = "screwdriver_nuke"
 	toolspeed = 0.5
 	random_color = FALSE
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
 
 /obj/item/screwdriver/nuke/get_ru_names()
 	return list(
@@ -115,6 +117,8 @@
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
 
 /obj/item/screwdriver/brass/get_ru_names()
 	return list(
@@ -137,6 +141,8 @@
 	toolspeed = 0.1
 	random_color = FALSE
 	w_class = WEIGHT_CLASS_TINY
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
 
 /obj/item/screwdriver/abductor/get_ru_names()
 	return list(
@@ -172,6 +178,8 @@
 	icon_state = "drill_screw"
 	item_state = "drill"
 	belt_icon = "hand_drill"
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" // done for balance reasons, making them high value for research, but harder to get
 	force = 8
