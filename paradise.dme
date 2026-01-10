@@ -814,6 +814,7 @@
 #include "code\datums\emote\emote_verbs.dm"
 #include "code\datums\greyscale\_greyscale_config.dm"
 #include "code\datums\greyscale\greyscale_configs.dm"
+#include "code\datums\greyscale\json_reader.dm"
 #include "code\datums\greyscale\layer.dm"
 #include "code\datums\helper_datums\construction_datum.dm"
 #include "code\datums\helper_datums\icon_snapshot.dm"

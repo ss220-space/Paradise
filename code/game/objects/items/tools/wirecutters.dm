@@ -3,7 +3,7 @@
 	desc = "Инструмент, предназначенный для перекусывания различных материалов."
 	gender = PLURAL
 	icon = 'icons/obj/tools.dmi'
-	icon_state = "cutters"
+	icon_state = "cutters_map"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	belt_icon = "wirecutters"
