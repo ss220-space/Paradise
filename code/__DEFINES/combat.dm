@@ -29,7 +29,6 @@
 #define PARALYZE "paralize"
 #define SLEEP "sleep"
 #define IMMOBILIZE "immobilize"
-#define IRRADIATE "irradiate"
 #define STUTTER "stutter"
 #define SLUR "slur"
 #define EYE_BLUR "eye_blur"

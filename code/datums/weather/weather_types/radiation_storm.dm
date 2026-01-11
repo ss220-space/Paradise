@@ -23,6 +23,8 @@
 
 	immunity_type = TRAIT_RADSTORM_IMMUNE
 
+	/// Chance we get a negative mutation, if we fail we get a positive one
+	var/negative_mutation_chance = 90
 	/// Chance we mutate
 	var/mutate_chance = 40
 
@@ -60,11 +62,14 @@
 	randmuti(human)
 
 	if(prob(50))
-		if(prob(90))
-			randmutb(human)
-		else
-			randmutg(human)
-	human.check_genes(MUTCHK_FORCED)
+		do_mutate(human)
+
+/datum/weather/rad_storm/proc/do_mutate(mob/living/carbon/human/mutant)
+	if(prob(negative_mutation_chance))
+		randmutb(mutant)
+	else
+		randmutg(mutant)
+	mutant.check_genes(MUTCHK_FORCED)
 
 /datum/weather/rad_storm/end()
 	if(..())

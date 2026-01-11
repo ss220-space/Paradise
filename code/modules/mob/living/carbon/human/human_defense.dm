@@ -200,7 +200,7 @@ emp_act
 /mob/living/carbon/human/proc/get_clothing_on_part(obj/item/organ/external/def_zone)
 	var/list/covering_part = list()
 	for(var/obj/item/clothing/equipped in get_equipped_items())
-		if(equipped.body_parts_covered & def_zone.limb_zone)
+		if(equipped.body_parts_covered & def_zone.limb_body_flag)
 			covering_part += equipped
 	return covering_part
 

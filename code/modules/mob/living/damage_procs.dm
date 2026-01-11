@@ -283,7 +283,7 @@
 	return TRUE
 
 /// Applies multiple status effects at once via [apply_effect][/mob/living/proc/apply_effect]
-/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, irradiate = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0, confused = 0)
+/mob/living/proc/apply_effects(blocked = 0, stun = 0, weaken = 0, paralyze = 0, slur = 0, stutter = 0, eyeblur = 0, drowsy = 0, stamina = 0, jitter = 0, knockdown = 0, confused = 0)
 	if(blocked >= 100)
 		return FALSE
 	if(stun)

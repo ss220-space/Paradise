@@ -223,14 +223,49 @@
 	update_flags |= M.adjustToxLoss(0.5, FALSE)
 	return ..() | update_flags
 
-/datum/reagent/polonium
-	name = "Полоний"
+/datum/reagent/radium
+	name = "Радий"
 	id = "radium"
-	description = "Чрезвычайно радиоактивный материал в жидкой форме. Попадание внутрь приводит к смертельному облучению."
-	color = "#787878"
+	description = "Радий — щелочноземельный металл. Он чрезвычайно радиоактивен."
+	color = "#C7C7C7"
 	penetrates_skin = TRUE
 	taste_description = "голубизны и сожалений"
 	metabolization_rate = 0.125 * REAGENTS_METABOLISM
+	/// How radioactive is this reagent
+	var/rad_power = 2
+
+/datum/reagent/radium/on_mob_life(mob/living/carbon/affected_mob, seconds_per_tick)
+	. = ..()
+	if(!HAS_TRAIT(affected_mob, TRAIT_IRRADIATED) && SSradiation.can_irradiate_basic(affected_mob))
+		var/chance = min(volume / (20 - rad_power * 5), rad_power)
+		if(SPT_PROB(chance, seconds_per_tick)) // ignore rad protection calculations bc it's inside of us
+			affected_mob.AddComponent(/datum/component/irradiated)
+	if(affected_mob.adjustToxLoss(1 * REM * seconds_per_tick, updating_health = FALSE))
+		return STATUS_UPDATE_HEALTH
+
+/datum/reagent/radium/reaction_turf(turf/reaction_turf, volume)
+	if(!SSradiation.can_irradiate_basic(reaction_turf))
+		return
+
+	if(!isspaceturf(reaction_turf))
+		new /obj/effect/decal/cleanable/greenglow(reaction_turf)
+		radiation_pulse(
+			source = reaction_turf,
+			max_range = 0,
+			threshold = RAD_VERY_LIGHT_INSULATION,
+			chance = (min(volume * rad_power, CALCULATE_RAD_MAX_CHANCE(rad_power))),
+		)
+
+/datum/reagent/polonium
+	name = "Полоний"
+	id = "polonium"
+	description = "Чрезвычайно радиоактивный материал в жидкой форме. Попадание внутрь приводит к смертельному облучению."
+	reagent_state = LIQUID
+	color = "#CF3600"
+	metabolization_rate = 0.25 * REAGENTS_METABOLISM
+	penetrates_skin = TRUE
+	can_synth = FALSE
+	taste_mult = 0
 	/// How radioactive is this reagent
 	var/rad_power = 3
 
@@ -627,21 +662,6 @@
 			M.Sleeping(4 SECONDS)
 			update_flags |= M.adjustToxLoss((current_cycle - 50) / 2, FALSE)
 	return ..() | update_flags
-
-/datum/reagent/polonium
-	name = "Полоний"
-	id = "polonium"
-	description = "Вызывают значительные радиационные повреждения с течением времени."
-	reagent_state = LIQUID
-	color = "#CF3600"
-	metabolization_rate = 0.25 * REAGENTS_METABOLISM
-	penetrates_skin = TRUE
-	can_synth = FALSE
-	taste_mult = 0
-
-/datum/reagent/polonium/on_mob_life(mob/living/M)
-	M.apply_effect(8, IRRADIATE, negate_armor = 1)
-	return ..()
 
 /datum/reagent/histamine
 	name = "Гистамин"
@@ -1341,19 +1361,19 @@
 		randmutb(M)
 		M.check_genes()
 
-/datum/reagent/glowing_slurry/on_mob_life(mob/living/M)
-	M.apply_effect(2, IRRADIATE, 0, negate_armor = 1)
-	if(!M.dna)
+/datum/reagent/glowing_slurry/on_mob_life(mob/living/affected_mob, seconds_per_tick)
+	affected_mob.adjustToxLoss(0.5 * seconds_per_tick * REM)
+	if(!affected_mob.dna)
 		return
 	var/did_mutation = FALSE
 	if(prob(15))
-		randmutb(M)
+		randmutb(affected_mob)
 		did_mutation = TRUE
 	if(prob(3))
-		randmutg(M)
+		randmutg(affected_mob)
 		did_mutation = TRUE
 	if(did_mutation)
-		M.check_genes()
+		affected_mob.check_genes()
 	return ..()
 
 /datum/reagent/ants
