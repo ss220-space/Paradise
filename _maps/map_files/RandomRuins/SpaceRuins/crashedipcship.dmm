@@ -264,7 +264,7 @@
 	},
 /area/ruin/space/crashedipcship/aft)
 "dQ" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/machinery/door/window/survival_pod,
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/crashedipcship/engine)
@@ -2288,7 +2288,7 @@
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/crashedipcship/aft)
 "KZ" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel/dark,
@@ -2655,7 +2655,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/crashedipcship/shard)
 "RL" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
 "RN" = (

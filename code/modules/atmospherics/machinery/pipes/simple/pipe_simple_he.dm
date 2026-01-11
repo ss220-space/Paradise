@@ -4,15 +4,14 @@
 	pipe_icon = "hepipe"
 	level = 2
 	layer = GAS_PIPE_VISIBLE_LAYER
-	var/initialize_directions_he
-	var/surface = 2
-
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	minimum_temperature_difference = 20
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-
 	color = "#404040"
-	var/icon_temperature = T20C //stop small changes in temperature causing icon refresh
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	/// Stop small changes in temperature causing icon refresh
+	var/icon_temperature = T20C
+	var/initialize_directions_he
+	var/surface = 2
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/process_atmos()
 	var/environment_temperature = 0
@@ -120,7 +119,6 @@
 			break
 
 	update_icon()
-	return
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/junction/hidden // wtf is this?
 	level = 1

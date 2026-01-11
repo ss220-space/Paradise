@@ -390,7 +390,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	layer = 2
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "QG" = (

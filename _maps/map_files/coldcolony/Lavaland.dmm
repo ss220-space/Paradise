@@ -1747,7 +1747,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "mT" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "mV" = (
@@ -4521,7 +4521,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "SF" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
 "SJ" = (

@@ -1352,7 +1352,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/kitchen)
 "fj" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/cleanable/cobweb,
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -2407,7 +2407,7 @@
 /area/ruin/space/USSP_gorky17/solars)
 "jj" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -3487,7 +3487,7 @@
 	},
 /area/ruin/space/USSP_gorky17/bridge)
 "nl" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/engineering)
@@ -4574,7 +4574,7 @@
 /turf/space,
 /area/template_noop)
 "re" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellow"
@@ -5466,7 +5466,7 @@
 /area/ruin/space/USSP_gorky17/gate)
 "ul" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
 "um" = (
@@ -6149,7 +6149,7 @@
 	},
 /area/ruin/space/USSP_gorky17/common)
 "wP" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -6818,7 +6818,7 @@
 	},
 /area/ruin/space/USSP_gorky17/check1)
 "zi" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10840,14 +10840,14 @@
 /area/ruin/space/USSP_gorky17/gate)
 "Nn" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintnorth)
 "No" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/engineering)
@@ -12072,7 +12072,7 @@
 /area/ruin/space/USSP_gorky17/engineering)
 "Rv" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/northwest,
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -12507,7 +12507,7 @@
 /area/ruin/space/USSP_gorky17/check2)
 "Tu" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/gate)
 "Tv" = (
@@ -13698,7 +13698,7 @@
 	},
 /area/ruin/space/USSP_gorky17/rnd)
 "Ya" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light/small{
 	dir = 1

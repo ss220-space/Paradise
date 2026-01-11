@@ -220,3 +220,7 @@
 #define AALARM_MODE_FLOOD 9
 #define AALARM_MODE_CUSTOM 10
 
+// Buildeing states
+#define AIR_ALARM_FRAME 0
+#define AIR_ALARM_BUILDING 1
+#define AIR_ALARM_READY 2

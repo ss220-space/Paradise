@@ -40,7 +40,6 @@
 #define UI_ORANGE 1
 #define UI_RED 0
 
-GLOBAL_LIST_EMPTY(restricted_door_tags)
 GLOBAL_LIST_EMPTY(airlock_overlays)
 GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 
@@ -103,11 +102,14 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/boltDown = 'sound/machines/boltsdown.ogg'
 	var/is_special = FALSE
 
-	// This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
+	/// Our ID tag for map-based linking shenanigans
 	var/id_tag
+	/// List of people who have shocked this door for logging purposes
 	var/shockedby = list()
-	///the command the door is currently attempting to complete
-	var/cur_command = null
+	/// Command currently being executed
+	var/cur_command
+	/// Is a command actually running
+	var/command_running = FALSE
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
@@ -139,13 +141,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	 */
 	// You can find code for the airlock wires in the wire datum folder.
 	wires = new(src)
-
-	if(SSradio)
-		set_frequency(frequency)
-
-	if(mapload && id_tag && !(id_tag in GLOB.restricted_door_tags))
-		// Players won't be allowed to create new buttons that open roundstart doors
-		GLOB.restricted_door_tags += id_tag
 
 	if(closeOtherId)
 		addtimer(CALLBACK(src, PROC_REF(update_other_id)), 0.5 SECONDS)
@@ -198,9 +193,6 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	if(electrified_timer)
 		deltimer(electrified_timer)
 		electrified_timer = null
-	if(SSradio)
-		SSradio.remove_object(src, frequency)
-	radio_connection = null
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
 		diag_hud.remove_atom_from_hud(src)
 	return ..()
@@ -246,7 +238,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
-	return (main_power_lost_until==0 || backup_power_lost_until==0)
+	return (main_power_lost_until == 0 || backup_power_lost_until == 0)
 
 /obj/machinery/door/airlock/requiresID()
 	return !(wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner)
@@ -1707,6 +1699,86 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		aiControlDisabled = AICONTROLDISABLED_OFF
 	else if(aiControlDisabled == AICONTROLDISABLED_BYPASS)
 		aiControlDisabled = AICONTROLDISABLED_PERMA
+
+/obj/machinery/door/airlock/proc/airlock_cycle_callback(cmd)
+	cur_command = cmd
+	INVOKE_ASYNC(src, PROC_REF(execute_current_command))
+
+/obj/machinery/door/airlock/proc/execute_current_command()
+	if(operating || emagged)
+		return //emagged or busy doing something else
+
+	if(!cur_command)
+		return
+
+	do_command(cur_command)
+	if(command_completed(cur_command))
+		cur_command = null
+	else
+		START_PROCESSING(SSmachines, src)
+
+/obj/machinery/door/airlock/proc/do_command(command)
+	if(command_running)
+		return
+
+	command_running = TRUE
+	switch(command)
+		if("open")
+			open()
+
+		if("close")
+			close()
+
+		if("unlock")
+			unlock()
+
+		if("lock")
+			lock()
+
+		if("secure_open")
+			unlock()
+
+			sleep(2 SECONDS)
+			open()
+
+			lock()
+
+		if("secure_close")
+			unlock()
+			close()
+
+			lock()
+			sleep(2 SECONDS)
+
+	command_running = FALSE
+
+/obj/machinery/door/airlock/proc/command_completed(command)
+	switch(command)
+		if("open")
+			return (!density)
+
+		if("close")
+			return density
+
+		if("unlock")
+			return !locked
+
+		if("lock")
+			return locked
+
+		if("secure_open")
+			return (locked && !density)
+
+		if("secure_close")
+			return (locked && density)
+
+	return TRUE //Unknown command. Just assume it's completed.
+
+/obj/machinery/door/airlock/process()
+	if(arePowerSystemsOn() && cur_command)
+		execute_current_command()
+	else
+		return PROCESS_KILL
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING

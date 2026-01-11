@@ -704,7 +704,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
 "ce" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/plaza)
 "cf" = (
@@ -871,7 +871,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -1949,7 +1949,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "fj" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
@@ -2911,7 +2911,7 @@
 	},
 /area/awaymission/UO71/gateway)
 "hz" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "hA" = (
@@ -3942,7 +3942,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "kk" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/gateway)
 "kl" = (
@@ -5476,7 +5476,7 @@
 	},
 /area/awaymission/UO71/centralhall)
 "nu" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -6609,7 +6609,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/centralhall)
 "pu" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO71/eng)
 "pv" = (
@@ -7138,10 +7138,7 @@
 	},
 /area/awaymission/UO71/science)
 "qC" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7449,7 +7446,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
@@ -8194,7 +8191,7 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -8773,7 +8770,7 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "escape"
@@ -8781,7 +8778,7 @@
 /area/awaymission/UO71/eng)
 "tT" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "arrival"
@@ -9057,7 +9054,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO71/eng)
 "uv" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -9199,7 +9196,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -9237,7 +9234,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/plating,
 /area/awaymission/UO71/science)
@@ -9886,7 +9883,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
 "wm" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO71/eng)
 "wn" = (
@@ -9897,7 +9894,7 @@
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)
 "wo" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO71/eng)
 "wp" = (
@@ -9955,7 +9952,7 @@
 /turf/simulated/wall,
 /area/awaymission/UO71/mining)
 "ww" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -10138,7 +10135,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /turf/simulated/floor/plasteel{

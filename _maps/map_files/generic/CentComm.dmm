@@ -208,7 +208,7 @@
 /turf/simulated/floor/carpet,
 /area/centcom/zone2)
 "ads" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/turf_decal/bot_red,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
@@ -311,7 +311,7 @@
 /turf/simulated/floor/carpet/black,
 /area/wizard_station)
 "aef" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/indestructible/vox{
 	icon_state = "darkfull";
 	name = "floor"
@@ -394,7 +394,7 @@
 	},
 /area/shuttle/specops)
 "ahk" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/cleanable/blood/oil,
 /obj/effect/turf_decal/bot_red,
 /turf/simulated/floor/indestructible/vox{
@@ -3887,7 +3887,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/spacebar)
 "bRi" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -3953,7 +3953,7 @@
 	},
 /area/centcom/jail)
 "bSe" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
 "bSu" = (
@@ -7271,7 +7271,7 @@
 /obj/structure/sign/poster/official/air2{
 	pixel_y = -32
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/indestructible{
@@ -11377,7 +11377,7 @@
 	},
 /area/syndicate_mothership)
 "fsr" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -12964,7 +12964,7 @@
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
 "gdD" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
 "gdL" = (
@@ -15430,7 +15430,7 @@
 /area/ninja/outpost)
 "huK" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/toxins{
+/obj/machinery/atmospherics/portable/canister/toxins{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -18431,7 +18431,7 @@
 /obj/structure/sign/poster/official/help_others{
 	pixel_y = 32
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -19421,7 +19421,7 @@
 /area/syndicate_mothership/outside)
 "jvC" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -22545,7 +22545,7 @@
 /area/syndicate_mothership/control)
 "kRb" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -24874,7 +24874,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1;
 	maximum_pressure = 50000
 	},
@@ -25887,7 +25887,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/bridge)
 "mqp" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/structure/curtain/black{
 	pixel_x = -32;
 	pixel_y = 32
@@ -28312,7 +28312,7 @@
 /area/centcom/specops)
 "nov" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -28373,7 +28373,7 @@
 /area/syndicate_mothership/control)
 "npO" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -30954,7 +30954,7 @@
 	},
 /area/syndicate_mothership/elite_squad)
 "osM" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -32999,7 +32999,7 @@
 /area/shuttle/ninja)
 "psn" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -33475,7 +33475,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate_mothership/infteam)
 "pCg" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plasteel{
@@ -35374,7 +35374,7 @@
 	dir = 1;
 	id = "CO2"
 	},
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plasteel{
@@ -38499,7 +38499,7 @@
 	dir = 1;
 	id = "N2"
 	},
-/obj/machinery/portable_atmospherics/canister/nitrogen{
+/obj/machinery/atmospherics/portable/canister/nitrogen{
 	maximum_pressure = 50000
 	},
 /turf/simulated/floor/plasteel{
@@ -39269,7 +39269,7 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/siberia)
 "sgW" = (
-/obj/machinery/portable_atmospherics/canister/toxins{
+/obj/machinery/atmospherics/portable/canister/toxins{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -40161,7 +40161,7 @@
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone1)
 "sDD" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor12"
 	},
@@ -41375,7 +41375,7 @@
 /turf/simulated/floor/indestructible/snow,
 /area/ninja/outside)
 "tdy" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -41696,7 +41696,7 @@
 /area/shuttle/administration)
 "tlp" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -41784,7 +41784,7 @@
 	dir = 8;
 	tag = "icon-tube1 (WEST)"
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -42374,7 +42374,7 @@
 /turf/simulated/floor/indestructible/grass,
 /area/syndicate_mothership/outside)
 "tzz" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/machinery/light/spot,
 /turf/simulated/floor/shuttle/objective_check/vox,
 /area/shuttle/vox)
@@ -43698,7 +43698,7 @@
 /area/centcom/zone1)
 "udj" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/portable_atmospherics/canister/nitrogen{
+/obj/machinery/atmospherics/portable/canister/nitrogen{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{
@@ -45981,7 +45981,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	icon_state = "bot"
@@ -50396,7 +50396,7 @@
 /area/syndicate_mothership/infteam)
 "xjM" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	maximum_pressure = 50000
 	},
 /obj/structure/window/reinforced{

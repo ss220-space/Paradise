@@ -125,7 +125,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2139,7 +2139,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2823,7 +2823,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cxM" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2851,7 +2851,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "czF" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2863,7 +2863,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2907,19 +2907,19 @@
 /turf/simulated/floor/plating/ice,
 /area/ruin/unpowered)
 "cDJ" = (
-/obj/machinery/portable_atmospherics/canister/air{
+/obj/machinery/atmospherics/portable/canister/air{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/air,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cEc" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/o2,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cEw" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen{
+/obj/machinery/atmospherics/portable/canister/nitrogen{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n2,
@@ -4484,7 +4484,7 @@
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ebW" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -5554,7 +5554,7 @@
 "fcd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
 /turf/simulated/floor/engine,
@@ -6741,7 +6741,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 6
 	},
 /obj/structure/cable{
@@ -6862,7 +6862,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "gtG" = (
@@ -7708,7 +7708,7 @@
 "hdC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
@@ -7791,7 +7791,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/scrubber/huge,
+/obj/machinery/atmospherics/portable/scrubber/huge,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "hii" = (
@@ -8431,7 +8431,7 @@
 /turf/simulated/floor/engine/n20,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "hLs" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent{
+/obj/machinery/atmospherics/portable/canister/sleeping_agent{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/n20,
@@ -8486,10 +8486,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "hPb" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -8529,7 +8526,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -9023,7 +9020,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/structure/window/reinforced{
@@ -9986,7 +9983,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10719,7 +10716,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10763,7 +10760,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "jIH" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10771,7 +10768,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "jJp" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide,
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light{
 	dir = 1;
@@ -10783,7 +10780,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "jJy" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10792,7 +10789,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "jJG" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -10800,7 +10797,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "jJJ" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11783,7 +11780,7 @@
 "kLT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/insulated,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "kOB" = (
@@ -12250,7 +12247,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "lho" = (
-/obj/machinery/power/generator,
+/obj/machinery/power/teg,
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -12357,7 +12354,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "lmZ" = (
-/obj/machinery/portable_atmospherics/canister/toxins{
+/obj/machinery/atmospherics/portable/canister/toxins{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/plasma,
@@ -12948,7 +12945,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "lEO" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -12962,7 +12959,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "lFN" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12970,7 +12967,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "lGg" = (
-/obj/machinery/portable_atmospherics/canister/sleeping_agent,
+/obj/machinery/atmospherics/portable/canister/sleeping_agent,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -12989,7 +12986,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "lGJ" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12998,7 +12995,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "lHd" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -13052,9 +13049,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater/on{
 	dir = 1;
-	on = 1
+	
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13225,7 +13222,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "lTV" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -13306,7 +13303,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lXG" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -14682,7 +14679,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/green{
 	dir = 6
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -15944,7 +15941,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "nTl" = (
-/obj/machinery/portable_atmospherics/canister/carbon_dioxide{
+/obj/machinery/atmospherics/portable/canister/carbon_dioxide{
 	anchored = 1
 	},
 /turf/simulated/floor/engine/co2,
@@ -16547,7 +16544,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -18749,7 +18746,7 @@
 /turf/simulated/floor/redgrid,
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qcl" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -19209,7 +19206,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -22017,7 +22014,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "sPN" = (
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /turf/simulated/floor/engine,
@@ -23884,7 +23881,7 @@
 	pixel_y = -24
 	},
 /obj/structure/cable,
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -25014,8 +25011,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
 "uPQ" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
-/obj/effect/turf_decal/tile/blue{
+/obj/machinery/atmospherics/unary/thermomachine/freezer/obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -25703,7 +25699,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/insulated{
+/obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
 /obj/structure/closet/bombcloset,

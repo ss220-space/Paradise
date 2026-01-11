@@ -1818,7 +1818,7 @@
 /area/ruin/space/spacebotany/WestGarden)
 "xx" = (
 /obj/machinery/light,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/Dorm)
 "xD" = (

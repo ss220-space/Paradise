@@ -1,4 +1,4 @@
-/obj/machinery/power/generator
+/obj/machinery/power/teg
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
 	icon_state = "teg"
@@ -18,20 +18,20 @@
 	var/light_range_on = 1
 	var/light_power_on = 0.1 //just dont want it to be culled by byond.
 
-/obj/machinery/power/generator/Initialize(mapload)
+/obj/machinery/power/teg/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 	connect()
 
-/obj/machinery/power/generator/update_desc(updates = ALL)
+/obj/machinery/power/teg/update_desc(updates = ALL)
 	. = ..()
 	desc = initial(desc) + " Its cold circulator is located on the [dir2text(cold_dir)] side, and its heat circulator is located on the [dir2text(hot_dir)] side."
 
-/obj/machinery/power/generator/Destroy()
+/obj/machinery/power/teg/Destroy()
 	disconnect()
 	return ..()
 
-/obj/machinery/power/generator/proc/disconnect()
+/obj/machinery/power/teg/proc/disconnect()
 	if(cold_circ)
 		cold_circ.generator = null
 	if(hot_circ)
@@ -39,7 +39,7 @@
 	if(powernet)
 		disconnect_from_network()
 
-/obj/machinery/power/generator/proc/connect()
+/obj/machinery/power/teg/proc/connect()
 	connect_to_network()
 
 	var/obj/machinery/atmospherics/binary/circulator/circpath = /obj/machinery/atmospherics/binary/circulator
@@ -62,7 +62,7 @@
 	update_icon(UPDATE_OVERLAYS)
 	updateDialog()
 
-/obj/machinery/power/generator/power_change(forced = FALSE)
+/obj/machinery/power/teg/power_change(forced = FALSE)
 	. = ..()
 	if(!anchored)
 		stat |= NOPOWER
@@ -72,7 +72,7 @@
 		set_light(light_range_on, light_power_on)
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/power/generator/update_overlays()
+/obj/machinery/power/teg/update_overlays()
 	. = ..()
 	underlays.Cut()
 	if(stat & (NOPOWER|BROKEN))
@@ -83,7 +83,7 @@
 	. += "teg-oc[lastcirc]"
 	underlays += emissive_appearance(icon, "teg-oc[lastcirc]", src)
 
-/obj/machinery/power/generator/process()
+/obj/machinery/power/teg/process()
 	if(stat & (NOPOWER|BROKEN))
 		return
 
@@ -148,21 +148,21 @@
 
 	updateDialog()
 
-/obj/machinery/power/generator/attack_ai(mob/user)
+/obj/machinery/power/teg/attack_ai(mob/user)
 	return attack_hand(user)
 
-/obj/machinery/power/generator/attack_ghost(mob/user)
+/obj/machinery/power/teg/attack_ghost(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	ui_interact(user)
 
-/obj/machinery/power/generator/attack_hand(mob/user)
+/obj/machinery/power/teg/attack_hand(mob/user)
 	if(..())
 		return
 
 	ui_interact(user)
 
-/obj/machinery/power/generator/multitool_act(mob/user, obj/item/I)
+/obj/machinery/power/teg/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -182,7 +182,7 @@
 	to_chat(user, span_notice("You reverse the generator's circulator settings. The cold circulator is now on the [dir2text(cold_dir)] side, and the heat circulator is now on the [dir2text(hot_dir)] side."))
 	update_appearance(UPDATE_DESC)
 
-/obj/machinery/power/generator/wrench_act(mob/user, obj/item/I)
+/obj/machinery/power/teg/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -194,16 +194,16 @@
 		connect()
 	to_chat(user, span_notice("You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor."))
 
-/obj/machinery/power/generator/ui_state(mob/user)
+/obj/machinery/power/teg/ui_state(mob/user)
 	return GLOB.default_state
 
-/obj/machinery/power/generator/ui_interact(mob/user, datum/tgui/ui = null)
+/obj/machinery/power/teg/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "TEG",  name)
 		ui.open()
 
-/obj/machinery/power/generator/ui_data(mob/user)
+/obj/machinery/power/teg/ui_data(mob/user)
 	var/list/data = list()
 	if(!powernet)
 		data["error"] = "Unable to connect to the power network!"
@@ -233,7 +233,7 @@
 		data["error"] = "Unable to locate all parts!"
 	return data
 
-/obj/machinery/power/generator/ui_act(action, params)
+/obj/machinery/power/teg/ui_act(action, params)
 	if(..())
 		return
 	if(action == "check")

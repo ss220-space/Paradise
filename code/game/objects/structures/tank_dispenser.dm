@@ -146,7 +146,7 @@
 	to_chat(user, span_notice("You have put [tank] into [src]."))
 	SStgui.update_uis(src)
 
-/obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)
+/obj/structure/dispenser/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
 		for(var/X in src)
 			var/obj/item/I = X

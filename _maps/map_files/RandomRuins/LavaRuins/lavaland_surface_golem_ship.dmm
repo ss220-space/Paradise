@@ -361,7 +361,7 @@
 /turf/simulated/floor/carpet/black,
 /area/shuttle/freegolem)
 "qD" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "rq" = (

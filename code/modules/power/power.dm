@@ -101,9 +101,17 @@
 /obj/machinery/proc/removeStaticPower(value, powerchannel)
 	addStaticPower(-value, powerchannel)
 
-/obj/machinery/proc/power_change(forced = FALSE)		// called whenever the power settings of the containing area change
-										// by default, check equipment channel & set flag
-	var/old_stat = stat					// can override if needed
+/**
+ * # power_change()
+ *
+ * Checks to see if the machines set power channel is powered and updates stat accordingly
+ * returns TRUE if machine's stat changes, returns FALSE if it does not, this is to make sure machines dont
+ * update their icon/overlays/lighting uneccesarily if it's contigent on NOPOWER
+ *
+ * NOTE: Subtypes of machinery should call parent here unless they change this proc's behaviour regarding NOPOWER
+*/
+/obj/machinery/proc/power_change(forced = FALSE)
+	var/old_stat = stat
 	if(powered(power_channel))
 		stat &= ~NOPOWER
 	else

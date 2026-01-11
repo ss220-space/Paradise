@@ -2638,7 +2638,7 @@
 /area/awaymission/BMPship/Kitchen)
 "ht" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/awaymission/BMPship/Engines)
@@ -2987,7 +2987,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "iz" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Mining)
 "iA" = (
@@ -3169,7 +3169,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "je" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/ChemLab)
 "jg" = (

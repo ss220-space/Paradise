@@ -1943,9 +1943,6 @@
 /area/lavaland/surface/outdoors)
 "Py" = (
 /obj/machinery/power/terminal,
-/obj/machinery/atmospherics/binary/dp_vent_pump{
-	pixel_x = -2
-	},
 /obj/machinery/atmospherics/pipe/simple/visible/supply{
 	dir = 9;
 	pixel_x = -2

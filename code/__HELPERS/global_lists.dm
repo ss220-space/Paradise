@@ -517,7 +517,7 @@ GLOBAL_LIST_INIT(wallitems_interior, typecacheof(list(
 	/obj/machinery/defibrillator_mount,
 	/obj/machinery/door_control,
 	/obj/machinery/door_timer,
-	/obj/machinery/embedded_controller/radio/airlock,
+	/obj/machinery/airlock_controller,
 	/obj/machinery/firealarm,
 	/obj/machinery/flasher,
 	/obj/machinery/keycard_auth,

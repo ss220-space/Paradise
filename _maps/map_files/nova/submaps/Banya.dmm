@@ -434,7 +434,7 @@
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
 "mF" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/maintenance/consarea)
@@ -897,7 +897,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "xf" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/warning_stripes/southeast,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,

@@ -187,10 +187,7 @@
 	return TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
-	..()
-	if(!node)
-		return
-	if(!on)
+	if(!node || !on)
 		return
 
 	if(air_contents)

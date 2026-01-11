@@ -5,20 +5,24 @@
 	layer = GAS_PIPE_VISIBLE_LAYER
 
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers
-	name = "Scrubbers pipe"
-	desc = "A one meter section of scrubbers pipe"
+	name = "scrubbers pipe"
+	desc = "A one meter section of scrubbers pipe."
 	icon_state = "intact-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
 	color = PIPE_COLOR_RED
 
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers/examine(mob/user)
+	. = ..()
+	. += span_notice("This is a special 'scubber' pipe, which does not connect to 'normal' pipes. If you want to connect it, use a Universal Adapter pipe.")
+
 /obj/machinery/atmospherics/pipe/simple/visible/supply
-	name = "Air supply pipe"
-	desc = "A one meter section of supply pipe"
+	name = "air supply pipe"
+	desc = "A one meter section of supply pipe."
 	icon_state = "intact-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
@@ -43,10 +47,14 @@
 	color = PIPE_COLOR_BLUE
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal
-	name="Universal pipe adapter"
-	desc = "An adapter for regular, supply and scrubbers pipes"
-	connect_types = list(1,2,3)
+	name = "universal pipe adapter"
+	desc = "An adapter for regular, supply and scrubbers pipes."
+	connect_types = list(CONNECT_TYPE_NORMAL, CONNECT_TYPE_SUPPLY, CONNECT_TYPE_SCRUBBER)
 	icon_state = "map_universal"
+
+/obj/machinery/atmospherics/pipe/simple/visible/universal/examine(mob/user)
+	. = ..()
+	. += span_notice("This allows you to connect 'normal' pipes, red 'scrubber' pipes, and blue 'supply' pipes.")
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_overlays()
 	. = list()
@@ -55,7 +63,7 @@
 
 	alpha = 255
 
-	. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
+	. += GLOB.pipe_icon_manager.get_atmos_icon("pipe", color = pipe_color, state = "universal")
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/simple/visible/universal/update_underlays()
@@ -68,7 +76,7 @@
 		if(node2)
 			universal_underlays(node2)
 		else
-			var/node1_dir = get_dir(node1,src)
+			var/node1_dir = get_dir(node1, src)
 			universal_underlays(direction = node1_dir)
 	else if(node2)
 		universal_underlays(node2)

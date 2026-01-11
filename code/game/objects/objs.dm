@@ -38,17 +38,19 @@
 	var/on_blueprints = FALSE
 	/// Does this object require you to hold it to commit suicide with it?
 	var/suicidal_hands = FALSE
-	/// Typepath of a datum/multitool_menu subtype or null.
-	var/multitool_menu_type = null
-	var/datum/multitool_menu/multitool_menu
 
 	/// Amount of multiplicative slowdown applied if pulled/pushed. >1 makes you slower, <1 makes you faster.
 	var/pull_push_slowdown = 0
 
+	// Access levels, used in modules\jobs\access.dm
 	/// List of accesses needed to use this object: The user must possess all accesses in this list in order to use the object.
 	/// Example: If req_access = list(ACCESS_ENGINE, ACCESS_CE)- then the user must have both ACCESS_ENGINE and ACCESS_CE in order to use the object.
 	var/list/req_access
-	var/check_one_access = TRUE
+	/// List of accesses needed to use this object: The user must possess at least one access in this list in order to use the object.
+	/// Example: If req_one_access = list(ACCESS_ENGINE, ACCESS_CE)- then the user must have either ACCESS_ENGINE or ACCESS_CE in order to use the object.
+	var/list/req_one_access
+
+	var/check_one_access = TRUE // del this
 
 	/// Icon to use as a 32x32 preview in crafting menus and such
 	var/icon_preview
@@ -105,7 +107,6 @@
 		else
 			STOP_PROCESSING(SSfastprocess, src)
 	SStgui.close_uis(src)
-	QDEL_NULL(multitool_menu)
 	return ..()
 
 //user: The mob that is suiciding
@@ -318,13 +319,6 @@
 	// This proc handles safely removing occupant mobs from the object if they must be teleported out (due to being SSD/AFK, by admin teleport, etc) or transformed.
 	// In the event that the object doesn't have an overriden version of this proc to do it, log a runtime so one can be added.
 	CRASH("Proc force_eject_occupant() is not overriden on a machine containing a mob.")
-
-/obj/proc/multitool_menu_interact(mob/user, obj/item/multitool)
-	if(!multitool_menu_type)
-		return
-	if(!multitool_menu)
-		multitool_menu = new multitool_menu_type(src)
-	multitool_menu.interact(user, multitool)
 
 /proc/get_obj_in_atom_without_warning(atom/A)
 	if(!istype(A))

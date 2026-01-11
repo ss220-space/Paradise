@@ -1966,7 +1966,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
 "eX" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -2160,7 +2160,7 @@
 	},
 /area/derelict/engineer_area)
 "fu" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
@@ -7046,7 +7046,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -7529,7 +7529,7 @@
 /area/derelict/bridge)
 "vR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -9256,7 +9256,7 @@
 /obj/item/stack/cable_coil/cut{
 	amount = 1
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/derelict/engineer_area)
 "Pe" = (

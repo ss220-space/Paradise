@@ -56,7 +56,7 @@
 /area/ruin/space/pirate_base/virology)
 "af" = (
 /obj/machinery/light/small,
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
@@ -1219,7 +1219,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
@@ -1806,7 +1806,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "eW" = (
@@ -2261,7 +2261,7 @@
 /area/ruin/space/pirate_base/virology)
 "gi" = (
 /obj/effect/turf_decal/box,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "gj" = (
@@ -2506,7 +2506,7 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "gR" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
@@ -3300,7 +3300,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "jd" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "je" = (
@@ -4325,7 +4325,7 @@
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/atmos)
 "mg" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "mh" = (
@@ -5650,7 +5650,7 @@
 /area/ruin/space/pirate_base/security_maint)
 "pN" = (
 /obj/machinery/atmospherics/unary/portables_connector,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "pP" = (
@@ -5759,7 +5759,7 @@
 /turf/space,
 /area/space)
 "qd" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
@@ -8436,7 +8436,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "xY" = (
@@ -8625,7 +8625,7 @@
 	},
 /area/ruin/space/pirate_base/virology)
 "yE" = (
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	anchored = 1
 	},
 /obj/structure/sign/security{
@@ -10672,7 +10672,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 1
 	},
-/obj/machinery/portable_atmospherics/canister{
+/obj/machinery/atmospherics/portable/canister{
 	anchored = 1
 	},
 /turf/simulated/floor/plating,
@@ -11482,7 +11482,7 @@
 	pixel_x = 24;
 	req_access = list(160)
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -13766,7 +13766,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atmos)
 "NY" = (
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "NZ" = (
@@ -14035,7 +14035,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "OV" = (
@@ -14196,7 +14196,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "Pn" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
 "Po" = (
@@ -17010,7 +17010,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "XY" = (
@@ -17602,7 +17602,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	name = "Connector Port (Air Supply)"
 	},
-/obj/machinery/portable_atmospherics/canister/oxygen{
+/obj/machinery/atmospherics/portable/canister/oxygen{
 	name = "Canister: \[O2] (CRYO)"
 	},
 /obj/structure/window/reinforced{

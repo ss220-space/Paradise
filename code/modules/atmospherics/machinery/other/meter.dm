@@ -1,37 +1,34 @@
+GLOBAL_LIST_EMPTY(gas_meters)
+
 /obj/machinery/atmospherics/meter
 	name = "gas flow meter"
-	desc = "It measures something."
+	desc = "A meter used by experienced atmospheric technicians to determine pressure and temperature in a pipe."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/meter.dmi'
 	icon_state = "meterX"
 	can_unwrench = TRUE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
 	layer_offset = GAS_PUMP_OFFSET
-
-	var/obj/machinery/atmospherics/pipe/target = null
 	max_integrity = 150
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 40, ACID = 0)
-	frequency = ATMOS_DISTRO_FREQ
-	var/id
-	var/id_tag
 	idle_power_usage = 2
 	active_power_usage = 5
+	var/obj/machinery/atmospherics/pipe/target = null
 
 /obj/machinery/atmospherics/meter/Initialize(mapload)
-	. = ..(mapload)
-
+	. = ..()
+	GLOB.gas_meters += src
+	target = locate(/obj/machinery/atmospherics/pipe) in loc
 	AddComponent(/datum/component/usb_port, list(
 		/obj/item/circuit_component/atmos_meter,
 	))
 
-	SSair.atmos_machinery += src
-	target = locate(/obj/machinery/atmospherics/pipe) in loc
-	if(id && !id_tag)//i'm not dealing with further merge conflicts, fuck it
-		id_tag = id
-
 /obj/machinery/atmospherics/meter/Destroy()
-	SSair.atmos_machinery -= src
 	target = null
+	GLOB.gas_meters -= src
 	return ..()
+
+/obj/machinery/atmospherics/meter/process_atmos()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/meter/update_icon_state()
 	if(!target)
@@ -48,64 +45,23 @@
 		return
 
 	var/env_pressure = environment.return_pressure()
-	if(env_pressure <= 0.15*ONE_ATMOSPHERE)
+	if(env_pressure <= 0.15 * ONE_ATMOSPHERE)
 		icon_state = "meter0"
-	else if(env_pressure <= 1.8*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*0.3) + 0.5)
+	else if(env_pressure <= 1.8 * ONE_ATMOSPHERE)
+		var/val = round(env_pressure / (ONE_ATMOSPHERE * 0.3) + 0.5)
 		icon_state = "meter1_[val]"
-	else if(env_pressure <= 30*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*5)-0.35) + 1
+	else if(env_pressure <= 30 * ONE_ATMOSPHERE)
+		var/val = round(env_pressure / (ONE_ATMOSPHERE * 5) - 0.35) + 1
 		icon_state = "meter2_[val]"
-	else if(env_pressure <= 59*ONE_ATMOSPHERE)
-		var/val = round(env_pressure/(ONE_ATMOSPHERE*5) - 6) + 1
+	else if(env_pressure <= 59 * ONE_ATMOSPHERE)
+		var/val = round(env_pressure / (ONE_ATMOSPHERE * 5) - 6) + 1
 		icon_state = "meter3_[val]"
 	else
 		icon_state = "meter4"
 
-/obj/machinery/atmospherics/meter/process_atmos()
-	if(!target || (stat & (BROKEN|NOPOWER)))
-		update_icon(UPDATE_ICON_STATE)
-		return
-
-	var/datum/gas_mixture/environment = target.return_obj_air()
-	if(!environment)
-		update_icon(UPDATE_ICON_STATE)
-		return
-
-	update_icon(UPDATE_ICON_STATE)
-
-	if(!frequency)
-		return
-
-	var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
-	if(!radio_connection)
-		return
-
-	var/datum/signal/signal = new
-	signal.source = src
-	signal.transmission_method = 1
-	signal.data = list(
-		"tag" = id_tag,
-		"device" = "AM",
-		"pressure" = round(environment.return_pressure()),
-		"sigtype" = "status",
-	)
-	radio_connection.post_signal(src, signal)
-
-/obj/machinery/atmospherics/meter/proc/status()
-	var/t = ""
-	if(target)
-		var/datum/gas_mixture/environment = target.return_obj_air()
-		if(environment)
-			t += "The pressure gauge reads [round(environment.return_pressure(), 0.01)] kPa; [round(environment.temperature(), 0.01)]&deg;K ([round(environment.temperature() - T0C, 0.01)]&deg;C)"
-		else
-			t += "The sensor error light is blinking."
-	else
-		t += "The connect error light is blinking."
-	return t
-
 /obj/machinery/atmospherics/meter/examine(mob/user)
 	. = ..()
+	. += span_notice("Measures the volume and temperature of the pipe under the meter.")
 	if(get_dist(user, src) > 3 && !(istype(user, /mob/living/silicon/ai) || istype(user, /mob/dead)))
 		. += span_boldnotice("You are too far away to read it.")
 
@@ -122,9 +78,9 @@
 		. += span_warning("The connect error light is blinking.")
 
 /obj/machinery/atmospherics/meter/Click()
-	if(istype(usr, /mob/living/silicon/ai)) // ghosts can call ..() for examine
+	if(isAI(usr)) // ghosts can call ..() for examine
 		usr.examinate(src)
-		return 1
+		return TRUE
 
 	return ..()
 
@@ -137,7 +93,6 @@
 	..()
 	if(current_size >= STAGE_FIVE)
 		deconstruct()
-
 
 /obj/item/circuit_component/atmos_meter
 	display_name = "Атмосферный измеритель"

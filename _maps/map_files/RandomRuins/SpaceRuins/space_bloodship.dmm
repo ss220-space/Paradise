@@ -27,7 +27,7 @@
 /turf/simulated/mineral/random,
 /area/ruin/unpowered)
 "nl" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine/cult,
 /area/ruin/unpowered)
 "oc" = (

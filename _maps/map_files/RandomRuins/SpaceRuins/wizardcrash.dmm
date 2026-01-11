@@ -463,7 +463,7 @@
 	},
 /area/ruin/unpowered)
 "bD" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "bE" = (

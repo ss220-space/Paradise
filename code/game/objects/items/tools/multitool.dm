@@ -13,7 +13,7 @@
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	belt_icon = "multitool"
 	flags = CONDUCT
-	force = 5.0
+	force = 5
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
@@ -26,11 +26,16 @@
 	hitsound = 'sound/weapons/tap.ogg'
 	/// Shows what a wire does if set to TRUE
 	var/shows_wire_information = FALSE
-	/// Simple machine buffer for device linkage
-	var/obj/machinery/buffer
-	var/datum/multitool_menu_host/menu
+	/// Reference to whatever machine is held in the buffer
+	var/obj/machinery/buffer // TODO - Make this a soft ref to tie into whats below
+	/// Soft-ref for linked stuff. This should be used over the above var.
+	var/buffer_uid
+	/// If TRUE, the multitool is protected from EMP effects and will not break when they occur.
 	var/emp_shielded = FALSE
+	/// The type of object that is created when the multitool from EMP is broken.
 	var/broken_type = /obj/item/multitool_broken
+	/// Cooldown for detecting APCs
+	COOLDOWN_DECLARE(cd_apc_scan)
 
 /obj/item/multitool/get_ru_names()
 	return list(
@@ -42,9 +47,9 @@
 		PREPOSITIONAL = "мультиметре",
 	)
 
-/obj/item/multitool/Initialize(mapload)
-	. = ..()
-	menu = new(src)
+/obj/item/multitool/Destroy()
+	buffer = null
+	return ..()
 
 /obj/item/multitool/emp_act(severity)
 	if(emp_shielded)
@@ -55,11 +60,6 @@
 		holder.temporarily_remove_item_from_inventory(src)
 		holder.put_in_hands(broken_item)
 	qdel(src)
-
-/obj/item/multitool/proc/IsBufferA(typepath)
-	if(!buffer)
-		return 0
-	return istype(buffer,typepath)
 
 /obj/item/multitool/multitool_check_buffer(user, silent = FALSE)
 	return TRUE
@@ -74,12 +74,18 @@
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)
-	menu.interact(user)
-
-/obj/item/multitool/Destroy()
-	buffer = null
-	QDEL_NULL(menu)
-	return ..()
+	if(!COOLDOWN_FINISHED(src, cd_apc_scan))
+		return
+	COOLDOWN_START(src, cd_apc_scan, 1.5 SECONDS)
+	var/area/local_area = get_area(src)
+	var/obj/machinery/power/apc/apc = local_area?.get_apc()
+	if(!apc)
+		to_chat(user, span_warning("No APC detected."))
+		return
+	if(get_turf(src) == get_turf(apc)) // we're standing on top of it
+		to_chat(user, span_notice("APC detected 0 meters [dir2rustext(apc.dir)]."))
+		return
+	to_chat(user, span_notice("APC detected [get_dist(src, apc)] meter\s [dir2rustext(get_dir(src, apc))]."))
 
 /obj/item/multitool_broken
 	name = "broken multimeter"
@@ -116,8 +122,8 @@
 	origin_tech = "magnets=1;engineering=2;syndicate=1"
 	emp_shielded = TRUE
 
-/obj/item/multitool/ai_detect/New()
-	..()
+/obj/item/multitool/ai_detect/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/multitool/ai_detect/Destroy()

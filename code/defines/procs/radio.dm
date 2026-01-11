@@ -61,7 +61,7 @@
 	tcm.message_pieces = message_pieces
 	tcm.sender_job = "Автоматическое оповещение"
 	tcm.vname = "синтезированный голос"
-	tcm.data = SIGNALTYPE_AINOTRACK
+	tcm.signal_type = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
 	tcm.source_level = sender_loc?.z || levels_by_trait(MAIN_STATION)[1] // For anyone that reads this: This used to pull from a LIST from the CONFIG DATUM. WHYYYYYYYYY!!!!!!!! -aa
 																			// Assume main station level if we dont have an actual Z level available to us.

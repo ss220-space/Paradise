@@ -1,6 +1,4 @@
-/////////////////////////////////////////////
-//Guest pass ////////////////////////////////
-/////////////////////////////////////////////
+// MARK: guest pass
 /obj/item/card/id/guest
 	name = "guest pass"
 	desc = "Allows temporary access to station areas."
@@ -28,12 +26,10 @@
 		. += span_notice("[get_access_desc(A)].")
 	. += span_notice("Issuing reason: [reason].")
 
-/////////////////////////////////////////////
-//Guest pass terminal////////////////////////
-/////////////////////////////////////////////
-
+// MARK: guest pass terminal
 /obj/machinery/computer/guestpass
 	name = "guest pass terminal"
+	desc = "This console allows staff to give out temporary access to their coworkers."
 	icon_state = "guest"
 	icon_screen = "pass"
 	icon_keyboard = null
@@ -46,7 +42,15 @@
 	var/duration = 5
 
 	var/list/internal_log = list()
-	var/mode = 0  // 0 - making pass, 1 - viewing logs
+	/// FALSE - making pass, TRUE - viewing logs
+	var/mode = FALSE
+
+	var/static/global_terminal_id = 0
+	var/my_terminal_id
+
+/obj/machinery/computer/guestpass/Initialize(mapload)
+	. = ..()
+	my_terminal_id = ++global_terminal_id
 
 /obj/machinery/computer/guestpass/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -85,7 +89,7 @@
 		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
 		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
 	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
+		dat += "<h3>Guest pass terminal #[global_terminal_id]</h3><br>"
 		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
 		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
 		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
@@ -157,7 +161,7 @@
 						giver = I
 				updateUsrDialog()
 			if("print")
-				var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
+				var/dat = "<h3>Activity log of guest pass terminal #[global_terminal_id]</h3><br>"
 				for(var/entry in internal_log)
 					dat += "[entry]<br><hr>"
 				var/obj/item/paper/P = new/obj/item/paper( loc )
@@ -217,7 +221,7 @@
 		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
 		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
 	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
+		dat += "<h3>Guest pass terminal #[global_terminal_id]</h3><br>"
 		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
 		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
 		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"

@@ -150,7 +150,7 @@
 	},
 /area/ruin/powered/shuttle)
 "F" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
 	tag = "icon-dark"

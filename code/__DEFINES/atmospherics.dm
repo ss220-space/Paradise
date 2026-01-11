@@ -23,6 +23,10 @@
 #define T20C 293.15
 /// 100degC
 #define T100C 373.15
+/// -14C - Temperature used for kitchen cold room, medical freezer, etc.
+#define COLD_ROOM_TEMP 259.15
+/// -193C - Temperature used for server rooms
+#define SERVER_ROOM_TEMP 80
 
 #define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION)) //moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO (MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -170,19 +174,6 @@
 #define VENTCRAWL_ENTRANCE_ALLOWED (1<<1)
 ///Used to check if a machinery is visible. Called by update_pipe_vision(). On by default for all except cryo.
 #define VENTCRAWL_CAN_SEE (1<<2)
-
-GLOBAL_LIST_EMPTY(gas_sensors)
-
-#define SENSOR_SCAN_PRESSURE (1<<0)
-#define SENSOR_SCAN_TEMPERATURE (1<<1)
-
-#define SENSOR_COMPOSITION_OXYGEN (1<<2)
-#define SENSOR_COMPOSITION_TOXINS (1<<3)
-#define SENSOR_COMPOSITION_NITROGEN (1<<4)
-#define SENSOR_COMPOSITION_CO2 (1<<5)
-#define SENSOR_COMPOSITION_N2O (1<<6)
-#define SENSOR_COMPOSITION_H2 (1<<7)
-#define SENSOR_COMPOSITION_H2O (1<<8)
 
 /// Maximum germ level you can reach by standing still
 #define GERM_LEVEL_AMBIENT 110

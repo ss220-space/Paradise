@@ -308,7 +308,7 @@
 	},
 /area/maintenance/electrical_shop)
 "qA" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -614,7 +614,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "Db" = (
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
@@ -907,7 +907,7 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
 "Rh" = (
@@ -1108,7 +1108,7 @@
 /turf/simulated/floor/carpet/red,
 /area/maintenance/electrical_shop)
 "XT" = (
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 8
 	},

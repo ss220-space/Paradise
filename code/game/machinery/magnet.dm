@@ -22,7 +22,7 @@
 	anchored = TRUE
 	idle_power_usage = 50
 	/// Radio frequency
-	var/freq = AIRLOCK_FREQ
+	var/freq = MAGNET_FREQ
 	/// Intensity of the magnetic pull
 	var/electricity_level = MIN_ELECTRICITY_LEVEL
 	/// The range of magnetic attraction
@@ -179,13 +179,17 @@
 	magpulling = FALSE
 
 /obj/machinery/magnetic_controller
-	name = "Magnetic Control Console"
+	name = "magnetic control console"
 	icon = 'icons/obj/machines/airlock_machines.dmi' // uses an airlock machine icon, THINK GREEN HELP THE ENVIRONMENT - RECYCLING!
 	icon_state = "airlock_control_standby"
 	density = TRUE
 	anchored = TRUE
 	idle_power_usage = 45
-	frequency = AIRLOCK_FREQ
+
+	// this is a temp measure
+	var/frequency = MAGNET_FREQ
+	var/datum/radio_frequency/radio_connection
+
 	var/code = 0
 	var/list/magnets = list()
 	var/title = "Magnetic Control Console"

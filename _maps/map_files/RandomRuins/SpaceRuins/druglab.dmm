@@ -114,7 +114,7 @@
 /turf/simulated/floor/plating,
 /area/exploration/methlab)
 "x" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plating,
 /area/exploration/methlab)
 "y" = (

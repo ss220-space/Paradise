@@ -66,12 +66,6 @@
 		if(a_right != D)
 			a_right.pulsed()
 
-	if(master)
-		var/datum/signal/signal = new
-		signal.source = src
-		signal.user = user
-		master.receive_signal(signal)
-
 	return TRUE
 
 /obj/item/assembly_holder/update_overlays()

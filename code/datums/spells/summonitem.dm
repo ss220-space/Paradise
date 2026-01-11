@@ -79,8 +79,8 @@
 							to_chat(human, span_warning("The [item_to_retrieve] that was embedded into you has mysteriously vanished. How fortunate!"))
 
 				else
-					if(istype(item_to_retrieve.loc,/obj/machinery/portable_atmospherics/)) //Edge cases for moved machinery
-						var/obj/machinery/portable_atmospherics/P = item_to_retrieve.loc
+					if(istype(item_to_retrieve.loc,/obj/machinery/atmospherics/portable/)) //Edge cases for moved machinery
+						var/obj/machinery/atmospherics/portable/P = item_to_retrieve.loc
 						P.disconnect()
 						P.update_icon()
 					if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))

@@ -17,7 +17,7 @@ Pipelines + Other Objects -> Pipe network
 	layer = GAS_PIPE_HIDDEN_LAYER //under wires
 
 	/// Generic over VISIBLE and HIDDEN, should be less than 0.01, or you'll reorder non-pipe things.
-	var/layer_offset = 0.0
+	var/layer_offset = 0
 	/// Can this be unwrenched?
 	var/can_unwrench = FALSE
 	/// Can this be put under a tile?
@@ -28,6 +28,9 @@ Pipelines + Other Objects -> Pipe network
 	var/welded = FALSE
 	/// The bitflag that's being checked on ventcrawling. Default is to allow ventcrawling and seeing pipes.
 	var/vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE
+
+	/// The amount of pressure the machine wants to operate at.
+	var/target_pressure = 0
 
 	// Vars below this point are all pipe related
 	// I know not all subtypes are pipes, but this helps
@@ -44,6 +47,9 @@ Pipelines + Other Objects -> Pipe network
 	var/pipe_color
 	/// The image of the pipe/device used for ventcrawling
 	var/image/pipe_vision_img
+
+	/// ID for automatic linkage of stuff. This is used to assist in connections at mapload. Dont try use it for other stuff
+	var/autolink_id = null
 
 /obj/machinery/atmospherics/Initialize(mapload)
 	var/turf/turf_loc = null
@@ -78,12 +84,6 @@ Pipelines + Other Objects -> Pipe network
 	if((vent_movement & VENTCRAWL_ENTRANCE_ALLOWED) && is_ventcrawler(user))
 		. += span_notice("Alt-click to crawl through it.")
 
-/obj/machinery/atmospherics/set_frequency(new_frequency)
-	SSradio.remove_object(src, frequency)
-	frequency = new_frequency
-	if(frequency)
-		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
-
 // Icons/overlays/underlays
 /obj/machinery/atmospherics/update_icon_state()
 	switch(level)
@@ -100,7 +100,7 @@ Pipelines + Other Objects -> Pipe network
 	SET_PLANE_EXPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, T)
 
 /obj/machinery/atmospherics/proc/check_icon_cache()
-	if(!SSair.icon_manager)
+	if(!istype(GLOB.pipe_icon_manager))
 		return FALSE
 	return TRUE
 
@@ -114,14 +114,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type)
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "exposed" + icon_connect_type)
 
 /obj/machinery/atmospherics/proc/update_underlays()
 	return check_icon_cache()
@@ -411,14 +411,14 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/atmospherics/proc/add_underlay_adapter(turf/T, obj/machinery/atmospherics/node, direction, icon_connect_type) //modified from add_underlay, does not make exposed underlays
 	if(node)
 		if(T.intact && node.level == 1 && istype(node, /obj/machinery/atmospherics/pipe) && !T.transparent_floor)
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "down" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 	else
 		if(T.transparent_floor) //we want to keep pipes under transparent floors connected normally
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "intact" + icon_connect_type)
 		else
-			underlays += SSair.icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
+			underlays += GLOB.pipe_icon_manager.get_atmos_icon("underlay", direction, color_cache_name(node), "retracted" + icon_connect_type)
 
 /obj/machinery/atmospherics/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
@@ -459,3 +459,19 @@ Pipelines + Other Objects -> Pipe network
 	update_icon()
 	update_pipe_image()
 
+/**
+ * Maxes the output pressure of the machine. If this is done by a user, display a message to them.
+ *
+ * NOTE: Only applies to atmospherics machines which allow a `target_pressure` to be set, such as pumps, or other devices.
+ *
+ * Arguments:
+ * * user - the mob who is setting the output pressure to maximum.
+ */
+/obj/machinery/atmospherics/proc/set_max(mob/living/user)
+	if(!powered())
+		return
+
+	target_pressure = MAX_OUTPUT_PRESSURE
+	update_icon()
+	if(user)
+		to_chat(user, span_notice("You set the target pressure of [src] to maximum."))

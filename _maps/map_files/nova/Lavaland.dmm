@@ -3329,7 +3329,7 @@
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/mine/lobby)
 "uS" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "Labor Camp Storage";
@@ -6527,7 +6527,7 @@
 /area/mine/necropolis)
 "MS" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -7331,7 +7331,7 @@
 /turf/simulated/floor/plating,
 /area/mine/eva)
 "Rm" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "brown"

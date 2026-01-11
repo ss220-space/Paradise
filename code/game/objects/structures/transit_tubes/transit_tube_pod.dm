@@ -164,9 +164,9 @@
 //  datum, there might be problems if I don't...
 /obj/structure/transit_tube_pod/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
-	var/datum/gas_mixture/GM = new()
-	GM.copy_from(air_contents)
-	return GM
+	var/datum/gas_mixture/air = new()
+	air.copy_from(air_contents)
+	return air
 
 // Called when a pod arrives at, and before a pod departs from a station,
 //  giving it a chance to mix its internal air supply with the turf it is

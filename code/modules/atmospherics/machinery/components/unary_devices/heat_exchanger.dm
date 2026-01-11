@@ -1,18 +1,14 @@
 /obj/machinery/atmospherics/unary/heat_exchanger
+	name = "heat exchanger"
+	desc = "Exchanges heat between two input gases. Set up for fast heat transfer."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/heat_exchanger.dmi'
 	icon_state = "intact"
-
-	name = "heat exchanger"
-	desc = "Exchanges heat between two input gases. Setup for fast heat transfer"
-
 	can_unwrench = TRUE
 
 	var/obj/machinery/atmospherics/unary/heat_exchanger/partner = null
 	var/update_cycle
 
 /obj/machinery/atmospherics/unary/heat_exchanger/update_icon_state()
-	..()
-
 	if(node)
 		icon_state = "intact"
 	else
@@ -20,7 +16,7 @@
 
 /obj/machinery/atmospherics/unary/heat_exchanger/atmos_init()
 	if(!partner)
-		var/partner_connect = turn(dir,180)
+		var/partner_connect = turn(dir, 180)
 
 		for(var/obj/machinery/atmospherics/unary/heat_exchanger/target in get_step(src,partner_connect))
 			if(target.dir & get_dir(src,target))
@@ -31,12 +27,11 @@
 	..()
 
 /obj/machinery/atmospherics/unary/heat_exchanger/process_atmos()
-	..()
 	if(!partner)
-		return 0
+		return FALSE
 
 	if(!SSair || SSair.milla_tick <= update_cycle)
-		return 0
+		return FALSE
 
 	update_cycle = SSair.milla_tick
 	partner.update_cycle = SSair.milla_tick

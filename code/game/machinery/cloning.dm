@@ -222,11 +222,12 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 		. += span_notice("Процесс клонирования завершён на [round(get_completion())]%.")
 
 /obj/machinery/clonepod/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	//non-reactive air
-	var/datum/gas_mixture/GM = new
-	GM.set_nitrogen(MOLES_O2STANDARD + MOLES_N2STANDARD)
-	GM.set_temperature(T20C)
-	return GM
+	var/datum/gas_mixture/air = new
+	air.set_nitrogen(MOLES_O2STANDARD + MOLES_N2STANDARD)
+	air.set_temperature(T20C)
+	return air
 
 /obj/machinery/clonepod/proc/get_completion()
 	. = (100 * ((occupant.health + 100) / (heal_level + 100)))

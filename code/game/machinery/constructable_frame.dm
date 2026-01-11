@@ -448,9 +448,8 @@ to destroy them and players will be able to make replacements.
 	)
 
 /obj/item/circuitboard/thermomachine
-	board_name = "Freezer"
-	desc = "Use screwdriver to switch between heating and cooling modes."
-	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+	board_name = "Thermomachine"
+	build_path = /obj/machinery/atmospherics/unary/thermomachine
 	board_type = "machine"
 	origin_tech = "programming=3;plasmatech=3"
 	req_components = list(
@@ -459,19 +458,6 @@ to destroy them and players will be able to make replacements.
 		/obj/item/stack/cable_coil = 1,
 		/obj/item/stack/sheet/glass = 1,
 	)
-
-/obj/item/circuitboard/thermomachine/screwdriver_act(mob/living/user, obj/item/I)
-	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return .
-	if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
-		build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-		board_name = "Heater"
-		to_chat(user, span_notice("You set the board to heating."))
-	else
-		build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
-		board_name = "Freezer"
-		to_chat(user, span_notice("You set the board to cooling."))
 
 /obj/item/circuitboard/cell_charger
 	board_name = "Cell Recharger"

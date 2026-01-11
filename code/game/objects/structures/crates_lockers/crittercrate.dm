@@ -26,6 +26,7 @@
 	QDEL_NULL(env)
 
 /obj/structure/closet/critter/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return env
 
 /obj/structure/closet/critter/return_analyzable_air()

@@ -1,17 +1,17 @@
-/obj/machinery/atmospherics/pipe/multiz ///This is an atmospherics pipe which can relay air up and down deck (Z+1).
+/// This is an atmospherics pipe which can relay air up/down a deck.
+/obj/machinery/atmospherics/pipe/multiz
 	name = "multi deck pipe adapter"
 	desc = "An adapter which allows pipes to connect to other pipenets on different decks."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/pipes.dmi'
 	icon_state = "multiz"
-	layer = GAS_PIPE_VISIBLE_LAYER+0.1
-
+	layer = GAS_PIPE_VISIBLE_LAYER + 0.1
 	volume = 105
+	can_be_undertile = FALSE
+	can_buckle = FALSE
 
 	var/obj/machinery/atmospherics/node
 	var/obj/machinery/atmospherics/pipe/multiz/above
 	var/obj/machinery/atmospherics/pipe/multiz/below
-	can_be_undertile = FALSE
-	can_buckle = FALSE
 
 /*
 /obj/machinery/atmospherics/pipe/multiz/update_icon()
@@ -24,8 +24,9 @@
 	add_overlay(multiz_overlay_node)
 */
 
-/obj/machinery/atmospherics/pipe/multiz/New()
-	..()
+/obj/machinery/atmospherics/pipe/multiz/Initialize(mapload)
+	. = ..()
+	
 	initialize_directions = dir
 
 /obj/machinery/atmospherics/pipe/multiz/hide(i)

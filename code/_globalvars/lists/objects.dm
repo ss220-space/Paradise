@@ -28,6 +28,7 @@ GLOBAL_LIST_EMPTY(apcs)
 GLOBAL_LIST_EMPTY(air_alarms)
 GLOBAL_LIST_EMPTY(power_monitors)
 GLOBAL_LIST_EMPTY(all_vent_pumps)
+GLOBAL_LIST_EMPTY(all_scrubbers)
 
 GLOBAL_LIST_EMPTY(navbeacons)											//list of all bot nagivation beacons, used for patrolling.
 GLOBAL_LIST_EMPTY(deliverybeacons)										//list of all MULEbot delivery beacons.
@@ -53,7 +54,6 @@ GLOBAL_LIST_EMPTY(lavaland_points_of_interest)							//for use in founding world
 GLOBAL_LIST_EMPTY(active_diseases)										//List of Active disease in all mobs; purely for quick referencing.
 
 GLOBAL_LIST_EMPTY(mob_spawners)											// All mob_spawn objects
-GLOBAL_LIST_EMPTY(alert_consoles)										// Station alert consoles, /obj/machinery/computer/station_alert
 GLOBAL_LIST_EMPTY(explosive_walls)
 
 GLOBAL_LIST_EMPTY(mini_games)											//Mini games pollers

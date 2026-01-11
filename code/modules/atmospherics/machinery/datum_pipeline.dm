@@ -7,8 +7,6 @@
 
 	var/update = TRUE
 
-	var/alert_pressure = 0
-
 /datum/pipeline/New()
 	SSair.pipenets += src
 
@@ -16,10 +14,10 @@
 	SSair.pipenets -= src
 	if(air?.volume)
 		temporarily_store_air()
-	for(var/obj/machinery/atmospherics/pipe/P in members)
-		P.parent = null
-	for(var/obj/machinery/atmospherics/A in other_atmosmch)
-		A.nullifyPipenet(src)
+	for(var/obj/machinery/atmospherics/pipe/pipe in members)
+		pipe.parent = null
+	for(var/obj/machinery/atmospherics/atmospheric in other_atmosmch)
+		atmospheric.nullifyPipenet(src)
 
 	LAZYCLEARLIST(members)
 	LAZYCLEARLIST(other_atmosmch)
@@ -30,16 +28,12 @@
 	if(update)
 		update = FALSE
 		reconcile_air()
-	return
-
-GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 /datum/pipeline/proc/build_pipeline(obj/machinery/atmospherics/base)
 	var/volume = 0
 	if(istype(base, /obj/machinery/atmospherics/pipe))
 		var/obj/machinery/atmospherics/pipe/E = base
 		volume = E.volume
-		alert_pressure = E.alert_pressure
 		E.clear_parent()
 		E.parent = src
 		members += E
@@ -63,15 +57,12 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 						if(!members.Find(item))
 
 							if(item.parent)
-								log_runtime(EXCEPTION("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z]."))
+								stack_trace("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z].")
 							members += item
 							possible_expansions += item
-
 							volume += item.volume
 							item.clear_parent()
 							item.parent = src
-
-							alert_pressure = min(alert_pressure, item.alert_pressure)
 
 							if(item.air_temporary)
 								air.merge(item.air_temporary)

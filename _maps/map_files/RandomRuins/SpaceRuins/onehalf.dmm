@@ -632,7 +632,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
 "bH" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/onehalf/drone_bay)
 "bI" = (

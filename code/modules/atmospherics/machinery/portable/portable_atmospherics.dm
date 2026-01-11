@@ -1,17 +1,18 @@
-/obj/machinery/portable_atmospherics
+/obj/machinery/atmospherics/portable
 	name = "atmoalter"
+	anchored = FALSE
+	layer = BELOW_OBJ_LAYER
 	use_power = NO_POWER_USE
 	max_integrity = 250
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 60, ACID = 30)
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | ALLOW_SILICON_REACH
 	var/datum/gas_mixture/air_contents = new
-
 	var/obj/machinery/atmospherics/unary/portables_connector/connected_port
-	var/obj/item/tank/holding
+	var/obj/item/tank/holding_tank
 	var/volume = 0
-	var/maximum_pressure = 90*ONE_ATMOSPHERE
+	var/maximum_pressure = 90 * ONE_ATMOSPHERE
 
-/obj/machinery/portable_atmospherics/Initialize(mapload)
+/obj/machinery/atmospherics/portable/Initialize(mapload)
 	. = ..()
 	SSair.atmos_machinery += src
 
@@ -24,34 +25,34 @@
 	check_for_port()
 
 // Late init this otherwise it shares with the port and it tries to div temperature by 0
-/obj/machinery/portable_atmospherics/LateInitialize()
+/obj/machinery/atmospherics/portable/LateInitialize()
 	check_for_port()
 
-/obj/machinery/portable_atmospherics/proc/check_for_port()
+/obj/machinery/atmospherics/portable/proc/check_for_port()
 	var/obj/machinery/atmospherics/unary/portables_connector/port = locate() in loc
 	if(port)
 		connect(port)
 
-/obj/machinery/portable_atmospherics/process_atmos()
+/obj/machinery/atmospherics/portable/process_atmos()
 	if(!connected_port) //only react when pipe_network will ont it do it for you
 		//Allow for reactions
 		air_contents.react()
 		return
 
-/obj/machinery/portable_atmospherics/Destroy()
+/obj/machinery/atmospherics/portable/Destroy()
 	SSair.atmos_machinery -= src
 	disconnect()
 	QDEL_NULL(air_contents)
-	QDEL_NULL(holding)
+	QDEL_NULL(holding_tank)
 	return ..()
 
-/obj/machinery/portable_atmospherics/update_icon_state()
+/obj/machinery/atmospherics/portable/update_icon_state()
 	return
 
-/obj/machinery/portable_atmospherics/update_overlays()
+/obj/machinery/atmospherics/portable/update_overlays()
 	. = list()
 
-/obj/machinery/portable_atmospherics/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
+/obj/machinery/atmospherics/portable/proc/connect(obj/machinery/atmospherics/unary/portables_connector/new_port)
 	//Make sure not already connected to something else
 	if(connected_port || !new_port || new_port.connected_device)
 		return FALSE
@@ -71,9 +72,11 @@
 
 	set_anchored(TRUE) //Prevent movement
 
+	update_icon()
+
 	return TRUE
 
-/obj/machinery/portable_atmospherics/proc/disconnect()
+/obj/machinery/atmospherics/portable/disconnect()
 	if(!connected_port)
 		return FALSE
 
@@ -82,39 +85,43 @@
 	connected_port.connected_device = null
 	connected_port = null
 
+	update_icon()
+
 	return TRUE
 
-/obj/machinery/portable_atmospherics/portableConnectorReturnAir()
+/obj/machinery/atmospherics/portable/portableConnectorReturnAir()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/click_alt(mob/living/user)
-	if(!holding)
+/obj/machinery/atmospherics/portable/click_alt(mob/living/user)
+	if(!holding_tank)
 		return NONE
-	to_chat(user, span_notice("You remove [holding] from [src]."))
+	to_chat(user, span_notice("You remove [holding_tank] from [src]."))
 	replace_tank(user, TRUE)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/portable_atmospherics/examine(mob/user)
+/obj/machinery/atmospherics/portable/examine(mob/user)
 	. = ..()
-	if(holding)
-		. += span_notice("\The [src] contains [holding]. Alt-click [src] to remove it.")
+	if(holding_tank)
+		. += span_notice("[src] contains [holding_tank]. Alt-click [src] to remove it.")
 
-/obj/machinery/portable_atmospherics/return_analyzable_air()
+/obj/machinery/atmospherics/portable/return_analyzable_air()
 	return air_contents
 
-/obj/machinery/portable_atmospherics/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
-	if(holding)
-		holding.forceMove(drop_location())
+/obj/machinery/atmospherics/portable/proc/replace_tank(mob/living/user, close_valve, obj/item/tank/new_tank)
+	if(holding_tank)
+		holding_tank.forceMove(drop_location())
 		if(Adjacent(user) && !issilicon(user))
-			user.put_in_hands(holding, ignore_anim = FALSE)
+			user.put_in_hands(holding_tank, ignore_anim = FALSE)
+
 	if(new_tank)
-		holding = new_tank
+		holding_tank = new_tank
 	else
-		holding = null
+		holding_tank = null
+
 	update_icon()
 	return TRUE
 
-/obj/machinery/portable_atmospherics/attackby(obj/item/item, mob/user, params)
+/obj/machinery/atmospherics/portable/attackby(obj/item/item, mob/user, params)
 	if((stat & BROKEN) || user.a_intent == INTENT_HARM)
 		return ..()
 
@@ -126,8 +133,8 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(new_tank, src))
 			return ..()
-		if(holding)
-			to_chat(user, span_notice("In one smooth motion you pop [holding] out of [src]'s connector and replace it with [new_tank]"))
+		if(holding_tank)
+			to_chat(user, span_notice("In one smooth motion you pop [holding_tank] out of [src]'s connector and replace it with [new_tank]"))
 		else
 			to_chat(user, span_notice("You insert [new_tank] into [src]"))
 		replace_tank(user, FALSE, new_tank)
@@ -135,7 +142,7 @@
 
 	return ..()
 
-/obj/machinery/portable_atmospherics/wrench_act(mob/user, obj/item/item)
+/obj/machinery/atmospherics/portable/wrench_act(mob/user, obj/item/item)
 	. = TRUE
 	if(!item.use_tool(src, user, 0, volume = item.tool_volume))
 		return
@@ -156,7 +163,7 @@
 		else
 			to_chat(user, span_notice("Nothing happens."))
 
-/obj/machinery/portable_atmospherics/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+/obj/machinery/atmospherics/portable/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(item.get_final_force(user) < 10 && !(stat & BROKEN))
 		user.visible_message(
 			span_warning("[user] gently pokes [src] with [item]."),

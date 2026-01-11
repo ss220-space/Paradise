@@ -1,22 +1,20 @@
 /obj/machinery/atmospherics/pipe/manifold4w
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/manifold.dmi'
-	icon_state = ""
 	name = "4-way pipe manifold"
-	desc = "A manifold composed of regular pipes"
-
+	desc = "A manifold composed of regular pipes."
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/manifold.dmi'
+	icon_state = null
 	volume = 140
-
 	initialize_directions = NORTH|SOUTH|EAST|WEST
+	level = 1
 
 	var/obj/machinery/atmospherics/node1
 	var/obj/machinery/atmospherics/node2
 	var/obj/machinery/atmospherics/node3
 	var/obj/machinery/atmospherics/node4
 
-	level = 1
+/obj/machinery/atmospherics/pipe/manifold4w/Initialize(mapload)
+	. = ..()
 
-/obj/machinery/atmospherics/pipe/manifold4w/New()
-	..()
 	alpha = 255
 	icon = null
 
@@ -89,8 +87,8 @@
 
 	alpha = 255
 
-	. += SSair.icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "4way" + icon_connect_type)
-	. += SSair.icon_manager.get_atmos_icon("manifold", state = "clamps_4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", color = pipe_color, state = "4way" + icon_connect_type)
+	. += GLOB.pipe_icon_manager.get_atmos_icon("manifold", state = "clamps_4way" + icon_connect_type)
 	update_underlays()
 
 /obj/machinery/atmospherics/pipe/manifold4w/update_underlays()
@@ -169,9 +167,9 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
 	name = "4-way scrubbers pipe manifold"
-	desc = "A manifold composed of scrubbers pipes"
+	desc = "A manifold composed of scrubbers pipes."
 	icon_state = "map_4way-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
@@ -179,9 +177,9 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/supply
 	name = "4-way air supply pipe manifold"
-	desc = "A manifold composed of supply pipes"
+	desc = "A manifold composed of supply pipes."
 	icon_state = "map_4way-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"
@@ -207,7 +205,7 @@
 	name="4-way scrubbers pipe manifold"
 	desc = "A manifold composed of scrubbers pipes"
 	icon_state = "map_4way-scrubbers"
-	connect_types = list(3)
+	connect_types = list(CONNECT_TYPE_SCRUBBER)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SCRUB_OFFSET
 	layer_offset = GAS_PIPE_SCRUB_OFFSET
 	icon_connect_type = "-scrubbers"
@@ -217,7 +215,7 @@
 	name="4-way air supply pipe manifold"
 	desc = "A manifold composed of supply pipes"
 	icon_state = "map_4way-supply"
-	connect_types = list(2)
+	connect_types = list(CONNECT_TYPE_SUPPLY)
 	layer = GAS_PIPE_HIDDEN_LAYER + GAS_PIPE_SUPPLY_OFFSET
 	layer_offset = GAS_PIPE_SUPPLY_OFFSET
 	icon_connect_type = "-supply"

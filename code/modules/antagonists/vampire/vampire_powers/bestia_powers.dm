@@ -1390,7 +1390,7 @@
 	material_drop = null
 	open_sound = 'sound/objects/coffin_toggle.ogg'
 	var/datum/gas_mixture/interior_air
-	var/obj/machinery/portable_atmospherics/canister/air/interior_tank
+	var/obj/machinery/atmospherics/portable/canister/air/interior_tank
 	var/no_manipulation = FALSE
 	/// UIDs of brave ones who ignore warnings and will loose their blood
 	var/list/lightheaded
@@ -1682,6 +1682,7 @@
 				qdel(removed)
 
 /obj/structure/closet/coffin/vampire/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return interior_air
 
 /obj/structure/closet/coffin/vampire/proc/return_pressure()

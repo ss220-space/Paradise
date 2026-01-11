@@ -1,90 +1,3 @@
-/**
- * Machines in the world, such as computers, pipes, and airlocks.
- *
- *Overview:
- *  Used to create objects that need a per step proc call.  Default definition of 'Initialize()'
- *  stores a reference to src machine in global 'machines list'.  Default definition
- *  of 'Destroy' removes reference to src machine in global 'machines list'.
- *
- *Class Variables:
- *  use_power (num)
- *     current state of auto power use.
- *     Possible Values:
- *        NO_POWER_USE -- no auto power use
- *        IDLE_POWER_USE -- machine is using power at its idle power level
- *        ACTIVE_POWER_USE -- machine is using power at its active power level
- *
- *  active_power_usage (num)
- *     Value for the amount of power to use when in active power mode
- *
- *  idle_power_usage (num)
- *     Value for the amount of power to use when in idle power mode
- *
- *  power_channel (num)
- *     What channel to draw from when drawing power for power mode
- *     Possible Values:
- *        AREA_USAGE_EQUIP:1 -- Equipment Channel
- *        AREA_USAGE_LIGHT:2 -- Lighting Channel
- *        AREA_USAGE_ENVIRON:3 -- Environment Channel
- *
- *  component_parts (list)
- *     A list of component parts of machine used by frame based machines.
- *
- *  stat (bitflag)
- *     Machine status bit flags.
- *     Possible bit flags:
- *        BROKEN -- Machine is broken
- *        NOPOWER -- No power is being supplied to machine.
- *        MAINT -- machine is currently under going maintenance.
- *        EMPED -- temporary broken by EMP pulse
- *
- *Class Procs:
- *  Initialize()
- *
- *  Destroy()
- *
- *	update_mode_power_usage()
- *		updates the static_power_usage var of this machine and makes its static power usage from its area accurate.
- *		called after the idle or active power usage has been changed.
- *
- *	update_power_channel()
- *		updates the static_power_usage var of this machine and makes its static power usage from its area accurate.
- *		called after the power_channel var has been changed or called to change the var itself.
- *
- *	unset_static_power()
- *		completely removes the current static power usage of this machine from its area.
- *		used in the other power updating procs to then readd the correct power usage.
- *
- *
- *     Default definition uses 'use_power', 'power_channel', 'active_power_usage',
- *     'idle_power_usage', 'powered()', and 'use_energy()' implement behavior.
- *
- *  powered(chan = -1)         'modules/power/power.dm'
- *     Checks to see if area that contains the object has power available for power
- *     channel given in 'chan'. -1 defaults to power_channel
- *
- *  use_energy(amount, chan=-1)   'modules/power/power.dm'
- *     Deducts 'amount' from the power channel 'chan' of the area that contains the object.
- *
- *  power_change()               'modules/power/power.dm'
- *     Called by the area that contains the object when ever that area under goes a
- *     power state change (area runs out of power, or area channel is turned off).
- *
- *  RefreshParts()               'game/machinery/machine.dm'
- *     Called to refresh the variables in the machine that are contributed to by parts
- *     contained in the component_parts list. (example: glass and material amounts for
- *     the autolathe)
- *
- *     Default definition does nothing.
- *
- *  process()                  'game/machinery/machine.dm'
- *     Called by the 'machinery subsystem' once per machinery tick for each machine that is listed in its 'machines' list.
- *
- *  process_atmos()
- *     Called by the 'air subsystem' once per atmos tick for each machine that is listed in its 'atmos_machines' list.
- * Compiled by Aygar
- */
-
 /obj/machinery
 	name = "machinery"
 	gender = MALE
@@ -95,28 +8,26 @@
 	pass_flags_self = PASSMACHINE|LETPASSCLICKS
 	pull_push_slowdown = 1.3
 	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
-	var/stat = 0
-	var/use_power = IDLE_POWER_USE
-		//0 = dont run the auto
-		//1 = run auto, use idle
-		//2 = run auto, use active
-	var/idle_power_usage = 0
-	var/active_power_usage = 0
-	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
-	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
-	var/uid
-	var/global/gl_uid = 1
-	var/custom_aghost_alerts=0
-	var/panel_open = 0
-	var/area/myArea
-	var/interact_offline = 0 // Can the machine be interacted with while de-powered.
-	var/list/use_log // Init this list if you wish to add logging to your machine - currently only viewable in VV
 	atom_say_verb = list("бипает", "бупает", "заявляет", "гудит")
-	var/siemens_strength = 0.7 // how badly will it shock you?
-	/// The frequency on which the machine can communicate. Used with `/datum/radio_frequency`.
-	var/frequency = NONE
-	/// A reference to a `datum/radio_frequency`. Gives the machine the ability to interact with things using radio signals.
-	var/datum/radio_frequency/radio_connection
+	armor = list(MELEE = 25, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 70)
+	/// see code/__DEFINES/stat.dm
+	var/stat = NONE
+	/// How is this machine currently passively consuming power? See code/__DEFINES/machines.dm
+	var/use_power = IDLE_POWER_USE
+	///the amount of static power load this machine adds to its area's power_usage list when use_power = IDLE_POWER_USE
+	var/idle_power_usage = 0
+	///the amount of static power load this machine adds to its area's power_usage list when use_power = ACTIVE_POWER_USE
+	var/active_power_usage = 0
+	/// EQUIP, ENVIRON or LIGHT
+	var/power_channel = EQUIP
+	///list of all the parts used to build it, if made from certain kinds of frames.
+	var/list/component_parts = null
+	///Is the machines maintainence panel open.
+	var/panel_open = FALSE
+	/// Can the machine be interacted with while de-powered.
+	var/interact_offline = 0
+	/// how badly will it shock you?
+	var/siemens_strength = 0.7
 	/// This is if the machinery is being repaired
 	var/being_repaired = FALSE
 	/// Viable flags to go here are START_PROCESSING_ON_INIT, or START_PROCESSING_MANUALLY. See code\__DEFINES\machines.dm for more information on these flags.
@@ -124,16 +35,19 @@
 	/// What subsystem this machine will use, which is generally SSmachines or SSfastprocess. By default all machinery use SSmachines. This fires a machine's process() roughly every 2 seconds.
 	var/subsystem_type = /datum/controller/subsystem/machines
 
+	/// Init this list if you wish to add logging to your machine - currently only viewable in VV
+	var/list/use_log // legacy
+	/// This needs to die
+	var/area/myArea // legacy
+
 /obj/machinery/Initialize(mapload)
-	if(!armor)
-		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	. = ..()
 	SSmachines.register_machine(src)
 
-	myArea = get_area(src)
-	if(myArea)
-		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))
-		LAZYADD(myArea.machinery_cache, src)
+	myArea = get_area(src)// This needs to die
+	if(myArea)// This needs to die
+		RegisterSignal(src, COMSIG_ATOM_EXITED_AREA, PROC_REF(onAreaExited))// This needs to die
+		LAZYADD(myArea.machinery_cache, src)// This needs to die
 
 	if(processing_flags & START_PROCESSING_ON_INIT)
 		begin_processing()
@@ -141,10 +55,10 @@
 	power_change()
 
 /obj/machinery/Destroy()
-	if(myArea)
-		LAZYREMOVE(myArea.machinery_cache, src)
-		myArea = null
-		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
+	if(myArea)// This needs to die
+		LAZYREMOVE(myArea.machinery_cache, src)// This needs to die
+		myArea = null// This needs to die
+		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)// This needs to die
 	SSmachines.unregister_machine(src)
 	end_processing()
 	return ..()
@@ -165,6 +79,7 @@
 /obj/machinery/proc/flicker()
 	return FALSE
 
+// This needs to die
 /obj/machinery/proc/onAreaExited()
 	SIGNAL_HANDLER
 	if(myArea == get_area(src))
@@ -215,16 +130,14 @@
 /obj/machinery/has_prints()
 	return TRUE
 
+// This needs to die
 /obj/machinery/proc/locate_machinery()
-	return
-
-/obj/machinery/proc/set_frequency()
 	return
 
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
-/obj/machinery/proc/process_atmos() //If you dont use process why are you here
+/obj/machinery/atmospherics/proc/process_atmos() //If you dont use process why are you here
 	// Any proc that wants MILLA to be synchronous should not sleep.
 	SHOULD_NOT_SLEEP(TRUE)
 	return PROCESS_KILL
@@ -255,6 +168,7 @@
 		flicker()
 	return 1
 
+// IT NEEDS TO DIE
 /obj/machinery/Topic(href, href_list, nowindow = 0, datum/ui_state/state = GLOB.default_state)
 	if(..(href, href_list, nowindow, state))
 		return 1
@@ -336,10 +250,6 @@
 
 /obj/machinery/proc/RefreshParts() //Placeholder proc for machines that are built using frames.
 	return
-
-/obj/machinery/proc/assign_uid()
-	uid = gl_uid
-	gl_uid++
 
 /obj/machinery/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

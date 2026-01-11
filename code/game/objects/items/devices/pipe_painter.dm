@@ -13,16 +13,16 @@
 /obj/item/pipe_painter/New()
 	..()
 	modes = new()
-	for(var/C in GLOB.pipe_colors)
+	for(var/C in GLOB.pipe_icon_manager.pipe_colors)
 		modes += "[C]"
 	mode = pick(modes)
 
 /obj/item/pipe_painter/afterattack(atom/A, mob/user, proximity, params)
-	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || istype(A,/obj/machinery/atmospherics/pipe/simple/insulated) || !in_range(user, A))
+	if(!istype(A,/obj/machinery/atmospherics/pipe) || istype(A,/obj/machinery/atmospherics/pipe/simple/heat_exchanging) || !in_range(user, A))
 		return
 	var/obj/machinery/atmospherics/pipe/P = A
 
-	if(P.pipe_color == "[GLOB.pipe_colors[mode]]")
+	if(P.pipe_color == "[GLOB.pipe_icon_manager.pipe_colors[mode]]")
 		to_chat(user, span_notice("This pipe is aready painted [mode]!"))
 		return
 
@@ -32,7 +32,7 @@
 		return
 
 	playsound(loc, usesound, 30, TRUE)
-	P.change_color(GLOB.pipe_colors[mode])
+	P.change_color(GLOB.pipe_icon_manager.pipe_colors[mode])
 
 /obj/item/pipe_painter/attack_self(mob/user as mob)
 	var/new_paint_setting = tgui_input_list(user, "Which color do you want to use?", "Pick color", modes)

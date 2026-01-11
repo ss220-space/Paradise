@@ -1,16 +1,10 @@
-
-#define ATMOS_FIRE_FREQ 1437 //air alarms
-#define ENGINE_FREQ 1438 //engine components
-#define ATMOS_VENTSCRUB 1439 //vents, scrubbers, atmos control
-#define ATMOS_DISTRO_FREQ 1443 //distro loop
-#define ATMOS_TANKS_FREQ 1441 //atmos supply tanks
-#define BOT_BEACON_FREQ 1445 //bot navigation beacons
-#define AIRLOCK_FREQ 1449 //airlock controls, electropack, magnets
+#define INTERROGATION_FREQ 1441 // interrogation intercoms
+#define MAGNET_FREQ 1445 // target practice magnets // kill this PLEASE
+#define ELECTROPACK_FREQ 1449 // electropack
 
 #define DEFAULT_SIGNALER_CODE 30
 
-#define RSD_FREQ 1457 //radio signal device
-#define IMPL_FREQ 1451 //tracking implant
+#define RSD_FREQ 1457 //! Radio Signal Device
 
 #define RADIO_LOW_FREQ 1200 //minimum radio freq
 #define PUBLIC_LOW_FREQ 1441 //minimum radio chat freq
@@ -75,10 +69,10 @@
 #define RADIO_SIGNALER "signaler"
 
 // Signal types
-#define SIGNALTYPE_NORMAL 0
-#define SIGNALTYPE_INTERCOM 1 // Will only broadcast to intercoms
-#define SIGNALTYPE_INTERCOM_SBR 2 // Will only broadcast to intercoms and station-bounced radios
-#define SIGNALTYPE_AINOTRACK 4 // AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
+#define SIGNALTYPE_NORMAL NONE
+#define SIGNALTYPE_INTERCOM (1<<0) //! Will only broadcast to intercoms
+#define SIGNALTYPE_INTERCOM_SBR (1<<1) //! Will only broadcast to intercoms and station-bounced radios
+#define SIGNALTYPE_AINOTRACK (1<<2) //! AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
 
 // Channel names
 #define PUB_FREQ_NAME "Общий"

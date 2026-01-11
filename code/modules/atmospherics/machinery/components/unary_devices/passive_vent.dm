@@ -1,14 +1,12 @@
 /obj/machinery/atmospherics/unary/passive_vent
+	name = "passive vent"
+	desc = "A large air vent."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	icon_state = "map_vent"
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_SCRUBBER_OFFSET
 	layer_offset = GAS_SCRUBBER_OFFSET
-	name = "passive vent"
-	desc = "A large air vent"
 	vent_movement = VENTCRAWL_ALLOWED|VENTCRAWL_CAN_SEE|VENTCRAWL_ENTRANCE_ALLOWED
-
 	can_unwrench = TRUE
-
 	var/volume = 250
 
 /obj/machinery/atmospherics/unary/passive_vent/high_volume
@@ -20,11 +18,6 @@
 	air_contents.volume = volume
 
 /obj/machinery/atmospherics/unary/passive_vent/process_atmos()
-	..()
-
-	if(!node)
-		return 0
-
 	var/datum/milla_safe/passive_vent_processing/milla = new()
 	milla.invoke_async(src)
 
@@ -35,12 +28,10 @@
 		return FALSE
 
 	var/turf/turf = get_turf(vent)
-
 	if(turf.density) //No, you should not be able to get free air from walls
 		return
 
 	var/datum/gas_mixture/environment = get_turf_air(turf)
-
 	var/pressure_delta = vent.air_contents.return_pressure() - environment.return_pressure()
 
 	// based on pressure_pump to equalize pressure
@@ -72,7 +63,7 @@
 /obj/machinery/atmospherics/unary/passive_vent/update_underlays()
 	if(..())
 		underlays.Cut()
-		var/turf/T = get_turf(src)
-		if(!istype(T))
+		var/turf/turf = get_turf(src)
+		if(!istype(turf))
 			return
-		add_underlay(T, node, dir)
+		add_underlay(turf, node, dir)

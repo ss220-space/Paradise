@@ -1,25 +1,19 @@
 /obj/machinery/atmospherics/pipe/simple
+	name = "pipe"
+	desc = "A one meter section of regular pipe."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/pipes.dmi'
 	icon_state = ""
-	var/pipe_icon = "" //what kind of pipe it is and from which dmi is the icon manager getting its icons, "" for simple pipes, "hepipe" for HE pipes, "hejunction" for HE junctions
-	name = "pipe"
-	desc = "A one meter section of regular pipe"
-
 	volume = 70
-
 	initialize_directions = SOUTH|NORTH
+	level = 1
+
+	var/pipe_icon = "" //what kind of pipe it is and from which dmi is the icon manager getting its icons, "" for simple pipes, "hepipe" for HE pipes, "hejunction" for HE junctions
 
 	var/obj/machinery/atmospherics/node1
 	var/obj/machinery/atmospherics/node2
 
 	var/minimum_temperature_difference = 300
 	var/thermal_conductivity = 0 //WALL_HEAT_TRANSFER_COEFFICIENT No
-
-	var/maximum_pressure = 70*ONE_ATMOSPHERE
-	var/fatigue_pressure = 55*ONE_ATMOSPHERE
-	alert_pressure = 55*ONE_ATMOSPHERE
-
-	level = 1
 
 /obj/machinery/atmospherics/pipe/simple/Initialize(mapload)
 	. = ..()
@@ -68,38 +62,14 @@
 
 		var/turf/our_turf = loc
 		if(our_turf.transparent_floor == TURF_NONTRANSPARENT)
-			hide(our_turf.intact)	// hide if turf is not intact
+			hide(our_turf.intact) // hide if turf is not intact
 		update_icon()
 
-/obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
-	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.get_readonly_air()
-
-	var/pressure_difference = pressure - environment.return_pressure()
-
-	if(pressure_difference > maximum_pressure)
-		burst()
-
-	else if(pressure_difference > fatigue_pressure)
-		//TODO: leak to turf, doing pfshhhhh
-		if(prob(5))
-			burst()
-
-	else return 1
-
-/obj/machinery/atmospherics/pipe/simple/proc/burst()
-	src.visible_message(span_danger("\The [src] bursts!"))
-	playsound(src.loc, 'sound/effects/bang.ogg', 25, TRUE)
-	var/datum/effect_system/fluid_spread/smoke/smoke = new
-	smoke.set_up(amount = 1, location = src.loc)
-	smoke.start()
-	qdel(src)
-
 /obj/machinery/atmospherics/pipe/simple/proc/normalize_dir()
-	if(dir==3)
-		dir = 1
-	else if(dir==12)
-		dir = 4
+	if(dir == 3)
+		dir = NORTH
+	else if(dir == 12)
+		dir = EAST
 
 /obj/machinery/atmospherics/pipe/simple/Destroy()
 	. = ..()
@@ -141,14 +111,14 @@
 	. = ..()
 
 	if(!check_icon_cache())
-		return .
+		return
 
 	alpha = 255
 
 	if(node1 && node2)
-		. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "intact" + icon_connect_type)
+		. += GLOB.pipe_icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "intact" + icon_connect_type)
 	else
-		. += SSair.icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
+		. += GLOB.pipe_icon_manager.get_atmos_icon("pipe", color = pipe_color, state = pipe_icon + "exposed[node1?1:0][node2?1:0]" + icon_connect_type)
 
 /obj/machinery/atmospherics/pipe/simple/update_underlays()
 	return

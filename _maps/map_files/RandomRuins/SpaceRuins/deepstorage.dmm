@@ -205,11 +205,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "as" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "at" = (
-/obj/machinery/portable_atmospherics/canister/air,
+/obj/machinery/atmospherics/portable/canister/air,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "au" = (

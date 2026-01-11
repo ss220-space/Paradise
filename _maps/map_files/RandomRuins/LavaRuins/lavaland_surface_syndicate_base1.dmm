@@ -901,7 +901,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "bA" = (
 /obj/effect/turf_decal/bot,
-/obj/machinery/portable_atmospherics/scrubber,
+/obj/machinery/atmospherics/portable/scrubber,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -1015,7 +1015,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister,
+/obj/machinery/atmospherics/portable/canister,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 1449;
@@ -1179,7 +1179,7 @@
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "cg" = (
-/obj/machinery/portable_atmospherics/canister/nitrogen,
+/obj/machinery/atmospherics/portable/canister/nitrogen,
 /turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ch" = (
@@ -1205,7 +1205,7 @@
 /turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ck" = (
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /turf/simulated/floor/engine/o2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cl" = (
@@ -1225,7 +1225,7 @@
 /turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "cn" = (
-/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/machinery/atmospherics/portable/canister/toxins,
 /turf/simulated/floor/engine/plasma,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "co" = (
@@ -4825,7 +4825,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/machinery/atmospherics/portable/canister/oxygen,
 /obj/structure/window/reinforced{
 	dir = 8
 	},
@@ -5232,7 +5232,7 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/portable_atmospherics/pump,
+/obj/machinery/atmospherics/portable/pump,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "lw" = (
