@@ -1,0 +1,16 @@
+#define WHERE_FLOOR_BELOW_MOB "Текущая локация"
+#define WHERE_SUPPLY_BELOW_MOB "Текущая локация (десантная капсула)"
+#define WHERE_MOB_HAND "В руке контролируемого моба"
+#define WHERE_MARKED_OBJECT "У отмеченного объекта"
+#define WHERE_IN_MARKED_OBJECT "В отмеченном объекте"
+#define WHERE_TARGETED_LOCATION "Выбранная локация"
+#define WHERE_TARGETED_LOCATION_POD "Выбранная локация (десантная капсула)"
+#define WHERE_TARGETED_MOB_HAND "В руке выбранного моба"
+
+#define PRECISE_MODE_OFF "Выкл"
+#define PRECISE_MODE_TARGET "Цель"
+#define PRECISE_MODE_MARK "Метка"
+#define PRECISE_MODE_COPY "Копирование"
+
+#define OFFSET_ABSOLUTE "Абсолютный сдвиг"
+#define OFFSET_RELATIVE "Относительный сдвиг"
