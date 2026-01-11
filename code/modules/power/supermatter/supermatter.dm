@@ -1,99 +1,11 @@
 //Zap constants, speeds up targeting
+#define BIKE (COIL + 1)
 #define COIL (ROD + 1)
 #define ROD (LIVING + 1)
 #define LIVING (MACHINERY + 1)
 #define MACHINERY (OBJECT + 1)
 #define OBJECT (LOWEST + 1)
 #define LOWEST (1)
-
-#define PLASMA_HEAT_PENALTY 15	 // Higher == Bigger heat and waste penalty from having the crystal surrounded by this gas. Negative numbers reduce penalty.
-#define OXYGEN_HEAT_PENALTY 1
-#define CO2_HEAT_PENALTY 0.1
-#define NITROGEN_HEAT_PENALTY -1.5
-#define HYDROGEN_HEAT_PENALTY 20
-#define H2O_HEAT_PENALTY 5
-
-#define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
-#define PLASMA_TRANSMIT_MODIFIER 4
-#define HYDROGEN_TRANSMIT_MODIFIER 3
-#define H2O_TRANSMIT_MODIFIER -10
-
-#define N2O_HEAT_RESISTANCE 6		  //Higher == Gas makes the crystal more resistant against heat damage.
-
-#define POWERLOSS_INHIBITION_GAS_THRESHOLD 0.20		 //Higher == Higher percentage of inhibitor gas needed before the charge inertia chain reaction effect starts.
-#define POWERLOSS_INHIBITION_MOLE_THRESHOLD 20		//Higher == More moles of the gas are needed before the charge inertia chain reaction effect starts.		//Scales powerloss inhibition down until this amount of moles is reached
-#define POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD 500  //bonus powerloss inhibition boost if this amount of moles is reached
-
-#define O2_CRUNCH 1.5
-#define CO2_CRUNCH 1
-#define N2_CRUNCH 0.55
-#define N2O_CRUNCH 0.55
-#define PLASMA_CRUNCH 4
-#define HYDROGEN_CRUNCH 2
-#define H2O_CRUNCH 0.75
-
-#define MOLE_CRUNCH_THRESHOLD 1700		   //Above this value we can get lord singulo and
-#define MOLE_PENALTY_THRESHOLD 1800		   //Above this value we can get lord singulo and independent mol damage, below it we can heal damage
-#define MOLE_HEAT_PENALTY 350				 //Heat damage scales around this. Too hot setups with this amount of moles do regular damage, anything above and below is scaled
-//Along with damage_penalty_point, makes flux anomalies.
-/// The cutoff for the minimum amount of power required to trigger the crystal invasion delamination event.
-#define EVENT_POWER_PENALTY_THRESHOLD 4500
-#define POWER_PENALTY_THRESHOLD 5000		  //The cutoff on power properly doing damage, pulling shit around, and delamming into a tesla. Low chance of cryo anomalies, +2 bolts of electricity
-#define SEVERE_POWER_PENALTY_THRESHOLD 7000   //+1 bolt of electricity, allows for gravitational anomalies, and higher chances of cryo anomalies
-#define CRITICAL_POWER_PENALTY_THRESHOLD 9000 //+1 bolt of electricity.
-#define DAMAGE_HARDCAP 0.002
-#define DAMAGE_INCREASE_MULTIPLIER 0.25
-
-
-#define THERMAL_RELEASE_MODIFIER 1		 //Higher == less heat released during reaction, not to be confused with the above values
-#define PLASMA_RELEASE_MODIFIER 750		//Higher == less plasma released by reaction
-#define OXYGEN_RELEASE_MODIFIER 325		//Higher == less oxygen released at high temperature/power
-
-#define REACTION_POWER_MODIFIER 0.55	   //Higher == more overall power
-
-#define MATTER_POWER_CONVERSION 10		 //Crystal converts 1/this value of stored matter into energy.
-
-//These would be what you would get at point blank, decreases with distance
-#define DETONATION_RADS 200
-#define DETONATION_HALLUCINATION 600
-
-/// All humans within this range will be irradiated
-#define DETONATION_RADIATION_RANGE 20
-
-#define WARNING_DELAY 60
-
-#define HALLUCINATION_RANGE(P) (min(7, round((P) ** 0.25)))
-
-#define MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION 0.205
-
-#define GRAVITATIONAL_ANOMALY "gravitational_anomaly"
-#define FLUX_ANOMALY "flux_anomaly"
-#define BLUESPACE_ANOMALY "bluespace_anomaly"
-
-//If integrity percent remaining is less than these values, the monitor sets off the relevant alarm.
-#define SUPERMATTER_DELAM_PERCENT 5
-#define SUPERMATTER_EMERGENCY_PERCENT 25
-#define SUPERMATTER_DANGER_PERCENT 50
-#define SUPERMATTER_WARNING_PERCENT 100
-#define CRITICAL_TEMPERATURE 10000
-
-#define SUPERMATTER_COUNTDOWN_TIME 30 SECONDS
-
-///to prevent accent sounds from layering
-#define SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN 2 SECONDS
-
-#define DEFAULT_ZAP_ICON_STATE "sm_arc"
-#define SLIGHTLY_CHARGED_ZAP_ICON_STATE "sm_arc_supercharged"
-#define OVER_9000_ZAP_ICON_STATE "sm_arc_dbz_referance" //Witty I know
-
-#define MAX_SPACE_EXPOSURE_DAMAGE 2
-
-/// Colours used for effects.
-#define SUPERMATTER_COLOUR "#ffd04f"
-#define SUPERMATTER_RED "#aa2c16"
-#define SUPERMATTER_TESLA_COLOUR "#00ffff"
-#define SUPERMATTER_SINGULARITY_RAYS_COLOUR "#750000"
-#define SUPERMATTER_SINGULARITY_LIGHT_COLOUR "#400060"
 
 GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)
 
@@ -250,6 +162,18 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	var/ticks_per_run = 5
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
+
+	///Stores the time of when the last zap occurred
+	var/last_power_zap = 0
+	///Stores the tick of the machines subsystem of when the last zap energy accumulation occurred. Gives a passage of time in the perspective of SSmachines.
+	var/last_energy_accumulation_perspective_machines = 0
+	///Same as [last_energy_accumulation_perspective_machines], but based around the high energy zaps found in handle_high_power().
+	var/last_high_energy_accumulation_perspective_machines = 0
+	/// Accumulated energy to be transferred from supermatter zaps.
+	var/list/zap_energy_accumulation = list()
+
+	/// The zap power transmission over internal energy. W/MeV.
+	var/zap_transmission_rate = BASE_POWER_TRANSMISSION_RATE
 
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
 	return list(
@@ -642,6 +566,27 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			var/hallucination_amount = power * hallucination_power * distance_factor
 			human_mob.AdjustHallucinate(hallucination_amount, 0, 200 SECONDS)
 
+	// POWER PROCESSING
+	var/delta_time = (SSmachines.times_fired - last_energy_accumulation_perspective_machines) * SSmachines.wait / (1 SECONDS)
+	var/accumulated_energy = accumulate_energy(ZAP_ENERGY_ACCUMULATION_NORMAL, energy = zap_transmission_rate * (6 * power * (gas_coefficient + max(0, ((power_transmission_bonus / 10))))) * delta_time)
+	if(accumulated_energy && (last_power_zap + (4 - power * 0.001) SECONDS) < world.time)
+		var/discharged_energy = discharge_energy(ZAP_ENERGY_ACCUMULATION_NORMAL)
+		playsound(src, 'sound/weapons/emitter2.ogg', 70, TRUE)
+		hue_angle_shift = clamp(903 * log(10, (power + 8000)) - 3590, -50, 240)
+		var/zap_color = color_matrix_rotate_hue(hue_angle_shift)
+		supermatter_zap(
+			zapstart = src,
+			range = 3,
+			zap_str = discharged_energy,
+			zap_flags = ZAP_SUPERMATTER_FLAGS,
+			zap_cutoff = 240 KILO JOULES,
+			power_level = power,
+			color = zap_color,
+		)
+
+		last_power_zap = world.time
+	last_energy_accumulation_perspective_machines = SSmachines.times_fired
+
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
 	if(power_changes)
@@ -649,6 +594,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	//After this point power is lowered
 	//This wraps around to the begining of the function
 	//Handle high power zaps/anomaly generation
+	last_high_energy_accumulation_perspective_machines = SSmachines.times_fired
 	if((power * gas_coefficient) > POWER_PENALTY_THRESHOLD || damage > damage_penalty_point) //If the power is above 5000, if the damage is above 550, or mole crushing
 		var/zap_range = 4
 		zap_cutoff = 1500
@@ -683,18 +629,13 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 
 		if(zap_count >= 1)
 			playsound(loc, 'sound/weapons/emitter2.ogg', 100, TRUE, extrarange = 10)
-			hue_angle_shift = clamp(903 * log(10, (power + 8000)) - 3590, -50, 240)
-			var/zap_color = color_matrix_rotate_hue(hue_angle_shift)
-			for(var/zap_index in 1 to zap_count)
-				supermatter_zap(
-					zapstart = src,
-					range = zap_range,
-					zap_str = clamp(power * 2, 4000, 20000),
-					zap_flags = zap_flags,
-					zap_cutoff = (clamp(power * 2, 4000, 20000) / 3.5),
-					power_level = power,
-					color = zap_color,
-				)
+			var/delta_time_high = (SSmachines.times_fired - last_high_energy_accumulation_perspective_machines) * SSmachines.wait / (1 SECONDS)
+			var/accumulated_energy_high = accumulate_energy(ZAP_ENERGY_ACCUMULATION_HIGH_ENERGY, energy = clamp(power * 3200, 6.4e6, 3.2e7) * delta_time_high)
+			if(accumulated_energy_high)
+				for(var/i in 1 to zap_count)
+					var/discharged_energy = discharge_energy(ZAP_ENERGY_ACCUMULATION_HIGH_ENERGY, portion = 1 - (1 - ZAP_ENERGY_DISCHARGE_PORTION) ** INVERSE(zap_count))
+					supermatter_zap(src, range = zap_range, zap_str = discharged_energy, zap_flags = flags, zap_cutoff = src.zap_cutoff, power_level = power, zap_icon = src.zap_icon)
+			last_high_energy_accumulation_perspective_machines = SSmachines.times_fired
 
 		if(prob(5))
 			supermatter_anomaly_gen(src, FLUX_ANOMALY, rand(5, 10))
@@ -1116,6 +1057,28 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 			if(BLUESPACE_ANOMALY)
 				new /obj/effect/anomaly/bluespace(local_turf, 25 SECONDS, FALSE, FALSE, TRUE)
 
+/**
+ * Accumulates energy for the zap_energy_accumulation key.
+ * Args:
+ * * key: The zap energy accumulation key to use.
+ * * energy: The amount of energy to accumulate.
+ * Returns: The accumulated energy for that key.
+ */
+/obj/machinery/atmospherics/supermatter_crystal/proc/accumulate_energy(key, energy)
+	. = (zap_energy_accumulation[key] ? zap_energy_accumulation[key] : 0) + energy
+	zap_energy_accumulation[key] = .
+
+/**
+ * Depletes a portion of the accumulated energy for the given key and returns it. Used for discharging energy from the supermatter.
+ * Args:
+ * * key: The zap energy accumulation key to use.
+ * * portion: The portion of the accumulated energy that gets discharged.
+ * Returns: The discharged energy for that key.
+ */
+/obj/machinery/atmospherics/supermatter_crystal/proc/discharge_energy(key, portion = ZAP_ENERGY_DISCHARGE_PORTION)
+	. = portion * zap_energy_accumulation[key]
+	zap_energy_accumulation[key] -= .
+
 /obj/machinery/proc/supermatter_zap(atom/zapstart = src, range = 5, zap_str = 4000, zap_flags = ZAP_SUPERMATTER_FLAGS, list/targets_hit = list(), zap_cutoff = 1500, power_level = 0, zap_icon = DEFAULT_ZAP_ICON_STATE, color = null)
 	if(QDELETED(zapstart))
 		return
@@ -1311,70 +1274,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	has_been_powered = TRUE
 	make_next_event_time()
 
-#undef HALLUCINATION_RANGE
-#undef GRAVITATIONAL_ANOMALY
-#undef FLUX_ANOMALY
-#undef BLUESPACE_ANOMALY
+#undef BIKE
 #undef COIL
 #undef ROD
 #undef LIVING
 #undef MACHINERY
 #undef OBJECT
 #undef LOWEST
-
-#undef PLASMA_HEAT_PENALTY
-#undef OXYGEN_HEAT_PENALTY
-#undef CO2_HEAT_PENALTY
-#undef NITROGEN_HEAT_PENALTY
-#undef HYDROGEN_HEAT_PENALTY
-#undef H2O_HEAT_PENALTY
-#undef OXYGEN_TRANSMIT_MODIFIER
-#undef PLASMA_TRANSMIT_MODIFIER
-#undef HYDROGEN_TRANSMIT_MODIFIER
-#undef H2O_TRANSMIT_MODIFIER
-#undef N2O_HEAT_RESISTANCE
-#undef POWERLOSS_INHIBITION_GAS_THRESHOLD
-#undef POWERLOSS_INHIBITION_MOLE_THRESHOLD
-#undef POWERLOSS_INHIBITION_MOLE_BOOST_THRESHOLD
-#undef MOLE_CRUNCH_THRESHOLD
-#undef MOLE_PENALTY_THRESHOLD
-#undef MOLE_HEAT_PENALTY
-#undef EVENT_POWER_PENALTY_THRESHOLD
-#undef POWER_PENALTY_THRESHOLD
-#undef SEVERE_POWER_PENALTY_THRESHOLD
-#undef CRITICAL_POWER_PENALTY_THRESHOLD
-#undef DAMAGE_HARDCAP
-#undef DAMAGE_INCREASE_MULTIPLIER
-#undef THERMAL_RELEASE_MODIFIER
-#undef PLASMA_RELEASE_MODIFIER
-#undef OXYGEN_RELEASE_MODIFIER
-#undef REACTION_POWER_MODIFIER
-#undef MATTER_POWER_CONVERSION
-#undef DETONATION_RADS
-#undef DETONATION_HALLUCINATION
-#undef WARNING_DELAY
-#undef SUPERMATTER_DELAM_PERCENT
-#undef SUPERMATTER_EMERGENCY_PERCENT
-#undef SUPERMATTER_DANGER_PERCENT
-#undef SUPERMATTER_WARNING_PERCENT
-#undef CRITICAL_TEMPERATURE
-#undef SUPERMATTER_COUNTDOWN_TIME
-#undef SUPERMATTER_ACCENT_SOUND_MIN_COOLDOWN
-#undef DEFAULT_ZAP_ICON_STATE
-#undef SLIGHTLY_CHARGED_ZAP_ICON_STATE
-#undef OVER_9000_ZAP_ICON_STATE
-#undef MAX_SPACE_EXPOSURE_DAMAGE
-#undef SUPERMATTER_COLOUR
-#undef SUPERMATTER_RED
-#undef SUPERMATTER_TESLA_COLOUR
-#undef SUPERMATTER_SINGULARITY_RAYS_COLOUR
-#undef SUPERMATTER_SINGULARITY_LIGHT_COLOUR
-#undef O2_CRUNCH
-#undef CO2_CRUNCH
-#undef N2_CRUNCH
-#undef N2O_CRUNCH
-#undef PLASMA_CRUNCH
-#undef HYDROGEN_CRUNCH
-#undef H2O_CRUNCH
-#undef MIN_GASMIX_POWER_RATIO_FOR_EXPLOSION
-#undef DETONATION_RADIATION_RANGE
