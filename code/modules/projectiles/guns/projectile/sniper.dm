@@ -142,9 +142,10 @@
 	icon_state = ".50exp"
 
 /obj/projectile/bullet/sniper/explosive
+	weaken = 6 SECONDS
+	stun = 6 SECONDS
 	damage = 85
 	dismemberment = 0
-	weaken = 6 SECONDS
 	ricochets_max = 0
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
@@ -223,6 +224,7 @@
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	knockdown = 4 SECONDS
+	weaken = 0
 	breakthings = FALSE
 	dismemberment = 0
 
