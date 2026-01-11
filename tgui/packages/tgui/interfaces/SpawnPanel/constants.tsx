@@ -21,6 +21,18 @@ export const listNames = {
   Mobs: 'Поиск мобов',
 };
 
+export const OffsetType = {
+  ABSOLUTE: 'Абсолютный сдвиг',
+  RELATIVE: 'Относительный сдвиг',
+};
+
+export const PreciseMode = {
+  OFF: 'Выкл',
+  TARGET: 'Цель',
+  MARK: 'Метка',
+  COPY: 'Копирование',
+};
+
 export const spawnLocationIcons = {
   'Текущая локация': 'map-marker',
   'Текущая локация (десантная капсула)': 'parachute-box',

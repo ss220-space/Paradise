@@ -16,6 +16,8 @@ import {
   directionNames,
   spawnLocationIcons,
   spawnLocationOptions,
+  OffsetType,
+  PreciseMode,
 } from './constants';
 import type { IconSettings } from './index';
 
@@ -53,7 +55,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
     setCordsType(value);
     storage.set('spawnpanel-offset_type', value);
     sendUpdatedSettings({
-      offset_type: value ? 'Абсолютный сдвиг' : 'Относительный сдвиг',
+      offset_type: value ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
     });
   };
 
@@ -119,7 +121,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
 
     const currentSettings = {
       atom_amount: amount,
-      offset_type: cordsType ? 'Абсолютный сдвиг' : 'Относительный сдвиг',
+      offset_type: cordsType ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
       where_target_type: spawnLocation,
       atom_dir: [1, 2, 4, 8][direction],
       offset: parseOffset(offset),
@@ -155,9 +157,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
 
     sendUpdatedSettings({
       atom_amount: defaultAmount,
-      offset_type: defaultCordsType
-        ? 'Абсолютный сдвиг'
-        : 'Относительный сдвиг',
+      offset_type: defaultCordsType ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
       where_target_type: defaultSpawnLocation,
       atom_dir: [1, 2, 4, 8][defaultDirection],
       offset: defaultOffset,
@@ -190,16 +190,16 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
     spawnLocation === 'Выбранная локация (десантная капсула)' ||
     spawnLocation === 'В руке выбранного моба';
 
-  const isPreciseModeActive = data?.precise_mode === 'Цель';
-  const isMarkModeActive = data?.precise_mode === 'Метка';
-  const isCopyModeActive = data?.precise_mode === 'Копирование';
+  const isPreciseModeActive = data?.precise_mode === PreciseMode.TARGET;
+  const isMarkModeActive = data?.precise_mode === PreciseMode.MARK;
+  const isCopyModeActive = data?.precise_mode === PreciseMode.COPY;
 
-  const isAnyPreciseModeActive = !(data?.precise_mode === 'Выкл');
+  const isAnyPreciseModeActive = !(data?.precise_mode === PreciseMode.OFF);
 
   const disablePreciseMode = () => {
     if (isPreciseModeActive) {
       act('toggle-precise-mode', {
-        newPreciseType: 'Выкл',
+        newPreciseType: PreciseMode.OFF,
       });
     }
   };
@@ -221,7 +221,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
 
     const currentSettings = {
       atom_amount: amount,
-      offset_type: cordsType ? 'Абсолютный сдвиг' : 'Относительный сдвиг',
+      offset_type: cordsType ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
       where_target_type: spawnLocation,
       atom_dir: [1, 2, 4, 8][direction],
       offset: parseOffset(offset),
@@ -241,10 +241,10 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
       }
     } else {
       if (isPreciseModeActive) {
-        act('toggle-precise-mode', { newPreciseType: 'Выкл' });
+        act('toggle-precise-mode', { newPreciseType: PreciseMode.OFF });
       } else {
         act('toggle-precise-mode', {
-          newPreciseType: 'Цель',
+          newPreciseType: PreciseMode.TARGET,
           where_target_type: spawnLocation,
         });
       }
@@ -429,11 +429,11 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                       act('toggle-precise-mode', {
                         newPreciseType:
                           isMarkModeActive || isCopyModeActive
-                            ? 'Выкл'
+                            ? PreciseMode.OFF
                             : spawnLocation === 'У отмеченного объекта' ||
                                 spawnLocation === 'В отмеченном объекте'
-                              ? 'Метка'
-                              : 'Копирование',
+                              ? PreciseMode.MARK
+                              : PreciseMode.COPY,
                       });
                     }}
                     selected={isMarkModeActive || isCopyModeActive}
@@ -471,9 +471,12 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                   <Dropdown
                     options={spawnLocationOptions}
                     onSelected={(value) => {
-                      if (data?.precise_mode && data.precise_mode !== 'Выкл') {
+                      if (
+                        data?.precise_mode &&
+                        data.precise_mode !== PreciseMode.OFF
+                      ) {
                         act('toggle-precise-mode', {
-                          newPreciseType: 'Выкл',
+                          newPreciseType: PreciseMode.OFF,
                         });
                       }
                       updateSpawnLocation(value);
