@@ -2189,7 +2189,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	access = ACCESS_CE
 
-/datum/supply_packs/engineering/permit
+/datum/supply_packs/engineering/industrialtols
 	name = "Продвинутые инструменты"
 	contains = list(
 		/obj/item/weldingtool/hugetank,
