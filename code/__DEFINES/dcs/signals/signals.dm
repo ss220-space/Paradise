@@ -1585,3 +1585,5 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+#define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"

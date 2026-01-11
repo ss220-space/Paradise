@@ -39,6 +39,7 @@ type GreyscaleMenuData = {
   sprites: SpriteData;
   generate_full_preview: boolean;
   unlocked: boolean;
+  monitoring_files: boolean;
   sprites_dir: string;
   icon_state: string;
   refreshing: boolean;
@@ -289,17 +290,50 @@ export const GreyscaleModifyMenu = (_props: unknown) => {
         <ConfigDisplay />
         <ColorDisplay />
         <IconStatesDisplay />
-        {!!data.unlocked && (
-          <Button onClick={() => act('refresh_file')}>Refresh Icon File</Button>
-        )}
-        <Button onClick={() => act('apply')}>Apply</Button>
-        <Button.Checkbox
-          disabled={!data.generate_full_preview && !data.unlocked}
-          checked={data.generate_full_preview}
-          onClick={() => act('toggle_full_preview')}
-        >
-          Full Preview
-        </Button.Checkbox>
+        <Flex direction="column">
+          {!!data.unlocked && (
+            <Flex.Item justify="flex-start">
+              <Button
+                tooltip="Continuously checks files for changes and reloads when necessary. WARNING: Very expensive"
+                selected={data.monitoring_files}
+                onClick={() => act('toggle_mass_refresh')}
+                width={1.9}
+                mr={-0.2}
+              >
+                <Icon name="file-image-o" spin={data.monitoring_files} />
+              </Button>
+              <Button
+                tooltip="Loads the json configuration and icon file fresh from disk. This is useful to avoid restarting the server to see changes. WARNING: Expensive"
+                onClick={() => act('refresh_file')}
+              >
+                Refresh Icon File
+              </Button>
+              <Button
+                tooltip="Saves the icon to a temp file in tmp/. This is useful if you want to use a generated icon elsewhere or just view a more accurate representation"
+                onClick={() => act('save_dmi')}
+              >
+                Save Icon File
+              </Button>
+            </Flex.Item>
+          )}
+          <Flex.Item>
+            <Button
+              tooltip="Applies changes made to the object this menu was created from."
+              color="red"
+              onClick={() => act('apply')}
+            >
+              Apply
+            </Button>
+            <Button.Checkbox
+              tooltip="Generates and displays the full sprite generation process instead of just the final output."
+              disabled={!data.generate_full_preview && !data.unlocked}
+              checked={data.generate_full_preview}
+              onClick={() => act('toggle_full_preview')}
+            >
+              Full Preview
+            </Button.Checkbox>
+          </Flex.Item>
+        </Flex>
         <PreviewDisplay />
         {!!data.refreshing && <LoadingAnimation />}
       </Window.Content>
