@@ -177,12 +177,14 @@
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
 
 /obj/item/mod/module/magboot/advanced/on_deactivation(display_message = TRUE, deleting = FALSE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_WATER)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ICE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
 
 // MARK: Elite magboots
 /obj/item/mod/module/magboot/advanced/elite
@@ -207,11 +209,13 @@
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
 	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+	ADD_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
 
 /obj/item/mod/module/magboot/advanced/elite/on_deactivation(display_message = TRUE, deleting = FALSE)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NEGATES_GRAVITY)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_ALL)
 	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_NO_SLIP_SLIDE)
+	REMOVE_CLOTHING_TRAIT(mod.wearer, src, TRAIT_GUSTPROTECTION)
 
 // MARK: Rad. detector
 /// Radiation detector (should be Radiation Protection one day...) - Gives the user rad info in the ui, currently (absolutely useless)
