@@ -317,10 +317,13 @@
 		var/damaged = FALSE
 		if(external)
 			var/obj/item/organ/external/bodypart = organ
-			damaged = (bodypart.brute_dam >= brute || bodypart.burn_dam >= burn)
+			//shitcode trinary
+			damaged = brute == TRUE && brute != FALSE ? (bodypart.brute_dam > 0 || bodypart.burn_dam > 0) :\
+					  burn == TRUE && burn != FALSE ? (bodypart.burn_dam > 0 || bodypart.brute_dam > 0) :\
+					  (bodypart.brute_dam >= brute && bodypart.burn_dam >= burn) // just to make it work with the old version as fine as before and keep the new idea also working propertly(probably could just don't even keep the idea and leave the old one but who cares?)
 		else
 			var/obj/item/organ/internal/int_organ = organ
-			damaged = int_organ.damage >= int_damage ? int_damage != 0 : int_organ.damage > 0
+			damaged = int_damage != 0 ? int_organ.damage >= int_damage : int_organ.damage > 0
 		if(damaged)
 			if(!(flags & AFFECT_ROBOTIC_ORGAN) && organ.is_robotic())
 				continue
