@@ -2189,6 +2189,37 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	access = ACCESS_CE
 
+/datum/supply_packs/engineering/permit
+	name = "Продвинутые инструменты"
+	contains = list(
+		/obj/item/weldingtool/hugetank,
+		/obj/item/weldingtool/hugetank,
+		/obj/item/weldingtool/hugetank,
+		/obj/item/wrench/industrial,
+		/obj/item/wrench/industrial,
+		/obj/item/wrench/industrial,
+		/obj/item/crowbar/industrial,
+		/obj/item/crowbar/industrial,
+		/obj/item/crowbar/industrial,
+		/obj/item/wirecutters/industrial,
+		/obj/item/wirecutters/industrial,
+		/obj/item/wirecutters/industrial,
+		/obj/item/screwdriver/industrial,
+		/obj/item/screwdriver/industrial,
+		/obj/item/screwdriver/industrial,
+	)
+	cost = 60
+	containertype = /obj/structure/closet/crate/secure/engineering
+	containername = "ящик с продвинутыми инструментами"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с продвинутыми инструментами",
+		GENITIVE = "ящика с продвинутыми инструментами",
+		DATIVE = "ящику с продвинутыми инструментами",
+		ACCUSATIVE = "ящик с продвинутыми инструментами",
+		INSTRUMENTAL = "ящиком с продвинутыми инструментами",
+		PREPOSITIONAL = "ящике с продвинутыми инструментами",
+	)
+
 ///////////// Station Goals
 
 /datum/supply_packs/misc/station_goal
