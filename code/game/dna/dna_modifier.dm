@@ -308,19 +308,6 @@
 		update_icon()
 		SStgui.update_uis(src)
 
-// Checks if occupants can be irradiated/mutated - prevents exploits where wearing full rad protection would still let you gain mutations
-/obj/machinery/dna_scannernew/proc/radiation_check()
-	if(!occupant)
-		return TRUE
-
-	if(HAS_TRAIT(occupant, TRAIT_NO_DNA))
-		return TRUE
-
-	var/radiation_protection = occupant.run_armor_check(null, "rad", "Ваша одежда кажется теплой.", "Ваша одежда кажется теплой.")
-	if(radiation_protection > NEGATE_MUTATION_THRESHOLD)
-		return TRUE
-	return FALSE
-
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier access console"
 	desc = "Консоль для работы с ДНК-модификатором."
@@ -532,6 +519,8 @@
 		return TRUE
 
 	. = TRUE
+
+	var/radiation = rand((100 + radiation_intensity + radiation_duration) / connected.damage_coeff, (200 + radiation_intensity + radiation_duration) / connected.damage_coeff)
 	switch(action)
 		if("selectMenuKey")
 			var/key = params["key"]
@@ -555,10 +544,7 @@
 			if(!connected.occupant)
 				return
 
-			var/radiation = (((radiation_intensity * 3) + radiation_duration * 3) / connected.damage_coeff)
 			connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
-			if(connected.radiation_check())
-				return
 
 			if(prob(95))
 				if(prob(75))
@@ -603,20 +589,13 @@
 				return
 
 			if(prob((80 + (radiation_duration / 2))))
-				var/radiation = (radiation_intensity + radiation_duration)
 				connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
-
-				if(connected.radiation_check())
-					return
 
 				block = miniscrambletarget(num2text(selected_ui_target), radiation_intensity, radiation_duration)
 				connected.occupant.dna.SetUISubBlock(selected_ui_block, selected_ui_subblock, block)
 				connected.occupant.UpdateAppearance()
 			else
-				var/radiation = ((radiation_intensity * 2) + radiation_duration)
 				connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
-				if(connected.radiation_check())
-					return
 
 				if(prob(20 + radiation_intensity))
 					randmutb(connected.occupant)
@@ -659,11 +638,7 @@
 
 			if(connected.occupant)
 				if(prob((80 + ((radiation_duration / 2) + (connected.precision_coeff ** 3)))))
-					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
 					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
-
-					if(connected.radiation_check())
-						return 1
 
 					var/real_SE_block=selected_se_block
 					block = miniscramble(block, radiation_intensity, radiation_duration)
@@ -677,11 +652,7 @@
 					connected.occupant.dna.SetSESubBlock(real_SE_block, selected_se_subblock, block)
 					connected.occupant.check_genes()
 				else
-					var/radiation = (((radiation_intensity * 2) + radiation_duration) / connected.damage_coeff)
 					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
-
-					if(connected.radiation_check())
-						return
 
 					if(prob(80 - radiation_duration))
 						//testing("Random bad mut!")
@@ -754,11 +725,7 @@
 					irradiating = 0
 					connected.locked = lock_state
 
-					var/radiation = (rand(20, 50) / connected.damage_coeff)
 					connected.occupant.apply_status_effect(/datum/status_effect/genetic_damage, radiation)
-
-					if(connected.radiation_check())
-						return
 
 					var/datum/dna2/record/buf = buffers[bufferId]
 
