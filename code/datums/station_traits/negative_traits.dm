@@ -462,7 +462,7 @@
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_CRAMPED_INTERNALS
 	weight = 2
-	// blacklist = list(/datum/station_trait/premium_internals_box)
+	blacklist = list(/datum/station_trait/premium_internals_box)
 
 /datum/station_trait/looted_armory
 	name = "Разграбленная оружейная"
@@ -471,7 +471,7 @@
 	show_in_report = TRUE
 	trait_to_give = STATION_TRAIT_LOOTED_ARMORY
 	weight = 2
-	// blacklist = list(/datum/station_trait/upgraded_armory)
+	blacklist = list(/datum/station_trait/upgraded_armory)
 
 /datum/station_trait/looted_armory/on_round_start()
 	. = ..()
@@ -505,3 +505,15 @@
 					if(istype(current_thing, /obj/machinery/suit_storage_unit) && prob(40))
 						qdel(current_thing)
 						continue
+
+				CHECK_TICK
+
+/* trait will be added, when modsuits will be merged
+/datum/station_trait/outdated_hardsuits
+	name = "Устаревшее снаряжение для ВКД"
+	report_message = "Из-за острой нехватки финансирования, на ваш объект не были закуплены модульные экзо-костюмы, так что вам придётся довольствоваться устаревшими хардсьютами."
+	trait_type = STATION_TRAIT_NEGATIVE
+	show_in_report = TRUE
+	trait_to_give = STATION_TRAIT_OUTDATED_HARDSUITS
+	weight = 2
+*/

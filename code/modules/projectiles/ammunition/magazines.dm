@@ -577,6 +577,9 @@
 	caliber = CALIBER_9MM
 	max_ammo = 21
 
+/obj/item/ammo_box/magazine/smgm9mm/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/smgm9mm/get_ru_names()
 	return list(
 		NOMINATIVE = "магазин SMG (9 мм)",
@@ -657,6 +660,9 @@
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = CALIBER_9MM
 	max_ammo = 30
+
+/obj/item/ammo_box/magazine/sfg9mm/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/sfg9mm/get_ru_names()
 	return list(
@@ -819,6 +825,9 @@
 	caliber = CALIBER_5_DOT_45X39MM
 	max_ammo = 30
 	multiple_sprites = 2
+
+/obj/item/ammo_box/magazine/aksu/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/aksu/get_ru_names()
 	return list(
@@ -1196,6 +1205,9 @@
 	ammo_type = /obj/item/ammo_casing/laser
 	caliber = CALIBER_LASER
 	max_ammo = 20
+
+/obj/item/ammo_box/magazine/laser/empty
+	start_empty = TRUE
 
 /obj/item/ammo_box/magazine/laser/get_ru_names()
 	return list(

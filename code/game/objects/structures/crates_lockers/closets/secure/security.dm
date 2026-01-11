@@ -231,6 +231,67 @@
 		for(var/i in 1 to 5)
 			new /obj/item/gun/projectile/automatic/sparkle_a12(src)
 
+/obj/structure/closet/secure_closet/guncabinet/sfg
+	name = "security SFG-5 SMG gun cabinet"
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов SFG-5. Внутри хранится дизайн диск для печати магазинов."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/sfg/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф пистолет пулемёта SFG-5",
+		GENITIVE = "шкафа пистолет пулемёта SFG-5",
+		DATIVE = "шкафу пистолет пулемёта SFG-5",
+		ACCUSATIVE = "шкаф пистолет пулемёта SFG-5",
+		INSTRUMENTAL = "шкафом пистолет пулемёта SFG-5",
+		PREPOSITIONAL = "шкафе пистолет пулемёта SFG-5"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/sfg/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/gun/projectile/automatic/sfg(src)
+	new /obj/item/disk/design_disk/security/sfg5_mag(src)
+
+/obj/structure/closet/secure_closet/guncabinet/saber
+	name = "Nanotrasen Saber SMG gun cabinet"
+	desc = "Защищённый шкаф для хранения пистолетов пулемётов Saber. Внутри хранится дизайн диск для печати магазинов."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/saber/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф пистолет пулемёта Saber",
+		GENITIVE = "шкафа пистолет пулемёта Saber",
+		DATIVE = "шкафу пистолет пулемёта Saber",
+		ACCUSATIVE = "шкаф пистолет пулемёта Saber",
+		INSTRUMENTAL = "шкафом пистолет пулемёта Saber",
+		PREPOSITIONAL = "шкафе пистолет пулемёта Saber"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/saber/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/gun/projectile/automatic/proto/rubber(src)
+	new /obj/item/disk/design_disk/security/saber_mag(src)
+
+/obj/structure/closet/secure_closet/guncabinet/aksu
+	name = "Soviet AKSU gun cabinet"
+	desc = "Защищённый шкаф для хранения штурмовых винтовок АКС-74У. Довольно необычно их тут встретить. Внутри хранится диск для печати магазинов и боеприпасов."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/aksu/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф штурмовой винтовки АКС-74У",
+		GENITIVE = "шкафа штурмовой винтовки АКС-74У",
+		DATIVE = "шкафу штурмовой винтовки АКС-74У",
+		ACCUSATIVE = "шкаф штурмовой винтовки АКС-74У",
+		INSTRUMENTAL = "шкафом штурмовой винтовки АКС-74У",
+		PREPOSITIONAL = "шкафе штурмовой винтовки АКС-74У"
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/aksu/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/gun/projectile/automatic/aksu(src)
+	new /obj/item/disk/design_disk/security/aksu_mag(src)
+	new /obj/item/disk/design_disk/security/aksu_ammo(src)
+
 /obj/structure/closet/secure_closet/guncabinet/lasergun
 	name = "security laser gun cabinet"
 	desc = "Защищённый шкаф для хранения лазерных винтовок. Шкаф прикручен к полу."
@@ -276,6 +337,132 @@
 	else
 		for(var/i in 1 to 5)
 			new /obj/item/gun/projectile/automatic/lr30(src)
+
+/obj/structure/closet/secure_closet/guncabinet/lasercarbine
+	name = "security IK-60 gun cabinet"
+	desc = "Защищённый шкаф для хранения лазерных карабинов IK-60. Внутри хранится диск для печати магазинов и боеприпасов."
+	req_access = list(ACCESS_ARMORY)
+
+/obj/structure/closet/secure_closet/guncabinet/lasercarbine/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф лазерных карабинов IK-60",
+		GENITIVE = "шкафа лазерных карабинов IK-60",
+		DATIVE = "шкафу лазерных карабинов IK-60",
+		ACCUSATIVE = "шкаф лазерных карабинов IK-60",
+		INSTRUMENTAL = "шкафом лазерных карабинов IK-60",
+		PREPOSITIONAL = "шкафе лазерных карабинов IK-60",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/lasercarbine/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/gun/projectile/automatic/lasercarbine(src)
+	new /obj/item/disk/design_disk/security/laser_carbine_mag(src)
+
+/obj/structure/closet/secure_closet/guncabinet/plasma_pistols
+	name = "plasma pistol gun cabinet"
+	desc = "Защищённый шкаф для хранения плазменных пистолетов модели \"Щитобой\" Шкаф прикручен к полу."
+
+/obj/structure/closet/secure_closet/guncabinet/plasma_pistols/get_ru_names()
+	return list(
+		NOMINATIVE = "шкаф плазменных пистолетов",
+		GENITIVE = "шкафа плазменных пистолетов",
+		DATIVE = "шкафу плазменных пистолетов",
+		ACCUSATIVE = "шкаф плазменных пистолетов",
+		INSTRUMENTAL = "шкафом плазменных пистолетов",
+		PREPOSITIONAL = "шкафе плазменных пистолетов",
+	)
+
+/obj/structure/closet/secure_closet/guncabinet/plasma_pistols/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/gun/energy/plasma_pistol(src)
+
+/obj/item/disk/design_disk/security
+	name = "security design disk"
+	desc = "Дискета, на которой находится шаблон печати оружейной технологии, недоступной для получения обычными способами."
+	icon_state = "holodisk"
+	var/design_type
+
+/obj/item/disk/design_disk/security/Initialize(mapload)
+	. = ..()
+	if(isnull(design_type))
+		return INITIALIZE_HINT_QDEL
+
+	blueprint = new design_type()
+
+/obj/item/disk/design_disk/security/sfg5_mag
+	name = "SFG-5 SMG magazine design"
+	desc = "Дискета, на которой находится шаблон печати магазинов для ПП SFG-5."
+	design_type = /datum/design/sfg9mm
+
+/obj/item/disk/design_disk/security/sfg5_mag/get_ru_names()
+	return list(
+		NOMINATIVE = "дискета шаблона печати магазина для SFG-5",
+		GENITIVE = "дискеты шаблона печати магазина для SFG-5",
+		DATIVE = "дискете шаблона печати магазина для SFG-5",
+		ACCUSATIVE = "дискету шаблона печати магазина для SFG-5",
+		INSTRUMENTAL = "дискетой шаблона печати магазина для SFG-5",
+		PREPOSITIONAL = "дискете шаблона печати магазина для SFG-5"
+	)
+
+/obj/item/disk/design_disk/security/saber_mag
+	name = "Saber SMG magazine design"
+	desc = "Дискета, на которой находится шаблон печати магазинов для ПП Saber"
+	design_type = /datum/design/smgm9mm
+
+/obj/item/disk/design_disk/security/saber_mag/get_ru_names()
+	return list(
+		NOMINATIVE = "дискета шаблона печати магазина для Saber",
+		GENITIVE = "дискеты шаблона печати магазина для Saber",
+		DATIVE = "дискете шаблона печати магазина для Saber",
+		ACCUSATIVE = "дискету шаблона печати магазина для Saber",
+		INSTRUMENTAL = "дискетой шаблона печати магазина для Saber",
+		PREPOSITIONAL = "дискете шаблона печати магазина для Saber"
+	)
+
+/obj/item/disk/design_disk/security/aksu_mag
+	name = "AKSU magazine design"
+	desc = "Дискета, на которой находится шаблон печати магазинов для штурмовой винтовки АКС-74У"
+	design_type = /datum/design/aksu_mag
+
+/obj/item/disk/design_disk/security/aksu_mag/get_ru_names()
+	return list(
+		NOMINATIVE = "дискета шаблона печати магазина для АКС-74У",
+		GENITIVE = "дискеты шаблона печати магазина для АКС-74У",
+		DATIVE = "дискете шаблона печати магазина для АКС-74У",
+		ACCUSATIVE = "дискету шаблона печати магазина для АКС-74У",
+		INSTRUMENTAL = "дискетой шаблона печати магазина для АКС-74У",
+		PREPOSITIONAL = "дискете шаблона печати магазина для АКС-74У"
+	)
+
+/obj/item/disk/design_disk/security/aksu_ammo
+	name = "AKSU ammo box design"
+	desc = "Дискета, на которой находится шаблон печати патронов для штурмовой винтовки АКС-74У. Судя по всему, диск немного повреждён."
+	design_type = /datum/design/aksu_ammo_box
+
+/obj/item/disk/design_disk/security/aksu_ammo/get_ru_names()
+	return list(
+		NOMINATIVE = "дискета шаблона печати патронов для АКС-74У",
+		GENITIVE = "дискеты шаблона печати патронов для АКС-74У",
+		DATIVE = "дискете шаблона печати патронов для АКС-74У",
+		ACCUSATIVE = "дискету шаблона печати патронов для АКС-74У",
+		INSTRUMENTAL = "дискетой шаблона печати патронов для АКС-74У",
+		PREPOSITIONAL = "дискете шаблона печати патронов для АКС-74У"
+	)
+
+/obj/item/disk/design_disk/security/laser_carbine_mag
+	name = "IK-60 magazine design"
+	desc = "Дискета, на которой находится шаблон печати магазинов для лазерного карабина IK-60."
+	design_type = /datum/design/laser_carbine_mag
+
+/obj/item/disk/design_disk/security/laser_carbine_mag/get_ru_names()
+	return list(
+		NOMINATIVE = "дискета шаблона печати магазина для IK-60",
+		GENITIVE = "дискеты шаблона печати магазина для IK-60",
+		DATIVE = "дискете шаблона печати магазина для IK-60",
+		ACCUSATIVE = "дискету шаблона печати магазина для IK-60",
+		INSTRUMENTAL = "дискетой шаблона печати магазина для IK-60",
+		PREPOSITIONAL = "дискете шаблона печати магазина для IK-60"
+	)
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"

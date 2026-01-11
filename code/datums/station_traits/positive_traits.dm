@@ -306,8 +306,6 @@
 		/datum/job/supply/mining = /obj/item/organ/internal/cyberimp/eyes/meson,
 		/datum/job/supply/mining_medic = /obj/item/organ/internal/cyberimp/arm/surgery,
 	)
-	force = 1
-
 
 /datum/station_trait/cybernetic_revolution/New()
 	. = ..()
@@ -343,3 +341,43 @@
 	event_severity = /datum/event_container/moderate
 	weight_multiplier = 20 // you should be really unlucky
 
+/datum/station_trait/upgraded_armory
+	name = "Улучшенная оружейная"
+	report_message = "Укрепленная оружейная на вашем объекте получила улучшения, туды были доставлены редкие экземпляры. Однако цены на заказ нового снаряжения будут повышены."
+	show_in_report = TRUE
+	weight = 2
+	trait_type = STATION_TRAIT_POSITIVE
+	trait_to_give = STATION_TRAIT_UPGRADED_ARMORY
+
+/datum/station_trait/upgraded_armory/on_round_start()
+	. = ..()
+	for(var/set_name in SSshuttle.supply_packs)
+		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
+		if(get_supply_group_name(pack.group) != "Безопасность") //fuck
+			continue
+		pack.cost *= 1.5
+
+	INVOKE_ASYNC(src, PROC_REF(upgrade_armory))
+
+/datum/station_trait/upgraded_armory/proc/upgrade_armory()
+	for(var/area/security/securearmory/armory in GLOB.areas)
+		for(var/list/zlevel_turfs as anything in armory.get_zlevel_turf_lists())
+			for(var/turf/current_turf as anything in zlevel_turfs)
+				for(var/obj/current_thing as anything in current_turf.contents)
+
+					if(istype(current_thing, /obj/item/shield/riot))
+						new /obj/item/shield/riot/tele(current_thing.loc)
+						qdel(current_thing)
+						continue
+
+					if(istype(current_thing, /obj/machinery/suit_storage_unit/security))
+						new /obj/machinery/suit_storage_unit/security/warden(current_thing.loc)
+						qdel(current_thing)
+						continue
+
+					if(istype(current_thing, /obj/item/gun/energy/gun))
+						new /obj/item/gun/energy/gun/pdw9(current_thing.loc)
+						qdel(current_thing)
+						continue
+
+				CHECK_TICK
