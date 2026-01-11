@@ -8,7 +8,7 @@
 /obj/machinery/atmospherics/portable/scrubber
 	name = "portable air scrubber"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
-	icon_state = "pscrubber:0"
+	icon_state = "pscrubber_off"
 	density = TRUE
 	volume = 750
 	/// The volume of gas that can be scrubbed every time `process_atmos()` is called (0.5 seconds).
@@ -35,14 +35,14 @@
 	..(severity)
 
 /obj/machinery/atmospherics/portable/scrubber/update_icon_state()
-	icon_state = "pscrubber:[on]"
+	icon_state = "pscrubber_[on ? "on" : "off"]"
 
 /obj/machinery/atmospherics/portable/scrubber/update_overlays()
 	. = ..()
 	if(holding_tank)
-		. += "scrubber-open"
+		. += "scrubber_open"
 	if(connected_port)
-		. += "scrubber-connector"
+		. += "scrubber_connector"
 
 /obj/machinery/atmospherics/portable/scrubber/process_atmos()
 	..()

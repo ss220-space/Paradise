@@ -68,10 +68,6 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
-"nx" = (
-/obj/machinery/atmospherics/portable/canister/oxygen,
-/turf/simulated/floor/mineral/titanium/blue,
-/area/fastload/blue)
 "oJ" = (
 /obj/machinery/light,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -178,10 +174,6 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"GE" = (
-/obj/machinery/light/floor,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/fastload/purple)
 "Hi" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -211,6 +203,10 @@
 "Pd" = (
 /turf/simulated/openspace,
 /area/fastload)
+"Py" = (
+/obj/machinery/atmospherics/portable/canister/oxygen,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "Qa" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -243,6 +239,11 @@
 	},
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"Xg" = (
+/obj/effect/spawner/new_year/presents_tree,
+/obj/machinery/light/floor,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "Xw" = (
 /obj/machinery/light{
 	dir = 8
@@ -2147,7 +2148,7 @@ Cd
 WA
 CV
 qp
-nx
+Py
 HE
 HE
 jk
@@ -6764,7 +6765,7 @@ YB
 YB
 YB
 YB
-GE
+Xg
 YB
 YB
 YB

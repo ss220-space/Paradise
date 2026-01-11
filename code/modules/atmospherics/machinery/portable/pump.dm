@@ -9,7 +9,7 @@
 /obj/machinery/atmospherics/portable/pump
 	name = "portable air pump"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
-	icon_state = "psiphon:0"
+	icon_state = "psiphon_off"
 	density = TRUE
 	volume = 1000
 	/// The direction the pump is operating in. This should be either `DIRECTION_IN` or `DIRECTION_OUT`.
@@ -18,14 +18,14 @@
 	target_pressure = 101.325
 
 /obj/machinery/atmospherics/portable/pump/update_icon_state()
-	icon_state = "psiphon:[on]"
+	icon_state = "psiphon_[on ? "on" : "off"]"
 
 /obj/machinery/atmospherics/portable/pump/update_overlays()
 	. = ..()
 	if(holding_tank)
-		. += "siphon-open"
+		. += "siphon_open"
 	if(connected_port)
-		. += "siphon-connector"
+		. += "siphon_connector"
 
 /obj/machinery/atmospherics/portable/pump/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))
@@ -38,7 +38,7 @@
 	if(prob(100/severity))
 		direction = !direction
 
-	target_pressure = rand(0,1300)
+	target_pressure = rand(0, 1300)
 	update_icon()
 
 	..(severity)
