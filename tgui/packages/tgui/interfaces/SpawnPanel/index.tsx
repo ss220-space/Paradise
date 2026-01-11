@@ -49,7 +49,7 @@ export const SpawnPanel = () => {
     <Window
       height={550}
       title="Панель создания объектов"
-      width={500}
+      width={575}
       theme="admin"
     >
       <Window.Content>

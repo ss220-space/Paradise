@@ -38,7 +38,7 @@
 		target = (where_target_type == WHERE_TARGETED_MOB_HAND ? spawn_params["target"] : user)
 
 		if(!target)
-			to_chat(user, span_warning("Цель не выбраны."))
+			to_chat(user, span_warning("Цель не выбрана."))
 			return
 
 		if(!ismob(target))

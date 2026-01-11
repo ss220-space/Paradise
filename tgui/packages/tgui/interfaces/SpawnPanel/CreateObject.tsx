@@ -53,7 +53,7 @@ export const CreateObject = (props: CreateObjectProps) => {
   const allObjects = objList.atoms;
 
   const currentList = objList;
-  const currentType = allObjects[data.copied_type ?? '']?.type || 'Объекты';
+  const currentType = allObjects[data.copied_type ?? '']?.type || 'Objects';
 
   const { query, setQuery, results } = useFuzzySearch({
     searchArray: Object.keys(allObjects),
@@ -297,7 +297,8 @@ export const CreateObject = (props: CreateObjectProps) => {
                     italic
                     style={{ color: 'rgba(200, 200, 200, 0.7)' }}
                   >
-                    {allObjects[selectedObj].description || 'no description'}
+                    {allObjects[selectedObj].description ||
+                      'описание отсутствует'}
                   </Stack.Item>
                 </Stack>
               </Stack.Item>

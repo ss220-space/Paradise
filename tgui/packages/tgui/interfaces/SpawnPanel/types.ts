@@ -28,7 +28,7 @@ export interface AtomData {
   name: string;
   description?: string;
   mapping: BooleanLike;
-  type: 'Объекты' | 'Турфы' | 'Мобы';
+  type: 'Objects' | 'Turfs' | 'Mobs';
 }
 
 export interface CreateObjectData {
