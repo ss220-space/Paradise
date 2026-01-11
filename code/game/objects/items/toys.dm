@@ -992,7 +992,7 @@
 /obj/item/toy/plushie/lizard_plushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "map_pushie_lizard"
+	icon_state = "map_plushie_lizard"
 	item_state = "plushie_lizard"
 	greyscale_config = /datum/greyscale_config/plush_lizard
 	greyscale_config_inhand_left = /datum/greyscale_config/plush_lizard_left

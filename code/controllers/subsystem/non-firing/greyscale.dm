@@ -9,14 +9,22 @@ SUBSYSTEM_DEF(greyscale)
 /datum/controller/subsystem/greyscale/Initialize(start_timeofday)
 	for(var/datum/greyscale_layer/fake_type as anything in subtypesof(/datum/greyscale_layer))
 		layer_types[initial(fake_type.layer_type)] = fake_type
+
 	for(var/greyscale_type in subtypesof(/datum/greyscale_config))
 		var/datum/greyscale_config/config = new greyscale_type()
 		configurations["[greyscale_type]"] = config
+
 	// We do this after all the types have been loaded into the listing so reference layers don't care about init order
 	for(var/greyscale_type in configurations)
 		CHECK_TICK
 		var/datum/greyscale_config/config = configurations[greyscale_type]
 		config.Refresh()
+
+	// This final verification step is for things that need other greyscale configurations to be finished loading
+	for(var/greyscale_type as anything in configurations)
+		CHECK_TICK
+		var/datum/greyscale_config/config = configurations[greyscale_type]
+		config.CrossVerify()
 	return ..()
 
 /datum/controller/subsystem/greyscale/proc/RefreshConfigsFromFile()

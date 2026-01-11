@@ -26295,7 +26295,7 @@
 	},
 /area/security/lobby)
 "dSt" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /obj/machinery/alarm{
@@ -29482,7 +29482,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "eri" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue"
@@ -46000,7 +46000,7 @@
 	},
 /area/hallway/secondary/exit)
 "gOK" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	on = 1
 	},
 /obj/effect/decal/warning_stripes/red,
@@ -87297,7 +87297,7 @@
 	},
 /area/medical/medbay2)
 "naM" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -95984,7 +95984,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
 "oqO" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel,
@@ -96101,7 +96101,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/controlroom)
 "osd" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -111251,7 +111251,7 @@
 /area/toxins/launch)
 "qBQ" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 2
 	},
 /obj/structure/sign/fire{
@@ -120011,7 +120011,7 @@
 /turf/simulated/wall,
 /area/maintenance/fsmaint3)
 "rPj" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -131387,7 +131387,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "twc" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /obj/structure/cable{
@@ -157171,10 +157171,8 @@
 	},
 /area/maintenance/trading)
 "xoh" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	dir = 4;
-	on = 1
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;

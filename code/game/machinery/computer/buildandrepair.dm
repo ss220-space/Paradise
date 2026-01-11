@@ -1019,7 +1019,7 @@ to destroy them and players will be able to make replacements.
 /obj/item/circuitboard/thermomachine
 	board_name = "Freezer"
 	desc = "Use screwdriver to switch between heating and cooling modes."
-	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+	build_path = /obj/machinery/atmospherics/unary/thermomachine/freezer
 	board_type = "machine"
 	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;plasmatech=3"
@@ -1034,12 +1034,12 @@ to destroy them and players will be able to make replacements.
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
-	if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
-		build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
+	if(build_path == /obj/machinery/atmospherics/unary/thermomachine/freezer)
+		build_path = /obj/machinery/atmospherics/unary/thermomachine/heater
 		board_name = "Heater"
 		to_chat(user, span_notice("You set the board to heating."))
 	else
-		build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+		build_path = /obj/machinery/atmospherics/unary/thermomachine/freezer
 		board_name = "Freezer"
 		to_chat(user, span_notice("You set the board to cooling."))
 

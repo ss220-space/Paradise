@@ -36,6 +36,12 @@
 		alpha_filter = filter(type = "alpha", icon = icon(canister_overlay_file, "window-base"))
 	. = ..()
 	update_icon()
+	RegisterSignal(SSdcs, COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED, PROC_REF(on_subsystems_init_ended))
+
+/obj/machinery/portable_atmospherics/canister/proc/on_subsystems_init_ended(datum/source)
+	SIGNAL_HANDLER
+	update_window()
+	UnregisterSignal(SSdcs, COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED)
 
 /obj/machinery/portable_atmospherics/canister/update_overlays()
 	. = ..()
@@ -74,6 +80,9 @@
 /obj/machinery/portable_atmospherics/canister/proc/update_window()
 	if(!air_contents)
 		return
+
+	if(!alpha_filter) // Gotta do this separate since the icon may not be correct at world init
+		alpha_filter = filter(type="alpha", icon = icon(canister_overlay_file, "window-base"))
 
 	cut_overlay(window)
 	window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
