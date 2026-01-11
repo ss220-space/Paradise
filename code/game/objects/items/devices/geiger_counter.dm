@@ -1,4 +1,5 @@
-/obj/item/geiger_counter //DISCLAIMER: I know nothing about how real-life Geiger counters work. This will not be realistic. ~Xhuis
+// DISCLAIMER: I know nothing about how real-life Geiger counters work. This will not be realistic. ~Xhuis
+/obj/item/geiger_counter
 	name = "geiger counter"
 	desc = "A handheld device used for detecting and measuring radiation pulses."
 	icon = 'icons/obj/devices/scanner.dmi'
@@ -14,6 +15,9 @@
 
 	var/last_perceived_radiation_danger = null
 	var/scanning = FALSE
+
+	/// The current owner to whom the signal is registered
+	var/mob/current_signal_target = null
 
 /obj/item/geiger_counter/Initialize(mapload)
 	. = ..()
@@ -86,12 +90,23 @@
 /obj/item/geiger_counter/equipped(mob/user, slot, initial)
 	. = ..()
 
-	RegisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
+	// Unregister from the previous target mob, if it exists
+	if(current_signal_target && current_signal_target != user)
+		UnregisterSignal(current_signal_target, COMSIG_IN_RANGE_OF_IRRADIATION)
+		current_signal_target = null
+
+	// Registering for a new mob with override = TRUE
+	if(user && !current_signal_target)
+		RegisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation), override = TRUE)
+		current_signal_target = user
 
 /obj/item/geiger_counter/dropped(mob/user, silent = FALSE)
 	. = ..()
 
-	UnregisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION)
+	// Unregister from the current target mob
+	if(current_signal_target)
+		UnregisterSignal(current_signal_target, COMSIG_IN_RANGE_OF_IRRADIATION)
+		current_signal_target = null
 
 /obj/item/geiger_counter/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
 	SIGNAL_HANDLER
