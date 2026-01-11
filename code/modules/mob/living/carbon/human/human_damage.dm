@@ -320,7 +320,7 @@
 			damaged = (bodypart.brute_dam >= brute || bodypart.burn_dam >= burn)
 		else
 			var/obj/item/organ/internal/int_organ = organ
-			damaged = int_organ.damage >= int_damage
+			damaged = int_organ.damage >= int_damage ? int_damage != 0 : int_organ.damage > 0
 		if(damaged)
 			if(!(flags & AFFECT_ROBOTIC_ORGAN) && organ.is_robotic())
 				continue
