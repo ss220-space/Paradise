@@ -3,7 +3,7 @@
 	name = "Анализатор ДНК"
 	desc = "Высокотехнологичная машина, которая предназначена для правильного считывания образцов ДНК."
 	icon = 'icons/obj/forensics.dmi'
-	icon_state = "dnaopen"
+	icon_state = "dna_open"
 	anchored = TRUE
 	density = TRUE
 
@@ -101,17 +101,18 @@
 	return ..()
 
 /obj/machinery/dnaforensics/update_icon_state()
-	icon_state = "dnaopen"
-	if(swab)
-		icon_state = "dnaclosed"
-		if(scanning)
-			icon_state = "dnaworking"
+	if(scanning)
+		icon_state = "dna_work"
+	else if(swab)
+		icon_state = "dna_closed"
+	else
+		icon_state = "dna_open"
 
 /obj/machinery/dnaforensics/screwdriver_act(mob/user, obj/item/I)
 	if(swab)
 		return
 	. = TRUE
-	default_deconstruction_screwdriver(user, "dnaopenunpowered", "dnaopen", I)
+	default_deconstruction_screwdriver(user, "dna_open_off", "dna_open", I)
 
 /obj/machinery/dnaforensics/wrench_act(mob/user, obj/item/I)
 	. = TRUE
