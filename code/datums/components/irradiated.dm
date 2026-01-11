@@ -51,13 +51,13 @@
 /datum/component/irradiated/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_COMPONENT_CLEAN_ACT, PROC_REF(on_clean))
 	RegisterSignal(parent, COMSIG_GEIGER_COUNTER_SCAN, PROC_REF(on_geiger_counter_scan))
-	//RegisterSignal(parent, COMSIG_LIVING_HEALTHSCAN, PROC_REF(on_healthscan))
+	RegisterSignal(parent, COMSIG_LIVING_HEALTHSCAN, PROC_REF(on_healthscan))
 
 /datum/component/irradiated/UnregisterFromParent()
 	UnregisterSignal(parent, list(
 		COMSIG_COMPONENT_CLEAN_ACT,
 		COMSIG_GEIGER_COUNTER_SCAN,
-		//COMSIG_LIVING_HEALTHSCAN,
+		COMSIG_LIVING_HEALTHSCAN,
 	))
 
 /datum/component/irradiated/Destroy(force)
@@ -188,12 +188,10 @@
 
 	return COMSIG_GEIGER_COUNTER_SCAN_SUCCESSFUL
 
-///datum/component/irradiated/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
-//	SIGNAL_HANDLER
-//
-//	render_list += "<span class='alert ml-1'>"
-//	render_list += conditional_tooltip("Subject is irradiated.", "Supply antiradiation or antitoxin, such as [/datum/reagent/medicine/potass_iodide::name] or [/datum/reagent/medicine/pen_acid::name].", tochat)
-//	render_list += "</span><br>"
+/datum/component/irradiated/proc/on_healthscan(datum/source, list/render_list, advanced, mob/user, mode, tochat)
+	SIGNAL_HANDLER
+
+	render_list += span_warning("Subject is irradiated. Supply antiradiation or antitoxin, such as [/datum/reagent/medicine/potass_iodide::name] or [/datum/reagent/medicine/pen_acid::name].")
 
 /atom/movable/screen/alert/irradiated
 	name = "Облученный"

@@ -528,7 +528,7 @@
 		var/mob/living/living_target = target
 		living_target.ExtinguishMob()
 		living_target.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
-		to_chat(living_target, span_warning("Вы насквозь промокли!"))
+		//to_chat(living_target, span_warning("Вы насквозь промокли!"))
 
 	target.clean_blood()
 	SEND_SIGNAL(target, COMSIG_COMPONENT_CLEAN_ACT, 10)

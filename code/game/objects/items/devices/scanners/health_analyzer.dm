@@ -584,8 +584,6 @@
 		else
 			scan_data += "Состояние: [H.stat > 1 ? span_danger("Смерть") : (H.health > 0 ? "[H.health]%" : span_danger("[H.health]%"))]"
 
-	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, scan_data, advanced, user, mode, tochat)
-
 	scan_data += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>"
 	scan_data += "Уровень повреждений: <font color='#0080ff'>[OX]</font> - <font color='green'>[TX]</font> - <font color='#FF8000'>[BU]</font> - <font color='red'>[BR]</font>"
 	scan_data += "Температура тела: [H.bodytemperature-T0C] &deg;C ([H.bodytemperature*1.8-459.67] &deg;F)"
@@ -655,8 +653,7 @@
 	else
 		scan_data += span_warning(">Мозг не обнаружен.")
 
-	if(HAS_TRAIT(H, TRAIT_IRRADIATED))
-		scan_data += span_warning("Объект облучен. Необходимо провести терапию токсинами для заживления.")
+	SEND_SIGNAL(target, COMSIG_LIVING_HEALTHSCAN, scan_data, advanced, user, mode, tochat)
 
 	for(var/name in H.bodyparts_by_name)
 		var/obj/item/organ/external/bodypart = H.bodyparts_by_name[name]

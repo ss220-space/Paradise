@@ -419,7 +419,7 @@
 	var/obj/item/organ/internal/liver/liver = drinker.get_organ_slot(INTERNAL_ORGAN_LIVER)
 	if(HAS_TRAIT(liver, TRAIT_ENGINEER_METABOLISM))
 		ADD_TRAIT(drinker, TRAIT_HALT_RADIATION_EFFECTS, UNIQUE_TRAIT_SOURCE(src))
-		if (HAS_TRAIT(drinker, TRAIT_IRRADIATED))
+		if(HAS_TRAIT(drinker, TRAIT_IRRADIATED))
 			if(drinker.adjustToxLoss(-2 * REM * seconds_per_tick, updating_health = FALSE))
 				return STATUS_UPDATE_HEALTH
 
