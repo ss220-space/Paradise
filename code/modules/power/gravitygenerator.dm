@@ -326,10 +326,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	update_list()
 
 	if(!old_gravity)
-		if(SSticker.current_state == GAME_STATE_PLAYING)
-			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
-			message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
 		shake_everyone()
+		if(SSticker.current_state != GAME_STATE_PLAYING)
+			return
+		investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
+		message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
 
 /obj/machinery/gravity_generator/main/proc/disable()
 	charging_state = GRAV_POWER_IDLE
@@ -341,10 +342,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	update_list()
 
 	if(old_gravity)
-		if(SSticker.current_state == GAME_STATE_PLAYING)
-			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
-			message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
 		shake_everyone()
+		if(SSticker.current_state != GAME_STATE_PLAYING)
+			return
+		investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
+		message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
 
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
 // Also emit radiation and handle the overlays.
