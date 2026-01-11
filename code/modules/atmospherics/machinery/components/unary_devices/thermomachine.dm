@@ -96,8 +96,7 @@
 	if(on && powered() && !(stat & BROKEN))
 		icon_state = "thermo_1"
 		return ..()
-	icon_state = "thermo_0"
-	update_pipe_image()
+	icon_state = "thermo_base"
 	return ..()
 
 /obj/machinery/atmospherics/unary/thermomachine/setPipenet()
