@@ -410,6 +410,14 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/locker)
+"ach" = (
+/obj/item/twohanded/required/kirbyplants{
+	icon_state = "plant-25";
+	tag = "icon-plant-25"
+	},
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/carpet/red,
+/area/crew_quarters/bar/atrium)
 "aci" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3346,7 +3354,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "aCf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3848,6 +3856,7 @@
 	pixel_y = 32
 	},
 /obj/structure/railing/corner,
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "aFu" = (
@@ -3892,7 +3901,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "aGm" = (
 /obj/structure/closet/cardboard,
@@ -5434,13 +5443,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "aPO" = (
 /obj/structure/table/wood/poker,
 /obj/item/deck/cards,
 /obj/item/stack/spacechips/c5000,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "aPS" = (
 /obj/structure/table,
@@ -5823,7 +5832,7 @@
 /area/engineering/controlroom)
 "aSV" = (
 /obj/structure/chair/stool/bar,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "aSZ" = (
 /obj/machinery/light{
@@ -6064,7 +6073,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "aUB" = (
 /obj/structure/extinguisher_cabinet{
@@ -6078,7 +6087,7 @@
 	dir = 4
 	},
 /obj/effect/landmark/start/civilian,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "aUJ" = (
 /obj/structure/table,
@@ -6511,7 +6520,7 @@
 	},
 /area/hallway/secondary/entry/westarrival)
 "aXF" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "aXJ" = (
 /obj/item/clothing/gloves/color/yellow/fake,
@@ -7463,7 +7472,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "bez" = (
 /obj/effect/decal/cleanable/dirt,
@@ -7999,7 +8008,8 @@
 	pixel_y = -22
 	},
 /obj/machinery/light,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "bhJ" = (
 /obj/effect/spawner/random_spawners/wall_rusted_30,
@@ -8070,6 +8080,7 @@
 	name = "Bar Privacy Shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/new_year/garland/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9625,7 +9636,8 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "bsd" = (
 /obj/structure/rack,
@@ -9756,6 +9768,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -10607,7 +10620,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "bwk" = (
 /obj/structure/table/reinforced,
@@ -10620,9 +10633,8 @@
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/obj/effect/spawner/new_year/garland/north,
+/turf/simulated/floor/light,
 /area/crew_quarters/bar)
 "bwl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
@@ -10802,7 +10814,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "bxk" = (
 /obj/structure/cable{
@@ -10835,13 +10847,13 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "bxt" = (
 /obj/structure/chair/sofa/left{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/serviceyard)
 "bxv" = (
 /obj/machinery/door/firedoor,
@@ -11122,7 +11134,8 @@
 /area/space)
 "byP" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "byR" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -12101,6 +12114,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13591,7 +13605,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "bLm" = (
 /obj/effect/decal/cleanable/dirt,
@@ -14039,6 +14053,9 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/warden)
+"bNQ" = (
+/turf/simulated/floor/carpet/green,
+/area/crew_quarters/bar/atrium)
 "bNR" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -14992,7 +15009,7 @@
 /obj/structure/railing/corner{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "bRX" = (
 /obj/machinery/alarm{
@@ -15090,6 +15107,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/firedoor,
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -17279,7 +17297,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/civilian,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "cdn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -17300,7 +17318,7 @@
 /area/hallway/secondary/entry)
 "cds" = (
 /obj/machinery/vending/cola,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "cdt" = (
 /obj/structure/table/wood/fancy/royalblack,
@@ -18367,7 +18385,7 @@
 "cjQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "cjY" = (
 /obj/machinery/washing_machine,
@@ -18398,7 +18416,8 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "cke" = (
 /obj/effect/decal/warning_stripes/west{
@@ -18827,7 +18846,8 @@
 	pixel_x = 30
 	},
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "cmo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -19285,7 +19305,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "cpb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -19538,7 +19558,7 @@
 /area/toxins/xenobiology)
 "cqK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "cqQ" = (
 /obj/structure/cable/yellow{
@@ -19725,7 +19745,8 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/presents_tree,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "crJ" = (
 /obj/structure/plasticflaps,
@@ -19761,7 +19782,7 @@
 /area/maintenance/fpmaint)
 "crW" = (
 /obj/machinery/vending/coffee,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "crX" = (
 /obj/structure/closet/crate,
@@ -20319,6 +20340,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -20669,6 +20691,10 @@
 /obj/machinery/light/small,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
+"cwS" = (
+/obj/effect/spawner/new_year/gift,
+/turf/simulated/floor/carpet/green,
+/area/crew_quarters/bar/atrium)
 "cxb" = (
 /obj/structure/closet/secure_closet/exile,
 /turf/simulated/floor/plasteel,
@@ -22745,7 +22771,7 @@
 "cFF" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "cFG" = (
 /obj/machinery/door/airlock/maintenance{
@@ -22908,7 +22934,7 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "cGh" = (
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/serviceyard)
 "cGj" = (
 /obj/structure/chair/sofa/right{
@@ -23079,7 +23105,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "cHd" = (
 /obj/structure/cable{
@@ -23790,6 +23816,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/spawner/new_year/snow_machine,
 /turf/simulated/floor/plasteel,
 /area/medical/research/nhallway)
 "cKv" = (
@@ -24450,6 +24477,7 @@
 	},
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/railing,
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -25871,6 +25899,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/effect/spawner/new_year/garland/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -26674,7 +26703,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "cXP" = (
 /obj/machinery/door_control{
@@ -27503,6 +27532,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "dbz" = (
@@ -27872,7 +27902,7 @@
 /turf/simulated/wall/r_wall,
 /area/toxins/explab)
 "ddk" = (
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "ddl" = (
 /obj/machinery/keycard_auth{
@@ -29188,10 +29218,6 @@
 	icon_state = "solarpanel"
 	},
 /area/solar/starboard)
-"diS" = (
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/wood/fancy/light,
-/area/crew_quarters/serviceyard)
 "diW" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -29736,7 +29762,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dlz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
@@ -31577,7 +31604,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dtJ" = (
 /obj/structure/disposalpipe/segment{
@@ -31960,6 +31988,7 @@
 	name = "Bar Privacy Shutters"
 	},
 /obj/item/reagent_containers/glass/rag,
+/obj/effect/spawner/new_year/garland/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -31997,7 +32026,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dvR" = (
 /obj/structure/table/reinforced,
@@ -32045,7 +32074,7 @@
 	icon_state = "plant-25";
 	tag = "icon-plant-25"
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "dwp" = (
 /obj/machinery/access_button{
@@ -32774,7 +32803,8 @@
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dzA" = (
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide,
@@ -33153,6 +33183,7 @@
 /obj/structure/sign/barsign{
 	pixel_y = 32
 	},
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33991,7 +34022,7 @@
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/serviceyard)
 "dFx" = (
 /obj/structure/chair/sofa/pew/right{
@@ -34052,7 +34083,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dFW" = (
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dFX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -34128,7 +34159,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "dGo" = (
 /obj/structure/chair/office/dark,
@@ -34598,7 +34629,7 @@
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "dIg" = (
 /turf/simulated/wall,
@@ -35351,7 +35382,8 @@
 	icon_state = "0-4"
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dLQ" = (
 /obj/structure/cable{
@@ -35438,7 +35470,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dMd" = (
 /obj/structure/table/wood,
@@ -35458,7 +35490,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/civilian,
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/serviceyard)
 "dMk" = (
 /obj/structure/cable{
@@ -35516,7 +35548,7 @@
 	location = "A14"
 	},
 /obj/effect/landmark/lightsout,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "dMr" = (
 /obj/structure/chair/stool,
@@ -36126,7 +36158,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dPg" = (
 /obj/effect/spawner/window/reinforced,
@@ -36161,14 +36195,14 @@
 	codes_txt = "patrol;next_patrol=A14";
 	location = "A13"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dPp" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dPq" = (
 /obj/machinery/door/firedoor,
@@ -36200,9 +36234,7 @@
 	id_tag = "Bar";
 	name = "Bar Privacy Shutters"
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
+/turf/simulated/floor/light,
 /area/crew_quarters/bar)
 "dPL" = (
 /obj/machinery/atmospherics/unary/heat_reservoir/heater{
@@ -36932,7 +36964,7 @@
 	dir = 8
 	},
 /obj/effect/landmark/start/civilian,
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "dTf" = (
 /obj/structure/disposalpipe/segment{
@@ -37035,12 +37067,6 @@
 	},
 /turf/simulated/floor/carpet/purple,
 /area/hallway/secondary/exit)
-"dTu" = (
-/obj/structure/chair/sofa/right{
-	dir = 8
-	},
-/turf/simulated/floor/carpet/orange,
-/area/crew_quarters/bar/atrium)
 "dTw" = (
 /obj/structure/chair/sofa/corp/left{
 	dir = 8
@@ -37590,7 +37616,7 @@
 /area/crew_quarters/courtroom)
 "dVS" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "dVU" = (
 /obj/structure/disposalpipe/segment,
@@ -37672,7 +37698,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/new_year/garland/north,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "dWg" = (
 /obj/machinery/atmospherics/pipe/simple/insulated{
@@ -39334,6 +39361,8 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
+/obj/effect/spawner/new_year/garland/north,
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -42146,6 +42175,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/effect/spawner/new_year/gift,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -44563,7 +44593,7 @@
 	specialfunctions = 4
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "fsp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -45332,7 +45362,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "fCJ" = (
 /obj/structure/table,
@@ -46673,7 +46703,7 @@
 /area/crew_quarters/kitchen)
 "fUv" = (
 /obj/machinery/computer/slot_machine,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "fUO" = (
 /obj/structure/grille/broken,
@@ -46711,7 +46741,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "fVn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -46995,7 +47025,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "fXv" = (
 /obj/structure/cable{
@@ -47148,7 +47178,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "fYZ" = (
 /obj/structure/chair/office/dark{
@@ -47720,7 +47750,7 @@
 /area/crew_quarters/locker)
 "ggP" = (
 /obj/machinery/door/firedoor,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "ggQ" = (
 /obj/item/stack/sheet/metal{
@@ -47958,6 +47988,10 @@
 	icon_state = "white"
 	},
 /area/security/medbay)
+"glc" = (
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/crew_quarters/bar/atrium)
 "glp" = (
 /obj/machinery/light{
 	dir = 8
@@ -50252,7 +50286,7 @@
 /area/security/prisonershuttle)
 "gLt" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "gLx" = (
 /obj/effect/spawner/window/reinforced,
@@ -50993,6 +51027,7 @@
 	dir = 4
 	},
 /obj/item/reagent_containers/food/snacks/sushi_Ebi,
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -51349,7 +51384,7 @@
 /area/maintenance/fpmaint)
 "gWq" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "gWu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -51593,7 +51628,8 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "gYN" = (
 /obj/machinery/camera{
@@ -54565,13 +54601,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"hLK" = (
-/obj/structure/chair/sofa/left{
-	dir = 4
-	},
-/obj/effect/landmark/start/civilian,
-/turf/simulated/floor/carpet/orange,
-/area/crew_quarters/bar/atrium)
 "hLL" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -55408,6 +55437,10 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
+"hWo" = (
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/crew_quarters/serviceyard)
 "hWz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -55625,7 +55658,9 @@
 /obj/machinery/status_display{
 	pixel_y = 32
 	},
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/new_year/garland/west,
+/obj/effect/spawner/new_year/garland/north,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/serviceyard)
 "hZa" = (
 /obj/structure/table/reinforced,
@@ -56956,7 +56991,7 @@
 /obj/structure/chair/sofa/left{
 	dir = 8
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "iqs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -57069,6 +57104,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -57101,7 +57137,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 4
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "irD" = (
 /turf/simulated/floor/plasteel{
@@ -58318,6 +58354,7 @@
 	},
 /obj/machinery/vending/cigarette,
 /obj/item/radio/intercom/directional/east,
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -59460,7 +59497,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "iVI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -59512,7 +59549,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "iWl" = (
 /turf/simulated/floor/plasteel{
@@ -59554,7 +59591,8 @@
 /obj/machinery/atm{
 	pixel_x = 32
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "iWE" = (
 /obj/machinery/door/airlock/maintenance{
@@ -59954,7 +59992,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "jba" = (
 /obj/structure/cable{
@@ -61090,6 +61128,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "joR" = (
@@ -61641,7 +61680,8 @@
 	dir = 1
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/new_year/garland/north,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/serviceyard)
 "juf" = (
 /obj/effect/decal/warning_stripes/south,
@@ -63174,6 +63214,7 @@
 	icon_state = "1-8"
 	},
 /obj/item/radio/intercom/directional/east,
+/obj/effect/spawner/new_year/garland/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -63284,6 +63325,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/teleporter)
+"jNf" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "Bar";
+	name = "Bar Privacy Shutters"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/crew_quarters/bar)
 "jNE" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -63563,7 +63616,7 @@
 /area/crew_quarters/captain/bedroom)
 "jSy" = (
 /obj/structure/table/wood,
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/serviceyard)
 "jSD" = (
 /obj/item/flashlight/lantern{
@@ -63836,6 +63889,12 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
+"jWc" = (
+/obj/effect/spawner/new_year/snow_machine,
+/obj/effect/spawner/new_year/garland/south,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/crew_quarters/serviceyard)
 "jWg" = (
 /obj/machinery/newscaster{
 	pixel_x = -30
@@ -66813,7 +66872,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/east,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "kJr" = (
 /obj/effect/decal/cleanable/dirt,
@@ -66969,7 +67030,8 @@
 	pixel_x = -28
 	},
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "kKZ" = (
 /obj/structure/cable{
@@ -67737,6 +67799,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
+"kVQ" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "Bar";
+	name = "Bar Privacy Shutters"
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/light,
+/area/crew_quarters/bar)
 "kVR" = (
 /obj/machinery/hologram/holopad,
 /obj/structure/cable{
@@ -69451,6 +69523,7 @@
 /obj/structure/railing/corner{
 	dir = 8
 	},
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "lqZ" = (
@@ -69624,6 +69697,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "ltW" = (
@@ -70361,7 +70435,8 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "lDJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -70711,6 +70786,7 @@
 	},
 /area/library)
 "lIC" = (
+/obj/effect/spawner/new_year/snow_machine,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "whiteblue"
@@ -70969,7 +71045,8 @@
 /obj/structure/sign/restroom{
 	pixel_x = -32
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "lMi" = (
 /obj/structure/cable{
@@ -74700,6 +74777,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
+"mCQ" = (
+/obj/structure/table/wood,
+/obj/item/kitchen/utensil/fork,
+/obj/item/kitchen/utensil/spoon,
+/obj/effect/spawner/new_year/gift,
+/turf/simulated/floor/carpet/green,
+/area/crew_quarters/serviceyard)
 "mCW" = (
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -76535,6 +76619,7 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 8
 	},
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -78325,7 +78410,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "nsl" = (
 /obj/structure/cable{
@@ -79179,6 +79264,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -79389,6 +79475,10 @@
 	icon_state = "dark"
 	},
 /area/security/securearmory)
+"nFy" = (
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/carpet/red,
+/area/crew_quarters/serviceyard)
 "nFA" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -80293,7 +80383,8 @@
 "nQy" = (
 /obj/item/radio/intercom/directional/south,
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "nQC" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -80853,6 +80944,7 @@
 /area/medical/research/nhallway)
 "nWB" = (
 /obj/machinery/vending/boozeomat,
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -81418,7 +81510,7 @@
 /area/security/prison/cell_block/A)
 "oek" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "oeE" = (
 /obj/structure/disposalpipe/segment,
@@ -82717,7 +82809,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "oth" = (
 /obj/machinery/requests_console{
@@ -84409,7 +84502,8 @@
 	pixel_x = 26
 	},
 /obj/structure/cable,
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "oLH" = (
 /obj/effect/mapping_helpers/airlock/unres{
@@ -84579,12 +84673,19 @@
 /area/medical/medbay2)
 "oNr" = (
 /obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "oNx" = (
 /obj/structure/sign/electricshock,
 /turf/simulated/wall/r_wall,
 /area/storage/tech)
+"oNy" = (
+/obj/effect/spawner/new_year/snow_machine,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "oNP" = (
 /obj/machinery/light{
 	dir = 1
@@ -86327,6 +86428,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
 	},
+/obj/effect/spawner/new_year/garland/north,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/serviceyard)
 "pjH" = (
@@ -86376,7 +86478,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 5
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "pkp" = (
 /obj/effect/decal/cleanable/dirt,
@@ -93534,7 +93636,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/south,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "qMm" = (
 /obj/effect/spawner/window/reinforced,
@@ -93622,15 +93725,6 @@
 /obj/effect/map_effect/marker/mapmanip/submap/insert/delta/botany_room,
 /turf/simulated/wall,
 /area/maintenance/garden)
-"qNb" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/turf/simulated/floor/carpet,
-/area/crew_quarters/bar/atrium)
 "qNc" = (
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -94024,7 +94118,7 @@
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/fork,
 /obj/item/kitchen/utensil/spoon,
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "qRt" = (
 /obj/machinery/firealarm{
@@ -95460,7 +95554,7 @@
 /area/chapel/office)
 "riI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
 "riJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -99169,6 +99263,13 @@
 	icon_state = "red"
 	},
 /area/security/securehallway)
+"scQ" = (
+/obj/effect/spawner/new_year/snow_machine,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "red"
+	},
+/area/security/processing)
 "scS" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/dirt,
@@ -101271,7 +101372,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "szQ" = (
 /obj/structure/grille/broken,
@@ -102567,7 +102668,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "sRf" = (
 /obj/structure/chair,
@@ -103452,7 +103553,9 @@
 /obj/machinery/newscaster{
 	pixel_x = 30
 	},
-/turf/simulated/floor/carpet,
+/obj/effect/spawner/new_year/garland/north,
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/serviceyard)
 "tcS" = (
 /obj/effect/spawner/window/reinforced,
@@ -104917,7 +105020,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "tuK" = (
 /obj/structure/disposalpipe/segment,
@@ -105995,7 +106098,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/garland/west,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "tGl" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -106336,7 +106440,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "tJN" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -107457,6 +107561,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/effect/spawner/new_year/garland/north,
+/obj/effect/spawner/new_year/garland/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -108136,7 +108242,7 @@
 /obj/structure/chair/sofa{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/serviceyard)
 "udI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -111076,6 +111182,12 @@
 "uLD" = (
 /turf/simulated/wall/r_wall,
 /area/toxins/test_chamber)
+"uLQ" = (
+/obj/effect/spawner/new_year/presents_tree,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/permabrig)
 "uLR" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -112922,7 +113034,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
 "vjr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -113924,7 +114036,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/floor/wood,
+/obj/effect/spawner/new_year/gift,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
 "vvG" = (
 /obj/structure/cable{
@@ -115390,7 +115503,7 @@
 /area/atmos/control)
 "vLQ" = (
 /obj/machinery/computer/arcade,
-/turf/simulated/floor/carpet,
+/turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "vLR" = (
 /obj/machinery/computer/secure_data,
@@ -117949,6 +118062,11 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/maintenance/electrical)
+"wqO" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/new_year/gift,
+/turf/simulated/floor/carpet/green,
+/area/crew_quarters/serviceyard)
 "wrb" = (
 /obj/structure/transit_tube_pod{
 	dir = 8
@@ -117968,6 +118086,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/courtroom)
+"wrf" = (
+/obj/effect/spawner/new_year/garland/east,
+/turf/simulated/floor/carpet/red,
+/area/crew_quarters/serviceyard)
 "wrm" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -118916,7 +119038,7 @@
 /obj/structure/chair/sofa/right{
 	dir = 1
 	},
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/serviceyard)
 "wCE" = (
 /obj/structure/cable{
@@ -123912,7 +124034,7 @@
 /obj/structure/table/wood,
 /obj/item/kitchen/utensil/fork,
 /obj/item/kitchen/utensil/spoon,
-/turf/simulated/floor/carpet/orange,
+/turf/simulated/floor/carpet/green,
 /area/crew_quarters/serviceyard)
 "xHE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -158003,8 +158125,8 @@ hGy
 bME
 iTZ
 hYR
-cGh
-dFW
+nFy
+jWc
 iTZ
 iTZ
 cFA
@@ -158262,7 +158384,7 @@ iTZ
 jue
 cGh
 dFW
-dFW
+hWo
 lMh
 dvP
 dzy
@@ -158517,7 +158639,7 @@ rui
 rZj
 iTZ
 tcR
-cGh
+wrf
 dFW
 dFW
 dFW
@@ -159035,7 +159157,7 @@ cSJ
 dbv
 cFO
 nlF
-xHA
+mCQ
 bxt
 dFv
 bxt
@@ -159804,11 +159926,11 @@ bEK
 cQR
 btP
 joM
-diS
+cFO
 dpv
 jSy
 udw
-jSy
+wqO
 udw
 dPl
 dtC
@@ -160834,7 +160956,7 @@ iTZ
 aFt
 aGp
 aHB
-xHA
+mCQ
 bxt
 dFv
 bxt
@@ -161358,7 +161480,7 @@ aRq
 aXF
 tJI
 kKX
-aXF
+glc
 szN
 tGi
 aXF
@@ -161613,13 +161735,13 @@ osV
 aGk
 aWd
 aXF
-qNb
-ddk
-ddk
+tJI
+aXF
+aXF
 szN
 bew
 irC
-aXF
+bNQ
 bew
 irC
 aXF
@@ -161864,15 +161986,15 @@ aFA
 aFA
 bwk
 crB
-big
+kVQ
 big
 aHE
 dWe
 vQV
 aXF
-qNb
-ddk
-ddk
+tJI
+aXF
+aXF
 fCI
 dId
 qRn
@@ -162131,7 +162253,7 @@ jaX
 sQV
 vji
 bRW
-dTu
+dTd
 iqk
 iWe
 dTd
@@ -162637,7 +162759,7 @@ dBv
 beW
 bOF
 cyt
-dPF
+jNf
 aSV
 eoM
 fUv
@@ -162645,11 +162767,11 @@ gWq
 fVj
 aUG
 tuE
-hLK
-irC
+bNQ
+bNQ
 vvn
-bew
-irC
+bNQ
+bNQ
 aXF
 ggP
 wVn
@@ -162902,11 +163024,11 @@ ddk
 fYR
 aPO
 tuE
-dId
-qRn
+bNQ
+cwS
 crF
-dId
-qRn
+cwS
+bNQ
 ckd
 cYW
 wVn
@@ -163151,7 +163273,7 @@ nWB
 cdy
 aXA
 cvQ
-dPF
+jNf
 aSV
 eoM
 fUv
@@ -163159,11 +163281,11 @@ oek
 fXt
 cdm
 tuE
-dTu
-iqk
-aXF
-dTu
-iqk
+bNQ
+bNQ
+cwS
+bNQ
+bNQ
 aXF
 qiF
 wVn
@@ -163414,7 +163536,7 @@ jLq
 cmn
 ddk
 fYR
-dwo
+ach
 gYJ
 oLF
 aXF
@@ -178584,7 +178706,7 @@ dNG
 dNG
 jXd
 tvu
-szb
+scQ
 aat
 cRC
 mBF
@@ -181148,7 +181270,7 @@ pIp
 guG
 uPb
 hZW
-uPb
+oNy
 sAG
 qbt
 kVa
@@ -183968,7 +184090,7 @@ kmV
 wnn
 gJJ
 wSo
-xan
+uLQ
 xan
 oij
 tLD
