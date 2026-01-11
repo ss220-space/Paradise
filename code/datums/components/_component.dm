@@ -501,8 +501,8 @@
 	SEND_SIGNAL(old_parent, COMSIG_COMPONENT_REMOVING, src)
 
 /**
-  * Deletes the component and removes it from parent.
-  */
+ * Deletes the component and removes it from parent.
+ */
 /datum/component/proc/RemoveComponent() // This really is just a wrapper to pretend that we're using sane procs to fully remove a component
 	if(!QDELETED(src))
 		qdel(src)

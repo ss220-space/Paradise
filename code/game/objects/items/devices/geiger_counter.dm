@@ -11,13 +11,11 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	item_flags = NOBLUDGEON
-	materials = list(MAT_METAL = 300, MAT_GLASS = 150)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 
 	var/last_perceived_radiation_danger = null
-	var/scanning = FALSE
 
-	/// The current owner to whom the signal is registered
-	var/mob/current_signal_target = null
+	var/scanning = FALSE
 
 /obj/item/geiger_counter/Initialize(mapload)
 	. = ..()
@@ -75,9 +73,6 @@
 
 	. |= COMPONENT_AFTERATTACK_PROCESSED_ITEM
 
-	//if(user.combat_mode)
-	//	return
-
 	if(!CAN_IRRADIATE(target))
 		return
 
@@ -90,23 +85,15 @@
 /obj/item/geiger_counter/equipped(mob/user, slot, initial)
 	. = ..()
 
-	// Unregister from the previous target mob, if it exists
-	if(current_signal_target && current_signal_target != user)
-		UnregisterSignal(current_signal_target, COMSIG_IN_RANGE_OF_IRRADIATION)
-		current_signal_target = null
-
-	// Registering for a new mob with override = TRUE
-	if(user && !current_signal_target)
-		RegisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation), override = TRUE)
-		current_signal_target = user
+	// This signal shouldn't override (in theory), but I didn't understand what exactly causes the runtime to trigger it.
+	// It happens when an item is placed in the inventory.
+	// - littleboobs
+	RegisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation), override = TRUE)
 
 /obj/item/geiger_counter/dropped(mob/user, silent = FALSE)
 	. = ..()
 
-	// Unregister from the current target mob
-	if(current_signal_target)
-		UnregisterSignal(current_signal_target, COMSIG_IN_RANGE_OF_IRRADIATION)
-		current_signal_target = null
+	UnregisterSignal(user, COMSIG_IN_RANGE_OF_IRRADIATION)
 
 /obj/item/geiger_counter/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
 	SIGNAL_HANDLER

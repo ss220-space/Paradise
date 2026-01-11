@@ -902,8 +902,8 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 		base_zone = null //check if the passed zone is infact valid
 
 	var/chest_blacklisted
-	if((BODY_ZONE_CHEST in blacklisted_parts))
+	if(BODY_ZONE_CHEST in blacklisted_parts)
 		chest_blacklisted = TRUE
-		if(bypass_warning && !limbs.len)
+		if(bypass_warning && !length(limbs))
 			CRASH("limbs is empty and the chest is blacklisted. this may not be intended!")
 	return (((chest_blacklisted && !base_zone) || even_weights) ? pick_weight_classic(limbs) : ran_zone(base_zone, base_probability, limbs))

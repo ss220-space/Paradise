@@ -9,11 +9,11 @@
 	if(!isclothing(target))
 		return ELEMENT_INCOMPATIBLE
 
-	ADD_TRAIT(target, TRAIT_RADIATION_PROTECTED_CLOTHING, UID())
+	ADD_TRAIT(target, TRAIT_RADIATION_PROTECTED_CLOTHING, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 
 /datum/element/radiation_protected_clothing/Detach(datum/source, ...)
-	REMOVE_TRAIT(source, TRAIT_RADIATION_PROTECTED_CLOTHING, UID())
+	REMOVE_TRAIT(source, TRAIT_RADIATION_PROTECTED_CLOTHING, UNIQUE_TRAIT_SOURCE(src))
 	UnregisterSignal(source, COMSIG_PARENT_EXAMINE)
 
 	return ..()

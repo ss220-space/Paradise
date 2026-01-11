@@ -31,7 +31,7 @@
 		qdel(src)
 		return
 
-	ADD_TRAIT(parent, TRAIT_IRRADIATED, UID())
+	ADD_TRAIT(parent, TRAIT_IRRADIATED, UNIQUE_TRAIT_SOURCE(src))
 
 	create_glow()
 
@@ -69,7 +69,7 @@
 	if(istype(human_parent))
 		human_parent.clear_alert(ALERT_IRRADIATED)
 
-	REMOVE_TRAIT(parent, TRAIT_IRRADIATED, UID())
+	REMOVE_TRAIT(parent, TRAIT_IRRADIATED, UNIQUE_TRAIT_SOURCE(src))
 
 	deltimer(burn_splotch_timer_id)
 	STOP_PROCESSING(SSobj, src)
@@ -154,7 +154,7 @@
 		return
 
 	parent_movable.add_filter("rad_glow", 2, list("type" = "outline", "color" = "#39ff1430", "size" = 2))
-	addtimer(CALLBACK(src, PROC_REF(start_glow_loop), parent_movable), rand(0.1 SECONDS, 1.9 SECONDS)) // Things should look uneven
+	addtimer(CALLBACK(src, PROC_REF(start_glow_loop), parent_movable), randfloat(0.1 SECONDS, 1.9 SECONDS)) // Things should look uneven
 
 /datum/component/irradiated/proc/start_glow_loop(atom/movable/parent_movable)
 	var/filter = parent_movable.get_filter("rad_glow")

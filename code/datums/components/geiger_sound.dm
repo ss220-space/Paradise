@@ -23,7 +23,7 @@
 
 	RegisterSignal(parent, COMSIG_IN_RANGE_OF_IRRADIATION, PROC_REF(on_pre_potential_irradiation))
 
-	ADD_TRAIT(parent, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	ADD_TRAIT(parent, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UNIQUE_TRAIT_SOURCE(src))
 
 	if(isitem(parent))
 		var/atom/atom_parent = parent
@@ -36,7 +36,7 @@
 		COMSIG_IN_RANGE_OF_IRRADIATION,
 	))
 
-	REMOVE_TRAIT(parent, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UID())
+	REMOVE_TRAIT(parent, TRAIT_BYPASS_EARLY_IRRADIATED_CHECK, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/geiger_sound/proc/on_pre_potential_irradiation(datum/source, datum/radiation_pulse_information/pulse_information, insulation_to_target)
 	SIGNAL_HANDLER
@@ -68,7 +68,7 @@
 		list('sound/items/geiger/low1.ogg' = 1, 'sound/items/geiger/low2.ogg' = 1, 'sound/items/geiger/low3.ogg' = 1, 'sound/items/geiger/low4.ogg' = 1),
 		list('sound/items/geiger/med1.ogg' = 1, 'sound/items/geiger/med2.ogg' = 1, 'sound/items/geiger/med3.ogg' = 1, 'sound/items/geiger/med4.ogg' = 1),
 		list('sound/items/geiger/high1.ogg' = 1, 'sound/items/geiger/high2.ogg' = 1, 'sound/items/geiger/high3.ogg' = 1, 'sound/items/geiger/high4.ogg' = 1),
-		list('sound/items/geiger/ext1.ogg' = 1, 'sound/items/geiger/ext2.ogg' = 1, 'sound/items/geiger/ext3.ogg' = 1, 'sound/items/geiger/ext4.ogg' = 1)
+		list('sound/items/geiger/ext1.ogg' = 1, 'sound/items/geiger/ext2.ogg' = 1, 'sound/items/geiger/ext3.ogg' = 1, 'sound/items/geiger/ext4.ogg' = 1),
 	)
 	mid_length = 2
 	volume = 25

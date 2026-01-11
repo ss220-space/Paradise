@@ -150,8 +150,6 @@
 	desc = "Keeps an area from being fried by Edison's Bane."
 	icon = 'icons/obj/engines_and_power/tesla/tesla_coil.dmi'
 	icon_state = "grounding_rod0"
-	anchored = FALSE
-	density = TRUE
 	can_buckle = TRUE
 	buckle_lying = 0 // This is actually not TRUE/FALSE; this is an angle that gets multiplied by this number.
 	buckle_requires_restraints = TRUE
