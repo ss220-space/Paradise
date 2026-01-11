@@ -16,7 +16,6 @@
 #define MAX_TEMPERATURE 363.15 //! 90C
 #define MIN_TEMPERATURE 233.15 //! -40C
 
-
 GLOBAL_LIST_INIT(aalarm_modes, list(
 	"[AALARM_MODE_FILTERING]" = "Filtering",
 	"[AALARM_MODE_DRAUGHT]" = "Draught",
@@ -1264,6 +1263,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 #undef AALARM_PRESET_COLDROOM
 #undef AALARM_PRESET_SERVER
 #undef AALARM_REPORT_TIMEOUT
+#undef AALARM_PRESET_DISABLED
 #undef RCON_NO
 #undef RCON_AUTO
 #undef RCON_YES

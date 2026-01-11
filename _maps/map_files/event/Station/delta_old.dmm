@@ -89011,7 +89011,8 @@
 	},
 /area/engineering/hardsuitstorage)
 "rna" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer/turf/simulated/floor/plasteel{
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whiteblue";
 	tag = "icon-whiteblue (NORTH)"
