@@ -27,6 +27,8 @@
 	var/datum/secspear_mode/spear_mode = /datum/secspear_mode/off
 	/// Cell to use, can be a path, to start loaded.
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/super
+	// Переменная для хранения текущего оверлея заряда
+	var/charge_overlay_state = ""
 
 /obj/item/twohanded/spear/secspear/get_ru_names()
 	return list(
@@ -44,12 +46,13 @@
 	. = ..()
 	spear_mode = GLOB.secspear_modes[spear_mode.name]
 	spear_mode.on_activate(src)
+	update_charge_overlay() // Обновляем оверлей заряда при инициализации
 	update_icon()
 
 /obj/item/twohanded/spear/secspear/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += span_notice("Зарад батареи [round(cell.percent())]%.")
+		. += span_notice("Заряд батареи [round(cell.percent())]%.")
 	else
 		. += span_warning("Батарея не установлена.")
 
@@ -63,6 +66,9 @@
 	. = ..()
 	. += mutable_appearance(icon, "[icon_state][istype(cell)? "_battery" : ""]")
 	. += mutable_appearance(icon, "[icon_state][spear_mode.overlay_prefix]")
+	// Добавляем оверлей заряда, если есть батарея
+	if(cell && charge_overlay_state)
+		. += mutable_appearance(icon, "charge_[charge_overlay_state]")
 
 /obj/item/twohanded/spear/secspear/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
 	. = ..()
@@ -71,10 +77,14 @@
 		return
 
 	. += mutable_appearance(icon_file, "[item_state][spear_mode.overlay_prefix]")
+	// Добавляем оверлей заряда в руки
+	if(cell && charge_overlay_state)
+		. += mutable_appearance(icon_file, "charge_[charge_overlay_state]")
 
 /obj/item/twohanded/spear/secspear/emp_act(severity)
 	. = ..()
 	cell.emp_act(severity)
+	update_charge_overlay() // Обновляем оверлей после EMP
 
 /obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -95,6 +105,7 @@
 		cell.forceMove(get_turf(src))
 		cell = new_cell
 		balloon_alert(user, "установлено")
+		update_charge_overlay() // Обновляем оверлей после замены батареи
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -144,11 +155,50 @@
 /obj/item/twohanded/spear/secspear/proc/power_usage()
 	var/power_cost = spear_mode.power_cost
 	cell.use(power_cost)
+	update_charge_overlay() // Обновляем оверлей после использования энергии
 
 	if(cell.charge >= power_cost)
 		return
 
 	off_spear()
+
+/obj/item/twohanded/spear/secspear/proc/update_charge_overlay()
+	if(!cell)
+		charge_overlay_state = folded ? "folded_empty" : "unfolded_empty"
+		update_icon()
+		return
+
+	var/charge_percent = (cell.charge / cell.maxcharge) * 100
+	var/can_use_mode = cell.charge >= spear_mode.power_cost
+
+	var/old_state = charge_overlay_state
+
+	if(folded)
+		if(!can_use_mode || charge_percent == 0)
+			charge_overlay_state = "folded_empty"
+		else if(charge_percent >= 66)
+			charge_overlay_state = "folded_full"
+		else if(charge_percent >= 33)
+			charge_overlay_state = "folded_half"
+		else if(charge_percent > 0)
+			charge_overlay_state = "folded_low"
+		else
+			charge_overlay_state = "folded_empty"
+	else
+		if(!can_use_mode || charge_percent == 0)
+			charge_overlay_state = "unfolded_empty"
+		else if(charge_percent >= 66)
+			charge_overlay_state = "unfolded_full"
+		else if(charge_percent >= 33)
+			charge_overlay_state = "unfolded_half"
+		else if(charge_percent > 0)
+			charge_overlay_state = "unfolded_low"
+		else
+			charge_overlay_state = "unfolded_empty"
+
+	// Обновляем иконку только если состояние изменилось
+	if(old_state != charge_overlay_state)
+		update_icon()
 
 /obj/item/twohanded/spear/secspear/proc/update_cleave_component()
 	var/datum/secspear_mode/current_spear_mode = spear_mode
@@ -176,6 +226,7 @@
 		w_class = WEIGHT_CLASS_SMALL
 		slot_flags = null
 		block_chance = initial(block_chance)
+		update_charge_overlay() // Обновляем оверлей после складывания
 		update_icon()
 		user.update_held_items()
 		user.update_action_buttons_icon()
@@ -186,6 +237,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	block_chance = SECSPEAR_BLOCK_CHANCE
+	update_charge_overlay() // Обновляем оверлей после разворачивания
 	update_icon()
 	user.update_held_items()
 	user.update_action_buttons_icon()
@@ -233,4 +285,4 @@
 	var/obj/item/twohanded/spear/secspear/spear = target
 	spear.toggle_folded(owner)
 
-#undef SECSPEAR_BLOCK_CHANCE
+	#undef SECSPEAR_BLOCK_CHANCE
