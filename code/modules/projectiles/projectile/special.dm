@@ -748,13 +748,7 @@
 	nodamage = TRUE
 
 /obj/projectile/energy/nucle_transformer/on_hit(atom/target, blocked = 0, hit_zone)
-	if(!ishuman(target))
-		return FALSE
-
-	var/mob/living/carbon/human/M = target
-	if(HAS_TRAIT(M, TRAIT_NO_DNA))
-		return FALSE
-
-	var/datum/disease/virus/nuclefication/virus = new()
-	virus.Contract(M, need_protection_check = FALSE)
-	return TRUE
+	..()
+	if(ishuman(target) && !HAS_TRAIT(target, TRAIT_NO_DNA))
+		var/datum/disease/virus/nuclefication/virus = new()
+		virus.Contract(target, need_protection_check = FALSE)
