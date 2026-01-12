@@ -1,8 +1,9 @@
 /obj/machinery/atmospherics/unary/thermomachine
 	name = "temperature control unit"
 	desc = "Heats or cools gas in connected pipes."
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/thermomachine.dmi'
-	icon_state = "thermo_base"
+	icon = 'icons/map_icons/objects.dmi'
+	icon_state = "/obj/machinery/atmospherics/components/unary/thermomachine"
+	post_init_icon_state = "thermo_base"
 	density = TRUE
 	max_integrity = 300
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
@@ -118,7 +119,7 @@
 
 
 /obj/machinery/atmospherics/unary/thermomachine/update_pipe_image()
-	pipe_vision_img = image(initial(icon), "pipe",  loc = src.loc, layer = ABOVE_HUD_LAYER + src.layer, dir = src.dir)
+	pipe_vision_img = image('icons/obj/pipes_and_stuff/atmospherics/thermomachine.dmi', "pipe",  loc = src.loc, layer = ABOVE_HUD_LAYER + src.layer, dir = src.dir)
 	var/turf/tile = get_turf(src)
 	SET_PLANE_EXPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, tile)
 
@@ -271,6 +272,7 @@
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded/init_parts()
 	component_parts = list()
@@ -285,7 +287,9 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on
 	on = TRUE
-	icon_state = "thermo_base_1"
+	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer/on"
+	post_init_icon_state = "thermo_1"
+	flags = /obj/machinery/atmospherics/unary/thermomachine::flags // we want this one to generate a preview
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/Initialize(mapload)
 	. = ..()
@@ -295,6 +299,7 @@
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom
 	name = "Cold room temperature control unit"
 	greyscale_colors = COLOR_CYAN
+	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom"
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/coldroom/Initialize(mapload)
 	. = ..()
@@ -302,6 +307,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server
 	name = "Server room temperature control unit"
+	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server"
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server/Initialize(mapload)
 	. = ..()
@@ -309,10 +315,12 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/heater
 	cooling = FALSE
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/unary/thermomachine/heater/on
 	on = TRUE
-	icon_state = "thermo_base_1"
+	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/heater/on" // same icon as the freezer
+	post_init_icon_state = "thermo_1"
 
 /obj/machinery/atmospherics/unary/thermomachine/heater/upgraded/init_parts()
 	component_parts = list()

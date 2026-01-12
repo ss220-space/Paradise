@@ -20,6 +20,9 @@
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
+	/// The icon state that will be switched to during initialization.
+	/// Mostly intended for things that have a special map icon.
+	var/post_init_icon_state
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
@@ -227,6 +230,9 @@
 
 	if(loc)
 		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+
+	if(post_init_icon_state)
+		icon_state = post_init_icon_state
 
 	SETUP_SMOOTHING()
 

@@ -1017,6 +1017,7 @@
 /obj/item/toy/plushie/lizard_plushie/green
 	desc = "An adorable stuffed toy that resembles a green lizardperson. This one fills you with nostalgia and soul."
 	greyscale_colors = "#66ff33#000000"
+	flags = /obj/item/toy/plushie::flags|NO_NEW_GAGS_PREVIEW
 
 /obj/item/toy/plushie/ashwalkerplushie
 	name = "ash walker plushie"

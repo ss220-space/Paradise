@@ -10,6 +10,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	greyscale_config = /datum/greyscale_config/circuit
+	flags = /obj/item::flags | NO_NEW_GAGS_PREVIEW
 	/// Use this instead of `name`. Formats as: `circuit board ([board_name])`
 	var/board_name = null
 	var/build_path = null

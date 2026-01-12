@@ -1,7 +1,9 @@
 /obj/item/clothing/under/color
 	desc = "A standard issue colored jumpsuit. Variety is the spice of life!"
 	dying_key = DYE_REGISTRY_UNDER
-	icon_state = "jumpsuit"
+	icon = 'icons/map_icons/clothing/under/color.dmi'
+	icon_state = "/obj/item/clothing/under/color"
+	post_init_icon_state = "jumpsuit"
 	item_state = "jumpsuit"
 	greyscale_colors = "#3f3f3f"
 	greyscale_config = /datum/greyscale_config/jumpsuit
@@ -47,14 +49,17 @@
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/black"
 	resistance_flags = NONE
 
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"
 	desc = "It's very smart and in a ladies-size!"
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "black"
 	item_state = "bl_suit"
 	item_color = "blackf"
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
@@ -63,6 +68,7 @@
 
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/blue"
 	greyscale_colors = "#52aecc"
 
 /obj/item/clothing/under/color/blue/dodgeball
@@ -73,10 +79,12 @@
 
 /obj/item/clothing/under/color/green
 	name = "green jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/green"
 	greyscale_colors = "#9ed63a"
 
 /obj/item/clothing/under/color/grey
 	name = "grey jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/grey"
 	desc = "A tasteful grey jumpsuit that reminds you of the good old days."
 	greyscale_colors = "#b3b3b3"
 
@@ -96,12 +104,14 @@
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/orange"
 	desc = "Don't wear this near paranoid security officers"
 	greyscale_colors = "#ff8c19"
 
 /obj/item/clothing/under/color/orange/prison
 	name = "old prison jumpsuit"
 	desc = "Старая одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
+	icon_state = "/obj/item/clothing/under/color/orange/prison"
 	has_sensor = 2
 	sensor_mode = 3
 	greyscale_colors = "#ff8300"
@@ -139,11 +149,13 @@
 /obj/item/clothing/under/prison
 	name = "prison jumpsuit"
 	desc = "Cтандартная одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "prison"
 	item_state = "prison"
 	item_color = "prison"
 	has_sensor = 2
 	sensor_mode = 3
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/prison/get_ru_names()
 	return list(
@@ -158,10 +170,12 @@
 /obj/item/clothing/under/color/pink
 	name = "pink jumpsuit"
 	desc = "Just looking at this makes you feel <i>fabulous</i>."
+	icon_state = "/obj/item/clothing/under/color/pink"
 	greyscale_colors = "#ffa69b"
 
 /obj/item/clothing/under/color/red
 	name = "red jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/red"
 	greyscale_colors = "#eb0c07"
 
 /obj/item/clothing/under/color/red/dodgeball
@@ -172,15 +186,18 @@
 
 /obj/item/clothing/under/color/white
 	name = "white jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/white"
 	greyscale_colors = "#ffffff"
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/yellow"
 	greyscale_colors = "#ffe14d"
 
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "psyche"
 	item_color = "psyche"
 	greyscale_config = null
@@ -188,6 +205,7 @@
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
 	greyscale_config_worn_species = null
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -200,14 +218,17 @@
 
 /obj/item/clothing/under/color/lightblue
 	name = "light blue jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/lightblue"
 	greyscale_colors = "#6eb6ff"
 
 /obj/item/clothing/under/color/aqua
 	name = "aqua jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/aqua"
 	greyscale_colors = "#00ffff"
 
 /obj/item/clothing/under/color/purple
 	name = "purple jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/purple"
 	greyscale_colors = "#800080"
 
 /obj/item/clothing/under/color/purple/sensor	//for jani ert
@@ -216,41 +237,51 @@
 
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/lightpurple"
 	greyscale_colors = "#9f70cc"
 
 /obj/item/clothing/under/color/lightgreen
 	name = "light green jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/lightgreen"
 	greyscale_colors = "#90ee90"
 
 /obj/item/clothing/under/color/lightbrown
 	name = "light brown jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/lightbrown"
 	greyscale_colors = "#c59431"
 
 /obj/item/clothing/under/color/brown
 	name = "brown jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/brown"
 	greyscale_colors = "#a17229"
 
 /obj/item/clothing/under/color/yellowgreen
 	name = "yellow green jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/yellowgreen"
 	greyscale_colors = "#9acd32"
 
 /obj/item/clothing/under/color/darkblue
 	name = "dark blue jumpskirt"
+	icon_state = "/obj/item/clothing/under/color/darkblue"
 	greyscale_colors = "#3285ba"
 
 /obj/item/clothing/under/color/lightred
 	name = "light red jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/lightred"
 	greyscale_colors = "#ff6b6b"
 
 /obj/item/clothing/under/color/darkred
 	name = "dark red jumpsuit"
+	icon_state = "/obj/item/clothing/under/color/darkred"
 	greyscale_colors = "#8b0000"
 
 /obj/item/clothing/under/color/red/jersey
 	name = "red team jersey"
 	desc = "The jersey of the Nanotrasen Phi-ghters!"
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "redjersey"
 	item_color = "redjersey"
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
@@ -260,8 +291,10 @@
 /obj/item/clothing/under/color/blue/jersey
 	name = "blue team jersey"
 	desc = "The jersey of the Nanotrasen Pi-rates!"
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "bluejersey"
 	item_color = "bluejersey"
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null

@@ -1,8 +1,9 @@
 /obj/machinery/atmospherics/meter
 	name = "gas flow meter"
 	desc = "It measures something."
-	icon = 'icons/obj/pipes_and_stuff/atmospherics/meter.dmi'
-	icon_state = "meter"
+	icon = 'icons/map_icons/objects.dmi'
+	icon_state = "/obj/machinery/meter"
+	post_init_icon_state = "meter"
 	can_unwrench = TRUE
 	layer = GAS_PIPE_VISIBLE_LAYER + GAS_PUMP_OFFSET
 	layer_offset = GAS_PUMP_OFFSET

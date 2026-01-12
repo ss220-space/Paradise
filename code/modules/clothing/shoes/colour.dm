@@ -1,5 +1,7 @@
 /obj/item/clothing/shoes/color
-	icon_state = "sneakers"
+	icon = 'icons/map_icons/clothing/shoes.dmi'
+	icon_state = "/obj/item/clothing/shoes/color"
+	post_init_icon_state = "sneakers"
 	greyscale_config = /datum/greyscale_config/sneakers
 	greyscale_config_worn = list(
 		ITEM_SLOT_FEET_STRING = /datum/greyscale_config/sneakers_worn,
@@ -20,6 +22,7 @@
 
 /obj/item/clothing/shoes/color/black
 	name = "black shoes"
+	icon_state = "/obj/item/clothing/shoes/color/black"
 	greyscale_colors = "#545454#ffffff"
 	item_color = "black"
 	desc = "A pair of black shoes."
@@ -42,6 +45,7 @@
 
 /obj/item/clothing/shoes/color/brown
 	name = "brown shoes"
+	icon_state = "/obj/item/clothing/shoes/color/brown"
 	desc = "A pair of brown shoes."
 	greyscale_colors = "#814112#ffffff"
 	item_state = "brown"
@@ -67,30 +71,35 @@
 
 /obj/item/clothing/shoes/color/blue
 	name = "blue shoes"
+	icon_state = "/obj/item/clothing/shoes/color/blue"
 	greyscale_colors = "#16a9eb#ffffff"
 	item_color = "blue"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/color/green
 	name = "green shoes"
+	icon_state = "/obj/item/clothing/shoes/color/green"
 	greyscale_colors = "#54eb16#ffffff"
 	item_color = "green"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/color/yellow
 	name = "yellow shoes"
+	icon_state = "/obj/item/clothing/shoes/color/yellow"
 	greyscale_colors = "#ebe216#ffffff"
 	item_color = "yellow"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/color/purple
 	name = "purple shoes"
+	icon_state = "/obj/item/clothing/shoes/color/purple"
 	greyscale_colors = "#ad16eb#ffffff"
 	item_color = "purple"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/color/red
 	name = "red shoes"
+	icon_state = "/obj/item/clothing/shoes/color/red"
 	desc = "Stylish red shoes."
 	greyscale_colors = "#ff2626#ffffff"
 	item_color = "red"
@@ -98,6 +107,7 @@
 
 /obj/item/clothing/shoes/color/white
 	name = "white shoes"
+	icon_state = "/obj/item/clothing/shoes/color/white"
 	greyscale_colors = "#ffffff#ffffff"
 	item_state = "white"
 	permeability_coefficient = 0.01
@@ -105,6 +115,7 @@
 
 /obj/item/clothing/shoes/color/white/secshoes
 	name = "shoes"
+	icon = 'icons/obj/clothing/shoes.dmi'
 	icon_state = "secshoes"
 	greyscale_config = null
 	greyscale_config_worn = null
@@ -125,12 +136,13 @@
 
 /obj/item/clothing/shoes/color/orange
 	name = "orange shoes"
+	icon_state = "/obj/item/clothing/shoes/color/orange"
 	greyscale_colors = "#eb7016#ffffff"
 	item_color = "orange"
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/color/orange/prison
-	var/obj/item/restraints/handcuffs/shackles
+	icon_state = "/obj/item/clothing/shoes/color/orange/prison"
 	greyscale_config = /datum/greyscale_config/sneakers_orange
 	greyscale_config_worn = list(
 		ITEM_SLOT_FEET_STRING = /datum/greyscale_config/sneakers_orange_worn,
@@ -148,6 +160,7 @@
 		SPECIES_NEARA =  /datum/greyscale_config/sneakers_orange_worn/monkey,
 		SPECIES_STOK =  /datum/greyscale_config/sneakers_orange_worn/monkey,
 	)
+	var/obj/item/restraints/handcuffs/shackles
 
 /obj/item/clothing/shoes/color/orange/prison/Destroy()
 	QDEL_NULL(shackles)

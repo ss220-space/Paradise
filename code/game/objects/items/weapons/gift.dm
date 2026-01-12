@@ -221,7 +221,9 @@
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "Оберните подарки этой праздничной бумагой."
-	icon_state = "wrap_paper"
+	icon = 'icons/map_icons/items/_item.dmi'
+	icon_state = "/obj/item/stack/wrapping_paper/xmas"
+	post_init_icon_state = "wrap_paper"
 	greyscale_config = /datum/greyscale_config/wrap_paper
 	item_flags = NOBLUDGEON
 	amount = 25

@@ -855,3 +855,6 @@
 
 /datum/config_entry/flag/smart_cache_assets
 	default = TRUE
+
+/datum/config_entry/flag/generate_assets_in_init
+	default = FALSE
