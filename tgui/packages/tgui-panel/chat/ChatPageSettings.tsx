@@ -35,7 +35,7 @@ export const ChatPageSettings = (props: unknown) => {
             <Button
               color="blue"
               icon="angles-left"
-              tooltip="Reorder tab to the left"
+              tooltip="Переместить вкладку влево"
               onClick={() =>
                 dispatch(
                   moveChatPageLeft({
@@ -65,7 +65,7 @@ export const ChatPageSettings = (props: unknown) => {
             <Button
               color="blue"
               icon="angles-right"
-              tooltip="Reorder tab to the right"
+              tooltip="Переместить вкладку вправо"
               onClick={() =>
                 dispatch(
                   moveChatPageRight({
@@ -80,7 +80,7 @@ export const ChatPageSettings = (props: unknown) => {
           <Button.Checkbox
             checked={page.hideUnreadCount}
             icon={page.hideUnreadCount ? 'bell-slash' : 'bell'}
-            tooltip="Disables unread counter"
+            tooltip="Отключить счетчик непрочитанных сообщений"
             onClick={() =>
               dispatch(
                 updateChatPage({
@@ -90,7 +90,7 @@ export const ChatPageSettings = (props: unknown) => {
               )
             }
           >
-            Mute
+            Заглушить
           </Button.Checkbox>
         </Stack.Item>
         {!page.isMain && (
@@ -106,18 +106,19 @@ export const ChatPageSettings = (props: unknown) => {
                 )
               }
             >
-              Remove
+              Удалить
             </Button>
           </Stack.Item>
         )}
       </Stack>
       <Divider />
-      <Section title="Messages to display">
+      <Section title="Сообщения для отображения">
         {MESSAGE_TYPES.filter(
           (typeDef) => !typeDef.important && !typeDef.admin
         ).map((typeDef) => (
           <Button.Checkbox
             key={typeDef.type}
+            tooltip={typeDef.description}
             checked={page.acceptedTypes[typeDef.type]}
             onClick={() =>
               dispatch(
@@ -131,12 +132,13 @@ export const ChatPageSettings = (props: unknown) => {
             {typeDef.name}
           </Button.Checkbox>
         ))}
-        <Collapsible mt={1} color="transparent" title="Admin stuff">
+        <Collapsible mt={1} color="transparent" title="Админ. вкладки">
           {MESSAGE_TYPES.filter(
             (typeDef) => !typeDef.important && typeDef.admin
           ).map((typeDef) => (
             <Button.Checkbox
               key={typeDef.type}
+              tooltip={typeDef.description}
               checked={page.acceptedTypes[typeDef.type]}
               onClick={() =>
                 dispatch(
