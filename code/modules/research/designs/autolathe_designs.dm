@@ -977,11 +977,11 @@
 	build_path = /obj/item/ammo_box/magazine/smgm9mm/empty
 	category = list(AUTOLATHE_CATEGORY_IMPORTED)
 
-/datum/design/aksu_mag
-	id = "aksu_mag_empty"
+/datum/design/ak814_mag
+	id = "ak814_mag_empty"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 3000)
-	build_path = /obj/item/ammo_box/magazine/aksu/empty
+	build_path = /obj/item/ammo_box/magazine/ak814/fusty/empty
 	category = list(AUTOLATHE_CATEGORY_IMPORTED)
 
 /datum/design/aksu_ammo_box

@@ -434,6 +434,10 @@ TODO Use this name and desc for localisation*/
 	)
 	recoil = GUN_RECOIL_MEDIUM
 
+/obj/item/gun/projectile/automatic/ak814/weakened
+	desc = "Импортная версия классической штурмовой винтовки AK-814 с уменьшенным магазином и планками для установки оружейных модулей."
+	mag_type = /obj/item/ammo_box/magazine/ak814/fusty
+
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
 	name = "'Bulldog' Shotgun"

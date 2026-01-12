@@ -466,7 +466,7 @@
 		result = list(
 			/obj/structure/closet/secure_closet/guncabinet/sfg = 33,
 			/obj/structure/closet/secure_closet/guncabinet/saber = 33,
-			/obj/structure/closet/secure_closet/guncabinet/aksu = 34,
+			/obj/structure/closet/secure_closet/guncabinet/ak814 = 34,
 		)
 	return ..()
 

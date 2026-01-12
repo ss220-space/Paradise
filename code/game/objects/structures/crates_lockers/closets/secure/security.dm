@@ -271,25 +271,25 @@
 		new /obj/item/gun/projectile/automatic/proto/rubber(src)
 	new /obj/item/disk/design_disk/security/saber_mag(src)
 
-/obj/structure/closet/secure_closet/guncabinet/aksu
-	name = "Soviet AKSU gun cabinet"
-	desc = "Защищённый шкаф для хранения штурмовых винтовок АКС-74У. Довольно необычно их тут встретить. Внутри хранится диск для печати магазинов и боеприпасов."
+/obj/structure/closet/secure_closet/guncabinet/ak814
+	name = "Soviet AK-814 gun cabinet"
+	desc = "Защищённый шкаф для хранения штурмовых винтовок АК-814. В отсеке для хранения дискет заметна большая вмятина."
 	req_access = list(ACCESS_ARMORY)
 
-/obj/structure/closet/secure_closet/guncabinet/aksu/get_ru_names()
+/obj/structure/closet/secure_closet/guncabinet/ak814/get_ru_names()
 	return list(
-		NOMINATIVE = "шкаф штурмовой винтовки АКС-74У",
-		GENITIVE = "шкафа штурмовой винтовки АКС-74У",
-		DATIVE = "шкафу штурмовой винтовки АКС-74У",
-		ACCUSATIVE = "шкаф штурмовой винтовки АКС-74У",
-		INSTRUMENTAL = "шкафом штурмовой винтовки АКС-74У",
-		PREPOSITIONAL = "шкафе штурмовой винтовки АКС-74У"
+		NOMINATIVE = "шкаф штурмовой винтовки АК-814",
+		GENITIVE = "шкафа штурмовой винтовки АК-814",
+		DATIVE = "шкафу штурмовой винтовки АК-814",
+		ACCUSATIVE = "шкаф штурмовой винтовки АК-814",
+		INSTRUMENTAL = "шкафом штурмовой винтовки АК-814",
+		PREPOSITIONAL = "шкафе штурмовой винтовки АК-814"
 	)
 
-/obj/structure/closet/secure_closet/guncabinet/aksu/populate_contents()
+/obj/structure/closet/secure_closet/guncabinet/ak814/populate_contents()
 	for(var/i in 1 to 5)
-		new /obj/item/gun/projectile/automatic/aksu(src)
-	new /obj/item/disk/design_disk/security/aksu_mag(src)
+		new /obj/item/gun/projectile/automatic/ak814/weakened(src)
+	new /obj/item/disk/design_disk/security/ak814_mag(src)
 	new /obj/item/disk/design_disk/security/aksu_ammo(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun
@@ -419,34 +419,34 @@
 		PREPOSITIONAL = "дискете шаблона печати магазина для Saber"
 	)
 
-/obj/item/disk/design_disk/security/aksu_mag
-	name = "AKSU magazine design"
-	desc = "Дискета, на которой находится шаблон печати магазинов для штурмовой винтовки АКС-74У"
-	design_type = /datum/design/aksu_mag
+/obj/item/disk/design_disk/security/ak814_mag
+	name = "AK-814 magazine design"
+	desc = "Дискета, на которой находится шаблон печати магазинов для штурмовой винтовки АК-814"
+	design_type = /datum/design/ak814_mag
 
-/obj/item/disk/design_disk/security/aksu_mag/get_ru_names()
+/obj/item/disk/design_disk/security/ak814_mag/get_ru_names()
 	return list(
-		NOMINATIVE = "дискета шаблона печати магазина для АКС-74У",
-		GENITIVE = "дискеты шаблона печати магазина для АКС-74У",
-		DATIVE = "дискете шаблона печати магазина для АКС-74У",
-		ACCUSATIVE = "дискету шаблона печати магазина для АКС-74У",
-		INSTRUMENTAL = "дискетой шаблона печати магазина для АКС-74У",
-		PREPOSITIONAL = "дискете шаблона печати магазина для АКС-74У"
+		NOMINATIVE = "дискета шаблона печати магазина для АК-814",
+		GENITIVE = "дискеты шаблона печати магазина для АК-814",
+		DATIVE = "дискете шаблона печати магазина для АК-814",
+		ACCUSATIVE = "дискету шаблона печати магазина для АК-814",
+		INSTRUMENTAL = "дискетой шаблона печати магазина для АК-814",
+		PREPOSITIONAL = "дискете шаблона печати магазина для АК-814"
 	)
 
 /obj/item/disk/design_disk/security/aksu_ammo
-	name = "AKSU ammo box design"
-	desc = "Дискета, на которой находится шаблон печати патронов для штурмовой винтовки АКС-74У. Судя по всему, диск немного повреждён."
+	name = "AK-814 ammo box design"
+	desc = "Дискета, на которой находится шаблон печати патронов для штурмовой винтовки АК-814. Судя по всему, диск повреждён."
 	design_type = /datum/design/aksu_ammo_box
 
 /obj/item/disk/design_disk/security/aksu_ammo/get_ru_names()
 	return list(
-		NOMINATIVE = "дискета шаблона печати патронов для АКС-74У",
-		GENITIVE = "дискеты шаблона печати патронов для АКС-74У",
-		DATIVE = "дискете шаблона печати патронов для АКС-74У",
-		ACCUSATIVE = "дискету шаблона печати патронов для АКС-74У",
-		INSTRUMENTAL = "дискетой шаблона печати патронов для АКС-74У",
-		PREPOSITIONAL = "дискете шаблона печати патронов для АКС-74У"
+		NOMINATIVE = "дискета шаблона печати патронов для АК-814",
+		GENITIVE = "дискеты шаблона печати патронов для АК-814",
+		DATIVE = "дискете шаблона печати патронов для АК-814",
+		ACCUSATIVE = "дискету шаблона печати патронов для АК-814",
+		INSTRUMENTAL = "дискетой шаблона печати патронов для АК-814",
+		PREPOSITIONAL = "дискете шаблона печати патронов для АК-814"
 	)
 
 /obj/item/disk/design_disk/security/laser_carbine_mag

@@ -816,6 +816,13 @@
 		PREPOSITIONAL = "автоматном магазине AK-814 (5,45x39 мм)",
 	)
 
+/obj/item/ammo_box/magazine/ak814/fusty
+	ammo_type = /obj/item/ammo_casing/a545/fusty
+	max_ammo = 20
+
+/obj/item/ammo_box/magazine/ak814/fusty/empty
+	start_empty = TRUE
+
 /obj/item/ammo_box/magazine/aksu
 	name = "AK magazine (5.45x39mm)"
 	desc = "Магазин к автомату AKSU, предназначенный для патронов калибра 5,45x39 мм."
