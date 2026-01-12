@@ -1,12 +1,5 @@
+// MARK: Job Titles
 // Defines below used as jobs' titles (from /tg/), credit to JohnFulpWillard
-
-// AI
-#define JOB_TITLE_AI "AI"
-#define JOB_TITLE_CYBORG "Cyborg"
-
-// Assistant
-#define JOB_TITLE_CIVILIAN "Civilian"
-#define JOB_TITLE_PRISONER "Prisoner"
 
 // Command (Solo command, not department heads)
 #define JOB_TITLE_CAPTAIN "Captain"
@@ -19,13 +12,6 @@
 #define JOB_TITLE_ENGINEER_TRAINEE "Trainee Engineer"
 #define JOB_TITLE_ATMOSTECH "Life Support Specialist"
 #define JOB_TITLE_MECHANIC "Mechanic"
-
-// Central Command
-#define JOB_TITLE_CCOFFICER "Nanotrasen Navy Officer"
-#define JOB_TITLE_CCFIELD "Nanotrasen Navy Field Officer"
-#define JOB_TITLE_CCSPECOPS "Special Operations Officer"
-#define JOB_TITLE_CCSUPREME "Supreme Commander"
-#define JOB_TITLE_CCSOLGOV "Solar Federation General"
 
 // Medical
 #define JOB_TITLE_CMO "Chief Medical Officer"
@@ -48,11 +34,13 @@
 #define JOB_TITLE_HOS "Head of Security"
 #define JOB_TITLE_WARDEN "Warden"
 #define JOB_TITLE_DETECTIVE "Detective"
-#define JOB_TITLE_JUDGE "Magistrate"
-#define JOB_TITLE_LAWYER "Internal Affairs Agent"
 #define JOB_TITLE_OFFICER "Security Officer"
 #define JOB_TITLE_BRIGDOC "Brig Physician"
 #define JOB_TITLE_PILOT "Security Pod Pilot"
+
+// Legal
+#define JOB_TITLE_JUDGE "Magistrate"
+#define JOB_TITLE_LAWYER "Internal Affairs Agent"
 
 // Supply
 #define JOB_TITLE_QUARTERMASTER "Quartermaster"
@@ -72,14 +60,29 @@
 #define JOB_TITLE_LIBRARIAN "Librarian"
 #define JOB_TITLE_EXPLORER "Explorer"
 
+// Assistant
+#define JOB_TITLE_CIVILIAN "Civilian"
+#define JOB_TITLE_PRISONER "Prisoner"
+
+// Silicons
+#define JOB_TITLE_AI "AI"
+#define JOB_TITLE_CYBORG "Cyborg"
+
+// Central Command
+#define JOB_TITLE_CCOFFICER "Nanotrasen Navy Officer"
+#define JOB_TITLE_CCFIELD "Nanotrasen Navy Field Officer"
+#define JOB_TITLE_CCSPECOPS "Special Operations Officer"
+#define JOB_TITLE_CCSUPREME "Supreme Commander"
+#define JOB_TITLE_CCSOLGOV "Solar Federation General"
+
 // Syndicate
 #define JOB_TITLE_SYNDICATE_OFFICER "Syndicate Officer"
-
-// Other
 #define JOB_TITLE_SYNDICATE_OPERATIVE "Syndicate Operative"
 #define JOB_TITLE_SYNDICATE_OPERATIVE_LEADER "Syndicate Operative Leader"
 #define JOB_TITLE_SYNDICATE_AGENT "Syndicate Agent"
 #define JOB_TITLE_SYNDICATE_COMMANDO "Syndicate Commando"
+
+// Vox
 #define JOB_TITLE_VOX_RAIDER "Vox Raider"
 #define JOB_TITLE_VOX_TRADER "Vox Trader"
 
@@ -98,3 +101,22 @@
 #define JOB_TITLE_TAIPAN_COMMS "Space Base Syndicate Comms Officer"
 #define JOB_TITLE_TAIPAN_RD "Space Base Syndicate Research Director"
 #define JOB_TITLE_TAIPAN_CYBORG "Cyborg"
+
+/// MARK: Job lists
+GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(
+	JOB_TITLE_CAPTAIN,
+	JOB_TITLE_CHIEF,
+	JOB_TITLE_RD,
+))
+
+GLOBAL_LIST_INIT(station_departments, list(
+	STATION_DEPARTMENT_COMMAND,
+	STATION_DEPARTMENT_MEDICAL,
+	STATION_DEPARTMENT_ENGINEERING,
+	STATION_DEPARTMENT_SCIENCE,
+	STATION_DEPARTMENT_SECURITY,
+	STATION_DEPARTMENT_SUPPLY,
+	STATION_DEPARTMENT_SERVICE,
+	STATION_DEPARTMENT_LEGAL,
+	STATION_DEPARTMENT_CIVILIAN,
+))

@@ -1,9 +1,5 @@
 // Russian job titles
 
-// Assistant
-#define JOB_TITLE_RU_CIVILIAN "Гражданин"
-#define JOB_TITLE_RU_PRISONER "Заключённый"
-
 // Command (Solo command, not department heads)
 #define JOB_TITLE_RU_CAPTAIN "Капитан"
 #define JOB_TITLE_RU_REPRESENTATIVE "Представитель \"Нанотрейзен\""
@@ -62,6 +58,10 @@
 #define JOB_TITLE_RU_JANITOR "Уборщик"
 #define JOB_TITLE_RU_LIBRARIAN "Библиотекарь"
 #define JOB_TITLE_RU_EXPLORER "Исследователь"
+
+// Assistant
+#define JOB_TITLE_RU_CIVILIAN "Гражданин"
+#define JOB_TITLE_RU_PRISONER "Заключённый"
 
 // Silicons
 #define JOB_TITLE_RU_AI "ИИ"
