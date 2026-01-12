@@ -100,7 +100,7 @@
 		STOP_PROCESSING(SSgreyscale, src)
 
 /// Call this proc to handle all the data extraction from the json configuration. Can be forced to load values from disk instead of memory.
-/datum/greyscale_config/proc/Refresh(loadFromDisk=FALSE)
+/datum/greyscale_config/proc/Refresh(loadFromDisk = FALSE)
 	if(loadFromDisk)
 		var/changed = FALSE
 

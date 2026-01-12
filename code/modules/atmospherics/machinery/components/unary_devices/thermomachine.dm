@@ -9,6 +9,7 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 100, BOMB = 0, BIO = 100, RAD = 100, FIRE = 80, ACID = 30)
 	layer = OBJ_LAYER
 	greyscale_config = /datum/greyscale_config/thermomachine
+	flags = NO_NEW_GAGS_PREVIEW
 	greyscale_colors = COLOR_VIBRANT_LIME
 	/// actual temperature will be defined by RefreshParts() and by the cooling var
 	var/min_temperature = T20C
@@ -278,6 +279,9 @@
 	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer"
 	post_init_icon_state = "thermo_1"
 
+/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
+
 /obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded/init_parts()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/thermomachine(null)
@@ -291,7 +295,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on
 	on = TRUE
-	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
+	flags = /obj/machinery/atmospherics/unary::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/Initialize(mapload)
 	. = ..()
@@ -321,6 +325,9 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/heater/on
 	on = TRUE
+	flags = /obj/machinery/atmospherics/unary::flags | NO_NEW_GAGS_PREVIEW
+
+/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/unary/thermomachine/heater/upgraded/init_parts()

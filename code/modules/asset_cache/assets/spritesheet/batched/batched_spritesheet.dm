@@ -103,7 +103,7 @@
 		. = CACHE_INVALID // reset back to normal, invalid on CRASH
 	else
 		data_out = rustlib_iconforge_cache_valid(cache_input_hash, cache_dmi_hashes_json, entries_json)
-	if (data_out == RUSTLIBS_JOB_ERROR)
+	if(data_out == RUSTLIBS_JOB_ERROR)
 		CRASH("Spritesheet [name] cache JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
 		rustlib_file_write(cache_data, "[GLOB.log_directory]/spritesheet_cache_debug.[name].json")
@@ -132,7 +132,7 @@
 /datum/asset/spritesheet_batched/register()
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	if (!name)
+	if(!name)
 		CRASH("spritesheet [type] cannot register without a name")
 
 	// Create our input data first, so we can compare to the cache.
@@ -147,14 +147,14 @@
 	CRASH("unregister() called on batched spritesheet! Bad!")
 
 /datum/asset/spritesheet_batched/proc/insert_all_icons(prefix, icon/I, list/directions, prefix_with_dirs = TRUE)
-	if (length(prefix))
+	if(length(prefix))
 		prefix = "[prefix]-"
 
-	if (!directions)
+	if(!directions)
 		directions = list(SOUTH)
 
-	for (var/icon_state_name in icon_states(I))
-		for (var/direction in directions)
+	for(var/icon_state_name in icon_states(I))
+		for(var/direction in directions)
 			var/prefix2 = (directions.len > 1 && prefix_with_dirs) ? "[dir2text(direction)]-" : ""
 			insert_icon("[prefix][prefix2][icon_state_name]", uni_icon(I, icon_state_name, direction))
 
@@ -174,7 +174,7 @@
 			return
 
 	// read_from_cache returns false if config is disabled, otherwise it fully loads the spritesheet.
-	if (cache_result == CACHE_VALID && read_from_cache())
+	if(cache_result == CACHE_VALID && read_from_cache())
 		SSasset_loading.dequeue_asset(src)
 		fully_generated = TRUE
 		return
@@ -189,7 +189,7 @@
 		UNTIL((data_out = rustlib_iconforge_check(job_id)) != RUSTLIBS_JOB_NO_RESULTS_YET)
 	else
 		data_out = rustlib_iconforge_generate("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
-	if (data_out == RUSTLIBS_JOB_ERROR)
+	if(data_out == RUSTLIBS_JOB_ERROR)
 		CRASH("Spritesheet [name] JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
 		rustlib_file_write(entries_json, "[GLOB.log_directory]/spritesheet_debug_[name].json")
@@ -219,7 +219,7 @@
 	if(CONFIG_GET(flag/save_spritesheets))
 		save_to_logs(file_name = css_name, file_location = file_directory)
 
-	if (do_cache)
+	if(do_cache)
 		write_cache_meta(input_hash, dmi_hashes)
 	fully_generated = TRUE
 	// If we were ever in there, remove ourselves
@@ -236,7 +236,7 @@
 	return ..()
 
 /datum/asset/spritesheet_batched/send(client/client)
-	if (!name)
+	if(!name)
 		return
 
 	var/all = list("spritesheet_[name].css")
@@ -245,7 +245,7 @@
 	. = SSassets.transport.send_assets(client, all)
 
 /datum/asset/spritesheet_batched/get_url_mappings()
-	if (!name)
+	if(!name)
 		return
 
 	. = list("spritesheet_[name].css" = SSassets.transport.get_asset_url("spritesheet_[name].css"))
@@ -255,13 +255,13 @@
 /datum/asset/spritesheet_batched/proc/generate_css()
 	var/list/out = list()
 
-	for (var/size_id in sizes)
+	for(var/size_id in sizes)
 		var/size_split = splittext(size_id, "x")
 		var/width = text2num(size_split[1])
 		var/height = text2num(size_split[2])
 		out += ".[name][size_id]{display:inline-block;width:[width]px;height:[height]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat:no-repeat;}"
 
-	for (var/sprite_id in sprites)
+	for(var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
 		var/size_id = sprite[SPR_SIZE]
 		var/idx = sprite[SPR_IDX]
@@ -328,14 +328,14 @@
 
 /datum/asset/spritesheet_batched/proc/icon_tag(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if (!sprite)
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return "<span class='[name][size_id] [sprite_name]'></span>"
 
 /datum/asset/spritesheet_batched/proc/icon_class_name(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if (!sprite)
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return "[name][size_id] [sprite_name]"
@@ -348,7 +348,7 @@
  */
 /datum/asset/spritesheet_batched/proc/icon_size_id(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if (!sprite)
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return "[name][size_id]"

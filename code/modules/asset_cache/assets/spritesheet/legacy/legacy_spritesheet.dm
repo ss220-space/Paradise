@@ -36,10 +36,10 @@
 
 
 /datum/asset/spritesheet/should_refresh()
-	if (..())
+	if(..())
 		return TRUE
 
-	if (isnull(should_refresh))
+	if(isnull(should_refresh))
 		// `fexists` seems to always fail on static-time
 		should_refresh = !fexists(css_cache_filename()) || !fexists(data_cache_filename())
 
@@ -77,10 +77,10 @@
 /datum/asset/spritesheet/register()
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	if (!name)
+	if(!name)
 		CRASH("spritesheet [type] cannot register without a name")
 
-	if (!should_refresh() && read_from_cache())
+	if(!should_refresh() && read_from_cache())
 		fully_generated = TRUE
 		return
 
@@ -123,7 +123,7 @@
 
 	fdel(file_directory)
 
-	if (CONFIG_GET(flag/cache_assets) && cross_round_cachable)
+	if(CONFIG_GET(flag/cache_assets) && cross_round_cachable)
 		write_to_cache()
 	fully_generated = TRUE
 	// If we were ever in there, remove ourselves
@@ -138,10 +138,10 @@
 	return ..()
 
 /datum/asset/spritesheet/send(client/client)
-	if (!name)
+	if(!name)
 		return
 
-	if (!should_refresh())
+	if(!should_refresh())
 		return send_from_cache(client)
 
 	var/all = list("spritesheet_[name].css")
@@ -150,10 +150,10 @@
 	. = SSassets.transport.send_assets(client, all)
 
 /datum/asset/spritesheet/get_url_mappings()
-	if (!name)
+	if(!name)
 		return
 
-	if (!should_refresh())
+	if(!should_refresh())
 		return get_cached_url_mappings()
 
 	. = list("spritesheet_[name].css" = SSassets.transport.get_asset_url("spritesheet_[name].css"))
@@ -163,7 +163,7 @@
 /datum/asset/spritesheet/proc/ensure_stripped(sizes_to_strip = sizes)
 	for(var/size_id in sizes_to_strip)
 		var/size = sizes[size_id]
-		if (size[SPRSZ_STRIPPED])
+		if(size[SPRSZ_STRIPPED])
 			continue
 
 		// save flattened version
@@ -184,12 +184,12 @@
 /datum/asset/spritesheet/proc/generate_css()
 	var/list/out = list()
 
-	for (var/size_id in sizes)
+	for(var/size_id in sizes)
 		var/size = sizes[size_id]
 		var/list/dimensions = get_icon_dimensions(size[SPRSZ_ICON])
 		out += ".[name][size_id]{display:inline-block;width:[dimensions["width"]]px;height:[dimensions["height"]]px;background-image:url('[get_background_url("[name]_[size_id].png")]');background-repeat:no-repeat;}"
 
-	for (var/sprite_id in sprites)
+	for(var/sprite_id in sprites)
 		var/sprite = sprites[sprite_id]
 		var/size_id = sprite[SPR_SIZE]
 		var/idx = sprite[SPR_IDX]
@@ -245,13 +245,13 @@
 /datum/asset/spritesheet/proc/read_data_from_cache()
 	var/json = json_decode(rustlib_file_read(data_cache_filename()))
 
-	if (islist(json["sprites"]))
+	if(islist(json["sprites"]))
 		sprites = json["sprites"]
 
 	return TRUE
 
 /datum/asset/spritesheet/proc/send_from_cache(client/client)
-	if (isnull(cached_spritesheets_needed))
+	if(isnull(cached_spritesheets_needed))
 		stack_trace("cached_spritesheets_needed was null when sending assets from [type] from cache")
 		cached_spritesheets_needed = list()
 
@@ -259,7 +259,7 @@
 
 /// Returns the URL to put in the background:url of the CSS asset
 /datum/asset/spritesheet/proc/get_background_url(asset)
-	if (generating_cache)
+	if(generating_cache)
 		return "%[asset]%"
 	else
 		return SSassets.transport.get_asset_url(asset)
@@ -269,7 +269,7 @@
 	write_data_to_cache()
 
 /datum/asset/spritesheet/proc/write_css_to_cache()
-	for (var/size_id in sizes)
+	for(var/size_id in sizes)
 		fcopy(SSassets.cache["[name]_[size_id].png"].resource, "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[name]_[size_id].png")
 
 	generating_cache = TRUE
@@ -287,7 +287,7 @@
 	var/list/mappings = list()
 	mappings["spritesheet_[name].css"] = SSassets.transport.get_asset_url("spritesheet_[name].css")
 
-	for (var/asset_name in cached_spritesheets_needed)
+	for(var/asset_name in cached_spritesheets_needed)
 		mappings[asset_name] = SSassets.transport.get_asset_url(asset_name)
 
 	return mappings
@@ -300,12 +300,12 @@
 
 /datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/inserted_icon, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
 #ifdef UNIT_TESTS
-	if (inserted_icon && icon_state && !icon_exists(inserted_icon, icon_state)) // check the base icon prior to extracting the state we want
+	if(inserted_icon && icon_state && !icon_exists(inserted_icon, icon_state)) // check the base icon prior to extracting the state we want
 		stack_trace("Tried to insert nonexistent icon_state '[icon_state]' from [inserted_icon] into spritesheet [name] ([type])")
 		return
 #endif
 	inserted_icon = icon(inserted_icon, icon_state=icon_state, dir=dir, frame=frame, moving=moving)
-	if (!inserted_icon || !length(icon_states(inserted_icon)))  // that direction or state doesn't exist
+	if(!inserted_icon || !length(icon_states(inserted_icon)))  // that direction or state doesn't exist
 		return
 
 	var/start_usage = world.tick_usage
@@ -316,10 +316,10 @@
 	var/size_id = "[dimensions["width"]]x[dimensions["height"]]"
 	var/size = sizes[size_id]
 
-	if (sprites[sprite_name])
+	if(sprites[sprite_name])
 		CRASH("duplicate sprite \"[sprite_name]\" in sheet [name] ([type])")
 
-	if (size)
+	if(size)
 		var/position = size[SPRSZ_COUNT]++
 		// Icons are essentially representations of files + modifications
 		// Because of this, byond keeps them in a cache. It does this in a really dumb way tho
@@ -350,14 +350,14 @@
 	return pre_asset
 
 /datum/asset/spritesheet/proc/InsertAll(prefix, icon/inserted_icon, list/directions)
-	if (length(prefix))
+	if(length(prefix))
 		prefix = "[prefix]-"
 
-	if (!directions)
+	if(!directions)
 		directions = list(SOUTH)
 
-	for (var/icon_state_name in icon_states(inserted_icon))
-		for (var/direction in directions)
+	for(var/icon_state_name in icon_states(inserted_icon))
+		for(var/direction in directions)
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]-" : ""
 			Insert("[prefix][prefix2][icon_state_name]", inserted_icon, icon_state=icon_state_name, dir=direction)
 
@@ -369,14 +369,14 @@
 
 /datum/asset/spritesheet/proc/icon_tag(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if (!sprite)
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return {"<span class='[name][size_id] [sprite_name]'></span>"}
 
 /datum/asset/spritesheet/proc/icon_class_name(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if (!sprite)
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return {"[name][size_id] [sprite_name]"}
@@ -389,7 +389,7 @@
  */
 /datum/asset/spritesheet/proc/icon_size_id(sprite_name)
 	var/sprite = sprites[sprite_name]
-	if (!sprite)
+	if(!sprite)
 		return null
 	var/size_id = sprite[SPR_SIZE]
 	return "[name][size_id]"
@@ -409,5 +409,5 @@
 	var/list/assets
 
 /datum/asset/spritesheet/simple/create_spritesheets()
-	for (var/key in assets)
+	for(var/key in assets)
 		Insert(key, assets[key])

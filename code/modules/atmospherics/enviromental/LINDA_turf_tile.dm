@@ -43,7 +43,7 @@
 	var/list/atmos_overlay_types = src.atmos_overlay_types // Cache for free performance
 
 	if(!air) // 2019-05-14: was not able to get this path to fire in testing. Consider removing/looking at callers -Naksu
-		if (atmos_overlay_types)
+		if(atmos_overlay_types)
 			for(var/overlay in atmos_overlay_types)
 				vis_contents -= overlay
 			atmos_overlay_types = null
@@ -52,12 +52,12 @@
 
 	var/list/new_overlay_types = air.return_visuals(z)
 
-	if (atmos_overlay_types)
+	if(atmos_overlay_types)
 		for(var/overlay in atmos_overlay_types - new_overlay_types) //doesn't remove overlays that would only be added
 			vis_contents -= overlay
 
-	if (length(new_overlay_types))
-		if (atmos_overlay_types)
+	if(length(new_overlay_types))
+		if(atmos_overlay_types)
 			vis_contents += new_overlay_types - atmos_overlay_types //don't add overlays that already exist
 		else
 			vis_contents += new_overlay_types

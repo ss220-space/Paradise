@@ -216,7 +216,7 @@
 /// Gets the relevant universal icon for an atom, when displayed in TGUI. (see: icon_state_preview)
 /// Supports GAGS items and colored items.
 /proc/get_display_icon_for(atom/atom_path)
-	if (!ispath(atom_path, /atom))
+	if(!ispath(atom_path, /atom))
 		return FALSE
 	var/icon_file = initial(atom_path.icon)
 	var/icon_state = initial(atom_path.icon_state)
@@ -235,17 +235,17 @@
 /proc/get_flat_uni_icon(image/appearance, deficon, defstate, defblend, start = TRUE, parentcolor)
 	// Loop through the underlays, then overlays, sorting them into the layers list
 	#define PROCESS_OVERLAYS_OR_UNDERLAYS(flat, process, base_layer) \
-		for (var/i in 1 to process.len) { \
+		for(var/i in 1 to process.len) { \
 			var/image/current = process[i]; \
-			if (!current) { \
+			if(!current) { \
 				continue; \
 			} \
-			if (current.plane != FLOAT_PLANE && current.plane != appearance.plane) { \
+			if(current.plane != FLOAT_PLANE && current.plane != appearance.plane) { \
 				continue; \
 			} \
 			var/current_layer = current.layer; \
-			if (current_layer < 0) { \
-				if (current_layer <= -1000) { \
+			if(current_layer < 0) { \
+				if(current_layer <= -1000) { \
 					return flat; \
 				} \
 				current_layer = base_layer + appearance.layer + current_layer / 1000; \
@@ -254,9 +254,9 @@
 			if((current_layer >= TOPDOWN_LAYER && current_layer < EFFECTS_LAYER) || current_layer > TOPDOWN_LAYER + EFFECTS_LAYER) { \
 				current_layer -= TOPDOWN_LAYER; \
 			} \
-			for (var/index_to_compare_to in 1 to layers.len) { \
+			for(var/index_to_compare_to in 1 to layers.len) { \
 				var/compare_to = layers[index_to_compare_to]; \
-				if (current_layer < layers[compare_to]) { \
+				if(current_layer < layers[compare_to]) { \
 					layers.Insert(index_to_compare_to, current); \
 					break; \
 				} \
@@ -360,11 +360,11 @@
 	else if(should_display) // There's no overlays.
 		var/datum/universal_icon/final_icon = uni_icon(curicon, curstate, SOUTH)
 
-		if (appearance.alpha < 255)
+		if(appearance.alpha < 255)
 			final_icon.blend_color(rgb(255,255,255, appearance.alpha), ICON_MULTIPLY)
 
-		if (appearance.color)
-			if (islist(appearance.color))
+		if(appearance.color)
+			if(islist(appearance.color))
 				stack_trace("Unsupported color map appearance provided to get_flat_uni_icon, ignoring it.")
 			else
 				final_icon.blend_color(appearance.color, ICON_MULTIPLY)

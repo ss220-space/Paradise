@@ -1108,9 +1108,9 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			icon_state = thing.icon_state
 			//Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
 			if(isnull(icon_state))
-				icon_state = initial(thing.icon_state)
-				if(isnull(dir))
-					dir = initial(thing.dir)
+				icon_state = thing::post_init_icon_state || thing::icon_state
+				if (isnull(dir))
+					dir = thing::dir
 
 		if(isnull(dir))
 			dir = thing.dir

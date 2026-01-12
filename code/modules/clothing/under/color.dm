@@ -49,8 +49,8 @@
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
-	icon_state = "/obj/item/clothing/under/color/black"
 	resistance_flags = NONE
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"
@@ -72,6 +72,7 @@
 	greyscale_colors = "#52aecc"
 
 /obj/item/clothing/under/color/blue/dodgeball
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/color/blue/dodgeball/Initialize(mapload)
 	. = ..()
@@ -89,6 +90,7 @@
 	greyscale_colors = "#b3b3b3"
 
 /obj/item/clothing/under/color/grey/greytide
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/color/grey/greytide/Initialize(mapload)
 	. = ..()
@@ -179,6 +181,7 @@
 	greyscale_colors = "#eb0c07"
 
 /obj/item/clothing/under/color/red/dodgeball
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/color/red/dodgeball/Initialize(mapload)
 	. = ..()
@@ -234,6 +237,7 @@
 /obj/item/clothing/under/color/purple/sensor	//for jani ert
 	sensor_mode = SENSOR_COORDS
 	random_sensor = FALSE
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/under/color/lightpurple
 	name = "light purple jumpsuit"

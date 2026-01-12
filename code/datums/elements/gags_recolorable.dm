@@ -55,7 +55,7 @@
 
 	var/datum/greyscale_modify_menu/spray_paint/menu = new(
 		atom_parent, user, allowed_configs, CALLBACK(src, PROC_REF(recolor), user, can, target),
-		starting_icon_state = initial(atom_parent.icon_state),
+		starting_icon_state = target::post_init_icon_state || target::icon_state,
 		starting_config = initial(atom_parent.greyscale_config),
 		starting_colors = atom_parent.greyscale_colors,
 		used_spraycan = can

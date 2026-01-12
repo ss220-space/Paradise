@@ -8,7 +8,7 @@
 
 /datum/asset/spritesheet_batched/test/create_spritesheets()
 	for(var/atom/item as anything in items)
-		if (!ispath(item, /atom))
+		if(!ispath(item, /atom))
 			return FALSE
 		var/imgid = replacetext(replacetext("[item]", "/obj/item/", ""), "/", "-")
 		insert_icon(imgid, get_display_icon_for(item))

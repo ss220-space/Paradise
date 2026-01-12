@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		.[asset_name] = SSassets.transport.get_asset_url(asset_name, assets[asset_name])
 
 /datum/asset/simple/unregister()
-	for (var/asset_name in assets)
+	for(var/asset_name in assets)
 		SSassets.transport.unregister_asset(asset_name)
 
 /datum/asset/simple/music
@@ -171,7 +171,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		. += asset.get_url_mappings()
 
 /datum/asset/group/unregister()
-	for (var/type in children)
+	for(var/type in children)
 		var/datum/asset/asset = get_asset_datum(type)
 		asset.unregister()
 
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	. = url_decode(SSassets.transport.get_asset_url(item_filename))
 
 /datum/asset/changelog_item/unregister()
-	if (!item_filename)
+	if(!item_filename)
 		return
 	SSassets.transport.unregister_asset(item_filename)
 

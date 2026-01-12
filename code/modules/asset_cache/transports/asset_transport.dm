@@ -76,11 +76,16 @@
 		return url_encode(asset_cache_item.name)
 	return url_encode("asset.[asset_cache_item.hash][asset_cache_item.ext]")
 
+
 /// Sends a list of browser assets to a client
 /// client - a client or mob
 /// asset_list - A list of asset filenames to be sent to the client. Can optionally be assoicated with the asset's asset_cache_item datum.
 /// Returns TRUE if any assets were sent.
 /datum/asset_transport/proc/send_assets(client/client, list/asset_list)
+#if defined(TEST_RUNNER)
+	return
+#endif
+
 	if(!istype(client))
 		if(ismob(client))
 			var/mob/our_mob = client
@@ -113,14 +118,12 @@
 		if(!keep_local_name)
 			new_asset_name = "asset.[ACI.hash][ACI.ext]"
 		if(client.sent_assets[new_asset_name] == asset_hash)
-			// Un-comment below to debug asset sending (This will spam logs so do not enable normally)
-			// log_asset("DEBUG: Skipping send of `[asset_name]` (as `[new_asset_name]`) for `[client]` because it already exists in the client's sent_assets list")
 			continue
 		unreceived[asset_name] = ACI
 
 	if(length(unreceived))
 		if(length(unreceived) >= ASSET_CACHE_TELL_CLIENT_AMOUNT)
-			to_chat(client, "Sending Resources...")
+			to_chat(client, span_notice("Sending Resources..."))
 
 		for(var/asset_name in unreceived)
 			var/new_asset_name = asset_name
@@ -131,8 +134,7 @@
 				|| (ACI.namespace && !ACI.namespace_parent)
 			if(!keep_local_name)
 				new_asset_name = "asset.[ACI.hash][ACI.ext]"
-			// Un-comment below to debug asset sending (This will spam logs so do not enable normally)
-			// log_asset("Sending asset `[asset_name]` to client `[client]` as `[new_asset_name]`")
+			log_asset("Sending asset `[asset_name]` to client `[client]` as `[new_asset_name]`")
 			client << browse_rsc(ACI.resource, new_asset_name)
 
 			client.sent_assets[new_asset_name] = ACI.hash
@@ -150,7 +152,7 @@
 		if(send_assets(client, file))
 			if(!(--filerate))
 				filerate = startingfilerate
-				// client.browse_queue_flush()
+				client.browse_queue_flush()
 			stoplag(0) //queuing calls like this too quickly can cause issues in some client versions
 
 /// Check the config is valid to load this transport

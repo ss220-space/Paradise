@@ -1,8 +1,9 @@
 /obj/item/screwdriver
 	name = "screwdriver"
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой."
-	icon = 'icons/obj/tools.dmi'
-	icon_state = "screwdriver_map"
+	icon = 'icons/map_icons/items/_item.dmi'
+	icon_state = "/obj/item/screwdriver"
+	post_init_icon_state = "screwdriver"
 	item_state = "screwdriver"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
@@ -26,6 +27,7 @@
 	greyscale_config = /datum/greyscale_config/screwdriver
 	greyscale_config_inhand_left = /datum/greyscale_config/screwdriver_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/screwdriver_inhand_right
+	greyscale_colors = COLOR_TOOL_RED
 	/// If the item should be assigned a random color
 	var/random_color = TRUE
 	/// List of possible random colors
@@ -82,13 +84,16 @@
 /obj/item/screwdriver/nuke
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
 			Оснащена ультратонким наконечником."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_nuke"
 	belt_icon = "screwdriver_nuke"
 	post_init_icon_state = null
 	toolspeed = 0.5
 	random_color = FALSE
+	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/screwdriver/nuke/get_ru_names()
 	return list(
@@ -113,14 +118,17 @@
 	name = "brass screwdriver"
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
 			Ручка на ощупь ледяная."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_brass"
 	belt_icon = "screwdriver_brass"
 	toolspeed = 0.5
 	random_color = FALSE
 	post_init_icon_state = null
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/screwdriver/brass/get_ru_names()
 	return list(
@@ -144,8 +152,10 @@
 	random_color = FALSE
 	w_class = WEIGHT_CLASS_TINY
 	post_init_icon_state = null
+	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/screwdriver/abductor/get_ru_names()
 	return list(
@@ -163,6 +173,7 @@
 			Специализированная версия для установки в роботизированные системы."
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.5
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/screwdriver/cyborg/get_ru_names()
 	return list(
@@ -178,12 +189,15 @@
 	name = "hand drill"
 	desc = "Электрическая инструмент, используемый для завинчивания объектов с резьбой \
 			и закручивания болтов и гаек."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "drill_screw"
 	item_state = "drill"
 	belt_icon = "hand_drill"
 	post_init_icon_state = null
+	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_colors = null
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" // done for balance reasons, making them high value for research, but harder to get
 	force = 8

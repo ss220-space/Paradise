@@ -26,7 +26,6 @@
 	greyscale_colors = "#545454#ffffff"
 	item_color = "black"
 	desc = "A pair of black shoes."
-
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
@@ -36,8 +35,13 @@
 
 /obj/item/clothing/shoes/color/black/redcoat
 	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/shoes/color/black/greytide
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
+
+/obj/item/clothing/shoes/black/fluff
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/clothing/shoes/color/black/greytide/Initialize(mapload)
 	. = ..()
@@ -52,21 +56,27 @@
 	dying_key = DYE_REGISTRY_SHOES
 
 /obj/item/clothing/shoes/color/brown/captain
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "captain"	//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/color/brown/hop
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "hop"		//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/color/brown/ce
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "chief"		//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/color/brown/rd
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "director"	//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/color/brown/cmo
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "medical"	//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/color/brown/qm
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "cargo"		//Exists for washing machines. Is not different from brown shoes in any way.
 
 /obj/item/clothing/shoes/color/blue

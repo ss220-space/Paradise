@@ -64,7 +64,7 @@
 /// they would have access to if this was a machine. For example, AIs can
 /// interact if there's cameras with wireless control is enabled.
 /proc/ui_status_silicon_has_access(mob/user, atom/source)
-	if (!issilicon(user))
+	if(!issilicon(user))
 		return UI_CLOSE
 	var/mob/living/silicon/silicon_user = user
 	return silicon_user.get_ui_access(source)
@@ -97,7 +97,7 @@
 /// Returns UI_INTERACTIVE if the user is conscious and lying down.
 /// Returns UI_UPDATE otherwise.
 /proc/ui_status_user_is_conscious_and_lying_down(mob/user)
-	if (!isliving(user))
+	if(!isliving(user))
 		return UI_UPDATE
 
 	var/mob/living/living_user = user

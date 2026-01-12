@@ -4,6 +4,9 @@
 	gender = PLURAL
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters_map"
+	icon = 'icons/map_icons/items/_item.dmi'
+	icon_state = "/obj/item/wirecutters"
+	post_init_icon_state = "cutters"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	belt_icon = "wirecutters"
@@ -26,6 +29,10 @@
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 30)
 	tool_behaviour = TOOL_WIRECUTTER
 	toolbox_radial_menu_compatibility = TRUE
+	greyscale_config = /datum/greyscale_config/wirecutters
+	greyscale_config_inhand_left = /datum/greyscale_config/wirecutters_inhand_left
+	greyscale_config_inhand_right = /datum/greyscale_config/wirecutters_inhand_right
+	greyscale_colors = COLOR_RED
 	/// If the item should be assigned a random color
 	var/random_color = TRUE
 	/// List of possible random colors
@@ -53,12 +60,9 @@
 
 /obj/item/wirecutters/Initialize(mapload, param_color = null)
 	if(random_color)
-		set_greyscale_config(/datum/greyscale_config/wirecutters)
 		var/our_color = param_color || pick(wirecutter_colors)
 		set_greyscale_colors(list(wirecutter_colors[our_color]))
 		item_state = null
-		lefthand_file = SSgreyscale.GetColoredIconByType(/datum/greyscale_config/wirecutters_inhand_left, greyscale_colors)
-		righthand_file = SSgreyscale.GetColoredIconByType(/datum/greyscale_config/wirecutters_inhand_right, greyscale_colors)
 		colored_belt_appearance = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/wirecutters_belt, greyscale_colors))
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
@@ -98,8 +102,13 @@
 	name = "brass wirecutters"
 	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
 			Ручка на ощупь ледяная."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters_brass"
 	belt_icon = "cutters_brass"
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -124,6 +133,10 @@
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/wirecutters/abductor/get_ru_names()
 	return list(
@@ -140,6 +153,7 @@
 	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
 			Специализированная версия для установки в роботизированные системы."
 	toolspeed = 0.5
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/item/wirecutters/cyborg/get_ru_names()
 	return list(
@@ -156,9 +170,14 @@
 	desc = "Гидравлический инструмент, предназначенный для использования в качестве рычага или для перерезания материалов. \
 			Изначально использовался для спасательных работ, откуда и получил своё название, \
 			но в дальнейшем получил развитие в качестве инженерного инструмента."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "jaws_cutter"
 	item_state = "jawsoflife"
 	belt_icon = "jaws_of_life"
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
 	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
