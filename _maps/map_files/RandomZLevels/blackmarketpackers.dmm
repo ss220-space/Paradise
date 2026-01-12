@@ -1323,7 +1323,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "dP" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /mob/living/simple_animal/hostile/feral_cat,
@@ -1459,7 +1459,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "el" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
@@ -2121,7 +2121,7 @@
 "fP" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/retaliate/kangaroo,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -3003,7 +3003,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "iB" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3556,7 +3556,7 @@
 "lK" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/bear,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat,
@@ -4144,7 +4144,7 @@
 /area/awaymission/BMPship/Bath)
 "pV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/spider/stickyweb,
@@ -5029,7 +5029,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/alien/weeds,
@@ -5272,7 +5272,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "zt" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/spider/stickyweb,
@@ -5297,7 +5297,7 @@
 /obj/effect/gibspawner/generic,
 /obj/structure/alien/weeds,
 /obj/effect/decal/remains/human,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -5493,7 +5493,7 @@
 /area/space)
 "BI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/spider/stickyweb,
@@ -6499,7 +6499,7 @@
 "KG" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/bear,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -6690,7 +6690,7 @@
 "MY" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/carp,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -6795,7 +6795,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/head/helmet/skull,
 /obj/structure/alien/weeds/node,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,

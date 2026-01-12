@@ -11511,7 +11511,7 @@
 	},
 /area/medical/medbay)
 "bHj" = (
-/obj/structure/closet/critter,
+/obj/structure/closet/crate/critter,
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
 /obj/effect/decal/cleanable/dirt,
@@ -16402,7 +16402,7 @@
 /turf/simulated/floor/plasteel,
 /area/toxins/xenobiology)
 "csJ" = (
-/obj/structure/closet/critter,
+/obj/structure/closet/crate/critter,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -101703,7 +101703,7 @@
 /turf/simulated/wall,
 /area/hallway/primary/central/south)
 "piV" = (
-/obj/structure/closet/critter,
+/obj/structure/closet/crate/critter,
 /obj/item/clothing/mask/facehugger/toy,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -118634,7 +118634,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "rGe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/critter,
+/obj/structure/closet/crate/critter,
 /obj/item/reagent_containers/food/snacks/monstermeat/xenomeat,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,

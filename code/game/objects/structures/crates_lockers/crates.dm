@@ -40,19 +40,9 @@
 /obj/structure/closet/crate/can_close()
 	return TRUE
 
-/obj/structure/closet/crate/open(by_hand = FALSE)
-	if(opened)
+/obj/structure/closet/crate/open()
+	if(opened || !can_open())
 		return FALSE
-	if(!can_open())
-		return FALSE
-
-	if(by_hand)
-		for(var/obj/O in src)
-			if(O.density)
-				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
-				if(response != "Yes" || !Adjacent(usr))
-					return FALSE
-				break
 
 	var/obj/item/radio/electropack = locate() in src
 	if(rigged && electropack)
@@ -98,10 +88,6 @@
 	if(!opened && try_rig(I, user))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
-
-/obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
-	if(!(opened ? close() : open(by_hand)))
-		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
@@ -161,7 +147,7 @@
 					do_sparks(5, TRUE, src)
 					return
 		add_fingerprint(user)
-		toggle(user, by_hand = TRUE)
+		toggle(user)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
 /obj/structure/closet/crate/proc/notifyRecipient(destination)
@@ -251,7 +237,7 @@
 		togglelock(user)
 		return
 	add_fingerprint(user)
-	toggle(user, by_hand = TRUE)
+	toggle(user)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)

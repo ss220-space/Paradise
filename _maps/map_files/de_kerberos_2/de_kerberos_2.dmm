@@ -7418,7 +7418,7 @@
 	},
 /area/security/permabrig)
 "bdd" = (
-/obj/structure/closet/critter,
+/obj/structure/closet/crate/critter,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32

@@ -221,10 +221,11 @@ GLOBAL_LIST_EMPTY(closets)
 	close()
 
 /obj/structure/closet/proc/toggle(mob/user)
-	. = TRUE
 	if(!(opened ? close() : open()))
-		. = FALSE
 		to_chat(user, span_notice("It won't budge!"))
+		return FALSE
+
+	return TRUE
 
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers

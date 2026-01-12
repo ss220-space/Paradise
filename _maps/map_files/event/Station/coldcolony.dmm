@@ -39841,7 +39841,7 @@
 /area/coldcolony/malta/bridge/vip)
 "oCf" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/critter/pig,
+/obj/structure/closet/crate/critter/pig,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
