@@ -307,7 +307,7 @@
 		C.law_level = J.law_level
 		C.registered_name = H.real_name
 		C.rank = J.title
-		C.assignment = alt_title ? alt_title : J.title
+		C.assignment = alt_title ? alt_title : get_job_title_ru(J.title)
 		C.sex = capitalize(H.gender)
 		C.age = H.age
 		C.name = "[C.registered_name]’s ID Card ([C.assignment])"
