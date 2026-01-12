@@ -68795,12 +68795,6 @@
 /obj/effect/turf_decal/siding/white{
 	dir = 8
 	},
-/obj/structure/chair/sofa/left{
-	dir = 4
-	},
-/obj/effect/turf_decal/siding/white{
-	dir = 8
-	},
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
 	dir = 4;

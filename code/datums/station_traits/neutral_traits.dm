@@ -68,7 +68,7 @@
 	report_message = "К сожалению, партия стандартных разноцветных комбинезонов для ассистентов была утеряна. Но у нас есть запасные."
 	show_in_report = TRUE
 	cost = STATION_TRAIT_COST_MINIMAL
-	weight = 10
+	weight = 5
 	trait_to_give = STATION_TRAIT_CLASSIC_ASSISTANTS
 
 /datum/station_trait/birthday

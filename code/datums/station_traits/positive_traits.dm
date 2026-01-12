@@ -334,7 +334,6 @@
 /datum/station_trait/random_event_weight_modifier/tradeship
 	name = "Торговое партнёрство"
 	report_message = "Корпорация \"Нанотрейзен\" заключила торговое соглашение с ТСФ. Ожидайте скорого прибытия их коммерческого шаттла."
-	show_in_report = TRUE
 	weight = 5
 	trait_type = STATION_TRAIT_POSITIVE
 	event_names = list("Торговцы")
