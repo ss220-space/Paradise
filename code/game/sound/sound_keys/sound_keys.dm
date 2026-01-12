@@ -511,3 +511,11 @@
 		'sound/effects/industrial_scan/industrial_scan2.ogg',
 		'sound/effects/industrial_scan/industrial_scan3.ogg',
 	)
+
+/datum/sound_effect/closet_toggle_lock
+	key = SFX_CLOSET_TOGGLE_LOCK
+	file_paths = list(
+		'sound/machines/lock_1.ogg',
+		'sound/machines/lock_2.ogg',
+		'sound/machines/lock_3.ogg',
+	)
