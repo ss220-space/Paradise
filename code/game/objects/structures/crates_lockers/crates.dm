@@ -638,6 +638,15 @@
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
 
+/obj/structure/closet/crate/secure/engineering/teg
+	name = "thermoelectric generator crate"
+	desc = "Ящик, в котором находятся детали для термоэлектрического генератора"
+
+/obj/structure/closet/crate/secure/engineering/teg/populate_contents()
+	new /obj/machinery/power/generator(src)
+	new /obj/item/pipe/circulator(src)
+	new /obj/item/pipe/circulator(src)
+
 /obj/structure/closet/crate/secure/biohazard
 	name = "secure biohazard crate"
 	desc = "An protected biohazard crate."

@@ -191,3 +191,11 @@
 	desc = "Небольшая карточка, на которой сказано следующее: \"[birthday_name] сегодня празднует свой день рождения!\""
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "slip"
+
+/// No tesla beacon, but there are spare singulogen in the storage
+/datum/station_trait/forced_teg
+	name = "Зелёная энергия"
+	report_message = "В качестве эксперимента, маячок основного двигателя станции был изменён на вызов термоэлектрического генератора."
+	show_in_report = TRUE
+	weight = 3
+	trait_to_give = STATION_TRAIT_GREEN_ENERGY
