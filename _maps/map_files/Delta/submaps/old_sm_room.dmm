@@ -1888,7 +1888,7 @@
 /turf/simulated/floor/wood,
 /area/template_noop)
 "Xt" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

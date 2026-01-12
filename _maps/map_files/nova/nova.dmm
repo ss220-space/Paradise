@@ -1471,7 +1471,7 @@
 /area/maintenance/portsolar)
 "amm" = (
 /obj/effect/landmark/spawner/honk_squad,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "amn" = (
@@ -9431,7 +9431,7 @@
 /turf/simulated/floor/grass,
 /area/hallway/secondary/exit)
 "btz" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
@@ -11279,10 +11279,7 @@
 	},
 /area/quartermaster/office)
 "bFO" = (
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -32;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -12924,7 +12921,7 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/arrival/station)
 "bRB" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
@@ -17766,7 +17763,7 @@
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "cEl" = (
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint3)
 "cEr" = (
@@ -27533,7 +27530,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "edt" = (
@@ -33932,7 +33929,7 @@
 /area/hydroponics)
 "faw" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -41141,7 +41138,7 @@
 	},
 /area/security/customs)
 "gdh" = (
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 1;
 	name = "standard air scrubber";
@@ -44036,7 +44033,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/pipe/multiz{
 	dir = 8
 	},
@@ -45357,7 +45354,7 @@
 	},
 /area/maintenance/trading)
 "gKl" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -60300,7 +60297,7 @@
 /turf/simulated/floor/plating,
 /area/engineering/supermatter)
 "iZJ" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -68765,10 +68762,7 @@
 "kma" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel/dark,
 /area/engineering/controlroom)
 "kmb" = (
@@ -69699,7 +69693,7 @@
 	},
 /area/security/customs)
 "ktU" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
 "ktX" = (
@@ -74023,9 +74017,7 @@
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/theatre)
 "lbJ" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_y = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkpurple"
@@ -75763,7 +75755,7 @@
 	},
 /area/security/warden)
 "lqD" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -78532,7 +78524,7 @@
 	frequency = 1379;
 	id_tag = "ex_pump"
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/apmaint)
 "lNR" = (
@@ -82304,7 +82296,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/hallway/secondary/exit)
 "mpm" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/machinery/light{
 	dir = 4
 	},
@@ -83545,7 +83537,7 @@
 /turf/simulated/floor/wood/fancy/oak,
 /area/bridge/meeting_room)
 "mAq" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
@@ -84131,10 +84123,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "mFk" = (
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
@@ -84550,9 +84539,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "mIB" = (
 /obj/machinery/light/small,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_y = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -91965,7 +91952,7 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/northeast,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
 	name = "standard air scrubber";
@@ -97386,7 +97373,7 @@
 	},
 /area/crew_quarters/kitchen)
 "oDk" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -107112,7 +107099,7 @@
 /turf/simulated/floor/plating,
 /area/storage/tech)
 "pWE" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -110140,7 +110127,7 @@
 /area/maintenance/asmaint)
 "quH" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "quN" = (
@@ -111100,10 +111087,7 @@
 /area/engineering/mechanic_workshop/hangar)
 "qBq" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -32;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
@@ -125514,10 +125498,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/structure/closet/walllocker/emerglocker/west{
-	dir = 4;
-	pixel_x = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -128466,10 +128447,7 @@
 	scrub_Toxins = 1
 	},
 /obj/item/radio/intercom/directional/north,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = 32;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -129240,7 +129218,7 @@
 	},
 /area/security/brigstaff)
 "tga" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/machinery/camera{
 	c_tag = "Pod East";
 	dir = 8;
@@ -130708,7 +130686,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "arrival"
 	},
@@ -132207,7 +132185,7 @@
 /turf/simulated/floor/wood,
 /area/crew_quarters/theatre)
 "tCV" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "yellowcorner"
@@ -137615,7 +137593,7 @@
 /area/security/detectives_office)
 "ury" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/additional)
 "urD" = (
@@ -147211,7 +147189,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "dark";
