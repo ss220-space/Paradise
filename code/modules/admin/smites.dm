@@ -370,7 +370,6 @@
 	name = SMITE_DEMOTE
 	desc = "Увольте грешника!"
 	logmsg = "demote."
-	category = SMITE_CATEGORY_GENERAL
 
 /datum/smite/demote/apply_effect(mob/living/target, reason)
 	GLOB.major_announcement.announce(
@@ -428,7 +427,6 @@
 	name = SMITE_GLOBALHUNTING
 	desc = "Заставьте экипаж охотиться за грешником."
 	logmsg = "global hunting."
-	category = SMITE_CATEGORY_GENERAL
 
 /datum/smite/global_hunting/activate(mob/living/target, reason)
 	var/bounty = tgui_input_number(usr, "Выберите денежное вознаграждение поделённое между исполнителями приговора.", "Выбор вознаграждения", 5000, INFINITY, 0)
