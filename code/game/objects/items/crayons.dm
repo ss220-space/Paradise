@@ -220,7 +220,7 @@
 	icon_state = "crayonmime"
 	colour = "#FFFFFF"
 	colourName = "mime"
-	uses = 0
+	uses = 60
 	dye_color = DYE_MIME
 
 /obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
@@ -247,7 +247,7 @@
 	icon_state = "crayonrainbow"
 	colour = "#FFF000"
 	colourName = "rainbow"
-	uses = 0
+	uses = 60
 	dye_color = DYE_RAINBOW
 
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
