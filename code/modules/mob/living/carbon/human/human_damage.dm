@@ -301,11 +301,12 @@
 ////////////////////////////////////////////
 
 //Returns a list of damaged organs
-/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, int_damage, flags = AFFECT_ALL_EXTERNAL_PARTS)
+/mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_EXTERNAL_PARTS)
 	// returns a list of damaged organs that meet the given criteria
-	// brute and burn are minimum damage thresholds and only applied to external organs(bodyparts)
-	// int_damage is minimum damage for internal organs must have to be included in the returned list
-	// flags determine what kind of organs to include, by default is set tp all external parts
+	// brute and burn are boolean values for checking that type of damage
+	// flags determine what kind of organs to include, by default is set to AFFECT_ALL_EXTERNAL_PARTS
+	// see more in code/__DEFINES/flags.dm line 179-189
+
 	var/list/obj/item/organ/organs = list()
 	var/list/obj/item/organ/parts = list()
 	if(AFFECT_EXTERNAL_ORGANS & flags)
@@ -317,13 +318,10 @@
 		var/damaged = FALSE
 		if(external)
 			var/obj/item/organ/external/bodypart = organ
-			//shitcode trinary
-			damaged = brute == TRUE && brute != FALSE ? (bodypart.brute_dam > 0 || bodypart.burn_dam > 0) :\
-						burn == TRUE && burn != FALSE ? (bodypart.burn_dam > 0 || bodypart.brute_dam > 0) :\
-						(bodypart.brute_dam >= brute && bodypart.burn_dam >= burn) // just to make it work with the old version as fine as before and keep the new idea also working propertly(probably could just don't even keep the idea and leave the old one but who cares?)
+			damaged = brute ? bodypart.brute_dam : FALSE || burn ? bodypart.burn_dam : FALSE
 		else
 			var/obj/item/organ/internal/int_organ = organ
-			damaged = int_damage != 0 ? int_organ.damage >= int_damage : int_organ.damage > 0
+			damaged = int_organ.damage > 0
 		if(damaged)
 			if(!(flags & AFFECT_ROBOTIC_ORGAN) && organ.is_robotic())
 				continue
