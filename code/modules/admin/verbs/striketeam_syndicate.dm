@@ -1,6 +1,6 @@
 //STRIKE TEAMS
 
-#define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
+#define JOB_TITLE_SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
@@ -32,7 +32,7 @@ ADMIN_VERB(syndicate_strike_team, R_ADMIN, "Отправить Ударный О
 		to_chat(src, "Кажется кто-то стукнет вас за это.")
 		return
 
-	var/syndicate_commando_number = SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
+	var/syndicate_commando_number = JOB_TITLE_SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
 	// Find the nuclear auth code
@@ -40,7 +40,7 @@ ADMIN_VERB(syndicate_strike_team, R_ADMIN, "Отправить Ударный О
 
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
-	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду \"Синдиката\"?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд \"Синдиката\"", input)
+	var/list/commando_ghosts = pick_candidates_all_types(src, JOB_TITLE_SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду \"Синдиката\"?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд \"Синдиката\"", input)
 	if(!length(commando_ghosts))
 		to_chat(src, span_userdanger("Никто не присоединился к SST."))
 		return
@@ -120,4 +120,4 @@ ADMIN_VERB(syndicate_strike_team, R_ADMIN, "Отправить Ударный О
 	qdel(spawn_location)
 	return new_syndicate_commando
 
-#undef SYNDICATE_COMMANDOS_POSSIBLE
+#undef JOB_TITLE_SYNDICATE_COMMANDOS_POSSIBLE

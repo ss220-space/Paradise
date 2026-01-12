@@ -98,14 +98,14 @@
 		JOB_TITLE_LIBRARIAN = "srvradio",
 		JOB_TITLE_MIME = "srvradio",
 		// Syndicate
-		JOB_TITLE_SYNDICATE = "syndiecom",
+		JOB_TITLE_SYNDICATE_OFFICER = "syndiecom",
 	)
 	/// List of Command jobs
 	var/list/heads = list(JOB_TITLE_CAPTAIN, JOB_TITLE_HOP, JOB_TITLE_QUARTERMASTER, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_CHIEF, JOB_TITLE_CMO, JOB_TITLE_RD, JOB_TITLE_HOS, JOB_TITLE_JUDGE, JOB_TITLE_AI, "Syndicate Research Director", "Syndicate Comms Officer")
 	/// List of ERT jobs
 	var/list/ert_jobs = list("Emergency Response Team Officer", "Emergency Response Team Engineer", "Emergency Response Team Medic", "Emergency Response Team Leader", "Emergency Response Team Member")
 	/// List of CentComm jobs
-	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE, "Nanotrasen Navy Captain", JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCSUPREME)
+	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE_OFFICER, "Nanotrasen Navy Captain", JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCSUPREME)
 	/// List of SolGov Marine jobs
 	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine", "Solar Federation Representative", "Solar Federation General", "VIP Guest")
 	//  List of USSP jobs

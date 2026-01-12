@@ -1,5 +1,5 @@
 /datum/job/syndicateofficer
-	title = JOB_TITLE_SYNDICATE
+	title = JOB_TITLE_SYNDICATE_OFFICER
 	flag = JOB_FLAG_SYNDICATE
 	department_flag = JOB_FLAG_SYNDICATE // This gets its job as its own flag because admin jobs dont have flags
 	department = STATION_DEPARTMENT_OTHER

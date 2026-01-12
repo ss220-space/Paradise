@@ -68,7 +68,7 @@
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
 	)
 
-	var/id_access = SYNDICATE_AGENT
+	var/id_access = JOB_TITLE_SYNDICATE_AGENT
 	var/uplink_uses = 100
 
 /datum/outfit/admin/syndicate/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

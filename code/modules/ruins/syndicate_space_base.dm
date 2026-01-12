@@ -27,7 +27,7 @@
 	flavour_text = "Вы — агент \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования насколько можете и постарайтесь не высовываться. \
 	Вам дали ясно понять, что Синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
 	outfit = /datum/outfit/space_base_syndicate
-	assignedrole = TAIPAN_SCIENTIST
+	assignedrole = JOB_TITLE_TAIPAN_SCIENTIST
 	del_types = list() // Necessary to prevent del_types from removing radio!
 	allow_prefs_prompt = TRUE
 	allow_species_pick = TRUE
@@ -109,7 +109,7 @@
 	id_job = "Syndicate Medic"
 	description = "Проводите медицинские опыты сомнительного содержания. Вылечивайте своих коллег, которые опять поссорились с генералом Синди, или оживляйте неудачливых космических путников, для допросов или киборгизации. Даже \"Синдикату\" нужны врачи!"
 	outfit = /datum/outfit/space_base_syndicate/medic
-	assignedrole = TAIPAN_MEDIC
+	assignedrole = JOB_TITLE_TAIPAN_MEDIC
 /datum/outfit/space_base_syndicate/medic
 	name = "Space Base Syndicate Medic"
 	glasses = /obj/item/clothing/glasses/hud/health
@@ -131,7 +131,7 @@
 	id_job = "Syndicate Botanist"
 	description = "Выращивайте сомнительные растения. Помогите повару накормить экипаж, а учёным — создать опаснейшие растения! Наслаждайтесь силой природы в руках \"Синдиката\"!"
 	outfit = /datum/outfit/space_base_syndicate/botanist
-	assignedrole = TAIPAN_BOTANIST
+	assignedrole = JOB_TITLE_TAIPAN_BOTANIST
 /datum/outfit/space_base_syndicate/botanist
 	name = "Space Base Syndicate Botanist"
 	glasses = /obj/item/clothing/glasses/hud/hydroponic
@@ -148,7 +148,7 @@
 	description = "Даже \"Синдикату\" нужны рабочие руки, приносите людям их посылки, заказывайте и продавайте, наслаждайтесь простой работой среди всех этих учёных. Здесь всё равно платят в разы лучше!"
 	flavour_text = "Вы — грузчик \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Работайте с грузами, заказывайте всё, что может потребоваться станции или вам и зарабатывайте реальные деньги, а не виртуальные очки!"
 	outfit = /datum/outfit/space_base_syndicate/cargotech
-	assignedrole = TAIPAN_CARGO
+	assignedrole = JOB_TITLE_TAIPAN_CARGO
 /datum/outfit/space_base_syndicate/cargotech
 	name = "Space Base Syndicate Cargo Technician"
 	head = /obj/item/clothing/head/soft
@@ -165,7 +165,7 @@
 	description = "Даже \"Синдикату\" нужны рабочие руки! У вас в распоряжении свой бар, кухня и ботаника. Накормите этих голодных учёных или помогите им создать последнее блюдо для ваших врагов. Здесь всё равно платят в разы лучше!"
 	flavour_text = "Вы — повар \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Готовьте еду и напитки экипажу и постарайтесь не высовываться!"
 	outfit = /datum/outfit/space_base_syndicate/chef
-	assignedrole = TAIPAN_CHEF
+	assignedrole = JOB_TITLE_TAIPAN_CHEF
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef/special(mob/living/carbon/human/H)
 	. = ..()
@@ -188,7 +188,7 @@
 	description = "Там, где есть космическая станция, есть и двигатели с трубами, которым нужно своё техобслуживание. Обеспечьте станцию энергией, чините повреждения после неудачных опытов учёных и отдыхайте в баре, пока снова что-нибудь не взорвут. "
 	flavour_text = "Вы — инженер-атмосферник \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Запустите двигатель, убедитесь, что на станцию подаётся достаточно электричества и воздуха, а также чините отделы, которые непременно сломают."
 	outfit = /datum/outfit/space_base_syndicate/engineer
-	assignedrole = TAIPAN_ENGINEER
+	assignedrole = JOB_TITLE_TAIPAN_ENGINEER
 	exp_type = EXP_TYPE_ENGINEERING
 /datum/outfit/space_base_syndicate/engineer
 	name = "Space Base Syndicate Engineer"
@@ -207,7 +207,7 @@
 	flavour_text = "Вы — офицер \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Наблюдайте за станцией НТ, руководите вверенной вам базой и постарайтесь не высовываться. \
 	Синдикат ясно дал вам понять, что не стоит подводить их доверие. Не разочаруйте их!"
 	outfit = /datum/outfit/space_base_syndicate/comms
-	assignedrole = TAIPAN_COMMS
+	assignedrole = JOB_TITLE_TAIPAN_COMMS
 	min_hours = 50
 	exp_type = EXP_TYPE_COMMAND
 /datum/outfit/space_base_syndicate/comms
@@ -233,7 +233,7 @@
 	flavour_text = "Вы Директор Исследований \"Синдиката\", работающий на сверхсекретной научно-наблюдательной станции Тайпан, занимающейся созданием биооружия и взаимодействием с чёрным рынком. К несчастью, ваш самый главный враг, компания \"Нанотрейзен\", имеет собственную массивную научную базу в вашем секторе. Продолжайте свои исследования насколько сможете и постарайтесь не высовываться. \
 	Вам дали ясно понять, что Синдикат заставит вас очень сильно пожалеть если вы разочаруете их!"
 	outfit = /datum/outfit/space_base_syndicate/rd
-	assignedrole = TAIPAN_RD
+	assignedrole = JOB_TITLE_TAIPAN_RD
 	min_hours = 50
 	exp_type = EXP_TYPE_SCIENCE
 /datum/outfit/space_base_syndicate/rd
@@ -284,58 +284,58 @@
 /mob/living/proc/find_taipan_hud_number_by_job(job = src.mind.assigned_role)
 	var/role = null
 	switch(job)
-		if(TAIPAN_SCIENTIST)
+		if(JOB_TITLE_TAIPAN_SCIENTIST)
 			role = TAIPAN_HUD_SCIENTIST
-		if(TAIPAN_MEDIC)
+		if(JOB_TITLE_TAIPAN_MEDIC)
 			role = TAIPAN_HUD_MEDIC
-		if(TAIPAN_BOTANIST)
+		if(JOB_TITLE_TAIPAN_BOTANIST)
 			role = TAIPAN_HUD_BOTANIST
-		if(TAIPAN_CARGO)
+		if(JOB_TITLE_TAIPAN_CARGO)
 			role = TAIPAN_HUD_CARGO
-		if(TAIPAN_CHEF)
+		if(JOB_TITLE_TAIPAN_CHEF)
 			role = TAIPAN_HUD_CHEF
-		if(TAIPAN_ENGINEER)
+		if(JOB_TITLE_TAIPAN_ENGINEER)
 			role = TAIPAN_HUD_ENGINEER
-		if(TAIPAN_COMMS)
+		if(JOB_TITLE_TAIPAN_COMMS)
 			role = TAIPAN_HUD_COMMS
-		if(TAIPAN_RD)
+		if(JOB_TITLE_TAIPAN_RD)
 			role = TAIPAN_HUD_RD
-		if(CYBORG)
+		if(JOB_TITLE_TAIPAN_CYBORG)
 			role = TAIPAN_HUD_CYBORG
 	return role
 
 //Прок вызываемый криоподом, для создания нового спавнера гост роли
 /obj/machinery/cryopod/proc/free_taipan_role(job = null)
 	switch(job)
-		if(TAIPAN_SCIENTIST)
+		if(JOB_TITLE_TAIPAN_SCIENTIST)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
-		if(TAIPAN_MEDIC)
+		if(JOB_TITLE_TAIPAN_MEDIC)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/medic/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
-		if(TAIPAN_BOTANIST)
+		if(JOB_TITLE_TAIPAN_BOTANIST)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/botanist/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
-		if(TAIPAN_CARGO)
+		if(JOB_TITLE_TAIPAN_CARGO)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/cargotech/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
-		if(TAIPAN_CHEF)
+		if(JOB_TITLE_TAIPAN_CHEF)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/chef/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
-		if(TAIPAN_ENGINEER)
+		if(JOB_TITLE_TAIPAN_ENGINEER)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/engineer/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
-		if(TAIPAN_COMMS)
+		if(JOB_TITLE_TAIPAN_COMMS)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/comms/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()
-		if(TAIPAN_RD)
+		if(JOB_TITLE_TAIPAN_RD)
 			var/obj/effect/mob_spawn/human/space_base_syndicate/rd/S = new(get_turf(src))
 			S.setDir(dir)
 			Destroy()

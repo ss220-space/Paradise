@@ -127,7 +127,7 @@
 		if(JOB_TITLE_CCSPECOPS, JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD)
 			O = new /datum/outfit/plasmaman/specops_officer
 
-		if(JOB_TITLE_SYNDICATE)
+		if(JOB_TITLE_SYNDICATE_OFFICER)
 			O = new /datum/outfit/plasmaman/syndicate_officer
 
 		if(JOB_TITLE_PILOT)
