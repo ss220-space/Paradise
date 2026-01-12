@@ -262,7 +262,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwmines)
 "bf" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/wwrefine)
 "bg" = (
@@ -1077,7 +1077,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/wwgov)
 "dv" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "dw" = (
@@ -1347,7 +1347,7 @@
 /turf/simulated/floor/plating/ironsand,
 /area/awaymission/wwgov)
 "ef" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/machinery/light/small{
 	dir = 1;
 	tag = "icon-bulb1 (NORTH)"

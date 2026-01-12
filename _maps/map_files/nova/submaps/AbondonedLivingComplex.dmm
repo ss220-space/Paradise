@@ -526,7 +526,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/livingcomplex)
 "nL" = (
-/obj/structure/largecrate/cow,
+/obj/structure/closet/crate/large/cow,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod,
 /area/maintenance/abandonedwarehouse)

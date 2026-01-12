@@ -20781,7 +20781,7 @@
 	},
 /area/shuttle/administration)
 "kco" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

@@ -1197,7 +1197,7 @@
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "ZL" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)

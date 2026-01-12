@@ -109,8 +109,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = slip
 		CR.update_icon(UPDATE_OVERLAYS)
-	if(istype(crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = crate
+	if(istype(crate, /obj/structure/closet/crate/large))
+		var/obj/structure/closet/crate/large/LC = crate
 		LC.manifest = slip
 		LC.update_icon(UPDATE_OVERLAYS)
 

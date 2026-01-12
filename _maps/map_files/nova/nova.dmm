@@ -72124,7 +72124,7 @@
 /turf/simulated/floor/carpet/royalblack,
 /area/bridge/meeting_room)
 "kOo" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)

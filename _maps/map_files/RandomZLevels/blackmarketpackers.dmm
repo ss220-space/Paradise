@@ -285,7 +285,7 @@
 /area/awaymission/BMPship/MedBay)
 "bh" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bi" = (
@@ -368,7 +368,7 @@
 "br" = (
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/largecrate/goat,
+/obj/structure/closet/crate/large/goat,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bs" = (
@@ -491,7 +491,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -1189,7 +1189,7 @@
 /area/awaymission/BMPship/Kitchen)
 "dC" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dD" = (
@@ -1233,7 +1233,7 @@
 /area/awaymission/BMPship/Kitchen)
 "dG" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/largecrate/lisa,
+/obj/structure/closet/crate/large/lisa,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dH" = (
@@ -1367,7 +1367,7 @@
 "dX" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/red,
-/obj/structure/largecrate/evil,
+/obj/structure/closet/crate/large/evil,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dY" = (
@@ -3196,7 +3196,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/largecrate/schrodinger,
+/obj/structure/closet/crate/large/schrodinger,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "jl" = (
@@ -5560,7 +5560,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "Cb" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -6128,7 +6128,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "GV" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
@@ -6478,7 +6478,7 @@
 /area/awaymission/BMPship/Engines)
 "Ky" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/largecrate/cow,
+/obj/structure/closet/crate/large/cow,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "KD" = (
@@ -6946,7 +6946,7 @@
 /area/awaymission/BMPship/Containment)
 "PR" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/structure/largecrate/cat,
+/obj/structure/closet/crate/large/cat,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -7453,7 +7453,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
 "Vo" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Vt" = (
@@ -7517,7 +7517,7 @@
 /area/awaymission/BMPship/Kitchen)
 "VL" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)

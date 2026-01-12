@@ -633,7 +633,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/structure/reagent_dispensers/fueltank,
 	)
 	cost = 80
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "fuel tank crate"
 
 /datum/syndie_supply_packs/engineering/tools		//the most robust crate
@@ -860,91 +860,91 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	name = "Канистра азота"
 	contains = list(/obj/machinery/portable_atmospherics/canister/nitrogen)
 	cost = 50
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой азота"
 
 /datum/syndie_supply_packs/engineering/canister/oxygen
 	name = "Канистра кислорода"
 	contains = list(/obj/machinery/portable_atmospherics/canister/oxygen)
 	cost = 50
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой кислорода"
 
 /datum/syndie_supply_packs/engineering/canister/air
 	name = "Канистра воздуха"
 	contains = list(/obj/machinery/portable_atmospherics/canister/air)
 	cost = 50
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой воздуха"
 
 /datum/syndie_supply_packs/engineering/canister/sleeping_agent
 	name = "Канистра оксида азота"
 	contains = list(/obj/machinery/portable_atmospherics/canister/sleeping_agent)
 	cost = 250
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой оксида азота"
 
 /datum/syndie_supply_packs/engineering/canister/carbon_dioxide
 	name = "Канистра углекислого газа"
 	contains = list(/obj/machinery/portable_atmospherics/canister/carbon_dioxide)
 	cost = 250
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой углекислого газа"
 
 /datum/syndie_supply_packs/engineering/canister/toxins
 	name = "Канистра плазмы"
 	contains = list(/obj/machinery/portable_atmospherics/canister/toxins)
 	cost = 250
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с канистрой плазмы"
 
 /datum/syndie_supply_packs/engineering/miner_n2o
 	name = "Майнер N2O"
 	contains = list(/obj/machinery/atmospherics/miner/n2o)
 	cost = 2000
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером N2O"
 
 /datum/syndie_supply_packs/engineering/miner_nitrogen
 	name = "Майнер N2"
 	contains = list(/obj/machinery/atmospherics/miner/nitrogen)
 	cost = 1500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером N2"
 
 /datum/syndie_supply_packs/engineering/miner_oxygen
 	name = "Майнер O2"
 	contains = list(/obj/machinery/atmospherics/miner/oxygen)
 	cost = 1500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером O2"
 
 /datum/syndie_supply_packs/engineering/miner_plasma
 	name = "Майнер плазмы"
 	contains = list(/obj/machinery/atmospherics/miner/plasma)
 	cost = 3000
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером плазмы"
 
 /datum/syndie_supply_packs/engineering/miner_carbon_dioxide
 	name = "Майнер CO2"
 	contains = list(/obj/machinery/atmospherics/miner/carbon_dioxide)
 	cost = 1500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером CO2"
 
 /datum/syndie_supply_packs/engineering/miner_agent_b
 	name = "Майнер Agent B"
 	contains = list(/obj/machinery/atmospherics/miner/agent_b)
 	cost = 2500
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером Agent B"
 
 /datum/syndie_supply_packs/engineering/miner_hydrogen
 	name = "Майнер H2"
 	contains = list(/obj/machinery/atmospherics/miner/hydrogen)
 	cost = 4000
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с майнером H2"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1282,7 +1282,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/reagent_containers/food/drinks/oilcan,
 	)
 	cost = 100
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "oil tank crate"
 
 //////////////////////////////////////////////////////////////////////////////
@@ -1835,7 +1835,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/structure/reagent_dispensers/watertank,
 	)
 	cost = 80
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "water tank crate"
 
 /datum/syndie_supply_packs/misc/hightank
@@ -1844,7 +1844,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/structure/reagent_dispensers/watertank/high,
 	)
 	cost = 120
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "high-capacity water tank crate"
 
 /datum/syndie_supply_packs/misc/lasertag
@@ -2020,7 +2020,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/shoes/galoshes,
 	)
 	cost = 100
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "janitorial cart crate"
 
 /datum/syndie_supply_packs/misc/janitor/janitank

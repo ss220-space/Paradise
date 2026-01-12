@@ -138,17 +138,20 @@
 /obj/structure/closet/crate/welder_act()
 	return
 
+/// Removes the supply manifest from the closet
+/obj/structure/closet/crate/proc/tear_manifest(mob/user)
+	add_fingerprint(user)
+	to_chat(user, span_notice("You tear the manifest off of [src]."))
+	playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
+	manifest.forceMove_turf(drop_location(src))
+	if(ishuman(user))
+		user.put_in_hands(manifest, ignore_anim = FALSE)
+	manifest = null
+	update_appearance()
+
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
-		add_fingerprint(user)
-		to_chat(user, span_notice("You tear the manifest off of the crate."))
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
-		manifest.forceMove_turf()
-		if(ishuman(user))
-			user.put_in_hands(manifest, ignore_anim = FALSE)
-		manifest = null
-		update_icon()
-		return
+		tear_manifest(user)
 	else
 		var/obj/item/radio/electropack = locate() in src
 		if(rigged && electropack)
@@ -243,15 +246,7 @@
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
-		add_fingerprint(user)
-		to_chat(user, span_notice("You tear the manifest off of the crate."))
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
-		manifest.forceMove_turf()
-		if(ishuman(user))
-			user.put_in_hands(manifest, ignore_anim = FALSE)
-		manifest = null
-		update_icon()
-		return
+		tear_manifest(user)
 	if(locked)
 		togglelock(user)
 		return
@@ -420,7 +415,8 @@
 	newgas.set_toxins(gas.toxins())
 	newgas.volume = gas.volume
 	newgas.set_temperature(gas.temperature())
-	if(newgas.temperature() <= target_temp)	return
+	if(newgas.temperature() <= target_temp)
+		return
 
 	if((newgas.temperature() - cooling_power) > target_temp)
 		newgas.set_temperature(newgas.temperature() - cooling_power)

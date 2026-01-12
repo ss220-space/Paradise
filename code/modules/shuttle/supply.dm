@@ -401,8 +401,8 @@
 		CR.manifest = slip
 		CR.update_icon(UPDATE_OVERLAYS)
 		CR.announce_beacons = object.announce_beacons.Copy()
-	if(istype(Crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = Crate
+	if(istype(Crate, /obj/structure/closet/crate/large))
+		var/obj/structure/closet/crate/large/LC = Crate
 		LC.manifest = slip
 		LC.update_icon(UPDATE_OVERLAYS)
 

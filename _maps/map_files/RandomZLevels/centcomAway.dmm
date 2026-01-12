@@ -1487,7 +1487,7 @@
 	},
 /area/awaymission/centcomAway/cafe)
 "ef" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
@@ -1689,7 +1689,7 @@
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/general)
 "eG" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plating,
 /area/awaymission/centcomAway/hangar)
