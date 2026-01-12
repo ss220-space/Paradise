@@ -98,12 +98,12 @@
 		if(isnull(cache_job_id))
 			cache_job_id = rustlib_iconforge_cache_valid_async(cache_input_hash, cache_dmi_hashes_json, entries_json)
 		. = CACHE_WAIT // if we return during this, WAIT!!
-		UNTIL((data_out = rustlib_iconforge_check(cache_job_id)) != RUSTG_JOB_NO_RESULTS_YET)
+		UNTIL((data_out = rustlib_iconforge_check(cache_job_id)) != RUSTLIBS_JOB_NO_RESULTS_YET)
 		cache_job_id = null
 		. = CACHE_INVALID // reset back to normal, invalid on CRASH
 	else
 		data_out = rustlib_iconforge_cache_valid(cache_input_hash, cache_dmi_hashes_json, entries_json)
-	if (data_out == RUSTG_JOB_ERROR)
+	if (data_out == RUSTLIBS_JOB_ERROR)
 		CRASH("Spritesheet [name] cache JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
 		rustlib_file_write(cache_data, "[GLOB.log_directory]/spritesheet_cache_debug.[name].json")
@@ -146,10 +146,6 @@
 /datum/asset/spritesheet_batched/unregister()
 	CRASH("unregister() called on batched spritesheet! Bad!")
 
-/// Call insert_icon or insert_all_icons here, building a spritesheet!
-/datum/asset/spritesheet_batched/proc/create_spritesheets()
-	CRASH("create_spritesheets() not implemented for [type]!")
-
 /datum/asset/spritesheet_batched/proc/insert_all_icons(prefix, icon/I, list/directions, prefix_with_dirs = TRUE)
 	if (length(prefix))
 		prefix = "[prefix]-"
@@ -189,11 +185,11 @@
 	var/data_out
 	if(yield || !isnull(job_id))
 		if(isnull(job_id))
-			job_id = rustlib_iconforge_generate_async("data/spritesheets/", name, entries_json, do_cache)
-		UNTIL((data_out = rustlib_iconforge_check(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
+			job_id = rustlib_iconforge_generate_async("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
+		UNTIL((data_out = rustlib_iconforge_check(job_id)) != RUSTLIBS_JOB_NO_RESULTS_YET)
 	else
-		data_out = rustlib_iconforge_generate("data/spritesheets/", name, entries_json, do_cache)
-	if (data_out == RUSTG_JOB_ERROR)
+		data_out = rustlib_iconforge_generate("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
+	if (data_out == RUSTLIBS_JOB_ERROR)
 		CRASH("Spritesheet [name] JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
 		rustlib_file_write(entries_json, "[GLOB.log_directory]/spritesheet_debug_[name].json")

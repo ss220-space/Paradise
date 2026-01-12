@@ -13,6 +13,7 @@
 #include "test_achievements.dm"
 #include "test_admin_verb_unique_names.dm"
 #include "test_announcements.dm"
+#include "test_asset_smart_cache.dm"
 #include "test_components.dm"
 #include "test_elements.dm"
 #include "test_emotes.dm"

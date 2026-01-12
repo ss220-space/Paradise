@@ -945,6 +945,11 @@
 		ui = new(user, src, "Vending", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
+/obj/machinery/vending/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet_batched/vending),
+	)
+
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
 	var/datum/money_account/money_account = null

@@ -88,6 +88,10 @@
 	window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
 	var/list/window_overlays = list()
 	var/turf/tile = get_turf(src)
+
+	if(!tile)
+		return
+
 	for(var/visual in air_contents.return_visuals(tile.z))
 		var/image/new_visual = image(visual, layer = FLOAT_PLANE)
 		new_visual.filters = alpha_filter

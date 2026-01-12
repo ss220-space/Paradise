@@ -14,11 +14,8 @@ struct Job {
     handle: thread::JoinHandle<()>,
 }
 
-#[allow(dead_code)]
 pub const NO_RESULTS_YET: &str = "NO RESULTS YET";
-#[allow(dead_code)]
 pub const NO_SUCH_JOB: &str = "NO SUCH JOB";
-#[allow(dead_code)]
 pub const JOB_PANICKED: &str = "JOB PANICKED";
 
 #[derive(Default)]

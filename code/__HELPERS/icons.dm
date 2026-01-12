@@ -958,8 +958,13 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	if(isnull(icon_states_cache[file]))
 		icon_states_cache[file] = list()
-		for(var/istate in icon_states(file))
-			icon_states_cache[file][istate] = TRUE
+		var/file_string = "[file]"
+		if(length(file_string)) // ensure that it's actually a file, and not a runtime icon
+			for(var/istate in rustlib_dmi_icon_states(file_string))
+				icon_states_cache[file][istate] = TRUE
+		else // Otherwise, we have to use the slower BYOND proc
+			for(var/istate in icon_states(file))
+				icon_states_cache[file][istate] = TRUE
 
 	return !isnull(icon_states_cache[file][state])
 

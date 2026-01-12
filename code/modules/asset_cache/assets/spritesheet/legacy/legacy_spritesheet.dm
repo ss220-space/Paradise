@@ -292,11 +292,6 @@
 
 	return mappings
 
-/// Override this in order to start the creation of the spritehseet.
-/// This is where all your Insert, InsertAll, etc calls should be inside.
-/datum/asset/spritesheet/proc/create_spritesheets()
-	CRASH("create_spritesheets() not implemented for [type]!")
-
 /datum/asset/spritesheet/proc/Insert(sprite_name, icon/inserted_icon, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
 	if(should_load_immediately())
 		queuedInsert(sprite_name, inserted_icon, icon_state, dir, frame, moving)

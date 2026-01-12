@@ -49,6 +49,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/proc/ensure_ready()
 	return src
 
+/// Call here, building a spritesheet!
+/datum/asset/proc/create_spritesheets()
+	CRASH("create_spritesheets() not implemented for [type]!")
+
 /// Stub to hook into if your asset is having its generation queued by SSasset_loading
 /datum/asset/proc/queued_generation()
 	CRASH("[type] inserted into SSasset_loading despite not implementing /proc/queued_generation")

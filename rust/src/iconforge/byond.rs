@@ -72,8 +72,13 @@ fn iconforge_generate_async(
 
 #[byondapi::bind]
 fn iconforge_check(id: ByondValue) -> eyre::Result<ByondValue> {
-    let result = jobs::check(&(id.get_number()? as usize)).unwrap()?;
-    Ok(result.try_into()?)
+    let job_id = id.get_number()? as usize;
+    match jobs::check(&job_id) {
+        Some(Ok(result)) => Ok(result.try_into()?),
+        Some(Err(flume::TryRecvError::Empty)) => Ok(jobs::NO_RESULTS_YET.try_into()?),
+        Some(Err(flume::TryRecvError::Disconnected)) => Ok(jobs::JOB_PANICKED.try_into()?),
+        None => Ok(jobs::NO_SUCH_JOB.try_into()?),
+    }
 }
 
 #[byondapi::bind]
