@@ -342,7 +342,7 @@
 
 /obj/machinery/portable_atmospherics/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
-	greyscale_colors = "#f62800#000000"
+	greyscale_colors = "#ff6100#000000"
 	can_label = FALSE
 
 /obj/machinery/portable_atmospherics/canister/oxygen
