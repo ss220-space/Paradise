@@ -176,6 +176,7 @@
 
 	var/datum/dna/dna = null // Carbon
 	var/radiation = 0 // Carbon
+	var/max_radiation = CARBON_MAX_RADIATION // Carbon
 
 	//see: setup.dm for list of mutations
 

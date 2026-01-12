@@ -27,7 +27,7 @@
 
 
 /datum/element/radiation_healing/proc/process_radiation_healing(mob/living/carbon/human/human)
-	human.radiation = clamp(human.radiation, 0, 200)
+	human.radiation = clamp(human.radiation, 0, human.max_radiation)
 
 	//external healing in high priority
 	var/heal_cost = 0

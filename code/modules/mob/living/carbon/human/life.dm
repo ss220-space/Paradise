@@ -185,7 +185,7 @@
 
 	if(radiation)
 		if(!HAS_TRAIT(src, TRAIT_RADIMMUNE) && !HAS_TRAIT(src, TRAIT_NO_RADIATION_EFFECTS))
-			radiation = clamp(radiation, 0, 200)
+			radiation = clamp(radiation, 0, max_radiation)
 
 			var/autopsy_damage = 0
 			switch(radiation)

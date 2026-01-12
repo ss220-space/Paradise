@@ -32,6 +32,7 @@
 	dies_at_threshold = TRUE
 	ignore_critical_condition = TRUE // Nucleations do not suffer from complex critical condition
 	var/touched_supermatter = FALSE
+	max/radiation = NUCLEATION_MAX_RADIATION
 
 	speciesbox = /obj/item/storage/box/survival/species/nucleation
 

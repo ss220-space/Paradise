@@ -271,6 +271,8 @@
 	/// List of all possible blood overlays for current race blood_mask. Init automaticly, don't force any value
 	var/static/list/blood_overlays
 
+	var/max_radiation = CARBON_MAX_RADIATION // Maximum radiation species can hold
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 
