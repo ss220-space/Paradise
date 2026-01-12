@@ -8,7 +8,7 @@
 /obj/machinery/portable_atmospherics/scrubber
 	name = "Portable Air Scrubber"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
-	icon_state = "pscrubber:0"
+	icon_state = "pscrubber_off"
 	density = TRUE
 	volume = 750
 	/// Whether the scrubber is switched on or off.
@@ -23,21 +23,21 @@
 		..(severity)
 		return
 
-	if(prob(50/severity))
+	if(prob(50 / severity))
 		on = !on
 		update_icon()
 
 	..(severity)
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon_state()
-	icon_state = "pscrubber:[on]"
+	icon_state = "pscrubber_[on ? "on" : "off"]"
 
 /obj/machinery/portable_atmospherics/scrubber/update_overlays()
 	. = ..()
 	if(holding)
-		. += "scrubber-open"
+		. += "scrubber_open"
 	if(connected_port)
-		. += "scrubber-connector"
+		. += "scrubber_connector"
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()
@@ -53,11 +53,10 @@
 /datum/milla_safe/portable_scrubber_scrub
 
 /datum/milla_safe/portable_scrubber_scrub/on_run(obj/machinery/portable_atmospherics/scrubber/scrubber)
-
 	var/turf/turf = get_turf(scrubber)
 	scrubber.scrub(get_turf_air(turf))
 	if(scrubber.widenet)
-		for(var/turf/simulated/tile in turf.GetAtmosAdjacentTurfs(alldir = 1))
+		for(var/turf/simulated/tile as anything in turf.GetAtmosAdjacentTurfs(alldir = TRUE))
 			scrubber.scrub(get_turf_air(tile))
 
 /obj/machinery/portable_atmospherics/scrubber/proc/scrub(datum/gas_mixture/environment)

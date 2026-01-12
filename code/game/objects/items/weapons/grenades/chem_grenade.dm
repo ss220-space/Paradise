@@ -592,9 +592,20 @@
 
 /obj/item/grenade/chem_grenade/teargas
 	payload_name = "teargas"
-	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
+	desc = "Взрывчатое устройство, предназначенное для ручного подрыва. \
+			При детонации испускает облако слезоточивого газа."
 	icon_state = "teargas"
 	stage = GRENADE_READY
+
+/obj/item/grenade/chem_grenade/teargas/get_ru_names()
+	return list(
+		NOMINATIVE = "газовая граната (Капсаицин)",
+		GENITIVE = "газовой гранаты (Капсаицин)",
+		DATIVE = "газовой гранате (Капсаицин)",
+		ACCUSATIVE = "газовую гранату (Капсаицин)",
+		INSTRUMENTAL = "газовой гранатой (Капсаицин)",
+		PREPOSITIONAL = "газовой гранате (Капсаицин)"
+	)
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
 	. = ..()

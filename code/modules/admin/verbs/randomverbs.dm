@@ -84,7 +84,7 @@ ADMIN_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perf
 				msg += "[key_name_mentor(C.mob)]: [C.player_age] days old<br>"
 
 	if(missing_ages)
-		to_chat(user, "Some accounts did not have proper ages set in their clients.  This function requires database to be present", confidential=TRUE)
+		to_chat(user, "Some accounts did not have proper ages set in their clients.  This function requires database to be present", confidential = TRUE)
 
 	if(msg != "")
 		var/datum/browser/popup = new(user, "player_age_check", "Player Age Check")
@@ -92,7 +92,7 @@ ADMIN_VERB(check_new_players, R_MENTOR|R_MOD|R_ADMIN, "Check New Players", "Perf
 		popup.open(FALSE)
 
 	else
-		to_chat(user, "No matches for that age range found.", confidential=TRUE)
+		to_chat(user, "No matches for that age range found.", confidential = TRUE)
 
 ADMIN_VERB(cmd_admin_world_narrate, R_SERVER|R_EVENT, "Global Narrate", "Send a direct narration to all connected players.", ADMIN_CATEGORY_EVENTS)
 	var/msg = tgui_input_text(user, "Message:", "Enter the text you wish to appear to everyone:")
@@ -142,10 +142,10 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_headset_message, R_EVENT, "Headset Message
 /client/proc/admin_headset_message(mob/M in GLOB.mob_list, sender = null)
 	var/mob/living/carbon/human/H = M
 	if(!istype(H))
-		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential=TRUE)
+		to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential = TRUE)
 		return
 	if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-		to_chat(usr, "The person you are trying to contact is not wearing a headset", confidential=TRUE)
+		to_chat(usr, "The person you are trying to contact is not wearing a headset", confidential = TRUE)
 		return
 
 	if(!sender)
@@ -192,10 +192,10 @@ ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode in List", "Toggles godmo
 		if(!usr || !usr.client)
 			return
 		if(!check_rights(R_ADMIN|R_MOD))
-			to_chat(usr, span_red("Error: cmd_admin_mute: You don't have permission to do this."), confidential=TRUE)
+			to_chat(usr, span_red("Error: cmd_admin_mute: You don't have permission to do this."), confidential = TRUE)
 			return
 		if(!M.client)
-			to_chat(usr, span_red("Error: cmd_admin_mute: This mob doesn't have a client tied to it."), confidential=TRUE)
+			to_chat(usr, span_red("Error: cmd_admin_mute: This mob doesn't have a client tied to it."), confidential = TRUE)
 	if(!M.client)
 		return
 
@@ -227,7 +227,7 @@ ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode in List", "Toggles godmo
 		force_add_mute(M.client.ckey, mute_type)
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(M)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(M)] from [mute_string].")
-		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.", confidential=TRUE)
+		to_chat(M, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.", confidential = TRUE)
 		BLACKBOX_LOG_ADMIN_VERB("Automute")
 		return
 
@@ -239,7 +239,7 @@ ADMIN_VERB(cmd_admin_godmode_in_list, R_ADMIN, "Godmode in List", "Toggles godmo
 		muteunmute = "unmuted"
 
 	log_and_message_admins("has [muteunmute] [key_name_admin(M)] from [mute_string].")
-	to_chat(M, "You have been [muteunmute] from [mute_string].", confidential=TRUE)
+	to_chat(M, "You have been [muteunmute] from [mute_string].", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("Mute")
 
 ADMIN_VERB(add_random_ai_law, R_EVENT, "Add Random AI Law", "Add a random law to the AI.", ADMIN_CATEGORY_FUN)
@@ -316,7 +316,7 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 			break
 
 	if(!G_found)//If a ghost was not found.
-		to_chat(user, "<span style='color: red;'>There is no active key like that in the game or the person is not currently a ghost.</span>", confidential=TRUE)
+		to_chat(user, "<span style='color: red;'>There is no active key like that in the game or the person is not currently a ghost.</span>", confidential = TRUE)
 		return
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
@@ -486,7 +486,7 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 		if(length(candidates))
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
-			to_chat(usr, span_red("Error: create_xeno(): no suitable candidates."), confidential=TRUE)
+			to_chat(usr, span_red("Error: create_xeno(): no suitable candidates."), confidential = TRUE)
 	if(!istext(ckey))
 		return 0
 
@@ -524,7 +524,7 @@ ADMIN_VERB(respawn_character, R_SPAWN, "Respawn Character", "Respawn a player th
 		any = 1 //if no ghosts show up, any will just be 0
 	if(!any)
 		if(notify)
-			to_chat(src, "There doesn't appear to be any ghosts for you to select.", confidential=TRUE)
+			to_chat(src, "There doesn't appear to be any ghosts for you to select.", confidential = TRUE)
 		return
 
 	for(var/mob/M in mobs)
@@ -629,7 +629,7 @@ ADMIN_VERB_AND_CONTEXT_MENU(cmd_admin_delete, R_ADMIN, "Delete", ADMIN_VERB_NO_D
 
 /client/proc/admin_delete(datum/D)
 	if(istype(D) && !D.can_vv_delete())
-		to_chat(src, "[D] rejected your deletion", confidential=TRUE)
+		to_chat(src, "[D] rejected your deletion", confidential = TRUE)
 		return
 	var/atom/A = D
 	var/coords = ""
@@ -667,7 +667,7 @@ ADMIN_VERB(list_open_jobs, R_ADMIN, "List free slots", "List available station j
 			if(job.total_positions != -1) // Only count position that isn't unlimited
 				currentpositiontally += job.current_positions
 				totalpositiontally += job.total_positions
-		to_chat(user, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential=TRUE)
+		to_chat(user, "<b>Currently filled job slots (Excluding unlimited): [currentpositiontally] / [totalpositiontally] ([totalpositiontally - currentpositiontally])</b>", confidential = TRUE)
 	BLACKBOX_LOG_ADMIN_VERB("List Free Slots")
 
 ADMIN_VERB(admin_explosion, R_DEBUG|R_EVENT, "Explosion", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, atom/orignator as obj|mob|turf)
@@ -824,13 +824,13 @@ ADMIN_VERB(toggle_ghost_vision, R_ADMIN, "Toggle Ghost Vision After Greentext", 
 
 ADMIN_VERB(everyone_random, R_SERVER|R_EVENT, "Make Everyone Random", "Make everyone have a random appearance. You can only use this before rounds!", ADMIN_CATEGORY_FUN)
 	if(SSticker.HasRoundStarted())
-		to_chat(user, "Nope you can't do this, the game's already started. This only works before rounds!", confidential=TRUE)
+		to_chat(user, "Nope you can't do this, the game's already started. This only works before rounds!", confidential = TRUE)
 		return
 
 	if(SSticker.random_players)
 		SSticker.random_players = 0
 		message_admins("Admin [key_name_admin(user)] has disabled \"Everyone is Special\" mode.")
-		to_chat(user, "Disabled.", confidential=TRUE)
+		to_chat(user, "Disabled.", confidential = TRUE)
 		return
 
 	var/notifyplayers = tgui_alert(user, "Do you want to notify the players?", "Options", list("Yes", "No", "Cancel"))
@@ -842,7 +842,7 @@ ADMIN_VERB(everyone_random, R_SERVER|R_EVENT, "Make Everyone Random", "Make ever
 	if(notifyplayers == "Yes")
 		to_chat(world, span_adminnotice("Admin [user.key] has forced the players to have completely random identities!"), confidential = TRUE)
 
-	to_chat(user, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.", confidential=TRUE)
+	to_chat(user, "<i>Remember: you can always disable the randomness by using the verb again, assuming the round hasn't started yet</i>.", confidential = TRUE)
 
 	SSticker.random_players = 1
 	BLACKBOX_LOG_ADMIN_VERB("Make Everyone Random")
@@ -850,11 +850,11 @@ ADMIN_VERB(everyone_random, R_SERVER|R_EVENT, "Make Everyone Random", "Make ever
 ADMIN_VERB(toggle_random_events, R_SERVER|R_EVENT, "Toggle Random Events", "Toggles random events on or off.", ADMIN_CATEGORY_TOGGLES)
 	if(!CONFIG_GET(flag/allow_random_events))
 		CONFIG_SET(flag/allow_random_events, TRUE)
-		to_chat(user, "Random events enabled", confidential=TRUE)
+		to_chat(user, "Random events enabled", confidential = TRUE)
 		log_and_message_admins("has enabled random events.")
 	else
 		CONFIG_SET(flag/allow_random_events, FALSE)
-		to_chat(user, "Random events disabled", confidential=TRUE)
+		to_chat(user, "Random events disabled", confidential = TRUE)
 		log_and_message_admins("has disabled random events.")
 	BLACKBOX_LOG_ADMIN_VERB("Toggle Random Events")
 
@@ -961,12 +961,12 @@ ADMIN_VERB(list_ssds_afks, R_ADMIN, "List SSDs and AFKs", "List SSDs and AFK pla
 ADMIN_VERB(toggle_ert_calling, R_EVENT, "Toggle ERT", "Toggle the station's ability to call a response team.", ADMIN_CATEGORY_TOGGLES)
 	if(SSticker.mode.ert_disabled)
 		SSticker.mode.ert_disabled = 0
-		to_chat(user, span_notice("ERT has been <b>Enabled</b>."), confidential=TRUE)
+		to_chat(user, span_notice("ERT has been <b>Enabled</b>."), confidential = TRUE)
 		log_admin("Admin [key_name(user)] has enabled ERT calling.")
 		log_and_message_admins("has enabled ERT calling.")
 	else
 		SSticker.mode.ert_disabled = 1
-		to_chat(user, span_warning("ERT has been <b>Disabled</b>."), confidential=TRUE)
+		to_chat(user, span_warning("ERT has been <b>Disabled</b>."), confidential = TRUE)
 		log_admin("Admin [key_name(user)] has disabled ERT calling.")
 		log_and_message_admins("has disabled ERT calling.")
 
@@ -993,7 +993,7 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 
 /datum/admins/proc/modify_goals()
 	if(!SSticker || !SSticker.mode)
-		to_chat(usr, span_warning("This verb can only be used if the round has started."), confidential=TRUE)
+		to_chat(usr, span_warning("This verb can only be used if the round has started."), confidential = TRUE)
 		return
 
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}

@@ -329,6 +329,8 @@
 #define LIGHT_COLOR_HALOGEN "#f0fafa"
 /// Nearly red. rgb(226, 78, 118)
 #define LIGHT_COLOR_BUBBLEGUM "#e24e76"
+/// Garland lights.
+#define LIGHT_COLOR_GARLAND "#ffb366"
 
 // The GAGS greyscale_colors for each department's computer/machine circuits
 #define CIRCUIT_COLOR_GENERIC "#1a7a13"
@@ -573,3 +575,17 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_SECSPEAR_RED "#ed3f3f"
 #define COLOR_SECSPEAR_BLUE "#3fc4ed"
 #define COLOR_SECSPEAR_YELLOW "#edc73f"
+
+#define COLOR_PROXIMITY_FIELD "#aaffff"
+#define COLOR_PROXIMITY_EDGE "#ffaaff"
+
+// Luma coefficients suggested for HDTVs. If you change these, make sure they add up to 1.
+#define LUMA_R 0.213
+#define LUMA_G 0.715
+#define LUMA_B 0.072
+
+#define COLOR_GAS_MINER_N2O "#ffcccc"
+#define COLOR_GAS_MINER_N2 "#ccffcc"
+#define COLOR_GAS_MINER_O2 "#007fff"
+#define COLOR_GAS_MINER_CO2 "#cdcdcd"
+#define COLOR_GAS_MINER_AGENT_B "#e81e24"

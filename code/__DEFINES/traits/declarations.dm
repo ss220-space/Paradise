@@ -377,7 +377,8 @@
 /// Temporally  trait when target tasered
 #define TRAIT_TASERED "tasered"
 
-#define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
+///Immune to the SM / makes you immune to it when worn
+#define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 /// Used to play an alarm when the gun is out of ammo
 #define TRAIT_AMMO_ALARMED "ammo_alarm"
@@ -427,3 +428,5 @@
 #define STATION_TRAIT_MEDBOT_MANIA "station_trait_medbot_mania"
 #define STATION_TRAIT_UPGRADED_ARMORY "station_trait_upgraded_armory"
 #define STATION_TRAIT_GREEN_ENERGY "station_trait_green_energy"
+
+#define TRAIT_MESON_VISION "meson_vision"

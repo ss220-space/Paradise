@@ -506,7 +506,7 @@
 	if(!force)
 		if(!mobile_port.check_dock(new_dock))
 			return
-		if(!mobile_port.canMove())
+		if(mobile_port.canMove())
 			return
 
 	var/obj/docking_port/stationary/old_dock = mobile_port.get_docked()
@@ -514,7 +514,7 @@
 	var/area_type = old_dock?.area_type || /area/space
 
 	//close and lock the dock's airlocks
-	//mobile_port.closePortDoors(old_dock)
+	mobile_port.closePortDoors(old_dock)
 
 	var/area/shuttle/areaInstance = mobile_port.areaInstance
 

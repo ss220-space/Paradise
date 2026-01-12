@@ -191,7 +191,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			if(!ismob(selected_mob))
 				to_chat(usr, "This can only be used on instances of type /mob.", confidential = TRUE)
 				return TRUE
-			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, list(selected_mob), TRUE)
+			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/logging_view, selected_mob, TRUE)
 			return TRUE
 		if("bless")
 			if(!check_rights(R_EVENT))

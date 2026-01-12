@@ -21,6 +21,8 @@
 #define T0C 273.15
 /// 20degC
 #define T20C 293.15
+/// 100degC
+#define T100C 373.15
 
 #define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION)) //moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO (MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -204,8 +206,8 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 //LAVALAND
 #define LAVALAND_EQUIPMENT_EFFECT_PRESSURE 50 //what pressure you have to be under to increase the effect of equipment meant for lavaland
 #define LAVALAND_TEMPERATURE 300
-#define LAVALAND_OXYGEN 8
-#define LAVALAND_NITROGEN 14
+#define LAVALAND_OXYGEN 14
+#define LAVALAND_NITROGEN 23
 
 
 // Reactions
@@ -290,6 +292,9 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 #define MILLA_INTERESTING_REASON_HOT (1 << 1)
 /// Interesting because it has wind that can push stuff around.
 #define MILLA_INTERESTING_REASON_WIND (1 << 2)
+/// Interesting because it has water vapor condensation
+#define MILLA_INTERESTING_REASON_CONDENSATION (1 << 3)
+
 #define MILLA_NORTH (1 << 0)
 #define MILLA_EAST (1 << 1)
 #define MILLA_SOUTH (1 << 2)

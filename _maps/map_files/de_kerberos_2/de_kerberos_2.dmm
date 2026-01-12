@@ -3547,9 +3547,7 @@
 	},
 /area/maintenance/kitchen)
 "aDC" = (
-/obj/machinery/power/supermatter_shard{
-	anchored = 1
-	},
+/obj/machinery/atmospherics/supermatter_crystal/engine,
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "aDD" = (

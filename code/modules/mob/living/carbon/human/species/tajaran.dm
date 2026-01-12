@@ -117,3 +117,6 @@
 	remove_verb(H, /mob/living/carbon/human/proc/emote_purr)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_purrl)
 	remove_verb(H, /mob/living/carbon/human/proc/emote_hiss_tajaran)
+
+/datum/species/tajaran/compressor_grind(location)
+	new /obj/item/reagent_containers/food/snacks/tajaroni(location)

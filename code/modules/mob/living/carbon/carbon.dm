@@ -922,7 +922,11 @@ so that different stomachs can handle things in different ways VB*/
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	..()
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		add_sight(SEE_TURFS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	return ..()
 
 /mob/living/carbon/ExtinguishMob()
 	for(var/X in get_equipped_items())

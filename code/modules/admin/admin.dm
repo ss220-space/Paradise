@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ADMIN_VERB(show_old_player_panel, R_ADMIN|R_MOD, "Show Old Player Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/M in GLOB.mob_list)
 	if(!M)
-		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
+		to_chat(user, "You seem to be selecting a mob that doesn't exist anymore.", confidential = TRUE)
 		return
 
 	var/our_key = M.key
@@ -483,7 +483,7 @@ ADMIN_VERB(start_now, R_SERVER, "Start Now", "Start the round RIGHT NOW.", ADMIN
 		BLACKBOX_LOG_ADMIN_VERB("Start Game")
 		return 1
 	else
-		to_chat(user, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
+		to_chat(user, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential = TRUE)
 		return
 
 ADMIN_VERB(toggle_enter, R_SERVER, "Toggle Entering", "Toggle the ability to enter the game.", ADMIN_CATEGORY_TOGGLES)
@@ -722,7 +722,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 	if(!ai_number)
 		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
-	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential=TRUE)
+	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential = TRUE)
 
 	log_and_message_admins("checked the AI laws")
 
@@ -765,7 +765,7 @@ ADMIN_VERB(toggle_guests, R_SERVER, "Toggle Guests", "Toggle the ability for gue
 			if(kick_only_afk && !C.is_afk())	//Ignore clients who are not afk
 				continue
 			if(message)
-				to_chat(C, message, confidential=TRUE)
+				to_chat(C, message, confidential = TRUE)
 			kicked_client_names.Add("[C.ckey]")
 			qdel(C)
 	return kicked_client_names
