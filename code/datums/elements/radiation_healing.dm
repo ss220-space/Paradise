@@ -70,5 +70,5 @@
 			limb.mend_fracture()
 			human.radiation = max(human.radiation - FRACTURE_HEAL_COST, 0)
 
-	if(HAS_TRAIT(human, TRAIT_NO_RADIATION_EFFECTS)) // passive radiation drain in case if it doesn't drain itself
+	if(HAS_TRAIT(human, TRAIT_NO_RADIATION_EFFECTS)) // TRAIT_NO_RADIATION_EFFECTS stops radiation effects including passive radiation drain, so we drain it passively here
 		human.radiation = max(human.radiation - PASSIVE_RAD_DRAIN, 0)
