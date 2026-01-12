@@ -55,6 +55,13 @@
 	RefreshParts()
 	update_icon()
 
+/obj/machinery/atmospherics/unary/thermomachine/build_network(remove_deferral)
+	var/datum/pipeline/pipenet = node?.returnPipenet()
+	if(pipenet)
+		setPipenet(pipenet)
+		pipenet.addMachineryMember(src)
+	. = ..()
+
 /obj/machinery/atmospherics/unary/thermomachine/RefreshParts()
 	var/calculated_bin_rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
@@ -102,10 +109,6 @@
 		return ..()
 	icon_state = "thermo_base"
 	return ..()
-
-/obj/machinery/atmospherics/unary/thermomachine/setPipenet()
-	return
-
 // TODO replace with pipes overlays for atmos machines
 /obj/machinery/atmospherics/unary/thermomachine/update_underlays()
 	if(!..())
@@ -272,7 +275,8 @@
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer
-	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
+	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer"
+	post_init_icon_state = "thermo_1"
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded/init_parts()
 	component_parts = list()
@@ -287,9 +291,7 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on
 	on = TRUE
-	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer/on"
-	post_init_icon_state = "thermo_1"
-	flags = /obj/machinery/atmospherics/unary/thermomachine::flags // we want this one to generate a preview
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/Initialize(mapload)
 	. = ..()
@@ -307,7 +309,6 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server
 	name = "Server room temperature control unit"
-	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server"
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/on/server/Initialize(mapload)
 	. = ..()
@@ -315,12 +316,12 @@
 
 /obj/machinery/atmospherics/unary/thermomachine/heater
 	cooling = FALSE
-	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
+	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/heater"
+	post_init_icon_state = "thermo_1"
 
 /obj/machinery/atmospherics/unary/thermomachine/heater/on
 	on = TRUE
-	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/heater/on" // same icon as the freezer
-	post_init_icon_state = "thermo_1"
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
 /obj/machinery/atmospherics/unary/thermomachine/heater/upgraded/init_parts()
 	component_parts = list()

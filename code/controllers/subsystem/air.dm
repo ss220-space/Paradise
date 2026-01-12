@@ -181,7 +181,10 @@ SUBSYSTEM_DEF(air)
 	icon_manager = new() // Sets up icon manager for pipes
 	setup_turfs()
 	setup_atmos_machinery(SSmachines.get_by_type(/obj/machinery/atmospherics))
-	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics))
+	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics/unary))
+	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics/binary))
+	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics/trinary))
+	setup_pipenets(SSmachines.get_by_type(/obj/machinery/atmospherics/pipe))
 	for(var/obj/machinery/atmospherics/atmos_machine in machinery_to_construct)
 		atmos_machine.initialize_atmos_network()
 

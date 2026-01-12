@@ -945,11 +945,6 @@
 		ui = new(user, src, "Vending", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
-/obj/machinery/vending/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet_batched/vending),
-	)
-
 /obj/machinery/vending/ui_data(mob/user)
 	var/list/data = list()
 	var/datum/money_account/money_account = null
@@ -1010,8 +1005,8 @@
 			name = capitalize(item.declent_ru(NOMINATIVE)),
 			desc = item.desc,
 			price = (product_record.product_path in prices) ? prices[product_record.product_path] : 0,
-			icon = item.icon,
-			icon_state = item.icon_state,
+			icon = initial(item.icon),
+			icon_state = initial(item.icon_state),
 			max_amount = product_record.max_amount,
 			ref = product_record.UID()
 		)

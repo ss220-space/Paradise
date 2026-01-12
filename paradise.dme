@@ -2191,7 +2191,6 @@
 #include "code\modules\asset_cache\assets\common.dm"
 #include "code\modules\asset_cache\assets\contracts.dm"
 #include "code\modules\asset_cache\assets\supplypods.dm"
-#include "code\modules\asset_cache\assets\vending.dm"
 #include "code\modules\asset_cache\assets\spritesheet\batched\batched_spritesheet.dm"
 #include "code\modules\asset_cache\assets\spritesheet\batched\universal_icon.dm"
 #include "code\modules\asset_cache\assets\spritesheet\legacy\legacy_spritesheet.dm"
