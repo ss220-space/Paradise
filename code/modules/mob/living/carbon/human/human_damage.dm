@@ -318,7 +318,7 @@
 		var/damaged = FALSE
 		if(external)
 			var/obj/item/organ/external/bodypart = organ
-			damaged = brute ? bodypart.brute_dam : FALSE || burn ? bodypart.burn_dam : FALSE
+			damaged = (brute && bodypart.brute_dam) || (burn && bodypart.burn_dam)
 		else
 			var/obj/item/organ/internal/int_organ = organ
 			damaged = int_organ.damage > 0
