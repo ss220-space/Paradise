@@ -64,6 +64,13 @@
 /proc/byondapi_stack_trace(err)
 	CRASH(err)
 
+#define rustlib_file_read(fname) RUSTG_CALL(RUST_G, "file_read")(fname)
+#define rustlib_file_exists(fname) (RUSTG_CALL(RUST_G, "file_exists")(fname) == "true")
+#define rustlib_file_write(text, fname) RUSTG_CALL(RUST_G, "file_write")(text, fname)
+#define rustlib_file_append(text, fname) RUSTG_CALL(RUST_G, "file_append")(text, fname)
+#define rustlib_file_get_line_count(fname) text2num(RUSTG_CALL(RUST_G, "file_get_line_count")(fname))
+#define rustlib_file_seek_line(fname, line) RUSTG_CALL(RUST_G, "file_seek_line")(fname, "[line]")
+
 #define rustlib_dmi_strip_metadata(fname) RUSTLIB_CALL("dmi_strip_metadata", fname)
 #define rustlib_dmi_create_png(path, width, height, data) RUSTLIB_CALL("dmi_create_png", path, width, height, data)
 #define rustlib_dmi_resize_png(path, width, height, resizetype) RUSTLIB_CALL("dmi_resize_png", path, width, height, resizetype)
@@ -137,7 +144,7 @@
 #define rustlib_iconforge_check(job_id) RUSTLIB_CALL("iconforge_check", "[job_id]")
 /// Clears all cached DMIs and images, freeing up memory.
 /// This should be used after spritesheets are done being generated.
-#define rustlib_iconforge_cleanup RUSTLIB_CALL("iconforge_cleanup")
+#define rustlib_iconforge_cleanup(...) RUSTLIB_CALL("iconforge_cleanup")
 /// Takes in a set of hashes, generate inputs, and DMI filepaths, and compares them to determine cache validity.
 /// input_hash: xxh64 hash of "sprites" from the cache.
 /// dmi_hashes: xxh64 hashes of the DMIs in a spritesheet, given by `rustlib_iconforge_generate` with `hash_icons` enabled. From the cache.

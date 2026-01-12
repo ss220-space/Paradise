@@ -852,3 +852,6 @@
 
 /datum/config_entry/string/internal_ip
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/smart_cache_assets
+	default = TRUE

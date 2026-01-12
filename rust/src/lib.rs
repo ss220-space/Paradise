@@ -1,5 +1,6 @@
 mod dmi;
 mod error;
+mod file;
 mod hash;
 mod iconforge;
 mod jobs;

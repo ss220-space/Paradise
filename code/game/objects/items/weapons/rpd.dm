@@ -191,7 +191,7 @@
 
 /obj/item/rpd/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/rpd)
+		get_asset_datum(/datum/asset/spritesheet_batched/rpd)
 	)
 
 /obj/item/rpd/click_alt(mob/living/user)

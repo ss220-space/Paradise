@@ -1124,6 +1124,7 @@
 
 		if(initial(item.greyscale_config_inhand_right))
 			allowed_configs += "[initial(item.greyscale_config_inhand_right)]"
+		qdel(item)
 
 	var/datum/greyscale_modify_menu/menu = new(
 		src, usr, allowed_configs, CALLBACK(src, PROC_REF(vend_greyscale), params),

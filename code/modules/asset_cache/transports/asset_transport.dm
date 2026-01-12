@@ -145,7 +145,7 @@
 	return FALSE
 
 /// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
-/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 6)
+/datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = SLOW_ASSET_SEND_RATE)
 	var/startingfilerate = filerate
 	for(var/file in files)
 		if(!client)

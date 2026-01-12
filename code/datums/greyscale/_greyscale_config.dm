@@ -55,6 +55,8 @@
 	if(!icon_file)
 		stack_trace("Greyscale config object [DebugName()] is missing an icon file, make sure `icon_file` has been assigned a value.")
 	string_icon_file = "[icon_file]"
+	if(findtext(string_json_config, "code/datums/greyscale/json_configs/") != 1)
+		stack_trace("All greyscale json configuration files should be located within 'code/datums/greyscale/json_configs/'")
 	if(!name)
 		stack_trace("Greyscale config object [DebugName()] is missing a name, make sure `name` has been assigned a value.")
 	spawn(1)
@@ -170,7 +172,7 @@
 	if(!islist(data[1]))
 		var/layer_type = SSgreyscale.layer_types[data["type"]]
 		if(!layer_type)
-			CRASH("An unknown layer type was specified in the json of greyscale configuration [DebugName()]: [data["layer_type"]]")
+			CRASH("An unknown layer type was specified in the json of greyscale configuration [DebugName()]: [data["type"]]")
 		return new layer_type(icon_file, data.Copy()) // We don't want anything in there touching our version of the data
 	var/list/output = list()
 	for(var/list/group as anything in data)
@@ -181,9 +183,9 @@
 
 /// Reads layer configurations to take out some useful overall information
 /datum/greyscale_config/proc/ReadMetadata()
-	var/icon/source = icon(icon_file)
-	height = source.Height()
-	width = source.Width()
+	var/list/icon_dimensions = get_icon_dimensions(icon_file)
+	height = icon_dimensions["width"]
+	width = icon_dimensions["height"]
 
 	var/list/datum/greyscale_layer/all_layers = list()
 
@@ -308,5 +310,44 @@
 	var/list/split_colors = splittext(color_string, "#")
 	for(var/color in 2 to length(split_colors))
 		. += "#[split_colors[color]]"
+
+// ===============
+// Universal Icons
+// ===============
+
+/datum/greyscale_config/proc/GenerateUniversalIcon(color_string, target_bundle_state, datum/universal_icon/last_external_icon)
+	return GenerateBundleUniversalIcon(color_string, target_bundle_state, last_external_icon=last_external_icon)
+
+/// Handles the actual icon manipulation to create the spritesheet
+/datum/greyscale_config/proc/GenerateBundleUniversalIcon(list/colors, target_bundle_state, datum/universal_icon/last_external_icon)
+	if(!istype(colors))
+		colors = SSgreyscale.ParseColorString(colors)
+	if(length(colors) != expected_colors)
+		CRASH("[DebugName()] expected [expected_colors] color arguments but received [length(colors)]")
+
+	if(!(target_bundle_state in icon_states))
+		CRASH("Invalid target bundle icon_state \"[target_bundle_state]\"! Valid icon_states: [icon_states.Join(", ")]")
+
+	var/datum/universal_icon/icon_bundle = GenerateLayerGroupUniversalIcon(colors, icon_states[target_bundle_state], last_external_icon) || uni_icon('icons/effects/effects.dmi', "nothing")
+	icon_bundle.scale(width, height)
+	return icon_bundle
+
+/// Internal recursive proc to handle nested layer groups
+/datum/greyscale_config/proc/GenerateLayerGroupUniversalIcon(list/colors, list/group, datum/universal_icon/last_external_icon)
+	var/datum/universal_icon/new_icon
+	for(var/datum/greyscale_layer/layer as anything in group)
+		var/datum/universal_icon/layer_icon
+		if(islist(layer))
+			layer_icon = GenerateLayerGroupUniversalIcon(colors, layer, new_icon || last_external_icon)
+			var/list/layer_list = layer
+			layer = layer_list[1] // When there are multiple layers in a group like this we use the first one's blend mode
+		else
+			layer_icon = layer.GenerateUniversalIcon(colors, new_icon || last_external_icon)
+
+		if(!new_icon)
+			new_icon = layer_icon
+		else
+			new_icon.blend_icon(layer_icon, layer.blend_mode)
+	return new_icon
 
 #undef MAX_SANE_LAYERS

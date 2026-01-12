@@ -342,7 +342,7 @@
 
 /obj/machinery/mecha_part_fabricator/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/materials)
+		get_asset_datum(/datum/asset/spritesheet_batched/materials)
 	)
 
 /obj/machinery/mecha_part_fabricator/ui_data(mob/user)
