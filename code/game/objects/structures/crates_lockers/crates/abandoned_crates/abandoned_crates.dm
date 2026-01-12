@@ -1,20 +1,102 @@
+/**
+ * # Abandoned Crate
+ *
+ * A secure crate that requires a unique code to unlock. Contains randomized loot.
+ *
+ * This crate uses a bulls-and-cows guessing game. Incorrect attempts may cause an explosion.
+ */
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
-	desc = "Что может быть внутри?"
+	desc = "Какой-то странный ржавый ящик... Интересно, что может быть внутри?"
 	icon_state = "dangercrate"
+	base_icon_state = "dangercrate"
+	integrity_failure = 0 // Cannot be broken open physically
+	tamperproof = 90 // High chance of explosion when tampered with
+	/// Secret code required to unlock the crate
 	var/code = null
-	var/lastattempt = null
+	/// List of previous attempts in format: list("attempt" = "1234", "bulls" = 1, "cows" = 2)
+	var/list/previous_attempts = list()
+	/// Remaining attempts to input the correct code
 	var/attempts = 10
-	var/codelen = 4
-	integrity_failure = 0 //no breaking open the crate
+	/// Length of the generated code (number of digits)
+	var/code_length = 4
+	/// Whether to delete the crate after opening
+	var/qdel_on_open = FALSE
+	/// Whether loot has already been spawned inside the crate
+	var/spawned_loot = FALSE
 
-/obj/structure/closet/crate/secure/loot/can_close()
-	. = ..()
-	if(!.)
-		return
+	/**
+	 * Weighted list of possible loot items.
+	 * Format: list(list(typepath = probability) = group_weight).
+	 * Total probability = ((probability in sublist * group weight) / 100)
+	 */
+	var/list/possible_loot = list(
+		list( // Alcohol and entertainment
+			/obj/effect/spawner/abandoned_crate/booze = 15,
+			/obj/effect/spawner/abandoned_crate/drugs = 5,
+			/obj/effect/spawner/abandoned_crate/snappops = 5,
+			/obj/effect/spawner/abandoned_crate/toy_balloon = 5,
+			/obj/effect/spawner/abandoned_crate/toy_weapons = 8,
+			/obj/effect/spawner/abandoned_crate/toy_pistols = 8,
+			/obj/effect/spawner/abandoned_crate/random_toy_prize = 3,
+			) = 49,
 
-	var/mob/living/mob = locate() in get_turf(src)
-	return !mob
+		list( // Tools and equipment
+			/obj/effect/spawner/abandoned_crate/tools = 15,
+			/obj/effect/spawner/abandoned_crate/science_equipment = 10,
+			/obj/effect/spawner/abandoned_crate/electronics = 8,
+			/obj/effect/spawner/abandoned_crate/mining_tools = 7,
+			/obj/effect/spawner/abandoned_crate/random_components = 5,
+			) = 45,
+
+		list( // Valuable materials
+			/obj/effect/spawner/abandoned_crate/diamonds = 8,
+			/obj/effect/spawner/abandoned_crate/bluespace_crystal = 8,
+			/obj/effect/spawner/abandoned_crate/cash = 5,
+			/obj/effect/spawner/abandoned_crate/random_coins = 5,
+			) = 26,
+
+		list( // Clothes and suits
+			/obj/effect/spawner/abandoned_crate/casual_clothes = 10,
+			/obj/effect/spawner/abandoned_crate/funny_clothes = 8,
+			/obj/effect/spawner/abandoned_crate/bedsheets = 5,
+			/obj/effect/spawner/abandoned_crate/roman_armor = 5,
+			/obj/effect/spawner/abandoned_crate/pet_costumes = 5,
+			/obj/effect/spawner/abandoned_crate/chicken_costume = 5,
+			/obj/effect/spawner/abandoned_crate/clown_kit = 4,
+			/obj/effect/spawner/abandoned_crate/mime_kit = 4,
+			/obj/effect/spawner/abandoned_crate/tacticool_gear = 4,
+			/obj/effect/spawner/abandoned_crate/wrestling_gear = 4,
+			/obj/effect/spawner/abandoned_crate/justice_kit = 3,
+			/obj/effect/spawner/abandoned_crate/gentleman_kit = 3,
+			/obj/effect/spawner/abandoned_crate/fursuit = 3,
+			/obj/effect/spawner/abandoned_crate/space_suit = 3,
+			) = 66,
+
+		list( // Weapons and Security
+			/obj/effect/spawner/abandoned_crate/security_gear = 12,
+			/obj/effect/spawner/abandoned_crate/shotgun_kit = 8,
+			/obj/effect/spawner/abandoned_crate/syndicate_gear = 8,
+			/obj/effect/spawner/abandoned_crate/energy_weapons = 8,
+			/obj/effect/spawner/abandoned_crate/katana = 5,
+			/obj/effect/spawner/abandoned_crate/wizard_gear = 5,
+			/obj/effect/spawner/abandoned_crate/bombarda = 4,
+			) = 50,
+
+		list( // Medicine and science
+			/obj/effect/spawner/abandoned_crate/medical = 10,
+			/obj/effect/spawner/abandoned_crate/organs = 8,
+			/obj/effect/spawner/abandoned_crate/cybernetics = 5,
+			/obj/effect/spawner/abandoned_crate/dna_injectors = 5,
+			/obj/effect/spawner/abandoned_crate/weed = 5,
+			) = 33,
+
+		list( // Miscellaneous
+			/obj/effect/spawner/abandoned_crate/posters = 8,
+			/obj/effect/spawner/abandoned_crate/random_seeds = 8,
+			/obj/effect/spawner/abandoned_crate/soulstone = 5,
+			) = 21,
+		)
 
 /obj/structure/closet/crate/secure/loot/get_ru_names()
 	return list(
@@ -28,289 +110,189 @@
 
 /obj/structure/closet/crate/secure/loot/Initialize(mapload)
 	. = ..()
+	code = generate_code(code_length)
+
+/// Generates a random code of specified length with no repeating digits
+/obj/structure/closet/crate/secure/loot/proc/generate_code(length)
 	var/list/digits = list("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
-	code = ""
-	for(var/i = 0, i < codelen, i++)
-		var/dig = pick(digits)
-		code += dig
-		digits -= dig  //Player can enter codes with matching digits, but there are never matching digits in the answer
+	var/list/code_digits = list()
 
-/obj/structure/closet/crate/secure/loot/populate_contents()
-	var/loot = rand(1,100) //100 different crates with varying chances of spawning
-	switch(loot)
-		if(1 to 2)
-			new /obj/item/reagent_containers/food/drinks/bottle/rum(src)
-			new /obj/item/reagent_containers/food/snacks/grown/ambrosia/deus(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/whiskey(src)
-			new /obj/item/lighter(src)
-		if(3 to 4)
-			new /obj/item/bedsheet(src)
-			new /obj/item/kitchen/knife(src)
-			new /obj/item/wirecutters(src)
-			new /obj/item/screwdriver(src)
-			new /obj/item/weldingtool(src)
-			new /obj/item/hatchet(src)
-			new /obj/item/crowbar(src)
-		if(5 to 6)
-			new /obj/item/reagent_containers/glass/beaker/bluespace(src)
-		if(7 to 8)
-			new /obj/item/stack/ore/diamond(src, 10)
-		if(9 to 10)
-			for(var/i in 1 to 5)
-				new /obj/item/poster/random_contraband(src)
-		if(11 to 12)
-			for(var/i in 1 to 3)
-				new /obj/item/reagent_containers/glass/beaker/noreact(src)
-		if(13 to 14)
-			new /obj/item/seeds/firelemon(src)
-		if(15 to 16)
-			new /obj/item/melee/baton/security(src)
-		if(17 to 18)
-			new /obj/item/clothing/under/shorts/red(src)
-			new /obj/item/clothing/under/shorts/blue(src)
-		if(19 to 20)
-			new /obj/item/clothing/under/chameleon(src)
-			for(var/i in 1 to 7)
-				new /obj/item/clothing/accessory/horrible(src)
-		if(21 to 22)
-			new /obj/item/melee/baton(src)
-		if(23 to 24)
-			new /obj/item/stack/spacecash/c5000(src)
-		if(25 to 26)
-			new /obj/item/toy/balloon(src)
-		if(27 to 28)
-			new /obj/item/laser_pointer(src)
-		if(29 to 30)
-			var/newitem = pick(subtypesof(/obj/item/toy/prize))
-			new newitem(src)
-		if(31 to 32)
-			new /obj/item/storage/box/snappops(src)
-		if(33 to 34)
-			new /obj/item/toy/syndicateballoon(src)
-		if(35 to 36)
-			new /obj/item/borg/upgrade/modkit/aoe/mobs(src)
-			new /obj/item/clothing/suit/space(src)
-			new /obj/item/clothing/head/helmet/space(src)
-		if(37 to 38)
-			new /obj/item/gun/projectile/shotgun(src)
-			new /obj/item/storage/belt/bandolier/full(src)
-		if(39 to 40)
-			for(var/i in 1 to 5)
-				new /obj/item/clothing/head/kitty(src)
-				new /obj/item/clothing/accessory/petcollar(src)
-		if(41 to 42)
-			new /obj/item/gun/projectile/bombarda(src)
-			for(var/i in 1 to rand(1, 5))
-				var/newitem = pick(/obj/item/ammo_casing/a40mm/improvised/exp_shell, /obj/item/ammo_casing/a40mm/improvised/flame_shell, /obj/item/ammo_casing/a40mm/improvised/smoke_shell)
-				new newitem(src)
-		if(43 to 44)
-			for(var/i in 1 to rand(4, 7))
-				var/newcoin = pick(/obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/silver, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/iron, /obj/item/coin/gold, /obj/item/coin/diamond, /obj/item/coin/plasma, /obj/item/coin/uranium)
-				new newcoin(src)
-		if(45 to 46)
-			new /obj/item/clothing/head/helmet/roman/legionaire/fake(src)
-			new /obj/item/clothing/under/roman(src)
-			new /obj/item/clothing/shoes/roman(src)
-			new /obj/item/shield/riot/roman/fake(src)
-		if(47 to 48)
-			new /obj/item/clothing/suit/ianshirt(src)
-			new /obj/item/clothing/suit/corgisuit(src)
-			new /obj/item/clothing/head/corgi(src)
-		if(49 to 50)
-			new /obj/item/clothing/suit/chickensuit(src)
-			new /obj/item/clothing/head/chicken(src)
-		if(51 to 52)
-			for(var/i in 1 to rand(4, 7))
-				var/newitem = pick(subtypesof(/obj/item/stock_parts))
-				new newitem(src)
-		if(53 to 54)
-			new /obj/item/melee/baton(src)
-		if(55 to 56)
-			new /obj/item/stack/ore/bluespace_crystal(src, 5)
-		if(57 to 58)
-			new /obj/item/clothing/suit/space/syndicate/green(src)
-			new /obj/item/clothing/head/helmet/space/syndicate/green(src)
-		if(59 to 60)
-			new /obj/item/pickaxe/drill(src)
-		if(61 to 62)
-			new /obj/item/card/emag_broken(src)
-		if(63 to 64)
-			new /obj/item/pickaxe/drill/jackhammer(src)
-		if(65 to 66)
-			new /obj/item/clothing/suit/hooded/goliath(src)
-			new /obj/item/twohanded/spear/bonespear(src)
-		if(67 to 68)
-			new /obj/item/pickaxe/diamond(src)
-		if(69 to 70)
-			new /obj/item/seeds/random(src)
-		if(71 to 72)
-			new /obj/item/pickaxe/drill/diamonddrill(src)
-		if(73 to 74)
-			new /obj/item/toy/katana(src)
-		if(75 to 76)
-			new /obj/item/gun/projectile/shotgun/toy/crossbow(src)
-		if(77)
-			new /obj/item/gun/projectile/automatic/toy/pistol/enforcer(src)
-			new /obj/item/ammo_box/magazine/toy/enforcer(src)
-		if(78)
-			new /obj/item/gun/projectile/automatic/toy/pistol(src)
-			new /obj/item/ammo_box/magazine/toy/pistol(src)
-		if(79)
-			new /obj/item/cane(src)
-			new /obj/item/clothing/head/collectable/tophat(src)
-		if(80)
-			new /obj/item/clothing/head/helmet/justice(src)
-			new /obj/item/storage/backpack/justice(src)
-		if(81)
-			new /obj/item/gun/energy/plasmacutter(src)
-		if(82)
-			new /obj/item/gun/magic/wand(src)
-		if(83)
-			new /obj/item/spellbook/oneuse/smoke(src)
-		if(84)
-			new /obj/item/gun/energy/disabler(src)
-		if(85)
-			new /obj/item/defibrillator/compact(src)
-		if(86)
-			new /obj/item/gun/energy/specter(src)
-			new /obj/item/weapon_cell/specter(src)
-		if(87)
-			new /obj/item/gun/projectile/automatic/pistol/enforcer(src)
-			new /obj/item/ammo_box/magazine/enforcer(src)
-		if(88)
-			new /obj/item/organ/internal/brain(src)
-		if(89)
-			new /obj/item/organ/internal/brain/xeno(src)
-		if(90)
-			new /obj/item/organ/internal/heart(src)
-		if(91)
-			new /obj/item/soulstone/anybody(src)
-		if(92)
-			new /obj/item/melee/katana(src)
-		if(93)
-			new /obj/item/dnainjector/xraymut(src)
-		if(94)
-			new /obj/item/storage/backpack/clown(src)
-			new /obj/item/clothing/under/rank/clown(src)
-			new /obj/item/clothing/shoes/clown_shoes(src)
-			new /obj/item/pda/clown(src)
-			new /obj/item/clothing/mask/gas/clown_hat(src)
-			new /obj/item/bikehorn(src)
-			new /obj/item/toy/crayon/rainbow(src)
-			new /obj/item/reagent_containers/spray/waterflower(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
-		if(95)
-			new /obj/item/clothing/under/mime(src)
-			new /obj/item/clothing/shoes/black(src)
-			new /obj/item/pda/mime(src)
-			new /obj/item/clothing/gloves/color/white(src)
-			new /obj/item/clothing/mask/gas/mime(src)
-			new /obj/item/clothing/mask/gas/mime/old(src)
-			new /obj/item/clothing/head/beret(src)
-			new /obj/item/clothing/suit/suspenders(src)
-			new /obj/item/toy/crayon/mime(src)
-			new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
-		if(96)
-			new /obj/item/clothing/under/syndicate/tacticool(src)
-			new /obj/item/clothing/gloves/combat(src)
-			new /obj/item/clothing/shoes/combat(src)
-			new /obj/item/clothing/accessory/holster(src)
-			new /obj/item/clothing/head/beret(src)
-			new /obj/item/clothing/accessory/scarf/red(src)
-			new /obj/item/clothing/mask/holo_cigar(src)
-		if(97)
-			new /obj/item/clothing/mask/balaclava(src)
-			new /obj/item/gun/projectile/automatic/pistol(src)
-			new /obj/item/ammo_box/magazine/m10mm(src)
-		if(98)
-			new /obj/item/organ/internal/cyberimp/arm/katana(src)
-		if(99)
-			new /obj/item/storage/belt/champion(src)
-			new /obj/item/clothing/mask/luchador(src)
-		if(100)
-			new /obj/item/clothing/head/bearpelt(src)
+	for(var/i in 1 to length)
+		if(!length(digits))
+			break
+		var/digit = pick(digits)
+		code_digits += digit
+		digits -= digit //there are never matching digits in the answer
 
-/obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
-	if(locked)
-		to_chat(user, span_notice("Ящик закрыт цифровым замком Deca-Code."))
-		var/input = tgui_input_text(usr, "Введите [codelen] цифр.", "Цифровой замок Deca-Code", "")
-		if(in_range(src, user))
-			if(input == code)
-				add_fingerprint(user)
-				to_chat(user, span_notice("Ящик открывается!"))
-				locked = 0
-				cut_overlays()
-				add_overlay("securecrateg")
-				if(blocks_emissive)
-					add_overlay(get_emissive_block())
-			else if(input == null || length(input) != codelen)
-				add_fingerprint(user)
-				to_chat(user, span_notice("Вы оставляете ящик в покое."))
-			else
-				to_chat(user, span_warning("Мигает красный индикатор."))
-				lastattempt = input
-				attempts--
-				if(attempts == 0)
-					boom(user)
-	else
+	return code_digits.Join("")
+
+/obj/structure/closet/crate/secure/loot/attack_hand(mob/user, list/modifiers)
+	if(!locked)
 		return ..()
 
-/obj/structure/closet/crate/secure/loot/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/card/emag))
+	if(!user.can_perform_action(src))
+		return
+
+	var/input = tgui_input_text(user, title = "Дека-кодовый замок", message = "Введите [code_length] цифры. Все цифры должны быть уникальными.", max_length = code_length)
+
+	if(input == code)
+		if(!spawned_loot)
+			spawn_loot()
+		tamperproof = 0 // Set explosion chance to zero, so we dont accidently hit it with a multitool and instantly die
+		togglelock(user)
+		SStgui.close_user_uis(user, src)
+		return
+
+	if(!validate_input(input))
+		to_chat(user, span_notice("Вы оставляете ящик в покое."))
+		return
+
+	to_chat(user, span_warning("Вспыхивает красная лампочка."))
+	previous_attempts += list(bulls_and_cows(input))
+	attempts--
+
+	if(attempts <= 0)
+		boom(user)
+
+/**
+ * Validates user input for code attempts
+ *
+ * Checks if input is the correct length, contains only digits,
+ * and has no repeating digits.
+ *
+ * Arguments:
+ * * input - The user's guess attempt
+ *
+ * Returns:
+ * * boolean - TRUE if input is valid, FALSE otherwise
+ */
+/obj/structure/closet/crate/secure/loot/proc/validate_input(input)
+	if(!input || code_length != length(input))
+		return FALSE
+
+	var/list/used_digits = list()
+	for(var/i in 1 to length(input))
+		var/char = input[i]
+		if(!(char >= "0" && char <= "9")) // If a non-digit is found, reject the input
+			return FALSE
+		if(char in used_digits) // If a digit is repeated, reject the input
+			return FALSE
+		used_digits += char
+
+	return TRUE
+
+/obj/structure/closet/crate/secure/loot/click_alt(mob/living/user)
+	attack_hand(user) //this helps you not blow up so easily by overriding unlocking which results in an immediate boom.
+	return CLICK_ACTION_SUCCESS
+
+/obj/structure/closet/crate/secure/loot/ui_interact(mob/user, datum/tgui/ui)
+	. = ..()
+
+	// Attempt to update tgui ui, open and update if needed.
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "AbandonedCrate", declent_ru(NOMINATIVE))
+		ui.open()
+
+/obj/structure/closet/crate/secure/loot/ui_data(mob/user)
+	var/list/data = list()
+
+	data["previous_attempts"] = previous_attempts
+	data["attempts_left"] = attempts
+
+	return data
+
+/obj/structure/closet/crate/secure/loot/multitool_act(mob/living/user, obj/item/tool)
+	if(!locked)
+		return
+
+	if(Adjacent(user))
+		ui_interact(user)
+
+	return TRUE
+
+/**
+ * Implements bulls and cows algorithm
+ *
+ * Compares the guess against the actual code.
+ * Bulls = correct digit in correct position.
+ * Cows = correct digit in wrong position.
+ *
+ * Arguments:
+ * * guess - The user's guess string
+ *
+ * Returns:
+ * * list - Contains attempt, bulls count, and cows count
+ */
+/obj/structure/closet/crate/secure/loot/proc/bulls_and_cows(guess)
+	var/bulls = 0
+	var/cows = 0
+
+	for(var/i in 1 to code_length)
+		var/guess_char = guess[i]
+		var/code_char = code[i]
+
+		if(guess_char == code_char)
+			bulls++
+		else if(findtext(code, guess_char))
+			cows++
+
+	return list("attempt" = guess, "bulls" = bulls, "cows" = cows)
+
+/obj/structure/closet/crate/secure/loot/attackby(obj/item/item, mob/user, params)
+	if(istype(item, /obj/item/card/emag))
 		if(locked)
-			boom(user)
+			emag_act(user)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 	return ..()
 
-/obj/structure/closet/crate/secure/loot/multitool_act(mob/living/user, obj/item/I)
-	if(!locked)
-		return FALSE
-	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
-		return .
-	to_chat(user, span_notice("ОТЧЕТ ЗАМКА DECA-CODE:"))
-	if(attempts == 1)
-		to_chat(user, span_warning("* Противовзломная бомба активируется при следующей неудачной попытке."))
-	else
-		to_chat(user, span_notice("* Противовзломная бомба активируется после [attempts] [declension_ru(attempts,"неудачной попытки","неудачных попыток","неудачных попыток")]."))
-	if(isnull(lastattempt))
-		return .
-	var/bulls = 0
-	var/cows = 0
-	var/list/banned = list()
-	for(var/i in 1 to codelen)
-		var/list/a = copytext(lastattempt, i, i + 1)
-		if(a in banned)
-			continue
-		var/g = findtext(code, a)
-		if(g)
-			banned += a
-			if(g == i)
-				++bulls
-			else
-				++cows
-	to_chat(user, span_notice("В последней попытке [bulls] [declension_ru(bulls,"цифра","цифры","цифр")] на правильных позициях и [cows] [declension_ru(cows,"правильная цифра","правильные цифры","правильных цифр")] на неправильных позициях."))
-
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
+	. = ..()
+
 	if(locked)
 		add_attack_logs(user, src, "emag-bombed")
-		boom(user)
+		boom(user) // No feedback since it just explodes, thats its own feedback
+		return TRUE
+	return
 
-/obj/structure/closet/crate/secure/loot/togglelock(mob/living/user)
-	if(!istype(user))
+/obj/structure/closet/crate/secure/loot/togglelock(mob/user, silent = FALSE)
+	if(!locked)
+		. = ..() // Run the normal code.
+		if(locked) // Double check if the crate actually locked itself when the normal code ran.
+			// Reset the anti-tampering, number of attempts and last attempt when the lock is re-enabled.
+			tamperproof = initial(tamperproof)
+			attempts = initial(attempts)
+			previous_attempts = list()
 		return
-	if(locked)
-		attack_hand(user)
-	else
-		..()
+	if(tamperproof)
+		return
+	return ..()
 
 /obj/structure/closet/crate/secure/loot/deconstruct(disassembled = TRUE)
-	boom()
+	if(locked)
+		boom()
+		return
+	return ..()
+
+/obj/structure/closet/crate/secure/loot/after_open(mob/living/user, force)
+	. = ..()
+	if(qdel_on_open)
+		qdel(src)
+
+/**
+ * Spawns loot inside the crate
+ *
+ * Selects a random loot item from the weighted possible_loot list.
+ * Marks the crate as having spawned loot.
+ */
+/obj/structure/closet/crate/secure/loot/proc/spawn_loot()
+	var/loot = pick_weight_recursive(possible_loot)
+	new loot(src)
+	spawned_loot = TRUE
 
 /obj/structure/closet/crate/secure/loot/shove_impact(mob/living/target, mob/living/attacker)
 	if(locked)
 		return FALSE
-
 	return ..()
