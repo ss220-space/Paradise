@@ -46,8 +46,8 @@
 	for(var/obj/item/implant/deathrattle/other_implant as anything in implants)
 
 		// Skip the unfortunate soul, and any unimplanted implants
-		//if(implant == other_implant  || !implant.imp_in)
-		//	continue
+		if(implant == other_implant  || !implant.imp_in)
+			continue
 
 		// Deliberately the same message framing as ghost deathrattle
 		var/mob/living/recipient = other_implant.imp_in

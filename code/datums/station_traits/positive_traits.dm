@@ -179,7 +179,7 @@
 /datum/station_trait/deathrattle_department/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned)
 	SIGNAL_HANDLER
 
-	if(!(job.department = department_to_apply_to))
+	if(!(job.department == department_to_apply_to))
 		return
 
 	var/obj/item/implant/deathrattle/implant_to_give = new()
@@ -352,7 +352,7 @@
 	. = ..()
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(get_supply_group_name(pack.group) != "Безопасность") //fuck
+		if(get_supply_group_name(pack.group) != SUPPLY_SECURITY) //fuck
 			continue
 		pack.cost *= 1.5
 

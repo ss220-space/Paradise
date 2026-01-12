@@ -566,7 +566,7 @@ SUBSYSTEM_DEF(jobs)
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = get_safe_random_station_turf(typesof(/area/security))  || pick(GLOB.latejoin_prisoner)
 		else
-			mark_spawn = get_safe_random_station_turf()  || pick(GLOB.latejoin) //change to (typesof(/area/hallway))
+			mark_spawn = get_safe_random_station_turf()  || pick(GLOB.latejoin)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER))
 		if(rank == JOB_TITLE_PRISONER)

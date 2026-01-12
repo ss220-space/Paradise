@@ -426,10 +426,10 @@
 							current_thing.take_damage(rand(40, 90)) //fulltile windows will be safe
 							continue
 
-					if(istype(current_thing, /obj/machinery/computer) && prob(30))
+					if(istype(current_thing, /obj/machinery/computer) && prob(5))
 						if(istype(current_thing, /obj/machinery/computer/communications))
 							continue //To prevent the shuttle from getting autocalled at the start of the round
-						current_thing.take_damage(150-300)
+						current_thing.take_damage(rand(150, 300))
 						continue
 
 					if(istype(current_thing, /obj/item/flag) && prob(40))
@@ -477,7 +477,7 @@
 	. = ..()
 	for(var/set_name in SSshuttle.supply_packs)
 		var/datum/supply_packs/pack = SSshuttle.supply_packs[set_name]
-		if(get_supply_group_name(pack.group) != "Безопасность") //fuck
+		if(get_supply_group_name(pack.group) != SUPPLY_SECURITY) //fuck
 			continue
 		pack.cost *= 0.6
 
