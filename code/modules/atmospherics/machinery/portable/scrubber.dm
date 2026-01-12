@@ -8,7 +8,7 @@
 /obj/machinery/portable_atmospherics/scrubber
 	name = "Portable Air Scrubber"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
-	icon_state = "pscrubber:0"
+	icon_state = "pscrubber_off"
 	density = TRUE
 	volume = 750
 	/// Whether the scrubber is switched on or off.
@@ -30,14 +30,14 @@
 	..(severity)
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon_state()
-	icon_state = "pscrubber:[on]"
+	icon_state = "pscrubber_[on ? "on" : "off"]"
 
 /obj/machinery/portable_atmospherics/scrubber/update_overlays()
 	. = ..()
 	if(holding)
-		. += "scrubber-open"
+		. += "scrubber_open"
 	if(connected_port)
-		. += "scrubber-connector"
+		. += "scrubber_connector"
 
 /obj/machinery/portable_atmospherics/scrubber/process_atmos()
 	..()

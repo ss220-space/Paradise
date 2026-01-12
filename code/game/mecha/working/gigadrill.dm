@@ -10,7 +10,7 @@
 	max_temperature = 20000
 	max_integrity = 400
 	lights_power = 3
-	lights_color = "#ffb366"
+	lights_color = LIGHT_COLOR_GARLAND
 	deflect_chance = 15
 	armor = list(MELEE = 40, BULLET = 20, LASER = 15, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 10, FIRE = 100, ACID = 100)
 	max_equip = 2
