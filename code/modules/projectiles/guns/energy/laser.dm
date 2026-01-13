@@ -126,19 +126,24 @@
 
 /obj/projectile/beam/laser/accelerator
 	name = "accelerator laser"
-	icon_state = "heavylaser"
+	icon_state = "scatterlaser"
 	range = 255
 	damage = 8
-	armour_penetration = -50
+	armour_penetration = -35
 	speed = 1
 	tile_dropoff_penetration = -5
-	tile_dropoff_forcedodge = -0.2
+	var/size_per_tile = 0.1
+	var/max_scale = 4
 
 /obj/projectile/beam/laser/accelerator/Range()
 	..()
-	damage = min(damage + 4, 80)
-	armour_penetration = min(armour_penetration, 50)
-	forcedodge = min(forcedodge, 20)
+	// Damage
+	damage = min(damage + 4, 75)
+	armour_penetration = min(armour_penetration, 25)
+
+	// Transform
+	transform = matrix()
+	transform *= min(1 + (maximum_range - range) * size_per_tile, max_scale)
 
 /obj/item/gun/energy/lasercannon/cyborg
 	attachable_allowed = GUN_MODULE_CLASS_NONE
