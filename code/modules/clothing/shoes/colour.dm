@@ -3,6 +3,7 @@
 	icon_state = "/obj/item/clothing/shoes/color"
 	post_init_icon_state = "sneakers"
 	greyscale_config = /datum/greyscale_config/sneakers
+	greyscale_colors = "#545454#ffffff"
 	greyscale_config_worn = list(
 		ITEM_SLOT_FEET_STRING = /datum/greyscale_config/sneakers_worn,
 	)
@@ -23,7 +24,6 @@
 /obj/item/clothing/shoes/color/black
 	name = "black shoes"
 	icon_state = "/obj/item/clothing/shoes/color/black"
-	greyscale_colors = "#545454#ffffff"
 	item_color = "black"
 	desc = "A pair of black shoes."
 	cold_protection = FEET

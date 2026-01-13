@@ -220,8 +220,10 @@ do { \
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
 	desc = "A pair of black shoes."
-	icon_state = "sneakers"
-	item_color = "sneakers"
+	icon = 'icons/map_icons/clothing/shoes.dmi'
+	icon_state = "/obj/item/clothing/shoes/color"
+	post_init_icon_state = "sneakers"
+	item_color = "black"
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)

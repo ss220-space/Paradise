@@ -55,17 +55,10 @@
 /obj/item/clothing/under/color/blackf
 	name = "feminine black jumpsuit"
 	desc = "It's very smart and in a ladies-size!"
-	icon = 'icons/obj/clothing/uniforms.dmi'
-	icon_state = "black"
 	item_state = "bl_suit"
 	item_color = "blackf"
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
-	greyscale_config = null
-	greyscale_config_inhand_left = null
-	greyscale_config_inhand_right = null
-	greyscale_config_worn = null
-	greyscale_config_worn_species = null
-
+	
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/blue"

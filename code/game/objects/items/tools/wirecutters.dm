@@ -2,11 +2,10 @@
 	name = "wirecutters"
 	desc = "Инструмент, предназначенный для перекусывания различных материалов."
 	gender = PLURAL
-	icon = 'icons/obj/tools.dmi'
-	icon_state = "cutters_map"
 	icon = 'icons/map_icons/items/_item.dmi'
 	icon_state = "/obj/item/wirecutters"
 	post_init_icon_state = "cutters"
+	item_state = "cutters"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	belt_icon = "wirecutters"
@@ -127,6 +126,7 @@
 	name = "alien wirecutters"
 	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
 			Лезвия из серебристо-зелёного металла кажутся невероятно острыми."
+	icon_state = "cutters"
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "cutters_alien"
 	belt_icon = "alien_wirecutters"
