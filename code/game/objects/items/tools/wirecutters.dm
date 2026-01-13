@@ -232,6 +232,8 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_colors = null
+	icon = 'icons/obj/tools.dmi'
+	post_init_icon_state = null
 
 /obj/item/wirecutters/industrial/get_ru_names()
 	return list(
