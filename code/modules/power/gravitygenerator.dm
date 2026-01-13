@@ -353,13 +353,6 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	update_icon(UPDATE_ICON_STATE)
 	update_list()
 
-	if(old_gravity)
-		shake_everyone()
-		if(SSticker.current_state != GAME_STATE_PLAYING)
-			return
-		investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
-		message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
-
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
 /obj/machinery/gravity_generator/main/process()
 	if((stat & BROKEN) || charging_state == GRAV_POWER_IDLE)
