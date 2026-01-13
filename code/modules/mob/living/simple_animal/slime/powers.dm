@@ -23,7 +23,7 @@
 		return 1
 
 /mob/living/simple_animal/slime/verb/Feed()
-	set category = STATPANEL_SLIME
+	set category = VERB_CATEGORY_SLIME
 	set desc = "This will let you feed on any valid creature in the surrounding area. This should also be used to halt the feeding process."
 
 	if(stat)
@@ -127,7 +127,7 @@
 		buckled.unbuckle_mob(src,force=TRUE)
 
 /mob/living/simple_animal/slime/verb/Evolve()
-	set category = STATPANEL_SLIME
+	set category = VERB_CATEGORY_SLIME
 	set desc = "This will let you evolve slime."
 
 	if(stat)
@@ -181,7 +181,7 @@
 		A.Grant(S)
 
 /mob/living/simple_animal/slime/verb/Reproduce()
-	set category = STATPANEL_SLIME
+	set category = VERB_CATEGORY_SLIME
 	set desc = "This will make you split into four Slimes."
 
 	if(stat)

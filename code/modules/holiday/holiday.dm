@@ -84,14 +84,26 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 
 /datum/holiday/new_year
 	name = NEW_YEAR
-	begin_day = 30 // 1 day early
+	begin_day = 18 // 13 days early
 	begin_month = DECEMBER
-	end_day = 10 //9 days extra
+	end_day = 12 //1 days extra
 	end_month = JANUARY
 
 /datum/holiday/new_year/celebrate()
 	. = ..()
 	GLOB.new_year_celebration = TRUE
+
+/datum/holiday/xmas
+	name = CHRISTMAS
+	begin_day = 7
+	begin_month = JANUARY
+	eventChance = 20
+
+/datum/holiday/xmas/greet()
+	var/greeting = "Счастливого Рождества!"
+	if(prob(30))
+		greeting += "<br><br>В честь праздника выберите случайного члена экипажа из манифеста объекта и подарите ему подарок!"
+	return greeting
 
 /datum/holiday/groundhog
 	name = "День сурка"
@@ -248,25 +260,6 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	begin_day = 14
 	begin_month = DECEMBER
 
-/datum/holiday/xmas
-	name = CHRISTMAS
-	begin_day = 18 //7 days early
-	begin_month = DECEMBER
-	end_day = 8 //14 days extra, christmas is important
-	end_month = JANUARY
-	eventChance = 20
-
-/datum/holiday/xmas/greet()
-	var/greeting = "Счастливого Рождества!"
-	if(prob(30))
-		greeting += "<br><br>В честь праздника выберите случайного члена экипажа из манифеста объекта и подарите ему подарок!"
-	return greeting
-
-/datum/holiday/boxing
-	name = "День подарков"
-	begin_day = 26
-	begin_month = DECEMBER
-
 /datum/holiday/friday_thirteenth
 	name = "Пятница, 13-е"
 
@@ -348,28 +341,24 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 //	to_chat(world, "Easter calculates to be on [begin_day] of [begin_month] ([days_early] early) to [end_day] of [end_month] ([days_extra] extra) for 20[yy]")
 	return ..()
 
-/client/proc/Set_Holiday(T as text|null)
-	set name = "Задать праздник"
-	set category = STATPANEL_ADMIN_EVENT
-	set desc = "Принудительно задать переменную \"Праздник\", чтобы игра считала, что сегодня определённый день."
-	if(!check_rights(R_SERVER))	return
-
+ADMIN_VERB(set_holiday, R_SERVER, "Задать праздник", "Принудительно задать переменную \"Праздник\", чтобы игра считала, что сегодня определённый день.", ADMIN_CATEGORY_EVENTS, T as text|null)
 	var/list/choice = list()
 	for(var/H in subtypesof(/datum/holiday))
 		choice += "[H]"
 
 	choice += "ОТМЕНА"
-
-	var/selected = tgui_input_list(usr, "Какой праздник вы хотите зафорсить?", "Форс праздника", choice, "ОТМЕНА")
+	var/selected = tgui_input_list(user, "Какой праздник вы хотите зафорсить?", "Форс праздника", choice, "ОТМЕНА")
 
 	if(selected == "ОТМЕНА")
 		return
 
 	var/selected2path = text2path(selected)
-	if(!ispath(selected2path) || !selected2path)	return
+	if(!ispath(selected2path) || !selected2path)
+		return
 
 	var/datum/holiday/H = new selected2path
-	if(!istype(H))	return
+	if(!istype(H))
+		return
 
 	H.celebrate()
 	if(!SSholiday.holidays)
@@ -379,5 +368,5 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	//update our hub status
 	world.update_status()
 
-	message_admins(span_notice("ADMIN: Event: [key_name_admin(src)] force-set Holiday to \"[H]\""))
-	log_admin("[key_name(src)] force-set Holiday to \"[H]\"")
+	message_admins(span_notice("ADMIN: Event: [key_name_admin(user)] force-set Holiday to \"[H]\""))
+	log_admin("[key_name(user)] force-set Holiday to \"[H]\"")

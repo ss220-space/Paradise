@@ -1,3 +1,13 @@
+/**
+ * The absolute base class for everything
+ *
+ * A datum instantiated has no physical world presence, use an atom if you want something
+ * that actually lives in the world
+ *
+ * Be very mindful about adding variables to this class, they are inherited by every single
+ * thing in the entire game, and so you can easily cause memory usage to rise a lot with careless
+ * use of variables at this level
+ */
 /datum
 	/**
 	  * Tick count time when this object was destroyed.
@@ -51,6 +61,8 @@
 	*/
 	var/list/cooldowns
 
+	/// Protects datum from editing. Flags are assigned in datumvars procs via [GENERAL_PROTECT_DATUM].
+	var/datum_protecting_flags = NONE
 
 #ifdef TESTING
 	var/running_find_references

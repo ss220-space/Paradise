@@ -1905,6 +1905,13 @@
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/device_tools/cyborg_seatmod
+	name = "Модуль встроенного сидения робота"
+	desc = "Позволяет использовать робота в качестве транспорта. Поставляется с уже расширенными возможностями."
+	item = /obj/item/borg/upgrade/mounted_seat/pre_emaged
+	cost = 30
+	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
+
 /datum/uplink_item/device_tools/autoimplanter
 	name = "Автоимплантер"
 	desc = "Устройство, позволяющее устанавливать 3 кибернетических импланта в полевых условиях без необходимости хирургического вмешательства."
@@ -2277,6 +2284,12 @@
 	desc = "Насыщенный аромат, плотный дым и вкус синдизина. Обычные сигареты."
 	item = /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	cost = 2
+
+/datum/uplink_item/badass/syndieecig
+	name = "Электронная сигарета \"Синдиката\""
+	desc = "Со вкусом \"Двойное яблочко\"."
+	item = /obj/item/ecig/syndi
+	cost = 6
 
 /datum/uplink_item/badass/syndiecards
 	name = "Игральные карты \"Синдиката\""

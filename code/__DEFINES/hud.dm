@@ -53,6 +53,8 @@
 #define PLANT_WEED_HUD "24"
 /// Gland indicators for abductors
 #define GLAND_HUD "25"
+/// Pressure coloring for tiles
+#define PRESSURE_HUD "26"
 /// Telepathy bubbles
 #define THOUGHT_HUD "thoughts_hud"
 /// Kidan pheromones hud
@@ -81,33 +83,34 @@
 #define DATA_HUD_DIAGNOSTIC 5
 #define DATA_HUD_DIAGNOSTIC_ADVANCED 6
 #define DATA_HUD_HYDROPONIC 7
+#define DATA_HUD_PRESSURE 8
 //antag HUD defines
-#define ANTAG_HUD_CULT 8
-#define ANTAG_HUD_CLOCK 9
-#define ANTAG_HUD_REV 10
-#define ANTAG_HUD_OPS 11
-#define ANTAG_HUD_WIZ 12
-#define ANTAG_HUD_SHADOW 13
-#define ANTAG_HUD_TRAITOR 14
-#define ANTAG_HUD_NINJA 15
-#define ANTAG_HUD_CHANGELING 16
-#define ANTAG_HUD_VAMPIRE 17
-#define ANTAG_HUD_ABDUCTOR 18
-#define DATA_HUD_ABDUCTOR 19
-#define ANTAG_HUD_DEVIL 20
-#define ANTAG_HUD_SINTOUCHED 21
-#define ANTAG_HUD_SOULLESS 22
-#define ANTAG_HUD_EVENTMISC 23
-#define ANTAG_HUD_BLOB 24
-#define TAIPAN_HUD 25
-#define ANTAG_HUD_THIEF 26
-#define ANTAG_HUD_PRISONER_TRAITOR 27
-#define ANTAG_HUD_TEAM_1 28
-#define ANTAG_HUD_TEAM_2 29
-#define ANTAG_HUD_TEAM_3 30
-#define THOUGHTS_HUD 31
+#define ANTAG_HUD_CULT 9
+#define ANTAG_HUD_CLOCK 10
+#define ANTAG_HUD_REV 11
+#define ANTAG_HUD_OPS 12
+#define ANTAG_HUD_WIZ 13
+#define ANTAG_HUD_SHADOW 14
+#define ANTAG_HUD_TRAITOR 15
+#define ANTAG_HUD_NINJA 16
+#define ANTAG_HUD_CHANGELING 17
+#define ANTAG_HUD_VAMPIRE 18
+#define ANTAG_HUD_ABDUCTOR 19
+#define DATA_HUD_ABDUCTOR 20
+#define ANTAG_HUD_DEVIL 21
+#define ANTAG_HUD_SINTOUCHED 22
+#define ANTAG_HUD_SOULLESS 23
+#define ANTAG_HUD_EVENTMISC 24
+#define ANTAG_HUD_BLOB 25
+#define TAIPAN_HUD 26
+#define ANTAG_HUD_THIEF 27
+#define ANTAG_HUD_PRISONER_TRAITOR 28
+#define ANTAG_HUD_TEAM_1 29
+#define ANTAG_HUD_TEAM_2 30
+#define ANTAG_HUD_TEAM_3 31
+#define THOUGHTS_HUD 32
 //species hud
-#define DATA_HUD_KIDAN_PHEROMONES 32
+#define DATA_HUD_KIDAN_PHEROMONES 33
 
 // Notification action types
 #define NOTIFY_JUMP "jump"

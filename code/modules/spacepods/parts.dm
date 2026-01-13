@@ -94,7 +94,7 @@
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Повернуть каркас"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

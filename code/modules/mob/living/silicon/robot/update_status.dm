@@ -40,7 +40,7 @@
 
 	..()
 
-/mob/living/silicon/robot/update_revive(updating = TRUE, defib_revive = FALSE)
+/mob/living/silicon/robot/update_revive(updating = TRUE, force = FALSE, defib_revive = FALSE)
 	. = ..(updating)
 	if(.)
 		update_icons()

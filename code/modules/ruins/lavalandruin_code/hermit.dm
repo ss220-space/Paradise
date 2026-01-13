@@ -39,13 +39,13 @@
 			flavour_text += "Вы были помощником [pick("торговца оружием", "кораблестроителя", "управляющего доком")] на небольшой торговой станции в нескольких секторах отсюда. На вас напали рейдеры, и когда вы добрались до отсека с капсулами, \
 			осталась только одна. Вы заняли её и запустили в одиночестве, а толпа испуганных лиц, теснящихся у шлюза, пока двигатели капсулы запустились и отправили вас в этот ад, навсегда осталась в вашей памяти."
 			outfit.uniform = /obj/item/clothing/under/assistantformal
-			outfit.shoes = /obj/item/clothing/shoes/black
+			outfit.shoes = /obj/item/clothing/shoes/color/black
 			outfit.back = /obj/item/storage/backpack
 		if(2)
 			flavour_text += "Вы — изгнанник из Кооператива \"Тигр\". Их технологический фанатизм заставил вас усомниться в силе и убеждениях Экзолитиков, и они сочли вас еретиком, подвергнув часам ужасных пыток. \
 			Вы были в нескольких часах от казни, когда ваш высокопоставленный друг в Кооперативе смог обеспечить вам капсулу, скрыл координаты назначения и запустил её. Вы очнулись от стазиса после посадки и с тех пор едва выживаете."
-			outfit.uniform = /obj/item/clothing/under/color/orange
-			outfit.shoes = /obj/item/clothing/shoes/orange
+			outfit.uniform = /obj/item/clothing/under/color/orange/prison
+			outfit.shoes = /obj/item/clothing/shoes/color/orange/prison
 			outfit.back = /obj/item/storage/backpack
 		if(3)
 			flavour_text += "Вы были врачом на одной из космических станций \"Нанотрейзен\", но вы оставили позади тиранию этой проклятой корпорации и всё, что она представляет. Из метафорического ада в буквальный, \
@@ -53,13 +53,13 @@
 			outfit.uniform = /obj/item/clothing/under/rank/medical
 			outfit.suit = /obj/item/clothing/suit/storage/labcoat
 			outfit.back = /obj/item/storage/backpack/medic
-			outfit.shoes = /obj/item/clothing/shoes/black
+			outfit.shoes = /obj/item/clothing/shoes/color/black
 		if(4)
 			flavour_text += "Ваши друзья всегда шутили, что вы \"не дружите с головой\". Кажется, они были правы, когда вы, находясь на экскурсии в одном из передовых исследовательских центров \"Нанотрейзен\", \
 			оказались в спасательной капсуле в одиночестве. Ваш взгляд упал на красную кнопку — она была такой большой и блестящей, что вы не смогли устоять. Вы нажали её, и после нескольких дней ужасающего путешествия \
 			вы оказались здесь. С тех пор вы поумнели, и теперь ваши старые друзья, наверное, перестали бы смеяться."
 			outfit.uniform = /obj/item/clothing/under/color/grey/glorf
-			outfit.shoes = /obj/item/clothing/shoes/black
+			outfit.shoes = /obj/item/clothing/shoes/color/black
 			outfit.back = /obj/item/storage/backpack
 	l_pocket = /obj/item/kitchen/knife/combat
 

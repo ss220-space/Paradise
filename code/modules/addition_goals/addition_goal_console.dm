@@ -4,6 +4,7 @@
 
 /obj/item/circuitboard/computer/addition_goals
 	board_name = "addition goals console"
+	greyscale_colors = CIRCUIT_COLOR_COMMAND
 	build_path = /obj/machinery/computer/addition_goals
 	origin_tech = "engineering=2;combat=2;bluespace=2" //TODO balance here
 

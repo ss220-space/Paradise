@@ -238,15 +238,14 @@
 	else
 		return 0
 
-/obj/structure/chrono_field/assume_air()
-	return 0
-
-/obj/structure/chrono_field/return_air() //we always have nominal air and temperature
-	var/datum/gas_mixture/GM = new
-	GM.oxygen = MOLES_O2STANDARD
-	GM.nitrogen = MOLES_N2STANDARD
-	GM.temperature = T20C
-	return GM
+/obj/structure/chrono_field/return_obj_air()
+	//we always have nominal air and temperature
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas_mixture = new
+	gas_mixture.set_oxygen(MOLES_O2STANDARD)
+	gas_mixture.set_nitrogen(MOLES_N2STANDARD)
+	gas_mixture.set_temperature(T20C)
+	return gas_mixture
 
 /obj/structure/chrono_field/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	return FALSE

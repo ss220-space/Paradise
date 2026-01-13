@@ -52,6 +52,16 @@
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
 
+/proc/random_string(length, list/characters)
+	. = ""
+	for(var/i in 1 to length)
+		. += pick(characters)
+
+/proc/repeat_string(times, string = "")
+	. = ""
+	for(var/i in 1 to times)
+		. += string
+
 /// Runs sanitize and strip_html_simple
 /// I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(t, limit=MAX_MESSAGE_LEN)
@@ -387,7 +397,7 @@
 	input_text = replacetext(input_text, "\[u\]", "<u>")
 	input_text = replacetext(input_text, "\[/u\]", "</u>")
 
-	if(check_rights(R_EVENT))
+	if((findtext(input_text, "\[signfont\]") || findtext(input_text, "\[/signfont\]")) && check_rights(R_EVENT)) // Make sure the text is there before giving off an error
 		input_text = replacetext(input_text, "\[signfont\]", "<font face=\"[signature_font]\"><i>")
 		input_text = replacetext(input_text, "\[/signfont\]", "</i></font>")
 

@@ -92,7 +92,7 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/verb/chasetail()
 	set name = "Гоняться за хвостом"
 	set desc = "d'awwww."
-	set category = STATPANEL_ANIMAL
+	set category = VERB_CATEGORY_ANIMAL
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)

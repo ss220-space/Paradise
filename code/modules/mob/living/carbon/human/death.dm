@@ -94,7 +94,7 @@
 	if(SSticker?.mode)
 		SSblackbox.ReportDeath(src)
 
-/mob/living/carbon/human/update_revive(updating, defib_revive)
+/mob/living/carbon/human/update_revive(updating = TRUE, force = FALSE, defib_revive = FALSE)
 	. = ..()
 	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll

@@ -127,6 +127,10 @@
 /datum/controller/subsystem/Initialize()
 	return SS_INIT_NONE
 
+/// Returns what to display as the ms cost for this subsystem.
+/datum/controller/subsystem/proc/get_cost()
+	return round(cost, 1)
+
 /datum/controller/subsystem/Destroy()
 	dequeue()
 	can_fire = FALSE
@@ -285,7 +289,7 @@
 	var/ss_info = get_stat_details()
 
 	if(can_fire && !(SS_NO_FIRE & flags) && init_stage <= Master.init_stage_completed)
-		msg = "[round(cost, 1)]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
+		msg = "[get_cost()]ms | [round(tick_usage, 1)]%([round(tick_overrun, 1)]%) | [round(ticks, 0.1)]\t[ss_info]"
 	else
 		msg = "OFFLINE\t[ss_info]"
 

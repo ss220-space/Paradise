@@ -1,19 +1,16 @@
-/client/proc/check_bomb_impacts()
-	set name = "Check Bomb Impact"
-	set category = STATPANEL_DEBUG
-
-	var/newmode = alert("Use reactionary explosions?","Check Bomb Impact", "Yes", "No")
-	var/zmode = alert("Use Multi-Z explosions?","Check Bomb Impact,", "Yes", "No")
-	var/turf/epicenter = get_turf(mob)
+ADMIN_VERB(check_bomb_impacts, R_DEBUG, "Check Bomb Impact", "See what the effect of a bomb would be.", ADMIN_CATEGORY_DEBUG)
+	var/newmode = tgui_alert(user, "Use reactionary explosions?", "Check Bomb Impact", list("Yes", "No"))
+	var/zmode = tgui_alert("Use Multi-Z explosions?", "Check Bomb Impact", list("Yes", "No"))
+	var/turf/epicenter = get_turf(user.mob)
 	if(!epicenter)
 		return
 
-	to_chat(usr, span_notice("Check Bomb Impact epicenter is: [COORD(epicenter)]"))
+	to_chat(user, span_notice("Check Bomb Impact epicenter is: [COORD(epicenter)]"))
 	var/dev = 0
 	var/heavy = 0
 	var/light = 0
 	var/list/choices = list("Small Bomb","Medium Bomb","Big Bomb","Custom Bomb")
-	var/choice = tgui_input_list(usr, "Bomb Size?", , choices)
+	var/choice = tgui_input_list(user, "Bomb Size?", , choices)
 	switch(choice)
 		if(null)
 			return 0
@@ -30,9 +27,9 @@
 			heavy = 5
 			light = 7
 		if("Custom Bomb")
-			dev = tgui_input_number(usr, "Devestation range (Tiles):")
-			heavy = tgui_input_number(usr, "Heavy impact range (Tiles):")
-			light = tgui_input_number(usr, "Light impact range (Tiles):")
+			dev = tgui_input_number(user, "Devestation range (Tiles):")
+			heavy = tgui_input_number(user, "Heavy impact range (Tiles):")
+			light = tgui_input_number(user, "Light impact range (Tiles):")
 
 	var/max_range = max(dev, heavy, light)
 	var/x0 = epicenter.x
@@ -86,8 +83,10 @@
 		else
 			continue
 
-	sleep(100)
-	for(var/turf/T in wipe_colours)
-		T.color = null
-		T.maptext = ""
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(wipe_color_and_text), wipe_colours), 10 SECONDS)
+
+/proc/wipe_color_and_text(list/atom/wiping)
+	for(var/atom/wiping_atom as anything in wiping)
+		wiping_atom.color = null
+		wiping_atom.maptext = ""
 

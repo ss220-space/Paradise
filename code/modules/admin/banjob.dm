@@ -128,7 +128,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 	return 0
 
 /mob/verb/displayjobbans()
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set name = "Текущие джоббаны"
 	set desc = "Displays all of your current jobbans."
 

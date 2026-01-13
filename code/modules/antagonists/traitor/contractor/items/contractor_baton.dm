@@ -68,7 +68,7 @@
 	return ..()
 
 /obj/item/melee/baton/telescopic/contractor/get_wait_description()
-	return span_danger("Дубинка ещё перезаряжается!")
+	return "заряжается!"
 
 /obj/item/melee/baton/telescopic/contractor/additional_effects_non_cyborg(mob/living/carbon/human/target, mob/living/user)
 	target.AdjustJitter(5 SECONDS, bound_upper = 40 SECONDS)

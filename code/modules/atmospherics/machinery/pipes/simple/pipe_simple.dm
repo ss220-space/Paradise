@@ -21,8 +21,8 @@
 
 	level = 1
 
-/obj/machinery/atmospherics/pipe/simple/New()
-	..()
+/obj/machinery/atmospherics/pipe/simple/Initialize(mapload)
+	. = ..()
 	// Pipe colors and icon states are handled by an image cache - so color and icon should
 	//  be null. For mapping purposes color is defined in the object definitions.
 	icon = null
@@ -72,7 +72,8 @@
 		update_icon()
 
 /obj/machinery/atmospherics/pipe/simple/check_pressure(pressure)
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 
 	var/pressure_difference = pressure - environment.return_pressure()
 

@@ -260,7 +260,7 @@
 			"name" = "Обувь",
 			"icon" = "socks",
 			"products" = list(
-				/obj/item/clothing/shoes/white = 10,
+				/obj/item/clothing/shoes/color/white = 10,
 				/obj/item/clothing/shoes/sandal/white = 10,
 			),
 		),
@@ -451,10 +451,10 @@
 			"name" = "Обувь",
 			"icon" = "socks",
 			"products" = list(
-				/obj/item/clothing/shoes/white = 10,
+				/obj/item/clothing/shoes/color/white = 10,
 				/obj/item/clothing/shoes/slippers = 10,
 				/obj/item/clothing/shoes/sandal/white = 10,
-				/obj/item/clothing/shoes/black = 10,
+				/obj/item/clothing/shoes/color/black = 10,
 			),
 		),
 		list(
@@ -542,7 +542,7 @@
 			"name" = "Обувь",
 			"icon" = "socks",
 			"products" = list(
-				/obj/item/clothing/shoes/brown = 10,
+				/obj/item/clothing/shoes/color/brown = 10,
 				/obj/item/clothing/shoes/workboots/mining = 10,
 				/obj/item/clothing/shoes/jackboots = 10,
 				/obj/item/clothing/shoes/jackboots/jacksandals = 10,
@@ -631,7 +631,7 @@
 			"products" = list(
 				/obj/item/clothing/shoes/laceup = 10,
 				/obj/item/clothing/shoes/centcom = 10,
-				/obj/item/clothing/shoes/brown = 10,
+				/obj/item/clothing/shoes/color/brown = 10,
 				/obj/item/clothing/shoes/sandal/fancy = 10,
 			),
 		),
@@ -727,7 +727,7 @@
 			"name" = "Обувь",
 			"icon" = "socks",
 			"products" = list(
-				/obj/item/clothing/shoes/black = 5,
+				/obj/item/clothing/shoes/color/black = 5,
 				/obj/item/clothing/shoes/laceup = 2,
 			),
 		),
@@ -804,7 +804,7 @@
 			"name" = "Обувь",
 			"icon" = "socks",
 			"products" = list(
-				/obj/item/clothing/shoes/brown = 4,
+				/obj/item/clothing/shoes/color/brown = 4,
 				/obj/item/clothing/shoes/sandal = 2,
 				/obj/item/clothing/shoes/leather = 2,
 			),

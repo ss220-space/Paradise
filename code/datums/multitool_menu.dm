@@ -513,12 +513,15 @@
 		data.Add(.)
 	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	data["bolts"] = my_holder.bolts
-	data["pressureCheck"] = my_holder.output & 1
-	data["temperatureCheck"] = my_holder.output & 2
-	data["oxygenCheck"] = my_holder.output & 4
-	data["toxinsCheck"] = my_holder.output & 8
-	data["nitrogenCheck"] = my_holder.output & 16
-	data["carbonDioxideCheck"] = my_holder.output & 32
+	data["pressureCheck"] = my_holder.output & SENSOR_SCAN_PRESSURE
+	data["temperatureCheck"] = my_holder.output & SENSOR_SCAN_TEMPERATURE
+	data["oxygenCheck"] = my_holder.output & SENSOR_COMPOSITION_OXYGEN
+	data["toxinsCheck"] = my_holder.output & SENSOR_COMPOSITION_TOXINS
+	data["nitrogenCheck"] = my_holder.output & SENSOR_COMPOSITION_NITROGEN
+	data["carbonDioxideCheck"] = my_holder.output & SENSOR_COMPOSITION_CO2
+	data["nitrousOxideCheck"] = my_holder.output & SENSOR_COMPOSITION_N2O
+	data["hydrogenCheck"] = my_holder.output & SENSOR_COMPOSITION_H2
+	data["waterVaporCheck"] = my_holder.output & SENSOR_COMPOSITION_H2O
 	return data
 
 /datum/multitool_menu/idtag/freq/air_sensor/_ui_act(mob/user, action, list/params)

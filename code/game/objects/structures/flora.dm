@@ -2,13 +2,23 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 150
 
-//trees
+/obj/structure/flora/Initialize(mapload)
+	. = ..()
+	GLOB.world_flora |= src
+
+/obj/structure/flora/Destroy(force)
+	GLOB.world_flora -= src
+	. = ..()
+
+// MARK: Trees
 /obj/structure/flora/tree
 	name = "tree"
+	desc = "A large tree."
 	anchored = TRUE
 	density = TRUE
 	pixel_x = -16
-	layer = 9
+	layer = FLY_LAYER
+	plane = ABOVE_GAME_PLANE
 
 /// Return a see_through_map, examples in seethrough.dm
 /obj/structure/flora/tree/proc/get_seethrough_map()
@@ -20,8 +30,67 @@
 /obj/structure/flora/tree/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
+// MARK: New Year Trees
+/obj/structure/flora/tree/new_year
+	name = "new year tree"
+	desc = "Чудесно украшенная новогодняя ёлка."
+	icon = 'icons/obj/flora/new_year/new_year_tree.dmi'
+	icon_state = "new_year_tree"
+
+/obj/structure/flora/tree/new_year/get_ru_names()
+	return list(
+		NOMINATIVE = "новогодняя ёлка",
+		GENITIVE = "новогодней ёлки",
+		DATIVE = "новогодней ёлке",
+		ACCUSATIVE = "новогоднюю ёлку",
+		INSTRUMENTAL = "новогодней ёлкой",
+		PREPOSITIONAL = "новогодней ёлке"
+	)
+
+/obj/structure/flora/tree/new_year/presents
+	desc = "Чудесно украшенная новогодняя ёлка. А под ней подарки!"
+	icon_state = "new_year_tree_presents"
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF // protected by the christmas spirit
+	/// The type of gift created during interaction
+	var/gift_type = /obj/item/gift
+	/// If TRUE, players can take unlimited gifts.
+	var/unlimited = FALSE
+	/// Static list of keys of players who have already taken gifts (if unlimited = FALSE)
+	var/static/list/took_presents
+
+/obj/structure/flora/tree/new_year/presents/Initialize(mapload)
+	. = ..()
+	if(!took_presents)
+		took_presents = list()
+
+/obj/structure/flora/tree/new_year/presents/attack_hand(mob/living/user, list/modifiers)
+	. = ..()
+	if(.)
+		return
+
+	if(!user.ckey)
+		return
+
+	if(took_presents[user.ckey] && !unlimited)
+		to_chat(user, span_warning("Здесь нет подарков с твоим именем..."))
+		return
+
+	to_chat(user, span_warning("Немного покопавшись, вы находите подарок с вашим именем на обёртке!"))
+
+	if(!unlimited)
+		took_presents[user.ckey] = TRUE
+
+	var/obj/item/present = new gift_type(src)
+	user.put_in_hands(present)
+
+/obj/structure/flora/tree/new_year/presents/unlimited
+	desc = "Чудесно украшенная новогодняя ёлка. У неё, казалось бы, бесконечный запас подарков!"
+	unlimited = TRUE
+
+// MARK: Pine Trees
 /obj/structure/flora/tree/pine
 	name = "pine tree"
+	desc = "A coniferous pine tree."
 	icon = 'icons/obj/flora/pinetrees.dmi'
 	icon_state = "pine_1"
 	var/randomize_tree = TRUE
@@ -35,6 +104,39 @@
 	name = "xmas tree"
 	icon_state = "pine_c"
 	randomize_tree = FALSE
+	/// Number of gifts this tree can spawn when spawn_gifts() is called
+	var/gifts_count = 20
+	/// List of valid turfs adjacent to the tree where gifts can be spawned
+	var/list/possible_turfs
+
+/obj/structure/flora/tree/pine/xmas/Initialize(mapload)
+	. = ..()
+	recalculate_spawns()
+
+/obj/structure/flora/tree/pine/xmas/proc/recalculate_spawns()
+	if(!isturf(loc))
+		return
+
+	LAZYCLEARLIST(possible_turfs)
+
+	var/list/new_possible_gifts = RANGE_TURFS(1, loc) - loc
+
+	for(var/turf/turf in new_possible_gifts)
+		if(turf.density || is_space_or_openspace(turf))
+			continue
+
+		LAZYADD(possible_turfs, turf)
+
+/obj/structure/flora/tree/pine/xmas/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	recalculate_spawns()
+
+/obj/structure/flora/tree/pine/xmas/proc/spawn_gifts()
+	if(!length(possible_turfs))
+		return
+
+	for(var/i in 1 to gifts_count)
+		new /obj/effect/spawner/lootdrop/evil_santa_gift/xmas_tree(pick(possible_turfs))
 
 /obj/structure/flora/tree/dead
 	icon = 'icons/obj/flora/deadtrees.dmi'

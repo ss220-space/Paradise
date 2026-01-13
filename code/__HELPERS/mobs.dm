@@ -520,7 +520,7 @@
 
 	to_chat(user, chat_box_examine(exportable_text), confidential = TRUE)
 
-// Gets the first mob contained in an atom, and warns the user if there's not exactly one
+/// Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
 	if(!istype(A))
 		return null
@@ -841,7 +841,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /// Returns a list of all mobs with their display names as keys
 /proc/getmobs()
-	var/list/all_mobs = sortmobs()
+	var/list/all_mobs = sort_mobs()
 	var/list/display_names = list()
 	var/list/mob_map = list()
 	var/list/name_counts = list()
@@ -869,7 +869,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	return mob_map
 
 /// Orders mobs by type then by name
-/proc/sortmobs()
+/proc/sort_mobs()
 	var/list/mob_list = list()
 	var/list/sorted_mobs = sortAtom(GLOB.mob_list)
 	for(var/mob/living/silicon/ai/mob_instance in sorted_mobs)
@@ -900,3 +900,28 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		mob_list.Add(mob_instance)
 
 	return mob_list
+
+/**
+ * Gets the mind from a variable, whether it be a mob, or a mind itself.
+ * Also works on brains - it will try to fetch the brainmob's mind.
+ * If [include_last] is true, then it will also return last_mind for carbons if there isn't a current mind.
+ */
+/proc/get_mind(target, include_last = FALSE) as /datum/mind
+	RETURN_TYPE(/datum/mind)
+
+	if(istype(target, /datum/mind))
+		return target
+
+	if(ismob(target))
+		var/mob/mob_target = target
+		if(!QDELETED(mob_target.mind))
+			return mob_target.mind
+		if(include_last && iscarbon(mob_target))
+			var/mob/living/carbon/carbon_target = mob_target
+			if(!QDELETED(carbon_target.last_mind))
+				return carbon_target.last_mind
+
+	if(is_internal_organ_brain(target))
+		var/obj/item/organ/internal/brain/brain = target
+		if(!QDELETED(brain.brainmob?.mind))
+			return brain.brainmob.mind

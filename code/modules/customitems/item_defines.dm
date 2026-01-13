@@ -847,7 +847,7 @@
 
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
 	set name = "Режим наноткани"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1119,7 +1119,7 @@
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Молния костюма"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1314,12 +1314,15 @@
 	ignore_suitadjust = FALSE
 	suit_adjusted = TRUE
 
-/obj/item/clothing/shoes/black/fluff/chronx //chronx100: Hughe O'Splash
+/obj/item/clothing/shoes/color/black/fluff/chronx //chronx100: Hughe O'Splash
 	name = "Cthulhu's Boots"
 	desc = "Boots worn by the worshipers of Cthulhu. You see a name inscribed in blood on the inside: Hughe O'Splash"
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "chronx_shoes"
 	item_state = "chronx_shoes"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_species = null
 
 /obj/item/clothing/suit/armor/vest/fluff/tactical //m3hillus: Medusa Schlofield
 	name = "tactical armor vest"

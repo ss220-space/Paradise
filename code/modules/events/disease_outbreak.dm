@@ -58,6 +58,6 @@
 		patient_zero = H
 
 		for(var/mob/M in GLOB.dead_mob_list)
-			to_chat(M, span_deadsay("<b>[patient_zero]</b> был(а) заражён(а) <b>[D.name]</b> ([ghost_follow_link(patient_zero, M)])"))
+			to_chat(M, span_deadsay("([ghost_follow_link(patient_zero, M)])<b>[patient_zero]</b> был[GEND_A_O_I(patient_zero)] заражён[GEND_A_O_Y(patient_zero)] <b>[D.name]</b>"))
 
 		break

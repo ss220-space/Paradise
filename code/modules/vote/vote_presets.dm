@@ -68,7 +68,7 @@
 			// Set top voted map
 			if(result == "[initial(M.station_name)] ([initial(M.name)])")
 				top_voted_map = M
-	to_chat(world, "<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>")
+	to_chat(world, span_interface("<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>"))
 	SSmapping.next_map = new top_voted_map
 
 /datum/vote/gamemode

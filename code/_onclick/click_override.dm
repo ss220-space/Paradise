@@ -62,7 +62,7 @@
 			to_chat(user, span_warning("There is no cable here to power the gloves."))
 			return
 	var/turf/target_turf = get_turf(A)
-	target_turf.hotspot_expose(2000, 400)
+	target_turf.hotspot_expose(2000, 1)
 	playsound(user.loc, 'sound/effects/eleczap.ogg', 40, TRUE)
 
 	var/atom/beam_from = user
