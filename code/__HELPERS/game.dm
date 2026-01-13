@@ -449,3 +449,20 @@
 		if(length(vent.parent.other_atmosmch) <= min_network_size)
 			continue
 		. += vent
+
+/proc/AI_check_for_swap(mob/user, atom/target, silent = FALSE)
+	if(!target)
+		if(!silent && user)
+			to_chat(user, span_warning("Цель не существует!"))
+		return FALSE
+
+	if(istype(target, /mob/living/silicon/ai))
+		if(!silent && user)
+			to_chat(user, span_warning("Невозможно поменяться местами с ядром ИИ!"))
+		return FALSE
+
+
+	// if(istype(target, /mob/living/silicon/robot))
+
+
+	return TRUE
