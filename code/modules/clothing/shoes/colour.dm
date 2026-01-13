@@ -1,86 +1,135 @@
-/obj/item/clothing/shoes/black
+/obj/item/clothing/shoes/color
+	icon = 'icons/map_icons/clothing/shoes.dmi'
+	icon_state = "/obj/item/clothing/shoes/color"
+	post_init_icon_state = "sneakers"
+	greyscale_config = /datum/greyscale_config/sneakers
+	greyscale_colors = "#545454#ffffff"
+	greyscale_config_worn = list(
+		ITEM_SLOT_FEET_STRING = /datum/greyscale_config/sneakers_worn,
+	)
+	greyscale_config_worn_species = list(
+		SPECIES_VOX = /datum/greyscale_config/sneakers_worn/vox,
+		SPECIES_DRASK = /datum/greyscale_config/sneakers_worn/drask,
+		SPECIES_UNATHI = /datum/greyscale_config/sneakers_worn/unathi,
+		SPECIES_ASHWALKER_BASIC = /datum/greyscale_config/sneakers_worn/unathi,
+		SPECIES_ASHWALKER_SHAMAN = /datum/greyscale_config/sneakers_worn/unathi,
+		SPECIES_DRACONOID = /datum/greyscale_config/sneakers_worn/unathi,
+		SPECIES_MONKEY = /datum/greyscale_config/sneakers_worn/monkey,
+		SPECIES_FARWA =  /datum/greyscale_config/sneakers_worn/monkey,
+		SPECIES_WOLPIN =  /datum/greyscale_config/sneakers_worn/monkey,
+		SPECIES_NEARA =  /datum/greyscale_config/sneakers_worn/monkey,
+		SPECIES_STOK =  /datum/greyscale_config/sneakers_worn/monkey,
+	)
+
+/obj/item/clothing/shoes/color/black
 	name = "black shoes"
-	icon_state = "black"
+	icon_state = "/obj/item/clothing/shoes/color/black"
 	item_color = "black"
 	desc = "A pair of black shoes."
-
 	cold_protection = FEET
 	min_cold_protection_temperature = SHOES_MIN_TEMP_PROTECT
 	heat_protection = FEET
 	max_heat_protection_temperature = SHOES_MAX_TEMP_PROTECT
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/black/redcoat
+
+/obj/item/clothing/shoes/color/black/redcoat
 	item_color = "redcoat"	//Exists for washing machines. Is not different from black shoes in any way.
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
-/obj/item/clothing/shoes/black/greytide
+/obj/item/clothing/shoes/color/black/greytide
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 
-/obj/item/clothing/shoes/black/greytide/Initialize(mapload)
+/obj/item/clothing/shoes/black/fluff
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
+
+/obj/item/clothing/shoes/color/black/greytide/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
-/obj/item/clothing/shoes/brown
+/obj/item/clothing/shoes/color/brown
 	name = "brown shoes"
+	icon_state = "/obj/item/clothing/shoes/color/brown"
 	desc = "A pair of brown shoes."
-	icon_state = "brown"
+	greyscale_colors = "#814112#ffffff"
 	item_state = "brown"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/brown/captain
+/obj/item/clothing/shoes/color/brown/captain
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "captain"	//Exists for washing machines. Is not different from brown shoes in any way.
 
-/obj/item/clothing/shoes/brown/hop
+/obj/item/clothing/shoes/color/brown/hop
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "hop"		//Exists for washing machines. Is not different from brown shoes in any way.
 
-/obj/item/clothing/shoes/brown/ce
+/obj/item/clothing/shoes/color/brown/ce
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "chief"		//Exists for washing machines. Is not different from brown shoes in any way.
 
-/obj/item/clothing/shoes/brown/rd
+/obj/item/clothing/shoes/color/brown/rd
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "director"	//Exists for washing machines. Is not different from brown shoes in any way.
 
-/obj/item/clothing/shoes/brown/cmo
+/obj/item/clothing/shoes/color/brown/cmo
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "medical"	//Exists for washing machines. Is not different from brown shoes in any way.
 
-/obj/item/clothing/shoes/brown/qm
+/obj/item/clothing/shoes/color/brown/qm
+	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
 	item_color = "cargo"		//Exists for washing machines. Is not different from brown shoes in any way.
 
-/obj/item/clothing/shoes/blue
+/obj/item/clothing/shoes/color/blue
 	name = "blue shoes"
-	icon_state = "blue"
+	icon_state = "/obj/item/clothing/shoes/color/blue"
+	greyscale_colors = "#16a9eb#ffffff"
 	item_color = "blue"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/green
+/obj/item/clothing/shoes/color/green
 	name = "green shoes"
-	icon_state = "green"
+	icon_state = "/obj/item/clothing/shoes/color/green"
+	greyscale_colors = "#54eb16#ffffff"
 	item_color = "green"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/yellow
+/obj/item/clothing/shoes/color/yellow
 	name = "yellow shoes"
-	icon_state = "yellow"
+	icon_state = "/obj/item/clothing/shoes/color/yellow"
+	greyscale_colors = "#ebe216#ffffff"
 	item_color = "yellow"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/purple
+/obj/item/clothing/shoes/color/purple
 	name = "purple shoes"
-	icon_state = "purple"
+	icon_state = "/obj/item/clothing/shoes/color/purple"
+	greyscale_colors = "#ad16eb#ffffff"
 	item_color = "purple"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/red
+/obj/item/clothing/shoes/color/red
 	name = "red shoes"
+	icon_state = "/obj/item/clothing/shoes/color/red"
 	desc = "Stylish red shoes."
-	icon_state = "red"
+	greyscale_colors = "#ff2626#ffffff"
 	item_color = "red"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/white
+/obj/item/clothing/shoes/color/white
 	name = "white shoes"
-	icon_state = "white"
+	icon_state = "/obj/item/clothing/shoes/color/white"
+	greyscale_colors = "#ffffff#ffffff"
 	item_state = "white"
 	permeability_coefficient = 0.01
 	dying_key = DYE_REGISTRY_SHOES
+
+/obj/item/clothing/shoes/color/white/secshoes
+	name = "shoes"
+	icon = 'icons/obj/clothing/shoes.dmi'
+	icon_state = "secshoes"
+	greyscale_config = null
+	greyscale_config_worn = null
+	greyscale_config_worn_species = null
 
 /obj/item/clothing/shoes/leather
 	name = "leather shoes"
@@ -95,23 +144,44 @@
 	item_color = "rainbow"
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/orange
+/obj/item/clothing/shoes/color/orange
 	name = "orange shoes"
-	icon_state = "orange"
+	icon_state = "/obj/item/clothing/shoes/color/orange"
+	greyscale_colors = "#eb7016#ffffff"
 	item_color = "orange"
 	dying_key = DYE_REGISTRY_SHOES
+
+/obj/item/clothing/shoes/color/orange/prison
+	icon_state = "/obj/item/clothing/shoes/color/orange/prison"
+	greyscale_config = /datum/greyscale_config/sneakers_orange
+	greyscale_config_worn = list(
+		ITEM_SLOT_FEET_STRING = /datum/greyscale_config/sneakers_orange_worn,
+	)
+	greyscale_config_worn_species = list(
+		SPECIES_VOX = /datum/greyscale_config/sneakers_orange_worn/vox,
+		SPECIES_DRASK = /datum/greyscale_config/sneakers_orange_worn/drask,
+		SPECIES_UNATHI = /datum/greyscale_config/sneakers_orange_worn/unathi,
+		SPECIES_ASHWALKER_BASIC = /datum/greyscale_config/sneakers_orange_worn/unathi,
+		SPECIES_ASHWALKER_SHAMAN = /datum/greyscale_config/sneakers_orange_worn/unathi,
+		SPECIES_DRACONOID = /datum/greyscale_config/sneakers_orange_worn/unathi,
+		SPECIES_MONKEY = /datum/greyscale_config/sneakers_orange_worn/monkey,
+		SPECIES_FARWA =  /datum/greyscale_config/sneakers_orange_worn/monkey,
+		SPECIES_WOLPIN =  /datum/greyscale_config/sneakers_orange_worn/monkey,
+		SPECIES_NEARA =  /datum/greyscale_config/sneakers_orange_worn/monkey,
+		SPECIES_STOK =  /datum/greyscale_config/sneakers_orange_worn/monkey,
+	)
 	var/obj/item/restraints/handcuffs/shackles
 
-/obj/item/clothing/shoes/orange/Destroy()
+/obj/item/clothing/shoes/color/orange/prison/Destroy()
 	QDEL_NULL(shackles)
 	return ..()
 
-/obj/item/clothing/shoes/orange/attack_self(mob/user)
+/obj/item/clothing/shoes/color/orange/prison/attack_self(mob/user)
 	if(shackles)
 		user.put_in_hands(shackles)
 		set_shackles(null)
 
-/obj/item/clothing/shoes/orange/proc/set_shackles(obj/item/restraints/handcuffs/new_shackles)
+/obj/item/clothing/shoes/color/orange/prison/proc/set_shackles(obj/item/restraints/handcuffs/new_shackles)
 	if(shackles == new_shackles)
 		return
 	. = shackles
@@ -127,10 +197,7 @@
 	update_icon(UPDATE_ICON_STATE)
 	update_equipped_item()
 
-/obj/item/clothing/shoes/orange/update_icon_state()
-	icon_state = "orange[shackles ? "1" : ""]"
-
-/obj/item/clothing/shoes/orange/attackby(obj/item/I, mob/user, params)
+/obj/item/clothing/shoes/color/orange/prison/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/restraints/handcuffs))
 		add_fingerprint(user)
 		if(shackles)
@@ -142,6 +209,9 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/clothing/shoes/color/orange/prison/update_icon_state()
+	icon_state = "sneakers[shackles ? "_chained" : ""]"
 
 /obj/item/clothing/shoes/prison
 	name = "prison boots"

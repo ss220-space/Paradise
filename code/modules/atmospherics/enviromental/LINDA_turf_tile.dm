@@ -39,33 +39,34 @@
 		air = get_initial_air()
 	else
 		air = get_readonly_air()
-	var/new_overlay_type = tile_graphic(air)
-	if(new_overlay_type == atmos_overlay_type)
-		if(atmos_overlay_type)
-			SSturfs_visualization.turfs_visualisation |= src
+
+	var/list/atmos_overlay_types = src.atmos_overlay_types // Cache for free performance
+
+	if(!air) // 2019-05-14: was not able to get this path to fire in testing. Consider removing/looking at callers -Naksu
+		if(atmos_overlay_types)
+			for(var/overlay in atmos_overlay_types)
+				vis_contents -= overlay
+			atmos_overlay_types = null
+			SSturfs_visualization.turfs_visualisation -= src
 		return
 
-	var/atmos_overlay = get_atmos_overlay_by_name(atmos_overlay_type)
-	if(atmos_overlay)
-		vis_contents -= atmos_overlay
-		SSturfs_visualization.turfs_visualisation -= src
-		atmos_overlay_type = null
+	var/list/new_overlay_types = air.return_visuals(z)
 
-	atmos_overlay = get_atmos_overlay_by_name(new_overlay_type)
-	if(atmos_overlay)
-		vis_contents += atmos_overlay
+	if(atmos_overlay_types)
+		for(var/overlay in atmos_overlay_types - new_overlay_types) //doesn't remove overlays that would only be added
+			vis_contents -= overlay
+
+	if(length(new_overlay_types))
+		if(atmos_overlay_types)
+			vis_contents += new_overlay_types - atmos_overlay_types //don't add overlays that already exist
+		else
+			vis_contents += new_overlay_types
 		SSturfs_visualization.turfs_visualisation |= src
-		atmos_overlay_type = new_overlay_type
+	else
+		SSturfs_visualization.turfs_visualisation -= src
 
-/turf/simulated/proc/get_atmos_overlay_by_name(name)
-	switch(name)
-		if("plasma")
-			return GLOB.plmaster["[GET_Z_PLANE_OFFSET(z)]"]
-		if("sleeping_agent")
-			return GLOB.slmaster["[GET_Z_PLANE_OFFSET(z)]"]
-		if("water_vapor")
-			return GLOB.wvmaster["[GET_Z_PLANE_OFFSET(z)]"]
-	return null
+	UNSETEMPTY(new_overlay_types)
+	src.atmos_overlay_types = new_overlay_types
 
 /turf/simulated/proc/tile_graphic(datum/gas_mixture/air)
 	if(blocks_air)
