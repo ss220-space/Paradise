@@ -23,7 +23,7 @@ type VendingData = {
   premium_records?: ProductRecord[];
   hidden_records?: ProductRecord[];
   extended_inventory: boolean;
-  stock: Record<string, StockItem>;
+  stock: Record<string, number>;
   categories: Record<string, Category>;
   inserted_item_name: string;
   panel_open: boolean;
@@ -277,11 +277,11 @@ const Product = (props) => {
     asset: ['vending32x32', product.path],
     disabled: disabled,
     tooltipPosition: 'bottom',
-	buttons: colorable && (
+    buttons: colorable && (
       <ProductColorSelect disabled={disabled} product={product} fluid={fluid} />
     ),
     product: product,
-	colorable: colorable,
+    colorable: colorable,
     remaining: remaining,
     onClick: () => {
       act('vend', {
@@ -348,7 +348,7 @@ const ProductList = (props) => {
         <Stack.Item width={10} color={'lightgray'}>
           <b>{remaining}</b> в наличии
         </Stack.Item>
-        <Stack.Item width={6}           style={{ marginRight: !colorable ? '32px' : '' }}>
+        <Stack.Item width={6} style={{ marginRight: !colorable ? '32px' : '' }}>
           <ProductPrice {...priceProps} />
         </Stack.Item>
       </Stack>
