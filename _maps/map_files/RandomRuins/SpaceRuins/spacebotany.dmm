@@ -1367,6 +1367,26 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
+"rE" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/item/clothing/head/soft/green,
+/obj/item/clothing/suit/cyberpunk/white,
+/obj/item/clothing/under/color/white,
+/obj/item/clothing/shoes/color/brown{
+	pixel_y = -10
+	},
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
 "rF" = (
 /obj/random/tool,
 /obj/structure/lattice,
@@ -1646,16 +1666,6 @@
 /obj/item/shard,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
-"vu" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/EastGarden)
 "vw" = (
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plasteel/dark,
@@ -2775,26 +2785,6 @@
 /obj/item/seeds/wheat/buckwheat,
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
-"Lk" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet,
-/obj/item/clothing/mask/gas/syndicate,
-/obj/item/clothing/head/soft/green,
-/obj/item/clothing/suit/cyberpunk/white,
-/obj/item/clothing/under/color/white,
-/obj/item/clothing/shoes/brown{
-	pixel_y = -10
-	},
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "arrival"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "Ll" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -2891,6 +2881,24 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
+"Mk" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
+/obj/item/clothing/suit/jacket/miljacket/patch,
+/obj/item/clothing/under/retro/science,
+/obj/item/clothing/under/color/white,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/clothing/suit/cyberpunk,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/item/clothing/head/soft/purple,
+/obj/item/clothing/shoes/color/brown{
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
 "Ms" = (
 /obj/item/cigbutt{
 	pixel_x = -10;
@@ -3152,6 +3160,16 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
+"PW" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/closet/crate/large,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
 "Qg" = (
 /obj/structure/table,
 /obj/item/storage/box/pillbottles{
@@ -3167,24 +3185,6 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
-"Qh" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet,
-/obj/item/clothing/suit/jacket/miljacket/patch,
-/obj/item/clothing/under/retro/science,
-/obj/item/clothing/under/color/white,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/item/clothing/suit/cyberpunk,
-/obj/item/clothing/mask/gas/syndicate,
-/obj/item/clothing/head/soft/purple,
-/obj/item/clothing/shoes/brown{
-	pixel_y = -10
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "arrival"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "Qn" = (
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
@@ -5406,7 +5406,7 @@ jR
 sZ
 pE
 jR
-Qh
+Mk
 pE
 Os
 Os
@@ -5673,7 +5673,7 @@ yn
 SZ
 ut
 fh
-Lk
+rE
 ia
 pE
 Os
@@ -6513,7 +6513,7 @@ Os
 Os
 Os
 IK
-vu
+PW
 Ap
 Ap
 Ap
@@ -6580,7 +6580,7 @@ Os
 Os
 Os
 IK
-vu
+PW
 Ap
 Ap
 nz
@@ -6647,7 +6647,7 @@ Os
 Os
 Os
 SR
-vu
+PW
 Ap
 Ap
 ne

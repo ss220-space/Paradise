@@ -103,7 +103,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(list/message_pieces)
-	var/msg = span_resonate(span_name(owner.real_name) [span_message("резонирует: \"[capitalize(multilingual_to_message(message_pieces))]\"")])
+	var/msg = span_resonate(span_name(owner.real_name) + span_message(" резонирует: \"[capitalize(multilingual_to_message(message_pieces))]\""))
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m

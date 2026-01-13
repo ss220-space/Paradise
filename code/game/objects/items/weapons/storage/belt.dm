@@ -130,9 +130,10 @@
 	if(!use_item_overlays)
 		return
 	for(var/obj/item/item in contents)
-		if(!item.belt_icon)
+		var/mutable_appearance/icon = item.get_belt_overlay()
+		if(!icon)
 			continue
-		. += mutable_appearance(icon, item.belt_icon, color = item.color)
+		. += icon
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()

@@ -1486,11 +1486,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/cafe)
-"ef" = (
-/obj/structure/closet/crate/large,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
 "eg" = (
 /turf/simulated/wall/shuttle{
 	icon_state = "swall0"
@@ -1688,11 +1683,6 @@
 "eF" = (
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/general)
-"eG" = (
-/obj/structure/closet/crate/large,
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
 "eH" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -5754,15 +5744,6 @@
 	icon_state = "white"
 	},
 /area/awaymission/centcomAway/thunderdome)
-"ph" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/brown,
-/obj/item/hatchet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/centcomAway/thunderdome)
 "pi" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5791,15 +5772,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/hangar)
-"pl" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/brown,
-/obj/item/hatchet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/centcomAway/thunderdome)
 "pm" = (
 /obj/machinery/light{
 	dir = 8
@@ -6236,6 +6208,20 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/thunderdome)
+"vS" = (
+/obj/structure/closet/crate/large,
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plating,
+/area/awaymission/centcomAway/hangar)
+"yt" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/hatchet,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/centcomAway/thunderdome)
 "JB" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/tcomms/relay/ruskie{
@@ -6243,6 +6229,20 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcomAway/general)
+"Mb" = (
+/obj/structure/closet/crate/large,
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plating,
+/area/awaymission/centcomAway/hangar)
+"Yt" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/hatchet,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/centcomAway/thunderdome)
 
 (1,1,1) = {"
 aa
@@ -12919,7 +12919,7 @@ dV
 bk
 bk
 bk
-eG
+Mb
 aW
 aW
 aW
@@ -13175,7 +13175,7 @@ aW
 cm
 cm
 aW
-ef
+vS
 en
 ez
 ez
@@ -13369,10 +13369,10 @@ lD
 lD
 lD
 lD
-ph
-ph
-ph
-ph
+yt
+yt
+yt
+yt
 pD
 pF
 om
@@ -17009,10 +17009,10 @@ om
 om
 om
 lD
-pl
-pl
-pl
-pl
+Yt
+Yt
+Yt
+Yt
 pE
 pF
 om

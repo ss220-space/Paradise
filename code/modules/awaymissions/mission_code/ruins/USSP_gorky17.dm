@@ -520,9 +520,6 @@
 	lose_target()
 	qdel(src)
 
-/mob/living/simple_animal/hostile/carp/lostsoul/add_carp_overlay()
-	return
-
 /mob/living/simple_animal/hostile/carp/lostsoul/carp_randomify()
 	return
 

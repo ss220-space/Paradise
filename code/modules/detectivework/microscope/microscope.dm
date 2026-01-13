@@ -128,7 +128,7 @@
 /obj/machinery/microscope/update_icon_state()
 	icon_state = "microscope"
 	if(sample)
-		icon_state += "slide"
+		icon_state += "_slide"
 
 /obj/machinery/microscope/screwdriver_act(mob/user, obj/item/I)
 	if(sample)

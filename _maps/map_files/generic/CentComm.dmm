@@ -878,6 +878,12 @@
 	name = "floor"
 	},
 /area/vox_station)
+"arE" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/zone1)
 "arL" = (
 /obj/structure/table/wood,
 /turf/simulated/floor/wood,
@@ -3219,6 +3225,16 @@
 	name = "floor"
 	},
 /area/vox_station)
+"bzP" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
 "bAh" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -3886,12 +3902,6 @@
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/spacebar)
-"bRi" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/zone1)
 "bRq" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo15"
@@ -7160,6 +7170,12 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
+"drw" = (
+/obj/structure/closet/crate/large,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/jail)
 "drz" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -7506,44 +7522,6 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "darkfull"
 	},
-/area/centcom/specops)
-"dAP" = (
-/obj/structure/rack/holorack,
-/obj/item/clothing/shoes/cowboy/white{
-	name = "white boots"
-	},
-/obj/item/clothing/shoes/cowboy/white{
-	name = "white boots"
-	},
-/obj/item/clothing/shoes/fluff/noble_boot,
-/obj/item/clothing/shoes/fluff/noble_boot,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/shoes/jackboots/jacksandals,
-/obj/item/clothing/shoes/jackboots/jacksandals,
-/obj/item/clothing/shoes/laceup,
-/obj/item/clothing/shoes/laceup,
-/obj/item/clothing/shoes/leather,
-/obj/item/clothing/shoes/leather,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
-/obj/item/clothing/shoes/centcom{
-	desc = null;
-	name = "Dress shoes"
-	},
-/obj/item/clothing/shoes/centcom{
-	desc = null;
-	name = "Dress shoes"
-	},
-/turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
 "dAU" = (
 /obj/effect/turf_decal/number/number_1{
@@ -18352,6 +18330,15 @@
 	icon_state = "alien15"
 	},
 /area/abductor_ship)
+"iVt" = (
+/obj/structure/sign/poster/official/help_others{
+	pixel_y = 32
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/centcom/specops)
 "iVu" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -18427,15 +18414,6 @@
 	},
 /turf/simulated/floor/indestructible/asteroid,
 /area/syndicate_mothership/outside)
-"iXF" = (
-/obj/structure/sign/poster/official/help_others{
-	pixel_y = 32
-	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/specops)
 "iXI" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -20780,12 +20758,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/administration)
-"kco" = (
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/centcom/jail)
 "kcI" = (
 /obj/effect/decal/syndie_logo{
 	icon_state = "logo18"
@@ -24301,44 +24273,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/wizard_station)
-"lFt" = (
-/obj/structure/rack/holorack,
-/obj/item/clothing/shoes/cowboy/white{
-	name = "white boots"
-	},
-/obj/item/clothing/shoes/cowboy/white{
-	name = "white boots"
-	},
-/obj/item/clothing/shoes/fluff/noble_boot,
-/obj/item/clothing/shoes/fluff/noble_boot,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/shoes/jackboots,
-/obj/item/clothing/shoes/jackboots/jacksandals,
-/obj/item/clothing/shoes/jackboots/jacksandals,
-/obj/item/clothing/shoes/laceup,
-/obj/item/clothing/shoes/laceup,
-/obj/item/clothing/shoes/leather,
-/obj/item/clothing/shoes/leather,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white,
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
-/obj/item/clothing/shoes/white{
-	icon_state = "secshoes";
-	name = "shoes"
-	},
-/obj/item/clothing/shoes/centcom{
-	desc = null;
-	name = "Dress shoes"
-	},
-/obj/item/clothing/shoes/centcom{
-	desc = null;
-	name = "Dress shoes"
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/centcom/bridge)
 "lFv" = (
 /obj/machinery/light{
 	dir = 8
@@ -29687,6 +29621,16 @@
 	icon_state = "dark"
 	},
 /area/centcom/supply)
+"nRr" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/shuttle/objective_check{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "darkreddarkfull"
+	},
+/area/shuttle/escape)
 "nRs" = (
 /obj/structure/curtain/open/shower,
 /obj/machinery/shower{
@@ -34796,6 +34740,38 @@
 	icon_state = "dark"
 	},
 /area/centcom/evac)
+"qjV" = (
+/obj/structure/rack/holorack,
+/obj/item/clothing/shoes/cowboy/white{
+	name = "white boots"
+	},
+/obj/item/clothing/shoes/cowboy/white{
+	name = "white boots"
+	},
+/obj/item/clothing/shoes/fluff/noble_boot,
+/obj/item/clothing/shoes/fluff/noble_boot,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots/jacksandals,
+/obj/item/clothing/shoes/jackboots/jacksandals,
+/obj/item/clothing/shoes/laceup,
+/obj/item/clothing/shoes/laceup,
+/obj/item/clothing/shoes/leather,
+/obj/item/clothing/shoes/leather,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white/secshoes,
+/obj/item/clothing/shoes/color/white/secshoes,
+/obj/item/clothing/shoes/centcom{
+	desc = null;
+	name = "Dress shoes"
+	},
+/obj/item/clothing/shoes/centcom{
+	desc = null;
+	name = "Dress shoes"
+	},
+/turf/simulated/floor/wood/fancy/light,
+/area/centcom/specops)
 "qjX" = (
 /obj/structure/closet{
 	custom_door_overlay = "pink";
@@ -38529,16 +38505,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/centcom/zone2)
-"rOi" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/shuttle/objective_check{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "darkreddarkfull"
-	},
-/area/shuttle/escape)
 "rOl" = (
 /obj/effect/decal/syndie_logo,
 /obj/effect/turf_decal/stripes/black{
@@ -39308,6 +39274,38 @@
 	tag = "icon-vault (WEST)"
 	},
 /area/centcom/specops)
+"sht" = (
+/obj/structure/rack/holorack,
+/obj/item/clothing/shoes/cowboy/white{
+	name = "white boots"
+	},
+/obj/item/clothing/shoes/cowboy/white{
+	name = "white boots"
+	},
+/obj/item/clothing/shoes/fluff/noble_boot,
+/obj/item/clothing/shoes/fluff/noble_boot,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/shoes/jackboots/jacksandals,
+/obj/item/clothing/shoes/jackboots/jacksandals,
+/obj/item/clothing/shoes/laceup,
+/obj/item/clothing/shoes/laceup,
+/obj/item/clothing/shoes/leather,
+/obj/item/clothing/shoes/leather,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white/secshoes,
+/obj/item/clothing/shoes/color/white/secshoes,
+/obj/item/clothing/shoes/centcom{
+	desc = null;
+	name = "Dress shoes"
+	},
+/obj/item/clothing/shoes/centcom{
+	desc = null;
+	name = "Dress shoes"
+	},
+/turf/simulated/floor/wood/fancy/cherry,
+/area/centcom/bridge)
 "shB" = (
 /obj/structure/flora/rock/jungle,
 /mob/living/simple_animal/hostile/carp/koi{
@@ -44688,16 +44686,6 @@
 	icon_state = "navyblue"
 	},
 /area/centcom/supplypod/loading/ert)
-"uAh" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
-/area/shuttle/escape)
 "uAi" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/condiment/peppermill{
@@ -44808,16 +44796,6 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
-"uDh" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "bot"
-	},
-/area/shuttle/escape)
 "uDo" = (
 /obj/machinery/embedded_controller/radio/airlock/access_controller{
 	frequency = 2000;
@@ -46233,6 +46211,20 @@
 	icon_state = "darkfull"
 	},
 /area/syndicate_mothership)
+"viT" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/structure/extinguisher_cabinet{
+	name = "west extinguisher cabinet";
+	pixel_x = -27
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/shuttle/escape)
 "viX" = (
 /obj/machinery/atmospherics/unary/tank/nitrogen{
 	dir = 4
@@ -49575,6 +49567,16 @@
 	icon_state = "darkred"
 	},
 /area/shuttle/escape)
+"wUs" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "bot"
+	},
+/area/shuttle/escape)
 "wUF" = (
 /turf/simulated/floor/wood,
 /area/centcom/zone1)
@@ -52143,20 +52145,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
-"ybu" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/structure/extinguisher_cabinet{
-	name = "west extinguisher cabinet";
-	pixel_x = -27
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/shuttle/escape)
 "ybz" = (
 /obj/structure/flora/grass/jungle,
 /obj/structure/flora/tree/jungle,
@@ -90791,7 +90779,7 @@ eNf
 myp
 trB
 vUW
-kco
+drw
 nVl
 mxS
 myp
@@ -90970,7 +90958,7 @@ fVB
 aya
 onc
 onc
-bRi
+arE
 lcq
 nWB
 nWB
@@ -98984,7 +98972,7 @@ fMQ
 qAL
 hLH
 jLd
-lFt
+sht
 fMQ
 fMQ
 pir
@@ -103353,7 +103341,7 @@ hSv
 oTM
 nYX
 itg
-dAP
+qjV
 nAN
 fLa
 oIc
@@ -109563,7 +109551,7 @@ eRb
 dOf
 rHW
 nAN
-iXF
+iVt
 xfD
 xiq
 fXf
@@ -109983,7 +109971,7 @@ mVX
 mVX
 wkN
 rpQ
-rOi
+nRr
 mzY
 sms
 wkN
@@ -111534,7 +111522,7 @@ sWw
 tsj
 tTF
 tsj
-uAh
+bzP
 tsj
 sWw
 dNe
@@ -112305,7 +112293,7 @@ hsz
 tzJ
 oPx
 tzJ
-uDh
+wUs
 tzJ
 hsz
 dNe
@@ -112555,7 +112543,7 @@ vAA
 tEN
 rUk
 xaA
-ybu
+viT
 wkN
 sNX
 wkN

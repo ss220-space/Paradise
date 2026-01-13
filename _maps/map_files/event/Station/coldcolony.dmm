@@ -346,6 +346,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/medbay)
+"afn" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/service/north)
 "afx" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -2033,10 +2043,6 @@
 /obj/machinery/portable_atmospherics/canister,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/atmos)
-"aKR" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/wood,
-/area/coldcolony/malta/medical/morgue)
 "aKV" = (
 /obj/item/radio/intercom/directional/west,
 /turf/simulated/floor/plasteel/white,
@@ -5929,6 +5935,13 @@
 "ceA" = (
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
+"ceQ" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/structure/closet/crate/critter/pig,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/quartermaster/sorting)
 "ceT" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -8467,18 +8480,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
-"cZC" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 8;
-	on = 1
-	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "cZR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -8798,14 +8799,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
-"deo" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/hallway/bridge)
 "dex" = (
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
@@ -9065,6 +9058,13 @@
 	icon_state = "whiteblue"
 	},
 /area/coldcolony/malta/medical/cmostore)
+"dkg" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkblue"
+	},
+/area/coldcolony/malta/bridge/meeting_room)
 "dkk" = (
 /obj/machinery/cryopod/robot,
 /obj/effect/decal/warning_stripes/yellow,
@@ -10034,17 +10034,6 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/miningeva)
-"dDX" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/effect/decal/warning_stripes/blue/hollow,
-/obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/decal/snow/sand/edge{
-	dir = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/coldcolony/malta/quartermaster/office)
 "dEg" = (
 /obj/machinery/vending/cola,
 /obj/effect/decal/warning_stripes/yellow/partial,
@@ -12952,6 +12941,14 @@
 	icon_state = "bar"
 	},
 /area/coldcolony/malta/quartermaster/miningbar)
+"eHr" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/hallway/service/south)
 "eHz" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -13766,6 +13763,11 @@
 	icon_state = "bar"
 	},
 /area/coldcolony/malta/resid_serv/clownoffice)
+"eVq" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/turf/simulated/floor/plasteel/white,
+/area/coldcolony/malta/medical/sleeper)
 "eVu" = (
 /obj/item/radio/intercom/directional/west,
 /obj/machinery/light{
@@ -14471,6 +14473,10 @@
 /obj/structure/closet,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
+"fmk" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/hallway/service/north)
 "fmp" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced/ice,
@@ -15169,6 +15175,12 @@
 "fzZ" = (
 /turf/simulated/floor/carpet/purple,
 /area/coldcolony/malta/bridge/vip)
+"fAd" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/engineering/atmos)
 "fAJ" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -15280,6 +15292,17 @@
 	icon_state = "caution"
 	},
 /area/coldcolony/malta/engineering/atmos)
+"fCi" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/effect/decal/warning_stripes/blue/hollow,
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/obj/effect/decal/snow/sand/edge{
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/coldcolony/malta/quartermaster/office)
 "fCQ" = (
 /obj/effect/decal/snow/sand/edge{
 	dir = 8
@@ -16427,6 +16450,13 @@
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
+"fZf" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "purple"
+	},
+/area/coldcolony/ruin/sm_division)
 "fZh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -18429,15 +18459,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/syndie_outpost)
-"gLr" = (
-/obj/effect/decal/snow/sand/edge{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/hallway/cargo_escape/entrance)
 "gLC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Briefing Room";
@@ -18645,6 +18666,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
+"gNR" = (
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/maintenance/research)
 "gNW" = (
 /obj/structure/rack{
 	dir = 8;
@@ -19018,13 +19044,6 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/chapel/office)
-"gVH" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkblue"
-	},
-/area/coldcolony/malta/bridge/meeting_room)
 "gVO" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research and Development";
@@ -20891,11 +20910,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
-"hFB" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/obj/effect/spawner/random_spawners/rodent,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/maintenance/research)
 "hFD" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -21341,11 +21355,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/permahallway)
-"hPe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
-/turf/simulated/floor/plasteel/white,
-/area/coldcolony/malta/medical/sleeper)
 "hPi" = (
 /obj/item/flag/nt,
 /obj/machinery/alarm{
@@ -23806,15 +23815,6 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating/asteroid,
 /area/coldcolony/ruin/sm_chamber)
-"iLS" = (
-/obj/effect/decal/warning_stripes/northeast,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/break_room)
 "iLW" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -26000,16 +26000,6 @@
 "jAh" = (
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/break_room)
-"jAu" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/hallway/service/north)
 "jAy" = (
 /obj/machinery/power/apc{
 	dir = 8;
@@ -26492,6 +26482,20 @@
 	icon_state = "red"
 	},
 /area/coldcolony/malta/security/lobby)
+"jII" = (
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/hologram/holopad,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/hallway/cargo_escape/port/west)
 "jIM" = (
 /obj/item/trash/candy,
 /obj/effect/mapping_helpers/turfs/burn,
@@ -26603,13 +26607,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
-"jKW" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/engineering/atmos)
 "jKY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -27554,12 +27551,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/brig)
-"kci" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/engineering/atmos)
 "kcE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -29226,14 +29217,6 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/medical/virology)
-"kFy" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/research)
 "kFX" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass,
@@ -31091,6 +31074,15 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/medical/virology)
+"lsX" = (
+/obj/effect/decal/snow/sand/edge{
+	dir = 8
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/hallway/cargo_escape/entrance)
 "lta" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
@@ -32530,6 +32522,15 @@
 "lUX" = (
 /turf/simulated/wall/r_wall/rust,
 /area/coldcolony/malta/maintenance/bridge)
+"lVd" = (
+/obj/effect/decal/warning_stripes/northeast,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/break_room)
 "lVr" = (
 /obj/item/storage/toolbox/emergency,
 /obj/structure/table,
@@ -33637,11 +33638,6 @@
 	icon_state = "showroomfloor"
 	},
 /area/coldcolony/malta/maintenance/kitchen)
-"mrM" = (
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/wood/fancy/birch,
-/area/coldcolony/malta/bridge/checkpoint)
 "mrQ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
@@ -34298,13 +34294,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
-"mFg" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
-	},
-/area/coldcolony/ruin/sm_division)
 "mFl" = (
 /obj/structure/closet/librarian,
 /turf/simulated/floor/wood,
@@ -34399,6 +34388,11 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/security/hos)
+"mHE" = (
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/wood/fancy/birch,
+/area/coldcolony/malta/bridge/checkpoint)
 "mHZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -35408,16 +35402,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
-"mYg" = (
-/obj/structure/closet/secure_closet/cabinet,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/head/fedora/brownfedora,
-/obj/item/storage/pill_bottle/random_drug_bottle,
-/obj/item/clothing/under/sovietofficer,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
-/area/coldcolony/ruin/abandoned_house)
 "mYi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -35732,6 +35716,17 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
+"ndD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "green"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/exit)
 "ndE" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/security{
@@ -35995,15 +35990,6 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/resid_serv/library/game_zone)
-"njD" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "neutral"
-	},
-/area/coldcolony/malta/outer/roadblock)
 "njH" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/table,
@@ -36905,20 +36891,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
-"nDs" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	on = 1
-	},
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/research/server)
 "nDJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -37361,6 +37333,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/shallway)
+"nKU" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/port/central)
 "nKZ" = (
 /obj/machinery/camera{
 	c_tag = "AI Satellite Exterior 2";
@@ -39623,14 +39603,6 @@
 "oxY" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/maintenance/research)
-"oya" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/coldcolony/malta/hallway/cargo_escape/port/central)
 "oyd" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -39839,13 +39811,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/vip)
-"oCf" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/crate/critter/pig,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/quartermaster/sorting)
 "oCI" = (
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/carpet/royalblue,
@@ -39930,6 +39895,14 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
+"oEK" = (
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/research)
 "oEM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -40784,10 +40757,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/coldcolony_outside)
-"oUc" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/research/shallway)
 "oUg" = (
 /obj/machinery/power/port_gen/pacman{
 	anchored = 1
@@ -41696,17 +41665,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/quartermaster/miningbar)
-"pmP" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "green"
-	},
-/area/coldcolony/malta/hallway/cargo_escape/exit)
 "pmQ" = (
 /obj/machinery/computer/general_air_control/large_tank_control{
 	input_tag = "mix_in";
@@ -43024,6 +42982,13 @@
 	icon_state = "brown"
 	},
 /area/coldcolony/malta/quartermaster/office)
+"pKT" = (
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/engineering/atmos)
 "pLs" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -43130,6 +43095,10 @@
 	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_banya)
+"pMR" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/wood,
+/area/coldcolony/malta/medical/morgue)
 "pNm" = (
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -43200,6 +43169,15 @@
 /obj/item/storage/bag/plants/portaseeder,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
+"pNU" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "neutral"
+	},
+/area/coldcolony/malta/outer/roadblock)
 "pNV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -43934,6 +43912,17 @@
 	},
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/bridge/checkpoint)
+"qdM" = (
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/obj/machinery/camera{
+	c_tag = "Primary Security Hallway East";
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "red"
+	},
+/area/coldcolony/malta/security/lobby)
 "qdX" = (
 /obj/structure/ore_box,
 /turf/simulated/floor/plasteel{
@@ -44869,20 +44858,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/warden)
-"qum" = (
-/obj/machinery/embedded_controller/radio/airlock/access_controller{
-	id_tag = "viro_lab_airlock_control";
-	name = "Virology Lab Access Console";
-	pixel_x = 22;
-	req_access = list(39);
-	tag_exterior_door = "viro_lab_airlock_exterior";
-	tag_interior_door = "viro_lab_airlock_interior"
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/north,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/coldcolony/malta/medical/virology)
 "qur" = (
 /obj/random/toolbox,
 /obj/structure/rack,
@@ -45157,6 +45132,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/test_chamber)
+"qzn" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/shallway)
 "qzu" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -45587,6 +45566,14 @@
 "qGR" = (
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/medbay)
+"qHf" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "purple"
+	},
+/area/coldcolony/ruin/sm_chamber)
 "qHg" = (
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/outer/roadblock)
@@ -46855,6 +46842,14 @@
 "reo" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/civilian/vacantoffice)
+"req" = (
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/hallway/bridge)
 "reA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -48013,10 +48008,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/service/south)
-"rwq" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/hallway/service/north)
 "rwG" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
@@ -48645,17 +48636,6 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/hallway/service/east)
-"rKm" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/obj/machinery/camera{
-	c_tag = "Primary Security Hallway East";
-	dir = 10
-	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "red"
-	},
-/area/coldcolony/malta/security/lobby)
 "rKv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -48749,14 +48729,6 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/ruin/sm_lab)
-"rMc" = (
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/reagent_containers/food/pill/patch/silver_sulf,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/hallway/service/south)
 "rMe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -51838,6 +51810,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research/robotics)
+"sWk" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/server)
 "sWq" = (
 /obj/structure/table,
 /obj/item/gps/mining,
@@ -53179,6 +53162,20 @@
 /obj/item/stock_parts/cell,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/bridge)
+"twz" = (
+/obj/machinery/embedded_controller/radio/airlock/access_controller{
+	id_tag = "viro_lab_airlock_control";
+	name = "Virology Lab Access Console";
+	pixel_x = 22;
+	req_access = list(39);
+	tag_exterior_door = "viro_lab_airlock_exterior";
+	tag_interior_door = "viro_lab_airlock_interior"
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/coldcolony/malta/medical/virology)
 "twC" = (
 /turf/simulated/wall,
 /area/coldcolony/malta/hallway/service/south)
@@ -54206,6 +54203,18 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/securehallway)
+"tRX" = (
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 8;
+	on = 1
+	},
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "tSm" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -58195,6 +58204,16 @@
 	icon_state = "neutral"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/locker)
+"vpX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/obj/item/tank/internals/emergency_oxygen/engi,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "whiteblue"
+	},
+/area/coldcolony/malta/medical/sleeper)
 "vqc" = (
 /obj/machinery/conveyor{
 	dir = 8;
@@ -58745,12 +58764,6 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/research/hor)
-"vxW" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/coldcolony/malta/medical/medbay)
 "vyg" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
@@ -61118,20 +61131,6 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/vip)
-"wmG" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/hallway/cargo_escape/port/west)
 "wnh" = (
 /obj/structure/fence/door,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -61689,6 +61688,16 @@
 	},
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/bridge/checkpoint)
+"wzE" = (
+/obj/structure/closet/secure_closet/cabinet,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/fedora/brownfedora,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/obj/item/clothing/under/sovietofficer,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/coldcolony/ruin/abandoned_house)
 "wAf" = (
 /turf/simulated/wall,
 /area/coldcolony/malta/civilian/trading)
@@ -62211,14 +62220,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/server)
-"wKt" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "purple"
-	},
-/area/coldcolony/ruin/sm_chamber)
 "wKU" = (
 /obj/machinery/computer/robotics,
 /obj/machinery/turretid/stun{
@@ -62900,6 +62901,12 @@
 	icon_state = "darkred"
 	},
 /area/shuttle/pirate_corvette)
+"wXa" = (
+/obj/structure/closet/walllocker/emerglocker/directional/south,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/coldcolony/malta/medical/medbay)
 "wXb" = (
 /obj/structure/rack,
 /obj/item/analyzer,
@@ -63416,16 +63423,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
-"xiq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/directional/west,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/obj/item/tank/internals/emergency_oxygen/engi,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "whiteblue"
-	},
-/area/coldcolony/malta/medical/sleeper)
 "xiu" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -98203,7 +98200,7 @@ qji
 wku
 mzF
 iNa
-rwq
+fmk
 bSU
 xYj
 vlE
@@ -98379,7 +98376,7 @@ sAK
 sAK
 sAK
 nCO
-njD
+pNU
 hVJ
 ddJ
 sNd
@@ -100504,7 +100501,7 @@ dkR
 ceA
 iqz
 iqz
-jAu
+afn
 dPn
 qid
 eQQ
@@ -101691,7 +101688,7 @@ uWW
 gNE
 tgY
 wYH
-mYg
+wzE
 dqn
 wOY
 wOY
@@ -102162,8 +102159,8 @@ uXY
 lPE
 mHs
 xXS
-kci
-jKW
+fAd
+pKT
 ygu
 qyn
 eCm
@@ -102609,7 +102606,7 @@ twC
 aDY
 qMl
 wrr
-rMc
+eHr
 azl
 twC
 aYK
@@ -103701,7 +103698,7 @@ mTV
 oKt
 dVZ
 kdv
-cZC
+tRX
 gNM
 wUp
 wUp
@@ -104176,7 +104173,7 @@ nvO
 bXX
 iKm
 whV
-qum
+twz
 jGT
 uwr
 whV
@@ -105700,7 +105697,7 @@ pZD
 qcr
 qEp
 qcr
-kFy
+oEK
 vQg
 kOy
 kOy
@@ -106198,7 +106195,7 @@ wXp
 aSS
 inF
 sZC
-xiq
+vpX
 goF
 aSS
 aSS
@@ -106446,7 +106443,7 @@ vLl
 bcK
 xoy
 enp
-vxW
+wXa
 eNv
 ate
 hFn
@@ -106746,7 +106743,7 @@ kwO
 fDe
 ttY
 otK
-oUc
+qzn
 ody
 mUd
 pZm
@@ -107990,7 +107987,7 @@ vJl
 fQw
 efJ
 eNv
-hPe
+eVq
 duV
 dMx
 eNv
@@ -108221,7 +108218,7 @@ rgO
 blj
 kZa
 jfq
-rKm
+qdM
 bWt
 dFE
 bWt
@@ -108571,7 +108568,7 @@ kyF
 ceA
 glg
 kJj
-iLS
+lVd
 qxH
 kMe
 ael
@@ -109308,7 +109305,7 @@ wkH
 srW
 jFa
 iqq
-nDs
+sWk
 guc
 wKo
 qOf
@@ -110596,7 +110593,7 @@ hmF
 wTb
 sTe
 oSt
-hFB
+gNR
 nKK
 ceA
 ceA
@@ -111062,7 +111059,7 @@ vWC
 teL
 dFC
 vWC
-aKR
+pMR
 jfv
 sid
 kEQ
@@ -112201,7 +112198,7 @@ ceA
 dwG
 fQK
 oAf
-mFg
+fZf
 lQW
 gSo
 ciO
@@ -112662,7 +112659,7 @@ fUB
 iPI
 oIe
 bGK
-gLr
+lsX
 qFj
 lhg
 kVY
@@ -115506,7 +115503,7 @@ yiE
 kcF
 wAf
 oKy
-wmG
+jII
 yli
 yli
 cEq
@@ -116228,7 +116225,7 @@ nVv
 nVv
 oWB
 ghn
-dDX
+fCi
 bpV
 bpV
 xiB
@@ -116502,7 +116499,7 @@ mKl
 mKl
 opC
 jUM
-mrM
+mHE
 nlA
 mKl
 gwy
@@ -116835,7 +116832,7 @@ hwb
 qrO
 azM
 hwb
-wKt
+qHf
 cZs
 nRO
 dzy
@@ -116974,7 +116971,7 @@ kuG
 kuG
 voL
 voL
-deo
+req
 kbj
 arK
 xWi
@@ -117543,7 +117540,7 @@ jkW
 kvS
 wtb
 bfm
-pmP
+ndD
 vBH
 ePx
 rCW
@@ -118020,7 +118017,7 @@ ceA
 nVv
 xOl
 dbw
-oCf
+ceQ
 qxx
 cJy
 eSo
@@ -119360,7 +119357,7 @@ ceA
 ceA
 ceA
 fks
-oya
+nKU
 vZV
 lLE
 ceA
@@ -119535,7 +119532,7 @@ gIU
 hKw
 gKn
 cce
-gVH
+dkg
 rkv
 utT
 avd

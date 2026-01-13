@@ -571,6 +571,15 @@
 	icon_state = "grimy"
 	},
 /area/mine/living_quarters)
+"bU" = (
+/obj/machinery/cryopod{
+	dir = 8
+	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/plasteel{
+	icon_state = "freezerfloor"
+	},
+/area/mine/living_quarters)
 "bV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -1872,15 +1881,6 @@
 /obj/item/storage/toolbox/brass,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"gH" = (
-/obj/machinery/cryopod{
-	dir = 8
-	},
-/obj/structure/closet/walllocker/emerglocker/directional/east,
-/turf/simulated/floor/plasteel{
-	icon_state = "freezerfloor"
-	},
-/area/mine/living_quarters)
 "gI" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -5388,6 +5388,12 @@
 /obj/structure/stone_tile,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Ch" = (
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/effect/decal/cleanable/ash,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ck" = (
 /obj/structure/stone_tile{
 	dir = 8
@@ -6009,12 +6015,6 @@
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
 /turf/simulated/wall,
 /area/mine/laborcamp)
-"GF" = (
-/obj/item/clothing/shoes/orange,
-/obj/effect/decal/cleanable/ash,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "GJ" = (
 /obj/machinery/camera{
 	c_tag = "Labor Camp External";
@@ -12917,7 +12917,7 @@ aj
 aj
 tj
 fw
-GF
+Ch
 aj
 aj
 aj
@@ -23224,7 +23224,7 @@ PW
 Fe
 eq
 oM
-gH
+bU
 Zf
 aj
 fw
