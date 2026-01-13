@@ -189,7 +189,7 @@
 
 /obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
-	if(!AI_check_for_swap(user, target, src))
+	if(!AI_check_for_swap(user, target))
 		return
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)

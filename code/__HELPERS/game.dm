@@ -460,9 +460,4 @@
 		if(!silent && user)
 			to_chat(user, span_warning("Невозможно поменяться местами с ядром ИИ!"))
 		return FALSE
-
-
-	// if(istype(target, /mob/living/silicon/robot))
-
-
 	return TRUE
