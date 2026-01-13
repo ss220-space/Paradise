@@ -378,6 +378,8 @@ ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller 
 			// Loop.
 			Master.StartProcessing(0)
 
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED)
+
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 
 	log_startup_progress("Initializations complete within [time] second[time == 1 ? "" : "s"]!")

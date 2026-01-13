@@ -2063,7 +2063,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/bikehorn,
 		/obj/item/storage/backpack/mime,
 		/obj/item/clothing/under/mime,
-		/obj/item/clothing/shoes/black,
+		/obj/item/clothing/shoes/color/black,
 		/obj/item/clothing/gloves/color/white,
 		/obj/item/clothing/mask/gas/mime,
 		/obj/item/clothing/head/beret,

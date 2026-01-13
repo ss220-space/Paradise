@@ -1203,9 +1203,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
-						if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi'))
+						if(icon_exists('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"))
 							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"))
-						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic64.dmi'))
+						else if(icon_exists('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
 							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
 						else
 							holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
