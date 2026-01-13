@@ -187,7 +187,6 @@
 		new_state = folded ? "folded_empty" : "unfolded_empty"
 	else
 		var/charge_percent = cell.maxcharge ? (cell.charge / cell.maxcharge) * 100 : 0
-		var/can_use_mode = cell.charge >= spear_mode.power_cost
 		var/prefix = folded ? "folded" : "unfolded"
 
 		var/min_active_power_cost = INFINITY
