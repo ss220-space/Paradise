@@ -233,7 +233,7 @@
 	singular_name = "wrapping paper"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/stack/wrapping_paper/Initialize()
+/obj/item/stack/wrapping_paper/Initialize(mapload)
 	. = ..()
 	if(!greyscale_colors)
 		//Generate random valid colors for paper and ribbon

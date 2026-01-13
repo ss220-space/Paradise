@@ -344,14 +344,12 @@
 /obj/machinery/portable_atmospherics/canister/toxins
 	name = "Canister \[Toxin (Plasma)\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/toxins"
-	post_init_icon_state = ""
 	greyscale_colors = "#ff6100#000000"
 	can_label = FALSE
 
 /obj/machinery/portable_atmospherics/canister/oxygen
 	name = "Canister: \[O2\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/oxygen"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister/stripe
 	greyscale_colors = "#2786e5#e8fefe"
 	can_label = FALSE
@@ -359,7 +357,6 @@
 /obj/machinery/portable_atmospherics/canister/sleeping_agent
 	name = "Canister: \[N2O\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/sleeping_agent"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#c63e3b#f7d5d3"
 	can_label = FALSE
@@ -367,7 +364,6 @@
 /obj/machinery/portable_atmospherics/canister/nitrogen
 	name = "Canister: \[N2\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/nitrogen"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#d41010"
 	can_label = FALSE
@@ -375,7 +371,6 @@
 /obj/machinery/portable_atmospherics/canister/carbon_dioxide
 	name = "Canister \[CO2\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/carbon_dioxide"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#4e4c48"
 	can_label = FALSE
@@ -383,7 +378,6 @@
 /obj/machinery/portable_atmospherics/canister/hydrogen
 	name = "Canister \[H2\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/hydrogen"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister/stripe
 	greyscale_colors = "#bdc2c0#ffffff"
 	can_label = FALSE
@@ -391,7 +385,6 @@
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "Canister \[H2O\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/water_vapor"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#4c4e4d#f7d5d3"
 	can_label = FALSE
@@ -399,7 +392,6 @@
 /obj/machinery/portable_atmospherics/canister/air
 	name = "Canister \[Air\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/air"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister
 	greyscale_colors = "#c6c0b5"
 	can_label = FALSE
@@ -407,7 +399,6 @@
 /obj/machinery/portable_atmospherics/canister/custom_mix
 	name = "Canister \[Custom\]"
 	icon_state = "/obj/machinery/portable_atmospherics/canister/custom_mix"
-	post_init_icon_state = ""
 	greyscale_config = /datum/greyscale_config/canister/double_stripe
 	greyscale_colors = "#c6c0b5#a63131"
 	can_label = FALSE
