@@ -312,6 +312,11 @@ pub fn generate_spritesheet(
                 };
                 {
                     zone!("write_spritesheet_png");
+                    let path = std::path::Path::new(&file_path);
+                    if let Err(err) = std::fs::create_dir_all(path.parent().unwrap()) {
+                        error.lock().unwrap().push(err.to_string());
+                        return;
+                    };
                     if let Err(err) = final_image.save(file_path) {
                         error.lock().unwrap().push(err.to_string());
                     }

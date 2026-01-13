@@ -185,8 +185,10 @@
 	var/data_out
 	if(yield || !isnull(job_id))
 		if(isnull(job_id))
+			SSasset_loading.assets_generating++
 			job_id = rustlib_iconforge_generate_async("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
 		UNTIL((data_out = rustlib_iconforge_check(job_id)) != RUSTLIBS_JOB_NO_RESULTS_YET)
+		SSasset_loading.assets_generating--
 	else
 		data_out = rustlib_iconforge_generate("data/spritesheets/", name, entries_json, do_cache, FALSE, TRUE)
 	if(data_out == RUSTLIBS_JOB_ERROR)
@@ -228,7 +230,7 @@
 		CRASH("Error during spritesheet generation for [name]: [data["error"]]")
 
 /datum/asset/spritesheet_batched/queued_generation()
-	realize_spritesheets(yield = TRUE)
+	INVOKE_ASYNC(src, PROC_REF(realize_spritesheets), TRUE) // The proc is called inside a subsystem and waits with an UNTIL
 
 /datum/asset/spritesheet_batched/ensure_ready()
 	if(!fully_generated)

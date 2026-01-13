@@ -6,6 +6,7 @@ SUBSYSTEM_DEF(asset_loading)
 	priority = FIRE_PRIORITY_ASSETS
 	flags = SS_NO_INIT
 	runlevels = RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
+	var/assets_generating = 0
 	var/list/datum/asset/generate_queue = list()
 	var/last_queue_len = 0
 
@@ -13,15 +14,16 @@ SUBSYSTEM_DEF(asset_loading)
 	while(length(generate_queue))
 		var/datum/asset/to_load = generate_queue[length(generate_queue)]
 
+		last_queue_len = length(generate_queue)
+		generate_queue.len--
+
 		to_load.queued_generation()
 
 		if(MC_TICK_CHECK)
 			return
 
-		last_queue_len = length(generate_queue)
-		generate_queue.len--
 	// We just emptied the queue
-	if(last_queue_len && !length(generate_queue))
+	if(last_queue_len && !length(generate_queue) && !assets_generating)
 		// Clean up cached icons, freeing memory.
 		rustlib_iconforge_cleanup()
 

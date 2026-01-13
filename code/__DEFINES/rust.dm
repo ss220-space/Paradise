@@ -64,24 +64,24 @@
 /proc/byondapi_stack_trace(err)
 	CRASH(err)
 
-#define rustlib_file_read(fname) RUSTLIB_CALL(file_read,  "[fname]")
-#define rustlib_file_exists(fname) (RUSTLIB_CALL(file_exists,  "[fname]") == "true")
-#define rustlib_file_write(text, fname) RUSTLIB_CALL(file_write, text,  "[fname]")
-#define rustlib_file_append(text, fname) RUSTLIB_CALL(file_append, text,  "[fname]")
-#define rustlib_file_get_line_count(fname) text2num(RUSTLIB_CALL(file_get_line_count,  "[fname]"))
-#define rustlib_file_seek_line(fname, line) RUSTLIB_CALL(file_seek_line,  "[fname]", "[line]")
+#define rustlib_file_read(fname) RUSTLIB_CALL(file_read,  fname)
+#define rustlib_file_exists(fname) (RUSTLIB_CALL(file_exists,  fname) == "true")
+#define rustlib_file_write(text, fname) RUSTLIB_CALL(file_write, text,  fname)
+#define rustlib_file_append(text, fname) RUSTLIB_CALL(file_append, text,  fname)
+#define rustlib_file_get_line_count(fname) text2num(RUSTLIB_CALL(file_get_line_count,  fname))
+#define rustlib_file_seek_line(fname, line) RUSTLIB_CALL(file_seek_line,  fname, "[line]")
 
 /**
  * Get the dmi metadata of the file located at `fname`.
  * Returns a list in the metadata format listed above, or an error message.
  */
-#define rustlib_dmi_read_metadata(fname) json_decode(RUSTLIB_CALL(dmi_read_metadata,  "[fname]"))
+#define rustlib_dmi_read_metadata(fname) json_decode(RUSTLIB_CALL(dmi_read_metadata,  fname))
 /**
  * Inject dmi metadata into a png file located at `path`.
  * `metadata` must be a json_encode'd list in the metadata format listed above.
  */
 #define rustlib_dmi_inject_metadata(path, metadata) RUSTLIB_CALL(dmi_inject_metadata, path, metadata)
-#define rustlib_dmi_strip_metadata(fname) RUSTLIB_CALL(dmi_strip_metadata, "[fname]")
+#define rustlib_dmi_strip_metadata(fname) RUSTLIB_CALL(dmi_strip_metadata, fname)
 #define rustlib_dmi_create_png(path, width, height, data) RUSTLIB_CALL(dmi_create_png, path, width, height, data)
 #define rustlib_dmi_resize_png(path, width, height, resizetype) RUSTLIB_CALL(dmi_resize_png, path, width, height, resizetype)
 /**
@@ -89,10 +89,10 @@
  *
  * output: icon_states list.
  */
-#define rustlib_dmi_icon_states(fname) RUSTLIB_CALL(dmi_icon_states, "[fname]")
+#define rustlib_dmi_icon_states(fname) RUSTLIB_CALL(dmi_icon_states, fname)
 
 #define rustlib_hash_string(algorithm, text) RUSTLIB_CALL(hash_string, algorithm, text)
-#define rustlib_hash_file(algorithm, fname) RUSTLIB_CALL(hash_file, algorithm, "[fname]")
+#define rustlib_hash_file(algorithm, fname) RUSTLIB_CALL(hash_file, algorithm, fname)
 #define rustlib_hash_generate_totp(seed)RUSTLIB_CALL(generate_totp, seed)
 #define rustlib_hash_generate_totp_tolerance(seed, tolerance) RUSTLIB_CALL(generate_totp_tolerance, seed, tolerance)
 
