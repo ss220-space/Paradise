@@ -401,8 +401,8 @@
 				to_chat(src, span_danger("Ваши глаза сильно болят от яркого света!"))
 				E.internal_receive_damage(rand(12, 16) + extra_damage, silent = TRUE)
 
-		if (E.damage >= 10)
-			if (E.damage >= 45)
+		if(E.damage >= 10)
+			if(E.damage >= 45)
 				EyeBlind(E.damage STATUS_EFFECT_CONSTANT)
 			EyeBlurry(clamp(floor((E.damage - 10) / 5) * 5 + 5, 0, 40))
 
