@@ -61,6 +61,7 @@
 	. = ..()
 	H.light_color = "#afaf21"
 	H.set_light_range(2)
+	H.set_light_on(TRUE)
 
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
