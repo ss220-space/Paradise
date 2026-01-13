@@ -27,7 +27,7 @@
 	var/datum/secspear_mode/spear_mode = /datum/secspear_mode/off
 	/// Cell to use, can be a path, to start loaded.
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/super
-	// Переменная для хранения текущего оверлея заряда
+	// Stores the current charge overlay state to avoid unnecessary icon updates.
 	var/charge_overlay_state = ""
 
 /obj/item/twohanded/spear/secspear/get_ru_names()
@@ -46,8 +46,7 @@
 	. = ..()
 	spear_mode = GLOB.secspear_modes[spear_mode.name]
 	spear_mode.on_activate(src)
-	update_charge_overlay() // Обновляем оверлей заряда при инициализации
-	update_icon()
+	force_charge_overlay_update()
 
 /obj/item/twohanded/spear/secspear/examine(mob/user)
 	. = ..()
@@ -177,41 +176,29 @@
 	off_spear()
 
 /obj/item/twohanded/spear/secspear/proc/update_charge_overlay()
-	if(!cell)
-		charge_overlay_state = folded ? "folded_empty" : "unfolded_empty"
-		update_icon()
-		return
-
-	var/charge_percent = (cell.charge / cell.maxcharge) * 100
-	var/can_use_mode = cell.charge >= spear_mode.power_cost
-
 	var/old_state = charge_overlay_state
+	var/new_state
 
-	if(folded)
-		if(!can_use_mode || charge_percent == 0)
-			charge_overlay_state = "folded_empty"
-		else if(charge_percent >= 66)
-			charge_overlay_state = "folded_full"
-		else if(charge_percent >= 33)
-			charge_overlay_state = "folded_half"
-		else if(charge_percent > 0)
-			charge_overlay_state = "folded_low"
-		else
-			charge_overlay_state = "folded_empty"
+	if(!cell)
+		new_state = folded ? "folded_empty" : "unfolded_empty"
 	else
-		if(!can_use_mode || charge_percent == 0)
-			charge_overlay_state = "unfolded_empty"
-		else if(charge_percent >= 66)
-			charge_overlay_state = "unfolded_full"
-		else if(charge_percent >= 33)
-			charge_overlay_state = "unfolded_half"
-		else if(charge_percent > 0)
-			charge_overlay_state = "unfolded_low"
-		else
-			charge_overlay_state = "unfolded_empty"
+		var/charge_percent = cell.maxcharge ? (cell.charge / cell.maxcharge) * 100 : 0
+		var/can_use_mode = cell.charge >= spear_mode.power_cost
+		var/prefix = folded ? "folded" : "unfolded"
 
-	// Обновляем иконку только если состояние изменилось
-	if(old_state != charge_overlay_state)
+		if(!can_use_mode || charge_percent == 0)
+			new_state = "[prefix]_empty"
+		else if(charge_percent >= 66)
+			new_state = "[prefix]_full"
+		else if(charge_percent >= 33)
+			new_state = "[prefix]_half"
+		else if(charge_percent > 0)
+			new_state = "[prefix]_low"
+		else
+			new_state = "[prefix]_empty"
+
+	if(old_state != new_state)
+		charge_overlay_state = new_state
 		update_icon()
 
 /obj/item/twohanded/spear/secspear/proc/update_cleave_component()
@@ -240,8 +227,7 @@
 		w_class = WEIGHT_CLASS_NORMAL
 		slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_SUITSTORE // Пояс или слот костюма для сложенного
 		block_chance = initial(block_chance)
-		update_charge_overlay() // Обновляем оверлей после складывания
-		update_icon()
+		force_charge_overlay_update()
 		user.update_held_items()
 		user.update_action_buttons_icon()
 		balloon_alert(user, "сложено!")
@@ -251,8 +237,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	block_chance = SECSPEAR_BLOCK_CHANCE
-	update_charge_overlay() // Обновляем оверлей после разворачивания
-	update_icon()
+	force_charge_overlay_update()
 	user.update_held_items()
 	user.update_action_buttons_icon()
 	balloon_alert(user, "разложено!")
