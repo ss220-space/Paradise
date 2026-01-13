@@ -278,6 +278,7 @@
 /obj/machinery/atmospherics/unary/thermomachine/freezer
 	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/freezer"
 	post_init_icon_state = "thermo_1"
+	flags = /obj/machinery/atmospherics/unary::flags
 
 /obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
@@ -322,6 +323,7 @@
 	cooling = FALSE
 	icon_state = "/obj/machinery/atmospherics/unary/thermomachine/heater"
 	post_init_icon_state = "thermo_1"
+	flags = /obj/machinery/atmospherics/unary::flags
 
 /obj/machinery/atmospherics/unary/thermomachine/heater/on
 	on = TRUE

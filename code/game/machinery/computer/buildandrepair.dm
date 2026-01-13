@@ -17,11 +17,6 @@
 	var/board_type = "computer"
 	var/list/req_components = null
 
-/obj/item/circuitboard/Initialize()
-	set_greyscale_config(greyscale_config)
-	set_greyscale_colors(greyscale_colors)
-	. = ..()
-
 /obj/item/circuitboard/computer
 
 /obj/item/circuitboard/machine

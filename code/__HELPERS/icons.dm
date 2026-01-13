@@ -856,10 +856,10 @@ The _flatIcons list is a cache for generated icon files.
 	// Icons can be a real file(), a rsc backed file(), a dynamic rsc (dyn.rsc) reference (known as a cache reference in byond docs), or an /icon which is pointing to one of those.
 	// Runtime generated dynamic icons are an unbounded concept cache identity wise, the same icon can exist millions of ways and holding them in a list as a key can lead to unbounded memory usage if called often by consumers.
 	// Check distinctly that this is something that has this unspecified concept, and thus that we should not cache.
-	if (!istext(icon_path) && (!isfile(icon_path) || !length("[icon_path]")))
+	if(!istext(icon_path) && (!isfile(icon_path) || !length("[icon_path]")))
 		var/icon/my_icon = icon(icon_path)
 		return list("width" = my_icon.Width(), "height" = my_icon.Height())
-	if (isnull(GLOB.icon_dimensions[icon_path]))
+	if(isnull(GLOB.icon_dimensions[icon_path]))
 		// Used cached icon metadata
 		var/list/metadata = icon_metadata(icon_path)
 		var/list/result = null
@@ -1165,7 +1165,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			//Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
 			if(isnull(icon_state))
 				icon_state = thing::post_init_icon_state || thing::icon_state
-				if (isnull(dir))
+				if(isnull(dir))
 					dir = thing::dir
 
 		if(isnull(dir))

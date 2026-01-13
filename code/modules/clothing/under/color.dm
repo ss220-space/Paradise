@@ -151,7 +151,6 @@
 /obj/item/clothing/under/prison
 	name = "prison jumpsuit"
 	desc = "Cтандартная одежда заключенных из \"Нанотрейзен\". Датчики костюма заблокированы в максимальном режиме отслеживания."
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "prison"
 	item_state = "prison"
 	item_color = "prison"
@@ -200,7 +199,6 @@
 /obj/item/clothing/under/psyche
 	name = "psychedelic jumpsuit"
 	desc = "Groovy!"
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	icon_state = "psyche"
 	item_color = "psyche"
 	greyscale_config = null

@@ -857,4 +857,3 @@
 	default = TRUE
 
 /datum/config_entry/flag/generate_assets_in_init
-	default = FALSE

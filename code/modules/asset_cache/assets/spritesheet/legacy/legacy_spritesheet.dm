@@ -219,7 +219,7 @@
 	var/replaced_css = rustlib_file_read(css_cache_filename())
 
 	var/regex/find_background_urls = regex(@"background-image:url\('%(.+?)%'\)", "g")
-	while (find_background_urls.Find(replaced_css))
+	while(find_background_urls.Find(replaced_css))
 		var/asset_id = find_background_urls.group[1]
 		var/file_path = "[ASSET_CROSS_ROUND_CACHE_DIRECTORY]/spritesheet.[asset_id]"
 		// Hashing it here is a *lot* faster.
