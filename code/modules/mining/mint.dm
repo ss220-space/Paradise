@@ -76,7 +76,7 @@
 
 /obj/machinery/mineral/mint/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/materials)
+		get_asset_datum(/datum/asset/spritesheet_batched/materials)
 	)
 
 /obj/machinery/mineral/mint/ui_data(mob/user)

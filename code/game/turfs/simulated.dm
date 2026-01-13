@@ -25,8 +25,8 @@
 	/// The temp we were when we got archived
 	var/temperature_archived
 
-	/// Current gas overlay. Can be set to plasma or sleeping_gas
-	var/atmos_overlay_type = null
+	/// Current gas overlays.
+	var/list/atmos_overlay_types = null
 	/// If a fire is ongoing, how much fuel did we burn last tick?
 	/// Value is not updated while below PLASMA_MINIMUM_BURN_TEMPERATURE.
 	var/fuel_burnt = 0
