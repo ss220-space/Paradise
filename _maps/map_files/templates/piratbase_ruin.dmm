@@ -35,10 +35,10 @@
 /area/ruin/space/pirate_base/lab_hall)
 "ae" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access = list(161);
-	hackProof = 1;
 	aiControlDisabled = 1;
-	heat_proof = 1
+	hackProof = 1;
+	heat_proof = 1;
+	req_access = list(161)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -234,8 +234,8 @@
 	},
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/clothing/head/helmet/space/nasavoid{
-	name = "Old Void Helmet";
-	desc = "Old space helmet"
+	desc = "Old space helmet";
+	name = "Old Void Helmet"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -296,9 +296,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
 	pixel_x = 26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -354,8 +354,8 @@
 /area/ruin/space/pirate_base/lab_maint)
 "aY" = (
 /obj/machinery/door/airlock/research/glass{
-	req_access = list(161);
-	aiControlDisabled = 1
+	aiControlDisabled = 1;
+	req_access = list(161)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -387,9 +387,9 @@
 /obj/machinery/door_control{
 	id = "prison_block_shutters";
 	name = "Prison shutters";
-	req_access = list(160);
 	pixel_x = -24;
-	pixel_y = 24
+	pixel_y = 24;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -422,9 +422,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -433,8 +433,8 @@
 /area/ruin/unpowered)
 "bj" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(162);
-	name = "Prison maintenance"
+	name = "Prison maintenance";
+	req_access = list(162)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -620,8 +620,8 @@
 /area/ruin/space/pirate_base/mining)
 "bP" = (
 /obj/machinery/door/window/brigdoor{
-	req_access = list(161);
-	dir = 2
+	dir = 2;
+	req_access = list(161)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -632,6 +632,16 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
+"bQ" = (
+/obj/structure/chair/comfy/shuttle/dark{
+	dir = 4
+	},
+/obj/item/radio/intercom/syndicate/directional/south,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/shuttle/pirate_corvette)
 "bS" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
@@ -736,30 +746,30 @@
 /area/ruin/space/pirate_base/kitchen)
 "ce" = (
 /obj/docking_port/mobile{
+	dheight = 8;
+	dir = 2;
 	height = 17;
 	id = "pirateship";
 	name = "Pirate Corvette";
 	rebuildable = 1;
-	width = 19;
-	dheight = 8;
-	dir = 2
+	width = 19
 	},
 /obj/docking_port/stationary{
+	dheight = 8;
+	dir = 2;
 	height = 17;
 	id = "pirateship_home";
 	name = "Homebase";
-	width = 19;
 	pixel_x = 20;
-	dheight = 8;
-	dir = 2
+	width = 19
 	},
 /obj/effect/turf_decal/caution{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "cf" = (
@@ -795,8 +805,8 @@
 	pixel_y = 3
 	},
 /obj/item/gun/projectile/automatic/pistol{
-	pixel_y = 6;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -956,9 +966,9 @@
 /obj/machinery/door_control{
 	id = "arrivalspirat_blast";
 	name = "BlastDoor";
-	req_access = list(160);
+	pixel_x = 8;
 	pixel_y = -24;
-	pixel_x = 8
+	req_access = list(160)
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/pirate_base/arrivals)
@@ -1059,14 +1069,14 @@
 /area/shuttle/pirate_corvette)
 "cU" = (
 /obj/structure/sink/kitchen{
-	pixel_y = 28;
-	name = "sink"
+	name = "sink";
+	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -1317,6 +1327,29 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
+"dv" = (
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/under/color/orange/prison,
+/obj/effect/mob_spawn/human/alive{
+	allow_gender_pick = 1;
+	allow_name_pick = 1;
+	allow_prefs_prompt = 1;
+	allow_species_pick = 1;
+	assignedrole = "Prisoner";
+	desc = "A cryo pod.";
+	description = "Вы похищенный пиратами гражданин.";
+	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
+	name = "Prisoner Cryo";
+	outfit = /datum/outfit/naked;
+	pickable_species = list("Human")
+	},
+/obj/structure/sign/poster/official/obey{
+	pixel_x = 32
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/pirate_base/atrium)
 "dw" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -1336,8 +1369,8 @@
 /area/ruin/space/pirate_base/security_atrium)
 "dy" = (
 /obj/machinery/door/window/brigdoor{
-	req_access = list(161);
-	dir = 1
+	dir = 1;
+	req_access = list(161)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "prisonxeno_blast"
@@ -1370,9 +1403,9 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1385,8 +1418,8 @@
 "dE" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
-	req_access = list(161);
-	dir = 8
+	dir = 8;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -1456,9 +1489,9 @@
 /obj/machinery/door_control{
 	id = "piratehutters";
 	name = "Shutters";
-	req_access = list(160);
+	pixel_x = 6;
 	pixel_y = 6;
-	pixel_x = 6
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -1573,12 +1606,12 @@
 /area/ruin/space/pirate_base/laboratory)
 "ef" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 1;
-	stat = 1;
+	faction = "pirate";
 	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2"
+	icon_state_initial = "syndieturret2";
+	name = "machine gun turret (4.6x30mm)";
+	stat = 1
 	},
 /obj/effect/decal/cleanable/generic,
 /obj/structure/railing{
@@ -1694,12 +1727,6 @@
 /obj/structure/bed/nest,
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/xeno_lab)
-"ew" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/item/stack/medical/bruise_pack/extended,
-/turf/simulated/floor/plating,
-/area/ruin/space/pirate_base/atmos)
 "ex" = (
 /obj/machinery/alarm/syndicate{
 	pixel_y = 24;
@@ -1772,8 +1799,8 @@
 /area/ruin/space/pirate_base/security_medical)
 "eG" = (
 /obj/machinery/door/airlock/research/glass{
-	req_access = list(161);
-	aiControlDisabled = 1
+	aiControlDisabled = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -1948,9 +1975,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1980,9 +2007,9 @@
 "fo" = (
 /obj/structure/window/reinforced,
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 4;
 	faction = "pirate";
-	dir = 4
+	name = "machine gun turret (4.6x30mm)"
 	},
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/observ)
@@ -2105,19 +2132,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
-"fJ" = (
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/obj/item/clothing/head/beanie/orange,
-/obj/item/stack/spacecash/c10,
-/obj/item/clothing/shoes/orange,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "fK" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -2226,19 +2240,19 @@
 /area/ruin/space/pirate_base/xeno_lab)
 "gc" = (
 /obj/item/clothing/suit/space/nasavoid{
-	name = "Old Void Suit";
-	desc = "Old space suit"
+	desc = "Old space suit";
+	name = "Old Void Suit"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "gd" = (
 /obj/machinery/conveyor{
-	id = "pirategarbage";
-	dir = 1
+	dir = 1;
+	id = "pirategarbage"
 	},
 /obj/machinery/mineral/processing_unit{
-	output_dir = 1;
-	input_dir = 2
+	input_dir = 2;
+	output_dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
@@ -2313,8 +2327,8 @@
 /area/ruin/unpowered)
 "gn" = (
 /obj/structure/railing{
-	layer = 4.2;
-	dir = 6
+	dir = 6;
+	layer = 4.2
 	},
 /obj/structure/closet/crate/freezer,
 /obj/item/reagent_containers/food/snacks/meat,
@@ -2412,26 +2426,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
-"gF" = (
-/obj/item/clothing/shoes/orange,
-/obj/item/card/id/prisoner/random,
-/obj/item/clothing/head/beanie/orange,
-/obj/item/clothing/under/color/orange/prison,
-/obj/effect/mob_spawn/human/alive{
-	assignedrole = "Prisoner";
-	desc = "A cryo pod.";
-	description = "Вы похищенный пиратами гражданин.";
-	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
-	name = "Prisoner Cryo";
-	outfit = /datum/outfit/naked;
-	allow_gender_pick = 1;
-	allow_name_pick = 1;
-	allow_species_pick = 1;
-	pickable_species = list("Human");
-	allow_prefs_prompt = 1
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/space/pirate_base/atrium)
 "gH" = (
 /obj/machinery/door/airlock/medical/glass{
 	req_access = list(160)
@@ -2514,9 +2508,9 @@
 /obj/machinery/door_control{
 	id = "arrivalspirat_blast";
 	name = "BlastDoor";
-	req_access = list(160);
+	pixel_x = 8;
 	pixel_y = 24;
-	pixel_x = 8
+	req_access = list(160)
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -2562,9 +2556,9 @@
 "gU" = (
 /obj/machinery/alarm{
 	dir = 1;
+	name = "Pirate Corvette Air alarm";
 	pixel_y = -25;
-	req_access = list(160);
-	name = "Pirate Corvette Air alarm"
+	req_access = list(160)
 	},
 /obj/machinery/light/small{
 	dir = 8
@@ -2582,10 +2576,10 @@
 /area/ruin/space/pirate_base/laboratory)
 "gZ" = (
 /obj/machinery/door/airlock/medical{
-	req_access = list(161);
+	aiControlDisabled = 1;
 	locked = 1;
-	welded = 1;
-	aiControlDisabled = 1
+	req_access = list(161);
+	welded = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2649,8 +2643,8 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access = list(161);
-	locked = 1
+	locked = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -2695,8 +2689,8 @@
 "hj" = (
 /obj/machinery/camera{
 	c_tag = "LP7 ViruLab";
-	network = list("PPrison");
-	dir = 9
+	dir = 9;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -2715,9 +2709,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/card/id/warden{
 	access = list(161);
+	desc = "ID Card.";
 	name = "Laboratory ID";
-	registered_name = "Access Card";
-	desc = "ID Card."
+	registered_name = "Access Card"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2787,9 +2781,9 @@
 "hw" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "bulb-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
@@ -2844,9 +2838,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -2934,8 +2928,8 @@
 /obj/item/clothing/suit/armor/vest/old,
 /obj/machinery/camera{
 	c_tag = "LP7 Prison Hall";
-	network = list("PPrison");
-	dir = 4
+	dir = 4;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
@@ -2959,9 +2953,9 @@
 /area/ruin/space/pirate_base/lab_hall)
 "hS" = (
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -2976,9 +2970,9 @@
 	pixel_y = 32
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3032,8 +3026,8 @@
 	icon_state = "tracks"
 	},
 /obj/machinery/door/window/brigdoor{
-	req_access = list(161);
-	dir = 2
+	dir = 2;
+	req_access = list(161)
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -3081,9 +3075,9 @@
 /obj/item/bodybag/biohazard,
 /obj/structure/rack,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
 	pixel_x = -26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -3112,8 +3106,8 @@
 /obj/machinery/suit_storage_unit,
 /obj/item/clothing/mask/breath,
 /obj/item/clothing/head/helmet/space/nasavoid{
-	name = "Old Void Helmet";
-	desc = "Old space helmet"
+	desc = "Old space helmet";
+	name = "Old Void Helmet"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -3272,9 +3266,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -3353,9 +3347,9 @@
 /area/ruin/space/pirate_base/laboratory)
 "je" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 5;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
 	pixel_x = -2
 	},
 /turf/simulated/floor/plating,
@@ -3363,9 +3357,9 @@
 "jg" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
+	aiControlDisabled = 1;
 	hackProof = 1;
-	aiControlDisabled = 1
+	req_access = list(160)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "rightpirat_blast"
@@ -3394,9 +3388,9 @@
 	req_access = list(162)
 	},
 /obj/structure/barricade/wooden/crude{
+	layer = 3.5;
 	max_integrity = 150;
-	obj_integrity = 150;
-	layer = 3.5
+	obj_integrity = 150
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
@@ -3453,8 +3447,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "LP7 Southeastern solar";
-	network = list("PPrison");
-	dir = 6
+	dir = 6;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
@@ -3497,10 +3491,10 @@
 	dir = 1;
 	faction = "pirate";
 	name = "Solar turrets";
-	req_access = list(160);
-	syndicate = 1;
+	pixel_x = -2;
 	pixel_y = 28;
-	pixel_x = -2
+	req_access = list(160);
+	syndicate = 1
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -3588,10 +3582,10 @@
 /area/ruin/space/pirate_base/atmos)
 "jN" = (
 /obj/machinery/computer/shuttle{
-	shuttleId = "pirateship";
 	possible_destinations = "pirateship_home;pirateship_custom";
-	use_power = 0;
-	req_access = list(160)
+	req_access = list(160);
+	shuttleId = "pirateship";
+	use_power = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -3812,9 +3806,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
@@ -3842,9 +3836,9 @@
 "kF" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
-	pixel_x = 26
+	pixel_x = 26;
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -3959,9 +3953,9 @@
 	req_access = list(160)
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
@@ -4001,33 +3995,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
-"lf" = (
-/obj/item/clothing/shoes/orange,
-/obj/item/card/id/prisoner/random,
-/obj/item/clothing/head/beanie/orange,
-/obj/item/clothing/under/color/orange/prison,
-/obj/effect/mob_spawn/human/alive{
-	assignedrole = "Prisoner";
-	desc = "A cryo pod.";
-	description = "Вы похищенный пиратами гражданин.";
-	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
-	name = "Prisoner Cryo";
-	outfit = /datum/outfit/naked;
-	allow_gender_pick = 1;
-	allow_name_pick = 1;
-	allow_species_pick = 1;
-	pickable_species = list("Human");
-	allow_prefs_prompt = 1
-	},
-/obj/structure/sign/poster/official/obey{
-	pixel_x = 32
-	},
-/turf/simulated/floor/pod/dark,
-/area/ruin/space/pirate_base/atrium)
 "lg" = (
 /obj/machinery/door/airlock/glass{
-	req_access = list(162);
-	name = "Prison"
+	name = "Prison";
+	req_access = list(162)
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -4129,9 +4100,9 @@
 "lr" = (
 /obj/structure/chair/office/light,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4162,9 +4133,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
 	pixel_x = -26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/structure/rack,
@@ -4187,11 +4158,11 @@
 	id_tag = "arrivalspirat_blast"
 	},
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
+	name = "External airlock";
 	opacity = 1;
-	name = "External airlock"
+	req_access = list(160)
 	},
 /obj/effect/turf_decal/caution/stand_clear,
 /turf/simulated/floor/plasteel{
@@ -4241,9 +4212,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
-	pixel_x = 26
+	pixel_x = 26;
+	req_access = list(160)
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -4533,9 +4504,9 @@
 /area/ruin/space/pirate_base/lab_solar)
 "mA" = (
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
 	pixel_x = -26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -4605,9 +4576,9 @@
 /obj/item/stack/packageWrap,
 /obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
 	pixel_x = 26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -4639,9 +4610,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
@@ -4661,9 +4632,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "midpoint_shut";
-	name = "Midpoint Shutters";
-	dir = 2
+	name = "Midpoint Shutters"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/arrivals)
@@ -4739,9 +4710,9 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
+	dir = 1;
 	pixel_y = 26;
-	dir = 1
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -4775,8 +4746,8 @@
 /area/ruin/space/pirate_base/prison_solar)
 "na" = (
 /obj/machinery/door/airlock/research/glass{
-	req_access = list(161);
-	aiControlDisabled = 1
+	aiControlDisabled = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -4821,8 +4792,8 @@
 /area/shuttle/pirate_corvette)
 "ng" = (
 /obj/machinery/conveyor{
-	id = "pirategarbagebase";
-	dir = 4
+	dir = 4;
+	id = "pirategarbagebase"
 	},
 /obj/structure/plasticflaps,
 /turf/simulated/floor/pod/light,
@@ -4914,8 +4885,8 @@
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access = list(160);
-	name = "Storage"
+	name = "Storage";
+	req_access = list(160)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -4974,13 +4945,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/xeno_lab)
-"nE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/medical/suture/advanced,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkbluefull"
-	},
-/area/ruin/space/pirate_base/lab_medical)
 "nG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -5078,10 +5042,10 @@
 /area/ruin/space/pirate_base/observ)
 "nV" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access = list(161);
-	hackProof = 1;
 	aiControlDisabled = 1;
-	heat_proof = 1
+	hackProof = 1;
+	heat_proof = 1;
+	req_access = list(161)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -5131,10 +5095,10 @@
 	dir = 1;
 	faction = "pirate";
 	name = "Solar turrets";
-	req_access = list(160);
-	syndicate = 1;
+	pixel_x = -2;
 	pixel_y = -28;
-	pixel_x = -2
+	req_access = list(160);
+	syndicate = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
@@ -5196,6 +5160,12 @@
 	tag = "icon-cafeteria (NORTHEAST)"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"ol" = (
+/obj/structure/table,
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/mining)
 "om" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -5280,9 +5250,9 @@
 /area/ruin/space/pirate_base/lab_maint)
 "os" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 1;
 	faction = "pirate";
-	dir = 1
+	name = "machine gun turret (4.6x30mm)"
 	},
 /obj/structure/railing{
 	dir = 8
@@ -5348,8 +5318,8 @@
 "oD" = (
 /obj/structure/lattice,
 /obj/structure/sign/poster/official/tsf_emblem{
-	pixel_y = -32;
-	desc = "На плакате написанно: Закрытый объект ТСФ. Вход воспрещен!"
+	desc = "На плакате написанно: Закрытый объект ТСФ. Вход воспрещен!";
+	pixel_y = -32
 	},
 /turf/space,
 /area/space)
@@ -5394,8 +5364,8 @@
 "oI" = (
 /mob/living/simple_animal/bot/medbot/mysterious{
 	desc = "Маленький темный медицинский бот. Он выглядит несколько подавленно.";
-	name = "Соловей";
-	faction = list("neutral","silicon","pirate")
+	faction = list("neutral","silicon","pirate");
+	name = "Соловей"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -5471,8 +5441,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/research/glass{
-	req_access = list(161);
-	aiControlDisabled = 1
+	aiControlDisabled = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -5572,10 +5542,10 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
-	opacity = 1
+	opacity = 1;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5662,9 +5632,9 @@
 /area/ruin/space/pirate_base/mining)
 "pA" = (
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
-	pixel_x = -26
+	pixel_x = -26;
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -5779,8 +5749,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /mob/living/simple_animal/bot/cleanbot{
-	on = 0;
-	faction = list("neutral","silicon","pirate")
+	faction = list("neutral","silicon","pirate");
+	on = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -5873,9 +5843,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -5991,8 +5961,8 @@
 /obj/effect/decal/cleanable/blood/xtracks,
 /obj/machinery/camera{
 	c_tag = "LP7 Laboratory";
-	network = list("PPrison");
-	dir = 6
+	dir = 6;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -6065,19 +6035,19 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
+	name = "Security";
 	opacity = 1;
-	name = "Security"
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
 	id_tag = "midpoint_shut";
-	name = "Midpoint Shutters";
-	dir = 2
+	name = "Midpoint Shutters"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -6110,9 +6080,9 @@
 "qU" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
@@ -6193,6 +6163,12 @@
 	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"rk" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/stack/medical/bruise_pack/extended,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/atmos)
 "rl" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -6200,8 +6176,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "LP7 Prison Kitchen";
-	network = list("PPrison");
-	dir = 4
+	dir = 4;
+	network = list("PPrison")
 	},
 /obj/structure/closet/crate/can,
 /turf/simulated/floor/plasteel{
@@ -6226,9 +6202,9 @@
 "rn" = (
 /obj/structure/window/reinforced,
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 8;
 	faction = "pirate";
-	dir = 8
+	name = "machine gun turret (4.6x30mm)"
 	},
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/observ)
@@ -6271,9 +6247,9 @@
 	},
 /obj/machinery/door_control{
 	id = "secret_blast";
+	name = "Storage";
 	pixel_x = -6;
-	pixel_y = 6;
-	name = "Storage"
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6283,20 +6259,6 @@
 "rw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
-"rx" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/card/id/prisoner/random,
-/obj/item/clothing/head/beanie/orange,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/obj/item/stack/spacecash/c100,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "rA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -6435,9 +6397,9 @@
 /area/ruin/space/pirate_base/atrium)
 "rU" = (
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
-	pixel_x = 26
+	pixel_x = 26;
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -6512,24 +6474,27 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"sl" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/machinery/light{
-	dir = 1
+"sk" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "rightpirat_blast";
+	name = "Right BlastDoor";
+	pixel_x = 6;
+	pixel_y = 6;
+	req_access = list(160)
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
+/obj/machinery/door_control{
+	id = "leftpirat_blast";
+	name = "Left BlastDoor";
+	pixel_x = -6;
+	pixel_y = 6;
+	req_access = list(160)
 	},
-/obj/item/stack/spacecash/c100,
-/obj/item/card/id/prisoner/random,
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
+	icon_state = "darkblue"
 	},
-/area/ruin/space/pirate_base/arrivals)
+/area/shuttle/pirate_corvette)
 "sn" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 1
@@ -6568,9 +6533,9 @@
 /area/ruin/space/pirate_base/lab_hall)
 "ss" = (
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
@@ -6608,10 +6573,10 @@
 /area/ruin/space/pirate_base/security_atrium)
 "sw" = (
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	id_tag = "labsolarbolts";
-	locked = 1
+	locked = 1;
+	req_access = list(160)
 	},
 /obj/structure/fans/tiny,
 /obj/structure/cable/yellow{
@@ -6623,17 +6588,17 @@
 /area/ruin/space/pirate_base/lab_solar)
 "sx" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 10;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
 	pixel_x = 2
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "sy" = (
 /obj/machinery/suit_storage_unit/pirate{
-	req_access = list(160);
-	locked = 1
+	locked = 1;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6652,9 +6617,9 @@
 /area/ruin/space/pirate_base/lab_maint)
 "sB" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 1;
 	faction = "pirate";
-	dir = 1
+	name = "machine gun turret (4.6x30mm)"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6687,9 +6652,9 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6962,8 +6927,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "LP7 Lounge";
-	network = list("PPrison");
-	dir = 10
+	dir = 10;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7082,9 +7047,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
 	pixel_x = -26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
@@ -7138,10 +7103,10 @@
 	dir = 1;
 	faction = "pirate";
 	name = "Telepad turrets";
-	req_access = list(160);
-	syndicate = 1;
+	pixel_x = -2;
 	pixel_y = 28;
-	pixel_x = -2
+	req_access = list(160);
+	syndicate = 1
 	},
 /obj/structure/sign/engineering{
 	pixel_x = 32
@@ -7168,9 +7133,9 @@
 /area/ruin/space/pirate_base/laboratory)
 "uc" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 6;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
 	pixel_x = -2
 	},
 /turf/simulated/floor/plating,
@@ -7222,8 +7187,8 @@
 "uj" = (
 /obj/machinery/camera{
 	c_tag = "LP7 Lab Hall";
-	network = list("PPrison");
-	dir = 10
+	dir = 10;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7269,9 +7234,9 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -7321,8 +7286,8 @@
 	pixel_y = 3
 	},
 /obj/item/restraints/handcuffs{
-	pixel_y = 3;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 3
 	},
 /obj/item/restraints/handcuffs,
 /obj/item/restraints/legcuffs/bola/energy,
@@ -7334,8 +7299,8 @@
 /area/shuttle/pirate_corvette)
 "uz" = (
 /obj/machinery/conveyor{
-	id = "pirategarbage";
-	dir = 9
+	dir = 9;
+	id = "pirategarbage"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
@@ -7346,6 +7311,24 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_medical)
+"uB" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/machinery/light{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	name = "prison locker";
+	req_access = list(160)
+	},
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "uC" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/railing{
@@ -7520,10 +7503,10 @@
 	dir = 1;
 	faction = "pirate";
 	name = "Solar turrets";
-	req_access = list(160);
-	syndicate = 1;
+	pixel_x = -2;
 	pixel_y = 28;
-	pixel_x = -2
+	req_access = list(160);
+	syndicate = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
@@ -7771,9 +7754,9 @@
 	icon_state = "1-8"
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
@@ -7833,10 +7816,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
-"vK" = (
-/obj/item/stack/medical/suture,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/entertainment)
 "vL" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -7864,9 +7843,9 @@
 	scrub_Toxins = 1
 	},
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -7875,14 +7854,14 @@
 /area/ruin/space/pirate_base/security_atrium)
 "vP" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(162);
 	locked = 1;
+	req_access = list(162);
 	welded = 1
 	},
 /obj/structure/barricade/wooden/crude{
+	layer = 3.5;
 	max_integrity = 150;
-	obj_integrity = 150;
-	layer = 3.5
+	obj_integrity = 150
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -8020,9 +7999,9 @@
 /area/ruin/space/pirate_base/xeno_lab)
 "wk" = (
 /obj/machinery/power/smes{
+	charge = 1000000;
 	input_level = 30000;
-	output_level = 10000;
-	charge = 1000000
+	output_level = 10000
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -8135,11 +8114,11 @@
 /area/ruin/space/pirate_base/prison_maint)
 "wG" = (
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
+	name = "Storage";
 	opacity = 1;
-	name = "Storage"
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_medical)
@@ -8203,8 +8182,8 @@
 /obj/item/reagent_containers/hypospray/autoinjector,
 /obj/structure/table,
 /obj/item/flashlight/flare{
-	pixel_y = 6;
-	pixel_x = 4
+	pixel_x = 4;
+	pixel_y = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
@@ -8217,10 +8196,10 @@
 /area/ruin/space/pirate_base/lab_maint)
 "wU" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access = list(161);
-	hackProof = 1;
 	aiControlDisabled = 1;
-	heat_proof = 1
+	hackProof = 1;
+	heat_proof = 1;
+	req_access = list(161)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -8320,6 +8299,10 @@
 	tag = "icon-whitepurple (NORTH)"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"xm" = (
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/entertainment)
 "xn" = (
 /obj/effect/turf_decal/siding/brown,
 /obj/effect/decal/cleanable/dirt,
@@ -8389,20 +8372,6 @@
 "xw" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"xx" = (
-/obj/effect/turf_decal/box/red,
-/obj/machinery/quantumpad{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/obj/machinery/door/window/brigdoor{
-	req_access = list(160);
-	dir = 2
-	},
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/observ)
 "xz" = (
 /obj/structure/table/tray,
 /obj/item/storage/backpack/duffel/syndie/surgery,
@@ -8440,8 +8409,8 @@
 /area/ruin/space/pirate_base/arrivals)
 "xD" = (
 /obj/machinery/conveyor{
-	id = "pirategarbage";
-	dir = 1
+	dir = 1;
+	id = "pirategarbage"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
@@ -8460,8 +8429,8 @@
 /area/ruin/space/pirate_base/entertainment)
 "xG" = (
 /obj/machinery/door/poddoor/shutters{
-	id_tag = "blackmarket_shutters";
-	dir = 2
+	dir = 2;
+	id_tag = "blackmarket_shutters"
 	},
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/observ)
@@ -8472,21 +8441,21 @@
 	},
 /obj/structure/window/reinforced,
 /obj/structure/urinal{
-	pixel_y = 30;
-	pixel_x = 17
+	pixel_x = 17;
+	pixel_y = 30
 	},
 /obj/structure/urinal{
-	pixel_y = 30;
-	pixel_x = -1
+	pixel_x = -1;
+	pixel_y = 30
 	},
 /obj/structure/urinal{
-	pixel_y = 30;
-	pixel_x = -19
+	pixel_x = -19;
+	pixel_y = 30
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/space/pirate_base/observ)
@@ -8666,10 +8635,10 @@
 /area/ruin/space/pirate_base/prison_solar)
 "yn" = (
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
-	opacity = 1
+	opacity = 1;
+	req_access = list(160)
 	},
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
@@ -8823,10 +8792,10 @@
 /area/ruin/space/pirate_base/virus_lab)
 "yW" = (
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
-	opacity = 1
+	opacity = 1;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -8890,9 +8859,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
 	pixel_x = 26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/structure/rack,
@@ -9076,27 +9045,6 @@
 /obj/item/storage/box/syndie_kit/chameleon,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
-"zF" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door_control{
-	id = "rightpirat_blast";
-	name = "Right BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = 6
-	},
-/obj/machinery/door_control{
-	id = "leftpirat_blast";
-	name = "Left BlastDoor";
-	req_access = list(160);
-	pixel_y = 6;
-	pixel_x = -6
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/simulated/floor/plasteel{
-	icon_state = "darkblue"
-	},
-/area/shuttle/pirate_corvette)
 "zH" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9115,6 +9063,19 @@
 	icon_state = "whitepurplecorner"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"zI" = (
+/obj/structure/closet/secure_closet{
+	name = "prison locker";
+	req_access = list(160)
+	},
+/obj/item/clothing/shoes/color/orange,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/stack/spacecash/c10,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "zJ" = (
 /obj/machinery/hydroponics/constructable,
 /obj/item/seeds/orange,
@@ -9127,8 +9088,8 @@
 "zR" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
-	req_access = list(161);
-	dir = 8
+	dir = 8;
+	req_access = list(161)
 	},
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -9208,10 +9169,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
 	aiControlDisabled = 1;
+	id_tag = "prisonsolarbolts";
 	locked = 1;
-	id_tag = "prisonsolarbolts"
+	req_access = list(160)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
@@ -9250,8 +9211,8 @@
 /area/ruin/space/pirate_base/arrivals)
 "Ak" = (
 /obj/machinery/atmospherics/binary/pump/on{
-	target_pressure = 202.325;
-	dir = 4
+	dir = 4;
+	target_pressure = 202.325
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
@@ -9328,9 +9289,9 @@
 	dir = 5
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
 	pixel_x = -26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -9355,8 +9316,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "AA" = (
@@ -9365,12 +9326,12 @@
 /obj/item/flashlight/seclite,
 /obj/item/flashlight/seclite,
 /obj/item/flashlight/seclite{
-	pixel_y = 5;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 5
 	},
 /obj/item/flashlight/seclite{
-	pixel_y = 5;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 5
 	},
 /obj/item/flashlight/flare{
 	pixel_y = -5
@@ -9468,14 +9429,6 @@
 /obj/item/inflatable/door,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
-"AV" = (
-/obj/structure/table,
-/obj/item/stack/spacecash/c100,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "AW" = (
 /obj/structure/rack,
 /obj/item/analyzer,
@@ -9491,9 +9444,9 @@
 	req_access = list(160)
 	},
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
@@ -9565,12 +9518,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/cans/badminbrew{
-	name = "expired beer";
-	desc = "Probably shouldn't drink this one at all."
+	desc = "Probably shouldn't drink this one at all.";
+	name = "expired beer"
 	},
 /obj/item/reagent_containers/food/drinks/cans/badminbrew{
-	name = "expired beer";
-	desc = "Probably shouldn't drink this one at all."
+	desc = "Probably shouldn't drink this one at all.";
+	name = "expired beer"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/vermouth,
 /obj/item/reagent_containers/food/drinks/bottle/cognac,
@@ -9670,14 +9623,14 @@
 /area/ruin/space/pirate_base/lab_sec)
 "By" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(160);
 	locked = 1;
+	req_access = list(160);
 	welded = 1
 	},
 /obj/structure/barricade/wooden/crude{
+	layer = 3.5;
 	max_integrity = 150;
-	obj_integrity = 150;
-	layer = 3.5
+	obj_integrity = 150
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
@@ -9701,8 +9654,8 @@
 	},
 /obj/machinery/camera{
 	c_tag = "LP7 Prison Mining";
-	network = list("PPrison");
 	dir = 9;
+	network = list("PPrison");
 	pixel_y = 22
 	},
 /turf/simulated/floor/plasteel{
@@ -9771,12 +9724,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
-"BQ" = (
-/obj/structure/table,
-/obj/item/stack/medical/splint,
-/obj/item/stack/medical/suture,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/mining)
 "BR" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -9850,8 +9797,8 @@
 	pixel_y = -3
 	},
 /obj/item/reagent_containers/food/pill/salicylic{
-	pixel_y = -3;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9881,9 +9828,9 @@
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -9912,11 +9859,11 @@
 /area/ruin/space/pirate_base/atrium)
 "Cf" = (
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
 	aiControlDisabled = 1;
-	use_power = 0;
 	id_tag = "securitysolarbolts";
-	locked = 1
+	locked = 1;
+	req_access = list(160);
+	use_power = 0
 	},
 /obj/structure/fans/tiny,
 /obj/structure/cable/yellow{
@@ -9968,8 +9915,8 @@
 /area/ruin/space/pirate_base/mining)
 "Cq" = (
 /obj/machinery/door/window/brigdoor{
-	req_access = list(160);
-	dir = 2
+	dir = 2;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9985,9 +9932,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
-	pixel_x = 26
+	pixel_x = 26;
+	req_access = list(160)
 	},
 /obj/structure/table,
 /obj/item/clothing/suit/chef/classic,
@@ -10012,8 +9959,8 @@
 /obj/machinery/door_control{
 	id = "minerspirat_blast";
 	name = "BlastDoor";
-	pixel_y = -8;
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = -8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -10085,8 +10032,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/camera{
 	c_tag = "LP7 Northeastern solar";
-	network = list("PPrison");
-	dir = 8
+	dir = 8;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
@@ -10134,17 +10081,17 @@
 	dir = 6
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
 "CU" = (
 /obj/machinery/computer/operating,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
-	pixel_y = -24
+	pixel_y = -24;
+	req_access = list(160)
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plasteel{
@@ -10183,9 +10130,9 @@
 /area/ruin/space/pirate_base/laboratory)
 "CZ" = (
 /obj/machinery/clonepod/upgraded{
-	req_access = list(152);
+	dir = 8;
 	layer = 3.3;
-	dir = 8
+	req_access = list(152)
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -10196,8 +10143,8 @@
 /area/ruin/space/pirate_base/security_medical)
 "Db" = (
 /obj/item/clothing/suit/space/nasavoid{
-	name = "Old Void Suit";
-	desc = "Old space suit"
+	desc = "Old space suit";
+	name = "Old Void Suit"
 	},
 /obj/effect/decal/remains/human,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -10238,9 +10185,9 @@
 	dir = 1;
 	faction = "pirate";
 	name = "Arrivals turrets";
+	pixel_x = -32;
 	req_access = list(160);
-	syndicate = 1;
-	pixel_x = -32
+	syndicate = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10249,9 +10196,9 @@
 /area/ruin/space/pirate_base/arrivals)
 "Df" = (
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10347,8 +10294,8 @@
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
 /obj/item/reagent_containers/food/condiment/saltshaker{
-	pixel_y = 11;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 11
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -10365,6 +10312,14 @@
 	icon_state = "cmo"
 	},
 /area/ruin/space/pirate_base/security_medical)
+"DD" = (
+/obj/structure/table,
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "DE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -10402,8 +10357,8 @@
 /obj/machinery/door_control{
 	id = "minerspirat_blast";
 	name = "BlastDoor";
-	pixel_y = 8;
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = 8
 	},
 /obj/effect/turf_decal/caution,
 /turf/simulated/floor/plating/airless,
@@ -10420,9 +10375,9 @@
 /area/ruin/space/pirate_base/arrivals)
 "DM" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 4;
 	faction = "pirate";
-	dir = 4
+	name = "machine gun turret (4.6x30mm)"
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/arrivals)
@@ -10453,17 +10408,17 @@
 "DR" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
 "DS" = (
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -10496,9 +10451,9 @@
 /obj/machinery/door_control{
 	id = "securitysolarbolts";
 	normaldoorcontrol = 1;
+	pixel_x = -24;
 	req_access = list(160);
-	specialfunctions = 4;
-	pixel_x = -24
+	specialfunctions = 4
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
@@ -10545,8 +10500,8 @@
 "Ef" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/hypospray/autoinjector/stimpack{
-	pixel_y = 4;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 4
 	},
 /obj/item/reagent_containers/hypospray/combat,
 /turf/simulated/floor/plasteel{
@@ -10558,9 +10513,9 @@
 /obj/machinery/door_control{
 	id = "prison_block_shutters";
 	name = "Prison shutters";
-	req_access = list(160);
+	pixel_x = 24;
 	pixel_y = 24;
-	pixel_x = 24
+	req_access = list(160)
 	},
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
@@ -10576,10 +10531,10 @@
 	dir = 8
 	},
 /obj/structure/closet/walllocker{
+	dir = 8;
 	icon_closed = "emerg";
 	icon_opened = "emergopen";
 	icon_state = "emerg";
-	dir = 8;
 	name = "emergency locker";
 	pixel_x = -32
 	},
@@ -10911,17 +10866,11 @@
 "Fg" = (
 /turf/simulated/wall,
 /area/ruin/space/pirate_base/entertainment)
-"Fh" = (
-/obj/structure/closet,
-/obj/item/stack/medical/ointment/extended,
-/obj/item/toy/plushie/plasmamanplushie,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Fi" = (
 /obj/machinery/door/airlock{
-	name = "Bathroom";
 	aiControlDisabled = 1;
-	hackProof = 1
+	hackProof = 1;
+	name = "Bathroom"
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/pirate_corvette)
@@ -10982,9 +10931,9 @@
 	dir = 4
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
@@ -11068,8 +11017,8 @@
 /area/ruin/space/pirate_base/kitchen)
 "Fy" = (
 /obj/machinery/suit_storage_unit/pirate{
-	req_access = list(160);
-	locked = 1
+	locked = 1;
+	req_access = list(160)
 	},
 /obj/machinery/light,
 /turf/simulated/floor/plasteel{
@@ -11149,8 +11098,8 @@
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access = list(160);
-	name = "Bridge"
+	name = "Bridge";
+	req_access = list(160)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -11246,11 +11195,11 @@
 /area/ruin/space/pirate_base/lab_medical)
 "FY" = (
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
+	name = "Black Market";
 	opacity = 1;
-	name = "Black Market"
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11321,16 +11270,6 @@
 /obj/structure/flora/ausbushes/leafybush,
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
-"Gn" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	dir = 4
-	},
-/obj/item/radio/intercom/syndicate/directional/south,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/shuttle/pirate_corvette)
 "Go" = (
 /obj/structure/table,
 /obj/machinery/cell_charger,
@@ -11471,9 +11410,9 @@
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
+	color = "gray";
 	dir = 4;
-	icon_state = "rampbottom";
-	color = "gray"
+	icon_state = "rampbottom"
 	},
 /area/ruin/space/pirate_base/observ)
 "GI" = (
@@ -11660,9 +11599,9 @@
 	pixel_x = 28
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -11710,7 +11649,7 @@
 	pixel_x = 24;
 	req_access = list(160)
 	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -11824,8 +11763,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "HI" = (
@@ -11844,9 +11783,9 @@
 /area/ruin/space/pirate_base/security_maint)
 "HJ" = (
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
+	aiControlDisabled = 1;
 	hackProof = 1;
-	aiControlDisabled = 1
+	req_access = list(160)
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -11886,17 +11825,17 @@
 /obj/machinery/door_control{
 	id = "arrivalspirat_blast";
 	name = "BlastDoor";
-	req_access = list(160);
+	pixel_x = 8;
 	pixel_y = 24;
-	pixel_x = 8
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
-	pixel_x = -26
+	pixel_x = -26;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -11998,9 +11937,9 @@
 /area/space)
 "Ie" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 8;
 	faction = "pirate";
-	dir = 8
+	name = "machine gun turret (4.6x30mm)"
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/arrivals)
@@ -12064,8 +12003,8 @@
 /obj/machinery/door/airlock/maintenance_hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access = list(160);
 	locked = 1;
+	req_access = list(160);
 	welded = 1
 	},
 /obj/structure/barricade/wooden,
@@ -12095,19 +12034,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/pirate_corvette)
-"Ir" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "Is" = (
 /turf/simulated/wall,
 /area/ruin/space/pirate_base/arrivals)
@@ -12215,12 +12141,12 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/clothing/glasses/meson{
-	pixel_y = 3;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = 3
 	},
 /obj/item/clothing/glasses/meson{
-	pixel_y = 7;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 7
 	},
 /obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel{
@@ -12230,8 +12156,8 @@
 /area/shuttle/pirate_corvette)
 "IP" = (
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
-	pixel_y = -26
+	pixel_y = -26;
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -12260,13 +12186,13 @@
 /area/ruin/space/pirate_base/laboratory)
 "IR" = (
 /obj/structure/sign/poster/official/tsf_emblem{
-	pixel_y = -32;
-	desc = "На плакате написанно: Закрытый объект ТСФ. Вход воспрещен!"
+	desc = "На плакате написанно: Закрытый объект ТСФ. Вход воспрещен!";
+	pixel_y = -32
 	},
 /obj/machinery/camera{
 	c_tag = "LP7 External entrance";
-	network = list("PPrison");
-	dir = 8
+	dir = 8;
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/pirate_base/arrivals)
@@ -12276,9 +12202,9 @@
 /area/ruin/unpowered)
 "IT" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 1;
 	faction = "pirate";
-	dir = 1
+	name = "machine gun turret (4.6x30mm)"
 	},
 /obj/structure/railing{
 	dir = 4
@@ -12333,14 +12259,6 @@
 	icon_state = "cmo"
 	},
 /area/ruin/space/pirate_base/security_medical)
-"Jb" = (
-/obj/structure/table/glass,
-/obj/item/stack/medical/suture,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/xeno_lab)
 "Jc" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/greengrid,
@@ -12365,15 +12283,6 @@
 	tag = "icon-whitepurplecorner (EAST)"
 	},
 /area/ruin/space/pirate_base/laboratory)
-"Jh" = (
-/obj/structure/rack,
-/obj/effect/spawner/random_spawners/syndicate/loot/level2{
-	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/medical/suture/advanced,
-/turf/simulated/floor/pod/light,
-/area/ruin/space/pirate_base/security_maint)
 "Jk" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -12644,8 +12553,8 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/shieldwallgen{
-	req_access = list(161);
-	anchored = 1
+	anchored = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -12778,8 +12687,8 @@
 	pixel_x = -8
 	},
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "Km" = (
@@ -12798,25 +12707,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"Ko" = (
-/obj/machinery/shower{
-	dir = 4;
-	pixel_x = -2
-	},
-/obj/structure/curtain/open/shower,
-/obj/effect/turf_decal{
-	icon_state = "plumbing";
-	name = "plumbing"
-	},
-/obj/item/clothing/shoes/orange,
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "showroomfloor"
-	},
-/area/ruin/space/pirate_base/atrium)
 "Kp" = (
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/observ)
@@ -12894,6 +12784,21 @@
 /obj/item/stack/sheet/glass,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
+"KG" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/clothing/head/beanie/orange,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/card/id/prisoner/random,
+/obj/structure/closet/secure_closet{
+	name = "prison locker";
+	req_access = list(160)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "KH" = (
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
@@ -13035,8 +12940,8 @@
 /area/ruin/space/pirate_base/lab_maint)
 "Le" = (
 /obj/machinery/conveyor{
-	id = "pirategarbagebase";
-	dir = 4
+	dir = 4;
+	id = "pirategarbagebase"
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/pod/light,
@@ -13061,19 +12966,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
-"Lk" = (
-/obj/effect/turf_decal/box,
-/obj/structure/closet/crate/medical,
-/obj/item/handheld_defibrillator,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/firstaid/with_mousetrap/tactical,
-/obj/item/stack/medical/suture/advanced,
-/obj/item/stack/medical/bruise_pack/military,
-/turf/simulated/floor/plasteel{
-	icon_state = "sepia"
-	},
-/area/ruin/space/pirate_base/security_medical)
 "Ll" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -13113,9 +13005,9 @@
 /obj/machinery/door_control{
 	id = "prisonvirus_blast";
 	name = "BlastDoor";
-	req_access = list(161);
+	pixel_x = 6;
 	pixel_y = -2;
-	pixel_x = 6
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13198,21 +13090,6 @@
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
-"LG" = (
-/obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/head/beanie/orange,
-/obj/effect/decal/cleanable/dirt,
-/obj/item/card/id/prisoner/random,
-/obj/structure/closet/secure_closet{
-	req_access = list(160);
-	name = "prison locker"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/arrivals)
 "LH" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 10
@@ -13374,9 +13251,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -13426,8 +13303,8 @@
 /area/ruin/space/pirate_base/telecomms)
 "Mo" = (
 /obj/item/gps/ruin{
-	pixel_x = 30;
-	gpstag = "Emergency Signal"
+	gpstag = "Emergency Signal";
+	pixel_x = 30
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13437,8 +13314,8 @@
 "Mp" = (
 /obj/machinery/power/smes{
 	charge = 2e+006;
-	output_level = 25000;
-	input_level = 60000
+	input_level = 60000;
+	output_level = 25000
 	},
 /obj/structure/cable,
 /turf/simulated/floor/plating,
@@ -13487,8 +13364,8 @@
 /area/shuttle/pirate_corvette)
 "Mz" = (
 /obj/machinery/suit_storage_unit/industrial/pirate_leader{
-	req_access = list(160);
-	locked = 1
+	locked = 1;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13652,6 +13529,19 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"MW" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	name = "prison locker";
+	req_access = list(160)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "MX" = (
 /obj/effect/turf_decal/siding/yellow{
 	dir = 1
@@ -13672,8 +13562,8 @@
 	icon_state = "tracks"
 	},
 /obj/machinery/door/window/brigdoor{
-	req_access = list(161);
-	dir = 1
+	dir = 1;
+	req_access = list(161)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -13726,9 +13616,9 @@
 "Ne" = (
 /obj/machinery/light{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "tube-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -13780,6 +13670,13 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"Nn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkbluefull"
+	},
+/area/ruin/space/pirate_base/lab_medical)
 "No" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -13930,19 +13827,19 @@
 /obj/machinery/door_control{
 	id = "blackmarket_shutters";
 	name = "BlackMarket shutters";
-	req_access = list(160);
+	pixel_x = 24;
 	pixel_y = 8;
-	pixel_x = 24
+	req_access = list(160)
 	},
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/observ)
 "NK" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
-	req_access = list(160);
-	hackProof = 1;
 	aiControlDisabled = 1;
-	id_tag = "leftpirat_airlock"
+	hackProof = 1;
+	id_tag = "leftpirat_airlock";
+	req_access = list(160)
 	},
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "leftpirat_blast"
@@ -14013,6 +13910,12 @@
 	icon_state = "whitebluefull"
 	},
 /area/ruin/space/pirate_base/security_medical)
+"NU" = (
+/obj/structure/closet,
+/obj/item/stack/medical/ointment/extended,
+/obj/item/toy/plushie/plasmamanplushie,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "NV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/dark,
@@ -14088,9 +13991,9 @@
 /area/ruin/space/pirate_base/security_atrium)
 "Oi" = (
 /obj/machinery/door/airlock/mining{
-	req_access = list(161);
+	aiControlDisabled = 1;
 	name = "airlock";
-	aiControlDisabled = 1
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14113,9 +14016,9 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/glass,
 /obj/structure/barricade/wooden/crude{
+	layer = 3.5;
 	max_integrity = 150;
-	obj_integrity = 150;
-	layer = 3.5
+	obj_integrity = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -14129,9 +14032,9 @@
 /area/shuttle/pirate_corvette)
 "Oo" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 1;
 	faction = "pirate";
-	dir = 1
+	name = "machine gun turret (4.6x30mm)"
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/prison_solar)
@@ -14246,9 +14149,9 @@
 	dir = 1;
 	faction = "pirate";
 	name = "Corvette turrets";
+	pixel_x = -32;
 	req_access = list(160);
-	syndicate = 1;
-	pixel_x = -32
+	syndicate = 1
 	},
 /obj/item/gps{
 	tracking = 0
@@ -14381,9 +14284,9 @@
 /obj/machinery/door_control{
 	id = "blackmarket_shutters";
 	name = "BlackMarket shutters";
-	req_access = list(160);
+	pixel_x = 24;
 	pixel_y = 8;
-	pixel_x = 24
+	req_access = list(160)
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/observ)
@@ -14392,9 +14295,9 @@
 /obj/item/folder/yellow,
 /obj/item/card/id/warden{
 	access = list(161);
+	desc = "ID Card.";
 	name = "Laboratory ID";
-	registered_name = "Access Card";
-	desc = "ID Card."
+	registered_name = "Access Card"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -14409,10 +14312,10 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
-	opacity = 1
+	opacity = 1;
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -14565,9 +14468,9 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
-	pixel_x = -26
+	pixel_x = -26;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
@@ -14607,9 +14510,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
@@ -14668,9 +14571,9 @@
 "PP" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "bulb-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -14718,9 +14621,9 @@
 /obj/machinery/atmospherics/pipe/manifold/visible,
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -14730,9 +14633,9 @@
 /obj/effect/decal/remains/human,
 /obj/item/card/id/warden{
 	access = list(161);
+	desc = "ID Card.";
 	name = "Laboratory ID";
-	registered_name = "Access Card";
-	desc = "ID Card."
+	registered_name = "Access Card"
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
@@ -14764,9 +14667,9 @@
 /area/ruin/space/pirate_base/laboratory)
 "Qf" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 9;
+	faction = "pirate";
+	name = "machine gun turret (4.6x30mm)";
 	pixel_x = 2
 	},
 /turf/simulated/floor/plating,
@@ -14835,9 +14738,9 @@
 "Qq" = (
 /obj/machinery/light/small{
 	active_power_usage = 0;
+	dir = 1;
 	icon_state = "bulb-broken";
-	status = 2;
-	dir = 1
+	status = 2
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /turf/simulated/floor/plating,
@@ -15000,9 +14903,9 @@
 "QR" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
@@ -15091,12 +14994,12 @@
 /area/ruin/space/pirate_base/mining)
 "Rf" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
-	faction = "pirate";
 	dir = 1;
-	stat = 1;
+	faction = "pirate";
 	icon_state = "syndieturret2";
-	icon_state_initial = "syndieturret2"
+	icon_state_initial = "syndieturret2";
+	name = "machine gun turret (4.6x30mm)";
+	stat = 1
 	},
 /obj/structure/railing{
 	dir = 5
@@ -15114,9 +15017,9 @@
 /area/ruin/space/pirate_base/virus_lab)
 "Rh" = (
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -15173,17 +15076,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
-"Rr" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/spacecash/c100,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "Rs" = (
 /obj/structure/table/wood,
 /obj/item/candle{
@@ -15218,9 +15110,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
@@ -15229,9 +15121,9 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
-	pixel_x = 26
+	pixel_x = 26;
+	req_access = list(160)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -15317,9 +15209,9 @@
 "RP" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -15419,10 +15311,10 @@
 /area/ruin/space/pirate_base/atmos)
 "Sh" = (
 /obj/machinery/door/airlock/medical/glass{
-	req_access = list(160);
-	icon_state = "open";
+	aiControlDisabled = 1;
 	density = 0;
-	aiControlDisabled = 1
+	icon_state = "open";
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15543,9 +15435,9 @@
 	dir = 6
 	},
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -15629,8 +15521,8 @@
 /area/ruin/space/pirate_base/lab_maint)
 "SL" = (
 /obj/machinery/conveyor{
-	id = "pirategarbagebase";
-	dir = 4
+	dir = 4;
+	id = "pirategarbagebase"
 	},
 /obj/structure/disposalpipe/segment,
 /obj/item/trash/semki,
@@ -15651,10 +15543,10 @@
 /area/ruin/space/pirate_base/xeno_lab)
 "SO" = (
 /obj/machinery/door/airlock/centcom{
-	req_access = list(160);
 	aiControlDisabled = 1;
 	hackProof = 1;
-	opacity = 1
+	opacity = 1;
+	req_access = list(160)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -15699,9 +15591,9 @@
 /obj/machinery/door_control{
 	id = "laborpirat_blast";
 	name = "BlastDoor";
-	req_access = list(161);
+	pixel_x = -24;
 	pixel_y = -8;
-	pixel_x = -24
+	req_access = list(161)
 	},
 /obj/structure/table,
 /obj/machinery/recharger{
@@ -15746,11 +15638,25 @@
 /area/ruin/space/pirate_base/laboratory)
 "SZ" = (
 /obj/machinery/door/airlock/medical{
-	req_access = list(161);
-	aiControlDisabled = 1
+	aiControlDisabled = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_medical)
+"Ta" = (
+/obj/effect/turf_decal/box/red,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	name = "piratepad";
+	req_access = list(160)
+	},
+/obj/machinery/door/window/brigdoor{
+	dir = 2;
+	req_access = list(160)
+	},
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/observ)
 "Tb" = (
 /obj/structure/grille,
 /obj/structure/window/plasmareinforced{
@@ -15841,20 +15747,19 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
-"Tp" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
+"To" = (
+/obj/effect/turf_decal/box,
+/obj/structure/closet/crate/medical,
+/obj/item/handheld_defibrillator,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/firstaid/with_mousetrap/tactical,
+/obj/item/stack/medical/suture/advanced,
+/obj/item/stack/medical/bruise_pack/military,
+/turf/simulated/floor/plasteel{
+	icon_state = "sepia"
 	},
-/obj/effect/turf_decal/box/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/quantumpad{
-	color = "#A52A2A";
-	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
-	req_access = list(160);
-	name = "piratepad"
-	},
-/turf/simulated/floor/plasteel,
-/area/shuttle/pirate_corvette)
+/area/ruin/space/pirate_base/security_medical)
 "Tq" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -15885,9 +15790,9 @@
 	icon_state = "2-8"
 	},
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -15904,9 +15809,9 @@
 /area/ruin/space/pirate_base/atrium)
 "TA" = (
 /obj/machinery/porta_turret/syndicate/pod{
-	name = "machine gun turret (4.6x30mm)";
+	dir = 1;
 	faction = "pirate";
-	dir = 1
+	name = "machine gun turret (4.6x30mm)"
 	},
 /obj/structure/railing{
 	dir = 8
@@ -16058,8 +15963,8 @@
 "Ud" = (
 /obj/structure/cable,
 /obj/machinery/shieldwallgen{
-	req_access = list(161);
-	anchored = 1
+	anchored = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16089,9 +15994,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -16259,11 +16164,25 @@
 	},
 /obj/structure/plasticflaps,
 /obj/machinery/conveyor{
-	id = "pirategarbage";
-	dir = 8
+	dir = 8;
+	id = "pirategarbage"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
+"UF" = (
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
+/obj/effect/turf_decal/box/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/quantumpad{
+	color = "#A52A2A";
+	desc = "Пиратский телепад с квантовой связью блюспейс, используемый для телепортации объектов на другие квантовые площадки. На нем ярко-красная надпись: Не разбирать!";
+	name = "piratepad";
+	req_access = list(160)
+	},
+/turf/simulated/floor/plasteel,
+/area/shuttle/pirate_corvette)
 "UH" = (
 /obj/machinery/alarm/syndicate{
 	dir = 8;
@@ -16449,9 +16368,9 @@
 "Vi" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
+	dir = 1;
 	pixel_y = 26;
-	dir = 1
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-2"
@@ -16471,9 +16390,9 @@
 "Vk" = (
 /obj/effect/turf_decal/bot_red,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16672,9 +16591,9 @@
 /area/ruin/space/pirate_base/atrium)
 "VV" = (
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 8;
 	pixel_x = -26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /obj/structure/cable{
@@ -16700,6 +16619,15 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
+"VZ" = (
+/obj/structure/rack,
+/obj/effect/spawner/random_spawners/syndicate/loot/level2{
+	result = list(/obj/item/storage/box/syndie_kit/space = 2, /obj/item/clothing/shoes/magboots/syndie = 2, /obj/item/clothing/suit/armor/vest/combat = 2, /obj/item/ammo_box/magazine/m10mm = 7, /obj/item/storage/pill_bottle/happy = 1, /obj/item/storage/pill_bottle/zoom = 2, /obj/item/storage/pill_bottle/random_drug_bottle = 2, /obj/item/clothing/shoes/chameleon/noslip = 3, /obj/item/storage/belt/military = 5, /obj/item/clothing/under/chameleon = 3, /obj/item/storage/backpack/satchel_flat = 1, /obj/item/stamp/chameleon = 3, /obj/item/flag/chameleon = 1, /obj/item/lighter/zippo/gonzofist = 1, /obj/item/clothing/gloves/fingerless/rapid = 1, /obj/item/storage/box/syndie_kit/throwing_weapons = 1, /obj/item/pen/edagger = 1, /obj/item/reagent_containers/food/snacks/syndicake = 2, /obj/item/coin/antagtoken/syndicate = 2, /obj/item/gun/projectile/automatic/pistol = 4, /obj/item/gun/syringe/rapidsyringe = 8, /obj/item/storage/box/syndie_kit/bioterror = 8)
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/medical/suture/advanced,
+/turf/simulated/floor/pod/light,
+/area/ruin/space/pirate_base/security_maint)
 "Wa" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -16707,9 +16635,9 @@
 /obj/machinery/door_control{
 	id = "midpoint_shut";
 	name = "Midpoint Shutters";
-	req_access = list(160);
+	pixel_x = -25;
 	pixel_y = 25;
-	pixel_x = -25
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16776,9 +16704,9 @@
 /obj/machinery/door_control{
 	id = "arrivalspirat_blast";
 	name = "BlastDoor";
-	req_access = list(160);
+	pixel_x = -24;
 	pixel_y = -24;
-	pixel_x = -24
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16856,6 +16784,25 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/mining)
+"WB" = (
+/obj/machinery/shower{
+	dir = 4;
+	pixel_x = -2
+	},
+/obj/structure/curtain/open/shower,
+/obj/effect/turf_decal{
+	icon_state = "plumbing";
+	name = "plumbing"
+	},
+/obj/item/clothing/shoes/color/orange/prison,
+/mob/living/simple_animal/hostile/zombie/whiteship{
+	health = 30;
+	maxHealth = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "showroomfloor"
+	},
+/area/ruin/space/pirate_base/atrium)
 "WD" = (
 /obj/machinery/shower{
 	dir = 4;
@@ -16872,10 +16819,10 @@
 /area/ruin/space/pirate_base/atrium)
 "WE" = (
 /obj/machinery/computer/camera_advanced/shuttle_docker{
+	access_derelict = 1;
 	shuttleId = "pirateship";
 	shuttlePortId = "pirateship_custom";
-	view_range = 20;
-	access_derelict = 1
+	view_range = 20
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -16887,15 +16834,26 @@
 /obj/machinery/iv_drip,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/virology)
+"WG" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "WI" = (
 /obj/effect/turf_decal/siding/thinplating/dark,
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/security_atrium)
@@ -16923,9 +16881,9 @@
 /obj/machinery/door_control{
 	id = "prisonxeno_blast";
 	name = "BlastDoor";
-	req_access = list(161);
+	pixel_x = -6;
 	pixel_y = 8;
-	pixel_x = -6
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -16978,20 +16936,28 @@
 /obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
+"WT" = (
+/obj/structure/table/glass,
+/obj/item/stack/medical/suture,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/xeno_lab)
 "WW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
 /mob/living/simple_animal/hostile/pirate/ranged{
+	health = 150;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate/ranged);
-	maxHealth = 150;
-	health = 150
+	maxHealth = 150
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "WZ" = (
 /obj/machinery/conveyor{
-	id = "pirategarbagebase";
-	dir = 4
+	dir = 4;
+	id = "pirategarbagebase"
 	},
 /obj/machinery/disposal/deliveryChute{
 	dir = 8
@@ -17006,8 +16972,8 @@
 /area/ruin/space/pirate_base/security_maint)
 "Xa" = (
 /obj/machinery/door/airlock/medical/glass{
-	req_access = list(161);
-	aiControlDisabled = 1
+	aiControlDisabled = 1;
+	req_access = list(161)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17043,8 +17009,8 @@
 /obj/machinery/door_control{
 	id = "minerspirat_blast";
 	name = "BlastDoor";
-	pixel_y = 16;
-	pixel_x = -24
+	pixel_x = -24;
+	pixel_y = 16
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -17154,8 +17120,8 @@
 /obj/machinery/door/airlock/hatch{
 	aiControlDisabled = 1;
 	hackProof = 1;
-	req_access = list(160);
-	name = "Medical bay"
+	name = "Medical bay";
+	req_access = list(160)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
@@ -17221,9 +17187,9 @@
 "XD" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
@@ -17235,6 +17201,20 @@
 	icon_state = "bar"
 	},
 /area/ruin/space/pirate_base/atrium)
+"XI" = (
+/obj/item/clothing/under/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/item/clothing/head/beanie/orange,
+/obj/structure/closet/secure_closet{
+	name = "prison locker";
+	req_access = list(160)
+	},
+/obj/item/stack/spacecash/c100,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "XL" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -17448,9 +17428,9 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
-	pixel_x = 26
+	pixel_x = 26;
+	req_access = list(160)
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -17509,8 +17489,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera{
 	c_tag = "LP7 XenoLab";
-	network = list("PPrison");
-	dir = 1
+	dir = 1;
+	network = list("PPrison")
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -17536,9 +17516,9 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/power/apc/noalarm{
-	req_access = list(160);
 	dir = 4;
 	pixel_x = 26;
+	req_access = list(160);
 	start_charge = 0
 	},
 /turf/simulated/floor/plasteel,
@@ -17620,8 +17600,8 @@
 	},
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel/airless{
-	icon_state = "podfloor_light";
-	icon_regular_floor = "podfloor_light"
+	icon_regular_floor = "podfloor_light";
+	icon_state = "podfloor_light"
 	},
 /area/shuttle/pirate_corvette)
 "YR" = (
@@ -17958,9 +17938,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /mob/living/simple_animal/hostile/pirate{
+	health = 200;
 	loot = list(/obj/effect/mob_spawn/human/corpse/pirate);
-	maxHealth = 200;
-	health = 200
+	maxHealth = 200
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -17968,6 +17948,26 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
+"ZP" = (
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/card/id/prisoner/random,
+/obj/item/clothing/head/beanie/orange,
+/obj/item/clothing/under/color/orange/prison,
+/obj/effect/mob_spawn/human/alive{
+	allow_gender_pick = 1;
+	allow_name_pick = 1;
+	allow_prefs_prompt = 1;
+	allow_species_pick = 1;
+	assignedrole = "Prisoner";
+	desc = "A cryo pod.";
+	description = "Вы похищенный пиратами гражданин.";
+	flavour_text = "Пираты похитили вас, и заключили в какой-то заброшенной тюрьме. Выберитесь из пиратской тюрьмы, во чтобы это не стало.";
+	name = "Prisoner Cryo";
+	outfit = /datum/outfit/naked;
+	pickable_species = list("Human")
+	},
+/turf/simulated/floor/pod/dark,
+/area/ruin/space/pirate_base/atrium)
 "ZQ" = (
 /obj/structure/table,
 /obj/item/slimepotion/speed{
@@ -18039,8 +18039,8 @@
 /obj/structure/rack,
 /obj/item/stack/cable_coil/yellow,
 /obj/item/stack/cable_coil/yellow{
-	pixel_y = -2;
-	pixel_x = 1
+	pixel_x = 1;
+	pixel_y = -2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -20041,7 +20041,7 @@ us
 SV
 Yf
 WD
-Ko
+WB
 SV
 Jx
 Jp
@@ -20348,7 +20348,7 @@ SV
 cQ
 PG
 SV
-BQ
+ol
 ak
 hJ
 Uj
@@ -21155,7 +21155,7 @@ Zw
 uG
 Ip
 SV
-gF
+ZP
 KM
 NV
 SV
@@ -21377,7 +21377,7 @@ wn
 YT
 Yj
 CQ
-vK
+xm
 IH
 jj
 cR
@@ -21563,7 +21563,7 @@ Hk
 ue
 pb
 SV
-lf
+dv
 Dh
 fS
 SV
@@ -22151,12 +22151,12 @@ qc
 qc
 qc
 ey
-zF
+sk
 FU
 sK
 FK
 Sz
-Tp
+UF
 iS
 Fi
 if
@@ -22255,7 +22255,7 @@ qc
 ey
 WE
 vJ
-Gn
+bQ
 wI
 DE
 bh
@@ -22375,7 +22375,7 @@ AK
 AK
 AK
 Iv
-fJ
+zI
 Dn
 Dn
 bd
@@ -22477,7 +22477,7 @@ AK
 AK
 AK
 Iv
-rx
+XI
 VY
 Dn
 CS
@@ -22579,7 +22579,7 @@ mM
 AK
 AK
 Iv
-LG
+KG
 VY
 Dn
 fj
@@ -22681,7 +22681,7 @@ ve
 AK
 AK
 Iv
-sl
+uB
 VY
 Dn
 Dn
@@ -22783,7 +22783,7 @@ mM
 AK
 bi
 Iv
-Ir
+MW
 VY
 Dn
 eL
@@ -22987,7 +22987,7 @@ AK
 AK
 AK
 Iv
-AV
+DD
 Vm
 Is
 Dn
@@ -23523,7 +23523,7 @@ yw
 SD
 Gf
 Gv
-nE
+Nn
 LN
 iM
 eU
@@ -24842,7 +24842,7 @@ cS
 cS
 Pt
 Mo
-Rr
+WG
 sj
 MV
 iK
@@ -24912,7 +24912,7 @@ AK
 AK
 mc
 xJ
-ew
+rk
 hO
 hO
 HF
@@ -25555,7 +25555,7 @@ AK
 AK
 MD
 bt
-Jb
+WT
 qW
 uv
 Md
@@ -25854,7 +25854,7 @@ TQ
 eF
 RG
 Yq
-Lk
+To
 yr
 AK
 AK
@@ -25933,7 +25933,7 @@ AK
 BX
 Pl
 MG
-Fh
+NU
 hO
 gq
 NY
@@ -26135,7 +26135,7 @@ AK
 bi
 bi
 BX
-Jh
+VZ
 XD
 yg
 Op
@@ -26858,7 +26858,7 @@ JU
 qU
 iB
 BX
-xx
+Ta
 Xy
 ty
 cJ

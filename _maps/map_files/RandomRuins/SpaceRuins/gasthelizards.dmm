@@ -833,7 +833,7 @@
 /area/ruin/space/gasthelizards/viewzone)
 "HH" = (
 /obj/structure/chair/office/dark,
-/obj/item/toy/plushie/lizardplushie,
+/obj/item/toy/plushie/lizard_plushie/green,
 /obj/machinery/door_control{
 	id = "gtl_shutters_inner";
 	name = "Fire Breach Inner Shutters Control";

@@ -33,6 +33,8 @@
 #define DECAL_INIT_UPDATE_EXPERIENCED (1<<10)
 /// Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS (1<<11)
+/// This atom does not need to generate its own preview icon for GAGS
+#define NO_NEW_GAGS_PREVIEW (1<<12)
 
 // Bypass all adjacency checks for mouse drop
 #define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<12)
@@ -50,6 +52,8 @@
 #define UPDATE_ICON_STATE (1<<2)
 /// Update the atom's overlays
 #define UPDATE_OVERLAYS (1<<3)
+/// Update the atom's greyscaling
+#define UPDATE_GREYSCALE (1<<4)
 /// Update the atom's icon
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 

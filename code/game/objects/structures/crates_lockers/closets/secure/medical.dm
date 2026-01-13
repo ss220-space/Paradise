@@ -46,7 +46,7 @@
 	new /obj/item/storage/backpack/duffel/medical(src)
 	new /obj/item/clothing/under/rank/medical(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
-	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/color/white(src)
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/clothing/gloves/color/latex/nitrile(src)
 	new /obj/item/clothing/glasses/hud/health(src)

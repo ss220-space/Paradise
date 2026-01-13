@@ -121,28 +121,27 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 /obj/machinery/monkey_recycler/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
 	. = TRUE
 	if(grabber.grab_state < GRAB_AGGRESSIVE || (stat & (NOPOWER|BROKEN)))
-		return .
+		return
 	if(!ishuman(grabbed_thing))
 		balloon_alert(grabber, "только для гуманоидов!")
-		return .
+		return
 	var/mob/living/carbon/human/victim = grabbed_thing
 	if(!is_monkeybasic(victim))
 		balloon_alert(grabber, "только для низших форм!")
-		return .
+		return
 	if(!victim.stat)
 		balloon_alert(grabber, "цель сопротивляется!")
-		return .
+		return
 	add_fingerprint(grabber)
 	to_chat(grabber, span_notice("Вы запихиваете [victim] в [declent_ru(ACCUSATIVE)]."))
 	grabber.stop_pulling()
 	qdel(victim)
 	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
-	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 200) //start shaking
+	Shake(pixelshiftx = 1, pixelshifty = 0, duration = 3.4 SECONDS)
 	use_power(500)
 	grinded++
-	sleep(5 SECONDS)
-	pixel_x = initial(pixel_x)
+	addtimer(VARSET_CALLBACK(src, pixel_x, base_pixel_x))
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(to_chat), grabber, span_notice("Теперь в машине накоплено материала на сумму, равную [grinded] объему обезьяны.")))
 
 /obj/machinery/monkey_recycler/attack_hand(mob/user)
 	if(stat != 0) //NOPOWER etc

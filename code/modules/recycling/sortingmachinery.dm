@@ -64,7 +64,7 @@
 		return
 	var/holding_crate = istype(wrapped, /obj/structure/closet/crate)
 	if(giftwrapped)
-		icon_state = holding_crate ? "deliverycrate_gift" : "deliverycloset_gift"
+		icon_state = holding_crate ? "deliverycrate" : "deliverycloset"
 		return
 	icon_state = "delivery[holding_crate ? "crate" : "closet"][(sortTag || cc_tag) ? "_labeled" : ""]"	// label should be an overlay
 
@@ -123,6 +123,8 @@
 		)
 		giftwrapped = TRUE
 		update_icon(UPDATE_ICON_STATE)
+		greyscale_config = text2path("/datum/greyscale_config/gift[icon_state]")
+		set_greyscale_colors(colors = paper.greyscale_colors)
 		if(create_tube)
 			var/obj/item/c_tube/tube = new(user.drop_location())
 			tube.add_fingerprint(user)
@@ -187,7 +189,7 @@
 	else
 		weight_number = wrapped.w_class
 	if(giftwrapped)
-		icon_state = "giftcrate[weight_number]"
+		icon_state = "deliverypackage[weight_number]"
 		return
 	icon_state = "deliverycrate[weight_number][sortTag ? "_labeled" : ""]"	// label should be an overlay
 
@@ -239,6 +241,8 @@
 		)
 		giftwrapped = TRUE
 		update_icon(UPDATE_ICON_STATE)
+		greyscale_config = text2path("/datum/greyscale_config/gift[icon_state]")
+		set_greyscale_colors(colors = paper.greyscale_colors)
 		if(create_tube)
 			var/obj/item/c_tube/tube = new(user.drop_location())
 			tube.add_fingerprint(user)
