@@ -65,7 +65,7 @@
 	. = ..()
 	. += mutable_appearance(icon, "[icon_state][istype(cell)? "_battery" : ""]")
 	. += mutable_appearance(icon, "[icon_state][spear_mode.overlay_prefix]")
-	// Добавляем оверлей заряда, если есть батарея
+	// Add charge overlay if battery exists
 	if(cell && charge_overlay_state)
 		. += mutable_appearance(icon, "charge_[charge_overlay_state]")
 
@@ -76,20 +76,20 @@
 		return
 
 	. += mutable_appearance(icon_file, "[item_state][spear_mode.overlay_prefix]")
-	// Добавляем оверлей заряда в руки
+	// Add charge overlay in hands
 	if(cell && charge_overlay_state)
 		. += mutable_appearance(icon_file, "charge_[charge_overlay_state]")
 
 /obj/item/twohanded/spear/secspear/emp_act(severity)
 	. = ..()
 	if(cell)
-		// Полностью опустошаем батарею
+		// Completely drain the battery
 		cell.emp_act(severity)
 		cell.charge = 0
-		// Выключаем копьё, если оно было включено
+		// Turn off the spear if it was active
 		if(spear_mode.type != /datum/secspear_mode/off)
 			switch_spear_mode(/datum/secspear_mode/off)
-		update_charge_overlay() // Обновляем оверлей после EMP
+		update_charge_overlay() // Update overlay after EMP
 
 /obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -110,7 +110,7 @@
 		cell.forceMove(get_turf(src))
 		cell = new_cell
 		balloon_alert(user, "установлено")
-		update_charge_overlay() // Обновляем оверлей после замены батареи
+		update_charge_overlay() // Update overlay after battery replacement
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -145,8 +145,8 @@
 /obj/item/twohanded/spear/secspear/equipped(mob/user, slot, initial)
 	. = ..()
 
-	// Если поместили НЕ в руки (в хранилище)
-	if(!(slot & (ITEM_SLOT_HANDS|ITEM_SLOT_HAND_LEFT|ITEM_SLOT_HAND_RIGHT)))
+	// If placed NOT in hands (in storage)
+	if(!(slot & ITEM_SLOT_HANDS))
 		if(spear_mode.type != /datum/secspear_mode/off)
 			switch_spear_mode(/datum/secspear_mode/off)
 		return
@@ -166,14 +166,16 @@
 	return cell
 
 /obj/item/twohanded/spear/secspear/proc/power_usage()
-	var/power_cost = spear_mode.power_cost
-	cell.use(power_cost)
-	update_charge_overlay() // Обновляем оверлей после использования энергии
-
-	if(cell.charge >= power_cost)
+	if(!cell)
+		off_spear()
 		return
 
-	off_spear()
+	var/power_cost = spear_mode.power_cost
+	cell.use(power_cost)
+	update_charge_overlay() // Update overlay after energy usage
+
+	if(cell.charge < power_cost)
+		off_spear()
 
 /obj/item/twohanded/spear/secspear/proc/update_charge_overlay()
 	var/old_state = charge_overlay_state
@@ -186,16 +188,15 @@
 		var/can_use_mode = cell.charge >= spear_mode.power_cost
 		var/prefix = folded ? "folded" : "unfolded"
 
-		if(!can_use_mode || charge_percent == 0)
+		if(!can_use_mode || charge_percent <= 4)
 			new_state = "[prefix]_empty"
 		else if(charge_percent >= 66)
 			new_state = "[prefix]_full"
 		else if(charge_percent >= 33)
 			new_state = "[prefix]_half"
-		else if(charge_percent > 0)
-			new_state = "[prefix]_low"
 		else
-			new_state = "[prefix]_empty"
+			new_state = "[prefix]_low"
+
 
 	if(old_state != new_state)
 		charge_overlay_state = new_state
@@ -225,7 +226,7 @@
 			attack_self(user)
 		add_traits(list(TRAIT_TWOHANDED_BLOCKED, TRAIT_CLEAVE_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
 		w_class = WEIGHT_CLASS_NORMAL
-		slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_SUITSTORE // Пояс или слот костюма для сложенного
+		slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_SUITSTORE // Belt or suit slot for folded
 		block_chance = initial(block_chance)
 		force_charge_overlay_update()
 		user.update_held_items()
