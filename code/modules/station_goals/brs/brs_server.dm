@@ -24,7 +24,7 @@
 
 /obj/machinery/brs_server
 	name = "Сервер сканирования блюспейс разлома"
-	icon = 'icons/obj/machines/BRS/scanner_server.dmi'
+	icon = 'icons/obj/machines/brs/scanner_server.dmi'
 	icon_state = "scan_server"
 	anchored = TRUE
 	density = TRUE

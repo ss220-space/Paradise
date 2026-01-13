@@ -74,7 +74,7 @@
 	name = "soft meat cubes"
 	desc = "Филе рыбы, порезанное на маленькие кубики и обжаренное в печи. Выглядит аппетитно."
 	gender = PLURAL
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "soft_meat_cubes"
 	list_reagents = list("nutriment" = 2, "vitamin" = 3, "protein" = 3)
 	bitesize = 3
