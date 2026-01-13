@@ -48,11 +48,12 @@
 /obj/machinery/floodlight/update_icon_state()
 	icon_state = "floodlight_[on ? "on" : "off"]"
 
-	if(open)
-		if(cell)
-			icon_state += "_cell"
-		else
-			icon_state += "_empty"
+	if(!open)
+		return
+	if(cell)
+		icon_state += "_cell"
+	else
+		icon_state += "_empty"
 
 /obj/machinery/floodlight/process()
 	if(!on)
