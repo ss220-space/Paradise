@@ -479,6 +479,7 @@
 /obj/item/circuitboard/mecha
 	icon_state = "std_mod"
 	board_type = "other"
+	greyscale_config = null
 	flags = CONDUCT
 	force = 5
 	throwforce = 5

@@ -57,14 +57,14 @@
 /datum/gear/shoes/shoes
 	index_name = "shoes, select"
 	display_name = "Ботинки"
-	path = /obj/item/clothing/shoes/black
+	path = /obj/item/clothing/shoes/color/black
 
 /datum/gear/shoes/shoes/New()
 	..()
 	var/list/boots = list(
-		/obj/item/clothing/shoes/black,
-		/obj/item/clothing/shoes/brown,
-		/obj/item/clothing/shoes/white,
+		/obj/item/clothing/shoes/color/black,
+		/obj/item/clothing/shoes/color/brown,
+		/obj/item/clothing/shoes/color/white,
 		/obj/item/clothing/shoes/convers,
 		/obj/item/clothing/shoes/convers/red
 	)

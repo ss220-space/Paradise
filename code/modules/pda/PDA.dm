@@ -380,7 +380,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/update_overlays()
 	. = ..()
 
-	var/static/list/id_icon_states = icon_states('icons/goonstation/objects/pda_overlay.dmi')
 	var/static/list/id_cards_cache = list()
 	var/static/pda_blink_overlay
 	var/static/pda_light_overlay
@@ -389,7 +388,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		pda_blink_overlay = iconstate2appearance(icon, "pda-r")
 		pda_light_overlay = iconstate2appearance(icon, "pda-light")
 
-	if(id && (id.icon_state in id_icon_states))
+	if(id && icon_exists('icons/goonstation/objects/pda_overlay.dmi', id.icon_state))
 		if(!id_cards_cache[id.icon_state])
 			id_cards_cache[id.icon_state] = iconstate2appearance('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
 		. += id_cards_cache[id.icon_state]
