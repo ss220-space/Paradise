@@ -7,7 +7,7 @@
 	idle_power_usage = 300
 	active_power_usage = 300
 	integrity_failure = 100
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
 	var/obj/structure/computerframe/frame = /obj/structure/computerframe
 	var/icon_keyboard = "generic_key"

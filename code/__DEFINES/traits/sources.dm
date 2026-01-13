@@ -18,6 +18,7 @@
 
 /// cannot be removed without admin intervention
 #define ROUNDSTART_TRAIT "roundstart"
+#define JOB_TRAIT "job"
 
 #define CINEMATIC_TRAIT "cinematic"
 

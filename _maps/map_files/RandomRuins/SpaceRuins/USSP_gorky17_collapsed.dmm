@@ -3532,7 +3532,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/dinning)
 "kO" = (
 /obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
 	desc = "Covers your head and eyes.";
 	name = "Altyn"
 	},
@@ -6051,7 +6051,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/check2)
 "st" = (
 /obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
 	desc = "Covers your head and eyes.";
 	name = "Altyn"
 	},
@@ -11473,7 +11473,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/angar)
 "HT" = (
 /obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
 	desc = "Covers your head and eyes.";
 	name = "Altyn"
 	},
@@ -14995,7 +14995,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/common)
 "Sp" = (
 /obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
 	desc = "Covers your head and eyes.";
 	name = "Altyn"
 	},
@@ -16444,7 +16444,7 @@
 /area/ruin/space/USSP_gorky17/collapsed/medbay)
 "WM" = (
 /obj/item/clothing/head/bomb_hood/security{
-	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"rad"=0,"fire"=30,"acid"=50);
+	armor = list("melee"=30,"bullet"=45,"laser"=20,"energy"=15,"bomb"=50,"bio"=0,"fire"=30,"acid"=50);
 	desc = "Covers your head and eyes.";
 	name = "Altyn"
 	},

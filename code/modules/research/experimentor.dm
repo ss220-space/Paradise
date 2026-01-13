@@ -337,9 +337,7 @@
 
 		if(prob(EFFECT_PROB_VERYLOW - badThingCoeff))
 			visible_message(span_danger("[src] malfunctions, melting [exp_on] and leaking radiation!"))
-			for(var/mob/living/m in oview(1, src))
-				m.apply_effect(25,IRRADIATE)
-				investigate_log("Experimentor has irradiated [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
+			radiation_pulse(src, max_range = 6, threshold = 0.3)
 			ejectItem(TRUE)
 
 		if(prob(EFFECT_PROB_LOW - badThingCoeff))

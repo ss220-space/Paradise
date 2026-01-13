@@ -68,7 +68,9 @@
 	desc = "Jeez. I hope that's not for lunch."
 	gender = PLURAL
 	layer = TURF_LAYER
-	light_range = 1
+	light_power = 3
+	light_range = 2
+	light_color = LIGHT_COLOR_GREEN
 	icon_state = "greenglow"
 
 /obj/effect/decal/cleanable/greenglow/Initialize(mapload)

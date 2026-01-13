@@ -175,7 +175,6 @@
 	var/job = null // Living
 
 	var/datum/dna/dna = null // Carbon
-	var/radiation = 0 // Carbon
 
 	//see: setup.dm for list of mutations
 

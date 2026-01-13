@@ -72,8 +72,8 @@
 		if(R.volume >= 1)
 			H.heal_overall_damage(3, 3)
 			H.reagents.remove_reagent(R.id, 1)
-			if(H.radiation < 80)
-				H.apply_effect(4, IRRADIATE, negate_armor = 1)
+			//if(H.radiation < 80)
+			//	H.apply_effect(4, IRRADIATE, negate_armor = 1)
 			return FALSE //Что бы не выводилось больше одного, который уже вывелся за счет прока
 	return ..()
 

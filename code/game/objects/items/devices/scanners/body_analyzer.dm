@@ -176,9 +176,6 @@
 	extra_font = (target.getFireLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\t-Burn Severity %: [target.getFireLoss()]</font><br>"
 
-	extra_font = (target.radiation < 10 ?"<font color='blue'>" : "<font color='red'>")
-	dat += "[extra_font]\tRadiation Level %: [target.radiation]</font><br>"
-
 	extra_font = (target.getCloneLoss() < 1 ?"<font color='blue'>" : "<font color='red'>")
 	dat += "[extra_font]\tGenetic Tissue Damage %: [target.getCloneLoss()]<br>"
 

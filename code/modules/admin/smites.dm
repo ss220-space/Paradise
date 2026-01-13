@@ -351,7 +351,7 @@
 	logmsg = "virus."
 
 /datum/smite/virus/activate(mob/living/target, reason)
-	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", GLOB.typecache_virus, /datum/disease/virus/nuclefication)
+	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", GLOB.typecache_virus, /datum/disease/virus/lycan)
 	var/cant_spread = tgui_alert(
 		usr,
 		"Сделать ли вирус незаразным?",

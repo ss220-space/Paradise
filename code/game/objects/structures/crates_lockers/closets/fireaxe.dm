@@ -8,7 +8,7 @@
 	anchored = TRUE
 	density = FALSE
 	no_overlays = TRUE
-	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, FIRE = 90, ACID = 50)
 	var/obj/item/twohanded/fireaxe/fireaxe
 	var/localopened = FALSE //Setting this to keep it from behaviouring like a normal closet and obstructing movement in the map. -Agouri
 	opened = TRUE
@@ -260,7 +260,7 @@
 	anchored = TRUE
 	density = FALSE
 	no_overlays = TRUE
-	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 20, LASER = 0, ENERGY = 100, BOMB = 10, FIRE = 90, ACID = 50)
 	var/obj/item/twohanded/sechammer/sledgehammer
 	opened = TRUE
 

@@ -196,6 +196,14 @@ emp_act
 	protection *= (100 - min(physiology.armor.getRating(attack_flag), 100)) * 0.01
 	return 100 - protection
 
+///Get all the clothing on a specific body part
+/mob/living/carbon/human/proc/get_clothing_on_part(obj/item/organ/external/def_zone)
+	var/list/covering_part = list()
+	for(var/obj/item/clothing/equipped in get_equipped_items())
+		if(equipped.body_parts_covered & def_zone.limb_body_flag)
+			covering_part += equipped
+	return covering_part
+
 /// This proc returns the permeability protection for a particular external organ.
 /mob/living/carbon/human/proc/get_permeability_protection_organ(obj/item/organ/external/def_zone)
 	if(!def_zone)

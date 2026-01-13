@@ -374,6 +374,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
+"fz" = (
+/obj/machinery/power/energy_accumulator/rad_collector,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/plating,
+/area/ruin/space/crashedipcship/shard)
 "gm" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -1000,6 +1006,17 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
+"qN" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 5
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/energy_accumulator/rad_collector,
+/turf/simulated/floor/plating,
+/area/ruin/space/crashedipcship/shard)
 "qQ" = (
 /obj/structure/spacevine,
 /obj/effect/turf_decal{
@@ -1027,6 +1044,13 @@
 /obj/effect/decal/cleanable/ash,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
+"rB" = (
+/obj/machinery/power/energy_accumulator/grounding_rod{
+	anchored = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/crashedipcship/engine)
 "rH" = (
 /obj/structure/table,
 /obj/machinery/light{
@@ -1223,15 +1247,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/middle)
-"vj" = (
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/rad_collector,
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
-/turf/simulated/floor/plating,
-/area/ruin/space/crashedipcship/shard)
 "vl" = (
 /obj/structure/table/tray,
 /obj/item/clothing/glasses/hud/diagnostic{
@@ -1472,6 +1487,17 @@
 /obj/structure/flora/rock/pile,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
+"yx" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 9
+	},
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/energy_accumulator/rad_collector,
+/turf/simulated/floor/plating,
+/area/ruin/space/crashedipcship/shard)
 "yy" = (
 /obj/machinery/computer/sm_monitor,
 /obj/structure/cable{
@@ -1646,13 +1672,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
-"AK" = (
-/obj/machinery/power/grounding_rod{
-	anchored = 1
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/crashedipcship/engine)
 "AM" = (
 /obj/structure/table/tray,
 /obj/item/clothing/glasses/hud/diagnostic{
@@ -1870,15 +1889,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/middle)
-"Ff" = (
-/obj/item/organ/external/chest/ipc,
-/obj/item/clothing/shoes/color/black,
-/obj/item/shard{
-	icon_state = "small"
-	},
-/obj/structure/spacevine,
-/turf/simulated/floor/mineral/titanium/airless,
-/area/ruin/space/crashedipcship/aft)
 "Fn" = (
 /obj/machinery/door/airlock/hatch{
 	color = "lightblue"
@@ -2039,14 +2049,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/crashedipcship/aft)
-"Hu" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/obj/structure/cable,
-/obj/machinery/power/rad_collector,
-/turf/simulated/floor/plating,
-/area/ruin/space/crashedipcship/shard)
 "Hv" = (
 /obj/item/shard{
 	icon_state = "medium";
@@ -2083,15 +2085,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
-"HN" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6;
-	level = 1
-	},
-/obj/structure/cable,
-/obj/machinery/power/rad_collector,
-/turf/simulated/floor/plating,
-/area/ruin/space/crashedipcship/shard)
 "HW" = (
 /obj/structure/spacevine,
 /obj/item/stock_parts/micro_laser/ultra,
@@ -2178,17 +2171,6 @@
 /obj/structure/grille,
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/crashedipcship/aft)
-"JH" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 5
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/rad_collector,
-/turf/simulated/floor/plating,
-/area/ruin/space/crashedipcship/shard)
 "JU" = (
 /obj/structure/spacevine,
 /obj/effect/turf_decal{
@@ -2296,12 +2278,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/mineral/titanium,
 /area/ruin/space/crashedipcship/aft)
-"KZ" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/crashedipcship/engine)
 "La" = (
 /turf/simulated/wall/r_wall/coated,
 /area/ruin/space/crashedipcship/shard)
@@ -2513,6 +2489,10 @@
 /mob/living/simple_animal/hostile/carp,
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/space/crashedipcship/asteroid)
+"Oe" = (
+/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
+/turf/simulated/floor/engine,
+/area/ruin/space/crashedipcship/shard)
 "On" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -2595,6 +2575,15 @@
 /obj/item/clothing/glasses/meson/fluff/book_berner_1,
 /turf/simulated/floor/mineral/titanium/airless,
 /area/ruin/space/crashedipcship/aft)
+"Qz" = (
+/obj/structure/cable{
+	d2 = 2;
+	icon_state = "0-2"
+	},
+/obj/machinery/power/energy_accumulator/rad_collector,
+/obj/machinery/atmospherics/pipe/manifold4w/visible,
+/turf/simulated/floor/plating,
+/area/ruin/space/crashedipcship/shard)
 "QV" = (
 /obj/effect/turf_decal{
 	dir = 10;
@@ -2650,10 +2639,6 @@
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/engine,
 /area/ruin/space/crashedipcship/shard)
-"RL" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/space/crashedipcship/engine)
 "RN" = (
 /obj/machinery/pipedispenser,
 /obj/effect/decal/cleanable/cobweb2,
@@ -2704,6 +2689,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
+"Si" = (
+/obj/item/organ/external/chest/ipc,
+/obj/item/clothing/shoes/color/black,
+/obj/item/shard{
+	icon_state = "small"
+	},
+/obj/structure/spacevine,
+/turf/simulated/floor/mineral/titanium/airless,
+/area/ruin/space/crashedipcship/aft)
 "Sk" = (
 /obj/effect/turf_decal{
 	dir = 6;
@@ -2810,12 +2804,6 @@
 /obj/effect/mob_spawn/headcrab,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
-"UR" = (
-/obj/machinery/power/rad_collector,
-/obj/structure/cable,
-/obj/machinery/atmospherics/pipe/manifold4w/visible,
-/turf/simulated/floor/plating,
-/area/ruin/space/crashedipcship/shard)
 "UU" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2836,17 +2824,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/ruin/space/crashedipcship/engine)
-"Vp" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 9
-	},
-/obj/structure/cable{
-	d2 = 2;
-	icon_state = "0-2"
-	},
-/obj/machinery/power/rad_collector,
-/turf/simulated/floor/plating,
-/area/ruin/space/crashedipcship/shard)
 "Vs" = (
 /obj/structure/cable{
 	icon_state = "4-8";
@@ -2874,6 +2851,12 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
+"VR" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/crashedipcship/engine)
 "VT" = (
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
@@ -2892,6 +2875,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/middle)
+"Xc" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6;
+	level = 1
+	},
+/obj/structure/cable,
+/obj/machinery/power/energy_accumulator/rad_collector,
+/turf/simulated/floor/plating,
+/area/ruin/space/crashedipcship/shard)
 "Xd" = (
 /obj/effect/turf_decal{
 	dir = 1;
@@ -2915,10 +2907,6 @@
 /obj/structure/curtain/black,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/crashedipcship/engine)
-"XD" = (
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
-/turf/simulated/floor/engine,
-/area/ruin/space/crashedipcship/shard)
 "XJ" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
 /obj/effect/turf_decal{
@@ -2992,6 +2980,14 @@
 	},
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/crashedipcship/asteroid)
+"YJ" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/obj/structure/cable,
+/obj/machinery/power/energy_accumulator/rad_collector,
+/turf/simulated/floor/plating,
+/area/ruin/space/crashedipcship/shard)
 "YP" = (
 /obj/effect/turf_decal{
 	dir = 4;
@@ -3030,6 +3026,10 @@
 /obj/structure/spacevine,
 /turf/simulated/floor/grass,
 /area/ruin/space/crashedipcship/asteroid)
+"Zn" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/space/crashedipcship/engine)
 "Zu" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/mapping_helpers/turfs/damage,
@@ -4562,7 +4562,7 @@ Hv
 BH
 ZU
 eh
-Ff
+Si
 wt
 mL
 QX
@@ -5606,7 +5606,7 @@ lZ
 EE
 HW
 wi
-KZ
+VR
 Qd
 uP
 uP
@@ -5650,7 +5650,7 @@ uP
 uP
 uP
 Qd
-RL
+Zn
 gR
 sp
 fx
@@ -5658,7 +5658,7 @@ Sh
 Ai
 pa
 mc
-KZ
+VR
 Qd
 uP
 uP
@@ -5710,7 +5710,7 @@ yy
 Fw
 eO
 UB
-KZ
+VR
 Qd
 uP
 uP
@@ -5809,9 +5809,9 @@ Ah
 UX
 tv
 yz
-AK
+rB
 fx
-AK
+rB
 UU
 aL
 xk
@@ -5911,13 +5911,13 @@ dQ
 dQ
 Ah
 Vs
-HN
+Xc
 Ry
 MS
 Bj
 mF
 Ry
-JH
+qN
 nW
 Ah
 dQ
@@ -5963,13 +5963,13 @@ Ko
 eb
 FX
 sH
-UR
+fz
 Ry
 MS
-XD
+Oe
 mF
 Ry
-vj
+Qz
 XS
 ak
 RW
@@ -6015,13 +6015,13 @@ eb
 ZW
 Ah
 JY
-Hu
+YJ
 Ry
 MS
 Bj
 mF
 Ry
-Vp
+yx
 mH
 Ah
 TJ

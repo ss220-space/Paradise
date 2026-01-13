@@ -202,7 +202,7 @@
 		return
 	if(!iscarbon(source))
 		return
-	for(var/obj/machinery/power/grounding_rod/rod in orange(src, 2))
+	for(var/obj/machinery/power/energy_accumulator/grounding_rod/rod in orange(src, 2))
 		if(rod.anchored)
 			return
 	var/mob/living/carbon/carbon = source
@@ -274,7 +274,7 @@ GLOBAL_LIST_INIT(things_to_shock, typecacheof(list(
 		else if(closest_type >= COIL)
 			continue //no need checking these other things
 
-		else if(istype(A, /obj/machinery/power/tesla_coil))
+		else if(istype(A, /obj/machinery/power/energy_accumulator/tesla_coil))
 			if(!HAS_TRAIT(A, TRAIT_BEING_SHOCKED))
 				closest_type = COIL
 				closest_atom = A
@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(things_to_shock, typecacheof(list(
 		else if(closest_type >= ROD)
 			continue
 
-		else if(istype(A, /obj/machinery/power/grounding_rod))
+		else if(istype(A, /obj/machinery/power/energy_accumulator/grounding_rod))
 			closest_type = ROD
 			closest_atom = A
 

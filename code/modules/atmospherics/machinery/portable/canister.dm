@@ -7,7 +7,7 @@
 	greyscale_colors = "#ffff00#000000"
 	density = TRUE
 	flags = CONDUCT
-	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, RAD = 100, FIRE = 80, ACID = 50)
+	armor = list(MELEE = 50, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 10, FIRE = 80, ACID = 50)
 	integrity_failure = 100
 	cares_about_temperature = TRUE
 	volume = 1000

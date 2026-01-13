@@ -123,6 +123,7 @@ effective or pretty fucking useless.
 	used = TRUE
 	update_icon(UPDATE_ICON_STATE)
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), cooldown)
+	to_chat(user, span_warning("[target] успешно облучен[GEND_A_O_Y(target)]."))
 	addtimer(CALLBACK(src, PROC_REF(delayed_effect), target), (wavelength + (intensity * 4)) SECONDS)
 
 /obj/item/rad_laser/proc/reset_cooldown()
@@ -133,8 +134,7 @@ effective or pretty fucking useless.
 	if(QDELETED(target))
 		return
 	if(intensity >= 5)
-		target.Paralyse((intensity * 40 / 3) SECONDS)
-		target.apply_effect(intensity * 10, IRRADIATE)
+		target.apply_effect(round(intensity / 0.075), EFFECT_UNCONSCIOUS) // to save you some math, this is a round(intensity * (4/3)) second long knockout
 
 /obj/item/rad_laser/attack_self(mob/user)
 	..()

@@ -11,7 +11,7 @@
 	throwforce = 10
 	throw_speed = 1
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 70, ACID = 30)
 	var/machine_name = "Шаблонное название"
 
 	// Built automatically from the corresponding vending machine.

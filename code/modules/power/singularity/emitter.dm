@@ -51,6 +51,10 @@
 		PREPOSITIONAL = "эмиттере"
 	)
 
+/obj/machinery/power/emitter/anchored
+	state = EMITTER_WELDED
+	anchored = TRUE
+
 /obj/machinery/power/emitter/Initialize(mapload)
 	. = ..()
 	component_parts = list()

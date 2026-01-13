@@ -20,14 +20,15 @@
 #define ALERT_GHOST_NEST "ghost_nest"
 
 /** Mob related */
-#define ALERT_BUCKLED "buckled"
-#define ALERT_HANDCUFFED "handcuffed"
-#define ALERT_LEGCUFFED "legcuffed"
-#define ALERT_EMBEDDED "embedded"
-#define ALERT_NUTRITION "nutrition"
-#define ALERT_DIRECTION_LOCK "direction_lock"
-#define ALERT_UNPOSSESS_OBJECT "unpossess_object"
 #define ALERT_BLEEDING "bleeding"
+#define ALERT_BUCKLED "buckled"
+#define ALERT_DIRECTION_LOCK "direction_lock"
+#define ALERT_EMBEDDED "embedded"
+#define ALERT_HANDCUFFED "handcuffed"
+#define ALERT_IRRADIATED "irradiated"
+#define ALERT_LEGCUFFED "legcuffed"
+#define ALERT_NUTRITION "nutrition"
+#define ALERT_UNPOSSESS_OBJECT "unpossess_object"
 
 /** Silicon related */
 #define ALERT_LOCKED "locked"

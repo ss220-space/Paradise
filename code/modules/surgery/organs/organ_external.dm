@@ -22,6 +22,9 @@
 	name = "external"
 	max_damage = 0
 	blocks_emissive = FALSE
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
 	/// External body part zone
 	var/limb_zone
 	/// Used to calculate protection from armor
@@ -106,9 +109,6 @@
 	/// If the organ has been properly attached or not. Limbs on mobs and robotic ones
 	var/properly_attached = FALSE
 
-	light_system = MOVABLE_LIGHT
-	light_on = FALSE
-
 	/// How many bleeding stopped
 	var/bleedsuppress = 0
 	/// Timer for stop blood loss
@@ -118,6 +118,8 @@
 	/// Applyed tourniquet, suppress any bloddloss, but can necrotize bodypart after timer
 	var/obj/item/tourniquet/tourniquet = null
 
+	/// The body zone of this part in english ("chest", "left arm", etc) without the species attached to it
+	var/plaintext_zone
 
 /obj/item/organ/external/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
 	. = ..()

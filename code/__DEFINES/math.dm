@@ -137,6 +137,8 @@
 /// rand() but for floats, returns a random floating point number between L and H
 #define randfloat(L, H) ((L) + rand() * ((H) - (L)))
 
-
 /// Tests if the value is in the given range.
 #define IS_IN_BOUNDS(val, lower, upper) ((val) >= (lower) && (val) <= (upper))
+
+#define SI_COEFFICIENT "coefficient"
+#define SI_UNIT "unit"
