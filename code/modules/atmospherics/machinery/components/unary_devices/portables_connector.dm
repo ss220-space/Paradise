@@ -31,8 +31,10 @@
 	..()
 	if(!connected_device)
 		return 0
+
 	if(parent)
 		parent.update = 1
+		connected_device.update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/I)
 	if(connected_device)

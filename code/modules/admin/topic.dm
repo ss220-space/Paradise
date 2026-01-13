@@ -1613,7 +1613,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
 			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), ITEM_SLOT_CLOTH_INNER)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), ITEM_SLOT_FEET)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black(observer), ITEM_SLOT_FEET)
 		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)

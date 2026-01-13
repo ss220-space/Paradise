@@ -495,7 +495,7 @@
 	},
 /area/shuttle/administration)
 "dK" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/shuttle{
