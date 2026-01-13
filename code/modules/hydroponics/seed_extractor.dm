@@ -250,7 +250,7 @@
 
 /obj/machinery/seed_extractor/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/seeds)
+		get_asset_datum(/datum/asset/spritesheet_batched/seeds)
 	)
 
 /obj/machinery/seed_extractor/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
