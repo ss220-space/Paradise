@@ -13,7 +13,7 @@
 
 	json_data -= "type" // This is used to look us up and doesn't need to be verified like the rest of the data
 
-	ReadJsonData(json_data)
+	read_json_data(json_data)
 	Initialize(icon_file)
 
 /// Override this to do initial set up
@@ -21,15 +21,15 @@
 	return
 
 /// Override this if you need to do something during a full config refresh from disk, return TRUE if something was changed
-/datum/greyscale_layer/proc/DiskRefresh()
+/datum/greyscale_layer/proc/disk_refresh()
 	return FALSE
 
 /// Handles the processing of the json data and conversion to correct value types.
 /// Will error on incorrect, missing, or unexpected values.
-/datum/greyscale_layer/proc/ReadJsonData(list/json_data)
+/datum/greyscale_layer/proc/read_json_data(list/json_data)
 	var/list/required_values = list()
 	var/list/optional_values = list()
-	GetExpectedValues(required_values, optional_values)
+	get_expected_values(required_values, optional_values)
 	for(var/keyname in json_data)
 		if(required_values[keyname] && optional_values[keyname])
 			stack_trace("Key '[keyname]' found in both required and optional lists. Make sure keys are only in one or the other.")
@@ -45,7 +45,7 @@
 		if(!reader)
 			stack_trace("[src] has an invalid json reader type '[required_values[keyname]]' for key '[keyname]'.")
 			continue
-		vars[keyname] = reader.ReadJson(json_data[keyname])
+		vars[keyname] = reader.read_json(json_data[keyname])
 
 	// Final check to make sure we got everything we needed
 	for(var/keyname in required_values)
@@ -56,17 +56,17 @@
 /// Override and add to the two argument lists if you want extra information in your layer.
 /// The lists are formatted like keyname:keytype_define.
 /// The key name is assigned to the var named the same on the layer type.
-/datum/greyscale_layer/proc/GetExpectedValues(list/required_values, list/optional_values)
+/datum/greyscale_layer/proc/get_expected_values(list/required_values, list/optional_values)
 	optional_values[NAMEOF(src, color_ids)] = /datum/json_reader/number_color_list
 	required_values[NAMEOF(src, blend_mode)] = /datum/json_reader/blend_mode
 
 /// Use this proc for extra verification needed by a particular layer, gets run after all greyscale configs have finished reading their json files.
-/datum/greyscale_layer/proc/CrossVerify()
+/datum/greyscale_layer/proc/cross_verify()
 	return
 
 /// Used to actualy create the layer using the given colors
 /// Do not override, use InternalGenerate instead
-/datum/greyscale_layer/proc/Generate(list/colors, list/render_steps, icon/new_icon)
+/datum/greyscale_layer/proc/generate(list/colors, list/render_steps, icon/new_icon)
 	var/list/processed_colors = list()
 	for(var/i in color_ids)
 		if(isnum(i))
@@ -74,11 +74,11 @@
 		else
 			processed_colors += i
 	var/icon/copy_of_new_icon = icon(new_icon) // Layers shouldn't be modifying it directly, this is just for them to reference
-	return InternalGenerate(processed_colors, render_steps, copy_of_new_icon)
+	return internal_generate(processed_colors, render_steps, copy_of_new_icon)
 
 /// Used to actualy create the layer using the given colors
 /// Do not override, use InternalGenerate instead
-/datum/greyscale_layer/proc/GenerateUniversalIcon(list/colors, datum/universal_icon/new_icon)
+/datum/greyscale_layer/proc/generate_universal_icon(list/colors, datum/universal_icon/new_icon)
 	var/list/processed_colors = list()
 	for(var/i in color_ids)
 		if(isnum(i))
@@ -86,16 +86,16 @@
 		else
 			processed_colors += i
 	var/datum/universal_icon/copy_of_new_icon = isnull(new_icon) ? uni_icon('icons/effects/effects.dmi', "nothing") : new_icon.copy() // Layers shouldn't be modifying it directly, this is just for them to reference
-	return InternalGenerateUniversalIcon(processed_colors, copy_of_new_icon)
+	return internal_generate_universal_icon(processed_colors, copy_of_new_icon)
 
 /// Override this to implement layers.
 /// The colors var will only contain colors that this layer is configured to use.
-/datum/greyscale_layer/proc/InternalGenerate(list/colors, list/render_steps, icon/new_icon)
+/datum/greyscale_layer/proc/internal_generate(list/colors, list/render_steps, icon/new_icon)
 	return
 
 /// Override this to implement layers.
 /// The colors var will only contain colors that this layer is configured to use.
-/datum/greyscale_layer/proc/InternalGenerateUniversalIcon(list/colors, datum/universal_icon/new_icon)
+/datum/greyscale_layer/proc/internal_generate_universal_icon(list/colors, datum/universal_icon/new_icon)
 	return new_icon
 
 ////////////////////////////////////////////////////////
@@ -120,18 +120,18 @@
 	if(length(color_ids) > 1)
 		CRASH("Icon state layers can not have more than one color id")
 
-/datum/greyscale_layer/icon_state/GetExpectedValues(list/required_values, list/optional_values)
+/datum/greyscale_layer/icon_state/get_expected_values(list/required_values, list/optional_values)
 	. = ..()
 	required_values[NAMEOF(src, icon_state)] = /datum/json_reader/text
 
-/datum/greyscale_layer/icon_state/InternalGenerate(list/colors, list/render_steps, icon/new_icon)
+/datum/greyscale_layer/icon_state/internal_generate(list/colors, list/render_steps, icon/new_icon)
 	. = ..()
 	var/icon/generated_icon = icon(icon)
 	if(length(colors))
 		generated_icon.Blend(colors[1], ICON_MULTIPLY)
 	return generated_icon
 
-/datum/greyscale_layer/icon_state/InternalGenerateUniversalIcon(list/colors, datum/universal_icon/new_icon)
+/datum/greyscale_layer/icon_state/internal_generate_universal_icon(list/colors, datum/universal_icon/new_icon)
 	. = ..()
 	var/datum/universal_icon/generated_icon = uni_icon(icon_file, icon_state)
 	if(length(colors))
@@ -143,11 +143,11 @@
 	layer_type = "color_matrix"
 	var/list/color_matrix
 
-/datum/greyscale_layer/color_matrix/GetExpectedValues(list/required_values, list/optional_values)
+/datum/greyscale_layer/color_matrix/get_expected_values(list/required_values, list/optional_values)
 	. = ..()
 	required_values[NAMEOF(src, color_matrix)] = /datum/json_reader/color_matrix
 
-/datum/greyscale_layer/color_matrix/InternalGenerate(list/colors, list/render_steps, icon/new_icon)
+/datum/greyscale_layer/color_matrix/internal_generate(list/colors, list/render_steps, icon/new_icon)
 	. = ..()
 	new_icon.MapColors(arglist(color_matrix))
 	return new_icon
@@ -158,31 +158,31 @@
 	var/icon_state = ""
 	var/datum/greyscale_config/reference_type
 
-/datum/greyscale_layer/reference/GetExpectedValues(list/required_values, list/optional_values)
+/datum/greyscale_layer/reference/get_expected_values(list/required_values, list/optional_values)
 	. = ..()
 	optional_values[NAMEOF(src, icon_state)] = /datum/json_reader/text
 	required_values[NAMEOF(src, reference_type)] = /datum/json_reader/greyscale_config
 
-/datum/greyscale_layer/reference/DiskRefresh()
+/datum/greyscale_layer/reference/disk_refresh()
 	. = ..()
-	return reference_type.Refresh(loadFromDisk = TRUE)
+	return reference_type.refresh(load_from_disk = TRUE)
 
-/datum/greyscale_layer/reference/CrossVerify()
+/datum/greyscale_layer/reference/cross_verify()
 	. = ..()
 	if(!reference_type.icon_states[icon_state])
 		CRASH("[src] expects icon_state '[icon_state]' but referenced configuration '[reference_type]' does not have it.")
 
-/datum/greyscale_layer/reference/InternalGenerate(list/colors, list/render_steps, icon/new_icon)
+/datum/greyscale_layer/reference/internal_generate(list/colors, list/render_steps, icon/new_icon)
 	var/icon/generated_icon
 	if(render_steps)
 		var/list/reference_data = list()
-		generated_icon = reference_type.GenerateBundle(colors, reference_data, new_icon)
+		generated_icon = reference_type.generate_bundle(colors, reference_data, new_icon)
 		render_steps += reference_data[icon_state]
 	else
-		generated_icon = reference_type.Generate(colors.Join(), new_icon)
+		generated_icon = reference_type.generate(colors.Join(), new_icon)
 	return icon(generated_icon, icon_state)
 
-/datum/greyscale_layer/reference/InternalGenerateUniversalIcon(list/colors, datum/universal_icon/new_icon)
-	var/datum/universal_icon/generated_icon = reference_type.GenerateUniversalIcon(colors.Join(), icon_state, new_icon)
+/datum/greyscale_layer/reference/internal_generate_universal_icon(list/colors, datum/universal_icon/new_icon)
+	var/datum/universal_icon/generated_icon = reference_type.generate_universal_icon(colors.Join(), icon_state, new_icon)
 	generated_icon = generated_icon.copy()
 	return generated_icon

@@ -53,3 +53,15 @@ EXTERNAL_RSC_URLS http://paradise.download/byond/tgstationv2.zip
 # If this setting is not configured, but the webroot CDN is, that will be used instead of GitHub Pages.
 # If this setting is mpty, and the webroot CDN is disabled, byondstorage will be used.
 # STORAGE_CDN_IFRAME https://ss220-space.github.io/Paradise/assets/iframe.html
+
+## Enables 'smart' asset caching, for assets that support it.
+## This is a type of asset cache that automatically invalidates itself based on inputs to the asset generation.
+## The cache is stored in `data/spritesheets/smart_cache/`.
+## It lowers the generation cost and is safe to enable on development and production.
+## This cache is only cleared by the game or manually, but it shouldn't affect the results.
+## This setting is independent of `CACHE_ASSETS`, they do not affect each other whatsoever.
+SMART_CACHE_ASSETS
+
+## While this is uncommented, server initialization will include some asset generation usually useful for development.
+## It increases initialization time significantly so you'll want to disable this in live environments.
+GENERATE_ASSETS_IN_INIT

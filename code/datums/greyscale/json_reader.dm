@@ -3,21 +3,21 @@
 /datum/json_reader
 
 /// Takes a value read directly from json and verifies/converts as needed to a result
-/datum/json_reader/proc/ReadJson(value)
+/datum/json_reader/proc/read_json(value)
 	return
 
-/datum/json_reader/text/ReadJson(value)
+/datum/json_reader/text/read_json(value)
 	if(!istext(value))
 		CRASH("Text value expected but got '[value]'")
 	return value
 
-/datum/json_reader/number/ReadJson(value)
+/datum/json_reader/number/read_json(value)
 	var/newvalue = text2num(value)
 	if(!isnum(newvalue))
 		CRASH("Number expected but got [newvalue]")
 	return newvalue
 
-/datum/json_reader/number_color_list/ReadJson(list/value)
+/datum/json_reader/number_color_list/read_json(list/value)
 	if(!istype(value))
 		CRASH("Expected a list but got [value]")
 	var/list/new_values = list()
@@ -31,7 +31,7 @@
 		new_values += new_value
 	return new_values
 
-/datum/json_reader/color_matrix/ReadJson(list/value)
+/datum/json_reader/color_matrix/read_json(list/value)
 	if(!istype(value))
 		CRASH("Expected a list but got [value]")
 	if(length(value) > 5 || length(value) < 4)
@@ -62,13 +62,13 @@
 		"underlay" = ICON_UNDERLAY,
 	)
 
-/datum/json_reader/blend_mode/ReadJson(value)
+/datum/json_reader/blend_mode/read_json(value)
 	var/new_value = blend_modes[lowertext(value)]
 	if(isnull(new_value))
 		CRASH("Blend mode expected but got '[value]'")
 	return new_value
 
-/datum/json_reader/greyscale_config/ReadJson(value)
+/datum/json_reader/greyscale_config/read_json(value)
 	var/newvalue = SSgreyscale.configurations[value]
 	if(!newvalue)
 		CRASH("Greyscale configuration type expected but got '[value]'")

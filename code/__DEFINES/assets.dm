@@ -13,4 +13,4 @@
 /// This is a DEFINE for performance reasons.
 /// Parameters (in order):
 /// icon_file, icon_state, dir, frame, transform, color
-#define uni_icon(I, icon_state, rest...) new /datum/universal_icon(I, icon_state, ##rest)
+#define uni_icon(icon, icon_state, rest...) new /datum/universal_icon(icon, icon_state, ##rest)

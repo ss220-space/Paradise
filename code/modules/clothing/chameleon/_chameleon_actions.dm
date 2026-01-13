@@ -327,24 +327,24 @@
 		var/list/worn_configs = fake_item.greyscale_config_worn
 		if(worn_configs)
 			for(var/slot in worn_configs)
-				item_target.onmob_sheets[slot] = SSgreyscale.GetColoredIconByType(
+				item_target.onmob_sheets[slot] = SSgreyscale.get_colored_icon_by_type(
 				worn_configs[slot],
 				fake_item.greyscale_colors,
 			)
 		var/list/species_configs = fake_item.greyscale_config_worn_species
 		if(species_configs)
 			for(var/slot in species_configs)
-				item_target.sprite_sheets[slot] = SSgreyscale.GetColoredIconByType(
+				item_target.sprite_sheets[slot] = SSgreyscale.get_colored_icon_by_type(
 				species_configs[slot],
 				fake_item.greyscale_colors,
 			)
 		if(fake_item.greyscale_config_inhand_left)
-			item_target.lefthand_file = SSgreyscale.GetColoredIconByType(
+			item_target.lefthand_file = SSgreyscale.get_colored_icon_by_type(
 				fake_item.greyscale_config_inhand_left,
 				fake_item.greyscale_colors,
 			)
 		if(fake_item.greyscale_config_inhand_right)
-			item_target.righthand_file = SSgreyscale.GetColoredIconByType(
+			item_target.righthand_file = SSgreyscale.get_colored_icon_by_type(
 				fake_item.greyscale_config_inhand_right,
 				fake_item.greyscale_colors,
 			)

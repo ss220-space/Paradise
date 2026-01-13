@@ -665,7 +665,7 @@
 
 /// Checks if this atom uses the GAS system and if so updates the icon
 /atom/proc/update_greyscale()
-	icon = SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors)
+	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
 
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()

@@ -48,13 +48,13 @@
 	src.apply_callback = apply_callback
 	if(!apply_callback)
 		if(atom_target)
-			src.apply_callback = CALLBACK(src, PROC_REF(DefaultApply))
+			src.apply_callback = CALLBACK(src, PROC_REF(default_apply))
 		else
 			stack_trace("A geyscale modify menu was instantiated with a non-atom target and no specified apply callback (DefaultApply won't do).")
 
 	icon_state = starting_icon_state
 
-	SetupConfigOwner()
+	setup_config_owner()
 
 
 	var/current_config = "[starting_config]" || "[atom_target?.greyscale_config]"
@@ -64,7 +64,7 @@
 	change_config(new_config)
 
 	if(unlocked)
-		Unlock()
+		unlock()
 	else
 		var/list/config_choices = list()
 		for(var/config_string in allowed_configs)
@@ -73,7 +73,7 @@
 
 		src.allowed_configs = config_choices
 
-	ReadColorsFromString(starting_colors || atom_target?.greyscale_colors)
+	read_colors_from_string(starting_colors || atom_target?.greyscale_colors)
 
 	if(target)
 		RegisterSignal(target, COMSIG_QDELETING, PROC_REF(ui_close))
@@ -126,12 +126,13 @@
 		return
 	switch(action)
 		if("select_config")
-			var/datum/greyscale_config/new_config = input(
+			var/datum/greyscale_config/new_config = tgui_input_list(
 				usr,
 				"Choose a new greyscale configuration to use",
 				"Greyscale Modification Menu",
+				allowed_configs,
 				"[config.type]"
-			) as anything in allowed_configs
+			)
 			new_config = allowed_configs[new_config]
 			new_config = SSgreyscale.configurations[new_config] || new_config
 			if(!isnull(new_config) && config != new_config)
@@ -161,7 +162,7 @@
 
 		if("recolor_from_string")
 			var/full_color_string = LOWER_TEXT(params["color_string"])
-			if(full_color_string != split_colors.Join() && ReadColorsFromString(full_color_string))
+			if(full_color_string != split_colors.Join() && read_colors_from_string(full_color_string))
 				queue_refresh()
 
 		if("pick_color")
@@ -200,22 +201,24 @@
 			if(!unlocked || !check_rights(R_DEBUG))
 				return
 			if(length(GLOB.player_list) > 1)
-				var/check = alert(
+				var/check = tgui_alert(
 					user,
 {"Other players are connected to the server, are you sure you want to refresh all greyscale configurations?\n
 This is highly likely to cause a lag spike for a few seconds."},
-					"Refresh Greyscale Configurations",
-					"Yes",
-					"Cancel"
+					list(
+						"Refresh Greyscale Configurations",
+						"Yes",
+						"Cancel"
+					)
 				)
 				if(check != "Yes")
 					return
-			config.Refresh(loadFromDisk=TRUE)
+			config.refresh(load_from_disk = TRUE)
 
 		if("save_dmi")
 			if(!unlocked)
 				return
-			config.SaveOutput(split_colors.Copy(1, config.expected_colors+1))
+			config.save_output(split_colors.Copy(1, config.expected_colors + 1))
 
 		if("change_dir")
 			sprite_dir = text2dir(params["new_sprite_dir"])
@@ -225,22 +228,26 @@ This is highly likely to cause a lag spike for a few seconds."},
 			if(!unlocked || !check_rights(R_DEBUG))
 				return
 			if(config.datum_flags & DF_ISPROCESSING)
-				config.DisableAutoRefresh(remove_all=TRUE)
+				config.disable_auto_refresh(remove_all = TRUE)
 				return
 			if(length(GLOB.player_list) > 1)
-				var/check = alert(
+				var/check = tgui_alert(
 					user,
 {"Other players are connected to the server, are you sure you want to automatically refresh all greyscale configurations?\n
 This is highly likely to cause massive amounts of lag as every object in the game will be iterated over every few seconds."},
-					"Auto-Refresh Greyscale Configurations",
-					"Yes",
-					"Cancel"
+					list(
+						"Auto-Refresh Greyscale Configurations",
+						"Yes",
+						"Cancel"
+					)
 				)
+
 				if(check != "Yes")
 					return
-			config.EnableAutoRefresh(config_owner_type)
 
-/datum/greyscale_modify_menu/proc/ReadColorsFromString(colorString)
+			config.enable_auto_refresh(config_owner_type)
+
+/datum/greyscale_modify_menu/proc/read_colors_from_string(colorString)
 	//length validation
 	var/list/colors = splittext(colorString, "#")
 	if(length(colors) <= 1) //doesn't even begin with a # so isn't even a color
@@ -302,10 +309,10 @@ This is highly likely to cause massive amounts of lag as every object in the gam
 	var/image/finished
 	var/time_spent = TICK_USAGE
 	if(!generate_full_preview)
-		finished = image(config.GenerateBundle(used_colors), icon_state=icon_state)
+		finished = image(config.generate_bundle(used_colors), icon_state=icon_state)
 		time_spent = TICK_USAGE - time_spent
 	else
-		var/list/data = config.GenerateDebug(used_colors.Join())
+		var/list/data = config.generate_debug(used_colors.Join())
 		time_spent = TICK_USAGE - time_spent
 		finished = image(data["icon"], icon_state=icon_state)
 		var/list/steps = list()
@@ -327,17 +334,17 @@ This is highly likely to cause massive amounts of lag as every object in the gam
 	sprite_data["finished"] = icon2html(finished, user, dir=sprite_dir, sourceonly=TRUE)
 	refreshing = FALSE
 
-/datum/greyscale_modify_menu/proc/Unlock()
+/datum/greyscale_modify_menu/proc/unlock()
 	allowed_configs = SSgreyscale.configurations
 	unlocked = TRUE
 
-/datum/greyscale_modify_menu/proc/DefaultApply()
+/datum/greyscale_modify_menu/proc/default_apply()
 	var/atom/atom_target = target
 	atom_target.set_greyscale_config(config.type)
 	atom_target.set_greyscale_colors(split_colors)
 
 /// Gets the top level type that first uses the configuration in this type path
-/datum/greyscale_modify_menu/proc/SetupConfigOwner()
+/datum/greyscale_modify_menu/proc/setup_config_owner()
 	if(!isatom(target))
 		return
 

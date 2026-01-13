@@ -3,7 +3,7 @@
 	name = "gift"
 	desc = "Ураа!! Подарочееек!"
 	icon = 'icons/obj/storage/wrapping.dmi'
-	icon_state = "giftdeliverypackage3_base"
+	icon_state = "giftdeliverybox_map"
 	item_state = "gift"
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY

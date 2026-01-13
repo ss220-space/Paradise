@@ -62,7 +62,7 @@
 		var/our_color = param_color || pick(wirecutter_colors)
 		set_greyscale_colors(list(wirecutter_colors[our_color]))
 		item_state = null
-		colored_belt_appearance = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/wirecutters_belt, greyscale_colors))
+		colored_belt_appearance = mutable_appearance(SSgreyscale.get_colored_icon_by_type(/datum/greyscale_config/wirecutters_belt, greyscale_colors))
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 

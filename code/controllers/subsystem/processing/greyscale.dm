@@ -23,6 +23,7 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	for(var/greyscale_type in subtypesof(/datum/greyscale_config))
 		var/datum/greyscale_config/config = new greyscale_type()
 		configurations["[greyscale_type]"] = config
+
 #ifdef USE_RUSTG_ICONFORGE_GAGS
 	var/list/job_ids = list()
 #endif
@@ -30,13 +31,14 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	for(var/greyscale_type in configurations)
 		CHECK_TICK
 		var/datum/greyscale_config/config = configurations[greyscale_type]
-		config.Refresh()
+		config.refresh()
 
 	// This final verification step is for things that need other greyscale configurations to be finished loading
 	for(var/greyscale_type in configurations)
 		CHECK_TICK
 		var/datum/greyscale_config/config = configurations[greyscale_type]
-		config.CrossVerify()
+		config.cross_verify()
+
 #ifdef USE_RUSTG_ICONFORGE_GAGS
 		job_ids += rustlib_iconforge_load_gags_config_async(greyscale_type, config.raw_json_string, config.string_icon_file)
 
@@ -48,38 +50,50 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 /datum/controller/subsystem/processing/greyscale/proc/jobs_completed(list/job_ids)
 	for(var/job in job_ids)
 		var/result = rustlib_iconforge_check(job)
+
 		if(result == RUSTLIBS_JOB_NO_RESULTS_YET)
 			return FALSE
+
 		if(result != "OK")
-			stack_trace("Error during rustg_iconforge_load_gags_config job: [result]")
+			stack_trace("Error during rustlib_iconforge_load_gags_config job: [result]")
+
 		job_ids -= job
 	return TRUE
 #endif
 
-/datum/controller/subsystem/processing/greyscale/proc/RefreshConfigsFromFile()
+/datum/controller/subsystem/processing/greyscale/proc/refresh_configs_from_file()
 	for(var/i in configurations)
-		configurations[i].Refresh(TRUE)
+		configurations[i].refresh(TRUE)
 
-/datum/controller/subsystem/processing/greyscale/proc/GetColoredIconByType(type, list/colors)
+/datum/controller/subsystem/processing/greyscale/proc/get_colored_icon_by_type(type, list/colors)
 	if(!ispath(type, /datum/greyscale_config))
-		CRASH("An invalid greyscale configuration was given to `GetColoredIconByType()`: [type]")
+		CRASH("An invalid greyscale configuration was given to `get_colored_icon_by_type()`: [type]")
+
 	if(!initialized)
-		CRASH("GetColoredIconByType() called before greyscale subsystem initialized!")
+		CRASH("get_colored_icon_by_type() called before greyscale subsystem initialized!")
+
 	type = "[type]"
+
 	if(istype(colors)) // It's the color list format
 		colors = colors.Join()
+
 	else if(!istext(colors))
-		CRASH("Invalid colors were given to `GetColoredIconByType()`: [colors]")
+		CRASH("Invalid colors were given to `get_colored_icon_by_type()`: [colors]")
+
 #ifdef USE_RUSTG_ICONFORGE_GAGS
 	var/uid = "[replacetext(replacetext(type, "/datum/greyscale_config/", ""), "/", "-")]-[colors]"
 	var/cached_file = gags_cache[uid]
+
 	if(cached_file)
 		return cached_file
+
 	var/output_path = "tmp/gags/icons/gags-[uid].dmi"
 	var/iconforge_output = rustlib_iconforge_gags(type, colors, output_path)
+
 	// Handle errors from IconForge
 	if(iconforge_output != "OK")
 		CRASH(iconforge_output)
+
 	// We'll just explicitly do fcopy_rsc here, so the game doesn't have to do it again later from the cached file.
 	var/rsc_gags_icon = fcopy_rsc(file(output_path))
 	gags_cache[uid] = rsc_gags_icon
@@ -88,20 +102,18 @@ PROCESSING_SUBSYSTEM_DEF(greyscale)
 	return configurations[type].Generate(colors)
 #endif
 
-/datum/controller/subsystem/processing/greyscale/proc/GetColoredIconByTypeUniversalIcon(type, list/colors, target_icon_state)
+/datum/controller/subsystem/processing/greyscale/proc/get_colored_icon_by_type_universal_icon(type, list/colors, target_icon_state)
 	if(!ispath(type, /datum/greyscale_config))
-		CRASH("An invalid greyscale configuration was given to `GetColoredIconByTypeUniversalIcon()`: [type]")
+		CRASH("An invalid greyscale configuration was given to `get_colored_icon_by_type_universal_icon()`: [type]")
+
 	type = "[type]"
+
 	if(istype(colors)) // It's the color list format
 		colors = colors.Join()
-	else if(!istext(colors))
-		CRASH("Invalid colors were given to `GetColoredIconByTypeUniversalIcon()`: [colors]")
-	return configurations[type].GenerateUniversalIcon(colors, target_icon_state)
 
-/datum/controller/subsystem/processing/greyscale/proc/ParseColorString(color_string)
-	. = list()
-	var/list/split_colors = splittext(color_string, "#")
-	for(var/color in 2 to length(split_colors))
-		. += "#[split_colors[color]]"
+	else if(!istext(colors))
+		CRASH("Invalid colors were given to `get_colored_icon_by_type_universal_icon()`: [colors]")
+
+	return configurations[type].generate_universal_icon(colors, target_icon_state)
 
 #undef USE_RUSTG_ICONFORGE_GAGS

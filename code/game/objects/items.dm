@@ -1257,14 +1257,14 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 	if(greyscale_config_worn)
 		for(var/config in greyscale_config_worn)
-			onmob_sheets[config] = SSgreyscale.GetColoredIconByType(greyscale_config_worn[config], greyscale_colors)
+			onmob_sheets[config] = SSgreyscale.get_colored_icon_by_type(greyscale_config_worn[config], greyscale_colors)
 	if(greyscale_config_worn_species)
 		for(var/config in greyscale_config_worn_species)
-			sprite_sheets[config] = SSgreyscale.GetColoredIconByType(greyscale_config_worn_species[config], greyscale_colors)
+			sprite_sheets[config] = SSgreyscale.get_colored_icon_by_type(greyscale_config_worn_species[config], greyscale_colors)
 	if(greyscale_config_inhand_left)
-		lefthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_left, greyscale_colors)
+		lefthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_left, greyscale_colors)
 	if(greyscale_config_inhand_right)
-		righthand_file = SSgreyscale.GetColoredIconByType(greyscale_config_inhand_right, greyscale_colors)
+		righthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_right, greyscale_colors)
 	return
 
 /obj/item/proc/add_tape()

@@ -14,10 +14,10 @@ SUBSYSTEM_DEF(greyscale_previews)
 		return SS_INIT_SUCCESS
 #endif
 
-	ExportMapPreviews()
+	export_map_previews()
 	return SS_INIT_SUCCESS
 
-/datum/controller/subsystem/greyscale_previews/proc/ExportMapPreviews()
+/datum/controller/subsystem/greyscale_previews/proc/export_map_previews()
 	// Put subtypes before their parent or the parent file will take all the generated icons
 	var/static/list/types_that_get_their_own_file = list(
 		"turfs" = /turf, // None of these yet but it's harmless to be prepared
@@ -46,9 +46,9 @@ SUBSYSTEM_DEF(greyscale_previews)
 	var/list/handled_types = list()
 	for(var/filename in types_that_get_their_own_file)
 		var/type_to_export = types_that_get_their_own_file[filename]
-		handled_types += ExportMapPreviewsForType(filename, type_to_export, handled_types)
+		handled_types += export_map_previews_for_type(filename, type_to_export, handled_types)
 
-	ExportMapPreviewsForType("unsorted", /atom, handled_types)
+	export_map_previews_for_type("unsorted", /atom, handled_types)
 
 /// Checks that we do not have any parent types coming before subtypes in the types_that_get_their_own_file list (which is an assoc list (filepath, typepath))
 /datum/controller/subsystem/greyscale_previews/proc/check_map_previews_filepath_order(list/our_list)
@@ -63,39 +63,47 @@ SUBSYSTEM_DEF(greyscale_previews)
 		var/path_i = type_paths_to_check[i]
 		for(var/j = i+1 to length(type_paths_to_check))
 			var/path_j = type_paths_to_check[j]
+
 			if(ispath(path_j, path_i))
 				stack_trace("Error: [path_j] (index [j]) is a subtype of [path_i] (index [i]) but appears after it.")
 				return FALSE
 	return TRUE
 
-/datum/controller/subsystem/greyscale_previews/proc/ExportMapPreviewsForType(filename, atom/atom_typepath, list/type_blacklist)
+/datum/controller/subsystem/greyscale_previews/proc/export_map_previews_for_type(filename, atom/atom_typepath, list/type_blacklist)
 	var/list/handled_types = list()
 	var/list/icons = list()
 	for(var/atom/atom_type as anything in typesof(atom_typepath))
 		if(type_blacklist && type_blacklist[atom_type])
 			continue
+
 		handled_types[atom_type] = TRUE
 		var/greyscale_config = atom_type::greyscale_config
 		var/greyscale_colors = atom_type::greyscale_colors
+
 		if(!greyscale_config || !greyscale_colors || atom_type::flags & NO_NEW_GAGS_PREVIEW)
 			continue
+
 	#ifdef CHECK_SPRITESHEET_ICON_VALIDITY
-		var/icon/map_icon = icon(SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors))
+		var/icon/map_icon = icon(SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors))
+
 		if((map_icon.Height() > 32) || (map_icon.Width() > 32)) // No large icons, use icon_preview and icon_preview_state instead.
 			stack_trace("GAGS configuration is trying to generate a map preview graphic for '[atom_type]', which has a large icon. This is not suppoorted; implement icon_preview instead.")
 			continue
+
 		if(!(atom_type::post_init_icon_state in map_icon.IconStates()))
 			stack_trace("GAGS configuration missing icon state needed to generate map preview graphic for '[atom_type]'. Make sure the right greyscale_config is set up.")
 			continue
+
 		map_icon = icon(map_icon, atom_type::post_init_icon_state)
 		icons["[atom_type]"] = map_icon
 	#else // will be updated to use iconforge's new .dmi spritesheet generation instead
-		var/icon/map_icon = icon(SSgreyscale.GetColoredIconByType(greyscale_config, greyscale_colors))
+		var/icon/map_icon = icon(SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors))
 		map_icon = icon(map_icon, atom_type::post_init_icon_state)
 		icons["[atom_type]"] = map_icon
 	#endif
 
 	var/icon/holder = icon('icons/testing/greyscale_error.dmi')
+
 	for(var/state in icons)
 		holder.Insert(icons[state], state)
 

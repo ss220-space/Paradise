@@ -10,7 +10,7 @@
 	var/datum/icon_transformer/transform
 
 /// Don't instantiate these yourself, use uni_icon.
-/datum/universal_icon/New(icon/icon_file, icon_state="", dir=null, frame=null, datum/icon_transformer/transform=null, color=null)
+/datum/universal_icon/New(icon/icon_file, icon_state="", dir = null, frame = null, datum/icon_transformer/transform = null, color = null)
 	#ifdef TEST_RUNNER
 	// This check is kinda slow and shouldn't fail unless a developer makes a mistake. So it'll get caught in unit tests.
 	if(!isicon(icon_file) || !isfile(icon_file) || "[icon_file]" == "/icon" || !length("[icon_file]"))
@@ -22,10 +22,10 @@
 	src.dir = dir
 	src.frame = frame
 	if(isnull(transform) && !isnull(color) && uppertext(color) != "#FFFFFF")
-		var/datum/icon_transformer/T = new()
+		var/datum/icon_transformer/transformer = new()
 		if(color)
-			T.blend_color(color, ICON_MULTIPLY)
-		src.transform = T
+			transformer.blend_color(color, ICON_MULTIPLY)
+		src.transform = transformer
 	else if(!isnull(transform))
 		src.transform = transform
 	else // null = empty list
@@ -44,7 +44,7 @@
 	transform.blend_color(color, blend_mode)
 	return src
 
-/datum/universal_icon/proc/blend_icon(datum/universal_icon/icon_object, blend_mode, x=1, y=1)
+/datum/universal_icon/proc/blend_icon(datum/universal_icon/icon_object, blend_mode, x = 1, y = 1)
 	if(!transform)
 		transform = new
 	transform.blend_icon(icon_object, blend_mode, x, y)
@@ -74,7 +74,7 @@
 	transform.rotate(angle)
 	return src
 
-/datum/universal_icon/proc/shift(dir, offset, wrap=0)
+/datum/universal_icon/proc/shift(dir, offset, wrap = 0)
 	if(!transform)
 		transform = new
 	transform.shift(dir, offset, wrap)
@@ -86,7 +86,7 @@
 	transform.swap_color(src_color, dst_color)
 	return src
 
-/datum/universal_icon/proc/draw_box(color, x1, y1, x2=x1, y2=y1)
+/datum/universal_icon/proc/draw_box(color, x1, y1, x2 = x1, y2 = y1)
 	if(!transform)
 		transform = new
 	transform.draw_box(color, x1, y1, x2, y2)
@@ -121,7 +121,7 @@
 	transform.map_colors(rr, rg, rb, 0, gr, gg, gb, 0, br, bg, bb, 0, 0, 0, 0, 1, r0, g0, b0, 0)
 	return src
 
-/datum/universal_icon/proc/map_colors_rgb_hex(r_rgb, g_rgb, b_rgb, rgb0=rgb(0,0,0))
+/datum/universal_icon/proc/map_colors_rgb_hex(r_rgb, g_rgb, b_rgb, rgb0=rgb(0, 0, 0))
 	if(!transform)
 		transform = new
 	var/rr = hex2num(copytext(r_rgb, 2, 4)) / 255
@@ -196,9 +196,9 @@
 
 /datum/universal_icon/proc/to_icon()
 	RETURN_TYPE(/icon)
-	var/icon/self = icon(src.icon_file, src.icon_state, dir=src.dir, frame=src.frame)
-	if(istype(src.transform))
-		src.transform.apply(self)
+	var/icon/self = icon(icon_file, icon_state, dir = dir, frame = frame)
+	if(istype(transform))
+		transform.apply(self)
 	return self
 
 /datum/icon_transformer
@@ -214,16 +214,20 @@
 		switch(transform["type"])
 			if(RUSTLIB_ICONFORGE_BLEND_COLOR)
 				target.Blend(transform["color"], transform["blend_mode"])
+
 			if(RUSTLIB_ICONFORGE_BLEND_ICON)
 				var/datum/universal_icon/icon_object = transform["icon"]
 				if(!istype(icon_object))
 					stack_trace("Invalid icon found in icon transformer during apply()! [icon_object]")
 					continue
 				target.Blend(icon_object.to_icon(), transform["blend_mode"], transform["x"], transform["y"])
+
 			if(RUSTLIB_ICONFORGE_SCALE)
 				target.Scale(transform["width"], transform["height"])
+
 			if(RUSTLIB_ICONFORGE_CROP)
 				target.Crop(transform["x1"], transform["y1"], transform["x2"], transform["y2"])
+
 			if(RUSTLIB_ICONFORGE_MAP_COLORS)
 				target.MapColors(
 					transform["rr"], transform["rg"], transform["rb"], transform["ra"],
@@ -232,14 +236,19 @@
 					transform["ar"], transform["ag"], transform["ab"], transform["aa"],
 					transform["r0"], transform["g0"], transform["b0"], transform["a0"],
 				)
+
 			if(RUSTLIB_ICONFORGE_FLIP)
 				target.Flip(transform["dir"])
+
 			if(RUSTLIB_ICONFORGE_TURN)
 				target.Turn(transform["angle"])
+
 			if(RUSTLIB_ICONFORGE_SHIFT)
 				target.Shift(transform["dir"], transform["offset"], transform["wrap"])
+
 			if(RUSTLIB_ICONFORGE_SWAP_COLOR)
 				target.SwapColor(transform["src_color"], transform["dst_color"])
+
 			if(RUSTLIB_ICONFORGE_DRAW_BOX)
 				target.DrawBox(transform["color"], transform["x1"], transform["y1"], transform["x2"], transform["y2"])
 	return target
@@ -261,7 +270,7 @@
 	#endif
 	transforms += list(list("type" = RUSTLIB_ICONFORGE_BLEND_COLOR, "color" = color, "blend_mode" = blend_mode))
 
-/datum/icon_transformer/proc/blend_icon(datum/universal_icon/icon_object, blend_mode, x=1, y=1)
+/datum/icon_transformer/proc/blend_icon(datum/universal_icon/icon_object, blend_mode, x = 1, y = 1)
 	#ifdef TEST_RUNNER
 	// icon_object's type is checked later in to_list
 	if(!isnum(blend_mode))
@@ -322,7 +331,7 @@
 	#endif
 	transforms += list(list("type" = RUSTLIB_ICONFORGE_DRAW_BOX, "color" = color, "x1" = x1, "y1" = y1, "x2" = x2, "y2" = y2))
 
-/datum/icon_transformer/proc/map_colors(rr, rg, rb, ra, gr, gg, gb, ga, br, bg, bb, ba, ar, ag, ab, aa, r0=0, g0=0, b0=0, a0=0)
+/datum/icon_transformer/proc/map_colors(rr, rg, rb, ra, gr, gg, gb, ga, br, bg, bb, ba, ar, ag, ab, aa, r0 = 0, g0 = 0, b0 = 0, a0 = 0)
 	transforms += list(list(
 		"type" = RUSTLIB_ICONFORGE_MAP_COLORS,
 		"rr" = rr, "rg" = rg, "rb" = rb, "ra" = ra,
@@ -378,7 +387,7 @@
 		CRASH("gags_to_universal_icon() received an invalid path of \"[path]\"!")
 	var/datum/greyscale_config/config = initial(path.greyscale_config)
 	var/colors = initial(path.greyscale_colors)
-	var/datum/universal_icon/entry = SSgreyscale.GetColoredIconByTypeUniversalIcon(config, colors, path::post_init_icon_state || path::icon_state)
+	var/datum/universal_icon/entry = SSgreyscale.get_colored_icon_by_type_universal_icon(config, colors, path::post_init_icon_state || path::icon_state)
 	return entry
 
 /// Gets the relevant universal icon for an atom, when displayed in TGUI. (see: icon_state_preview)
@@ -594,7 +603,7 @@
 		var/datum/universal_icon/final_icon = uni_icon(curicon, curstate, base_icon_dir)
 
 		if(appearance.alpha < 255)
-			final_icon.blend_color(rgb(255,255,255, appearance.alpha), ICON_MULTIPLY)
+			final_icon.blend_color(rgb(255, 255, 255, appearance.alpha), ICON_MULTIPLY)
 
 		if(appearance.color)
 			if(islist(appearance.color))

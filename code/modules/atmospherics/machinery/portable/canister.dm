@@ -259,13 +259,6 @@
 
 	if(!greyscale_colors)
 		return data
-
-	var/list/color_container = list()
-	var/list/colors = ParseColorString(greyscale_colors)
-	color_container["primaryColor"] = colors[1]
-	if(length(colors) > 1)
-		color_container["secondaryColor"] = colors[2]
-	data["colorContainer"] = color_container
 	return data
 
 /obj/machinery/portable_atmospherics/canister/ui_act(action, params)

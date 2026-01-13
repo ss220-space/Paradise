@@ -65,7 +65,7 @@
 	if(random_color)
 		var/our_color = param_color || pick(screwdriver_colors)
 		set_greyscale_colors(list(screwdriver_colors[our_color]))
-		colored_belt_appearance = mutable_appearance(SSgreyscale.GetColoredIconByType(/datum/greyscale_config/screwdriver_belt, greyscale_colors))
+		colored_belt_appearance = mutable_appearance(SSgreyscale.get_colored_icon_by_type(/datum/greyscale_config/screwdriver_belt, greyscale_colors))
 	. = ..()
 	if(prob(75))
 		pixel_y = rand(0, 16)
