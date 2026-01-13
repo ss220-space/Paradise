@@ -299,7 +299,7 @@
 		to_generate += list(args.Copy())
 
 /datum/asset/spritesheet/proc/queuedInsert(sprite_name, icon/inserted_icon, icon_state="", dir=SOUTH, frame=1, moving=FALSE)
-#ifdef UNIT_TESTS
+#ifdef TEST_RUNNER
 	if(inserted_icon && icon_state && !icon_exists(inserted_icon, icon_state)) // check the base icon prior to extracting the state we want
 		stack_trace("Tried to insert nonexistent icon_state '[icon_state]' from [inserted_icon] into spritesheet [name] ([type])")
 		return

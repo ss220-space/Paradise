@@ -277,7 +277,7 @@
 	for(var/obj/item/item_type as anything in chameleon_typecache)
 		if(chameleon_blacklist[item_type] || (item_type::item_flags & ABSTRACT) || !item_type::icon_state)
 			continue
-		var/chameleon_item_name = "[replacetext(item_type::name, "\improper","")]_[item_type::post_init_icon_state || item_type::icon_state]"
+		var/chameleon_item_name = "[replacetext(item_type::name, "\improper","")]_[item_type::icon_state]"
 		var/item_exist = FALSE
 		for(var/existing_item_name in chameleon_list[chameleon_name])
 			if(existing_item_name == chameleon_item_name)

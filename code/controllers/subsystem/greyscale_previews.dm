@@ -1,5 +1,5 @@
 /// If we are in unit tests OR if we are not using iconforge, then we should make sure the icons we are using are valid.
-#if !defined(USE_RUSTG_ICONFORGE_GAGS) || defined(UNIT_TESTS)
+#if !defined(USE_RUSTG_ICONFORGE_GAGS) || defined(TEST_RUNNER)
 	#define CHECK_SPRITESHEET_ICON_VALIDITY
 #endif
 
@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(greyscale_previews)
 	init_order = INIT_ORDER_GREYSCALE_PREVIEW
 
 /datum/controller/subsystem/greyscale_previews/Initialize()
-#ifndef UNIT_TESTS // We want this to run during unit tests regardless of the config
+#ifndef TEST_RUNNER // We want this to run during unit tests regardless of the config
 	if(!CONFIG_GET(flag/generate_assets_in_init))
 		return SS_INIT_SUCCESS
 #endif
@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(greyscale_previews)
 		"objects" = /obj,
 )
 
-#ifdef UNIT_TESTS
+#ifdef TEST_RUNNER
 	if(!check_map_previews_filepath_order(types_that_get_their_own_file))
 		CRASH("The list 'types_that_get_their_own_file', used by ExportMapPreviews, is invalid. Please ensure that subtypes come BEFORE parent types in the list order.")
 #endif
@@ -100,11 +100,11 @@ SUBSYSTEM_DEF(greyscale_previews)
 		holder.Insert(icons[state], state)
 
 	var/filepath = "icons/map_icons/[filename].dmi"
-#ifdef UNIT_TESTS
+#ifdef TEST_RUNNER
 	var/old_md5 = rustlib_hash_file(RUSTLIB_HASH_MD5, filepath)
 #endif
 	fcopy(holder, filepath)
-#ifdef UNIT_TESTS
+#ifdef TEST_RUNNER
 	var/new_md5 = rustlib_hash_file(RUSTLIB_HASH_MD5, filepath)
 	if(old_md5 != new_md5)
 		stack_trace("Generated map icons were different than what is currently saved. If you see this in a CI run it means you need to run the game once through initialization and commit the resulting files in 'icons/map_icons/'")

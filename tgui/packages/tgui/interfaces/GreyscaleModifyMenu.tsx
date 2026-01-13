@@ -1,8 +1,8 @@
-import { useBackend } from '../backend';
 import {
   Box,
   Button,
   ColorBox,
+  Divider,
   Flex,
   Icon,
   Image,
@@ -11,8 +11,9 @@ import {
   Section,
   Stack,
   Table,
-  Divider,
-} from '../components';
+} from 'tgui/components';
+
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 
 type ColorEntry = {
@@ -76,7 +77,7 @@ const ConfigDisplay = (_props) => {
           <Button icon="cogs" onClick={() => act('select_config')} />
           <Input
             value={data.greyscale_config}
-            onChange={(value) =>
+            onBlur={(value) =>
               act('load_config_from_string', { config_string: value })
             }
           />
@@ -86,7 +87,7 @@ const ConfigDisplay = (_props) => {
   );
 };
 
-const ColorDisplay = (_props: unknown) => {
+const ColorDisplay = (_props) => {
   const { act, data } = useBackend<GreyscaleMenuData>();
   const colors = data.colors || [];
   return (
@@ -100,7 +101,7 @@ const ColorDisplay = (_props: unknown) => {
           />
           <Input
             value={colors.map((item) => item.value).join('')}
-            onChange={(value) =>
+            onBlur={(value) =>
               act('recolor_from_string', { color_string: value })
             }
           />
@@ -115,6 +116,7 @@ const ColorDisplay = (_props: unknown) => {
             <Button
               icon="palette"
               onClick={() => act('pick_color', { color_index: item.index })}
+              tooltip="Brings up a color pick window to replace this color group."
             />
             <Button
               icon="dice"
@@ -124,7 +126,7 @@ const ColorDisplay = (_props: unknown) => {
             <Input
               value={item.value}
               width={7}
-              onChange={(value) =>
+              onBlur={(value) =>
                 act('recolor', { color_index: item.index, new_color: value })
               }
             />
@@ -146,7 +148,7 @@ const PreviewCompassSelect = (_props) => {
         </Flex>
         <Flex>
           <SingleDirection dir={Direction.West} />
-          <Flex.Item grow={1} basis={0}>
+          <Flex.Item grow={1} basis={0} m={0.5}>
             <Button lineHeight={3} m={-0.2} fluid>
               <Icon name="arrows-alt" size={1.5} m="20%" />
             </Button>
@@ -167,11 +169,11 @@ const SingleDirection = (props) => {
   const { dir } = props;
   const { data, act } = useBackend<GreyscaleMenuData>();
   return (
-    <Flex.Item grow={1} basis={0}>
+    <Flex.Item grow={1} basis={0} m={0.5}>
       <Button
-        disabled={`${dir}` === data.sprites_dir ? true : false}
-        textAlign="center"
         tooltip={`Sets the direction of the preview sprite to ${dir}`}
+        disabled={`${dir}` === data.sprites_dir}
+        textAlign="center"
         onClick={() => act('change_dir', { new_sprite_dir: dir })}
         lineHeight={3}
         m={-0.2}
@@ -204,30 +206,27 @@ const IconStatesDisplay = (_props) => {
   );
 };
 
-const PreviewDisplay = (_props: unknown) => {
+const PreviewDisplay = (_props) => {
   const { data } = useBackend<GreyscaleMenuData>();
   return (
     <Section title={`Preview (${data.sprites_dir})`}>
-      <Table>
-        <Table.Row>
-          <Table.Cell width="50%">
-            <PreviewCompassSelect />
-          </Table.Cell>
-          {data.sprites?.finished ? (
-            <Table.Cell>
-              <Image src={data.sprites.finished} m={0} width="75%" mx="10%" />
-            </Table.Cell>
-          ) : (
-            <Table.Cell>
-              <Box>
-                <Icon name="image" ml="25%" size={5} />
-              </Box>
-            </Table.Cell>
-          )}
-        </Table.Row>
-      </Table>
-      {!!data.generate_full_preview &&
-        `Time Spent: ${data.sprites.time_spent}ms`}
+      <Stack>
+        <Stack.Item width="50%">
+          <PreviewCompassSelect />
+        </Stack.Item>
+        {data.sprites?.finished ? (
+          <Stack.Item>
+            <Image m={0} mx="10%" src={data.sprites.finished} height="100%" />
+          </Stack.Item>
+        ) : (
+          <Stack.Item>
+            <Box>
+              <Icon name="image" ml="25%" size={5} />
+            </Box>
+          </Stack.Item>
+        )}
+      </Stack>
+      {!!data.unlocked && `Time Spent: ${data.sprites.time_spent}ms`}
       <Divider />
       {!data.refreshing && (
         <Table>
@@ -265,13 +264,9 @@ const PreviewDisplay = (_props: unknown) => {
   );
 };
 
-type SingleSpriteProps = {
-  source: string;
-};
-
-const SingleSprite = (props: SingleSpriteProps) => {
+const SingleSprite = (props) => {
   const { source } = props;
-  return <Image src={source} width="100%" />;
+  return <Image src={source} />;
 };
 
 const LoadingAnimation = () => {
@@ -282,7 +277,7 @@ const LoadingAnimation = () => {
   );
 };
 
-export const GreyscaleModifyMenu = (_props: unknown) => {
+export const GreyscaleModifyMenu = (_props) => {
   const { act, data } = useBackend<GreyscaleMenuData>();
   return (
     <Window title="Color Configuration" width={325} height={800}>
@@ -324,6 +319,7 @@ export const GreyscaleModifyMenu = (_props: unknown) => {
             >
               Apply
             </Button>
+
             <Button.Checkbox
               tooltip="Generates and displays the full sprite generation process instead of just the final output."
               disabled={!data.generate_full_preview && !data.unlocked}
