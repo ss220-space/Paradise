@@ -83,8 +83,14 @@
 
 /obj/item/twohanded/spear/secspear/emp_act(severity)
 	. = ..()
-	cell.emp_act(severity)
-	update_charge_overlay() // Обновляем оверлей после EMP
+	if(cell)
+		// Полностью опустошаем батарею
+		cell.emp_act(severity)
+		cell.charge = 0
+		// Выключаем копьё, если оно было включено
+		if(spear_mode.type != /datum/secspear_mode/off)
+			switch_spear_mode(/datum/secspear_mode/off)
+		update_charge_overlay() // Обновляем оверлей после EMP
 
 /obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -140,10 +146,18 @@
 /obj/item/twohanded/spear/secspear/equipped(mob/user, slot, initial)
 	. = ..()
 
-	if(!(slot & ITEM_SLOT_HANDS))
+	// Если поместили НЕ в руки (в хранилище)
+	if(!(slot & (ITEM_SLOT_HANDS|ITEM_SLOT_HAND_LEFT|ITEM_SLOT_HAND_RIGHT)))
+		if(spear_mode.type != /datum/secspear_mode/off)
+			switch_spear_mode(/datum/secspear_mode/off)
 		return
 
 	off_spear()
+	force_charge_overlay_update()
+
+/obj/item/twohanded/spear/secspear/proc/force_charge_overlay_update()
+	update_charge_overlay()
+	update_icon()
 
 /obj/item/twohanded/spear/secspear/dropped(mob/user, slot, silent)
 	. = ..()
@@ -223,8 +237,8 @@
 		if(wielded)
 			attack_self(user)
 		add_traits(list(TRAIT_TWOHANDED_BLOCKED, TRAIT_CLEAVE_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
-		w_class = WEIGHT_CLASS_SMALL
-		slot_flags = null
+		w_class = WEIGHT_CLASS_NORMAL
+		slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_SUITSTORE // Пояс или слот костюма для сложенного
 		block_chance = initial(block_chance)
 		update_charge_overlay() // Обновляем оверлей после складывания
 		update_icon()
@@ -285,4 +299,4 @@
 	var/obj/item/twohanded/spear/secspear/spear = target
 	spear.toggle_folded(owner)
 
-	#undef SECSPEAR_BLOCK_CHANCE
+#undef SECSPEAR_BLOCK_CHANCE
