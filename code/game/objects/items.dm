@@ -1,4 +1,5 @@
 GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/goonstation/effects/fire.dmi', "fire"))
+
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
