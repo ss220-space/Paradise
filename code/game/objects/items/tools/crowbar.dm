@@ -207,6 +207,10 @@
 	icon_state = "crowbar_industrial"
 	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/crowbar/industrial/get_ru_names()
 	return list(

@@ -189,6 +189,10 @@
 	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	usesound = 'sound/items/ratchet2.ogg'
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/wrench/industrial/get_ru_names()
 	return list(

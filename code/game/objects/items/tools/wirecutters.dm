@@ -228,6 +228,10 @@
 	hitsound = 'sound/items/wirecutter2.ogg'
 	usesound = 'sound/items/wirecutter2.ogg'
 	force = 8
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/wirecutters/industrial/get_ru_names()
 	return list(

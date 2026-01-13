@@ -248,6 +248,10 @@
 	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	random_color = FALSE
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
 
 /obj/item/screwdriver/industrial/get_ru_names()
 	return list(
