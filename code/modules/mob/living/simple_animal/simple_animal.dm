@@ -339,7 +339,10 @@
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
-/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
+	if(!readonly_environment)
+		return
+
 	if(leash)
 		var/dist = get_dist(src, leash)
 		if(dist > leash_radius)
@@ -349,10 +352,10 @@
 	var/atmos_suitable = TRUE
 
 	if(!HAS_TRAIT(src, TRAIT_NO_BREATH))
-		var/tox = environment.toxins
-		var/oxy = environment.oxygen
-		var/n2 = environment.nitrogen
-		var/co2 = environment.carbon_dioxide
+		var/tox = readonly_environment.toxins()
+		var/oxy = readonly_environment.oxygen()
+		var/n2 = readonly_environment.nitrogen()
+		var/co2 = readonly_environment.carbon_dioxide()
 
 		if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 			atmos_suitable = FALSE
@@ -387,7 +390,7 @@
 		if(!atmos_suitable)
 			adjustHealth(unsuitable_atmos_damage)
 
-	SEND_SIGNAL(src, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, environment)
+	SEND_SIGNAL(src, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)

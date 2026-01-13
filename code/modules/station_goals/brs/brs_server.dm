@@ -11,6 +11,7 @@
 	desc = "Плата сервера сканирования и изучения блюспейс разлома."
 	build_path = /obj/machinery/brs_server
 	icon_state = "cpuboard_super"
+	greyscale_config = null
 	board_type = "machine"
 	origin_tech = "engineering=4;bluespace=3"
 	req_components = list(

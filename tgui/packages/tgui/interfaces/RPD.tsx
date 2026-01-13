@@ -1,7 +1,16 @@
 import { useBackend } from '../backend';
-import { Tabs, Button, Box, Grid, Section, Stack, Icon } from '../components';
+import {
+  Tabs,
+  Button,
+  Box,
+  Grid,
+  Section,
+  Stack,
+  Icon,
+  ImageButton,
+} from '../components';
+import { Direction } from '../components/DmIcon';
 import { Window } from '../layouts';
-import { classes } from 'common/react';
 
 const decideTab = (index: number) => {
   switch (index) {
@@ -51,6 +60,7 @@ type Pipe = {
   orientations: number;
   bendy: boolean;
   pipe_icon: string;
+  pipe_icon_file: string;
 };
 
 export const RPD = (_props: unknown) => {
@@ -176,90 +186,66 @@ const AtmosPipeContent = (_props: unknown) => {
                           <>
                             <Grid>
                               <Grid.Column>
-                                <Button
+                                <ImageButton
                                   fluid
                                   textAlign="center"
                                   color="translucent"
+                                  dmIcon={p.pipe_icon_file}
+                                  dmIconState={p.pipe_icon}
+                                  dmDirection={Direction.SOUTHEAST}
                                   selected={iconrotation === 4}
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 4 })
                                   }
                                   style={{ marginBottom: '5px' }}
-                                >
-                                  {
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `southeast-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                </Button>
+                                />
                               </Grid.Column>
                               <Grid.Column>
-                                <Button
+                                <ImageButton
                                   fluid
                                   textAlign="center"
                                   color="translucent"
                                   selected={iconrotation === 2}
+                                  dmIcon={p.pipe_icon_file}
+                                  dmIconState={p.pipe_icon}
+                                  dmDirection={Direction.SOUTHWEST}
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 2 })
                                   }
                                   style={{ marginBottom: '5px' }}
-                                >
-                                  {
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `southwest-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                </Button>
+                                />
                               </Grid.Column>
                             </Grid>
                             <Grid>
                               <Grid.Column>
-                                <Button
+                                <ImageButton
                                   fluid
                                   textAlign="center"
                                   color="translucent"
+                                  dmIcon={p.pipe_icon_file}
+                                  dmIconState={p.pipe_icon}
+                                  dmDirection={Direction.NORTHEAST}
                                   selected={iconrotation === 1}
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 1 })
                                   }
                                   style={{ marginBottom: '5px' }}
-                                >
-                                  {
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `northeast-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                </Button>
+                                />
                               </Grid.Column>
                               <Grid.Column>
-                                <Button
+                                <ImageButton
                                   fluid
                                   textAlign="center"
                                   color="translucent"
+                                  dmIcon={p.pipe_icon_file}
+                                  dmIconState={p.pipe_icon}
+                                  dmDirection={Direction.NORTHWEST}
                                   selected={iconrotation === 8}
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 8 })
                                   }
                                   style={{ marginBottom: '5px' }}
-                                >
-                                  {
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `northwest-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                </Button>
+                                />
                               </Grid.Column>
                             </Grid>
                           </>
@@ -267,91 +253,67 @@ const AtmosPipeContent = (_props: unknown) => {
                           <>
                             <Grid>
                               <Grid.Column>
-                                <Button
+                                <ImageButton
                                   fluid
                                   textAlign="center"
                                   color="translucent"
+                                  dmIcon={p.pipe_icon_file}
+                                  dmIconState={p.pipe_icon}
+                                  dmDirection={Direction.NORTH}
                                   selected={iconrotation === 1}
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 1 })
                                   }
                                   style={{ marginBottom: '5px' }}
-                                >
-                                  {
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `north-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                </Button>
+                                />
                               </Grid.Column>
                               <Grid.Column>
-                                <Button
+                                <ImageButton
                                   fluid
                                   textAlign="center"
                                   color="translucent"
+                                  dmIcon={p.pipe_icon_file}
+                                  dmIconState={p.pipe_icon}
+                                  dmDirection={Direction.EAST}
                                   selected={iconrotation === 4}
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 4 })
                                   }
                                   style={{ marginBottom: '5px' }}
-                                >
-                                  {
-                                    <Box
-                                      className={classes([
-                                        'rpd32x32',
-                                        `east-${p.pipe_icon}`,
-                                      ])}
-                                    />
-                                  }
-                                </Button>
+                                />
                               </Grid.Column>
                             </Grid>
                             {p.orientations === 4 && (
                               <Grid>
                                 <Grid.Column>
-                                  <Button
+                                  <ImageButton
                                     fluid
                                     textAlign="center"
                                     color="translucent"
+                                    dmIcon={p.pipe_icon_file}
+                                    dmIconState={p.pipe_icon}
+                                    dmDirection={Direction.SOUTH}
                                     selected={iconrotation === 2}
                                     onClick={() =>
                                       act('iconrotation', { iconrotation: 2 })
                                     }
                                     style={{ marginBottom: '5px' }}
-                                  >
-                                    {
-                                      <Box
-                                        className={classes([
-                                          'rpd32x32',
-                                          `south-${p.pipe_icon}`,
-                                        ])}
-                                      />
-                                    }
-                                  </Button>
+                                  />
                                 </Grid.Column>
                                 <Grid.Column>
-                                  <Button
+                                  <ImageButton
                                     fluid
                                     textAlign="center"
                                     color="translucent"
+                                    dmIcon={p.pipe_icon_file}
+                                    dmIconState={p.pipe_icon}
+                                    dmDirection={Direction.WEST}
                                     selected={iconrotation === 8}
                                     onClick={() =>
                                       act('iconrotation', { iconrotation: 8 })
                                     }
                                     style={{ marginBottom: '5px' }}
-                                  >
-                                    {
-                                      <Box
-                                        className={classes([
-                                          'rpd32x32',
-                                          `west-${p.pipe_icon}`,
-                                        ])}
-                                      />
-                                    }
-                                  </Button>
+                                  />
                                 </Grid.Column>
                               </Grid>
                             )}
@@ -430,91 +392,67 @@ const DisposalPipeContent = (_props: unknown) => {
                       </Box>
                       <Grid>
                         <Grid.Column>
-                          <Button
+                          <ImageButton
                             fluid
                             color="translucent"
                             textAlign="center"
+                            dmIcon={p.pipe_icon_file}
+                            dmIconState={p.pipe_icon}
+                            dmDirection={Direction.NORTH}
                             selected={iconrotation === 1}
                             onClick={() =>
                               act('iconrotation', { iconrotation: 1 })
                             }
                             style={{ marginBottom: '5px' }}
-                          >
-                            {
-                              <Box
-                                className={classes([
-                                  'rpd32x32',
-                                  `north-${p.pipe_icon}`,
-                                ])}
-                              />
-                            }
-                          </Button>
+                          />
                         </Grid.Column>
                         <Grid.Column>
-                          <Button
+                          <ImageButton
                             fluid
                             color="translucent"
                             textAlign="center"
+                            dmIcon={p.pipe_icon_file}
+                            dmIconState={p.pipe_icon}
+                            dmDirection={Direction.EAST}
                             selected={iconrotation === 4}
                             onClick={() =>
                               act('iconrotation', { iconrotation: 4 })
                             }
                             style={{ marginBottom: '5px' }}
-                          >
-                            {
-                              <Box
-                                className={classes([
-                                  'rpd32x32',
-                                  `east-${p.pipe_icon}`,
-                                ])}
-                              />
-                            }
-                          </Button>
+                          />
                         </Grid.Column>
                       </Grid>
                       {p.orientations === 4 && (
                         <Grid>
                           <Grid.Column>
-                            <Button
+                            <ImageButton
                               fluid
                               color="translucent"
                               textAlign="center"
+                              dmIcon={p.pipe_icon_file}
+                              dmIconState={p.pipe_icon}
+                              dmDirection={Direction.SOUTH}
                               selected={iconrotation === 2}
                               onClick={() =>
                                 act('iconrotation', { iconrotation: 2 })
                               }
                               style={{ marginBottom: '5px' }}
-                            >
-                              {
-                                <Box
-                                  className={classes([
-                                    'rpd32x32',
-                                    `south-${p.pipe_icon}`,
-                                  ])}
-                                />
-                              }
-                            </Button>
+                            />
                           </Grid.Column>
                           <Grid.Column>
-                            <Button
+                            <ImageButton
                               fluid
                               color="translucent"
                               textAlign="center"
+                              dmIcon={p.pipe_icon_file}
+                              dmIconState={p.pipe_icon}
+                              dmDirection={Direction.WEST}
                               selected={iconrotation === 8}
                               onClick={() =>
                                 act('iconrotation', { iconrotation: 8 })
                               }
                               style={{ marginBottom: '5px' }}
-                            >
-                              {
-                                <Box
-                                  className={classes([
-                                    'rpd32x32',
-                                    `west-${p.pipe_icon}`,
-                                  ])}
-                                />
-                              }
-                            </Button>
+                            />
                           </Grid.Column>
                         </Grid>
                       )}

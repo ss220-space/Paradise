@@ -138,7 +138,7 @@
 /obj/structure/closet/bombcloset/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit( src )
 	new /obj/item/clothing/under/color/black( src )
-	new /obj/item/clothing/shoes/black( src )
+	new /obj/item/clothing/shoes/color/black( src )
 	new /obj/item/clothing/head/bomb_hood( src )
 
 /obj/structure/closet/bombclosetsecurity
@@ -149,7 +149,7 @@
 /obj/structure/closet/bombclosetsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security( src )
 	new /obj/item/clothing/under/rank/security( src )
-	new /obj/item/clothing/shoes/brown( src )
+	new /obj/item/clothing/shoes/color/brown( src )
 	new /obj/item/clothing/head/bomb_hood/security( src )
 
 /*

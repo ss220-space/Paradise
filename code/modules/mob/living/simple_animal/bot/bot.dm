@@ -5,6 +5,8 @@
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
 	light_range = 3
+	light_power = 0.5
+	light_color = COLOR_PALE_LIME
 	stop_automated_movement = TRUE
 	wander = FALSE
 	healable = FALSE
@@ -1186,7 +1188,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/verb/show_laws()
 	set name = "Набор законов"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	to_chat(src, "<b>Набор законов:</b>")
 	if(paicard?.pai && paicard.pai.master && paicard.pai.pai_law0)

@@ -91,6 +91,9 @@
 
 #define STATUS_EFFECT_DRILL_PAYBACK /datum/status_effect/drill_payback
 
+/// Prevents you from automatically grabbing walls to stop moving in space.
+#define STATUS_EFFECT_UNBALANCED /datum/status_effect/unbalanced
+
 /////////////
 // DEBUFFS //
 /////////////
@@ -145,6 +148,7 @@
 #define STATUS_EFFECT_IMMOBILIZED /datum/status_effect/incapacitating/immobilized
 #define STATUS_EFFECT_SLEEPING /datum/status_effect/incapacitating/sleeping
 #define STATUS_EFFECT_SLOWED /datum/status_effect/incapacitating/slowed
+#define STATUS_EFFECT_DIRECTIONAL_SLOW /datum/status_effect/incapacitating/directional_slow
 #define STATUS_EFFECT_PARALYZED /datum/status_effect/incapacitating/paralyzed
 #define STATUS_EFFECT_KNOCKDOWN /datum/status_effect/incapacitating/knockdown
 #define STATUS_EFFECT_ARMBAR /datum/status_effect/judo_armbar
@@ -210,3 +214,13 @@
 #define STATUS_EFFECT_LEANING /datum/status_effect/leaning
 
 #define STATUS_EFFECT_TEMPERATURE /datum/status_effect/transient/temperature
+
+/// Causes the mob to become blind via the passed source
+#define become_blind(source) apply_status_effect(/datum/status_effect/transient/blindness, source)
+/// Cures the mob's blindness from the passed source, removing blindness wholesale if no sources are left
+#define cure_blind(source) remove_status_effect(/datum/status_effect/transient/blindness, source)
+
+/// Is the mob blind?
+#define is_blind(...) has_status_effect(/datum/status_effect/transient/blindness)
+/// Is the mob blind from the passed source or sources?
+#define is_blind_from(sources) has_status_effect_from_source(/datum/status_effect/transient/blindness, sources)

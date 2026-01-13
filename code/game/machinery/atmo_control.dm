@@ -24,6 +24,8 @@
 								SENSOR_COMPOSITION_NITROGEN,
 								SENSOR_COMPOSITION_CO2,
 								SENSOR_COMPOSITION_N2O,
+								SENSOR_COMPOSITION_H2,
+								SENSOR_COMPOSITION_H2O,
 							)))
 		return
 	if(output & bitflag_value)
@@ -63,34 +65,42 @@
 		signal.data["tag"] = id_tag
 		signal.data["timestamp"] = world.time
 
-		var/datum/gas_mixture/air_sample = return_air()
+		var/turf/location = get_turf(src)
+
+		var/datum/gas_mixture/air_sample = location.get_readonly_air()
 
 		if(output & SENSOR_SCAN_PRESSURE)
 			signal.data["pressure"] = num2text(round(air_sample.return_pressure(), 0.1))
 		if(output & SENSOR_SCAN_TEMPERATURE)
-			signal.data["temperature"] = round(air_sample.temperature, 0.1)
+			signal.data["temperature"] = round(air_sample.temperature(), 0.1)
 
 		if(output > (SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE))
 			var/total_moles = air_sample.total_moles()
 			if(total_moles > 0)
 				if(output & SENSOR_COMPOSITION_OXYGEN)
-					signal.data["oxygen"] = round(100 * air_sample.oxygen / total_moles, 0.1)
+					signal.data[TLV_O2] = round(100 * air_sample.oxygen() / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_TOXINS)
-					signal.data["toxins"] = round(100 * air_sample.toxins / total_moles, 0.1)
+					signal.data[TLV_PL] = round(100 * air_sample.toxins() / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_NITROGEN)
-					signal.data["nitrogen"] = round(100 * air_sample.nitrogen / total_moles, 0.1)
+					signal.data[TLV_N2] = round(100 * air_sample.nitrogen() / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_CO2)
-					signal.data["carbon_dioxide"] = round(100 * air_sample.carbon_dioxide / total_moles, 0.1)
+					signal.data[TLV_CO2] = round(100 * air_sample.carbon_dioxide() / total_moles, 0.1)
 				if(output & SENSOR_COMPOSITION_N2O)
-					signal.data["nitrous_oxide"] = round(100 * air_sample.sleeping_agent / total_moles, 0.1)
+					signal.data[TLV_N2O] = round(100 * air_sample.sleeping_agent() / total_moles, 0.1)
+				if(output &  SENSOR_COMPOSITION_H2)
+					signal.data[TLV_H2] = round(100 * air_sample.hydrogen() / total_moles, 0.1)
+				if(output &  SENSOR_COMPOSITION_H2O)
+					signal.data[TLV_H2O] = round(100 * air_sample.water_vapor() / total_moles, 0.1)
 			else
-				signal.data["oxygen"] = 0
-				signal.data["toxins"] = 0
-				signal.data["nitrogen"] = 0
-				signal.data["carbon_dioxide"] = 0
-				signal.data["nitrous_oxide"] = 0
+				signal.data[TLV_O2] = 0
+				signal.data[TLV_PL] = 0
+				signal.data[TLV_N2] = 0
+				signal.data[TLV_CO2] = 0
+				signal.data[TLV_N2O] = 0
+				signal.data[TLV_H2] = 0
+				signal.data[TLV_H2O] = 0
 
-		signal.data["sigtype"]="status"
+		signal.data["sigtype"] = "status"
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
 /obj/machinery/atmospherics/air_sensor/set_frequency(new_frequency)
@@ -186,18 +196,22 @@
 						sensor_part += "<tr><th>Pressure:</th><td>[data["pressure"]] kPa</td></tr>"
 					if(data["temperature"])
 						sensor_part += "<tr><th>Temperature:</th><td>[data["temperature"]] K</td></tr>"
-					if(data["oxygen"]||data["toxins"]||data["nitrogen"]||data["carbon_dioxide"])
+					if(data[TLV_O2] || data[TLV_PL] || data[TLV_PL] || data[TLV_CO2] || data[TLV_N2O] || data[TLV_H2] || data[TLV_H2O])
 						sensor_part += "<tr><th>Gas Composition :</th><td><ul>"
-						if(data["oxygen"])
-							sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
-						if(data["nitrogen"])
-							sensor_part += "<li>[data["nitrogen"]]% N<sub>2</sub></li>"
-						if(data["carbon_dioxide"])
-							sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
-						if(data["nitrous_oxide"])
-							sensor_part += "<li>[data["nitrous_oxide"]]% N<sub>2</sub>O</li>"
-						if(data["toxins"])
-							sensor_part += "<li>[data["toxins"]]% Plasma</li>"
+						if(data[TLV_O2])
+							sensor_part += "<li>[data[TLV_O2]]% O<sub>2</sub></li>"
+						if(data[TLV_N2])
+							sensor_part += "<li>[data[TLV_N2]]% N<sub>2</sub></li>"
+						if(data[TLV_CO2])
+							sensor_part += "<li>[data[TLV_CO2]]% CO<sub>2</sub></li>"
+						if(data[TLV_N2O])
+							sensor_part += "<li>[data[TLV_N2O]]% N<sub>2</sub>O</li>"
+						if(data[TLV_PL])
+							sensor_part += "<li>[data[TLV_PL]]% Plasma</li>"
+						if(data[TLV_H2])
+							sensor_part += "<li>[data[TLV_H2]]% H<sub>2</sub></li>"
+						if(data[TLV_H2O])
+							sensor_part += "<li>[data[TLV_H2O]]% H<sub>2</sub>O</li>"
 						sensor_part += "</ul></td></tr>"
 					sensor_part += "</table>"
 

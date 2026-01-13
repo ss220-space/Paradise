@@ -39,7 +39,7 @@
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, span_changeling("<i>Сообщение от хранителя <b>[owner]</b> ([ghost_follow_link(owner, ghost=M)]): [input]</i>"))
+			to_chat(M, span_changeling("([ghost_follow_link(owner, ghost = M)])<i>Сообщение от хранителя <b>[owner]</b>: [input]</i>"))
 
 /**
  * # Recall guardian action
@@ -85,10 +85,10 @@
 
 	to_chat(owner, span_danger("Поиск подходящего призрака..."))
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль [guardian.real_name]?", ROLE_GUARDIAN, FALSE, 15 SECONDS, source = guardian)
-	
+
 	if(QDELETED(guardian) || QDELETED(owner))
 		return
-	
+
 	if(!LAZYLEN(candidates))
 		to_chat(owner, span_danger("Не нашлось призраков, готовых взять управление вашим хранителем. Попробуйте снова через 5 минут."))
 		log_game("[owner](ckey: [owner.ckey]) has tried to replace their guardian, but there were no candidates willing to enroll.")

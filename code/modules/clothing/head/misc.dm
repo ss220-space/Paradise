@@ -700,3 +700,32 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
 	)
+
+/obj/item/clothing/head/colour/headband
+	name = "headband"
+	desc = "Кусок ткани, оборачиваемый вокруг головы."
+	gender = FEMALE
+	icon_state = "headband"
+	item_state = "headband"
+	w_class = WEIGHT_CLASS_TINY
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
+
+/obj/item/clothing/head/colour/headband/get_ru_names()
+	return list(
+		NOMINATIVE = "повязка на голову",
+		GENITIVE = "повязки на голову",
+		DATIVE = "повязке на голову",
+		ACCUSATIVE = "повязку на голову",
+		INSTRUMENTAL = "повязкой на голову",
+		PREPOSITIONAL = "повязке на голову",
+	)
+
+/obj/item/clothing/head/colour/headband/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
