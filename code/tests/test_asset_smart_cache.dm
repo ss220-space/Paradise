@@ -18,7 +18,7 @@
 	icon.blend_color("#ff0000", ICON_MULTIPLY)
 	icon.scale(64, 64)
 	icon.crop(1, 1, 128, 64) // we'll test for the scale later.
-	insert_icon("test", I)
+	insert_icon("test", icon)
 
 /datum/asset/spritesheet_batched/test/unregister()
 	SSassets.transport.unregister_asset("spritesheet_[name].css")
