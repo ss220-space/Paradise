@@ -1,4 +1,7 @@
 #define SECSPEAR_BLOCK_CHANCE 30
+#define SECSPEAR_CHARGE_CRITICAL 4
+#define SECSPEAR_CHARGE_MEDIUM 33
+#define SECSPEAR_CHARGE_HIGH 66
 
 /obj/item/twohanded/spear/secspear
 	name = "telescopic energy spear"
@@ -188,11 +191,20 @@
 		var/can_use_mode = cell.charge >= spear_mode.power_cost
 		var/prefix = folded ? "folded" : "unfolded"
 
-		if(!can_use_mode || charge_percent <= 4)
+		var/min_active_power_cost = INFINITY
+		for(var/mode_type in GLOB.secspear_modes)
+			var/datum/secspear_mode/mode = GLOB.secspear_modes[mode_type]
+			if(mode.power_cost > 0 && mode.power_cost < min_active_power_cost)
+				min_active_power_cost = mode.power_cost
+
+		if(min_active_power_cost == INFINITY)
+			min_active_power_cost = 0
+
+		if(cell.charge < min_active_power_cost)
 			new_state = "[prefix]_empty"
-		else if(charge_percent >= 66)
+		else if(charge_percent >= SECSPEAR_CHARGE_HIGH)
 			new_state = "[prefix]_full"
-		else if(charge_percent >= 33)
+		else if(charge_percent >= SECSPEAR_CHARGE_MEDIUM)
 			new_state = "[prefix]_half"
 		else
 			new_state = "[prefix]_low"
