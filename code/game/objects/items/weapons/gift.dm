@@ -3,7 +3,7 @@
 	name = "gift"
 	desc = "Ураа!! Подарочееек!"
 	icon = 'icons/obj/storage/wrapping.dmi'
-	icon_state = "giftdeliverypackage3"
+	icon_state = "giftdeliverypackage3_base"
 	item_state = "gift"
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_BULKY
@@ -31,7 +31,24 @@
 	pixel_y = rand(-10,10)
 	base_pixel_x = pixel_x
 	base_pixel_y = pixel_y
-	icon_state = "giftdeliverypackage[rand(1, 5)]"
+	if(!greyscale_colors)
+		//Generate random valid colors for paper and ribbon
+		var/generated_base_color = "#" + random_color()
+		var/generated_ribbon_color = "#" + random_color()
+		var/temp_base_hsv = RGBtoHSV(generated_base_color)
+		var/temp_ribbon_hsv = RGBtoHSV(generated_ribbon_color)
+
+		//If colors are too dark, set to original colors
+		if(ReadHSV(temp_base_hsv)[3] < ReadHSV("7F7F7F")[3])
+			generated_base_color = "#00FF00"
+		if(ReadHSV(temp_ribbon_hsv)[3] < ReadHSV("7F7F7F")[3])
+			generated_ribbon_color = "#FF0000"
+
+		//Set layers to these colors, base then ribbon
+		set_greyscale_colors(colors = list(generated_base_color, generated_ribbon_color))
+
+	set_greyscale_config(text2path("/datum/greyscale_config/giftdeliverypackage[rand(1, 5)]"))
+
 
 	if(!isnull(contains_type))
 		return

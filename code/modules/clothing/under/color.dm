@@ -57,8 +57,10 @@
 	desc = "It's very smart and in a ladies-size!"
 	item_state = "bl_suit"
 	item_color = "blackf"
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
 	flags = parent_type::flags | NO_NEW_GAGS_PREVIEW
-	
+
 /obj/item/clothing/under/color/blue
 	name = "blue jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/blue"
