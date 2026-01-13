@@ -298,3 +298,6 @@
 	spear.toggle_folded(owner)
 
 #undef SECSPEAR_BLOCK_CHANCE
+#undef SECSPEAR_CHARGE_CRITICAL
+#undef SECSPEAR_CHARGE_MEDIUM
+#undef SECSPEAR_CHARGE_HIGH
