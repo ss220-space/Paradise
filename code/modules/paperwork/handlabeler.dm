@@ -2,8 +2,8 @@
 	name = "hand labeler"
 	desc = "A combined label printer, applicator, and remover, all in a single portable device. Designed to be easy to operate and use."
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "labeler0"
-	item_state = "labeler0"
+	icon_state = "labeler_off"
+	item_state = "labeler"
 	var/label = null
 	var/labels_left = 30
 	var/mode = FALSE
@@ -36,7 +36,7 @@
 	labels_left--
 
 /obj/item/hand_labeler/update_icon_state()
-	icon_state = "labeler[mode]"
+	icon_state = "labeler_[mode ? "on" : "off"]"
 
 /obj/item/hand_labeler/attack_self(mob/user)
 	mode = !mode

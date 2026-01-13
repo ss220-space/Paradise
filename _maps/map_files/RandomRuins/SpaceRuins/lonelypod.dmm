@@ -35,7 +35,7 @@
 /area/ruin/unpowered)
 "eL" = (
 /obj/item/clothing/under/pants/blackjeans,
-/obj/item/clothing/shoes/black,
+/obj/item/clothing/shoes/color/black,
 /obj/item/clothing/accessory/cowboyshirt/short_sleeved,
 /obj/item/clothing/head/cowboyhat/black,
 /obj/structure/closet{

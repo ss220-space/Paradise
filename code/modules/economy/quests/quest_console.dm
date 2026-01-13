@@ -111,7 +111,7 @@
 	return data
 
 /obj/machinery/computer/supplyquest/ui_assets(mob/user)
-	return list(get_asset_datum(/datum/asset/spritesheet/cargo_quest))
+	return list(get_asset_datum(/datum/asset/spritesheet_batched/cargo_quest))
 
 /obj/machinery/computer/supplyquest/ui_act(action, list/params)
 	if(..())

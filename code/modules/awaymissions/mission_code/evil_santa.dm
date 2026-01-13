@@ -210,7 +210,7 @@
 	name = "Monkey shaftminer"
 
 	uniform = /obj/item/clothing/under/jester
-	shoes = /obj/item/clothing/shoes/orange
+	shoes = /obj/item/clothing/shoes/color/orange
 	head = /obj/item/clothing/head/jester
 	l_pocket = /obj/item/grown/bananapeel
 

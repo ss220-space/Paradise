@@ -329,6 +329,8 @@
 #define LIGHT_COLOR_HALOGEN "#f0fafa"
 /// Nearly red. rgb(226, 78, 118)
 #define LIGHT_COLOR_BUBBLEGUM "#e24e76"
+/// Garland lights.
+#define LIGHT_COLOR_GARLAND "#ffb366"
 
 // The GAGS greyscale_colors for each department's computer/machine circuits
 #define CIRCUIT_COLOR_GENERIC "#1a7a13"
@@ -587,3 +589,4 @@ GLOBAL_LIST_INIT(heretic_path_to_color, list(
 #define COLOR_GAS_MINER_O2 "#007fff"
 #define COLOR_GAS_MINER_CO2 "#cdcdcd"
 #define COLOR_GAS_MINER_AGENT_B "#e81e24"
+

@@ -28,7 +28,7 @@
 		update_icons()
 
 	else
-		if(health)
+		if(health > 0)
 			update_revive()
 			var/mob/dead/observer/ghost = get_ghost()
 

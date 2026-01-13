@@ -357,6 +357,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/space_bar)
+"ng" = (
+/obj/structure/closet,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/suit/jacket/miljacket,
+/obj/item/clothing/head/det_hat,
+/turf/simulated/floor/wood,
+/area/ruin/powered/space_bar)
 "nu" = (
 /obj/structure/closet,
 /obj/item/clothing/suit/jacket/leather/overcoat,
@@ -626,13 +633,6 @@
 /obj/item/storage/fancy/donut_box,
 /turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
-"JZ" = (
-/obj/structure/closet,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/suit/jacket/miljacket,
-/obj/item/clothing/head/det_hat,
-/turf/simulated/floor/wood,
-/area/ruin/powered/space_bar)
 "Kc" = (
 /obj/structure/bed,
 /obj/item/bedsheet/fluff/hugosheet,
@@ -769,17 +769,6 @@
 /obj/machinery/prize_counter,
 /turf/simulated/floor/carpet/arcade,
 /area/ruin/powered/space_bar)
-"TB" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cans/beer,
-/obj/item/book/manual/barman_recipes,
-/obj/item/reagent_containers/food/drinks/shaker,
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/item/radio/intercom/directional/north,
-/turf/simulated/floor/wood,
-/area/ruin/powered/space_bar)
 "TN" = (
 /obj/machinery/door/airlock/hatch,
 /turf/simulated/floor/wood,
@@ -864,6 +853,17 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
+/area/ruin/powered/space_bar)
+"Zx" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/drinks/cans/beer,
+/obj/item/book/manual/barman_recipes,
+/obj/item/reagent_containers/food/drinks/shaker,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/radio/intercom/directional/north,
+/turf/simulated/floor/wood,
 /area/ruin/powered/space_bar)
 "ZN" = (
 /obj/structure/chair/comfy/shuttle{
@@ -1435,7 +1435,7 @@ am
 am
 EM
 nu
-JZ
+ng
 am
 It
 am
@@ -1766,7 +1766,7 @@ XS
 bp
 PH
 am
-TB
+Zx
 az
 as
 as
