@@ -376,7 +376,7 @@ const ProductColorSelect = (props: ProductColorSelectProps) => {
       width={fluid ? '32px' : '20px'}
       icon={'palette'}
       color={'transparent'}
-      tooltip={'Change color'}
+      tooltip={'Сменить цвет'}
       style={disabled ? { pointerEvents: 'none', opacity: 0.5 } : {}}
       onClick={() => act('select_colors', { ref: product.ref })}
     />
