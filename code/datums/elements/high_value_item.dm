@@ -11,6 +11,10 @@ GLOBAL_LIST_EMPTY(high_value_items)
 
 /datum/element/high_value_item/Detach(datum/source)
 	. = ..()
+	GLOB.high_value_items -= source
+	if(SSticker.current_state != GAME_STATE_PLAYING)
+		return
+
 	var/turf/turf_loc = get_turf(source)
 	if(SSticker.current_state == GAME_STATE_PLAYING)
 		if(turf_loc)

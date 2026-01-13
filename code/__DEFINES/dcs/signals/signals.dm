@@ -36,6 +36,7 @@
 #define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+#define COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED "!subsystems_init_ended"
 
 #define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
 #define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
@@ -1581,3 +1582,5 @@
 /// from /proc/healthscan(): (list/scan_results, advanced, mob/user, mode)
 /// Consumers are allowed to mutate the scan_results list to add extra information
 #define COMSIG_LIVING_HEALTHSCAN "living_healthscan"
+
+#define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"

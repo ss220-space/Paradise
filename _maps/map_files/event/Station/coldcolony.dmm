@@ -8467,18 +8467,6 @@
 /obj/structure/railing,
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
-"cZC" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 8;
-	on = 1
-	},
-/obj/machinery/status_display{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/engineering/atmos)
 "cZR" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -18997,6 +18985,36 @@
 	icon_state = "cafeteria"
 	},
 /area/coldcolony/malta/resid_serv/kitchen)
+"gUS" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/brigdoor{
+	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"fire"=70,"acid"=100);
+	base_state = "rightsecure";
+	icon_state = "rightsecure";
+	name = "Secure Armory";
+	req_access = list(1)
+	},
+/obj/machinery/door/window/brigdoor{
+	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"fire"=70,"acid"=100);
+	dir = 8;
+	name = "Secure Armory";
+	req_access = list(3)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "ArmoryLock";
+	name = "Armory Lockdown"
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters{
+	dir = 8;
+	id_tag = "ArmorySec";
+	layer = 5;
+	name = "Armory Security Shutters"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/security/securearmory)
 "gVq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -21341,11 +21359,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/permahallway)
-"hPe" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
-/turf/simulated/floor/plasteel/white,
-/area/coldcolony/malta/medical/sleeper)
 "hPi" = (
 /obj/item/flag/nt,
 /obj/machinery/alarm{
@@ -21588,6 +21601,17 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/turret_protected/ai)
+"hUP" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/apc{
+	dir = 8;
+	pixel_x = -26
+	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/server)
 "hVk" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
@@ -26603,13 +26627,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/research)
-"jKW" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/engineering/atmos)
 "jKY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
@@ -27554,12 +27571,6 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/brig)
-"kci" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/coldcolony/malta/engineering/atmos)
 "kcE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -30340,6 +30351,16 @@
 	temperature = 180
 	},
 /area/ruin/unpowered/coldcolony_outside)
+"lcL" = (
+/obj/structure/closet/secure_closet/cabinet,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/fedora/brownfedora,
+/obj/item/storage/pill_bottle/random_drug_bottle,
+/obj/item/clothing/under/sovietofficer,
+/turf/simulated/floor/wood/cherry{
+	temperature = 180
+	},
+/area/coldcolony/ruin/abandoned_house)
 "lcW" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -31091,36 +31112,6 @@
 	icon_state = "green"
 	},
 /area/coldcolony/malta/medical/virology)
-"lta" = (
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/brigdoor{
-	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"fire"=70,"acid"=100);
-	base_state = "rightsecure";
-	icon_state = "rightsecure";
-	name = "Secure Armory";
-	req_access = list(1)
-	},
-/obj/machinery/door/window/brigdoor{
-	armor = list("melee"=60,"bullet"=70,"laser"=70,"energy"=70,"bomb"=40,"bio"=100,"fire"=70,"acid"=100);
-	dir = 8;
-	name = "Secure Armory";
-	req_access = list(3)
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "ArmoryLock";
-	name = "Armory Lockdown"
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters{
-	dir = 8;
-	id_tag = "ArmorySec";
-	layer = 5;
-	name = "Armory Security Shutters"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/coldcolony/malta/security/securearmory)
 "ltw" = (
 /obj/structure/fans/tiny,
 /obj/effect/decal/snow/sand/edge{
@@ -35408,16 +35399,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/hallway/cargo_escape/entrance)
-"mYg" = (
-/obj/structure/closet/secure_closet/cabinet,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/head/fedora/brownfedora,
-/obj/item/storage/pill_bottle/random_drug_bottle,
-/obj/item/clothing/under/sovietofficer,
-/turf/simulated/floor/wood/cherry{
-	temperature = 180
-	},
-/area/coldcolony/ruin/abandoned_house)
 "mYi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -36905,20 +36886,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/bar)
-"nDs" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/apc{
-	dir = 8;
-	pixel_x = -26
-	},
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	on = 1
-	},
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/research/server)
 "nDJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -42652,6 +42619,13 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/xenobiology)
+"pCX" = (
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/engineering/atmos)
 "pDk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/secure_closet/medical3,
@@ -51035,6 +51009,11 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/cmo)
+"sGy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
+/turf/simulated/floor/plasteel/white,
+/area/coldcolony/malta/medical/sleeper)
 "sGB" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/wood{
@@ -54050,6 +54029,12 @@
 	icon_state = "cautioncorner"
 	},
 /area/coldcolony/malta/engineering/teg)
+"tOf" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/coldcolony/malta/engineering/atmos)
 "tOm" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -64882,6 +64867,18 @@
 	temperature = 180
 	},
 /area/coldcolony/ruin/abandoned_house)
+"xIp" = (
+/obj/machinery/atmospherics/unary/thermomachine/heater{
+	dir = 8;
+	on = 1
+	},
+/obj/machinery/status_display{
+	pixel_y = -32
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/engineering/atmos)
 "xIz" = (
 /obj/effect/decal/cleanable/ash,
 /obj/effect/decal/cleanable/dirt,
@@ -101691,7 +101688,7 @@ uWW
 gNE
 tgY
 wYH
-mYg
+lcL
 dqn
 wOY
 wOY
@@ -102162,8 +102159,8 @@ uXY
 lPE
 mHs
 xXS
-kci
-jKW
+tOf
+pCX
 ygu
 qyn
 eCm
@@ -103701,7 +103698,7 @@ mTV
 oKt
 dVZ
 kdv
-cZC
+xIp
 gNM
 wUp
 wUp
@@ -107990,7 +107987,7 @@ vJl
 fQw
 efJ
 eNv
-hPe
+sGy
 duV
 dMx
 eNv
@@ -109308,7 +109305,7 @@ wkH
 srW
 jFa
 iqq
-nDs
+hUP
 guc
 wKo
 qOf
@@ -110758,7 +110755,7 @@ wLv
 kzc
 tcy
 fVF
-lta
+gUS
 lgT
 lgI
 uIZ

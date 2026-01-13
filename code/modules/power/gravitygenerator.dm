@@ -1,6 +1,3 @@
-/*
- * MARK: Gravity Generator
- */
 /// Global list of all active gravity generators. Keyed by the Z level
 GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding new gravity generators to the list, and keying it with the z level.
 
@@ -330,10 +327,11 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	gravity_field = new(src, 2, TRUE, 6)
 
 	if(!old_gravity)
-		if(SSticker.current_state == GAME_STATE_PLAYING)
-			investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
-			message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
 		shake_everyone()
+		if(SSticker.current_state != GAME_STATE_PLAYING)
+			return
+		investigate_log("was brought online and is now producing gravity for this level.", INVESTIGATE_GRAVITY)
+		message_admins("The gravity generator was brought online [ADMIN_VERBOSEJMP(src)]")
 
 /obj/machinery/gravity_generator/main/proc/disable()
 	charging_state = GRAV_POWER_IDLE
@@ -354,6 +352,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 /obj/machinery/gravity_generator/main/proc/complete_state_update()
 	update_icon(UPDATE_ICON_STATE)
 	update_list()
+
+	if(old_gravity)
+		shake_everyone()
+		if(SSticker.current_state != GAME_STATE_PLAYING)
+			return
+		investigate_log("was brought offline and there is now no gravity for this level.", INVESTIGATE_GRAVITY)
+		message_admins("The gravity generator was brought offline with no backup generator. [ADMIN_VERBOSEJMP(src)]")
 
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
 /obj/machinery/gravity_generator/main/process()
