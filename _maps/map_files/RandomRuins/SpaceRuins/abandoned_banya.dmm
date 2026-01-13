@@ -128,6 +128,15 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
+"ex" = (
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/color/lightbrown,
+/obj/item/clothing/gloves/color/light_brown,
+/obj/item/clothing/shoes/color/brown,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mist,
+/turf/simulated/floor/wood/oak,
+/area/ruin/USSP_SpaceBanya)
 "ey" = (
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/wood,
@@ -354,6 +363,11 @@
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
+"py" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood,
+/area/ruin/USSP_SpaceBanya)
 "pL" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/reagent_containers/food/snacks/grown/tomato{
@@ -511,17 +525,6 @@
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
 /turf/simulated/floor/carpet,
 /area/ruin/USSP_SpaceBanya)
-"uN" = (
-/obj/effect/decal/cleanable/cobweb2,
-/obj/structure/closet/wardrobe,
-/obj/item/clothing/under/color/lightbrown,
-/obj/item/clothing/gloves/color/light_brown,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/head/fedora/brownfedora,
-/obj/effect/decal/cleanable/dust,
-/obj/item/clothing/suit/fluff/dusty_jacket,
-/turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
 "vo" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/writing,
@@ -638,15 +641,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
-"zo" = (
-/obj/structure/closet/wardrobe,
-/obj/item/clothing/under/color/lightbrown,
-/obj/item/clothing/gloves/color/light_brown,
-/obj/item/clothing/shoes/brown,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/mist,
-/turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
 "zB" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/snacks/oliviersalad,
@@ -744,11 +738,6 @@
 	},
 /turf/simulated/wall/mineral/wood,
 /area/ruin/USSP_SpaceBanya)
-"CW" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
-/area/ruin/USSP_SpaceBanya)
 "Dd" = (
 /turf/simulated/wall/mineral/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -797,6 +786,17 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
+"Gz" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/color/lightbrown,
+/obj/item/clothing/gloves/color/light_brown,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/fedora/brownfedora,
+/obj/effect/decal/cleanable/dust,
+/obj/item/clothing/suit/fluff/dusty_jacket,
+/turf/simulated/floor/wood/oak,
+/area/ruin/USSP_SpaceBanya)
 "GI" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/decal/cleanable/dust,
@@ -812,6 +812,17 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
+/area/ruin/USSP_SpaceBanya)
+"II" = (
+/obj/machinery/door_control{
+	id = "Bar";
+	name = "Bar Privacy Shutters Control";
+	pixel_x = 25;
+	pixel_y = -6
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "Ja" = (
 /obj/structure/disposalpipe/segment,
@@ -1148,17 +1159,6 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mist,
 /turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
-"YS" = (
-/obj/machinery/door_control{
-	id = "Bar";
-	name = "Bar Privacy Shutters Control";
-	pixel_x = 25;
-	pixel_y = -6
-	},
-/obj/machinery/light_switch/directional/south,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "YY" = (
 /obj/machinery/power/apc{
@@ -1595,11 +1595,11 @@ Nd
 dr
 Dd
 Dd
-uN
+Gz
 mL
 DE
 wR
-zo
+ex
 Dd
 Dd
 Ep
@@ -1699,7 +1699,7 @@ kJ
 Gi
 Vs
 RV
-CW
+py
 Dd
 FV
 vI
@@ -2000,7 +2000,7 @@ Tg
 Lc
 eQ
 yh
-YS
+II
 Dd
 sa
 Xo

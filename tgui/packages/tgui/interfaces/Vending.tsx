@@ -23,7 +23,7 @@ type VendingData = {
   premium_records?: ProductRecord[];
   hidden_records?: ProductRecord[];
   extended_inventory: boolean;
-  stock: Record<string, number>;
+  stock: Record<string, StockItem>;
   categories: Record<string, Category>;
   inserted_item_name: string;
   panel_open: boolean;
@@ -41,6 +41,7 @@ type ProductRecord = {
   desc: string;
   ref: string;
   category: string;
+  colorable: boolean;
   icon?: string;
   icon_state?: string;
 };
@@ -260,6 +261,7 @@ const Product = (props) => {
   const { product, productStock, fluid } = props;
   const { all_products_free, user, vend_ready } = data;
 
+  const colorable = !!product.colorable;
   const free = all_products_free || product.price === 0;
   const remaining = productStock;
   const disabled =
@@ -275,7 +277,11 @@ const Product = (props) => {
     asset: ['vending32x32', product.path],
     disabled: disabled,
     tooltipPosition: 'bottom',
+	buttons: colorable && (
+      <ProductColorSelect disabled={disabled} product={product} fluid={fluid} />
+    ),
     product: product,
+	colorable: colorable,
     remaining: remaining,
     onClick: () => {
       act('vend', {
@@ -330,7 +336,7 @@ const ProductGrid = (props) => {
 };
 
 const ProductList = (props) => {
-  const { product, remaining, ...baseProps } = props;
+  const { colorable, product, remaining, ...baseProps } = props;
   const { ...priceProps } = props;
 
   return (
@@ -342,11 +348,38 @@ const ProductList = (props) => {
         <Stack.Item width={10} color={'lightgray'}>
           <b>{remaining}</b> в наличии
         </Stack.Item>
-        <Stack.Item width={6}>
+        <Stack.Item width={6}           style={{ marginRight: !colorable ? '32px' : '' }}>
           <ProductPrice {...priceProps} />
         </Stack.Item>
       </Stack>
     </ImageButton>
+  );
+};
+
+/**
+ * In the case of customizable items, ie: shoes,
+ * this displays a color wheel button that opens another window.
+ */
+
+type ProductColorSelectProps = {
+  disabled: boolean;
+  product: ProductRecord;
+  fluid: boolean;
+};
+
+const ProductColorSelect = (props: ProductColorSelectProps) => {
+  const { act } = useBackend<VendingData>();
+  const { disabled, product, fluid } = props;
+
+  return (
+    <Button
+      width={fluid ? '32px' : '20px'}
+      icon={'palette'}
+      color={'transparent'}
+      tooltip={'Change color'}
+      style={disabled ? { pointerEvents: 'none', opacity: 0.5 } : {}}
+      onClick={() => act('select_colors', { ref: product.ref })}
+    />
   );
 };
 
