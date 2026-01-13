@@ -519,3 +519,11 @@
 		'sound/machines/lock_2.ogg',
 		'sound/machines/lock_3.ogg',
 	)
+
+/datum/sound_effect/button_denied
+	key = SFX_BUTTON_DENIED
+	file_paths = list(
+		'sound/machines/button.ogg',
+		'sound/machines/button_alternate.ogg',
+		'sound/machines/button_meloboom.ogg',
+	)

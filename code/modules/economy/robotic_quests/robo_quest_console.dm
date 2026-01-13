@@ -472,6 +472,7 @@
 
 /obj/structure/closet/crate/critter/mecha
 	name = "mecha box"
+	icon = 'icons/obj/closet.dmi'
 	icon_state = "mecha_box"
 	desc = "Special crate for transporting mechas. Compressed by bluespace. Will be discarded by openning."
 	req_access = list(ACCESS_ROBOTICS)
@@ -491,7 +492,7 @@
 /obj/structure/closet/crate/critter/mecha/toggle(mob/user)
 	if(!allowed(user))
 		to_chat(user, span_notice("You don`t have required access."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return FALSE
 	var/response = alert(user, "This crate has been packed with bluespace compression, opening will destroy container. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
 	if(response == "No" || !Adjacent(user))

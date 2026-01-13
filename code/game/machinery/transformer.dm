@@ -132,10 +132,10 @@
 	if(new_borg.mind && !new_borg.client && !new_borg.grab_ghost()) // Make sure this is an actual player first and not just a humanized monkey or something.
 		message_admins("[key_name_admin(new_borg)] was just transformed by a borg factory, but they were SSD. Polling ghosts for a replacement.")
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a malfunctioning cyborg?", ROLE_MALF_AI, poll_time = 15 SECONDS)
-		
+
 		if(QDELETED(new_borg))
 			return
-		
+
 		if(!length(candidates))
 			return
 		var/mob/dead/observer/observer = pick(candidates)
@@ -328,7 +328,7 @@
 		add_fingerprint(user)
 		if(locked)
 			to_chat(user, span_warning("Access Denied."))
-			playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+			playsound(src, SFX_BUTTON_DENIED, 20)
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/disk/data/disk = I
 		if(!disk.buf)

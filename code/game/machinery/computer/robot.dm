@@ -173,13 +173,13 @@
 	. = FALSE
 	if(!is_authenticated(usr) || (GLOB.disable_robotics_consoles && iscarbon(usr)))
 		to_chat(usr, span_warning("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 	switch(action)
 		if("arm") // Arms the emergency self-destruct system
 			if(issilicon(usr))
 				to_chat(usr, span_danger("Access Denied (silicon detected)"))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return
 			safety = !safety
 			to_chat(usr, span_notice("You [safety ? "disarm" : "arm"] the emergency self destruct."))
@@ -187,7 +187,7 @@
 		if("nuke") // Destroys all accessible cyborgs if safety is disabled
 			if(issilicon(usr))
 				to_chat(usr, span_danger("Access Denied (silicon detected)"))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return
 			if(!can_detonate_any(usr, TRUE))
 				return
@@ -227,7 +227,7 @@
 		if("stopbot") // lock or unlock the borg
 			if(isrobot(usr))
 				to_chat(usr, span_danger("Access Denied."))
-				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+				playsound(src, SFX_BUTTON_DENIED, 20)
 				return
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_control(usr, R, TRUE))

@@ -32,7 +32,7 @@
 
 	if(!allowed(user))
 		balloon_alert(user, "доступ запрещён!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 
 	interact(user)
@@ -75,7 +75,7 @@
 
 	if(!allowed(usr) && !usr.can_admin_interact())
 		to_chat(usr, span_warning("Доступ запрещён."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 
 	if((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
