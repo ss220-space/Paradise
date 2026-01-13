@@ -675,7 +675,7 @@ The _flatIcons list is a cache for generated icon files.
 
 	if(render_icon)
 		var/curstates = icon_states(curicon)
-		if(!(curstate in curstates))
+		if(!(icon_exists(curicon, curstate)))
 			if("" in curstates)
 				curstate = ""
 			else
@@ -848,11 +848,33 @@ The _flatIcons list is a cache for generated icon files.
 		main.AddAlphaMask(mask) //Make the pixels in the main icon that are in the transparent zone of the mask icon also vanish (fully transparent).
 		return main
 
-/// Cache of the width and height of icon files, to avoid repeating the same expensive operation
-GLOBAL_LIST_EMPTY(icon_dimensions)
-
 /// Returns a list containing the width and height of an icon file
 /proc/get_icon_dimensions(icon_path)
+	if(istype(icon_path, /datum/universal_icon))
+		var/datum/universal_icon/u_icon = icon_path
+		icon_path = u_icon.icon_file
+	// Icons can be a real file(), a rsc backed file(), a dynamic rsc (dyn.rsc) reference (known as a cache reference in byond docs), or an /icon which is pointing to one of those.
+	// Runtime generated dynamic icons are an unbounded concept cache identity wise, the same icon can exist millions of ways and holding them in a list as a key can lead to unbounded memory usage if called often by consumers.
+	// Check distinctly that this is something that has this unspecified concept, and thus that we should not cache.
+	if(!istext(icon_path) && (!isfile(icon_path) || !length("[icon_path]")))
+		var/icon/my_icon = icon(icon_path)
+		return list("width" = my_icon.Width(), "height" = my_icon.Height())
+	if(isnull(GLOB.icon_dimensions[icon_path]))
+		// Used cached icon metadata
+		var/list/metadata = icon_metadata(icon_path)
+		var/list/result = null
+		if(islist(metadata) && isnum(metadata["width"]) && isnum(metadata["height"]))
+			result = list("width" = metadata["width"], "height" = metadata["height"])
+		// Otherwise, we have to use the slower BYOND proc
+		else
+			var/icon/my_icon = icon(icon_path)
+			result = list("width" = my_icon.Width(), "height" = my_icon.Height())
+		GLOB.icon_dimensions[icon_path] = result
+
+	return GLOB.icon_dimensions[icon_path]
+
+/// Returns a list containing the width and height of an icon file, without using rustg for pure function calls
+/proc/get_icon_dimensions_pure(icon_path)
 	// Icons can be a real file(), a rsc backed file(), a dynamic rsc (dyn.rsc) reference (known as a cache reference in byond docs), or an /icon which is pointing to one of those.
 	// Runtime generated dynamic icons are an unbounded concept cache identity wise, the same icon can exist millions of ways and holding them in a list as a key can lead to unbounded memory usage if called often by consumers.
 	// Check distinctly that this is something that has this unspecified concept, and thus that we should not cache.
@@ -946,28 +968,76 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	return "<img [class] src='data:image/png;base64,[GLOB.bicon_cache[key]]'>"
 
-/// Checks if the given iconstate exists in the given file, caching the result. Setting scream to TRUE will print a stack trace ONCE.
-/proc/icon_exists(file, state, scream = FALSE)
-	var/static/list/icon_states_cache = list()
-	if(icon_states_cache[file]?[state])
-		return TRUE
 
-	if(icon_states_cache[file]?[state] == FALSE)
-		return FALSE
-
-	var/list/states = icon_states(file)
-
-	if(!icon_states_cache[file])
-		icon_states_cache[file] = list()
-
-	if(state in states)
-		icon_states_cache[file][state] = TRUE
-		return TRUE
+/// Returns rustg-parsed metadata for an icon, universal icon, or DMI file, using cached values where possible
+/// Returns null if passed object is not a filepath or icon with a valid DMI file
+/proc/icon_metadata(file)
+	var/static/list/icon_metadata_cache = list()
+	if(istype(file, /datum/universal_icon))
+		var/datum/universal_icon/u_icon = file
+		file = u_icon.icon_file
+	var/file_string = "[file]"
+	if(!istext(file) && !(isfile(file) && length(file_string)))
+		return null
+	var/list/cached_metadata = icon_metadata_cache[file_string]
+	if(islist(cached_metadata))
+		return cached_metadata
+	var/list/metadata_result = rustlib_dmi_read_metadata(file_string)
+	if(!islist(metadata_result) || !length(metadata_result))
+		CRASH("Error while reading DMI metadata for path '[file_string]': [metadata_result]")
 	else
-		icon_states_cache[file][state] = FALSE
-		if(scream)
-			stack_trace("Icon Lookup for state: [state] in file [file] failed.")
-		return FALSE
+		icon_metadata_cache[file_string] = metadata_result
+		return metadata_result
+
+/// Checks whether a given icon state exists in a given icon file. If `file` and `state` both exist,
+/// this will return `TRUE` - otherwise, it will return `FALSE`.
+///
+/// If you want a stack trace to be output when the given state/file doesn't exist, use
+/// `/proc/icon_exists_or_scream()`.
+/proc/icon_exists(file, state)
+	if(isnull(file) || isnull(state))
+		return FALSE //This is common enough that it shouldn't panic, imo.
+
+	if(isnull(GLOB.icon_states_cache_lookup[file]))
+		compile_icon_states_cache(file)
+	return !isnull(GLOB.icon_states_cache_lookup[file][state])
+
+/// Cached, rustg-based alternative to icon_states()
+/proc/icon_states_fast(file)
+	if(isnull(file))
+		return null
+	if(isnull(GLOB.icon_states_cache[file]))
+		compile_icon_states_cache(file)
+	return GLOB.icon_states_cache[file]
+
+/proc/compile_icon_states_cache(file)
+	GLOB.icon_states_cache[file] = list()
+	GLOB.icon_states_cache_lookup[file] = list()
+	// Try to use rustg first
+	var/list/metadata = icon_metadata(file)
+	if(islist(metadata) && islist(metadata["states"]))
+		for(var/list/state_data as anything in metadata["states"])
+			GLOB.icon_states_cache[file] += state_data["name"]
+			GLOB.icon_states_cache_lookup[file][state_data["name"]] = TRUE
+	else // Otherwise, we have to use the slower BYOND proc
+		for(var/istate in icon_states(file))
+			GLOB.icon_states_cache[file] += istate
+			GLOB.icon_states_cache_lookup[file][istate] = TRUE
+
+/// Functions the same as `/proc/icon_exists()`, but with the addition of a stack trace if the
+/// specified file or state doesn't exist.
+///
+/// Stack traces will only be output once for each file.
+/proc/icon_exists_or_scream(file, state)
+	if(icon_exists(file, state))
+		return TRUE
+
+	var/static/list/screams = list()
+	if(!isnull(screams[file]))
+		screams[file] = TRUE
+		stack_trace("State [state] in file [file] does not exist.")
+
+	return FALSE
 
 ///given a text string, returns whether it is a valid dmi icons folder path
 /proc/is_valid_dmi_file(icon_path)
@@ -1094,9 +1164,9 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			icon_state = thing.icon_state
 			//Despite casting to atom, this code path supports mutable appearances, so let's be nice to them
 			if(isnull(icon_state))
-				icon_state = initial(thing.icon_state)
+				icon_state = thing::post_init_icon_state || thing::icon_state
 				if(isnull(dir))
-					dir = initial(thing.dir)
+					dir = thing::dir
 
 		if(isnull(dir))
 			dir = thing.dir

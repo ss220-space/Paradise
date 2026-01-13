@@ -211,6 +211,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/list/greyscale_config_worn
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/list/greyscale_config_worn_species
+	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_left
+	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_right
+
 	//Tooltip vars
 	var/tip_timer = 0
 
@@ -1241,6 +1250,23 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = ..()
 	update_equipped_item()
 
+/// Checks if this atom uses the GAS system and if so updates the worn and inhand icons
+/obj/item/update_greyscale()
+	. = ..()
+	if(!greyscale_colors)
+		return
+	if(greyscale_config_worn)
+		for(var/config in greyscale_config_worn)
+			onmob_sheets[config] = SSgreyscale.get_colored_icon_by_type(greyscale_config_worn[config], greyscale_colors)
+	if(greyscale_config_worn_species)
+		for(var/config in greyscale_config_worn_species)
+			sprite_sheets[config] = SSgreyscale.get_colored_icon_by_type(greyscale_config_worn_species[config], greyscale_colors)
+	if(greyscale_config_inhand_left)
+		lefthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_left, greyscale_colors)
+	if(greyscale_config_inhand_right)
+		righthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_right, greyscale_colors)
+	return
+
 /obj/item/proc/add_tape()
 	return
 
@@ -1415,3 +1441,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		delta += addition
 
 	return force + delta
+
+/// Returns the icon used for overlaying the object on a belt
+/obj/item/proc/get_belt_overlay()
+	if(!belt_icon)
+		return
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)

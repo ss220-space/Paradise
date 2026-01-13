@@ -25,7 +25,7 @@
 /obj/machinery/atmospherics/unary/atmos_init()
 	..()
 	for(var/obj/machinery/atmospherics/target in get_step(src, dir))
-		if(target.initialize_directions & get_dir(target,src))
+		if(target.initialize_directions & get_dir(target, src))
 			var/c = check_connect_types(target,src)
 			if(c)
 				target.connected_to = c

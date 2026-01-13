@@ -1,6 +1,6 @@
 /datum/outfit/prisoner
-	uniform = /obj/item/clothing/under/color/orange
-	shoes = /obj/item/clothing/shoes/orange
+	uniform = /obj/item/clothing/under/color/orange/prison
+	shoes = /obj/item/clothing/shoes/color/orange/prison
 
 /datum/outfit/prisoner/plasmamen
 	uniform =/obj/item/clothing/under/plasmaman

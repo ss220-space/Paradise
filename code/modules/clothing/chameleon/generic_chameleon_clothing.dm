@@ -8,14 +8,24 @@ do { \
 /obj/item/clothing/under/chameleon
 	name = "black jumpsuit"
 	desc = "It's a plain jumpsuit. It has a small dial on the wrist."
-	icon_state = "black"
-	item_state = "bl_suit"
+	icon_state = "jumpsuit"
+	item_state = "jumpsuit"
 	item_color = "black"
 	random_sensor = FALSE
 	resistance_flags = NONE
 	can_adjust = FALSE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/jumpsuit)
+
+/obj/item/clothing/under/chameleon/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/under/color/black/temp_item = new(null)
+	icon = temp_item.icon
+	onmob_sheets = temp_item.onmob_sheets
+	sprite_sheets = temp_item.sprite_sheets
+	lefthand_file = temp_item.lefthand_file
+	righthand_file = temp_item.righthand_file
+	qdel(temp_item)
 
 /obj/item/clothing/under/chameleon/broken
 
@@ -210,12 +220,22 @@ do { \
 /obj/item/clothing/shoes/chameleon
 	name = "black shoes"
 	desc = "A pair of black shoes."
-	icon_state = "black"
+	icon = 'icons/map_icons/clothing/shoes.dmi'
+	icon_state = "/obj/item/clothing/shoes/color"
+	post_init_icon_state = "sneakers"
 	item_color = "black"
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
 	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	actions_types = list(/datum/action/item_action/chameleon/change/shoes)
+
+/obj/item/clothing/shoes/chameleon/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/shoes/color/black/temp_item = new(null)
+	icon = temp_item.icon
+	onmob_sheets = temp_item.onmob_sheets
+	sprite_sheets = temp_item.sprite_sheets
+	qdel(temp_item)
 
 /obj/item/clothing/shoes/chameleon/broken
 
