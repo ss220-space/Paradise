@@ -2567,7 +2567,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "hs" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -3403,7 +3403,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "jN" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -10252,7 +10252,7 @@
 	dir = 4;
 	simulated = 0
 	},
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded{
 	dir = 1
 	},
 /obj/machinery/light/small,
@@ -13425,7 +13425,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "LD" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded,
+/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 32
 	},
@@ -14840,7 +14840,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "Pu" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -16848,7 +16848,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded,
+/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded,
 /obj/structure/window/plasmareinforced{
 	dir = 4;
 	simulated = 0

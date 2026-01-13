@@ -203,7 +203,7 @@
 			new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 		if(95)
 			new /obj/item/clothing/under/mime(src)
-			new /obj/item/clothing/shoes/black(src)
+			new /obj/item/clothing/shoes/color/black(src)
 			new /obj/item/pda/mime(src)
 			new /obj/item/clothing/gloves/color/white(src)
 			new /obj/item/clothing/mask/gas/mime(src)
