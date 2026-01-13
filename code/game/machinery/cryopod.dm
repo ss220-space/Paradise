@@ -167,6 +167,7 @@
 
 /obj/item/circuitboard/robotstoragecontrol
 	board_name = "Robotic Storage Console"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = "/obj/machinery/computer/cryopod/robot"
 	origin_tech = "programming=1"
 

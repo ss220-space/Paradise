@@ -197,7 +197,7 @@ def check_initialize_missing_mapload(idx, line):
 # TODO: This finds most cases except for e.g. `list(1, 2, 3 )`
 # Find a way to include this without breaking macro/tab-aligned versions such as `list(		\`
 # Maybe even make sure it doesn't include comments, idk
-EMPTY_LIST_WHITESPACE = re.compile(r"list\([^\S\n\r\f]+.*?[^\\]\n")
+EMPTY_LIST_WHITESPACE = re.compile(r"list\([^\S\n\r\f]+(?!//|/\*).*?[^\\]\n")
 def check_empty_list_whitespace(idx, line):
     if EMPTY_LIST_WHITESPACE.search(line):
         return [(idx + 1, "Empty list declarations should not have any whitespace within their parentheses.")]

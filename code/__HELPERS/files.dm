@@ -143,6 +143,7 @@
 
 /// Save file as an external file then md5 it.
 /// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
+/// https://www.byond.com/forum/post/2611357
 /proc/md5asfile(file)
 	var/static/notch = 0
 	// Its importaint this code can handle md5filepath sleeping instead of hard blocking, if it's converted to use rust_g.
