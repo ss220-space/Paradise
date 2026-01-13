@@ -2,11 +2,13 @@
 	name = "critter crate"
 	desc = "A crate designed for safe transport of animals. It has an oxygen tank for safe transport in space."
 	icon_state = "critter"
+	base_icon_state = "critter"
+	material_drop = /obj/item/stack/sheet/wood
+	material_drop_amount = 4
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	open_sound_volume = 25
-	close_sound_volume = 50
-	var/already_opened = 0
+	var/already_opened = TRUE
 	var/content_mob = null
 	var/amount = 1
 	var/datum/gas_mixture/air // Do it using internals/emergency_oxygen ??

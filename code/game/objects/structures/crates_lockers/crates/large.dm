@@ -1,10 +1,12 @@
 /obj/structure/closet/crate/large
 	name = "large crate"
 	desc = "A hefty wooden crate. You'll need a crowbar to get it open."
-	icon = 'icons/obj/crates.dmi'
 	icon_state = "largecrate"
 	base_icon_state = "largecrate"
-	density = TRUE
+	pass_flags_self = PASSSTRUCTURE
+	material_drop = /obj/item/stack/sheet/wood
+	material_drop_amount = 4
+	integrity_failure = 0
 	/// What animal type this crate contains
 	var/animal_type
 

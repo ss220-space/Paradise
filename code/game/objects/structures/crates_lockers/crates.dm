@@ -278,30 +278,6 @@
 		PREPOSITIONAL = "деревянном ящике",
 	)
 
-/obj/structure/closet/crate/large
-	name = "large crate"
-	desc = "A hefty metal crate."
-	icon_state = "largemetal"
-	pass_flags_self = PASSSTRUCTURE
-	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
-
-/obj/structure/closet/crate/large/close()
-	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = FALSE
-		for(var/obj/structure/S in src.loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = TRUE
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in src.loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
-
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
 	desc = "All you need to destroy those pesky weeds and pests."

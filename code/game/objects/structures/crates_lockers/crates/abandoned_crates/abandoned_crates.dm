@@ -31,7 +31,8 @@
 	 * Total probability = ((probability in sublist * group weight) / 100)
 	 */
 	var/list/possible_loot = list(
-		list( // Alcohol and entertainment
+		// Alcohol and entertainment
+		list(
 			/obj/effect/spawner/abandoned_crate/booze = 15,
 			/obj/effect/spawner/abandoned_crate/drugs = 5,
 			/obj/effect/spawner/abandoned_crate/snappops = 5,
@@ -41,7 +42,8 @@
 			/obj/effect/spawner/abandoned_crate/random_toy_prize = 3,
 			) = 49,
 
-		list( // Tools and equipment
+		// Tools and equipment
+		list(
 			/obj/effect/spawner/abandoned_crate/tools = 15,
 			/obj/effect/spawner/abandoned_crate/science_equipment = 10,
 			/obj/effect/spawner/abandoned_crate/electronics = 8,
@@ -49,14 +51,16 @@
 			/obj/effect/spawner/abandoned_crate/random_components = 5,
 			) = 45,
 
-		list( // Valuable materials
+		// Valuable materials
+		list(
 			/obj/effect/spawner/abandoned_crate/diamonds = 8,
 			/obj/effect/spawner/abandoned_crate/bluespace_crystal = 8,
 			/obj/effect/spawner/abandoned_crate/cash = 5,
 			/obj/effect/spawner/abandoned_crate/random_coins = 5,
 			) = 26,
 
-		list( // Clothes and suits
+		// Clothes and suits
+		list(
 			/obj/effect/spawner/abandoned_crate/casual_clothes = 10,
 			/obj/effect/spawner/abandoned_crate/funny_clothes = 8,
 			/obj/effect/spawner/abandoned_crate/bedsheets = 5,
@@ -73,7 +77,8 @@
 			/obj/effect/spawner/abandoned_crate/space_suit = 3,
 			) = 66,
 
-		list( // Weapons and Security
+		// Weapons and Security
+		list(
 			/obj/effect/spawner/abandoned_crate/security_gear = 12,
 			/obj/effect/spawner/abandoned_crate/shotgun_kit = 8,
 			/obj/effect/spawner/abandoned_crate/syndicate_gear = 8,
@@ -83,7 +88,8 @@
 			/obj/effect/spawner/abandoned_crate/bombarda = 4,
 			) = 50,
 
-		list( // Medicine and science
+		// Medicine and science
+		list(
 			/obj/effect/spawner/abandoned_crate/medical = 10,
 			/obj/effect/spawner/abandoned_crate/organs = 8,
 			/obj/effect/spawner/abandoned_crate/cybernetics = 5,
@@ -91,7 +97,8 @@
 			/obj/effect/spawner/abandoned_crate/weed = 5,
 			) = 33,
 
-		list( // Miscellaneous
+		// Miscellaneous
+		list(
 			/obj/effect/spawner/abandoned_crate/posters = 8,
 			/obj/effect/spawner/abandoned_crate/random_seeds = 8,
 			/obj/effect/spawner/abandoned_crate/soulstone = 5,
@@ -133,7 +140,7 @@
 	if(!user.can_perform_action(src))
 		return
 
-	var/input = tgui_input_text(user, title = "Дека-кодовый замок", message = "Введите [code_length] цифры. Все цифры должны быть уникальными.", max_length = code_length)
+	var/input = tgui_input_text(user, title = "Дека-кодовый замок", message = "Введите [code_length] цифр[DECL_SEC_MIN(code_length)]. Все цифры должны быть уникальными.", max_length = code_length)
 
 	if(input == code)
 		if(!spawned_loot)
@@ -191,7 +198,7 @@
 	// Attempt to update tgui ui, open and update if needed.
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AbandonedCrate", declent_ru(NOMINATIVE))
+		ui = new(user, src, "AbandonedCrate", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/structure/closet/crate/secure/loot/ui_data(mob/user)
