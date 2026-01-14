@@ -8,6 +8,7 @@
 	force = 5
 	origin_tech = "materials=2;engineering=2"
 	max_integrity = 300
+	abstract_type = /obj/item/mecha_parts/mecha_equipment
 	/// Only used in start_cooldown() and do_after_cooldown(), so be sure to add one of these procs to your successful action().
 	var/equip_cooldown = 0
 	/// Can we use equip?

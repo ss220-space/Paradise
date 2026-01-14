@@ -21,6 +21,7 @@
  */
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throw_speed = 4
 	throw_range = 20
 	var/unique_toy_rename = FALSE

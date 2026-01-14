@@ -1,5 +1,6 @@
 /turf
 	icon = 'icons/turf/floors.dmi'
+	abstract_type = /turf
 	level = 1
 	luminosity = 1
 

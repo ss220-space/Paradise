@@ -15,6 +15,7 @@
 /obj/item/kitchen
 	icon = 'icons/obj/kitchen.dmi'
 	origin_tech = "materials=1"
+	abstract_type = /obj/item/kitchen
 
 /*
  * Utensils

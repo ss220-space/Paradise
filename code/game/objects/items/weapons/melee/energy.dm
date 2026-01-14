@@ -1,14 +1,7 @@
 /obj/item/melee/energy
-	var/active = 0
-	var/force_on = 30 //force when active
-	var/throwforce_on = 20
-	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
-	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
+	abstract_type = /obj/item/melee/energy
 	stealthy_audio = TRUE //Most of these are antag weps so we dont want them to be /too/ overt.
 	w_class = WEIGHT_CLASS_SMALL
-	var/w_class_on = WEIGHT_CLASS_BULKY
-	var/icon_state_on
-	var/list/attack_verb_on = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	hitsound = 'sound/weapons/blade1.ogg' // Probably more appropriate than the previous hitsound. -- Dave
 	usesound = 'sound/weapons/blade1.ogg'
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
@@ -18,6 +11,14 @@
 	light_range = 2
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
+	var/active = 0
+	var/force_on = 30 //force when active
+	var/throwforce_on = 20
+	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
+	var/list/nemesis_factions //Any mob with a faction that exists in this list will take bonus damage/effects
+	var/w_class_on = WEIGHT_CLASS_BULKY
+	var/icon_state_on
+	var/list/attack_verb_on = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

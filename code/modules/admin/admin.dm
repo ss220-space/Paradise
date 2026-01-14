@@ -601,9 +601,9 @@ ADMIN_VERB(delay, R_SERVER, "Delay Pre-Game", "Delay the game start.", ADMIN_CAT
  * Usually, you'd return a FALSE, but since this is consumed by javascript you're in
  * for a world of hurt if you pass a byond FALSE which get converted into a fucking string anyway and pass for TRUE in check. Fuck.
  * It always append "(May be other antag)"
+ *
  * Arguments:
  * * M - the mob you're checking
- * *
  */
 /proc/get_antag_type_truncated_plaintext_string(mob/M as mob)
 	var/list/antag_list = get_antag_type_strings_list(M)
@@ -613,65 +613,44 @@ ADMIN_VERB(delay, R_SERVER, "Delay Pre-Game", "Delay the game start.", ADMIN_CAT
 
 	return ""
 
-ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным.", ADMIN_CATEGORY_EVENTS, object as text)
-	return user.spawn_atom_impl(object, FALSE)
+ADMIN_VERB(spawn_atom, R_SPAWN, "Spawn", "Spawn an atom.", ADMIN_CATEGORY_DEBUG, object as text|null)
+	var/static/list/atom_types
+	if(isnull(atom_types))
+		atom_types = subtypesof(/atom)
 
-ADMIN_VERB(spawn_atom_adv, R_SPAWN, "Advanced Spawn", "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным.", ADMIN_CATEGORY_EVENTS, object as text)
-	return user.spawn_atom_impl(object, TRUE)
+	var/chosen_path = null
+	var/list/preparsed = null
+	if(object)
+		preparsed = splittext(object, ":")
+		var/list/matches = filter_fancy_list(atom_types, preparsed[1])
+		if(length(matches) == 1)
+			chosen_path = matches[1]
 
-/client/proc/spawn_atom_impl(object, params)
-	if(!check_rights(R_SPAWN))
-		return
+	if(!chosen_path)
+		var/datum/spawn_menu/menu = user.holder.spawn_menu
+		if(!menu)
+			menu = new()
+			user.holder.spawn_menu = menu
+		menu.init_value = object
+		menu.ui_interact(user.mob)
+		BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
+		return TRUE
 
-	var/list/types = typesof(/atom)
-	var/list/matches = new()
+	var/amount = 1
+	if(length(preparsed) > 1)
+		amount = clamp(text2num(preparsed[2]), 1, ADMIN_SPAWN_CAP)
 
-	var/include_subtypes = TRUE
-
-	if(copytext(object, -1) == ".")
-		include_subtypes = FALSE
-		object = copytext(object, 1, -1)
-
-	if(include_subtypes)
-		for(var/path in types)
-			if(findtext("[path]", object))
-				matches += path
+	var/turf/target_turf = get_turf(user.mob)
+	if(ispath(chosen_path, /turf))
+		target_turf.ChangeTurf(chosen_path)
 	else
-		var/needle_length = length(object)
-		for(var/path in types)
-			if(copytext("[path]", -needle_length) == object)
-				matches += path
+		for(var/i in 1 to amount)
+			var/atom/spawned = new chosen_path(target_turf)
+			spawned.flags |= ADMIN_SPAWNED
 
-	if(matches.len==0)
-		return
-
-	var/chosen
-	if(matches.len==1)
-		chosen = matches[1]
-	else
-		chosen = tgui_input_list(usr, "Выберите тип атома", "Спавн атома", matches, matches[1])
-		if(isnull(chosen))
-			return
-
-	var/list/arguments
-	if(ispath(chosen,/turf))
-		var/turf/T = get_turf(usr.loc)
-		T.ChangeTurf(chosen)
-	else
-		if(params)
-			arguments = usr.client.get_callproc_args(TRUE)
-
-		if(!usr)
-			return
-
-		arguments = list(usr.loc) + arguments
-
-		var/atom/atom = new chosen(arglist(arguments))
-		if(atom)
-			atom.flags |= ADMIN_SPAWNED
-
-	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
+	log_and_message_admins("spawned [amount] x [chosen_path] at [AREACOORD(user.mob)]")
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Atom")
+	return TRUE
 
 ADMIN_VERB(show_traitor_panel, R_ADMIN|R_MOD, "Show Traitor Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/target_mob in GLOB.mob_list)
 	var/datum/mind/target_mind = target_mob.mind

@@ -11,7 +11,7 @@
 	gender = NEUTER
 	dna = null
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALIEN
-
+	abstract_type = /mob/living/carbon/alien
 	var/nightvision_enabled = FALSE
 	nightvision = 4
 

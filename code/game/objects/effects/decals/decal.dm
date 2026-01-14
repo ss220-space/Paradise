@@ -3,6 +3,7 @@
 	name = "decal"
 	plane = FLOOR_PLANE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	abstract_type = /obj/effect/decal
 	/// If it has this, don't let it be scooped up.
 	var/no_scoop = FALSE
 	/// If it has this, don't delete it when its' scooped up.

@@ -6,6 +6,7 @@
 	density = TRUE
 	max_integrity = 100
 	cares_about_temperature = TRUE
+	abstract_type = /obj/structure/statue
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/metal
 
@@ -75,6 +76,7 @@
 	max_integrity = 300
 	light_range = 2
 	material_drop_type = /obj/item/stack/sheet/mineral/uranium
+	abstract_type = /obj/structure/statue/uranium
 	var/last_event = 0
 	var/active = null
 
@@ -100,6 +102,7 @@
 	max_integrity = 200
 	material_drop_type = /obj/item/stack/sheet/mineral/plasma
 	desc = "This statue is suitably made from plasma."
+	abstract_type = /obj/structure/statue/plasma
 
 /obj/structure/statue/plasma/scientist
 	name = "statue of a scientist"
@@ -159,6 +162,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/gold
 	desc = "This is a highly valuable statue made from gold."
+	abstract_type = /obj/structure/statue/gold
 
 /obj/structure/statue/gold/hos
 	name = "statue of the head of security"
@@ -192,6 +196,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/silver
 	desc = "This is a valuable statue made from silver."
+	abstract_type = /obj/structure/statue/silver
 
 /obj/structure/statue/silver/md
 	name = "statue of a medical doctor"
@@ -217,6 +222,7 @@
 	max_integrity = 1000
 	material_drop_type = /obj/item/stack/sheet/mineral/diamond
 	desc = "This is a very expensive diamond statue."
+	abstract_type = /obj/structure/statue/diamond
 
 /obj/structure/statue/diamond/captain
 	name = "statue of THE captain"
@@ -234,6 +240,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/bananium
 	desc = "A bananium statue with a small engraving:'HOOOOOOONK'."
+	abstract_type = /obj/structure/statue/bananium
 	var/spam_flag = 0
 
 /obj/structure/statue/bananium/clown
@@ -268,6 +275,7 @@
 /obj/structure/statue/sandstone
 	max_integrity = 50
 	material_drop_type = /obj/item/stack/sheet/mineral/sandstone
+	abstract_type = /obj/structure/statue/sandstone
 
 /obj/structure/statue/sandstone/assistant
 	name = "statue of an assistant"
@@ -284,6 +292,7 @@
 	max_integrity = 300
 	material_drop_type = /obj/item/stack/sheet/mineral/tranquillite
 	desc = "..."
+	abstract_type = /obj/structure/statue/tranquillite
 
 /obj/structure/statue/tranquillite/mime
 	name = "statue of a mime"
@@ -535,6 +544,7 @@
 ///////// Cheese
 /obj/structure/statue/cheese
 	material_drop_type = /obj/item/stack/sheet/cheese
+	abstract_type = /obj/structure/statue/cheese
 
 /obj/structure/statue/cheese/cheesus
 	name = "statue of cheesus"

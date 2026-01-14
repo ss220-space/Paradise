@@ -2,6 +2,7 @@
 	parent_type = /obj/item/mecha_parts
 	icon = 'icons/goonstation/pods/pod_parts.dmi'
 	icon_state = null
+	abstract_type = /obj/item/mecha_parts
 
 /obj/item/pod_parts/core
 	name = "Space Pod Core"

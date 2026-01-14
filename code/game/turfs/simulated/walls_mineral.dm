@@ -4,6 +4,7 @@
 	icon_state = ""
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
+	abstract_type = /turf/simulated/wall/mineral
 	var/last_event = 0
 	var/active = null
 

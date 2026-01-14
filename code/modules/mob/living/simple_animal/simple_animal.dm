@@ -9,7 +9,7 @@
 	status_flags = CANPUSH
 
 	hud_type = /datum/hud/simple_animal
-
+	abstract_type = /mob/living/simple_animal
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""

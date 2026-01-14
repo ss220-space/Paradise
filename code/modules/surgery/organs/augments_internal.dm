@@ -9,6 +9,7 @@
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
 	lefthand_file = 'icons/mob/inhands/implants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/implants_righthand.dmi'
+	abstract_type = /obj/item/organ/internal/cyberimp
 
 /obj/item/organ/internal/cyberimp/New(mob/M = null)
 	. = ..()
@@ -256,6 +257,7 @@
 	desc = "implants for the organs in your torso."
 	icon_state = "chest_implant"
 	implant_overlay = "chest_implant_overlay"
+	abstract_type = /obj/item/organ/internal/cyberimp/chest
 
 /obj/item/organ/internal/cyberimp/chest/nutriment
 	name = "Nutriment pump implant"

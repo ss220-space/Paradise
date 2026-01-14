@@ -1,4 +1,5 @@
 /obj
+	abstract_type = /obj
 	animate_movement = SLIDE_STEPS
 	var/obj_flags = NONE
 	/// Used by R&D to determine what research bonuses it grants.

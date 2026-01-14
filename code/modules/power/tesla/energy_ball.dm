@@ -242,7 +242,7 @@ GLOBAL_LIST_INIT(things_to_shock, typecacheof(list(
 		/obj/machinery,
 		/mob/living,
 		/obj/structure,
-		/obj/vehicle
+		/obj/vehicle,
 	)))
 
 /proc/tesla_zap(atom/source, zap_range = 3, power, cutoff = 1e3, zap_flags = ZAP_DEFAULT_FLAGS, list/shocked_targets = list())

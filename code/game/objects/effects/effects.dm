@@ -4,6 +4,7 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
+	abstract_type = /obj/effect
 	obj_flags = IGNORE_HITS
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF|FREEZE_PROOF
 	move_resist = INFINITY
