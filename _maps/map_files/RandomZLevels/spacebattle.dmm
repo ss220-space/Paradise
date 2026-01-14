@@ -17017,7 +17017,7 @@
 /area/awaymission/spacebattle/prhallway4)
 "Vn" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser/hitscan,
 /obj/structure/window/reinforced/tinted{
 	dir = 1;
 	pixel_y = 6

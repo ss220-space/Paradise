@@ -5,7 +5,7 @@
 	icon_state = "guncabinet"
 
 	var/static/list/gun_overlays = list(
-		/obj/item/gun/energy/laser = "laser",
+		/obj/item/gun/energy/laser/hitscan = "laser",
 		/obj/item/gun/projectile/shotgun = "shotgun",
 		/obj/item/gun/projectile/automatic/wt550 = "wt550",
 		/obj/item/gun/projectile/automatic/lr30 = "lr30",

@@ -4624,7 +4624,7 @@
 /obj/effect/mob_spawn/human/corpse/tacticool{
 	layer = 4
 	},
-/obj/item/gun/energy/laser{
+/obj/item/gun/energy/laser/hitscan{
 	pixel_x = -5
 	},
 /turf/simulated/floor/plating/asteroid/airless,
@@ -4980,10 +4980,10 @@
 /area/awaymission/BMPship/Buffer)
 "wU" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/laser{
+/obj/item/gun/energy/laser/hitscan{
 	pixel_x = -8
 	},
-/obj/item/gun/energy/laser,
+/obj/item/gun/energy/laser/hitscan,
 /obj/structure/alien/weeds,
 /obj/structure/alien/resin{
 	layer = 3.1

@@ -15,6 +15,13 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
 	)
 
+/obj/item/gun/energy/laser/hitscan
+	name = "LG-Mk.5"
+	desc = "Пятое поколение стандартной лазерной винтовки службы безопасности. Модель LG-Mk.5 сочетает проверенную надёжность ранних EG-серий с современной лазерной системой."
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan)
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."

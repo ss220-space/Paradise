@@ -108,7 +108,7 @@
 		/obj/item/gun/energy/gun,
 		/obj/item/gun/energy/shock_revolver,
 		/obj/item/gun/energy/laser/scatter,
-		/obj/item/gun/energy/laser,
+		/obj/item/gun/energy/laser/hitscan,
 		/obj/item/gun/energy/emittercannon,
 		/obj/item/gun/energy/dominator,
 		/obj/item/gun/energy/plasma_pistol,

@@ -31,7 +31,7 @@
 	. = ..()
 	install_sibyl()
 
-/obj/item/gun/energy/laser/sibyl/Initialize(mapload)
+/obj/item/gun/energy/laser/hitscan/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()
 

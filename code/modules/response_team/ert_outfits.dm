@@ -159,7 +159,7 @@
 		/obj/item/storage/box/zipties = 1,
 		/obj/item/storage/box/teargas = 1,
 		/obj/item/flashlight/seclite = 1,
-		/obj/item/gun/energy/laser/sibyl = 1,
+		/obj/item/gun/energy/laser/hitscan/sibyl = 1,
 	)
 
 /datum/outfit/job/centcom/response_team/security/red

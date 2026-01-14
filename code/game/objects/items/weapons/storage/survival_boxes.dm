@@ -214,7 +214,7 @@
 	new /obj/item/storage/box/zipties (src)
 	new /obj/item/storage/box/teargas (src)
 	new /obj/item/flashlight/seclite (src)
-	new /obj/item/gun/energy/laser/sibyl (src)
+	new /obj/item/gun/energy/laser/hitscan/sibyl (src)
 
 /obj/item/storage/box/survival/responseteam/amber/medic
 	name = "ERT Amber Medic kit"

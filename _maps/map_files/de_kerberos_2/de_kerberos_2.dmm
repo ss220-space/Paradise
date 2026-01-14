@@ -86347,11 +86347,11 @@
 "oPM" = (
 /obj/structure/rack/gunrack,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/gun/energy/laser{
+/obj/item/gun/energy/laser/hitscan{
 	pixel_x = -6
 	},
-/obj/item/gun/energy/laser,
-/obj/item/gun/energy/laser{
+/obj/item/gun/energy/laser/hitscan,
+/obj/item/gun/energy/laser/hitscan{
 	pixel_x = 6
 	},
 /obj/structure/window/reinforced{

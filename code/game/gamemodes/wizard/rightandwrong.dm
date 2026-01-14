@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(summoned_guns, list(
 	/obj/item/gun/energy/disabler,
 	/obj/item/gun/energy/gun,
 	/obj/item/gun/energy/gun/advtaser,
-	/obj/item/gun/energy/laser,
+	/obj/item/gun/energy/laser/hitscan,
 	/obj/item/gun/projectile/revolver,
 	/obj/item/gun/projectile/revolver/detective,
 	/obj/item/gun/projectile/automatic/pistol/deagle/camo,

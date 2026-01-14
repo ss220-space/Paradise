@@ -244,11 +244,11 @@
 	)
 
 /obj/structure/closet/secure_closet/guncabinet/lasergun/populate_contents()
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
-	new /obj/item/gun/energy/laser(src)
+	new /obj/item/gun/energy/laser/hitscan(src)
+	new /obj/item/gun/energy/laser/hitscan(src)
+	new /obj/item/gun/energy/laser/hitscan(src)
+	new /obj/item/gun/energy/laser/hitscan(src)
+	new /obj/item/gun/energy/laser/hitscan(src)
 
 /obj/structure/closet/secure_closet/guncabinet/lr30
 	name = "security LR-30 gun cabinet"

@@ -1226,7 +1226,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 			target_amount = 4
 			loot = "4 егана"
 		if(7)
-			target = /obj/item/gun/energy/laser
+			target = /obj/item/gun/energy/laser/hitscan
 			target_amount = 2
 			loot = "2 лазерных винтовки"
 		if(8)

@@ -689,11 +689,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/laser
-	name = "Лазерные карабины"
+	name = "Лазерные карабины LG-Mk.5"
 	contains = list(
-		/obj/item/gun/energy/laser,
-		/obj/item/gun/energy/laser,
-		/obj/item/gun/energy/laser,
+		/obj/item/gun/energy/laser/hitscan,
+		/obj/item/gun/energy/laser/hitscan,
+		/obj/item/gun/energy/laser/hitscan,
 	)
 	cost = 20
 	containername = "ящик лазерных карабинов"

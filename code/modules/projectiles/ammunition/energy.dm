@@ -29,9 +29,16 @@
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/projectile/beam/laser
 	muzzle_flash_color = COLOR_SOFT_RED
-	e_cost = 65
+	e_cost = 75
 	select_name = "kill"
 	bullet_type = BULLET_TYPE_LASER
+
+/obj/item/ammo_casing/energy/lasergun/hitscan
+	name = "hitscan laser lens"
+	desc = "An advanced laser lens that produces instantaneous hitscan beams."
+	projectile_type = /obj/projectile/beam/laser/hitscan
+	select_name = "hitscan"
+	delay = 7
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 75
