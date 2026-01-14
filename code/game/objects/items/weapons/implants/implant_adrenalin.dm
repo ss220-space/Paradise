@@ -79,7 +79,7 @@
 	desc = "Use it to escape child support. Works only once!"
 	origin_tech = "combat=5;magnets=3;biotech=3;syndicate=1"
 	implant_data = /datum/implant_fluff/protoadrenaline
-	uses = 1
+	uses = 3
 
 /obj/item/implant/adrenalin/prototype/activate()
 	uses--
@@ -95,12 +95,9 @@
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
-	imp_in.reagents.add_reagent("synaptizine", 5)
-	imp_in.reagents.add_reagent("omnizine", 5)
-	imp_in.reagents.add_reagent("stimulative_agent", 5)
-	imp_in.reagents.add_reagent("adrenaline", 3)
-
-	imp_in.apply_status_effect(/datum/status_effect/adrenaline)
+	imp_in.reagents.add_reagent("synaptizine", 2.5)
+	imp_in.reagents.add_reagent("stimulative_agent", 2.5)
+	imp_in.reagents.add_reagent("adrenaline", 1.5)
 
 	if(!uses)
 		qdel(src)
