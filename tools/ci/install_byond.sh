@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+# This is needed now
+sudo dpkg --add-architecture i386
+sudo apt-get update
+sudo apt install libcurl4:i386
+
 if [ -z "${BYOND_MAJOR+x}" ]; then
   source _build_dependencies.sh
   # if some other build step hasn't specified the specific BYOND version we're not

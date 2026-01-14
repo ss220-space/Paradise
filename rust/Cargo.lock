@@ -276,7 +276,7 @@ checksum = "46c5e41b57b8bba42a04676d81cb89e9ee8e859a1a66f80a5a72e1cb76b34d43"
 
 [[package]]
 name = "byondapi"
-version = "0.5.14"
+version = "0.6.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b8a7097daa6316edba08830dafec10e28f4d844888ca87c1daae5be8e7a535e"
 dependencies = [
@@ -289,7 +289,7 @@ dependencies = [
 
 [[package]]
 name = "byondapi-macros"
-version = "0.2.3"
+version = "0.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b7aaf3e0a7599499e6eb30b729cf72374e3638cf110e7e652a9b416bd4c7bbcc"
 dependencies = [
