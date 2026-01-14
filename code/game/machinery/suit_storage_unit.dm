@@ -297,7 +297,6 @@
 		if(storage)
 			. += "[base_icon_state]_storage"
 	else
-		. += "[base_icon_state]_uvstrong"
 		. += "[base_icon_state]_lights_closed"
 
 	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
