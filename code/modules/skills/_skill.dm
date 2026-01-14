@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(skills)
 // Show skills window from verbs
 /mob/verb/view_skills_win()
 	set name = "Навыки персонажа"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	if(mind)
 		GLOB.skills_window.ui_interact(usr)
 	else

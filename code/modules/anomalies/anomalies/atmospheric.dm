@@ -12,8 +12,8 @@
 
 /obj/effect/anomaly/atmospheric/collapse()
 	for(var/turf/simulated/turf in view(collapse_range * 2, src))
-		if(turf.air)
-			turf.air.temperature = rand(0, 50)
+		var/datum/milla_safe/anomaly_set_temp/milla = new()
+		milla.invoke_async(turf)
 
 	for(var/turf/simulated/floor/turf in view(collapse_range, src))
 		var/near_ice = 0 // Generation will be more beautiful.
@@ -34,13 +34,23 @@
 
 	var/turf/simulated/turf = get_turf(src)
 	if(istype(turf))
-		turf.atmos_spawn_air(LINDA_SPAWN_OXYGEN, collapse_gas_amount * 2/7)
-		turf.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, collapse_gas_amount * 5/7)
+		var/datum/gas_mixture/old_air = turf.get_readonly_air()
+		var/datum/gas_mixture/air = new()
+		air.set_temperature(1000)
+		air.set_toxins(old_air.toxins() + collapse_gas_amount * 5/7)
+		air.set_oxygen(old_air.oxygen() + collapse_gas_amount * 2/7)
+		turf.blind_release_air(air)
 
 	for(var/i = 1 to rand(collapse_slimes_low, collapse_slimes_high))
 		INVOKE_ASYNC(src, PROC_REF(make_slime))
 
 	. = ..()
+
+/datum/milla_safe/anomaly_set_temp
+
+/datum/milla_safe/anomaly_set_temp/on_run(turf/turf)
+	var/datum/gas_mixture/env = get_turf_air(turf)
+	env.set_temperature(rand(0, 50))
 
 /obj/effect/anomaly/atmospheric/mob_touch_effect(mob/living/mob)
 	. = ..()
@@ -64,10 +74,10 @@
 	slime.set_nutrition(slime.get_max_nutrition())
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за слайма из атмосферной аномалии?", ROLE_SENTIENT, FALSE, 100, source = slime, role_cleanname = "pyroclastic anomaly slime")
-	
+
 	if(QDELETED(slime))
 		return
-	
+
 	if(!LAZYLEN(candidates))
 		return
 

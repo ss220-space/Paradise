@@ -342,7 +342,7 @@
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
 			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
-		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applyed_bodypart)
+		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applied_bodypart)
 			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
 
 	for(var/t in missing)
@@ -922,7 +922,11 @@ so that different stomachs can handle things in different ways VB*/
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	..()
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		add_sight(SEE_TURFS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	return ..()
 
 /mob/living/carbon/ExtinguishMob()
 	for(var/X in get_equipped_items())

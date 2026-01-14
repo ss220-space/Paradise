@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(closets)
 	for(var/obj/item/I in loc)
 		if(itemcount >= storage_capacity)
 			break
-		if(!I.anchored)
+		if(!I.anchored && I.can_put_in_closet)
 			I.forceMove(src)
 			itemcount++
 

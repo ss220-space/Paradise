@@ -1,26 +1,13 @@
-/* Glass stack types
- * Contains:
- *		Glass sheets
- *		Reinforced glass sheets
- *		Glass shards - TODO: Move this into code/game/object/item/weapons
- *		Plasma Glass Sheets
- *		Reinforced Plasma Glass Sheets (AKA Holy fuck strong windows)
- * Todo: Create a unified construct_window(sheet, user, created_window, full_window)
- */
-
-/*
- * Glass sheets
- */
-
+// MARK: GLASS
 GLOBAL_LIST_INIT(glass_recipes, list(
-	new /datum/stack_recipe/window("directional window", /obj/structure/window/basic, time = 1 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
-	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, time = 1 SECONDS, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
-	null,
-	new /datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
-	new /datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 2 SECONDS, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
-	new /datum/stack_recipe("wall aquariam", /obj/machinery/fishtank/wall, 4, time = 4 SECONDS, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
-	null,
-	new /datum/stack_recipe("glass ashtray", /obj/item/storage/ashtray/glass, 2, time = 2 SECONDS, one_per_turf = TRUE, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe_list("fish", list(
+		new /datum/stack_recipe("wall aquarium", /obj/machinery/fishtank/wall, 4, time = 4 SECONDS, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("fish tank", /obj/machinery/fishtank/tank, 3, time = 2 SECONDS, on_floor = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		new /datum/stack_recipe("fishbowl", /obj/machinery/fishtank/bowl, 1, time = 1 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+		)),
+	new /datum/stack_recipe/window("directional window", /obj/structure/window/basic, on_floor = TRUE, check_direction = TRUE, time = 2 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe/window("fulltile window", /obj/structure/window/full/basic, 2, on_floor = TRUE, is_fulltile = TRUE, time = 2 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
+	new /datum/stack_recipe("glass ashtray", /obj/item/storage/ashtray/glass, 2, one_per_turf = TRUE, on_floor = TRUE, time = 2 SECONDS, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD),
 ))
 
 /obj/item/stack/sheet/glass
@@ -88,12 +75,9 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 
 	return ..()
 
-/*
- * Reinforced glass sheets
- */
-
-GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
-	new/datum/stack_recipe/window("windoor frame", /obj/structure/windoor_assembly, 5, time = 1 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD), \
+// MARK: REINFORCED GLASS
+GLOBAL_LIST_INIT(reinforced_glass_recipes, list (
+	new/datum/stack_recipe/window("windoor frame", /obj/structure/windoor_assembly, 5, time = 0, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD), \
 	null, \
 	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/reinforced, time = 1 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD), \
 	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/reinforced, 2, time = 1 SECONDS, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD) \
@@ -141,7 +125,8 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 	source.add_charge(amount * metcost)
 	glasource.add_charge(amount * glacost)
 
-GLOBAL_LIST_INIT(pglass_recipes, list ( \
+// MARK: PLASMA GLASS
+GLOBAL_LIST_INIT(pglass_recipes, list (
 	new/datum/stack_recipe/window("directional window", /obj/structure/window/plasmabasic, time = 1 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD), \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/plasmabasic, 2, time = 1 SECONDS, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD) \
 ))
@@ -187,12 +172,9 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 
 	return ..()
 
-/*
- * Reinforced plasma glass sheets
- */
-
-GLOBAL_LIST_INIT(prglass_recipes, list ( \
-	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 1 SECONDS, on_floor = TRUE, check_direction = TRUE), modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD, \
+// MARK: R-PLASMA GLASS
+GLOBAL_LIST_INIT(prglass_recipes, list (
+	new/datum/stack_recipe/window("directional reinforced window", /obj/structure/window/plasmareinforced, time = 1 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD), \
 	new/datum/stack_recipe/window("fulltile reinforced window", /obj/structure/window/full/plasmareinforced, 2, time = 1 SECONDS, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD) \
 ))
 
@@ -217,6 +199,7 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 	. = ..()
 	recipes = GLOB.prglass_recipes
 
+// MARK: TITANIUM GLASS
 GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	new/datum/stack_recipe/window("shuttle window", /obj/structure/window/full/shuttle, 2, time = 1 SECONDS, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD)
 	))
@@ -240,6 +223,7 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 	. = ..()
 	recipes = GLOB.titaniumglass_recipes
 
+// MARK: PLASTITANIUM GLASS
 GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	new/datum/stack_recipe/window("plastitanium window", /obj/structure/window/plastitanium, 2, time = 1 SECONDS, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD)
 	))
@@ -263,7 +247,8 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 	. = ..()
 	recipes = GLOB.plastitaniumglass_recipes
 
-GLOBAL_LIST_INIT(alglass_recipes, list ( \
+// MARK: ABDUCTOR GLASS
+GLOBAL_LIST_INIT(alglass_recipes, list (
 	new/datum/stack_recipe/window("directional window", /obj/structure/window/abductor, time = 1 SECONDS, on_floor = TRUE, check_direction = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD), \
 	new/datum/stack_recipe/window("fulltile window", /obj/structure/window/full/abductor, 2, time = 1 SECONDS, on_floor = TRUE, is_fulltile = TRUE, modifier_signal = COMSIG_GET_CONSTRUCTING_SPEED_MOD) \
 ))

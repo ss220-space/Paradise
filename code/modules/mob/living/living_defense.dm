@@ -202,13 +202,15 @@
 	return FALSE
 
 /mob/living/proc/ExtinguishMob()
-	if(on_fire)
-		on_fire = FALSE
-		fire_stacks = 0
-		set_light_range(max(0,light_range - 3))
-		set_light_color(initial(light_color))
-		clear_alert("fire")
-		update_fire()
+	if(!on_fire)
+		return
+
+	on_fire = FALSE
+	fire_stacks = 0
+	set_light_range(max(0,light_range - 3))
+	set_light_color(initial(light_color))
+	clear_alert("fire")
+	update_fire()
 
 /mob/living/proc/update_fire()
 	return
@@ -236,12 +238,12 @@
 	else
 		ExtinguishMob()
 		return FALSE
-	var/datum/gas_mixture/G = loc?.return_air() // Check if we're standing in an oxygenless environment
-	if(!G || G.oxygen < 1)
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/gas = location?.get_readonly_air() // Check if we're standing in an oxygenless environment
+	if(!gas || gas.oxygen() < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
-	var/turf/location = get_turf(src)
-	location.hotspot_expose(700, 50, 1)
+	location.hotspot_expose(700, 10)
 	SEND_SIGNAL(src, COMSIG_LIVING_FIRE_TICK)
 	return TRUE
 

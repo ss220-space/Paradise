@@ -22,8 +22,12 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
-/obj/machinery/light_switch/Initialize(mapload)
+/obj/machinery/light_switch/Initialize(mapload, direction)
 	. = ..()
+	if(direction)
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
+
 	if(istext(area))
 		area = text2path(area)
 

@@ -10,7 +10,8 @@
 	desc = "Один из самых популярных способов осветить пространство в средневековых замках."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "torch_holder_item"
-	mount_reqs = list("simfloor", "nospace")
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 0
 
 /obj/item/mounted/frame/torch_holder/get_ru_names()
 	return list(

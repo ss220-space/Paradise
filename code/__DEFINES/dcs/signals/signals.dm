@@ -36,6 +36,7 @@
 #define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+#define COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED "!subsystems_init_ended"
 
 #define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
 #define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
@@ -613,8 +614,6 @@
 #define COMSIG_MOB_RESET_PERSPECTIVE "mob_reset_perspective"
 /// from base of /client/proc/set_eye() : (atom/old_eye, atom/new_eye)
 #define COMSIG_CLIENT_SET_EYE "client_set_eye"
-// from /client/proc/change_view() : (new_size)
-#define COMSIG_VIEW_SET "view_set"
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
 /// From base of /mob/proc/update_held_items
@@ -787,9 +786,6 @@
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 	/// Should we stop the current living movement attempt
 	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
-
-/// from base of /client/proc/handle_popup_close() : (window_id)
-#define COMSIG_POPUP_CLEARED "popup_cleared"
 
 /// from base of /datum/status_effect/Destroy() : (effect_type)
 #define COMSIG_MOB_STATUS_EFFECT_ENDED "mob_status_effect_ended"
@@ -1589,3 +1585,5 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+#define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"

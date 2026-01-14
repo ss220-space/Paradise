@@ -74,7 +74,7 @@
 	for(var/pipe_datum in GLOB.construction_pipe_list)
 		var/datum/pipes/pipe_instance = pipe_datum
 		if(pipe_instance.rpd_dispensable)
-			GLOB.rpd_pipe_list += list(list("pipe_name" = pipe_instance.pipe_name, "pipe_id" = pipe_instance.pipe_id, "pipe_type" = pipe_instance.pipe_type, "pipe_category" = pipe_instance.pipe_category, "orientations" = pipe_instance.orientations, "pipe_icon" = pipe_instance.pipe_icon, "bendy" = pipe_instance.bendy))
+			GLOB.rpd_pipe_list += list(list("pipe_name" = pipe_instance.pipe_name, "pipe_id" = pipe_instance.pipe_id, "pipe_type" = pipe_instance.pipe_type, "pipe_category" = pipe_instance.pipe_category, "orientations" = pipe_instance.orientations, "pipe_icon" = pipe_instance.pipe_icon, "pipe_icon_file" = pipe_instance.pipe_icon_file, "bendy" = pipe_instance.bendy))
 
 	// Setup PAI software
 	for(var/software_type in subtypesof(/datum/pai_software))
@@ -277,6 +277,13 @@
 				.[emote_instance.key] += emote_instance
 		else if(emote_instance.message) // Assuming all non-base emotes have this
 			stack_trace("Keyless emote: [emote_instance.type]")
+
+		if(emote_instance.additional_keys)
+			for(var/a_key in emote_instance.additional_keys)
+				if(!.[a_key])
+					.[a_key] = list(emote_instance)
+				else
+					.[a_key] += emote_instance
 
 		if(emote_instance.key_third_person) // This one is optional
 			if(!.[emote_instance.key_third_person])
@@ -500,31 +507,40 @@
 		skin_list[skin_data.item_path] = list()
 	skin_list[skin_data.item_path] += skin_data
 
-/// Checks if that loc and dir has an item on the wall
-GLOBAL_LIST_INIT(wall_items, typecacheof(list(
-	/obj/machinery/power/apc,
-	/obj/machinery/alarm,
+/**
+ * Checks if that loc and dir has an item on the wall
+**/
+// Wall mounted machinery which are visually on the wall.
+GLOBAL_LIST_INIT(wallitems_interior, typecacheof(list(
 	/obj/item/radio/intercom,
-	/obj/structure/extinguisher_cabinet,
-	/obj/structure/reagent_dispensers/peppertank,
-	/obj/machinery/status_display,
-	/obj/machinery/requests_console,
-	/obj/machinery/light_switch,
-	/obj/structure/sign,
-	/obj/machinery/newscaster,
-	/obj/machinery/firealarm,
-	/obj/structure/noticeboard,
-	/obj/machinery/door_control,
-	/obj/machinery/computer/security/telescreen,
-	/obj/machinery/embedded_controller/radio/airlock,
 	/obj/item/storage/secure/safe,
+	/obj/machinery/alarm,
+	/obj/machinery/computer/security/telescreen,
+	/obj/machinery/computer/security/telescreen/entertainment,
+	/obj/machinery/defibrillator_mount,
+	/obj/machinery/door_control,
 	/obj/machinery/door_timer,
+	/obj/machinery/embedded_controller/radio/airlock,
+	/obj/machinery/firealarm,
 	/obj/machinery/flasher,
 	/obj/machinery/keycard_auth,
-	/obj/structure/mirror,
+	/obj/machinery/light_switch,
+	/obj/machinery/newscaster,
+	/obj/machinery/power/apc,
+	/obj/machinery/requests_console,
+	/obj/machinery/status_display,
 	/obj/structure/closet/fireaxecabinet,
-	/obj/machinery/computer/security/telescreen/entertainment,
+	/obj/structure/extinguisher_cabinet,
+	/obj/structure/mirror,
+	/obj/structure/noticeboard,
+	/obj/structure/reagent_dispensers/peppertank,
 	/obj/structure/sign,
+)))
+
+// Wall mounted machinery which are visually coming out of the wall.
+// These do not conflict with machinery which are visually placed on the wall.
+GLOBAL_LIST_INIT(wallitems_exterior, typecacheof(list(
+	/obj/machinery/light,
 )))
 
 /**

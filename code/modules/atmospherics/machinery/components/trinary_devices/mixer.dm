@@ -81,20 +81,20 @@
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/trinary/mixer/New()
-	..()
+/obj/machinery/atmospherics/trinary/mixer/Initialize(mapload)
+	. = ..()
 	air3.volume = 300
 
 /obj/machinery/atmospherics/trinary/mixer/process_atmos()
 	..()
 	if(!on)
-		return 0
+		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
 
 	if(output_starting_pressure >= target_pressure)
 		//No need to mix if target is already full!
-		return 1
+		return TRUE
 
 	/*
 	Pump mode:
@@ -118,11 +118,11 @@
 	var/transfer_moles1 = 0
 	var/transfer_moles2 = 0
 
-	if((air1.temperature > 0) && ((pump == 0) || (pump == 1)))
-		transfer_moles1 = (node1_concentration*pressure_delta)*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+	if((air1.temperature() > 0) && ((pump == 0) || (pump == 1)))
+		transfer_moles1 = (node1_concentration * pressure_delta) * air3.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 
-	if((air2.temperature > 0) && ((pump == 0) || (pump == 2)))
-		transfer_moles2 = (node2_concentration*pressure_delta)*air3.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
+	if((air2.temperature() > 0) && ((pump == 0) || (pump == 2)))
+		transfer_moles2 = (node2_concentration * pressure_delta) * air3.volume / (air2.temperature() * R_IDEAL_GAS_EQUATION)
 
 	if(pump == 0)
 		var/air1_moles = air1.total_moles()
@@ -146,14 +146,14 @@
 		air3.merge(removed2)
 
 	if(transfer_moles1)
-		parent1.update = 1
+		parent1.update = TRUE
 
 	if(transfer_moles2)
-		parent2.update = 1
+		parent2.update = TRUE
 
-	parent3.update = 1
+	parent3.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/trinary/mixer/attack_ghost(mob/user)
 	ui_interact(user)

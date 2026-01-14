@@ -1,4 +1,5 @@
 GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/goonstation/effects/fire.dmi', "fire"))
+
 /obj/item
 	name = "item"
 	icon = 'icons/obj/items.dmi'
@@ -211,6 +212,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	var/righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/list/greyscale_config_worn
+	///The config type to use for greyscaled worn sprites. Both this and greyscale_colors must be assigned to work.
+	var/list/greyscale_config_worn_species
+	///The config type to use for greyscaled left inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_left
+	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_inhand_right
+
 	//Tooltip vars
 	var/tip_timer = 0
 
@@ -248,6 +258,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/current_skin
 	/// Exists change skin
 	var/exists_skin_change = FALSE
+	//can you put this item in closets
+	var/can_put_in_closet = TRUE
 
 /obj/item/Initialize(mapload)
 	. = ..()
@@ -1093,19 +1105,21 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/MouseEntered(location, control, params)
 	. = ..()
 	if(item_flags & (IN_INVENTORY|IN_STORAGE))
-		var/mob/living/user = usr
-		if(user.client.prefs.toggles2 & PREFTOGGLE_2_DESC_TIPS)
-			var/timedelay = 8
-			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), timedelay, TIMER_STOPPABLE)
+		var/mob/user = usr
+		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS))
+			tip_timer = addtimer(CALLBACK(src, PROC_REF(openTip), location, control, params, user), 0.8 SECONDS, TIMER_STOPPABLE)
 
 		if(QDELETED(src))
 			return
+
 		if(!(user.client.prefs.toggles2 & PREFTOGGLE_2_SEE_ITEM_OUTLINES))
 			return
-		if(istype(user) && user.incapacitated())
-			apply_outline(user, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
+
+		var/mob/living/living_user = user
+		if(istype(living_user) && living_user.incapacitated())
+			apply_outline(living_user, COLOR_RED_GRAY) //if they're dead or handcuffed, let's show the outline as red to indicate that they can't interact with that right now
 		else
-			apply_outline(user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
+			apply_outline(living_user) //if the player's alive and well we send the command with no color set, so it uses the theme's color
 
 /obj/item/MouseExited()
 	deltimer(tip_timer) //delete any in-progress timer if the mouse is moved off the item before it finishes
@@ -1236,6 +1250,23 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/update_atom_colour()
 	. = ..()
 	update_equipped_item()
+
+/// Checks if this atom uses the GAS system and if so updates the worn and inhand icons
+/obj/item/update_greyscale()
+	. = ..()
+	if(!greyscale_colors)
+		return
+	if(greyscale_config_worn)
+		for(var/config in greyscale_config_worn)
+			onmob_sheets[config] = SSgreyscale.get_colored_icon_by_type(greyscale_config_worn[config], greyscale_colors)
+	if(greyscale_config_worn_species)
+		for(var/config in greyscale_config_worn_species)
+			sprite_sheets[config] = SSgreyscale.get_colored_icon_by_type(greyscale_config_worn_species[config], greyscale_colors)
+	if(greyscale_config_inhand_left)
+		lefthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_left, greyscale_colors)
+	if(greyscale_config_inhand_right)
+		righthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_right, greyscale_colors)
+	return
 
 /obj/item/proc/add_tape()
 	return
@@ -1411,3 +1442,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		delta += addition
 
 	return force + delta
+
+/// Returns the icon used for overlaying the object on a belt
+/obj/item/proc/get_belt_overlay()
+	if(!belt_icon)
+		return
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)

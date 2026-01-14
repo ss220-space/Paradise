@@ -9,6 +9,7 @@
 	item_state = "lgloves"
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
+	cares_about_temperature = TRUE
 	/// Current balloon air state
 	var/state = BALLOON_NORMAL
 	var/datum/gas_mixture/air_contents = null
@@ -44,7 +45,8 @@
 	playsound(loc, 'sound/weapons/gunshots/gunshot.ogg', 100, TRUE)
 	state = BALLOON_BURSTED
 	update_icon(UPDATE_ICON_STATE)
-	loc.assume_air(air_contents)
+	var/turf/location = get_turf(src)
+	location.blind_release_air(air_contents)
 
 /obj/item/latexballon/ex_act(severity, target)
 	burst()
@@ -60,7 +62,7 @@
 		burst()
 	return ..()
 
-/obj/item/latexballon/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/latexballon/temperature_expose(temperature, volume)
 	..()
 	if(temperature > T0C+100)
 		burst()

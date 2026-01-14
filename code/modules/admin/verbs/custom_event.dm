@@ -1,20 +1,13 @@
-// verb for admins to set custom event
-/client/proc/cmd_admin_change_custom_event()
-	set category = STATPANEL_ADMIN_EVENT
-	set name = "Change Custom Event"
-
-	if(!check_rights(R_EVENT))
-		return
-
-	var/input = tgui_input_text(usr, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg, multiline = TRUE, encode = FALSE, max_length = 1e5)
+ADMIN_VERB(change_custom_event, R_EVENT, "Change Custom Event", "Set a custom event.", ADMIN_CATEGORY_EVENTS)
+	var/input = tgui_input_text(user, "Enter the description of the custom event. Be descriptive. To cancel the event, make this blank or hit cancel.", "Custom Event", GLOB.custom_event_msg, multiline = TRUE, encode = FALSE, max_length = 1e5)
 	if(!input || input == "")
 		GLOB.custom_event_msg = null
-		log_admin("[key_name(usr)] has cleared the custom event text.")
-		message_admins("[key_name_admin(usr)] has cleared the custom event text.")
+		log_admin("[key_name(user)] has cleared the custom event text.")
+		message_admins("[key_name_admin(user)] has cleared the custom event text.")
 		return
 
-	log_admin("[key_name(usr)] has changed the custom event text.")
-	message_admins("[key_name_admin(usr)] has changed the custom event text.")
+	log_admin("[key_name(user)] has changed the custom event text.")
+	message_admins("[key_name_admin(user)] has changed the custom event text.")
 
 	GLOB.custom_event_msg = input
 
@@ -25,7 +18,7 @@
 
 // normal verb for players to view info
 /client/verb/cmd_view_custom_event()
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set name = "Специальный ивент"
 
 	var/list/custom_event_information = list()

@@ -139,7 +139,7 @@
 	return
 
 /obj/machinery/juicer/verb/detach()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь ёмкость"
 	set src in oview(1)
 	if(usr.stat != 0)
