@@ -28,22 +28,17 @@
 		// Then check in the current directory.
 		if(fexists("./librustlibs[RUSTLIBS_SUFFIX].so"))
 			return __rustlib = "./librustlibs[RUSTLIBS_SUFFIX].so"
-
-		if(fexists("librustlibs[RUSTLIBS_SUFFIX].so"))
-			return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
-
 		// And elsewhere.
-		return __rustlib = "librustlibs.so"
+		return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
 	else
 		// First check if it's built in the usual place.
+		if(fexists("./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"
 		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
 			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
 		// Then check in the current directory.
 		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
 			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
-
-		if(fexists("./rustlibs.dll"))
-			return __rustlib = "./rustlibs.dll"
 
 		// And elsewhere.
 		var/assignment_confirmed = (__rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll")
