@@ -46,7 +46,6 @@ $bg-map: colors.$bg-map !default;
   margin-bottom: base.em(2px);
 
   // Disable selection in buttons
-  -ms-user-select: none; // TODO: Remove with 516
   user-select: none;
 
   &:last-child {

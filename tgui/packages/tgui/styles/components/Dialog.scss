@@ -27,7 +27,6 @@ $background-color: base.$color-bg !default;
   height: 2em;
   line-height: 1.928em;
   background-color: rgba(0, 0, 0, 0.5);
-  -ms-user-select: none; // TODO: Remove with 516
   user-select: none;
 }
 
