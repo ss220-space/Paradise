@@ -160,7 +160,7 @@
 
 /datum/point/proc/deactivate()
 	if(!spl)
-		throw EXCEPTION("Attempted to deactivate inactive point")
+		CRASH("Attempted to deactivate inactive point")
 	for(var/direction in spl.neighbors)
 		var/datum/space_level/S = spl.neighbors[direction]
 		var/oppose = get_opposite_direction(direction)

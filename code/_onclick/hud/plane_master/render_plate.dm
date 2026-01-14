@@ -235,7 +235,7 @@
 #endif
 	var/relay_loc = home?.relay_loc
 	if(!relay_loc)
-		log_runtime(EXCEPTION("Someone forgot to set relay_loc for plane_master_group."))
+		stack_trace("Someone forgot to set relay_loc for plane_master_group.")
 	// If we're using a submap (say for a popup window) make sure we draw onto it
 	if(home?.map)
 		relay_loc = "[home.map]:[relay_loc]"
