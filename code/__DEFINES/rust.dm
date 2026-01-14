@@ -45,6 +45,9 @@
 		// First check if it's built in the usual place.
 		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
 			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
+		
+		if(fexists("./rust/target/i686-pc-windows-gnu/release/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-gnu/release/rustlibs.dll"
 		// Then check in the current directory.
 		if(fexists("./rustlibs_[version_suffix].dll"))
 			return __rustlib = "./rustlibs_[version_suffix].dll"
