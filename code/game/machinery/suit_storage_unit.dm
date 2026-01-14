@@ -5,6 +5,7 @@
 			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle."
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "classic"
+	base_icon_state = "classic"
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
@@ -274,29 +275,32 @@
 
 /obj/machinery/suit_storage_unit/update_overlays()
 	. = ..()
+	if(panel_open)
+		. += "[base_icon_state]_panel"
 
 	if(uv)
 		if(uv_super)
-			. += "[icon_state]_super"
-		else if(occupant)
-			. += "[icon_state]_uvhuman"
+			. += "[base_icon_state]_super"
+			. += "[base_icon_state]_[occupant ? "body" : "uvstrong"]"
 		else
-			. += "[icon_state]_uv"
-	else if(state_open)
-		if(stat & BROKEN)
-			. += "[icon_state]_broken"
-		else
-			. += "[icon_state]_open"
-			if(suit)
-				. += "[icon_state]_suit"
-			if(helmet)
-				. += "[icon_state]_helm"
-			if(storage)
-				. += "[icon_state]_storage"
-	else if(occupant)
-		. += "[icon_state]_human"
-	if(!locked)
-		. += "[icon_state]_unlocked"
+			. += "[base_icon_state]_[occupant ? "body" : "uv"]"
+		. += "[base_icon_state]_lights_red"
+		return
+
+	if(state_open)
+		. += "[base_icon_state]_open"
+		. += "[base_icon_state]_lights_open"
+		if(suit)
+			. += "[base_icon_state]_suit"
+		if(helmet)
+			. += "[base_icon_state]_helm"
+		if(storage)
+			. += "[base_icon_state]_storage"
+	else
+		. += "[base_icon_state]_uvstrong"
+		. += "[base_icon_state]_lights_closed"
+
+	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 100))
@@ -328,7 +332,8 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	default_deconstruction_screwdriver(user, "[icon_state]_panel", "[initial(icon_state)]", I)
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I) // AAA
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
@@ -415,6 +420,7 @@
 	if(uv_cycles)
 		uv_cycles--
 		uv = TRUE
+		locked = TRUE
 		if(occupant)
 			var/mob/living/mob_occupant = occupant
 			if(uv_super)
@@ -767,6 +773,7 @@
 	name = "industrial suit storage unit"
 	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
 	icon_state = "industrial"
+	base_icon_state = "industrial"
 
 /obj/machinery/suit_storage_unit/pirate
 	suit_type    = /obj/item/clothing/suit/space/eva/pirate
