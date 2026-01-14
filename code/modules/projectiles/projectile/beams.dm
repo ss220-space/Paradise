@@ -34,7 +34,7 @@
 /obj/projectile/beam/laser/hitscan
 	hitscan = TRUE
 	damage = 20
-	eyeblur = 2
+	eyeblur = 1
 
 /obj/projectile/beam/laser/light
 	damage = 18
