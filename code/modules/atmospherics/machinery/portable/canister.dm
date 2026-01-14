@@ -33,8 +33,6 @@
 	)
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
-	if(!alpha_filter)
-		alpha_filter = filter(type = "alpha", icon = icon(canister_overlay_file, "window-base"))
 	. = ..()
 	update_icon()
 	RegisterSignal(SSdcs, COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED, PROC_REF(on_subsystems_init_ended))
@@ -86,7 +84,6 @@
 		alpha_filter = filter(type="alpha", icon = icon(canister_overlay_file, "window-base"))
 
 	cut_overlay(window)
-	window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
 	var/list/window_overlays = list()
 	var/turf/tile = get_turf(src)
 
@@ -97,9 +94,10 @@
 		var/image/new_visual = image(visual, layer = FLOAT_PLANE)
 		new_visual.filters = alpha_filter
 		window_overlays += new_visual
-
-	window.overlays = window_overlays
-	add_overlay(window)
+	if(window_overlays.len > 0)
+		window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
+		window.overlays = window_overlays
+		add_overlay(window)
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(temperature, volume)
 	..()
