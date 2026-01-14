@@ -95,7 +95,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/output = ""
-	output += "<form method='GET' name='search' action='?'>\
+	output += "<form method='get' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"
