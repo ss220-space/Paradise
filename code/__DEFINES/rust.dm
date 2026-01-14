@@ -29,12 +29,9 @@
 		if(fexists("./librustlibs[RUSTLIBS_SUFFIX].so"))
 			return __rustlib = "./librustlibs[RUSTLIBS_SUFFIX].so"
 
-		if(fexists("./librustlibs[RUSTLIBS_SUFFIX].so"))
-			return __rustlib = "./librustlibs[RUSTLIBS_SUFFIX].so"
-
 		if(fexists("librustlibs[RUSTLIBS_SUFFIX].so"))
-
 			return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
+
 		// And elsewhere.
 		return __rustlib = "librustlibs.so"
 	else
