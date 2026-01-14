@@ -141,12 +141,12 @@
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_health()
 	var/image/holder = hud_list[DIAG_HUD]
-	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
+	holder.pixel_z = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "huddiag[RoundDiagBar(health / maxHealth)]"
 
 /mob/living/simple_animal/hostile/swarmer/med_hud_set_status()
 	var/image/holder = hud_list[DIAG_STAT_HUD]
-	holder.pixel_y = get_cached_height() - ICON_SIZE_Y
+	holder.pixel_z = get_cached_height() - ICON_SIZE_Y
 	holder.icon_state = "hudstat"
 
 /mob/living/simple_animal/hostile/swarmer/get_status_tab_items()

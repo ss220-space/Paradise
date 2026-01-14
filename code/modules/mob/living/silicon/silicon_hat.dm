@@ -109,7 +109,7 @@
 		var/image/borgI = image(hat_icon_file, hat_icon_state)
 		borgI.alpha = hat_alpha
 		borgI.color = hat_color
-		borgI.pixel_y = hat_offset_y
+		borgI.pixel_z = hat_offset_y
 		if(!isCentered)
 			borgI.transform = matrix(1.125, 0, 0.5, 0, 1, 0)
 		return borgI

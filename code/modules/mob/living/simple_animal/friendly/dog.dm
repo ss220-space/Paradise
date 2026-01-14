@@ -276,7 +276,7 @@
 
 		if(health <= 0)
 			head_icon = DF.get_overlay(dir = EAST)
-			head_icon.pixel_y = -8
+			head_icon.pixel_z = -8
 			head_icon.transform = turn(head_icon.transform, 180)
 		else
 			head_icon = DF.get_overlay()
@@ -296,7 +296,7 @@
 
 		if(health <= 0)
 			back_icon = DF.get_overlay(dir = EAST)
-			back_icon.pixel_y = -11
+			back_icon.pixel_z = -11
 			back_icon.transform = turn(back_icon.transform, 180)
 		else
 			back_icon = DF.get_overlay()

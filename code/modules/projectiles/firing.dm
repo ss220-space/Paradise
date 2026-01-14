@@ -136,8 +136,8 @@
  */
 /proc/calculate_projectile_angle_and_pixel_offsets(atom/source, atom/target, modifiers)
 	var/angle = 0
-	var/p_x = LAZYACCESS(modifiers, ICON_X) ? text2num(LAZYACCESS(modifiers, ICON_X)) : world.icon_size / 2 // ICON_(X|Y) are measured from the bottom left corner of the icon.
-	var/p_y = LAZYACCESS(modifiers, ICON_Y) ? text2num(LAZYACCESS(modifiers, ICON_Y)) : world.icon_size / 2 // This centers the target if modifiers aren't passed.
+	var/p_x = LAZYACCESS(modifiers, ICON_X) ? text2num(LAZYACCESS(modifiers, ICON_X)) : ICON_SIZE_X / 2 // ICON_(X|Y) are measured from the bottom left corner of the icon.
+	var/p_y = LAZYACCESS(modifiers, ICON_Y) ? text2num(LAZYACCESS(modifiers, ICON_Y)) : ICON_SIZE_Y / 2 // This centers the target if modifiers aren't passed.
 
 	var/mob/user = source
 	if(ismob(user) && user?.client && LAZYACCESS(modifiers, SCREEN_LOC))
@@ -149,14 +149,14 @@
 
 		//Split Y+Pixel_Y up into list(Y, Pixel_Y)
 		var/list/screen_loc_Y = splittext(screen_loc_params[2],":")
-		var/x = (text2num(screen_loc_X[1]) - 1) * world.icon_size + text2num(screen_loc_X[2])
-		var/y = (text2num(screen_loc_Y[1]) - 1) * world.icon_size + text2num(screen_loc_Y[2])
+		var/x = (text2num(screen_loc_X[1]) - 1) * ICON_SIZE_X + text2num(screen_loc_X[2])
+		var/y = (text2num(screen_loc_Y[1]) - 1) * ICON_SIZE_Y + text2num(screen_loc_Y[2])
 
 		//Calculate the "resolution" of screen based on client's view and world's icon size. This will work if the user can view more tiles than average.
 		var/list/screenview = getviewsize(user.client.view)
 
-		var/ox = round((screenview[1] * world.icon_size) / 2) - user.client.pixel_x //"origin" x
-		var/oy = round((screenview[2] * world.icon_size) / 2) - user.client.pixel_y //"origin" y
+		var/ox = round((screenview[1] * ICON_SIZE_X) / 2) - user.client.pixel_x //"origin" x
+		var/oy = round((screenview[2] * ICON_SIZE_Y) / 2) - user.client.pixel_y //"origin" y
 		angle = ATAN2(y - oy, x - ox)
 
 		return list(angle, p_x, p_y)
@@ -166,8 +166,8 @@
 
 	var/turf/source_loc = get_turf(source)
 	var/turf/target_loc = get_turf(target)
-	var/dx = ((target_loc.x - source_loc.x) * world.icon_size) + (target.pixel_x - source.pixel_x) + (p_x - (world.icon_size / 2))
-	var/dy = ((target_loc.y - source_loc.y) * world.icon_size) + (target.pixel_y - source.pixel_y) + (p_y - (world.icon_size / 2))
+	var/dx = ((target_loc.x - source_loc.x) * ICON_SIZE_X) + (target.pixel_x - source.pixel_x) + (p_x - (ICON_SIZE_X / 2))
+	var/dy = ((target_loc.y - source_loc.y) * ICON_SIZE_Y) + (target.pixel_y - source.pixel_y) + (p_y - (ICON_SIZE_Y / 2))
 
 	angle = ATAN2(dy, dx)
 	return list(angle, p_x, p_y)

@@ -65,10 +65,10 @@
 	counter.appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR|RESET_ALPHA
 
 	if(image_pixel_x.value != null)
-		counter.pixel_x = image_pixel_x.value
+		counter.pixel_w = image_pixel_x.value
 
 	if(image_pixel_y.value != null)
-		counter.pixel_y = image_pixel_y.value
+		counter.pixel_z = image_pixel_y.value
 
 	var/datum/atom_hud/alternate_appearance/basic/one_person/alt_appearance = owner.add_alt_appearance(
 		/datum/atom_hud/alternate_appearance/basic/one_person,
@@ -94,12 +94,12 @@
 		number.appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR|RESET_ALPHA
 
 		if(image_pixel_x.value != null)
-			number.pixel_x = image_pixel_x.value + (i - 1) * 9
+			number.pixel_w = image_pixel_x.value + (i - 1) * 9
 		else
-			number.pixel_x = (i - 1) * 9
+			number.pixel_w = (i - 1) * 9
 
 		if(image_pixel_y.value != null)
-			number.pixel_y = image_pixel_y.value
+			number.pixel_z = image_pixel_y.value
 
 		var/datum/atom_hud/alternate_appearance/basic/one_person/number_alt_appearance = owner.add_alt_appearance(
 			/datum/atom_hud/alternate_appearance/basic/one_person,

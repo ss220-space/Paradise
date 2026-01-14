@@ -248,7 +248,7 @@
 
 /obj/structure/weightmachine/horizontalbar/AnimateMachine(mob/living/carbon/human/user)
 	var/mutable_appearance/swole_overlay = mutable_appearance(icon, "rod", WALL_OBJ_LAYER)
-	swole_overlay.pixel_y = rod_y
+	swole_overlay.pixel_z = rod_y
 	add_overlay(swole_overlay)
 	var/reps = 0
 	user.pixel_y = 10

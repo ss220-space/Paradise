@@ -39,7 +39,7 @@
 	var/rotation = 0
 	if(directional) //Even when the dirs are the same rotation is coming out as not 0 for some reason
 		rotation = SIMPLIFY_DEGREES(dir2angle(new_dir)-dir2angle(old_dir))
-		new_dir = turn(pic.dir,-rotation)
+		new_dir = turn(pic.dir, -rotation)
 	return list(
 		"icon" = pic.icon,
 		"icon_state" = pic.icon_state,

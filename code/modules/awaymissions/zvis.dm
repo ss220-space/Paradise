@@ -153,8 +153,8 @@
 		var/atom/A = X
 		if(A && A.invisibility <= SEE_INVISIBLE_LIVING)
 			var/image/I = image(A, layer = AREA_LAYER + A.layer * 0.01, dir = A.dir)
-			I.pixel_x = A.pixel_x
-			I.pixel_y = A.pixel_y
+			I.pixel_w = A.pixel_x
+			I.pixel_z = A.pixel_y
 			underlays += I
 
 /obj/effect/visual_portal

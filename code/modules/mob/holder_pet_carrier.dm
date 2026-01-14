@@ -129,7 +129,7 @@
 			break
 		var/image/I = image(M.icon, icon_state = M.icon_state)
 		I.color = opened ? contains_pet_color_open : contains_pet_color_close
-		I.pixel_y = M.mob_size <= MOB_SIZE_TINY ? 6 : 3
+		I.pixel_z = M.mob_size <= MOB_SIZE_TINY ? 6 : 3
 		. += I
 
 	if(!opened)

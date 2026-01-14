@@ -718,7 +718,7 @@
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
 		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
-		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		intent_icon.pixel_w = 16 * (i - 1) - 8 * length(streak)
 		. += intent_icon
 
 /atom/movable/screen/combo/update_icon_state()

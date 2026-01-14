@@ -14,11 +14,13 @@
 	. = ..()
 	set_light(radius, radius, LIGHT_COLOR_LAVA)
 	generate_particles(radius, small, large)
-	var/image/I = image(icon, src, icon_state, 10, -32, -32)
+	var/image/explosion_effect = image(icon = icon, loc = src, icon_state = icon_state, layer = 10)
+	explosion_effect.pixel_w = -32
+	explosion_effect.pixel_z = -32
 	var/matrix/rotate = matrix()
 	rotate.Turn(rand(0, 359))
-	I.transform = rotate
-	overlays += I // We use an overlay so the explosion and light source are both in the correct location plus so the particles don't rotate with the explosion.
+	explosion_effect.transform = rotate
+	overlays += explosion_effect // We use an overlay so the explosion and light source are both in the correct location plus so the particles don't rotate with the explosion.
 	icon_state = null
 
 /// Generate the particles.

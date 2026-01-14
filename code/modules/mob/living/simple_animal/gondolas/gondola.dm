@@ -57,10 +57,10 @@
 	switch(height)
 		if("gondola_body_medium")
 			eyes_overlay.pixel_y = -4
-			moustache_overlay.pixel_y = -4
+			moustache_overlay.pixel_z = -4
 		if("gondola_body_short")
 			eyes_overlay.pixel_y = -8
-			moustache_overlay.pixel_y = -8
+			moustache_overlay.pixel_z = -8
 
 	cut_overlays(TRUE)
 	add_overlay(body_overlay)

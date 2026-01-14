@@ -121,7 +121,7 @@
 /turf/simulated/wall/shuttle/nosmooth/interior/Initialize(mapload)
 	. = ..()
 	if(underlay_floor_icon && underlay_floor_icon_state)
-		var/image/floor_underlay = image(underlay_floor_icon,,underlay_floor_icon_state,,underlay_floor_dir)
+		var/image/floor_underlay = image(icon = underlay_floor_icon, icon_state = underlay_floor_icon_state, dir = underlay_floor_dir)
 		underlays.Cut()
 		underlays.Add(floor_underlay)
 

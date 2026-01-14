@@ -144,7 +144,9 @@ GLOBAL_LIST_EMPTY(safes)
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "[initial(icon_state)]_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
-		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state, pixel_x = drill_x_offset, pixel_y = drill_y_offset)
+		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
+		drill_overlay.pixel_w = drill_x_offset
+		drill_overlay.pixel_z = drill_y_offset
 		. += drill_overlay
 
 /obj/structure/safe/attack_ghost(mob/user)

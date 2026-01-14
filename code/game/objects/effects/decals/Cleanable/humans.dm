@@ -279,7 +279,7 @@
 	if(!fleshcolor || fleshcolor == "rainbow")
 		fleshcolor = "#[pick(list("FF0000","FF7F00","FFFF00","00FF00","0000FF","4B0082","8F00FF"))]"
 	giblets.color = fleshcolor
-	var/icon/blood = new(base_icon,"[icon_state]",dir)
+	var/icon/blood = new(base_icon, "[icon_state]", dir)
 	icon = blood
 	. = ..()
 

@@ -148,13 +148,13 @@
 
 		if(icon_state == icon_resting)
 			head_icon = DF.get_overlay()
-			head_icon.pixel_y = -2
+			head_icon.pixel_z = -2
 		else
 			head_icon = DF.get_overlay()
 
 		if(health <= 0)
 			head_icon = DF.get_overlay(dir = EAST)
-			head_icon.pixel_y = -8
+			head_icon.pixel_z = -8
 			head_icon.transform = turn(head_icon.transform, 180)
 
 		add_overlay(head_icon)
@@ -172,13 +172,13 @@
 
 		if(icon_state == icon_resting)
 			mask_icon = DF.get_overlay()
-			mask_icon.pixel_y = -2
+			mask_icon.pixel_z = -2
 		else
 			mask_icon = DF.get_overlay()
 
 		if(health <= 0)
 			mask_icon = DF.get_overlay(dir = EAST)
-			mask_icon.pixel_y = -11
+			mask_icon.pixel_z = -11
 			mask_icon.transform = turn(mask_icon.transform, 180)
 
 		add_overlay(mask_icon)

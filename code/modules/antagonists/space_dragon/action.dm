@@ -16,8 +16,8 @@
 	if(!small)
 		var/image/I = image(icon = small_icon, icon_state = small_icon_state, loc = owner)
 		I.override = TRUE
-		I.pixel_x -= owner.pixel_x
-		I.pixel_y -= owner.pixel_y
+		I.pixel_w -= owner.pixel_x
+		I.pixel_z -= owner.pixel_y
 		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic, "smallsprite", I, AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS)
 		small = TRUE
 	else

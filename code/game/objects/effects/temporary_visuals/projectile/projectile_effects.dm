@@ -41,8 +41,8 @@
 	var/mutable_appearance/look = mutable_appearance(icon, icon_state, layer)
 	SET_PLANE_EXPLICIT(look, GAME_PLANE, new_loc || src)
 	look.appearance_flags = RESET_COLOR | RESET_ALPHA
-	look.pixel_x = p_x
-	look.pixel_y = p_y
+	look.pixel_w = p_x
+	look.pixel_z = p_y
 
 	if(color_override)
 		look.color = color_override
