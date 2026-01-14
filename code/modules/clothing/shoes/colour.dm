@@ -123,10 +123,6 @@
 	permeability_coefficient = 0.01
 	dying_key = DYE_REGISTRY_SHOES
 
-/obj/item/clothing/shoes/white/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/spraycan_paintable)
-
 /obj/item/clothing/shoes/color/white/secshoes
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'

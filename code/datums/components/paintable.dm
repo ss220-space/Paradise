@@ -20,12 +20,14 @@
 		to_chat(user, span_warning("Take the cap off first!"))
 		return
 	if(spraycan.uses < 2)
-		to_chat(user, "<span class ='warning'>There is not enough paint in the can!")
+		to_chat(user, span_warning("There is not enough paint in the can!"))
 		return
 	RemoveCurrentCoat()
 	var/colour = spraycan.colour
 	current_paint = colour
-	var/atom/A = parent
-	A.add_atom_colour(colour, WASHABLE_COLOUR_PRIORITY)
+	var/atom/target = parent
+	if(!target.greyscale_config)
+		//if item support GAGS - use spraycan afterattack proc
+		target.add_atom_colour(colour, WASHABLE_COLOUR_PRIORITY)
 	playsound(spraycan, 'sound/effects/spray.ogg', 5, TRUE, 5)
-	to_chat(user, span_notice("You spray [spraycan] on [A], painting it."))
+	to_chat(user, span_notice("You spray [spraycan] on [target], painting it."))

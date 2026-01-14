@@ -46,6 +46,12 @@
 	icon_state = initial(new_color.icon_state)
 	item_state = initial(new_color.item_state)
 	item_color = initial(new_color.item_color)
+	greyscale_colors = initial(new_color.greyscale_colors)
+	greyscale_config = initial(new_color.greyscale_config)
+	greyscale_config_inhand_left = initial(new_color.greyscale_config_inhand_left)
+	greyscale_config_inhand_right = initial(new_color.greyscale_config_inhand_right)
+	if(greyscale_config && greyscale_colors)
+		update_greyscale()
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"
@@ -185,10 +191,6 @@
 	name = "white jumpsuit"
 	icon_state = "/obj/item/clothing/under/color/white"
 	greyscale_colors = "#ffffff"
-
-/obj/item/clothing/under/color/white/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/under/color/yellow
 	name = "yellow jumpsuit"

@@ -323,28 +323,36 @@
 	return TRUE
 
 /obj/item/toy/crayon/spraycan/afterattack(atom/target, mob/user, proximity, params)
-	if(!proximity)
+	if(!proximity || capped)
 		return
-	if(capped)
+
+	if(loc == user) //sound play only if it in user hands
+		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
+
+	if(target.greyscale_config && target.greyscale_colors)
+		var/regex/pattern = regex("#(\[A-Fa-f0-9]{6})")
+		target.greyscale_colors = pattern.Replace(target.greyscale_colors, colour, 1)
+		target.update_greyscale()
+		to_chat(user, span_notice("You spray [src] on [target], painting it."))
 		return
-	else
-		if(iscarbon(target))
-			if(uses-10 > 0)
-				uses = uses - 10
-				var/mob/living/carbon/human/C = target
-				user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
-				if(C.client)
-					C.EyeBlurry(6 SECONDS)
-					C.EyeBlind(2 SECONDS)
-					if(C.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
-						C.Confused(6 SECONDS)
-						C.Weaken(6 SECONDS)
-				C.lip_style = "spray_face"
-				C.lip_color = colour
-				C.update_body()
-		if(loc == user) //sound play only if it in user hands
-			playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
-		..()
+
+	if(iscarbon(target))
+		if(uses - 10 <= 0)
+			return
+		uses = uses - 10
+		var/mob/living/carbon/human/human_target = target
+		user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
+		if(human_target.client)
+			human_target.EyeBlurry(6 SECONDS)
+			human_target.EyeBlind(2 SECONDS)
+			if(human_target.check_eye_prot() <= FLASH_PROTECTION_NONE) // no eye protection? ARGH IT BURNS.
+				human_target.Confused(6 SECONDS)
+				human_target.Weaken(6 SECONDS)
+		human_target.lip_style = "spray_face"
+		human_target.lip_color = colour
+		human_target.update_body()
+
+	..()
 
 /obj/item/toy/crayon/spraycan/update_overlays()
 	. = ..()
