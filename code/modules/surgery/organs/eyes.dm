@@ -13,8 +13,6 @@
 	"pink" = "light grey" \
 )
 
-#define EYE_BROKEN_THRESHOLD 45
-
 /obj/item/organ/internal/eyes
 	name = "eyeballs"
 	desc = "Парный орган, отвечающий за зрение — восприятие света и его трансформацию в видимое изображение. Эти принадлежали человеку."

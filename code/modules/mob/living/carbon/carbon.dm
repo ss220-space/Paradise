@@ -1,6 +1,3 @@
-#define EYE_BLUR_SCALE_STEP 5
-#define EYE_BLUR_SCALE_MAX_DURATION 40
-
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
