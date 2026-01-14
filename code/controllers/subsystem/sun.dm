@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(sun)
 	name = "Sun"
-	wait = 600
-	flags = SS_NO_TICK_CHECK
+	wait = 1 MINUTES
 	init_order = INIT_ORDER_SUN
 	offline_implications = "Solar panels will no longer rotate. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
@@ -17,10 +16,10 @@ SUBSYSTEM_DEF(sun)
 
 /datum/controller/subsystem/sun/Initialize()
 	// Lets work out an angle for the "sun" to rotate around the station
-	angle = rand (0, 360)			// the station position to the sun is randomised at round start
-	rate = rand(50, 200) / 100			// 50% - 200% of standard rotation
+	angle = rand (0, 360) // the station position to the sun is randomised at round start
+	rate = rand(50, 200) / 100 // 50% - 200% of standard rotation
 
-	if(prob(50))					// same chance to rotate clockwise than counter-clockwise
+	if(prob(50)) // same chance to rotate clockwise than counter-clockwise
 		rate = -rate
 
 	// Solar consoles need to load after machines init, so this handles that
@@ -33,7 +32,7 @@ SUBSYSTEM_DEF(sun)
 	return "P:[length(solars)]"
 
 /datum/controller/subsystem/sun/fire()
-	angle = (360 + angle + rate * 6) % 360	 // increase/decrease the angle to the sun, adjusted by the rate
+	angle = (360 + angle + rate * 6) % 360 // increase/decrease the angle to the sun, adjusted by the rate
 
 	// now calculate and cache the (dx,dy) increments for line drawing
 	var/ang_sin = sin(angle)

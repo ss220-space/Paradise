@@ -2,17 +2,17 @@ SUBSYSTEM_DEF(nightshift)
 	name = "Night Shift"
 	init_order = INIT_ORDER_NIGHTSHIFT
 	priority = FIRE_PRIORITY_NIGHTSHIFT
-	wait = 600
-	flags = SS_NO_TICK_CHECK
+	wait = 10 MINUTES
 	offline_implications = "The game will no longer shift between day and night lighting. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "night_shift"
 	var/nightshift_active = FALSE
-	var/nightshift_start_time = 702000		//7:30 PM, station time
-	var/nightshift_end_time = 270000		//7:30 AM, station time
+	var/nightshift_start_time = 702000 //7:30 PM, station time
+	var/nightshift_end_time = 270000 //7:30 AM, station time
 	var/nightshift_first_check = 30 SECONDS
 
 	var/high_security_mode = FALSE
+	var/list/currentrun
 
 /datum/controller/subsystem/nightshift/Initialize()
 	if(!CONFIG_GET(flag/enable_night_shifts))
@@ -22,6 +22,9 @@ SUBSYSTEM_DEF(nightshift)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/nightshift/fire(resumed = FALSE)
+	if(resumed)
+		update_nightshift(resumed = TRUE)
+		return
 	if(world.time - SSticker.round_start_time < nightshift_first_check)
 		return
 	check_nightshift()
@@ -33,9 +36,7 @@ SUBSYSTEM_DEF(nightshift)
 		new_sound = 'sound/misc/notice2.ogg'
 	)
 
-/datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
-	if(check_canfire && !can_fire)
-		return
+/datum/controller/subsystem/nightshift/proc/check_nightshift()
 	var/emergency = SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED
 	var/announcing = TRUE
 	var/time = station_time()
@@ -53,15 +54,17 @@ SUBSYSTEM_DEF(nightshift)
 	if(nightshift_active != night_time)
 		update_nightshift(night_time, announcing)
 
-/datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE)
-	nightshift_active = active
-	if(announce)
-		if(active)
-			announce("Добрый вечер, экипаж. Для снижения энергопотребления и стимуляции циркадных ритмов некоторых видов освещение на борту станции переведено в ночной режим.")
-		else
-			announce("Доброе утро, экипаж. В связи с наступлением дневного времени освещ+ение на борту станции переведено в дневной режим.")
-	for(var/A in GLOB.apcs)
-		var/obj/machinery/power/apc/APC = A
-		if(is_station_level(APC.z) || is_taipan(APC.z) && SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GREEN)
-			APC.set_nightshift(active)
-			CHECK_TICK
+/datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE, resumed = FALSE, forced = FALSE)
+	if(!resumed)
+		currentrun = SSmachines.get_by_type(/obj/machinery/power/apc)
+		nightshift_active = active
+		if(announce)
+			if(active)
+				announce("Добрый вечер, экипаж. Для снижения энергопотребления и стимуляции циркадных ритмов некоторых видов освещение на борту станции переведено в ночной режим.")
+			else
+				announce("Доброе утро, экипаж. В связи с наступлением дневного времени освещ+ение на борту станции переведено в дневной режим.")
+	for(var/obj/machinery/power/apc/apc as anything in currentrun)
+		if(is_station_level(apc.z) || is_taipan(apc.z) && SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GREEN)
+			apc.set_nightshift(active)
+		if(MC_TICK_CHECK && !forced) // subsystem will be in state SS_IDLE if forced by an admin
+			return

@@ -3571,15 +3571,15 @@
 							SSnightshift.can_fire = TRUE
 							SSnightshift.fire()
 						else
-							SSnightshift.update_nightshift(FALSE, TRUE)
+							SSnightshift.update_nightshift(active = FALSE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift set to automatic."), confidential = TRUE)
 					if("On")
 						SSnightshift.can_fire = FALSE
-						SSnightshift.update_nightshift(TRUE, FALSE)
+						SSnightshift.update_nightshift(active = TRUE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift forced on."), confidential = TRUE)
 					if("Off")
 						SSnightshift.can_fire = FALSE
-						SSnightshift.update_nightshift(FALSE, FALSE)
+						SSnightshift.update_nightshift(active = FALSE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift forced off."), confidential = TRUE)
 
 			if("lavatype")

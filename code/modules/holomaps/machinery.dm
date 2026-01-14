@@ -297,7 +297,7 @@
 	icon_state = "station_map_engi"
 
 /obj/machinery/station_map/engineering/Initialize(mapload)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/station_map/engineering(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)

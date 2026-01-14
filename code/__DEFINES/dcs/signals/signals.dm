@@ -282,6 +282,9 @@
 	///I dont know where and why it was used, but it was used in the same place with cancel chain and had the same value
 	#define COMPONENT_NO_INTERACT (1<<3)
 
+/// Called from atom/Initialize() of target: (atom/target)
+#define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
+
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
 #define COMSIG_ATOM_ATTACK_GHOST "atom_attack_ghost"
