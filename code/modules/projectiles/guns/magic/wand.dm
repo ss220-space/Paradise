@@ -81,7 +81,7 @@
 	to_chat(user, message)
 
 	// idk why it has so cringe comments, I just copied the piece of code that kills on_hit from the wand's projectile
-	if(isslimeperson(user)) //speshul snowfleks deserv speshul treetment
+	if(ismachineperson(user)) //speshul snowfleks deserv speshul treetment
 		user.adjustFireLoss(6969)  //remember - slimes love fire
 	else
 		user.death()
