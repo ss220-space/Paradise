@@ -445,7 +445,7 @@ SUBSYSTEM_DEF(title)
 
 			function update_preview_515() {
 				charPreview.src = "";
-				setTimeout(update_preview, 100); // TODO: change after 516
+				setTimeout(update_preview, 100); // TODO: change after 516 // todo what?
 			}
 
 			function update_servers_list() {

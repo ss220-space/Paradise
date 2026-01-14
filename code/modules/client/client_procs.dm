@@ -1666,13 +1666,8 @@
 			target.reagents.add_reagent(chosen_id, amount)
 			log_and_message_admins("has added [amount] units of [chosen_id] to \the [target]")
 
+/// This grabs the DPI of the user per their skin
 /client/proc/acquire_dpi()
-	set waitfor = FALSE
-
-	// Remove with 516
-	if(byond_version < 516)
-		return
-
 	window_scaling = text2num(winget(src, null, "dpi"))
 
 // This is in its own proc so we can async it out

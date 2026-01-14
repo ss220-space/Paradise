@@ -58,10 +58,6 @@
 	/// Goes from 0 to the max (z level stack size - 1)
 	var/current_plane_offset = 0
 
-	/// The BYOND version of the client that was last logged into this mob.
-	/// Currently used to rebuild all plane master groups when going between 515<->516.
-	var/last_byond_version
-
 	var/atom/movable/screen/holomap/holomap
 
 	var/atom/movable/screen/button_palette/toggle_palette

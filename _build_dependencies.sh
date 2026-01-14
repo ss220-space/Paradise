@@ -1,18 +1,18 @@
 # This file has all the information on what versions of libraries are thrown into the code
 # For dreamchecker
-export SPACEMANDMM_TAG=suite-1.9
+export SPACEMANDMM_TAG=suite-1.11
 # For TGUI
 export NODE_VERSION=22.11.0
 # Stable Byond Major
-export STABLE_BYOND_MAJOR=515
+export STABLE_BYOND_MAJOR=516
 # Stable Byond Minor
-export STABLE_BYOND_MINOR=1642
+export STABLE_BYOND_MINOR=1666
 # Beta Byond Major
-export BETA_BYOND_MAJOR=516
+#export BETA_BYOND_MAJOR=516
 # Beta Byond Minor
-export BETA_BYOND_MINOR=1648
+#export BETA_BYOND_MINOR=1648
 # For the RUSTG library. Not actually installed by CI but kept as a reference
 export RUSTG_VERSION=3.3.0-ss220
 
 # Python version for mapmerge and other tools
-export PYTHON_VERSION=3.11.6
+export PYTHON_VERSION=3.13.5
