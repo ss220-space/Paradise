@@ -76,7 +76,7 @@
 
 /obj/item/implant/adrenalin/prototype
 	name = "prototype adrenalin bio-chip"
-	desc = "Use it to escape child support. Works three once!"
+	desc = "Use it to escape child support. Works three times!"
 	origin_tech = "combat=5;magnets=3;biotech=3;syndicate=1"
 	implant_data = /datum/implant_fluff/protoadrenaline
 	uses = 3
