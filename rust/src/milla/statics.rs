@@ -27,5 +27,5 @@ pub(crate) static THREAD_POOL: LazyLock<ThreadPool> = LazyLock::new(|| {
             let _ = thread_priority::ThreadPriority::Min.set_for_current();
         })
         .build()
-        .expect("Failed to create Rayon thread pool")
+        .unwrap()
 });
