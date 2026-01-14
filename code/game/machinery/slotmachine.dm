@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 	if(..())
 		return
 	if(issilicon(usr))
-		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции Нанотрейзен #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
+		to_chat(usr, span_warning("Обнаружен искусственный интеллект. Согласно регуляции \"Нанотрейзен\" #1023 вмешательство синтетических форм жизни в финансовые операции запрещено."))
 		return
 	add_fingerprint(usr)
 
@@ -254,32 +254,32 @@ GLOBAL_LIST_EMPTY(slotmachine_prizes)
 
 /obj/machinery/computer/slot_machine/verb/test_lose()
 	set name = "Проверить lose"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "lose")
 
 /obj/machinery/computer/slot_machine/verb/test_minimal()
 	set name = "Проверить minimal"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "minimal")
 
 /obj/machinery/computer/slot_machine/verb/test_small()
 	set name = "Проверить small"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "small")
 
 /obj/machinery/computer/slot_machine/verb/test_medium()
 	set name = "Проверить medium"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "medium")
 
 /obj/machinery/computer/slot_machine/verb/test_big()
 	set name = "Проверить big"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "big")
 
 /obj/machinery/computer/slot_machine/verb/test_jackpot()
 	set name = "Проверить jackpot"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	apply_spin_result(usr, "jackpot")
 
 /obj/machinery/computer/slot_machine/proc/win_money(amt, sound='sound/machines/ping.ogg')

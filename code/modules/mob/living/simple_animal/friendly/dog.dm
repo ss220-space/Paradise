@@ -47,7 +47,7 @@
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Гоняться за хвостом"
 	set desc = "d'awwww."
-	set category = STATPANEL_DOG
+	set category = VERB_CATEGORY_DOG
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
@@ -679,7 +679,7 @@
 	bark_sound = null	//No robo-bjork...
 	yelp_sound = null	//Or robo-Yelp.
 	tts_seed = "Glados"
-	var/emagged = 0
+	var/emagged = FALSE
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	del_on_death = 1

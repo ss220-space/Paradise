@@ -97,7 +97,7 @@
 		"задерживает дыхание!",
 		"глубоко вдыхает кислород!")
 
-	speciesbox = /obj/item/storage/box/survival_vox
+	speciesbox = /obj/item/storage/box/survival/species/vox
 
 	toxic_food = NONE
 	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
@@ -274,3 +274,6 @@
 	. = ..()
 	if(/mob/living/carbon/human/proc/emote_quill in H.verbs)
 		remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
+
+/datum/species/vox/compressor_grind(location)
+	new /obj/item/reagent_containers/food/snacks/fried_vox(location)

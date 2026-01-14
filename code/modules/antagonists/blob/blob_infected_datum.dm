@@ -111,7 +111,7 @@
 
 /datum/antagonist/blob_infected/farewell()
 	if(issilicon(owner.current))
-		to_chat(owner.current, span_userdanger("Вы превратились в робота! Споры блоба внутри вас были уничтожены…"))
+		to_chat(owner.current, span_userdanger("Вы превратились в робота! Споры блоба внутри вас были уничтожены…"))
 	else
 		to_chat(owner.current, span_userdanger("Вы очищены! Вы больше не заражены блобом."))
 

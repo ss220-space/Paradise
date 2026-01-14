@@ -148,7 +148,7 @@
 	return TRUE
 
 /datum/click_intercept/buildmode/InterceptClickOn(user, params, atom/object)
-	mode.handle_click(user, params, object)
+	return mode.handle_click(user, params, object)
 
 /datum/click_intercept/buildmode/quit(force)
 	if(!force)
@@ -157,7 +157,7 @@
 
 /proc/togglebuildmode(mob/user as mob in  GLOB.player_list)
 	set name = "Toggle Build Mode"
-	set category = STATPANEL_ADMIN_EVENT
+	set category = ADMIN_CATEGORY_EVENTS
 
 	if(user.client)
 		if(istype(user.client.click_intercept, /datum/click_intercept/buildmode))

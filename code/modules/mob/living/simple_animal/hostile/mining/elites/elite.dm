@@ -141,7 +141,7 @@
 	. = ..()
 	if(isliving(A))
 		var/mob/living/mob = A
-		var/mobref = "\ref[mob]"
+		var/mobref = PERSONAL_FACTION(mob)
 		if(mob == reviver)
 			return
 		if(mobref in faction)
@@ -158,18 +158,19 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /datum/action/innate/elite_attack
 	name = "Элитная атака"
-	icon_icon = 'icons/mob/actions/actions_elites.dmi'
+	button_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
+	overlay_icon_state = "bg_default_border"
 	///The displayed message into chat when this attack is selected
 	var/chosen_message
 	///The internal attack ID for the elite's OpenFire() proc to use
 	var/chosen_attack_num = 0
 
-/datum/action/innate/elite_attack/New(Target)
-	. = ..()
+/datum/action/innate/elite_attack/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
 	button.maptext = ""
-	button.maptext_x = 8
-	button.maptext_y = 0
+	button.maptext_x = 6
+	button.maptext_y = 2
 	button.maptext_width = 24
 	button.maptext_height = 12
 	return button
@@ -179,17 +180,20 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		STOP_PROCESSING(SSfastprocess, src)
 		qdel(src)
 		return
-	UpdateButton()
 
-/datum/action/innate/elite_attack/proc/UpdateButton(status_only = FALSE)
-	if(status_only)
-		return
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
+
+/datum/action/innate/elite_attack/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	if(!istype(owner))
+		button.maptext = ""
+		return
+
 	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
 	if(timeleft == 0)
 		button.maptext = ""
 	else
-		button.maptext = MAPTEXT("[round(timeleft/10, 0.1)]")
+		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
 
 /datum/action/innate/elite_attack/Grant(mob/living/L)
 	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
@@ -296,6 +300,9 @@ While using this makes the system rely on OnFire, it still gives options for tim
 						clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
+	if(QDELETED(src) || QDELETED(loc))
+		return
+	
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
@@ -508,7 +515,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
 			user.visible_message(span_warning("Похоже, [E.declent_ru(ACCUSATIVE)] сейчас невозможно воскресить. Попробуйте позже."))
 			return
-		E.faction = list("\ref[user]")
+		E.faction = list(PERSONAL_FACTION(user))
 		E.friends += user
 		E.reviver = user
 		E.revive()

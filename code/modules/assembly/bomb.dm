@@ -59,14 +59,14 @@
 		return
 	if(!status)
 		status = TRUE
-		investigate_log("[key_name_log(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature - T0C]")
+		investigate_log("[key_name_log(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
+		log_game("[key_name(user)] welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]")
 		to_chat(user, span_notice("A pressure hole has been bored to [bombtank] valve. [bombtank] can now be ignited."))
-		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_FEW)
+		add_attack_logs(user, src, "welded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_FEW)
 	else
 		status = FALSE
-		investigate_log("[key_name_log(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", INVESTIGATE_BOMB)
-		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature-T0C]", ATKLOG_ALMOSTALL)
+		investigate_log("[key_name_log(user)] unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", INVESTIGATE_BOMB)
+		add_attack_logs(user, src, "unwelded a single tank bomb. Temperature: [bombtank.air_contents.temperature() - T0C]", ATKLOG_ALMOSTALL)
 		to_chat(user, span_notice("The hole has been closed."))
 
 /obj/item/onetankbomb/attack_self(mob/user) //pressing the bomb accesses its assembly
@@ -86,26 +86,36 @@
 		bombtank.release()
 
 /obj/item/onetankbomb/HasProximity(atom/movable/AM)
-	if(bombassembly)
-		bombassembly.HasProximity(AM)
+	if(!bombassembly)
+		return
+
+	bombassembly.HasProximity(AM)
 
 /obj/item/onetankbomb/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
+	if(!bombassembly)
+		return
 
-	if(bombassembly)
-		bombassembly.assembly_crossed(arrived, old_loc)
+	bombassembly.assembly_crossed(arrived, old_loc)
 
 /obj/item/onetankbomb/on_found(mob/finder) //for mousetraps
-	if(bombassembly)
-		bombassembly.on_found(finder)
+	if(!bombassembly)
+		return
+
+	bombassembly.on_found(finder)
 
 /obj/item/onetankbomb/hear_talk(mob/living/M, list/message_pieces)
-	if(bombassembly)
-		bombassembly.hear_talk(M, message_pieces)
+	. = ..()
+	if(!bombassembly)
+		return
+
+	bombassembly.hear_talk(M, message_pieces)
 
 /obj/item/onetankbomb/hear_message(mob/living/M, msg)
-	if(bombassembly)
-		bombassembly.hear_message(M, msg)
+	if(!bombassembly)
+		return
+
+	bombassembly.hear_message(M, msg)
 
 // ---------- Procs below are for tanks that are used exclusively in 1-tank bombs ----------
 
@@ -142,13 +152,13 @@
 	onetankbomb.update_icon()
 
 /obj/item/tank/proc/detonate() //This happens when a bomb is told to explode
-	var/fuel_moles = air_contents.toxins + air_contents.oxygen / 6
+	var/fuel_moles = air_contents.toxins() + air_contents.oxygen() / 6
 	var/strength = 1
 
 	var/turf/ground_zero = get_turf(loc)
 	loc = null
 
-	if(air_contents.temperature > (T0C + 400))
+	if(air_contents.temperature() > (T0C + 400))
 		strength = (fuel_moles / 15)
 
 		if(strength >= 1)
@@ -158,34 +168,33 @@
 		else if(strength >= 0.2)
 			explosion(ground_zero, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, flash_range = 2, cause = src)
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
-	else if(air_contents.temperature > (T0C + 250))
-		strength = (fuel_moles/20)
+	else if(air_contents.temperature() > (T0C + 250))
+		strength = (fuel_moles / 20)
 
 		if(strength >= 1)
 			explosion(ground_zero, devastation_range = 0, heavy_impact_range = round(strength, 1), light_impact_range = round(strength * 2, 1), flash_range = round(strength * 3, 1), cause = src)
 		else if(strength >= 0.5)
 			explosion(ground_zero, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 1, flash_range = 2, cause = src)
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
-	else if(air_contents.temperature > (T0C + 100))
+	else if(air_contents.temperature() > (T0C + 100))
 		strength = (fuel_moles / 25)
 
 		if(strength >= 1)
 			explosion(ground_zero, devastation_range = -1, heavy_impact_range = 0, light_impact_range = round(strength, 1), flash_range = round(strength * 3, 1))
 		else
-			ground_zero.assume_air(air_contents)
+			ground_zero.blind_release_air(air_contents)
 			ground_zero.hotspot_expose(1000, 125)
 
 	else
-		ground_zero.assume_air(air_contents)
+		ground_zero.blind_release_air(air_contents)
 		ground_zero.hotspot_expose(1000, 125)
 
-	air_update_turf()
 	if(master)
 		qdel(master)
 	qdel(src)
@@ -195,6 +204,5 @@
 	var/turf/simulated/T = get_turf(src)
 	if(!T)
 		return
-	T.assume_air(removed)
-	air_update_turf()
+	T.blind_release_air(removed)
 

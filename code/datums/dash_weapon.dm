@@ -21,7 +21,7 @@
 	dashing_item = null
 	return ..()
 
-/datum/action/innate/dash/IsAvailable()
+/datum/action/innate/dash/IsAvailable(feedback = FALSE)
 	if(current_charges > 0)
 		return TRUE
 	else if((last_used + (charge_rate * max_charges)) <= world.time && current_charges != max_charges)	// Существует неприятный баг из-за которого заряды переставали регениться совсем.

@@ -293,7 +293,7 @@
 	..()
 	powerlevel = 0 // oh no, the power!
 
-/mob/living/simple_animal/slime/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/mob/living/simple_animal/slime/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(isliving(over_object) && over_object != src && usr == src && CanFeedon(over_object))
 		Feedon(over_object)
 		return FALSE
@@ -475,7 +475,7 @@
 				. += span_warning("It is glowing brightly with high levels of electrical activity.")
 
 			if(10)
-				. += "<span class='warning'><b>It is radiating with massive levels of electrical activity!</b></span>"
+				. += span_warning("<b>It is radiating with massive levels of electrical activity!</b>")
 
 	. += "</span>"
 

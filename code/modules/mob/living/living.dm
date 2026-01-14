@@ -4,7 +4,7 @@
 	register_init_signals()
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medhud.add_atom_to_hud(src)
-	faction += "\ref[src]"
+	faction += PERSONAL_FACTION(src)
 	determine_move_and_pull_forces()
 	gravity_setup()
 	if(unique_name)
@@ -148,7 +148,7 @@
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
 			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
-			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
+			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
 	if(body_position != LYING_DOWN)
@@ -230,6 +230,10 @@
 		return TRUE
 
 	if(moving_diagonally) //no mob swap during diagonal moves.
+		return TRUE
+
+	if(has_status_effect(STATUS_EFFECT_UNBALANCED))
+		// Don't swap while being shoved by air.
 		return TRUE
 
 	// if bumped mob is anchored or we are pulling dense object, lets just skip to pushing
@@ -564,8 +568,13 @@
 
 /mob/living/verb/stop_pulling1()
 	set name = "Прекратить тащить"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	stop_pulling()
+
+/mob/living/proc/stop_hand_bleedsuppress()
+	left_hand_bleed_suppress_lib = null
+	right_hand_bleed_suppress_lib = null
+	update_hands_HUD()
 
 //same as above
 /mob/living/pointed(atom/A as mob|obj|turf in view())
@@ -872,7 +881,7 @@
 
 /mob/living/proc/Examine_OOC()
 	set name = "Мета-инфа (OOC)"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	set src in view()
 
 	if(CONFIG_GET(flag/allow_metadata))
@@ -882,6 +891,11 @@
 			to_chat(usr, "[src] does not have any stored infomation!")
 	else
 		to_chat(usr, "OOC Metadata is not supported by this server!")
+
+/mob/living/get_spacemove_backup(movement_dir)
+	if(movement_dir == 0 && has_status_effect(STATUS_EFFECT_UNBALANCED))
+		return
+	return ..()
 
 /mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(lying_angle != 0 && !buckled)
@@ -915,9 +929,9 @@
 ///Called by mob Move() when the lying_angle is different than zero, to better visually simulate crawling.
 /mob/living/proc/lying_angle_on_movement(direct)
 	if(direct & EAST)
-		set_lying_angle(90)
+		set_lying_angle(LYING_ANGLE_EAST)
 	else if(direct & WEST)
-		set_lying_angle(270)
+		set_lying_angle(LYING_ANGLE_WEST)
 
 /mob/living/move_from_pull(atom/movable/puller, turf/target_turf, glide_size_override)
 	..()
@@ -987,35 +1001,11 @@
 	else
 		return pick("trails_1", "trails_2")
 
-/mob/living/experience_pressure_difference(pressure_difference, direction, pressure_resistance_prob_delta = 0)
+/mob/living/experience_pressure_difference(flow_x, flow_y, pressure_resistance_prob_delta = 0)
 	playsound(src, 'sound/effects/space_wind.ogg', 50, TRUE)
 	if(buckled || mob_negates_gravity())
 		return FALSE
-	if(client && client.move_delay >= world.time + world.tick_lag * 2)
-		pressure_resistance_prob_delta -= 30
-
-	var/list/turfs_to_check = list()
-
-	if(has_limbs)
-		var/turf/T = get_step(src, angle2dir(dir2angle(direction) + 90))
-		if(T)
-			turfs_to_check += T
-
-		T = get_step(src, angle2dir(dir2angle(direction) - 90))
-		if(T)
-			turfs_to_check += T
-
-		for(var/t in turfs_to_check)
-			T = t
-			if(T.density)
-				pressure_resistance_prob_delta -= 20
-				continue
-			for(var/atom/movable/AM in T)
-				if(AM.density && AM.anchored)
-					pressure_resistance_prob_delta -= 20
-					break
-
-	..(pressure_difference, direction, pressure_resistance_prob_delta)
+	. = ..()
 
 /*//////////////////////
 	START RESIST PROCS
@@ -1030,7 +1020,7 @@
 
 /mob/living/verb/resist()
 	set name = "Сопротивляться"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
 
@@ -1389,29 +1379,33 @@
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
 	if(istype(loc, /obj/structure/closet/critter))
-		return environment.temperature
+		return environment.temperature()
 	if(ismecha(loc))
-		var/obj/mecha/M = loc
-		return  M.return_temperature()
+		var/obj/mecha/mecha = loc
+		var/datum/gas_mixture/cabin = mecha.return_obj_air()
+		if(cabin)
+			return cabin.temperature()
+		return environment.temperature()
 	if(isvampirecoffin(loc))
 		var/obj/structure/closet/coffin/vampire/coffin = loc
-		return coffin.return_temperature()
+		var/datum/gas_mixture/coffin_air = coffin.return_obj_air()
+		return coffin_air.temperature()
 	if(isspacepod(loc))
-		var/obj/spacepod/S = loc
-		return S.return_temperature()
+		var/obj/spacepod/pod = loc
+		return pod.cabin_air.temperature()
 	if(istype(loc, /obj/structure/transit_tube_pod))
-		return environment.temperature
+		return environment.temperature()
 	if(istype(get_turf(src), /turf/space))
 		var/turf/heat_turf = get_turf(src)
 		return heat_turf.temperature
 	if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 		var/obj/machinery/atmospherics/unary/cryo_cell/C = loc
 		if(C.air_contents.total_moles() < 10)
-			return environment.temperature
+			return environment.temperature()
 		else
-			return C.air_contents.temperature
+			return C.air_contents.temperature()
 	if(environment)
-		return environment.temperature
+		return environment.temperature()
 	return T0C
 
 /mob/living/proc/spawn_dust()
@@ -1422,7 +1416,7 @@
 	return 0
 
 /mob/living/proc/attempt_harvest(obj/item/I, mob/user)
-	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
+	if(user.a_intent != INTENT_HARM || stat != DEAD || !I.sharp || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
 		return FALSE
 	. = TRUE
 	to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
@@ -1600,16 +1594,16 @@
 	else if(direction & SOUTH)
 		target_pixel_y -= offset
 	if(direction & EAST)
-		if(same_loc && target.lying_angle == 90) //update the dragged dude's direction if we've turned
-			target.set_lying_angle(270)
-		else if(!same_loc && target.lying_angle == 270)
-			target.set_lying_angle(90)
+		if(same_loc && target.lying_angle == LYING_ANGLE_EAST) //update the dragged dude's direction if we've turned
+			target.set_lying_angle(LYING_ANGLE_WEST)
+		else if(!same_loc && target.lying_angle == LYING_ANGLE_WEST)
+			target.set_lying_angle(LYING_ANGLE_EAST)
 		target_pixel_x += offset
 	else if(direction & WEST)
-		if(same_loc && target.lying_angle == 270)
-			target.set_lying_angle(90)
-		else if(!same_loc && target.lying_angle == 90)
-			target.set_lying_angle(270)
+		if(same_loc && target.lying_angle == LYING_ANGLE_WEST)
+			target.set_lying_angle(LYING_ANGLE_EAST)
+		else if(!same_loc && target.lying_angle == LYING_ANGLE_EAST)
+			target.set_lying_angle(LYING_ANGLE_WEST)
 		target_pixel_x -= offset
 	animate(target, pixel_x = target_pixel_x, pixel_y = target_pixel_y, 0.3 SECONDS)
 
@@ -1924,6 +1918,7 @@
 /mob/living/proc/on_handsblocked_start()
 	drop_from_hands()
 	stop_pulling()
+	stop_hand_bleedsuppress()
 	add_traits(list(TRAIT_UI_BLOCKED, TRAIT_PULL_BLOCKED), TRAIT_HANDS_BLOCKED)
 
 /// Proc to append behavior to the condition of being handsblocked. Called when the condition ends.
@@ -2002,7 +1997,7 @@
 
 /mob/living/proc/toggle_resting()
 	set name = "Лечь"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	set_resting(!resting, silent = FALSE)
 

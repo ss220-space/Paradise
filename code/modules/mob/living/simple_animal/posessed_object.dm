@@ -42,7 +42,7 @@
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	..()
-	animate_ghostly_presence(src, -1, 20, 1) // Restart the floating animation after the attack animation, as it will be cancelled.
+	animate_ghostly_presence(src) // Restart the floating animation after the attack animation, as it will be cancelled.
 
 /mob/living/simple_animal/possessed_object/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(!supress_message)
@@ -124,7 +124,7 @@
 	update_icon(1)
 
 	visible_message(span_shadowling("[capitalize(src.declent_ru(NOMINATIVE))] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
-	animate_ghostly_presence(src, -1, 20, 1)
+	animate_ghostly_presence(src)
 
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.
 	return possessed_item
@@ -176,3 +176,29 @@
 	overlays = possessed_item.overlays
 	set_opacity(possessed_item.opacity)
 	return ..(NONE)
+
+/mob/living/simple_animal/possessed_object/proc/animate_ghostly_presence(atom/target, loop_count = -1, float_speed = 20, random_rotation = TRUE)
+	if(!istype(target))
+		return
+
+	var/rotation_angle = rand(5, 20)
+	var/rotation_direction = 1
+	if(random_rotation)
+		rotation_direction = pick(-1, 1)
+
+	spawn(rand(1,10))
+		animate(
+			target,
+			pixel_y = 8,
+			transform = matrix(rotation_angle * (rotation_direction == 1 ? 1 : -1), MATRIX_ROTATE),
+			time = float_speed,
+			loop = loop_count,
+			easing = SINE_EASING
+		)
+		animate(
+			pixel_y = 0,
+			transform = matrix(rotation_angle * (rotation_direction == 1 ? -1 : 1), MATRIX_ROTATE),
+			time = float_speed,
+			loop = loop_count,
+			easing = SINE_EASING
+		)

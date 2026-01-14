@@ -248,11 +248,11 @@
 	if(!QDELETED(original_ear))
 		user.drop_item_ground(original_ear, force = TRUE)
 
-/obj/item/clothing/ears/offear/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/clothing/ears/offear/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	var/obj/item/original_ear = locateUID(original_ear_UID)
 	if(!original_ear)
 		CRASH("No original_ear found.")
-	return original_ear.MouseDrop(over_object, src_location, over_location, src_control, over_control, params)
+	return original_ear.mouse_drop_dragged(over_object, user, src_location, over_location, params)
 
 /obj/item/clothing/ears/offear/attack_hand(mob/user, pickupfireoverride)
 	var/obj/item/original_ear = locateUID(original_ear_UID)
@@ -277,7 +277,6 @@
 	/// List of things added to examine text, like security or medical records.
 	var/examine_extensions = EXAMINE_HUD_NONE
 
-	var/emagged = FALSE
 	var/list/color_view = null//overrides client.color while worn
 	var/prescription = FALSE
 	var/prescription_upgradable = FALSE
@@ -311,7 +310,7 @@
 
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
 	set name = "Подогнать очки"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Adjust your eyewear to be worn over or under a mask."
 	set src in usr
 
@@ -513,7 +512,7 @@
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Датчики костюма"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 	set_sensors(usr)
 
@@ -634,7 +633,6 @@
 	update_icon(UPDATE_ICON_STATE)
 
 	if(up)
-		to_chat(user, span_notice("You push [src] out of the way."))
 		gas_transfer_coefficient = 1
 		permeability_coefficient = 1
 		if(adjusted_slot_flags)
@@ -651,7 +649,6 @@
 			clothing_flags &= ~AIRTIGHT
 
 	else
-		to_chat(user, span_notice("You push [src] back into place."))
 		gas_transfer_coefficient = initial(gas_transfer_coefficient)
 		permeability_coefficient = initial(permeability_coefficient)
 		slot_flags = initial(slot_flags)
@@ -1246,7 +1243,7 @@
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Убрать аксессуар"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 	handle_accessories_removal(usr)
 
@@ -1292,7 +1289,7 @@
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Сменить стиль униформы"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(!ishuman(usr))

@@ -42,7 +42,7 @@
 	reagent_tag = PROCESS_ORG
 	base_color = "#066000"
 
-	speciesbox = /obj/item/storage/box/survival_unathi
+	speciesbox = /obj/item/storage/box/survival/species/unathi
 
 	//Default styles for created mobs.
 	default_headacc = "Simple"
@@ -331,7 +331,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 /datum/action/innate/ignite_unathi
 	name = "Поджог"
 	desc = "Вы формируете небольшой сгусток пламени в вашей пасти, достаточный для... розжига костра."
-	icon_icon = 'icons/obj/cigarettes.dmi'
+	button_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
 	var/cooldown = 0
 	var/cooldown_duration = 40 SECONDS
@@ -356,7 +356,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 /datum/action/innate/shaman_gps
 	name = "Помощь некрополя"
 	desc = "Вы используете силу Некрополя, чтобы узнать примерное местоположение точек интереса."
-	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
+	button_icon = 'icons/mob/actions/actions_clockwork.dmi'
 	button_icon_state = "stun"
 
 /datum/action/innate/shaman_gps/Activate()
@@ -390,3 +390,6 @@ They're basically just lizards with all-around marginally better stats and fire 
 	. = "находится где-то на "
 	. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
 	. += "e."
+
+/datum/species/unathi/compressor_grind(location)
+	new /obj/item/stack/sheet/animalhide/lizard(location)

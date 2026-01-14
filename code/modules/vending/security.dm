@@ -13,7 +13,7 @@
 		"Почем+у бы не съесть п+ончик?",
 		"Это не во+енное преступл+ение, +если теб+е б+ыло в+есело!",
 		"Люб+ой, кто беж+ит — прест+упник! Люб+ой, кто сто+ит — дисциплин+ированный прест+упник!",
-		"Стрел+яя по чл+енам экип+ажа, ты одн+ажды попад+ёшь в аг+ента Синдик+ата!"
+		"Стрел+яя по чл+енам экип+ажа, ты одн+ажды попад+ёшь в аг+ента Синдик+ата!",
 	)
 
 	icon_state = "sec_off"
@@ -45,6 +45,7 @@
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
 		/obj/item/stack/medical/bruise_pack/military = 5,
+		/obj/item/tourniquet/advanced = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -59,6 +60,7 @@
 		/obj/item/flashlight/sectaclight = 299,
 		/obj/item/grenade/smokebomb = 249,
 		/obj/item/stack/medical/bruise_pack/military = 299,
+		/obj/item/tourniquet/advanced = 399,
 	)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -82,7 +84,7 @@
 		"Т+ехника безоп+асности нам не п+исана, да?",
 		"1 из 10-ти попад+аний... А ты хор+ош!",
 		"Инстр+уктор – +это твой п+апочка!",
-		"Эй, ты куд+а ц+елишься?!"
+		"Эй, ты куд+а ц+елишься?!",
 	)
 
 	icon_state = "sectraining_off"
@@ -105,32 +107,59 @@
 		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
 
-/obj/machinery/vending/security/attackby(obj/item/I, mob/user, params)
+#define KIT_DOMINATOR "Доминатор"
+#define KIT_ENFORCER "Блюститель"
+#define KIT_SPECTER "Спектр"
+#define KIT_TAURUS "Таурус"
+
+/obj/machinery/vending/security/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
 
-	if(istype(I, /obj/item/security_voucher))
+	if(istype(item, /obj/item/security_voucher))
 		add_fingerprint(user)
 		var/static/list/available_kits = list(
-			"Доминатор" = /obj/item/storage/box/dominator_kit,
-			"Блюститель" = /obj/item/storage/box/enforcer_kit,
-			"Спектр" = /obj/item/storage/box/specter_kit,
+			KIT_DOMINATOR = image(icon = 'icons/obj/weapons/dominator.dmi', icon_state = "dominator"),
+			KIT_ENFORCER = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "enforcer_grey"),
+			KIT_SPECTER = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "specter"),
+			KIT_TAURUS = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "taurus"),
 		)
-		var/weapon_kit = tgui_input_list(user, "Выберите оружейный набор для выдачи:", "Получение оружия", available_kits)
-		if(!weapon_kit || !Adjacent(user) || QDELETED(I) || I.loc != user)
+		var/choice = show_radial_menu(user, item, available_kits, radius = 40, custom_check = CALLBACK(src, PROC_REF(check_voucher_menu), user), require_near = TRUE)
+		if(!choice || !Adjacent(user) || QDELETED(item) || item.loc != user)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(item, src))
 			return ATTACK_CHAIN_BLOCKED_ALL
-		qdel(I)
+		qdel(item)
 		sleep(0.5 SECONDS)
 		playsound(loc, 'sound/machines/machine_vend.ogg', 50, TRUE)
-		var/path = available_kits[weapon_kit]
-		var/obj/item/box = new path(loc)
+		var/weapon_kit = null
+		switch(choice)
+			if(KIT_DOMINATOR)
+				weapon_kit = /obj/item/storage/box/dominator_kit
+			if(KIT_ENFORCER)
+				weapon_kit = /obj/item/storage/box/enforcer_kit
+			if(KIT_SPECTER)
+				weapon_kit = /obj/item/storage/box/specter_kit
+			if(KIT_TAURUS)
+				weapon_kit = /obj/item/storage/box/taurus_kit
+		var/obj/item/box = new weapon_kit(loc)
 		if(Adjacent(user))
 			user.put_in_hands(box, ignore_anim = FALSE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/machinery/vending/security/proc/check_voucher_menu(mob/living/user)
+	if(!istype(user) || !Adjacent(user))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
+	return TRUE
+
+#undef KIT_DOMINATOR
+#undef KIT_ENFORCER
+#undef KIT_SPECTER
+#undef KIT_TAURUS
 
 /obj/machinery/vending/security/ert
 	name = "NT ERT Consumables Gear"

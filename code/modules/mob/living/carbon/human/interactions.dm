@@ -2,7 +2,7 @@
 *******Interactions code by HONKERTRON feat TestUnit********
 ***********************************/
 
-/mob/living/carbon/human/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/mob/living/carbon/human/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(src == usr)
 		interact(over_object)
@@ -13,7 +13,7 @@
 //Distant interactions
 /mob/living/carbon/human/verb/interact(mob/M as mob)
 	set name = "Взаимодействовать"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(ishuman(M) && usr != M && src != M)
 		partner = M

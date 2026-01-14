@@ -68,6 +68,7 @@
 		if(keybinding.can_use(src) && keybinding.down(src) && keycount >= MAX_COMMANDS_PER_KEY)
 			break
 
+	SEND_SIGNAL(mob, COMSIG_MOB_KEYDOWN, _key, src, full_key)
 	mob.focus?.key_down(_key, src, full_key)
 
 /client/verb/KeyUp(_key as text)

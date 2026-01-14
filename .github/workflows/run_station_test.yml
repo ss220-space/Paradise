@@ -17,7 +17,7 @@ jobs:
       matrix:
         byondtype: ['STABLE']
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
@@ -25,7 +25,7 @@ jobs:
           release: ${{ matrix.byondtype }}
 
       - name: Download build outputs
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           name: build-artifact-station
           path: ./
@@ -36,11 +36,6 @@ jobs:
           sudo apt update || true
           sudo apt install libgcc-s1:i386
           bash tools/ci/install_rustg.sh
-
-      - name: Install DMJIT
-        run: |
-          sudo apt install libncurses6:i386
-          bash tools/ci/install_dmjit.sh
 
       - name: Run Station Test
         run: |

@@ -12,11 +12,11 @@
 	volume = 15
 	sharp = TRUE
 	pass_open_check = TRUE
+	materials = list(MAT_METAL=10, MAT_GLASS=20)
+	container_type = TRANSPARENT
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
-	materials = list(MAT_METAL=10, MAT_GLASS=20)
-	container_type = TRANSPARENT
 
 /obj/item/reagent_containers/syringe/get_ru_names()
 	return list(
@@ -185,7 +185,7 @@
 
 /obj/item/reagent_containers/syringe/traitor_random/Initialize(mapload)
 	list_reagents = list()
-	list_reagents[pick_list("chemistry_tools.json", "traitor_poison_bottle")] = volume
+	list_reagents[pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle")] = volume
 	. = ..()
 
 /obj/item/reagent_containers/syringe/antiviral

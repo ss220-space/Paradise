@@ -16,12 +16,11 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/style
 
 /datum/announcer
-	// The default configuration for new announcements.
+	/// The default configuration for new announcements.
 	var/datum/announcement_configuration/config
 	/// The name used to sign off on announcements.
 	var/author
 	var/language = LANGUAGE_GALACTIC_COMMON
-	var/beannounced = TRUE
 
 /datum/announcer/New(config_type = null)
 	config = config_type ? new config_type : new
@@ -38,8 +37,6 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	)
 
 	if(!message)
-		return
-	if(!beannounced)
 		return
 
 	var/title = html_encode(new_title || config.default_title)

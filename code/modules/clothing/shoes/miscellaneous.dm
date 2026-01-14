@@ -54,8 +54,18 @@
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
 	name = "magic shoes"
-	icon_state = "black"
+	icon = 'icons/map_icons/clothing/shoes.dmi'
+	icon_state = "/obj/item/clothing/shoes/color"
+	post_init_icon_state = "sneakers"
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
+
+/obj/item/clothing/shoes/sandal/marisa/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/shoes/color/black/temp_item = new(null)
+	icon = temp_item.icon
+	onmob_sheets = temp_item.onmob_sheets
+	sprite_sheets = temp_item.sprite_sheets
+	qdel(temp_item)
 
 /obj/item/clothing/shoes/sandal/magic
 	name = "magical sandals"
@@ -213,9 +223,19 @@
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
-	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
+	desc = "Шахтёрские ботинки со стальным носком для работы в опасных условиях. Отлично защищают пальцы от раздавливания."
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/shoes/workboots/mining/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрские ботинки",
+		GENITIVE = "шахтёрских ботинок",
+		DATIVE = "шахтёрским ботинкам",
+		ACCUSATIVE = "шахтёрские ботинки",
+		INSTRUMENTAL = "шахтёрскими ботинками",
+		PREPOSITIONAL = "шахтёрских ботинках"
+	)
 
 /obj/item/clothing/shoes/workboots/mining/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/kitchen/knife/combat/survival))
@@ -232,7 +252,7 @@
 	return ..()
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Достать нож"
 	set src in usr
 	remove_knife(usr)

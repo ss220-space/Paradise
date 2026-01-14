@@ -98,8 +98,10 @@
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
-		new /obj/effect/hotspot(location)
-		location.hotspot_expose(700, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		location.hotspot_expose(700, 50)
 
 /obj/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)
 	. = ..()
@@ -150,6 +152,7 @@
 	projectile_type = /obj/projectile/bullet/saw
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/a762x51/weak
 	projectile_type = /obj/projectile/bullet/saw/weak
@@ -161,15 +164,18 @@
 /obj/item/ammo_casing/a762x51/hollow
 	desc = "A 7.62x51mm bullet casing designed to cause more damage to unarmored targets."
 	projectile_type = /obj/projectile/bullet/saw/hollow
+	bullet_type = BULLET_TYPE_EXPANSIVE
 
 /obj/item/ammo_casing/a762x51/ap
 	desc = "A 7.62x51mm bullet casing designed with a hardened-tipped core to help penetrate armored targets."
 	projectile_type = /obj/projectile/bullet/saw/ap
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/item/ammo_casing/a762x51/incen
 	desc = "A 7.62x51mm bullet casing designed with a chemical-filled capsule on the tip that when bursted, reacts with the atmosphere to produce a fireball, engulfing the target in flames. "
 	projectile_type = /obj/projectile/bullet/saw/incen
 	muzzle_flash_color = LIGHT_COLOR_FIRE
+	bullet_type = BULLET_TYPE_FIRE
 
 /obj/item/ammo_box/a762x51
 	name = "ammo box (7.62x51mm)"

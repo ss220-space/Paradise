@@ -205,7 +205,7 @@
 			else if(pod.occupant && !(pod.stat & NOPOWER))
 				status = "cloning"
 			tempods.Add(list(list(
-				"pod" = "\ref[pod]",
+				"pod" = pod.UID(),
 				"name" = sanitize(capitalize(pod.name)),
 				"biomass" = pod.biomass,
 				"status" = status,
@@ -228,11 +228,11 @@
 	data["temp"] = temp
 	data["scantemp"] = scantemp
 	data["disk"] = src.diskette
-	data["selected_pod"] = "\ref[selected_pod]"
+	data["selected_pod"] = selected_pod.UID()
 	var/list/temprecords[0]
 	for(var/datum/dna2/record/R in records)
 		var/tempRealName = R.dna.real_name
-		temprecords.Add(list(list("record" = "\ref[R]", "realname" = sanitize(tempRealName))))
+		temprecords.Add(list(list("record" = R.UID(), "realname" = sanitize(tempRealName))))
 	data["records"] = temprecords
 
 	if(selected_pod && (selected_pod in pods) && selected_pod.biomass >= CLONE_BIOMASS)
@@ -297,7 +297,7 @@
 			var/ref = params["ref"]
 			if(!length(ref))
 				return
-			active_record = locate(ref)
+			active_record = locateUID(ref)
 			if(istype(active_record))
 				if(isnull(active_record.ckey))
 					qdel(active_record)
@@ -307,7 +307,7 @@
 					if(active_record.implant)
 						H = locate(active_record.implant)
 					var/list/payload = list(
-						activerecord = "\ref[active_record]",
+						activerecord = active_record.UID(),
 						health = (H && istype(H)) ? H.sensehealth() : "",
 						realname = sanitize(active_record.dna.real_name),
 						unidentity = active_record.dna.uni_identity,
@@ -367,14 +367,14 @@
 			var/ref = params["ref"]
 			if(!length(ref))
 				return
-			var/obj/machinery/clonepod/selected = locate(ref)
+			var/obj/machinery/clonepod/selected = locateUID(ref)
 			if(istype(selected) && (selected in pods))
 				selected_pod = selected
 		if("clone")
 			var/ref = params["ref"]
 			if(!length(ref))
 				return
-			var/datum/dna2/record/C = locate(ref)
+			var/datum/dna2/record/C = locateUID(ref)
 			//Look for that player! They better be dead!
 			if(istype(C))
 				ui_modal_clear(src)
@@ -499,10 +499,10 @@
 	if(!imp)
 		imp = new /obj/item/implant/health(subject)
 		imp.implant(subject)
-	R.implant = "\ref[imp]"
+	R.implant = imp.UID()
 
 	if(!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
-		R.mind = "\ref[subject.mind]"
+		R.mind = WEAKREF(subject.mind)
 
 	src.records += R
 	set_scan_temp(emagged ? "Жертва успешно отсканирована. [extra_info]" : "Субъект успешно отсканирован. [extra_info]", "good")

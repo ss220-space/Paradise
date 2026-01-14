@@ -2,14 +2,19 @@
 	name = "Dispenser"
 	desc = "..."
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "watertank"
+	icon_state = "water"
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
-	var/tank_volume = 1000 //In units, how much the dispenser can hold
-	var/reagent_id = "water" //The ID of the reagent that the dispenser uses
-	var/lastrigger = "" // The last person to rig this fuel tank - Stored with the object. Only the last person matter for investigation
-	var/went_boom = FALSE /// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
+	cares_about_temperature = TRUE
+	/// In units, how much the dispenser can hold
+	var/tank_volume = 1000
+	/// The ID of the reagent that the dispenser uses
+	var/reagent_id = "water"
+	/// The last person to rig this fuel tank - Stored with the object. Only the last person matters for investigation
+	var/lastrigger = ""
+	/// If the dispenser is being blown up already. Used to avoid multiple boom calls due to itself exploding etc
+	var/went_boom = FALSE
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
 	. = ..()
@@ -27,12 +32,12 @@
 	create_reagents(tank_volume)
 	reagents.add_reagent(reagent_id, tank_volume)
 
-/obj/structure/reagent_dispensers/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/reagent_dispensers/temperature_expose(temperature, volume)
 	..()
 	if(reagents)
 		for(var/i in 1 to 8)
 			if(reagents)
-				reagents.temperature_reagents(exposed_temperature)
+				reagents.temperature_reagents(temperature)
 
 /obj/structure/reagent_dispensers/proc/boom(rigtrigger = FALSE, log_attack = FALSE)
 	if(went_boom)
@@ -53,7 +58,6 @@
 /obj/structure/reagent_dispensers/watertank
 	name = "water tank"
 	desc = "A water tank."
-	icon_state = "water"
 
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
@@ -216,10 +220,12 @@
 		rig.assembly_crossed(arrived, old_loc)
 
 /obj/structure/reagent_dispensers/fueltank/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
 	if(rig)
 		rig.hear_talk(M, message_pieces)
 
 /obj/structure/reagent_dispensers/fueltank/hear_message(mob/living/M, msg)
+	. = ..()
 	if(rig)
 		rig.hear_message(M, msg)
 

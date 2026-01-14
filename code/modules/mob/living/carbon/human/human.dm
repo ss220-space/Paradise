@@ -114,6 +114,7 @@
 
 /mob/living/carbon/human/machine/created
 	name = "Комплексный роботизированный блок"
+	deathgasp_on_death = FALSE
 
 /mob/living/carbon/human/machine/created/Initialize(mapload)
 	. = ..()
@@ -127,6 +128,7 @@
 		qdel(organ)
 	regenerate_icons()
 	death()
+	deathgasp_on_death = TRUE
 
 /mob/living/carbon/human/shadow/Initialize(mapload)
 	. = ..(mapload, /datum/species/shadow)
@@ -212,7 +214,7 @@
 	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
 	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
 
-	var/total_user_contents = GetAllContents() // cache it
+	var/total_user_contents = get_all_contents() // cache it
 	if(locate(/obj/item/gps) in total_user_contents)
 		var/turf/T = get_turf(src)
 		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
@@ -511,6 +513,13 @@
 					span_warning("[usr] с усилием извлека[PLUR_ET_YUT(usr)] [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]!"),
 					span_notice("Вы успешно извлекаете [thing.declent_ru(ACCUSATIVE)] из [GLOB.body_zone[bodypart.limb_zone][GENITIVE]]."),
 				)
+			return
+
+		if(href_list["tourniquet_object"])
+			var/obj/item/organ/external/bodypart = locateUID(href_list["limb"])
+			if(QDELETED(bodypart) || !bodypart.tourniquet)
+				return
+			bodypart.tourniquet.remove_from_bodypart(usr)
 			return
 
 	if(href_list["criminal"])
@@ -1274,7 +1283,7 @@
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Рисовать кровью"
 	set desc = "Используйте кровь на ваших руках, чтобы рисовать ею на полу и на стенах."
 
@@ -1890,14 +1899,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/verb/pose()
 	set name = "Задать позу"
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Описание внешности"
 	set desc = "Устанавливает подробное описание внешности вашего персонажа."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	update_flavor_text()
 
@@ -2001,3 +2010,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
+
+/mob/living/carbon/human/compressor_grind()
+	dna.species.compressor_grind(loc)

@@ -80,6 +80,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper
 	//speed = 0.75
@@ -141,10 +142,10 @@
 	icon_state = ".50exp"
 
 /obj/projectile/bullet/sniper/explosive
-	damage = 85
-	stun = 6 SECONDS
-	dismemberment = 0
 	weaken = 6 SECONDS
+	stun = 6 SECONDS
+	damage = 85
+	dismemberment = 0
 	ricochets_max = 0
 
 /obj/projectile/bullet/sniper/explosive/on_hit(atom/target, blocked = 0, hit_zone)
@@ -193,6 +194,7 @@
 	caliber = CALIBER_DOT_50
 	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
@@ -218,9 +220,11 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	knockdown = 4 SECONDS
+	weaken = 0
 	breakthings = FALSE
 	dismemberment = 0
 
@@ -270,7 +274,7 @@
 
 /obj/item/gun/projectile/automatic/sniper_rifle/axmc
 	name = "axmc sniper rifle"
-	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний Нанотрейзен. Обладает схожими со снайперской винтовкой Синдиката характеристиками."
+	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний \"Нанотрейзен\". Обладает схожими со снайперской винтовкой \"Синдиката\" характеристиками."
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "AXMC"
 	item_state = "AXMC"
@@ -346,6 +350,7 @@
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
+	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/projectile/bullet/sniper/a338
 	damage = 80
@@ -446,6 +451,7 @@
 	caliber = CALIBER_DOT_338
 	projectile_type = /obj/projectile/bullet/sniper/penetrator/a338
 	icon_state = ".50pen"
+	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/projectile/bullet/sniper/penetrator/a338
 

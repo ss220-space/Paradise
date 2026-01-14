@@ -2,7 +2,7 @@
 	name = "stone oven"
 	desc = "Огромная примитивная каменная печь, используемая для приготовления пищи."
 	gender = FEMALE
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "oven_off"
 	use_power = NO_POWER_USE
 	idle_power_usage = 0

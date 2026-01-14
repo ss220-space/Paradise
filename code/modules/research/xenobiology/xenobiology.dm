@@ -248,8 +248,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(SM, "<span class='notice'>Ваше новое имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(SM, span_notice("Ваше новое имя - <b>\"[new_name]\"</b>!"))
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
@@ -277,7 +277,7 @@
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(!src)
+		if(QDELETED(src) || QDELETED(SM))
 			return
 
 		if(length(candidates))
@@ -299,8 +299,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(SM, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(SM, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
@@ -333,12 +333,12 @@
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(!src)
+		if(QDELETED(src) || QDELETED(LF))
 			return
 
 		if(length(candidates))
 			var/mob/C = pick(candidates)
-			LF.key = C.key
+			LF.possess_by_player(C.key)
 			LF.faction = user.faction
 			LF.master_commander = user
 			LF.mind.madeby_sentience_potion = TRUE
@@ -349,8 +349,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
-				to_chat(LF, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
+				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
+				to_chat(LF, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
 				LF.real_name = new_name
 				LF.name = new_name
 
@@ -548,12 +548,11 @@
 	to_chat(user, span_notice("You slather the red gunk over [O], making it faster.</span>"))
 	qdel(src)
 
-/obj/item/slimepotion/speed/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/speed/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
 
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
 
@@ -612,18 +611,14 @@
 	if(!uses)
 		qdel(src)
 
-/obj/item/slimepotion/clothing/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/slimepotion/clothing/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!.)
 		return FALSE
-
-	var/mob/user = usr
 	if(is_screen_atom(over_object))
 		return FALSE
-
 	if(over_object == user || loc != user || !ishuman(user))
 		return FALSE
-
 	afterattack(over_object, user, TRUE, params)
 
 /obj/item/slimepotion/clothing/fireproof
@@ -782,7 +777,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/living/immune = list() // the one who creates the timestop is immune
 	var/list/stopped_atoms = list()
-	var/freezerange = 2
+	var/freezerange = 1
 	var/duration = 140
 	alpha = 125
 
@@ -845,13 +840,6 @@
 
 /obj/effect/timestop/clockwork
 	duration = 80
-
-/obj/effect/timestop/clockwork/Initialize(mapload)
-	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
-		if(isclocker(M))
-			immune |= M
-	timestop()
 
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"

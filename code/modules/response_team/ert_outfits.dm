@@ -356,7 +356,7 @@
 
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
@@ -410,7 +410,7 @@
 		/obj/item/roller/holo = 1,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/handheld_defibrillator = 1,
+		/obj/item/handheld_defibrillator/advanced = 1,
 		/obj/item/reagent_containers/applicator/burn = 1,
 		/obj/item/reagent_containers/applicator/brute = 1,
 		/obj/item/storage/pill_bottle/patch_pack/filled = 1,
@@ -450,8 +450,9 @@
 		/obj/item/extinguisher/mini = 1,
 		/obj/item/roller/holo = 1,
 		/obj/item/healthanalyzer/advanced = 1,
-		/obj/item/handheld_defibrillator = 1,
+		/obj/item/handheld_defibrillator/advanced = 1,
 	)
+
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/arm/surgery/l,
 		/obj/item/organ/internal/cyberimp/arm/medibeam,

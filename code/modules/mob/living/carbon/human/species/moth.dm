@@ -148,9 +148,11 @@
 		return .
 	if(user.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !user.get_organ(BODY_ZONE_WING))
 		return .
-	//as long as there's reasonable pressure and no gravity, flight is possible
-	var/datum/gas_mixture/current = user_turf.return_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85))
+	if(isobj(user.loc))
+		// Can't fly if you're in a box/mech/whatever.
+		return FALSE
+	var/datum/gas_mixture/current = user_turf.get_readonly_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
@@ -181,7 +183,7 @@
 	name = "Кокон"
 	desc = "Восстанавливает крылья и усики, а также лечит повреждения. Если кокон будет разрушен извне, вы получите серьёзные травмы!"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_TURF
-	icon_icon = 'icons/effects/effects.dmi'
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()

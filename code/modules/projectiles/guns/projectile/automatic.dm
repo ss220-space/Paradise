@@ -32,28 +32,6 @@
 		if(GUN_BURST_MODE)
 			. += "[initial(icon_state)]burst"
 
-/obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/magazine))
-		add_fingerprint(user)
-		var/obj/item/ammo_box/magazine/new_magazine = I
-		if(!istype(new_magazine, mag_type))
-			balloon_alert(user, "не совместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
-			return ..()
-		if(magazine)
-			magazine.forceMove(get_turf(src))
-			magazine.update_appearance()
-		playsound(loc, magin_sound, 50, TRUE)
-		balloon_alert(user, "заряжено")
-		magazine = new_magazine
-		chamber_round()
-		magazine.update_appearance()
-		update_appearance()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
 		toggle_firemode()
@@ -91,6 +69,14 @@
 
 /obj/item/gun/projectile/automatic/can_shoot(mob/user)
 	return get_ammo()
+
+/obj/item/gun/projectile/automatic/CtrlClick(mob/user)
+	if(user.is_in_hands(src) && chambered)
+		process_chamber(TRUE, TRUE)
+		balloon_alert(user, "патрон извлечён")
+		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+		return
+	. = ..()
 
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
@@ -165,6 +151,26 @@
 		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
 		PREPOSITIONAL = "пистолет-пулемете C-20rm",
 	)
+
+/obj/item/gun/projectile/automatic/c20r/rusted
+	name = "C-20r SMG (Rusted)"
+	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемет C-20r (ржавый)",
+		GENITIVE = "пистолет-пулемета C-20r (ржавый)",
+		DATIVE = "пистолет-пулемету C-20r (ржавый)",
+		ACCUSATIVE = "пистолет-пулемету C-20r (ржавый)",
+		INSTRUMENTAL = "пистолет-пулеметом C-20r (ржавый)",
+		PREPOSITIONAL = "пистолет-пулемете C-20r (ржавый)",
+	)
+
+/obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
@@ -350,6 +356,20 @@ TODO Use this name and desc for localisation*/
 			balloon_alert(user, "подствольный гранатомёт")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
+
+/obj/item/gun/projectile/automatic/m90/rusted
+	name = "M-90gl Carbine (Rusted)"
+	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
+	. = ..()
+	QDEL_NULL(underbarrel.chambered)
+
+/obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //Tommy Gun//
 /obj/item/gun/projectile/automatic/tommygun

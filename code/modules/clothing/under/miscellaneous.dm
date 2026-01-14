@@ -298,7 +298,7 @@
 /obj/item/clothing/under/space
 	name = "NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
-	icon_state = "black"
+	icon_state = "jumpsuit"
 	item_state = "bl_suit"
 	item_color = "black"
 	w_class = WEIGHT_CLASS_BULKY
@@ -310,6 +310,14 @@
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = NONE
+
+/obj/item/clothing/under/space/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/under/color/black/temp_item = new(null)
+	icon = temp_item.icon
+	onmob_sheets = temp_item.onmob_sheets
+	sprite_sheets = temp_item.sprite_sheets
+	qdel(temp_item)
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
@@ -352,12 +360,6 @@
 	item_state = "rainbow"
 	item_color = "rainbow"
 	dying_key = DYE_REGISTRY_UNDER
-
-/obj/item/clothing/under/cloud
-	name = "cloud"
-	desc = "cloud"
-	icon_state = "cloud"
-	item_color = "cloud"
 
 /obj/item/clothing/under/psysuit
 	name = "dark undersuit"
@@ -1551,7 +1553,7 @@
 
 /obj/item/clothing/under/tchaikowsky/baseball/brown
 	name = "baseball uniform (brown)"
-	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды \"Киберсан Инд\"."
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды \"Киберсан Индастриз\"."
 	icon_state = "baseball_uniform_brown"
 	item_state = "baseball_uniform_brown"
 

@@ -172,10 +172,10 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 	paintable = FALSE
 
-/obj/machinery/door/airlock/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/machinery/door/airlock/plasma/temperature_expose(temperature, volume)
 	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+	if(temperature > 300)
+		PlasmaBurn(temperature)
 
 /obj/machinery/door/airlock/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
@@ -201,9 +201,6 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
-
-/obj/machinery/door/airlock/plasma/BlockSuperconductivity() //we don't stop the heat~
-	return 0
 
 /obj/machinery/door/airlock/plasma/glass
 	opacity = FALSE

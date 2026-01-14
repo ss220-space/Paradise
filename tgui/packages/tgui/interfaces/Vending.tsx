@@ -17,16 +17,24 @@ type ProductRecord = {
   req_coin: boolean;
   price: number;
   name: string;
+  desc: string;
   max_amount: number;
   ref: string;
   category: string;
+  colorable: boolean;
   icon: string;
   icon_state: string;
 };
 
+type StockItem = {
+  name: string;
+  amount: number;
+  colorable: boolean;
+};
+
 type VendingRowProps = {
   product: ProductRecord;
-  productStock: number;
+  productStock: StockItem;
   inventory: ProductRecord[];
   stockSearch: string;
   setStockSearch: (search: string) => void;
@@ -55,7 +63,7 @@ const VendingRow = (props: VendingRowProps) => {
   let buttonDisabled =
     !vend_ready ||
     (!coin_name && product.req_coin) ||
-    productStock === 0 ||
+    productStock.amount === 0 ||
     (!free && product.price > userMoney);
 
   if (product.req_coin) {
@@ -79,16 +87,20 @@ const VendingRow = (props: VendingRowProps) => {
           fallback={<Icon p={0.66} name={'spinner'} size={2} spin />}
         />
       </Table.Cell>
-      <Table.Cell bold>{product.name}</Table.Cell>
+      <Table.Cell bold>
+        <Button multiLine color="translucent" tooltip={product.desc}>
+          {product.name}
+        </Button>
+      </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         <Box
           color={
-            (productStock <= 0 && 'bad') ||
-            (productStock <= product.max_amount / 2 && 'average') ||
+            (productStock.amount <= 0 && 'bad') ||
+            (productStock.amount <= product.max_amount / 2 && 'average') ||
             'good'
           }
         >
-          {productStock} в наличии
+          {productStock.amount} в наличии
         </Box>
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
@@ -106,6 +118,18 @@ const VendingRow = (props: VendingRowProps) => {
           {buttonText}
         </Button>
       </Table.Cell>
+      <Table.Cell>
+        {productStock.colorable ? (
+          <Button
+            fluid
+            icon="palette"
+            disabled={buttonDisabled}
+            onClick={() => act('select_colors', { ref: product.ref })}
+          />
+        ) : (
+          ''
+        )}
+      </Table.Cell>
     </Table.Row>
   );
 };
@@ -121,7 +145,7 @@ type VendingData = {
   coin_records?: ProductRecord[];
   hidden_records?: ProductRecord[];
   extended_inventory: boolean;
-  stock: Record<string, number>;
+  stock: Record<string, StockItem>;
   categories: Record<string, Category>;
   inserted_item_name: string;
   panel_open: boolean;

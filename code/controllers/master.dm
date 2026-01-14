@@ -141,7 +141,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 /datum/controller/master/Shutdown()
 	processing = FALSE
 	sortTim(subsystems, cmp = /proc/cmp_subsystem_init)
-	reverseRange(subsystems)
+	reverse_range(subsystems)
 	for(var/datum/controller/subsystem/ss in subsystems)
 		log_world("Shutting down [ss.name] subsystem...")
 		if(ss.fire_sleep_count > 0)
@@ -149,18 +149,11 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		ss.Shutdown()
 	log_world("Shutdown complete")
 
-/client/proc/cmd_controller_view_ui()
-	set name = "Controller Overview"
-	set category = "Debug"
-	set desc = "View the current states of the Subsystem Controllers."
-
-	if(!check_rights(R_SERVER|R_DEBUG))
-		return
-
-	Master.ui_interact(usr)
+ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller Overview", "View the current states of the Subsystem Controllers.", ADMIN_CATEGORY_DEBUG)
+	Master.ui_interact(user.mob)
 
 /datum/controller/master/ui_status(mob/user, datum/ui_state/state)
-	if(!user.client?.holder && !check_rights(R_SERVER|R_DEBUG))
+	if(!user.client?.holder && !check_rights(R_SERVER|R_DEBUG|R_VIEWRUNTIMES))
 		return UI_CLOSE
 	return UI_INTERACTIVE
 
@@ -173,7 +166,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/ui_close(mob/user)
 	var/valid_found = FALSE
-	for(var/datum/tgui/open_ui as anything in SStgui.open_uis_by_src[src.UID()])
+	for(var/datum/tgui/open_ui as anything in open_uis)
 		if(open_ui.user == user)
 			continue
 		valid_found = TRUE
@@ -384,6 +377,8 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 				SetRunLevel(1) // Intentionally not using the defines here because the MC doesn't care about them
 			// Loop.
 			Master.StartProcessing(0)
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED)
 
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 

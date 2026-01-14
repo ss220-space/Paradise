@@ -56,7 +56,7 @@
 			if(new_casing.loc != src)
 				new_casing.forceMove(src)
 			if(casing)
-				casing.forceMove(drop_location())
+				casing.forceMove(get_turf(user))
 				playsound(casing.loc, casing.casing_drop_sound, 60, TRUE)
 				casing.pixel_x = rand(-10, 10)
 				casing.pixel_y = rand(-10, 10)
@@ -80,6 +80,12 @@
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev38/invisible/fake
 	ammo_type = /obj/item/ammo_casing/c38/invisible/fake
+
+/obj/item/ammo_box/magazine/internal/cylinder/taurus
+	name = "taurus revolver cylinder"
+	ammo_type = /obj/item/ammo_casing/c45colt/rubber
+	caliber = CALIBER_DOT_45_COLT
+	max_ammo = 6
 
 /obj/item/ammo_box/magazine/internal/cylinder/rev762
 	name = "nagant revolver cylinder"
@@ -131,7 +137,6 @@
 	ammo_type = /obj/item/ammo_casing/shotgun/beanbag
 	caliber = CALIBER_12X70
 	max_ammo = 4
-	multiload = FALSE
 
 /obj/item/ammo_box/magazine/internal/shot/ammo_count(countempties = TRUE)
 	. = 0
@@ -239,6 +244,7 @@
 /obj/item/ammo_box/magazine
 	materials = list(MAT_METAL = 2000)
 	can_fast_load = FALSE
+	use_bullet_type_overlay = TRUE
 
 /obj/item/ammo_box/magazine/m10mm
 	name = "pistol magazine (10mm)"
@@ -428,7 +434,7 @@
 /obj/item/ammo_box/magazine/wt550m9
 	name = "wt550 magazine (4.6x30mm)"
 	desc = "Магазин пистолет-пулемета \"WT-550 PDW\", заряженный патронами калибра 4,6x30 мм."
-	icon_state = "46x30mmt-20"
+	icon_state = "46x30mmt"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	caliber = CALIBER_4_DOT_6X30MM
 	max_ammo = 30

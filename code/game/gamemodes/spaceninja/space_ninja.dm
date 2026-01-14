@@ -9,7 +9,7 @@
 	var/datum/mind/pre_ninja
 
 /datum/game_mode/space_ninja/announce()
-	to_chat(world, "<b>>Текущий игровой режим — Космический Ниндзя!</b>")
+	to_chat(world, "<b>>Текущий игровой режим — Космический Ниндзя!</b>")
 	to_chat(world, "<b>На станцию проник опасный наёмник из клана Паука. Более известный как Космический Ниндзя. Какие бы он не преследовал цели, станция в опасности!</b>")
 
 /datum/game_mode/space_ninja/can_start()
@@ -47,9 +47,9 @@
 	for(var/datum/mind/ninja in space_ninjas)
 		if(!iscarbon(ninja.current))
 			continue
-		if(ninja.current.stat==DEAD)
+		if(ninja.current.stat == DEAD)
 			continue
-		if(istype(ninja.current, /obj/item/mmi)) // ninja is in an MMI, don't count them as alive
+		if(is_mmi(ninja.current)) // ninja is in an MMI, don't count them as alive
 			continue
 		ninjas_alive++
 

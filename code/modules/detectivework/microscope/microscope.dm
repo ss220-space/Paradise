@@ -119,7 +119,7 @@
 	remove_sample(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/machinery/microscope/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/machinery/microscope/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(usr == over_object)
 		remove_sample(usr)
 		return FALSE
@@ -128,7 +128,7 @@
 /obj/machinery/microscope/update_icon_state()
 	icon_state = "microscope"
 	if(sample)
-		icon_state += "slide"
+		icon_state += "_slide"
 
 /obj/machinery/microscope/screwdriver_act(mob/user, obj/item/I)
 	if(sample)

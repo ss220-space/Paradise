@@ -253,7 +253,7 @@
 	P.firer_source_atom  = parent
 	P.firer = parent // don't hit ourself that would be really annoying
 	P.suppressed = TRUE// set the projectiles to make no message so we can do our own aggregate message
-	P.preparePixelProjectile(target, target, parent)
+	P.preparePixelProjectile(target, parent)
 	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
 	RegisterSignal(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
 	pellets += P

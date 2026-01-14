@@ -298,7 +298,7 @@
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
 /mob/living/silicon/pai/verb/fold_out()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "В мобильную форму"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
@@ -333,7 +333,7 @@
 	card.screen_loc = null
 
 /mob/living/silicon/pai/verb/fold_up()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Из мобильной формы"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
@@ -350,7 +350,7 @@
 	close_up()
 
 /mob/living/silicon/pai/proc/choose_chassis()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Мобильные формы"
 
 	var/list/my_choices = list()
@@ -397,7 +397,7 @@
 	chassis = my_choices[choice]
 
 /mob/living/silicon/pai/proc/choose_verbs()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Модуляция речи"
 
 	var/choice = tgui_input_list(usr, "Какой тип модуляции речи вы бы хотели использовать? Этот выбор можно сделать лишь единожды.", "Модуляция речи", possible_say_verbs)
@@ -413,7 +413,7 @@
 /mob/living/silicon/pai/proc/pai_change_voice()
 	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	change_voice()
 
 /mob/living/silicon/pai/post_lying_on_rest()
@@ -428,7 +428,7 @@
 	update_icons()
 
 /mob/living/silicon/pai/verb/pAI_suicide()
-	set category = STATPANEL_PAICOMMANDS
+	set category = VERB_CATEGORY_PAICOMMANDS
 	set name = "Выгрузить личность"
 	set desc = "Kill yourself and become a ghost (You will receive a confirmation prompt.)"
 
@@ -635,7 +635,7 @@
 
 	return H
 
-/mob/living/silicon/pai/MouseDrop(mob/living/carbon/human/user, src_location, over_location, src_control, over_control, params)
+/mob/living/silicon/pai/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return ..()
 
@@ -655,13 +655,6 @@
 		else
 			return ..()
 
-/mob/living/silicon/pai/on_forcemove(atom/newloc)
-	if(card)
-		card.loc = newloc
-	else //something went very wrong.
-		CRASH("pAI without card")
-	loc = card
-
 /mob/living/silicon/pai/extinguish_light(force = FALSE)
 	flashlight_on = FALSE
 	set_light_on(FALSE)
@@ -670,7 +663,7 @@
 /datum/action/innate/pai_soft
 	name = "Программное обеспечение"
 	desc = "Активация вашего внутреннего интерфейса для выбора программ."
-	icon_icon = 'icons/obj/aicards.dmi'
+	button_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
 	check_flags = AB_CHECK_CONSCIOUS
 

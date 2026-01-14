@@ -80,11 +80,11 @@
 	. = ..()
 	if(.)	return .
 
-	buy()
-	sell()
+	buy(S1)
+	sell(S1)
 
-/obj/docking_port/mobile/supply/proc/buy()
-	if(!is_station_level(z))		//we only buy when we are -at- the station
+/obj/docking_port/mobile/supply/proc/buy(obj/docking_port/stationary/destination)
+	if(!is_station_level(destination.z))
 		return 1
 
 	if(!length(SSshuttle.shoppinglist))
@@ -136,8 +136,8 @@
 
 	SSshuttle.shoppinglist.Cut()
 
-/obj/docking_port/mobile/supply/proc/sell()
-	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
+/obj/docking_port/mobile/supply/proc/sell(obj/docking_port/stationary/destination)
+	if(destination.z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
 		return TRUE
 
 	var/crate_count = 0
@@ -224,7 +224,7 @@
 
 					var/cost = tech.getCost(SSshuttle.techLevels[tech.id])
 					if(tech.level >= 7)
-						SScapitalism.base_account.credit(7000, "Благодарность за вклад в науку.", "Терминал Института Нанотрейзен №[rand(111,333)]", "Институт Нанотрейзен")
+						SScapitalism.base_account.credit(7000, "Благодарность за вклад в науку.", "Терминал Института \"Нанотрейзен\" №[rand(111,333)]", "Институт \"Нанотрейзен\"")
 					if(cost)
 						SSshuttle.techLevels[tech.id] = tech.level
 						for(var/mob/mob in GLOB.player_list)

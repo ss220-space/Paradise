@@ -18,7 +18,7 @@
 
 /obj/structure/closet/secure_closet/personal/patient/populate_contents()
 	new /obj/item/clothing/under/color/white(src)
-	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/color/white(src)
 
 /obj/structure/closet/secure_closet/personal/mining
 	name = "personal miner's locker"
@@ -33,7 +33,6 @@
 	icon_state = "cabinet"
 	overlay_sparking = "c_sparking"
 	overlay_locked = "c_locked"
-	overlay_locker = "c_locker"
 	overlay_unlocked = "c_unlocked"
 	resistance_flags = FLAMMABLE
 	max_integrity = 70

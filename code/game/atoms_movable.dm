@@ -97,7 +97,7 @@
 	var/face_mouse = FALSE
 
 	var/pressure_resistance = 10
-	var/last_high_pressure_movement_air_cycle = 0
+	var/last_high_pressure_movement_time = 0
 
 	var/atom/orbiting = null
 	var/cached_transform = null
@@ -154,7 +154,7 @@
 				managed_overlays = flat
 
 		if(EMISSIVE_BLOCK_UNIQUE)
-			render_target = ref(src)
+			render_target = UID()
 			em_block = new(null, src)
 			overlays += em_block
 			if(managed_overlays)
@@ -215,7 +215,7 @@
 			return fast_emissive_blocker(src)
 		if(EMISSIVE_BLOCK_UNIQUE)
 			if(!em_block && !QDELETED(src))
-				render_target = ref(src)
+				render_target = UID()
 				em_block = new(null, src)
 			return em_block
 
@@ -1660,3 +1660,5 @@
 	forceMove(holder_obj.loc)
 	qdel(holder_obj)
 
+/atom/movable/proc/compressor_grind()
+	ex_act(EXPLODE_DEVASTATE)

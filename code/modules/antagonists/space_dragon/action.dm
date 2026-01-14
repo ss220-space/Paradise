@@ -9,7 +9,7 @@
 	var/small_icon_state = "carp"
 	check_flags = AB_CHECK_CONSCIOUS
 
-/datum/action/innate/small_sprite_dragon/Trigger(left_click = TRUE)
+/datum/action/innate/small_sprite_dragon/Trigger(mob/clicker, trigger_flags)
 	..()
 	if(owner.stat == DEAD)
 		return
@@ -18,7 +18,7 @@
 		I.override = TRUE
 		I.pixel_x -= owner.pixel_x
 		I.pixel_y -= owner.pixel_y
-		owner.add_alt_appearance("smallsprite", I, list(owner))
+		owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic, "smallsprite", I, AA_TARGET_SEE_APPEARANCE | AA_MATCH_TARGET_OVERLAYS)
 		small = TRUE
 	else
 		owner.remove_alt_appearance("smallsprite")
@@ -45,7 +45,7 @@
 		return
 	space_dragon = null
 
-/datum/action/innate/space_dragon_gust/Trigger(left_click = TRUE)
+/datum/action/innate/space_dragon_gust/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(space_dragon?.stat == DEAD)
 		return
@@ -112,6 +112,10 @@
 	return TRUE
 
 /datum/action/innate/lesser_carp_rift/proc/make_rift(atom/target_atom)
+	if(owner.Adjacent(target_atom))
+		owner.balloon_alert(owner, "слишком близко!")
+		return FALSE
+
 	var/turf/owner_turf = get_turf(owner)
 	var/turf/target_turf = get_turf(target_atom)
 	if(!target_turf)
@@ -124,7 +128,7 @@
 		open_exit_turfs += potential_exit
 
 	if(!length(open_exit_turfs))
-		to_chat(owner, span_warning("Нет выхода!"))
+		owner.balloon_alert(owner, "нет выхода!")
 		return FALSE
 	if(!target_turf.is_blocked_turf(exclude_mobs = TRUE))
 		open_exit_turfs += target_turf
@@ -139,7 +143,7 @@
 /obj/effect/temp_visual/lesser_carp_rift
 	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
-	icon_state = "carp_rift"
+	icon_state = "rift"
 	duration = 5 SECONDS
 	/// Holds a reference to a timer until this gets deleted
 	var/destroy_timer
@@ -206,4 +210,3 @@
 /obj/effect/temp_visual/lesser_carp_rift_dissipating/proc/setup_animation(new_alpha)
 	alpha = new_alpha
 	animate(src, alpha = 0, time = duration - 1)
-

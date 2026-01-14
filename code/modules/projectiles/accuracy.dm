@@ -80,6 +80,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 	spread_increase_step = 3
 	spread_restore_duration = 2 SECONDS
 
+
+/datum/gun_accuracy/minimal/old
+	min_spread = 15
+
 /datum/gun_accuracy/shotgun
 	head = 70
 	arms = 60
@@ -225,7 +229,7 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 /obj/projectile/proc/calculate_randomize_def_zone_chance(obj/projectile/projectile, distance)
 	var/obj/item/gun/gun = projectile.firer_source_atom
 	var/datum/gun_accuracy/gun_accuracy = GLOB.gun_accuracy_sniper
-	if(istype(gun))
+	if(istype(gun) && gun.accuracy)
 		gun_accuracy = gun.accuracy
 	var/def_zone_accuracy = gun_accuracy.get_accuracy_for(projectile.def_zone)
 	return clamp(def_zone_accuracy * (max(100 - 3*distance, 33) / 100), 0, 100)

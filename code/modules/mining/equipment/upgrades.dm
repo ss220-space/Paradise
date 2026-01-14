@@ -1,16 +1,38 @@
 //plasma magmite is exclusively used to upgrade mining equipment, by using it on a heated world anvil to make upgradeparts.
 /obj/item/magmite
 	name = "plasma magmite"
-	desc = "Образец плазменного магмита, кристаллизовавшийся в глубинах планеты. Кажется, он теряет силу по мере удаления от поверхности планеты!"
+	desc = "Образец плазменного магмита, кристаллизовавшегося в глубинах Лазиса. Похоже, он слабеет по мере удаления от места рождения."
+	gender = MALE
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Magmite ore"
 
+/obj/item/magmite/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменный магмит",
+		GENITIVE = "плазменного магмита",
+		DATIVE = "плазменному магмиту",
+		ACCUSATIVE = "плазменный магмит",
+		INSTRUMENTAL = "плазменным магмитом",
+		PREPOSITIONAL = "плазменном магмите"
+	)
+
 /obj/item/magmite_parts
 	name = "plasma magmite upgrade parts"
-	desc = "Выкованные на легендарной Мировой Кузне, эти детали можно использовать для улучшения различных видов шахтёрского оборудования."
+	desc = "Детали, выкованные на легендарной Мировой Кузне. Позволяют улучшить почти любое шахтёрское оборудование."
+	gender = PLURAL
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "upgrade_parts"
 	var/inert = FALSE
+
+/obj/item/magmite_parts/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменно-магмитовые детали улучшения",
+		GENITIVE = "плазменно-магмитовых деталей улучшения",
+		DATIVE = "плазменно-магмитовым деталям улучшения",
+		ACCUSATIVE = "плазменно-магмитовые детали улучшения",
+		INSTRUMENTAL = "плазменно-магмитовыми деталями улучшения",
+		PREPOSITIONAL = "плазменно-магмитовых деталях улучшения"
+	)
 
 /obj/item/magmite_parts/Initialize(mapload)
 	. = ..()

@@ -291,7 +291,7 @@
 	new /obj/item/storage/firstaid/toxin(src)
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
-	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/color/white(src)
 	new /obj/item/sensor_device/advanced/security(src)
 	new /obj/item/radio/headset/headset_brigphys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
@@ -358,7 +358,6 @@
 /obj/structure/closet/secure_closet/cabinet/detective
 	name = "detective's cabinet"
 	icon_state = "cabinetdetective"
-	overlay_locker = "cd_locker"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
 
 /obj/structure/closet/secure_closet/cabinet/detective/populate_contents()
@@ -407,7 +406,7 @@
 	req_access = list(ACCESS_COURT)
 
 /obj/structure/closet/secure_closet/courtroom/populate_contents()
-	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/color/brown(src)
 	new /obj/item/paper/Court (src)
 	new /obj/item/paper/Court (src)
 	new /obj/item/paper/Court (src)
@@ -415,14 +414,6 @@
 	new /obj/item/clothing/suit/judgerobe (src)
 	new /obj/item/clothing/head/powdered_wig (src)
 	new /obj/item/storage/briefcase(src)
-
-/obj/structure/closet/secure_closet/wall //TODO: Add here sprites. (They do not exist)
-	name = "wall locker"
-	req_access = list(ACCESS_SECURITY)
-	icon_state = "wall-locker"
-
-	//too small to put a man in
-	large = FALSE
 
 /obj/structure/closet/secure_closet/magistrate
 	name = "Magistrate's locker"

@@ -20,7 +20,7 @@
 
 /obj/vehicle/ridden/ambulance/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/ambulance)
 
 /obj/vehicle/ridden/ambulance/Destroy()
@@ -50,7 +50,7 @@
 	. = ..()
 	. += span_notice("Drag [src]'s sprite over the ambulance to (de)attach it.")
 
-/obj/structure/bed/amb_trolley/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/structure/bed/amb_trolley/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 	if(!istype(over_object, /obj/vehicle/ridden/ambulance) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE

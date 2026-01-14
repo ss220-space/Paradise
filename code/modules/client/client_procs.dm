@@ -71,7 +71,7 @@
 				msg += " Администраторы были уведомлены."
 				add_game_logs("has hit the per-minute topic limit of [mtl] topic calls in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
-			to_chat(src, span_danger("[msg]"), confidential=TRUE)
+			to_chat(src, span_danger("[msg]"), confidential = TRUE)
 			return
 
 	var/stl = CONFIG_GET(number/second_topic_limit)
@@ -85,7 +85,7 @@
 
 		topiclimiter[SECOND_COUNT] += 1
 		if(topiclimiter[SECOND_COUNT] > stl)
-			to_chat(src, span_danger("Ваше предыдущее действие было проигнорировано, потому что вы совершили слишком много действий за секунду."), confidential=TRUE)
+			to_chat(src, span_danger("Ваше предыдущее действие было проигнорировано, потому что вы совершили слишком много действий за секунду."), confidential = TRUE)
 			return
 
 	//search the href for script injection
@@ -104,10 +104,10 @@
 
 	if(href_list["discord_msg"])
 		if(!holder && received_discord_pm < world.time - 6000) // Worse they can do is spam discord for 10 minutes
-			to_chat(usr, span_warning("Вы больше не можете воспользоваться этой функцией, так как с момента ответа администратора Discord прошло более 10 минут."), confidential=TRUE)
+			to_chat(usr, span_warning("Вы больше не можете воспользоваться этой функцией, так как с момента ответа администратора Discord прошло более 10 минут."), confidential = TRUE)
 			return
 		if(check_mute(ckey, MUTE_ADMINHELP))
-			to_chat(usr, span_warning("Вы не можете воспользоваться этой функцией, поскольку ваш клиент был отключён от возможности отправлять сообщения администраторам в Discord."), confidential=TRUE)
+			to_chat(usr, span_warning("Вы не можете воспользоваться этой функцией, поскольку ваш клиент был отключён от возможности отправлять сообщения администраторам в Discord."), confidential = TRUE)
 			return
 		cmd_admin_discord_pm()
 		return
@@ -124,7 +124,7 @@
 
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
-		to_chat(src, span_notice("Предупреждение об SSD подтверждено."), confidential=TRUE)
+		to_chat(src, span_notice("Предупреждение об SSD подтверждено."), confidential = TRUE)
 		return	//Otherwise, we will get 30+ messages of acknowledgement.
 	if(href_list["link_forum_account"])
 		link_forum_account()
@@ -154,7 +154,7 @@
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
-		to_chat(src, span_danger(" Обнаружена ошибка в получении ресурсов вашим клиентом. Попытка исправления.... (Если вы продолжаете видеть эти сообщения, возможно, вам стоит закрыть Byond и подключиться заново.)"), confidential=TRUE)
+		to_chat(src, span_danger(" Обнаружена ошибка в получении ресурсов вашим клиентом. Попытка исправления.... (Если вы продолжаете видеть эти сообщения, возможно, вам стоит закрыть Byond и подключиться заново.)"), confidential = TRUE)
 		src << browse("...", "window=asset_cache_browser")
 		return
 
@@ -180,7 +180,7 @@
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
-		to_chat(src, "Станьте участником BYOND, чтобы получить доступ к преимуществам и возможностям, а также поддержать движок, на котором работает эта игра. <a href='http://www.byond.com/membership'>Нажмите здесь, чтобы узнать больше.</a>.", confidential=TRUE)
+		to_chat(src, "Станьте участником BYOND, чтобы получить доступ к преимуществам и возможностям, а также поддержать движок, на котором работает эта игра. <a href='http://www.byond.com/membership'>Нажмите здесь, чтобы узнать больше.</a>.", confidential = TRUE)
 		return 0
 	return 1
 
@@ -190,21 +190,21 @@
 
 /client/proc/handle_spam_prevention(message, mute_type, throttle = 0)
 	if(throttle)
-		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
+		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, FALSE))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
-			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_SEC_MIN(wait_time)] перед отправкой нового сообщения."), confidential=TRUE)
+			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[DECL_SEC_MIN(wait_time)] перед отправкой нового сообщения."), confidential = TRUE)
 			return 1
 		last_message_time = world.time
-	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
+	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, FALSE) && last_message == message)
 		last_message_count++
 		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
 			return FALSE
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, span_danger("Вы достигли предела допустимого количества одинаковых сообщений, который был установлен спам-фильтром. Система автоматически отключила вашу отправку."), confidential=TRUE)
+			to_chat(src, span_danger("Вы достигли предела допустимого количества одинаковых сообщений, который был установлен спам-фильтром. Система автоматически отключила вашу отправку."), confidential = TRUE)
 			cmd_admin_mute(mob, mute_type, 1)
 			return 1
 		if(last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, span_danger("Вы приближаетесь к пределу, который устанавливает спам-фильтр для одинаковых сообщений."), confidential=TRUE)
+			to_chat(src, span_danger("Вы приближаетесь к пределу, который устанавливает спам-фильтр для одинаковых сообщений."), confidential = TRUE)
 			return 0
 	else
 		last_message = message
@@ -238,8 +238,10 @@
 
 	if(connection != "seeker") //Invalid connection type.
 		return null
+
 	if(byond_version < MIN_CLIENT_VERSION) // Too out of date to play at all. Unfortunately, we can't send them a message here.
 		version_blocked = TRUE
+
 	if(byond_build < CONFIG_GET(number/minimum_client_build))
 		version_blocked = TRUE
 
@@ -250,7 +252,7 @@
 		show_update_prompt = TRUE
 
 	// Actually sent to client much later, so it appears after MOTD.
-	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential=TRUE)
+	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential = TRUE)
 
 	GLOB.directory[ckey] = src
 
@@ -262,6 +264,10 @@
 		persistent_client = new(ckey)
 		persistent_client.byond_build = byond_build
 		persistent_client.byond_version = byond_version
+
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "+find"))
+		winset(src, null, list("browser-options" = "+refresh"))
 
 	//Admin Authorisation
 	// Automatically makes localhost connection an admin
@@ -361,7 +367,7 @@
 	send_resources()
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
-		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential=TRUE)
+		to_chat(src, span_notice("У вас есть непрочитанные сообщения в журнале обновлений."), confidential = TRUE)
 		//winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(show_update_prompt)
@@ -376,7 +382,7 @@
 		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
-		to_chat(src, span_warning("Невозможно получить доступ к кэшу в браузере, если вы используете пользовательские файлы скинов, пожалуйста, позвольте DS загрузить обновленную версию, если нет, то сделайте сообщение об ошибке. Это не критичная проблема, но может вызвать проблемы с загрузкой ресурсов, так как невозможно узнать, когда к вам поступили дополнительные ресурсы."), confidential=TRUE) // I don't know what this is about. Let it be the translation.
+		to_chat(src, span_warning("Невозможно получить доступ к кэшу в браузере, если вы используете пользовательские файлы скинов, пожалуйста, позвольте DS загрузить обновленную версию, если нет, то сделайте сообщение об ошибке. Это не критичная проблема, но может вызвать проблемы с загрузкой ресурсов, так как невозможно узнать, когда к вам поступили дополнительные ресурсы."), confidential = TRUE) // I don't know what this is about. Let it be the translation.
 
 	update_ambience_pref()
 
@@ -399,6 +405,8 @@
 	for(var/mob/M in GLOB.player_list)
 		if(M.client)
 			playercount += 1
+	spawn(10 SECONDS)
+		load_donations()
 
 	// Update the state of the panic bunker based on current playercount
 	var/threshold = CONFIG_GET(number/panic_bunker_threshold)
@@ -410,6 +418,44 @@
 	if((playercount < threshold) && (GLOB.panic_bunker_enabled == TRUE))
 		GLOB.panic_bunker_enabled = FALSE
 		message_admins("Panic bunker has been automatically disabled due to playercount dropping below [threshold]")
+
+/client/proc/load_donations()
+	UNTIL(SSdonations.initialized)
+
+	if(!SSdbcore.IsConnected())
+		return
+
+	tgui_panel.window.send_message("donations/load_data", list(
+		"month_donations" = SSdonations.month_donations,
+		"target_donation" = SSdonations.target_donation,
+		"tts_target_donation" = SSdonations.tts_target_donation,
+		"donations_text" = SSdonations.donations_text,
+		"boosty_url" = SSdonations.boosty_url,
+		"kofi_url" = SSdonations.kofi_url,
+		"discord_url"= SSdonations.discord_url,
+	))
+	check_donator_achivements()
+
+/client/proc/check_donator_achivements()
+	var/count = SSdonations.get_donations_count(ckey)
+	var/amount = SSdonations.get_donations_amount(ckey)
+
+	if(!count)
+		return
+
+	if(count >= 0)
+		give_award(/datum/award/achievement/donations/first_time, mob)
+
+	if(count >= PERMANENT_SPONSOR_COUNT)
+		give_award(/datum/award/achievement/donations/permanent_sponsor, mob)
+
+	if(amount >= BRONZE_LEVEL)
+		give_award(/datum/award/achievement/donations/bronze_sponsor, mob)
+
+	if(amount < PLATINUM_LEVEL)
+		return
+
+	give_award(/datum/award/achievement/donations/platinum_sponsor, mob)
 
 /client/proc/is_connecting_from_localhost()
 	var/localhost_addresses = list("127.0.0.1", "::1", "0.0.0.0") // Adresses
@@ -439,7 +485,7 @@
 	GLOB.directory -= ckey
 	GLOB.clients -= src
 
-	persistent_client.client = null
+	persistent_client?.client = null
 
 	#ifdef MULTIINSTANCE
 	INVOKE_ASYNC(SSinstancing, TYPE_PROC_REF(/datum/controller/subsystem/instancing, update_playercache)) // Clear us out
@@ -462,6 +508,8 @@
 	Master.UpdateTickRate()
 	..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
 	return QDEL_HINT_HARDDEL_NOW
+
+#define REDIS_ANNOUNCER_NAME "Смотритель"
 
 /client/proc/announce_join()
 	if(!holder)
@@ -519,15 +567,17 @@
 		data["message"] = msg
 		SSredis.publish("byond.msay", json_encode(data))
 
+#undef REDIS_ANNOUNCER_NAME
+
 /client/proc/donator_check()
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
 		return
 
-	if(check_rights(R_ADMIN, 0, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
+	if(check_rights(R_ADMIN, FALSE, mob)) // Yes, the mob is required, regardless of other examples in this file, it won't work otherwise
 		donator_level = DONATOR_LEVEL_MAX
 		donor_loadout_points()
 		return
@@ -585,7 +635,7 @@
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
-	if(IsGuestKey(key))
+	if(is_guest_key(key))
 		return
 
 	if(!SSdbcore.IsConnected())
@@ -772,7 +822,7 @@
 				var/blockmsg = "<b>Ошибка: обнаружен прокси-сервер или VPN. Использование прокси-сервера или VPN не разрешено. Пожалуйста, отключите их перед повторным подключением.</b>"
 				if(CONFIG_GET(string/banappeals))
 					blockmsg += "\nЕсли вы не используете прокси-сервер или VPN, или у вас нет другого выбора, кроме как использовать их, пожалуйста, запросите белый список: [CONFIG_GET(string/banappeals)]"
-				to_chat(src, blockmsg, confidential=TRUE)
+				to_chat(src, blockmsg, confidential = TRUE)
 				qdel(src)
 		else
 			message_admins(span_adminnotice("IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]"))
@@ -784,7 +834,7 @@
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
-	to_chat(src, "<b>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></b>", confidential=TRUE)
+	to_chat(src, "<b>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></b>", confidential = TRUE)
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey=:ckey limit 1", list(
@@ -816,12 +866,12 @@
 /client/proc/link_forum_account(fromban)
 	if(!CONFIG_GET(string/forum_link_url))
 		return
-	if(IsGuestKey(key))
-		to_chat(src, "Guest keys cannot be linked.", confidential=TRUE)
+	if(is_guest_key(key))
+		to_chat(src, "Guest keys cannot be linked.", confidential = TRUE)
 		return
 	if(prefs?.fuid)
 		if(!fromban)
-			to_chat(src, "Your forum account is already set.", confidential=TRUE)
+			to_chat(src, "Your forum account is already set.", confidential = TRUE)
 		return
 	var/datum/db_query/query_find_link = SSdbcore.NewQuery("SELECT fuid FROM [format_table_name("player")] WHERE ckey=:ckey LIMIT 1", list(
 		"ckey" = ckey
@@ -832,20 +882,20 @@
 	if(query_find_link.NextRow())
 		if(query_find_link.item[1])
 			if(!fromban)
-				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")", confidential=TRUE)
+				to_chat(src, "Your forum account is already set. (" + query_find_link.item[1] + ")", confidential = TRUE)
 			qdel(query_find_link)
 			return
 	qdel(query_find_link)
 	var/tokenid = create_oauth_token()
 	if(!tokenid)
-		to_chat(src, "link_forum_account: unable to create token", confidential=TRUE)
+		to_chat(src, "link_forum_account: unable to create token", confidential = TRUE)
 		return
 	var/url = "[CONFIG_GET(string/forum_link_url)][tokenid]"
 	if(fromban)
 		url += "&fwd=appeal"
-		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"}, confidential=TRUE)
+		to_chat(src, {"Now opening a window to verify your information with the forums, so that you can appeal your ban. If the window does not load, please copy/paste this link: <a href="[url]">[url]</a>"}, confidential = TRUE)
 	else
-		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"}, confidential=TRUE)
+		to_chat(src, {"Now opening a window to verify your information with the forums. If the window does not load, please go to: <a href="[url]">[url]</a>"}, confidential = TRUE)
 	src << link(url)
 	return
 
@@ -893,7 +943,7 @@
 			tokens[ckey] = cid_check_reconnect()
 			sleep(10) // Since browse is non-instant, and kinda async
 
-			to_chat(src, "<pre class=\"system system\">you're a huge nerd. wakka wakka doodle doop nobody's ever gonna see this, the chat system shouldn't be online by this point</pre>", confidential=TRUE)
+			to_chat(src, "<pre class=\"system system\">you're a huge nerd. wakka wakka doodle doop nobody's ever gonna see this, the chat system shouldn't be online by this point</pre>", confidential = TRUE)
 			qdel(src)
 			return TRUE
 	else
@@ -912,8 +962,8 @@
 			// Change detected, they are randomizing
 			cidcheck -= ckey	// To allow them to try again after removing CID randomization
 
-			to_chat(src, span_userdanger("Ошибка соединения:"), confidential=TRUE)
-			to_chat(src, span_danger("Неверный ComputerID (поддельный). Пожалуйста, удалите спуфер ComputerID из вашей установки BYOND и попробуйте снова."), confidential=TRUE)
+			to_chat(src, span_userdanger("Ошибка соединения:"), confidential = TRUE)
+			to_chat(src, span_danger("Неверный ComputerID (поддельный). Пожалуйста, удалите спуфер ComputerID из вашей установки BYOND и попробуйте снова."), confidential = TRUE)
 
 			if(!cidcheck_failedckeys[ckey])
 				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected."))
@@ -981,7 +1031,7 @@
 		window.location=\"byond://winset?command=.quit\"\
 	</script>",
 	"border=0;titlebar=0;size=1x1")
-	to_chat(src, "<a href='byond://[url]?token=[token]'>You will be automatically taken to the game, if not, click here to be taken manually</a>. Except you can't, since the chat window doesn't exist yet.", confidential=TRUE)
+	to_chat(src, "<a href='byond://[url]?token=[token]'>You will be automatically taken to the game, if not, click here to be taken manually</a>. Except you can't, since the chat window doesn't exist yet.", confidential = TRUE)
 
 /client/proc/is_afk(duration = 5 MINUTES)
 	if(inactivity > duration)
@@ -1027,7 +1077,7 @@
 		var/message = "[lang.name] : [lang.type]"
 		if(lang.flags & RESTRICTED)
 			message += " (RESTRICTED)"
-		to_chat(world, "[message]", confidential=TRUE)
+		to_chat(world, "[message]", confidential = TRUE)
 
 /client/proc/colour_transition(list/colour_to = null, time = 10) //Call this with no parameters to reset to default.
 	animate(src, color = colour_to, time = time, easing = SINE_EASING)
@@ -1070,7 +1120,7 @@
 				msg += " Администраторы были уведомлены."
 				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
-			to_chat(src, span_danger("[msg]"), confidential=TRUE)
+			to_chat(src, span_danger("[msg]"), confidential = TRUE)
 			return
 
 	var/scl = CONFIG_GET(number/second_click_limit)
@@ -1086,13 +1136,15 @@
 		clicklimiter[SECOND_COUNT] += 1
 
 		if(clicklimiter[SECOND_COUNT] > scl)
-			to_chat(src, span_danger("Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за секунду."), confidential=TRUE)
+			to_chat(src, span_danger("Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за секунду."), confidential = TRUE)
 			return
 
 	//check if the server is overloaded and if it is then queue up the click for next tick
 	//yes having it call a wrapping proc on the subsystem is fucking stupid glad we agree unfortunately byond insists its reasonable
 	if(!QDELETED(object) && TRY_QUEUE_VERB(VERB_CALLBACK(object, TYPE_PROC_REF(/atom, _Click), location, control, params), VERB_HIGH_PRIORITY_QUEUE_THRESHOLD, SSinput, control))
 		return
+
+	SEND_SIGNAL(src, COMSIG_CLIENT_CLICK, object, location, control, params, usr)
 
 	..()
 
@@ -1126,14 +1178,23 @@
 		return FALSE
 	if(M && M.player_logged < SSD_WARNING_TIMER)
 		return FALSE
-	to_chat(src, "Вы отправляете этого человека в криохранилище или оказываете ему медицинскую помощь? Если это так, то <a href='byond://?src=[UID()];ssdwarning=accepted'>подтвердите это</a> и продолжайте. Взаимодействие с игроками SSD в других случаях противоречит правилам сервера, если вы не спросили разрешения у администрации.", confidential=TRUE)
+	to_chat(src, "Вы отправляете этого человека в криохранилище или оказываете ему медицинскую помощь? Если это так, то <a href='byond://?src=[UID()];ssdwarning=accepted'>подтвердите это</a> и продолжайте. Взаимодействие с игроками SSD в других случаях противоречит правилам сервера, если вы не спросили разрешения у администрации.", confidential = TRUE)
 	return TRUE
 
 #undef SSD_WARNING_TIMER
 
+/// Attempts to make the client orbit the given object, for administrative purposes.
+/// If they are not an observer, will try to aghost them.
+/client/proc/admin_follow(atom/movable/target)
+	if(!isobserver(mob))
+		SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/admin_ghost)
+
+	var/mob/dead/observer/observer = mob
+	observer.ManualFollow(target)
+
 /client/verb/toggle_fullscreen()
 	set name = "Полный экран"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	fullscreen = !fullscreen
 
@@ -1181,7 +1242,7 @@
 /client/verb/fit_viewport()
 	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1250,7 +1311,7 @@
 /client/verb/fix_title_screen()
 	set name = "Починить меню лобби"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1263,29 +1324,29 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))
 		return
-	if(IsGuestKey(key))
-		to_chat(usr, "Гостевой аккаунт не может быть связан.", confidential=TRUE)
+	if(is_guest_key(key))
+		to_chat(usr, "Гостевой аккаунт не может быть связан.", confidential = TRUE)
 		return
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs?.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
+		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
 		var/datum/db_query/query_update_token = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET discord_id=:token WHERE ckey =:ckey", list("token" = token, "ckey" = ckey))
 		if(!query_update_token.warn_execute())
-			to_chat(usr, span_warning("Ошибка записи токена в БД! Обратитесь к администрации."), confidential=TRUE)
+			to_chat(usr, span_warning("Ошибка записи токена в БД! Обратитесь к администрации."), confidential = TRUE)
 			log_debug("link_discord_account: failed db update discord_id for ckey [ckey]")
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice(span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
+		to_chat(usr, chat_box_notice(span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential = TRUE)
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1304,7 +1365,7 @@
 			keysend_tripped = TRUE
 			next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
-			to_chat(usr, span_warning(span_big("<b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b>")), confidential=TRUE)
+			to_chat(usr, span_warning(span_big("<b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b>")), confidential = TRUE)
 			log_admin("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			message_admins("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			qdel(src)
@@ -1433,7 +1494,7 @@
 	var/datum/browser/popup = new(src, "warning_popup", "Warning")
 	popup.set_content(msg.Join(""))
 	popup.open(FALSE)
-	to_chat(src, span_userdanger("Ваш клиент BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND."), confidential=TRUE)
+	to_chat(src, span_userdanger("Ваш клиент BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND."), confidential = TRUE)
 
 /client/proc/update_ambience_pref()
 	if(prefs.sound & SOUND_AMBIENCE)
@@ -1527,7 +1588,7 @@
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
 		return
-	to_chat(src, span_userdanger("Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel "), confidential=TRUE)
+	to_chat(src, span_userdanger("Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel "), confidential = TRUE)
 
 /**
  * Handles incoming messages from the stat-panel TGUI.
@@ -1596,7 +1657,7 @@
 					if(ID == chosen_id)
 						valid_id = 1
 				if(!valid_id)
-					to_chat(usr, span_warning("Реагента с данным ID не существует!"), confidential=TRUE)
+					to_chat(usr, span_warning("Реагента с данным ID не существует!"), confidential = TRUE)
 		if("Выбрать ID")
 			chosen_id = tgui_input_list(usr, "Выберите реагент для добавления.", "Выберите реагент.", reagent_options)
 	if(chosen_id)

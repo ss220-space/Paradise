@@ -36,7 +36,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 
 /client/verb/changelog()
 	set name = "Журнал обновлений"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	if(!GLOB.changelog_tgui)
 		GLOB.changelog_tgui = new /datum/changelog()
 

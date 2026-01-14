@@ -68,6 +68,9 @@ SUBSYSTEM_DEF(mapping)
 	/// Maps played in previous rounds, stores typepaths
 	var/list/previous_maps
 
+	/// A mapping of environment names to MILLA environment IDs.
+	var/list/environments
+
 // This has to be here because world/New() uses [station_name()], which looks this datum up
 /datum/controller/subsystem/mapping/PreInit()
 	. = ..()
@@ -122,10 +125,17 @@ SUBSYSTEM_DEF(mapping)
 				maps += map_path
 
 		previous_maps = maps
+		qdel(query)
 
 /datum/controller/subsystem/mapping/Initialize()
 	if(initialized)
 		return
+
+	environments = list()
+	environments[ENVIRONMENT_LAVALAND] = create_environment(oxygen = LAVALAND_OXYGEN, nitrogen = LAVALAND_NITROGEN, temperature = LAVALAND_TEMPERATURE)
+	environments[ENVIRONMENT_TEMPERATE] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = T20C)
+	environments[ENVIRONMENT_COLD] = create_environment(oxygen = MOLES_O2STANDARD, nitrogen = MOLES_N2STANDARD, temperature = 180)
+
 	setupPlanes()
 	find_last_played_maps()
 	var/datum/lavaland_theme/lavaland_theme_type = pick(subtypesof(/datum/lavaland_theme))
@@ -366,12 +376,7 @@ SUBSYSTEM_DEF(mapping)
 		else
 			to_chat(world, span_danger("ERROR: The map datum specified to load is invalid. Falling back to... delta probably?"))
 #else
-
-	#ifndef MULTIZ_FAST_LOAD
-	map_datum = new /datum/map/fast_load
-	#else
 	map_datum = new /datum/map/fast_load_multiz
-	#endif
 #endif
 
 	ASSERT(map_datum.map_path)
@@ -412,7 +417,7 @@ SUBSYSTEM_DEF(mapping)
 /datum/controller/subsystem/mapping/proc/loadLavaland()
 	var/watch = start_watch()
 	log_startup_progress("Loading Lavaland...")
-	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, HAS_WEATHER, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/lava/mapping_lava)
+	var/trait_list = list(ORE_LEVEL, REACHABLE, STATION_CONTACT, ZTRAIT_ASHSTORM, AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/lava/mapping_lava)
 	var/lavaland_z_level = GLOB.space_manager.add_new_zlevel(MINING, linkage = UNAFFECTED, traits = trait_list)
 	GLOB.maploader.load_map(file(map_datum.lavaland_path), z_offset = lavaland_z_level)
 	log_startup_progress("Loaded Lavaland in [stop_watch(watch)]s")

@@ -1,16 +1,26 @@
 
 /obj/machinery/kitchen_machine/grill
 	name = "grill"
-	desc = "Backyard grilling, IN SPACE."
+	desc = "Настоящий гриль. Аромат шашлыка в космосе — вот что по-настоящему сближает экипаж."
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "grill_off"
-	cook_verbs = list("Grilling", "Searing", "Frying")
+	cook_verbs = list("Жарится", "Обжигается", "Готовится")
 	recipe_type = RECIPE_GRILL
 	off_icon = "grill_off"
 	on_icon = "grill_on"
 	broken_icon = "grill_broke"
 	dirty_icon = "grill_dirty"
 	open_icon = "grill_open"
+
+/obj/machinery/kitchen_machine/grill/get_ru_names()
+	return list(
+		NOMINATIVE = "гриль",
+		GENITIVE = "гриля",
+		DATIVE = "грилю",
+		ACCUSATIVE = "гриль",
+		INSTRUMENTAL = "грилем",
+		PREPOSITIONAL = "гриле"
+	)
 
 // see code/modules/food/recipes_grill.dm for recipes
 
@@ -50,8 +60,8 @@
 	var/mob/living/carbon/human/victim = grabbed_thing
 	add_fingerprint(grabber)
 	victim.visible_message(
-		span_danger("[grabber] forces [victim] onto [src], searing [victim]'s body!"),
-		span_userdanger("[grabber] forces you onto [src]! It burns!"),
+		span_danger("[grabber.declent_ru(NOMINATIVE)] прижима[PLUR_ET_YUT(grabber)] [victim.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], обжигая [GEND_HIS_HER(victim)] тело!"),
+		span_userdanger("[grabber.declent_ru(NOMINATIVE)] прижима[PLUR_ET_YUT(grabber)] вас к [declent_ru(DATIVE)]! Как же горячо!"),
 	)
 	if(victim.has_pain())
 		victim.emote("scream")

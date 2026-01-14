@@ -94,7 +94,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 		PREPOSITIONAL = "адамантиновых голосовых связках",
 	)
 
-/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/use/adamantine_vocal_cords/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())
 		return
 	var/message = tgui_input_text(owner, "Отправить резонирующее сообщение всем ближайшим големам.", "Резонанс")
@@ -103,7 +103,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	owner.say(".~[message]")
 
 /obj/item/organ/internal/vocal_cords/adamantine/handle_speech(list/message_pieces)
-	var/msg = span_resonate(span_name(owner.real_name) [span_message("резонирует: \"[capitalize(multilingual_to_message(message_pieces))]\"")])
+	var/msg = span_resonate(span_name(owner.real_name) + span_message(" резонирует: \"[capitalize(multilingual_to_message(message_pieces))]\""))
 	for(var/m in GLOB.player_list)
 		if(iscarbon(m))
 			var/mob/living/carbon/C = m
@@ -142,7 +142,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	..()
 	cords = target
 
-/datum/action/item_action/organ_action/colossus/IsAvailable()
+/datum/action/item_action/organ_action/colossus/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return .
@@ -151,7 +151,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	if(!owner.can_speak())
 		return FALSE
 
-/datum/action/item_action/organ_action/colossus/Trigger(left_click = TRUE)
+/datum/action/item_action/organ_action/colossus/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!IsAvailable())
 		if(world.time < cords.next_command)

@@ -177,6 +177,18 @@
 
 #define TRAIT_VENTCRAWLING_EXIT "ventcrawler_exit"
 
+/// Trait applied when the MMI component is added to an [/obj/item/integrated_circuit]
+#define TRAIT_COMPONENT_MMI "component_mmi"
+
+/// Trait applied when an integrated circuit/module becomes undupable
+#define TRAIT_CIRCUIT_UNDUPABLE "circuit_undupable"
+
+/// Trait applied when an integrated circuit opens a UI on a player (see list pick component)
+#define TRAIT_CIRCUIT_UI_OPEN "circuit_ui_open"
+
+/// Trait applied when the wire bundle component is added to an [/obj/item/integrated_circuit]
+#define TRAIT_COMPONENT_WIRE_BUNDLE "component_wire_bundle"
+
 /// Negates our gravity, letting us move normally on floors in 0-g
 #define TRAIT_NEGATES_GRAVITY "negates_gravity"
 /// We are ignoring gravity
@@ -204,6 +216,8 @@
 #define TRAIT_NODROP "nodrop"
 /// Applied with attachment to the cyberimplant when it is inserted in mob with TRAIT_ADVANCED_CYBERIMPLANTS
 #define TRAIT_CYBERIMP_IMPROVED "cyberimp_improved"
+/// This item will not be cloned in the experimentator
+#define TRAIT_NO_CLONE_IN_EXPERIMENTATOR "no_clone_in_experimentator"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 
@@ -363,7 +377,8 @@
 /// Temporally  trait when target tasered
 #define TRAIT_TASERED "tasered"
 
-#define TRAIT_SUPERMATTERIMMUNE "supermatter_immune"
+///Immune to the SM / makes you immune to it when worn
+#define TRAIT_SUPERMATTER_IMMUNE "supermatter_immune"
 
 /// Used to play an alarm when the gun is out of ammo
 #define TRAIT_AMMO_ALARMED "ammo_alarm"
@@ -382,3 +397,11 @@
 
 /// If any of the owner's robotic parts are being repaired right now
 #define TRAIT_REPAIRING_LIMB "repairing_limb"
+
+#define TRAIT_TWOHANDED_BLOCKED "twohandec_blocked"
+
+#define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
+
+#define TRAIT_PRESSURE_VISION "pressure_vision"
+
+#define TRAIT_MESON_VISION "meson_vision"

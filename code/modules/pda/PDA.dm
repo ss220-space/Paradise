@@ -168,10 +168,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/GetID()
 	return id ? id : ..()
 
-/obj/item/pda/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+/obj/item/pda/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
 	. = ..()
 
-	var/mob/user = usr
 	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
@@ -212,7 +211,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	SStgui.close_uis(src)
 
 /obj/item/pda/verb/verb_reset_pda()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Сброс КПК"
 	set src in usr
 
@@ -260,7 +259,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/pda/verb/verb_remove_id()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь ID-карту"
 	set src in usr
 
@@ -276,7 +275,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		to_chat(usr, span_notice("You cannot do this while restrained."))
 
 /obj/item/pda/verb/verb_remove_pen()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь ручку"
 	set src in usr
 	remove_pen(usr)
@@ -381,7 +380,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 /obj/item/pda/update_overlays()
 	. = ..()
 
-	var/static/list/id_icon_states = icon_states('icons/goonstation/objects/pda_overlay.dmi')
 	var/static/list/id_cards_cache = list()
 	var/static/pda_blink_overlay
 	var/static/pda_light_overlay
@@ -390,7 +388,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		pda_blink_overlay = iconstate2appearance(icon, "pda-r")
 		pda_light_overlay = iconstate2appearance(icon, "pda-light")
 
-	if(id && (id.icon_state in id_icon_states))
+	if(id && icon_exists('icons/goonstation/objects/pda_overlay.dmi', id.icon_state))
 		if(!id_cards_cache[id.icon_state])
 			id_cards_cache[id.icon_state] = iconstate2appearance('icons/goonstation/objects/pda_overlay.dmi', id.icon_state)
 		. += id_cards_cache[id.icon_state]

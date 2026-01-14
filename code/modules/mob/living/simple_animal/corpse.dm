@@ -116,7 +116,7 @@
 	name = "Captain Corpse"
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/caphat
 	l_ear = /obj/item/radio/headset/heads/captain/alt
 	glasses = /obj/item/clothing/glasses/hud/blueshield/cap
@@ -145,4 +145,4 @@
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 
 	implants = list(/obj/item/implant/mindshield)
-	box = /obj/item/storage/box/survival_security/warden
+	box = /obj/item/storage/box/survival/survival_security/warden

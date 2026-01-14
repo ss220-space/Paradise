@@ -99,6 +99,17 @@
 	else
 		icon_state = initial(icon_state)
 
+/atom/movable/screen/robot/state_laws
+	name = "Менеджер законов"
+	icon_state = "state_laws"
+
+/atom/movable/screen/robot/state_laws/Click()
+	if(!isrobot(usr))
+		return
+
+	var/mob/living/silicon/robot/robot = usr
+	robot.subsystem_law_manager()
+
 /datum/hud/robot/New(mob/user)
 	..()
 	user.overlay_fullscreen("see_through_darkness", /atom/movable/screen/fullscreen/see_through_darkness)
@@ -183,6 +194,11 @@
 	using.screen_loc = ui_borg_thrusters
 	static_inventory += using
 	mymobR.thruster_button = using
+
+//Law Manager
+	using = new /atom/movable/screen/robot/state_laws(null, src)
+	using.screen_loc = ui_borg_lawmanager
+	static_inventory += using
 
 /datum/hud/proc/toggle_show_robot_modules()
 	if(!isrobot(mymob))

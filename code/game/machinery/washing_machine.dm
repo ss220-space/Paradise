@@ -68,23 +68,23 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_BLACK = /obj/item/clothing/mask/bandana/black,
 	),
 	DYE_REGISTRY_SHOES = list(
-		DYE_RED = /obj/item/clothing/shoes/red,
-		DYE_ORANGE = /obj/item/clothing/shoes/orange,
-		DYE_YELLOW = /obj/item/clothing/shoes/yellow,
-		DYE_GREEN = /obj/item/clothing/shoes/green,
-		DYE_BLUE = /obj/item/clothing/shoes/blue,
-		DYE_PURPLE = /obj/item/clothing/shoes/purple,
-		DYE_BLACK = /obj/item/clothing/shoes/black,
-		DYE_WHITE = /obj/item/clothing/shoes/white,
+		DYE_RED = /obj/item/clothing/shoes/color/red,
+		DYE_ORANGE = /obj/item/clothing/shoes/color/orange,
+		DYE_YELLOW = /obj/item/clothing/shoes/color/yellow,
+		DYE_GREEN = /obj/item/clothing/shoes/color/green,
+		DYE_BLUE = /obj/item/clothing/shoes/color/blue,
+		DYE_PURPLE = /obj/item/clothing/shoes/color/purple,
+		DYE_BLACK = /obj/item/clothing/shoes/color/black,
+		DYE_WHITE = /obj/item/clothing/shoes/color/white,
 		DYE_RAINBOW = /obj/item/clothing/shoes/rainbow,
-		DYE_MIME = /obj/item/clothing/shoes/black,
+		DYE_MIME = /obj/item/clothing/shoes/color/black,
 		DYE_CLOWN = /obj/item/clothing/shoes/rainbow,
-		DYE_QM = /obj/item/clothing/shoes/brown,
-		DYE_CAPTAIN = /obj/item/clothing/shoes/brown,
-		DYE_HOP = /obj/item/clothing/shoes/brown,
-		DYE_CE = /obj/item/clothing/shoes/brown,
-		DYE_RD = /obj/item/clothing/shoes/brown,
-		DYE_CMO = /obj/item/clothing/shoes/brown,
+		DYE_QM = /obj/item/clothing/shoes/color/brown,
+		DYE_CAPTAIN = /obj/item/clothing/shoes/color/brown,
+		DYE_HOP = /obj/item/clothing/shoes/color/brown,
+		DYE_CE = /obj/item/clothing/shoes/color/brown,
+		DYE_RD = /obj/item/clothing/shoes/color/brown,
+		DYE_CMO = /obj/item/clothing/shoes/color/brown,
 		DYE_SYNDICATE = /obj/item/clothing/shoes/combat,
 		DYE_CENTCOM = /obj/item/clothing/shoes/combat,
 	),
@@ -516,7 +516,8 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(washer.color_source)
 		dye_item(washer.color_source.dye_color)
 
-/obj/item/clothing/shoes/orange/machine_wash(obj/machinery/washing_machine/washer)
+
+/obj/item/clothing/shoes/color/orange/prison/machine_wash(obj/machinery/washing_machine/washer)
 	if(shackles)
 		shackles.forceMove(washer)
 		set_shackles(null)

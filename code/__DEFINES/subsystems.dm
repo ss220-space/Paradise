@@ -26,8 +26,12 @@
 #define TIMER_LOOP (1<<5)
 ///Delete the timer on parent datum Destroy() and when deltimer'd
 #define TIMER_DELETE_ME (1<<6)
+
 ///Empty ID define
 #define TIMER_ID_NULL -1
+
+/// Used to trigger object removal from a processing list
+#define PROCESS_KILL 26
 
 ///New should not call Initialize
 #define INITIALIZATION_INSSATOMS 0
@@ -88,14 +92,18 @@
 #define INIT_ORDER_DBCORE 91
 #define INIT_ORDER_REDIS 90
 #define INIT_ORDER_BLACKBOX 56
-#define INIT_ORDER_CLEANUP 55
+#define INIT_ORDER_ADMIN_VERBS 55
+#define INIT_ORDER_CLEANUP 54
 #define INIT_ORDER_INPUT 50
 #define INIT_ORDER_SOUNDS 45
 #define INIT_ORDER_INSTRUMENTS 44
 #define INIT_ORDER_ACHIEVEMENTS 43
-#define INIT_ORDER_EVENTS 42
-#define INIT_ORDER_HOLIDAY 41
-#define INIT_ORDER_JOBS 40
+#define INIT_ORDER_DONATIONS 42
+#define INIT_ORDER_GREYSCALE 41
+#define INIT_ORDER_GREYSCALE_PREVIEW 40
+#define INIT_ORDER_EVENTS 39
+#define INIT_ORDER_HOLIDAY 38
+#define INIT_ORDER_JOBS 37
 #define INIT_ORDER_AI_MOVEMENT 36 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 35 //So the controller can get the ref
 #define INIT_ORDER_TICKER 30
@@ -141,6 +149,8 @@
 #define FIRE_PRIORITY_AMBIENCE 10
 #define FIRE_PRIORITY_GARBAGE 15
 #define FIRE_PRIORITY_TERRAFORMING 15
+#define FIRE_PRIORITY_TURFS_VISUALIZATION 15
+#define FIRE_PRIORITY_DONATIONS 15
 #define FIRE_PRIORITY_WET_FLOORS 20
 #define FIRE_PRIORITY_AIR 20
 #define FIRE_PRIORITY_NPC 20
@@ -169,6 +179,7 @@
 #define FIRE_PRIORITY_OVERLAYS 500
 #define FIRE_PRIORITY_EXPLOSIONS 666
 #define FIRE_PRIORITY_TIMER 700
+#define FIRE_PRIORITY_SOUND_LOOPS 800
 #define FIRE_PRIORITY_SPEECH_CONTROLLER 900
 #define FIRE_PRIORITY_DELAYED_VERBS 950
 #define FIRE_PRIORITY_INPUT 1000 // This must always always be the max highest priority. Player input must never be lost.
@@ -187,28 +198,6 @@
 #define SS_CPUDISPLAY_LOW 1
 #define SS_CPUDISPLAY_DEFAULT 2
 #define SS_CPUDISPLAY_HIGH 3
-
-// Truly disgusting, TG. Truly disgusting.
-//! ## Overlays subsystem
-
-#define POST_OVERLAY_CHANGE(changed_on) \
-	if(length(changed_on.overlays) >= MAX_ATOM_OVERLAYS) { \
-		var/text_lays = overlays2text(changed_on.overlays); \
-		stack_trace("Too many overlays on [changed_on.type] - [length(changed_on.overlays)], refusing to update and cutting.\
-			\n What follows is a printout of all existing overlays at the time of the overflow \n[text_lays]"); \
-		changed_on.overlays.Cut(); \
-		changed_on.add_overlay(mutable_appearance('icons/Testing/greyscale_error.dmi')); \
-	} \
-	if(alternate_appearances) { \
-		for(var/I in changed_on.alternate_appearances){\
-			var/datum/atom_hud/alternate_appearance/AA = changed_on.alternate_appearances[I];\
-			if(AA.transfer_overlays){\
-				AA.copy_overlays(changed_on, TRUE);\
-			}\
-		} \
-	}\
-	if(isturf(changed_on)){SSdemo.mark_turf(changed_on);}\
-	if(isobj(changed_on) || ismob(changed_on)){SSdemo.mark_dirty(changed_on);}\
 
 // SSticker.current_state values
 /// Game is loading

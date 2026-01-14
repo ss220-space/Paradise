@@ -13,6 +13,8 @@
 
 #define isweakref(D) (istype(D, /datum/weakref))
 
+#define IS_WEAKREF_OF(thing, potential_weakref) (isdatum(thing) && !isnull(potential_weakref) && thing.weak_reference == potential_weakref)
+
 // Mobs
 
 #define ismegafauna(A) istype(A, /mob/living/simple_animal/hostile/megafauna)
@@ -34,6 +36,8 @@
 #define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
 
 #define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
+
+#define iskrampus(A) (istype(A, /mob/living/carbon/true_devil/krampus))
 
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
@@ -99,6 +103,8 @@
 
 #define isgun(A) (istype(A, /obj/item/gun))
 
+#define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
+
 #define isbaton(A) (istype(A, /obj/item/melee/baton))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
@@ -114,6 +120,7 @@
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
+#define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
 #define	is_organ(A) (istype((A), /obj/item/organ))
 
@@ -123,15 +130,49 @@
 
 #define isglassreagentcontainer(A) (istype(A, /obj/item/reagent_containers/glass))
 
-#define is_spectercell(A) (istype(A, /obj/item/stock_parts/cell/specter))
+#define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
+
+#define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
+
+#define is_airlock(A) (istype(A, /obj/machinery/door/airlock))
+
+#define is_camera(A) (istype(A, /obj/item/camera))
+
+#define is_module_circuit(A) (istype(A, /obj/item/circuit_component/module))
+
+#define is_integrated_circuit(A) (istype(A, /obj/item/integrated_circuit))
+
+#define is_circuit(A) (is_module_circuit(A) || is_integrated_circuit(A))
+
+#define is_circuit_component(A) (istype(A, /obj/item/circuit_component))
+
+#define is_circuit_multitool(A) (istype(A, /obj/item/multitool/circuit))
+
+#define is_bci(A) (istype(A, /obj/item/organ/internal/cyberimp/brain/bci))
+
+#define is_module_output(A) (istype(A, /obj/item/circuit_component/module_output))
+
+#define is_module_input(A) (istype(A, /obj/item/circuit_component/module_input))
+
+
+#define is_mmi(A) (istype(A, /obj/item/mmi))
 
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/kitchen/utensil/fork)))
+	/obj/item/kitchen/utensil/fork,
+)))
 
 #define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
+
+/// For objects that should embed, but make no sense being sharp or is_pointed e.g: rods
+GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
+	/obj/item/stack/rods,
+	/obj/item/pipe,
+)))
+
+#define can_embed(item) (item?.sharp || is_pointed(item) || is_type_in_typecache(item, GLOB.can_embed_types))
 
 GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/glass,
@@ -140,7 +181,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/plasmarglass,
 	/obj/item/stack/sheet/titaniumglass,
 	/obj/item/stack/sheet/plastitaniumglass,
-	/obj/item/stack/sheet/abductorglass)))
+	/obj/item/stack/sheet/abductorglass,
+)))
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
@@ -174,8 +216,6 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define isreinforcedwallturf(A) (istype(A, /turf/simulated/wall/r_wall))
 
 #define ismineralturf(A) (istype(A, /turf/simulated/mineral))
-
-#define isancientturf(A) (istype(A, /turf/simulated/mineral/ancient))
 
 #define islava(A) (istype(A, /turf/simulated/floor/lava))
 
@@ -252,6 +292,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define ispathbot(A) (ispath(A, /mob/living/simple_animal/bot))
 #define ispathsilicon(A) (ispath(A, /mob/living/silicon))
 #define ispathanimal(A) (ispath(A, /mob/living/simple_animal))
+#define is_circuit_drone(A) (istype(A, /mob/living/simple_animal/circuit_drone))
 
 #define isAIEye(A) (istype((A), /mob/camera/aiEye))
 #define isovermind(A) (istype((A), /mob/camera/blob))
@@ -268,9 +309,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isexternalorgan(A) (istype((A), /obj/item/organ/external))
 
-#define hasorgans(A) (iscarbon(A))
-
-#define is_admin(user) (check_rights(R_ADMIN, 0, (user)) != 0)
+#define is_admin(user) (check_rights(R_ADMIN, FALSE, (user)) != 0)
 
 #define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
@@ -308,3 +347,19 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
+
+#define iswelder(A) (istype(A, /obj/item/weldingtool))
+
+#define iswirecutter(A) (istype(A, /obj/item/wirecutters))
+
+#define ismultitool(A) (istype(A, /obj/item/multitool))
+
+#define iswrench(A) (istype(A, /obj/item/wrench))
+
+#define iscoil(A) (istype(A, /obj/item/stack/cable_coil))
+
+#define ispowertool(A) (istype(A, /obj/item/crowbar/power) || istype(A, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+
+#define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
+
+#define isspacearea(A)	(istype(A, /area/space))

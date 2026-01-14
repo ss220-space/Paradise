@@ -9,7 +9,7 @@
 	stock = 1
 	item_type = /obj/item/storage/box/contractor/spai_kit
 	refundable = TRUE
-	refund_path = /obj/item/paicard_upgrade/unused
+	refund_path = /obj/item/paicard_upgrade/contractor/unused
 
 /obj/item/storage/box/contractor/spai_kit
 	name = "Boxed Contractor SPAI"
@@ -28,6 +28,6 @@
 
 /obj/item/storage/box/contractor/spai_kit/populate_contents()
 	new /obj/item/paicard(src)
-	new /obj/item/paicard_upgrade/unused(src)
+	new /obj/item/paicard_upgrade/contractor/unused(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/paper/pai_upgrade(src)

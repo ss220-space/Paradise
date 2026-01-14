@@ -48,7 +48,7 @@
 
 /obj/structure/firepit/proc/adjust_light()
 	if(active)
-		set_light(4, ,"#ffb366")
+		set_light(4, l_color = LIGHT_COLOR_GARLAND)
 	else
 		set_light_on(FALSE)
 
@@ -85,7 +85,7 @@
 
 /obj/structure/firepit/proc/Burn()
 	var/turf/current_location = get_turf(src)
-	current_location.hotspot_expose(1000,500,1)
+	current_location.hotspot_expose(1000,500)
 	for(var/A in current_location)
 		if(A == src)
 			continue

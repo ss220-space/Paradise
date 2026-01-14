@@ -421,3 +421,93 @@
 		'sound/items/handling/equip/generic_equip4.ogg',
 		'sound/items/handling/equip/generic_equip5.ogg',
 	)
+
+/datum/sound_effect/fart
+	key = SFX_FART
+	file_paths = list(
+		'sound/effects/mob_effects/fart1.ogg',
+		'sound/effects/mob_effects/fart2.ogg',
+		'sound/effects/mob_effects/fart3.ogg',
+		'sound/effects/mob_effects/fart4.ogg',
+		'sound/effects/mob_effects/fart5.ogg',
+		'sound/effects/mob_effects/fart6.ogg',
+	)
+
+/datum/sound_effect/keyboard_clicks
+	key = SFX_KEYBOARD_CLICKS
+	file_paths = list(
+		'sound/machines/computer/keyboard_clicks_1.ogg',
+		'sound/machines/computer/keyboard_clicks_2.ogg',
+		'sound/machines/computer/keyboard_clicks_3.ogg',
+		'sound/machines/computer/keyboard_clicks_4.ogg',
+		'sound/machines/computer/keyboard_clicks_5.ogg',
+		'sound/machines/computer/keyboard_clicks_6.ogg',
+		'sound/machines/computer/keyboard_clicks_7.ogg',
+	)
+
+/datum/sound_effect/beakerpour_0_10
+	key = SFX_BEAKERPOUR_0_10
+	file_paths = list(
+		'sound/items/reagent_containers/beakerpour_0-10-1.ogg',
+		'sound/items/reagent_containers/beakerpour_0-10-2.ogg',
+		'sound/items/reagent_containers/beakerpour_0-10-3.ogg',
+		'sound/items/reagent_containers/beakerpour_0-10-4.ogg',
+		'sound/items/reagent_containers/beakerpour_0-10-5.ogg',
+		'sound/items/reagent_containers/beakerpour_0-10-6.ogg',
+	)
+
+/datum/sound_effect/beakerpour_10_25
+	key = SFX_BEAKERPOUR_10_25
+	file_paths = list(
+		'sound/items/reagent_containers/beakerpour_10-25-1.ogg',
+		'sound/items/reagent_containers/beakerpour_10-25-2.ogg',
+		'sound/items/reagent_containers/beakerpour_10-25-3.ogg',
+		'sound/items/reagent_containers/beakerpour_10-25-5.ogg',
+		'sound/items/reagent_containers/beakerpour_10-25-6.ogg',
+	)
+
+/datum/sound_effect/beakerpour_25_50
+	key = SFX_BEAKERPOUR_25_50
+	file_paths = list(
+		'sound/items/reagent_containers/beakerpour_25-50-1.ogg',
+		'sound/items/reagent_containers/beakerpour_25-50-2.ogg',
+		'sound/items/reagent_containers/beakerpour_25-50-3.ogg',
+	)
+
+/datum/sound_effect/beakerpour_50_inf
+	key = SFX_BEAKERPOUR_50_INF
+	file_paths = list(
+		'sound/items/reagent_containers/beakerpour_50-inf-1.ogg',
+		'sound/items/reagent_containers/beakerpour_50-inf-2.ogg',
+		'sound/items/reagent_containers/beakerpour_50-inf-3.ogg',
+		'sound/items/reagent_containers/beakerpour_50-inf-4.ogg',
+		'sound/items/reagent_containers/beakerpour_50-inf-5.ogg',
+	)
+
+/datum/sound_effect/dropperpour
+	key = SFX_DROPPERPOUR
+	file_paths = list(
+		'sound/items/reagent_containers/dropper1.ogg',
+		'sound/items/reagent_containers/dropper2.ogg',
+	)
+
+/datum/sound_effect/syringepour
+	key = SFX_SYRINGEPOUR
+	file_paths = list(
+		'sound/items/reagent_containers/syringepour1.ogg',
+		'sound/items/reagent_containers/syringepour2.ogg',
+	)
+
+/datum/sound_effect/liquid_splash
+	key = SFX_LIQUID_SPLASH
+	file_paths = list(
+		'sound/items/reagent_containers/watersplash.ogg',
+	)
+
+/datum/sound_effect/industrial_scan
+	key = SFX_INDUSTRIAL_SCAN
+	file_paths = list(
+		'sound/effects/industrial_scan/industrial_scan1.ogg',
+		'sound/effects/industrial_scan/industrial_scan2.ogg',
+		'sound/effects/industrial_scan/industrial_scan3.ogg',
+	)

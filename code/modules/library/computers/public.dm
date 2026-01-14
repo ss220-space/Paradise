@@ -79,7 +79,7 @@
 		else
 			query.title = null
 	if(href_list["setcategory"])
-		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", (list("Any") + GLOB.library_section_names))
+		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", "Select category", (list("Any") + GLOB.library_section_names))
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)

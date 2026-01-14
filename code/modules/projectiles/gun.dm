@@ -44,12 +44,6 @@
 
 	/// Allows renaming with a pen
 	var/unique_rename = TRUE
-	/// Allows reskinning
-	var/unique_reskin = FALSE
-	/// The skin choice if we had a reskin
-	var/current_skin
-	/// Lazy list of gun visual skins. Filled on Initialize() in proc/update_gun_skins()
-	var/list/skin_options
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
@@ -115,25 +109,17 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/datum/action/toggle_scope_zoom/azoom
 
-	//Rusted
-	var/rusted_weapon = FALSE
-	var/self_shot_divisor = 3 // higher value means more shots in the face
-	var/malf_low_bound = 40 // shots before gun exploding
-	var/malf_high_bound = 80
-	var/malf_counter // random number between malf_low_bound and malf_high_bound
-
 	light_on = FALSE
 
 	/// Responsible for the range of the throwing back when shooting at point blank range
 	var/pb_knockback = 0
+	/// Shots counter
+	var/shots_counter = 0
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
 	appearance_flags |= KEEP_TOGETHER
 	build_zooming()
-	if(rusted_weapon)
-		malf_counter = rand(malf_low_bound, malf_high_bound)
-	update_gun_skins()
 	create_start_gun_modules()
 	if(islist(accuracy))
 		accuracy = getAccuracy(arglist(accuracy))
@@ -187,8 +173,6 @@
 	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
 		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
 
-	if(unique_reskin)
-		. += span_notice("Используйте Alt-click чтобы выбрать скин.")
 	if(unique_rename)
 		. += span_notice("Используйте ручку чтобы переименовать его.")
 	if(bayonet)
@@ -196,8 +180,6 @@
 		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
 			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
-/obj/item/gun/proc/update_gun_skins()
-	return
 
 /obj/item/gun/update_overlays()
 	. = ..()
@@ -238,20 +220,14 @@
 		module.on_attach(src, null)
 		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
 
-/**
- * Adds skin in associative lazy list: skin_options[skin_name] = skin_icon_state
- *
- * Arguments:
- * * skin_name - what skin name user will see.
- * * skin_icon_state - which icon_state will be used for the gun.
- */
-/obj/item/gun/proc/add_skin(skin_name, skin_icon_state)
-	if(!unique_reskin)
-		return
-	LAZYSET(skin_options, skin_name, skin_icon_state)
+//called after the gun has successfully fired its chambered ammo.
+/obj/item/gun/proc/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	handle_chamber(empty_chamber, from_firing, chamber_next_round)
+	SEND_SIGNAL(src, COMSIG_GUN_CHAMBER_PROCESSED)
 
-/obj/item/gun/proc/process_chamber()
-	return FALSE
+/obj/item/gun/proc/handle_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	return
 
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
@@ -308,14 +284,14 @@
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
-		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
 			return
 
 	if(!can_trigger_gun(user))
 		return
 
 	if(flag)
-		if(user.zone_selected == "mouth")
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
 				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
@@ -453,32 +429,8 @@
 	if(user)
 		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
-
-	if(rusted_weapon)
-		malf_counter -= burst_size
-		// if the gun grabbed by telekinesis, it's can exploise but without damage for user
-		if(user.tkgrabbed_objects[src])
-			if(malf_counter <= 0 && prob(50))
-				user.drop_item_ground(user.tkgrabbed_objects[src])
-				new /obj/effect/decal/cleanable/ash(loc)
-				to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается!"))
-				playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
-				qdel(src)
-				return FALSE
-			return TRUE
-		if(malf_counter <= 0 && prob(50))
-			new /obj/effect/decal/cleanable/ash(user.loc)
-			user.take_organ_damage(0, 30)
-			user.flash_eyes()
-			to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается у вас в руках!"))
-			playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
-			qdel(src)
-			return FALSE
-		if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
-			playsound(user, fire_sound, 30, TRUE)
-			to_chat(user, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается прямо у вас перед лицом!"))
-			user.take_organ_damage(0, 10)
-			return FALSE
+	shots_counter += burst_size
+	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 
 /obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
@@ -545,7 +497,7 @@
 
 /obj/item/gun/proc/toggle_gunlight_verb()
 	set name = "Оружейный фонарик"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Click to toggle your weapon's attached flashlight."
 
 	toggle_gunlight(usr)
@@ -588,15 +540,13 @@
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(!toggle_gunlight_action)
 			toggle_gunlight_action = new(src)
-			if(ismob(loc))
-				var/mob/user = loc
-				if(!(toggle_gunlight_action in user.actions))
-					toggle_gunlight_action.Grant(user)
+			add_item_action(toggle_gunlight_action)
 	else
 		verbs -= /obj/item/gun/proc/toggle_gunlight_verb
 
 		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
 		if(toggle_gunlight_action)
+			remove_item_action(toggle_gunlight_action)
 			qdel(toggle_gunlight_action)
 
 		if(.)
@@ -657,10 +607,7 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
 		return CLICK_ACTION_BLOCKING
-	if(unique_reskin && !current_skin)
-		reskin_gun(user)
-	else
-		try_detach_gun_module(user)
+	try_detach_gun_module(user)
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/gun/proc/try_detach_gun_module(mob/user)
@@ -676,7 +623,7 @@
 		return
 	var/choice = choices[1]
 	if(length(choices) > 1)
-		choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
+		choice = show_radial_menu(user, src, choices, require_near = TRUE)
 	if(!choice)
 		return FALSE
 	for(var/slot in attachments_by_slot)
@@ -686,25 +633,6 @@
 		if(module.declent_ru(NOMINATIVE) == choice)
 			return module.detach_without_check(src, user)
 
-/obj/item/gun/proc/reskin_gun(mob/user)
-	if(!LAZYLEN(skin_options))
-		stack_trace("[src] has unique_reskin set to TRUE but skin_options list is empty.")
-		return
-	var/list/skins = list()
-	for(var/skin in skin_options)
-		skins[skin] = image(icon = icon, icon_state = skin_options[skin])
-	var/choice = show_radial_menu(user, src, skins, radius = 40, custom_check = CALLBACK(src, PROC_REF(reskin_radial_check), user), require_near = TRUE)
-
-	if(choice && reskin_radial_check(user) && !current_skin)
-		current_skin = skin_options[choice]
-		to_chat(user, "Теперь ваше оружие имеет облик [choice]. Познакомьтесь с новым дизайном.")
-		update_icon()
-		update_equipped_item(update_speedmods = FALSE)
-
-/obj/item/gun/proc/reskin_radial_check(mob/living/carbon/human/user)
-	if(!ishuman(user) || QDELETED(src) || !user.is_in_hands(src) || user.incapacitated())
-		return FALSE
-	return TRUE
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))
@@ -750,10 +678,10 @@
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/Trigger(left_click = TRUE)
+/datum/action/toggle_scope_zoom/Trigger(mob/clicker, trigger_flags)
 	gun.zoom(owner)
 
-/datum/action/toggle_scope_zoom/IsAvailable()
+/datum/action/toggle_scope_zoom/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!. && gun)
 		gun.zoom(owner, FALSE)

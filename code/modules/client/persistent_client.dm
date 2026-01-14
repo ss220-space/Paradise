@@ -59,17 +59,22 @@ GLOBAL_LIST_EMPTY_TYPED(persistent_clients, /datum/persistent_client)
 	new_mob?.persistent_client = src
 
 /// Writes all of the `played_names` into an HTML-escaped string.
-/datum/persistent_client/proc/get_played_names()
+/datum/persistent_client/proc/get_played_names(sanitize = TRUE, seperator = "; ")
 	var/list/previous_names = list()
 	for(var/previous_name in played_names)
-		previous_names += html_encode("[previous_name] ([played_names[previous_name]])")
-	return previous_names.Join("; ")
+		var/combined_name = "[previous_name] ([played_names[previous_name]])"
+		previous_names += sanitize ? html_encode(combined_name) : combined_name
+	return previous_names.Join(seperator)
 
 /// Returns the full version string (i.e 515.1642) of the BYOND version and build.
 /datum/persistent_client/proc/full_byond_version()
 	if(!byond_version)
 		return "Unknown"
 	return "[byond_version].[byond_build || "xxx"]"
+
+///Redirect proc that makes it easier to call the unlock achievement proc. Achievement type is the typepath to the award, user is the mob getting the award, and value is an optional variable used for leaderboard value increments
+/datum/persistent_client/proc/give_award(achievement_type, mob/user, value = 1)
+	return achievements.unlock(achievement_type, user, value)
 
 /// Adds the new names to the player's played_names list on their /datum/persistent_client for use of admins.
 /// `ckey` should be their ckey, and `data` should be an associative list with the keys being the names they played under and the values being the unique mob ID tied to that name.

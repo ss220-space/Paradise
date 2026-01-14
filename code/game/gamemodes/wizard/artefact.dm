@@ -97,7 +97,7 @@
 /obj/item/scrying
 	name = "scrying orb"
 	desc = "An incandescent orb of otherworldly energy, staring into it gives you vision beyond mortal means."
-	icon = 'icons/obj/weapons/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state ="bluespace"
 	throw_speed = 7
 	throw_range = 15
@@ -196,6 +196,10 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			var/image/source = image('icons/obj/cardboard_cutout.dmi', "cutout_wizard")
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as the wizard apprentice of [user.real_name]?", ROLE_WIZARD, TRUE, 10 SECONDS, source = source)
+			
+			if(QDELETED(user))
+				return
+			
 			if(length(candidates))
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
@@ -377,7 +381,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if("assistant")
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(M), ITEM_SLOT_CLOTH_INNER)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_EAR_LEFT)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(M), ITEM_SLOT_FEET)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black(M), ITEM_SLOT_FEET)
 				M.equip_to_slot_or_del(sword, ITEM_SLOT_HAND_RIGHT)
 
 			if("animu")
@@ -410,7 +414,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			if("killer")
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/overalls(M), ITEM_SLOT_CLOTH_INNER)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(M), ITEM_SLOT_FEET)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/white(M), ITEM_SLOT_FEET)
 				M.equip_to_slot_or_del(new /obj/item/clothing/gloves/color/latex(M), ITEM_SLOT_GLOVES)
 				M.equip_to_slot_or_del(new /obj/item/clothing/mask/surgical(M), ITEM_SLOT_MASK)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/welding(M), ITEM_SLOT_HEAD)
@@ -425,7 +429,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 
 			if("pirate")
 				M.equip_to_slot_or_del(new /obj/item/clothing/under/pirate(M), ITEM_SLOT_CLOTH_INNER)
-				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(M), ITEM_SLOT_FEET)
+				M.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/brown(M), ITEM_SLOT_FEET)
 				M.equip_to_slot_or_del(new /obj/item/clothing/head/bandana(M), ITEM_SLOT_HEAD)
 				M.equip_to_slot_or_del(new /obj/item/clothing/glasses/eyepatch(M), ITEM_SLOT_EYES)
 				M.equip_to_slot_or_del(new /obj/item/radio/headset(M), ITEM_SLOT_EAR_LEFT)

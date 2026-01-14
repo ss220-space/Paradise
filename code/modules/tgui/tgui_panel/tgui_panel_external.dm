@@ -10,7 +10,7 @@
  */
 /client/verb/fix_tgui_panel()
 	set name = "Починить чат"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 	var/action
 	log_tgui(src, "Started fixing.")
 
@@ -35,7 +35,7 @@
 
 /client/verb/refresh_tgui()
 	set name = "Обновить TGUI"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	var/choice = alert(usr,
 		"Используйте ЭТО ТОЛЬКО если у вас проблемы с окнами TGUI.\n\

@@ -33,6 +33,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	spell.remove_ranged_ability(spell.ranged_ability_user)
 	return ..()
 
+/datum/click_intercept/proc_holder/Destroy()
+	holder.mouse_override_icon = null
+	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+	. = ..()
+
 /obj/effect/proc_holder/proc/add_ranged_ability(mob/user, msg)
 	if(!user || !user.client)
 		return
@@ -192,8 +197,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
@@ -279,6 +282,19 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	QDEL_NULL(custom_handler)
 	targeting = null
 	return ..()
+
+/obj/effect/proc_holder/spell/update_icon_state()
+	if(!action)
+		return
+	action.targeting_process = active
+	action.UpdateButtonIcon(ALL)
+
+/obj/effect/proc_holder/spell/remove_ranged_ability(mob/user, msg)
+	. = ..()
+	if(!action)
+		return
+	action.targeting_process = FALSE
+	action.UpdateButtonIcon(ALL)
 
 /**
  * Creates and returns the targeting datum for this spell type. Override this!
@@ -420,6 +436,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 	if(action)
 		action.UpdateButtonIcon()
+
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
 
 /**
  * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this

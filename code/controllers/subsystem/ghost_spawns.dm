@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 		// Chat message
 		var/act_jump = ""
 		if(isatom(source))
-			act_jump = "<a href='byond://?src=[M.UID()];jump=\ref[source]'>\[Телепорт]</a>"
+			act_jump = "<a href='byond://?src=[M.UID()];jump=[UID_of(source)]'>\[Телепорт]</a>"
 		var/act_signup = "<a href='byond://?src=[A.UID()];signup=1'>\[Стать кандидатом]</a>"
 		to_chat(M, span_boldnotice(span_big("В настоящее время идёт поиск кандидатов для [role ? "игры за [role_cleanname || role]" : "\"[question]\""]. [act_jump] [act_signup] [reason?"<i>\nПричина: [reason]</i>":""]")))
 

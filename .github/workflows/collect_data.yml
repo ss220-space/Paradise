@@ -15,10 +15,10 @@ jobs:
       stations: ${{ steps.station_finder.outputs.stations }}
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Find Stations
         id: station_finder
         run: |
-          STATIONS='["cyberiad", "delta", "cerestation", "celestation", "nova"]'
+          STATIONS='["cyberiad", "delta", "nova"]'
           echo "stations=$STATIONS" >> $GITHUB_OUTPUT

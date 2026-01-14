@@ -17,15 +17,22 @@
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
+	/// Overlay for lightmask of our crate
+	var/overlay_lightmask
+	/// Can our crate make emissive light?
+	var/can_be_emissive = FALSE
 
 /obj/structure/closet/crate/update_icon_state()
-	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
+	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
 
 /obj/structure/closet/crate/update_overlays()
 	// . = ..() is not needed here because of different overlay handling logic for crates
+	underlays.Cut()
 	. = list()
 	if(manifest)
 		. += "manifest"
+	if(can_be_emissive)
+		underlays += emissive_appearance(icon, overlay_lightmask, src)
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -178,6 +185,8 @@
 	var/tamperproof = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
+	overlay_lightmask = "securecrate_lightmask"
+	can_be_emissive = TRUE
 
 /obj/structure/closet/crate/secure/update_overlays()
 	. = ..()
@@ -398,22 +407,25 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
+/obj/structure/closet/crate/freezer/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/location = get_turf(src)
+		gas = location.get_readonly_air()
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-	newgas.oxygen = gas.oxygen
-	newgas.carbon_dioxide = gas.carbon_dioxide
-	newgas.nitrogen = gas.nitrogen
-	newgas.toxins = gas.toxins
+	newgas.set_oxygen(gas.oxygen())
+	newgas.set_carbon_dioxide(gas.carbon_dioxide())
+	newgas.set_nitrogen(gas.nitrogen())
+	newgas.set_toxins(gas.toxins())
 	newgas.volume = gas.volume
-	newgas.temperature = gas.temperature
-	if(newgas.temperature <= target_temp)	return
+	newgas.set_temperature(gas.temperature())
+	if(newgas.temperature() <= target_temp)	return
 
-	if((newgas.temperature - cooling_power) > target_temp)
-		newgas.temperature -= cooling_power
+	if((newgas.temperature() - cooling_power) > target_temp)
+		newgas.set_temperature(newgas.temperature() - cooling_power)
 	else
-		newgas.temperature = target_temp
+		newgas.set_temperature(target_temp)
 	return newgas
 
 /obj/structure/closet/crate/can
@@ -479,11 +491,21 @@
 	desc = "A secure weapons crate."
 	name = "weapons crate"
 	icon_state = "weaponcrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
 	name = "plasma crate"
 	icon_state = "plasmacrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
 
 /obj/structure/closet/crate/secure/gear
 	desc = "A secure gear crate."

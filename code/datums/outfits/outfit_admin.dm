@@ -28,7 +28,7 @@
 
 	uniform = /obj/item/clothing/under/color/random
 	back = /obj/item/storage/backpack/satchel
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	box = /obj/item/storage/box/survival
 	backpack_contents = list(
 		/obj/item/implanter/dust = 1,
@@ -41,14 +41,14 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman
 	mask = /obj/item/clothing/mask/breath
 	belt = /obj/item/tank/internals/plasmaman/belt/full
-	box = /obj/item/storage/box/survival_plasmaman
+	box = /obj/item/storage/box/survival/species/plasmaman
 
 /datum/outfit/admin/observer/vox
 	name = "Наблюдатель (Вокс)"
 
 	mask = /obj/item/clothing/mask/breath/vox
 	belt = /obj/item/tank/internals/emergency_oxygen/double/vox
-	box = /obj/item/storage/box/survival_vox
+	box = /obj/item/storage/box/survival/species/vox
 
 /datum/outfit/admin/syndicate
 	name = "Syndicate Agent"
@@ -62,7 +62,7 @@
 	id = /obj/item/card/id/syndicate
 	r_pocket = /obj/item/radio/uplink
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/card/emag = 1,
 		/obj/item/reagent_containers/food/snacks/syndidonkpocket = 1,
@@ -110,7 +110,7 @@
 	l_pocket = /obj/item/card/emag
 	r_pocket = /obj/item/melee/energy/sword/saber/red
 	id = /obj/item/card/id/syndicate
-	box = /obj/item/storage/box/survival_syndi
+	box = /obj/item/storage/box/survival/survival_syndi
 	backpack_contents = list(
 		/obj/item/radio/uplink/sst = 1,
 		/obj/item/grenade/plastic/x4 = 2,
@@ -176,13 +176,13 @@
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	back = /obj/item/storage/backpack/satchel
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/that
 	l_ear = /obj/item/radio/headset/ert
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 	)
 
 /datum/outfit/admin/nt_vip/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -214,14 +214,14 @@
 	backpack_contents = list(
 		/obj/item/gun/projectile/automatic/pistol/sp8/sp8ar = 1,
 		/obj/item/ammo_box/magazine/sp8 = 2,
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/gun/energy/gun/blueshield = 1,
 		/obj/item/gun/projectile/automatic/proto = 1,
 		/obj/item/ammo_box/magazine/smgm9mm = 4,
 		/obj/item/shield/riot/tele = 1,
 		/obj/item/gun_module/muzzle/suppressor = 1,
 		/obj/item/CQC_manual = 1,
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 	)
 
 	accessories = list(
@@ -266,7 +266,7 @@
 	id = /obj/item/card/id/centcom
 	pda = /obj/item/pda/centcom
 	backpack_contents = list(
-		/obj/item/storage/box/centcomofficer = 1,
+		/obj/item/storage/box/survival/centcomofficer = 1,
 		/obj/item/gun/energy/pulse/pistol = 1,
 		/obj/item/implanter/death_alarm = 1,
 	)
@@ -330,7 +330,7 @@
 	id = /obj/item/card/id
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 		/obj/item/flashlight = 1,
 		/obj/item/pinpointer/crew = 1,
 	)
@@ -379,7 +379,7 @@
 	l_ear = /obj/item/radio/headset/alt
 	id = /obj/item/card/id
 	pda = /obj/item/pinpointer
-	box = /obj/item/storage/box/responseteam
+	box = /obj/item/storage/box/survival/responseteam
 
 	backpack_contents = list(
 		/obj/item/storage/box/handcuffs = 1,
@@ -424,7 +424,7 @@
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	r_hand = /obj/item/melee/energy/sword/pirate
@@ -534,7 +534,7 @@
 	back = /obj/item/storage/backpack/mime
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset
@@ -581,7 +581,7 @@
 
 	uniform = /obj/item/clothing/under/color/grey
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	mask = /obj/item/clothing/mask/gas
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
@@ -630,7 +630,7 @@
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/yellow
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/xenos
 	glasses = /obj/item/clothing/glasses/thermal
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
@@ -697,7 +697,7 @@
 	id = /obj/item/card/id
 	shoes = /obj/item/clothing/shoes/combat
 	l_ear = /obj/item/radio/headset/alt/soviet
-	box = /obj/item/storage/box/soviet
+	box = /obj/item/storage/box/survival/soviet
 
 /datum/outfit/admin/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -824,7 +824,7 @@
 	l_pocket = /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/implanter/dust = 1,
 		/obj/item/implanter/death_alarm = 1,
 		/obj/item/stamp/solgov = 1,
@@ -857,7 +857,7 @@
 	r_pocket = /obj/item/flashlight/seclite
 	pda = /obj/item/pda
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -884,7 +884,7 @@
 	head = /obj/item/clothing/head/soft/solgov/elite
 	belt = /obj/item/storage/belt/military/assault/marines/elite/full
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/whetstone = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -909,7 +909,7 @@
 	l_pocket = /obj/item/pinpointer/advpinpointer
 	l_ear = /obj/item/radio/headset/ert/alt/commander/solgov
 	backpack_contents = list(
-		/obj/item/storage/box/responseteam = 1,
+		/obj/item/storage/box/survival/responseteam = 1,
 		/obj/item/storage/box/handcuffs = 1,
 		/obj/item/clothing/shoes/magboots/advance = 1,
 		/obj/item/reagent_containers/hypospray/autoinjector/survival = 1,
@@ -939,7 +939,7 @@
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/melee/baton
 	head = /obj/item/clothing/head/soft
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
@@ -1065,7 +1065,7 @@
 /datum/outfit/admin/tournament
 	name = "Tournament Generic"
 	suit = /obj/item/clothing/suit/armor/vest
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/helmet/thunderdome
 	r_pocket = /obj/item/grenade/smokebomb
 	l_hand = /obj/item/kitchen/knife
@@ -1084,7 +1084,7 @@
 
 	uniform = /obj/item/clothing/under/det
 	suit = /obj/item/clothing/suit/storage/det_suit
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/speedloader/a357
@@ -1095,7 +1095,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	head = /obj/item/clothing/head/chefhat
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/kitchen/knife
@@ -1107,7 +1107,7 @@
 
 	uniform = /obj/item/clothing/under/rank/janitor
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	l_hand = /obj/item/reagent_containers/glass/bucket
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/cleaner = 2,
@@ -1129,7 +1129,7 @@
 	uniform = /obj/item/clothing/under/overalls
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	backpack_contents = list(
@@ -1157,7 +1157,7 @@
 	suit = /obj/item/clothing/suit/apron
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	head = /obj/item/clothing/head/welding
 	mask = /obj/item/clothing/mask/surgical
 	l_ear = /obj/item/radio/headset
@@ -1306,7 +1306,7 @@
 	l_hand = /obj/item/twohanded/staff
 	r_hand = /obj/item/spellbook
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 	)
 
 /datum/outfit/admin/wizard/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -1339,7 +1339,7 @@
 	belt = /obj/item/storage/belt/wands/full
 	l_hand = null
 	backpack_contents = list(
-		/obj/item/storage/box/engineer = 1,
+		/obj/item/storage/box/survival/engineer = 1,
 		/obj/item/clothing/suit/space/hardsuit/wizard/arch/shielded = 1,
 		/obj/item/clothing/shoes/magboots = 1,
 		/obj/item/kitchen/knife/ritual  = 1,
@@ -1367,7 +1367,7 @@
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
 	r_hand = /obj/item/nullrod/armblade

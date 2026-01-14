@@ -62,6 +62,7 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define CALIBER_10MM "10mm"
 #define CALIBER_4_DOT_6X30MM "4.6x30mm"
 #define CALIBER_DOT_45 ".45"
+#define CALIBER_DOT_45_COLT ".45colt"
 #define CALIBER_SPEAR "spear"
 #define CALIBER_84MM "84mm"
 #define CALIBER_12X70 "12х70"
@@ -109,3 +110,15 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define GUN_ACCURACY_RIFLE_UPLINK new /datum/gun_accuracy/rifle/uplink()
 /// Sniper rifle accuracy (100% hit)
 #define GUN_ACCURACY_SNIPER new /datum/gun_accuracy/sniper()
+
+// Bullet type overlays
+#define BULLET_TYPE_PLAIN "plain_bullet"
+#define BULLET_TYPE_RUBBER "rubber"
+#define BULLET_TYPE_ARMOR_PIERCING "armor_piercing"
+#define BULLET_TYPE_EXPANSIVE "expansive"
+#define BULLET_TYPE_FIRE "fire"
+#define BULLET_TYPE_LASER "laser"
+#define BULLET_TYPE_DISABLER "disabler"
+
+/// Magazine reload duration
+#define GUN_MAGAZINE_RELOAD_DURATION (1 SECONDS)

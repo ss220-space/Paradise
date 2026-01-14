@@ -12,21 +12,21 @@
 	name = "filing cabinet"
 	desc = "A large cabinet with drawers."
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "filingcabinet"
+	icon_state = "filing_cabinet"
 	density = TRUE
 	anchored = TRUE
 	var/opened = FALSE
 
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
-	icon_state = "chestdrawer"
+	icon_state = "chest_drawer"
 
 /obj/structure/filingcabinet/chestdrawer/autopsy
 	name = "autopsy reports drawer"
 	desc = "A large drawer for holding autopsy reports."
 
 /obj/structure/filingcabinet/filingcabinet	//not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
-	icon_state = "tallcabinet"
+	icon_state = "tall_cabinet"
 
 /obj/structure/filingcabinet/Initialize(mapload)
 	. = ..()
@@ -35,7 +35,7 @@
 			I.loc = src
 
 /obj/structure/filingcabinet/update_icon_state()
-	icon_state = "[initial(icon_state)][opened ? "-open" : ""]"
+	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
 
 /obj/structure/filingcabinet/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -84,7 +84,7 @@
 	user.set_machine(src)
 	var/dat = {"<meta charset="UTF-8"><center><table>"}
 	for(var/obj/item/P in src)
-		dat += "<tr><td><a href='byond://?src=[UID()];retrieve=\ref[P]'>[P.name]</a></td></tr>"
+		dat += "<tr><td><a href='byond://?src=[UID()];retrieve=[P.UID()]'>[P.name]</a></td></tr>"
 	dat += "</table></center>"
 	var/datum/browser/popup = new(user, "filingcabinet", name, 350, 300)
 	popup.set_content(dat)
@@ -114,7 +114,7 @@
 		close_window(usr, "filingcabinet")		// Close the menu
 
 		//var/retrieveindex = text2num(href_list["retrieve"])
-		var/obj/item/P = locate(href_list["retrieve"])//contents[retrieveindex]
+		var/obj/item/P = locateUID(href_list["retrieve"])//contents[retrieveindex]
 		if(istype(P) && (P.loc == src) && src.Adjacent(usr))
 			P.forceMove_turf()
 			usr.put_in_hands(P, ignore_anim = FALSE)
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment
 	var/cooldown = FALSE // Only used for devils
-	icon_state = "employmentcabinet"
+	icon_state = "employment_cabinet"
 	var/populated = FALSE
 
 /obj/structure/filingcabinet/employment/Initialize(mapload)

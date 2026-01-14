@@ -11,6 +11,10 @@
 #define FILTER_CO2 3
 /// Nitrous oxide only.
 #define FILTER_N2O 4
+/// Hydrogen only.
+#define FILTER_H2 5
+/// Water vapor only.
+#define FILTER_H2O 6
 
 /obj/machinery/atmospherics/trinary/filter
 	name = "gas filter"
@@ -23,13 +27,15 @@
 	/// The type of gas we want to filter. Valid values that go here are from the `FILTER` defines at the top of the file.
 	var/filter_type = FILTER_TOXINS
 	/// A list of available filter options. Used with `ui_data`.
-	var/list/filter_list = list(
+	var/static/list/filter_list = list(
 		"Nothing" = FILTER_NOTHING,
 		"Plasma" = FILTER_TOXINS,
 		"O2" = FILTER_OXYGEN,
 		"N2" = FILTER_NITROGEN,
 		"CO2" = FILTER_CO2,
-		"N2O" = FILTER_N2O
+		"N2O" = FILTER_N2O,
+		"H2"  = FILTER_H2,
+		"H2O" = FILTER_H2O,
 	)
 
 /obj/machinery/atmospherics/trinary/filter/CtrlClick(mob/living/user)
@@ -109,21 +115,21 @@
 /obj/machinery/atmospherics/trinary/filter/process_atmos()
 	..()
 	if(!on)
-		return 0
+		return FALSE
 
 	var/output_starting_pressure = air3.return_pressure()
 
 	if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure)
 		//No need to mix if target is already full!
-		return 1
+		return TRUE
 
 	//Calculate necessary moles to transfer using PV=nRT
 
 	var/pressure_delta = target_pressure - output_starting_pressure
 	var/transfer_moles
 
-	if(air1.temperature > 0)
-		transfer_moles = pressure_delta*air3.volume/(air1.temperature * R_IDEAL_GAS_EQUATION)
+	if(air1.temperature() > 0)
+		transfer_moles = pressure_delta * air3.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
 
 	//Actually transfer the gas
 
@@ -133,44 +139,56 @@
 		if(!removed)
 			return
 		var/datum/gas_mixture/filtered_out = new
-		filtered_out.temperature = removed.temperature
+		filtered_out.set_temperature(removed.temperature())
 
 		switch(filter_type)
 			if(FILTER_TOXINS)
-				filtered_out.toxins = removed.toxins
-				removed.toxins = 0
+				filtered_out.set_toxins(removed.toxins())
+				removed.set_toxins(0)
 
-				filtered_out.agent_b = removed.agent_b
-				removed.agent_b = 0
+				filtered_out.set_agent_b(removed.agent_b())
+				removed.set_agent_b(0)
 
 			if(FILTER_OXYGEN)
-				filtered_out.oxygen = removed.oxygen
-				removed.oxygen = 0
+				filtered_out.set_oxygen(removed.oxygen())
+				removed.set_oxygen(0)
 
 			if(FILTER_NITROGEN)
-				filtered_out.nitrogen = removed.nitrogen
-				removed.nitrogen = 0
+				filtered_out.set_nitrogen(removed.nitrogen())
+				removed.set_nitrogen(0)
 
 			if(FILTER_CO2)
-				filtered_out.carbon_dioxide = removed.carbon_dioxide
-				removed.carbon_dioxide = 0
+				filtered_out.set_carbon_dioxide(removed.carbon_dioxide())
+				removed.set_carbon_dioxide(0)
 
 			if(FILTER_N2O)
-				filtered_out.sleeping_agent = removed.sleeping_agent
-				removed.sleeping_agent = 0
+				filtered_out.set_sleeping_agent(removed.sleeping_agent())
+				removed.set_sleeping_agent(0)
+
+			if(FILTER_H2)
+				filtered_out.set_hydrogen(removed.hydrogen())
+				removed.set_hydrogen(0)
+
+			if(FILTER_H2O)
+				filtered_out.set_water_vapor(removed.water_vapor())
+				removed.set_water_vapor(0)
+
 			else
 				filtered_out = null
 
 		air2.merge(filtered_out)
 		air3.merge(removed)
 
-	parent2.update = 1
+	if(!QDELETED(parent1))
+		parent1.update = TRUE
 
-	parent3.update = 1
+	if(!QDELETED(parent2))
+		parent2.update = TRUE
 
-	parent1.update = 1
+	if(!QDELETED(parent3))
+		parent3.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/trinary/filter/atmos_init()
 	set_frequency(frequency)
@@ -253,3 +271,5 @@
 #undef FILTER_NITROGEN
 #undef FILTER_CO2
 #undef FILTER_N2O
+#undef FILTER_H2
+#undef FILTER_H2O

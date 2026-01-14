@@ -26,14 +26,14 @@
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NO_GERMS,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
-		TRAIT_SUPERMATTERIMMUNE,
+		TRAIT_SUPERMATTER_IMMUNE,
 	)
 	bodyflags = HAS_BODY_MARKINGS
 	dies_at_threshold = TRUE
 	ignore_critical_condition = TRUE // Nucleations do not suffer from complex critical condition
 	var/touched_supermatter = FALSE
 
-	speciesbox = /obj/item/storage/box/survival_nucleation
+	speciesbox = /obj/item/storage/box/survival/species/nucleation
 
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
@@ -78,7 +78,7 @@
 	return ..()
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/human)
-	if(human.health <= HEALTH_THRESHOLD_DEAD || !length(human.surgeries)) // Needed to prevent brain gib on surgery debrain
+	if(human.health <= HEALTH_THRESHOLD_DEAD) // Needed to prevent brain gib on surgery debrain
 		death_explosion(human)
 		return
 

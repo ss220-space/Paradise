@@ -33,6 +33,15 @@
 #define DECAL_INIT_UPDATE_EXPERIENCED (1<<10)
 /// Whether or not this atom shows screentips when hovered over
 #define NO_SCREENTIPS (1<<11)
+/// This atom does not need to generate its own preview icon for GAGS
+#define NO_NEW_GAGS_PREVIEW (1<<12)
+
+// Bypass all adjacency checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<12)
+/// Bypass all can_perform_action checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY (1<<13)
+/// Bypass all adjacency and other checks for mouse drop
+#define INTERACT_ATOM_MOUSEDROP_IGNORE_CHECKS (INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT | INTERACT_ATOM_MOUSEDROP_IGNORE_USABILITY)
 
 // Update flags for [/atom/proc/update_appearance]
 /// Update the atom's name
@@ -43,6 +52,8 @@
 #define UPDATE_ICON_STATE (1<<2)
 /// Update the atom's overlays
 #define UPDATE_OVERLAYS (1<<3)
+/// Update the atom's greyscaling
+#define UPDATE_GREYSCALE (1<<4)
 /// Update the atom's icon
 #define UPDATE_ICON (UPDATE_ICON_STATE|UPDATE_OVERLAYS)
 
@@ -193,6 +204,7 @@
 #define TOXIC (1<<12)
 
 GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768))
+GLOBAL_LIST_INIT(more_bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288))
 
 //Mob mobility var flags
 /// can move
@@ -243,3 +255,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 /// All ignore flags considered as default old do_after behavior.
 #define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)
 
+#define MAX_BITFIELD_SIZE 24
+
+//alternate appearance flags
+#define AA_TARGET_SEE_APPEARANCE (1<<0)
+#define AA_MATCH_TARGET_OVERLAYS (1<<1)

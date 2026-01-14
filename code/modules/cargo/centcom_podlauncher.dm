@@ -120,11 +120,11 @@
 /datum/centcom_podlauncher/ui_state(mob/user)
 	if(SSticker.current_state >= GAME_STATE_FINISHED)
 		return GLOB.always_state //Allow the UI to be given to players by admins after roundend
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/centcom_podlauncher/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/supplypods),
+		get_asset_datum(/datum/asset/spritesheet_batched/supplypods),
 	)
 
 /datum/centcom_podlauncher/ui_interact(mob/user, datum/tgui/ui)
@@ -792,7 +792,7 @@
 	customDropoff = dataToLoad["customDropoff"]
 	var/list/cords = dataToLoad["reverse_dropoff_coords"]
 	if(length(cords))
-		var/turf/dropoff =locate(cords[1], cords[2], cords[3])
+		var/turf/dropoff = locate(cords[1], cords[2], cords[3])
 		setDropoff(dropoff)
 	renderLighting = dataToLoad["renderLighting"]
 	launchClone = dataToLoad["launchClone"] //Do we launch the actual items in the bay or just launch clones of them?
