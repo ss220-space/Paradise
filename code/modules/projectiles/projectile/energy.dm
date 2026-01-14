@@ -56,6 +56,8 @@
 		return
 	if(carbon.status_flags & CANWEAKEN)
 		addtimer(CALLBACK(carbon, TYPE_PROC_REF(/mob/living/carbon, Jitter), jitter), 0.5 SECONDS)
+	if(carbon.buckled && istype(carbon.buckled, /obj/vehicle/ridden))
+		carbon.buckled.unbuckle_mob(carbon, TRUE)
 
 /obj/projectile/energy/electrode/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
 	process_tasered_effect(target)
@@ -67,6 +69,8 @@
 			target.drop_all_held_items()
 			REMOVE_TRAIT(target, TRAIT_TASERED, TASER_TRAIT)
 			return
+	if(target.buckled)
+		target.apply_effect(stamina*0.1, WEAKEN)
 	// add temprolly trait
 	ADD_TRAIT(target, TRAIT_TASERED, TASER_TRAIT)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, remove_tasered_trait)), tasered_duration, flags = TIMER_UNIQUE|TIMER_OVERRIDE)
