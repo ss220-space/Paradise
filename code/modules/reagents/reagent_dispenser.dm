@@ -246,7 +246,6 @@
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
 	desc = "A machine that dispenses liquid to drink."
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "water_cooler"
 	anchored = TRUE
 	tank_volume = 500
