@@ -91,8 +91,9 @@ export const SpawnSearch = () => {
       setSpawnAmount(+amountElement);
     } else if (spawnAmount !== 1) setSpawnAmount(1);
 
-    if (isRegex !== regexSearch)
-      {act('setRegexSearch', { regexSearch: regexSearch });}
+    if (isRegex !== regexSearch) {
+      act('setRegexSearch', { regexSearch: isRegex });
+    }
 
     if (filterQuery.length === 0) return [];
 
@@ -112,19 +113,21 @@ export const SpawnSearch = () => {
     }
 
     const finalizer = filterQuery.slice(filterQuery.length - 1);
-    if (finalizer === '*' || finalizer === '!')
-      {filterQuery = filterQuery.slice(0, filterQuery.length - 1);}
+    if (finalizer === '*' || finalizer === '!') {
+      filterQuery = filterQuery.slice(0, filterQuery.length - 1);
+    }
     filterQuery = filterQuery.toLowerCase();
     let searchLambda = (x: string) => x.toLowerCase().includes(filterQuery);
-    if (finalizer === '!')
-      {searchLambda = (x: string) =>
+    if (finalizer === '!') {
+      searchLambda = (x: string) =>
         x.toLowerCase().includes(filterQuery) &&
         x.toLowerCase().lastIndexOf(filterQuery) ===
-          x.length - filterQuery.length;}
-    else if (finalizer === '*')
-      {searchLambda = (x: string) =>
+          x.length - filterQuery.length;
+    } else if (finalizer === '*') {
+      searchLambda = (x: string) =>
         x.toLowerCase().includes(filterQuery) &&
-        !x.slice(x.toLowerCase().lastIndexOf(filterQuery)).includes('/');}
+        !x.slice(x.toLowerCase().lastIndexOf(filterQuery)).includes('/');
+    }
     return atomData.types.filter(
       (type: AtomTypeData) =>
         (searchLambda(type.typepath) ||
@@ -270,11 +273,13 @@ export const SpawnSearch = () => {
               else setQuery(`re:${query}`);
             }
 
-            if (keyCode === KEY_N && event.altKey)
-              {act('setNameSearch', { searchNames: !searchNames });}
+            if (keyCode === KEY_N && event.altKey) {
+              act('setNameSearch', { searchNames: !searchNames });
+            }
 
-            if (keyCode === KEY_F && event.altKey)
-              {act('setFancyTypes', { fancyTypes: !fancyTypes });}
+            if (keyCode === KEY_F && event.altKey) {
+              act('setFancyTypes', { fancyTypes: !fancyTypes });
+            }
           }}
         >
           <Stack fill vertical>
