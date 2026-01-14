@@ -331,7 +331,7 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	default_deconstruction_screwdriver(user, icon_state, icon_state, I) // AAA
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
