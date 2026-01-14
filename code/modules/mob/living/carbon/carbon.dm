@@ -1,3 +1,6 @@
+#define EYE_BLUR_SCALE_STEP 5
+#define EYE_BLUR_SCALE_MAX_DURATION 40
+
 /mob/living/carbon/Initialize(mapload)
 	. = ..()
 	GLOB.carbon_list += src
@@ -404,7 +407,7 @@
 		if(E.damage >= E.min_bruised_damage)
 			if(E.damage >= E.min_broken_damage)
 				EyeBlind(E.damage STATUS_EFFECT_CONSTANT)
-			EyeBlurry(clamp(floor((E.damage - 10) / 5) * 5 + 5, 0, 40))
+			EyeBlurry(clamp(floor((E.damage - E.min_bruised_damage) / 5) * 5 + EYE_BLUR_SCALE_STEP, 0, EYE_BLUR_SCALE_MAX_DURATION))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
