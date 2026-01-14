@@ -32,15 +32,9 @@
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/hitscan
-	name = "laser"
-	icon_state = "laser"
 	hitscan = TRUE
 	damage = 20
-	damage_type = BURN
-	flag = "laser"
 	eyeblur = 2
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	light_color = COLOR_SOFT_RED
 
 /obj/projectile/beam/laser/light
 	damage = 18

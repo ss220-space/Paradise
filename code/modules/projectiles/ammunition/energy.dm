@@ -39,6 +39,7 @@
 	projectile_type = /obj/projectile/beam/laser/hitscan
 	select_name = "hitscan"
 	delay = 7
+	fire_sound = 'sound/weapons/gunshots/lasergun.ogg'
 
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 75
