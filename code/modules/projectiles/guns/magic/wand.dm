@@ -79,7 +79,13 @@
 		span_warning("Do you want your possessions identified?"),
 	)
 	to_chat(user, message)
-	user.adjustFireLoss(3000)
+
+	// idk why it has so cringe comments, I just copied the piece of code that kills on_hit from the wand's projectile
+	if(isslimeperson(user)) //speshul snowfleks deserv speshul treetment
+		user.adjustFireLoss(6969)  //remember - slimes love fire
+	else
+		user.death()
+
 	charges--
 	..()
 
