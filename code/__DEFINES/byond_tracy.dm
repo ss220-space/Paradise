@@ -62,7 +62,8 @@ ADMIN_VERB(profiler_stop, R_HOST, "Tracy Profiler Stop", "Stop the tracy profile
  */
 /proc/prof_init()
 	var/init = PROF_CALL(PROF, "init")()
-	if("0" != init) CRASH("[PROF] init error: [init]")
+	if("0" != init)
+		CRASH("[PROF] init error: [init]")
 	GLOB.profiler_enabled = TRUE
 
 /**
@@ -73,5 +74,6 @@ ADMIN_VERB(profiler_stop, R_HOST, "Tracy Profiler Stop", "Stop the tracy profile
 		return
 
 	var/destroy = PROF_CALL(PROF, "destroy")()
-	if("0" != destroy) CRASH("[PROF] destroy error: [destroy]")
+	if("0" != destroy)
+		CRASH("[PROF] destroy error: [destroy]")
 	GLOB.profiler_enabled = FALSE
