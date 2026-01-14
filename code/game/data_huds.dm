@@ -723,8 +723,8 @@
 	if(!x_offset && !y_offset)
 		return
 
-	holder.pixel_x += x_offset
-	holder.pixel_y += y_offset
+	holder.pixel_w += x_offset
+	holder.pixel_z += y_offset
 
 /datum/atom_hud/data/pressure
 	hud_icons = list(PRESSURE_HUD)

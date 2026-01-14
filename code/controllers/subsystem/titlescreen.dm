@@ -165,10 +165,8 @@ SUBSYSTEM_DEF(title)
 /datum/controller/subsystem/title/proc/update_preview(client/viewer)
 	if(!viewer)
 		return
-	if(viewer.byond_version < 516)
-		viewer << output("", "title_browser:update_preview_515")
-	else
-		viewer << output("", "title_browser:update_preview")
+
+	viewer << output("", "title_browser:update_preview")
 
 /datum/controller/subsystem/title/proc/update_servers_list(client/viewer)
 	if(!viewer)
@@ -441,11 +439,6 @@ SUBSYSTEM_DEF(title)
 
 			function update_preview() {
 				charPreview.src = "previewicon.png";
-			}
-
-			function update_preview_515() {
-				charPreview.src = "";
-				setTimeout(update_preview, 100); // TODO: change after 516
 			}
 
 			function update_servers_list() {
