@@ -104,6 +104,7 @@
 		return
 
 	var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
+
 	if(!radio_connection)
 		return
 

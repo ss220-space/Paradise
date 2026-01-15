@@ -27,13 +27,12 @@
 			return
 		add_underlay(T, node, dir)
 
-/obj/machinery/atmospherics/unary/portables_connector/process_atmos()
-	..()
+/obj/machinery/atmospherics/unary/portables_connector/process_atmos(seconds)
 	if(!connected_device)
-		return 0
+		return FALSE
 
 	if(parent)
-		parent.update = 1
+		parent.update = TRUE
 		connected_device.update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/atmospherics/unary/portables_connector/wrench_act(mob/living/user, obj/item/I)

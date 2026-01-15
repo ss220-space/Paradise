@@ -88,7 +88,7 @@
 		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
 			arrived_mob.pulling.attackby(bag, arrived)
 
-/obj/item/stack/ore/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/stack/ore/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	if(isnull(refined_type))
 		return

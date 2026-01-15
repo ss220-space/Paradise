@@ -165,7 +165,8 @@
 								/obj/item/implanter/stealth = 1,											// 40 TK
 								/obj/item/implanter/freedom = 1,											// 20 TK
 								/obj/item/implanter/emp = 1,												// 0-10 TK
-								/obj/item/implanter/adrenalin = 1,											// 40 TK
+								/obj/item/implanter/adrenalin = 1,											// 28 TK
+								/obj/item/implanter/heal = 1,												// 24 TK
 								/obj/item/implanter/explosive = 1,											// 10 TK
 								/obj/item/implanter/storage = 1,											// 30 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK

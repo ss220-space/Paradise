@@ -172,10 +172,10 @@
 	assemblytype = /obj/structure/door_assembly/door_assembly_plasma
 	paintable = FALSE
 
-/obj/machinery/door/airlock/plasma/temperature_expose(temperature, volume)
+/obj/machinery/door/airlock/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
-		PlasmaBurn(temperature)
+	if(exposed_temperature > 300)
+		PlasmaBurn(exposed_temperature)
 
 /obj/machinery/door/airlock/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
