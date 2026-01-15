@@ -41,8 +41,6 @@
 		"cyan" = "#18a2d5",
 		"yellow" = "#ffa500"
 	)
-	/// Colored belt appearance for adding it as a belt overlay
-	var/mutable_appearance/colored_belt_appearance
 
 /obj/item/screwdriver/get_ru_names()
 	return list(
@@ -54,10 +52,6 @@
 		PREPOSITIONAL = "отвёртке"
 	)
 
-/obj/item/screwdriver/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/surgery_initiator/robo)
-
 /obj/item/screwdriver/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в [pick("висок", "сердце")]! Это похоже на попытку самоубийства!"))
 	return BRUTELOSS
@@ -66,11 +60,12 @@
 	if(random_color)
 		var/our_color = param_color || pick(screwdriver_colors)
 		set_greyscale_colors(list(screwdriver_colors[our_color]))
-		colored_belt_appearance = mutable_appearance(SSgreyscale.get_colored_icon_by_type(/datum/greyscale_config/screwdriver_belt, greyscale_colors))
 	. = ..()
 	if(prob(75))
 		pixel_y = rand(0, 16)
 
+
+	AddComponent(/datum/component/surgery_initiator/robo)
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
 /obj/item/screwdriver/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

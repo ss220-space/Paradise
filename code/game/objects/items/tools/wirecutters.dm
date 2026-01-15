@@ -45,8 +45,6 @@
 		"cyan" = "#18a2d5",
 		"yellow" = "#d58c18"
 	)
-	/// Colored belt appearance for adding it as a belt overlay
-	var/mutable_appearance/colored_belt_appearance
 
 /obj/item/wirecutters/get_ru_names()
 	return list(
@@ -63,7 +61,6 @@
 		var/our_color = param_color || pick(wirecutter_colors)
 		set_greyscale_colors(list(wirecutter_colors[our_color]))
 		item_state = null
-		colored_belt_appearance = mutable_appearance(SSgreyscale.get_colored_icon_by_type(/datum/greyscale_config/wirecutters_belt, greyscale_colors))
 	. = ..()
 	AddElement(/datum/element/falling_hazard, damage = force, hardhat_safety = TRUE, crushes = FALSE, impact_sound = hitsound)
 
