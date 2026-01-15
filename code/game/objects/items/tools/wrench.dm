@@ -184,7 +184,7 @@
 /obj/item/wrench/industrial
 	name = "industrial wrench"
 	desc = "Инструмент, используемый для закручивания и откручивания гаек и болтов. \
-			Инструмент удобнее лежит в руке чем обычный, из за чего работать с ним легче."
+			Использует храповой механизм "трещотку", что повышает скорость работы."
 	icon_state = "wrench_industrial"
 	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
