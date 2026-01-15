@@ -2279,7 +2279,7 @@
 "auB" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Hangar";
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
