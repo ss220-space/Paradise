@@ -592,7 +592,7 @@
 	name = "Syndicate agent remains"
 	},
 /obj/effect/decal/cleanable/blood/splatter,
-/obj/item/clothing/shoes/brown,
+/obj/item/clothing/shoes/color/brown,
 /obj/item/toy/sword,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -1409,9 +1409,7 @@
 	},
 /area/awaymission/research)
 "el" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},

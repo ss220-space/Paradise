@@ -1561,6 +1561,14 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 
 		log_and_message_admins("atom_said on behalf of [object] the following: [say_text].")
 
+	if(href_list["modify_greyscale"])
+		if(!check_rights(NONE))
+			return
+		var/atom/object = locateUID(href_list["modify_greyscale"])
+		var/datum/greyscale_modify_menu/menu = new(object, usr, SSgreyscale.configurations)
+		menu.unlock()
+		menu.ui_interact(usr)
+
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])
 		debug_variables(locate(href_list["VarsList"]))

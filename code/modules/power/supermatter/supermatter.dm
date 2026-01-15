@@ -357,7 +357,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_cr
 	set waitfor = FALSE
 
 	if(final_countdown) // We're already doing it go away
-		stack_trace("[src] told to delaminate again while it's already delaminating.")
+		//stack_trace("[src] told to delaminate again while it's already delaminating.")
 		return
 
 	notify_ghosts(

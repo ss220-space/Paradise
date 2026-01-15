@@ -70,7 +70,7 @@
 	. = ..()
 	smoke.start()
 
-/mob/living/simple_animal/imp/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/mob/living/simple_animal/imp/fire_act(exposed_temperature, exposed_volume)
 	return FALSE
 
 /datum/antagonist/imp

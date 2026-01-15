@@ -282,7 +282,7 @@
 		var/mob/living/carbon/human = A
 		human.fire_act()
 
-/obj/item/arrow/rod/fire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/obj/item/arrow/rod/fire/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	fire_up(user = null)
 

@@ -932,8 +932,8 @@
 	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
 
 /obj/item/storage/box/wizard/kit_spell_book/populate_contents()
-		for(var/i = 1 to 4)
-				new /obj/item/spellbook/oneuse/random(src)
+	for(var/i in 1 to 4)
+		new /obj/item/spellbook/oneuse/random(src)
 
 /obj/item/storage/box/hardsuit
 	icon_state = "box_ert"
@@ -1193,7 +1193,7 @@
 /obj/item/storage/box/bombsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)
 	new /obj/item/clothing/under/rank/security(src)
-	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/color/brown(src)
 	new /obj/item/clothing/head/bomb_hood/security(src)
 
 /*

@@ -858,19 +858,25 @@ ADMIN_VERB(clear_legacy_asset_cache, R_DEBUG, "Clear Legacy Asset Cache", "Clear
 	if(!CONFIG_GET(flag/cache_assets))
 		to_chat(user, span_warning("Asset caching is disabled in the config!"))
 		return
-
-	log_and_message_admins("starts asset cache regeneration.")
 	var/regenerated = 0
-
 	for(var/datum/asset/target_spritesheet as anything in subtypesof(/datum/asset))
 		if(!initial(target_spritesheet.cross_round_cachable))
 			continue
-
 		if(target_spritesheet == initial(target_spritesheet._abstract))
 			continue
-
 		var/datum/asset/asset_datum = GLOB.asset_datums[target_spritesheet]
 		asset_datum.regenerate()
 		regenerated++
-
 	to_chat(user, span_notice("Regenerated [regenerated] asset\s."))
+
+ADMIN_VERB(clear_smart_asset_cache, R_DEBUG, "Clear Smart Asset Cache", "Clear the smart asset cache, causing it to regenerate next round.", ADMIN_CATEGORY_DEBUG)
+	if(!CONFIG_GET(flag/smart_cache_assets))
+		to_chat(user, span_warning("Smart asset caching is disabled in the config!"))
+		return
+	var/cleared = 0
+	for(var/datum/asset/spritesheet_batched/target_spritesheet as anything in subtypesof(/datum/asset/spritesheet_batched))
+		if(target_spritesheet == initial(target_spritesheet._abstract))
+			continue
+		fdel("[ASSET_CROSS_ROUND_SMART_CACHE_DIRECTORY]/spritesheet_cache.[initial(target_spritesheet.name)].json")
+		cleared++
+	to_chat(user, span_notice("Cleared [cleared] asset\s."))

@@ -74,7 +74,7 @@
 	for(var/pipe_datum in GLOB.construction_pipe_list)
 		var/datum/pipes/pipe_instance = pipe_datum
 		if(pipe_instance.rpd_dispensable)
-			GLOB.rpd_pipe_list += list(list("pipe_name" = pipe_instance.pipe_name, "pipe_id" = pipe_instance.pipe_id, "pipe_type" = pipe_instance.pipe_type, "pipe_category" = pipe_instance.pipe_category, "orientations" = pipe_instance.orientations, "pipe_icon" = pipe_instance.pipe_icon, "bendy" = pipe_instance.bendy))
+			GLOB.rpd_pipe_list += list(list("pipe_name" = pipe_instance.pipe_name, "pipe_id" = pipe_instance.pipe_id, "pipe_type" = pipe_instance.pipe_type, "pipe_category" = pipe_instance.pipe_category, "orientations" = pipe_instance.orientations, "pipe_icon" = pipe_instance.pipe_icon, "pipe_icon_file" = pipe_instance.pipe_icon_file, "bendy" = pipe_instance.bendy))
 
 	// Setup PAI software
 	for(var/software_type in subtypesof(/datum/pai_software))

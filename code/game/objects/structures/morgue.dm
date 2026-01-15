@@ -642,6 +642,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 /obj/item/circuitboard/machine/crematorium
 	board_name = "Crematorium"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/crematorium
 	origin_tech = "engineering=4;powerstorage=4"
 	req_components = list(

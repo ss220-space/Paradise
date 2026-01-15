@@ -629,6 +629,7 @@
 /obj/item/circuitboard/bci_implanter
 	board_name = "Brain-Computer Interface Manipulation Chamber"
 	build_path = /obj/machinery/bci_implanter
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
 	req_components = list(

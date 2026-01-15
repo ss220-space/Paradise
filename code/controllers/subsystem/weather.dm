@@ -2,7 +2,7 @@
 SUBSYSTEM_DEF(weather)
 	name = "Weather"
 	flags = SS_BACKGROUND
-	wait = 10
+	wait = 1 SECONDS
 	runlevels = RUNLEVEL_GAME
 	offline_implications = "Ash storms will no longer trigger. No immediate action is needed."
 	ss_id = "weather"
