@@ -104,6 +104,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "cutters_brass"
 	belt_icon = "cutters_brass"
+	post_init_icon_state = null
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
@@ -130,6 +131,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	item_state = "cutters_alien"
 	belt_icon = "alien_wirecutters"
+	post_init_icon_state = null
 	toolspeed = 0.1
 	origin_tech = "materials=5;engineering=4;abductor=3"
 	random_color = FALSE
@@ -178,6 +180,7 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_colors = null
+	post_init_icon_state = null
 	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	usesound = 'sound/items/jaws_cut.ogg'
