@@ -356,7 +356,7 @@
 
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert

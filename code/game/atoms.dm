@@ -5,6 +5,8 @@
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
+	/// Flags that make this object harder to destroy, e.g. [ACID_PROOF], [FIRE_PROOF], [INDESTRUCTIBLE].
+	var/resistance_flags = NONE
 	var/flags_ricochet = NONE
 	var/list/fingerprints
 	var/list/fingerprints_time
@@ -20,6 +22,9 @@
 	var/bubble_icon = "default" ///what icon the mob uses for speechbubbles
 	var/bubble_emote_icon = "emote" ///what icon the mob uses for emotebubbles
 	var/dont_save = FALSE // For atoms that are temporary by necessity - like lighting overlays
+	/// The icon state that will be switched to during initialization.
+	/// Mostly intended for things that have a special map icon.
+	var/post_init_icon_state
 
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
@@ -75,6 +80,11 @@
 	var/list/atom_colours	 //used to store the different colors on an atom
 						//its inherent color, the colored paint applied on it, special color effect etc...
 
+	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config
+	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
+	var/greyscale_colors
+
 	///Light systems, both shouldn't be active at the same time.
 	var/light_system = STATIC_LIGHT
 	///Range of the light in tiles. Zero means no light.
@@ -98,6 +108,8 @@
 	var/chat_color
 	/// A luminescence-shifted value of the last color calculated for chatmessage overlays
 	var/chat_color_darkened
+
+
 	/// Список склонений русского названия атома в разных грамматических падежах.
 	/// Формат: list(CASE_ID = "name_in_case", ...)
 	var/list/ru_names
@@ -196,11 +208,10 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
-	var/list/names = ru_names
 
+	var/list/names = ru_names
 	if(names && !GLOB.cached_ru_names[type])
 		GLOB.cached_ru_names[type] = names
-
 	ru_names = null
 
 	if(flags & INITIALIZED)
@@ -209,6 +220,9 @@
 
 	SET_PLANE_IMPLICIT(src, plane)
 
+	if(greyscale_config && greyscale_colors)
+		update_greyscale()
+
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
 
@@ -216,7 +230,10 @@
 		update_light()
 
 	if(loc)
-		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+
+	if(post_init_icon_state)
+		icon_state = post_init_icon_state
 
 	SETUP_SMOOTHING()
 
@@ -231,9 +248,6 @@
 
 // Put your AddComponent() calls here
 /atom/proc/ComponentInitialize()
-	return
-
-/atom/proc/InitializedOn(atom/A) // Proc for when something is initialized on a atom - Optional to call. Useful for observer pattern etc.
 	return
 
 /atom/proc/onCentcom()
@@ -626,6 +640,31 @@
 	RETURN_TYPE(/list)
 	. = list()
 
+/// Checks if the colors given are different and if so causes a greyscale icon update
+/atom/proc/set_greyscale_colors(list/colors, update = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	if(istype(colors))
+		colors = colors.Join("")
+	if(greyscale_colors == colors)
+		return
+	greyscale_colors = colors
+	if(!greyscale_config)
+		return
+	if(update && greyscale_config && greyscale_colors)
+		update_greyscale()
+
+/// Checks if the greyscale config given is different and if so causes a greyscale icon update
+/atom/proc/set_greyscale_config(new_config, update=TRUE)
+	if(greyscale_config == new_config)
+		return
+	greyscale_config = new_config
+	if(update && greyscale_config && greyscale_colors)
+		update_greyscale()
+
+/// Checks if this atom uses the GAS system and if so updates the icon
+/atom/proc/update_greyscale()
+	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
+
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()
 	return
@@ -696,7 +735,7 @@
 /atom/proc/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	return TRUE
 
-/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/atom/proc/fire_act(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
@@ -1418,6 +1457,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	.["Transform editor"] = "byond://?_src_=vars;matrix_tester=[UID()]"
 	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
 	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
+	.["Modify greyscale colors"] = "byond://?_src_=vars;modify_greyscale=[UID()]"
 
 /// Are you allowed to drop stuff inside this atom
 /atom/proc/AllowDrop()
@@ -1814,10 +1854,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	CRASH("Unimplemented get_explosion_block()")
 
 /**
-* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
-*
-* This will work fine without manually passing arguments.
-+*/
+ * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
+ *
+ * This will work fine without manually passing arguments.
+ */
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)

@@ -532,7 +532,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
-	setDir(2)//reset dir so the right directional sprites show up
+	setDir(SOUTH)//reset dir so the right directional sprites show up
 	return ..()
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
@@ -629,19 +629,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/ai = target
-		. = FOLLOW_LINK_WITH_DISPLAY(ghost, ai, "ядро")
+		. = FOLLOW_LINK_WITH_DISPLAY(ghost, ai, "ЯДРО")
 		if(ai.client && ai.eyeobj) // No point following clientless AI eyes
-			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, ai.eyeobj, "глаз")]"
+			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, ai.eyeobj, "ОКО")]"
 		return
 
 	else if(isobserver(target))
 		var/mob/dead/observer/observer = target
-		. = FOLLOW_LINK_WITH_DISPLAY(ghost, target, "следовать")
+		. = FOLLOW_LINK_WITH_DISPLAY(ghost, target, "СЛЕД")
 		if(observer.mind && observer.mind.current)
-			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, observer.mind.current, "тело")]"
+			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, observer.mind.current, "ТЕЛО")]"
 		return
 	else
-		return FOLLOW_LINK_WITH_DISPLAY(ghost, target, "следовать")
+		return FOLLOW_LINK_WITH_DISPLAY(ghost, target, "СЛЕД")
 
 //BEGIN TELEPORT HREF CODE
 /mob/dead/observer/Topic(href, href_list)

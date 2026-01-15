@@ -52,6 +52,16 @@
 	var/regex/alphanum_only = regex("\[^a-zA-Z0-9# ,.?!:;()]", "g")
 	return alphanum_only.Replace(t, "#")
 
+/proc/random_string(length, list/characters)
+	. = ""
+	for(var/i in 1 to length)
+		. += pick(characters)
+
+/proc/repeat_string(times, string = "")
+	. = ""
+	for(var/i in 1 to times)
+		. += string
+
 /// Runs sanitize and strip_html_simple
 /// I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(t, limit=MAX_MESSAGE_LEN)

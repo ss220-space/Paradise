@@ -291,7 +291,7 @@
 	new /obj/item/storage/firstaid/toxin(src)
 	new /obj/item/clothing/suit/storage/brigdoc(src)
 	new /obj/item/clothing/under/rank/security/brigphys(src)
-	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/color/white(src)
 	new /obj/item/sensor_device/advanced/security(src)
 	new /obj/item/radio/headset/headset_brigphys(src)
 	new /obj/item/clothing/shoes/sandal/white(src)
@@ -406,7 +406,7 @@
 	req_access = list(ACCESS_COURT)
 
 /obj/structure/closet/secure_closet/courtroom/populate_contents()
-	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/color/brown(src)
 	new /obj/item/paper/Court (src)
 	new /obj/item/paper/Court (src)
 	new /obj/item/paper/Court (src)

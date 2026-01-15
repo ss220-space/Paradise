@@ -643,3 +643,25 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return "правая ступня"
 		else
 			stack_trace("Wrong zone input.")
+
+/// Returns a list(x, y), being the change in position required to step in the passed in direction
+/proc/dir2offset(dir)
+	switch(dir)
+		if(NORTH)
+			return list(0, 1)
+		if(SOUTH)
+			return list(0, -1)
+		if(EAST)
+			return list(1, 0)
+		if(WEST)
+			return list(-1, 0)
+		if(NORTHEAST)
+			return list(1, 1)
+		if(SOUTHEAST)
+			return list(1, -1)
+		if(NORTHWEST)
+			return list(-1, 1)
+		if(SOUTHWEST)
+			return list(-1, -1)
+		else
+			return list(0, 0)

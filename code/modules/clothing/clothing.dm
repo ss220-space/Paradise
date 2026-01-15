@@ -2,6 +2,7 @@
 	name = "clothing"
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
+	abstract_type = /obj/item/clothing
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/gunshot_residue //Used by forensics.
 	var/obj/item/slimepotion/clothing/applied_slime_potion = null
@@ -196,6 +197,7 @@
 	throwforce = 2
 	slot_flags = ITEM_SLOT_EARS
 	resistance_flags = NONE
+	abstract_type = /obj/item/clothing/ears
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
@@ -266,6 +268,7 @@
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
+	abstract_type = /obj/item/clothing/glasses
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
@@ -340,6 +343,7 @@
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("на дуэль вызвал")
 	clothing_flags = FINGERS_COVERED
+	abstract_type = /obj/item/clothing/gloves
 	var/transfer_prints = FALSE
 	var/pickpocket = FALSE //Master pickpocket?
 	var/clipped = FALSE
@@ -708,6 +712,7 @@
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
+	abstract_type = /obj/item/clothing/shoes
 	gender = PLURAL //Carn: for grammatically correct text-parsing
 	//var/chained = 0
 	var/can_cut_open = FALSE
@@ -847,6 +852,7 @@
 	name = "suit"
 	gender = MALE
 	icon = 'icons/obj/clothing/suits.dmi'
+	abstract_type = /obj/item/clothing/suit
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
@@ -1095,6 +1101,7 @@
 	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
+	abstract_type = /obj/item/clothing/under
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -1324,6 +1331,7 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = ITEM_SLOT_NECK
+	abstract_type = /obj/item/clothing/neck
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
