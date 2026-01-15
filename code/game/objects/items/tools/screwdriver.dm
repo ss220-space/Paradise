@@ -27,6 +27,7 @@
 	greyscale_config = /datum/greyscale_config/screwdriver
 	greyscale_config_inhand_left = /datum/greyscale_config/screwdriver_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/screwdriver_inhand_right
+	greyscale_config_belt = /datum/greyscale_config/screwdriver_belt
 	greyscale_colors = COLOR_TOOL_RED
 	/// If the item should be assigned a random color
 	var/random_color = TRUE
@@ -93,6 +94,7 @@
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	greyscale_colors = null
 
 /obj/item/screwdriver/nuke/get_ru_names()
@@ -104,15 +106,6 @@
 		INSTRUMENTAL = "ультратонкой отвёрткой",
 		PREPOSITIONAL = "ультратонкой отвёртке"
 	)
-
-/obj/item/screwdriver/get_belt_overlay()
-	if(random_color)
-		return colored_belt_appearance
-
-	if(!belt_icon)
-		return
-
-	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"
@@ -128,6 +121,7 @@
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	greyscale_colors = null
 
 /obj/item/screwdriver/brass/get_ru_names()
@@ -155,6 +149,7 @@
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	greyscale_colors = null
 
 /obj/item/screwdriver/abductor/get_ru_names()
@@ -197,6 +192,7 @@
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	greyscale_colors = null
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2" // done for balance reasons, making them high value for research, but harder to get

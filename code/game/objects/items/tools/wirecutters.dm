@@ -8,7 +8,7 @@
 	item_state = "cutters"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
-	belt_icon = "wirecutters"
+	belt_icon = "cutters"
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 6
@@ -31,6 +31,7 @@
 	greyscale_config = /datum/greyscale_config/wirecutters
 	greyscale_config_inhand_left = /datum/greyscale_config/wirecutters_inhand_left
 	greyscale_config_inhand_right = /datum/greyscale_config/wirecutters_inhand_right
+	greyscale_config_belt = /datum/greyscale_config/wirecutters_belt
 	greyscale_colors = COLOR_RED
 	/// If the item should be assigned a random color
 	var/random_color = TRUE
@@ -88,15 +89,6 @@
 	playsound(loc, usesound, 50, TRUE, -1)
 	return BRUTELOSS
 
-/obj/item/wirecutters/get_belt_overlay()
-	if(random_color)
-		return colored_belt_appearance
-
-	if(!belt_icon)
-		return
-
-	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)
-
 /obj/item/wirecutters/brass
 	name = "brass wirecutters"
 	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
@@ -108,6 +100,7 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_colors = null
+	greyscale_config_belt = null
 	toolspeed = 0.5
 	random_color = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -136,6 +129,7 @@
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	greyscale_colors = null
 
 /obj/item/wirecutters/abductor/get_ru_names()
@@ -177,6 +171,7 @@
 	greyscale_config = null
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	greyscale_config_belt = null
 	greyscale_colors = null
 	origin_tech = "materials=2;engineering=2"
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
