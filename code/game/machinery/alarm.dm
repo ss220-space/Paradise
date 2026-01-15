@@ -641,7 +641,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/known_total = environment.oxygen() + environment.nitrogen() + environment.carbon_dioxide() + environment.toxins() + environment.sleeping_agent() + environment.hydrogen() + environment.water_vapor()
-	var/total = environment.total_moles()
+	var/total = environment.total_moles() || 1
 
 	var/datum/tlv/cur_tlv
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.return_volume()
