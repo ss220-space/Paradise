@@ -61,7 +61,7 @@
 	imp_in.apply_status_effect(/datum/status_effect/adrenaline)
 
 	imp_in.AdjustBlood(-67.2)
-	imp_in.adjust_nutrition(-150)
+	imp_in.adjust_nutrition(-50)
 
 	return TRUE
 
