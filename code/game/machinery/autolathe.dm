@@ -463,6 +463,7 @@
 
 		remove_from_queue(1)
 		build_item(D,multiplier)
+		playsound(loc, 'sound/machines/rnd_machines/lathe_print.ogg', 50, TRUE, -1, use_reverb = TRUE)
 		D = listgetindex(listgetindex(queue, 1),1)
 		multiplier = listgetindex(listgetindex(queue,1),2)
 	being_built = new /list()
