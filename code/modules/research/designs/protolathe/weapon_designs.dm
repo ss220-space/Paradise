@@ -141,7 +141,7 @@
 
 /datum/design/hp45colt
 	id = "hp45colt"
-	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MATERIALS = 3)
+	req_tech = list(RESEARCH_TREE_COMBAT = 3, RESEARCH_TREE_MATERIALS = 3)
 	build_type = PROTOLATHE | AUTOLATHE
 	materials = list(MAT_METAL = 44500, MAT_SILVER = 2000)
 	build_path = /obj/item/ammo_box/expansive45colt
