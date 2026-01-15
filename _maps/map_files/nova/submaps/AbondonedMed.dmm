@@ -1556,9 +1556,7 @@
 	tag = ""
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -1966,9 +1964,7 @@
 /obj/structure/reagent_dispensers/fueltank,
 /obj/effect/turf_decal/delivery/red,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 32
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "yellow"

@@ -1486,11 +1486,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/cafe)
-"ef" = (
-/obj/structure/largecrate,
-/obj/effect/decal/warning_stripes/northeast,
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
 "eg" = (
 /turf/simulated/wall/shuttle{
 	icon_state = "swall0"
@@ -1688,11 +1683,6 @@
 "eF" = (
 /turf/simulated/wall/r_wall,
 /area/awaymission/centcomAway/general)
-"eG" = (
-/obj/structure/largecrate,
-/obj/effect/decal/warning_stripes/southwest,
-/turf/simulated/floor/plating,
-/area/awaymission/centcomAway/hangar)
 "eH" = (
 /obj/machinery/space_heater,
 /turf/simulated/floor/plating,
@@ -2702,6 +2692,13 @@
 /area/awaymission/centcomAway/courtroom)
 "hD" = (
 /obj/machinery/door/airlock/titanium,
+/turf/simulated/floor/shuttle,
+/area/awaymission/centcomAway/hangar)
+"hE" = (
+/obj/item/radio/intercom/directional/north,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
 "hF" = (
@@ -6211,7 +6208,12 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/thunderdome)
-"sj" = (
+"vS" = (
+/obj/structure/closet/crate/large,
+/obj/effect/decal/warning_stripes/northeast,
+/turf/simulated/floor/plating,
+/area/awaymission/centcomAway/hangar)
+"yt" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/red,
 /obj/item/clothing/shoes/color/brown,
@@ -6220,13 +6222,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/thunderdome)
-"Gx" = (
-/obj/item/radio/intercom/directional/north,
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle,
-/area/awaymission/centcomAway/hangar)
 "JB" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/tcomms/relay/ruskie{
@@ -6234,7 +6229,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcomAway/general)
-"UK" = (
+"Mb" = (
+/obj/structure/closet/crate/large,
+/obj/effect/decal/warning_stripes/southwest,
+/turf/simulated/floor/plating,
+/area/awaymission/centcomAway/hangar)
+"Yt" = (
 /obj/structure/rack,
 /obj/item/clothing/under/color/green,
 /obj/item/clothing/shoes/color/brown,
@@ -10725,7 +10725,7 @@ gX
 gX
 gX
 bP
-Gx
+hE
 bP
 gX
 aW
@@ -11504,7 +11504,7 @@ jz
 gX
 gX
 bP
-Gx
+hE
 bP
 gX
 gX
@@ -12919,7 +12919,7 @@ dV
 bk
 bk
 bk
-eG
+Mb
 aW
 aW
 aW
@@ -13175,7 +13175,7 @@ aW
 cm
 cm
 aW
-ef
+vS
 en
 ez
 ez
@@ -13369,10 +13369,10 @@ lD
 lD
 lD
 lD
-sj
-sj
-sj
-sj
+yt
+yt
+yt
+yt
 pD
 pF
 om
@@ -17009,10 +17009,10 @@ om
 om
 om
 lD
-UK
-UK
-UK
-UK
+Yt
+Yt
+Yt
+Yt
 pE
 pF
 om

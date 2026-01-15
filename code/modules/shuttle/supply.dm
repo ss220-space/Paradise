@@ -157,7 +157,7 @@
 			quest_reward += SScargo_quests.check_delivery(MA)
 
 		// Must be in a crate (or a critter crate)!
-		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
+		if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/crate/critter))
 			SSshuttle.sold_atoms += ":"
 			if(!length(MA.contents))
 				SSshuttle.sold_atoms += " (пусто)"
@@ -234,8 +234,8 @@
 								objective.unit_completed(round(cost / 3))
 						msg += "[tech.name] — новые данные.<br>"
 
-		if(istype(MA, /obj/structure/closet/critter/mecha))
-			var/obj/structure/closet/critter/mecha/crate = MA
+		if(istype(MA, /obj/structure/closet/crate/critter/mecha))
+			var/obj/structure/closet/crate/critter/mecha/crate = MA
 			if(crate.console && crate.quest)
 				for(var/category in crate.quest.reward)
 					crate.quest.reward[category] -= crate.penalty
@@ -376,8 +376,8 @@
 			A:amount = object.amount
 		slip.info += "<li>[A.declent_ru(NOMINATIVE)]</li>"	//add the item to the manifest (even if it was misplaced)
 
-	if(istype(Crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
-		var/obj/structure/closet/critter/CritCrate = Crate
+	if(istype(Crate, /obj/structure/closet/crate/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
+		var/obj/structure/closet/crate/critter/CritCrate = Crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[crittername.declent_ru(NOMINATIVE)]</li>"
@@ -401,8 +401,8 @@
 		CR.manifest = slip
 		CR.update_icon(UPDATE_OVERLAYS)
 		CR.announce_beacons = object.announce_beacons.Copy()
-	if(istype(Crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = Crate
+	if(istype(Crate, /obj/structure/closet/crate/large))
+		var/obj/structure/closet/crate/large/LC = Crate
 		LC.manifest = slip
 		LC.update_icon(UPDATE_OVERLAYS)
 
@@ -467,7 +467,7 @@
 /obj/machinery/computer/supplycomp/attack_hand(mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
 		user.balloon_alert(user, "отказано в доступе!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return 1
 
 	if(..())

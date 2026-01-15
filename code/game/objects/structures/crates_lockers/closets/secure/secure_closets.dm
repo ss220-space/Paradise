@@ -68,7 +68,7 @@
 		return
 	if(allowed(user))
 		locked = !locked
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
+		playsound(loc, SFX_CLOSET_TOGGLE_LOCK, 15, TRUE, -3)
 		visible_message(span_notice("The locker has been [locked ? null : "un"]locked by [user]."))
 		update_icon()
 	else

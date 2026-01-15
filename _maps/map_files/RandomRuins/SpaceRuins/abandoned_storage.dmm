@@ -236,7 +236,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "dZ" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/machinery/light/small{
 	dir = 4;
 	on = 1
@@ -1032,7 +1032,7 @@
 	},
 /area/template_noop)
 "rL" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
@@ -1051,7 +1051,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = -30
 	},
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
@@ -1459,7 +1459,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "zk" = (
-/obj/structure/largecrate/evil,
+/obj/structure/closet/crate/large/evil,
 /turf/simulated/floor/plating/airless{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor13";
@@ -1891,7 +1891,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Hj" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating/airless{
 	icon = 'icons/turf/shuttle/floors.dmi';
 	icon_state = "floor13";
@@ -1933,7 +1933,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Im" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/arrow{
 	dir = 1
 	},
@@ -2082,7 +2082,7 @@
 /area/template_noop)
 "Kg" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Kp" = (
@@ -2617,7 +2617,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Rk" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Rs" = (
@@ -2673,13 +2673,13 @@
 /area/ruin/unpowered)
 "SA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "SG" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "SM" = (
@@ -2699,7 +2699,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Tg" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/machinery/light/small{
 	flickering = 1;
 	on = 1
@@ -2923,11 +2923,11 @@
 /area/ruin/unpowered)
 "VP" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/structure/largecrate/evil,
+/obj/structure/closet/crate/large/evil,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "VZ" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Wa" = (
@@ -3164,7 +3164,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Za" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)

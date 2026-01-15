@@ -85,8 +85,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			AO.amount = object.amount
 		slip.info += "<li>[A.name]</li>"	//add the item to the manifest (even if it was misplaced)
 
-	if(istype(crate, /obj/structure/closet/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
-		var/obj/structure/closet/critter/CritCrate = crate
+	if(istype(crate, /obj/structure/closet/crate/critter)) // critter crates do not actually spawn mobs yet and have no contains var, but the manifest still needs to list them
+		var/obj/structure/closet/crate/critter/CritCrate = crate
 		if(CritCrate.content_mob)
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
@@ -109,8 +109,8 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = slip
 		CR.update_icon(UPDATE_OVERLAYS)
-	if(istype(crate, /obj/structure/largecrate))
-		var/obj/structure/largecrate/LC = crate
+	if(istype(crate, /obj/structure/closet/crate/large))
+		var/obj/structure/closet/crate/large/LC = crate
 		LC.manifest = slip
 		LC.update_icon(UPDATE_OVERLAYS)
 
@@ -348,7 +348,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 			data_storage.sold_atoms += "[MA.name]"
 
 			// Must be in a crate (or a critter crate)!
-			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
+			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/crate/critter))
 				data_storage.sold_atoms += ":"
 				if(!length(MA.contents))
 					data_storage.sold_atoms += " (empty)"
@@ -505,7 +505,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	if(!allowed(user) && !isobserver(user))
 		to_chat(user, span_warning("Access denied."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return 1
 	add_fingerprint(user)
 	ui_interact(user)
