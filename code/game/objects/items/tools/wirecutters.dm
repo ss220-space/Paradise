@@ -220,7 +220,7 @@
 /obj/item/wirecutters/industrial
 	name = "industrial wirecutters"
 	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
-			Инструмент удобнее лежит в руке чем обычный, из за чего работать с ним легче."
+			Челюсти способны сжиматься сильнее, чем у аналогов, что облегчает работу."
 	icon_state = "cutters_industrial"
 	random_color = FALSE
 	toolspeed = 0.6
