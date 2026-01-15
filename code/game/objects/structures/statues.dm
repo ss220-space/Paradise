@@ -109,10 +109,10 @@
 	name = "statue of a xenomorph"
 	icon_state = "xeno"
 
-/obj/structure/statue/plasma/temperature_expose(temperature, volume)
+/obj/structure/statue/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
-		PlasmaBurn(temperature)
+	if(exposed_temperature > 300)
+		PlasmaBurn(exposed_temperature)
 
 /obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
@@ -458,7 +458,7 @@
 	if(I.tool_use_check(user, 0))
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-/obj/structure/statue/unknown/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/statue/unknown/fire_act(exposed_temperature, exposed_volume)
 	if(!lit)
 		light()
 	return ..()
@@ -518,7 +518,7 @@
 
 	return ..()
 
-/obj/structure/snowman/built/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/snowman/built/fire_act(exposed_temperature, exposed_volume)
 	..()
 	qdel(src)
 

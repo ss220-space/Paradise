@@ -19,7 +19,7 @@
 	qdel(src)
 	return FALSE
 
-/obj/effect/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/effect/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/effect/acid_act()
@@ -99,7 +99,7 @@
 /obj/effect/abstract/acid_act()
 	return
 
-/obj/effect/abstract/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/effect/abstract/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/effect/abstract/get_gravity(turf/gravity_turf)

@@ -24,8 +24,6 @@
 	var/integrity_failure = 0
 	/// Damage under this value will be completely ignored.
 	var/damage_deflection = 0
-	/// Flags that make this object harder to destroy, e.g. [ACID_PROOF], [FIRE_PROOF], [INDESTRUCTIBLE].
-	var/resistance_flags = NONE
 	/// If provided, a custom overlay representing being the object being on fire.
 	var/custom_fire_overlay
 	/// How much acid is on this object?
