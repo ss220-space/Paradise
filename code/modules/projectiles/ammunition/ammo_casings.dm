@@ -135,7 +135,7 @@
 
 /obj/item/ammo_casing/c46x30mm
 	desc = "A 4.6x30mm bullet casing."
-	materials = list(MAT_METAL = 500)
+	materials = list(MAT_METAL = 580)
 	caliber = CALIBER_4_DOT_6X30MM
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
@@ -204,13 +204,13 @@
 
 /obj/item/ammo_casing/c45colt/hp
 	desc = "A .45 Colt expansive bullet casing."
-	materials = list(MAT_METAL = 1500)
+	materials = list(MAT_METAL = 1500, MAT_SILVER = 100)
 	projectile_type = /obj/projectile/bullet/c45colt/hp
 	bullet_type = BULLET_TYPE_EXPANSIVE
 
 /obj/item/ammo_casing/c45colt/ap
 	desc = "A .45 Colt armor piercing bullet casing."
-	materials = list(MAT_METAL = 1500)
+	materials = list(MAT_METAL = 1150)
 	projectile_type = /obj/projectile/bullet/c45colt/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
@@ -419,7 +419,7 @@
 	desc = "Лазерный патрон для пистолета \"Блюститель\"."
 	icon_state = "laser-casing"
 	caliber = CALIBER_9MM
-	materials = list(MAT_METAL = 1000)
+	materials = list(MAT_METAL = 1150)
 	projectile_type = /obj/projectile/beam/specter/laser
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
@@ -689,7 +689,7 @@
 /obj/item/ammo_casing/laser
 	desc = "An experimental laser casing."
 	icon_state = "lasercasing"
-	materials = list(MAT_METAL = 2000, MAT_PLASMA = 200)
+	materials = list(MAT_METAL = 1000)
 	caliber = CALIBER_LASER
 	projectile_type = /obj/projectile/beam/laser
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
