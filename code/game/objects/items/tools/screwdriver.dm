@@ -243,7 +243,7 @@
 /obj/item/screwdriver/industrial
 	name = "industrial screwdriver"
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
-			Инструмент удобнее лежит в руке чем обычный, из за чего работать с ним легче."
+			Нескользящие накладки улучшают хват, облегчая работу."
 	icon_state = "screwdriver_industrial"
 	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
