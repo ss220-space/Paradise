@@ -36,6 +36,12 @@
 	outfit = /datum/outfit/job/captain
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+	)
 
 /datum/job/captain/get_access()
 	return get_all_accesses()
@@ -122,6 +128,9 @@
 		/obj/item/melee/baton/ntcane = 1,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
+	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+	)
 
 /datum/job/blueshield
 	title = JOB_TITLE_BLUESHIELD
@@ -158,7 +167,14 @@
 	insurance_type = INSURANCE_TYPE_DELUXE
 	paycheck = PAYCHECK_COMMAND
 	skill_levels = list(
-		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/shields = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/blueshield
@@ -213,6 +229,11 @@
 	alt_titles = list("Judge")
 	outfit = /datum/outfit/job/judge
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/judge
 	name = JOB_TITLE_JUDGE

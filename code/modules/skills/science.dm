@@ -18,11 +18,6 @@
 	name = "Конструирование мехов"
 	desc = "Влияет на скорость постройки мехов и печати их запчастей."
 
-/datum/skill/research/mech_drive
-	id = "research.mech_drive"
-	name = "Управление мехами (подами)"
-	desc = "Влияет на скорость передвижения мехов и подов. Также влияет на скорость разряда батареи."
-
 /datum/skill/research/anomaly
 	id = "research.anomaly"
 	name = "Обращение с аномалиями"

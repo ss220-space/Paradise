@@ -19,7 +19,7 @@
 	exp_type = EXP_TYPE_SUPPLY
 	outfit = /datum/outfit/job/qm
 	skill_levels = list(
-		/datum/skill/cargo/carring = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/carring = SKILL_LEVEL_PROFESSIONAL,
 	)
 
 /datum/outfit/job/qm
@@ -61,7 +61,7 @@
 	alt_titles = list("Supply Manager", "Loader")
 	outfit = /datum/outfit/job/cargo_tech
 	skill_levels = list(
-		/datum/skill/cargo/carring = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/general/carring = SKILL_LEVEL_PROFESSIONAL,
 	)
 
 /datum/outfit/job/cargo_tech
@@ -86,7 +86,7 @@
 	outfit = /datum/outfit/job/mining
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	skill_levels = list(
-		/datum/skill/cargo/carring = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/carring = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/mining
@@ -152,7 +152,7 @@
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	exp_type = EXP_TYPE_MEDICAL
 	skill_levels = list(
-		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carring = SKILL_LEVEL_ADVANCED,
 	)
 
 /datum/outfit/job/mining_medic

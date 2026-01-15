@@ -288,7 +288,7 @@
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	outfit = /datum/outfit/job/paramedic
 	skill_levels = list(
-		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carring = SKILL_LEVEL_ADVANCED,
 	)
 
 /datum/outfit/job/paramedic

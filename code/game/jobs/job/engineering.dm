@@ -31,7 +31,7 @@
 		/datum/skill/combat/guns = SKILL_LEVEL_BEGINNER,
 		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
 		//science
-		/datum/skill/research/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
 	)
 
 /datum/outfit/job/chief_engineer
@@ -86,7 +86,7 @@
 		/datum/skill/engineering/atmos = SKILL_LEVEL_BASIC,
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_ADVANCED,
 		//science
-		/datum/skill/research/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/engineer
@@ -128,7 +128,7 @@
 		/datum/skill/engineering/atmos = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
 		//science
-		/datum/skill/research/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/engineer/trainee
@@ -176,7 +176,7 @@
 		/datum/skill/engineering/atmos = SKILL_LEVEL_ADVANCED,
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_BASIC,
 		//science
-		/datum/skill/research/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/atmos
@@ -212,7 +212,7 @@
 		/datum/skill/engineering/atmos = SKILL_LEVEL_BEGINNER,
 		/datum/skill/engineering/lockpick = SKILL_LEVEL_BEGINNER,
 		//science
-		/datum/skill/research/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
 	)
 
 /datum/outfit/job/mechanic

@@ -230,7 +230,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
 	skill_levels = list(
-		/datum/skill/cargo/carring = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carring = SKILL_LEVEL_ADVANCED,
 	)
 
 /datum/outfit/job/brigdoc
