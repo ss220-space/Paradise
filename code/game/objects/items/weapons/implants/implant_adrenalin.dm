@@ -114,3 +114,7 @@
 	desc = "A glass case containing a prototype adrenalin bio-chip."
 	imp = /obj/item/implant/adrenalin/prototype
 
+/obj/item/implant/adrenalin/prototype/create_new_cooldown()
+	var/datum/implant_cooldown/i_cooldown = new
+	i_cooldown.recharge_duration = base_cooldown
+	return i_cooldown
