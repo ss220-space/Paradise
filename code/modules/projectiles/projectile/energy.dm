@@ -1,3 +1,4 @@
+#define ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER 0.1
 /obj/projectile/energy
 	name = "energy"
 	icon_state = "spark"
@@ -65,7 +66,7 @@
 
 /obj/projectile/energy/electrode/proc/process_tasered_effect(mob/living/target)
 	if(target.buckled)
-		target.apply_effect(stamina*0.1, WEAKEN)
+		target.apply_effect(stamina * ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER, WEAKEN)
 
 	if(HAS_TRAIT(target, TRAIT_TASERED))
 		if(target.getStaminaLoss() >= 40)
@@ -538,3 +539,4 @@
 	if(!isclocker(to_heal))
 		return ..()
 	to_heal.heal_overall_damage(0, 75)
+#undef ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER
