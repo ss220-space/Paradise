@@ -117,6 +117,11 @@
 	path = /obj/item/clothing/under/tchaikowsky/highwaistpants
 	whitelisted_species = list(SPECIES_HUMAN)
 
+/datum/gear/racial/lowjeans
+	index_name = "low-rise jeans"
+	path = /obj/item/clothing/under/pants/lowjeans
+	whitelisted_species = list(SPECIES_HUMAN)
+
 /datum/gear/racial/eveningdress
 	index_name = "evening dress"
 	path = /obj/item/clothing/under/tchaikowsky/evening_dress

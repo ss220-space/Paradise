@@ -264,7 +264,8 @@
 //pepperspray
 /obj/item/reagent_containers/spray/pepper
 	name = "pepperspray"
-	desc = "Произведено компанией \"UhangInc\", используется для быстрого ослепления и обезвреживания противника."
+	desc = "Небольшая ёмкость с распылителем, заполненная жгучей смесью на основе перца. Используется для несмертельного обезвреживания \
+			противников. Нюхать не рекомендуется."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"

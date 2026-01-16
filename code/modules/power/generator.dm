@@ -15,6 +15,9 @@
 	var/lastgenlev = -1
 	var/lastcirc = "00"
 
+	var/light_range_on = 1
+	var/light_power_on = 0.1 //just dont want it to be culled by byond.
+
 /obj/machinery/power/generator/Initialize(mapload)
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
@@ -60,21 +63,25 @@
 	updateDialog()
 
 /obj/machinery/power/generator/power_change(forced = FALSE)
+	. = ..()
 	if(!anchored)
 		stat |= NOPOWER
-		update_icon(UPDATE_OVERLAYS)
-		return
-	if(!..())
-		return
+	if((stat & (BROKEN|NOPOWER)))
+		set_light(0)
+	else
+		set_light(light_range_on, light_power_on)
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/power/generator/update_overlays()
 	. = ..()
+	underlays.Cut()
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(lastgenlev != 0)
 		. += "teg-op[lastgenlev]"
+		underlays += emissive_appearance(icon, "teg-op[lastgenlev]", src)
 	. += "teg-oc[lastcirc]"
+	underlays += emissive_appearance(icon, "teg-oc[lastcirc]", src)
 
 /obj/machinery/power/generator/process()
 	if(stat & (NOPOWER|BROKEN))
@@ -147,13 +154,13 @@
 /obj/machinery/power/generator/attack_ghost(mob/user)
 	if(stat & (NOPOWER|BROKEN))
 		return
-	interact(user)
+	ui_interact(user)
 
 /obj/machinery/power/generator/attack_hand(mob/user)
 	if(..())
-		close_window(user, "teg")
 		return
-	interact(user)
+
+	ui_interact(user)
 
 /obj/machinery/power/generator/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -187,57 +194,50 @@
 		connect()
 	to_chat(user, span_notice("You [anchored ? "secure" : "unsecure"] the bolts holding [src] to the floor."))
 
-/obj/machinery/power/generator/proc/get_menu(include_link = 1)
-	var/t = ""
+/obj/machinery/power/generator/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/power/generator/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "TEG",  name)
+		ui.open()
+
+/obj/machinery/power/generator/ui_data(mob/user)
+	var/list/data = list()
 	if(!powernet)
-		t += span_bad("Unable to connect to the power network!")
-		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
+		data["error"] = "Unable to connect to the power network!"
 	else if(cold_circ && hot_circ)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
 		var/datum/gas_mixture/cold_circ_air2 = cold_circ.get_inlet_air()
 		var/datum/gas_mixture/hot_circ_air1 = hot_circ.get_outlet_air()
 		var/datum/gas_mixture/hot_circ_air2 = hot_circ.get_inlet_air()
 
-		t += "<div class='statusDisplay'>"
-
-		t += "Output: [round(lastgen)] W"
-
-		t += "<br>"
-
-		t += "<b><font color='blue'>Cold loop</font></b><br>"
-		t += "Temperature Inlet: [round(cold_circ_air2.temperature(), 0.1)] K / Outlet: [round(cold_circ_air1.temperature(), 0.1)] K<br>"
-		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<br>"
-
-		t += "<b><font color='red'>Hot loop</font></b><br>"
-		t += "Temperature Inlet: [round(hot_circ_air2.temperature(), 0.1)] K / Outlet: [round(hot_circ_air1.temperature(), 0.1)] K<br>"
-		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<br>"
-
-		t += "</div>"
+		data["cold_dir"] = dir2text(cold_dir)
+		data["hot_dir"] = dir2text(hot_dir)
+		data["output_power"] = round(lastgen)
+		// Temps are K, pressures are kPa, power is W
+		data["cold_inlet_temp"] = round(cold_circ_air2.temperature(), 0.1)
+		data["hot_inlet_temp"] = round(hot_circ_air2.temperature(), 0.1)
+		data["cold_outlet_temp"] = round(cold_circ_air1.temperature(), 0.1)
+		data["hot_outlet_temp"] = round(hot_circ_air1.temperature(), 0.1)
+		data["cold_delta_temp"] = data["cold_outlet_temp"] - data["cold_inlet_temp"]
+		data["cold_inlet_pressure"] = round(cold_circ_air2.return_pressure(), 0.1)
+		data["hot_inlet_pressure"] = round(hot_circ_air2.return_pressure(), 0.1)
+		data["cold_outlet_pressure"] = round(cold_circ_air1.return_pressure(), 0.1)
+		data["hot_outlet_pressure"] = round(hot_circ_air1.return_pressure(), 0.1)
+		data["warning_switched"] = (data["cold_inlet_temp"] > data["hot_inlet_temp"])
+		data["warning_cold_pressure"] = (data["cold_inlet_pressure"] < 1000)
+		data["warning_hot_pressure"] = (data["hot_inlet_pressure"] < 1000)
 	else
-		t += span_bad("Unable to locate all parts!")
-		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
-	if(include_link)
-		t += "<br><a href='byond://?src=[UID()];close=1'>Close</a>"
+		data["error"] = "Unable to locate all parts!"
+	return data
 
-	return t
-
-/obj/machinery/power/generator/interact(mob/user)
-	user.set_machine(src)
-
-	var/datum/browser/popup = new(user, "teg", "Thermo-Electric Generator", 460, 300, src)
-	popup.set_content(get_menu())
-	popup.open()
-	return 1
-
-/obj/machinery/power/generator/Topic(href, href_list)
+/obj/machinery/power/generator/ui_act(action, params)
 	if(..())
-		return 0
-	if(href_list["close"])
-		close_window(usr, "teg")
-		usr.unset_machine()
-		return 0
-	if(href_list["check"])
+		return
+	if(action == "check")
 		if(!powernet || !cold_circ || !hot_circ)
 			connect()
-	return 1
+			return TRUE
 

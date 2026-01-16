@@ -152,7 +152,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		TLV_H2O = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 		TLV_OTHER = new/datum/tlv(-1.0, -1.0, 0.5, 1.0), // Partial pressure, kpa
 		TLV_PRESSURE = new/datum/tlv(ONE_ATMOSPHERE * 0.80, ONE_ATMOSPHERE * 0.90, ONE_ATMOSPHERE * 1.10, ONE_ATMOSPHERE * 1.20), /* kpa */
-		TLV_TEMPERATURE = new/datum/tlv(T0C, T0C + 10, T0C + 40, T0C + 66), // K
+		TLV_TEMPERATURE = new/datum/tlv(COLD_WARNING_1, COLD_WARNING_1 + 10, HEAT_WARNING_1 - 27, HEAT_WARNING_1), // K
 	)
 	switch(preset)
 		if(AALARM_PRESET_VOX)
@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.volume
 	var/datum/tlv/cur_tlv
 
-	cur_tlv = TLV["pressure"]
+	cur_tlv = TLV[TLV_PRESSURE]
 	var/environment_pressure = environment.return_pressure()
 	var/pressure_dangerlevel = cur_tlv.get_danger_level(environment_pressure)
 	if(environment_pressure < cur_tlv.min2 && mode == AALARM_MODE_FILTERING)
@@ -439,7 +439,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 // TODO refactor radio signals
 /obj/machinery/alarm/proc/apply_mode()
-	var/datum/tlv/pressure_tlv = TLV["pressure"]
+	var/datum/tlv/pressure_tlv = TLV[TLV_PRESSURE]
 	switch(mode)
 		if(AALARM_MODE_FILTERING)
 			for(var/device_id in alarm_area.air_scrub_names)
@@ -641,9 +641,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/known_total = environment.oxygen() + environment.nitrogen() + environment.carbon_dioxide() + environment.toxins() + environment.sleeping_agent() + environment.hydrogen() + environment.water_vapor()
-	var/total = environment.total_moles()
-	if(total == 0)
-		return null
+	var/total = environment.total_moles() || 1
 
 	var/datum/tlv/cur_tlv
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.return_volume()
@@ -660,7 +658,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen() * GET_PP)
 	var/nitrogen_percent = environment.nitrogen() / total * 100
 
-	cur_tlv = TLV[TLV_CO2 ]
+	cur_tlv = TLV[TLV_CO2]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide() * GET_PP)
 	var/co2_percent = environment.carbon_dioxide() / total * 100
 
@@ -833,14 +831,14 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max1", "selected" = selected.max1))
 		thresholds[length(thresholds)]["settings"] += list(list("env" = g, "val" = "max2", "selected" = selected.max2))
 
-	selected = TLV["pressure"]
+	selected = TLV[TLV_PRESSURE]
 	thresholds += list(list("name" = "Pressure", "settings" = list()))
 	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min2", "selected" = selected.min2))
 	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "min1", "selected" = selected.min1))
 	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max1", "selected" = selected.max1))
 	thresholds[length(thresholds)]["settings"] += list(list("env" = "pressure", "val" = "max2", "selected" = selected.max2))
 
-	selected = TLV["temperature"]
+	selected = TLV[TLV_TEMPERATURE]
 	thresholds += list(list("name" = "Temperature", "settings" = list()))
 	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min2", "selected" = selected.min2))
 	thresholds[length(thresholds)]["settings"] += list(list("env" = "temperature", "val" = "min1", "selected" = selected.min1))

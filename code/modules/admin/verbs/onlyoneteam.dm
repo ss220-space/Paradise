@@ -26,7 +26,7 @@
 
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_EAR_LEFT)
 		H.equip_to_slot_or_del(new /obj/item/beach_ball/dodgeball(H), ITEM_SLOT_HAND_RIGHT)
-		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), ITEM_SLOT_FEET)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/white(H), ITEM_SLOT_FEET)
 
 		if(!team_toggle)
 			GLOB.team_alpha += H

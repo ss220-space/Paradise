@@ -12,6 +12,7 @@
 	desc = "Плата портативного сканера блюспейс разлома."
 	build_path = /obj/machinery/brs_portable_scanner
 	icon_state = "scannerplat"
+	greyscale_config = null
 	board_type = "machine"
 	origin_tech = "engineering=4;bluespace=3"
 	req_components = list(

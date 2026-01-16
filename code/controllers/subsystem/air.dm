@@ -387,6 +387,7 @@ SUBSYSTEM_DEF(air)
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/list/supermatters = list()
 
 	while(length(currentrun))
 		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
@@ -396,6 +397,33 @@ SUBSYSTEM_DEF(air)
 			atmos_machinery.Remove(atmos_machine)
 
 		if(MC_TICK_CHECK)
+			return
+
+	while(length(currentrun))
+		var/obj/machinery/atmospherics/atmos_machine = currentrun[length(currentrun)]
+		currentrun.len--
+
+		if(istype(atmos_machine, /obj/machinery/atmospherics/supermatter_crystal))
+			supermatters += atmos_machine
+
+		else if(isnull(atmos_machine) || (atmos_machine.process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery -= atmos_machine
+
+		if(MC_TICK_CHECK)
+			for(var/supermatter in supermatters)
+				currentrun += supermatter
+			return
+
+	while(length(supermatters))
+		var/obj/machinery/atmospherics/supermatter_crystal/supermatter = supermatters[length(supermatters)]
+		supermatters.len--
+
+		if(isnull(supermatter) || (supermatter.process_atmos(seconds) == PROCESS_KILL))
+			atmos_machinery -= supermatter
+
+		if(MC_TICK_CHECK)
+			for(var/other_sm in supermatters)
+				currentrun += other_sm
 			return
 
 /datum/controller/subsystem/air/proc/process_interesting_tiles(resumed = 0)
@@ -433,6 +461,12 @@ SUBSYSTEM_DEF(air)
 			if(istype(simulated_turf))
 				simulated_turf.update_visuals()
 
+		if(reasons & MILLA_INTERESTING_REASON_CONDENSATION)
+			var/turf/simulated/simulated_turf = turf
+			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
+			if(temperature < T100C && istype(simulated_turf))
+				simulated_turf.MakeSlippery(temperature > T0C ? TURF_WET_WATER : TURF_WET_ICE, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
+
 		if(reasons & MILLA_INTERESTING_REASON_HOT)
 			var/temperature = currentrun[offset + MILLA_INDEX_TEMPERATURE]
 			var/fuel_burnt = currentrun[offset + MILLA_INDEX_FUEL_BURNT]
@@ -456,6 +490,12 @@ SUBSYSTEM_DEF(air)
 						simulated_turf.active_hotspot.volume = CELL_VOLUME
 
 				turf.temperature_expose(temperature)
+				var/radiated_temperature = temperature * FIRE_SPREAD_RADIOSITY_SCALE
+				for(var/direction in GLOB.cardinal)
+					var/turf/simulated/wall/wall = get_step(turf, direction)
+					if(istype(wall))
+						wall.adjacent_fire_act(radiated_temperature)
+
 				for(var/atom/movable/item in turf)
 					if(item.cares_about_temperature || !isnull(item.reagents))
 						item.temperature_expose(temperature, CELL_VOLUME)
@@ -481,11 +521,13 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/process_hotspots(resumed = 0)
 	if(!resumed)
 		src.currentrun = hotspots
-		new_hotspots = list()
+		src.new_hotspots = list()
 		hotspot_count = length(src.currentrun)
 
+	var/update_interval = max(1, floor(hotspot_count / 1000))
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
+	var/list/new_hotspots = src.new_hotspots
 	while(length(currentrun))
 		var/turf/simulated/simulated_turf = currentrun[length(currentrun)]
 
@@ -493,7 +535,7 @@ SUBSYSTEM_DEF(air)
 			currentrun.len--
 			continue
 
-		if(simulated_turf.update_hotspot())
+		if(simulated_turf.update_hotspot(update_interval))
 			// Is still a hotspot, keep it.
 			new_hotspots += simulated_turf
 
@@ -810,15 +852,6 @@ SUBSYSTEM_DEF(air)
 	// Disable fire, too.
 	for(var/turf/simulated/simuleated_turf in SSair.hotspots)
 		QDEL_NULL(simuleated_turf.active_hotspot)
-
-/// condenses water on a tile at the specified coordinates
-/proc/condense_water(water_phase, x, y, z)
-	var/turf/simulated/floor/tile =  locate(x, y, z)
-
-	if(!istype(tile))
-		return
-
-	tile.MakeSlippery(water_phase, 7.9 SECONDS, randfloat(7.9 SECONDS, 8.2 SECONDS))
 
 /// Create a subclass of this and implement `on_run` to manipulate tile air safely.
 /datum/milla_safe

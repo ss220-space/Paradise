@@ -81,8 +81,7 @@
 		)
 
 	var/affected_apc_count = 0
-	for(var/thing in GLOB.apcs)
-		var/obj/machinery/power/apc/apc = thing
+	for(var/obj/machinery/power/apc/apc as anything in GLOB.apcs)
 		var/area/current_area = get_area(apc)
 
 		if((current_area.type in skipped_areas_apc) || !is_station_level(apc.z))
@@ -91,16 +90,7 @@
 		if(!prob(probability))
 			continue
 
-		if(apc.wires)
-			if(!apc.wires.is_cut(WIRE_MAIN_POWER1))
-				apc.wires.cut(WIRE_MAIN_POWER1)
-			if(!apc.wires.is_cut(WIRE_MAIN_POWER2))
-				apc.wires.cut(WIRE_MAIN_POWER2)
-
-		if(apc.operating)
-			apc.toggle_breaker()
-
-		current_area.power_change()
+		apc.apc_short()
 		affected_apc_count++
 
 	log_and_message_admins("APC Short Out event has shorted out [affected_apc_count] APCs.")

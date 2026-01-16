@@ -48,7 +48,7 @@
 
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(exposed_temperature, exposed_volume)
 	if(!reagents.total_volume)
 		return
 	..()

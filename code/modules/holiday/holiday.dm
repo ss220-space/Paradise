@@ -86,7 +86,7 @@ GLOBAL_VAR_INIT(new_year_celebration, FALSE)
 	name = NEW_YEAR
 	begin_day = 18 // 13 days early
 	begin_month = DECEMBER
-	end_day = 10 //9 days extra
+	end_day = 12 //1 days extra
 	end_month = JANUARY
 
 /datum/holiday/new_year/celebrate()

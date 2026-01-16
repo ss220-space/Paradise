@@ -42,7 +42,7 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 
 	var/ytdl = CONFIG_GET(string/invoke_youtubedl)
 	if(!ytdl)
-		to_chat(user, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
+		to_chat(user, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential = TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
 		return
 
 	var/web_sound_input = tgui_input_text(user, "Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp", encode = FALSE)
@@ -54,8 +54,8 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 		if(length(web_sound_input))
 			web_sound_input = trim(web_sound_input)
 			if(findtext(web_sound_input, ":") && !findtext(web_sound_input, GLOB.is_http_protocol))
-				to_chat(user, span_boldwarning("Non-http(s) URIs are not allowed."), confidential=TRUE)
-				to_chat(user, span_warning("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."), confidential=TRUE)
+				to_chat(user, span_boldwarning("Non-http(s) URIs are not allowed."), confidential = TRUE)
+				to_chat(user, span_warning("For yt-dlp shortcuts like ytsearch: please use the appropriate full url from the website."), confidential = TRUE)
 				return
 			var/shell_scrubbed_input = shell_url_scrub(web_sound_input)
 			var/list/output = world.shelleo("[ytdl] -x --audio-format mp3 --audio-quality 0 --geo-bypass --no-playlist -o \"cache/songs/%(id)s.%(ext)s\" --dump-single-json --no-simulate \"[shell_scrubbed_input]\"")
@@ -67,8 +67,8 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 				try
 					data = json_decode(stdout)
 				catch(var/exception/e)
-					to_chat(user, span_boldwarning("yt-dlp JSON parsing FAILED:"), confidential=TRUE)
-					to_chat(user, span_warning("[e]: [stdout]"), confidential=TRUE)
+					to_chat(user, span_boldwarning("yt-dlp JSON parsing FAILED:"), confidential = TRUE)
+					to_chat(user, span_warning("[e]: [stdout]"), confidential = TRUE)
 					return
 
 				if(data["url"])
@@ -114,8 +114,8 @@ ADMIN_VERB(play_web_sound, R_SOUNDS, "Play Internet Sound", "Play a given intern
 					log_admin("[key_name(user)] played web sound: [web_sound_input]")
 					message_admins("[key_name(user)] played web sound: [web_sound_input]")
 			else
-				to_chat(user, span_boldwarning("yt-dlp URL retrieval FAILED:"), confidential=TRUE)
-				to_chat(user, span_warning("[stderr]"), confidential=TRUE)
+				to_chat(user, span_boldwarning("yt-dlp URL retrieval FAILED:"), confidential = TRUE)
+				to_chat(user, span_warning("[stderr]"), confidential = TRUE)
 
 		else //pressed ok with blank
 			log_admin("[key_name(user)] stopped web sound")

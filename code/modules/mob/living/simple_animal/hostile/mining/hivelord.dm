@@ -508,7 +508,7 @@
 		if("Shadow")
 			mob_species = /datum/species/shadow
 			uniform = /obj/item/clothing/under/color/black
-			shoes = /obj/item/clothing/shoes/black
+			shoes = /obj/item/clothing/shoes/color/black
 			suit = /obj/item/clothing/suit/storage/labcoat
 			glasses = /obj/item/clothing/glasses/sunglasses/blindfold/black
 			back = /obj/item/tank/internals/oxygen

@@ -26,7 +26,7 @@
 
 	uniform = /obj/item/clothing/under/rank/research_director
 	suit = /obj/item/clothing/suit/storage/labcoat
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/heads/rd
 	id = /obj/item/card/id/rd
 	l_pocket = /obj/item/lighter/zippo/rd
@@ -72,7 +72,7 @@
 
 	uniform = /obj/item/clothing/under/rank/scientist
 	suit = /obj/item/clothing/suit/storage/labcoat/science
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/toxins

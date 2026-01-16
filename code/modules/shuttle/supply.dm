@@ -80,11 +80,11 @@
 	. = ..()
 	if(.)	return .
 
-	buy()
-	sell()
+	buy(S1)
+	sell(S1)
 
-/obj/docking_port/mobile/supply/proc/buy()
-	if(!is_station_level(z))		//we only buy when we are -at- the station
+/obj/docking_port/mobile/supply/proc/buy(obj/docking_port/stationary/destination)
+	if(!is_station_level(destination.z))
 		return 1
 
 	if(!length(SSshuttle.shoppinglist))
@@ -136,8 +136,8 @@
 
 	SSshuttle.shoppinglist.Cut()
 
-/obj/docking_port/mobile/supply/proc/sell()
-	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
+/obj/docking_port/mobile/supply/proc/sell(obj/docking_port/stationary/destination)
+	if(destination.z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
 		return TRUE
 
 	var/crate_count = 0

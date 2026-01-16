@@ -21,8 +21,6 @@
 					things_by_turf[stationary_turf] = list()
 				things_by_turf[stationary_turf] += movable_name
 
-			CHECK_TICK
-
 	for(var/turf in viewers_by_turf)
 		if(!length(viewers_by_turf[turf]) || !length(things_by_turf[turf]))
 			continue
@@ -37,6 +35,8 @@
  * Return `TRUE` if atom was crushed and it must be noticed by viewers of stationary_turf .
  */
 /atom/movable/proc/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)
+	set waitfor = FALSE
+
 	. = FALSE
 	pulledby?.stop_pulling()
 	if(!skip_ungibable_search)
@@ -91,7 +91,7 @@
 	var/list/happy_three_friends = passengers + pilot
 	..()
 	for(var/mob/living/victim as anything in happy_three_friends)
-		victim.shuttle_crush_react(stationary_turf, mobile_dir, TRUE)
+		victim?.shuttle_crush_react(stationary_turf, mobile_dir, TRUE)
 	return TRUE
 
 /obj/structure/closet/shuttle_crush_react(turf/stationary_turf, mobile_dir, skip_ungibable_search = FALSE)

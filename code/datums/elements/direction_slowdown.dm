@@ -4,9 +4,12 @@
 	var/direction
 	var/slowdown_value = 10 // defaults to this value if none is specified
 
-/datum/element/directional_slowdown/Attach(datum/target)
+/datum/element/directional_slowdown/Attach(datum/target, direction, slowdown_value)
 	if(!isliving(target))
 		return ELEMENT_INCOMPATIBLE
+
+	src.direction = direction
+	src.slowdown_value = slowdown_value
 
 	. = ..()
 	RegisterSignal(target, COMSIG_MOB_CLIENT_PRE_LIVING_MOVE, PROC_REF(on_mob_client_pre_living_move))

@@ -36,6 +36,7 @@
 #define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+#define COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED "!subsystems_init_ended"
 
 #define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
 #define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
@@ -280,6 +281,9 @@
 	#define COMPONENT_SKIP_ATTACK (1<<2)
 	///I dont know where and why it was used, but it was used in the same place with cancel chain and had the same value
 	#define COMPONENT_NO_INTERACT (1<<3)
+
+/// Called from atom/Initialize() of target: (atom/target)
+#define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -1584,3 +1588,5 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+#define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"

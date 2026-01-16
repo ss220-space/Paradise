@@ -70,6 +70,8 @@
 			src.pipe_type = PIPE_SCRUBBER
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/passive_gate))
 			src.pipe_type = PIPE_PASSIVE_GATE
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/temperature_gate))
+			src.pipe_type = PIPE_TEMPERATURE_GATE
 		else if(istype(make_from, /obj/machinery/atmospherics/binary/volume_pump))
 			src.pipe_type = PIPE_VOLUME_PUMP
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/heat_exchanger))
@@ -245,6 +247,7 @@
 			PIPE_PUMP ,\
 			PIPE_VOLUME_PUMP ,\
 			PIPE_PASSIVE_GATE ,\
+			PIPE_TEMPERATURE_GATE ,\
 			PIPE_MVALVE, \
 			PIPE_DVALVE, \
 			PIPE_DP_VENT, \
@@ -339,7 +342,7 @@
 			to_chat(user, span_warning("There is already a pipe of the same type at this location."))
 			return 1
 
-	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE))
+	if(pipe_type in list(PIPE_SUPPLY_STRAIGHT, PIPE_SUPPLY_BENT, PIPE_SCRUBBERS_STRAIGHT, PIPE_SCRUBBERS_BENT, PIPE_HE_STRAIGHT, PIPE_HE_BENT, PIPE_SUPPLY_MANIFOLD, PIPE_SCRUBBERS_MANIFOLD, PIPE_SUPPLY_MANIFOLD4W, PIPE_SCRUBBERS_MANIFOLD4W, PIPE_UVENT, PIPE_SUPPLY_CAP, PIPE_SCRUBBERS_CAP, PIPE_PASV_VENT, PIPE_DP_VENT, PIPE_PASSIVE_GATE, PIPE_TEMPERATURE_GATE))
 		if(T.transparent_floor == TURF_TRANSPARENT) //stops jank with transparent floors and pipes
 			to_chat(user, span_warning("You can only fix simple pipes and devices over glass floors!"))
 			return 1
@@ -473,6 +476,12 @@
 
 		if(PIPE_PASSIVE_GATE)		//passive gate
 			var/obj/machinery/atmospherics/binary/passive_gate/P = new(src.loc)
+			if(pipename)
+				P.name = pipename
+			P.on_construction(dir, pipe_dir, color)
+
+		if(PIPE_TEMPERATURE_GATE)		//passive gate
+			var/obj/machinery/atmospherics/binary/temperature_gate/P = new(src.loc)
 			if(pipename)
 				P.name = pipename
 			P.on_construction(dir, pipe_dir, color)

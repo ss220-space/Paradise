@@ -277,3 +277,6 @@
 			H.reagents.remove_reagent(R.id, REAGENTS_METABOLISM)
 			return FALSE
 	return ..()
+
+/datum/species/plasmaman/compressor_grind(location)
+	explosion(location, 0, 1, 2, flame_range = 4)

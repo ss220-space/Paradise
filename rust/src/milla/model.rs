@@ -372,6 +372,7 @@ bitflags! {
         const DISPLAY = 1 << 0;
         const HOT = 1 << 1;
         const WIND = 1 << 2;
+        const CONDENSATION = 1 << 3;
     }
 }
 

@@ -42,7 +42,7 @@
 	new /obj/item/clothing/under/mimeshorts(src)
 	new /obj/item/clothing/suit/suspenders(src)
 	new /obj/item/clothing/gloves/color/white(src)
-	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
 	new /obj/item/toy/crayon/mime(src)
 	new /obj/item/reagent_containers/food/drinks/bottle/bottleofnothing(src)
 	new /obj/item/cane(src)

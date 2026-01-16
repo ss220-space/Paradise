@@ -56,8 +56,7 @@ ADMIN_VERB(power_debug, R_ADMIN, "Check Power", "Verifies the integrity of the p
 
 ADMIN_VERB(raw_gas_scan, R_DEBUG|R_VIEWRUNTIMES, "Raw Gas Scan", "Scans your current tile, including LINDA data not normally displayed.", ADMIN_CATEGORY_DEBUG)
 	var/mob/user_mob = user.mob
-	atmos_scan(user_mob , get_turf(user_mob ), silent = TRUE, milla_turf_details = TRUE)
-
+	atmos_scan(user_mob, get_turf(user_mob), silent = TRUE, milla_turf_details = TRUE)
 
 ADMIN_VERB(teleport_interesting_turf, R_DEBUG|R_VIEWRUNTIMES, "Interesting Turf", "Teleports you to a random Interesting Turf from MILLA", ADMIN_CATEGORY_DEBUG)
 	var/mob/user_mob = user.mob
@@ -81,7 +80,6 @@ ADMIN_VERB(teleport_interesting_turf, R_DEBUG|R_VIEWRUNTIMES, "Interesting Turf"
 #define NOPE "Nope"
 
 ADMIN_VERB(visualize_interesting_turfs, R_DEBUG|R_VIEWRUNTIMES, "Visualize Interesting Turfs", "Shows all the Interesting Turfs from MILLA", ADMIN_CATEGORY_DEBUG)
-
 	if(SSair.interesting_tile_count > 500)
 		// This can potentially iterate through a list thats 20k things long. Give ample warning to the user
 		var/confirm = tgui_alert(user, "WARNING: There are [SSair.interesting_tile_count] Interesting Turfs. This process will be lag intensive and should only be used if the atmos controller is screaming bloody murder. Are you sure you with to continue", "WARNING", list(I_AM_SURE, NOPE))

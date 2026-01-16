@@ -122,6 +122,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 	/// Time required to perform self-healing (2 seconds)
 	var/self_heal_delay = 2 SECONDS
 
+
 /datum/species/golem/proc/get_info_text()
 	return info_text = "Будучи [span_danger("железным големом")], вы не обладаете отличительными особенностями."
 
@@ -238,6 +239,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		GLOB.cached_heal_materials[type] = heal_materials
 		return heal_materials
 	return
+
+/datum/species/golem/compressor_grind(location)
+	new skinned_type(location)
 
 //Random Golem
 
@@ -361,6 +365,9 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/ore/plasma,
 		/obj/item/stack/sheet/mineral/plasma,
 	)
+
+/datum/species/golem/plasma/compressor_grind(location)
+	explosion(location, 0, 1, 3, flame_range = 5)
 
 /datum/action/innate/ignite
 	name = "Поджог"

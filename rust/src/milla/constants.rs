@@ -169,6 +169,9 @@ pub(crate) const AGENT_B_CONVERSION_ENERGY: f32 = 20_000.0;
 /// How much thermal energy is produced, in joules per mole of sleeping agent.
 pub(crate) const NITROUS_BREAKDOWN_ENERGY: f32 = 200_000.0;
 
+/// Minimum moles of water vapor required to initiate condensation.
+pub(crate) const WATER_VAPOR_MIN_SATURATION_MOLES: f32 = 0.001;
+
 // How much thermal energy is produced, in joules per mole of water vapor.
 pub(crate) const WATER_VAPOR_BREAKDOWN_ENERGY: f32 = 200.0;
 
@@ -226,6 +229,8 @@ pub(crate) const WIND_ACCELERATION: f32 = 0.1;
 /// Controls how quickly the wind spreads from tile to tile.
 /// [0.0, f32::INFINITY]
 pub(crate) const WIND_SPEED: f32 = 1.5;
+
+pub(crate) const WIND_SPEED_MULTIPLIER: f32 = WIND_SPEED * BYOND_WIND_MULTIPLIER;
 
 /// A hard cap on how strong wind can become.
 /// [0.0, f32::INFINITY]

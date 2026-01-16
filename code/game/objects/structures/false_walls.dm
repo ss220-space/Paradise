@@ -331,9 +331,9 @@
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
 
-/obj/structure/falsewall/plasma/temperature_expose(temperature, volume)
+/obj/structure/falsewall/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
+	if(exposed_temperature > 300)
 		burnbabyburn()
 
 /obj/structure/falsewall/alien

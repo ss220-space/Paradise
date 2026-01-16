@@ -304,21 +304,15 @@
 /datum/action/item_action/hands_free/create_button()
 	var/atom/movable/screen/movable/action_button/button = ..()
 	var/obj/item/implant/implant = target
-	if(!istype(implant))
-		button.maptext = ""
-		//button.maptext_x = 2
+	if(istype(implant))
+		name = "Активировать [implant.name]"
 	return button
 
 /datum/action/item_action/hands_free/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
-	if(IsAvailable())
-		button.maptext = ""
-		return
 	var/obj/item/implant/implant = target
-	if(!istype(implant))
-		button.maptext = ""
-		return
-	var/text = implant.cooldown_system.cooldown_info()
-	button.maptext = MAPTEXT("<b>[text]</b>")
+	if(istype(implant))
+		status_text = implant.cooldown_system.cooldown_info()
+	. = ..()
 
 /datum/action/item_action/hands_free/activate/always
 	check_flags = NONE
@@ -623,9 +617,9 @@
 	return button
 
 /datum/action/item_action/advanced/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
-	if(charge_type != ADV_ACTION_TYPE_CHARGES)
-		return
-	button.maptext = MAPTEXT("<b>[charge_counter]/[charge_max]</b>")
+	if(charge_type == ADV_ACTION_TYPE_CHARGES)
+		status_text = "<b>[charge_counter]/[charge_max]</b>"
+	. = ..()
 
 	//visuals only
 /datum/action/item_action/advanced/proc/toggle_button_on_off()
