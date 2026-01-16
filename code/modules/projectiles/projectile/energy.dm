@@ -152,9 +152,9 @@
 		carp.gib()
 	if(!isliving(target))
 		return
-	var/mob/living/L = target
-	L.apply_status_effect(STATUS_EFFECT_OXYDOT)
-	L.Jitter(10 SECONDS)
+	var/mob/living/living_target = target
+	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
+	living_target.Jitter(10 SECONDS)
 
 /obj/projectile/energy/bolt/large
 	damage = 20

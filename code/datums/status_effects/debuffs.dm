@@ -250,7 +250,7 @@
 // MARK: oxy_dot
 /datum/status_effect/oxy_dot
 	id = "oxy_dmg_dot"
-	duration = 60
+	duration = 6 SECONDS
 	alert_type = null
 
 /datum/status_effect/oxy_dot/tick(seconds_between_ticks)
