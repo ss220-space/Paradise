@@ -17338,6 +17338,11 @@
 	id_tag = "Biohazard_cargo";
 	name = "Cargo Lockdown"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "Cargo Office Windows";
+	name = "Cargo Office Shutters"
+	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/office)
 "cdZ" = (
@@ -20052,13 +20057,13 @@
 /area/quartermaster/storage)
 "cux" = (
 /obj/item/flag/cargo,
+/obj/structure/sign/poster/official/cargogorilas{
+	pixel_y = 32
+	},
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuz" = (
 /obj/structure/chair/sofa/right,
-/obj/structure/sign/poster/official/cargogorilas{
-	pixel_y = 32
-	},
 /turf/simulated/floor/carpet/black,
 /area/quartermaster/storage)
 "cuB" = (
@@ -26758,14 +26763,16 @@
 	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = 8
+	pixel_y = 8;
+	req_access = list(50)
 	},
 /obj/machinery/door_control{
 	id = "QMLoaddoor2";
 	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 24;
-	pixel_y = -8
+	pixel_y = -8;
+	req_access = list(50)
 	},
 /obj/machinery/camera{
 	c_tag = "Cargo Shuttle Airlock";
@@ -34646,6 +34653,10 @@
 	icon_state = "space";
 	layer = 4;
 	name = "EXTERNAL AIRLOCK"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/miningdock)
@@ -172155,11 +172166,11 @@ bMz
 dDb
 dDb
 aaq
-dXb
+vcF
 bfw
 bei
 cbx
-dXb
+vcF
 aaq
 aaq
 aaq
@@ -172669,11 +172680,11 @@ coE
 coE
 coE
 aaq
-dXb
-dXb
+vcF
+vcF
 dPq
-dXb
-dXb
+vcF
+vcF
 aaq
 aaq
 mpI

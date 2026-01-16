@@ -1217,7 +1217,7 @@
 
 /obj/item/storage/box/disks_tech/populate_contents()
 	..()
-	for(var/i in 1 to 8)
+	for(var/i in 1 to 11)
 		new /obj/item/disk/tech_disk(src)
 
 #undef NODESIGN
