@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(jobs)
 			J.total_positions += (J.positions_highpop - positions_lowpop)
 
 /datum/controller/subsystem/jobs/proc/Debug(text)
-	if(GLOB.debug2)
+	if(GLOB.debugging_enabled)
 		job_debug.Add(text)
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
@@ -566,7 +566,7 @@ SUBSYSTEM_DEF(jobs)
 		mark_spawn = locate("start*[rank]") // use old stype
 
 	if(!mark_spawn || SSticker.shuttle_start) // No spawn, then spawn on latejoin mark
-		log_runtime(EXCEPTION("No landmark start for [rank]."))
+		stack_trace("No landmark start for [rank].")
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = pick(GLOB.latejoin_prisoner)
 		else
