@@ -2,7 +2,6 @@
   "code_review": {
     "pull_request_opened": {
       "summary": false # I hate neuroslope.
-	  #"code_review": false # Comment out if you're completely fucked up.
     }
   }
 }
