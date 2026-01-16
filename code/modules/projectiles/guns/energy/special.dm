@@ -162,7 +162,7 @@
 	icon_state = "crossbowlarge"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
-	origin_tech = "combat=4;magnets=4;syndicate=2"
+	origin_tech = "combat=4;magnets=4;syndicate=3"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
 	accuracy = GUN_ACCURACY_RIFLE

@@ -1392,7 +1392,7 @@
 	id = "hangar";
 	name = "Hangar Doors Control";
 	pixel_y = 8;
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /turf/simulated/wall,
 /area/engineering/mechanic_workshop/hangar)
@@ -2332,7 +2332,7 @@
 "atc" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Hangar";
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -36104,7 +36104,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Hangar access";
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
@@ -124447,7 +124447,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/external{
 	name = "Hangan access airlock";
-	req_access = list(13,18,48,70,71)
+	req_access = list(13,18,47,48,70,71)
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
@@ -147718,7 +147718,7 @@
 "vTS" = (
 /obj/machinery/door/airlock/external{
 	name = "Hangan access airlock";
-	req_access = list(13,18,48,70,71)
+	req_access = list(13,18,47,48,70,71)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,

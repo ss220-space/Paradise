@@ -809,9 +809,9 @@ emp_act
 			switch(M.damtype)
 				if(BRUTE)
 					if(M.force > 35) // durand and other heavy mechas
-						Paralyse(2 SECONDS)
+						Weaken(2 SECONDS)
 					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
-						Weaken(4 SECONDS)
+						Knockdown(4 SECONDS)
 					apply_damage(dmg, BRUTE, def_zone = affecting)
 					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 				if(BURN)

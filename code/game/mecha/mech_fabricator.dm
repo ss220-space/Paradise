@@ -512,7 +512,6 @@
 /obj/machinery/mecha_part_fabricator/spacepod
 	name = "spacepod fabricator"
 	allowed_design_types = PODFAB
-	req_access = list(ACCESS_MECHANIC)
 
 /obj/machinery/mecha_part_fabricator/spacepod/Initialize(mapload)
 	. = ..()

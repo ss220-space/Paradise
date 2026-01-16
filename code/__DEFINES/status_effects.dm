@@ -122,6 +122,8 @@
 
 #define STATUS_EFFECT_STAMINADOT /datum/status_effect/stamina_dot
 
+#define STATUS_EFFECT_OXYDOT /datum/status_effect/oxy_dot
+
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
 
 #define STATUS_EFFECT_TAMING /datum/status_effect/taming //tames the target after enough tame stacks
