@@ -30,7 +30,7 @@
 	 * Format: list(list(typepath = probability) = group_weight).
 	 * Total probability = ((probability in sublist * group weight) / 100)
 	 */
-	var/list/possible_loot = list(
+	var/static/list/possible_loot = list(
 		// Alcohol and entertainment
 		list(
 			/obj/effect/spawner/abandoned_crate/booze = 15,
