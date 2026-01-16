@@ -1,6 +1,7 @@
 /turf/simulated
 	name = "station"
 	flags = NO_SCREENTIPS
+	abstract_type = /turf/simulated
 	var/wet = 0
 	var/image/wet_overlay = null
 	var/mutable_appearance/melting_olay

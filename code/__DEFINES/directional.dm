@@ -34,6 +34,9 @@
 
 /// Create directional subtypes for a path to simplify mapping.
 #define MAPPING_DIRECTIONAL_HELPERS(path, offset) \
+##path/directional {\
+	abstract_type = ##path/directional; \
+} \
 ##path/directional/north {\
 	dir = NORTH; \
 	pixel_y = offset; \

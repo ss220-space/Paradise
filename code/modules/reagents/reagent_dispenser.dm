@@ -32,12 +32,11 @@
 	create_reagents(tank_volume)
 	reagents.add_reagent(reagent_id, tank_volume)
 
-/obj/structure/reagent_dispensers/temperature_expose(temperature, volume)
+/obj/structure/reagent_dispensers/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(reagents)
-		for(var/i in 1 to 8)
-			if(reagents)
-				reagents.temperature_reagents(temperature)
+	for(var/i in 1 to 8)
+		if(reagents)
+			reagents.temperature_reagents(exposed_temperature)
 
 /obj/structure/reagent_dispensers/proc/boom(rigtrigger = FALSE, log_attack = FALSE)
 	if(went_boom)
@@ -118,7 +117,7 @@
 /obj/structure/reagent_dispensers/fueltank/ex_act()
 	boom()
 
-/obj/structure/reagent_dispensers/fueltank/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/reagent_dispensers/fueltank/fire_act(exposed_temperature, exposed_volume)
 	..()
 	boom()
 

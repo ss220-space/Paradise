@@ -498,3 +498,44 @@
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
+
+/obj/effect/temp_visual/thunderbolt_targeting
+	icon_state = "target_circle"
+	layer = BELOW_MOB_LAYER
+	light_range = 1
+	duration = 2 SECONDS
+
+/obj/effect/temp_visual/thunderbolt
+	icon_state = "thunderbolt"
+	icon = 'icons/effects/32x96.dmi'
+	duration = 0.6 SECONDS
+
+/obj/effect/temp_visual/electricity
+	icon_state = "electricity3"
+	duration = 0.5 SECONDS
+
+/obj/effect/temp_visual/flash
+	icon = 'icons/effects/light_overlays/light_128.dmi'
+	icon_state = "light"
+	pixel_w = -64
+	pixel_z = -64
+	blend_mode = BLEND_OVERLAY
+
+/obj/effect/temp_visual/flash/Initialize(mapload)
+	. = ..()
+	set_light(7, 99, "#C5C5FF")
+
+/obj/effect/temp_visual/thunderbolt/fancy
+
+/obj/effect/temp_visual/thunderbolt/fancy/Initialize(mapload, harmless = FALSE)
+	new /obj/effect/temp_visual/flash(src)
+	// BOOM
+	playsound(src, 'sound/effects/lightning_bolt.ogg', 100, TRUE, 15, 1.2)
+
+	for(var/mob/to_shake in range(5, src))
+		shake_camera(to_shake, 10, 1)
+
+	if(!harmless)
+		explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flame_range =  2, silent = TRUE)
+	. = ..()
+	do_sparks(15, TRUE, src)

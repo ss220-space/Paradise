@@ -61,7 +61,7 @@
 	imp_in.apply_status_effect(/datum/status_effect/adrenaline)
 
 	imp_in.AdjustBlood(-67.2)
-	imp_in.adjust_nutrition(-150)
+	imp_in.adjust_nutrition(-50)
 
 	return TRUE
 
@@ -114,3 +114,7 @@
 	desc = "A glass case containing a prototype adrenalin bio-chip."
 	imp = /obj/item/implant/adrenalin/prototype
 
+/obj/item/implant/adrenalin/prototype/create_new_cooldown()
+	var/datum/implant_cooldown/i_cooldown = new
+	i_cooldown.recharge_duration = base_cooldown
+	return i_cooldown

@@ -856,10 +856,10 @@
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
-/obj/mecha/temperature_expose(temperature, volume)
+/obj/mecha/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > max_temperature)
-		take_damage(5, BURN, 0, 1)
+	if(exposed_temperature > max_temperature)
+		take_damage(5, BURN, 0, TRUE)
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
 //////////////////////
