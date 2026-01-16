@@ -643,14 +643,15 @@ SUBSYSTEM_DEF(ticker)
 
 	end_of_round_info += mode.get_end_of_round_antagonist_statistics()
 
+	// Save the data before end of the round griefing
+	SSpersistent_data.save()
+	to_chat(world, end_of_round_info.Join("<br>"))
+
 	// Display the scoreboard window
 	score.scoreboard()
 
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
-
-	SSpersistent_data.save()
-	to_chat(world, end_of_round_info.Join("<br>"))
 
 	if(toggle_pacifism)
 		GLOB.pacifism_after_gt = TRUE
@@ -664,10 +665,9 @@ SUBSYSTEM_DEF(ticker)
 	add_game_logs("///////////////////////////////////////////////////////")
 
 	// Add AntagHUD to everyone, see who was really evil the whole time!
-	for(var/datum/atom_hud/antag/H in GLOB.huds)
-		for(var/m in GLOB.player_list)
-			var/mob/M = m
-			H.show_to(M)
+	for(var/datum/atom_hud/antag/antag_hud in GLOB.huds)
+		for(var/mob/player as anything in GLOB.player_list)
+			antag_hud.show_to(player)
 
 	// Seal the blackbox, stop collecting info
 	SSblackbox.Seal()

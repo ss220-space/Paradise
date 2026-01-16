@@ -85,8 +85,7 @@
 	. = ..()
 	air3.volume = 300
 
-/obj/machinery/atmospherics/trinary/mixer/process_atmos()
-	..()
+/obj/machinery/atmospherics/trinary/mixer/process_atmos(seconds)
 	if(!on)
 		return FALSE
 

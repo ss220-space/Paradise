@@ -276,7 +276,7 @@ LINEN BINS
 		else
 			icon_state = "linenbin_full"
 
-/obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/bedsheetbin/fire_act(exposed_temperature, exposed_volume)
 	if(amount)
 		amount = 0
 		update_icon(UPDATE_ICON_STATE)

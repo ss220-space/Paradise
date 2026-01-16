@@ -1,4 +1,5 @@
 /mob/living/carbon
+	abstract_type = /mob/living/carbon
 	gender = MALE
 	pressure_resistance = 15
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
