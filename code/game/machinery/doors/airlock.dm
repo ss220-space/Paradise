@@ -108,6 +108,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	var/shockedby = list()
 	///the command the door is currently attempting to complete
 	var/cur_command = null
+	var/heat_resistance = 1500
 
 /obj/machinery/door/airlock/welded
 	welded = TRUE
@@ -1707,6 +1708,15 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		aiControlDisabled = AICONTROLDISABLED_OFF
 	else if(aiControlDisabled == AICONTROLDISABLED_BYPASS)
 		aiControlDisabled = AICONTROLDISABLED_PERMA
+
+/obj/machinery/door/airlock/temperature_expose(exposed_temperature, exposed_volume)
+	..()
+
+	if(heat_proof)
+		return
+
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 #undef AIRLOCK_CLOSED
 #undef AIRLOCK_CLOSING

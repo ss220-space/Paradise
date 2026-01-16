@@ -5,6 +5,8 @@
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
+	/// Flags that make this object harder to destroy, e.g. [ACID_PROOF], [FIRE_PROOF], [INDESTRUCTIBLE].
+	var/resistance_flags = NONE
 	var/flags_ricochet = NONE
 	var/list/fingerprints
 	var/list/fingerprints_time
@@ -206,11 +208,10 @@
 
 /atom/proc/Initialize(mapload, ...)
 	SHOULD_CALL_PARENT(TRUE)
-	var/list/names = ru_names
 
+	var/list/names = ru_names
 	if(names && !GLOB.cached_ru_names[type])
 		GLOB.cached_ru_names[type] = names
-
 	ru_names = null
 
 	if(flags & INITIALIZED)
@@ -229,7 +230,7 @@
 		update_light()
 
 	if(loc)
-		loc.InitializedOn(src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
+		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
 
 	if(post_init_icon_state)
 		icon_state = post_init_icon_state
@@ -247,9 +248,6 @@
 
 // Put your AddComponent() calls here
 /atom/proc/ComponentInitialize()
-	return
-
-/atom/proc/InitializedOn(atom/A) // Proc for when something is initialized on a atom - Optional to call. Useful for observer pattern etc.
 	return
 
 /atom/proc/onCentcom()
@@ -737,7 +735,7 @@
 /atom/proc/blob_vore_act(obj/structure/blob/special/core/voring_core)
 	return TRUE
 
-/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/atom/proc/fire_act(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
@@ -1856,10 +1854,10 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	CRASH("Unimplemented get_explosion_block()")
 
 /**
-* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
-*
-* This will work fine without manually passing arguments.
-+*/
+ * Instantiates the AI controller of this atom. Override this if you want to assign variables first.
+ *
+ * This will work fine without manually passing arguments.
+ */
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)

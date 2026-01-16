@@ -1,6 +1,6 @@
 /obj/item/storage/belt
-	name = "belt"
-	desc = "Can hold various things."
+	name = "not actually a toolbelt"
+	desc = "Can hold various things. This is the base type of /belt, are you sure you should have this?"
 	gender = MALE
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
@@ -14,6 +14,7 @@
 	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
 	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
+	abstract_type = /obj/item/storage/belt
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE

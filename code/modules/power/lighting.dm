@@ -825,9 +825,9 @@
 
 // called when on fire
 
-/obj/machinery/light/temperature_expose(temperature, volume)
+/obj/machinery/light/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(prob(max(0, temperature - 673)))   //0% at <400C, 100% at >500C
+	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
 		break_light_tube()
 
 // explode the light
