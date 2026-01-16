@@ -162,3 +162,9 @@
 	life = "Lifetime warranty."
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
+/datum/implant_fluff/overdrive
+	name = "Cybersun Industries EMS Bio-chip"
+	life = "Not Specified."
+	notes = "No Notes."
+
+

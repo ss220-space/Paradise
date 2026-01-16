@@ -1589,6 +1589,7 @@
 #include "code\game\objects\items\weapons\implants\implant.dm"
 #include "code\game\objects\items\weapons\implants\implant_abductor.dm"
 #include "code\game\objects\items\weapons\implants\implant_adrenalin.dm"
+#include "code\game\objects\items\weapons\implants\implant_overdrive.dm"
 #include "code\game\objects\items\weapons\implants\implant_chem.dm"
 #include "code\game\objects\items\weapons\implants\implant_cooldown.dm"
 #include "code\game\objects\items\weapons\implants\implant_cortical_stack.dm"
