@@ -2,6 +2,7 @@
 
 // AI (i.e. game AI, not the AI player) controlled bots
 /mob/living/simple_animal/bot
+	abstract_type = /mob/living/simple_animal/bot
 	icon = 'icons/obj/aibots.dmi'
 	layer = MOB_LAYER - 0.1
 	light_range = 3

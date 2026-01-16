@@ -97,8 +97,10 @@
 			else
 				add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/dp_vent_pump/process_atmos()
-	..()
+/obj/machinery/atmospherics/binary/dp_vent_pump/process_atmos(seconds)
+	if(!on)
+		return FALSE
+
 	var/datum/milla_safe/dp_vent_pump_process/milla = new()
 	milla.invoke_async(src)
 

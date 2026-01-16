@@ -169,6 +169,9 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 	ADD_TRAIT(user, TRAIT_XRAY, "debug_glasses[UID()]")
 
+/obj/item/debug
+	abstract_type = /obj/item/debug
+
 /obj/item/debug/human_spawner
 	name = "human spawner"
 	desc = "Создайте гуманоида, нацелившись на турф и нажав ЛКМ. Используйте в руке, чтобы изменить расу."

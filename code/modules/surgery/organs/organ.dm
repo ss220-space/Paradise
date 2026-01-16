@@ -5,6 +5,7 @@
 	pickup_sound = 'sound/items/handling/pickup/flesh_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/flesh_drop.ogg'
 	germ_level = 0
+	abstract_type = /obj/item/organ
 	var/dead_icon
 	/// Current organ holder
 	var/mob/living/carbon/human/owner

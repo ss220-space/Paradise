@@ -42,7 +42,7 @@
 	handle_fire()
 	return ..()
 
-/obj/item/mortar_shell/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/obj/item/mortar_shell/fire_act(exposed_temperature, exposed_volume)
 	if(sended)
 		return
 	handle_fire()

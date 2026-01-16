@@ -47,9 +47,7 @@
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
-	. = ..()
-
+/obj/machinery/atmospherics/unary/outlet_injector/process_atmos(seconds)
 	injecting = FALSE
 
 	if(!on || stat & NOPOWER)
