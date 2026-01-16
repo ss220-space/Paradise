@@ -638,7 +638,7 @@
 			. = TRUE
 			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
 				O.armor = O.armor.setRating(fire_value = 50)
-			O.fire_act(null, 2000, 1000)
+			O.fire_act(2000, 1000)
 
 		else if(isliving(thing))
 			. = TRUE

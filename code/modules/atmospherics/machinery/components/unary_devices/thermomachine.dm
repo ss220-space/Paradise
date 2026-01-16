@@ -127,7 +127,7 @@
 	var/turf/tile = get_turf(src)
 	SET_PLANE_EXPLICIT(pipe_vision_img, PIPECRAWL_IMAGES_PLANE, tile)
 
-/obj/machinery/atmospherics/unary/thermomachine/process_atmos()
+/obj/machinery/atmospherics/unary/thermomachine/process_atmos(seconds)
 	if(!on)
 		return
 

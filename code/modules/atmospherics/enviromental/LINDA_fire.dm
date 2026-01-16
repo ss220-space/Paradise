@@ -75,6 +75,12 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+
+/obj/effect/hotspot/proc/perform_exposure()
+	for(var/atom/item in loc.contents)
+		if(!QDELETED(item) && item != src && !(item.resistance_flags & (INDESTRUCTIBLE|FIRE_PROOF))) // It's possible that the item is deleted in temperature_expose
+			item.fire_act(temperature, volume)
+
 // Garbage collect itself by nulling reference to it
 
 /obj/effect/hotspot/Destroy()
@@ -143,7 +149,7 @@
 			if(isliving(A))
 				continue
 			if(A != H)
-				A.fire_act(null, H.temperature, H.volume)
+				A.fire_act(H.temperature, H.volume)
 
 		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
@@ -211,7 +217,7 @@
 				if(isliving(A))
 					continue
 				if(A != existing_hotspot)
-					A.fire_act(null, expose_temp, existing_hotspot.volume)
+					A.fire_act(expose_temp, existing_hotspot.volume)
 		if(isfloorturf(T))
 			var/turf/simulated/floor/F = T
 			F.burn_tile()
