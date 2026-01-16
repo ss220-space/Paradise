@@ -2211,7 +2211,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure/engineering
-	containername = "ящик с продвинутыми инструментами"
+	containername = "ящик продвинутых инструментов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик продвинутых инструментов",
 		GENITIVE = "ящика продвинутых инструментов",
