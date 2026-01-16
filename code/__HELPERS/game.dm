@@ -450,24 +450,3 @@
 			continue
 		. += vent
 
-/**
- * Checks if a target is valid for a swap-like ability.
- * Currently prevents swapping with AI cores.
- *
- * Arguments:
- * * user - The mob attempting the swap.
- * * target - The atom being swapped with.
- * * silent - If TRUE, no messages are sent to the user on failure.
- * Returns TRUE if swap is allowed, FALSE otherwise.
- */
-/proc/AI_check_for_swap(mob/user, atom/target, silent = FALSE)
-	if(!target)
-		if(!silent && user)
-			to_chat(user, span_warning("Цель не существует!"))
-		return FALSE
-
-	if(istype(target, /mob/living/silicon/ai))
-		if(!silent && user)
-			to_chat(user, span_warning("Невозможно поменяться местами с ядром ИИ!"))
-		return FALSE
-	return TRUE
