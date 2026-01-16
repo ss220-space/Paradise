@@ -299,9 +299,9 @@
 
 /datum/design/largecrossbow
 	id = "largecrossbow"
-	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_ILLEGAL = 3)
+	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_ILLEGAL = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 5000, MAT_GLASS = 1500, MAT_URANIUM = 1500, MAT_SILVER = 1500)
+	materials = list(MAT_METAL = 15000, MAT_GLASS = 3000, MAT_URANIUM = 1500, MAT_SILVER = 3000)
 	build_path = /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_ILLEGAL)

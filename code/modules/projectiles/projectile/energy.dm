@@ -131,7 +131,7 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	weaken = 3 SECONDS
+	weaken = 0.1 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
@@ -150,6 +150,11 @@
 	var/mob/living/simple_animal/hostile/carp/carp = target
 	if(istype(carp))
 		carp.gib()
+	if(!isliving(target))
+		return
+	var/mob/living/L = target
+	L.apply_status_effect(STATUS_EFFECT_OXYDOT)
+	L.Jitter(10 SECONDS)
 
 /obj/projectile/energy/bolt/large
 	damage = 20
