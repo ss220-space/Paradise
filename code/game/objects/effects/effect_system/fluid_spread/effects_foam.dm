@@ -153,8 +153,8 @@
 		spread_foam.result_type = result_type
 		SSfoam.queue_spread(spread_foam)
 
-/obj/effect/particle_effect/fluid/foam/temperature_expose(temperature, volume)
-	if(prob(max(0, temperature - 475)))   //foam dissolves when heated
+/obj/effect/particle_effect/fluid/foam/temperature_expose(exposed_temperature, exposed_volume)
+	if(prob(max(0, exposed_temperature - 475)))   //foam dissolves when heated
 		kill_foam()
 
 /// A factory for foam fluid floods.
@@ -311,6 +311,7 @@
 	name = "resin foam"
 	result_type = /obj/structure/foamedmetal/resin
 	make_floor = FALSE
+	cares_about_temperature = FALSE
 
 /// A variant of resin foam that is created from halon combustion. It does not dissolve in heat to allow the gas to spread before foaming.
 /obj/effect/particle_effect/fluid/foam/metal/resin/halon
@@ -318,7 +319,7 @@
 /obj/effect/particle_effect/fluid/foam/metal/resin/halon/Initialize(mapload)
 	. = ..()
 
-/obj/effect/particle_effect/fluid/foam/metal/resin/halon/temperature_expose(temperature, volume)
+/obj/effect/particle_effect/fluid/foam/metal/resin/halon/temperature_expose(exposed_temperature, exposed_volume)
 	return // Doesn't dissolve in heat.
 
 /// A factory which produces smart aluminium metal foam.

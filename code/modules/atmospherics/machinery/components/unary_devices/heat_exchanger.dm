@@ -30,13 +30,12 @@
 
 	..()
 
-/obj/machinery/atmospherics/unary/heat_exchanger/process_atmos()
-	..()
+/obj/machinery/atmospherics/unary/heat_exchanger/process_atmos(seconds)
 	if(!partner)
-		return 0
+		return FALSE
 
 	if(!SSair || SSair.milla_tick <= update_cycle)
-		return 0
+		return FALSE
 
 	update_cycle = SSair.milla_tick
 	partner.update_cycle = SSair.milla_tick

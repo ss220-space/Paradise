@@ -133,7 +133,7 @@
 	var/msg = span_gamesay("[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 	for(var/mob/player in GLOB.player_list)
 		if(istype(player,/mob/dead) && follow)
-			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)])[name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
+			var/msg_dead = span_gamesay("([ghost_follow_link(speaker, ghost = player)]) [name], [span_name("[speaker_mask]")] [genderize_decode(speaker, get_spoken_verb(message))], [format_message(message, speaker)]")
 			to_chat(player, msg_dead)
 			continue
 
@@ -751,7 +751,7 @@
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)])<i><span class='game say'>[name], [span_name("[speaker.name]")]")
+			var/list/message_start_dead = list("([ghost_follow_link(speaker, ghost = M)]) <i><span class='game say'>[name], [span_name("[speaker.name]")]")
 			var/list/dead_message = message_start_dead + message_body
 			M.show_message(dead_message.Join(" "), 2)
 
