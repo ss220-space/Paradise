@@ -102,6 +102,7 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	pickup_sound = 'sound/items/handling/pickup/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/component_drop.ogg'
+	abstract_type = /obj/item/stock_parts
 
 /obj/item/stock_parts/Initialize(mapload)
 	. = ..()

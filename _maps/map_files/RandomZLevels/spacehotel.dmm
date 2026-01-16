@@ -2365,10 +2365,6 @@
 	},
 /turf/simulated/floor/indestructible/plating,
 /area/awaymission/spacehotel)
-"iL" = (
-/obj/machinery/power/supermatter_shard/anchored,
-/turf/simulated/floor/indestructible/plating,
-/area/awaymission/spacehotel)
 "iM" = (
 /obj/machinery/gateway{
 	dir = 9
@@ -3224,6 +3220,10 @@
 	icon_state = "floor"
 	},
 /area/awaymission/spacehotel/amazing_place)
+"zw" = (
+/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox,
+/turf/simulated/floor/indestructible/plating,
+/area/awaymission/spacehotel)
 "zC" = (
 /obj/item/chair,
 /turf/simulated/floor/indestructible/carpet,
@@ -10200,11 +10200,11 @@ hE
 ia
 cl
 ix
-iL
+zw
 iX
-iL
+zw
 iX
-iL
+zw
 cl
 dO
 dO
@@ -10460,11 +10460,11 @@ hE
 ia
 cl
 ix
-iL
+zw
 iX
-iL
+zw
 iX
-iL
+zw
 cl
 dO
 dO

@@ -18,20 +18,21 @@
 	refill_canister = /obj/item/vending_refill/shoedispenser
 
 	products = list(
-		/obj/item/clothing/shoes/black = 10,
-		/obj/item/clothing/shoes/brown = 10,
-		/obj/item/clothing/shoes/blue = 10,
-		/obj/item/clothing/shoes/green = 10,
-		/obj/item/clothing/shoes/yellow = 10,
-		/obj/item/clothing/shoes/purple = 10,
-		/obj/item/clothing/shoes/red = 10,
-		/obj/item/clothing/shoes/white = 10,
+		/obj/item/clothing/shoes/color/black = 10,
+		/obj/item/clothing/shoes/color/brown = 10,
+		/obj/item/clothing/shoes/color/blue = 10,
+		/obj/item/clothing/shoes/color/green = 10,
+		/obj/item/clothing/shoes/color/yellow = 10,
+		/obj/item/clothing/shoes/color/purple = 10,
+		/obj/item/clothing/shoes/color/red = 10,
+		/obj/item/clothing/shoes/color/white = 10,
 		/obj/item/clothing/shoes/sandal=10,
 		/obj/item/clothing/shoes/convers/red = 10,
 		/obj/item/clothing/shoes/convers = 10,
+		/obj/item/clothing/shoes/color/orange = 10,
 	)
 	contraband = list(
-		/obj/item/clothing/shoes/orange = 5,
+		/obj/item/clothing/shoes/color/orange/prison = 5,
 	)
 	premium = list(
 		/obj/item/clothing/shoes/rainbow = 1,

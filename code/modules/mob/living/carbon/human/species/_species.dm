@@ -1191,6 +1191,10 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(HAS_TRAIT(human, TRAIT_XRAY))
 		human.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))
 
+	if(HAS_TRAIT(human, TRAIT_MESON_VISION))
+		human.add_sight(SEE_TURFS)
+		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
 	if(human.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		human.set_invis_see(SEE_INVISIBLE_OBSERVER)
 
@@ -1280,6 +1284,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		blood_overlays = icon_states(blood_mask)
 
 	return blood_overlays
+
+/datum/species/proc/compressor_grind(location)
+	return
 
 #undef MAX_WATER_TEMPERATURE_CHANGE
 #undef MIN_TEMPERATURE_DIFF

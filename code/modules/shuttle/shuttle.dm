@@ -540,7 +540,7 @@
 	mobile_port.remove_ripples()
 
 	//move or squish anything in the way ship at destination
-	//mobile_port.shuttle_smash(old_turfs, new_turfs, new_dock.dir)
+	mobile_port.shuttle_smash(old_turfs, new_turfs, new_dock.dir)
 
 	// begin transition
 	for(var/i in 1 to length(old_turfs))

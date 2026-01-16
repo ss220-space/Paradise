@@ -390,3 +390,6 @@ They're basically just lizards with all-around marginally better stats and fire 
 	. = "находится где-то на "
 	. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
 	. += "e."
+
+/datum/species/unathi/compressor_grind(location)
+	new /obj/item/stack/sheet/animalhide/lizard(location)

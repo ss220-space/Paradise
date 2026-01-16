@@ -176,12 +176,20 @@
 	remove_fuel(amount)
 	return TRUE
 
-/obj/item/weldingtool/use_tool(target, user, delay, amount, volume, datum/callback/extra_checks)
+/obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
+	var/mutable_appearance/sparks = mutable_appearance('icons/effects/welding_effect.dmi', "welding_sparks", GASFIRE_LAYER, src, ABOVE_LIGHTING_PLANE)
+	target.add_overlay(sparks)
+	LAZYADD(target.update_overlays_on_z, sparks)
+
 	var/did_thing = ..()
 	if(did_thing)
 		remove_fuel(1) // Consume some fuel after we do a welding action
 	if(delay)
 		progress_flash_divisor = initial(progress_flash_divisor)
+
+	LAZYREMOVE(target.update_overlays_on_z, sparks)
+	target.cut_overlay(sparks)
+
 	return did_thing
 
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)

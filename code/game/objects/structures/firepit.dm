@@ -48,7 +48,7 @@
 
 /obj/structure/firepit/proc/adjust_light()
 	if(active)
-		set_light(4, ,"#ffb366")
+		set_light(4, l_color = LIGHT_COLOR_GARLAND)
 	else
 		set_light_on(FALSE)
 

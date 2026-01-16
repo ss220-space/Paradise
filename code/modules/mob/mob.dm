@@ -1362,3 +1362,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	LAZYREMOVE(active_hud_list, hud_category)
 
 	return TRUE
+
+/mob/compressor_grind()
+	gib()

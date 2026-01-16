@@ -179,6 +179,7 @@
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
 "GE" = (
+/obj/effect/spawner/new_year/presents_tree,
 /obj/machinery/light/floor,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)

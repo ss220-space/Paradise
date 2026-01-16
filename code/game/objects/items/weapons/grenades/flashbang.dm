@@ -1,12 +1,25 @@
 /obj/item/grenade/flashbang
 	name = "flashbang"
+	desc = "Взрывчатое устройство, предназначенное для ручного подрыва. При детонации испускает яркую вспышку и громкий звук, \
+			что оглушает и дезориентирует цель."
 	icon_state = "flashbang"
 	belt_icon = "flashbang"
 	origin_tech = "materials=2;combat=3"
 	light_power = 10
+	/// The duration the area is illuminated
+	var/light_time = 0.2 SECONDS
+	/// The range in tiles of the flashbang
+	var/range = 7
 
-	var/light_time = 0.2 SECONDS // The duration the area is illuminated
-	var/range = 7 // The range in tiles of the flashbang
+/obj/item/grenade/flashbang/get_ru_names()
+	return list(
+		NOMINATIVE = "светошумовая граната",
+		GENITIVE = "светошумовой гранаты",
+		DATIVE = "светошумовой гранате",
+		ACCUSATIVE = "светошумовую гранату",
+		INSTRUMENTAL = "светошумовой гранатой",
+		PREPOSITIONAL = "светошумовой гранате"
+	)
 
 /obj/item/grenade/flashbang/prime(power = 1)
 	. = ..()
@@ -51,9 +64,9 @@
 		// Flash
 		if(flash)
 			if(M.weakeyes)
-				M.visible_message(span_disarm("<b>[M]</b> screams and collapses!"))
-				to_chat(M, span_userdanger(span_fontsize3("AAAAGH!")))
-				M.Weaken(status_duration * 3) //hella stunned
+				M.visible_message(span_disarm("[M.declent_ru(NOMINATIVE)] истошно крич[PLUR_IT_AT(M)] и пада[PLUR_ET_YUT(M)] на пол!"))
+				to_chat(M, span_userdanger(span_fontsize3("ГЛАЗА!!!")))
+				M.Weaken(status_duration * 3)
 				if(ishuman(M))
 					M.emote("scream")
 					var/mob/living/carbon/human/H = M
@@ -111,10 +124,10 @@
 
 		ears.internal_receive_damage(5 * pressure_factor)
 		if(ears.damage >= 15)
-			to_chat(M, span_warning("Your ears start to ring badly!"))
+			to_chat(M, span_warning("У вас начинает очень сильно звенеть в ушах!"))
 			if(prob(ears.damage - 5))
-				to_chat(M, span_warning("You can't hear anything!"))
+				to_chat(M, span_warning("Вы ничего не слышите!"))
 			return
 
 		if(ears.damage >= 5)
-			to_chat(M, span_warning("Your ears start to ring!"))
+			to_chat(M, span_warning("У вас начинает звенеть в ушах."))

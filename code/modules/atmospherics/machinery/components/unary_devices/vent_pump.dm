@@ -123,17 +123,21 @@
 	update_icon()
 	update_underlays()
 
-/obj/machinery/atmospherics/unary/vent_pump/process_atmos()
+/obj/machinery/atmospherics/unary/vent_pump/process_atmos(seconds)
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
+
 	if(QDELETED(parent))
 		// We're orphaned!
 		return FALSE
+
 	var/turf/T = get_turf(src)
 	if(T.density) //No, you should not be able to get free air from walls
 		return
+
 	if(!node)
 		on = FALSE
+
 	if(!on)
 		return FALSE
 

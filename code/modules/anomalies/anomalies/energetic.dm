@@ -24,6 +24,8 @@
 	var/list/eballs_types = list()
 	/// Desired distance from the eball.
 	var/eball_dist = 2
+	/// Is the anomaly exploding?
+	var/explosive = TRUE
 
 /obj/effect/anomaly/energetic/New()
 	. = ..()
@@ -39,7 +41,8 @@
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
 		jump_to_machinery(collapse_shock_damage * 2)
 		do_shock_ex(collapse_shock_range, collapse_shock_damage, TRUE)
-		explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = -1, flash_range = tier)
+		if(explosive)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = -1, flash_range = tier)
 		sleep(0.2 SECONDS)
 
 	explosion(loc, devastation_range = max(-1, tier - 2), heavy_impact_range = max(-1, tier - 1), light_impact_range = max(-1, tier), flash_range = (tier + 2))
