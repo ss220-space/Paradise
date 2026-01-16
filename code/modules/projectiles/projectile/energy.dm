@@ -158,7 +158,6 @@
 
 /obj/projectile/energy/bolt/large
 	damage = 20
-	weaken = 0.1 SECONDS
 	stamina = 30
 
 /obj/projectile/energy/bolttoy
