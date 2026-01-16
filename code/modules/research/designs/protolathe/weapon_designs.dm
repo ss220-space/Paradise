@@ -112,7 +112,7 @@
 	id = "mag_oldsmg"
 	req_tech = list(RESEARCH_TREE_COMBAT = 1, RESEARCH_TREE_MATERIALS = 1)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 3000)
+	materials = list(MAT_METAL = 2000)
 	build_path = /obj/item/ammo_box/magazine/wt550m9/empty
 	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
@@ -126,24 +126,24 @@
 
 /datum/design/box_oldsmg/ap_box
 	id = "box_oldsmg_ap"
-	materials = list(MAT_METAL = 48000, MAT_SILVER = 3000)
+	materials = list(MAT_METAL = 42500, MAT_SILVER = 3000)
 	build_path = /obj/item/ammo_box/ap46x30mm
 
 /datum/design/box_oldsmg/ic_box
 	id = "box_oldsmg_ic"
-	materials = list(MAT_METAL = 48000, MAT_SILVER = 3000, MAT_PLASMA = 4000)
+	materials = list(MAT_METAL = 42500, MAT_SILVER = 3000, MAT_PLASMA = 4000)
 	build_path = /obj/item/ammo_box/inc46x30mm
 
 /datum/design/box_oldsmg/tx_box
 	id = "box_oldsmg_tx"
-	materials = list(MAT_METAL = 48000, MAT_SILVER = 3000, MAT_URANIUM = 4000)
+	materials = list(MAT_METAL = 42500, MAT_SILVER = 3000, MAT_URANIUM = 3000)
 	build_path = /obj/item/ammo_box/tox46x30mm
 
 /datum/design/hp45colt
 	id = "hp45colt"
-	req_tech = list(RESEARCH_TREE_COMBAT = 2, RESEARCH_TREE_MATERIALS = 1)
+	req_tech = list(RESEARCH_TREE_COMBAT = 3, RESEARCH_TREE_MATERIALS = 3)
 	build_type = PROTOLATHE | AUTOLATHE
-	materials = list(MAT_METAL = 48000)
+	materials = list(MAT_METAL = 44500, MAT_SILVER = 3000)
 	build_path = /obj/item/ammo_box/expansive45colt
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
@@ -159,7 +159,7 @@
 	id = "lmag_box"
 	build_type = PROTOLATHE | AUTOLATHE
 	req_tech = list(RESEARCH_TREE_COMBAT = 4, RESEARCH_TREE_POWERSTORAGE = 4)
-	materials = list(MAT_METAL = 30000, MAT_GLASS = 6000)
+	materials = list(MAT_METAL = 36500)
 	build_path = /obj/item/ammo_box/laserammobox
 	category = list(PROTOLATHE_CATEGORY_WEAPON, PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
