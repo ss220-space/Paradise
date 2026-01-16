@@ -149,16 +149,16 @@
 	bullet_type = BULLET_TYPE_PLAIN
 
 /obj/item/ammo_casing/c46x30mm/ap
-	materials = list(MAT_METAL = 1500, MAT_SILVER = 150)
+	materials = list(MAT_METAL = 700, MAT_SILVER = 50)
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix/ap
 	bullet_type = BULLET_TYPE_ARMOR_PIERCING
 
 /obj/item/ammo_casing/c46x30mm/tox
-	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_URANIUM = 200)
+	materials = list(MAT_METAL = 700, MAT_SILVER = 50, MAT_URANIUM = 75)
 	projectile_type = /obj/projectile/bullet/weakbullet3/foursix/tox
 
 /obj/item/ammo_casing/c46x30mm/inc
-	materials = list(MAT_METAL = 1500, MAT_SILVER = 150, MAT_PLASMA = 200)
+	materials = list(MAT_METAL = 700, MAT_SILVER = 50, MAT_PLASMA = 50)
 	projectile_type = /obj/projectile/bullet/incendiary/foursix
 	muzzle_flash_color = LIGHT_COLOR_FIRE
 	bullet_type = BULLET_TYPE_FIRE
@@ -202,7 +202,7 @@
 	projectile_type = /obj/projectile/bullet/rubber45colt
 	bullet_type = BULLET_TYPE_RUBBER
 
-/obj/item/ammo_casing/c45colt/hp
+/obj/item/ammo_casing/c45colt/hp //
 	desc = "A .45 Colt expansive bullet casing."
 	materials = list(MAT_METAL = 1500, MAT_SILVER = 100)
 	projectile_type = /obj/projectile/bullet/c45colt/hp
