@@ -3,7 +3,7 @@
 
 SUBSYSTEM_DEF(title)
 	name = "Title Screen"
-	wait = 300
+	wait = 30 SECONDS
 	init_order = INIT_ORDER_TITLE
 	init_stage = INITSTAGE_EARLY
 	runlevels = RUNLEVELS_DEFAULT|RUNLEVEL_LOBBY
