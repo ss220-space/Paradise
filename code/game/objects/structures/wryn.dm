@@ -152,9 +152,9 @@
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
 
-/obj/structure/wryn/floor/temperature_expose(temperature, volume)
+/obj/structure/wryn/floor/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
+	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 #define WAX_DOOR_CLOSED 0

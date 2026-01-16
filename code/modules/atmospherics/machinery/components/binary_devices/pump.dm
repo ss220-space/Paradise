@@ -95,20 +95,19 @@ Thus, the two variables affect pump operation are set in New():
 	add_underlay(pump_turf, node1, turn(dir, -180))
 	add_underlay(pump_turf, node2, dir)
 
-/obj/machinery/atmospherics/binary/pump/process_atmos()
-	..()
+/obj/machinery/atmospherics/binary/pump/process_atmos(seconds)
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return 0
+		return FALSE
 
 	var/output_starting_pressure = air2.return_pressure()
 
 	if((target_pressure - output_starting_pressure) < 0.01)
 		//No need to pump gas if target is already reached!
-		return 1
+		return TRUE
 
 	//Calculate necessary moles to transfer using PV=nRT
 	if(!(air1.total_moles() > 0) || !(air1.temperature() > 0))
-		return 1
+		return TRUE
 
 	var/pressure_delta = target_pressure - output_starting_pressure
 	var/transfer_moles = pressure_delta * air2.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
@@ -117,10 +116,10 @@ Thus, the two variables affect pump operation are set in New():
 	var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 	air2.merge(removed)
 
-	parent1.update = 1
-	parent2.update = 1
+	parent1.update = TRUE
+	parent2.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/binary/pump/proc/broadcast_status()
 	if(!radio_connection)

@@ -9,7 +9,7 @@
 	desc = "Gasses mined from the gas giant below (above?) flow out through this massive vent."
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/miners.dmi'
 	icon_state = "miner"
-	resistance_flags = INDESTRUCTIBLE|ACID_PROOF|FIRE_PROOF
+	resistance_flags = ACID_PROOF|FIRE_PROOF
 	idle_power_usage = 150
 	active_power_usage = 2000
 	var/spawn_temp = T20C

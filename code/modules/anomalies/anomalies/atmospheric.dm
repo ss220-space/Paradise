@@ -64,7 +64,7 @@
 
 /obj/effect/anomaly/atmospheric/item_touch_effect(obj/item/item)
 	. = ..()
-	item.fire_act(null, rand(0, 1000), rand(20, 200))
+	item.fire_act(rand(0, 1000), rand(20, 200))
 
 /obj/effect/anomaly/atmospheric/proc/make_slime()
 	var/turf/simulated/turf = get_turf(src)
@@ -176,7 +176,7 @@
 
 /obj/effect/anomaly/atmospheric/tier3/collapse()
 	for(var/obj/item/paper in range(30)) // Just for fan.
-		paper.fire_act(null, 1000, 1000)
+		paper.fire_act(1000, 1000)
 
 	. = ..()
 
