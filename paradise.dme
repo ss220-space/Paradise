@@ -87,6 +87,7 @@
 #include "code\__DEFINES\emotes.dm"
 #include "code\__DEFINES\ert.dm"
 #include "code\__DEFINES\explosions.dm"
+#include "code\__DEFINES\eyes.dm"
 #include "code\__DEFINES\flags.dm"
 #include "code\__DEFINES\flamer_fire.dm"
 #include "code\__DEFINES\fonts.dm"
@@ -224,7 +225,6 @@
 #include "code\__DEFINES\wires.dm"
 #include "code\__DEFINES\xenomorphs.dm"
 #include "code\__DEFINES\zlevel.dm"
-#include "code\__DEFINES\eyes.dm"
 #include "code\__DEFINES\construction\actions.dm"
 #include "code\__DEFINES\dcs\flags.dm"
 #include "code\__DEFINES\dcs\helpers.dm"
@@ -3904,5 +3904,4 @@
 #include "interface\fonts\spess_font.dm"
 #include "interface\fonts\tiny_unicode.dm"
 #include "interface\fonts\vcr_osd_mono.dm"
-
 // END_INCLUDE
