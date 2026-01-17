@@ -64,6 +64,7 @@ SUBSYSTEM_DEF(nightshift)
 			else
 				announce("Доброе утро, экипаж. В связи с наступлением дневного времени освещ+ение на борту станции переведено в дневной режим.")
 	for(var/obj/machinery/power/apc/apc as anything in currentrun)
+		currentrun -= apc
 		if(is_station_level(apc.z) || is_taipan(apc.z) && SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GREEN)
 			apc.set_nightshift(active)
 		if(MC_TICK_CHECK && !forced) // subsystem will be in state SS_IDLE if forced by an admin

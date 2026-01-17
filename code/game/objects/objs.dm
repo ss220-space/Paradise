@@ -333,23 +333,23 @@
 
 	return locate(/obj) in A
 
-#define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
+#define MOB_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
 
-/obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	damage *= CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+/obj/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= MOB_DAMAGE_FROM_OBJECTS_MODIFIER
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
-	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
+	throwned_mob.visible_message(
+		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
-	C.take_organ_damage(damage)
+	throwned_mob.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
-	C.Knockdown(3 SECONDS)
+	throwned_mob.Knockdown(3 SECONDS)
 
-#undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+#undef MOB_DAMAGE_FROM_OBJECTS_MODIFIER
 
 /obj/proc/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
