@@ -39,6 +39,8 @@
 				normal_turfs += current_turf
 
 	var/choosen_turf = pick(normal_turfs)
+	if(!choosen_turf)
+		return
 
 
 	var/obj/structure/closet/supplypod/pod = new /obj/structure/closet/supplypod/podspawn()
@@ -161,7 +163,7 @@
 	name = "Один из отделов с имплантом \"предсмертного отзвука\""// too long
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
-	abstract_type = /datum/station_trait/deathrattle_department
+	abstract_trait_type = /datum/station_trait/deathrattle_department
 	blacklist = list(/datum/station_trait/deathrattle_all)
 
 	var/department_to_apply_to
@@ -268,7 +270,6 @@
 		/datum/job/head_of_staff/chief_engineer = /obj/item/organ/internal/cyberimp/arm/hacking,
 		/datum/job/engineering/engineer = /obj/item/organ/internal/cyberimp/arm/toolset,
 		/datum/job/engineering/atmos = /obj/item/organ/internal/cyberimp/mouth/breathing_tube,
-		/datum/job/engineering/mechanic = /obj/item/organ/internal/cyberimp/eyes/shield,
 		/datum/job/head_of_staff/cmo = /obj/item/organ/internal/cyberimp/arm/medibeam,
 		/datum/job/medical/doctor = /obj/item/organ/internal/cyberimp/arm/surgery,
 		/datum/job/medical/coroner = /obj/item/organ/internal/liver/cybernetic,
@@ -280,6 +281,7 @@
 		/datum/job/head_of_staff/rd = /obj/item/organ/internal/cyberimp/brain/bci,
 		/datum/job/science/scientist = /obj/item/organ/internal/ears/cybernetic,
 		/datum/job/science/roboticist = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic,
+		/datum/job/science/mechanic = /obj/item/organ/internal/cyberimp/eyes/shield,
 		/datum/job/head_of_staff/hos = /obj/item/organ/internal/cyberimp/eyes/thermals,
 		/datum/job/security/warden = /obj/item/organ/internal/cyberimp/eyes/hud/security,
 		/datum/job/security/detective = /obj/item/organ/internal/lungs/cybernetic/upgraded,
