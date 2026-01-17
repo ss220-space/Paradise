@@ -593,6 +593,7 @@
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/med,
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/comms,
 		/obj/item/implanter/adrenalin,
+		/obj/item/implanter/heal,
 		/obj/item/implanter/explosive_macro,
 		/obj/item/gun/magic/hook,
 	)

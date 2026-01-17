@@ -57,6 +57,7 @@
 	max_integrity = 300
 	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
+	abstract_type = /obj/machinery/vending
 
 	// All the overlay controlling variables
 	/// Overlay of vendor maintenance panel.

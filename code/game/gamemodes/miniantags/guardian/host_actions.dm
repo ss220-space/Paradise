@@ -39,7 +39,7 @@
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, span_changeling("([ghost_follow_link(owner, ghost = M)])<i>Сообщение от хранителя <b>[owner]</b>: [input]</i>"))
+			to_chat(M, span_changeling("([ghost_follow_link(owner, ghost = M)]) <i>Сообщение от хранителя <b>[owner]</b>: [input]</i>"))
 
 /**
  * # Recall guardian action

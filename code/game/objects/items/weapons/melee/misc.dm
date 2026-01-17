@@ -1,5 +1,6 @@
 /obj/item/melee
 	needs_permit = TRUE
+	abstract_type = /obj/item/melee
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 

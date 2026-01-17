@@ -61,15 +61,20 @@
 #define TRAIT_NO_SPELLS "no_spells"	// Used to prevent cast or use any spells
 /// Are we immune to shocks?
 #define TRAIT_SHOCKIMMUNE "shock_immunity"
+#define TRAIT_BATON_RESISTANCE "baton_resistance"
 /// Are we immune to specifically tesla / SM shocks?
 #define TRAIT_TESLA_SHOCKIMMUNE "tesla_shock_immunity"
 /// Are we immune to wet effect
 #define TRAIT_WET_IMMUNITY "wet_immunity"
 
+/// Makes the user handcuff others faster
+#define TRAIT_FAST_CUFFING "fast_cuffing"
 /// We place people into a fireman carry quicker than standard
 #define TRAIT_QUICK_CARRY "quick-carry"
 /// We place people into a fireman carry especially quickly compared to quick_carry
 #define TRAIT_QUICKER_CARRY "quicker-carry"
+/// Make some nuild actions quicker
+#define TRAIT_QUICK_BUILD "quick-build"
 /// Prevents mob from riding mobs when buckled onto something
 #define TRAIT_CANT_RIDE "cant_ride"
 #define TRAIT_CHUNKYFINGERS "chunkyfingers"	//means that you can't use weapons with normal trigger guards.
@@ -365,8 +370,17 @@
 
 #define TRAIT_BALD "bald"
 
+
+#define TRAIT_NOSELFIGNITION_HEAD_ONLY "no_selfignition_head_only"
+#define TRAIT_XRAY_VISION "xray_vision"
+#define TRAIT_THERMAL_VISION "thermal_vision"
+#define TRAIT_MESON_VISION "meson_vision"
+#define TRAIT_FLASH_PROTECTION "flash_protection"
+#define TRAIT_NIGHT_VISION "night_vision"
+
 /// Owner mob sometimes will headbutts airlocks as if it had 60+ braindamage.
 #define TRAIT_AIRLOCK_HIT "airlock_hit"
+
 
 /// Anti stun reagent in blood
 #define TRAIT_ANTI_STUN_REAGENT "anti_stun_reagent"
@@ -403,5 +417,3 @@
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
-
-#define TRAIT_MESON_VISION "meson_vision"

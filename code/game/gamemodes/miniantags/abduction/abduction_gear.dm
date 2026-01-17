@@ -133,6 +133,7 @@
 
 /obj/item/abductor
 	icon = 'icons/obj/abductor.dmi'
+	abstract_type = /obj/item/abductor
 
 /obj/item/proc/AbductorCheck(user)
 	if(isabductor(user))
