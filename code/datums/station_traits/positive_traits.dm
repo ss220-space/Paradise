@@ -3,7 +3,7 @@
 
 /datum/station_trait/lucky_winner
 	name = "Бесплатная пицца"
-	report_message = "Ваш объект победил в еженедельной лотерее по выдаче бесплатной пиццы. Ожидайте прибытия капсулы с пиццей каждые несколько минут."
+	report_message = "Поздравляем! Ваш сектор победил в еженедельной лотерее по выдаче бесплатной пиццы. Ожидайте автоматической рассылки капсул с горячей пиццей. Приятного аппетита!"
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 1
@@ -61,8 +61,8 @@
 #undef PARTY_COOLDOWN_LENGTH_MAX
 
 /datum/station_trait/galactic_grant
-	name = "Галактический грант"
-	report_message = "Ваш объект был выбран для получения специального гранта. На счёт отдела снабжения было направлено дополнительное финансирование."
+	name = "Целевое финансирование"
+	report_message = "Центральное Командование выделило вашему объекту субсидию за высокие показатели эффективности в прошлом квартале. На счёт отдела снабжения было направлено дополнительное финансирование."
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
@@ -75,14 +75,14 @@
 
 /datum/station_trait/premium_internals_box
 	name = "Премиальные экстренные коробки"
-	report_message = "Все экстренные коробки членов экипажа были дополнены различными предметами."
+	report_message = "В связи с избытком квартального бюджета, все экстренные наборы были заменены на расширенные версии."
 	show_in_report = TRUE
 	weight = 5
 	trait_to_give = STATION_TRAIT_PREMIUM_INTERNALS
 
 /datum/station_trait/glowsticks
 	name = "Светящиеся палочки"
-	report_message = "На складах корпорации появился переизбыток светящихся палочек, поэтому мы разбросали их по техническим туннелям вашей станции."
+	report_message = "Из-за логистического сбоя во время предыдущей смены на объект был доставлен контейнер с аварийным химсветом. Прошлый экипаж принял решение распределить их по техническим туннелям для освещения."
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 2
@@ -122,8 +122,8 @@
 			stick.turn_on()
 
 /datum/station_trait/strong_supply_lines
-	name = "Улучшенное снабжение"
-	report_message = "В вашем секторе налажена галактическая торговля, от чего цены на все заказы в отделе снабжения снижены."
+	name = "Приоритетный торговый маршрут"
+	report_message = "Логистические цепи в вашем секторе работают с пиковой эффективностью. Цены на заказы в Отделе Снабжения снижены за счёт уменьшения транспортных затрат."
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 2
@@ -136,7 +136,7 @@
 
 /datum/station_trait/filled_maint
 	name = "Захламлённые технические туннели"
-	report_message = "Прошлый экипаж объекта оставил гораздо больше своих личных вещей в технических туннелях."
+	report_message = "Клининговая команда не успела посетить технические уровни после эвакуации предыдущего экипажа. В туннелях могут находиться личные вещи и различное оборудование."
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 2
@@ -146,8 +146,8 @@
 	can_revert = FALSE
 
 /datum/station_trait/quick_shuttle
-	name = "Ускоренный шаттл снабжения"
-	report_message = "Из-за близкого расположения вашего объекта к \"АКН Трурль\" шаттлу поставок потребуется гораздо меньше времени на перелёты. Шаттл эвакуации это не затронет."
+	name = "Ближняя орбита снабжения"
+	report_message = "\"АКН Трурль\" вышел на низкую орбиту над вашим объектом. Время подлета грузового шаттла минимально."
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
@@ -158,7 +158,7 @@
 	SSshuttle.supply.callTime *= 0.5
 
 /datum/station_trait/deathrattle_department
-	name = "Один из отделов с имплантом \"предсмертного отзвука\""// too long
+	name = "Мониторинг жизнедеятельности: один из отделов"
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	abstract_type = /datum/station_trait/deathrattle_department
@@ -173,7 +173,7 @@
 	. = ..()
 	deathrattle_group = new("[department_name] group")
 	blacklist += subtypesof(/datum/station_trait/deathrattle_department) - type //All but ourselves
-	report_message = "Все членам [ru_department_name] были установлены экспериментальные импланты, уведомляющие о смерти других носителей данного импланта."
+	report_message = "В рамках эксперимента по повышению выживаемости, сотрудники [ru_department_name] были чипированы имплантами \"Предсмертный вздох\". В случае смерти пользователя, имплант сообщит об этом остальному экипажу."
 	RegisterSignal(SSdcs, COMSIG_GLOB_JOB_AFTER_SPAWN, PROC_REF(on_job_after_spawn))
 
 /datum/station_trait/deathrattle_department/proc/on_job_after_spawn(datum/source, datum/job/job, mob/living/spawned)
@@ -187,57 +187,57 @@
 	implant_to_give.implant(spawned, spawned, TRUE)
 
 /datum/station_trait/deathrattle_department/service
-	name = "Отдел сервиса с имплантом \"предсмертного отзвука\""
+	name = "Мониторинг жизнедеятельности: Отдел Обслуживания"
 	weight = 1
 	department_to_apply_to = STATION_DEPARTMENT_SERVICE
 	department_name = "Service"
-	ru_department_name = "отдела сервиса"
+	ru_department_name = "Отдела Обслуживания"
 
 /datum/station_trait/deathrattle_department/cargo
-	name = "Отдел снабжения с имплантом \"предсмертного отзвука\""
+	name = "Мониторинг жизнедеятельности: Отдел Снабжения"
 	weight = 1
 	department_to_apply_to = STATION_DEPARTMENT_SUPPLY
 	department_name = "Cargo"
-	ru_department_name = "отдела снабжения"
+	ru_department_name = "Отдела Снабжения"
 
 /datum/station_trait/deathrattle_department/engineering
-	name = "Инженерный отдел с имплантом \"предсмертного отзвука\""
+	name = "Мониторинг жизнедеятельности: Инженерный Отдел"
 	weight = 1
 	department_to_apply_to = STATION_DEPARTMENT_ENGINEERING
 	department_name = "Engineering"
-	ru_department_name = "инженерного отдела"
+	ru_department_name = "Инженерного Отдела"
 
 /datum/station_trait/deathrattle_department/command
-	name = "Отдел командования с имплантом \"предсмертного отзвука\""
+	name = "Мониторинг жизнедеятельности: Командование"
 	weight = 1
 	department_to_apply_to = STATION_DEPARTMENT_COMMAND
 	department_name = "Command"
-	ru_department_name = "отдела командования"
+	ru_department_name = "Командного Состава"
 
 /datum/station_trait/deathrattle_department/science
-	name = "Исследовательский отдел с имплантом \"предсмертного отзвука\""
+	name = "Мониторинг жизнедеятельности: Научный Отдел"
 	weight = 1
 	department_to_apply_to = STATION_DEPARTMENT_SCIENCE
 	department_name = "Science"
-	ru_department_name = "исследовательского отдела"
+	ru_department_name = "Научного Отдела"
 
 /datum/station_trait/deathrattle_department/security
-	name = "ОЗА с имплантом \"предсмертного отзвука\""
+	name = "Мониторинг жизнедеятельности: Служба Безопасности"
 	weight = 1
 	department_to_apply_to = STATION_DEPARTMENT_SECURITY
 	department_name = "Security"
-	ru_department_name = "отдела защиты активов"
+	ru_department_name = "Службы Безопасности"
 
 /datum/station_trait/deathrattle_department/medical
-	name = "Медицинский отдел с имплантом \"предсмертного отзвука\""
+	name = "Мониторинг жизнедеятельности: Медицинский Отдел"
 	weight = 1
 	department_to_apply_to = STATION_DEPARTMENT_MEDICAL
 	department_name = "Medical"
-	ru_department_name = "медицинского отдела"
+	ru_department_name = "Медицинского Отдела"
 
 /datum/station_trait/deathrattle_all
-	name = "Принудительная установка импланта \"предсмертного отзвука\""
-	report_message = "Всему экипажу на объекте был установлен имплант, который сообщает в случае, если кто-то погибнет."
+	name = "Глобальный мониторинг жизнедеятельности"
+	report_message = "В рамках эксперимента по повышению выживаемости, все члены экипажа были чипированы имплантами \"Предсмертный вздох\". В случае смерти пользователя, имплант сообщит об этом остальному экипажу."
 	show_in_report = TRUE
 	trait_type = STATION_TRAIT_POSITIVE
 	weight = 1
@@ -257,8 +257,8 @@
 	implant_to_give.implant(spawned, spawned, TRUE, TRUE)
 
 /datum/station_trait/cybernetic_revolution
-	name = "Расцвет кибернетики"
-	report_message = "Новая мода на повальную аугментацию дошла и до вашего объекта, как мы слышали. Судя по медицинским записям, каждый член экипажа установил себе кибернетический имплант."
+	name = "Инициатива \"Кибер-специалист\""
+	report_message = "Ваш объект был выбран для проведения программы \"Кибер-специалист\". Отдел Кадров ЦК сформировал состав текущей смены исключительно из сотрудников, обладающих кибернетическими модификациями, для оценки их суммарной эффективности."
 	show_in_report = TRUE
 	weight = 1
 	trait_to_give = STATION_TRAIT_CYBERNETIC_REVOLUTION
@@ -324,8 +324,8 @@
 	cybernetic.insert(spawned)
 
 /datum/station_trait/medbot_mania
-	name = "Модифицированные медботы"
-	report_message = "Все медботы на вашем объекте, включая новособранных, получили улучшение ПО. Ожидайте более качественную работу."
+	name = "Обновление ПО медботов"
+	report_message = "На всех медицинских роботов станции был загружен патч прошивки v2.0. Ожидается повышение скорости работы и качества лечения."
 	show_in_report = TRUE
 	weight = 5
 	trait_type = STATION_TRAIT_POSITIVE
@@ -333,7 +333,7 @@
 
 /datum/station_trait/random_event_weight_modifier/tradeship
 	name = "Торговое партнёрство"
-	report_message = "Корпорация \"Нанотрейзен\" заключила торговое соглашение с ТСФ. Ожидайте скорого прибытия их коммерческого шаттла."
+	report_message = "Корпорация \"Нанотрейзен\" заключила торговое соглашение с ТСФ. Сканеры дальнего действия засекли приближение торговых шаттлов."
 	weight = 5
 	trait_type = STATION_TRAIT_POSITIVE
 	event_names = list("Торговцы")
@@ -341,8 +341,8 @@
 	weight_multiplier = 20 // you should be really unlucky
 
 /datum/station_trait/upgraded_armory
-	name = "Улучшенная оружейная"
-	report_message = "Укрепленная оружейная на вашем объекте получила улучшения, туды были доставлены редкие экземпляры. Однако цены на заказ нового снаряжения будут повышены."
+	name = "Модернизация арсенала"
+	report_message = "Арсенал Службы Безопасности был укомплектован экспериментальными образцами вооружения. В связи с расходами на переоборудование, цены на обычные поставки оружия повышены."
 	show_in_report = TRUE
 	weight = 2
 	trait_type = STATION_TRAIT_POSITIVE
