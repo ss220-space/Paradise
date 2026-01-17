@@ -1469,18 +1469,18 @@
 		// Set the direction of the icon animation.
 		var/direction = get_dir(src, attacked_atom)
 		if(direction & NORTH)
-			attack_image.pixel_y = -12
+			attack_image.pixel_z = -12
 		else if(direction & SOUTH)
-			attack_image.pixel_y = 12
+			attack_image.pixel_z = 12
 
 		if(direction & EAST)
-			attack_image.pixel_x = -14
+			attack_image.pixel_w = -14
 		else if(direction & WEST)
-			attack_image.pixel_x = 14
+			attack_image.pixel_w = 14
 
 		if(!direction) // Attacked self?!
-			attack_image.pixel_y = 12
-			attack_image.pixel_x = 5 * (prob(50) ? 1 : -1)
+			attack_image.pixel_z = 12
+			attack_image.pixel_w = 5 * (prob(50) ? 1 : -1)
 
 	if(!attack_image)
 		return

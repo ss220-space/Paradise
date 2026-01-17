@@ -1354,7 +1354,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		target_x -= 32
 	if(!direction)
 		target_y += 10
-		transfer_animation.pixel_x += 6 * (prob(50) ? 1 : -1)
+		transfer_animation.pixel_w += 6 * (prob(50) ? 1 : -1)
 
 	var/atom/movable/flick_visual/pickup = src.loc.flick_overlay_view(transfer_animation, 0.4 SECONDS)
 	var/matrix/animation_matrix = new(pickup.transform)

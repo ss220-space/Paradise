@@ -100,12 +100,12 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			holder_obj.appearance = A.appearance
 			A.forceMove(holder_obj)
 			balloon2 = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_expand")
-			balloon2.pixel_y = 10
+			balloon2.pixel_z = 10
 			balloon2.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 			holder_obj.add_overlay(balloon2)
 			sleep(4)
 			balloon = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_balloon")
-			balloon.pixel_y = 10
+			balloon.pixel_z = 10
 			balloon.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 			holder_obj.cut_overlay(balloon2)
 			holder_obj.add_overlay(balloon)
@@ -144,7 +144,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 			animate(holder_obj, pixel_z = 10, time = 10)
 			sleep(10)
 			balloon3 = mutable_appearance('icons/obj/fulton_balloon.dmi', "fulton_retract")
-			balloon3.pixel_y = 10
+			balloon3.pixel_z = 10
 			balloon3.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
 			holder_obj.cut_overlay(balloon)
 			holder_obj.add_overlay(balloon3)

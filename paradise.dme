@@ -14,6 +14,7 @@
 #include "__odlint.dm"
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\common.dm"
+#include "code\__byond_version_compat.dm"
 #include "code\_compile_options.dm"
 #include "code\world.dm"
 #include "code\__DEFINES\__globals.dm"

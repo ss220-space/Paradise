@@ -21,7 +21,7 @@
  * Utensils
  */
 /obj/item/kitchen/utensil
-	force = 5.0
+	force = 5
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 5
@@ -44,7 +44,7 @@
 	var/obj/item/reagent_containers/food/snack = locate() in src
 	if(snack)
 		var/mutable_appearance/food_olay = mutable_appearance('icons/obj/kitchen.dmi', "loadedfood", color = snack.filling_color)
-		food_olay.pixel_w = pixel_x
+		food_olay.pixel_w = pixel_w
 		food_olay.pixel_z = pixel_y
 		. += food_olay
 

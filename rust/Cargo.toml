@@ -7,7 +7,7 @@ edition = "2021"
 crate-type = ["cdylib"]
 
 [dependencies]
-byondapi = {version = "0.5.14", default-features = false}
+byondapi = { git = "https://github.com/spacestation13/byondapi-rs.git", version = "0.6.14" }
 eyre = "0.6.12"
 slotmap = "1.0.7"
 base64 = "0.22.1"
@@ -49,8 +49,3 @@ bitflags = "2.5.0"
 scc = "3.4.8"
 thread-priority = "3.0.0"
 png = "0.18.0"
-
-[features]
-default = ["byond-515"]
-byond-515 = ["byondapi/byond-515-1621"]
-byond-516 = ["byondapi/byond-516-1651"]

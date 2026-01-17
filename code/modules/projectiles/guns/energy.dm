@@ -153,7 +153,7 @@
 /obj/item/gun/energy/get_cell()
 	return cell
 
-/obj/item/gun/energy/Initialize(mapload, ...)
+/obj/item/gun/energy/Initialize(mapload)
 	. = ..()
 	if(cell_type)
 		cell = new cell_type(src)
@@ -164,7 +164,7 @@
 	on_recharge()
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
@@ -339,7 +339,7 @@
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i - 1))
+				. += image(icon = icon, icon_state = new_icon_state, pixel_w = ammo_x_offset * (i - 1))
 		else
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(bayonet && bayonet_overlay)
