@@ -36,7 +36,7 @@
 /obj/item/circuit_component/equipment_action
 	display_name = "Действие оборудования"
 	desc = "Представляет действие, которое пользователь может выполнить при использовании поддерживаемых оболочек."
-	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci) // , /obj/item/mod/module/circuit
+	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci, /obj/item/mod/module/circuit)
 
 	/// The icon of the button
 	var/datum/port/input/option/icon_options

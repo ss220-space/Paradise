@@ -16,6 +16,8 @@ import {
   directionNames,
   spawnLocationIcons,
   spawnLocationOptions,
+  OffsetType,
+  PreciseMode,
 } from './constants';
 import type { IconSettings } from './index';
 
@@ -39,7 +41,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
 
   const [amount, setAmount] = useState(1);
   const [cordsType, setCordsType] = useState(0);
-  const [spawnLocation, setSpawnLocation] = useState('Current location');
+  const [spawnLocation, setSpawnLocation] = useState('Текущая локация');
   const [direction, setDirection] = useState(0);
   const [objectName, setObjectName] = useState('');
   const [offset, setOffset] = useState('');
@@ -53,7 +55,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
     setCordsType(value);
     storage.set('spawnpanel-offset_type', value);
     sendUpdatedSettings({
-      offset_type: value ? 'Absolute offset' : 'Relative offset',
+      offset_type: value ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
     });
   };
 
@@ -119,7 +121,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
 
     const currentSettings = {
       atom_amount: amount,
-      offset_type: cordsType ? 'Absolute offset' : 'Relative offset',
+      offset_type: cordsType ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
       where_target_type: spawnLocation,
       atom_dir: [1, 2, 4, 8][direction],
       offset: parseOffset(offset),
@@ -134,7 +136,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
   const resetAdvancedSettings = () => {
     const defaultAmount = 1;
     const defaultCordsType = 0;
-    const defaultSpawnLocation = 'Current location';
+    const defaultSpawnLocation = 'Текущая локация';
     const defaultDirection = 0;
     const defaultObjectName = '';
     const defaultOffset = '';
@@ -155,7 +157,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
 
     sendUpdatedSettings({
       atom_amount: defaultAmount,
-      offset_type: defaultCordsType ? 'Absolute offset' : 'Relative offset',
+      offset_type: defaultCordsType ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
       where_target_type: defaultSpawnLocation,
       atom_dir: [1, 2, 4, 8][defaultDirection],
       offset: defaultOffset,
@@ -184,20 +186,20 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
   }, []);
 
   const isTargetMode =
-    spawnLocation === 'Targeted location' ||
-    spawnLocation === 'Targeted location (droppod)' ||
-    spawnLocation === "In targeted mob's hand";
+    spawnLocation === 'Выбранная локация' ||
+    spawnLocation === 'Выбранная локация (десантная капсула)' ||
+    spawnLocation === 'В руке выбранного моба';
 
-  const isPreciseModeActive = data?.precise_mode === 'Target';
-  const isMarkModeActive = data?.precise_mode === 'Mark';
-  const isCopyModeActive = data?.precise_mode === 'Copy';
+  const isPreciseModeActive = data?.precise_mode === PreciseMode.TARGET;
+  const isMarkModeActive = data?.precise_mode === PreciseMode.MARK;
+  const isCopyModeActive = data?.precise_mode === PreciseMode.COPY;
 
-  const isAnyPreciseModeActive = !(data?.precise_mode === 'Off');
+  const isAnyPreciseModeActive = !(data?.precise_mode === PreciseMode.OFF);
 
   const disablePreciseMode = () => {
     if (isPreciseModeActive) {
       act('toggle-precise-mode', {
-        newPreciseType: 'Off',
+        newPreciseType: PreciseMode.OFF,
       });
     }
   };
@@ -219,7 +221,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
 
     const currentSettings = {
       atom_amount: amount,
-      offset_type: cordsType ? 'Absolute offset' : 'Relative offset',
+      offset_type: cordsType ? OffsetType.ABSOLUTE : OffsetType.RELATIVE,
       where_target_type: spawnLocation,
       atom_dir: [1, 2, 4, 8][direction],
       offset: parseOffset(offset),
@@ -239,10 +241,10 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
       }
     } else {
       if (isPreciseModeActive) {
-        act('toggle-precise-mode', { newPreciseType: 'Off' });
+        act('toggle-precise-mode', { newPreciseType: PreciseMode.OFF });
       } else {
         act('toggle-precise-mode', {
-          newPreciseType: 'Target',
+          newPreciseType: PreciseMode.TARGET,
           where_target_type: spawnLocation,
         });
       }
@@ -270,8 +272,8 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
               paddingLeft: '5px',
             }}
           >
-            <Table.Row className="candystripe" lineHeight="26px">
-              <Table.Cell pl={1}>Amnt.:</Table.Cell>
+            <Table.Row className="candystripe" lineHeight="16px">
+              <Table.Cell pl={1}>Кол-во:</Table.Cell>
               <Table.Cell>
                 <Stack>
                   <Stack.Item>
@@ -285,7 +287,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                       disabled={isAnyPreciseModeActive}
                     />
                   </Stack.Item>
-                  <Stack.Item>Dir:</Stack.Item>
+                  <Stack.Item>Напр-е:</Stack.Item>
                   <Stack.Item>
                     <Button
                       icon={directionIcons[[1, 2, 4, 8][direction]]}
@@ -321,7 +323,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
               </Table.Cell>
             </Table.Row>
             <Table.Row className="candystripe" lineHeight="26px">
-              <Table.Cell pl={1}>Offset:</Table.Cell>
+              <Table.Cell pl={1}>Сдвиг:</Table.Cell>
               <Table.Cell width="1200px">
                 <Stack>
                   <Stack.Item>
@@ -335,12 +337,12 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                           disablePreciseMode();
                         }
                       }}
-                      tooltip={cordsType ? 'Absolute' : 'Relative'}
+                      tooltip={cordsType ? 'Абсолютно' : 'Относительно'}
                       tooltipPosition="top"
                       disabled={
                         isTargetMode ||
-                        spawnLocation === 'At a marked object' ||
-                        spawnLocation === 'In the marked object' ||
+                        spawnLocation === 'У отмеченного объекта' ||
+                        spawnLocation === 'В отмеченном объекте' ||
                         isAnyPreciseModeActive
                       }
                     />
@@ -353,8 +355,8 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                       width="100%"
                       disabled={
                         isTargetMode ||
-                        spawnLocation === 'At a marked object' ||
-                        spawnLocation === 'In the marked object' ||
+                        spawnLocation === 'У отмеченного объекта' ||
+                        spawnLocation === 'В отмеченном объекте' ||
                         isAnyPreciseModeActive
                       }
                     />
@@ -364,14 +366,14 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
             </Table.Row>
             <Table.Row className="candystripe" lineHeight="26px">
               <Table.Cell pl={1} width="80px">
-                Name:
+                Название:
               </Table.Cell>
               <Table.Cell>
                 <Input
                   onChange={(value: string) => updateObjectName(value)}
                   value={objectName}
                   width="100%"
-                  placeholder="leave empty for initial"
+                  placeholder="название по умолчанию"
                   disabled={isAnyPreciseModeActive}
                 />
               </Table.Cell>
@@ -391,7 +393,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                       width: '22px',
                       lineHeight: '22px',
                     }}
-                    tooltip="Advanced settings"
+                    tooltip="Расширенные настройки"
                     tooltipPosition="top"
                     disabled={isAnyPreciseModeActive}
                   />
@@ -405,7 +407,7 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                       lineHeight: '22px',
                     }}
                     onClick={() => resetAdvancedSettings()}
-                    tooltip="Reset advanced settings"
+                    tooltip="Сбросить расширенные настройки"
                     tooltipPosition="top"
                     disabled={isAnyPreciseModeActive}
                   />
@@ -418,8 +420,8 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                       lineHeight: '22px',
                     }}
                     icon={
-                      spawnLocation === 'At a marked object' ||
-                      spawnLocation === 'In the marked object'
+                      spawnLocation === 'У отмеченного объекта' ||
+                      spawnLocation === 'В отмеченном объекте'
                         ? 'thumbtack'
                         : 'eye-dropper'
                     }
@@ -427,19 +429,19 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                       act('toggle-precise-mode', {
                         newPreciseType:
                           isMarkModeActive || isCopyModeActive
-                            ? 'Off'
-                            : spawnLocation === 'At a marked object' ||
-                                spawnLocation === 'In the marked object'
-                              ? 'Mark'
-                              : 'Copy',
+                            ? PreciseMode.OFF
+                            : spawnLocation === 'У отмеченного объекта' ||
+                                spawnLocation === 'В отмеченном объекте'
+                              ? PreciseMode.MARK
+                              : PreciseMode.COPY,
                       });
                     }}
                     selected={isMarkModeActive || isCopyModeActive}
                     tooltip={
-                      spawnLocation === 'At a marked object' ||
-                      spawnLocation === 'In the marked object'
-                        ? 'Mark atom'
-                        : 'Copy atom path'
+                      spawnLocation === 'У отмеченного объекта' ||
+                      spawnLocation === 'В отмеченном объекте'
+                        ? 'Отметить атом'
+                        : 'Копировать путь атома'
                     }
                     tooltipPosition="top"
                     disabled={isAnyPreciseModeActive && !isMarkModeActive}
@@ -462,16 +464,19 @@ export const CreateObjectSettings = (props: CreateObjectSettingsProps) => {
                     icon={spawnLocationIcons[spawnLocation]}
                     selected={isTargetMode && isPreciseModeActive}
                   >
-                    SPAWN
+                    СОЗДАТЬ
                   </Button>
                 </Stack.Item>
                 <Stack.Item>
                   <Dropdown
                     options={spawnLocationOptions}
                     onSelected={(value) => {
-                      if (data?.precise_mode && data.precise_mode !== 'Off') {
+                      if (
+                        data?.precise_mode &&
+                        data.precise_mode !== PreciseMode.OFF
+                      ) {
                         act('toggle-precise-mode', {
-                          newPreciseType: 'Off',
+                          newPreciseType: PreciseMode.OFF,
                         });
                       }
                       updateSpawnLocation(value);

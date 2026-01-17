@@ -690,6 +690,10 @@
 	gun.zoom(L, FALSE)
 	..()
 
+/datum/action/toggle_scope_zoom/Destroy()
+	gun = null
+	return ..()
+
 /obj/item/gun/proc/zoom(mob/living/user, forced_zoom)
 	if(!user || !user.client)
 		return

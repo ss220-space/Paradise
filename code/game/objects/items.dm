@@ -220,6 +220,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/greyscale_config_inhand_left
 	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config_inhand_right
+	///The config type to use for greyscaled belt overlays. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_belt
 
 	//Tooltip vars
 	var/tip_timer = 0
@@ -260,6 +262,22 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/exists_skin_change = FALSE
 	//can you put this item in closets
 	var/can_put_in_closet = TRUE
+	/// Colored belt appearance for adding it as a belt overlay
+	var/icon/colored_belt_appearance
+
+	// Clothing vars moved from item/clothing to item because we can wear fucking items (papers, animals) and it runtimes
+
+	/// Special flags applied to clothing items only
+	var/clothing_flags = NONE
+	var/visor_flags = NONE
+	/// Same as visor_flags, but for flags_inv
+	var/visor_flags_inv = NONE
+	/// Same as visor_flags_inv, but for flags_inv_transparent
+	var/visor_flags_inv_transparent = NONE
+	/// Same as visor_flags_inv_transparent, but for flags_cover
+	var/visor_flags_cover = NONE
+	/// What to toggle when toggled with weldingvisortoggle()
+	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
 /obj/item/Initialize(mapload)
 	. = ..()
@@ -515,7 +533,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				span_notice("[user] начинает снимать [declent_ru(ACCUSATIVE)]..."),
 				span_notice("Вы начинаете снимать [declent_ru(ACCUSATIVE)]..."),
 			)
-			if(!do_after(user, equip_delay_self, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [declent_ru(GENITIVE)] было прервано!")))
+			if(!do_after(user, equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [declent_ru(GENITIVE)] было прервано!")))
 				return
 
 		if(!user.temporarily_remove_item_from_inventory(src, silent = FALSE))
@@ -849,6 +867,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 			continue
 		if(container.can_be_inserted(src, TRUE))
 			return container.handle_item_insertion(src)
+
+	for(var/obj/item/mod/control/control in possible)
+		if(control.can_be_inserted(src, TRUE))
+			return control.handle_item_insertion(src)
 
 	if(drop_on_fail)
 		if(src in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
@@ -1266,6 +1288,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		lefthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_left, greyscale_colors)
 	if(greyscale_config_inhand_right)
 		righthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_right, greyscale_colors)
+	if(greyscale_config_belt)
+		colored_belt_appearance = SSgreyscale.get_colored_icon_by_type(greyscale_config_belt, greyscale_colors)
 	return
 
 /obj/item/proc/add_tape()
@@ -1395,7 +1419,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	stack_trace("Undefined handle_openspace_click() behaviour. Ascertain the openspace_item_click_handler element has been attached to the right item and that its proc override doesn't call parent.")
 
-/obj/item/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/item/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
 
 /// Conditional proc that allows ventcrawling with an item, if it has trait TRAIT_VENTCRAWLER_ITEM_BASED.
@@ -1445,6 +1469,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()
-	if(!belt_icon)
-		return
-	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)
+	var/icon_state_to_use = belt_icon || icon_state
+	if(colored_belt_appearance)
+		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)

@@ -325,9 +325,7 @@
 	name = "Engineering"
 	module_type = "Engineer"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_blueprints)
-	module_actions = list(
-		/datum/action/innate/robot_sight/meson,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/meson, /datum/action/innate/robot_magpulse)
 	channels = list(ENG_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/eng
 	borg_skins = list(
@@ -363,8 +361,6 @@
 /obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
 		LAZYADD(robot.camera.network, "Engineering")
-
-	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 	return TRUE
 
@@ -644,9 +640,7 @@
 /obj/item/robot_module/miner
 	name = "Miner"
 	module_type = "Miner"
-	module_actions = list(
-		/datum/action/innate/robot_sight/meson,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/meson)
 	custom_removals = list("KA modkits")
 	channels = list(SUP_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/basic/mnr
@@ -736,9 +730,7 @@
 	name = "Deathsquad"
 	name_disguise = "NT advanced combat"
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	default_skin = /datum/robot_skin/deathsquad
 	borg_skins = list(/datum/robot_skin/deathsquad)
 	has_transform_animation = TRUE
@@ -914,9 +906,7 @@
 /obj/item/robot_module/destroyer
 	name = "Destroyer"
 	module_type = "Malf"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal, /datum/action/innate/robot_magpulse)
 	channels = list(SEC_FREQ_NAME = 1)
 	default_skin = /datum/robot_skin/droidcombat
 	borg_skins = list(/datum/robot_skin/droidcombat)
@@ -947,7 +937,7 @@
 /obj/item/robot_module/combat
 	name = "Combat"
 	module_type = "Malf"
-	module_actions = list()
+	module_actions = list(/datum/action/innate/robot_magpulse)
 	default_skin = /datum/robot_skin/ertgamma
 	borg_skins = list(
 		/datum/robot_skin/ertgamma,
@@ -988,9 +978,7 @@
 /obj/item/robot_module/hunter
 	name = "Hunter"
 	module_type = "Standard"
-	module_actions = list(
-		/datum/action/innate/robot_sight/thermal/alien,
-	)
+	module_actions = list(/datum/action/innate/robot_sight/thermal/alien)
 	default_skin = /datum/robot_skin/xenoborg
 	borg_skins = list(/datum/robot_skin/xenoborg)
 

@@ -86,6 +86,10 @@
 					if(is_type_in_typecache(item_to_retrieve.loc, blacklisted_summons))
 						break
 					item_to_retrieve = item_to_retrieve.loc
+					if(ismodstorage(item_to_retrieve))
+						var/obj/item/storage/backpack/modstorage/bag = item_to_retrieve
+						if(bag.source && bag.source.mod)
+							item_to_retrieve = bag.source.mod //Grab the modsuit.
 
 				infinite_recursion += 1
 

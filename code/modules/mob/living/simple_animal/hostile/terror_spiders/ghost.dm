@@ -18,8 +18,8 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/humanize_spider()
 	add_datum_if_not_exist()
-	for(var/mob/dead/observer/G in GLOB.player_list)
-		G.show_message("([ghost_follow_link(src, ghost = G)]) <i>Призрак взял управление <b>[declent_ru(INSTRUMENTAL)]</b>.</i>")
+	for(var/mob/dead/observer/observer in GLOB.player_list)
+		observer.show_message("([ghost_follow_link(src, ghost = observer)]) <i>Призрак взял управление над <b>[declent_ru(INSTRUMENTAL)]</b>.</i>")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/add_datum_if_not_exist()
 	if(mind && !mind.has_antag_datum(/datum/antagonist/terror_spider))

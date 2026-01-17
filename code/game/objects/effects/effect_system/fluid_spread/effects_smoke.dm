@@ -437,6 +437,7 @@
 		if(thing == src)
 			continue
 		reagents.reaction(thing, REAGENT_TOUCH, fraction)
+		SEND_SIGNAL(thing, COMSIG_ATOM_EXPOSE_REAGENTS, reagents, reagents.total_volume)
 
 	reagents.reaction(location, REAGENT_TOUCH, fraction)
 	return TRUE
