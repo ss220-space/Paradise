@@ -173,7 +173,6 @@
 /obj/item/birthday_invite
 	name = "birthday invitation"
 	desc = "Небольшая карточка, на которой сказано, что у кого-то сегодня день рождения."
-	gender = NEUTER
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_TINY
 
