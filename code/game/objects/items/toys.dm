@@ -21,6 +21,7 @@
  */
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throw_speed = 4
 	throw_range = 20
 	var/unique_toy_rename = FALSE
@@ -305,7 +306,7 @@
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
-/obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/toy/snappop/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	pop_burst()
 
@@ -989,11 +990,35 @@
 
 //New generation TG plushies
 
-/obj/item/toy/plushie/lizardplushie
+/obj/item/toy/plushie/lizard_plushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "plushie_lizard"
+	icon_state = "map_plushie_lizard"
 	item_state = "plushie_lizard"
+	greyscale_config = /datum/greyscale_config/plush_lizard
+	greyscale_config_inhand_left = /datum/greyscale_config/plush_lizard_left
+	greyscale_config_inhand_right = /datum/greyscale_config/plush_lizard_right
+
+/obj/item/toy/plushie/lizard_plushie/Initialize(mapload)
+	. = ..()
+	if(greyscale_colors)
+		return
+
+	// Generate a random valid lizard color for our plushie friend
+	var/generated_lizard_color = "#" + random_color()
+	var/temp_hsv = RGBtoHSV(generated_lizard_color)
+
+	// If our color is too dark, use the classic green lizard plush color
+	if(ReadHSV(temp_hsv)[3] < ReadHSV("#7f7f7f")[3])
+		generated_lizard_color = "#66ff33"
+	// Set our greyscale colors to the lizard color we made + black eyes
+	set_greyscale_colors(colors = list(generated_lizard_color, COLOR_BLACK))
+
+// Preset lizard plushie that uses the original lizard plush green. (Or close to it)
+/obj/item/toy/plushie/lizard_plushie/green
+	desc = "An adorable stuffed toy that resembles a green lizardperson. This one fills you with nostalgia and soul."
+	greyscale_colors = "#66ff33#000000"
+	flags = /obj/item/toy/plushie::flags|NO_NEW_GAGS_PREVIEW
 
 /obj/item/toy/plushie/ashwalkerplushie
 	name = "ash walker plushie"

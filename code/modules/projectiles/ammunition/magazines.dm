@@ -414,6 +414,7 @@
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 10
 	caliber = CALIBER_40NR
+	materials = list(MAT_METAL = 2500)
 
 /obj/item/ammo_box/magazine/sp8/empty
 	start_empty = TRUE
@@ -507,6 +508,7 @@
 	ammo_type = /obj/item/ammo_casing/c45nr
 	caliber = CALIBER_45NR
 	max_ammo = 20
+	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/sp91rc/empty
 	start_empty = TRUE

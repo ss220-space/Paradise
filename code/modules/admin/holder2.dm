@@ -26,6 +26,9 @@ GLOBAL_PROTECT(href_token)
 	/// Tabs of secrets
 	var/current_tab = 0
 
+	var/datum/spawn_menu/spawn_menu
+	var/datum/spawnpanel/spawn_panel
+
 /datum/admins/New(initial_rank, initial_rights, ckey)
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Admin rank creation blocked: Advanced ProcCall detected."))

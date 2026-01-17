@@ -97,7 +97,7 @@
 
 /datum/event/wormholes/anomaly/announce()
 	GLOB.minor_announcement.announce(
-		message = "Дeстабилизация крупной блюспейс аномалии вызвала пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.",
+		message = "Дестабилизация крупной блюспейс аномалии вызвала пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.",
 		new_title = ANNOUNCE_ANOMALY_RU,
 		new_sound = ANNOUNCER_SPANOMALIES,
 	)

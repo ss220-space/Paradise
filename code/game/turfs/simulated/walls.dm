@@ -143,7 +143,7 @@
 
 	return
 
-/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
+/turf/simulated/wall/proc/adjacent_fire_act(radiated_temperature)
 	if(radiated_temperature > max_temperature)
 		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 

@@ -327,3 +327,353 @@
 		max_weight_of_contents = A_is_item.w_class
 	folding_bodybag.w_class = max_weight_of_contents
 	the_folder.put_in_hands(folding_bodybag)
+
+
+/obj/item/bodybag/environmental
+	name = "environmental protection bag"
+	desc = "Продвинутый мешок, созданный для защиты от опасной окружающей среды или экстремально низкого давления."
+	icon_state = "envirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental
+	w_class = WEIGHT_CLASS_NORMAL //It's reinforced and insulated, like a beefed-up sleeping bag, so it has a higher bulkiness than regular bodybag
+	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF
+
+/obj/item/bodybag/environmental/get_ru_names()
+	return list(
+		NOMINATIVE = "защитный мешок",
+		GENITIVE = "защитного мешка",
+		DATIVE = "защитному мешку",
+		ACCUSATIVE = "защитный мешок",
+		INSTRUMENTAL = "защитным мешком",
+		PREPOSITIONAL = "защитном мешке"
+	)
+
+/obj/item/bodybag/environmental/nanotrasen
+	name = "elite environmental protection bag"
+	desc = "Продвинутая версия защитного мешка, способная полностью обезопасить содержимое от любого воздействия внешней среды."
+	icon_state = "ntenvirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/nanotrasen
+	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
+
+/obj/item/bodybag/environmental/nanotrasen/get_ru_names()
+	return list(
+		NOMINATIVE = "элитный защитный мешок",
+		GENITIVE = "элитного защитного мешка",
+		DATIVE = "элитному защитному мешку",
+		ACCUSATIVE = "элитный защитный мешок",
+		INSTRUMENTAL = "элитным защитным мешком",
+		PREPOSITIONAL = "элитном защитном мешке"
+	)
+
+/obj/item/bodybag/environmental/prisoner
+	name = "prisoner transport bag"
+	desc = "Мешок, созданный для транспортировки заключённых в условиях враждебной окружающей среды. Оснащён стяжками, \
+			позволяющими насильно удерживать заключённого внутри."
+	icon_state = "prisonerenvirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner
+
+/obj/item/bodybag/environmental/prisoner/get_ru_names()
+	return list(
+		NOMINATIVE = "защитный мешок для заключённых",
+		GENITIVE = "защитного мешка для заключённых",
+		DATIVE = "защитному мешку для заключённых",
+		ACCUSATIVE = "защитный мешок для заключённых",
+		INSTRUMENTAL = "защитным мешком для заключённых",
+		PREPOSITIONAL = "защитном мешке для заключённых"
+	)
+
+/obj/item/bodybag/environmental/prisoner/pressurized
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized
+
+/obj/item/bodybag/environmental/prisoner/syndicate
+	name = "syndicate prisoner transport bag"
+	desc = "Мешок, созданный для транспортировки пленников синдиката в условиях враждебной окружающей среды. Оснащён стяжками, \
+			позволяющими насильно удерживать пленника внутри."
+	icon_state = "syndieenvirobag_folded"
+	unfoldedbag_path = /obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate
+	resistance_flags = ACID_PROOF | FIRE_PROOF | FREEZE_PROOF | LAVA_PROOF
+
+/obj/item/bodybag/environmental/prisoner/syndicate/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок для заключённых синдиката",
+		GENITIVE = "мешка для заключённых синдиката",
+		DATIVE = "мешку для заключённых синдиката",
+		ACCUSATIVE = "мешок для заключённых синдиката",
+		INSTRUMENTAL = "мешком для заключённых синдиката",
+		PREPOSITIONAL = "мешке для заключённых синдиката"
+	)
+
+/// Environmental bags. They protect against bad weather.
+/obj/structure/closet/body_bag/environmental
+	name = "environmental protection bag"
+	desc = "Продвинутый мешок, созданный для защиты от опасной окружающей среды или экстремально низкого давления."
+	icon_state = "envirobag"
+	mob_storage_capacity = 1
+	contents_pressure_protection = 0.8
+	contents_thermal_insulation = 0.5
+	foldedbag_path = /obj/item/bodybag/environmental
+	/// The list of weathers we protect from.
+	var/list/weather_protection = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_RADSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE) // Does not protect against lava or the The Floor Is Lava spell.
+	/// The contents of the gas to be distributed to an occupant. Set in Initialize()
+	var/datum/gas_mixture/air_contents = null
+
+/obj/structure/closet/body_bag/environmental/get_ru_names()
+	return list(
+		NOMINATIVE = "защитный мешок",
+		GENITIVE = "защитного мешка",
+		DATIVE = "защитному мешку",
+		ACCUSATIVE = "защитный мешок",
+		INSTRUMENTAL = "защитным мешком",
+		PREPOSITIONAL = "защитном мешке"
+	)
+
+/obj/structure/closet/body_bag/environmental/Initialize(mapload)
+	. = ..()
+	add_traits(weather_protection, INNATE_TRAIT)
+	refresh_air()
+
+/obj/structure/closet/body_bag/environmental/Destroy()
+	QDEL_NULL(air_contents)
+	return ..()
+
+/obj/structure/closet/body_bag/environmental/return_obj_air()
+	refresh_air()
+	return air_contents
+
+/obj/structure/closet/body_bag/environmental/return_analyzable_air()
+	refresh_air()
+	return air_contents
+
+/obj/structure/closet/body_bag/environmental/togglelock(mob/living/user, silent)
+	. = ..()
+	for(var/mob/living/target in contents)
+		to_chat(target, span_warning("Вы слышите тихое шипение, после чего белый дым заполняет пространство мешка..."))
+
+/obj/structure/closet/body_bag/environmental/proc/refresh_air()
+	air_contents = null
+	air_contents = new	//liters
+	air_contents.set_temperature(T20C)
+	air_contents.volume = 50
+
+	air_contents.set_oxygen(O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
+	air_contents.set_nitrogen(N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
+
+/obj/structure/closet/body_bag/environmental/update_icon_state()
+	return
+
+/obj/structure/closet/body_bag/environmental/update_overlays()
+	. = ..()
+	if(!opened)
+		return
+
+	var/mutable_appearance/open_overlay = mutable_appearance(icon, "[icon_state]_open", alpha = src.alpha)
+	. += open_overlay
+	open_overlay.overlays += emissive_blocker(open_overlay.icon, open_overlay.icon_state, src, alpha = open_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+
+/obj/structure/closet/body_bag/environmental/nanotrasen
+	name = "elite environmental protection bag"
+	desc = "Продвинутая версия защитного мешка, способная полностью обезопасить содержимое от любого воздействия внешней среды."
+	icon_state = "ntenvirobag"
+	contents_pressure_protection = 1
+	contents_thermal_insulation = 1
+	foldedbag_path = /obj/item/bodybag/environmental/nanotrasen
+	weather_protection = list(TRAIT_WEATHER_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/nanotrasen/get_ru_names()
+	return list(
+		NOMINATIVE = "элитный защитный мешок",
+		GENITIVE = "элитного защитного мешка",
+		DATIVE = "элитному защитному мешку",
+		ACCUSATIVE = "элитный защитный мешок",
+		INSTRUMENTAL = "элитным защитным мешком",
+		PREPOSITIONAL = "элитном защитном мешке"
+	)
+
+/// Securable enviro. bags
+/obj/structure/closet/body_bag/environmental/prisoner
+	name = "prisoner transport bag"
+	desc = "Мешок, созданный для транспортировки заключённых в условиях враждебной окружающей среды. Оснащён зажимами, \
+			позволяющими насильно удерживать заключённого внутри."
+	icon_state = "prisonerenvirobag"
+	foldedbag_path = /obj/item/bodybag/environmental/prisoner
+	breakout_time = 1 MINUTES
+	/// How long it takes to sinch the bag.
+	var/sinch_time = 5 SECONDS
+	/// Whether or not the bag is sinched. Starts unsinched.
+	var/sinched = FALSE
+	/// The sound that plays when the bag is done sinching.
+	var/sinch_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+
+/obj/structure/closet/body_bag/environmental/prisoner/get_ru_names()
+	return list(
+		NOMINATIVE = "защитный мешок для заключённых",
+		GENITIVE = "защитного мешка для заключённых",
+		DATIVE = "защитному мешку для заключённых",
+		ACCUSATIVE = "защитный мешок для заключённых",
+		INSTRUMENTAL = "защитным мешком для заключённых",
+		PREPOSITIONAL = "защитном мешке для заключённых"
+	)
+
+/obj/structure/closet/body_bag/environmental/prisoner/attempt_fold(mob/living/carbon/human/the_folder)
+	if(sinched)
+		balloon_alert(the_folder, "ослабьте зажимы!")
+		return FALSE
+	return ..()
+
+/obj/structure/closet/body_bag/environmental/prisoner/can_open()
+	. = ..()
+	if(!.)
+		return FALSE
+
+	if(sinched)
+		return FALSE
+
+	return TRUE
+
+/obj/structure/closet/body_bag/environmental/prisoner/update_icon()
+	. = ..()
+	if(sinched)
+		icon_state = initial(icon_state) + "_sinched"
+	else
+		icon_state = initial(icon_state)
+
+/obj/structure/closet/body_bag/environmental/prisoner/container_resist(mob/living/user)
+	// copy-pasted with changes because flavor text as well as some other misc stuff
+	if(opened || ismovable(loc) || !sinched)
+		return ..()
+
+	balloon_alert(user, "вы сопротивляетесь...")
+	user.visible_message(
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] заметно подёргивается!"),
+		span_notice("Вы пытаетесь выбраться из [declent_ru(GENITIVE)]. Это займёт приблизительно [DisplayTimeText(breakout_time)]."),
+		span_hear("Вы слышите странное шуршание.")
+	)
+
+	if(!do_after(user,(breakout_time), target = src))
+		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
+			to_chat(user, span_warning("Вам не удалось выбраться из [declent_ru(GENITIVE)]!"))
+		return
+
+	if(!user || user.stat != CONSCIOUS || user.loc != src || opened || !sinched)
+		return
+
+	// we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
+	user.visible_message(
+		span_danger("[user] успешно освобожда[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
+		ignored_mobs = user
+		)
+
+	user.balloon_alert(user, "вы вырываетесь!")
+	if(istype(loc, /obj/machinery/disposal))
+		return ..()
+	bust_open()
+
+/obj/structure/closet/body_bag/environmental/prisoner/bust_open()
+	sinched = FALSE
+	// We don't break the bag, because the buckles were backed out as opposed to fully broken.
+	open()
+
+/obj/structure/closet/body_bag/environmental/prisoner/click_alt(mob/user)
+	if(!user.can_perform_action(src) || !isturf(loc))
+		return CLICK_ACTION_BLOCKING
+	togglelock(user)
+
+	return CLICK_ACTION_SUCCESS
+
+/obj/structure/closet/body_bag/environmental/prisoner/proc/is_closed()
+	return !opened
+
+/obj/structure/closet/body_bag/environmental/prisoner/togglelock(mob/living/user, silent)
+	if(DOING_INTERACTION_WITH_TARGET(user, src))
+		return
+	if(opened)
+		balloon_alert(user, "закройте мешок!")
+		return
+	if(user in contents)
+		balloon_alert(user, "невозможно!")
+		to_chat(user, span_warning("Вы не можете сложить [declent_ru(ACCUSATIVE)], находясь внутри!"))
+		return
+	if(iscarbon(user))
+		add_fingerprint(user)
+	if(!sinched)
+		for(var/mob/living/target in contents)
+			to_chat(target, span_userdanger("Вы чувствуете, как мешок становится теснее. Ещё немного, и вы больше не сможете выбраться без посторонней помощи!"))
+		user.balloon_alert_to_viewers("закрыва[PLUR_ET_UT(user)] зажимы...", "закрытие зажимов...")
+		if(!(do_after(user, sinch_time, src, extra_checks = CALLBACK(src, PROC_REF(is_closed)))))
+			return
+	sinched = !sinched
+	if(sinched)
+		playsound(loc, sinch_sound, 15, TRUE, -2)
+	user.visible_message(
+		span_notice("[user] [sinched ? "защёлкива" : "отщёлкива"][PLUR_ET_UT(user)] зажимы на [declent_ru(PREPOSITIONAL)]."),
+		span_notice("Вы [sinched ? "зещёлкиваете" : "отщёлкиваете"] зажимы на [declent_ru(PREPOSITIONAL)]."),
+		span_hear("Вы слышите странный щелчок.")
+	)
+	add_game_logs("[sinched ? "sinched" : "unsinched"] secure environmental bag [src]", user)
+	update_appearance()
+
+/obj/structure/closet/body_bag/environmental/prisoner/syndicate
+	name = "syndicate prisoner transport bag"
+	desc = "Мешок, используемый \"Синдикатом\" для транспортировки живых целей в условиях враждебной окружающей среды. Оснащён зажимами, \
+			позволяющими насильно удерживать цель внутри. Зарекомендовал себя как эффективный инструмент после использования \
+			в серии успешных похищений."
+	icon_state = "syndieenvirobag"
+	contents_pressure_protection = 1
+	contents_thermal_insulation = 1
+	foldedbag_path = /obj/item/bodybag/environmental/prisoner/syndicate
+	weather_protection = list(TRAIT_WEATHER_IMMUNE)
+	sinch_time = 7 SECONDS
+
+/obj/structure/closet/body_bag/environmental/prisoner/pressurized/syndicate/refresh_air()
+	air_contents = null
+	air_contents = new	//liters
+	air_contents.set_temperature(T20C)
+	air_contents.volume = 50
+
+	air_contents.set_oxygen(O2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
+	air_contents.set_sleeping_agent(N2STANDARD * ONE_ATMOSPHERE * 50 / (R_IDEAL_GAS_EQUATION * T20C))
+
+/obj/structure/closet/body_bag/environmental/hardlight
+	name = "hardlight bodybag"
+	desc = "Мешок, созданный на основе твёрдого света. Достаточно крепкий, чтобы поддерживать атмосферу внутри."
+	icon_state = "holobag_med"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/hardlight/get_ru_names()
+	return list(
+		NOMINATIVE = "голографический защитный мешок",
+		GENITIVE = "голографического защитного мешка",
+		DATIVE = "голографическому защитному мешку",
+		ACCUSATIVE = "голографический защитный мешок",
+		INSTRUMENTAL = "голографическим защитным мешком",
+		PREPOSITIONAL = "голографическом защитном мешке"
+	)
+
+/obj/structure/closet/body_bag/environmental/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight
+	name = "hardlight prisoner bodybag"
+	desc = "Мешок, созданный на основе твёрдого света. Достаточно крепкий, чтобы поддерживать атмосферу внутри. \
+			Имеет зажимы для транспортировки заключённых."
+	icon_state = "holobag_sec"
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	foldedbag_path = null
+	weather_protection = list(TRAIT_SNOWSTORM_IMMUNE)
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight/get_ru_names()
+	return list(
+		NOMINATIVE = "голографический защитный мешок для заключённых",
+		GENITIVE = "голографического защитного мешка для заключённых",
+		DATIVE = "голографическому защитному мешку для заключённых",
+		ACCUSATIVE = "голографический защитный мешок для заключённых",
+		INSTRUMENTAL = "голографическим защитным мешком для заключённых",
+		PREPOSITIONAL = "голографическом защитном мешке для заключённых"
+	)
+
+
+/obj/structure/closet/body_bag/environmental/prisoner/hardlight/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
+	if(damage_type in list(BRUTE, BURN))
+		playsound(src, 'sound/weapons/egloves.ogg', 80, TRUE)

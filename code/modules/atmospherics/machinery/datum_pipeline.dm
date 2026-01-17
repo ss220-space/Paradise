@@ -56,14 +56,14 @@ GLOBAL_VAR_INIT(pipenetwarnings, 10)
 
 			var/list/result = borderline.pipeline_expansion(src)
 
-			if(length(result)>0)
+			if(length(result) > 0)
 				for(var/obj/machinery/atmospherics/P in result)
 					if(istype(P, /obj/machinery/atmospherics/pipe))
 						var/obj/machinery/atmospherics/pipe/item = P
 						if(!members.Find(item))
 
 							if(item.parent)
-								log_runtime(EXCEPTION("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Nearby: [item.x], [item.y], [item.z]."))
+								log_runtime(EXCEPTION("[item.type] \[\ref[item]] added to a pipenet while still having one ([item.parent]) (pipes leading to the same spot stacking in one turf). Starts from:[base.type]([base]). Nearby: [item.x], [item.y], [item.z]."))
 							members += item
 							possible_expansions += item
 

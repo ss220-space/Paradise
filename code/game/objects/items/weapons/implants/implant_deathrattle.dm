@@ -46,11 +46,14 @@
 	for(var/obj/item/implant/deathrattle/other_implant as anything in implants)
 
 		// Skip the unfortunate soul, and any unimplanted implants
-		if(implant == other_implant  || !implant.imp_in)
+		if(implant == other_implant)
 			continue
 
 		// Deliberately the same message framing as ghost deathrattle
 		var/mob/living/recipient = other_implant.imp_in
+		if(!recipient)
+			continue
+
 		to_chat(recipient, "<i>Вы слышите странный роботизированный голос в голове...</i> \"[span_robot("<b>[name]</b> погиб в зоне: <b>[area]</b>.")]\"")
 		recipient.playsound_local(get_turf(recipient), sound, vol = 75, vary = FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 	qdel(implant)

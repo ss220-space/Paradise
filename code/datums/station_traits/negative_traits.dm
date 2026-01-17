@@ -142,7 +142,7 @@
 	name = "Модификатор рандомных ивентов"
 	report_message = "Одно из событий было модифицировано. Интересно, как это скажется на игре?"
 	show_in_report = TRUE
-	abstract_type = /datum/station_trait/random_event_weight_modifier
+	abstract_trait_type = /datum/station_trait/random_event_weight_modifier
 	weight = 0
 
 	/// The names of the event we modify.

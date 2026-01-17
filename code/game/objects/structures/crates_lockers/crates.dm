@@ -220,27 +220,6 @@
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)
-	if(!istype(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(opened)
-		to_chat(user, span_notice("Close the crate first."))
-		return
-	if(broken)
-		to_chat(user, span_warning("The crate appears to be broken."))
-		return
-	if(allowed(user))
-		locked = !locked
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		visible_message(span_notice("The crate has been [locked ? null : "un"]locked by [user]."))
-		update_icon()
-	else
-		to_chat(user, span_notice("Access Denied"))
-	add_fingerprint(user)
-
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
 		add_fingerprint(user)

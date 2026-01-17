@@ -7,6 +7,7 @@
 	name = "assembly"
 	desc = "Сборка корпуса, которую можно завершить с помощью отвертки."
 	icon = 'icons/obj/circuits.dmi'
+	abstract_type = /obj/item/shell
 	var/shell_to_spawn
 	var/screw_delay = 3 SECONDS
 
