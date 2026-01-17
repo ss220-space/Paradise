@@ -322,4 +322,8 @@
 		user.drop_item_ground(src)
 
 /obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
-	new /datum/dice_roll(user, roll, src)
+	for(var/roll_val in GLOB.dice_rolls)
+		var/datum/dice_roll/rolled = new roll_val(user, src)
+		if(rolled.number == roll)
+			rolled.activate()
+		QDEL_NULL(rolled)

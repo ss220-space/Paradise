@@ -1,88 +1,31 @@
+GLOBAL_LIST_INIT(dice_rolls, typesof(/datum/dice_roll))
+
 /datum/dice_roll
 	var/mob/living/carbon/human/user
-	var/rolled
 	var/obj/item/dice/d20/fate/dice
+	var/number = 0
 
-/datum/dice_roll/New(who_used, rolled_value, fate_dice)
+/datum/dice_roll/New(who_used, fate_dice)
 	. = ..()
 	user = who_used
-	rolled = rolled_value
 	dice = fate_dice
-	roll_dice()
 
-/datum/dice_roll/proc/roll_dice()
-	switch(rolled)
-		if(1)
-			//Damnation. This person never existed
-			damnation()
-		if(2)
-			//100 Brute damage and ripping organs off
-			butcher()
-		if(3)
-			//Swarm of creatures
-			mob_swarm()
-		if(4)
-			//Destroy equipment, remove all genes and antag roles
-			purify()
-		if(5)
-			//Cut speed
-			slow()
-		if(6)
-			//Monkeying
-			monkefy()
-		if(7)
-			//Fueltank Explosion
-			explode()
-		if(8)
-			//Break bone
-			break_bone()
-		if(9)
-			//random virus from disease outbreak
-			infect()
-		if(10)
-			//Medal (will add later)
-			medal()
-		if(11)
-			//Warm Donk pockets
-			pockets()
-		if(12)
-			//5000 credits
-			money()
-		if(13)
-			//Captain ID
-			spare_id()
-		if(14)
-			//Revive
-			revive()
-		if(15)
-			//Unica, 2 speedloaders and holster
-			unica()
-		if(16)
-			//2 random one use spellbooks
-			books()
-		if(17)
-			//Instrinct Resistance
-			resistance()
-		if(18)
-			//Choose from 1 of 3 random syndie bundles
-			random_bundle()
-		if(19)
-			//Coin that can summon servant
-			magic_coin()
-		if(20)
-			//Free wizard!
-			become_wizard()
+/datum/dice_roll/proc/activate()
 	qdel(src)
 
-/datum/dice_roll/proc/damnation()
+/datum/dice_roll/damnation
+	number = 1
+
+/datum/dice_roll/damnation/activate()
 	user.visible_message(span_colossus("Damnatio memoriae."))
 	playsound(user, 'sound/magic/narsie_attack.ogg', 200, TRUE)
 	delete_records()
 	delete_from_objectives()
 	user.ghostize()
 	user.dust()
+	.=..()
 
-/datum/dice_roll/proc/delete_records()
+/datum/dice_roll/damnation/proc/delete_records()
 	var/datum/data/record/user_sec_record = find_record("name", user.real_name, GLOB.data_core.security)
 	var/datum/data/record/user_gen_record = find_record("name", user.real_name, GLOB.data_core.general)
 	var/datum/data/record/user_med_record = find_record("name", user.real_name, GLOB.data_core.medical)
@@ -94,7 +37,7 @@
 			continue
 		qdel(contract)
 
-/datum/dice_roll/proc/delete_from_objectives()
+/datum/dice_roll/damnation/proc/delete_from_objectives()
 	SSticker.mode.victims.Remove(user)
 	for(var/datum/objective/obj as anything in GLOB.all_objectives)
 		if(obj.owner != user.mind)
@@ -115,7 +58,10 @@
 		if(!SSticker.mode.cult_objs.find_new_sacrifice_target())
 			SSticker.mode.cult_objs.ready_to_summon()
 
-/datum/dice_roll/proc/butcher()
+/datum/dice_roll/butcher
+	number = 2
+
+/datum/dice_roll/butcher/activate()
 	var/obj/item/organ/external/body = user.get_organ(BODY_ZONE_CHEST)
 	body.droplimb()
 	user.adjustBruteLoss(100, def_zone = BODY_ZONE_CHEST)
@@ -125,14 +71,18 @@
 			span_userdanger("Ваши компоненты отваливаются от вашего корпуса прямо на глазах!"),
 			span_userdanger("Вы слышите звук вываливающихся запчастей и разрывающихся проводов.")
 		)
-		return
+		return ..()
 	user.visible_message(
 		span_userdanger("Тонкая красная линия появляется на груди [user], и спустя мгновение [GEND_HIS_HER(user)] органы вываливаются наружу!"),
 		span_userdanger("Ваши органы вываливаются из вас прямо на глазах!"),
 		span_userdanger("Вы слышите звук вываливающихся органов.")
 	)
+	.=..()
 
-/datum/dice_roll/proc/mob_swarm()
+/datum/dice_roll/mob_swarm
+	number = 3
+
+/datum/dice_roll/mob_swarm/activate()
 	user.visible_message(span_userdanger("На месте [dice.declent_ru(GENITIVE)] появился портал, из которого выходят адские отродья!"))
 	var/spawned_hounds = 0
 	var/spawned_t_hounds = 0
@@ -155,8 +105,12 @@
 		spawned_hounds++
 		hound.faction = list("rift")
 	user.Weaken(2 SECONDS)
+	.=..()
 
-/datum/dice_roll/proc/purify()
+/datum/dice_roll/purify
+	number = 4
+
+/datum/dice_roll/purify/activate()
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(user)] очистившим[PLUR_I(user)]ся!"))
 	for(var/obj/item/item in user)
 		if(is_organ(item))
@@ -166,25 +120,45 @@
 	for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 		if(!LAZYIN(user.dna.default_blocks, gene.block))
 			user.force_gene_block(gene.block, FALSE)
+			.=..()
 
-/datum/dice_roll/proc/slow()
+/datum/dice_roll/slow
+	number = 5
+
+/datum/dice_roll/slow/activate()
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] начал[GEND_A_O_I(user)] двигаться медленнее!"))
 	user.add_movespeed_modifier(/datum/movespeed_modifier/die_of_fate)
+	.=..()
 
-/datum/dice_roll/proc/monkefy()
+/datum/dice_roll/monkefy
+	number = 6
+
+/datum/dice_roll/monkefy/activate()
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(user)]ся в обезьяну!"))
 	user.monkeyize()
+	.=..()
 
-/datum/dice_roll/proc/explode()
+/datum/dice_roll/explode
+	number = 7
+
+/datum/dice_roll/explode/activate()
 	user.visible_message(span_userdanger("Рядом с [user.declent_ru(INSTRUMENTAL)] происходит взрыв!"))
 	explosion(get_turf(user), devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, flame_range = 2, cause = src)
+	.=..()
 
-/datum/dice_roll/proc/break_bone()
+/datum/dice_roll/break_bone
+	number = 8
+
+/datum/dice_roll/break_bone/activate()
 	var/obj/item/organ/external/limb = pick(user.bodyparts)
 	limb.fracture()
 	to_chat(user, span_userdanger("Вы чувствуете, как ваш[GEND_A_E_I(limb)] [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] треска[PLUR_ET_YUT(limb)]ся и лома[PLUR_ET_YUT(limb)]ся!"))
+	.=..()
 
-/datum/dice_roll/proc/infect()
+/datum/dice_roll/infect
+	number = 9
+
+/datum/dice_roll/infect/activate()
 	var/virus_type = pick(
 		/datum/disease/virus/anxiety,
 		/datum/disease/virus/beesease,
@@ -204,60 +178,107 @@
 	var/datum/disease/virus/new_virus = new virus_type()
 	if(new_virus.Contract(user, is_carrier = TRUE))
 		to_chat(user, span_danger("На секунду вам становится трудно дышать!"))
+		return ..()
+	to_chat(user, span_notice("Фух... Кажется, пронесло."))
+	.=..()
 
-/datum/dice_roll/proc/medal()
+/datum/dice_roll/medal
+	number = 10
+
+/datum/dice_roll/medal/activate()
 	var/medal = new /obj/item/clothing/accessory/medal/gold/nothing_award
 	user.put_in_hands(medal)
 	user.visible_message(span_userdanger("НИЧЕГО НИКОГДА НЕ ПРОИСХОДИТ!"))
+	.=..()
 
-/datum/dice_roll/proc/pockets()
+/datum/dice_roll/pockets
+	number = 11
+
+/datum/dice_roll/pockets/activate()
 	to_chat(user, span_notice("Наконец-то, ваши старания признали."))
 	var/box = new /obj/item/storage/box/warmdonkpockets
 	user.put_in_hands(box)
+	.=..()
 
-/datum/dice_roll/proc/money()
+/datum/dice_roll/money
+	number = 12
+
+/datum/dice_roll/money/activate()
 	to_chat(user, span_boldnotice("ДЖЕКПОТ!!!"))
 	var/case = new /obj/item/storage/secure/briefcase/syndie
 	user.put_in_hands(case)
+	.=..()
 
-/datum/dice_roll/proc/spare_id()
+/datum/dice_roll/spare_id
+	number = 13
+
+/datum/dice_roll/spare_id/activate()
 	to_chat(user, span_boldnotice("Теперь я капитан этой посудины!"))
 	var/id = new /obj/item/card/id/captains_spare
 	user.put_in_hands(id)
+	.=..()
 
-/datum/dice_roll/proc/revive()
+/datum/dice_roll/revive
+	number = 14
+
+/datum/dice_roll/revive/activate()
 	user.visible_message(span_boldnotice("[user.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(user)] полностью здоров[GEND_YM_OI_YM_YMI(user)]"))
 	user.revive()
+	.=..()
 
-/datum/dice_roll/proc/unica()
+/datum/dice_roll/unica
+	number = 15
+
+/datum/dice_roll/unica/activate()
 	to_chat(user, span_boldnotice("Пиу-пау!"))
 	var/box = new /obj/item/storage/box/unica_kit
 	user.put_in_hands(box)
+	.=..()
 
-/datum/dice_roll/proc/books()
+/datum/dice_roll/books
+	number = 16
+
+/datum/dice_roll/books/activate()
 	user.visible_message(span_userdanger("Две магические книги падают на пол!"))
 	create_smoke(2)
 	new /obj/item/spellbook/oneuse/random(dice.loc)
 	new /obj/item/spellbook/oneuse/random(dice.loc)
+	.=..()
 
-/datum/dice_roll/proc/resistance()
+/datum/dice_roll/resistance
+	number = 17
+
+/datum/dice_roll/resistance/activate()
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(user)] очень крепко!"))
 	user.physiology.brute_mod *= 0.5
 	user.physiology.burn_mod *= 0.5
+	.=..()
 
-/datum/dice_roll/proc/random_bundle()
+/datum/dice_roll/random_bundle
+	number = 18
+
+/datum/dice_roll/random_bundle/activate()
 	user.visible_message(span_userdanger("Появился подозрительный радио маяк!"))
 	new /obj/item/beacon/syndicate/bundle/magical(dice.loc)
 	create_smoke(2)
+	.=..()
 
-/datum/dice_roll/proc/magic_coin()
+/datum/dice_roll/magic_coin
+	number = 19
+
+/datum/dice_roll/magic_coin/activate()
 	user.visible_message(span_userdanger("В руках у [user.declent_ru(GENITIVE)] появляется странная монета!"))
 	var/coin = new /obj/item/coin/magic
 	user.put_in_hands(coin)
+	.=..()
 
-/datum/dice_roll/proc/become_wizard()
+/datum/dice_roll/become_wizard
+	number = 20
+
+/datum/dice_roll/become_wizard/activate()
 	user.visible_message(span_userdanger("Потоки магической энергии вылетают из [dice.declent_ru(GENITIVE)] в сторону [user.declent_ru(GENITIVE)]!"))
 	user.mind.make_Wizard()
+	.=..()
 
 /datum/dice_roll/proc/create_smoke(amount)
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
