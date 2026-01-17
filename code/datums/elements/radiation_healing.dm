@@ -66,9 +66,8 @@
 
 	if(human.radiation >= FRACTURE_HEAL_COST && length(fractured_limbs))
 		var/obj/item/organ/external/limb = pick(fractured_limbs)
-		if(limb.has_fracture())//double check as it might have been healed already
-			limb.mend_fracture()
-			human.radiation = max(human.radiation - FRACTURE_HEAL_COST, 0)
+		limb.mend_fracture()
+		human.radiation = max(human.radiation - FRACTURE_HEAL_COST, 0)
 
 	if(HAS_TRAIT(human, TRAIT_NO_RADIATION_EFFECTS)) // TRAIT_NO_RADIATION_EFFECTS stops radiation effects including passive radiation drain, so we drain it passively here
 		human.radiation = max(human.radiation - PASSIVE_RAD_DRAIN, 0)
