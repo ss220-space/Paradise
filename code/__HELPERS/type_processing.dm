@@ -1,109 +1,29 @@
 /proc/make_types_fancy(list/types)
 	if(ispath(types))
 		types = list(types)
+	var/static/list/types_to_replacement
+	var/static/list/replacement_to_text
+	if(!types_to_replacement)
+		// ignore_root_path so we can draw the root normally
+		var/list/fancy_type_cache = GLOB.fancy_type_replacements
+		var/list/local_replacements = zebra_typecacheof(fancy_type_cache, ignore_root_path = TRUE)
+		var/list/local_texts = list()
+		for(var/key in fancy_type_cache)
+			local_texts[local_replacements[key]] = "[key]"
+		types_to_replacement = local_replacements
+		replacement_to_text = local_texts
+
 	. = list()
+	var/list/local_replacements = types_to_replacement
+	var/list/local_texts = replacement_to_text
 	for(var/type in types)
-		var/typename = "[type]"
-		var/static/list/TYPES_SHORTCUTS = list(
-			//longest paths comes first - otherwise they get shadowed by the more generic ones
-			/obj/effect/decal/cleanable = "CLEANABLE",
-			/obj/effect = "EFFECT",
-			/obj/item/ammo_casing = "AMMO",
-			/obj/item/book/manual = "MANUAL",
-			/obj/item/borg/upgrade = "BORG_UPGRADE",
-			/obj/item/cartridge = "PDA_CART",
-			/obj/item/clothing/head/helmet/space = "SPESSHELMET",
-			/obj/item/clothing/head = "HEAD",
-			/obj/item/clothing/under = "UNIFORM",
-			/obj/item/clothing/shoes = "SHOES",
-			/obj/item/clothing/suit = "SUIT",
-			/obj/item/clothing/gloves = "GLOVES",
-			/obj/item/clothing/mask/cigarette = "CIGARRETE", // oof
-			/obj/item/clothing/mask = "MASK",
-			/obj/item/clothing/glasses = "GLASSES",
-			/obj/item/clothing = "CLOTHING",
-			/obj/item/grenade/clusterbuster = "CLUSTERBUSTER",
-			/obj/item/grenade = "GRENADE",
-			/obj/item/gun = "GUN",
-			/obj/item/implant = "IMPLANT",
-			/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack = "MECHA_MISSILE_RACK",
-			/obj/item/mecha_parts/mecha_equipment/weapon = "MECHA_WEAPON",
-			/obj/item/mecha_parts/mecha_equipment = "MECHA_EQUIP",
-			/obj/item/melee = "MELEE",
-			/obj/item/mmi = "MMI",
-			/obj/item/nullrod = "NULLROD",
-			/obj/item/organ/external = "EXT_ORG",
-			/obj/item/organ/internal/cyberimp = "CYBERIMP",
-			/obj/item/organ/internal = "INT_ORG",
-			/obj/item/organ = "ORGAN",
-			/obj/item/pda = "PDA",
-			/obj/projectile = "PROJ",
-			/obj/item/radio/headset = "HEADSET",
-			/obj/item/reagent_containers/glass/beaker = "BEAKER",
-			/obj/item/reagent_containers/glass/bottle = "BOTTLE",
-			/obj/item/reagent_containers/food/pill/patch = "PATCH",
-			/obj/item/reagent_containers/food/pill = "PILL",
-			/obj/item/reagent_containers/food/drinks = "DRINK",
-			/obj/item/reagent_containers/food = "FOOD",
-			/obj/item/reagent_containers/syringe = "SYRINGE",
-			/obj/item/reagent_containers = "REAGENT_CONTAINERS",
-			/obj/item/robot_parts = "ROBOT_PARTS",
-			/obj/item/seeds = "SEED",
-			/obj/item/slime_extract = "SLIME_CORE",
-			/obj/item/spacepod_equipment/weaponry = "POD_WEAPON",
-			/obj/item/spacepod_equipment = "POD_EQUIP",
-			/obj/item/stack/sheet/mineral = "MINERAL",
-			/obj/item/stack/sheet = "SHEET",
-			/obj/item/stack/tile = "TILE",
-			/obj/item/stack = "STACK",
-			/obj/item/stock_parts/cell = "POWERCELL",
-			/obj/item/stock_parts = "STOCK_PARTS",
-			/obj/item/storage/firstaid = "FIRSTAID",
-			/obj/item/storage = "STORAGE",
-			/obj/item/tank = "GAS_TANK",
-			/obj/item/toy/crayon = "CRAYON",
-			/obj/item/toy = "TOY",
-			/obj/item = "ITEM",
-			/obj/machinery/atmospherics = "ATMOS_MACH",
-			/obj/machinery/computer = "CONSOLE",
-			/obj/machinery/door/airlock = "AIRLOCK",
-			/obj/machinery/door = "DOOR",
-			/obj/machinery/kitchen_machine = "KITCHEN",
-			/obj/machinery/portable_atmospherics/canister = "CANISTER",
-			/obj/machinery/portable_atmospherics = "PORT_ATMOS",
-			/obj/machinery/power = "POWER",
-			/obj/machinery = "MACHINERY",
-			/obj/mecha = "MECHA",
-			/obj/structure/closet/crate = "CRATE",
-			/obj/structure/closet = "CLOSET",
-			/obj/structure/statue = "STATUE",
-			/obj/structure/chair = "CHAIR", // oh no
-			/obj/structure/bed = "BED",
-			/obj/structure/chair/stool = "STOOL",
-			/obj/structure/table = "TABLE",
-			/obj/structure = "STRUCTURE",
-			/obj/vehicle = "VEHICLE",
-			/obj = "O",
-			/datum = "D",
-			/turf/simulated/floor = "FLOOR",
-			/turf/simulated/wall = "WALL",
-			/turf = "T",
-			/mob/living/carbon/alien = "XENO",
-			/mob/living/carbon/human = "HUMAN",
-			/mob/living/carbon = "CARBON",
-			/mob/living/silicon/robot = "CYBORG",
-			/mob/living/silicon/ai = "AI",
-			/mob/living/silicon = "SILICON",
-			/mob/living/simple_animal/bot = "BOT",
-			/mob/living/simple_animal = "SIMPLE",
-			/mob/living = "LIVING",
-			/mob = "M"
-		)
-		for(var/tn in TYPES_SHORTCUTS)
-			if(copytext(typename, 1, length("[tn]/") + 1) == "[tn]/")
-				typename = TYPES_SHORTCUTS[tn]+copytext(typename,length("[tn]/"))
-				break
-		.[typename] = type
+		var/replace_with = local_replacements[type]
+		if(!replace_with)
+			.["[type]"] = type
+			continue
+		var/cut_out = local_texts[replace_with]
+		// + 1 to account for /
+		.[replace_with + copytext("[type]", length(cut_out) + 1)] = type
 
 /// Returns a pre-generated fancy list of all atom types
 /proc/get_fancy_list_of_atom_types()
@@ -123,16 +43,47 @@
  * Filters a fancy list by a given search term
  *
  * Arguments:
- * * source_list - The list to filter
- * * filter_text - The text to search for in keys and values
+ * * source - The list to filter
+ * * filter - The text to search for in keys and values
  */
-/proc/filter_fancy_list(list/source_list, filter_text)
-	var/list/filtered_matches = new
-	for(var/list_key in source_list)
-		var/list_value = source_list[list_key]
-		if(findtext("[list_key]", filter_text) || findtext("[list_value]", filter_text))
-			filtered_matches[list_key] = list_value
-	return filtered_matches
+/proc/filter_fancy_list(list/source, filter as text)
+	var/list/matches = new
+	var/end_len = -1
+	var/list/end_check = splittext(filter, "!")
+	if(end_check.len > 1)
+		filter = end_check[1]
+		end_len = length_char(filter)
+
+	var/endtype = (filter[length(filter)] == "*")
+	if(endtype)
+		filter = splittext(filter, "*")[1]
+
+	for(var/key in source)
+		var/value = source[key]
+		if(findtext("[key]", filter, -end_len))
+			if(endtype)
+				var/list/split_filter = splittext("[key]", filter)
+				if(!findtext(split_filter[length(split_filter)], "/"))
+					if(value)
+						matches[key] = value
+					else
+						matches += key
+					continue
+			else
+				if(value)
+					matches[key] = value
+				else
+					matches += key
+				continue
+
+		if(value && findtext("[value]", filter, -end_len))
+			if(endtype)
+				var/list/split_filter = splittext("[value]", filter)
+				if(findtext(split_filter[length(split_filter)], "/"))
+					continue
+			matches[key] = value
+
+	return matches
 
 /// Splits a type path into its component names
 /proc/return_typenames(type_path)

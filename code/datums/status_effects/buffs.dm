@@ -934,7 +934,7 @@
 
 /atom/movable/screen/alert/status_effect/adrenaline
 	name = "Прилив адреналина"
-	desc = "Твоя стамина полностью восстановлена. Регенерация увеличена, а длительность станов уменьшена."
+	desc = "Твоя стамина полностью восстановлена. Длительность станов уменьшена."
 	icon_state = "adrenaline"
 
 /datum/status_effect/adrenaline
@@ -942,19 +942,29 @@
 	duration = 5 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/adrenaline
 
-	var/heal_amount = 15
-
 /datum/status_effect/adrenaline/on_apply()
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= owner.setStaminaLoss(0, FALSE)
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	return TRUE | update_flags
 
-/datum/status_effect/adrenaline/tick(seconds_between_ticks)
+/datum/status_effect/adrenaline/on_remove()
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+
+/atom/movable/screen/alert/status_effect/heal
+	name = "Лечение нанитами"
+	desc = "Регенерация увеличена."
+	icon_state = "fleshmend"
+
+/datum/status_effect/heal
+	id = "heal"
+	duration = 8 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/heal
+	var/heal_amount = 10
+
+/datum/status_effect/heal/tick(seconds_between_ticks)
 	var/update = NONE
 	update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 	if(update)
-		owner.updatehealth("adrenaline")
-
-/datum/status_effect/adrenaline/on_remove()
-	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+		owner.updatehealth("heal")

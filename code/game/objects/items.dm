@@ -220,6 +220,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/greyscale_config_inhand_left
 	///The config type to use for greyscaled right inhand sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config_inhand_right
+	///The config type to use for greyscaled belt overlays. Both this and greyscale_colors must be assigned to work.
+	var/greyscale_config_belt
 
 	//Tooltip vars
 	var/tip_timer = 0
@@ -260,6 +262,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/exists_skin_change = FALSE
 	//can you put this item in closets
 	var/can_put_in_closet = TRUE
+	/// Colored belt appearance for adding it as a belt overlay
+	var/icon/colored_belt_appearance
 
 /obj/item/Initialize(mapload)
 	. = ..()
@@ -1266,6 +1270,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		lefthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_left, greyscale_colors)
 	if(greyscale_config_inhand_right)
 		righthand_file = SSgreyscale.get_colored_icon_by_type(greyscale_config_inhand_right, greyscale_colors)
+	if(greyscale_config_belt)
+		colored_belt_appearance = SSgreyscale.get_colored_icon_by_type(greyscale_config_belt, greyscale_colors)
 	return
 
 /obj/item/proc/add_tape()
@@ -1445,6 +1451,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /// Returns the icon used for overlaying the object on a belt
 /obj/item/proc/get_belt_overlay()
-	if(!belt_icon)
-		return
-	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', belt_icon)
+	var/icon_state_to_use = belt_icon || icon_state
+	if(colored_belt_appearance)
+		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
+	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)

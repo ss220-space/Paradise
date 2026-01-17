@@ -134,7 +134,7 @@
 	if(on_fire)
 		add_overlay(robot_fire_olay)
 
-/mob/living/silicon/robot/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/mob/living/silicon/robot/fire_act(exposed_temperature, exposed_volume)
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
 		IgniteMob()
 

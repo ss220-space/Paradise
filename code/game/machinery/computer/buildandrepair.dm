@@ -11,6 +11,7 @@
 	greyscale_colors = CIRCUIT_COLOR_GENERIC
 	greyscale_config = /datum/greyscale_config/circuit
 	flags = /obj/item::flags | NO_NEW_GAGS_PREVIEW
+	abstract_type = /obj/item/circuitboard
 	/// Use this instead of `name`. Formats as: `circuit board ([board_name])`
 	var/board_name = null
 	var/build_path = null
@@ -18,9 +19,12 @@
 	var/list/req_components = null
 
 /obj/item/circuitboard/computer
+	name = "Generic"
+	abstract_type = /obj/item/circuitboard/computer
 
 /obj/item/circuitboard/machine
 	board_type = "machine"
+	abstract_type = /obj/item/circuitboard/machine
 
 /obj/item/circuitboard/Initialize(mapload)
 	. = ..()

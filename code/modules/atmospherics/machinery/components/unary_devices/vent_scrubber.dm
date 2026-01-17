@@ -187,9 +187,7 @@
 		src.broadcast_status()
 	check_turfs()
 
-/obj/machinery/atmospherics/unary/vent_scrubber/process_atmos()
-	..()
-
+/obj/machinery/atmospherics/unary/vent_scrubber/process_atmos(seconds)
 	if(widenet)
 		check_turfs()
 

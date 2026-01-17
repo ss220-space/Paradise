@@ -37,6 +37,7 @@
 	var/boltslocked = TRUE
 	var/active_alarm = FALSE
 	var/list/affecting_areas
+	var/heat_resistance = 15000
 
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
@@ -374,6 +375,11 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
+/obj/machinery/door/firedoor/temperature_expose(exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)
+
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
@@ -382,6 +388,7 @@
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550
+	heat_resistance = 20000
 
 /obj/item/firelock_electronics
 	name = "firelock electronics"
@@ -402,6 +409,7 @@
 	cares_about_temperature = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
+	var/heat_resistance = 1000
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -625,6 +633,11 @@
 	if(reinforced)
 		new /obj/item/stack/sheet/plasteel(drop_location(), 2)
 	qdel(src)
+
+/obj/structure/firelock_frame/temperature_expose(exposed_temperature, exposed_volume)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"

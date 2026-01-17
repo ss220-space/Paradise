@@ -50,9 +50,9 @@
 		inverted = TRUE
 
 
-/obj/machinery/atmospherics/binary/temperature_gate/process_atmos()
+/obj/machinery/atmospherics/binary/temperature_gate/process_atmos(seconds)
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return 0
+		return FALSE
 
 	var/input_temp = air1.temperature()
 	var/allow_flow = FALSE
@@ -65,7 +65,7 @@
 			allow_flow = TRUE
 
 	if(!allow_flow)
-		return 1
+		return TRUE
 
 	var/datum/gas_mixture/removed = air1.remove(air1.total_moles())
 	if(removed && removed.total_moles() > 0)
@@ -74,7 +74,7 @@
 	parent1.update = TRUE
 	parent2.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/binary/temperature_gate/attack_hand(mob/user)
 	if(..())

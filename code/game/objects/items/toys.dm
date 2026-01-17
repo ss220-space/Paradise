@@ -21,6 +21,7 @@
  */
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throw_speed = 4
 	throw_range = 20
 	var/unique_toy_rename = FALSE
@@ -305,7 +306,7 @@
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
-/obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/toy/snappop/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	pop_burst()
 

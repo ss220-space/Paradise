@@ -33,6 +33,14 @@
 	)
 
 /obj/machinery/portable_atmospherics/canister/Initialize(mapload)
+	if(!alpha_filter)
+		alpha_filter = filter(type = "alpha", icon = icon(canister_overlay_file, "window-base"))
+	if(!istext(possible_configs[1]))
+		var/list/new_configs = list()
+		for(var/config in possible_configs)
+			new_configs += "[config]"
+		possible_configs = new_configs
+
 	. = ..()
 	update_icon()
 	RegisterSignal(SSdcs, COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED, PROC_REF(on_subsystems_init_ended))
@@ -94,14 +102,17 @@
 		var/image/new_visual = image(visual, layer = FLOAT_PLANE)
 		new_visual.filters = alpha_filter
 		window_overlays += new_visual
-	if(window_overlays.len > 0)
-		window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
-		window.overlays = window_overlays
-		add_overlay(window)
 
-/obj/machinery/portable_atmospherics/canister/temperature_expose(temperature, volume)
+	if(length(window_overlays) == 0)
+		return
+
+	window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
+	window.overlays = window_overlays
+	add_overlay(window)
+
+/obj/machinery/portable_atmospherics/canister/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > temperature_resistance)
+	if(exposed_temperature > temperature_resistance)
 		take_damage(5, BURN, 0)
 
 /obj/machinery/portable_atmospherics/canister/deconstruct(disassembled = TRUE)
