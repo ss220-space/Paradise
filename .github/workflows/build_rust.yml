@@ -125,7 +125,8 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git commit -a -m "Build Rust library" --allow-empty
+        git add --force librustlibs.so rustlibs.dll librustlibs_prod.dll ./tools/ci/librustlibs.so
+        git commit -m "Build Rust library"
         git push origin
 
     - name: Notify Failure
