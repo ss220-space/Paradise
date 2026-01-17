@@ -162,11 +162,8 @@
 	if(isrobot(living_target) || ismachineperson(living_target))
 		var/mob/living/silicon/silicon_target = living_target
 		silicon_target.emp_act(EMP_LIGHT)
-		if(ismachineperson(silicon_target))
-			silicon_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
-			silicon_target.Confused(15 SECONDS)
-			silicon_target.Jitter(5 SECONDS)
-		return
+		if(isrobot(living_target))
+			return
 
 	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
 	living_target.Confused(15 SECONDS)
