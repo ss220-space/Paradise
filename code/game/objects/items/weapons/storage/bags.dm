@@ -627,7 +627,7 @@
 /obj/item/storage/bag/tray/update_overlays()
 	. = ..()
 	for(var/obj/item/item in contents)
-		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
+		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_w = rand(-4,4), pixel_z = rand(-4,4))
 
 /obj/item/storage/bag/tray/cyborg
 	var/placement_radius = 12
@@ -734,7 +734,7 @@
 /obj/item/storage/bag/dangertray/update_overlays()
 	. = ..()
 	for(var/obj/item/item in contents)
-		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
+		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_w = rand(-4,4), pixel_z = rand(-4,4))
 
 ////////////////////////////////////////
 // MARK:	Chemistry bag
