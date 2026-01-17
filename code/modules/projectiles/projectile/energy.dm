@@ -160,8 +160,7 @@
 		return
 	var/mob/living/living_target = target
 	if(isrobot(living_target) || ismachineperson(living_target))
-		var/mob/living/silicon/silicon_target = living_target
-		silicon_target.emp_act(EMP_LIGHT)
+		living_target.emp_act(EMP_LIGHT)
 		if(isrobot(living_target))
 			return
 
