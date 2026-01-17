@@ -31,6 +31,17 @@ export const ComponentPrinter = (props) => {
   return (
     <Window title={'Дубликатор печатных плат'} width={670} height={600}>
       <Window.Content>
+        <Section
+          title="Сохранённые схемы"
+          buttons={
+            <Button
+              icon="file-import"
+              onClick={() => act('import')}
+            >
+              {toTitleCase("Import")}
+            </Button>
+          }
+        />
         <Box>
           {Object.values(designs).length === 0 && (
             <Stack.Item mt={1} fontSize={1}>
@@ -38,7 +49,7 @@ export const ComponentPrinter = (props) => {
             </Stack.Item>
           )}
           {Object.values(designs).map((design) => (
-            <Section key={design.id}>
+            <Section key={design.id} style={{ position: 'relative'}}>
               <DmIcon
                 icon={design.icon}
                 icon_state={design.IconState}
@@ -62,11 +73,12 @@ export const ComponentPrinter = (props) => {
                 {toTitleCase(design.name)}
               </Button>
 
-              {(design.cost &&
-                Object.keys(design.cost)
-                  .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
-                  .join(', ')) || <Box>Ресурсы для печати не требуются.</Box>}
-
+              <Box style={{ display: 'inline' }}>
+                {(design.cost &&
+                  Object.keys(design.cost)
+                    .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
+                    .join(', ')) || <Box>Ресурсы для печати не требуются.</Box>}
+              </Box>
               <Box
                 style={{
                   position: 'absolute',

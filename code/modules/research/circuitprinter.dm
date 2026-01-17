@@ -371,7 +371,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			if(design_id < 1 || design_id > length(scanned_designs))
 				return TRUE
 
-			var/list/design = LAZYACCESS(scanned_designs, design_id)
+			var/list/design = list(LAZYACCESS(scanned_designs, design_id))
 
 			LAZYREMOVE(scanned_designs, design)
 
