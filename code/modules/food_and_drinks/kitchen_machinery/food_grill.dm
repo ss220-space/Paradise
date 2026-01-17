@@ -24,7 +24,7 @@
 /obj/machinery/cooker/foodgrill/putIn(obj/item/In, mob/chef)
 	..()
 	var/image/img = new(In.icon, In.icon_state)
-	img.pixel_y = 5
+	img.pixel_z = 5
 	add_overlay(img)
 	sleep(50)
 	cut_overlay(img)

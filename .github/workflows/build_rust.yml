@@ -50,8 +50,8 @@ jobs:
       uses: actions/checkout@v6
       with:
         repository: ${{ env.PR_REPO }}
-        ref:          ${{ env.PR_BRANCH }}
-        token:        ${{ secrets.GITHUB_TOKEN }}
+        ref: ${{ env.PR_BRANCH }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 1
 
     - name: Setup Rust targets
@@ -88,43 +88,21 @@ jobs:
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
 
-        cd rust
+        # Get dependencies.
+        rustup target add i686-unknown-linux-gnu
+        rustup target add i686-pc-windows-gnu
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install zlib1g-dev:i386 lib32gcc-13-dev mingw-w64 mingw-w64-i686-dev
 
-        WINDOWS_TARGET="i686-pc-windows-gnu"
-        LINUX_TARGET="i686-unknown-linux-gnu"
-
-        # Handle building on windows
-        if [[ "$OSTYPE" == "msys" ]]; then
-          WINDOWS_TARGET="i686-pc-windows-msvc"
-        fi
-
-        cargo build --release --target $LINUX_TARGET
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_515.so
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs.so
-        cargo clean
-        cargo build --release --target $LINUX_TARGET --no-default-features --features byond-516
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_516.so
-
-        cargo build --release --target $WINDOWS_TARGET
-        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_515.dll
-        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs.dll
-        cargo clean
-        cargo build --release --target $WINDOWS_TARGET --no-default-features --features byond-516
-        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs_516.dll
-
-        export RUSTFLAGS='-C target-cpu=raptorlake'
-        cargo build --release --target=$LINUX_TARGET
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_515_prod.so
-        cargo clean
-        cargo build --release --target=$LINUX_TARGET --no-default-features --features byond-516
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_516_prod.so
+        # Run the build
+        tools/ci/build_all_rustlibs.sh
 
     - name: Commit and push changes
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git add --force librustlibs.so rustlibs.dll librustlibs_515.so librustlibs_516.so rustlibs_515.dll rustlibs_516.dll librustlibs_515_prod.so librustlibs_516_prod.so
-        git commit -m "Build Rust library"
+        git commit -a -m "Build Rust library" --allow-empty
         git push origin
 
     - name: Notify Failure

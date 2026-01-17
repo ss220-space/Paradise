@@ -100,7 +100,7 @@
 	imp_in.reagents.add_reagent("stimulative_agent", 5)
 	imp_in.reagents.add_reagent("adrenaline", 3)
 
-	imp_in.apply_status_effect(/datum/status_effect/adrenaline)
+	imp_in.apply_status_effect(/datum/status_effect/adrenaline/prototype)
 
 	if(!uses)
 		qdel(src)

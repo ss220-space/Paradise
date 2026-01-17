@@ -28,4 +28,4 @@ jobs:
           tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           tools/ci/generate_maplist.sh
-          tools/ci/dm.sh -Mci_map_testing paradise.dme
+          tools/ci/dm.sh -DPARADISE_PRODUCTION_HARDWARE -Mci_map_testing paradise.dme

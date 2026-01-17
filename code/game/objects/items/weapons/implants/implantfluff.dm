@@ -168,3 +168,8 @@
 	life = "Lifetime warranty."
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
+/datum/implant_fluff/pathfinder
+	name = "Paizo Productions 5-E Pathfinder Implant"
+	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
+	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
+	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."

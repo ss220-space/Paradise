@@ -1,8 +1,8 @@
 /obj/structure/reagent_dispensers
 	name = "Dispenser"
 	desc = "..."
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "water"
+	icon = 'icons/obj/medicine/chemical_tanks.dmi'
+	icon_state = "water_tank"
 	density = TRUE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	container_type = DRAINABLE | AMOUNT_VISIBLE
@@ -61,20 +61,20 @@
 /obj/structure/reagent_dispensers/watertank/high
 	name = "high-capacity water tank"
 	desc = "A highly-pressurized water tank made to hold gargantuan amounts of water.."
-	icon_state = "water_high" //I was gonna clean my room...
+	icon_state = "water_high_tank" //I was gonna clean my room...
 	tank_volume = 100000
 
 /obj/structure/reagent_dispensers/oil
 	name = "oil tank"
 	desc = "A tank of oil, commonly used to by robotics to fix leaking IPCs or just to loosen up those rusted underused parts."
-	icon_state = "oil"
+	icon_state = "oil_tank"
 	reagent_id = "oil"
 	tank_volume = 3000
 
 /obj/structure/reagent_dispensers/fueltank
 	name = "fuel tank"
 	desc = "A tank full of industrial welding fuel. Do not consume."
-	icon_state = "fuel"
+	icon_state = "fuel_tank"
 	reagent_id = "fuel"
 	tank_volume = 4000
 	var/icon/rigged_olay
@@ -237,7 +237,7 @@
 /obj/structure/reagent_dispensers/peppertank
 	name = "pepper spray refiller"
 	desc = "Contains condensed capsaicin for use in law \"enforcement.\""
-	icon_state = "pepper"
+	icon_state = "pepper_wall"
 	anchored = TRUE
 	density = FALSE
 	reagent_id = "condensedcapsaicin"
@@ -245,7 +245,6 @@
 /obj/structure/reagent_dispensers/water_cooler
 	name = "liquid cooler"
 	desc = "A machine that dispenses liquid to drink."
-	icon = 'icons/obj/machines/vending.dmi'
 	icon_state = "water_cooler"
 	anchored = TRUE
 	tank_volume = 500
@@ -312,7 +311,7 @@
 /obj/structure/reagent_dispensers/virusfood
 	name = "virus food dispenser"
 	desc = "A dispenser of low-potency virus mutagenic."
-	icon_state = "virus_food"
+	icon_state = "virus_food_wall"
 	anchored = TRUE
 	density = FALSE
 	reagent_id = "virusfood"
@@ -320,14 +319,14 @@
 /obj/structure/reagent_dispensers/spacecleanertank
 	name = "space cleaner refiller"
 	desc = "Refills space cleaner bottles."
-	icon_state = "cleaner"
+	icon_state = "cleaner_wall"
 	anchored = TRUE
 	density = FALSE
 	tank_volume = 5000
 	reagent_id = "cleaner"
 
 /obj/structure/reagent_dispensers/fueltank/chem
-	icon_state = "fuel_chem"
+	icon_state = "fuel_wall"
 	anchored = TRUE
 	density = FALSE
 	accepts_rig = 0

@@ -951,6 +951,19 @@
 /datum/status_effect/adrenaline/on_remove()
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 
+/atom/movable/screen/alert/status_effect/adrenaline/prototype
+	desc = "Твоя стамина полностью восстановлена. Регенерация увеличена, а длительность станов уменьшена."
+
+/datum/status_effect/adrenaline/prototype
+	alert_type = /atom/movable/screen/alert/status_effect/adrenaline/prototype
+	var/heal_amount = 15
+
+/datum/status_effect/adrenaline/prototype/tick(seconds_between_ticks)
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+	if(update)
+		owner.updatehealth("adrenaline")
+
 
 /atom/movable/screen/alert/status_effect/heal
 	name = "Лечение нанитами"
@@ -968,3 +981,19 @@
 	update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 	if(update)
 		owner.updatehealth("heal")
+
+/datum/status_effect/adrenaline/on_remove()
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+/// Gives you a brief period of anti-gravity
+/datum/status_effect/jump_jet
+	id = "jump_jet"
+	alert_type = null
+	duration = 5 SECONDS
+
+/datum/status_effect/jump_jet/on_apply()
+	owner.AddElement(/datum/element/forced_gravity, 0)
+	return TRUE
+
+/datum/status_effect/jump_jet/on_remove()
+	owner.RemoveElement(/datum/element/forced_gravity, 0)

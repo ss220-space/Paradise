@@ -194,14 +194,17 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
-// Copy of `/turf/hit_by_thrown_carbon()`. A falsewall is just a wall after all.
-/obj/structure/falsewall/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+// Copy of `/turf/hit_by_thrown_mob(). A falsewall is just a wall after all.
+/obj/structure/falsewall/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
-	C.visible_message(span_danger("[C] врезается в [declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!"))
-	C.take_organ_damage(damage)
-	C.Weaken(0.1 SECONDS)
+	throwned_mob.visible_message(
+		span_danger("[throwned_mob] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!")
+	)
+	throwned_mob.take_organ_damage(damage)
+	throwned_mob.Weaken(0.1 SECONDS)
 
 // Copy of `/atom/proc/hitby()`. Falsewalls must use this `hitby` as do regular walls.
 /obj/structure/falsewall/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)

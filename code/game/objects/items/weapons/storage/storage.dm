@@ -662,7 +662,7 @@
 			span_notice("[usr] начина[PLUR_ET_YUT(usr)] снимать [W.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),
 		)
-		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE))
+		if(!do_after(usr, W.equip_delay_self, usr, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE))
 			usr.balloon_alert(usr, "снятие прервано!")
 			return FALSE
 
