@@ -1,8 +1,8 @@
 /datum/station_trait/announcement_intern_ru
-	name = "Временная замена оператора системы оповещений"
+	name = "Программа стажировки ЦК"
 	weight = 1
 	show_in_report = TRUE
-	report_message = "По ряду причин на период текущей смены штатный оператор системы оповещений будет заменён интерном. Мы уверены, что он справится со своей задачей."
+	report_message = "В связи с сокращением бюджета Отдела Коммуникаций ЦК, роль диспетчера на текущую смену выполняет стажёр. Просим проявить понимание."
 	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern) //datum/station_trait/birthday)
 
 /datum/station_trait/announcement_intern_ru/New()
@@ -13,7 +13,7 @@
 	name = "Временная замена оператора системы оповещений"
 	weight = 1
 	show_in_report = TRUE
-	report_message = "По ряду причин на период текущей смены штатный оператор системы оповещений будет заменён интерном из удалённого сектора. Хоть у него и имеется некоторый акцент, мы уверены, что это не станет проблемой."
+	report_message = "Локальный узел связи неисправен. Маршрутизация сообщений перенаправлена через оператора из дальнего сектора. Возможен специфический акцент."
 	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern_ru) //datum/station_trait/birthday)
 
 /datum/station_trait/announcement_intern/New()
@@ -21,10 +21,10 @@
 	SSstation.announcer = /datum/centcom_announcer/intern
 
 /datum/station_trait/announcement_medbot
-	name = "Временная \"система\" оповещений"
+	name = "Автоматизация системы оповещений"
 	weight = 1
 	show_in_report = TRUE
-	report_message = "Стандартная система оповещений проходит техническое обслуживание. Но это не станет проблемой, так как у нас имеется подходящая замена."
+	report_message = "Штатный диспетчер связи находится на больничном. Система оповещений переведена под контроль медицинского бота для снижения уровня стресса экипажа."
 	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_intern_ru) //datum/station_trait/birthday)
 
 /datum/station_trait/announcement_medbot/New()
@@ -33,7 +33,7 @@
 
 /datum/station_trait/bananium_shipment
 	name = "Поставка бананиума"
-	report_message = "Мы получили партию бананиума для станционного клоуна с запиской, где сказано следующее: \"С любовью, мама.\"."
+	report_message = "Отдел Снабжения ЦК получил посылку, содержащую нестабильные изотопы бананиума. К грузу приложена записка: \"С любовью, Мама\"."
 	show_in_report = TRUE
 	cost = STATION_TRAIT_COST_LOW
 	weight = 5
@@ -49,23 +49,23 @@
 
 /datum/station_trait/unique_ai
 	name = "Экспериментальный свод законов ИИ"
-	report_message = "В ИИ станции был загружен экспериментальный свод законов. Вам запрещается смена законов за исключением ситуаций, препятствующих работе объекта. Это приказ, Капитан."
+	report_message = "В ядро станционного ИИ был загружен экспериментальный набор директив. Любые попытки изменения законов строго запрещены и расцениваются как саботаж."
 	show_in_report = TRUE
 	trait_flags = parent_type::trait_flags | STATION_TRAIT_REQUIRES_AI
 	weight = 5
 	trait_to_give = STATION_TRAIT_UNIQUE_AI
 
 /datum/station_trait/glitched_pdas
-	name = "Сбой КПК"
-	report_message = "Кажется что-то не так с КПК, выданными вам на эту смену. В целом ничего серьёзного."
+	name = "Дефектные КПК"
+	report_message = "КПК, выданные этой смене, имеют заводской брак видеочипа. Ожидаются визуальные глитчи интерфейса. На функционал устройств это не влияет."
 	show_in_report = TRUE
 	cost = STATION_TRAIT_COST_MINIMAL
 	weight = 5
 	trait_to_give = STATION_TRAIT_PDA_GLITCHED
 
 /datum/station_trait/classic_assistants
-	name = "Классический облик ассистентов"
-	report_message = "К сожалению, партия стандартных разноцветных комбинезонов для ассистентов была утеряна. Но у нас есть запасные."
+	name = "Устаревшая рабочая форма"
+	report_message = "На складе униформы закончились современные модели комбинезонов. На время текущей смены ассистентам будет выдана форма образца 2540 года из резервов."
 	show_in_report = TRUE
 	cost = STATION_TRAIT_COST_MINIMAL
 	weight = 5
@@ -73,7 +73,7 @@
 
 /datum/station_trait/birthday
 	name = "День рождения сотрудника"
-	report_message = "Корпорация \"Нанотрейзен\" хочет поздравить \[Имя сотрудника\] с днем рождения."
+	report_message = "Отдел Кадров ЦК сообщает: один из членов экипажа, \[Имя сотрудника\], празднует день рождения."
 	show_in_report = TRUE
 	cost = STATION_TRAIT_COST_MINIMAL
 	weight = 2
@@ -127,7 +127,7 @@
 
 /datum/station_trait/birthday/proc/announce_birthday()
 	GLOB.minor_announcement.announce(
-		message = "С днем рождения, [birthday_person ? birthday_person_name : "\[имя сотрудника\]"]! Корпорация \"Нанотрейзен\" желает вам всего самого наилучшего.",
+		message = "С днём рождения, [birthday_person ? birthday_person_name : "\[имя сотрудника\]"]! Корпорация \"Нанотрейзен\" желает вам продуктивного нового года жизни!",
 		new_title = ANNOUNCE_PRIORITY_RU,
 		new_sound = SSstation.announcer.get_rand_report_sound(),
 	)
@@ -172,7 +172,8 @@
 
 /obj/item/birthday_invite
 	name = "birthday invitation"
-	desc = "Карта, на которой сказано, что у кого-то сегодня день рождения."
+	desc = "Небольшая карточка, на которой сказано, что у кого-то сегодня день рождения."
+	gender = NEUTER
 	resistance_flags = FLAMMABLE
 	w_class = WEIGHT_CLASS_TINY
 
@@ -187,14 +188,14 @@
 	)
 
 /obj/item/birthday_invite/proc/setup_card(birthday_name)
-	desc = "Небольшая карточка, на которой сказано следующее: \"[birthday_name] сегодня празднует свой день рождения!\""
+	desc = "Небольшая карточка с надписью: \"[birthday_name] сегодня празднует/ют свой день рождения!\""
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "slip"
 
 /// No tesla beacon, but there are spare singulogen in the storage
 /datum/station_trait/forced_teg
 	name = "Зелёная энергия"
-	report_message = "В качестве эксперимента, маячок основного двигателя станции был изменён на вызов термоэлектрического генератора."
+	report_message = "В рамках инициативы по энергоэффективности, вместо стандартного двигателя объект оборудован термо-электрическим генератором. Удачи в настройке."
 	show_in_report = TRUE
 	weight = 3
 	trait_to_give = STATION_TRAIT_GREEN_ENERGY
