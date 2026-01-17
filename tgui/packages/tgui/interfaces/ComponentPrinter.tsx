@@ -67,18 +67,34 @@ export const ComponentPrinter = (props) => {
                   .map((mat) => toTitleCase(mat) + ': ' + design.cost[mat])
                   .join(', ')) || <Box>Ресурсы для печати не требуются.</Box>}
 
-              <Button
-                mr={1}
-                icon="trash-can"
-                position="absolute"
-                right={1}
-                top={1}
-                onClick={() =>
-                  act('del_design', {
-                    designId: design.id,
-                  })
-                }
-              />
+              <Box
+                style={{
+                  position: 'absolute',
+                  right: '8px',
+                  top: '8px',
+                  display: 'flex',
+                  gap: '5px',
+                }}
+              >
+                <Button
+                  icon="save"
+                  onClick={() =>
+                    act('export', {
+                      designId: design.id,
+                    })
+                  }
+                >
+                  {toTitleCase("Export")}
+                </Button>
+                <Button
+                  icon="trash-can"
+                  onClick={() =>
+                    act('del_design', {
+                      designId: design.id,
+                    })
+                  }
+                />
+              </Box>
             </Section>
           ))}
         </Box>

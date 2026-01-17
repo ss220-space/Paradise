@@ -371,11 +371,24 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			if(design_id < 1 || design_id > length(scanned_designs))
 				return TRUE
 
-			var/list/design = list(LAZYACCESS(scanned_designs, design_id))
+			var/list/design = LAZYACCESS(scanned_designs, design_id)
 
 			LAZYREMOVE(scanned_designs, design)
 
 			update_static_data_for_all_viewers()
+		if("export")
+			var/design_id = text2num(params["designId"])
+
+			if(design_id < 1 || design_id > length(scanned_designs))
+				return TRUE
+
+			var/list/design = LAZYACCESS(scanned_designs, design_id)
+
+			var/user = ui.user
+			if (user)
+				var/data = design["dupe_data"]
+				if(data)
+					tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = data, max_length = 100000)
 
 	return TRUE
 
