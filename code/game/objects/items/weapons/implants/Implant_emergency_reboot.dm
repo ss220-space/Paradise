@@ -1,34 +1,34 @@
-/obj/item/implant/overdrive
-	name = "overdrive bio-chip"
+/obj/item/implant/reboot
+	name = "emergency reboot bio-cheap"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
-	implant_data = /datum/implant_fluff/overdrive
+	implant_data = /datum/implant_fluff/reboot
 	actions_types = null
-	base_cooldown = 60 SECONDS
+	base_cooldown = 50 SECONDS
 
-/obj/item/implant/overdrive/Initialize(mapload)
+/obj/item/implant/reboot/Initialize(mapload)
 	. = ..()
 	if(!action)
 		action = new(src)
 
-/obj/item/implant/overdrive/Destroy()
+/obj/item/implant/reboot/Destroy()
 	. = ..()
 	QDEL_NULL(action)
 
-/obj/item/implant/overdrive/implant(mob/living/carbon/human/source, mob/user, force)
+/obj/item/implant/reboot/implant(mob/living/carbon/human/source, mob/user, force)
 	add_item_action(action)
 	. = ..()
 
-/obj/item/implant/overdrive/create_new_cooldown()
+/obj/item/implant/reboot/create_new_cooldown()
 	var/datum/implant_cooldown/charges/C = new
 	C.max_charges = 3
 	C.recharge_duration = base_cooldown
 	C.charge_duration = 1 SECONDS
 	return C
 
-/obj/item/implant/overdrive/activate()
+/obj/item/implant/reboot/activate()
 	var/datum/implant_cooldown/charges/charges_cooldown = cooldown_system
 
 	if(charges_cooldown.is_on_cooldown())
@@ -56,17 +56,17 @@
 	imp_in.set_resting(FALSE, instant = TRUE)
 	imp_in.get_up(instant = TRUE)
 
-	imp_in.adjust_nutrition(-25)
+	imp_in.adjust_nutrition(-20)
 
 	return TRUE
 
-/obj/item/implanter/overdrive
-	name = "bio-chip implanter (overdrive)"
-	imp = /obj/item/implant/overdrive
+/obj/item/implanter/reboot
+	name = "bio-chip implanter (emergency reboot)"
+	imp = /obj/item/implant/reboot
 
-/obj/item/implantcase/overdrivee
-	name = "bio-chip case - 'overdrive'"
-	desc = "A glass case containing an overdrive bio-chip."
-	imp = /obj/item/implant/overdrive
+/obj/item/implantcase/reboot
+	name = "bio-chip case - emergency reboot"
+	desc = "A glass case containing an reboot bio-chip."
+	imp = /obj/item/implant/reboot
 
 
