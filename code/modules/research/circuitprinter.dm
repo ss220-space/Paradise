@@ -309,6 +309,54 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	update_static_data_for_all_viewers()
 
+/obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_json(mob/living/user, json_data)
+	var/list/data
+	if(json_data)
+		data = json_decode(json_data)
+	else
+		return FALSE
+
+	if(!linked_console)
+		balloon_alert(user, "не привязано к консоли!")
+		return FALSE
+
+	if(!LAZYACCESS(data, "dupe_data"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "name"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "materials"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "integrated_circuit"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "Icon"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "IconState"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "desc"))
+		return FALSE
+
+	return TRUE
+
+// this is used for import
+/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_json(mob/living/user, json_data)
+	if(!can_save_circuit_by_json(user, json_data))
+		return
+
+	var/list/data = json_decode(json_data)
+
+	LAZYADD(scanned_designs, list(data))
+
+	balloon_alert(user, "схема сохранена")
+	playsound(src, 'sound/machines/ping.ogg', 50)
+
+	update_static_data_for_all_viewers()
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_module(list/design)
 	flick("[base_icon_state]_ani", src)
 
@@ -386,10 +434,14 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			var/user = ui.user
 			if (user)
-				var/data = design["dupe_data"]
-				if(data)
-					tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = data, max_length = 100000)
+				if(design)
+					tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = json_encode(design), max_length = 999999)
 
+		if("import")
+			var/user = ui.user
+			if(user)
+				var/json_data = tgui_input_text(user, "Вставьте текст схемы:", "Импорт схемы", default = "", max_length = 999999, encode = FALSE)
+				save_circuit_by_json(user, json_data)
 	return TRUE
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
