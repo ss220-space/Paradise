@@ -18,9 +18,7 @@
 		prefix = "h"
 	icon_state = "[prefix]off"
 
-/obj/machinery/atmospherics/unary/thermal_plate/process_atmos()
-	..()
-
+/obj/machinery/atmospherics/unary/thermal_plate/process_atmos(seconds)
 	var/datum/milla_safe/thermal_plate_process/milla = new()
 	milla.invoke_async(src)
 

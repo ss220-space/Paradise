@@ -28,6 +28,12 @@
 	notes = "One of Cybersun Industries oldest and simplest implants. This is the early prototype version of the RX-2. It's significantly cheaper than it's newer version."
 	function = "Subjects injected with this bio-chip can activate an injection of cheap medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
+/datum/implant_fluff/heal
+	name = "Meditech Corporation HRX-8 Healing Nanochip"
+	life = "Seven days."
+	notes = "A reliable implant developed by Meditech Corporation for immediate damage recovery. Its popularity stems from its efficiency and effectiveness in critical situations."
+	function = "When activated, this nanochip consumes nutrients from the subject's body to release a swarm of specialized nanites that quickly repair tissue damage, alleviate pain, and enhance the overall healing process."
+
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year."

@@ -782,7 +782,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		var/area/A = get_area(src)
 		to_chat(victim, span_notice("You feel a dark presence from [A.name]"))
 
-/obj/item/voodoo/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/voodoo/fire_act(exposed_temperature, exposed_volume)
 	if(target)
 		target.adjust_fire_stacks(20)
 		target.IgniteMob()

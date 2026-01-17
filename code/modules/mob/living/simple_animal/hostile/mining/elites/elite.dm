@@ -184,6 +184,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
 
 /datum/action/innate/elite_attack/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	. = ..()
 	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
 	if(!istype(owner))
 		button.maptext = ""
@@ -302,7 +303,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
 	if(QDELETED(src) || QDELETED(loc))
 		return
-	
+
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
