@@ -35358,7 +35358,7 @@
 /area/engineering/mechanic_workshop)
 "cFQ" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -76570,7 +76570,7 @@
 /area/toxins/xenobiology)
 "rfy" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /obj/structure/cable{
 	icon_state = "1-2"

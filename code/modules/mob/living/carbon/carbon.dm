@@ -401,9 +401,10 @@
 				to_chat(src, span_danger("Ваши глаза сильно болят от яркого света!"))
 				E.internal_receive_damage(rand(12, 16) + extra_damage, silent = TRUE)
 
-		if(E.damage > E.min_bruised_damage)
-			AdjustEyeBlind(damage STATUS_EFFECT_CONSTANT)
-			AdjustEyeBlurry(damage * rand(6 SECONDS, 12 SECONDS))
+		if(E.damage >= E.min_bruised_damage)
+			if(E.damage >= E.min_broken_damage)
+				EyeBlind(E.damage STATUS_EFFECT_CONSTANT)
+			EyeBlurry(clamp(floor((E.damage - E.min_bruised_damage) / 5) * 5 + EYE_BLUR_SCALE_STEP, 0, EYE_BLUR_SCALE_MAX_DURATION))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())

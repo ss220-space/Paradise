@@ -247,6 +247,15 @@
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
 
+// MARK: oxy_dot
+/datum/status_effect/oxy_dot
+	id = "oxy_dmg_dot"
+	duration = 6 SECONDS
+	alert_type = null
+
+/datum/status_effect/oxy_dot/tick(seconds_between_ticks)
+	owner.adjustOxyLoss(4)
+
 // MARK: bluespace_slowdown
 /datum/status_effect/bluespace_slowdown
 	id = "bluespace_slowdown"
