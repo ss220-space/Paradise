@@ -159,17 +159,15 @@
 	if(!isliving(target))
 		return
 	var/mob/living/living_target = target
-	if(isrobot(living_target))
-		var/mob/living/silicon/robot/robot_target = living_target
-		robot_target.emp_act(EMP_LIGHT)
+	if(isrobot(living_target) || ismachineperson(living_target))
+		var/mob/living/silicon/silicon_target = living_target
+		silicon_target.emp_act(EMP_LIGHT)
+		if(ismachineperson(silicon_target))
+			silicon_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
+			silicon_target.Confused(15 SECONDS)
+			silicon_target.Jitter(5 SECONDS)
 		return
-	else if(ismachineperson(target))
-		var/mob/living/silicon/ipc_target = living_target
-		ipc_target.emp_act(EMP_LIGHT)
-		ipc_target.Silence(5 SECONDS)
-		living_target.Confused(10 SECONDS)
-		living_target.Jitter(5 SECONDS)
-		return
+
 	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
 	living_target.Confused(15 SECONDS)
 	living_target.Jitter(5 SECONDS)
