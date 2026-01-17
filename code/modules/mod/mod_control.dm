@@ -375,6 +375,11 @@
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 
+/obj/item/mod/control/attack_ghost(mob/user)
+	if(isobserver(user) && bag)
+		bag.show_to(user)
+	return ..()
+
 /obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
 	if(bag)
 		return bag.can_be_inserted(I, stop_messages)
