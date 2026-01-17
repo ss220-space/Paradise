@@ -186,19 +186,19 @@
 
 	return TRUE
 
-/obj/machinery/atmospherics/unary/cryo_cell/process_atmos()
-	..()
+/obj/machinery/atmospherics/unary/cryo_cell/process_atmos(seconds)
 	if(!node)
-		return
+		return FALSE
+
 	if(!on)
-		return
+		return FALSE
 
 	if(air_contents)
 		temperature_archived = air_contents.temperature()
 		heat_gas_contents()
 
 	if(abs(temperature_archived-air_contents.temperature()) > 1)
-		parent.update = 1
+		parent.update = TRUE
 
 /obj/machinery/atmospherics/unary/cryo_cell/AllowDrop()
 	return FALSE

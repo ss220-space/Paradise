@@ -182,6 +182,8 @@
 #define MECH_FAB_CATEGORY_CYBORG_REPAIR "Компоненты роботов"
 #define MECH_FAB_CATEGORY_CYBORG_EQUIPMENT "Оборудование роботов"
 #define MECH_FAB_CATEGORY_IPC "КПБ"
+#define MECH_FAB_CATEGORY_MODSUIT_CONSTRUCTION "Сборка МЭК"
+#define MECH_FAB_CATEGORY_MODSUIT_MODULES "Модули МЭК"
 #define MECH_FAB_CATEGORY_EXOSUIT_EQUIPMENT "Оборудование экзоскелетов"
 #define MECH_FAB_CATEGORY_EXOSUIT_PAINTKITS "Наборы кастомизации экзоскелетов"
 #define MECH_FAB_CATEGORY_RIPLEY "Рипли"

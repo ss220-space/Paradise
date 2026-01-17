@@ -507,7 +507,7 @@ ADMIN_VERB(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObserve", ADMIN_VERB_
 		to_chat(user, span_warning("[target] сейчас находится в лобби."))
 		return
 
-	if(!isobserver(user.mob) && !check_rights(R_MENTOR, FALSE, user))
+	if(!isobserver(user.mob) && !check_rights_client(R_MENTOR, FALSE, user))
 		SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
 
 	if(isobserver(user.mob))
@@ -520,7 +520,7 @@ ADMIN_VERB(admin_observe_target, R_ADMIN|R_MOD|R_MENTOR, "AObserve", ADMIN_VERB_
 		to_chat(user, span_warning("[target] не имеет за собой игрока(Disconnected)."))
 		return
 
-	if(!isobserver(user.mob) && !check_rights(R_MENTOR, FALSE, user))
+	if(!isobserver(user.mob) && !check_rights_client(R_MENTOR, FALSE, user))
 		addtimer(CALLBACK(user.mob, TYPE_PROC_REF(/mob/dead/observer, do_observe), target), 10 DECISECONDS)
 
 ADMIN_VERB(free_job_slot, R_ADMIN, "Free Job Slot", "Frees a station job role.", ADMIN_CATEGORY_GAME)

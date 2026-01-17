@@ -2823,7 +2823,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cxM" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -2851,7 +2851,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "czF" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -8486,10 +8486,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "hPb" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -13052,7 +13049,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/atmospherics/unary/heat_reservoir/heater{
+/obj/machinery/atmospherics/unary/thermomachine/heater{
 	dir = 1;
 	on = 1
 	},
@@ -13225,7 +13222,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "lTV" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/freezer/upgraded{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -13306,7 +13303,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lXG" = (
-/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
+/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -25014,7 +25011,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
 "uPQ" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer,
+/obj/machinery/atmospherics/unary/thermomachine/freezer,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},

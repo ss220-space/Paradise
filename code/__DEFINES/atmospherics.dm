@@ -23,6 +23,10 @@
 #define T20C 293.15
 /// 100degC
 #define T100C 373.15
+/// -14C - Temperature used for kitchen cold room, medical freezer, etc.
+#define COLD_ROOM_TEMP 259.15
+/// -193C - Temperature used for server rooms
+#define SERVER_ROOM_TEMP 80
 
 #define MOLES_CELLSTANDARD (ONE_ATMOSPHERE*CELL_VOLUME/(T20C*R_IDEAL_GAS_EQUATION)) //moles in a 2.5 m^3 cell at 101.325 Pa and 20 degC
 #define M_CELL_WITH_RATIO (MOLES_CELLSTANDARD * 0.005) //compared against for superconductivity
@@ -47,6 +51,21 @@
 #define MINIMUM_TEMPERATURE_DELTA_TO_CONSIDER 0.5 //Minimum temperature difference before the gas temperatures are just set to be equal
 #define MINIMUM_TEMPERATURE_FOR_SUPERCONDUCTION (T20C + 10)
 #define MINIMUM_TEMPERATURE_START_SUPERCONDUCTION (T20C + 200)
+
+
+// Body temperature warning icons
+/// The temperature the red icon is displayed.
+#define HEAT_WARNING_3 (BODYTEMP_HEAT_DAMAGE_LIMIT + 360) //+700k
+/// The temperature the orange icon is displayed.
+#define HEAT_WARNING_2 (BODYTEMP_HEAT_DAMAGE_LIMIT + 120) //460K
+/// The temperature the yellow icon is displayed.
+#define HEAT_WARNING_1 (BODYTEMP_HEAT_DAMAGE_LIMIT) //340K
+/// The temperature the light green icon is displayed.
+#define COLD_WARNING_1 (BODYTEMP_COLD_DAMAGE_LIMIT) //270k
+/// The temperature the cyan icon is displayed.
+#define COLD_WARNING_2 (BODYTEMP_COLD_DAMAGE_LIMIT - 70) //200k
+/// The temperature the blue icon is displayed.
+#define COLD_WARNING_3 (BODYTEMP_COLD_DAMAGE_LIMIT - 150) //120k
 
 //HEAT TRANSFER COEFFICIENTS
 //Must be between 0 and 1. Values closer to 1 equalize temperature faster
@@ -81,7 +100,7 @@
 //GASES
 #define MIN_TOXIC_GAS_DAMAGE 1
 #define MAX_TOXIC_GAS_DAMAGE 10
-#define MOLES_PLASMA_VISIBLE 0.5 //Moles in a standard cell after which plasma is visible
+#define MOLES_PLASMA_VISIBLE 0.6 //Moles in a standard cell after which plasma is visible
 #define MOLES_WATER_VAPOR_VISIBLE 2.0 //Moles in a standard cell after which water vapor is visible
 
 //HYDROGEN

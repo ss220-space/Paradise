@@ -533,7 +533,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /datum/outfit/job/engineer/suit
 	toggle_helmet = TRUE
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	back = /obj/item/mod/control/pre_equipped/engineering
 	mask = /obj/item/clothing/mask/breath
 
 /obj/effect/mob_spawn/human/clown
@@ -625,8 +625,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	toggle_helmet = TRUE
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
@@ -675,7 +674,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	uniform = /obj/item/clothing/under/rank/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id
 
@@ -739,7 +738,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	l_ear = /obj/item/radio/headset/heads/hop
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id
 
@@ -792,7 +791,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	name = "Cryogenic Bartender"
 	uniform = /obj/item/clothing/under/rank/bartender
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 

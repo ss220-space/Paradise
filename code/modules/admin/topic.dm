@@ -1613,7 +1613,7 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/observer = M
 			observer.equip_to_slot_or_del(new /obj/item/clothing/under/suit_jacket(observer), ITEM_SLOT_CLOTH_INNER)
-			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(observer), ITEM_SLOT_FEET)
+			observer.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black(observer), ITEM_SLOT_FEET)
 		if(isliving(M))
 			var/mob/living/L = M
 			L.Paralyse(10 SECONDS)
@@ -3566,15 +3566,15 @@
 							SSnightshift.can_fire = TRUE
 							SSnightshift.fire()
 						else
-							SSnightshift.update_nightshift(FALSE, TRUE)
+							SSnightshift.update_nightshift(active = FALSE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift set to automatic."), confidential = TRUE)
 					if("On")
 						SSnightshift.can_fire = FALSE
-						SSnightshift.update_nightshift(TRUE, FALSE)
+						SSnightshift.update_nightshift(active = TRUE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift forced on."), confidential = TRUE)
 					if("Off")
 						SSnightshift.can_fire = FALSE
-						SSnightshift.update_nightshift(FALSE, FALSE)
+						SSnightshift.update_nightshift(active = FALSE, announce = TRUE, forced = TRUE)
 						to_chat(usr, span_notice("Night shift forced off."), confidential = TRUE)
 
 			if("lavatype")

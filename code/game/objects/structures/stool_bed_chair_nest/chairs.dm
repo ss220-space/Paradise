@@ -264,7 +264,6 @@
 /obj/structure/chair/office
 	movable = TRUE
 	item_chair = null
-	buildstackamount = 5
 	pull_push_slowdown = 0.5
 	flip_on_buckled_move = FALSE
 

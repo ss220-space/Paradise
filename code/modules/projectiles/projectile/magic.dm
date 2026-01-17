@@ -74,8 +74,7 @@
 	if(isliving(C))
 		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
 			C.adjustFireLoss(6969)  //remember - slimes love fire
-		else
-			C.death()
+		C.death()
 
 		visible_message(span_danger("[capitalize(C.declent_ru(NOMINATIVE))] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
 

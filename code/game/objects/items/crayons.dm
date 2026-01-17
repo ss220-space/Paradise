@@ -1,7 +1,9 @@
 /*
  * Crayons
  */
-
+#define NORMAL_CRAYONS_USES 30
+#define BETTER_CRAYONS_USES 60 //0 for unlimited uses
+#define SINGLEUSE_CRAYONS_USES 1
 /obj/item/toy/crayon
 	name = "crayon"
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
@@ -65,7 +67,7 @@
 		"prolizard",
 	)
 	var/list/letters = list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
-	var/uses = 30 //0 for unlimited uses
+	var/uses = NORMAL_CRAYONS_USES
 	var/instant = 0
 	var/colourName = "red" //for updateIcon purposes
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
@@ -162,7 +164,7 @@
 
 	var/huffable = istype(src, /obj/item/toy/crayon/spraycan)
 	playsound(loc, 'sound/items/eatfood.ogg', 50, FALSE)
-	to_chat(user, span_notice("YYou take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
+	to_chat(user, span_notice("You take a [huffable ? "huff" : "bite"] of the [name]. Delicious!"))
 	if(!isvampire(user))
 		user.adjust_nutrition(5)
 
@@ -271,7 +273,7 @@
 	icon_state = "crayonmime"
 	colour = "#FFFFFF"
 	colourName = "mime"
-	uses = 0
+	uses = BETTER_CRAYONS_USES
 	dye_color = DYE_MIME
 
 /obj/item/toy/crayon/mime/attack_self(mob/living/user as mob)
@@ -298,7 +300,7 @@
 	icon_state = "crayonrainbow"
 	colour = "#FFF000"
 	colourName = "rainbow"
-	uses = 0
+	uses = BETTER_CRAYONS_USES
 	dye_color = DYE_RAINBOW
 
 /obj/item/toy/crayon/rainbow/attack_self(mob/living/user as mob)
@@ -403,7 +405,7 @@
 
 /obj/item/toy/crayon/spraycan/paintkit
 	colour = "#ffffff"
-	uses = 1
+	uses = SINGLEUSE_CRAYONS_USES
 	validSurfaces = null
 
 /obj/item/toy/crayon/spraycan/paintkit/attack_self(mob/living/user as mob)
@@ -422,3 +424,7 @@
 	desc = "Баллончик с корпусом цвета хаки. В комплекте идет одноразовый трафарет для покраски сварочного шлема. К нему прикреплена записка, на которой написано: «Head, eyes, blyad»."
 	icon_state = "spraycan_slavic"
 	weld_icons = list("Slavic" = "welding_slavic")
+
+#undef NORMAL_CRAYONS_USES
+#undef BETTER_CRAYONS_USES
+#undef SINGLEUSE_CRAYONS_USES

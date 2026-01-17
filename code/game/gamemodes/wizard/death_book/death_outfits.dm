@@ -49,7 +49,7 @@
 	uniform = /obj/item/clothing/under/syndicate/tacticool
 	accessories = list(/obj/item/clothing/accessory/holster)
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	backpack_contents = list(/obj/item/ammo_box/speedloader/a357 = 2, /obj/item/gun/projectile/revolver = 1)
 
 /datum/outfit/radial_outfit/death_book/killer
