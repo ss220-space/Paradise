@@ -102,10 +102,13 @@
 		var/image/new_visual = image(visual, layer = FLOAT_PLANE)
 		new_visual.filters = alpha_filter
 		window_overlays += new_visual
-	if(window_overlays.len > 0)
-		window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
-		window.overlays = window_overlays
-		add_overlay(window)
+
+	if(length(window_overlays) == 0)
+		return
+
+	window = image(canister_overlay_file, icon_state = "window-base", layer = FLOAT_LAYER)
+	window.overlays = window_overlays
+	add_overlay(window)
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(exposed_temperature, exposed_volume)
 	..()
