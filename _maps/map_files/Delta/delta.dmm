@@ -6550,7 +6550,7 @@
 /area/crew_quarters/bar/atrium)
 "aXV" = (
 /obj/machinery/status_display,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "aXW" = (
 /obj/structure/table/wood,
@@ -20359,7 +20359,7 @@
 /area/mimeoffice)
 "cwJ" = (
 /obj/structure/sign/poster/official/minegem,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "cwK" = (
 /obj/structure/window/reinforced,
@@ -33104,7 +33104,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads/hop)
 "dDb" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "dDe" = (
 /obj/structure/sign/fire,
@@ -36066,7 +36066,7 @@
 /area/atmos)
 "dRG" = (
 /obj/machinery/status_display/supply_display,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "dRJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -39645,7 +39645,7 @@
 	layer = 4;
 	name = "EXTERNAL AIRLOCK"
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/storage)
 "eqH" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -62026,6 +62026,9 @@
 	icon_state = "redfull"
 	},
 /area/crew_quarters/kitchen)
+"jCp" = (
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "jCz" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -108191,6 +108194,10 @@
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
@@ -171446,8 +171453,8 @@ ehi
 cbD
 bGJ
 snP
-dmq
-dmq
+jCp
+jCp
 whL
 whL
 whL
@@ -171461,7 +171468,7 @@ whL
 whL
 whL
 whL
-dmq
+jCp
 dDb
 xJY
 bGv
