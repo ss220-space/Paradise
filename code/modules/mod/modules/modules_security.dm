@@ -179,7 +179,7 @@
 	. = ..()
 	if(!looker || !creature)
 		return INITIALIZE_HINT_QDEL
-	modsuit_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * 32), pixel_y = ((creature.y - looker.y) * 32))
+	modsuit_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * ICON_SIZE_X), pixel_y = ((creature.y - looker.y) * ICON_SIZE_Y))
 	modsuit_image.plane = ABOVE_LIGHTING_PLANE
 	modsuit_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	source_UID = looker.UID()
@@ -281,14 +281,26 @@
 		PREPOSITIONAL = "модуле вихревого дробовика",
 	)
 
+#define DEFAULT_SHOT_DRAIN 1000 // обычный выстрел
+#define LESSER_SHOT_DRAIN_CORE_REQ 100
+#define LESSER_SHOT_DRAIN 750 // выстрел подешевле
+#define LEAST_SHOT_DRAIN_CORE_REQ 200
+#define LEAST_SHOT_DRAIN 500 // вообще дешёвый выстрел жестб
+
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/update_core_powers()
 	if(!core)
 		return
-	use_energy_cost = DEFAULT_CHARGE_DRAIN * 1000
-	if(core.get_strength() > 100)
-		use_energy_cost = DEFAULT_CHARGE_DRAIN * 750
-	if(core.get_strength() > 200)
-		use_energy_cost = DEFAULT_CHARGE_DRAIN * 500
+	use_energy_cost = DEFAULT_CHARGE_DRAIN * DEFAULT_SHOT_DRAIN
+	if(core.get_strength() > LESSER_SHOT_DRAIN_CORE_REQ)
+		use_energy_cost = DEFAULT_CHARGE_DRAIN * LESSER_SHOT_DRAIN
+	if(core.get_strength() > LEAST_SHOT_DRAIN_CORE_REQ)
+		use_energy_cost = DEFAULT_CHARGE_DRAIN * LEAST_SHOT_DRAIN
+
+#undef DEFAULT_SHOT_DRAIN
+#undef LESSER_SHOT_DRAIN_CORE_REQ
+#undef LESSER_SHOT_DRAIN
+#undef LEAST_SHOT_DRAIN_CORE_REQ
+#undef LEAST_SHOT_DRAIN
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/Initialize(mapload)
 	. = ..()
@@ -305,9 +317,11 @@
 	if(!gun.chambered.BB)
 		gun.chambered.newshot()
 
-	if(!drain_power(use_energy_cost)) //no shoot when no energy
-		QDEL_NULL(gun.chambered.BB)
-		balloon_alert(mod.wearer, "нет энергии!")
+	if(drain_power(use_energy_cost)) //no shoot when no energy
+		return
+
+	QDEL_NULL(gun.chambered.BB)
+	balloon_alert(mod.wearer, "нет энергии!")
 
 /obj/item/mod/module/anomaly_locked/vortex_shotgun/prebuilt
 	prebuilt = TRUE

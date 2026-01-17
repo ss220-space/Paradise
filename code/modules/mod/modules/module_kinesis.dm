@@ -271,10 +271,10 @@ tier 3 - range 7-8, can lift conscious
 	UnregisterSignal(source, COMSIG_MOVABLE_IMPACT)
 	if(!isobj(source))
 		return
-	var/obj/S = source
+	var/obj/our_source = source
 	var/damage_self = TRUE
 	var/damage = 8
-	if(S.density)
+	if(our_source.density)
 		damage_self = FALSE
 		damage = 15
 	if(isliving(hit_atom))
@@ -284,7 +284,7 @@ tier 3 - range 7-8, can lift conscious
 		var/obj/O = hit_atom
 		O.take_damage(damage, BRUTE, MELEE)
 	if(damage_self)
-		S.take_damage(S.max_integrity / 5, BRUTE, MELEE)
+		our_source.take_damage(our_source.max_integrity / 5, BRUTE, MELEE)
 
 /obj/effect/abstract/kinesis
 	var/datum/beam/chain

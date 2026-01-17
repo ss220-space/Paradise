@@ -223,7 +223,7 @@
 	switch(construction_step)
 
 		if(START_STEP)
-			if(!istype(part, /obj/item/mod/core))
+			if(!ismodcore(part))
 				return
 			if(!user.drop_from_active_hand())
 				balloon_alert(user, "невозможно!")

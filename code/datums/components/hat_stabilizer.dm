@@ -213,7 +213,7 @@
 	else
 		movable_parent.balloon_alert_to_viewers("шляпа спадает!")
 
-	if(!istype(parent, /obj/item/clothing))
+	if(!isclothing(parent))
 		attached_hat = null
 		movable_parent.update_appearance()
 		return
@@ -223,7 +223,7 @@
 	apparel.detach_clothing_traits(attached_hat.clothing_traits)
 	apparel.flags_cover = former_flags
 	apparel.visor_flags_cover = former_visor_flags
-	apparel.update_appearance()
+	apparel.update_appearance(UPDATE_ICON)
 	attached_hat = null
 	if(ismob(apparel.loc))
 		var/mob/wearer = apparel.loc

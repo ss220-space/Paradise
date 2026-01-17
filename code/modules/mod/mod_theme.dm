@@ -49,7 +49,7 @@
 	var/list/allowed_suit_storage = list()
 	/// List of variants with their appropriate clothing flags.
 	var/list/variants = list(
-		"standard" = list(
+		MOD_VARIANT_STANDART = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -248,7 +248,7 @@
 				CAN_OVERSLOT = TRUE,
 			),
 		),
-		"standard" = list(
+		MOD_VARIANT_STANDART = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -311,7 +311,7 @@
 		/obj/item/twohanded/fireaxe,
 	)
 	variants = list(
-		"engineering" = list(
+		MOD_VARIANT_ENGINEERING = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -381,7 +381,7 @@
 		/obj/item/analyzer,
 	)
 	variants = list(
-		"atmospheric" = list(
+		MOD_VARIANT_ATMOSPHERIC = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -460,7 +460,7 @@
 
 	)
 	variants = list(
-		"advanced" = list(
+		MOD_VARIANT_ADVANCED = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -539,7 +539,7 @@
 	)
 	inbuilt_modules = list(/obj/item/mod/module/ash_accretion, /obj/item/mod/module/sphere_transform)
 	variants = list(
-		"mining" = list(
+		MOD_VARIANT_MINING = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -570,7 +570,7 @@
 				CAN_OVERSLOT = TRUE,
 			),
 		),
-		"asteroid" = list(
+		MOD_VARIANT_ASTEROID = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -640,7 +640,7 @@
 	allowed_suit_storage = list()
 	inbuilt_modules = list(/obj/item/mod/module/hydraulic, /obj/item/mod/module/clamp/loader, /obj/item/mod/module/magnet)
 	variants = list(
-		"loader" = list(
+		MOD_VARIANT_LOADER = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -710,7 +710,7 @@
 		/obj/item/storage/bag/bio,
 	)
 	variants = list(
-		"medical" = list(
+		MOD_VARIANT_MEDICAL = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -742,7 +742,7 @@
 				CAN_OVERSLOT = TRUE,
 			),
 		),
-		"corpsman" = list(
+		MOD_VARIANT_CORPSMAN = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -820,7 +820,7 @@
 		/obj/item/melee/baton/telescopic,
 	)
 	variants = list(
-		"rescue" = list(
+		MOD_VARIANT_RESCUE = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -895,7 +895,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"research" = list(
+		MOD_VARIANT_RESEARCH = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -965,7 +965,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"security" = list(
+		MOD_VARIANT_SECURITY = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -1040,7 +1040,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"brigpilot" = list(
+		MOD_VARIANT_BRIGPILOT = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -1114,7 +1114,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"safeguard-ward" = list(
+		MOD_VARIANT_SAFEGUARD_WARDEN = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -1188,7 +1188,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"safeguard" = list(
+		MOD_VARIANT_SAFEGUARD = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -1267,7 +1267,7 @@
 		/obj/item/storage/bag/bio,
 	)
 	variants = list(
-		"security-med" = list(
+		MOD_VARIANT_BRIGMED = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -1344,7 +1344,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"magnate" = list(
+		MOD_VARIANT_MAGNATE = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -1419,7 +1419,7 @@
 		/obj/item/kitchen/knife/combat,
 	)
 	variants = list(
-		"praetorian" = list(
+		MOD_VARIANT_PRAETORIAN = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -1485,7 +1485,7 @@
 		/obj/item/instrument,
 	)
 	variants = list(
-		"cosmohonk" = list(
+		MOD_VARIANT_COSMOHONK = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -1560,7 +1560,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"syndicate" = list(
+		MOD_VARIANT_SYNDICATE = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -1592,7 +1592,7 @@
 				CAN_OVERSLOT = TRUE,
 			),
 		),
-		"honkerative" = list(
+		MOD_VARIANT_HONKERATIVE = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE,
@@ -1667,7 +1667,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"elite" = list(
+		MOD_VARIANT_ELITE = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1745,7 +1745,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"contractor" = list(
+		MOD_VARIANT_CONTRACTOR = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1817,7 +1817,7 @@
 		/obj/item/rcd,
 	)
 	variants = list(
-		"prototype" = list(
+		MOD_VARIANT_PROTOTYPE = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -1889,7 +1889,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"responsory" = list(
+		MOD_VARIANT_RESPONSORY = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = COLLAR_LAYER,
 				SEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,
@@ -1963,7 +1963,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"inquisitory" = list(
+		MOD_VARIANT_INQUISITORY = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -2039,7 +2039,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"apocryphal" = list(
+		MOD_VARIANT_APOCRYPHAL = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -2115,7 +2115,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"corporate" = list(
+		MOD_VARIANT_CORPORATE = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -2180,7 +2180,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"debug" = list(
+		MOD_VARIANT_DEBUG = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL,
@@ -2245,7 +2245,7 @@
 		/obj/item/gun,
 	)
 	variants = list(
-		"debug" = list(
+		MOD_VARIANT_DEBUG = list(
 			/obj/item/clothing/head/mod = list(
 				UNSEALED_LAYER = null,
 				UNSEALED_CLOTHING = THICKMATERIAL|STOPSPRESSUREDMAGE|BLOCK_GAS_SMOKE_EFFECT,

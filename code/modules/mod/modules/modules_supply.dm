@@ -75,7 +75,8 @@
 		stored_crates += picked_crate
 		picked_crate.forceMove(src)
 		drain_power(use_energy_cost)
-	else if(length(stored_crates))
+		return
+	if(length(stored_crates))
 		var/turf/target_turf = get_turf(target)
 		if(target_turf.density)
 			return
@@ -89,8 +90,8 @@
 			return
 		dropped_crate.forceMove(target_turf)
 		drain_power(use_energy_cost)
-	else
-		balloon_alert(mod.wearer, "невозможно поднять!")
+		return
+	balloon_alert(mod.wearer, "невозможно поднять!")
 
 /obj/item/mod/module/clamp/on_part_deactivation(deleting = FALSE)
 	if(deleting)
@@ -170,10 +171,11 @@
 		return
 	if(!mod.wearer.Adjacent(target))
 		return
-	if(ismineralturf(target))
-		var/turf/simulated/mineral/mineral_turf = target
-		mineral_turf.gets_drilled(mod.wearer)
-		drain_power(use_energy_cost)
+	if(!ismineralturf(target))
+		return
+	var/turf/simulated/mineral/mineral_turf = target
+	mineral_turf.gets_drilled(mod.wearer)
+	drain_power(use_energy_cost)
 
 /obj/item/mod/module/drill/proc/bump_mine(mob/living/carbon/human/bumper, atom/bumped_into, proximity)
 	SIGNAL_HANDLER
@@ -299,9 +301,13 @@
 	playsound(src, 'sound/items/modsuit/loader_launch.ogg', 75, TRUE)
 	var/angle = get_angle(mod.wearer, target)
 	mod.wearer.transform = mod.wearer.transform.Turn(mod.wearer.transform, angle)
-	mod.wearer.throw_at(get_ranged_target_turf_direct(mod.wearer, target, power), \
-		range = power, speed = max(round(0.2*power), 1), thrower = mod.wearer, spin = FALSE, \
-		callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle))
+	mod.wearer.throw_at(
+		get_ranged_target_turf_direct(mod.wearer, target, power),
+		range = power,
+		speed = max(round(0.2*power), 1),
+		thrower = mod.wearer, spin = FALSE,
+		callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle),
+		)
 
 /obj/item/mod/module/hydraulic/proc/on_throw_end(mob/user, angle)
 	if(!user)
@@ -338,21 +344,26 @@
 	. = ..()
 	if(!.)
 		return
-	if(istype(mod.wearer.pulling, /obj/structure/closet))
+	if(iscloset(mod.wearer.pulling))
 		var/obj/structure/closet/locker = mod.wearer.pulling
 		playsound(locker, 'sound/effects/gravhit.ogg', 75, TRUE)
 		locker.forceMove(mod.wearer.loc)
 		locker.throw_at(target, range = 7, speed = 4, thrower = mod.wearer)
 		return
-	if(!istype(target, /obj/structure/closet) || !(target in view(mod.wearer)))
+	if(!iscloset(target) || !(target in view(mod.wearer)))
 		balloon_alert(mod.wearer, "неподходящая цель!")
 		return
 	var/obj/structure/closet/locker = target
 	if(locker.anchored || locker.move_resist >= MOVE_FORCE_OVERPOWERING)
 		return
 	playsound(locker, 'sound/effects/gravhit.ogg', 75, TRUE)
-	locker.throw_at(get_step_towards(mod.wearer, target), range = 7, speed = 3, force = MOVE_FORCE_WEAK, \
-		callback = CALLBACK(src, PROC_REF(check_locker), locker))
+	locker.throw_at(
+		get_step_towards(mod.wearer, target),
+		range = 7,
+		speed = 3,
+		force = MOVE_FORCE_WEAK,
+		callback = CALLBACK(src, PROC_REF(check_locker), locker),
+		)
 
 /obj/item/mod/module/magnet/on_deactivation(display_message = TRUE, deleting = FALSE)
 	if(istype(mod.wearer.pulling, /obj/structure/closet))
@@ -451,25 +462,11 @@
 		return
 	if(traveled_tiles) //leave ash every tile
 		new /obj/effect/temp_visual/light_ash(get_turf(src))
-	if(is_type_in_typecache(mod.wearer.loc, accretion_turfs))
-		if(traveled_tiles >= max_traveled_tiles)
-			return
-		traveled_tiles++
-		var/speed_up = FALSE
-		if(traveled_tiles >= max_traveled_tiles)
-			balloon_alert(mod.wearer, "полное покрытие пеплом")
-			mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
-			animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
-			playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
-			actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
-			LAZYADD(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
-		for(var/obj/item/part as anything in mod.get_parts(TRUE))
-			part.armor = part.armor.attachArmor(armor_mod_1.armor)
-			if(speed_up)
-				part.slowdown -= speed_added / 5
-	else if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
+
+	if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
 		return
-	else
+
+	if(!is_type_in_typecache(mod.wearer.loc, accretion_turfs))
 		if(traveled_tiles <= 0)
 			return
 		var/speed_up = FALSE
@@ -483,6 +480,23 @@
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
 			LAZYREMOVE(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
+		return
+	// if(is_type_in_typecache(mod.wearer.loc, accretion_turfs))
+	if(traveled_tiles >= max_traveled_tiles)
+		return
+	traveled_tiles++
+	var/speed_up = FALSE
+	if(traveled_tiles >= max_traveled_tiles)
+		balloon_alert(mod.wearer, "полное покрытие пеплом")
+		mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
+		animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
+		playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
+		actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
+		LAZYADD(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
+	for(var/obj/item/part as anything in mod.get_parts(TRUE))
+		part.armor = part.armor.attachArmor(armor_mod_1.armor)
+		if(!speed_up)
+			part.slowdown -= speed_added / 5
 
 /obj/effect/temp_visual/light_ash
 	icon_state = "light_ash"
@@ -657,10 +671,11 @@
 /obj/structure/mining_bomb/proc/boom(atom/movable/firer)
 	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
 	playsound(src, 'sound/magic/magic_missile.ogg', 200, vary = TRUE)
-	for(var/turf/T in circle_view_turfs(src, 2))
-		if(ismineralturf(T))
-			var/turf/simulated/mineral/mineral_turf = T
-			mineral_turf.attempt_drill(firer)
+	for(var/turf/our_turf as anything in circle_view_turfs(src, 2))
+		if(!ismineralturf(our_turf))
+			continue
+		var/turf/simulated/mineral/mineral_turf = our_turf
+		mineral_turf.attempt_drill(firer)
 	for(var/mob/living/mob in range(1, src))
 		mob.apply_damage(damage * (ishostile(mob) ? fauna_boost : 1), BRUTE)
 		if(!ishostile(mob) || !firer)

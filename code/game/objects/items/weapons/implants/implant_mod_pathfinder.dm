@@ -84,9 +84,10 @@
 	module.mod.cut_overlay(jet_icon)
 	module.mod.transform = matrix()
 	UnregisterSignal(module.mod, COMSIG_MOVABLE_MOVED)
-	if(!successful)
-		imp_in.balloon_alert(imp_in, "связь с костюмом потеряна!")
-		path = list() //Stopping endless end_recall with luck.
+	if(successful)
+		return
+	imp_in.balloon_alert(imp_in, "связь с костюмом потеряна!")
+	path = list() //Stopping endless end_recall with luck.
 
 /obj/item/implant/mod/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
@@ -124,8 +125,8 @@
 	if(tries >= 5)
 		set_path(null)
 	var/target = get_turf(imp_in)
-	var/mob/living/carbon/human/H = imp_in
-	set_path(get_path_to(module.mod, target, 150, access = H.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
+	var/mob/living/carbon/human/our_human = imp_in
+	set_path(get_path_to(module.mod, target, 150, access = our_human.get_access(), simulated_only = FALSE)) //Yes, science proves jetpacks work in space. More at 11.
 	addtimer(CALLBACK(src, PROC_REF(mod_move), target), 6) //I'll value this properly soon
 
 	return TRUE
@@ -133,13 +134,12 @@
 /obj/item/implant/mod/proc/mod_step() //Step,increase tries if failed
 	if(!path || !length(path))
 		return FALSE
-	for(var/obj/machinery/door/D in range(2, module.mod))
-		if(D.operating || D.emagged)
+	for(var/obj/machinery/door/our_door in range(2, module.mod))
+		if(our_door.operating || our_door.emagged)
 			continue
-		if(D.requiresID() && D.allowed(imp_in))
-			if(D.density)
-				D.open()
-
+		if(our_door.requiresID() && our_door.allowed(imp_in))
+			if(our_door.density)
+				our_door.open()
 
 	if(!step_towards(module.mod, path[1]))
 		tries++

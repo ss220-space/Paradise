@@ -173,8 +173,11 @@
 	. = ..()
 	if(slot == ITEM_SLOT_BACK)
 		set_wearer(user)
-	else if(wearer)
-		unset_wearer()
+		return
+	if(!wearer)
+		return
+
+	unset_wearer()
 
 /obj/item/mod/control/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_BACK)
@@ -199,23 +202,25 @@
 	if(ismecha(carbon_mob.loc))
 		return
 
-	if(!HAS_TRAIT(carbon_mob, TRAIT_RESTRAINED) && !carbon_mob.stat)
-		playsound(loc, "rustle", 50, TRUE, -5)
+	if(HAS_TRAIT(carbon_mob, TRAIT_RESTRAINED) || carbon_mob.stat) //restrained or unconsious
+		return
 
-		if(istype(over, /atom/movable/screen/inventory/hand))
-			for(var/obj/item/part as anything in get_parts())
-				if(part.loc != src)
-					balloon_alert(wearer, "сверните костюм!")
-					playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
-					return
-			if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
+	playsound(loc, "rustle", 50, TRUE, -5)
+
+	if(istype(over, /atom/movable/screen/inventory/hand))
+		for(var/obj/item/part as anything in get_parts())
+			if(part.loc != src)
+				balloon_alert(wearer, "сверните костюм!")
+				playsound(src, 'sound/machines/scanbuzz.ogg', 25, FALSE, SILENCED_SOUND_EXTRARANGE)
 				return
-			carbon_mob.put_in_active_hand(src)
-		else if(bag)
-			bag.forceMove(usr)
-			bag.show_to(usr)
+		if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
+			return
+		carbon_mob.put_in_active_hand(src)
+	else if(bag)
+		bag.forceMove(usr)
+		bag.show_to(usr)
 
-		add_fingerprint(carbon_mob)
+	add_fingerprint(carbon_mob)
 
 // Grant pinned actions to pin owners, gives AI pinned actions to the AI and not the wearer
 /obj/item/mod/control/grant_action_to_bearer(datum/action/action)
@@ -306,7 +311,7 @@
 		install(attacking_item, user)
 		SEND_SIGNAL(src, COMSIG_MOD_MODULE_ADDED, user)
 		return ATTACK_CHAIN_PROCEED
-	else if(istype(attacking_item, /obj/item/mod/core))
+	if(ismodcore(attacking_item))
 		if(!open)
 			balloon_alert(user, "откройте крышку!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -322,29 +327,29 @@
 		attacking_core.install(src)
 		update_charge_alert()
 		return ATTACK_CHAIN_PROCEED
-	else if(istype(attacking_item, /obj/item/multitool) && open)
+	if(istype(attacking_item, /obj/item/multitool) && open)
 		if(seconds_electrified && get_charge() && shock(user))
 			return ATTACK_CHAIN_PROCEED
 		wires.Interact(user)
 		return ATTACK_CHAIN_PROCEED
-	else if(open && attacking_item.GetID())
+	if(open && attacking_item.GetID())
 		update_access(user, attacking_item.GetID())
 		return ATTACK_CHAIN_PROCEED
-	else if(istype(attacking_item, /obj/item/stock_parts/cell))
+	if(istype(attacking_item, /obj/item/stock_parts/cell))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
-	else if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
+	if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
-	else if(istype(attacking_item, /obj/item/mod/skin_applier))
+	if(istype(attacking_item, /obj/item/mod/skin_applier))
 		return ..()
-	else if(bag && istype(attacking_item))
+	if(bag && istype(attacking_item))
 		bag.forceMove(user)
 		bag.attackby(attacking_item, user, params)
 
@@ -353,21 +358,22 @@
 /obj/item/mod/control/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
-	if(loc == user && user.back && user.back == src)
-		if(bag)
-			bag.forceMove(user)
-			bag.show_to(user)
-	else
-		..()
+	if(loc != user || !user.back || user.back != src)
+		return
+	if(!bag)
+		return ..()
+	bag.forceMove(user)
+	bag.show_to(user)
 
 /obj/item/mod/control/click_alt(mob/user)
 	. = ..()
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated(FALSE, TRUE) && bag)
-		bag.forceMove(user)
-		bag.show_to(user)
-		playsound(loc, "rustle", 50, TRUE, -5)
-		add_fingerprint(user)
-		return CLICK_ACTION_SUCCESS
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated(FALSE, TRUE) || !bag)
+		return
+	bag.forceMove(user)
+	bag.show_to(user)
+	playsound(loc, "rustle", 50, TRUE, -5)
+	add_fingerprint(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
 	if(bag)
@@ -720,19 +726,20 @@
 	if(part in modules)
 		uninstall(part)
 		return
-	if(part in get_parts())
-		if(QDELING(part) && !QDELING(src))
-			qdel(src)
-			return
-		var/datum/mod_part/part_datum = get_part_datum(part)
-		if(part_datum.sealed)
-			seal_part(part, is_sealed = FALSE)
-		if(isnull(part.loc))
-			return
-		if(!wearer)
-			part.forceMove(src)
-			return
-		INVOKE_ASYNC(src, PROC_REF(retract), wearer, part, TRUE) // async to appease spaceman DMM because the branch we don't run has a do_after
+	if(!(part in get_parts()))
+		return
+	if(QDELING(part) && !QDELING(src))
+		qdel(src)
+		return
+	var/datum/mod_part/part_datum = get_part_datum(part)
+	if(part_datum.sealed)
+		seal_part(part, is_sealed = FALSE)
+	if(isnull(part.loc))
+		return
+	if(!wearer)
+		part.forceMove(src)
+		return
+	INVOKE_ASYNC(src, PROC_REF(retract), wearer, part, TRUE) // async to appease spaceman DMM because the branch we don't run has a do_after
 
 /obj/item/mod/control/proc/on_part_destruction(obj/item/part, damage_flag)
 	SIGNAL_HANDLER

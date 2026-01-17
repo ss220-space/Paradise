@@ -60,8 +60,8 @@
 /obj/item/mod/module/storage/on_uninstall(deleting = FALSE)
 	. = ..()
 	if(!deleting)
-		for(var/obj/I in bag.contents)
-			I.forceMove(get_turf(loc))
+		for(var/obj/our_obj as anything in bag.contents)
+			our_obj.forceMove(get_turf(loc))
 		bag.forceMove(src)
 		mod.bag = null
 		return
@@ -180,11 +180,11 @@
 	update_viewers()
 
 /obj/item/storage/backpack/modstorage/update_viewers()
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
-		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)) && (source.mod.loc == _M || (M in range(1, source.mod)))) //This ensures someone isn't taking it away from the mod unit
+	for(var/mobs as anything in mobs_viewing)
+		var/mob/our_mob = mobs
+		if(!QDELETED(our_mob) && our_mob.s_active == src && (our_mob in range(1, loc)) && (source.mod.loc == mobs || (our_mob in range(1, source.mod)))) //This ensures someone isn't taking it away from the mod unit
 			continue
-		hide_from(M)
+		hide_from(our_mob)
 
 // MARK: Ion Jetpack
 /// Ion Jetpack - Lets the user fly freely through space using battery charge.
@@ -384,7 +384,7 @@
 /obj/item/mod/module/flashlight/configure_edit(key, value)
 	switch(key)
 		if("light_color")
-			value = input(usr, "Выберите цвет фонаря", "Цвет фонаря") as color|null // на тгуи ввод бы перевести
+			value = tgui_input_color(usr, "Выберите цвет фонаря", "Цвет фонаря")
 			if(!value)
 				return
 			if(is_color_dark(value, 50))
@@ -741,11 +741,12 @@
 		helmet.flags_cover &= ~(HEADCOVERSMOUTH)
 		helmet.visor_flags_cover &= ~(HEADCOVERSMOUTH)
 	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
-	if(istype(mask))
-		former_mask_flags = mask.flags_cover
-		former_visor_mask_flags = mask.visor_flags_cover
-		mask.flags_cover &= ~(MASKCOVERSMOUTH)
-		mask.visor_flags_cover &= ~(MASKCOVERSMOUTH)
+	if(!istype(mask))
+		return
+	former_mask_flags = mask.flags_cover
+	former_visor_mask_flags = mask.visor_flags_cover
+	mask.flags_cover &= ~(MASKCOVERSMOUTH)
+	mask.visor_flags_cover &= ~(MASKCOVERSMOUTH)
 
 /obj/item/mod/module/mouthhole/can_install(obj/item/mod/control/mod)
 	var/obj/item/clothing/helmet = mod.get_part_from_slot(ITEM_SLOT_HEAD)
@@ -765,9 +766,10 @@
 		helmet.flags_cover |= former_helmet_flags
 		helmet.visor_flags_cover |= former_visor_helmet_flags
 	var/obj/item/clothing/mask = mod.get_part_from_slot(ITEM_SLOT_MASK)
-	if(istype(mask))
-		mask.flags_cover |= former_mask_flags
-		mask.visor_flags_cover |= former_visor_mask_flags
+	if(!istype(mask))
+		return
+	mask.flags_cover |= former_mask_flags
+	mask.visor_flags_cover |= former_visor_mask_flags
 
 // MARK: Longfall
 /// Longfall - Nullifies fall damage, removing charge instead.

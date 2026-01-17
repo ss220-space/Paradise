@@ -7,11 +7,12 @@
 		H.mind?.assigned_role = name
 		H.job = name
 
-/datum/outfit/admin/post_equip(mob/living/carbon/human/H, visualsOnly)
+/datum/outfit/admin/post_equip(mob/living/carbon/human/our_human, visualsOnly)
 	. = ..()
-	if(ismodcontrol(H.back))
-		var/obj/item/mod/control/C = H.back
-		C.quick_activation()
+	if(!ismodcontrol(our_human.back))
+		return
+	var/obj/item/mod/control/mod_control = our_human.back
+	mod_control.quick_activation()
 
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))

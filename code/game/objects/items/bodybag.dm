@@ -462,10 +462,12 @@
 
 /obj/structure/closet/body_bag/environmental/update_overlays()
 	. = ..()
-	if(opened)
-		var/mutable_appearance/open_overlay = mutable_appearance(icon, "[icon_state]_open", alpha = src.alpha)
-		. += open_overlay
-		open_overlay.overlays += emissive_blocker(open_overlay.icon, open_overlay.icon_state, src, alpha = open_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
+	if(!opened)
+		return
+
+	var/mutable_appearance/open_overlay = mutable_appearance(icon, "[icon_state]_open", alpha = src.alpha)
+	. += open_overlay
+	open_overlay.overlays += emissive_blocker(open_overlay.icon, open_overlay.icon_state, src, alpha = open_overlay.alpha) // If we don't do this the door doesn't block emissives and it looks weird.
 
 /obj/structure/closet/body_bag/environmental/nanotrasen
 	name = "elite environmental protection bag"
@@ -545,22 +547,25 @@
 		span_notice("Вы пытаетесь выбраться из [declent_ru(GENITIVE)]. Это займёт приблизительно [DisplayTimeText(breakout_time)]."),
 		span_hear("Вы слышите странное шуршание.")
 	)
-	if(do_after(user,(breakout_time), target = src))
-		if(!user || user.stat != CONSCIOUS || user.loc != src || opened || !sinched)
-			return
-		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
-		user.visible_message(
-			span_danger("[user] успешно освобожда[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
-			ignored_mobs = user
-		)
-		user.balloon_alert(user, "вы вырываетесь!")
-		if(istype(loc, /obj/machinery/disposal))
-			return ..()
-		bust_open()
-	else
+
+	if(!do_after(user,(breakout_time), target = src))
 		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
 			to_chat(user, span_warning("Вам не удалось выбраться из [declent_ru(GENITIVE)]!"))
+		return
 
+	if(!user || user.stat != CONSCIOUS || user.loc != src || opened || !sinched)
+		return
+
+	// we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
+	user.visible_message(
+		span_danger("[user] успешно освобожда[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
+		ignored_mobs = user
+		)
+
+	user.balloon_alert(user, "вы вырываетесь!")
+	if(istype(loc, /obj/machinery/disposal))
+		return ..()
+	bust_open()
 
 /obj/structure/closet/body_bag/environmental/prisoner/bust_open()
 	sinched = FALSE

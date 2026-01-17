@@ -202,11 +202,12 @@
 	if(!leaves_fire_trail)
 		return
 	var/turf/location = get_turf(src)
-	if(location)
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
-		hotspot.temperature = 1000
-		hotspot.recolor()
-		location.hotspot_expose(700, 50)
+	if(!location)
+		return
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+	hotspot.temperature = 1000
+	hotspot.recolor()
+	location.hotspot_expose(700, 50)
 
 /obj/projectile/bullet/incendiary/firebullet
 	damage = 10
@@ -232,11 +233,12 @@
 /obj/projectile/bullet/incendiary/fire/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()
 	var/turf/location = get_turf(target)
-	if(location && !location.density)
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
-		hotspot.temperature = 1000
-		hotspot.recolor()
-		location.hotspot_expose(700, 50)
+	if(!location || location.density)
+		return
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
+	hotspot.temperature = 1000
+	hotspot.recolor()
+	location.hotspot_expose(700, 50)
 
 /obj/projectile/bullet/armourpiercing
 	damage = 18

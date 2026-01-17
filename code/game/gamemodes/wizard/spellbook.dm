@@ -426,10 +426,11 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
-		ADD_TRAIT(user, TRAIT_XRAY_VISION, MAGIC_TRAIT)
-		ADD_TRAIT(user, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
-		user.update_sight()
-		to_chat(user, span_notice("The walls suddenly disappear."))
+		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY, MAGIC_TRAIT))
+			ADD_TRAIT(user, TRAIT_XRAY_VISION, MAGIC_TRAIT)
+			ADD_TRAIT(user, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
+			user.update_sight()
+			to_chat(user, span_notice("The walls suddenly disappear."))
 	return TRUE
 
 /datum/spellbook_entry/item/soulstones

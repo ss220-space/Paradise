@@ -291,8 +291,8 @@
 		qdel(gear_leftovers)
 
 	if(ismodcontrol(H.back))
-		var/obj/item/mod/control/C = H.back
-		C.quick_activation()
+		var/obj/item/mod/control/mod_control = H.back
+		mod_control.quick_activation()
 
 	return TRUE
 

@@ -928,12 +928,12 @@
 	if(blocked >= 100)
 		return ..()
 	if(ishuman(target))
-		var/mob/living/carbon/human/L = target
-		var/obj/item/organ/external/affecting = L.get_organ(ran_zone(def_zone))
-		L.apply_damage(2, BRUTE, affecting, L.run_armor_check(affecting, ENERGY))
-		L.apply_damage(2, TOX, affecting, L.run_armor_check(affecting, ENERGY))
-		L.apply_damage(2, CLONE, affecting, L.run_armor_check(affecting, ENERGY))
-		L.adjustBrainLoss(3)
+		var/mob/living/carbon/human/livivng_target = target
+		var/obj/item/organ/external/affecting = livivng_target.get_organ(ran_zone(def_zone))
+		livivng_target.apply_damage(2, BRUTE, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.apply_damage(2, TOX, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.apply_damage(2, CLONE, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.adjustBrainLoss(3)
 	..()
 
 /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
@@ -950,10 +950,10 @@
 
 /obj/effect/warp_effect/vortex_blast/Initialize(mapload, target)
 	. = ..()
-	var/matrix/M = matrix() * 0.5
-	M.Turn(get_angle(src, target) - 45)
-	transform = M
-	animate(src, transform = M * 10, time = 0.3 SECONDS, alpha = 0)
+	var/matrix/our_matrix = matrix() * 0.5
+	our_matrix.Turn(get_angle(src, target) - 45)
+	transform = our_matrix
+	animate(src, transform = our_matrix * 10, time = 0.3 SECONDS, alpha = 0)
 	QDEL_IN(src, 0.3 SECONDS)
 
 // Shield breaker //

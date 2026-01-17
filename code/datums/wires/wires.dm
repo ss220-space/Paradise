@@ -514,8 +514,9 @@
 	var/remaining_pulses = 3
 
 	for(var/wire in possible_wires)
-		if(prob(33))
-			pulse(wire)
-			remaining_pulses--
-			if(!remaining_pulses)
-				break
+		if(!prob(33))
+			continue
+		pulse(wire)
+		remaining_pulses--
+		if(!remaining_pulses)
+			break

@@ -303,15 +303,17 @@
 	ricochet_chance = 0
 
 /obj/projectile/tether/proc/make_chain()
-	if(firer)
-		chain = Beam(firer, icon_state = "line", icon = 'icons/obj/clothing/modsuit/mod_modules.dmi', time = 10 SECONDS, maxdistance = 15)
+	if(!firer)
+		return
+	chain = Beam(firer, icon_state = "line", icon = 'icons/obj/clothing/modsuit/mod_modules.dmi', time = 10 SECONDS, maxdistance = 15)
 
 /obj/projectile/tether/on_hit(atom/target)
 	. = ..()
-	if(firer && isliving(firer))
-		var/mob/living/L = firer
-		L.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
-		L.throw_at(target, 15, 1, L, FALSE, FALSE, callback = CALLBACK(L, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE))
+	if(!firer || !isliving(firer))
+		return
+	var/mob/living/living_firer = firer
+	living_firer.apply_status_effect(STATUS_EFFECT_IMPACT_IMMUNE)
+	living_firer.throw_at(target, 15, 1, living_firer, FALSE, FALSE, callback = CALLBACK(living_firer, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_IMPACT_IMMUNE))
 
 /obj/projectile/tether/Destroy()
 	QDEL_NULL(chain)

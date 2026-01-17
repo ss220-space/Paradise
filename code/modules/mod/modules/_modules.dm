@@ -397,10 +397,11 @@
 /obj/item/mod/module/proc/on_device_deletion(datum/source)
 	SIGNAL_HANDLER
 
-	if(source == device)
-		device.moveToNullspace()
-		device = null
-		qdel(src)
+	if(source != device)
+		return
+	device.moveToNullspace()
+	device = null
+	qdel(src)
 
 /// Adds the worn overlays to the suit.
 /obj/item/mod/module/proc/add_module_overlay(obj/item/source, list/overlays, mutable_appearance/standing, mutable_appearance/draw_target, isinhands, icon_file)
@@ -529,15 +530,16 @@
 	if(core)
 		. += span_notice("К модулю прикреплен[GEND_A_O_Y(core)] [core.declent_ru(NOMINATIVE)]. \
 						[core_removable ? "Мо[PLUR_JET_GUT(core)] быть откручен[GEND_A_O_Y(core)]." : "Конструкция модуля не позволяет извлечь ядро."]")
-	else
-		var/list/core_list = list()
-		for(var/path in accepted_anomalies)
-			var/atom/core_dummy = new path
-			core_list += core_dummy.declent_ru(NOMINATIVE)
-			qdel(core_dummy)
-		. += span_notice("Для работы модуля требуется [russian_list(core_list, and_text = " или ")]")
-		if(!core_removable)
-			. += span_notice("Конструкция модуля не позволяет извлечь ядро.")
+		return
+	//else
+	var/list/core_list = list()
+	for(var/path in accepted_anomalies)
+		var/atom/core_dummy = new path
+		core_list += core_dummy.declent_ru(NOMINATIVE)
+		qdel(core_dummy)
+	. += span_notice("Для работы модуля требуется [russian_list(core_list, and_text = " или ")]")
+	if(!core_removable)
+		. += span_notice("Конструкция модуля не позволяет извлечь ядро.")
 
 /obj/item/mod/module/anomaly_locked/on_select()
 	if(!core)

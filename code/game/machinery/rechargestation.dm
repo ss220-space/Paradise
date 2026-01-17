@@ -152,19 +152,19 @@
 /obj/machinery/recharge_station/proc/process_occupant()
 	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs)
 	if(isrobot(occupant))
-		var/mob/living/silicon/robot/R = occupant
+		var/mob/living/silicon/robot/our_occupant = occupant
 		restock_modules()
 		if(repairs)
-			R.heal_overall_damage(repairs, repairs)
-		if(R.cell)
-			R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
+			our_occupant.heal_overall_damage(repairs, repairs)
+		if(our_occupant.cell)
+			our_occupant.cell.charge = min(our_occupant.cell.charge + recharge_speed, our_occupant.cell.maxcharge)
 	else if(ishuman(occupant))
-		var/mob/living/carbon/human/H = occupant
-		if(H.get_int_organ(/obj/item/organ/internal/cell))
-			if(H.nutrition < NUTRITION_LEVEL_FULL - 1)
-				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
+		var/mob/living/carbon/human/our_human = occupant
+		if(our_human.get_int_organ(/obj/item/organ/internal/cell))
+			if(our_human.nutrition < NUTRITION_LEVEL_FULL - 1)
+				our_human.set_nutrition(min(our_human.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
 			if(repairs)
-				H.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
+				our_human.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)

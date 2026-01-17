@@ -377,9 +377,9 @@
 			QDEL_NULL(P.id)
 			qdel(P)
 			continue
-		if(istype(I, /obj/item/storage/backpack/modstorage)) //Best place for me to put it.
-			var/obj/item/storage/backpack/modstorage/M = I
-			M.forceMove(M.source)
+		if(ismodstorage(I))
+			var/obj/item/storage/backpack/modstorage/our_storage = I
+			our_storage.forceMove(our_storage.source)
 			continue
 
 		var/preserve = should_preserve_item(I)

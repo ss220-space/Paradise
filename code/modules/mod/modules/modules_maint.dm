@@ -160,9 +160,14 @@
 		PREPOSITIONAL = "модуле печати",
 	)
 
+#define STAMP_MODE_OK "ok"
+#define STAMP_MODE_DENY "deny"
+
 /obj/item/stamp/mod
 	name = "MOD electronic stamp"
 	desc = "Электронная печать. Переключается между режимами \"Отказано\" и \"Одобрено\"."
+	/// Stamp mode
+	var/stamp_mode = STAMP_MODE_OK
 
 /obj/item/stamp/mod/get_ru_names()
 	return list(
@@ -180,13 +185,14 @@
 
 /obj/item/stamp/mod/attack_self(mob/user, modifiers)
 	. = ..()
+	if(stamp_mode == STAMP_MODE_OK)
+		stamp_mode = STAMP_MODE_DENY
+	else
+		stamp_mode = STAMP_MODE_DENY
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/stamp/mod/update_icon_state()
-	if(icon_state == "stamp-ok")
-		icon_state = "stamp-deny"
-	else
-		icon_state = "stamp-ok"
+	icon_state = "stamp_" + stamp_mode
 
 // MARK: Paper dispenser
 /// Paper Dispenser - Dispenses (sometimes burning) paper sheets.

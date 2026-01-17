@@ -236,7 +236,7 @@
 
 /obj/item/circuit_component/mod_adapter_core/proc/on_move(atom/movable/source, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
-	if(istype(source.loc, /obj/item/mod/control))
+	if(ismodcontrol(source.loc))
 		var/obj/item/mod/control/mod = source.loc
 		RegisterSignal(mod, COMSIG_MOD_MODULE_SELECTED, PROC_REF(on_module_select))
 		RegisterSignal(mod, COMSIG_MOD_DEPLOYED, PROC_REF(on_mod_part_toggled))
@@ -253,17 +253,20 @@
 		module_to_select.possible_options = modules_list
 		if(length(module_to_select.possible_options))
 			module_to_select.set_value(module_to_select.possible_options[1])
-	else if(istype(old_loc, /obj/item/mod/control))
-		UnregisterSignal(old_loc, list(COMSIG_MOD_MODULE_SELECTED, COMSIG_ITEM_EQUIPPED))
-		UnregisterSignal(old_loc, COMSIG_MOD_DEPLOYED)
-		UnregisterSignal(old_loc, COMSIG_MOD_RETRACTED)
-		UnregisterSignal(old_loc, COMSIG_MOD_TOGGLED)
-		UnregisterSignal(old_loc, COMSIG_MOD_MODULE_ADDED)
-		UnregisterSignal(old_loc, COMSIG_MOD_MODULE_REMOVED)
-		selected_module.set_output(null)
-		wearer.set_output(null)
-		deployed.set_output(FALSE)
-		activated.set_output(FALSE)
+		return
+
+	if(!ismodcontrol(old_loc))
+		return
+	UnregisterSignal(old_loc, list(COMSIG_MOD_MODULE_SELECTED, COMSIG_ITEM_EQUIPPED))
+	UnregisterSignal(old_loc, COMSIG_MOD_DEPLOYED)
+	UnregisterSignal(old_loc, COMSIG_MOD_RETRACTED)
+	UnregisterSignal(old_loc, COMSIG_MOD_TOGGLED)
+	UnregisterSignal(old_loc, COMSIG_MOD_MODULE_ADDED)
+	UnregisterSignal(old_loc, COMSIG_MOD_MODULE_REMOVED)
+	selected_module.set_output(null)
+	wearer.set_output(null)
+	deployed.set_output(FALSE)
+	activated.set_output(FALSE)
 
 /obj/item/circuit_component/mod_adapter_core/proc/on_module_select(datum/source, obj/item/mod/module/module)
 	SIGNAL_HANDLER
@@ -289,13 +292,13 @@
 			is_deployed = FALSE
 		else
 			var/part_name = "Неизвестно"
-			if(istype(part, /obj/item/clothing/head/mod))
+			if(ismodhelmet(part))
 				part_name = "Шлем"
-			if(istype(part, /obj/item/clothing/suit/mod))
+			if(ismodchestplate(part))
 				part_name = "Нагрудник"
-			if(istype(part, /obj/item/clothing/gloves/mod))
+			if(ismodgloves(part))
 				part_name = "Перчатки"
-			if(istype(part, /obj/item/clothing/shoes/mod))
+			if(ismodshoes(part))
 				part_name = "Ботинки"
 			string_list += part_name
 	deployed_parts.set_output(string_list)

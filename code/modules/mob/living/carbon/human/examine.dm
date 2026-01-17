@@ -533,7 +533,7 @@
 			if(helmet?.examine_extensions)
 				have_hud_exam |= helmet.examine_extensions
 
-		if(istype(H.head, /obj/item/clothing/head/mod))
+		if(ismodhelmet(H.head))
 			var/obj/item/clothing/head/mod/our_shitcode = H.head
 			if(our_shitcode?.examine_extensions)
 				have_hud_exam |= our_shitcode.examine_extensions

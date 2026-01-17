@@ -161,26 +161,29 @@
 
 /datum/action/item_action/chameleon/change/modsuit/update_item(obj/item/picked_item)
 	. = ..()
-	if(ismodcontrol(target))
-		var/obj/item/mod/control/C = target
-		if(C.current_disguise) //backup check
-			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
-				toreturn.return_look()
-			return
-		C.current_disguise = TRUE
-		C.item_state = initial(picked_item.item_state)
-		for(var/obj/item/mod/module/chameleon/tosignal in C.contents)
-			tosignal.RegisterSignal(C, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
+	if(!ismodcontrol(target))
+		return
+
+	var/obj/item/mod/control/mod_control = target
+	if(mod_control.current_disguise) //backup check
+		for(var/obj/item/mod/module/chameleon/toreturn in mod_control.contents)
+			toreturn.return_look()
+		return
+	mod_control.current_disguise = TRUE
+	mod_control.item_state = initial(picked_item.item_state)
+	for(var/obj/item/mod/module/chameleon/tosignal in mod_control.contents)
+		tosignal.RegisterSignal(mod_control, COMSIG_MOD_ACTIVATE, TYPE_PROC_REF(/obj/item/mod/module/chameleon, return_look))
 
 /datum/action/item_action/chameleon/change/modsuit/select_look(mob/user)
-	if(ismodcontrol(target))
-		var/obj/item/mod/control/C = target
-		if(C.current_disguise) //backup check
-			for(var/obj/item/mod/module/chameleon/toreturn in C.contents)
-				toreturn.return_look()
-				return
-		if(C.active || C.activating)
-			C.wearer.balloon_alert(C.wearer, "выключите костюм!")
-			UpdateButtonIcon()
+	if(!ismodcontrol(target))
+		return
+	var/obj/item/mod/control/mod_control = target
+	if(mod_control.current_disguise) //backup check
+		for(var/obj/item/mod/module/chameleon/toreturn in mod_control.contents)
+			toreturn.return_look()
 			return
+	if(mod_control.active || mod_control.activating)
+		mod_control.wearer.balloon_alert(mod_control.wearer, "выключите костюм!")
+		UpdateButtonIcon()
+		return
 	..()

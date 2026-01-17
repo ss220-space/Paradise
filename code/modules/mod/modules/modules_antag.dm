@@ -617,7 +617,14 @@
 tier 1 - 15-20 damage absorb, 5 recharge per 10 seconds, no melee arc flash, tesla zap range 2-3 tiles and 7 damage
 tier 2 - 30-40 damage absorb, 11 recharge per 10 seconds, no melee arc flash,  tesla zap range 5-6 tiles and 14 damage
 tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla zap range 7 tiles, and 28-30 damage
+please, keep this up to date
 */
+#define PROTECTION_DIVIDING_MODIFICATOR 3
+#define CHARGE_DIVIDING_MODIFICATOR 9
+#define RANGE_DIVIDING_MODIFICATOR 20
+#define DAMAGE_DIVIDING_MODIFICATOR 7
+#define TESLA_ZAP_STRENGTH_REQ 200
+
 /obj/item/mod/module/anomaly_locked/teslawall/update_core_powers()
 	if(!core)
 		max_charges = 0
@@ -626,16 +633,22 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 		can_tesla_zap = FALSE
 		return
 
-	var/calculated_protection = round((core.get_strength() / 3))
-	var/calculated_charge = round((core.get_strength() / 9))
-	var/calculated_range =  min(round((core.get_strength() / 20)), maximum_zap_range) //limit of 7
-	var/calculated_damage = round((core.get_strength() / 7))
+	var/calculated_protection = round((core.get_strength() / PROTECTION_DIVIDING_MODIFICATOR))
+	var/calculated_charge = round((core.get_strength() / CHARGE_DIVIDING_MODIFICATOR))
+	var/calculated_range =  min(round((core.get_strength() / RANGE_DIVIDING_MODIFICATOR)), maximum_zap_range) //limit of 7
+	var/calculated_damage = round((core.get_strength() / DAMAGE_DIVIDING_MODIFICATOR))
 	max_charges = calculated_protection
 	charge_recovery = calculated_charge
 	zap_range = calculated_range
 	shock_damage = calculated_damage
-	if(core.get_strength() > 200)
+	if(core.get_strength() > TESLA_ZAP_STRENGTH_REQ)
 		can_tesla_zap = TRUE
+
+#undef PROTECTION_DIVIDING_MODIFICATOR
+#undef CHARGE_DIVIDING_MODIFICATOR
+#undef RANGE_DIVIDING_MODIFICATOR
+#undef DAMAGE_DIVIDING_MODIFICATOR
+#undef TESLA_ZAP_STRENGTH_REQ
 
 /obj/item/mod/module/anomaly_locked/teslawall/on_part_activation()
 	if(!core)
@@ -676,15 +689,18 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 		return
 	if(!can_tesla_zap)
 		return
-	if(isitem(hitby))
-		if(isliving(hitby.loc))
-			var/mob/living/M = hitby.loc
-			M.electrocute_act(shock_damage, owner)
-			M.Knockdown(3 SECONDS)
-	else if(isliving(hitby))
-		var/mob/living/M = hitby
-		M.electrocute_act(shock_damage, owner)
-		M.Knockdown(3 SECONDS)
+
+	if(isitem(hitby) && isliving(hitby.loc))
+		var/mob/living/living_target = hitby.loc
+		living_target.electrocute_act(shock_damage, owner)
+		living_target.Knockdown(3 SECONDS)
+		return
+	if(!isliving(hitby))
+		return
+
+	var/mob/living/living_target = hitby
+	living_target.electrocute_act(shock_damage, owner)
+	living_target.Knockdown(3 SECONDS)
 
 /obj/item/mod/module/anomaly_locked/teslawall/prebuilt
 	prebuilt = TRUE
@@ -922,13 +938,15 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 	if(blocked >= 100)
 		return 0
 	var/turf/firer_turf = get_turf(firer)
-	if(isliving(target))
-		var/mob/living/L = target
-		if(!L.anchored && L.loc)
-			L.visible_message(span_danger("[L] был захвачен крюком [firer]!"))
-			ADD_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
-			L.forceMove(firer_turf)
-			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
+	if(!isliving(target))
+		return
+	var/mob/living/living_target = target
+	if(living_target.anchored || !living_target.loc)
+		return
+	living_target.visible_message(span_danger("[living_target] был захвачен крюком [firer]!"))
+	ADD_TRAIT(living_target, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
+	living_target.forceMove(firer_turf)
+	REMOVE_TRAIT(living_target, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
@@ -950,6 +968,8 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 	complexity = 3
 	///List of datums we take our skins of
 	var/cached_default_skin
+	/// timer for chameleon activation
+	var/chameleon_timer = 2.5 SECONDS
 
 /obj/item/mod/module/active_chameleon/get_ru_names()
 	return list(
@@ -980,21 +1000,23 @@ tier 3 - 60-70 damage absorb, 23 recharge per 10 seconds, melee arc flash, tesla
 	switch(selected_chameleon)
 		if("civilian")
 			choosed_name = "модели \"Путник\""
-			choosed_skin = "civilian"
+			choosed_skin = MOD_VARIANT_CIVILIAN
 		if("mining")
 			choosed_name = "модели \"Первопроходец\""
-			choosed_skin = "mining"
+			choosed_skin = MOD_VARIANT_MINING
 		if("medical")
 			choosed_name = "модели \"Пульс\""
-			choosed_skin = "medical"
+			choosed_skin = MOD_VARIANT_MEDICAL
 		if("security")
 			choosed_name = "модели \"Страж\""
-			choosed_skin = "security"
+			choosed_skin = MOD_VARIANT_SECURITY
 		if("engineering")
 			choosed_name = "модели \"Искра\""
-			choosed_skin = "engineering"
+			choosed_skin = MOD_VARIANT_ENGINEERING
 
-	sleep(25)
+	addtimer(CALLBACK(src, PROC_REF(activate_chameleon), choosed_name, choosed_skin), chameleon_timer)
+
+/obj/item/mod/module/active_chameleon/proc/activate_chameleon(choosed_name, choosed_skin)
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	balloon_alert_to_viewers("костюм преображается!", "маскировка активна")
 	var/list/parts = mod.get_parts()

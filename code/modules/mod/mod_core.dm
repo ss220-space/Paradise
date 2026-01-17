@@ -162,7 +162,7 @@
 		return
 	var/remaining_cell = charge_amount() / max_charge_amount()
 	switch(remaining_cell)
-		if(0.75 to INFINITY)
+		if(CELL_CHARGE_HIGH to INFINITY)
 			mod.wearer.clear_alert("mod_charge")
 		if(0.5 to 0.75)
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 1)
@@ -177,11 +177,11 @@
 	if(isnull(charge_source()))
 		return "transparent"
 	switch(round(charge_amount() / max_charge_amount(), 0.01))
-		if(-INFINITY to 0.33)
+		if(-CELL_CHARGE_UPPER_BORDER to CELL_CHARGE_ONE_THIRD)
 			return "bad"
-		if(0.33 to 0.66)
+		if(CELL_CHARGE_ONE_THIRD to CELL_CHARGE_TWO_THIRDS)
 			return "average"
-		if(0.66 to INFINITY)
+		if(CELL_CHARGE_TWO_THIRDS to CELL_CHARGE_UPPER_BORDER)
 			return "good"
 
 /obj/item/mod/core/standard/get_chargebar_string()
@@ -241,7 +241,7 @@
 	mod.update_charge_alert()
 
 /obj/item/mod/core/standard/on_attackby(obj/item/attacking_item, mob/user, params)
-	if(istype(attacking_item, /obj/item/stock_parts/cell))
+	if(iscell(attacking_item))
 		if(!mod.open)
 			balloon_alert(user, "откройте крышку!")
 			playsound(mod, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
@@ -326,22 +326,22 @@
 /obj/item/mod/core/plasma/update_charge_alert()
 	var/remaining_plasma = charge_amount() / max_charge_amount()
 	switch(remaining_plasma)
-		if(0.75 to INFINITY)
+		if(CELL_CHARGE_HIGH to CELL_CHARGE_UPPER_BORDER)
 			mod.wearer.clear_alert("mod_charge")
-		if(0.5 to 0.75)
+		if(CELL_CHARGE_MEDIUM to CELL_CHARGE_HIGH)
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 1)
-		if(0.25 to 0.5)
+		if(CELL_CHARGE_LOW to CELL_CHARGE_MEDIUM)
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 2)
-		if(0.01 to 0.25)
+		if(CELL_CHARGE_LOWER_BORDER to CELL_CHARGE_LOW)
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/lowcell, 3)
 		else
 			mod.wearer.throw_alert("mod_charge", /atom/movable/screen/alert/emptycell)
 
 /obj/item/mod/core/plasma/get_chargebar_color()
 	switch(round(charge_amount() / max_charge_amount(), 0.01))
-		if(-INFINITY to 0.33)
+		if(-CELL_CHARGE_UPPER_BORDER to CELL_CHARGE_ONE_THIRD)
 			return "bad"
-		if(0.33 to INFINITY)
+		if(CELL_CHARGE_ONE_THIRD to CELL_CHARGE_UPPER_BORDER)
 			return "purple"
 
 /obj/item/mod/core/plasma/on_attackby(obj/item/attacking_item, mob/user, params)

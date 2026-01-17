@@ -176,11 +176,13 @@
 
 /obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
 	. = ..()
-	if(prob(50 / severity) && !broken)
-		locked = FALSE
-		broken = TRUE
-		update_icon(UPDATE_ICON_STATE)
-		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
+	if(!broken || !prob(50 / severity))
+		return
+
+	locked = FALSE
+	broken = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 
 /obj/item/storage/lockbox/research/mantis
 	name = "lockbox(hidden blade implant)"

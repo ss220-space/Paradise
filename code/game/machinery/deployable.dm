@@ -224,11 +224,11 @@
 	max_integrity = 75 //3 shots from revolver
 	proj_pass_rate = 100 //don't worry about it, covered by directional blockage.
 	stacktype = null
+	explosion_block = 8 //should be enough for a potasium water nade that isn't a maxcap. If you stand next to a maxcap with this however, it will end poorly
 	/// This variable is used to tell the shield to ping it's owner when it is broke.
 	var/core_shield = FALSE
 	/// This variable is to tell the shield what it's source is.
 	var/obj/structure/dropwall_generator/source = null
-	explosion_block = 8 //should be enough for a potasium water nade that isn't a maxcap. If you stand next to a maxcap with this however, it will end poorly
 
 /obj/structure/barricade/dropwall/get_ru_names()
 	return list(
@@ -366,7 +366,7 @@
 	anchored = TRUE
 	protected = TRUE
 	addtimer(CALLBACK(src, PROC_REF(power_out)), uptime)
-	timer_overlay_proc(uptime/10)
+	timer_overlay_proc(uptime / 10)
 
 	connected_shields += new barricade_type(get_turf(loc), src, TRUE, direction)
 	core_shield = connected_shields[1]
@@ -382,19 +382,19 @@
 		connected_shields += new barricade_type(target_turf2, src, FALSE, direction, dir_right)
 
 /obj/structure/dropwall_generator/attackby(obj/item/I, mob/living/user, params) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
-	if(protected)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] поглощает удар!"))
-		core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
-	else
+	if(!protected)
 		return ..()
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] поглощает удар!"))
+	core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
 
 /obj/structure/dropwall_generator/emp_act(severity)
 	..()
-	if(protected)
-		for(var/obj/structure/barricade/dropwall/O in connected_shields)
-			O.emp_act(severity)
-	else
+	if(!protected)
 		qdel(src)
+		return
+
+	for(var/obj/structure/barricade/dropwall/our_dropwall in connected_shields)
+		our_dropwall.emp_act(severity)
 
 /obj/structure/dropwall_generator/ex_act(severity)
 	if(protected && severity > 1) //We would throw the explosion at the shield, but it is already getting hit

@@ -263,11 +263,11 @@
 	var/list/modifiers = params2list(mouse_params)
 	var/icon_x = text2num(modifiers["icon-x"])
 	var/icon_y = text2num(modifiers["icon-y"])
-	var/our_x = round(icon_x / world.icon_size)
-	var/our_y = round(icon_y / world.icon_size)
+	var/our_x = round(icon_x / ICON_SIZE_X)
+	var/our_y = round(icon_y /ICON_SIZE_Y)
 	given_turf = locate(owner.x + our_x - round(view_list[1] / 2), owner.y + our_y - round(view_list[2] / 2), owner.z)
-	given_x = round(icon_x - world.icon_size * our_x, 1)
-	given_y = round(icon_y - world.icon_size * our_y, 1)
+	given_x = round(icon_x - ICON_SIZE_X * our_x, 1)
+	given_y = round(icon_y - ICON_SIZE_Y * our_y, 1)
 
 #undef FULLSCREEN_LAYER
 #undef BLIND_LAYER

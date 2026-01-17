@@ -34,15 +34,17 @@
 				continue
 			choose_deploy(user)
 			break
-	else
-		if(!retract(user, part))
-			return
-		SEND_SIGNAL(src, COMSIG_MOD_RETRACTED, user)
-		for(var/obj/item/checking_part as anything in parts_to_check)
-			if(checking_part.loc == src)
-				continue
-			choose_deploy(user)
-			break
+		return
+
+	// else
+	if(!retract(user, part))
+		return
+	SEND_SIGNAL(src, COMSIG_MOD_RETRACTED, user)
+	for(var/obj/item/checking_part as anything in parts_to_check)
+		if(checking_part.loc == src)
+			continue
+		choose_deploy(user)
+		break
 
 /// Quickly deploys all parts (or retracts if all are on the wearer)
 /obj/item/mod/control/proc/quick_deploy(mob/user)
@@ -82,7 +84,7 @@
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 	if(part_datum.can_overslot)
 		var/obj/item/overslot = wearer.get_item_by_slot(part.slot_flags)
-		if(istype(overslot, /obj/item/clothing))
+		if(isclothing(overslot))
 			part_datum.overslotting = overslot
 			wearer.transfer_item_to_loc(overslot, part, force = TRUE)
 			RegisterSignal(part, COMSIG_ATOM_EXITED, PROC_REF(on_overslot_exit))
@@ -145,30 +147,7 @@
 
 /// Starts the activation sequence, where parts of the suit activate one by one until the whole suit is on
 /obj/item/mod/control/proc/toggle_activate(mob/user, force_deactivate = FALSE)
-	if(!wearer)
-		if(!force_deactivate)
-			balloon_alert(user, "костюм не надет!")
-			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
-	if(!force_deactivate && (SEND_SIGNAL(src, COMSIG_MOD_ACTIVATE, user) & MOD_CANCEL_ACTIVATE))
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
-	if(locked && !active && !allowed(user) && !force_deactivate)
-		balloon_alert(user, "доступ запрещён!")
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
-	if(!get_charge() && !force_deactivate)
-		balloon_alert(user, "костюм разряжен!")
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
-	if(open && !force_deactivate)
-		balloon_alert(user, "закройте панель!")
-		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
-		return FALSE
-	if(activating)
-		if(!force_deactivate)
-			balloon_alert(user, "уже [active ? "отключается" : "включается"]!")
-			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+	if(!check_for_activate(user, force_deactivate))
 		return FALSE
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(!module.active || (module.allow_flags & MODULE_ALLOW_INACTIVE))
@@ -223,20 +202,49 @@
 	SEND_SIGNAL(src, COMSIG_MOD_TOGGLED, user)
 	return TRUE
 
+/obj/item/mod/control/proc/check_for_activate(mob/user, force_deactivate = FALSE)
+	if(!wearer)
+		if(!force_deactivate)
+			balloon_alert(user, "костюм не надет!")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	if(!force_deactivate && (SEND_SIGNAL(src, COMSIG_MOD_ACTIVATE, user) & MOD_CANCEL_ACTIVATE))
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	if(locked && !active && !allowed(user) && !force_deactivate)
+		balloon_alert(user, "доступ запрещён!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	if(!get_charge() && !force_deactivate)
+		balloon_alert(user, "костюм разряжен!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	if(open && !force_deactivate)
+		balloon_alert(user, "закройте панель!")
+		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	if(activating)
+		if(!force_deactivate)
+			balloon_alert(user, "уже [active ? "отключается" : "включается"]!")
+			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
+		return FALSE
+	return TRUE
+
 /obj/item/mod/control/proc/delayed_seal_part(obj/item/clothing/part)
-	. = FALSE
 	var/datum/mod_part/part_datum = get_part_datum(part)
-	if(do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
-		to_chat(wearer, span_notice("[capitalize(part.declent_ru(NOMINATIVE))] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
-		playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		seal_part(part, is_sealed = !part_datum.sealed)
-		return TRUE
+	if(!do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
+		return FALSE
+
+	to_chat(wearer, span_notice("[capitalize(part.declent_ru(NOMINATIVE))] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
+	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	seal_part(part, is_sealed = !part_datum.sealed)
+	return TRUE
 
 /obj/item/mod/control/proc/delayed_activation()
-	. = FALSE
-	if(do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
-		control_activation(is_on = !active)
-		return TRUE
+	if(!do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
+		return FALSE
+	control_activation(is_on = !active)
+	return TRUE
 
 ///Seals or unseals the given part.
 /obj/item/mod/control/proc/seal_part(obj/item/clothing/part, is_sealed)
@@ -270,15 +278,16 @@
 				continue
 			module.on_part_activation()
 			module.part_activated = TRUE
-	else
-		for(var/obj/item/mod/module/module as anything in modules)
-			if(!module.part_activated || module.has_required_parts(mod_parts, need_active = TRUE))
-				continue
-			module.on_part_deactivation()
-			module.part_activated = FALSE
-			if(!module.active || (module.allow_flags & MODULE_ALLOW_INACTIVE))
-				continue
-			module.deactivate(display_message = FALSE)
+		return
+	//else
+	for(var/obj/item/mod/module/module as anything in modules)
+		if(!module.part_activated || module.has_required_parts(mod_parts, need_active = TRUE))
+			continue
+		module.on_part_deactivation()
+		module.part_activated = FALSE
+		if(!module.active || (module.allow_flags & MODULE_ALLOW_INACTIVE))
+			continue
+		module.deactivate(display_message = FALSE)
 
 /// Finishes the suit's activation
 /obj/item/mod/control/proc/control_activation(is_on)
