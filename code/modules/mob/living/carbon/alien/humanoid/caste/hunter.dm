@@ -92,9 +92,9 @@
 		if(!blocked)
 			L.visible_message(span_danger("[src] pounces on [L]!"), span_userdanger("[src] pounces on you!"))
 			if(human_target)
-				L.apply_effect(10 SECONDS, WEAKEN, L.run_armor_check(null, MELEE))
+				L.apply_effect(10 SECONDS, KNOCKDOWN, L.run_armor_check(null, MELEE))
 			else
-				L.Weaken(10 SECONDS)
+				L.Knockdown(10 SECONDS)
 			sleep(0.2 SECONDS)//Runtime prevention (infinite bump() calls on hulks)
 			step_towards(src, L)
 		else

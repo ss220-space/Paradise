@@ -56,7 +56,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		/datum/job/head_of_staff/nanotrasenrep,
 		/datum/job/security/pilot,
 		/datum/job/security/brigdoc,
-		/datum/job/engineering/mechanic,
+		/datum/job/science/mechanic,
 		/datum/job/service/chaplain,
 		/datum/job/security/officer,
 	)
