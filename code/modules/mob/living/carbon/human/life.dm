@@ -77,22 +77,19 @@
 		force_cryo_human(src)
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
-	var/pressure_difference = abs( pressure - ONE_ATMOSPHERE )
-
-	// Determines how much the clothing you are wearing protects you in percent.
-	var/pressure_adjustment_coefficient = 1
 	if(isclothing(wear_suit) && isclothing(head))
 		var/obj/item/clothing/suit = wear_suit
 		var/obj/item/clothing/helmet = head
 		// Complete set of pressure-proof suit worn, assume fully sealed.
 		if((suit.clothing_flags & STOPSPRESSUREDMAGE) && (helmet.clothing_flags & STOPSPRESSUREDMAGE))
-			pressure_adjustment_coefficient = 0
-	pressure_adjustment_coefficient = max(pressure_adjustment_coefficient,0) //So it isn't less than 0
-	pressure_difference = pressure_difference * pressure_adjustment_coefficient
-	if(pressure > ONE_ATMOSPHERE)
-		return ONE_ATMOSPHERE + pressure_difference
-	else
-		return ONE_ATMOSPHERE - pressure_difference
+			return ONE_ATMOSPHERE
+
+	if(ismovable(loc))
+		/// If we're in a space with 0.5 content pressure protection, it averages the values, for example.
+		var/atom/movable/occupied_space = loc
+		return (occupied_space.contents_pressure_protection * ONE_ATMOSPHERE + (1 - occupied_space.contents_pressure_protection) * pressure)
+
+	return pressure
 
 /mob/living/carbon/human/handle_disabilities()
 	//Vision //god knows why this is here
