@@ -137,7 +137,7 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	weaken = 0.1 SECONDS
+	knockdown = 0.5 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
@@ -159,8 +159,20 @@
 	if(!isliving(target))
 		return
 	var/mob/living/living_target = target
+	if(isrobot(living_target))
+		var/mob/living/silicon/robot/robot_target = living_target
+		robot_target.emp_act(EMP_LIGHT)
+		return
+	else if(ismachineperson(target))
+		var/mob/living/silicon/ipc_target = living_target
+		ipc_target.emp_act(EMP_LIGHT)
+		ipc_target.Silence(5 SECONDS)
+		living_target.Confused(10 SECONDS)
+		living_target.Jitter(5 SECONDS)
+		return
 	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
-	living_target.Jitter(10 SECONDS)
+	living_target.Confused(15 SECONDS)
+	living_target.Jitter(5 SECONDS)
 
 /obj/projectile/energy/bolt/large
 	damage = 20

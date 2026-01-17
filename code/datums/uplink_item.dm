@@ -861,7 +861,7 @@
 	desc = "Он настолько компактный, что легко помещается в карман. Стрелы арбалета содержат токсин, который на короткое время ослабляет цель и наносит ей повреждения. \
 			Перезарядка происходит автоматически."
 	item = /obj/item/gun/energy/kinetic_accelerator/crossbow
-	cost = 48
+	cost = 36
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 	surplus = 50
 
