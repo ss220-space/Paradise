@@ -47,8 +47,8 @@
 	SSholomaps.station_holomaps += src
 	floor_markings = image('icons/obj/stationmap.dmi', "decal_station_map")
 	floor_markings.dir = src.dir
-	floor_markings.pixel_x = -src.pixel_x
-	floor_markings.pixel_y = -src.pixel_y
+	floor_markings.pixel_w = -src.pixel_x
+	floor_markings.pixel_z = -src.pixel_y
 	add_overlay(floor_markings)
 	..()
 	component_parts = list()
@@ -211,8 +211,8 @@
 	// Put the little "map" overlay down where it looks nice
 	if(floor_markings)
 		floor_markings.dir = src.dir
-		floor_markings.pixel_x = -src.pixel_x
-		floor_markings.pixel_y = -src.pixel_y
+		floor_markings.pixel_w = -src.pixel_x
+		floor_markings.pixel_z = -src.pixel_y
 		add_overlay(floor_markings)
 
 /obj/machinery/station_map/screwdriver_act(mob/living/user, obj/item/tool)
@@ -323,8 +323,8 @@
 	for(var/obj/machinery/firealarm/alarm as anything in GLOB.station_fire_alarms["[current_z_level]"])
 		if(alarm?.z == current_z_level && alarm?.myArea?.fire)
 			var/image/alarm_icon = image('icons/misc/8x8.dmi', icon_state = "fire_marker")
-			alarm_icon.pixel_x = alarm.x + HOLOMAP_CENTER_X - 1
-			alarm_icon.pixel_y = alarm.y + HOLOMAP_CENTER_Y
+			alarm_icon.pixel_w = alarm.x + HOLOMAP_CENTER_X - 1
+			alarm_icon.pixel_z = alarm.y + HOLOMAP_CENTER_Y
 			fire_alarms += alarm_icon
 
 	if(length(fire_alarms))
