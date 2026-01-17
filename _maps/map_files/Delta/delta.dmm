@@ -58698,6 +58698,10 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"iOY" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "iPd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -62026,9 +62030,6 @@
 	icon_state = "redfull"
 	},
 /area/crew_quarters/kitchen)
-"jCp" = (
-/turf/simulated/wall/r_wall,
-/area/quartermaster/storage)
 "jCz" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -111631,6 +111632,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"uQA" = (
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "uQJ" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -171453,8 +171457,8 @@ ehi
 cbD
 bGJ
 snP
-jCp
-jCp
+uQA
+uQA
 whL
 whL
 whL
@@ -171468,7 +171472,7 @@ whL
 whL
 whL
 whL
-jCp
+uQA
 dDb
 xJY
 bGv
@@ -171718,7 +171722,7 @@ coE
 eqA
 eqQ
 qak
-cOy
+iOY
 mbm
 cBq
 eqA
