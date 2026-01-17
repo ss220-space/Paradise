@@ -951,6 +951,19 @@
 /datum/status_effect/adrenaline/on_remove()
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 
+/atom/movable/screen/alert/status_effect/adrenaline/prototype
+	desc = "Твоя стамина полностью восстановлена. Регенерация увеличена, а длительность станов уменьшена."
+
+/datum/status_effect/adrenaline/prototype
+	alert_type = /atom/movable/screen/alert/status_effect/adrenaline/prototype
+	var/heal_amount = 15
+
+/datum/status_effect/adrenaline/prototype/tick(seconds_between_ticks)
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+	if(update)
+		owner.updatehealth("adrenaline")
+
 
 /atom/movable/screen/alert/status_effect/heal
 	name = "Лечение нанитами"
