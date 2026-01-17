@@ -211,3 +211,31 @@
 			head.droplimb(0, DROPLIMB_BLUNT, FALSE, TRUE)
 			playsound(loc, SFX_DESECRATION, 50, TRUE, -1)
 	return BRUTELOSS
+
+/obj/item/wirecutters/industrial
+	name = "industrial wirecutters"
+	desc = "Инструмент, предназначенный для перекусывания различных материалов. \
+			Челюсти способны сжиматься сильнее, чем у аналогов, что облегчает работу."
+	icon_state = "cutters_industrial"
+	random_color = FALSE
+	toolspeed = 0.6
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	hitsound = 'sound/items/wirecutter2.ogg'
+	usesound = 'sound/items/wirecutter2.ogg'
+	force = 8
+	greyscale_config = null
+	greyscale_config_inhand_left = null
+	greyscale_config_inhand_right = null
+	greyscale_colors = null
+	icon = 'icons/obj/tools.dmi'
+	post_init_icon_state = null
+
+/obj/item/wirecutters/industrial/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутые кусачки",
+		GENITIVE = "продвинутых кусачек",
+		DATIVE = "продвинутым кусачкам",
+		ACCUSATIVE = "родвинутые кусачки",
+		INSTRUMENTAL = "продвинутыми кусачками",
+		PREPOSITIONAL = "продвинутых кусачках"
+	)

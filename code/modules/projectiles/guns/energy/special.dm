@@ -869,6 +869,94 @@
 		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
 	)
 
+/obj/item/gun/energy/vortex_shotgun
+	name = "reality vortex wrist mounted shotgun"
+	desc = "Это оружие использует силу вихревой аномалии для локального разрушения ткани реальности."
+	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
+	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
+	fire_sound = 'sound/weapons/bladeslice.ogg'
+	cell_type = /obj/item/stock_parts/cell/infinite
+
+/obj/item/gun/energy/vortex_shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "вортекс-дробовик",
+		GENITIVE = "вортекс-дробовика",
+		DATIVE = "вортекс-дробовику",
+		ACCUSATIVE = "вортекс-дробовик",
+		INSTRUMENTAL = "вортекс-дробовиком",
+		PREPOSITIONAL = "вортекс-дробовике",
+	)
+
+/obj/item/ammo_casing/energy/vortex_blast
+	projectile_type = /obj/projectile/energy/vortex_blast
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	variance = 70
+	pellets = 8
+	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
+	select_name = "vortex blast"
+	fire_sound = 'sound/weapons/wave.ogg'
+
+/obj/projectile/energy/vortex_blast
+	name = "vortex blast"
+	damage = 2
+	range = 5
+	icon_state = "magspear"
+	hitsound = 'sound/weapons/sear.ogg' //Gets a bit spamy, suppressed is needed to suffer less
+	hitsound_wall = null
+	suppressed = TRUE
+
+/obj/projectile/energy/vortex_blast/get_ru_names()
+	return list(
+		NOMINATIVE = "вортекс-выстрел",
+		GENITIVE = "вортекс-выстрела",
+		DATIVE = "вортекс-выстрелу",
+		ACCUSATIVE = "вортекс-выстрел",
+		INSTRUMENTAL = "вортекс-выстрелом",
+		PREPOSITIONAL = "вортекс-выстреле",
+	)
+
+/obj/projectile/energy/vortex_blast/prehit(atom/target)
+	. = ..()
+	if(ishuman(target))
+		return
+	if(isliving(target))
+		damage *= 6 //Up damage if not a human as we are not doing shenanigins
+		return
+	damage *= 15 //objects tend to fall apart as atoms are ripped up
+
+/obj/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
+	if(blocked >= 100)
+		return ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/livivng_target = target
+		var/obj/item/organ/external/affecting = livivng_target.get_organ(ran_zone(def_zone))
+		livivng_target.apply_damage(2, BRUTE, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.apply_damage(2, TOX, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.apply_damage(2, CLONE, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.adjustBrainLoss(3)
+	..()
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	invisibility = INVISIBILITY_ABSTRACT // visual is from effect
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast/Initialize(mapload, atom/target, duration_override)
+	. = ..()
+	if(target)
+		new /obj/effect/warp_effect/vortex_blast(loc, target)
+
+/obj/effect/warp_effect/vortex_blast
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "vortex_shotgun"
+
+/obj/effect/warp_effect/vortex_blast/Initialize(mapload, target)
+	. = ..()
+	var/matrix/our_matrix = matrix() * 0.5
+	our_matrix.Turn(get_angle(src, target) - 45)
+	transform = our_matrix
+	animate(src, transform = our_matrix * 10, time = 0.3 SECONDS, alpha = 0)
+	QDEL_IN(src, 0.3 SECONDS)
+
+// Shield breaker //
 #define PLASMA_CHARGE_USE_PER_SECOND 2.5
 #define PLASMA_DISCHARGE_LIMIT 5
 
