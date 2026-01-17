@@ -359,9 +359,10 @@
 	if(!iscarbon(user))
 		return
 	if(loc == user && user.back && user.back == src)
-		if(bag)
-			bag.forceMove(user)
-			bag.show_to(user)
+		if(!bag)
+			return
+		bag.forceMove(user)
+		bag.show_to(user)
 	else
 		..()
 
