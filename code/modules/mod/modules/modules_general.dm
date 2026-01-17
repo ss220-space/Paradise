@@ -180,7 +180,7 @@
 	update_viewers()
 
 /obj/item/storage/backpack/modstorage/update_viewers()
-	for(var/mobs as anything in mobs_viewing)
+	for(var/mobs in mobs_viewing)
 		var/mob/our_mob = mobs
 		if(!QDELETED(our_mob) && our_mob.s_active == src && (our_mob in range(1, loc)) && (source.mod.loc == mobs || (our_mob in range(1, source.mod)))) //This ensures someone isn't taking it away from the mod unit
 			continue

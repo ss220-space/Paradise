@@ -194,6 +194,9 @@
 /obj/item/stamp/mod/update_icon_state()
 	icon_state = "stamp_" + stamp_mode
 
+#undef STAMP_MODE_OK
+#undef STAMP_MODE_DENY
+
 // MARK: Paper dispenser
 /// Paper Dispenser - Dispenses (sometimes burning) paper sheets.
 /obj/item/mod/module/paper_dispenser
