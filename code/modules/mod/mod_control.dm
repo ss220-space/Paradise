@@ -378,6 +378,7 @@
 /obj/item/mod/control/attack_ghost(mob/user)
 	if(isobserver(user) && bag)
 		bag.show_to(user)
+		return
 	return ..()
 
 /obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
