@@ -205,7 +205,7 @@
 	if(HAS_TRAIT(carbon_mob, TRAIT_RESTRAINED) || carbon_mob.stat) //restrained or unconsious
 		return
 
-	playsound(loc, "rustle", 50, TRUE, -5)
+	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 
 	if(istype(over, /atom/movable/screen/inventory/hand))
 		for(var/obj/item/part as anything in get_parts())
@@ -371,7 +371,7 @@
 		return
 	bag.forceMove(user)
 	bag.show_to(user)
-	playsound(loc, "rustle", 50, TRUE, -5)
+	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
 

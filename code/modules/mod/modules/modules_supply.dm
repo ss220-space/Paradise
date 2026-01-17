@@ -304,7 +304,7 @@
 	mod.wearer.throw_at(
 		get_ranged_target_turf_direct(mod.wearer, target, power),
 		range = power,
-		speed = max(round(0.2*power), 1),
+		speed = max(round(0.2 * power), 1),
 		thrower = mod.wearer, spin = FALSE,
 		callback = CALLBACK(src, PROC_REF(on_throw_end), mod.wearer, -angle),
 		)

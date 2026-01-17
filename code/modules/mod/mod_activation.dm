@@ -36,7 +36,6 @@
 			break
 		return
 
-	// else
 	if(!retract(user, part))
 		return
 	SEND_SIGNAL(src, COMSIG_MOD_RETRACTED, user)
@@ -279,7 +278,6 @@
 			module.on_part_activation()
 			module.part_activated = TRUE
 		return
-	//else
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(!module.part_activated || module.has_required_parts(mod_parts, need_active = TRUE))
 			continue

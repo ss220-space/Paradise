@@ -531,7 +531,6 @@
 		. += span_notice("К модулю прикреплен[GEND_A_O_Y(core)] [core.declent_ru(NOMINATIVE)]. \
 						[core_removable ? "Мо[PLUR_JET_GUT(core)] быть откручен[GEND_A_O_Y(core)]." : "Конструкция модуля не позволяет извлечь ядро."]")
 		return
-	//else
 	var/list/core_list = list()
 	for(var/path in accepted_anomalies)
 		var/atom/core_dummy = new path
