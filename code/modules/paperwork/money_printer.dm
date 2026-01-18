@@ -39,7 +39,7 @@
 	playsound(src, 'sound/machines/cash_machine.wav', 50, TRUE)
 	var/obj/item/stack/spacecash/credits = new(src)
 	credits.amount = credits_amount
-	credits.update_icon_state()
+	credits.update_icon(UPDATE_ICON_STATE)
 	credits.forceMove(loc)
 
 /obj/machinery/money_printer/wrench_act(mob/user, obj/item/item)
@@ -56,10 +56,10 @@
 	. = ..()
 	if(work_timer)
 		stop_print(user)
-		balloon_alert_to_viewers("Принтер выключен", "Принтер выключен")
+		balloon_alert_to_viewers("Принтер выключен", "принтер выключен")
 		return
 	start_print(user)
-	balloon_alert_to_viewers("Принтер включен", "Принтер выключен")
+	balloon_alert_to_viewers("Принтер включен", "принтер выключен")
 
 /obj/machinery/money_printer/examine(mob/user)
 	. = ..()
