@@ -116,11 +116,13 @@
 			arc_desc = "в радиусе вокруг себя"
 	examine_list += "Этим можно размахивать [arc_desc]."
 
-/datum/component/cleave_attack/proc/on_afterattack(obj/item/item, atom/target, mob/user, proximity_flag, click_parameters)
+/datum/component/cleave_attack/proc/on_afterattack(obj/item/item, atom/target, mob/user, proximity_flag, click_parameters, ignore_intent = FALSE)
+	SIGNAL_HANDLER
+
 	if(HAS_TRAIT(item, TRAIT_CLEAVE_BLOCKED))
 		return
 
-	if(proximity_flag || user.a_intent != INTENT_HARM)
+	if(proximity_flag || (!ignore_intent && user.a_intent != INTENT_HARM))
 		return // don't sweep on precise hits or non-harmful intents
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
