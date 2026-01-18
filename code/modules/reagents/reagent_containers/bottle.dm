@@ -20,12 +20,6 @@
 		PREPOSITIONAL = "бутылке",
 	)
 
-/obj/item/reagent_containers/glass/bottle/get_short_name() // Override if `list_reagents` has more than 1 element.
-	if(!length(reagents.reagent_list))
-		return declent_ru(NOMINATIVE)
-	var/datum/reagent/reagent = reagents.reagent_list[1]
-	return reagent.name
-
 /obj/item/reagent_containers/glass/bottle/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 

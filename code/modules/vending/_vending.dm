@@ -530,7 +530,7 @@
 		else
 			var/custom_premium_price = initial(item.custom_premium_price)
 			new_record.price = custom_premium_price || default_premium_price
-		
+
 		new_record.colorable = !!(item.greyscale_config && item.greyscale_colors)
 		new_record.category = product_to_category[typepath]
 		recordlist += new_record
@@ -800,6 +800,7 @@
 			new dump_path(get_turf(src))
 			record.amount--
 			break
+
 	deploy_credits()
 
 /obj/machinery/vending/HasProximity(atom/movable/movable)
@@ -1091,7 +1092,7 @@
 
 		if("vend")
 			. = vend_action(params)
-			
+
 	if(.)
 		add_fingerprint(usr)
 
@@ -1101,7 +1102,7 @@
 	if(!vend_ready)
 		balloon_alert(usr, "торговый автомат занят!")
 		return
-		
+
 	if(panel_open)
 		balloon_alert(usr, "техпанель открыта!")
 		return
@@ -1363,7 +1364,8 @@
  */
 /obj/machinery/vending/proc/deploy_credits()
 	if(credits_contained <= 0)
-		return
+		return ""
+
 	var/credits_to_remove = min(CREDITS_DUMP_THRESHOLD, round(credits_contained))
 	var/obj/item/stack/spacecash/cash = new(loc)
 	cash.amount = credits_to_remove

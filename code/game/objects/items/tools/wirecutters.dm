@@ -229,7 +229,6 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_colors = null
-	custom_price = 299
 
 /obj/item/wirecutters/industrial/get_ru_names()
 	return list(

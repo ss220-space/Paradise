@@ -23,12 +23,6 @@
 	///If this variable is true, the syringe will work through unathi skin
 	var/ignores_pierceimmune = FALSE
 
-/obj/item/reagent_containers/syringe/get_short_name() // Override if `list_reagents` has more than 1 element.
-	if(!length(reagents.reagent_list))
-		return declent_ru(NOMINATIVE)
-	var/datum/reagent/reagent = reagents.reagent_list[1]
-	return reagent.name
-
 /obj/item/reagent_containers/syringe/get_ru_names()
 	return list(
 		NOMINATIVE = "шприц",

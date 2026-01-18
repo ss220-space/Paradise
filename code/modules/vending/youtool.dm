@@ -13,7 +13,6 @@
 	resistance_flags = FIRE_PROOF
 	default_price = PAYCHECK_LOWER
 	default_premium_price = PAYCHECK_CREW
-
 	products = list(
 		/obj/item/stack/cable_coil/random = 10,
 		/obj/item/crowbar = 5,
@@ -24,6 +23,8 @@
 		/obj/item/t_scanner = 5,
 		/obj/item/screwdriver = 5,
 		/obj/item/clothing/gloves/color/fyellow = 2,
+	)
+	premium = list(
 		/obj/item/weldingtool/hugetank = 3,
 		/obj/item/wrench/industrial = 3,
 		/obj/item/crowbar/industrial = 3,
