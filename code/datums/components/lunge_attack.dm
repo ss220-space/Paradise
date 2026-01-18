@@ -8,6 +8,7 @@
 	var/lunge_dual_attack = FALSE
 
 /datum/element/lunge_attack/Attach(obj/item/target, lunge_speed = 1, lunge_range = 4, cooldown_time = 6 SECONDS, lunge_dual_attack = FALSE)
+	. = ..()
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 
@@ -20,6 +21,7 @@
 	RegisterSignal(target, COMSIG_LUNGE_DUAL_STRIKE, PROC_REF(do_dual_strike))
 
 /datum/element/lunge_attack/Detach(obj/item/target)
+	. = ..()
 	UnregisterSignal(target, list(COMSIG_ITEM_AFTERATTACK, COMSIG_LUNGE_DUAL_STRIKE))
 
 /datum/element/lunge_attack/proc/on_afterattack(obj/item/source, atom/target, mob/living/user, proximity_flag, click_parameters)
