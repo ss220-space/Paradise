@@ -119,7 +119,7 @@
 		return
 		
 	var/obj/item/I = parent
-	I.melee_attack_chain(user, target)
+	INVOKE_ASYNC(I, TYPE_PROC_REF(/obj/item, melee_attack_chain), user, target)
 
 /datum/component/lunge_attack/proc/lunge_ended(mob/living/user, atom/target)
 	UnregisterSignal(user, COMSIG_MOVABLE_IMPACT)

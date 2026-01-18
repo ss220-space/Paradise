@@ -129,7 +129,7 @@
 		to_chat(user, span_warning("Вы не хотите никому вредить."))
 		return
 
-	perform_sweep(item, target, user, click_parameters)
+	INVOKE_ASYNC(src, PROC_REF(perform_sweep), item, target, user, click_parameters)
 
 /datum/component/cleave_attack/proc/perform_sweep(obj/item/item, atom/target, mob/living/user, params)
 	if(user.next_move > world.time)
