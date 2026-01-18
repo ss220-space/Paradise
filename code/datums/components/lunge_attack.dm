@@ -71,7 +71,7 @@
 	
 	user.throw_at(target, lunge_range, lunge_speed, parent, spin = FALSE, callback = CALLBACK(src, PROC_REF(lunge_ended), user, target))
 	
-	ADD_TRAIT(user, lunge_trait, src)
+	ADD_TRAIT(user, lunge_trait, UNIQUE_TRAIT_SOURCE(src))
 	addtimer(CALLBACK(src, PROC_REF(reset_lunge), user), cooldown_time)
 
 /datum/component/lunge_attack/proc/on_impact(mob/living/user, atom/hit)
@@ -131,6 +131,6 @@
 
 /datum/component/lunge_attack/proc/reset_lunge(mob/living/user)
 	if(!QDELETED(user))
-		REMOVE_TRAIT(user, lunge_trait, src)
+		REMOVE_TRAIT(user, lunge_trait, UNIQUE_TRAIT_SOURCE(src))
 		REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 		user.balloon_alert(user, "выпад готов")
