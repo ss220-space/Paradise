@@ -159,7 +159,8 @@
 	if(!isliving(target))
 		return
 	var/mob/living/living_target = target
-	if(isrobot(living_target) || ismachineperson(living_target))
+	var/obj/projectile/energy/bolt/on_hit/is_robot = isrobot(living_target)
+	if(is_robot || ismachineperson(living_target))
 		living_target.emp_act(EMP_LIGHT)
 		if(isrobot(living_target))
 			return
