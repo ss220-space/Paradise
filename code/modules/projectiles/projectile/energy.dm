@@ -159,7 +159,7 @@
 	if(!isliving(target))
 		return
 	var/mob/living/living_target = target
-	var/obj/projectile/energy/bolt/on_hit/is_robot = isrobot(living_target)
+	var/is_robot = isrobot(living_target)
 	if(is_robot || ismachineperson(living_target))
 		living_target.emp_act(EMP_LIGHT)
 		if(isrobot(living_target))
@@ -168,6 +168,7 @@
 	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
 	living_target.Confused(15 SECONDS)
 	living_target.Jitter(5 SECONDS)
+
 
 /obj/projectile/energy/bolt/large
 	damage = 20
