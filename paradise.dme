@@ -2014,6 +2014,7 @@
 #include "code\modules\antagonists\changeling\powers\swap_form.dm"
 #include "code\modules\antagonists\changeling\powers\tiny_prick.dm"
 #include "code\modules\antagonists\changeling\powers\transform.dm"
+#include "code\modules\antagonists\changeling\powers\chemical_synthesis.dm"
 #include "code\modules\antagonists\de_kerberos_2\datums.dm"
 #include "code\modules\antagonists\de_kerberos_2\teams.dm"
 #include "code\modules\antagonists\devil\devil.dm"
