@@ -61,7 +61,7 @@
 
 	var/mutable_appearance/laser_location = mutable_appearance('icons/obj/weapons/guns/projectiles.dmi', "[pointer_icon_state]_laser", target.layer + 0.01)
 
-	laser_location.pixel_x = clamp(target.pixel_x + image_pixel_x.value,-15,15)
-	laser_location.pixel_y = clamp(target.pixel_y + image_pixel_y.value,-15,15)
+	laser_location.pixel_w = clamp(target.pixel_x + image_pixel_x.value, -15, 15)
+	laser_location.pixel_z = clamp(target.pixel_y + image_pixel_y.value, -15, 15)
 
 	target_location.flick_overlay_view(laser_location, 1 SECONDS)

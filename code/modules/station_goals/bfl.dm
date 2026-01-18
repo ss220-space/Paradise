@@ -464,7 +464,7 @@
 /obj/machinery/bfl_lens/update_overlays()
 	. = ..()
 	if(state)
-		. += image('icons/obj/machines/bfl/laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
+		. += image('icons/obj/machines/bfl/laser.dmi', icon_state = "Laser_Blue", pixel_z = 64, layer = GASFIRE_LAYER)
 
 /obj/machinery/bfl_lens/proc/activate_lens()
 	state = TRUE

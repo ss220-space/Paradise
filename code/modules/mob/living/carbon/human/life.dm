@@ -734,7 +734,6 @@
 				if(prob(5))
 					emote(pick("faint", "collapse", "cry", "moan", "gasp", "shudder", "shiver"))
 				SetStuttering(10 SECONDS)
-				EyeBlurry(10 SECONDS)
 				if(prob(7))
 					AdjustConfused(4 SECONDS)
 				if(prob(5))

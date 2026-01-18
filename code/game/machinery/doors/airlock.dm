@@ -765,20 +765,20 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 		. = list()
 		set_light(l_range = 1, l_power = 1, l_color = "#00FF00", l_on = TRUE)
 		if(unres_sides & NORTH)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_n") //layer=src.layer+1
-			I.pixel_y = 32
+			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_n") //layer=src.layer+1
+			I.pixel_z = 32
 			. += I
 		if(unres_sides & SOUTH)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_s") //layer=src.layer+1
-			I.pixel_y = -32
+			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_s") //layer=src.layer+1
+			I.pixel_z = -32
 			. += I
 		if(unres_sides & EAST)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_e") //layer=src.layer+1
-			I.pixel_x = 32
+			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_e") //layer=src.layer+1
+			I.pixel_w = 32
 			. += I
 		if(unres_sides & WEST)
-			var/image/I = image(icon='icons/obj/doors/airlocks/station/overlays.dmi', icon_state="unres_w") //layer=src.layer+1
-			I.pixel_x = -32
+			var/image/I = image(icon = 'icons/obj/doors/airlocks/station/overlays.dmi', icon_state = "unres_w") //layer=src.layer+1
+			I.pixel_w = -32
 			. += I
 
 /obj/machinery/door/airlock/CanAllowThrough(atom/movable/mover, border_dir)
