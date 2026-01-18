@@ -179,7 +179,7 @@
 	. = ..()
 	if(!looker || !creature)
 		return INITIALIZE_HINT_QDEL
-	modsuit_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_x = ((creature.x - looker.x) * ICON_SIZE_X), pixel_y = ((creature.y - looker.y) * ICON_SIZE_Y))
+	modsuit_image = image(icon = icon, loc = src, icon_state = real_icon_state, layer = ABOVE_ALL_MOB_LAYER, pixel_w = ((creature.x - looker.x) * ICON_SIZE_X), pixel_z = ((creature.y - looker.y) * ICON_SIZE_Y))
 	modsuit_image.plane = ABOVE_LIGHTING_PLANE
 	modsuit_image.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	source_UID = looker.UID()

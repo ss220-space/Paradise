@@ -258,7 +258,7 @@
 /obj/item/pizzabox/update_overlays()
 	. = ..()
 	if(open && pizza)
-		. += image("food/pizza.dmi", icon_state = pizza.icon_state, pixel_y = -3)
+		. += image("food/pizza.dmi", icon_state = pizza.icon_state, pixel_z = -3)
 		return
 	else
 		// Stupid code because byondcode sucks
@@ -271,7 +271,7 @@
 			if(box_tag != "")
 				set_tag = TRUE
 		if(!open && set_tag)
-			. += image("food/pizza.dmi", icon_state = "pizzabox_tag", pixel_y = length(boxes) * 3)
+			. += image("food/pizza.dmi", icon_state = "pizzabox_tag", pixel_z = length(boxes) * 3)
 
 /obj/item/pizzabox/attack_hand(mob/user)
 	if(open && pizza)

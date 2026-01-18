@@ -11,11 +11,13 @@ on:
         type: boolean
         required: true
         default: true
+
       perform_deploy_main:
         description: 'Deploy Paradise Main/Secondary'
         type: boolean
         required: true
         default: true
+
       perform_deploy_vega:
         description: 'Deploy Paradise Vega'
         type: boolean
