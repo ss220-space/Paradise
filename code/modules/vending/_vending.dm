@@ -1195,7 +1195,7 @@
 		return
 
 	if(issilicon(usr))
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
+		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
 		vend_ready = TRUE
 		. = TRUE
 		return
@@ -1219,7 +1219,7 @@
 		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
 		paid = pay_with_card(usr, currently_vending.price, currently_vending.name)
 	else if(usr.can_advanced_admin_interact())
-		to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] выдаёт товар в результате вмешательства администратора."))
+		to_chat(usr, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выдаёт товар в результате вмешательства администратора."))
 		paid = TRUE
 	else
 		to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))

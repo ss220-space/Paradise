@@ -1736,7 +1736,7 @@
 	throwned_mob.take_organ_damage(damage)
 	throwned_mob.Weaken(3 SECONDS)
 	throwned_mob.visible_message(
-		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)], сбивая [GEND_HIS_HER(src)] с ног!"),
+		span_danger("[DECLENT_RU_CAP(throwned_mob, NOMINATIVE)] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)], сбивая [GEND_HIS_HER(src)] с ног!"),
 		span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 

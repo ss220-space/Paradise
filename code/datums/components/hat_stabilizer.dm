@@ -80,7 +80,7 @@
 	var/obj/item/hat = remove_hat()
 	if(!hat)
 		return
-	hat.visible_message(span_danger("[capitalize(hat.declent_ru(NOMINATIVE))] слета[PLUR_ET_UT(hat)] с [hatless.declent_ru(GENITIVE)]!"))
+	hat.visible_message(span_danger("[DECLENT_RU_CAP(hat, NOMINATIVE)] слета[PLUR_ET_UT(hat)] с [hatless.declent_ru(GENITIVE)]!"))
 	hat.throw_at(get_edge_target_turf(get_turf(hat), pick(GLOB.alldirs)), 2, 1, spin = TRUE)
 
 /datum/component/hat_stabilizer/proc/drop_hat(mob/hatless)

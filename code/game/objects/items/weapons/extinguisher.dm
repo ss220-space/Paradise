@@ -98,7 +98,7 @@
 	var/safety_save = safety
 	safety = TRUE
 	if(reagents.total_volume == reagents.maximum_volume)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] уже полностью заправлен!"))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] уже полностью заправлен!"))
 	else
 		var/obj/structure/reagent_dispensers/watertank/watertank = target
 		var/transferred = watertank.reagents.trans_to(src, max_water)
@@ -108,7 +108,7 @@
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power
 		else
-			to_chat(user, span_notice("[capitalize(watertank.declent_ru(NOMINATIVE))] пуст!"))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(watertank, NOMINATIVE)] пуст!"))
 	safety = safety_save
 	return TRUE
 
