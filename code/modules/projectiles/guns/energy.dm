@@ -291,6 +291,9 @@
 			"spike" = "стрельба шипами",
 			"kinetic" = "кинетический выстрел",
 			"accelerator" = "ускоренный выстрел",
+			"pierce" = "бронебойный режим",
+			"fast" = "скорострельный режим",
+			"ricochet" = "режим рикошета"
 		)
 
 		balloon_alert(user, "[gun_modes_ru[shot.fluff_select_name ? shot.fluff_select_name : shot.select_name]]")

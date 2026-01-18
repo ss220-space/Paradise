@@ -6,11 +6,23 @@
 	icon = 'icons/obj/weapons/guns/projectiles_impact.dmi'
 
 /obj/effect/projectile/impact/laser
-	name = "laser impact"
+	name = "laser"
 	icon_state = "impact_laser"
 
+/obj/effect/projectile/impact/laser/heavy
+	name = "heavy impact"
+	icon_state = "impact_laser_heavy"
+
+/obj/effect/projectile/impact/laser/armorpierce
+	name = "piercing impact"
+	icon_state = "impact_laser_armorpierce"
+
+/obj/effect/projectile/impact/laser/light
+	name = "light impact"
+	icon_state = "impact_laser_light"
+
 /obj/effect/projectile/impact/laser/blue
-	icon_state = "impact_blue"
+	icon_state = "impact_impact_blue"
 
 /obj/effect/projectile/impact/disabler
 	name = "disabler impact"

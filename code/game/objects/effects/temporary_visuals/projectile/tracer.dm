@@ -64,7 +64,19 @@
 
 /obj/effect/projectile/tracer/laser
 	name = "laser"
-	icon_state = "beam"
+	icon_state = "laser"
+
+/obj/effect/projectile/tracer/laser/heavy
+	name = "heavy laser"
+	icon_state = "laser_heavy"
+
+/obj/effect/projectile/tracer/laser/armorpierce
+	name = "piercing laser"
+	icon_state = "laser_armorpierce"
+
+/obj/effect/projectile/tracer/laser/light
+	name = "light laser"
+	icon_state = "laser_light"
 
 /obj/effect/projectile/tracer/laser/blue
 	icon_state = "beam_blue"

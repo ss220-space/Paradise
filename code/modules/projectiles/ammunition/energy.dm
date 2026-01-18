@@ -41,6 +41,57 @@
 	delay = 7
 	fire_sound = 'sound/weapons/gunshots/lasergun.ogg'
 
+/obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun
+	delay = 15
+	e_cost = 150
+	projectile_type = /obj/projectile/beam/laser/hitscan/lasershotgun
+	pellets = 1
+	fire_sound = 'sound/weapons/gunshots/lasershotgun.ogg'
+	select_name = "precise"
+
+/obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun/wide
+	pellets = 5
+	variance = 20
+	select_name = "scatter"
+	projectile_type = /obj/projectile/beam/laser/hitscan/lasershotgun/pellet
+
+/obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle
+	delay = 30
+	e_cost = 150
+	projectile_type = /obj/projectile/beam/laser/hitscan/laserrifle
+	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
+	select_name = "anti-vehicle"
+
+/obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle/armorpierce
+	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
+	projectile_type = /obj/projectile/beam/laser/hitscan/laserrifle/armorpierce
+	select_name = "pierce"
+
+/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg
+	e_cost = 20
+	delay = 0
+	projectile_type = /obj/projectile/beam/laser/hitscan/lasermg
+	fire_sound = 'sound/weapons/gunshots/lasermg.ogg'
+	select_name = "energy"
+
+/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg/ricochet
+	select_name = "ricochet"
+	projectile_type = /obj/projectile/beam/laser/hitscan/lasermg/ricochet
+	delay = 1
+
+/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol
+	delay = 10
+	e_cost = 100
+	projectile_type = /obj/projectile/beam/laser/hitscan/laserpistol
+	fire_sound = 'sound/weapons/gunshots/laserpistol.ogg'
+	select_name = "energy"
+
+/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol/light
+	projectile_type = /obj/projectile/beam/laser/hitscan/laserpistol/light
+	delay = 2
+	e_cost = 50
+	select_name = "fast"
+
 /obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
 	e_cost = 75
 

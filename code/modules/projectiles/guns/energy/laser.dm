@@ -16,11 +16,74 @@
 	)
 
 /obj/item/gun/energy/laser/hitscan
-	name = "LG-Mk.5"
-	desc = "Пятое поколение стандартной лазерной винтовки службы безопасности. Модель LG-Mk.5 сочетает проверенную надёжность ранних EG-серий с современной лазерной системой."
+	name = "LG-DMR «Страж»"
+	desc = "Третее поколение стандартной лазерной винтовки службы безопасности. Модель «Страж» сочетает проверенную надёжность ранних EG-серий с современной системой лазерных импульсов."
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan)
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	var/autofire_delay = 0
+
+/obj/item/gun/energy/laser/hitscan/laserrifle
+	name = "LG-PRO «Игла»"
+	desc = "Профессиональная лазерная снайперская винтовка военного класса, имеет два режима стрельбы, тяжёлый выстрел широкого диапазона и бронебойный выстрел высокочастотным лазером способный поражать цель за укрытием."
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "laserrifle"
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle, /obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle/armorpierce)
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
+	accuracy = GUN_ACCURACY_SNIPER
+	weapon_weight = WEAPON_HEAVY
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 4),
+		ATTACHMENT_SLOT_UNDER = list("x" = 21, "y" = -9),
+	)
+
+/obj/item/gun/energy/laser/hitscan/lasershotgun
+	name = "LG-TAC «Фокус»"
+	desc = "Инновационный лазерный дробовик с динамической фокусировкой луча. «Фокус» использует адаптивную оптику для изменения лазера от рассеянного до сфокусированного."
+	icon_state = "lasershotgun"
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun, /obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun/wide)
+	slot_flags = ITEM_SLOT_SUITSTORE
+	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_HEAVY
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
+	)
+
+/obj/item/gun/energy/laser/hitscan/lasermg
+	name = "LG-LMG «Зенит»"
+	desc = "Лазерный автомат военного типа, «Зенит» сочетает в себе два режима стрельбы: Точные лазерные выстрелы и рикошетящие энергетические снаряды"
+	icon_state = "lasermg"
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg,
+	/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg/ricochet)
+	slot_flags = ITEM_SLOT_SUITSTORE
+	accuracy = GUN_ACCURACY_RIFLE
+	weapon_weight = WEAPON_HEAVY
+	autofire_delay = 1
+	burst_size = 1
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
+	)
+
+/obj/item/gun/energy/laser/hitscan/lasermg/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, autofire_delay)
+
+/obj/item/gun/energy/laser/hitscan/laserpistol
+	name = "LG-PDW «Шершень»"
+	desc = "Тактический лазерный пистолет, имеет два режима огня, обычный и скорострельный."
+	icon_state = "laserpistol"
+	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol,
+	/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol/light)
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_NORMAL
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 4, "y" = -5),
+	)
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -230,4 +293,3 @@
 /obj/item/gun/energy/laser/tag/red
 	icon_state = "redtag"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/redtag)
-

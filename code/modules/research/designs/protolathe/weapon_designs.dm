@@ -231,6 +231,15 @@
 	locked = TRUE
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
+/datum/design/lg_mod_case
+	id = "modcase"
+	req_tech = list(RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_MAGNETS = 4, RESEARCH_TREE_POWERSTORAGE = 5)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 6000, MAT_GLASS = 1000, MAT_GOLD = 3000, MAT_DIAMOND = 1000)
+	build_path = /obj/item/lg_mod_case
+	locked = FALSE
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
 /datum/design/ipc_combat_upgrade
 	materials = list(MAT_METAL=800, MAT_GLASS=1000, MAT_GOLD=2800, MAT_DIAMOND=1650)
 	id = "ipccombatupgrade"
