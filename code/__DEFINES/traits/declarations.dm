@@ -417,3 +417,5 @@
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
+
+#define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"

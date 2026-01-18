@@ -152,9 +152,9 @@
 	AddComponent( \
 		/datum/component/lunge_attack, \
 		lunge_speed = 1.4, \
-		lunge_range = 4 \
-		lunge_dual_attack = TRUE
-		cooldown_time = 6 SECONDS
+		lunge_range = 4, \
+		cooldown_time = 6 SECONDS, \
+		lunge_dual_attack = TRUE \
 	)
 
 /obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
