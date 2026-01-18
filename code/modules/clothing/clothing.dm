@@ -2,6 +2,7 @@
 	name = "clothing"
 	integrity_failure = 80
 	resistance_flags = FLAMMABLE
+	abstract_type = /obj/item/clothing
 	var/list/species_restricted = null //Only these species can wear this kit.
 	var/gunshot_residue //Used by forensics.
 	var/obj/item/slimepotion/clothing/applied_slime_potion = null
@@ -27,17 +28,6 @@
 
 	/// Whether clothing is currently adjusted.
 	var/up = FALSE
-
-	/// Special flags applied to clothing items only
-	var/clothing_flags = NONE
-	/// Clothing flags that are added/removed when an item is adjusted up/down
-	var/visor_clothing_flags = NONE
-	/// Same as visor_clothing_flags, but for flags_inv
-	var/visor_flags_inv = NONE
-	/// Same as visor_flags_inv, but for flags_inv_transparent
-	var/visor_flags_inv_transparent = NONE
-	/// What to toggle when toggled with weldingvisortoggle()
-	var/visor_vars_to_toggle = VISOR_FLASHPROTECT|VISOR_TINT|VISOR_VISIONFLAGS|VISOR_DARKNESSVIEW|VISOR_INVISVIEW|VISOR_FULL_HUD
 
 	var/can_toggle = FALSE
 	var/toggle_on_message
@@ -132,15 +122,15 @@
 
 	. = TRUE
 	up = !up
-	clothing_flags ^= visor_clothing_flags
+	clothing_flags ^= visor_flags
 	flags_inv ^= visor_flags_inv
 	flags_inv_transparent ^= visor_flags_inv_transparent
-	flags_cover ^= initial(flags_cover)
+	flags_cover ^= visor_flags_cover
 	if(visor_vars_to_toggle & VISOR_FLASHPROTECT)
 		flash_protect ^= initial(flash_protect)
 	if(visor_vars_to_toggle & VISOR_TINT)
 		tint = up ? tint_up : initial(tint)
-	update_icon(UPDATE_ICON_STATE)
+	update_appearance()
 
 // Aurora forensics port.
 /obj/item/clothing/clean_blood()
@@ -196,6 +186,7 @@
 	throwforce = 2
 	slot_flags = ITEM_SLOT_EARS
 	resistance_flags = NONE
+	abstract_type = /obj/item/clothing/ears
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/ears.dmi',
@@ -266,6 +257,7 @@
 	slot_flags = ITEM_SLOT_EYES
 	materials = list(MAT_GLASS = 250)
 	equip_sound = 'sound/items/handling/equip/generic_equip4.ogg'
+	abstract_type = /obj/item/clothing/glasses
 	var/vision_flags = 0
 	var/see_in_dark = 0 //Base human is 2
 	var/invis_view = SEE_INVISIBLE_LIVING
@@ -340,6 +332,7 @@
 	slot_flags = ITEM_SLOT_GLOVES
 	attack_verb = list("на дуэль вызвал")
 	clothing_flags = FINGERS_COVERED
+	abstract_type = /obj/item/clothing/gloves
 	var/transfer_prints = FALSE
 	var/pickpocket = FALSE //Master pickpocket?
 	var/clipped = FALSE
@@ -708,6 +701,7 @@
 	name = "shoes"
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
+	abstract_type = /obj/item/clothing/shoes
 	gender = PLURAL //Carn: for grammatically correct text-parsing
 	//var/chained = 0
 	var/can_cut_open = FALSE
@@ -847,6 +841,7 @@
 	name = "suit"
 	gender = MALE
 	icon = 'icons/obj/clothing/suits.dmi'
+	abstract_type = /obj/item/clothing/suit
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
@@ -947,6 +942,8 @@
 	. = ..()
 
 	if(ishuman(user) && hide_tail_by_species && slot == ITEM_SLOT_CLOTH_OUTER)
+		if("modsuit" in hide_tail_by_species)
+			return
 		if(user.dna.species.name in hide_tail_by_species)
 			if(!(flags_inv & HIDETAIL)) //Hide the tail if the user's species is in the hide_tail_by_species list and the tail isn't already hidden.
 				flags_inv |= HIDETAIL
@@ -978,7 +975,7 @@
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
@@ -1015,6 +1012,7 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	strip_delay = 80
 	put_on_delay = 80
+	equip_delay_self = 4 SECONDS
 	resistance_flags = NONE
 	hide_tail_by_species = null
 	species_restricted = list("exclude", SPECIES_WRYN, "lesser form")
@@ -1095,6 +1093,7 @@
 	equip_sound = 'sound/items/handling/equip/jumpsuit_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/cloth_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/cloth_pickup.ogg'
+	abstract_type = /obj/item/clothing/under
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
@@ -1324,6 +1323,7 @@
 	icon = 'icons/obj/clothing/neck.dmi'
 	body_parts_covered = UPPER_TORSO
 	slot_flags = ITEM_SLOT_NECK
+	abstract_type = /obj/item/clothing/neck
 
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',

@@ -167,6 +167,7 @@
 
 /obj/item/circuitboard/robotstoragecontrol
 	board_name = "Robotic Storage Console"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = "/obj/machinery/computer/cryopod/robot"
 	origin_tech = "programming=1"
 
@@ -243,7 +244,10 @@
 		/obj/item/door_remote,
 		/obj/item/stamp,
 		/obj/item/sensor_device/advanced,
-		/obj/item/qm_quest_tablet
+		/obj/item/qm_quest_tablet,
+		/obj/item/mod/control,
+		/obj/item/autopsy_scanner,
+		/obj/item/storage/belt/rapier,
 	)
 	// These items will NOT be preserved
 	var/static/list/do_not_preserve_items = list (
@@ -372,6 +376,10 @@
 			var/obj/item/pda/P = I
 			QDEL_NULL(P.id)
 			qdel(P)
+			continue
+		if(ismodstorage(I))
+			var/obj/item/storage/backpack/modstorage/our_storage = I
+			our_storage.forceMove(our_storage.source)
 			continue
 
 		var/preserve = should_preserve_item(I)

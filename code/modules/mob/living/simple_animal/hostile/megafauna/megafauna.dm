@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/megafauna
 	name = "megafauna"
 	desc = "Атакуйте слабое место для нанесения массивного урона."
+	abstract_type = /mob/living/simple_animal/hostile/megafauna
 	health = 1000
 	maxHealth = 1000
 	sentience_type = SENTIENCE_BOSS

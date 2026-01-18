@@ -165,7 +165,7 @@
 		switch(M.damtype)
 			if("brute")
 				if(!is_strong())
-					Paralyse(2 SECONDS)
+					Weaken(3 SECONDS)
 				take_overall_damage(rand(M.force/2, M.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if("fire")
@@ -262,7 +262,7 @@
 	var/datum/status_effect/stacking/wet/effect = has_status_effect(wet_type)
 	return effect?.DryMob()
 
-/mob/living/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/mob/living/fire_act(exposed_temperature, exposed_volume)
 	..()
 	adjust_fire_stacks(3)
 	IgniteMob()

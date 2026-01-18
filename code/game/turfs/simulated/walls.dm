@@ -143,7 +143,7 @@
 
 	return
 
-/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
+/turf/simulated/wall/proc/adjacent_fire_act(radiated_temperature)
 	if(radiated_temperature > max_temperature)
 		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
@@ -594,8 +594,8 @@
 		if(WALL_DENT_HIT)
 			decal.icon_state = "impact[rand(1, 3)]"
 
-	decal.pixel_x = x
-	decal.pixel_y = y
+	decal.pixel_w = x
+	decal.pixel_z = y
 
 	if(LAZYLEN(dent_decals))
 		cut_overlay(dent_decals)

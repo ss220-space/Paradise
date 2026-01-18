@@ -1,5 +1,6 @@
 /obj/structure
 	icon = 'icons/obj/structures.dmi'
+	abstract_type = /obj/structure
 	pressure_resistance = 8
 	max_integrity = 300
 	pass_flags_self = PASSSTRUCTURE

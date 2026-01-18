@@ -137,7 +137,7 @@
 		return emote(copytext(message, 2), intentional = TRUE)
 
 	for(var/mob/M in GLOB.mob_list)
-		var/rendered = span_revennotice("[(isobserver(M) ? ("([ghost_follow_link(src, ghost = M)])") : "")]<b>[src]</b> говорит: \"[message]\"")
+		var/rendered = span_revennotice("[(isobserver(M) ? ("([ghost_follow_link(src, ghost = M)])") : "")] <b>[src]</b> говорит: \"[message]\"")
 		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
 

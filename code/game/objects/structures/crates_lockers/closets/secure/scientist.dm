@@ -14,8 +14,8 @@
 	new /obj/item/clothing/under/rank/scientist/skirt(src)
 	new /obj/item/clothing/suit/storage/labcoat/science(src)
 	new /obj/item/clothing/suit/storage/labcoat/science(src)
-	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/clothing/shoes/color/white(src)
+	new /obj/item/clothing/shoes/color/white(src)
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/radio/headset/headset_sci(src)
 	new /obj/item/radio/headset/headset_sci(src)
@@ -31,6 +31,8 @@
 	icon_state = "res"
 
 /obj/structure/closet/secure_closet/roboticist/populate_contents()
+	new /obj/item/mod/core/standard(src)
+	new /obj/item/mod/core/standard(src)
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack(src)
 	new /obj/item/storage/backpack/satchel_norm(src)

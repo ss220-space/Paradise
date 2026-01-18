@@ -195,7 +195,7 @@
 		source = src,
 		action = NOTIFY_FOLLOW,
 		title = "Славься Его Светлость!",
-		alert_overlay = image('icons/goonstation/objects/objects.dmi', "green4", pixel_x = pixel_x_offset, pixel_y = pixel_y_offset),
+		alert_overlay = image('icons/goonstation/objects/objects.dmi', "green4", pixel_w = pixel_x_offset, pixel_z = pixel_y_offset),
 		ghost_sound = 'sound/effects/pope_entry.ogg'
 	)
 	playsound(user, 'sound/effects/his_grace/his_grace_awaken.ogg', 100)

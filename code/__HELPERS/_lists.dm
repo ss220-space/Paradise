@@ -411,6 +411,62 @@
 		if(inclusion_typecache[current_atom.type] && !exclusion_typecache[current_atom.type])
 			. += current_atom
 
+/**
+ * Like typesof() or subtypesof(), but returns a typecache instead of a list.
+ * This time it also uses the associated values given by the input list for the values of the subtypes.
+ *
+ * Latter values from the input list override earlier values.
+ * Thus subtypes should come _after_ parent types in the input list.
+ * Notice that this is the opposite priority of [/proc/is_type_in_list] and [/proc/is_path_in_list].
+ *
+ * Arguments:
+ * - path: A typepath or list of typepaths with associated values.
+ * - single_value: The assoc value used if only a single path is passed as the first variable.
+ * - only_root_path: Whether the typecache should be specifically of the passed types.
+ * - ignore_root_path: Whether to ignore the root path when caching subtypes.
+ * - clear_nulls: Whether to remove keys with null assoc values from the typecache after generating it.
+ */
+/proc/zebra_typecacheof(path, single_value = TRUE, only_root_path = FALSE, ignore_root_path = FALSE, clear_nulls = FALSE)
+	if(isnull(path))
+		return
+
+	if(ispath(path))
+		if(isnull(single_value))
+			return
+
+		. = list()
+		if(only_root_path)
+			.[path] = single_value
+			return
+
+		for(var/subtype in (ignore_root_path ? subtypesof(path) : typesof(path)))
+			.[subtype] = single_value
+		return
+
+	if(!islist(path))
+		CRASH("Tried to create a typecache of [path] which is neither a typepath nor a list.")
+
+	. = list()
+	var/list/pathlist = path
+	if(only_root_path)
+		for(var/current_path in pathlist)
+			.[current_path] = pathlist[current_path]
+	else if(ignore_root_path)
+		for(var/current_path in pathlist)
+			for(var/subtype in subtypesof(current_path))
+				.[subtype] = pathlist[current_path]
+	else
+		for(var/current_path in pathlist)
+			for(var/subpath in typesof(current_path))
+				.[subpath] = pathlist[current_path]
+
+	if(!clear_nulls)
+		return
+
+	for(var/cached_path in .)
+		if(isnull(.[cached_path]))
+			. -= cached_path
+
 // MARK: TODO: REF
 /// Like typesof() or subtypesof(), but returns a typecache instead of a list
 /proc/typecacheof(path, ignore_root_path, only_root_path = FALSE)
@@ -1364,3 +1420,18 @@
 			return list_count
 
 	return list_count
+
+/// A version of deep_copy_list that actually supports associative list nesting: list(list(list("a" = "b"))) will actually copy correctly.
+/proc/deep_copy_list_alt(list/inserted_list)
+	if(!islist(inserted_list))
+		return inserted_list
+	var/copied_list = inserted_list.Copy()
+	. = copied_list
+	for(var/key_or_value in inserted_list)
+		if(isnum(key_or_value) || !inserted_list[key_or_value])
+			continue
+		var/value = inserted_list[key_or_value]
+		var/new_value = value
+		if(islist(value))
+			new_value = deep_copy_list_alt(value)
+		copied_list[key_or_value] = new_value

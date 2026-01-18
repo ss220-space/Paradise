@@ -9,7 +9,7 @@
 /obj/machinery/portable_atmospherics/pump
 	name = "Portable Air Pump"
 	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos.dmi'
-	icon_state = "psiphon:0"
+	icon_state = "psiphon_off"
 	density = TRUE
 	volume = 1000
 	/// If the pump is turned on or off.
@@ -20,14 +20,14 @@
 	var/target_pressure = 101.325
 
 /obj/machinery/portable_atmospherics/pump/update_icon_state()
-	icon_state = "psiphon:[on]"
+	icon_state = "psiphon_[on ? "on" : "off"]"
 
 /obj/machinery/portable_atmospherics/pump/update_overlays()
 	. = ..()
 	if(holding)
-		. += "siphon-open"
+		. += "siphon_open"
 	if(connected_port)
-		. += "siphon-connector"
+		. += "siphon_connector"
 
 /obj/machinery/portable_atmospherics/pump/emp_act(severity)
 	if(stat & (BROKEN|NOPOWER))

@@ -18,8 +18,7 @@
 		icon_state = "exposed"
 		on = FALSE
 
-/obj/machinery/atmospherics/unary/cold_sink/process_atmos()
-	..()
+/obj/machinery/atmospherics/unary/cold_sink/process_atmos(seconds)
 	if(!on)
 		return FALSE
 
