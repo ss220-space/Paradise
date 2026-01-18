@@ -59,13 +59,14 @@
 
 /datum/species/nucleation/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	H.light_color = "#afaf21"
-	H.set_light_range(2)
+	H.light_color = COLOR_NUCLEATION_LIGHT
+	H.set_light_range(NUCLEATION_LIGHT_RANGE)
+	H.set_light_on(TRUE)
 
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.light_color = null
-	H.set_light_on(FALSE)
+	H.set_light_on(FALSE) // turn off light after species loss
 
 /datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
 	if(R.id == "radium")
