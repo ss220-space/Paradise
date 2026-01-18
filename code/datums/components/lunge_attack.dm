@@ -1,80 +1,54 @@
-/datum/component/lunge_attack
+/datum/element/lunge_attack
+	element_flags = ELEMENT_BESPOKE
+	argument_hash_start_idx = 2
+
 	var/lunge_speed
 	var/lunge_range
 	var/cooldown_time
-	// Dual Strike is activated ONLY IF both items in your hands have this component and their corresponding variable is set to TRUE.
 	var/lunge_dual_attack = FALSE
-	var/lunge_trait = TRAIT_CANT_LUNGE
 
-/datum/component/lunge_attack/Initialize(
-		lunge_speed = 1, 
-		lunge_range = 4, 
-		cooldown_time = 6 SECONDS, 
-		lunge_dual_attack = FALSE,
-		...
-	)
-	if(!isitem(parent))
-		return COMPONENT_INCOMPATIBLE
+/datum/element/lunge_attack/Attach(obj/item/target, lunge_speed = 1, lunge_range = 4, cooldown_time = 6 SECONDS, lunge_dual_attack = FALSE)
+	if(!isitem(target))
+		return ELEMENT_INCOMPATIBLE
 
 	src.lunge_speed = lunge_speed
 	src.lunge_range = lunge_range
 	src.cooldown_time = cooldown_time
 	src.lunge_dual_attack = lunge_dual_attack
 
-/datum/component/lunge_attack/RegisterWithParent()
-	RegisterSignal(parent, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
-	RegisterSignal(parent, COMSIG_LUNGE_DUAL_STRIKE, PROC_REF(do_dual_strike))
+	RegisterSignal(target, COMSIG_ITEM_AFTERATTACK, PROC_REF(on_afterattack))
+	RegisterSignal(target, COMSIG_LUNGE_DUAL_STRIKE, PROC_REF(do_dual_strike))
 
-/datum/component/lunge_attack/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ITEM_AFTERATTACK, COMSIG_LUNGE_DUAL_STRIKE))
+/datum/element/lunge_attack/Detach(obj/item/target)
+	UnregisterSignal(target, list(COMSIG_ITEM_AFTERATTACK, COMSIG_LUNGE_DUAL_STRIKE))
 
-/datum/component/lunge_attack/InheritComponent(
-		datum/component/lunge_attack/C, 
-		i_am_original, 
-		lunge_speed, 
-		lunge_range, 
-		cooldown_time, 
-		lunge_dual_attack
-	)
-
-	if(!i_am_original)
-		return
-	if(lunge_speed)
-		src.lunge_speed = lunge_speed
-	if(lunge_range)
-		src.lunge_range = lunge_range
-	if(cooldown_time)
-		src.cooldown_time = cooldown_time
-	if(!isnull(lunge_dual_attack))
-		src.lunge_dual_attack = lunge_dual_attack
-
-/datum/component/lunge_attack/proc/on_afterattack(obj/item/source, atom/target, mob/living/user, proximity_flag, click_parameters)
+/datum/element/lunge_attack/proc/on_afterattack(obj/item/source, atom/target, mob/living/user, proximity_flag, click_parameters)
 	SIGNAL_HANDLER
 
 	if(user.a_intent != INTENT_DISARM)
 		return
 
-	if(HAS_TRAIT(user, lunge_trait) || IS_HORIZONTAL(user) || user.incapacitated())
+	if(HAS_TRAIT(user, TRAIT_CANT_LUNGE) || IS_HORIZONTAL(user) || user.incapacitated())
 		return
 
 	var/dist = get_dist(user, target)
 	if(dist <= 1)
 		return
 
-	perform_lunge(user, target)
+	perform_lunge(source, user, target)
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/component/lunge_attack/proc/perform_lunge(mob/living/user, atom/target)
+/datum/element/lunge_attack/proc/perform_lunge(obj/item/source, mob/living/user, atom/target)
 	user.apply_status_effect(STATUS_EFFECT_LUNGING)
 	
-	RegisterSignal(user, COMSIG_MOVABLE_IMPACT, PROC_REF(on_impact))
+	RegisterSignal(user, COMSIG_MOVABLE_IMPACT, PROC_REF(on_impact), override = TRUE)
 	
-	user.throw_at(target, lunge_range, lunge_speed, parent, spin = FALSE, callback = CALLBACK(src, PROC_REF(lunge_ended), user, target))
+	user.throw_at(target, lunge_range, lunge_speed, source, spin = FALSE, callback = CALLBACK(src, PROC_REF(lunge_ended), source, user, target))
 	
-	ADD_TRAIT(user, lunge_trait, UNIQUE_TRAIT_SOURCE(src))
+	ADD_TRAIT(user, TRAIT_CANT_LUNGE, UNIQUE_TRAIT_SOURCE(src))
 	addtimer(CALLBACK(src, PROC_REF(reset_lunge), user), cooldown_time)
 
-/datum/component/lunge_attack/proc/on_impact(mob/living/user, atom/hit)
+/datum/element/lunge_attack/proc/on_impact(mob/living/user, atom/hit)
 	SIGNAL_HANDLER
 	UnregisterSignal(user, COMSIG_MOVABLE_IMPACT)
 
@@ -82,13 +56,14 @@
 		user.throwing.finalize(hit)
 
 	if(isliving(hit) && hit != user)
-		INVOKE_ASYNC(src, PROC_REF(handle_lunge_attack), user, hit)
+		var/obj/item/weapon = user.get_active_hand()
+		if(weapon)
+			INVOKE_ASYNC(src, PROC_REF(handle_lunge_attack), weapon, user, hit)
 
-/datum/component/lunge_attack/proc/handle_lunge_attack(mob/living/user, atom/target)
-	if(QDELETED(src) || QDELETED(user))
+/datum/element/lunge_attack/proc/handle_lunge_attack(obj/item/weapon, mob/living/user, atom/target)
+	if(QDELETED(user) || QDELETED(weapon))
 		return
 
-	var/obj/item/weapon = parent
 	ADD_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 
 	var/atom/final_target = target
@@ -110,7 +85,7 @@
 		if(offhand_weapon && offhand_weapon != weapon)
 			SEND_SIGNAL(offhand_weapon, COMSIG_LUNGE_DUAL_STRIKE, user, final_target)
 
-/datum/component/lunge_attack/proc/do_dual_strike(obj/item/source, mob/living/user, atom/target)
+/datum/element/lunge_attack/proc/do_dual_strike(obj/item/source, mob/living/user, atom/target)
 	SIGNAL_HANDLER
 	if(!lunge_dual_attack)
 		return
@@ -118,19 +93,18 @@
 	if(!user || !target || !user.Adjacent(target))
 		return
 		
-	var/obj/item/I = parent
-	INVOKE_ASYNC(I, TYPE_PROC_REF(/obj/item, melee_attack_chain), user, target)
+	INVOKE_ASYNC(source, TYPE_PROC_REF(/obj/item, melee_attack_chain), user, target)
 
-/datum/component/lunge_attack/proc/lunge_ended(mob/living/user, atom/target)
+/datum/element/lunge_attack/proc/lunge_ended(obj/item/source, mob/living/user, atom/target)
 	UnregisterSignal(user, COMSIG_MOVABLE_IMPACT)
 	user.remove_status_effect(STATUS_EFFECT_LUNGING)
 	
 	if(!HAS_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED))
-		INVOKE_ASYNC(src, PROC_REF(handle_lunge_attack), user, target)
+		INVOKE_ASYNC(src, PROC_REF(handle_lunge_attack), source, user, target)
 	REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 
-/datum/component/lunge_attack/proc/reset_lunge(mob/living/user)
+/datum/element/lunge_attack/proc/reset_lunge(mob/living/user)
 	if(!QDELETED(user))
-		REMOVE_TRAIT(user, lunge_trait, UNIQUE_TRAIT_SOURCE(src))
+		REMOVE_TRAIT(user, TRAIT_CANT_LUNGE, UNIQUE_TRAIT_SOURCE(src))
 		REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 		user.balloon_alert(user, "выпад готов")
