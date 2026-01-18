@@ -661,8 +661,8 @@
 
 /obj/structure/mining_bomb/proc/generate_image()
 	explosion_image = image('icons/effects/96x96.dmi', "judicial_explosion")
-	explosion_image.pixel_x = -32
-	explosion_image.pixel_y = -32
+	explosion_image.pixel_w = -32
+	explosion_image.pixel_z = -32
 
 /obj/structure/mining_bomb/proc/prime(atom/movable/firer)
 	add_overlay(explosion_image)

@@ -15,40 +15,40 @@
  * * encode - Toggling this determines if input is filtered via html_encode. Setting this to FALSE gives raw input.
  * * timeout - The timeout of the textbox, after which the modal will close and qdel itself. Set to zero for no timeout.
  */
-/proc/tgui_input_text(mob/user, message = "", title = "Окно ввода", default, max_length, multiline = FALSE, encode = TRUE, trim = TRUE, timeout = 0, ui_state = GLOB.always_state)
+/proc/tgui_input_text(mob/user, message = "", title = "Окно ввода", default, max_length, multiline = FALSE, encode = TRUE, timeout = 0, ui_state = GLOB.always_state)
 	if(!user)
 		user = usr
 
 	if(!istype(user))
 		if(!isclient(user))
 			CRASH("We passed something that wasn't a user/client in a TGUI Input Text! The passed user was [user]!")
+
 		var/client/client = user
 		user = client.mob
 
 	if(isnull(user.client))
-		return
+		return null
 
 	// Client does NOT have tgui_input on: Returns regular input
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		if(encode)
 			if(multiline)
-				return stripped_multiline_input(user, message, title, default, max_length, !trim)
+				return stripped_multiline_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
 			else
-				return stripped_input(user, message, title, default, max_length, !trim)
+				return stripped_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
 		else
 			if(multiline)
 				return input(user, message, title, default) as message|null
 			else
 				return input(user, message, title, default) as text|null
 
-	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
+	var/datum/tgui_input_text/text_input = new(user, message, title, default, max_length, multiline, encode, timeout, ui_state)
 
 	text_input.ui_interact(user)
 	text_input.wait()
 	if(text_input)
 		. = text_input.entry
 		qdel(text_input)
-
 /**
  * tgui_input_text
  *
@@ -62,8 +62,6 @@
 	var/default
 	/// Whether the input should be stripped using html_encode
 	var/encode
-	/// Whether the input should be trimmed from whitespaces
-	var/trim
 	/// The entry that the user has return_typed in.
 	var/entry
 	/// The maximum length for text entry
@@ -76,34 +74,27 @@
 	var/start_time
 	/// The lifespan of the text input, after which the window will close and delete itself.
 	var/timeout
-	/// The attached timer that handles this objects timeout deletion
-	var/deletion_timer
 	/// The title of the TGUI window
 	var/title
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
-/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, trim, timeout, ui_state)
+/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, timeout, ui_state)
 	src.default = default
 	src.encode = encode
-	src.trim = trim
 	src.max_length = max_length
 	src.message = message
 	src.multiline = multiline
 	src.title = title
 	src.state = ui_state
-
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		deletion_timer = QDEL_IN_STOPPABLE(src, timeout)
 
 /datum/tgui_input_text/Destroy(force)
 	SStgui.close_uis(src)
 	state = null
-	deltimer(deletion_timer)
 	return ..()
-
 /**
  * Waits for a user's response to the tgui_input_text's prompt before returning. Returns early if
  * the window was closed by the user.
@@ -112,9 +103,6 @@
 	while(!entry && !closed && !QDELETED(src))
 		stoplag(1)
 
-/datum/tgui_input_text/ui_state(mob/user)
-	return state
-
 /datum/tgui_input_text/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -122,15 +110,19 @@
 		ui.open()
 
 /datum/tgui_input_text/ui_close(mob/user)
+	. = ..()
 	closed = TRUE
+
+/datum/tgui_input_text/ui_state(mob/user)
+	return state
 
 /datum/tgui_input_text/ui_static_data(mob/user)
 	var/list/data = list()
+	data["large_buttons"] = user.client?.prefs?.toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS
 	data["max_length"] = max_length
 	data["message"] = message
 	data["multiline"] = multiline
 	data["placeholder"] = html_decode(default) // Default is a reserved keyword
-	data["large_buttons"] = user.client?.prefs?.toggles2 & PREFTOGGLE_2_LARGE_INPUT_BUTTONS
 	data["swapped_buttons"] = user.client?.prefs?.toggles2 & PREFTOGGLE_2_SWAP_INPUT_BUTTONS
 	data["title"] = title
 	return data
@@ -145,15 +137,13 @@
 	. = ..()
 	if(.)
 		return
-
 	switch(action)
 		if("submit")
-			if(!max_length)
-				return
-			if(length_char(params["entry"]) > max_length)
-				CRASH("[usr] typed a text string longer than the max length")
-			if(encode && (length_char(html_encode(params["entry"])) > max_length))
-				to_chat(usr, span_notice("Ваше сообщение было обрезано из-за использования специальных символов."))
+			if(max_length)
+				if(length_char(params["entry"]) > max_length)
+					CRASH("[usr] typed a text string longer than the max length")
+				if(encode && (length_char(html_encode(params["entry"])) > max_length))
+					to_chat(usr, span_notice("Ваше сообщение было обрезано из-за использования специальных символов."))
 			set_entry(params["entry"])
 			closed = TRUE
 			SStgui.close_uis(src)
@@ -162,7 +152,6 @@
 			closed = TRUE
 			SStgui.close_uis(src)
 			return TRUE
-
 /**
  * Sets the return value for the tgui text proc.
  * If html encoding is enabled, the text will be encoded.

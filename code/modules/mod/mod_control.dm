@@ -358,12 +358,14 @@
 /obj/item/mod/control/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
-	if(loc != user || !user.back || user.back != src)
-		return
-	if(!bag)
-		return ..()
-	bag.forceMove(user)
-	bag.show_to(user)
+	if(loc == user && user.back && user.back == src)
+		if(!bag)
+			return
+		bag.forceMove(user)
+		bag.show_to(user)
+	else
+		..()
+
 
 /obj/item/mod/control/click_alt(mob/user)
 	. = ..()
