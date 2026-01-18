@@ -47,8 +47,8 @@
 	RegisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE, PROC_REF(on_table_place))
 
 /obj/item/craft_blueprints/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_PLACED_ON_TABLE)
 	. = ..()
-	UnregisterSignal(COMSIG_ITEM_PLACED_ON_TABLE)
 
 /obj/item/craft_blueprints/update_desc(updates)
 	. = ..()
@@ -129,27 +129,41 @@
 	var/list/empty = list()
 	if(!check_tools(user, tools, surroundings))
 		balloon_alert(user, "не хватает инструментов")
-		return
+		return FALSE
 	if(!check_contents(components, empty, empty, surroundings))
 		balloon_alert(user, "не хватает компонентов")
-		return
+		return FALSE
 	to_chat(user, span_notice("Вы начинаете крафт предмета \"[crafting_name]\"..."))
 	if(!do_after(user, craft_duration, src))
-		return
+		return FALSE
 	surroundings = get_surroundings(user)
 	if(!check_tools(user, tools, surroundings))
 		balloon_alert(user, "не хватает инструментов")
-		return
+		return FALSE
 	if(!check_contents(components, empty, empty, surroundings))
 		balloon_alert(user, "не хватает компонентов")
-		return
+		return FALSE
 	requirements_deletion(components, empty, empty, user)
-	var/item = new crafting_item(loc)
+	var/item = create_craft_item(user)
 	balloon_alert(user, "завершено")
 	var/mob/living/human = user
-	if(!istype(human))
-		return
-	human.put_in_any_hand_if_possible(item, drop_on_fail = TRUE)
+	if(istype(human) && isitem(item))
+		human.put_in_any_hand_if_possible(item, drop_on_fail = TRUE)
+	return TRUE
+
+/obj/item/craft_blueprints/proc/create_craft_item(mob/user)
+	return new crafting_item(loc)
+
+/obj/item/craft_blueprints/one_use
+
+	desc = "Одноразовые чертежи для крафта"
+	copy_type = null
+
+/obj/item/craft_blueprints/one_use/try_craft_item(mob/user)
+	. = ..()
+	if(.)
+		QDEL_IN(src, 1)
+
 
 // MARK: Specific blueprints
 
