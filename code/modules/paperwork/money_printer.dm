@@ -4,13 +4,17 @@
 /obj/machinery/money_printer
 	name = "money printer"
 	desc = "Устройство для печати кредитов, очевидно является нелегальным."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "papershredder0"
+	icon = 'icons/obj/money_printer.dmi'
+	icon_state = "money_printer"
 	density = TRUE
 	anchored = TRUE
+	var/printer_level = 1
 	var/print_delay = 60 SECONDS
-	var/credits_amount = 100
+	var/print_credits_amount = 400
+	var/total_credits_amount = 0
+	var/max_credits_amount = 100000
 	var/work_timer
+	var/opened = FALSE
 
 /obj/machinery/money_printer/get_ru_names()
 	return list(
@@ -37,10 +41,9 @@
 
 /obj/machinery/money_printer/proc/do_print_money()
 	playsound(src, 'sound/machines/cash_machine.wav', 50, TRUE)
-	var/obj/item/stack/spacecash/credits = new(src)
-	credits.amount = credits_amount
-	credits.update_icon(UPDATE_ICON_STATE)
-	credits.forceMove(loc)
+	total_credits_amount = min(total_credits_amount + print_credits_amount, max_credits_amount)
+	if(opened)
+		close_cash()
 
 /obj/machinery/money_printer/wrench_act(mob/user, obj/item/item)
 	. = TRUE
@@ -54,6 +57,30 @@
 
 /obj/machinery/money_printer/attack_hand(mob/user)
 	. = ..()
+	if(opened)
+		close_cash()
+		return
+
+	opened = TRUE
+	icon_state = "[initial(icon_state)]_opened"
+	update_icon(UPDATE_ICON_STATE)
+	if(total_credits_amount <= 0)
+		return
+
+	var/obj/item/stack/spacecash/credits = new(src)
+	credits.amount = total_credits_amount
+	total_credits_amount = 0
+	credits.update_icon(UPDATE_ICON_STATE)
+	credits.forceMove(loc)
+
+/obj/machinery/money_printer/proc/close_cash()
+	opened = FALSE
+	icon_state = initial(icon_state)
+	update_icon(UPDATE_ICON_STATE)
+	return
+
+/obj/machinery/money_printer/click_alt(mob/user)
+	. = ..()
 	if(work_timer)
 		stop_print()
 		balloon_alert_to_viewers("Принтер выключен", "принтер выключен")
@@ -63,10 +90,16 @@
 
 /obj/machinery/money_printer/examine(mob/user)
 	. = ..()
+	. += "<b>Уровень [printer_level].</b>"
+	. += "<b>Скорость печати:</b> [print_credits_amount] кредитов за [print_delay / 10] секунд."
+	. += span_notice("<b>Доступно кредитов:</b> [total_credits_amount]/[max_credits_amount].")
+
 	if(work_timer)
-		. += span_notice("Принтер работает.")
-		return
-	. += span_notice("Принтер выключен.")
+		. += "<b>Статус:</b> принтер работает."
+		. += span_italics("Используйте Alt+Клик чтобы выключить принтер.")
+	else
+		. += "<b>Статус:</b> принтер выключен."
+		. += span_italics("Используйте Alt+Клик чтобы включить принтер.")
 
 
 // MARK: Craft blueprints
@@ -77,48 +110,49 @@
 		/obj/item/stack/sheet/metal = 30,
 		/obj/item/stack/sheet/glass = 10,
 	)
-	var/printer_sprite = "papershredder1"
+	var/printer_level = 1
 	var/money_amount = 400
 
 /obj/item/craft_blueprints/one_use/money_printer/create_craft_item(mob/user)
 	var/obj/machinery/money_printer/printer = new /obj/machinery/money_printer(loc)
-	printer.icon_state = printer_sprite
-	printer.update_icon()
-	printer.credits_amount = money_amount
+	printer.printer_level = printer_level
+	printer.print_credits_amount = money_amount
 	return printer
 
 /obj/item/craft_blueprints/one_use/money_printer/level2
 	components = list(
-		/obj/item/stack/sheet/metal = 30,
+		/obj/item/stack/sheet/metal = 60,
 		/obj/item/stack/sheet/mineral/silver = 10,
 	)
-	printer_sprite = "papershredder2"
+	printer_level = 2
 	money_amount = 800
 
 /obj/item/craft_blueprints/one_use/money_printer/level3
 	components = list(
-		/obj/item/stack/sheet/metal = 30,
+		/obj/item/stack/sheet/metal = 90,
 		/obj/item/stack/sheet/glass = 10,
 		/obj/item/stack/sheet/mineral/silver = 10,
 		/obj/item/stack/sheet/mineral/gold = 10,
 	)
-	printer_sprite = "papershredder3"
+	printer_level = 3
 	money_amount = 1600
 
 /obj/item/craft_blueprints/one_use/money_printer/level4
 	components = list(
-		/obj/item/stack/sheet/metal = 30,
+		/obj/item/stack/sheet/metal = 120,
 		/obj/item/stack/sheet/glass = 10,
 		/obj/item/stack/sheet/mineral/uranium = 10,
 		/obj/item/stack/sheet/mineral/diamond = 1,
 	)
-	printer_sprite = "papershredder4"
+	printer_level = 4
 	money_amount = 3200
 
 /obj/item/craft_blueprints/one_use/money_printer/level5
 	components = list(
-		/obj/structure/toilet/captain_toilet = 1,
+		/obj/item/stack/sheet/metal = 100,
+		/obj/item/stack/sheet/glass = 50,
 		/obj/item/stack/ore/bluespace_crystal = 20,
+		/obj/item/stack/sheet/mineral/diamond = 5,
 	)
-	printer_sprite = "papershredder5"
+	printer_level = 5
 	money_amount = 10000
