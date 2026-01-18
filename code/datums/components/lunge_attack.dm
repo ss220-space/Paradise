@@ -2,6 +2,7 @@
 	var/lunge_speed
 	var/lunge_range
 	var/cooldown_time
+	// Dual Strike is activated ONLY IF both items in your hands have this component and their corresponding variable is set to TRUE.
 	var/lunge_dual_attack = TRUE
 	var/lunge_trait = TRAIT_CANT_LUNGE
 
@@ -60,8 +61,10 @@
 /datum/component/lunge_attack/proc/handle_lunge_attack(mob/living/user, mob/living/target)
 	var/obj/item/weapon = parent
 
+	// If the cleave button is enabled on the weapon, then when performing a lunge attack, we perform a cleave attack instead of a regular one, regardless of whether it hits the target.
 	if(!HAS_TRAIT(weapon, TRAIT_CLEAVE_BLOCKED))
 		if(SEND_SIGNAL(weapon, COMSIG_ITEM_AFTERATTACK, target, user, FALSE, null, TRUE))
+			// We do not attack after performing a cleave.
 			return
 
 	weapon.melee_attack_chain(user, target)
