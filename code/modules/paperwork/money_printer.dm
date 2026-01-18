@@ -26,10 +26,10 @@
 	. = ..()
 	start_print()
 
-/obj/machinery/money_printer/proc/start_print(mob/user)
+/obj/machinery/money_printer/proc/start_print()
 	work_timer = addtimer(CALLBACK(src, PROC_REF(do_print_money)), print_delay, TIMER_STOPPABLE | TIMER_LOOP)
 
-/obj/machinery/money_printer/proc/stop_print(mob/user)
+/obj/machinery/money_printer/proc/stop_print()
 	if(!work_timer)
 		return
 	if(deltimer(work_timer))
@@ -55,11 +55,11 @@
 /obj/machinery/money_printer/attack_hand(mob/user)
 	. = ..()
 	if(work_timer)
-		stop_print(user)
+		stop_print()
 		balloon_alert_to_viewers("Принтер выключен", "принтер выключен")
 		return
-	start_print(user)
-	balloon_alert_to_viewers("Принтер включен", "принтер выключен")
+	start_print()
+	balloon_alert_to_viewers("Принтер включен", "принтер включен")
 
 /obj/machinery/money_printer/examine(mob/user)
 	. = ..()
@@ -71,7 +71,7 @@
 
 // MARK: Craft blueprints
 /obj/item/craft_blueprints/one_use/money_printer
-	crafting_name = "Принтера кредитов"
+	crafting_name = "Принтер кредитов"
 	tools = list(TOOL_WRENCH, TOOL_SCREWDRIVER)
 	components = list(
 		/obj/item/stack/sheet/metal = 30,
