@@ -3,7 +3,7 @@
 	var/lunge_range
 	var/cooldown_time
 	// Dual Strike is activated ONLY IF both items in your hands have this component and their corresponding variable is set to TRUE.
-	var/lunge_dual_attack = TRUE
+	var/lunge_dual_attack = FALSE
 	var/lunge_trait = TRAIT_CANT_LUNGE
 
 /datum/component/lunge_attack/Initialize(
@@ -79,14 +79,16 @@
 	UnregisterSignal(user, COMSIG_MOVABLE_IMPACT)
 
 	if(user.throwing)
-		user.throwing.finalize(hit = TRUE)
+		user.throwing.finalize(hit)
 
 	if(isliving(hit) && hit != user)
-		handle_lunge_attack(user, hit)
+		INVOKE_ASYNC(src, PROC_REF(handle_lunge_attack), user, hit)
 
 /datum/component/lunge_attack/proc/handle_lunge_attack(mob/living/user, atom/target)
-	var/obj/item/weapon = parent
+	if(QDELETED(src) || QDELETED(user))
+		return
 
+	var/obj/item/weapon = parent
 	ADD_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 
 	var/atom/final_target = target
@@ -110,6 +112,9 @@
 
 /datum/component/lunge_attack/proc/do_dual_strike(obj/item/source, mob/living/user, atom/target)
 	SIGNAL_HANDLER
+	if(!lunge_dual_attack)
+		return
+
 	if(!user || !target || !user.Adjacent(target))
 		return
 		
@@ -121,7 +126,7 @@
 	user.remove_status_effect(STATUS_EFFECT_LUNGING)
 	
 	if(!HAS_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED))
-		handle_lunge_attack(user, target)
+		INVOKE_ASYNC(src, PROC_REF(handle_lunge_attack), user, target)
 	REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/lunge_attack/proc/reset_lunge(mob/living/user)
