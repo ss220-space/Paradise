@@ -149,13 +149,7 @@
 		swing_sound = SFX_KATANA_SWING \
 	)
 
-	AddComponent( \
-		/datum/component/lunge_attack, \
-		lunge_speed = 1.4, \
-		lunge_range = 4, \
-		cooldown_time = 6 SECONDS, \
-		lunge_dual_attack = TRUE \
-	)
+	AddElement(/datum/element/lunge_attack, 1.4, 4, 6 SECONDS, TRUE)
 
 /obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
