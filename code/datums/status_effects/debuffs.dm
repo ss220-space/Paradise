@@ -50,8 +50,8 @@
 /datum/status_effect/crusher_mark/on_apply()
 	if(owner.mob_size >= MOB_SIZE_LARGE)
 		marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
-		marked_underlay.pixel_x = -owner.pixel_x
-		marked_underlay.pixel_y = -owner.pixel_y
+		marked_underlay.pixel_w = -owner.pixel_x
+		marked_underlay.pixel_z = -owner.pixel_y
 		owner.underlays += marked_underlay
 		return TRUE
 	return FALSE
@@ -187,10 +187,10 @@
 	bleed_overlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	bleed_underlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	var/icon_height = owner.get_cached_height()
-	bleed_overlay.pixel_x = -owner.pixel_x
-	bleed_overlay.pixel_y = FLOOR(icon_height * 0.25, 1)
+	bleed_overlay.pixel_w = -owner.pixel_x
+	bleed_overlay.pixel_z = FLOOR(icon_height * 0.25, 1)
 	bleed_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the bleed overlay's size based on the target's icon size
-	bleed_underlay.pixel_x = -owner.pixel_x
+	bleed_underlay.pixel_w = -owner.pixel_x
 	bleed_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3
 	bleed_underlay.alpha = 40
 	owner.add_overlay(bleed_overlay)
@@ -313,7 +313,7 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 
 	marked_overlay = mutable_appearance('icons/effects/effects.dmi', "cult_halo1")
-	marked_overlay.pixel_y = 3
+	marked_overlay.pixel_z = 3
 	owner.add_overlay(marked_overlay)
 	return ..()
 
@@ -462,7 +462,8 @@
 		return
 	var/matrix/M = matrix()
 	M.Scale(0.6)
-	overlay = image('icons/effects/effects.dmi', "confusion", pixel_y = 20)
+	overlay = image('icons/effects/effects.dmi', "confusion")
+	overlay.pixel_z = 20
 	overlay.transform = M
 	owner.add_overlay(overlay)
 

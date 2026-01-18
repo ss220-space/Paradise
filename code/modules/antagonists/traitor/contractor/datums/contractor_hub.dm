@@ -38,6 +38,8 @@
 		/datum/rep_purchase/item/balloon,
 		/datum/rep_purchase/item/contractor_partner,
 		/datum/rep_purchase/item/contractor_hardsuit,
+		/datum/rep_purchase/item/scorpion_hook,
+		/datum/rep_purchase/item/activation_upgrade,
 		/datum/rep_purchase/item/spai_kit,
 	)
 	// Variables

@@ -1,6 +1,6 @@
 /datum/design/integrated_circuit
 	id = "integrated_circuit"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/integrated_circuit
 	build_type = PROTOLATHE
 	category = list(
@@ -10,7 +10,7 @@
 
 /datum/design/circuit_multitool
 	id = "circuit_multitool"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/multitool/circuit
 	build_type = PROTOLATHE
 	category = list(
@@ -20,7 +20,7 @@
 
 /datum/design/usb_cable
 	id = "usb_cable"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/usb_cable
 	build_type = PROTOLATHE
 	category = list(
@@ -30,7 +30,7 @@
 	materials = list(MAT_METAL = 1250)
 
 /datum/design/component
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = CIRCUIT_COMPONENT_COST)
 	category = list(
@@ -411,7 +411,7 @@
 
 /datum/design/compact_remote_shell
 	id = "compact_remote_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/compact_remote
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 2500)
 	build_type = PROTOLATHE
@@ -421,7 +421,7 @@
 
 /datum/design/controller_shell
 	id = "controller_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/controller
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 3500)
@@ -431,7 +431,7 @@
 
 /datum/design/scanner_shell
 	id = "scanner_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/wiremod_scanner
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 3500)
@@ -441,7 +441,7 @@
 
 /datum/design/keyboard_shell
 	id = "keyboard_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/keyboard_shell
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 5000)
 	build_type = PROTOLATHE
@@ -451,7 +451,7 @@
 
 /datum/design/gun_shell
 	id = "gun_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/gun/energy/wiremod_gun
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 5000, MAT_PLASMA = 500)
@@ -461,7 +461,7 @@
 
 /datum/design/bot_shell
 	id = "bot_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/shell/bot
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 5000)
@@ -471,7 +471,7 @@
 
 /datum/design/money_bot_shell
 	id = "money_bot_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	build_path = /obj/item/shell/money_bot
 	build_type = PROTOLATHE
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 5000, MAT_GOLD = 200)
@@ -481,7 +481,7 @@
 
 /datum/design/drone_shell
 	id = "drone_shell"
-	req_tech = list("materials" = 4, "programming" = 5, "engineering" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 4)
 	build_path = /obj/item/shell/drone
 	build_type = PROTOLATHE
 	materials = list(
@@ -509,7 +509,7 @@
 
 /datum/design/server_shell
 	id = "server_shell"
-	req_tech = list("materials" = 5, "programming" = 7, "engineering" = 6)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 5, RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_ENGINEERING = 6)
 	materials = list(
 		MAT_GLASS = 2500,
 		MAT_METAL = 7500,
@@ -523,7 +523,7 @@
 
 /datum/design/airlock_shell
 	id = "door_shell"
-	req_tech = list("materials" = 4, "programming" = 3, "engineering" = 4, "magnets" = 3)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_PROGRAMMING = 3, RESEARCH_TREE_ENGINEERING = 4, RESEARCH_TREE_MAGNETS = 3)
 	materials = list(
 		MAT_GLASS = 5000,
 		MAT_METAL = 10000,
@@ -536,7 +536,7 @@
 
 /datum/design/dispenser_shell
 	id = "dispenser_shell"
-	req_tech = list("materials" = 4, "programming" = 5, "engineering" = 4)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 4, RESEARCH_TREE_PROGRAMMING = 5, RESEARCH_TREE_ENGINEERING = 4)
 	materials = list(
 		MAT_GLASS = 2500,
 		MAT_METAL = 7500,
@@ -549,7 +549,7 @@
 
 /datum/design/bci_shell
 	id = "bci_shell"
-	req_tech = list("programming" = 4, "engineering" = 3, "biotech" = 3)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_BIOTECH = 3)
 	materials = list(
 		MAT_GLASS = 1000,
 		MAT_METAL = 4000,
@@ -574,7 +574,7 @@
 
 /datum/design/bci_implanter
 	id = "bci_implanter"
-	req_tech = list("programming" = 4, "biotech" = 3, "engineering" = 3)
+	req_tech = list(RESEARCH_TREE_PROGRAMMING = 4, RESEARCH_TREE_BIOTECH = 3, RESEARCH_TREE_ENGINEERING = 3)
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/bci_implanter
@@ -584,7 +584,7 @@
 
 /datum/design/assembly_shell
 	id = "assembly_shell"
-	req_tech = list("materials" = 2, "programming" = 2)
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
 	materials = list(MAT_GLASS = 1000, MAT_METAL = 2500)
 	build_path = /obj/item/assembly/wiremod
 	build_type = PROTOLATHE
@@ -592,14 +592,15 @@
 		PROTOLATHE_CATEGORY_CIRCUITRY,
 	)
 
-// /datum/design/mod_module_shell
-// 	id = "module_shell"
-// 	materials = list(MAT_GLASS = 1000)
-// 	build_path = /obj/item/mod/module/circuit
-// 	build_type = PROTOLATHE
-// 	category = list(
-// 		PROTOLATHE_CATEGORY_CIRCUITRY,
-// 	)
+/datum/design/mod_module_shell
+	id = "module_shell"
+	req_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_PROGRAMMING = 2)
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/mod/module/circuit
+	build_type = PROTOLATHE
+	category = list(
+		PROTOLATHE_CATEGORY_CIRCUITRY,
+	)
 
 // /datum/design/undertile_shell
 // 	id = "undertile_shell"

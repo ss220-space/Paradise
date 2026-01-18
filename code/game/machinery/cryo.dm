@@ -377,12 +377,12 @@
 		occupant_overlay.icon = occupant.icon
 		occupant_overlay.icon_state = occupant.icon_state
 		occupant_overlay.overlays = occupant.overlays
-		occupant_overlay.pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW
+		occupant_overlay.pixel_z = OCCUPANT_PIXEL_BOUNCE_LOW
 		occupant_overlay.layer = layer + 0.01
 
 		if(on)
-			animate(occupant_overlay, time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_HIGH)
-			animate(time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_y = OCCUPANT_PIXEL_BOUNCE_LOW)
+			animate(occupant_overlay, time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_z = OCCUPANT_PIXEL_BOUNCE_HIGH)
+			animate(time = 3 SECONDS, loop = -1, easing = QUAD_EASING, pixel_z = OCCUPANT_PIXEL_BOUNCE_LOW)
 
 		. += mutable_appearance(icon = icon, icon_state = "lid[on]", layer = occupant_overlay.layer + 0.01)
 
