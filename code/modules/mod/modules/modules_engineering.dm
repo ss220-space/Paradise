@@ -106,7 +106,7 @@
 		TRAIT_NO_SLIP_ICE,
 		TRAIT_NO_SLIP_SLIDE,
 		TRAIT_NEGATES_GRAVITY,
-		)
+	)
 
 /obj/item/mod/module/magboot/get_ru_names()
 	return list(
@@ -152,7 +152,7 @@
 		TRAIT_NO_SLIP_SLIDE,
 		TRAIT_GUSTPROTECTION,
 		TRAIT_NEGATES_GRAVITY,
-		)
+	)
 
 /obj/item/mod/module/magboot/atmos/get_ru_names()
 	return list(
@@ -178,7 +178,7 @@
 		TRAIT_NO_SLIP_SLIDE,
 		TRAIT_NEGATES_GRAVITY,
 		TRAIT_GUSTPROTECTION,
-		)
+	)
 
 /obj/item/mod/module/magboot/advanced/get_ru_names()
 	return list(
@@ -203,7 +203,7 @@
 		TRAIT_NO_SLIP_SLIDE,
 		TRAIT_NEGATES_GRAVITY,
 		TRAIT_GUSTPROTECTION,
-		)
+	)
 
 /obj/item/mod/module/magboot/advanced/elite/get_ru_names()
 	return list(
