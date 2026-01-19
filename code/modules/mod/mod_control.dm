@@ -341,6 +341,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
+		return ATTACK_CHAIN_PROCEED
 	if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
@@ -393,11 +394,9 @@
 		bag.handle_item_insertion(I, prevent_warning)
 
 /obj/item/mod/control/get_cell()
-	if(!open)
-		return
 	var/obj/item/stock_parts/cell/cell = get_charge_source()
 	if(!istype(cell))
-		return
+		return null
 	return cell
 
 /obj/item/mod/control/GetAccess()

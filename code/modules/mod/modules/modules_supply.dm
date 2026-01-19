@@ -466,7 +466,26 @@
 	if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
 		return
 
-	if(!is_type_in_typecache(mod.wearer.loc, accretion_turfs))
+	if(is_type_in_typecache(mod.wearer.loc, accretion_turfs))
+		if(traveled_tiles >= max_traveled_tiles)
+			return
+
+		traveled_tiles++
+		var/speed_up = FALSE
+		if(!(traveled_tiles >= max_traveled_tiles))
+			return
+		balloon_alert(mod.wearer, "полное покрытие пеплом")
+		mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
+		animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
+		playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
+		actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
+		LAZYADD(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
+		for(var/obj/item/part as anything in mod.get_parts(TRUE))
+			part.armor = part.armor.attachArmor(armor_mod_1.armor)
+			if(!speed_up)
+				continue
+			part.slowdown -= speed_added / 5
+	else
 		if(traveled_tiles <= 0)
 			return
 		var/speed_up = FALSE
@@ -475,28 +494,12 @@
 		traveled_tiles--
 		for(var/obj/item/part as anything in mod.get_parts(TRUE))
 			part.armor = part.armor.detachArmor(armor_mod_1.armor)
-			if(speed_up)
-				part.slowdown += actual_speed_added
+			if(!speed_up)
+				continue
+			part.slowdown += actual_speed_added
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
 			LAZYREMOVE(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
-		return
-	// if(is_type_in_typecache(mod.wearer.loc, accretion_turfs))
-	if(traveled_tiles >= max_traveled_tiles)
-		return
-	traveled_tiles++
-	var/speed_up = FALSE
-	if(traveled_tiles >= max_traveled_tiles)
-		balloon_alert(mod.wearer, "полное покрытие пеплом")
-		mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
-		animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
-		playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
-		actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
-		LAZYADD(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
-	for(var/obj/item/part as anything in mod.get_parts(TRUE))
-		part.armor = part.armor.attachArmor(armor_mod_1.armor)
-		if(!speed_up)
-			part.slowdown -= speed_added / 5
 
 /obj/effect/temp_visual/light_ash
 	icon_state = "light_ash"
@@ -583,7 +586,7 @@
 	var/obj/projectile/bomb = new /obj/projectile/bullet/reusable/mining_bomb(get_turf(mod.wearer))
 	bomb.original = target
 	bomb.firer = mod.wearer
-	bomb.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	bomb.preparePixelProjectile(target, mod.wearer)
 	bomb.fire()
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 75, TRUE)
 	INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/projectile, fire))
