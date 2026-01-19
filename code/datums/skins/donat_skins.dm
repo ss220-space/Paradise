@@ -293,12 +293,12 @@
 /datum/item_skin_data/doublebarrel/default
 	name = "Обычный"
 	icon_state = "dshotgun"
-	donation_tier = 1
+	donation_tier = 2
 
 /datum/item_skin_data/doublebarrel/dark_red
 	name = "Тёмно-красная отделка"
 	icon_state = "dshotgun-d"
-	donation_tier = 1
+	donation_tier = 2
 
 /datum/item_skin_data/doublebarrel/ash
 	name = "Пепельный"
@@ -308,14 +308,14 @@
 /datum/item_skin_data/doublebarrel/fadded_grey
 	name = "Выцветший серый"
 	icon_state = "dshotgun-g"
-	donation_tier = 2
+	donation_tier = 3
 
 /datum/item_skin_data/doublebarrel/maple
 	name = "Кленовый"
 	icon_state = "dshotgun-l"
-	donation_tier = 3
+	donation_tier = 4
 
 /datum/item_skin_data/doublebarrel/rosewood
 	name = "Палисандровый"
 	icon_state = "dshotgun-p"
-	donation_tier = 3
+	donation_tier = 4
