@@ -193,6 +193,7 @@
 /mob/living/proc/MobBump(mob/living/bumped_mob)
 	// even if we don't push/swap places, we "touched" them, so spread fire
 	spreadFire(bumped_mob)
+	SEND_SIGNAL(src, COMSIG_LIVING_MOB_BUMP, bumped_mob)
 
 	if(get_confusion() && get_disoriented())
 		Weaken(1 SECONDS)
@@ -1293,7 +1294,7 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_EARLY_FLASH_EYES, intensity, override_blindness_check, affect_silicon, visual, type) & STOP_FLASHING_EYES)
 		return FALSE
 
-	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
+	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)) && !HAS_TRAIT(src, TRAIT_FLASH_PROTECTION))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
@@ -1719,22 +1720,25 @@
 		if(NAMEOF(src, lighting_alpha))
 			sync_lighting_plane_alpha()
 
-/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+/mob/living/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable, block_movement)
 	stop_pulling()
 	return ..()
 
-/mob/living/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	if(C == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
+/mob/living/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(throwned_mob == src || (movement_type & MOVETYPES_NOT_TOUCHING_GROUND) || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
 	if(mob_hurt)
 		return
 	if(!self_hurt)
 		take_organ_damage(damage)
-	C.take_organ_damage(damage)
-	C.Weaken(3 SECONDS)
-	C.visible_message(span_danger("[C.name] вреза[PLUR_ET_YUT(src)]ся в [name], сбивая друг друга с ног!"),
-					span_userdanger("Вы жестко врезаетесь в [name]!"))
+
+	throwned_mob.take_organ_damage(damage)
+	throwned_mob.Weaken(3 SECONDS)
+	throwned_mob.visible_message(
+		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)], сбивая [GEND_HIS_HER(src)] с ног!"),
+		span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!")
+	)
 
 /mob/living/proc/get_visible_species()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return UNKNOWN_STATUS_RUS
@@ -2084,6 +2088,9 @@
 
 /// Called when mob changes from a standing position into a prone while lacking the ability to stand up at the moment.
 /mob/living/proc/on_fall()
+	SHOULD_CALL_PARENT(TRUE)
+
+	SEND_SIGNAL(src, COMSIG_LIVING_THUD)
 	return
 
 /mob/living/set_stat(new_stat)

@@ -14,3 +14,12 @@
 #define JOULES * JOULE
 /// Conversion ratio from Watt over a machine process tick time to Joules
 #define WATT_TICK_TO_JOULE 2
+
+///powel cell charge defines
+#define CELL_CHARGE_UPPER_BORDER INFINITY
+#define CELL_CHARGE_HIGH 0.75
+#define CELL_CHARGE_TWO_THIRDS 0.66
+#define CELL_CHARGE_MEDIUM 0.5
+#define CELL_CHARGE_ONE_THIRD 0.33
+#define CELL_CHARGE_LOW 0.25
+#define CELL_CHARGE_LOWER_BORDER 0.01
