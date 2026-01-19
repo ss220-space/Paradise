@@ -83,10 +83,10 @@
 	. = ..()
 	if(work_timer)
 		stop_print()
-		balloon_alert_to_viewers("Принтер выключен", "принтер выключен")
+		balloon_alert_to_viewers("принтер выключен", "принтер выключен")
 		return
 	start_print()
-	balloon_alert_to_viewers("Принтер включен", "принтер включен")
+	balloon_alert_to_viewers("принтер включен", "принтер включен")
 
 /obj/machinery/money_printer/examine(mob/user)
 	. = ..()
