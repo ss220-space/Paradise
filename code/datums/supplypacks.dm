@@ -169,6 +169,40 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике противопожарного оборудования",
 	)
 
+/datum/supply_packs/emergency/proper
+	name = "Кластерная граната \"Мистер пропер\" "
+	contains = list(
+		/obj/item/grenade/clusterbuster/cleaner,
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate
+	containername = "ящик с кластерной гранатой \"Мистер пропер\" "
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кластерной гранатой \"Мистер пропер\" ",
+		GENITIVE = "ящика с кластерной гранатой \"Мистер пропер\" ",
+		DATIVE = "ящику с кластерной гранатой \"Мистер пропер\" ",
+		ACCUSATIVE = "ящик с кластерной гранатой \"Мистер пропер\" ",
+		INSTRUMENTAL = "ящиком с кластерной гранатой \"Мистер пропер\" ",
+		PREPOSITIONAL = "ящике с кластерной гранатой \"Мистер пропер\" ",
+	)
+
+/datum/supply_packs/emergency/proper
+	name = "Кластерная кислородная граната"
+	contains = list(
+		/obj/item/grenade/clusterbuster/oxygen,
+	)
+	cost = 150
+	containertype = /obj/structure/closet/crate
+	containername = "ящик с кластерной кислородной гранатой"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кластерной кислородной гранатой",
+		GENITIVE = "ящика с кластерной кислородной гранатой",
+		DATIVE = "ящику с кластерной кислородной гранатой",
+		ACCUSATIVE = "ящик с кластерной кислородной гранатой",
+		INSTRUMENTAL = "ящиком с кластерной кислородной гранатой",
+		PREPOSITIONAL = "ящике с кластерной кислородной гранатой",
+	)
+
 /datum/supply_packs/emergency/atmostank
 	name = "Противопожарный ранец"
 	contains = list(
@@ -1557,6 +1591,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/modsuit_atmos
 	name = "Атмосферные МЭК"
+	cost = 130
 	contains = list(
 		/obj/item/mod/control/pre_equipped/atmospheric,
 		/obj/item/mod/control/pre_equipped/atmospheric,
@@ -2210,8 +2245,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/screwdriver/industrial,
 		/obj/item/screwdriver/industrial,
 	)
-	cost = 60
-	containertype = /obj/structure/closet/crate/secure/engineering
+	cost = 30
+	containertype = /obj/structure/closet/crate/engineering/electrical
 	containername = "ящик продвинутых инструментов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик продвинутых инструментов",
@@ -2220,6 +2255,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик продвинутых инструментов",
 		INSTRUMENTAL = "ящиком продвинутых инструментов",
 		PREPOSITIONAL = "ящике продвинутых инструментов",
+	)
+
+	/datum/supply_packs/engineering/indumulti
+	name = "Продвинутые мультиметры"
+	containername = "ящик продвинутых мультиметров"
+	contains = list(
+		/obj/item/multitool/industrial,
+		/obj/item/multitool/industrial,
+		/obj/item/multitool/industrial,
+	)
+	cost = 60
+	containertype = /obj/structure/closet/crate/engineering/electrical
+	containername = "ящик продвинутых мультиметров"
+	container_ru_names = list(
+		NOMINATIVE = "ящик продвинутых мультиметров",
+		GENITIVE = "ящика продвинутых мультиметров",
+		DATIVE = "ящику продвинутых мультиметров",
+		ACCUSATIVE = "ящик продвинутых мультиметров",
+		INSTRUMENTAL = "ящиком продвинутых мультиметров",
+		PREPOSITIONAL = "ящике продвинутых мультиметров",
 	)
 
 ///////////// Station Goals
