@@ -1857,7 +1857,7 @@
 		return ..()
 
 	var/mob/living/carbon/human/human = user
-	var/heal_internal_bleed = prob(25) ? TRUE : FALSE  // 25% to heal one internal bleeding per tick
+	var/heal_internal_bleed = prob(25) // 25% to heal one internal bleeding per tick
 	for(var/obj/item/organ/external/bodypart as anything in human.bodyparts)
 		if(heal_internal_bleed && bodypart.has_internal_bleeding())
 			heal_internal_bleed = FALSE

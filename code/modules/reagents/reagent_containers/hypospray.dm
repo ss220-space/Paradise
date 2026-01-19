@@ -796,15 +796,17 @@
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/zagustin/update_icon_state()
-	icon_state = "[icon_state][count_of_use > 0 ? "" : "0"]"
+	icon_state = "[initial(icon_state)][count_of_use > 0 ? "" : "0"]"
 
 /obj/item/reagent_containers/hypospray/autoinjector/zagustin/update_overlays()
 	. = ..()
 	if(count_of_use > 0)
-		. += "[icon_state][count_of_use]"
+		. += "[initial(icon_state)][count_of_use]"
 
 /obj/item/reagent_containers/hypospray/autoinjector/zagustin/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
+		return
 	if(count_of_use <= 0)
 		return
 	count_of_use--
