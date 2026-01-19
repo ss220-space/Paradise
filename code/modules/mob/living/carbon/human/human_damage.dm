@@ -314,14 +314,7 @@
 	if(AFFECT_INTERNAL_ORGANS & flags)
 		organs += internal_organs
 	for(var/obj/item/organ/organ as anything in organs)
-		var/external = istype(organ, /obj/item/organ/external)
-		var/damaged = FALSE
-		if(external)
-			var/obj/item/organ/external/bodypart = organ
-			damaged = (brute && bodypart.brute_dam) || (burn && bodypart.burn_dam)
-		else
-			var/obj/item/organ/internal/int_organ = organ
-			damaged = int_organ.damage > 0
+		var/damaged = organ.is_damaged(brute, burn)
 		if(damaged)
 			if(!(flags & AFFECT_ROBOTIC_ORGAN) && organ.is_robotic())
 				continue

@@ -1,3 +1,17 @@
+#define BRUTE_HEAL_AMOUNT 3
+#define BRUTE_HEAL_COST 2
+
+#define BURN_HEAL_AMOUNT 3
+#define BURN_HEAL_COST 1
+
+#define INTERNAL_HEAL_AMOUNT 3
+#define INTERNAL_HEAL_COST 3
+
+#define FRACTURE_HEAL_COST 10
+
+#define PASSIVE_RAD_DRAIN 1
+
+
 /datum/element/radiation_healing
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY
 
@@ -7,13 +21,13 @@
 	if(!ishuman(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_LIVING_LIFE, PROC_REF(on_life))
+	RegisterSignal(target, COMSIG_LIVING_LIFE, PROC_REF(try_healing))
 
 /datum/element/radiation_healing/Detach(datum/source)
 	. = ..()
 	UnregisterSignal(source, COMSIG_LIVING_LIFE)
 
-/datum/element/radiation_healing/proc/on_life(mob/living/carbon/human/human, deltatime, times_fired)
+/datum/element/radiation_healing/proc/try_healing(mob/living/carbon/human/human, deltatime, times_fired)
 	SIGNAL_HANDLER
 
 	if(isnull(human) || QDELETED(human))
@@ -49,7 +63,7 @@
 
 	if(human.radiation >= heal_cost * heal_mod)
 		human.radiation = max(human.radiation - heal_cost * heal_mod, 0)
-		human.heal_damages(heal_brute * heal_mod, heal_burn * heal_mod)
+		human.heal_overall_damage(heal_brute * heal_mod, heal_burn * heal_mod)
 
 	//internal healing in medium priority. Using radium won't heal internal damage while healing external damage
 	var/list/obj/item/organ/internal/int_damaged_organs = human.get_damaged_organs(flags = AFFECT_ORGANIC_INTERNAL_PARTS)
@@ -71,3 +85,13 @@
 
 	if(HAS_TRAIT(human, TRAIT_NO_RADIATION_EFFECTS)) // TRAIT_NO_RADIATION_EFFECTS stops radiation effects including passive radiation drain, so we drain it passively here
 		human.radiation = max(human.radiation - PASSIVE_RAD_DRAIN, 0)
+
+
+#undef BRUTE_HEAL_AMOUNT
+#undef BRUTE_HEAL_COST
+#undef BURN_HEAL_AMOUNT
+#undef BURN_HEAL_COST
+#undef INTERNAL_HEAL_AMOUNT
+#undef INTERNAL_HEAL_COST
+#undef FRACTURE_HEAL_COST
+#undef PASSIVE_RAD_DRAIN
