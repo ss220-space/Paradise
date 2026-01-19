@@ -731,7 +731,8 @@
 		nothing_chance = max(0, nothing_chance - gloves.extra_knock_chance) //added chance remove from nothing way
 
 	var/total_chance = move_chance + knock_chance + attack_chance + nothing_chance
-	var/random_value = rand(0, total_chance)
+	var/random_value = rand(1, total_chance)
+
 	if(random_value <= move_chance)
 		return DISARM_WAY_MOVE
 
@@ -772,6 +773,7 @@
 			target.stop_pulling()
 
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
+	return TRUE
 
 /datum/species/proc/do_disarm_shove(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/shove_dir = get_dir(user.loc, target.loc)
@@ -812,7 +814,7 @@
 	if(target.Move(shove_to, shove_dir))
 		return DISARM_SHOVE_CHECK_RESULT_MOVED
 
-	if(!directional_blocked)
+	if(!directional_blocked && prob(75))
 		return DISARM_SHOVE_CHECK_RESULT_INTO_WALL
 	return DISARM_SHOVE_CHECK_RESULT_NOT_MOVED
 
