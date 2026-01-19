@@ -5,6 +5,7 @@
 	density = TRUE
 	max_integrity = 200
 	cares_about_temperature = TRUE
+	var/heat_resistance = 1000
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral
@@ -417,3 +418,8 @@
 				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)
 	qdel(src)
+
+/obj/structure/door_assembly/temperature_expose(exposed_temperature, exposed_volume, base_structure_expose = FALSE)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)

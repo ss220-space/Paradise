@@ -103,9 +103,9 @@
 		if(sterile)
 			. += span_boldannounceic("Похоже хоботок [GEND_HIS_HER(src)] удалили.")
 
-/obj/item/clothing/mask/facehugger/temperature_expose(temperature, volume)
+/obj/item/clothing/mask/facehugger/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
+	if(exposed_temperature > 300)
 		Die()
 
 /obj/item/clothing/mask/facehugger/equipped(mob/living/user, slot, initial = FALSE)

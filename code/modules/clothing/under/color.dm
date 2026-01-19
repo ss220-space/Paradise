@@ -30,28 +30,23 @@
 
 /obj/item/clothing/under/color/random/Initialize(mapload)
 	. = ..()
-
-	var/static/list/excluded = list(
-		/obj/item/clothing/under/color/random,
-		/obj/item/clothing/under/color/blue/dodgeball,
-		/obj/item/clothing/under/color/orange/prison,
-		/obj/item/clothing/under/prison,
-		/obj/item/clothing/under/color/red/dodgeball,
-		/obj/item/clothing/under/color/red/jersey,
-		/obj/item/clothing/under/color/blue/jersey,
-	)
-	var/static/list/allowed_colors = subtypesof(/obj/item/clothing/under/color) - excluded
+	var/static/list/allowed_colors
+	if(!allowed_colors)
+		var/list/excluded = list(
+			/obj/item/clothing/under/color/random,
+			/obj/item/clothing/under/color/blue/dodgeball,
+			/obj/item/clothing/under/color/orange/prison,
+			/obj/item/clothing/under/prison,
+			/obj/item/clothing/under/color/red/dodgeball,
+			/obj/item/clothing/under/color/red/jersey,
+			/obj/item/clothing/under/color/blue/jersey,
+		)
+		allowed_colors = subtypesof(/obj/item/clothing/under/color) - excluded
 	var/obj/item/clothing/under/color/new_color = pick(allowed_colors)
-	name = initial(new_color.name)
-	icon_state = initial(new_color.icon_state)
-	item_state = initial(new_color.item_state)
+	name = new_color.name
 	item_color = initial(new_color.item_color)
-	greyscale_colors = initial(new_color.greyscale_colors)
-	greyscale_config = initial(new_color.greyscale_config)
-	greyscale_config_inhand_left = initial(new_color.greyscale_config_inhand_left)
-	greyscale_config_inhand_right = initial(new_color.greyscale_config_inhand_right)
-	if(greyscale_config && greyscale_colors)
-		update_greyscale()
+	set_greyscale_colors(new_color.greyscale_colors)
+
 
 /obj/item/clothing/under/color/black
 	name = "black jumpsuit"

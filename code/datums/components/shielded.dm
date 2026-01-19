@@ -141,7 +141,7 @@
 	wearer.cut_overlay(shield)
 	var/mutable_appearance/shield_appearance = mutable_appearance(shield_icon_file, (current_charges > 0 ? shield_icon : "broken"), MOB_LAYER + 0.01)
 	if(show_charge_as_alpha)
-		shield_appearance.alpha = (current_charges/max_charges)*255
+		shield_appearance.alpha = (current_charges/max_charges) * 255
 	wearer.add_overlay(shield_appearance)
 	shield = shield_appearance
 

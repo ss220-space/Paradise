@@ -366,9 +366,9 @@
 
 		new /obj/structure/alien/weeds(T, linked_node)
 
-/obj/structure/alien/weeds/temperature_expose(temperature, volume)
+/obj/structure/alien/weeds/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
+	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/alien/weeds/proc/updateWeedOverlays()
@@ -378,10 +378,10 @@
 	if(!weedImageCache || !length(weedImageCache))
 		weedImageCache = list()
 		weedImageCache.len = 4
-		weedImageCache[WEED_NORTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_n", layer=2.11, pixel_y = -32)
-		weedImageCache[WEED_SOUTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_s", layer=2.11, pixel_y = 32)
-		weedImageCache[WEED_EAST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_e", layer=2.11, pixel_x = -32)
-		weedImageCache[WEED_WEST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_w", layer=2.11, pixel_x = 32)
+		weedImageCache[WEED_NORTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_n", layer=2.11, pixel_z = -32)
+		weedImageCache[WEED_SOUTH_EDGING] = image('icons/mob/alien.dmi', "weeds_side_s", layer=2.11, pixel_z = 32)
+		weedImageCache[WEED_EAST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_e", layer=2.11, pixel_w = -32)
+		weedImageCache[WEED_WEST_EDGING] = image('icons/mob/alien.dmi', "weeds_side_w", layer=2.11, pixel_w = 32)
 
 	var/turf/N = get_step(src, NORTH)
 	var/turf/S = get_step(src, SOUTH)
@@ -554,9 +554,9 @@
 	if(!(obj_flags & NODECONSTRUCT) && status != BURST)
 		Burst(kill = TRUE)
 
-/obj/structure/alien/egg/temperature_expose(temperature, volume)
+/obj/structure/alien/egg/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 500)
+	if(exposed_temperature > 500)
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/alien/egg/HasProximity(atom/movable/AM)

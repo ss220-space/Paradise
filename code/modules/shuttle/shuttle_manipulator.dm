@@ -31,8 +31,8 @@
 
 /obj/machinery/shuttle_manipulator/update_overlays()
 	. = ..()
-	. += image(icon, icon_state = "hologram_on", pixel_y = 22)
-	. += image(icon, icon_state = "hologram_whiteship", pixel_y = 27)
+	. += image(icon, icon_state = "hologram_on", pixel_z = 22)
+	. += image(icon, icon_state = "hologram_whiteship", pixel_z = 27)
 
 /obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
 	attack_hand(user)

@@ -98,6 +98,9 @@
 	var/turf/simulated/t_loc = get_turf(src)
 	SEND_SIGNAL(t_loc, COMSIG_TURF_MAKE_DRY, TURF_WET_WATER, TRUE, INFINITY)
 
+/obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
+	slowdown = 0
+
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"

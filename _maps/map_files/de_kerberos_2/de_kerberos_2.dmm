@@ -2045,7 +2045,7 @@
 	id = "hangar";
 	name = "Hangar Doors Control";
 	pixel_y = -8;
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /turf/simulated/wall,
 /area/engineering/mechanic_workshop/hangar)
@@ -2279,7 +2279,7 @@
 "auB" = (
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Hangar";
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /obj/machinery/door/firedoor,
 /turf/simulated/floor/plasteel{
@@ -5470,7 +5470,7 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(18,48,70,71)
+	req_access = list(18,47,48,70,71)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,

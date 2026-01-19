@@ -81,6 +81,8 @@
 	var/fire_log_text
 	/// Whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 	var/log_override = FALSE
+	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
+	var/immolate = 0
 
 	//Effects
 	var/stun = 0
@@ -292,6 +294,10 @@
 			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
 								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+
+		if(immolate)
+			L.adjust_fire_stacks(immolate)
+			L.IgniteMob()
 
 		if(L?.mind && firer?.mind?.objectives)
 			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())

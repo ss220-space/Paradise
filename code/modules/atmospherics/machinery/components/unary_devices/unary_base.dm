@@ -101,7 +101,3 @@
 
 	var/datum/gas_mixture/to_release = air_contents.remove(lost)
 	T.blind_release_air(to_release)
-
-/obj/machinery/atmospherics/unary/process_atmos()
-	..()
-	return parent
