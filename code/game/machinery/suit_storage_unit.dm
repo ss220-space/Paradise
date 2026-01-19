@@ -802,6 +802,8 @@
 /obj/machinery/suit_storage_unit/process(seconds_per_tick)
 	var/list/cells_to_charge = list()
 	for(var/obj/item/charging in list(suit, helmet, mask, storage))
+		if(!charging)
+			continue
 		var/obj/item/stock_parts/cell/cell_charging = charging.get_cell()
 		if(!istype(cell_charging) || cell_charging.charge == cell_charging.maxcharge)
 			continue
@@ -812,6 +814,6 @@
 	if(cell_count <= 0)
 		return
 
+	var/charge_per_item = base_charge_rate / cell_count
 	for(var/obj/item/stock_parts/cell/cell as anything in cells_to_charge)
-		var/charge_per_item = base_charge_rate / cell_count
 		cell.give(charge_per_item)
