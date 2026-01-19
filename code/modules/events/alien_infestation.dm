@@ -1,5 +1,5 @@
-#define ALIEN_HIGHPOP_TRIGGER 60
-#define ALIEN_MIDPOP_TRIGGER 40
+#define ALIEN_HIGHPOP_TRIGGER 50
+#define ALIEN_MIDPOP_TRIGGER 35
 
 /datum/event/alien_infestation
 	announceWhen	= 400
@@ -21,12 +21,15 @@
 /datum/event/alien_infestation/proc/wrappedstart()
 	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
 	playercount = num_station_players() //grab playercount when event starts not when game starts
+
 	if(playercount <= ALIEN_MIDPOP_TRIGGER)
 		spawn_vectors(vents, 1)
 		return
+
 	if(playercount >= ALIEN_HIGHPOP_TRIGGER) //spawn with 4 if highpop
 		spawn_larvas(vents, 4)
 		return
+
 	spawn_larvas(vents, 2)
 
 #undef ALIEN_HIGHPOP_TRIGGER

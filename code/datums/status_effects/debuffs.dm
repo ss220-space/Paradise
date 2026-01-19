@@ -50,8 +50,8 @@
 /datum/status_effect/crusher_mark/on_apply()
 	if(owner.mob_size >= MOB_SIZE_LARGE)
 		marked_underlay = mutable_appearance('icons/effects/effects.dmi', "shield2")
-		marked_underlay.pixel_x = -owner.pixel_x
-		marked_underlay.pixel_y = -owner.pixel_y
+		marked_underlay.pixel_w = -owner.pixel_x
+		marked_underlay.pixel_z = -owner.pixel_y
 		owner.underlays += marked_underlay
 		return TRUE
 	return FALSE
@@ -187,10 +187,10 @@
 	bleed_overlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	bleed_underlay = mutable_appearance('icons/effects/bleed.dmi', "bleed[bleed_amount]")
 	var/icon_height = owner.get_cached_height()
-	bleed_overlay.pixel_x = -owner.pixel_x
-	bleed_overlay.pixel_y = FLOOR(icon_height * 0.25, 1)
+	bleed_overlay.pixel_w = -owner.pixel_x
+	bleed_overlay.pixel_z = FLOOR(icon_height * 0.25, 1)
 	bleed_overlay.transform = matrix() * (icon_height / ICON_SIZE_Y) //scale the bleed overlay's size based on the target's icon size
-	bleed_underlay.pixel_x = -owner.pixel_x
+	bleed_underlay.pixel_w = -owner.pixel_x
 	bleed_underlay.transform = matrix() * (icon_height / ICON_SIZE_Y) * 3
 	bleed_underlay.alpha = 40
 	owner.add_overlay(bleed_overlay)
@@ -246,6 +246,15 @@
 
 /datum/status_effect/stamina_dot/tick(seconds_between_ticks)
 	owner.adjustStaminaLoss(10)
+
+// MARK: oxy_dot
+/datum/status_effect/oxy_dot
+	id = "oxy_dmg_dot"
+	duration = 6 SECONDS
+	alert_type = null
+
+/datum/status_effect/oxy_dot/tick(seconds_between_ticks)
+	owner.adjustOxyLoss(4)
 
 // MARK: bluespace_slowdown
 /datum/status_effect/bluespace_slowdown
@@ -304,7 +313,7 @@
 	new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 
 	marked_overlay = mutable_appearance('icons/effects/effects.dmi', "cult_halo1")
-	marked_overlay.pixel_y = 3
+	marked_overlay.pixel_z = 3
 	owner.add_overlay(marked_overlay)
 	return ..()
 
@@ -453,7 +462,8 @@
 		return
 	var/matrix/M = matrix()
 	M.Scale(0.6)
-	overlay = image('icons/effects/effects.dmi', "confusion", pixel_y = 20)
+	overlay = image('icons/effects/effects.dmi', "confusion")
+	overlay.pixel_z = 20
 	overlay.transform = M
 	owner.add_overlay(overlay)
 
@@ -851,6 +861,28 @@
 		owner.remove_movespeed_modifier(/datum/movespeed_modifier/status_effect/slowed)
 
 #undef DEFAULT_SLOWED_DELAY
+
+// Directional slow - Like slowed, but only if you're moving in a certain direction.
+/datum/status_effect/incapacitating/directional_slow
+	id = "directional_slow"
+	var/direction
+	var/slowdown_value = 10 // defaults to this value if none is specified
+
+/datum/status_effect/incapacitating/directional_slow/on_creation(mob/living/new_owner, set_duration, _direction, _slowdown_value)
+	. = ..()
+	direction = _direction
+	if(isnum(_slowdown_value))
+		slowdown_value = _slowdown_value
+	new_owner.AddElement(/datum/element/directional_slowdown, direction, slowdown_value )
+
+/datum/status_effect/incapacitating/directional_slow/be_replaced()
+	owner.RemoveElement(/datum/element/directional_slowdown, direction, slowdown_value)
+	. = ..()
+
+/datum/status_effect/incapacitating/directional_slow/on_remove()
+	owner.RemoveElement(/datum/element/directional_slowdown, direction, slowdown_value )
+	. = ..()
+
 
 // MARK: Silence
 /datum/status_effect/transient/silence
@@ -1459,3 +1491,47 @@
 /obj/effect/temp_visual/curse/Initialize(mapload)
 	. = ..()
 	deltimer(timerid)
+
+/mob/living/proc/set_bloody_screen(time)
+	var/datum/status_effect/bloody_screen/overdose = has_status_effect(/datum/status_effect/bloody_screen)
+
+	if(QDELETED(overdose))
+		apply_status_effect(/datum/status_effect/bloody_screen)
+		return overdose
+
+	overdose.apply_debuff()
+	overdose.duration = time
+	return overdose
+
+/datum/status_effect/bloody_screen
+	id="bloody_screen"
+	alert_type = null
+
+/datum/status_effect/bloody_screen/on_creation(mob/living/new_owner)
+	. = ..()
+
+	if(!.)
+		return
+
+	apply_debuff()
+
+/datum/status_effect/bloody_screen/on_remove()
+	remove_debuff()
+
+/datum/status_effect/bloody_screen/proc/apply_debuff()
+	owner.overlay_fullscreen("bloody_screen", /atom/movable/screen/fullscreen/bloody_screen, 1)
+
+/datum/status_effect/bloody_screen/proc/remove_debuff()
+	owner.clear_fullscreen("bloody_screen", 50)
+
+/// The mob has been pushed by airflow recently, and won't automatically grab nearby objects to stop drifting.
+/datum/status_effect/unbalanced
+	id = "unbalanced"
+	duration = 1 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/unbalanced
+
+/atom/movable/screen/alert/status_effect/unbalanced
+	name = "Unbalanced"
+	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
+	icon_state = "unbalanced"

@@ -230,7 +230,7 @@
 	if(!ghost || isliving(ghost))
 		return
 	var/atom/atom_parent = parent
-	to_chat(ghost, span_green("Вы можете снова ввести команду для управления [atom_parent.declent_ru(INSTRUMENTAL)] ([ghost_follow_link(parent, ghost)])."))
+	to_chat(ghost, "([ghost_follow_link(parent, ghost)]) [span_green("Вы можете снова ввести команду для управления [atom_parent.declent_ru(INSTRUMENTAL)].")]")
 
 /// Dummy to call since we can't proc reference builtins
 /datum/component/deadchat_control/proc/_step(ref, dir)

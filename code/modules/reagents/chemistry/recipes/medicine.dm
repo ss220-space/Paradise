@@ -370,3 +370,11 @@
 	required_reagents = list("acetaldehyde" = 1, "carbon" = 1)
 	result_amount = 1
 	mix_message = "Смесь приобретает оранжевый оттенок."
+
+/datum/chemical_reaction/sanguinius
+	name = "Сангвиний"
+	id = "sanguinius"
+	result = "sanguinius"
+	required_reagents = list("omnizine" = 1, "synthflesh" = 2, "iron" = 2)
+	result_amount = 5
+	mix_message = "Смесь бурлит короткое время, а затем конденсируется в густую кроваво-красную жидкость."

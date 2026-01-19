@@ -40,10 +40,6 @@ MULTIPLICATIVE_MOVESPEED /mob/living/simple_animal/slime 1.5
 ## Uncomment for explosions that react to doors and walls
 REACTIONARY_EXPLOSIONS
 
-# The number of objectives traitors get.
-# Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
-
 ### Configure the bomb cap
 ## This caps all explosions to the specified range. Used for both balance reasons and to prevent overloading the server and lagging the game out.
 ## This is given as the 3rd number(light damage) in the standard (1,2,3) explosion notation. The other numbers are derived by dividing by 2 and 4.
@@ -69,13 +65,6 @@ RANDOMIZE_SHIFT_TIME
 
 ## Enable Nightshift - Causes the station to go into "night mode" from 19:30 to 07:30. Best used with RANDOMIZED_SHIFT_TIME.
 ENABLE_NIGHT_SHIFTS
-
-## Lavaland "Budget"
-# Lavaland ruin spawning has an imaginary budget to spend on ruins, where
-# a less lootfilled or smaller or less round effecting ruin costs less to
-# spawn, while the converse is true. Alter this number to affect the amount
-# of ruins.
-LAVALAND_BUDGET 60
 
 ## Cube monkey limit
 # Amount of cube monkeys that can be spawned before the game limits them

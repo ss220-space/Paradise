@@ -92,16 +92,14 @@
 
 /obj/item/gun/projectile/proc/reload(obj/item/ammo_box/magazine/new_magazine, mob/user)
 	playsound(loc, magin_sound, 50, TRUE)
-	if(!do_after(user, GUN_MAGAZINE_RELOAD_DURATION, new_magazine, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
-		balloon_alert(user, "отменено")
-		return FALSE
-
 	if(user && !user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
 		return FALSE
+
 	. = TRUE
 	magazine = new_magazine
 	if(magazine.loc != src)
 		magazine.forceMove(src)
+
 	chamber_round()
 	update_weight()
 	magazine.update_icon()
@@ -138,13 +136,12 @@
 	. = TRUE
 	if(!isspeedloader(item) && !isammocasing(item))
 		return FALSE
+
 	add_fingerprint(user)
-	if(isspeedloader(item) && !do_after(user, GUN_MAGAZINE_RELOAD_DURATION, item, DA_IGNORE_LYING | DA_IGNORE_USER_LOC_CHANGE, interaction_key = src, max_interact_count = 1))
-		balloon_alert(user, "отменено")
-		return FALSE
 	var/num_loaded = magazine.reload(item, user)
 	if(!num_loaded)
 		return
+
 	update_icon()
 	chamber_round(FALSE)
 

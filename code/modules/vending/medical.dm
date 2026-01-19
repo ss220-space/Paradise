@@ -34,6 +34,7 @@
 		/obj/item/stack/medical/suture/advanced = 5,
 		/obj/item/stack/medical/bruise_pack/military = 10,
 		/obj/item/stack/medical/splint = 4,
+		/obj/item/tourniquet = 5, /obj/item/tourniquet/advanced = 4,
 		/obj/item/reagent_containers/food/pill/patch/styptic = 4,
 		/obj/item/reagent_containers/food/pill/patch/silver_sulf = 4,
 		/obj/item/reagent_containers/applicator/brute = 3,
@@ -80,6 +81,7 @@
 		/obj/item/stack/medical/bruise_pack/synthflesh_kit = 99,
 		/obj/item/stack/medical/suture/advanced = 149,
 		/obj/item/stack/medical/bruise_pack/military = 299,
+		/obj/item/tourniquet/advanced = 299,
 		/obj/item/reagent_containers/hypospray/safety = 199,
 		/obj/item/pinpointer/crew = 299,
 		/obj/item/sensor_device = 599,
@@ -191,6 +193,7 @@
 		/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 2,
 		/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 2,
 		/obj/item/stack/medical/suture = 4,
+		/obj/item/tourniquet = 4,
 		/obj/item/healthanalyzer = 1,
 	)
 	contraband = list(
@@ -203,6 +206,7 @@
 		/obj/item/reagent_containers/hypospray/autoinjector/charcoal = 69,
 		/obj/item/reagent_containers/hypospray/autoinjector/traneksam = 99,
 		/obj/item/stack/medical/suture = 99,
+		/obj/item/tourniquet = 99,
 		/obj/item/healthanalyzer = 99,
 	)
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 100, acid = 70)
@@ -243,6 +247,7 @@
 		/obj/item/stack/medical/bruise_pack = 2,
 		/obj/item/stack/medical/ointment = 2,
 		/obj/item/stack/medical/suture = 4,
+		/obj/item/tourniquet = 4,
 		/obj/item/reagent_containers/hypospray/autoinjector = 4,
 		/obj/item/healthanalyzer = 1,
 	)

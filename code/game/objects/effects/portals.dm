@@ -10,6 +10,8 @@
 	base_icon_state = "portal"
 	density = TRUE // dense for receiving bumbs
 	layer = HIGH_OBJ_LAYER
+	light_range = 3
+	light_color = COLOR_BLUE_LIGHT
 
 	var/obj/item/target
 	/// The UID and `name` of the object that created this portal. For example, a wormhole jaunter.
@@ -26,7 +28,7 @@
 	var/can_multitool_to_remove = FALSE
 	var/can_mecha_pass = FALSE
 	var/ignore_tele_proof_area_setting = FALSE
-	// Does this portal go away after one teleport?
+	/// Does this portal go away after one teleport?
 	var/one_use = FALSE
 	/// Does this portal bypass teleport restrictions? like TRAIT_NO_TELEPORT
 	var/force_teleport = FALSE

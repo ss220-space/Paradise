@@ -13,6 +13,7 @@ export const MainMenu = (properties) => {
     linked_lathe,
     linked_imprinter,
     tech_levels,
+    disk_only,
   } = data;
 
   return (
@@ -30,30 +31,36 @@ export const MainMenu = (properties) => {
         >
           Операции с дискетами
         </RndNavButton>
-        <RndNavButton
-          disabled={!linked_destroy}
-          menu={MENU.DESTROY}
-          submenu={SUBMENU.MAIN}
-          icon="unlink"
-        >
-          Деструктивный анализатор
-        </RndNavButton>
-        <RndNavButton
-          disabled={!linked_lathe}
-          menu={MENU.LATHE}
-          submenu={SUBMENU.MAIN}
-          icon="print"
-        >
-          Протолат
-        </RndNavButton>
-        <RndNavButton
-          disabled={!linked_imprinter}
-          menu={MENU.IMPRINTER}
-          submenu={SUBMENU.MAIN}
-          icon="print"
-        >
-          Принтер плат
-        </RndNavButton>
+        {!disk_only && (
+          <RndNavButton
+            disabled={!linked_destroy}
+            menu={MENU.DESTROY}
+            submenu={SUBMENU.MAIN}
+            icon="unlink"
+          >
+            Деструктивный анализатор
+          </RndNavButton>
+        )}
+        {!disk_only && (
+          <RndNavButton
+            disabled={!linked_lathe}
+            menu={MENU.LATHE}
+            submenu={SUBMENU.MAIN}
+            icon="print"
+          >
+            Протолат
+          </RndNavButton>
+        )}
+        {!disk_only && (
+          <RndNavButton
+            disabled={!linked_imprinter}
+            menu={MENU.IMPRINTER}
+            submenu={SUBMENU.MAIN}
+            icon="print"
+          >
+            Принтер плат
+          </RndNavButton>
+        )}
         <RndNavButton menu={MENU.SETTINGS} submenu={SUBMENU.MAIN} icon="cog">
           Настройки
         </RndNavButton>

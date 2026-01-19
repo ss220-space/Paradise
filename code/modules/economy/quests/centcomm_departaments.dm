@@ -190,7 +190,7 @@
 	station_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_STATION), "Завершённый запрос на поставку", "Терминал Бизель №[rand(111,333)]", "Счёт объекта")
 
 	SScapitalism.total_cargo_bounty += round(reward * PERCENTAGE_PAYMENTS_CARGO)
-	var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
+	var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 	cargo_money_account.credit(round(reward * PERCENTAGE_PAYMENTS_CARGO), "Завершённый запрос на поставку", "Терминал Бизель №[rand(111,333)]", "Счёт Отдела снабжения")
 
 	return TRUE

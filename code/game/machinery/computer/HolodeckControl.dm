@@ -218,7 +218,7 @@
 				if(prob(30))
 					do_sparks(2, TRUE, T)
 				T.ex_act(EXPLODE_LIGHT)
-				T.hotspot_expose(1000,500,1)
+				T.hotspot_expose(1000, 500)
 
 /obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
 	holographic_items.Remove(obj)

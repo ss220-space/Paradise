@@ -86,6 +86,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	/// Flag for Syndicate base
 	var/syndicate = 0
+	/// Flag for simplified console
+	var/disk_only = FALSE
 
 	/// ID of the computer (for server restrictions).
 	var/id = 0
@@ -230,6 +232,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return ..()
 		if(tech_disk)
 			t_disk = I
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_disk", TECH_UPDATE_DELAY)
 		else
 			d_disk = I
 		SStgui.update_uis(src)
@@ -588,6 +592,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
 			add_wait_message("Обновление базы данных...", TECH_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", TECH_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
 		if("clear_tech") //Erase data on the technology disk.
@@ -624,6 +630,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Обновление базы данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), DESIGN_UPDATE_DELAY)
 
 		if("clear_design") //Erases data on the design disk.
@@ -641,6 +649,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
+			add_wait_message("Загрузка данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 			var/datum/design/design = files.known_designs[params["id"]]
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
@@ -676,6 +687,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				to_chat(usr, span_danger("Консоль не подключена к сети НИО!"))
 			else
 				add_wait_message("Синхронизация базы данных...", SYNC_RESEARCH_DELAY)
+				if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+					flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
 
@@ -881,6 +894,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["src_ref"] = UID()
 	data["ui_theme"] = ui_theme
 
+	data["disk_only"] = disk_only
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
@@ -1008,7 +1022,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		wait_message_timer = null
 	SStgui.update_uis(src)
 
-
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
 	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
@@ -1111,6 +1124,29 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ACCUSATIVE = "публичную консоль НИО",
 		INSTRUMENTAL = "публичной консолью НИО",
 		PREPOSITIONAL = "публичной консоли НИО",
+	)
+
+/obj/machinery/computer/rdconsole/cargo
+	name = "cargo R&D console"
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий. Специализированная версия, используемая в отделе Снабжения."
+	id = 6
+	req_access = list(ACCESS_CARGO)
+	circuit = /obj/item/circuitboard/rdconsole/cargo
+	frame = /obj/structure/computerframe/cargo
+	disk_only = TRUE
+	ui_theme = "cargo"
+	icon_state = "cargocomp"
+	icon_screen = "cargocomp_screen_passive"
+	icon_keyboard = null
+
+/obj/machinery/computer/rdconsole/cargo/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль НИО отдела Снабжения",
+		GENITIVE = "консоли НИО отдела Снабжения",
+		DATIVE = "консоли НИО отдела Снабжения",
+		ACCUSATIVE = "консоль НИО отдела Снабжения",
+		INSTRUMENTAL = "консолью НИО отдела Снабжения",
+		PREPOSITIONAL = "консоли НИО отдела Снабжения"
 	)
 
 #undef TECH_UPDATE_DELAY

@@ -13,7 +13,7 @@
 		"Почем+у бы не съесть п+ончик?",
 		"Это не во+енное преступл+ение, +если теб+е б+ыло в+есело!",
 		"Люб+ой, кто беж+ит — прест+упник! Люб+ой, кто сто+ит — дисциплин+ированный прест+упник!",
-		"Стрел+яя по чл+енам экип+ажа, ты одн+ажды попад+ёшь в аг+ента Синдик+ата!"
+		"Стрел+яя по чл+енам экип+ажа, ты одн+ажды попад+ёшь в аг+ента Синдик+ата!",
 	)
 
 	icon_state = "sec_off"
@@ -45,6 +45,7 @@
 		/obj/item/grenade/smokebomb = 8,
 		/obj/item/storage/belt/security/judobelt = 3,
 		/obj/item/stack/medical/bruise_pack/military = 5,
+		/obj/item/tourniquet/advanced = 5,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -59,6 +60,7 @@
 		/obj/item/flashlight/sectaclight = 299,
 		/obj/item/grenade/smokebomb = 249,
 		/obj/item/stack/medical/bruise_pack/military = 299,
+		/obj/item/tourniquet/advanced = 399,
 	)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -82,7 +84,7 @@
 		"Т+ехника безоп+асности нам не п+исана, да?",
 		"1 из 10-ти попад+аний... А ты хор+ош!",
 		"Инстр+уктор – +это твой п+апочка!",
-		"Эй, ты куд+а ц+елишься?!"
+		"Эй, ты куд+а ц+елишься?!",
 	)
 
 	icon_state = "sectraining_off"

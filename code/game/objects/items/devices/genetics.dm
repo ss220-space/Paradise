@@ -187,7 +187,7 @@
 
 /obj/item/dna_notepad/verb/print_report_verb()
 	set name = "Печать отчёта"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	var/mob/user = usr
 	if(!istype(user))
 		return

@@ -8,29 +8,30 @@
 	/// List of refs to falling objects -> how many levels deep we've fallen
 	var/static/list/falling_atoms = list()
 	var/static/list/forbidden_types = typecacheof(list(
-		/obj/machinery/bfl_receiver,
-		/obj/singularity,
+		/mob/living/simple_animal/hostile/asteroid/elite, //failsafe also
+		/mob/living/simple_animal/hostile/megafauna, //failsafe
 		/obj/docking_port,
-		/obj/spacepod,
-		/obj/structure/lattice,
-		/obj/structure/stone_tile,
-		/obj/projectile,
-		/obj/effect/portal,
+		/obj/effect/abstract,
+		/obj/effect/collapse,
+		/obj/effect/ebeam,
 		/obj/effect/hotspot,
 		/obj/effect/landmark,
-		/obj/effect/temp_visual,
 		/obj/effect/light_emitter/tendril,
-		/obj/effect/collapse,
-		/obj/effect/abstract,
 		/obj/effect/particle_effect/fluid/smoke,
 		/obj/effect/particle_effect/ion_trails,
 		/obj/effect/particle_effect/sparks,
-		/obj/effect/wisp,
-		/obj/effect/ebeam,
+		/obj/effect/portal,
+		/obj/effect/projectile,
 		/obj/effect/spawner,
+		/obj/effect/temp_visual,
+		/obj/effect/wisp,
+		/obj/machinery/bfl_receiver,
+		/obj/projectile,
+		/obj/singularity,
+		/obj/spacepod,
+		/obj/structure/lattice,
 		/obj/structure/railing,
-		/mob/living/simple_animal/hostile/megafauna, //failsafe
-		/mob/living/simple_animal/hostile/asteroid/elite, //failsafe also
+		/obj/structure/stone_tile,
 	))
 
 /datum/component/chasm/Initialize(turf/target_turf, mapload)

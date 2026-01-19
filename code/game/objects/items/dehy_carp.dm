@@ -47,5 +47,5 @@
 	// Make space carp
 	var/mob/living/simple_animal/hostile/carp/megacarp/C = new /mob/living/simple_animal/hostile/carp/megacarp(get_turf(src))
 	// Make carp non-hostile to user, yes this means
-	C.faction |= list("syndicate", "\ref[owner]")
+	C.faction |= list("syndicate", PERSONAL_FACTION(owner))
 	qdel(src)

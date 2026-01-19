@@ -294,6 +294,10 @@
 	balloon_alert(user, "ты поднимаешь косу...")
 	ADD_TRAIT(src, TRAIT_NODROP, type)
 	var/mob/chosen_one = safepick(SSghost_spawns.poll_candidates(question = "Вы хотите сыгрыть за косу душ?", role = ROLE_PAI, poll_time = 20 SECONDS, source = src, role_cleanname = src.declent_ru(ACCUSATIVE)))
+
+	if(QDELETED(src) || QDELETED(user))
+		return
+
 	on_poll_concluded(user, chosen_one)
 
 /// Ghost poll has concluded and a candidate has been chosen.
@@ -306,7 +310,7 @@
 
 	soul.possess_by_player(ghost.ckey)
 	LAZYOR(soul.languages, master.languages) //Make sure the sword can understand and communicate with the master.
-	soul.faction = list("\ref[master]")
+	soul.faction = list(PERSONAL_FACTION(master))
 	soul.default_language = master.get_default_language()
 	balloon_alert(master, "коса светится")
 	add_overlay("soulscythe_gem")
@@ -444,7 +448,7 @@
 		return
 	COOLDOWN_START(src, attack_cooldown, 3 SECONDS)
 	var/obj/projectile/projectile = new /obj/projectile/soulscythe(get_turf(src))
-	projectile.preparePixelProjectile(attacked_atom, get_turf(attacked_atom), soul)
+	projectile.preparePixelProjectile(attacked_atom, soul)
 	projectile.firer = soul
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)

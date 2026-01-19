@@ -90,7 +90,7 @@
 		return
 
 	. += "There are [amount] [singular_name? singular_name : name]\s in the stack."
-	. += span_notice("Alt-click to take a custom amount.")
+	. += span_notice("Используйте <b>ALT+ЛКМ</b>, чтобы взять произвольное количество.")
 
 /obj/item/stack/proc/add(newamount)
 	if(is_cyborg)

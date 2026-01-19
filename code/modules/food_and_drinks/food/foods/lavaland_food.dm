@@ -74,7 +74,7 @@
 	name = "soft meat cubes"
 	desc = "Филе рыбы, порезанное на маленькие кубики и обжаренное в печи. Выглядит аппетитно."
 	gender = PLURAL
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "soft_meat_cubes"
 	list_reagents = list("nutriment" = 2, "vitamin" = 3, "protein" = 3)
 	bitesize = 3
@@ -95,7 +95,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/predatory_fish_slab
 	name = "cooked predatory fish slab"
 	desc = "Кусок мяса хищной рыбы, обжаренный в печи. Пригоден к употреблению."
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "predatory_fish_slab"
 	list_reagents = list("nutriment" = 4, "protein" = 6)
 	bitesize = 3
@@ -117,7 +117,7 @@
 	name = "eel ringlets"
 	desc = "Обжаренное в печи филе донного угря. Невероятно вкусное."
 	gender = PLURAL
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "eel_ringlets"
 	list_reagents = list("nutriment" = 4, "protein" = 6)
 	bitesize = 3
@@ -138,7 +138,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_bacon
 	name = "thali lazis bacon part"
 	desc = "Небольшая порция бекона, взятая из тарелки Тали Лазис."
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "thali_lazis_bacon"
 	overlay_sprite = "thali_lazis_bacon_overlay"
 	foodtype = MEAT
@@ -156,7 +156,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_cacti
 	name = "thali lazis cacti part"
 	desc = "Небольшой кактус, взятый из тарелки Тали Лазис."
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "thali_lazis_cacti"
 	overlay_sprite = "thali_lazis_cacti_overlay"
 	foodtype = FRUIT
@@ -174,7 +174,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_wing
 	name = "thali lazis wing part"
 	desc = "Небольшое крыло, взятое из тарелки Тали Лазис."
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "thali_lazis_wing"
 	overlay_sprite = "thali_lazis_wing_overlay"
 	foodtype = MEAT
@@ -192,7 +192,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_fish
 	name = "thali lazis fish part"
 	desc = "Небольшая порция рыбы, взятая из тарелки Тали Лазис."
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "thali_lazis_fish"
 	overlay_sprite = "thali_lazis_fish_overlay"
 	foodtype = MEAT
@@ -210,7 +210,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_crunchie
 	name = "thali lazis crunchie part"
 	desc = "Небольшая хрустящая порция, взятая из тарелки Тали Лазис."
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "thali_lazis_crunchie"
 	overlay_sprite = "thali_lazis_crunchie_overlay"
 	foodtype = MEAT
@@ -228,7 +228,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland/thali_lazis_bungus
 	name = "thali lazis bungus part"
 	desc = "Небольшая порция грибов, взятая из тарелки Тали Лазис."
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "thali_lazis_bungus"
 	overlay_sprite = "thali_lazis_bungus_overlay"
 	foodtype = VEGETABLES
@@ -246,7 +246,7 @@
 /obj/item/reagent_containers/food/snacks/lavaland_food
 	name = "generic lavaland food"
 	desc = "самое обычное блюдо. Если вы это видите, то Зюзя напортачил"
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "fine_meal"
 	lefthand_file = 'icons/mob/inhands/lavaland/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/food_righthand.dmi'
@@ -683,7 +683,7 @@
 	name = "thali lazis plate"
 	desc = "Большой поднос, сделанный из дерева. Предназначен для хранения огромного количества съестного."
 	gender = MALE
-	icon = 'icons/obj/lavaland/ashie_food.dmi'
+	icon = 'icons/obj/lavaland/lavaland_food.dmi'
 	icon_state = "thali_lazis_plate"
 	flags = NONE
 	materials = null

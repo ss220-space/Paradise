@@ -78,7 +78,8 @@
 		S = S.neighbors[oppose]
 	return S
 
-/datum/point					//this is explicitly utilitarian datum type made specially for the space map generation and are absolutely unusable for anything else
+/// this is explicitly utilitarian datum type made specially for the space map generation and are absolutely unusable for anything else
+/datum/point
 	var/list/neighbors = list()
 	var/x
 	var/y

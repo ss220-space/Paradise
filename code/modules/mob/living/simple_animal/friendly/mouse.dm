@@ -143,6 +143,15 @@
 		get_scooped(M)
 	..()
 
+/mob/living/simple_animal/mouse/bullet_act(obj/projectile/Proj) // No more mouse blocking projectiles
+	if(!Proj)
+		return -1
+
+	if(Proj?.original == src || (Proj.firer && Proj.firer.a_intent == INTENT_HARM))
+		return ..()
+
+	return -1
+
 /mob/living/simple_animal/mouse/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
@@ -307,28 +316,28 @@
 /mob/living/simple_animal/mouse/proc/sniff()
 	set name = "Понюхать"
 	set desc = "Пытаешься что-то почуять"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("msniff", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/shake()
 	set name = "Дрожать"
 	set desc = "Дрожит или дрыгается"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("mshake", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/scratch()
 	set name = "Почесаться"
 	set desc = "Чешется"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("mscratch", intentional = TRUE)
 
 /mob/living/simple_animal/mouse/proc/washup()
 	set name = "Умыться"
 	set desc = "Умывается"
-	set category = STATPANEL_MOUSE
+	set category = VERB_CATEGORY_MOUSE
 
 	emote("mwashup", intentional = TRUE)
 
@@ -427,11 +436,16 @@
 	if(mind || !SSticker || !SSticker.mode)
 		return
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за мышь, зараженную Блобом?", ROLE_BLOB, TRUE, source = /mob/living/simple_animal/mouse/blobinfected)
+
+	if(QDELETED(src))
+		return
+
 	if(!length(candidates))
 		log_and_message_admins("There were no players willing to play as a mouse infected with a blob.")
 		return
+
 	var/mob/M = pick(candidates)
-	key = M.key
+	possess_by_player(M.key)
 	var/datum_type = mind.get_blob_infected_type()
 	var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 	blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT

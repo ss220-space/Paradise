@@ -169,11 +169,11 @@
 	// Only send linked tab stuff if we are linked. This saves on sending overhead.
 	if(linked)
 		data["linked_core_id"] = linked_core.network_id
-		data["linked_core_addr"] = "\ref[linked_core]"
+		data["linked_core_addr"] = linked_core.UID()
 	else
 		var/list/cores = list()
 		for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-			cores += list(list("addr" = "\ref[C]", "net_id" = C.network_id, "sector" = C.loc.z))
+			cores += list(list("addr" = C.UID(), "net_id" = C.network_id, "sector" = C.loc.z))
 		data["cores"] = cores
 
 	return data
@@ -223,7 +223,7 @@
 		if("link")
 			if(linked)
 				return
-			var/obj/machinery/tcomms/core/C = locate(params["addr"])
+			var/obj/machinery/tcomms/core/C = locateUID(params["addr"])
 			if(istype(C, /obj/machinery/tcomms/core))
 				var/user_pass = tgui_input_text(usr, "Введите пароль для привязки к ядру", "Ввод пароля")
 				// Check the password

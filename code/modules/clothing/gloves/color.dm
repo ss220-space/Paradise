@@ -92,7 +92,8 @@
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
 /obj/item/clothing/gloves/color/black
-	desc = "These gloves are fire-resistant."
+	desc = "Перчатки чёрного цвета из плотного материала. \
+			Обладают повышенной стойкостью к высоким температурам."
 	name = "black gloves"
 	icon_state = "black"
 	item_color = "black"
@@ -102,6 +103,16 @@
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 	var/can_be_cut = 1
+
+/obj/item/clothing/gloves/color/black/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрные перчатки",
+		GENITIVE = "чёрных перчаток",
+		DATIVE = "чёрным перчаткам",
+		ACCUSATIVE = "чёрные перчатки",
+		INSTRUMENTAL = "чёрными перчатками",
+		PREPOSITIONAL = "чёрных перчатках"
+	)
 
 /obj/item/clothing/gloves/color/black/hos
 	item_color = "hosred"		//Exists for washing machines. Is not different from black gloves in any way.

@@ -1,13 +1,25 @@
 /obj/item/grenade/frag
 	name = "frag grenade"
-	desc = "Fire in the hole."
+	desc = "Взрывчатое устройство, предназначенное для ручного подрыва. При детонации создаёт \
+			взрывную волну и выпускает множественные осколки."
 	icon_state = "frag"
 	origin_tech = "materials=3;magnets=4"
 	det_time = 3 SECONDS
 	var/range = 5
 	var/max_shrapnel = 4
-	var/embed_prob = 100 //reduced by armor
+	/// Reduced by armor
+	var/embed_prob = 100
 	var/embedded_type = /obj/item/embedded/shrapnel
+
+/obj/item/grenade/frag/get_ru_names()
+	return list(
+		NOMINATIVE = "осколочная граната",
+		GENITIVE = "осколочной гранаты",
+		DATIVE = "осколочной гранате",
+		ACCUSATIVE = "осколочную гранату",
+		INSTRUMENTAL = "осколочной гранатой",
+		PREPOSITIONAL = "осколочной гранате"
+	)
 
 /obj/item/grenade/frag/prime()
 	. = ..()
@@ -34,4 +46,4 @@
 			S.throw_speed = 1
 			S.sharp = FALSE
 		else
-			to_chat(H, span_warning("Shrapnel bounces off your armor!"))
+			to_chat(H, span_warning("Шрапнель отскакивает от вашей брони!"))

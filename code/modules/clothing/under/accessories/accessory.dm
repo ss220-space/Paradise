@@ -8,6 +8,7 @@
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	gender = MALE
+	cares_about_temperature = TRUE
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -342,12 +343,12 @@
 	icon_state = "plasma"
 	materials = list(MAT_PLASMA = 1000)
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > T0C + 200)
+	if(exposed_temperature > T0C + 200)
 		burn_up()
 
-/obj/item/clothing/accessory/medal/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/obj/item/clothing/accessory/medal/plasma/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	burn_up()
 
@@ -412,8 +413,6 @@
 	icon_state = "holobadge"
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_ACCESSORY
 	actions_types = list(/datum/action/item_action/accessory/holobadge)
-
-	var/emagged = FALSE //Emagging removes Sec check.
 	var/stored_name = null
 
 /obj/item/clothing/accessory/holobadge/cord
@@ -498,7 +497,7 @@
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
 	set name = "Показать значок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -972,10 +971,10 @@
 	else if(istype(t, /area/ussp_centcom))
 		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
-		radio_announce("[M] has been vandalized in Space!", "[M]'s Death Alarm", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
+		radio_announce("[M] подверг[GEND_SYA_AS_OS_IS(M)] вандализму в космосе", "Оповещение о смерти [M]", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		STOP_PROCESSING(SSobj, src)
 		return
-	radio_announce("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel, src)
+	radio_announce("[M] подверг[GEND_SYA_AS_OS_IS(M)] вандализму в [t.name]!", "Оповещение о смерти [M]", announce_channel, src)
 	STOP_PROCESSING(SSobj, src)
 
 /proc/accessory_list(obj/item/clothing/under/uniform)

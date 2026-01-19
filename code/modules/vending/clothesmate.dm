@@ -121,7 +121,7 @@
 			"icon" = "socks",
 			"products" = list(
 				/obj/item/clothing/shoes/laceup = 2,
-				/obj/item/clothing/shoes/black = 4,
+				/obj/item/clothing/shoes/color/black = 4,
 				/obj/item/clothing/shoes/sandal = 1,
 				/obj/item/clothing/shoes/leather_boots = 3,
 			),

@@ -13,11 +13,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors/unexplored)
 "h" = (
-/turf/simulated/floor/clockwork{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "i" = (
 /obj/structure/grille/ratvar/broken,
@@ -39,27 +35,15 @@
 /area/lavaland/surface/outdoors/unexplored)
 "u" = (
 /obj/structure/grille/ratvar,
-/turf/simulated/floor/clockwork{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "w" = (
 /obj/structure/grille/ratvar/broken,
-/turf/simulated/floor/clockwork{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "z" = (
 /obj/structure/clockwork/wall_gear,
-/turf/simulated/floor/clockwork{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 "D" = (
 /obj/structure/grille/ratvar,
@@ -67,11 +51,7 @@
 /area/lavaland/surface/outdoors/unexplored)
 "F" = (
 /obj/structure/dead_ratvar,
-/turf/simulated/floor/clockwork{
-	oxygen = 14;
-	nitrogen = 23;
-	temperature = 300
-	},
+/turf/simulated/floor/clockwork/lavaland_air,
 /area/lavaland/surface/outdoors/unexplored)
 
 (1,1,1) = {"

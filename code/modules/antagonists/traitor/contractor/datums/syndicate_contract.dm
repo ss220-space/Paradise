@@ -450,6 +450,11 @@
 
 		stuff_to_transfer += implant
 
+	if(victim.back) //Lets not bork modsuits in funny ways.
+		var/obj/modsuit_safety = victim.back
+		if(victim.drop_item_ground(modsuit_safety))
+			stuff_to_transfer += modsuit_safety
+
 	// Regular items get removed in second
 	for(var/obj/item/item in victim.contents)
 		// Any items we don't want to take from them?
@@ -702,7 +707,7 @@
  */
 /datum/syndicate_contract/proc/clean_up(clean_pod = TRUE)
 	QDEL_NULL(extraction_flare)
-	if(clean_pod)
+	if(clean_pod && pod)
 		pod.reversing = FALSE
 		pod.startExitSequence(pod)
 	deltimer(extraction_timer_handle)

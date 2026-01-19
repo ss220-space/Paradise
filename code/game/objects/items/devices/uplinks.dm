@@ -73,7 +73,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 												"desc" = sanitize(uplink_item.description()),
 												"cost" = uplink_item.cost,
 												"hijack_only" = uplink_item.hijack_only,
-												"obj_path" = ref(uplink_item),
+												"obj_path" = uplink_item.UID(),
 												"refundable" = uplink_item.refundable,
 												"uid" = uplink_item.UID()
 												)
@@ -291,7 +291,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/proc/calculate_cart_tc()
 	. = 0
 	for(var/reference in shopping_cart)
-		var/datum/uplink_item/item = locate(reference) in uplink_items
+		var/datum/uplink_item/item = locateUID(reference)
 		var/purchase_amt = shopping_cart[reference]
 		. += item.cost * purchase_amt
 
@@ -306,13 +306,13 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 	cached_cart = list()
 	for(var/reference in shopping_cart)
-		var/datum/uplink_item/I = locate(reference) in uplink_items
+		var/datum/uplink_item/I = locateUID(reference)
 		cached_cart += list(list(
 			"name" = sanitize(I.name),
 			"desc" = sanitize(I.description()),
 			"cost" = I.cost,
 			"hijack_only" = I.hijack_only,
-			"obj_path" = ref(I),
+			"obj_path" = I.UID(),
 			"amount" = shopping_cart[reference],
 			"limit" = I.limited_stock))
 
@@ -346,11 +346,11 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			return buy(uplink_item, ui.user)
 
 		if("buyItem")
-			var/datum/uplink_item/uplink_item = locate(params["item"]) in uplink_items
+			var/datum/uplink_item/uplink_item = locateUID(params["item"])
 			return buy(uplink_item, ui.user)
 
 		if("add_to_cart")
-			var/datum/uplink_item/uplink_item = locate(params["item"]) in uplink_items
+			var/datum/uplink_item/uplink_item = locateUID(params["item"])
 			if(LAZYIN(shopping_cart, params["item"]))
 				to_chat(ui.user, span_warning("[uplink_item.name] уже в корзине!"))
 				return
@@ -381,7 +381,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			// Buying of the uplink stuff
 			var/list/bought_things = list()
 			for(var/reference in shopping_cart)
-				var/datum/uplink_item/item = locate(reference) in uplink_items
+				var/datum/uplink_item/item = locateUID(reference)
 				var/purchase_amt = shopping_cart[reference]
 				if(purchase_amt <= 0)
 					continue

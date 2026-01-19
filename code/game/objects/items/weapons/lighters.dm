@@ -137,7 +137,7 @@
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 	return
 
 // Zippo lighters
@@ -502,9 +502,9 @@
 	if(smoketime < 1)
 		matchburnout()
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 
-/obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/match/fire_act(exposed_temperature, exposed_volume)
 	..()
 	matchignite()
 
@@ -663,7 +663,7 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/match/unathi/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/match/unathi/fire_act(exposed_temperature, exposed_volume)
 	return	// we are already burning
 
 /obj/item/match/unathi/matchburnout()

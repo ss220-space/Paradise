@@ -252,7 +252,7 @@
 		if(R.active && !(R.stat & NOPOWER))
 			status = TRUE
 
-		relays += list(list("addr" = "\ref[R]", "net_id" = R.network_id, "sector" = R.loc.z, "status" = status))
+		relays += list(list("addr" = R.UID(), "net_id" = R.network_id, "sector" = R.loc.z, "status" = status))
 
 	data["relay_entries"] = relays
 	// End the shit
@@ -338,9 +338,9 @@
 			network_id = new_id
 
 		if("unlink")
-			var/obj/machinery/tcomms/relay/R = locate(params["addr"])
+			var/obj/machinery/tcomms/relay/R = locateUID(params["addr"])
 			if(istype(R, /obj/machinery/tcomms/relay))
-				var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле?\nID: [R.network_id]\nADDR: \ref[R].", "Отвязка реле", list("Да", "Нет"))
+				var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле?\nID: [R.network_id]\nADDR: [R.UID()].", "Отвязка реле", list("Да", "Нет"))
 				if(confirm == "Да")
 					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
 					R.Reset()

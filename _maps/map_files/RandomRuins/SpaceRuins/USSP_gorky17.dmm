@@ -359,10 +359,7 @@
 /area/ruin/space/USSP_gorky17/rnd)
 "bK" = (
 /obj/structure/table,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkyellow"
@@ -857,10 +854,7 @@
 	},
 /area/ruin/space/USSP_gorky17/arrival)
 "dw" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1561,10 +1555,7 @@
 	},
 /area/ruin/space/USSP_gorky17/gate)
 "fX" = (
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/dinning)
 "ga" = (
@@ -5075,10 +5066,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/atmospherics/unary/vent_scrubber,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5423,9 +5411,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plating,
 /area/ruin/space/USSP_gorky17/solmaintsouth)
 "tZ" = (
@@ -5902,10 +5888,7 @@
 	pixel_y = -28;
 	req_access = list(122,123,124,125,126)
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkpurple"
@@ -7177,9 +7160,7 @@
 "As" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/machinery/light/small,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7450,9 +7431,7 @@
 "Bi" = (
 /obj/structure/table/wood,
 /obj/item/folder,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/dorms)
 "Bj" = (
@@ -7513,10 +7492,7 @@
 	name = "Gorky17 security camera";
 	network = list("USSP_gorky17")
 	},
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/wood,
 /area/ruin/space/USSP_gorky17/dorms)
 "Bu" = (
@@ -11197,10 +11173,7 @@
 "OA" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/drinks/mug/sec,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitered"
@@ -11449,10 +11422,7 @@
 "Pf" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/obj/machinery/light_switch{
-	pixel_x = 24;
-	pixel_y = -6
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/machinery/alarm{
 	alarm_frequency = 1520;
 	dir = 8;
@@ -11801,9 +11771,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/red,
 /obj/item/pen,
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /turf/simulated/floor/carpet,
 /area/ruin/space/USSP_gorky17/dorms)
 "QG" = (
@@ -13754,9 +13722,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/obj/machinery/light_switch{
-	pixel_x = -24
-	},
+/obj/machinery/light_switch/directional/west,
 /obj/item/flag/ussp,
 /turf/simulated/floor/plasteel{
 	dir = 9;

@@ -103,7 +103,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 	GLOB.banlist_savefile.cd = "/base"
 	if(GLOB.banlist_savefile.dir.Find("[ckey][computerid]"))
 		if(usr)
-			to_chat(usr, "<span class='danger'>Ban already exists.</span>")
+			to_chat(usr, span_danger("Ban already exists."))
 		return 0
 	else
 		GLOB.banlist_savefile.dir.Add("[ckey][computerid]")

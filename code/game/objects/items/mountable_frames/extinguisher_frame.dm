@@ -3,7 +3,7 @@
 	desc = "Used for building extinguisher cabinet"
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "extinguisher_frame"
-	mount_reqs = list("simfloor", "nospace")
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
 
 /obj/item/mounted/frame/extinguisher/do_build(turf/on_wall, mob/user)
 	var/obj/structure/extinguisher_cabinet/empty/cabinet = new(get_turf(src), get_dir(user, on_wall))

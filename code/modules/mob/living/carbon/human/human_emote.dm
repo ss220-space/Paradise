@@ -1110,14 +1110,14 @@
 	. = ..()
 	if(.)
 		var/turf/turf_user = get_turf(user)
-		var/datum/gas_mixture/source_env = turf_user.return_air()
+		var/datum/gas_mixture/source_env = turf_user.get_readonly_air()
 		if(!source_env)
 			return
 		for(var/mob/living/carbon/human/H in range(4, user))
 			if(!isvulpkanin(H) || !H.can_hear() || H.stat != CONSCIOUS)
 				continue
 			var/turf/T = get_turf(H)
-			var/datum/gas_mixture/hearer_env = T.return_air()
+			var/datum/gas_mixture/hearer_env = T.get_readonly_air()
 			if(!hearer_env)
 				continue
 			var/distance = 4

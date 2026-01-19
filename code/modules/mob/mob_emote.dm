@@ -104,6 +104,20 @@
 				else
 					base_keys += full_key
 				all_keys += P.key
+			if(P.additional_keys)
+				for(var/a_key in P.additional_keys)
+					full_key = a_key
+					if(a_key in all_keys)
+						continue
+					if(P.can_run_emote(user, status_check = FALSE, intentional = TRUE))
+						if(P.message_param && P.param_desc)
+							// Add our parameter description, like flap-user
+							full_key = a_key + "\[[EMOTE_PARAM_SEPARATOR][P.param_desc]\]"
+						if(istype(H) && P.species_type_whitelist_typecache && H.dna && is_type_in_typecache(H.dna.species, P.species_type_whitelist_typecache))
+							species_emotes += full_key
+						else
+							base_keys += full_key
+						all_keys += a_key
 
 	base_keys = sortList(base_keys)
 	message += base_keys.Join(", ")

@@ -96,8 +96,8 @@
 	UnregisterSignal(rider, COMSIG_LIVING_TRY_PULL)
 	for(var/trait in GLOB.movement_type_trait_to_flag)
 		if(HAS_TRAIT(parent, trait))
-			REMOVE_TRAIT(rider, trait, ref(src))
-	rider.remove_traits(rider_traits, ref(src))
+			REMOVE_TRAIT(rider, trait, UNIQUE_TRAIT_SOURCE(src))
+	rider.remove_traits(rider_traits, UNIQUE_TRAIT_SOURCE(src))
 	if(!movable_parent.has_buckled_mobs())
 		qdel(src)
 
@@ -115,8 +115,8 @@
 
 	for(var/trait in GLOB.movement_type_trait_to_flag)
 		if(HAS_TRAIT(parent, trait))
-			ADD_TRAIT(rider, trait, ref(src))
-	rider.add_traits(rider_traits, ref(src))
+			ADD_TRAIT(rider, trait, UNIQUE_TRAIT_SOURCE(src))
+	rider.add_traits(rider_traits, UNIQUE_TRAIT_SOURCE(src))
 	post_vehicle_mob_buckle(movable_parent, rider)
 
 /// This proc is called when the rider attempts to grab the thing they're riding, preventing them from doing so.
@@ -310,14 +310,14 @@
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	for(var/mob/rider in movable_parent.buckled_mobs)
-		ADD_TRAIT(rider, trait, ref(src))
+		ADD_TRAIT(rider, trait, UNIQUE_TRAIT_SOURCE(src))
 
 /// Called when our vehicle loses a movement trait, so we can remove it from the riders
 /datum/component/riding/proc/on_movement_type_trait_loss(atom/movable/source, trait)
 	SIGNAL_HANDLER
 	var/atom/movable/movable_parent = parent
 	for(var/mob/rider in movable_parent.buckled_mobs)
-		REMOVE_TRAIT(rider, trait, ref(src))
+		REMOVE_TRAIT(rider, trait, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/component/riding/proc/force_unbuckle(atom/movable/source, mob/living/living_hitter)
 	SIGNAL_HANDLER

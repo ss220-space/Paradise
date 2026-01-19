@@ -59,7 +59,7 @@
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
 		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-/obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/candle/fire_act(exposed_temperature, exposed_volume)
 	if(!lit)
 		light() //honk
 	return ..()
@@ -113,7 +113,7 @@
 		qdel(src)
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
-		T.hotspot_expose(700, 5)
+		T.hotspot_expose(700, 1)
 
 /obj/item/candle/proc/unlight()
 	if(lit)

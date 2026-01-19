@@ -179,7 +179,7 @@
 
 /obj/item/grenade/clusterbuster/xmas
 	name = "Christmas Miracle"
-	payload = /obj/item/a_gift
+	payload = /obj/item/gift
 
 /obj/item/grenade/clusterbuster/dirt
 	name = "Megamaid's Job Security Grenade"

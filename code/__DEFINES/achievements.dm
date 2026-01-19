@@ -27,11 +27,13 @@
 #define MEDAL_LOOKOUTSIR "Look Out, Sir!"
 #define MEDAL_ASCENSION "Ascension"
 #define MEDAL_CULT_SHUTTLE_OMFG "WHAT JUST HAPPENED"
+#define MEDAL_SPRINGLOCK "The Bite Of 87"
 #define MEDAL_CLICKBAIT "Clickbait"
 #define MEDAL_HEALTHY "Heart Healthy"
 #define MEDAL_ARCH_DEVIL "Arch Devil"
 #define MEDAL_NO_HELL_TODAY "No Hell today"
 #define MEDAL_KERBEROS_MASTER "Kerberos master"
+#define MEDAL_DEEP_DRAW "Deep draw"
 
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER "Legendary Miner"
@@ -61,6 +63,12 @@
 #define BOSS_MEDAL_ROBOT_CRUSHER "Ancient Robot Crusher"
 #define BOSS_MEDAL_FROSTMINER_CRUSHER "Demonic-frost Miner Crusher"
 #define BOSS_MEDAL_WENDIGO_CRUSHER "Wendigo Crusher"
+
+// Donations medals
+#define MEDAL_DONATION_FIRST_TIME "Donation first time"
+#define MEDAL_DONATION_PERMANENT_SPONSOR "Donation permanent sponsor"
+#define MEDAL_DONATION_BRONZE_SPONSOR "Donation bronze sponsor"
+#define MEDAL_DONATION_PLATINUM_SPONSOR "Donation platinum sponsor"
 
 // Medal hub IDs for boss-kill scores
 #define BOSS_SCORE "Bosses Killed"
@@ -98,3 +106,4 @@
 #define ACHIEVEMENT_CATEGORY_MISC "Разное"
 #define ACHIEVEMENT_CATEGORY_MAFIA "Мафия"
 #define ACHIEVEMENT_CATEGORY_SCORES "Статистика"
+#define ACHIEVEMENT_CATEGORY_DONATIONS "Пожертвования"

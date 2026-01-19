@@ -180,7 +180,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/verb/Web()
 	set name = "Lay Web"
-	set category = STATPANEL_SPIDER
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Spread a sticky web to slow down prey."
 
 	var/T = src.loc
@@ -197,7 +197,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/Wrap()
 	set name = "Wrap"
-	set category = STATPANEL_SPIDER
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Wrap up prey to feast upon and objects for safe keeping."
 
 	if(!cocoon_target)
@@ -267,7 +267,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/LayEggs()
 	set name = "Lay Eggs"
-	set category = STATPANEL_SPIDER
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)

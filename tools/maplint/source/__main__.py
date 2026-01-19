@@ -16,7 +16,7 @@ def red(text):
 def process_dmm(map_filename, lints: dict[str, lint.Lint]) -> list[MaplintError]:
     problems: list[MaplintError] = []
 
-    with open(map_filename, "r") as file:
+    with open(map_filename, "r", encoding='utf-8') as file:
         try:
             map_data = dmm.parse_dmm(file)
         except MaplintError as error:
