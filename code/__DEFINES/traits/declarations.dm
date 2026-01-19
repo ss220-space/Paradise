@@ -426,5 +426,7 @@
 
 #define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"
 
-/// If human exists fracture in legs or foors (for optimisation)
+#define TRAIT_MESON_VISION "meson_vision"
+
+/// If a human has a fracture in their legs or feet (for optimization)
 #define TRAIT_FRACTURE_FALL "fracture_fall"
