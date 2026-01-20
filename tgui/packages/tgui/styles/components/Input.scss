@@ -77,12 +77,6 @@ $border-color-disabled: color.adjust(
     color: hsl(0, 0%, 46.7%);
     color: rgba(255, 255, 255, 0.45);
   }
-  // TODO: Remove with 516
-  &:-ms-input-placeholder {
-    font-style: italic;
-    color: hsl(0, 0%, 46.7%);
-    color: hsla(0, 0%, 100%, 0.45);
-  }
 }
 
 .Input__textarea {
@@ -100,13 +94,6 @@ $border-color-disabled: color.adjust(
     font-style: italic;
     color: hsl(0, 0%, 46.7%);
     color: rgba(255, 255, 255, 0.45);
-  }
-
-  // TODO: Remove with 516
-  &:-ms-input-placeholder {
-    font-style: italic;
-    color: hsl(0, 0%, 46.7%);
-    color: hsla(0, 0%, 100%, 0.45);
   }
 }
 

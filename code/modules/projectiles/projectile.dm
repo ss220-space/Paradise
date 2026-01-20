@@ -62,8 +62,6 @@
 	var/tile_dropoff_s = 0
 	/// How much armour penetration should be decremented as the bullet moves.
 	var/tile_dropoff_penetration = 0
-	/// How much forcedodge should be decremented as the bullet moves.
-	var/tile_dropoff_forcedodge = 0
 	/// BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here.
 	var/damage_type = BRUTE
 	/// Determines if the projectile will skip any damage inflictions.
@@ -75,12 +73,16 @@
 	var/projectile_type = "/obj/projectile"
 	/// This will de-increment every step. When 0, it will delete the projectile.
 	var/range = 50
+	/// Original range upon being fired/reflected
+	var/maximum_range
 	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
 	var/reflectability = REFLECTABILITY_PHYSICAL
 	/// Full log text. gets filled in fire() type, damage, reagents e.t.c.
 	var/fire_log_text
 	/// Whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 	var/log_override = FALSE
+	/// Does the projectile increase fire stacks / immolate mobs on hit? Applies fire stacks equal to the number on hit.
+	var/immolate = 0
 
 	//Effects
 	var/stun = 0
@@ -166,6 +168,7 @@
 
 /obj/projectile/Initialize(mapload)
 	. = ..()
+	maximum_range = range
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
@@ -195,8 +198,6 @@
 		stamina = max(min_stamina, stamina - tile_dropoff_s) // as above, but with stamina
 	if(tile_dropoff_penetration)
 		armour_penetration = clamp(armour_penetration - tile_dropoff_penetration, -100, 100)
-	if(tile_dropoff_forcedodge)
-		forcedodge = max(0, forcedodge - tile_dropoff_forcedodge) // as above, but with forcedodge
 	if(range <= 0 && loc)
 		on_range()
 	if(!damage && !stamina && (tile_dropoff || tile_dropoff_s))
@@ -293,6 +294,10 @@
 			L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] [hit_text] [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"), \
 								span_userdanger("В вас попали [src.declent_ru(INSTRUMENTAL)] [organ_hit_text]"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+
+		if(immolate)
+			L.adjust_fire_stacks(immolate)
+			L.IgniteMob()
 
 		if(L?.mind && firer?.mind?.objectives)
 			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())

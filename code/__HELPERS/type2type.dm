@@ -465,6 +465,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
 
+#define text2bool(input) (!input? FALSE : lowertext(input) in list("true", "1"))
+
 // Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
 /proc/slot_string_to_slot_bitfield(input_string)
 	switch(input_string)
@@ -643,3 +645,25 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return "правая ступня"
 		else
 			stack_trace("Wrong zone input.")
+
+/// Returns a list(x, y), being the change in position required to step in the passed in direction
+/proc/dir2offset(dir)
+	switch(dir)
+		if(NORTH)
+			return list(0, 1)
+		if(SOUTH)
+			return list(0, -1)
+		if(EAST)
+			return list(1, 0)
+		if(WEST)
+			return list(-1, 0)
+		if(NORTHEAST)
+			return list(1, 1)
+		if(SOUTHEAST)
+			return list(1, -1)
+		if(NORTHWEST)
+			return list(-1, 1)
+		if(SOUTHWEST)
+			return list(-1, -1)
+		else
+			return list(0, 0)

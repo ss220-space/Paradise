@@ -1,0 +1,6 @@
+code_review:
+  pull_request_opened:
+	# I hate neuroslope.
+    summary: false
+	# Comment out if you're completely fucked up.
+    #code_review: false

@@ -12,21 +12,21 @@
 	name = "filing cabinet"
 	desc = "A large cabinet with drawers."
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "filingcabinet"
+	icon_state = "filing_cabinet"
 	density = TRUE
 	anchored = TRUE
 	var/opened = FALSE
 
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
-	icon_state = "chestdrawer"
+	icon_state = "chest_drawer"
 
 /obj/structure/filingcabinet/chestdrawer/autopsy
 	name = "autopsy reports drawer"
 	desc = "A large drawer for holding autopsy reports."
 
 /obj/structure/filingcabinet/filingcabinet	//not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
-	icon_state = "tallcabinet"
+	icon_state = "tall_cabinet"
 
 /obj/structure/filingcabinet/Initialize(mapload)
 	. = ..()
@@ -35,7 +35,7 @@
 			I.loc = src
 
 /obj/structure/filingcabinet/update_icon_state()
-	icon_state = "[initial(icon_state)][opened ? "-open" : ""]"
+	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
 
 /obj/structure/filingcabinet/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment
 	var/cooldown = FALSE // Only used for devils
-	icon_state = "employmentcabinet"
+	icon_state = "employment_cabinet"
 	var/populated = FALSE
 
 /obj/structure/filingcabinet/employment/Initialize(mapload)

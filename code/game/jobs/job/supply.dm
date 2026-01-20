@@ -24,7 +24,7 @@
 	jobtype = /datum/job/head_of_staff/qm
 
 	uniform = /obj/item/clothing/under/rank/cargo
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
 	l_pocket = /obj/item/lighter/zippo/qm

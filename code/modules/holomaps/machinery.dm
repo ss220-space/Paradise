@@ -47,8 +47,8 @@
 	SSholomaps.station_holomaps += src
 	floor_markings = image('icons/obj/stationmap.dmi', "decal_station_map")
 	floor_markings.dir = src.dir
-	floor_markings.pixel_x = -src.pixel_x
-	floor_markings.pixel_y = -src.pixel_y
+	floor_markings.pixel_w = -src.pixel_x
+	floor_markings.pixel_z = -src.pixel_y
 	add_overlay(floor_markings)
 	..()
 	component_parts = list()
@@ -211,8 +211,8 @@
 	// Put the little "map" overlay down where it looks nice
 	if(floor_markings)
 		floor_markings.dir = src.dir
-		floor_markings.pixel_x = -src.pixel_x
-		floor_markings.pixel_y = -src.pixel_y
+		floor_markings.pixel_w = -src.pixel_x
+		floor_markings.pixel_z = -src.pixel_y
 		add_overlay(floor_markings)
 
 /obj/machinery/station_map/screwdriver_act(mob/living/user, obj/item/tool)
@@ -297,7 +297,7 @@
 	icon_state = "station_map_engi"
 
 /obj/machinery/station_map/engineering/Initialize(mapload)
-	..()
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/machine/station_map/engineering(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -323,8 +323,8 @@
 	for(var/obj/machinery/firealarm/alarm as anything in GLOB.station_fire_alarms["[current_z_level]"])
 		if(alarm?.z == current_z_level && alarm?.myArea?.fire)
 			var/image/alarm_icon = image('icons/misc/8x8.dmi', icon_state = "fire_marker")
-			alarm_icon.pixel_x = alarm.x + HOLOMAP_CENTER_X - 1
-			alarm_icon.pixel_y = alarm.y + HOLOMAP_CENTER_Y
+			alarm_icon.pixel_w = alarm.x + HOLOMAP_CENTER_X - 1
+			alarm_icon.pixel_z = alarm.y + HOLOMAP_CENTER_Y
 			fire_alarms += alarm_icon
 
 	if(length(fire_alarms))
@@ -336,8 +336,8 @@
 		var/area/alarms = get_area(air_alarm)
 		if(air_alarm?.z == current_z_level && alarms?.atmosalm) //Altered it to fire_alam since we don't have an area variable on air_alarms
 			var/image/alarm_icon = image('icons/misc/8x8.dmi', "atmos_marker")
-			alarm_icon.pixel_x = air_alarm.x + HOLOMAP_CENTER_X - 1
-			alarm_icon.pixel_y = air_alarm.y + HOLOMAP_CENTER_Y
+			alarm_icon.pixel_w = air_alarm.x + HOLOMAP_CENTER_X - 1
+			alarm_icon.pixel_z = air_alarm.y + HOLOMAP_CENTER_Y
 			air_alarms += alarm_icon
 
 	if(length(air_alarms))
@@ -355,6 +355,7 @@
 /obj/item/circuitboard/machine/station_map/engineering
 	name = "Engineering Station Map"
 	desc = "A virtual map of the surrounding station. Also shows any active fire and atmos alarms."
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/station_map/engineering/directional/north
 	origin_tech = "programming=4;engineering=4"
 	req_components = list(/obj/item/stock_parts/scanning_module = 3, /obj/item/stock_parts/micro_laser = 4, /obj/item/stack/ore/bluespace_crystal = 1)

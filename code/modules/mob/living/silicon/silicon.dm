@@ -3,6 +3,7 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
+	abstract_type = /mob/living/silicon
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -433,3 +434,7 @@
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.
 
+/mob/living/silicon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
+	. = ..()
+	var/damage = 10 + 1.5 * speed
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)

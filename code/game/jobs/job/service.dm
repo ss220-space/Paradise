@@ -30,7 +30,7 @@
 	jobtype = /datum/job/head_of_staff/hop
 	uniform = /obj/item/clothing/under/rank/head_of_personnel_alt
 	suit = /obj/item/clothing/suit/hop_jacket
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/hopcap
 	glasses = /obj/item/clothing/glasses/hud/skills/sunglasses
 	l_ear = /obj/item/radio/headset/heads/hop

@@ -229,7 +229,7 @@
 		var/obj/item/clothing/helmet = H.head
 		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDMAGE)
 			atmos_sealed = TRUE
-	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
 		var/datum/gas_mixture/environment = null
 		if(isobj(H.loc))
 			var/obj/O = H.loc

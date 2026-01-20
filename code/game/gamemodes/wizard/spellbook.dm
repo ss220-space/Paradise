@@ -426,12 +426,10 @@
 
 /datum/spellbook_entry/item/scryingorb/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(..())
-		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY, SCRYING_ORB_TRAIT))
-			ADD_TRAIT(user, TRAIT_XRAY, SCRYING_ORB_TRAIT)
-			user.see_in_dark = 8
-			user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		if(!HAS_TRAIT_FROM(user, TRAIT_XRAY, MAGIC_TRAIT))
+			ADD_TRAIT(user, TRAIT_XRAY_VISION, MAGIC_TRAIT)
+			ADD_TRAIT(user, TRAIT_NIGHT_VISION, MAGIC_TRAIT)
 			user.update_sight()
-			user.update_misc_effects()
 			to_chat(user, span_notice("The walls suddenly disappear."))
 	return TRUE
 
