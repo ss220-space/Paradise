@@ -210,6 +210,8 @@
 		return
 
 	attached_bot = shell
+	RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
+	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/vendor_component/unregister_shell(atom/movable/shell)
 	attached_bot = null
