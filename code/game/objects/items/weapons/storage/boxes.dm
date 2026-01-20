@@ -824,7 +824,7 @@
 	if(!ishuman(target))
 		return .
 	user.visible_message(
-		span_warning("[user] надевает бумажный пакет  на голову [target]!"),
+		span_warning("[user] надевает бумажный пакет на голову [target]!"),
 		span_notice("Вы одеваете [target == user ? "бумажный пакет на свою голову" : "бумажный пакет на голову [target]"]!"),
 		span_italics("Вы слышите шелест плотной бумаги."),
 	)
@@ -832,9 +832,9 @@
 		return .
 	if(target.head)
 		target.drop_item_ground(target.head)
-	if(target.head)
-		to_chat(user, span_notice("Голова [target == user ? user : target] теперь закрыта бумажным пакетом!"))
-		return .
+		if(target.head) //if head item cannot be dropped
+			to_chat(user, span_notice("На голову [target == user ? user : target] нельзя одеть пакет!"))
+			return .
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
 		span_warning("[user] одел бумажный пакет на голову [target]!"),
