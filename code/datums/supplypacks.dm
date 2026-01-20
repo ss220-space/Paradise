@@ -3662,7 +3662,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_RESEARCH
 	required_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_POWERSTORAGE = 5)
 
-/datum/supply_packs/science/mod_core
+/datum/supply_packs/science/modcore
 	name = "Ящик ядер МЭК"
 	contains = list(
 		/obj/item/mod/core/standard,
