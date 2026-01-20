@@ -1,28 +1,7 @@
-#define WHERE_FLOOR_BELOW_MOB "Current location"
-#define WHERE_SUPPLY_BELOW_MOB "Current location (droppod)"
-#define WHERE_MOB_HAND "In own mob's hand"
-#define WHERE_MARKED_OBJECT "At a marked object"
-#define WHERE_IN_MARKED_OBJECT "In the marked object"
-#define WHERE_TARGETED_LOCATION "Targeted location"
-#define WHERE_TARGETED_LOCATION_POD "Targeted location (droppod)"
-#define WHERE_TARGETED_MOB_HAND "In targeted mob's hand"
-
-#define PRECISE_MODE_OFF "Off"
-#define PRECISE_MODE_TARGET "Target"
-#define PRECISE_MODE_MARK "Mark"
-#define PRECISE_MODE_COPY "Copy"
-
-#define OFFSET_ABSOLUTE "Absolute offset"
-#define OFFSET_RELATIVE "Relative offset"
-
-GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
-
 /*
 	An instance of a /tg/UI™ Spawn Panel. Stores preferences, spawns things, controls the UI. Unique for each user (their ckey).
 */
 /datum/spawnpanel
-	/// Who this instance of spawn panel belongs to. The instances are unique to correctly keep modified values between multiple admins.
-	var/owner_ckey
 	/// Where and how the atom should be spawned.
 	var/where_target_type = WHERE_FLOOR_BELOW_MOB
 	/// The atom selected from the panel.
@@ -57,29 +36,10 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 	offset = list("X" = 0, "Y" = 0, "Z" = 0)
 
 /datum/spawnpanel/ui_interact(mob/user, datum/tgui/ui)
-	if(user.client.ckey != owner_ckey)
-		return
-
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "SpawnPanel")
 		ui.open()
-
-/// Returns a `spawnpanel` instance belonging to this `user`, or creates and registers a new one
-/proc/get_spawnpanel_for_admin(mob/user)
-	if(!user?.client?.ckey)
-		return null
-
-	var/ckey = user.client.ckey
-
-	if(GLOB.spawnpanels_by_ckey[ckey])
-		return GLOB.spawnpanels_by_ckey[ckey]
-
-	var/datum/spawnpanel/new_panel = new()
-	new_panel.owner_ckey = ckey
-	GLOB.spawnpanels_by_ckey[ckey] = new_panel
-
-	return new_panel
 
 /datum/spawnpanel/ui_close(mob/user)
 	. = ..()
@@ -87,31 +47,24 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 		toggle_precise_mode(PRECISE_MODE_OFF)
 
 /datum/spawnpanel/ui_state(mob/user)
-	if(user.client.ckey != owner_ckey)
-		return GLOB.never_state
-	return ADMIN_STATE(R_ADMIN)
+	return ADMIN_STATE(R_SPAWN)
 
-/datum/spawnpanel/ui_act(action, params)
-	if(..())
-		return FALSE
-
-	if(usr.client.ckey != owner_ckey)
+/datum/spawnpanel/ui_act(action, params, datum/tgui/ui)
+	if(..() || !check_rights_for(ui.user.client, R_SPAWN))
 		return FALSE
 
 	switch(action)
 		if("select-new-DMI")
-			var/icon/new_icon = input("Select a new icon file:", "Icon") as null|icon
+			var/icon/new_icon = input("Выберите новый файл иконки:", "Иконка") as null|icon
 			if(new_icon)
 				selected_atom_icon = new_icon
 				available_icon_states = icon_states(selected_atom_icon)
 				if(!(selected_atom_icon_state in available_icon_states))
 					selected_atom_icon_state = available_icon_states[1]
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("set-apply-icon-override")
 			apply_icon_override = !!params["value"]
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("reset-DMI-icon")
@@ -124,34 +77,28 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 			else
 				available_icon_states = list()
 
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("select-new-icon-state")
 			selected_atom_icon_state = params["new_state"]
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("reset-icon-state")
 			selected_atom_icon_state = null
 			if(selected_atom)
 				selected_atom_icon_state = initial(selected_atom.icon_state)
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("set-icon-size")
 			atom_icon_size = params["size"]
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("reset-icon-size")
 			atom_icon_size = 100
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("get-icon-states")
 			available_icon_states = icon_states(selected_atom_icon)
-			SStgui.update_uis(src)
 			return TRUE
 
 		if("selected-atom-changed")
@@ -289,12 +236,12 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 		if(PRECISE_MODE_MARK)
 			var/client/admin_client = user.client
 			admin_client.mark_datum(target)
-			to_chat(user, span_notice("Marked object: [icon2html(target, user)] [span_bold("[target]")]"))
+			to_chat(user, span_notice("Отмеченный объект: [icon2html(target, user)] [span_bold("[target]")]"))
 			toggle_precise_mode(PRECISE_MODE_OFF)
 			SStgui.update_uis(src)
 
 		if(PRECISE_MODE_COPY)
-			to_chat(user, span_notice("Picked object: [icon2html(target, user)] [span_bold("[target]")]"))
+			to_chat(user, span_notice("Выбранный объект: [icon2html(target, user)] [span_bold("[target]")]"))
 			selected_atom = target
 			toggle_precise_mode(PRECISE_MODE_OFF)
 			SStgui.update_uis(src)
@@ -321,23 +268,10 @@ GLOBAL_LIST_EMPTY(spawnpanels_by_ckey)
 		get_asset_datum(/datum/asset/json/spawnpanel),
 	)
 
-#undef WHERE_FLOOR_BELOW_MOB
-#undef WHERE_SUPPLY_BELOW_MOB
-#undef WHERE_MOB_HAND
-#undef WHERE_MARKED_OBJECT
-#undef WHERE_IN_MARKED_OBJECT
-#undef WHERE_TARGETED_LOCATION
-#undef WHERE_TARGETED_LOCATION_POD
-#undef WHERE_TARGETED_MOB_HAND
-#undef PRECISE_MODE_OFF
-#undef PRECISE_MODE_TARGET
-#undef PRECISE_MODE_MARK
-#undef PRECISE_MODE_COPY
-#undef OFFSET_ABSOLUTE
-#undef OFFSET_RELATIVE
-
 ADMIN_VERB(spawn_panel, R_SPAWN, "Spawn Panel", "Spawn Panel (TGUI).", ADMIN_CATEGORY_EVENTS)
-	var/datum/spawnpanel/panel = get_spawnpanel_for_admin(user.mob)
-	if(panel)
-		panel.ui_interact(user.mob)
+	var/datum/spawnpanel/panel = user.holder.spawn_panel
+	if(!panel)
+		panel = new()
+		user.holder.spawn_panel = panel
+	panel.ui_interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Spawn Panel")

@@ -490,18 +490,18 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer + 0.01), appearance_flags = RESET_COLOR)
 	. += crack_overlay
 
-/obj/structure/window/temperature_expose(temperature, volume)
+/obj/structure/window/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > (T0C + heat_resistance))
-		take_damage(round(temperature/ 100), BURN, 0, 0)
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_temperature / 100), BURN, 0, 0)
 
-/obj/structure/window/hit_by_thrown_carbon(mob/living/carbon/human/human, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/structure/window/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	var/shattered = FALSE
 	if(damage * 2 >= obj_integrity && shardtype && !mob_hurt)
 		shattered = TRUE
 		var/obj/item/item = new shardtype(loc)
 		item.embedded_ignore_throwspeed_threshold = TRUE
-		item.throw_impact(human)
+		item.throw_impact(throwned_mob)
 		item.embedded_ignore_throwspeed_threshold = FALSE
 		damage *= (4/3) //Inverts damage loss from being a structure, since glass breaking on you hurts
 		var/turf/turf = get_turf(src)
@@ -518,7 +518,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		self_hurt = TRUE
 	..()
 	if(shattered)
-		human.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
+		throwned_mob.throw_at(throwingdatum.initial_target, throwingdatum.maxrange - 1, throwingdatum.speed - 1) //Annnnnnnd yeet them into space, but slower, now that everything is dealt with
 
 /obj/structure/window/get_explosion_block()
 	return reinf && fulltile ? real_explosion_block : 0
@@ -709,6 +709,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	damage_deflection = 21
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = FALSE
 
 /obj/structure/window/plasmareinforced/get_ru_names()
 	return list(
@@ -720,7 +721,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		PREPOSITIONAL = "укреплённом плазменном окне",
 	)
 
-/obj/structure/window/plasmareinforced/temperature_expose(temperature, volume)
+/obj/structure/window/plasmareinforced/temperature_expose(exposed_temperature, exposed_volume, base_structure_expose)
 	return
 
 /obj/structure/window/abductor
@@ -834,6 +835,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	explosion_block = 2
 	armor = list(MELEE = 85, BULLET = 20, LASER = 0, ENERGY = 0, BOMB = 60, BIO = 100, RAD = 100, FIRE = 99, ACID = 100)
 	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
+	cares_about_temperature = FALSE
 
 /obj/structure/window/full/plasmareinforced/get_ru_names()
 	return list(
@@ -845,7 +847,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		PREPOSITIONAL = "укреплённом плазменном окне",
 	)
 
-/obj/structure/window/full/plasmareinforced/temperature_expose(temperature, volume)
+/obj/structure/window/full/plasmareinforced/temperature_expose(exposed_temperature, exposed_volume, base_structure_expose)
 	return
 
 /obj/structure/window/full/reinforced

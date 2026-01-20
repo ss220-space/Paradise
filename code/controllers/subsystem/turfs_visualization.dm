@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(turfs_visualization)
 	name = "Turfs visualization"
 	priority = FIRE_PRIORITY_TURFS_VISUALIZATION
-	wait = 10 SECONDS
+	wait = 5 SECONDS
 	flags = SS_BACKGROUND | SS_NO_INIT
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	cpu_display = SS_CPUDISPLAY_LOW

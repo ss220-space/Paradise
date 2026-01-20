@@ -46,7 +46,7 @@
 	var/area/A = get_area(src)
 	if(A)
 		var/image/alert_overlay = image('icons/effects/cult_effects.dmi', "ghostalertsie")
-		notify_ghosts("[name] has risen in \the [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("[name] has risen in [A.name]. Reach out to the Geometer to be given a new shell for your soul.", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 	INVOKE_ASYNC(src, PROC_REF(narsie_spawn_animation))
 	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse), name), 10 SECONDS)

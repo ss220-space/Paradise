@@ -196,7 +196,7 @@
 		adjustBruteLoss(b_loss)
 	return ..()
 
-/mob/living/carbon/true_devil/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/mob/living/carbon/true_devil/fire_act(exposed_temperature, exposed_volume)
 	return FALSE
 
 /mob/living/carbon/true_devil/flamer_fire_act(damage)

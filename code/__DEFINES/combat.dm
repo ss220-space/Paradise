@@ -262,6 +262,8 @@ GLOBAL_LIST_INIT(body_zones, list(
 #define CLICK_CD_LOOK_UP_DOWN (0.5 SECONDS)
 #define CLICK_CD_THROW (0.8 SECONDS)
 
+#define CLICK_CD_BREAKOUT (10 SECONDS)
+
 //the define for visible message range in combat
 #define SAMETILE_MESSAGE_RANGE 1
 #define COMBAT_MESSAGE_RANGE 3

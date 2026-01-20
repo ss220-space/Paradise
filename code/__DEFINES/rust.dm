@@ -15,45 +15,33 @@
 #endif
 
 /proc/__detect_rustlib()
-	var/version_suffix = "515"
-	if(world.byond_build >= 1651)
-		version_suffix = "516"
-
 	if(world.system_type == UNIX)
 #ifdef CIBUILDING
 		// CI override, use librustlibs_ci.so if possible.
-		if(fexists("./tools/ci/librustlibs_ci_[version_suffix].so"))
-			return __rustlib = "tools/ci/librustlibs_ci_[version_suffix].so"
+		if(fexists("./tools/ci/librustlibs_ci.so"))
+			return __rustlib = "tools/ci/librustlibs_ci.so"
 #endif
 		// First check if it's built in the usual place.
 		// Linx doesnt get the version suffix because if youre using linux you can figure out what server version youre running for
 		if(fexists("./rust/target/i686-unknown-linux-gnu/release/librustlibs[RUSTLIBS_SUFFIX].so"))
 			return __rustlib = "./rust/target/i686-unknown-linux-gnu/release/librustlibs[RUSTLIBS_SUFFIX].so"
 		// Then check in the current directory.
-		if(fexists("./librustlibs_[version_suffix][RUSTLIBS_SUFFIX].so"))
-			return __rustlib = "./librustlibs_[version_suffix][RUSTLIBS_SUFFIX].so"
-
 		if(fexists("./librustlibs[RUSTLIBS_SUFFIX].so"))
 			return __rustlib = "./librustlibs[RUSTLIBS_SUFFIX].so"
-
-		if(fexists("librustlibs[RUSTLIBS_SUFFIX].so"))
-
-			return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
 		// And elsewhere.
-		return __rustlib = "librustlibs.so"
+		return __rustlib = "librustlibs[RUSTLIBS_SUFFIX].so"
 	else
 		// First check if it's built in the usual place.
+		if(fexists("./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"))
+			return __rustlib = "./rust/target/i686-pc-windows-msvc/debug/rustlibs.dll"
 		if(fexists("./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"))
 			return __rustlib = "./rust/target/i686-pc-windows-msvc/release/rustlibs.dll"
 		// Then check in the current directory.
-		if(fexists("./rustlibs_[version_suffix].dll"))
-			return __rustlib = "./rustlibs_[version_suffix].dll"
-
-		if(fexists("./rustlibs.dll"))
-			return __rustlib = "./rustlibs.dll"
+		if(fexists("./rustlibs[RUSTLIBS_SUFFIX].dll"))
+			return __rustlib = "./rustlibs[RUSTLIBS_SUFFIX].dll"
 
 		// And elsewhere.
-		var/assignment_confirmed = (__rustlib = "rustlibs_[version_suffix].dll")
+		var/assignment_confirmed = (__rustlib = "rustlibs[RUSTLIBS_SUFFIX].dll")
 		// This being spanned over multiple lines is kinda scuffed, but its needed because of https://www.byond.com/forum/post/2072419
 		return assignment_confirmed
 

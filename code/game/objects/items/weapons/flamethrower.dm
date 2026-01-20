@@ -221,7 +221,7 @@
 	if(air_transfer.toxins())
 		air_transfer.set_toxins(air_transfer.toxins() * 5)
 	target.blind_release_air(air_transfer)
-	target.hotspot_expose((ptank.air_contents.temperature() * 2) + 380, 500)
+	target.hotspot_expose((ptank.air_contents.temperature() * 2) + PLASMA_MINIMUM_BURN_TEMPERATURE, min(CELL_VOLUME, CELL_VOLUME * air_transfer.total_moles()))
 
 /obj/item/flamethrower/Initialize(mapload)
 	. = ..()
