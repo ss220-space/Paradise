@@ -44,8 +44,6 @@
 	charges_cooldown.start_recharge()
 	balloon_alert(imp_in, "вы чувствуете резкий прилив сил")
 
-	if(HAS_TRAIT_FROM(imp_in, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
-		imp_in.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
 	imp_in.SetKnockdown(0)
