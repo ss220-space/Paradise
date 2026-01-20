@@ -235,4 +235,7 @@
 
 /obj/item/circuit_component/vendor_component/proc/on_set_locked(datum/source, new_value)
 	SIGNAL_HANDLER
+	if(!attached_bot)
+		return
+
 	attached_bot.locked = new_value
