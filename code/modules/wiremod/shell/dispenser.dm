@@ -214,8 +214,11 @@
 	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/vendor_component/unregister_shell(atom/movable/shell)
+	if(attached_bot)
+		attached_bot.locked = FALSE
+		UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
+
 	attached_bot = null
-	UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
 	return ..()
 
 /obj/item/circuit_component/vendor_component/populate_ports()
