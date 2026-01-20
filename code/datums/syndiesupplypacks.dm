@@ -320,7 +320,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/atmosn2ogrenades
 	name = "Усыпляющая газовая кластерная граната"
 	contains = list(
-		/obj/item/storage/box/syndie_kit/atmosn2ogrenades
+		/obj/item/storage/box/syndie_kit/atmosn2ogrenades,
 	)
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate
@@ -337,7 +337,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/security/frag
 	name = "Пояс боевых осколочных гранат"
 	contains = list(
-		/obj/item/storage/belt/grenade/frag
+		/obj/item/storage/belt/grenade/frag,
 	)
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate
@@ -809,7 +809,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/engineering/thermal
 	name = "Тепловизионные очки \"Хамелеон\""
 	contains = list(
-		/obj/item/clothing/glasses/chameleon/thermal
+		/obj/item/clothing/glasses/chameleon/thermal,
 	)
 	cost = 500
 	containertype = /obj/structure/closet/crate/syndicate
@@ -1370,7 +1370,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 /datum/syndie_supply_packs/medical/autoimplanter
 	name = "Автоимплантер"
 	contains = list(
-		/obj/item/autoimplanter
+		/obj/item/autoimplanter,
 	)
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate

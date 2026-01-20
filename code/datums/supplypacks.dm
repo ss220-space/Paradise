@@ -6514,7 +6514,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/frag
 	name = "Пояс боевых осколочных гранат"
 	contains = list(
-		/obj/item/storage/belt/grenade/frag
+		/obj/item/storage/belt/grenade/frag,
 	)
 	credits_cost = 7000
 	containertype = /obj/structure/closet/crate/syndicate
@@ -6532,7 +6532,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/atmosn2ogrenades
 	name = "Усыпляющая газовая кластерная граната"
 	contains = list(
-		/obj/item/storage/box/syndie_kit/atmosn2ogrenades
+		/obj/item/storage/box/syndie_kit/atmosn2ogrenades,
 	)
 	credits_cost = 7000
 	containertype = /obj/structure/closet/crate/syndicate
@@ -6550,7 +6550,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/thermal
 	name = "Тепловизионные очки \"Хамелеон\""
 	contains = list(
-		/obj/item/clothing/glasses/chameleon/thermal
+		/obj/item/clothing/glasses/chameleon/thermal,
 	)
 	credits_cost = 9000
 	containertype = /obj/structure/closet/crate/syndicate
@@ -6568,7 +6568,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/contraband/autoimplanter
 	name = "Автоимплантер"
 	contains = list(
-		/obj/item/autoimplanter/traitor
+		/obj/item/autoimplanter/traitor,
 	)
 	credits_cost = 10000
 	containertype = /obj/structure/closet/crate/syndicate
