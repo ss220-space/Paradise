@@ -310,7 +310,7 @@
 
 /datum/action/item_action/hands_free/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	var/obj/item/implant/implant = target
-	if(istype(implant))
+	if(istype(implant) && implant.cooldown_system)
 		status_text = implant.cooldown_system.cooldown_info()
 	. = ..()
 

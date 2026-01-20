@@ -71,6 +71,10 @@
 	return "заряжается!"
 
 /obj/item/melee/baton/telescopic/contractor/additional_effects_non_cyborg(mob/living/carbon/human/target, mob/living/user)
+	. = ..()
+	if(!.)
+		return
+
 	target.AdjustJitter(5 SECONDS, bound_upper = 40 SECONDS)
 	target.AdjustStuttering(10 SECONDS, bound_upper = 40 SECONDS)
 	if(has_upgrade(UPGRADE_MUTE))

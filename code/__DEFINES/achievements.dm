@@ -27,6 +27,7 @@
 #define MEDAL_LOOKOUTSIR "Look Out, Sir!"
 #define MEDAL_ASCENSION "Ascension"
 #define MEDAL_CULT_SHUTTLE_OMFG "WHAT JUST HAPPENED"
+#define MEDAL_SPRINGLOCK "The Bite Of 87"
 #define MEDAL_CLICKBAIT "Clickbait"
 #define MEDAL_HEALTHY "Heart Healthy"
 #define MEDAL_ARCH_DEVIL "Arch Devil"
