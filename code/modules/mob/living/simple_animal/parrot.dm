@@ -890,7 +890,7 @@
 	var/matrix/m180 = matrix(held_item.transform)
 	m180.Turn(180)
 
-	var/held_item_icon = image(held_item, pixel_y = -8)
+	var/held_item_icon = image(held_item, pixel_z = -8)
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
 

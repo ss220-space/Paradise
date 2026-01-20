@@ -56,16 +56,16 @@
 	pointed_atom_appearance.blend_mode = BLEND_INSET_OVERLAY
 	pointed_atom_appearance.plane = FLOAT_PLANE
 	pointed_atom_appearance.layer = FLOAT_LAYER
-	pointed_atom_appearance.pixel_x = 0
-	pointed_atom_appearance.pixel_y = 0
+	pointed_atom_appearance.pixel_w = 0
+	pointed_atom_appearance.pixel_z = 0
 	thought_bubble.overlays += pointed_atom_appearance
 
 	var/hover_outline_index = pointed_atom.get_filter("hover_outline")
 	if(!isnull(hover_outline_index))
 		pointed_atom_appearance.filters.Cut(hover_outline_index, hover_outline_index + 1)
 
-	thought_bubble.pixel_x = 16
-	thought_bubble.pixel_y = 32
+	thought_bubble.pixel_w = 16
+	thought_bubble.pixel_z = 32
 	thought_bubble.alpha = 200
 
 	if(include_arrow)
@@ -75,7 +75,7 @@
 			thought_bubble.layer + 0.01
 		)
 
-		point_visual.pixel_y = 7
+		point_visual.pixel_z = 7
 		thought_bubble.overlays += point_visual
 
 	// vis_contents is used to preserve mouse opacity

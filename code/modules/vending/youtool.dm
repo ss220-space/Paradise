@@ -22,9 +22,13 @@
 		/obj/item/t_scanner = 5,
 		/obj/item/screwdriver = 5,
 		/obj/item/clothing/gloves/color/fyellow = 2,
+		/obj/item/weldingtool/hugetank = 3,
+		/obj/item/wrench/industrial = 3,
+		/obj/item/crowbar/industrial = 3,
+		/obj/item/wirecutters/industrial = 3,
+		/obj/item/screwdriver/industrial = 3,
 	)
 	contraband = list(
-		/obj/item/weldingtool/hugetank = 2,
 		/obj/item/clothing/gloves/color/yellow = 1,
 	)
 	prices = list(
@@ -37,7 +41,11 @@
 		/obj/item/t_scanner = 29,
 		/obj/item/screwdriver = 49,
 		/obj/item/clothing/gloves/color/fyellow = 249,
-		/obj/item/weldingtool/hugetank = 199,
+		/obj/item/weldingtool/hugetank = 299,
+		/obj/item/wrench/industrial = 299,
+		/obj/item/crowbar/industrial = 299,
+		/obj/item/wirecutters/industrial = 299,
+		/obj/item/screwdriver/industrial = 299,
 		/obj/item/clothing/gloves/color/yellow = 499,
 	)
 

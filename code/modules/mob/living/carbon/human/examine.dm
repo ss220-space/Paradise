@@ -533,6 +533,11 @@
 			if(helmet?.examine_extensions)
 				have_hud_exam |= helmet.examine_extensions
 
+		if(ismodhelmet(H.head))
+			var/obj/item/clothing/head/mod/our_shitcode = H.head
+			if(our_shitcode?.examine_extensions)
+				have_hud_exam |= our_shitcode.examine_extensions
+
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)
 			have_hud_exam |= CIH.examine_extensions

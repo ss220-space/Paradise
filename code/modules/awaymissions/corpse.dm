@@ -533,7 +533,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /datum/outfit/job/engineer/suit
 	toggle_helmet = TRUE
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	back = /obj/item/mod/control/pre_equipped/engineering
 	mask = /obj/item/clothing/mask/breath
 
 /obj/effect/mob_spawn/human/clown
@@ -625,8 +625,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	toggle_helmet = TRUE
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots

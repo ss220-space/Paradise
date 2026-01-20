@@ -74,6 +74,8 @@
 #define FIXED_SLOWDOWN (1<<5)
 /// Checks for finger coverage, prevents damage from nettles
 #define FINGERS_COVERED (1<<6)
+/// prevents from placing on plasmaman helmet or modsuit hat holder
+#define STACKABLE_HELMET_EXEMPT (1<<7)
 
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 #define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode

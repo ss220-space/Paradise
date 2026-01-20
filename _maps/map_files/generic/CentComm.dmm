@@ -16073,6 +16073,7 @@
 	req_access = list(150)
 	},
 /obj/structure/fans/tiny/invisible,
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/plating,
 /area/shuttle/syndicate)
 "hNK" = (
@@ -25753,12 +25754,10 @@
 	},
 /area/centcom/bridge)
 "miW" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -27108,6 +27107,9 @@
 /obj/item/radio/intercom/syndicate/directional/south,
 /obj/machinery/light/small,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 4
+	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -27940,19 +27942,11 @@
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
 "ncQ" = (
-/obj/structure/closet/crate/internals,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
-/obj/item/tank/internals/oxygen/red,
-/obj/item/clothing/mask/gas,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
+	},
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 1
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -29360,11 +29354,14 @@
 	},
 /area/centcom/specops)
 "nGh" = (
-/obj/machinery/atmospherics/unary/tank/air{
+/obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
 	},
 /area/shuttle/syndicate)
 "nGk" = (
@@ -31917,6 +31914,11 @@
 	},
 /obj/machinery/light/spot{
 	dir = 8
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 4;
+	frequency = 1331;
+	id_tag = "vox_east_vent"
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -46211,6 +46213,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
 	},
@@ -46298,13 +46301,17 @@
 	},
 /area/syndicate_mothership)
 "viX" = (
-/obj/machinery/atmospherics/unary/tank/nitrogen{
-	dir = 4
+/obj/effect/turf_decal/caution/stand_clear{
+	dir = 1
 	},
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
 	},
-/area/shuttle/vox)
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
+	},
+/area/shuttle/syndicate)
 "vja" = (
 /obj/structure/closet{
 	custom_door_overlay = "yellow";
@@ -48255,9 +48262,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate_mothership/jail)
 "whd" = (
-/obj/structure/chair/sofa/corner{
-	dir = 4
-	},
+/obj/structure/chair/sofa/corner,
 /turf/simulated/floor/carpet,
 /area/syndicate_mothership/infteam)
 "whe" = (
@@ -48732,10 +48737,8 @@
 	},
 /area/syndicate_mothership)
 "wvW" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 8;
-	frequency = 1331;
-	id_tag = "vox_west_vent"
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -48785,6 +48788,11 @@
 	},
 /obj/machinery/light/spot{
 	dir = 4
+	},
+/obj/machinery/atmospherics/unary/vent_pump/high_volume{
+	dir = 8;
+	frequency = 1331;
+	id_tag = "vox_west_vent"
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -48926,10 +48934,8 @@
 	},
 /area/centcom/jail)
 "wBe" = (
-/obj/machinery/atmospherics/unary/vent_pump/high_volume{
-	dir = 4;
-	frequency = 1331;
-	id_tag = "vox_east_vent"
+/obj/machinery/atmospherics/unary/tank/nitrogen{
+	dir = 8
 	},
 /turf/simulated/floor/shuttle/plating/vox,
 /area/shuttle/vox)
@@ -48949,13 +48955,22 @@
 /turf/simulated/wall/indestructible/reinforced,
 /area/centcom/zone3)
 "wBy" = (
-/obj/machinery/atmospherics/unary/tank/nitrogen{
-	dir = 8
+/obj/structure/closet/crate/internals,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen/red,
+/obj/item/clothing/mask/gas,
+/obj/effect/turf_decal/stripes/line,
+/turf/simulated/floor/shuttle{
+	icon_state = "floor4"
 	},
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
-/area/shuttle/vox)
+/area/shuttle/syndicate)
 "wBD" = (
 /obj/effect/turf_decal/plaque{
 	layer = 3
@@ -66044,7 +66059,7 @@ xwb
 xAk
 xLN
 xKT
-hYm
+viX
 hNI
 miW
 puD
@@ -66303,7 +66318,7 @@ yiJ
 xKT
 mKC
 xqR
-nGh
+yiJ
 yiJ
 qRJ
 sik
@@ -66558,7 +66573,7 @@ yiJ
 yiJ
 xKT
 xKT
-aTJ
+nGh
 vhq
 ncQ
 yiJ
@@ -66817,7 +66832,7 @@ xKT
 xKT
 xKT
 xKT
-gnl
+wBy
 sDD
 xqR
 yiJ
@@ -94938,7 +94953,7 @@ doL
 dxR
 tYd
 xXv
-viX
+xXv
 xXv
 xXv
 xXv
@@ -99564,7 +99579,7 @@ aAL
 dCY
 tYd
 xXv
-wBy
+xXv
 xXv
 xXv
 xXv
