@@ -3671,6 +3671,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mod/core/standard,
 	)
 	cost = 50
+	access = ACCESS_ROBOTICS
+	announce_beacons = list("Research Division" = list("Robotics"))
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик с ядрами МЭК"
 	container_ru_names = list(
@@ -3681,8 +3683,6 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с ядрами МЭК",
 		PREPOSITIONAL = "ящике с ядрами МЭК",
 	)
-	access = ACCESS_ROBOTICS
-	announce_beacons = list("Research Division" = list("Robotics"))
 
 	/datum/supply_packs/science/txdisk
 	name = "Пустые диски технологий"
