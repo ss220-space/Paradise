@@ -748,7 +748,7 @@
 	. = ..()
 	if(slot != ITEM_SLOT_HEAD)
 		return .
-	var/obj/item/clothing/head/paper_bag/trash_bag = new trashtype(get_turf(src))
+	var/obj/item/paper/trash_bag = new trashtype(get_turf(src))
 	transfer_fingerprints_to(trash_bag)
 	user.transfer_fingerprints_to(trash_bag)
 	user.put_in_active_hand(trash_bag, ignore_anim = FALSE)
@@ -756,8 +756,8 @@
 	user.clear_fullscreen("fullyblack")
 	user.update_blind_effects()
 
-/obj/item/clothing/head/paper_bag/equipped(mob/living/H, slot)
+/obj/item/clothing/head/paper_bag/equipped(mob/living/living, slot)
 	. = ..()
-	if(slot == ITEM_SLOT_HEAD && istype(H))
-		H.clear_fullscreen("blind")
-		H.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)
+	if(slot == ITEM_SLOT_HEAD)
+		living.clear_fullscreen("blind")
+		living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)

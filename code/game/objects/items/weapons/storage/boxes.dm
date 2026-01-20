@@ -767,15 +767,15 @@
 	. = ..()
 	switch(design)
 		if(NODESIGN)
-			desc = "A sack neatly crafted out of paper."
+			desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы одеть ему кому-то на голову."
 		if(NANOTRASEN)
-			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+			desc = "Стандартный пакет НТ для завтраков для самых верных работников"
 		if(SYNDI)
-			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+			desc = "Дизайн этого бумажного пакета — секретнейшая разработка Синдиката"
 		if(HEART)
-			desc = "A paper sack with a heart etched onto the side."
+			desc = "Бумажный пакет с нарисованным сердечком. Как мило!"
 		if(SMILE)
-			desc = "A paper sack with a crude smile etched onto the side."
+			desc = "Бумажный пакет с улыбкой. Чутка жуткий."
 
 /obj/item/storage/box/papersack/update_icon_state()
 	item_state = "paperbag_[design]"
@@ -833,14 +833,14 @@
 	if(target.head)
 		target.drop_item_ground(target.head)
 		if(target.head) //if head item cannot be dropped
-			to_chat(user, span_notice("На голову [target == user ? user : target] нельзя одеть пакет!"))
+			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя одеть пакет!"))
 			return .
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
 		span_warning("[user] одел бумажный пакет на голову [target]!"),
 		span_notice("Вы одели [target == user ? "бумажный пакет себе на голову" : "бумажный пакет на голову [target]"]!"),
 	)
-	var/obj/item/storage/box/papersack/on_head = new /obj/item/clothing/head/paper_bag
+	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)
 	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
 	playsound(loc, 'sound/items/handling/pickup/paper_pickup.ogg', 50, TRUE, -5)
