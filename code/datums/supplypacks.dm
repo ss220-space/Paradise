@@ -3684,7 +3684,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с ядрами МЭК",
 	)
 
-	/datum/supply_packs/science/txdisk
+/datum/supply_packs/science/txdisk
 	name = "Пустые диски технологий"
 	containername = "ящик пустых дисков технологий"
 	container_ru_names = list(
