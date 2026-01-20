@@ -856,13 +856,10 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	Обладает большим объемом хранилища веществ и возможностью прокалывать твердую кожу, к сожалению в серийное производство не пошёл из-за сложности производства, но единичные экземпляры иногда встречаются на рынке."
 	volume = 500
 	list_reagents = list("synthflesh" = 500)
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "mender2_empty"
 	item_state = "mender2"
 	base_icon = "mender2"
 	
-	ignore_flags = TRUE
 	emagged = FALSE
 
 /obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()

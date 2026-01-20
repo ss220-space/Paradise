@@ -109,12 +109,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	cost = 100
 	containername = "internals crate"
 
-/datum/syndie_supply_packs//emergency/proper
+/datum/syndie_supply_packs/emergency/proper
 	name = "Кластерная граната \"Мистер пропер\" "
 	contains = list(
 		/obj/item/grenade/clusterbuster/cleaner,
 	)
-	cost = 150
+	cost = 300
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной гранатой \"Мистер пропер\" "
 	container_ru_names = list(
@@ -126,12 +126,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		PREPOSITIONAL = "ящике с кластерной гранатой \"Мистер пропер\" ",
 	)
 
-/datum/syndie_supply_packs//emergency/clusteroxygen
+/datum/syndie_supply_packs/emergency/clusteroxygen
 	name = "Кластерная кислородная граната"
 	contains = list(
 		/obj/item/grenade/clusterbuster/oxygen,
 	)
-	cost = 150
+	cost = 250
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной кислородной гранатой"
 	container_ru_names = list(

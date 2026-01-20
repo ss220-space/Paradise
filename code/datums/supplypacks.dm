@@ -4808,7 +4808,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с планшетами для заказов",
 	)
 
-/datum/supply_packs/misc/cargo_mon
+/datum/supply_packs/misc/qm_quest_tablet
 	name = "Планшет квартирмейстера"
 	contains = list(
 		/obj/item/qm_quest_tablet,
@@ -5655,7 +5655,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с грузовым МЭК",
 	)
 
-/datum/supply_packs/misc/loader
+/datum/supply_packs/misc/motorcycle
 	name = "Мотоцикл"
 	contains = list(
 		/obj/vehicle/ridden/motorcycle,
