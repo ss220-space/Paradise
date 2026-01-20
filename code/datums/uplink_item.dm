@@ -2185,11 +2185,11 @@
 	can_discount = FALSE
 	surplus = 0
 
-/datum/uplink_item/implants/reboot
+/datum/uplink_item/implants/emergency_reboot
 	name = "Имплант экстренной перезагрузки"
 	desc = "Имплант, который можно вживить в организм и активировать по желанию. Может быть использован до 3 раз, со временем заряды восстанавливаются, потребляя питательные вещества носителя. \
-			помогает организму восстановится после оглушения"
-	item = /obj/item/implanter/reboot
+			помогает организму восстановиться после оглушения"
+	item = /obj/item/implanter/emergency_reboot
 	cost = 15
 	can_discount = FALSE
 	surplus = 0

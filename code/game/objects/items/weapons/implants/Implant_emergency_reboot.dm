@@ -1,34 +1,34 @@
-/obj/item/implant/reboot
-	name = "emergency reboot bio-cheap"
+/obj/item/implant/emergency_reboot
+	name = "emergency emergency_reboot bio-cheap"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
-	implant_data = /datum/implant_fluff/reboot
+	implant_data = /datum/implant_fluff/emergency_reboot
 	actions_types = null
 	base_cooldown = 50 SECONDS
 
-/obj/item/implant/reboot/Initialize(mapload)
+/obj/item/implant/emergency_reboot/Initialize(mapload)
 	. = ..()
 	if(!action)
-		action = new(src)
+		action = new /datum/action/item_action/hands_free/activate(src)
 
-/obj/item/implant/reboot/Destroy()
+/obj/item/implant/emergency_reboot/Destroy()
 	. = ..()
 	QDEL_NULL(action)
 
-/obj/item/implant/reboot/implant(mob/living/carbon/human/source, mob/user, force)
+/obj/item/implant/emergency_reboot/implant(mob/living/carbon/human/source, mob/user, force)
 	add_item_action(action)
 	. = ..()
 
-/obj/item/implant/reboot/create_new_cooldown()
+/obj/item/implant/emergency_reboot/create_new_cooldown()
 	var/datum/implant_cooldown/charges/C = new
 	C.max_charges = 3
 	C.recharge_duration = base_cooldown
 	C.charge_duration = 1 SECONDS
 	return C
 
-/obj/item/implant/reboot/activate()
+/obj/item/implant/emergency_reboot/activate()
 	var/datum/implant_cooldown/charges/charges_cooldown = cooldown_system
 
 	if(charges_cooldown.is_on_cooldown())
@@ -58,13 +58,13 @@
 
 	return TRUE
 
-/obj/item/implanter/reboot
-	name = "bio-chip implanter (emergency reboot)"
-	imp = /obj/item/implant/reboot
+/obj/item/implanter/emergency_reboot
+	name = "bio-chip implanter (emergency emergency_reboot)"
+	imp = /obj/item/implant/emergency_reboot
 
-/obj/item/implantcase/reboot
-	name = "bio-chip case - emergency reboot"
-	desc = "A glass case containing an reboot bio-chip."
-	imp = /obj/item/implant/reboot
+/obj/item/implantcase/emergency_reboot
+	name = "bio-chip case - emergency emergency_reboot"
+	desc = "A glass case containing an emergency_reboot bio-chip."
+	imp = /obj/item/implant/emergency_reboot
 
 

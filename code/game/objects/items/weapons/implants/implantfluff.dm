@@ -168,7 +168,7 @@
 	life = "Lifetime warranty."
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
-/datum/implant_fluff/reboot
+/datum/implant_fluff/emergency_reboot
 	name = "Cybersun Industries ERI Bio-chip"
 	life = "Five days."
 	function =  "reloads the central nervous system to reset stuns"
