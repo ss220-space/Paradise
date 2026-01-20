@@ -705,7 +705,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/organ/internal/cyberimp/arm/surgery(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/autoimplanter(src)
-	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/med(src)
+	new /obj/item/mod/control/pre_equipped/elite(src)
 	new /obj/item/bodyanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	new /obj/item/stack/medical/splint(src)

@@ -336,6 +336,9 @@
 			else
 				to_chat(M, span_userdanger("Вы видите яркую вспышку синего света, когда [declent_ru(NOMINATIVE)] взрывается, обжигая вас!"))
 
+			if(immolate)
+				M.adjust_fire_stacks(immolate)
+				M.IgniteMob()
 		else
 			to_chat(M, span_userdanger("Вы чувствуете жар от взрыва [declent_ru(GENITIVE)], но он почти не задевает вас."))
 			add_attack_logs(src, M, "Hit lightly by [src]")

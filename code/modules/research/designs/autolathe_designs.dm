@@ -424,7 +424,7 @@
 /datum/design/c38hp
 	id = "c38hp"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 30500)
+	materials = list(MAT_METAL = 32000)
 	build_path = /obj/item/ammo_box/speedloader/c38/hp
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
@@ -634,7 +634,7 @@
 /datum/design/enforcermag
 	id = "rubber9mmmag"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 2500)
+	materials = list(MAT_METAL = 2000)
 	build_path = /obj/item/ammo_box/magazine/enforcer/empty
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_SECURITY)
 
@@ -817,14 +817,14 @@
 /datum/design/a357
 	id = "a357"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 75500)
+	materials = list(MAT_METAL = 79250)
 	build_path = /obj/item/ammo_box/a357
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/c10mm
 	id = "c10mm"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 45750)
+	materials = list(MAT_METAL = 45500)
 	build_path = /obj/item/ammo_box/c10mm
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 

@@ -30,7 +30,7 @@
 	user.visible_message(span_notice("[user] [rolled ? "rolls up" : "unfurls"] [src]."), span_notice("You [rolled ? "roll up" : "unfurl"] [src]."), span_warning("You hear fabric rustling."))
 	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/flag/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
+/obj/item/flag/fire_act(exposed_temperature, exposed_volume)
 	..()
 	update_icon(UPDATE_ICON_STATE)
 
