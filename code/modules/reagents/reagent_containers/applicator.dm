@@ -46,9 +46,9 @@
 /obj/item/reagent_containers/applicator/on_reagent_change()
 	if(!emagged)
 		var/found_forbidden_reagent = FALSE
-		for(var/datum/reagent/R in reagents.reagent_list)
-			if(!GLOB.safe_chem_applicator_list.Find(R.id))
-				reagents.del_reagent(R.id)
+		for(var/datum/reagent/chem in reagents.reagent_list)
+			if(!GLOB.safe_chem_applicator_list.Find(chem.id))
+				reagents.del_reagent(chem.id)
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
@@ -63,7 +63,7 @@
 /obj/item/reagent_containers/applicator/update_overlays()
 	. = ..()
 	if(reagents.total_volume)
-		. += mutable_appearance('icons/goonstation/objects/objects.dmi', "mender-fluid", color = mix_color_from_reagents(reagents.reagent_list))
+		. += mutable_appearance(icon, "mender-fluid", color = mix_color_from_reagents(reagents.reagent_list))
 	var/reag_pct = round((reagents.total_volume / volume) * 100)
 	var/mutable_appearance/applicator_bar = mutable_appearance('icons/goonstation/objects/objects.dmi', "app_e")
 	switch(reag_pct)

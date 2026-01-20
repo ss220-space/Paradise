@@ -7,7 +7,7 @@
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
 			Результаты ЭКГ, снятого данным аппаратом, не признаются ни одной клиникой."
 	gender = MALE
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'

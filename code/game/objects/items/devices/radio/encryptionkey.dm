@@ -2,9 +2,12 @@
 /obj/item/encryptionkey
 	name = "Standard Encryption Key"
 	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе все необходимые протоколы декодирования сигнала для прослушивания определенной частоты."
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "cypherkey"
+	icon = 'icons/map_icons/items/encryptionkey.dmi'
+	icon_state = "/obj/item/encryptionkey"
 	item_state = ""
+	post_init_icon_state = ""
+	greyscale_config = /datum/greyscale_config/encryptionkey_basic
+	greyscale_colors = "#535353#535353"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "engineering=2;bluespace=1"
 	var/translate_binary = FALSE
@@ -26,7 +29,9 @@
 /obj/item/encryptionkey/syndicate
 	name = "syndicate encryption key"
 	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе лучшее хакерское ПО, доступное на чёрном рынке и позволяющее получить доступ ко всем частотам \"Нанотрейзен\"."
-	icon_state = "syn_cypherkey"
+	icon_state = "/obj/item/encryptionkey/syndicate"
+	greyscale_config = /datum/greyscale_config/encryptionkey_syndie
+	greyscale_colors = "#3c3c3c#c81414"
 	channels = list(SYND_FREQ_NAME = 1)
 	origin_tech = "syndicate=1;engineering=3;bluespace=2"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
@@ -56,7 +61,8 @@
 
 /obj/item/encryptionkey/syndicate/taipan
 	change_voice = FALSE
-	icon_state = "taipan_cypherkey"
+	icon_state = "/obj/item/encryptionkey/syndicate/taipan"
+	greyscale_colors = "#3c3c3c#ffa200"
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/syndicate/taipan/borg
