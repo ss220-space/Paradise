@@ -93,6 +93,10 @@
 	target_atom.SpinAnimation(speed = 5, loops = 1, parallel = FALSE)
 
 /obj/structure/wiremod_manipulator/wrench_act(mob/living/user, obj/item/tool)
+	if(locked)
+		balloon_alert(user, "закрыто!")
+		return
+
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
 	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
