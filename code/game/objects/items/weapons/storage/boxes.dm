@@ -745,13 +745,23 @@
 
 /obj/item/storage/box/papersack
 	name = "paper sack"
-	desc = "A sack neatly crafted out of paper."
+	desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы одеть ему кому-то на голову. "
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
 	foldable = null
 	var/design = NODESIGN
-	var/apply_maduro_bag_delay = BAG_PUTTING_DELAY
+	var/apply_paper_bag_delay = BAG_PUTTING_DELAY
+
+/obj/item/storage/box/papersack/get_ru_names()
+	return list(
+		NOMINATIVE = "бумажный пакет",
+		GENITIVE = "бумажного пакета",
+		DATIVE = "бумажному пакету",
+		ACCUSATIVE = "бумажный пакет",
+		INSTRUMENTAL = "бумажным пакетом",
+		PREPOSITIONAL = "бумажном пакете",
+	)
 
 /obj/item/storage/box/papersack/update_desc(updates = ALL)
 	. = ..()
@@ -814,21 +824,21 @@
 	if(!ishuman(target))
 		return .
 	user.visible_message(
-		span_warning("[user] puts a bag over [target]'s head!"),
-		span_notice("You putting [target == user ? "a paper bag on your own head" : "a paper bag on [target]'s head"]!"),
-		span_italics("You hear the paper rustle."),
+		span_warning("[user] надевает бумажный пакет  на голову [target]!"),
+		span_notice("Вы одеваете [target == user ? "бумажный пакет на свою голову" : "бумажный пакет на голову [target]"]!"),
+		span_italics("Вы слышите шелест плотной бумаги."),
 	)
-	if(!do_after(user, apply_maduro_bag_delay, target) || !target.check_has_mouth())
+	if(!do_after(user, apply_paper_bag_delay, target) || !target.check_has_mouth())
 		return .
 	if(target.head)
 		target.drop_item_ground(target.head)
 	if(target.head)
-		to_chat(user, span_notice("[target == user ? user : target]'s head is now covered with a paper bag!"))
+		to_chat(user, span_notice("Голова [target == user ? user : target] теперь закрыта бумажным пакетом!"))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
-		span_warning("[user] puts a paper bag on [target]'s head!"),
-		span_notice("You put [target == user ? "a paper bag on your own head" : "a paper bag on [target]'s head"]![target == user ? null : " That should hide them well."]"),
+		span_warning("[user] одел бумажный пакет на голову [target]!"),
+		span_notice("Вы одели [target == user ? "бумажный пакет себе на голову" : "бумажный пакет на голову [target]"]!"),
 	)
 	var/obj/item/storage/box/papersack/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)
@@ -1247,6 +1257,7 @@
 	..()
 	for(var/i in 1 to 11)
 		new /obj/item/disk/tech_disk(src)
+
 #undef BAG_PUTTING_DELAY
 #undef NODESIGN
 #undef NANOTRASEN

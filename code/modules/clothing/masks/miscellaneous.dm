@@ -718,9 +718,9 @@
 
 /obj/item/clothing/head/paper_bag
 	name = "paper bag"
-	desc = "Выглядите как президент, богатый нефтью."
-	icon_state = "maduro_bag"
-	item_state = "maduro_bag"
+	desc = "Надетый на голову бумажный пакет. Очень хлипкий!"
+	icon_state = "paper_bag"
+	item_state = "paper_bag"
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEMASK|HIDENECK|HIDE_ALL_HAIR
@@ -734,6 +734,16 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 	var/trashtype = /obj/item/paper
+
+/obj/item/clothing/head/paper_bag/get_ru_names()
+	return list(
+		NOMINATIVE = "бумажный пакет",
+		GENITIVE = "бумажного пакета",
+		DATIVE = "бумажному пакету",
+		ACCUSATIVE = "бумажный пакет",
+		INSTRUMENTAL = "бумажным пакетом",
+		PREPOSITIONAL = "бумажном пакете",
+	)
 
 /obj/item/clothing/head/paper_bag/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
