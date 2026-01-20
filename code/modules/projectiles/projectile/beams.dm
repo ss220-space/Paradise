@@ -32,7 +32,8 @@
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/light
-	damage = 18
+	damage = 16
+	armour_penetration = -50
 
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
