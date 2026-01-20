@@ -454,7 +454,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
 		if(!isnull(new_name))
-			to_chat(user, span_notice("Вы оружию имя \"[name]\". Познакомьтесь со своим новым другом."))
+			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(I, /obj/item/kitchen/knife))
@@ -465,11 +465,11 @@
 			to_chat(user, span_warning("Вы не можете прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(bayonet)
-			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже есть [knife.declent_ru(NOMINATIVE)]!"))
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже есть [knife.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(knife, src))
 			return ..()
-		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE )]."))
+		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE)]."))
 		set_bayonet(knife)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
