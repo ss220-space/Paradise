@@ -724,7 +724,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEMASK|HIDENECK|HIDE_ALL_HAIR
-	put_on_delay = 2 SECONDS
 	item_flags = DROPDEL
 	sprite_sheets = list(
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
