@@ -2255,6 +2255,16 @@
 	},
 /turf/simulated/wall,
 /area/hallway/secondary/entry/lounge)
+"auB" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Hangar";
+	req_access = list(18,47,48,70,71)
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engineering/mechanic_workshop/hangar)
 "auH" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -2474,23 +2484,6 @@
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel,
 /area/engineering/mechanic_workshop/expedition)
-"avJ" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	name = "Cargo Bay Maintenance";
-	req_access = list(31)
-	},
-/obj/effect/decal/cleanable/blood/tracks{
-	basecolor = "#030303";
-	desc = "It's black and greasy. Looks like Beepsky made another mess.";
-	drydesc = "It's dry and crusty. Someone is not doing their job."
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/bar)
 "avL" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 1
@@ -2602,23 +2595,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
-"awM" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/door/airlock/maintenance{
-	name = "Cargo Bay Maintenance";
-	req_access = list(31)
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/bar)
 "awP" = (
 /obj/structure/chair{
 	dir = 8
@@ -6318,15 +6294,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
-"aWj" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
 "aWr" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/cargotech,
@@ -6581,31 +6548,11 @@
 /obj/item/kitchen/utensil/spoon,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
-"aXV" = (
-/obj/machinery/status_display,
-/turf/simulated/wall,
-/area/quartermaster/qm)
 "aXW" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
 /turf/simulated/floor/wood,
 /area/library)
-"aYb" = (
-/obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/pen,
-/obj/machinery/door/window/westleft{
-	dir = 4;
-	name = "Mining Desk";
-	req_access = list(48)
-	},
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
 "aYd" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
@@ -13024,18 +12971,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"bHT" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining/glass{
-	name = "Cargo Office";
-	req_access = list(31,50)
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
 "bHX" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -14677,27 +14612,6 @@
 	icon_state = "white"
 	},
 /area/crew_quarters/kitchen)
-"bQX" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/airlock/mining{
-	name = "Mining Dock";
-	req_access = list(31)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
 "bRb" = (
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken6"
@@ -16167,14 +16081,6 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/crew_quarters/heads/hop)
-"bYu" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "Cargo Warehouse Windows";
-	name = "Cargo Warehouse Windows"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "bYz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -16190,24 +16096,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
-"bYI" = (
-/obj/structure/table/reinforced,
-/obj/item/mod/module/hat_stabilizer{
-	pixel_x = 1;
-	pixel_y = -6
-	},
-/obj/item/mod/module/hat_stabilizer{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/obj/item/mod/module/pepper_shoulders{
-	pixel_x = 6;
-	pixel_y = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "bYJ" = (
 /obj/effect/decal/warning_stripes/north,
 /turf/simulated/floor/plasteel,
@@ -19619,6 +19507,19 @@
 /obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"crZ" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "Cargo Office Windows";
+	name = "Cargo Office Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/office)
 "csa" = (
 /obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
@@ -20452,10 +20353,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/mimeoffice)
-"cwJ" = (
-/obj/structure/sign/poster/official/minegem,
-/turf/simulated/wall,
-/area/quartermaster/qm)
 "cwK" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -23582,6 +23479,18 @@
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"cKu" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining/glass{
+	name = "Cargo Office";
+	req_access = list(31,50)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/office)
 "cKv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -25514,6 +25423,10 @@
 	icon_state = "white"
 	},
 /area/toxins/lab)
+"cTE" = (
+/obj/structure/sign/poster/official/minegem,
+/turf/simulated/wall/r_wall,
+/area/quartermaster/qm)
 "cTG" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -26823,18 +26736,6 @@
 	icon_state = "purple"
 	},
 /area/hallway/primary/aft)
-"cZs" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	id_tag = "Cargo Warehouse Windows";
-	name = "Cargo Warehouse Windows"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/storage)
 "cZu" = (
 /obj/machinery/computer/rdconsole/core,
 /obj/effect/decal/warning_stripes/northwest,
@@ -28893,6 +28794,10 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/asmaint4)
+"diP" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "diQ" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/item/twohanded/required/kirbyplants,
@@ -31646,6 +31551,23 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"dvI" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/door/airlock/maintenance{
+	name = "Cargo Bay Maintenance";
+	req_access = list(31)
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/bar)
 "dvJ" = (
 /obj/structure/closet/secure_closet/medical2,
 /turf/simulated/floor/plasteel{
@@ -33181,9 +33103,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads/hop)
-"dDb" = (
-/turf/simulated/wall,
-/area/quartermaster/qm)
 "dDe" = (
 /obj/structure/sign/fire,
 /turf/simulated/wall/r_wall/coated,
@@ -36138,10 +36057,6 @@
 	icon_state = "dark"
 	},
 /area/atmos)
-"dRG" = (
-/obj/machinery/status_display/supply_display,
-/turf/simulated/wall,
-/area/quartermaster/qm)
 "dRJ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -39104,6 +39019,18 @@
 	icon_state = "caution"
 	},
 /area/maintenance/bar)
+"eiO" = (
+/obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	dir = 4;
+	id = "cargodelivery"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/delivery)
 "eiQ" = (
 /obj/structure/closet/crate/can,
 /obj/structure/window/reinforced/tinted{
@@ -39685,15 +39612,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/crew_quarters/theatre)
-"epP" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/hos)
 "epY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -39709,15 +39627,6 @@
 /obj/item/flag/species/vox,
 /turf/simulated/floor/plating,
 /area/maintenance/trading)
-"eqA" = (
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
-/turf/simulated/wall,
-/area/quartermaster/storage)
 "eqH" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -41647,6 +41556,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/crew_quarters/locker)
+"eNn" = (
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK"
+	},
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "eNs" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/cleanable/dirt,
@@ -42038,14 +41956,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
-"eSy" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/delivery)
 "eSz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -42570,16 +42480,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/nw)
-"eYg" = (
-/obj/machinery/suit_storage_unit/qm,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "eYh" = (
 /obj/machinery/power/apc{
 	dir = 1;
@@ -43322,14 +43222,6 @@
 	icon_state = "red"
 	},
 /area/security/prison/cell_block/A)
-"fgZ" = (
-/obj/effect/decal/warning_stripes/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/security/permabrig)
 "fhb" = (
 /obj/structure/closet/secure_closet/brig/evidence,
 /obj/structure/window/reinforced{
@@ -43373,24 +43265,6 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/xenobiology)
-"fiJ" = (
-/obj/machinery/door/firedoor,
-/obj/structure/table/reinforced,
-/obj/machinery/door/window/westleft{
-	dir = 4;
-	name = "Cargo Desk";
-	req_access = list(50)
-	},
-/obj/item/folder/yellow,
-/obj/item/pen,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/item/poster/random_contraband,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/delivery)
 "fiO" = (
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
@@ -44308,29 +44182,6 @@
 	icon_state = "dark"
 	},
 /area/security/evidence)
-"fuK" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/fancy/donut_box,
-/obj/item/mod/module/megaphone{
-	pixel_x = 6;
-	pixel_y = -3
-	},
-/obj/item/mod/module/megaphone{
-	pixel_x = 6;
-	pixel_y = 8
-	},
-/obj/item/mod/module/quick_cuff{
-	pixel_x = -6;
-	pixel_y = -4
-	},
-/obj/item/mod/module/quick_cuff{
-	pixel_x = -7;
-	pixel_y = 9
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "fuR" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -44646,6 +44497,10 @@
 	icon_state = "dark"
 	},
 /area/chapel/main)
+"fzg" = (
+/obj/machinery/vending/cart,
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/heads/hop)
 "fzv" = (
 /obj/structure/cable{
 	icon_state = "2-4"
@@ -45459,24 +45314,6 @@
 	icon_state = "whitepurple"
 	},
 /area/medical/research/restroom)
-"fJz" = (
-/obj/structure/extinguisher_cabinet{
-	pixel_y = -28
-	},
-/obj/structure/table/glass,
-/obj/item/storage/fancy/donut_box{
-	pixel_y = -4
-	},
-/obj/item/reagent_containers/food/drinks/mug/sec,
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = 5;
-	pixel_y = 13
-	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "whitered"
-	},
-/area/security/medbay)
 "fJA" = (
 /obj/structure/closet/secure_closet/brig/evidence,
 /obj/structure/window/reinforced{
@@ -46077,6 +45914,14 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/office)
+"fSh" = (
+/obj/effect/decal/warning_stripes/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/security/permabrig)
 "fSo" = (
 /obj/spacepod/sec{
 	dir = 4
@@ -46267,6 +46112,36 @@
 	},
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
+"fUi" = (
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_y = -30
+	},
+/obj/machinery/light,
+/obj/structure/cable{
+	icon_state = "1-4";
+	tag = "90Curve"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
+"fUj" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "Cargo Office Windows";
+	name = "Cargo Office Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/office)
 "fUo" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
@@ -48076,6 +47951,14 @@
 	icon_state = "bar"
 	},
 /area/security/permabrig)
+"gqx" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/sorting)
 "gqz" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Vacant Office"
@@ -49700,11 +49583,6 @@
 	icon_state = "yellow"
 	},
 /area/atmos)
-"gIQ" = (
-/obj/machinery/vending/cigarette,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel,
-/area/security/brigstaff)
 "gJf" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -50398,14 +50276,6 @@
 "gOO" = (
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
-"gOU" = (
-/obj/machinery/light,
-/obj/machinery/vending/coffee,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/lawoffice)
 "gOW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -51512,6 +51382,27 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
+"hbW" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/mining{
+	name = "Mining Dock";
+	req_access = list(31)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock)
 "hcg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -52021,6 +51912,10 @@
 	icon_state = "wood-broken"
 	},
 /area/maintenance/kitchen)
+"hjr" = (
+/obj/machinery/status_display,
+/turf/simulated/wall/r_wall,
+/area/quartermaster/qm)
 "hjz" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -52853,6 +52748,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/fpmaint)
+"hso" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/miningdock)
 "hsp" = (
 /turf/simulated/wall,
 /area/maintenance/tourist)
@@ -53821,6 +53725,24 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/carpet,
 /area/maintenance/trading)
+"hGc" = (
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -28
+	},
+/obj/structure/table/glass,
+/obj/item/storage/fancy/donut_box{
+	pixel_y = -4
+	},
+/obj/item/reagent_containers/food/drinks/mug/sec,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "whitered"
+	},
+/area/security/medbay)
 "hGm" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -53853,6 +53775,13 @@
 /obj/effect/spawner/new_year/presents_tree,
 /turf/simulated/floor/carpet/green,
 /area/crew_quarters/bar/atrium)
+"hGG" = (
+/obj/item/flag/cargo,
+/obj/structure/sign/poster/official/cargogorilas{
+	pixel_y = 32
+	},
+/turf/simulated/floor/carpet/black,
+/area/quartermaster/storage)
 "hGI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/writing,
@@ -55754,6 +55683,22 @@
 	icon_state = "dark"
 	},
 /area/turret_protected/ai)
+"ifa" = (
+/obj/structure/table/reinforced,
+/obj/item/folder/yellow,
+/obj/item/pen,
+/obj/machinery/door/window/westleft{
+	dir = 4;
+	name = "Mining Desk";
+	req_access = list(48)
+	},
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock)
 "ifq" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
@@ -56918,24 +56863,6 @@
 	icon_state = "dark"
 	},
 /area/crew_quarters/bar)
-"ita" = (
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -22
-	},
-/obj/machinery/camera{
-	c_tag = "Quartermaster's Office";
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 1
-	},
-/obj/structure/bed/dogbed,
-/mob/living/simple_animal/pet/sloth/paperwork,
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "itc" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -58246,20 +58173,6 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
-"iJt" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/sign/securearea{
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
-	icon_state = "space";
-	layer = 4;
-	name = "EXTERNAL AIRLOCK"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
 "iJw" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plasteel{
@@ -59270,25 +59183,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
 /area/maintenance/garden)
-"iWG" = (
-/obj/machinery/power/apc{
-	dir = 4;
-	pixel_x = 26
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/table/glass,
-/obj/item/reagent_containers/spray/cleaner/medical,
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = 5;
-	pixel_y = 13
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "whitebluecorner"
-	},
-/area/medical/paramedic)
 "iWJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -59351,13 +59245,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/office)
-"iXj" = (
-/obj/item/flag/cargo,
-/obj/structure/sign/poster/official/cargogorilas{
-	pixel_y = 32
-	},
-/turf/simulated/floor/carpet/black,
-/area/quartermaster/storage)
 "iXk" = (
 /obj/machinery/door/window/brigdoor,
 /obj/item/radio/intercom/directional/west,
@@ -59848,6 +59735,32 @@
 	icon_state = "showroomfloor"
 	},
 /area/maintenance/banya)
+"jde" = (
+/obj/structure/plasticflaps,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "Cargo Office Windows";
+	name = "Cargo Office Shutters"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/office)
 "jdn" = (
 /obj/structure/table/wood,
 /obj/machinery/recharger,
@@ -60057,19 +59970,6 @@
 	icon_state = "whitepurple"
 	},
 /area/toxins/xenobiology)
-"jfn" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	id_tag = "Cargo Office Windows";
-	name = "Cargo Office Shutters"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/office)
 "jfp" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -60663,14 +60563,6 @@
 	icon_state = "purplefull"
 	},
 /area/medical/research/nhallway)
-"jmG" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/sorting)
 "jmK" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
@@ -61524,36 +61416,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel,
 /area/security/securehallway)
-"jvQ" = (
-/obj/machinery/door_control{
-	id = "Exp_lockdown";
-	name = "Expedition Lockdown Control";
-	pixel_x = 7;
-	pixel_y = -26;
-	req_access = list(62)
-	},
-/obj/machinery/door_control{
-	id = "eva-shutters";
-	name = "Auxilary E.V.A. Storage";
-	pixel_x = -7;
-	pixel_y = -26;
-	req_access = list(18)
-	},
-/obj/machinery/door_control{
-	id = "BridgeLockdown";
-	name = "Bridge Lockdown";
-	pixel_x = 7;
-	pixel_y = -35;
-	req_access = list(62)
-	},
-/obj/machinery/door_control{
-	id = "Biohazard_cargo";
-	name = "Cargo Lockdown";
-	pixel_x = -7;
-	pixel_y = -35
-	},
-/turf/simulated/floor/carpet,
-/area/bridge)
 "jwa" = (
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
@@ -61891,6 +61753,20 @@
 	icon_state = "white"
 	},
 /area/toxins/xenobiology)
+"jzd" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/sign/securearea{
+	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'";
+	icon_state = "space";
+	layer = 4;
+	name = "EXTERNAL AIRLOCK"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/miningdock)
 "jzn" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -63314,31 +63190,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"jSK" = (
-/obj/structure/table/reinforced,
-/obj/item/stamp/qm{
-	pixel_x = 8;
-	pixel_y = 10
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/item/paper_bin{
-	pixel_x = 4;
-	pixel_y = -10
-	},
-/obj/item/pen{
-	pixel_x = 4;
-	pixel_y = -10
-	},
-/obj/machinery/keycard_auth,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/qm)
 "jSU" = (
 /obj/structure/cable{
 	icon_state = "1-8"
@@ -63756,6 +63607,13 @@
 	icon_state = "black"
 	},
 /area/space)
+"jXC" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "jXD" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -65722,21 +65580,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
-"kyG" = (
-/obj/machinery/button/windowtint{
-	dir = 1;
-	id = "qm";
-	pixel_x = 8;
-	pixel_y = 24
-	},
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal,
-/obj/machinery/light_switch/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "kyL" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -65904,26 +65747,6 @@
 "kAF" = (
 /turf/simulated/wall/r_wall,
 /area/engineering/break_room)
-"kAJ" = (
-/obj/structure/table/reinforced,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/window/westleft{
-	dir = 1;
-	name = "Cargo Bay Desk";
-	req_access = list(31)
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "Cargo Office Windows";
-	name = "Cargo Office Shutters"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
 "kAV" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/camera/emp_proof{
@@ -67606,6 +67429,15 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
+"kXq" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/hos)
 "kXF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "redcorner"
@@ -69665,10 +69497,6 @@
 	icon_state = "dark"
 	},
 /area/hydroponics)
-"lwD" = (
-/obj/structure/chair/sofa/right,
-/turf/simulated/floor/carpet/black,
-/area/quartermaster/storage)
 "lwR" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -71874,6 +71702,24 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft)
+"lZG" = (
+/obj/structure/table/reinforced,
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = 1;
+	pixel_y = -6
+	},
+/obj/item/mod/module/hat_stabilizer{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/item/mod/module/pepper_shoulders{
+	pixel_x = 6;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "lZI" = (
 /obj/machinery/light{
 	dir = 1
@@ -73506,6 +73352,31 @@
 	icon_state = "darkblue"
 	},
 /area/bridge)
+"mrw" = (
+/obj/structure/table/reinforced,
+/obj/item/stamp/qm{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = -10
+	},
+/obj/item/pen{
+	pixel_x = 4;
+	pixel_y = -10
+	},
+/obj/machinery/keycard_auth,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/qm)
 "mrA" = (
 /obj/structure/chair{
 	dir = 4
@@ -74492,6 +74363,14 @@
 	icon_state = "purplecorner"
 	},
 /area/hallway/primary/aft)
+"mCF" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/miningdock)
 "mCI" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -75959,14 +75838,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker)
-"mTa" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/miningdock)
 "mTh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -78641,6 +78512,26 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"nyq" = (
+/obj/machinery/computer/card/minor/qm,
+/obj/machinery/door_control{
+	id = "Biohazard_cargo";
+	name = "Cargo Lockdown";
+	pixel_x = 26;
+	pixel_y = -8
+	},
+/obj/machinery/door_control{
+	id = "Cargo Warehouse Windows";
+	name = "Cargo Office Shutters Control";
+	pixel_x = 26;
+	pixel_y = 5;
+	req_access = list(50)
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "nyK" = (
 /obj/machinery/door/airlock/external{
 	id_tag = "supply_home";
@@ -79801,6 +79692,9 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"nLS" = (
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "nLY" = (
 /obj/effect/turf_decal/stripes/white/line{
 	dir = 9
@@ -79981,16 +79875,6 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/break_room)
-"nOm" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Hangar";
-	req_access = list(18,47,48,70,71)
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engineering/mechanic_workshop/hangar)
 "nOs" = (
 /obj/structure/safe/floor,
 /obj/item/paper{
@@ -81268,10 +81152,6 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/biostorage)
-"ofc" = (
-/obj/machinery/vending/cart,
-/turf/simulated/floor/wood/fancy/light,
-/area/crew_quarters/heads/hop)
 "ofk" = (
 /obj/item/storage/toolbox/mechanical,
 /obj/item/stack/cable_coil/random,
@@ -82096,6 +81976,15 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/sw)
+"oob" = (
+/obj/machinery/mineral/ore_redemption,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock)
 "oof" = (
 /obj/structure/sign/nosmoking_1,
 /turf/simulated/wall,
@@ -82565,6 +82454,25 @@
 "ots" = (
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/serviceyard)
+"otw" = (
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/table/glass,
+/obj/item/reagent_containers/spray/cleaner/medical,
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "whitebluecorner"
+	},
+/area/medical/paramedic)
 "otC" = (
 /obj/structure/closet/crate,
 /obj/item/stack/rods/ten,
@@ -82891,26 +82799,6 @@
 	icon_state = "wood-broken"
 	},
 /area/maintenance/asmaint4)
-"oxZ" = (
-/obj/machinery/door/firedoor,
-/obj/machinery/autolathe,
-/obj/machinery/door/window/brigdoor{
-	dir = 2;
-	id = "Autolathe";
-	name = "Autolathe Access";
-	req_access = list(31)
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "Cargo Office Windows";
-	name = "Cargo Office Shutters"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
 "oya" = (
 /obj/structure/grille,
 /obj/structure/cable/yellow{
@@ -83444,19 +83332,6 @@
 	icon_state = "caution"
 	},
 /area/maintenance/asmaint4)
-"oCt" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/qm)
 "oCC" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -85270,6 +85145,16 @@
 	icon_state = "red"
 	},
 /area/security/range)
+"oZn" = (
+/obj/machinery/suit_storage_unit/qm,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "oZo" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -85305,18 +85190,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
-"oZK" = (
-/obj/structure/plasticflaps,
-/obj/machinery/conveyor{
-	dir = 4;
-	id = "cargodelivery"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/delivery)
 "oZS" = (
 /obj/machinery/camera{
 	c_tag = "Kitchen East";
@@ -85610,6 +85483,14 @@
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"pdJ" = (
+/obj/machinery/light,
+/obj/machinery/vending/coffee,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/fancy/cherry,
+/area/lawoffice)
 "pdP" = (
 /obj/machinery/camera{
 	c_tag = "Permabrig Hallway";
@@ -86396,15 +86277,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"pmU" = (
-/obj/effect/spawner/window/reinforced/polarized{
-	id = "qm"
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/qm)
 "pmZ" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -86550,6 +86422,24 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
+"poj" = (
+/obj/machinery/door/firedoor,
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/westleft{
+	dir = 4;
+	name = "Cargo Desk";
+	req_access = list(50)
+	},
+/obj/item/folder/yellow,
+/obj/item/pen,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/item/poster/random_contraband,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/delivery)
 "pom" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/disposalpipe/segment{
@@ -88995,15 +88885,6 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit/maint)
-"pOz" = (
-/obj/machinery/mineral/ore_redemption,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/miningdock)
 "pOC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -89143,6 +89024,9 @@
 /obj/item/candle/eternal,
 /turf/simulated/floor/wood,
 /area/maintenance/asmaint4)
+"pQL" = (
+/turf/simulated/wall/r_wall,
+/area/quartermaster/qm)
 "pQN" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -91651,6 +91535,18 @@
 "qsc" = (
 /turf/simulated/wall,
 /area/medical/surgery/north)
+"qsi" = (
+/obj/structure/plasticflaps,
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargodelivery"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/delivery)
 "qsm" = (
 /obj/machinery/door/airlock/multi_tile/glass{
 	dir = 1;
@@ -91836,6 +91732,19 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
+"qtl" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "qtp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -92226,6 +92135,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
+"qwM" = (
+/obj/effect/spawner/window/reinforced,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/sorting)
 "qwN" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -92655,6 +92575,14 @@
 	color = "orange"
 	},
 /area/crew_quarters/courtroom)
+"qBF" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "Cargo Warehouse Windows";
+	name = "Cargo Warehouse Windows"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "qBV" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 8;
@@ -93440,39 +93368,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/range)
-"qLg" = (
-/obj/machinery/door_control{
-	id = "QMLoaddoor";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = 24;
-	pixel_y = 8;
-	req_access = list(50)
-	},
-/obj/machinery/door_control{
-	id = "QMLoaddoor2";
-	layer = 4;
-	name = "Loading Doors";
-	pixel_x = 24;
-	pixel_y = -8;
-	req_access = list(50)
-	},
-/obj/machinery/camera{
-	c_tag = "Cargo Shuttle Airlock";
-	dir = 8
-	},
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/machinery/door_control{
-	id = "Cargo Warehouse Windows";
-	name = "Cargo Office Shutters Control";
-	pixel_x = 35;
-	req_access = list(50)
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "qLt" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/extinguisher_cabinet{
@@ -93641,6 +93536,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/sm_test_chamber)
+"qNH" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/box/syndie_kit/dropwall{
+	pixel_x = -2;
+	pixel_y = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "qNQ" = (
 /obj/item/bikehorn/rubberducky,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -94736,17 +94641,6 @@
 	icon_state = "red"
 	},
 /area/security/range)
-"rbp" = (
-/obj/effect/spawner/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/sorting)
 "rbs" = (
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel{
@@ -95409,6 +95303,36 @@
 	icon_state = "darkred"
 	},
 /area/security/interrogation)
+"rhJ" = (
+/obj/machinery/door_control{
+	id = "Exp_lockdown";
+	name = "Expedition Lockdown Control";
+	pixel_x = 7;
+	pixel_y = -26;
+	req_access = list(62)
+	},
+/obj/machinery/door_control{
+	id = "eva-shutters";
+	name = "Auxilary E.V.A. Storage";
+	pixel_x = -7;
+	pixel_y = -26;
+	req_access = list(18)
+	},
+/obj/machinery/door_control{
+	id = "BridgeLockdown";
+	name = "Bridge Lockdown";
+	pixel_x = 7;
+	pixel_y = -35;
+	req_access = list(62)
+	},
+/obj/machinery/door_control{
+	id = "Biohazard_cargo";
+	name = "Cargo Lockdown";
+	pixel_x = -7;
+	pixel_y = -35
+	},
+/turf/simulated/floor/carpet,
+/area/bridge)
 "rhM" = (
 /obj/structure/chair/stool{
 	dir = 1
@@ -97396,6 +97320,10 @@
 	icon_state = "whitehall"
 	},
 /area/toxins/xenobiology)
+"rFY" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/security/detectives_office)
 "rGe" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -97494,6 +97422,18 @@
 	icon_state = "purplefull"
 	},
 /area/toxins/xenobiology)
+"rHd" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/obj/effect/landmark/start/quartermaster,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/qm)
 "rHe" = (
 /obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
@@ -98737,6 +98677,39 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/east)
+"rWa" = (
+/obj/machinery/door_control{
+	id = "QMLoaddoor";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = 8;
+	req_access = list(50)
+	},
+/obj/machinery/door_control{
+	id = "QMLoaddoor2";
+	layer = 4;
+	name = "Loading Doors";
+	pixel_x = 24;
+	pixel_y = -8;
+	req_access = list(50)
+	},
+/obj/machinery/camera{
+	c_tag = "Cargo Shuttle Airlock";
+	dir = 8
+	},
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/machinery/door_control{
+	id = "Cargo Warehouse Windows";
+	name = "Cargo Office Shutters Control";
+	pixel_x = 35;
+	req_access = list(50)
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "rWt" = (
 /obj/structure/chair{
 	dir = 4
@@ -102087,23 +102060,6 @@
 	icon_state = "dark"
 	},
 /area/engineering/gravitygenerator)
-"sKT" = (
-/obj/machinery/requests_console{
-	announcementConsole = 1;
-	department = "Quartermaster's Desk";
-	departmentType = 5;
-	name = "Quartermaster Requests Console";
-	pixel_y = -30
-	},
-/obj/machinery/light,
-/obj/structure/cable{
-	icon_state = "1-4";
-	tag = "90Curve"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "sLe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -102989,32 +102945,6 @@
 	icon_state = "whitegreencorner"
 	},
 /area/medical/virology)
-"sVY" = (
-/obj/structure/plasticflaps,
-/obj/effect/decal/warning_stripes/yellow,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 8;
-	id_tag = "Cargo Office Windows";
-	name = "Cargo Office Shutters"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/office)
 "sWf" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -103404,16 +103334,6 @@
 /obj/machinery/computer/slot_machine,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
-"tbG" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/syndie_kit/dropwall{
-	pixel_x = -2;
-	pixel_y = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/securearmory)
 "tbM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -105727,6 +105647,23 @@
 	icon_state = "neutralfull"
 	},
 /area/bridge/vip)
+"tCK" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	name = "Cargo Bay Maintenance";
+	req_access = list(31)
+	},
+/obj/effect/decal/cleanable/blood/tracks{
+	basecolor = "#030303";
+	desc = "It's black and greasy. Looks like Beepsky made another mess.";
+	drydesc = "It's dry and crusty. Someone is not doing their job."
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/bar)
 "tCM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -106055,13 +105992,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/security/processing)
-"tFz" = (
-/obj/machinery/vending/cola,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
-	},
-/area/security/permabrig)
 "tFA" = (
 /obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
@@ -107419,6 +107349,24 @@
 	},
 /turf/simulated/floor/bluegrid,
 /area/aisat)
+"tTn" = (
+/obj/structure/table/reinforced,
+/obj/item/clipboard,
+/obj/item/toy/figure/warden,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = 7
+	},
+/obj/item/bodybag/environmental/prisoner/pressurized{
+	pixel_x = -9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkred"
+	},
+/area/security/warden)
 "tTu" = (
 /obj/machinery/atmospherics/pipe/simple/visible{
 	desc = "Труба служит для подачу горючей смеси в турбину для её работы";
@@ -107631,6 +107579,29 @@
 	icon_state = "neutralfull"
 	},
 /area/engineering/break_room)
+"tVQ" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/donut_box,
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = -3
+	},
+/obj/item/mod/module/megaphone{
+	pixel_x = 6;
+	pixel_y = 8
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -6;
+	pixel_y = -4
+	},
+/obj/item/mod/module/quick_cuff{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/securearmory)
 "tVV" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -107669,22 +107640,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
-"tWk" = (
-/obj/structure/table/glass,
-/obj/item/folder/white,
-/obj/item/flashlight/pen,
-/obj/item/clothing/accessory/stethoscope,
-/obj/structure/sign/nosmoking_2{
-	pixel_y = 32
-	},
-/obj/item/bodybag/environmental/nanotrasen{
-	pixel_x = 5;
-	pixel_y = 13
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "cmo"
-	},
-/area/medical/cmo)
 "tWn" = (
 /turf/simulated/wall,
 /area/security/execution)
@@ -108841,6 +108796,26 @@
 	icon_state = "red"
 	},
 /area/security/checkpoint/south)
+"ujF" = (
+/obj/structure/table/reinforced,
+/obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/door/window/westleft{
+	dir = 1;
+	name = "Cargo Bay Desk";
+	req_access = list(31)
+	},
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "Cargo Office Windows";
+	name = "Cargo Office Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/office)
 "ujQ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -111496,10 +111471,6 @@
 	},
 /turf/space,
 /area/space)
-"uOR" = (
-/obj/machinery/vending/cigarette,
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "uOU" = (
 /obj/item/radio/intercom/directional/east,
 /obj/effect/decal/cleanable/dirt,
@@ -111692,6 +111663,14 @@
 	icon_state = "redcorner"
 	},
 /area/security/range)
+"uQS" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/delivery)
 "uQV" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -112492,6 +112471,21 @@
 	},
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
+"vbx" = (
+/obj/machinery/button/windowtint{
+	dir = 1;
+	id = "qm";
+	pixel_x = 8;
+	pixel_y = 24
+	},
+/obj/structure/disposalpipe/trunk,
+/obj/machinery/disposal,
+/obj/machinery/light_switch/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "vbJ" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -114118,6 +114112,22 @@
 /obj/item/storage/box/tapes,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
+"vvN" = (
+/obj/structure/table/glass,
+/obj/item/folder/white,
+/obj/item/flashlight/pen,
+/obj/item/clothing/accessory/stethoscope,
+/obj/structure/sign/nosmoking_2{
+	pixel_y = 32
+	},
+/obj/item/bodybag/environmental/nanotrasen{
+	pixel_x = 5;
+	pixel_y = 13
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "cmo"
+	},
+/area/medical/cmo)
 "vvP" = (
 /turf/simulated/floor/mech_bay_recharge_floor,
 /area/maintenance/electrical)
@@ -115724,24 +115734,6 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel/airless,
 /area/toxins/test_area)
-"vNF" = (
-/obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/toy/figure/warden,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/item/bodybag/environmental/prisoner/pressurized{
-	pixel_x = 7
-	},
-/obj/item/bodybag/environmental/prisoner/pressurized{
-	pixel_x = -9
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkred"
-	},
-/area/security/warden)
 "vNP" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/plating,
@@ -116680,6 +116672,11 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
+"vXP" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel,
+/area/security/brigstaff)
 "vXZ" = (
 /obj/structure/chair/wood/wings{
 	dir = 8;
@@ -117109,18 +117106,6 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/maintenance/asmaint4)
-"wdc" = (
-/obj/structure/plasticflaps,
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargodelivery"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plasteel,
-/area/quartermaster/delivery)
 "wdd" = (
 /obj/structure/chair/sofa/pew,
 /turf/simulated/floor/plasteel{
@@ -117241,6 +117226,10 @@
 	icon_state = "dark"
 	},
 /area/engineering/aienter)
+"weA" = (
+/obj/structure/chair/sofa/right,
+/turf/simulated/floor/carpet/black,
+/area/quartermaster/storage)
 "wff" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -117382,6 +117371,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
+"whL" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "Cargo Warehouse Windows";
+	name = "Cargo Warehouse Windows"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/storage)
 "whO" = (
 /turf/simulated/wall/r_wall/coated,
 /area/crew_quarters/hor)
@@ -118313,6 +118314,24 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/central/sw)
+"wsp" = (
+/obj/machinery/alarm{
+	dir = 1;
+	pixel_y = -22
+	},
+/obj/machinery/camera{
+	c_tag = "Quartermaster's Office";
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 1
+	},
+/obj/structure/bed/dogbed,
+/mob/living/simple_animal/pet/sloth/paperwork,
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "wsr" = (
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -119183,6 +119202,19 @@
 	icon_state = "darkred"
 	},
 /area/security/securearmory)
+"wCQ" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = "qm"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/qm)
 "wCS" = (
 /obj/structure/engineeringcart,
 /obj/effect/decal/cleanable/dirt,
@@ -119604,16 +119636,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
-"wGE" = (
-/obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/machinery/computer/guestpass{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "wGH" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/disposalpipe/segment{
@@ -119692,19 +119714,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/maintenance/starboard)
-"wHw" = (
-/obj/effect/spawner/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	dir = 2;
-	id_tag = "Cargo Office Windows";
-	name = "Cargo Office Shutters"
-	},
-/obj/machinery/door/poddoor/preopen{
-	id_tag = "Biohazard_cargo";
-	name = "Cargo Lockdown"
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/office)
 "wHz" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -120059,26 +120068,6 @@
 	icon_state = "grimy"
 	},
 /area/maintenance/detectives_office)
-"wMu" = (
-/obj/machinery/computer/card/minor/qm,
-/obj/machinery/door_control{
-	id = "Biohazard_cargo";
-	name = "Cargo Lockdown";
-	pixel_x = 26;
-	pixel_y = -8
-	},
-/obj/machinery/door_control{
-	id = "Cargo Warehouse Windows";
-	name = "Cargo Office Shutters Control";
-	pixel_x = 26;
-	pixel_y = 5;
-	req_access = list(50)
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "brown"
-	},
-/area/quartermaster/qm)
 "wMw" = (
 /turf/simulated/wall,
 /area/security/visiting_room)
@@ -122083,6 +122072,26 @@
 	},
 /turf/simulated/floor/glass/reinforced,
 /area/hallway/secondary/exit)
+"xkp" = (
+/obj/machinery/door/firedoor,
+/obj/machinery/autolathe,
+/obj/machinery/door/window/brigdoor{
+	dir = 2;
+	id = "Autolathe";
+	name = "Autolathe Access";
+	req_access = list(31)
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "Cargo Office Windows";
+	name = "Cargo Office Shutters"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
+/turf/simulated/floor/plasteel,
+/area/quartermaster/office)
 "xks" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 8
@@ -124493,6 +124502,16 @@
 	icon_state = "grimy"
 	},
 /area/maintenance/library)
+"xJY" = (
+/obj/machinery/atmospherics/unary/vent_pump/on,
+/obj/machinery/computer/guestpass{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/qm)
 "xKd" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -126206,6 +126225,10 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
+"yaM" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall/r_wall,
+/area/quartermaster/qm)
 "yaN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -126787,18 +126810,6 @@
 	icon_state = "dark"
 	},
 /area/engineering/hardsuitstorage)
-"yfT" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
-/obj/effect/landmark/start/quartermaster,
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/qm)
 "yga" = (
 /obj/structure/grille/broken,
 /turf/space,
@@ -162764,7 +162775,7 @@ bwf
 xOa
 qMD
 bSE
-ofc
+fzg
 man
 dxf
 dxf
@@ -164807,7 +164818,7 @@ cGm
 bUt
 cJl
 bCn
-jvQ
+rhJ
 bJh
 vQn
 soL
@@ -165025,9 +165036,9 @@ ayA
 ayA
 ayA
 ayA
-jmG
-rbp
-jmG
+gqx
+qwM
+gqx
 ayA
 ayA
 ayA
@@ -165040,9 +165051,9 @@ cFP
 dGI
 grq
 grq
-jfn
-sVY
-jfn
+crZ
+jde
+crZ
 grq
 grq
 grq
@@ -165546,11 +165557,11 @@ pqC
 egs
 ayA
 deG
-oZK
-eSy
-fiJ
-eSy
-wdc
+eiO
+uQS
+poj
+uQS
+qsi
 deG
 grq
 eqN
@@ -165558,7 +165569,7 @@ blt
 bVd
 rrr
 gEq
-wHw
+fUj
 hNt
 qaz
 dLX
@@ -165815,7 +165826,7 @@ dLX
 dtJ
 dLX
 dZg
-bHT
+cKu
 dmp
 dLX
 iWO
@@ -166072,7 +166083,7 @@ dpD
 ioo
 dLX
 gEw
-wHw
+fUj
 dmp
 dLX
 npi
@@ -166399,7 +166410,7 @@ cYr
 pcM
 mQn
 dfv
-iWG
+otw
 kSU
 dit
 djT
@@ -166586,7 +166597,7 @@ dLX
 bcw
 dmP
 gEA
-wHw
+fUj
 hoo
 dLX
 iWO
@@ -166843,7 +166854,7 @@ cNJ
 gXE
 dLX
 dZg
-oxZ
+xkp
 hOs
 dLX
 npi
@@ -167100,7 +167111,7 @@ hdh
 fRW
 dLX
 gFd
-wHw
+fUj
 hOs
 qaz
 dLX
@@ -167305,7 +167316,7 @@ irJ
 aod
 beV
 asb
-nOm
+auB
 avd
 ayQ
 ayQ
@@ -167357,7 +167368,7 @@ dLX
 fVO
 dLX
 gFN
-kAJ
+ujF
 bYg
 dLX
 dLX
@@ -167872,11 +167883,11 @@ ftZ
 grq
 cqB
 cqB
-mTa
-aYb
-mTa
-bQX
-mTa
+mCF
+ifa
+mCF
+hbW
+mCF
 cqB
 cqB
 mAs
@@ -168392,7 +168403,7 @@ dnW
 jJN
 dWY
 lHc
-aWj
+hso
 hpc
 gkQ
 eKd
@@ -168649,7 +168660,7 @@ bdY
 dUy
 mfh
 bgE
-pOz
+oob
 mAF
 nwn
 pxZ
@@ -168906,7 +168917,7 @@ kNy
 dUH
 dWZ
 sIy
-aWj
+hso
 hpc
 ifK
 kow
@@ -169390,7 +169401,7 @@ sjs
 caK
 bGs
 lPb
-awM
+dvI
 cua
 mdr
 aBS
@@ -169904,7 +169915,7 @@ bBK
 xsl
 diI
 ekj
-avJ
+tCK
 aCE
 dri
 bxD
@@ -170419,7 +170430,7 @@ uUc
 cfB
 cjg
 dmq
-iXj
+hGG
 gNy
 jvq
 uAf
@@ -170434,13 +170445,13 @@ cGl
 eZs
 tRm
 fnK
-dRG
+yaM
 uDx
 lzu
 nit
 pRX
 lBB
-cwJ
+cTE
 bSH
 dJl
 mfh
@@ -170676,7 +170687,7 @@ uUc
 cfy
 bNJ
 dmq
-lwD
+weA
 njf
 cLF
 uAf
@@ -170691,13 +170702,13 @@ cGl
 ebV
 lDj
 dvn
-dDb
+pQL
 dhb
 aZt
 fdQ
 duq
 dzs
-dDb
+pQL
 gdQ
 tXJ
 mfh
@@ -170978,7 +170989,7 @@ iHx
 owg
 gNR
 jun
-gOU
+pdJ
 xnx
 xnx
 vrl
@@ -171197,7 +171208,7 @@ cdR
 aKF
 bta
 ddO
-qLg
+rWa
 ddO
 dko
 nNc
@@ -171205,13 +171216,13 @@ vOC
 tkx
 bZI
 dqx
-dDb
-kyG
+pQL
+vbx
 bGm
 aWx
 duw
 hzg
-dDb
+pQL
 aZp
 iRP
 mfh
@@ -171446,29 +171457,29 @@ ehi
 cbD
 bGJ
 snP
-dmq
-dmq
-cZs
-cZs
-cZs
-cZs
+nLS
+nLS
+whL
+whL
+whL
+whL
 brF
 nyK
 dmq
 nyK
 dkw
-cZs
-cZs
-cZs
-cZs
-dmq
-dDb
-wGE
+whL
+whL
+whL
+whL
+nLS
+pQL
+xJY
 bGv
 bbh
 duB
-ita
-dDb
+wsp
+pQL
 hgQ
 hRx
 bea
@@ -171708,24 +171719,24 @@ coE
 coE
 coE
 coE
-eqA
+eNn
 eqQ
 qak
-cOy
+diP
 mbm
 cBq
-eqA
+eNn
 coE
 coE
 coE
 aaq
-dDb
+pQL
 dWS
 dmI
-jSK
+mrw
 bLH
 gkw
-aXV
+hjr
 hgZ
 bVq
 dNw
@@ -171965,30 +171976,30 @@ coE
 aaq
 aaq
 coE
-cZs
+whL
 clQ
 nyK
-bYu
+qBF
 nyK
 dkw
-cZs
+whL
 coE
 aaq
 aaq
 aaq
-oCt
+qtl
 xHx
 duw
-yfT
+rHd
 vft
-sKT
-dDb
+fUi
+pQL
 cqB
-mTa
-mTa
+mCF
+mCF
 dPq
-mTa
-mTa
+mCF
+mCF
 cqB
 cqB
 coE
@@ -172233,19 +172244,19 @@ yhg
 yhg
 yhg
 aaq
-dDb
-dDb
-wMu
+pQL
+pQL
+nyq
 wFL
 bMz
-eYg
-dDb
+oZn
+pQL
 aaq
-mTa
+mCF
 bfw
 bei
 cbx
-mTa
+mCF
 aaq
 aaq
 aaq
@@ -172491,18 +172502,18 @@ yhg
 yhg
 aaq
 aaq
-dDb
-dDb
-dDb
-dDb
-pmU
-dDb
+pQL
+pQL
+pQL
+pQL
+wCQ
+pQL
 aaq
-iJt
+jzd
 boD
 jby
 ceY
-iJt
+jzd
 aaq
 aaq
 coE
@@ -172755,11 +172766,11 @@ coE
 coE
 coE
 aaq
-mTa
-mTa
+mCF
+mCF
 dPq
-mTa
-mTa
+mCF
+mCF
 aaq
 aaq
 mpI
@@ -173338,7 +173349,7 @@ xOX
 gYp
 cKY
 dqR
-tWk
+vvN
 rrR
 dmj
 dke
@@ -174320,7 +174331,7 @@ xgu
 ycJ
 mAv
 fvg
-uOR
+rFY
 xmo
 iOk
 irq
@@ -175323,7 +175334,7 @@ iTQ
 uLY
 mnf
 uLY
-fJz
+hGc
 cri
 hXy
 ixk
@@ -178168,7 +178179,7 @@ tLv
 tMU
 tzh
 thk
-vNF
+tTn
 fzy
 mBR
 uob
@@ -179715,9 +179726,9 @@ toP
 tzh
 lYj
 tzh
-fuK
-bYI
-tbG
+tVQ
+lZG
+qNH
 lhS
 kNt
 tLv
@@ -181493,7 +181504,7 @@ guG
 uPb
 hZW
 txw
-tFz
+jXC
 qbt
 kVa
 cfz
@@ -183826,7 +183837,7 @@ sCY
 xYa
 tWn
 uxL
-gIQ
+vXP
 usD
 kas
 sut
@@ -184567,7 +184578,7 @@ aru
 aru
 aru
 dCr
-fgZ
+fSh
 wSo
 xan
 dXG
@@ -184606,7 +184617,7 @@ pDQ
 xDp
 scP
 mOq
-epP
+kXq
 pKm
 bzg
 vTL
