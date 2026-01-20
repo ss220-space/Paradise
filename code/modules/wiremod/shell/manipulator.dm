@@ -62,8 +62,11 @@
 	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/wiremod_manipulator/unregister_shell(atom/movable/shell)
+	if(attached_bot)
+		attached_bot.locked = FALSE
+		UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
+
 	attached_bot = null
-	UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
 	return ..()
 
 /obj/item/circuit_component/wiremod_manipulator/input_received(datum/port/input/port)
