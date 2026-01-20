@@ -45,6 +45,8 @@
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
+	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+
 /datum/antagonist/traitor/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
 	old_body.RemoveElement(/datum/element/pref_viewer)
@@ -57,6 +59,8 @@
 	var/mob/living/datum_owner = mob_override || owner.current
 	for(var/datum/component/codeword_hearing/component in datum_owner.GetComponents(/datum/component/codeword_hearing))
 		component.delete_if_from_source(src)
+
+	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
 
 /datum/antagonist/traitor/Destroy(force)
 	QDEL_NULL(contractor_pending)
