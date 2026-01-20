@@ -715,3 +715,40 @@
 
 /obj/item/clothing/mask/secscarf/attack_self(mob/user)
 	adjustmask(user)
+
+/obj/item/clothing/head/paper_bag
+	name = "paper bag"
+	desc = "Выглядите как президент, богатый нефтью."
+	icon_state = "maduro_bag"
+	item_state = "maduro_bag"
+	w_class = WEIGHT_CLASS_TINY
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEMASK|HIDENECK|HIDE_ALL_HAIR
+	put_on_delay = 2 SECONDS
+	item_flags = DROPDEL
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+	)
+	var/trashtype = /obj/item/paper
+
+/obj/item/clothing/head/paper_bag/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(slot != ITEM_SLOT_HEAD)
+		return .
+	var/obj/item/clothing/head/paper_bag/trash_bag = new trashtype(get_turf(src))
+	transfer_fingerprints_to(trash_bag)
+	user.transfer_fingerprints_to(trash_bag)
+	user.put_in_active_hand(trash_bag, ignore_anim = FALSE)
+	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
+	user.clear_fullscreen("fullyblack")
+	user.update_blind_effects()
+
+/obj/item/clothing/head/paper_bag/equipped(mob/living/H, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD && istype(H))
+		H.clear_fullscreen("blind")
+		H.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)

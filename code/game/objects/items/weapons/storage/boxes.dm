@@ -18,7 +18,7 @@
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
-
+#define BAG_PUTTING_DELAY 6 SECONDS
 /obj/item/storage/box
 	name = "box"
 	icon = 'icons/obj/storage/boxes.dmi'
@@ -751,6 +751,7 @@
 	item_state = "paperbag_None"
 	foldable = null
 	var/design = NODESIGN
+	var/apply_maduro_bag_delay = BAG_PUTTING_DELAY
 
 /obj/item/storage/box/papersack/update_desc(updates = ALL)
 	. = ..()
@@ -807,6 +808,33 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!ishuman(target))
+		return .
+	user.visible_message(
+		span_warning("[user] puts a bag over [target]'s head!"),
+		span_notice("You putting [target == user ? "a paper bag on your own head" : "a paper bag on [target]'s head"]!"),
+		span_italics("You hear the paper rustle."),
+	)
+	if(!do_after(user, apply_maduro_bag_delay, target) || !target.check_has_mouth())
+		return .
+	if(target.head)
+		target.drop_item_ground(target.head)
+	if(target.head)
+		to_chat(user, span_notice("[target == user ? user : target]'s head is now covered with a paper bag!"))
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
+	user.visible_message(
+		span_warning("[user] puts a paper bag on [target]'s head!"),
+		span_notice("You put [target == user ? "a paper bag on your own head" : "a paper bag on [target]'s head"]![target == user ? null : " That should hide them well."]"),
+	)
+	var/obj/item/storage/box/papersack/on_head = new /obj/item/clothing/head/paper_bag
+	on_head.add_fingerprint(user)
+	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
+	playsound(loc, 'sound/items/handling/pickup/paper_pickup.ogg', 50, TRUE, -5)
+	qdel(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
@@ -1219,7 +1247,7 @@
 	..()
 	for(var/i in 1 to 11)
 		new /obj/item/disk/tech_disk(src)
-
+#undef BAG_PUTTING_DELAY
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI
