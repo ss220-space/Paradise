@@ -215,7 +215,7 @@
 
 /obj/item/circuit_component/vendor_component/unregister_shell(atom/movable/shell)
 	attached_bot = null
-	UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
+	UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
 	return ..()
 
 /obj/item/circuit_component/vendor_component/populate_ports()
