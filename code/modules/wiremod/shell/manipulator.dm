@@ -101,3 +101,7 @@
 	tool.play_tool_sound(src)
 	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
 	return TRUE
+
+/obj/item/circuit_component/wiremod_manipulator/proc/on_set_locked(datum/source, new_value)
+	SIGNAL_HANDLER
+	attached_bot.locked = new_value
