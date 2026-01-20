@@ -62,7 +62,7 @@
 	spawn_positions = 5
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Maintenance Technician", "Engine Technician", "Electrician")
+	alt_titles = list(ALT_JOB_TITLE_RU_MAINTENANCE_TECHNICIAN, ALT_JOB_TITLE_RU_ENGINE_TECHNICIAN, ALT_JOB_TITLE_RU_ELECTRICIAN)
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
@@ -88,7 +88,7 @@
 	title = JOB_TITLE_ENGINEER_TRAINEE
 	flag = JOB_FLAG_ENGINEER_TRAINEE
 	spawn_positions = 3
-	alt_titles = list("Engineer Assistant", "Technical Assistant", "Engineer Student", "Technical Student", "Technical Trainee")
+	alt_titles = list(ALT_JOB_TITLE_RU_ENGINEER_STUDENT, ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -111,19 +111,12 @@
 		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Engineer Assistant")
+			if(ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT)
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
-			if("Technical Assistant")
-				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
+			if(ALT_JOB_TITLE_RU_ENGINEER_STUDENT)
 				head = /obj/item/clothing/head/soft/orange
-			if("Technical Student", "Technical Trainee")
-				head = /obj/item/clothing/head/soft/orange
-			if("Engineer Student")
-				head = /obj/item/clothing/head/beret/eng
 
 /datum/job/engineering/atmos
 	title = JOB_TITLE_ATMOSTECH
@@ -132,7 +125,6 @@
 	spawn_positions = 2
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
 	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
-	alt_titles = list("Atmospheric Technician")
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos

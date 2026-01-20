@@ -62,7 +62,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Barman", "Barkeeper", "Drink Artist")
+	alt_titles = list(ALT_JOB_TITLE_RU_BARMAN, ALT_JOB_TITLE_RU_DRINK_ARTIST)
 	outfit = /datum/outfit/job/bartender
 
 /datum/outfit/job/bartender
@@ -93,7 +93,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Cook", "Culinary Artist", "Butcher")
+	alt_titles = list(ALT_JOB_TITLE_RU_COOK, ALT_JOB_TITLE_RU_CULINARY_ARTIST, ALT_JOB_TITLE_RU_SOUS_CHEF, ALT_JOB_TITLE_RU_BUTCHER)
 	outfit = /datum/outfit/job/chef
 
 /datum/outfit/job/chef
@@ -121,7 +121,7 @@
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Culinary Artist")
+			if(ALT_JOB_TITLE_RU_CULINARY_ARTIST)
 				uniform = /obj/item/clothing/under/artist
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap
@@ -134,7 +134,7 @@
 	spawn_positions = 2
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Hydroponicist", "Botanical Researcher")
+	alt_titles = list(ALT_JOB_TITLE_RU_HYDROPONIST, ALT_JOB_TITLE_RU_BOTANICAL_RESEARCHER)
 	outfit = /datum/outfit/job/botanist
 
 /datum/outfit/job/botanist
@@ -159,7 +159,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Performance Artist", "Comedian", "Jester")
+	alt_titles = list(ALT_JOB_TITLE_RU_COMEDIAN, ALT_JOB_TITLE_RU_JESTER, ALT_JOB_TITLE_RU_COMEDIANT)
 	outfit = /datum/outfit/job/clown
 
 /datum/outfit/job/clown
@@ -368,7 +368,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Panthomimist")
+	alt_titles = list(ALT_JOB_TITLE_RU_PANTHOMIMIST)
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
@@ -414,7 +414,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Custodial Technician", "Sanitation Technician")
+	alt_titles = list(ALT_JOB_TITLE_RU_CLEANING_SPECIALIST)
 	outfit = /datum/outfit/job/janitor
 
 /datum/outfit/job/janitor
@@ -432,7 +432,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Journalist")
+	alt_titles = list(ALT_JOB_TITLE_RU_ARCHIVIST, ALT_JOB_TITLE_RU_JOURNALIST)
 	outfit = /datum/outfit/job/librarian
 
 /datum/outfit/job/librarian
@@ -456,7 +456,17 @@
 	spawn_positions = 1
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Priest", "Monk", "Preacher", "Reverend", "Oracle", "Nun", "Imam", "Exorcist")
+	alt_titles = list(ALT_JOB_TITLE_RU_SPIRITUAL_ADVISOR,
+					ALT_JOB_TITLE_RU_CHAPLAIN,
+					ALT_JOB_TITLE_RU_PREACHER,
+					ALT_JOB_TITLE_RU_REVEREND,
+					ALT_JOB_TITLE_RU_ORACLE,
+					ALT_JOB_TITLE_RU_NUN,
+					ALT_JOB_TITLE_RU_MONK,
+					ALT_JOB_TITLE_RU_IMAM,
+					ALT_JOB_TITLE_RU_RABBI,
+					ALT_JOB_TITLE_RU_PASTOR
+	)
 	outfit = /datum/outfit/job/chaplain
 
 /datum/outfit/job/chaplain

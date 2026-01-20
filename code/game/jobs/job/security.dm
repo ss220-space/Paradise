@@ -76,7 +76,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_GATEWAY, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_WEAPONS)
 	law_level = LAW_LEVEL_WARDEN
-	alt_titles = list("Brig Sergeant")
+	alt_titles = list(ALT_JOB_TITLE_RU_BRIG_SERGEANT, ALT_JOB_TITLE_RU_OVERSEER)
 	minimal_player_age = 21
 	exp_requirements = 2100
 	outfit = /datum/outfit/job/warden
@@ -117,7 +117,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	law_level = LAW_LEVEL_SEC
-	alt_titles = list("Forensic Technician")
+	alt_titles = list(ALT_JOB_TITLE_RU_INVESTIGATOR, ALT_JOB_TITLE_RU_CRIMINOLOGIST)
 	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
 
@@ -150,7 +150,7 @@
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Forensic Technician")
+			if(ALT_JOB_TITLE_RU_CRIMINOLOGIST)
 				suit = /obj/item/clothing/suit/storage/det_suit/forensics/blue
 				head = null
 
@@ -169,7 +169,7 @@
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	law_level = LAW_LEVEL_SEC
-	alt_titles = list("Security Trainer", "Patrol Officer", "Security Cadet")
+	alt_titles = list(ALT_JOB_TITLE_RU_SECURITY_TRAINER, ALT_JOB_TITLE_RU_PATROL_OFFICER, ALT_JOB_TITLE_RU_SECURITY_CADET)
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
@@ -196,7 +196,7 @@
 	box = /obj/item/storage/box/survival/survival_security
 
 /datum/outfit/job/officer/cadet
-	name = "Security Cadet"
+	name = "Кадет"
 	uniform = /obj/item/clothing/under/rank/security/cadet
 	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet
@@ -208,7 +208,7 @@
 	if(H.mind && H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/rank/security/cadet/skirt
 	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
+		switch(H.mind.role_alt_title) // TODO: вернуть кадета как доступную должность или удалить это
 			if("Security Assistant")
 				uniform = /obj/item/clothing/under/rank/security/cadet/assistant
 				if(H.gender == FEMALE)
@@ -225,7 +225,7 @@
 	selection_color = "#cee6ef"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Security Medic")
+	alt_titles = list(ALT_JOB_TITLE_RU_SECURITY_MEDIC, ALT_JOB_TITLE_RU_COMBAT_MEDIC)
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc

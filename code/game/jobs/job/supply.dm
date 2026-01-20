@@ -15,7 +15,7 @@
 		ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION,
 		ACCESS_MINERAL_STOREROOM
 	)
-	alt_titles = list("Chief Supply Manager")
+	alt_titles = list(ALT_JOB_TITLE_RU_CHIEF_SUPPLY_MANAGER, ALT_JOB_TITLE_RU_QM_ALT)
 	exp_type = EXP_TYPE_SUPPLY
 	outfit = /datum/outfit/job/qm
 
@@ -55,7 +55,10 @@
 	spawn_positions = 3
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list("Supply Manager", "Loader")
+	alt_titles = list(ALT_JOB_TITLE_RU_LOGISTICS_SPECIALIST,
+					ALT_JOB_TITLE_RU_WAREHOUSE_WORKER,
+					ALT_JOB_TITLE_RU_SUPPLY_MANAGER,
+	)
 	outfit = /datum/outfit/job/cargo_tech
 
 /datum/outfit/job/cargo_tech

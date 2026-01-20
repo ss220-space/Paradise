@@ -63,7 +63,7 @@
 	spawn_positions = 6
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_XENOARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Anomalist", "Plasma Researcher", "Xenobiologist", "Chemical Researcher")
+	alt_titles = list(ALT_JOB_TITLE_RU_ANOMALIST, ALT_JOB_TITLE_RU_PLASMA_RESEARCHER, ALT_JOB_TITLE_RU_XENOBIOLOGIST, ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER)
 	outfit = /datum/outfit/job/scientist
 
 /datum/outfit/job/scientist
@@ -87,7 +87,7 @@
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST)
-	alt_titles = list("Scientist Assistant", "Scientist Pregraduate", "Scientist Graduate", "Scientist Postgraduate", "Student Robotist")
+	alt_titles = list(ALT_JOB_TITLE_RU_SCIENCE_ASSISTANT, ALT_JOB_TITLE_RU_SCIENCE_STUDENT, ALT_JOB_TITLE_RU_ROBOTICIST_STUDENT)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -109,11 +109,11 @@
 		uniform = /obj/item/clothing/under/rank/scientist/student/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Scientist Assistant")
+			if(ALT_JOB_TITLE_RU_SCIENCE_ASSISTANT)
 				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
-			if("Student Robotist")
+			if(ALT_JOB_TITLE_RU_ROBOTICIST_STUDENT)
 				suit = /obj/item/clothing/suit/storage/labcoat
 				uniform = /obj/item/clothing/under/rank/roboticist/student
 				if(H.gender == FEMALE)
@@ -126,7 +126,7 @@
 	spawn_positions = 2
 	access = list(ACCESS_ROBOTICS, ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS) //As a job that handles so many corpses, it makes sense for them to have morgue access.
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_TECH_STORAGE, ACCESS_MORGUE, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS) //As a job that handles so many corpses, it makes sense for them to have morgue access.
-	alt_titles = list("Biomechanical Engineer", "Mechatronic Engineer")
+	alt_titles = list(ALT_JOB_TITLE_RU_BIOMECHANICAL_ENGINEER, ALT_JOB_TITLE_RU_CYBERNETIC_ENGINEER)
 	outfit = /datum/outfit/job/roboticist
 
 /datum/outfit/job/roboticist

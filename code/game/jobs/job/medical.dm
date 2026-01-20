@@ -54,7 +54,7 @@
 	spawn_positions = 3
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Surgeon", "Nurse")
+	alt_titles = list(ALT_JOB_TITLE_RU_SURGEON, ALT_JOB_TITLE_RU_NURSE)
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
@@ -79,12 +79,12 @@
 	if(!H.mind || !H.mind.role_alt_title)
 		return
 	switch(H.mind.role_alt_title)
-		if(JOB_TITLE_DOCTOR)
+		if(JOB_TITLE_RU_DOCTOR)
 			uniform = /obj/item/clothing/under/rank/medical
-		if("Surgeon")
+		if(ALT_JOB_TITLE_RU_SURGEON)
 			uniform = /obj/item/clothing/under/rank/medical/blue
 			head = /obj/item/clothing/head/surgery/blue
-		if("Nurse")
+		if(ALT_JOB_TITLE_RU_NURSE)
 			if(!H.gender == FEMALE)
 				uniform = /obj/item/clothing/under/rank/medical/purple
 				return
@@ -97,7 +97,7 @@
 /datum/job/medical/doctor/intern
 	title = JOB_TITLE_INTERN
 	flag = JOB_FLAG_INTERN
-	alt_titles = list("Student Medical Doctor", "Medical Assistant")
+	alt_titles = list(ALT_JOB_TITLE_RU_MEDICAL_STUDENT, ALT_JOB_TITLE_RU_MEDICAL_ASSISTANT)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -124,11 +124,11 @@
 		uniform = /obj/item/clothing/under/rank/medical/intern/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Medical Assistant")
+			if(ALT_JOB_TITLE_RU_MEDICAL_ASSISTANT)
 				uniform = /obj/item/clothing/under/rank/medical/intern/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/medical/intern/assistant/skirt
-			if("Student Medical Doctor")
+			if(ALT_JOB_TITLE_RU_MEDICAL_STUDENT)
 				head = /obj/item/clothing/head/surgery/lightgreen
 				uniform = /obj/item/clothing/under/rank/medical/lightgreen
 
@@ -172,7 +172,7 @@
 	spawn_positions = 2
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Pharmacist", "Pharmacologist")
+	alt_titles = list(ALT_JOB_TITLE_RU_PHARMACIST)
 	outfit = /datum/outfit/job/chemist
 
 /datum/outfit/job/chemist
@@ -226,7 +226,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Pathologist", "Microbiologist")
+	alt_titles = list(ALT_JOB_TITLE_RU_MICROBIOLOGIST)
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
@@ -253,7 +253,7 @@
 	spawn_positions = 1
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
-	alt_titles = list("Psychologist", "Therapist")
+	alt_titles = list(ALT_JOB_TITLE_RU_PSYCHOLOGIST, ALT_JOB_TITLE_RU_THERAPIST)
 	outfit = /datum/outfit/job/psychiatrist
 
 /datum/outfit/job/psychiatrist
@@ -272,11 +272,11 @@
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if("Psychiatrist")
+			if(JOB_TITLE_RU_PSYCHIATRIST)
 				uniform = /obj/item/clothing/under/rank/psych
-			if("Psychologist")
+			if(ALT_JOB_TITLE_RU_PSYCHOLOGIST)
 				uniform = /obj/item/clothing/under/rank/psych/turtleneck
-			if("Therapist")
+			if(ALT_JOB_TITLE_RU_THERAPIST)
 				uniform = /obj/item/clothing/under/rank/medical
 
 /datum/job/medical/paramedic
