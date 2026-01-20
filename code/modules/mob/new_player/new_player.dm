@@ -590,15 +590,15 @@
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
-		"Command" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
-		"Engineering" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Security" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
-		"Miscellaneous" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
-		"Synthetic" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
-		"Support / Service" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
-		"Medical" = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
-		"Science" = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
-		"Supply" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
+		"Командование" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
+		"Инженерия" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
+		"Безопасность" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
+		"Разное" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
+		"Синтетики" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
+		"Обслуживание" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
+		"Медицина" = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
+		"Наука" = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
+		"Снабжение" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
 		)
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
@@ -612,7 +612,7 @@
 				var/list/jobs = categorizedJobs[jobcat]["jobs"]
 				if(job.title in categorizedJobs[jobcat]["titles"])
 					categorized = 1
-					if(jobcat == "Command") // Put captain at top of command jobs
+					if(jobcat == "Командование") // Put captain at top of command jobs
 						if(job.title == JOB_TITLE_CAPTAIN)
 							jobs.Insert(1, job)
 						else
@@ -623,7 +623,7 @@
 						else
 							jobs += job
 			if(!categorized)
-				categorizedJobs["Miscellaneous"]["jobs"] += job
+				categorizedJobs["Разное"]["jobs"] += job
 
 	if(num_jobs_available)
 		dat += "Выберите из следующих открытых позиций:<br><br>"
@@ -636,20 +636,20 @@
 			var/color = categorizedJobs[jobcat]["color"]
 			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
-			if(jobcat == "Miscellaneous")
-				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Random (free jobs)</a><br>"
+			if(jobcat == "Разное")
+				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Случайно (из доступных)</a><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</b></span></a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</b></span></a><br>"
 				else
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[get_job_title_ru(job.title)] ([job.current_positions]) (Активно: [activePlayers[job]])</a><br>"
 			dat += "</fieldset><br>"
 
 		dat += "</td></tr></table></center>"
 	else
-		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<br>Wait a few minutes, then try again.<br>Or, try observing the round.</center>"
+		dat += "<br><br><center>Открытые позиции отсутствуют.<br>Попробуйте снова через несколько минут.<br>Или зайдите за наблюдателя.</center>"
 	// Added the new browser window method
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
+	var/datum/browser/popup = new(src, "latechoices", "Выбор должности", 900, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 	popup.add_script("delay_interactivity", 'html/browser/delay_interactivity.js')
 	popup.set_content(dat)
