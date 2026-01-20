@@ -230,3 +230,7 @@
 		return
 
 	attached_bot.remove_item(vending_item)
+
+/obj/item/circuit_component/vendor_component/proc/on_set_locked(datum/source, new_value)
+	SIGNAL_HANDLER
+	attached_bot.locked = new_value
