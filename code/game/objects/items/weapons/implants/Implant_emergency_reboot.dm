@@ -66,5 +66,3 @@
 	name = "bio-chip case - emergency emergency_reboot"
 	desc = "A glass case containing an emergency_reboot bio-chip."
 	imp = /obj/item/implant/emergency_reboot
-
-
