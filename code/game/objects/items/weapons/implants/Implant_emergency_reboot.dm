@@ -1,5 +1,5 @@
 /obj/item/implant/emergency_reboot
-	name = "emergency emergency_reboot bio-cheap"
+	name = "emergency_reboot bio-cheap"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
 	implant_state = "implant-syndicate"
