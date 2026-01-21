@@ -195,7 +195,7 @@
 		KIT_ENFORCER = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "enforcer_grey"),
 		KIT_SPECTER = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "specter"),
 		KIT_TAURUS = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "taurus"),
-	)
+	) //TODO: make it a datum instead of a hardcoded list
 
 /obj/item/security_voucher/get_ru_names()
 	return list(
