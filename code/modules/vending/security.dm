@@ -107,41 +107,30 @@
 		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
 
-#define KIT_DOMINATOR "Доминатор"
-#define KIT_ENFORCER "Блюститель"
-#define KIT_SPECTER "Спектр"
-#define KIT_TAURUS "Таурус"
+// that's so helpfull that their paths can be used as their names
+#define KIT_DOMINATOR "dominator kit"
+#define KIT_ENFORCER "enforcer kit"
+#define KIT_SPECTER "specter kit"
+#define KIT_TAURUS "taurus kit"
+#define KIT_DETECTIVE "revolver kit"
 
 /obj/machinery/vending/security/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
 
 	if(istype(item, /obj/item/security_voucher))
+		var/obj/item/security_voucher/voucher = item
 		add_fingerprint(user)
-		var/static/list/available_kits = list(
-			KIT_DOMINATOR = image(icon = 'icons/obj/weapons/dominator.dmi', icon_state = "dominator"),
-			KIT_ENFORCER = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "enforcer_grey"),
-			KIT_SPECTER = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "specter"),
-			KIT_TAURUS = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "taurus"),
-		)
-		var/choice = show_radial_menu(user, item, available_kits, radius = 40, custom_check = CALLBACK(src, PROC_REF(check_voucher_menu), user), require_near = TRUE)
-		if(!choice || !Adjacent(user) || QDELETED(item) || item.loc != user)
+		var/list/available_kits = voucher.available_kits
+		var/choice = show_radial_menu(user, voucher, available_kits, radius = 40, custom_check = CALLBACK(src, PROC_REF(check_voucher_menu), user), require_near = TRUE)
+		if(!choice || !Adjacent(user) || QDELETED(voucher) || voucher.loc != user)
 			return ATTACK_CHAIN_BLOCKED_ALL
-		if(!user.drop_transfer_item_to_loc(item, src))
+		if(!user.drop_transfer_item_to_loc(voucher, src))
 			return ATTACK_CHAIN_BLOCKED_ALL
-		qdel(item)
+		qdel(voucher)
 		sleep(0.5 SECONDS)
 		playsound(loc, 'sound/machines/machine_vend.ogg', 50, TRUE)
-		var/weapon_kit = null
-		switch(choice)
-			if(KIT_DOMINATOR)
-				weapon_kit = /obj/item/storage/box/dominator_kit
-			if(KIT_ENFORCER)
-				weapon_kit = /obj/item/storage/box/enforcer_kit
-			if(KIT_SPECTER)
-				weapon_kit = /obj/item/storage/box/specter_kit
-			if(KIT_TAURUS)
-				weapon_kit = /obj/item/storage/box/taurus_kit
+		var/weapon_kit = text2path("/obj/item/storage/box/[replacetext(choice, " ", "_")]") // stupid BYOND can't accept path as a name of a variable in the list
 		var/obj/item/box = new weapon_kit(loc)
 		if(Adjacent(user))
 			user.put_in_hands(box, ignore_anim = FALSE)
@@ -155,11 +144,6 @@
 	if(user.incapacitated())
 		return FALSE
 	return TRUE
-
-#undef KIT_DOMINATOR
-#undef KIT_ENFORCER
-#undef KIT_SPECTER
-#undef KIT_TAURUS
 
 /obj/machinery/vending/security/ert
 	name = "NT ERT Consumables Gear"
@@ -202,6 +186,16 @@
 	gender = MALE
 	icon_state = "security_voucher"
 	w_class = WEIGHT_CLASS_SMALL
+	var/list/available_kits
+
+/obj/item/security_voucher/New(loc, ...)
+	. = ..()
+	available_kits = list(
+		KIT_DOMINATOR = image(icon = 'icons/obj/weapons/dominator.dmi', icon_state = "dominator"),
+		KIT_ENFORCER = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "enforcer_grey"),
+		KIT_SPECTER = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "specter"),
+		KIT_TAURUS = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "taurus"),
+	)
 
 /obj/item/security_voucher/get_ru_names()
 	return list(
@@ -212,3 +206,33 @@
 		INSTRUMENTAL = "ваучером",
 		PREPOSITIONAL = "ваучере",
 	)
+
+/obj/item/security_voucher/detective
+	name = "detective's security voucher"
+	desc = "Жетон, позволяющий получить детективский набор оружия из торгового автомата \"SecTech\". Выдаётся детективам в штатном порядке."
+
+/obj/item/security_voucher/detective/New(loc, ...)
+	. = ..()
+	available_kits = list(
+		KIT_DOMINATOR = image(icon = 'icons/obj/weapons/dominator.dmi', icon_state = "dominator"),
+		KIT_ENFORCER = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "enforcer_grey"),
+		KIT_SPECTER = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "specter"),
+		KIT_TAURUS = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "taurus"),
+		KIT_DETECTIVE = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "detective"),
+	)
+
+/obj/item/security_voucher/detective/get_ru_names()
+	return list(
+		NOMINATIVE = "детективский ваучер",
+		GENITIVE = "детективского ваучера",
+		DATIVE = "детективскому ваучеру",
+		ACCUSATIVE = "детективский ваучер",
+		INSTRUMENTAL = "детективским ваучером",
+		PREPOSITIONAL = "детективском ваучере",
+	)
+
+#undef KIT_DOMINATOR
+#undef KIT_ENFORCER
+#undef KIT_SPECTER
+#undef KIT_TAURUS
+#undef KIT_DETECTIVE
