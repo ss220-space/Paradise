@@ -1,12 +1,12 @@
 /obj/item/implant/emergency_reboot
-	name = "emergency_reboot bio-cheap"
+	name = "emergency reboot bio-chip"
 	desc = "Removes all stuns and knockdowns."
 	icon_state = "adrenal"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
 	implant_data = /datum/implant_fluff/emergency_reboot
 	actions_types = null
-	base_cooldown = 50 SECONDS
+	base_cooldown = 80 SECONDS
 
 /obj/item/implant/emergency_reboot/Initialize(mapload)
 	. = ..()
@@ -22,11 +22,11 @@
 	. = ..()
 
 /obj/item/implant/emergency_reboot/create_new_cooldown()
-	var/datum/implant_cooldown/charges/C = new
-	C.max_charges = 3
-	C.recharge_duration = base_cooldown
-	C.charge_duration = 1 SECONDS
-	return C
+	var/datum/implant_cooldown/charges/charges = new
+	charges.max_charges = 3
+	charges.recharge_duration = base_cooldown
+	charges.charge_duration = 1 SECONDS
+	return charges
 
 /obj/item/implant/emergency_reboot/activate()
 	var/datum/implant_cooldown/charges/charges_cooldown = cooldown_system
