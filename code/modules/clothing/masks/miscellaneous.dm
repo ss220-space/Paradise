@@ -759,5 +759,4 @@
 /obj/item/clothing/head/paper_bag/equipped(mob/living/living, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_HEAD)
-		living.clear_fullscreen("blind")
 		living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)

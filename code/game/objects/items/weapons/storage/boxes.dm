@@ -831,8 +831,9 @@
 	if(!do_after(user, apply_paper_bag_delay, target) || !target.check_has_mouth())
 		return .
 	if(target.head)
-		target.drop_item_ground(target.head)
-		if(target.head) //if head item cannot be dropped
+		var/obj/item/head_item_to_drop = target.head
+		target.drop_item_ground(head_item_to_drop)
+		if(head_item_to_drop.loc == target) // Проверяем, остался ли предмет на голове после попытки сброса
 			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя одеть пакет!"))
 			return .
 	. |= ATTACK_CHAIN_SUCCESS
