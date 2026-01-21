@@ -824,11 +824,11 @@
 	if(!ishuman(target))
 		return .
 	user.visible_message(
-		span_warning("[user] надевает бумажный пакет на голову [target]!"),
-		span_notice("Вы надеваете [target == user ? "бумажный пакет на свою голову" : "бумажный пакет на голову [target]"]!"),
+		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
 		span_italics("Вы слышите шелест плотной бумаги."),
 	)
-	if(!do_after(user, apply_paper_bag_delay, target) || !target.check_has_mouth())
+	if(!do_after(user, apply_paper_bag_delay, target))
 		return .
 	if(target.head)
 		var/obj/item/head_item_to_drop = target.head
@@ -838,8 +838,8 @@
 			return .
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
-		span_warning("[user] надел бумажный пакет на голову [target]!"),
-		span_notice("Вы надели [target == user ? "бумажный пакет себе на голову" : "бумажный пакет на голову [target]"]!"),
+		span_warning("[user] надел [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надели [target == user ? "[src.declent_ru(ACCUSATIVE)] себе на голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
 	)
 	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)

@@ -745,9 +745,8 @@
 	)
 
 /obj/item/clothing/head/paper_bag/dropped(mob/user, slot, silent = FALSE)
-	. = ..()
-	if(slot != ITEM_SLOT_HEAD)
-		return .
+	if(!user || slot != ITEM_SLOT_HEAD)
+		return . = ..()
 	var/obj/item/paper/trash_bag = new trashtype(get_turf(src))
 	transfer_fingerprints_to(trash_bag)
 	user.transfer_fingerprints_to(trash_bag)
@@ -757,6 +756,6 @@
 	user.update_blind_effects()
 
 /obj/item/clothing/head/paper_bag/equipped(mob/living/living, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)
+	if(!living || slot != ITEM_SLOT_HEAD)
+		return ..()
+	living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)
