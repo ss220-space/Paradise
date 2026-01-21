@@ -4,13 +4,11 @@
 
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
+ADMIN_VERB(syndicate_strike_team, R_ADMIN, "Отправить Ударный Отряд \"Синдиката\"", "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК.", ADMIN_CATEGORY_EVENTS)
+	if(user.holder)
+		user.syndicate_strike_team()
+
 /client/proc/syndicate_strike_team()
-	set category = STATPANEL_ADMIN_EVENT
-	set name = "Заспавнить Ударный Отряд \"Синдиката\""
-	set desc = "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК."
-	if(!src.holder)
-		to_chat(src, "Только администраторы могут использовать эту команду.")
-		return
 	if(!SSticker)
 		tgui_alert(src, "Игра ещё не началась!")
 		return

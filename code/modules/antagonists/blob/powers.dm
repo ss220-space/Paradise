@@ -69,7 +69,7 @@
 	if(min_separation)
 		for(var/obj/structure/blob/other_blob in get_sep_tile(tile, min_separation))
 			if(other_blob.type == blobstrain)
-				to_chat(src, span_warning("Поблизости находится ресурсная плитка, отойдите на расстояние более [min_separation] плиток от неё!"))
+				to_chat(src, span_warning("Поблизости находится ресурсная плитка, отойдите на расстояние более [min_separation] тайл[declension_ru(min_separation, "а", "ов", "ов")] от неё!"))
 				other_blob.balloon_alert(src, "слишком близко!")
 				return FALSE
 
@@ -162,10 +162,10 @@
 		source = blobbernaut_image,
 		role_cleanname = "blobbernaut",
 	)
-	
+
 	if(QDELETED(factory))
 		return
-	
+
 	if(length(candidates))
 		var/mob/chosen_one = pick(candidates)
 		on_poll_concluded(factory, chosen_one)

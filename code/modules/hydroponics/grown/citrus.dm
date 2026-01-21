@@ -202,7 +202,7 @@
 	desc = "Очень ароматный, вкусный и полезный фрукт. Жаль, что достать его можно только в новогодние праздники."
 	icon_state = "tangerine"
 	filling_color = "#FFA500"
-	tastes = list("новый год" = 1)
+	tastes = list("нового года" = 1)
 	list_reagents = list("adminordrazine" = 1, "vitamin" = 2, "orangejuice" = 5, "nutriment" = 5)
 	antable = FALSE
 	bitecount = 3

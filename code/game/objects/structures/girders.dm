@@ -4,6 +4,7 @@
 	anchored = TRUE
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
+	cares_about_temperature = TRUE
 	var/state = GIRDER_NORMAL
 	/// Percentage chance that a projectile passes through the girder.
 	var/girderpasschance = 20
@@ -39,7 +40,7 @@
 /// Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
 
-/obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
+/obj/structure/girder/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)

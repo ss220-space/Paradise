@@ -29,5 +29,5 @@
 	return
 
 /mob/dead/observer/showLaws(mob/living/silicon/S)
-	if(antagHUD || check_rights(R_ADMIN, 0, src))
+	if(antagHUD || check_rights(R_ADMIN, FALSE, src))
 		S.laws.show_laws(src)

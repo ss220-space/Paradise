@@ -307,12 +307,13 @@
 		new /obj/item/toy/pet_rock/naughty_coal(move_turf)
 		return ..()
 
-	var/mob/mob_choice = choice
+	var/mob/living/mob_choice = choice
 
 	if(!istype(mob_choice))
 		return ..()
 
 	mob_choice.forceMove(move_turf)
+	mob_choice.revive()
 	krampus.bag_content -= mob_choice
 	. = ..()
 

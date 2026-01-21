@@ -203,11 +203,20 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 ///////Surface. The surface is warm, but survivable without a suit. Internals are required. The floors break to chasms, which drop you into the underground.
 
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 	baseturf = /turf/simulated/floor/lava/mapping_lava
+
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface_hard
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+	baseturf = /turf/simulated/floor/lava/lava_land_surface
 
 /turf/simulated/floor/plating/asteroid/airless
 	temperature = TCMB
@@ -225,7 +234,8 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	temperature = 180
 	slowdown = 2
 	environment_type = "snow"
-	planetary_atmos = TRUE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_COLD
 	digResult = /obj/item/stack/sheet/mineral/snow
 
 /turf/simulated/floor/plating/asteroid/snow/get_ru_names()
@@ -254,14 +264,13 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 	temperature = TCMB
 	oxygen = 0
 	nitrogen = 0
+	atmos_mode = ATMOS_MODE_SEALED
+
+/turf/simulated/floor/plating/asteroid/snow/atmosphere
+	atmos_mode = ATMOS_MODE_SEALED
 
 /turf/simulated/floor/plating/asteroid/snow/temperature
 	temperature = 255.37
-
-/turf/simulated/floor/plating/asteroid/snow/atmosphere
-	oxygen = 22
-	nitrogen = 82
-	planetary_atmos = FALSE
 
 /turf/simulated/floor/plating/asteroid/snow/planet
 	oxygen = 22

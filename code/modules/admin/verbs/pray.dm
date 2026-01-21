@@ -1,5 +1,5 @@
 /mob/living/verb/pray(msg as text)
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Молиться"
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
@@ -34,7 +34,7 @@
 
 	msg = "<b><span style='color: [font_color];'>[prayer_type][deity ? " (to [deity])" : ""][mind?.isholy ? " (blessings: [mind.num_blessed])" : ""]:</span> [key_name(src, 1)] ([ADMIN_QUE(src,"?")]) ([ADMIN_PP(src,"PP")]) ([ADMIN_VV(src,"VV")]) ([ADMIN_TP(src,"TP")]) ([ADMIN_SM(src,"SM")]) ([admin_jump_link(src)]) ([ADMIN_SC(src,"SC")]) (<a href='byond://?_src_=holder;Bless=[UID()]'>BLESS</a>) (<a href='byond://?_src_=holder;Smite=[UID()]'>SMITE</a>):</b> [msg]"
 	for(var/client/X in GLOB.admins)
-		if(check_rights(R_EVENT,0,X.mob))
+		if(check_rights(R_EVENT, FALSE, X.mob))
 			to_chat(X, "[span_notice("[icon2html(cross, X.mob)] [msg]")]")
 			if(X.prefs.sound & SOUND_PRAYERNOTIFY)
 				SEND_SOUND(X, sound('sound/items/PDA/ambicha4-short.ogg'))
@@ -57,7 +57,7 @@
 	GLOB.requests.message_syndicate(Sender.client, msg)
 	msg = "[span_boldnotice("<span style='color: #DC143C;'>SYNDICATE: ")][key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
 	for(var/client/X in GLOB.admins)
-		if(check_rights(R_EVENT,0,X.mob))
+		if(check_rights(R_EVENT, FALSE, X.mob))
 			to_chat(X, msg)
 			if(X.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(X, sound('sound/effects/adminhelp.ogg'))
@@ -97,7 +97,7 @@
 	GLOB.requests.nuke_request(Sender.client, msg)
 	msg = span_adminnotice("<b><span style='color: orange;'>NUKE CODE REQUEST: </span>[key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]")
 	for(var/client/X in GLOB.admins)
-		if(check_rights(R_EVENT,0,X.mob))
+		if(check_rights(R_EVENT, FALSE, X.mob))
 			to_chat(X, msg)
 			if(nuke_status == NUKE_MISSING)
 				to_chat(X, span_userdanger("The nuclear device is not on station!"))

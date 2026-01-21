@@ -377,12 +377,15 @@
 	if(!cancopy(scancopy))
 		return
 	copying = TRUE
-	playsound(loc, pick(print_sounds), 50, TRUE)
+
+	var/count_of_copies = 0
+
 	if(istype(C, /obj/item/paper))
 		for(var/i in copies to 1 step -1)
 			if(!papercopy(C))
 				break
 			toner -= 1
+			count_of_copies++
 			use_power(active_power_usage)
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/photo))
@@ -390,6 +393,7 @@
 			if(!photocopy(C))
 				break
 			toner -= 5
+			count_of_copies++
 			use_power(active_power_usage)
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else if(istype(C, /obj/item/paper_bundle))
@@ -397,20 +401,24 @@
 		for(var/i in copies to 1 step -1)
 			if(!bundlecopy(C, use_toner = TRUE))
 				break
+			count_of_copies++
 			use_power(active_power_usage)
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY * (B.amount + 1))
 	else if(check_mob()) //Once we've scanned the copy_mob's ass we do not need to again
 		for(var/i in copies to 1 step -1)
 			if(!copyass())
+				balloon_alert(usr, "нельзя отсканировать!")
 				break
 			toner -= 5
-			finish_copying()
+			count_of_copies++
+		finish_copying()
 	else if(istype(C, /obj/item/craft_blueprints))
 		var/obj/item/craft_blueprints/original = C
 		for(var/i in copies to 1 step -1)
 			if(!blueprintcopy(original))
 				break
 			toner -= original.required_toner
+			count_of_copies++
 			use_power(active_power_usage)
 			addtimer(CALLBACK(src, PROC_REF(finish_copying)), PHOTOCOPIER_DELAY)
 	else
@@ -418,6 +426,10 @@
 		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не способен отсканировать [copyitem.declent_ru(ACCUSATIVE)], [copyitem.declent_ru(NOMINATIVE)] будет извлечен[GEND_A_O_Y(copyitem)]."))
 		copyitem.forceMove(loc) // fuckery detected! get off my photocopier... shitbird!
 		finish_copying()
+	if(count_of_copies) // if there is at least one copy
+		playsound(loc, pick(print_sounds), 50, TRUE)
+		return
+	balloon_alert(usr, "нельзя отсканировать!")
 
 /obj/machinery/photocopier/proc/finish_copying()
 	copying = FALSE

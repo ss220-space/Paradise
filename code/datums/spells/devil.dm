@@ -416,8 +416,10 @@
 		if(!prob(fire_prob))
 			continue
 
-		new /obj/effect/hotspot(turf)
-		turf.hotspot_expose(2000, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		hotspot.temperature = 3000
+		hotspot.recolor()
+		turf.hotspot_expose(2000, 50)
 
 	playsound(get_turf(user), 'sound/magic/blind.ogg', 50, TRUE)
 

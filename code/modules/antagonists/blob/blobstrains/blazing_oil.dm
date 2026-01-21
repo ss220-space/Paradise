@@ -24,7 +24,9 @@
 				continue
 			var/obj/structure/blob/C = locate() in T
 			if(!(C?.overmind && C.overmind.blobstrain.type == B.overmind.blobstrain.type) && prob(80))
-				new /obj/effect/hotspot(T)
+				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+				hotspot.temperature = 1000
+				hotspot.recolor()
 	if(damage_flag == FIRE)
 		return FALSE
 	return ..()

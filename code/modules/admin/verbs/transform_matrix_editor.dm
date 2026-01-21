@@ -20,7 +20,7 @@
 	return ..()
 
 /datum/transform_matrix_editor/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/transform_matrix_editor/ui_close(mob/user)
 	qdel(src)

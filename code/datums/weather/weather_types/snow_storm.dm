@@ -1,6 +1,3 @@
-#define KRAMPUS_SPAWN_PROBABILITY 40
-#define KRAMPUS_PER_PLAYER 13
-
 /datum/weather/snow_storm
 	name = "snow storm"
 	desc = "Harsh snowstorms roam the topside of this arctic planet, burying any area unfortunate enough to be in its path."
@@ -41,6 +38,7 @@
 		/area/space,
 		/area/coldcolony/malta,
 		/area/crew_quarters/bar/atrium/safe,
+		/area/toxins/xenobiology,
 	)
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
@@ -77,9 +75,9 @@
 	for(var/i in 1 to snow_per_tick)
 		var/turf/turf = pick(affected_turfs_list)
 		var/turf_hotness = T0C
-		if(issimulatedturf(turf))
-			var/turf/simulated/simulated = turf
-			turf_hotness = simulated.air.temperature
+		var/datum/gas_mixture/air = turf.get_readonly_air()
+		if(air)
+			turf_hotness = air.temperature()
 
 		if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 			continue
@@ -98,8 +96,26 @@
 
 	if(GLOB.new_year_celebration)
 		for(var/obj/structure/flora/tree/pine/xmas/xmas_tree in GLOB.world_flora)
+			var/turf/tree_loc = get_turf(xmas_tree)
+
+			if(!(tree_loc.z in impacted_z_levels))
+				continue
+
 			xmas_tree.spawn_gifts()
-		spawn_krampus(affected_turfs_list)
+
+
+/datum/weather/snow_storm/can_weather_act(mob/living/mob_to_check)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	var/mob/living/simple_animal/animal_to_check = mob_to_check
+
+	if(istype(animal_to_check) && animal_to_check.unique_pet)
+		return FALSE
+
+	return TRUE
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(20, 50)
@@ -116,50 +132,3 @@
 		temp_drop *= cold_protection
 
 	target.adjust_bodytemperature(temp_drop)
-
-/datum/weather/snow_storm/proc/can_spawn_krampus()
-	var/players_count = num_station_players()
-	var/krampus_count = get_krampus_count()
-
-	if(players_count < KRAMPUS_PER_PLAYER)
-		return FALSE
-
-	var/krampus_need = round(players_count / KRAMPUS_PER_PLAYER)
-
-	if(krampus_count > krampus_need)
-		return FALSE
-
-	if(!prob(KRAMPUS_SPAWN_PROBABILITY))
-		return FALSE
-
-	return TRUE
-
-/datum/weather/snow_storm/proc/spawn_krampus(list/possible_turfs)
-	set waitfor = FALSE
-
-	if(!(can_spawn_krampus()))
-		return
-
-	var/image/krampus_image = image(/mob/living/carbon/true_devil/krampus::icon, /mob/living/carbon/true_devil/krampus::icon_state)
-	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за Крампуса?", ROLE_DEVIL, FALSE, 30 SECONDS, source = krampus_image, role_cleanname = "Крампус")
-
-	if(!length(candidates))
-		return
-
-	var/mob/living/carbon/true_devil/krampus/krampus = new(pick(possible_turfs))
-	var/mob/dead/observer/candidate = pick(candidates)
-	krampus.possess_by_player(candidate.ckey)
-	krampus.mind.add_antag_datum(/datum/antagonist/krampus)
-
-/datum/weather/snow_storm/proc/get_krampus_count()
-	var/count = 0
-	for(var/datum/antagonist/krampus/krampus in GLOB.antagonists)
-
-		if(QDELETED(krampus.owner?.current) || krampus.owner.current.stat == DEAD)
-			continue
-
-		count++
-	return count
-
-#undef KRAMPUS_SPAWN_PROBABILITY
-#undef KRAMPUS_PER_PLAYER

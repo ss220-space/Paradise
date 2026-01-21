@@ -852,6 +852,31 @@
 	desc = "Изображение каргонца, который  демонстрирует свои достижения в освоении техники: мулботов, консоли заказов, системы доставки."
 	icon_state = "poster_cargo"
 
+/obj/structure/sign/poster/official/cargogorilas
+	name = "Каргорилаз"
+	desc = "На постере изображена обложка рок-группы \"Каргорилаз\". Вероятно, на фоне успеха данной группы, \"Нанотрейзен\" снабдила все свои станции питомцем по имени Марс."
+	icon_state = "poster_cargogorilas"
+
+/obj/structure/sign/poster/official/cargofriends
+	name = "Грузчики"
+	desc = "Постер демонстрирует, что снабжение — это не просто работа, а способ завести новых друзей."
+	icon_state = "poster_cargofriends"
+
+/obj/structure/sign/poster/official/mge
+	name = "Мускулистый Грузчик"
+	desc = "Изображение Грузчика с большими мышцами, который заявляет: \"Больше работай и станешь таким же накачанным!\"."
+	icon_state = "poster_mge"
+
+/obj/structure/sign/poster/official/qm
+	name = "Квартермейстерша" //Мне нравиться как это звучит
+	desc = "Изображение Квартирмейстерши, которая призывает работать в Отделе Снабжения."
+	icon_state = "poster_qm"
+
+/obj/structure/sign/poster/official/minegem
+	name = "НЕСИ"
+	desc = "Изображение драгоценного самоцвета с маленькой подписью, намекающей на то, что его нужно принести в Отдел Снабжения."
+	icon_state = "poster_minegem"
+
 // MARK: Secret posters
 
 /obj/structure/sign/poster/secret
@@ -882,5 +907,10 @@
 	name = "Развратная ящерица"
 	desc = "Этот похабный постер изображает ящерицу, которая готовится к брачному периоду."
 	icon_state = "poster3_secret"
+
+/obj/structure/sign/poster/secret/sexiqm
+	name = "Скромная Квартермейстерша"
+	desc = "На постере изображена скромная девушка в платье Квартирмейстера, которая сидит на том самом ящике."
+	icon_state = "poster4_secret"
 
 #undef PLACE_SPEED

@@ -1,3 +1,13 @@
+/**
+ * The absolute base class for everything
+ *
+ * A datum instantiated has no physical world presence, use an atom if you want something
+ * that actually lives in the world
+ *
+ * Be very mindful about adding variables to this class, they are inherited by every single
+ * thing in the entire game, and so you can easily cause memory usage to rise a lot with careless
+ * use of variables at this level
+ */
 /datum
 	/**
 	  * Tick count time when this object was destroyed.
@@ -51,6 +61,8 @@
 	*/
 	var/list/cooldowns
 
+	/// Protects datum from editing. Flags are assigned in datumvars procs via [GENERAL_PROTECT_DATUM].
+	var/datum_protecting_flags = NONE
 
 #ifdef TESTING
 	var/running_find_references
@@ -77,6 +89,17 @@
 	#endif
 #endif
 
+	/**
+	 * Parent types.
+	 *
+	 * Abstract-ness is a meta-property of a class that is used to indicate
+	 * that the class is intended to be used as a base class for others, and
+	 * should not (or cannot) be instantiated.
+	 * We have no such language concept in DM, and so we provide a datum member
+	 * that can be used to hint at abstractness for circumstances where we would
+	 * like that to be the case, such as base behavior providers.
+	 */
+	var/abstract_type = /datum
 
 /**
  * Callback called by a timer to end an associative-list-indexed cooldown.

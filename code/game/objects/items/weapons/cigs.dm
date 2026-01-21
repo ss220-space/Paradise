@@ -101,7 +101,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else
 		return TRUE
 
-/obj/item/clothing/mask/cigarette/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/clothing/mask/cigarette/fire_act(exposed_temperature, exposed_volume)
 	..()
 	light()
 
@@ -320,7 +320,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			// There used to be a species check here, but synthetics can smoke now
 			is_being_smoked = TRUE
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 	if(reagents?.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
