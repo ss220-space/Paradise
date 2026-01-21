@@ -92,7 +92,7 @@
 		var/transfered_amount = container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
 			span_notice("[user] перелива[PLUR_ET_YUT(user)] содержимое [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы переливаете [transfered_amount] единиц[declension_ru(transfered_amount,"у","ы","")] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы переливаете [transfered_amount] единиц[DECL_SEC_MIN(transfered_amount)] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		update_dialog(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
