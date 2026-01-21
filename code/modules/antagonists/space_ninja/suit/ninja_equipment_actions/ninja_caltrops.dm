@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/ninja_caltrops
 
 	name = "Энергетические шипы"
-	desc = "Разбрасывает смертельные шипы позади вас. Отлично замедляет врагов. Пробивают даже костюм ниндзи и металлические конечности. Затраты энергии: 1500"
+	desc = "Разбрасывает смертельные шипы позади вас. Отлично замедляет врагов в случае погони. Затраты энергии: 1500"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_max = 1 SECONDS
 	button_icon_state = "caltrop"
@@ -55,6 +55,7 @@
 /obj/structure/energy_caltrops
 	name = "Caltrops"
 	desc = "Шипы, созданные из концентрированной энергии. Чрезвычайно острые."
+	gender = PLURAL
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "caltrops"
 	resistance_flags = INDESTRUCTIBLE

@@ -2,7 +2,7 @@
 
 /datum/action/item_action/advanced/ninja/ninjapulse
 
-	name = "ЭМ-импульс"
+	name = "ЭМИ"
 	desc = "Отключает всю близлежащую машинерию электромагнитным импульсом. Затраты энергии: 5000"
 	check_flags = AB_CHECK_CONSCIOUS
 	charge_max = 4 SECONDS

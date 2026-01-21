@@ -25,7 +25,7 @@
 
 /obj/item/ninja_net_emitter
 	name = "Energy Net Emitter"
-	desc = "Спрятанный в костюме ниндзи девайс. Выстреливает мощной энергетической сеткой, которая мгновенно запутывает и обездвиживает человека"
+	desc = "Спрятанный в костюме Ниндзя девайс. Выстреливает мощной энергетической сеткой, которая мгновенно запутывает и обездвиживает цель."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "net_emitter"
 	item_state = ""
@@ -82,7 +82,7 @@
 		ninja.Beam(target, "n_beam", time = 15)
 		var/obj/structure/energy_net/net = new /obj/structure/energy_net(target.drop_location())
 		net.affected_mob = target
-		ninja.visible_message(span_danger("[ninja.declent_ru(NOMINATIVE)] запутыва[PLUR_ET_YUT(ninja)] [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"),span_notice("Вы запутываете [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
+		ninja.visible_message(span_warning("[capitalize(ninja.declent_ru(NOMINATIVE))] запутыва[PLUR_ET_YUT(ninja)] [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"), span_notice("Вы запутываете [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 		if(target.buckled)
 			target.buckled.unbuckle_mob(target, TRUE)
 		net.buckle_mob(target, TRUE) //No moving for you!

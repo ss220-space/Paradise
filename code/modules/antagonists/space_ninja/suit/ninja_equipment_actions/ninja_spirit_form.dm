@@ -38,7 +38,7 @@
 		if(!stealth)
 			animate(ninja, alpha = NINJA_ALPHA_SPIRIT_FORM, time = 6) //Трогаем альфу — только если мы не в стелсе
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_SPIRIT_FORM), ALPHA_SOURCE_NINJA)
-			ninja.visible_message(span_warning("[ninja.name] выглядит нестабильно!"), span_notice("Теперь вы можете пройти почти через все.")) //Если мы не в стелсе, пишем текст того, что видят другие
+			ninja.visible_message(span_warning("[capitalize(ninja.declent_ru(NOMINATIVE))] выглядит нестабильно!"), span_notice("Теперь вы можете пройти почти через все.")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
 			to_chat(ninja, span_notice("Теперь вы можете пройти почти через все."))	// Если же невидимы — пишем только себе
 		ninja.pass_flags |= PASSEVERYTHING
@@ -67,7 +67,7 @@
 		if(!stealth)	//Не стоит трогать альфу, когда мы уже невидимы
 			animate(ninja, alpha = NINJA_ALPHA_NORMAL, time = 6)
 			ninja.alpha_set(standartize_alpha(NINJA_ALPHA_NORMAL), ALPHA_SOURCE_NINJA)
-			ninja.visible_message(span_warning("[ninja.name] становится стабильным!"), span_notice("Вы теряете способность проходить сквозь материальные объекты...")) //Если мы не в стелсе, пишем текст того, что видят другие
+			ninja.visible_message(span_warning("[capitalize(ninja.declent_ru(NOMINATIVE))] станов[PLUR_IT_YAT(ninja)]ся стабильным!"), span_notice("Вы теряете способность проходить сквозь материальные объекты...")) //Если мы не в стелсе, пишем текст того, что видят другие
 		else
 			to_chat(ninja, span_notice("Вы теряете способность проходить сквозь материальные объекты.")) // Если же невидимы — пишем только себе
 		ninja.pass_flags = 0	//Отнимать этот флаг - "PASS_EVERYTHING" по нормальному он не хочет, значит сделаем полный сброс.
@@ -92,4 +92,4 @@
 		if(!istype(restraint_closet))
 			return FALSE
 		ninja.forceMove(get_turf(restraint_closet))
-		ninja.visible_message(span_warning("[ninja.declent_ru(NOMINATIVE)] проходит сквозь [restraint_closet.declent_ru(ACCUSATIVE)]!"))
+		ninja.visible_message(span_warning("[ninja.declent_ru(NOMINATIVE)] проход[PLUR_IT_YAT(ninja)] сквозь [restraint_closet.declent_ru(ACCUSATIVE)]!"))

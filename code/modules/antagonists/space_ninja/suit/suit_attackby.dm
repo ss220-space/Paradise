@@ -21,7 +21,7 @@
 		add_fingerprint(ninja)
 		var/obj/item/stack/ore/bluespace_crystal/crystal_stack = I
 		if(heal_chems.charge_counter >= heal_chems.charge_max)
-			balloon_alert(ninja, "уже полно")
+			balloon_alert(ninja, "отсек полон!")
 			return ATTACK_CHAIN_PROCEED
 		if(!crystal_stack.use(a_transfer))
 			to_chat(ninja, span_warning("Вам нужно как минимум [a_transfer] блюспейс-кристалл[DECL_CREDIT(a_transfer)] для восполнения запаса химикатов."))

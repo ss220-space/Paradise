@@ -33,7 +33,7 @@
 
 /obj/item/ninja_chameleon_scanner
 	name = "chameleon scanner"
-	desc = "Спрятанный в костюме ниндзи девайс. Сканирует внешний вид и голос гуманоида, что позволяет пользователю выдавать себя за него."
+	desc = "Спрятанный в костюме Ниндзя девайс. Сканирует внешний вид и голос гуманоида, что позволяет пользователю выдавать себя за него."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "chameleon_device"
 	item_state = ""
@@ -99,7 +99,7 @@
 
 /obj/item/clothing/suit/space/space_ninja/proc/pick_form(mob/living/carbon/human/ninja)
 	if(!disguise && !disguise_active)
-		balloon_alert(ninja, ("буфер памяти пуст!"))
+		balloon_alert(ninja, "буфер памяти пуст!")
 		return
 
 	if(!disguise_active)
