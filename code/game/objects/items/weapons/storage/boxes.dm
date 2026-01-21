@@ -745,7 +745,7 @@
 
 /obj/item/storage/box/papersack
 	name = "paper sack"
-	desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы одеть ему кому-то на голову. "
+	desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
@@ -767,7 +767,7 @@
 	. = ..()
 	switch(design)
 		if(NODESIGN)
-			desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы одеть ему кому-то на голову."
+			desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
 		if(NANOTRASEN)
 			desc = "Стандартный пакет НТ для завтраков для самых верных работников"
 		if(SYNDI)
@@ -825,7 +825,7 @@
 		return .
 	user.visible_message(
 		span_warning("[user] надевает бумажный пакет на голову [target]!"),
-		span_notice("Вы одеваете [target == user ? "бумажный пакет на свою голову" : "бумажный пакет на голову [target]"]!"),
+		span_notice("Вы надеваете [target == user ? "бумажный пакет на свою голову" : "бумажный пакет на голову [target]"]!"),
 		span_italics("Вы слышите шелест плотной бумаги."),
 	)
 	if(!do_after(user, apply_paper_bag_delay, target) || !target.check_has_mouth())
@@ -834,12 +834,12 @@
 		var/obj/item/head_item_to_drop = target.head
 		target.drop_item_ground(head_item_to_drop)
 		if(head_item_to_drop.loc == target) // Проверяем, остался ли предмет на голове после попытки сброса
-			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя одеть пакет!"))
+			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя надеть пакет!"))
 			return .
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
-		span_warning("[user] одел бумажный пакет на голову [target]!"),
-		span_notice("Вы одели [target == user ? "бумажный пакет себе на голову" : "бумажный пакет на голову [target]"]!"),
+		span_warning("[user] надел бумажный пакет на голову [target]!"),
+		span_notice("Вы надели [target == user ? "бумажный пакет себе на голову" : "бумажный пакет на голову [target]"]!"),
 	)
 	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)
