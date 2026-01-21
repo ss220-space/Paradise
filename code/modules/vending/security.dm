@@ -107,7 +107,6 @@
 		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
 
-// that's so helpfull that their paths can be used as their names
 #define KIT_DOMINATOR "Доминатор"
 #define KIT_ENFORCER "Блюститель"
 #define KIT_SPECTER "Спектр"
@@ -121,7 +120,7 @@
 	if(istype(item, /obj/item/security_voucher))
 		var/obj/item/security_voucher/voucher = item
 		add_fingerprint(user)
-		var/list/available_kits = voucher.available_kits
+		var/list/available_kits = voucher.redeem_kits_list()
 		var/choice = show_radial_menu(user, voucher, available_kits, radius = 40, custom_check = CALLBACK(src, PROC_REF(check_voucher_menu), user), require_near = TRUE)
 		if(!choice || !Adjacent(user) || QDELETED(voucher) || voucher.loc != user)
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -130,20 +129,7 @@
 		qdel(voucher)
 		sleep(0.5 SECONDS)
 		playsound(loc, 'sound/machines/machine_vend.ogg', 50, TRUE)
-		var/weapon_kit
-		switch(choice)
-			if(KIT_DOMINATOR)
-				weapon_kit = new /obj/item/storage/box/dominator_kit(loc)
-			if(KIT_ENFORCER)
-				weapon_kit = new /obj/item/storage/box/enforcer_kit(loc)
-			if(KIT_SPECTER)
-				weapon_kit = new /obj/item/storage/box/specter_kit(loc)
-			if(KIT_TAURUS)
-				weapon_kit = new /obj/item/storage/box/taurus_kit(loc)
-			if(KIT_DETECTIVE)
-				weapon_kit = new /obj/item/storage/box/revolver_kit(loc)
-
-		var/obj/item/box = new weapon_kit(loc)
+		var/obj/item/box = new choice(loc)
 		if(Adjacent(user))
 			user.put_in_hands(box, ignore_anim = FALSE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -198,16 +184,15 @@
 	gender = MALE
 	icon_state = "security_voucher"
 	w_class = WEIGHT_CLASS_SMALL
-	var/list/available_kits
 
-/obj/item/security_voucher/Initialize(mapload)
-	. = ..()
-	available_kits = list(
-		KIT_DOMINATOR = image(icon = 'icons/obj/weapons/dominator.dmi', icon_state = "dominator"),
-		KIT_ENFORCER = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "enforcer_grey"),
-		KIT_SPECTER = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "specter"),
-		KIT_TAURUS = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "taurus"),
-	) //TODO: make it a datum instead of a hardcoded list
+/obj/item/security_voucher/proc/redeem_kits_list()
+	var/list/kits = typesof(/datum/security_voucher_kit/officer)
+	kits.Cut(1,2) // delete the base type
+	var/list/available_kits = list()
+	for(var/datum/security_voucher_kit/kit as anything in kits)
+		available_kits[kit.kit_box] = image(kit.icon, kit.icon_state)
+	return available_kits
+
 
 /obj/item/security_voucher/get_ru_names()
 	return list(
@@ -223,9 +208,12 @@
 	name = "detective's security voucher"
 	desc = "Жетон, позволяющий получить детективский набор оружия из торгового автомата \"SecTech\". Выдаётся детективам в штатном порядке."
 
-/obj/item/security_voucher/detective/Initialize(mapload)
+/obj/item/security_voucher/detective/redeem_kits_list()
 	. = ..()
-	available_kits[KIT_DETECTIVE] = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "detective")
+	var/list/kits = typesof(/datum/security_voucher_kit/detective)
+	for(var/datum/security_voucher_kit/kit as anything in kits)
+		.[kit.kit_box] = image(kit.icon, kit.icon_state)
+	return .
 
 /obj/item/security_voucher/detective/get_ru_names()
 	return list(
@@ -236,6 +224,38 @@
 		INSTRUMENTAL = "детективским ваучером",
 		PREPOSITIONAL = "детективском ваучере",
 	)
+
+/datum/security_voucher_kit
+	var/obj/item/storage/box/kit_box
+	var/icon
+	var/icon_state
+
+/datum/security_voucher_kit/officer
+
+/datum/security_voucher_kit/officer/dominator
+	kit_box = /obj/item/storage/box/dominator_kit
+	icon = 'icons/obj/weapons/dominator.dmi'
+	icon_state = "dominator"
+
+/datum/security_voucher_kit/officer/enforcer
+	kit_box = /obj/item/storage/box/enforcer_kit
+	icon = 'icons/obj/weapons/projectile.dmi'
+	icon_state = "enforcer_grey"
+
+/datum/security_voucher_kit/officer/specter
+	kit_box = /obj/item/storage/box/specter_kit
+	icon = 'icons/obj/weapons/energy.dmi'
+	icon_state = "specter"
+
+/datum/security_voucher_kit/officer/taurus
+	kit_box = /obj/item/storage/box/taurus_kit
+	icon = 'icons/obj/weapons/projectile.dmi'
+	icon_state = "taurus"
+
+/datum/security_voucher_kit/detective
+	kit_box = /obj/item/storage/box/revolver_kit
+	icon = 'icons/obj/weapons/projectile.dmi'
+	icon_state = "detective"
 
 #undef KIT_DOMINATOR
 #undef KIT_ENFORCER
