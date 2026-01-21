@@ -93,3 +93,4 @@
 
 #undef WARP_LOC
 #undef WARP_DIR
+#undef WAPR_MAX_STEPS
