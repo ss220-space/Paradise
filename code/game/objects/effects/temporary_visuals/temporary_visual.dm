@@ -48,7 +48,6 @@
 		M.Turn(get_angle(src, target))
 		transform = M
 
-
 /obj/effect/temp_visual/warp
 	name = "warp trace"
 	duration = 0.9 SECONDS
@@ -59,4 +58,3 @@
 	icon_state = "jet_plume"
 	layer = BELOW_MOB_LAYER
 	duration = 0.4 SECONDS
-

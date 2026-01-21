@@ -168,15 +168,13 @@
 	life = "Lifetime warranty."
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
-<<<<<<< HEAD
 /datum/implant_fluff/warp
 	name = "Cybersun Industries Warp-implant EX-27"
 	life = "Исследования показали, что имплант кратно повышает вероятность развития киберпсихоза."
 	function = "Обладает способностью искажать пространство-время."
-=======
+
 /datum/implant_fluff/pathfinder
 	name = "Paizo Productions 5-E Pathfinder Implant"
 	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
 	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
 	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
->>>>>>> 2222af67fb020d52a0899fe9e8cd04f2e39311f3
