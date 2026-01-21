@@ -1,6 +1,7 @@
 //Indexes for the queue
 #define WARP_LOC 1
 #define WARP_DIR 2
+#define WAPR_MAX_STEPS 125
 
 /obj/item/implant/warp
 	name = "warp implant"
@@ -10,7 +11,6 @@
 
 	STATIC_COOLDOWN_DECLARE(cooldown)
 	var/queue/position_queue
-	var/max_warp_steps = 125
 
 /obj/item/implant/warp/Destroy()
 	position_queue = null
@@ -27,23 +27,23 @@
 
 /obj/item/implant/warp/removed(mob/living/source, silent, special)
 	. = ..()
-	position_queue = null
 
 /obj/item/implant/warp/proc/update_position(datum/source = null)
 	SIGNAL_HANDLER
 	if(!isatom(imp_in.loc))
 		return
+
 	inject_position(imp_in.loc)
 
 /obj/item/implant/warp/proc/inject_position(atom/new_loc)
 	if(!new_loc)
 		return
-	if(position_queue.count >= max_warp_steps)
+	if(position_queue.count >= WAPR_MAX_STEPS)
 		position_queue.dequeue()
+
 	position_queue.enqueue(list(new_loc, imp_in.dir))
 
 /obj/item/implant/warp/proc/clear_positions()
-	position_queue = null
 	position_queue = new()
 	update_position()
 
@@ -51,21 +51,21 @@
 	var/delta_alpha = round(225 / position_queue.count)
 	var/latest_alpha = 225
 
-	while(!position_queue.count)
+	while(position_queue.count)
 		var/list/data = position_queue.dequeue()
 		if(!data?[WARP_LOC] || !isturf(data?[WARP_LOC]))
 			continue
 
 		var/obj/effect/temp_visual/warp/temp = new /obj/effect/temp_visual/warp(data[WARP_LOC])
 		temp.alpha = latest_alpha
-		temp.overlays = imp_in.overlays
+		temp.appearance = imp_in.appearance
 		temp.dir = data?[WARP_DIR] ? data?[WARP_DIR] : imp_in.dir
 		latest_alpha -= delta_alpha
 
 		animate(temp, alpha = 0, time = 0.9 SECONDS)
 
 /obj/item/implant/warp/proc/teleport_owner()
-	while(!position_queue.count)
+	while(position_queue.count)
 		var/list/data = position_queue.dequeue()
 		if(!data?[WARP_LOC])
 			continue
@@ -74,13 +74,11 @@
 		imp_in.dir = data?[WARP_DIR] ? data?[WARP_DIR] : imp_in.dir
 		return
 
-	imp_in.balloon_alert(imp_in, "ошибка")
-	to_chat(imp_in, span_danger("Ошибка телепортации!"))
+	imp_in.balloon_alert(imp_in, "ошибка телепортации!")
 
 /obj/item/implant/warp/activate()
 	. = ..()
 	if(!COOLDOWN_FINISHED(src, cooldown))
-		to_chat(imp_in, span_warning("Имплант еще не готов!"))
 		imp_in.balloon_alert(imp_in, "перезарядка!")
 		return
 
