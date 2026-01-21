@@ -174,7 +174,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/grenade/clusterbuster/cleaner,
 	)
-	cost = 150
+	cost = 75
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной гранатой \"Мистер пропер\" "
 	container_ru_names = list(
@@ -191,7 +191,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(
 		/obj/item/grenade/clusterbuster/oxygen,
 	)
-	cost = 150
+	cost = 50
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной кислородной гранатой"
 	container_ru_names = list(
