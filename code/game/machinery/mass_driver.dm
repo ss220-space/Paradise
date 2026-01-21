@@ -212,7 +212,7 @@
 			build = MASS_DRIVER_BUILD_ANCHORED
 
 /obj/machinery/mass_driver_frame/verb/rotate()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Повернуть каркас"
 	set src in view(1)
 

@@ -1,7 +1,7 @@
 /datum/beaker_panel
 
 /datum/beaker_panel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/beaker_panel/ui_close()
 	qdel(src)
@@ -91,13 +91,6 @@
 
 	return grenade
 
-/client/proc/beaker_panel()
-	set name = "Spawn Reagent Container"
-	set desc = "Spawn a reagent container."
-	set category = STATPANEL_ADMIN_EVENT
-
-	if(!check_rights(R_SPAWN))
-		return
-
+ADMIN_VERB(beaker_panel, R_SPAWN, "Spawn Reagent Container", "Spawn a reagent container.", ADMIN_CATEGORY_EVENTS)
 	var/datum/beaker_panel/panel = new
-	panel.ui_interact(usr)
+	panel.ui_interact(user.mob)

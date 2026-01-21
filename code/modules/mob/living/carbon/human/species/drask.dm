@@ -208,3 +208,6 @@
 	. += DRASK_PITCH_SHIFT
 
 #undef DRASK_PITCH_SHIFT
+
+/datum/species/drask/compressor_grind(location)
+	new /obj/item/soap(location)

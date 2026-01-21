@@ -68,23 +68,24 @@
 	if(spread_flags & AIRBORNE)
 		spread_range++
 
-	var/turf/T = get_turf(affected_mob)
-	if(istype(T))
-		for(var/mob/living/C in view(spread_range, T))
-			var/turf/V = get_turf(C)
-			if(V)
+	var/turf/target = get_turf(affected_mob)
+	if(istype(target))
+		for(var/mob/living/victim in view(spread_range, target))
+			var/turf/current = get_turf(victim)
+			if(current)
 				while(TRUE)
-					if(V == T)
+					if(current == target)
 						var/a_type = (spread_range == 1) ? CONTACT : CONTACT|AIRBORNE
 						//if we wear bio suit, for example, we won't be able to contract anyone
 						if(affected_mob.CheckVirusProtection(src, a_type))
 							return
-						Contract(C, act_type = a_type, need_protection_check = TRUE)
+						Contract(victim, act_type = a_type, need_protection_check = TRUE)
 						break
-					var/turf/Temp = get_step_towards(V, T)
-					if(!V.CanAtmosPass(Temp, vertical = FALSE))
+					var/direction = get_dir(current, target)
+					var/turf/next = get_step(current, direction)
+					if(!current.CanAtmosPass(direction) || !next.CanAtmosPass(turn(direction, 180)))
 						break
-					V = Temp
+					current = next
 
 /datum/disease/virus/proc/spread_text()
 	var/list/spread = list()

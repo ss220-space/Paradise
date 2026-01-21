@@ -91,6 +91,13 @@
 /atom/proc/prepare_huds()
 	if(hud_list) // I choose to be lienient about people calling this proc more then once
 		return
+
+	var/static/list/hud_dmis
+	if(!hud_dmis)
+		hud_dmis = list(
+			PRESSURE_HUD = 'icons/effects/effects.dmi',
+		)
+
 	hud_list = list()
 	for(var/hud in hud_possible)
 		var/hint = hud_possible[hud]
@@ -99,7 +106,10 @@
 			hud_list[hud] = list()
 
 		else
-			var/image/I = image('icons/mob/hud.dmi', src, "")
+			var/use_this_dmi = hud_dmis[hud]
+			if(!use_this_dmi)
+				use_this_dmi = 'icons/mob/hud.dmi'
+			var/image/I = image(use_this_dmi, src, "")
 			I.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
 			hud_list[hud] = I
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
@@ -111,24 +121,31 @@
 /mob/proc/GetAltName()
 	return ""
 
+/**
+ * Some kind of debug verb that gives atmosphere environment details
+ */
 /mob/proc/Cell()
-	set category = STATPANEL_DEBUG
+	set category = ADMIN_CATEGORY_DEBUG
 	set hidden = TRUE
 
-	if(!loc) return 0
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 
-	var/datum/gas_mixture/environment = loc.return_air()
+	if(!environment)
+		return
 
-	var/t = span_notice("Coordinates: [x],[y] \n")
-	t+= span_warning("Temperature: [environment.temperature] \n")
-	t+= span_notice("Nitrogen: [environment.nitrogen] \n")
-	t+= span_notice("Oxygen: [environment.oxygen] \n")
-	t+= span_notice("Plasma : [environment.toxins] \n")
-	t+= span_notice("Carbon Dioxide: [environment.carbon_dioxide] \n")
-	t+= span_notice("N2O: [environment.sleeping_agent] \n")
-	t+= span_notice("Agent B: [environment.agent_b] \n")
+	var/text = span_notice("Coordinates: [x],[y] \n")
+	text += span_danger("Temperature: [environment.temperature()] \n")
+	text += span_notice("Nitrogen: [environment.nitrogen()] \n")
+	text += span_notice("Oxygen: [environment.oxygen()] \n")
+	text += span_notice("Plasma : [environment.toxins()] \n")
+	text += span_notice("Carbon Dioxide: [environment.carbon_dioxide()] \n")
+	text += span_notice("N2O: [environment.sleeping_agent()] \n")
+	text += span_notice("Agent B: [environment.agent_b()] \n")
+	text += span_notice("Hydrogen: [environment.hydrogen()] \n")
+	text += span_notice("Water Vapor: [environment.water_vapor()] \n")
 
-	usr.show_message(t, 1)
+	to_chat(usr, text)
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 
@@ -406,7 +423,7 @@
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Осмотреть"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(!client)
 		return
@@ -463,7 +480,7 @@
 
 /mob/verb/memory()
 	set name = "Заметки"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	if(mind)
 		mind.show_memory(src)
 	else
@@ -471,7 +488,7 @@
 
 /mob/verb/add_memory(msg as message)
 	set name = "Добавить заметку"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
@@ -522,7 +539,7 @@
 
 /mob/verb/abandon_mob()
 	set name = "Возродиться"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 
 	if(!GLOB.abandon_allowed)
 		to_chat(usr, span_warning("Respawning is disabled."))
@@ -591,7 +608,7 @@
 
 /mob/verb/cancel_camera()
 	set name = "Сбросить позицию камеры"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -745,7 +762,7 @@
 
 /mob/dead/observer/verb/respawn()
 	set name = "Играть за НИП"
-	set category = STATPANEL_GHOST
+	set category = VERB_CATEGORY_GHOST
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
@@ -1345,3 +1362,6 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	LAZYREMOVE(active_hud_list, hud_category)
 
 	return TRUE
+
+/mob/compressor_grind()
+	gib()

@@ -205,8 +205,8 @@
 	for(var/chameleon_type in chameleon_list[chameleon_name])
 		var/obj/item/chameleon_item = chameleon_list[chameleon_name][chameleon_type]
 		chameleon_skins.Add(list(list(
-			"icon" = initial(chameleon_item.icon),
-			"icon_state" = initial(chameleon_item.icon_state),
+			"icon" = chameleon_item.icon,
+			"icon_state" = chameleon_item.icon_state,
 			"name" = initial(chameleon_item.name),
 		)))
 
@@ -275,9 +275,9 @@
 /datum/action/item_action/chameleon/change/proc/add_chameleon_items(type_to_add)
 	chameleon_typecache |= typecacheof(type_to_add)
 	for(var/obj/item/item_type as anything in chameleon_typecache)
-		if(chameleon_blacklist[item_type] || (initial(item_type.item_flags) & ABSTRACT) || !initial(item_type.icon_state))
+		if(chameleon_blacklist[item_type] || (item_type::item_flags & ABSTRACT) || !item_type::icon_state)
 			continue
-		var/chameleon_item_name = "[replacetext(initial(item_type.name), "\improper","")]_[initial(item_type.icon_state)]"
+		var/chameleon_item_name = "[replacetext(item_type::name, "\improper","")]_[item_type::icon_state]"
 		var/item_exist = FALSE
 		for(var/existing_item_name in chameleon_list[chameleon_name])
 			if(existing_item_name == chameleon_item_name)
@@ -308,27 +308,51 @@
 	PROTECTED_PROC(TRUE) // Call update_look, not this!
 
 	var/obj/item/item_target = target
+	var/obj/item/fake_item = new picked_item(null)
 
-	item_target.name = initial(picked_item.name)
-	item_target.desc = initial(picked_item.desc)
+	item_target.name = fake_item.name
+	item_target.desc = fake_item.desc
 
-	item_target.icon = initial(picked_item.icon)
-	item_target.icon_state = initial(picked_item.icon_state)
-	item_target.item_state = initial(picked_item.item_state)
-	item_target.item_color = initial(picked_item.item_color)
+	item_target.icon = fake_item.icon
+	item_target.icon_state = fake_item.post_init_icon_state || fake_item.icon_state
+	item_target.item_state = fake_item.item_state
+	item_target.item_color = fake_item.item_color
+	item_target.lefthand_file = fake_item.lefthand_file
+	item_target.righthand_file = fake_item.righthand_file
+	if(fake_item.sprite_sheets || fake_item.onmob_sheets)
+		item_target.sprite_sheets = fake_item.sprite_sheets
+		item_target.onmob_sheets = fake_item.onmob_sheets
 
-	item_target.lefthand_file = initial(picked_item.lefthand_file)
-	item_target.righthand_file = initial(picked_item.righthand_file)
+	if(fake_item.greyscale_colors)
+		var/list/worn_configs = fake_item.greyscale_config_worn
+		if(worn_configs)
+			for(var/slot in worn_configs)
+				item_target.onmob_sheets[slot] = SSgreyscale.get_colored_icon_by_type(
+				worn_configs[slot],
+				fake_item.greyscale_colors,
+			)
+		var/list/species_configs = fake_item.greyscale_config_worn_species
+		if(species_configs)
+			for(var/slot in species_configs)
+				item_target.sprite_sheets[slot] = SSgreyscale.get_colored_icon_by_type(
+				species_configs[slot],
+				fake_item.greyscale_colors,
+			)
+		if(fake_item.greyscale_config_inhand_left)
+			item_target.lefthand_file = SSgreyscale.get_colored_icon_by_type(
+				fake_item.greyscale_config_inhand_left,
+				fake_item.greyscale_colors,
+			)
+		if(fake_item.greyscale_config_inhand_right)
+			item_target.righthand_file = SSgreyscale.get_colored_icon_by_type(
+				fake_item.greyscale_config_inhand_right,
+				fake_item.greyscale_colors,
+			)
 
-	item_target.flags_inv = initial(picked_item.flags_inv)
-	item_target.flags_cover = initial(picked_item.flags_cover)	// why?
+	item_target.flags_inv = fake_item.flags_inv
+	item_target.flags_cover = fake_item.flags_cover	// why?
 
-	if(initial(picked_item.sprite_sheets) || initial(picked_item.onmob_sheets))
-		// Sprites-related variables are lists, which can not be retrieved using initial(). As such, we need to instantiate the picked item.
-		var/obj/item/dummy = new picked_item(null)
-		item_target.sprite_sheets = dummy.sprite_sheets
-		item_target.onmob_sheets = dummy.onmob_sheets
-		qdel(dummy)
+	qdel(fake_item)
 
 /datum/action/item_action/chameleon/change/Trigger(mob/clicker, trigger_flags)
 	if(!IsAvailable())

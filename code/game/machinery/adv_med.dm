@@ -8,7 +8,8 @@
 	anchored = TRUE
 	idle_power_usage = 1250
 	active_power_usage = 2500
-	light_color = "#00FF00"
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
+	light_power = 0.5
 	var/mob/living/carbon/human/occupant
 	var/static/list/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 	var/isPrinting = FALSE
@@ -202,7 +203,7 @@
 
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

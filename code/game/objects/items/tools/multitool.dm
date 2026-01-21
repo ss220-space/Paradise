@@ -166,7 +166,7 @@
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/J in urange(rangewarning, our_turf))
-		if(check_rights(R_ADMIN, 0, J))
+		if(check_rights(R_ADMIN, FALSE, J))
 			detect_state = PROXIMITY_NEAR
 			var/turf/detect_turf = get_turf(J)
 			if(get_dist(our_turf, detect_turf) < rangealert)

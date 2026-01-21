@@ -1,15 +1,3 @@
-#define WHERE_FLOOR_BELOW_MOB "Current location"
-#define WHERE_SUPPLY_BELOW_MOB "Current location (droppod)"
-#define WHERE_MOB_HAND "In own mob's hand"
-#define WHERE_MARKED_OBJECT "At a marked object"
-#define WHERE_IN_MARKED_OBJECT "In the marked object"
-#define WHERE_TARGETED_LOCATION "Targeted location"
-#define WHERE_TARGETED_LOCATION_POD "Targeted location (droppod)"
-#define WHERE_TARGETED_MOB_HAND "In targeted mob's hand"
-
-#define OFFSET_ABSOLUTE "Absolute offset"
-#define OFFSET_RELATIVE "Relative offset"
-
 /*
 	Handles spawning an atom. See the call examples for the proper spawn parameters fetching.
 */
@@ -50,23 +38,23 @@
 		target = (where_target_type == WHERE_TARGETED_MOB_HAND ? spawn_params["target"] : user)
 
 		if(!target)
-			to_chat(user, span_warning("No target specified."))
+			to_chat(user, span_warning("Цель не выбрана."))
 			return
 
 		if(!ismob(target))
-			to_chat(user, span_warning("The targeted atom is not a mob."))
+			to_chat(user, span_warning("Выбранный объект не является мобом."))
 			return
 
 		if(!iscarbon(target) && !isrobot(target))
-			to_chat(user, span_warning("Can only spawn in hand when the target is a carbon mob or a cyborg."))
+			to_chat(user, span_warning("Создавать объекты в руках возможно только для карбонов (гуманоидных мобов) и роботов."))
 			where_target_type = WHERE_FLOOR_BELOW_MOB
 
 	else if(where_target_type == WHERE_MARKED_OBJECT || where_target_type == WHERE_IN_MARKED_OBJECT)
 		if(!user.client.holder.marked_datum)
-			to_chat(user, span_warning("You don't have any object marked."))
+			to_chat(user, span_warning("Вы не отмечали какой-либо объект."))
 			return
 		else if(!istype(user.client.holder.marked_datum, /atom))
-			to_chat(user, span_warning("The object you have marked cannot be used as a target. Target must be of type /atom."))
+			to_chat(user, span_warning("Отмеченный объект не подходит в качестве цели. Цель должна быть типа /atom."))
 			return
 		else
 			target = (where_target_type == WHERE_MARKED_OBJECT ? get_turf(user.client.holder.marked_datum) : user.client.holder.marked_datum)
@@ -93,7 +81,7 @@
 						relative_turf = locate(1, 1, 1)
 
 				if(!relative_turf)
-					to_chat(user, span_warning("Could not determine a valid relative location."))
+					to_chat(user, span_warning("Не удалось вычислить корректную относительную локацию."))
 					return
 
 				target = locate(relative_turf.x + X, relative_turf.y + Y, relative_turf.z + Z)
@@ -160,14 +148,3 @@
 	log_admin("[key_name(user)] created [amount == 1 ? "an instance" : "[amount] instances"] of [atom_to_spawn.type]")
 	if(istype(atom_to_spawn, /mob))
 		message_admins("[key_name_admin(user)] created [amount == 1 ? "an instance" : "[amount] instances"] of [atom_to_spawn.type]")
-
-#undef WHERE_FLOOR_BELOW_MOB
-#undef WHERE_SUPPLY_BELOW_MOB
-#undef WHERE_MOB_HAND
-#undef WHERE_MARKED_OBJECT
-#undef WHERE_IN_MARKED_OBJECT
-#undef WHERE_TARGETED_LOCATION
-#undef WHERE_TARGETED_LOCATION_POD
-#undef WHERE_TARGETED_MOB_HAND
-#undef OFFSET_ABSOLUTE
-#undef OFFSET_RELATIVE

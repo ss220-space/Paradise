@@ -1,0 +1,3 @@
+help: "Use directional spawners."
+=/obj/effect/spawner/new_year/garland:
+  banned: TRUE

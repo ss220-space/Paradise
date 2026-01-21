@@ -431,15 +431,16 @@
 		return
 	var/datum/gas_mixture/GM = new
 	if(prob(10))
-		GM.toxins += 100
-		GM.temperature = 1500+T0C //should be enough to start a fire
+		GM.set_toxins(100)
+		GM.set_temperature(1500 + T0C) //should be enough to start a fire
 		T.visible_message("[src] suddenly disgorges a cloud of heated plasma.")
 		qdel(src)
 	else
-		GM.toxins += 5
-		GM.temperature = istype(T) ? T.air.return_temperature() : T20C
+		GM.set_toxins(5)
+		var/datum/gas_mixture/air = T.get_readonly_air()
+		GM.set_temperature(air ? air.temperature() : T20C)
 		T.visible_message("[src] suddenly disgorges a cloud of plasma.")
-	T.assume_air(GM)
+	T.blind_release_air(GM)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)

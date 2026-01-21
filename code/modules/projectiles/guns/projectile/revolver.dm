@@ -66,7 +66,7 @@
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Вращать барабан"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Click to spin your revolver's chamber."
 	set src in usr
 

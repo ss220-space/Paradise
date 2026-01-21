@@ -291,24 +291,27 @@ Difficulty: Medium
 //fire line keeps going even if dragon is deleted
 /proc/dragon_fire_line(source, list/turfs)
 	var/list/hit_list = list()
-	for(var/turf/T in turfs)
-		if(T.density)
+	for(var/turf/turf as anything in turfs)
+		if(turf.density)
 			break
-		new /obj/effect/hotspot(T)
-		T.hotspot_expose(700,50,1)
-		for(var/mob/living/L in T.contents)
-			if((L in hit_list) || L == source)
+
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		turf.hotspot_expose(700, 50)
+		for(var/mob/living/mob in turf.contents)
+			if((mob in hit_list) || mob == source)
 				continue
-			hit_list += L
-			L.adjustFireLoss(20)
-			to_chat(L, span_userdanger("Вас поражает огненное дыхание [source]!"))
+			hit_list += mob
+			mob.adjustFireLoss(20)
+			to_chat(mob, span_userdanger("Вас поражает огненное дыхание [source]!"))
 
 		// deals damage to mechs
-		for(var/obj/mecha/M in T.contents)
-			if(M in hit_list)
+		for(var/obj/mecha/mecha in turf.contents)
+			if(mecha in hit_list)
 				continue
-			hit_list += M
-			M.take_damage(45, BRUTE, MELEE, 1)
+			hit_list += mecha
+			mecha.take_damage(45, BRUTE, MELEE, 1)
 		sleep(1.5)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, swoop_cooldown = 30)
@@ -501,7 +504,7 @@ Difficulty: Medium
 		PREPOSITIONAL = "огненном барьере",
 	)
 
-/obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
+/obj/effect/temp_visual/drakewall/CanAtmosPass(direction)
 	return !density
 
 /obj/effect/temp_visual/lava_safe
@@ -612,8 +615,10 @@ Difficulty: Medium
 		var/turf/simulated/mineral/M = T
 		M.attempt_drill()
 	playsound(T, SFX_EXPLOSION, 80, TRUE)
-	new /obj/effect/hotspot(T)
-	T.hotspot_expose(700, 50, 1)
+	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
+	hotspot.temperature = 1000
+	hotspot.recolor()
+	T.hotspot_expose(700, 50)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue

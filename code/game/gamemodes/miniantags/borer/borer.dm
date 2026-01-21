@@ -248,14 +248,14 @@
 
 			for(var/M in GLOB.dead_mob_list)
 				if(isobserver(M))
-					to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)])<i>Кортикальная связь <b>[truename]</b>: [sended_message]</i>"))
+					to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)]) <i>Кортикальная связь <b>[truename]</b>: [sended_message]</i>"))
 
 		to_chat(src, span_changeling("<i>[truename] [say_string]:</i> [sended_message]"))
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
 	set name = "Говорить носителю"
-	set category = STATPANEL_BORER
+	set category = VERB_CATEGORY_BORER
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)
@@ -285,7 +285,7 @@
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
-			to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)])<i>Кортикальная связь <b>[src]</b>: [input]</i>"))
+			to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)]) <i>Кортикальная связь <b>[src]</b>: [input]</i>"))
 
 	to_chat(src, span_changeling("<i>[src] says:</i> [input]"))
 
@@ -310,7 +310,7 @@
 
 	for(var/M in GLOB.dead_mob_list)
 		if(isobserver(M))
-			to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)])<i>Кортикальная связь <b>[B]</b>: [input]</i>"))
+			to_chat(M, span_changeling("([ghost_follow_link(src, ghost = M)]) <i>Кортикальная связь <b>[B]</b>: [input]</i>"))
 
 	to_chat(src, span_changeling("<i>[B.truename] says:</i> [input]"))
 

@@ -147,6 +147,13 @@
 	else
 		ChangeTurf(baseturf)
 
+/turf/simulated/floor/plating/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/plating/airless
 	name = "airless plating"
 	oxygen = 0
@@ -258,6 +265,13 @@
 	icon_state = "holy"
 	holy = TRUE
 
+/turf/simulated/floor/engine/cult/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 //air filled floors; used in atmos pressure chambers
 
 /turf/simulated/floor/engine/n20
@@ -293,6 +307,25 @@
 	oxygen = 2644
 	nitrogen = 10580
 
+/turf/simulated/floor/engine/agent_b
+	name = "agent B floor"
+	agent_b = 10000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/hydrogen
+	name = "H2 floor"
+	hydrogen = 100000
+	oxygen = 0
+	nitrogen = 0
+
+/turf/simulated/floor/engine/water_vapor
+	name = "H2O floor"
+	water_vapor = 10000
+	oxygen = 0
+	nitrogen = 0
+	temperature = 716
+
 /turf/simulated/floor/engine/singularity_pull(S, current_size)
 	if(current_size >= STAGE_FIVE)
 		if(floor_tile)
@@ -306,6 +339,14 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
+
+/turf/simulated/floor/engine/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 
 /turf/simulated/floor/engine/insulated
 	name = "insulated reinforced floor"

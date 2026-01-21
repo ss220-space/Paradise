@@ -3,6 +3,7 @@
 	bubble_icon = "machine"
 	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
+	abstract_type = /mob/living/silicon
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -331,14 +332,14 @@
 /mob/living/silicon/verb/pose()
 	set name = "Задать позу"
 	set desc = "Sets a description which will be shown when someone examines you."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	pose =  tgui_input_text(usr, "This is [src]. It is...", "Pose", null, max_length = MAX_MESSAGE_LEN)
 
 /mob/living/silicon/verb/set_flavor()
 	set name = "Описание внешности"
 	set desc = "Sets an extended description of your character's features."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	update_flavor_text()
 
@@ -433,3 +434,7 @@
 /mob/living/silicon/on_standing_up()
 	return // Silicons are always standing by default.
 
+/mob/living/silicon/throw_impact(atom/hit_atom, throwingdatum, speed = 1)
+	. = ..()
+	var/damage = 10 + 1.5 * speed
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)

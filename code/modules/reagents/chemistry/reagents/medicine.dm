@@ -973,7 +973,7 @@
 				// 0% chance of necrosis within 1 minute of death
 				// 40% chance of necrosis after 20 minutes of death
 				necrotize_body(mob, necrosis_prob)
-			mob.update_revive(TRUE, TRUE)
+			mob.update_revive(updating = TRUE, force = FALSE, defib_revive = TRUE)
 			mob.grab_ghost()
 			add_attack_logs(mob, mob, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
