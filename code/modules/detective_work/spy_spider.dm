@@ -35,8 +35,7 @@
 
 /obj/item/encryptionkey/spy_spider
 	name = "Spy Encryption Key"
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "spy_cypherkey"
+	icon_state = "/obj/item/encryptionkey"
 	post_init_icon_state = null
 	greyscale_config = null
 	channels = list(SPY_SPIDER_FREQ_NAME = 1)

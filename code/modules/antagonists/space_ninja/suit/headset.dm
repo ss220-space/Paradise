@@ -55,6 +55,7 @@
 /obj/item/encryptionkey/spider_clan
 	name = "Spider Clan Encryption Key"
 	desc = "An encryption key for a radio headset. Made by Spider Clan. (TM) To access the binary channel, use :+."
-	icon_state = "bin_cypherkey"
+	icon_state = "/obj/item/encryptionkey/spider_clan"
+	greyscale_config = null
 	translate_binary = TRUE
 	channels = list(NINJA_FREQ_NAME = 1)
