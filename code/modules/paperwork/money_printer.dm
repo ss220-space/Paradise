@@ -53,6 +53,7 @@
 	if(anchored)
 		WRENCH_ANCHOR_MESSAGE
 	else
+		stop_print()
 		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/money_printer/attack_hand(mob/user)
@@ -70,7 +71,6 @@
 	var/obj/item/stack/spacecash/credits = new(src)
 	credits.amount = total_credits_amount
 	total_credits_amount = 0
-	credits.update_icon(UPDATE_ICON_STATE)
 	credits.forceMove(loc)
 
 /obj/machinery/money_printer/proc/close_cash()
