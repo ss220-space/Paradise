@@ -200,7 +200,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/list/available_kits
 
-/obj/item/security_voucher/New(loc, ...)
+/obj/item/security_voucher/Initialize(mapload)
 	. = ..()
 	available_kits = list(
 		KIT_DOMINATOR = image(icon = 'icons/obj/weapons/dominator.dmi', icon_state = "dominator"),
@@ -223,7 +223,7 @@
 	name = "detective's security voucher"
 	desc = "Жетон, позволяющий получить детективский набор оружия из торгового автомата \"SecTech\". Выдаётся детективам в штатном порядке."
 
-/obj/item/security_voucher/detective/New(loc, ...)
+/obj/item/security_voucher/detective/Initialize(mapload)
 	. = ..()
 	available_kits[KIT_DETECTIVE] = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "detective")
 
