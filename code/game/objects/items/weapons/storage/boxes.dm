@@ -830,6 +830,8 @@
 	)
 	if(!do_after(user, apply_paper_bag_delay, target))
 		return .
+	if(!user || !target || QDELETED(src))
+		return .
 	if(target.head)
 		var/obj/item/head_item_to_drop = target.head
 		target.drop_item_ground(head_item_to_drop)

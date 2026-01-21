@@ -745,9 +745,10 @@
 	)
 
 /obj/item/clothing/head/paper_bag/dropped(mob/user, slot, silent = FALSE)
-	if(!user || slot != ITEM_SLOT_HEAD)
+	var/turf/turf = get_turf(user)
+	if(!user || slot != ITEM_SLOT_HEAD || !turf)
 		return . = ..()
-	var/obj/item/paper/trash_bag = new trashtype(get_turf(src))
+	var/obj/item/paper/trash_bag = new trashtype(turf)
 	transfer_fingerprints_to(trash_bag)
 	user.transfer_fingerprints_to(trash_bag)
 	user.put_in_active_hand(trash_bag, ignore_anim = FALSE)
