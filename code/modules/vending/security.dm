@@ -213,13 +213,7 @@
 
 /obj/item/security_voucher/detective/New(loc, ...)
 	. = ..()
-	available_kits = list(
-		KIT_DOMINATOR = image(icon = 'icons/obj/weapons/dominator.dmi', icon_state = "dominator"),
-		KIT_ENFORCER = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "enforcer_grey"),
-		KIT_SPECTER = image(icon = 'icons/obj/weapons/energy.dmi', icon_state = "specter"),
-		KIT_TAURUS = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "taurus"),
-		KIT_DETECTIVE = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "detective"),
-	)
+	available_kits[KIT_DETECTIVE] = image(icon = 'icons/obj/weapons/projectile.dmi', icon_state = "detective")
 
 /obj/item/security_voucher/detective/get_ru_names()
 	return list(
