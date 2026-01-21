@@ -169,3 +169,74 @@
 	if(possible_transfer_amounts)
 		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы изменить объём перемещения содержимого.")
 
+#define ELECTROLYSIS_DELAY 15 SECONDS
+#define ELECTROLYSIS_COEF 0.1
+
+/obj/item/reagent_containers/attack_obj(obj/object, mob/living/user, params)
+	if(!istype(object, /obj/structure/cable))
+		return ..()
+
+	var/obj/structure/cable/cable = object
+
+	if(cable.d1 != 0)
+		to_chat(user, "Нельзя подключить к этому кабелю — нужен его конец.")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!cable.powernet || cable.powernet.avail <= 0)
+		to_chat(user, "Энергетическая сеть не запитана.")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!reagents || !reagents.has_reagent("water"))
+		to_chat(user, "Здесь нет воды для электролиза.")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	user.visible_message(
+		"[user] аккуратно ложит кабель в [src.declent_ru(DATIVE)].",
+		"Вы начали проводить электролиз."
+	)
+
+	if(!do_after(user, ELECTROLYSIS_DELAY, cable))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(QDELETED(src) || QDELETED(cable))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!cable.powernet || cable.powernet.avail <= 0)
+		to_chat(user, "В сети пропало напряжение.")
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/water_amount = reagents.get_reagent_amount("water")
+	if(water_amount <= 0)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/turf/turf = get_turf(src)
+	if(!istype(turf))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(is_open_container())
+		var/released = water_amount * ELECTROLYSIS_COEF
+		reagents.remove_reagent("water", water_amount)
+
+		var/datum/gas_mixture/gas = new
+		gas.set_hydrogen(released)
+		gas.set_temperature(T20C)
+
+		turf.blind_release_air(gas)
+	else
+		var/units = water_amount / 3
+		if(units <= 0)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		reagents.remove_reagent("water", units * 3)
+		reagents.add_reagent("hydrogen", units * 2)
+		reagents.add_reagent("oxygen", units)
+
+	user.visible_message(
+		"[user] провел электролиз.",
+		"Вы провели электролиз."
+	)
+
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+#undef ELECTROLISIS_DELAY
+#undef ELECTROLYSIS_COEF
