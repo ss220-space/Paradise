@@ -65,7 +65,12 @@
 	else
 		target.balloon_alert_to_viewers("начина[PLUR_ET_UT(user)] заковывать в [declent_ru(ACCUSATIVE)]...", "заковывание в [declent_ru(ACCUSATIVE)]...")
 
-	if(!do_after(user, 5 SECONDS, target))
+	var/handcuff_time_mod = 1
+
+	if(HAS_TRAIT(user, TRAIT_FAST_CUFFING))
+		handcuff_time_mod = 0.75
+
+	if(!do_after(user, handcuff_time_mod * 5 SECONDS, target))
 		balloon_alert(user, "заковывание прервано!")
 		return .
 

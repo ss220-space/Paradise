@@ -2566,6 +2566,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/implanter/freedom,
 		/obj/item/implanter/emp,
 		/obj/item/implanter/adrenalin,
+		/obj/item/implanter/heal,
 		/obj/item/implanter/explosive,
 		/obj/item/implanter/storage,
 		/obj/item/encryptionkey/syndicate,
