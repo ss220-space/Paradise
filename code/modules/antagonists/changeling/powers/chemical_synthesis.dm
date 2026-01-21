@@ -8,14 +8,14 @@
 	var/recharge_bonus = 0.5
 
 /datum/action/changeling/chemical_synthesis/on_purchase(mob/user)
-    . = ..()
-    var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
-    if(changeling)
-        changeling.chem_recharge_rate += recharge_bonus
+	. = ..()
+	var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(changeling)
+		changeling.chem_recharge_rate += recharge_bonus
 
 /datum/action/changeling/chemical_synthesis/Remove(mob/user)
-    var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
-    if(changeling)
-        changeling.chem_recharge_rate -= recharge_bonus
-    return ..()
+	var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(changeling)
+		changeling.chem_recharge_rate -= recharge_bonus
+	return ..()
 
