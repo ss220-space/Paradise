@@ -133,10 +133,9 @@
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
 
-//C-20rm Full auto
 /obj/item/gun/projectile/automatic/c20r/auto
 	name = "C-20rm SMG"
-	desc = "Новейшая модификация автоматического пистолет-пулемета \"C-20r\" под .45 калибр, отличается выскойим темпом стрельбы в автоматическом режиме."
+	desc = "Новейшая модификация автоматического пистолет-пулемёта \"C-20r\" под .45 калибр. Отличается высоким темпом стрельбы в автоматическом режиме."
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	autofire_delay = 0.15 SECONDS
@@ -144,12 +143,12 @@
 
 /obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет-пулемет C-20rm",
-		GENITIVE = "пистолет-пулемета C-20rm",
-		DATIVE = "пистолет-пулемету C-20rm",
-		ACCUSATIVE = "пистолет-пулемету C-20rm",
-		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
-		PREPOSITIONAL = "пистолет-пулемете C-20rm",
+		NOMINATIVE = "пистолет-пулемёт C-20rm",
+		GENITIVE = "пистолет-пулемёта C-20rm",
+		DATIVE = "пистолет-пулемёту C-20rm",
+		ACCUSATIVE = "пистолет-пулемёт C-20rm",
+		INSTRUMENTAL = "пистолет-пулемётом C-20rm",
+		PREPOSITIONAL = "пистолет-пулемёте C-20rm",
 	)
 
 /obj/item/gun/projectile/automatic/c20r/rusted
@@ -159,12 +158,12 @@
 
 /obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет-пулемет C-20r (ржавый)",
-		GENITIVE = "пистолет-пулемета C-20r (ржавый)",
-		DATIVE = "пистолет-пулемету C-20r (ржавый)",
-		ACCUSATIVE = "пистолет-пулемету C-20r (ржавый)",
-		INSTRUMENTAL = "пистолет-пулеметом C-20r (ржавый)",
-		PREPOSITIONAL = "пистолет-пулемете C-20r (ржавый)",
+		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
+		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
+		DATIVE = "пистолет-пулемёту C-20r (ржавый)",
+		ACCUSATIVE = "пистолет-пулемёт C-20r (ржавый)",
+		INSTRUMENTAL = "пистолет-пулемётом C-20r (ржавый)",
+		PREPOSITIONAL = "пистолет-пулемёте C-20r (ржавый)",
 	)
 
 /obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()

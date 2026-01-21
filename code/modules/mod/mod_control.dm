@@ -358,12 +358,14 @@
 /obj/item/mod/control/attack_hand(mob/living/carbon/user)
 	if(!iscarbon(user))
 		return
-	if(loc != user || !user.back || user.back != src)
-		return
-	if(!bag)
-		return ..()
-	bag.forceMove(user)
-	bag.show_to(user)
+	if(loc == user && user.back && user.back == src)
+		if(!bag)
+			return
+		bag.forceMove(user)
+		bag.show_to(user)
+	else
+		..()
+
 
 /obj/item/mod/control/click_alt(mob/user)
 	. = ..()
@@ -374,6 +376,12 @@
 	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
 	add_fingerprint(user)
 	return CLICK_ACTION_SUCCESS
+
+/obj/item/mod/control/attack_ghost(mob/user)
+	if(isobserver(user) && bag)
+		bag.show_to(user)
+		return
+	return ..()
 
 /obj/item/mod/control/proc/can_be_inserted(I, stop_messages)
 	if(bag)

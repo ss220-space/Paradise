@@ -115,14 +115,22 @@
 	/// Список склонений русского названия атома в разных грамматических падежах.
 	/// Формат: list(CASE_ID = "name_in_case", ...)
 	var/list/ru_names
+
 	// Can it be drained of energy by ninja?
 	var/drain_act_protected = FALSE
-	///Used for changing icon states for different base sprites.
-	var/base_icon_state
-	///Default pixel x shifting for the atom's icon.
+
+	// Use SET_BASE_PIXEL(x, y) to set these in typepath definitions, it'll handle pixel_x and y for you
+	/// Default pixel x shifting for the atom's icon.
 	var/base_pixel_x = 0
-	///Default pixel y shifting for the atom's icon.
+	/// Default pixel y shifting for the atom's icon.
 	var/base_pixel_y = 0
+	// Use SET_BASE_VISUAL_PIXEL(x, y) to set these in typepath definitions, it'll handle pixel_w and z for you
+	/// Default pixel w shifting for the atom's icon.
+	var/base_pixel_w = 0
+	/// Default pixel z shifting for the atom's icon.
+	var/base_pixel_z = 0
+	/// Used for changing icon states for different base sprites.
+	var/base_icon_state
 
 	var/tts_seed = "Arthas"
 	var/tts_atom_say_effect = SOUND_EFFECT_RADIO
@@ -588,6 +596,8 @@
 				continue
 			if(istext(maybe_not_an_atom) || isicon(maybe_not_an_atom))
 				continue
+			if(maybe_not_an_atom.layer <= 0 && (maybe_not_an_atom.pixel_x || maybe_not_an_atom.pixel_y))
+				stack_trace("Float layer added to [src] ([type]) with pixel_x and pixel_y set on an overlay [maybe_not_an_atom.icon]/[maybe_not_an_atom.icon_state]")
 			new_overlays[i] = maybe_not_an_atom.appearance
 		if(nulls)
 			for(var/i in 1 to nulls)
