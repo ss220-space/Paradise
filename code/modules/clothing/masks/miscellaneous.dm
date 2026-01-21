@@ -732,7 +732,6 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
-	var/trashtype = /obj/item/paper
 
 /obj/item/clothing/head/paper_bag/get_ru_names()
 	return list(
@@ -745,20 +744,18 @@
 	)
 
 /obj/item/clothing/head/paper_bag/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	if(!user || slot != ITEM_SLOT_HEAD)
-		return . = ..()
+		return .
 	var/turf/turf = get_turf(user)
 	if(!turf)
-		return . = ..()
-	var/obj/item/paper/trash_bag = new trashtype(turf)
-	transfer_fingerprints_to(trash_bag)
-	user.transfer_fingerprints_to(trash_bag)
-	user.put_in_active_hand(trash_bag, ignore_anim = FALSE)
+		return .
 	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
 	user.clear_fullscreen("fullyblack")
 	user.update_blind_effects()
 
 /obj/item/clothing/head/paper_bag/equipped(mob/living/living, slot)
+	. = ..()
 	if(!living || slot != ITEM_SLOT_HEAD)
-		return ..()
+		return .
 	living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)

@@ -835,7 +835,7 @@
 	if(target.head)
 		var/obj/item/head_item_to_drop = target.head
 		target.drop_item_ground(head_item_to_drop)
-		if(head_item_to_drop.loc == target)
+		if(!target.drop_item_ground(target.head))
 			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя надеть пакет!"))
 			return .
 	. |= ATTACK_CHAIN_SUCCESS
