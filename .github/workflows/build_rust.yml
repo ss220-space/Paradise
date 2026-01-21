@@ -119,7 +119,7 @@ jobs:
 
         export RUSTFLAGS='-C target-cpu=raptorlake'
         cargo build --release --target=$LINUX_TARGET
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_prod.dll
+        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_prod.so
 
     - name: Commit and push changes
       env:
