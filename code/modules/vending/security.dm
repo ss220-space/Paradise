@@ -108,11 +108,11 @@
 	)
 
 // that's so helpfull that their paths can be used as their names
-#define KIT_DOMINATOR "dominator kit"
-#define KIT_ENFORCER "enforcer kit"
-#define KIT_SPECTER "specter kit"
-#define KIT_TAURUS "taurus kit"
-#define KIT_DETECTIVE "revolver kit"
+#define KIT_DOMINATOR "Доминатор"
+#define KIT_ENFORCER "Блюститель"
+#define KIT_SPECTER "Спектр"
+#define KIT_TAURUS "Таурус"
+#define KIT_DETECTIVE ".38 Mars Special"
 
 /obj/machinery/vending/security/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
@@ -130,7 +130,19 @@
 		qdel(voucher)
 		sleep(0.5 SECONDS)
 		playsound(loc, 'sound/machines/machine_vend.ogg', 50, TRUE)
-		var/weapon_kit = text2path("/obj/item/storage/box/[replacetext(choice, " ", "_")]") // stupid BYOND can't accept path as a name of a variable in the list
+		var/weapon_kit
+		switch(choice)
+			if(KIT_DOMINATOR)
+				weapon_kit = new /obj/item/storage/dominator_kit(loc)
+			if(KIT_ENFORCER)
+				weapon_kit = new /obj/item/storage/enforcer_kit(loc)
+			if(KIT_SPECTER)
+				weapon_kit = new /obj/item/storage/specter_kit(loc)
+			if(KIT_TAURUS)
+				weapon_kit = new /obj/item/storage/taurus_kit(loc)
+			if(KIT_DETECTIVE)
+				weapon_kit = new /obj/item/storage/revolver_kit(loc)
+
 		var/obj/item/box = new weapon_kit(loc)
 		if(Adjacent(user))
 			user.put_in_hands(box, ignore_anim = FALSE)
