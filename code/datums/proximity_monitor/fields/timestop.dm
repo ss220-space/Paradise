@@ -1,5 +1,4 @@
 /obj/effect/timestop
-	anchored = TRUE
 	name = "chronofield"
 	desc = "Тут могла быть несмешная отсылка на джо-джо, но я не смотрю аниме."
 	icon = 'icons/effects/160x160.dmi'
