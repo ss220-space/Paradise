@@ -1,6 +1,6 @@
 /obj/effect/timestop
 	name = "chronofield"
-	desc = "Тут могла быть несмешная отсылка на джо-джо, но я не смотрю аниме."
+	desc = "Поле, искажающее течение времени. Вы всё равно в игре это не прочитаете."
 	icon = 'icons/effects/160x160.dmi'
 	icon_state = "time"
 	layer = FLY_LAYER
@@ -106,7 +106,7 @@
 
 /datum/proximity_monitor/advanced/timestop/New(atom/_host, range, _ignore_if_not_on_turf = TRUE, list/immune, antimagic_flags, channelled, timefreeze, color_matrix)
 	..()
-	src.immune = immune
+	src.immune = immune.Copy()
 	src.antimagic_flags = antimagic_flags
 	src.channelled = channelled
 	src.timefreeze = timefreeze
@@ -231,7 +231,7 @@
 	for(var/our_mob in frozen_mobs)
 		var/mob/living/mob = our_mob
 		if(timefreeze)
-			return
+			continue
 		mob.Stun(20, ignore_canstun = TRUE)
 
 /datum/proximity_monitor/advanced/timestop/setup_field_turf(turf/target)
@@ -256,7 +256,7 @@
 	frozen_mobs += victim
 	if(!timefreeze)
 		victim.Stun(20, ignore_canstun = TRUE)
-		GLOB.move_manager.stop_looping(victim) //stops them mid pathing even if they're stunimmune //This is really dumb
+		GLOB.move_manager.stop_looping(victim) //stops them mid pathing even if they're stunimmune
 	else
 		victim.add_movespeed_modifier(/datum/movespeed_modifier/timestop_modifier)
 		victim.next_move_modifier *= 3
