@@ -110,7 +110,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "internals crate"
 
 /datum/syndie_supply_packs/emergency/proper
-	name = "Кластерная очищающая граната" "
+	name = "Кластерная очищающая граната"
 	contains = list(
 		/obj/item/grenade/clusterbuster/cleaner,
 	)
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate
 	containername = "ящик с кластерной очищающей гранатой"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с кластерной очищающей гранатой ",
+		NOMINATIVE = "ящик с кластерной очищающей гранатой",
 		GENITIVE = "ящика с кластерной очищающей гранатой",
 		DATIVE = "ящику с кластерной очищающей гранатой",
 		ACCUSATIVE = "ящик с кластерной очищающей гранатой",
