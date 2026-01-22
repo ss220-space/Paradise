@@ -44,7 +44,6 @@
 		PREPOSITIONAL = "энергосетемёте",
 	)
 
-
 /obj/item/ninja_net_emitter/Destroy()
 	. = ..()
 	my_suit.net_emitter = null

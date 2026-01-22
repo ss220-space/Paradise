@@ -4,7 +4,7 @@
 
 /datum/action/item_action/ninja_glasses_toggle
 	name = "Toggle Visor Mode"
-	desc = "Переключает режим визора. Доступные режимы: Термальный, Защита от ослепления, Ночное видение"
+	desc = "Переключает режим визора. Доступные режимы: Термальный, Защита от ослепления, Ночное видение."
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
