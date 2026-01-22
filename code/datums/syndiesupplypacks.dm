@@ -290,12 +290,12 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containertype = /obj/structure/closet/crate/syndicate
 	containername = "ящик с пистолетом пулеметом узи"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с пистолетом пулеметом \"Узи\"",
-		GENITIVE = "ящика с пистолетом пулеметом \"Узи\"",
-		DATIVE = "ящику с пистолетом пулеметом \"Узи\"",
-		ACCUSATIVE = "ящик с пистолетом пулеметом \"Узи\"",
-		INSTRUMENTAL = "ящиком с пистолетом пулеметом \"Узи\"",
-		PREPOSITIONAL = "ящике с пистолетом пулеметом \"Узи\"",
+		NOMINATIVE = "ящик с пистолетом-пулеметом \"Узи\"",
+		GENITIVE = "ящика с пистолетом-пулеметом \"Узи\"",
+		DATIVE = "ящику с пистолетом-пулеметом \"Узи\"",
+		ACCUSATIVE = "ящик с пистолетом-пулеметом \"Узи\"",
+		INSTRUMENTAL = "ящиком с пистолетом-пулеметом \"Узи\"",
+		PREPOSITIONAL = "ящике с пистолетом-пулеметом \"Узи\"",
 	)
 
 /datum/syndie_supply_packs/security/mastiff
