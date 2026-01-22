@@ -300,7 +300,7 @@
 		D.rank = ranktogive
 		D.assignment = ranktogive
 		D.registered_name = "[cardrank] [cardholdername]"
-		D.UpdateName()
+		D.update_label()
 
 /obj/machinery/computer/id_upgrader/ussp/verb/set_name()
 	set name = "Ввести название"

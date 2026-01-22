@@ -51,7 +51,7 @@
 		SSticker.mode.supervillains += H.mind
 	W.icon_state = "lifetimeid"
 	W.SetOwnerInfo(H)
-	W.UpdateName()
+	W.update_label()
 	ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 	H.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	H.regenerate_icons()
@@ -231,6 +231,6 @@
 	W.rank = "Greyshirt"
 	ADD_TRAIT(W, TRAIT_NODROP, SUPERHERO_TRAIT)
 	W.SetOwnerInfo(target)
-	W.UpdateName()
+	W.update_label()
 	target.equip_to_slot_or_del(W, ITEM_SLOT_ID)
 	target.regenerate_icons()
