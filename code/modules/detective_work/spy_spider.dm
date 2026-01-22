@@ -1,7 +1,7 @@
 /obj/item/radio/spy_spider
 	name = "жучок"
 	desc = "Кажется, ты видел такого в фильмах про шпионов."
-	icon_state = "spy_spider"
+	icon_state = "spider_clan"
 	freqlock = SPY_SPIDER_FREQ
 	gender = MALE
 
