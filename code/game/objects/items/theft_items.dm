@@ -45,7 +45,7 @@
 		flick(pulseicon, src)
 
 /obj/item/nuke_core/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] натирает себя [src.declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой!"))
+	user.visible_message(span_suicide("[user] натирает себя [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой!"))
 	return TOXLOSS
 
 //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
@@ -99,7 +99,7 @@
 	if(cracked) // Cracked open.
 		. += span_warning("Контейнер повреждён и больше не может безопасно удерживать объекты.")
 	else if(dented) // Not cracked, but dented.
-		. += span_notice("[capitalize(src.declent_ru(NOMINATIVE))] выглядит помятым. Возможно, более мощный взрыв сможет его разрушить.")
+		. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит помятым. Возможно, более мощный взрыв сможет его разрушить.")
 	else // Not cracked or dented.
 		. += "Мелким шрифтом на коробке написано: \"Защищённый контейнер Cybersun Industries - гарантированная устойчивость к термиту, ассистентам и взрывам!\""
 
@@ -146,7 +146,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
 		if(ismob(loc))
-			to_chat(loc, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] наглухо запечатан, радиация от [core.declent_ru(GENITIVE)] теперь изолирована."))
+			to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] наглухо запечатан, радиация от [core.declent_ru(GENITIVE)] теперь изолирована."))
 
 /obj/item/nuke_core_container/proc/start_unseal(mob/user)
 	if(!core || cracked)
@@ -159,7 +159,7 @@
 	REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 	sealed = FALSE
 	playsound(src, 'sound/items/deconstruct.ogg', 60, TRUE)
-	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
+	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] распечатан, радиация от [core.declent_ru(GENITIVE)] больше не изолирована."))
 	unload(user)
 
 /obj/item/nuke_core_container/attackby(obj/item/I, mob/user, params)
@@ -173,7 +173,7 @@
 	return ..()
 
 /obj/item/nuke_core_container/proc/crack_open()
-	visible_message(span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] распахивается!"))
+	visible_message(span_boldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] распахивается!"))
 	if(core)
 		START_PROCESSING(SSobj, core)
 		REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
@@ -241,7 +241,7 @@
 	if(istype(I, /obj/item/retractor/supermatter))
 		var/obj/item/retractor/supermatter/tongs = I
 		if(tongs.sliver)
-			to_chat(user, span_warning("[capitalize(tongs.declent_ru(NOMINATIVE))] уже удерживают осколок суперматерии!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(tongs, NOMINATIVE)] уже удерживают осколок суперматерии!"))
 			return .
 		if(ismob(loc))
 			var/mob/holder = loc
@@ -250,13 +250,13 @@
 		forceMove(tongs)
 		tongs.sliver = src
 		tongs.update_icon(UPDATE_ICON_STATE)
-		to_chat(user, span_notice("Вы осторожно поднимаете [src.declent_ru(ACCUSATIVE)] с помощью [tongs.declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("Вы осторожно поднимаете [declent_ru(ACCUSATIVE)] с помощью [tongs.declent_ru(GENITIVE)]."))
 		return .
 
 	if(istype(I, /obj/item/scalpel/supermatter) || istype(I, /obj/item/nuke_core_container/supermatter)) // we don't want it to dust
 		return .
 
-	to_chat(user, span_danger("При контакте с [src.declent_ru(INSTRUMENTAL)] и [I.declent_ru(NOMINATIVE)] мгновенно вспыхивают!"))
+	to_chat(user, span_danger("При контакте с [declent_ru(INSTRUMENTAL)] и [I.declent_ru(NOMINATIVE)] мгновенно вспыхивают!"))
 	for(var/mob/living/victim in view(5, get_turf(src)))
 		victim.apply_effect(80, IRRADIATE)
 	playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
@@ -278,8 +278,8 @@
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
 		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
 	victim.visible_message(
-		span_danger("[capitalize(victim.declent_ru(NOMINATIVE))], поражённый [src.declent_ru(INSTRUMENTAL)], вспыхивает пламенем, в комнате воцаряется тишина..."),
-		span_userdanger("Вас поражает [src.declent_ru(NOMINATIVE)], и всё вокруг замирает.\n[src.declent_ru(NOMINATIVE)] вспыхивает, и прежде чем вы осознаёте это, вы тоже горите."),
+		span_danger("[DECLENT_RU_CAP(victim, NOMINATIVE)], поражённый [declent_ru(INSTRUMENTAL)], вспыхивает пламенем, в комнате воцаряется тишина..."),
+		span_userdanger("Вас поражает [declent_ru(NOMINATIVE)], и всё вокруг замирает.\n[declent_ru(NOMINATIVE)] вспыхивает, и прежде чем вы осознаёте это, вы тоже горите."),
 		span_hear("Внезапно наступает тишина.")
 	)
 	victim.gib()
@@ -296,8 +296,8 @@
 		user.balloon_alert(user, "слишком тяжело!")
 		return FALSE
 	user.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [src.declent_ru(DATIVE)]. [GEND_HIS_HER(user)] тело начинает светиться и мгновенно вспыхивает!"),
-		span_userdanger("Вы попытались взять [src.declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
+		span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] тянется к [declent_ru(DATIVE)]. [GEND_HIS_HER(user)] тело начинает светиться и мгновенно вспыхивает!"),
+		span_userdanger("Вы попытались взять [declent_ru(NOMINATIVE)] голыми руками. Это было глупо."),
 		span_italics("Внезапно наступает тишина.")
 	)
 	for(var/mob/living/L in view(5, src))
@@ -369,7 +369,7 @@
 		sealed = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		if(ismob(loc))
-			to_chat(loc, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] наглухо запечатан, [sliver.declent_ru(NOMINATIVE)] теперь в безопасности."))
+			to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] наглухо запечатан, [sliver.declent_ru(NOMINATIVE)] теперь в безопасности."))
 
 /obj/item/nuke_core_container/supermatter/unload(obj/item/retractor/supermatter/I, mob/user)
 	if(!istype(I) || I.sliver)
@@ -399,7 +399,7 @@
 		if(!isliving(user) || HAS_TRAIT(user, TRAIT_GODMODE) || HAS_TRAIT(user, TRAIT_SUPERMATTER_IMMUNE))
 			return FALSE
 		user.visible_message(
-			span_danger("[capitalize(user.declent_ru(NOMINATIVE))] тянется к [sliver.declent_ru(DATIVE)]. [GEND_HIS_HER_CAP(user)] тело начинает светиться и вспыхивает!"),
+			span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] тянется к [sliver.declent_ru(DATIVE)]. [GEND_HIS_HER_CAP(user)] тело начинает светиться и вспыхивает!"),
 			span_userdanger("Вы попытались взять [sliver.declent_ru(ACCUSATIVE)] голыми руками. Это было глупо."),
 			span_italics("Внезапно наступает тишина.")
 		)
@@ -485,7 +485,7 @@
 /obj/item/retractor/supermatter/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum) // no instakill supermatter javelins
 	if(sliver)
 		sliver.forceMove(loc)
-		visible_message(span_notice("[capitalize(sliver.declent_ru(NOMINATIVE))] выпадает из [src.declent_ru(GENITIVE)] при ударе о землю."))
+		visible_message(span_notice("[DECLENT_RU_CAP(sliver, NOMINATIVE)] выпадает из [declent_ru(GENITIVE)] при ударе о землю."))
 		sliver = null
 		update_icon(UPDATE_ICON_STATE)
 	return ..()
@@ -512,8 +512,8 @@
 	if(user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")
 		user.visible_message(
-			span_danger("Когда [user.declent_ru(NOMINATIVE)] касается [AM.declent_ru(GENITIVE)] с помощью [src.declent_ru(GENITIVE)], оба мгновенно вспыхивают, и в комнате воцаряется тишина..."),
-			span_userdanger("Вы касаетесь [AM.declent_ru(GENITIVE)] с помощью [src.declent_ru(GENITIVE)], и всё вокруг замирает.\n[capitalize(AM.declent_ru(NOMINATIVE))] и [sliver.declent_ru(NOMINATIVE)] вспыхивают, как и вы."),
+			span_danger("Когда [user.declent_ru(NOMINATIVE)] касается [AM.declent_ru(GENITIVE)] с помощью [declent_ru(GENITIVE)], оба мгновенно вспыхивают, и в комнате воцаряется тишина..."),
+			span_userdanger("Вы касаетесь [AM.declent_ru(GENITIVE)] с помощью [declent_ru(GENITIVE)], и всё вокруг замирает.\n[DECLENT_RU_CAP(AM, NOMINATIVE)] и [sliver.declent_ru(NOMINATIVE)] вспыхивают, как и вы."),
 			span_hear("Внезапно наступает тишина.")
 		)
 		user.gib()

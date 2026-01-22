@@ -139,7 +139,7 @@
 		to_chat(user, span_warning("Нужно держать посох в руках, чтобы [beacon ? "телепортироваться" : "отсоединить маяк"]!"))
 		return
 	if(is_in_teleport_proof_area(user) && !tele_proof_bypass)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] искрит и потрескивает."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] искрит и потрескивает."))
 		return
 	if(!beacon || QDELETED(beacon))
 		if(isturf(user.loc))
@@ -167,7 +167,7 @@
 		to_chat(user, span_warning("Вы слишком близко к маяку для телепортации"))
 		return
 	if(is_in_teleport_proof_area(beacon) && !tele_proof_bypass)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] искрит и потрескивает."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] искрит и потрескивает."))
 		return
 	var/turf/beacon_turf = get_turf(beacon)
 	if(beacon_turf.is_blocked_turf(exclude_mobs = TRUE))
@@ -490,14 +490,14 @@
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(T, src)
 	new /obj/effect/temp_visual/hierophant/telegraph/teleport(S, src)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	visible_message(span_hierophant("[capitalize(declent_ru(NOMINATIVE))] растворяется!"))
+	visible_message(span_hierophant("[DECLENT_RU_CAP(src, NOMINATIVE)] растворяется!"))
 	set_density(FALSE)
 	addtimer(CALLBACK(src, PROC_REF(talisman_teleport_3), T), 2)
 
 /obj/effect/proc_holder/spell/hierophant_talisman_teleport/proc/talisman_teleport_3(turf/T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	set_density(TRUE)
-	visible_message(span_hierophant("[capitalize(declent_ru(NOMINATIVE))] материализуется!"))
+	visible_message(span_hierophant("[DECLENT_RU_CAP(src, NOMINATIVE)] материализуется!"))
 
 /obj/effect/proc_holder/spell/hierophant_talisman_message
 	name = "Телепатическое послание"

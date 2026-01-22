@@ -709,7 +709,7 @@ Difficulty: Very Hard
 		ranged = FALSE
 		visible_message(span_danger("Турель ломается и втягивается обратно в [declent_ru(ACCUSATIVE)]!"))
 	if(amount && transfer_rate <= 0.25) //warn that you are not doing much damage
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
 	health_and_snap_check(FALSE)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
@@ -734,8 +734,8 @@ Difficulty: Very Hard
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(
-		span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [bumped_living]!"),
-		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] втаптывает вас в землю!")
+		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в [bumped_living]!"),
+		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] втаптывает вас в землю!")
 	)
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))

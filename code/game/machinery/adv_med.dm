@@ -413,7 +413,7 @@
 				sleep(3 SECONDS)
 				isPrinting = FALSE
 				return
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -602,7 +602,7 @@
 			if(!infection && !dead)
 				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[capitalize(organ.declent_ru(NOMINATIVE))]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
+			dat += "<td>[DECLENT_RU_CAP(organ, NOMINATIVE)]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
@@ -612,6 +612,6 @@
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
 			dat += "<font color='red'>Обнаружено смещение сетчатки.</font><br>"
 	else
-		dat += "[capitalize(declent_ru(NOMINATIVE))] пуст."
+		dat += "[DECLENT_RU_CAP(src, NOMINATIVE)] пуст."
 
 	return dat

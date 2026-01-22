@@ -234,7 +234,7 @@
 	if(!do_after(wearer, activation_step_time, wearer, MOD_ACTIVATION_STEP_FLAGS, max_interact_count = 1, extra_checks = CALLBACK(src, PROC_REF(get_wearer))))
 		return FALSE
 
-	to_chat(wearer, span_notice("[capitalize(part.declent_ru(NOMINATIVE))] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
+	to_chat(wearer, span_notice("[DECLENT_RU_CAP(part, NOMINATIVE)] [!part_datum.sealed ? part_datum.sealed_message : part_datum.unsealed_message]."))
 	playsound(src, 'sound/mecha/mechmove03.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	seal_part(part, is_sealed = !part_datum.sealed)
 	return TRUE
