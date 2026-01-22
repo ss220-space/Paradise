@@ -85,7 +85,7 @@
 	name = "broken multimeter"
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
 			Похоже, что он полностью сгорел."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "multitool_broken"
 	item_state = "multitool"
 	belt_icon = "multitool"
