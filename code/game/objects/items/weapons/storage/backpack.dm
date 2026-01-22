@@ -121,7 +121,7 @@
 
 /obj/item/storage/backpack/holding/satchel/duffelbag
 	name = "Duffelbag of holding"
-	desc = "Очень большой и технологичный рюкзак для очень болього количества вашего барахла."
+	desc = "Очень большая и технологичная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Избегайте рекурсивного хранения\"."
 	icon_state = "holdingduffelba"
 	item_state = "holdingduffelba"
 	max_combined_w_class = 40

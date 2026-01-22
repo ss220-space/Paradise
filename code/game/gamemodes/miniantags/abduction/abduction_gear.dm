@@ -866,8 +866,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	return list(
 		NOMINATIVE = "продвинутый авто-мендер",
 		GENITIVE = "продвинутого авто-мендера",
-		DATIVE = "	продвинутому авто-мендеру",
-		ACCUSATIVE = "	продвинутый авто-мендер",
+		DATIVE = "продвинутому авто-мендеру",
+		ACCUSATIVE = "продвинутый авто-мендер",
 		INSTRUMENTAL = "продвинутым авто-мендером",
 		PREPOSITIONAL = "продвинутом авто-мендере",
 	)
