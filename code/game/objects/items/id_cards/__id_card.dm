@@ -119,7 +119,7 @@
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
-	var/datum/browser/popup = new(user, "idcard", capitalize(declent_ru(NOMINATIVE)), 600, 400)
+	var/datum/browser/popup = new(user, "idcard", DECLENT_RU_CAP(src, NOMINATIVE), 600, 400)
 	popup.set_content(dat)
 	popup.open()
 

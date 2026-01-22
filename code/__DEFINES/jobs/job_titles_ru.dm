@@ -326,3 +326,17 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_LOGISTICS_SPECIALIST "Специалист по логистике"
 #define ALT_JOB_TITLE_RU_WAREHOUSE_WORKER "Работник склада"
 #define ALT_JOB_TITLE_RU_SUPPLY_MANAGER "Менеджер по снабжению"
+
+// MARK: Russian department titles
+
+#define STATION_DEPARTMENT_RU_COMMAND "Командование"
+#define STATION_DEPARTMENT_RU_MEDICAL "Медицина"
+#define STATION_DEPARTMENT_RU_ENGINEERING "Инженерия"
+#define STATION_DEPARTMENT_RU_SCIENCE "Наука"
+#define STATION_DEPARTMENT_RU_SECURITY "Безопасность"
+#define STATION_DEPARTMENT_RU_SUPPLY "Снабжение"
+#define STATION_DEPARTMENT_RU_SERVICE "Обслуживание"
+#define STATION_DEPARTMENT_RU_LEGAL "Юриспруденция"
+#define STATION_DEPARTMENT_RU_SILICON "Силиконы"
+#define STATION_DEPARTMENT_RU_CIVILIAN "Гражданские"
+#define STATION_DEPARTMENT_RU_OTHER "прочее"
