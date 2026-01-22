@@ -287,11 +287,11 @@
 	if(isrobot(user))
 		if(world.time > antispam_timer + 0.1 SECONDS)
 			antispam_timer = world.time
-			to_chat(user, span_notice("Вы сконцентировались на поддержании [original_name]."))
+			to_chat(user, span_notice("Вы сконцентировались на поддержании [parent_item.declent_ru(GENITIVE)]."))
 	else
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, span_notice("Вы взяли [original_name] в обе руки."))
+			to_chat(user, span_notice("Вы взяли [parent_item.declent_ru(ACCUSATIVE)] в обе руки."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -365,20 +365,20 @@
 		if(show_message)
 			var/abstract_check = !(item.item_flags & ABSTRACT)
 			if(isrobot(parent))
-				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item]."))
+				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item.declent_ru(ACCUSATIVE)]."))
 			else
 				if(require_twohands || parent_item.loc != user)
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Вы уронили [parent_item]."))
+						to_chat(user, span_notice("Вы уронили [parent_item.declent_ru(ACCUSATIVE)]."))
 				if(parent_item.loc == user && user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Теперь вы держите [parent_item] одной рукой."))
+						to_chat(user, span_notice("Теперь вы держите [parent_item.declent_ru(ACCUSATIVE)] одной рукой."))
 				if(parent_item.loc == user && !user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Вы экипировали [parent_item]."))
+						to_chat(user, span_notice("Вы экипировали [parent_item.declent_ru(ACCUSATIVE)]."))
 
 	// Play sound if set
 	if(unwieldsound)

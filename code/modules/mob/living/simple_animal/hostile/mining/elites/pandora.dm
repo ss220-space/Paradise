@@ -182,7 +182,7 @@
 	for(var/t in RANGE_TURFS(1, source))
 		spawn_blast(t)
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
-	visible_message(span_hierophant("[capitalize(declent_ru(NOMINATIVE))] растворяется в воздухе!"))
+	visible_message(span_hierophant("[DECLENT_RU_CAP(src, NOMINATIVE)] растворяется в воздухе!"))
 	ADD_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
 	addtimer(CALLBACK(src, PROC_REF(pandora_teleport_3), T), 2)
 
@@ -190,7 +190,7 @@
 	forceMove(T)
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, PANDORA_TEPELORT_TRAIT)
-	visible_message(span_hierophant("[capitalize(declent_ru(NOMINATIVE))] материализуется!"))
+	visible_message(span_hierophant("[DECLENT_RU_CAP(src, NOMINATIVE)] материализуется!"))
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/proc/aoe_squares(target)
 	ranged_cooldown = world.time + cooldown_time * 2

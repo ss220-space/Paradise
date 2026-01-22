@@ -174,7 +174,7 @@
 
 /obj/machinery/treadmill_monitor/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The display reads:<div style='text-align: center'>[line1]<br>[line2]</div></span>"
+	. += span_notice("The display reads:<div style='text-align: center'>[line1]<br>[line2]</div>")
 
 /obj/machinery/treadmill_monitor/update_overlays()
 	. = ..()

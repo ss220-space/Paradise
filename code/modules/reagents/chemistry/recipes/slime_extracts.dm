@@ -330,12 +330,20 @@
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 	var/turf/TU = get_turf(holder.my_atom)
 	TU.visible_message(span_danger("The slime extract begins to vibrate adorably !"))
-	spawn(50)
-		if(holder?.my_atom)
-			var/turf/simulated/T = get_turf(holder.my_atom)
-			if(istype(T))
-				T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 50)
+	addtimer(CALLBACK(src, PROC_REF(reaction_result), holder), 5 SECONDS)
 
+/datum/chemical_reaction/slimefire/proc/reaction_result(datum/reagents/holder)
+	if(!holder?.my_atom)
+		return
+
+	var/turf/simulated/location = get_turf(holder.my_atom)
+	if(!istype(location))
+		return
+
+	var/datum/gas_mixture/air = new()
+	air.set_temperature(1000)
+	air.set_toxins(20)
+	location.blind_release_air(air)
 //Yellow
 
 /datum/chemical_reaction/slimeoverload

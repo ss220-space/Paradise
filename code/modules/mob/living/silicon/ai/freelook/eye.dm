@@ -125,7 +125,7 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/core()
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "К ядру ИИ"
 
 	view_core()
@@ -154,7 +154,7 @@
 	eyeobj.name = "[name] (AI Eye)"
 
 /mob/living/silicon/ai/proc/toggle_acceleration()
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 	set name = "Ускорение камеры"
 
 	if(usr.stat == DEAD)
@@ -164,14 +164,14 @@
 
 /mob/living/silicon/ai/move_up()
 	set name = "Подняться"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(eyeobj.zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/silicon/ai/move_down()
 	set name = "Опуститься"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(eyeobj.zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move down."))

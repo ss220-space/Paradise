@@ -56,7 +56,7 @@
 	drone_progress = round((elapsed/CONFIG_GET(number/drone_build_time))*100)
 
 	if(drone_progress >= 100)
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] издаёт резкий звуковой сигнал, указывая на готовность шасси дрона.")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт резкий звуковой сигнал, указывая на готовность шасси дрона.")
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
@@ -81,7 +81,7 @@
 	if(!player || !istype(player.mob,/mob/dead))
 		return
 
-	visible_message("[capitalize(declent_ru(NOMINATIVE))] гудит и скрипит, начиная движение, и через несколько мгновений выпускает нового блестящего дрона.")
+	visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] гудит и скрипит, начиная движение, и через несколько мгновений выпускает нового блестящего дрона.")
 	flick("h_lathe_leave",src)
 
 	time_last_drone = world.time
@@ -94,7 +94,7 @@
 	user.become_drone()
 
 /mob/dead/verb/join_as_drone()
-	set category = STATPANEL_GHOST
+	set category = VERB_CATEGORY_GHOST
 	set name = "Стать дроном"
 	set desc = "If there is a powered, enabled fabricator in the game world with a prepared chassis, join as a maintenance drone."
 	become_drone(src)

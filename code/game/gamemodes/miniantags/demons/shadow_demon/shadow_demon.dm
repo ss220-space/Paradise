@@ -87,13 +87,13 @@
 		balloon_alert(src, "занят!")
 		return
 
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает обматывать [h_target.declent_ru(ACCUSATIVE)] теневой паутиной."))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает обматывать [h_target.declent_ru(ACCUSATIVE)] теневой паутиной."))
 	wrapping = TRUE
 	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		wrapping = FALSE
 		return
 
-	h_target.visible_message(span_warning("<b>[capitalize(declent_ru(NOMINATIVE))] окутывает [h_target.declent_ru(ACCUSATIVE)] в теневой кокон, и из него начинает расползаться тьма.</b>"))
+	h_target.visible_message(span_warning("<b>[DECLENT_RU_CAP(src, NOMINATIVE)] окутывает [h_target.declent_ru(ACCUSATIVE)] в теневой кокон, и из него начинает расползаться тьма.</b>"))
 	var/obj/structure/shadowcocoon/cocoon = new(get_turf(h_target))
 	h_target.extinguish_light(TRUE) // may as well be safe
 	h_target.forceMove(cocoon)
@@ -175,7 +175,7 @@
 	playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/shadowcocoon/obj_destruction()
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] раскрывается, и тени, танцующие вокруг, рассеиваются."))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] раскрывается, и тени, танцующие вокруг, рассеиваются."))
 	return ..()
 
 /obj/structure/shadowcocoon/Destroy()

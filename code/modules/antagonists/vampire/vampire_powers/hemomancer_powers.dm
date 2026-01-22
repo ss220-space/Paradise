@@ -361,7 +361,7 @@
 	to_chat(user, span_cultlarge("[message]"))
 
 	if(target in view(user))
-		target.Stun(4 SECONDS)
+		target.Knockdown(4 SECONDS)
 		var/turf/target_turf = get_turf(target)
 		playsound(target_turf, 'sound/effects/splat.ogg', 50, TRUE)
 		new /obj/effect/decal/cleanable/blood(target_turf)

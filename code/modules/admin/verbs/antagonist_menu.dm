@@ -6,7 +6,7 @@
 /datum/ui_module/admin/antagonist_menu/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "AdminAntagMenu")
+		ui = new(user, src, "AdminAntagMenu", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
@@ -135,7 +135,11 @@
 			if(QDELETED(mind.current))
 				to_chat(ui.user, span_warning("У разума нет соответствующего моба."))
 				return
-			ui.user.client.holder.show_player_panel(mind.current)
+
+			var/mob/selected_mob = mind.current
+			usr.client.VUAP_selected_mob = selected_mob
+			usr.client.selectedPlayerCkey = selected_mob.ckey
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/vuap_personal, selected_mob)
 		if("pm")
 			ui.user.client.cmd_admin_pm(params["ckey"], null)
 		if("follow")
@@ -143,7 +147,7 @@
 			if(!isobserver(ui.user))
 				if(!check_rights(R_ADMIN|R_MOD)) // Need to be mod or admin to aghost
 					return
-				C.admin_ghost()
+				SSadmin_verbs.dynamic_invoke_verb(C, /datum/admin_verb/admin_ghost)
 			var/datum/target = locateUID(params["datum_uid"])
 			if(QDELETED(target))
 				to_chat(ui.user, span_warning("Датум удален!"))
@@ -165,7 +169,7 @@
 			if(!ismob(mind.current))
 				to_chat(ui.user, span_warning("Это можно использовать только для экземпляров типа /mob."))
 				return
-			C.admin_observe_target(mind.current, TRUE)
+			SSadmin_verbs.dynamic_invoke_verb(C, /datum/admin_verb/admin_observe_target, mind.current, TRUE)
 		if("tp")
 			var/datum/mind/mind = locateUID(params["mind_uid"])
 			if(QDELETED(mind))

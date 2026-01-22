@@ -10,7 +10,7 @@
 	var/cyborg_slots = 0
 
 /datum/ui_module/ert_manager/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ui_module/ert_manager/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -106,7 +106,10 @@
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 		if("view_player_panel")
-			ui.user.client.holder.show_player_panel(locateUID(params["uid"]))
+			var/mob/selected_mob = locateUID(params["uid"])
+			usr.client.VUAP_selected_mob = selected_mob
+			usr.client.selectedPlayerCkey = selected_mob.ckey
+			SSadmin_verbs.dynamic_invoke_verb(ui.user, /datum/admin_verb/vuap_personal, selected_mob)
 
 		if("deny_ert")
 			GLOB.ert_request_answered = TRUE

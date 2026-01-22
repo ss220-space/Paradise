@@ -122,7 +122,7 @@
 /mob/living/simple_animal/bot/ed209/set_custom_texts()
 	text_hack = "Вы взломали боевую систему [declent_ru(GENITIVE)]"
 	text_dehack = "Вы восстановили боевую систему [declent_ru(GENITIVE)]."
-	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"
+	text_dehack_fail = "[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"
 
 /mob/living/simple_animal/bot/ed209/show_controls(mob/M)
 	ui_interact(M)
@@ -222,7 +222,7 @@
 		if(user)
 			to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]."))
 			oldtarget_name = user.name
-		audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит!"))
+		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
 		declare_arrests = FALSE
 		icon_state = "[lasercolor]ed209[on]"
 		set_weapon()
@@ -389,7 +389,7 @@
 			oldtarget_name = C.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
 			playsound(loc, pick('sound/voice/ed209_20sec.ogg', 'sound/voice/edplaceholder.ogg'), 50, FALSE)
-			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> указывает на [C.name]!")
+			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
@@ -403,7 +403,7 @@
 
 /mob/living/simple_animal/bot/ed209/explode()
 	GLOB.move_manager.stop_looping(src)
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
 	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
@@ -601,14 +601,14 @@
 			speak("[arrest_type ? "Удерживаю" : "Задерживаю"] подонка по имени <b>[C]</b> в локации <b>[location]</b>. Уровень опасности — [threat].", radio_channel)
 			speak_cooldown = TRUE
 			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
-	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] оглушил [C]!"),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] оглушил вас!"))
+	C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] оглушил [C]!"),
+					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] оглушил вас!"))
 
 /mob/living/simple_animal/bot/ed209/proc/start_cuffing(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает надевать стяжки на [C]!"),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается надеть на вас стяжки!"))
+	C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает надевать стяжки на [C]!"),
+					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пытается надеть на вас стяжки!"))
 	addtimer(CALLBACK(src, PROC_REF(cuff_callback), C), 6 SECONDS)
 
 /mob/living/simple_animal/bot/ed209/proc/cuff_callback(mob/living/carbon/C)
@@ -619,8 +619,8 @@
 		return
 
 	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
-	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] надел стяжки на [C]!"),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] надел на вас стяжки!"))
+	C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] надел стяжки на [C]!"),
+					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] надел на вас стяжки!"))
 
 	back_to_idle()
 

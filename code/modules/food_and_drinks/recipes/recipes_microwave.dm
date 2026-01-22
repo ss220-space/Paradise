@@ -295,6 +295,14 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/soup/mysterysoup
 
+/datum/recipe/microwave/sawdustsoup
+	reagents = list("water" = 20)
+	items = list(
+		/obj/item/stack/sheet/wood,
+		/obj/item/stack/sheet/wood,
+	)
+	result = /obj/item/reagent_containers/food/snacks/soup/sawdustsoup
+
 /datum/recipe/microwave/tomatosoup
 	reagents = list("water" = 10)
 	items = list(

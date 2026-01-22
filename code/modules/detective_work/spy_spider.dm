@@ -1,7 +1,7 @@
 /obj/item/radio/spy_spider
 	name = "жучок"
 	desc = "Кажется, ты видел такого в фильмах про шпионов."
-	icon_state = "spy_spider"
+	icon_state = "spider_clan"
 	freqlock = SPY_SPIDER_FREQ
 	gender = MALE
 
@@ -35,7 +35,9 @@
 
 /obj/item/encryptionkey/spy_spider
 	name = "Spy Encryption Key"
-	icon_state = "spy_cypherkey"
+	post_init_icon_state = null
+	greyscale_config = null
+	greyscale_colors = null
 	channels = list(SPY_SPIDER_FREQ_NAME = 1)
 
 /obj/item/storage/lockbox/spy_kit
@@ -70,7 +72,7 @@
 
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in range(1, usr)
 
 	if(!ishuman(usr))

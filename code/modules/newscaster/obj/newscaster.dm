@@ -204,7 +204,7 @@
 		scanned_user = get_scanned_user(user)["name"]
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Newscaster", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "Newscaster", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -397,7 +397,7 @@
 				P.construct(selection)
 				P.forceMove(src)
 				photo = P
-				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тихо жужжит, после чего из слота для фотографий выпадает [P.declent_ru(NOMINATIVE)]."))
+				visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] тихо жужжит, после чего из слота для фотографий выпадает [P.declent_ru(NOMINATIVE)]."))
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 		if("eject_photo")
 			eject_photo(usr)
@@ -611,9 +611,9 @@
 	photo = null
 	P.forceMove(loc)
 	if(ishuman(user) && user.put_in_active_hand(P, ignore_anim = FALSE))
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий прямо в руку [user]."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий прямо в руку [user]."))
 	else
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий."))
 	playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 	SStgui.update_uis(src)
 
@@ -672,7 +672,7 @@
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тихо жужжит, печатая газету."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] тихо жужжит, печатая газету."))
 	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**

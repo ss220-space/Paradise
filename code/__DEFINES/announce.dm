@@ -49,6 +49,7 @@
 #define ANNOUNCE_SOLAR_FLARE_RU "Солнечная вспышка."
 #define ANNOUNCE_SECRETMSG_RU "Входящее засекреченное сообщение."
 #define ANNOUNCE_APC_CRIT_RU "Критический сбой системы питания."
+#define ANNOUNCE_APC_FAILURE_RU "Сбой системы питания."
 #define ANNOUNCE_APC_REPAIR_RU "Система питания восстановлена."
 #define ANNOUNCE_ROGUE_DRONE_RU "Сбойные дроны."
 #define ANNOUNCE_HONKANOMALY_RU "Предупреждение о Хонканомалии."
