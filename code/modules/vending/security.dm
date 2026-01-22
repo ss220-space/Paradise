@@ -121,14 +121,16 @@
 		if(!user.drop_transfer_item_to_loc(voucher, src))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		qdel(voucher)
-		sleep(0.5 SECONDS)
-		playsound(loc, 'sound/machines/machine_vend.ogg', 50, TRUE)
-		var/obj/item/box = new choice(loc)
-		if(Adjacent(user))
-			user.put_in_hands(box, ignore_anim = FALSE)
+		addtimer(CALLBACK(src, PROC_REF(vend_kit), user, choice), 5)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/machinery/vending/security/proc/vend_kit(mob/user, choice)
+	playsound(loc, 'sound/machines/machine_vend.ogg', 50, TRUE)
+	var/obj/item/box = new choice(loc)
+	if(Adjacent(user))
+		user.put_in_hands(box, ignore_anim = FALSE)
 
 /obj/machinery/vending/security/proc/check_voucher_menu(mob/living/user)
 	if(!istype(user) || !Adjacent(user))
@@ -201,6 +203,7 @@
 /obj/item/security_voucher/detective
 	name = "detective's security voucher"
 	desc = "Жетон, позволяющий получить детективский набор оружия из торгового автомата \"SecTech\". Выдаётся детективам в штатном порядке."
+	icon_state = "detectives_voucher"
 
 /obj/item/security_voucher/detective/redeem_kits_list()
 	. = ..()
