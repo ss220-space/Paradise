@@ -669,7 +669,7 @@
 	addtimer(CALLBACK(src, PROC_REF(boom), firer), explosion_time)
 
 /obj/structure/mining_bomb/proc/boom(atom/movable/firer)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"))
 	playsound(src, 'sound/magic/magic_missile.ogg', 200, vary = TRUE)
 	for(var/turf/our_turf as anything in circle_view_turfs(src, 2))
 		if(!ismineralturf(our_turf))

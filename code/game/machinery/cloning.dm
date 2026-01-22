@@ -356,7 +356,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			biomass += BIOMASS_BASE_AMOUNT
 			show_message = TRUE
 	if(show_message)
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] всасывает и начинает обрабатывать полученную биомассу.")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] всасывает и начинает обрабатывать полученную биомассу.")
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if(occupant)
