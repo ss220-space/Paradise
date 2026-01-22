@@ -107,12 +107,6 @@
 		PREPOSITIONAL = "торговом автомате SecTech Training",
 	)
 
-#define KIT_DOMINATOR "Доминатор"
-#define KIT_ENFORCER "Блюститель"
-#define KIT_SPECTER "Спектр"
-#define KIT_TAURUS "Таурус"
-#define KIT_DETECTIVE ".38 Mars Special"
-
 /obj/machinery/vending/security/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM || !powered())
 		return ..()
@@ -256,9 +250,3 @@
 	kit_box = /obj/item/storage/box/revolver_kit
 	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective"
-
-#undef KIT_DOMINATOR
-#undef KIT_ENFORCER
-#undef KIT_SPECTER
-#undef KIT_TAURUS
-#undef KIT_DETECTIVE

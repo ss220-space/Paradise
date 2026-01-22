@@ -1049,7 +1049,7 @@
 	new /obj/item/implanter/mindshield(src)
 
 /obj/item/storage/box/dominator_kit
-	name = "Dominator kit"
+	name = "Набор энергитического пистолета \"Доминатор\""
 	icon_state = "box_dominator"
 	item_state = "sec"
 
@@ -1058,7 +1058,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/enforcer_kit
-	name = "Enforcer kit"
+	name = "Набор пистолета \"Блюститель\""
 	icon_state = "box_enforcer"
 	item_state = "sec"
 
@@ -1069,7 +1069,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/specter_kit
-	name = "набор Спектр"
+	name = "Набор энергитического пистолета \"Спектр\""
 	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 аккумулятора."
 	icon_state = "box_specter"
 	item_state = "sec"
@@ -1091,7 +1091,7 @@
 	new /obj/item/weapon_cell/specter(src)
 
 /obj/item/storage/box/taurus_kit
-	name = "taurus revolver kit (rubber)"
+	name = "набор револьвера \"Таурус\" (резиновый)"
 	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
 	icon_state = "box_colt"
 	item_state = "sec"
@@ -1113,7 +1113,7 @@
 	new /obj/item/ammo_box/speedloader/rubber45colt(src)
 
 /obj/item/storage/box/revolver_kit
-	name = "Revolver kit"
+	name = "Набор револьвера \".38 Mars Special\""
 	icon_state = "box_revolver"
 	item_state = "sec"
 
