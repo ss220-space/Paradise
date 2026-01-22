@@ -404,7 +404,7 @@
 	pod_flags &= ~FIRST_SOUNDS //Make it so we play sounds now
 	if(!effectQuiet && !ispath(style, /datum/pod_style/seethrough))
 		audible_message(
-			span_notice("[capitalize(declent_ru(NOMINATIVE))] шипит, закрываясь и улетая прочь от станции."),
+			span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] шипит, закрываясь и улетая прочь от станции."),
 			span_notice("Земля вибрирует, и вы слышите звук работающих двигателей.")
 		)
 	stay_after_drop = FALSE
@@ -610,7 +610,7 @@
 		return ..()
 
 	to_chat(user, span_notice("Вы начинаетезаталкивать"))
-	user.visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+	user.visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
 						span_notice("Вы начинаете запихивать [O.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 
 	if(!do_after(user, 5 SECONDS, src))

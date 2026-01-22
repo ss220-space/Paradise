@@ -56,7 +56,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	sync_limit()
 	W.update_icon()
 	if(user)
-		to_chat(user, span_notice("Вы установили [src.declent_ru(ACCUSATIVE)] в [W.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
+		to_chat(user, span_notice("Вы установили [declent_ru(ACCUSATIVE)] в [W.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
 		if(!auth_id)
 			to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
 

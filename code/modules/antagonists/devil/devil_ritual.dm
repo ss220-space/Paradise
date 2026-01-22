@@ -210,7 +210,7 @@
 			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
 			GLOB.major_announcement.announce(
-				message = "Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.",
+				message = "Тёмная сущность, известная как [devil.info.truename], из измерения, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие Космического Закона и Стандартных Рабочих Процедур приостановлено. Весь экипаж должен уничтожать любые проявления Ада на месте.",
 				new_title = ANNOUNCE_CCPARANORMAL_RU,
 				new_sound = 'sound/AI/commandreport.ogg'
 			)
