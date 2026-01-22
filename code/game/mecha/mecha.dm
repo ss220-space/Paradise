@@ -161,6 +161,8 @@
 	var/list/module_actions = list()
 
 	var/ratvarized = FALSE
+	///Just stop the mech from doing anything
+	var/completely_disabled = FALSE
 
 /obj/mecha/Initialize(mapload)
 	. = ..()
@@ -252,6 +254,8 @@
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user)
+		return
+	if(completely_disabled)
 		return
 	if(user.incapacitated())
 		return
@@ -410,6 +414,8 @@
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
+		return FALSE
+	if(completely_disabled)
 		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))

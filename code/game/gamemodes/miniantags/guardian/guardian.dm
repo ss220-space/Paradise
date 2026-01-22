@@ -1,3 +1,6 @@
+/// List of all guardians currently extant
+GLOBAL_LIST_EMPTY(parasites)
+
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
 	real_name = "Guardian Spirit"
@@ -55,11 +58,16 @@
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
+	GLOB.parasites += src
 	AddElement(/datum/element/simple_flying)
 	if(!host)
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
+
+/mob/living/simple_animal/hostile/guardian/Destroy()
+	GLOB.parasites -= src
+	return ..()
 
 /mob/living/simple_animal/hostile/guardian/ComponentInitialize()
 	AddComponent( \
