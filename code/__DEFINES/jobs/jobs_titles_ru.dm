@@ -227,6 +227,8 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_BUSSINESSMAN "Бизнесмен"
 #define ALT_JOB_TITLE_RU_TRADER "Торговец"
 #define ALT_JOB_TITLE_RU_ASSISTANT "Ассистент"
+#define ALT_JOB_TITLE_RU_FREELANCER "Фрилансер"
+#define ALT_JOB_TITLE_RU_WORKER "Разнорабочий"
 // Prisoner
 #define ALT_JOB_TITLE_RU_ARRESTEE "Арестант"
 // Engineer
@@ -278,10 +280,8 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_SECURITY_MEDIC "Врач службы безопасности"
 #define ALT_JOB_TITLE_RU_COMBAT_MEDIC "Боевой медик"
 // Bartender
-#define ALT_JOB_TITLE_RU_BARMAN "Бармен"
 #define ALT_JOB_TITLE_RU_DRINK_ARTIST "Мастер коктейлей"
 // Chef
-#define ALT_JOB_TITLE_RU_COOK "Шеф-повар"
 #define ALT_JOB_TITLE_RU_CULINARY_ARTIST "Кулинарный художник"
 #define ALT_JOB_TITLE_RU_SOUS_CHEF "Су-шеф"
 #define ALT_JOB_TITLE_RU_BUTCHER "Мясник"
@@ -317,7 +317,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 // Magistrate
 #define ALT_JOB_TITLE_RU_JUDGE "Судья"
 // Internal affairs agent
-#define ALT_JOB_TITLE_RU_HUMAN_RESOUCES_AGENT "Кадровый агент"
 #define ALT_JOB_TITLE_RU_LAWYER "Юрист"
 #define ALT_JOB_TITLE_RU_ATTORNEY "Адвокат"
 // Quartermaster

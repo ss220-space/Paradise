@@ -54,7 +54,10 @@
 	spawn_positions = 3
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_MAINT_TUNNELS)
-	alt_titles = list(ALT_JOB_TITLE_RU_SURGEON, ALT_JOB_TITLE_RU_NURSE)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_SURGEON,
+		ALT_JOB_TITLE_RU_NURSE,
+	)
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
@@ -97,7 +100,10 @@
 /datum/job/medical/doctor/intern
 	title = JOB_TITLE_INTERN
 	flag = JOB_FLAG_INTERN
-	alt_titles = list(ALT_JOB_TITLE_RU_MEDICAL_STUDENT, ALT_JOB_TITLE_RU_MEDICAL_ASSISTANT)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_MEDICAL_STUDENT,
+		ALT_JOB_TITLE_RU_MEDICAL_ASSISTANT,
+	)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
 	exp_max	= 600
@@ -253,7 +259,10 @@
 	spawn_positions = 1
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
-	alt_titles = list(ALT_JOB_TITLE_RU_PSYCHOLOGIST, ALT_JOB_TITLE_RU_THERAPIST)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_PSYCHOLOGIST,
+		ALT_JOB_TITLE_RU_THERAPIST,
+	)
 	outfit = /datum/outfit/job/psychiatrist
 
 /datum/outfit/job/psychiatrist
