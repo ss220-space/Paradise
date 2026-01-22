@@ -13988,7 +13988,7 @@
 /obj/item/gps{
 	tracking = 0
 	},
-/obj/item/card/id/thunderdome/red{
+/obj/item/card/id{
 	access = list(160,26);
 	assignment = "Pirate";
 	desc = "A card used to determine access across.";
@@ -17015,7 +17015,7 @@
 /area/ruin/space/pirate_base/prison_maint)
 "XY" = (
 /obj/structure/table/wood/fancy,
-/obj/item/card/id/thunderdome/red{
+/obj/item/card/id{
 	access = list(160,161,162,26);
 	assignment = "Pirate";
 	desc = "A card used to determine access across.";
