@@ -87,7 +87,8 @@
 			Похоже, что он полностью сгорел."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool_broken"
-	belt_icon = "multitool_broken"
+	item_state = "multitool"
+	belt_icon = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
