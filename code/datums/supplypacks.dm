@@ -6500,7 +6500,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	credits_cost = 5000
 	containertype = /obj/structure/closet/crate/syndicate
-	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5,)
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5)
 	containername = "ящик с набором ЭМИ-гранат"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с набором ЭМИ-гранат",
