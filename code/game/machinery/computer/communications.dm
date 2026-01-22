@@ -125,7 +125,7 @@ GLOBAL_VAR_INIT(captain_auth_access, ACCESS_CAPTAIN)
 
 		if(ACCESS_CENT_COMMANDER in access)
 			if(!check_rights(R_ADMIN, FALSE, ui.user))
-				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] гудит, разрешение Центрального командования не действительно."))
+				to_chat(ui.user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] гудит, разрешение Центрального командования не действительно."))
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
 

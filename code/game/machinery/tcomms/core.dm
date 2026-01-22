@@ -217,7 +217,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TcommsCore", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "TcommsCore", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/tcomms/core/ui_data(mob/user)

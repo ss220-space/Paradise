@@ -1895,7 +1895,7 @@
 		var/datum/ratvar_mecha/converter = new rat_mecha
 		if(mech_type in converter.mech_types)
 			converter.convert(src)
-			visible_message(span_clocklarge("[capitalize(declent_ru(NOMINATIVE))] начинает громко грохотать, его механизмы заменяются шестернями!"))
+			visible_message(span_clocklarge("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает громко грохотать, его механизмы заменяются шестернями!"))
 		QDEL_NULL(converter)
 
 #undef OCCUPANT_LOGGING

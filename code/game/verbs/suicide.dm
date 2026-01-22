@@ -75,7 +75,7 @@
 	card.removePersonality()
 	card.visible_message(
 		span_notice("[name] выводит сообщение на экран: \"Стирание файлов личности. Чтобы продолжить использование устройства пИИ, загрузите новую личность.\""),
-		blind_message = span_notice("[capitalize(declent_ru(NOMINATIVE))] электронно пищит."),
+		blind_message = span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] электронно пищит."),
 		)
 	death(gibbed = FALSE, cleanWipe = TRUE)
 
