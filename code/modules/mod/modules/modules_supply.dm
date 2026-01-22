@@ -471,20 +471,7 @@
 	if(is_type_in_typecache(mod.wearer.loc, keep_turfs))
 		return
 
-	if(is_type_in_typecache(mod.wearer.loc, accretion_turfs))
-		if(traveled_tiles >= max_traveled_tiles)
-			return
-		traveled_tiles++
-		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-			part.armor = part.armor.attachArmor(armor_mod_1.armor)
-		if(traveled_tiles < max_traveled_tiles)
-			return
-		balloon_alert(mod.wearer, "полное покрытие пеплом")
-		mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
-		animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
-		playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
-		mod.update_speed()
-	else
+	if(!is_type_in_typecache(mod.wearer.loc, accretion_turfs))
 		if(traveled_tiles <= 0)
 			return
 		traveled_tiles--
@@ -494,6 +481,20 @@
 			part.armor = part.armor.attachArmor(armor_mod_1.armor)
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
+		return
+
+	if(traveled_tiles >= max_traveled_tiles)
+		return
+	traveled_tiles++
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
+		part.armor = part.armor.attachArmor(armor_mod_1.armor)
+	if(traveled_tiles < max_traveled_tiles)
+		return
+	balloon_alert(mod.wearer, "полное покрытие пеплом")
+	mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
+	animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
+	playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
+	mod.update_speed()
 
 /obj/effect/temp_visual/light_ash
 	icon_state = "light_ash"

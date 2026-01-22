@@ -101,7 +101,7 @@
 	/// Slowdown added onto the suit.
 	var/slowdown_active = 0.5
 	/// list of all traits, that added to magboots
-	var/list/active_traits = list(
+	var/static/list/active_traits = list(
 		TRAIT_NO_SLIP_WATER,
 		TRAIT_NO_SLIP_ICE,
 		TRAIT_NO_SLIP_SLIDE,

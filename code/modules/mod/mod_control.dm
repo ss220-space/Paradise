@@ -398,7 +398,7 @@
 /obj/item/mod/control/get_cell()
 	var/obj/item/stock_parts/cell/cell = get_charge_source()
 	if(!istype(cell))
-		return null
+		return
 	return cell
 
 /obj/item/mod/control/GetAccess()
