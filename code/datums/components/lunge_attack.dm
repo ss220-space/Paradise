@@ -33,8 +33,7 @@
 	if(HAS_TRAIT(user, TRAIT_CANT_LUNGE) || IS_HORIZONTAL(user) || user.incapacitated())
 		return
 
-	var/dist = get_dist(user, target)
-	if(dist <= 1)
+	if(user.Adjacent(target))
 		return
 
 	perform_lunge(source, user, target)
