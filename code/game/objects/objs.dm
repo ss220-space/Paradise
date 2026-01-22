@@ -341,7 +341,7 @@
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
 	throwned_mob.visible_message(
-		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
+		span_danger("[DECLENT_RU_CAP(throwned_mob, NOMINATIVE)] с размаху вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 	throwned_mob.take_organ_damage(damage)

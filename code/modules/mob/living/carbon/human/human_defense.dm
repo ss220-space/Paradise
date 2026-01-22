@@ -24,8 +24,8 @@ emp_act
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
-			visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] отражает [P.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(declent_ru(NOMINATIVE))] отражает [P.declent_ru(ACCUSATIVE)]!"),\
+			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отражает [P.declent_ru(ACCUSATIVE)]!"),\
 							projectile_message = TRUE)
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
@@ -283,7 +283,7 @@ emp_act
 				update_worn_mask()
 				update_worn_head()
 			else
-				to_chat(src, span_notice("[capitalize(head_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_YUT(head_clothes)] вашу голову и лицо от кислоты!"))
+				to_chat(src, span_notice("[DECLENT_RU_CAP(head_clothes, NOMINATIVE)] защища[PLUR_ET_YUT(head_clothes)] вашу голову и лицо от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_HEAD)
 			if(.)
@@ -306,7 +306,7 @@ emp_act
 				update_worn_undersuit()
 				update_worn_oversuit()
 			else
-				to_chat(src, span_notice("[capitalize(chest_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_YUT(chest_clothes)] ваше туловище от кислоты!"))
+				to_chat(src, span_notice("[DECLENT_RU_CAP(chest_clothes, NOMINATIVE)] защища[PLUR_ET_YUT(chest_clothes)] ваше туловище от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_CHEST)
 			if(.)
@@ -339,7 +339,7 @@ emp_act
 				update_worn_undersuit()
 				update_worn_oversuit()
 			else
-				to_chat(src, span_notice("[capitalize(arm_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_YUT(arm_clothes)] ваши руки от кислоты!"))
+				to_chat(src, span_notice("[DECLENT_RU_CAP(arm_clothes, NOMINATIVE)] защища[PLUR_ET_YUT(arm_clothes)] ваши руки от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_R_ARM)
 			if(.)
@@ -364,7 +364,7 @@ emp_act
 				update_worn_undersuit()
 				update_worn_oversuit()
 			else
-				to_chat(src, span_notice("[capitalize(leg_clothes.declent_ru(NOMINATIVE))] защища[PLUR_ET_YUT(leg_clothes)] ваши руки от кислоты!"))
+				to_chat(src, span_notice("[DECLENT_RU_CAP(leg_clothes, NOMINATIVE)] защища[PLUR_ET_YUT(leg_clothes)] ваши руки от кислоты!"))
 		else
 			. = get_organ(BODY_ZONE_R_LEG)
 			if(.)
@@ -843,10 +843,10 @@ emp_act
 
 /mob/living/carbon/human/proc/reagent_safety_check(hot = TRUE)
 	if(wear_mask)
-		to_chat(src, span_danger("[capitalize(wear_mask.declent_ru(NOMINATIVE))] защища[PLUR_ET_YUT(wear_mask)] вас от [hot ? "горячей" : "холодной"] жидкости!"))
+		to_chat(src, span_danger("[DECLENT_RU_CAP(wear_mask, NOMINATIVE)] защища[PLUR_ET_YUT(wear_mask)] вас от [hot ? "горячей" : "холодной"] жидкости!"))
 		return FALSE
 	if(head)
-		to_chat(src, span_danger("[capitalize(head.declent_ru(NOMINATIVE))] защища[PLUR_ET_YUT(head)] вас от [hot ? "горячей" : "холодной"] жидкости!"))
+		to_chat(src, span_danger("[DECLENT_RU_CAP(head, NOMINATIVE)] защища[PLUR_ET_YUT(head)] вас от [hot ? "горячей" : "холодной"] жидкости!"))
 		return FALSE
 	return TRUE
 

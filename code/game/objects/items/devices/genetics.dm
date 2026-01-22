@@ -87,7 +87,7 @@
 	paper.header += "<hr>"
 	if(in_range(usr, src))
 		usr.put_in_hands(paper, ignore_anim = FALSE)
-		usr.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+		usr.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	printing = FALSE
 
 /obj/item/dna_notepad/proc/all_dna_names()
@@ -199,11 +199,11 @@
 	add_fingerprint(user)
 	var/obj/machinery/dna_scannernew/connected = dna_console.connected
 	if(!connected)
-		to_chat(user, span_warning("[capitalize(dna_console.declent_ru(NOMINATIVE))] не подключен."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(dna_console, NOMINATIVE)] не подключен."))
 		balloon_alert(user, "ошибка загрузки")
 		return
 	if(!connected.occupant)
-		to_chat(user, span_warning("[capitalize(connected.declent_ru(NOMINATIVE))] пуст."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(connected, NOMINATIVE)] пуст."))
 		balloon_alert(user, "ошибка загрузки")
 		return
 	if(!connected.occupant.dna)

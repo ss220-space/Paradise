@@ -77,7 +77,7 @@
 /mob/living/simple_animal/bot/cleanbot/set_custom_texts()
 	text_hack = "Вы взломали протоколы уборки [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили протоколы уборки [declent_ru(GENITIVE)]."
-	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] не отвечает на ваши команды!"
+	text_dehack_fail = "[DECLENT_RU_CAP(src, NOMINATIVE)] не отвечает на ваши команды!"
 
 /mob/living/simple_animal/bot/cleanbot/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
@@ -100,7 +100,7 @@
 /mob/living/simple_animal/bot/cleanbot/emag_act(mob/user)
 	..()
 	if(emagged == 2 && user)
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
 
 /mob/living/simple_animal/bot/cleanbot/process_scan(obj/effect/decal/cleanable/D)
 	for(var/T in target_types)
@@ -123,7 +123,7 @@
 				T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
 
 			if(prob(5)) //Spawns foam!
-				visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] издаёт громкие булькающие звуки, прежде чем выпустить шлейф пены!"))
+				visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт громкие булькающие звуки, прежде чем выпустить шлейф пены!"))
 				var/datum/effect_system/fluid_spread/foam/s = new()
 				s.set_up(range = 3, location = loc)
 				s.start()
@@ -201,7 +201,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/proc/start_clean(obj/effect/decal/cleanable/target)
 	set_anchored(TRUE)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает очищать [target]."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает очищать [target]."))
 	mode = BOT_CLEANING
 	update_icon()
 	addtimer(CALLBACK(src, PROC_REF(do_clean), target), 5 SECONDS)
@@ -217,7 +217,7 @@
 
 /mob/living/simple_animal/bot/cleanbot/explode()
 	on = FALSE
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/reagent_containers/glass/bucket(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)

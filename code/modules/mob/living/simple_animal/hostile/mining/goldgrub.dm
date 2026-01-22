@@ -52,10 +52,10 @@
 	add_target(new_target)
 	if(!QDELETED(target))
 		if(wanted_objects[target.type] && length(loot) < max_loot)
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] смотрит на [target.declent_ru(ACCUSATIVE)] голодными глазами."))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] смотрит на [target.declent_ru(ACCUSATIVE)] голодными глазами."))
 		else if(iscarbon(target) || issilicon(target))
 			Aggro()
-			visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] пытается сбежать от [target.declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] пытается сбежать от [target.declent_ru(ACCUSATIVE)]!"))
 			retreat_distance = 10
 			minimum_distance = 10
 			if(will_burrow)
@@ -74,14 +74,14 @@
 		for(var/i in 1 to using)
 			loot += O.type
 		O.use(using)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] целиком проглотил руду!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] целиком проглотил руду!"))
 	else // We are now full! We will consume no more ore ever again.
 		search_objects = 0
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поклёвывает немного руды и останавливается. Похоже, он наелся."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] поклёвывает немного руды и останавливается. Похоже, он наелся."))
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//You failed the chase to kill the goldgrub in time!
 	if(stat == CONSCIOUS)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] зарывается в землю и исчезает из виду!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] зарывается в землю и исчезает из виду!"))
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/projectile/P)
