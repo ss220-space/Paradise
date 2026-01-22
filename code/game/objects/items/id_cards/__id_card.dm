@@ -217,7 +217,7 @@
 	if(!newjob)
 		newjob = assignment
 
-	name = "[newname ? "[newname]'s ID-card" : "identification card"][newjob ? " ([newjob])" : ""]"
+	name = "[newname ? "[newname]`s ID-card" : "identification card"][newjob ? " ([newjob])" : ""]"
 	for(var/i = 1; i <= 6; i++)
 		ru_names[i] = "[names ? names[i] : initial(name)][newname ? " \"[newname]\"" : ""][newjob ? " ([newjob])" : ""]"
 
@@ -228,8 +228,6 @@
 		if(!user.drop_transfer_item_to_loc(decal, src))
 			return ..()
 		balloon_alert(user, "наклейка приклеена")
-		if(decal.override_name)
-			name = decal.decal_name
 		desc = decal.decal_desc
 		icon_state = decal.decal_icon_state
 		item_state = decal.decal_item_state
