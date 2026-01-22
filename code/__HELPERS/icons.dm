@@ -128,13 +128,13 @@ mob
 	Login()
 		// Testing image underlays
 		underlays += image(icon='old_or_unused.dmi',icon_state="red")
-		underlays += image(icon='old_or_unused.dmi',icon_state="red", pixel_x = 32)
-		underlays += image(icon='old_or_unused.dmi',icon_state="red", pixel_x = -32)
+		underlays += image(icon='old_or_unused.dmi',icon_state="red", pixel_w = 32)
+		underlays += image(icon='old_or_unused.dmi',icon_state="red", pixel_w = -32)
 
 		// Testing image overlays
-		overlays += image(icon='old_or_unused.dmi',icon_state="green", pixel_x = 32, pixel_y = -32)
-		overlays += image(icon='old_or_unused.dmi',icon_state="green", pixel_x = 32, pixel_y = 32)
-		overlays += image(icon='old_or_unused.dmi',icon_state="green", pixel_x = -32, pixel_y = -32)
+		overlays += image(icon='old_or_unused.dmi',icon_state="green", pixel_w = 32, pixel_z = -32)
+		overlays += image(icon='old_or_unused.dmi',icon_state="green", pixel_w = 32, pixel_z = 32)
+		overlays += image(icon='old_or_unused.dmi',icon_state="green", pixel_w = -32, pixel_z = -32)
 
 		// Testing icon file overlays (defaults to mob's state)
 		overlays += '_flat_demoIcons2.dmi'
@@ -148,7 +148,7 @@ mob
 		overlays+=I
 
 		// Testing dynamic image overlays
-		I=image(icon=I,pixel_x = -32, pixel_y = 32)
+		I=image(icon=I, pixel_w = -32, pixel_z = 32)
 		overlays+=I
 
 		// Testing object types (and layers)
@@ -184,7 +184,7 @@ mob
 
 		Add_Overlay()
 			set name = "4. Add Overlay"
-			overlays += image(icon='old_or_unused.dmi',icon_state="yellow",pixel_x = rand(-64,32), pixel_y = rand(-64,32))
+			overlays += image(icon='old_or_unused.dmi',icon_state="yellow", pixel_w = rand(-64,32), pixel_z = rand(-64,32))
 
 		Stress_Test()
 			set name = "5. Stress Test"
@@ -739,10 +739,10 @@ The _flatIcons list is a cache for generated icon files.
 				continue
 
 			// Find the new dimensions of the flat icon to fit the added overlay
-			addX1 = min(flatX1, layer_image.pixel_x + 1)
-			addX2 = max(flatX2, layer_image.pixel_x + add.Width())
-			addY1 = min(flatY1, layer_image.pixel_y + 1)
-			addY2 = max(flatY2, layer_image.pixel_y + add.Height())
+			addX1 = min(flatX1, layer_image.pixel_x + layer_image.pixel_w + 1)
+			addX2 = max(flatX2, layer_image.pixel_x + layer_image.pixel_w + add.Width())
+			addY1 = min(flatY1, layer_image.pixel_y + layer_image.pixel_z + 1)
+			addY2 = max(flatY2, layer_image.pixel_y + layer_image.pixel_z + add.Height())
 
 			if(
 				addX1 != flatX1 \
@@ -764,7 +764,7 @@ The _flatIcons list is a cache for generated icon files.
 				flatY2 = addY2
 
 			// Blend the overlay into the flattened icon
-			flat.Blend(add, blendMode2iconMode(curblend), layer_image.pixel_x + 2 - flatX1, layer_image.pixel_y + 2 - flatY1)
+			flat.Blend(add, blendMode2iconMode(curblend), layer_image.pixel_x + layer_image.pixel_w + 2 - flatX1, layer_image.pixel_y + layer_image.pixel_z + 2 - flatY1)
 
 		if(appearance.color)
 			if(islist(appearance.color))

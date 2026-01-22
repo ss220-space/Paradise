@@ -388,6 +388,7 @@
 /obj/projectile/beam/immolator
 	name = "immolation beam"
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	immolate = 2
 
 /obj/projectile/beam/immolator/get_ru_names()
 	return list(
@@ -403,6 +404,7 @@
 	name = "heavy immolation beam"
 	damage = 45
 	icon_state = "heavylaser"
+	immolate = 3
 
 /obj/projectile/beam/immolator/strong/get_ru_names()
 	return list(
@@ -418,6 +420,7 @@
 	name = "light immolation beam"
 	damage = 8
 	icon_state = "scatterlaser"
+	immolate = 1
 
 /obj/projectile/beam/immolator/weak/get_ru_names()
 	return list(

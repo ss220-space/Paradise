@@ -94,13 +94,13 @@
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)
-			if(0.75 to INFINITY)
+			if(CELL_CHARGE_HIGH to CELL_CHARGE_UPPER_BORDER)
 				clear_alert("charge")
-			if(0.5 to 0.75)
+			if(CELL_CHARGE_MEDIUM to CELL_CHARGE_HIGH)
 				throw_alert("charge", /atom/movable/screen/alert/lowcell, 1)
-			if(0.25 to 0.5)
+			if(CELL_CHARGE_LOW to CELL_CHARGE_MEDIUM)
 				throw_alert("charge", /atom/movable/screen/alert/lowcell, 2)
-			if(0.01 to 0.25)
+			if(CELL_CHARGE_LOWER_BORDER to CELL_CHARGE_LOW)
 				throw_alert("charge", /atom/movable/screen/alert/lowcell, 3)
 			else
 				throw_alert("charge", /atom/movable/screen/alert/emptycell)
