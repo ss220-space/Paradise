@@ -81,7 +81,7 @@
 		ninja.Beam(target, "n_beam", time = 15)
 		var/obj/structure/energy_net/net = new /obj/structure/energy_net(target.drop_location())
 		net.affected_mob = target
-		ninja.visible_message(span_warning("[capitalize(ninja.declent_ru(NOMINATIVE))] запутыва[PLUR_ET_YUT(ninja)] [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"), span_notice("Вы запутываете [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
+		ninja.visible_message(span_warning("[DECLENT_RU_CAP(ninja, NOMINATIVE)] запутыва[PLUR_ET_YUT(ninja)] [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"), span_notice("Вы запутываете [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 		if(target.buckled)
 			target.buckled.unbuckle_mob(target, TRUE)
 		net.buckle_mob(target, TRUE) //No moving for you!

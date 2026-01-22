@@ -47,7 +47,7 @@
 				return
 			energyKatana.spark_system.start()
 			playsound(ninja, SFX_SPARKS, 50, TRUE, -9)
-			ninja.visible_message(span_danger("[capitalize(energyKatana.declent_ru(NOMINATIVE))] летит навстречу [ninja.declent_ru(DATIVE)]!"), span_warning("Вы протягиваете руку и [energyKatana.declent_ru(NOMINATIVE)] летит к вам!"))
+			ninja.visible_message(span_danger("[DECLENT_RU_CAP(energyKatana, NOMINATIVE)] летит навстречу [ninja.declent_ru(DATIVE)]!"), span_warning("Вы протягиваете руку и [energyKatana.declent_ru(NOMINATIVE)] летит к вам!"))
 			energyKatana.throw_at(ninja, distance+1, energyKatana.throw_speed)
 
 		else //Else just TP it to us.

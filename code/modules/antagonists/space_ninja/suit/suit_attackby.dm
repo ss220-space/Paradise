@@ -43,7 +43,7 @@
 			to_chat(ninja, span_warning("Эта батарея опасна и может взорваться! Система безопасности костюма не позволяет поместить её внутрь."))
 			return ATTACK_CHAIN_PROCEED
 		if(new_cell.maxcharge <= old_cell.maxcharge)
-			to_chat(ninja, span_warning("[capitalize(new_cell.declent_ru(NOMINATIVE))] идентична [old_cell.declent_ru(DATIVE)]."))
+			to_chat(ninja, span_warning("[DECLENT_RU_CAP(new_cell, NOMINATIVE)] идентична [old_cell.declent_ru(DATIVE)]."))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(ninja, span_notice("Батарея большей мощности обнаружена. Установка..."))
 		if(!do_after(ninja, s_delay, src) || QDELETED(new_cell))
