@@ -110,20 +110,20 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "internals crate"
 
 /datum/syndie_supply_packs/emergency/proper
-	name = "Кластерная граната \"Мистер пропер\" "
+	name = "Кластерная очищающая граната" "
 	contains = list(
 		/obj/item/grenade/clusterbuster/cleaner,
 	)
 	cost = 300
 	containertype = /obj/structure/closet/crate
-	containername = "ящик с кластерной гранатой \"Мистер пропер\" "
+	containername = "ящик с кластерной очищающей гранатой"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с кластерной гранатой \"Мистер пропер\" ",
-		GENITIVE = "ящика с кластерной гранатой \"Мистер пропер\" ",
-		DATIVE = "ящику с кластерной гранатой \"Мистер пропер\" ",
-		ACCUSATIVE = "ящик с кластерной гранатой \"Мистер пропер\" ",
-		INSTRUMENTAL = "ящиком с кластерной гранатой \"Мистер пропер\" ",
-		PREPOSITIONAL = "ящике с кластерной гранатой \"Мистер пропер\" ",
+		NOMINATIVE = "ящик с кластерной очищающей гранатой ",
+		GENITIVE = "ящика с кластерной очищающей гранатой",
+		DATIVE = "ящику с кластерной очищающей гранатой",
+		ACCUSATIVE = "ящик с кластерной очищающей гранатой",
+		INSTRUMENTAL = "ящиком с кластерной очищающей гранатой",
+		PREPOSITIONAL = "ящике с кластерной очищающей гранатой",
 	)
 
 /datum/syndie_supply_packs/emergency/clusteroxygen
@@ -318,20 +318,20 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	)
 
 /datum/syndie_supply_packs/security/atmosn2ogrenades
-	name = "Усыпляющая газовая кластерная граната"
+	name = "Усыпляющая кластерная граната"
 	contains = list(
 		/obj/item/storage/box/syndie_kit/atmosn2ogrenades,
 	)
 	cost = 1000
 	containertype = /obj/structure/closet/crate/syndicate
-	containername = "ящик с усыпляющей газовой кластерной гранатой"
+	containername = "ящик с газовой кластерной гранатой"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с усыпляющей газовой кластерной гранатой",
-		GENITIVE = "ящика с усыпляющей газовой кластерной гранатой",
-		DATIVE = "ящику с усыпляющей газовой кластерной гранатой",
-		ACCUSATIVE = "ящик с усыпляющей газовой кластерной гранатой",
-		INSTRUMENTAL = "ящиком с усыпляющей газовой кластерной гранатой",
-		PREPOSITIONAL = "ящике с усыпляющей газовой кластерной гранатой",
+		NOMINATIVE = "ящик с усыпляющей кластерной гранатой",
+		GENITIVE = "ящика с усыпляющей кластерной гранатой",
+		DATIVE = "ящику с усыпляющей кластерной гранатой",
+		ACCUSATIVE = "ящик с усыпляющей кластерной гранатой",
+		INSTRUMENTAL = "ящиком с усыпляющей кластерной гранатой",
+		PREPOSITIONAL = "ящике с усыпляющей кластерной гранатой",
 	)
 
 /datum/syndie_supply_packs/security/frag
@@ -1351,14 +1351,14 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/medical/menderindustrial
 	name = "Продвинутый авто-мендер"
-	containername = "ящик с системами обработки надрезов"
+	containername = "ящик продвинутых авто-мендеров"
 	container_ru_names = list(
-		NOMINATIVE = "ящик с продвинутыми авто-мендерами",
-		GENITIVE = "ящика с продвинутыми авто-мендерами",
-		DATIVE = "ящику с продвинутыми авто-мендерами",
-		ACCUSATIVE = "ящик с продвинутыми авто-мендерами",
-		INSTRUMENTAL = "ящиком с продвинутыми авто-мендерами",
-		PREPOSITIONAL = "ящике с продвинутыми авто-мендерами",
+		NOMINATIVE = "ящик продвинутых авто-мендеров",
+		GENITIVE = "ящика продвинутых авто-мендеров",
+		DATIVE = "ящику продвинутых авто-мендеров",
+		ACCUSATIVE = "ящик продвинутых авто-мендеров",
+		INSTRUMENTAL = "ящиком продвинутых авто-мендеров",
+		PREPOSITIONAL = "ящике продвинутых авто-мендеров",
 	)
 	cost = 5000
 	contains = list(
@@ -2079,14 +2079,14 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	)
 	cost = 100
 	containertype = /obj/structure/closet/crate/syndicate
-	containername = "ящик адаптивного картонна"
+	containername = "ящик адаптивных картонных фигур"
 	container_ru_names = list(
-		NOMINATIVE = "ящик адаптивного картонна",
-		GENITIVE = "ящика адаптивного картонна",
-		DATIVE = "ящику адаптивного картонна",
-		ACCUSATIVE = "ящик адаптивного картонна",
-		INSTRUMENTAL = "ящиком адаптивного картонна",
-		PREPOSITIONAL = "ящике адаптивного картонна",
+		NOMINATIVE = "ящик адаптивных картонных фигур",
+		GENITIVE = "ящика адаптивных картонных фигур",
+		DATIVE = "ящику адаптивных картонных фигур",
+		ACCUSATIVE = "ящик адаптивных картонных фигур",
+		INSTRUMENTAL = "ящиком адаптивных картонных фигур",
+		PREPOSITIONAL = "ящике адаптивных картонных фигур",
 	)
 
 /datum/syndie_supply_packs/misc/tape_roll_thick
