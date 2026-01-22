@@ -57,14 +57,12 @@
 		fake_name = "Агент [pick_n_take(fakename_list)]"
 
 /obj/item/encryptionkey/syndicate/nukeops
-	icon_state = "/obj/item/encryptionkey/syndicate/nukeops"
 	greyscale_config = /datum/greyscale_config/encryptionkey_syndie
 	greyscale_colors = "#941c1c#3c3c3c#18ff00"
 	change_voice = FALSE
 
 /obj/item/encryptionkey/syndicate/taipan
 	change_voice = FALSE
-	icon_state = "/obj/item/encryptionkey/syndicate/taipan"
 	greyscale_config = /datum/greyscale_config/encryptionkey_syndie
 	greyscale_colors = "#3c3c3c#ffad00#ffad00"
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1)
@@ -73,7 +71,6 @@
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1, SYND_FREQ_NAME = 1)
 
 /obj/item/encryptionkey/syndicate/taipan/tcomms_agent
-	icon_state = "/obj/item/encryptionkey/syndicate/taipan/tcom_agent"
 	greyscale_config = /datum/greyscale_config/encryptionkey_syndie
 	greyscale_colors = "#ffad00#ffad00#3c3c3c"
 	channels = list(SYND_TAIPAN_FREQ_NAME = 1, SYND_FREQ_NAME = 1, PUB_FREQ_NAME = 1)
@@ -153,7 +150,6 @@
 /obj/item/encryptionkey/prisoner
 	name = "Prisoners Radio Encryption Key"
 	icon_state = "/obj/item/encryptionkey/prisoner"
-	greyscale_config = /datum/greyscale_config/encryptionkey_basic
 	greyscale_colors = "#da7f17"
 	channels = list(PRS_FREQ_NAME = 1)
 
@@ -170,7 +166,6 @@
 /obj/item/encryptionkey/green
 	name = "Green tean Radio Encryption Key"
 	icon_state = "/obj/item/encryptionkey/green"
-	greyscale_config = /datum/greyscale_config/encryptionkey_basic
 	greyscale_colors = "#2bff00"
 	channels = list(GREEN_NAME = 1)
 
@@ -187,7 +182,6 @@
 /obj/item/encryptionkey/blue
 	name = "Blue tean Radio Encryption Key"
 	icon_state = "/obj/item/encryptionkey/blue"
-	greyscale_config = /datum/greyscale_config/encryptionkey_basic
 	greyscale_colors = "#2200ff"
 	channels = list(BLUE_NAME = 1)
 
@@ -204,7 +198,6 @@
 /obj/item/encryptionkey/red
 	name = "Red tean Radio Encryption Key"
 	icon_state = "/obj/item/encryptionkey/red"
-	greyscale_config = /datum/greyscale_config/encryptionkey_basic
 	greyscale_colors = "#ff0000"
 	channels = list(RED_NAME = 1)
 
@@ -340,7 +333,6 @@
 /obj/item/encryptionkey/headset_com
 	name = "Command Radio Encryption Key"
 	icon_state = "/obj/item/encryptionkey/headset_com"
-	greyscale_config = /datum/greyscale_config/encryptionkey_basic
 	greyscale_colors = "#46629b"
 	channels = list(COMM_FREQ_NAME = 1)
 

@@ -35,9 +35,9 @@
 
 /obj/item/encryptionkey/spy_spider
 	name = "Spy Encryption Key"
-	icon_state = "/obj/item/encryptionkey"
 	post_init_icon_state = null
 	greyscale_config = null
+	greyscale_colors = null
 	channels = list(SPY_SPIDER_FREQ_NAME = 1)
 
 /obj/item/storage/lockbox/spy_kit
