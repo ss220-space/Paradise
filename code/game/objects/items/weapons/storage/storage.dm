@@ -613,12 +613,12 @@
 	if(length(can_hold))
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+			to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	if(W.w_class > max_w_class)
@@ -842,9 +842,9 @@
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
 		if(TRUE)
-			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать все предметы с тайла за раз.")
+			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать все предметы с тайла за раз.")
 		if(FALSE)
-			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать один предмет с тайла за раз")
+			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать один предмет с тайла за раз")
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Выбросить содержимое"

@@ -267,7 +267,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<b>[capitalize(declent_ru(NOMINATIVE))]</b> ", "")
+	var/omsg = replacetext(message, "<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))

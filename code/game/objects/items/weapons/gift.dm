@@ -229,7 +229,7 @@
 	var/datum/loot_tier/loot_tier = new tier_type
 	loot_tier.on_start_open(user, get_turf(user))
 
-	user.visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] что-то интересное!"))
+	user.visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] распаковыва[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] и обнаружива[PLUR_ET_UT(user)] что-то интересное!"))
 	user.investigate_log("has unwrapped a present containing [loot_tier.name].", INVESTIGATE_PRESENTS)
 
 

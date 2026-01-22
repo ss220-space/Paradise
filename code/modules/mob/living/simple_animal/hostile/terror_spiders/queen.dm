@@ -127,7 +127,7 @@
 			if(T.spider_myqueen != src)
 				continue
 			if(T.spider_tier < spider_tier)
-				T.visible_message(span_danger("[capitalize(T.declent_ru(NOMINATIVE))] корчится от боли!"))
+				T.visible_message(span_danger("[DECLENT_RU_CAP(T, NOMINATIVE)] корчится от боли!"))
 				to_chat(T, span_userdanger("Психическая реакция от смерти [declent_ru(GENITIVE)] ошеломляет вас! Вы чувствуете, как жизнь начинает утекать из вас..."))
 				T.degenerate = TRUE
 		for(var/thing in GLOB.ts_spiderling_list)
@@ -179,10 +179,10 @@
 				if(ok_to_nest && entry_vent)
 					nest_vent = entry_vent
 					neststep = 1
-					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] приживается, начиная строить гнездо."))
+					visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] приживается, начиная строить гнездо."))
 				else if(entry_vent)
 					if(!path_to_vent)
-						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] настороженно оглядывается — затем ищет лучшее место для строительста гнезда."))
+						visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] настороженно оглядывается — затем ищет лучшее место для строительста гнезда."))
 						path_to_vent = 1
 				else
 					neststep = -1
@@ -347,7 +347,7 @@
 	return valid_types
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] издает пронзительный визг!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] издает пронзительный визг!"))
 	playsound(src.loc, 'sound/creatures/terrorspiders/queen_shriek.ogg', 100, TRUE)
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))

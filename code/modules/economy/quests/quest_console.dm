@@ -44,7 +44,7 @@
 /obj/machinery/computer/supplyquest/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "QuestConsole", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "QuestConsole", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 #define BASE_HIGHTECH_COST 40000

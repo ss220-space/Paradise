@@ -137,4 +137,4 @@
 	mob.faction = list("rift")
 	step(mob, pick(GLOB.cardinal))
 	if(prob(30))
-		visible_message(span_danger("[capitalize(mob.declent_ru(NOMINATIVE))] выход[PLUR_IT_YAT(mob)] из портала!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(mob, NOMINATIVE)] выход[PLUR_IT_YAT(mob)] из портала!"))
