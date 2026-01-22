@@ -62,14 +62,14 @@
 			to_chat(user, span_warning("Похоже, замок сломан."))
 			return ATTACK_CHAIN_PROCEED
 		if(!id.registered_name)
-			to_chat(user, span_warning("Эта ID-карта пустая."))
+			to_chat(user, span_warning("Невозможно открыть пустой ID-картой."))
 			return ATTACK_CHAIN_PROCEED
 		if(src == user.loc)
-			to_chat(user, span_notice("YВы не можете разблокировать замок изнутри."))
+			to_chat(user, span_notice("Вы не можете разблокировать замок изнутри."))
 			return ATTACK_CHAIN_PROCEED
 		//they can open all lockers, or nobody owns this, or they own this locker
 		if(!allowed(user) && registered_name && registered_name != id.registered_name)
-			to_chat(user, span_warning("Доступ Запрещен."))
+			to_chat(user, span_warning("Доступ запрещен."))
 			return ATTACK_CHAIN_PROCEED
 		locked = !locked
 		if(locked)
