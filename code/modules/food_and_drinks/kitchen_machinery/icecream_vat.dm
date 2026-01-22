@@ -39,12 +39,12 @@
 /obj/machinery/icemachine/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "IcecreamMachine", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "IcecreamMachine", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/icemachine/ui_data(mob/user)
 	var/list/data = list()
-	data["name"] = capitalize(declent_ru(NOMINATIVE))
+	data["name"] = DECLENT_RU_CAP(src, NOMINATIVE)
 	data["beaker"] = !!beaker
 	data["totalVolume"] = reagents.total_volume
 	data["maxVolume"] = reagents.maximum_volume
@@ -216,7 +216,7 @@
 		return 1
 	else
 		if(reagents.total_volume < 500)
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] вибрирует, принимая неизвестную жидкость."))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] вибрирует, принимая неизвестную жидкость."))
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, TRUE)
 		return 1
 

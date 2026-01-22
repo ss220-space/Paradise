@@ -133,7 +133,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	if(ui)
 		return
 
-	ui = new(user, src, "ComponentPrinter", capitalize(declent_ru(NOMINATIVE)))
+	ui = new(user, src, "ComponentPrinter", DECLENT_RU_CAP(src, NOMINATIVE))
 	ui.open()
 
 /obj/machinery/r_n_d/circuit_imprinter/attackby(obj/item/tool, mob/user, params)
@@ -169,11 +169,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	var/amount_inserted = materials.insert_item(tool)
 	if(!amount_inserted)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отклоняет переработку [tool.declent_ru(GENITIVE)]."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отклоняет переработку [tool.declent_ru(GENITIVE)]."))
 		return
 
 	qdel(tool)
-	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] перерабатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_SEC_MIN(amount_inserted /  SHEET_VOLUME)] материала."))
+	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] перерабатывает [tool.declent_ru(ACCUSATIVE)] в [amount_inserted /  SHEET_VOLUME] единиц[DECL_SEC_MIN(amount_inserted /  SHEET_VOLUME)] материала."))
 
 
 #define LINK_CIRCUIT "Привязать схему"

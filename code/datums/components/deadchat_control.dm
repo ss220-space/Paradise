@@ -44,7 +44,7 @@
 	for(var/item in inputs)
 		input_names |= item
 	var/atom/atom_parent = parent
-	notify_ghosts("[capitalize(atom_parent.declent_ru(NOMINATIVE))] теперь может контролироваться призраками из чата! Возможные команды: [english_list(input_names)]", source = parent, action = NOTIFY_FOLLOW, title="Контроль дедчата!")
+	notify_ghosts("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] теперь может контролироваться призраками из чата! Возможные команды: [english_list(input_names)]", source = parent, action = NOTIFY_FOLLOW, title="Контроль дедчата!")
 	if(!ismob(parent) && !(parent in GLOB.poi_list))
 		GLOB.poi_list |= parent
 		generated_point_of_interest = TRUE
@@ -57,7 +57,7 @@
 
 /datum/component/deadchat_control/Destroy(force)
 	var/atom/atom_parent = parent
-	var/message = span_deadsay(span_bolditalics("[capitalize(atom_parent.declent_ru(NOMINATIVE))] теперь не контролируется призраками."))
+	var/message = span_deadsay(span_bolditalics("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] теперь не контролируется призраками."))
 	for(var/mob/dead/observer/M in orbiters)
 		to_chat(M, message)
 	on_removal?.Invoke()
@@ -107,7 +107,7 @@
 		inputs[result].Invoke()
 		if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
 			var/input_cooldown_s = input_cooldown * 0.1
-			var/message = span_deadsay(span_bolditalics("[capitalize(atom_parent.declent_ru(NOMINATIVE))] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[DECL_SEC_MIN(input_cooldown_s)]."))
+			var/message = span_deadsay(span_bolditalics("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] выполнил команду [result]!<br>Новое голосование начато. Оно закончится через [input_cooldown_s] секунд[DECL_SEC_MIN(input_cooldown_s)]."))
 			for(var/mob/dead/observer/M in orbiters)
 				to_chat(M, message)
 	else if(!(deadchat_mode & MUTE_DEADCHAT_DEMOCRACY_MESSAGES))
@@ -160,7 +160,7 @@
 			to_chat(O, span_notice("Если вы хотите принять участие, включите дедчат и снова прыгните на этот объект."))
 			return
 		else
-			to_chat(O, span_deadsay("[capitalize(atom_parent.declent_ru(NOMINATIVE))] контролируется призраками через чат! Осмотрите [atom_parent.declent_ru(ACCUSATIVE)] чтобы увидеть команды управления, которые вы можете использовать пока летаете вокруг н[GEND_HIS_HER(atom_parent)]!"))
+			to_chat(O, span_deadsay("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] контролируется призраками через чат! Осмотрите [atom_parent.declent_ru(ACCUSATIVE)] чтобы увидеть команды управления, которые вы можете использовать пока летаете вокруг н[GEND_HIS_HER(atom_parent)]!"))
 
 	RegisterSignal(orbiter, COMSIG_MOB_DEADSAY, PROC_REF(deadchat_react))
 	RegisterSignal(orbiter, COMSIG_MOB_AUTOMUTE_CHECK, PROC_REF(waive_automute))

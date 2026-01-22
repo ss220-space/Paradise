@@ -256,7 +256,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				user.visible_message(span_warning("[user] протягива[PLUR_ET_YUT(user)] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
 				return
 			activity = TUMOR_ACTIVE
-			user.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
+			user.visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				if(fighter.stat != DEAD)
@@ -272,7 +272,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				return
 			activity = TUMOR_ACTIVE
 			var/mob/dead/observer/elitemind = null
-			visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
+			visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				if(fighter.stat != DEAD)
@@ -307,26 +307,26 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
-	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(mychild, NOMINATIVE)] появляется из [declent_ru(GENITIVE)]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	if(boosted)
 		mychild.possess_by_player(elitemind.key)
 		mychild.sentience_act()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[DECLENT_RU_CAP(mychild, NOMINATIVE)] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
 	update_icon(UPDATE_ICON_STATE)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
-	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(mychild, NOMINATIVE)] появляется из [declent_ru(GENITIVE)]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
 		mychild.setMaxHealth(mychild.maxHealth * 2.5)
 		mychild.setHealth(mychild.maxHealth)
 		mychild.grab_ghost()
-		notify_ghosts("[capitalize(mychild.declent_ru(NOMINATIVE))] вызван в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		notify_ghosts("[DECLENT_RU_CAP(mychild, NOMINATIVE)] вызван в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
 	INVOKE_ASYNC(src, PROC_REF(arena_checks))
 
 /obj/structure/elite_tumor/Initialize(mapload)
@@ -454,7 +454,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает яростно биться в конвульсиях, затем начинает растворяться."))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает яростно биться в конвульсиях, затем начинает растворяться."))
 	visible_message(span_warning("Что-то выталкивается, когда [declent_ru(NOMINATIVE)] закрывается."))
 	var/lootloc = loc
 	if(boosted)
@@ -537,7 +537,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)
 	else
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] работает только с трупами разумных элит Лазиса."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] работает только с трупами разумных элит Лазиса."))
 
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"

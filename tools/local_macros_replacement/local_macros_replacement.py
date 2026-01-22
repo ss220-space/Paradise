@@ -106,6 +106,10 @@ REPLACEMENTS = [
 
     (r'genderize_ru\(([^,]+)\.gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(\1)', 'GEND_II_AYA_II_IE'),
     (r'genderize_ru\(gender,\s*"ий",\s*"ая",\s*"ий",\s*"ие"\)', r'GEND_II_AYA_II_IE(src)', 'GEND_II_AYA_II_IE'),
+
+    # capitalize(declent_ru())
+    (r'capitalize\(declent_ru\((\w+)\)\)', r'DECLENT_RU_CAP(src, \1)', 'DECLENT_RU_CAP'),
+    (r'capitalize\((\w+)\.declent_ru\((\w+)\)\)', r'DECLENT_RU_CAP(\1, \2)', 'DECLENT_RU_CAP'),
 ]
 
 COMPILED_PATTERNS = [(re.compile(pattern), replacement, name) for pattern, replacement, name in REPLACEMENTS]

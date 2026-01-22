@@ -103,7 +103,7 @@
 		if(!holomap_datum)
 			// Something is very wrong if we have to un-fuck ourselves here.
 			stack_trace("Holomap at [COORD(src)] couldn't setup holomap_datum.")
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
 			return
 
 	holomap_datum.update_map(handle_overlays())

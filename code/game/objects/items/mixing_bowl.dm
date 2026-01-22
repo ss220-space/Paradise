@@ -86,13 +86,13 @@
 			return ATTACK_CHAIN_PROCEED
 		for(var/datum/reagent/reagent as anything in I.reagents.reagent_list)
 			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_TRIBAL_OVEN]))
-				to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] содержит компоненты, непригодные для готовки."))
+				to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] содержит компоненты, непригодные для готовки."))
 				return ATTACK_CHAIN_PROCEED
 		var/obj/item/reagent_containers/container = I
 		var/transfered_amount = container.reagents.trans_to(src, container.amount_per_transfer_from_this)
 		user.visible_message(
 			span_notice("[user] перелива[PLUR_ET_YUT(user)] содержимое [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы переливаете [transfered_amount] единиц[declension_ru(transfered_amount,"у","ы","")] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы переливаете [transfered_amount] единиц[DECL_SEC_MIN(transfered_amount)] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
 		)
 		update_dialog(user)
 		return ATTACK_CHAIN_BLOCKED_ALL

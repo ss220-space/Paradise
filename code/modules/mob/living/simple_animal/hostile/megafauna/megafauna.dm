@@ -142,7 +142,7 @@
 	if(!L)
 		return FALSE
 	visible_message(
-		span_danger("[capitalize(declent_ru(NOMINATIVE))] пожирает [L.declent_ru(ACCUSATIVE)]!"),
+		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] пожирает [L.declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы пожираете [L.declent_ru(ACCUSATIVE)], восстанавливая своё здоровье!")
 	)
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station
