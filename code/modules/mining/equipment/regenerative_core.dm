@@ -114,7 +114,7 @@
 
 /obj/item/organ/internal/regenerative_core/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(inert)
-		to_chat(owner, span_notice("[capitalize(declent_ru(NOMINATIVE))] рассыпается при попытке активации."))
+		to_chat(owner, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] рассыпается при попытке активации."))
 	else
 		owner.revive()
 	after_use()
@@ -157,11 +157,11 @@
 	. = ..()
 	if(!preserved && !inert)
 		preserved(TRUE)
-		owner.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] стабилизируется при введении."))
+		owner.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] стабилизируется при введении."))
 
 /obj/item/organ/internal/regenerative_core/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!inert && !special)
-		owner.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] быстро разлагается при извлечении."))
+		owner.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] быстро разлагается при извлечении."))
 		go_inert()
 	return ..()
 
@@ -221,11 +221,11 @@
 
 /obj/item/organ/internal/regenerative_core/legion/go_inert()
 	..()
-	desc = "[capitalize(declent_ru(NOMINATIVE))] утратило силу. Оно сгнило и совершенно бесполезно."
+	desc = "[DECLENT_RU_CAP(src, NOMINATIVE)] утратило силу. Оно сгнило и совершенно бесполезно."
 
 /obj/item/organ/internal/regenerative_core/legion/preserved(implanted = 0)
 	..()
-	desc = "[capitalize(declent_ru(NOMINATIVE))] стабилизированно. Теперь его можно безопасно использовать для полного исцеления."
+	desc = "[DECLENT_RU_CAP(src, NOMINATIVE)] стабилизированно. Теперь его можно безопасно использовать для полного исцеления."
 
 /************************Legion tumor********************/
 

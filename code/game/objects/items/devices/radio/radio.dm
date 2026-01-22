@@ -282,7 +282,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Radio", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "Radio", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)

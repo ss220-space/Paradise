@@ -56,7 +56,7 @@
 	if(!P)
 		return
 
-	visible_message(span_notice("[capitalize(picked_slime.declent_ru(NOMINATIVE))] затягивается внутрь [declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[DECLENT_RU_CAP(picked_slime, NOMINATIVE)] затягивается внутрь [declent_ru(GENITIVE)]."))
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
@@ -126,7 +126,7 @@
 	var/C = S.cores
 	if(S.stat != DEAD)
 		S.forceMove(processor.drop_location())
-		S.visible_message(span_notice("[capitalize(S.declent_ru(NOMINATIVE))] выползает из комбайна!"))
+		S.visible_message(span_notice("[DECLENT_RU_CAP(S, NOMINATIVE)] выползает из комбайна!"))
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
 		new S.coretype(processor.drop_location())

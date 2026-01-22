@@ -124,7 +124,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
 	if(reagents?.total_volume)
-		M.visible_message(span_danger("Содержимое [src.declent_ru(GENITIVE)] разбрызгивается по [M.declent_ru(PREPOSITIONAL)]!"))
+		M.visible_message(span_danger("Содержимое [declent_ru(GENITIVE)] разбрызгивается по [M.declent_ru(PREPOSITIONAL)]!"))
 		reagents.reaction(M, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
@@ -794,7 +794,7 @@
 
 	add_fingerprint(user)
 	if(active)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже горит."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже горит."))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	active = TRUE
@@ -802,8 +802,8 @@
 	message_admins("[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
 	add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 	user.visible_message(
-		span_danger("[user] поджигает [src.declent_ru(ACCUSATIVE)]!"),
-		span_notice("Вы поджигаете [src.declent_ru(ACCUSATIVE)]."),
+		span_danger("[user] поджигает [declent_ru(ACCUSATIVE)]!"),
+		span_notice("Вы поджигаете [declent_ru(ACCUSATIVE)]."),
 	)
 	add_overlay(GLOB.fire_overlay)
 	if(!isGlass)
@@ -828,6 +828,6 @@
 		if(!isGlass)
 			to_chat(user, span_danger("Пламя распространилось уже слишком далеко!"))
 			return
-		to_chat(user, span_notice("Вы гасите пламя у [src.declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("Вы гасите пламя у [declent_ru(GENITIVE)]."))
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)

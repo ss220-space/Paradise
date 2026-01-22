@@ -278,12 +278,12 @@
 /obj/machinery/kitchen_machine/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "KitchenMachine", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "KitchenMachine", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/kitchen_machine/ui_data(mob/user)
 	var/list/data = list()
-	data["name"] = capitalize(declent_ru(NOMINATIVE))
+	data["name"] = DECLENT_RU_CAP(src, NOMINATIVE)
 	data["operating"] = operating
 	data["dirty"] = dirty
 	data["broken"] = broken
@@ -292,7 +292,7 @@
 	var/list/items_counts = new
 
 	for(var/obj/O in contents)
-		var/display_name = capitalize(O.declent_ru(NOMINATIVE))
+		var/display_name = DECLENT_RU_CAP(O, NOMINATIVE)
 		items_counts[display_name]++
 
 	data["ingredients"] += list()
@@ -461,7 +461,7 @@
 
 /obj/machinery/kitchen_machine/proc/start()
 	visible_message(
-		span_notice("[capitalize(declent_ru(NOMINATIVE))] включается."),
+		span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] включается."),
 		span_notice("Вы слышите [declent_ru(ACCUSATIVE)].")
 	)
 	operating = TRUE
@@ -496,7 +496,7 @@
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
 	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
-	visible_message(span_alert("[capitalize(declent_ru(NOMINATIVE))] покрывается грязью!"))
+	visible_message(span_alert("[DECLENT_RU_CAP(src, NOMINATIVE)] покрывается грязью!"))
 	if(can_be_dirty) //this vars are much more easy than copy-paste all that code to tribal oven
 		dirty = MAX_DIRT // Make it dirty so it can't be used util cleaned
 	container_type = NONE
@@ -506,7 +506,7 @@
 
 /obj/machinery/kitchen_machine/proc/broke()
 	do_sparks(2, TRUE, src)
-	visible_message(span_alert("[capitalize(declent_ru(NOMINATIVE))] ломается!")) //Let them know they're stupid
+	visible_message(span_alert("[DECLENT_RU_CAP(src, NOMINATIVE)] ломается!")) //Let them know they're stupid
 	if(can_broke)
 		broken = BROKEN_NEEDS_SCREWDRIVER // Make it broken so it can't be used util fixed
 	container_type = NONE
