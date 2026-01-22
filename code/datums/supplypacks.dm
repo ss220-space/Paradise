@@ -6466,12 +6466,12 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7)
 	containername = "ящик подозрительные электронных сигарет"
 	container_ru_names = list(
-		NOMINATIVE = "ящик подозрительные электронных сигарет",
-		GENITIVE = "ящика подозрительные электронных сигарет",
-		DATIVE = "ящику подозрительные электронных сигарет",
-		ACCUSATIVE = "ящик подозрительные электронных сигарет",
-		INSTRUMENTAL = "ящиком подозрительные электронных сигарет",
-		PREPOSITIONAL = "ящике подозрительные электронных сигарет",
+		NOMINATIVE = "ящик подозрительных электронных сигарет",
+		GENITIVE = "ящика подозрительных электронных сигарет",
+		DATIVE = "ящику подозрительных электронных сигарет",
+		ACCUSATIVE = "ящик подозрительных электронных сигарет",
+		INSTRUMENTAL = "ящиком подозрительных электронных сигарет",
+		PREPOSITIONAL = "ящике подозрительных электронных сигарет",
 	)
 
 /datum/supply_packs/contraband/powerfist
