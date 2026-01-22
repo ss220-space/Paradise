@@ -468,7 +468,7 @@
 				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] ([announce_rank]) [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
 			else
 				radio_announce("[issilicon(occupant) ? "Юнит" : "Сотрудник"] [occupant.real_name] [on_store_message]", "[on_store_name]", PUB_FREQ, follow_target_override = src)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] с характерным жужжанием и шипением перемещает [occupant.real_name] в хранилище."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с характерным жужжанием и шипением перемещает [occupant.real_name] в хранилище."))
 
 	SEND_SIGNAL(SSshuttle, COMSIG_CRYOPOD_DESPAWN, src, occupant)
 

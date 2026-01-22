@@ -387,7 +387,7 @@ Difficulty: Hard
 		B.damage = 30
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(src, 1)
-	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] растворяется в воздухе!"))
+	visible_message(span_hierophant_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] растворяется в воздухе!"))
 	ADD_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	SLEEP_CHECK_DEATH(src, 2)
 	forceMove(T)
@@ -395,7 +395,7 @@ Difficulty: Hard
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(src, 1)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] материализуется!"))
+	visible_message(span_hierophant_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] материализуется!"))
 	SLEEP_CHECK_DEATH(src, 1) //at this point the blasts we made detonate
 	blinking = FALSE
 
@@ -727,12 +727,12 @@ Difficulty: Hard
 	duration = 40
 
 /obj/effect/temp_visual/hierophant/blast
-	icon_state = "hierophant_blast"
 	name = "vortex blast"
+	desc = "Уйдите с пути!"
 	light_range = 2
 	light_power = 2
-	desc = "Уйдите с пути!"
 	duration = 9
+	icon_state = "hierophant_blast"
 	var/damage = 10 //how much damage do we do?
 	var/monster_damage_boost = TRUE //do we deal extra damage to monsters? Used by the boss
 	var/list/hit_things = list() //we hit these already, ignore them
@@ -741,12 +741,12 @@ Difficulty: Hard
 
 /obj/effect/temp_visual/hierophant/blast/get_ru_names()
 	return list(
-		NOMINATIVE = "взрыв вортекса",
-		GENITIVE = "взрыва вортекса",
-		DATIVE = "взрыву вортекса",
-		ACCUSATIVE = "взрыв вортекса",
-		INSTRUMENTAL = "взрывом вортекса",
-		PREPOSITIONAL = "взрыве вортекса",
+		NOMINATIVE = "вихревой взрыв",
+		GENITIVE = "вихревого взрыва",
+		DATIVE = "вихревому взрыву",
+		ACCUSATIVE = "вихревой взрыв",
+		INSTRUMENTAL = "вихревым взрывом",
+		PREPOSITIONAL = "вихревом взрыве",
 	)
 
 /obj/effect/temp_visual/hierophant/blast/Initialize(mapload, new_caster, friendly_fire)

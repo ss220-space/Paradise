@@ -317,11 +317,11 @@
 	. = ..()
 	if(health < maxHealth)
 		if(health > maxHealth/3)
-			. += span_notice("[capitalize(declent_ru(NOMINATIVE))] выглядит слегка повреждённым.")
+			. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит слегка повреждённым.")
 		else
-			. += span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит сильно повреждённым!")
+			. += span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит сильно повреждённым!")
 	else
-		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] в отличном состоянии.")
+		. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] в отличном состоянии.")
 
 /mob/living/simple_animal/bot/adjustHealth(
 	amount = 0,
@@ -683,7 +683,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			reset_access_timer_id = addtimer(CALLBACK(src, PROC_REF(bot_reset)), 60 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_STOPPABLE) //if the bot is player controlled, they get the extra access for a limited time
 			to_chat(src, span_notice("[span_big("Приоритетный маршрут установлен [calling_ai] <b>[requester]</b>. Проследуйте в локацию <b>[end_area.name]</b>.")]<br>[path.len-1]</br> метров до точки назначения. Вам выдан неограниченный доступ к шлюзам на следующие 60 секунд."))
 		if(message)
-			to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [capitalize(declent_ru(NOMINATIVE))] вызван в локацию [end_area.name]. [length(path)-1] метров до точки назначения."))
+			to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [DECLENT_RU_CAP(src, NOMINATIVE)] вызван в локацию [end_area.name]. [length(path)-1] метров до точки назначения."))
 		pathset = TRUE
 		mode = BOT_RESPONDING
 		tries = 0
@@ -699,7 +699,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	var/success = bot_move(ai_waypoint, 3)
 	if(!success)
 		if(calling_ai)
-			to_chat(calling_ai, "[icon2html(src, calling_ai)] [get_turf(src) == ai_waypoint ? span_notice("[capitalize(declent_ru(NOMINATIVE))] прибыл в точку назначения.") : span_danger("[capitalize(declent_ru(NOMINATIVE))] не смог добраться до точки назначения.")]")
+			to_chat(calling_ai, "[icon2html(src, calling_ai)] [get_turf(src) == ai_waypoint ? span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] прибыл в точку назначения.") : span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] не смог добраться до точки назначения.")]")
 			calling_ai = null
 		bot_reset()
 

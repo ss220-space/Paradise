@@ -495,7 +495,7 @@ research holder datum.
 	var/list/names = get_ru_names_cached()
 	ru_names = names ? names.Copy() : new /list(6)
 	for(var/i = 1; i <= 6; i++)
-		ru_names[i] = "[names ? names[i] : initial(name)] \[[capitalize(design_item.declent_ru(NOMINATIVE))]\]"
+		ru_names[i] = "[names ? names[i] : initial(name)] \[[DECLENT_RU_CAP(design_item, NOMINATIVE)]\]"
 	// NOTE: This is just a reference to the design on the system it grabbed it from
 	// This seems highly fragile
 	blueprint = D
