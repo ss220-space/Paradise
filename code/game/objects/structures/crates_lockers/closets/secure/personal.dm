@@ -55,18 +55,21 @@
 	var/obj/item/card/id/id = I.GetID()
 	if(id)
 		add_fingerprint(user)
+		if(istype(id, /obj/item/card/id/guest))
+			to_chat(user, span_warning("Невозможно открыть временным пропуском."))
+			return ATTACK_CHAIN_PROCEED
 		if(broken)
-			to_chat(user, span_warning("It appears to be broken."))
+			to_chat(user, span_warning("Похоже, замок сломан."))
 			return ATTACK_CHAIN_PROCEED
 		if(!id.registered_name)
-			to_chat(user, span_warning("This ID is blank."))
+			to_chat(user, span_warning("Эта ID-карта пустая."))
 			return ATTACK_CHAIN_PROCEED
 		if(src == user.loc)
-			to_chat(user, span_notice("You can't reach the lock from inside."))
+			to_chat(user, span_notice("YВы не можете разблокировать замок изнутри."))
 			return ATTACK_CHAIN_PROCEED
 		//they can open all lockers, or nobody owns this, or they own this locker
 		if(!allowed(user) && registered_name && registered_name != id.registered_name)
-			to_chat(user, span_warning("Access Denied."))
+			to_chat(user, span_warning("Доступ Запрещен."))
 			return ATTACK_CHAIN_PROCEED
 		locked = !locked
 		if(locked)
