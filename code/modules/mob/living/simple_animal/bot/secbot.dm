@@ -207,7 +207,7 @@
 /mob/living/simple_animal/bot/secbot/set_custom_texts()
 	text_hack = "Вы взломали систему идентификации целей [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили систему идентификации целей [declent_ru(GENITIVE)]."
-	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] отказывается признавать вашу власть!"
+	text_dehack_fail = "[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается признавать вашу власть!"
 
 /mob/living/simple_animal/bot/secbot/show_controls(mob/M)
 	ui_interact(M)
@@ -299,7 +299,7 @@
 		if(user)
 			to_chat(user, span_danger("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]."))
 			oldtarget_name = user.name
-		audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит!"))
+		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит!"))
 		declare_arrests = FALSE
 		icon_state = "[base_icon][on]"
 
@@ -331,8 +331,8 @@
 /mob/living/simple_animal/bot/secbot/proc/cuff(mob/living/carbon/C)
 	mode = BOT_ARREST
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает надевать стяжки на [C]!"),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается надеть на вас стяжки!"))
+	C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает надевать стяжки на [C]!"),
+					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пытается надеть на вас стяжки!"))
 	addtimer(CALLBACK(src, PROC_REF(cuff_callback), C), 6 SECONDS)
 
 /mob/living/simple_animal/bot/secbot/proc/cuff_callback(mob/living/carbon/C)
@@ -343,8 +343,8 @@
 		return
 
 	C.apply_restraints(new /obj/item/restraints/handcuffs/cable/zipties/used(null), ITEM_SLOT_HANDCUFFED, TRUE)
-	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] надел стяжки на [C]!"),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] надел на вас стяжки!"))
+	C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] надел стяжки на [C]!"),
+					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] надел на вас стяжки!"))
 
 	playsound(loc, pick('sound/voice/bgod.ogg', 'sound/voice/biamthelaw.ogg', 'sound/voice/bsecureday.ogg', 'sound/voice/bradio.ogg', 'sound/voice/binsult.ogg', 'sound/voice/bcreep.ogg'), 50, FALSE)
 	back_to_idle()
@@ -371,8 +371,8 @@
 			speak("[arrest_type ? "Удерживаю" : "Задерживаю"] подонка по имени <b>[C]</b> в локации <b>[location]</b>. Уровень опасности — [threat].", radio_channel)
 			speak_cooldown = TRUE
 			addtimer(VARSET_CALLBACK(src, speak_cooldown, FALSE), SPEAK_COOLDOWN)
-	C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] [harmbaton ? "ударил" : "оглушил"] [C]!"),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] [harmbaton ? "ударил" : "оглушил"] вас!"))
+	C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [harmbaton ? "ударил" : "оглушил"] [C]!"),
+					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] [harmbaton ? "ударил" : "оглушил"] вас!"))
 
 /mob/living/simple_animal/bot/secbot/Life(seconds, times_fired)
 	. = ..()
@@ -519,7 +519,7 @@
 			oldtarget_name = C.name
 			speak("Вижу преступника! Уровень опасности - <b>[threatlevel]</b>!")
 			playsound(loc, pick('sound/voice/bcriminal.ogg', 'sound/voice/bjustice.ogg', 'sound/voice/bfreeze.ogg'), 50, FALSE)
-			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> указывает на [C.name]!")
+			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> указывает на [C.name]!")
 			mode = BOT_HUNT
 			INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 			break
@@ -533,7 +533,7 @@
 
 /mob/living/simple_animal/bot/secbot/explode()
 	GLOB.move_manager.stop_looping(src)
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
 	Sa.build_step = 1
@@ -566,9 +566,9 @@
 						"[arrived] спотыка[PLUR_ET_YUT(arrived)]ся об [declent_ru(GENITIVE)]!", \
 						"[arrived] опрокидыва[PLUR_ET_YUT(arrived)]ся на [declent_ru(GENITIVE)]!", \
 						"[arrived] отлета[PLUR_ET_YUT(arrived)] с пути [declent_ru(GENITIVE)]!", \
-						"[capitalize(declent_ru(NOMINATIVE))] сбивает [arrived]!", \
-						"[capitalize(declent_ru(NOMINATIVE))] влетает в [arrived], заставляя [GEND_HIS_HER(arrived)] упасть!", \
-						"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [arrived]!")]"))
+						"[DECLENT_RU_CAP(src, NOMINATIVE)] сбивает [arrived]!", \
+						"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [arrived], заставляя [GEND_HIS_HER(arrived)] упасть!", \
+						"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [arrived]!")]"))
 	arrived.Weaken(4 SECONDS)
 
 /obj/machinery/bot_core/secbot

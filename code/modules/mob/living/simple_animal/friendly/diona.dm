@@ -104,7 +104,7 @@
 
 /mob/living/simple_animal/diona/OnUnarmedAttack(atom/A)
 	if(isdiona(A) && (src in A.contents)) //can't attack your gestalt
-		visible_message("[capitalize(src.declent_ru(NOMINATIVE))] слегка шевелится.")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] слегка шевелится.")
 	else
 		..()
 
@@ -206,7 +206,7 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
-	to_chat(loc, "Вы чувствуете острую потерю, когда [src.declent_ru(NOMINATIVE)] отделяется от вашей биомассы.")
+	to_chat(loc, "Вы чувствуете острую потерю, когда [declent_ru(NOMINATIVE)] отделяется от вашей биомассы.")
 	to_chat(src, "Вы выныриваете из глубин биомассы [loc] и с лёгким шлепком падаете на землю.")
 	forceMove(T)
 
@@ -235,7 +235,7 @@
 	if(isdiona(loc) && !split()) //if it's merged with diona, needs to able to split before evolving
 		return FALSE
 
-	visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] начинает дрожать и разрывается, порождая новые побеги дионеи."), span_danger("Ваше сознание разделяется. Мы поглощаем питательные вещества и разрастаемся в гештальт-форму."))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает дрожать и разрывается, порождая новые побеги дионеи."), span_danger("Ваше сознание разделяется. Мы поглощаем питательные вещества и разрастаемся в гештальт-форму."))
 
 	var/mob/living/carbon/human/diona/adult = new(get_turf(loc))
 	adult.set_species(/datum/species/diona)
@@ -272,7 +272,7 @@
 		to_chat(src, span_warning("Вы полностью сыты! Может, пора подрасти?"))
 	else
 		if(do_after(src, 2 SECONDS, G, max_interact_count = 1))
-			visible_message("[capitalize(src.declent_ru(NOMINATIVE))] жадно поглощает [G.declent_ru(ACCUSATIVE)].","Вы жадно пожираете [G.declent_ru(ACCUSATIVE)].")
+			visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] жадно поглощает [G.declent_ru(ACCUSATIVE)].","Вы жадно пожираете [G.declent_ru(ACCUSATIVE)].")
 			playsound(loc, 'sound/items/eatfood.ogg', 30, FALSE, frequency = 1.5)
 			if(G.reagents.get_reagent_amount("nutriment") + G.reagents.get_reagent_amount("plantmatter") < 1)
 				adjust_nutrition(2)

@@ -761,7 +761,7 @@
 		if(resistance_flags & INDESTRUCTIBLE)
 			return // no goodies, but also no tilts
 		if(COOLDOWN_FINISHED(src, last_hit_time))
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] странно покачивается..."))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] странно покачивается..."))
 			to_chat(user, span_userdanger("Кажется, что [declent_ru(NOMINATIVE)] так и норовит упасть!"))
 			COOLDOWN_START(src, last_hit_time, hit_warning_cooldown_length)
 			return
@@ -811,8 +811,8 @@
 		return
 
 	movable.visible_message(
-		span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
-		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
+		span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] обрушивается на вас без предупреждения!")
 	)
 	tilt(movable, prob(5), FALSE)
 	aggressive = FALSE
@@ -926,7 +926,7 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[GEND_A_O_Y(I)] к вашей руке! Вы не можете [GEND_HIS_HER(I)] скинуть!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] будто бы приклеен[GEND_A_O_Y(I)] к вашей руке! Вы не можете [GEND_HIS_HER(I)] скинуть!"))
 		return
 	inserted_item = I
 	balloon_alert(user, "предмет вставлен")
@@ -1076,7 +1076,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
+		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 	switch(action)
 		if("toggle_voice")
@@ -1202,7 +1202,7 @@
 		return
 
 	if(issilicon(usr))
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
+		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
 		vend_ready = TRUE
 		. = TRUE
 		return
@@ -1226,7 +1226,7 @@
 		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
 		paid = pay_with_card(usr, currently_vending.price, currently_vending.name)
 	else if(usr.can_advanced_admin_interact())
-		to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] выдаёт товар в результате вмешательства администратора."))
+		to_chat(usr, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выдаёт товар в результате вмешательства администратора."))
 		paid = TRUE
 	else
 		to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))
@@ -1393,7 +1393,7 @@
 	if(!throw_item)
 		return
 	throw_item.throw_at(target, 16, 3)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] метнул [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] метнул [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
 
 /obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
@@ -1443,8 +1443,8 @@
 
 	else
 		victim.visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] давит [victim]!"),
-			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] давит вас!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит [victim]!"),
+			span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит вас!"),
 			span_warning("Вы слышите громкий хруст!")
 		)
 		add_attack_logs(null, victim, "crushed by [src]")
@@ -1513,8 +1513,8 @@
 					should_throw_at_target = FALSE
 		else
 			victim.visible_message(
-				span_danger("[capitalize(declent_ru(NOMINATIVE))] давит [victim]!"),
-				span_userdanger("[capitalize(declent_ru(NOMINATIVE))] давит вас!"),
+				span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит [victim]!"),
+				span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит вас!"),
 				span_warning("Вы слышите громкий хруст!")
 			)
 			victim.apply_damage(damage_to_deal, BRUTE)
@@ -1532,7 +1532,7 @@
 		tilt_over(should_throw_at_target ? target_atom : null)
 
 /obj/machinery/vending/proc/tilt_over(mob/victim)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опрокидывается!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывается!"))
 	playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
 	var/picked_rotation = pick(90, 270)
 	tilted_rotation = picked_rotation

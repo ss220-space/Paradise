@@ -38,10 +38,10 @@
 	if(left_click && alt_click && !region_check)
 		if(isturf(object) || isobj(object) || ismob(object))
 			objholder = object.type
-			to_chat(user, span_notice("[capitalize(object.declent_ru(NOMINATIVE))] ([object.type]) выбран[GEND_A_O_Y(object)]."))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(object, NOMINATIVE)] ([object.type]) выбран[GEND_A_O_Y(object)]."))
 			return
 		else
-			to_chat(user, span_notice("[capitalize(object.declent_ru(NOMINATIVE))] не турф, объект, или существо! Пожалуйста, выберите еще раз."))
+			to_chat(user, span_notice("[DECLENT_RU_CAP(object, NOMINATIVE)] не турф, объект, или существо! Пожалуйста, выберите еще раз."))
 	return ..()
 
 /datum/buildmode_mode/fill/handle_selected_area(mob/user, params)

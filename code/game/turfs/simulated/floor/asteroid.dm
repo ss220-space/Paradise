@@ -253,7 +253,7 @@ GLOBAL_LIST_EMPTY(dug_up_basalt)
 
 /turf/simulated/floor/plating/asteroid/snow/burn_tile()
 	if(!burnt)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] расплавляется!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] расплавляется!"))
 		slowdown = 0
 		burnt = TRUE
 		icon_state = "snow_dug"

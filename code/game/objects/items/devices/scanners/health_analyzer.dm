@@ -49,7 +49,7 @@
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scan_data)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] не содержит сохранённых данных."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не содержит сохранённых данных."))
 		return
 	show_results(user)
 
@@ -240,7 +240,7 @@
 
 	if(in_range(user, src))
 		user.put_in_hands(P, ignore_anim = FALSE)
-		user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+		user.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	GLOB.copier_items_printed++
 	reports_printed++
 	isPrinting = FALSE
