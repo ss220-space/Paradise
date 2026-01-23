@@ -81,7 +81,7 @@
 		if(!C.reagents.has_reagent("terror_black_toxin", 60))
 			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
-				to_chat(C, span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в тебя!"))
+				to_chat(C, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в тебя!"))
 				C.reagents.add_reagent("terror_black_toxin", 45)
 
 /obj/projectile/terrorspider/widow

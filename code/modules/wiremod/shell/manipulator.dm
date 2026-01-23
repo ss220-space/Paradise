@@ -13,6 +13,7 @@
 	density = TRUE
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
+	var/locked = FALSE
 
 /obj/structure/wiremod_manipulator/get_ru_names()
 	return list(
@@ -57,8 +58,14 @@
 		return
 
 	attached_bot = shell
+	RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
+	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/wiremod_manipulator/unregister_shell(atom/movable/shell)
+	if(attached_bot)
+		attached_bot.locked = FALSE
+		UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
+
 	attached_bot = null
 	return ..()
 
@@ -93,7 +100,18 @@
 	target_atom.SpinAnimation(speed = 5, loops = 1, parallel = FALSE)
 
 /obj/structure/wiremod_manipulator/wrench_act(mob/living/user, obj/item/tool)
+	if(locked)
+		balloon_alert(user, "закрыто!")
+		return
+
 	set_anchored(!anchored)
 	tool.play_tool_sound(src)
 	balloon_alert(user, "[anchored ? "" : "не"]закреплено")
 	return TRUE
+
+/obj/item/circuit_component/wiremod_manipulator/proc/on_set_locked(datum/source, new_value)
+	SIGNAL_HANDLER
+	if(!attached_bot)
+		return
+
+	attached_bot.locked = new_value

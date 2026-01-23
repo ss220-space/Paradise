@@ -479,7 +479,7 @@
 	if(turf_location.density)
 		var/turf/changed_turf = turf_location.ChangeTurf(turf_location.baseturf)
 		if(!changed_turf.density) //In case some joker finds way to place these on indestructible walls
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] плавится сквозь [turf_location.declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] плавится сквозь [turf_location.declent_ru(ACCUSATIVE)]!"))
 		return
 
 	try_events()
@@ -766,7 +766,7 @@
 	var/gain = 100
 	investigate_log("was consumed by a singularity.", INVESTIGATE_ENGINE)
 	message_admins("Singularity has consumed a supermatter shard and can now become stage six.")
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] поглощен сингулярностью!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощен сингулярностью!"))
 	var/turf/sm_turf = get_turf(src)
 	for(var/mob/hearing_mob as anything in GLOB.player_list)
 		if(!is_valid_z_level(get_turf(hearing_mob), sm_turf))
@@ -875,7 +875,7 @@
 		var/obj/item/scalpel/supermatter/scalpel_tool = used_item
 
 		if(!scalpel_tool.uses_left)
-			to_chat(human_user, span_warning("[capitalize(scalpel_tool.declent_ru(NOMINATIVE))] недостаточно острый, чтобы отрезать кусочек от [declent_ru(ACCUSATIVE)]!"))
+			to_chat(human_user, span_warning("[DECLENT_RU_CAP(scalpel_tool, NOMINATIVE)] недостаточно острый, чтобы отрезать кусочек от [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_BLOCKED
 
 		var/obj/item/nuke_core/supermatter_sliver/sliver_core = carve_sliver(human_user)
@@ -895,7 +895,7 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(istype(used_item, /obj/item/retractor/supermatter))
-		to_chat(attacking_mob, span_notice("[capitalize(used_item.declent_ru(NOMINATIVE))] отскакивает от [declent_ru(ACCUSATIVE)], сначала нужно отрезать кусочек!"))
+		to_chat(attacking_mob, span_notice("[DECLENT_RU_CAP(used_item, NOMINATIVE)] отскакивает от [declent_ru(ACCUSATIVE)], сначала нужно отрезать кусочек!"))
 
 	else if(attacking_mob.drop_from_active_hand())
 		attacking_mob.visible_message(
@@ -916,13 +916,13 @@
 
 	if(isliving(movable_atom))
 		movable_atom.visible_message(
-			span_danger("[capitalize(movable_atom.declent_ru(NOMINATIVE))] вреза[PLUR_ET_YUT(movable_atom)]ся  в [declent_ru(ACCUSATIVE)], вызывая резонанс... [GEND_HIS_HER(movable_atom)] тело начинает светиться и вспыхивает, превращаясь в пыль!"),
+			span_danger("[DECLENT_RU_CAP(movable_atom, NOMINATIVE)] вреза[PLUR_ET_YUT(movable_atom)]ся  в [declent_ru(ACCUSATIVE)], вызывая резонанс... [GEND_HIS_HER(movable_atom)] тело начинает светиться и вспыхивает, превращаясь в пыль!"),
 			span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)], когда ваши уши наполняются неземным звоном. Ваша последняя мысль: \"О, чёрт!\"."),
 			span_hear("Вы слышите неземной шум, когда волна тепла омывает вас."),
 		)
 	else if(isobj(movable_atom) && !iseffect(movable_atom))
 		movable_atom.visible_message(
-			span_danger("[capitalize(movable_atom.declent_ru(NOMINATIVE))] врезается в [declent_ru(ACCUSATIVE)] и быстро превращается в пепел."),
+			span_danger("[DECLENT_RU_CAP(movable_atom, NOMINATIVE)] врезается в [declent_ru(ACCUSATIVE)] и быстро превращается в пепел."),
 			null,
 			span_hear("Вы слышите громкий треск, когда вас омывает волна тепла."),
 		)
@@ -963,7 +963,7 @@
 				matter_power += 500000
 				damage += 180//drops the integrety by 20%
 				movable_atom.visible_message(
-					span_danger("[capitalize(movable_atom.declent_ru(NOMINATIVE))] врезается в [declent_ru(ACCUSATIVE)], быстро испуская вспышки чистой энергии. Энергия внутри [declent_ru(ACCUSATIVE)] подвергается сверхсветовому рассеянию!"),
+					span_danger("[DECLENT_RU_CAP(movable_atom, NOMINATIVE)] врезается в [declent_ru(ACCUSATIVE)], быстро испуская вспышки чистой энергии. Энергия внутри [declent_ru(ACCUSATIVE)] подвергается сверхсветовому рассеянию!"),
 					null,
 					span_hear("Вы слышите громкий треск, и вас накрывает волна жара."),
 				)

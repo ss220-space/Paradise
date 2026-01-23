@@ -141,7 +141,7 @@
 		return .
 	var/turf/our_turf = get_turf(src)
 	if(our_turf?.density)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] заблокирован!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] заблокирован!"))
 		return .
 	if(!isfloorturf(our_turf))
 		to_chat(user, span_warning("Болты [declent_ru(GENITIVE)] должны быть затянуты на полу!"))

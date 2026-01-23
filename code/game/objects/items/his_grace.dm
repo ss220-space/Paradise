@@ -238,7 +238,7 @@
 
 	var/datum/mind/mind = meal.mind
 	if(!mind || mind.madeby_sentience_potion)
-		meal.visible_message(span_his_grace("[capitalize(declent_ru(NOMINATIVE))] не получа[PLUR_ET_YUT(src)] насыщения от подобной пищи. [capitalize(declent_ru(NOMINATIVE))] недоволен!"))
+		meal.visible_message(span_his_grace("[DECLENT_RU_CAP(src, NOMINATIVE)] не получа[PLUR_ET_YUT(src)] насыщения от подобной пищи. [DECLENT_RU_CAP(src, NOMINATIVE)] недоволен!"))
 		meal.forceMove(src)
 		return
 
