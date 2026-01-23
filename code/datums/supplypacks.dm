@@ -6630,7 +6630,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	credits_cost = 30000
 	containertype = /obj/structure/closet/crate/syndicate
 	required_tech = list(RESEARCH_TREE_ILLEGAL = 7, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_ENGINEERING = 7)
-	containername = "ящик с пистолетом пулеметом узи"
+	containername = "ящик с пистолетом пулеметом \"Узи\""
 	container_ru_names = list(
 		NOMINATIVE = "ящик с пистолетом пулеметом \"Узи\"",
 		GENITIVE = "ящика с пистолетом пулеметом \"Узи\"",
