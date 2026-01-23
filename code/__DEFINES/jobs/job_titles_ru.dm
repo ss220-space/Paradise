@@ -2,12 +2,19 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 
 /**
  * Get job title in Russian by English job title
- * Use it ONLY for display!!!
+ * 
+ * Should be used for display purposes only, not the logic
  */
 /proc/get_job_title_ru(en_title)
 	return GLOB.job_titles_ru[en_title] || en_title
 
 /// Get job title in English by Russian job title
+
+/**
+ * Get job title in English by Russian job title
+ *
+ * Should be used for logic purposes only, not the display
+ */
 /proc/job_title_ru_to_en(ru_title)
 	if(!length(GLOB.job_titles_ru_to_en))
 		for(var/key in GLOB.job_titles_ru)
@@ -116,6 +123,10 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_TAIPAN_COMMS "Офицер связи \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_RD "Научный руководитель \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_CYBORG "Робот"
+
+// Other
+#define JOB_TITLE_RU_DEMOTED "Разжалован"
+#define JOB_TITLE_RU_TERMINATED "Уволен"
 
 GLOBAL_LIST_INIT(job_titles_ru, list(
 // Command (Solo command, not department heads)

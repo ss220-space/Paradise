@@ -155,7 +155,7 @@
 	Пол: [sex]</a><br>
 	Возраст: [age]</a><br>
 	Должность: [assignment]</a><br>
-	Отпечатки: [fingerprint_hash]</a><br>
+	Отпечатки пальцев: [fingerprint_hash]</a><br>
 	Группа крови: [blood_type]<br>
 	ДНК-хеш: [dna_hash]<br><br>
 	<td align = center valign = top>Фото:<br><img src=[photo_front] height=80 width=80 border=4>
@@ -175,9 +175,9 @@
 /obj/item/card/id/proc/getRankAndAssignment()
 	var/jobnamedata = ""
 	if(rank)
-		jobnamedata += rank
-	if(rank != assignment)
-		jobnamedata += " (" + assignment + ")"
+		jobnamedata += get_job_title_ru(rank)
+	if(rank != get_job_title_ru(assignment))
+		jobnamedata += " (" + get_job_title_ru(assignment) + ")"
 	return jobnamedata
 
 /// Returns the player mob associated with this ID card.

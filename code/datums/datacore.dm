@@ -121,7 +121,7 @@ GLOBAL_LIST_EMPTY(PDA_Manifest)
 				break
 
 	if(foundrecord)
-		foundrecord.fields["rank"] = assignment
+		foundrecord.fields["rank"] = get_job_title_ru(assignment)
 		foundrecord.fields["real_rank"] = rank
 
 GLOBAL_VAR_INIT(record_id_num, 1001)
@@ -147,7 +147,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["id"]			= id
 		G.fields["name"]		= H.real_name
 		G.fields["real_rank"]	= H.mind.assigned_role
-		G.fields["rank"]		= assignment
+		G.fields["rank"]		= get_job_title_ru(assignment)
 		G.fields["age"]			= H.age
 		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
 		G.fields["p_stat"]		= "Активный"
