@@ -156,7 +156,9 @@
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
-	if(get_charge() <= 10 && active && !activating) //Sometimes we get power being funky, this should fix it.
+	if(!active)
+		return
+	if(get_charge() <= 10 && !activating) //Sometimes we get power being funky, this should fix it.
 		power_off()
 		return PROCESS_KILL
 	var/malfunctioning_charge_drain = 0
@@ -341,6 +343,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
+		return ATTACK_CHAIN_PROCEED
 	if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
@@ -393,8 +396,6 @@
 		bag.handle_item_insertion(I, prevent_warning)
 
 /obj/item/mod/control/get_cell()
-	if(!open)
-		return
 	var/obj/item/stock_parts/cell/cell = get_charge_source()
 	if(!istype(cell))
 		return
