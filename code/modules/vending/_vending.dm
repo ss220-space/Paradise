@@ -515,7 +515,7 @@
 
 		var/obj/item/item = new typepath(src)
 		var/datum/data/vending_product/new_record = new /datum/data/vending_product()
-		new_record.name = capitalize(item.declent_ru(NOMINATIVE))
+		new_record.name = DECLENT_RU_CAP(item, NOMINATIVE)
 		new_record.short_name = capitalize(item.get_short_name())
 		new_record.desc = item.desc
 		qdel(item)
@@ -786,7 +786,7 @@
  * freebies - number of free items to vend
  */
 /obj/machinery/vending/proc/freebie(mob/user, num_freebies)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] товар[declension_ru(num_freebies, "", "ы", "ы")] из своего ассортимента[credits_contained > 0 ? " и купюры" : ""]!"))
 
 	for(var/i in 1 to num_freebies)
 		playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
@@ -981,7 +981,7 @@
 /obj/machinery/vending/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Vending", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "Vending", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/vending/ui_static_data(mob/user)
@@ -1014,7 +1014,7 @@
 		var/obj/item/item = new product_record.product_path(src)
 		var/list/static_record = list(
 			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
-			name = capitalize(item.declent_ru(NOMINATIVE)),
+			name = DECLENT_RU_CAP(item, NOMINATIVE),
 			short_name = capitalize(item.get_short_name()),
 			desc = item.desc,
 			colorable = product_record.colorable,
@@ -1064,7 +1064,7 @@
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
 	data["item_slot"] = item_slot // boolean
-	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
+	data["inserted_item_name"] = inserted_item ? DECLENT_RU_CAP(inserted_item, NOMINATIVE) : FALSE
 
 	if(prob(10) && ads_list.len)
 		data["ad"] = ads_list[rand(1, ads_list.len)]
