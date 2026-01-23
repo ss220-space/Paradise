@@ -162,7 +162,7 @@
 	var/is_robot = isrobot(living_target)
 	if(is_robot || ismachineperson(living_target))
 		living_target.emp_act(EMP_LIGHT)
-		if(isrobot(living_target))
+		if(is_robot)
 			return
 
 	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
