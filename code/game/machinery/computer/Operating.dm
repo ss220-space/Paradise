@@ -67,7 +67,7 @@
 /obj/machinery/computer/operating/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OperatingComputer", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "OperatingComputer", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/computer/operating/ui_data(mob/user)

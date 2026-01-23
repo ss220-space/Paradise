@@ -19,7 +19,7 @@
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
 	for(var/mob/living/simple_animal/hostile/megafauna/M in range(7, src))
 		M.enrage()
-		visible_message(span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] начинает пробуждаться, когда наномашины проникают в него, он выглядит разъярённым!"))
+		visible_message(span_userdanger("[DECLENT_RU_CAP(M, NOMINATIVE)] начинает пробуждаться, когда наномашины проникают в него, он выглядит разъярённым!"))
 	qdel(src)
 
 /obj/item/paper/hardmode

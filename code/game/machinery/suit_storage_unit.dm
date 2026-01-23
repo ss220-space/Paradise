@@ -41,6 +41,9 @@
 	var/list/occupant_typecache //if set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
 	var/atom/movable/occupant = null
 
+	/// Power contributed by this machine to charge the mod suits cell
+	var/base_charge_rate = SUIT_STORAGE_CHARGE_MOD
+
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type    = /obj/item/clothing/suit/space/eva
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva
@@ -795,3 +798,22 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate/leader
 	mask_type    = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/tank/internals/oxygen
+
+/obj/machinery/suit_storage_unit/process(seconds_per_tick)
+	var/list/cells_to_charge = list()
+	for(var/obj/item/charging in list(suit, helmet, mask, storage))
+		if(!charging)
+			continue
+		var/obj/item/stock_parts/cell/cell_charging = charging.get_cell()
+		if(!istype(cell_charging) || cell_charging.charge == cell_charging.maxcharge)
+			continue
+
+		cells_to_charge += cell_charging
+
+	var/cell_count = length(cells_to_charge)
+	if(cell_count <= 0)
+		return
+
+	var/charge_per_item = base_charge_rate / cell_count
+	for(var/obj/item/stock_parts/cell/cell as anything in cells_to_charge)
+		cell.give(charge_per_item)
