@@ -184,7 +184,7 @@
 			age = new_age
 			to_chat(registered_user, span_notice("Возраст изменён на [new_age]."))
 		if("change_occupation") // TODO: refactor this piece of shit TG-style
-			var/list/departments =list(
+			var/list/departments = list(
 				STATION_DEPARTMENT_RU_CIVILIAN,
 				STATION_DEPARTMENT_RU_ENGINEERING,
 				STATION_DEPARTMENT_RU_MEDICAL,

@@ -649,7 +649,7 @@
 	else
 		dat += "<br><br><center>Открытые позиции отсутствуют.<br>Попробуйте снова через несколько минут.<br>Или зайдите за наблюдателя.</center>"
 	// Added the new browser window method
-	var/datum/browser/popup = new(src, "latechoices", "Выбор должности", 1100, 600)
+	var/datum/browser/popup = new(src, "latechoices", "Выбор должности", 1250, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
 	popup.add_script("delay_interactivity", 'html/browser/delay_interactivity.js')
 	popup.set_content(dat)
