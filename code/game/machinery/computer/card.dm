@@ -150,14 +150,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 
 	if(scan)
-		balloon_alert(usr, "ID-карта извлечена")
+		balloon_alert(usr, UNLINT("ID-карта извлечена"))
 		scan.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(modify)
-		balloon_alert(usr, "ID-карта извлечена")
+		balloon_alert(usr, UNLINT("ID-карта извлечена"))
 		modify.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(modify, ignore_anim = FALSE)
