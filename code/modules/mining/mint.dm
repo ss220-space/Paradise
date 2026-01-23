@@ -178,10 +178,10 @@
 /obj/machinery/mineral/mint/proc/try_make_coins(mob/user)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	if(!money_bag)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] не может работать без денежного мешка!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не может работать без денежного мешка!"))
 		return
 	if(length(money_bag.contents) == money_bag.storage_slots)
-		visible_message(span_warning("[capitalize(money_bag.declent_ru(NOMINATIVE))] полон!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(money_bag, NOMINATIVE)] полон!"))
 		return
 	if(!materials.can_use_amount(COIN_COST, chosen_material))
 		visible_message(span_warning("Недостаточно выбранного материала для производства!"))

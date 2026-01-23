@@ -36,7 +36,7 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		module_custom_status += module.add_ui_data()
 		module_info += list(list(
-			"module_name" = capitalize(module.declent_ru(NOMINATIVE)),
+			"module_name" = DECLENT_RU_CAP(module, NOMINATIVE),
 			"description" = module.desc,
 			"module_type" = module.module_type,
 			"module_active" = module.active,
@@ -52,13 +52,13 @@
 			"configuration_data" = module.get_configuration(user),
 		))
 	data["module_custom_status"] = module_custom_status
-	data["control"] = capitalize(declent_ru(NOMINATIVE))
+	data["control"] = DECLENT_RU_CAP(src, NOMINATIVE)
 	data["module_info"] = module_info
 	var/part_info = list()
 	for(var/obj/item/part as anything in get_parts())
 		part_info += list(list(
 			"slot" = english_list(parse_slot_flags(part.slot_flags)),
-			"name" = capitalize(part.declent_ru(NOMINATIVE)),
+			"name" = DECLENT_RU_CAP(part, NOMINATIVE),
 			"deployed" = part.loc != src,
 			"ref" = part.UID(),
 		))

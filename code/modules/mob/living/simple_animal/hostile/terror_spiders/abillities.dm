@@ -21,7 +21,7 @@
 
 /obj/effect/proc_holder/spell/terror_stealth/cast(list/targets, mob/user = usr)
 	user.alpha = 0
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] внезапно исчезает!"), span_purple("Вы теперь невидимы!"))
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] внезапно исчезает!"), span_purple("Вы теперь невидимы!"))
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), duration)
 
 /obj/effect/proc_holder/spell/terror_stealth/proc/reveal(mob/user)
@@ -29,7 +29,7 @@
 		return
 
 	user.alpha = initial(user.alpha)
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] появляется из ниоткуда!"), span_purple("Вы снова видимы!"))
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] появляется из ниоткуда!"), span_purple("Вы снова видимы!"))
 	playsound(user.loc, 'sound/creatures/terrorspiders/stealth_out.ogg', 150, TRUE)
 
 //HEALER//
@@ -56,7 +56,7 @@
 
 /obj/effect/proc_holder/spell/aoe/terror_healing/cast(list/targets, mob/user = usr)
 	for(var/mob/living/simple_animal/hostile/poison/terror_spider/spider in targets)
-		visible_message(span_green("[capitalize(user.declent_ru(NOMINATIVE))] источает целительные феромоны!"))
+		visible_message(span_green("[DECLENT_RU_CAP(user, NOMINATIVE)] источает целительные феромоны!"))
 		spider.adjustBruteLoss(-heal_amount)
 		if(apply_heal_buff)
 			spider.apply_status_effect(STATUS_EFFECT_TERROR_REGEN)

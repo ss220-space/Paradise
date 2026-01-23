@@ -658,7 +658,7 @@
 			victim.take_overall_damage(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
-	victim.visible_message(span_notice("[capitalize(victim.declent_ru(NOMINATIVE))] исчеза[PLUR_ET_YUT(victim)]..."))
+	victim.visible_message(span_notice("[DECLENT_RU_CAP(victim, NOMINATIVE)] исчеза[PLUR_ET_YUT(victim)]..."))
 	victim.Paralyse(3 SECONDS)
 	victim.EyeBlurry(5 SECONDS)
 	victim.AdjustConfused(5 SECONDS)

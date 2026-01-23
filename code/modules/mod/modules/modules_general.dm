@@ -821,7 +821,7 @@
 
 	mod.wearer.visible_message(
 		span_notice("[mod.wearer] без ущерба приземля[PLUR_ET_UT(mod.wearer)]ся на [fell_on.declent_ru(ACCUSATIVE)] [extreme_fall ? ", едва устояв на ногах" : ", даже не шелохнувшись"]."),
-		span_notice("[capitalize(declent_ru(NOMINATIVE))] защища[PLUR_ET_UT(src)] вас от ущерба при падении!"),
+		span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] защища[PLUR_ET_UT(src)] вас от ущерба при падении!"),
 	)
 	return ZIMPACT_CANCEL_DAMAGE|ZIMPACT_NO_MESSAGE|ZIMPACT_NO_SPIN
 

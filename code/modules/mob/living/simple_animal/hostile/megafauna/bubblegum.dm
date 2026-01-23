@@ -606,7 +606,7 @@ Difficulty: Hard
 		return .
 	var/mob/living/bumped_living = bumped_atom
 	var/turf/living_turf = get_turf(bumped_living)
-	bumped_living.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] втаптывает вас в землю!"))
+	bumped_living.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] втаптывает вас в землю!"))
 	forceMove(living_turf)
 	bumped_living.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
 	playsound(living_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)

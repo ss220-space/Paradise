@@ -69,7 +69,7 @@
 		return
 	COOLDOWN_START(src, springlock_cooldown, 5 MINUTES)
 	remove_retraction_block() //No double signals
-	to_chat(mod.wearer, span_danger("[capitalize(declent_ru(NOMINATIVE))] изда[PLUR_YOT_UT(src)] мерзкий щёлкающий звук..."))
+	to_chat(mod.wearer, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] изда[PLUR_YOT_UT(src)] мерзкий щёлкающий звук..."))
 	incoming_jumpscare = TRUE
 	playsound(src, 'sound/items/modsuit/springlock.ogg', 75, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(snap_shut)), rand(3 SECONDS, 5 SECONDS))
