@@ -824,8 +824,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/minor
 	name = "department management console"
-	desc = "Компьютерный терминал. Предназначен для кадровых манипуляций в пределах определённого отдела рабочего объекта \
-			функционал существенно ограничен по сравнению с полноценной консолью."
+	desc = "Компьютерный терминал. Предназначен для кадровых манипуляций в пределах определённого отдела рабочего объекта. \
+			Функционал существенно ограничен по сравнению с полноценной консолью."
 	target_dept = TARGET_DEPT_GENERIC
 	icon_screen = "idminor"
 	circuit = /obj/item/circuitboard/card/minor

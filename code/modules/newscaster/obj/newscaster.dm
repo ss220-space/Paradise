@@ -271,9 +271,9 @@
 				if(job.type in jobblacklist)
 					continue
 				if(job.is_position_available())
-					var/list/opening_data = list("title" = job.title)
+					var/list/opening_data = list("title" = get_job_title_ru(job.title))
 					// Is the job a command job?
-					if(job.title in GLOB.command_positions)
+					if(job_title_ru_to_en(job.title) in GLOB.command_positions)
 						opening_data["is_command"] = TRUE
 					// Add the job opening to the corresponding categories
 					// Ugly!
