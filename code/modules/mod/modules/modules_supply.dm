@@ -394,7 +394,7 @@
 	/// Armor values per tile.
 	var/obj/item/mod/armor/armor_mod_1 = /obj/item/mod/armor/mod_ash_accretion
 	/// Speed added when you're fully covered in ash.
-	var/speed_added = 0.5
+	var/speed_added = -0.5
 	/// Speed that we actually added.
 	var/actual_speed_added = 0
 	/// Turfs that let us accrete ash.
@@ -437,21 +437,26 @@
 			))
 
 /obj/item/mod/module/ash_accretion/on_part_activation()
+	mod.wearer.add_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
+	RegisterSignal(mod, COMSIG_MOD_UPDATE_SPEED, PROC_REF(on_update_speed))
 
 /obj/item/mod/module/ash_accretion/on_part_deactivation(deleting = FALSE)
+	mod.wearer.remove_traits(list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE), UNIQUE_TRAIT_SOURCE(src))
 	UnregisterSignal(mod.wearer, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(mod, COMSIG_MOD_UPDATE_SPEED)
 	if(!traveled_tiles)
 		return
-	var/speed_up = FALSE
-	if(traveled_tiles == max_traveled_tiles)
-		speed_up = TRUE
 	for(var/obj/item/part as anything in mod.get_parts(TRUE))
 		part.armor = part.set_armor(/datum/armor/mod_theme_mining) //TODO: ANYTHING BUT FUCKING THIS
-		if(speed_up)
-			part.slowdown += speed_added / 5
+	if(traveled_tiles == max_traveled_tiles)
+		mod.update_speed()
 	traveled_tiles = 0
-	LAZYREMOVE(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
+
+/obj/item/mod/module/ash_accretion/proc/on_update_speed(datum/source, list/module_slowdowns)
+	SIGNAL_HANDLER
+	if(traveled_tiles == max_traveled_tiles)
+		module_slowdowns += speed_added
 
 /obj/item/mod/module/ash_accretion/generate_worn_overlay(obj/item/source, mutable_appearance/standing)
 	overlay_state_inactive = "[initial(overlay_state_inactive)]-[mod.skin]"
@@ -469,34 +474,27 @@
 	if(!is_type_in_typecache(mod.wearer.loc, accretion_turfs))
 		if(traveled_tiles <= 0)
 			return
-		var/speed_up = FALSE
-		if(traveled_tiles == max_traveled_tiles)
-			speed_up = TRUE
 		traveled_tiles--
-		for(var/obj/item/part as anything in mod.get_parts(TRUE))
+		if(traveled_tiles == max_traveled_tiles - 1) // Just lost our speed buff
+			mod.update_speed()
+		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 			part.armor = part.armor.detachArmor(armor_mod_1.armor)
-			if(speed_up)
-				part.slowdown += actual_speed_added
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
-			LAZYREMOVE(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
 		return
-	// if(is_type_in_typecache(mod.wearer.loc, accretion_turfs))
+
 	if(traveled_tiles >= max_traveled_tiles)
 		return
 	traveled_tiles++
-	var/speed_up = FALSE
-	if(traveled_tiles >= max_traveled_tiles)
-		balloon_alert(mod.wearer, "полное покрытие пеплом")
-		mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
-		animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
-		playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
-		actual_speed_added = max(0, min(mod.slowdown_deployed, speed_added / 5))
-		LAZYADD(mod.wearer.weather_immunities, TRAIT_ASHSTORM_IMMUNE)
-	for(var/obj/item/part as anything in mod.get_parts(TRUE))
+	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
 		part.armor = part.armor.attachArmor(armor_mod_1.armor)
-		if(!speed_up)
-			part.slowdown -= speed_added / 5
+	if(traveled_tiles < max_traveled_tiles)
+		return
+	balloon_alert(mod.wearer, "полное покрытие пеплом")
+	mod.wearer.color = list(1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,3) //make them super light
+	animate(mod.wearer, 1 SECONDS, color = null, flags = ANIMATION_PARALLEL)
+	playsound(src, 'sound/effects/sparks1.ogg', 100, TRUE)
+	mod.update_speed()
 
 /obj/effect/temp_visual/light_ash
 	icon_state = "light_ash"
@@ -583,7 +581,7 @@
 	var/obj/projectile/bomb = new /obj/projectile/bullet/reusable/mining_bomb(get_turf(mod.wearer))
 	bomb.original = target
 	bomb.firer = mod.wearer
-	bomb.preparePixelProjectile(target, get_turf(target), mod.wearer)
+	bomb.preparePixelProjectile(target, mod.wearer)
 	bomb.fire()
 	playsound(src, 'sound/weapons/grenadelaunch.ogg', 75, TRUE)
 	INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/projectile, fire))
