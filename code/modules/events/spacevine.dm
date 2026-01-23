@@ -748,7 +748,14 @@
 		if(!locate(/obj/structure/spacevine, stepturf))
 			// snowflake for space turf, but space turf is super common and a big deal
 			if(!isspaceturf(stepturf) && stepturf.Enter(src) && is_location_within_transition_boundaries(stepturf))
-				master?.spawn_spacevine_piece(stepturf, src)
+				var/obj/structure/spacevine/spawning_vine = master.spawn_spacevine_piece(stepturf, src)
+				// Small animation
+				if(NSCOMPONENT(direction))
+					spawning_vine.pixel_y = direction == NORTH ? -32 : 32
+					animate(spawning_vine, pixel_y = 0, time = 1 SECONDS)
+				else
+					spawning_vine.pixel_x = direction == EAST ? -32 : 32
+					animate(spawning_vine, pixel_x = 0, time = 1 SECONDS)
 				spread_success = TRUE
 
 		remaining_spreads -= spread_success
