@@ -271,25 +271,21 @@
 
 /datum/gear/donor/strip/whitecat
 	index_name = "strip, White cat"
-	display_name = "Нашивка \"Белый кот\""
 	path = /obj/item/clothing/accessory/head_strip/whitecatstrip
 	donator_tier = 3
 
 /datum/gear/donor/strip/orangecat
 	index_name = "strip, Orange cat"
-	display_name = "Нашивка \"Трёхцветный кот\""
 	path = /obj/item/clothing/accessory/head_strip/orangecatstrip
 	donator_tier = 3
 
 /datum/gear/donor/strip/rat
 	index_name = "strip, Rat"
-	display_name = "Нашивка \"Крыска\""
 	path = /obj/item/clothing/accessory/head_strip/ratstrip
 	donator_tier = 3
 
 /datum/gear/donor/strip/devil
 	index_name = "strip, Devil"
-	display_name = "Нашивка \"Дьявол\""
 	path = /obj/item/clothing/accessory/head_strip/devilstrip
 	donator_tier = 4
 
