@@ -66,7 +66,7 @@
 
 /obj/structure/reagent_dispensers/holywatertank
 	name = "holy water tank"
-	desc = "Бак святой воды, смотря на него вы прислоняетесь духовной силой."
+	desc = "Бак, заполненный святой водой."
 	tank_volume = 3000
 	reagent_id = "holywater"
 	icon_state = "holywater_tank"
