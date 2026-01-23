@@ -98,7 +98,7 @@
 /obj/item/flash/proc/burn_out()
 	broken = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выгорает!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выгорает!"))
 
 /obj/item/flash/proc/flash_recharge(mob/user)
 	if(prob(times_used * 2)) // if you use it 5 times in a minute it has a 10% chance to break!
@@ -203,7 +203,7 @@
 	if(!try_use_flash(user))
 		return FALSE
 	user.visible_message(
-		span_disarm("[capitalize(declent_ru(NOMINATIVE))] в руках [user.declent_ru(GENITIVE)] озаряется яркой вспышкой!"),
+		span_disarm("[DECLENT_RU_CAP(src, NOMINATIVE)] в руках [user.declent_ru(GENITIVE)] озаряется яркой вспышкой!"),
 		ignored_mobs = user,
 	)
 	for(var/mob/living/carbon/target in oviewers(3, get_turf(src)))

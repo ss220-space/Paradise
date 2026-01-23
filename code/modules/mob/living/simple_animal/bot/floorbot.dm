@@ -74,7 +74,7 @@
 /mob/living/simple_animal/bot/floorbot/set_custom_texts()
 	text_hack = "Вы взломали рабочие протоколы [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили рабочие протоколы [declent_ru(GENITIVE)]."
-	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] не отвечает на команды сброса настроек!"
+	text_dehack_fail = "[DECLENT_RU_CAP(src, NOMINATIVE)] не отвечает на команды сброса настроек!"
 
 /mob/living/simple_animal/bot/floorbot/get_controls(mob/user)
 	var/dat
@@ -127,7 +127,7 @@
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] жужжит и пищит."))
+			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] жужжит и пищит."))
 
 /mob/living/simple_animal/bot/floorbot/Topic(href, href_list)
 	if(..())
@@ -430,7 +430,7 @@
 
 /mob/living/simple_animal/bot/floorbot/explode()
 	on = FALSE
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	var/obj/item/storage/toolbox/mechanical/N = new /obj/item/storage/toolbox/mechanical(Tsec)
 	N.contents = list()

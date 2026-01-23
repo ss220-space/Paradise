@@ -59,7 +59,7 @@
 	if(!buttmad)
 		if(health < maxHealth/3)
 			buttmad = TRUE
-			visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] яростно стрекочет, оскалив клыки!"))
+			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] яростно стрекочет, оскалив клыки!"))
 			melee_damage_lower = melee_damage_lower_angery1
 			melee_damage_upper = melee_damage_upper_angery1
 			move_to_delay = anger_move_to_delay
@@ -69,7 +69,7 @@
 	else
 		if(health > maxHealth/2)
 			buttmad = FALSE
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] вроде бы успокоился, но не до конца."))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] вроде бы успокоился, но не до конца."))
 			melee_damage_lower = melee_damage_lower_angery0
 			melee_damage_upper = melee_damage_upper_angery0
 			poison_type = initial(poison_type)
@@ -88,7 +88,7 @@
 				var/turf/T = get_turf(H)
 				H.add_splatter_floor(T)	//Visual proc from disembowel(), just for exclude organ dropping (brains), but stay cool.
 				playsound(T, 'sound/effects/splat.ogg', 25, TRUE)	//Sound proc for the same reason.
-				src.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] впрыскивает токсичную слизь во внутренности [L]..."),
+				src.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] впрыскивает токсичную слизь во внутренности [L]..."),
 					span_danger("...после чего высасывает кашицу из костного мозга и плоти, исцеляясь!"),
 					span_userdanger("Вы разжижаете внутренности [L] своим ядом и высасываете получившуюся массу, восстанавливая силы."))
 				adjustBruteLoss(round(-H.maxHealth/2))

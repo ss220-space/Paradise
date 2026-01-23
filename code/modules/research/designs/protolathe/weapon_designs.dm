@@ -142,9 +142,17 @@
 /datum/design/hp45colt
 	id = "hp45colt"
 	req_tech = list(RESEARCH_TREE_COMBAT = 3, RESEARCH_TREE_MATERIALS = 3)
-	build_type = PROTOLATHE | AUTOLATHE
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL = 44500, MAT_SILVER = 3000)
 	build_path = /obj/item/ammo_box/expansive45colt
+	category = list(PROTOLATHE_CATEGORY_WEAPON)
+
+/datum/design/enforcer/laser
+	id = "enforcer_laser"
+	req_tech = list(RESEARCH_TREE_COMBAT = 2, RESEARCH_TREE_POWERSTORAGE = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL = 35000)
+	build_path = /obj/item/ammo_box/enforcer/laser
 	category = list(PROTOLATHE_CATEGORY_WEAPON)
 
 /datum/design/lmag

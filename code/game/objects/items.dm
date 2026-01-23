@@ -472,7 +472,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(!QDELETED(src))
 		var/turf/T = get_turf(src)
 		var/obj/effect/decal/cleanable/ash/A = new(T)
-		A.desc += "\nПохоже, когда-то это было [src.declent_ru(INSTRUMENTAL)]."
+		A.desc += "\nПохоже, когда-то это было [declent_ru(INSTRUMENTAL)]."
 		..()
 
 /obj/item/acid_melt()
@@ -481,7 +481,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/obj/effect/decal/cleanable/molten_object/MO = new(T)
 		MO.pixel_x = rand(-16,16)
 		MO.pixel_y = rand(-16,16)
-		MO.desc = "Похоже, когда-то это было [src.declent_ru(INSTRUMENTAL)]."
+		MO.desc = "Похоже, когда-то это было [declent_ru(INSTRUMENTAL)]."
 		..()
 
 /obj/item/proc/afterattack(atom/target, mob/user, proximity, params, status)
@@ -500,10 +500,10 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(istype(H))
 			if(H.gloves && (H.gloves.max_heat_protection_temperature > 360))
 				extinguish()
-				to_chat(user, span_notice("Вы тушите пламя на [src.declent_ru(PREPOSITIONAL)]."))
+				to_chat(user, span_notice("Вы тушите пламя на [declent_ru(PREPOSITIONAL)]."))
 				balloon_alert(user, "потушено")
 			else
-				to_chat(user, span_warning("Вы обжигаете руку о [src.declent_ru(ACCUSATIVE)]!"))
+				to_chat(user, span_warning("Вы обжигаете руку о [declent_ru(ACCUSATIVE)]!"))
 				balloon_alert(user, "горячо!")
 				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
 				return
@@ -514,7 +514,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
 			if(!H.gloves || (!(H.gloves.resistance_flags & (UNACIDABLE|ACID_PROOF))))
-				to_chat(user, span_warning("Кислота на [src.declent_ru(PREPOSITIONAL)] прожигает вашу руку!"))
+				to_chat(user, span_warning("Кислота на [declent_ru(PREPOSITIONAL)] прожигает вашу руку!"))
 				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_L_ARM : BODY_ZONE_R_ARM)	// 5 burn damage
 
 	if(throwing)
@@ -570,7 +570,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return
 
 	if(!allowed_for_alien())
-		to_chat(user, span_warning("Похоже, [src.declent_ru(NOMINATIVE)] мне бесполезен!"))
+		to_chat(user, span_warning("Похоже, [declent_ru(NOMINATIVE)] мне бесполезен!"))
 		return
 
 	attack_hand(A)
@@ -633,12 +633,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/y_offset = text2num(LAZYACCESS(modifiers, ICON_Y))
 		add_fingerprint(user)
 		if(GetComponent(/datum/component/ducttape))
-			to_chat(user, span_notice("На [src.declent_ru(PREPOSITIONAL)] уже есть изолента!"))
+			to_chat(user, span_notice("На [declent_ru(PREPOSITIONAL)] уже есть изолента!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!tape.use(1))
 			to_chat(user, span_notice("У вас недостаточно изоленты!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Вы прикрепляете изоленту к [src.declent_ru(DATIVE)]."))
+		to_chat(user, span_notice("Вы прикрепляете изоленту к [declent_ru(DATIVE)]."))
 		AddComponent(/datum/component/ducttape, x_offset, y_offset)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -978,13 +978,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] вонза[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] в глаз [target]!"),
-			span_userdanger("[user] вонзает [src.declent_ru(ACCUSATIVE)] вам в глаз!"),
+			span_danger("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] в глаз [target]!"),
+			span_userdanger("[user] вонзает [declent_ru(ACCUSATIVE)] вам в глаз!"),
 		)
 	else
 		user.visible_message(
-			span_danger("[user] вонза[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] себе в глаза!"),
-			span_userdanger("Вы вонзаете [src.declent_ru(ACCUSATIVE)] себе в глаза!"),
+			span_danger("[user] вонза[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в глаза!"),
+			span_userdanger("Вы вонзаете [declent_ru(ACCUSATIVE)] себе в глаза!"),
 		)
 
 	add_attack_logs(user, target, "Eye-stabbed with [src] ([uppertext(user.a_intent)])")
@@ -1085,15 +1085,15 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/wash(mob/user, atom/source)
 	if(item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
-	to_chat(user, span_notice("Вы начинаете мыть [src.declent_ru(ACCUSATIVE)]..."))
+	to_chat(user, span_notice("Вы начинаете мыть [declent_ru(ACCUSATIVE)]..."))
 	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, 5)
 	acid_level = 0
 	user.visible_message(
-		span_notice("[user] мо[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
-		span_notice("Вы моете [src.declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)].")
+		span_notice("[user] мо[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)]."),
+		span_notice("Вы моете [declent_ru(ACCUSATIVE)] с помощью [source.declent_ru(GENITIVE)].")
 	)
 	return TRUE
 
