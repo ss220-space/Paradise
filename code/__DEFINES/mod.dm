@@ -91,3 +91,5 @@
 #define MOD_VARIANT_APOCRYPHAL "apocryphal"
 #define MOD_VARIANT_CORPORATE "corporate"
 #define MOD_VARIANT_DEBUG "debug"
+
+#define SUIT_STORAGE_CHARGE_MOD 20
