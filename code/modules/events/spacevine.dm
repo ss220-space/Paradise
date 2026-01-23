@@ -663,6 +663,8 @@
 	for(var/datum/spacevine_mutation/SM in SV.mutations)
 		SM.on_birth(SV)
 
+	return SV
+
 /obj/structure/spacevine_controller/process()
 	if(!vines || !length(vines))
 		qdel(src) //space vines exterminated. Remove the controller
