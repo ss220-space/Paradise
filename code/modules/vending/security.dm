@@ -183,7 +183,7 @@
 
 /obj/item/security_voucher/proc/redeem_kits_list()
 	var/list/kits = typesof(/datum/security_voucher_kit/officer)
-	kits.Cut(1,2) // delete the base type
+	kits.Cut(1, 2) // delete the base type
 	var/list/available_kits = list()
 	for(var/datum/security_voucher_kit/kit as anything in kits)
 		available_kits[kit.kit_box] = image(kit.icon, kit.icon_state)
