@@ -188,8 +188,7 @@
 		var/list/kits = subtypesof(/datum/security_voucher_kit/officer)
 		for(var/datum/security_voucher_kit/kit as anything in kits)
 			available_kits[kit.kit_box] = image(kit.icon, kit.icon_state)
-	return available_kits
-
+	return available_kits.Copy()
 
 /obj/item/security_voucher/get_ru_names()
 	return list(
@@ -209,11 +208,11 @@
 /obj/item/security_voucher/detective/redeem_kits_list()
 	var/static/list/detectives_available_kits
 	if(!detectives_available_kits)
-		detectives_available_kits = ..().Copy()
+		detectives_available_kits = ..()
 		var/list/kits = typesof(/datum/security_voucher_kit/detective)
 		for(var/datum/security_voucher_kit/kit as anything in kits)
 			detectives_available_kits[kit.kit_box] = image(kit.icon, kit.icon_state)
-	return detectives_available_kits
+	return detectives_available_kits.Copy()
 
 /obj/item/security_voucher/detective/get_ru_names()
 	return list(
