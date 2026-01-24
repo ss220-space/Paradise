@@ -1270,6 +1270,74 @@
 		PREPOSITIONAL = "нашивке \"Лягушка\"",
 	)
 
+/obj/item/clothing/accessory/head_strip/whitecatstrip
+	name = "white cat strip"
+	desc = "Плотно сшитая нашивка из белого бархата в форме головы кота, по центру прошиты глаза и мордочка. Выглядит мило."
+	icon_state = "whitecatstrip"
+	item_state = "whitecatstrip"
+	strip_bubble_icon = "whitecat"
+
+/obj/item/clothing/accessory/head_strip/whitecatstrip/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Белый кот\"",
+		GENITIVE = "нашивки \"Белый кот\"",
+		DATIVE = "нашивке \"Белый кот\"",
+		ACCUSATIVE = "нашивку \"Белый кот\"",
+		INSTRUMENTAL = "нашивкой \"Белый кот\"",
+		PREPOSITIONAL = "нашивке \"Белый кот\"",
+	)
+
+/obj/item/clothing/accessory/head_strip/orangecatstrip
+	name = "orange cat strip"
+	desc = "Плотно сшитая нашивка из нитей трех цветов в форме головы кота, по центру прошиты глаза и мордочка. Выглядит очень мило."
+	icon_state = "orangecatstrip"
+	item_state = "orangecatstrip"
+	strip_bubble_icon = "orangecat"
+
+/obj/item/clothing/accessory/head_strip/orangecatstrip/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Трёхцветный кот\"",
+		GENITIVE = "нашивки \"Трёхцветный кот\"",
+		DATIVE = "нашивке \"Трёхцветный кот\"",
+		ACCUSATIVE = "нашивку \"Трёхцветный кот\"",
+		INSTRUMENTAL = "нашивкой \"Трёхцветный кот\"",
+		PREPOSITIONAL = "нашивке \"Трёхцветный кот\"",
+	)
+
+/obj/item/clothing/accessory/head_strip/ratstrip
+	name = "rat strip"
+	desc = "Плотно сшитая нашивка из серого бархата в форме головы крысы, по центру прошиты глаза и мордочка. Выглядит пи-пи-пи."
+	icon_state = "ratstrip"
+	item_state = "ratstrip"
+	strip_bubble_icon = "rat"
+
+/obj/item/clothing/accessory/head_strip/ratstrip/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Крыска\"",
+		GENITIVE = "нашивки \"Крыска\"",
+		DATIVE = "нашивке \"Крыска\"",
+		ACCUSATIVE = "нашивку \"Крыска\"",
+		INSTRUMENTAL = "нашивкой \"Крыска\"",
+		PREPOSITIONAL = "нашивке \"Крыска\"",
+	)
+
+/obj/item/clothing/accessory/head_strip/devilstrip
+	name = "devil strip"
+	desc = "Плотно сшитая нашивка из красного бархата в форме головы дьявола, сверху красуются рога, а по центру два зловещих желтых глаза. От нашивки исходит инфернальное тепло."
+	icon_state = "devilstrip"
+	item_state = "devilstrip"
+	strip_bubble_icon = "devil"
+
+/obj/item/clothing/accessory/head_strip/devilstrip/get_ru_names()
+	return list(
+		NOMINATIVE = "нашивка \"Дьявол\"",
+		GENITIVE = "нашивки \"Дьявол\"",
+		DATIVE = "нашивке \"Дьявол\"",
+		ACCUSATIVE = "нашивку \"Дьявол\"",
+		INSTRUMENTAL = "нашивкой \"Дьявол\"",
+		PREPOSITIONAL = "нашивке \"Дьявол\"",
+	)
+
 /obj/item/clothing/accessory/medal/smile
 	name = "smiling pin"
 	desc = "Позолоченный значок с улыбающейся рожецей. Символ невиданной гордости самим собой!"
