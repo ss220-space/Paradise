@@ -219,6 +219,10 @@
 	if(!do_after(attacker, neck_cut_delay, defender, max_interact_count = 1) || attacker.pulling != defender || attacker.grab_state < GRAB_NECK)
 		return FALSE
 
+	var/obj/item/organ/external/head = defender.get_organ(attacker.zone_selected)
+	if(head && !head.has_arterial_bleeding())
+		head.arterial_bleeding()
+
 	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume
 

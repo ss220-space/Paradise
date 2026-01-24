@@ -119,6 +119,23 @@
 	var/dist = max((current_size - 2), 1)
 	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "into singularity")
 
+/obj/item/storage/backpack/holding/satchel/duffelbag
+	name = "Duffelbag of holding"
+	desc = "Очень большая и технологичная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Избегайте рекурсивного хранения\"."
+	icon_state = "holdingduffelba"
+	item_state = "holdingduffelba"
+	max_combined_w_class = 40
+
+/obj/item/storage/backpack/duffelbag/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сумка хранения",
+		GENITIVE = "блюспейс сумки храненияя",
+		DATIVE = "блюспейс сумке хранения",
+		ACCUSATIVE = "блюспейс сумку хранения",
+		INSTRUMENTAL = "блюспейс сумкой хранения",
+		PREPOSITIONAL = "блюспейс сумке хранения"
+	)
+
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
 	desc = "Космический Санта использует его, чтобы доставлять игрушки всем милым детям в космосе на Рождество! Ух ты, какой он большой!"

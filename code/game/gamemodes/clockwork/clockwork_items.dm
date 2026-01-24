@@ -1643,9 +1643,7 @@
 			if(TIME_SPELL)
 				add_attack_logs(user, user, "Time stopped with [src]")
 				qdel(src)
-				var/obj/effect/timestop/clockwork/timestop = new /obj/effect/timestop/clockwork(get_turf(user))
-				timestop.immune |= user
-				timestop.timestop()
+				new /obj/effect/timestop/clockwork(get_turf(user), null, null, user)
 			if(RECONSTRUCT_SPELL)
 				add_attack_logs(user, user, "Reconstructed with [src]")
 				qdel(src)

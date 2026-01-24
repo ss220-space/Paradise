@@ -817,7 +817,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(1 to 50)
 			icon_state = "[base_icon][applying ? "_active" : ""]"
 		if(0)
-			icon_state = "alien_mender_empty"
+			icon_state = "[base_icon][applying ? "_empty" : ""]"
 
 /obj/item/reagent_containers/applicator/abductor/brute
 	name = "alien brute mender"
@@ -848,6 +848,28 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		ACCUSATIVE = "инопланетный авто-мендер (Терм. Повреждения)",
 		INSTRUMENTAL = "инопланетным авто-мендером (Терм. Повреждения)",
 		PREPOSITIONAL = "инопланетном авто-мендере (Терм. Повреждения)",
+	)
+
+/obj/item/reagent_containers/applicator/abductor/industrial //пока виталя не отрефакторил менднеры будет находиться в абдукторсих итемах ибо тут код по лучше
+	name = "industrial auto-mender" 
+	desc = "Прототип улучшенного авто-мендера, созданного компанией \"Вита-пром\" как альтернатива стандартным мендерам \"Нанотрейзен\". \
+	Обладает увеличенным объёмом хранилища веществ и возможностью пробивать плотные материалы. Не попал в серийное производство из-за сложности и дороговизны, но всё ещё встречается на рынке в качестве единичных экземплеров."
+	volume = 500
+	list_reagents = list("synthflesh" = 500)
+	icon_state = "mender2_empty"
+	item_state = "mender2"
+	base_icon = "mender2"
+	
+	emagged = FALSE
+
+/obj/item/reagent_containers/applicator/abductor/industrial/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый авто-мендер",
+		GENITIVE = "продвинутого авто-мендера",
+		DATIVE = "продвинутому авто-мендеру",
+		ACCUSATIVE = "продвинутый авто-мендер",
+		INSTRUMENTAL = "продвинутым авто-мендером",
+		PREPOSITIONAL = "продвинутом авто-мендере",
 	)
 
 /obj/item/reagent_containers/glass/bottle/abductor

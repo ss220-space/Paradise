@@ -259,6 +259,10 @@
 		return
 	mouse_params = params
 
+/atom/movable/screen/fullscreen/fullyblack
+	icon_state = "fullyblack"
+	layer = BLIND_LAYER
+
 /atom/movable/screen/fullscreen/cursor_catcher/proc/calculate_params()
 	var/list/modifiers = params2list(mouse_params)
 	var/icon_x = text2num(modifiers["icon-x"])
