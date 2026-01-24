@@ -78,7 +78,7 @@
 	if(!(stat & (NOPOWER|BROKEN)))
 		. += "[span_boldnotice("Дисплей сообщает:")]\n" + span_notice("- Скорость варки — <b>[speed * 100]</b>%.")
 		if(coffeepot?.reagents.total_volume)
-			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[coffeepot.reagents.total_volume]</b> единиц[declension_ru(coffeepot.reagents.total_volume, "у", "ы", "")] вещества.")
+			. += span_notice("- [coffeepot.declent_ru(NOMINATIVE)] содержит <b>[coffeepot.reagents.total_volume]</b> единиц[DECL_SEC_MIN(coffeepot.reagents.total_volume)] вещества.")
 		if(cartridge)
 			if(cartridge.charges < 1)
 				. += span_notice("- Картридж <b>пуст</b>.")
