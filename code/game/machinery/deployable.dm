@@ -384,7 +384,7 @@
 /obj/structure/dropwall_generator/attackby(obj/item/I, mob/living/user, params) //No, you can not just go up to the generator and whack it. Central shield needs to go down first.
 	if(!protected)
 		return ..()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] поглощает удар!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощает удар!"))
 	core_shield.take_damage(I.force, I.damtype, MELEE, TRUE)
 
 /obj/structure/dropwall_generator/emp_act(severity)
@@ -402,7 +402,7 @@
 	qdel(src)
 
 /obj/structure/dropwall_generator/proc/power_out()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выключается из-за нехватки энергии."))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выключается из-за нехватки энергии."))
 	new /obj/item/used_dropwall(get_turf(src))
 	qdel(src)
 

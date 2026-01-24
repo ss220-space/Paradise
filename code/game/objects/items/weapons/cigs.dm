@@ -107,7 +107,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light(span_warning("[capitalize(declent_ru(NOMINATIVE))] зажигается от огня!"))
+		light(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] зажигается от огня!"))
 
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/item)
 	. = TRUE
@@ -533,7 +533,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВА[uppertext(PLUR_ET_YUT(src))]СЯ быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] просто ОТКАЗЫВА[uppertext(PLUR_ET_YUT(src))]СЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
@@ -618,7 +618,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВАЕТСЯ быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] просто ОТКАЗЫВАЕТСЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 

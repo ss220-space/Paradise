@@ -325,8 +325,8 @@
 		add_attack_logs(src, pulled_mob, "passively grabbed", ATKLOG_ALMOSTALL)
 		if(!supress_message)
 			pulled_mob.visible_message(
-				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[GEND_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
-				span_warning("[capitalize(declent_ru(NOMINATIVE))] схватил[GEND_A_O_I(src)] Вас!"),
+				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] схватил[GEND_A_O_I(src)] [pulled_mob.declent_ru(ACCUSATIVE)]!"),
+				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] схватил[GEND_A_O_I(src)] Вас!"),
 			)
 		pulled_mob.LAssailant = iscarbon(src) ? src : null
 	return TRUE
@@ -404,7 +404,7 @@
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("[capitalize(declent_ru(NOMINATIVE))] слишком тяжел[GEND_YI_AYA_OE_YE(src)]!"))
+			to_chat(puller, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] слишком тяжел[GEND_YI_AYA_OE_YE(src)]!"))
 		return FALSE
 	return TRUE
 
@@ -1160,7 +1160,7 @@
 	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && !no_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
-				to_chat(rider, span_notice("[capitalize(declent_ru(NOMINATIVE))] не способен к полёту."))
+				to_chat(rider, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не способен к полёту."))
 			else
 				to_chat(src, span_notice("Вы не Супермен."))
 		return FALSE
@@ -1379,12 +1379,12 @@
 /atom/movable/proc/force_push(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.force_pushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] сильно толка[PLUR_ET_YUT(src)] [AM.declent_ru(ACCUSATIVE)]!"), span_warning("Вы сильно толкаете [AM.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] сильно толка[PLUR_ET_YUT(src)] [AM.declent_ru(ACCUSATIVE)]!"), span_warning("Вы сильно толкаете [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crush(atom/movable/AM, force = move_force, direction, silent = FALSE)
 	. = AM.move_crushed(src, force, direction)
 	if(!silent && .)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сокруша[PLUR_ET_YUT(src)] [AM.declent_ru(ACCUSATIVE)]!"), span_danger("Вы сокрушили [AM.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сокруша[PLUR_ET_YUT(src)] [AM.declent_ru(ACCUSATIVE)]!"), span_danger("Вы сокрушили [AM.declent_ru(ACCUSATIVE)]!"))
 
 /atom/movable/proc/move_crushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
@@ -1542,13 +1542,13 @@
 	var/target = isturf(loc) ? src : gourmet
 
 	gourmet.setDir(get_dir(gourmet, src))
-	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] пыта[PLUR_ET_YUT(gourmet)]ся поглотить [capitalize(declent_ru(ACCUSATIVE))]!"))
+	gourmet.visible_message(span_danger("[DECLENT_RU_CAP(gourmet, NOMINATIVE)] пыта[PLUR_ET_YUT(gourmet)]ся поглотить [declent_ru(ACCUSATIVE)]!"))
 
-	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [capitalize(declent_ru(ACCUSATIVE))]!")))
-		gourmet.visible_message(span_notice("[capitalize(gourmet.declent_ru(NOMINATIVE))] прекраща[PLUR_ET_YUT(gourmet)] поглощать [capitalize(declent_ru(ACCUSATIVE))]!"))
+	if(!do_after(gourmet, get_devour_time(gourmet), target, NONE, extra_checks = CALLBACK(src, PROC_REF(can_devour), gourmet), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_notice("Вы прекращаете поглощать [declent_ru(ACCUSATIVE)]!")))
+		gourmet.visible_message(span_notice("[DECLENT_RU_CAP(gourmet, NOMINATIVE)] прекраща[PLUR_ET_YUT(gourmet)] поглощать [declent_ru(ACCUSATIVE)]!"))
 		return FALSE
 
-	gourmet.visible_message(span_danger("[capitalize(gourmet.declent_ru(NOMINATIVE))] поглоща[PLUR_ET_YUT(gourmet)] [capitalize(declent_ru(ACCUSATIVE))]!"))
+	gourmet.visible_message(span_danger("[DECLENT_RU_CAP(gourmet, NOMINATIVE)] поглоща[PLUR_ET_YUT(gourmet)] [declent_ru(ACCUSATIVE)]!"))
 
 	if(victim.mind)
 		add_attack_logs(gourmet, src, "Devoured")

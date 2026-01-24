@@ -75,7 +75,7 @@
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()
 	if(!loaded)
-		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] пуст.")
+		. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] пуст.")
 	if(malfunctioning)
 		. += span_notice("Дисплей [declent_ru(GENITIVE)] мерцает.")
 

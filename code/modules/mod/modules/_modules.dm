@@ -199,7 +199,7 @@
 		else
 			var/used_button = MIDDLE_CLICK
 			update_signal(used_button)
-			to_chat(mod.wearer, span_notice("\"[capitalize(declent_ru(NOMINATIVE))]\" активирован[GEND_A_O_Y(src)]. Используйте <b>СКМ</b> для управления."))
+			to_chat(mod.wearer, span_notice("\"[DECLENT_RU_CAP(src, NOMINATIVE)]\" активирован[GEND_A_O_Y(src)]. Используйте <b>СКМ</b> для управления."))
 	active = TRUE
 	SEND_SIGNAL(src, COMSIG_MODULE_ACTIVATED)
 	on_activation(activator)
