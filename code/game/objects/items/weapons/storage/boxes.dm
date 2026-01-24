@@ -823,6 +823,9 @@
 	. = ATTACK_CHAIN_PROCEED
 	if(!ishuman(target))
 		return .
+	if(length(contents))
+		to_chat(user, span_notice("Пакет должен быть пуст!"))
+		return .
 	user.visible_message(
 		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
 		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
