@@ -184,10 +184,48 @@
 	)
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo", "mining_medic","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list(
+		"data",
+		"id",
+		"gold",
+		"silver",
+		"security",
+		"cadet",
+		"medical",
+		"intern",
+		"research",
+		"student",
+		"cargo",
+		"mining_medic",
+		"engineering",
+		"trainee",
+		"HoS",
+		"CMO",
+		"RD",
+		"CE",
+		"clown",
+		"mime",
+		"rainbow",
+		"prisoner",
+	)
 
 /proc/get_centcom_card_skins()
-	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
+	return list(
+		"centcom",
+		"centcom_old",
+		"nanotrasen",
+		"ERT_leader",
+		"ERT_empty",
+		"ERT_security",
+		"ERT_engineering",
+		"ERT_medical",
+		"ERT_janitorial",
+		"deathsquad",
+		"commander",
+		"syndie",
+		"TDred",
+		"TDgreen",
+	)
 
 /proc/get_all_card_skins()
 	return get_station_card_skins() + get_centcom_card_skins()
@@ -196,6 +234,36 @@
 	switch(skin)
 		if("id")
 			return "Стандарт"
+		if("data")
+			return "Пустая"
+		if("gold")
+			return "Золотая"
+		if("silver")
+			return "Серебряная"
+		if("security")
+			return "Безопасность"
+		if("cadet")
+			return "Кадет"
+		if("medical")
+			return "Медицина"
+		if("intern")
+			return "Интерн"
+		if("research")
+			return "Наука"
+		if("student")
+			return "Студент"
+		if("engineering")
+			return "Инженерия"
+		if("trainee")
+			return "Стажёр"
+		if("clown")
+			return "Клоун"
+		if("mime")
+			return "Мим"
+		if("rainbow")
+			return "Радужная"
+		if("prisoner")
+			return "Заключённый"
 		if("cargo")
 			return "Снабжение"
 		if("HoS")

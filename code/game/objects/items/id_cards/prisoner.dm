@@ -4,8 +4,8 @@
 			определения уровня допуска к системам рабочего объекта и регистрации биометрических данных сотрудника."
 	icon_state = "prisoner"
 	item_state = "orange-id"
-	registered_name = "Заключённый"
-	assignment = "Заключённый"
+	registered_name = "Заключёный"
+	assignment = "Заключёный"
 	/// Points goal for release
 	var/goal = 0
 	/// Current earned points
@@ -25,7 +25,7 @@
 
 /obj/item/card/id/prisoner/Initialize(mapload)
 	. = ..()
-	assignment = "Заключённый №[prisoner_number]"
+	assignment = "Заключёный №[prisoner_number]"
 	registered_name = assignment
 	update_label()
 
