@@ -444,3 +444,10 @@
 		'sound/machines/computer/keyboard_clicks_6.ogg',
 		'sound/machines/computer/keyboard_clicks_7.ogg',
 	)
+
+/datum/sound_effect/clown_car_load
+	key = SFX_CLOWN_CAR_LOAD
+	file_paths = list(
+		'sound/vehicles/clown_car/clowncar_load1.ogg',
+		'sound/vehicles/clown_car/clowncar_load2.ogg',
+	)
