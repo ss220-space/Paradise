@@ -13,6 +13,10 @@
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/on_reagent_change()
 	update_icon(UPDATE_OVERLAYS)
 
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "cups")
+
 // MARK: Coffee cup
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal
 	name = "coffee cup"
@@ -32,10 +36,6 @@
 		INSTRUMENTAL = "стаканом кофе",
 		PREPOSITIONAL = "стакане кофе"
 	)
-
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/coffeemaker_item_loader, "cups")
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/examine(mob/user)
 	. = ..()
@@ -71,13 +71,11 @@
 		. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/attack_self(mob/user)
-// Changes sprite only
+	if(!has_cup)
+		return
+
 	cap_on = !cap_on
-	if(has_cup)
-		if(cap_on)
-			user.balloon_alert(user, "крышка надета")
-		else
-			user.balloon_alert(user, "крышка снята")
+	user.balloon_alert(user, "крышка [cap_on ? "надета" : "снята"]")
 	update_appearance()
 
 // MARK: Small coffee cup
@@ -98,10 +96,6 @@
 		INSTRUMENTAL = "стаканчиком кофе",
 		PREPOSITIONAL = "стаканчике кофе"
 	)
-
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/coffeemaker_item_loader, "cups")
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/update_overlays()
 	. = ..()

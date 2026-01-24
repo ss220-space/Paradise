@@ -718,6 +718,7 @@
 	gender = FEMALE
 	icon_state = "coffee_cartrack0"
 	icon_type = "coffee cartridge"
+	pixel_y = 2
 	storage_slots = 4
 	can_hold = list(
 		/obj/item/coffee_cartridge,

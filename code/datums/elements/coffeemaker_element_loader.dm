@@ -15,8 +15,6 @@
 
 	/// Resource identifier for RESOURCE mode (e.g., "sugar", "cups")
 	var/resource_id
-	/// Loader mode: RESOURCE, CARTRIDGE, or BEAN
-	var/mode
 
 /datum/element/coffeemaker_item_loader/Attach(datum/target, resource_id = null)
 	. = ..()
@@ -25,16 +23,6 @@
 		return ELEMENT_INCOMPATIBLE
 
 	src.resource_id = resource_id
-
-	// Determine mode based on arguments and item type
-	if(resource_id)
-		mode = MODE_RESOURCE
-	else if(istype(target, /obj/item/coffee_cartridge))
-		mode = MODE_CARTRIDGE
-	else if(istype(target, /obj/item/reagent_containers/food/snacks/grown/coffee) || istype(target, /obj/item/storage/box/coffeepack))
-		mode = MODE_BEAN
-	else
-		return ELEMENT_INCOMPATIBLE
 
 	RegisterSignal(target, COMSIG_ITEM_ATTACKED_BY_COFFEEMAKER, PROC_REF(handle_coffeemaker_attack), override = TRUE)
 
@@ -49,13 +37,14 @@
 		machine.balloon_alert(user, "техпанель открыта!")
 		return
 
-	switch(mode)
-		if(MODE_RESOURCE)
-			handle_resource(source, machine, user)
-		if(MODE_CARTRIDGE)
-			handle_cartridge(source, machine, user)
-		if(MODE_BEAN)
-			handle_bean(source, machine, user)
+	// Determine mode based on current item and arguments
+	if(resource_id)
+		return handle_resource(source, machine, user)
+	else if(istype(source, /obj/item/coffee_cartridge))
+		return handle_cartridge(source, machine, user)
+	else if(istype(source, /obj/item/reagent_containers/food/snacks/grown/coffee) || istype(source, /obj/item/storage/box/coffeepack))
+		return handle_bean(source, machine, user)
+	return 
 
 /datum/element/coffeemaker_item_loader/proc/handle_resource(obj/item/source, obj/machinery/coffeemaker/machine, mob/user)
 	if(!machine.resources)
@@ -68,8 +57,7 @@
 	if(!resource.can_insert(source, user))
 		return
 
-	if(resource.insert_resource(source, user, machine))
-		return COMSIG_ITEM_COFFEEMAKER_ACCEPTED
+	return resource.insert_resource(source, user, machine)
 
 /datum/element/coffeemaker_item_loader/proc/handle_cartridge(obj/item/source, obj/machinery/coffeemaker/machine, mob/user)
 	if(!machine.uses_cartridges)
@@ -93,11 +81,11 @@
 
 		if(machine.coffee_amount >= machine.max_coffee_amount)
 			machine.balloon_alert(user, "отсек для зёрен полон!")
-			return
+			return COMSIG_ITEM_COFFEEMAKER_REJECTED
 
 		if(!new_coffee.dry)
 			machine.balloon_alert(user, "зёрна не высушены!")
-			return
+			return COMSIG_ITEM_COFFEEMAKER_REJECTED
 
 		if(!user.transfer_item_to_loc(new_coffee, machine))
 			return
@@ -114,17 +102,17 @@
 
 		if(machine.coffee_amount >= machine.max_coffee_amount)
 			machine.balloon_alert(user, "отсек для зёрен полон!")
-			return
+			return COMSIG_ITEM_COFFEEMAKER_REJECTED
 
 		if(!length(new_coffee_pack.contents))
 			machine.balloon_alert(user, "пакет пуст!")
-			return
+			return COMSIG_ITEM_COFFEEMAKER_REJECTED
 
 		var/coffee_added = FALSE
 		for(var/obj/item/reagent_containers/food/snacks/grown/coffee/new_coffee in new_coffee_pack.contents)
 			if(!new_coffee.dry)
 				machine.balloon_alert(user, "невысушенные зёрна внутри!")
-				return
+				return COMSIG_ITEM_COFFEEMAKER_REJECTED
 			if(!user.transfer_item_to_loc(new_coffee, machine))
 				return
 			machine.coffee += new_coffee

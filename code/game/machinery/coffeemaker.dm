@@ -102,10 +102,10 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(SEND_SIGNAL(attack_item, COMSIG_ITEM_ATTACKED_BY_COFFEEMAKER, src, user) & COMSIG_ITEM_COFFEEMAKER_ACCEPTED)
+	// if FALSE, then the item is't compatible at all. if !FALSE, then item was handled — accepted or rejected.
+	if(SEND_SIGNAL(attack_item, COMSIG_ITEM_ATTACKED_BY_COFFEEMAKER, src, user))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	// Handle coffeepot separately (not a resource)
 	if(istype(attack_item, /obj/item/reagent_containers/glass/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
 		handle_coffeepot_insertion(user, attack_item)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -311,19 +311,6 @@
 		. += "coffeemaker_cartidge"
 	return .
 
-/obj/machinery/coffeemaker/standard/attackby(obj/item/attack_item, mob/living/user, list/modifiers, list/attack_modifiers)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
-	if(SEND_SIGNAL(attack_item, COMSIG_ITEM_ATTACKED_BY_COFFEEMAKER, src, user) & COMSIG_ITEM_COFFEEMAKER_ACCEPTED)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(attack_item, /obj/item/reagent_containers/glass/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
-		handle_coffeepot_insertion(user, attack_item)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
-
 /obj/machinery/coffeemaker/standard/try_brew(mob/living/user)
 	if(!cartridge)
 		balloon_alert(user, "картридж отсутствует!")
@@ -349,7 +336,7 @@
 	cartridge.charges--
 	update_appearance(UPDATE_OVERLAYS)
 
-// Coffee Cartridges: like toner, but for your coffee!
+//MARK: Coffee Cartridges
 /obj/item/coffee_cartridge
 	name = "coffeemaker cartridge – Caffè Generico"
 	desc = "Картридж, содержащий перемолотые кофейные зёрна. \
@@ -599,19 +586,6 @@
 		return
 	coffee -= gone
 	update_appearance(UPDATE_OVERLAYS)
-
-/obj/machinery/coffeemaker/impressa/attackby(obj/item/attack_item, mob/living/user, list/modifiers, list/attack_modifiers)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-
-	if(SEND_SIGNAL(attack_item, COMSIG_ITEM_ATTACKED_BY_COFFEEMAKER, src, user) & COMSIG_ITEM_COFFEEMAKER_ACCEPTED)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(attack_item, /obj/item/reagent_containers/glass/coffeepot) && !(attack_item.item_flags & ABSTRACT) && attack_item.is_open_container())
-		handle_coffeepot_insertion(user, attack_item)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
 
 /obj/machinery/coffeemaker/impressa/try_brew(mob/living/user)
 	if(coffee_amount <= 0)

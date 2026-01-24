@@ -317,7 +317,6 @@
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/coffeepot
-	name = "Кофейник"
 	id = "coffeepot"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
@@ -325,7 +324,6 @@
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
 /datum/design/syrup_bottle
-	name = "Бутылка сиропа"
 	id = "syrup_bottle"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 150, MAT_GLASS = 500)

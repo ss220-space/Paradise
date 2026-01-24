@@ -4,7 +4,7 @@
 /datum/coffeemaker_resource
 	/// Unique identifier for the resource
 	var/id
-	// Name of resource
+	/// Name of resource
 	var/resource_name
 	/// Current amount of the resource
 	var/current_amount = 0
@@ -48,7 +48,6 @@
 	var/obj/new_item = new item_type(get_turf(machine))
 	user.put_in_hands(new_item)
 	current_amount--
-	playsound(machine, 'sound/machines/machine_vend.ogg', 25, TRUE)
 	machine.balloon_alert(user, "[resource_name] взят")
 	machine.update_appearance(UPDATE_OVERLAYS)
 	return TRUE
@@ -74,15 +73,15 @@
 /datum/coffeemaker_resource/proc/insert_resource(obj/item/inserting_item, mob/user, obj/machinery/coffeemaker/machine)
 	if(current_amount >= max_amount)
 		machine.balloon_alert(user, "отсек полон!")
-		return FALSE
+		return COMSIG_ITEM_COFFEEMAKER_REJECTED
 
 	if(!user.transfer_item_to_loc(inserting_item, machine))
-		return FALSE
+		return COMSIG_ITEM_COFFEEMAKER_REJECTED
 
 	current_amount++
 	machine.balloon_alert(user, "[resource_name] вставлен")
 	machine.update_appearance(UPDATE_OVERLAYS)
-	return TRUE
+	return COMSIG_ITEM_COFFEEMAKER_ACCEPTED
 
 /// Get examine string for this resource
 /datum/coffeemaker_resource/proc/get_examine_string()
@@ -108,7 +107,7 @@
 /datum/coffeemaker_resource/cups/small/insert_resource(obj/item/inserting_item, mob/user, obj/machinery/coffeemaker/machine)
 	if(inserting_item.reagents.total_volume > 0)
 		machine.balloon_alert(user, "стакан не пуст!")
-		return FALSE
+		return COMSIG_ITEM_COFFEEMAKER_REJECTED
 	return ..()
 
 // MARK: Normal Coffee Cup
@@ -118,17 +117,17 @@
 	max_amount = 15
 	icon_state = "cup"
 	item_type = /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal
-	radial_name = "Взять чашку"
-	resource_name = "чашка"
-	section_name = "чашек"
+	radial_name = "Взять стаканчик"
+	resource_name = "стаканчик"
+	section_name = "стаканчиков"
 
 /datum/coffeemaker_resource/cups/normal/can_insert(obj/item/inserting_item, mob/user)
 	return ..() && inserting_item.is_open_container()
 
 /datum/coffeemaker_resource/cups/normal/insert_resource(obj/item/inserting_item, mob/user, obj/machinery/coffeemaker/machine)
 	if(inserting_item.reagents.total_volume > 0)
-		machine.balloon_alert(user, "чашка не пуста!")
-		return FALSE
+		machine.balloon_alert(user, "стаканчик не пуст!")
+		return COMSIG_ITEM_COFFEEMAKER_REJECTED
 	return ..()
 
 // MARK: Sugar
@@ -139,7 +138,7 @@
 	icon_state = "sugar"
 	item_type = /obj/item/reagent_containers/food/condiment/pack/sugar
 	radial_name = "Взять сахар"
-	resource_name = "сахар"
+	resource_name = "пакетик сахара"
 	section_name = "сахара"
 
 // MARK: Aspartame
@@ -150,7 +149,7 @@
 	icon_state = "aspartame"
 	item_type = /obj/item/reagent_containers/food/condiment/pack/aspartame
 	radial_name = "Взять аспартам"
-	resource_name = "аспартам"
+	resource_name = "пакетик аспартама"
 	section_name = "аспартама"
 
 // MARK: Creamer
@@ -161,5 +160,5 @@
 	icon_state = "creamer"
 	item_type = /obj/item/reagent_containers/food/condiment/pack/creamer
 	radial_name = "Взять сливки"
-	resource_name = "сливки"
+	resource_name = "пакетик сливок"
 	section_name = "сливок"
