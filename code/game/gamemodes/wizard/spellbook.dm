@@ -1034,7 +1034,7 @@
 	. |= RECHARGE_SUCCESSFUL
 
 	if(prob(80))
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] загорается!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] загорается!"))
 		user.temporarily_remove_item_from_inventory(src)
 		qdel(src)
 		. |= RECHARGE_BURNOUT
@@ -1065,11 +1065,11 @@
 		onlearned(user)
 
 /obj/item/spellbook/oneuse/proc/recoil(mob/user)
-	user.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] загорается чёрным светом!"))
+	user.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] загорается чёрным светом!"))
 
 /obj/item/spellbook/oneuse/proc/onlearned(mob/user)
 	used = 1
-	user.visible_message(span_caution("[capitalize(declent_ru(NOMINATIVE))] на мгновение загорается чёрным светом!"))
+	user.visible_message(span_caution("[DECLENT_RU_CAP(src, NOMINATIVE)] на мгновение загорается чёрным светом!"))
 
 /obj/item/spellbook/oneuse/fireball
 	spell = /obj/effect/proc_holder/spell/fireball
@@ -1233,7 +1233,7 @@
 
 /obj/item/spellbook/oneuse/charge/recoil(mob/user)
 	..()
-	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает нагреваться!"))
+	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает нагреваться!"))
 	empulse(src, 1, 1)
 
 /obj/item/spellbook/oneuse/summonitem
@@ -1246,7 +1246,7 @@
 
 /obj/item/spellbook/oneuse/summonitem/recoil(mob/user)
 	..()
-	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно исчезает!"))
+	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] внезапно исчезает!"))
 	qdel(src)
 
 /obj/item/spellbook/oneuse/fake_gib

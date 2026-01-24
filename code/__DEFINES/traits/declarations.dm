@@ -442,3 +442,8 @@
 #define STATION_TRAIT_MEDBOT_MANIA "station_trait_medbot_mania"
 #define STATION_TRAIT_UPGRADED_ARMORY "station_trait_upgraded_armory"
 #define STATION_TRAIT_GREEN_ENERGY "station_trait_green_energy"
+
+/// Immune to being afflicted by time stop (spell)
+#define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
+
+#define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"

@@ -532,7 +532,7 @@
 		return
 	if(CheckFriendlyFire(A))
 		return
-	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
 
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)

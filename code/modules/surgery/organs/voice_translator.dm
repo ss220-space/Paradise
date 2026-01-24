@@ -301,7 +301,7 @@
 	if(!owner)
 		return
 
-	to_chat(owner, span_notice("<font color=green>[capitalize(declent_ru(NOMINATIVE))] снова работает!</font>"))
+	to_chat(owner, span_notice("<font color=green>[DECLENT_RU_CAP(src, NOMINATIVE)] снова работает!</font>"))
 	for(var/datum/language/lang as anything in given_languages)
 		owner.add_language(lang.name)
 
@@ -310,7 +310,7 @@
 /obj/item/organ/internal/cyberimp/mouth/translator/proc/turn_languages_off()
 	active = FALSE
 	can_wingdings = FALSE
-	to_chat(owner, span_warning("[capitalize(declent_ru(NOMINATIVE))] временно вышел из строя из-за воздействия ЭМИ!"))
+	to_chat(owner, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] временно вышел из строя из-за воздействия ЭМИ!"))
 	do_sparks(3, FALSE, owner)
 	for(var/datum/language/lang as anything in given_languages)
 		owner.remove_language(lang.name)

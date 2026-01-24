@@ -195,7 +195,7 @@
 /mob/living/simple_animal/bot/medbot/set_custom_texts()
 	text_hack = "Вы взломали микросхемы синтезатора реагентов [declent_ru(GENITIVE)]."
 	text_dehack = "Вы восстановили микросхемы синтезатора реагентов [declent_ru(GENITIVE)]."
-	text_dehack_fail = "[capitalize(declent_ru(NOMINATIVE))] выглядит повреждённым и не может быть перепрограммирован!"
+	text_dehack_fail = "[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит повреждённым и не может быть перепрограммирован!"
 
 /mob/living/simple_animal/bot/medbot/get_controls(mob/user)
 	var/dat
@@ -320,7 +320,7 @@
 		declare_crit = FALSE
 		if(user)
 			to_chat(user, span_notice("Вы замыкаете микросхемы синтеза реагентов [declent_ru(GENITIVE)]."))
-		audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] странно жужжит."))
+		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] странно жужжит."))
 		flick("medibot_spark", src)
 		if(user)
 			oldpatient = user
@@ -542,8 +542,8 @@
 		if(!emagged && !hijacked && check_overdose(patient, reagent_id, injection_amount))
 			soft_reset()
 			return
-		C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] пытается сделать укол [patient]!"),
-									span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пытается сделать вам укол!"))
+		C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] пытается сделать укол [patient]!"),
+									span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пытается сделать вам укол!"))
 
 		addtimer(CALLBACK(src, PROC_REF(do_inject), C, !isnull(beaker_injection), reagent_id), 3 SECONDS)
 
@@ -559,10 +559,10 @@
 		else
 			patient.reagents.add_reagent(reagent_id, injection_amount)
 
-		C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сделал укол [patient] своим шприцем!"),
-						span_userdanger("[capitalize(declent_ru(NOMINATIVE))] сделал вам укол своим шприцем!"))
+		C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сделал укол [patient] своим шприцем!"),
+						span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] сделал вам укол своим шприцем!"))
 	else
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] убирает свой шприц.")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] убирает свой шприц.")
 
 	update_icon()
 	soft_reset()
@@ -578,7 +578,7 @@
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
 	if(drops_parts)

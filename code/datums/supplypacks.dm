@@ -169,6 +169,40 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике противопожарного оборудования",
 	)
 
+/datum/supply_packs/emergency/proper
+	name = "Кластерная очищающая граната"
+	contains = list(
+		/obj/item/grenade/clusterbuster/cleaner,
+	)
+	cost = 75
+	containertype = /obj/structure/closet/crate
+	containername = "ящик с кластерной очищающей гранатой"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кластерной очищающей гранатой",
+		GENITIVE = "ящика с кластерной очищающей гранатой",
+		DATIVE = "ящику с кластерной очищающей гранатой",
+		ACCUSATIVE = "ящик с кластерной очищающей гранатой",
+		INSTRUMENTAL = "ящиком с кластерной очищающей гранатой",
+		PREPOSITIONAL = "ящике с кластерной очищающей гранатой",
+	)
+
+/datum/supply_packs/emergency/clusteroxygen
+	name = "Кластерная кислородная граната"
+	contains = list(
+		/obj/item/grenade/clusterbuster/oxygen,
+	)
+	cost = 50
+	containertype = /obj/structure/closet/crate
+	containername = "ящик с кластерной кислородной гранатой"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кластерной кислородной гранатой",
+		GENITIVE = "ящика с кластерной кислородной гранатой",
+		DATIVE = "ящику с кластерной кислородной гранатой",
+		ACCUSATIVE = "ящик с кластерной кислородной гранатой",
+		INSTRUMENTAL = "ящиком с кластерной кислородной гранатой",
+		PREPOSITIONAL = "ящике с кластерной кислородной гранатой",
+	)
+
 /datum/supply_packs/emergency/atmostank
 	name = "Противопожарный ранец"
 	contains = list(
@@ -418,7 +452,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/emergency/highrisk
 	cost = 450
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/secure/weapon/veihit
 	containername = "ящик особо важного снаряжения"
 	container_ru_names = list(
 		NOMINATIVE = "ящик особо важного снаряжения",
@@ -1523,6 +1557,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике снаряжения офицера СБ",
 	)
 
+/datum/supply_packs/security/minigun
+	name = "Гатлинг—лазер"
+	contains = list(
+		/obj/item/gun/energy/gun/minigun,
+	)
+	cost = 350
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 6, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_MAGNETS = 6)
+	containertype = /obj/structure/closet/crate/secure/weapon/veihit
+	containername = "ящик с гатлинг—лазером"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с гатлинг—лазером",
+		GENITIVE = "ящика с гатлинг—лазером",
+		DATIVE = "ящику с гатлинг—лазером",
+		ACCUSATIVE = "ящик с гатлинг—лазером",
+		INSTRUMENTAL = "ящиком с гатлинг—лазером",
+		PREPOSITIONAL = "ящике с гатлинг—лазером",
+	)
+
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Engineering
 //////////////////////////////////////////////////////////////////////////////
@@ -1557,6 +1609,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/engineering/modsuit_atmos
 	name = "Атмосферные МЭК"
+	cost = 130
 	contains = list(
 		/obj/item/mod/control/pre_equipped/atmospheric,
 		/obj/item/mod/control/pre_equipped/atmospheric,
@@ -2210,8 +2263,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/screwdriver/industrial,
 		/obj/item/screwdriver/industrial,
 	)
-	cost = 60
-	containertype = /obj/structure/closet/crate/secure/engineering
+	cost = 30
+	containertype = /obj/structure/closet/crate/engineering/electrical
 	containername = "ящик продвинутых инструментов"
 	container_ru_names = list(
 		NOMINATIVE = "ящик продвинутых инструментов",
@@ -2220,6 +2273,26 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик продвинутых инструментов",
 		INSTRUMENTAL = "ящиком продвинутых инструментов",
 		PREPOSITIONAL = "ящике продвинутых инструментов",
+	)
+
+/datum/supply_packs/engineering/indumulti
+	name = "Продвинутые мультиметры"
+	containername = "ящик продвинутых мультиметров"
+	contains = list(
+		/obj/item/multitool/industrial,
+		/obj/item/multitool/industrial,
+		/obj/item/multitool/industrial,
+	)
+	cost = 60
+	containertype = /obj/structure/closet/crate/engineering/electrical
+	containername = "ящик продвинутых мультиметров"
+	container_ru_names = list(
+		NOMINATIVE = "ящик продвинутых мультиметров",
+		GENITIVE = "ящика продвинутых мультиметров",
+		DATIVE = "ящику продвинутых мультиметров",
+		ACCUSATIVE = "ящик продвинутых мультиметров",
+		INSTRUMENTAL = "ящиком продвинутых мультиметров",
+		PREPOSITIONAL = "ящике продвинутых мультиметров",
 	)
 
 ///////////// Station Goals
@@ -2986,12 +3059,31 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с системами обработки надрезов",
 	)
 	cost = 180
+	required_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PROGRAMMING = 4)
 	contains = list(
 		/obj/item/scalpel/laser/manager,
 		/obj/item/scalpel/laser/manager,
 		/obj/item/scalpel/laser/manager,
 	)
-	required_tech = list(RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_MAGNETS = 5, RESEARCH_TREE_PROGRAMMING = 4)
+
+/datum/supply_packs/medical/menderindustrial
+	name = "Продвинутый авто-мендер"
+	containername = "ящик продвинутых авто-мендеров"
+	container_ru_names = list(
+		NOMINATIVE = "ящик продвинутых авто-мендеров",
+		GENITIVE = "ящика продвинутых авто-мендеров",
+		DATIVE = "ящику продвинутых авто-мендеров",
+		ACCUSATIVE = "ящик продвинутых авто-мендеров",
+		INSTRUMENTAL = "ящиком продвинутых авто-мендеров",
+		PREPOSITIONAL = "ящике продвинутых авто-мендеров",
+	)
+	cost = 180
+	required_tech = list(RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_MAGNETS = 6, RESEARCH_TREE_PROGRAMMING = 6)
+	contains = list(
+		/obj/item/reagent_containers/applicator/abductor/industrial,
+		/obj/item/reagent_containers/applicator/abductor/industrial,
+		/obj/item/reagent_containers/applicator/abductor/industrial,
+	)
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Science
@@ -3240,7 +3332,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/storage/backpack/holding/satchel,
 		/obj/item/storage/backpack/holding/satchel,
 	)
-	cost = 400
+	cost = 300
+	required_tech = list(RESEARCH_TREE_PLASMA = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5)
 	containername = "ящик блюспейс-ранцев"
 	container_ru_names = list(
 		NOMINATIVE = "ящик блюспейс-ранцев",
@@ -3250,7 +3343,25 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком блюспейс-ранцев",
 		PREPOSITIONAL = "ящике блюспейс-ранцев",
 	)
-	required_tech = list(RESEARCH_TREE_PLASMA = 6, RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_BLUESPACE = 6, RESEARCH_TREE_MATERIALS = 5)
+	
+/datum/supply_packs/science/soduffelbag
+	name = "Блюспейс сумки хранения"
+	contains = list(
+		/obj/item/storage/backpack/holding/satchel/duffelbag,
+		/obj/item/storage/backpack/holding/satchel/duffelbag,
+		/obj/item/storage/backpack/holding/satchel/duffelbag,
+	)
+	cost = 400
+	required_tech = list(RESEARCH_TREE_PLASMA = 7, RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_BLUESPACE = 7, RESEARCH_TREE_MATERIALS = 7)
+	containername = "ящик блюспейс спортивных сумок"
+	container_ru_names = list(
+		NOMINATIVE = "ящик блюспейс спортивных сумок",
+		GENITIVE = "ящика блюспейс спортивных сумок",
+		DATIVE = "ящику блюспейс спортивных сумок",
+		ACCUSATIVE = "ящик блюспейс спортивных сумок",
+		INSTRUMENTAL = "ящиком блюспейс спортивных сумок",
+		PREPOSITIONAL = "ящике блюспейс спортивных сумок",
+	)
 
 /datum/supply_packs/science/belt_of_hold
 	name = "Блюспейс-пояса"
@@ -3551,7 +3662,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	access = ACCESS_RESEARCH
 	required_tech = list(RESEARCH_TREE_MATERIALS = 6, RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_BIOTECH = 6, RESEARCH_TREE_POWERSTORAGE = 5)
 
-/datum/supply_packs/science/mod_core
+/datum/supply_packs/science/modcore
 	name = "Ящик ядер МЭК"
 	contains = list(
 		/obj/item/mod/core/standard,
@@ -3560,6 +3671,8 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/mod/core/standard,
 	)
 	cost = 50
+	access = ACCESS_ROBOTICS
+	announce_beacons = list("Research Division" = list("Robotics"))
 	containertype = /obj/structure/closet/crate/secure/scisec
 	containername = "ящик с ядрами МЭК"
 	container_ru_names = list(
@@ -3570,8 +3683,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком с ядрами МЭК",
 		PREPOSITIONAL = "ящике с ядрами МЭК",
 	)
-	access = ACCESS_ROBOTICS
-	announce_beacons = list("Research Division" = list("Robotics"))
+
+/datum/supply_packs/science/txdisk
+	name = "Пустые дискеты технологий"
+	containername = "ящик пустых дискет технологий"
+	container_ru_names = list(
+		NOMINATIVE = "ящик пустых дискет технологий",
+		GENITIVE = "ящика пустых дискет технологий",
+		DATIVE = "ящику пустых дискет технологий",
+		ACCUSATIVE = "ящик пустых дискет технологий",
+		INSTRUMENTAL = "ящиком пустых дискет технологий",
+		PREPOSITIONAL = "ящике пустых дискет технологий",
+	)
+	cost = 40
+	contains = list(
+		/obj/item/storage/box/disks_tech,
+		/obj/item/storage/box/disks_tech,
+		/obj/item/storage/box/disks_tech,
+	)
 
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Organic
@@ -4447,6 +4576,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с аппаратом для разлива",
 	)
 
+/datum/supply_packs/organic/botdisk
+	name = "Пустые ботанические дискеты"
+	containername = "ящик пустых ботанических дискет"
+	container_ru_names = list(
+		NOMINATIVE = "ящик пустых ботанических дискет",
+		GENITIVE = "ящика пустых ботанических дискет",
+		DATIVE = "ящику пустых ботанических дискет",
+		ACCUSATIVE = "ящик пустых ботанических дискет",
+		INSTRUMENTAL = "ящиком пустых ботанических дискет",
+		PREPOSITIONAL = "ящике пустых ботанических дискет",
+	)
+	cost = 20
+	contains = list(
+		/obj/item/storage/box/disks_plantgene,
+		/obj/item/storage/box/disks_plantgene,
+		/obj/item/storage/box/disks_plantgene,
+	)
+
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Materials
 //////////////////////////////////////////////////////////////////////////////
@@ -4592,6 +4739,33 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с листами пластика",
 	)
 
+/datum/supply_packs/materials/carpet50
+	name = "Набор ковров"
+	contains = list(
+		/obj/item/stack/tile/carpet,
+		/obj/item/stack/tile/carpet/black,
+		/obj/item/stack/tile/carpet/blue,
+		/obj/item/stack/tile/carpet/cyan,
+		/obj/item/stack/tile/carpet/green,
+		/obj/item/stack/tile/carpet/orange,
+		/obj/item/stack/tile/carpet/purple,
+		/obj/item/stack/tile/carpet/red,
+		/obj/item/stack/tile/carpet/royalblack,
+		/obj/item/stack/tile/carpet/royalblue,
+		/obj/item/stack/tile/arcade_carpet,
+	)
+	amount = 50
+	cost = 60
+	containername = "ящик с коврами"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с коврами",
+		GENITIVE = "ящика с коврами",
+		DATIVE = "ящику с коврами",
+		ACCUSATIVE = "ящик с коврами",
+		INSTRUMENTAL = "ящиком с коврами",
+		PREPOSITIONAL = "ящике с коврами",
+	)
+
 //////////////////////////////////////////////////////////////////////////////
 // MARK: Miscellaneous
 //////////////////////////////////////////////////////////////////////////////
@@ -4634,6 +4808,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		PREPOSITIONAL = "ящике с планшетами для заказов",
 	)
 
+/datum/supply_packs/misc/qm_quest_tablet
+	name = "Планшет Квартирмейстера"
+	contains = list(
+		/obj/item/qm_quest_tablet,
+	)
+	cost = 100
+	required_tech = list(RESEARCH_TREE_POWERSTORAGE = 5, RESEARCH_TREE_PROGRAMMING = 5)
+	containertype = /obj/structure/closet/crate/vault
+	containername = "ящик с планшетом Квартирмейстера"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с планшетом Квартирмейстера",
+		GENITIVE = "ящика с планшетом Квартирмейстера",
+		DATIVE = "ящику с планшетом Квартирмейстера",
+		ACCUSATIVE = "ящик с планшетом Квартирмейстера",
+		INSTRUMENTAL = "ящиком с планшетом Квартирмейстера",
+		PREPOSITIONAL = "ящике с планшетом Квартирмейстера",
+	)
+
 /datum/supply_packs/misc/watertank
 	name = "Бак воды"
 	contains = list(
@@ -4649,6 +4841,23 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик с баком воды",
 		INSTRUMENTAL = "ящиком с баком воды",
 		PREPOSITIONAL = "ящике с баком воды",
+	)
+
+/datum/supply_packs/misc/holywatertank
+	name = "Бак святой воды"
+	contains = list(
+		/obj/structure/reagent_dispensers/holywatertank,
+	)
+	cost = 40
+	containertype = /obj/structure/largecrate
+	containername = "ящик с баком святой воды"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с баком святой воды",
+		GENITIVE = "ящика с баком святой воды",
+		DATIVE = "ящику с баком святой воды",
+		ACCUSATIVE = "ящик с баком святой воды",
+		INSTRUMENTAL = "ящиком с баком святой воды",
+		PREPOSITIONAL = "ящике с баком святой воды",
 	)
 
 /datum/supply_packs/misc/hightank
@@ -5431,7 +5640,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	special = TRUE
 
 /datum/supply_packs/misc/crematorium
-	name = "Детали крем"
+	name = "Детали крематория"
 	cost = 15
 	contains = list(
 		/obj/item/circuitboard/machine/crematorium,
@@ -5461,6 +5670,24 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик с грузовым МЭК",
 		INSTRUMENTAL = "ящиком с грузовым МЭК",
 		PREPOSITIONAL = "ящике с грузовым МЭК",
+	)
+
+/datum/supply_packs/misc/motorcycle
+	name = "Мотоцикл"
+	contains = list(
+		/obj/vehicle/ridden/motorcycle,
+	)
+	cost = 300
+	containertype = /obj/structure/closet/crate/secure/large
+	required_tech = list(RESEARCH_TREE_ENGINEERING = 7, RESEARCH_TREE_MATERIALS = 7)
+	containername = "ящик с мотоциклом"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с мотоциклом",
+		GENITIVE = "ящика с мотоциклом",
+		DATIVE = "ящику с мотоциклом",
+		ACCUSATIVE = "ящик с мотоциклом",
+		INSTRUMENTAL = "ящиком с мотоциклом",
+		PREPOSITIONAL = "ящике с мотоциклом",
 	)
 
 //////////////////////////////////////////////////////////////////////////////
@@ -6182,6 +6409,235 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		ACCUSATIVE = "ящик игрушечных пистолетов",
 		INSTRUMENTAL = "ящиком игрушечных пистолетов",
 		PREPOSITIONAL = "ящике игрушечных пистолетов",
+	)
+
+/datum/supply_packs/contraband/syndie_cutouts
+	name = "Адаптивные картонные фигуры"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/cutouts,
+		/obj/item/storage/box/syndie_kit/cutouts,
+		/obj/item/storage/box/syndie_kit/cutouts,
+	)
+	credits_cost = 1000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 2)
+	containername = "ящик адаптивных картонных фигур"
+	container_ru_names = list(
+		NOMINATIVE = "ящик адаптивных картонных фигур",
+		GENITIVE = "ящика адаптивных картонных фигур",
+		DATIVE = "ящику адаптивных картонных фигур",
+		ACCUSATIVE = "ящик адаптивных картонных фигур",
+		INSTRUMENTAL = "ящиком адаптивных картонных фигур",
+		PREPOSITIONAL = "ящике адаптивных картонных фигур",
+	)
+
+/datum/supply_packs/contraband/tape_roll_thick
+	name = "Плотная изолента"
+	contains = list(
+		/obj/item/stack/tape_roll/thick,
+		/obj/item/stack/tape_roll/thick,
+		/obj/item/stack/tape_roll/thick,
+	)
+	credits_cost = 2000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 2)
+	containername = "ящик плотных изолент"
+	container_ru_names = list(
+		NOMINATIVE = "ящик плотных изолент",
+		GENITIVE = "ящика плотных изолент",
+		DATIVE = "ящику плотных изолент",
+		ACCUSATIVE = "ящик плотных изолент",
+		INSTRUMENTAL = "ящиком плотных изолент",
+		PREPOSITIONAL = "ящике плотных изолент",
+	)
+
+/datum/supply_packs/contraband/knives_kit
+	name = "Метательные ножи"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/knives_kit,
+		/obj/item/storage/box/syndie_kit/knives_kit,
+		/obj/item/storage/box/syndie_kit/knives_kit,
+	)
+	credits_cost = 3000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 2, RESEARCH_TREE_COMBAT = 5)
+	containername = "ящик метательных ножей"
+	container_ru_names = list(
+		NOMINATIVE = "ящик метательных ножей",
+		GENITIVE = "ящика метательных ножей",
+		DATIVE = "ящику метательных ножей",
+		ACCUSATIVE = "ящик метательных ножей",
+		INSTRUMENTAL = "ящиком метательных ножей",
+		PREPOSITIONAL = "ящике метательных ножей",
+	)
+
+/datum/supply_packs/contraband/ecig
+	name = "Подозрительные электронные сигареты"
+	contains = list(
+		/obj/item/ecig/syndi,
+		/obj/item/ecig/syndi,
+		/obj/item/ecig/syndi,
+	)
+	credits_cost = 3000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7)
+	containername = "ящик подозрительные электронных сигарет"
+	container_ru_names = list(
+		NOMINATIVE = "ящик подозрительных электронных сигарет",
+		GENITIVE = "ящика подозрительных электронных сигарет",
+		DATIVE = "ящику подозрительных электронных сигарет",
+		ACCUSATIVE = "ящик подозрительных электронных сигарет",
+		INSTRUMENTAL = "ящиком подозрительных электронных сигарет",
+		PREPOSITIONAL = "ящике подозрительных электронных сигарет",
+	)
+
+/datum/supply_packs/contraband/powerfist
+	name = "Реверсивные карты"
+	contains = list(
+		/obj/item/syndicate_reverse_card,
+		/obj/item/syndicate_reverse_card,
+	)
+	credits_cost = 5000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_COMBAT = 5, RESEARCH_TREE_POWERSTORAGE = 7, RESEARCH_TREE_ENGINEERING = 5)
+	containername = "ящик реверсивных карт"
+	container_ru_names = list(
+		NOMINATIVE = "ящик реверсивных карт",
+		GENITIVE = "ящика реверсивных карт",
+		DATIVE = "ящику реверсивных карт",
+		ACCUSATIVE = "ящик реверсивных карт",
+		INSTRUMENTAL = "ящиком реверсивных карт",
+		PREPOSITIONAL = "ящике реверсивных карт",
+	)
+
+/datum/supply_packs/contraband/emp
+	name = "Набор ЭМИ-гранат"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/emp,
+	)
+	credits_cost = 5000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 3, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_MAGNETS = 5)
+	containername = "ящик с набором ЭМИ-гранат"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с набором ЭМИ-гранат",
+		GENITIVE = "ящика с набором ЭМИ-гранат",
+		DATIVE = "ящику с набором ЭМИ-гранат",
+		ACCUSATIVE = "ящик с набором ЭМИ-гранат",
+		INSTRUMENTAL = "ящиком с набором ЭМИ-гранат",
+		PREPOSITIONAL = "ящике с набором ЭМИ-гранат",
+	)
+
+/datum/supply_packs/contraband/frag
+	name = "Пояс боевых осколочных гранат"
+	contains = list(
+		/obj/item/storage/belt/grenade/frag,
+	)
+	credits_cost = 7000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 4, RESEARCH_TREE_COMBAT = 6, RESEARCH_TREE_POWERSTORAGE = 7)
+	containername = "ящик с поясом боевых осколочных гранат"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с поясом боевых осколочных гранат",
+		GENITIVE = "ящика с поясом боевых осколочных гранат",
+		DATIVE = "ящику с поясом боевых осколочных гранат",
+		ACCUSATIVE = "ящик с поясом боевых осколочных гранат",
+		INSTRUMENTAL = "ящиком с поясом боевых осколочных гранат",
+		PREPOSITIONAL = "ящике с поясом боевых осколочных гранат",
+	)
+
+/datum/supply_packs/contraband/atmosn2ogrenades
+	name = "Усыпляющая кластерная граната"
+	contains = list(
+		/obj/item/storage/box/syndie_kit/atmosn2ogrenades,
+	)
+	credits_cost = 7000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 4, RESEARCH_TREE_TOXINS = 7)
+	containername = "ящик с усыпляющей кластерной гранатой"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с усыпляющей кластерной гранатой",
+		GENITIVE = "ящика с усыпляющей кластерной гранатой",
+		DATIVE = "ящику с усыпляющей кластерной гранатой",
+		ACCUSATIVE = "ящик с усыпляющей кластерной гранатой",
+		INSTRUMENTAL = "ящиком с усыпляющей кластерной гранатой",
+		PREPOSITIONAL = "ящике с усыпляющей кластерной гранатой",
+	)
+
+/datum/supply_packs/contraband/thermal
+	name = "Тепловизионные очки \"Хамелеон\""
+	contains = list(
+		/obj/item/clothing/glasses/chameleon/thermal,
+	)
+	credits_cost = 9000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 5, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_PROGRAMMING = 7)
+	containername = "ящик с тепловизионными очками \"Хамелеон\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с тепловизионными очками \"Хамелеон\"",
+		GENITIVE = "ящика с тепловизионными очками \"Хамелеон\"",
+		DATIVE = "ящику с тепловизионными очками \"Хамелеон\"",
+		ACCUSATIVE = "ящик с тепловизионными очками \"Хамелеон\"",
+		INSTRUMENTAL = "ящиком с тепловизионными очками \"Хамелеон\"",
+		PREPOSITIONAL = "ящике с тепловизионными очками \"Хамелеон\"",
+	)
+
+/datum/supply_packs/contraband/autoimplanter
+	name = "Автоимплантер"
+	contains = list(
+		/obj/item/autoimplanter/traitor,
+	)
+	credits_cost = 10000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 5, RESEARCH_TREE_BIOTECH = 7, RESEARCH_TREE_PROGRAMMING = 7, RESEARCH_TREE_POWERSTORAGE = 7)
+	containername = "ящик с автоимплантером"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с автоимплантером",
+		GENITIVE = "ящика с автоимплантером",
+		DATIVE = "ящику с автоимплантером",
+		ACCUSATIVE = "ящик с автоимплантером",
+		INSTRUMENTAL = "ящиком с автоимплантером",
+		PREPOSITIONAL = "ящике с автоимплантером",
+	)
+
+/datum/supply_packs/contraband/mastiff
+	name = "Дробовик \"Мастиф\""
+	contains = list(
+		/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff,
+		/obj/item/ammo_box/magazine/cheap_m12g,
+		/obj/item/ammo_box/magazine/cheap_m12g,
+	)
+	credits_cost = 20000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 6, RESEARCH_TREE_COMBAT = 7)
+	containername = "ящик с дробовиком \"Мастиф\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с дробовиком \"Мастиф\"",
+		GENITIVE = "ящика с дробовиком \"Мастиф\"",
+		DATIVE = "ящику с дробовиком \"Мастиф\"",
+		ACCUSATIVE = "ящик с дробовиком \"Мастиф\"",
+		INSTRUMENTAL = "ящиком с дробовиком \"Мастиф\"",
+		PREPOSITIONAL = "ящике с дробовиком \"Мастиф\"",
+	)
+
+/datum/supply_packs/contraband/mini_uzi
+	name = "Пистолет пулемет \"Узи\""
+	contains = list(
+		/obj/item/gun/projectile/automatic/mini_uzi,
+		/obj/item/ammo_box/magazine/uzim9mm,
+		/obj/item/ammo_box/magazine/uzim9mm,
+	)
+	credits_cost = 30000
+	containertype = /obj/structure/closet/crate/syndicate
+	required_tech = list(RESEARCH_TREE_ILLEGAL = 7, RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_ENGINEERING = 7)
+	containername = "ящик с пистолетом пулеметом \"Узи\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с пистолетом пулеметом \"Узи\"",
+		GENITIVE = "ящика с пистолетом пулеметом \"Узи\"",
+		DATIVE = "ящику с пистолетом пулеметом \"Узи\"",
+		ACCUSATIVE = "ящик с пистолетом пулеметом \"Узи\"",
+		INSTRUMENTAL = "ящиком с пистолетом пулеметом \"Узи\"",
+		PREPOSITIONAL = "ящике с пистолетом пулеметом \"Узи\"",
 	)
 
 #undef SUPPLY_EMERGENCY

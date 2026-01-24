@@ -127,12 +127,12 @@
 	if(!burstopen && user)
 		to_chat(user, span_notice("Вы открываете [declent_ru(ACCUSATIVE)] с громким хлопком!"))
 	else
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] оглушительно открывается!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] оглушительно открывается!"))
 
 	if(times_shaken < 5)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] громко шипит!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] громко шипит!"))
 	else
-		visible_message(span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] оглушительно лопается, разливая своё содержимое!"))
+		visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] оглушительно лопается, разливая своё содержимое!"))
 		if(reagents.total_volume)
 			var/datum/effect_system/fluid_spread/foam/sodafizz = new
 			sodafizz.set_up(amount = 1, location = get_turf(src), carry = reagents)

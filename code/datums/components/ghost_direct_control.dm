@@ -132,7 +132,7 @@
 
 /// We got far enough to establish that this mob is a valid target, let's try to posssess it
 /datum/component/ghost_direct_control/proc/attempt_possession(mob/our_mob, mob/dead/observer/hopeful_ghost)
-	var/ghost_asked = tgui_alert(usr, "[question_text? question_text : "Стать [capitalize(our_mob.declent_ru(INSTRUMENTAL))]?"]", "Стать [capitalize(our_mob.declent_ru(INSTRUMENTAL))]?", list("Да", "Нет"))
+	var/ghost_asked = tgui_alert(usr, "[question_text? question_text : "Стать [DECLENT_RU_CAP(our_mob, INSTRUMENTAL)]?"]", "Стать [DECLENT_RU_CAP(our_mob, INSTRUMENTAL)]?", list("Да", "Нет"))
 	if(ghost_asked != "Да" || QDELETED(our_mob))
 		return
 	assume_direct_control(hopeful_ghost)
@@ -156,7 +156,7 @@
 		to_chat(harbinger, "Вы не можете повторно присоединиться к раунду, активировав антаг худ.")
 		return
 	if(new_body.key)
-		to_chat(harbinger, span_warning("[capitalize(new_body.declent_ru(NOMINATIVE))] уже является разумным!"))
+		to_chat(harbinger, span_warning("[DECLENT_RU_CAP(new_body, NOMINATIVE)] уже является разумным!"))
 		qdel(src)
 		return
 	if(extra_control_checks && !extra_control_checks.Invoke(harbinger))

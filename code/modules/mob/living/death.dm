@@ -113,7 +113,7 @@
 	return TRUE
 
 /mob/living/proc/delayed_gib()
-	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> дико сотрясается в мучительных спазмах!"), span_userdanger("Каждая клетка вашего тела кричит от невыносимой боли!"))
+	visible_message(span_danger("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> дико сотрясается в мучительных спазмах!"), span_userdanger("Каждая клетка вашего тела кричит от невыносимой боли!"))
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

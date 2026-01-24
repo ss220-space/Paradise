@@ -1615,3 +1615,5 @@
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
+
+#define COMSIG_LUNGE_DUAL_STRIKE "lunge_dual_strike"

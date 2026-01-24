@@ -63,3 +63,31 @@
 	icon_file = 'icons/obj/items.dmi'
 	json_config = 'code/datums/greyscale/json_configs/wrap_paper.json'
 
+/*
+	ENCRYPTION KEYS
+ */
+
+/datum/greyscale_config/encryptionkey_basic
+	name = "Basic Encryptionkey"
+	icon_file = 'icons/obj/radio.dmi'
+	json_config = 'code/datums/greyscale/json_configs/encryptionkey_basic.json'
+
+/datum/greyscale_config/encryptionkey_stripe
+	name = "Stripe Encryptionkey"
+	icon_file = 'icons/obj/radio.dmi'
+	json_config = 'code/datums/greyscale/json_configs/encryptionkey_stripe.json'
+
+/datum/greyscale_config/encryptionkey_double_stripe
+	name = "Double Stripe Encryptionkey"
+	icon_file = 'icons/obj/radio.dmi'
+	json_config = 'code/datums/greyscale/json_configs/encryptionkey_double_stripe.json'
+
+/datum/greyscale_config/encryptionkey_square
+	name = "Square Encryptionkey"
+	icon_file = 'icons/obj/radio.dmi'
+	json_config = 'code/datums/greyscale/json_configs/encryptionkey_square.json'
+
+/datum/greyscale_config/encryptionkey_syndie
+	name = "Syndie Encryptionkey"
+	icon_file = 'icons/obj/radio.dmi'
+	json_config = 'code/datums/greyscale/json_configs/encryptionkey_syndie.json'

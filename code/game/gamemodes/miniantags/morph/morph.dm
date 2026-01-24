@@ -167,7 +167,7 @@
 		eat_self_message = span_warning("Вы начинаете [pick("жрать", "поглощать")] [item.declent_ru(ACCUSATIVE)]... отвратительно...")
 	else
 		eat_self_message = span_notice("Вы начинаете [pick("жрать", "поглощать")] [item.declent_ru(ACCUSATIVE)].")
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает [pick("жрать", "поглощать")] [target]!"), eat_self_message, "Вы слышите громкий хруст!")
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает [pick("жрать", "поглощать")] [target]!"), eat_self_message, "Вы слышите громкий хруст!")
 	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
 			to_chat(src, span_warning("Ваш организм отторгает эту массу. Нужен свежий труп!"))
@@ -176,7 +176,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/item)
 	if(item && item.loc != src)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] проглатывает [item.declent_ru(ACCUSATIVE)] целиком!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] проглатывает [item.declent_ru(ACCUSATIVE)] целиком!"))
 
 		item.extinguish_light()
 		item.forceMove(src)
@@ -272,7 +272,7 @@
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
 	if(ambush_prepared)
-		to_chat(attacker, span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется немного другим, чем обычно... он кажется более... ") + span_userdanger("СЛИЗИСТЫМ?!"))
+		to_chat(attacker, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] кажется немного другим, чем обычно... он кажется более... ") + span_userdanger("СЛИЗИСТЫМ?!"))
 		ambush_attack(attacker, TRUE)
 		return TRUE
 	else if(!morphed)
@@ -293,7 +293,7 @@
 		return ..()
 
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, span_warning("Вы пытаетесь использовать [item.declent_ru(ACCUSATIVE)] на [capitalize(declent_ru(NOMINATIVE))]... он кажется другим, чем раньше..."))
+		to_chat(user, span_warning("Вы пытаетесь использовать [item.declent_ru(ACCUSATIVE)] на [DECLENT_RU_CAP(src, NOMINATIVE)]... он кажется другим, чем раньше..."))
 		ambush_attack(user, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -308,7 +308,7 @@
 	if(!morphed && prob(50))
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0 && !(item.item_flags & ABSTRACT) && user.drop_item_ground(item))
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] только что съел ваш [item.declent_ru(ACCUSATIVE)]!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] только что съел ваш [item.declent_ru(ACCUSATIVE)]!"))
 			eat(item)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
@@ -352,7 +352,7 @@
 	dumbass.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, dumbass, "morph ambush attacked")
 	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [GEND_HE_SHE(dumbass)] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [GEND_HE_SHE(dumbass)] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
 
 	restore_form()
 

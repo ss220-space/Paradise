@@ -3,11 +3,10 @@
  * Energy net which ensnares prey until it is destroyed.  Used by space ninjas.
  */
 /obj/structure/energy_net
-	name = "energy net"
-	desc = "It's a net made of green energy."
+	name = "Энергетическая сеть"
+	desc = "Плотная сеть из концентрированной энергии."
 	icon = 'icons/mob/actions/actions_ninja.dmi'
 	icon_state = "energynet"
-
 	density = TRUE//Can't pass through.
 	anchored = TRUE //Can't drag/grab the net.
 	layer = ABOVE_ALL_MOB_LAYER
@@ -19,6 +18,16 @@
 	var/mob/living/affected_mob
 	var/destroy_after = 20 SECONDS
 	var/self_destroy = TRUE
+
+/obj/structure/energy_net/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетическая сеть",
+		GENITIVE = "энергетической сети",
+		DATIVE = "энергетической сети",
+		ACCUSATIVE = "энергетическую сеть",
+		INSTRUMENTAL = "энергетической сетью",
+		PREPOSITIONAL = "энергетической сети",
+	)
 
 /obj/structure/energy_net/noselfdestroy
 	self_destroy = FALSE
@@ -35,9 +44,9 @@
 /obj/structure/energy_net/Destroy()
 	if(!QDELETED(affected_mob))
 		affected_mob.visible_message(
-			span_notice("[affected_mob.name] is recovered from the energy net!"),
-			span_notice("You are recovered from the energy net!"),
-			span_italics("You hear a grunt."),
+			span_notice("[affected_mob.name] выбира[PLUR_ET_YUT(affected_mob)]ся из энергетической сети!"),
+			span_notice("Вы выбираетесь из [declent_ru(GENITIVE)]!"),
+			span_italics("Вы слышите стон."),
 		)
 	affected_mob = null
 	return ..()
