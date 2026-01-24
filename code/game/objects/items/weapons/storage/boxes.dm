@@ -825,6 +825,10 @@
 	if(!ishuman(target))
 		return .
 
+	if(length(contents))
+		to_chat(user, span_notice("Пакет должен быть пуст!"))
+		return .
+
 	user.visible_message(
 		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
 		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
@@ -849,11 +853,6 @@
 		span_warning("[user] надел [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
 		span_notice("Вы надели [target == user ? "[src.declent_ru(ACCUSATIVE)] себе на голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
 	)
-
-	if(length(contents))
-		var/atom/L = drop_location()
-		for(var/atom/movable/movables in src)
-			movables.forceMove(L)
 
 	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)
