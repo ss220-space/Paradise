@@ -183,7 +183,7 @@
 			scan_data += chemID
 			scan_data += "<br>"
 
-	user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+	user.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	flick("autopsy_scanner_anim", src)
 	sleep(PRINT_TIMER)

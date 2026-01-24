@@ -740,7 +740,7 @@
 	if(!moved) //they got pushed into a dense object
 		if(prob(75)) // Chance to knockdown on wall hit
 			add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-			target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"), \
+			target.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] толка[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)]"), \
 									span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
 									"Раздаётся глухой удар.")
 			if(!HAS_TRAIT(target, TRAIT_FLOORED))
@@ -1072,6 +1072,13 @@
 				var/obj/item/storage/backpack/backpack = user.back
 				if(length(backpack.contents) < backpack.storage_slots && I.w_class <= backpack.max_w_class)
 					return TRUE
+			else if(user.back && ismodcontrol(user.back))
+				var/obj/item/mod/control/control = user.back
+				if(!control.bag)
+					return FALSE
+				var/obj/item/storage/backpack/backpack = control.bag
+				if(length(backpack.contents) < backpack.storage_slots && I.w_class <= backpack.max_w_class)
+					return TRUE
 			return FALSE
 
 		// UNIFORM ACCESORIES
@@ -1095,8 +1102,11 @@
  * Proc that provide delayed item equip. Returns `TRUE` on success.
  */
 /datum/species/proc/equip_delay_self_check(obj/item/I, slot, mob/living/carbon/human/user)
-	user.visible_message(span_notice("[user] начина[PLUR_ET_YUT(user)] надевать [I.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]..."))
-	return do_after(user, I.equip_delay_self, user)
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_UT(user)] надевать [I.declent_ru(ACCUSATIVE)]..."),
+		span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]...")
+	)
+	return do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE))
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return FALSE
@@ -1188,8 +1198,27 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		if(human.vision_type.light_sensitive)
 			human.weakeyes = TRUE
 
+	if(HAS_TRAIT(human, TRAIT_MESON_VISION))
+		human.add_sight(SEE_TURFS)
+		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(human, TRAIT_THERMAL_VISION))
+		human.add_sight(SEE_MOBS)
+		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(human, TRAIT_XRAY_VISION))
+		human.add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
+
+	if(HAS_TRAIT(human, TRAIT_NIGHT_VISION))
+		human.nightvision = max(human.nightvision, 8)
+		human.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
 	if(HAS_TRAIT(human, TRAIT_XRAY))
 		human.add_sight((SEE_TURFS|SEE_MOBS|SEE_OBJS))
+
+	if(HAS_TRAIT(human, TRAIT_MESON_VISION))
+		human.add_sight(SEE_TURFS)
+		human.lighting_alpha = min(human.lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 
 	if(human.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
 		human.set_invis_see(SEE_INVISIBLE_OBSERVER)
@@ -1280,6 +1309,9 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		blood_overlays = icon_states(blood_mask)
 
 	return blood_overlays
+
+/datum/species/proc/compressor_grind(location)
+	return
 
 #undef MAX_WATER_TEMPERATURE_CHANGE
 #undef MIN_TEMPERATURE_DIFF

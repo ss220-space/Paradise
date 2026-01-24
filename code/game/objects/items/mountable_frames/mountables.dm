@@ -1,7 +1,10 @@
 /obj/item/mounted
+	/// The list of types on which it can be built
 	var/list/buildon_types = list(/turf/simulated/wall)
 	/// For frames that are external to the wall they are placed on, like light fixtures and cameras.
 	var/wall_external = FALSE
+	/// Is it possible to build it on the floor?
+	var/allow_floor_mounting = FALSE
 
 /obj/item/mounted/afterattack(atom/target, mob/user)
 	if(is_type_in_list(target, buildon_types))
@@ -23,6 +26,9 @@
 	if(get_dist(support, user) > 1)
 		balloon_alert(user, "вы слишком далеко!")
 		return FALSE
+
+	if(allow_floor_mounting)
+		return TRUE
 
 	var/floor_to_support = get_dir(support, user)
 	if(!(floor_to_support in GLOB.cardinal))

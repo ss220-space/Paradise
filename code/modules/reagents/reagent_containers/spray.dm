@@ -236,9 +236,9 @@
 		if(R.id != "cleaner") //all chems other than space cleaner are filthy.
 			reagents.del_reagent(R.id)
 			if(ismob(loc))
-				to_chat(loc, span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
-				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
 /obj/item/reagent_containers/spray/cleaner/drone
 	volume = 50
@@ -264,7 +264,8 @@
 //pepperspray
 /obj/item/reagent_containers/spray/pepper
 	name = "pepperspray"
-	desc = "Произведено компанией \"UhangInc\", используется для быстрого ослепления и обезвреживания противника."
+	desc = "Небольшая ёмкость с распылителем, заполненная жгучей смесью на основе перца. Используется для несмертельного обезвреживания \
+			противников. Нюхать не рекомендуется."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "pepperspray"
 	item_state = "pepperspray"

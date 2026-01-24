@@ -93,7 +93,7 @@
 			INSTRUMENTAL = "жиром",
 			PREPOSITIONAL = "жире"
 		)
-		drop_turf.hotspot_expose(700, 50, 1)
+		drop_turf.hotspot_expose(700, 1)
 		//TODO have a chance of setting the tile on fire
 
 /obj/machinery/cooker/proc/changename(obj/item/name, obj/item/setme)

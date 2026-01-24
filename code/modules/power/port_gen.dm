@@ -208,10 +208,11 @@
 		Gives traitors more opportunities to sabotage the generator or allows enterprising engineers to build additional
 		cooling in order to get more power out.
 	*/
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		lower_limit += ambient*ratio
 		upper_limit += ambient*ratio
 
@@ -237,10 +238,11 @@
 
 /obj/machinery/power/port_gen/pacman/handleInactive()
 	var/cooling_temperature = 20
-	var/datum/gas_mixture/environment = loc.return_air()
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	if(environment)
 		var/ratio = min(environment.return_pressure()/ONE_ATMOSPHERE, 1)
-		var/ambient = environment.temperature - T20C
+		var/ambient = environment.temperature() - T20C
 		cooling_temperature += ambient*ratio
 
 	if(temperature > cooling_temperature)

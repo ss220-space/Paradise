@@ -70,7 +70,7 @@ ADMIN_VERB(player_panel_veth, R_ADMIN|R_MOD, "Player Panel Veth", "Updated Playe
 			SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/cmd_admin_create_centcom_report)
 			return
 		if("logs")
-			usr.client.holder.Topic(null, list("open_logging_view" = selected_mob.UID()))
+			usr.client.holder.Topic(null, list("open_logging_view" = selected_player.UID()))
 			return
 		if("notes")
 			usr.client.holder.Topic(null, list("shownoteckey" = selected_player.ckey))

@@ -162,9 +162,9 @@
 		return .
 
 	to_chat(summoner, span_danger("Вашего хранителя [name] атакуют! Вы получаете урон!"))
-	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src.declent_ru(NOMINATIVE)] получает урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [declent_ru(NOMINATIVE)] получает урон!"))
 	if(summoner.stat == UNCONSCIOUS)
-		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src.declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
+		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
 /mob/living/simple_animal/hostile/guardian/adjustStaminaLoss(
@@ -234,7 +234,7 @@
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, span_alien("([ghost_follow_link(src, ghost = M)])<i>Сообщение Стража <b>[src]</b>: [input]</i>"))
+			to_chat(M, span_alien("([ghost_follow_link(src, ghost = M)]) <i>Сообщение Стража <b>[src]</b>: [input]</i>"))
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))

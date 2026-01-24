@@ -130,6 +130,7 @@
 	if(owner_has_control)
 		RegisterSignal(grant_to, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
 		GiveAction(grant_to)
+	return TRUE
 
 /// Remove the passed mob from being owner of our action
 /datum/action/proc/Remove(mob/remove_from)

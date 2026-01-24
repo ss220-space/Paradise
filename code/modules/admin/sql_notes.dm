@@ -161,7 +161,7 @@
 	navbar = "<a href='byond://?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='byond://?_src_=holder;nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
 		navbar += "|<a href='byond://?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
-	navbar += "<br><form method='GET' name='search' action='?'>\
+	navbar += "<br><form method='get' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
 	<input style='margin-left: 5px;' type='submit' value='Search'></form>"
