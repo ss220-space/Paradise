@@ -266,6 +266,7 @@ SUBSYSTEM_DEF(tickets)
 		"Отказано" = "Отказано",
 		"Мужайся" = "Мужайся",
 		"Обжалование в Discord" = "Обжалование бана должно происходить в Discord. AdminHelp или личные сообщения администратору по поводу вашего бана скорее всего не решат эту проблему. Чтобы обжаловать ваш бан, пожалуйста, перейдите по адресу <a href='[CONFIG_GET(string/banappeals)]'>[CONFIG_GET(string/banappeals)]</a>"
+		"Skill issue" = "Skill issue",
 	)
 
 	var/sorted_responses = list()
