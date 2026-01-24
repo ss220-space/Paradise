@@ -1,3 +1,6 @@
+/// List of all guardians currently extant
+GLOBAL_LIST_EMPTY(parasites)
+
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
 	real_name = "Guardian Spirit"
@@ -55,11 +58,16 @@
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
+	GLOB.parasites += src
 	AddElement(/datum/element/simple_flying)
 	if(!host)
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
+
+/mob/living/simple_animal/hostile/guardian/Destroy()
+	GLOB.parasites -= src
+	return ..()
 
 /mob/living/simple_animal/hostile/guardian/ComponentInitialize()
 	AddComponent( \
@@ -162,9 +170,9 @@
 		return .
 
 	to_chat(summoner, span_danger("Вашего хранителя [name] атакуют! Вы получаете урон!"))
-	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src.declent_ru(NOMINATIVE)] получает урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [declent_ru(NOMINATIVE)] получает урон!"))
 	if(summoner.stat == UNCONSCIOUS)
-		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src.declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
+		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
 /mob/living/simple_animal/hostile/guardian/adjustStaminaLoss(

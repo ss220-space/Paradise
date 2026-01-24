@@ -87,7 +87,7 @@
 		return .
 	set_anchored(!anchored)
 	set_density(anchored)
-	to_chat(user, span_notice("Вы [anchored ? "закрепили [src.declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
+	to_chat(user, span_notice("Вы [anchored ? "закрепили [declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
 
 /obj/item/pod_parts/pod_frame/examine(mob/user)
 	. = ..()
@@ -102,7 +102,7 @@
 		return FALSE
 
 	if(anchored)
-		to_chat(usr, "[capitalize(src.declent_ru(NOMINATIVE))] надёжно закреплён болтами!")
+		to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] надёжно закреплён болтами!")
 		return FALSE
 
 	dir = turn(dir, -90)

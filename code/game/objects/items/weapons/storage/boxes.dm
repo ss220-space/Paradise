@@ -18,7 +18,7 @@
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
-
+#define BAG_PUTTING_DELAY 6 SECONDS
 /obj/item/storage/box
 	name = "box"
 	icon = 'icons/obj/storage/boxes.dmi'
@@ -745,26 +745,37 @@
 
 /obj/item/storage/box/papersack
 	name = "paper sack"
-	desc = "A sack neatly crafted out of paper."
+	desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
 	foldable = null
 	var/design = NODESIGN
+	var/apply_paper_bag_delay = BAG_PUTTING_DELAY
+
+/obj/item/storage/box/papersack/get_ru_names()
+	return list(
+		NOMINATIVE = "бумажный пакет",
+		GENITIVE = "бумажного пакета",
+		DATIVE = "бумажному пакету",
+		ACCUSATIVE = "бумажный пакет",
+		INSTRUMENTAL = "бумажным пакетом",
+		PREPOSITIONAL = "бумажном пакете",
+	)
 
 /obj/item/storage/box/papersack/update_desc(updates = ALL)
 	. = ..()
 	switch(design)
 		if(NODESIGN)
-			desc = "A sack neatly crafted out of paper."
+			desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
 		if(NANOTRASEN)
-			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+			desc = "Стандартный пакет НТ для завтраков для самых верных работников"
 		if(SYNDI)
-			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+			desc = "Дизайн этого бумажного пакета — секретнейшая разработка Синдиката"
 		if(HEART)
-			desc = "A paper sack with a heart etched onto the side."
+			desc = "Бумажный пакет с нарисованным сердечком. Как мило!"
 		if(SMILE)
-			desc = "A paper sack with a crude smile etched onto the side."
+			desc = "Бумажный пакет с улыбкой. Чутка жуткий."
 
 /obj/item/storage/box/papersack/update_icon_state()
 	item_state = "paperbag_[design]"
@@ -807,6 +818,36 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
+/obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!ishuman(target))
+		return .
+	user.visible_message(
+		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
+		span_italics("Вы слышите шелест плотной бумаги."),
+	)
+	if(!do_after(user, apply_paper_bag_delay, target))
+		return .
+	if(!user || !target || QDELETED(src))
+		return .
+	if(target.head)
+		var/obj/item/head_item_to_drop = target.head
+		target.drop_item_ground(head_item_to_drop)
+		if(!target.drop_item_ground(target.head))
+			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя надеть пакет!"))
+			return .
+	. |= ATTACK_CHAIN_SUCCESS
+	user.visible_message(
+		span_warning("[user] надел [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надели [target == user ? "[src.declent_ru(ACCUSATIVE)] себе на голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
+	)
+	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
+	on_head.add_fingerprint(user)
+	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
+	playsound(loc, 'sound/items/handling/pickup/paper_pickup.ogg', 50, TRUE, -5)
+	qdel(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
@@ -1049,7 +1090,7 @@
 	new /obj/item/implanter/mindshield(src)
 
 /obj/item/storage/box/dominator_kit
-	name = "Dominator kit"
+	name = "Набор энергитического пистолета \"Доминатор\""
 	icon_state = "box_dominator"
 	item_state = "sec"
 
@@ -1058,7 +1099,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/enforcer_kit
-	name = "Enforcer kit"
+	name = "Набор пистолета \"Блюститель\""
 	icon_state = "box_enforcer"
 	item_state = "sec"
 
@@ -1069,7 +1110,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/specter_kit
-	name = "набор Спектр"
+	name = "Набор энергитического пистолета \"Спектр\""
 	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 аккумулятора."
 	icon_state = "box_specter"
 	item_state = "sec"
@@ -1091,7 +1132,7 @@
 	new /obj/item/weapon_cell/specter(src)
 
 /obj/item/storage/box/taurus_kit
-	name = "taurus revolver kit (rubber)"
+	name = "Набор револьвера \"Таурус\""
 	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
 	icon_state = "box_colt"
 	item_state = "sec"
@@ -1113,7 +1154,7 @@
 	new /obj/item/ammo_box/speedloader/rubber45colt(src)
 
 /obj/item/storage/box/revolver_kit
-	name = "Revolver kit"
+	name = "Набор револьвера \".38 Mars Special\""
 	icon_state = "box_revolver"
 	item_state = "sec"
 
@@ -1220,6 +1261,7 @@
 	for(var/i in 1 to 11)
 		new /obj/item/disk/tech_disk(src)
 
+#undef BAG_PUTTING_DELAY
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

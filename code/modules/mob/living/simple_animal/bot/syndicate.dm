@@ -85,9 +85,9 @@
 	if(saved_turf && current_turf != saved_turf)
 		playsound(loc, stepsound, 40, TRUE)
 	if(spawn_turf && !are_zs_connected(src, spawn_turf))
-		raise_alert("[capitalize(declent_ru(NOMINATIVE))] потерялся в пространстве.")
+		raise_alert("[DECLENT_RU_CAP(src, NOMINATIVE)] потерялся в пространстве.")
 		raised_alert = FALSE
-		raise_alert("[capitalize(declent_ru(NOMINATIVE))] активировал протокол само-уничтожения.")
+		raise_alert("[DECLENT_RU_CAP(src, NOMINATIVE)] активировал протокол само-уничтожения.")
 		explode()
 	saved_turf = current_turf
 	switch(mode)
@@ -178,13 +178,13 @@
 		if(depotarea)
 			depotarea.list_remove(src, depotarea.guard_list)
 		GLOB.move_manager.stop_looping(src)
-		visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+		visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 		do_sparks(3, TRUE, src)
 		new /obj/effect/decal/cleanable/blood/oil(loc)
 		var/obj/structure/mecha_wreckage/gygax/dark/wreck = new /obj/structure/mecha_wreckage/gygax/dark(loc)
 		wreck.name = "sentry bot wreckage"
 
-		raise_alert("[capitalize(declent_ru(NOMINATIVE))] уничтожен.")
+		raise_alert("[DECLENT_RU_CAP(src, NOMINATIVE)] уничтожен.")
 		qdel(src)
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
