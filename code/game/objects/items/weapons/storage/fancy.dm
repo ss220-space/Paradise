@@ -658,6 +658,7 @@
 	gender = MALE
 	icon_state = "coffee_condi_display"
 	icon_type = "condiment pack"
+	pixel_y = 4
 	storage_slots = 14
 	can_hold = list(
 		/obj/item/reagent_containers/food/condiment/pack/sugar,

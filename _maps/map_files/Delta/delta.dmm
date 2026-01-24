@@ -10380,9 +10380,17 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "bvD" = (
-/obj/machinery/vending/cola,
 /obj/machinery/newscaster{
 	pixel_x = 30
+	},
+/obj/structure/table/reinforced,
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_y = 14;
+	pixel_x = -6
+	},
+/obj/item/storage/box/donkpockets{
+	pixel_x = 5;
+	pixel_y = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
@@ -11271,10 +11279,13 @@
 "bzP" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/donkpockets{
-	pixel_x = 4;
-	pixel_y = 4
+	pixel_x = 6;
+	pixel_y = 14
 	},
-/obj/item/storage/box/donkpockets,
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_x = -7;
+	pixel_y = -9
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -13815,7 +13826,6 @@
 /area/maintenance/brig)
 "bNl" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cornchips,
 /obj/machinery/atmospherics/unary/vent_scrubber/on,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -18570,7 +18580,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/vending/snack,
+/obj/structure/table,
+/obj/item/storage/box/donkpockets{
+	pixel_y = 3;
+	pixel_x = -5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -20726,6 +20740,17 @@
 /obj/structure/table/wood,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
+	},
+/obj/machinery/coffeemaker/impressa{
+	pixel_y = 11
+	},
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel{
+	pixel_x = 6;
+	pixel_y = -10
+	},
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur{
+	pixel_x = -7;
+	pixel_y = -10
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -26993,7 +27018,7 @@
 "dbj" = (
 /obj/machinery/light,
 /obj/structure/table,
-/obj/machinery/recharger,
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
 	},
@@ -35376,10 +35401,17 @@
 /obj/machinery/newscaster{
 	pixel_y = 30
 	},
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
-/obj/item/lighter{
-	pixel_x = 5;
-	pixel_y = 5
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_y = 2;
+	pixel_x = 8
+	},
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur{
+	pixel_x = -7;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel{
+	pixel_x = -7;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -35799,10 +35831,7 @@
 /area/quartermaster/miningdock)
 "dQR" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	desc = "For the Cargonia!";
-	name = "Molotov cocktail"
-	},
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -36405,7 +36434,6 @@
 /area/turret_protected/ai)
 "dTS" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/chinese/sweetsourchickenball,
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plasteel{
@@ -47491,7 +47519,9 @@
 /area/security/processing)
 "gmX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -61484,11 +61514,10 @@
 /turf/simulated/floor/plasteel,
 /area/atmos)
 "jxv" = (
-/obj/structure/table/reinforced,
-/obj/machinery/kitchen_machine/microwave,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
+/obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -65523,7 +65552,10 @@
 	},
 /area/security/brig)
 "kze" = (
-/obj/machinery/vending/snack,
+/obj/structure/table/reinforced,
+/obj/machinery/kitchen_machine/microwave{
+	pixel_y = 5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -70155,8 +70187,7 @@
 	pixel_x = -32
 	},
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurple"
@@ -89582,7 +89613,7 @@
 /area/medical/medbay)
 "pWC" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/spray/cleaner,
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -91027,11 +91058,10 @@
 	},
 /area/library)
 "qmn" = (
-/obj/structure/table/reinforced,
 /obj/machinery/newscaster{
 	pixel_x = -30
 	},
-/obj/item/storage/box/donkpockets,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "redyellowfull"
 	},
@@ -92316,6 +92346,12 @@
 /obj/effect/decal/warning_stripes/southeast,
 /turf/simulated/floor/carpet,
 /area/crew_quarters/captain/bedroom)
+"qyA" = (
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_y = 2
+	},
+/turf/simulated/wall/r_wall,
+/area/medical/cmo)
 "qyB" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -101153,7 +101189,14 @@
 "sxV" = (
 /obj/structure/table/wood,
 /obj/item/radio/intercom/directional/east,
-/obj/item/folder/red,
+/obj/item/folder/red{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/item/folder/yellow{
+	pixel_x = -3;
+	pixel_y = 2
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -104460,7 +104503,7 @@
 	},
 /area/bridge/meeting_room)
 "tno" = (
-/obj/machinery/vending/coffee,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -104834,7 +104877,7 @@
 /area/ntrep)
 "trA" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -109561,12 +109604,13 @@
 	},
 /area/aisat/maintenance)
 "utB" = (
-/obj/machinery/vending/coffee,
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/machinery/vending/wallmed{
 	name = "Emergency NanoMed";
 	pixel_y = 28
 	},
+/obj/structure/table,
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/plasteel,
 /area/security/brigstaff)
 "utC" = (
@@ -111363,10 +111407,17 @@
 /area/maintenance/asmaint4)
 "uOb" = (
 /obj/structure/table,
-/obj/item/storage/box/donkpockets,
+/obj/item/storage/box/donkpockets{
+	pixel_x = -5;
+	pixel_y = 2
+	},
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = -26
+	},
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_x = 7;
+	pixel_y = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/security/brigstaff)
@@ -115784,9 +115835,12 @@
 	},
 /area/hallway/primary/aft)
 "vPl" = (
-/obj/machinery/vending/coffee,
 /obj/structure/sign/poster/official/random{
 	pixel_y = -32
+	},
+/obj/structure/table,
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"
@@ -121178,9 +121232,20 @@
 /area/maintenance/tourist)
 "xbk" = (
 /obj/structure/table/wood,
-/obj/item/folder/yellow,
+/obj/item/storage/box/coffeepack{
+	pixel_x = 9;
+	pixel_y = 5
+	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/storage/box/coffeepack/robusta{
+	pixel_y = 1;
+	pixel_x = 10
+	},
+/obj/item/storage/fancy/coffee_condi_display{
+	pixel_y = 2;
+	pixel_x = -3
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -174101,7 +174166,7 @@ ikS
 wFR
 ufP
 dbj
-dqR
+qyA
 dqR
 dqR
 dqR
