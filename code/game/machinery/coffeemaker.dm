@@ -71,9 +71,9 @@
 	if(coffeepot || cartridge)
 		. += span_boldnotice("Содержимое:")
 		if(coffeepot)
-			. += span_notice("- [capitalize(coffeepot.declent_ru(NOMINATIVE))].")
+			. += span_notice("- [DECLENT_RU_CAP(coffeepot, NOMINATIVE)].")
 		if(cartridge)
-			. += span_notice("- [capitalize(cartridge.declent_ru(NOMINATIVE))].")
+			. += span_notice("- [DECLENT_RU_CAP(cartridge, NOMINATIVE)].")
 
 	if(!(stat & (NOPOWER|BROKEN)))
 		. += "[span_boldnotice("Дисплей сообщает:")]\n" + span_notice("- Скорость варки — <b>[speed * 100]</b>%.")
