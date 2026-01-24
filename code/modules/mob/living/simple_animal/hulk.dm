@@ -116,7 +116,8 @@
 		Mx.Translate(0,0)
 	transform = Mx
 
-	var/datum/gas_mixture/environment = loc?.return_air()
+	var/turf/location = get_turf(src)
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/modifier = 0
 	var/pressure = environment?.return_pressure()
 	switch(pressure)

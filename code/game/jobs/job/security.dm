@@ -17,6 +17,7 @@
 		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS
 	)
+	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	law_level = LAW_LEVEL_HOS
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed_slightly = 0
@@ -234,7 +235,7 @@
 	jobtype = /datum/job/security/brigdoc
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_brigphys
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security

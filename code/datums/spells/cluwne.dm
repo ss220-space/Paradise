@@ -79,5 +79,5 @@
 		qdel(G)
 
 	equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/black, ITEM_SLOT_CLOTH_INNER)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/black, ITEM_SLOT_FEET)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black, ITEM_SLOT_FEET)
 

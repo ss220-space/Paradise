@@ -59,8 +59,8 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 /obj/effect/hallucination/simple/proc/GetImage()
 	var/image/I = image(image_icon, src, image_state, image_layer, dir = dir)
-	I.pixel_x = px
-	I.pixel_y = py
+	I.pixel_w = px
+	I.pixel_z = py
 	if(col_mod)
 		I.color = col_mod
 	return I

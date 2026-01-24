@@ -339,7 +339,7 @@
 	if(length(SSticker.mode.ert))
 		dat += check_role_table_sec("ERT", SSticker.mode.ert)
 
-	var/datum/browser/popup = new(usr, "secstatus", "<div align='center'>Security Status</div>", 600, 800)
+	var/datum/browser/popup = new(usr, "secstatus", "<div align='center'>Security Status</div>", 500, 600)
 	popup.set_content(dat)
 	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	popup.open()

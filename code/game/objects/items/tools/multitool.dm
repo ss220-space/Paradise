@@ -7,7 +7,7 @@
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
 			Результаты ЭКГ, снятого данным аппаратом, не признаются ни одной клиникой."
 	gender = MALE
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
@@ -85,9 +85,10 @@
 	name = "broken multimeter"
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
 			Похоже, что он полностью сгорел."
-	icon = 'icons/obj/device.dmi'
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "multitool_broken"
-	belt_icon = "multitool_broken"
+	item_state = "multitool"
+	belt_icon = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -166,7 +167,7 @@
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/J in urange(rangewarning, our_turf))
-		if(check_rights(R_ADMIN, 0, J))
+		if(check_rights(R_ADMIN, FALSE, J))
 			detect_state = PROXIMITY_NEAR
 			var/turf/detect_turf = get_turf(J)
 			if(get_dist(our_turf, detect_turf) < rangealert)

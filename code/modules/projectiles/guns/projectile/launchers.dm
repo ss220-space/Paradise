@@ -43,7 +43,7 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/gyropistol/handle_chamber(eject_casing = 0, empty_chamber = 1)
+/obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	..()
 
 /obj/item/gun/projectile/automatic/gyropistol/update_icon_state()
@@ -78,7 +78,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/gun/projectile/automatic/speargun/handle_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/projectile/automatic/speargun/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 
 /obj/item/gun/projectile/automatic/speargun/attackby(obj/item/I, mob/user, params)
@@ -130,7 +130,7 @@
 		return TRUE
 	return FALSE
 
-/obj/item/gun/projectile/revolver/rocketlauncher/handle_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/projectile/revolver/rocketlauncher/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	. = ..()
 
 /obj/item/gun/projectile/revolver/rocketlauncher/chamber_round()

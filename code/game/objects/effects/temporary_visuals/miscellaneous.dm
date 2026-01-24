@@ -488,27 +488,6 @@
 	. = ..()
 	new /obj/effect/warp_effect/bsg(loc)
 
-/obj/effect/warp_effect/bsg
-
-/obj/effect/warp_effect/bsg/Initialize(mapload)
-	. = ..()
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * 8, time = 0.8 SECONDS, alpha = 0)
-	QDEL_IN(src, 0.8 SECONDS)
-
-/obj/effect/warp_effect/heart
-	var/range = 12
-
-/obj/effect/warp_effect/heart/Initialize(mapload)
-	. = ..()
-	if(GLOB.heart)
-		range = GLOB.heart.pulse_range * 4
-	var/matrix/M = matrix() * 0.5
-	transform = M
-	animate(src, transform = M * range, time = 0.1 * range SECONDS, alpha = 0)
-	QDEL_IN(src, 0.1 * range SECONDS)
-
 /obj/effect/temp_visual/love_heart
 	name = "love heart"
 	icon_state = "heart"
@@ -520,16 +499,43 @@
 	pixel_y = rand(-10,10)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
 
-/obj/effect/warp_effect
-	plane = GRAVITY_PULSE_PLANE
-	appearance_flags = PIXEL_SCALE|LONG_GLIDE
-	icon = 'icons/effects/seismic_stomp_effect.dmi'
-	icon_state = "stomp_effect"
-	pixel_y = -16
-	pixel_x = -16
+/obj/effect/temp_visual/thunderbolt_targeting
+	icon_state = "target_circle"
+	layer = BELOW_MOB_LAYER
+	light_range = 1
+	duration = 2 SECONDS
 
-/obj/effect/warp_effect/ex_act(severity, target)
-	return
+/obj/effect/temp_visual/thunderbolt
+	icon_state = "thunderbolt"
+	icon = 'icons/effects/32x96.dmi'
+	duration = 0.6 SECONDS
 
-/obj/effect/warp_effect/singularity_act()
-	return FALSE
+/obj/effect/temp_visual/electricity
+	icon_state = "electricity3"
+	duration = 0.5 SECONDS
+
+/obj/effect/temp_visual/flash
+	icon = 'icons/effects/light_overlays/light_128.dmi'
+	icon_state = "light"
+	pixel_w = -64
+	pixel_z = -64
+	blend_mode = BLEND_OVERLAY
+
+/obj/effect/temp_visual/flash/Initialize(mapload)
+	. = ..()
+	set_light(7, 99, "#C5C5FF")
+
+/obj/effect/temp_visual/thunderbolt/fancy
+
+/obj/effect/temp_visual/thunderbolt/fancy/Initialize(mapload, harmless = FALSE)
+	new /obj/effect/temp_visual/flash(src)
+	// BOOM
+	playsound(src, 'sound/effects/lightning_bolt.ogg', 100, TRUE, 15, 1.2)
+
+	for(var/mob/to_shake in range(5, src))
+		shake_camera(to_shake, 10, 1)
+
+	if(!harmless)
+		explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 1, flame_range =  2, silent = TRUE)
+	. = ..()
+	do_sparks(15, TRUE, src)

@@ -920,14 +920,14 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		bodypart_wing.body_accessory = GLOB.body_accessory_by_name[dna.species.default_bodyacc]
 
 	var/mutable_appearance/wings = mutable_appearance(bodypart_wing.body_accessory.icon, bodypart_wing.body_accessory.icon_state, layer = -WING_LAYER)
-	wings.pixel_x = bodypart_wing.body_accessory.pixel_x_offset
-	wings.pixel_y = bodypart_wing.body_accessory.pixel_y_offset
+	wings.pixel_w = bodypart_wing.body_accessory.pixel_x_offset
+	wings.pixel_z = bodypart_wing.body_accessory.pixel_y_offset
 	overlays_standing[WING_LAYER] = wings
 
 	if(bodypart_wing.body_accessory.has_behind)
 		var/mutable_appearance/under_wing = mutable_appearance(bodypart_wing.body_accessory.icon, "[bodypart_wing.body_accessory.icon_state]_BEHIND", layer = -WING_UNDERLIMBS_LAYER)
-		under_wing.pixel_x = bodypart_wing.body_accessory.pixel_x_offset
-		under_wing.pixel_y = bodypart_wing.body_accessory.pixel_y_offset
+		under_wing.pixel_w = bodypart_wing.body_accessory.pixel_x_offset
+		under_wing.pixel_z = bodypart_wing.body_accessory.pixel_y_offset
 		overlays_standing[WING_UNDERLIMBS_LAYER] = under_wing
 
 		var/icon/accessory_s = icon(bodypart_wing.body_accessory.icon, bodypart_wing.body_accessory.icon_state)
@@ -976,8 +976,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				under.Insert(new/icon(accessory_s, dir=WEST), dir=WEST)
 
 				var/mutable_appearance/underlimbs = mutable_appearance(under, layer = -TAIL_UNDERLIMBS_LAYER)
-				underlimbs.pixel_x = bodypart_tail.body_accessory.pixel_x_offset
-				underlimbs.pixel_y = bodypart_tail.body_accessory.pixel_y_offset
+				underlimbs.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+				underlimbs.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
 				overlays_standing[TAIL_UNDERLIMBS_LAYER] = underlimbs
 
 				// Creates a blank icon, and copies accessory_s' north direction sprite into it
@@ -986,13 +986,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 				over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
 				var/mutable_appearance/tail = mutable_appearance(over, layer = -TAIL_LAYER)
-				tail.pixel_x = bodypart_tail.body_accessory.pixel_x_offset
-				tail.pixel_y = bodypart_tail.body_accessory.pixel_y_offset
+				tail.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+				tail.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
 				overlays_standing[TAIL_LAYER] = tail
 			else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 				var/mutable_appearance/tail = mutable_appearance(accessory_s, layer = -TAIL_LAYER)
-				tail.pixel_x = bodypart_tail.body_accessory.pixel_x_offset
-				tail.pixel_y = bodypart_tail.body_accessory.pixel_y_offset
+				tail.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+				tail.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
 				overlays_standing[TAIL_LAYER] = tail
 
 			var/icon/tempicon = new/icon(accessory_s,dir=NORTH)
@@ -1082,8 +1082,8 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			under.Insert(new/icon(accessory_s, dir=WEST), dir=WEST)
 
 			var/mutable_appearance/underlimbs = mutable_appearance(under, layer = -TAIL_UNDERLIMBS_LAYER)
-			underlimbs.pixel_x = bodypart_tail.body_accessory.pixel_x_offset
-			underlimbs.pixel_y = bodypart_tail.body_accessory.pixel_y_offset
+			underlimbs.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+			underlimbs.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
 			overlays_standing[TAIL_UNDERLIMBS_LAYER] = underlimbs
 
 			// Creates a blank icon, and copies accessory_s' north direction sprite into it before passing that to the tail layer that overlays uniforms and such.
@@ -1091,13 +1091,13 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			over.Insert(new/icon(accessory_s, dir=NORTH), dir=NORTH)
 
 			var/mutable_appearance/tail = mutable_appearance(over, layer = -TAIL_LAYER)
-			tail.pixel_x = bodypart_tail.body_accessory.pixel_x_offset
-			tail.pixel_y = bodypart_tail.body_accessory.pixel_y_offset
+			tail.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+			tail.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
 			overlays_standing[TAIL_LAYER] = tail
 		else // Otherwise, since the user's tail isn't overlapped by limbs, go ahead and use default icon generation.
 			var/mutable_appearance/tail = mutable_appearance(accessory_s, layer = -TAIL_LAYER)
-			tail.pixel_x = bodypart_tail.body_accessory.pixel_x_offset
-			tail.pixel_y = bodypart_tail.body_accessory.pixel_y_offset
+			tail.pixel_w = bodypart_tail.body_accessory.pixel_x_offset
+			tail.pixel_z = bodypart_tail.body_accessory.pixel_y_offset
 			overlays_standing[TAIL_LAYER] = tail
 
 	else

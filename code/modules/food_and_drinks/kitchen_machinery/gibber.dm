@@ -14,7 +14,7 @@
 
 	var/gib_throw_dir = WEST // Direction to spit meat and gibs in. Defaults to west.
 
-	var/gibtime = 40 // Time from starting until meat appears
+	var/gibtime = 4 SECONDS // Time from starting until meat appears
 	var/animation_delay = GIBBER_ANIMATION_DELAY
 
 	// For hiding gibs, making an even more devious trap (invisible autogibbers)
@@ -70,7 +70,7 @@
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-		
+
 	user.visible_message(span_danger("[user] залеза[PLUR_ET_YUT(user)] в [declent_ru(ACCUSATIVE)] и включает её!"))
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
@@ -170,7 +170,7 @@
 		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Опустошить мясорубку"
 	set src in oview(1)
 
@@ -262,8 +262,7 @@
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS)
-	var/offset = prob(50) ? -2 : 2
-	animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = gibtime * 5) //start shaking
+	Shake(pixelshiftx = 1, pixelshifty = 0, duration = gibtime)
 
 	while(occupant.meatleft > 0)
 		new occupant.dna.species.meat_type(src, occupant)
@@ -407,7 +406,7 @@
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает вещи [H.declent_ru(GENITIVE)]!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выплевывает вещи [H.declent_ru(GENITIVE)]!"))
 
 /obj/machinery/gibber/autogibber/proc/cleanbay()
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
@@ -420,6 +419,6 @@
 			spats++
 			sleep(1)
 	if(spats)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает ещё больше вещей!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выплевывает ещё больше вещей!"))
 
 #undef GIBBER_ANIMATION_DELAY

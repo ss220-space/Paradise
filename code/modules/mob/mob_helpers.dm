@@ -419,7 +419,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /mob/living/verb/mob_sleep()
 	set name = "Спать"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(IsSleeping())
 		to_chat(src, span_notice("Вы уже спите."))
@@ -466,13 +466,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				name = realname
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
 				if(subject != M)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
-				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
+				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, M))
 					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
 				if(isobserver(subject))

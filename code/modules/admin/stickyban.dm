@@ -198,11 +198,5 @@
 		.["computer_id"] = jointext(.["computer_id"], ",")
 	. = list2params(.)
 
-/client/proc/stickybanpanel()
-	set name = "Sticky Ban Panel"
-	set category = STATPANEL_ADMIN_BAN
-
-	if(!check_rights(R_BAN))
-		return
-
-	holder.stickyban_show()
+ADMIN_VERB(panel_sticky_ban, R_BAN, "Sticky Ban Panel", "List and manage sticky bans.", ADMIN_CATEGORY_BAN)
+	user.holder.stickyban_show()

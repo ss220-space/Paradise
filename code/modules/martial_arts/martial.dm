@@ -265,7 +265,7 @@
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Информацию о БИ"
 	set desc = "Gives information about the martial arts you know."
-	set category = STATPANEL_MARTIALARTS
+	set category = VERB_CATEGORY_MARTIALARTS
 	var/mob/living/carbon/human/human = usr
 	if(!istype(human))
 		to_chat(usr, span_warning("You shouldn't have access to this verb. Report this as a bug to the github please."))
@@ -275,7 +275,7 @@
 /mob/living/carbon/human/proc/dirslash_enabling()
 	set name = "Атака по направлению"
 	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
-	set category = STATPANEL_MARTIALARTS
+	set category = VERB_CATEGORY_MARTIALARTS
 	dirslash_enabled = !dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [dirslash_enabled? "enabled" : "disabled"] now."))
 
@@ -452,7 +452,7 @@
 	var/datum/martial_art/the_sleeping_carp/theSleepingCarp = new(null)
 	theSleepingCarp.teach(user)
 	user.temporarily_remove_item_from_inventory(src)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] подхватыва[PLUR_ET_YUT(src)] огонь и быстро сгора[PLUR_ET_YUT(src)] до тла."))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] подхватыва[PLUR_ET_YUT(src)] огонь и быстро сгора[PLUR_ET_YUT(src)] до тла."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	qdel(src)
 
@@ -718,7 +718,7 @@
 	for(var/i in 1 to length(streak))
 		var/intent_text = copytext(streak, i, i + 1)
 		var/image/intent_icon = image(icon, src, "combo_[intent_text]")
-		intent_icon.pixel_x = 16 * (i - 1) - 8 * length(streak)
+		intent_icon.pixel_w = 16 * (i - 1) - 8 * length(streak)
 		. += intent_icon
 
 /atom/movable/screen/combo/update_icon_state()

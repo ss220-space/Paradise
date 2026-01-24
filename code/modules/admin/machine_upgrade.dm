@@ -1,20 +1,15 @@
-/proc/machine_upgrade(obj/machinery/M in world)
-	set name = "\[Admin\] Tweak Component Ratings"
-
-	if(!check_rights(R_DEBUG))
+ADMIN_VERB_AND_CONTEXT_MENU(machine_upgrade, R_DEBUG, "Tweak Component Ratings", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, obj/machinery/machine in world)
+	if(!istype(machine))
+		to_chat(user, span_danger("This can only be used on subtypes of /obj/machinery."))
 		return
 
-	if(!istype(M))
-		to_chat(usr, span_danger("This can only be used on subtypes of /obj/machinery."))
-		return
+	var/new_rating = tgui_input_number(user, "", "Enter new rating:")
+	if(new_rating && machine.component_parts)
+		for(var/obj/item/stock_parts/part in machine.component_parts)
+			part.rating = new_rating
+		machine.RefreshParts()
 
-	var/new_rating = tgui_input_number(usr, "Enter new rating:", "Num")
-	if(!isnull(new_rating) && M.component_parts)
-		for(var/obj/item/stock_parts/P in M.component_parts)
-			P.rating = new_rating
-		M.RefreshParts()
-
-		message_admins("[key_name_admin(usr)] has set the component rating of [M] to [new_rating]")
-		log_admin("[key_name(usr)] has set the component rating of [M] to [new_rating]")
+		message_admins("[key_name_admin(user)] has set the component rating of [machine] to [new_rating]")
+		log_admin("[key_name(user)] has set the component rating of [machine] to [new_rating]")
 
 	BLACKBOX_LOG_ADMIN_VERB("Machine Upgrade")

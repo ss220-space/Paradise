@@ -81,6 +81,8 @@
 
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
+#define iscloset(A) (istype(A, /obj/structure/closet))
+
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
 
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
@@ -120,6 +122,7 @@
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
+#define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
 #define	is_organ(A) (istype((A), /obj/item/organ))
 
@@ -233,6 +236,21 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isthrowingmatart(A) (istype(A, /datum/martial_art/throwing))
 
+// Modsuits
+#define ismodcontrol(A) istype(A, /obj/item/mod/control)
+
+#define ismodstorage(A) istype(A, /obj/item/storage/backpack/modstorage)
+
+#define ismodhelmet(A) istype(A, /obj/item/clothing/head/mod)
+
+#define ismodgloves(A) istype(A, /obj/item/clothing/gloves/mod)
+
+#define ismodshoes(A) istype(A, /obj/item/clothing/shoes/mod)
+
+#define ismodchestplate(A) istype(A, /obj/item/clothing/suit/mod)
+
+#define ismodcore(A) istype(A, /obj/item/mod/core)
+
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,
 	/turf/simulated/floor/chasm,
@@ -308,7 +326,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isexternalorgan(A) (istype((A), /obj/item/organ/external))
 
-#define is_admin(user) (check_rights(R_ADMIN, 0, (user)) != 0)
+#define is_admin(user) (check_rights(R_ADMIN, FALSE, (user)) != 0)
 
 #define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
@@ -352,6 +370,8 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define iswirecutter(A) (istype(A, /obj/item/wirecutters))
 
 #define ismultitool(A) (istype(A, /obj/item/multitool))
+
+#define iswrench(A) (istype(A, /obj/item/wrench))
 
 #define iscoil(A) (istype(A, /obj/item/stack/cable_coil))
 
