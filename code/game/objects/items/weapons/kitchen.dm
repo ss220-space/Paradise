@@ -220,7 +220,7 @@
 		return FALSE
 
 	var/obj/item/organ/external/head = defender.get_organ(attacker.zone_selected)
-	if(!head.has_arterial_bleeding())
+	if(head && !head.has_arterial_bleeding())
 		head.arterial_bleeding()
 
 	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
