@@ -1091,7 +1091,7 @@
 	new /obj/item/weapon_cell/specter(src)
 
 /obj/item/storage/box/taurus_kit
-	name = "набор револьвера \"Таурус\" (резиновый)"
+	name = "Набор револьвера \"Таурус\""
 	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
 	icon_state = "box_colt"
 	item_state = "sec"
