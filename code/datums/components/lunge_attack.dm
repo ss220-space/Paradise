@@ -105,7 +105,8 @@
 	REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
 
 /datum/element/lunge_attack/proc/reset_lunge(mob/living/user)
-	if(!QDELETED(user))
-		REMOVE_TRAIT(user, TRAIT_CANT_LUNGE, UNIQUE_TRAIT_SOURCE(src))
-		REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
-		user.balloon_alert(user, "выпад готов")
+	if(QDELETED(user))
+		return
+	REMOVE_TRAIT(user, TRAIT_CANT_LUNGE, UNIQUE_TRAIT_SOURCE(src))
+	REMOVE_TRAIT(user, TRAIT_LUNGE_HAS_ATTACKED, UNIQUE_TRAIT_SOURCE(src))
+	user.balloon_alert(user, "выпад готов")
