@@ -161,6 +161,8 @@
 	var/list/module_actions = list()
 
 	var/ratvarized = FALSE
+	///Just stop the mech from doing anything
+	var/completely_disabled = FALSE
 
 /obj/mecha/Initialize(mapload)
 	. = ..()
@@ -252,6 +254,8 @@
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user)
+		return
+	if(completely_disabled)
 		return
 	if(user.incapacitated())
 		return
@@ -410,6 +414,8 @@
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
+		return FALSE
+	if(completely_disabled)
 		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -1895,7 +1901,7 @@
 		var/datum/ratvar_mecha/converter = new rat_mecha
 		if(mech_type in converter.mech_types)
 			converter.convert(src)
-			visible_message(span_clocklarge("[capitalize(declent_ru(NOMINATIVE))] начинает громко грохотать, его механизмы заменяются шестернями!"))
+			visible_message(span_clocklarge("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает громко грохотать, его механизмы заменяются шестернями!"))
 		QDEL_NULL(converter)
 
 #undef OCCUPANT_LOGGING

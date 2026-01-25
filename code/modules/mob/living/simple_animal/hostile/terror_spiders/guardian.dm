@@ -63,7 +63,7 @@
 
 	L.apply_damage(15, STAMINA)
 	if(prob(20))
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [L.declent_ru(ACCUSATIVE)], сбивая с ног!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в [L.declent_ru(ACCUSATIVE)], сбивая с ног!"))
 		L.adjustBruteLoss(20)
 		L.Weaken(4 SECONDS)
 
@@ -74,7 +74,7 @@
 				if(!degenerate && !spider_myqueen.degenerate)
 					degenerate = TRUE
 					spider_myqueen.DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/guardian, 1)
-					visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] стрекочет в направлении [spider_myqueen.declent_ru(GENITIVE)]!"))
+					visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] стрекочет в направлении [spider_myqueen.declent_ru(GENITIVE)]!"))
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/guardian/Life(seconds, times_fired)
@@ -91,7 +91,7 @@
 			if(Q.stat == DEAD)
 				spider_myqueen = null
 				degenerate = TRUE
-				to_chat(src, span_userdanger("[capitalize(Q.declent_ru(NOMINATIVE))] умерла! Её сила больше не поддерживает вас!"))
+				to_chat(src, span_userdanger("[DECLENT_RU_CAP(Q, NOMINATIVE)] умерла! Её сила больше не поддерживает вас!"))
 				return
 
 			if(get_dist(src, Q) < vision_range)
@@ -102,11 +102,11 @@
 			if(queen_visible)
 				cycles_noqueen = 0
 				if(spider_debug)
-					to_chat(src, span_notice("[capitalize(Q.declent_ru(NOMINATIVE))] в зоне видимости."))
+					to_chat(src, span_notice("[DECLENT_RU_CAP(Q, NOMINATIVE)] в зоне видимости."))
 			else
 				cycles_noqueen++
 				if(spider_debug)
-					to_chat(src, span_danger("[capitalize(Q.declent_ru(NOMINATIVE))] НЕ в зоне видимости. Цикл: [cycles_noqueen]."))
+					to_chat(src, span_danger("[DECLENT_RU_CAP(Q, NOMINATIVE)] НЕ в зоне видимости. Цикл: [cycles_noqueen]."))
 			var/area/A = get_area(spider_myqueen)
 			switch(cycles_noqueen)
 				if(6)
@@ -133,7 +133,7 @@
 			if(degenerate)
 				status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#eb4034'>РАЗРУШЕНА</font>") // color=red
 			else if(queen_visible)
-				status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#32a852'>[capitalize(spider_myqueen.declent_ru(NOMINATIVE))] рядом</font>") // color=green
+				status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#32a852'>[DECLENT_RU_CAP(spider_myqueen, NOMINATIVE)] рядом</font>") // color=green
 			else if(cycles_noqueen >= 18)
 				status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#eb4034'>Критическая — вернитесь к [spider_myqueen.declent_ru(DATIVE)] в [A.declent_ru(PREPOSITIONAL)]</font>") // color=red
 			else

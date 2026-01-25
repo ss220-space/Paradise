@@ -119,7 +119,7 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_YUT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
+				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[PLUR_YOT_YUT(src)]ся невредим[GEND_A_O_Y(src)] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustKnockdown(levels * (4 SECONDS))
@@ -141,13 +141,13 @@
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_YUT(src)] на ноги!"),
+				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[PLUR_ET_YUT(src)] на ноги!"),
 				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] жёстко приземля[PLUR_ET_YUT(src)]ся на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[PLUR_YOT_YUT(src)] на ноги!"),
 			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
@@ -1433,7 +1433,7 @@
 		for(var/i in 1 to butcher_results[path])
 			new path(loc)
 		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[DECLENT_RU_CAP(user, NOMINATIVE)] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 
 /mob/living/proc/can_use_guns(obj/item/gun/G)
@@ -1736,7 +1736,7 @@
 	throwned_mob.take_organ_damage(damage)
 	throwned_mob.Weaken(3 SECONDS)
 	throwned_mob.visible_message(
-		span_danger("[capitalize(throwned_mob.declent_ru(NOMINATIVE))] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)], сбивая [GEND_HIS_HER(src)] с ног!"),
+		span_danger("[DECLENT_RU_CAP(throwned_mob, NOMINATIVE)] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)], сбивая [GEND_HIS_HER(src)] с ног!"),
 		span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
 
@@ -2283,7 +2283,7 @@
 			"[target] спотыка[PLUR_ET_YUT(target)]ся об [declent_ru(GENITIVE)]!", \
 			"[target] опрокидыва[PLUR_ET_YUT(target)]ся на [declent_ru(GENITIVE)]!", \
 			"[target] отлета[PLUR_ET_YUT(target)] с пути [declent_ru(GENITIVE)]!", \
-			"[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
-			"[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
-			"[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]")
+			"[DECLENT_RU_CAP(src, NOMINATIVE)] сбивает [target]!", \
+			"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [target], заставляя [GEND_HIS_HER(target)] упасть!", \
+			"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [target]!")]")
 		)

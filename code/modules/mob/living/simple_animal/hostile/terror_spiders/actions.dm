@@ -135,7 +135,7 @@
 		to_chat(src, span_danger("Паутину можно плести только стоя на полу."))
 		return
 	var/turf/mylocation = loc
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает выделять липкое вещество."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает выделять липкое вещество."))
 	playsound(src.loc, 'sound/creatures/terrorspiders/web.ogg', 50, TRUE)
 	if(do_after(src, delay_web, loc))
 		if(loc != mylocation)
@@ -205,7 +205,7 @@
 
 /obj/structure/spider/terrorweb/bullet_act(obj/projectile/Proj)
 	if(Proj.damage_type != BRUTE && Proj.damage_type != BURN)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] невосприимчива к [Proj.declent_ru(DATIVE)]!"), projectile_message = TRUE)
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] невосприимчива к [Proj.declent_ru(DATIVE)]!"), projectile_message = TRUE)
 		// Webs don't care about disablers, tasers, etc. Or toxin damage. They're organic, but not alive.
 		return
 	..()
@@ -250,7 +250,7 @@
 			cocoon_target = null
 			return
 		busy = SPINNING_COCOON
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает выделять липкое вещество вокруг [cocoon_target.declent_ru(GENITIVE)]."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает выделять липкое вещество вокруг [cocoon_target.declent_ru(GENITIVE)]."))
 		playsound(src.loc, 'sound/creatures/terrorspiders/wrap.ogg', 120, TRUE)
 		stop_automated_movement = 1
 		GLOB.move_manager.stop_looping(src)
@@ -277,12 +277,12 @@
 						if(iscarbon(L))
 							apply_status_effect(STATUS_EFFECT_TERROR_FOOD_REGEN)
 							fed++
-							visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] втыкает хоботок в [L.declent_ru(ACCUSATIVE)] и высасывает вязкое вещество."))
+							visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] втыкает хоботок в [L.declent_ru(ACCUSATIVE)] и высасывает вязкое вещество."))
 							to_chat(src, span_notice("Вы начинаете быстро восстанавливаться!"))
 							if(L.mind && ishuman(L))
 								SEND_SIGNAL(mind, COMSIG_HUMAN_EATEN)
 						else
-							visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] заматывает [L.declent_ru(ACCUSATIVE)] в паутину."))
+							visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] заматывает [L.declent_ru(ACCUSATIVE)] в паутину."))
 						large_cocoon = 1
 						last_cocoon_object = 0
 						L.forceMove(C)
@@ -312,13 +312,13 @@
 			if(P.welded)
 				P.set_welded(FALSE)
 				forceMove(P.loc)
-				P.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [P.declent_ru(GENITIVE)]!"))
+				P.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [P.declent_ru(GENITIVE)]!"))
 				return
 		for(var/obj/machinery/atmospherics/unary/vent_scrubber/C in range(1, get_turf(src)))
 			if(C.welded)
 				C.set_welded(FALSE)
 				forceMove(C.loc)
-				C.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [C.declent_ru(GENITIVE)]!"))
+				C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [C.declent_ru(GENITIVE)]!"))
 				return
 		to_chat(src, span_danger("Поблизости нет заваренного вентиляционного отверстия или скраббера."))
 

@@ -409,13 +409,13 @@
 /mob/living/simple_animal/bot/mulebot/proc/buzz(type)
 	switch(type)
 		if(SIGH)
-			audible_message("[capitalize(declent_ru(NOMINATIVE))] разочарованно гудит.")
+			audible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] разочарованно гудит.")
 			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 		if(ANNOYED)
-			audible_message("[capitalize(declent_ru(NOMINATIVE))] раздражённо жужжит.")
+			audible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] раздражённо жужжит.")
 			playsound(loc, 'sound/machines/buzz-two.ogg', 50, FALSE)
 		if(DELIGHT)
-			audible_message("[capitalize(declent_ru(NOMINATIVE))] восторженно звенит!")
+			audible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] восторженно звенит!")
 			playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 
 // mousedrop a crate to load the bot
@@ -669,14 +669,14 @@
 /mob/living/simple_animal/bot/mulebot/proc/at_target()
 	if(!reached_target)
 		radio_channel = SUP_FREQ_NAME //Supply channel
-		audible_message("[capitalize(declent_ru(NOMINATIVE))] громко звенит!")
+		audible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] громко звенит!")
 		playsound(loc, 'sound/machines/chime.ogg', 50, FALSE)
 		reached_target = 1
 
 		if(pathset) //The AI called us here, so notify it of our arrival.
 			loaddir = dir //The MULE will attempt to load a crate in whatever direction the MULE is "facing".
 			if(calling_ai)
-				to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!"))
+				to_chat(calling_ai, span_notice("[icon2html(src, calling_ai)] [DECLENT_RU_CAP(src, NOMINATIVE)] удалённо проигрывает звук звонка!"))
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, FALSE)
 				calling_ai = null
 				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.
@@ -746,22 +746,22 @@
 
 	// usually just bumps, but if avoidance disabled knock over mobs
 	if(isrobot(bumped_living))
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [bumped_living]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в [bumped_living]!"))
 		return .
 
 	if(paicard)
 		return .
 
 	add_attack_logs(src, bumped_living, "Knocked down")
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сбивает [bumped_living]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сбивает [bumped_living]!"))
 	bumped_living.Weaken(16 SECONDS)
 
 /mob/living/simple_animal/bot/mulebot/proc/RunOver(mob/living/carbon/human/H)
 	if(H.player_logged)//No running over SSD people
 		return
 	add_attack_logs(src, H, "Run over (DAMTYPE: [uppertext(BRUTE)])")
-	H.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] переезжает [H]!"),
-					span_userdanger("[capitalize(declent_ru(NOMINATIVE))] переезжает вас!"))
+	H.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] переезжает [H]!"),
+					span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] переезжает вас!"))
 	playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/damage = rand(5, 15)
@@ -898,7 +898,7 @@
 	..()
 
 /mob/living/simple_animal/bot/mulebot/explode()
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разлетается на части!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
 	new /obj/item/assembly/prox_sensor(Tsec)

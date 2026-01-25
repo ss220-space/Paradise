@@ -6550,7 +6550,7 @@
 /area/crew_quarters/bar/atrium)
 "aXV" = (
 /obj/machinery/status_display,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "aXW" = (
 /obj/structure/table/wood,
@@ -20359,7 +20359,7 @@
 /area/mimeoffice)
 "cwJ" = (
 /obj/structure/sign/poster/official/minegem,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "cwK" = (
 /obj/structure/window/reinforced,
@@ -33104,7 +33104,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/heads/hop)
 "dDb" = (
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "dDe" = (
 /obj/structure/sign/fire,
@@ -36066,7 +36066,7 @@
 /area/atmos)
 "dRG" = (
 /obj/machinery/status_display/supply_display,
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/qm)
 "dRJ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -39645,7 +39645,7 @@
 	layer = 4;
 	name = "EXTERNAL AIRLOCK"
 	},
-/turf/simulated/wall,
+/turf/simulated/wall/r_wall,
 /area/quartermaster/storage)
 "eqH" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -58698,6 +58698,10 @@
 	icon_state = "neutralfull"
 	},
 /area/atmos)
+"iOY" = (
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "iPd" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -108192,6 +108196,10 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/machinery/door/poddoor/preopen{
+	id_tag = "Biohazard_cargo";
+	name = "Cargo Lockdown"
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
 "udI" = (
@@ -111624,6 +111632,9 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /turf/simulated/floor/plasteel,
 /area/storage/primary)
+"uQA" = (
+/turf/simulated/wall/r_wall,
+/area/quartermaster/storage)
 "uQJ" = (
 /obj/machinery/status_display,
 /turf/simulated/wall,
@@ -171446,8 +171457,8 @@ ehi
 cbD
 bGJ
 snP
-dmq
-dmq
+uQA
+uQA
 whL
 whL
 whL
@@ -171461,7 +171472,7 @@ whL
 whL
 whL
 whL
-dmq
+uQA
 dDb
 xJY
 bGv
@@ -171711,7 +171722,7 @@ coE
 eqA
 eqQ
 qak
-cOy
+iOY
 mbm
 cBq
 eqA

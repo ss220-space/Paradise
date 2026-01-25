@@ -138,3 +138,6 @@
 			else
 				stack_trace("Invalid data sent to genderize_decode proc.")
 	return msg
+
+/// Макрос для `declent_ru` для автоматической капитализации первой буквы
+#define DECLENT_RU_CAP(target, case_id) capitalize(target.declent_ru(case_id))

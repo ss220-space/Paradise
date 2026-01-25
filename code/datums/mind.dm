@@ -2903,6 +2903,7 @@
 		instance_or_path = instance_or_path.type
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
 		if(spell.type == instance_or_path)
+			spell.on_spell_removed(current)
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 
