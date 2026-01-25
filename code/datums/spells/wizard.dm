@@ -225,6 +225,14 @@
 	summon_type = list(/obj/effect/timestop/wizard)
 	aoe_range = 0
 
+/obj/effect/proc_holder/spell/aoe/conjure/timestop/on_spell_gain(mob/grant_to)
+	if(isnull(grant_to))
+		return
+	ADD_TRAIT(grant_to, TRAIT_TIME_STOP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/effect/proc_holder/spell/aoe/conjure/timestop/on_spell_removed(mob/remove_from)
+	REMOVE_TRAIT(remove_from, TRAIT_TIME_STOP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
+
 /obj/effect/proc_holder/spell/aoe/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."

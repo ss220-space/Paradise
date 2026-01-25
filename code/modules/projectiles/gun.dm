@@ -178,7 +178,7 @@
 	if(bayonet)
 		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
 		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
-			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
+			. += span_notice("[DECLENT_RU_CAP(bayonet, NOMINATIVE)] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/update_overlays()
@@ -335,7 +335,7 @@
 			return FALSE
 
 		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
-			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
+			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] несовместим с вашей биологией!"))
 			return FALSE
 
 	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.

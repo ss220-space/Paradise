@@ -68,7 +68,7 @@
 			L.Weaken(2 SECONDS)
 			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 100, TRUE)
 			var/obj/item/organ/external/NB = pick(L.bodyparts)
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отрывает [NB.declent_ru(ACCUSATIVE)] [L.declent_ru(GENITIVE)] своими острыми, как бритва, челюстями!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отрывает [NB.declent_ru(ACCUSATIVE)] [L.declent_ru(GENITIVE)] своими острыми, как бритва, челюстями!"))
 			NB.droplimb()  //dismemberment
 			L.apply_damage(35, STAMINA)
 	else

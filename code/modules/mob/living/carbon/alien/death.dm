@@ -64,5 +64,5 @@
 	if(!gibbed)
 		if(death_sound)
 			playsound(loc, death_sound, 80, TRUE, 1)
-		visible_message("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [genderize_decode(src, death_message)]")
+		visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> [genderize_decode(src, death_message)]")
 		update_icons()

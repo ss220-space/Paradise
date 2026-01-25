@@ -166,7 +166,8 @@ def check_global_list_empty(idx, line):
         return [(idx + 1, "Found a GLOBAL_LIST_INIT(_, list()), please use GLOBAL_LIST_EMPTY(_) instead.")]
 
 # makes sure arguments contained within "ui = new" are valid
-TGUI_UI_NEW = re.compile(r"ui = new\(((?:(?!,\s*).)+,\s*){1,3}(?:(?!,\s*).)+\)")
+ARG = r'(?:[^,\(\)]+(?:\([^)]*\))?|"[^"]*")'
+TGUI_UI_NEW = re.compile(rf'ui = new\({ARG}(?:\s*,\s*{ARG}){{1,3}}\)')
 def check_tgui_ui_new_argument(idx, line):
     if "\tui = new" in line and not TGUI_UI_NEW.search(line):
         return [(idx + 1, "Invalid argument within constructor, please make sure window sizing is in corresponding TypeScript file.")]
@@ -347,12 +348,17 @@ def check_bitwise_operator_order(idx, line):
     if BITWISE_AMBIGUOUS_RE.search(line):
         return [(idx + 1, "Error in operator order when using bitwise OR. Use parentheses to indicate intent.")]
 
-IGNORE_LOCALIZATION_FILE = "localization.dm"
+IGNORE_LOCALIZATION_HELPERS_FILE = "localization.dm"
 MACROED_PROCS = re.compile(r'genderize_ru|pluralize_ru')
 def check_localization_macro_usage(idx, line):
     if MACROED_PROCS.search(line):
         if 'UNLINT' not in line:
             return [(idx + 1, "Do not use this proc directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
+
+CAPITALIZED_DECLENT_RU = re.compile(r'capitalize\(\w+\.declent_ru\(\w+\)\)|capitalize\(declent_ru_cap\((\w+)\)\)')
+def check_capitalized_declent_ru_usage(idx, line):
+    if CAPITALIZED_DECLENT_RU.search(line):
+        return [(idx + 1, "Do not use `capitalize(declent_ru)` construction directly. Use the ready-made macros in code/__HELPERS/localization.dm")]
 
 CODE_CHECKS = [
     check_space_indentation,
@@ -499,8 +505,9 @@ def lint_file(code_filepath: str) -> list[Failure]:
             extra_checks.append(check_manual_icon_updates)
         if filename == FAST_LOAD_FILENAME:
             extra_checks.append(check_fast_load_define)
-        if filename != IGNORE_LOCALIZATION_FILE:
+        if filename != IGNORE_LOCALIZATION_HELPERS_FILE:
             extra_checks.append(check_localization_macro_usage)
+            extra_checks.append(check_capitalized_declent_ru_usage)
 
         for idx, line in enumerate(lines):
             for check in CODE_CHECKS + extra_checks:
