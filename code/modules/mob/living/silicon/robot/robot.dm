@@ -1535,6 +1535,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell = null
 
 	drop_hat()
+	eject_riders()
 	qdel(src)
 
 /mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -2083,6 +2084,36 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 							playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, TRUE)
 
 						to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
+
+/mob/living/silicon/robot/proc/toggle_seat(/datum/action/innate/action)
+	can_buckle = !can_buckle
+	switch(can_buckle)
+		if(FALSE)
+			eject_riders()
+			balloon_alert(src, "сидение задвинуто")
+			playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
+
+		if(TRUE)
+			balloon_alert(src, "сидение выдвинуто")
+			playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+
+/mob/living/silicon/robot/proc/eject_riders()
+	if(!length(buckled_mobs))
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		unbuckle_mob(buckled_mob)
+
+//use this type only if you need to simulate a road accident
+/mob/living/silicon/robot/proc/eject_riders_harmfull()
+	if(!length(buckled_mobs))
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		var/atom/target = get_edge_target_turf(src, dir)
+		var/mob/living/victim = buckled_mob //save him for future time
+		unbuckle_mob(buckled_mob)
+		victim.throw_at(target, 5, 10)
+		victim.visible_message(span_warning("[victim.declent_ru(NOMINATIVE)] вылета[PLUR_ET_YUT(victim)] из кресла [declent_ru(GENITIVE)]!"))
+	do_sparks(5, 0, src)
 
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents

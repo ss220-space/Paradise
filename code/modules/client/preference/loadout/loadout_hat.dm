@@ -219,3 +219,11 @@
 /datum/gear/hat/carp_hat
 	index_name = "carp_hat"
 	path = /obj/item/clothing/head/carp_hat
+
+/datum/gear/hat/headband
+	index_name = "headband, colour"
+	path = /obj/item/clothing/head/colour/headband
+
+/datum/gear/hat/headband/New()
+	..()
+	gear_tweaks += new /datum/gear_tweak/color(parent = src)

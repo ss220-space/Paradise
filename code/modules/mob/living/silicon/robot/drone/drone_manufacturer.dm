@@ -56,7 +56,7 @@
 	drone_progress = round((elapsed/CONFIG_GET(number/drone_build_time))*100)
 
 	if(drone_progress >= 100)
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] издаёт резкий звуковой сигнал, указывая на готовность шасси дрона.")
+		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт резкий звуковой сигнал, указывая на готовность шасси дрона.")
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
@@ -81,7 +81,7 @@
 	if(!player || !istype(player.mob,/mob/dead))
 		return
 
-	visible_message("[capitalize(declent_ru(NOMINATIVE))] гудит и скрипит, начиная движение, и через несколько мгновений выпускает нового блестящего дрона.")
+	visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] гудит и скрипит, начиная движение, и через несколько мгновений выпускает нового блестящего дрона.")
 	flick("h_lathe_leave",src)
 
 	time_last_drone = world.time

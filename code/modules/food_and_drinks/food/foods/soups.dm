@@ -11,6 +11,7 @@
 	consume_sound = 'sound/items/drink.ogg'
 	trash = /obj/item/trash/snack_bowl
 	bitesize = 5
+	abstract_type = /obj/item/reagent_containers/food/snacks/soup
 
 /obj/item/reagent_containers/food/snacks/soup/meatballsoup
 	name = "meatball soup"

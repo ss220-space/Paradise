@@ -36,6 +36,7 @@
 #define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
 #define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
 #define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+#define COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED "!subsystems_init_ended"
 
 #define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
 #define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
@@ -280,6 +281,9 @@
 	#define COMPONENT_SKIP_ATTACK (1<<2)
 	///I dont know where and why it was used, but it was used in the same place with cancel chain and had the same value
 	#define COMPONENT_NO_INTERACT (1<<3)
+
+/// Called from atom/Initialize() of target: (atom/target)
+#define COMSIG_ATOM_INITIALIZED_ON "atom_initialized_on"
 
 /////////////////
 ///from base of atom/attack_ghost(): (mob/dead/observer/ghost)
@@ -615,6 +619,12 @@
 #define COMSIG_CLIENT_SET_EYE "client_set_eye"
 /// from /mob/proc/change_mob_type() : ()
 #define COMSIG_MOB_CHANGED_TYPE "mob_changed_type"
+
+/// From /obj/item/melee/baton/baton_effect(): (datum/source, mob/living/user, /obj/item/melee/baton)
+#define COMSIG_MOB_BATONED "mob_batoned"
+
+/// A mob has just unequipped an item.
+#define COMSIG_MOB_UNEQUIPPED_ITEM "mob_unequipped_item"
 /// From base of /mob/proc/update_held_items
 #define COMSIG_MOB_UPDATE_HELD_ITEMS "mob_update_held_items"
 // /mob/living signals
@@ -694,6 +704,8 @@
 #define COMSIG_MOB_TRY_SPEECH "living_vocal_speech"
 	/// Return if the mob cannot speak.
 	#define COMPONENT_CANNOT_SPEAK (1<<0)
+/// From mob/living/proc/on_fall
+#define COMSIG_LIVING_THUD "living_thud"
 
 /// from /datum/component/singularity/proc/can_move(), as well as /obj/singularity/energy_ball/proc/can_move()
 /// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
@@ -734,6 +746,12 @@
 /// from mob/living/check_incapacitating_immunity(): (check_flags, force_apply)
 #define COMSIG_LIVING_GENERIC_INCAPACITATE_CHECK "living_check_incapacitate"
 	#define COMPONENT_NO_EFFECT (1<<0) //For all of them
+
+///From base of mob/living/MobBump() (mob/living)
+#define COMSIG_LIVING_MOB_BUMP "living_mob_bump"
+
+///From mob/living/carbon/human/update_inv_back()
+#define	COMSIG_HUMAN_UPDATE_BACK "human_update_back"
 
 /// Sent to a mob grabbing another mob: (mob/living/grabbing)
 #define COMSIG_LIVING_GRAB "living_grab"
@@ -1557,6 +1575,11 @@
 
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
 
+
+//Reagent
+///from base of atom/expose_reagents(): (/list, /datum/reagents, chemholder, volume_modifier)
+#define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
+
 #define COMSIG_SAY_YOUR_NAME "say_your_name"
 	#define SAY_NAME_BLOCK (1<<1)
 
@@ -1584,3 +1607,7 @@
 #define COMSIG_ACHIEVEMENTS_SAVED_TO_DB "achievements_saved_to_db"
 
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
+
+#define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
+
+#define COMSIG_LUNGE_DUAL_STRIKE "lunge_dual_strike"

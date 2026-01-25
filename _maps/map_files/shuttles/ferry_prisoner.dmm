@@ -142,8 +142,8 @@
 /obj/structure/closet,
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/under/color/orange/prison,
-/obj/item/clothing/shoes/orange,
-/obj/item/clothing/shoes/orange,
+/obj/item/clothing/shoes/color/orange/prison,
+/obj/item/clothing/shoes/color/orange/prison,
 /obj/structure/window/plasmareinforced{
 	dir = 8
 	},

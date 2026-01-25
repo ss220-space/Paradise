@@ -294,7 +294,7 @@
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выводит сообщение на экран: \"Дополнительные личности доступны для загрузки.\""))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выводит сообщение на экран: \"Дополнительные личности доступны для загрузки.\""))
 	softping()
 
 /obj/item/paicard/proc/softping()

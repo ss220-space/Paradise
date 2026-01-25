@@ -297,7 +297,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Smartfridge", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "Smartfridge", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -426,7 +426,7 @@
 		return FALSE
 
 	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] кидает [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] кидает [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
 	return TRUE
 
 /**

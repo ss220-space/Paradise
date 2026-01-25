@@ -75,9 +75,9 @@
 	for(var/i in 1 to snow_per_tick)
 		var/turf/turf = pick(affected_turfs_list)
 		var/turf_hotness = T0C
-		if(issimulatedturf(turf))
-			var/turf/simulated/simulated = turf
-			turf_hotness = simulated.air.temperature
+		var/datum/gas_mixture/air = turf.get_readonly_air()
+		if(air)
+			turf_hotness = air.temperature()
 
 		if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 			continue

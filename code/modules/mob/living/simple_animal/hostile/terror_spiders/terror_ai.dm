@@ -130,7 +130,7 @@
 					CreatePath(entry_vent)
 					step_with_glide(entry_vent)
 					if(spider_debug)
-						visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] движется к вентиляционному отверстию [entry_vent.declent_ru(GENITIVE)]."))
+						visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] движется к вентиляционному отверстию [entry_vent.declent_ru(GENITIVE)]."))
 			else
 				path_to_vent = 0
 		else if(ai_break_lights && world.time > (last_break_light + freq_break_light))
@@ -141,14 +141,14 @@
 					L.on = 1
 					L.break_light_tube()
 					do_attack_animation(L)
-					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разбивает [L.declent_ru(ACCUSATIVE)]."))
+					visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] разбивает [L.declent_ru(ACCUSATIVE)]."))
 					return
 		else if(ai_spins_webs && web_type && world.time > (last_spins_webs + freq_spins_webs))
 			last_spins_webs = world.time
 			var/obj/structure/spider/terrorweb/T = locate() in get_turf(src)
 			if(!T)
 				new web_type(loc)
-				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] плетёт паутину."))
+				visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] плетёт паутину."))
 		else if(ai_ventcrawls && world.time > (last_ventcrawl_time + my_ventcrawl_freq))
 			if(prob(idle_ventcrawl_chance))
 				last_ventcrawl_time = world.time
@@ -244,7 +244,7 @@
 				CreatePath(cocoon_target)
 				step_to(src,cocoon_target)
 				if(spider_debug)
-					visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] движется к [cocoon_target.declent_ru(DATIVE)], чтобы заплести в кокон."))
+					visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] движется к [cocoon_target.declent_ru(DATIVE)], чтобы заплести в кокон."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/seek_cocoon_target()
 	last_cocoon_object = world.time
@@ -283,7 +283,7 @@
 							try_open_airlock(A)
 				for(var/obj/machinery/door/firedoor/F in view(1, src))
 					if(tgt_dir == get_dir(src,F) && F.density && !F.welded)
-						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] открывает [F.declent_ru(ACCUSATIVE)]!"))
+						visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] открывает [F.declent_ru(ACCUSATIVE)]!"))
 						F.open()
 
 	else
@@ -302,7 +302,7 @@
 		if(get_dist(src, entry_vent) <= 2)
 			if(ai_ventbreaker && entry_vent.welded)
 				entry_vent.set_welded(FALSE)
-				entry_vent.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [entry_vent.declent_ru(GENITIVE)]!"))
+				entry_vent.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [entry_vent.declent_ru(GENITIVE)]!"))
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
@@ -310,7 +310,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))] залезает в вентиляционные каналы!</b>", span_notice("Слышно, как что-то сжимается в вентиляционных каналах."))
+			visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)] залезает в вентиляционные каналы!</b>", span_notice("Слышно, как что-то сжимается в вентиляционных каналах."))
 			spawn(rand(20,60))
 				var/original_location = loc
 				forceMove(exit_vent)
@@ -329,7 +329,7 @@
 							return
 						if(ai_ventbreaker && exit_vent.welded)
 							exit_vent.set_welded(FALSE)
-							exit_vent.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выбивает приваренную крышку [exit_vent.declent_ru(GENITIVE)]!"))
+							exit_vent.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выбивает приваренную крышку [exit_vent.declent_ru(GENITIVE)]!"))
 							playsound(exit_vent.loc, 'sound/machines/airlock_alien_prying.ogg', 50, FALSE)
 						forceMove(exit_vent.loc)
 						entry_vent = null

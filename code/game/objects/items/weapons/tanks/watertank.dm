@@ -316,7 +316,7 @@
 
 /obj/effect/nanofrost_container/proc/Smoke()
 	var/datum/effect_system/fluid_spread/smoke/freezing/smoke = new
-	smoke.set_up(amount = 6, location = loc, blast_radius = 2)
+	smoke.set_up(amount = 6, location = loc, range = 2)
 	smoke.start()
 	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
 	F.color = "#B2FFFF"

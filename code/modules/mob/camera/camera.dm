@@ -15,8 +15,8 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
-/mob/camera/experience_pressure_difference()
-	return
+/mob/camera/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /mob/camera/forceMove(atom/destination)
 	var/oldloc = loc

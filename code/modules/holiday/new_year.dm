@@ -91,8 +91,16 @@
 		for(var/turf/simulated/T in range(4, user))
 			if(T.density)
 				continue
-			T.air.temperature = T0C
+
+			var/datum/milla_safe/magic_staff_freese/milla = new()
+			milla.invoke_async(T)
 			new /obj/effect/snow(T)
+
+/datum/milla_safe/magic_staff_freese
+
+/datum/milla_safe/magic_staff_freese/on_run(turf/turf)
+	var/datum/gas_mixture/environment = get_turf_air(turf)
+	environment.set_temperature(T0C)
 
 /obj/item/ammo_casing/magic/frost
 	projectile_type = /obj/projectile/magic/frost
