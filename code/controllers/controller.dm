@@ -31,3 +31,7 @@
 	Master.last_init_info = "([name]): [message]"
 	to_chat(world, span_danger("<small>\[[name]]</small> [message]"), MESSAGE_TYPE_DEBUG, confidential = TRUE)
 	log_world("\[[name]] [message]")
+
+/**
+ * МДА
+ */
