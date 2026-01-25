@@ -458,7 +458,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(is_lathe)
 		add_wait_message("Печать объекта. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
-		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', 50, TRUE, -1, use_reverb = TRUE)
 	else
 		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
@@ -541,6 +540,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	clear_wait_message()
 	SStgui.update_uis(src)
+	if(istype(machine, /obj/machinery/r_n_d/protolathe))
+		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', 50, TRUE, -1, use_reverb = TRUE)
 
 /obj/machinery/computer/rdconsole/ui_act(action, list/params)
 	if(..())

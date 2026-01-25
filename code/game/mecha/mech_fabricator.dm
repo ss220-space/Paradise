@@ -198,7 +198,6 @@
 	build_end = build_start + build_time
 	use_power = ACTIVE_POWER_USE
 	add_overlay("fabricator_active")
-	playsound(loc, 'sound/machines/rnd_machines/exofab_print.ogg', 50, TRUE, -1, use_reverb = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), D, final_cost), build_time)
 
 	return TRUE
@@ -239,6 +238,7 @@
 				PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
 			)
 			lockbox.origin_tech = real_item.origin_tech
+	playsound(loc, 'sound/machines/rnd_machines/exofab_print.ogg', 50, TRUE, -1, use_reverb = TRUE)
 
 	// Clean up
 	being_built = null
