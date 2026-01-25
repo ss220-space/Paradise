@@ -238,7 +238,7 @@
 				PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
 			)
 			lockbox.origin_tech = real_item.origin_tech
-	playsound(loc, 'sound/machines/rnd_machines/exofab_print.ogg', 50, TRUE, -1, use_reverb = TRUE)
+	playsound(loc, SFX_EXOFAB_PRINT, 50, TRUE, -1, use_reverb = TRUE)
 
 	// Clean up
 	being_built = null
