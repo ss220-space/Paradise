@@ -184,8 +184,8 @@
 	if(!text)
 		return
 	status_maptext = new
-	status_maptext.maptext = MAPTEXT("<span style='text-align: center'>[text]</span>")
-	status_maptext.transform = status_maptext.transform.Translate(-4, length(text) > 1 ? -6 : 2) //with modifiers, its placed lower so cooldown is visible
+	status_maptext.maptext = MAPTEXT("<span style='text-align: center; font-size: 5pt'>[text]</span>")
+	status_maptext.transform = status_maptext.transform.Translate(-4, 2)
 	add_overlay(status_maptext)
 
 /**

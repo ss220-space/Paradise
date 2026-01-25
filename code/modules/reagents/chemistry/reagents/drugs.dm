@@ -244,6 +244,7 @@
 	M.AdjustParalysis(-4 SECONDS)
 	M.AdjustStunned(-4 SECONDS)
 	M.AdjustWeakened(-4 SECONDS)
+	M.AdjustKnockdown(-4 SECONDS)
 	if(prob(15))
 		M.emote(pick("twitch", "twitch_s", "grumble", "laugh"))
 	if(prob(8))
@@ -405,6 +406,7 @@
 	user.AdjustParalysis(-4 SECONDS)
 	user.AdjustStunned(-4 SECONDS)
 	user.AdjustWeakened(-4 SECONDS)
+	user.AdjustKnockdown(-4 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7, FALSE)
 	user.SetSleeping(0)
 	if(prob(50))
@@ -416,14 +418,6 @@
 /datum/reagent/methamphetamine/on_mob_delete(mob/living/user)
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
-
-/datum/reagent/methamphetamine/reaction_mob(mob/living/mob, method = REAGENT_TOUCH, volume, show_message = TRUE)
-	. = ..()
-
-	if(method != REAGENT_INGEST)
-		return
-
-	mob.Knockdown(1 SECONDS)
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -483,6 +477,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 		if(check < 8 && head_organ.h_style != "Very Long Beard")
 			head_organ.h_style = "Very Long Hair"
@@ -608,6 +603,7 @@
 	if(prob(10))
 		M.AdjustConfused(-10 SECONDS)
 		M.SetWeakened(0, FALSE)
+		M.SetKnockdown(0, FALSE)
 	if(volume >= 70 && prob(25))
 		if(M.reagents.get_reagent_amount("thc") <= 20)
 			M.Drowsy(20 SECONDS)
@@ -710,16 +706,16 @@
 		if(current_cycle >= 20 && current_cycle % 20 == 0)
 			var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 			var/rotation = min(round(current_cycle / 20), 89) // By this point the player is probably puking and quitting anyway
-			for(var/key in pm_controller.controlled_planes)
-				animate(pm_controller.controlled_planes[key], transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
+			for(var/atom/movable/screen/plane_master/pm_iterator as anything in pm_controller.get_planes())
+				animate(pm_iterator, transform = matrix(rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING, loop = -1)
 				animate(transform = matrix(-rotation, MATRIX_ROTATE), time = 5, easing = QUAD_EASING)
 	return ..()
 
 /datum/reagent/rotatium/on_mob_delete(mob/living/M)
 	if(M?.hud_used)
 		var/atom/movable/plane_master_controller/pm_controller = M.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-		for(var/key in pm_controller.controlled_planes)
-			animate(pm_controller.controlled_planes[key], transform = matrix(), time = 5, easing = QUAD_EASING)
+		for(var/atom/movable/screen/plane_master/pm_iterator as anything in pm_controller.get_planes())
+			animate(pm_iterator, transform = matrix(), time = 5, easing = QUAD_EASING)
 	..()
 
 //////////////////////////////
@@ -883,6 +879,7 @@
 	user.AdjustParalysis(-4 SECONDS)
 	user.AdjustStunned(-4 SECONDS)
 	user.AdjustWeakened(-4 SECONDS)
+	user.AdjustKnockdown(-4 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7, FALSE)
 	user.Jitter(6 SECONDS)
 	update_flags |= user.adjustBrainLoss(0.5, FALSE)
@@ -976,6 +973,7 @@
 	M.AdjustParalysis(-8 SECONDS)
 	M.AdjustStunned(-8 SECONDS)
 	M.AdjustWeakened(-8 SECONDS)
+	M.AdjustKnockdown(-8 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-25, FALSE)
 	if(prob(5))
 		var/high_message = pick("Вы чувствуете себя спокойно.", "Вы чувствуете себя собранным.", "Вы чувствуете, что вам нужно расслабиться.")
@@ -1077,6 +1075,7 @@
 		M.SetParalysis(0)
 		M.SetStunned(0)
 		M.SetWeakened(0)
+		M.SetKnockdown(0)
 	if(prob(50))
 		update_flags |= M.adjustHeartLoss(1, FALSE)
 	return ..() | update_flags
@@ -1118,6 +1117,7 @@
 	M.SetParalysis(0)
 	M.SetStunned(0)
 	M.SetWeakened(0)
+	M.SetKnockdown(0)
 	if(prob(25))
 		update_flags |= M.adjustHeartLoss(1, FALSE)
 	return ..() | update_flags
@@ -1165,6 +1165,7 @@
 	M.AdjustParalysis(-3 SECONDS)
 	M.AdjustStunned(-3 SECONDS)
 	M.AdjustWeakened(-3 SECONDS)
+	M.AdjustKnockdown(-3 SECONDS)
 	M.SetSleeping(0)
 	return ..() | update_flags
 

@@ -63,6 +63,7 @@
 
 
 /datum/action/innate/admin/ticket/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	. = ..()
 	if(ticket_amt <= 0)
 		button.maptext = ""
 		return

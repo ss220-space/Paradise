@@ -38,7 +38,7 @@
 	if(prob(0.0001)) //1 in a million
 		new /obj/item/gun/energy/pulse/prize(src)
 		visible_message(
-			span_notice("[capitalize(declent_ru(NOMINATIVE))] выда[PLUR_YOT_YUT(src)]... Ого, оружие! Это просто улёт!"),
+			span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выда[PLUR_YOT_YUT(src)]... Ого, оружие! Это просто улёт!"),
 			span_notice("Вы слышите выстрелы и звон.")
 		)
 		usr.client.give_award(/datum/award/achievement/misc/pulse, usr)
@@ -570,7 +570,7 @@
 						playsound(loc, 'sound/effects/bang.ogg', 20, TRUE)
 				if(ORION_TRAIL_MALFUNCTION)
 					playsound(loc, 'sound/effects/empulse.ogg', 20, TRUE)
-					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] сбоит, из-за чего внутриигровые показатели перемешиваются!"))
+					visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] сбоит, из-за чего внутриигровые показатели перемешиваются!"))
 					var/oldfood = food
 					var/oldfuel = fuel
 					food = rand(10,80) / rand(1,2)
@@ -578,9 +578,9 @@
 					if(electronics)
 						sleep(10)
 						if(oldfuel > fuel && oldfood > food)
-							audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] издаёт какой-то успокаивающий гул."))
+							audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт какой-то успокаивающий гул."))
 						else if(oldfuel < fuel || oldfood < food)
-							audible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] издаёт какой-то зловещий гул."))
+							audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт какой-то зловещий гул."))
 						food = oldfood
 						fuel = oldfuel
 						playsound(loc, 'sound/machines/chime.ogg', 20, TRUE)
@@ -1098,17 +1098,17 @@
 
 	to_chat(user, span_warning("Вы щелкаете выключателем на нижней стороне [declent_ru(GENITIVE)]."))
 	active = 1
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тихо пищит и жужжит, пробуждаясь к жизни!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] тихо пищит и жужжит, пробуждаясь к жизни!"))
 	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 	atom_say("Это корабль ID #[rand(1,1000)] руководству порта Орион. Мы заходим на посадку, приём.")
 	sleep(20)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает вибрировать..."))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает вибрировать..."))
 	atom_say("Э-э, порт? Возникли некоторые проблемы с нашим реактором, не могли бы вы проверить его? Приём.")
 	sleep(30)
 	atom_say("О, Боже! Код восемь! КОД ВОСЕМЬ! ЭТО БУД-")
 	playsound(loc, 'sound/machines/buzz-sigh.ogg', 25, TRUE)
 	sleep(3.6)
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"))
 	explosion(loc, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 4, flame_range = 3, adminlog = TRUE, cause = user)
 	qdel(src)
 

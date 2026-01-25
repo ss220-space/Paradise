@@ -101,13 +101,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else
 		return TRUE
 
-/obj/item/clothing/mask/cigarette/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/clothing/mask/cigarette/fire_act(exposed_temperature, exposed_volume)
 	..()
 	light()
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light(span_warning("[capitalize(declent_ru(NOMINATIVE))] зажигается от огня!"))
+		light(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] зажигается от огня!"))
 
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/item)
 	. = TRUE
@@ -320,7 +320,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			// There used to be a species check here, but synthetics can smoke now
 			is_being_smoked = TRUE
 	if(location)
-		location.hotspot_expose(700, 5)
+		location.hotspot_expose(700, 1)
 	if(reagents?.total_volume)	//	check if it has any reagents at all
 		if(is_being_smoked) // if it's being smoked, transfer reagents to the mob
 			var/mob/living/carbon/C = loc
@@ -533,7 +533,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВА[uppertext(PLUR_ET_YUT(src))]СЯ быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] просто ОТКАЗЫВА[uppertext(PLUR_ET_YUT(src))]СЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
@@ -618,7 +618,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВАЕТСЯ быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] просто ОТКАЗЫВАЕТСЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 

@@ -250,7 +250,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 		if(O.client && (ROLE_PAI in O.client.prefs.be_special))
 			if(player_old_enough_antag(O.client,ROLE_PAI))
 				if(check_recruit(O))
-					to_chat(O, "<span class='boldnotice'>A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=[P.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[O.UID()]'>Sign Up</a>)</span>")
+					to_chat(O, span_boldnotice("A [(P.is_syndicate_type) ? "Syndicate" : ""]  pAI card activated by [user.real_name] is looking for personalities. (<a href='byond://?src=[O.UID()];jump=[P.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[O.UID()]'>Sign Up</a>)"))
 	if(P.is_syndicate_type)
 		if(summon_cooldown > world.time)
 			return

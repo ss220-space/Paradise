@@ -89,11 +89,7 @@
 	invisibility = 0;
 	pixel_y = -32
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "aL" = (
 /turf/simulated/wall/r_wall,
@@ -157,11 +153,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "cm" = (
 /obj/structure/closet/crate/engineering,
@@ -213,11 +205,7 @@
 "cY" = (
 /obj/structure/stone_tile/center/cracked,
 /obj/structure/stone_tile/surrounding,
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "cZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -351,11 +339,7 @@
 /obj/item/stack/fireproof_rods{
 	amount = 10
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "ey" = (
 /obj/structure/stone_tile/cracked{
@@ -1042,11 +1026,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "jR" = (
 /turf/simulated/wall/indestructible/boss,
@@ -1111,11 +1091,7 @@
 	teleport_x = 9;
 	teleport_y = 6
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "kx" = (
 /obj/structure/stone_tile/block,
@@ -2106,11 +2082,7 @@
 	teleport_x = 82;
 	teleport_y = 78
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "rh" = (
 /obj/structure/closet/secure_closet/miner,
@@ -3650,11 +3622,7 @@
 	invisibility = 0;
 	pixel_y = 32
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "If" = (
 /obj/structure/stone_tile{
@@ -3972,11 +3940,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "LG" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -4190,11 +4154,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "NJ" = (
 /obj/structure/stone_tile/block{
@@ -4320,11 +4280,7 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "PU" = (
 /obj/machinery/door/airlock/glass{
@@ -4396,11 +4352,7 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/turf/simulated/floor/indestructible/boss{
-	oxygen = 21;
-	nitrogen = 82;
-	temperature = 293.15
-	},
+/turf/simulated/floor/indestructible/boss/air,
 /area/ruin/unpowered)
 "QF" = (
 /obj/effect/mapping_helpers/no_lava,

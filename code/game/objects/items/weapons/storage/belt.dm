@@ -1,6 +1,6 @@
 /obj/item/storage/belt
-	name = "belt"
-	desc = "Can hold various things."
+	name = "not actually a toolbelt"
+	desc = "Can hold various things. This is the base type of /belt, are you sure you should have this?"
 	gender = MALE
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
@@ -13,6 +13,7 @@
 	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
+	abstract_type = /obj/item/storage/belt
 
 	/// Do we have overlays for items held inside the belt?
 	var/use_item_overlays = FALSE
@@ -130,9 +131,10 @@
 	if(!use_item_overlays)
 		return
 	for(var/obj/item/item in contents)
-		if(!item.belt_icon)
+		var/mutable_appearance/icon = item.get_belt_overlay()
+		if(!icon)
 			continue
-		. += mutable_appearance(icon, item.belt_icon, color = item.color)
+		. += icon
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()

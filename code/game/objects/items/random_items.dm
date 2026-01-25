@@ -241,6 +241,16 @@
 	while(prob(15))
 		new menace(get_step_rand(cached_loc))
 
+#define TANGERINES_COUNT 10
+
+/obj/structure/largecrate/tangerines/crowbar_act(mob/living/user, obj/item/I)
+	var/turf/cached_loc = get_turf(loc)
+	. = ..()
+	for(var/i in 1 to TANGERINES_COUNT)
+		new /obj/item/reagent_containers/food/snacks/grown/citrus/tangerine(cached_loc)
+
+#undef TANGERINES_COUNT
+
 /obj/structure/largecrate/schrodinger
 	name = "Schrodinger's Crate"
 	desc = "What happens if you open it?"

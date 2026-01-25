@@ -496,7 +496,7 @@
 /obj/machinery/camera/mortar/blob_act(obj/structure/blob/B)
 	return
 
-/obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/obj/machinery/camera/mortar/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/machinery/camera/mortar/flamer_fire_act(damage)

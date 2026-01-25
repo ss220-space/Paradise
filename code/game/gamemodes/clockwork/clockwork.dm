@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(crew_reveal)
 		return
 	var/clocker_players = get_clockers()
-	if(clocker_players < crew_reveal_number)
+	if(clocker_players < crew_reveal_number && GLOB.heart.curse_dial)
 		return
 	for(var/datum/mind/M in clockwork_cult)
 		if(!M.current)

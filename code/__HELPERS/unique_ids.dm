@@ -65,20 +65,13 @@ GLOBAL_LIST_EMPTY(uid_log)
  *
  * In-round ability to view what has created a UID, and how many times a UID for that path has been declared
  */
-/client/proc/uid_log()
-	set name = "View UID Log"
-	set category = STATPANEL_DEBUG
-	set desc = "Shows the log of created UIDs this round"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB(uid_log, R_DEBUG, "View UID Log", "Shows the log of created UIDs this round.", ADMIN_CATEGORY_DEBUG)
 	var/list/sorted = sortTim(GLOB.uid_log, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
 	var/list/text = list("<h1>UID Log</h1>", "<p>Current UID: [RUSTLIB_CALL(get_uuid_counter_value)]</p>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	var/datum/browser/popup = new(usr, "uidlog", "UID log")
+	var/datum/browser/popup = new(user, "uidlog", "UID log")
 	popup.set_content(text.Join())
 	popup.open(FALSE)

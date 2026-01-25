@@ -91,7 +91,7 @@
 
 /client/verb/volume_mixer()
 	set name = "Микшер громкости"
-	set category = STATPANEL_SPECIALVERBS
+	set category = VERB_CATEGORY_SPECIALVERBS
 
 	var/datum/ui_module/volume_mixer/VM = new()
 	VM.ui_interact(usr)

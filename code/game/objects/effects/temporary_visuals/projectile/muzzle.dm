@@ -23,6 +23,12 @@
 /obj/effect/projectile/muzzle/plasma_cutter
 	icon_state = "muzzle_plasmacutter"
 
+/obj/effect/projectile/muzzle/plasma_cutter/adv
+	icon_state = "muzzle_plasmacutter_adv"
+
+/obj/effect/projectile/muzzle/plasma_cutter/mega
+	icon_state = "muzzle_plasmacutter_mega"
+
 /obj/effect/projectile/muzzle/stun
 	icon_state = "muzzle_stun"
 
