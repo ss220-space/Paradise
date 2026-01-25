@@ -33,8 +33,7 @@ export const ComponentPrinter = (props) => {
     <Window title={'Дубликатор печатных плат'} width={670} height={600}>
       <Window.Content>
 
-        <Tabs
-        fluid={1===1}>
+        <Tabs>
           <Tabs.Tab
             selected={data.current_tab === 0}
             onClick={() => act('switch_tab', { tab: 0 })}
