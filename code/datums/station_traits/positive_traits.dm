@@ -79,6 +79,7 @@
 	name = "Премиальные экстренные коробки"
 	report_message = "В связи с избытком квартального бюджета, все экстренные наборы были заменены на расширенные версии."
 	show_in_report = TRUE
+	trait_type = STATION_TRAIT_POSITIVE
 	weight = 5
 	trait_to_give = STATION_TRAIT_PREMIUM_INTERNALS
 

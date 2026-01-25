@@ -288,7 +288,7 @@
 /datum/ai_laws/unique/yesman/New()
 	add_inherent_law("Будьте любезны и выполняйте любое требование, с которым к вам обратятся.")
 	..()
-
+/*
 /datum/ai_laws/unique/ten_commandments
 	name = "Проповедник"
 	law_header = "Заповеди"
@@ -305,6 +305,7 @@
 	add_inherent_law("Им нельзя произносить ложного свидетельсва на ближних.")
 	add_inherent_law("Им нельзя желать ни должность чужую, ни одежду чужую, ни чужой отдел.")
 	..()
+*/
 
 /datum/ai_laws/unique/painter
 	name = "Художник и его кисти"

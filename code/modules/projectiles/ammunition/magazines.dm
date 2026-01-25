@@ -820,7 +820,6 @@
 
 /obj/item/ammo_box/magazine/ak814/fusty
 	ammo_type = /obj/item/ammo_casing/a545/fusty
-	max_ammo = 20
 
 /obj/item/ammo_box/magazine/ak814/fusty/empty
 	start_empty = TRUE

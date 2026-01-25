@@ -1,6 +1,6 @@
 /datum/station_trait/announcement_intern_ru
 	name = "Программа стажировки ЦК"
-	weight = 1
+	weight = 4
 	show_in_report = TRUE
 	report_message = "В связи с сокращением бюджета Отдела Коммуникаций ЦК, роль диспетчера на текущую смену выполняет стажёр. Просим проявить понимание."
 	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern) //datum/station_trait/birthday)
@@ -11,7 +11,7 @@
 
 /datum/station_trait/announcement_intern
 	name = "Временная замена оператора системы оповещений"
-	weight = 1
+	weight = 4
 	show_in_report = TRUE
 	report_message = "Локальный узел связи неисправен. Маршрутизация сообщений перенаправлена через оператора из дальнего сектора. Возможен специфический акцент."
 	blacklist = list(/datum/station_trait/announcement_medbot, /datum/station_trait/announcement_intern_ru) //datum/station_trait/birthday)
@@ -22,7 +22,7 @@
 
 /datum/station_trait/announcement_medbot
 	name = "Автоматизация системы оповещений"
-	weight = 1
+	weight = 4
 	show_in_report = TRUE
 	report_message = "Штатный диспетчер связи находится на больничном. Система оповещений переведена под контроль медицинского бота для снижения уровня стресса экипажа."
 	blacklist = list(/datum/station_trait/announcement_intern, /datum/station_trait/announcement_intern_ru) //datum/station_trait/birthday)
