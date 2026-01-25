@@ -65,7 +65,7 @@
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		armour_penetration = initial(armour_penetration)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] кусает [target.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] кусает [target.declent_ru(ACCUSATIVE)]!"))
 
 	. = ..() //eat victim
 

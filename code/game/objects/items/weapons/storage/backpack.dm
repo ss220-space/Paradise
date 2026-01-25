@@ -119,12 +119,43 @@
 	var/dist = max((current_size - 2), 1)
 	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "into singularity")
 
+/obj/item/storage/backpack/holding/satchel/duffelbag
+	name = "Duffelbag of holding"
+	desc = "Очень большая и технологичная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Избегайте рекурсивного хранения\"."
+	icon_state = "holdingduffelba"
+	item_state = "holdingduffelba"
+	max_combined_w_class = 40
+
+/obj/item/storage/backpack/duffelbag/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сумка хранения",
+		GENITIVE = "блюспейс сумки храненияя",
+		DATIVE = "блюспейс сумке хранения",
+		ACCUSATIVE = "блюспейс сумку хранения",
+		INSTRUMENTAL = "блюспейс сумкой хранения",
+		PREPOSITIONAL = "блюспейс сумке хранения"
+	)
+
 /obj/item/storage/backpack/santabag
 	name = "Santa's Gift Bag"
-	desc = "Space Santa uses this to deliver toys to all the nice children in space on Christmas! Wow, it's pretty big!"
+	desc = "Космический Санта использует его, чтобы доставлять игрушки всем милым детям в космосе на Рождество! Ух ты, какой он большой!"
 	icon_state = "giftbag0"
 	item_state = "giftbag"
-	max_combined_w_class = 400 // can store a ton of shit!
+	max_combined_w_class = 60
+
+/obj/item/storage/backpack/santabag/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок с подарками",
+		GENITIVE = "мешка с подарками",
+		DATIVE = "мешку с подарками",
+		ACCUSATIVE = "мешок с подарками",
+		INSTRUMENTAL = "мешком с подарками",
+		PREPOSITIONAL = "мешке с подарками"
+	)
+
+/obj/item/storage/backpack/santabag/suicide_act(mob/living/user)
+	user.visible_message(span_suicide("[user] надева[PLUR_ET_UT(user)] [declent_ru(ACCUSATIVE)] на свою голову и туго затягива[PLUR_ET_UT(user)]! Похоже, [GEND_HE_SHE(user)] не в праздничном настроении..."))
+	return OXYLOSS
 
 /obj/item/storage/backpack/santabag/update_icon_state()
 	var/items_count = length(contents)
@@ -469,7 +500,7 @@
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
 	set name = "Перекинуть ремешок"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -691,7 +722,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/organ/internal/cyberimp/arm/surgery(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/autoimplanter(src)
-	new /obj/item/clothing/suit/space/hardsuit/syndi/elite/med(src)
+	new /obj/item/mod/control/pre_equipped/elite(src)
 	new /obj/item/bodyanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	new /obj/item/stack/medical/splint(src)

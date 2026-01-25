@@ -31,12 +31,15 @@
 		PREPOSITIONAL = "станционном интеркоме (Общий)",
 	)
 
-/obj/item/radio/intercom/Initialize(mapload, buildstage = INTERCOM_BUILD_SECURED)
+/obj/item/radio/intercom/Initialize(mapload, direction, buildstage = INTERCOM_BUILD_SECURED)
 	. = ..()
 	src.buildstage = buildstage
 	if(buildstage)
 		update_operating_status()
 	else
+		if(direction)
+			setDir(direction)
+			set_pixel_offsets_from_dir(28, -28, 28, -28)
 		b_stat = TRUE
 		set_on(FALSE)
 	GLOB.global_intercoms |= src

@@ -10,18 +10,21 @@
 	tags = REAGENT_TAG_ANTI_STUN
 
 /datum/reagent/medicine/adminordrazine/on_mob_life(mob/living/carbon/M)
-	M.setCloneLoss(0, FALSE)
 	M.setOxyLoss(0, FALSE)
+	M.adjustCloneLoss(-5, FALSE)
 	M.radiation = 0
 	M.adjustBruteLoss(-5, FALSE)
 	M.adjustFireLoss(-5, FALSE)
 	M.adjustToxLoss(-5, FALSE)
-	M.setBrainLoss(0, FALSE)
+	M.adjustBrainLoss(-5, FALSE)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		for(var/obj/item/organ/internal/organ as anything in H.internal_organs)
 			organ.internal_receive_damage(-5)
 		for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+			if(!prob(40))
+				continue
+
 			bodypart.mend_fracture()
 			bodypart.stop_internal_bleeding()
 			bodypart.stop_arterial_bleeding()
@@ -46,7 +49,6 @@
 	M.SetSilence(0)
 	M.SetHallucinate(0)
 	M.SetDeaf(0)
-	REMOVE_TRAITS_NOT_IN(M, list(ROUNDSTART_TRAIT))
 	M.SetDizzy(0)
 	M.SetDrowsy(0)
 	M.SetStuttering(0)

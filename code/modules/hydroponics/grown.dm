@@ -215,7 +215,7 @@
 	set_light_on(FALSE)
 
 /obj/item/reagent_containers/food/snacks/grown/proc/send_plant_details(mob/user)
-	var/msg = span_notice("This is \a [span_name(src)].\n")
+	var/msg = span_notice("This is \a [span_name(declent_ru(NOMINATIVE))].\n")
 	if(seed)
 		msg += seed.get_analyzer_text()
 		for(var/reagent_id in seed.reagents_add)

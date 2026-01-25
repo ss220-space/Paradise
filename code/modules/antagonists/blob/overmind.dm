@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	layer = FLY_LAYER
 	plane = ABOVE_GAME_PLANE
 	pass_flags = PASSBLOB
-	verb_say = "states"
+	verb_say = "заявляет"
 
 	hud_type = /datum/hud/blob_overmind
 	var/obj/structure/blob/special/core/blob_core = null // The blob overmind's core

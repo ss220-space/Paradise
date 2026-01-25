@@ -1,22 +1,19 @@
-/proc/possess(obj/target as obj in world)
-	set name = "\[Admin\] Possess Obj"
+ADMIN_VERB_ONLY_CONTEXT_MENU(possess_object, R_POSSESS, "Possess Obj", obj/target in world)
+	var/result = user.mob.AddComponent(/datum/component/object_possession, target)
 
-	if(!check_rights(R_POSSESS))
+	if(isnull(result)) // trigger a safety movement just in case we yonk
+		user.mob.forceMove(get_turf(user.mob))
 		return
 
-	usr.AddComponent(/datum/component/object_possession, target)
-
-	var/turf/turf = get_turf(target)
-
-	log_and_message_admins("[key_name(usr)] has possessed [target] ([target.type]) at [AREACOORD(turf)]")
+	var/turf/target_turf = get_turf(target)
+	var/message = "[key_name(user)] has possessed [target] ([target.type]) at [AREACOORD(target_turf)]"
+	message_admins(message)
+	log_admin(message)
 	BLACKBOX_LOG_ADMIN_VERB("Possess Object")
 
-/proc/release(obj/target in world)
-	set name = "\[Admin\] Release Obj"
-
-	if(!check_rights(R_POSSESS))
-		return
-
-	qdel(usr.GetComponent(/datum/component/object_possession))
+ADMIN_VERB_ONLY_CONTEXT_MENU(release_object, R_POSSESS, "Release Obj", obj/target in world)
+	var/possess_component = user.mob.GetComponent(/datum/component/object_possession)
+	if(!isnull(possess_component))
+		qdel(possess_component)
 
 	BLACKBOX_LOG_ADMIN_VERB("Release Object")

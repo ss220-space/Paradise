@@ -32,12 +32,9 @@
 	if(useGrille)
 		new /obj/structure/grille(get_turf(src))
 
-	air_update_turf(1) //atmos can pass otherwise
+	recalculate_atmos_connectivity() //atmos can pass otherwise
 	// Give some time for nearby window spawners to initialize
-	spawn(10)
-		qdel(src)
-	// why is this line a no-op
-	// QDEL_IN(src, 10)
+	QDEL_IN(src, 1 SECONDS)
 
 /obj/effect/spawner/window/proc/sync_id(obj/structure/window/reinforced/polarized/W)
 	return

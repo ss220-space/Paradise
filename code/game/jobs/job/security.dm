@@ -17,6 +17,7 @@
 		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
 		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS
 	)
+	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	law_level = LAW_LEVEL_HOS
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed_slightly = 0
@@ -111,8 +112,8 @@
 /datum/job/security/detective
 	title = JOB_TITLE_DETECTIVE
 	flag = JOB_FLAG_DETECTIVE
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 2
+	spawn_positions = 2
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	law_level = LAW_LEVEL_SEC
@@ -139,6 +140,7 @@
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
 		/obj/item/melee/baton/telescopic = 1,
+		/obj/item/security_voucher/detective = 1,
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
 	box = /obj/item/storage/box/survival/survival_security/detective
@@ -163,8 +165,8 @@
 /datum/job/security/officer
 	title = JOB_TITLE_OFFICER
 	flag = JOB_FLAG_OFFICER
-	total_positions = 7
-	spawn_positions = 7
+	total_positions = 6
+	spawn_positions = 6
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
 	law_level = LAW_LEVEL_SEC
@@ -234,7 +236,7 @@
 	jobtype = /datum/job/security/brigdoc
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_brigphys
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security

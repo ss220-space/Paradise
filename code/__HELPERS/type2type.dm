@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 /proc/heat2color_g(temp)
 	temp /= 100
 	if(temp <= 66)
-		. = max(0, min(255, 99.4708025861 * log(temp) - 161.1195681661))
+		. = max(0, min(255, 99.4708025861 * log(max(temp, 1)) - 161.1195681661))
 	else
 		. = max(0, min(255, 288.1221695283 * ((temp - 60) ** -0.0755148492)))
 
@@ -391,7 +391,7 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 		if(temp <= 16)
 			. = 0
 		else
-			. = max(0, min(255, 138.5177312231 * log(temp - 10) - 305.0447927307))
+			. = max(0, min(255, 138.5177312231 * log(max(temp - 10, 1)) - 305.0447927307))
 
 /// Argument: Give this a space-separated string consisting of 6 numbers. Returns null if you don't
 /proc/text2matrix(matrixtext)
@@ -464,6 +464,8 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			else
 				return /datum
 	return text2path(copytext(string_type, 1, last_slash))
+
+#define text2bool(input) (!input? FALSE : lowertext(input) in list("true", "1"))
 
 // Doesn't work with right/left hands (diffrent var is used), l_/r_ stores and PDA (they dont have icons)
 /proc/slot_string_to_slot_bitfield(input_string)
@@ -643,3 +645,25 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 			return "правая ступня"
 		else
 			stack_trace("Wrong zone input.")
+
+/// Returns a list(x, y), being the change in position required to step in the passed in direction
+/proc/dir2offset(dir)
+	switch(dir)
+		if(NORTH)
+			return list(0, 1)
+		if(SOUTH)
+			return list(0, -1)
+		if(EAST)
+			return list(1, 0)
+		if(WEST)
+			return list(-1, 0)
+		if(NORTHEAST)
+			return list(1, 1)
+		if(SOUTHEAST)
+			return list(1, -1)
+		if(NORTHWEST)
+			return list(-1, 1)
+		if(SOUTHWEST)
+			return list(-1, -1)
+		else
+			return list(0, 0)

@@ -19,24 +19,6 @@
 //- Identify how hard it is to break into the area and where the weak points are
 //- Check if the area has too much empty space. If so, make it smaller and replace the rest with maintenance tunnels.
 
-GLOBAL_VAR_INIT(camera_range_display_status, 0)
-GLOBAL_VAR_INIT(intercom_range_display_status, 0)
-
-/obj/effect/debugging/camera_range
-	icon = 'icons/misc/480x480.dmi'
-	icon_state = "25percent"
-
-/obj/effect/debugging/camera_range/New()
-	. = ..()
-	src.pixel_x = -224
-	src.pixel_y = -224
-
-/obj/effect/debugging/mapfix_marker
-	name = "map fix marker"
-	icon = 'icons/mob/screen_gen.dmi'
-	icon_state = "mapfixmarker"
-	desc = "I am a mappers mistake."
-
 /obj/effect/debugging/marker
 	icon = 'icons/area/areas.dmi'
 	icon_state = "yellow"
@@ -44,33 +26,25 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 /obj/effect/debugging/marker/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	return FALSE
 
-/client/proc/camera_view()
-	set category = STATPANEL_DEBUG_MAPPING
-	set name = "Camera Range Display"
+ADMIN_VERB_VISIBILITY(camera_view, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(camera_view, R_DEBUG, "Camera Range Display", "Shows the range of cameras on the station.", ADMIN_CATEGORY_MAPPING)
+	var/static/camera_range_display_status = FALSE
+	camera_range_display_status = !camera_range_display_status
 
-	if(!check_rights(R_DEBUG))
-		return
+	for(var/obj/effect/debugging/marker/M in world)
+		qdel(M)
 
-	if(GLOB.camera_range_display_status)
-		GLOB.camera_range_display_status = 0
-	else
-		GLOB.camera_range_display_status = 1
-
-	for(var/obj/effect/debugging/camera_range/C in world)
-		qdel(C)
-
-	if(GLOB.camera_range_display_status)
+	if(camera_range_display_status)
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
-			new/obj/effect/debugging/camera_range(C.loc)
-	BLACKBOX_LOG_ADMIN_VERB("Camera Range Display")
+			for(var/turf/T in orange(7, C))
+				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
+				if(!(F in view(7, C.loc)))
+					qdel(F)
 
-/client/proc/sec_camera_report()
-	set category = STATPANEL_DEBUG_MAPPING
-	set name = "Camera Report"
+	BLACKBOX_LOG_ADMIN_VERB("Show Camera Range")
 
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB_VISIBILITY(sec_camera_report, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(sec_camera_report, R_DEBUG, "Camera Report", "Get a printout of all camera issues.", ADMIN_CATEGORY_MAPPING)
 	var/list/obj/machinery/camera/CL = list()
 
 	for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
@@ -83,11 +57,11 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 		for(var/obj/machinery/camera/C2 in CL)
 			if(C1 != C2)
 				if(C1.c_tag == C2.c_tag)
-					output += "<li><font color='red'>c_tag match for sec. cameras at \[[C1.x], [C1.y], [C1.z]\] ([C1.loc.loc]) and \[[C2.x], [C2.y], [C2.z]\] ([C2.loc.loc]) - c_tag is [C1.c_tag]</font></li>"
+					output += "<li><font color='red'>c_tag match for sec. cameras at [ADMIN_VERBOSEJMP(C1)] and [ADMIN_VERBOSEJMP(C2)] - c_tag is [C1.c_tag]</font></li>"
 				if(C1.loc == C2.loc && C1.dir == C2.dir && C1.pixel_x == C2.pixel_x && C1.pixel_y == C2.pixel_y)
-					output += "<li><font color='red'>FULLY overlapping sec. cameras at \[[C1.x], [C1.y], [C1.z]\] ([C1.loc.loc]) Networks: [C1.network] and [C2.network]</font></li>"
+					output += "<li><font color='red'>FULLY overlapping sec. cameras at [ADMIN_VERBOSEJMP(C1)] Networks: [C1.network] and [C2.network]</font></li>"
 				if(C1.loc == C2.loc)
-					output += "<li>overlapping sec. cameras at \[[C1.x], [C1.y], [C1.z]\] ([C1.loc.loc]) Networks: [C1.network] and [C2.network]</font></li>"
+					output += "<li>overlapping sec. cameras at [ADMIN_VERBOSEJMP(C1)] Networks: [C1.network] and [C2.network]</font></li>"
 		var/turf/T = get_step(C1,turn(C1.dir,180))
 		if(!T || !isturf(T) || !T.density)
 			if(!(locate(/obj/structure/grille,T)))
@@ -97,59 +71,50 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 						window_check = 1
 						break
 				if(!window_check)
-					output += "<li><font color='red'>Camera not connected to wall at \[[C1.x], [C1.y], [C1.z]\] ([C1.loc.loc]) Network: [C1.network]</color></li>"
+					output += "<li><font color='red'>Camera not connected to wall at [ADMIN_VERBOSEJMP(C1)] Network: [C1.network]</color></li>"
 
 	output += "</ul>"
-	var/datum/browser/popup = new(usr, "airreport", "CAMERA ANOMALIES REPORT", 1000, 500)
+	var/datum/browser/popup = new(user, "airreport", "CAMERA ANOMALIES REPORT", 1000, 500)
 	popup.set_content(output)
 	popup.open(FALSE)
-	BLACKBOX_LOG_ADMIN_VERB("Camera Report")
+	BLACKBOX_LOG_ADMIN_VERB("Show Camera Report")
 
-/client/proc/intercom_view()
-	set category = STATPANEL_DEBUG_MAPPING
-	set name = "Intercom Range Display"
+ADMIN_VERB_VISIBILITY(intercom_view, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(intercom_view, R_DEBUG, "Intercom Range Display", "Shows the range of intercoms on the station.", ADMIN_CATEGORY_MAPPING)
+	var/static/intercom_range_display_status = FALSE
+	intercom_range_display_status = !intercom_range_display_status
 
-	if(!check_rights(R_DEBUG))
-		return
+	for(var/obj/effect/debugging/marker/marker in world)
+		qdel(marker)
 
-	if(GLOB.intercom_range_display_status)
-		GLOB.intercom_range_display_status = 0
-	else
-		GLOB.intercom_range_display_status = 1
-
-	for(var/obj/effect/debugging/marker/M in world)
-		qdel(M)
-
-	if(GLOB.intercom_range_display_status)
+	if(intercom_range_display_status)
 		for(var/obj/item/radio/intercom/I in GLOB.global_radios)
-			for(var/turf/T in orange(7,I))
+			for(var/turf/T in orange(7, I))
 				var/obj/effect/debugging/marker/F = new/obj/effect/debugging/marker(T)
-				if(!(F in view(7,I.loc)))
+				if(!(F in view(7, I.loc)))
 					qdel(F)
-	BLACKBOX_LOG_ADMIN_VERB("Intercom Range Display")
+	BLACKBOX_LOG_ADMIN_VERB("Show Intercom Range")
 
-/client/proc/count_objects_on_z_level()
-	set category = STATPANEL_DEBUG_MAPPING
-	set name = "Count Objects On Level"
-
-	if(!check_rights(R_DEBUG))
+ADMIN_VERB_VISIBILITY(count_objects_on_z_level, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(count_objects_on_z_level, R_DEBUG, "Count Objects On Z-Level", "Counts the number of objects of a certain type on a specific z-level.", ADMIN_CATEGORY_MAPPING)
+	var/level = tgui_input_text(user, "Which z-level?", "Level?")
+	if(!level)
+		return
+	var/num_level = text2num(level)
+	if(!num_level)
+		return
+	if(!isnum(num_level))
 		return
 
-	var/level = tgui_input_text(usr, "Which z-level?", "Level?")
-	if(!level) return
-	var/num_level = text2num(level)
-	if(!num_level) return
-	if(!isnum(num_level)) return
-
-	var/type_text = tgui_input_text(usr, "Which type path?","Path?")
-	if(!type_text) return
+	var/type_text = tgui_input_text(user, "Which type path?","Path?")
+	if(!type_text)
+		return
 	var/type_path = text2path(type_text)
-	if(!type_path) return
+	if(!type_path)
+		return
 
 	var/count = 0
-
 	var/list/atom/atom_list = list()
-
 	for(var/atom/A in world)
 		if(istype(A,type_path))
 			var/atom/B = A
@@ -163,26 +128,23 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 					count++
 					atom_list += A
 
-	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].")
-	BLACKBOX_LOG_ADMIN_VERB("Count Objects (On Level)")
+	to_chat(world, "There are [count] objects of type [type_path] on z-level [num_level].", confidential = TRUE)
+	BLACKBOX_LOG_ADMIN_VERB("Count Objects Zlevel")
 
-/client/proc/count_objects_all()
-	set category = STATPANEL_DEBUG_MAPPING
-	set name = "Count Objects All"
-
-	if(!check_rights(R_DEBUG))
+ADMIN_VERB_VISIBILITY(count_objects_all, ADMIN_VERB_VISIBLITY_FLAG_MAPPING_DEBUG)
+ADMIN_VERB(count_objects_all, R_DEBUG, "Count Objects All", "Counts the number of objects of a certain type in the game world.", ADMIN_CATEGORY_MAPPING)
+	var/type_text = tgui_input_text(user, "Which type path?", "")
+	if(!type_text)
 		return
 
-	var/type_text = tgui_input_text(usr, "Which type path?", "")
-	if(!type_text) return
 	var/type_path = text2path(type_text)
-	if(!type_path) return
+	if(!type_path)
+		return
 
 	var/count = 0
-
 	for(var/atom/A in world)
 		if(istype(A,type_path))
 			count++
 
-	to_chat(world, "There are [count] objects of type [type_path] in the game world.")
-	BLACKBOX_LOG_ADMIN_VERB("Count Objects (Global)")
+	to_chat(world, "There are [count] objects of type [type_path] in the game world.", confidential = TRUE)
+	BLACKBOX_LOG_ADMIN_VERB("Count Objects All")

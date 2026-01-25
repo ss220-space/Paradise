@@ -81,7 +81,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		to_chat(usr, span_warning("You must wait [respawn_cooldown / 600] minutes to respawn as [mob_name]!"))
 		return
 	if(CONFIG_GET(flag/use_exp_restrictions) && min_hours)
-		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, 0, usr))
+		if(user.client.get_exp_type_num(exp_type) < min_hours * 60 && !check_rights(R_ADMIN|R_MOD, FALSE, usr))
 			to_chat(user, span_warning("У вас недостаточно часов для игры на этой роли. Требуется набрать [min_hours] часов типа [exp_type] для доступа к ней."))
 			return
 	var/ghost_role = tgui_alert(user, "Become [mob_name]? (Warning, You can no longer be cloned!)", "Respawn", list("Yes","No"))
@@ -533,7 +533,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 /datum/outfit/job/engineer/suit
 	toggle_helmet = TRUE
 	belt = /obj/item/storage/belt/utility/full
-	suit = /obj/item/clothing/suit/space/hardsuit/engine
+	back = /obj/item/mod/control/pre_equipped/engineering
 	mask = /obj/item/clothing/mask/breath
 
 /obj/effect/mob_spawn/human/clown
@@ -625,8 +625,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	outfit = /datum/outfit/job/mining/suit
 
 /datum/outfit/job/mining/suit
-	toggle_helmet = TRUE
-	suit = /obj/item/clothing/suit/space/hardsuit/mining
+	back = /obj/item/mod/control/pre_equipped/mining/asteroid
 	uniform = /obj/item/clothing/under/rank/miner
 	gloves = /obj/item/clothing/gloves/fingerless
 	shoes = /obj/item/clothing/shoes/workboots
@@ -675,7 +674,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	uniform = /obj/item/clothing/under/rank/bartender
 	suit = /obj/item/clothing/suit/armor/vest
 	belt = /obj/item/storage/belt/bandolier/full
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 	id = /obj/item/card/id
 
@@ -739,7 +738,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	l_ear = /obj/item/radio/headset/heads/hop
 	uniform = /obj/item/clothing/under/rank/centcom_officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id
 
@@ -792,7 +791,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 	name = "Cryogenic Bartender"
 	uniform = /obj/item/clothing/under/rank/bartender
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	suit = /obj/item/clothing/suit/armor/vest
 	glasses = /obj/item/clothing/glasses/sunglasses/reagent
 
