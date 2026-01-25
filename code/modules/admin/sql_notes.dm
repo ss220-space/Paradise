@@ -253,7 +253,7 @@
 		var/server = query.item[6]
 		var/mins = text2num(query.item[7])
 		output += "<b>[timestamp] | [server] | [adminckey]"
-		if(mins)
+		if(show_player_hours && mins)
 			var/playstring = get_exp_format(mins)
 			output += " | [playstring] as Crew"
 		output += "</b>"
