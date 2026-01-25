@@ -32,16 +32,11 @@
 	// Client does NOT have tgui_input on: Returns regular input
 	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
 		if(encode)
+			max_length = max_length ? max_length : MAX_MESSAGE_LEN
 			if(multiline)
-				if(!max_length)
-					return stripped_multiline_input(user, message, title, default)
-				else
-					return stripped_multiline_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
+				return stripped_multiline_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
 			else
-				if(!max_length)
-					return stripped_input(user, message, title, default)
-				else
-					return stripped_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
+				return stripped_input(user, message, title, default, PREVENT_CHARACTER_TRIM_LOSS(max_length))
 		else
 			if(multiline)
 				return input(user, message, title, default) as message|null
