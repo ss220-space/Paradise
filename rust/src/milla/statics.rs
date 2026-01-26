@@ -21,7 +21,7 @@ pub(crate) static TICK_TIME: AtomicUsize = AtomicUsize::new(0);
 pub(crate) static THREAD_POOL: LazyLock<ThreadPool> = LazyLock::new(|| {
     ThreadPoolBuilder::new()
         .num_threads(MAX_Z_LEVELS as usize)
-        .stack_size(256 * 1024)
+        .stack_size(1024 * 1024)
         .thread_name(|i| format!("milla-worker-{}", i))
         .start_handler(|_| {
             let _ = thread_priority::ThreadPriority::Min.set_for_current();

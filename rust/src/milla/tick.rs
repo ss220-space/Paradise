@@ -19,23 +19,20 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     let next = buffers.get_inactive().read().unwrap();
 
     let new_interesting_tiles: Bag<InterestingTile> = Bag::default();
-    let last_error: Arc<Mutex<Option<eyre::Error>>> = Arc::new(Mutex::new(None));
 
-    THREAD_POOL.install(|| {
-        (0..prev.0.len()).into_par_iter().for_each(|z| {
-            if let Err(e) = tick_z_level(
+    let result = THREAD_POOL.install(|| {
+        (0..prev.0.len()).into_par_iter().try_for_each(|z| {
+            tick_z_level(
                 buffers,
                 &prev.0[z],
                 &next.0[z],
                 z as i32,
                 &new_interesting_tiles,
-            ) {
-                *last_error.lock().unwrap() = Some(e);
-            }
-        });
+            )
+        })
     });
 
-    if let Some(err) = last_error.lock().unwrap().take() {
+    if let Err(err) = result {
         return Err(eyre::eyre!("MILLA worker thread failed: {:#?}", err));
     }
 
