@@ -1,10 +1,27 @@
-ADMIN_VERB(open_admin_tickets, R_ADMIN|R_MOD, "Open Admin Ticket Interface", "Open the ahelp panel.", ADMIN_CATEGORY_TICKETS)
-	SStickets.showUI(user.mob)
+//Verbs
 
-ADMIN_VERB(resolve_all_admin_tickets, R_ADMIN, "Resolve All Open Admin Tickets", "Resolve All Open Admin Tickets", ADMIN_CATEGORY_HIDDEN)
-	if(tgui_alert(user, "Are you sure you want to resolve ALL open admin tickets?", "Resolve all open admin tickets?", list("Yes", "No")) != "Yes")
+/client/proc/openAdminTicketUI()
+
+	set name = "Open Admin Ticket Interface"
+	set category = STATPANEL_ADMIN_TICKETS
+
+	if(!check_rights(R_ADMIN|R_MOD))
 		return
+
+	SStickets.showUI(usr)
+
+/client/proc/resolveAllAdminTickets()
+	set name = "Resolve All Open Admin Tickets"
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	if(tgui_alert(usr, "Are you sure you want to resolve ALL open admin tickets?", "Resolve all open admin tickets?", list("Yes", "No")) != "Yes")
+		return
+
 	SStickets.resolveAllOpenTickets()
 
-ADMIN_VERB(open_admin_ui, R_ADMIN, "My Admin Tickets", "Open the Admin Ticket UI", ADMIN_CATEGORY_TICKETS)
-	SStickets.userDetailUI(user.mob)
+/client/verb/openAdminUserUI()
+	set name = "Админ запросы"
+	set category = STATPANEL_ADMIN_TICKETS
+	SStickets.userDetailUI(usr)

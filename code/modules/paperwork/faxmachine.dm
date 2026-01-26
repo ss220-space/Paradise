@@ -219,7 +219,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 					to_chat(usr, span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 					flick(insert_anim, src)
 				else
-					to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] может принять только бумагу, фото и их стопки."))
+					to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] может принять только бумагу, фото и их стопки."))
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
@@ -283,7 +283,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			var/cooldown_seconds = cooldown_seconds()
 			if(cooldown_seconds > 0)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не сможет работать ещё [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "а", "ы")]."))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не сможет работать ещё [cooldown_seconds] секунд[numeric_ending(cooldown_seconds, "", "а", "ы")]."))
 				return
 
 			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments) || (destination in GLOB.hidden_ussp))
@@ -431,7 +431,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	var/msg = "[span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=[sender.UID()];originfax=[UID()];faxtype=[faxtype];replyto=[sent.UID()]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=[UID()]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")])")]: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=[sent.UID()]'>view message</a>"
 	var/fax_sound = sound('sound/effects/adminhelp.ogg')
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_EVENT, FALSE, C.mob))
+		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
 			if(C.prefs.sound & SOUND_ADMINHELP)
 				SEND_SOUND(C, fax_sound)

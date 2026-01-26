@@ -4,7 +4,6 @@
 	anchored = TRUE
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
-	cares_about_temperature = TRUE
 	var/state = GIRDER_NORMAL
 	/// Percentage chance that a projectile passes through the girder.
 	var/girderpasschance = 20
@@ -22,14 +21,14 @@
 	. = ..()
 	switch(state)
 		if(GIRDER_REINF)
-			. += span_notice("The support struts are <b>screwed</b> in place.")
+			. += "<span class='notice'>The support struts are <b>screwed</b> in place.</span>"
 		if(GIRDER_REINF_STRUTS)
-			. += span_notice("The support struts are <i>unscrewed</i> and the inner <b>grille</b> is intact.")
+			. += "<span class='notice'>The support struts are <i>unscrewed</i> and the inner <b>grille</b> is intact.</span>"
 		if(GIRDER_NORMAL)
 			if(can_displace)
-				. += span_notice("The bolts are <b>lodged</b> in place.")
+				. += "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
 		if(GIRDER_DISPLACED)
-			. += span_notice("The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.")
+			. += "<span class='notice'>The bolts are <i>loosened</i>, but the <b>screws</b> are holding [src] together.</span>"
 		if(GIRDER_DISASSEMBLED)
 			. += span_notice("[src] is disassembled! You probably shouldn't be able to see this examine message.")
 
@@ -40,7 +39,7 @@
 /// Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
 
-/obj/structure/girder/temperature_expose(exposed_temperature, exposed_volume)
+/obj/structure/girder/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	..()
 	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)

@@ -92,9 +92,8 @@
 		// if our speed is connected to enviroment temperature
 		var/datum/gas_mixture/environment
 		if(HAS_TRAIT(src,TRAIT_TEMPERATURE_MOVEMENT))
-			var/turf/location = get_turf(src)
-			environment = location.get_readonly_air()
-			if(environment.temperature() < 283.15)
+			environment = loc.return_air()
+			if(environment.temperature < 283.15)
 				remove_movespeed_modifier(/datum/movespeed_modifier/temperature/hot)
 				add_movespeed_modifier(/datum/movespeed_modifier/temperature/cold)
 				return

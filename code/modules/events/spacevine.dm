@@ -437,7 +437,6 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE //Clicking anywhere on the turf is good enough
 	pass_flags = PASSTABLE | PASSGRILLE
 	max_integrity = 50
-	cares_about_temperature = TRUE
 	var/energy = 0
 	var/obj/structure/spacevine_controller/master = null
 	var/list/mutations = list()
@@ -762,11 +761,11 @@
 	if(!i && prob(100/severity))
 		wither()
 
-/obj/structure/spacevine/temperature_expose(exposed_temperature, exposed_volume)
+/obj/structure/spacevine/temperature_expose(null, temp, volume)
 	..()
 	var/override = 0
 	for(var/datum/spacevine_mutation/SM in mutations)
-		override += SM.process_temperature(src, exposed_temperature, exposed_volume)
+		override += SM.process_temperature(src, temp, volume)
 	if(!override)
 		wither()
 

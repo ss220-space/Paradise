@@ -438,7 +438,7 @@
 
 	if(href_list["write"])
 		var/id = href_list["write"]																			/* Becаuse HTML */
-		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE)
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
 
 		topic_href_write(usr, id, input_element)
 
@@ -541,7 +541,7 @@
 	bundle.amount++
 	bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-/obj/item/paper/fire_act(exposed_temperature, exposed_volume)
+/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
@@ -848,13 +848,11 @@
 		D.Contract(target)
 	else if(myeffect == "Death By Fire")
 		to_chat(target,span_userdanger("You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?"))
-		var/turf/simulated/target_location = get_turf(target)
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(target_location)
-		hotspot.temperature = 1000
-		hotspot.recolor()
+		var/turf/simulated/T = get_turf(target)
+		new /obj/effect/hotspot(T)
 		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 	else if(myeffect == "Total Brain Death")
-		to_chat(target,span_userdanger("You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b>"))
+		to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
 		ADD_TRAIT(target, TRAIT_NO_CLONE, EVIL_FAX_TRAIT)
 		target.adjustBrainLoss(125)
 	else if(myeffect == "Honk Tumor")

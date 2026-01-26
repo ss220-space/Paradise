@@ -4,7 +4,11 @@
 /area/template_noop)
 "d" = (
 /obj/structure/chair/wood,
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /turf/simulated/floor/lava/lava_land_surface,
@@ -28,11 +32,19 @@
 /turf/simulated/wall/indestructible,
 /area/ruin/unpowered/misc_lavaruin)
 "m" = (
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "p" = (
 /obj/machinery/door/airlock/wood/glass,
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "q" = (
 /obj/machinery/door/airlock/wood/glass,
@@ -40,7 +52,11 @@
 /area/ruin/unpowered/misc_lavaruin)
 "t" = (
 /obj/machinery/vending/cola/free,
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "y" = (
 /obj/effect/spawner/random_spawners/dirt_50,
@@ -54,7 +70,11 @@
 "E" = (
 /obj/machinery/door/airlock/wood/glass,
 /obj/structure/fans/tiny,
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "I" = (
 /obj/structure/table/wood,
@@ -66,7 +86,11 @@
 	pixel_x = 10;
 	pixel_y = -1
 	},
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "J" = (
 /obj/effect/baseturf_helper/lava_land/surface,
@@ -91,13 +115,21 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "Y" = (
 /obj/structure/table/wood,
 /obj/item/paper/fluff/stations/lavaland/sloth/note,
 /obj/item/flashlight/lamp,
-/turf/simulated/floor/wood/lavaland_air,
+/turf/simulated/floor/wood{
+	oxygen = 14;
+	nitrogen = 23;
+	temperature = 300
+	},
 /area/ruin/unpowered/misc_lavaruin)
 "Z" = (
 /obj/machinery/vending/snack/free,

@@ -170,11 +170,11 @@
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/reagent_containers/container = item
 		if(!container.is_refillable())
-			to_chat(user, span_warning("[DECLENT_RU_CAP(container, NOMINATIVE)] не предназначен для повторного заполнения."))
+			to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] не предназначен для повторного заполнения."))
 			balloon_alert(user, "не удалось")
 			return ATTACK_CHAIN_PROCEED
 		if(container.reagents.holder_full())
-			to_chat(user, span_warning("[DECLENT_RU_CAP(container, NOMINATIVE)] уже полный..."))
+			to_chat(user, span_warning("[capitalize(container.declent_ru(NOMINATIVE))] уже полный..."))
 			balloon_alert(user, "уже полный")
 			return ATTACK_CHAIN_PROCEED
 		container.reagents.add_reagent("toiletwater", min(container.volume - container.reagents.total_volume, container.amount_per_transfer_from_this))
@@ -819,6 +819,17 @@
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "shower"
 	item_state = "buildpipe"
+
+/obj/item/mounted/shower/try_build(turf/on_wall, mob/user, proximity_flag)
+	//overriding this because we don't care about other items on the wall, but still need to do adjacent checks
+	if(!on_wall || !user)
+		return
+	if(proximity_flag != 1) //if we aren't next to the wall
+		return
+	if(!(get_dir(on_wall, user) in GLOB.cardinal))
+		to_chat(user, span_warning("You need to be standing next to a wall to place \the [src]."))
+		return
+	return 1
 
 /obj/item/mounted/shower/do_build(turf/on_wall, mob/user)
 	var/obj/machinery/shower/S = new(get_turf(user), get_dir(on_wall, user), TRUE)

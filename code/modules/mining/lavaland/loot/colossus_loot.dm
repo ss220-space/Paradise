@@ -186,6 +186,9 @@
 					var/turf/T = Stuff
 					if((isspaceturf(T) || isfloorturf(T)) && NewTerrainFloors)
 						var/turf/simulated/O = T.ChangeTurf(NewTerrainFloors)
+						if(O.air)
+							var/datum/gas_mixture/G = O.air
+							G.copy_from(O.air)
 						if(prob(florachance) && length(NewFlora) && !O.is_blocked_turf())
 							var/atom/Picked = pick(NewFlora)
 							new Picked(O)
@@ -356,8 +359,7 @@
 	var/list/banned_items_typecache = list(
 		/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 		/obj/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
-		/obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader, /obj/item/mod,
-		/obj/item/autoimplanter
+		/obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader
 	)
 
 /obj/machinery/anomalous_crystal/refresher/Initialize(mapload)

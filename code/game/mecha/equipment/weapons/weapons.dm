@@ -2,7 +2,6 @@
 	name = "mecha weapon"
 	range = MECHA_RANGED
 	origin_tech = "materials=3;combat=3"
-	abstract_type = /obj/item/mecha_parts/mecha_equipment/weapon
 	var/pb_knockback = 0
 	var/projectile
 	var/fire_sound

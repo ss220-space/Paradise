@@ -43,7 +43,7 @@ export const SettingsGeneral = (_props: unknown) => {
   return (
     <Section>
       <LabeledList>
-        <LabeledList.Item label="Тема">
+        <LabeledList.Item label="Theme">
           {THEMES.map((THEME) => (
             <Button
               key={THEME}
@@ -61,7 +61,7 @@ export const SettingsGeneral = (_props: unknown) => {
             </Button>
           ))}
         </LabeledList.Item>
-        <LabeledList.Item label="Масштаб UI">
+        <LabeledList.Item label="UI sizes">
           <Stack>
             <Stack.Item>
               <Button
@@ -74,17 +74,17 @@ export const SettingsGeneral = (_props: unknown) => {
                 color={editingPanes ? 'red' : undefined}
                 icon={editingPanes ? 'save' : undefined}
               >
-                {editingPanes ? 'Сохранить' : 'Подгонка размеров UI'}
+                {editingPanes ? 'Save' : 'Adjust UI Sizes'}
               </Button>
             </Stack.Item>
             <Stack.Item>
               <Button onClick={resetPaneSplitters} icon="refresh" color="red">
-                Сброс
+                Reset
               </Button>
             </Stack.Item>
           </Stack>
         </LabeledList.Item>
-        <LabeledList.Item label="Шрифт">
+        <LabeledList.Item label="Font style">
           <Stack.Item>
             {!freeFont ? (
               <Collapsible
@@ -98,7 +98,7 @@ export const SettingsGeneral = (_props: unknown) => {
                       setFreeFont(!freeFont);
                     }}
                   >
-                    Пользовательский шрифт
+                    Custom font
                   </Button>
                 }
               >
@@ -147,7 +147,7 @@ export const SettingsGeneral = (_props: unknown) => {
             )}
           </Stack.Item>
         </LabeledList.Item>
-        <LabeledList.Item label="Размер шрифта" verticalAlign="middle">
+        <LabeledList.Item label="Font size" verticalAlign="middle">
           <Stack textAlign="center">
             <Stack.Item grow>
               <Slider
@@ -166,7 +166,7 @@ export const SettingsGeneral = (_props: unknown) => {
             </Stack.Item>
           </Stack>
         </LabeledList.Item>
-        <LabeledList.Item label="Высота строки">
+        <LabeledList.Item label="Line height">
           <Slider
             width="100%"
             step={0.01}
@@ -189,47 +189,47 @@ export const SettingsGeneral = (_props: unknown) => {
         <Stack.Item mt={0.15}>
           <Button
             icon="compact-disc"
-            tooltip="Экспорт настроек чата"
+            tooltip="Export chat settings"
             onClick={() => dispatch(exportSettings())}
           >
-            Экспорт
+            Export
           </Button>
         </Stack.Item>
         <Stack.Item mt={0.15}>
           <Button.File
             accept=".json"
-            tooltip="Импорт настроек чата"
+            tooltip="Import chat settings"
             icon="arrow-up-from-bracket"
             onSelectFiles={(files) => importChatSettings(files)}
           >
-            Импорт
+            Import
           </Button.File>
         </Stack.Item>
         <Stack.Item mt={0.15}>
           <Button.Checkbox
             checked={!!chatSaving}
-            tooltip="Включить сохранение чата между игровыми сессиями"
+            tooltip="Enable chat persistence"
             onClick={() => updateChatSaving(!chatSaving)}
           >
-            Постоянность чата
+            Persistent Chat
           </Button.Checkbox>
         </Stack.Item>
         <Stack.Item grow mt={0.15}>
           <Button
             icon="save"
-            tooltip="Экспорт истории чата в HTML файл"
+            tooltip="Export current tab history into HTML file"
             onClick={() => dispatch(saveChatToDisk())}
           >
-            Сохранить чат
+            Save chat log
           </Button>
         </Stack.Item>
         <Stack.Item mt={0.15}>
           <Button.Confirm
             icon="trash"
-            tooltip="Очистить текущую историю чата"
+            tooltip="Erase current tab history"
             onClick={() => dispatch(clearChat())}
           >
-            Очистить чат
+            Clear chat
           </Button.Confirm>
         </Stack.Item>
       </Stack>

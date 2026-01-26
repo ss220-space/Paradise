@@ -76,7 +76,7 @@
 	else
 		icon_state = "taperecorder_idle"
 
-/obj/item/taperecorder/fire_act(exposed_temperature, exposed_volume)
+/obj/item/taperecorder/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	mytape?.ruin() //Fires destroy the tape
 	return ..()
 
@@ -398,7 +398,7 @@
 	if(ruined)
 		. += "ribbonoverlay"
 
-/obj/item/tape/fire_act(exposed_temperature, exposed_volume)
+/obj/item/tape/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	ruin()
 
@@ -440,7 +440,7 @@
 
 /obj/item/tape/verb/wipe()
 	set name = "Стереть плёнку"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr

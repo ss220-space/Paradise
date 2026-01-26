@@ -135,7 +135,7 @@
 
 	return ..()
 
-/obj/item/paper_bundle/fire_act(exposed_temperature, exposed_volume)
+/obj/item/paper_bundle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		for(var/obj/item/paper/paper in papers)
@@ -267,7 +267,7 @@
 
 /obj/item/paper_bundle/verb/rename()
 	set name = "Переименовать пачку"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	var/n_name = tgui_input_text(usr, "What would you like to label the bundle?", "Bundle Labelling", name)
@@ -279,7 +279,7 @@
 
 /obj/item/paper_bundle/verb/remove_all()
 	set name = "Распустить пачку"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	to_chat(usr, span_notice("You loosen the bundle."))

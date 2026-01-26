@@ -2,8 +2,6 @@
 // The weapons themselves are children of other weapons and should be contained in their respective files.
 
 // PARTS //
-/obj/item/weaponcrafting
-	abstract_type = /obj/item/weaponcrafting
 
 /obj/item/weaponcrafting/receiver
 	name = "modular receiver"

@@ -5,7 +5,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "ap" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -15,7 +19,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/under/rank/miner,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "aY" = (
 /obj/structure/window/reinforced,
@@ -23,7 +31,11 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "bl" = (
 /obj/machinery/mineral/processing_unit_console{
@@ -31,7 +43,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "bD" = (
 /obj/structure/disposalpipe/segment{
@@ -39,7 +55,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "bK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -48,7 +68,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "bV" = (
 /obj/machinery/light_construct/small{
@@ -56,7 +80,11 @@
 	},
 /obj/machinery/vending/assist,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "cd" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -64,7 +92,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "cp" = (
 /obj/structure/disposalpipe/segment{
@@ -74,7 +106,11 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "cT" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -82,11 +118,19 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "dJ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "ef" = (
 /obj/effect/decal/cleanable/dirt,
@@ -96,7 +140,11 @@
 /obj/structure/sign/poster/contraband/red_rum{
 	pixel_y = 31
 	},
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "eo" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -105,18 +153,30 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "eE" = (
 /obj/structure/door_assembly/door_assembly_ext,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "fi" = (
 /obj/machinery/power/smes,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "fj" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -132,20 +192,36 @@
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "fJ" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "gc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "gz" = (
 /obj/structure/door_assembly/door_assembly_ext,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "gD" = (
 /obj/structure/disposalpipe/segment{
@@ -154,7 +230,11 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "gI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -162,14 +242,22 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "gM" = (
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "gU" = (
 /obj/structure/disposalpipe/segment{
@@ -177,11 +265,19 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "hi" = (
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "hA" = (
 /obj/effect/decal/cleanable/dirt,
@@ -193,36 +289,60 @@
 	name = "Althland facility plaque";
 	pixel_y = 29
 	},
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "ip" = (
 /obj/machinery/constructable_frame/machine_frame,
 /obj/item/stack/cable_coil,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "iA" = (
 /obj/machinery/vending/cigarette,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "iC" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "iW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "jM" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "kf" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -236,13 +356,21 @@
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "kw" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "kz" = (
 /obj/effect/spawner/random_spawners/wall_rusted_30,
@@ -259,14 +387,22 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "kO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/chinese,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "li" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -279,12 +415,20 @@
 	id = "mining_internal";
 	dir = 5
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "lT" = (
 /obj/item/chair,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "mf" = (
 /turf/template_noop,
@@ -293,12 +437,20 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/miner,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "nf" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "nt" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -308,29 +460,49 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "nu" = (
 /obj/structure/grille,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "nA" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "nD" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "nI" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "nN" = (
 /obj/machinery/atmospherics/binary/pump{
@@ -338,7 +510,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "nO" = (
 /obj/structure/disposalpipe/segment{
@@ -350,7 +526,11 @@
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "oz" = (
 /turf/simulated/wall/r_wall,
@@ -368,7 +548,11 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "pE" = (
 /obj/structure/disposalpipe/segment{
@@ -377,19 +561,31 @@
 /obj/item/pickaxe,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "pU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "qi" = (
 /obj/structure/door_assembly/door_assembly_mhatch,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "qE" = (
 /obj/structure/lattice/catwalk/fireproof,
@@ -399,7 +595,11 @@
 /obj/structure/door_assembly/door_assembly_ext,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "rf" = (
 /obj/structure/disposalpipe/sortjunction/reversed{
@@ -408,36 +608,60 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "ry" = (
 /obj/structure/door_assembly/door_assembly_mhatch,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "sg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/marker_beacon,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "sm" = (
 /obj/machinery/atmospherics/unary/tank/oxygen_agent_b,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "tw" = (
 /obj/item/stack/ore/plasma,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "tC" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "tE" = (
 /obj/effect/decal/cleanable/dirt,
@@ -451,12 +675,20 @@
 	pixel_x = 7;
 	pixel_y = 5
 	},
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "tV" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "uh" = (
 /obj/structure/disposalpipe/trunk{
@@ -465,7 +697,11 @@
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "uw" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -477,12 +713,20 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "vz" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/baseturf_helper/lava_land/surface,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "vF" = (
 /obj/machinery/atmospherics/unary/portables_connector{
@@ -490,7 +734,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "wg" = (
 /obj/structure/closet/crate,
@@ -498,7 +746,11 @@
 /obj/item/clothing/shoes/workboots/mining,
 /obj/item/clothing/shoes/workboots/mining,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "wj" = (
 /obj/effect/decal/cleanable/dirt,
@@ -507,20 +759,32 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/sheet/metal/fifty,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "wq" = (
 /obj/structure/disposalpipe/broken,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "wz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "wD" = (
 /obj/effect/decal/cleanable/dirt,
@@ -528,11 +792,19 @@
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "wI" = (
 /obj/effect/decal/warning_stripes/white,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "wL" = (
 /obj/effect/decal/cleanable/dirt,
@@ -541,7 +813,11 @@
 	dir = 4
 	},
 /obj/structure/door_assembly/door_assembly_ext,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "xh" = (
 /obj/structure/closet/crate,
@@ -549,13 +825,21 @@
 /obj/item/storage/box/donkpockets,
 /obj/item/storage/box/donkpockets,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "xr" = (
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "xH" = (
 /obj/effect/spawner/random_spawners/wall_rusted_30,
@@ -566,7 +850,11 @@
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
 	name = "Broken Computer"
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "xS" = (
 /turf/simulated/mineral/random/volcanic/hard,
@@ -587,18 +875,30 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "yx" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "yD" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "yM" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -608,7 +908,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "yX" = (
 /obj/effect/decal/cleanable/dirt,
@@ -618,7 +922,11 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/remains/human,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "zc" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
@@ -626,7 +934,11 @@
 /obj/structure/mecha_wreckage/ripley,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "zt" = (
 /obj/structure/disposalpipe/segment{
@@ -635,33 +947,57 @@
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "zE" = (
 /obj/structure/door_assembly/door_assembly_ext,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Ab" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/item/stack/sheet/metal/fifty,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Ad" = (
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Ao" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/rack_parts,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "At" = (
 /obj/machinery/door/airlock/maintenance_hatch,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "AU" = (
 /turf/simulated/floor/lava/lava_land_surface,
@@ -676,27 +1012,47 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "BH" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "BV" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Ca" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Cd" = (
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Cy" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -704,7 +1060,11 @@
 /obj/item/bedsheet,
 /obj/structure/bed,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "CQ" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -713,13 +1073,21 @@
 /obj/machinery/light_construct/small,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Dw" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "DB" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -727,60 +1095,104 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Ex" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Ez" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "EF" = (
 /obj/machinery/mech_bay_recharge_port,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "EI" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "EJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "FC" = (
 /obj/effect/turf_decal/caution/stand_clear/white,
 /obj/effect/turf_decal/box/white,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "FH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "FZ" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Gc" = (
 /obj/machinery/portable_atmospherics/pump,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "GP" = (
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Hq" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -799,16 +1211,28 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/miner,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "HS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "If" = (
 /obj/effect/mapping_helpers/turfs/burn,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Ii" = (
 /obj/structure/lattice/fireproof,
@@ -820,7 +1244,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "IX" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -828,7 +1256,11 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Ja" = (
 /obj/structure/window/reinforced,
@@ -842,14 +1274,22 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Je" = (
 /obj/machinery/power/terminal{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Jq" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -857,41 +1297,69 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Ki" = (
 /obj/structure/girder,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Kk" = (
 /obj/structure/girder,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "KF" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Li" = (
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/random,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Ly" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/door_assembly/door_assembly_mhatch,
 /obj/effect/mapping_helpers/turfs/damage,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "LA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Mi" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -906,7 +1374,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Mo" = (
 /obj/structure/window/reinforced,
@@ -915,7 +1387,11 @@
 	id = "mining_internal"
 	},
 /obj/item/stack/sheet/mineral/silver,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Mw" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -929,18 +1405,30 @@
 	dir = 8;
 	id = "mining_internal"
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "NM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/tank/internals/oxygen,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Or" = (
 /obj/structure/closet/crate/secure/loot,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Pz" = (
 /obj/structure/sign/poster/official/air2{
@@ -949,34 +1437,54 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "PA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/clothing/under/rank/miner,
 /obj/machinery/light_construct/small,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "PO" = (
 /obj/structure/disposalpipe/segment,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Qo" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "QE" = (
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "QN" = (
 /obj/effect/decal/cleanable/dirt,
@@ -984,7 +1492,11 @@
 	dir = 4
 	},
 /obj/structure/door_assembly/door_assembly_ext,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Rs" = (
 /obj/effect/mapping_helpers/turfs/damage,
@@ -993,20 +1505,32 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "RA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/donkpockets,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "RR" = (
 /obj/structure/ore_box,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "RS" = (
 /obj/effect/mapping_helpers/turfs/burn,
@@ -1014,14 +1538,22 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/workboots/mining,
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Sg" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
 /obj/item/clothing/under/rank/miner,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "SO" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -1034,18 +1566,30 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/marker_beacon,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Ty" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Up" = (
 /obj/structure/disposalpipe/trunk,
 /obj/machinery/disposal,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "UG" = (
 /obj/structure/window/reinforced,
@@ -1057,18 +1601,30 @@
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "UK" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Vk" = (
 /obj/structure/grille/broken,
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "Vl" = (
 /obj/machinery/computer{
@@ -1076,19 +1632,31 @@
 	name = "Broken Computer"
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Vx" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "VJ" = (
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "VQ" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -1108,7 +1676,11 @@
 /obj/item/pickaxe,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "WZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1116,7 +1688,11 @@
 /obj/structure/table,
 /obj/machinery/light_construct/small,
 /obj/item/storage/belt/mining/alt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "XS" = (
 /obj/structure/disposalpipe/segment{
@@ -1124,7 +1700,11 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Yl" = (
 /obj/structure/disposalpipe/segment{
@@ -1134,18 +1714,30 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "YH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "Zg" = (
 /obj/structure/grille,
 /obj/item/shard,
-/turf/simulated/floor/plating/lavaland_air,
+/turf/simulated/floor/plating{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/lavaland/surface/outdoors)
 "ZF" = (
 /obj/item/stack/sheet/mineral/gold{
@@ -1155,12 +1747,20 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 "ZZ" = (
 /obj/item/t_scanner/adv_mining_scanner,
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel/lavaland_air,
+/turf/simulated/floor/plasteel{
+	nitrogen = 23;
+	oxygen = 14;
+	temperature = 300
+	},
 /area/ruin/unpowered)
 
 (1,1,1) = {"

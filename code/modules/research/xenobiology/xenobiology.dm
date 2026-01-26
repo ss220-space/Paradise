@@ -248,8 +248,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
-				to_chat(SM, span_notice("Ваше новое имя - <b>\"[new_name]\"</b>!"))
+				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
+				to_chat(SM, "<span class='notice'>Ваше новое имя - <b>\"[new_name]\"</b>!</span>")
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
@@ -277,7 +277,7 @@
 		var/ghostmsg = "Play as [SM.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(QDELETED(src) || QDELETED(SM))
+		if(!src)
 			return
 
 		if(length(candidates))
@@ -299,8 +299,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", SM.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
-				to_chat(SM, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
+				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
+				to_chat(SM, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
 				SM.real_name = new_name
 				SM.name = new_name
 				if(isslime(SM))
@@ -333,12 +333,12 @@
 		var/ghostmsg = "Play as [LF.name], pet of [user.name]?[reason_text? "\nReason: [reason_text]\n":""]"
 		var/list/candidates = SSghost_spawns.poll_candidates(ghostmsg, ROLE_SENTIENT, FALSE, 10 SECONDS, source = M, reason = reason_text)
 
-		if(QDELETED(src) || QDELETED(LF))
+		if(!src)
 			return
 
 		if(length(candidates))
 			var/mob/C = pick(candidates)
-			LF.possess_by_player(C.key)
+			LF.key = C.key
 			LF.faction = user.faction
 			LF.master_commander = user
 			LF.mind.madeby_sentience_potion = TRUE
@@ -349,8 +349,8 @@
 
 			var/new_name = tgui_input_text(user, "Назовите вашего питомца, или нажмите \"Закрыть\" чтобы оставить расовое имя.", "Именование", LF.name, max_length = MAX_NAME_LEN)
 			if(new_name)
-				to_chat(user, span_notice("Имя питомца - <b>\"[new_name]\"</b>!"))
-				to_chat(LF, span_notice("Ваше имя - <b>\"[new_name]\"</b>!"))
+				to_chat(user, "<span class='notice'>Имя питомца - <b>\"[new_name]\"</b>!</span>")
+				to_chat(LF, "<span class='notice'>Ваше имя - <b>\"[new_name]\"</b>!</span>")
 				LF.real_name = new_name
 				LF.name = new_name
 
@@ -531,11 +531,6 @@
 			var/obj/item/clothing/cloth = O
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, span_warning("[I] can't be made any faster!</span>"))
-				return
-		if(ismodcontrol(O))
-			var/obj/item/mod/control/C = O
-			if(C.active)
-				balloon_alert(user, "сначала выключите костюм!")
 				return
 		I.slowdown /= 2
 		I.item_flags |= SPEEDPOTION_APPLIED
@@ -769,6 +764,82 @@
 
 /obj/item/slimepotion/clothing/teleportation/cancel_effect(obj/item/clothing/C)
 	C.teleportation = initial(C.teleportation)
+
+/obj/effect/timestop
+	name = "chronofield"
+	desc = "ZA WARUDO"
+	icon = 'icons/effects/160x160.dmi'
+	icon_state = "time"
+	layer = FLY_LAYER
+	pixel_x = -64
+	pixel_y = -64
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	var/mob/living/immune = list() // the one who creates the timestop is immune
+	var/list/stopped_atoms = list()
+	var/freezerange = 1
+	var/duration = 140
+	alpha = 125
+
+/obj/effect/timestop/New()
+	..()
+	for(var/mob/living/living in GLOB.player_list)
+		if(!living.mind)
+			continue
+		for(var/obj/effect/proc_holder/spell/aoe/conjure/timestop/spell in living.mind.spell_list) //People who can stop time are immune to timestop
+			immune |= living
+
+/obj/effect/timestop/proc/timestop()
+	playsound(get_turf(src), 'sound/magic/timeparadox2.ogg', 100, TRUE, -1)
+	for(var/i in 1 to duration-1)
+		for(var/A in orange (freezerange, loc))
+			if(isliving(A))
+				var/mob/living/M = A
+				if(M in immune)
+					continue
+				ADD_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+				M.set_anchored(TRUE)
+				if(istype(M, /mob/living/simple_animal/hostile))
+					var/mob/living/simple_animal/hostile/H = M
+					H.AIStatus = AI_OFF
+					H.lose_target()
+				stopped_atoms |= M
+			else if(isprojectile(A))
+				var/obj/projectile/P = A
+				P.paused = TRUE
+				stopped_atoms |= P
+
+		for(var/mob/living/M in stopped_atoms)
+			if(get_dist(get_turf(M),get_turf(src)) > freezerange) //If they lagged/ran past the timestop somehow, just ignore them
+				unfreeze_mob(M)
+				stopped_atoms -= M
+		sleep(1)
+
+	//End
+	for(var/mob/living/M in stopped_atoms)
+		unfreeze_mob(M)
+
+	for(var/obj/projectile/P in stopped_atoms)
+		P.paused = FALSE
+	qdel(src)
+	return
+
+/obj/effect/timestop/proc/unfreeze_mob(mob/living/M)
+	REMOVE_TRAIT(M, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
+	M.set_anchored(FALSE)
+	if(istype(M, /mob/living/simple_animal/hostile))
+		var/mob/living/simple_animal/hostile/H = M
+		H.AIStatus = initial(H.AIStatus)
+
+/obj/effect/timestop/wizard
+	duration = 100
+
+/obj/effect/timestop/wizard/New()
+	..()
+	timestop()
+
+/obj/effect/timestop/clockwork
+	duration = 80
 
 /obj/item/stack/tile/bluespace
 	name = "bluespace floor tile"

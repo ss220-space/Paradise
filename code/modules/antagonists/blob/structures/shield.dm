@@ -32,7 +32,7 @@
 	. = ..()
 	if(. && obj_integrity > 0)
 		atmosblock = compromised_integrity
-		recalculate_atmos_connectivity()
+		air_update_turf(TRUE, atmosblock)
 
 /obj/structure/blob/shield/update_icon_state()
 	icon_state = "[initial(icon_state)][(compromised_integrity) ? "_damaged" : null]"
@@ -47,7 +47,7 @@
 		atmosblock = FALSE
 	else
 		atmosblock = TRUE
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 
 /obj/structure/blob/shield/reflective
 	name = "reflective blob"

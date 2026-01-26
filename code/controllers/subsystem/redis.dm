@@ -22,7 +22,6 @@ SUBSYSTEM_DEF(redis)
 	connect()
 
 	if(!connected)
-		can_fire = FALSE
 		return SS_INIT_NO_NEED
 	// Loop efficiency doesnt matter here. It runs once and likely wont have any events in
 	for(var/datum/redis_message/RM in queue)

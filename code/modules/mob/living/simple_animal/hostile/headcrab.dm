@@ -49,7 +49,7 @@
 					continue
 				if(faction_check_mob(L) && !attack_same)
 					return
-	visible_message(span_danger("<b>[src]</b> [ranged_message] at [A]!"))
+	visible_message("<span class='danger'><b>[src]</b> [ranged_message] at [A]!</span>")
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 

@@ -10,12 +10,12 @@
 /obj/machinery/shield/Initialize(mapload)
 	. = ..()
 	dir = pick(NORTH, SOUTH, EAST, WEST)
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 
 /obj/machinery/shield/Destroy()
 	set_opacity(FALSE)
 	set_density(FALSE)
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 	return ..()
 
 /obj/machinery/shield/has_prints()
@@ -26,7 +26,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/machinery/shield/CanAtmosPass(direction)
+/obj/machinery/shield/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/machinery/shield/ex_act(severity, target)
@@ -115,7 +115,7 @@
 		invisibility = INVISIBILITY_ABSTRACT
 		visible = FALSE
 
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 	return visible
 
 /obj/machinery/shieldgen

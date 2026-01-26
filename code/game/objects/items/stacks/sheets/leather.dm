@@ -138,7 +138,6 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 	singular_name = "wet leather piece"
 	icon_state = "sheet-wetleather"
 	origin_tech = ""
-	cares_about_temperature = TRUE
 	var/wetness = 30 //Reduced when exposed to high temperautres
 	var/drying_threshold_temperature = 500 //Kelvin to start drying
 
@@ -400,19 +399,19 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		qdel(src)
 
 //Step three - drying
-/obj/item/stack/sheet/wetleather/temperature_expose(exposed_temperature, exposed_volume)
+/obj/item/stack/sheet/wetleather/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature >= drying_threshold_temperature)
 		wetness--
 		if(wetness == 0)
 			//Try locating an exisitng stack on the tile and add to there if possible
-			for(var/obj/item/stack/sheet/leather/HS in loc)
+			for(var/obj/item/stack/sheet/leather/HS in src.loc)
 				if(HS.amount < 50)
 					HS.amount++
-					use(1)
+					src.use(1)
 					wetness = initial(wetness)
 					return
 			//If it gets to here it means it did not find a suitable stack on the tile.
-			new /obj/item/stack/sheet/leather(loc, 1)
+			new /obj/item/stack/sheet/leather(src.loc, 1)
 			wetness = initial(wetness)
-			use(1)
+			src.use(1)

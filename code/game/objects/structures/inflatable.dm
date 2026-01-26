@@ -25,14 +25,14 @@
 
 /obj/structure/inflatable/Initialize(mapload, location)
 	. = ..()
-	recalculate_atmos_connectivity()
+	air_update_turf(TRUE)
 
 /obj/structure/inflatable/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.recalculate_atmos_connectivity()
+	T.air_update_turf(TRUE)
 
-/obj/structure/inflatable/CanAtmosPass(direction)
+/obj/structure/inflatable/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/inflatable/attackby(obj/item/I, mob/living/user, params)
@@ -65,7 +65,7 @@
 
 /obj/structure/inflatable/verb/hand_deflate()
 	set name = "Сдуть"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -113,7 +113,7 @@
 	if(istype(mover, /obj/effect/beam))
 		return !opacity
 
-/obj/structure/inflatable/door/CanAtmosPass(direction)
+/obj/structure/inflatable/door/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/structure/inflatable/door/proc/try_to_operate(atom/user)
@@ -146,7 +146,7 @@
 	set_density(state_closed)
 	set_opacity(state_closed)
 	update_icon(UPDATE_ICON_STATE)
-	recalculate_atmos_connectivity()
+	air_update_turf(TRUE)
 	is_operating = FALSE
 
 /obj/structure/inflatable/door/update_icon_state()

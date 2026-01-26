@@ -103,12 +103,6 @@
 /obj/item/grenade/clusterbuster/cleaner
 	name = "Mr. Proper"
 	payload = /obj/item/grenade/chem_grenade/cleaner
-	icon_state = "proper"
-
-/obj/item/grenade/clusterbuster/oxygen
-	name = "Clusterbuster oxygen"
-	payload = /obj/item/grenade/gas/oxygen
-	icon_state = "clusterbusteroxy"
 
 /obj/item/grenade/clusterbuster/teargas
 	name = "Oignon Teargas Grenade"
@@ -185,7 +179,7 @@
 
 /obj/item/grenade/clusterbuster/xmas
 	name = "Christmas Miracle"
-	payload = /obj/item/gift
+	payload = /obj/item/a_gift
 
 /obj/item/grenade/clusterbuster/dirt
 	name = "Megamaid's Job Security Grenade"

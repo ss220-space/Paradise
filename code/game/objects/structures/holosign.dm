@@ -159,20 +159,15 @@
 
 /obj/structure/holosign/barrier/atmos/Initialize(mapload)
 	. = ..()
-	recalculate_atmos_connectivity()
+	air_update_turf(TRUE)
 
-// Airtight.
-/obj/structure/holosign/barrier/atmos/CanAtmosPass(direction)
+/obj/structure/holosign/barrier/atmos/CanAtmosPass(turf/T, vertical)
 	return FALSE
-
-// Heatproof.
-/obj/structure/holosign/barrier/atmos/get_superconductivity(direction)
-	return 0
 
 /obj/structure/holosign/barrier/atmos/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.recalculate_atmos_connectivity()
+	T.air_update_turf(TRUE)
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"

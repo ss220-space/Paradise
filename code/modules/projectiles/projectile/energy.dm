@@ -1,4 +1,3 @@
-#define ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER 0.1
 /obj/projectile/energy
 	name = "energy"
 	icon_state = "spark"
@@ -56,8 +55,6 @@
 	if(HAS_TRAIT(carbon, TRAIT_HULK))
 		return
 	if(carbon.status_flags & CANWEAKEN)
-		if(carbon.buckled && istype(carbon.buckled, /obj/vehicle/ridden))
-			carbon.buckled.unbuckle_mob(carbon, TRUE)
 		addtimer(CALLBACK(carbon, TYPE_PROC_REF(/mob/living/carbon, Jitter), jitter), 0.5 SECONDS)
 
 /obj/projectile/energy/electrode/apply_effect_on_hit(mob/living/target, blocked = 0, hit_zone)
@@ -65,9 +62,6 @@
 	. = ..()
 
 /obj/projectile/energy/electrode/proc/process_tasered_effect(mob/living/target)
-	if(target.buckled)
-		target.apply_effect(stamina * ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER, WEAKEN)
-
 	if(HAS_TRAIT(target, TRAIT_TASERED))
 		if(target.getStaminaLoss() >= 40)
 			target.drop_all_held_items()
@@ -137,7 +131,7 @@
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = TOX
 	stamina = 40
-	knockdown = 0.5 SECONDS
+	weaken = 3 SECONDS
 	stutter = 2 SECONDS
 	shockbull = TRUE
 
@@ -156,22 +150,10 @@
 	var/mob/living/simple_animal/hostile/carp/carp = target
 	if(istype(carp))
 		carp.gib()
-	if(!isliving(target))
-		return
-	var/mob/living/living_target = target
-	var/is_robot = isrobot(living_target)
-	if(is_robot || ismachineperson(living_target))
-		living_target.emp_act(EMP_LIGHT)
-		if(is_robot)
-			return
-
-	living_target.apply_status_effect(STATUS_EFFECT_OXYDOT)
-	living_target.Confused(15 SECONDS)
-	living_target.Jitter(5 SECONDS)
-
 
 /obj/projectile/energy/bolt/large
 	damage = 20
+	weaken = 0.1 SECONDS
 	stamina = 30
 
 /obj/projectile/energy/bolttoy
@@ -395,7 +377,7 @@
 	icon_state = "brassshot"
 	damage = 70
 	armour_penetration = 60
-	knockdown = 2 SECONDS
+	weaken = 2
 
 /obj/projectile/energy/rat/snipe/get_ru_names()
 	return list(
@@ -417,6 +399,7 @@
 /obj/projectile/energy/rat/snipe/emp
 	name = "brass sniper EMP bullet"
 	icon_state = "brassslug_emp" // there is no "brassshot_emp"
+	weaken = 0
 	damage = 0
 
 /obj/projectile/energy/rat/snipe/emp/get_ru_names()
@@ -443,6 +426,7 @@
 	name = "brass sniper heal bullet"
 	icon_state = "brassshot_heal"
 	damage = 0
+	weaken = 0
 
 /obj/projectile/energy/rat/snipe/heal/get_ru_names()
 	return list(
@@ -551,4 +535,3 @@
 	if(!isclocker(to_heal))
 		return ..()
 	to_heal.heal_overall_damage(0, 75)
-#undef ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER

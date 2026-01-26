@@ -217,6 +217,3 @@
 		exoframe.insert(human)
 
 	return ..()
-
-/datum/species/machine/compressor_grind(location)
-	new /obj/item/stack/sheet/mineral/titanium(location)

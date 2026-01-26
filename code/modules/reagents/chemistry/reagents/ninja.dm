@@ -65,7 +65,6 @@
 			our_mob.AdjustLoseBreath(-10 SECONDS, bound_lower = 10 SECONDS)
 			our_mob.AdjustParalysis(-2 SECONDS)
 			our_mob.AdjustWeakened(-2 SECONDS)
-			our_mob.AdjustKnockdown(-2 SECONDS)
 		if(20 to 40)
 			//Human only effects
 			if(ishuman(our_mob))

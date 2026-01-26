@@ -467,7 +467,6 @@
 	if(!istype(T))
 		return
 	new /obj/effect/decal/cleanable/flour/foam(T) //foam mess; clears up quickly.
-	T.quench(1000, cooling_temperature)
 
 /datum/reagent/plasma_dust
 	name = "Плазменная пыль"

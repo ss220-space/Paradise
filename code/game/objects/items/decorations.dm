@@ -207,7 +207,10 @@
 /obj/item/decorations/sticky_decorations/flammable/easter_egg/orange
 	icon_state = "decoration_easter_egg_orange"
 
-// MARK: Decorative structures
+///////
+//Decorative structures
+///////
+
 /obj/structure/decorative_structures
 	icon = 'icons/obj/decorations.dmi'
 	icon_state = ""
@@ -227,36 +230,16 @@
 	. = ..()
 	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_fire3"))
 	add_overlay(icon('icons/obj/fireplace.dmi', "fireplace_glow"))
-	set_light(6, l_color = LIGHT_COLOR_GARLAND)
+	set_light(6, ,"#ffb366")
 
 /obj/structure/decorative_structures/garland
-	name = "garland"
-	icon_state = "xmaslights"
 	density = FALSE
 	anchored = TRUE
-
-/obj/structure/decorative_structures/garland/get_ru_names()
-	return list(
-		NOMINATIVE = "новогодняя гирлянда",
-		GENITIVE = "новогодней гирлянды",
-		DATIVE = "новогодней гирлянде",
-		ACCUSATIVE = "новогоднюю гирлянду",
-		INSTRUMENTAL = "новогодней гирляндой",
-		PREPOSITIONAL = "новогодней гирлянде"
-	)
+	icon_state = "xmaslights"
 
 /obj/structure/decorative_structures/garland/Initialize(mapload)
 	. = ..()
-	set_light(2, l_color = "#ffffffbb")
-
-/obj/structure/decorative_structures/garland/north
-	dir = NORTH
-
-/obj/structure/decorative_structures/garland/east
-	dir = EAST
-
-/obj/structure/decorative_structures/garland/west
-	dir = WEST
+	set_light(2, ,"#ffffffbb")
 
 /obj/structure/decorative_structures/metal
 	flags = CONDUCT

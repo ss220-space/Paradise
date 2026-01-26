@@ -10,8 +10,7 @@
 	desc = "Один из самых популярных способов осветить пространство в средневековых замках."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "torch_holder_item"
-	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
-	metal_sheets_refunded = 0
+	mount_reqs = list("simfloor", "nospace")
 
 /obj/item/mounted/frame/torch_holder/get_ru_names()
 	return list(
@@ -47,7 +46,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "torch_holder"
 	/// Our torch, that stored in holder
-	var/obj/item/flashlight/flare/torch/torch
+	var/obj/item/flashlight/flare/torch/fakel
 	/// For mapping. Ancient torches can't be taken away and they are infinite
 	var/ancient = FALSE
 	/// Light range when on. Standart torch is brighter, this is for mapping reason.
@@ -78,8 +77,8 @@
 
 /obj/structure/torch_holder/Initialize(mapload) //mapping version, preloaded with torch
 	. = ..()
-	torch = new(src)
-	fuel = torch.fuel
+	fakel = new(src)
+	fuel = fakel.fuel
 	update_icon(UPDATE_OVERLAYS)
 	update_light_state()
 	if(TORCH_OK && !ancient)
@@ -87,20 +86,20 @@
 
 /obj/structure/torch_holder/Destroy()
 	. = ..()
-	QDEL_NULL(torch)
+	QDEL_NULL(fakel)
 	deltimer(timer)
 
 /obj/structure/torch_holder/examine(mob/user)
 	. = ..()
 	switch(status)
 		if(TORCH_OK)
-			. += span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] ярко горит.")
+			. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] ярко горит.")
 		if(TORCH_EMPTY)
 			. += span_notice("Внутри нет факела.")
 		if(TORCH_OFF)
-			. += span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] не подожжён.")
+			. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] не подожжён.")
 		if(TORCH_BURNED)
-			. += span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] выгорел.")
+			. += span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] выгорел.")
 
 /obj/structure/torch_holder/proc/update_light_state() //I can't make it better..
 	switch(status)
@@ -116,7 +115,7 @@
 /obj/structure/torch_holder/proc/burnout()
 	if(ancient)
 		return
-	fuel = 0 //if someone will take our torch
+	fuel = 0 //if someone will take our fakel
 	status = TORCH_BURNED
 	update_light_state()
 	update_icon(UPDATE_OVERLAYS)
@@ -206,21 +205,21 @@
 			if(H.gloves)
 				var/obj/item/clothing/gloves/G = H.gloves
 				if(G.max_heat_protection_temperature)
-					prot = (G.max_heat_protection_temperature > torch.get_heat())
+					prot = (G.max_heat_protection_temperature > fakel.get_heat())
 		else
 			prot = 1
 
 		if(prot > 0 || HAS_TRAIT(user, TRAIT_RESIST_HEAT))
-			to_chat(user, span_notice("Вы вытаскиваете [torch.declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы вытаскиваете [fakel.declent_ru(ACCUSATIVE)]."))
 		else if(HAS_TRAIT(user, TRAIT_TELEKINESIS))
-			to_chat(user, span_notice("Вы вытаскиваете [torch.declent_ru(ACCUSATIVE)] с помощью телекинеза."))
+			to_chat(user, span_notice("Вы вытаскиваете [fakel.declent_ru(ACCUSATIVE)] с помощью телекинеза."))
 		else
 			if(user.a_intent == INTENT_DISARM || user.a_intent == INTENT_GRAB)
-				to_chat(user, span_warning("Вы пытаетесь вытащить [torch.declent_ru(ACCUSATIVE)], но обжигаетесь в процессе!"))
+				to_chat(user, span_warning("Вы пытаетесь вытащить [fakel.declent_ru(ACCUSATIVE)], но обжигаетесь в процессе!"))
 				H.apply_damage(5, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				return FALSE
 			else
-				to_chat(user, span_warning("Вы пытаетесь вытащить [torch.declent_ru(ACCUSATIVE)], но он слишком горячий!"))
+				to_chat(user, span_warning("Вы пытаетесь вытащить [fakel.declent_ru(ACCUSATIVE)], но он слишком горячий!"))
 				return FALSE
 	else
 		balloon_alert(user, "факел вынут")
@@ -276,9 +275,9 @@
 /obj/structure/torch_holder/extinguish_light(force = FALSE)
 	if(force)
 		burnout()
-		visible_message(span_danger("[DECLENT_RU_CAP(torch, NOMINATIVE)] быстро выгорает!"))
+		visible_message(span_danger("[capitalize(fakel.declent_ru(NOMINATIVE))] быстро выгорает!"))
 	else
-		visible_message(span_notice("[DECLENT_RU_CAP(torch, NOMINATIVE)] ненадолго меркнет, после чего снова начинает освещать пространство вокруг."))
+		visible_message(span_notice("[capitalize(fakel.declent_ru(NOMINATIVE))] ненадолго меркнет, после чего снова начинает освещать пространство вокруг."))
 
 #undef TORCH_OK
 #undef TORCH_EMPTY

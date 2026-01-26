@@ -1,7 +1,7 @@
 /*
  * Camera
  */
-/obj/item/camera //TODO: translate `/obj/item/flash/cameraflash` when this file getting translated
+/obj/item/camera
 	name = "camera"
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
@@ -28,16 +28,6 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi',
-	)
-
-/obj/item/camera/get_ru_names()
-	return list(
-		NOMINATIVE = "фотоаппарат",
-		GENITIVE = "фотоаппарата",
-		DATIVE = "фотоаппарату",
-		ACCUSATIVE = "фотоаппарат",
-		INSTRUMENTAL = "фотоаппаратом",
-		PREPOSITIONAL = "фотоаппарате"
 	)
 
 /obj/item/camera/Initialize(mapload)

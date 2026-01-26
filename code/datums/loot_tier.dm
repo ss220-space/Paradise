@@ -7,7 +7,7 @@
 	var/modules_spawn_chance = 0
 
 /datum/loot_tier/proc/on_start_open(mob/user, obj/structure/crate, list/current_loot = loot_list)
-	if(!isatom(crate))
+	if(!istype(crate))
 		return
 
 	for(var/i in 1 to loot_count)
@@ -593,7 +593,6 @@
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/med,
 		/obj/item/clothing/suit/space/hardsuit/syndi/elite/comms,
 		/obj/item/implanter/adrenalin,
-		/obj/item/implanter/heal,
 		/obj/item/implanter/explosive_macro,
 		/obj/item/gun/magic/hook,
 	)

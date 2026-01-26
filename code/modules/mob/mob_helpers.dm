@@ -115,9 +115,6 @@
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("[question]?", poll_time = 10 SECONDS, min_hours = minhours, source = offer_mob)
 	var/mob/dead/observer/theghost = null
 
-	if(QDELETED(offer_mob))
-		return
-
 	REMOVE_TRAIT(offer_mob, TRAIT_BEING_OFFERED, ADMIN_OFFER_TRAIT)
 
 	if(LAZYLEN(candidates))
@@ -419,10 +416,10 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 /mob/living/verb/mob_sleep()
 	set name = "Спать"
-	set category = VERB_CATEGORY_IC
+	set category = STATPANEL_IC
 
 	if(IsSleeping())
-		to_chat(src, span_notice("Вы уже спите."))
+		to_chat(src, "<span class='notice'>Вы уже спите.</span>")
 		return
 	else
 		if(tgui_alert(src, "You sure you want to sleep for a while?", "Sleep", list("Yes", "No")) == "Yes")
@@ -466,13 +463,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				name = realname
 
 	for(var/mob/M in GLOB.player_list)
-		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD, FALSE, M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
+		if(M.client && ((!isnewplayer(M) && M.stat == DEAD) || check_rights(R_ADMIN|R_MOD,0,M)) && M.get_preference(PREFTOGGLE_CHAT_DEAD))
 			var/follow
 			var/lname
 			if(subject)
 				if(subject != M)
 					follow = "([ghost_follow_link(subject, ghost=M)]) "
-				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD, FALSE, M))
+				if(M.stat != DEAD && check_rights(R_ADMIN|R_MOD,0,M))
 					follow = "([admin_jump_link(subject)]) "
 				var/mob/dead/observer/DM
 				if(isobserver(subject))
@@ -486,13 +483,13 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 						lname = "[keyname] ([name])"
 					else										// Everyone else (dead people who didn't ghost yet, etc.)
 						lname = name
-				lname = "[span_name("[lname]")] "
-			to_chat(M, span_deadsay("[follow][lname][message]"))
+				lname = "<span class='name'>[lname]</span> "
+			to_chat(M, "<span class='deadsay'>[lname][follow][message]</span>")
 
 /proc/notify_ghosts(message, ghost_sound = null, enter_link = null, title = null, atom/source = null, image/alert_overlay = null, flashwindow = TRUE, action = NOTIFY_JUMP) //Easy notification of ghosts.
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(O.client)
-			to_chat(O, span_ghostalert("[message][(enter_link) ? " [enter_link]" : ""]"))
+			to_chat(O, "<span class='ghostalert'>[message][(enter_link) ? " [enter_link]" : ""]</span>")
 			if(ghost_sound)
 				SEND_SOUND(O, sound(ghost_sound))
 			if(flashwindow)
@@ -826,7 +823,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 	if(length(client.prefs.be_special) > 0)
 		has_antags = TRUE
 	if(!client.prefs.check_any_job())
-		to_chat(src, span_danger("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
+		to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
 		if(has_antags)
 			log_admin("[src.ckey] just got booted back to lobby with no jobs, but antags enabled.")
 			message_admins("[src.ckey] just got booted back to lobby with no jobs enabled, but antag rolling enabled. Likely antag rolling abuse.")

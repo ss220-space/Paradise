@@ -15,10 +15,10 @@
 	var/id
 
 /obj/machinery/atmospherics/unary/outlet_injector/on
-	on = TRUE
+	on = 1
 
-/obj/machinery/atmospherics/unary/outlet_injector/Initialize(mapload)
-	. = ..()
+/obj/machinery/atmospherics/unary/outlet_injector/New()
+	..()
 	if(id && !id_tag)//I'm not dealing with any more merge conflicts
 		id_tag = id
 
@@ -47,48 +47,46 @@
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/unary/outlet_injector/process_atmos(seconds)
-	injecting = FALSE
+/obj/machinery/atmospherics/unary/outlet_injector/process_atmos()
+	..()
+
+	injecting = 0
 
 	if(!on || stat & NOPOWER)
-		return FALSE
+		return 0
 
-	var/temperature = air_contents.temperature()
-
-	if(temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure()) * volume_rate / (temperature * R_IDEAL_GAS_EQUATION)
+	if(air_contents.temperature > 0)
+		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
 
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
-		var/turf/turf = get_turf(src)
-		turf.blind_release_air(removed)
+		loc.assume_air(removed)
+		air_update_turf()
 
-		parent.update = TRUE
+		parent.update = 1
 
-	return TRUE
+	return 1
 
 /obj/machinery/atmospherics/unary/outlet_injector/proc/inject()
 	if(on || injecting)
-		return FALSE
+		return 0
 
-	injecting = TRUE
+	injecting = 1
 
-	var/temperature = air_contents.temperature()
-
-	if(temperature > 0)
-		var/transfer_moles = (air_contents.return_pressure()) * volume_rate / (temperature * R_IDEAL_GAS_EQUATION)
+	if(air_contents.temperature > 0)
+		var/transfer_moles = (air_contents.return_pressure())*volume_rate/(air_contents.temperature * R_IDEAL_GAS_EQUATION)
 
 		var/datum/gas_mixture/removed = air_contents.remove(transfer_moles)
 
-		var/turf/turf = get_turf(src)
-		turf.blind_release_air(removed)
+		loc.assume_air(removed)
 
-		parent.update = TRUE
+		parent.update = 1
+
 	flick("inject", src)
 
 /obj/machinery/atmospherics/unary/outlet_injector/proc/broadcast_status()
 	if(!radio_connection)
-		return FALSE
+		return 0
 
 	var/datum/signal/signal = new
 	signal.transmission_method = 1 //radio signal
@@ -104,7 +102,7 @@
 
 	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 
-	return TRUE
+	return 1
 
 /obj/machinery/atmospherics/unary/outlet_injector/atmos_init()
 	..()
@@ -121,7 +119,7 @@
 		on = !on
 
 	if(signal.data["inject"] != null)
-		INVOKE_ASYNC(src, PROC_REF(inject))
+		spawn inject()
 		return
 
 	if(signal.data["set_volume_rate"] != null)
@@ -129,12 +127,14 @@
 		volume_rate = between(0, number, air_contents.volume)
 
 	if(signal.data["status"])
-		addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
+		spawn(2)
+			broadcast_status()
 		return //do not update_icon
 
 		//log_admin("DEBUG \[[world.timeofday]\]: outlet_injector/receive_signal: unknown command \"[signal.data["command"]]\"\n[signal.debug_print()]")
 		//return
-	addtimer(CALLBACK(src, PROC_REF(broadcast_status)), 0.2 SECONDS)
+	spawn(2)
+		broadcast_status()
 	update_icon()
 
 	/*hide(var/i) //to make the little pipe section invisible, the icon changes.

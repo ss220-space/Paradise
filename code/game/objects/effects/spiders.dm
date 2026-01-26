@@ -6,7 +6,6 @@
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 15
-	cares_about_temperature = TRUE
 	var/mob/living/carbon/human/master_commander = null
 	var/new_mind_memory = "Я свободный паук."
 
@@ -30,7 +29,7 @@
 /obj/structure/spider/has_prints()
 	return FALSE
 
-/obj/structure/spider/temperature_expose(exposed_temperature, exposed_volume)
+/obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)

@@ -13,8 +13,7 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 	var/list/hud_type_lookup = list(
 		"medical" = DATA_HUD_MEDICAL_ADVANCED,
 		"security" = DATA_HUD_SECURITY_ADVANCED,
-		"diagnostic" = DATA_HUD_DIAGNOSTIC,
-		"pressure" = DATA_HUD_PRESSURE,
+		"diagnostic" = DATA_HUD_DIAGNOSTIC
 	)
 
 /datum/ui_module/ghost_hud_panel/ui_state(mob/user)

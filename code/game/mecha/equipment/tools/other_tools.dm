@@ -431,16 +431,15 @@
 		return
 	var/datum/gas_mixture/GM = new
 	if(prob(10))
-		GM.set_toxins(100)
-		GM.set_temperature(1500 + T0C) //should be enough to start a fire
+		GM.toxins += 100
+		GM.temperature = 1500+T0C //should be enough to start a fire
 		T.visible_message("[src] suddenly disgorges a cloud of heated plasma.")
 		qdel(src)
 	else
-		GM.set_toxins(5)
-		var/datum/gas_mixture/air = T.get_readonly_air()
-		GM.set_temperature(air ? air.temperature() : T20C)
+		GM.toxins += 5
+		GM.temperature = istype(T) ? T.air.return_temperature() : T20C
 		T.visible_message("[src] suddenly disgorges a cloud of plasma.")
-	T.blind_release_air(GM)
+	T.assume_air(GM)
 
 /obj/item/mecha_parts/mecha_equipment/generator/process()
 	if(!chassis)
@@ -659,11 +658,11 @@
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress_action(mob/living/carbon/target)
 	if(holding)
 		occupant_message(span_notice("Вы перестаёте удерживать [holding], и начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] перестаёт удерживать [holding] и начинает удерживать [target]."))
+		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] перестаёт удерживать [holding] и начинает удерживать [target]."))
 		stop_supressing(holding)
 	else
 		occupant_message(span_notice("Вы начинаете удерживать [target]..."))
-		chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает удерживать [target]."))
+		chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает удерживать [target]."))
 
 	set_supress_effect(target)
 	if(!do_after_cooldown(target))
@@ -676,14 +675,14 @@
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/handcuff_action(mob/living/carbon/target)
 	occupant_message(span_notice("Вы начинаете сковывать [target]..."))
-	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает сковывать [target]."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает сковывать [target]."))
 	if(!do_after_cooldown(target))
 		return FALSE
 	if(!prisoner)
 		change_alert(CAGE_STAGE_TWO)
 	target.apply_restraints(new /obj/item/restraints/handcuffs, ITEM_SLOT_HANDCUFFED, TRUE)
 	occupant_message(span_notice("Вы успешно сковали [target]..."))
-	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] успешно сковал [target]."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] успешно сковал [target]."))
 	add_attack_logs(chassis.occupant, target, "shackled")
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/insert_action(mob/living/carbon/target)
@@ -697,7 +696,7 @@
 
 	change_state("mecha_cage_activate")
 	occupant_message(span_notice("Вы начинаете помещать [target] внутрь клетки..."))
-	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] начинает помещать [target] внутрь клетки."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] начинает помещать [target] внутрь клетки."))
 	if(!do_after_cooldown(target))
 		change_state("mecha_cage")
 		return FALSE
@@ -709,7 +708,7 @@
 	UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_escape))
 	occupant_message(span_notice("[target] успешно помещен[GEND_A_O_Y(target)] в клетку."))
-	chassis.visible_message(span_warning("[DECLENT_RU_CAP(chassis, NOMINATIVE)] поместил [target] в клетку."))
+	chassis.visible_message(span_warning("[capitalize(chassis.declent_ru(NOMINATIVE))] поместил [target] в клетку."))
 
 /obj/item/mecha_parts/mecha_equipment/cage/proc/supress(mob/living/carbon/target)
 	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))

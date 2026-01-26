@@ -20,7 +20,7 @@ import { selectSettings } from './selectors';
 
 const TabsViews = ['default', 'classic', 'scrollable'];
 const LinkedToChat = () => (
-  <NoticeBox color="red">Отвяжите стат. панель от чата!</NoticeBox>
+  <NoticeBox color="red">Unlink Stat Panel from chat!</NoticeBox>
 );
 
 export const SettingsStatPanel = (props: unknown) => {
@@ -35,7 +35,7 @@ export const SettingsStatPanel = (props: unknown) => {
       <Stack fill vertical>
         <Stack.Item>
           <LabeledList>
-            <LabeledList.Item label="Стиль" verticalAlign="middle">
+            <LabeledList.Item label="Tabs" verticalAlign="middle">
               {TabsViews.map((view) => (
                 <Button
                   key={view}
@@ -49,7 +49,7 @@ export const SettingsStatPanel = (props: unknown) => {
                 </Button>
               ))}
             </LabeledList.Item>
-            <LabeledList.Item label="Шрифт">
+            <LabeledList.Item label="Font style">
               {statLinked ? (
                 <LinkedToChat />
               ) : (
@@ -66,7 +66,7 @@ export const SettingsStatPanel = (props: unknown) => {
                             setFreeStatFont(!freeStatFont);
                           }}
                         >
-                          Пользовательский шрифт
+                          Custom font
                         </Button>
                       }
                     >
@@ -109,14 +109,14 @@ export const SettingsStatPanel = (props: unknown) => {
                           setFreeStatFont(!freeStatFont);
                         }}
                       >
-                        Пользовательский шрифт
+                        Custom font
                       </Button>
                     </Stack>
                   )}
                 </Stack.Item>
               )}
             </LabeledList.Item>
-            <LabeledList.Item label="Размер шрифта">
+            <LabeledList.Item label="Font size">
               <Stack.Item grow>
                 {statLinked ? (
                   <LinkedToChat />
@@ -149,7 +149,7 @@ export const SettingsStatPanel = (props: unknown) => {
               dispatch(updateSettings({ statLinked: !statLinked }))
             }
           >
-            {statLinked ? 'Отвязать от чата' : 'Привязать к чату'}
+            {statLinked ? 'Unlink from chat' : 'Link to chat'}
           </Button>
         </Stack.Item>
       </Stack>

@@ -76,7 +76,7 @@
 			if(M.pulling == user)
 				M.stop_pulling()
 
-		user.visible_message(span_warning("<b>[user.name]</b> dashes forward!"))
+		user.visible_message("<span class='warning'><b>[user.name]</b> dashes forward!</span>")
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(4 SECONDS)
@@ -194,7 +194,7 @@
 		to_chat(user, span_warning("You dash and slam your head against the inside of [container]! Ouch!"))
 		user.Paralyse(6 SECONDS)
 		user.Weaken(10 SECONDS)
-		container.visible_message(span_warning("<b>[user.loc]</b> emits a loud thump and rattles a bit."))
+		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user, 'sound/effects/bang.ogg', CHANNEL_BUZZ)
 		var/wiggle = 6
 		while(wiggle > 0)
@@ -239,7 +239,7 @@
 			if(M.pulling == user)
 				M.stop_pulling()
 
-		user.visible_message(span_warning("<b>[user.name]</b> takes a huge leap!"))
+		user.visible_message("<span class='warning'><b>[user.name]</b> takes a huge leap!</span>")
 		playsound(user, 'sound/weapons/thudswoosh.ogg', CHANNEL_BUZZ)
 		if(failure)
 			user.Weaken(10 SECONDS)
@@ -280,10 +280,10 @@
 					var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 					H.apply_damage(20,BRUTE,BP)
 					BP.fracture()
-					H.Knockdown(10 SECONDS)
+					H.Weaken(10 SECONDS)
 				else
 					playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
-					M.Knockdown(4 SECONDS)
+					M.Weaken(4 SECONDS)
 					M.take_overall_damage(35, used_weapon = "Hulk Foot")
 		var/snd = 1
 		for(var/direction in GLOB.alldirs)
@@ -309,7 +309,7 @@
 		to_chat(user, span_warning("You leap and slam your head against the inside of [container]! Ouch!"))
 		user.Paralyse(6 SECONDS)
 		user.Weaken(10 SECONDS)
-		container.visible_message(span_warning("<b>[user.loc]</b> emits a loud thump and rattles a bit."))
+		container.visible_message("<span class='warning'><b>[user.loc]</b> emits a loud thump and rattles a bit.</span>")
 		playsound(user, 'sound/effects/bang.ogg', CHANNEL_BUZZ)
 		var/wiggle = 6
 		while(wiggle > 0)
@@ -455,7 +455,7 @@
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
-	selection_activated_message	= span_notice("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
+	selection_activated_message	= "<span class='notice'>Your prepare to spit fire! <b>Left-click to spit at a target!</b></span>"
 	selection_deactivated_message = span_notice("You swallow your spit...for now.")
 	fireball_type = /obj/projectile/energy/hulkspit
 	base_cooldown = 25 SECONDS
@@ -475,7 +475,7 @@
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	action_icon_state = "lazer_hulk"
-	selection_activated_message	= span_notice("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
+	selection_activated_message	= "<span class='notice'>You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b></span>"
 	selection_deactivated_message = span_notice("You relax your eyes...for now.")
 	fireball_type = /obj/projectile/beam
 	base_cooldown = 7 SECONDS

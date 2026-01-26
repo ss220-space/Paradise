@@ -27,13 +27,11 @@
 #define MEDAL_LOOKOUTSIR "Look Out, Sir!"
 #define MEDAL_ASCENSION "Ascension"
 #define MEDAL_CULT_SHUTTLE_OMFG "WHAT JUST HAPPENED"
-#define MEDAL_SPRINGLOCK "The Bite Of 87"
 #define MEDAL_CLICKBAIT "Clickbait"
 #define MEDAL_HEALTHY "Heart Healthy"
 #define MEDAL_ARCH_DEVIL "Arch Devil"
 #define MEDAL_NO_HELL_TODAY "No Hell today"
 #define MEDAL_KERBEROS_MASTER "Kerberos master"
-#define MEDAL_DEEP_DRAW "Deep draw"
 
 //Skill medal hub IDs
 #define MEDAL_LEGENDARY_MINER "Legendary Miner"

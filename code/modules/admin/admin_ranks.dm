@@ -1,4 +1,4 @@
-GLOBAL_LIST_EMPTY(admin_ranks) //list of all ranks with associated rights
+GLOBAL_LIST_EMPTY(admin_ranks)								//list of all ranks with associated rights
 GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 //load our rank - > rights associations
@@ -12,23 +12,17 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 	//process each line seperately
 	for(var/line in Lines)
-		if(!length(line))
-			continue
-		if(copytext(line,1,2) == "#")
-			continue
+		if(!length(line))				continue
+		if(copytext(line,1,2) == "#")	continue
 
 		var/list/List = splittext(line,"+")
-		if(!length(List))
-			continue
+		if(!length(List))					continue
 
 		var/rank = trim(List[1])
 		switch(rank)
-			if(null,"")
-				continue
-			if("Removed")
-				continue //Reserved
-			if(DELETED_RANK)
-				continue //Reserved
+			if(null,"")		continue
+			if("Removed")	continue				//Reserved
+			if(DELETED_RANK)	continue				//Reserved
 
 		var/rights = 0
 		for(var/i=2, i<=length(List), i++)
@@ -66,14 +60,14 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 /proc/load_admins(run_async = FALSE)
 	if(IsAdminAdvancedProcCall())
-		to_chat(usr, span_boldannounceooc("Admin reload blocked: Advanced ProcCall detected."), confidential = TRUE)
+		to_chat(usr, span_boldannounceooc("Admin reload blocked: Advanced ProcCall detected."), confidential=TRUE)
 		log_and_message_admins("attempted to reload admins via advanced proc-call")
 		return
 	//clear the datums references
 	GLOB.admin_datums.Cut()
-	for(var/client/client in GLOB.admins)
-		client.remove_admin_verbs()
-		client.holder = null
+	for(var/client/C in GLOB.admins)
+		C.hide_verbs()
+		C.holder = null
 	GLOB.admins.Cut()
 
 	// Remove all profiler access
@@ -87,20 +81,16 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 
 		//process each line seperately
 		for(var/line in Lines)
-			if(!length(line))
-				continue
-			if(copytext(line,1,2) == "#")
-				continue
+			if(!length(line))				continue
+			if(copytext(line,1,2) == "#")	continue
 
 			//Split the line at every "-"
 			var/list/List = splittext(line, "-")
-			if(!length(List))
-				continue
+			if(!length(List))					continue
 
 			//ckey is before the first "-"
 			var/ckey = ckey(List[1])
-			if(!ckey)
-				continue
+			if(!ckey)						continue
 
 			//rank follows the first "-"
 			var/rank = ""
@@ -113,7 +103,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			//create the admin datum and store it for later use
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
 
-			if(D.rights & (R_DEBUG|R_VIEWRUNTIMES)) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
+			if(D.rights & R_DEBUG || D.rights & R_VIEWRUNTIMES) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
 				world.SetConfig("APP/admin", ckey, "role=admin")
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
@@ -135,8 +125,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		while(query.NextRow())
 			var/ckey = query.item[1]
 			var/rank = query.item[2]
-			if(rank == DELETED_RANK) // This person was de-adminned. They are only in the admin list for archive purposes.
-				continue
+			if(rank == DELETED_RANK)	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
 
 			var/rights = query.item[4]
 			if(istext(rights))	rights = text2num(rights)
@@ -145,7 +134,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			GLOB.de_mentors -= ckey
 			GLOB.de_devs -= ckey
 
-			if(D.rights & (R_DEBUG|R_VIEWRUNTIMES)) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
+			if(D.rights & R_DEBUG || D.rights & R_VIEWRUNTIMES) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
 				world.SetConfig("APP/admin", ckey, "role=admin")
 
 			//find the client for a ckey if they are connected and associate them with the new admin datum
@@ -176,7 +165,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		holder.rights = GLOB.admin_ranks[newrank]
 	else
 		holder = new /datum/admins(newrank,GLOB.admin_ranks[newrank],ckey)
-	hide_verbs()
+	remove_admin_verbs()
 	holder.associate(src)
 
 /client/verb/changerights(newrights as num)
@@ -184,7 +173,7 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 		holder.rights = newrights
 	else
 		holder = new /datum/admins("testing",newrights,ckey)
-	hide_verbs()
+	remove_admin_verbs()
 	holder.associate(src)
 
 #endif

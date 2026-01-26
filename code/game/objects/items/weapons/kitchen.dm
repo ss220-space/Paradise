@@ -15,13 +15,12 @@
 /obj/item/kitchen
 	icon = 'icons/obj/kitchen.dmi'
 	origin_tech = "materials=1"
-	abstract_type = /obj/item/kitchen
 
 /*
  * Utensils
  */
 /obj/item/kitchen/utensil
-	force = 5
+	force = 5.0
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 5
@@ -44,7 +43,7 @@
 	var/obj/item/reagent_containers/food/snack = locate() in src
 	if(snack)
 		var/mutable_appearance/food_olay = mutable_appearance('icons/obj/kitchen.dmi', "loadedfood", color = snack.filling_color)
-		food_olay.pixel_w = pixel_w
+		food_olay.pixel_w = pixel_x
 		food_olay.pixel_z = pixel_y
 		. += food_olay
 
@@ -218,10 +217,6 @@
 	defender.balloon_alert_to_viewers("прикладывает нож к горлу!", "вы прикладываете нож к горлу!")
 	if(!do_after(attacker, neck_cut_delay, defender, max_interact_count = 1) || attacker.pulling != defender || attacker.grab_state < GRAB_NECK)
 		return FALSE
-
-	var/obj/item/organ/external/head = defender.get_organ(attacker.zone_selected)
-	if(head && !head.has_arterial_bleeding())
-		head.arterial_bleeding()
 
 	if(defender.blood_volume > BLOOD_VOLUME_SURVIVE)
 		defender.blood_volume = max(0, defender.blood_volume - 0.25 * (BLOOD_VOLUME_NORMAL - BLOOD_VOLUME_SURVIVE)) //-25% of max blood volume

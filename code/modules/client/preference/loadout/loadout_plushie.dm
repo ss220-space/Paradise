@@ -20,7 +20,8 @@
 
 /datum/gear/plushie/lizardplushie
 	index_name = "a lizard plushie"
-	path = /obj/item/toy/plushie/lizard_plushie
+	path = /obj/item/toy/plushie/lizardplushie
+
 /datum/gear/plushie/deerplushie
 	index_name = "a deer plushie"
 	path = /obj/item/toy/plushie/deer

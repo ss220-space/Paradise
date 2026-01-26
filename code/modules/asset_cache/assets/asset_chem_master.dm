@@ -1,29 +1,26 @@
 /// Pill sprites for UIs
-/datum/asset/spritesheet_batched/chem_master
+/datum/asset/spritesheet/chem_master
 	name = "chem_master"
 
-/datum/asset/spritesheet_batched/chem_master/proc/get_transform()
-	var/datum/icon_transformer/transform = new()
-	transform.scale(64, 64)
-	transform.crop(16, 16, 48, 48)
-	transform.scale(16, 16)
-	return transform
-
-/datum/asset/spritesheet_batched/chem_master/create_spritesheets()
-	var/datum/icon_transformer/transform = get_transform()
+/datum/asset/spritesheet/chem_master/create_spritesheets()
 	for(var/pill_type = 1 to 20)
-		insert_icon("pill[pill_type]", uni_icon('icons/obj/chemical.dmi', "pill[pill_type]", transform = transform))
+		Insert("pill[pill_type]", 'icons/obj/chemical.dmi', "pill[pill_type]")
 	for(var/bottle_type in list("bottle", "wide_bottle", "round_bottle", "reagent_bottle"))
-		insert_icon(bottle_type, uni_icon('icons/obj/chemical.dmi', bottle_type, transform = transform))
+		Insert(bottle_type, 'icons/obj/chemical.dmi', bottle_type)
 	for(var/i = 1 to 20)
-		insert_icon("bandaid[i]", uni_icon('icons/obj/chemical.dmi', "bandaid[i]", transform = transform))
+		Insert("bandaid[i]", 'icons/obj/chemical.dmi', "bandaid[i]")
 
-/datum/asset/spritesheet_batched/chem_master/large
+/datum/asset/spritesheet/chem_master/ModifyInserted(icon/pre_asset)
+	pre_asset.Scale(64, 64)
+	pre_asset.Crop(16,16,48,48)
+	pre_asset.Scale(16, 16)
+	return pre_asset
+
+/datum/asset/spritesheet/chem_master/large
 	name = "chem_master_large"
 
-/datum/asset/spritesheet_batched/chem_master/get_transform()
-	var/datum/icon_transformer/transform = new()
-	transform.scale(64, 64)
-	transform.crop(16, 16, 48, 48)
-	transform.scale(32, 32)
-	return transform
+/datum/asset/spritesheet/chem_master/large/ModifyInserted(icon/pre_asset)
+	pre_asset.Scale(64, 64)
+	pre_asset.Crop(16,16,48,48)
+	pre_asset.Scale(32, 32)
+	return pre_asset

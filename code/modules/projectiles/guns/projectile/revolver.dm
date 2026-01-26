@@ -31,7 +31,7 @@
 	. = ..()
 	chamber_round(TRUE)
 
-/obj/item/gun/projectile/revolver/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
+/obj/item/gun/projectile/revolver/handle_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	return ..()
 
 /obj/item/gun/projectile/revolver/attackby(obj/item/item, mob/user, params)
@@ -66,7 +66,7 @@
 
 /obj/item/gun/projectile/revolver/verb/spin()
 	set name = "Вращать барабан"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set desc = "Click to spin your revolver's chamber."
 	set src in usr
 

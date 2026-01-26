@@ -50,11 +50,11 @@ export const CreateObjectAdvancedSettings = (
     <Table>
       <Table.Row className="candystripe" lineHeight="26px">
         <Table.Cell pl={1} width="fit-content">
-          Файл иконки:
+          Icon:
         </Table.Cell>
         <Table.Cell>
           <Button fluid onClick={() => act('select-new-DMI')}>
-            {data.icon || iconSettings.icon || 'По умолчанию'}
+            {data.icon || iconSettings.icon || 'Default'}
           </Button>
         </Table.Cell>
         <Table.Cell pr={1} width="25px">
@@ -69,16 +69,12 @@ export const CreateObjectAdvancedSettings = (
         </Table.Cell>
       </Table.Row>
       <Table.Row className="candystripe" lineHeight="26px">
-        <Table.Cell pl={1}>Иконка:</Table.Cell>
+        <Table.Cell pl={1}>Icon state:</Table.Cell>
         <Table.Cell>
           <Dropdown
             options={iconStateOptions}
-            selected={
-              data.iconState || iconSettings.iconState || 'По умолчанию'
-            }
-            displayText={
-              data.iconState || iconSettings.iconState || 'По умолчанию'
-            }
+            selected={data.iconState || iconSettings.iconState || 'Default'}
+            displayText={data.iconState || iconSettings.iconState || 'Default'}
             onSelected={(value) => {
               act('select-new-icon-state', {
                 new_state: value,
@@ -102,7 +98,7 @@ export const CreateObjectAdvancedSettings = (
         </Table.Cell>
       </Table.Row>
       <Table.Row className="candystripe" lineHeight="26px">
-        <Table.Cell pl={1}>Задать иконку явно:</Table.Cell>
+        <Table.Cell pl={1}>Explicitly set icon:</Table.Cell>
         <Table.Cell>
           <Button.Checkbox
             checked={!!iconSettings.applyIcon}
@@ -112,13 +108,13 @@ export const CreateObjectAdvancedSettings = (
               act('set-apply-icon-override', { value: next });
             }}
           >
-            Включено
+            Enabled
           </Button.Checkbox>
         </Table.Cell>
         <Table.Cell pr={1} />
       </Table.Row>
       <Table.Row className="candystripe" lineHeight="26px">
-        <Table.Cell pl={1}>Масштаб иконки:</Table.Cell>
+        <Table.Cell pl={1}>Icon scale:</Table.Cell>
         <Table.Cell width="auto">
           <Slider
             minValue={25}

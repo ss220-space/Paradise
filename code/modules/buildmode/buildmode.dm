@@ -157,7 +157,7 @@
 
 /proc/togglebuildmode(mob/user as mob in  GLOB.player_list)
 	set name = "Toggle Build Mode"
-	set category = ADMIN_CATEGORY_EVENTS
+	set category = STATPANEL_ADMIN_EVENT
 
 	if(user.client)
 		if(istype(user.client.click_intercept, /datum/click_intercept/buildmode))

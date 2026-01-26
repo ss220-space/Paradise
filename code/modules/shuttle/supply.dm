@@ -80,11 +80,11 @@
 	. = ..()
 	if(.)	return .
 
-	buy(S1)
-	sell(S1)
+	buy()
+	sell()
 
-/obj/docking_port/mobile/supply/proc/buy(obj/docking_port/stationary/destination)
-	if(!is_station_level(destination.z))
+/obj/docking_port/mobile/supply/proc/buy()
+	if(!is_station_level(z))		//we only buy when we are -at- the station
 		return 1
 
 	if(!length(SSshuttle.shoppinglist))
@@ -136,8 +136,8 @@
 
 	SSshuttle.shoppinglist.Cut()
 
-/obj/docking_port/mobile/supply/proc/sell(obj/docking_port/stationary/destination)
-	if(destination.z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
+/obj/docking_port/mobile/supply/proc/sell()
+	if(z != level_name_to_num(CENTCOMM))		//we only sell when we are -at- centcomm
 		return TRUE
 
 	var/crate_count = 0
@@ -488,7 +488,7 @@
 /obj/machinery/computer/supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "CargoConsole", DECLENT_RU_CAP(src, NOMINATIVE))
+		ui = new(user, src, "CargoConsole", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/computer/supplycomp/ui_data(mob/user)

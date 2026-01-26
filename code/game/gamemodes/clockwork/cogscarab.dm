@@ -86,7 +86,7 @@
 /mob/living/silicon/robot/drone/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)
 		hide.Remove(src)
-	return ..()
+	. = ..()
 
 /mob/living/silicon/robot/cogscarab/add_strippable_element()
 	return
@@ -279,7 +279,7 @@
 /mob/living/silicon/robot/cogscarab/verb/light()
 	set name = "Освещение"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = VERB_CATEGORY_COGSCARAB
+	set category = STATPANEL_COGSCARAB
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp

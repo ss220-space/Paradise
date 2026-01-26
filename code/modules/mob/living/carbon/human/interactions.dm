@@ -13,7 +13,7 @@
 //Distant interactions
 /mob/living/carbon/human/verb/interact(mob/M as mob)
 	set name = "Взаимодействовать"
-	set category = VERB_CATEGORY_IC
+	set category = STATPANEL_IC
 
 	if(ishuman(M) && usr != M && src != M)
 		partner = M

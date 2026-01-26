@@ -91,13 +91,6 @@
 /atom/proc/prepare_huds()
 	if(hud_list) // I choose to be lienient about people calling this proc more then once
 		return
-
-	var/static/list/hud_dmis
-	if(!hud_dmis)
-		hud_dmis = list(
-			PRESSURE_HUD = 'icons/effects/effects.dmi',
-		)
-
 	hud_list = list()
 	for(var/hud in hud_possible)
 		var/hint = hud_possible[hud]
@@ -106,10 +99,7 @@
 			hud_list[hud] = list()
 
 		else
-			var/use_this_dmi = hud_dmis[hud]
-			if(!use_this_dmi)
-				use_this_dmi = 'icons/mob/hud.dmi'
-			var/image/I = image(use_this_dmi, src, "")
+			var/image/I = image('icons/mob/hud.dmi', src, "")
 			I.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
 			hud_list[hud] = I
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
@@ -121,31 +111,24 @@
 /mob/proc/GetAltName()
 	return ""
 
-/**
- * Some kind of debug verb that gives atmosphere environment details
- */
 /mob/proc/Cell()
-	set category = ADMIN_CATEGORY_DEBUG
+	set category = STATPANEL_DEBUG
 	set hidden = TRUE
 
-	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.get_readonly_air()
+	if(!loc) return 0
 
-	if(!environment)
-		return
+	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/text = span_notice("Coordinates: [x],[y] \n")
-	text += span_danger("Temperature: [environment.temperature()] \n")
-	text += span_notice("Nitrogen: [environment.nitrogen()] \n")
-	text += span_notice("Oxygen: [environment.oxygen()] \n")
-	text += span_notice("Plasma : [environment.toxins()] \n")
-	text += span_notice("Carbon Dioxide: [environment.carbon_dioxide()] \n")
-	text += span_notice("N2O: [environment.sleeping_agent()] \n")
-	text += span_notice("Agent B: [environment.agent_b()] \n")
-	text += span_notice("Hydrogen: [environment.hydrogen()] \n")
-	text += span_notice("Water Vapor: [environment.water_vapor()] \n")
+	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
+	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
+	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
+	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
+	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
+	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
+	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
+	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
 
-	to_chat(usr, text)
+	usr.show_message(t, 1)
 
 /mob/proc/show_message(msg, type, alt_msg, alt_type, chat_message_type, avoid_highlighting = FALSE)
 
@@ -267,7 +250,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> ", "")
+	var/omsg = replacetext(message, "<b>[capitalize(declent_ru(NOMINATIVE))]</b> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
@@ -423,7 +406,7 @@
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
 	set name = "Осмотреть"
-	set category = VERB_CATEGORY_IC
+	set category = STATPANEL_IC
 
 	if(!client)
 		return
@@ -480,7 +463,7 @@
 
 /mob/verb/memory()
 	set name = "Заметки"
-	set category = VERB_CATEGORY_IC
+	set category = STATPANEL_IC
 	if(mind)
 		mind.show_memory(src)
 	else
@@ -488,7 +471,7 @@
 
 /mob/verb/add_memory(msg as message)
 	set name = "Добавить заметку"
-	set category = VERB_CATEGORY_IC
+	set category = STATPANEL_IC
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
@@ -525,7 +508,7 @@
 	if(isnull(msg))
 		return
 	if(stat)
-		to_chat(usr, span_notice("You have to be conscious to change your flavor text"))
+		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
 		return
 	flavor_text = msg
 
@@ -533,20 +516,20 @@
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
-			return span_notice("[msg]") // There is already encoded by tgui_input
+			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
 		else
-			return span_notice("[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
+			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob/verb/abandon_mob()
 	set name = "Возродиться"
-	set category = VERB_CATEGORY_OOC
+	set category = STATPANEL_OOC
 
 	if(!GLOB.abandon_allowed)
-		to_chat(usr, span_warning("Respawning is disabled."))
+		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
 		return
 
 	if(stat != DEAD || !SSticker)
-		to_chat(usr, span_boldnotice("You must be dead to use this!"))
+		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
 		return
 
 	if(!(usr in GLOB.respawnable_list))
@@ -557,7 +540,7 @@
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
-			to_chat(usr, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
+			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
 			return
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -572,7 +555,7 @@
 
 	if(deathtimeminutes < GLOB.respawn_delay)
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, span_warning("You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!"))
+		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!</span>")
 		return
 
 	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
@@ -580,7 +563,7 @@
 
 	add_game_logs("has respawned.", usr)
 
-	to_chat(usr, span_boldnotice("Make sure to play a different character, and please roleplay correctly!"))
+	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
 
 	if(!client)
 		add_game_logs("respawn failed due to disconnect.", usr)
@@ -608,7 +591,7 @@
 
 /mob/verb/cancel_camera()
 	set name = "Сбросить позицию камеры"
-	set category = VERB_CATEGORY_OOC
+	set category = STATPANEL_OOC
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -762,7 +745,7 @@
 
 /mob/dead/observer/verb/respawn()
 	set name = "Играть за НИП"
-	set category = VERB_CATEGORY_GHOST
+	set category = STATPANEL_GHOST
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
@@ -812,7 +795,7 @@
 	var/timedifference = world.time - client.time_joined_as_mouse
 	if(client.time_joined_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, span_warning("You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after last spawn. You have [timedifference_text] left."))
+		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after last spawn. You have [timedifference_text] left.</span>")
 		return
 
 	//find a viable mouse candidate
@@ -826,7 +809,7 @@
 		host.possess_by_player(ckey)
 		to_chat(host, span_notice("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
-		to_chat(src, span_warning("Unable to find any unwelded vents to spawn mice at."))
+		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5
@@ -854,11 +837,11 @@
 	if(issimulatedturf(location))
 		if(green)
 			if(!no_text)
-				visible_message(span_warning("[src.name] вырвало зелёной липкой массой!"),span_warning("Вас вырвало зелёной липкой массой!"))
+				visible_message("<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>","<span class='warning'>Вас вырвало зелёной липкой массой!</span>")
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message(span_warning("[src.name] наблевал[GEND_A_O_I(src)] на себя!"),span_warning("Вы наблевали на себя!"))
+				visible_message("<span class='warning'>[src.name] наблевал[GEND_A_O_I(src)] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
 			location.add_vomit_floor(TRUE)
 
 /mob/proc/AddSpell(obj/effect/proc_holder/spell/spell)
@@ -1362,6 +1345,3 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	LAZYREMOVE(active_hud_list, hud_category)
 
 	return TRUE
-
-/mob/compressor_grind()
-	gib()

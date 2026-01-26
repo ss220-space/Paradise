@@ -475,7 +475,7 @@
 				. += span_warning("It is glowing brightly with high levels of electrical activity.")
 
 			if(10)
-				. += span_warning("<b>It is radiating with massive levels of electrical activity!</b>")
+				. += "<span class='warning'><b>It is radiating with massive levels of electrical activity!</b></span>"
 
 	. += "</span>"
 

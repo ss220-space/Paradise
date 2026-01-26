@@ -56,7 +56,7 @@
 			if(new_casing.loc != src)
 				new_casing.forceMove(src)
 			if(casing)
-				casing.forceMove(get_turf(user))
+				casing.forceMove(drop_location())
 				playsound(casing.loc, casing.casing_drop_sound, 60, TRUE)
 				casing.pixel_x = rand(-10, 10)
 				casing.pixel_y = rand(-10, 10)
@@ -414,7 +414,6 @@
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 10
 	caliber = CALIBER_40NR
-	materials = list(MAT_METAL = 2500)
 
 /obj/item/ammo_box/magazine/sp8/empty
 	start_empty = TRUE
@@ -508,7 +507,6 @@
 	ammo_type = /obj/item/ammo_casing/c45nr
 	caliber = CALIBER_45NR
 	max_ammo = 20
-	materials = list(MAT_METAL = 3000)
 
 /obj/item/ammo_box/magazine/sp91rc/empty
 	start_empty = TRUE

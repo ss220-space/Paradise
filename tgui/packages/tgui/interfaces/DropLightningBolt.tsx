@@ -1,4 +1,5 @@
 import { BooleanLike } from 'common/react';
+import { useState } from 'react';
 import { useBackend } from '../backend';
 import {
   Button,
@@ -7,13 +8,13 @@ import {
   Section,
   Dropdown,
   Box,
-  Tooltip,
-  Stack,
 } from '../components';
 import { Window } from '../layouts';
 
+type LightningBoltMode = 'По игроку' | 'По указателю';
+
 type LightningBoltData = {
-  mode: string;
+  mode: LightningBoltMode;
   damage: number;
   radius: number;
   delay: number;
@@ -22,174 +23,119 @@ type LightningBoltData = {
   pointing: BooleanLike;
 };
 
-type PlayerDropdownOption = {
-  displayText: string;
-  value: string;
-};
-
-const getPlayerOptions = (
-  players: Record<string, string>
-): PlayerDropdownOption[] => {
-  return Object.entries(players).map(([ckey, display]) => ({
-    displayText: display,
-    value: ckey,
-  }));
-};
-
-const findCkeyByDisplayText = (
-  players: Record<string, string>,
-  displayText: string
-): string | undefined => {
-  return Object.keys(players).find((key) => players[key] === displayText);
-};
-
 export const DropLightningBolt = (props: unknown) => {
   const { act, data } = useBackend<LightningBoltData>();
-  const { damage, radius, delay, ckey, players, pointing, mode } = data;
+  const {
+    damage,
+    radius,
+    delay,
+    ckey,
+    players,
+    pointing,
+    mode: backendMode,
+  } = data;
 
-  const playerOptions = getPlayerOptions(players);
-  const currentPlayerDisplay = players[ckey] || ckey;
+  const availableModes: LightningBoltMode[] = ['По игроку', 'По указателю'];
 
-  const isPlayerMode = mode === 'По игроку';
-  const isPointerMode = mode === 'По указателю';
-  const isDropButtonDisabled = !mode || isPointerMode;
+  const [mode, setMode] = useState<LightningBoltMode>(backendMode);
+  const [autoupdate, setAutoupdate] = useState(true);
 
   return (
-    <Window width={300} height={280} title="Вызов молнии" theme="admin">
+    <Window width={300} height={340} title="Вызов молнии">
       <Window.Content>
-        <Section title={mode ?? 'Не выбран режим'}>
-          {isPlayerMode && (
-            <LabeledList>
-              <LabeledList.Item
-                label="Игрок"
-                buttons={
-                  <Dropdown
-                    width="150px"
-                    options={playerOptions.map((opt) => opt.displayText)}
-                    selected={currentPlayerDisplay}
-                    onSelected={(displayText) => {
-                      const selectedCkey = findCkeyByDisplayText(
-                        players,
-                        displayText
-                      );
-                      if (selectedCkey) {
-                        act('pick_player', { ckey: selectedCkey });
-                      }
-                    }}
-                  />
-                }
-              />
-            </LabeledList>
-          )}
-
-          {isPointerMode && (
-            <Tooltip
-              content={`При статусе «Не готов» — нажмите на кнопку.
-                После нажатия и при последующих кликах не по кнопке —
-                вы будете дропать молнии на тайл/моба,
-                на которого указывает курсор мыши.`}
-              position="bottom"
-            >
-              <Button
-                width="100%"
-                textAlign="center"
-                selected={pointing}
-                onClick={() => act('set_pointing', { val: !pointing })}
-              >
-                {pointing ? 'Готов' : 'Не готов'}
-              </Button>
-            </Tooltip>
-          )}
-        </Section>
-
         <Section
           scrollable
           title="Настройка"
           buttons={
             <Dropdown
               width="150px"
-              options={['По игроку', 'По указателю']}
+              options={availableModes}
               selected={mode}
-              onSelected={(value) => act('set_mode', { mode: value })}
+              onSelected={(val) => {
+                const m = val as LightningBoltMode;
+                setMode(m);
+                act('set_mode', { mode: m });
+              }}
             />
           }
         >
-          <Stack vertical fill>
-            <Stack.Item>
-              <Stack align="center">
-                <Stack.Item grow>
-                  <Box>Урон молнии:</Box>
-                </Stack.Item>
-                <Stack.Item>
-                  <NumberInput
-                    maxValue={600}
-                    minValue={0}
-                    step={1}
-                    value={damage}
-                    onChange={(value) => act('set_damage', { damage: value })}
-                  />
-                </Stack.Item>
-              </Stack>
-            </Stack.Item>
-            <Stack.Item>
-              <Stack align="center">
-                <Stack.Item grow>
-                  <Box>
-                    <Tooltip
-                      content="Включая центр, без снижения урона
-                      с отдалением от центра"
-                    >
-                      Радиус поражения:
-                    </Tooltip>
-                  </Box>
-                </Stack.Item>
-                <Stack.Item>
-                  <Tooltip
-                    content="Включая центр, без снижения урона
-                    с отдалением от центра"
-                  >
-                    <NumberInput
-                      maxValue={30}
-                      minValue={0}
-                      step={1}
-                      value={radius}
-                      onChange={(value) => act('set_radius', { radius: value })}
-                    />
-                  </Tooltip>
-                </Stack.Item>
-              </Stack>
-            </Stack.Item>
-            <Stack.Item>
-              <Stack align="center">
-                <Stack.Item grow>
-                  <Box>
-                    <Tooltip content="В секундах">
-                      Задержка перед ударом:
-                    </Tooltip>
-                  </Box>
-                </Stack.Item>
-                <Stack.Item>
-                  <Tooltip content="В секундах">
-                    <NumberInput
-                      maxValue={60}
-                      minValue={0}
-                      step={1}
-                      value={delay}
-                      onChange={(value) => act('set_delay', { delay: value })}
-                    />
-                  </Tooltip>
-                </Stack.Item>
-              </Stack>
-            </Stack.Item>
-          </Stack>
+          <LabeledList>
+            <LabeledList.Item label="Урон молнии">
+              <NumberInput
+                maxValue={600}
+                minValue={0}
+                step={1}
+                value={damage}
+                onChange={(val) => act('set_damage', { damage: val })}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item
+              label="Радиус поражения"
+              tooltip="Включая центр, без снижения урона с отдалением от центра"
+            >
+              <NumberInput
+                maxValue={30}
+                minValue={0}
+                step={1}
+                value={radius}
+                onChange={(val) => act('set_radius', { radius: val })}
+              />
+            </LabeledList.Item>
+            <LabeledList.Item
+              label="Задержка перед ударом"
+              tooltip="В секундах"
+            >
+              <NumberInput
+                maxValue={60}
+                minValue={0}
+                step={1}
+                value={delay}
+                onChange={(val) => act('set_delay', { delay: val })}
+              />
+            </LabeledList.Item>
+          </LabeledList>
         </Section>
-
+        <Section title={mode ?? 'Не выбран режим'}>
+          {mode === 'По игроку' && (
+            <LabeledList>
+              <LabeledList.Item
+                label="Игрок"
+                buttons={
+                  <Dropdown
+                    width="150px"
+                    options={Object.values(players)}
+                    selected={players[ckey] || ckey}
+                    onSelected={(val) => {
+                      const selectedCkey = Object.keys(players).find(
+                        (key) => players[key] === val
+                      );
+                      act('pick_player', { ckey: selectedCkey });
+                    }}
+                  />
+                }
+              />
+            </LabeledList>
+          )}
+          {mode === 'По указателю' && (
+            <Button
+              width="100%"
+              tooltip="При статусе «Не готов» — нажмите на кнопку.
+                  После нажатия и при последующих кликах не по кнопке — вы будете дропать молнии на тайл/моба,
+                  на которого указывает курсор мыши."
+              textAlign="center"
+              selected={pointing}
+              onClick={() => act('set_pointing', { val: !pointing })}
+            >
+              {pointing ? 'Готов' : 'Не готов'}
+            </Button>
+          )}
+        </Section>
         <Section>
           <Box textAlign="center">
             <Button
               icon="bolt"
               color="red"
-              disabled={isDropButtonDisabled}
+              disabled={!mode || mode === 'По указателю'}
               onClick={() => act('drop')}
             >
               Вызвать молнию

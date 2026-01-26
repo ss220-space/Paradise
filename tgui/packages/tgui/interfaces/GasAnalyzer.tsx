@@ -1,6 +1,6 @@
 import { CSSProperties, Key } from 'react';
 import { useBackend } from '../backend';
-import { Button, LabeledList, Section, Box, Stack } from '../components';
+import { Button, Flex, LabeledList, Section, Box, Stack } from '../components';
 import { Window } from '../layouts';
 
 type GasMix = {
@@ -8,11 +8,9 @@ type GasMix = {
   oxygen: number;
   nitrogen: number;
   carbon_dioxide: number;
-  plasma: number;
-  nitrous_oxide: number;
+  toxins: number;
+  sleeping_agent: number;
   agent_b: number;
-  hydrogen: number;
-  water_vapor: number;
   total_moles: number;
   temperature: number;
   volume: number;
@@ -93,11 +91,11 @@ export const GasAnalyzerContent = (props: unknown) => {
           ) : (
             ''
           )}
-          {gasmixes[0].plasma ? (
+          {gasmixes[0].toxins ? (
             <LabeledList.Item label={'Plasma'}>
-              {gasmixes[0].plasma.toFixed(2) +
+              {gasmixes[0].toxins.toFixed(2) +
                 ' mol (' +
-                ((gasmixes[0].plasma / gasmixes[0].total_moles) * 100).toFixed(
+                ((gasmixes[0].toxins / gasmixes[0].total_moles) * 100).toFixed(
                   2
                 ) +
                 ' %)'}
@@ -105,38 +103,12 @@ export const GasAnalyzerContent = (props: unknown) => {
           ) : (
             ''
           )}
-          {gasmixes[0].nitrous_oxide ? (
+          {gasmixes[0].sleeping_agent ? (
             <LabeledList.Item label={'Nitrous Oxide'}>
-              {gasmixes[0].nitrous_oxide.toFixed(2) +
+              {gasmixes[0].sleeping_agent.toFixed(2) +
                 ' mol (' +
                 (
-                  (gasmixes[0].nitrous_oxide / gasmixes[0].total_moles) *
-                  100
-                ).toFixed(2) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].hydrogen ? (
-            <LabeledList.Item label={'Hydrogen'}>
-              {gasmixes[0].hydrogen.toFixed(2) +
-                ' mol (' +
-                (
-                  (gasmixes[0].hydrogen / gasmixes[0].total_moles) *
-                  100
-                ).toFixed(2) +
-                ' %)'}
-            </LabeledList.Item>
-          ) : (
-            ''
-          )}
-          {gasmixes[0].water_vapor ? (
-            <LabeledList.Item label={'Water Vapor'}>
-              {gasmixes[0].water_vapor.toFixed(2) +
-                ' mol (' +
-                (
-                  (gasmixes[0].water_vapor / gasmixes[0].total_moles) *
+                  (gasmixes[0].sleeping_agent / gasmixes[0].total_moles) *
                   100
                 ).toFixed(2) +
                 ' %)'}

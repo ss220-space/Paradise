@@ -3,6 +3,7 @@
 /obj/item/grenade/iedcasing
 	name = "improvised firebomb"
 	desc = "Самопальное взрывное устройство малой мощности."
+	gender = FEMALE
 	icon_state = "improvised_grenade"
 	throw_speed = 3
 	throw_range = 7

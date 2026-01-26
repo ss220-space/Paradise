@@ -323,14 +323,14 @@
 
 /obj/structure/sign/picture_frame/proc/tilt()
 	set name = "Наклонить картинку"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	toggle_tilt(usr)
 
 /obj/structure/sign/picture_frame/proc/untilt()
 	set name = "Выпрямить картинку"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	toggle_tilt(usr)

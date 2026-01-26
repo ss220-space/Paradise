@@ -19,7 +19,6 @@
 /obj/item/storage/fancy
 	icon = 'icons/obj/food/containers.dmi'
 	resistance_flags = FLAMMABLE
-	abstract_type = /obj/item/storage/fancy
 	var/icon_type
 
 /obj/item/storage/fancy/update_icon_state()

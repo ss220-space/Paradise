@@ -148,11 +148,9 @@
 		return .
 	if(user.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !user.get_organ(BODY_ZONE_WING))
 		return .
-	if(isobj(user.loc))
-		// Can't fly if you're in a box/mech/whatever.
-		return FALSE
-	var/datum/gas_mixture/current = user_turf.get_readonly_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
+	//as long as there's reasonable pressure and no gravity, flight is possible
+	var/datum/gas_mixture/current = user_turf.return_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85))
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)

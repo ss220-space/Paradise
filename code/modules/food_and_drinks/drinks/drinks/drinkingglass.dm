@@ -48,7 +48,7 @@
 
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(exposed_temperature, exposed_volume)
+/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!reagents.total_volume)
 		return
 	..()
@@ -103,6 +103,3 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
-
-/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine
-	list_reagents = list("mulled_wine" = 50)

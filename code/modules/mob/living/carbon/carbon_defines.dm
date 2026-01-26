@@ -1,5 +1,4 @@
 /mob/living/carbon
-	abstract_type = /mob/living/carbon
 	gender = MALE
 	pressure_resistance = 15
 	mobility_flags = MOBILITY_FLAGS_CARBON_DEFAULT
@@ -27,9 +26,6 @@
 	var/pulse = PULSE_NORM	//current pulse level
 
 	var/wetlevel = 0 //how wet the mob is
-
-	/// Last mind to control this mob, for blood-based cloning
-	var/datum/mind/last_mind = null
 
 	var/co2overloadtime = null
 	var/dreaming = 0 //How many dream images we have left to send

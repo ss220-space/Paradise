@@ -369,7 +369,7 @@
 	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
 		if(!bodypart.tourniquet)
 			continue
-		if(bodypart.tourniquet.applied_bodypart != bodypart)
+		if(bodypart.tourniquet.applyed_bodypart != bodypart)
 			continue
 		msg += span_warning("<a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>[GEND_HIS_HER_CAP(src)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(src)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>\n")
 
@@ -532,11 +532,6 @@
 			var/obj/item/clothing/head/helmet/space/helmet = H.head
 			if(helmet?.examine_extensions)
 				have_hud_exam |= helmet.examine_extensions
-
-		if(ismodhelmet(H.head))
-			var/obj/item/clothing/head/mod/our_shitcode = H.head
-			if(our_shitcode?.examine_extensions)
-				have_hud_exam |= our_shitcode.examine_extensions
 
 		var/obj/item/organ/internal/cyberimp/eyes/hud/CIH = H.get_int_organ(/obj/item/organ/internal/cyberimp/eyes/hud)
 		if(CIH?.examine_extensions)

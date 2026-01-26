@@ -1,6 +1,5 @@
 GLOBAL_LIST_EMPTY(plmaster)
 GLOBAL_LIST_EMPTY(slmaster)
-GLOBAL_LIST_EMPTY(wvmaster)
 
 GLOBAL_VAR_INIT(CELLRATE, 0.002)  // conversion ratio between a watt-tick and kilojoule
 GLOBAL_VAR_INIT(CHARGELEVEL, 0.001) // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
@@ -81,8 +80,3 @@ GLOBAL_LIST_EMPTY(poll_options)
 GLOBAL_PROTECT(poll_options)
 
 GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
-
-/// Global list of all /datum/mod_theme
-GLOBAL_LIST_INIT(mod_themes, setup_mod_themes())
-
-GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/atmospherics/supermatter_crystal)

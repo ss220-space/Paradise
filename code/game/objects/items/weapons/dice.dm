@@ -385,10 +385,6 @@
 			servant_mind.transfer_to(H)
 
 			var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 30 SECONDS, source = H)
-			
-			if(QDELETED(H))
-				return
-			
 			if(LAZYLEN(candidates))
 				var/mob/dead/observer/C = pick(candidates)
 				message_admins("[ADMIN_LOOKUPFLW(C)] was spawned as Dice Servant")

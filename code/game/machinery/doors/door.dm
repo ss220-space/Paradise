@@ -45,9 +45,6 @@
 	/// Whether or not the door can be opened by hand (used for blast doors and shutters)
 	var/can_open_with_hands = TRUE
 
-	/// How much this door reduces superconductivity to when closed.
-	var/superconductivity = DOOR_HEAT_TRANSFER_COEFFICIENT
-
 /obj/machinery/door/Initialize(mapload)
 	. = ..()
 	set_init_door_layer()
@@ -61,7 +58,7 @@
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
 
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
@@ -89,7 +86,7 @@
 
 /obj/machinery/door/Destroy()
 	set_density(FALSE)
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 	update_freelook_sight()
 	GLOB.airlocks -= src
 	QDEL_NULL(spark_system)
@@ -153,17 +150,8 @@
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
 
-/obj/machinery/door/CanAtmosPass(direction)
-	return operating || !density
-
-/obj/machinery/door/get_superconductivity(direction)
-	if(!density)
-		return ..()
-
-	if(heat_proof)
-		return ZERO_HEAT_TRANSFER_COEFFICIENT
-
-	return superconductivity
+/obj/machinery/door/CanAtmosPass(turf/T, vertical)
+	return !density
 
 /obj/machinery/door/proc/bumpopen(mob/user)
 	if(operating || !can_open_with_hands)
@@ -412,7 +400,6 @@
 	if(operating)
 		return FALSE
 	operating = DOOR_OPENING
-	recalculate_atmos_connectivity()
 	INVOKE_ASYNC(src, PROC_REF(do_animate), "opening")
 	set_opacity(FALSE)
 	sleep(0.5 SECONDS)
@@ -421,6 +408,7 @@
 	layer = initial(layer)
 	update_icon()
 	operating = NONE
+	air_update_turf(TRUE)
 	update_freelook_sight()
 	if(autoclose)
 		autoclose_in(normalspeed ? auto_close_time : auto_close_time_dangerous)
@@ -450,7 +438,7 @@
 	if(visible && !glass)
 		set_opacity(TRUE)
 	operating = NONE
-	recalculate_atmos_connectivity()
+	air_update_turf(TRUE)
 	update_freelook_sight()
 	if(safe)
 		CheckForMobs()
@@ -501,6 +489,11 @@
 /obj/machinery/door/proc/update_freelook_sight()
 	if(!glass && GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
+
+/obj/machinery/door/BlockSuperconductivity() // All non-glass airlocks block heat, this is intended.
+	if(opacity || heat_proof)
+		return TRUE
+	return FALSE
 
 /obj/machinery/door/morgue
 	icon = 'icons/obj/doors/doormorgue.dmi'

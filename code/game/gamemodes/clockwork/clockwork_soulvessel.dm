@@ -28,10 +28,8 @@
 			chosen_ghost = pick(candidates)
 		searching = FALSE
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-		
-	if(QDELETED(M) || QDELETED(src))
+	if(!M)
 		return FALSE
-		
 	if(!chosen_ghost)
 		visible_message(span_notice("[src] buzzes quietly as the cog stops moving. Perhaps you could use it to capture another soul?"))
 		return FALSE

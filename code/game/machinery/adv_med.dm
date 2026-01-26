@@ -8,8 +8,7 @@
 	anchored = TRUE
 	idle_power_usage = 1250
 	active_power_usage = 2500
-	light_color = LIGHT_COLOR_ELECTRIC_GREEN
-	light_power = 0.5
+	light_color = "#00FF00"
 	var/mob/living/carbon/human/occupant
 	var/static/list/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 	var/isPrinting = FALSE
@@ -203,7 +202,7 @@
 
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -413,7 +412,7 @@
 				sleep(3 SECONDS)
 				isPrinting = FALSE
 				return
-			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -602,7 +601,7 @@
 			if(!infection && !dead)
 				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[DECLENT_RU_CAP(organ, NOMINATIVE)]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
+			dat += "<td>[capitalize(organ.declent_ru(NOMINATIVE))]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
@@ -612,6 +611,6 @@
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
 			dat += "<font color='red'>Обнаружено смещение сетчатки.</font><br>"
 	else
-		dat += "[DECLENT_RU_CAP(src, NOMINATIVE)] пуст."
+		dat += "[capitalize(declent_ru(NOMINATIVE))] пуст."
 
 	return dat

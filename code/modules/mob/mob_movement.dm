@@ -54,9 +54,6 @@
 	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
 		return FALSE // This is sota the goto stop mobs from moving var
 
-	if(mob.throwing && mob.throwing.block_movement)
-		return FALSE
-
 	if(!isliving(mob))
 		if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE, new_loc, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_NON_LIVING_MOVE)
 			return FALSE
@@ -475,7 +472,7 @@
 
 /mob/verb/move_up()
 	set name = "Подняться"
-	set category = VERB_CATEGORY_IC
+	set category = STATPANEL_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, UP)
@@ -494,7 +491,7 @@
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
 		if(buckled)
-			to_chat(src, span_notice("[DECLENT_RU_CAP(buckled, NOMINATIVE)] не способ[GEND_EN_NA_NO_NY(buckled)] летать."))
+			to_chat(src, span_notice("[capitalize(buckled.declent_ru(NOMINATIVE))] не способ[GEND_EN_NA_NO_NY(buckled)] летать."))
 		else
 			to_chat(src, span_notice("Вы не Супермен чтобы взлететь вверх."))
 		return
@@ -503,7 +500,7 @@
 
 /mob/verb/move_down()
 	set name = "Опуститься"
-	set category = VERB_CATEGORY_IC
+	set category = STATPANEL_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, DOWN)
@@ -523,17 +520,3 @@
 	if(zMove(DOWN, z_move_flags = ZMOVE_FLIGHT_FLAGS|ZMOVE_FEEDBACK|ventcrawling_flag))
 		to_chat(src, span_notice("Вы двигаетесь вниз."))
 	return FALSE
-
-/mob/abstract_move(atom/destination)
-	var/turf/new_turf = get_turf(destination)
-
-	var/atom/oldloc = loc
-	var/area/oldarea = get_area(oldloc)
-	var/area/newarea = get_area(destination)
-
-	if(oldarea != newarea)
-		newarea.Entered(src, oldarea)
-
-	if(new_turf && (istype(new_turf, /turf/cordon)))
-		return
-	return ..()

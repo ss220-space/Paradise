@@ -13,14 +13,7 @@
 /datum/anomaly_impulse/random_temp/impulse()
 	. = ..()
 	for(var/turf/simulated/turf in view(scale_by_strength(range_low, range_high), owner))
-		var/datum/milla_safe/anomaly_impulse_random_temp/milla = new()
-		milla.invoke_async(turf, temp_delta_low, temp_delta_high)
-
-/datum/milla_safe/anomaly_impulse_random_temp
-
-/datum/milla_safe/anomaly_impulse_random_temp/on_run(turf/turf, temp_delta_low, temp_delta_high)
-	var/datum/gas_mixture/env = get_turf_air(turf)
-	env.set_temperature(env.temperature() + max(0, rand(temp_delta_low, temp_delta_high)))
+		turf?.air?.temperature += max(0, rand(temp_delta_low, temp_delta_high))
 
 /datum/anomaly_impulse/random_temp/tier1
 	period_low = 15 SECONDS
@@ -71,8 +64,8 @@
 /datum/anomaly_impulse/freese/impulse()
 	. = ..()
 	for(var/turf/simulated/turf in view(scale_by_strength(range_low, range_high) * 2, owner))
-		var/datum/milla_safe/anomaly_set_temp/milla = new()
-		milla.invoke_async(turf)
+		if(turf.air)
+			turf.air.temperature = rand(0, 50)
 
 	for(var/turf/simulated/floor/turf in range(scale_by_strength(range_low, range_high), owner))
 		if(prob(100 - get_dist(turf, owner) * 5))

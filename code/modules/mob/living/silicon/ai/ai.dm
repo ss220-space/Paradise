@@ -241,6 +241,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/Initialize(mapload)
 	. = ..()
+	add_traits(list(TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED), ROUNDSTART_TRAIT)
 	AddElement(/datum/element/high_value_item)
 
 /mob/living/silicon/ai/Destroy()
@@ -397,7 +398,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		use_power = ACTIVE_POWER_USE
 
 /mob/living/silicon/ai/proc/pick_icon()
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	set name = "Поменять дисплей"
 	if(stat || aiRestorePowerRoutine)
 		return
@@ -590,13 +591,13 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
 	set name = "Манифест экипажа"
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	show_station_manifest()
 
 #define TEXT_ANNOUNCEMENT_COOLDOWN (1 MINUTES)
 
 /mob/living/silicon/ai/proc/ai_announcement_text()
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	set name = "Станционное объявление"
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
@@ -617,7 +618,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Вызвать эвакуационный шаттл"
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -635,7 +636,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/ai_cancel_call()
 	set name = "Отозвать эвакуационный шаттл"
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -652,7 +653,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	view_core()
 
 /mob/living/silicon/ai/verb/toggle_anchor()
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	set name = "Болтирование к полу"
 
 	if(!isturf(loc)) // if their location isn't a turf
@@ -668,7 +669,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/announcement()
 	set name = "Звуковое оповещение"
 	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
@@ -872,7 +873,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 
 /mob/living/silicon/ai/proc/botcall()
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	set name = "Диспетчер роботов"
 	set desc = "Wirelessly control various automatic robots."
 	if(stat == 2)
@@ -884,12 +885,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/d
 	var/area/bot_area
-	var/bot_uid = UID_of(Bot)
+	var/bot_uid = Bot.UID()
 	d += "<a href='byond://?src=[UID()];botrefresh=[bot_uid]'>Query network status</a><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
-	for(var/mob/living/simple_animal/bot/Bot as anything in GLOB.bots_list)
-		bot_uid = Bot.UID()
+	for(var/mob/living/simple_animal/bot/Bot in GLOB.bots_list)
 		if(is_ai_allowed(Bot.z) && !Bot.remote_disabled) //Only non-emagged bots on the allowed Z-level are detected!
 			bot_area = get_area(Bot)
 			d += "<tr><td width='30%'>[Bot.hacked ? "[span_bad("(!) ")][Bot.name]" : Bot.name] ([Bot.model])</td>"
@@ -984,7 +984,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
 /mob/living/silicon/ai/proc/ai_network_change()
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	set name = "Сменить сеть камер"
 	unset_machine()
 	var/cameralist[0]
@@ -1029,7 +1029,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 //End of code by Mord_Sith
 
 /mob/living/silicon/ai/proc/ai_statuschange()
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	set name = "Статус ИИ"
 
 	if(usr.stat == 2)
@@ -1068,7 +1068,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/ai_hologram_change()
 	set name = "Сменить голограмму"
 	set desc = "Change the default hologram available to AI to something else."
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 
 	if(check_unable())
 		return
@@ -1203,9 +1203,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 					if("ancient machine")
 						holo_icon = getHologramIcon(icon('icons/mob/ancient_machine.dmi', "ancient_machine"))
 					if("custom")
-						if(icon_exists('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"))
+						if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi'))
 							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic.dmi', "[ckey]-ai-holo"))
-						else if(icon_exists('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
+						else if("[ckey]-ai-holo" in icon_states('icons/mob/custom_synthetic/custom-synthetic64.dmi'))
 							holo_icon = getHologramIcon(icon('icons/mob/custom_synthetic/custom-synthetic64.dmi', "[ckey]-ai-holo"))
 						else
 							holo_icon = getHologramIcon(icon('icons/mob/ai.dmi',"holo1"))
@@ -1216,7 +1216,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/toggle_camera_light()
 	set name = "Подсветка камер"
 	set desc = "Toggles the lights on the cameras throughout the station."
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 
 	if(stat != CONSCIOUS)
 		return
@@ -1243,26 +1243,26 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/sensor_mode()
 	set name = "Сенсоры камеры"
 	set desc = "Augment visual feed with internal sensor overlays."
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	toggle_sensor_mode()
 
 /mob/living/silicon/ai/proc/ai_change_voice()
 	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	change_voice()
 
 /mob/living/silicon/ai/proc/arrivals_announcement()
 	set name = "Авто-оповещения о прибытии"
 	set desc = "Change whether or not you wish to announce arrivals."
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 	announce_arrivals = !announce_arrivals
 	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
 
 /mob/living/silicon/ai/proc/change_arrival_message()
 	set name = "Сообщение о прибытии"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 
 	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
 	if(isnull(newmsg) || newmsg == arrivalmsg)
@@ -1316,7 +1316,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/control_integrated_radio()
 	set name = "Настройки радио"
 	set desc = "Allows you to change settings of your radio."
-	set category = VERB_CATEGORY_AICOMMANDS
+	set category = STATPANEL_AICOMMANDS
 
 	if(check_unable(AI_CHECK_RADIO))
 		return

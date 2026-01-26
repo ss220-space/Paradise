@@ -90,16 +90,17 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node1, turn(dir, -180))
 		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/volume_pump/process_atmos(seconds)
+/obj/machinery/atmospherics/binary/volume_pump/process_atmos()
+	..()
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return FALSE
+		return 0
 
 	// Pump mechanism just won't do anything if the pressure is too high/too low
 	var/input_starting_pressure = air1.return_pressure()
 	var/output_starting_pressure = air2.return_pressure()
 
 	if((input_starting_pressure < 0.01) || (output_starting_pressure > 9000))
-		return TRUE
+		return 1
 
 	var/transfer_ratio = max(1, transfer_rate/air1.volume)
 
@@ -107,10 +108,10 @@ Thus, the two variables affect pump operation are set in New():
 
 	air2.merge(removed)
 
-	parent1.update = TRUE
-	parent2.update = TRUE
+	parent1.update = 1
+	parent2.update = 1
 
-	return FALSE
+	return 1
 
 /obj/machinery/atmospherics/binary/volume_pump/proc/broadcast_status()
 	if(!radio_connection)
@@ -334,6 +335,6 @@ Thus, the two variables affect pump operation are set in New():
 	var/datum/gas_mixture/air_output = connected_pump.air2
 	input_pressure.set_output(air_input.return_pressure())
 	output_pressure.set_output(air_output.return_pressure())
-	input_temperature.set_output(air_input.temperature())
-	output_temperature.set_output(air_output.temperature())
+	input_temperature.set_output(air_input.return_temperature())
+	output_temperature.set_output(air_output.return_temperature())
 

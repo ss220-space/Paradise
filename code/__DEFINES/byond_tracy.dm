@@ -45,15 +45,27 @@
 
 GLOBAL_VAR_INIT(profiler_enabled, FALSE)
 
-ADMIN_VERB_VISIBILITY(profiler_start, ADMIN_VERB_VISIBLITY_FLAG_HOST)
-ADMIN_VERB(profiler_start, R_HOST, "Tracy Profiler Start", "Starts the tracy profiler and writes the data to the server's data directory.", ADMIN_CATEGORY_DEBUG)
-	switch(alert(user, "Are you sure? Tracy will remain active until the server restarts.", "Tracy Init", "No", "Yes"))
+/client/proc/profiler_start()
+	set name = "Tracy Profiler Start"
+	set category = STATPANEL_DEBUG
+	set desc = "Starts the tracy profiler and writes the data to the server's data directory."
+
+	if(holder && holder.rights != R_HOST)
+		return
+
+	switch(alert("Are you sure? Tracy will remain active until the server restarts.", "Tracy Init", "No", "Yes"))
 		if("Yes")
 			prof_init()
 
-ADMIN_VERB_VISIBILITY(profiler_stop, ADMIN_VERB_VISIBLITY_FLAG_HOST)
-ADMIN_VERB(profiler_stop, R_HOST, "Tracy Profiler Stop", "Stop the tracy profiler.", ADMIN_CATEGORY_DEBUG)
-	switch(alert(user, "Are you sure?", "Tracy Stop", "No", "Yes"))
+/client/proc/profiler_stop()
+	set name = "Tracy Profiler Stop"
+	set category = STATPANEL_DEBUG
+	set desc = "Stop the tracy profiler."
+
+	if(holder && holder.rights != R_HOST)
+		return
+
+	switch(alert("Are you sure?", "Tracy Stop", "No", "Yes"))
 		if("Yes")
 			prof_stop()
 
@@ -62,8 +74,7 @@ ADMIN_VERB(profiler_stop, R_HOST, "Tracy Profiler Stop", "Stop the tracy profile
  */
 /proc/prof_init()
 	var/init = PROF_CALL(PROF, "init")()
-	if("0" != init)
-		CRASH("[PROF] init error: [init]")
+	if("0" != init) CRASH("[PROF] init error: [init]")
 	GLOB.profiler_enabled = TRUE
 
 /**
@@ -74,6 +85,5 @@ ADMIN_VERB(profiler_stop, R_HOST, "Tracy Profiler Stop", "Stop the tracy profile
 		return
 
 	var/destroy = PROF_CALL(PROF, "destroy")()
-	if("0" != destroy)
-		CRASH("[PROF] destroy error: [destroy]")
+	if("0" != destroy) CRASH("[PROF] destroy error: [destroy]")
 	GLOB.profiler_enabled = FALSE

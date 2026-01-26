@@ -143,7 +143,7 @@
 
 	return
 
-/turf/simulated/wall/proc/adjacent_fire_act(radiated_temperature)
+/turf/simulated/wall/proc/adjacent_fire_act(turf/simulated/wall, radiated_temperature)
 	if(radiated_temperature > max_temperature)
 		take_damage(rand(10, 20) * (radiated_temperature / max_temperature))
 
@@ -231,7 +231,7 @@
 	switch(M.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-			M.visible_message(span_danger("[DECLENT_RU_CAP(M, NOMINATIVE)] бьет [declent_ru(ACCUSATIVE)]!"), span_danger("Вы бьете [declent_ru(ACCUSATIVE)]!"))
+			M.visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] бьет [declent_ru(ACCUSATIVE)]!"), span_danger("Вы бьете [declent_ru(ACCUSATIVE)]!"))
 			if(prob(hardness + M.force) && M.force > 20)
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -458,7 +458,7 @@
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
 	if((!I.sharp && I.force >= 10) || I.force >= 20)
-		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] рассыпается под воздействием вашего [I.declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] рассыпается под воздействием вашего [I.declent_ru(GENITIVE)]."))
 		dismantle_wall(1)
 		return TRUE
 	return FALSE
@@ -594,8 +594,8 @@
 		if(WALL_DENT_HIT)
 			decal.icon_state = "impact[rand(1, 3)]"
 
-	decal.pixel_w = x
-	decal.pixel_z = y
+	decal.pixel_x = x
+	decal.pixel_y = y
 
 	if(LAZYLEN(dent_decals))
 		cut_overlay(dent_decals)

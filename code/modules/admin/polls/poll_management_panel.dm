@@ -23,7 +23,7 @@
 	panel_pollo.ui_interact(usr)
 
 /datum/ui_module/poll_management_panel/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN)
+	return GLOB.admin_state
 
 /datum/ui_module/poll_management_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

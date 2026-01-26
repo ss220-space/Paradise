@@ -1,7 +1,7 @@
 /obj/machinery/floodlight
 	name = "emergency floodlight"
-	icon = 'icons/obj/lighting.dmi'
-	icon_state = "floodlight_off"
+	icon = 'icons/obj/floodlight.dmi'
+	icon_state = "flood00"
 	density = TRUE
 	max_integrity = 100
 	integrity_failure = 80
@@ -46,14 +46,7 @@
 			. += span_notice("The panel looks like it could be <b>pried</b> open, or <b>screwed</b> shut.")
 
 /obj/machinery/floodlight/update_icon_state()
-	icon_state = "floodlight_[on ? "on" : "off"]"
-
-	if(!open)
-		return
-	if(cell)
-		icon_state += "_cell"
-	else
-		icon_state += "_empty"
+	icon_state = "flood[open ? "o" : ""][open && cell ? "b" : ""]0[on]"
 
 /obj/machinery/floodlight/process()
 	if(!on)

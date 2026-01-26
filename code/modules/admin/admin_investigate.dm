@@ -1,19 +1,17 @@
 /atom/proc/investigate_log(message, subject)
-	if(!message)
+	if(!message || !subject)
+		return
+	var/F = wrap_file("[GLOB.log_directory]/[subject].html")
+	var/turf/T = get_turf(src)
+	WRITE_FILE(F, "[time_stamp()] [src.UID()] ([T.x],[T.y],[T.z]) || [src] [message]<br>")
+
+//ADMINVERBS
+/client/proc/investigate_show()
+	set name = "Investigate"
+	set category = STATPANEL_ADMIN_ADMIN
+	if(!check_rights(R_ADMIN))
 		return
 
-	if(!subject)
-		CRASH("No subject provided for investigate_log")
-
-	var/file = wrap_file("[GLOB.log_directory]/[subject].html")
-	var/source = "[src]"
-	if(isliving(src))
-		var/mob/living/source_mob = src
-		source += " ([source_mob.ckey ? source_mob.ckey : "*no key*"])"
-
-	WRITE_FILE(file, "[time_stamp()] [UID()] ([x],[y],[z]) || [source] [message]<br>")
-
-ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed logs.", ADMIN_CATEGORY_GAME)
 	var/list/investigates = list(
 		INVESTIGATE_ACCESSCHANGES,
 		INVESTIGATE_ATMOS,
@@ -45,7 +43,7 @@ ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed lo
 
 	var/list/combined = sortList(logs_present) + sortList(logs_missing)
 
-	var/selected = tgui_input_list(user, "Investigate what?", "Investigate", combined)
+	var/selected = tgui_input_list(usr, "Investigate what?", "Investigate", combined)
 
 	if(!(selected in combined) || selected == "---")
 		return
@@ -57,28 +55,27 @@ ADMIN_VERB(investigate_show, R_ADMIN, "Investigate", "Browse various detailed lo
 			show_note()
 
 		if("watchlist")
-			user.watchlist_show()
+			watchlist_show()
 
-		if("hrefs") //persistant logs and stuff
+		if("hrefs")				//persistant logs and stuff
 			if(config && CONFIG_GET(flag/log_hrefs))
 				if(GLOB.world_href_log)
-					var/datum/browser/popup = new(user, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
+					var/datum/browser/popup = new(src, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
 					popup.set_content(wrap_file(GLOB.world_href_log))
 					popup.open(FALSE)
 				else
-					to_chat(user, span_red("Error: admin_investigate: No href logfile found."))
+					to_chat(src, "<font color='red'>Error: admin_investigate: No href logfile found.</font>")
 					return
 			else
-				to_chat(user, span_red("Error: admin_investigate: Href Logging is not on."))
+				to_chat(src, "<font color='red'>Error: admin_investigate: Href Logging is not on.</font>")
 				return
 
 		else //general one-round-only stuff
-			var/file = file("[GLOB.log_directory]/[selected].html")
-			if(!fexists(file))
-				to_chat(user, span_danger("No [selected] logfile was found."), confidential = TRUE)
+			var/F = file("[GLOB.log_directory]/[selected].html")
+			if(!fexists(F))
+				to_chat(src, "<class span='danger'>No [selected] logfile was found.</span>")
 				return
-
-			file = wrap_file2text(file)
-			var/datum/browser/popup = new(user, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
-			popup.set_content(file)
+			F = wrap_file2text(F)
+			var/datum/browser/popup = new(src, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
+			popup.set_content(F)
 			popup.open(FALSE)

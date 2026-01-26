@@ -4,9 +4,8 @@
 	animate_movement = SLIDE_STEPS
 	pressure_resistance = 8
 	throwforce = 10
-	dont_save = TRUE // to avoid it messing up in buildmode saving
+	dont_save = TRUE //to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
-	abstract_type = /mob
 
 	/// The current client inhabiting this mob. Managed by login/logout
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
@@ -17,11 +16,10 @@
 
 	see_in_dark = DEFAULT_SEE_IN_DARK
 
-	/// Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
+	///Backward compatibility var for determining nightvision like it used to be see_in_dark and see_through_darkness screen-overlay
 	var/nightvision = 0
 
-	/// On /mob so clientless mobs will throw alerts properly
-	/// Contains /atom/movable/screen/alert only
+	/// Contains /atom/movable/screen/alert only // On /mob so clientless mobs will throw alerts properly
 	var/list/alerts
 
 	var/bloody_hands = 0
@@ -46,8 +44,7 @@
 	var/datum/mind/mind
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 
-	/// Whether a mob is alive or dead. TODO: Move this to living - Nodrak
-	var/stat = CONSCIOUS
+	var/stat = CONSCIOUS //Whether a mob is alive or dead. TODO: Move this to living - Nodrak
 
 	/// The zone this mob is currently targeting
 	var/zone_selected = BODY_ZONE_CHEST
@@ -70,14 +67,11 @@
 	var/atom/movable/screen/leap_icon = null
 	var/atom/movable/screen/healthdoll/healthdoll = null
 
-	/// Allows all mobs to use the me verb by default, will have to manually specify they cannot
-	var/use_me = 1
+	var/use_me = 1 //Allows all mobs to use the me verb by default, will have to manually specify they cannot
 	var/damageoverlaytemp = 0
 	var/computer_id = null
-	/// real name of the person  doing the attacking
-	var/lastattacker = null
-	/// their ckey
-	var/lastattackerckey = null
+	var/lastattacker = null // real name of the person  doing the attacking
+	var/lastattackerckey = null // their ckey
 
 	var/list/debug_log = null
 	var/last_log = 0
@@ -110,38 +104,31 @@
 	var/emote_type = EMOTE_VISIBLE
 	var/gunshot_residue
 
-	var/timeofdeath = 0 // Living
+	var/timeofdeath = 0 //Living
 
 	var/bodytemperature = BODYTEMP_NORMAL	//98.7 F
-	var/nutrition = NUTRITION_LEVEL_FED // Carbon
+	var/nutrition = NUTRITION_LEVEL_FED //Carbon
 	/// Current nutrition level of mob (look at /datum/nutrition_level for more info),
-	/// default level would get overriden as soon as the nutrition of mob updated, just to be safe
+	// default level would get overriden as soon as the nutrition of mob updated, just to be safe
 	var/datum/nutrition_level/current_nutrition_level = /datum/nutrition_level/fed // Carbon
-	var/satiety = 0 // Carbon
+	var/satiety = 0 //Carbon
 
-	/// How long this guy is overeating
-	var/overeatduration = 0 // Carbon
-	var/intent = null // Living
-	var/a_intent = INTENT_HELP // Living
-	var/m_intent = MOVE_INTENT_RUN // Living
+	var/overeatduration = 0		// How long this guy is overeating //Carbon
+	var/intent = null //Living
+	var/a_intent = INTENT_HELP //Living
+	var/m_intent = MOVE_INTENT_RUN //Living
 	var/lastKnownIP = null
 	/// movable atoms buckled to this mob
-	var/atom/movable/buckled = null // Living
+	var/atom/movable/buckled = null //Living
 	/// movable atom we are buckled to
 	var/atom/movable/buckling
 
-	/// Living
-	var/obj/item/l_hand = null
-	/// Living
-	var/obj/item/r_hand = null
-	/// Human
-	var/obj/item/back = null
-	/// Human
-	var/obj/item/tank/internal = null
-	/// Carbon
-	var/obj/item/storage/s_active = null
-	/// Carbon
-	var/obj/item/clothing/mask/wear_mask = null
+	var/obj/item/l_hand = null //Living
+	var/obj/item/r_hand = null //Living
+	var/obj/item/back = null //Human
+	var/obj/item/tank/internal = null //Human
+	var/obj/item/storage/s_active = null //Carbon
+	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
 	var/datum/hud/hud_used = null
 	/// Mob hud type
@@ -149,8 +136,7 @@
 
 	hud_possible = list(SPECIALROLE_HUD)
 
-	/// For research scanner equipped mobs. Enable to show research data when examining.
-	var/research_scanner = 0
+	var/research_scanner = 0 //For research scanner equipped mobs. Enable to show research data when examining.
 
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
 	var/list/mapobjs
@@ -173,30 +159,25 @@
 	/// Tracks last uses of emotes for cooldown purposes
 	var/list/emotes_used
 
-	var/job = null // Living
+	var/job = null //Living
 
-	var/datum/dna/dna = null // Carbon
-	var/radiation = 0 // Carbon
+	var/datum/dna/dna = null //Carbon
+	var/radiation = 0 //Carbon
 
 	//see: setup.dm for list of mutations
 
 	var/voice_name = "неизвестный голос"
 
-	/// Used for checking whether hostile simple animals will attack you, possibly more stuff later
-	var/list/faction = list("neutral")
+	var/list/faction = list("neutral") //Used for checking whether hostile simple animals will attack you, possibly more stuff later
 
-	/// Can move on the shuttle.
-	var/move_on_shuttle = 1
+	var/move_on_shuttle = 1 // Can move on the shuttle.
 
 	/// Whether antagHUD has been enabled previously.
 	var/has_enabled_antagHUD = FALSE
-	/// Whether AntagHUD is active right now
-	var/antagHUD = FALSE
-	/// Just a handler for permanent/temporary THOUGHTS_HUD changing.
-	var/thoughtsHUD = 0
-	/// all mobs can change intents by default.
-	var/can_change_intents = 1
-	/// Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
+	var/antagHUD = FALSE  // Whether AntagHUD is active right now
+	var/thoughtsHUD = 0 //Just a handler for permanent/temporary THOUGHTS_HUD changing.
+	var/can_change_intents = 1 //all mobs can change intents by default.
+	///Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)
 	var/sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 	/// The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)
@@ -216,36 +197,31 @@
 
 	var/area/lastarea = null
 
-	/// Are they vulnerable to flashes?
-	var/weakeyes = 0
+	var/weakeyes = 0 //Are they vulnerable to flashes?
 
-	/// Can they interact with station electronics
-	var/has_unlimited_silicon_privilege = 0
+	var/has_unlimited_silicon_privilege = 0 // Can they interact with station electronics
 
-	/// Calls relaymove() to whatever it is
-	var/atom/movable/remote_control
+	var/atom/movable/remote_control //Calls relaymove() to whatever it is
 
 	//Whether or not mobs can understand other mobtypes. These stay in /mob so that ghosts can hear everything.
-	/// Set to 1 to enable the mob to speak to everyone -- TLE
-	var/universal_speak = 0
-	/// Set to 1 to enable the mob to understand everyone, not necessarily speak
-	var/universal_understand = 0
+	var/universal_speak = 0 // Set to 1 to enable the mob to speak to everyone -- TLE
+	var/universal_understand = 0 // Set to 1 to enable the mob to understand everyone, not necessarily speak
 
-	/// Whether this mob have any limbs he can move with
+	///Whether this mob have any limbs he can move with
 	var/has_limbs = TRUE
 
-	/// How many legs does this mob have by default. This shouldn't change at runtime.
+	///How many legs does this mob have by default. This shouldn't change at runtime.
 	var/default_num_legs = 2
-	/// How many legs does this mob currently have. Should only be changed through set_num_legs()
+	///How many legs does this mob currently have. Should only be changed through set_num_legs()
 	var/num_legs = 2
-	/// How many usable legs this mob currently has. Should only be changed through set_usable_legs()
+	///How many usable legs this mob currently has. Should only be changed through set_usable_legs()
 	var/usable_legs = 2
 
-	/// How many hands does this mob have by default. This shouldn't change at runtime.
+	///How many hands does this mob have by default. This shouldn't change at runtime.
 	var/default_num_hands = 2
-	/// How many hands hands does this mob currently have. Should only be changed through set_num_hands()
+	///How many hands hands does this mob currently have. Should only be changed through set_num_hands()
 	var/num_hands = 2
-	/// How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
+	///How many usable hands does this mob currently have. Should only be changed through set_usable_hands()
 	var/usable_hands = 2
 
 	/// SSD var. When mob has SSD status it contains num value (in deciseconds), since last mob logout. Always null otherwise.
@@ -256,35 +232,30 @@
 
 	var/list/active_genes
 
-	/// Last world.time the mob actually moved of its own accord.
-	var/last_movement = -100
+	var/last_movement = -100 // Last world.time the mob actually moved of its own accord.
 
 	var/last_logout = 0
 
-	/// Vision override datum.
-	var/datum/vision_override/vision_type = null
+	var/datum/vision_override/vision_type = null //Vision override datum.
 
-	/// Counters for huds and icon types
-	var/list/huds_counter = list("huds" = list(), "icons" = list())
+	var/list/huds_counter = list("huds" = list(), "icons" = list()) // Counters for huds and icon types
 
 	var/list/actions = list()
 
-	/// List of progress bars this mob is currently seeing for actions
-	var/list/progressbars = null // for stacking do_after bars
+	///List of progress bars this mob is currently seeing for actions
+	var/list/progressbars = null	//for stacking do_after bars
 
-	/// For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
+	///For storing what do_after's someone has, key = string, value = amount of interactions of that type happening.
 	var/list/do_afters
 
-	/// Allows a datum to intercept all click calls this mob is the source of
+	///Allows a datum to intercept all click calls this mob is the source of
 	var/datum/click_intercept
 
-	/// Assoc list of items to TK grabs
-	var/list/tkgrabbed_objects = list()
+	var/list/tkgrabbed_objects = list() // Assoc list of items to TK grabs
 
 	var/registered_z
 
-	/// Any ranged ability the mob has, as a click override
-	var/obj/effect/proc_holder/ranged_ability
+	var/obj/effect/proc_holder/ranged_ability //Any ranged ability the mob has, as a click override
 
 	/// The datum receiving keyboard input. src by default
 	var/datum/focus
@@ -295,11 +266,9 @@
 	var/list/inventory_observers = null
 
 	/// List of movement speed modifiers applying to this mob
-	/// Lazy list, see mob_movespeed.dm
-	var/list/movespeed_modification
+	var/list/movespeed_modification //Lazy list, see mob_movespeed.dm
 	/// List of movement speed modifiers ignored by this mob. List -> List (id) -> List (sources)
-	/// Lazy list, see mob_movespeed.dm
-	var/list/movespeed_mod_immunities
+	var/list/movespeed_mod_immunities //Lazy list, see mob_movespeed.dm
 	/// The calculated mob speed slowdown based on the modifiers list
 	var/cached_multiplicative_slowdown
 	/// List of action speed modifiers applying to this mob

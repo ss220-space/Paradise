@@ -138,19 +138,19 @@
 	var/msg = ""
 
 	if(user.put_in_active_hand(src))
-		msg = "Ваша энергетическая катана телепортируется к вам в руки!"
+		msg = "Your Energy Katana teleports into your hand!"
 	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, disable_warning = TRUE))
-		msg = "Ваша энергетическая катана телепортируется к вам на пояс!"
-	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_SUITSTORE, disable_warning = TRUE))
-		msg = "Ваша энергетическая катана телепортируется к вам на спину!"
+		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BACK, disable_warning = TRUE))
+		msg = "Your Energy Katana teleports back to you, sheathing itself at your back as it does so!</span>"
 	else
-		msg = "Ваша энергетическая катана телепортируется к вам!"
+		msg = "Your Energy Katana teleports to your location!"
 
 	if(caught)
 		if(loc == user)
-			msg = "Вы ловите вашу энергетическую катану!"
+			msg = "You catch your Energy Katana!"
 		else
-			msg = "Ваша энергетическая катана падает к вашим ногам!"
+			msg = "Your Energy Katana lands at your feet!"
 
 	if(msg)
 		to_chat(user, span_notice("[msg]"))

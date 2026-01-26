@@ -2,7 +2,7 @@
 /client/verb/switch_server()
 	set name = "Switch Server"
 	set desc = "Switch to a different Paradise server"
-	set category = VERB_CATEGORY_OOC
+	set category = STATPANEL_OOC
 
 	// First get our peers
 	var/datum/db_query/dbq1 = SSdbcore.NewQuery({"

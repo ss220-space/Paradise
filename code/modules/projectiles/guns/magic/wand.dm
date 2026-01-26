@@ -80,8 +80,6 @@
 	)
 	to_chat(user, message)
 	user.adjustFireLoss(3000)
-	user.death() // in case of special guests like machinepersons that might survive
-
 	charges--
 	..()
 

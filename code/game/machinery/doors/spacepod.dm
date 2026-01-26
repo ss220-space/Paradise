@@ -8,7 +8,7 @@
 
 /obj/structure/spacepoddoor/Initialize(mapload)
 	. = ..()
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 
 /obj/structure/spacepoddoor/CanAtmosPass(turf/T, vertical)
 	return 0
@@ -16,7 +16,7 @@
 /obj/structure/spacepoddoor/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.recalculate_atmos_connectivity()
+	T.air_update_turf(TRUE)
 
 /obj/structure/spacepoddoor/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()

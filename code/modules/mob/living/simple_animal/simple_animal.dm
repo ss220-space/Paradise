@@ -9,7 +9,7 @@
 	status_flags = CANPUSH
 
 	hud_type = /datum/hud/simple_animal
-	abstract_type = /mob/living/simple_animal
+
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
@@ -339,10 +339,7 @@
 					else
 						custom_emote(EMOTE_AUDIBLE, pick(emote_hear))
 
-/mob/living/simple_animal/handle_environment(datum/gas_mixture/readonly_environment)
-	if(!readonly_environment)
-		return
-
+/mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	if(leash)
 		var/dist = get_dist(src, leash)
 		if(dist > leash_radius)
@@ -352,10 +349,10 @@
 	var/atmos_suitable = TRUE
 
 	if(!HAS_TRAIT(src, TRAIT_NO_BREATH))
-		var/tox = readonly_environment.toxins()
-		var/oxy = readonly_environment.oxygen()
-		var/n2 = readonly_environment.nitrogen()
-		var/co2 = readonly_environment.carbon_dioxide()
+		var/tox = environment.toxins
+		var/oxy = environment.oxygen
+		var/n2 = environment.nitrogen
+		var/co2 = environment.carbon_dioxide
 
 		if(atmos_requirements["min_oxy"] && oxy < atmos_requirements["min_oxy"])
 			atmos_suitable = FALSE
@@ -390,7 +387,7 @@
 		if(!atmos_suitable)
 			adjustHealth(unsuitable_atmos_damage)
 
-	SEND_SIGNAL(src, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, readonly_environment)
+	SEND_SIGNAL(src, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, environment)
 
 /mob/living/simple_animal/gib()
 	if(icon_gib)
@@ -442,9 +439,9 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, TRUE)
 		if(deathmessage)
-			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [genderize_decode(src, deathmessage)]"))
+			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)
-			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] перестаёт двигаться..."))
+			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] перестаёт двигаться..."))
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
@@ -680,8 +677,8 @@
 	regenerate_icons()
 	if(user)
 		visible_message(
-			span_warning(span_notice("Вы надеваете [P.declent_ru(ACCUSATIVE)] на шею [declent_ru(GENITIVE)].")),
-			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[PLUR_ET_YUT(user)] [P.declent_ru(ACCUSATIVE)] вам на шею [declent_ru(GENITIVE)]."))
+			span_warning(span_notice("Вы надеваете [P.declent_ru(ACCUSATIVE)] на шею [src.declent_ru(GENITIVE)].")),
+			span_warning(span_notice("[user.declent_ru(NOMINATIVE)] надева[PLUR_ET_YUT(user)] [P.declent_ru(ACCUSATIVE)] вам на шею [src.declent_ru(GENITIVE)]."))
 		)
 	if(P.tagname && !unique_pet)
 		name = P.tagname
@@ -731,7 +728,7 @@
 /mob/living/simple_animal/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	if(item.force && (item.get_final_force(user) < force_threshold || item.damtype == STAMINA))
 		visible_message(
-			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить [declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
+			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить [src.declent_ru(ACCUSATIVE)] [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
 			span_warning("[user.declent_ru(NOMINATIVE)] пытается ударить вас [item.declent_ru(INSTRUMENTAL)], но удар безвредно отскакивает!"),
 			ignored_mobs = user,
 		)

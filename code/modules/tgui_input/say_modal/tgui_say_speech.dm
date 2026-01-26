@@ -28,16 +28,16 @@
 			client.looc(entry)
 			return TRUE
 		if(ADMIN_CHANNEL)
-			SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/cmd_admin_say, entry)
+			client.cmd_admin_say(entry)
 			return TRUE
 		if(MENTOR_CHANNEL)
-			SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/cmd_mentor_say, entry)
+			client.cmd_mentor_say(entry)
 			return TRUE
 		if(DSAY_CHANNEL)
-			SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/dsay, entry)
+			client.dsay(entry)
 			return TRUE
 		if(DEV_CHANNEL)
-			SSadmin_verbs.dynamic_invoke_verb(client, /datum/admin_verb/cmd_dev_say, entry)
+			client.cmd_dev_say(entry)
 			return TRUE
 	return FALSE
 

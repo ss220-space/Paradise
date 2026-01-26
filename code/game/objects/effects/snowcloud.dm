@@ -23,31 +23,29 @@
 	if(isspaceturf(T))
 		qdel(src)
 		return
-	var/datum/gas_mixture/gas = T.get_readonly_air()
-	var/turf_hotness = gas.temperature()
-
+	var/turf_hotness
+	if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		turf_hotness = S.air.temperature
 	if(turf_hotness > T0C && prob(10 * (turf_hotness - T0C))) //Cloud disappears if it's too warm
 		qdel(src)
 		return
-
 	if(!parent_machine || !parent_machine.active || parent_machine.stat & NOPOWER) //All reasons a cloud could dissipate
 		if(prob(10))
 			qdel(src)
 		return
 	try_to_snow()
 	try_to_spread_cloud()
-	var/datum/milla_safe/snow_machine_cooling/milla = new()
-	milla.invoke_async(parent_machine, 0.25 * parent_machine.cooling_speed)
+	parent_machine.affect_turf_temperature(T, 0.25 * parent_machine.cooling_speed)
 
 /obj/effect/snowcloud/proc/try_to_snow()
 	var/turf/T = get_turf(src)
 	if(locate(/obj/effect/snow, T))
 		return
-
-	var/datum/gas_mixture/gas = T.get_readonly_air()
-	if(prob(75 + gas.temperature() - T0C)) //Colder turf = more chance of snow
-		return
-
+	if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		if(prob(75 + S.air.temperature - T0C)) //Colder turf = more chance of snow
+			return
 	new /obj/effect/snow(T)
 
 /obj/effect/snowcloud/proc/try_to_spread_cloud()
@@ -58,7 +56,7 @@
 		var/turf/T = get_turf(get_step(src, potential))
 		if(isspaceturf(T) || T.density)
 			continue
-		if(!CanAtmosPass(potential) || !T.CanAtmosPass(turn(potential, 180)))
+		if(!T.CanAtmosPass(T, vertical = FALSE))
 			continue
 		if(parent_machine.make_snowcloud(T))
 			return
@@ -69,12 +67,11 @@
 	icon_state = "snow1"
 	plane = FLOOR_PLANE
 	layer = ABOVE_ICYOVERLAY_LAYER
-	var/critical_temp = T0C
 
-/obj/effect/snow/Initialize(mapload)
-	. = ..()
+/obj/effect/snow/New()
 	START_PROCESSING(SSobj, src)
 	icon_state = "snow[rand(1,6)]"
+	..()
 
 /obj/effect/snow/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -85,11 +82,12 @@
 	if(isspaceturf(T))
 		qdel(src)
 		return
-	var/datum/gas_mixture/gas = T.get_readonly_air()
-	if(gas.temperature() <= T0C)
-		return
-	if(prob(10 + gas.temperature() - T0C))
-		qdel(src)
+	else if(issimulatedturf(T))
+		var/turf/simulated/S = T
+		if(S.air.temperature <= T0C)
+			return
+		if(prob(10 + S.air.temperature - T0C))
+			qdel(src)
 
 /obj/effect/snow/attack_hand(mob/living/carbon/human/user)
 	if(!istype(user)) //Nonhumans don't have the balls to fight in the snow
@@ -118,7 +116,7 @@
 
 	return ..()
 
-/obj/effect/snow/fire_act(exposed_temperature, exposed_volume)
+/obj/effect/snow/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	qdel(src)
 
@@ -126,27 +124,6 @@
 	if(severity <= EXPLODE_LIGHT && prob(50))
 		return
 	qdel(src)
-
-/obj/effect/snow/slowdown
-	critical_temp = T0C + 5
-
-/obj/effect/snow/slowdown/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/effect/snow/slowdown/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER
-
-	if(QDELETED(arrived))
-		return
-
-	if(!istype(arrived))
-		return
-
-	arrived.AdjustSlowedDuration(1 SECONDS, bound_upper = 20 SECONDS)
 
 /obj/item/snowball
 	name = "snowball"
@@ -163,7 +140,7 @@
 		playsound(target, 'sound/weapons/tap.ogg', 50, TRUE)
 	qdel(src)
 
-/obj/item/snowball/fire_act(exposed_temperature, exposed_volume)
+/obj/item/snowball/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	qdel(src)
 

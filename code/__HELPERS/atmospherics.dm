@@ -21,35 +21,31 @@
 //TODO: Port gas_mixture_parser from TG
 /proc/gas_mixture_parser(datum/gas_mixture/gasmix, name)
 	. = list(
-		TLV_O2 = null,
-		TLV_CO2 = null,
-		TLV_N2 = null,
-		TLV_PL = null,
-		TLV_N2O = null,
-		TLV_AGENT_B = null,
-		TLV_H2 = null,
-		TLV_H2O = null,
+		"oxygen" = null,
+		"carbon_dioxide" = null,
+		"nitrogen" = null,
+		"toxins" = null,
+		"sleeping_agent" = null,
+		"agent_b" = null,
 		"name" = format_text(name),
 		"total_moles" = null,
-		TLV_TEMPERATURE = null,
-		"volume" = null,
-		TLV_PRESSURE = null,
+		"temperature" = null,
+		"volume"= null,
+		"pressure"= null,
 		"heat_capacity" = null,
 		"thermal_energy" = null,
 	)
 	if(!gasmix)
 		return
-	.[TLV_O2] = gasmix.oxygen()
-	.[TLV_CO2] = gasmix.carbon_dioxide()
-	.[TLV_N2] = gasmix.nitrogen()
-	.[TLV_PL] = gasmix.toxins()
-	.[TLV_N2O] = gasmix.sleeping_agent()
-	.[TLV_AGENT_B] = gasmix.agent_b()
-	.[TLV_H2] = gasmix.hydrogen()
-	.[TLV_H2O] = gasmix.water_vapor()
+	.["oxygen"] = gasmix.oxygen
+	.["carbon_dioxide"] = gasmix.carbon_dioxide
+	.["nitrogen"] = gasmix.nitrogen
+	.["toxins"] = gasmix.toxins
+	.["sleeping_agent"] = gasmix.sleeping_agent
+	.["agent_b"] = gasmix.agent_b
 	.["total_moles"] = gasmix.total_moles()
-	.[TLV_TEMPERATURE] = gasmix.temperature()
+	.["temperature"] = gasmix.temperature
 	.["volume"] = gasmix.volume
-	.[TLV_PRESSURE] = gasmix.return_pressure()
+	.["pressure"] = gasmix.return_pressure()
 	.["heat_capacity"] = display_joules(gasmix.heat_capacity())
 	.["thermal_energy"] = display_joules(gasmix.thermal_energy())

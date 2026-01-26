@@ -612,7 +612,7 @@
 			atom_say("Предыдущий интерфейс \"Мозг-Компьютер\" цели был изъят.")
 			bci_organ.forceMove(drop_location())
 	else if(!isnull(bci_to_implant))
-		atom_say("[DECLENT_RU_CAP(bci_to_implant, NOMINATIVE)] был имплантирован в организм цели.")
+		atom_say("[capitalize(bci_to_implant.declent_ru(NOMINATIVE))] был имплантирован в организм цели.")
 		bci_to_implant.insert(carbon_occupant)
 		bci_to_implant = null
 
@@ -629,7 +629,6 @@
 /obj/item/circuitboard/bci_implanter
 	board_name = "Brain-Computer Interface Manipulation Chamber"
 	build_path = /obj/machinery/bci_implanter
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	board_type = "machine"
 	origin_tech = "programming=2;biotech=2"
 	req_components = list(

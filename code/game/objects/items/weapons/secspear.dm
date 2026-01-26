@@ -1,6 +1,4 @@
 #define SECSPEAR_BLOCK_CHANCE 30
-#define SECSPEAR_CHARGE_MEDIUM 33
-#define SECSPEAR_CHARGE_HIGH 66
 
 /obj/item/twohanded/spear/secspear
 	name = "telescopic energy spear"
@@ -29,8 +27,6 @@
 	var/datum/secspear_mode/spear_mode = /datum/secspear_mode/off
 	/// Cell to use, can be a path, to start loaded.
 	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/super
-	// Stores the current charge overlay state to avoid unnecessary icon updates.
-	var/charge_overlay_state = ""
 
 /obj/item/twohanded/spear/secspear/get_ru_names()
 	return list(
@@ -48,12 +44,12 @@
 	. = ..()
 	spear_mode = GLOB.secspear_modes[spear_mode.name]
 	spear_mode.on_activate(src)
-	force_charge_overlay_update()
+	update_icon()
 
 /obj/item/twohanded/spear/secspear/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += span_notice("Заряд батареи [round(cell.percent())]%.")
+		. += span_notice("Зарад батареи [round(cell.percent())]%.")
 	else
 		. += span_warning("Батарея не установлена.")
 
@@ -67,9 +63,6 @@
 	. = ..()
 	. += mutable_appearance(icon, "[icon_state][istype(cell)? "_battery" : ""]")
 	. += mutable_appearance(icon, "[icon_state][spear_mode.overlay_prefix]")
-	// Add charge overlay if battery exists
-	if(cell && charge_overlay_state)
-		. += mutable_appearance(icon, "charge_[charge_overlay_state]")
 
 /obj/item/twohanded/spear/secspear/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
 	. = ..()
@@ -78,20 +71,10 @@
 		return
 
 	. += mutable_appearance(icon_file, "[item_state][spear_mode.overlay_prefix]")
-	// Add charge overlay in hands
-	if(cell && charge_overlay_state)
-		. += mutable_appearance(icon_file, "charge_[charge_overlay_state]")
 
 /obj/item/twohanded/spear/secspear/emp_act(severity)
 	. = ..()
-	if(cell)
-		// Completely drain the battery
-		cell.emp_act(severity)
-		cell.charge = 0
-		// Turn off the spear if it was active
-		if(spear_mode.type != /datum/secspear_mode/off)
-			switch_spear_mode(/datum/secspear_mode/off)
-		update_charge_overlay() // Update overlay after EMP
+	cell.emp_act(severity)
 
 /obj/item/twohanded/spear/secspear/attackby(obj/item/I, mob/user, params)
 	if(iscell(I))
@@ -112,7 +95,6 @@
 		cell.forceMove(get_turf(src))
 		cell = new_cell
 		balloon_alert(user, "установлено")
-		update_charge_overlay() // Update overlay after battery replacement
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -147,18 +129,10 @@
 /obj/item/twohanded/spear/secspear/equipped(mob/user, slot, initial)
 	. = ..()
 
-	// If placed NOT in hands (in storage)
 	if(!(slot & ITEM_SLOT_HANDS))
-		if(spear_mode.type != /datum/secspear_mode/off)
-			switch_spear_mode(/datum/secspear_mode/off)
 		return
 
 	off_spear()
-	force_charge_overlay_update()
-
-/obj/item/twohanded/spear/secspear/proc/force_charge_overlay_update()
-	update_charge_overlay()
-	update_icon()
 
 /obj/item/twohanded/spear/secspear/dropped(mob/user, slot, silent)
 	. = ..()
@@ -168,49 +142,13 @@
 	return cell
 
 /obj/item/twohanded/spear/secspear/proc/power_usage()
-	if(!cell)
-		off_spear()
-		return
-
 	var/power_cost = spear_mode.power_cost
 	cell.use(power_cost)
-	update_charge_overlay() // Update overlay after energy usage
 
-	if(cell.charge < power_cost)
-		off_spear()
+	if(cell.charge >= power_cost)
+		return
 
-/obj/item/twohanded/spear/secspear/proc/update_charge_overlay()
-	var/old_state = charge_overlay_state
-	var/new_state
-
-	if(!cell)
-		new_state = folded ? "folded_empty" : "unfolded_empty"
-	else
-		var/charge_percent = cell.maxcharge ? (cell.charge / cell.maxcharge) * 100 : 0
-		var/prefix = folded ? "folded" : "unfolded"
-
-		var/min_active_power_cost = INFINITY
-		for(var/mode_type in GLOB.secspear_modes)
-			var/datum/secspear_mode/mode = GLOB.secspear_modes[mode_type]
-			if(mode.power_cost > 0 && mode.power_cost < min_active_power_cost)
-				min_active_power_cost = mode.power_cost
-
-		if(min_active_power_cost == INFINITY)
-			min_active_power_cost = 0
-
-		if(cell.charge < min_active_power_cost)
-			new_state = "[prefix]_empty"
-		else if(charge_percent >= SECSPEAR_CHARGE_HIGH)
-			new_state = "[prefix]_full"
-		else if(charge_percent >= SECSPEAR_CHARGE_MEDIUM)
-			new_state = "[prefix]_half"
-		else
-			new_state = "[prefix]_low"
-
-
-	if(old_state != new_state)
-		charge_overlay_state = new_state
-		update_icon()
+	off_spear()
 
 /obj/item/twohanded/spear/secspear/proc/update_cleave_component()
 	var/datum/secspear_mode/current_spear_mode = spear_mode
@@ -235,10 +173,10 @@
 		if(wielded)
 			attack_self(user)
 		add_traits(list(TRAIT_TWOHANDED_BLOCKED, TRAIT_CLEAVE_BLOCKED), UNIQUE_TRAIT_SOURCE(src))
-		w_class = WEIGHT_CLASS_NORMAL
-		slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_SUITSTORE // Belt or suit slot for folded
+		w_class = WEIGHT_CLASS_SMALL
+		slot_flags = null
 		block_chance = initial(block_chance)
-		force_charge_overlay_update()
+		update_icon()
 		user.update_held_items()
 		user.update_action_buttons_icon()
 		balloon_alert(user, "сложено!")
@@ -248,7 +186,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	block_chance = SECSPEAR_BLOCK_CHANCE
-	force_charge_overlay_update()
+	update_icon()
 	user.update_held_items()
 	user.update_action_buttons_icon()
 	balloon_alert(user, "разложено!")
@@ -296,5 +234,3 @@
 	spear.toggle_folded(owner)
 
 #undef SECSPEAR_BLOCK_CHANCE
-#undef SECSPEAR_CHARGE_MEDIUM
-#undef SECSPEAR_CHARGE_HIGH

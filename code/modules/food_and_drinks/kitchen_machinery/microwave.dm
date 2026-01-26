@@ -1,10 +1,10 @@
 
 /obj/machinery/kitchen_machine/microwave
 	name = "microwave"
-	desc = "Разогревает пищу с помощью СВЧ-излучения. Гарантирует, что ваша еда будет горячей снаружи и холодной внутри."
+	desc = "A microwave, perfect for reheating things with radiation."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mw"
-	cook_verbs = list("Нагревается", "Греется")
+	cook_verbs = list("Microwaving", "Reheating", "Heating")
 	recipe_type = RECIPE_MICROWAVE
 	off_icon = "mw"
 	on_icon = "mw1"
@@ -12,16 +12,6 @@
 	dirty_icon = "mwbloody"
 	open_icon = "mw-o"
 	pass_flags = PASSTABLE
-
-/obj/machinery/kitchen_machine/microwave/get_ru_names()
-	return list(
-		NOMINATIVE = "микроволновка",
-		GENITIVE = "микроволновки",
-		DATIVE = "микроволновке",
-		ACCUSATIVE = "микроволновку",
-		INSTRUMENTAL = "микроволновкой",
-		PREPOSITIONAL = "микроволновке"
-	)
 
 // see code/modules/food/recipes_microwave.dm for recipes
 

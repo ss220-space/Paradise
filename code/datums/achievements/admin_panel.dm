@@ -21,7 +21,7 @@
 	.["archived_keys"] = archived_only
 
 /datum/achievement_admin_panel/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN)
+	return GLOB.admin_state
 
 /datum/achievement_admin_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -69,7 +69,14 @@
 		SSdbcore.NewQuery("UPDATE [format_table_name("achievement_metadata")] SET achievement_version = :version WHERE achievement_key = :key", list("key" = achievement_key, "version" = ACHIEVEMENT_ARCHIVED_VERSION)),
 	), warn = TRUE, qdel = TRUE)
 
-ADMIN_VERB(achievements_cleanup, R_ADMIN, "Achievements Admin Panel", "View achievements management panel.", ADMIN_CATEGORY_MAIN)
+/client/proc/achievements_cleanup()
+	set name = "Achievements Admin Panel"
+	set desc = "View achievements management panel."
+	set category = STATPANEL_ADMIN_ADMIN
+
+	if(!check_rights(R_ADMIN))
+		return
+
 	var/datum/achievement_admin_panel/panel = new /datum/achievement_admin_panel()
 	panel.reload_data()
-	panel.ui_interact(user.mob)
+	panel.ui_interact(usr)

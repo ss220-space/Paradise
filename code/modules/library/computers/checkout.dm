@@ -132,7 +132,7 @@
 					var/author = CB.author
 					var/controls =  "<a href='byond://?src=[UID()];id=[CB.id]'>\[Order\]</a>"
 					controls += {" <a href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a>"}
-					if(check_rights(R_ADMIN, FALSE, user = user))
+					if(check_rights(R_ADMIN, 0, user = user))
 						controls +=  " <a style='color:red' href='byond://?src=[UID()];del=[CB.id]'>\[Delete\]</a>"
 						author += " (<a style='color:red' href='byond://?src=[UID()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</a>)"
 					dat += {"<tr>
@@ -251,7 +251,7 @@
 		else
 			query.title = null
 	if(href_list["setcategory"])
-		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", "Select category" , list("Any") + GLOB.library_section_names)
+		var/newcategory = tgui_input_list(usr, "Choose a category to search for:", , list("Any") + GLOB.library_section_names)
 		if(newcategory == "Any")
 			query.category = null
 		else if(newcategory)

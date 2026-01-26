@@ -337,7 +337,7 @@
 		return
 
 	if(H.bodytemperature < T0C - 50)
-		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] реагирует на контакт с холодным объектом, испуская языки пламени!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с холодным объектом, испуская языки пламени!")
 		H.adjust_fire_stacks(round(get_strength() / 30 + 0.5))
 		H.IgniteMob()
 		return
@@ -345,7 +345,7 @@
 	if(H.bodytemperature <= T0C + 100)
 		return
 
-	visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
+	visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
 	H.apply_status_effect(/datum/status_effect/freon)
 	H.ExtinguishMob()
 	H.adjust_bodytemperature(-get_strength())
@@ -388,9 +388,6 @@
 		addtimer(CALLBACK(src, PROC_REF(update_gravity), TRUE), 5 SECONDS)
 
 	var/atom/new_owner = get_external_loc()
-	if(!new_owner)
-		return
-
 	if(old_owner == new_owner && old_owner.get_gravity() == -1)
 		return
 

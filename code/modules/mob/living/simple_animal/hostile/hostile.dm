@@ -1,6 +1,5 @@
 /mob/living/simple_animal/hostile
-	abstract_type = /mob/living/simple_animal/hostile
-	faction = list("hostile")
+	faction = list("hostile",)
 	stop_automated_movement_when_pulled = 0
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
@@ -532,7 +531,7 @@
 		return
 	if(CheckFriendlyFire(A))
 		return
-	visible_message(span_danger("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
 
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
@@ -550,7 +549,7 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, TRUE)
-		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
+		casing.fire(targeted_atom, src, zone_override = ran_zone())
 		casing.after_fire()
 	else if(projectiletype)
 		var/obj/projectile/P = new projectiletype(startloc)
@@ -558,7 +557,6 @@
 		P.current = startloc
 		P.starting = startloc
 		P.firer = src
-		P.firer_source_atom = src
 		P.yo = targeted_atom.y - startloc.y
 		P.xo = targeted_atom.x - startloc.x
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space

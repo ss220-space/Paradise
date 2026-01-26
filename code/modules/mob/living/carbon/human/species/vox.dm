@@ -274,6 +274,3 @@
 	. = ..()
 	if(/mob/living/carbon/human/proc/emote_quill in H.verbs)
 		remove_verb(H, /mob/living/carbon/human/proc/emote_quill)
-
-/datum/species/vox/compressor_grind(location)
-	new /obj/item/reagent_containers/food/snacks/fried_vox(location)

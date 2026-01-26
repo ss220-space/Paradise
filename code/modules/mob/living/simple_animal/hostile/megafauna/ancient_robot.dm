@@ -584,11 +584,9 @@ Difficulty: Very Hard
 		if(PYRO)
 			var/turf/C = get_turf(src)
 			new /obj/effect/temp_visual/lava_warning(C, enraged ? 18 SECONDS : 6 SECONDS)
-			for(var/turf/turf in range (1, src))
-				var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
-				hotspot.temperature = 1000
-				hotspot.recolor()
-				turf.hotspot_expose(700, 50)
+			for(var/turf/T in range (1,src))
+				new /obj/effect/hotspot(T)
+				T.hotspot_expose(700,50,1)
 		if(VORTEX)
 			var/turf/T = get_turf(src)
 			for(var/atom/A in T)
@@ -709,7 +707,7 @@ Difficulty: Very Hard
 		ranged = FALSE
 		visible_message(span_danger("Турель ломается и втягивается обратно в [declent_ru(ACCUSATIVE)]!"))
 	if(amount && transfer_rate <= 0.25) //warn that you are not doing much damage
-		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
 	health_and_snap_check(FALSE)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/health_and_snap_check(regen = FALSE)
@@ -734,8 +732,8 @@ Difficulty: Very Hard
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(
-		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в [bumped_living]!"),
-		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] втаптывает вас в землю!")
+		span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [bumped_living]!"),
+		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] втаптывает вас в землю!")
 	)
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))

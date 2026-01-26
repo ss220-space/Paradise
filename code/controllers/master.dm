@@ -149,11 +149,18 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		ss.Shutdown()
 	log_world("Shutdown complete")
 
-ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller Overview", "View the current states of the Subsystem Controllers.", ADMIN_CATEGORY_DEBUG)
-	Master.ui_interact(user.mob)
+/client/proc/cmd_controller_view_ui()
+	set name = "Controller Overview"
+	set category = STATPANEL_DEBUG
+	set desc = "View the current states of the Subsystem Controllers."
+
+	if(!check_rights(R_SERVER|R_DEBUG))
+		return
+
+	Master.ui_interact(usr)
 
 /datum/controller/master/ui_status(mob/user, datum/ui_state/state)
-	if(!user.client?.holder && !check_rights(R_SERVER|R_DEBUG|R_VIEWRUNTIMES))
+	if(!user.client?.holder && !check_rights(R_SERVER|R_DEBUG))
 		return UI_CLOSE
 	return UI_INTERACTIVE
 
@@ -377,8 +384,6 @@ ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller 
 				SetRunLevel(1) // Intentionally not using the defines here because the MC doesn't care about them
 			// Loop.
 			Master.StartProcessing(0)
-
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SUBSYSTEMS_INIT_ENDED)
 
 	var/time = (REALTIMEOFDAY - start_timeofday) / 10
 

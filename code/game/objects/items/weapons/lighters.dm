@@ -127,7 +127,7 @@
 	. = return_flags
 
 	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] доста[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] и держ[PLUR_IT_AT(user)] [declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [GEND_HE_SHE(user)] прикурива[PLUR_ET_YUT(user)] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_rose("[user] доста[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] и держ[PLUR_IT_AT(user)] [src.declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [GEND_HE_SHE(user)] прикурива[PLUR_ET_YUT(user)] [cig.declent_ru(ACCUSATIVE)]."))
 	else
 		cig.light(span_notice("[user] держ[PLUR_IT_AT(user)] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
@@ -137,7 +137,7 @@
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
 	if(location)
-		location.hotspot_expose(700, 1)
+		location.hotspot_expose(700, 5)
 	return
 
 // Zippo lighters
@@ -172,7 +172,7 @@
 	. = ..()
 	user.balloon_alert(user, "включено")
 	if(world.time > next_on_message)
-		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[PLUR_ET_YUT(user)] и зажига[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]."))
+		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[PLUR_ET_YUT(user)] и зажига[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)]."))
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
 
@@ -182,7 +182,7 @@
 		return
 	user.balloon_alert(user, "выключено")
 	if(world.time > next_off_message)
-		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
+		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[PLUR_ET_YUT(user)] [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
@@ -502,9 +502,9 @@
 	if(smoketime < 1)
 		matchburnout()
 	if(location)
-		location.hotspot_expose(700, 1)
+		location.hotspot_expose(700, 5)
 
-/obj/item/match/fire_act(exposed_temperature, exposed_volume)
+/obj/item/match/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	matchignite()
 
@@ -541,7 +541,7 @@
 
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
-	desc = lit ? "[DECLENT_RU_CAP(src, NOMINATIVE)], охваченная пламенем." : burnt ? "[DECLENT_RU_CAP(src, NOMINATIVE)]. Повидала всякое." : initial(desc)
+	desc = lit ? "[capitalize(declent_ru(NOMINATIVE))], охваченная пламенем." : burnt ? "[capitalize(declent_ru(NOMINATIVE))]. Повидала всякое." : initial(desc)
 
 /obj/item/match/get_heat()
 	return lit * 1000
@@ -663,7 +663,7 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/obj/item/match/unathi/fire_act(exposed_temperature, exposed_volume)
+/obj/item/match/unathi/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return	// we are already burning
 
 /obj/item/match/unathi/matchburnout()

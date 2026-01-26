@@ -27,11 +27,10 @@
 	canSmoothWith = SMOOTH_GROUP_WALLS
 	smoothing_groups = SMOOTH_GROUP_WALLS
 	smooth = SMOOTH_BITMASK
-	cares_about_temperature = TRUE
 
 /obj/structure/falsewall/Initialize(mapload)
 	. = ..()
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 
 /obj/structure/falsewall/examine_status(mob/user)
 	var/healthpercent = (obj_integrity/max_integrity) * 100
@@ -52,7 +51,7 @@
 
 /obj/structure/falsewall/Destroy()
 	set_density(FALSE)
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 	return ..()
 
 /obj/structure/falsewall/CanAtmosPass(turf/T, vertical)
@@ -88,7 +87,7 @@
 		obj_flags |= BLOCK_Z_IN_DOWN
 		sleep(0.4 SECONDS)
 		set_opacity(TRUE)
-	recalculate_atmos_connectivity()
+	air_update_turf(TRUE)
 	opening = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
@@ -141,7 +140,7 @@
 		return .
 	var/turf/our_turf = get_turf(src)
 	if(our_turf?.density)
-		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] заблокирован!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] заблокирован!"))
 		return .
 	if(!isfloorturf(our_turf))
 		to_chat(user, span_warning("Болты [declent_ru(GENITIVE)] должны быть затянуты на полу!"))
@@ -194,17 +193,14 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
-// Copy of `/turf/hit_by_thrown_mob(). A falsewall is just a wall after all.
-/obj/structure/falsewall/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+// Copy of `/turf/hit_by_thrown_carbon()`. A falsewall is just a wall after all.
+/obj/structure/falsewall/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	if(mob_hurt || !density)
 		return
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
-	throwned_mob.visible_message(
-		span_danger("[throwned_mob] вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
-		span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!")
-	)
-	throwned_mob.take_organ_damage(damage)
-	throwned_mob.Weaken(0.1 SECONDS)
+	C.visible_message(span_danger("[C] врезается в [declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы врезаетесь в [declent_ru(ACCUSATIVE)]!"))
+	C.take_organ_damage(damage)
+	C.Weaken(0.1 SECONDS)
 
 // Copy of `/atom/proc/hitby()`. Falsewalls must use this `hitby` as do regular walls.
 /obj/structure/falsewall/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
@@ -334,7 +330,7 @@
 	new /obj/structure/girder/displaced(loc)
 	qdel(src)
 
-/obj/structure/falsewall/plasma/temperature_expose(exposed_temperature, exposed_volume)
+/obj/structure/falsewall/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		burnbabyburn()

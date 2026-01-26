@@ -54,18 +54,8 @@
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
 	name = "magic shoes"
-	icon = 'icons/map_icons/clothing/shoes.dmi'
-	icon_state = "/obj/item/clothing/shoes/color"
-	post_init_icon_state = "sneakers"
+	icon_state = "black"
 	resistance_flags = FIRE_PROOF |  ACID_PROOF
-
-/obj/item/clothing/shoes/sandal/marisa/Initialize(mapload)
-	. = ..()
-	var/obj/item/clothing/shoes/color/black/temp_item = new(null)
-	icon = temp_item.icon
-	onmob_sheets = temp_item.onmob_sheets
-	sprite_sheets = temp_item.sprite_sheets
-	qdel(temp_item)
 
 /obj/item/clothing/shoes/sandal/magic
 	name = "magical sandals"
@@ -97,9 +87,6 @@
 	SIGNAL_HANDLER
 	var/turf/simulated/t_loc = get_turf(src)
 	SEND_SIGNAL(t_loc, COMSIG_TURF_MAKE_DRY, TURF_WET_WATER, TRUE, INFINITY)
-
-/obj/item/clothing/shoes/galoshes/dry/lightweight /// for red janitor ert.
-	slowdown = 0
 
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
@@ -255,7 +242,7 @@
 	return ..()
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set name = "Достать нож"
 	set src in usr
 	remove_knife(usr)

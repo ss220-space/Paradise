@@ -59,8 +59,8 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 
 /obj/effect/hallucination/simple/proc/GetImage()
 	var/image/I = image(image_icon, src, image_state, image_layer, dir = dir)
-	I.pixel_w = px
-	I.pixel_z = py
+	I.pixel_x = px
+	I.pixel_y = py
 	if(col_mod)
 		I.color = col_mod
 	return I
@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(major_hallutinations, list("fake"=20,"death"=10,"xeno"=10,"sing
 				sleep(50)
 				QDEL_NULL(borer)
 				sleep(rand(60, 90))
-				to_chat(T, span_changeling("<i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня…")]"))
+				to_chat(T, "<span class='changeling'><i>Primary [rand(1000,9999)] states:</i> [pick("Привет.","Приветик!","Ты теперь мой раб!","Не пытайся избавиться от меня…")]</span>")
 				break
 			sleep(4)
 		if(!QDELETED(borer))

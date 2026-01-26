@@ -32,8 +32,7 @@
 	impact_type = /obj/effect/projectile/impact/laser
 
 /obj/projectile/beam/laser/light
-	damage = 16
-	armour_penetration = -50
+	damage = 18
 
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
@@ -389,7 +388,6 @@
 /obj/projectile/beam/immolator
 	name = "immolation beam"
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
-	immolate = 2
 
 /obj/projectile/beam/immolator/get_ru_names()
 	return list(
@@ -405,7 +403,6 @@
 	name = "heavy immolation beam"
 	damage = 45
 	icon_state = "heavylaser"
-	immolate = 3
 
 /obj/projectile/beam/immolator/strong/get_ru_names()
 	return list(
@@ -421,7 +418,6 @@
 	name = "light immolation beam"
 	damage = 8
 	icon_state = "scatterlaser"
-	immolate = 1
 
 /obj/projectile/beam/immolator/weak/get_ru_names()
 	return list(
@@ -502,7 +498,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.visible_message(span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] взрывается!"))
+		L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] взрывается!"))
 		L.gib()
 
 /obj/projectile/beam/dominator/eliminator

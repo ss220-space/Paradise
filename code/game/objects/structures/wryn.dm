@@ -35,13 +35,13 @@
 /obj/structure/wryn/wax/Initialize(mapload)
 	if(usr)
 		add_fingerprint(usr)
-	recalculate_atmos_connectivity()
+	air_update_turf(1)
 	. = ..()
 
 /obj/structure/wryn/wax/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.recalculate_atmos_connectivity()
+	T.air_update_turf(TRUE)
 
 /obj/structure/wryn/wax/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -97,7 +97,6 @@
 	anchored = TRUE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
-	cares_about_temperature = TRUE
 	var/list/icons = list("wax_floor1", "wax_floor2", "wax_floor3")
 	icon_state = "wax_floor1"
 	max_integrity = 10
@@ -127,10 +126,10 @@
 /obj/structure/wryn/floor/proc/fullUpdateWeedOverlays()
 	if(!length(floorImageCache))
 		floorImageCache = list(4)
-		floorImageCache["[NORTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_n", layer=2.11, pixel_z = -32)
-		floorImageCache["[SOUTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_s", layer=2.11, pixel_z = 32)
-		floorImageCache["[EAST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_e", layer=2.11, pixel_w = -32)
-		floorImageCache["[WEST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_w", layer=2.11, pixel_w = 32)
+		floorImageCache["[NORTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_n", layer=2.11, pixel_y = -32)
+		floorImageCache["[SOUTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_s", layer=2.11, pixel_y = 32)
+		floorImageCache["[EAST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_e", layer=2.11, pixel_x = -32)
+		floorImageCache["[WEST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_w", layer=2.11, pixel_x = 32)
 
 	for(var/obj/structure/wryn/floor/floor in range(1,src))
 		floor.update_icon(UPDATE_OVERLAYS)
@@ -152,7 +151,7 @@
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
 
-/obj/structure/wryn/floor/temperature_expose(exposed_temperature, exposed_volume)
+/obj/structure/wryn/floor/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)

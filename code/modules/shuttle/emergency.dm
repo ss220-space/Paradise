@@ -94,13 +94,10 @@
 	height = 11
 	dir = 4
 	roundstart_move = "emergency_away"
-	/// If the launch sound has been sent to all players on the shuttle itself
-	var/sound_played = FALSE
-	/// No bad condom, do not recall the crew transfer shuttle!
-	var/canRecall = TRUE
-	/// Forced change of arrival at the syndicate base
-	var/force_hijacked = FALSE
-	/// Is devil on shuttle?
+	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
+
+	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
+	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
 	var/devil_on_shuttle = FALSE
 
 /obj/docking_port/mobile/emergency/register()
@@ -254,7 +251,7 @@
 					"Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
-				sound_played = FALSE
+				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
@@ -262,7 +259,7 @@
 					"Шаттл заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.",
 					new_title = ANNOUNCE_PRIORITY_RU
 				)
-				sound_played = FALSE
+				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
 			if(time_left <= 100) // 9 seconds left - start requesting transit zones for emergency and pods
@@ -271,7 +268,7 @@
 				check_transit_zone()
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
-				sound_played = TRUE
+				sound_played = 1
 				var/hyperspace_sound = sound('sound/effects/hyperspace_begin.ogg')
 				for(var/area/shuttle/escape/E in GLOB.areas)
 					SEND_SOUND(E, hyperspace_sound)
@@ -306,7 +303,7 @@
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
 				var/destination_dock = "emergency_away"
-				if(is_hijacked())
+				if(is_hijacked() || forceHijacked)
 					destination_dock = "emergency_syndicate"
 					GLOB.major_announcement.announce(
 						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
@@ -314,7 +311,7 @@
 						new_sound = 'sound/misc/announce_syndi.ogg'
 					)
 
-				if(devil_on_shuttle || force_hijacked)
+				if(devil_on_shuttle)
 					GLOB.major_announcement.announce(
 						message = "Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
 						new_title = ANNOUNCE_PRIORITY_RU,

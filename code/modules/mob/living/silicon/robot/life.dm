@@ -94,13 +94,13 @@
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)
-			if(CELL_CHARGE_HIGH to CELL_CHARGE_UPPER_BORDER)
+			if(0.75 to INFINITY)
 				clear_alert("charge")
-			if(CELL_CHARGE_MEDIUM to CELL_CHARGE_HIGH)
+			if(0.5 to 0.75)
 				throw_alert("charge", /atom/movable/screen/alert/lowcell, 1)
-			if(CELL_CHARGE_LOW to CELL_CHARGE_MEDIUM)
+			if(0.25 to 0.5)
 				throw_alert("charge", /atom/movable/screen/alert/lowcell, 2)
-			if(CELL_CHARGE_LOWER_BORDER to CELL_CHARGE_LOW)
+			if(0.01 to 0.25)
 				throw_alert("charge", /atom/movable/screen/alert/lowcell, 3)
 			else
 				throw_alert("charge", /atom/movable/screen/alert/emptycell)
@@ -113,7 +113,7 @@
 		weaponlock_time --
 		if(weaponlock_time <= 0)
 			if(src.client)
-				to_chat(src, span_warning("<b>Weapon Lock Timed Out!"))
+				to_chat(src, "<span class='warning'><b>Weapon Lock Timed Out!</span>")
 			weapon_lock = 0
 			weaponlock_time = 120
 
@@ -134,7 +134,7 @@
 	if(on_fire)
 		add_overlay(robot_fire_olay)
 
-/mob/living/silicon/robot/fire_act(exposed_temperature, exposed_volume)
+/mob/living/silicon/robot/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
 		IgniteMob()
 

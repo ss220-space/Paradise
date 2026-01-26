@@ -52,9 +52,6 @@
 	if(istype(name, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/sheet = name
 		stylesheets["spritesheet_[sheet.name].css"] = "data/spritesheets/[sheet.name]"
-	else if(istype(name, /datum/asset/spritesheet_batched))
-		var/datum/asset/spritesheet_batched/sheet = name
-		stylesheets["spritesheet_[sheet.name].css"] = "data/spritesheets/[sheet.name]"
 	else
 		var/asset_name = "[name].css"
 
@@ -464,12 +461,12 @@
 // to pass a "close=1" parameter to the atom's Topic() proc for special handling.
 // Otherwise, the user mob's machine var will be reset directly.
 //
-/proc/onclose(mob/user, windowid, atom/source = null)
+/proc/onclose(mob/user, windowid, atom/ref=null)
 	if(!user.client)
 		return
 	var/param = "null"
-	if(source)
-		param = "[source.UID()]"
+	if(ref)
+		param = "[ref.UID()]"
 
 	winset(user, windowid, "on-close=\".windowclose [param]\"")
 

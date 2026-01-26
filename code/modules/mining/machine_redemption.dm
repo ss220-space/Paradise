@@ -430,14 +430,14 @@
 /obj/machinery/mineral/ore_redemption/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "OreRedemption", DECLENT_RU_CAP(src, NOMINATIVE))
+		ui = new(user, src, "OreRedemption", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
 /obj/machinery/mineral/ore_redemption/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet_batched/materials),
-		get_asset_datum(/datum/asset/spritesheet_batched/alloys)
+		get_asset_datum(/datum/asset/spritesheet/materials),
+		get_asset_datum(/datum/asset/spritesheet/alloys)
 	)
 
 /**

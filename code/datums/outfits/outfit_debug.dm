@@ -57,10 +57,6 @@
 
 /obj/item/encryptionkey/all
 	name = "AVD-CNED Encryption Key"
-	icon = 'icons/obj/radio.dmi'
-	icon_state = "rainbow"
-	greyscale_config = null
-	greyscale_colors = null
 	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PRS_FREQ_NAME = 1, PROC_FREQ_NAME = 1) // just in case
 	syndie = TRUE
 
@@ -172,9 +168,6 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 	ADD_TRAIT(user, TRAIT_XRAY, "debug_glasses[UID()]")
-
-/obj/item/debug
-	abstract_type = /obj/item/debug
 
 /obj/item/debug/human_spawner
 	name = "human spawner"

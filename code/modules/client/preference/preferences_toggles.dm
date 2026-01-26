@@ -1,6 +1,6 @@
 /client/verb/setup_character()
 	set name = "Игровые настройки"
-	set category = VERB_CATEGORY_SPECIALVERBS
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения — незамедлительно."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
@@ -301,7 +301,7 @@
 
 /client/verb/silence_current_midi()
 	set name = "Заглушить MIDI"
-	set category = VERB_CATEGORY_SPECIALVERBS
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Заглушает текущие MIDI-файлы, проигрываемые администрацией."
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "Текущие проигрываемые админ-MIDI были заглушены.")
@@ -520,15 +520,6 @@
 	enable_message = "Теперь вы будете видеть анимации атаки."
 	disable_message = "Теперь вы не будете видеть анимации атаки."
 
-/datum/preference_toggle/toggle_auto_aim_medicine
-	name = "Автонаведение медицины"
-	description = "Переключает автонаведение медицины."
-	preftoggle_bitflag = PREFTOGGLE_2_AUTO_AIM_MEDICINE
-	preftoggle_toggle = PREFTOGGLE_TOGGLE2
-	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
-	enable_message = "Теперь медицина будет применяться к максимально пострадавшей части тела."
-	disable_message = "Теперь медицина будет применена туда куда вы нацелены."
-
 /datum/preference_toggle/toggleprayers
 	name = "Молитвы"
 	description = "Включает видимость молитв в чате."
@@ -628,13 +619,13 @@
 	blackbox_message = "Toggle TGUI strip menu size"
 
 /datum/preference_toggle/toggle_item_description_tips
-	name = "Описания предметов при наведении"
-	description = "Включает отображение описаний предметов при наведении курсора."
-	preftoggle_bitflag = PREFTOGGLE_2_HIDE_ITEM_TOOLTIPS
+	name = "Описания при наведении"
+	description = "Включает отображение описаний при наведении курсора."
+	preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
 	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
-	enable_message = "Теперь вы будете видеть описание предметов при наведении курсора."
-	disable_message = "Теперь вы не будете видеть описание предметов при наведении курсора."
+	enable_message = "Теперь вы будете видеть описание при наведении курсора."
+	disable_message = "Теперь вы не будете видеть описание при наведении курсора."
 	blackbox_message = "Toggle item description tips on hover"
 
 /datum/preference_toggle/toggle_facing_to_mouse

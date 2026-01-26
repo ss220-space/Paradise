@@ -13,7 +13,6 @@
 	icon_state = "glowshroom"
 	base_icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
-	cares_about_temperature = TRUE
 	/// Boolean to indicate if the shroom is on the floor/wall
 	var/is_on_floor = FALSE
 	/// Mushroom generation number
@@ -129,7 +128,7 @@
 	for(var/turf/simulated/floor/earth in RANGE_TURFS(1, src))
 		if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 			continue
-		if(!ownturf.CanAtmosPass(get_dir(ownturf, earth)))
+		if(!ownturf.CanAtmosPass(earth, vertical = FALSE))
 			continue
 		possible_locs += earth
 
@@ -241,7 +240,7 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/glowshroom/temperature_expose(exposed_temperature, exposed_volume)
+/obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)

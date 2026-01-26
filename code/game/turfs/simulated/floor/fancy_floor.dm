@@ -47,13 +47,6 @@
 	nitrogen = 82
 	temperature = 180
 
-/turf/simulated/floor/wood/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
-
 /turf/simulated/floor/wood/dark
 	icon_state = "dark-wood"
 	floor_tile = /obj/item/stack/tile/wood/dark
@@ -85,14 +78,6 @@
 
 /turf/simulated/floor/wood/fancy/oak/broken_states()
 	return list("fancy-wood-oak-broken", "fancy-wood-oak-broken2", "fancy-wood-oak-broken3", "fancy-wood-oak-broken4", "fancy-wood-oak-broken5", "fancy-wood-oak-broken6", "fancy-wood-oak-broken7")
-
-/turf/simulated/floor/wood/fancy/oak/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
-
 
 /turf/simulated/floor/wood/fancy/birch
 	icon_state = "fancy-wood-birch"
@@ -162,14 +147,6 @@
 		new /obj/item/stack/ore/glass(src, 2) //Make some sand if you shovel grass
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
-/turf/simulated/floor/grass/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
-
-
 // CARPETS
 /turf/simulated/floor/carpet
 	name = "carpet"
@@ -188,13 +165,6 @@
 	oxygen = 0
 	nitrogen = 0
 	temperature = TCMB
-
-/turf/simulated/floor/carpet/lavaland_air
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
 
 /turf/simulated/floor/carpet/Initialize(mapload)
 	. = ..()

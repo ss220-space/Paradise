@@ -31,7 +31,7 @@
 	. = ..()
 	if(.)
 		return .
-	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_ghost)
+	user.admin_ghost()
 	return TRUE
 
 /datum/keybinding/admin/player_panel
@@ -43,7 +43,7 @@
 	. = ..()
 	if(.)
 		return .
-	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/player_panel_veth)
+	user.holder.player_panel_veth()
 	return TRUE
 
 /datum/keybinding/admin/apm
@@ -54,7 +54,7 @@
 	. = ..()
 	if(.)
 		return .
-	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/cmd_admin_pm_panel)
+	user.cmd_admin_pm_panel()
 	return TRUE
 
 /datum/keybinding/admin/invisimin
@@ -65,5 +65,5 @@
 	. = ..()
 	if(.)
 		return .
-	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/invisimin)
+	user.invisimin()
 	return TRUE

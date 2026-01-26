@@ -137,7 +137,7 @@
 		return emote(copytext(message, 2), intentional = TRUE)
 
 	for(var/mob/M in GLOB.mob_list)
-		var/rendered = span_revennotice("[(isobserver(M) ? ("([ghost_follow_link(src, ghost = M)])") : "")] <b>[src]</b> говорит: \"[message]\"")
+		var/rendered = span_revennotice("<b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] говорит: \"[message]\"")
 		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
 
@@ -178,14 +178,10 @@
 		giveSpells()
 	else
 		var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Ревенанта?", poll_time = 15 SECONDS, source = /mob/living/simple_animal/revenant)
-
-		if(QDELETED(src))
-			return
-
 		var/mob/dead/observer/theghost = null
 		if(length(candidates))
 			theghost = pick(candidates)
-			possess_by_player(theghost.key)
+			key = theghost.key
 			message_admins("[key_name_admin(src)] has taken control of a revenant created without a mind")
 			giveObjectivesandGoals()
 			giveSpells()
@@ -441,7 +437,7 @@
 	..()
 	if(inert)
 		return
-	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] рассыпается на частицы при ударе, которые исчезают в никуда."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] рассыпается на частицы при ударе, которые исчезают в никуда."))
 	qdel(src)
 
 /obj/item/ectoplasm/revenant/examine(mob/user)
@@ -457,7 +453,7 @@
 
 	if(!reforming)
 		inert = TRUE
-		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] оседает и кажется безжизненным."))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] оседает и кажется безжизненным."))
 		return
 
 	var/key_of_revenant
@@ -474,6 +470,7 @@
 	if(!key_of_revenant)
 		message_admins("The new revenant's old client either could not be found or is in a new, living mob - grabbing a random candidate instead...")
 		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a revenant?", ROLE_REVENANT, TRUE, source = /mob/living/simple_animal/revenant)
+
 		if(length(candidates))
 			var/mob/new_owner = pick(candidates)
 			key_of_revenant = new_owner.key
@@ -481,7 +478,7 @@
 	if(!key_of_revenant)
 		qdel(new_revenant)
 		inert = TRUE
-		visible_message(span_revenwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] оседает и кажется безжизненной."))
+		visible_message(span_revenwarning("[capitalize(src.declent_ru(NOMINATIVE))] оседает и кажется безжизненной."))
 		message_admins("No candidates were found for the new revenant. Oh well!")
 		return
 
@@ -499,7 +496,7 @@
 	new_revenant.mind = player_mind
 	new_revenant.possess_by_player(player_mind.key)
 
-	visible_message(span_revenboldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] внезапно поднимается в воздух, а затем исчезает."))
+	visible_message(span_revenboldnotice("[capitalize(src.declent_ru(NOMINATIVE))] внезапно поднимается в воздух, а затем исчезает."))
 	message_admins("[key_name_admin(new_revenant)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 	add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", new_revenant)
 

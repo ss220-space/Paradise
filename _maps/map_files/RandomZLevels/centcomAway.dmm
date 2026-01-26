@@ -2704,6 +2704,13 @@
 /obj/machinery/door/airlock/titanium,
 /turf/simulated/floor/shuttle,
 /area/awaymission/centcomAway/hangar)
+"hE" = (
+/obj/item/radio/intercom/directional/north,
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle,
+/area/awaymission/centcomAway/hangar)
 "hF" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced{
@@ -5747,6 +5754,15 @@
 	icon_state = "white"
 	},
 /area/awaymission/centcomAway/thunderdome)
+"ph" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/red,
+/obj/item/clothing/shoes/brown,
+/obj/item/hatchet,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/centcomAway/thunderdome)
 "pi" = (
 /obj/machinery/light{
 	dir = 1;
@@ -5775,6 +5791,15 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/hangar)
+"pl" = (
+/obj/structure/rack,
+/obj/item/clothing/under/color/green,
+/obj/item/clothing/shoes/brown,
+/obj/item/hatchet,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/awaymission/centcomAway/thunderdome)
 "pm" = (
 /obj/machinery/light{
 	dir = 8
@@ -6211,22 +6236,6 @@
 	icon_state = "dark"
 	},
 /area/awaymission/centcomAway/thunderdome)
-"sj" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/red,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/hatchet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/centcomAway/thunderdome)
-"Gx" = (
-/obj/item/radio/intercom/directional/north,
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle,
-/area/awaymission/centcomAway/hangar)
 "JB" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/tcomms/relay/ruskie{
@@ -6234,15 +6243,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/centcomAway/general)
-"UK" = (
-/obj/structure/rack,
-/obj/item/clothing/under/color/green,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/hatchet,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/awaymission/centcomAway/thunderdome)
 
 (1,1,1) = {"
 aa
@@ -10725,7 +10725,7 @@ gX
 gX
 gX
 bP
-Gx
+hE
 bP
 gX
 aW
@@ -11504,7 +11504,7 @@ jz
 gX
 gX
 bP
-Gx
+hE
 bP
 gX
 gX
@@ -13369,10 +13369,10 @@ lD
 lD
 lD
 lD
-sj
-sj
-sj
-sj
+ph
+ph
+ph
+ph
 pD
 pF
 om
@@ -17009,10 +17009,10 @@ om
 om
 om
 lD
-UK
-UK
-UK
-UK
+pl
+pl
+pl
+pl
 pE
 pF
 om

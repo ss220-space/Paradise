@@ -8,7 +8,7 @@
 	active_power_usage = 100
 	pass_flags = PASSTABLE
 	resistance_flags = ACID_PROOF
-	var/operating = FALSE
+	var/operating = 0
 	var/obj/item/reagent_containers/beaker = new /obj/item/reagent_containers/glass/beaker/large
 	var/limit = null
 	var/efficiency = null
@@ -415,13 +415,14 @@
 				return
 		if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 				return
-		playsound(loc, 'sound/machines/juicer.ogg', 20, TRUE)
-		Shake(pixelshiftx = 1, pixelshifty = 0, duration = 4.2 SECONDS)
-		operating = TRUE
+		playsound(src.loc, 'sound/machines/juicer.ogg', 20, TRUE)
+		var/offset = prob(50) ? -2 : 2
+		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
+		operating = 1
 		updateUsrDialog()
 		spawn(50)
 				pixel_x = initial(pixel_x) //return to its spot after shaking
-				operating = FALSE
+				operating = 0
 				updateUsrDialog()
 
 		//Snacks
@@ -452,13 +453,14 @@
 				return
 		if(!beaker || (beaker && beaker.reagents.total_volume >= beaker.reagents.maximum_volume))
 				return
-		playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
-		Shake(pixelshiftx = 1, pixelshifty = 0, duration = 4.2 SECONDS)
-		operating = TRUE
+		playsound(src.loc, 'sound/machines/blender.ogg', 50, TRUE)
+		var/offset = prob(50) ? -2 : 2
+		animate(src, pixel_x = pixel_x + offset, time = 0.2, loop = 250) //start shaking
+		operating = 1
 		updateUsrDialog()
 		spawn(60)
 				pixel_x = initial(pixel_x) //return to its spot after shaking
-				operating = FALSE
+				operating = 0
 				updateUsrDialog()
 
 		//Snacks and Plants

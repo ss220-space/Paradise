@@ -307,7 +307,7 @@
 /obj/singularity/proc/consume(atom/A)
 	var/gain = A.singularity_act(current_size)
 	src.energy += gain
-	if(istype(A, /obj/machinery/atmospherics/supermatter_crystal) && !consumedSupermatter)
+	if(istype(A, /obj/machinery/power/supermatter_shard) && !consumedSupermatter)
 		desc = "[initial(desc)] It glows fiercely with inner fire."
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
@@ -415,55 +415,59 @@
 	return 1
 
 /obj/singularity/proc/event()
-	var/numb = rand(1, 4)
+	var/numb = pick(1,2,3,4,5,6)
 	switch(numb)
-		if(1) // EMP
+		if(1)//EMP
 			emp_area()
-		if(2) // Stun mobs who lack optic scanners
+		if(2,3)//tox damage all carbon mobs in area
+			toxmob()
+		if(4)//Stun mobs who lack optic scanners
 			mezzer()
-		if(3, 4) // Sets all nearby mobs on fire
+		if(5,6) //Sets all nearby mobs on fire
 			if(current_size < STAGE_SIX)
-				return FALSE
+				return 0
 			combust_mobs()
 		else
-			return FALSE
-	return TRUE
+			return 0
+	return 1
+
+/obj/singularity/proc/toxmob()
+	var/toxrange = 10
+	var/radiation = 15
+	var/radiationmin = 3
+	if(energy>200)
+		radiation += round((energy-150)/10,1)
+		radiationmin = round((radiation/5),1)
+	for(var/mob/living/M in view(toxrange, src.loc))
+		M.apply_effect(rand(radiationmin,radiation), IRRADIATE)
 
 /obj/singularity/proc/combust_mobs()
-	for(var/mob/living/carbon/burned_mob in urange(20, src, 1))
-		burned_mob.visible_message(
-			span_warning("[burned_mob]'s skin bursts into flame!"),
+	for(var/mob/living/carbon/C in urange(20, src, 1))
+		C.visible_message(
+			span_warning("[C]'s skin bursts into flame!"), \
 			span_userdanger("You feel an inner fire as your skin bursts into flames!")
 		)
-		burned_mob.adjust_fire_stacks(5)
-		burned_mob.IgniteMob()
+		C.adjust_fire_stacks(5)
+		C.IgniteMob()
 	return
 
 /obj/singularity/proc/mezzer()
-	for(var/mob/living/carbon/stunned_mob in oviewers(8, src))
-		if(isbrain(stunned_mob) || stunned_mob.stat == DEAD || stunned_mob.is_blind())
+	for(var/mob/living/carbon/M in oviewers(8, src))
+		if(isbrain(M)) //Ignore brains
 			continue
-
-		if(!ishuman(stunned_mob))
-			apply_stun(stunned_mob)
+		if(!M.stat) // We can't stare on the lord if we are not so alive.
 			continue
-
-		var/mob/living/carbon/human/stunned_human = stunned_mob
-		if(HAS_TRAIT(stunned_human, TRAIT_MESON_VISION))
-			to_chat(stunned_human, span_notice("Вы смотрите прямо в [declent_ru(ACCUSATIVE)], хорошо, что на вас защитные очки!"))
+		if((M.sight >= SEE_TURFS) && !(M.sight >= (SEE_TURFS|SEE_OBJS))) // If they can see it without mesons on or can see objects through mesons. Bad on them.
+			to_chat(M, span_notice("You look directly into the [src.name], good thing you had your protective eyewear on!"))
 			continue
-
-		apply_stun(stunned_mob)
-
-/obj/singularity/proc/apply_stun(mob/living/carbon/stunned_mob)
-		stunned_mob.apply_effect(60, STUN)
-		stunned_mob.visible_message(
-			span_danger("[stunned_mob] stares blankly at [src]!"),
-			span_userdanger("You look directly into [src] and feel weak.")
-		)
+		M.Stun(6 SECONDS)
+		M.visible_message(span_danger("[M] stares blankly at [src]!"), \
+						span_userdanger("You look directly into [src] and feel weak."))
+	return
 
 /obj/singularity/proc/emp_area()
 	empulse(src, 8, 10)
+	return
 
 /obj/singularity/proc/pulse()
 	for(var/obj/machinery/power/rad_collector/R in GLOB.rad_collectors)

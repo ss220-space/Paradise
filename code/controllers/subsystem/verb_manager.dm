@@ -164,7 +164,13 @@ SUBSYSTEM_DEF(verb_manager)
 /datum/controller/subsystem/verb_manager/Recover()
 	verb_queue = SSverb_manager.verb_queue
 
-ADMIN_VERB(force_verb_bypass, R_DEBUG, "Enable Forced Verb Execution", "Enable Forced Verb Execution.", ADMIN_CATEGORY_DEBUG)
-	if(tgui_alert(user, "This will make all verbs bypass the queueing system, creating more lag. Are you absolutely sure?", "Verb Manager", list("Yes", "No")) == "Yes")
+/client/proc/force_verb_bypass()
+	set category = STATPANEL_DEBUG
+	set name = "Enable Forced Verb Execution"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	if(alert(src,"This will make all verbs bypass the queueing system, creating more lag. Are you absolutely sure?","Verb Manager","Yes","No") == "Yes")
 		SSverb_manager.FOR_ADMINS_IF_VERBS_FUCKED_immediately_execute_all_verbs = TRUE
-		message_admins("Admin [key_name_admin(user)] has forced verbs to bypass the verb queue subsystem.")
+		message_admins("Admin [key_name_admin(usr)] has forced verbs to bypass the verb queue subsystem.")

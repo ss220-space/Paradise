@@ -93,16 +93,20 @@
 /obj/projectile/bullet/saw/incen
 	damage = 7
 	armour_penetration = 0
-	immolate = 3
 
 /obj/projectile/bullet/saw/incen/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	var/turf/location = get_turf(src)
 	if(location)
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(location)
-		hotspot.temperature = 1000
-		hotspot.recolor()
-		location.hotspot_expose(700, 50)
+		new /obj/effect/hotspot(location)
+		location.hotspot_expose(700, 50, 1)
+
+/obj/projectile/bullet/saw/incen/on_hit(atom/target, blocked = 0)
+	. = ..()
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		M.adjust_fire_stacks(3)
+		M.IgniteMob()
 
 //magazines//
 

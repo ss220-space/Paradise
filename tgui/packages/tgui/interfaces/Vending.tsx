@@ -21,20 +21,13 @@ type ProductRecord = {
   max_amount: number;
   ref: string;
   category: string;
-  colorable: boolean;
   icon: string;
   icon_state: string;
 };
 
-type StockItem = {
-  name: string;
-  amount: number;
-  colorable: boolean;
-};
-
 type VendingRowProps = {
   product: ProductRecord;
-  productStock: StockItem;
+  productStock: number;
   inventory: ProductRecord[];
   stockSearch: string;
   setStockSearch: (search: string) => void;
@@ -63,7 +56,7 @@ const VendingRow = (props: VendingRowProps) => {
   let buttonDisabled =
     !vend_ready ||
     (!coin_name && product.req_coin) ||
-    productStock.amount === 0 ||
+    productStock === 0 ||
     (!free && product.price > userMoney);
 
   if (product.req_coin) {
@@ -95,12 +88,12 @@ const VendingRow = (props: VendingRowProps) => {
       <Table.Cell collapsing textAlign="center">
         <Box
           color={
-            (productStock.amount <= 0 && 'bad') ||
-            (productStock.amount <= product.max_amount / 2 && 'average') ||
+            (productStock <= 0 && 'bad') ||
+            (productStock <= product.max_amount / 2 && 'average') ||
             'good'
           }
         >
-          {productStock.amount} в наличии
+          {productStock} в наличии
         </Box>
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
@@ -118,18 +111,6 @@ const VendingRow = (props: VendingRowProps) => {
           {buttonText}
         </Button>
       </Table.Cell>
-      <Table.Cell>
-        {productStock.colorable ? (
-          <Button
-            fluid
-            icon="palette"
-            disabled={buttonDisabled}
-            onClick={() => act('select_colors', { ref: product.ref })}
-          />
-        ) : (
-          ''
-        )}
-      </Table.Cell>
     </Table.Row>
   );
 };
@@ -145,7 +126,7 @@ type VendingData = {
   coin_records?: ProductRecord[];
   hidden_records?: ProductRecord[];
   extended_inventory: boolean;
-  stock: Record<string, StockItem>;
+  stock: Record<string, number>;
   categories: Record<string, Category>;
   inserted_item_name: string;
   panel_open: boolean;

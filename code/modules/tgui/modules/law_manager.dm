@@ -165,7 +165,7 @@
 
 /datum/ui_module/law_manager/ui_state(mob/user)
 	if(check_rights(R_ADMIN, FALSE))
-		return ADMIN_STATE(R_ADMIN)
+		return GLOB.admin_state
 	if(issilicon(user))
 		return GLOB.conscious_state
 	return GLOB.default_state

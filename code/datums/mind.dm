@@ -180,10 +180,6 @@
 	for(var/datum/antagonist/antag in antag_datums)	// Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 
-	if(iscarbon(new_character))
-		var/mob/living/carbon/carbon = new_character
-		carbon.last_mind = src
-
 	if(active)
 		new_character.possess_by_player(key)		// now transfer the key to link the client to our new body
 
@@ -2348,12 +2344,15 @@
 	else if(href_list["silicon"])
 		switch(href_list["silicon"])
 			if("borgpanel")
-				var/mob/living/silicon/robot/robot = current
-				if(!istype(robot))
-					return
-				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/borg_panel, current)
+				var/mob/living/silicon/robot/R = current
+				var/datum/borgpanel/B = new(usr, R)
+				B.ui_interact(usr)
+				log_and_message_admins("has opened [R]'s Borg Panel.")
 			if("lawmanager")
-				SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/open_law_manager)
+				var/mob/living/silicon/S = current
+				var/datum/ui_module/law_manager/L = new(S)
+				L.ui_interact(usr)
+				log_and_message_admins("has opened [S]'s law manager.")
 			if("unemag")
 				var/mob/living/silicon/robot/R = current
 				if(!istype(R))
@@ -2903,7 +2902,6 @@
 		instance_or_path = instance_or_path.type
 	for(var/obj/effect/proc_holder/spell/spell as anything in spell_list)
 		if(spell.type == instance_or_path)
-			spell.on_spell_removed(current)
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 
@@ -3031,7 +3029,6 @@
 //HUMAN
 /mob/living/carbon/human/mind_initialize()
 	..()
-	last_mind = mind
 	if(!mind.assigned_role)
 		mind.assigned_role = JOB_TITLE_CIVILIAN	//defualt
 

@@ -27,8 +27,6 @@
 	auto_close_time = 5 SECONDS
 	assemblytype = /obj/structure/firelock_frame
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 20, BOMB = 10, BIO = 100, RAD = 100, FIRE = 95, ACID = 70)
-	superconductivity = ZERO_HEAT_TRANSFER_COEFFICIENT
-	cares_about_temperature = TRUE
 	/// How long does opening by hand take, in deciseconds.
 	var/manual_open_time = 5 SECONDS
 	var/can_crush = TRUE
@@ -37,7 +35,6 @@
 	var/boltslocked = TRUE
 	var/active_alarm = FALSE
 	var/list/affecting_areas
-	var/heat_resistance = 15000
 
 /obj/machinery/door/firedoor/Initialize(mapload)
 	. = ..()
@@ -347,15 +344,10 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
-/obj/machinery/door/firedoor/border_only/CanAtmosPass(direction)
-	if(direction == dir)
+/obj/machinery/door/firedoor/border_only/CanAtmosPass(turf/T, vertical)
+	if(get_dir(loc, T) == dir)
 		return !density
 	return TRUE
-
-/obj/machinery/door/firedoor/border_only/get_superconductivity(direction)
-	if(direction == dir && density)
-		return FALSE
-	return ..()
 
 /obj/machinery/door/firedoor/rcd_deconstruct_act(mob/user, obj/item/rcd/our_rcd)
 	. = ..()
@@ -375,11 +367,6 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, TRUE)
 	return RCD_ACT_FAILED
 
-/obj/machinery/door/firedoor/temperature_expose(exposed_temperature, exposed_volume)
-	..()
-	if(exposed_temperature > (T0C + heat_resistance))
-		take_damage(round(exposed_volume / 100), BURN, 0, 0)
-
 /obj/machinery/door/firedoor/heavy
 	name = "heavy firelock"
 	icon = 'icons/obj/doors/doorfire.dmi'
@@ -388,7 +375,6 @@
 	explosion_block = 2
 	assemblytype = /obj/structure/firelock_frame/heavy
 	max_integrity = 550
-	heat_resistance = 20000
 
 /obj/item/firelock_electronics
 	name = "firelock electronics"
@@ -406,10 +392,8 @@
 	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "frame1"
 	density = TRUE
-	cares_about_temperature = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
-	var/heat_resistance = 1000
 
 /obj/structure/firelock_frame/examine(mob/user)
 	. = ..()
@@ -633,11 +617,6 @@
 	if(reinforced)
 		new /obj/item/stack/sheet/plasteel(drop_location(), 2)
 	qdel(src)
-
-/obj/structure/firelock_frame/temperature_expose(exposed_temperature, exposed_volume)
-	..()
-	if(exposed_temperature > (T0C + heat_resistance))
-		take_damage(round(exposed_volume / 100), BURN, 0, 0)
 
 /obj/structure/firelock_frame/heavy
 	name = "heavy firelock frame"

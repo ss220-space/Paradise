@@ -7,7 +7,7 @@
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
 			Результаты ЭКГ, снятого данным аппаратом, не признаются ни одной клиникой."
 	gender = MALE
-	icon = 'icons/obj/tools.dmi'
+	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
@@ -17,7 +17,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
-	usesound = 'sound/items/multitool.ogg'
 	drop_sound = 'sound/items/handling/drop/multitool_drop.ogg'
 	pickup_sound = 'sound/items/handling/pickup/multitool_pickup.ogg'
 	materials = list(MAT_METAL=50, MAT_GLASS=20)
@@ -86,10 +85,9 @@
 	name = "broken multimeter"
 	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
 			Похоже, что он полностью сгорел."
-	icon = 'icons/obj/tools.dmi'
+	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool_broken"
-	item_state = "multitool"
-	belt_icon = "multitool"
+	belt_icon = "multitool_broken"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
 	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
@@ -168,7 +166,7 @@
 /obj/item/multitool/ai_detect/admin/multitool_detect()
 	var/turf/our_turf = get_turf(src)
 	for(var/mob/J in urange(rangewarning, our_turf))
-		if(check_rights(R_ADMIN, FALSE, J))
+		if(check_rights(R_ADMIN, 0, J))
 			detect_state = PROXIMITY_NEAR
 			var/turf/detect_turf = get_turf(J)
 			if(get_dist(our_turf, detect_turf) < rangealert)
@@ -186,7 +184,6 @@
 			Похоже, что он предназначен для измерения показателей электрических объектов."
 	icon = 'icons/obj/abductor.dmi'
 	toolspeed = 0.1
-	usesound = 'sound/items/multitool2.ogg'
 	origin_tech = "magnets=5;engineering=5;abductor=3"
 	shows_wire_information = TRUE
 	emp_shielded = TRUE
@@ -238,24 +235,6 @@
 		PREPOSITIONAL = "старом мультиметре",
 	)
 
-/obj/item/multitool/industrial
-	name = "industrial multitool"
-	desc = "Электрический прибор для измерения параметров тока и прозвонки электрических цепей. \
-			Оснащён более производительным процессором, по сравнению со стандартными моделями, что значительно увеличивает скорость работы."
-	icon_state = "multitool_industrial"
-	usesound = 'sound/items/multitool2.ogg'
-	toolspeed = 0.6
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-
-/obj/item/multitool/industrial/get_ru_names()
-	return list(
-		NOMINATIVE = "продвинутый мультиметр",
-		GENITIVE = "продвинутого мультиметра",
-		DATIVE = "продвинутому мультиметру",
-		ACCUSATIVE = "продвинутый мультиметр",
-		INSTRUMENTAL = "продвинутым мультиметром",
-		PREPOSITIONAL = "продвинутом мультиметре",
-	)
 #undef PROXIMITY_NONE
 #undef PROXIMITY_ON_SCREEN
 #undef PROXIMITY_NEAR

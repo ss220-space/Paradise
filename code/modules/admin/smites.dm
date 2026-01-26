@@ -1,93 +1,63 @@
-#define SMITE_CATEGORY_GENERAL "Общие"
-#define SMITE_CATEGORY_DAMAGE "Урон"
-#define SMITE_CATEGORY_DEATH "Смерть"
-#define SMITE_CATEGORY_TRANSFORMATION "Преобразование"
-#define SMITE_CATEGORY_CONTROL "Контроль"
-
-#define DEFAULT_SMITE_REASON "Негодяй!"
-
 /datum/smite
 	var/name = SMITE_DEFAULT
 	var/desc = "Если вы это увидели, пишите баг-репорт."
 	var/logmsg
-	var/category = SMITE_CATEGORY_GENERAL
 
-/datum/smite/proc/activate(mob/living/target, reason = DEFAULT_SMITE_REASON)
+/datum/smite/proc/activate(mob/living/target, reason = "грехи")
 	apply_effect(target, reason)
 	if(!logmsg)
 		return
 
-	log_and_message_admins("smited [key_name_log(target)] with: [logmsg][reason != DEFAULT_SMITE_REASON ? "reason - \"[reason]\"" : ""]")
+	log_and_message_admins("smited [key_name_log(target)] with: [logmsg][reason != "грехи" ? "reason - \"[reason]\"" : ""]")
 
 /datum/smite/proc/apply_effect(mob/living/target, reason)
 	return
 
-// MARK: Burn (off)
+/// MARK: Burn (off)
 /datum/smite/burn
 	name = SMITE_BURN
 	desc = "Грешник сгорит!"
 	logmsg = "a firey death."
-	category = SMITE_CATEGORY_DAMAGE
 
 /datum/smite/burn/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вас охватывает пламя! Боги наказали вас за [reason]!"))
 	flame_radius(1, get_turf(target))
 	target.adjustFireLoss(150)
 
-// MARK: Lighting
+/// MARK: Lighting
 /datum/smite/lighting
 	name = SMITE_LIGHTING
 	desc = "Грешник получит удар молнией!"
 	logmsg = "a lightning bolt."
-	category = SMITE_CATEGORY_DAMAGE
 
 /datum/smite/lighting/apply_effect(mob/living/target, reason)
-	if(!target)
-		return
+	var/datum/drop_lightning_bolt_ui/preloaded_target/editor = new(target, reason)
+	editor.ui_interact(target)
 
-	var/turf/target_turf = get_turf(target)
-	if(!target_turf)
-		return
-
-	// This is okay, I think? - littleboobs
-	admin_drop_lightning_bolt(
-		target_turf = target_turf,
-		damage = 100,
-		radius = 1,
-		delay = 0,
-		reason = reason,
-		specific_victim = target,
-		admin_user = usr,
-		warn_players = TRUE
-	)
-
-// MARK: Gib
+/// MARK: Gib
 /datum/smite/gib
 	name = SMITE_GIB
 	desc = "Разорвите грешника на кучу маленьких частей!"
 	logmsg = "gibbed."
-	category = SMITE_CATEGORY_DEATH
 
 /datum/smite/gib/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Невероятная сила разрывает вас изнутри! Боги наказали вас за [reason]!"))
 	target.gib(FALSE)
 
-// MARK: Dust
+/// MARK: Dust
 /datum/smite/dust
 	name = SMITE_DUST
 	desc = "Испепелите грешника!"
 	logmsg = "dusted."
-	category = SMITE_CATEGORY_DEATH
 
 /datum/smite/dust/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете... нет, вы ничего не чувствуете! Боги наказали вас за [reason]!"))
 	target.dust()
 
-// MARK: Brainloss
+/// MARK: Brainloss
 /datum/smite/brainloss
 	name = SMITE_BRAINLOSS
 	desc = "Повредите мозг грешника!"
-	category = SMITE_CATEGORY_DAMAGE
 
 /datum/smite/brainloss/apply_effect(mob/living/target, reason)
 	var/damage = tgui_input_number(
@@ -112,12 +82,11 @@
 	to_chat(target, span_userdanger("Вы чувствуете как ваши мозги плавятся! Боги наказали вас за [reason]!"))
 	logmsg = "[damage] brain damage."
 
-// MARK: Honk tumor
+/// MARK: Honk tumor
 /datum/smite/honktumor
 	name = SMITE_HONKTUMOR
 	desc = "Подсадите в мозг грешника банановую опухоль!"
 	logmsg = "a honk tumor."
-	category = SMITE_CATEGORY_TRANSFORMATION
 
 /datum/smite/honktumor/apply_effect(mob/living/target, reason)
 	if(target.get_int_organ(/obj/item/organ/internal/honktumor))
@@ -128,12 +97,11 @@
 	to_chat(target, span_userdanger("Вы чувствуете как в вашем мозгу развивается нечто инородное. \
 									Нечто со вкусом банана. Боги наказали вас за [reason]!"))
 
-// MARK: Hallucinate (off)
+/// MARK: Hallucinate (off)
 /datum/smite/hallucinate
 	name = SMITE_HALLUCIONATE
 	desc = "Нашлите на грешника галлюцинации!"
 	logmsg = "hallucinations."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/hallucinate/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете как в вашем мозгу развивается нечто инородное. Нечто со вкусом банана. Боги наказали вас за [reason]!"))
@@ -141,24 +109,22 @@
 	target.Hallucinate(time SECONDS)
 	target.last_hallucinator_log = "Hallucination smite"
 
-// MARK: Cold (off)
+/// MARK: Cold (off)
 /datum/smite/cold
 	name = SMITE_COLD
 	desc = "Заморозьте грешника!"
 	logmsg = "cold."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/cold/apply_effect(mob/living/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете как холод пронизывает ваше тело! Боги наказали вас за [reason]!"))
 	target.reagents.add_reagent("frostoil", 40)
 	target.reagents.add_reagent("ice", 40)
 
-// MARK: Hunger
+/// MARK: Hunger
 /datum/smite/hunger
 	name = SMITE_HUNGER
 	desc = "Вызовите сильный голод у грешника, или сделайте его толстым. Выбор за вами."
 	logmsg = "starvation."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/hunger/apply_effect(mob/living/target, reason)
 	var/nutrition = tgui_input_number(usr, "Выберите значение насыщения, которое будет установленно у цели. ([NUTRITION_LEVEL_FULL] — сыт)", "Выбор насыщения", 0)
@@ -166,23 +132,21 @@
 	target.set_nutrition(nutrition)
 	to_chat(target, span_userdanger("Вы чувствуете [nutrition < old_nutrition ? "голод" : "что съели слишком много"]. Боги наказали вас за [reason]!"))
 
-// MARK: Cluwne
+/// MARK: Cluwne
 /datum/smite/cluwne
 	name = SMITE_CLUWNE
 	desc = "Извратите сущность грешника, сделав его Клуней."
 	logmsg = "cluwned."
-	category = SMITE_CATEGORY_TRANSFORMATION
 
 /datum/smite/cluwne/apply_effect(mob/living/carbon/human/target, reason)
 	to_chat(target, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
 	target.makeCluwne()
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 
-// MARK: Cookie (off)
+/// MARK: Cookie (off)
 /datum/smite/cookie
 	name = SMITE_COOKIE
 	desc = "Выдайте жертве печенье с выбранным веществом, которое она не сможет выбросить."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/cookie/apply_effect(mob/living/carbon/human/target, reason)
 	target.makeCluwne()
@@ -202,23 +166,21 @@
 	to_chat(target, span_userdanger("В ваших руках появляется печенье. По воле божьей, вы должны его съесть. Это наказание за [reason]!"))
 	logmsg = "an antidrop cookie with [reagent] units of [id]."
 
-// MARK: Hunter
+/// MARK: Hunter
 /datum/smite/hunter
 	name = SMITE_HUNTER
 	desc = "Отправьте за грешником охотника."
 	logmsg = "hunter."
-	category = SMITE_CATEGORY_DEATH
 
 /datum/smite/hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
 	ADD_TRAIT(target, TRAIT_NO_CLONE, ADMIN_TRAIT)
 	usr.client.create_eventmob_for(target, 1)
 
-// MARK: Hunter-traitor
+/// MARK: Hunter-traitor
 /datum/smite/traitor_hunter
 	name = SMITE_TRAITORHUNTER
 	desc = "Отправьте за грешником агента \"Синдиката\", созданного среди экипажа."
 	logmsg = "crew traitor."
-	category = SMITE_CATEGORY_DEATH
 
 /datum/smite/traitor_hunter/apply_effect(mob/living/carbon/human/target, reason) // silent
 	var/list/possible_traitors = list()
@@ -250,11 +212,10 @@
 	to_chat(newtraitormind.current, span_boldwarning("Цель: УБЕЙТЕ [target.real_name]. Сейчас находится в [get_area(target.loc)].</b>"))
 	newtraitormind.add_antag_datum(turf)
 
-// MARK: Transform
+/// MARK: Transform
 /datum/smite/transform
 	name = SMITE_TRANSFORM
 	desc = "Превратите грешника в выбранное существо."
-	category = SMITE_CATEGORY_TRANSFORMATION
 
 /datum/smite/transform/apply_effect(mob/living/target, reason)
 	var/turf/turf = get_turf(target)
@@ -268,11 +229,10 @@
 	to_chat(mob, span_userdanger("Вы чувствуете как ваша сущность координально меняется. Боги наказали вас за [reason]!"))
 	logmsg = "transformed into [mob]."
 
-// MARK: Honk tumor
+/// MARK: Honk tumor
 /datum/smite/antidrop_equip
 	name = SMITE_ANTIDROP_EQUIP
 	desc = "Наденьте на грешника проклятый предмет одежды!"
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/antidrop_equip/apply_effect(mob/living/carbon/human/target, reason)
 	var/type = tgui_input_list(usr, "Выберите какую одежду надеть на цель.", "Выбор одежды", GLOB.typecache_clothing)
@@ -284,15 +244,14 @@
 
 	ADD_TRAIT(clothing, TRAIT_NODROP, ADMIN_TRAIT)
 	target.equip_to_slot_or_del(clothing, slot)
-	to_chat(target, span_userdanger("[DECLENT_RU_CAP(clothing, NOMINATIVE)] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[capitalize(clothing.declent_ru(NOMINATIVE))] возника[PLUR_ET_YUT(clothing)] из пустоты прилипа[PLUR_ET_YUT(clothing)] к вам. Боги наказали вас за [reason]!"))
 	logmsg = "antidrop [clothing]."
 
-// MARK: Nugget
+/// MARK: Nugget
 /datum/smite/nugget
 	name = SMITE_NUGGET
 	desc = "Оторвите руки и ноги грешника."
 	logmsg = "nugget"
-	category = SMITE_CATEGORY_TRANSFORMATION
 
 /datum/smite/nugget/apply_effect(mob/living/target, reason)
 	target.Weaken(12 SECONDS, TRUE)
@@ -300,12 +259,11 @@
 	to_chat(target, span_userdanger("Вы чувствуете резкую боль в руках и ногах! Что-то отрывает их от вашего тела! Боги наказали вас за [reason]!"))
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon/human, make_nugget)), 6 SECONDS)
 
-// MARK: Rod
+/// MARK: Rod
 /datum/smite/rod
 	name = SMITE_ROD
 	desc = "Отправьте несдвигаемый стержень убить грешника."
 	logmsg = "a rod"
-	category = SMITE_CATEGORY_DEATH
 
 /datum/smite/rod/apply_effect(mob/living/target, reason)
 	var/starting_turf_x = target.x + rand(10, 15) * pick(1, -1)
@@ -315,11 +273,10 @@
 	rod.reason = reason
 	rod.go_for_a_walk(target)
 
-// MARK: Summon
+/// MARK: Summon
 /datum/smite/summon
 	name = SMITE_SUMMON
 	desc = "Призовите злобное существо около грешника!"
-	category = SMITE_CATEGORY_DEATH
 
 /datum/smite/summon/apply_effect(mob/living/target, reason)
 	var/turf/turf = get_turf(target)
@@ -330,14 +287,13 @@
 	var/mob/living/simple_animal/hostile/mob = new type(turf)
 	mob.GiveTarget(mob)
 	mob.toggle_ai(AI_ON)
-	to_chat(target, span_userdanger("[DECLENT_RU_CAP(mob, NOMINATIVE)] появляется из воздуха! Боги наказали вас за [reason]!"))
+	to_chat(target, span_userdanger("[capitalize(mob.declent_ru(NOMINATIVE))] появляется из воздуха! Боги наказали вас за [reason]!"))
 	logmsg = "summon angry [mob]."
 
-// MARK: HRP (off)
+/// MARK: HRP (off)
 /datum/smite/hrp
 	name = SMITE_HRP
 	desc = "Подсадите в грешника опухоль ХРП."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/hrp/apply_effect(mob/living/carbon/human/target, reason) // silent
 	var/obj/item/organ/internal/high_rp_tumor/hrp_tumor = target.get_int_organ(/obj/item/organ/internal/high_rp_tumor)
@@ -365,7 +321,7 @@
 	LAZYADD(target.mind.curses, "high_rp")
 	logmsg = "high rp([pdelay] - [oxy_dmg])"
 
-// MARK: Demote
+/// MARK: Demote
 /datum/smite/demote
 	name = SMITE_DEMOTE
 	desc = "Увольте грешника!"
@@ -388,12 +344,11 @@
 
 	update_all_mob_security_hud()
 
-// MARK: Virus
+/// MARK: Virus
 /datum/smite/virus
 	name = SMITE_VIRUS
 	desc = "Заразите грешника выбранным вирусом! Если хотите, сделайте вирус незаразным."
 	logmsg = "virus."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/virus/activate(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите вирус.", "Выбор вируса", GLOB.typecache_virus, /datum/disease/virus/nuclefication)
@@ -410,19 +365,18 @@
 
 	virus.Contract(target)
 
-// MARK: Pod
+/// MARK: Pod
 /datum/smite/pod
 	name = SMITE_POD
 	desc = "Запустите по грешнику ракетой."
 	logmsg = "supply pod."
-	category = SMITE_CATEGORY_DEATH
 
 /datum/smite/pod/activate(mob/living/target, reason)
 	var/datum/centcom_podlauncher/launcher = new(usr, reason)
 	launcher.specificTarget = target
 	launcher.ui_interact(usr)
 
-// MARK: Global hunting
+/// MARK: Global hunting
 /datum/smite/global_hunting
 	name = SMITE_GLOBALHUNTING
 	desc = "Заставьте экипаж охотиться за грешником."
@@ -448,12 +402,11 @@
 
 	update_all_mob_security_hud()
 
-// MARK: Brainrot braindamage
+/// MARK: Brainrot braindamage
 /datum/smite/brainrot_braingamage
 	name = SMITE_BRAINROTBRAINDAMAGE
 	desc = "Мозг грешника будет повреждаться от глупых фраз."
 	logmsg = "brainrot braindamage."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/brainrot_braingamage/activate(mob/living/target, reason)
 	var/datum/component = target.GetComponent(/datum/component/brainrot_braingamage)
@@ -483,12 +436,11 @@
 /datum/smite/brainrot_braingamage/proc/string_to_list(bad_words)
 	return splittext(bad_words, ",")
 
-// MARK: Piano
+/// MARK: Piano
 /datum/smite/piano
 	name = SMITE_PIANO
 	desc = "Сбросьте на грешника пианино или вендомат."
 	logmsg = "piano"
-	category = SMITE_CATEGORY_DAMAGE
 
 /datum/smite/piano/apply_effect(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите что именно упадёт на грешника.", "Выбор падающей стуктуры", GLOB.typecache_vending + list(/obj/structure/pianoclassic) + list(/obj/structure/piano))
@@ -500,14 +452,13 @@
 		Вам почему-то кажется, что это наказание за [reason]." \
 	))
 
-// MARK: Jackboots
+/// MARK: Jackboots
 /datum/smite/jackbots
 	name = SMITE_JACKBOOTS
 	desc = "Заставьте грешника до конца смены изредка слышать топот ботинков СБ."
 	logmsg = "jackboots sounds"
 	var/mob/target
 	var/sound_chanse = 1
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/jackbots/apply_effect(mob/living/target, reason)
 	src.target = target
@@ -532,12 +483,11 @@
 	now = get_step(now, get_dir(now, last))
 	addtimer(CALLBACK(src, PROC_REF(do_step), now, last, limit - 1), 0.3 SECONDS)
 
-// MARK: Machinery transformation
+/// MARK: Machinery transformation
 /datum/smite/machinery
 	name = SMITE_MACHINERY
 	desc = "Сбросьте на грешника пианино или вендомат."
 	logmsg = "machinery transformation"
-	category = SMITE_CATEGORY_TRANSFORMATION
 
 /datum/smite/machinery/apply_effect(mob/living/target, reason)
 	var/type = tgui_input_list(usr, "Выберите в какую машинерию превратится грешник.", "Выбор новой формы", GLOB.typecache_machinery)
@@ -565,12 +515,11 @@
 	health = maxHealth
 	RegisterSignal(machinery, COMSIG_QDELETING, PROC_REF(death))
 
-// MARK: Head hit
+/// MARK: Head hit
 /datum/smite/headhit
 	name = SMITE_HEADHIT
 	desc = "Грешник будет периодически биться головой об шлюзы."
 	logmsg = "airlock headhit."
-	category = SMITE_CATEGORY_CONTROL
 
 /datum/smite/headhit/apply_effect(mob/living/target, reason)
 	if(HAS_TRAIT_FROM(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT))
@@ -581,34 +530,31 @@
 	ADD_TRAIT(target, TRAIT_AIRLOCK_HIT, ADMIN_TRAIT)
 	to_chat(target, span_userdanger("Вы чувствуете что стали на пару сантиметров выше. К чему бы это? Может это наказание за [reason]?"))
 
-// MARK: Admin smite proc
-ADMIN_VERB_ONLY_CONTEXT_MENU(admin_smite, R_ADMIN|R_EVENT, "Smite", mob/living/target in GLOB.mob_list)
-	if(!istype(target))
-		to_chat(user, span_warning("Покарать можно только существ с типом начинающимся на /mob/living"), confidential = TRUE)
+/// MARK: Admin smite proc
+/client/proc/smite(mob/living/mob as mob)
+	set category = STATPANEL_ADMIN_FUN
+	set name = "Smite"
+	if(!check_rights(R_EVENT))
 		return
 
-	var/datum/smite_ui/ui = new /datum/smite_ui(target)
-	ui.ui_interact(user.mob)
-	BLACKBOX_LOG_ADMIN_VERB("Smite")
-
-ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite in List", "Smite a player with divine power.", ADMIN_CATEGORY_FUN)
-	var/mob/selected_mob = tgui_input_list(user, "Please, select a player!", "Smite", GLOB.mob_list)
-	if(!selected_mob)
+	if(!istype(mob))
+		to_chat(usr, span_warning("Покарать можно только существ с типом начинающимся на /mob/living"), confidential = TRUE)
 		return
 
-	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/admin_smite, selected_mob)
+	var/datum/smite_ui/ui = new(mob)
+	ui.ui_interact(usr)
 
-// MARK: TGUI
+/// MARK: TGUI
 /datum/smite_ui
 	/// Name of choosen smite
 	var/choosen = null
 	/// Reason of smiting.
-	var/reason = DEFAULT_SMITE_REASON
+	var/reason = "грехи"
 	/// Mob that we want to smite.
 	var/mob/victim_mob
 
 /datum/smite_ui/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN)
+	return GLOB.admin_state
 
 /datum/smite_ui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -620,23 +566,16 @@ ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite in List", "Smite a playe
 
 /datum/smite_ui/ui_static_data(mob/user)
 	. = ..()
-
-	// Getting available smittens
-	var/list/all_smites = list()
+	var/list/smites_paths = GLOB.smites_not_human.Copy()
 	if(ishuman(victim_mob))
-		all_smites += GLOB.smites_human
-	all_smites += GLOB.smites_not_human
+		smites_paths += GLOB.smites_human.Copy()
 
-	// Grouping smythes into categories
-	var/list/categorized_smites = list()
-	for(var/name in all_smites)
-		var/datum/smite/smite_type = all_smites[name]
-		var/category = initial(smite_type.category)
-		if(!categorized_smites[category])
-			categorized_smites[category] = list()
-		categorized_smites[category][name] = initial(smite_type.desc)
-
-	.["categorized_smites"] = categorized_smites
+	.["all_smites"] = list()
+	.["all_descs"] = list()
+	for(var/name in smites_paths)
+		var/datum/smite/smite_type = smites_paths[name]
+		.["all_smites"] += name
+		.["all_descs"] += smite_type::desc
 
 /datum/smite_ui/ui_data(mob/user)
 	. = ..()
@@ -679,11 +618,4 @@ ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite in List", "Smite a playe
 
 /datum/smite_ui/Destroy(force)
 	victim_mob = null
-	return ..()
-
-#undef SMITE_CATEGORY_GENERAL
-#undef SMITE_CATEGORY_DAMAGE
-#undef SMITE_CATEGORY_DEATH
-#undef SMITE_CATEGORY_TRANSFORMATION
-#undef SMITE_CATEGORY_CONTROL
-#undef DEFAULT_SMITE_REASON
+	. = ..()

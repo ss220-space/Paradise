@@ -1,6 +1,3 @@
-/// List of all guardians currently extant
-GLOBAL_LIST_EMPTY(parasites)
-
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
 	real_name = "Guardian Spirit"
@@ -58,16 +55,11 @@ GLOBAL_LIST_EMPTY(parasites)
 
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
-	GLOB.parasites += src
 	AddElement(/datum/element/simple_flying)
 	if(!host)
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
-
-/mob/living/simple_animal/hostile/guardian/Destroy()
-	GLOB.parasites -= src
-	return ..()
 
 /mob/living/simple_animal/hostile/guardian/ComponentInitialize()
 	AddComponent( \
@@ -170,9 +162,9 @@ GLOBAL_LIST_EMPTY(parasites)
 		return .
 
 	to_chat(summoner, span_danger("Вашего хранителя [name] атакуют! Вы получаете урон!"))
-	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [declent_ru(NOMINATIVE)] получает урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src.declent_ru(NOMINATIVE)] получает урон!"))
 	if(summoner.stat == UNCONSCIOUS)
-		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
+		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src.declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
 /mob/living/simple_animal/hostile/guardian/adjustStaminaLoss(
@@ -242,7 +234,7 @@ GLOBAL_LIST_EMPTY(parasites)
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M?.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, span_alien("([ghost_follow_link(src, ghost = M)]) <i>Сообщение Стража <b>[src]</b>: [input]</i>"))
+			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
 	to_chat(src, span_danger("У вас нет другого режима!"))
@@ -322,10 +314,6 @@ GLOBAL_LIST_EMPTY(parasites)
 			return
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть за [mob_name] ([guardian_type]) у [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
-
-	if(QDELETED(user))
-		return
-
 	var/mob/dead/observer/theghost = null
 
 	if(length(candidates))

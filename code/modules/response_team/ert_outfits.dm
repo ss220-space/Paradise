@@ -69,11 +69,13 @@
 
 /datum/outfit/job/centcom/response_team/commander/red
 	name = "RT Commander (Red)"
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
-	back = /obj/item/mod/control/pre_equipped/responsory/commander
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/commander
 	glasses = /obj/item/clothing/glasses/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	belt = /obj/item/gun/projectile/automatic/pistol/sp8/sp8t
 	hours_dif = 250
 	ranks = list(
@@ -99,9 +101,10 @@
 
 /datum/outfit/job/centcom/response_team/commander/gamma
 	name = "RT Commander (Gamma)"
+	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
-	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/commander
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/commander
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
@@ -164,7 +167,8 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
-	back = /obj/item/mod/control/pre_equipped/responsory/security
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/security
+	suit_store = /obj/item/gun/projectile/automatic/lasercarbine
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	hours_dif = 100
@@ -196,8 +200,9 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
-	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/security
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/security
 	belt = /obj/item/storage/belt/military/assault/gammaert/full
+	suit_store = /obj/item/gun/energy/immolator/multi/sibyl
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/restraints/legcuffs/bola/energy
@@ -273,7 +278,8 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	belt = /obj/item/storage/belt/utility/chief/full
-	back = /obj/item/mod/control/pre_equipped/responsory/engineer
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/engineer
+	suit_store = /obj/item/tank/internals/emergency_oxygen/engi
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas
 	l_pocket = /obj/item/t_scanner/extended_range
@@ -306,7 +312,8 @@
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
 	belt = /obj/item/storage/belt/utility/chief/full
-	back = /obj/item/mod/control/pre_equipped/responsory/engineer
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/engineer
+	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	glasses = /obj/item/clothing/glasses/meson/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	l_pocket = /obj/item/t_scanner/extended_range
@@ -349,7 +356,7 @@
 
 /datum/outfit/job/centcom/response_team/medic/amber
 	name = "RT Medic (Amber)"
-	shoes = /obj/item/clothing/shoes/color/white
+	shoes = /obj/item/clothing/shoes/white
 	gloves = /obj/item/clothing/gloves/combat/swat
 	suit = /obj/item/clothing/suit/armor/vest/ert/medical
 	suit_store = /obj/item/gun/energy/gun/pdw9/ert
@@ -382,10 +389,11 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	gloves = /obj/item/clothing/gloves/combat/swat
-	back = /obj/item/mod/control/pre_equipped/responsory/medic
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	belt = /obj/item/storage/belt/medical
+	suit_store = /obj/item/gun/energy/gun/sibyl
+	belt = /obj/item/defibrillator/compact/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/baton/telescopic
 	hours_dif = 200
@@ -421,9 +429,10 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	gloves = /obj/item/clothing/gloves/combat/swat
-	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/medic
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/medical
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	belt = /obj/item/defibrillator/compact/advanced/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/combat/nanites
 	r_pocket = /obj/item/reagent_containers/hypospray/autoinjector
@@ -499,7 +508,8 @@
 	name = "RT Paranormal (Red)"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
-	back = /obj/item/mod/control/pre_equipped/responsory/chaplain
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
+	suit_store = /obj/item/gun/energy/gun/sibyl
 	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/night
 	hours_dif = 200
@@ -526,7 +536,8 @@
 	name = "RT Paranormal (Gamma)"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	back = /obj/item/mod/control/pre_equipped/responsory/inquisitory/chaplain
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal/inquisitor
+	suit_store = /obj/item/gun/energy/gun/nuclear/sibyl
 	l_pocket = /obj/item/grenade/clusterbuster/holy
 	shoes = /obj/item/clothing/shoes/magboots/advance
 	glasses = /obj/item/clothing/glasses/night
@@ -595,7 +606,7 @@
 	name = "RT Janitor (Red)"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
-	back = /obj/item/mod/control/pre_equipped/responsory/janitor
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	r_pocket = /obj/item/scythe/tele
 	mask = /obj/item/clothing/mask/gas/sechailer
@@ -612,9 +623,10 @@
 	name = "RT Janitor (Gamma)"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
-	back = /obj/item/mod/control/pre_equipped/responsory/janitor
+	suit = /obj/item/clothing/suit/space/hardsuit/ert/gamma/janitor
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
+	suit_store = /obj/item/gun/energy/gun/pdw9/ert
 	l_pocket = /obj/item/grenade/clusterbuster/cleaner
 	r_pocket = /obj/item/scythe/tele
 	backpack_contents = list(

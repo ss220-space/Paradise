@@ -18,15 +18,10 @@
 		prefix = "h"
 	icon_state = "[prefix]off"
 
-/obj/machinery/atmospherics/unary/thermal_plate/process_atmos(seconds)
-	var/datum/milla_safe/thermal_plate_process/milla = new()
-	milla.invoke_async(src)
+/obj/machinery/atmospherics/unary/thermal_plate/process_atmos()
+	..()
 
-/datum/milla_safe/thermal_plate_process
-
-/datum/milla_safe/thermal_plate_process/on_run(obj/machinery/atmospherics/unary/thermal_plate/plate)
-	var/turf/turf = get_turf(plate)
-	var/datum/gas_mixture/environment = get_turf_air(turf)
+	var/datum/gas_mixture/environment = loc.return_air()
 
 	//Get processable air sample and thermal info from environment
 
@@ -34,53 +29,53 @@
 	var/datum/gas_mixture/external_removed = environment.remove(transfer_moles)
 
 	if(!external_removed)
-		return plate.radiate()
+		return radiate()
 
 	if(external_removed.total_moles() < 10)
-		return plate.radiate()
+		return radiate()
 
 	//Get same info from connected gas
 
-	var/internal_transfer_moles = 0.25 * plate.air_contents.total_moles()
-	var/datum/gas_mixture/internal_removed = plate.air_contents.remove(internal_transfer_moles)
+	var/internal_transfer_moles = 0.25 * air_contents.total_moles()
+	var/datum/gas_mixture/internal_removed = air_contents.remove(internal_transfer_moles)
 
 	if(!internal_removed)
 		environment.merge(external_removed)
-		return TRUE
+		return 1
 
 	var/combined_heat_capacity = internal_removed.heat_capacity() + external_removed.heat_capacity()
-	var/combined_energy = internal_removed.temperature() * internal_removed.heat_capacity() + external_removed.heat_capacity() * external_removed.temperature()
+	var/combined_energy = internal_removed.temperature * internal_removed.heat_capacity() + external_removed.heat_capacity() * external_removed.temperature
 
 	if(!combined_heat_capacity) combined_heat_capacity = 1
 	var/final_temperature = combined_energy / combined_heat_capacity
 
-	external_removed.set_temperature(final_temperature)
+	external_removed.temperature = final_temperature
 	environment.merge(external_removed)
 
-	internal_removed.set_temperature(final_temperature)
-	plate.air_contents.merge(internal_removed)
+	internal_removed.temperature = final_temperature
+	air_contents.merge(internal_removed)
 
-	plate.parent.update = TRUE
+	parent.update = 1
 
-	return TRUE
+	return 1
 
 /obj/machinery/atmospherics/unary/thermal_plate/proc/radiate()
 	var/internal_transfer_moles = 0.25 * air_contents.total_moles()
 	var/datum/gas_mixture/internal_removed = air_contents.remove(internal_transfer_moles)
 
 	if(!internal_removed)
-		return TRUE
+		return 1
 
 	var/combined_heat_capacity = internal_removed.heat_capacity() + RADIATION_CAPACITY
-	var/combined_energy = internal_removed.temperature() * internal_removed.heat_capacity() + (RADIATION_CAPACITY * 6.4)
+	var/combined_energy = internal_removed.temperature * internal_removed.heat_capacity() + (RADIATION_CAPACITY * 6.4)
 
 	var/final_temperature = combined_energy / combined_heat_capacity
 
-	internal_removed.set_temperature(final_temperature)
+	internal_removed.temperature = final_temperature
 	air_contents.merge(internal_removed)
 
-	parent.update = TRUE
+	parent.update = 1
 
-	return TRUE
+	return 1
 
 #undef RADIATION_CAPACITY

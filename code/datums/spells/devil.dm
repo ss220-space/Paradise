@@ -18,19 +18,6 @@
 	name = "Призвать вилы Архидьявола"
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
 
-/obj/effect/proc_holder/spell/conjure_item/pitchfork/krampus
-	name = "Призвать вилы Крампуса"
-	item_type = /obj/item/twohanded/pitchfork/demonic/greater/krampus
-
-/obj/effect/proc_holder/spell/conjure_item/krampus_bag
-	name = "Призвать мешок Крампуса"
-	item_type = /obj/item/krampus_bag
-	action_icon_state = "krampus_bag"
-	action_icon = 'icons/obj/items.dmi'
-	action_background_icon_state = "bg_demon"
-	base_cooldown = 10 SECONDS
-	human_req = FALSE
-
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Призвать золотую скрипку"
 	desc = "Призывает/отзывает дьявольскую золотую скрипку."
@@ -79,7 +66,7 @@
 	for(var/target in targets)
 		var/mob/living/carbon/C = target
 		if(!C.mind || !user.mind)
-			to_chat(user, span_notice("[DECLENT_RU_CAP(C, NOMINATIVE)] не выглядит разумным и не сможет подписать контракт."))
+			to_chat(user, span_notice("[capitalize(C.declent_ru(NOMINATIVE))] не выглядит разумным и не сможет подписать контракт."))
 			continue
 
 		if(C.stat == DEAD)
@@ -248,7 +235,7 @@
 /mob/living/proc/infernalphaseout(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	dust_animation()
 
-	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает в огненной вспышке!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает в огненной вспышке!"))
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
@@ -269,7 +256,7 @@
 	fakefire()
 	forceMove(get_turf(src))
 
-	visible_message(span_warning("<b>[DECLENT_RU_CAP(src, NOMINATIVE)] появляется в огненной вспышке!</b>"))
+	visible_message(span_warning("<b>[capitalize(declent_ru(NOMINATIVE))] появляется в огненной вспышке!</b>"))
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish), TRUE), 1.5 SECONDS)
@@ -416,10 +403,8 @@
 		if(!prob(fire_prob))
 			continue
 
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
-		hotspot.temperature = 3000
-		hotspot.recolor()
-		turf.hotspot_expose(2000, 50)
+		new /obj/effect/hotspot(turf)
+		turf.hotspot_expose(2000, 50, 1)
 
 	playsound(get_turf(user), 'sound/magic/blind.ogg', 50, TRUE)
 

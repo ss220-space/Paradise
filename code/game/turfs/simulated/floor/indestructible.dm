@@ -57,11 +57,10 @@
 	desc = "It's regarding you suspiciously."
 	icon_state = "necro1"
 	baseturf = /turf/simulated/floor/indestructible/necropolis
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	planetary_atmos = TRUE
 	footstep = FOOTSTEP_LAVA
 	barefootstep = FOOTSTEP_LAVA
 	clawfootstep = FOOTSTEP_LAVA
@@ -83,11 +82,10 @@
 	icon_state = "boss"
 	smooth = SMOOTH_FALSE
 	baseturf = /turf/simulated/floor/indestructible/boss
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/indestructible/boss/indoors //used for ashwalkers village
 	oxygen = /turf/simulated/floor/lava::oxygen //lava near tendril
@@ -103,11 +101,10 @@
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	icon_state = "floor"
 	base_icon_state = "hierophant_floor"
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
+	oxygen = 14
+	nitrogen = 23
+	temperature = 300
+	planetary_atmos = TRUE
 	smooth = SMOOTH_BITMASK
 	canSmoothWith = SMOOTH_GROUP_HIERO_FLOOR
 	smoothing_groups = SMOOTH_GROUP_HIERO_FLOOR
@@ -230,10 +227,6 @@
 	clawfootstep = FOOTSTEP_WATER
 	heavyfootstep = FOOTSTEP_WATER
 
-/turf/simulated/floor/indestructible/beach/water/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(initialized_on))
-
 /turf/simulated/floor/indestructible/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	if(!linkedcontroller || !ismob(arrived))
@@ -249,11 +242,11 @@
 		return .
 	linkedcontroller.mobinpool -= departed
 
-/turf/simulated/floor/indestructible/beach/water/proc/initialized_on(atom/target)
+/turf/simulated/floor/indestructible/beach/water/InitializedOn(atom/A)
 	if(!linkedcontroller)
 		return
-	if(istype(target, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
-		linkedcontroller.decalinpool += target
+	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
+		linkedcontroller.decalinpool += A
 
 /turf/simulated/floor/indestructible/beach/water/dense			//for boundary "walls"
 	density = TRUE

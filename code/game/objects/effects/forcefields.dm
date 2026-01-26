@@ -5,14 +5,12 @@
 	density = TRUE
 	var/lifetime = 30 SECONDS
 
-/obj/effect/forcefield/Initialize(mapload)
-	. = ..()
-	if(!lifetime)
-		return
+/obj/effect/forcefield/New()
+	..()
+	if(lifetime)
+		QDEL_IN(src, lifetime)
 
-	QDEL_IN(src, lifetime)
-
-/obj/effect/forcefield/CanAtmosPass(direction)
+/obj/effect/forcefield/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/effect/forcefield/wizard

@@ -50,8 +50,8 @@ jobs:
       uses: actions/checkout@v6
       with:
         repository: ${{ env.PR_REPO }}
-        ref: ${{ env.PR_BRANCH }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        ref:          ${{ env.PR_BRANCH }}
+        token:        ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 1
 
     - name: Setup Rust targets
@@ -87,45 +87,22 @@ jobs:
         git pull origin "$PR_BRANCH" --depth=$((ahead_by + 1))
         git remote add upstream "https://github.com/$BASE_REPOSITORY.git"
         git fetch upstream "$BASE_BRANCH" --depth=$((behind_by + 1))
-
-        # Get dependencies.
-        rustup target add i686-unknown-linux-gnu
-        rustup target add i686-pc-windows-gnu
-        sudo dpkg --add-architecture i386
-        sudo apt-get update
-        sudo apt-get install zlib1g-dev:i386 lib32gcc-13-dev mingw-w64 mingw-w64-i686-dev
-
-        # Run the build
+        
         cd rust
 
-        WINDOWS_TARGET="i686-pc-windows-gnu"
-        LINUX_TARGET="i686-unknown-linux-gnu"
+        cargo build --release --target i686-unknown-linux-gnu
+        cargo build --release --target i686-pc-windows-gnu
 
-        # Handle building on windows
-        if [[ "$OSTYPE" == "msys" ]]; then
-          WINDOWS_TARGET="i686-pc-windows-msvc"
-        fi
+        cd ..
 
-        # Build it for CI
-        cargo build --release --target $LINUX_TARGET
-        cp target/$LINUX_TARGET/release/librustlibs.so ../tools/ci/librustlibs.so
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs.so
-        cargo clean
-
-        # Build it for Windows
-        cargo build --release --target $WINDOWS_TARGET
-        cp target/$WINDOWS_TARGET/release/rustlibs.dll ../rustlibs.dll
-        cargo clean
-
-        export RUSTFLAGS='-C target-cpu=raptorlake'
-        cargo build --release --target=$LINUX_TARGET
-        cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_prod.so
+        cp rust/target/i686-unknown-linux-gnu/release/librustlibs.so librustlibs.so
+        cp rust/target/i686-pc-windows-gnu/release/rustlibs.dll rustlibs.dll
 
     - name: Commit and push changes
       env:
         GH_TOKEN: ${{ github.token }}
       run: |
-        git add --force librustlibs.so rustlibs.dll librustlibs_prod.so ./tools/ci/librustlibs.so
+        git add --force librustlibs.so rustlibs.dll
         git commit -m "Build Rust library"
         git push origin
 

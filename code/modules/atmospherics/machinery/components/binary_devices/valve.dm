@@ -13,7 +13,6 @@
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
-	. += span_notice("Click this to turn the valve. If perpendicular, the pipes on each end are separated. If parallel, they are connected.")
 
 /obj/machinery/atmospherics/binary/valve/open
 	open = 1
@@ -114,10 +113,9 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
+	..()
 	if(!powered())
 		icon_state = "valve[open]nopower"
-		return
-	..()
 
 /obj/machinery/atmospherics/binary/valve/digital/atmos_init()
 	..()

@@ -5,7 +5,6 @@
 			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle."
 	icon = 'icons/obj/machines/suit_storage.dmi'
 	icon_state = "classic"
-	base_icon_state = "classic"
 	anchored = TRUE
 	density = TRUE
 	max_integrity = 250
@@ -41,9 +40,6 @@
 	var/list/occupant_typecache //if set, turned into typecache in Initialize, other wise, defaults to mob/living typecache
 	var/atom/movable/occupant = null
 
-	/// Power contributed by this machine to charge the mod suits cell
-	var/base_charge_rate = SUIT_STORAGE_CHARGE_MOD
-
 /obj/machinery/suit_storage_unit/standard_unit
 	suit_type    = /obj/item/clothing/suit/space/eva
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva
@@ -61,22 +57,23 @@
 	desc = "An industrial \"U-Stor-It Storage\" unit designed to accommodate all types of spacesuits.	\
 			Its onboard equipment also allows the user to decontaminate the contents through a UV-ray purging cycle.	\
 			This one looks kind of fancy."
-	suit_type    = /obj/item/mod/control/pre_equipped/magnate
+	suit_type    = /obj/item/clothing/suit/space/captain
+	helmet_type  = /obj/item/clothing/head/helmet/space/capspace
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/security/captain
-	storage_type = /obj/item/tank/internals/oxygen
+	storage_type = /obj/item/tank/jetpack/oxygen/captain
 	req_access = list(ACCESS_CAPTAIN)
 
 /obj/machinery/suit_storage_unit/engine
 	name = "engineering suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/engineering
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine
 	mask_type    = /obj/item/clothing/mask/breath
 	magboots_type = /obj/item/clothing/shoes/magboots
 	req_access = list(ACCESS_ENGINE_EQUIP)
 
 /obj/machinery/suit_storage_unit/ce
 	name = "chief engineer's suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/advanced
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	storage_type = /obj/item/tank/internals/oxygen
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/advance
@@ -84,44 +81,43 @@
 
 /obj/machinery/suit_storage_unit/security
 	name = "security suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/security
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/security
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
-	storage_type = /obj/item/tank/internals/oxygen
+	storage_type = /obj/item/tank/jetpack/oxygen/security
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/security/hos
 	name = "head of security suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_two
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
+	storage_type = /obj/item/tank/internals/oxygen/red
 	req_access = list(ACCESS_HOS)
 
 /obj/machinery/suit_storage_unit/security/warden
 	name = "warden's suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_one
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/warden
 	req_access = list(ACCESS_ARMORY)
 
 /obj/machinery/suit_storage_unit/security/pod_pilot
-	name = "pilot's suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/brig_pilot
 	req_access = list(ACCESS_PILOT)
 
 /obj/machinery/suit_storage_unit/brigmed
 	name = "brig physician suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/brigmed
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/security/brigmed
 	mask_type    = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/jetpack/oxygen
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 
 /obj/machinery/suit_storage_unit/atmos
 	name = "atmospherics suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/atmospheric
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 	mask_type    = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots/atmos
 	req_access = list(ACCESS_ATMOSPHERICS)
 
 /obj/machinery/suit_storage_unit/mining
 	name = "mining suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/mining/asteroid
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/mining
 	mask_type    = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_MINING_STATION)
 
@@ -140,16 +136,10 @@
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/machinery/suit_storage_unit/cmo
-	suit_type    = /obj/item/mod/control/pre_equipped/medical
+	suit_type    = /obj/item/clothing/suit/space/hardsuit/medical
 	storage_type = /obj/item/tank/internals/oxygen
 	mask_type    = /obj/item/clothing/mask/breath
 	req_access = list(ACCESS_CMO)
-
-/obj/machinery/suit_storage_unit/qm
-	name = "quartermaster suit storage unit"
-	suit_type    = /obj/item/mod/control/pre_equipped/loader
-	mask_type    = /obj/item/clothing/mask/breath
-	req_access = list(ACCESS_QM)
 
 //version of the SSU for medbay secondary storage. Includes magboots.
 /obj/machinery/suit_storage_unit/cmo/sec_storage
@@ -159,19 +149,21 @@
 
 /obj/machinery/suit_storage_unit/clown
 	name = "clown suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/cosmohonk
+	suit_type = /obj/item/clothing/suit/space/eva/clown
+	helmet_type  = /obj/item/clothing/head/helmet/space/eva/clown
 	req_access = list(ACCESS_CLOWN)
 
 /obj/machinery/suit_storage_unit/blueshield
 	name = "blueshield suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/praetorian
+	suit_type = /obj/item/clothing/suit/space/hardsuit/blueshield
 	magboots_type = /obj/item/clothing/shoes/magboots/security
 	storage_type = /obj/item/tank/internals/oxygen
 	req_access = list(ACCESS_BLUESHIELD)
 
 /obj/machinery/suit_storage_unit/rd
 	name = "research director's suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/research
+	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
+	storage_type = /obj/item/tank/internals/oxygen
 	mask_type = /obj/item/clothing/mask/gas
 	magboots_type = /obj/item/clothing/shoes/magboots
 	req_access = list(ACCESS_RD)
@@ -184,25 +176,19 @@
 
 /obj/machinery/suit_storage_unit/syndicate
 	name = "syndicate suit storage unit"
-	suit_type  	 = /obj/item/mod/control/pre_equipped/nuclear
+	suit_type  	 = /obj/item/clothing/suit/space/hardsuit/syndi
 	mask_type   	= /obj/item/clothing/mask/gas/syndicate
 	storage_type	= /obj/item/tank/jetpack/oxygen/harness
 	req_access = list(ACCESS_SYNDICATE)
 	safeties = FALSE	//in a syndicate base, everything can be used as a murder weapon at a moment's notice.
 
 /obj/machinery/suit_storage_unit/syndicate/comms
-	suit_type = /obj/item/mod/control/pre_equipped/elite
+	suit_type = /obj/item/clothing/suit/space/hardsuit/syndi/elite/comms
 	magboots_type = /obj/item/clothing/shoes/magboots/syndie/advance
 	req_access = list(ACCESS_SYNDICATE_COMMS_OFFICER)
 
 /obj/machinery/suit_storage_unit/ert
 	req_access = list(ACCESS_CENT_GENERAL)
-
-/obj/machinery/suit_storage_unit/gamma
-	name = "gamma shielded suit storage unit"
-	suit_type = /obj/item/mod/control/pre_equipped/safeguard_mk_two/gamma
-	mask_type = /obj/item/clothing/mask/gas/sechailer/swat
-	req_access = list(ACCESS_SECURITY)
 
 /obj/machinery/suit_storage_unit/ert/command
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/ert/commander
@@ -288,31 +274,29 @@
 
 /obj/machinery/suit_storage_unit/update_overlays()
 	. = ..()
-	if(panel_open)
-		. += "[base_icon_state]_panel"
 
 	if(uv)
 		if(uv_super)
-			. += "[base_icon_state]_super"
-			. += "[base_icon_state]_[occupant ? "body" : "uvstrong"]"
+			. += "[icon_state]_super"
+		else if(occupant)
+			. += "[icon_state]_uvhuman"
 		else
-			. += "[base_icon_state]_[occupant ? "body" : "uv"]"
-		. += "[base_icon_state]_lights_red"
-		return
-
-	if(state_open)
-		. += "[base_icon_state]_open"
-		. += "[base_icon_state]_lights_open"
-		if(suit)
-			. += "[base_icon_state]_suit"
-		if(helmet)
-			. += "[base_icon_state]_helm"
-		if(storage)
-			. += "[base_icon_state]_storage"
-	else
-		. += "[base_icon_state]_lights_closed"
-
-	. += "[base_icon_state]_[occupant ? "body" : "ready"]"
+			. += "[icon_state]_uv"
+	else if(state_open)
+		if(stat & BROKEN)
+			. += "[icon_state]_broken"
+		else
+			. += "[icon_state]_open"
+			if(suit)
+				. += "[icon_state]_suit"
+			if(helmet)
+				. += "[icon_state]_helm"
+			if(storage)
+				. += "[icon_state]_storage"
+	else if(occupant)
+		. += "[icon_state]_human"
+	if(!locked)
+		. += "[icon_state]_unlocked"
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
 	if(shocked && shock(user, 100))
@@ -344,14 +328,13 @@
 	if(shocked && !(stat & NOPOWER))
 		if(shock(user, 100))
 			return
-	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
-	update_icon(UPDATE_OVERLAYS)
+	default_deconstruction_screwdriver(user, "[icon_state]_panel", "[initial(icon_state)]", I)
 
 /obj/machinery/suit_storage_unit/proc/store_item(obj/item/I, mob/user)
 	. = FALSE
 	if(panel_open)
 		return .
-	if((istype(I, /obj/item/clothing/suit/space) || istype(I, suit_type)  || istype(I, /obj/item/mod/control))  && !suit)
+	if((istype(I, /obj/item/clothing/suit/space) || istype(I, suit_type)) && !suit)
 		. = user.drop_transfer_item_to_loc(I, src)
 		if(.)
 			suit = I
@@ -432,7 +415,6 @@
 	if(uv_cycles)
 		uv_cycles--
 		uv = TRUE
-		locked = TRUE
 		if(occupant)
 			var/mob/living/mob_occupant = occupant
 			if(uv_super)
@@ -702,7 +684,7 @@
 
 /obj/machinery/suit_storage_unit/verb/get_out()
 	set name = "Извлечь находящегося внутри"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.stat)
@@ -715,7 +697,7 @@
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
 	set name = "Спрятаться внутри"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other
@@ -785,7 +767,6 @@
 	name = "industrial suit storage unit"
 	desc = "An industrial unit made to hold and decontaminate irradiated equipment. It comes with a built-in UV cauterization mechanism. A small warning label advises that organic matter should not be placed into the unit."
 	icon_state = "industrial"
-	base_icon_state = "industrial"
 
 /obj/machinery/suit_storage_unit/pirate
 	suit_type    = /obj/item/clothing/suit/space/eva/pirate
@@ -798,22 +779,3 @@
 	helmet_type  = /obj/item/clothing/head/helmet/space/eva/pirate/leader
 	mask_type    = /obj/item/clothing/mask/gas
 	storage_type = /obj/item/tank/internals/oxygen
-
-/obj/machinery/suit_storage_unit/process(seconds_per_tick)
-	var/list/cells_to_charge = list()
-	for(var/obj/item/charging in list(suit, helmet, mask, storage))
-		if(!charging)
-			continue
-		var/obj/item/stock_parts/cell/cell_charging = charging.get_cell()
-		if(!istype(cell_charging) || cell_charging.charge == cell_charging.maxcharge)
-			continue
-
-		cells_to_charge += cell_charging
-
-	var/cell_count = length(cells_to_charge)
-	if(cell_count <= 0)
-		return
-
-	var/charge_per_item = base_charge_rate / cell_count
-	for(var/obj/item/stock_parts/cell/cell as anything in cells_to_charge)
-		cell.give(charge_per_item)

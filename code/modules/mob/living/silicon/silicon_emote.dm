@@ -18,7 +18,6 @@
 
 /datum/emote/living/silicon/scream
 	key = "scream"
-	additional_keys = list("крик")
 	key_third_person = "screams"
 	message = "громко сигнал%(ит,ят)%!"
 	message_mime = "ярко сверка%(ет,ют)% лампочками!"
@@ -33,7 +32,6 @@
 
 /datum/emote/living/silicon/ping
 	key = "ping"
-	additional_keys = list("пинг")
 	key_third_person = "pings"
 	message = "звен%(ит,ят)%."
 	message_mime = "тихо звен%(ит,ят)%."
@@ -44,7 +42,6 @@
 
 /datum/emote/living/silicon/buzz
 	key = "buzz"
-	additional_keys = list("бзз")
 	key_third_person = "buzzes"
 	message = "жужж%(ит,ат)%."
 	message_mime = "тихо жужж%(ит,ат)%."
@@ -55,7 +52,6 @@
 
 /datum/emote/living/silicon/buzz2
 	key = "buzz2"
-	additional_keys = list("бзз2")
 	message = "изда%(ёт,ют)% раздраженный жужжащий звук."
 	message_mime = "тихо раздражённо жужж%(ит,ат)%."
 	message_postfix = ", смотря на %t."
@@ -65,7 +61,6 @@
 
 /datum/emote/living/silicon/beep
 	key = "beep"
-	additional_keys = list("бип")
 	key_third_person = "beeps"
 	message = "пищ%(ит,ат)%."
 	message_mime = "тихо пищ%(ит,ат)%."
@@ -76,7 +71,6 @@
 
 /datum/emote/living/silicon/boop
 	key = "boop"
-	additional_keys = list("буп")
 	key_third_person = "boops"
 	message = "изда%(ёт,ют)% короткий гудок."
 	message_mime = "тихо гуд%(ит,ят)%."
@@ -87,7 +81,6 @@
 
 /datum/emote/living/silicon/yes
 	key = "yes"
-	additional_keys = list("да")
 	message = "изда%(ёт,ют)% утвердительный сигнал."
 	message_mime = "утвердительно сверка%(ет,ют)% лампочками."
 	message_postfix = ", смотря на %t."
@@ -97,7 +90,6 @@
 
 /datum/emote/living/silicon/no
 	key = "no"
-	additional_keys = list("нет")
 	message = "изда%(ёт,ют)% отрицательный сигнал."
 	message_mime = "отрицательно сверка%(ет,ют)% лампочками."
 	message_postfix = ", смотря на %t."
@@ -107,7 +99,6 @@
 
 /datum/emote/living/silicon/law
 	key = "law"
-	additional_keys = list("закон")
 	message = "указыва%(ет,ют)% на штрих-код службы безопасноти."
 	message_postfix = ", смотря на %t."
 	message_param = EMOTE_PARAM_USE_POSTFIX
@@ -126,7 +117,6 @@
 
 /datum/emote/living/silicon/halt
 	key = "halt"
-	additional_keys = list("халт", "стой")
 	message = "ор%(ёт,ут)% \"СТОЯТЬ! СЛУЖБА БЕЗОПАСНОСТИ!\" через динамики!"
 	emote_type = EMOTE_AUDIBLE
 	sound = 'sound/voice/halt.ogg'

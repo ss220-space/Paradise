@@ -7,13 +7,6 @@
 		H.mind?.assigned_role = name
 		H.job = name
 
-/datum/outfit/admin/post_equip(mob/living/carbon/human/our_human, visualsOnly)
-	. = ..()
-	if(!ismodcontrol(our_human.back))
-		return
-	var/obj/item/mod/control/mod_control = our_human.back
-	mod_control.quick_activation()
-
 /proc/apply_to_card(obj/item/card/id/I, mob/living/carbon/human/H, list/access = list(), rank, special_icon)
 	if(!istype(I) || !istype(H))
 		return 0
@@ -35,7 +28,7 @@
 
 	uniform = /obj/item/clothing/under/color/random
 	back = /obj/item/storage/backpack/satchel
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	box = /obj/item/storage/box/survival
 	backpack_contents = list(
 		/obj/item/implanter/dust = 1,
@@ -183,7 +176,7 @@
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	back = /obj/item/storage/backpack/satchel
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/that
 	l_ear = /obj/item/radio/headset/ert
 	id = /obj/item/card/id/centcom
@@ -370,8 +363,10 @@
 
 /datum/outfit/admin/death_commando
 	name = "NT Death Commando"
+	toggle_helmet = TRUE
 	uniform = /obj/item/clothing/under/rank/centcom_officer
-	back = /obj/item/mod/control/pre_equipped/apocryphal
+	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
+	back = /obj/item/storage/backpack/ert/security
 	belt = /obj/item/gun/projectile/revolver/mateba
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/magboots/syndie/advance
@@ -429,7 +424,7 @@
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
-	shoes = /obj/item/clothing/shoes/color/brown
+	shoes = /obj/item/clothing/shoes/brown
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	r_hand = /obj/item/melee/energy/sword/pirate
@@ -539,7 +534,7 @@
 	back = /obj/item/storage/backpack/mime
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/beret
 	mask = /obj/item/clothing/mask/gas/mime
 	l_ear = /obj/item/radio/headset
@@ -586,7 +581,7 @@
 
 	uniform = /obj/item/clothing/under/color/grey
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/color/brown
+	shoes = /obj/item/clothing/shoes/brown
 	mask = /obj/item/clothing/mask/gas
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
@@ -635,7 +630,7 @@
 	back = /obj/item/storage/backpack/satchel
 	belt = /obj/item/storage/belt/utility/full/multitool
 	gloves = /obj/item/clothing/gloves/color/yellow
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/xenos
 	glasses = /obj/item/clothing/glasses/thermal
 	l_pocket = /obj/item/tank/internals/emergency_oxygen/double
@@ -944,7 +939,7 @@
 	back = /obj/item/storage/backpack/industrial
 	belt = /obj/item/melee/baton
 	head = /obj/item/clothing/head/soft
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset
 	glasses = /obj/item/clothing/glasses/sunglasses
 	id = /obj/item/card/id/supply
@@ -1014,15 +1009,15 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Space Explorer")
 
-/datum/outfit/admin/modsuit
-	name = "Modsuit Generic"
-	back = /obj/item/mod/control/pre_equipped/standard
-	suit_store = /obj/item/tank/internals/emergency_oxygen/double
+/datum/outfit/admin/hardsuit
+	name = "Hardsuit Generic"
+	toggle_helmet = TRUE
+	back = /obj/item/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/breath
 	shoes = /obj/item/clothing/shoes/magboots
 	id = /obj/item/card/id
 
-/datum/outfit/admin/modsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/admin/hardsuit/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
@@ -1036,41 +1031,41 @@
 	if(istype(I))
 		apply_to_card(I, H, get_all_accesses(), "Hardsuit Tester")
 
-/datum/outfit/admin/modsuit/engineer
-	name = "Engineer Modsuit"
-	back = /obj/item/mod/control/pre_equipped/engineering
+/datum/outfit/admin/hardsuit/engineer
+	name = "Engineer Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/engine
 
-/datum/outfit/admin/modsuit/ce
-	name = "CE Modsuit"
-	back = /obj/item/mod/control/pre_equipped/advanced
+/datum/outfit/admin/hardsuit/ce
+	name = "CE Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/engine/elite
 	shoes = /obj/item/clothing/shoes/magboots/advance
 
-/datum/outfit/admin/modsuit/mining
-	name = "Mining Modsuit"
-	back = /obj/item/mod/control/pre_equipped/mining/asteroid
+/datum/outfit/admin/hardsuit/mining
+	name = "Mining Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/mining
 
-/datum/outfit/admin/modsuit/syndi
-	name = "Syndi Modsuit"
-	back = /obj/item/mod/control/pre_equipped/traitor
+/datum/outfit/admin/hardsuit/syndi
+	name = "Syndi Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/syndi
 	shoes = /obj/item/clothing/shoes/magboots/syndie
 
-/datum/outfit/admin/modsuit/wizard
+/datum/outfit/admin/hardsuit/wizard
 	name = "Wizard Hardsuit"
 	suit = /obj/item/clothing/suit/space/hardsuit/wizard/shielded
 	shoes = /obj/item/clothing/shoes/magboots/wizard
 
-/datum/outfit/admin/modsuit/medical
-	name = "Medical Modsuit"
-	back = /obj/item/mod/control/pre_equipped/medical
+/datum/outfit/admin/hardsuit/medical
+	name = "Medical Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/medical
 
-/datum/outfit/admin/modsuit/atmos
-	name = "Atmos Modsuit"
-	back = /obj/item/mod/control/pre_equipped/atmospheric
+/datum/outfit/admin/hardsuit/atmos
+	name = "Atmos Hardsuit"
+	suit = /obj/item/clothing/suit/space/hardsuit/engine/atmos
 
 /datum/outfit/admin/tournament
 	name = "Tournament Generic"
 	suit = /obj/item/clothing/suit/armor/vest
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/helmet/thunderdome
 	r_pocket = /obj/item/grenade/smokebomb
 	l_hand = /obj/item/kitchen/knife
@@ -1089,7 +1084,7 @@
 
 	uniform = /obj/item/clothing/under/det
 	suit = /obj/item/clothing/suit/storage/det_suit
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/det_hat
 	glasses = /obj/item/clothing/glasses/thermal/monocle
 	l_pocket = /obj/item/ammo_box/speedloader/a357
@@ -1100,7 +1095,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chef
 	suit = /obj/item/clothing/suit/chef
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	head = /obj/item/clothing/head/chefhat
 	l_pocket = /obj/item/kitchen/knife
 	r_pocket = /obj/item/kitchen/knife
@@ -1112,7 +1107,7 @@
 
 	uniform = /obj/item/clothing/under/rank/janitor
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	l_hand = /obj/item/reagent_containers/glass/bucket
 	backpack_contents = list(
 		/obj/item/grenade/chem_grenade/cleaner = 2,
@@ -1134,7 +1129,7 @@
 	uniform = /obj/item/clothing/under/overalls
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
-	shoes = /obj/item/clothing/shoes/color/white
+	shoes = /obj/item/clothing/shoes/white
 	l_ear = /obj/item/radio/headset
 	id = /obj/item/card/id
 	backpack_contents = list(
@@ -1162,7 +1157,7 @@
 	suit = /obj/item/clothing/suit/apron
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/latex
-	shoes = /obj/item/clothing/shoes/color/white
+	shoes = /obj/item/clothing/shoes/white
 	head = /obj/item/clothing/head/welding
 	mask = /obj/item/clothing/mask/surgical
 	l_ear = /obj/item/radio/headset
@@ -1372,7 +1367,7 @@
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie
 	back = /obj/item/storage/backpack
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/color/black
+	shoes = /obj/item/clothing/shoes/black
 	l_ear = /obj/item/radio/headset/syndicate
 	id = /obj/item/card/id/syndicate
 	r_hand = /obj/item/nullrod/armblade

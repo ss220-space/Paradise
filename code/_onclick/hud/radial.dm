@@ -275,17 +275,17 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		current_page = WRAP(current_page + 1, 1, pages + 1)
 		update_screen_objects()
 
-/datum/radial_menu/proc/show_to(mob/target, offset_x = 0, offset_y = 0)
+/datum/radial_menu/proc/show_to(mob/M)
 	if(current_user)
 		hide()
 
-	if(!target.client || !anchor)
+	if(!M.client || !anchor)
 		return
 
-	current_user = target.client
+	current_user = M.client
 
 	var/atom/menu_holder_location = anchor
-	if(target == anchor)
+	if(M == anchor)
 		screen_center = new
 		screen_center.screen_loc = "CENTER,CENTER"
 		current_user.screen += screen_center
@@ -293,14 +293,9 @@ GLOBAL_LIST_EMPTY(radial_menus)
 
 	//Blank
 	menu_holder = image(icon = 'icons/effects/effects.dmi', loc = menu_holder_location, icon_state = "nothing", layer = RADIAL_BACKGROUND_LAYER)
-	menu_holder.pixel_w = offset_x
-	menu_holder.pixel_z = offset_y
-
-	SET_PLANE_EXPLICIT(menu_holder, ABOVE_HUD_PLANE, target)
+	SET_PLANE_EXPLICIT(menu_holder, ABOVE_HUD_PLANE, M)
 	menu_holder.appearance_flags |= KEEP_APART|RESET_ALPHA|RESET_COLOR|RESET_TRANSFORM
-	menu_holder.vis_contents += elements
-	if(!isnull(close_button))
-		menu_holder.vis_contents += close_button
+	menu_holder.vis_contents += elements + close_button
 	current_user.images += menu_holder
 
 /datum/radial_menu/proc/hide()

@@ -933,7 +933,12 @@
 	d2 = 2;
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/supermatter_crystal/shard/hugbox/fakecrystal,
+/obj/structure{
+	desc = "It looks like a unactive supermatter shard.. Can I touch it?";
+	icon = 'icons/obj/engines_and_power/supermatter.dmi';
+	icon_state = "darkmatter";
+	name = "supermatter shard"
+	},
 /turf/simulated/floor/engine,
 /area/awaymission/spacebattle/engine)
 "cT" = (
@@ -1301,6 +1306,7 @@
 	dir = 4;
 	layer = 4
 	},
+/obj/machinery/field/containment,
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
 /area/awaymission/spacebattle/cruiser)
@@ -2567,7 +2573,7 @@
 	},
 /area/awaymission/spacebattle/syndicate3)
 "hs" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -3403,7 +3409,7 @@
 	},
 /area/awaymission/spacebattle/syndicate2)
 "jN" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
+/obj/machinery/atmospherics/unary/cold_sink/freezer{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel/freezer,
@@ -4305,8 +4311,8 @@
 /area/awaymission/spacebattle/hallway11)
 "mr" = (
 /obj/machinery/conveyor{
-	dir = 9;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -4727,8 +4733,8 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/machinery/light/small,
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -5108,8 +5114,8 @@
 "oE" = (
 /obj/item/stack/sheet/metal,
 /obj/machinery/conveyor/inverted{
-	dir = 5;
-	id = "mining_internal"
+	id = "mining_internal";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -5216,6 +5222,7 @@
 	dir = 8;
 	layer = 4
 	},
+/obj/machinery/field/containment,
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
 /area/awaymission/spacebattle/cruiser)
@@ -7994,8 +8001,8 @@
 /obj/item/flashlight/emp,
 /obj/item/flashlight,
 /obj/machinery/conveyor{
-	dir = 1;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -8046,8 +8053,8 @@
 "wM" = (
 /obj/structure/plasticflaps/mining,
 /obj/machinery/conveyor{
-	dir = 1;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -10002,8 +10009,8 @@
 "BV" = (
 /obj/machinery/light/small,
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -10252,7 +10259,7 @@
 	dir = 4;
 	simulated = 0
 	},
-/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded{
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
 	dir = 1
 	},
 /obj/machinery/light/small,
@@ -10498,8 +10505,8 @@
 	dir = 4
 	},
 /obj/machinery/conveyor/inverted{
-	dir = 6;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 6
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -10830,8 +10837,8 @@
 /obj/item/gun/energy/laser/retro/old,
 /obj/item/gun/energy/laser/retro/old,
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -11200,6 +11207,9 @@
 /obj/machinery/gateway{
 	dir = 1;
 	layer = 4
+	},
+/obj/machinery/field/containment{
+	dir = 4
 	},
 /obj/structure/lattice,
 /turf/simulated/floor/fakespace,
@@ -13425,7 +13435,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "LD" = (
-/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded,
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded,
 /obj/machinery/alarm/syndicate{
 	pixel_y = 32
 	},
@@ -14840,7 +14850,7 @@
 	},
 /area/awaymission/spacebattle/prhallway3)
 "Pu" = (
-/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded{
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded{
 	dir = 1
 	},
 /turf/simulated/floor/shuttle{
@@ -16848,7 +16858,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/obj/machinery/atmospherics/unary/thermomachine/heater/upgraded,
+/obj/machinery/atmospherics/unary/heat_reservoir/heater/upgraded,
 /obj/structure/window/plasmareinforced{
 	dir = 4;
 	simulated = 0
@@ -17599,8 +17609,8 @@
 /area/awaymission/spacebattle/hallway11)
 "WV" = (
 /obj/machinery/conveyor{
-	dir = 1;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)
@@ -18172,10 +18182,10 @@
 	dir = 4
 	},
 /obj/machinery/conveyor_switch/oneway{
-	dir = 8;
 	id = "mining_internal";
 	name = "Smelting";
-	pixel_x = -10
+	pixel_x = -10;
+	dir = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
@@ -18379,8 +18389,8 @@
 /area/awaymission/spacebattle/sec_storage)
 "Zn" = (
 /obj/machinery/conveyor{
-	dir = 4;
-	id = "cargodeliverySB"
+	id = "cargodeliverySB";
+	dir = 4
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/sec_storage)

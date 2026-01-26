@@ -202,7 +202,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/lava_arena()
 	if(!target)
 		return
-	target.visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] заключает вас в арену огня!"))
+	target.visible_message(span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] заключает вас в арену огня!"))
 	var/amount = 3
 	var/turf/center = get_turf(target)
 	var/list/walled = RANGE_TURFS(enraged ? 4 : 3, center) - RANGE_TURFS(enraged ? 3 : 2, center)
@@ -247,7 +247,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/arena_escape_enrage() // you ran somehow / teleported away from my arena attack now i'm mad fucker
 	SLEEP_CHECK_DEATH(src, 0)
 	SetRecoveryTime(80)
-	visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает ярко светиться, пока его раны закрываются!"))
+	visible_message(span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] начинает ярко светиться, пока его раны закрываются!"))
 	adjustBruteLoss(-250) // yeah you're gonna pay for that, don't run nerd
 	add_atom_colour(rgb(255, 255, 0), TEMPORARY_COLOUR_PRIORITY)
 	move_to_delay = move_to_delay / 2
@@ -291,27 +291,24 @@ Difficulty: Medium
 //fire line keeps going even if dragon is deleted
 /proc/dragon_fire_line(source, list/turfs)
 	var/list/hit_list = list()
-	for(var/turf/turf as anything in turfs)
-		if(turf.density)
+	for(var/turf/T in turfs)
+		if(T.density)
 			break
-
-		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
-		hotspot.temperature = 1000
-		hotspot.recolor()
-		turf.hotspot_expose(700, 50)
-		for(var/mob/living/mob in turf.contents)
-			if((mob in hit_list) || mob == source)
+		new /obj/effect/hotspot(T)
+		T.hotspot_expose(700,50,1)
+		for(var/mob/living/L in T.contents)
+			if((L in hit_list) || L == source)
 				continue
-			hit_list += mob
-			mob.adjustFireLoss(20)
-			to_chat(mob, span_userdanger("Вас поражает огненное дыхание [source]!"))
+			hit_list += L
+			L.adjustFireLoss(20)
+			to_chat(L, span_userdanger("Вас поражает огненное дыхание [source]!"))
 
 		// deals damage to mechs
-		for(var/obj/mecha/mecha in turf.contents)
-			if(mecha in hit_list)
+		for(var/obj/mecha/M in T.contents)
+			if(M in hit_list)
 				continue
-			hit_list += mecha
-			mecha.take_damage(45, BRUTE, MELEE, 1)
+			hit_list += M
+			M.take_damage(45, BRUTE, MELEE, 1)
 		sleep(1.5)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(lava_arena = FALSE, atom/movable/manual_target, swoop_cooldown = 30)
@@ -325,7 +322,7 @@ Difficulty: Medium
 	swooping |= SWOOP_DAMAGEABLE
 	ADD_TRAIT(src, TRAIT_UNDENSE, DRAGON_SWOOP_TRAIT)
 	icon_state = "shadow"
-	visible_message(span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] взмывает высоко вверх!"))
+	visible_message(span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] взмывает высоко вверх!"))
 
 	var/negative
 	var/initial_x = x
@@ -382,7 +379,7 @@ Difficulty: Medium
 	playsound(loc, 'sound/effects/meteorimpact.ogg', 200, TRUE)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
-			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(L)]!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] обрушивается на [L.declent_ru(NOMINATIVE)], раздавливая [GEND_HIS_HER(L)]!"))
 			L.gib()
 		else
 			L.adjustBruteLoss(75)
@@ -392,7 +389,7 @@ Difficulty: Medium
 					throw_dir = pick(GLOB.alldirs)
 				var/throwtarget = get_edge_target_turf(src, throw_dir)
 				L.throw_at(throwtarget, 3)
-				visible_message(span_warning("[DECLENT_RU_CAP(L, NOMINATIVE)] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
+				visible_message(span_warning("[capitalize(L.declent_ru(NOMINATIVE))] отбрасывается в сторону от [declent_ru(ACCUSATIVE)]!"))
 	for(var/obj/mecha/M in orange(1, src))
 		M.take_damage(75, BRUTE, MELEE, 1)
 
@@ -504,7 +501,7 @@ Difficulty: Medium
 		PREPOSITIONAL = "огненном барьере",
 	)
 
-/obj/effect/temp_visual/drakewall/CanAtmosPass(direction)
+/obj/effect/temp_visual/drakewall/CanAtmosPass(turf/T, vertical)
 	return !density
 
 /obj/effect/temp_visual/lava_safe
@@ -615,10 +612,8 @@ Difficulty: Medium
 		var/turf/simulated/mineral/M = T
 		M.attempt_drill()
 	playsound(T, SFX_EXPLOSION, 80, TRUE)
-	var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(T)
-	hotspot.temperature = 1000
-	hotspot.recolor()
-	T.hotspot_expose(700, 50)
+	new /obj/effect/hotspot(T)
+	T.hotspot_expose(700, 50, 1)
 	for(var/mob/living/L in T.contents)
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue

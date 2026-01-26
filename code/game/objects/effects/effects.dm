@@ -4,7 +4,6 @@
 
 /obj/effect
 	icon = 'icons/effects/effects.dmi'
-	abstract_type = /obj/effect
 	obj_flags = IGNORE_HITS
 	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF|FREEZE_PROOF
 	move_resist = INFINITY
@@ -20,7 +19,7 @@
 	qdel(src)
 	return FALSE
 
-/obj/effect/fire_act(exposed_temperature, exposed_volume)
+/obj/effect/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/effect/acid_act()
@@ -35,8 +34,8 @@
 /obj/effect/blob_act(obj/structure/blob/B)
 	return
 
-/obj/effect/experience_pressure_difference(flow_x, flow_y)
-	return // Immune to gas flow.
+/obj/effect/experience_pressure_difference()
+	return
 
 /obj/effect/ex_act(severity, target)
 	switch(severity)
@@ -49,7 +48,7 @@
 			if(prob(25))
 				qdel(src)
 
-/obj/effect/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/effect/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	return
 
 /**
@@ -100,7 +99,7 @@
 /obj/effect/abstract/acid_act()
 	return
 
-/obj/effect/abstract/fire_act(exposed_temperature, exposed_volume)
+/obj/effect/abstract/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
 /obj/effect/abstract/get_gravity(turf/gravity_turf)

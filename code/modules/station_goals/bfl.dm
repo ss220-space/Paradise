@@ -55,7 +55,6 @@
 /obj/item/circuitboard/machine/bfl_emitter
 	board_name = "BFL Emitter"
 	desc = "Be cautious, when emitter will be done it move up by one step"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/power/bfl_emitter
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
@@ -69,7 +68,6 @@
 /obj/item/circuitboard/machine/bfl_receiver
 	board_name = "BFL Receiver"
 	desc = "Must be built in the middle of the deposit"
-	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/bfl_receiver
 	origin_tech = "engineering=4;combat=4;bluespace=4"
 	req_components = list(
@@ -83,7 +81,7 @@
 ///////////
 /obj/machinery/power/bfl_emitter
 	name = "BFL Emitter"
-	icon = 'icons/obj/machines/bfl/emitter.dmi'
+	icon = 'icons/obj/machines/BFL_mission/Emitter.dmi'
 	icon_state = "Emitter_Off"
 	density = TRUE
 	idle_power_usage = 100000
@@ -264,7 +262,7 @@
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
 	desc = "Кнопка активации выглядит подозрительно. Возможно, следует открыть шахту вручную с помощью лома."
-	icon = 'icons/obj/machines/bfl/hole.dmi'
+	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
 	interact_offline = TRUE
@@ -413,7 +411,7 @@
 
 /atom/movable/bfl_receiver_light
 	name = ""
-	icon = 'icons/obj/machines/bfl/hole.dmi'
+	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Receiver_Light_0"
 	layer = LOW_ITEM_LAYER
 	flags = INDESTRUCTIBLE
@@ -434,7 +432,7 @@
 /obj/machinery/bfl_lens
 	name = "High-precision lens"
 	desc = "Чрезвычайно хрупкая, обращайтесь осторожно."
-	icon = 'icons/obj/machines/bfl/hole.dmi'
+	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Lens_Pull"
 	max_integrity = 40
 	layer = ABOVE_MOB_LAYER
@@ -464,7 +462,7 @@
 /obj/machinery/bfl_lens/update_overlays()
 	. = ..()
 	if(state)
-		. += image('icons/obj/machines/bfl/laser.dmi', icon_state = "Laser_Blue", pixel_z = 64, layer = GASFIRE_LAYER)
+		. += image('icons/obj/machines/BFL_Mission/Laser.dmi', icon_state = "Laser_Blue", pixel_y = 64, layer = GASFIRE_LAYER)
 
 /obj/machinery/bfl_lens/proc/activate_lens()
 	state = TRUE
@@ -525,7 +523,7 @@
 /obj/bfl_crack
 	name = "rich plasma deposit"
 	anchored = TRUE
-	icon = 'icons/obj/machines/bfl/hole.dmi'
+	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Crack"
 	pixel_x = -32
 	pixel_y = -32
@@ -547,7 +545,7 @@
 /obj/singularity/bfl_red
 	name = "BFL"
 	desc = "Гигантский лазер, предназначенный для добычи руды."
-	icon = 'icons/obj/machines/bfl/laser.dmi'
+	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
 	speed_process = TRUE
 	var/move = 0
@@ -568,7 +566,7 @@
 
 /obj/singularity/bfl_red/expand()
 	. = ..()
-	icon = 'icons/obj/machines/bfl/laser.dmi'
+	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
 	pixel_x = -32
 	pixel_y = 0
@@ -585,7 +583,7 @@
 /obj/effect/bfl_laser
 	name = "big laser beam"
 	desc = "Огромный сияющий луч, бьющий сверху вниз. Лучше не касаться."
-	icon = 'icons/obj/machines/bfl/laser_tile.dmi'
+	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
 	icon_state = "laser"
 
 /obj/effect/bfl_laser/get_ru_names()
@@ -638,7 +636,7 @@
 			. = TRUE
 			if(O.armor.getRating("fire") > 50) //obj with 100% fire armor still get slowly burned away.
 				O.armor = O.armor.setRating(fire_value = 50)
-			O.fire_act(2000, 1000)
+			O.fire_act(null, 2000, 1000)
 
 		else if(isliving(thing))
 			. = TRUE

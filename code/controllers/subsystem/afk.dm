@@ -4,7 +4,7 @@
 
 SUBSYSTEM_DEF(afk)
 	name = "AFK Watcher"
-	wait = 30 SECONDS
+	wait = 300
 	flags = SS_BACKGROUND
 	cpu_display = SS_CPUDISPLAY_LOW
 	offline_implications = "Players will no longer be marked as AFK. No immediate action is needed."

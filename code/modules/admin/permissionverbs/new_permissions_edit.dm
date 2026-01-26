@@ -39,7 +39,7 @@
 			)
 
 /datum/ui_module/permissions_edit/ui_state(mob/user)
-	return ADMIN_STATE(R_ADMIN)
+	return GLOB.admin_state
 
 /datum/ui_module/permissions_edit/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -186,7 +186,7 @@
 		log_and_message_admins("attempted to edit admin ranks via advanced proc-call")
 		return
 
-	if(permissions & (R_DEBUG|R_VIEWRUNTIMES))
+	if(permissions & R_DEBUG || permissions & R_VIEWRUNTIMES)
 		world.SetConfig("APP/admin", ckey, "role=admin")
 		return
 
@@ -201,7 +201,7 @@
 	var/datum/admins/admin_datum
 
 	if(!SSdbcore.IsConnected())
-		to_chat(src, "Warning, MYSQL database is not connected.", confidential = TRUE)
+		to_chat(src, "Warning, MYSQL database is not connected.", confidential=TRUE)
 		return
 
 	var/datum/db_query/admin_read = SSdbcore.NewQuery(
@@ -249,7 +249,7 @@
 	var/client/client = GLOB.directory[ckey]
 	client?.deadmin()
 	update_buttons(client)
-	update_byond_admin_configs(ckey, R_NONE)
+	update_byond_admin_configs(ckey, 0)
 	var/datum/admins/admin_datum = GLOB.admin_datums[ckey]
 
 	if(!QDELETED(admin_datum))
@@ -277,7 +277,7 @@
 
 	client.deadmin()
 	update_buttons(client)
-	update_byond_admin_configs(client.ckey, R_NONE)
+	update_byond_admin_configs(client.ckey, 0)
 	add_verb(client, /client/proc/readmin)
 	to_chat(client, span_interface("You are now a normal player."), confidential = TRUE)
 	log_and_message_admins("force de-admin [ckey].")
@@ -346,7 +346,7 @@
 		return
 
 	client.update_active_keybindings()
-	client.remove_admin_verbs()
+	client.hide_verbs()
 	client.init_verbs()
 	client.add_admin_verbs()
 
@@ -357,11 +357,18 @@
 	var/mob/dead/observer/observer = mob
 	observer.update_admin_actions()
 
-ADMIN_VERB(edit_admin_permissions_new, R_PERMISSIONS, "Permissions Panel (New)", "Edit admin permissions.", ADMIN_CATEGORY_MAIN)
-	if(!SSdbcore.IsConnected())
-		user.holder.edit_admin_permissions()
+/client/proc/edit_admin_permissions_new()
+	set category = STATPANEL_ADMIN_ADMIN
+	set name = "Permissions Panel (New)"
+	set desc = "Edit admin permissions"
+
+	if(!check_rights(R_PERMISSIONS))
 		return
 
-	var/datum/ui_module/permissions_edit/panel = new(user)
-	panel.ui_interact(user.mob)
+	if(!SSdbcore.IsConnected())
+		edit_admin_permissions()
+		return
+
+	var/datum/ui_module/permissions_edit/panel = new(src)
+	panel.ui_interact(usr)
 	qdel(panel)

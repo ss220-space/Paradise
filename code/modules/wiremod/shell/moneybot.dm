@@ -41,7 +41,6 @@
 
 /obj/structure/money_bot/wrench_act(mob/living/user, obj/item/tool)
 	if(locked)
-		balloon_alert(user, "закрыто!")
 		return
 
 	set_anchored(!anchored)

@@ -11,7 +11,7 @@
 	gender = NEUTER
 	dna = null
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALIEN
-	abstract_type = /mob/living/carbon/alien
+
 	var/nightvision_enabled = FALSE
 	nightvision = 4
 
@@ -148,11 +148,11 @@
 /mob/living/carbon/alien/check_eye_prot()
 	return FLASH_PROTECTION_WELDER
 
-/mob/living/carbon/alien/handle_environment(datum/gas_mixture/readonly_environment)
-	if(!readonly_environment)
+/mob/living/carbon/alien/handle_environment(datum/gas_mixture/environment)
+	if(!environment)
 		return
 
-	var/loc_temp = get_temperature(readonly_environment)
+	var/loc_temp = get_temperature(environment)
 
 //	to_chat(world, "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Fire protection: [heat_protection] - Location: [loc] - src: [src]")
 

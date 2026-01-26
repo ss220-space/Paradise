@@ -11,10 +11,6 @@ GLOBAL_LIST_EMPTY(high_value_items)
 
 /datum/element/high_value_item/Detach(datum/source)
 	. = ..()
-	GLOB.high_value_items -= source
-	if(SSticker.current_state != GAME_STATE_PLAYING)
-		return
-
 	var/turf/turf_loc = get_turf(source)
 	if(turf_loc)
 		message_admins("[source] has been destroyed in [get_area(turf_loc)] at [ADMIN_COORDJMP(turf_loc)].")
@@ -22,3 +18,4 @@ GLOBAL_LIST_EMPTY(high_value_items)
 	else
 		message_admins("[source] has been destroyed in nullspace.")
 		log_game("[source] has been destroyed in nullspace.")
+	GLOB.high_value_items -= source

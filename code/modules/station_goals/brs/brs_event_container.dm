@@ -395,18 +395,12 @@
 
 		var/turf/simulated/t_turf = turf
 
-		var/datum/milla_safe/bluespace_rift_snow/milla = new()
-		milla.invoke_async(t_turf)
+		t_turf.air.temperature = T0C - 1
+		t_turf.air_update_turf()
 
 		if(locate(/obj/effect/snowcloud, t_turf))
 			continue
 		new /obj/effect/snow(t_turf)
-
-/datum/milla_safe/bluespace_rift_snow
-
-/datum/milla_safe/bluespace_rift_snow/on_run(turf/location)
-	var/datum/gas_mixture/env = get_turf_air(location)
-	env.set_temperature(T0C - 1)
 
 /datum/event/bluespace_rift_event/snow/end()
 	..()

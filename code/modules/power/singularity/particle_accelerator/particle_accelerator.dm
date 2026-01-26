@@ -105,17 +105,17 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	. = ..()
 	switch(construction_state)
 		if(ACCELERATOR_UNWRENCHED)
-			. += span_notice("\The [name]'s <i>anchoring bolts</i> are loose.")
+			. += "<span class='notice'>\The [name]'s <i>anchoring bolts</i> are loose.</span>"
 		if(ACCELERATOR_WRENCHED)
-			. += span_notice("\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.")
+			. += "<span class='notice'>\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.</span>"
 		if(ACCELERATOR_WIRED)
-			. +=  span_notice("\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.")
+			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.</span>"
 		if(ACCELERATOR_READY)
-			. += span_notice("\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.")
+			. += "<span class='notice'>\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.</span>"
 			if(powered)
 				desc = desc_holder
 	if(!anchored)
-		. += span_notice("<b>Alt-Click</b> to rotate it.")
+		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))

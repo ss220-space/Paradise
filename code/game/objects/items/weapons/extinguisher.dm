@@ -1,7 +1,6 @@
 /obj/item/extinguisher
 	name = "fire extinguisher"
 	desc = "Традиционный красный огнетушитель."
-	icon = 'icons/obj/tools.dmi'
 	icon_state = "fire_extinguisher0"
 	base_icon_state = "fire_extinguisher"
 	item_state = "fire_extinguisher"
@@ -19,7 +18,7 @@
 	/// Does the welder extinguisher start with water.
 	var/starting_water = TRUE
 	/// Cooldown between uses.
-	COOLDOWN_DECLARE(last_use)
+	var/last_use = 1
 	/// Can we actually fire currently?
 	var/safety = TRUE
 	/// Maximum distance launched water will travel.
@@ -49,7 +48,7 @@
 	flags = null //doesn't CONDUCT
 	throwforce = 2
 	w_class = WEIGHT_CLASS_SMALL
-	force = 3
+	force = 3.0
 	materials = list()
 	max_water = 30
 	dog_fashion = null
@@ -67,7 +66,7 @@
 
 /obj/item/extinguisher/Initialize(mapload)
 	. = ..()
-	if(!reagents && starting_water)
+	if(!reagents)
 		create_reagents(max_water)
 		reagents.add_reagent("water", max_water)
 
@@ -93,24 +92,25 @@
 	return ..()
 
 /obj/item/extinguisher/proc/AttemptRefill(atom/target, mob/user)
-	if(!istype(target, /obj/structure/reagent_dispensers/watertank) || !target.Adjacent(user))
-		return FALSE
-	var/safety_save = safety
-	safety = TRUE
-	if(reagents.total_volume == reagents.maximum_volume)
-		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] уже полностью заправлен!"))
-	else
+	if(istype(target, /obj/structure/reagent_dispensers/watertank) && target.Adjacent(user))
+		var/safety_save = safety
+		safety = TRUE
+		if(reagents.total_volume == reagents.maximum_volume)
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] уже полностью заправлен!"))
+			safety = safety_save
+			return TRUE
 		var/obj/structure/reagent_dispensers/watertank/watertank = target
 		var/transferred = watertank.reagents.trans_to(src, max_water)
 		if(transferred > 0)
-			to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] был заправлен на [transferred] единиц[DECL_SEC_MIN(transferred)]."))
+			to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] был заправлен на [transferred] единиц[DECL_SEC_MIN(transferred)]."))
 			playsound(loc, 'sound/effects/refill.ogg', 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			for(var/datum/reagent/water/reagent in reagents.reagent_list)
 				reagent.cooling_temperature = cooling_power
 		else
-			to_chat(user, span_notice("[DECLENT_RU_CAP(watertank, NOMINATIVE)] пуст!"))
-	safety = safety_save
-	return TRUE
+			to_chat(user, span_notice("[capitalize(watertank.declent_ru(NOMINATIVE))] пуст!"))
+		safety = safety_save
+		return TRUE
+	return FALSE
 
 /obj/item/extinguisher/afterattack(atom/target, mob/user, flag, params)
 	. = ..()
@@ -122,12 +122,12 @@
 		return
 
 	if(reagents.total_volume < 1)
-		to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] пуст."))
+		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] пуст."))
 		return
 
-	if(!COOLDOWN_FINISHED(src, last_use))
+	if(world.time < last_use + 2 SECONDS)
 		return
-	COOLDOWN_START(src, last_use, 2 SECONDS)
+	last_use = world.time
 
 	if(reagents.chem_temp > 300 || reagents.chem_temp < 280)
 		add_attack_logs(user, target, "Sprayed with superheated or cooled fire extinguisher at Temperature [reagents.chem_temp]K")

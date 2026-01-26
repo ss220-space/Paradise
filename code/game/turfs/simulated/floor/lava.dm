@@ -232,11 +232,10 @@
 	return
 
 /turf/simulated/floor/lava/lava_land_surface
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+	planetary_atmos = TRUE
 	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
 	/// Check for plasma river, subtype of lava, prevents simple fishing
 	var/can_be_fished_on = TRUE
@@ -268,7 +267,7 @@
 	var/obj/item/reagent_containers/food/snacks/charred_krill/krill = AM //yourself
 	krill.in_lava = TRUE
 	krill.anchored = TRUE	//no closet kidnaping
-	visible_message(span_warning("[DECLENT_RU_CAP(krill, NOMINATIVE)] медленно тон[PLUR_ET_UT(krill)] в лаве!"))
+	visible_message(span_warning("[capitalize(krill.declent_ru(NOMINATIVE))] медленно тон[PLUR_ET_UT(krill)] в лаве!"))
 	sleep(5 SECONDS)
 	qdel(krill)
 	if(!can_be_fished_on)
@@ -337,7 +336,7 @@
 
 	. |= ATTACK_CHAIN_SUCCESS
 	if(!I.reagents.add_reagent("plasma", 10))
-		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] уже заполнен[GEND_A_O_Y(I)] до краёв."))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] уже заполнен[GEND_A_O_Y(I)] до краёв."))
 		return .
 	to_chat(user, span_notice("Вы черпаете лаву из [declent_ru(GENITIVE)] используя [I.declent_ru(ACCUSATIVE)]."))
 
@@ -386,11 +385,10 @@
 	name = "Adaptive lava / chasm / plasma"
 	icon_state = "mappinglava"
 	baseturf = /turf/simulated/floor/lava/mapping_lava
-	oxygen = LAVALAND_OXYGEN
-	nitrogen = LAVALAND_NITROGEN
-	temperature = LAVALAND_TEMPERATURE
-	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
-	atmos_environment = ENVIRONMENT_LAVALAND
+	temperature = 300
+	oxygen = 14
+	nitrogen = 23
+	planetary_atmos = TRUE
 
 /turf/simulated/floor/lava/mapping_lava/Initialize(mapload)
 	. = ..()

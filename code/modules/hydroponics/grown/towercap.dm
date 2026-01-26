@@ -245,13 +245,11 @@
 		return
 	return ..()
 
-/// Check if we're standing in an oxygenless environment
 /obj/structure/bonfire/proc/CheckOxygen()
-	var/turf/turf = get_turf(src)
-	var/datum/gas_mixture/gas = turf.get_readonly_air()
-	if(gas.oxygen() > 13)
-		return TRUE
-	return FALSE
+	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
+	if(G.oxygen > 13)
+		return 1
+	return 0
 
 /obj/structure/bonfire/proc/StartBurning()
 	. = FALSE
@@ -263,7 +261,7 @@
 		Burn()
 		START_PROCESSING(SSobj, src)
 
-/obj/structure/bonfire/fire_act(exposed_temperature, exposed_volume)
+/obj/structure/bonfire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	StartBurning()
 
@@ -280,7 +278,7 @@
 
 /obj/structure/bonfire/proc/Burn()
 	var/turf/current_location = get_turf(src)
-	current_location.hotspot_expose(1000, 10)
+	current_location.hotspot_expose(1000,500,1)
 	for(var/A in current_location)
 		if(A == src)
 			continue

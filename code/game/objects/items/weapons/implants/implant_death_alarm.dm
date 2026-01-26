@@ -21,19 +21,19 @@
 
 	switch(cause)
 		if("gib")
-			message = "[mobname] умер-ррр-р-р во-во-во..."
+			message = "[mobname] has died-zzzzt in-in-in..."
 			destroy = TRUE
 		if("emp")
 			var/name = prob(50) ? mob_area.name : pick(SSmapping.teleportlocs)
-			message = "Потерян сигнал жизнедеятельности от [mobname] в [name]!"
+			message = "[mobname] has died in [name]!"
 		else
 			if(is_type_in_typecache(mob_area, stealth_areas))
 				//give the syndies a bit of stealth
-				message = "Потерян сигнал жизнедеятельности от [mobname] в космосе!"
+				message = "[mobname] has died in Space!"
 			else
-				message = "Потерян сигнал жизнедеятельности от [mobname] в [mob_area.name]!"
+				message = "[mobname] has died in [mob_area.name]!"
 			destroy = TRUE
-	radio_announce(message, "Оповещение о смерти [mobname]", PUB_FREQ, follow_target_override = imp_in)
+	radio_announce(message, "[mobname]'s Death Alarm", PUB_FREQ, follow_target_override = imp_in)
 
 	if(!destroy)
 		return

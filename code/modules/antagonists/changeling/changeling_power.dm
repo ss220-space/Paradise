@@ -14,7 +14,6 @@ GLOBAL_LIST_INIT(changeling_mutations, list(
 ))
 
 /datum/action/changeling
-	abstract_type = /datum/action/changeling
 	name = "Prototype Sting"
 	desc = "" // Fluff
 	background_icon_state = "bg_changeling"

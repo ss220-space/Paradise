@@ -1,5 +1,5 @@
 /client/verb/randomtip()
-	set category = VERB_CATEGORY_OOC
+	set category = STATPANEL_OOC
 	set name = "Случайный совет"
 	set desc = "Shows you a random tip"
 

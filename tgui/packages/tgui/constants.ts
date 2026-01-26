@@ -279,7 +279,7 @@ const GASES = [
     id: 'hydrogen',
     name: 'Hydrogen',
     label: 'H₂',
-    color: '#997379',
+    color: 'white',
   },
   {
     id: 'ab',

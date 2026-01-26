@@ -8,7 +8,6 @@
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	gender = MALE
-	cares_about_temperature = TRUE
 	var/slot = ACCESSORY_SLOT_DECOR
 	/// the suit the tie may be attached to
 	var/obj/item/clothing/under/has_suit
@@ -343,12 +342,12 @@
 	icon_state = "plasma"
 	materials = list(MAT_PLASMA = 1000)
 
-/obj/item/clothing/accessory/medal/plasma/temperature_expose(exposed_temperature, exposed_volume)
+/obj/item/clothing/accessory/medal/plasma/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	..()
-	if(exposed_temperature > T0C + 200)
+	if(temperature > T0C + 200)
 		burn_up()
 
-/obj/item/clothing/accessory/medal/plasma/fire_act(exposed_temperature, exposed_volume)
+/obj/item/clothing/accessory/medal/plasma/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	. = ..()
 	burn_up()
 
@@ -497,7 +496,7 @@
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
 	set name = "Показать значок"
-	set category = VERB_CATEGORY_OBJECT
+	set category = STATPANEL_OBJECT
 	set src in usr
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -971,10 +970,10 @@
 	else if(istype(t, /area/ussp_centcom))
 		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
-		radio_announce("[M] подверг[GEND_SYA_AS_OS_IS(M)] вандализму в космосе", "Оповещение о смерти [M]", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
+		radio_announce("[M] has been vandalized in Space!", "[M]'s Death Alarm", PUB_FREQ, src)	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		STOP_PROCESSING(SSobj, src)
 		return
-	radio_announce("[M] подверг[GEND_SYA_AS_OS_IS(M)] вандализму в [t.name]!", "Оповещение о смерти [M]", announce_channel, src)
+	radio_announce("[M] has been vandalized in [t.name]!", "[M]'s Death Alarm", announce_channel, src)
 	STOP_PROCESSING(SSobj, src)
 
 /proc/accessory_list(obj/item/clothing/under/uniform)
@@ -1268,74 +1267,6 @@
 		ACCUSATIVE = "нашивку \"Лягушка\"",
 		INSTRUMENTAL = "нашивкой \"Лягушка\"",
 		PREPOSITIONAL = "нашивке \"Лягушка\"",
-	)
-
-/obj/item/clothing/accessory/head_strip/whitecatstrip
-	name = "white cat strip"
-	desc = "Плотно сшитая нашивка из белого бархата в форме головы кота, по центру прошиты глаза и мордочка. Выглядит мило."
-	icon_state = "whitecatstrip"
-	item_state = "whitecatstrip"
-	strip_bubble_icon = "whitecat"
-
-/obj/item/clothing/accessory/head_strip/whitecatstrip/get_ru_names()
-	return list(
-		NOMINATIVE = "нашивка \"Белый кот\"",
-		GENITIVE = "нашивки \"Белый кот\"",
-		DATIVE = "нашивке \"Белый кот\"",
-		ACCUSATIVE = "нашивку \"Белый кот\"",
-		INSTRUMENTAL = "нашивкой \"Белый кот\"",
-		PREPOSITIONAL = "нашивке \"Белый кот\"",
-	)
-
-/obj/item/clothing/accessory/head_strip/orangecatstrip
-	name = "orange cat strip"
-	desc = "Плотно сшитая нашивка из нитей трех цветов в форме головы кота, по центру прошиты глаза и мордочка. Выглядит очень мило."
-	icon_state = "orangecatstrip"
-	item_state = "orangecatstrip"
-	strip_bubble_icon = "orangecat"
-
-/obj/item/clothing/accessory/head_strip/orangecatstrip/get_ru_names()
-	return list(
-		NOMINATIVE = "нашивка \"Трёхцветный кот\"",
-		GENITIVE = "нашивки \"Трёхцветный кот\"",
-		DATIVE = "нашивке \"Трёхцветный кот\"",
-		ACCUSATIVE = "нашивку \"Трёхцветный кот\"",
-		INSTRUMENTAL = "нашивкой \"Трёхцветный кот\"",
-		PREPOSITIONAL = "нашивке \"Трёхцветный кот\"",
-	)
-
-/obj/item/clothing/accessory/head_strip/ratstrip
-	name = "rat strip"
-	desc = "Плотно сшитая нашивка из серого бархата в форме головы крысы, по центру прошиты глаза и мордочка. Выглядит пи-пи-пи."
-	icon_state = "ratstrip"
-	item_state = "ratstrip"
-	strip_bubble_icon = "rat"
-
-/obj/item/clothing/accessory/head_strip/ratstrip/get_ru_names()
-	return list(
-		NOMINATIVE = "нашивка \"Крыска\"",
-		GENITIVE = "нашивки \"Крыска\"",
-		DATIVE = "нашивке \"Крыска\"",
-		ACCUSATIVE = "нашивку \"Крыска\"",
-		INSTRUMENTAL = "нашивкой \"Крыска\"",
-		PREPOSITIONAL = "нашивке \"Крыска\"",
-	)
-
-/obj/item/clothing/accessory/head_strip/devilstrip
-	name = "devil strip"
-	desc = "Плотно сшитая нашивка из красного бархата в форме головы дьявола, сверху красуются рога, а по центру два зловещих желтых глаза. От нашивки исходит инфернальное тепло."
-	icon_state = "devilstrip"
-	item_state = "devilstrip"
-	strip_bubble_icon = "devil"
-
-/obj/item/clothing/accessory/head_strip/devilstrip/get_ru_names()
-	return list(
-		NOMINATIVE = "нашивка \"Дьявол\"",
-		GENITIVE = "нашивки \"Дьявол\"",
-		DATIVE = "нашивке \"Дьявол\"",
-		ACCUSATIVE = "нашивку \"Дьявол\"",
-		INSTRUMENTAL = "нашивкой \"Дьявол\"",
-		PREPOSITIONAL = "нашивке \"Дьявол\"",
 	)
 
 /obj/item/clothing/accessory/medal/smile

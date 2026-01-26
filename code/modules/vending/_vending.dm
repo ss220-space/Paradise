@@ -44,8 +44,6 @@
 	 * and will overwrite it's list of products if children's categories aren't specified.
 	 */
 	var/category
-	/// Whether the product can be recolored by the GAGS system
-	var/colorable
 
 /obj/machinery/vending
 	name = "Vendomat"
@@ -57,7 +55,6 @@
 	max_integrity = 300
 	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
-	abstract_type = /obj/machinery/vending
 
 	// All the overlay controlling variables
 	/// Overlay of vendor maintenance panel.
@@ -457,7 +454,7 @@
 
 		var/obj/item = new typepath(src)
 		var/datum/data/vending_product/record = new /datum/data/vending_product()
-		record.name = DECLENT_RU_CAP(item, NOMINATIVE)
+		record.name = capitalize(item.declent_ru(NOMINATIVE))
 		record.desc = item.desc
 		qdel(item)
 		record.product_path = typepath
@@ -466,7 +463,6 @@
 		record.max_amount = amount
 		record.price = (typepath in prices) ? prices[typepath] : 0
 		record.category = product_to_category[typepath]
-		record.colorable = !!(item.greyscale_config && item.greyscale_colors)
 		recordlist += record
 
 /**Builds all available inventories for the vendor - standard, contraband and premium
@@ -710,7 +706,7 @@
 		if(resistance_flags & INDESTRUCTIBLE)
 			return // no goodies, but also no tilts
 		if(COOLDOWN_FINISHED(src, last_hit_time))
-			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] странно покачивается..."))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] странно покачивается..."))
 			to_chat(user, span_userdanger("Кажется, что [declent_ru(NOMINATIVE)] так и норовит упасть!"))
 			COOLDOWN_START(src, last_hit_time, hit_warning_cooldown_length)
 			return
@@ -758,8 +754,8 @@
 		return
 
 	movable.visible_message(
-		span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
-		span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] обрушивается на вас без предупреждения!")
+		span_warning("[capitalize(declent_ru(NOMINATIVE))] внезапно опрокидывается на [movable.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] обрушивается на вас без предупреждения!")
 	)
 	tilt(movable, prob(5), FALSE)
 	aggressive = FALSE
@@ -885,7 +881,7 @@
 	if(!item_slot || inserted_item)
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
-		to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] будто бы приклеен[GEND_A_O_Y(I)] к вашей руке! Вы не можете [GEND_HIS_HER(I)] скинуть!"))
+		to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] будто бы приклеен[GEND_A_O_Y(I)] к вашей руке! Вы не можете [GEND_HIS_HER(I)] скинуть!"))
 		return
 	inserted_item = I
 	balloon_alert(user, "предмет вставлен")
@@ -943,7 +939,7 @@
 		var/estimated_height = 100 + min(length(product_records) * 34, 500)
 		if(length(prices) > 0)
 			estimated_height += 100 // to account for the "current user" interface
-		ui = new(user, src, "Vending", DECLENT_RU_CAP(src, NOMINATIVE))
+		ui = new(user, src, "Vending", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/vending/ui_data(mob/user)
@@ -976,19 +972,14 @@
 				data["guestNotice"] = "Обнаруженная ID-карта не привязана к счёту.";
 	data["stock"] = list()
 	for(var/datum/data/vending_product/product_record in product_records + coin_records + hidden_records)
-		var/list/product_data = list(
-			"name" = product_record.name,
-			"amount" = product_record.amount,
-			"colorable" = product_record.colorable,
-		)
-		data["stock"][product_record.name] = product_data
+		data["stock"][product_record.name] = product_record.amount
 	data["extended_inventory"] = extended_inventory
 	data["vend_ready"] = vend_ready
-	data["coin_name"] = coin ? DECLENT_RU_CAP(coin, NOMINATIVE) : FALSE
+	data["coin_name"] = coin ? capitalize(coin.declent_ru(NOMINATIVE)) : FALSE
 	data["panel_open"] = panel_open ? TRUE : FALSE
 	data["speaker"] = shut_up ? FALSE : TRUE
 	data["item_slot"] = item_slot // boolean
-	data["inserted_item_name"] = inserted_item ? DECLENT_RU_CAP(inserted_item, NOMINATIVE) : FALSE
+	data["inserted_item_name"] = inserted_item ? capitalize(inserted_item.declent_ru(NOMINATIVE)) : FALSE
 	return data
 
 /obj/machinery/vending/proc/collect_records_for_static_data(list/records, list/categories, premium, hidden, index)
@@ -1003,11 +994,11 @@
 		var/obj/item/item = new product_record.product_path(src)
 		var/list/static_record = list(
 			path = replacetext(replacetext("[product_record.product_path]", "/obj/item/", ""), "/", "-"),
-			name = DECLENT_RU_CAP(item, NOMINATIVE),
+			name = capitalize(item.declent_ru(NOMINATIVE)),
 			desc = item.desc,
 			price = (product_record.product_path in prices) ? prices[product_record.product_path] : 0,
-			icon = initial(item.icon),
-			icon_state = initial(item.icon_state),
+			icon = item.icon,
+			icon_state = item.icon_state,
 			max_amount = product_record.max_amount,
 			ref = product_record.UID()
 		)
@@ -1053,7 +1044,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
+		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 	switch(action)
 		if("toggle_voice")
@@ -1075,166 +1066,98 @@
 			usr.put_in_hands(coin, ignore_anim = FALSE)
 			coin = null
 			. = TRUE
-
-		if("select_colors")
-			. = select_colors(params)
-
 		if("vend")
-			. = vend_action(params)
+			if(!vend_ready)
+				balloon_alert(usr, "торговый автомат занят!")
+				return
+			if(panel_open)
+				balloon_alert(usr, "техпанель открыта!")
+				return
+
+			var/list/records_to_check = product_records + coin_records
+			if(extended_inventory)
+				records_to_check = product_records + coin_records + hidden_records
+
+			var/datum/data/vending_product/product_record = locateUID(params["ref"])
+
+			if(!istype(product_record))
+				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестный товар. Сообщите о баге."))
+				return
+			if(!product_record || !product_record.product_path)
+				to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестную позицию с товаром. Сообщите о баге."))
+				return
+			if(product_record in hidden_records)
+				if(!extended_inventory)
+					// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
+					to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
+					return
+			else if(!(product_record in records_to_check))
+				// Exploit prevention, stop the user
+				message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
+				return
+			if(product_record.amount <= 0)
+				to_chat(usr, "Товар \"[product_record.name]\" закончился!")
+				flick_vendor_overlay(FLICK_VEND)
+				return
+			if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)
+				balloon_alert(usr, "в доступе отказано!")
+				flick_vendor_overlay(FLICK_DENY)
+				return
+
+			vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
+
+			if(!(ishuman(usr) || issilicon(usr)) || product_record.price <= 0)
+				// Either the purchaser is not human nor silicon, or the item is free.
+				// Skip all payment logic.
+				vend(product_record, usr)
+				add_fingerprint(usr)
+				vend_ready = TRUE
+				. = TRUE
+				return
+
+			if(issilicon(usr))
+				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
+				vend_ready = TRUE
+				. = TRUE
+				return
+
+			// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
+			if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
+				to_chat(usr, "Удалённый сервер торговых автоматов отключён. Не удается обработать операцию.")
+				flick_vendor_overlay(FLICK_DENY)
+				vend_ready = TRUE
+				return
+
+			currently_vending = product_record
+			var/paid = FALSE
+
+			if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
+				var/obj/item/stack/spacecash/cash = usr.get_active_hand()
+				paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
+			else if(get_card_account(usr))
+				// Because this uses H.get_id_card(), it will attempt to use:
+				// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
+				// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
+				paid = pay_with_card(usr, currently_vending.price, currently_vending.name)
+			else if(usr.can_advanced_admin_interact())
+				to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] выдаёт товар в результате вмешательства администратора."))
+				paid = TRUE
+			else
+				to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))
+				vend_ready = TRUE
+				flick_vendor_overlay(FLICK_DENY)
+				. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
+				return
+			if(paid)
+				vend(currently_vending, usr)
+				. = TRUE
+			else
+				to_chat(usr, span_warning("Сбой платежа: не удаётся обработать платеж."))
+				vend_ready = TRUE
 	if(.)
 		add_fingerprint(usr)
 
-/obj/machinery/vending/proc/can_vend(user)
-	. = FALSE
-
-	if(!vend_ready)
-		balloon_alert(usr, "торговый автомат занят!")
-		return
-
-	if(panel_open)
-		balloon_alert(usr, "техпанель открыта!")
-		return
-
-	return TRUE
-
-/obj/machinery/vending/proc/select_colors(list/params)
-	. = TRUE
-	if(!can_vend(usr))
-		return
-	var/datum/data/vending_product/product = locateUID(params["ref"])
-	var/atom/fake_atom = product.product_path
-
-	var/list/allowed_configs = list()
-	var/config = initial(fake_atom.greyscale_config)
-	if(!config)
-		return
-	allowed_configs += "[config]"
-	if(ispath(fake_atom, /obj/item))
-		var/obj/item/item = new fake_atom(null)
-		var/list/worn = item.greyscale_config_worn
-		var/list/species = item.greyscale_config_worn_species
-
-		for(var/new_config in worn)
-			allowed_configs += "[worn[new_config]]"
-
-		for(var/new_config in species)
-			allowed_configs += "[species[new_config]]"
-
-		if(initial(item.greyscale_config_inhand_left))
-			allowed_configs += "[initial(item.greyscale_config_inhand_left)]"
-
-		if(initial(item.greyscale_config_inhand_right))
-			allowed_configs += "[initial(item.greyscale_config_inhand_right)]"
-		qdel(item)
-
-	var/datum/greyscale_modify_menu/menu = new(
-		src, usr, allowed_configs, CALLBACK(src, PROC_REF(vend_greyscale), params),
-		starting_icon_state=initial(fake_atom.icon_state),
-		starting_config=initial(fake_atom.greyscale_config),
-		starting_colors=initial(fake_atom.greyscale_colors)
-	)
-	menu.ui_interact(usr)
-
-/obj/machinery/vending/proc/vend_greyscale(list/params, datum/greyscale_modify_menu/menu)
-	if(usr != menu.user)
-		return
-
-	if(!menu.target.ui_status(usr) == UI_INTERACTIVE)
-		return
-
-	vend_action(params, menu.split_colors)
-
-/obj/machinery/vending/proc/vend_action(list/params, list/greyscale_colors)
-	if(!can_vend(usr))
-		return
-
-	var/list/records_to_check = product_records + coin_records
-	if(extended_inventory)
-		records_to_check = product_records + coin_records + hidden_records
-
-	var/datum/data/vending_product/product_record = locateUID(params["ref"])
-
-	if(!istype(product_record))
-		to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестный товар. Сообщите о баге."))
-		return
-
-	if(!product_record || !product_record.product_path)
-		to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] содержит неизвестную позицию с товаром. Сообщите о баге."))
-		return
-
-	if(product_record in hidden_records)
-		if(!extended_inventory)
-			// Exploit prevention, stop the user purchasing hidden stuff if they haven't hacked the machine.
-			to_chat(usr, span_warning("ОШИБКА: [declent_ru(NOMINATIVE)] не может расширить ассортимент в текущем состоянии. Сообщите о баге."))
-			return
-
-	else if(!(product_record in records_to_check))
-		// Exploit prevention, stop the user
-		message_admins("Vending machine exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
-		return
-
-	if(product_record.amount <= 0)
-		to_chat(usr, "Товар \"[product_record.name]\" закончился!")
-		flick_vendor_overlay(FLICK_VEND)
-		return
-
-	if(!allowed(usr) && !usr.can_admin_interact() && !emagged && scan_id)
-		balloon_alert(usr, "в доступе отказано!")
-		flick_vendor_overlay(FLICK_DENY)
-		return
-
-	vend_ready = FALSE // From this point onwards, vendor is locked to performing this transaction only, until it is resolved.
-
-	if(!(ishuman(usr) || issilicon(usr)) || product_record.price <= 0)
-		// Either the purchaser is not human nor silicon, or the item is free.
-		// Skip all payment logic.
-		vend(product_record, usr, greyscale_colors)
-		add_fingerprint(usr)
-		vend_ready = TRUE
-		. = TRUE
-		return
-
-	if(issilicon(usr))
-		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается продавать вам товар, поскольку вы не входите в его целевую аудиторию!"))
-		vend_ready = TRUE
-		. = TRUE
-		return
-
-	// --- THE REST OF THIS PROC IS JUST PAYMENT LOGIC ---
-	if(!GLOB.vendor_account || GLOB.vendor_account.suspended)
-		to_chat(usr, "Удалённый сервер торговых автоматов отключён. Не удается обработать операцию.")
-		flick_vendor_overlay(FLICK_DENY)
-		vend_ready = TRUE
-		return
-
-	currently_vending = product_record
-	var/paid = FALSE
-
-	if(istype(usr.get_active_hand(), /obj/item/stack/spacecash))
-		var/obj/item/stack/spacecash/cash = usr.get_active_hand()
-		paid = pay_with_cash(cash, usr, currently_vending.price, currently_vending.name)
-	else if(get_card_account(usr))
-		// Because this uses H.get_id_card(), it will attempt to use:
-		// active hand, inactive hand, wear_id, pda, and then w_uniform ID in that order
-		// this is important because it lets people buy stuff with someone else's ID by holding it while using the vendor
-		paid = pay_with_card(usr, currently_vending.price, currently_vending.name)
-	else if(usr.can_advanced_admin_interact())
-		to_chat(usr, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выдаёт товар в результате вмешательства администратора."))
-		paid = TRUE
-	else
-		to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))
-		vend_ready = TRUE
-		flick_vendor_overlay(FLICK_DENY)
-		. = TRUE // we set this because they shouldn't even be able to get this far, and we want the UI to update.
-		return
-	if(paid)
-		vend(currently_vending, usr, greyscale_colors)
-		. = TRUE
-	else
-		to_chat(usr, span_warning("Сбой платежа: не удаётся обработать платеж."))
-		vend_ready = TRUE
-
-/obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user, list/greyscale_colors)
+/obj/machinery/vending/proc/vend(datum/data/vending_product/product_record, mob/user)
 	if(!allowed(user) && !user.can_admin_interact() && !emagged && scan_id)	//For SECURE VENDING MACHINES YEAH
 		to_chat(user, span_warning("В доступе отказано!"))//Unless emagged of course
 		flick_vendor_overlay(FLICK_DENY)
@@ -1271,10 +1194,10 @@
 	use_power(vend_power_usage)	//actuators and stuff
 	flick_vendor_overlay(FLICK_VEND)	//Show the vending animation if needed
 	playsound(get_turf(src), 'sound/machines/machine_vend.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product_record, user, greyscale_colors), vend_delay)
+	addtimer(CALLBACK(src, PROC_REF(delayed_vend), product_record, user), vend_delay)
 
-/obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/product_record, mob/user, list/greyscale_colors)
-	do_vend(product_record, user, greyscale_colors)
+/obj/machinery/vending/proc/delayed_vend(datum/data/vending_product/product_record, mob/user)
+	do_vend(product_record, user)
 	vend_ready = TRUE
 	currently_vending = null
 
@@ -1282,12 +1205,10 @@
  * Override this proc to add handling for what to do with the vended product
  * when you have a inserted item and remember to include a parent call for this generic handling
  */
-/obj/machinery/vending/proc/do_vend(datum/data/vending_product/product_record, mob/user, list/greyscale_colors)
+/obj/machinery/vending/proc/do_vend(datum/data/vending_product/product_record, mob/user)
 	if(!item_slot || !inserted_item)
 		var/put_on_turf = TRUE
 		var/obj/item/vended = new product_record.product_path(drop_location())
-		if(greyscale_colors)
-			vended.set_greyscale_colors(greyscale_colors)
 		if(istype(vended) && user && iscarbon(user) && user.Adjacent(src))
 			if(user.put_in_hands(vended, ignore_anim = FALSE))
 				put_on_turf = FALSE
@@ -1387,7 +1308,7 @@
 	if(!throw_item)
 		return
 	throw_item.throw_at(target, 16, 3)
-	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] метнул [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] метнул [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
 
 /obj/machinery/vending/shove_impact(mob/living/target, mob/living/attacker)
 	if(HAS_TRAIT(target, TRAIT_FLATTENED))
@@ -1437,8 +1358,8 @@
 
 	else
 		victim.visible_message(
-			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит [victim]!"),
-			span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит вас!"),
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] давит [victim]!"),
+			span_userdanger("[capitalize(declent_ru(NOMINATIVE))] давит вас!"),
 			span_warning("Вы слышите громкий хруст!")
 		)
 		add_attack_logs(null, victim, "crushed by [src]")
@@ -1507,8 +1428,8 @@
 					should_throw_at_target = FALSE
 		else
 			victim.visible_message(
-				span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит [victim]!"),
-				span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] давит вас!"),
+				span_danger("[capitalize(declent_ru(NOMINATIVE))] давит [victim]!"),
+				span_userdanger("[capitalize(declent_ru(NOMINATIVE))] давит вас!"),
 				span_warning("Вы слышите громкий хруст!")
 			)
 			victim.apply_damage(damage_to_deal, BRUTE)
@@ -1526,7 +1447,7 @@
 		tilt_over(should_throw_at_target ? target_atom : null)
 
 /obj/machinery/vending/proc/tilt_over(mob/victim)
-	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывается!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опрокидывается!"))
 	playsound(src, 'sound/effects/bang.ogg', 100, TRUE)
 	var/picked_rotation = pick(90, 270)
 	tilted_rotation = picked_rotation

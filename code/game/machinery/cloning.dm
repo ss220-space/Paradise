@@ -221,11 +221,10 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	if(occupant && occupant.stat != DEAD)
 		. += span_notice("Процесс клонирования завершён на [round(get_completion())]%.")
 
-/obj/machinery/clonepod/return_obj_air()
-	//non-reactive air
+/obj/machinery/clonepod/return_air() //non-reactive air
 	var/datum/gas_mixture/GM = new
-	GM.set_nitrogen(MOLES_O2STANDARD + MOLES_N2STANDARD)
-	GM.set_temperature(T20C)
+	GM.nitrogen = MOLES_O2STANDARD + MOLES_N2STANDARD
+	GM.temperature = T20C
 	return GM
 
 /obj/machinery/clonepod/proc/get_completion()
@@ -356,7 +355,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 			biomass += BIOMASS_BASE_AMOUNT
 			show_message = TRUE
 	if(show_message)
-		visible_message("[DECLENT_RU_CAP(src, NOMINATIVE)] всасывает и начинает обрабатывать полученную биомассу.")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] всасывает и начинает обрабатывать полученную биомассу.")
 
 	if(stat & NOPOWER) //Autoeject if power is lost
 		if(occupant)
