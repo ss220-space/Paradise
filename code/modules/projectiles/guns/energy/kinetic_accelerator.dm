@@ -62,7 +62,7 @@
 			if(LAZYLEN(modkits))
 				. += span_notice("Установлено:")
 				for(var/obj/item/borg/upgrade/modkit/MK in get_modkits())
-					. += span_notice("– [capitalize(MK.declent_ru(NOMINATIVE))], занимает <b>[MK.cost]%</b> емкости.")
+					. += span_notice("– [DECLENT_RU_CAP(MK, NOMINATIVE)], занимает <b>[MK.cost]%</b> емкости.")
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/borg/upgrade/modkit))

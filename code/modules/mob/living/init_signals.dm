@@ -42,6 +42,10 @@
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_NEGATES_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_NEGATES_GRAVITY)), PROC_REF(on_negate_gravity))
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_IGNORING_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_IGNORING_GRAVITY)), PROC_REF(on_ignore_gravity))
 	RegisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY), SIGNAL_REMOVETRAIT(TRAIT_FORCED_GRAVITY)), PROC_REF(on_force_gravity))
+
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_gain))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_PRESSURE_VISION), PROC_REF(on_pressure_vision_trait_loss))
+
 	// We hook for forced grav changes from our turf and ourselves
 	var/static/list/loc_connections = list(
 		SIGNAL_ADDTRAIT(TRAIT_FORCED_GRAVITY) = PROC_REF(on_loc_force_gravity),
@@ -249,4 +253,18 @@
 /mob/living/proc/on_ignore_damage_slowdown(datum/source)
 	SIGNAL_HANDLER
 	update_movespeed_damage_modifiers()
+
+/// Called when [TRAIT_PRESSURE_VISION] is added to the mob.
+/mob/living/proc/on_pressure_vision_trait_gain(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+	if(!(src in hud.hud_users_all_z_levels))
+		hud.show_to(src)
+
+/// Called when [TRAIT_PRESSURE_VISION] is removed from the mob.
+/mob/living/proc/on_pressure_vision_trait_loss(datum/source)
+	SIGNAL_HANDLER
+	var/datum/atom_hud/data/pressure/hud = GLOB.huds[DATA_HUD_PRESSURE]
+	if(src in hud.hud_users_all_z_levels)
+		hud.hide_from(src)
 

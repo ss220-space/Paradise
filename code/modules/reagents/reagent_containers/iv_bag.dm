@@ -14,6 +14,7 @@
 	amount_per_transfer_from_this = 1
 	container_type = OPENCONTAINER
 	resistance_flags = ACID_PROOF
+	w_class = WEIGHT_CLASS_NORMAL
 	var/label_text
 	var/mode = IV_INJECT
 	var/mob/living/carbon/human/injection_target
@@ -63,7 +64,8 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/iv_bag/proc/end_processing()
-	add_attack_logs(injection_target, injection_target, "injection of [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"])  stopped.")
+	if(isprocessing)
+		add_attack_logs(injection_target, injection_target, "injection of [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"])  stopped.")
 	injection_target = null
 	injection_limb = null
 	STOP_PROCESSING(SSobj, src)

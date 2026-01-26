@@ -10,7 +10,6 @@ z4 = lavaland
 */
 
 //#define FAST_LOAD
-#define MULTIZ_FAST_LOAD
 
 #define MAP_TRANSITION_CONFIG list()
 

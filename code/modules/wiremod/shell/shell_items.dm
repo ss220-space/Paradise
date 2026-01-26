@@ -7,6 +7,7 @@
 	name = "assembly"
 	desc = "Сборка корпуса, которую можно завершить с помощью отвертки."
 	icon = 'icons/obj/circuits.dmi'
+	abstract_type = /obj/item/shell
 	var/shell_to_spawn
 	var/screw_delay = 3 SECONDS
 
@@ -149,6 +150,21 @@
 		ACCUSATIVE = "интерфейс \"Мозг-Компьютер\"",
 		INSTRUMENTAL = "интерфейсом \"Мозг-Компьютер\"",
 		PREPOSITIONAL = "интерфейсе \"Мозг-Компьютер\""
+	)
+
+/obj/item/shell/manipulator
+	name = "manipulator assembly"
+	icon_state = "setup_large_arm-open"
+	shell_to_spawn = /obj/structure/wiremod_manipulator
+
+/obj/item/shell/manipulator/get_ru_names()
+	return list(
+		NOMINATIVE = "манипулятор",
+		GENITIVE = "манипулятора",
+		DATIVE = "манипулятору",
+		ACCUSATIVE = "манипулятор",
+		INSTRUMENTAL = "манипулятором",
+		PREPOSITIONAL = "манипуляторе"
 	)
 
 // /obj/item/shell/scanner_gate

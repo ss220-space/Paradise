@@ -43,7 +43,7 @@
 		timer["brigged_by"] = T.officer
 		timer["time_set_seconds"] = round(T.timetoset / 10, 1)
 		timer["time_left_seconds"] = round(T.timeleft(), 1)
-		timer["ref"] = "\ref[T]"
+		timer["ref"] = T.UID()
 		timers[++timers.len] += timer
 	timers = sortByKey(timers, "cell_id")
 	data["cells"] = timers
@@ -60,7 +60,7 @@
 
 	if(action == "release")
 		var/ref = params["ref"]
-		var/obj/machinery/door_timer/T = locate(ref)
+		var/obj/machinery/door_timer/T = locateUID(ref)
 		if(T)
 			T.timer_end()
 			radio_announce("Timer stopped manually from a cell management console.", T.name, SEC_FREQ, T)

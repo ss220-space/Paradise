@@ -77,7 +77,7 @@
 /area/ruin/powered/beach)
 "bl" = (
 /obj/effect/turf_decal/sand,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "bm" = (
 /obj/machinery/light{
@@ -98,7 +98,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/sand,
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "bp" = (
 /obj/machinery/light/small{
@@ -380,7 +380,7 @@
 /obj/machinery/shower{
 	dir = 8
 	},
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "ry" = (
 /obj/item/storage/toolbox/mechanical,
@@ -543,7 +543,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/beach)
 "Gc" = (
-/turf/simulated/floor/pod/light,
+/turf/simulated/floor/pod/light/lavaland_air,
 /area/ruin/powered/beach)
 "HC" = (
 /obj/structure/rack,

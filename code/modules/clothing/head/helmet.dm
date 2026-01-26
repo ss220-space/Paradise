@@ -7,6 +7,7 @@
 	flags_cover = HEADCOVERSEYES
 	item_state = "helmetmaterials"
 	armor = list(MELEE = 35, BULLET = 30, LASER = 30,ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	clothing_flags = parent_type::clothing_flags|STACKABLE_HELMET_EXEMPT
 	flags_inv = HIDEHEADSETS|HIDEGLASSES
 	cold_protection = HEAD
 	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
@@ -32,7 +33,7 @@
 /obj/item/clothing/head/helmet/adjust_headgear(mob/user)
 	. = ..()
 	if(.)
-		clothing_flags ^= visor_clothing_flags
+		clothing_flags ^= visor_flags
 		flags_inv ^= visor_flags_inv
 		flags_inv_transparent ^= visor_flags_inv_transparent
 
@@ -71,7 +72,16 @@
 	name = "meson visor helmet"
 	desc = "A helmet with a built-in meson scanning visor."
 	icon_state = "helmetmesons"
-	vision_flags = SEE_TURFS
+
+/obj/item/clothing/head/helmet/meson/equipped(mob/user, slot, initial)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/item/clothing/head/helmet/meson/dropped(mob/user)
+	. = ..()
+	if(user)
+		REMOVE_TRAIT(user, TRAIT_MESON_VISION, UNIQUE_TRAIT_SOURCE(src))
 
 /obj/item/clothing/head/helmet/material
 	name = "material visor helmet"

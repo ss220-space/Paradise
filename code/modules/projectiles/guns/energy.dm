@@ -6,12 +6,15 @@
 	fire_sound_text = "laser blast"
 	ammo_x_offset = 2
 
-	var/obj/item/stock_parts/cell/cell	//What type of power cell this uses
+	/// What type of power cell this uses
+	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell/laser
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
-	var/select = 1	//The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	/// The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	var/select = 1
 	var/modifystate = FALSE
-	var/shaded_charge = FALSE	//if this gun uses a stateful charge bar for more detail
+	/// If this gun uses a stateful charge bar for more detail
+	var/shaded_charge = FALSE
 	var/selfcharge = FALSE
 	/// Recharge rate if self-charging
 	var/recharge_rate = 100
@@ -25,8 +28,8 @@
 	var/overlay_set
 	/// Used when updating icon and overlays to determine the energy pips
 	var/ratio
-
-	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
+	/// If a sibyl system's mod can be added or removed if it already has one
+	var/can_add_sibyl_system = TRUE
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
 	var/isclockwork = FALSE
 
@@ -59,7 +62,7 @@
 
 /obj/item/gun/energy/proc/toggle_voice()
 	set name = "Сменить голос Sibyl System"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Кликните для переключения голосовой подсистемы."
 
 	if(sibyl_mod)
@@ -138,7 +141,7 @@
 		return
 
 /obj/item/gun/energy/emp_act(severity)
-	cell.use(round(cell.charge / severity))
+	cell?.use(round(cell.charge / severity))
 	if(chambered)//phil235
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -150,7 +153,7 @@
 /obj/item/gun/energy/get_cell()
 	return cell
 
-/obj/item/gun/energy/Initialize(mapload, ...)
+/obj/item/gun/energy/Initialize(mapload)
 	. = ..()
 	if(cell_type)
 		cell = new cell_type(src)
@@ -161,7 +164,7 @@
 	on_recharge()
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
@@ -336,7 +339,7 @@
 	else
 		if(!shaded_charge)
 			for(var/i = ratio, i >= 1, i--)
-				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i - 1))
+				. += image(icon = icon, icon_state = new_icon_state, pixel_w = ammo_x_offset * (i - 1))
 		else
 			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
 	if(bayonet && bayonet_overlay)

@@ -55,7 +55,7 @@ GLOBAL_LIST_INIT(created_anomalies, list(
 ))
 
 GLOBAL_LIST_INIT(anomalies_preffs_one, list(
-	ANOMALY_TYPE_ATMOS = "атомсферная",
+	ANOMALY_TYPE_ATMOS = "атмосферная",
 	ANOMALY_TYPE_BLUESPACE = "блюспейс",
 	ANOMALY_TYPE_GRAV = "гравитационная",
 	ANOMALY_TYPE_VORTEX = "вихревая",
@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(anomalies_preffs_one, list(
 ))
 
 GLOBAL_LIST_INIT(anomalies_preffs_many, list(
-	ANOMALY_TYPE_ATMOS = "атомсферных",
+	ANOMALY_TYPE_ATMOS = "атмосферных",
 	ANOMALY_TYPE_BLUESPACE = "блюспейс",
 	ANOMALY_TYPE_GRAV = "гравитационных",
 	ANOMALY_TYPE_VORTEX = "вихревых",

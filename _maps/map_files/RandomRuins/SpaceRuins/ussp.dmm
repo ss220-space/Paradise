@@ -2190,17 +2190,6 @@
 	tag = "icon-wood-broken3"
 	},
 /area/derelict/crew_quarters)
-"fx" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/table/wood,
-/obj/item/trash/candle,
-/obj/item/gun/projectile/shotgun/lethal/rusted,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/crew_quarters)
 "fy" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
@@ -3578,11 +3567,6 @@
 	dir = 1;
 	icon_state = "brown"
 	},
-/area/derelict/dock)
-"iU" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/item/gun/projectile/revolver/nagant/rusted,
-/turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "iV" = (
 /obj/item/spentcasing/rifle,
@@ -5461,18 +5445,6 @@
 /obj/effect/mapping_helpers/turfs/damage,
 /obj/item/stack/ore/iron,
 /turf/simulated/floor/plating/airless,
-/area/derelict/garden)
-"nO" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/item/clothing/suit/tracksuit,
-/obj/item/clothing/under/pants/track,
-/obj/item/clothing/shoes/black,
-/obj/item/clothing/head/soft/black,
-/obj/structure/closet,
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
-	},
 /area/derelict/garden)
 "nP" = (
 /obj/structure/chair/comfy/brown,
@@ -7728,6 +7700,18 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
+"yx" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/clothing/suit/tracksuit,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/shoes/color/black,
+/obj/item/clothing/head/soft/black,
+/obj/structure/closet,
+/turf/simulated/floor/plasteel/airless{
+	dir = 5;
+	icon_state = "green"
+	},
+/area/derelict/garden)
 "yy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9430,6 +9414,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
+"Ra" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/gun/projectile/revolver/nagant/rusted,
+/turf/simulated/floor/plasteel,
+/area/derelict/dock)
 "Rc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/dispenser,
@@ -10102,6 +10091,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/derelict/dock)
+"ZI" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/table/wood,
+/obj/item/trash/candle,
+/obj/item/gun/projectile/shotgun/lethal/rusted,
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/crew_quarters)
 "ZY" = (
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
@@ -15295,7 +15295,7 @@ lv
 jX
 kQ
 UI
-iU
+Ra
 ix
 mw
 mI
@@ -18230,7 +18230,7 @@ ac
 ac
 AE
 AE
-nO
+yx
 lN
 OR
 lN
@@ -21624,7 +21624,7 @@ aV
 zn
 xn
 fd
-fx
+ZI
 fd
 Od
 CB

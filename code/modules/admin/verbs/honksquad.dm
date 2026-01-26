@@ -55,9 +55,9 @@ GLOBAL_VAR_INIT(sent_clownsequritysquad, 0)
 				new_honksquad.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
-			new_honksquad.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
+			new_honksquad.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
 
-			to_chat(new_honksquad, span_notice("Вы [!honk_leader_selected ? "член" : "<b>ЛИДЕР</b>"] ХОНКсквада в подчинении Планеты Клоунов. Вас вызывают в случае крайне низкого уровня ХОНКа на объекте. Вы НЕ имеете права убивать.\nВаша текущая миссия: <span class='danger'>[input]</span>"))
+			to_chat(new_honksquad, span_notice("Вы [!honk_leader_selected ? "член" : "<b>ЛИДЕР</b>"] ХОНКсквада в подчинении Планеты Клоунов. Вас вызывают в случае крайне низкого уровня ХОНКа на объекте. Вы НЕ имеете права убивать.\nВаша текущая миссия: [span_danger("[input]")]"))
 
 			honksquad_number--
 

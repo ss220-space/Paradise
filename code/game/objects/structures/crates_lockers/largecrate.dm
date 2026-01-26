@@ -8,6 +8,12 @@
 	/// What animal type this crate contains
 	var/animal_type
 
+/obj/structure/largecrate/Destroy()
+	var/turf/crate_location = get_turf(src)
+	for(var/obj/contained_object in contents)
+		contained_object.forceMove(crate_location)
+	return ..()
+
 /obj/structure/largecrate/add_debris_element()
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
@@ -20,7 +26,7 @@
 	if(manifest)
 		add_fingerprint(user)
 		to_chat(user, span_notice("You tear the manifest off of the crate."))
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
+		playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
 		manifest.forceMove_turf()
 		if(ishuman(user))
 			user.put_in_hands(manifest, ignore_anim = FALSE)

@@ -159,6 +159,10 @@
 
 /datum/supermatter_explosive_effects/proc/give_mind_lesser(mob/living/carbon/human/lesser/monke)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [monke]?", ROLE_SENTIENT, TRUE, source = monke)
+	
+	if(QDELETED(monke))
+		return
+	
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)
@@ -169,6 +173,10 @@
 //Gives mind to a random simple animal. Works asynchronically.
 /datum/supermatter_explosive_effects/proc/give_mind(mob/living/simple_animal/animal)
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to awaken as [animal]?", ROLE_SENTIENT, TRUE, source = animal)
+	
+	if(QDELETED(animal))
+		return
+	
 	if(!length(candidates))
 		return
 	var/mob/SG = pick(candidates)

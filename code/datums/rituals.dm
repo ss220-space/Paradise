@@ -802,8 +802,10 @@
 
 		human.SetKnockdown(10 SECONDS)
 		var/turf/turf = human.loc
-		new /obj/effect/hotspot(turf)
-		turf.hotspot_expose(700, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		turf.hotspot_expose(700, 50)
 
 	return
 
@@ -847,8 +849,10 @@
 
 		human.SetKnockdown(10 SECONDS)
 		var/turf/turf = human.loc
-		new /obj/effect/hotspot(turf)
-		turf.hotspot_expose(700, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		turf.hotspot_expose(700, 50)
 
 	return
 
@@ -959,8 +963,10 @@
 
 		human.SetKnockdown(10 SECONDS)
 		var/turf/turf = human.loc
-		new /obj/effect/hotspot(turf)
-		turf.hotspot_expose(700, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		turf.hotspot_expose(700, 50)
 
 	return
 
@@ -1108,5 +1114,7 @@
 
 		human.SetKnockdown(10 SECONDS)
 		var/turf/turf = human.loc
-		new /obj/effect/hotspot(turf)
-		turf.hotspot_expose(700, 50, 1)
+		var/obj/effect/hotspot/hotspot = new /obj/effect/hotspot/fake(turf)
+		hotspot.temperature = 1000
+		hotspot.recolor()
+		turf.hotspot_expose(700, 50)

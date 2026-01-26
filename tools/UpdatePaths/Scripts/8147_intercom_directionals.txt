@@ -1,0 +1,64 @@
+/obj/item/radio/intercom {pixel_x=28} : /obj/item/radio/intercom/directional/east
+/obj/item/radio/intercom {pixel_x=-28} : /obj/item/radio/intercom/directional/west
+/obj/item/radio/intercom {pixel_y=28} : /obj/item/radio/intercom/directional/north
+/obj/item/radio/intercom {pixel_y=-28} : /obj/item/radio/intercom/directional/south
+
+/obj/item/radio/intercom/custom {pixel_x=28} : /obj/item/radio/intercom/custom/directional/east
+/obj/item/radio/intercom/custom {pixel_x=-28} : /obj/item/radio/intercom/custom/directional/west
+/obj/item/radio/intercom/custom {pixel_y=28} : /obj/item/radio/intercom/custom/directional/north
+/obj/item/radio/intercom/custom {pixel_y=-28} : /obj/item/radio/intercom/custom/directional/south
+
+/obj/item/radio/intercom/interrogation {pixel_x=28} : /obj/item/radio/intercom/interrogation/directional/east
+/obj/item/radio/intercom/interrogation {pixel_x=-28} : /obj/item/radio/intercom/interrogation/directional/west
+/obj/item/radio/intercom/interrogation {pixel_y=28} : /obj/item/radio/intercom/interrogation/directional/north
+/obj/item/radio/intercom/interrogation {pixel_y=-28} : /obj/item/radio/intercom/interrogation/directional/south
+
+/obj/item/radio/intercom/private {pixel_x=28} : /obj/item/radio/intercom/private/directional/east
+/obj/item/radio/intercom/private {pixel_x=-28} : /obj/item/radio/intercom/private/directional/west
+/obj/item/radio/intercom/private {pixel_y=28} : /obj/item/radio/intercom/private/directional/north
+/obj/item/radio/intercom/private {pixel_y=-28} : /obj/item/radio/intercom/private/directional/south
+
+/obj/item/radio/intercom/command {pixel_x=28} : /obj/item/radio/intercom/command/directional/east
+/obj/item/radio/intercom/command {pixel_x=-28} : /obj/item/radio/intercom/command/directional/west
+/obj/item/radio/intercom/command {pixel_y=28} : /obj/item/radio/intercom/command/directional/north
+/obj/item/radio/intercom/command {pixel_y=-28} : /obj/item/radio/intercom/command/directional/south
+
+/obj/item/radio/intercom/specops {pixel_x=28} : /obj/item/radio/intercom/specops/directional/east
+/obj/item/radio/intercom/specops {pixel_x=-28} : /obj/item/radio/intercom/specops/directional/west
+/obj/item/radio/intercom/specops {pixel_y=28} : /obj/item/radio/intercom/specops/directional/north
+/obj/item/radio/intercom/specops {pixel_y=-28} : /obj/item/radio/intercom/specops/directional/south
+
+/obj/item/radio/intercom/department/medbay {pixel_x=28} : /obj/item/radio/intercom/department/medbay/directional/east
+/obj/item/radio/intercom/department/medbay {pixel_x=-28} : /obj/item/radio/intercom/department/medbay/directional/west
+/obj/item/radio/intercom/department/medbay {pixel_y=28} : /obj/item/radio/intercom/department/medbay/directional/north
+/obj/item/radio/intercom/department/medbay {pixel_y=-28} : /obj/item/radio/intercom/department/medbay/directional/south
+
+/obj/item/radio/intercom/department/security {pixel_x=28} : /obj/item/radio/intercom/department/security/directional/east
+/obj/item/radio/intercom/department/security {pixel_x=-28} : /obj/item/radio/intercom/department/security/directional/west
+/obj/item/radio/intercom/department/security {pixel_y=28} : /obj/item/radio/intercom/department/security/directional/north
+/obj/item/radio/intercom/department/security {pixel_y=-28} : /obj/item/radio/intercom/department/security/directional/south
+
+/obj/item/radio/intercom/department/syndicate {pixel_x=28} : /obj/item/radio/intercom/department/syndicate/directional/east
+/obj/item/radio/intercom/department/syndicate {pixel_x=-28} : /obj/item/radio/intercom/department/syndicate/directional/west
+/obj/item/radio/intercom/department/syndicate {pixel_y=28} : /obj/item/radio/intercom/department/syndicate/directional/north
+/obj/item/radio/intercom/department/syndicate {pixel_y=-28} : /obj/item/radio/intercom/department/syndicate/directional/south
+
+/obj/item/radio/intercom/department/pirate {pixel_x=28} : /obj/item/radio/intercom/department/pirate/directional/east
+/obj/item/radio/intercom/department/pirate {pixel_x=-28} : /obj/item/radio/intercom/department/pirate/directional/west
+/obj/item/radio/intercom/department/pirate {pixel_y=28} : /obj/item/radio/intercom/department/pirate/directional/north
+/obj/item/radio/intercom/department/pirate {pixel_y=-28} : /obj/item/radio/intercom/department/pirate/directional/south
+
+/obj/item/radio/intercom/department/locked/ai_private {pixel_x=28} : /obj/item/radio/intercom/department/locked/ai_private/directional/east
+/obj/item/radio/intercom/department/locked/ai_private {pixel_x=-28} : /obj/item/radio/intercom/department/locked/ai_private/directional/west
+/obj/item/radio/intercom/department/locked/ai_private {pixel_y=28} : /obj/item/radio/intercom/department/locked/ai_private/directional/north
+/obj/item/radio/intercom/department/locked/ai_private {pixel_y=-28} : /obj/item/radio/intercom/department/locked/ai_private/directional/south
+
+/obj/item/radio/intercom/department/locked/confessional {pixel_x=28} : /obj/item/radio/intercom/department/locked/confessional/directional/east
+/obj/item/radio/intercom/department/locked/confessional {pixel_x=-28} : /obj/item/radio/intercom/department/locked/confessional/directional/west
+/obj/item/radio/intercom/department/locked/confessional {pixel_y=28} : /obj/item/radio/intercom/department/locked/confessional/directional/north
+/obj/item/radio/intercom/department/locked/confessional {pixel_y=-28} : /obj/item/radio/intercom/department/locked/confessional/directional/south
+
+/obj/item/radio/intercom/department/locked/prison {pixel_x=28} : /obj/item/radio/intercom/department/locked/prison/directional/east
+/obj/item/radio/intercom/department/locked/prison {pixel_x=-28} : /obj/item/radio/intercom/department/locked/prison/directional/west
+/obj/item/radio/intercom/department/locked/prison {pixel_y=28} : /obj/item/radio/intercom/department/locked/prison/directional/north
+/obj/item/radio/intercom/department/locked/prison {pixel_y=-28} : /obj/item/radio/intercom/department/locked/prison/directional/south

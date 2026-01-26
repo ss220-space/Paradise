@@ -174,10 +174,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aC" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/effect/decal/remains/human{
 	desc = "This guy seemed to have died in terrible way! Half his remains are dust.";
 	name = "Human remains"
@@ -204,10 +201,7 @@
 /turf/simulated/floor/engine/cult,
 /area/shuttle/escape)
 "aG" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
 	tag = "icon-tube1 (WEST)";
 	dir = 8
