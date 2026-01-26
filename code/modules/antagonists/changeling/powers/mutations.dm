@@ -9,6 +9,7 @@
 
 //Parent to shields and blades because muh copypasted code.
 /datum/action/changeling/weapon
+	abstract_type = /datum/action/changeling/weapon
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
@@ -404,7 +405,7 @@
 	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
-	icon = 'icons/obj/weapons/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it

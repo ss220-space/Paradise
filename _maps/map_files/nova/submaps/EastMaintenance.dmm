@@ -3517,13 +3517,6 @@
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
-"LV" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/wood,
-/area/maintenance/backstage)
 "LY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3692,17 +3685,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
-"Od" = (
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
-/obj/structure/bed,
-/obj/item/bedsheet/captain{
-	name = "Blueshield's bedsheet."
-	},
-/turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
 "Og" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
@@ -3955,6 +3937,13 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/blueshield)
+"Ri" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/wood,
+/area/maintenance/backstage)
 "Rn" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -4050,6 +4039,14 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
+"Sp" = (
+/obj/item/radio/intercom/directional/east,
+/obj/structure/bed,
+/obj/item/bedsheet/captain{
+	name = "Blueshield's bedsheet."
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/blueshield)
 "Sr" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -7173,7 +7170,7 @@ Fb
 Fb
 KM
 FD
-Od
+Sp
 Nx
 Jp
 Sz
@@ -7197,7 +7194,7 @@ Fb
 Fb
 KM
 FD
-Od
+Sp
 Nx
 gT
 PQ
@@ -7615,7 +7612,7 @@ Fb
 Fb
 wb
 QE
-LV
+Ri
 Su
 Ft
 iy
@@ -7639,7 +7636,7 @@ Fb
 Fb
 wb
 QE
-LV
+Ri
 Su
 Ft
 iy

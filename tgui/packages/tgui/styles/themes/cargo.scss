@@ -1,0 +1,40 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+$cargo: #946f31;
+
+@use '../colors.scss' with (
+  $fg-map-keys: (),
+  $bg-map-keys: ()
+);
+@use '../base.scss' with (
+  $color-bg: color.scale($cargo, $lightness: -45%),
+  $border-radius: 2px
+);
+
+.theme-cargo {
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': $cargo,
+      'color-transparent-text': rgba(255, 214, 198, 0.75)
+    )
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: (
+      'color-default-fill': $cargo,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
+  );
+  @include meta.load-css('../components/Section.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': color.scale($cargo, $lightness: -25%))
+  );
+}

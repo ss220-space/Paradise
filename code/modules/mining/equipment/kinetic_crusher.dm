@@ -52,7 +52,7 @@
 		. += span_notice("<b>К Крушителю прикреплены следующие трофеи</b>:")
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
-			. += span_notice("[icon2html(t, user)] <b>[capitalize(T.declent_ru(NOMINATIVE))]</b>: [T.effect_desc()].")
+			. += span_notice("[icon2html(t, user)] <b>[DECLENT_RU_CAP(T, NOMINATIVE)]</b>: [T.effect_desc()].")
 
 /obj/item/twohanded/kinetic_crusher/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/crusher_trophy))
@@ -77,7 +77,7 @@
 
 /obj/item/twohanded/kinetic_crusher/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!HAS_TRAIT(src, TRAIT_WIELDED))
-		var/warn_message = "[capitalize(declent_ru(NOMINATIVE))] слишком тяжёлый, чтобы использовать его одной рукой."
+		var/warn_message = "[DECLENT_RU_CAP(src, NOMINATIVE)] слишком тяжёлый, чтобы использовать его одной рукой."
 		if(user.drop_item_ground(src))
 			warn_message += " Вы роняете [declent_ru(ACCUSATIVE)] на землю."
 		to_chat(user, span_warning(warn_message))
@@ -124,7 +124,8 @@
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
-		D.preparePixelProjectile(target, get_turf(target), user, clickparams)
+		var/modifiers = params2list(clickparams)
+		D.preparePixelProjectile(target, user, modifiers)
 		D.firer = user
 		D.firer_source_atom = src
 		D.hammer_synced = src

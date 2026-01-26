@@ -23,7 +23,7 @@ export const createPage = (obj?: PageChunk): Page => {
   return {
     isMain: false,
     id: createUuid(),
-    name: 'New Tab',
+    name: 'Новая вкладка',
     acceptedTypes: acceptedTypes,
     unreadCount: 0,
     hideUnreadCount: false,
@@ -39,7 +39,7 @@ export const createMainPage = () => {
   }
   return createPage({
     isMain: true,
-    name: 'Main',
+    name: 'Основная вкладка',
     acceptedTypes,
   });
 };

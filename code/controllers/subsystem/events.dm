@@ -106,13 +106,13 @@ SUBSYSTEM_DEF(events)
 		for(var/datum/event_meta/EM in selected_event_container.available_events)
 			html += "<tr>"
 			html += "<td>[EM.name]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];set_weight=\ref[EM]'>[EM.weight]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];set_weight=[EM.UID()]'>[EM.weight]</a></td>"
 			html += "<td>[EM.min_weight]</td>"
 			html += "<td>[EM.max_weight == INFINITY ? "No max" : EM.max_weight]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[EM]'>[EM.one_shot]</a></td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];toggle_enabled=\ref[EM]'>[EM.enabled]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];toggle_oneshot=[EM.UID()]'>[EM.one_shot]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];toggle_enabled=[EM.UID()]'>[EM.enabled]</a></td>"
 			html += "<td>[span_alert("[EM.get_weight(number_active_with_role())]")]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];remove=\ref[EM];EC=\ref[selected_event_container]'>Remove</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];remove=[EM.UID()];EC=[selected_event_container.UID()]'>Remove</a></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -122,13 +122,13 @@ SUBSYSTEM_DEF(events)
 		html += "<table[table_options]>"
 		html += "<tr [head_options]><td[row_options2]>Name</td><td[row_options2]>Type</td><td[row_options1]>Weight</td><td[row_options1]>OneShot</td></tr>"
 		html += "<tr>"
-		html += "<td><a align='right' href='byond://?src=[UID()];set_name=\ref[new_event]'>[new_event.name ? new_event.name : "Enter Event"]</a></td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];set_type=\ref[new_event]'>[new_event.event_type ? new_event.event_type : "Select Type"]</a></td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];set_weight=\ref[new_event]'>[new_event.weight ? new_event.weight : 0]</a></td>"
-		html += "<td><a align='right' href='byond://?src=[UID()];toggle_oneshot=\ref[new_event]'>[new_event.one_shot]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];set_name=[new_event.UID()]'>[new_event.name ? new_event.name : "Enter Event"]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];set_type=[new_event.UID()]'>[new_event.event_type ? new_event.event_type : "Select Type"]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];set_weight=[new_event.UID()]'>[new_event.weight ? new_event.weight : 0]</a></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];toggle_oneshot=[new_event.UID()]'>[new_event.one_shot]</a></td>"
 		html += "</tr>"
 		html += "</table>"
-		html += "<a align='right' href='byond://?src=[UID()];add=\ref[selected_event_container]'>Add</a><br>"
+		html += "<a align='right' href='byond://?src=[UID()];add=[selected_event_container.UID()]'>Add</a><br>"
 		html += "</div>"
 	else
 		html += "<a align='right' href='byond://?src=[UID()];toggle_report=1'>Round End Report: [report_at_round_end ? "On": "Off"]</a><br>"
@@ -145,16 +145,16 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[station_time_timestamp("hh:mm:ss", max(EC.next_event_time, world.time))]</td>"
 			html += "<td>[round(next_event_at / 600, 0.1)]</td>"
 			html += "<td>"
-			html +=   "<a align='right' href='byond://?src=[UID()];dec_timer=2;event=\ref[EC]'>--</a>"
-			html +=   "<a align='right' href='byond://?src=[UID()];dec_timer=1;event=\ref[EC]'>-</a>"
-			html +=   "<a align='right' href='byond://?src=[UID()];inc_timer=1;event=\ref[EC]'>+</a>"
-			html +=   "<a align='right' href='byond://?src=[UID()];inc_timer=2;event=\ref[EC]'>++</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];dec_timer=2;event=[EC.UID()]'>--</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];dec_timer=1;event=[EC.UID()]'>-</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];inc_timer=1;event=[EC.UID()]'>+</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];inc_timer=2;event=[EC.UID()]'>++</a>"
 			html += "</td>"
 			html += "<td>"
-			html +=   "<a align='right' href='byond://?src=[UID()];pause=\ref[EC]'>[EC.delayed ? "Resume" : "Pause"]</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];pause=[EC.UID()]'>[EC.delayed ? "Resume" : "Pause"]</a>"
 			html += "</td>"
 			html += "<td>"
-			html +=   "<a align='right' href='byond://?src=[UID()];interval=\ref[EC]'>[EC.delay_modifier]</a>"
+			html +=   "<a align='right' href='byond://?src=[UID()];interval=[EC.UID()]'>[EC.delay_modifier]</a>"
 			html += "</td>"
 			html += "</tr>"
 		html += "</table>"
@@ -169,9 +169,9 @@ SUBSYSTEM_DEF(events)
 			var/datum/event_meta/EM = EC.next_event
 			html += "<tr>"
 			html += "<td>[GLOB.severity_to_string[severity]]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];select_event=\ref[EC]'>[EM ? EM.name : "Random"]</a></td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];view_events=\ref[EC]'>View</a></td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];clear=\ref[EC]'>Clear</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];select_event=[EC.UID()]'>[EM ? EM.name : "Random"]</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];view_events=[EC.UID()]'>View</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];clear=[EC.UID()]'>Clear</a></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -193,7 +193,7 @@ SUBSYSTEM_DEF(events)
 			html += "<td>[EM.name]</td>"
 			html += "<td>[no_end ? "N/A" : station_time_timestamp("hh:mm:ss", ends_at)]</td>"
 			html += "<td>[no_end ? "N/A" : ends_in]</td>"
-			html += "<td><a align='right' href='byond://?src=[UID()];stop=\ref[E]'>Stop</a></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];stop=[E.UID()]'>Stop</a></td>"
 			html += "</tr>"
 		html += "</table>"
 		html += "</div>"
@@ -211,72 +211,72 @@ SUBSYSTEM_DEF(events)
 		report_at_round_end = !report_at_round_end
 		log_and_message_admins("has [report_at_round_end ? "enabled" : "disabled"] the round end event report.")
 	else if(href_list["dec_timer"])
-		var/datum/event_container/EC = locate(href_list["event"])
+		var/datum/event_container/EC = locateUID(href_list["event"])
 		var/decrease = (60 * RaiseToPower(10, text2num(href_list["dec_timer"])))
 		EC.next_event_time -= decrease
 		log_and_message_admins("decreased timer for [GLOB.severity_to_string[EC.severity]] events by [decrease/600] minute(s).")
 	else if(href_list["inc_timer"])
-		var/datum/event_container/EC = locate(href_list["event"])
+		var/datum/event_container/EC = locateUID(href_list["event"])
 		var/increase = (60 * RaiseToPower(10, text2num(href_list["inc_timer"])))
 		EC.next_event_time += increase
 		log_and_message_admins("increased timer for [GLOB.severity_to_string[EC.severity]] events by [increase/600] minute(s).")
 	else if(href_list["select_event"])
-		var/datum/event_container/EC = locate(href_list["select_event"])
+		var/datum/event_container/EC = locateUID(href_list["select_event"])
 		var/datum/event_meta/EM = EC.SelectEvent()
 		if(EM)
 			log_and_message_admins("has queued the [GLOB.severity_to_string[EC.severity]] event '[EM.name]'.")
 	else if(href_list["pause"])
-		var/datum/event_container/EC = locate(href_list["pause"])
+		var/datum/event_container/EC = locateUID(href_list["pause"])
 		EC.delayed = !EC.delayed
 		log_and_message_admins("has [EC.delayed ? "paused" : "resumed"] countdown for [GLOB.severity_to_string[EC.severity]] events.")
 	else if(href_list["interval"])
 		var/delay = tgui_input_number(usr, "Enter delay modifier. A value less than one means events fire more often, higher than one less often.", "Set Interval Modifier")
 		if(delay && delay > 0)
-			var/datum/event_container/EC = locate(href_list["interval"])
+			var/datum/event_container/EC = locateUID(href_list["interval"])
 			EC.delay_modifier = delay
 			log_and_message_admins("has set the interval modifier for [GLOB.severity_to_string[EC.severity]] events to [EC.delay_modifier].")
 	else if(href_list["stop"])
 		if(alert("Stopping an event may have unintended side-effects. Continue?","Stopping Event!","Yes","No") != "Yes")
 			return
-		var/datum/event/E = locate(href_list["stop"])
+		var/datum/event/E = locateUID(href_list["stop"])
 		var/datum/event_meta/EM = E.event_meta
 		log_and_message_admins("has stopped the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 		E.kill()
 	else if(href_list["view_events"])
-		selected_event_container = locate(href_list["view_events"])
+		selected_event_container = locateUID(href_list["view_events"])
 	else if(href_list["back"])
 		selected_event_container = null
 	else if(href_list["set_name"])
 		var/name = tgui_input_text(usr, "Enter event name.", "Set Name")
 		if(!isnull(name))
-			var/datum/event_meta/EM = locate(href_list["set_name"])
+			var/datum/event_meta/EM = locateUID(href_list["set_name"])
 			EM.name = name
 	else if(href_list["set_type"])
 		var/type = tgui_input_list(usr, "Select event type.", "Select", allEvents)
 		if(type)
-			var/datum/event_meta/EM = locate(href_list["set_type"])
+			var/datum/event_meta/EM = locateUID(href_list["set_type"])
 			EM.event_type = type
 	else if(href_list["set_weight"])
 		var/weight = tgui_input_number(usr, "Enter weight. A higher value means higher chance for the event of being selected.", "Set Weight")
 		if(weight && weight > 0)
-			var/datum/event_meta/EM = locate(href_list["set_weight"])
+			var/datum/event_meta/EM = locateUID(href_list["set_weight"])
 			EM.weight = weight
 			if(EM != new_event)
 				log_and_message_admins("has changed the weight of the [GLOB.severity_to_string[EM.severity]] event '[EM.name]' to [EM.weight].")
 	else if(href_list["toggle_oneshot"])
-		var/datum/event_meta/EM = locate(href_list["toggle_oneshot"])
+		var/datum/event_meta/EM = locateUID(href_list["toggle_oneshot"])
 		EM.one_shot = !EM.one_shot
 		if(EM != new_event)
 			log_and_message_admins("has [EM.one_shot ? "set" : "unset"] the oneshot flag for the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 	else if(href_list["toggle_enabled"])
-		var/datum/event_meta/EM = locate(href_list["toggle_enabled"])
+		var/datum/event_meta/EM = locateUID(href_list["toggle_enabled"])
 		EM.enabled = !EM.enabled
 		log_and_message_admins("has [EM.enabled ? "enabled" : "disabled"] the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 	else if(href_list["remove"])
 		if(alert("This will remove the event from rotation. Continue?","Removing Event!","Yes","No") != "Yes")
 			return
-		var/datum/event_meta/EM = locate(href_list["remove"])
-		var/datum/event_container/EC = locate(href_list["EC"])
+		var/datum/event_meta/EM = locateUID(href_list["remove"])
+		var/datum/event_container/EC = locateUID(href_list["EC"])
 		EC.available_events -= EM
 		log_and_message_admins("has removed the [GLOB.severity_to_string[EM.severity]] event '[EM.name]'.")
 	else if(href_list["add"])
@@ -289,7 +289,7 @@ SUBSYSTEM_DEF(events)
 		log_and_message_admins("has added \a [GLOB.severity_to_string[new_event.severity]] event '[new_event.name]' of type [new_event.event_type] with weight [new_event.weight].")
 		new_event = new
 	else if(href_list["clear"])
-		var/datum/event_container/EC = locate(href_list["clear"])
+		var/datum/event_container/EC = locateUID(href_list["clear"])
 		if(EC.next_event)
 			log_and_message_admins("has dequeued the [GLOB.severity_to_string[EC.severity]] event '[EC.next_event.name]'.")
 			EC.next_event = null

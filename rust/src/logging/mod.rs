@@ -22,7 +22,7 @@ pub(crate) fn setup_panic_handler() {
                     let second_msg = format!("BYOND error \n {:#?}", error);
                     let _ = std::fs::write(
                         Utc::now()
-                            .format("data/rustlibs_dm_trace_failed_%Y%m%d_%H%M%S.txt")
+                            .format("data/logs/rustlibs_dm_trace_failed_%Y%m%d_%H%M%S.txt")
                             .to_string(),
                         second_msg.clone(),
                     );
@@ -33,7 +33,7 @@ pub(crate) fn setup_panic_handler() {
         );
         let _ = std::fs::write(
             Utc::now()
-                .format("data/rustlibs_panic_%Y%m%d_%H%M%S.txt")
+                .format("data/logs/rustlibs_panic_%Y%m%d_%H%M%S.txt")
                 .to_string(),
             msg.clone(),
         );

@@ -19,7 +19,7 @@
 	return TRUE
 
 /**
- * Finds a mob by their ckey in the active and left player lists
+ * Returns a mob type controlled by a specified ckey
  *
  * Arguments:
  * * player_key - The ckey to search for
@@ -28,13 +28,12 @@
 	if(!player_key)
 		return
 
-	for(var/mob/mob_instance as anything in GLOB.player_list)
-		if(mob_instance.ckey != player_key)
-			continue
+	var/mob/persistent_mob = GLOB.persistent_clients_by_ckey[player_key]?.mob
+	if(persistent_mob)
+		return persistent_mob
 
-		return mob_instance
-
-	for(var/mob/mob_instance as anything in GLOB.left_player_list)
+	// hopefully the above will always handle it, but any time a coder thinks "no way this will happen", murphy's law guarantees it somehow will
+	for(var/mob/mob_instance as anything in GLOB.mob_list)
 		if(mob_instance.ckey != player_key)
 			continue
 

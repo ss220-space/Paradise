@@ -31,8 +31,8 @@
 
 /obj/machinery/shuttle_manipulator/update_overlays()
 	. = ..()
-	. += image(icon, icon_state = "hologram_on", pixel_y = 22)
-	. += image(icon, icon_state = "hologram_whiteship", pixel_y = 27)
+	. += image(icon, icon_state = "hologram_on", pixel_z = 22)
+	. += image(icon, icon_state = "hologram_whiteship", pixel_z = 27)
 
 /obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
 	attack_hand(user)
@@ -73,7 +73,7 @@
 	return ..()
 
 /obj/machinery/shuttle_manipulator/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /obj/machinery/shuttle_manipulator/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -269,7 +269,7 @@
 
 /obj/machinery/shuttle_manipulator/proc/load_template(datum/map_template/shuttle/S)
 	// load shuttle template, centred at shuttle import landmark,
-	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import")) // e.g. /obj/effect/landmark/shuttle_import
+	var/turf/landmark_turf = get_turf(locate(/obj/effect/landmark/shuttle_import)) // e.g. /obj/effect/landmark/shuttle_import
 	S.load(landmark_turf, centered = TRUE)
 
 	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)

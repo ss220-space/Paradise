@@ -145,7 +145,7 @@
 		new /obj/effect/temp_visual/dragon_swoop/legionnaire(T)
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, TRUE)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] готовится к рывку!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] готовится к рывку!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran, list/hit_targets = list())
@@ -178,8 +178,8 @@
 	for(var/mob/living/L in T.contents - src)
 		if(faction_check_mob(L))
 			return
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] топчет и пинает [L.declent_ru(ACCUSATIVE)]!"))
-		to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] топчет вас и отбрасывает пинком!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] топчет и пинает [L.declent_ru(ACCUSATIVE)]!"))
+		to_chat(L, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] топчет вас и отбрасывает пинком!"))
 		if(L in hit_targets)
 			L.adjustBruteLoss(charge_damage)
 		else
@@ -234,7 +234,7 @@
 		mypile = newpile
 		mypile.myowner = src
 		playsound(get_turf(src),'sound/items/fultext_deploy.ogg', 200, TRUE)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] призывает костёр на [get_turf(src)]!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] призывает костёр на [get_turf(src)]!"))
 		return
 	else
 		var/turf/legionturf = get_turf(src)
@@ -244,9 +244,9 @@
 			return
 		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, TRUE)
 		playsound(legionturf,'sound/items/fultext_deploy.ogg', 200, TRUE)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] распадается на горящую груду костей!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] распадается на горящую груду костей!"))
 		forceMove(pileturf)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] формируется из костра!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] формируется из костра!"))
 		mypile.forceMove(legionturf)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/throw_bone()

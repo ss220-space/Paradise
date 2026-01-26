@@ -168,7 +168,7 @@
 		var/image/slugI = image(hat_icon_file, hat_icon_state)
 		slugI.alpha = hat_alpha
 		slugI.color = hat_color
-		slugI.pixel_y = hat_offset_y
+		slugI.pixel_z = hat_offset_y
 		//slugI.transform = matrix(1, 0, 1, 0, 1, 0)
 		return slugI
 

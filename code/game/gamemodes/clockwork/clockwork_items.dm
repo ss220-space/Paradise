@@ -223,17 +223,17 @@
 	slot_flags = ITEM_SLOT_BACK
 	force = 15
 	force_unwielded = 15
-	force_wielded = 25
-	throwforce = 35
+	force_wielded = 20
+	throwforce = 30
 	armour_penetration = 40
 	sharp = TRUE
-	embed_chance = 70
+	embed_chance = 60
 	embedded_ignore_throwspeed_threshold = TRUE
 	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	melee_blocksound = SFX_MELEE_BLOCK
 	w_class = WEIGHT_CLASS_HUGE
-	block_chance = 25
+	block_chance = 20
 	needs_permit = TRUE
 
 /obj/item/twohanded/ratvarian_spear/Initialize(mapload)
@@ -375,12 +375,11 @@
 	force = 10
 	force_unwielded = 10
 	force_wielded = 30
-	armour_penetration = 35
+	armour_penetration = 30
 	throwforce = 40
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
-	block_chance = 30
-	melee_blocksound = SFX_MELEE_BLOCK
+	block_chance = 25
 
 /obj/item/twohanded/clock_hammer/Initialize(mapload)
 	. = ..()
@@ -488,7 +487,7 @@
 	force = 25
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
-	armour_penetration = 30
+	armour_penetration = 20
 	sharp = TRUE
 	attack_verb = list("полоснул", "уколол")
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -797,7 +796,7 @@
 	charge_speed = 10 SECONDS
 	pb_knockback = 0
 	haveKnockback = FALSE
-	fire_delay = 40
+	fire_delay = 2 SECONDS
 
 	def_bullet = /obj/item/ammo_casing/energy/rat/snipe
 	emp_bullet = /obj/item/ammo_casing/energy/rat/snipe/emp
@@ -948,6 +947,7 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/suit.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/suit.dmi',
 	)
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/clothing/suit/hooded/clockrobe_fake
 	name = "clock robes"
@@ -1070,7 +1070,7 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 50, BULLET = 40, LASER = 50, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 45, BULLET = 35, LASER = 45, ENERGY = 30, BOMB = 50, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEGLOVES|HIDESHOES
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
@@ -1201,7 +1201,7 @@
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	siemens_coefficient = 0
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 35, BULLET = 45, LASER = 25, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 	var/north_star = FALSE
 	var/fire_casting = FALSE
 
@@ -1324,7 +1324,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 35, BULLET = 45, LASER = 25, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork_fake
 	name = "clockwork treads"
@@ -1365,7 +1365,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
-	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 40, bullet = 60, laser = 20, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 	sprite_sheets = list(
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/helmet.dmi',
 	)
@@ -1549,6 +1549,10 @@
 	searching = TRUE
 	to_chat(user, span_notice("You're trying to boot up [src] as the gears inside start to hum."))
 	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /mob/living/silicon/robot/cogscarab)
+
+	if(QDELETED(src))
+		return
+
 	if(length(candidates))
 		var/mob/dead/observer/O = pick(candidates)
 		var/mob/living/silicon/robot/cogscarab/cog = new /mob/living/silicon/robot/cogscarab(get_turf(src))
@@ -1642,9 +1646,7 @@
 			if(TIME_SPELL)
 				add_attack_logs(user, user, "Time stopped with [src]")
 				qdel(src)
-				var/obj/effect/timestop/clockwork/timestop = new /obj/effect/timestop/clockwork(get_turf(user))
-				timestop.immune |= user
-				timestop.timestop()
+				new /obj/effect/timestop/clockwork(get_turf(user), null, null, user)
 			if(RECONSTRUCT_SPELL)
 				add_attack_logs(user, user, "Reconstructed with [src]")
 				qdel(src)
@@ -1692,6 +1694,10 @@
 /obj/item/clockwork/shard/proc/give_ghost(mob/living/carbon/human/golem)
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Brass Golem?", ROLE_CLOCKER, TRUE, poll_time = 10 SECONDS, source = /obj/item/clockwork/clockslab)
+
+	if(QDELETED(golem))
+		return
+
 	if(length(candidates))
 		var/mob/dead/observer/C = pick(candidates)
 		golem.ghostize(FALSE)
@@ -1719,7 +1725,7 @@
 	var/can_adv_heal = TRUE
 	var/robo_affect_heal = TRUE
 	var/radius = 4
-	var/heal = 60
+	var/heal = 40
 	var/is_rat_act = TRUE
 	var/heal_marauders = FALSE
 	var/do_emp = FALSE

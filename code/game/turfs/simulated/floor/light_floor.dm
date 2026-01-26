@@ -138,6 +138,13 @@
 	desc = "Funky floor."
 	state = LIGHTFLOOR_CYCLEB
 
+/turf/simulated/floor/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 #undef LIGHTFLOOR_ON
 #undef LIGHTFLOOR_WHITE
 #undef LIGHTFLOOR_RED

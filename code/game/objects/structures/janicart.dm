@@ -218,7 +218,7 @@
 	if(signs)
 		. += "cart_sign[signs]"
 	if(reagents.total_volume > 0)
-		var/image/reagentsImage = image(icon,src,"cart_reagents0")
+		var/image/reagentsImage = image(icon, src, "cart_reagents0")
 		reagentsImage.alpha = 150
 		switch((reagents.total_volume / reagents.maximum_volume) * 100)
 			if(1 to 25)

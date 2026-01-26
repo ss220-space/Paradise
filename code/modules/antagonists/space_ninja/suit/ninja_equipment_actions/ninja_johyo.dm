@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/johyo
-	name = "Integrated Jōhyō"
-	desc = "A rope dagger conveniently hidden inside your suit. \
-	Has a pulse launcher that allowes you to shot it at an incredible speed, and grab your victims to get them right next to you! Energy cost: 500"
+	name = "Верёвочный кунай"
+	desc = "Верёвочный кунай, спрятанный внутри костюма. \
+	Укомплектован стреляющим механизмом, позволяющим выстреливать кинжал с невероятной скоростью, захватывая жертв. Затраты энергии: 500."
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 5 SECONDS
 	button_icon_state = "kunai"
@@ -47,6 +47,16 @@
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/johyo/my_action = null
 
+/obj/item/gun/magic/johyo/get_ru_names()
+	return list(
+		NOMINATIVE = "джохё",
+		GENITIVE = "джохё",
+		DATIVE = "джохё",
+		ACCUSATIVE = "джохё",
+		INSTRUMENTAL = "джохё",
+		PREPOSITIONAL = "джохё",
+	)
+
 /obj/item/gun/magic/johyo/Destroy()
 	. = ..()
 	my_suit.integrated_harpoon = null
@@ -71,12 +81,22 @@
 
 /obj/item/ammo_casing/magic/johyo
 	name = "Jōhyō"
-	desc = "In other words - Kunai on a rope."
+	desc = "Кинжал, прикреплённый к верёвке. Просто и эффективно."
 	projectile_type = /obj/projectile/johyo
 	muzzle_flash_effect = null
 	caliber = "kunai"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "kunai"
+
+/obj/item/ammo_casing/magic/johyo/get_ru_names()
+	return list(
+		NOMINATIVE = "джохё",
+		GENITIVE = "джохё",
+		DATIVE = "джохё",
+		ACCUSATIVE = "джохё",
+		INSTRUMENTAL = "джохё",
+		PREPOSITIONAL = "джохё",
+	)
 
 /obj/projectile/johyo
 	name = "Jōhyō"
@@ -99,7 +119,8 @@
 		var/mob/living/target_living = target
 		var/turf/firer_turf = get_turf(firer)
 		if(!target_living.anchored && target_living.loc)
-			target_living.visible_message(span_danger("[target_living] is snagged by [firer]'s chain!"))
+			target_living.visible_message(span_danger("[target_living.declent_ru(NOMINATIVE)] зацепля[PLUR_ET_YUT(target_living)]ся за цепь [firer.declent_ru(GENITIVE)]!"))
+
 			ADD_TRAIT(target_living, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))	// Ensures the hook does not hit the target multiple times
 			target_living.forceMove(firer_turf)
 			REMOVE_TRAIT(target_living, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))

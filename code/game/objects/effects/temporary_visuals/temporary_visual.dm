@@ -48,23 +48,8 @@
 		M.Turn(get_angle(src, target))
 		transform = M
 
-/obj/effect/temp_visual/block
-	name = "block"
-	icon_state = "slash"
-	duration = 6.7
-
-/obj/effect/temp_visual/block/shield
-	name = "block shield"
-	icon_state = "kick"
-	duration = 3.7
-
-/obj/effect/temp_visual/block/Initialize(mapload, color)
-	. = ..()
-	if(color)
-		src.color = color
-	if(prob(50))
-		var/matrix/flip_matrix = matrix()
-		flip_matrix.Scale(-1, 1)
-		src.transform = flip_matrix
-	animate(src, alpha = 200, time = 1, easing = SINE_EASING)
-	animate(alpha = 0, time = duration-1, easing = SINE_EASING)
+/obj/effect/temp_visual/jet_plume
+	name = "jet plume"
+	icon_state = "jet_plume"
+	layer = BELOW_MOB_LAYER
+	duration = 0.4 SECONDS

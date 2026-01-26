@@ -106,7 +106,7 @@
 #define JOB_TITLE_ENGINEER "Station Engineer"
 #define JOB_TITLE_ENGINEER_TRAINEE "Trainee Engineer"
 #define JOB_TITLE_ATMOSTECH "Life Support Specialist"
-#define JOB_TITLE_MECHANIC "Mechanic"
+#define JOB_TITLE_MECHANIC "Spacepod Technician"
 
 // Central Command
 #define JOB_TITLE_CCOFFICER "Nanotrasen Navy Officer"

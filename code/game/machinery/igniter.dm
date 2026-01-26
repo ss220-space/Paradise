@@ -54,7 +54,7 @@
 	if(on && !(stat & NOPOWER))
 		var/turf/location = get_turf(src)
 		if(isturf(location))
-			location.hotspot_expose(1000, 500, 1)
+			location.hotspot_expose(1000, 1)
 	return TRUE
 
 /obj/machinery/igniter/power_change(forced = FALSE)
@@ -124,7 +124,7 @@
 
 	var/turf/location = get_turf(src)
 	if(isturf(location))
-		location.hotspot_expose(1000, 500, 1)
+		location.hotspot_expose(1000, 500)
 
 	return TRUE
 

@@ -358,11 +358,11 @@
 	var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
 	var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
 	if(bodypart_tail)
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, FALSE, owner)
 	if(bodypart_wing)
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, FALSE, owner)
 	else
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, FALSE, owner)
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)

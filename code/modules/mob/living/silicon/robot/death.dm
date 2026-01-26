@@ -6,6 +6,7 @@
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
 	invisibility = INVISIBILITY_ABSTRACT
+	eject_riders_harmfull() //where did my car go?!
 
 	animation = new(loc)
 	animation.icon_state = "blank"

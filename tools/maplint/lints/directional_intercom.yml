@@ -1,0 +1,67 @@
+help: "Use the specific directional subtypes for this intercom."
+/obj/item/radio/intercom:
+  banned_variables:
+    - pixel_x
+    - pixel_y
+    - dir
+    - name
+=/obj/item/radio/intercom:
+  banned: TRUE
+=/obj/item/radio/intercom/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/custom:
+  banned: TRUE
+=/obj/item/radio/intercom/custom/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/interrogation:
+  banned: TRUE
+=/obj/item/radio/intercom/interrogation/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/private:
+  banned: TRUE
+=/obj/item/radio/intercom/private/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/command:
+  banned: TRUE
+=/obj/item/radio/intercom/command/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/specops:
+  banned: TRUE
+=/obj/item/radio/intercom/specops/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/syndicate:
+  banned: TRUE
+=/obj/item/radio/intercom/syndicate/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/pirate:
+  banned: TRUE
+=/obj/item/radio/intercom/pirate/directional:
+  banned: TRUE
+
+# department
+=/obj/item/radio/intercom/department:
+  banned: TRUE
+=/obj/item/radio/intercom/department/medbay:
+  banned: TRUE
+=/obj/item/radio/intercom/department/medbay/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/department/security:
+  banned: TRUE
+=/obj/item/radio/intercom/department/security/directional:
+  banned: TRUE
+
+# locked
+=/obj/item/radio/intercom/locked:
+  banned: TRUE
+=/obj/item/radio/intercom/locked/ai_private:
+  banned: TRUE
+=/obj/item/radio/intercom/locked/ai_private/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/locked/confessional:
+  banned: TRUE
+=/obj/item/radio/intercom/locked/confessional/directional:
+  banned: TRUE
+=/obj/item/radio/intercom/locked/prison:
+  banned: TRUE
+=/obj/item/radio/intercom/locked/prison/directional:
+  banned: TRUE

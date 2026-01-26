@@ -355,7 +355,7 @@
 
 /mob/living/verb/lookup()
 	set name = "Смотреть наверх"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(client.perspective != MOB_PERSPECTIVE)
 		end_look_up()
@@ -364,7 +364,7 @@
 
 /mob/living/verb/lookdown()
 	set name = "Смотреть вниз"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(client.perspective != MOB_PERSPECTIVE)
 		end_look_down()

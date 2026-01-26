@@ -6,18 +6,13 @@
 /datum/ui_module/poll_list_panel
 	name = "Poll List Panel"
 
-/datum/admins/proc/open_poll_list()
-	set name = "Server Poll Management"
-	set category = STATPANEL_ADMIN_ADMIN
-
-	if(!check_rights(R_SERVER))
-		return
-
-	var/datum/ui_module/poll_list_panel/panel_pollo = new(usr)
-	panel_pollo.ui_interact(usr)
+ADMIN_VERB(poll_panel, R_SERVER, "Server Poll Management", "View and manage polls.", ADMIN_CATEGORY_MAIN)
+	var/datum/ui_module/poll_list_panel/panel_pollo = new(user)
+	panel_pollo.ui_interact(user.mob)
+	BLACKBOX_LOG_ADMIN_VERB("Server Poll Management")
 
 /datum/ui_module/poll_list_panel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/ui_module/poll_list_panel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)

@@ -425,7 +425,7 @@
 	var/turf/T = get_turf(src)
 	cam["name"] = sanitize(c_tag)
 	cam["deact"] = !can_use()
-	cam["camera"] = "\ref[src]"
+	cam["camera"] = UID()
 	if(T)
 		cam["x"] = T.x
 		cam["y"] = T.y
@@ -496,7 +496,7 @@
 /obj/machinery/camera/mortar/blob_act(obj/structure/blob/B)
 	return
 
-/obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/obj/machinery/camera/mortar/fire_act(exposed_temperature, exposed_volume)
 	return
 
 /obj/machinery/camera/mortar/flamer_fire_act(damage)
