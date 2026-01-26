@@ -170,7 +170,7 @@
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
-			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			SELECT id, ckey, timestamp, notetext, adminckey, last_editor, server, crew_playtime
 			FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
@@ -211,8 +211,8 @@
 	else if(admin_ckey)
 		var/admin_sql_ckey = ckey(admin_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
-			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime
-			FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE adminckey=:adminckey ORDER BY timestamp"}, list(
+			SELECT id, ckey, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE adminckey=:adminckey ORDER BY timestamp DESC"}, list(
 				"adminckey" = admin_sql_ckey
 			))
 		output += create_note_text(\
@@ -246,13 +246,14 @@
 	output += ruler
 	while(query.NextRow())
 		var/id = query.item[1]
-		var/timestamp = query.item[2]
-		var/notetext = query.item[3]
-		var/adminckey = query.item[4]
-		var/last_editor = query.item[5]
-		var/server = query.item[6]
-		var/mins = text2num(query.item[7])
-		output += "<b>[timestamp] | [server] | [adminckey]"
+		var/ckey = query.item[2]
+		var/timestamp = query.item[3]
+		var/notetext = query.item[4]
+		var/adminckey = query.item[5]
+		var/last_editor = query.item[6]
+		var/server = query.item[7]
+		var/mins = text2num(query.item[8])
+		output += "<b>[timestamp] | [server] | user: [ckey] | admin : [adminckey]"
 		if(show_player_hours && mins)
 			var/playstring = get_exp_format(mins)
 			output += " | [playstring] as Crew"
