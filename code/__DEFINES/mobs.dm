@@ -67,7 +67,7 @@
 #define TASTE_SENSITIVITY_DULL 25
 #define TASTE_SENSITIVITY_NO_TASTE 101
 
-// Reagent type flags, defines the types of mobs this reagent will affect
+// Reagent type flags, defines the types of mobs this reagent will affect and the types of reagents this mob will metabolize
 #define ORGANIC (1<<0)
 #define SYNTHETIC (1<<1)
 
