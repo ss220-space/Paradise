@@ -65826,7 +65826,6 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/item/radio/intercom/directional/east,
 /obj/effect/landmark/start/cargo_technician,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -75368,6 +75367,13 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/starboard)
+"lmt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/papershredder,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "lmu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -98773,16 +98779,6 @@
 	icon_state = "dark"
 	},
 /area/security/hos)
-"oNJ" = (
-/obj/structure/table,
-/obj/machinery/computer/rdconsole/cargo{
-	pixel_y = 6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
 "oNM" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -124223,6 +124219,16 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
+"svR" = (
+/obj/structure/table,
+/obj/machinery/computer/rdconsole/cargo{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/office)
 "svU" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -128366,6 +128372,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
+/obj/item/radio/intercom/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -204658,7 +204665,7 @@ lRw
 xcg
 lRw
 wNH
-xcg
+lmt
 xcg
 tyF
 uWR
@@ -272747,7 +272754,7 @@ rwI
 rwI
 rwI
 akR
-oNJ
+svR
 pjE
 wka
 hbR

@@ -59869,18 +59869,6 @@
 	icon_state = "red"
 	},
 /area/security/visiting_room)
-"jeb" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
-/obj/structure/sign/cargo{
-	pixel_x = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "neutralcorner"
-	},
-/area/hallway/primary/fore)
 "jeg" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/structure/closet/secure_closet/roboticist,
@@ -91767,7 +91755,8 @@
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id_tag = "Cargo Warehouse Windows";
-	name = "Cargo Warehouse Windows"
+	name = "Cargo Warehouse Windows";
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
@@ -101611,6 +101600,16 @@
 	icon_state = "bar"
 	},
 /area/clownoffice)
+"sDl" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "supply_home";
+	locked = 1;
+	name = "Cargo Docking Hatch";
+	req_access = list(31)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "sDu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -101730,18 +101729,6 @@
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
-"sEU" = (
-/obj/machinery/conveyor{
-	dir = 8;
-	id = "cargodisposals"
-	},
-/obj/machinery/door/window/westleft{
-	dir = 2;
-	name = "Disposal";
-	req_access = list(50)
-	},
-/turf/simulated/floor/plating,
-/area/quartermaster/sorting)
 "sEV" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -102117,6 +102104,18 @@
 	icon_state = "dark"
 	},
 /area/engineering/gravitygenerator)
+"sKY" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/structure/sign/cargo{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/fore)
 "sLe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -105675,16 +105674,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/crew_quarters/kitchen)
-"tCr" = (
-/obj/machinery/door/airlock/external{
-	id_tag = "supply_home";
-	locked = 1;
-	name = "Cargo Docking Hatch";
-	req_access = list(31)
-	},
-/obj/structure/fans/tiny,
-/turf/simulated/floor/plasteel,
-/area/quartermaster/storage)
 "tCu" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -123779,6 +123768,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
+"xBy" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargodisposals"
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/sorting)
 "xBC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -164875,7 +164876,7 @@ cwd
 fsz
 cwd
 cwd
-jeb
+sKY
 cwd
 irD
 irD
@@ -166138,7 +166139,7 @@ aSd
 bbl
 avb
 ayA
-sEU
+xBy
 cyH
 cBM
 cLc
@@ -166909,7 +166910,7 @@ dgP
 wff
 jWD
 ayA
-sEU
+xBy
 bXh
 cLc
 cdN
@@ -172055,9 +172056,9 @@ aaq
 coE
 whL
 clQ
-tCr
+sDl
 qBF
-tCr
+sDl
 dkw
 whL
 coE

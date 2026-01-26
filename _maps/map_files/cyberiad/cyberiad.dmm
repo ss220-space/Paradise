@@ -48089,14 +48089,6 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
-"eoO" = (
-/obj/structure/chair/office/dark{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "eoP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -48664,8 +48656,12 @@
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "eAE" = (
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/wall,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
 /area/quartermaster/storage)
 "eAQ" = (
 /obj/structure/sink{
@@ -50354,6 +50350,14 @@
 "fnW" = (
 /turf/simulated/floor/wood,
 /area/maintenance/fsmaint2)
+"for" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "fow" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -53739,10 +53743,6 @@
 	icon_state = "darkgrey"
 	},
 /area/toxins/mixing)
-"gQK" = (
-/obj/structure/sign/poster/official/minegem,
-/turf/simulated/wall,
-/area/quartermaster/miningdock)
 "gQZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -57598,6 +57598,10 @@
 	icon_state = "white"
 	},
 /area/medical/patients_rooms)
+"iDc" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/wall,
+/area/quartermaster/storage)
 "iDd" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -57932,6 +57936,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"iKD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/computer/supplyquest/workers{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "iKU" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -74277,14 +74292,6 @@
 "qbf" = (
 /turf/simulated/floor/plasteel,
 /area/maintenance/asmaint)
-"qbD" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/storage)
 "qbV" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -79270,6 +79277,10 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
+"slh" = (
+/obj/structure/sign/poster/official/minegem,
+/turf/simulated/wall,
+/area/quartermaster/miningdock)
 "slq" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
@@ -90240,17 +90251,6 @@
 /obj/effect/landmark/spawner/xeno,
 /turf/simulated/floor/plating,
 /area/maintenance/xenozoo)
-"wPO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/machinery/computer/supplyquest/workers{
-	pixel_y = 28
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/storage)
 "wQq" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /turf/simulated/floor/plating,
@@ -115127,7 +115127,7 @@ kLC
 cam
 mRU
 mRU
-gQK
+slh
 bqC
 pcG
 bvv
@@ -115143,7 +115143,7 @@ cZA
 qsg
 qsg
 bVl
-eoO
+for
 sAx
 bXh
 viu
@@ -115403,8 +115403,8 @@ rYA
 cas
 veI
 bzy
-eAE
-wPO
+iDc
+iKD
 xfY
 iQZ
 xjs
@@ -115920,7 +115920,7 @@ bzy
 wjW
 vAr
 xkd
-qbD
+eAE
 leb
 hDs
 eYH
