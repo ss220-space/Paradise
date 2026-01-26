@@ -20,6 +20,7 @@
 	can_bayonet = TRUE
 	bayonet_x_offset = 20
 	bayonet_y_offset = 12
+	w_class = WEIGHT_CLASS_BULKY
 	/// Lazylist of installed modkits.
 	var/list/obj/item/borg/upgrade/modkit/modkits
 	/// Bitflags. Used to determine which modkits fit into the KA.
