@@ -357,7 +357,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
-	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', 50, TRUE, -1, use_reverb = TRUE)
+	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
