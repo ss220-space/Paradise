@@ -1,6 +1,7 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { Box, Section, DmIcon, Button, Stack, NoticeBox, Tabs } from '../components';
+import { useState } from 'react';
+import { Box, Section, DmIcon, Button, Stack, NoticeBox, Tabs, Input } from '../components';
 import { toTitleCase } from 'common/string';
 
 type Design = {
@@ -28,6 +29,7 @@ type ComponentPrinterData = {
 export const ComponentPrinter = (props) => {
   const { act, data } = useBackend<ComponentPrinterData>();
   const { designs } = data;
+  const [searchText, setSearchText] = useState('');
 
   return (
     <Window title={'Дубликатор печатных плат'} width={670} height={600}>
@@ -119,9 +121,23 @@ export const ComponentPrinter = (props) => {
         </Box>
         )}
         {data.current_tab === 1 && (
-          <Box>
-            <p>text</p>
+          <Box mb={2}>
+          <Box inline>
+            <Input
+              placeholder="Поиск схем..."
+              value={searchText}
+              onChange={(value) => setSearchText(value)}
+              width="250px"
+            />
+            <Button
+              icon="search"
+              onClick={() => act('search', { term: searchText })}
+              ml={1}
+            >
+              Найти
+            </Button>
           </Box>
+        </Box>
         )}
       </Window.Content>
     </Window>

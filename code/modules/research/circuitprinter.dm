@@ -35,6 +35,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 	)
 
 	var/current_tab = 0
+	var/search_term = ""
+	var/is_searcing = FALSE
+	var/list/search_results = list()
+	var/search_timeout
 
 	reagents = new()
 
@@ -386,27 +390,27 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			var/list/design = LAZYACCESS(scanned_designs, design_id)
 
-			var/user = ui.user
-			if(!SSdbcore.Connect() && user&.ckey)
+			var/mob/user= ui.user
+			if(!SSdbcore.Connect() && !user)
 				return
-			var/author_name = tgui_input_text(user, "Как вас зовут?", "Имя автора", encode=FALSE)
+			var/author = tgui_input_text(user, "Как вас зовут?", "Имя автора", encode=FALSE) // to do: check name
 
 			var/datum/db_query/query = SSdbcore.NewQuery({"
-				INSERT TO [format_table_name("curcuit_library")]
-				(ckey, author_name, design)
+				INSERT TO [format_table_name("curcuit_designs")]
+				(ckey, author, design)
 				VALUES
-				(:ckey, :author_name. :design)
+				(:ckey, :author. :design)
 			"}, list(
 				"ckey" = user.ckey,
-				"author_name" = author_name,
+				"author" = author,
 				"design" = json_encode(design),
 			))
 
-			var/success = query.warn_execute()
-			var/last_id = 0
+			// var/success = query.warn_execute()
+			// var/last_id = 0
 
-			if(success)
-				last_id = query.last_insert_id
+			// if(success)
+			// 	last_id = query.last_insert_id
 
 			qdel(query)
 
@@ -414,6 +418,32 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/tab = text2num(params["tab"])
 			current_tab = tab
 			SStgui.update_uis(src)
+		if("search")
+			var/term = trim(params["term"])
+
+			var/mob/user= ui.user
+			if(!SSdbcore.Connect() && !user)
+				return
+
+			var/datum/db_query/query = SSdbcore.NewQuery({"
+			SELECT
+				author, design
+			FROM [format_table_name("curcuit_designs")]
+			"})
+
+			if(query.Execute())
+				while(query.NextRow())
+					var/list/design = query.item[1]
+					var/author = query.item[2]
+
+					var/list/text = list(author, design["name"], design["desc"])
+					if(findtext(jointext(text, ""), term))
+						to_chat(user, design["name"])
+
+			qdel(query)
+
+
+
 	return TRUE
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
