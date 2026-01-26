@@ -444,27 +444,3 @@
 		'sound/machines/computer/keyboard_clicks_6.ogg',
 		'sound/machines/computer/keyboard_clicks_7.ogg',
 	)
-
-/datum/sound_effect/lathe_print
-	key = SFX_LATHE_PRINT
-	file_paths = list(
-		'sound/machines/rnd_machines/lathe_print.ogg'
-	)
-
-/datum/sound_effect/imprinter_print
-	key = SFX_IMPRINTER_PRINT
-	file_paths = list(
-		'sound/machines/rnd_machines/circuitprinter_print.ogg'
-	)
-
-/datum/sound_effect/exofab_print
-	key = SFX_EXOFAB_PRINT
-	file_paths = list(
-		'sound/machines/rnd_machines/exofab_print.ogg'
-	)
-
-/datum/sound_effect/destrucrtor_scan
-	key = SFX_DESTRUCTOR_SCAN
-	file_paths = list(
-		'sound/machines/rnd_machines/destructor_scanning.ogg'
-	)
