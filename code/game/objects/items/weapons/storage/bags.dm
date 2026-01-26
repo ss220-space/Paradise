@@ -129,7 +129,6 @@
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
-	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	storage_slots = 10
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
 	max_w_class = WEIGHT_CLASS_BULKY
@@ -199,11 +198,11 @@
 	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
-	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
 	storage_slots = 48
 	max_combined_w_class = 48
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(/obj/item/gem)
+	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/storage/bag/gem/get_ru_names()
 	return list(
