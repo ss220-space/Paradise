@@ -246,14 +246,14 @@
 	output += ruler
 	while(query.NextRow())
 		var/id = query.item[1]
-		var/ckey = query.item[2]
+		var/user_ckey = query.item[2]
 		var/timestamp = query.item[3]
 		var/notetext = query.item[4]
 		var/adminckey = query.item[5]
 		var/last_editor = query.item[6]
 		var/server = query.item[7]
 		var/mins = text2num(query.item[8])
-		output += "<b>[timestamp] | [server] | user: [ckey] | admin : [adminckey]"
+		output += "<b>[timestamp] | [server] | user: [user_ckey] | admin : [adminckey]"
 		if(show_player_hours && mins)
 			var/playstring = get_exp_format(mins)
 			output += " | [playstring] as Crew"
