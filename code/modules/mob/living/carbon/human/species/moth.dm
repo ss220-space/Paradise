@@ -1,6 +1,7 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
 #define COCOON_EMERGE_DELAY 15 SECONDS
 #define COCOON_HARM_AMOUNT 50
+#define COCON_HEAL_AMMOUNT 20
 #define COCOON_NUTRITION_AMOUNT -200
 #define FLYSWATTER_DAMAGE_MULTIPLIER 10
 #define MOTH_PITCH_SHIFT 0.15 // a bit higher emotes
@@ -231,7 +232,7 @@
 		for(var/mob/living/carbon/human/H in contents)
 			H.forceMove(loc)
 			REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
-			H.heal_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
+			H.take_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(10 SECONDS)
 		return ..()
 
@@ -241,6 +242,7 @@
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 		REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
+		H.heal_overall_damage(COCON_HEAL_AMMOUNT, COCON_HEAL_AMMOUNT)
 	return ..()
 
 /datum/status_effect/burnt_wings
