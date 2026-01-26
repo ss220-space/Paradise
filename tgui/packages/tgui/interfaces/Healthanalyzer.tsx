@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Section, Button, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-const damageLang = new Map([
+const DAMAGE_LOCALIZATION_MAP = new Map([
   ['upper body', 'Грудь'],
   ['lower body', 'Живот'],
   ['head', 'Голова'],
@@ -24,6 +24,21 @@ const damageLang = new Map([
   ['luam wings', 'Крылья луам'],
 ]);
 
+const BLOOD_TYPE_MAP = new Map([
+  ['Diona', 'Диона'],
+  ['Human', 'Человек'],
+  ['Drask', 'Драск'],
+  ['Grey', 'Грей'],
+  ['Vulpkanin', 'Вульпакин'],
+  ['Tajaran', 'Таяран'],
+  ['Skrell', 'Скрелл'],
+  ['Nian', 'Ниан'],
+  ['Unathi', 'Унатх'],
+  ['Kidan', 'Кидан'],
+  ['Wryn', 'Врин'],
+  ['Vox', 'Вокс'],
+]);
+
 type HealthanalyzerData = {
   scan_data: ScanData;
   scan_title: string;
@@ -41,6 +56,7 @@ type ScanData = {
   bodyTemperatureC: number;
   bodyTemperatureF: number;
   pulse: number;
+  pulse_status: number;
   bloodData: BloodData;
   genes: number;
   timetodefib: number;
@@ -290,12 +306,17 @@ export const Healthanalyzer = (props: unknown) => {
                         {scan_data.bloodData.blood_percent} %,{' '}
                         {scan_data.bloodData.blood_volume} u, тип:{' '}
                         {scan_data.bloodData.blood_type}, кровь расы:{' '}
-                        {scan_data.bloodData.blood_species}.
+                        {BLOOD_TYPE_MAP.get(scan_data.bloodData.blood_species)}.
                       </LabeledList.Item>
                     )}
 
                     <LabeledList.Item label="Пульс">
-                      <span style={!!scan_data.pulse && { color: 'red' }}>
+                      <span
+                        style={{
+                          color:
+                            scan_data.pulse_status === 2 ? '#0080ff' : 'red',
+                        }}
+                      >
                         {scan_data.pulse} уд/мин
                       </span>
                     </LabeledList.Item>
@@ -374,7 +395,7 @@ export const Healthanalyzer = (props: unknown) => {
                           {scan_data.damageLocalization.map((local, index) => (
                             <LabeledList.Item
                               key={index}
-                              label={damageLang.get(local.name)}
+                              label={DAMAGE_LOCALIZATION_MAP.get(local.name)}
                             >
                               <Box>
                                 <span style={{ color: '#FF8000' }}>

@@ -132,7 +132,7 @@
 					continue
 				if(faction_check_mob(L) && !attack_same)
 					return
-	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A]!"))
+	visible_message(span_danger("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> [ranged_message] на [A]!"))
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, dodgeable = FALSE)
 	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 

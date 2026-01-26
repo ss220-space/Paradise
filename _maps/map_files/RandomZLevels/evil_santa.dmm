@@ -142,7 +142,7 @@
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "ba" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "bf" = (
@@ -1147,7 +1147,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "ji" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},
@@ -1511,7 +1511,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
 "mh" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	temperature = 293.15
 	},
@@ -1787,7 +1787,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "ok" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/item/reagent_containers/food/snacks/gingercookie/home,
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
@@ -1833,7 +1833,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "oq" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/structure/decorative_structures/garland,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
 	slowdown = 0
@@ -3410,7 +3410,7 @@
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Cy" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -4060,7 +4060,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Io" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "santa"
@@ -4173,8 +4173,8 @@
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "Jq" = (
 /obj/structure/closet/crate/miningcar,
-/obj/item/a_gift,
-/obj/item/a_gift,
+/obj/item/gift,
+/obj/item/gift,
 /obj/item/stack/medical/ointment/aloe,
 /obj/item/stack/medical/ointment/aloe,
 /obj/item/grenade/frag,
@@ -4455,10 +4455,10 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "LS" = (
-/obj/item/a_gift{
+/obj/item/gift{
 	pixel_x = -10
 	},
-/obj/item/a_gift{
+/obj/item/gift{
 	pixel_x = 10
 	},
 /turf/simulated/floor/carpet,
@@ -4581,7 +4581,7 @@
 	},
 /area/vision_change_area/awaymission/evil_santa/forest_labyrinth)
 "MT" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/machinery/conveyor{
 	id = "santa"
 	},
@@ -4615,7 +4615,7 @@
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Nl" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/structure/decorative_structures/garland{
 	dir = 8
 	},
@@ -4766,7 +4766,7 @@
 /area/vision_change_area/awaymission/evil_santa/mine)
 "Oq" = (
 /obj/structure/table/wood/fancy/green,
-/obj/item/a_gift,
+/obj/item/gift,
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
 "Os" = (
@@ -5009,7 +5009,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Qs" = (
-/obj/item/a_gift{
+/obj/item/gift{
 	pixel_x = -10
 	},
 /turf/simulated/floor/carpet,
@@ -5198,8 +5198,8 @@
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "RV" = (
 /obj/structure/closet/crate/miningcar,
-/obj/item/a_gift,
-/obj/item/a_gift,
+/obj/item/gift,
+/obj/item/gift,
 /obj/item/stack/medical/bruise_pack/comfrey,
 /obj/item/stack/medical/bruise_pack/comfrey,
 /turf/simulated/floor/wood/oak,
@@ -5721,7 +5721,7 @@
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
 "Wl" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/item/clothing/head/snowman,
 /obj/structure/decorative_structures/garland{
 	dir = 4
@@ -5740,7 +5740,7 @@
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Wq" = (
-/obj/item/a_gift,
+/obj/item/gift,
 /obj/structure/decorative_structures/garland{
 	dir = 1
 	},

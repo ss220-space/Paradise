@@ -43,7 +43,7 @@
 /obj/item/ipc_combat_upgrade
 	name = "IPC combat upgrade"
 	desc = "Advanced data storage designed to be compatible with positronic systems.This one include melee algorithms along with overwritten microbattery safety protocols."
-	icon = 'icons/obj/ipc_module.dmi'
+	icon = 'icons/obj/ipc_upgrade.dmi'
 	icon_state ="viable"
 	var/is_used = FALSE
 

@@ -49,9 +49,9 @@
 		return
 	switch(gas_type)
 		if("oxygen")
-			air_contents.oxygen = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
+			air_contents.set_oxygen(((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
 		if("carbon dioxide")
-			air_contents.carbon_dioxide = ((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
+			air_contents.set_carbon_dioxide(((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)))
 
 /obj/item/tank/jetpack/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_BACK)
@@ -126,13 +126,13 @@
 	if(!use_fuel)
 		return TRUE
 
-	var/datum/gas_mixture/removed = remove_air(num)
+	var/datum/gas_mixture/removed = air_contents.remove(num)
 	if(removed.total_moles() < 0.005)
 		turn_off(user)
 		return FALSE
 
 	var/turf/T = get_turf(src)
-	T.assume_air(removed)
+	T.blind_release_air(removed)
 	return TRUE
 
 /obj/item/tank/jetpack/proc/get_owner()

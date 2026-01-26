@@ -1,24 +1,15 @@
-/client/proc/open_borgopanel(borgo in GLOB.silicon_mob_list)
-	set category = STATPANEL_ADMIN_EVENT
-	set name = "Show Borg Panel"
-	set desc = "Show borg panel"
+ADMIN_VERB(borg_panel, R_ADMIN, "Show Borg Panel", ADMIN_VERB_NO_DESCRIPTION, ADMIN_CATEGORY_HIDDEN, mob/living/silicon/robot/borgo in GLOB.silicon_mob_list)
+	var/datum/borgpanel/borgpanel = new(user.mob, borgo)
+	borgpanel.ui_interact(user.mob)
 
-	if(!check_rights(R_ADMIN))
+ADMIN_VERB(borg_panel_in_list, R_ADMIN, "Show Borg Panel in List", "Open Borg Panel.", ADMIN_CATEGORY_EVENTS)
+	var/mob/borgo = tgui_input_list(user, "Please, select a player!", "Grant Full Access", GLOB.silicon_mob_list)
+	if(!borgo)
 		return
 
-	if(!isrobot(borgo))
-		borgo = tgui_input_list(usr, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
-	if(!isrobot(borgo))
-		to_chat(usr, span_warning("Borg is required for borgpanel"))
-		return
-
-	var/datum/borgpanel/borgpanel = new(usr, borgo)
-
-	borgpanel.ui_interact(usr)
-	log_and_message_admins("has opened [borgo]'s Borg Panel.")
+	SSadmin_verbs.dynamic_invoke_verb(user, /datum/admin_verb/borg_panel, borgo)
 
 /datum/borgpanel
-	var/name = "Borg Panel"
 	var/mob/living/silicon/robot/borg
 	var/user
 
@@ -26,16 +17,18 @@
 	if(!istype(to_borg))
 		qdel(src)
 		CRASH("Borg panel is only available for borgs")
-	user = to_user
+	user = CLIENT_FROM_VAR(to_user)
+	if(!user)
+		CRASH("Borg panel attempted to open to a mob without a client")
 	borg = to_borg
 
 /datum/borgpanel/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)
 
 /datum/borgpanel/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BorgPanel", name)
+		ui = new(user, src, "BorgPanel", "Borg Panel")
 		ui.open()
 
 /datum/borgpanel/ui_data(mob/user)
@@ -88,7 +81,8 @@
 			if(isnull(newcharge))
 				return
 			borg.cell.charge = newcharge
-			log_and_message_admins("set the charge of [key_name(borg)] to [borg.cell.charge].")
+			message_admins("[key_name_admin(user)] set the charge of [ADMIN_LOOKUPFLW(borg)] to [borg.cell.charge].")
+			log_admin("[key_name(user)] set the charge of [key_name(borg)] to [borg.cell.charge].")
 		if("remove_cell")
 			var/datum/robot_component/cell/C = borg.components["power cell"]
 			if(!borg.cell)
@@ -98,7 +92,8 @@
 			C.wrapped = null
 			C.installed = FALSE
 			C.uninstall()
-			log_and_message_admins("removed the cell of [key_name(borg)].")
+			message_admins("[key_name_admin(user)] deleted the cell of [ADMIN_LOOKUPFLW(borg)].")
+			log_admin("[key_name(user)] deleted the cell of [key_name(borg)].")
 		if("change_cell")
 			var/datum/robot_component/cell/C = borg.components["power cell"]
 			var/chosen = pick_closest_path(null, make_types_fancy(typesof(/obj/item/stock_parts/cell)))
@@ -117,52 +112,66 @@
 				C.install()
 				borg.cell.charge = borg.cell.maxcharge
 				borg.diag_hud_set_borgcell()
-				log_and_message_admins("changed the cell of [key_name(borg)] to [new_cell].")
+				message_admins("[key_name_admin(user)] changed the cell of [ADMIN_LOOKUPFLW(borg)] to [new_cell].")
+				log_admin("[key_name(user)] changed the cell of [key_name(borg)] to [new_cell].")
 		if("toggle_emagged")
 			borg.SetEmagged(!borg.emagged)
 			if(borg.emagged)
-				log_and_message_admins("emagged [key_name(borg)].")
+				message_admins("[key_name_admin(user)] emagged [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] emagged [key_name(borg)].")
 			else
-				log_and_message_admins("un-emagged [key_name(borg)].")
+				message_admins("[key_name_admin(user)] un-emagged [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] un-emagged [key_name(borg)].")
 		if("lawmanager")
 			var/datum/ui_module/law_manager/L = new(borg)
 			L.ui_interact(usr)
-			log_and_message_admins("has opened [borg]'s law manager.")
+			message_admins("[key_name_admin(user)] opened law manager of [ADMIN_LOOKUPFLW(borg)].")
+			log_admin("[key_name(user)] opened law manager of [key_name(borg)].")
 		if("toggle_lawupdate")
 			borg.lawupdate = !borg.lawupdate
 			if(borg.lawupdate)
-				log_and_message_admins("enabled lawsync on [key_name(borg)].")
+				message_admins("[key_name_admin(user)] enabled lawsync on [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] enabled lawsync on [key_name(borg)].")
 			else
-				log_and_message_admins("disabled lawsync on [key_name(borg)].")
+				message_admins("[key_name_admin(user)] disabled lawsync on [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] disabled lawsync on [key_name(borg)].")
 		if("toggle_lockdown")
 			borg.SetLockdown(!borg.lockcharge)
 			if(borg.lockcharge)
-				log_and_message_admins("locked down [key_name(borg)].")
+				message_admins("[key_name_admin(user)] locked down [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] locked down [key_name(borg)].")
 			else
-				log_and_message_admins("released [key_name(borg)] from lockdown.")
+				message_admins("[key_name_admin(user)] released [ADMIN_LOOKUPFLW(borg)] from lockdown.")
+				log_admin("[key_name(user)] released [key_name(borg)] from lockdown.")
 		if("toggle_scrambledcodes")
 			borg.scrambledcodes = !borg.scrambledcodes
 			if(borg.scrambledcodes)
-				log_and_message_admins("enabled scrambled codes on [key_name(borg)].")
+				message_admins("[key_name_admin(user)] enabled scrambled codes on [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] enabled scrambled codes on [key_name(borg)].")
 			else
-				log_and_message_admins("disabled scrambled codes on [key_name(borg)].")
+				message_admins("[key_name_admin(user)] disabled scrambled codes on [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] disabled scrambled codes on [key_name(borg)].")
 		if("rename")
 			var/new_name = sanitize(tgui_input_text(user, "What would you like to name this cyborg?", "Cyborg Reclassification", borg.real_name, encode = FALSE))
 			if(!new_name)
 				return
-			log_and_message_admins("renamed [key_name(borg)] to [new_name].")
+			message_admins("[key_name_admin(user)] renamed [ADMIN_LOOKUPFLW(borg)] to [new_name].")
+			log_admin("[key_name(user)] renamed [key_name(borg)] to [new_name].")
 			borg.rename_character(borg.real_name,new_name)
 		if("toggle_upgrade")
 			var/upgradepath = text2path(params["upgrade"])
 			var/obj/item/borg/upgrade/installedupgrade = locate(upgradepath) in borg
 			if(installedupgrade)
-				log_and_message_admins("removed the [installedupgrade] upgrade from [key_name(borg)].")
+				message_admins("[key_name_admin(user)] removed the [installedupgrade] upgrade from [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] removed the [installedupgrade] upgrade from [key_name(borg)].")
 				qdel(installedupgrade) // see [mob/living/silicon/robot/on_upgrade_deleted()].
 			else
 				var/obj/item/borg/upgrade/upgrade = new upgradepath(borg)
-				if(upgrade.action(borg))
-					borg.install_upgrade(upgrade)
-					log_and_message_admins("added the [upgrade] borg upgrade to [key_name(borg)].")
+				if(!upgrade.action(borg))
+					return
+				borg.install_upgrade(upgrade)
+				message_admins("[key_name_admin(user)] added the [upgrade] borg upgrade to [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] added the [upgrade] borg upgrade to [key_name(borg)].")
 		if("toggle_radio")
 			var/channel = params["channel"]
 			if(channel in borg.radio.channels) // We're removing a channel
@@ -172,26 +181,30 @@
 					borg.radio.keyslot.channels -= channel
 					if(channel == SYND_FREQ_NAME)
 						borg.radio.keyslot.syndie = FALSE
-				log_and_message_admins("removed the [channel] radio channel from [key_name(borg)].")
+				message_admins("[key_name_admin(user)] removed the [channel] radio channel from [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] removed the [channel] radio channel from [key_name(borg)].")
 			else // We're adding a channel
 				if(!borg.radio.keyslot) // Assert that an encryption key exists
 					borg.radio.keyslot = new()
 				borg.radio.keyslot.channels[channel] = 1
 				if(channel == SYND_FREQ_NAME)
 					borg.radio.keyslot.syndie = TRUE
-				log_and_message_admins("added the [channel] radio channel to [key_name(borg)].")
+				message_admins("[key_name_admin(user)] added the [channel] radio channel to [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] added the [channel] radio channel to [key_name(borg)].")
 			borg.radio.recalculate_channels()
 		if("setmodule")
 			var/new_module = params["module"]
 			if(borg.module)
 				borg.reset_module()
 			borg.pick_module(new_module)
-			log_and_message_admins("changed the module of [key_name(borg)] to [new_module].")
+			message_admins("[key_name_admin(user)] changed the model of [ADMIN_LOOKUPFLW(borg)] to [new_module].")
+			log_admin("[key_name(user)] changed the model of [key_name(borg)] to [new_module].")
 		if("reset_module")
 			var/obj/item/borg/upgrade/reset/reset = new(borg)
 			if(reset.action(borg))
 				borg.install_upgrade(reset)
-				log_and_message_admins("resets [key_name(borg)] module.")
+				message_admins("[key_name_admin(user)] resets module of [ADMIN_LOOKUPFLW(borg)].")
+				log_admin("[key_name(user)] resets module of [key_name(borg)].")
 		if("slavetoai")
 			var/mob/living/silicon/ai/newai
 			for(var/mob/living/silicon/ai/ai in GLOB.ai_list)
@@ -201,11 +214,13 @@
 				borg.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 				borg.connect_to_ai(newai)
 				borg.notify_ai(TRUE)
-				log_and_message_admins("slaved [key_name(borg)] to the AI [key_name(newai)].")
+				message_admins("[key_name_admin(user)] slaved [ADMIN_LOOKUPFLW(borg)] to the AI [ADMIN_LOOKUPFLW(newai)].")
+				log_admin("[key_name(user)] slaved [key_name(borg)] to the AI [key_name(newai)].")
 			else if(params["slavetoai"] == "")
 				borg.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 				borg.disconnect_from_ai()
-				log_and_message_admins("freed [key_name(borg)] from being slaved to an AI.")
+				message_admins("[key_name_admin(user)] freed [ADMIN_LOOKUPFLW(borg)] from being slaved to an AI.")
+				log_admin("[key_name(user)] freed [key_name(borg)] from being slaved to an AI.")
 			if(borg.lawupdate)
 				borg.lawsync()
 				if(borg.connected_ai?.laws)
@@ -222,10 +237,12 @@
 			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions) || list()
 
 			borg?.mmi?.skin_permissions = new_permissions
-			log_and_message_admins("set skin permissions to [key_name(borg)].")
+			message_admins("[key_name_admin(user)] set skin permissions to [ADMIN_LOOKUPFLW(borg)].")
+			log_admin("[key_name(user)] set skin permissions to [key_name(borg)].")
 
 		if("allow_set_skin")
 			borg?.choose_icon()
-			log_and_message_admins("allowed skin selection to [key_name(borg)].")
+			message_admins("[key_name_admin(user)] allowed skin selection to [ADMIN_LOOKUPFLW(borg)].")
+			log_admin("[key_name(user)] allowed skin selection to [key_name(borg)].")
 
 	. = TRUE

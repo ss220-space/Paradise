@@ -209,7 +209,10 @@
 	set_hud_image_state(ismachineperson(src) ? DIAG_HUD : HEALTH_HUD, "hud[RoundHealth(src)]")
 
 /// Called when a carbon changes stat, virus or XENO_HOST
-/mob/living/proc/med_hud_set_status()
+/mob/proc/med_hud_set_status()
+	return
+
+/mob/living/med_hud_set_status()
 	if(stat == DEAD)
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD)
 	else if(has_virus())
@@ -720,6 +723,14 @@
 	if(!x_offset && !y_offset)
 		return
 
-	holder.pixel_x += x_offset
-	holder.pixel_y += y_offset
+	holder.pixel_w += x_offset
+	holder.pixel_z += y_offset
+
+/datum/atom_hud/data/pressure
+	hud_icons = list(PRESSURE_HUD)
+
+/// Pressure hud is special, because it doesn't use hudatoms. SSair manages its images, so tell SSair to add the initial set.
+/datum/atom_hud/data/pressure/show_to(mob/new_viewer)
+	. = ..()
+	SSair.add_pressure_hud(new_viewer)
 

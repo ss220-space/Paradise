@@ -102,7 +102,7 @@
 			for(var/P in GLOB.dead_mob_list)
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
-					to_chat(M, span_deadsay("<b>[mind.name]</b> умер в <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=[gibbed ? T.UID() : UID()]'>следовать</a>)"))
+					to_chat(M, span_deadsay("(<a href='byond://?src=[M.UID()];jump=[gibbed ? T.UID() : UID()]'>СЛЕД</a>) <b>[mind.name]</b> умер в <b>[area_name]</b>."))
 
 	if(xenobiology_spawned)
 		SSmobs.xenobiology_mobs--
@@ -113,7 +113,7 @@
 	return TRUE
 
 /mob/living/proc/delayed_gib()
-	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> дико сотрясается в мучительных спазмах!"), span_userdanger("Каждая клетка вашего тела кричит от невыносимой боли!"))
+	visible_message(span_danger("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> дико сотрясается в мучительных спазмах!"), span_userdanger("Каждая клетка вашего тела кричит от невыносимой боли!"))
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

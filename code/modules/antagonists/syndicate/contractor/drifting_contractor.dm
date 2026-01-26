@@ -34,25 +34,23 @@
 
 /datum/outfit/admin/syndicate/drifting_contractor
 	name = "Contractor"
-	toggle_helmet = TRUE
-	suit = /obj/item/clothing/suit/space/hardsuit/contractor
 	mask = /obj/item/clothing/mask/gas/syndicate
 	l_ear = /obj/item/radio/headset/syndicate/alt
 	glasses = /obj/item/clothing/glasses/night
 	shoes = /obj/item/clothing/shoes/magboots/syndie
-	implants = list(/obj/item/implant/uplink/contractor, /obj/item/implant/explosive)
+	implants = list(/obj/item/implant/uplink/contractor, /obj/item/implant/explosive, )
 	r_pocket = /obj/item/melee/baton/telescopic/contractor
-	l_pocket = /obj/item/pinpointer/crew/contractor
-	suit_store = /obj/item/tank/internals/emergency_oxygen/engi/syndi
+	l_pocket = /obj/item/tank/internals/emergency_oxygen/engi/syndi
 	gloves = /obj/item/clothing/gloves/combat/swat/syndicate
-	internals_slot = ITEM_SLOT_SUITSTORE
-
+	internals_slot = ITEM_SLOT_POCKET_LEFT
+	back = /obj/item/mod/control/pre_equipped/contractor/upgraded
 	backpack_contents = list(
 		/obj/item/storage/box/survival/survival_syndi = 1,
 		/obj/item/paper/contractor_guide_midround = 1,
 		/obj/item/storage/firstaid/doctor = 1,
 		/obj/item/jammer = 1,
 		/obj/item/grenade/plastic/c4 = 1,
+		/obj/item/pinpointer/crew/contractor = 1,
 	)
 
 /obj/item/implant/uplink/contractor/get_uses_amount()

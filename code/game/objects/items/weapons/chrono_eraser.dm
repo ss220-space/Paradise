@@ -79,14 +79,14 @@
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b></span>")
+			to_chat(user, span_alert("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
 		src.field_disconnect(F)
 	else
 		startpos = get_turf(src)
 		field = F
 		F.gun = src
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='notice'>Connection established with target: <b>[F.captured]</b></span>")
+			to_chat(user, span_notice("Connection established with target: <b>[F.captured]</b>"))
 
 /obj/item/gun/energy/chrono_gun/proc/field_disconnect(obj/structure/chrono_field/F)
 	if(F && field == F)
@@ -94,7 +94,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b></span>")
+			to_chat(user, span_alert("Disconnected from target: <b>[F.captured]</b>"))
 	field = null
 	startpos = null
 
@@ -238,15 +238,14 @@
 	else
 		return 0
 
-/obj/structure/chrono_field/assume_air()
-	return 0
-
-/obj/structure/chrono_field/return_air() //we always have nominal air and temperature
-	var/datum/gas_mixture/GM = new
-	GM.oxygen = MOLES_O2STANDARD
-	GM.nitrogen = MOLES_N2STANDARD
-	GM.temperature = T20C
-	return GM
+/obj/structure/chrono_field/return_obj_air()
+	//we always have nominal air and temperature
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas_mixture = new
+	gas_mixture.set_oxygen(MOLES_O2STANDARD)
+	gas_mixture.set_nitrogen(MOLES_N2STANDARD)
+	gas_mixture.set_temperature(T20C)
+	return gas_mixture
 
 /obj/structure/chrono_field/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	return FALSE

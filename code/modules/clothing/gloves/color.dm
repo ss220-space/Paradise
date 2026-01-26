@@ -80,7 +80,7 @@
 	permeability_coefficient = 0.05
 	item_color = "yellow"
 	resistance_flags = NONE
-	toolspeedmod = 0.2
+	toolspeedmod = 0.6
 	clothing_traits = list(TRAIT_NO_GUNS)
 
 /obj/item/clothing/gloves/color/fyellow/old

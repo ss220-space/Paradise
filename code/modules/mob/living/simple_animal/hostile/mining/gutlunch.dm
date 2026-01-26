@@ -74,7 +74,7 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит нездоровым."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выглядит нездоровым."))
 			return ATTACK_CHAIN_PROCEED
 		if(udder.milkAnimal(I, user))
 			regenerate_icons()
@@ -116,7 +116,7 @@
 	if(is_type_in_typecache(target,wanted_objects)) //we eats
 		udder.generateMilk()
 		regenerate_icons()
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
 		qdel(target)
 		return
 	return ..()
@@ -225,5 +225,5 @@
 	mind?.transfer_to(L)
 	L.faction = faction.Copy()
 	L.setDir(dir)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] вырастает в [L.declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] вырастает в [L.declent_ru(ACCUSATIVE)]."))
 	qdel(src)

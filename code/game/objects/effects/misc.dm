@@ -25,6 +25,22 @@
 	density = TRUE
 	anchored = FALSE
 
+/obj/effect/spresent/relaymove(mob/user)
+	if(user.stat)
+		return
+	to_chat(user, span_notice("Вы не можете двигаться."))
+
+/obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/item)
+	. = TRUE
+	if(!item.use_tool(src, user, volume = item.tool_volume))
+		return
+
+	user.balloon_alert(user, "подарок открыт!")
+	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
+		thing.forceMove(loc)
+
+	qdel(src)
+
 /obj/effect/mark
 		var/mark = ""
 		icon = 'icons/misc/mark.dmi'

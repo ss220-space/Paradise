@@ -33,8 +33,8 @@
 	new /obj/item/clothing/suit/wcoat(src)
 	new /obj/item/clothing/head/soft/black(src)
 	new /obj/item/clothing/head/soft/black(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
 
 /*
  * Chef
@@ -121,8 +121,8 @@
 	new /obj/item/clothing/suit/storage/lawyer/bluejacket(src)
 	new /obj/item/clothing/under/lawyer/purpsuit(src)
 	new /obj/item/clothing/suit/storage/lawyer/purpjacket(src)
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/color/brown(src)
+	new /obj/item/clothing/shoes/color/black(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/glasses/sunglasses/big(src)
 	new /obj/item/clothing/accessory/head_strip/lawyers_badge(src)
@@ -144,8 +144,8 @@
 	new /obj/item/radio/headset/headset_med(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/shoes/black(src)
-	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
+	new /obj/item/clothing/shoes/color/black(src)
 	new /obj/item/clothing/head/soft/paramedic(src)
 	new /obj/item/clothing/head/soft/paramedic(src)
 	new /obj/item/clothing/suit/storage/paramedic(src)

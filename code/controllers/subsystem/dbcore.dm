@@ -528,7 +528,7 @@ SUBSYSTEM_DEF(dbcore)
 			last_error = "offline"
 			return FALSE
 
-// Just tells the admins if a query timed out, and asks if the server hung to help error reporting
+/// Just tells the admins if a query timed out, and asks if the server hung to help error reporting
 /datum/db_query/proc/slow_query_check()
 	message_admins("HEY! A database query timed out. Did the server just hang? <a href='byond://?_src_=holder;slowquery=yes'>\[YES\]</a>|<a href='byond://?_src_=holder;slowquery=no'>\[NO\]</a>")
 
@@ -547,11 +547,11 @@ SUBSYSTEM_DEF(dbcore)
 	else
 		return FALSE
 
-// Simple helper to get the last error a query had
+/// Simple helper to get the last error a query had
 /datum/db_query/proc/ErrorMsg()
 	return last_error
 
-// Simple proc to null out data to aid GC
+/// Simple proc to null out data to aid GC
 /datum/db_query/proc/Close()
 	rows = null
 	item = null
@@ -562,28 +562,26 @@ SUBSYSTEM_DEF(dbcore)
 		stoplag()
 
 // Verb that lets admins force reconnect the DB
-/client/proc/reestablish_db_connection()
-	set category = STATPANEL_DEBUG
-	set name = "Reestablish DB Connection"
+ADMIN_VERB(reestablish_db_connection, R_ADMIN, "Reestablish DB Connection", "Force a reconnection to the database.", ADMIN_CATEGORY_DEBUG)
 	if(!CONFIG_GET(flag/sql_enabled))
-		to_chat(usr, span_warning("The Database is not enabled in the server configuration!"))
+		to_chat(user, span_warning("The Database is not enabled in the server configuration!"))
 		return
 
 	if(SSdbcore.IsConnected())
-		if(!check_rights(R_ADMIN, FALSE) || !check_rights(R_DEBUG, FALSE)) //we dont want coders to deal with db
-			to_chat(usr, span_warning("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
+		if(!check_rights_client(R_DEBUG|R_ADMIN, FALSE, user)) //we dont want coders to deal with db
+			to_chat(user, span_warning("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
 			return
 
-		var/reconnect = alert("The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
+		var/reconnect = alert(user, "The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")
 		if(reconnect != "Force Reconnect")
 			return
 
 		SSdbcore.Disconnect()
-		log_admin("[key_name(usr)] has forced the database to disconnect")
-		message_admins("[key_name_admin(usr)] has <b>forced</b> the database to disconnect!!!")
+		log_admin("[key_name(user)] has forced the database to disconnect")
+		message_admins("[key_name_admin(user)] has <b>forced</b> the database to disconnect!!!")
 
-	log_admin("[key_name(usr)] is attempting to re-establish the DB Connection")
-	message_admins("[key_name_admin(usr)] is attempting to re-establish the DB Connection")
+	log_admin("[key_name(user)] is attempting to re-establish the DB Connection")
+	message_admins("[key_name_admin(user)] is attempting to re-establish the DB Connection")
 	BLACKBOX_LOG_ADMIN_VERB("Force Reconnect DB")
 
 	SSdbcore.failed_connections = 0 // Reset this

@@ -39,6 +39,24 @@
 				return get_dir(us, them)
 		return (dir | get_dir(us, them))
 
+/proc/reverse_dir_multiz(direction)
+	var/result = 0
+
+	if(direction & NORTH)
+		result |= SOUTH
+	if(direction & SOUTH)
+		result |= NORTH
+	if(direction & EAST)
+		result |= WEST
+	if(direction & WEST)
+		result |= EAST
+	if(direction & UP)
+		result |= DOWN
+	if(direction & DOWN)
+		result |= UP
+
+	return result
+
 /proc/get_lowest_turf(atom/ref)
 	var/turf/us = get_turf(ref)
 	var/turf/next = GET_TURF_BELOW(us)

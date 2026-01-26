@@ -103,7 +103,7 @@
 /obj/machinery/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Autolathe", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "Autolathe", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/autolathe/ui_static_data(mob/user)
@@ -207,7 +207,7 @@
 				to_chat(usr, span_warning("Недостаточно стекла для печати объекта!"))
 				return
 			if(!hacked && (PRINTER_CATEGORY_HACKED in design_last_ordered.category))
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не взломан!"))
+				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не взломан!"))
 				return
 			//multiplier checks : only stacks can have one and its value is 1, 10 ,25 or max_multiplier
 			var/multiplier = text2num(params["multiplier"])
