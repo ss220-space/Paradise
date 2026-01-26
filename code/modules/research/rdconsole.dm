@@ -542,7 +542,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		machine.busy = FALSE
 	if(istype(machine, /obj/machinery/r_n_d/protolathe))
-		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', 50, TRUE, -1, use_reverb = TRUE)
+		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	clear_wait_message()
 	SStgui.update_uis(src)
