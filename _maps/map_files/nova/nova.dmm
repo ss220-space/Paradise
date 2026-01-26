@@ -15182,6 +15182,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/maintenance/disposal)
+"cji" = (
+/obj/structure/closet/secure_closet/cargotech,
+/obj/item/stamp/denied,
+/obj/item/stamp/granted,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "brown"
+	},
+/area/quartermaster/office)
 "cjk" = (
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/wood/fancy/cherry,
@@ -35372,6 +35382,16 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/carpet/royalblue,
 /area/maintenance/livingcomplex)
+"flC" = (
+/obj/structure/table,
+/obj/machinery/computer/rdconsole/cargo{
+	pixel_y = 6
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/office)
 "flF" = (
 /obj/structure/chair{
 	dir = 8
@@ -75367,13 +75387,6 @@
 	icon_state = "yellowcorner"
 	},
 /area/hallway/primary/starboard)
-"lmt" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/papershredder,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/quartermaster/delivery)
 "lmu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -124219,16 +124232,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/security/permabrig)
-"svR" = (
-/obj/structure/table,
-/obj/machinery/computer/rdconsole/cargo{
-	pixel_y = 6
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
 "svU" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -126664,6 +126667,13 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/engineering/aienter)
+"sOn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/papershredder,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/delivery)
 "sOp" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -149052,6 +149062,7 @@
 /obj/item/stamp/denied,
 /obj/item/stamp/granted,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/station_map/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -204665,7 +204676,7 @@ lRw
 xcg
 lRw
 wNH
-lmt
+sOn
 xcg
 tyF
 uWR
@@ -271474,7 +271485,7 @@ qAN
 wQF
 rUy
 wdn
-wdn
+cji
 guV
 cSB
 xAp
@@ -272754,7 +272765,7 @@ rwI
 rwI
 rwI
 akR
-svR
+flC
 pjE
 wka
 hbR
