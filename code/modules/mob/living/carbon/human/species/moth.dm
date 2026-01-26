@@ -17,7 +17,7 @@
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | HAS_SKIN_COLOR
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	tox_mod = 1.5
 	blood_species = "Nian"
 	blood_color = "#b9ae9c"
