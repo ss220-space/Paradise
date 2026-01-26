@@ -273,6 +273,6 @@ ADMIN_VERB(notes_by_admin, R_PERMISSIONS, "Notes by admin", "Shows notes by admi
 
 	var/ckey = tgui_input_text(user, "Введите сикей админа", "Заметки по сикею админа")
 	var/old_usr = usr
-	usr = user
+	usr = user.mob
 	show_note(admin_ckey = ckey, linkless = TRUE)
 	usr = old_usr
