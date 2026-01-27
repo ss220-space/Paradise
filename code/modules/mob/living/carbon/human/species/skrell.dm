@@ -39,7 +39,7 @@
 	eyes = "skrell_eyes_s"
 	//Default styles for created mobs.
 	default_hair = "Skrell Male Tentacles"
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	butt_sprite = "skrell"
 
 	disliked_food = MEAT | RAW | EGG
