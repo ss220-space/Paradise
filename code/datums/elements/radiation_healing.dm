@@ -61,7 +61,7 @@
 		heal_mod = 2
 
 	if(human.radiation >= heal_cost * heal_mod)
-		human.radiation = max(human.radiation - heal_cost * heal_mod, 0)
+		human.radiation = human.radiation - heal_cost * heal_mod
 		human.heal_overall_damage(heal_brute * heal_mod, heal_burn * heal_mod)
 
 	//internal healing in medium priority. Using radium won't heal internal damage while healing external damage
