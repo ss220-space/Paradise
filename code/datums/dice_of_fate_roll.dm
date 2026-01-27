@@ -7,6 +7,7 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 	. = ..()
 
 /datum/dice_roll/proc/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
+	return
 
 /datum/dice_roll/damnation
 	number = 1
@@ -27,8 +28,11 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 	qdel(user_gen_record)
 	qdel(user_med_record)
 	for(var/obj/item/paper/contract/employment/contract as anything in GLOB.employmentContracts)
+		if(!contract)
+			return
 		if(contract.target != user.mind)
 			continue
+		LAZYREMOVE(GLOB.employmentContracts, contract)
 		qdel(contract)
 
 /datum/dice_roll/damnation/proc/delete_from_objectives(mob/living/carbon/human/delete_target)

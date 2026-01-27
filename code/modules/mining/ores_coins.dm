@@ -719,16 +719,15 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	if(!COOLDOWN_FINISHED(src, COIN_SUMMON_COOLDOWN))
 		return
 	to_chat(user, span_warning("Вы подкидываете [declent_ru(ACCUSATIVE)] в руке, и та начинает нагреваться"))
+	COOLDOWN_START(src, COIN_SUMMON_COOLDOWN, 10 SECONDS)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 10 SECONDS, source = image('icons/mob/simple_human.dmi', "butler"))
+	if(!LAZYLEN(candidates))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] остывает у вас в руке. Возможно, стоит попробовать позже."))
+		return
+
 	var/mob/living/carbon/human/servant = new(user.loc)
 	servant.equipOutfit(/datum/outfit/butler)
 	servant.forceMove(user)
-	COOLDOWN_START(src, COIN_SUMMON_COOLDOWN, 10 SECONDS)
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 10 SECONDS, source = servant)
-	if(!LAZYLEN(candidates))
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] остывает у вас в руке. Возможно, стоит попробовать позже."))
-		qdel(servant)
-		return
-
 	var/mob/dead/observer/chosen = pick(candidates)
 	message_admins("[ADMIN_LOOKUPFLW(chosen)] was spawned as Dice Servant")
 	servant.possess_by_player(chosen.key)
