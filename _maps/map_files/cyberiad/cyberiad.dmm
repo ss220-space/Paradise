@@ -19357,6 +19357,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "bvM" = (
@@ -24104,6 +24106,10 @@
 "bQe" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/item/destTagger,
+/obj/item/destTagger,
+/obj/item/destTagger,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bQh" = (
@@ -25427,6 +25433,7 @@
 	pixel_x = 15
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bUo" = (
@@ -25705,8 +25712,12 @@
 	},
 /area/crew_quarters/dorms)
 "bVl" = (
-/obj/machinery/computer/supplyquest/workers{
-	pixel_y = 28
+/obj/structure/table,
+/obj/machinery/computer/rdconsole/cargo{
+	pixel_y = 6
+	},
+/obj/structure/sign/poster/official/mge{
+	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -25899,6 +25910,7 @@
 "bVK" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/closet/secure_closet/cargotech,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "bVL" = (
@@ -26805,6 +26817,7 @@
 /area/maintenance/asmaint2)
 "bYK" = (
 /obj/structure/closet/secure_closet/cargotech,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -27716,6 +27729,10 @@
 /area/medical/cloning)
 "cbz" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/structure/rack,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
+/obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "cbE" = (
@@ -27731,6 +27748,9 @@
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/sign/cargo{
+	pixel_x = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -46147,6 +46167,9 @@
 /obj/machinery/alarm{
 	pixel_y = 24
 	},
+/obj/structure/sign/poster/official/cargofriends{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -48633,13 +48656,13 @@
 /turf/simulated/floor/plating/airless,
 /area/engineering/engine)
 "eAE" = (
-/obj/machinery/conveyor{
-	dir = 1;
-	id = "cargodisposals"
-	},
 /obj/structure/closet/crate,
-/turf/simulated/floor/plating,
-/area/quartermaster/sorting)
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "eAQ" = (
 /obj/structure/sink{
 	dir = 8;
@@ -48983,10 +49006,8 @@
 /area/maintenance/trading)
 "eIe" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/machinery/hologram/holopad,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/obj/machinery/status_display/supply_display,
+/turf/simulated/wall,
 /area/quartermaster/storage)
 "eIE" = (
 /obj/machinery/recharge_station,
@@ -49970,6 +49991,7 @@
 "fdC" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/papershredder,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -50328,6 +50350,14 @@
 "fnW" = (
 /turf/simulated/floor/wood,
 /area/maintenance/fsmaint2)
+"for" = (
+/obj/structure/chair/office/dark{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "brown"
+	},
+/area/quartermaster/storage)
 "fow" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan{
@@ -53218,6 +53248,11 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/sign/poster/official/cargotech{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -54625,6 +54660,7 @@
 /obj/item/stock_parts/micro_laser,
 /obj/item/stock_parts/micro_laser,
 /obj/structure/table/glass,
+/obj/item/rcs,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -55530,7 +55566,6 @@
 /area/bridge/meeting_room)
 "hHY" = (
 /obj/machinery/light,
-/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -57563,6 +57598,10 @@
 	icon_state = "white"
 	},
 /area/medical/patients_rooms)
+"iDc" = (
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/turf/simulated/wall,
+/area/quartermaster/storage)
 "iDd" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 8
@@ -57897,6 +57936,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/engineering/engine)
+"iKD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/computer/supplyquest/workers{
+	pixel_y = 28
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "iKU" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -61383,6 +61433,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/port)
 "kpc" = (
+/obj/machinery/door/window/westleft{
+	name = "Disposal";
+	req_access = list(50)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -69781,13 +69835,7 @@
 	layer = 4;
 	pixel_x = 32
 	},
-/obj/item/stack/packageWrap,
-/obj/item/pen,
-/obj/item/hand_labeler,
-/obj/structure/table/glass,
-/obj/item/book/manual/sop_science{
-	pixel_y = -14
-	},
+/obj/machinery/telepad_cargo,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -76180,6 +76228,7 @@
 	pixel_x = 2;
 	pixel_y = -2
 	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -78778,6 +78827,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/table,
+/obj/item/qm_quest_tablet/cargotech,
+/obj/item/storage/box/disks_tech,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -79225,6 +79277,10 @@
 	icon_state = "cafeteria"
 	},
 /area/medical/research/restroom)
+"slh" = (
+/obj/structure/sign/poster/official/minegem,
+/turf/simulated/wall,
+/area/quartermaster/miningdock)
 "slq" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 28
@@ -79901,6 +79957,7 @@
 	pixel_y = -2
 	},
 /obj/effect/decal/warning_stripes/north,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "sAK" = (
@@ -80390,10 +80447,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/machinery/alarm{
-	dir = 1;
-	pixel_y = -24
-	},
+/obj/machinery/station_map/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -80597,6 +80651,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
 "sOx" = (
@@ -82343,6 +82399,15 @@
 /turf/simulated/floor/plating,
 /area/maintenance/genetics)
 "tyA" = (
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
+	},
+/obj/machinery/door/window/westleft{
+	name = "Disposal";
+	req_access = list(50)
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -83223,6 +83288,9 @@
 	pixel_x = -26
 	},
 /obj/machinery/recharge_station,
+/obj/structure/sign/poster/official/cargogorilas{
+	pixel_y = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -86157,9 +86225,8 @@
 "viu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
+/obj/structure/noticeboard,
+/turf/simulated/wall,
 /area/quartermaster/storage)
 "viG" = (
 /obj/effect/decal/warning_stripes/south,
@@ -87850,10 +87917,8 @@
 	},
 /area/toxins/xenobiology)
 "vTF" = (
-/obj/structure/sign/cargo{
-	pixel_y = -32
-	},
 /obj/structure/closet/secure_closet/cargotech,
+/obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "brown"
@@ -88699,6 +88764,7 @@
 /area/engineering/engine)
 "wjW" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/machinery/hologram/holopad,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -90529,6 +90595,9 @@
 /area/hallway/primary/aft)
 "wYc" = (
 /obj/item/twohanded/required/kirbyplants,
+/obj/structure/sign/poster/official/qm{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -90752,6 +90821,7 @@
 	amount = 10
 	},
 /obj/effect/decal/warning_stripes/southwest,
+/obj/effect/spawner/lootdrop/maintenance/double,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "xed" = (
@@ -90881,6 +90951,7 @@
 	amount = 10
 	},
 /obj/effect/decal/warning_stripes/south,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/storage)
 "xfU" = (
@@ -91688,6 +91759,10 @@
 "xxD" = (
 /obj/machinery/alarm{
 	pixel_y = 24
+	},
+/obj/machinery/door/window/westleft{
+	name = "Disposal";
+	req_access = list(50)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -93513,6 +93588,11 @@
 "ykf" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -114304,7 +114384,7 @@ bYM
 qcs
 uYV
 hMz
-eAE
+hMz
 hMz
 uWw
 bYM
@@ -115047,7 +115127,7 @@ kLC
 cam
 mRU
 mRU
-cam
+slh
 bqC
 pcG
 bvv
@@ -115063,7 +115143,7 @@ cZA
 qsg
 qsg
 bVl
-cas
+for
 sAx
 bXh
 viu
@@ -115323,8 +115403,8 @@ rYA
 cas
 veI
 bzy
-wjW
-bvu
+iDc
+iKD
 xfY
 iQZ
 xjs
@@ -115840,7 +115920,7 @@ bzy
 wjW
 vAr
 xkd
-bDI
+eAE
 leb
 hDs
 eYH
