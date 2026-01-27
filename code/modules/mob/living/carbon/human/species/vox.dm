@@ -44,7 +44,7 @@
 	default_hair_colour = "#614f19" //R: 97, G: 79, B: 25
 	butt_sprite = "vox"
 
-	reagent_tag = PROCESS_ORG | PROCESS_SYN
+	reagent_tag = ORGANIC | SYNTHETIC
 	scream_verb = "скрип%(ит,ят)%"
 	male_scream_sound = list('sound/voice/shriek1.ogg')
 	female_scream_sound = list('sound/voice/shriek1.ogg')
@@ -238,7 +238,7 @@
 	bodyflags = HAS_TAIL
 	dies_at_threshold = TRUE
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	tail = "armalis_tail"
 	icon_template = 'icons/mob/human_races/r_armalis.dmi'
