@@ -46,7 +46,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags =  HAS_BODY_MARKINGS
 	has_gender = FALSE
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	flesh_color = "#a598ad"
 	blood_species = "Grey"
 	blood_color = "#A200FF"
