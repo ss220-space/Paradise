@@ -72,7 +72,7 @@
 		var/obj/item/organ/internal/organ = pick(int_damaged_organs)
 		organ.unnecrotize()
 		organ.heal_internal_damage(INTERNAL_HEAL_AMOUNT)
-		human.radiation = max(human.radiation - INTERNAL_HEAL_COST, 0)
+		human.radiation = human.radiation - INTERNAL_HEAL_COST
 
 	//healing fractures in low priotiry. Won't heal fractures while healing internal or external damage with radium
 	var/list/obj/item/organ/external/fractured_limbs = human.check_fractures()
@@ -80,7 +80,7 @@
 	if(human.radiation >= FRACTURE_HEAL_COST && length(fractured_limbs))
 		var/obj/item/organ/external/limb = pick(fractured_limbs)
 		limb.mend_fracture()
-		human.radiation = max(human.radiation - FRACTURE_HEAL_COST, 0)
+		human.radiation = human.radiation - FRACTURE_HEAL_COST
 
 	if(HAS_TRAIT(human, TRAIT_NO_RADIATION_EFFECTS)) // TRAIT_NO_RADIATION_EFFECTS stops radiation effects including passive radiation drain, so we drain it passively here
 		human.radiation = max(human.radiation - PASSIVE_RAD_DRAIN, 0)
