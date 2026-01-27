@@ -567,7 +567,7 @@ GLOBAL_LIST_INIT(body_zone, list(
 ))
 
 /proc/init_dice_rolls()
-	var/list/rolls = alist()
+	var/alist/rolls = alist()
 	for(var/datum/dice_roll/d_roll in subtypesof(/datum/dice_roll))
 		rolls[d_roll.number] = new d_roll()
 	GLOB.dice_rolls = rolls
