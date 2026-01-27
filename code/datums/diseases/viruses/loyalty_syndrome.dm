@@ -6,7 +6,6 @@
 	desc = "Болезнь, вызывающая острую массовую одержимость определённым человеком, а также различные навязчивые идеи."
 	spread_flags = CONTACT
 	permeability_mod = 0.8
-	can_immunity = TRUE
 	cure_text = "Галоперидол и Эфир"
 	cures = list("haloperidol", "ether")
 	visibility_flags = HIDDEN_HUD
