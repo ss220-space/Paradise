@@ -18,6 +18,7 @@
 #define WALLE_PERMISSION "Wall-e"
 #define SPIDER_PERMISSION "Spider"
 #define NINJA_ALT_PERMISSION "Ninja alt"
+#define DRAKE_PERMISSION "Drake"
 
 GLOBAL_LIST_INIT(all_skin_permissions, list(
 		MEKA_PERMISSION,
@@ -40,5 +41,6 @@ GLOBAL_LIST_INIT(all_skin_permissions, list(
 		WALLE_PERMISSION,
 		SPIDER_PERMISSION,
 		NINJA_ALT_PERMISSION,
+		DRAKE_PERMISSION,
 	))
 
