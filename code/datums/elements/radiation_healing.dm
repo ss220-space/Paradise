@@ -33,8 +33,7 @@
 	if(isnull(human) || QDELETED(human))
 		return
 
-	var/rads = human.radiation
-	if(rads <= 0)
+	if(human.radiation <= 0)
 		return
 
 	process_radiation_healing(human)
