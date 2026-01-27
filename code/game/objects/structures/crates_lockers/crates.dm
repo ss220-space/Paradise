@@ -475,6 +475,15 @@
 	overlay_sparking = "heavycrate_sparks"
 	overlay_broken = "heavycrate_hacking"
 	overlay_lightmask = "heavysecurecrate_lightmask"
+	
+/obj/structure/closet/crate/secure/weapon/veihit
+	name = "highrisk crate"
+	icon_state = "mortar"
+	overlay_locked = "mortar_locked"
+	overlay_unlocked = "mortar_unlocked"
+	overlay_sparking = "mortar_sparks"
+	overlay_broken = "mortar_hacking"
+	overlay_lightmask = "mortar_lightmask"
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
