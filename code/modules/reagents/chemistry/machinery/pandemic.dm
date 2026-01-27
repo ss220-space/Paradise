@@ -358,14 +358,14 @@
 			return ..()
 		beaker = I
 		balloon_alert(user, "ёмкость вставлена")
-		var/datum/reagents/R = beaker.reagents
-		for(var/datum/reagent/B in R.reagent_list)
-			if(B?.data && B.data["resistances"])
+		var/datum/reagents/reagents = beaker.reagents
+		for(var/datum/reagent/blood in reagents.reagent_list)
+			if(blood?.data && blood.data["resistances"])
 				var/list/filtered_res = list()
-				for(var/res in B.data["resistances"])
+				for(var/res in blood.data["resistances"])
 					if(!(res in GLOB.no_vaccine_viruses))
 						filtered_res += res
-				B.data["resistances"] = filtered_res
+				blood.data["resistances"] = filtered_res
 		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
