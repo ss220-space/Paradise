@@ -636,7 +636,6 @@
 	var/safety = 1
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
-	var/tts_modifier_enabled = TRUE
 	var/static/list/phrase_list = list(
 
 								"halt"			= "HALT! HALT! HALT! HALT!",
