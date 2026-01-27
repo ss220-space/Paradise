@@ -58,7 +58,7 @@
 	heatmod = 3
 
 	flesh_color = "#a3d4eb"
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	base_color = "#a3d4eb"
 	blood_species = "Drask"
 	blood_color = "#a3d4eb"

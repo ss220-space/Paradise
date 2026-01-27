@@ -108,8 +108,9 @@
 	on_eye_change(null, null, client.eye)
 
 /datum/hud/proc/clear_client(datum/source)
-	if(mymob.client)
-		UnregisterSignal(mymob.client, COMSIG_CLIENT_SET_EYE)
+	var/client/client = mymob.canon_client
+	if(client)
+		UnregisterSignal(client, COMSIG_CLIENT_SET_EYE)
 
 /datum/hud/proc/on_eye_change(datum/source, atom/old_eye, atom/new_eye)
 	SIGNAL_HANDLER

@@ -821,28 +821,39 @@
 
 /obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
 	if(!ishuman(target))
 		return .
+
+	if(length(contents))
+		to_chat(user, span_notice("Пакет должен быть пуст!"))
+		return .
+
 	user.visible_message(
 		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
 		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
 		span_italics("Вы слышите шелест плотной бумаги."),
 	)
+
 	if(!do_after(user, apply_paper_bag_delay, target))
 		return .
+
 	if(!user || !target || QDELETED(src))
 		return .
+
 	if(target.head)
 		var/obj/item/head_item_to_drop = target.head
 		target.drop_item_ground(head_item_to_drop)
 		if(!target.drop_item_ground(target.head))
 			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя надеть пакет!"))
 			return .
+
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
 		span_warning("[user] надел [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
 		span_notice("Вы надели [target == user ? "[src.declent_ru(ACCUSATIVE)] себе на голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
 	)
+
 	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)
 	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
