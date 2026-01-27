@@ -623,26 +623,25 @@ ADMIN_VERB(force_hijack, R_EVENT, "Toggle Shuttle Force Hijack", "Force shuttle 
 	BLACKBOX_LOG_ADMIN_VERB("Shuttle Force Hijack")
 
 ADMIN_VERB_ONLY_CONTEXT_MENU(download_flaticon, R_ADMIN, "(Special) Download Icon", atom/thing in world)
-    var/icon/image = getFlatIcon(thing, no_anim = TRUE)
-    var/image_width = max(image.Width(), 32)
-    var/image_height = max(image.Height(), 32)
+	var/icon/image = getFlatIcon(thing, no_anim = TRUE)
+	var/image_width = max(image.Width(), 32)
+	var/image_height = max(image.Height(), 32)
+	var/resize_answer = tgui_alert(usr, "Хотите ли вы изменить размер иконки? Оригинальный размер: [image_width]x[image_height]", "Download Icon", list("Да", "Нет", "Удвоить"))
+	if(resize_answer != "Нет" && !isnull(resize_answer))
+		switch(resize_answer)
+			if("Да")
+				var/new_width = tgui_input_number(usr, "Оригинальная ширина: [image_width]px", "Изменение ширины", image_width, 1024, 16)
+				if(!isnull(new_width))
+					image_width = new_width
 
-    var/resize_answer = tgui_alert(usr, "Хотите ли вы изменить размер иконки? Оригинальный размер: [image_width]x[image_height]", "Download Icon", list("Да", "Нет", "Удвоить"))
-    if(resize_answer != "Нет" && !isnull(resize_answer))
-        switch(resize_answer)
-            if("Да")
-                var/new_width = tgui_input_number(usr, "Оригинальная ширина: [image_width]px", "Изменение ширины", image_width, 1024, 16)
-                if(!isnull(new_width))
-                    image_width = new_width
+				var/new_height = tgui_input_number(usr, "Оригинальная высота: [image_height]px", "Изменение высоты", image_height, 1024, 16)
+				if(!isnull(new_height))
+					image_height = new_height
 
-                var/new_height = tgui_input_number(usr, "Оригинальная высота: [image_height]px", "Изменение высоты", image_height, 1024, 16)
-                if(!isnull(new_height))
-                    image_height = new_height
+			if("Удвоить")
+				image_width *= 2
+				image_height *= 2
 
-            if("Удвоить")
-                image_width *= 2
-                image_height *= 2
+		image.Scale(image_width, image_height)
 
-        image.Scale(image_width, image_height)
-
-    usr << ftp(image, "[thing.name]_[image_width]x[image_height].png")
+	usr << ftp(image, "[thing.name]_[image_width]x[image_height].png")
