@@ -909,3 +909,38 @@
 	icon_base_prefix = "ninja_medical"
 	eye_prefix = "ninja_medical"
 	required_permit = NINJA_ALT_PERMISSION
+
+/datum/robot_skin/drake
+	icon_file = 'icons/mob/64x32robots.dmi'
+	name = "Drake"
+	panelprefix = "ov-drake"
+	required_permit = DRAKE_PERMISSION
+
+/datum/robot_skin/drake/med
+	icon_base_prefix = "drakemed"
+	eye_prefix = "drakemed"
+
+/datum/robot_skin/drake/sec
+	icon_base_prefix = "drakesec"
+	eye_prefix = "drakesec"
+
+/datum/robot_skin/drake/eng
+	icon_base_prefix = "drakeeng"
+	eye_prefix = "drakeeng"
+
+/datum/robot_skin/drake/mine
+	icon_base_prefix = "drakemine"
+	eye_prefix = "drakemine"
+
+/datum/robot_skin/drake/jan
+	icon_base_prefix = "drakejan"
+	eye_prefix = "drakejan"
+
+/datum/robot_skin/drake/syn
+	icon_base_prefix = "drakesyn"
+	eye_prefix = "drakesyn"
+
+/datum/robot_skin/tall/meka/jan
+	icon_base_prefix = "mekajani"
+	eye_prefix = "mekajani"
+	panelprefix = "ov-jani"
