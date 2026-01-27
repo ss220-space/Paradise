@@ -246,7 +246,7 @@
 			var/effect = SOUND_EFFECT_RADIO
 			if(isrobot(speaker))
 				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg', speaker)
 
 /mob/proc/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "неизвестный"
