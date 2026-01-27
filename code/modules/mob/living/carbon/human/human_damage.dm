@@ -300,7 +300,6 @@
 
 ////////////////////////////////////////////
 
-//Returns a list of damaged organs
 /mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_EXTERNAL_PARTS)
 	// returns a list of damaged organs that meet the given criteria
 	// brute and burn are boolean values for checking that type of damage
