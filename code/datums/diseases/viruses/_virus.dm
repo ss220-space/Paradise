@@ -100,3 +100,7 @@
 	if(spread_flags & AIRBORNE)
 		spread += "Воздушно-капельный"
 	return russian_list(spread, "Неизвестено", " и ")
+
+GLOBAL_LIST_INIT(no_vaccine_viruses, list(
+	/datum/disease/virus/loyalty,
+))

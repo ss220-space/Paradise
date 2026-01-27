@@ -314,6 +314,9 @@
 
 			if(Blood.data["resistances"])
 				var/list/res = Blood.data["resistances"]
+				for(var/ignore_resistance in res)
+					if(ignore_resistance in GLOB.no_vaccine_viruses)
+						res -= ignore_resistance
 				if(length(res))
 					dat += "<br><b>Содержит антитела к:</b><ul>"
 					var/i = 0
