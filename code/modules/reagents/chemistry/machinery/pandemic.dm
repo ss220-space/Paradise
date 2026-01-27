@@ -85,21 +85,16 @@
 			if(B)
 				B.pixel_x = rand(-3, 3)
 				B.pixel_y = rand(-3, 3)
-
-				var/vaccine_type = text2path(href_list["create_vaccine"])
-
-				if(vaccine_type in GLOB.no_vaccine_viruses)
-					to_chat(usr, span_warning("К этому вирусу нельзя создать вакцину."))
-					return
-
+				var/path = GetResistancesByIndex(text2num(href_list["create_vaccine"]))
+				var/vaccine_type = path
 				var/vaccine_name = UNKNOWN_STATUS_RUS
 
 				if(!ispath(vaccine_type))
-					if(GLOB.archive_diseases[vaccine_type])
-						var/datum/disease/disease = GLOB.archive_diseases[vaccine_type]
+					if(GLOB.archive_diseases[path])
+						var/datum/disease/disease = GLOB.archive_diseases[path]
 						if(disease)
 							vaccine_name = disease.name
-							vaccine_type = vaccine_type
+							vaccine_type = path
 				else if(vaccine_type)
 					var/datum/disease/disease = new vaccine_type
 					if(disease)
@@ -121,7 +116,6 @@
 			temp_html = "Репликатор ещё не готов."
 		updateUsrDialog()
 		return
-
 	else if(href_list["create_disease_culture"])
 		if(!wait)
 			var/datum/disease/disease = GetDiseaseByIndex(text2num(href_list["create_disease_culture"]))
@@ -319,15 +313,11 @@
 
 			if(Blood.data["resistances"])
 				var/list/res = Blood.data["resistances"]
-				var/list/blood_data_resists_filtered = list()
-				// фильтруем вирусы, для которых нельзя сделать вакцину
-				for(var/resists_filter in res)
-					if(!(resists_filter in GLOB.no_vaccine_viruses))
-						blood_data_resists_filtered += resists_filter
-
-				if(length(blood_data_resists_filtered))
+				if(length(res))
 					dat += "<br><b>Содержит антитела к:</b><ul>"
-					for(var/type in blood_data_resists_filtered)
+					var/i = 0
+					for(var/type in Blood.data["resistances"])
+						i++
 						var/disease_name = UNKNOWN_STATUS_RUS
 
 						if(!ispath(type))
@@ -338,7 +328,7 @@
 							var/datum/disease/disease = new type()
 							disease_name = disease.name
 
-						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[type]'>Создать бутылка с вакциной</a></li>"
+						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[i]'>Создать бутылка с вакциной</a></li>"
 					dat += "</ul><br>"
 				else
 					dat += "<br><b>Не содержит антител</b><br>"
@@ -368,6 +358,14 @@
 			return ..()
 		beaker = I
 		balloon_alert(user, "ёмкость вставлена")
+		var/datum/reagents/R = beaker.reagents
+		for(var/datum/reagent/B in R.reagent_list)
+			if(B?.data && B.data["resistances"])
+				var/list/filtered_res = list()
+				for(var/res in B.data["resistances"])
+					if(!(res in GLOB.no_vaccine_viruses))
+						filtered_res += res
+				B.data["resistances"] = filtered_res
 		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -390,4 +388,3 @@
 
 /obj/machinery/computer/pandemic/wrench_act(mob/living/user, obj/item/I)
 	return default_unfasten_wrench(user, I)
-

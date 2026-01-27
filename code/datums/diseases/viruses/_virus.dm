@@ -103,5 +103,5 @@
 
 //List of viruses that cannot be vaccinated against using PANDEMIC. For game balance, some viruses are not intended to be preventable with a simple vaccine.
 GLOBAL_LIST_INIT(no_vaccine_viruses, list(
-	/datum/disease/virus/loyalty = TRUE,
+	/datum/disease/virus/loyalty,
 ))
