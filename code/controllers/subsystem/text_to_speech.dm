@@ -534,8 +534,6 @@ SUBSYSTEM_DEF(tts)
 			else
 				effect = override
 
-	world.log << "[effect], [override]"
-
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
 
 /proc/tts_word_replacer(word)
