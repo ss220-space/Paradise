@@ -300,11 +300,11 @@
 
 ////////////////////////////////////////////
 
+// returns a list of damaged organs that meet the given criteria
+// brute and burn are boolean values for checking that type of damage
+// flags determine what kind of organs to include, by default is set to AFFECT_ALL_EXTERNAL_PARTS
+// see more in code/__DEFINES/flags.dm line 179-189
 /mob/living/carbon/human/proc/get_damaged_organs(brute, burn, flags = AFFECT_ALL_EXTERNAL_PARTS)
-	// returns a list of damaged organs that meet the given criteria
-	// brute and burn are boolean values for checking that type of damage
-	// flags determine what kind of organs to include, by default is set to AFFECT_ALL_EXTERNAL_PARTS
-	// see more in code/__DEFINES/flags.dm line 179-189
 
 	var/list/obj/item/organ/organs = list()
 	var/list/obj/item/organ/parts = list()
