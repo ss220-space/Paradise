@@ -39,10 +39,13 @@
 	for(var/direction in GLOB.cardinal)
 		var/turf/turf = get_step(src, direction)
 
+		if(!turf)
+			continue
+
 		if(!CanAtmosPass(direction))
 			continue
 
-		if(!turf?.CanAtmosPass(turn(direction, 180)))
+		if(!turf.CanAtmosPass(turn(direction, 180)))
 			continue
 
 		adjacent_turfs += turf
