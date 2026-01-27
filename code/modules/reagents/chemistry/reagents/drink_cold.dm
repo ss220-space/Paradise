@@ -131,13 +131,13 @@
 	user.Druggy(60 SECONDS)
 	user.AdjustDizzy(10 SECONDS)
 	user.SetDrowsy(0)
-	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+	if(!(user.dna && (user.dna.species.reagent_tag & ORGANIC)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 	return ..() | update_flags
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_add(mob/living/user)
 	. = ..()
-	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+	if(user.dna && (user.dna.species.reagent_tag & ORGANIC))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/nuka_cola)
 
 /datum/reagent/consumable/drink/cold/nuka_cola/on_mob_delete(mob/living/user)

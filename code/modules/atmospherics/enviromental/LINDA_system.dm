@@ -39,6 +39,9 @@
 	for(var/direction in GLOB.cardinal)
 		var/turf/turf = get_step(src, direction)
 
+		if(!turf)
+			continue
+
 		if(!CanAtmosPass(direction))
 			continue
 
