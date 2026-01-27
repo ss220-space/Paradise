@@ -103,5 +103,5 @@
 
 //List of viruses that cannot be vaccinated against using PANDEMIC
 GLOBAL_LIST_INIT(no_vaccine_viruses, list(
-	/datum/disease/virus/loyalty,
+	/datum/disease/virus/loyalty = TRUE,
 ))
