@@ -387,7 +387,7 @@ Difficulty: Hard
 		B.damage = 30
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(src, 1)
-	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] растворяется в воздухе!"))
+	visible_message(span_hierophant_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] растворяется в воздухе!"))
 	ADD_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	SLEEP_CHECK_DEATH(src, 2)
 	forceMove(T)
@@ -395,7 +395,7 @@ Difficulty: Hard
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(src, 1)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] материализуется!"))
+	visible_message(span_hierophant_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] материализуется!"))
 	SLEEP_CHECK_DEATH(src, 1) //at this point the blasts we made detonate
 	blinking = FALSE
 

@@ -67,17 +67,17 @@
 	var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 	if(HAS_TRAIT(L, TRAIT_INCAPACITATED) || L.can_inject(null, FALSE, inject_target, FALSE) && prob(50))
 		new /obj/item/organ/internal/body_egg/terror_eggs(L)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] вонзает свои длинные клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] вонзает свои длинные клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
 	else
 		if(prob(20))
 			new /obj/item/organ/internal/body_egg/terror_eggs(L)
-			visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] пробивает броню и вонзает свои длинные клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] пробивает броню и вонзает свои длинные клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
 	if(!ckey && !IsTSInfected(L))
 		step_away(src, L)
 		step_away(src, L)
 		lose_target()
 		step_away(src, L)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] отскакивает от [L.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] отскакивает от [L.declent_ru(ACCUSATIVE)]!"))
 
 /proc/IsTSInfected(mob/living/carbon/C) // Terror AI requires this
 	if(C.get_int_organ(/obj/item/organ/internal/body_egg))
@@ -103,5 +103,5 @@
 		if(!IsTSInfected(C) && ishuman(C))
 			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
-				to_chat(C, "[capitalize(declent_ru(NOMINATIVE))] врезается в вас!")
+				to_chat(C, "[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в вас!")
 				new /obj/item/organ/internal/body_egg/terror_eggs(C)

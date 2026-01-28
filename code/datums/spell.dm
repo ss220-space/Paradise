@@ -669,3 +669,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /// Called when a spell is added
 /obj/effect/proc_holder/spell/proc/on_spell_gain(mob/user = usr)
 	return
+
+/// Called when a spell is removed
+/obj/effect/proc_holder/spell/proc/on_spell_removed(mob/user = usr)
+	return

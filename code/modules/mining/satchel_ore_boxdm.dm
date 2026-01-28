@@ -40,7 +40,7 @@
 			storage.remove_from_storage(ore, src) //This will move the item to this item's contents
 			CHECK_TICK
 		if(!loaded)
-			to_chat(user, span_warning("[capitalize(storage.declent_ru(NOMINATIVE))] пуст — здесь нет руды."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(storage, NOMINATIVE)] пуст — здесь нет руды."))
 			return ATTACK_CHAIN_PROCEED
 		storage.update_appearance()	// just in case
 		to_chat(user, span_notice("Вы пересыпали руду из [storage.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."))

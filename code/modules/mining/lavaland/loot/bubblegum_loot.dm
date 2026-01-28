@@ -265,7 +265,7 @@
 
 /obj/item/soulscythe/attack_hand(mob/user, list/modifiers)
 	if(soul.ckey && !soul.faction_check_mob(user))
-		to_chat(user, span_warning("Ты не можешь поднять [src.declent_ru(ACCUSATIVE)]!"))
+		to_chat(user, span_warning("Ты не можешь поднять [declent_ru(ACCUSATIVE)]!"))
 		return
 	return ..()
 
@@ -293,7 +293,7 @@
 	using = TRUE
 	balloon_alert(user, "ты поднимаешь косу...")
 	ADD_TRAIT(src, TRAIT_NODROP, type)
-	var/mob/chosen_one = safepick(SSghost_spawns.poll_candidates(question = "Вы хотите сыгрыть за косу душ?", role = ROLE_PAI, poll_time = 20 SECONDS, source = src, role_cleanname = src.declent_ru(ACCUSATIVE)))
+	var/mob/chosen_one = safepick(SSghost_spawns.poll_candidates(question = "Вы хотите сыгрыть за косу душ?", role = ROLE_PAI, poll_time = 20 SECONDS, source = src, role_cleanname = declent_ru(ACCUSATIVE)))
 
 	if(QDELETED(src) || QDELETED(user))
 		return
@@ -452,7 +452,7 @@
 	projectile.firer = soul
 	projectile.firer_source_atom = src
 	projectile.fire(null, attacked_atom)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] стреля[PLUR_ET_YUT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] стреля[PLUR_ET_YUT(src)] в [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы стреляете в [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	playsound(src, 'sound/magic/fireball.ogg', 50, TRUE)
 
 /obj/item/soulscythe/proc/slash_target(atom/attacked_atom)
@@ -462,12 +462,12 @@
 			give_blood(15)
 		attacked_mob.apply_damage(damage = force * (faction_check(attacked_mob.faction, MINING_FACTIONS) ? 2 : 1), sharp = TRUE)
 		to_chat(attacked_mob, span_userdanger("Вас разруба[PLUR_ET_YUT(src)] [declent_ru(NOMINATIVE)]!"))
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] разруба[PLUR_ET_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] разруба[PLUR_ET_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы разрубаете [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/weapons/bladeslice.ogg', 50, TRUE)
 	else if((ismachinery(attacked_atom) || isstructure(attacked_atom)) && use_blood(5))
 		var/obj/attacked_obj = attacked_atom
 		attacked_obj.take_damage(force, BRUTE, MELEE, FALSE)
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бь[PLUR_YOT_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] бь[PLUR_YOT_YUT(src)] [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Вы бьёте [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 		playsound(src, 'sound/effects/meteorimpact.ogg', 50, TRUE)
 	else
 		return
@@ -485,12 +485,12 @@
 	COOLDOWN_START(src, attack_cooldown, 5 SECONDS)
 	animate(src)
 	charging = TRUE
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает заряжаться..."))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает заряжаться..."))
 	balloon_alert(soul, "ты начинаешь заряжаться...")
 	if(!do_after(soul, 2 SECONDS, target = src, timed_action_flags = DA_IGNORE_TARGET_LOC_CHANGE))
 		balloon_alert(soul, "прервано!")
 		return
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] бросается на [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты бросаешься на [attacked_atom.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] бросается на [attacked_atom.declent_ru(ACCUSATIVE)]!"), span_notice("Ты бросаешься на [attacked_atom.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/mook_dust(get_turf(src))
 	playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 	SpinAnimation(1)

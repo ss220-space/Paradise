@@ -86,8 +86,8 @@
 		inserted_gps = I
 		updateUsrDialog()
 		user.visible_message(
-			span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в слот для GPS устройства [src.declent_ru(GENITIVE)]."),
-			span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в слот для GPS устройства [src.declent_ru(GENITIVE)].")
+			span_notice("[user] вставляет [I.declent_ru(ACCUSATIVE)] в слот для GPS устройства [declent_ru(GENITIVE)]."),
+			span_notice("Вы вставляете [I.declent_ru(ACCUSATIVE)] в слот для GPS устройства [declent_ru(GENITIVE)].")
 		)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
