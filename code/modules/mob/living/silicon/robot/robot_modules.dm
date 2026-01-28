@@ -173,7 +173,6 @@
 		/datum/robot_skin/mech/std,
 		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android,
-		/datum/robot_skin/drake/gen,
 	)
 	has_transform_animation = TRUE
 
@@ -561,7 +560,6 @@
 		/datum/robot_skin/basic/bro,
 		/datum/robot_skin/toiletbot,
 		/datum/robot_skin/maximillion,
-		/datum/robot_skin/drake/srv
 	)
 	has_transform_animation = TRUE
 
