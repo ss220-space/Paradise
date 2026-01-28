@@ -331,7 +331,7 @@
 		A.update_icon()
 
 /area/syndicate_depot/core/proc/toggle_falsewalls()
-	for(var/obj/structure/falsewall/plastitanium/wall in src)
+	for(var/obj/structure/falsewall/reinforced/plastitanium/wall in src)
 		INVOKE_ASYNC(wall, TYPE_PROC_REF(/obj/structure/falsewall, toggle))
 
 /area/syndicate_depot/core/proc/toggle_teleport_beacon()

@@ -401,7 +401,7 @@
 	result = list(
 		/obj/machinery/door/airlock/hatch/syndicate = 6,
 		/turf/simulated/wall/r_wall/plastitanium/nodiagonal = 2,
-		/obj/structure/falsewall/plastitanium = 2,
+		/obj/structure/falsewall/reinforced/plastitanium = 2,
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault

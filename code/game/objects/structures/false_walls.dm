@@ -242,6 +242,24 @@
 		return RCD_NO_ACT
 	. = ..()
 
+/obj/structure/falsewall/reinforced/plastitanium
+	name = "wall"
+	desc = "An evil wall of plasma and titanium."
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	walltype = /turf/simulated/wall/r_wall/plastitanium
+	mineral = /obj/item/stack/sheet/plastitanium
+	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
+	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
+
+/obj/structure/falsewall/reinforced/plastitanium/ChangeToWall(delete = 1)
+	var/turf/T = get_turf(src)
+	T.ChangeTurf(/turf/simulated/wall/r_wall/plastitanium)
+	if(delete)
+		qdel(src)
+	return T
+
 /*
  * Uranium Falsewalls
  */
@@ -428,16 +446,6 @@
 	walltype = /turf/simulated/wall/mineral/titanium
 	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_TITANIUM_WALLS
-
-/obj/structure/falsewall/plastitanium
-	desc = "An evil wall of plasma and titanium."
-	icon = 'icons/turf/walls/plastitanium_wall.dmi'
-	icon_state = "plastitanium_wall-0"
-	base_icon_state = "plastitanium_wall"
-	mineral = /obj/item/stack/sheet/plastitanium
-	walltype = /turf/simulated/wall/r_wall/plastitanium
-	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
-	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
 
 /obj/structure/falsewall/brass
 	name = "clockwork wall"

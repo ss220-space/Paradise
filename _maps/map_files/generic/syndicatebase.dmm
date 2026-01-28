@@ -214,7 +214,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "Syndie_vault"
 	},
-/obj/structure/falsewall/plastitanium{
+/obj/structure/falsewall/reinforced/plastitanium{
 	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
@@ -467,7 +467,7 @@
 "aCz" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
@@ -523,7 +523,7 @@
 "aDa" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
@@ -740,7 +740,7 @@
 /turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "aLr" = (
-/obj/structure/falsewall/plastitanium,
+/obj/structure/falsewall/reinforced/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "aLK" = (
@@ -1184,7 +1184,7 @@
 "aYF" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
@@ -3640,7 +3640,7 @@
 "dnW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -4314,7 +4314,7 @@
 "dTo" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
@@ -4466,7 +4466,7 @@
 "ebj" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
@@ -4474,7 +4474,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 5
 	},
-/obj/structure/falsewall/plastitanium,
+/obj/structure/falsewall/reinforced/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ebI" = (
@@ -4553,7 +4553,7 @@
 /obj/machinery/door/poddoor{
 	id_tag = "Syndie_vault"
 	},
-/obj/structure/falsewall/plastitanium{
+/obj/structure/falsewall/reinforced/plastitanium{
 	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
@@ -5185,7 +5185,7 @@
 /turf/simulated/floor/engine/insulated/vacuum,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "eMI" = (
-/obj/structure/falsewall/plastitanium{
+/obj/structure/falsewall/reinforced/plastitanium{
 	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
@@ -5707,7 +5707,7 @@
 	id_tag = "Syndie_vault"
 	},
 /obj/item/folder/syndicate/yellow/full,
-/obj/structure/falsewall/plastitanium{
+/obj/structure/falsewall/reinforced/plastitanium{
 	req_access = list(150)
 	},
 /turf/simulated/floor/plating,
@@ -5777,7 +5777,7 @@
 "foL" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
@@ -5892,7 +5892,7 @@
 "fvk" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/botany)
@@ -6513,7 +6513,7 @@
 "fXY" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -6832,7 +6832,7 @@
 "grR" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -15139,7 +15139,7 @@
 "ntM" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
@@ -16526,7 +16526,7 @@
 "ovD" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
@@ -16695,7 +16695,7 @@
 "oCv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/falsewall/plastitanium,
+/obj/structure/falsewall/reinforced/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "oDf" = (
@@ -18306,7 +18306,7 @@
 "pLA" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
@@ -19694,7 +19694,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "qGn" = (
-/obj/structure/falsewall/plastitanium,
+/obj/structure/falsewall/reinforced/plastitanium,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -21716,7 +21716,7 @@
 /turf/simulated/floor/mineral/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "sAY" = (
-/obj/structure/falsewall/plastitanium,
+/obj/structure/falsewall/reinforced/plastitanium,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "sBV" = (
@@ -24389,7 +24389,7 @@
 "uzu" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
@@ -25431,7 +25431,7 @@
 "vdW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
@@ -27495,7 +27495,7 @@
 "wHe" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/reinforced/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)

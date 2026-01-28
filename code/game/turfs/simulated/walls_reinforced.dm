@@ -15,6 +15,44 @@
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
+/turf/simulated/wall/r_wall/proc/metal_repair(obj/item/I, mob/user)
+	if(!istype(I, /obj/item/stack/sheet/metal))
+		to_chat(user, span_warning("You need metal sheets to repair the damage."))
+		return NONE
+	var/obj/item/stack/sheet/metal/metal = I
+	if(metal.get_amount() < d_state)
+		to_chat(user, span_warning("You need at least [d_state] sheets of metal repair the damage."))
+		return NONE
+	to_chat(user, span_notice("You begin patching-up the wall with [metal]..."))
+	if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed, src, category = DA_CAT_TOOL) || d_state == RWALL_INTACT || QDELETED(metal))
+		return NONE
+	if(!metal.use(d_state))
+		to_chat(user, span_warning("At some point during the repair process you lost some metal or the wall state has changed. Make sure you have [d_state] sheets of metal before trying again."))
+		return NONE
+	d_state = RWALL_INTACT
+	update_icon()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	to_chat(user, span_notice("You repair the last of the damage."))
+	return ATTACK_CHAIN_SUCCESS
+
+/turf/simulated/wall/r_wall/proc/coating(obj/item/I, mob/user)
+	var/obj/item/stack/sheet/plasteel/plasteel = I
+	if(!can_be_reinforced)
+		to_chat(user, span_notice("The wall is already coated!"))
+		return NONE
+	to_chat(user, span_notice("You begin adding an additional layer of coating to the wall with [plasteel]..."))
+	if(!do_after(user, 4 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || d_state != RWALL_INTACT || QDELETED(plasteel))
+		return NONE
+	if(!plasteel.use(2))
+		to_chat(user, span_warning("You don't have enough [plasteel.name] for that!"))
+		return NONE
+	to_chat(user, span_notice("You add an additional layer of coating to the wall."))
+	ChangeTurf(/turf/simulated/wall/r_wall/coated)
+	update_icon()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	can_be_reinforced = FALSE
+	return ATTACK_CHAIN_BLOCKED_ALL
+
 /turf/simulated/wall/r_wall/ComponentInitialize()
 	if(!is_station_level(z))
 		return
@@ -60,25 +98,10 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(d_state != RWALL_INTACT)
-        . = . | metal_repair(I, user)
+		return . | metal_repair(I, user)
 
 	if(istype(I, /obj/item/stack/sheet/plasteel))
-		var/obj/item/stack/sheet/plasteel/plasteel = I
-		if(!can_be_reinforced)
-			to_chat(user, span_notice("The wall is already coated!"))
-			return .
-		to_chat(user, span_notice("You begin adding an additional layer of coating to the wall with [plasteel]..."))
-		if(!do_after(user, 4 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || d_state != RWALL_INTACT || QDELETED(plasteel))
-			return .
-		if(!plasteel.use(2))
-			to_chat(user, span_warning("You don't have enough [plasteel.name] for that!"))
-			return .
-		to_chat(user, span_notice("You add an additional layer of coating to the wall."))
-		ChangeTurf(/turf/simulated/wall/r_wall/coated)
-		update_icon()
-		QUEUE_SMOOTH_NEIGHBORS(src)
-		can_be_reinforced = FALSE
-		return .|ATTACK_CHAIN_BLOCKED_ALL
+		return . | coating(I, user)
 
 /turf/simulated/wall/r_wall/welder_act(mob/user, obj/item/I)
 	if(reagents?.get_reagent_amount("thermite") && I.use_tool(src, user, volume = I.tool_volume))
@@ -254,26 +277,6 @@
 		return RCD_NO_ACT
 	. = ..()
 
-/turf/simulated/wall/r_wall/proc/metal_repair(obj/item/I, mob/user)
-	if(!istype(I, /obj/item/stack/sheet/metal))
-		to_chat(user, span_warning("You need metal sheets to repair the damage."))
-		return .
-	var/obj/item/stack/sheet/metal/metal = I
-	if(metal.get_amount() < d_state)
-		to_chat(user, span_warning("You need at least [d_state] sheets of metal repair the damage."))
-		return .
-	to_chat(user, span_notice("You begin patching-up the wall with [metal]..."))
-	if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed, src, category = DA_CAT_TOOL) || d_state == RWALL_INTACT || QDELETED(metal))
-		return .
-	if(!metal.use(d_state))
-		to_chat(user, span_warning("At some point during the repair process you lost some metal or the wall state has changed. Make sure you have [d_state] sheets of metal before trying again."))
-		return .
-	d_state = RWALL_INTACT
-	update_icon()
-	QUEUE_SMOOTH_NEIGHBORS(src)
-	to_chat(user, span_notice("You repair the last of the damage."))
-	return .|ATTACK_CHAIN_SUCCESS
-
 /////////////////////Plastitanium walls/////////////////////
 
 /turf/simulated/wall/r_wall/plastitanium
@@ -293,16 +296,20 @@
 	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
 	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
 
+/turf/simulated/wall/r_wall/plastitanium/update_icon_state()
+	if(d_state)
+		icon_state = "plastitanium_wall-d-[d_state]"
+		smooth = NONE
+		clear_smooth_overlays()
+	else
+		smooth = SMOOTH_BITMASK
+		QUEUE_SMOOTH(src)
+
 /turf/simulated/wall/r_wall/plastitanium/shuttleRotate(rotation)
 	return
 
-/turf/simulated/wall/r_wall/platitanium/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/sheet/plasteel))
-		if(ATTACK_CHAIN_CANCEL_CHECK(.))
-			return .
-		add_fingerprint(user)
-		return
-	. = ..()
+/turf/simulated/wall/r_wall/plastitanium/coating(obj/item/I, mob/user)
+	return NONE
 
 /turf/simulated/wall/r_wall/plastitanium/devastate_wall()
 	new sheet_type(src, sheet_amount)

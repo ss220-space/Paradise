@@ -274,6 +274,52 @@
 				qdel(src)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
+	if(istype(sheet, /obj/item/stack/sheet/plastitanium))
+		var/obj/item/stack/sheet/plastitanium/plastitanium = sheet
+		switch(state)
+			if(GIRDER_DISPLACED)
+				if(plastitanium.get_amount() < 2)
+					to_chat(user, span_warning("You need at least two sheets of plastitanium to create a false wall!"))
+					return .
+				to_chat(user, span_notice("You start building a false wall..."))
+				if(!do_after(user, 2 SECONDS * plastitanium.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plastitanium) || !plastitanium.use(2))
+					return .
+				to_chat(user, span_notice("You created a plastitanium false wall. Push on it to open or close the passage."))
+				var/obj/structure/falsewall/reinforced/plastitanium/falsewall = new(loc)
+				transfer_fingerprints_to(falsewall)
+				falsewall.add_fingerprint(user)
+				qdel(src)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+			if(GIRDER_REINF)
+				if(plastitanium.get_amount() < 2)
+					to_chat(user, span_warning("You need at least two sheets of plasteel to finalize the plastitanium wall!"))
+					return .
+				to_chat(user, span_notice("You start finalizing the plastitanium wall..."))
+				if(!do_after(user, 2 SECONDS * plastitanium.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plastitanium) || !plastitanium.use(2))
+					return .
+				to_chat(user, span_notice("You have finalized the plastitanium wall."))
+				var/turf/floor = loc
+				floor.ChangeTurf(/turf/simulated/wall/r_wall/plastitanium)
+				transfer_fingerprints_to(floor)
+				floor.add_fingerprint(user)
+				qdel(src)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+			else
+				if(plastitanium.get_amount() < 2)
+					to_chat(user, span_warning("You need at least two sheets of plastitanium to reinforce the girder!"))
+					return .
+				to_chat(user, span_notice("You start reinforcing the girder..."))
+				if(!do_after(user, 6 SECONDS * plastitanium.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plastitanium) || !plastitanium.use(2))
+					return .
+				to_chat(user, span_notice("You reinforce the girder."))
+				var/obj/structure/girder/reinforced/plastitanium/girder = new(loc)
+				transfer_fingerprints_to(girder)
+				girder.add_fingerprint(user)
+				qdel(src)
+				return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(!sheet.sheettype)
 		to_chat(user, span_warning("This material is not suitable for a wall."))
 		return .
