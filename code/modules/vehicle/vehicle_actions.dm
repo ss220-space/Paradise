@@ -233,8 +233,6 @@
 	mid_sounds = list('sound/items/weeoo1.ogg' = 1)
 	mid_length = 14
 
-
-
 /datum/action/vehicle/sealed
 	check_flags = AB_CHECK_IMMOBILE | AB_CHECK_CONSCIOUS
 	var/obj/vehicle/sealed/vehicle_entered_target
@@ -269,8 +267,19 @@
 	vehicle_entered_target.visible_message(span_danger("[vehicle_entered_target] starts dumping the people inside of it."))
 	vehicle_entered_target.dump_specific_mobs(VEHICLE_CONTROL_KIDNAPPED)
 
+/datum/action/vehicle/sealed/headlights
+	name = "Toggle Headlights"
+	desc = "Turn on your brights!"
+	button_icon_state = "car_headlights"
 
-//CLOWN CAR ACTION DATUMS
+/datum/action/vehicle/sealed/headlights/Trigger(mob/clicker, trigger_flags)
+	to_chat(owner, span_notice("You flip the switch for the vehicle's headlights."))
+	vehicle_entered_target.headlights_toggle = !vehicle_entered_target.headlights_toggle
+	vehicle_entered_target.set_light_on(vehicle_entered_target.headlights_toggle)
+	vehicle_entered_target.update_appearance()
+	playsound(owner, vehicle_entered_target.headlights_toggle ? 'sound/weapons/magin.ogg' : 'sound/weapons/magout.ogg', 40, TRUE)
+
+/* CLOWN CAR ACTION DATUMS
 /datum/action/vehicle/sealed/horn
 	name = "Honk Horn"
 	desc = "Honk your classy horn."
@@ -287,18 +296,6 @@
 		vehicle_target.inserted_key.attack_self(owner) //The bikehorn plays a sound instead
 		return
 	playsound(vehicle_entered_target, hornsound, 75)
-
-/datum/action/vehicle/sealed/headlights
-	name = "Toggle Headlights"
-	desc = "Turn on your brights!"
-	button_icon_state = "car_headlights"
-
-/datum/action/vehicle/sealed/headlights/Trigger(mob/clicker, trigger_flags)
-	to_chat(owner, span_notice("You flip the switch for the vehicle's headlights."))
-	vehicle_entered_target.headlights_toggle = !vehicle_entered_target.headlights_toggle
-	vehicle_entered_target.set_light_on(vehicle_entered_target.headlights_toggle)
-	vehicle_entered_target.update_appearance()
-	playsound(owner, vehicle_entered_target.headlights_toggle ? 'sound/weapons/magin.ogg' : 'sound/weapons/magout.ogg', 40, TRUE)
 
 /datum/action/vehicle/sealed/roll_the_dice
 	name = "Press Colorful Button"
@@ -344,5 +341,5 @@
 	var/mob/clown = pick(drivers)
 	owner.say("Thank you for the fun ride, [clown.name]!")
 	clown_car.increment_thanks_counter()
-
+*/
 

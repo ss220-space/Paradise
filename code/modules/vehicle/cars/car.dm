@@ -50,7 +50,7 @@
 	if(!(car_traits & CAN_KIDNAP))
 		return
 	to_chat(user, span_notice("You start opening [src]'s trunk."))
-	if(!do_after(user, 30))
+	if(!do_after(user, 3 SECONDS))
 		return
 	if(return_amount_of_controllers_with_flag(VEHICLE_CONTROL_KIDNAPPED))
 		to_chat(user, span_notice("The people stuck in [src]'s trunk all come tumbling out."))
@@ -109,3 +109,4 @@
 		return did_move
 	after_move(direction)
 	return try_step_multiz(direction)
+

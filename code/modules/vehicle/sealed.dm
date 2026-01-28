@@ -62,12 +62,12 @@
 	if(!istype(rider))
 		return FALSE
 	var/enter_delay = get_enter_delay(rider)
-	if (enter_delay == 0)
-		if (enter_checks(rider))
+	if(enter_delay == 0)
+		if(enter_checks(rider))
 			mob_enter(rider)
 			return TRUE
 		return FALSE
-	if (do_after(rider, enter_delay, src, timed_action_flags = DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(enter_checks), rider)))
+	if(do_after(rider, enter_delay, src, timed_action_flags = DA_IGNORE_HELD_ITEM, extra_checks = CALLBACK(src, PROC_REF(enter_checks), rider)))
 		mob_enter(rider)
 		return TRUE
 	return FALSE
@@ -174,6 +174,7 @@
 /// When we touch a crystal, kill everything inside us
 /obj/vehicle/sealed/proc/on_entered_supermatter(atom/movable/vehicle, atom/movable/supermatter)
 	SIGNAL_HANDLER
-	for (var/mob/passenger as anything in occupants)
+	for(var/mob/passenger as anything in occupants)
 		if(!isAI(passenger))
 			passenger.Bump(supermatter)
+
