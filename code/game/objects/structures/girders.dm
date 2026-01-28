@@ -496,7 +496,6 @@
 /obj/structure/girder/reinforced/plastitanium
 	name = "plastitanium girder"
 	icon_state = "plastitanium"
-	girderpasschance = 0
 	max_integrity = 580
 
 /obj/structure/girder/cult
