@@ -41,9 +41,6 @@ SUBSYSTEM_DEF(events)
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/events/fire(resumed)
-	if(!resumed)
-		stage = EVENTS_STAGE_EVENTS
-
 	switch(stage)
 		if(EVENTS_STAGE_EVENTS)
 			if(length(active_events))
