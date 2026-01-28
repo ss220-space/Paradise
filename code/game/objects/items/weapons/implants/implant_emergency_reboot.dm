@@ -73,6 +73,6 @@
 	imp = /obj/item/implant/emergency_reboot
 
 /obj/item/implantcase/emergency_reboot
-	name = "био-чип кейс - экстренная перезагрузка"
+	name = "био-чип кейс — экстренная перезагрузка"
 	desc = "стеклянный кейс с имплантом экстренной перезагрузки."
 	imp = /obj/item/implant/emergency_reboot
