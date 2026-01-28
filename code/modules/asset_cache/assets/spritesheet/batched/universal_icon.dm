@@ -458,7 +458,7 @@
 	var/curstate = appearance.icon_state || defstate
 	// Filter out 'runtime' icons (server-generated RSC cache icons)
 	// Write the icon to the filesystem so it can be used by iconforge
-	if(!isfile(curicon) || !length(string_curicon))
+	if(curicon &&(!isfile(curicon) || !length(string_curicon)))
 		var/file_path_tmp = "tmp/uni_icon-tmp-[rand(1, 999)].dmi" // this filename is temporary.
 		fcopy(curicon, file_path_tmp)
 		var/file_hash = rustlib_hash_file(RUSTLIB_HASH_MD5, file_path_tmp)

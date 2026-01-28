@@ -33,7 +33,7 @@
 
 	// Icon generation conditions //////////////
 	// Condition 1: Icon is complex
-	if(ismob(item) || length(item.overlays) > 2)
+	if(length(item.overlays) > 1)
 		return
 
 	// Condition 2: Can't get icon path
@@ -44,13 +44,6 @@
 #if defined(OPENDREAM) || defined(GAME_TESTS)
 	return
 #endif
-
-	// Condition 4: Using older byond version
-	var/build = owner.byond_build
-	var/version = owner.byond_version
-	if(build < 515 || (build == 515 && version < 1635))
-		icon = "n/a"
-		return
 
 	icon = "[item.icon]"
 	icon_state = item.icon_state

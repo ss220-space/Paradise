@@ -1,3 +1,6 @@
+#define EVENTS_STAGE_EVENTS 1
+#define EVENTS_STAGE_CONTAINER 1
+
 SUBSYSTEM_DEF(events)
 	name = "Events"
 	init_order = INIT_ORDER_EVENTS
@@ -6,6 +9,8 @@ SUBSYSTEM_DEF(events)
 	offline_implications = "Random events will no longer happen. No immediate action is needed."
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "events"
+	var/list/current_run
+	var/stage = EVENTS_STAGE_EVENTS
 	// Report events at the end of the rouund
 	var/report_at_round_end = 0
 
@@ -35,13 +40,58 @@ SUBSYSTEM_DEF(events)
 	allEvents = subtypesof(/datum/event)
 	return SS_INIT_SUCCESS
 
-/datum/controller/subsystem/events/fire()
-	for(var/datum/event/E as anything in active_events)
-		E.process()
+/datum/controller/subsystem/events/fire(resumed)
+	if(!resumed)
+		stage = EVENTS_STAGE_EVENTS
 
-	for(var/i = EVENT_LEVEL_MUNDANE to EVENT_LEVEL_MAJOR)
-		var/datum/event_container/EC = event_containers[i]
-		EC.process()
+	switch(stage)
+		if(EVENTS_STAGE_EVENTS)
+			if(length(active_events))
+				fire_events(resumed)
+			else
+				stage = EVENTS_STAGE_CONTAINER
+				return
+
+		if(EVENTS_STAGE_CONTAINER)
+			fire_containers(resumed)
+
+/datum/controller/subsystem/events/proc/fire_events(resumed)
+	if(!resumed)
+		current_run = active_events.Copy()
+
+	var/index = length(current_run)
+
+	while(index > 0)
+		var/datum/event/event = current_run[index]
+		if(QDELETED(event))
+			index--
+			continue
+		event.process()
+		if(MC_TICK_CHECK)
+			current_run.Cut(index)
+			return
+		index--
+
+	stage = EVENTS_STAGE_CONTAINER
+
+/datum/controller/subsystem/events/proc/fire_containers(resumed)
+	if(!resumed)
+		current_run = event_containers.Copy()
+
+	var/index = length(current_run)
+
+	while(index > 0)
+		var/datum/event_container/event = current_run[index]
+		if(QDELETED(event))
+			index--
+			continue
+		event.process()
+		if(MC_TICK_CHECK)
+			current_run.Cut(index)
+			return
+		index--
+
+	stage = EVENTS_STAGE_EVENTS
 
 /datum/controller/subsystem/events/proc/event_complete(datum/event/E)
 	if(!E.event_meta)	// datum/event is used here and there for random reasons, maintaining "backwards compatibility"
