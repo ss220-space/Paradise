@@ -1217,11 +1217,11 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	var/job_id
 	var/entries_json = json_encode(list(name = flat_icon.to_list()))
 	if(yield)
-		job_id = rustlib_iconforge_generate_async("data/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
+		job_id = rustlib_iconforge_generate_async("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
 		UNTIL((data_out = rustlib_iconforge_check(job_id)) != RUSTLIBS_JOB_NO_RESULTS_YET)
 		SSasset_loading.assets_generating--
 	else
-		data_out = rustlib_iconforge_generate("data/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
+		data_out = rustlib_iconforge_generate("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
 	if(data_out == RUSTLIBS_JOB_ERROR)
 		CRASH("Icon [name] JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
@@ -1233,7 +1233,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
 
 	var/png_name = "[name]_[size].png"
-	var/file_directory = "data/icons/[png_name]"
+	var/file_directory = "tmp/icons/[png_name]"
 	return file(file_directory)
 
 
