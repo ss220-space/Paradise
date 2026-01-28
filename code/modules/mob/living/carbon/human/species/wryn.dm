@@ -67,7 +67,7 @@
 
 	dies_at_threshold = TRUE
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	base_color = "#704300"
 	flesh_color = "#704300"
 	blood_color = "#FFFF99"

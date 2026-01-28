@@ -33,7 +33,7 @@
 	blood_species = "Human"
 	tail = "chimptail"
 	bodyflags = HAS_TAIL
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	//Has standard darksight of 2.
 
 	unarmed_type = /datum/unarmed_attack/bite

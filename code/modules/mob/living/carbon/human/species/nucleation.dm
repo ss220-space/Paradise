@@ -38,7 +38,7 @@
 	//Default styles for created mobs.
 	default_hair = "Nucleation Crystals"
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	has_organ = list(
 		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/crystal,
