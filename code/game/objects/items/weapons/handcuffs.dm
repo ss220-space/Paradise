@@ -272,7 +272,8 @@
 	desc = "Устройство из металла, представляющее собой пару соединённых цепью браслетов. \
 			Используются для ограничения подвижности заключённых посредством сковывания кистей рук. \
 			Для чего данная модель отделана розовым мехом — вопрос."
-	item_state = "cuff_pink"
+	item_state = "pinkcuff"
+	icon_state = "pinkcuffs"
 
 /obj/item/restraints/handcuffs/pinkcuffs/get_ru_names()
 	return list(
