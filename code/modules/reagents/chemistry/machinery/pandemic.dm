@@ -361,11 +361,7 @@
 		var/datum/reagents/reagents = beaker.reagents
 		for(var/datum/reagent/blood in reagents.reagent_list)
 			if(blood?.data && blood.data["resistances"])
-				var/list/filtered_res = list()
-				for(var/res in blood.data["resistances"])
-					if(!(res in GLOB.no_vaccine_viruses))
-						filtered_res += res
-				blood.data["resistances"] = filtered_res
+				blood.data["resistances"] -= GLOB.no_vaccine_viruses
 		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
