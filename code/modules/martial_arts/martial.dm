@@ -201,21 +201,23 @@
 	if(!human.mind)
 		return FALSE
 
+	for(var/datum/martial_art/art in human.mind.known_martial_arts)
+		if(istype(art, src))
+			return FALSE
+
+	temporary = make_temporary
+
 	if(change_musculs && HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
 		ADD_TRAIT(human, TRAIT_STRONG_MUSCLES, UNIQUE_TRAIT_SOURCE(src))
-		SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 4)
+
+		if(!temporary)
+			SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 4)
+
 		human.update_body(TRUE)
-
-	for(var/datum/martial_art/art in human.mind.known_martial_arts)
-		if(!istype(art, src))
-			continue
-
-		return FALSE
 
 	if(no_baton)
 		if(isbaton(human.get_item_by_slot(ITEM_SLOT_HAND_LEFT)))
 			human.drop_l_hand()
-
 		if(isbaton(human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
 			human.drop_r_hand()
 
@@ -226,10 +228,10 @@
 		add_verb(human, /mob/living/carbon/human/proc/dirslash_enabling)
 		human.dirslash_enabled = TRUE
 
-	temporary = make_temporary
 	human.mind.known_martial_arts.Add(src)
 	human.mind.martial_art = get_highest_weight(human)
 	owner_UID = human.UID()
+
 	return TRUE
 
 /datum/martial_art/proc/remove(mob/living/carbon/human/human)

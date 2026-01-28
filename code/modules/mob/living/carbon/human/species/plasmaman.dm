@@ -17,7 +17,7 @@
 	)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	cold_level_1 = 240
 	cold_level_2 = 180

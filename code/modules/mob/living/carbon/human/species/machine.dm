@@ -44,7 +44,7 @@
 	dies_at_threshold = TRUE
 	can_revive_by_healing = 1
 	has_gender = FALSE
-	reagent_tag = PROCESS_SYN
+	reagent_tag = SYNTHETIC
 	male_scream_sound = list('sound/goonstation/voice/robot_scream.ogg')
 	female_scream_sound = list('sound/goonstation/voice/robot_scream.ogg')
 	male_cough_sounds = list('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
