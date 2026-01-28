@@ -1,6 +1,6 @@
 /obj/item/implant/emergency_reboot
-	name = "emergency reboot bio-chip"
-	desc = "Removes all stuns and knockdowns."
+	name = "экстренная перезагрузка био-чип"
+	desc = "Помогает владельцу быстро поднятся на ноги после оглушения"
 	icon_state = "adrenal"
 	implant_state = "implant-syndicate"
 	origin_tech = "materials=2;biotech=4;combat=3;syndicate=2"
@@ -8,6 +8,15 @@
 	actions_types = null
 	base_cooldown = 80 SECONDS
 
+/obj/item/implant/emergency_reboot/get_ru_names()
+	return list(
+		NOMINATIVE = "имплант экстренной перезагрузки",
+		GENITIVE = "импланта экстренной перезагрузки",
+		DATIVE = "импланту экстренной перезагрузки",
+		ACCUSATIVE = "имплант экстренной перезагрузки",
+		INSTRUMENTAL = "имплантом экстренной перезагрузки",
+		PREPOSITIONAL = "импланте экстренной перезагрузки",
+	)
 /obj/item/implant/emergency_reboot/Initialize(mapload)
 	. = ..()
 	if(!action)
@@ -35,14 +44,15 @@
 		return FALSE
 
 	if(charges_cooldown.current_charges <= 0)
-		balloon_alert(imp_in, "нет зарядов")
+		balloon_alert(imp_in, "нет зарядов!")
 		return FALSE
 
 	if(uses != -1 && uses <= 0)
 		return FALSE
 
 	charges_cooldown.start_recharge()
-	balloon_alert(imp_in, "вы чувствуете резкий прилив сил")
+	balloon_alert(imp_in, "активировано!")
+	to_chat(imp_in, "Вы чувствуете резкий прилив сил")
 
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
@@ -59,10 +69,10 @@
 	return TRUE
 
 /obj/item/implanter/emergency_reboot
-	name = "bio-chip implanter (emergency emergency_reboot)"
+	name = "био-чип имплантер (экстренная перезагрузка)"
 	imp = /obj/item/implant/emergency_reboot
 
 /obj/item/implantcase/emergency_reboot
-	name = "bio-chip case - emergency emergency_reboot"
-	desc = "A glass case containing an emergency_reboot bio-chip."
+	name = "био-чип кейс - экстренная перезагрузка"
+	desc = "стеклянный кейс с имплантом экстренной перезагрузки."
 	imp = /obj/item/implant/emergency_reboot

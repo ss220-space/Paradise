@@ -169,9 +169,9 @@
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
 /datum/implant_fluff/emergency_reboot
-	name = "Cybersun Industries ERI Bio-chip"
-	life = "Five days."
-	function =  "reloads the central nervous system to reset stuns"
+	name = "Био-чип ERI от Cybersun Industries"
+	life = "Пять дней."
+	function = "перезагружает центральную нервную систему для сброса оглушений."
 
 
 /datum/implant_fluff/pathfinder
