@@ -433,10 +433,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			if(query.Execute())
 				while(query.NextRow())
-					var/list/design = query.item[1]
+					var/design = query.item[1]
 					var/author = query.item[2]
 
-					var/list/text = list(author, design["name"], design["desc"])
+					var/list/text = list(author, design)
 					if(findtext(jointext(text, ""), term))
 						to_chat(user, design["name"])
 
