@@ -1,5 +1,5 @@
 #define EVENTS_STAGE_EVENTS 1
-#define EVENTS_STAGE_CONTAINER 1
+#define EVENTS_STAGE_CONTAINER 2
 
 SUBSYSTEM_DEF(events)
 	name = "Events"
@@ -345,3 +345,6 @@ SUBSYSTEM_DEF(events)
 			EC.next_event = null
 
 	Interact(usr)
+
+#undef EVENTS_STAGE_EVENTS
+#undef EVENTS_STAGE_CONTAINER

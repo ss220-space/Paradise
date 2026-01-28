@@ -829,7 +829,7 @@ The _flatIcons list is a cache for generated icon files.
 /proc/rand_hex_color()
 	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
 	var/color=""
-	for(var/i in 0 to 6)
+	for(var/i in 1 to 6)
 		color = color + pick(colors)
 	return "#[color]"
 
