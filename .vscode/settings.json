@@ -40,7 +40,4 @@
 	"workbench.editorAssociations": {
 		"*.dmi": "dmiEditor.dmiEditor"
 	},
-	"dreammaker.byondPath": [
-		"C:\\Users\\Администратор\\Documents\\byond1666\\bin\\dreamseeker.exe"
-	],
 }

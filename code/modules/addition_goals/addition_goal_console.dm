@@ -14,7 +14,7 @@
 	icon_screen = "addition_goal"
 	icon_keyboard = "addition_goal_key"
 	req_access = list(ACCESS_CAPTAIN)
-	circuit = /obj/item/circuitboard/computer/bsa_control
+	circuit = /obj/item/circuitboard/computer/addition_goals
 
 /obj/machinery/computer/addition_goals/get_ru_names()
 	return list(
