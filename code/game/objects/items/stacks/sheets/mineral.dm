@@ -367,18 +367,18 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 /*
  * Plastitanium
  */
-/obj/item/stack/sheet/mineral/plastitanium
+/obj/item/stack/sheet/plastitanium
 	name = "plastitanium"
 	icon_state = "sheet-plastitanium"
 	item_state = "sheet-plastitanium"
 	singular_name = "plastitanium sheet"
 	throw_speed = 1
 	sheettype = "plastitanium"
-	merge_type = /obj/item/stack/sheet/mineral/plastitanium
+	merge_type = /obj/item/stack/sheet/plastitanium
 	materials = list(MAT_TITANIUM=2000, MAT_PLASMA=2000)
 	point_value = 45
 
-/obj/item/stack/sheet/mineral/plastitanium/fifty
+/obj/item/stack/sheet/plastitanium/fifty
 	amount = 50
 
 GLOBAL_LIST_INIT(plastitanium_recipes, list(
@@ -415,7 +415,7 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	))
 	))
 
-/obj/item/stack/sheet/mineral/plastitanium/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/sheet/plastitanium/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.plastitanium_recipes
 

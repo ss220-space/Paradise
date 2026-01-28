@@ -400,7 +400,7 @@
 	name = "50pc door 25pc falsewall 25pc wall"
 	result = list(
 		/obj/machinery/door/airlock/hatch/syndicate = 6,
-		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 2,
+		/turf/simulated/wall/r_wall/plastitanium/nodiagonal = 2,
 		/obj/structure/falsewall/plastitanium = 2,
 	)
 
@@ -408,7 +408,7 @@
 	name = "80pc vaultdoor 20pc wall"
 	result = list(
 		/obj/machinery/door/airlock/hatch/syndicate/vault = 4,
-		/turf/simulated/wall/mineral/plastitanium/nodiagonal = 1,
+		/turf/simulated/wall/r_wall/plastitanium/nodiagonal = 1,
 	)
 
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod

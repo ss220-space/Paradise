@@ -475,7 +475,7 @@
 	overlay_sparking = "heavycrate_sparks"
 	overlay_broken = "heavycrate_hacking"
 	overlay_lightmask = "heavysecurecrate_lightmask"
-	
+
 /obj/structure/closet/crate/secure/weapon/veihit
 	name = "highrisk crate"
 	icon_state = "mortar"
@@ -646,13 +646,13 @@
 /obj/structure/closet/crate/syndicate
 	desc = "Definitely a property of an evil corporation!"
 	icon_state = "syndiecrate"
-	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+	material_drop = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/closet/crate/secure/syndicate
 	name = "Secure suspicious crate"
 	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
 	icon_state = "syndiesecurecrate"
-	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+	material_drop = /obj/item/stack/sheet/plastitanium
 	can_be_emaged = FALSE
 
 // MARK: Blood crates
@@ -661,7 +661,7 @@
 	name = "secure human blood crate"
 	desc = "Ящик, содержащий капельницы с человеческой кровью."
 	icon_state = "bloodcrate"
-	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+	material_drop = /obj/item/stack/sheet/plastitanium
 	req_access = list(ACCESS_MEDICAL)
 
 /obj/structure/closet/crate/secure/blood/get_ru_names()

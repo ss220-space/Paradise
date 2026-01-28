@@ -310,7 +310,7 @@
 	base_name = "syndicate special security airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/security/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/security
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_public
 	name = "syndicate public airlock assembly"
@@ -318,7 +318,7 @@
 	base_name = "syndicate special public airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/public/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/public
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_atmos
 	name = "syndicate atmos airlock assembly"
@@ -326,7 +326,7 @@
 	base_name = "syndicate special atmos airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/atmos/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/atmos
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_maint
 	name = "syndicate maintenance airlock assembly"
@@ -334,7 +334,7 @@
 	base_name = "syndicate special maintenance airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/maintenance/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/maintenance
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_med
 	name = "syndicate medical airlock assembly"
@@ -342,7 +342,7 @@
 	base_name = "syndicate special medical airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/medical/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/medical
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_cargo
 	name = "syndicate cargo airlock assembly"
@@ -350,7 +350,7 @@
 	base_name = "syndicate special cargo airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/cargo/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/cargo
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_research
 	name = "syndicate research airlock assembly"
@@ -358,14 +358,14 @@
 	base_name = "syndicate special research airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/research/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/research
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_com
 	name = "syndicate command airlock assembly"
 	icon = 'icons/obj/doors/airlocks/syndicate/command.dmi'
 	base_name = "syndicate special command airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/command/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/command
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_freezer
 	name = "syndicate freezer airlock assembly"
@@ -373,7 +373,7 @@
 	base_name = "syndicate special freezer airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/freezer/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/freezer
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_extmai
 	name = "syndicate external maintenance airlock assembly"
@@ -381,7 +381,7 @@
 	base_name = "syndicate special external maintenance airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/extmai/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/extmai
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium
 
 /obj/structure/door_assembly/syndicate/door_assembly_syndie_engi
 	name = "syndicate engineering airlock assembly"
@@ -389,4 +389,4 @@
 	base_name = "syndicate special engineering airlock"
 	glass_type = /obj/machinery/door/airlock/syndicate/engineering/glass
 	airlock_type = /obj/machinery/door/airlock/syndicate/engineering
-	material_type = /obj/item/stack/sheet/mineral/plastitanium
+	material_type = /obj/item/stack/sheet/plastitanium

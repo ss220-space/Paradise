@@ -33,7 +33,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "ae" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "af" = (
 /obj/machinery/light/small{
@@ -83,7 +83,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "ak" = (
 /obj/machinery/vending/boozeomat/syndicate_access,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "al" = (
 /obj/effect/decal/cleanable/dirt,
@@ -135,7 +135,7 @@
 	},
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "as" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "at" = (
 /obj/structure/grille,
@@ -396,7 +396,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "aL" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "aM" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1056,7 +1056,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "bT" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "bU" = (
 /obj/machinery/light/small{
@@ -1176,7 +1176,7 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "ce" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "cg" = (
 /obj/machinery/portable_atmospherics/canister/nitrogen,
@@ -1362,7 +1362,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "dy" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "dA" = (
 /obj/structure/closet/l3closet,
@@ -1506,11 +1506,11 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "dP" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "dQ" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "dR" = (
 /obj/machinery/door/firedoor,
@@ -1716,7 +1716,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "eh" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "ei" = (
 /obj/structure/disposaloutlet{
@@ -2043,7 +2043,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "eJ" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "eL" = (
 /obj/machinery/door/airlock/hatch{
@@ -2581,7 +2581,7 @@
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "fx" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "fy" = (
 /obj/machinery/door/airlock/medical/glass{
@@ -2632,7 +2632,7 @@
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "fD" = (
 /obj/structure/sign/biohazard,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "fE" = (
 /obj/effect/turf_decal/bot,
@@ -2772,7 +2772,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "gj" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "gp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3032,7 +3032,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "gO" = (
 /obj/structure/sign/cargo,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/cargo)
 "gP" = (
 /obj/machinery/photocopier,
@@ -3100,7 +3100,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/virology)
 "ha" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "hb" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3302,7 +3302,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "hz" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "hA" = (
 /obj/structure/closet/emcloset/anchored,
@@ -3400,7 +3400,7 @@
 /turf/simulated/floor/plasteel/grimy,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "hO" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/dormitories)
 "hP" = (
 /obj/machinery/light/small{
@@ -3462,7 +3462,7 @@
 /obj/machinery/porta_turret/syndicate{
 	dir = 10
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "hZ" = (
 /obj/machinery/firealarm/syndicate{
@@ -3634,7 +3634,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "iq" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ir" = (
 /obj/effect/decal/cleanable/dirt,
@@ -3844,7 +3844,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "iN" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "iO" = (
 /obj/machinery/light/small{
@@ -4247,7 +4247,7 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "ju" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "jv" = (
 /obj/effect/turf_decal/bot,
@@ -4275,7 +4275,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "jy" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "jz" = (
 /obj/machinery/door/airlock/public/glass{
@@ -4421,7 +4421,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
 	dir = 6
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "jK" = (
 /obj/machinery/atmospherics/unary/outlet_injector/on{
@@ -4489,7 +4489,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "jP" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "jQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -4533,7 +4533,7 @@
 /area/ruin/unpowered/syndicate_lava_base/main)
 "jU" = (
 /obj/structure/sign/engineering,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "jV" = (
 /obj/effect/turf_decal/stripes/line{
@@ -4732,7 +4732,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "kl" = (
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "km" = (
 /obj/structure/cable/yellow{
@@ -5034,7 +5034,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "kQ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "kR" = (
 /obj/machinery/door/firedoor,
@@ -5053,7 +5053,7 @@
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "kT" = (
 /obj/structure/sign/redcross,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/medbay)
 "kV" = (
 /obj/effect/turf_decal/stripes/line{
@@ -5357,7 +5357,7 @@
 	pixel_x = -1;
 	pixel_y = 1
 	},
-/obj/item/stack/sheet/mineral/plastitanium{
+/obj/item/stack/sheet/plastitanium{
 	amount = 30
 	},
 /obj/item/stack/sheet/glass/fifty{
@@ -5395,7 +5395,7 @@
 /obj/machinery/porta_turret/syndicate{
 	dir = 9
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "lU" = (
 /obj/machinery/alarm/syndicate{
@@ -5589,10 +5589,10 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mn" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mo" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mp" = (
 /obj/structure/grille,
@@ -5739,7 +5739,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "mN" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mP" = (
 /obj/structure/filingcabinet/security,
@@ -5761,7 +5761,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/telecomms)
 "mT" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "mU" = (
 /obj/structure/grille,
@@ -5849,7 +5849,7 @@
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "nf" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "ng" = (
 /obj/structure/table,
@@ -6531,11 +6531,11 @@
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "oF" = (
 /obj/structure/sign/securearea,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
 "oP" = (
 /obj/structure/sign/chemistry,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "pQ" = (
 /obj/structure/sign/explosives/alt{
@@ -6556,19 +6556,19 @@
 /area/ruin/unpowered/syndicate_lava_base/testlab)
 "yd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "yU" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/chemistry)
 "Am" = (
 /obj/machinery/porta_turret/syndicate{
 	dir = 6
 	},
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Au" = (
-/turf/simulated/wall/mineral/plastitanium/explosive,
+/turf/simulated/wall/r_wall/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "BF" = (
 /obj/structure/grille,
@@ -6610,7 +6610,7 @@
 /obj/machinery/porta_turret/syndicate{
 	dir = 5
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "Lg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -6627,20 +6627,20 @@
 /obj/machinery/porta_turret/syndicate{
 	dir = 6
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "RI" = (
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "RR" = (
 /obj/machinery/porta_turret/syndicate{
 	dir = 10
 	},
-/turf/simulated/wall/mineral/plastitanium/coated,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/ruin/unpowered/syndicate_lava_base/main)
 "RV" = (
 /obj/structure/sign/fire,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
 "Tp" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{

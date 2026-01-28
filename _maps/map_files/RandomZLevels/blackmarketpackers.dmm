@@ -223,7 +223,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Fore)
 "aM" = (
-/obj/item/stack/sheet/mineral/plastitanium,
+/obj/item/stack/sheet/plastitanium,
 /turf/space,
 /area/space)
 "aN" = (
@@ -4600,7 +4600,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "tS" = (
-/obj/item/stack/sheet/mineral/plastitanium,
+/obj/item/stack/sheet/plastitanium,
 /turf/simulated/floor/mineral/plastitanium/red/airless,
 /area/awaymission/BMPship/TraderShuttle)
 "tX" = (
@@ -6269,7 +6269,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "Ik" = (
-/obj/item/stack/sheet/mineral/plastitanium,
+/obj/item/stack/sheet/plastitanium,
 /obj/effect/decal/cleanable/ash,
 /turf/space,
 /area/space)

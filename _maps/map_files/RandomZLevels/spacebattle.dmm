@@ -4366,7 +4366,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/spacebattle/turret4)
 "mz" = (
-/obj/item/stack/sheet/mineral/plastitanium,
+/obj/item/stack/sheet/plastitanium,
 /turf/space,
 /area/space)
 "mA" = (

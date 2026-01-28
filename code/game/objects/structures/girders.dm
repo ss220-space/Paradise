@@ -447,6 +447,12 @@
 	girderpasschance = 0
 	max_integrity = 350
 
+/obj/structure/girder/reinforced/plastitanium
+	name = "plastitanium girder"
+	icon_state = "plastitanium"
+	girderpasschance = 0
+	max_integrity = 580
+
 /obj/structure/girder/cult
 	name = "runed girder"
 	desc = "Framework made of a strange and shockingly cold metal. It doesn't seem to have any bolts."

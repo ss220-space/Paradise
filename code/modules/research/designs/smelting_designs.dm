@@ -14,7 +14,7 @@
 	desc = "Плазма + Титан"
 	id = "plastitanium"
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
-	build_path = /obj/item/stack/sheet/mineral/plastitanium
+	build_path = /obj/item/stack/sheet/plastitanium
 	category = list(PRINTER_CATEGORY_INITIAL)
 
 /datum/design/smelter/plaglass_alloy

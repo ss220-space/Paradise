@@ -434,8 +434,8 @@
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "plastitanium_wall-0"
 	base_icon_state = "plastitanium_wall"
-	mineral = /obj/item/stack/sheet/mineral/plastitanium
-	walltype = /turf/simulated/wall/mineral/plastitanium
+	mineral = /obj/item/stack/sheet/plastitanium
+	walltype = /turf/simulated/wall/r_wall/plastitanium
 	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
 	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
 

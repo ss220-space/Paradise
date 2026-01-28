@@ -444,7 +444,7 @@
 	new /obj/item/stack/sheet/mineral/bananium/fifty(src)
 	new /obj/item/stack/sheet/mineral/tranquillite/fifty(src)
 	new /obj/item/stack/sheet/mineral/titanium/fifty(src)
-	new /obj/item/stack/sheet/mineral/plastitanium/fifty(src)
+	new /obj/item/stack/sheet/plastitanium/fifty(src)
 	new /obj/item/stack/sheet/mineral/abductor/fifty(src)
 	new /obj/item/stack/sheet/mineral/adamantine/fifty(src)
 	new /obj/item/stack/sheet/mineral/snow/fifty(src)

@@ -63,7 +63,7 @@
 /obj/effect/turf_decal/number/number_1{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/lavaland/surface/outdoors)
 "ca" = (
 /obj/structure/cable/cyan{
@@ -83,7 +83,7 @@
 /turf/template_noop,
 /area/template_noop)
 "cZ" = (
-/obj/item/stack/sheet/mineral/plastitanium{
+/obj/item/stack/sheet/plastitanium{
 	amount = 7;
 	pixel_x = -5;
 	pixel_y = -1
@@ -127,7 +127,7 @@
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "eG" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/powered/pirateship)
 "eO" = (
 /obj/machinery/processor,
@@ -696,7 +696,7 @@
 /turf/simulated/floor/wood/fancy/oak/lavaland_air,
 /area/ruin/powered/pirateship)
 "oi" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/lavaland/surface/outdoors)
 "oq" = (
 /obj/structure/cable/orange{
@@ -885,7 +885,7 @@
 /turf/simulated/floor/plasteel/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "sG" = (
-/obj/item/stack/sheet/mineral/plastitanium{
+/obj/item/stack/sheet/plastitanium{
 	amount = 7;
 	pixel_x = -6;
 	pixel_y = 10
@@ -1011,7 +1011,7 @@
 /obj/effect/turf_decal/number{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/lavaland/surface/outdoors)
 "xd" = (
 /obj/structure/flora/firebush,
@@ -1274,7 +1274,7 @@
 /area/ruin/unpowered/safe_cave)
 "BO" = (
 /obj/structure/noticeboard,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/powered/pirateship)
 "Cs" = (
 /obj/structure/cable/yellow{
@@ -1512,7 +1512,7 @@
 /turf/simulated/floor/plating/lavaland_air,
 /area/ruin/powered/pirateship)
 "Gz" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/lavaland/surface/outdoors)
 "GM" = (
 /obj/structure/flora/ash/stem_shroom,
@@ -2244,7 +2244,7 @@
 /area/ruin/powered/pirateship)
 "Uk" = (
 /obj/structure/sign/cargo,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/powered/pirateship)
 "Uq" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -2350,7 +2350,7 @@
 /turf/simulated/floor/pod/dark/lavaland_air,
 /area/ruin/powered/pirateship)
 "VX" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/ruin/powered/pirateship)
 "VY" = (
 /obj/effect/decal/cleanable/dust,

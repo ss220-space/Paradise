@@ -582,7 +582,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 /datum/species/golem/plastitanium
 	name = SPECIES_GOLEM_PLASTITANIUM
 	golem_colour = rgb(136, 136, 136)
-	skinned_type = /obj/item/stack/sheet/mineral/plastitanium
+	skinned_type = /obj/item/stack/sheet/plastitanium
 	burn_mod = 0.36
 	prefix = "Пластитанов"
 	special_names = list(
@@ -611,7 +611,7 @@ GLOBAL_LIST_EMPTY(cached_heal_materials)
 		/obj/item/stack/ore/plasma,
 		/obj/item/stack/sheet/mineral/titanium,
 		/obj/item/stack/sheet/mineral/plasma,
-		/obj/item/stack/sheet/mineral/plastitanium,
+		/obj/item/stack/sheet/plastitanium,
 	)
 
 /**

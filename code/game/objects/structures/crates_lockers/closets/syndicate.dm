@@ -105,7 +105,7 @@
 
 	//Plastitanium (rare ore)
 	if(pickednum >= 40)
-		new /obj/item/stack/sheet/mineral/plastitanium(src, rand(rare_min, rare_max))
+		new /obj/item/stack/sheet/plastitanium(src, rand(rare_min, rare_max))
 
 	//Diamond (rare HONK)
 	if(pickednum >= 45)
@@ -129,7 +129,7 @@
 	/obj/item/stack/sheet/mineral/diamond,
 	/obj/item/stack/sheet/mineral/bananium,
 	/obj/item/stack/sheet/mineral/titanium,
-	/obj/item/stack/sheet/mineral/plastitanium,
+	/obj/item/stack/sheet/plastitanium,
 	/obj/item/stack/sheet/plasteel,
 	/obj/item/stack/rods
 	)

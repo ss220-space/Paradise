@@ -60,24 +60,7 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 	if(d_state != RWALL_INTACT)
-		if(!istype(I, /obj/item/stack/sheet/metal))
-			to_chat(user, span_warning("You need metal sheets to repair the damage."))
-			return .
-		var/obj/item/stack/sheet/metal/metal = I
-		if(metal.get_amount() < d_state)
-			to_chat(user, span_warning("You need at least [d_state] sheets of metal repair the damage."))
-			return .
-		to_chat(user, span_notice("You begin patching-up the wall with [metal]..."))
-		if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed, src, category = DA_CAT_TOOL) || d_state == RWALL_INTACT || QDELETED(metal))
-			return .
-		if(!metal.use(d_state))
-			to_chat(user, span_warning("At some point during the repair process you lost some metal or the wall state has changed. Make sure you have [d_state] sheets of metal before trying again."))
-			return .
-		d_state = RWALL_INTACT
-		update_icon()
-		QUEUE_SMOOTH_NEIGHBORS(src)
-		to_chat(user, span_notice("You repair the last of the damage."))
-		return .|ATTACK_CHAIN_SUCCESS
+        . = . | metal_repair(I, user)
 
 	if(istype(I, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/plasteel = I
@@ -270,3 +253,111 @@
 	if(!our_rcd.canRwall)
 		return RCD_NO_ACT
 	. = ..()
+
+/turf/simulated/wall/r_wall/proc/metal_repair(obj/item/I, mob/user)
+	if(!istype(I, /obj/item/stack/sheet/metal))
+		to_chat(user, span_warning("You need metal sheets to repair the damage."))
+		return .
+	var/obj/item/stack/sheet/metal/metal = I
+	if(metal.get_amount() < d_state)
+		to_chat(user, span_warning("You need at least [d_state] sheets of metal repair the damage."))
+		return .
+	to_chat(user, span_notice("You begin patching-up the wall with [metal]..."))
+	if(!do_after(user, max(2 SECONDS * d_state, 10 SECONDS) * metal.toolspeed, src, category = DA_CAT_TOOL) || d_state == RWALL_INTACT || QDELETED(metal))
+		return .
+	if(!metal.use(d_state))
+		to_chat(user, span_warning("At some point during the repair process you lost some metal or the wall state has changed. Make sure you have [d_state] sheets of metal before trying again."))
+		return .
+	d_state = RWALL_INTACT
+	update_icon()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	to_chat(user, span_notice("You repair the last of the damage."))
+	return .|ATTACK_CHAIN_SUCCESS
+
+/////////////////////Plastitanium walls/////////////////////
+
+/turf/simulated/wall/r_wall/plastitanium
+	name = "wall"
+	desc = "An evil wall of plasma and titanium."
+	icon = 'icons/turf/walls/plastitanium_wall.dmi'
+	icon_state = "plastitanium_wall-0"
+	base_icon_state = "plastitanium_wall"
+	explosion_block = 5
+	damage_cap = 1000
+	max_temperature = INFINITY
+	hardness = 5
+	sheet_type = /obj/item/stack/sheet/plastitanium
+	girder_type = /obj/structure/girder/reinforced/plastitanium
+	can_be_reinforced = 0
+	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
+	smoothing_groups = SMOOTH_GROUP_PLASTITANIUM_WALLS
+	canSmoothWith = SMOOTH_GROUP_PLASTITANIUM_WALLS
+
+/turf/simulated/wall/r_wall/plastitanium/shuttleRotate(rotation)
+	return
+
+/turf/simulated/wall/r_wall/platitanium/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/plasteel))
+		if(ATTACK_CHAIN_CANCEL_CHECK(.))
+			return .
+		add_fingerprint(user)
+		return
+	. = ..()
+
+/turf/simulated/wall/r_wall/plastitanium/devastate_wall()
+	new sheet_type(src, sheet_amount)
+	new /obj/item/stack/sheet/plastitanium(src, 2)
+
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal
+	smooth = SMOOTH_BITMASK
+	icon_state = "shuttle_nd"
+
+/turf/simulated/wall/r_wall/plastitanium/nosmooth
+	icon = 'icons/turf/shuttle/shuttle.dmi'
+	icon_state = "wall"
+	smooth = NONE
+
+/turf/simulated/wall/r_wall/plastitanium/overspace
+	icon_state = "overspace"
+	fixed_underlay = list("space"=1)
+
+/turf/simulated/wall/r_wall/plastitanium/explosive
+	var/explosive_wall_group = EXPLOSIVE_WALL_GROUP_SYNDICATE_BASE
+	icon_state = "shuttle_nd"
+	smooth = SMOOTH_BITMASK
+
+/turf/simulated/wall/r_wall/plastitanium/explosive/Initialize(mapload)
+	. = ..()
+	GLOB.explosive_walls += src
+
+/turf/simulated/wall/r_wall/plastitanium/explosive/Destroy()
+	GLOB.explosive_walls -= src
+	return ..()
+
+/turf/simulated/wall/r_wall/plastitanium/explosive/proc/self_destruct()
+	var/obj/item/bombcore/large/explosive_wall/bombcore = new(get_turf(src))
+	bombcore.detonate()
+
+/turf/simulated/wall/r_wall/plastitanium/explosive/ex_act(severity, target)
+	return
+
+//have to copypaste this code
+/turf/simulated/wall/r_wall/plastitanium/interior/copyTurf(turf/T)
+	if(T.type != type)
+		T.ChangeTurf(type)
+		if(length(underlays))
+			T.underlays = underlays
+	if(T.icon_state != icon_state)
+		T.icon_state = icon_state
+	if(T.icon != icon)
+		T.icon = icon
+	if(T.color != color)
+		T.color = color
+	if(T.dir != dir)
+		T.dir = dir
+	T.transform = transform
+	return T
+
+/turf/simulated/wall/r_wall/plastitanium/copyTurf(turf/T)
+	. = ..()
+	T.transform = transform

@@ -140,7 +140,7 @@
 #define SMOOTH_GROUP_IRON_WALLS S_OBJ(10) ///turf/simulated/wall/mineral/iron, /obj/structure/falsewall/iron
 #define SMOOTH_GROUP_ABDUCTOR_WALLS S_OBJ(11) ///turf/simulated/wall/mineral/abductor, /obj/structure/falsewall/abductor
 #define SMOOTH_GROUP_TITANIUM_WALLS S_OBJ(12) ///turf/simulated/wall/mineral/titanium, /obj/structure/falsewall/titanium
-#define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(14) ///turf/simulated/wall/mineral/plastitanium, /obj/structure/falsewall/plastitanium
+#define SMOOTH_GROUP_PLASTITANIUM_WALLS S_OBJ(14) ///turf/simulated/wall/r_wall/plastitanium, /obj/structure/falsewall/plastitanium
 #define SMOOTH_GROUP_SURVIVAL_TITANIUM_POD S_OBJ(15) ///turf/simulated/wall/mineral/titanium/survival/pod, /obj/machinery/door/airlock/survival_pod, /obj/structure/window/reinforced/shuttle/survival_pod
 #define SMOOTH_GROUP_HIERO_WALL S_OBJ(16) ///obj/effect/temp_visual/elite_tumor_wall, /obj/effect/temp_visual/hierophant/wall
 #define SMOOTH_GROUP_BAMBOO_WALLS S_OBJ(17) //![/turf/simulated/wall/mineral/bamboo, /obj/structure/falsewall/bamboo]

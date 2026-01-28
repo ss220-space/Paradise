@@ -23,7 +23,7 @@
 	region_max = REGION_TAIPAN
 
 	window_type = /obj/structure/window/plastitanium
-	wall_type = /turf/simulated/wall/mineral/plastitanium
+	wall_type = /turf/simulated/wall/r_wall/plastitanium
 	matter_type = /obj/item/rcd_ammo/syndicate
 	matter_type_large = /obj/item/rcd_ammo/syndicate/large
 

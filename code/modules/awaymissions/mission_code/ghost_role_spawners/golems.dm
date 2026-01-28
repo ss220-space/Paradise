@@ -58,7 +58,7 @@
 		/obj/item/stack/sheet/mineral/bananium		= /datum/species/golem/bananium,
 		/obj/item/stack/sheet/mineral/tranquillite	= /datum/species/golem/tranquillite,
 		/obj/item/stack/sheet/mineral/titanium		= /datum/species/golem/titanium,
-		/obj/item/stack/sheet/mineral/plastitanium	= /datum/species/golem/plastitanium,
+		/obj/item/stack/sheet/plastitanium	= /datum/species/golem/plastitanium,
 		/obj/item/stack/sheet/mineral/abductor		= /datum/species/golem/alloy,
 		/obj/item/stack/sheet/wood					= /datum/species/golem/wood,
 		/obj/item/stack/sheet/bluespace_crystal		= /datum/species/golem/bluespace,

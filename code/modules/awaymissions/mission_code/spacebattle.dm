@@ -444,7 +444,7 @@
 	K.update_icon()
 
 	//plastitanuim
-	K = new /obj/item/stack/sheet/mineral/plastitanium(T, rand(1,5))
+	K = new /obj/item/stack/sheet/plastitanium(T, rand(1,5))
 	step_to(K, get_turf(pick(view(7, src))))
 	K.update_icon()
 

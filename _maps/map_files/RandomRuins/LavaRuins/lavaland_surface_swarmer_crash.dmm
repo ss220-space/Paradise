@@ -6,7 +6,7 @@
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/template_noop)
 "c" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/ruin/unpowered/misc_lavaruin)
 "d" = (
 /turf/simulated/floor/mineral/plastitanium/red/lavaland_air,

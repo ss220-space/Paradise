@@ -98,7 +98,7 @@
 	},
 /area/syndicate_depot/outer)
 "at" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "au" = (
 /obj/machinery/light{
@@ -199,7 +199,7 @@
 /area/syndicate_depot/core)
 "aI" = (
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "aJ" = (
 /obj/machinery/light,
@@ -210,7 +210,7 @@
 /area/syndicate_depot/core)
 "aK" = (
 /obj/structure/sign/poster/contraband/lamarr,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "aL" = (
 /obj/machinery/light{
@@ -322,7 +322,7 @@
 /area/syndicate_depot/core)
 "aY" = (
 /obj/structure/sign/poster/contraband/fun_police,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "aZ" = (
 /obj/machinery/door/poddoor/multi_tile/two_tile_hor,
@@ -359,10 +359,10 @@
 /area/syndicate_depot/core)
 "be" = (
 /obj/structure/sign/poster/contraband/lusty_xenomorph,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bf" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/outer)
 "bg" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/spacepod,
@@ -383,7 +383,7 @@
 /area/syndicate_depot/core)
 "bi" = (
 /obj/structure/sign/poster/official/high_class_martini,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bj" = (
 /obj/structure/dispenser,
@@ -476,7 +476,7 @@
 /area/syndicate_depot/outer)
 "bt" = (
 /obj/structure/sign/poster/official/air1,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bu" = (
 /obj/structure/dispenser,
@@ -524,11 +524,11 @@
 /area/syndicate_depot/core)
 "bA" = (
 /obj/structure/sign/poster/contraband/tools,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bB" = (
 /obj/structure/sign/poster/contraband/hacking_guide,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bC" = (
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/officer,
@@ -690,14 +690,14 @@
 	dir = 6;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bY" = (
 /obj/effect/landmark{
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "bZ" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door/vault,
@@ -715,7 +715,7 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cb" = (
 /obj/structure/sign/poster/contraband/energy_swords,
@@ -723,14 +723,14 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cc" = (
 /obj/effect/landmark{
 	dir = 10;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cd" = (
 /obj/effect/spawner/random_spawners/syndicate/mob,
@@ -752,7 +752,7 @@
 	use_power = 0
 	},
 /obj/structure/sign/poster/contraband/syndicate_recruitment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/outer)
 "cg" = (
 /obj/structure/falsewall,
@@ -761,7 +761,7 @@
 /area/syndicate_depot/outer)
 "ch" = (
 /obj/structure/sign/poster/official/state_laws,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "ci" = (
 /obj/structure/cable{
@@ -781,7 +781,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "ck" = (
 /obj/machinery/turretid/syndicate{
@@ -849,7 +849,7 @@
 /area/syndicate_depot/outer)
 "ct" = (
 /obj/structure/sign/poster/contraband/missing_gloves,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cu" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
@@ -940,7 +940,7 @@
 /obj/effect/landmark{
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cD" = (
 /obj/machinery/atmospherics/unary/passive_vent/high_volume{
@@ -1017,20 +1017,20 @@
 /area/syndicate_depot/outer)
 "cN" = (
 /obj/structure/sign/poster/official/obey,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cO" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cP" = (
 /obj/effect/landmark{
 	dir = 5;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cQ" = (
 /obj/structure/sign/poster/contraband/syndicate_pistol,
@@ -1038,14 +1038,14 @@
 	dir = 4;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cR" = (
 /obj/effect/landmark{
 	dir = 9;
 	name = "syndi_depot_shield"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "cS" = (
 /mob/living/silicon/decoy/syndicate/depot,
@@ -1166,7 +1166,7 @@
 /obj/item/gps/ruin{
 	gpstag = "ERR#UNKWN"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate_depot/core)
 "nG" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level3,

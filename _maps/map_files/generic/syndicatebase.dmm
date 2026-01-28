@@ -45,7 +45,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "agd" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/ruin/unpowered)
 "agV" = (
 /turf/simulated/floor/plasteel{
@@ -109,7 +109,7 @@
 	},
 /area/ruin/unpowered)
 "alH" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "ams" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -384,10 +384,10 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "aAd" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "aAe" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aAC" = (
 /obj/structure/window/plastitanium,
@@ -403,7 +403,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aAJ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aAQ" = (
 /obj/effect/turf_decal/tile/purple,
@@ -467,7 +467,7 @@
 "aCz" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
@@ -523,7 +523,7 @@
 "aDa" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
@@ -737,7 +737,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/bar)
 "aJC" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "aLr" = (
 /obj/structure/falsewall/plastitanium,
@@ -871,7 +871,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/toilets)
 "aQk" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -1184,7 +1184,7 @@
 "aYF" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
@@ -2409,7 +2409,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cfM" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "cgh" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2574,7 +2574,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "clW" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/bar/storage)
 "cmL" = (
 /obj/effect/decal/warning_stripes/west,
@@ -3076,7 +3076,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "cMm" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "cNi" = (
 /obj/effect/turf_decal/tile/red{
@@ -3640,7 +3640,7 @@
 "dnW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
@@ -3697,7 +3697,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "dpC" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "dpK" = (
 /obj/structure/closet,
@@ -3957,7 +3957,7 @@
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "dCM" = (
 /obj/structure/sign/examroom,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
 "dDV" = (
 /obj/structure/window/plastitanium,
@@ -4314,7 +4314,7 @@
 "dTo" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
@@ -4466,7 +4466,7 @@
 "ebj" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
@@ -4481,7 +4481,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "ebW" = (
 /obj/machinery/portable_atmospherics/canister/air,
@@ -5772,12 +5772,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "foL" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
@@ -5872,7 +5872,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "ftp" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "fuv" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -5892,7 +5892,7 @@
 "fvk" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/botany)
@@ -6513,7 +6513,7 @@
 "fXY" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
@@ -6682,7 +6682,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "gjO" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "gkM" = (
 /obj/machinery/vending/suitdispenser{
@@ -6813,7 +6813,7 @@
 	required_access = list(150);
 	door_type = /obj/machinery/door/airlock/external
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "grA" = (
 /obj/structure/window/reinforced{
@@ -6832,7 +6832,7 @@
 "grR" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
@@ -6887,7 +6887,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "gvH" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/kitchen/freezer)
 "gwU" = (
 /obj/item/mop,
@@ -7843,7 +7843,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "hkP" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/janitorial)
 "hlb" = (
 /obj/machinery/door/firedoor,
@@ -9204,7 +9204,7 @@
 	dir = 4;
 	name = "Труба фильтрации"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "isw" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -9673,7 +9673,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "iOd" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/space)
 "iOq" = (
 /obj/structure/cable{
@@ -9735,7 +9735,7 @@
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "iRm" = (
 /obj/structure/sign/poster/contraband/have_a_puff,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/kitchen/freezer)
 "iRw" = (
 /obj/effect/turf_decal/tile/red,
@@ -9944,7 +9944,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "iXp" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering/storage)
 "iYa" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -10174,7 +10174,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "jiG" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "jkg" = (
 /obj/effect/decal/cleanable/dirt,
@@ -10382,7 +10382,7 @@
 /turf/simulated/mineral/iron,
 /area/ruin/unpowered)
 "jvN" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/teleporter/arrivals)
 "jvP" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -12896,7 +12896,7 @@
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "lDw" = (
 /obj/structure/sign/poster/contraband/red_rum,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/kitchen)
 "lEd" = (
 /turf/simulated/floor/plasteel{
@@ -13075,10 +13075,10 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "lMT" = (
 /obj/structure/sign/examroom,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "lNn" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/restroom)
 "lOK" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -13158,7 +13158,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "lRr" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "lSb" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -13526,7 +13526,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/west_arrivals)
 "mdI" = (
 /obj/structure/sign/custodian,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/janitorial)
 "mez" = (
 /obj/machinery/door/airlock/syndicate/public{
@@ -13578,7 +13578,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "mfi" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "mfr" = (
 /obj/structure/grille{
@@ -13589,7 +13589,7 @@
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "mfB" = (
 /obj/structure/sign/botany,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/botany)
 "mfE" = (
 /obj/effect/turf_decal/tile/green{
@@ -13645,17 +13645,17 @@
 /obj/machinery/atmospherics/pipe/simple/visible/universal{
 	name = "Из скрабберов на фильтрацию"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "mhm" = (
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "mhH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "min" = (
 /obj/effect/turf_decal/tile/yellow{
@@ -13996,7 +13996,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/west_arrivals)
 "mvw" = (
 /obj/structure/sign/poster/contraband/revolver,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "mvF" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -14800,7 +14800,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "niS" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
 "nja" = (
 /obj/machinery/bodyscanner,
@@ -15139,7 +15139,7 @@
 "ntM" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
@@ -15996,7 +15996,7 @@
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "nXa" = (
 /obj/structure/sign/poster/contraband/clown,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "nXt" = (
 /obj/machinery/defibrillator_mount/loaded{
@@ -16070,7 +16070,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
 "oay" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/telecomms)
 "oaE" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -16138,14 +16138,14 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "odN" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "odW" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "oeA" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/north)
 "oeD" = (
 /obj/machinery/light/small{
@@ -16155,7 +16155,7 @@
 /turf/simulated/floor/engine,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "ogn" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "ogt" = (
 /obj/structure/window/plastitanium,
@@ -16256,7 +16256,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "okS" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "olC" = (
 /obj/effect/turf_decal/tile/blue,
@@ -16526,7 +16526,7 @@
 "ovD" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
@@ -17116,7 +17116,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_e)
 "oTw" = (
 /obj/structure/sign/nosmoking_2,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "oTF" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -17251,7 +17251,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "oYE" = (
 /obj/structure/lattice,
@@ -17431,7 +17431,7 @@
 /turf/simulated/floor/plating/ice,
 /area/ruin/unpowered)
 "phR" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "pie" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -17715,14 +17715,14 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "ppt" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "ppB" = (
 /obj/structure/sign/poster/contraband/energy_swords,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "ppJ" = (
 /obj/structure/table/wood/fancy,
@@ -17734,7 +17734,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "pqo" = (
 /obj/structure/sign/poster/contraband/hacking_guide,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "pqs" = (
 /obj/effect/turf_decal/tile/purple{
@@ -17820,7 +17820,7 @@
 /turf/simulated/floor/wood,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin1)
 "ptx" = (
-/turf/simulated/wall/mineral/plastitanium,
+/turf/simulated/wall/r_wall/plastitanium,
 /area/syndicate/unpowered/syndicate_space_base/teleporter)
 "ptA" = (
 /obj/machinery/door/airlock/syndicate/public{
@@ -18007,7 +18007,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "pAy" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "pAA" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -18306,7 +18306,7 @@
 "pLA" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/torture_room)
@@ -18421,7 +18421,7 @@
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "pQd" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "pQo" = (
 /obj/structure/chair/office/dark,
@@ -19115,7 +19115,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_e)
 "qrZ" = (
 /obj/structure/sign/engineering,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "qsB" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -19845,7 +19845,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "qLY" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "qMn" = (
 /obj/structure/window/plastitanium,
@@ -19929,7 +19929,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/north)
 "qQP" = (
 /obj/structure/sign/chemistry,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "qRe" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -20011,7 +20011,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/cryo)
 "qVf" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "qVJ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -20171,7 +20171,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/rnd/chemistry)
 "raF" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "rch" = (
 /obj/structure/cable{
@@ -20191,7 +20191,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "res" = (
 /obj/structure/rack{
@@ -20295,7 +20295,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/central)
 "rjD" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "rky" = (
 /obj/structure/table/wood,
@@ -21142,7 +21142,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "rXX" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/rd_office)
 "rZn" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -21394,7 +21394,7 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "siy" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "ska" = (
 /obj/effect/decal/cleanable/dirt,
@@ -21780,7 +21780,7 @@
 /turf/simulated/floor/carpet/black,
 /area/syndicate/unpowered/syndicate_space_base/dormitories/cabin2)
 "sFj" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/morgue)
 "sFu" = (
 /obj/item/twohanded/required/kirbyplants,
@@ -22100,10 +22100,10 @@
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "sVq" = (
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
 "sXX" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
 "sXY" = (
 /obj/effect/turf_decal/tile/blue{
@@ -22643,7 +22643,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "tuD" = (
 /obj/effect/spawner/random_spawners/syndicate/loot/level2{
@@ -22655,7 +22655,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "tvd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
@@ -22679,7 +22679,7 @@
 /area/syndicate/unpowered/syndicate_space_base/engineering)
 "tvg" = (
 /obj/structure/sign/poster/contraband/c20r,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "tvX" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -22700,7 +22700,7 @@
 /area/syndicate/unpowered/syndicate_space_base/telecomms/agent_room)
 "twe" = (
 /obj/structure/sign/nuke,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory)
 "txf" = (
 /obj/structure/table/wood,
@@ -23671,7 +23671,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "tWr" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory/hallway)
 "tXc" = (
 /obj/structure/chair/sofa/right{
@@ -23963,7 +23963,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/fungus,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
 "ulM" = (
 /obj/machinery/conveyor{
@@ -24389,7 +24389,7 @@
 "uzu" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
@@ -24691,7 +24691,7 @@
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/cargo/disposals)
 "uIk" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/server)
 "uIT" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -25338,7 +25338,7 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "vcy" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
@@ -25431,7 +25431,7 @@
 "vdW" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
@@ -25740,7 +25740,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery2)
 "vps" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "vry" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -25947,7 +25947,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "vzF" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "vzU" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -26063,7 +26063,7 @@
 /turf/simulated/floor/plating,
 /area/space)
 "vEL" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "vFf" = (
 /obj/effect/turf_decal/tile/brown{
@@ -26520,7 +26520,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "wcS" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -26935,7 +26935,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "wqL" = (
 /obj/structure/filingcabinet/chestdrawer,
@@ -27105,7 +27105,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "wwc" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "wwr" = (
 /obj/machinery/syndiepad/loadpad,
@@ -27376,7 +27376,7 @@
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "wCX" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "wDg" = (
 /obj/structure/table/reinforced,
@@ -27495,22 +27495,22 @@
 "wHe" = (
 /obj/effect/spawner/random_spawners/syndicate/layout/door{
 	name = "50pc falsewall 50pc wall";
-	result = list(/turf/simulated/wall/mineral/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
+	result = list(/turf/simulated/wall/r_wall/plastitanium/nodiagonal=2,/obj/structure/falsewall/plastitanium=2)
 	},
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/rnd/genetics)
 "wHt" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/stack/sheet/mineral/plastitanium{
+/obj/item/stack/sheet/plastitanium{
 	amount = 50
 	},
-/obj/item/stack/sheet/mineral/plastitanium{
+/obj/item/stack/sheet/plastitanium{
 	amount = 50
 	},
-/obj/item/stack/sheet/mineral/plastitanium{
+/obj/item/stack/sheet/plastitanium{
 	amount = 50
 	},
-/obj/item/stack/sheet/mineral/plastitanium{
+/obj/item/stack/sheet/plastitanium{
 	amount = 50
 	},
 /obj/item/stack/sheet/plastitaniumglass{
@@ -27573,7 +27573,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
 "wKb" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/armory/hall_middle)
 "wKg" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
@@ -27954,7 +27954,7 @@
 /turf/simulated/floor/plating/asteroid/airless,
 /area/ruin/unpowered)
 "wTW" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "wUv" = (
 /obj/structure/disposalpipe/segment{
@@ -28215,7 +28215,7 @@
 /area/syndicate/unpowered/syndicate_space_base/cargo/storage)
 "xbF" = (
 /obj/structure/disposalpipe/segment,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd/testlab)
 "xbI" = (
 /turf/simulated/floor/plating/ice,
@@ -28413,7 +28413,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/main/central_s)
 "xkS" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xkT" = (
 /turf/simulated/floor/carpet,
@@ -28608,7 +28608,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xtm" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/virology)
 "xtB" = (
 /obj/effect/turf_decal/tile/blue{
@@ -28624,7 +28624,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xtE" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/vault)
 "xtR" = (
 /obj/effect/turf_decal/tile/blue{
@@ -28637,7 +28637,7 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xtY" = (
 /obj/structure/sign/cargo,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/cargo)
 "xug" = (
 /obj/machinery/vending/syndisnack,
@@ -28869,7 +28869,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xBc" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1)
 "xCe" = (
 /obj/effect/turf_decal/tile/purple{
@@ -29211,7 +29211,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/maintenance/south)
 "xNO" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/firing_range)
 "xOn" = (
 /obj/effect/decal/cleanable/dirt,
@@ -29316,7 +29316,7 @@
 	},
 /area/syndicate/unpowered/syndicate_space_base/medbay)
 "xQZ" = (
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/prison)
 "xRU" = (
 /obj/effect/turf_decal/tile/blue{
@@ -29987,7 +29987,7 @@
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 "ymd" = (
 /obj/structure/sign/science,
-/turf/simulated/wall/mineral/plastitanium/nodiagonal,
+/turf/simulated/wall/r_wall/plastitanium/nodiagonal,
 /area/syndicate/unpowered/syndicate_space_base/rnd)
 
 (1,1,1) = {"

@@ -1979,7 +1979,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 
 /datum/syndie_supply_packs/materials/plastitanium50
 	name = "50 Plastitanium Sheets Crate"
-	contains = list(/obj/item/stack/sheet/mineral/plastitanium)
+	contains = list(/obj/item/stack/sheet/plastitanium)
 	amount = 50
 	cost = 8000
 	containername = "plastitanium sheets crate"
