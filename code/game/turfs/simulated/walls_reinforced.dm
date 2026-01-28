@@ -313,7 +313,7 @@
 
 /turf/simulated/wall/r_wall/plastitanium/devastate_wall()
 	new sheet_type(src, sheet_amount)
-	new /obj/item/stack/sheet/plastitanium(src, 2)
+	new /obj/item/stack/sheet/metal(src, 2)
 
 /turf/simulated/wall/r_wall/plastitanium/nodiagonal
 	smooth = SMOOTH_BITMASK

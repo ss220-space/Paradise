@@ -293,7 +293,7 @@
 
 			if(GIRDER_REINF)
 				if(plastitanium.get_amount() < 2)
-					to_chat(user, span_warning("You need at least two sheets of plasteel to finalize the plastitanium wall!"))
+					to_chat(user, span_warning("You need at least two sheets of plastitanium to finalize the plastitanium wall!"))
 					return .
 				to_chat(user, span_notice("You start finalizing the plastitanium wall..."))
 				if(!do_after(user, 2 SECONDS * plastitanium.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plastitanium) || !plastitanium.use(2))
