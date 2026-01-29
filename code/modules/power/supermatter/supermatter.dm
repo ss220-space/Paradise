@@ -247,6 +247,12 @@
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
 
+	///Blacklist of objects to be destroyed
+	var/list/supermatter_blacklist = list(
+		/obj/singularity,
+		/obj/machinery/field/containment,
+	)
+
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
 	return list(
 		NOMINATIVE = "кристалл суперматерии",
@@ -894,6 +900,10 @@
 
 		return ATTACK_CHAIN_PROCEED
 
+	for(var/immune_type in supermatter_blacklist)//blacklist items dont ash in SM
+		if(istype(used_item, immune_type))
+			return ATTACK_CHAIN_BLOCKED
+
 	if(istype(used_item, /obj/item/retractor/supermatter))
 		to_chat(attacking_mob, span_notice("[DECLENT_RU_CAP(used_item, NOMINATIVE)] отскакивает от [declent_ru(ACCUSATIVE)], сначала нужно отрезать кусочек!"))
 
@@ -910,9 +920,14 @@
 		//radiation_pulse(src, 600, GAMMA_RAD)
 		attacking_mob.apply_effect(150, IRRADIATE)
 
+	return ATTACK_CHAIN_PROCEED
+
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/movable_atom)
 	if(HAS_TRAIT(movable_atom, TRAIT_SUPERMATTER_IMMUNE))
 		return
+	for(var/immune_type in supermatter_blacklist)//blacklist items dont ash in SM
+		if(istype(movable_atom, immune_type))
+			return
 
 	if(isliving(movable_atom))
 		movable_atom.visible_message(
@@ -947,9 +962,6 @@
 		user.dust()
 		if(power_changes)
 			matter_power += 200
-
-	else if(istype(movable_atom, /obj/singularity) || istype(movable_atom, /obj/machinery/field/containment))
-		return
 
 	else if(isobj(movable_atom))
 		if(!iseffect(movable_atom))
