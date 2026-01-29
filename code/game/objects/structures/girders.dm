@@ -230,45 +230,48 @@
 
 	if(istype(sheet, /obj/item/stack/sheet/plasteel))
 		var/obj/item/stack/sheet/plasteel/plasteel = sheet
+		if(plasteel.get_amount() < 2)
+			var/text
+			switch(state)
+				if(GIRDER_DISPLACED)
+					text = "to create a false wall"
+				if(GIRDER_REINF)
+					text = "to finalize the plasteel wall"
+				else
+					text = "to reinforce the girder"
+			to_chat(user, span_warning("You need at least two sheets of plasteel [text]!"))
+			return .
+
 		switch(state)
 			if(GIRDER_DISPLACED)
-				if(plasteel.get_amount() < 2)
-					to_chat(user, span_warning("You need at least two sheets of plasteel to create a false wall!"))
-					return .
 				to_chat(user, span_notice("You start building a false wall..."))
 				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plasteel) || !plasteel.use(2))
 					return .
-				to_chat(user, span_notice("You created a reinforced false wall. Push on it to open or close the passage."))
-				var/obj/structure/falsewall/reinforced/falsewall = new(loc)
+				to_chat(user, span_notice("You created a plasteel false wall. Push on it to open or close the passage."))
+				var/obj/structure/falsewall/reinforced/plasteel/falsewall = new(loc)
 				transfer_fingerprints_to(falsewall)
 				falsewall.add_fingerprint(user)
 				qdel(src)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			if(GIRDER_REINF)
-				if(plasteel.get_amount() < 2)
-					to_chat(user, span_warning("You need at least two sheets of plasteel to finalize the reinforced wall!"))
-					return .
-				to_chat(user, span_notice("You start finalizing the reinforced wall..."))
+				to_chat(user, span_notice("You start finalizing the plasteel wall..."))
 				if(!do_after(user, 2 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plasteel) || !plasteel.use(2))
 					return .
-				to_chat(user, span_notice("You have finalized the reinforced wall."))
+				to_chat(user, span_notice("You have finalized the plasteel wall."))
 				var/turf/floor = loc
-				floor.ChangeTurf(/turf/simulated/wall/r_wall)
+				floor.ChangeTurf(/turf/simulated/wall/r_wall/plasteel)
 				transfer_fingerprints_to(floor)
 				floor.add_fingerprint(user)
 				qdel(src)
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			else
-				if(plasteel.get_amount() < 2)
-					to_chat(user, span_warning("You need at least two sheets of plasteel to reinforce the girder!"))
-					return .
 				to_chat(user, span_notice("You start reinforcing the girder..."))
 				if(!do_after(user, 6 SECONDS * plasteel.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plasteel) || !plasteel.use(2))
 					return .
 				to_chat(user, span_notice("You reinforce the girder."))
-				var/obj/structure/girder/reinforced/girder = new(loc)
+				var/obj/structure/girder/reinforced/plasteel/girder = new(loc)
 				transfer_fingerprints_to(girder)
 				girder.add_fingerprint(user)
 				qdel(src)
@@ -276,11 +279,20 @@
 
 	if(istype(sheet, /obj/item/stack/sheet/plastitanium))
 		var/obj/item/stack/sheet/plastitanium/plastitanium = sheet
+		if(plastitanium.get_amount() < 2)
+			var/text
+			switch(state)
+				if(GIRDER_DISPLACED)
+					text = "to create a false wall"
+				if(GIRDER_REINF)
+					text = "to finalize the plastitanium wall"
+				else
+					text = "to reinforce the girder"
+			to_chat(user, span_warning("You need at least two sheets of plastitanium [text]!"))
+			return .
+
 		switch(state)
 			if(GIRDER_DISPLACED)
-				if(plastitanium.get_amount() < 2)
-					to_chat(user, span_warning("You need at least two sheets of plastitanium to create a false wall!"))
-					return .
 				to_chat(user, span_notice("You start building a false wall..."))
 				if(!do_after(user, 2 SECONDS * plastitanium.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_DISPLACED || QDELETED(plastitanium) || !plastitanium.use(2))
 					return .
@@ -292,9 +304,6 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			if(GIRDER_REINF)
-				if(plastitanium.get_amount() < 2)
-					to_chat(user, span_warning("You need at least two sheets of plastitanium to finalize the plastitanium wall!"))
-					return .
 				to_chat(user, span_notice("You start finalizing the plastitanium wall..."))
 				if(!do_after(user, 2 SECONDS * plastitanium.toolspeed, src, category = DA_CAT_TOOL) || state != GIRDER_REINF || !isfloorturf(loc) || QDELETED(plastitanium) || !plastitanium.use(2))
 					return .
@@ -307,9 +316,6 @@
 				return ATTACK_CHAIN_BLOCKED_ALL
 
 			else
-				if(plastitanium.get_amount() < 2)
-					to_chat(user, span_warning("You need at least two sheets of plastitanium to reinforce the girder!"))
-					return .
 				to_chat(user, span_notice("You start reinforcing the girder..."))
 				if(!do_after(user, 6 SECONDS * plastitanium.toolspeed, src, category = DA_CAT_TOOL) || state == GIRDER_DISPLACED || state == GIRDER_REINF || QDELETED(plastitanium) || !plastitanium.use(2))
 					return .
