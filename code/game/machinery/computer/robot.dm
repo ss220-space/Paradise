@@ -243,7 +243,7 @@
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])
 			if(!can_hack(usr, R))
 				return
-			var/choice = tgui_alert(usr, "Really hack [R.name]? This cannot be undone.", list("Yes", "No"))
+			var/choice = tgui_alert(usr, "Really hack [R.name]? This cannot be undone.", "Confirm Hack", list("Yes", "No"))
 			if(choice != "Yes")
 				return
 			add_game_logs("emagged [key_name_log(R)] using robotic console!", usr)
