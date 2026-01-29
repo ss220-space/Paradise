@@ -11846,9 +11846,6 @@
 /obj/item/reagent_containers/spray/cleaner/medical,
 /obj/item/storage/box/bodybags,
 /obj/item/storage/box/bodybags,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 28
-	},
 /obj/effect/landmark/start/coroner,
 /obj/item/storage/box/bodybags/biohazard,
 /obj/item/storage/box/bodybags/biohazard,
@@ -17456,7 +17453,7 @@
 	dir = 4
 	},
 /obj/machinery/camera{
-	c_tag = "Temporary Holding Cell";
+	c_tag = "Карцер 2";
 	dir = 8;
 	network = list("SS13","Security")
 	},
@@ -19348,6 +19345,11 @@
 	dir = 8;
 	id = "cargodisposals"
 	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
 "cri" = (
@@ -19565,6 +19567,11 @@
 	dir = 8;
 	id = "cargodisposals"
 	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
 "cso" = (
@@ -19589,6 +19596,11 @@
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "cargodisposals"
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
 	},
 /turf/simulated/floor/plating,
 /area/quartermaster/sorting)
@@ -23945,6 +23957,12 @@
 	dir = 4
 	},
 /obj/machinery/keycard_auth,
+/obj/machinery/door_control{
+	id = "Biohazard_medi";
+	name = "Medbay Lockdown";
+	pixel_y = -35;
+	pixel_x = -7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -29340,9 +29358,8 @@
 	},
 /area/medical/biostorage)
 "dlr" = (
-/obj/structure/sign/poster/contraband/pinup_syn,
 /turf/simulated/wall/r_wall,
-/area/security/permabrig)
+/area/quartermaster/sorting)
 "dlt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/reagent_dispensers/watertank,
@@ -30308,7 +30325,7 @@
 	dir = 8
 	},
 /obj/machinery/camera{
-	c_tag = "Fore Hallway South 2";
+	c_tag = "Карцер 1";
 	dir = 4
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -45831,8 +45848,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/security/glass{
-	id = "visiting room";
-	id_tag = "visiting room";
+	id = "dopros room";
+	id_tag = "dopros room";
 	name = "Visiting Room";
 	req_access = list(63)
 	},
@@ -53290,6 +53307,9 @@
 /obj/structure/bedsheetbin,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
+/obj/structure/sign/poster/contraband/pinup_syn{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -63477,6 +63497,11 @@
 /obj/machinery/conveyor{
 	dir = 1;
 	id = "cargodisposals"
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
@@ -77681,6 +77706,9 @@
 /obj/machinery/bodyscanner{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
@@ -79531,7 +79559,7 @@
 	name = "Brig Lockdown"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "vipbar"
+	id = "dopros"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -82085,7 +82113,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "vipbar"
+	id = "dopros"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -85221,7 +85249,7 @@
 	name = "Brig Lockdown"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "vipbar"
+	id = "dopros"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -91725,6 +91753,11 @@
 	id_tag = "Biohazard_cargo";
 	name = "Cargo Lockdown"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "Cargo Warehouse Windows";
+	name = "Cargo Warehouse Windows";
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
 "qtp" = (
@@ -92709,7 +92742,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "vipbar"
+	id = "dopros"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -93945,10 +93978,10 @@
 	},
 /area/hallway/secondary/exit)
 "qSc" = (
-/obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -95312,6 +95345,13 @@
 	name = "Cargo Lockdown";
 	pixel_x = -7;
 	pixel_y = -35
+	},
+/obj/machinery/door_control{
+	id = "BridgeShutters";
+	name = "Bridge Shutters";
+	pixel_x = 25;
+	pixel_y = -26;
+	req_access = list(62)
 	},
 /turf/simulated/floor/carpet,
 /area/bridge)
@@ -101560,6 +101600,16 @@
 	icon_state = "bar"
 	},
 /area/clownoffice)
+"sDl" = (
+/obj/machinery/door/airlock/external{
+	id_tag = "supply_home";
+	locked = 1;
+	name = "Cargo Docking Hatch";
+	req_access = list(31)
+	},
+/obj/structure/fans/tiny,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "sDu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -102054,6 +102104,18 @@
 	icon_state = "dark"
 	},
 /area/engineering/gravitygenerator)
+"sKY" = (
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 8
+	},
+/obj/structure/sign/cargo{
+	pixel_x = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "neutralcorner"
+	},
+/area/hallway/primary/fore)
 "sLe" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -108200,6 +108262,10 @@
 	id_tag = "Biohazard_cargo";
 	name = "Cargo Lockdown"
 	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id_tag = "Cargo Warehouse Windows";
+	name = "Cargo Warehouse Windows"
+	},
 /turf/simulated/floor/plating,
 /area/quartermaster/qm)
 "udI" = (
@@ -114090,7 +114156,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "vipbar"
+	id = "dopros"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -123702,6 +123768,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/magistrateoffice)
+"xBy" = (
+/obj/machinery/conveyor{
+	dir = 8;
+	id = "cargodisposals"
+	},
+/obj/machinery/door/window/westleft{
+	dir = 2;
+	name = "Disposal";
+	req_access = list(50)
+	},
+/turf/simulated/floor/plating,
+/area/quartermaster/sorting)
 "xBC" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -124903,7 +124981,7 @@
 "xNE" = (
 /obj/machinery/light,
 /obj/machinery/camera{
-	c_tag = "Quartermaster's Office";
+	c_tag = "Permabrig 3";
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -164798,7 +164876,7 @@ cwd
 fsz
 cwd
 cwd
-aZb
+sKY
 cwd
 irD
 irD
@@ -166061,7 +166139,7 @@ aSd
 bbl
 avb
 ayA
-crg
+xBy
 cyH
 cBM
 cLc
@@ -166832,15 +166910,15 @@ dgP
 wff
 jWD
 ayA
-crg
+xBy
 bXh
 cLc
 cdN
 cLc
 boc
 coR
-ayA
-ayA
+dlr
+dlr
 iCg
 nlj
 ajD
@@ -167096,7 +167174,7 @@ cdN
 cLc
 bol
 upV
-ayA
+dlr
 vMX
 dFu
 bZI
@@ -167345,15 +167423,15 @@ fND
 nct
 bbl
 chX
-ayA
-ayA
-ayA
+dlr
+dlr
+dlr
 rmQ
 vsL
 rmQ
-ayA
+dlr
 rcD
-ayA
+dlr
 dcE
 eZs
 eZs
@@ -167602,7 +167680,7 @@ aww
 wHj
 aww
 aww
-dmq
+uQA
 ctC
 bXM
 jPX
@@ -167610,7 +167688,7 @@ aCv
 aBF
 bop
 cpC
-dmq
+uQA
 cns
 eZs
 eZs
@@ -167859,7 +167937,7 @@ epY
 bZV
 epY
 bNF
-dmq
+uQA
 cct
 bXN
 azx
@@ -167867,7 +167945,7 @@ gKs
 cfe
 aCA
 qMV
-dmq
+uQA
 hNd
 bZI
 eZs
@@ -168116,7 +168194,7 @@ sjs
 bZX
 bFK
 cjg
-dmq
+uQA
 ctF
 bYJ
 djV
@@ -168373,7 +168451,7 @@ tkr
 cal
 bFK
 qvt
-dmq
+uQA
 ctI
 bYJ
 eZs
@@ -168630,7 +168708,7 @@ bFK
 cae
 bFK
 ciu
-dmq
+uQA
 rgm
 csH
 dqw
@@ -168887,7 +168965,7 @@ bFK
 cah
 lto
 aww
-dmq
+uQA
 ctS
 bYJ
 azC
@@ -169144,7 +169222,7 @@ wkk
 cal
 bFK
 avk
-dmq
+uQA
 bUf
 bYJ
 eZs
@@ -169658,7 +169736,7 @@ bBK
 uki
 ujm
 bFK
-dmq
+uQA
 nIg
 ric
 eZs
@@ -170172,7 +170250,7 @@ bUq
 cbt
 cfy
 djQ
-dmq
+uQA
 cuw
 bYJ
 djV
@@ -170429,7 +170507,7 @@ bjV
 uUc
 cfB
 cjg
-dmq
+uQA
 hGG
 gNy
 jvq
@@ -170686,7 +170764,7 @@ jQM
 uUc
 cfy
 bNJ
-dmq
+uQA
 weA
 njf
 cLF
@@ -170943,7 +171021,7 @@ ief
 cbu
 cfB
 fyp
-dmq
+uQA
 cuO
 bZh
 gNy
@@ -171200,7 +171278,7 @@ bUv
 pLE
 cgm
 dnP
-dmq
+uQA
 cuS
 jev
 jdo
@@ -171978,9 +172056,9 @@ aaq
 coE
 whL
 clQ
-nyK
+sDl
 qBF
-nyK
+sDl
 dkw
 whL
 coE
@@ -182769,7 +182847,7 @@ aaq
 aaq
 dZq
 coE
-dlr
+aru
 hzJ
 ojw
 tLD

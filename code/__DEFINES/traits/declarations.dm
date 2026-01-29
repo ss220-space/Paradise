@@ -417,3 +417,8 @@
 #define TRAIT_CLEAVE_BLOCKED "cleave_blocked"
 
 #define TRAIT_PRESSURE_VISION "pressure_vision"
+
+/// Immune to being afflicted by time stop (spell)
+#define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
+
+#define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"

@@ -227,12 +227,7 @@
 /datum/reagents/proc/can_metabolize(mob/living/carbon/human/H, datum/reagent/R)
 	if(!H.dna.species || !H.dna.species.reagent_tag)
 		return FALSE
-	if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-		return TRUE
-	if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-		return TRUE
-	//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-	if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
+	if(R.process_flags & H.dna.species.reagent_tag)
 		return TRUE
 
 /datum/reagents/proc/metabolize(mob/living/M)
@@ -543,14 +538,7 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		//Check if this mob's species is set and can process this type of reagent
-		if(H.dna.species && H.dna.species.reagent_tag)
-			if((R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_SYN))		//SYNTHETIC-oriented reagents require PROCESS_SYN
-				can_process = TRUE
-			if((R.process_flags & ORGANIC) && (H.dna.species.reagent_tag & PROCESS_ORG))		//ORGANIC-oriented reagents require PROCESS_ORG
-				can_process = TRUE
-			//Species with PROCESS_DUO are only affected by reagents that affect both organics and synthetics, like acid and hellwater
-			if((R.process_flags & ORGANIC) && (R.process_flags & SYNTHETIC) && (H.dna.species.reagent_tag & PROCESS_DUO))
-				can_process = TRUE
+		can_process = can_metabolize(H, R)
 	//We'll assume that non-human mobs lack the ability to process synthetic-oriented reagents (adjust this if we need to change that assumption)
 	else
 		if(R.process_flags != SYNTHETIC)

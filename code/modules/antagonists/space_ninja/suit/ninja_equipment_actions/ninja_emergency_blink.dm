@@ -1,7 +1,7 @@
 /datum/action/item_action/advanced/ninja/ninja_emergency_blink
-	name = "Emergency Blink"
-	desc = "Teleports user to a random nearby location. Consumes a big amount of energy. Use wisely. Energy cost: 1500"
-	check_flags = NONE
+	name = "Экстренная телепортация"
+	desc = "Телепортирует вас в случайное близлежащее место. Затраты энергии: 1500"
+	check_flags = AB_CHECK_CONSCIOUS
 	charge_max = 3 SECONDS
 	button_icon_state = "emergency_blink"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -12,7 +12,7 @@
 /obj/item/clothing/suit/space/space_ninja/proc/emergency_blink()
 	var/mob/living/carbon/human/ninja = affecting
 	if(!is_teleport_allowed(ninja.z))
-		src.visible_message(span_warning("[src] begins to glow... But then stops!"))
+		visible_message(span_warning("Костюм начинает светиться... Но потом останавливается!"))
 		return
 	if(!ninjacost(1500))
 		var/turf/T = get_turf(ninja)

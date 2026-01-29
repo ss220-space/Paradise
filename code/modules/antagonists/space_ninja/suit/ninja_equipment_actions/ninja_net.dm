@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninjanet
-	name = "Energy Net"
-	desc = "Captures an opponent in a net of energy. Energy cost: 4000"
+	name = "Энергетическая сеть"
+	desc = "Захватывает противника в сеть из энергии. Затраты энергии: 4000"
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "energynet"
@@ -25,7 +25,7 @@
 
 /obj/item/ninja_net_emitter
 	name = "Energy Net Emitter"
-	desc = "A device sneakily hidden inside Spider Clan ninja suits. Emits a powerfull energy net that instantly ensnares a person"
+	desc = "Спрятанный в костюме Ниндзя девайс. Выстреливает мощной энергетической сеткой, которая мгновенно запутывает и обездвиживает цель."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "net_emitter"
 	item_state = ""
@@ -33,6 +33,16 @@
 	item_flags = DROPDEL|ABSTRACT|NOBLUDGEON
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/ninjanet/my_action = null
+
+/obj/item/ninja_net_emitter/get_ru_names()
+	return list(
+		NOMINATIVE = "энергосетемёт",
+		GENITIVE = "энергосетемёта",
+		DATIVE = "энергосетемёту",
+		ACCUSATIVE = "энергосетемёт",
+		INSTRUMENTAL = "энергосетемётом",
+		PREPOSITIONAL = "энергосетемёте",
+	)
 
 /obj/item/ninja_net_emitter/Destroy()
 	. = ..()
@@ -62,16 +72,16 @@
 		return
 	for(var/turf/between_turf in get_line(get_turf(ninja), get_turf(target)))
 		if(between_turf.density)//Don't want them shooting nets through walls. It's kind of cheesy.
-			to_chat(ninja, span_warning("You may not use an energy net through solid obstacles!"))
+			balloon_alert(ninja, "невозможно!")
 			return
 	if(locate(/obj/structure/energy_net) in get_turf(target))//Check if they are already being affected by an energy net.
-		to_chat(ninja, span_warning("[target] is already trapped inside an energy net!"))
+		balloon_alert(ninja, "цель уже запутана!")
 		return
 	if(!my_suit.ninjacost(4000, N_STEALTH_CANCEL))
 		ninja.Beam(target, "n_beam", time = 15)
 		var/obj/structure/energy_net/net = new /obj/structure/energy_net(target.drop_location())
 		net.affected_mob = target
-		ninja.visible_message(span_danger("[ninja] caught [target] with an energy net!"),span_notice("You caught [target] with an energy net!"))
+		ninja.visible_message(span_warning("[DECLENT_RU_CAP(ninja, NOMINATIVE)] запутыва[PLUR_ET_YUT(ninja)] [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"), span_notice("Вы запутываете [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]!"))
 		if(target.buckled)
 			target.buckled.unbuckle_mob(target, TRUE)
 		net.buckle_mob(target, TRUE) //No moving for you!
