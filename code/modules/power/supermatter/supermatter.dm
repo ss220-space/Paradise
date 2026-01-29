@@ -251,6 +251,7 @@
 	var/list/supermatter_blacklist = list(
 		/obj/singularity,
 		/obj/machinery/field/containment,
+		/obj/item/nuke_core/supermatter_sliver,
 	)
 
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
