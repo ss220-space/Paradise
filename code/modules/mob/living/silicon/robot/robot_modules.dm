@@ -173,6 +173,7 @@
 		/datum/robot_skin/mech/std,
 		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android,
+		/datum/robot_skin/drake/std,
 	)
 	has_transform_animation = TRUE
 
@@ -249,7 +250,7 @@
 		/datum/robot_skin/chiefbot,
 		/datum/robot_skin/droid_medical,
 		/datum/robot_skin/basic/needles,
-		/datum/robot_skin/drake/med,
+		/datum/robot_skin/drake/medical,
 	)
 	has_transform_animation = TRUE
 
@@ -560,6 +561,7 @@
 		/datum/robot_skin/basic/bro,
 		/datum/robot_skin/toiletbot,
 		/datum/robot_skin/maximillion,
+		/datum/robot_skin/drake/srv,
 	)
 	has_transform_animation = TRUE
 
@@ -673,7 +675,7 @@
 		/datum/robot_skin/droid_miner,
 		/datum/robot_skin/treadhead,
 		/datum/robot_skin/lavaland,
-		/datum/robot_skin/drake/mine
+		/datum/robot_skin/drake/mnr,
 	)
 	has_transform_animation = TRUE
 
@@ -769,7 +771,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
-		/datum/robot_skin/drake/syn
+		/datum/robot_skin/drake/syn,
 	)
 	has_transform_animation = TRUE
 
@@ -805,7 +807,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
-		/datum/robot_skin/drake/syn
+		/datum/robot_skin/drake/syn,
 	)
 	has_transform_animation = TRUE
 
@@ -865,7 +867,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
-		/datum/robot_skin/drake/syn
+		/datum/robot_skin/drake/syn,
 	)
 	has_transform_animation = TRUE
 

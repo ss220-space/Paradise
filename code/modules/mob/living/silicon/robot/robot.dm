@@ -489,6 +489,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "robot"
 	base_icon = "robot"
 	module.remove_subsystems_and_actions(src)
+	transform = matrix()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
@@ -1712,6 +1713,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = skin.icon_base_prefix
 	base_icon = skin.icon_base_prefix
 	selected_skin = skin
+	transform = matrix(1,0,skin.move_x,0,1,0)
 	if(use_transformation)
 		transform_animation(skin.icon_base_prefix, default)
 		return
