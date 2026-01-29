@@ -79,7 +79,7 @@
 		// We have to check this again after the popup, to account for people spam-clicking the button, then doing all the popups at once.
 		to_chat(src, span_warning("Прежде чем вы сможете это сделать, вам нужно обернуть в паутину больше гуманоидной добычи!"))
 		return
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] откладывает яица."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] откладывает яица."))
 	if(eggtype == TS_DESC_KNIGHT)
 		DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/knight, 1)
 	else if(eggtype == TS_DESC_LURKER)
@@ -117,9 +117,9 @@
 	if(HAS_TRAIT(L, TRAIT_INCAPACITATED) || L.can_inject(null, FALSE, inject_target, FALSE))
 		L.AdjustEyeBlurry(20 SECONDS, 0, 120 SECONDS)
 		// instead of having a venom that only lasts seconds, we just add the eyeblur directly.
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] вонзает свои клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] вонзает свои клыки глубоко в [inject_target] [target.declent_ru(ACCUSATIVE)]!"))
 	else
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] кусает [target.declent_ru(ACCUSATIVE)], но не может ввести яд в [inject_target]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] кусает [target.declent_ru(ACCUSATIVE)], но не может ввести яд в [inject_target]!"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/healer/AttackingTarget()
 	. = ..()

@@ -490,7 +490,7 @@ GLOBAL_LIST_EMPTY_TYPED(integrated_circuits, /obj/item/integrated_circuit)
 	if(ui)
 		return
 
-	ui = new(user, src, "IntegratedCircuit", capitalize(declent_ru(NOMINATIVE)))
+	ui = new(user, src, "IntegratedCircuit", DECLENT_RU_CAP(src, NOMINATIVE))
 	ui.open()
 	ui.set_autoupdate(FALSE)
 

@@ -113,13 +113,13 @@
 	god_forgive()
 
 	if(!user.mind || !user.mind.isholy)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает шипеть в ваших руках."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает шипеть в ваших руках."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(0, 10)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] вылетает из ваших рук и падает на вашу голову."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] вылетает из ваших рук и падает на вашу голову."))
 		add_attack_logs(user, target, "Hit themselves with [src]")
 		user.take_organ_damage(10)
 		user.Paralyse(40 SECONDS)

@@ -156,7 +156,9 @@
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)
 		seconds_electrified--
-	if(get_charge() <= 10 && active && !activating) //Sometimes we get power being funky, this should fix it.
+	if(!active)
+		return
+	if(get_charge() <= 10 && !activating) //Sometimes we get power being funky, this should fix it.
 		power_off()
 		return PROCESS_KILL
 	var/malfunctioning_charge_drain = 0
@@ -286,7 +288,7 @@
 		for(var/obj/item/mod/module/module as anything in modules)
 			if(!module.removable)
 				continue
-			removable_modules[capitalize(module.declent_ru(NOMINATIVE))] = module
+			removable_modules[DECLENT_RU_CAP(module, NOMINATIVE)] = module
 		if(!length(removable_modules))
 			return
 		var/choosen_module = tgui_input_list(user, "Какой модуль вы хотите извлечь?", "Удаление модулей", removable_modules)
@@ -341,6 +343,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		core.on_attackby(attacking_item, user, params)
+		return ATTACK_CHAIN_PROCEED
 	if(istype(attacking_item, /obj/item/stack/ore/plasma) || istype(attacking_item, /obj/item/stack/sheet/mineral/plasma))
 		if(!core)
 			balloon_alert(user, "ядро отсутствует!")
@@ -393,8 +396,6 @@
 		bag.handle_item_insertion(I, prevent_warning)
 
 /obj/item/mod/control/get_cell()
-	if(!open)
-		return
 	var/obj/item/stock_parts/cell/cell = get_charge_source()
 	if(!istype(cell))
 		return
@@ -554,7 +555,7 @@
 	for(var/obj/item/mod/module/module as anything in modules)
 		if(module.module_type == MODULE_PASSIVE)
 			continue
-		display_names[capitalize(module.declent_ru(NOMINATIVE))] = module.UID()
+		display_names[DECLENT_RU_CAP(module, NOMINATIVE)] = module.UID()
 		var/image/module_image = image(icon = module.icon, icon_state = module.icon_state)
 		if(module == selected_module)
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_selected")
@@ -562,7 +563,7 @@
 			module_image.underlays += image(icon = 'icons/hud/radial.dmi', icon_state = "module_active")
 		if(!COOLDOWN_FINISHED(module, cooldown_timer))
 			module_image.add_overlay(image(icon = 'icons/hud/radial.dmi', icon_state = "module_cooldown"))
-		items += list(capitalize(module.declent_ru(NOMINATIVE)) = module_image)
+		items += list(DECLENT_RU_CAP(module, NOMINATIVE) = module_image)
 	if(!length(items))
 		return
 	var/radial_anchor = src
@@ -594,14 +595,14 @@
 	for(var/obj/item/mod/module/old_module as anything in modules)
 		if(is_type_in_list(new_module, old_module.incompatible_modules) || is_type_in_list(old_module, new_module.incompatible_modules))
 			if(user)
-				to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] несовместим с [old_module.declent_ru(INSTRUMENTAL)]!"))
+				to_chat(user, span_warning("[DECLENT_RU_CAP(new_module, NOMINATIVE)] несовместим с [old_module.declent_ru(INSTRUMENTAL)]!"))
 				playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 			return
 	var/complexity_with_module = complexity
 	complexity_with_module += new_module.complexity
 	if(complexity_with_module > complexity_max)
 		if(user)
-			to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] превышает максимальную комплексность костюма!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(new_module, NOMINATIVE)] превышает максимальную комплексность костюма!"))
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(!new_module.has_required_parts(mod_parts))
@@ -615,7 +616,7 @@
 			playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	if(user && !user.drop_from_active_hand())
-		to_chat(user, span_warning("[capitalize(new_module.declent_ru(NOMINATIVE))] застрева[PLUR_ET_UT(new_module)] у вас в руке!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(new_module, NOMINATIVE)] застрева[PLUR_ET_UT(new_module)] у вас в руке!"))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 25, TRUE, SILENCED_SOUND_EXTRARANGE)
 		return
 	new_module.forceMove(src)
@@ -629,7 +630,7 @@
 		new_module.on_part_activation()
 		new_module.part_activated = TRUE
 	if(user)
-		to_chat(user, span_notice("[capitalize(new_module.declent_ru(NOMINATIVE))] добавлен!")) //they all are "модуль чего-то там.", genderizing is unnecessary
+		to_chat(user, span_notice("[DECLENT_RU_CAP(new_module, NOMINATIVE)] добавлен!")) //they all are "модуль чего-то там.", genderizing is unnecessary
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE, SILENCED_SOUND_EXTRARANGE)
 
 /obj/item/mod/control/proc/uninstall(obj/item/mod/module/old_module, deleting = FALSE)
@@ -758,7 +759,7 @@
 	var/atom/visible_atom = wearer || src
 	if(wearer)
 		clean_up()
-	visible_atom.visible_message(span_bolddanger("[capitalize(declent_ru(NOMINATIVE))] разваливается на глазах!"))
+	visible_atom.visible_message(span_bolddanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разваливается на глазах!"))
 	for(var/obj/item/mod/module/module as anything in modules)
 		uninstall(module)
 	// if(ai_assistant)

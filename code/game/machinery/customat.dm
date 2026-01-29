@@ -26,7 +26,7 @@
 	var/icon_state = ""
 
 /datum/data/customat_product/New(obj/item/I)
-	name = capitalize(I.declent_ru(NOMINATIVE))
+	name = DECLENT_RU_CAP(I, NOMINATIVE)
 	desc = I.desc
 	amount = 0
 	containment = list()
@@ -588,7 +588,7 @@
 	if(.)
 		return
 	if(issilicon(usr) && !isrobot(usr))
-		to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
+		to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается взаимодействовать с вами, поскольку вы не входите в его целевую аудиторию!"))
 		return
 
 	switch(action)
@@ -654,7 +654,7 @@
 		"Sale of [product.name]", customer_account.owner_name) || paid
 
 			else if(usr.can_advanced_admin_interact())
-				to_chat(usr, span_notice("[capitalize(declent_ru(NOMINATIVE))] выдаёт товар в результате вмешательства администратора."))
+				to_chat(usr, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выдаёт товар в результате вмешательства администратора."))
 				paid = TRUE
 			else
 				to_chat(usr, span_warning("Сбой платежа: у вас нет ID-карты или другого способа оплаты."))

@@ -61,7 +61,7 @@
 	if(length(enemies) && prob(10))
 		enemies = list()
 		lose_target()
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] успокаивается."))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] успокаивается."))
 
 	eat_plants()
 	if(!pulledby)
@@ -120,8 +120,8 @@
 	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
-		H.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отрывает большой кусок от [H]!"), \
-				span_userdanger("[capitalize(declent_ru(NOMINATIVE))] отрывает от вас большой кусок [NB.declent_ru(GENITIVE)]!"))
+		H.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отрывает большой кусок от [H]!"), \
+				span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] отрывает от вас большой кусок [NB.declent_ru(GENITIVE)]!"))
 		NB.droplimb()
 
 //cow
@@ -254,7 +254,7 @@
 					" смотрит на вас с покорностью в глазах.",
 					", кажется, смирилась со своей участью."
 				)
-				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))][pick(responses)]"))
+				to_chat(M, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)][pick(responses)]"))
 	else
 		..()
 

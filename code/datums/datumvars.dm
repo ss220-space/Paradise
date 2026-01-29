@@ -1505,7 +1505,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		if(A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже находится под контролем призраков!"))
+			to_chat(usr, span_warning("[DECLENT_RU_CAP(A, NOMINATIVE)] уже находится под контролем призраков!"))
 			return
 
 		var/control_mode = tgui_input_list(usr, "Выберите режим управления","Тип управления", list("демократия", "анархия"), null)
@@ -1542,7 +1542,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		if(!A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "[capitalize(A.declent_ru(NOMINATIVE))] больше не находится под контролем призраков!")
+			to_chat(usr, "[DECLENT_RU_CAP(A, NOMINATIVE)] больше не находится под контролем призраков!")
 			return
 
 		A.stop_deadchat_plays()
