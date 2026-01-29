@@ -254,6 +254,8 @@
 		/obj/item/nuke_core/supermatter_sliver,
 	)
 
+	var/supermatter_blacklist_cache
+
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
 	return list(
 		NOMINATIVE = "кристалл суперматерии",
@@ -266,6 +268,7 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
+	supermatter_blacklist_cache = typecacheof(supermatter_blacklist)
 	supermatter_id = global_supermatter_id++
 	countdown = new(src)
 	countdown.start()
@@ -901,9 +904,8 @@
 
 		return ATTACK_CHAIN_PROCEED
 
-	for(var/immune_type in supermatter_blacklist)//blacklist items dont ash in SM
-		if(istype(used_item, immune_type))
-			return ATTACK_CHAIN_BLOCKED
+	if(is_type_in_typecache(used_item, supermatter_blacklist_cache))//blacklist items dont ash in SM
+		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(used_item, /obj/item/retractor/supermatter))
 		to_chat(attacking_mob, span_notice("[DECLENT_RU_CAP(used_item, NOMINATIVE)] отскакивает от [declent_ru(ACCUSATIVE)], сначала нужно отрезать кусочек!"))
@@ -926,9 +928,8 @@
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/movable_atom)
 	if(HAS_TRAIT(movable_atom, TRAIT_SUPERMATTER_IMMUNE))
 		return
-	for(var/immune_type in supermatter_blacklist)//blacklist items dont ash in SM
-		if(istype(movable_atom, immune_type))
-			return
+	if(is_type_in_typecache(movable_atom, supermatter_blacklist_cache))//blacklist items dont ash in SM
+		return
 
 	if(isliving(movable_atom))
 		movable_atom.visible_message(
