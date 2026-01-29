@@ -862,7 +862,7 @@
 	button_icon_state = "launch_riders"
 
 /datum/action/innate/launch_riders/Activate()
-	if(!isrobot(usr))
+	if(!isrobot(owner))
 		return
 
 	var/mob/living/silicon/robot/robot = owner

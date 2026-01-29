@@ -54,11 +54,11 @@
 
 	set_riding_offsets(RIDING_OFFSET_ALL,
 	list(
-		TEXT_NORTH = parent_robot.selected_skin.north_offset,
-		TEXT_SOUTH = parent_robot.selected_skin.south_offset,
-	  	TEXT_EAST = parent_robot.selected_skin.east_offset,
-	   	TEXT_WEST = parent_robot.selected_skin.west_offset
-	))
+			TEXT_NORTH = parent_robot.selected_skin.north_offset,
+			TEXT_SOUTH = parent_robot.selected_skin.south_offset,
+			TEXT_EAST = parent_robot.selected_skin.east_offset,
+			TEXT_WEST = parent_robot.selected_skin.west_offset
+		))
 
 	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 	set_vehicle_dir_layer(NORTH, OBJ_LAYER)

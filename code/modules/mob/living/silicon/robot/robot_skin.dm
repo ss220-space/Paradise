@@ -7,7 +7,7 @@
 	var/required_permit
 	var/donator_tier
 
-	//Можно задать чтобы при сидении на роботе было хорошо, а плохо небыло
+	// Offsets for rider positioning, can be configured for a better visual effect.
 	var/list/north_offset = list(0,4)
 	var/list/south_offset = list(0,4)
 	var/list/east_offset = list(-6,3)
