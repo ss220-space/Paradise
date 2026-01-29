@@ -43,6 +43,8 @@
 		var/mob/living/victim = buckled_mob //save him for future time
 		parent_robot.unbuckle_mob(buckled_mob, TRUE)
 		victim.throw_at(target, 5, 10)
+		ridder.pixel_y = initial(ridder.pixel_y) //Костыльный багфикс
+		ridder.pixel_x = initial(ridder.pixel_x)
 		victim.visible_message(span_warning("[victim.declent_ru(NOMINATIVE)] вылета[PLUR_ET_YUT(victim)] из кресла [parent_robot.declent_ru(GENITIVE)]!"))
 
 	do_sparks(5, 0, parent_robot)
