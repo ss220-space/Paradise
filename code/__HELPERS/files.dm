@@ -137,10 +137,6 @@
 
 	return filenames
 
-/// Returns the md5 of a file at a given path.
-/proc/md5filepath(path)
-	. = md5(file(path))
-
 /// Save file as an external file then md5 it.
 /// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
 /// https://www.byond.com/forum/post/2611357
@@ -150,7 +146,7 @@
 	var/filename = "tmp/md5asfile.[world.realtime].[world.timeofday].[world.time].[world.tick_usage].[notch]"
 	notch = WRAP(notch+1, 0, 2**15)
 	fcopy(file, filename)
-	. = md5filepath(filename)
+	. = rustlib_hash_file(RUSTLIB_HASH_MD5, filename)
 	fdel(filename)
 
 /**
