@@ -86,6 +86,7 @@
 		revealed = 0
 		incorporeal_move = INCORPOREAL_REVENANT
 		invisibility = INVISIBILITY_REVENANT
+		pass_flags_self |= PASSTABLE
 		to_chat(src, span_revenboldnotice("Реальность содрогается, и вы растворяетесь в тени."))
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
@@ -313,6 +314,7 @@
 	revealed = 1
 	invisibility = 0
 	incorporeal_move = INCORPOREAL_NONE
+	pass_flags_self &= ~PASSTABLE
 	if(!unreveal_time)
 		to_chat(src, span_revendanger("Ваша форма становится осязаемой, и смертные могут вас увидеть..."))
 		unreveal_time = world.time + time
