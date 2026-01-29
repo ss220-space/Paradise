@@ -7,6 +7,12 @@
 	var/required_permit
 	var/donator_tier
 
+	//Можно задать чтобы при сидении на роботе было хорошо, а плохо небыло
+	var/list/north_offset = list(0,4)
+	var/list/south_offset = list(0,4)
+	var/list/east_offset = list(-6,3)
+	var/list/west_offset = list(6,3)
+
 /datum/robot_skin/tall
 	icon_file = 'icons/mob/tallrobot.dmi'
 

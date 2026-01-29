@@ -815,17 +815,19 @@
 /obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
 	if(!..())
 		return FALSE
-
+	robot.AddElement(/datum/element/ridable, /datum/component/riding/robot)
 	robot.can_buckle = TRUE
 	toggle_action.Grant(robot, src)
 	if(emagged)
 		launch_action.Grant(robot, src)
+
 	return TRUE
 
 /obj/item/borg/upgrade/mounted_seat/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 
+	robot.RemoveElement(/datum/element/ridable, /datum/component/riding/robot)
 	robot.can_buckle = FALSE
 	toggle_action.Remove(robot, src)
 	launch_action.Remove(robot, src) //REMOVE IT!!!
@@ -837,18 +839,19 @@
 	button_icon_state = "seat_on"
 
 /datum/action/innate/toggle_seat/Activate()
-	if(!isrobot(usr))
+	if(!isrobot(owner))
 		return
 
-	var/mob/living/silicon/robot/robot = usr
-	robot.toggle_seat()
+	var/mob/living/silicon/robot/robot = owner
+	SEND_SIGNAL(robot, COMSIG_ROBOT_TOGGLE_SEAT)
+
 	switch(robot.can_buckle)
 		if(TRUE)
 			button_icon_state = "seat_on"
-			UpdateButtonIcon()
 		if(FALSE)
 			button_icon_state = "seat_off"
-			UpdateButtonIcon()
+
+	UpdateButtonIcon()
 
 /datum/action/innate/launch_riders
 	name = "Выкинуть всех пассажиров"
@@ -859,8 +862,8 @@
 	if(!isrobot(usr))
 		return
 
-	var/mob/living/silicon/robot/robot = usr
-	robot.eject_riders_harmfull()
+	var/mob/living/silicon/robot/robot = owner
+	SEND_SIGNAL(robot, COMSIG_ROBOT_RIDERS_EJECT_HARM)
 
 /obj/item/borg/upgrade/mounted_seat/pre_emaged
 	emagged = TRUE
