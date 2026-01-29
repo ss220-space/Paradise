@@ -848,11 +848,9 @@
 	switch(robot.can_buckle)
 		if(TRUE)
 			button_icon_state = "seat_on"
-			robot.balloon_alert(robot, "сидение выдвинуто")
 			playsound(robot.loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 		if(FALSE)
-			button_icon_state = "seat_off"
-			SEND_SIGNAL(parent, COMSIG_ROBOT_TOGGLE_SEAT)
+			SEND_SIGNAL(robot, COMSIG_ROBOT_RIDERS_EJECT)
 			robot.balloon_alert(robot, "сидение задвинуто")
 			playsound(robot.loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
 

@@ -12,33 +12,13 @@
 	. = ..()
 	RegisterSignal(parent, COMSIG_ROBOT_RIDERS_EJECT, PROC_REF(eject_riders))
 	RegisterSignal(parent, COMSIG_ROBOT_RIDERS_EJECT_HARM, PROC_REF(harmful_eject_riders))
-	RegisterSignal(parent, COMSIG_ROBOT_TOGGLE_SEAT, PROC_REF(toggle_seat))
-
 
 /datum/component/riding/robot/UnregisterFromParent()
 	. = ..()
 	UnregisterSignal(parent, list(
 		COMSIG_ROBOT_RIDERS_EJECT,
-		COMSIG_ROBOT_RIDERS_EJECT_HARM,
-		COMSIG_ROBOT_TOGGLE_SEAT
+		COMSIG_ROBOT_RIDERS_EJECT_HARM
 	))
-
-/datum/component/riding/robot/proc/toggle_seat(datum/source)
-	SIGNAL_HANDLER
-	var/mob/living/silicon/robot/parent_robot = parent
-
-	parent_robot.can_buckle = !parent_robot.can_buckle
-
-	switch(parent_robot.can_buckle)
-		if(FALSE)
-			SEND_SIGNAL(parent, COMSIG_ROBOT_TOGGLE_SEAT)
-			parent_robot.balloon_alert(parent_robot, "сидение задвинуто")
-			playsound(parent_robot.loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
-
-		if(TRUE)
-			parent_robot.balloon_alert(parent_robot, "сидение выдвинуто")
-			playsound(parent_robot.loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
-
 
 /datum/component/riding/robot/proc/eject_riders(datum/source)
 	SIGNAL_HANDLER
