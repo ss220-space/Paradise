@@ -518,10 +518,10 @@ SUBSYSTEM_DEF(tts)
 
 /proc/tts_cast(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null, atom/effect_owner = null)
 	var/override = SOUND_EFFECT_NONE
-	var/mob/living/carbon/C = iscarbon(effect_owner) ? effect_owner : (iscarbon(speaker) ? speaker : null)
+	var/mob/living/L = isliving(effect_owner) ? effect_owner : (isliving(speaker) ? speaker : null)
 
-	if(C)
-		override = C.tts_effect_override
+	if(L)
+		override = L.tts_effect_override
 
 	if(override != SOUND_EFFECT_NONE)
 		var/list/sub_map = SStts.tts_effect_map["[override]"]
