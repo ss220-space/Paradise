@@ -247,14 +247,14 @@
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
 
-	///Blacklist of objects to be destroyed
-	var/list/supermatter_blacklist = list(
+	///Blacklist of objects that are not destroyed by the supermatter upon contact.
+	var/static/list/supermatter_blacklist = list(
 		/obj/singularity,
 		/obj/machinery/field/containment,
 		/obj/item/nuke_core/supermatter_sliver,
 	)
 
-	var/supermatter_blacklist_cache
+	var/static/list/supermatter_blacklist_cache
 
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
 	return list(
@@ -268,7 +268,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
-	supermatter_blacklist_cache = typecacheof(supermatter_blacklist)
+	if(!supermatter_blacklist_cache)
+		supermatter_blacklist_cache = typecacheof(supermatter_blacklist)
 	supermatter_id = global_supermatter_id++
 	countdown = new(src)
 	countdown.start()
@@ -922,8 +923,6 @@
 
 		//radiation_pulse(src, 600, GAMMA_RAD)
 		attacking_mob.apply_effect(150, IRRADIATE)
-
-	return ATTACK_CHAIN_PROCEED
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/movable_atom)
 	if(HAS_TRAIT(movable_atom, TRAIT_SUPERMATTER_IMMUNE))
