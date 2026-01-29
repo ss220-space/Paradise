@@ -502,7 +502,7 @@
 	for(var/dir in GLOB.cardinal)
 		T = get_step(src, dir)
 		if(istype(T) && !T.density)
-			if(!CanAtmosPass(T, FALSE))
+			if(!CanAtmosPass(dir))
 				L.Add(T)
 	return L
 

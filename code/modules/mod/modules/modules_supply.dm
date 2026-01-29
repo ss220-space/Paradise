@@ -478,7 +478,7 @@
 		if(traveled_tiles == max_traveled_tiles - 1) // Just lost our speed buff
 			mod.update_speed()
 		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-			part.armor = part.armor.detachArmor(armor_mod_1.armor)
+			part.armor = part.armor?.detachArmor(armor_mod_1.armor)
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
 		return
@@ -487,7 +487,7 @@
 		return
 	traveled_tiles++
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor.attachArmor(armor_mod_1.armor)
+		part.armor = part.armor?.attachArmor(armor_mod_1.armor)
 	if(traveled_tiles < max_traveled_tiles)
 		return
 	balloon_alert(mod.wearer, "полное покрытие пеплом")

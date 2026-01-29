@@ -1208,8 +1208,14 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	if(isicon(thing))
 		return icon2html(thing, target)
+
+	return flat_icon2html(thing, target, sourceonly = FALSE)
+
+/proc/flat_icon2html(thing, target, sourceonly = FALSE, name = "[thing]")
+	if(!thing)
+		return
 	var/datum/universal_icon/flat_icon = get_flat_uni_icon(thing)
-	var/file = get_icon_from_uni_icon(flat_icon, "[thing]", FALSE, FALSE)
+	var/file = get_icon_from_uni_icon(flat_icon, name, FALSE, FALSE)
 	return icon2html(file, target, sourceonly = sourceonly)
 
 /proc/get_icon_from_uni_icon(datum/universal_icon/flat_icon, name, yield = TRUE, dmi_icon = FALSE)
@@ -1228,7 +1234,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		rustlib_file_write(entries_json, "[GLOB.log_directory]/spritesheet_debug_[name].json")
 		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
 	var/data = json_decode(data_out)
-	var/size = data["sizes"][1]
+	var/list/sizes = data["sizes"]
+	if(!length(sizes))
+		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
+	var/size = sizes[1]
 	if(!size)
 		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
 

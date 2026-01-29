@@ -56,16 +56,17 @@ SUBSYSTEM_DEF(events)
 	if(!resumed)
 		current_run = active_events.Copy()
 
-	var/index = length(current_run)
+	var/list/cached_current_run = current_run
+	var/index = length(cached_current_run)
 
 	while(index > 0)
-		var/datum/event/event = current_run[index]
+		var/datum/event/event = cached_current_run[index]
 		if(QDELETED(event))
 			index--
 			continue
 		event.process()
 		if(MC_TICK_CHECK)
-			current_run.Cut(index)
+			cached_current_run.Cut(index)
 			return
 		index--
 
@@ -75,16 +76,17 @@ SUBSYSTEM_DEF(events)
 	if(!resumed)
 		current_run = event_containers.Copy()
 
-	var/index = length(current_run)
+	var/list/cached_current_run = current_run
+	var/index = length(cached_current_run)
 
 	while(index > 0)
-		var/datum/event_container/event = current_run[index]
+		var/datum/event_container/event = cached_current_run[index]
 		if(QDELETED(event))
 			index--
 			continue
 		event.process()
 		if(MC_TICK_CHECK)
-			current_run.Cut(index)
+			cached_current_run.Cut(index)
 			return
 		index--
 
