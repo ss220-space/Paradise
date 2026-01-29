@@ -173,7 +173,7 @@
 		/datum/robot_skin/mech/std,
 		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android,
-		/datum/robot_skin/drake/std,
+		/datum/robot_skin/wide/drake/std,
 	)
 	has_transform_animation = TRUE
 
@@ -250,7 +250,7 @@
 		/datum/robot_skin/chiefbot,
 		/datum/robot_skin/droid_medical,
 		/datum/robot_skin/basic/needles,
-		/datum/robot_skin/drake/medical,
+		/datum/robot_skin/wide/drake/medical,
 	)
 	has_transform_animation = TRUE
 
@@ -357,7 +357,7 @@
 		/datum/robot_skin/basic/antique,
 		/datum/robot_skin/landmate,
 		/datum/robot_skin/chiefmate,
-		/datum/robot_skin/drake/eng,
+		/datum/robot_skin/wide/drake/eng,
 	)
 	has_transform_animation = TRUE
 
@@ -439,7 +439,7 @@
 		/datum/robot_skin/redknight,
 		/datum/robot_skin/blackknight,
 		/datum/robot_skin/bloodhound,
-		/datum/robot_skin/drake/sec,
+		/datum/robot_skin/wide/drake/sec,
 	)
 	has_transform_animation = TRUE
 
@@ -507,7 +507,7 @@
 		/datum/robot_skin/heavy/jan,
 		/datum/robot_skin/basic/mopbot,
 		/datum/robot_skin/mopgearrex,
-		/datum/robot_skin/drake/jan,
+		/datum/robot_skin/wide/drake/jan,
 	)
 	has_transform_animation = TRUE
 
@@ -561,7 +561,7 @@
 		/datum/robot_skin/basic/bro,
 		/datum/robot_skin/toiletbot,
 		/datum/robot_skin/maximillion,
-		/datum/robot_skin/drake/srv,
+		/datum/robot_skin/wide/drake/srv,
 	)
 	has_transform_animation = TRUE
 
@@ -675,7 +675,7 @@
 		/datum/robot_skin/droid_miner,
 		/datum/robot_skin/treadhead,
 		/datum/robot_skin/lavaland,
-		/datum/robot_skin/drake/mnr,
+		/datum/robot_skin/wide/drake/mnr,
 	)
 	has_transform_animation = TRUE
 
@@ -771,7 +771,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
-		/datum/robot_skin/drake/syn,
+		/datum/robot_skin/wide/drake/syn,
 	)
 	has_transform_animation = TRUE
 
@@ -807,7 +807,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
-		/datum/robot_skin/drake/syn,
+		/datum/robot_skin/wide/drake/syn,
 	)
 	has_transform_animation = TRUE
 
@@ -867,7 +867,7 @@
 		/datum/robot_skin/tall/mmeka/syndi,
 		/datum/robot_skin/heavy/syndi,
 		/datum/robot_skin/spider/syndi,
-		/datum/robot_skin/drake/syn,
+		/datum/robot_skin/wide/drake/syn,
 	)
 	has_transform_animation = TRUE
 
