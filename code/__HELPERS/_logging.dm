@@ -221,7 +221,7 @@ GLOBAL_PROTECT(log_end)
  * Standardized method for tracking startup times.
  */
 /proc/log_startup_progress_global(prefix, message)
-	to_chat(world, span_danger("<small>\[[prefix]]</small> [message]"))
+	to_chat(world, span_danger("<small>\[[prefix]\]</small> [message]"))
 	log_world("\[[prefix]] [message]")
 
 // A logging proc that only outputs after setup is done, to
