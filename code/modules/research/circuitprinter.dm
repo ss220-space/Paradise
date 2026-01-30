@@ -462,7 +462,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			var/hmac_key = CONFIG_GET(string/hmac_key) ? CONFIG_GET(string/hmac_key) : ""
 
-			if(!text || findtext(text, "."))
+			if(!text || !findtext(text, "."))
 				tgui_alert(user, "Ошибка расшифровки. Убедитесь в корректности данных", "Ошибка импорта")
 				return TRUE
 
