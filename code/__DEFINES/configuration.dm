@@ -24,4 +24,4 @@
 #define ASSET_TRANSPORT_WEBROOT "webroot"
 
 /// The SQL version required by this version of the code
-#define SQL_VERSION 41
+#define SQL_VERSION 40

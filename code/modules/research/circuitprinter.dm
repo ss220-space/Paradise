@@ -34,12 +34,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		CIRCUIT_IMPRINTER_CATEGORY_CIRCUIT,
 	)
 
-	var/current_tab = 0
-	var/search_term = ""
-	var/is_searcing = FALSE
-	var/list/search_results = list()
-	var/search_timeout
-
 	reagents = new()
 
 /obj/machinery/r_n_d/circuit_imprinter/get_ru_names()
@@ -463,7 +457,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		if("import")
 			var/mob/user = ui.user
 
-			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 999999999)
+			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 0)
 			text = ascii_list2text(rustlib_decode_base64(text)) ? ascii_list2text(rustlib_decode_base64(text)) : ""
 
 			var/hmac_key = CONFIG_GET(string/hmac_key) ? CONFIG_GET(string/hmac_key) : ""
@@ -497,7 +491,6 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 /obj/machinery/r_n_d/circuit_imprinter/ui_data(mob/user)
 	var/list/data = list()
 	data["materials"] = materials.ui_data()
-	data["current_tab"] = current_tab
 	return data
 
 /obj/machinery/r_n_d/circuit_imprinter/ui_static_data(mob/user)
