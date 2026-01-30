@@ -452,12 +452,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/final_text = rustg_encode_base64("[json_base64].[hmac_base64]")
 
 			 // Окно в вводом из которого можно скопировать текст
-			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = final_text, max_length=0)
+			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = final_text, max_length=999999999)
 
 		if("import")
 			var/mob/user = ui.user
 
-			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 0)
+			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 999999999)
 			text = ascii_list2text(rustlib_decode_base64(text)) ? ascii_list2text(rustlib_decode_base64(text)) : ""
 
 			var/hmac_key = CONFIG_GET(string/hmac_key) ? CONFIG_GET(string/hmac_key) : ""
