@@ -247,15 +247,6 @@
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
 
-	///Blacklist of objects that are not destroyed by the supermatter upon contact.
-	var/static/list/supermatter_blacklist = list(
-		/obj/singularity,
-		/obj/machinery/field/containment,
-		/obj/item/nuke_core/supermatter_sliver,
-	)
-
-	var/static/list/supermatter_blacklist_cache
-
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
 	return list(
 		NOMINATIVE = "кристалл суперматерии",
@@ -268,8 +259,6 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Initialize(mapload)
 	. = ..()
-	if(!supermatter_blacklist_cache)
-		supermatter_blacklist_cache = typecacheof(supermatter_blacklist)
 	supermatter_id = global_supermatter_id++
 	countdown = new(src)
 	countdown.start()
@@ -905,7 +894,7 @@
 
 		return ATTACK_CHAIN_PROCEED
 
-	if(is_type_in_typecache(used_item, supermatter_blacklist_cache))//blacklist items dont ash in SM
+	if(HAS_TRAIT(used_item, TRAIT_SUPERMATTER_IMMUNE))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(used_item, /obj/item/retractor/supermatter))
@@ -926,8 +915,6 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/Bumped(atom/movable/movable_atom)
 	if(HAS_TRAIT(movable_atom, TRAIT_SUPERMATTER_IMMUNE))
-		return
-	if(is_type_in_typecache(movable_atom, supermatter_blacklist_cache))//blacklist items dont ash in SM
 		return
 
 	if(isliving(movable_atom))
