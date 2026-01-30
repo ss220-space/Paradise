@@ -3840,6 +3840,7 @@
 #include "code\modules\wiremod\core\component.dm"
 #include "code\modules\wiremod\core\datatypes.dm"
 #include "code\modules\wiremod\core\duplicator.dm"
+#include "code\modules\wiremod\core\hmac.dm"
 #include "code\modules\wiremod\core\integrated_circuit.dm"
 #include "code\modules\wiremod\core\marker.dm"
 #include "code\modules\wiremod\core\port.dm"

@@ -62,6 +62,14 @@
 	for(var/i in 1 to times)
 		. += string
 
+// Создает строку используя список из ASCII
+/proc/ascii_list2text(list/ascii_text)
+	. = ""
+	for(var/ascii_char in ascii_text)
+		if(ascii_char < 32 || ascii_char > 127)
+			CRASH("ascii_list2text: invalid ASCII code")
+		. += ascii2text(ascii_char)
+
 /// Runs sanitize and strip_html_simple
 /// I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(t, limit=MAX_MESSAGE_LEN)

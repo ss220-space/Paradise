@@ -315,6 +315,55 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 	update_static_data_for_all_viewers()
 
+// Проверяет наличие всех данных
+/obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_json(mob/living/user, json_data)
+	var/list/data
+	if(json_data)
+		data = json_decode(json_data)
+	else
+		return FALSE
+
+	if(!linked_console)
+		balloon_alert(user, "не привязано к консоли!")
+		return FALSE
+
+	if(!LAZYACCESS(data, "dupe_data"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "name"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "materials"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "integrated_circuit"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "Icon"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "IconState"))
+		return FALSE
+
+	if(!LAZYACCESS(data, "desc"))
+		return FALSE
+
+	return TRUE
+
+// Для иморта платы
+/obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_json(mob/living/user, json_data)
+	if(!can_save_circuit_by_json(user, json_data))
+		return
+
+	var/list/data = json_decode(json_data)
+
+	LAZYADD(scanned_designs, list(data))
+
+	balloon_alert(user, "схема сохранена")
+	playsound(src, 'sound/machines/ping.ogg', 50)
+
+	update_static_data_for_all_viewers()
+
 /obj/machinery/r_n_d/circuit_imprinter/proc/print_module(list/design)
 	flick("[base_icon_state]_ani", src)
 
@@ -391,58 +440,55 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/list/design = LAZYACCESS(scanned_designs, design_id)
 
 			var/mob/user= ui.user
-			if(!SSdbcore.Connect() && !user)
-				return
-			var/author = tgui_input_text(user, "Как вас зовут?", "Имя автора", encode=FALSE) // to do: check name
 
-			var/datum/db_query/query = SSdbcore.NewQuery({"
-				INSERT TO [format_table_name("curcuit_designs")]
-				(ckey, author, design)
-				VALUES
-				(:ckey, :author. :design)
-			"}, list(
-				"ckey" = user.ckey,
-				"author" = author,
-				"design" = json_encode(design),
-			))
+			var/json_data = json_encode(design)
 
-			// var/success = query.warn_execute()
-			// var/last_id = 0
+			var/hmac_key = "5f8d3e7a12c4b960f29b8d1e4a6f0c3b7e2a9d8f" // временно
+			var/hmac_base64 = ""
 
-			// if(success)
-			// 	last_id = query.last_insert_id
+			// Создает HMAC если ключ корректен
+			if(validate_hmac_key(hmac_key))
+				hmac_base64 = hmac_md5_base64(hmac_key, json_data)
 
-			qdel(query)
-
-		if ("switch_tab")
-			var/tab = text2num(params["tab"])
-			current_tab = tab
-			SStgui.update_uis(src)
-		if("search")
-			var/term = trim(params["term"])
-
-			var/mob/user= ui.user
-			if(!SSdbcore.Connect() && !user)
+			if(!hmac_base64)
+				tgui_alert(user, "Ошибка создания электронной подписи!", "Ошибка экспорта")
 				return
 
-			var/datum/db_query/query = SSdbcore.NewQuery({"
-			SELECT
-				author, design
-			FROM [format_table_name("curcuit_designs")]
-			"})
+			var/json_base64 = rustg_encode_base64(json_data)
+			var/final_text = rustg_encode_base64("[json_base64].[hmac_base64]")
 
-			if(query.Execute())
-				while(query.NextRow())
-					var/design = query.item[1]
-					var/author = query.item[2]
+			 // Окно в вводом из которого можно скопировать текст
+			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = final_text)
 
-					var/list/text = list(author, design)
-					if(findtext(jointext(text, ""), term))
-						to_chat(user, design["name"])
+		if("import")
+			var/mob/user = ui.user
 
-			qdel(query)
+			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 999999999)
 
+			var/hmac_key = "5f8d3e7a12c4b960f29b8d1e4a6f0c3b7e2a9d8f" // временно
+			var/hmac_base64 = ""
 
+			text = ascii_list2text(rustlib_decode_base64(text)) ? ascii_list2text(rustlib_decode_base64(text)) : ""
+
+			if(!text)
+				return
+
+			var/list/parts = splittext(text, ".") // [1] - json в виде списка ASCII [2] - HMAC в виде списка ASCII
+
+			var/json_data = ascii_list2text(rustlib_decode_base64(parts[1])) ? ascii_list2text(rustlib_decode_base64(parts[1])) : ""
+
+			if(!json_data)
+				tgui_alert(user, "Некорректный JSON! Проверьте корректность данных.", "Ошибка импорта")
+				return
+
+			if(validate_hmac_key(hmac_key) && json_data)
+				hmac_base64 = hmac_md5_base64(hmac_key, json_data)
+
+			if(parts[2] != hmac_base64)
+				tgui_alert(user, "Ошибка электронной печати! Проверьте корректность данных.", "Ошибка импорта")
+				return
+
+			save_circuit_by_json(user, json_data)
 
 	return TRUE
 
