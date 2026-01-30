@@ -27,20 +27,20 @@
 
 	if(prob(50))	//you're forced to use two of these for them to work so let's give em a chance to not get completely fucked
 		if(COOLDOWN_FINISHED(src, emp_notice))
-			to_chat(owner, span_warning("ЭМИ вызывает вызывает сбои в работе [src.declent_ru(GENITIVE)] в [GLOB.body_zone[parent_organ_zone][PREPOSITIONAL]]!"))
+			to_chat(owner, span_warning("ЭМИ вызывает вызывает сбои в работе [declent_ru(GENITIVE)] в [GLOB.body_zone[parent_organ_zone][PREPOSITIONAL]]!"))
 			COOLDOWN_START(src, emp_notice, 30 SECONDS)
 		return
 
 	if(severity & EMP_HEAVY && prob(25))	//put probabilities into a calculator before you try fucking with this
-		to_chat(owner, span_warning("ЭМИ заставляет ваш [src.declent_ru(ACCUSATIVE)] дико дёргать [GLOB.body_zone[parent_organ_zone][ACCUSATIVE]], ломая его!"))
+		to_chat(owner, span_warning("ЭМИ заставляет ваш [declent_ru(ACCUSATIVE)] дико дёргать [GLOB.body_zone[parent_organ_zone][ACCUSATIVE]], ломая его!"))
 		owner.apply_damage(40, def_zone = E)
 	else if(COOLDOWN_FINISHED(src, emp_notice))
-		to_chat(owner, span_warning("ЭМИ вызывает заклинивание [src.declent_ru(ACCUSATIVE)], блокируя движение [GLOB.body_zone[parent_organ_zone][GENITIVE]]!"))
+		to_chat(owner, span_warning("ЭМИ вызывает заклинивание [declent_ru(ACCUSATIVE)], блокируя движение [GLOB.body_zone[parent_organ_zone][GENITIVE]]!"))
 		COOLDOWN_START(src, emp_notice, 30 SECONDS)
 
 /obj/item/organ/internal/cyberimp/leg/examine(mob/user)
 	. = ..()
-	. += span_notice("[capitalize(src.declent_ru(NOMINATIVE))] собран для [parent_organ_zone == BODY_ZONE_R_LEG ? "правой" : "левой"] ноги. Можно пересобрать с помощью отвёртки.")
+	. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] собран для [parent_organ_zone == BODY_ZONE_R_LEG ? "правой" : "левой"] ноги. Можно пересобрать с помощью отвёртки.")
 	. += span_notice("Для правильной работы потребуется два импланта одного типа.")
 
 /obj/item/organ/internal/cyberimp/leg/screwdriver_act(mob/living/user, obj/item/I)
@@ -54,7 +54,7 @@
 		parent_organ_zone = BODY_ZONE_R_LEG
 		transform = null
 	SetSlot()
-	to_chat(user, span_notice("Вы модифицировали [src.declent_ru(ACCUSATIVE)] для установки на [parent_organ_zone == BODY_ZONE_R_LEG ? "правую" : "левую"] ногу."))
+	to_chat(user, span_notice("Вы модифицировали [declent_ru(ACCUSATIVE)] для установки на [parent_organ_zone == BODY_ZONE_R_LEG ? "правую" : "левую"] ногу."))
 
 /obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	. = ..()

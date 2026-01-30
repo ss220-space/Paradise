@@ -3,8 +3,8 @@
  * Chameleon ability, that allows you to change your appearance to the appearance of a crewmember
  */
 /datum/action/item_action/advanced/ninja/ninja_chameleon
-	name = "Chameleon Disguise"
-	desc = "Toggles Chameleon mode on and off. Passively encrease suit energy consumption."
+	name = "Хамелеон"
+	desc = "Переключает режим камуфляжа. Пассивно увеличивает потребление энергии костюма."
 	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_IMMOBILE|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "chameleon"
@@ -33,7 +33,7 @@
 
 /obj/item/ninja_chameleon_scanner
 	name = "chameleon scanner"
-	desc = "A device sneakily hidden inside Spider Clan ninja suits. Scans a person's visual appearance and voice, which makes it possible for the ninja, to impersonate them"
+	desc = "Спрятанный в костюме Ниндзя девайс. Сканирует внешний вид и голос гуманоида, что позволяет пользователю выдавать себя за него."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "chameleon_device"
 	item_state = ""
@@ -84,7 +84,7 @@
 	if(!s_busy)
 		s_busy = TRUE
 		if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-			to_chat(ninja, span_warning("Сканирование прервано!"))
+			balloon_alert(ninja, "сканирование прервано!")
 			s_busy = FALSE
 			return
 		s_busy = FALSE
@@ -99,7 +99,7 @@
 
 /obj/item/clothing/suit/space/space_ninja/proc/pick_form(mob/living/carbon/human/ninja)
 	if(!disguise && !disguise_active)
-		to_chat(ninja, span_warning("Вы ещё никого не сканировали! Используйте эту способность, чтобы просканировать чужую внешность!"))
+		balloon_alert(ninja, "буфер памяти пуст!")
 		return
 
 	if(!disguise_active)
@@ -108,7 +108,7 @@
 		if(!s_busy)
 			s_busy = TRUE
 			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-				to_chat(ninja, span_warning("Вы прервали маскировку!"))
+				balloon_alert(ninja, "маскирование прервано!")
 				s_busy = FALSE
 				do_sparks(3, FALSE, ninja)
 				qdel(my_scan_effect)

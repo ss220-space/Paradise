@@ -112,8 +112,7 @@
 		return
 	update_icon()
 
-/obj/machinery/atmospherics/trinary/filter/process_atmos()
-	..()
+/obj/machinery/atmospherics/trinary/filter/process_atmos(seconds)
 	if(!on)
 		return FALSE
 

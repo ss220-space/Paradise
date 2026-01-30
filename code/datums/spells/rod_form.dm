@@ -92,7 +92,7 @@
 
 /obj/effect/immovablerod/wizard/suplex_effect(mob/living/carbon/human/human)
 	human.visible_message(
-		span_boldwarning("[capitalize(declent_ru(NOMINATIVE))] превраща[PLUR_ET_YUT(src)]ся в [wizard.declent_ru(ACCUSATIVE)] из-за того что [human.declent_ru(NOMINATIVE)] схватил[GEND_A_O_I(human)] его!"),
+		span_boldwarning("[DECLENT_RU_CAP(src, NOMINATIVE)] превраща[PLUR_ET_YUT(src)]ся в [wizard.declent_ru(ACCUSATIVE)] из-за того что [human.declent_ru(NOMINATIVE)] схватил[GEND_A_O_I(human)] его!"),
 		span_warning("Вы хватаете [declent_ru(ACCUSATIVE)], и [declent_ru(NOMINATIVE)] внезапно превращается в [wizard.declent_ru(INSTRUMENTAL)].")
 	)
 	to_chat(wizard, span_boldwarning("Вас внезапно выдернуло из формы жезла, когда [human.declent_ru(NOMINATIVE)] каким-то образом сумел[GEND_A_O_I(human)] схватить вас!"))

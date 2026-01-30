@@ -438,7 +438,7 @@
 
 	if(href_list["write"])
 		var/id = href_list["write"]																			/* Becаuse HTML */
-		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE)
 
 		topic_href_write(usr, id, input_element)
 
@@ -541,7 +541,7 @@
 	bundle.amount++
 	bundle.update_appearance(UPDATE_ICON|UPDATE_DESC)
 
-/obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper/fire_act(exposed_temperature, exposed_volume)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"

@@ -46,7 +46,7 @@
 	var/static/list/shop_items
 
 /obj/machinery/computer/roboquest/Initialize(mapload)
-	..()
+	. = ..()
 
 	if(!shop_items)
 		generate_roboshop()

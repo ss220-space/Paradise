@@ -1,4 +1,4 @@
-#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%]"
+#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%\]"
 // At minimum every mob has a hear_say proc.
 
 /mob/proc/combine_message(list/message_pieces, atom/movable/speaker, always_stars = FALSE)
@@ -137,7 +137,7 @@
 	if(isobserver(src))
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
-		track = "([ghost_follow_link(speaker, ghost=src)]) "
+		track = "([ghost_follow_link(speaker, ghost = src)]) "
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
@@ -230,7 +230,16 @@
 		if(prob(20))
 			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
-		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
+		if(track)
+			// The track already contains a name, so we don't print speaker_name
+			// But we need part_a before the name, which already exists in the track
+			// We split the track into a label and a name
+			var/prefix = copytext(track, 1, findtext(track, speaker_name))
+			var/rest = copytext(track, findtext(track, speaker_name))
+			to_chat(src, "[prefix][part_a][rest][part_b][message]</span></span>")
+		else
+			to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
+
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))
 		if(src != speaker || isrobot(src) || isAI(src))

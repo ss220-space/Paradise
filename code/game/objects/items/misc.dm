@@ -202,7 +202,7 @@
 
 	if(emagged && cycle_count >= SAFE_THRESHOLD)
 		applying = FALSE
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] становится обжигающе горячей!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] становится обжигающе горячей!"))
 		addtimer(CALLBACK(src, PROC_REF(perform_sparks)), 15)
 		addtimer(CALLBACK(src, PROC_REF(play_buzz_sound)), 30)
 		addtimer(CALLBACK(src, PROC_REF(explode_ecig), user), 40)
@@ -212,7 +212,7 @@
 	if(!src)
 		return
 
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает пищать и искрить!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает пищать и искрить!"))
 	do_sparks(4, TRUE, src)
 	playsound(loc, 'sound/machines/defib_saftyon.ogg', 25, TRUE)
 
@@ -226,7 +226,7 @@
 	if(!src)
 		return
 
-	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"))
 	explosion(loc, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 1, flame_range = 1, adminlog = TRUE, cause = user)
 	qdel(src)
 
@@ -334,7 +334,7 @@
 		balloon_alert(user, "невозможно использовать")
 		return
 
-	victim.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] открывается нараспашку и захватывает [victim.declent_ru(ACCUSATIVE)]!"), span_his_grace("[span_big("[declent_ru(NOMINATIVE)] захватывает вас!")]"))
+	victim.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] открывается нараспашку и захватывает [victim.declent_ru(ACCUSATIVE)]!"), span_his_grace("[span_big("[declent_ru(NOMINATIVE)] захватывает вас!")]"))
 	victim.death()
 
 	LAZYADD(krampus.bag_content, victim)

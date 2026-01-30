@@ -177,7 +177,7 @@
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
 		if(inserted_id)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже содержит другую ID-карту."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже содержит другую ID-карту."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()

@@ -150,21 +150,21 @@
 		return TRUE
 
 /obj/machinery/recharge_station/proc/process_occupant()
-	if(src.occupant)
-		SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs, recharge_speed_nutrition)
-		if(istype(occupant, /mob/living/silicon/robot))
-			var/mob/living/silicon/robot/R = occupant
-			restock_modules()
+	SEND_SIGNAL(occupant, COMSIG_PROCESS_BORGCHARGER_OCCUPANT, recharge_speed, repairs)
+	if(isrobot(occupant))
+		var/mob/living/silicon/robot/our_occupant = occupant
+		restock_modules()
+		if(repairs)
+			our_occupant.heal_overall_damage(repairs, repairs)
+		if(our_occupant.cell)
+			our_occupant.cell.charge = min(our_occupant.cell.charge + recharge_speed, our_occupant.cell.maxcharge)
+	else if(ishuman(occupant))
+		var/mob/living/carbon/human/our_human = occupant
+		if(our_human.get_int_organ(/obj/item/organ/internal/cell))
+			if(our_human.nutrition < NUTRITION_LEVEL_FULL - 1)
+				our_human.set_nutrition(min(our_human.nutrition + recharge_speed_nutrition, NUTRITION_LEVEL_FULL - 1))
 			if(repairs)
-				R.heal_overall_damage(repairs, repairs)
-			if(R.cell)
-				R.cell.charge = min(R.cell.charge + recharge_speed, R.cell.maxcharge)
-		else if(ishuman(occupant))
-			var/mob/living/carbon/human/H = occupant
-			if(H.get_int_organ(/obj/item/organ/internal/cell) && H.nutrition < 450)
-				H.set_nutrition(min(H.nutrition + recharge_speed_nutrition, 450))
-			if(repairs)
-				H.heal_overall_damage(repairs, repairs, affect_robotic = TRUE)
+				our_human.heal_overall_damage(repairs, repairs, TRUE, 0, 1)
 
 /obj/machinery/recharge_station/proc/go_out(mob/user = usr)
 	if(!occupant)
@@ -278,8 +278,9 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 
-		if(!H.get_int_organ(/obj/item/organ/internal/cell) && !H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci))
+		if(!H.get_int_organ(/obj/item/organ/internal/cell) && !H.get_int_organ(/obj/item/organ/internal/cyberimp/brain/bci) && !(ismodcontrol(H.back)))
 			return
+
 		can_accept_user = TRUE
 
 	if(is_circuit_drone(user))

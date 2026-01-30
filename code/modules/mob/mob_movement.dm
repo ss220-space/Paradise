@@ -54,6 +54,9 @@
 	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
 		return FALSE // This is sota the goto stop mobs from moving var
 
+	if(mob.throwing && mob.throwing.block_movement)
+		return FALSE
+
 	if(!isliving(mob))
 		if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE, new_loc, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_NON_LIVING_MOVE)
 			return FALSE
@@ -491,7 +494,7 @@
 	var/ventcrawling_flag = HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING) ? ZMOVE_VENTCRAWLING : NONE
 	if(can_z_move(DOWN, above_turf, current_turf, ZMOVE_FALL_FLAGS|ventcrawling_flag)) //Will we fall down if we go up?
 		if(buckled)
-			to_chat(src, span_notice("[capitalize(buckled.declent_ru(NOMINATIVE))] не способ[GEND_EN_NA_NO_NY(buckled)] летать."))
+			to_chat(src, span_notice("[DECLENT_RU_CAP(buckled, NOMINATIVE)] не способ[GEND_EN_NA_NO_NY(buckled)] летать."))
 		else
 			to_chat(src, span_notice("Вы не Супермен чтобы взлететь вверх."))
 		return

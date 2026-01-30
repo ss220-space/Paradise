@@ -17,7 +17,7 @@
 	)
 	forced_heartattack = TRUE // Plasmamen have no blood, but they should still get heart-attacks
 	skinned_type = /obj/item/stack/sheet/mineral/plasma // We're low on plasma, R&D! *eyes plasmaman co-worker intently*
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	cold_level_1 = 240
 	cold_level_2 = 180
@@ -229,7 +229,7 @@
 		var/obj/item/clothing/helmet = H.head
 		if(suit.clothing_flags & helmet.clothing_flags & STOPSPRESSUREDMAGE)
 			atmos_sealed = TRUE
-	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman)))
+	if(!atmos_sealed && (!istype(H.w_uniform, /obj/item/clothing/under/plasmaman) || !istype(H.head, /obj/item/clothing/head/helmet/space/plasmaman) && !HAS_TRAIT(H, TRAIT_NOSELFIGNITION_HEAD_ONLY)))
 		var/datum/gas_mixture/environment = null
 		if(isobj(H.loc))
 			var/obj/O = H.loc
