@@ -443,10 +443,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			var/json_data = json_encode(design)
 
-			var/hmac_key = "5f8d3e7a12c4b960f29b8d1e4a6f0c3b7e2a9d8f" // временно
-			var/hmac_base64 = ""
+			var/hmac_key = CONFIG_GET(string/hmac_key) ? CONFIG_GET(string/hmac_key) : ""
 
 			// Создает HMAC если ключ корректен
+			var/hmac_base64 = ""
 			if(validate_hmac_key(hmac_key))
 				hmac_base64 = hmac_md5_base64(hmac_key, json_data)
 
@@ -464,13 +464,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/mob/user = ui.user
 
 			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 999999999)
-
-			var/hmac_key = "5f8d3e7a12c4b960f29b8d1e4a6f0c3b7e2a9d8f" // временно
-			var/hmac_base64 = ""
-
 			text = ascii_list2text(rustlib_decode_base64(text)) ? ascii_list2text(rustlib_decode_base64(text)) : ""
 
-			if(!text)
+			var/hmac_key = CONFIG_GET(string/hmac_key) ? CONFIG_GET(string/hmac_key) : ""
+
+			if(!text || findtext(text, "."))
+				tgui_alert(user, "Ошибка расшифровки. Убедитесь в корректности данных", "Ошибка импорта")
 				return
 
 			var/list/parts = splittext(text, ".") // [1] - json в виде списка ASCII [2] - HMAC в виде списка ASCII
@@ -481,11 +480,14 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 				tgui_alert(user, "Некорректный JSON! Проверьте корректность данных.", "Ошибка импорта")
 				return
 
+			// Создает HMAC если ключ корректен
+			var/hmac_base64 = ""
 			if(validate_hmac_key(hmac_key) && json_data)
 				hmac_base64 = hmac_md5_base64(hmac_key, json_data)
 
+			// Сравнивает переданный и полученный HMAC
 			if(parts[2] != hmac_base64)
-				tgui_alert(user, "Ошибка электронной печати! Проверьте корректность данных.", "Ошибка импорта")
+				tgui_alert(user, "Ошибка электронной подписи! Проверьте корректность данных.", "Ошибка импорта")
 				return
 
 			save_circuit_by_json(user, json_data)

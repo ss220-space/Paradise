@@ -520,4 +520,9 @@ CACHE_ASSETS 0
 ## This config option limits the maximum chunk count for which the server will accept a payload, default is 32
 TGUI_MAX_CHUNK_COUNT 128
 
+## HMAC key for encode integrated circuit
+## Written as hex in a string
+## Size - 40 characters
+HMAC_KEY ffffffffffffffffffffffffffffffffffffffff
+
 ### INITIALIZATION SETTINGS END ###
