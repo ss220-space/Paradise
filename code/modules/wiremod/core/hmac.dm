@@ -88,7 +88,7 @@
         return FALSE
 
     var/len = length(hex_key)
-    if(len != 40 && len != 64)
+    if(len != 40 && len != HMAC_BLOCK_SIZE)
         return FALSE
 
     var/valid_chars = "0123456789abcdefABCDEF"

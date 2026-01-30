@@ -522,7 +522,7 @@ TGUI_MAX_CHUNK_COUNT 128
 
 ## HMAC key for encode integrated circuit
 ## Written as hex in a string
-## Size - 40 characters
+## Size - 40 or 64 characters
 HMAC_KEY ffffffffffffffffffffffffffffffffffffffff
 
 ### INITIALIZATION SETTINGS END ###

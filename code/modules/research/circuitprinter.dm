@@ -311,10 +311,12 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 // Проверяет наличие всех данных
 /obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_json(mob/living/user, json_data)
+	var/list/data = json_decode(json_data)
 	var/list/required_keys = list("dupe_data", "name", "materials", "integrated_circuit", "Icon", "IconState", "desc")
 	for(var/key in required_keys)
 		if(!LAZYACCESS(data, key))
 			return FALSE
+	return TRUE
 
 // Для иморта платы
 /obj/machinery/r_n_d/circuit_imprinter/proc/save_circuit_by_json(mob/living/user, json_data)
@@ -322,6 +324,11 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 		return
 
 	var/list/data = json_decode(json_data)
+
+	for(var/list/component_data as anything in scanned_designs)
+		if(component_data["name"] == data["name"])
+			balloon_alert(user, "название занято!")
+			return
 
 	LAZYADD(scanned_designs, list(data))
 
