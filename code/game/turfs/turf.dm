@@ -1002,7 +1002,7 @@
 		air = bound_air
 	
 	var/wind_x_cached = wind_x
-	var/wind_y_cached = wind_x
+	var/wind_y_cached = wind_y
 	
 	var/wind = MAGNITUDE(wind_x_cached, wind_y_cached)
 	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
