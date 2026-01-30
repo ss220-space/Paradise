@@ -1000,7 +1000,11 @@
 		air = get_readonly_air()
 	else
 		air = bound_air
-	var/wind = sqrt(wind_x ** 2 + wind_y ** 2)
+	
+	var/wind_x_cached = wind_x
+	var/wind_y_cached = wind_x
+	
+	var/wind = MAGNITUDE(wind_x_cached, wind_y_cached)
 	var/wind_strength = wind * air.total_moles() / MOLES_CELLSTANDARD
 	current_wind.alpha = min(255, 5 + wind_strength * 25)
 	return TRUE

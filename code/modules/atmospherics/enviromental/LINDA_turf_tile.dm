@@ -125,7 +125,7 @@
 	var/datum/gas_mixture/my_air = my_turf.get_readonly_air()
 
 	var/air = my_air.total_moles() / MOLES_CELLSTANDARD
-	var/wind = sqrt(flow_x ** 2 + flow_y ** 2)
+	var/wind = MAGNITUDE(flow_x, flow_y)
 	var/force = wind * air * (MOVE_FORCE_DEFAULT / 5)
 
 	if(force < force_needed)

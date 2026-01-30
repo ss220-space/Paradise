@@ -169,6 +169,7 @@
 	var/list/martyrs = list()
 
 	var/self_harm_radius_mult = 3
+	var/cached_radius = radius
 
 	if(punishable_triggerer && prob(60))
 		to_chat(punishable_triggerer, span_userdanger("Your plan to whack someone with a grenade on a stick backfires on you, literally!"))
@@ -197,7 +198,7 @@
 			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, snuffing out the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, snuffing out the shrapnel!"))
 			magnitude_absorbed = radius
 
-		var/pellets_absorbed = (radius ** 2) - ((radius - magnitude_absorbed - 1) ** 2)
+		var/pellets_absorbed = (POW2(radius)) - POW2(radius - magnitude_absorbed - 1)
 		radius -= magnitude_absorbed
 		pellet_delta -= round(pellets_absorbed * 0.5)
 
