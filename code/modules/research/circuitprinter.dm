@@ -430,7 +430,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/json_base64 = rustg_encode_base64(json_data)
 			var/final_text = rustg_encode_base64("[json_base64].[hmac_base64]")
 
-			 // Окно в вводом из которого можно скопировать текст
+			// Окно в вводом из которого можно скопировать текст
 			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = final_text, max_length=999999999)
 
 		if("import")
