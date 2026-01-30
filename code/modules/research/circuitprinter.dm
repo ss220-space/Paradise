@@ -437,7 +437,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/mob/user = ui.user
 
 			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 999999999)
-			text = ascii_list2text(rustlib_decode_base64(text)) ? ascii_list2text(rustlib_decode_base64(text)) : ""
+			text = text && ascii_list2text(rustlib_decode_base64(text)) ? ascii_list2text(rustlib_decode_base64(text)) : ""
 
 			var/hmac_key = CONFIG_GET(string/hmac_key) ? CONFIG_GET(string/hmac_key) : ""
 
