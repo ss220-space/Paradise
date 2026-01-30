@@ -432,6 +432,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/json_base64 = rustg_encode_base64(json_data)
 			var/final_text = rustg_encode_base64("[json_base64].[hmac_base64]")
 
+			hmac_key = "" // Удаляет значение ключа
+
 			// Окно в вводом из которого можно скопировать текст
 			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = final_text, max_length=999999999)
 
@@ -468,6 +470,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			if(parts[2] != hmac_base64)
 				tgui_alert(user, "Ошибка электронной подписи! Проверьте корректность данных.", "Ошибка импорта")
 				return TRUE
+
+			hmac_key = "" // Удаляет значение ключа
 
 			save_circuit_by_json(user, json_data)
 
