@@ -658,7 +658,7 @@
 			var/precision_coeff = connected.precision_coeff
 
 			if(connected.occupant)
-				if(prob((80 + ((radiation_duration / 2) + POW3(connected.precision_coeff)))))
+				if(prob((80 + ((radiation_duration / 2) + POW3(precision_coeff)))))
 					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
 					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
 
