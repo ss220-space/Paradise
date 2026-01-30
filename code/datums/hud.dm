@@ -82,6 +82,9 @@ GLOBAL_LIST_INIT(huds, list( \
 		hud_atoms += list(list())
 		hud_users += list(list())
 
+	if(LAZYLEN(hud_icons))
+		hud_icons = string_list(hud_icons)
+
 	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_Z, PROC_REF(add_z_level_huds))
 
 	if(uses_global_hud_category)

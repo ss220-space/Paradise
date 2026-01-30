@@ -38,6 +38,8 @@
 		add_to_dead_mob_list()
 	else
 		add_to_alive_mob_list()
+	if(LAZYLEN(faction))
+		faction = string_list(faction)
 	set_focus(src)
 	prepare_huds()
 	become_hearing_sensitive()

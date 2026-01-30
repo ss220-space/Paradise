@@ -207,13 +207,13 @@ What are the archived variables for?
 /datum/gas_mixture/proc/return_visuals(z)
 	var/list/result = list()
 	if(private_toxins > MOLES_PLASMA_VISIBLE)
-		result += GLOB.plmaster["[GET_Z_PLANE_OFFSET(z)]"]
+		result += GLOB.plmaster[GET_Z_PLANE_OFFSET(z)]
 
 	if(private_sleeping_agent > 1)
-		result += GLOB.slmaster["[GET_Z_PLANE_OFFSET(z)]"]
+		result += GLOB.slmaster[GET_Z_PLANE_OFFSET(z)]
 
 	if(private_water_vapor > MOLES_WATER_VAPOR_VISIBLE)
-		result += GLOB.wvmaster["[GET_Z_PLANE_OFFSET(z)]"]
+		result += GLOB.wvmaster[GET_Z_PLANE_OFFSET(z)]
 	return result
 
 //Procedures used for very specific events
