@@ -312,6 +312,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 // Проверяет наличие всех данных
 /obj/machinery/r_n_d/circuit_imprinter/proc/can_save_circuit_by_json(mob/living/user, json_data)
 	var/list/data = json_decode(json_data)
+	if(!islist(data))
+		return FALSE
 	var/list/required_keys = list("dupe_data", "name", "materials", "integrated_circuit", "Icon", "IconState", "desc")
 	for(var/key in required_keys)
 		if(!LAZYACCESS(data, key))
@@ -437,7 +439,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			var/mob/user = ui.user
 
 			var/text = tgui_input_text(user, "Вставьте текст интегральной платы", "Импорт схемы", encode=FALSE, max_length = 999999999)
-			text = text && ascii_list2text(rustlib_decode_base64(text)) ? ascii_list2text(rustlib_decode_base64(text)) : ""
+			if(!text)
+				return TRUE
+			var/list/decoded_text_list = rustlib_decode_base64(text)
+			text = text && decoded_text_list ? ascii_list2text(decoded_text_list) : ""
 
 			var/hmac_key = CONFIG_GET(string/hmac_key) ? CONFIG_GET(string/hmac_key) : ""
 
@@ -447,7 +452,8 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			var/list/parts = splittext(text, ".") // [1] - json в виде списка ASCII [2] - HMAC в виде списка ASCII
 
-			var/json_data = ascii_list2text(rustlib_decode_base64(parts[1])) ? ascii_list2text(rustlib_decode_base64(parts[1])) : ""
+			var/list/decoded_json_list = rustlib_decode_base64(parts[1])
+			var/json_data = decoded_json_list ? ascii_list2text(decoded_json_list) : ""
 
 			if(!json_data)
 				tgui_alert(user, "Некорректный JSON! Проверьте корректность данных.", "Ошибка импорта")
