@@ -446,13 +446,13 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			if(!hmac_base64)
 				tgui_alert(user, "Ошибка создания электронной подписи!", "Ошибка экспорта")
-				return
+				return TRUE
 
 			var/json_base64 = rustg_encode_base64(json_data)
 			var/final_text = rustg_encode_base64("[json_base64].[hmac_base64]")
 
 			 // Окно в вводом из которого можно скопировать текст
-			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = final_text)
+			tgui_input_text(user, "Скопируйте текст схемы:", "Экспорт схемы", default = final_text, max_length=0)
 
 		if("import")
 			var/mob/user = ui.user
@@ -464,7 +464,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			if(!text || findtext(text, "."))
 				tgui_alert(user, "Ошибка расшифровки. Убедитесь в корректности данных", "Ошибка импорта")
-				return
+				return TRUE
 
 			var/list/parts = splittext(text, ".") // [1] - json в виде списка ASCII [2] - HMAC в виде списка ASCII
 
@@ -472,7 +472,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 
 			if(!json_data)
 				tgui_alert(user, "Некорректный JSON! Проверьте корректность данных.", "Ошибка импорта")
-				return
+				return TRUE
 
 			// Создает HMAC если ключ корректен
 			var/hmac_base64 = ""
@@ -482,7 +482,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			// Сравнивает переданный и полученный HMAC
 			if(parts[2] != hmac_base64)
 				tgui_alert(user, "Ошибка электронной подписи! Проверьте корректность данных.", "Ошибка импорта")
-				return
+				return TRUE
 
 			save_circuit_by_json(user, json_data)
 
