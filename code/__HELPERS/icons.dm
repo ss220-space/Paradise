@@ -1211,9 +1211,10 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 
 	return flat_icon2html(thing, target, sourceonly = FALSE)
 
-/proc/flat_icon2html(thing, target, sourceonly = FALSE, name = "[thing]")
+/proc/flat_icon2html(thing, target, sourceonly = FALSE, name = md5("[thing]"))
 	if(!thing)
 		return
+	name = md5(name)
 	var/datum/universal_icon/flat_icon = get_flat_uni_icon(thing)
 	var/file = get_icon_from_uni_icon(flat_icon, name, FALSE, FALSE)
 	return icon2html(file, target, sourceonly = sourceonly)
