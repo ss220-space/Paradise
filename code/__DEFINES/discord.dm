@@ -9,3 +9,6 @@
 
 /// Send to the mentor Discord webhook
 #define DISCORD_WEBHOOK_MENTOR "MENTOR"
+
+/// Send to the bugreport Discord webhook
+#define DISCORD_WEBHOOK_BUGREPORT "BUGREPORT"

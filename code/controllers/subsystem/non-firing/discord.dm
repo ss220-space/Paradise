@@ -26,6 +26,8 @@ SUBSYSTEM_DEF(discord)
 			webhook_urls = CONFIG_GET(str_list/discord_main_webhook_urls)
 		if(DISCORD_WEBHOOK_MENTOR)
 			webhook_urls = CONFIG_GET(str_list/discord_mentor_webhook_urls)
+		if(DISCORD_WEBHOOK_BUGREPORT)
+			webhook_urls = CONFIG_GET(str_list/discord_bugreport_webhook_urls)
 
 	var/datum/discord_webhook_payload/dwp = new()
 	dwp.webhook_content = content

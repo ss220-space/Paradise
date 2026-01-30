@@ -1,0 +1,18 @@
+/client/verb/bugreport()
+	set name = "Баг-репорт"
+	set category = ADMIN_CATEGORY_TICKETS
+
+	var/msg
+
+	var/description = tgui_input_text(src, "Опишите баг/недочет:", "Баг-репорт", encode = FALSE)
+	var/correct_desc = tgui_input_text(src, "Опишите ожидаемое поведение (как должно работать):", "Баг-репорт", encode = FALSE)
+	var/discord =  tgui_input_text(src, "Ваш дискорд для связи (обязательно):", "Баг-репорт", encode = FALSE)
+	var/have_sreens = tgui_alert(src, "Есть ли у вас скрины?", "Баг-репорт", list("Да", "Нет"))=="Да"
+
+	if(!description || !correct_desc || !discord)
+		tgui_alert(src, "Вы пропустили один из пунктов! Попробуйте сделать баг-репорт еще раз, заполняя все поля", "Баг-репорт")
+		return TRUE
+
+	msg = "[key_name(src)] [GLOB.round_id] \n1. [description]\n2. [correct_desc]\n3. [discord]\n4. Скрины: [have_sreens ? "Да" : "Нет"]"
+	if(tgui_alert(src, "Ваш репорт выглядит так:\n[msg]\nВы уверены что все заполнено правильно?", "Баг-репорт", list("Да", "Нет"))=="Да")
+		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BUGREPORT, msg)

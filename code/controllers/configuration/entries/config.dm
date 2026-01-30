@@ -652,6 +652,10 @@
 /// Webhook URLs for the requests webhook
 /datum/config_entry/str_list/discord_requests_webhook_urls
 
+//Needs attention
+/// Webhook URLs for the bugreport webhook
+/datum/config_entry/str_list/discord_bugreport_webhook_urls
+
 /// Do we want to forward all adminhelps to the discord or just ahelps when admins are offline.
 /// (This does not mean all ahelps are pinged, only ahelps sent when staff are offline get the ping, regardless of this setting)
 /datum/config_entry/flag/discord_forward_all_ahelps
