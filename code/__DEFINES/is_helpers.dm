@@ -223,6 +223,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define issingularity(atom) (istype(atom, /obj/singularity))
 
+#define isplatingturf(A) (istype(A, /turf/simulated/floor/plating))
+
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
 #define istable(A) (istype(A, /obj/structure/table))
