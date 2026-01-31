@@ -11,7 +11,7 @@
 	UnregisterSignal(target, COMSIG_TOOL_USE)
 	UnregisterSignal(target, COMSIG_ITEM_PRE_ATTACKBY)
 
-/datum/element/attack_no_depressurization/proc/check_tool_use(atom/target, mob/living/user)
+/datum/element/attack_no_depressurization/proc/check_tool_use(datum/source, signal, atom/target, mob/living/user, params)
 	SIGNAL_HANDLER
 	to_chat(user, span_userdanger("АААААААААААААА"))
 	for(var/turf/turf_check in range(1, target))
@@ -20,7 +20,7 @@
 			to_chat(user, span_danger("Вы не можете это сделать, это действие может привести к разгерметизации!"))
 			return COMPONENT_BLOCK_TOOL_CHAIN
 
-/datum/element/attack_no_depressurization/proc/check_attack(atom/target, mob/living/user)
+/datum/element/attack_no_depressurization/proc/check_attack(datum/source, signal, atom/target, mob/living/user, params)
 	SIGNAL_HANDLER
 	to_chat(user, span_userdanger("АААААААААААААА"))
 	for(var/turf/turf_check in range(1, target))
