@@ -7,6 +7,17 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
+"aJ" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8;
+	icon_state = "heater3x3_side";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark/lavaland_air,
+/area/shuttle/freegolem)
 "aV" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/research_and_development{
@@ -119,11 +130,6 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"fw" = (
-/obj/effect/decal/warning_stripes/green/hollow,
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/pod/dark,
-/area/shuttle/freegolem)
 "gr" = (
 /obj/machinery/door/airlock/survival_pod/glass,
 /turf/simulated/floor/pod/dark,
@@ -137,6 +143,12 @@
 /obj/item/stack/nanopaste,
 /obj/item/stack/nanopaste,
 /turf/simulated/floor/pod/dark,
+/area/shuttle/freegolem)
+"gR" = (
+/obj/structure/shuttle/engine/huge{
+	dir = 8
+	},
+/turf/simulated/floor/pod/dark/lavaland_air,
 /area/shuttle/freegolem)
 "iq" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
@@ -212,12 +224,6 @@
 	name = "Bridge Lockdown"
 	},
 /turf/simulated/floor/pod/dark,
-/area/shuttle/freegolem)
-"lh" = (
-/obj/structure/shuttle/engine/huge{
-	dir = 8
-	},
-/turf/simulated/floor/pod/dark/lavaland_air,
 /area/shuttle/freegolem)
 "ls" = (
 /obj/machinery/light{
@@ -327,17 +333,6 @@
 	},
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"oD" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8;
-	icon_state = "heater3x3";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/turf/simulated/floor/pod/dark/lavaland_air,
-/area/shuttle/freegolem)
 "oY" = (
 /obj/structure/computerframe,
 /turf/simulated/floor/pod/dark,
@@ -420,6 +415,17 @@
 "wG" = (
 /obj/structure/sign/mining/survival,
 /turf/simulated/wall/mineral/titanium/survival/pod,
+/area/shuttle/freegolem)
+"xd" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8;
+	icon_state = "heater3x3_side_inv";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark/lavaland_air,
 /area/shuttle/freegolem)
 "xv" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -544,17 +550,6 @@
 /obj/effect/decal/warning_stripes/green/hollow,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"Ct" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8;
-	icon_state = "heater3x3_side";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/turf/simulated/floor/pod/dark/lavaland_air,
-/area/shuttle/freegolem)
 "CQ" = (
 /obj/machinery/vending/wallmed{
 	pixel_x = -25
@@ -642,6 +637,17 @@
 /obj/machinery/door/airlock/survival_pod,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
+"Ku" = (
+/obj/structure/shuttle/engine/heater{
+	dir = 8;
+	icon_state = "heater3x3";
+	tag = "icon-heater (NORTH)"
+	},
+/obj/structure/window/reinforced/survival_pod{
+	dir = 4
+	},
+/turf/simulated/floor/pod/dark/lavaland_air,
+/area/shuttle/freegolem)
 "KY" = (
 /obj/machinery/light{
 	dir = 8;
@@ -657,17 +663,6 @@
 	name = "statue of the Liberator"
 	},
 /turf/simulated/floor/pod/dark,
-/area/shuttle/freegolem)
-"LL" = (
-/obj/structure/shuttle/engine/heater{
-	dir = 8;
-	icon_state = "heater3x3_side_inv";
-	tag = "icon-heater (NORTH)"
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/turf/simulated/floor/pod/dark/lavaland_air,
 /area/shuttle/freegolem)
 "LV" = (
 /obj/machinery/vending/hydronutrients,
@@ -752,20 +747,14 @@
 /obj/item/clothing/head/welding,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
+"OM" = (
+/turf/simulated/floor/pod/dark/lavaland_air,
+/area/shuttle/freegolem)
 "Pn" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/glasses/hud/hydroponic,
 /obj/item/clothing/glasses/hud/hydroponic,
 /obj/item/clothing/glasses/hud/hydroponic,
-/turf/simulated/floor/pod/dark,
-/area/shuttle/freegolem)
-"Ps" = (
-/obj/machinery/light{
-	dir = 8;
-	pixel_y = -32
-	},
-/obj/effect/decal/warning_stripes/green/hollow,
-/obj/machinery/vending/coffee/free,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "PF" = (
@@ -781,6 +770,15 @@
 /obj/effect/mob_spawn/human/golem/adamantine,
 /obj/effect/turf_decal/box/white,
 /turf/simulated/floor/carpet/black,
+/area/shuttle/freegolem)
+"Qg" = (
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -32
+	},
+/obj/effect/decal/warning_stripes/green/hollow,
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "Qt" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -810,19 +808,12 @@
 /obj/item/resonator,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
-"Tq" = (
-/turf/simulated/floor/pod/dark/lavaland_air,
-/area/shuttle/freegolem)
 "TQ" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/yellow/partial{
 	dir = 8
 	},
 /turf/simulated/floor/pod,
-/area/shuttle/freegolem)
-"Uh" = (
-/obj/structure/lattice/catwalk,
-/turf/simulated/floor/pod/dark/lavaland_air,
 /area/shuttle/freegolem)
 "UC" = (
 /obj/structure/computerframe,
@@ -842,6 +833,11 @@
 	pixel_x = -32
 	},
 /turf/simulated/floor/pod,
+/area/shuttle/freegolem)
+"VF" = (
+/obj/effect/decal/warning_stripes/green/hollow,
+/obj/machinery/vending/snack,
+/turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
 "Wn" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -885,6 +881,10 @@
 /obj/machinery/floodlight,
 /turf/simulated/floor/pod/dark,
 /area/shuttle/freegolem)
+"YM" = (
+/obj/structure/lattice/catwalk,
+/turf/simulated/floor/pod/dark/lavaland_air,
+/area/shuttle/freegolem)
 "ZP" = (
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/baseturf_helper/lava_land/surface,
@@ -914,9 +914,9 @@ yB
 "}
 (2,1,1) = {"
 yB
-Tq
-lh
-Tq
+OM
+gR
+OM
 yB
 yB
 yB
@@ -928,9 +928,9 @@ yB
 yB
 yB
 yB
-Tq
-lh
-Tq
+OM
+gR
+OM
 yB
 "}
 (3,1,1) = {"
@@ -956,23 +956,23 @@ cI
 "}
 (4,1,1) = {"
 zc
-Ct
-oD
-LL
+aJ
+Ku
+xd
 wG
 yB
 yB
 cI
-Tq
-lh
-Tq
+OM
+gR
+OM
 cI
 yB
 yB
 zc
-Ct
-oD
-LL
+aJ
+Ku
+xd
 wG
 "}
 (5,1,1) = {"
@@ -998,16 +998,16 @@ cI
 "}
 (6,1,1) = {"
 cI
-Ps
+Qg
 yf
 xv
 cI
 cI
 cI
 cI
-Ct
-oD
-LL
+aJ
+Ku
+xd
 cI
 cI
 cI
@@ -1019,7 +1019,7 @@ cI
 "}
 (7,1,1) = {"
 cI
-fw
+VF
 yf
 uQ
 Cl
@@ -1188,7 +1188,7 @@ fu
 (15,1,1) = {"
 fu
 fu
-Uh
+YM
 mz
 Vi
 jd
@@ -1202,14 +1202,14 @@ ir
 mC
 cp
 mz
-Uh
+YM
 Gs
 fu
 "}
 (16,1,1) = {"
 fu
 fu
-Uh
+YM
 mz
 mC
 nl
@@ -1223,7 +1223,7 @@ ir
 MW
 jd
 mz
-Uh
+YM
 Gs
 fu
 "}

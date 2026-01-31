@@ -23,44 +23,54 @@
 	broken_overlay = "sec_broken"
 	broken_lightmask_overlay = "sec_broken_lightmask"
 	deny_overlay = "sec_deny"
+	default_price = PAYCHECK_LOWER
+	default_premium_price = PAYCHECK_COMMAND
 
 	req_access = list(ACCESS_SECURITY)
-	products = list(
-		/obj/item/restraints/handcuffs = 8,
-		/obj/item/restraints/handcuffs/cable/zipties = 8,
-		/obj/item/grenade/flashbang = 4,
-		/obj/item/flash = 5,
-		/obj/item/reagent_containers/food/snacks/donut = 12,
-		/obj/item/storage/box/evidence = 6,
-		/obj/item/flashlight/seclite = 4,
-		/obj/item/restraints/legcuffs/bola/energy = 7,
-		/obj/item/clothing/mask/muzzle/safety = 4,
-		/obj/item/storage/box/swabs = 6,
-		/obj/item/storage/box/fingerprints = 6,
-		/obj/item/eftpos/sec = 4,
-		/obj/item/storage/belt/security/webbing = 2,
-		/obj/item/storage/pouch/fast = 2,
-		/obj/item/clothing/mask/gas/sechailer/tactical = 5,
-		/obj/item/flashlight/sectaclight = 2,
-		/obj/item/grenade/smokebomb = 8,
-		/obj/item/storage/belt/security/judobelt = 3,
-		/obj/item/stack/medical/bruise_pack/military = 5,
-		/obj/item/tourniquet/advanced = 5,
+	product_categories = list(
+		list(
+			"name" = "Расходники и приспособления",
+			"icon" = "handcuffs",
+			"products" = list(
+				/obj/item/restraints/handcuffs = 8,
+				/obj/item/restraints/handcuffs/cable/zipties = 8,
+				/obj/item/restraints/legcuffs/bola/energy = 7,
+				/obj/item/grenade/flashbang = 5,
+				/obj/item/flash = 5,
+				/obj/item/storage/box/evidence = 3,
+				/obj/item/storage/box/swabs = 3,
+				/obj/item/storage/box/fingerprints = 3,
+				/obj/item/grenade/smokebomb = 8,
+				/obj/item/clothing/mask/muzzle/safety = 4,
+
+			),
+		),
+		list(
+			"name" = "Оборудование и экипировка",
+			"icon" = "vest-patches",
+			"products" = list(
+				/obj/item/storage/belt/security/webbing = 2,
+				/obj/item/clothing/mask/gas/sechailer/tactical = 5,
+				/obj/item/storage/belt/security/judobelt = 3,
+				/obj/item/eftpos/sec = 4,
+				/obj/item/flashlight/seclite = 4,
+				/obj/item/flashlight/sectaclight = 2,
+			),
+		),
+		list(
+			"name" = "Другое",
+			"icon" = "ellipsis",
+			"products" = list(
+				/obj/item/reagent_containers/food/snacks/donut = 12,
+				/obj/item/stack/medical/bruise_pack/military = 5,
+				/obj/item/tourniquet/advanced = 5,
+			),
+		),
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
 		/obj/item/storage/fancy/donut_box = 2,
 		/obj/item/hailer = 5,
-	)
-	prices = list(
-		/obj/item/storage/belt/security/judobelt = 499,
-		/obj/item/storage/belt/security/webbing = 999,
-		/obj/item/storage/pouch/fast = 999,
-		/obj/item/clothing/mask/gas/sechailer/tactical = 299,
-		/obj/item/flashlight/sectaclight = 299,
-		/obj/item/grenade/smokebomb = 249,
-		/obj/item/stack/medical/bruise_pack/military = 299,
-		/obj/item/tourniquet/advanced = 399,
 	)
 	refill_canister = /obj/item/vending_refill/security
 
@@ -89,11 +99,15 @@
 
 	icon_state = "sectraining_off"
 	broken_lightmask_overlay = "sectraining_broken_lightmask"
-
 	req_access = list(ACCESS_SECURITY)
+	all_products_free = TRUE
+	product_categories = null
 	products = list(
-		/obj/item/clothing/ears/earmuffs = 2, /obj/item/gun/energy/laser/practice = 2, /obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
-		/obj/item/gun/projectile/shotgun/toy = 2, /obj/item/gun/projectile/automatic/toy = 2,
+		/obj/item/clothing/ears/earmuffs = 2,
+		/obj/item/gun/energy/laser/practice = 2,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 2,
+		/obj/item/gun/projectile/shotgun/toy = 2,
+		/obj/item/gun/projectile/automatic/toy = 2,
 	)
 	contraband = list(/obj/item/toy/figure/secofficer = 1)
 
@@ -144,8 +158,9 @@
 	desc = "Расходное оборудование для различных ситуаций."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 	refill_canister = /obj/item/vending_refill/nta
-
 	density = FALSE
+	product_categories = null
+
 	products = list(
 		/obj/item/restraints/handcuffs = 10,
 		/obj/item/flashlight/seclite = 10,
