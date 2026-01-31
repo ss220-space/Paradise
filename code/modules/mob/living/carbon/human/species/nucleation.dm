@@ -22,7 +22,7 @@
 		TRAIT_NO_SCAN,
 		TRAIT_NO_PAIN,
 		TRAIT_NO_PAIN_HUD,
-		TRAIT_RADIMMUNE,
+		TRAIT_NO_RADIATION_EFFECTS,
 		TRAIT_VIRUSIMMUNE,
 		TRAIT_NO_GERMS,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
@@ -32,6 +32,7 @@
 	dies_at_threshold = TRUE
 	ignore_critical_condition = TRUE // Nucleations do not suffer from complex critical condition
 	var/touched_supermatter = FALSE
+	max_radiation = NUCLEATION_MAX_RADIATION
 
 	speciesbox = /obj/item/storage/box/survival/species/nucleation
 
@@ -62,21 +63,13 @@
 	H.light_color = COLOR_NUCLEATION_LIGHT
 	H.set_light_range(NUCLEATION_LIGHT_RANGE)
 	H.set_light_on(TRUE)
+	H.AddElement(/datum/element/radiation_healing)
 
 /datum/species/nucleation/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
 	H.light_color = null
 	H.set_light_on(FALSE) // turn off light after species loss
-
-/datum/species/nucleation/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
-	if(R.id == "radium")
-		if(R.volume >= 1)
-			H.heal_overall_damage(3, 3)
-			H.reagents.remove_reagent(R.id, 1)
-			if(H.radiation < 80)
-				H.apply_effect(4, IRRADIATE, negate_armor = 1)
-			return FALSE //Что бы не выводилось больше одного, который уже вывелся за счет прока
-	return ..()
+	H.RemoveElement(/datum/element/radiation_healing)
 
 /datum/species/nucleation/handle_death(gibbed, mob/living/carbon/human/human)
 	if(human.health <= HEALTH_THRESHOLD_DEAD) // Needed to prevent brain gib on surgery debrain

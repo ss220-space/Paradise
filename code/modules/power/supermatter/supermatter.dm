@@ -894,6 +894,9 @@
 
 		return ATTACK_CHAIN_PROCEED
 
+	if(HAS_TRAIT(used_item, TRAIT_SUPERMATTER_IMMUNE))
+		return ATTACK_CHAIN_BLOCKED
+
 	if(istype(used_item, /obj/item/retractor/supermatter))
 		to_chat(attacking_mob, span_notice("[DECLENT_RU_CAP(used_item, NOMINATIVE)] отскакивает от [declent_ru(ACCUSATIVE)], сначала нужно отрезать кусочек!"))
 
@@ -947,9 +950,6 @@
 		user.dust()
 		if(power_changes)
 			matter_power += 200
-
-	else if(istype(movable_atom, /obj/singularity) || istype(movable_atom, /obj/machinery/field/containment))
-		return
 
 	else if(isobj(movable_atom))
 		if(!iseffect(movable_atom))

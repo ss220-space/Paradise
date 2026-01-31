@@ -45,6 +45,11 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
 	var/nogenes = FALSE
 
+/obj/item/seeds/get_short_name()
+	if(!plantname)
+		return declent_ru(NOMINATIVE)
+	return plantname
+
 /obj/item/seeds/New(loc, nogenes = FALSE)
 	..()
 	pixel_x = rand(-8, 8)

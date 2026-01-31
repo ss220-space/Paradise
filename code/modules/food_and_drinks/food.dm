@@ -35,6 +35,9 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 
+/obj/item/reagent_containers/food/get_short_name()
+	return declent_ru(NOMINATIVE)
+
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5) //Randomizes postion
