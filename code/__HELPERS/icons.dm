@@ -1220,10 +1220,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	return icon2html(file, target, sourceonly = sourceonly)
 
 /proc/get_icon_from_uni_icon(datum/universal_icon/flat_icon, name, dmi_icon = FALSE)
-	var/data_out
-	var/job_id
 	var/entries_json = json_encode(list(name = flat_icon.to_list()))
-	data_out = rustlib_iconforge_generate("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
+	var/data_out = rustlib_iconforge_generate("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
 	if(data_out == RUSTLIBS_JOB_ERROR)
 		CRASH("Icon [name] JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
