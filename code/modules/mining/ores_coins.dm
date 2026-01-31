@@ -690,6 +690,53 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		PREPOSITIONAL = "монете \"Синдиката\"",
 	)
 
+/obj/item/coin/magic
+	name = "magical coin"
+	cmineral = "gold"
+	icon_state = "coin_gold_heads"
+	name_by_cmineral = FALSE
+	materials = list(MAT_GOLD = 9999)
+	credits = 9999
+	COOLDOWN_DECLARE(COIN_SUMMON_COOLDOWN)
+
+/obj/item/coin/magic/get_ru_names()
+	return list(
+		NOMINATIVE = "волшебная монета",
+		GENITIVE = "волшебной монеты",
+		DATIVE = "волшебной монете",
+		ACCUSATIVE = "волшебную монету",
+		INSTRUMENTAL = "волшебной монетой",
+		PREPOSITIONAL = "волшебной монете"
+	)
+
+/obj/item/coin/magic/examine(mob/user)
+	. = ..()
+	if(COOLDOWN_FINISHED(src, COIN_SUMMON_COOLDOWN))
+		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] ярко блестит!")
+
+/obj/item/coin/magic/attack_self(mob/user)
+	. = ..()
+	if(!COOLDOWN_FINISHED(src, COIN_SUMMON_COOLDOWN))
+		return
+	to_chat(user, span_warning("Вы подкидываете [declent_ru(ACCUSATIVE)] в руке, и та начинает нагреваться"))
+	COOLDOWN_START(src, COIN_SUMMON_COOLDOWN, 10 SECONDS)
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть играть за слугу [user.real_name]?", ROLE_WIZARD, role_cleanname = "слугу", poll_time = 10 SECONDS, source = image('icons/mob/simple_human.dmi', "butler"))
+	if(!LAZYLEN(candidates))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] остывает у вас в руке. Возможно, стоит попробовать позже."))
+		return
+
+	var/mob/living/carbon/human/servant = new(user.loc)
+	servant.equipOutfit(/datum/outfit/butler)
+	servant.forceMove(user)
+	var/mob/dead/observer/chosen = pick(candidates)
+	message_admins("[ADMIN_LOOKUPFLW(chosen)] was spawned as Dice Servant")
+	servant.possess_by_player(chosen.key)
+	var/datum/antagonist/servant/serv = new /datum/antagonist/servant(user)
+	servant.mind.add_antag_datum(serv)
+	to_chat(servant, span_notice("Вы слуга [user.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(user)] приказы."))
+	to_chat(user, span_warning("Нечто принимает вашу плату в обмен на вечную службу."))
+	qdel(src)
+
 /obj/item/coin/update_overlays()
 	. = ..()
 	if(string_attached)
