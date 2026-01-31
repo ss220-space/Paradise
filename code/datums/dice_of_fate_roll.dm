@@ -3,9 +3,6 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 /datum/dice_roll
 	var/number = 0
 
-/datum/dice_roll/New()
-	. = ..()
-
 /datum/dice_roll/proc/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
 	return
 
