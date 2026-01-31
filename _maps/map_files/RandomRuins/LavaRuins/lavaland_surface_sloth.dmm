@@ -2,10 +2,6 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"d" = (
-/obj/structure/chair/wood,
-/turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
 "e" = (
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
@@ -27,10 +23,7 @@
 "k" = (
 /turf/simulated/wall/indestructible,
 /area/ruin/unpowered/misc_lavaruin)
-"m" = (
-/turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
-"p" = (
+"o" = (
 /obj/machinery/door/airlock/wood/glass,
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
@@ -38,9 +31,13 @@
 /obj/machinery/door/airlock/wood/glass,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
-"t" = (
-/obj/machinery/vending/cola/free,
+"w" = (
+/obj/structure/chair/wood,
 /turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"x" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 "y" = (
 /obj/effect/spawner/random_spawners/dirt_50,
@@ -51,12 +48,7 @@
 	slowdown = 10
 	},
 /area/ruin/unpowered/misc_lavaruin)
-"E" = (
-/obj/machinery/door/airlock/wood/glass,
-/obj/structure/fans/tiny,
-/turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
-"I" = (
+"B" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/cans/beer{
 	pixel_x = -9;
@@ -65,6 +57,19 @@
 /obj/item/reagent_containers/food/drinks/cans/beer{
 	pixel_x = 10;
 	pixel_y = -1
+	},
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"C" = (
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"G" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
+"H" = (
+/obj/structure/chair/wood{
+	dir = 1
 	},
 /turf/simulated/floor/wood/lavaland_air,
 /area/ruin/unpowered/misc_lavaruin)
@@ -78,6 +83,12 @@
 /obj/item/reagent_containers/food/snacks/grown/citrus/orange,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
+"M" = (
+/obj/structure/table/wood,
+/obj/item/paper/fluff/stations/lavaland/sloth/note,
+/obj/item/flashlight/lamp,
+/turf/simulated/floor/wood/lavaland_air,
+/area/ruin/unpowered/misc_lavaruin)
 "N" = (
 /obj/structure/bed,
 /obj/item/bedsheet/centcom,
@@ -87,21 +98,10 @@
 /obj/effect/mapping_helpers/no_lava,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"Q" = (
-/obj/structure/chair/wood{
-	dir = 1
-	},
+"S" = (
+/obj/machinery/door/airlock/wood/glass,
+/obj/structure/fans/tiny,
 /turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
-"Y" = (
-/obj/structure/table/wood,
-/obj/item/paper/fluff/stations/lavaland/sloth/note,
-/obj/item/flashlight/lamp,
-/turf/simulated/floor/wood/lavaland_air,
-/area/ruin/unpowered/misc_lavaruin)
-"Z" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/wood,
 /area/ruin/unpowered/misc_lavaruin)
 
 (1,1,1) = {"
@@ -221,9 +221,9 @@ z
 z
 z
 k
-t
-m
-Y
+G
+C
+M
 k
 e
 P
@@ -251,11 +251,11 @@ k
 k
 k
 z
-E
-m
-m
+S
+C
+C
 J
-p
+o
 P
 P
 "}
@@ -283,9 +283,9 @@ z
 k
 z
 k
-d
-I
-Q
+w
+B
+H
 k
 e
 P
@@ -519,7 +519,7 @@ z
 k
 k
 k
-Z
+x
 h
 N
 k

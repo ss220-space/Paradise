@@ -2040,15 +2040,6 @@
 /obj/effect/decal/warning_stripes/southwest,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/westarrival)
-"asb" = (
-/obj/machinery/door_control{
-	id = "hangar";
-	name = "Hangar Doors Control";
-	pixel_y = -8;
-	req_access = list(18,47,48,70,71)
-	},
-/turf/simulated/wall,
-/area/engineering/mechanic_workshop/hangar)
 "asg" = (
 /obj/machinery/light,
 /obj/structure/table/reinforced,
@@ -2276,16 +2267,6 @@
 	},
 /turf/simulated/wall,
 /area/hallway/secondary/entry/lounge)
-"auB" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Hangar";
-	req_access = list(18,47,48,70,71)
-	},
-/obj/machinery/door/firedoor,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/engineering/mechanic_workshop/hangar)
 "auH" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -5465,18 +5446,6 @@
 	icon_state = "asteroid"
 	},
 /area/hydroponics)
-"aOR" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance{
-	req_access = list(18,47,48,70,71)
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/structure/disposalpipe/segment,
-/turf/simulated/floor/plating,
-/area/maintenance/fore)
 "aOT" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -34179,10 +34148,6 @@
 	icon_state = "grimy"
 	},
 /area/crew_quarters/heads/hop)
-"dFb" = (
-/obj/machinery/vending/cart/free,
-/turf/simulated/floor/wood/fancy/light,
-/area/crew_quarters/heads/hop)
 "dFc" = (
 /obj/structure/table/wood,
 /obj/item/storage/photo_album,
@@ -55856,14 +55821,6 @@
 	icon_state = "brown"
 	},
 /area/quartermaster/miningdock)
-"hQA" = (
-/obj/machinery/light,
-/obj/machinery/vending/coffee/free,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/lawoffice)
 "hQC" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -58676,6 +58633,18 @@
 	icon_state = "green"
 	},
 /area/hallway/secondary/exit)
+"ixQ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_access = list(18,47,48,70,71)
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/structure/disposalpipe/segment,
+/turf/simulated/floor/plating,
+/area/maintenance/fore)
 "iyh" = (
 /obj/structure/closet/coffin,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -60414,6 +60383,15 @@
 	},
 /turf/simulated/floor/plating,
 /area/toxins/lab)
+"iVx" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/security/hos)
 "iVE" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -67789,6 +67767,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
+"kHY" = (
+/obj/machinery/door_control{
+	id = "hangar";
+	name = "Hangar Doors Control";
+	pixel_y = -8;
+	req_access = list(18,47,48,70,71)
+	},
+/turf/simulated/wall,
+/area/engineering/mechanic_workshop/hangar)
 "kIa" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -76315,11 +76302,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
-"mEK" = (
-/obj/machinery/vending/cigarette/free,
-/obj/effect/decal/warning_stripes/red/hollow,
-/turf/simulated/floor/plasteel,
-/area/security/brigstaff)
 "mFb" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -88931,6 +88913,13 @@
 /obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plating,
 /area/maintenance/brig)
+"psi" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "psj" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -90366,6 +90355,14 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/sorting)
+"pHf" = (
+/obj/machinery/light,
+/obj/machinery/vending/coffee,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/wood/fancy/cherry,
+/area/lawoffice)
 "pHr" = (
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plasteel{
@@ -97524,6 +97521,11 @@
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel,
 /area/storage/tech)
+"rfR" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/warning_stripes/red/hollow,
+/turf/simulated/floor/plasteel,
+/area/security/brigstaff)
 "rfV" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/maintenance{
@@ -97769,15 +97771,6 @@
 	icon_state = "darkred"
 	},
 /area/security/warden)
-"riK" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/machinery/vending/cigarette/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/security/hos)
 "riO" = (
 /obj/machinery/atmospherics/unary/tank/toxins{
 	volume = 2000
@@ -103160,6 +103153,16 @@
 	},
 /turf/simulated/floor/plating,
 /area/lawoffice)
+"sua" = (
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Hangar";
+	req_access = list(18,47,48,70,71)
+	},
+/obj/machinery/door/firedoor,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/engineering/mechanic_workshop/hangar)
 "suc" = (
 /obj/item/radio/intercom/directional/north,
 /obj/structure/closet/secure_closet/security,
@@ -103774,13 +103777,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/aft)
-"sAG" = (
-/obj/machinery/vending/cola/free,
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkred"
-	},
-/area/security/permabrig)
 "sAI" = (
 /obj/structure/window/reinforced{
 	dir = 1
@@ -109170,10 +109166,6 @@
 /obj/item/screwdriver,
 /turf/simulated/floor/plating,
 /area/engineering/engine)
-"tKI" = (
-/obj/machinery/vending/cigarette/free,
-/turf/simulated/floor/wood,
-/area/security/detectives_office)
 "tKK" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -110037,6 +110029,14 @@
 "tSc" = (
 /turf/simulated/wall/r_wall,
 /area/engineering/engine/monitor)
+"tSk" = (
+/obj/effect/decal/warning_stripes/red,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/security/permabrig)
 "tSn" = (
 /obj/structure/mirror{
 	pixel_y = 32
@@ -118008,14 +118008,6 @@
 	icon_state = "neutralfull"
 	},
 /area/quartermaster/storage)
-"vEB" = (
-/obj/effect/decal/warning_stripes/red,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/security/permabrig)
 "vEU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/crate/engineering,
@@ -119786,6 +119778,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/prisonershuttle)
+"was" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/security/detectives_office)
 "waC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
@@ -120463,6 +120459,10 @@
 	icon_state = "whiteblue"
 	},
 /area/medical/sleeper)
+"wjB" = (
+/obj/machinery/vending/cart,
+/turf/simulated/floor/wood/fancy/light,
+/area/crew_quarters/heads/hop)
 "wjF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/random_spawners/rodent,
@@ -165781,7 +165781,7 @@ bwf
 xOa
 qMD
 bSE
-dFb
+wjB
 man
 dxf
 dxf
@@ -170321,8 +170321,8 @@ axf
 irJ
 aod
 beV
-asb
-auB
+kHY
+sua
 avd
 ayQ
 ayQ
@@ -172905,7 +172905,7 @@ dCE
 qlc
 pmZ
 cbZ
-aOR
+ixQ
 awY
 awY
 bpI
@@ -173995,7 +173995,7 @@ iHx
 owg
 gNR
 jun
-hQA
+pHf
 xnx
 xnx
 vrl
@@ -177337,7 +177337,7 @@ xgu
 ycJ
 mAv
 fvg
-tKI
+was
 xmo
 iOk
 irq
@@ -184510,7 +184510,7 @@ guG
 uPb
 hZW
 uPb
-sAG
+psi
 qbt
 cLk
 cfz
@@ -186843,7 +186843,7 @@ sCY
 xYa
 tWn
 uxL
-mEK
+rfR
 wPa
 kas
 sut
@@ -187584,7 +187584,7 @@ aru
 aru
 aru
 dCr
-vEB
+tSk
 wSo
 xan
 dXG
@@ -187623,7 +187623,7 @@ syT
 xDp
 scP
 mOq
-riK
+iVx
 pKm
 bzg
 vTL
