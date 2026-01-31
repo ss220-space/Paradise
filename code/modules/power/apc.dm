@@ -771,7 +771,7 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/storage/part_replacer || /obj/item/storage/part_replacer/bluespace))
+	if(istype(I, /obj/item/storage/part_replacer))
 		add_fingerprint(user)
 		if(stat & BROKEN)
 			to_chat(user, span_warning("Для этого ЛКП должен быть цел."))
@@ -1761,18 +1761,29 @@
 		apc_area.power_change()
 
 /obj/machinery/power/apc/proc/cell_upgrade_by_rped(mob/user, obj/item/storage/part_replacer/rped)
+	var/obj/item/stock_parts/cell/best_cell
 	for(var/obj/item/stock_parts/cell/newcell in rped.contents)
 		if(!cell || newcell.maxcharge > cell.maxcharge || newcell.charge > cell.charge*2)
-			rped.remove_from_storage(newcell, src)
-			rped.handle_item_insertion(cell, TRUE)
-			playsound(loc, 'sound/items/rped.ogg', 30, TRUE)
+			if(!best_cell || newcell.maxcharge > best_cell.maxcharge)
+				best_cell = newcell
+
+	if(best_cell)
+		rped.remove_from_storage(best_cell, src)
+		rped.handle_item_insertion(cell, TRUE)
+		playsound(loc, 'sound/items/rped.ogg', 30, TRUE)
+		if(cell)
 			user.visible_message(
-				span_warning("[cell ? "[user.name] заменил [cell.declent_ru(ACCUSATIVE)] на [newcell.declent_ru(ACCUSATIVE)] в ЛКП." : "[user.name] установил [newcell.declent_ru(ACCUSATIVE)] в ЛКП."]"),
-				span_notice("[cell ? "Вы заменили [cell.declent_ru(ACCUSATIVE)] на [newcell.declent_ru(ACCUSATIVE)] в ЛКП." : "Вы установили [newcell.declent_ru(ACCUSATIVE)] в ЛКП."]"),
+				span_warning("[user.name] заменил [cell.declent_ru(ACCUSATIVE)] на [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+				span_notice("Вы заменили [cell.declent_ru(ACCUSATIVE)] на [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
 			)
-			cell = newcell
-			update_icon()
-			return
+		else
+			user.visible_message(
+				span_warning("[user.name] установил [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+				span_notice("Вы установили [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+			)
+		cell = best_cell
+		update_icon()
+		return
 
 	to_chat(user, span_warning("Невозможно заменить батарею!"))
 
