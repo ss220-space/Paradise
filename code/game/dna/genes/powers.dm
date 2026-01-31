@@ -1,7 +1,7 @@
 ///////////////////////////////////
 // POWERS
 ///////////////////////////////////
-#define HULK_HUMANBODY_MULTIPLIER  1.25
+#define HULK_HUMANBODY_MULTIPLIER 1.25
 
 /datum/dna/gene/basic/nobreath
 	name = "Нет дыхания"
