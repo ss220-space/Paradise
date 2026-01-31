@@ -2,11 +2,15 @@
 	set name = "Баг-репорт"
 	set category = ADMIN_CATEGORY_TICKETS
 
+	if(check_mute(ckey, MUTE_ADMINHELP))
+		to_chat(src, span_red("Error: Admin-PM: You cannot send adminhelps (Muted)."), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+		return
+
 	var/msg
 
-	var/description = tgui_input_text(src, "Опишите баг/недочет:", "Баг-репорт", encode = FALSE)
-	var/correct_desc = tgui_input_text(src, "Опишите ожидаемое поведение (как должно работать):", "Баг-репорт", encode = FALSE)
-	var/discord =  tgui_input_text(src, "Ваш дискорд для связи (обязательно):", "Баг-репорт", encode = FALSE)
+	var/description = tgui_input_text(src, "Опишите баг/недочет:", "Баг-репорт", max_length=700, encode = FALSE)
+	var/correct_desc = tgui_input_text(src, "Опишите ожидаемое поведение (как должно работать):", "Баг-репорт", max_length=700, encode = FALSE)
+	var/discord =  tgui_input_text(src, "Ваш дискорд для связи (обязательно):", "Баг-репорт", max_length=100, encode = FALSE)
 	var/have_sreens = tgui_alert(src, "Есть ли у вас скрины?", "Баг-репорт", list("Да", "Нет"))=="Да"
 
 	if(!description || !correct_desc || !discord)
