@@ -231,6 +231,9 @@
 ///from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH (1<<0)
+//called before tool_act()
+#define COMSIG_TOOL_USE "tool_use"
+	#define COMPONENT_BLOCK_TOOL_CHAIN (1<<0)
 ///from base of atom/proc/tool_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
 ///from base of atom/screwdriver_act(): (mob/living/user, obj/item/I)

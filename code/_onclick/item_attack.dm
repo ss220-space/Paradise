@@ -79,6 +79,9 @@
 	. = ATTACK_CHAIN_PROCEED
 	if(!tool_behaviour)
 		return .
+	var/tool_chain_signal = SEND_SIGNAL(src, COMSIG_TOOL_USE, target, user, params)
+	if(tool_chain_signal & COMPONENT_BLOCK_TOOL_CHAIN)
+		return ATTACK_CHAIN_BLOCKED
 	if(target.tool_act(user, src, tool_behaviour))
 		return ATTACK_CHAIN_BLOCKED
 

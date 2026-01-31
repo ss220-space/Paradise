@@ -1102,6 +1102,11 @@
 
 	fix_modules()
 	handle_storages()
+	add_elements()
+
+/obj/item/robot_module/cogscarab/proc/add_elements()
+	for(var/obj/item/scarab_item in modules)
+		scarab_item.AddElement(/datum/element/attack_no_depressurization)
 
 /obj/item/robot_module/cogscarab/add_default_robot_items()
 	return
