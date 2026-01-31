@@ -1,6 +1,7 @@
 ///////////////////////////////////
 // POWERS
 ///////////////////////////////////
+#define HULK_HUMANBODY_MULTIPLIER  1.25
 
 /datum/dna/gene/basic/nobreath
 	name = "Нет дыхания"
@@ -133,7 +134,7 @@
 	instability = GENE_INSTABILITY_MAJOR
 	traits_to_add = list(TRAIT_HULK)
 	activation_prob = 15
-	var/hulk_humanbody_size = RESIZE_DEFAULT_SIZE * 1.25
+	var/hulk_humanbody_size = RESIZE_DEFAULT_SIZE * HULK_HUMANBODY_MULTIPLIER
 
 /datum/dna/gene/basic/hulk/New()
 	..()
@@ -208,3 +209,4 @@
 	. = ..()
 	mutant.RemoveSpell(/obj/effect/proc_holder/spell/view_range/genetic)
 
+#undef HULK_HUMANBODY_MULTIPLIER
