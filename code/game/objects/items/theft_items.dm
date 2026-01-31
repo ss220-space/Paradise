@@ -226,6 +226,7 @@
 
 /obj/item/nuke_core/supermatter_sliver/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, INNATE_TRAIT)
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK gibbing memes

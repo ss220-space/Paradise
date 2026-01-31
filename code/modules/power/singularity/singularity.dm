@@ -41,6 +41,7 @@
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, INNATE_TRAIT)
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
 
