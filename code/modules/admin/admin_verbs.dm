@@ -623,7 +623,7 @@ ADMIN_VERB(force_hijack, R_EVENT, "Toggle Shuttle Force Hijack", "Force shuttle 
 	BLACKBOX_LOG_ADMIN_VERB("Shuttle Force Hijack")
 
 ADMIN_VERB_ONLY_CONTEXT_MENU(download_flaticon, R_ADMIN, "(Special) Download Icon", atom/thing in world)
-	var/icon/image = getFlatIcon(thing, no_anim = TRUE)
+	var/icon/image = getFlatIcon(thing, no_anim = TRUE) //TODO replace with  iconforge flat icon
 	var/image_width = max(image.Width(), 32)
 	var/image_height = max(image.Height(), 32)
 	var/resize_answer = tgui_alert(usr, "Хотите ли вы изменить размер иконки? Оригинальный размер: [image_width]x[image_height]", "Download Icon", list("Да", "Нет", "Удвоить"))
