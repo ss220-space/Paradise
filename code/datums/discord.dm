@@ -41,7 +41,7 @@
 		sanitized_content = replacetext(sanitized_content, "&#64;everyone", "(Attempted atEveryone)")
 		sanitized_content = replacetext(sanitized_content, "&#64;here", "(Attempted atHere)")
 
-		var/list/replacement_list = list("<@", "<&#64;", "&#60;@", "&#60;&#64;", "&lt;&#64;", "&lt;&#64;", "&lt;@")
+		var/list/replacement_list = list("<@", "<&#64;", "&#60;@", "&#60;&#64;", "&lt;&#64;", "&lt;@")
 		for(var/to_replace in replacement_list)
 			sanitized_content = replacetext(sanitized_content, to_replace, "(Attempted ping)<")
 
