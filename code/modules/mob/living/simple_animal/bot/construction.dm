@@ -9,12 +9,17 @@
 	force = 3
 	throwforce = 5
 	throw_range = 5
+	req_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)
 	var/created_name = "Чистобот"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
 /obj/item/bucket_sensor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I, prompt = "Введите новое имя для робота")
@@ -45,9 +50,51 @@
 	new_bot.add_fingerprint(user)
 	new_bot.name = created_name
 	new_bot.robot_arm = I.type
+	new_bot.bot_core.req_access = req_access
 	qdel(src)
 	qdel(I)
 	return ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/item/bucket_sensor/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
+
+/obj/item/bucket_sensor/ui_data(mob/user)
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
+
+/obj/item/bucket_sensor/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("clear_all")
+			req_access = list()
+		if("grant_all")
+			req_access = ui.user.get_access()
+		if("set")
+			var/access = text2num(params["access"])
+			if(!(access in req_access))
+				req_access += access
+			else
+				req_access -= access
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access |= (get_region_accesses(region) & ui.user.get_access())
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access -= (get_region_accesses(region) & ui.user.get_access())
+	update_icon()
 
 //Edbot Assembly
 
@@ -57,6 +104,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "ed209_frame"
 	item_state = "ed209_frame"
+	req_access = list(ACCESS_SECURITY)
 	var/build_step = 0
 	var/created_name = "ED-209 Security Robot" //To preserve the name if it's a unique securitron I guess
 	var/lasercolor = ""
@@ -106,6 +154,10 @@
 /obj/item/ed209_assembly/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I, prompt = "Введите новое имя для робота")
@@ -257,6 +309,7 @@
 			transfer_fingerprints_to(new_bot)
 			I.transfer_fingerprints_to(new_bot)
 			new_bot.add_fingerprint(user)
+			new_bot.bot_core.req_access = req_access
 			qdel(I)
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -287,6 +340,47 @@
 	update_appearance(UPDATE_NAME)
 	balloon_alert(user, "вы установили оружие")
 
+/obj/item/ed209_assembly/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
+
+/obj/item/ed209_assembly/ui_data(mob/user)
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
+
+/obj/item/ed209_assembly/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("clear_all")
+			req_access = list()
+		if("grant_all")
+			req_access = ui.user.get_access()
+		if("set")
+			var/access = text2num(params["access"])
+			if(!(access in req_access))
+				req_access += access
+			else
+				req_access -= access
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access |= (get_region_accesses(region) & ui.user.get_access())
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access -= (get_region_accesses(region) & ui.user.get_access())
+	update_icon()
+
 //Floorbot assemblies
 /obj/item/toolbox_tiles
 	desc = "Это ящик для инструментов, из которого торчат плитки пола."
@@ -296,6 +390,7 @@
 	force = 3
 	throwforce = 10
 	throw_range = 5
+	req_access = list(ACCESS_CONSTRUCTION, ACCESS_ROBOTICS)
 	var/created_name = "Floorbot"
 	var/toolbox = /obj/item/storage/toolbox/mechanical
 	var/toolbox_color = "" //Blank for blue, r for red, y for yellow, etc.
@@ -362,6 +457,10 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I, prompt = "Введите новое имя для робота")
 		if(!isnull(new_name))
@@ -393,12 +492,57 @@
 	qdel(src)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+/obj/item/toolbox_tiles/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
+
+/obj/item/toolbox_tiles/ui_data(mob/user)
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
+
+/obj/item/toolbox_tiles/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("clear_all")
+			req_access = list()
+		if("grant_all")
+			req_access = ui.user.get_access()
+		if("set")
+			var/access = text2num(params["access"])
+			if(!(access in req_access))
+				req_access += access
+			else
+				req_access -= access
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access |= (get_region_accesses(region) & ui.user.get_access())
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access -= (get_region_accesses(region) & ui.user.get_access())
+	update_icon()
+
 /obj/item/toolbox_tiles/sensor/update_icon_state()
 	icon_state = "[toolbox_color]toolbox_tiles_sensor"
 
 /obj/item/toolbox_tiles/sensor/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I, prompt = "Введите новое имя для робота")
@@ -427,6 +571,7 @@
 	new_bot.add_fingerprint(user)
 	new_bot.name = created_name
 	new_bot.robot_arm = I.type
+	new_bot.bot_core.req_access = req_access
 	balloon_alert(user, "сборка завершена")
 	to_chat(user, span_notice("Вы завершили сборку ремонтного робота."))
 	qdel(I)
@@ -508,6 +653,10 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I, prompt = "Введите новое имя для робота")
 		if(!isnull(new_name))
@@ -569,6 +718,47 @@
 
 	return ..()
 
+/obj/item/firstaid_arm_assembly/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
+
+/obj/item/firstaid_arm_assembly/ui_data(mob/user)
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
+
+/obj/item/firstaid_arm_assembly/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("clear_all")
+			req_access = list()
+		if("grant_all")
+			req_access = ui.user.get_access()
+		if("set")
+			var/access = text2num(params["access"])
+			if(!(access in req_access))
+				req_access += access
+			else
+				req_access -= access
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access |= (get_region_accesses(region) & ui.user.get_access())
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access -= (get_region_accesses(region) & ui.user.get_access())
+	update_icon()
+
 //Secbot Assembly
 /obj/item/secbot_assembly
 	name = "incomplete securitron assembly"
@@ -576,6 +766,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "helmet_signaler"
 	item_state = "helmet"
+	req_access = list(ACCESS_SECURITY)
 	var/created_name = "Securitron" //To preserve the name if it's a unique securitron I guess
 	var/build_step = 0
 	var/robot_arm = /obj/item/robot_parts/l_arm
@@ -626,6 +817,10 @@
 /obj/item/secbot_assembly/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(is_pen(I))
 		var/new_name = rename_interactive(user, I, prompt = "Введите новое имя для робота")
@@ -683,6 +878,7 @@
 			var/mob/living/simple_animal/bot/secbot/new_bot = new(loc)
 			new_bot.name = created_name
 			new_bot.robot_arm = robot_arm
+			new_bot.bot_core.req_access = req_access
 			transfer_fingerprints_to(new_bot)
 			I.transfer_fingerprints_to(new_bot)
 			new_bot.add_fingerprint(user)
@@ -761,6 +957,47 @@
 		balloon_alert(user, "корпус модифицирован")
 	update_appearance(UPDATE_OVERLAYS)
 
+/obj/item/secbot_assembly/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
+
+/obj/item/secbot_assembly/ui_data(mob/user)
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
+
+/obj/item/secbot_assembly/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("clear_all")
+			req_access = list()
+		if("grant_all")
+			req_access = ui.user.get_access()
+		if("set")
+			var/access = text2num(params["access"])
+			if(!(access in req_access))
+				req_access += access
+			else
+				req_access -= access
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access |= (get_region_accesses(region) & ui.user.get_access())
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access -= (get_region_accesses(region) & ui.user.get_access())
+	update_icon()
+
 //General Griefsky
 
 /obj/item/griefsky_assembly
@@ -769,6 +1006,7 @@
 	icon = 'icons/obj/aibots.dmi'
 	icon_state = "griefsky_assembly"
 	item_state = "griefsky_assembly"
+	req_access = list(ACCESS_SECURITY)
 	var/build_step = 0
 	var/toy_step = 0
 
@@ -779,6 +1017,10 @@
 /obj/item/griefsky_assembly/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	add_fingerprint(user)
 	var/energy_sword = istype(I, /obj/item/melee/energy/sword)
@@ -816,6 +1058,7 @@
 			transfer_fingerprints_to(destroyer_of_the_worlds)
 			I.transfer_fingerprints_to(destroyer_of_the_worlds)
 			destroyer_of_the_worlds.add_fingerprint(user)
+			destroyer_of_the_worlds.bot_core.req_access = req_access
 			qdel(I)
 			qdel(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -846,12 +1089,14 @@
 		transfer_fingerprints_to(destroyer_of_the_pinatas)
 		I.transfer_fingerprints_to(destroyer_of_the_pinatas)
 		destroyer_of_the_pinatas.add_fingerprint(user)
+		destroyer_of_the_pinatas.bot_core.req_access = req_access
 		qdel(I)
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return ..()
 	toy_step++
+	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE, ACCESS_ROBOTICS)
 	I.transfer_fingerprints_to(src)
 	update_appearance(UPDATE_NAME)
 	to_chat(user, span_notice("Вы прикрепили игрушечный лазерный меч к заготовке."))
@@ -879,6 +1124,47 @@
 	transfer_fingerprints_to(sword)
 	sword.add_fingerprint(user)
 	update_appearance(UPDATE_NAME)
+
+/obj/item/griefsky_assembly/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
+
+/obj/item/griefsky_assembly/ui_data(mob/user)
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
+
+/obj/item/griefsky_assembly/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("clear_all")
+			req_access = list()
+		if("grant_all")
+			req_access = ui.user.get_access()
+		if("set")
+			var/access = text2num(params["access"])
+			if(!(access in req_access))
+				req_access += access
+			else
+				req_access -= access
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access |= (get_region_accesses(region) & ui.user.get_access())
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access -= (get_region_accesses(region) & ui.user.get_access())
+	update_icon()
 
 /obj/item/storage/box/clown/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM || (!istype(I, /obj/item/robot_parts/l_arm) && !istype(I, /obj/item/robot_parts/r_arm)))
@@ -922,6 +1208,10 @@
 /obj/item/honkbot_arm_assembly/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(is_id_card(I))
+		ui_interact(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	switch(build_step)
 		if(0)
@@ -970,6 +1260,7 @@
 			to_chat(user, span_notice("Вы завершили сборку хонкобота."))
 			var/mob/living/simple_animal/bot/honkbot/new_bot = new(loc)
 			new_bot.robot_arm = robot_arm
+			new_bot.bot_core.req_access = req_access
 			transfer_fingerprints_to(new_bot)
 			I.transfer_fingerprints_to(new_bot)
 			new_bot.add_fingerprint(user)
@@ -989,3 +1280,43 @@
 		return .
 	desc = initial(desc)
 
+/obj/item/honkbot_arm_assembly/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
+
+/obj/item/honkbot_arm_assembly/ui_data(mob/user)
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
+
+/obj/item/honkbot_arm_assembly/ui_act(action, list/params, datum/tgui/ui)
+	if(..())
+		return
+
+	switch(action)
+		if("clear_all")
+			req_access = list()
+		if("grant_all")
+			req_access = ui.user.get_access()
+		if("set")
+			var/access = text2num(params["access"])
+			if(!(access in req_access))
+				req_access += access
+			else
+				req_access -= access
+		if("grant_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access |= (get_region_accesses(region) & ui.user.get_access())
+		if("deny_region")
+			var/region = text2num(params["region"])
+			if(isnull(region))
+				return
+			req_access -= (get_region_accesses(region) & ui.user.get_access())
+	update_icon()
