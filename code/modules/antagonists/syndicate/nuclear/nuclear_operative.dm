@@ -145,6 +145,8 @@
 		SPECIES_OTHER = /datum/outfit/admin/syndicate/operative/loneop,
 	)
 
+/datum/antagonist/nuclear_operative/loneop/rename()
+	owner.current.real_name = "Syndicate Lone Operative"
 
 /datum/antagonist/nuclear_operative/loneop/store_nuke_code()
 	antag_memory = "<b>Код от боеголовки станции [station_name()]</b>: [GLOB.nuke_codes[/obj/machinery/nuclearbomb]]"
