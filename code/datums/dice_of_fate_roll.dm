@@ -121,7 +121,7 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 /datum/dice_roll/slow/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] начал[GEND_A_O_I(user)] двигаться медленнее!"))
 	user.add_movespeed_modifier(/datum/movespeed_modifier/die_of_fate)
-	.=..()
+	. = ..()
 
 /datum/dice_roll/monkefy
 	number = 6
