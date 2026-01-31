@@ -4725,7 +4725,7 @@
 /area/awaymission/centcomAway/thunderdome)
 "mJ" = (
 /obj/structure/table,
-/obj/item/firstaid_arm_assembly,
+/obj/item/bot_assembly/firstaid_arm_assembly,
 /turf/simulated/floor/plasteel{
 	tag = "icon-vault";
 	icon_state = "vault"

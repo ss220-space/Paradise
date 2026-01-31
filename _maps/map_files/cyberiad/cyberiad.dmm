@@ -78546,7 +78546,7 @@
 /area/maintenance/asmaint)
 "rRr" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toolbox_tiles,
+/obj/item/bot_assembly/toolbox_tiles,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
 "rRt" = (

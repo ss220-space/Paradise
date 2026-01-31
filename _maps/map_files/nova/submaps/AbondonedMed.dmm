@@ -3557,7 +3557,7 @@
 /area/maintenance/medroom)
 "HP" = (
 /obj/structure/rack,
-/obj/item/toolbox_tiles,
+/obj/item/bot_assembly/toolbox_tiles,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
