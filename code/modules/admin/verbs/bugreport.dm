@@ -15,11 +15,15 @@
 
 	if(!description || !correct_desc || !discord)
 		tgui_alert(src, "Вы пропустили один из пунктов! Попробуйте сделать баг-репорт еще раз, заполняя все поля", "Баг-репорт")
-		return TRUE
+		return
 
-	msg = "[key_name(src)]\nRound id: [GLOB.round_id] \n1. [description]\n2. [correct_desc]\n3. [discord]\n4. Скрины: [have_screens ? "Да" : "Нет"]"
+	msg = "[key_name(src)]\nID раунда: [GLOB.round_id] \n1. [description]\n2. [correct_desc]\n3. [discord]\n4. Скрины: [have_screens ? "Да" : "Нет"]"
+
+	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
+		return
+
 	if(findtext(msg, "<@") || findtext(msg, "<@&"))
 		tgui_alert(src, "Обнаружена попытка пинга (<@id> или <@&id>)! Сообщение не будет отправленно.", "Баг-репорт")
-		return TRUE
+		return
 	if(tgui_alert(src, "Ваш репорт выглядит так:\n[msg]\nВы уверены что все заполнено правильно?", "Баг-репорт", list("Да", "Нет"))=="Да")
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BUGREPORT, msg)
