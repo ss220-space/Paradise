@@ -17,35 +17,35 @@
 	. = ..()
 	UnregisterSignal(target, list(COMSIG_ITEM_EQUIPPED, COMSIG_MASKFILTER_UPDATE_STATE))
 
-/datum/element/tts_modifier/proc/apply_effect(obj/item/I, mob/living/carbon/C)
-	if(!istype(C) || !istype(I))
+/datum/element/tts_modifier/proc/apply_effect(obj/item/equipped_item, mob/living/carbon/wearer)
+	if(!istype(wearer) || !istype(equipped_item))
 		return
 
-	var/is_active_mask = (C.wear_mask == I)
-	if(istype(I, /obj/item/clothing/mask))
-		var/obj/item/clothing/mask/M = I
-		if(M.up)
+	var/is_active_mask = (wearer.wear_mask == equipped_item)
+	if(istype(equipped_item, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/mask_item = equipped_item
+		if(mask_item.up)
 			is_active_mask = FALSE
 
 	if(is_active_mask)
-		C.tts_effect_override = effect
-		C.tts_effect_override_source = I
+		wearer.tts_effect_override = effect
+		wearer.tts_effect_override_source = equipped_item
 	else
-		if(C.tts_effect_override_source == I)
-			C.tts_effect_override = SOUND_EFFECT_NONE
-			C.tts_effect_override_source = null
+		if(wearer.tts_effect_override_source == equipped_item)
+			wearer.tts_effect_override = SOUND_EFFECT_NONE
+			wearer.tts_effect_override_source = null
 
-/datum/element/tts_modifier/proc/on_item_equipped(obj/item/I, mob/M, slot)
+/datum/element/tts_modifier/proc/on_item_equipped(obj/item/equipped_item, mob/wearer, slot)
 	SIGNAL_HANDLER
-	RegisterSignal(M, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(on_mob_unequipped_item), override = TRUE)
-	apply_effect(I, M)
+	RegisterSignal(wearer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(on_mob_unequipped_item), override = TRUE)
+	apply_effect(equipped_item, wearer)
 
-/datum/element/tts_modifier/proc/on_mob_unequipped_item(mob/source, obj/item/I, force, atom/newloc)
+/datum/element/tts_modifier/proc/on_mob_unequipped_item(mob/wearer, obj/item/equipped_item, force, atom/newloc)
 	SIGNAL_HANDLER
-	apply_effect(I, source)
-	UnregisterSignal(source, COMSIG_MOB_UNEQUIPPED_ITEM)
+	apply_effect(equipped_item, wearer)
+	UnregisterSignal(wearer, COMSIG_MOB_UNEQUIPPED_ITEM)
 
-/datum/element/tts_modifier/proc/on_update_state(obj/item/I, mob/M)
+/datum/element/tts_modifier/proc/on_update_state(obj/item/equipped_item, mob/wearer)
 	SIGNAL_HANDLER
-	if(M)
-		apply_effect(I, M)
+	if(wearer)
+		apply_effect(equipped_item, wearer)
