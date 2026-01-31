@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;powerstorage=2" // Or it will be cloned in the experimentor
+	custom_price = PAYCHECK_COMMAND
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/radio/headset/radio

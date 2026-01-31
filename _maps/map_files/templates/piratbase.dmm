@@ -74,10 +74,6 @@
 	},
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/observ)
-"ai" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/security_atrium)
 "aj" = (
 /obj/item/storage/firstaid/o2/empty,
 /obj/item/reagent_containers/hypospray/autoinjector,
@@ -464,6 +460,10 @@
 /obj/item/stack/sheet/metal,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
+"bo" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/security_atrium)
 "bp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1359,13 +1359,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
-"dx" = (
-/obj/structure/railing{
-	layer = 4.2
-	},
-/obj/machinery/vending/cigarette/free,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/security_atrium)
 "dy" = (
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
@@ -1391,6 +1384,22 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
+"dB" = (
+/obj/structure/disposalpipe/segment{
+	dir = 10
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/security_atrium)
 "dD" = (
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
@@ -2976,6 +2985,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
+"ib" = (
+/obj/machinery/vending/cola,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/pirate_base/security_atrium)
 "ic" = (
 /obj/machinery/atmospherics/pipe/manifold/visible{
 	dir = 4
@@ -4088,17 +4101,6 @@
 /obj/item/analyzer,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
-"lx" = (
-/obj/structure/rack,
-/obj/item/gun/energy/taser,
-/obj/item/gun/energy/laser/hitscan{
-	pixel_x = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/security_atrium)
 "lz" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "arrivalspirat_blast"
@@ -4613,10 +4615,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
-"mO" = (
-/obj/machinery/vending/cola/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/security_atrium)
 "mP" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -5827,6 +5825,13 @@
 /obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
+"qq" = (
+/obj/structure/railing{
+	layer = 4.2
+	},
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/security_atrium)
 "qr" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6057,15 +6062,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/xeno_lab)
-"qX" = (
-/obj/machinery/vending/cola/free,
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "qY" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/decal/cleanable/dust,
@@ -7614,6 +7610,15 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
+"vv" = (
+/obj/machinery/vending/cola,
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "vw" = (
 /obj/structure/rack,
 /obj/item/wrench,
@@ -7792,6 +7797,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
+"vQ" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/wood,
+/area/ruin/space/pirate_base/security_atrium)
 "vR" = (
 /obj/structure/lattice,
 /obj/item/stack/rods{
@@ -8421,6 +8430,16 @@
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
+"xW" = (
+/obj/machinery/vending/cigarette,
+/obj/structure/sign/restroom{
+	pixel_y = 32
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "xY" = (
 /obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
@@ -8769,16 +8788,6 @@
 	icon_state = "darkred"
 	},
 /area/ruin/space/pirate_base/lab_sec)
-"zh" = (
-/obj/machinery/vending/cigarette/free,
-/obj/structure/sign/restroom{
-	pixel_y = 32
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "zi" = (
 /obj/effect/turf_decal/siding/brown/corner{
 	dir = 1
@@ -9586,6 +9595,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
+"BL" = (
+/obj/structure/rack,
+/obj/item/gun/energy/taser,
+/obj/item/gun/energy/laser/hitscan{
+	pixel_x = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/security_atrium)
 "BM" = (
 /turf/simulated/wall/r_wall,
 /area/ruin/space/pirate_base/security_atrium)
@@ -12233,22 +12253,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/pirate_base/laboratory)
-"JA" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 10
-	},
-/obj/machinery/vending/chinese/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/pirate_base/security_atrium)
 "JB" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
@@ -12793,6 +12797,14 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_solar)
+"Lk" = (
+/obj/machinery/vending/chinese,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "cafeteria";
+	tag = "icon-cafeteria (NORTHEAST)"
+	},
+/area/ruin/space/pirate_base/lab_hall)
 "Ll" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -13492,12 +13504,6 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/security_atrium)
-"Nl" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/pirate_base/laboratory)
 "No" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -14799,10 +14805,6 @@
 /obj/machinery/pipedispenser/disposal,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/telecomms)
-"Rb" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/wood,
-/area/ruin/space/pirate_base/security_atrium)
 "Re" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -15417,6 +15419,12 @@
 	icon_state = "sepia"
 	},
 /area/ruin/space/pirate_base/kitchen)
+"SX" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/pirate_base/laboratory)
 "SY" = (
 /obj/structure/sign/biohazard{
 	pixel_y = -32
@@ -15924,14 +15932,6 @@
 	icon_state = "sepia"
 	},
 /area/ruin/space/pirate_base/kitchen)
-"Ux" = (
-/obj/machinery/vending/chinese/free,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "cafeteria";
-	tag = "icon-cafeteria (NORTHEAST)"
-	},
-/area/ruin/space/pirate_base/lab_hall)
 "Uy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -23801,11 +23801,11 @@ BM
 AK
 AK
 cS
-Ux
+Lk
 dl
 iQ
 cS
-zh
+xW
 oE
 uj
 Gf
@@ -23898,12 +23898,12 @@ Fv
 Nk
 yW
 Df
-lx
+BL
 BM
 AK
 AK
 cS
-qX
+vv
 KU
 tA
 Ol
@@ -24405,7 +24405,7 @@ QP
 QP
 Oh
 fa
-ai
+bo
 BM
 AK
 AK
@@ -24502,12 +24502,12 @@ Sl
 my
 qx
 CL
-Rb
-dx
+vQ
+qq
 tE
 CR
 fa
-mO
+ib
 BM
 AK
 AK
@@ -25551,7 +25551,7 @@ wl
 MD
 Zx
 cf
-Nl
+SX
 jZ
 yV
 Kr
@@ -25729,7 +25729,7 @@ pK
 IP
 Nx
 Nx
-JA
+dB
 ph
 RG
 Go

@@ -200,7 +200,7 @@
 	},
 /area/ruin/unpowered)
 "hX" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "ic" = (
@@ -291,7 +291,7 @@
 /turf/simulated/floor/carpet/purple,
 /area/ruin/unpowered)
 "li" = (
-/obj/machinery/vending/cola/free,
+/obj/machinery/vending/cola,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "mJ" = (
@@ -620,7 +620,7 @@
 	},
 /area/ruin/unpowered)
 "Ck" = (
-/obj/machinery/vending/cigarette/syndicate/free,
+/obj/machinery/vending/cigarette/syndicate,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "Cs" = (
@@ -1067,7 +1067,7 @@
 	},
 /area/ruin/unpowered)
 "Xb" = (
-/obj/machinery/vending/snack/free,
+/obj/machinery/vending/snack,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "Xq" = (

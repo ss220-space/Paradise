@@ -186,13 +186,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
-"aw" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "ax" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -600,21 +593,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
-"bc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/effect/mapping_helpers/no_lava,
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	master_tag = "syndicate_base_west_north";
-	name = "exterior access button";
-	pixel_x = -21;
-	pixel_y = 21;
-	req_access = list(150)
-	},
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "bd" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -838,21 +816,6 @@
 	},
 /turf/simulated/floor/engine/n2,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"bv" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 10
-	},
-/obj/effect/mapping_helpers/no_lava,
-/obj/machinery/access_button{
-	command = "cycle_exterior";
-	master_tag = "syndicate_base_west_south";
-	name = "exterior access button";
-	pixel_x = -21;
-	pixel_y = -21;
-	req_access = list(150)
-	},
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "bw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -3546,20 +3509,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"ig" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
-"ih" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "ii" = (
 /obj/structure/table,
 /obj/item/storage/toolbox/emergency,
@@ -3672,18 +3621,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"iu" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
-"iv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "iw" = (
 /obj/structure/chair{
 	dir = 4
@@ -3837,12 +3774,6 @@
 	},
 /turf/simulated/floor/redgrid,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"iM" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/turf/simulated/floor/plating/lavaland_air,
-/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "iN" = (
 /turf/simulated/wall/mineral/plastitanium/explosive,
 /area/ruin/unpowered/syndicate_lava_base/main)
@@ -4090,13 +4021,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"je" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "jf" = (
 /obj/machinery/door/airlock{
 	name = "Cabin 1"
@@ -4147,10 +4071,6 @@
 "jj" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/main)
-"jk" = (
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "jl" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -4782,25 +4702,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
-"kq" = (
-/obj/machinery/alarm/syndicate{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/bar)
 "kr" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(150)
@@ -4994,16 +4895,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/turf/simulated/floor/plasteel/dark,
-/area/ruin/unpowered/syndicate_lava_base/bar)
-"kM" = (
-/obj/machinery/firealarm/syndicate{
-	dir = 4;
-	pixel_x = 26
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/syndicate/free,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/unpowered/syndicate_lava_base/bar)
 "kN" = (
@@ -5235,11 +5126,6 @@
 /obj/machinery/portable_atmospherics/pump,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered/syndicate_lava_base/engineering)
-"lw" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/mapping_helpers/no_lava,
-/turf/simulated/floor/plating/lavaland_air,
-/area/lavaland/surface/outdoors)
 "ly" = (
 /obj/structure/chair/stool/bar,
 /turf/simulated/floor/plasteel/dark,
@@ -6529,6 +6415,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered/syndicate_lava_base/arrivals)
+"oz" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"oB" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "oF" = (
 /obj/structure/sign/securearea,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
@@ -6537,6 +6435,21 @@
 /obj/structure/sign/chemistry,
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"pE" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	master_tag = "syndicate_base_west_north";
+	name = "exterior access button";
+	pixel_x = -21;
+	pixel_y = 21;
+	req_access = list(150)
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "pQ" = (
 /obj/structure/sign/explosives/alt{
 	pixel_x = 32
@@ -6549,11 +6462,23 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"te" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "vu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"xH" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "yd" = (
 /obj/machinery/atmospherics/pipe/simple/visible/yellow,
 /turf/simulated/wall/mineral/plastitanium/coated,
@@ -6606,12 +6531,39 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"GV" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "HG" = (
 /obj/machinery/porta_turret/syndicate{
 	dir = 5
 	},
 /turf/simulated/wall/mineral/plastitanium/nodiagonal,
 /area/ruin/unpowered/syndicate_lava_base/main)
+"HY" = (
+/obj/machinery/firealarm/syndicate{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette/syndicate,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/unpowered/syndicate_lava_base/bar)
+"KW" = (
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
+"KX" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
 "Lg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
@@ -6623,6 +6575,21 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"Nk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/access_button{
+	command = "cycle_exterior";
+	master_tag = "syndicate_base_west_south";
+	name = "exterior access button";
+	pixel_x = -21;
+	pixel_y = -21;
+	req_access = list(150)
+	},
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 "NY" = (
 /obj/machinery/porta_turret/syndicate{
 	dir = 6
@@ -6660,6 +6627,39 @@
 	},
 /turf/simulated/floor/engine,
 /area/ruin/unpowered/syndicate_lava_base/testlab)
+"UN" = (
+/obj/machinery/alarm/syndicate{
+	dir = 8;
+	pixel_x = 24
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel/dark,
+/area/ruin/unpowered/syndicate_lava_base/bar)
+"YR" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plating/lavaland_air,
+/area/ruin/unpowered/syndicate_lava_base/arrivals)
+"Zk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/lavaland_air,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 aa
@@ -7290,11 +7290,11 @@ ab
 ab
 dG
 dG
-ig
-iu
-iu
-iu
-bv
+xH
+oB
+oB
+oB
+Nk
 aZ
 az
 ba
@@ -7339,12 +7339,12 @@ ab
 ab
 dG
 dG
-ig
-je
-iv
-jk
-aw
-lw
+xH
+GV
+oz
+KW
+YR
+te
 aZ
 mr
 bb
@@ -7388,9 +7388,9 @@ ab
 ab
 dG
 dG
-ig
-je
-jk
+xH
+GV
+KW
 jx
 jx
 jy
@@ -7437,9 +7437,9 @@ ab
 ab
 dG
 dG
-ig
-je
-jk
+xH
+GV
+KW
 jx
 jx
 kG
@@ -7486,9 +7486,9 @@ hW
 dG
 dG
 dG
-ig
-je
-iv
+xH
+GV
+oz
 jx
 jx
 kn
@@ -7533,11 +7533,11 @@ bd
 ay
 aU
 aC
-bc
-iu
-iu
-je
-jk
+pE
+oB
+oB
+GV
+KW
 jx
 jx
 jN
@@ -7583,11 +7583,11 @@ aT
 aB
 hJ
 aY
-ih
-iv
-iM
-iv
-iv
+Zk
+oz
+KX
+oz
+oz
 jx
 jL
 jY
@@ -7791,8 +7791,8 @@ hz
 jP
 jy
 ka
-kq
-kM
+UN
+HY
 lk
 lC
 lZ

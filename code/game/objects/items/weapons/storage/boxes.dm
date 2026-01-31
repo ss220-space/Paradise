@@ -306,6 +306,27 @@
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/storage/box/warmdonkpockets
+	name = "box of warm donk-pockets"
+	desc = "Коробка с уже разогретыми Донк-покетами. Ням-ням!"
+	icon_state = "donkpocket_box"
+	item_state = "donks"
+
+/obj/item/storage/box/warmdonkpockets/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка с разогретыми Донк-покетами",
+		GENITIVE = "коробки с разогретыми Донк-покетами",
+		DATIVE = "коробке с разогретыми Донк-покетами",
+		ACCUSATIVE = "коробку с разогретыми Донк-покетами",
+		INSTRUMENTAL = "коробкой с разогретыми Донк-покетами",
+		PREPOSITIONAL = "коробке с разогретыми Донк-покетами",
+	)
+
+/obj/item/storage/box/warmdonkpockets/populate_contents()
+	for(var/i in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/warmdonkpocket(src)
+
+
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "Эта коробка кажется немного тёплой на ощупь."
@@ -621,6 +642,7 @@
 	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
 	use_sound = SFX_PATCHPACK
+	custom_price = PAYCHECK_MIN * 0.5
 
 /obj/item/storage/box/matches/get_ru_names()
 	return list(
@@ -821,28 +843,39 @@
 
 /obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ATTACK_CHAIN_PROCEED
+
 	if(!ishuman(target))
 		return .
+
+	if(length(contents))
+		to_chat(user, span_notice("Пакет должен быть пуст!"))
+		return .
+
 	user.visible_message(
 		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
 		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
 		span_italics("Вы слышите шелест плотной бумаги."),
 	)
+
 	if(!do_after(user, apply_paper_bag_delay, target))
 		return .
+
 	if(!user || !target || QDELETED(src))
 		return .
+
 	if(target.head)
 		var/obj/item/head_item_to_drop = target.head
 		target.drop_item_ground(head_item_to_drop)
 		if(!target.drop_item_ground(target.head))
 			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя надеть пакет!"))
 			return .
+
 	. |= ATTACK_CHAIN_SUCCESS
 	user.visible_message(
 		span_warning("[user] надел [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
 		span_notice("Вы надели [target == user ? "[src.declent_ru(ACCUSATIVE)] себе на голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
 	)
+
 	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
 	on_head.add_fingerprint(user)
 	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
@@ -1260,6 +1293,17 @@
 	..()
 	for(var/i in 1 to 11)
 		new /obj/item/disk/tech_disk(src)
+/*
+ * Unica kit box
+ */
+/obj/item/storage/box/unica_kit
+	icon_state = "box_hos"
+
+/obj/item/storage/box/unica_kit/populate_contents()
+	new /obj/item/gun/projectile/revolver/mateba(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/clothing/accessory/holster(src)
 
 #undef BAG_PUTTING_DELAY
 #undef NODESIGN
