@@ -103,27 +103,34 @@ fn write_png(
     image: &[u8],
     strip: bool,
 ) -> eyre::Result<()> {
+    let reader_info = reader.info();
+
     let mut encoder = Encoder::new(File::create(path)?, info.width, info.height);
     encoder.set_color(info.color_type);
     encoder.set_depth(info.bit_depth);
 
-    let reader_info = reader.info();
-    if let Some(palette) = reader_info.palette.clone() {
-        encoder.set_palette(palette);
+    if let Some(palette) = reader_info.palette.as_ref() {
+        encoder.set_palette(palette.clone());
     }
 
-    if let Some(trns_chunk) = reader_info.trns.clone() {
-        encoder.set_trns(trns_chunk);
+    if let Some(trns_chunk) = reader_info.trns.as_ref() {
+        encoder.set_trns(trns_chunk.clone());
     }
 
-    let mut writer = encoder.write_header()?;
-    // Handles zTxt chunk copying from the original image if we /don't/ want to strip it
-    if !strip {
-        for chunk in &reader_info.compressed_latin1_text {
-            writer.write_text_chunk(chunk)?;
+    {
+        let mut writer = encoder.write_header()?;
+
+        // Handles zTxt chunk copying from the original image if we /don't/ want to strip it
+        if !strip {
+            for chunk in &reader_info.compressed_latin1_text {
+                writer.write_text_chunk(chunk)?;
+            }
         }
+
+        writer.write_image_data(image)?;
     }
-    Ok(writer.write_image_data(image)?)
+
+    Ok(())
 }
 
 fn create_png(path: &str, width: &str, height: &str, data: &str) -> eyre::Result<()> {
@@ -132,14 +139,18 @@ fn create_png(path: &str, width: &str, height: &str, data: &str) -> eyre::Result
 
     let bytes = data.as_bytes();
 
-    let mut result: Vec<u8> = Vec::new();
+    let pixel_count = bytes.split(|&b| b == b'#').count() - 1;
+    let mut result = Vec::with_capacity(pixel_count * 4);
+
     for pixel in bytes.split(|&b| b == b'#').skip(1) {
         if pixel.len() != 6 && pixel.len() != 8 {
             return Err(eyre::eyre!("Invalid PNG data"));
         }
+
         for channel in pixel.chunks_exact(2) {
             result.push(u8::from_str_radix(std::str::from_utf8(channel)?, 16)?);
         }
+
         // If only RGB is provided for any pixel we also add alpha
         if pixel.len() == 6 {
             result.push(255);
@@ -155,8 +166,13 @@ fn create_png(path: &str, width: &str, height: &str, data: &str) -> eyre::Result
     let mut encoder = Encoder::new(File::create(path)?, width, height);
     encoder.set_color(png::ColorType::Rgba);
     encoder.set_depth(png::BitDepth::Eight);
-    let mut writer = encoder.write_header()?;
-    Ok(writer.write_image_data(&result)?)
+
+    {
+        let mut writer = encoder.write_header()?;
+        writer.write_image_data(&result)?;
+    }
+
+    Ok(())
 }
 
 fn resize_png<P: AsRef<Path>>(
@@ -284,8 +300,10 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
     let mut reader = decoder
         .read_info()
         .map_err(|_| eyre::eyre!("Invalid PNG data"))?;
+
     let new_dmi_metadata: DmiMetadata = serde_json::from_str(metadata)?;
     let mut new_metadata_string = String::new();
+
     writeln!(new_metadata_string, "# BEGIN DMI")?;
     writeln!(new_metadata_string, "version = 4.0")?;
     writeln!(new_metadata_string, "\twidth = {}", new_dmi_metadata.width)?;
@@ -294,6 +312,7 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
         "\theight = {}",
         new_dmi_metadata.height
     )?;
+
     for state in new_dmi_metadata.states {
         writeln!(new_metadata_string, "state = \"{}\"", state.name)?;
         writeln!(new_metadata_string, "\tdirs = {}", state.dirs as u8)?;
@@ -302,6 +321,7 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
             "\tframes = {}",
             state.delay.as_ref().map_or(1, Vec::len)
         )?;
+
         if let Some(delay) = state.delay {
             writeln!(
                 new_metadata_string,
@@ -313,15 +333,19 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
                     .join(",")
             )?;
         }
+
         if state.rewind.is_some_and(|r| r != 0) {
             writeln!(new_metadata_string, "\trewind = 1")?;
         }
+
         if state.movement.is_some_and(|m| m != 0) {
             writeln!(new_metadata_string, "\tmovement = 1")?;
         }
+
         if let Some(loop_count) = state.loop_count {
             writeln!(new_metadata_string, "\tloop = {loop_count}")?;
         }
+
         if let Some((hotspot_x, hotspot_y, hotspot_frame)) = state.hotspot {
             writeln!(
                 new_metadata_string,
@@ -329,16 +353,30 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
             )?;
         }
     }
+
     writeln!(new_metadata_string, "# END DMI")?;
+
     let mut info = reader.info().clone();
     info.compressed_latin1_text
         .push(ZTXtChunk::new("Description", new_metadata_string));
-    let mut raw_image_data: Vec<u8> = vec![];
+
+    let estimated_size = info.width as usize
+        * info.height as usize
+        * info.color_type.samples()
+        * info.bit_depth as usize
+        / 8;
+    let mut raw_image_data = Vec::with_capacity(estimated_size);
+
     while let Some(row) = reader.next_row()? {
-        raw_image_data.append(&mut row.data().to_vec());
+        raw_image_data.extend_from_slice(row.data());
     }
-    let encoder = png::Encoder::with_info(File::create(path)?, info)?;
-    encoder.write_header()?.write_image_data(&raw_image_data)?;
+
+    {
+        let encoder = png::Encoder::with_info(File::create(path)?, info)?;
+        let mut writer = encoder.write_header()?;
+        writer.write_image_data(&raw_image_data)?;
+    }
+
     Ok(())
 }
 
