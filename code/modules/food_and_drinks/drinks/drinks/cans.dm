@@ -10,6 +10,12 @@
 	foodtype = SUGAR
 	gender = FEMALE
 
+/obj/item/reagent_containers/food/drinks/cans/get_short_name() // Override if `list_reagents` has more than 1 element.
+	if(!length(reagents.reagent_list))
+		return declent_ru(NOMINATIVE)
+	var/datum/reagent/reagent = reagents.reagent_list[1]
+	return reagent.name
+
 /obj/item/reagent_containers/food/drinks/cans/empty()
 	if(!canopened)
 		balloon_alert(usr, "сначала откройте!")
