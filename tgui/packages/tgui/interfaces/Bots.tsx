@@ -1,10 +1,14 @@
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
-import { AccessList } from './common/AccessList';
-import { MainData } from './Mecha/data';
+import { Access, AccessList } from './common/AccessList';
+
+export type BotsData = {
+  accesses: number[];
+  regions: Access[];
+}
 
 export const Bots = () => {
-  const { act, data } = useBackend<MainData>();
+  const { act, data } = useBackend<BotsData>();
   const {
     accesses,
     regions,

@@ -1314,7 +1314,7 @@
 /area/syndicate_mothership/jail)
 "aBL" = (
 /obj/structure/closet/crate,
-/obj/item/bucket_sensor,
+/obj/item/bot_assembly/bucket_sensor,
 /obj/item/assembly/prox_sensor,
 /obj/item/toy/crayon,
 /obj/item/toy/crayon/blue,
