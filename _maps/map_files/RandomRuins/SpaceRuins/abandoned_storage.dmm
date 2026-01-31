@@ -87,29 +87,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"br" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/ore/glass/basalt,
-/obj/structure/mirror{
-	pixel_x = -29
-	},
-/obj/effect/spawner/random_spawners/rodent,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"bU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/stack/ore/glass/basalt,
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "bW" = (
 /obj/item/chair/wood/wings,
 /turf/simulated/floor/plating,
@@ -209,6 +186,14 @@
 	},
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"dD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/arrow{
+	dir = 4
+	},
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "dW" = (
 /obj/effect/decal/cleanable/dirt,
@@ -405,6 +390,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
+"gW" = (
+/obj/item/stack/ore/glass/basalt,
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
 "hg" = (
 /obj/item/pickaxe,
 /turf/simulated/floor/plating,
@@ -520,6 +516,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
+"jj" = (
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/unpowered)
 "js" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood/fancy/red,
@@ -558,6 +561,18 @@
 "jV" = (
 /obj/item/flag/ussp,
 /turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"kb" = (
+/obj/item/pickaxe,
+/obj/item/stack/ore/glass/basalt{
+	pixel_y = 4
+	},
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "kg" = (
 /turf/template_noop,
@@ -694,6 +709,12 @@
 /obj/effect/decal/warning_stripes/northeastcorner,
 /turf/simulated/wall/r_wall,
 /area/ruin/unpowered)
+"lg" = (
+/obj/item/pickaxe,
+/obj/item/stack/ore/glass/basalt,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
 "li" = (
 /obj/item/reagent_containers/food/snacks/cheesewedge,
 /turf/simulated/floor/plating,
@@ -829,6 +850,12 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
+"nN" = (
+/obj/item/stack/ore/glass/basalt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
 "nX" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/ants,
@@ -842,6 +869,11 @@
 "nY" = (
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"ob" = (
+/obj/item/stack/ore/glass/basalt,
+/obj/item/stack/ore/glass/basalt,
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "ol" = (
 /obj/structure/table/wood/fancy/red,
@@ -999,6 +1031,29 @@
 /area/ruin/unpowered)
 "qH" = (
 /obj/structure/coatrack,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"qO" = (
+/obj/structure/chair/wood{
+	dir = 1
+	},
+/obj/item/stack/ore/glass/basalt{
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"qY" = (
+/obj/structure/sink{
+	dir = 8;
+	pixel_x = -12;
+	pixel_y = 2
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/glass/basalt,
+/obj/structure/mirror{
+	pixel_x = -29
+	},
+/obj/effect/spawner/random_spawners/rodent,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "rb" = (
@@ -1180,6 +1235,10 @@
 /obj/machinery/power/smes,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
+"tI" = (
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
 "ub" = (
 /obj/item/radio/phone/ussp{
 	pixel_x = 4;
@@ -1272,9 +1331,12 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"vv" = (
-/obj/machinery/vending/cigarette/free,
-/turf/simulated/floor/plasteel,
+"vk" = (
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "vX" = (
 /obj/machinery/door/airlock{
@@ -1311,22 +1373,9 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"wL" = (
-/obj/item/stack/ore/glass/basalt,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered)
 "wN" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"wT" = (
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "xc" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1348,6 +1397,16 @@
 	scrub_Toxins = 1
 	},
 /obj/effect/spawner/random_spawners/rodent,
+/turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"xm" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 9
+	},
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = 7;
+	pixel_y = 4
+	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "xw" = (
@@ -1439,16 +1498,6 @@
 /obj/item/clothing/head/ushanka,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"yO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 9
-	},
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/turf/simulated/floor/plating,
-/area/ruin/unpowered)
 "yT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/kitchen_machine/grill,
@@ -1507,6 +1556,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
+"Ay" = (
+/obj/item/pickaxe,
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/unpowered)
 "AJ" = (
 /obj/structure/barricade/wooden,
 /obj/machinery/door/airlock{
@@ -1544,6 +1605,17 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
+"AY" = (
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = 6;
+	pixel_y = -5
+	},
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/turf/simulated/floor/indestructible/asteroid,
+/area/ruin/unpowered)
 "AZ" = (
 /obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/plating,
@@ -1560,18 +1632,6 @@
 "Bu" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/wall/r_wall/rust,
-/area/ruin/unpowered)
-"Bv" = (
-/obj/item/pickaxe,
-/obj/item/stack/ore/glass/basalt{
-	pixel_y = 4
-	},
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/obj/item/stack/ore/glass/basalt,
-/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Bw" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -1639,16 +1699,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"Cb" = (
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/obj/structure/statue/cheese/cheesus{
-	anchored = 1
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/ruin/unpowered)
 "Cf" = (
 /obj/effect/decal/ants,
 /turf/simulated/floor/plating,
@@ -1662,6 +1712,15 @@
 	name = "Mutant Giant rat"
 	},
 /turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"Cv" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/stack/ore/glass/basalt,
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Cx" = (
 /obj/machinery/light/small{
@@ -1880,16 +1939,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"GV" = (
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "Hj" = (
 /obj/structure/largecrate,
 /turf/simulated/floor/plating/airless{
@@ -1920,13 +1969,6 @@
 "HF" = (
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"HL" = (
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/turf/simulated/floor/indestructible/asteroid,
 /area/ruin/unpowered)
 "HO" = (
 /obj/effect/decal/warning_stripes/northeastcorner,
@@ -1994,6 +2036,16 @@
 	},
 /obj/structure/table/wood,
 /turf/simulated/floor/plating,
+/area/ruin/unpowered)
+"IS" = (
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = -7;
+	pixel_y = 2
+	},
+/obj/structure/statue/cheese/cheesus{
+	anchored = 1
+	},
+/turf/simulated/floor/indestructible/asteroid,
 /area/ruin/unpowered)
 "IT" = (
 /obj/effect/decal/cleanable/dirt,
@@ -2159,18 +2211,6 @@
 /obj/structure/fans/tiny,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"KV" = (
-/obj/item/pickaxe,
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = 6;
-	pixel_y = -5
-	},
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/turf/simulated/floor/indestructible/asteroid,
-/area/ruin/unpowered)
 "Lh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2310,15 +2350,6 @@
 	name = "floor"
 	},
 /area/template_noop)
-"Mo" = (
-/obj/structure/chair/wood{
-	dir = 1
-	},
-/obj/item/stack/ore/glass/basalt{
-	pixel_y = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "Mq" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/universal{
 	dir = 4
@@ -2347,14 +2378,6 @@
 	req_access = list(128)
 	},
 /turf/simulated/floor/plating/airless,
-/area/ruin/unpowered)
-"MJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/arrow{
-	dir = 4
-	},
-/obj/item/stack/ore/glass/basalt,
-/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "MY" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -2394,17 +2417,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plating,
-/area/ruin/unpowered)
-"NX" = (
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = 6;
-	pixel_y = -5
-	},
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = -7;
-	pixel_y = 2
-	},
-/turf/simulated/floor/indestructible/asteroid,
 /area/ruin/unpowered)
 "Ok" = (
 /obj/machinery/disposal,
@@ -2564,17 +2576,6 @@
 /obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/unpowered)
-"Qz" = (
-/obj/item/stack/ore/glass/basalt,
-/obj/item/stack/ore/glass/basalt{
-	pixel_x = 7;
-	pixel_y = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "QA" = (
 /obj/structure/chair/comfy/shuttle/dark{
 	dir = 4
@@ -2610,14 +2611,18 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"QZ" = (
-/obj/item/pickaxe,
-/obj/item/stack/ore/glass/basalt,
-/obj/machinery/light/small,
-/turf/simulated/floor/plating,
-/area/ruin/unpowered)
 "Rk" = (
 /obj/structure/largecrate,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Ro" = (
+/obj/item/stack/ore/glass/basalt{
+	pixel_x = 7;
+	pixel_y = 4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Rs" = (
@@ -2736,11 +2741,6 @@
 /obj/effect/decal/cleanable/fungus,
 /obj/effect/decal/cleanable/fungus,
 /turf/simulated/wall/r_wall/rust,
-/area/ruin/unpowered)
-"Ts" = (
-/obj/item/stack/ore/glass/basalt,
-/obj/item/stack/ore/glass/basalt,
-/turf/simulated/floor/plating,
 /area/ruin/unpowered)
 "Tx" = (
 /obj/effect/decal/warning_stripes/east,
@@ -4430,7 +4430,7 @@ Zx
 Zx
 FU
 Op
-br
+qY
 Op
 AJ
 zd
@@ -4490,14 +4490,14 @@ Zx
 Zx
 FU
 lE
-bU
-wL
+Cv
+nN
 FU
 Xd
 WT
 ZK
 ZK
-Ts
+ob
 FU
 ZK
 oU
@@ -4617,7 +4617,7 @@ Op
 WT
 WT
 Op
-QZ
+lg
 FU
 LG
 oU
@@ -4676,7 +4676,7 @@ Bu
 Cx
 Rk
 IH
-MJ
+dD
 oU
 TU
 oU
@@ -5394,7 +5394,7 @@ oU
 wJ
 ZK
 FU
-Bv
+kb
 fP
 FD
 GH
@@ -5572,7 +5572,7 @@ me
 Sk
 ud
 Op
-vv
+tI
 FU
 Ap
 Lk
@@ -5765,10 +5765,10 @@ Zx
 Zx
 FU
 ZW
-yO
+xm
 oU
 Op
-KV
+Ay
 Zx
 Zx
 Zx
@@ -5826,8 +5826,8 @@ Zx
 Zx
 Rs
 hg
-wT
-Cb
+vk
+IS
 ce
 QO
 Zx
@@ -5887,8 +5887,8 @@ Zx
 Zx
 Zx
 Zx
-NX
-HL
+AY
+jj
 Zx
 Zx
 Zx
@@ -6056,7 +6056,7 @@ oU
 CS
 Jf
 QM
-Qz
+gW
 TU
 Zx
 Zx
@@ -6115,8 +6115,8 @@ yT
 Mu
 DP
 Jw
-Mo
-GV
+qO
+Ro
 FU
 Zx
 Zx
