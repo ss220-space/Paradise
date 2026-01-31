@@ -1216,19 +1216,14 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 		return
 	name = md5(name)
 	var/datum/universal_icon/flat_icon = get_flat_uni_icon(thing)
-	var/file = get_icon_from_uni_icon(flat_icon, name, FALSE, FALSE)
+	var/file = get_icon_from_uni_icon(flat_icon, name, FALSE)
 	return icon2html(file, target, sourceonly = sourceonly)
 
-/proc/get_icon_from_uni_icon(datum/universal_icon/flat_icon, name, yield = TRUE, dmi_icon = FALSE)
+/proc/get_icon_from_uni_icon(datum/universal_icon/flat_icon, name, dmi_icon = FALSE)
 	var/data_out
 	var/job_id
 	var/entries_json = json_encode(list(name = flat_icon.to_list()))
-	if(yield)
-		job_id = rustlib_iconforge_generate_async("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
-		UNTIL((data_out = rustlib_iconforge_check(job_id)) != RUSTLIBS_JOB_NO_RESULTS_YET)
-		SSasset_loading.assets_generating--
-	else
-		data_out = rustlib_iconforge_generate("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
+	data_out = rustlib_iconforge_generate("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
 	if(data_out == RUSTLIBS_JOB_ERROR)
 		CRASH("Icon [name] JOB PANIC")
 	else if(!findtext(data_out, "{", 1, 2))
