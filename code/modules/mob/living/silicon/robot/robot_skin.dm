@@ -911,7 +911,7 @@
 	eye_prefix = "ninja_medical"
 	required_permit = NINJA_ALT_PERMISSION
 
-/datum/robot_skin/wide/drake
+/datum/robot_skin/wide
 	icon_file = 'icons/mob/64x32robots.dmi'
 	name = "Drake"
 	panelprefix = "ov-drake"
