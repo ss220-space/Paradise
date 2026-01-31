@@ -145,7 +145,7 @@
 					var/turf/chasm = get_turf(dropped_mob)
 					var/fall_into_chasm = jaunter.chasm_react(dropped_mob)
 					if(!fall_into_chasm)
-						chasm.visible_message(span_boldwarning("[capitalize(dropped_mob.declent_ru(NOMINATIVE))] пада[PLUR_ET_YUT(dropped_mob)] в [chasm.declent_ru(ACCUSATIVE)]!")) //To freak out any bystanders
+						chasm.visible_message(span_boldwarning("[DECLENT_RU_CAP(dropped_mob, NOMINATIVE)] пада[PLUR_ET_YUT(dropped_mob)] в [chasm.declent_ru(ACCUSATIVE)]!")) //To freak out any bystanders
 					return fall_into_chasm ? CHASM_DROPPING : CHASM_NOT_DROPPING
 
 	return CHASM_DROPPING
@@ -172,8 +172,8 @@
 			qdel(dropped_thing)
 			return
 		// send to the turf below
-		dropped_thing.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] пада[PLUR_ET_YUT(dropped_thing)] в [atom_parent]!"), span_userdanger("[fall_message]"))
-		below_turf.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] падает сверху!"))
+		dropped_thing.visible_message(span_boldwarning("[DECLENT_RU_CAP(dropped_thing, NOMINATIVE)] пада[PLUR_ET_YUT(dropped_thing)] в [atom_parent]!"), span_userdanger("[fall_message]"))
+		below_turf.visible_message(span_boldwarning("[DECLENT_RU_CAP(dropped_thing, NOMINATIVE)] падает сверху!"))
 		playsound(below_turf, 'sound/effects/break_stone.ogg', 50, TRUE)
 		dropped_thing.forceMove(below_turf)
 		if(isliving(dropped_thing))
@@ -184,7 +184,7 @@
 		return
 
 	// send to oblivion
-	dropped_thing.visible_message(span_boldwarning("[capitalize(dropped_thing.declent_ru(NOMINATIVE))] пада[PLUR_ET_YUT(dropped_thing)] в [atom_parent]!"), span_userdanger("[oblivion_message]"))
+	dropped_thing.visible_message(span_boldwarning("[DECLENT_RU_CAP(dropped_thing, NOMINATIVE)] пада[PLUR_ET_YUT(dropped_thing)] в [atom_parent]!"), span_userdanger("[oblivion_message]"))
 	if(isliving(dropped_thing))
 		var/mob/living/falling_mob = dropped_thing
 		ADD_TRAIT(falling_mob, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
@@ -240,7 +240,7 @@
 	dropped_thing.pixel_y = oldoffset
 
 	if(!dropped_thing.forceMove(storage))
-		atom_parent.visible_message(span_boldwarning("[capitalize(atom_parent.declent_ru(NOMINATIVE))] выплёвывает [dropped_thing.declent_ru(ACCUSATIVE)]!"))
+		atom_parent.visible_message(span_boldwarning("[DECLENT_RU_CAP(atom_parent, NOMINATIVE)] выплёвывает [dropped_thing.declent_ru(ACCUSATIVE)]!"))
 		dropped_thing.throw_at(get_edge_target_turf(atom_parent, pick(GLOB.alldirs)), rand(1, 10), rand(1, 10))
 		falling_atoms -= falling_ref
 		return
@@ -303,7 +303,7 @@
 		ourturf.visible_message(span_boldwarning("После долгого подъёма, [escapee.declent_ru(NOMINATIVE)] выпрыгивает из [ourturf.declent_ru(GENITIVE)]!"))
 	else
 		playsound(ourturf, 'sound/effects/bang.ogg', 50, TRUE)
-		ourturf.visible_message(span_boldwarning("[capitalize(escapee.declent_ru(NOMINATIVE))] пробивается сквозь [ourturf.declent_ru(ACCUSATIVE)], выпрыгивая из пропасти под ней!"))
+		ourturf.visible_message(span_boldwarning("[DECLENT_RU_CAP(escapee, NOMINATIVE)] пробивается сквозь [ourturf.declent_ru(ACCUSATIVE)], выпрыгивая из пропасти под ней!"))
 		ourturf.ChangeTurf(ourturf.baseturf)
 	ADD_TRAIT(escapee, TRAIT_MOVE_FLYING, CHASM_TRAIT) //Otherwise they instantly fall back in
 	escapee.forceMove(ourturf)

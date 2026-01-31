@@ -9,14 +9,17 @@ GLOBAL_LIST_EMPTY(rpd_pipe_list)			//Some pipes we don't want to be dispensable 
 	var/bendy = FALSE	//Is this pipe bendy?
 	var/orientations	//Number of orientations (for interface purposes)
 	var/pipe_icon		//icon_state of the dispensed pipe (for interface purposes)
+	var/pipe_icon_file
 	var/rpd_dispensable = FALSE
 
 /datum/pipes/atmospheric
 	pipe_type = PIPETYPE_ATMOS
 	pipe_category = PIPETYPE_ATMOS
+	pipe_icon_file = 'icons/obj/pipes_and_stuff/atmospherics/pipe-item.dmi'
 
 /datum/pipes/disposal
 	pipe_type = PIPETYPE_DISPOSAL
+	pipe_icon_file = 'icons/obj/pipes_and_stuff/not_atmos/disposal.dmi'
 
 //Normal pipes
 

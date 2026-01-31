@@ -30,9 +30,9 @@
 /obj/structure/spider/has_prints()
 	return FALSE
 
-/obj/structure/spider/temperature_expose(temperature, volume)
+/obj/structure/spider/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
+	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/spider/stickyweb

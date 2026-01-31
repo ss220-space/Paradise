@@ -19,8 +19,7 @@
 	. = ..()
 	air_contents.volume = 50
 
-/obj/machinery/atmospherics/unary/oxygen_generator/process_atmos()
-	..()
+/obj/machinery/atmospherics/unary/oxygen_generator/process_atmos(seconds)
 	if(!on)
 		return FALSE
 

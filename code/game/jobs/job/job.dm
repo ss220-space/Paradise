@@ -212,7 +212,7 @@
 	id = /obj/item/card/id
 	l_ear = /obj/item/radio/headset
 	back = /obj/item/storage/backpack
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	pda = /obj/item/pda
 
 	var/backpack = /obj/item/storage/backpack
@@ -289,6 +289,10 @@
 			qdel(placed_in)
 
 		qdel(gear_leftovers)
+
+	if(ismodcontrol(H.back))
+		var/obj/item/mod/control/mod_control = H.back
+		mod_control.quick_activation()
 
 	return TRUE
 

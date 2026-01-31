@@ -304,7 +304,7 @@
 			to_chat(owner, "Вы не можете разместить мартышку здесь.")
 			return
 		if(!X.monkeys)
-			to_chat(owner, "[capitalize(X.declent_ru(NOMINATIVE))] не содержит мартышек.")
+			to_chat(owner, "[DECLENT_RU_CAP(X, NOMINATIVE)] не содержит мартышек.")
 			return
 		if(X.monkeys >= 1)
 			var/mob/living/carbon/human/lesser/monkey/food = new /mob/living/carbon/human/lesser/monkey(remote_eye.loc)
@@ -333,7 +333,7 @@
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
 		for(var/mob/living/carbon/human/M in remote_eye.loc)
 			if(is_monkeybasic(M) && M.stat)
-				M.visible_message("[capitalize(M.declent_ru(NOMINATIVE))] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
+				M.visible_message("[DECLENT_RU_CAP(M, NOMINATIVE)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 				recycler.use_power(500)
 				X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 				qdel(M)
@@ -534,7 +534,7 @@
 		return
 	if(mobarea.name == E.allowed_area || mobarea.xenobiology_compatible)
 		if(is_monkeybasic(M) && M.stat)
-			M.visible_message("[capitalize(M.declent_ru(NOMINATIVE))] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
+			M.visible_message("[DECLENT_RU_CAP(M, NOMINATIVE)] исчезает, [GEND_HE_SHE(M)] отправлен[GEND_A_O_Y(M)] на переработку!")
 			recycler.use_power(500)
 			X.monkeys = round(X.monkeys + recycler.cube_production/recycler.required_grind, 0.1)
 			qdel(M)

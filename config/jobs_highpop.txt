@@ -39,8 +39,8 @@ Cargo Technician=6
 Mining Medic=1
 
 Warden=1
-Detective=1
-Security Officer=8
+Detective=2
+Security Officer=7
 Brig Physician=1
 Security Pod Pilot=1
 

@@ -250,7 +250,7 @@ LINEN BINS
 /obj/structure/bedsheetbin
 	name = "linen bin"
 	desc = "A linen bin. It looks rather cosy."
-	icon_state = "linenbin-full"
+	icon_state = "linenbin_full"
 	anchored = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
@@ -270,13 +270,13 @@ LINEN BINS
 /obj/structure/bedsheetbin/update_icon_state()
 	switch(amount)
 		if(0)
-			icon_state = "linenbin-empty"
+			icon_state = "linenbin_empty"
 		if(1 to 10)
-			icon_state = "linenbin-half"
+			icon_state = "linenbin_half"
 		else
-			icon_state = "linenbin-full"
+			icon_state = "linenbin_full"
 
-/obj/structure/bedsheetbin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/structure/bedsheetbin/fire_act(exposed_temperature, exposed_volume)
 	if(amount)
 		amount = 0
 		update_icon(UPDATE_ICON_STATE)

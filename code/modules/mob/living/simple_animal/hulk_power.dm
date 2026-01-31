@@ -280,10 +280,10 @@
 					var/obj/item/organ/external/BP = H.bodyparts_by_name[bodypart_name]
 					H.apply_damage(20,BRUTE,BP)
 					BP.fracture()
-					H.Weaken(10 SECONDS)
+					H.Knockdown(10 SECONDS)
 				else
 					playsound(M, 'sound/weapons/tablehit1.ogg', CHANNEL_BUZZ)
-					M.Weaken(4 SECONDS)
+					M.Knockdown(4 SECONDS)
 					M.take_overall_damage(35, used_weapon = "Hulk Foot")
 		var/snd = 1
 		for(var/direction in GLOB.alldirs)

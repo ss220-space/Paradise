@@ -41,6 +41,12 @@
 /// Create a list global that is initialized as an empty list
 #define GLOBAL_LIST_EMPTY(X) GLOBAL_LIST_INIT(X, list())
 
+/// Create an alist global with an initializer expression
+#define GLOBAL_ALIST_INIT(X, InitValue) GLOBAL_RAW(/alist/##X); GLOBAL_MANAGED(X, InitValue)
+
+// Create an alist global that is initialized as an empty list
+#define GLOBAL_ALIST_INIT_EMPTY(X) GLOBAL_ALIST_INIT(X, alist())
+
 /// Create a typed list global with an initializer expression
 #define GLOBAL_LIST_INIT_TYPED(X, Typepath, InitValue) GLOBAL_RAW(/list##Typepath/X); GLOBAL_MANAGED(X, InitValue)
 

@@ -14,10 +14,6 @@
 /mob/living/simple_animal/bot/cleanbot,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
-"ad" = (
-/obj/structure/flora/ausbushes/brflowers,
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
 "ae" = (
 /turf/simulated/wall/mineral/titanium,
 /area/ruin/powered/animal_hospital)
@@ -182,15 +178,6 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
-"ax" = (
-/obj/structure/closet/crate/trashcart,
-/obj/item/storage/bag/trash,
-/obj/item/trash/cheesie,
-/obj/item/reagent_containers/syringe/antiviral,
-/obj/item/bodybag,
-/obj/item/reagent_containers/food/drinks/bottle/vodka,
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
 "ay" = (
 /obj/structure/sink{
 	dir = 8;
@@ -269,9 +256,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
-"aJ" = (
-/turf/simulated/floor/plasteel/grimy/lavaland_air,
-/area/lavaland/surface/outdoors)
 "aK" = (
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -482,16 +466,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
-"bm" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/machinery/vending/crittercare/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/powered/animal_hospital)
 "bn" = (
 /obj/machinery/sleeper{
 	dir = 4
@@ -644,17 +618,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
-"bL" = (
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
-"bM" = (
-/obj/structure/flora/ausbushes/sunnybush,
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
-"bO" = (
-/obj/structure/flora/ausbushes/ppflowers,
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
 "bP" = (
 /obj/structure/table/glass,
 /obj/item/storage/firstaid/fire,
@@ -717,34 +680,6 @@
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
-"bX" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 6
-	},
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
-"bY" = (
-/obj/machinery/atmospherics/pipe/manifold/visible{
-	dir = 1
-	},
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
-"bZ" = (
-/obj/machinery/atmospherics/pipe/simple/visible{
-	dir = 10
-	},
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
-"ca" = (
-/obj/machinery/atmospherics/unary/tank/air{
-	dir = 1
-	},
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
-"cb" = (
-/obj/machinery/atmospherics/binary/valve,
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
 "cc" = (
 /obj/machinery/atmospherics/pipe/simple/visible,
 /turf/simulated/wall/mineral/titanium,
@@ -817,10 +752,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
-"cn" = (
-/obj/machinery/light,
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
 "cp" = (
 /obj/machinery/light{
 	dir = 4
@@ -882,12 +813,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
-"cx" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
 "cy" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -910,19 +835,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered/animal_hospital)
-"cC" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
-"cD" = (
-/obj/structure/flora/ausbushes/sunnybush,
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/simulated/floor/grass/lavaland_air,
-/area/lavaland/surface/outdoors)
 "cE" = (
 /obj/machinery/light{
 	dir = 1
@@ -957,6 +869,94 @@
 	},
 /turf/simulated/floor/plasteel/white,
 /area/ruin/powered/animal_hospital)
+"dr" = (
+/obj/machinery/atmospherics/unary/tank/air{
+	dir = 1
+	},
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"ni" = (
+/obj/structure/flora/ausbushes/brflowers,
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"nO" = (
+/obj/machinery/atmospherics/binary/valve,
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"ol" = (
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"qp" = (
+/obj/structure/flora/ausbushes/ppflowers,
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"yr" = (
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Ba" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/vending/crittercare,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered/animal_hospital)
+"Eb" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 10
+	},
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Gx" = (
+/obj/structure/closet/crate/trashcart,
+/obj/item/storage/bag/trash,
+/obj/item/trash/cheesie,
+/obj/item/reagent_containers/syringe/antiviral,
+/obj/item/bodybag,
+/obj/item/reagent_containers/food/drinks/bottle/vodka,
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"GL" = (
+/obj/machinery/atmospherics/pipe/manifold/visible{
+	dir = 1
+	},
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Hc" = (
+/obj/machinery/atmospherics/pipe/simple/visible{
+	dir = 6
+	},
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Ie" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Ku" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Nv" = (
+/obj/machinery/light,
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
+"UE" = (
+/turf/simulated/floor/plasteel/grimy/lavaland_air,
+/area/lavaland/surface/outdoors)
+"Zg" = (
+/obj/structure/flora/ausbushes/sunnybush,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/grass/lavaland_air,
+/area/lavaland/surface/outdoors)
 
 (1,1,1) = {"
 aa
@@ -1028,10 +1028,10 @@ ab
 ab
 ab
 ab
-aJ
+UE
 ab
 ab
-cx
+ol
 ab
 aa
 aa
@@ -1056,10 +1056,10 @@ aa
 aa
 ab
 cp
-ax
-bL
-aJ
-bL
+Gx
+yr
+UE
+yr
 ae
 ae
 ae
@@ -1100,7 +1100,7 @@ ae
 ae
 ae
 ae
-bL
+yr
 ab
 ab
 ab
@@ -1130,8 +1130,8 @@ bp
 by
 bF
 ae
-cC
-bL
+Ku
+yr
 ab
 ab
 ab
@@ -1160,19 +1160,19 @@ bq
 bz
 aP
 af
-ad
-bL
-bL
+ni
+yr
+yr
 ab
 ab
-bL
-bL
+yr
+yr
 "}
 (8,1,1) = {"
 aa
 ab
 ab
-cn
+Nv
 ae
 ae
 ae
@@ -1190,10 +1190,10 @@ br
 bA
 aP
 af
-bL
-bL
-bL
-bL
+yr
+yr
+yr
+yr
 ab
 ab
 ab
@@ -1201,8 +1201,8 @@ ab
 (9,1,1) = {"
 ab
 ab
-bL
-bL
+yr
+yr
 ae
 ai
 cr
@@ -1220,8 +1220,8 @@ bs
 bB
 aP
 ae
-bM
-bL
+Ie
+yr
 ab
 ab
 ab
@@ -1232,7 +1232,7 @@ ab
 ab
 ab
 ab
-bL
+yr
 af
 aj
 at
@@ -1250,9 +1250,9 @@ aK
 aK
 aK
 bJ
-aJ
-aJ
-aJ
+UE
+UE
+UE
 ab
 ab
 ab
@@ -1260,9 +1260,9 @@ ab
 "}
 (11,1,1) = {"
 ab
-bL
-bL
-bL
+yr
+yr
+yr
 af
 ak
 as
@@ -1280,19 +1280,19 @@ bt
 aE
 aK
 bW
-aJ
-aJ
+UE
+UE
 ab
 ab
-bL
+yr
 ab
 ab
 "}
 (12,1,1) = {"
 ab
-bL
-bL
-ad
+yr
+yr
+ni
 af
 al
 au
@@ -1310,9 +1310,9 @@ aK
 aK
 aP
 ae
-cD
-bL
-bL
+Zg
+yr
+yr
 ab
 ab
 ab
@@ -1321,8 +1321,8 @@ ab
 (13,1,1) = {"
 ab
 ab
-bL
-bL
+yr
+yr
 ae
 am
 cs
@@ -1335,14 +1335,14 @@ aW
 ao
 ao
 ae
-bm
+Ba
 bu
 bu
 bG
 ae
-bL
-bO
-bL
+yr
+qp
+yr
 ab
 ab
 ab
@@ -1350,9 +1350,9 @@ ab
 "}
 (14,1,1) = {"
 ab
-bL
-bX
-ca
+yr
+Hc
+dr
 ae
 ae
 ae
@@ -1381,8 +1381,8 @@ aa
 (15,1,1) = {"
 ab
 ab
-bY
-ca
+GL
+dr
 ae
 cd
 an
@@ -1411,8 +1411,8 @@ aa
 (16,1,1) = {"
 aa
 ab
-bZ
-cb
+Eb
+nO
 cc
 ce
 ao
@@ -1442,7 +1442,7 @@ aa
 aa
 ab
 ab
-cn
+Nv
 ae
 ap
 ao
@@ -1472,7 +1472,7 @@ aa
 aa
 aa
 ab
-bL
+yr
 ae
 aq
 ao

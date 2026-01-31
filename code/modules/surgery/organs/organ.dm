@@ -5,6 +5,7 @@
 	pickup_sound = 'sound/items/handling/pickup/flesh_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/flesh_drop.ogg'
 	germ_level = 0
+	abstract_type = /obj/item/organ
 	var/dead_icon
 	/// Current organ holder
 	var/mob/living/carbon/human/owner
@@ -295,7 +296,10 @@
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
-/obj/item/organ/proc/is_damaged()
+/obj/item/organ/proc/is_damaged(brute = TRUE, burn = TRUE)
+	if(isexternalorgan(src))
+		var/obj/item/organ/external/bodypart = src
+		return (brute && bodypart.brute_dam) || (burn && bodypart.burn_dam)
 	return damage > 0
 
 /obj/item/organ/proc/is_bruised()

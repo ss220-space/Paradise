@@ -324,7 +324,7 @@
 					if(H)
 						H.forceMove(get_turf(src))
 						H.ex_act(severity - 1)
-						to_chat(H, span_warning("Вас с силой выбрасывает из [src.declent_ru(GENITIVE)]!"))
+						to_chat(H, span_warning("Вас с силой выбрасывает из [declent_ru(GENITIVE)]!"))
 			qdel(src)
 		if(EXPLODE_HEAVY)
 			deal_damage(100)
@@ -435,23 +435,23 @@
 			return ATTACK_CHAIN_PROCEED
 		if(equipment_system.lock_system)
 			user.visible_message(
-				span_warning("[user] начинает высверливать замок [src.declent_ru(GENITIVE)]."),
-				span_notice("Вы начинаете высверливать замок [src.declent_ru(GENITIVE)]...")
+				span_warning("[user] начинает высверливать замок [declent_ru(GENITIVE)]."),
+				span_notice("Вы начинаете высверливать замок [declent_ru(GENITIVE)]...")
 			)
 			if(!do_after(user, 10 SECONDS * buster.toolspeed, src, category = DA_CAT_TOOL) || !equipment_system.lock_system)
 				return ATTACK_CHAIN_PROCEED
 			QDEL_NULL(equipment_system.lock_system)
 			unlocked = TRUE
 			user.visible_message(
-				span_warning("[user] ломает замок [src.declent_ru(GENITIVE)]."),
-				span_notice("Вы сломали замок [src.declent_ru(GENITIVE)].")
+				span_warning("[user] ломает замок [declent_ru(GENITIVE)]."),
+				span_notice("Вы сломали замок [declent_ru(GENITIVE)].")
 			)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		if(!unlocked)	// we don't have a lock system, and the pod is still somehow locked, unlocking.
 			unlocked = TRUE
 			user.visible_message(
-				span_notice("[user] чинит двери [src.declent_ru(GENITIVE)] при помощи [buster.declent_ru(GENITIVE)]."),
-				span_notice("Вы починили двери [src.declent_ru(GENITIVE)] при помощи [buster.declent_ru(GENITIVE)].")
+				span_notice("[user] чинит двери [declent_ru(GENITIVE)] при помощи [buster.declent_ru(GENITIVE)]."),
+				span_notice("Вы починили двери [declent_ru(GENITIVE)] при помощи [buster.declent_ru(GENITIVE)].")
 			)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -484,7 +484,7 @@
 		balloon_alert(user, "откройте технический люк!")
 		return
 	if(health >= initial(health))
-		to_chat(user, span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] полностью отремонтирован!"))
+		to_chat(user, span_boldnotice("[DECLENT_RU_CAP(src, NOMINATIVE)] полностью отремонтирован!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -518,7 +518,7 @@
 
 		if(istype(target))
 			src.visible_message(
-				span_warning("[user] пытается открыть дверь и вытащить [target] из [src.declent_ru(GENITIVE)]!"),
+				span_warning("[user] пытается открыть дверь и вытащить [target] из [declent_ru(GENITIVE)]!"),
 				span_warning("Вы видите, как [user] пытается открыть дверь!")
 			)
 			if(do_after(user, 5 SECONDS, src))
@@ -528,13 +528,13 @@
 				else
 					eject_passenger(target)
 				target.visible_message(
-					span_warning("[user] распахивает дверь и достаёт [target] из [src.declent_ru(GENITIVE)]!"),
+					span_warning("[user] распахивает дверь и достаёт [target] из [declent_ru(GENITIVE)]!"),
 					span_warning("Дверь распахивается, и вас выбрасывает на пол!")
 				)
 				return
 			target.visible_message(
 				span_warning("[user] не смог открыть дверь!"),
-				span_warning("Вы не дали [user] проникнуть в [src.declent_ru(NOMINATIVE)]!")
+				span_warning("Вы не дали [user] проникнуть в [declent_ru(NOMINATIVE)]!")
 			)
 
 	if(!hatch_open)
@@ -836,7 +836,7 @@
 		return FALSE
 
 	if(user.has_buckled_mobs()) //mob attached to us
-		to_chat(user, span_warning("[user] не поместится в [src.declent_ru(ACCUSATIVE)] из-за прикреплённых существ!"))
+		to_chat(user, span_warning("[user] не поместится в [declent_ru(ACCUSATIVE)] из-за прикреплённых существ!"))
 		return FALSE
 
 	move_inside(user)
@@ -849,7 +849,7 @@
 	occupant_sanity_check()
 
 	if(length(passengers) <= max_passengers)
-		visible_message(span_notice("[user] начинает забираться в [src.declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[user] начинает забираться в [declent_ru(ACCUSATIVE)]."))
 		if(do_after(user, 4 SECONDS, src))
 			if(!pilot || pilot == null)
 				pilot = user
@@ -895,9 +895,9 @@
 	occupant_sanity_check()
 
 	if(HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_notice("Вы пытаетесь выбраться из [src.declent_ru(GENITIVE)]. Это займет две минуты."))
+		to_chat(user, span_notice("Вы пытаетесь выбраться из [declent_ru(GENITIVE)]. Это займет две минуты."))
 		if(pilot && pilot != user)
-			to_chat(pilot, span_warning("[user] пытается выбраться из [src.declent_ru(GENITIVE)]."))
+			to_chat(pilot, span_warning("[user] пытается выбраться из [declent_ru(GENITIVE)]."))
 		if(!do_after(user, 2 MINUTES, src))
 			return
 
@@ -906,7 +906,7 @@
 	else if(user in passengers)
 		eject_passenger(user)
 
-	to_chat(user, span_notice("Вы выбрались из [src.declent_ru(GENITIVE)]."))
+	to_chat(user, span_notice("Вы выбрались из [declent_ru(GENITIVE)]."))
 
 /obj/spacepod/proc/lock_pod(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -917,7 +917,7 @@
 		return
 
 	if(!equipment_system.lock_system)
-		to_chat(user, span_warning("В [src.declent_ru(PREPOSITIONAL)] нет системы блокировки."))
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет системы блокировки."))
 		unlocked = TRUE //Should never be false without a lock, but if it somehow happens, that will force an unlock.
 	else
 		unlocked = !unlocked
@@ -965,7 +965,7 @@
 		return
 
 	if(!equipment_system.weapon_system)
-		to_chat(user, span_warning("В [src.declent_ru(PREPOSITIONAL)] нет оружия!"))
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет оружия!"))
 		return
 
 	equipment_system.weapon_system.fire_weapons()
@@ -979,7 +979,7 @@
 		return
 
 	if(!equipment_system.cargo_system)
-		to_chat(user, span_warning("В [src.declent_ru(PREPOSITIONAL)] нет грузового отсека!"))
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет грузового отсека!"))
 		return
 
 	equipment_system.cargo_system.unload()
@@ -1020,7 +1020,7 @@
 			to_chat(user, span_notice("Вы не нашли ничего ценного."))
 			balloon_alert(user, "пусто!")
 	else
-		to_chat(user, span_notice("Вы решаете не обыскивать [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы решаете не обыскивать [declent_ru(ACCUSATIVE)]."))
 
 /obj/spacepod/proc/startScan(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -1030,7 +1030,7 @@
 		to_chat(user, span_notice("Вы не можете дотянуться до штурвала."))
 		return
 	if(!equipment_system.locator_system)
-		to_chat(user, span_warning("В [src.declent_ru(PREPOSITIONAL)] нет системы навигации!"))
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] нет системы навигации!"))
 		return
 
 	equipment_system.locator_system.atom_say("Сканирование сектора...")

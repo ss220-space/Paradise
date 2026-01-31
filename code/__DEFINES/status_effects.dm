@@ -122,6 +122,8 @@
 
 #define STATUS_EFFECT_STAMINADOT /datum/status_effect/stamina_dot
 
+#define STATUS_EFFECT_OXYDOT /datum/status_effect/oxy_dot
+
 #define STATUS_EFFECT_BLUESPACESLOWDOWN /datum/status_effect/bluespace_slowdown //Halfs victims next move modifier
 
 #define STATUS_EFFECT_TAMING /datum/status_effect/taming //tames the target after enough tame stacks
@@ -214,6 +216,8 @@
 #define STATUS_EFFECT_LEANING /datum/status_effect/leaning
 
 #define STATUS_EFFECT_TEMPERATURE /datum/status_effect/transient/temperature
+
+#define STATUS_EFFECT_IMPACT_IMMUNE /datum/status_effect/impact_immune
 
 /// Causes the mob to become blind via the passed source
 #define become_blind(source) apply_status_effect(/datum/status_effect/transient/blindness, source)

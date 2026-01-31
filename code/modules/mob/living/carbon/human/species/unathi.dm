@@ -39,7 +39,7 @@
 
 	blood_species = "Unathi"
 	flesh_color = "#34AF10"
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	base_color = "#066000"
 
 	speciesbox = /obj/item/storage/box/survival/species/unathi

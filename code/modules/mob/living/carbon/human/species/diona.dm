@@ -44,7 +44,7 @@
 	flesh_color = "#907E4A"
 	butt_sprite = "diona"
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	has_organ = list(
 		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/diona,

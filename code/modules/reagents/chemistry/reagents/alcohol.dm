@@ -1148,7 +1148,7 @@
 
 /datum/reagent/consumable/ethanol/synthanol/on_mob_life(mob/living/M)
 	metabolization_rate = REAGENTS_METABOLISM
-	if(!(M.dna.species.reagent_tag & PROCESS_SYN))
+	if(!(M.dna.species.reagent_tag & SYNTHETIC))
 		metabolization_rate += 9 * REAGENTS_METABOLISM //gets removed from organics very fast
 		if(prob(25))
 			metabolization_rate += 40 * REAGENTS_METABOLISM
@@ -1156,7 +1156,7 @@
 	return ..()
 
 /datum/reagent/consumable/ethanol/synthanol/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(M.dna.species.reagent_tag & PROCESS_SYN)
+	if(M.dna.species.reagent_tag & SYNTHETIC)
 		return
 	if(method == REAGENT_INGEST)
 		to_chat(M, pick(span_danger("Это отвратительно!"), span_danger("Фу!")))
