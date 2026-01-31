@@ -18,7 +18,7 @@
 		return TRUE
 
 	msg = "[key_name(src)]\nRound id: [GLOB.round_id] \n1. [description]\n2. [correct_desc]\n3. [discord]\n4. Скрины: [have_screens ? "Да" : "Нет"]"
-	if(findtext(msg, "<@") || findtext(msg, "<&@"))
+	if(findtext(msg, "<@") || findtext(msg, "<@&"))
 		tgui_alert(src, "Обнаружена попытка пинга (<@id> или <@&id>)! Сообщение не будет отправленно.", "Баг-репорт")
 		return TRUE
 	if(tgui_alert(src, "Ваш репорт выглядит так:\n[msg]\nВы уверены что все заполнено правильно?", "Баг-репорт", list("Да", "Нет"))=="Да")
