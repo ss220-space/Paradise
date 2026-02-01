@@ -111,7 +111,7 @@
 	start_cooldown()
 	return TRUE
 
-/obj/item/mecha_parts/mecha_equipment/brass_clamp
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/brass
 	name = "Brass clamp"
 	desc = "Equipment for brass exosuits. Lifts objects and loads them into cargo."
 	icon_state = "mecha_brassclamp"
@@ -120,11 +120,11 @@
 	var/dam_force = 25
 	harmful = TRUE
 	
-/obj/item/mecha_parts/mecha_equipment/brass_clamp/attach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/brass/attach_act(obj/mecha/M)
 	chassis.cargo_expanded = TRUE
 	chassis.cargo_capacity = 25
 
-/obj/item/mecha_parts/mecha_equipment/brass_clamp/detach_act(obj/mecha/M)
+/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/brass/detach_act(obj/mecha/M)
 	chassis.cargo_expanded = FALSE
 	chassis.cargo_capacity = initial(chassis.cargo_capacity)
 
