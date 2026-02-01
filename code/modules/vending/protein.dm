@@ -19,6 +19,8 @@
 	panel_overlay = "cola-machine_panel"
 	screen_overlay = "protein_overlay"
 	refill_canister = /obj/item/vending_refill/protein
+	default_price = PAYCHECK_CREW
+	default_premium_price = PAYCHECK_COMMAND
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 10,
@@ -33,18 +35,6 @@
 	)
 	contraband = list(
 		/obj/item/reagent_containers/syringe/steroids = 5,
-	)
-	prices = list(
-		/obj/item/reagent_containers/food/snacks/proteinbar_banana = 199,
-		/obj/item/reagent_containers/food/snacks/proteinbar_cherry = 199,
-		/obj/item/reagent_containers/food/snacks/proteinbar_beef = 249,
-		/obj/item/reagent_containers/syringe/steroids = 149,
-		/obj/item/reagent_containers/food/drinks/protein/zaza = 499,
-		/obj/item/reagent_containers/food/drinks/protein/cherry = 499,
-		/obj/item/reagent_containers/food/drinks/protein/chocolate = 499,
-		/obj/item/reagent_containers/food/drinks/protein/bananastrawberry = 499,
-		/obj/item/reagent_containers/food/drinks/creatine = 349,
-		/obj/item/reagent_containers/food/drinks/guarana = 129,
 	)
 
 /obj/machinery/vending/protein/get_ru_names()

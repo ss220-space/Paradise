@@ -235,7 +235,9 @@
 	name = "industrial screwdriver"
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \
 			Нескользящие накладки улучшают хват, облегчая работу."
+	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_industrial"
+	post_init_icon_state = null
 	toolspeed = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	random_color = FALSE
@@ -243,8 +245,6 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_colors = null
-	icon = 'icons/obj/tools.dmi'
-	post_init_icon_state = null
 
 /obj/item/screwdriver/industrial/get_ru_names()
 	return list(

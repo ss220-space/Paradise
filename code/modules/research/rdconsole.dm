@@ -357,6 +357,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
+	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
@@ -464,6 +465,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else
 		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
+		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	machine.busy = TRUE
 	use_power(power)
@@ -539,6 +541,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					new_item.loc = machine.loc
 
 		machine.busy = FALSE
+	if(istype(machine, /obj/machinery/r_n_d/protolathe))
+		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	clear_wait_message()
 	SStgui.update_uis(src)
