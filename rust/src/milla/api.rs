@@ -386,19 +386,22 @@ pub(crate) fn internal_set_tile(
 fn milla_get_tile(turf: ByondValue, list: ByondValue) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
-    let vec: Vec<ByondValue>;
-    if let Ok(tile) = internal_get_tile(x as i32 - 1, y as i32 - 1, z as i32 - 1) {
-        vec = (&tile).into();
-    } else {
-        // MILLA has died and is unrecoverable.
-        // Uh... uh... report everything as breathable air, I guess?
-        let mut air = Tile::new();
-        air.gases.set_oxygen(20.0);
-        air.gases.set_nitrogen(80.0);
-        air.thermal_energy = air.heat_capacity() * T20C;
-        vec = (&air).into();
-    }
+
+    let tile =
+        std::panic::catch_unwind(|| internal_get_tile(x as i32 - 1, y as i32 - 1, z as i32 - 1))
+            .ok()
+            .and_then(|r| r.ok())
+            .unwrap_or_else(|| {
+                let mut air = Tile::new();
+                air.gases.set_oxygen(20.0);
+                air.gases.set_nitrogen(80.0);
+                air.thermal_energy = air.heat_capacity() * T20C;
+                air
+            });
+
+    let vec: Vec<ByondValue> = (&tile).into();
     list.write_list(vec.as_slice())?;
+
     Ok(ByondValue::null())
 }
 
