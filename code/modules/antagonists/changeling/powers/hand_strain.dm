@@ -21,8 +21,7 @@
 	. = ..()
 
 /datum/action/changeling/hand_strain/sting_action(mob/living/carbon/user)
-	. = ..()
-	if(!.)
+	if(!istype(user))
 		return FALSE
 
 	// Проверяем активную руку
