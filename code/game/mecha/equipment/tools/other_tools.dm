@@ -885,14 +885,6 @@
 	salvageable = FALSE
 	alert_category = "mecha_cage"
 
-	var/mob/living/carbon/prisoner
-	var/mob/living/carbon/holding
-	///for custom icons
-	var/datum/action/innate/mecha/select_module/button
-	///wacky case
-	var/current_stage
-	var/obj/effect/supress/supress_effect
-
 /obj/item/mecha_parts/mecha_equipment/cage/brass/get_ru_names()
 	return list(
 		NOMINATIVE = "модуль \"Латунная колыбель\"",
