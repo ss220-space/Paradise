@@ -9,6 +9,7 @@
 	var/infectivity = 65
 	///affects how well the virus will pass through the protection. The more the better. In range (0-2]
 	var/permeability_mod = 1
+	var/no_vaccine = FALSE
 
 /datum/disease/virus/New()
 	..()
@@ -100,8 +101,3 @@
 	if(spread_flags & AIRBORNE)
 		spread += "Воздушно-капельный"
 	return russian_list(spread, "Неизвестено", " и ")
-
-//List of viruses that cannot be vaccinated against using PANDEMIC. For game balance, some viruses are not intended to be preventable with a simple vaccine.
-GLOBAL_LIST_INIT(no_vaccine_viruses, list(
-	/datum/disease/virus/loyalty,
-))

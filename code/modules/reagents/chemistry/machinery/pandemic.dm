@@ -361,7 +361,11 @@
 		var/datum/reagents/reagents = beaker.reagents
 		for(var/datum/reagent/reagent in reagents.reagent_list)
 			if((reagent.id in GLOB.diseases_carrier_reagents) && reagent.data && reagent.data["resistances"])
-				reagent.data["resistances"] -= GLOB.no_vaccine_viruses
+				var/list/resistances = reagent.data["resistances"].Copy()
+				for(var/path in resistances)
+					var/datum/disease/virus/virus_res = new path
+					if(virus_res.no_vaccine)
+						reagent.data["resistances"] -= path
 		updateUsrDialog()
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL

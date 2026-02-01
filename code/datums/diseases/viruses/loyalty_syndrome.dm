@@ -10,6 +10,7 @@
 	cures = list("haloperidol", "ether")
 	visibility_flags = HIDDEN_HUD
 	severity = DISEASE_SEVERITY_BIOHAZARD
+	no_vaccine = TRUE
 	var/is_master = FALSE
 	var/mob/living/carbon/human/master
 	var/timer = 0
