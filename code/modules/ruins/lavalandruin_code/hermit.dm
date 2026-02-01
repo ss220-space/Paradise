@@ -137,7 +137,6 @@
 	desc = "портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями. При близком рассмотрении становится понятно что это дешёвый ширпотреб в красивой обёртке."
 	icon_state = "walkietalkie_sec"
 	item_state = "walkietalkie_sec"
-	icon = 'icons/obj/radio.dmi'
 
 /obj/item/radio/hermit/trade/get_ru_names()
 	return list(
@@ -191,7 +190,6 @@
 	sell_interest = ALL
 	origin_tech = "combat=7;engineering=5"
 
-
 //Eng
 
 /obj/item/clothing/shoes/magboots/hermit
@@ -242,7 +240,6 @@
 	sell_multiplier = 1
 	sell_interest = list(INTEREST_SYNDICATE, INTEREST_NANOTRASEN)
 	origin_tech = "engineering=7;power=6"
-
 
 //Med
 
@@ -360,82 +357,6 @@
 //MARK:SHIP
 //////////////////////////
 
-//Radiostation
-
-/obj/item/radio/hermit
-	name = "radio"
-	gender = MALE
-	desc = "Блок радиосвязи, конструкция не приспособлена к ношению."
-	icon = 'icons/obj/robot_component.dmi'
-	item_state = "cell"
-	icon_state = "radio"
-	belt_icon = "emergency_syndi"
-	materials = list(MAT_METAL=150)
-
-/obj/item/radio/intercom/hermit
-	name = "rack—mounted intercom"
-	desc = "Автономный модуль связи. Выполняющий функции бортового самописца и радио приёмника."
-	icon = 'icons/obj/machines/computer3.dmi'
-	icon_state = "rackframe"
-	density = TRUE
-	circuitry_installed = FALSE
-
-/obj/item/radio/intercom/hermit/get_ru_names()
-	ru_names = list(
-		NOMINATIVE = "автономный модуль связи",
-		GENITIVE = "автономного модуля связи",
-		DATIVE = "автономному модулю связи",
-		ACCUSATIVE = "автономный модуль связи",
-		INSTRUMENTAL = "автономным модулем связи",
-		PREPOSITIONAL = "автономном модуле связи",
-	)
-
-/obj/item/radio/intercom/rackmounted/Initialize(mapload, direction, buildstage = 2)
-	. = ..()
-	update_icon()
-
-/obj/item/radio/intercom/hermit/update_icon_state()
-	icon_state = "rackframe"
-
-/obj/item/radio/intercom/hermit/update_overlays()
-	. = ..()
-	underlays.Cut()
-
-/obj/item/radio/intercom/hermit/Destroy()
-	return ..()
-
-/obj/item/radio/intercom/hermit/attackby(obj/item/I, mob/user, params)
-	if(user.a_intent == INTENT_HARM)
-		return ..()
-	user.visible_message("<span class='warning'>[user] начинает разбирать [src].</span>", "<span class='notice'>Начинаю разбирать [src]...</span>")
-	if(I.use_tool(src, user, 30, volume=50))
-		deconstruct(TRUE)
-
-/obj/item/radio/intercom/hermit/crowbar_act(mob/user, obj/item/I)
-	attackby(I, user)
-	return TRUE
-
-/obj/item/radio/intercom/hermit/screwdriver_act(mob/user, obj/item/I)
-	attackby(I, user)
-	return TRUE
-
-/obj/item/radio/intercom/hermit/wirecutter_act(mob/user, obj/item/I)
-	attackby(I, user)
-	return TRUE
-
-/obj/item/radio/intercom/hermit/welder_act(mob/user, obj/item/I)
-	attackby(I, user)
-	return TRUE
-
-/obj/item/radio/intercom/hermit/deconstruct(disassembled = TRUE)
-	if(!loc)
-		return
-	new /obj/item/broken_device(drop_location())
-	new /obj/item/circuitboard/broken(drop_location())
-	new /obj/item/radio/hermit(drop_location())
-	new /obj/machinery/constructable_frame/machine_frame(drop_location())
-	qdel(src)
-
 //Computer
 
 /obj/machinery/computer/shuttle/autumn
@@ -507,7 +428,7 @@
 /obj/item/pda/hermit/autumn
 	name = "\"Autumn BEES\" PDA"
 	default_cartridge = /obj/item/cartridge/engineering
-	icon_state = "pda-engineer"
+	icon_state = "pda—engineer"
 	desc = "Специализированный карманный компьютер \"Autumn BEES\". Привязан к кораблю."
 	model_name = "Backup Emergency Evacuation Shuttle OS"
 	owner = "Autumn BEES"
