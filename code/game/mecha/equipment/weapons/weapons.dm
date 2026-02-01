@@ -192,6 +192,24 @@
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	size = 1
 
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/brasstaser
+	name = "\"Spark of the Righteous\" Mounted Taser"
+	icon_state = "mecha_taser_brass"
+	energy_drain = 15
+	equip_cooldown = 0.5 SECONDS
+	projectile = /obj/projectile/energy/brasselectrode
+	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
+	size = 1
+
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+	equip_cooldown = 0.4 SECONDS
+	name = "\"Ray of Faith\" Laser"
+	icon_state = "mecha_brassdart"
+	energy_drain = 20
+	projectile = /obj/projectile/brassbeam
+	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
+	harmful = TRUE
+
 /obj/item/mecha_parts/mecha_equipment/weapon/honker
 	name = "HoNkER BlAsT 5000"
 	icon_state = "mecha_honker"
