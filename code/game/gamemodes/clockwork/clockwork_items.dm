@@ -1669,7 +1669,7 @@
 		return
 	if(ishuman(target) && isclocker(target) && target.stat == DEAD)
 		revive(target, user)
-	if(ismecha(target, user)) // mech
+	if(ismecha(target)) // mech
 		convert_mecha(target, user)
 
 /obj/item/clockwork/shard/proc/convert_mecha(obj/mecha/target, mob/user)
