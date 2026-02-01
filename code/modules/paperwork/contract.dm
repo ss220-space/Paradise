@@ -24,6 +24,7 @@
 		return -1
 	target = nOwner.mind
 	update_text()
+	GLOB.employmentContracts |= src
 
 /obj/item/paper/contract/employment/update_text()
 	name = "Документ — Трудовой договор — [target]"
@@ -35,6 +36,10 @@
 	<br>В обмен на незначительные выплаты Раб соглашается работать на Вездесущего и полезного наблюдателя за человечеством до конца своей нынешней и всех своих будущих жизней.\
 	<br>Кроме того, Раб соглашается передать право на владение своей душой отделу лояльности Вездесущего и полезного наблюдателя за человечеством.\
 	<br>В случае, если передача души Раба невозможна, Раб вносит вместо неё залог.<br>Подписано,<br><i>[target]</i>"
+
+/obj/item/paper/contract/employment/Destroy()
+	GLOB.employmentContracts -= src
+	. = ..()
 
 /obj/item/paper/contract/infernal
 	var/datum/devil_contract/contract

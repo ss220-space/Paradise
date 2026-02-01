@@ -147,7 +147,7 @@
 	selfcharge = TRUE
 	charge_delay = 5
 	recharge_rate = 600
-	slowdown = 0.2
+	slowdown = 0.4
 	var/force_unwielded = 10
 	var/force_wielded = 20
 	accuracy = new /datum/gun_accuracy/minimal/gatling()

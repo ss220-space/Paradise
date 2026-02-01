@@ -367,7 +367,7 @@
 		if(islist(remove_sound) && length(remove_sound))
 			chosen_sound = pick(remove_sound)
 		playsound(loc, chosen_sound, 50, TRUE)
-		to_chat(user, span_notice("Вы достали патрон из [src.declent_ru(GENITIVE)]!"))
+		to_chat(user, span_notice("Вы достали патрон из [declent_ru(GENITIVE)]!"))
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
 		user.put_in_hands(casing)
 

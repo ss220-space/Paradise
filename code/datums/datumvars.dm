@@ -1505,7 +1505,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		if(A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже находится под контролем призраков!"))
+			to_chat(usr, span_warning("[DECLENT_RU_CAP(A, NOMINATIVE)] уже находится под контролем призраков!"))
 			return
 
 		var/control_mode = tgui_input_list(usr, "Выберите режим управления","Тип управления", list("демократия", "анархия"), null)
@@ -1542,7 +1542,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 			return
 
 		if(!A.GetComponent(/datum/component/deadchat_control))
-			to_chat(usr, "[capitalize(A.declent_ru(NOMINATIVE))] больше не находится под контролем призраков!")
+			to_chat(usr, "[DECLENT_RU_CAP(A, NOMINATIVE)] больше не находится под контролем призраков!")
 			return
 
 		A.stop_deadchat_plays()
@@ -1560,6 +1560,14 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		object.atom_say(say_text)
 
 		log_and_message_admins("atom_said on behalf of [object] the following: [say_text].")
+
+	if(href_list["modify_greyscale"])
+		if(!check_rights(NONE))
+			return
+		var/atom/object = locateUID(href_list["modify_greyscale"])
+		var/datum/greyscale_modify_menu/menu = new(object, usr, SSgreyscale.configurations)
+		menu.unlock()
+		menu.ui_interact(usr)
 
 /client/proc/view_var_Topic_list(href, href_list, hsrc)
 	if(href_list["VarsList"])

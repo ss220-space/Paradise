@@ -13,6 +13,8 @@
 		"Л+учшее снаряж+ение в к+осмосе!",
 	)
 	refill_canister = /obj/item/vending_refill/assist
+	default_price = PAYCHECK_CREW * 0.7
+	default_premium_price = PAYCHECK_CREW
 
 	products = list(
 		/obj/item/assembly/prox_sensor = 5,

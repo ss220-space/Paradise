@@ -215,7 +215,7 @@
 	if(prob(25) && isdemon(user))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice), 50, TRUE, -1)
-	exit_point.visible_message(span_warning("<b>[capitalize(user.declent_ru(NOMINATIVE))] возникает из [exit_point.declent_ru(GENITIVE)]!</b>"))
+	exit_point.visible_message(span_warning("<b>[DECLENT_RU_CAP(user, NOMINATIVE)] возникает из [exit_point.declent_ru(GENITIVE)]!</b>"))
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/unblock_hands(mob/living/carbon/user)
@@ -225,7 +225,7 @@
 		qdel(item)
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_message(atom/exit_point)
-	exit_point.visible_message(span_warning("[capitalize(exit_point.declent_ru(NOMINATIVE))] начинает пузыриться..."))
+	exit_point.visible_message(span_warning("[DECLENT_RU_CAP(exit_point, NOMINATIVE)] начинает пузыриться..."))
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_out(atom/exit_point, mob/living/user)
 	if(isslaughterdemon(user))

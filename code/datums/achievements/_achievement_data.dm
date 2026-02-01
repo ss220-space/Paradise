@@ -91,7 +91,7 @@
 
 /datum/achievement_data/ui_assets(mob/user)
 	return list(
-		get_asset_datum(/datum/asset/spritesheet/simple/achievements),
+		get_asset_datum(/datum/asset/spritesheet_batched/achievements),
 	)
 
 /datum/achievement_data/ui_state(mob/user)
@@ -111,7 +111,7 @@
 	.["progresses"] = list()
 	.["user_key"] = owner_ckey
 
-	var/datum/asset/spritesheet/simple/assets = get_asset_datum(/datum/asset/spritesheet/simple/achievements)
+	var/datum/asset/spritesheet_batched/assets = get_asset_datum(/datum/asset/spritesheet_batched/achievements)
 	for(var/achievement_type in SSachievements.awards)
 		var/datum/award/award = SSachievements.awards[achievement_type]
 

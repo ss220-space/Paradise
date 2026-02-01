@@ -445,7 +445,7 @@
 
 	output += "<div align='center'><table width='100%'><tr>"
 	output += "<td align='center'>"
-	output += "<form method='GET' action='?src=[cached_UID]'><b>Add custom ban:</b> (ONLY use this if you can't ban through any other method)</b>"
+	output += "<form method='get' action='?src=[cached_UID]'><b>Add custom ban:</b> (ONLY use this if you can't ban through any other method)</b>"
 	output += "<input type='hidden' name='src' value='[cached_UID]'>"
 	output += "<table width='100%'><tr>"
 	output += "<td width='50%' align='center'><b>Ban Type:</b><br><select name='dbbanaddtype'>"
@@ -508,7 +508,7 @@
 
 	output += "<br><br><hr><br><br>"
 
-	output += "<form method='GET' action='?src=[cached_UID]'><table width='100%'><tr><td colspan='2' align='center'><b>Search:</b>"
+	output += "<form method='get' action='?src=[cached_UID]'><table width='100%'><tr><td colspan='2' align='center'><b>Search:</b>"
 	output += "<input type='hidden' name='src' value='[cached_UID]'></td></tr>"
 	output += "<tr><td width='50%' align='center'><b>Ckey:</b><br><input type='text' name='dbsearchckey' value='[playerckey]'></td>"
 	output += "<td width='50%' align='center'><b>Admin ckey:</b><br><input type='text' name='dbsearchadmin' value='[adminckey]'></td></tr>"

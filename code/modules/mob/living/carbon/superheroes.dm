@@ -68,7 +68,7 @@
 /datum/superheroes/owlman/equip(mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black/greytide(H), ITEM_SLOT_FEET)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/owl(H), ITEM_SLOT_CLOTH_INNER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/neck/cloak/toggle/owlwings(H), ITEM_SLOT_CLOTH_OUTER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/owl_mask/super_hero(H), ITEM_SLOT_MASK)
@@ -105,7 +105,7 @@
 /datum/superheroes/lightnian/equip(mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/orange(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/orange(H), ITEM_SLOT_FEET)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/brown(H), ITEM_SLOT_CLOTH_INNER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero(H), ITEM_SLOT_CLOTH_OUTER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero(H), ITEM_SLOT_HEAD)
@@ -123,7 +123,7 @@
 /datum/superheroes/electro/equip(mob/living/carbon/human/H)
 	..()
 
-	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(H), ITEM_SLOT_FEET)
+	H.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black/greytide(H), ITEM_SLOT_FEET)
 	H.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(H), ITEM_SLOT_CLOTH_INNER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/suit/corgisuit/super_hero/en(H), ITEM_SLOT_CLOTH_OUTER)
 	H.equip_to_slot_or_del(new /obj/item/clothing/head/corgi/super_hero/en(H), ITEM_SLOT_HEAD)
@@ -221,7 +221,7 @@
 		target.drop_item_ground(W)
 	target.rename_character(target.real_name, "Generic Henchman ([rand(1, 1000)])")
 	target.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey/greytide(target), ITEM_SLOT_CLOTH_INNER)
-	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/black/greytide(target), ITEM_SLOT_FEET)
+	target.equip_to_slot_or_del(new /obj/item/clothing/shoes/color/black/greytide(target), ITEM_SLOT_FEET)
 	target.equip_to_slot_or_del(new /obj/item/storage/toolbox/mechanical/greytide(target), ITEM_SLOT_HAND_LEFT)
 	target.equip_to_slot_or_del(new /obj/item/radio/headset(target), ITEM_SLOT_EAR_LEFT)
 	var/obj/item/card/id/syndicate/W = new(target)

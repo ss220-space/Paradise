@@ -17,6 +17,8 @@
 	)
 	resistance_flags = FIRE_PROOF
 	refill_canister = /obj/item/vending_refill/sovietsoda
+	default_price = 1 // communism, y'know
+	default_premium_price = PAYCHECK_MIN
 
 	products = list(
 		/obj/item/reagent_containers/food/drinks/drinkingglass/soda = 30,

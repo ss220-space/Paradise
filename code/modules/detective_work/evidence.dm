@@ -58,10 +58,10 @@
 	var/yy = I.pixel_y
 	I.pixel_x = 0		//then remove it so it'll stay within the evidence bag
 	I.pixel_y = 0
-	var/image/img = image("icon"=I, "layer"=FLOAT_LAYER)	//take a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
+	var/image/img = image(icon = I, layer = FLOAT_LAYER)	//take a snapshot. (necessary to stop the underlays appearing under our inventory-HUD slots ~Carn
 	img.plane = FLOAT_PLANE
-	I.pixel_x = xx		//and then return it
-	I.pixel_y = yy
+	I.pixel_w = xx		//and then return it
+	I.pixel_z = yy
 	add_overlay(img)
 	add_overlay("evidence")	//should look nicer for transparent stuff. not really that important, but hey.
 
