@@ -81,7 +81,7 @@
 			outfit.glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 			outfit.mask = /obj/item/clothing/mask/breath/medical
 			outfit.uniform = /obj/item/clothing/under/rank/chief_medical_officer
-			outfit.shoes = /obj/item/clothing/shoes/white
+			outfit.shoes = /obj/item/clothing/shoes/brown
 			outfit.back = /obj/item/storage/backpack/satchel_med/hermit
 			outfit.belt = /obj/item/storage/belt/medical
 			outfit.r_pocket = /obj/item/melee/baton/telescopic
