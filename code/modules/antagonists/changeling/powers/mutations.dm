@@ -9,6 +9,7 @@
 
 //Parent to shields and blades because muh copypasted code.
 /datum/action/changeling/weapon
+	abstract_type = /datum/action/changeling/weapon
 	name = "Organic Weapon"
 	desc = "Go tell a coder if you see this"
 	helptext = "Yell at coderbus"
@@ -252,7 +253,7 @@
 	w_class = WEIGHT_CLASS_HUGE
 	force = 25
 	armour_penetration = 35
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	throw_range = 0
 	throw_speed = 0
 	gender = MALE
@@ -403,7 +404,7 @@
 	desc = "A tentacle."
 	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
-	icon = 'icons/obj/weapons/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
 	var/obj/item/gun/magic/tentacle/gun //the item that shot it
@@ -480,10 +481,10 @@
 		return
 
 	var/obj/item/offarm_item = user.get_active_hand()
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		offarm_item = user.get_inactive_hand()
 
-	if(!is_sharp(offarm_item))
+	if(!offarm_item.sharp)
 		return
 
 	target.visible_message(span_danger("[user] impales [target] with [offarm_item]!"), \

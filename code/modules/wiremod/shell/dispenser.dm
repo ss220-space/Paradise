@@ -103,6 +103,7 @@
 
 /obj/structure/dispenser_bot/wrench_act(mob/living/user, obj/item/tool)
 	if(locked)
+		balloon_alert(user, "закрыто!")
 		return
 
 	set_anchored(!anchored)
@@ -209,8 +210,14 @@
 		return
 
 	attached_bot = shell
+	RegisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED, PROC_REF(on_set_locked))
+	attached_bot.locked = parent.locked
 
 /obj/item/circuit_component/vendor_component/unregister_shell(atom/movable/shell)
+	if(attached_bot)
+		attached_bot.locked = FALSE
+		UnregisterSignal(parent, COMSIG_CIRCUIT_SET_LOCKED)
+
 	attached_bot = null
 	return ..()
 
@@ -229,3 +236,10 @@
 		return
 
 	attached_bot.remove_item(vending_item)
+
+/obj/item/circuit_component/vendor_component/proc/on_set_locked(datum/source, new_value)
+	SIGNAL_HANDLER
+	if(!attached_bot)
+		return
+
+	attached_bot.locked = new_value

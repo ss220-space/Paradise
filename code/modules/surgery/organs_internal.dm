@@ -466,7 +466,7 @@
 	var/tool_name = get_tool_name(tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		user.balloon_alert(user, "органы отсутствуют!")
 		// note that we want to return skip here so we can go "back" to the proxy step
 		return SURGERY_BEGINSTEP_SKIP
@@ -481,7 +481,7 @@
 		var/can_treat_organic = !organ.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
 		if(can_treat_robotic || can_treat_organic)
 			if(organ.is_dead())
-				to_chat(user, span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] мертв[GEND_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
+				to_chat(user, span_warning("[DECLENT_RU_CAP(organ, NOMINATIVE)] мертв[GEND_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
 				continue
 			user.visible_message(
 				span_notice("[user] начина[PLUR_ET_YUT(user)] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
@@ -505,7 +505,7 @@
 /datum/surgery_step/internal/manipulate_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/tool_name = get_tool_name(tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return SURGERY_STEP_INCOMPLETE
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
@@ -524,7 +524,7 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return SURGERY_STEP_INCOMPLETE
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
@@ -579,7 +579,7 @@
 			continue
 		organ.on_find(user)
 		organs -= organ
-		organs[capitalize(organ.declent_ru(NOMINATIVE))] = organ
+		organs[DECLENT_RU_CAP(organ, NOMINATIVE)] = organ
 
 	var/obj/item/organ/internal/I = tgui_input_list(user, "Выберите орган для извлечения", "Извлечение органа", organs)
 	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
@@ -794,7 +794,7 @@
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/clean/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	if(!hasorgans(target))
+	if(!iscarbon(target))
 		return SURGERY_STEP_INCOMPLETE
 	if(!istype(tool, /obj/item/reagent_containers))
 		return SURGERY_STEP_INCOMPLETE
@@ -867,7 +867,7 @@
 				continue
 			if(mito_trans >= MITO_REVIVAL_COST)
 				organ.rejuvenate() // Just like splashing it onto it
-				user.visible_message(span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] восстанавлива[PLUR_ET_YUT(organ)]ся прямо на глазах под воздействием митоколида!"))
+				user.visible_message(span_warning("[DECLENT_RU_CAP(organ, NOMINATIVE)] восстанавлива[PLUR_ET_YUT(organ)]ся прямо на глазах под воздействием митоколида!"))
 			else
 				user.balloon_alert(user, "недостаточно митоколида!")
 

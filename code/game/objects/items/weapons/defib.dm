@@ -3,6 +3,7 @@
 /obj/item/defibrillator
 	name = "defibrillator"
 	desc = "Прибор, генерирующий высоковольтный импульс, позволяющий запустить остановившееся сердце."
+	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibunit"
 	item_state = "defibunit"
 	slot_flags = ITEM_SLOT_BACK
@@ -171,7 +172,7 @@
 
 /obj/item/defibrillator/verb/toggle_paddles_verb()
 	set name = "Взять электроды"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -339,6 +340,7 @@
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
 	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
+	icon = 'icons/obj/defib.dmi'
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	base_icon_state = "defibpaddles"
@@ -448,8 +450,8 @@
 
 /obj/item/twohanded/shockpaddles/update_icon_state()
 	var/is_wielded = HAS_TRAIT(src, TRAIT_WIELDED)
-	icon_state = "[initial(icon_state)][is_wielded][on_cooldown ? "_cooldown" : ""]"
-	item_state = "[initial(icon_state)][is_wielded]"
+	icon_state = "[base_icon_state][is_wielded][on_cooldown ? "_cooldown" : ""]"
+	item_state = "[base_icon_state][is_wielded]"
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] поднос[PLUR_IT_YAT(user)] включенные электроды к своей груди! Похоже, что [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство!"))
@@ -513,11 +515,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/twohanded/shockpaddles/borg/on_cooldown_expire(obj/item/paddles)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] сообщает: заряд готов."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] сообщает: заряд готов."))
 	playsound(get_turf(src), 'sound/machines/defib_ready.ogg', 50, FALSE)
 	on_cooldown = FALSE
 	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/twohanded/shockpaddles/borg/update_icon_state()
-	icon_state = "[initial(icon_state)][on_cooldown ? "_cooldown" : ""]"
-

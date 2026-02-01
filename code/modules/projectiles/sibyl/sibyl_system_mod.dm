@@ -13,12 +13,11 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	item_state = "sibyl_chip"
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "combat=4;magnets=3;engineering=3"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	var/obj/item/gun/energy/weapon = null
 	var/obj/item/card/id/auth_id = null
 	var/state = SIBSYS_STATE_UNINSTALLED
 	var/limit = SIBYL_NONLETHAL
-	var/emagged = FALSE
 
 	/// Flag for registering SSsecurity_level
 	var/registered = FALSE
@@ -57,7 +56,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	sync_limit()
 	W.update_icon()
 	if(user)
-		to_chat(user, span_notice("Вы установили [src.declent_ru(ACCUSATIVE)] в [W.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
+		to_chat(user, span_notice("Вы установили [declent_ru(ACCUSATIVE)] в [W.declent_ru(ACCUSATIVE)]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
 		if(!auth_id)
 			to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
 

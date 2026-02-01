@@ -15,7 +15,7 @@
 	update_appearance(UPDATE_NAME)
 
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
-	set category = STATPANEL_AIIM
+	set category = VERB_CATEGORY_AIIM
 	set name = "Сообщение на КПК"
 	set src in usr
 
@@ -33,7 +33,7 @@
 		messenger.create_message(selected, usr)
 
 /obj/item/pda/silicon/verb/cmd_show_message_log()
-	set category = STATPANEL_AIIM
+	set category = VERB_CATEGORY_AIIM
 	set name = "Журнал сообщений"
 	set src in usr
 
@@ -52,7 +52,7 @@
 	popup.open(FALSE)
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
-	set category = STATPANEL_AIIM
+	set category = VERB_CATEGORY_AIIM
 	set name = "Приём сообщений"
 	set src in usr
 
@@ -63,7 +63,7 @@
 	to_chat(usr, span_notice("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
-	set category = STATPANEL_AIIM
+	set category = VERB_CATEGORY_AIIM
 	set name = "Беззвучный режим"
 	set src in usr
 

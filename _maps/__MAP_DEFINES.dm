@@ -19,8 +19,6 @@
 	#define REACHABLE "Reachable"
 	/// For away missions - used by some consoles
 	#define AWAY_LEVEL "Away"
-	/// Allows weather
-	#define HAS_WEATHER "Weather"
 	/// Enhances telecomms signals
 	#define BOOSTS_SIGNAL "Boosts signals"
 	/// Currently used for determining mining score
@@ -35,6 +33,8 @@
 	#define RESERVED_LEVEL "Transit/Reserved"
 	/// A level used for spawning map areas in tests
 	#define GAME_TEST_LEVEL "Game Test Level"
+	#define ZTRAIT_SNOWSTORM "Weather_Snowstorm"
+	#define ZTRAIT_ASHSTORM "Weather_Ashstorm"
 
 // Level names
 	#define CENTCOMM "CentComm"

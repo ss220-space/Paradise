@@ -263,7 +263,7 @@
 	if(!item.force)
 		return .
 
-	var/apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, def_zone, sharp = is_sharp(item), used_weapon = item)
+	var/apply_damage_result = apply_damage(item.get_final_force(user), item.damtype, def_zone, sharp = item.sharp, used_weapon = item)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
 	if(apply_damage_result && item.damtype == BRUTE && prob(33))
 		item.add_mob_blood(src)

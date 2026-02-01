@@ -41,7 +41,7 @@
 	neurotoxin.original = target
 	neurotoxin.firer = user
 	var/turf/target_turf = get_turf(target)
-	neurotoxin.preparePixelProjectile(target, target_turf, user, targeting.click_params)
+	neurotoxin.preparePixelProjectile(target, user)
 	neurotoxin.fire()
 	user.newtonian_move(get_dir(target_turf, T))
 

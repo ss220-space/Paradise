@@ -8,7 +8,8 @@
 	anchored = TRUE
 	idle_power_usage = 1250
 	active_power_usage = 2500
-	light_color = "#00FF00"
+	light_color = LIGHT_COLOR_ELECTRIC_GREEN
+	light_power = 0.5
 	var/mob/living/carbon/human/occupant
 	var/static/list/known_implants = list(/obj/item/implant/chem, /obj/item/implant/death_alarm, /obj/item/implant/mindshield, /obj/item/implant/tracking, /obj/item/implant/health)
 	var/isPrinting = FALSE
@@ -202,7 +203,7 @@
 
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -330,6 +331,9 @@
 			organData["maxHealth"] = E.max_damage
 			organData["bruised"] = E.min_bruised_damage
 			organData["broken"] = E.min_broken_damage
+			organData["bleed"] = round(E.bleeding_amount, 0.01)
+			organData["bleed_supp"] = "[(E.bleeding_amount <= E.bleedsuppress) ? "остановлено" : ""]"
+			organData["bleed_type"] = "[E.has_arterial_bleeding() ? "артериальное" : (E.has_heavy_bleeding() ? "обильное" : "")]"
 
 			var/shrapnelData[0]
 			for(var/obj/item/I in E.embedded_objects)
@@ -409,7 +413,7 @@
 				sleep(3 SECONDS)
 				isPrinting = FALSE
 				return
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
@@ -518,10 +522,25 @@
 			var/robot = ""
 			var/imp = ""
 			var/splint = ""
+			var/bleeding = ""
 			var/internal_bleeding = ""
 			var/lung_ruptured = ""
+			if(e.bleeding_amount > 0)
+				bleeding = "<br>"
+				if(e.bleeding_amount <= e.bleedsuppress)
+					bleeding += "остановленное "
+				if(e.has_arterial_bleeding())
+					bleeding += "артериальное "
+				else if(e.has_heavy_bleeding())
+					bleeding += "обильное "
+
+				bleeding += "кровотечение"
 			if(e.has_internal_bleeding())
-				internal_bleeding = "<br>Внутреннее кровотечение"
+				if(bleeding == "")
+					internal_bleeding = "<br>"
+
+				internal_bleeding += "Внутреннее кровотечение"
+
 			if(istype(e, /obj/item/organ/external/chest) && occupant.is_lung_ruptured())
 				lung_ruptured = "Пробито лёгкое"
 			if(e.is_splinted())
@@ -534,6 +553,7 @@
 				robot = "Синтетическое"
 			if(e.open)
 				open = "Открыто"
+
 			switch(e.germ_level)
 				if(INFECTION_LEVEL_ONE to INFECTION_LEVEL_ONE + 200)
 					infected = "Лёгкая инфекция"
@@ -552,9 +572,9 @@
 
 			if(LAZYLEN(e.embedded_objects) || e.hidden)
 				imp += "Обнаружено инородное тело"
-			if(!AN && !open && !infected && !imp && !internal_bleeding && !lung_ruptured)
+			if(!AN && !open && !infected && !imp && !bleeding && !internal_bleeding && !lung_ruptured)
 				AN = "Отсутствуют"
-			dat += "<td>[e.declent_ru(NOMINATIVE)]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
+			dat += "<td>[e.declent_ru(NOMINATIVE)]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [bleeding] [internal_bleeding] [lung_ruptured] [dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/robot = ""
@@ -582,7 +602,7 @@
 			if(!infection && !dead)
 				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[capitalize(organ.declent_ru(NOMINATIVE))]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
+			dat += "<td>[DECLENT_RU_CAP(organ, NOMINATIVE)]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
@@ -592,6 +612,6 @@
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
 			dat += "<font color='red'>Обнаружено смещение сетчатки.</font><br>"
 	else
-		dat += "[capitalize(declent_ru(NOMINATIVE))] пуст."
+		dat += "[DECLENT_RU_CAP(src, NOMINATIVE)] пуст."
 
 	return dat

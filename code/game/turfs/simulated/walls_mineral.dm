@@ -4,6 +4,7 @@
 	icon_state = ""
 	canSmoothWith = null
 	smooth = SMOOTH_TRUE
+	abstract_type = /turf/simulated/wall/mineral
 	var/last_event = 0
 	var/active = null
 
@@ -126,10 +127,10 @@
 	ChangeTurf(/turf/simulated/floor/plating)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 400)
 
-/turf/simulated/wall/mineral/plasma/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
+/turf/simulated/wall/mineral/plasma/temperature_expose(exposed_temperature, exposed_volume)//Doesn't fucking work because walls don't interact with air :(
 	..()
-	if(exposed_temperature > 300)
-		PlasmaBurn(exposed_temperature)
+	if(temperature > 300)
+		PlasmaBurn(temperature)
 
 /turf/simulated/wall/mineral/plasma/proc/ignite(exposed_temperature)
 	if(exposed_temperature > 300)
@@ -171,7 +172,7 @@
 	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
 
 /turf/simulated/wall/mineral/wood/try_decon(obj/item/I, mob/user, params)
-	if(is_sharp(I) && I.force)
+	if(I.sharp && I.force)
 		var/duration = (48 / I.force) * 2 //In seconds, for now.
 		if(istype(I, /obj/item/hatchet) || istype(I, /obj/item/twohanded/fireaxe))
 			duration /= 4 //Much better with hatchets and axes.

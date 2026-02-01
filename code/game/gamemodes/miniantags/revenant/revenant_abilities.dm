@@ -255,7 +255,7 @@
 	if(!L.on)
 		return
 
-	L.visible_message(span_boldwarning("[capitalize(L.declent_ru(NOMINATIVE))] внезапно вспыхивает и начинает искрить!"))
+	L.visible_message(span_boldwarning("[DECLENT_RU_CAP(L, NOMINATIVE)] внезапно вспыхивает и начинает искрить!"))
 	do_sparks(4, FALSE, L)
 	new /obj/effect/temp_visual/revenant(L.loc)
 	sleep(2 SECONDS)

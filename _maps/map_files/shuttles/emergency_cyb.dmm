@@ -114,12 +114,7 @@
 	},
 /area/shuttle/escape)
 "at" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -60
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -288,10 +283,7 @@
 	},
 /area/shuttle/escape)
 "aW" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
@@ -674,10 +666,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
 "cd" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -910,12 +899,7 @@
 	},
 /area/shuttle/escape)
 "cF" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -30
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"

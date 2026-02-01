@@ -14,11 +14,14 @@ import { Notifications } from './Notifications';
 import { PingIndicator } from './ping';
 import { ReconnectButton } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
+import { useDonations } from './donations/hooks';
+import { Donations } from './donations';
 
 export const Panel = (props: unknown) => {
   const audio = useAudio();
   const settings = useSettings();
   const game = useGame();
+  const donations = useDonations();
   if (process.env.NODE_ENV !== 'production') {
     const { useDebug, KitchenSink } = require('tgui/debug');
     const debug = useDebug();
@@ -73,6 +76,11 @@ export const Panel = (props: unknown) => {
         {settings.visible && (
           <Stack.Item>
             <SettingsPanel />
+          </Stack.Item>
+        )}
+        {donations.visible && (
+          <Stack.Item>
+            <Donations />
           </Stack.Item>
         )}
         <Stack.Item grow>

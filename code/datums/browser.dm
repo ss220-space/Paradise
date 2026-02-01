@@ -52,6 +52,9 @@
 	if(istype(name, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/sheet = name
 		stylesheets["spritesheet_[sheet.name].css"] = "data/spritesheets/[sheet.name]"
+	else if(istype(name, /datum/asset/spritesheet_batched))
+		var/datum/asset/spritesheet_batched/sheet = name
+		stylesheets["spritesheet_[sheet.name].css"] = "data/spritesheets/[sheet.name]"
 	else
 		var/asset_name = "[name].css"
 
@@ -461,12 +464,12 @@
 // to pass a "close=1" parameter to the atom's Topic() proc for special handling.
 // Otherwise, the user mob's machine var will be reset directly.
 //
-/proc/onclose(mob/user, windowid, atom/ref=null)
+/proc/onclose(mob/user, windowid, atom/source = null)
 	if(!user.client)
 		return
 	var/param = "null"
-	if(ref)
-		param = "[ref.UID()]"
+	if(source)
+		param = "[source.UID()]"
 
 	winset(user, windowid, "on-close=\".windowclose [param]\"")
 
@@ -480,7 +483,7 @@
 	set name = ".windowclose" // no autocomplete on cmd line
 
 	if(atomref != "null") // if passed a real atomref
-		var/hsrc = locate(atomref) // find the reffed atom
+		var/hsrc = locateUID(atomref) // find the reffed atom
 		var/href = "close=1"
 		if(hsrc)
 			usr = src.mob

@@ -340,13 +340,13 @@
 	var/mob/living/simple_animal/M = target
 	if(istype(M))
 		if(M.client)
-			to_chat(user, span_warning("[capitalize(M.declent_ru(NOMINATIVE))] слишком умён для приручения!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(M, NOMINATIVE)] слишком умён для приручения!"))
 			return
 		if(M.stat)
-			to_chat(user, span_warning("[capitalize(M.declent_ru(NOMINATIVE))] мёртв!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(M, NOMINATIVE)] мёртв!"))
 			return
 		if(M.faction == user.faction)
-			to_chat(user, span_warning("[capitalize(M.declent_ru(NOMINATIVE))] уже на вашей стороне!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(M, NOMINATIVE)] уже на вашей стороне!"))
 			return
 		if(M.sentience_type == SENTIENCE_BOSS)
 			var/datum/status_effect/taming/G = M.has_status_effect(STATUS_EFFECT_TAMING)
@@ -358,11 +358,11 @@
 					to_chat(user, span_notice("Требуется ещё [G.tame_crit-G.tame_amount] контактов, чтобы [M.declent_ru(NOMINATIVE)] принял вашу доброту!"))
 			return
 		if(M.sentience_type != SENTIENCE_ORGANIC)
-			to_chat(user, span_warning("[capitalize(M.declent_ru(ACCUSATIVE))] невозможно приручить!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(M, ACCUSATIVE)] невозможно приручить!"))
 			return
 		if(!do_after(user, 1.5 SECONDS, M))
 			return
-		M.visible_message(span_notice("[capitalize(M.declent_ru(NOMINATIVE))] выглядит умиротворённым после контакта с букетом!"))
+		M.visible_message(span_notice("[DECLENT_RU_CAP(M, NOMINATIVE)] выглядит умиротворённым после контакта с букетом!"))
 		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
 		M.drop_loot()
 		M.loot = list()
@@ -438,7 +438,7 @@
 	if(!katana || katana.shattered)
 		return FALSE
 	if(!katana.drew_blood)
-		to_chat(owner, span_userdanger("[capitalize(katana.declent_ru(NOMINATIVE))] жадно атакует вас!"))
+		to_chat(owner, span_userdanger("[DECLENT_RU_CAP(katana, NOMINATIVE)] жадно атакует вас!"))
 		playsound(owner, 'sound/misc/demon_attack1.ogg', 50, TRUE)
 		owner.apply_damage(25, BRUTE, parent_organ_zone, TRUE)
 	katana.drew_blood = FALSE
@@ -655,7 +655,7 @@
 /obj/item/cursed_katana/proc/coagulate(mob/user)
 	if(QDELETED(user))
 		return
-	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] восстанавливается!"))
+	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] восстанавливается!"))
 	shattered = FALSE
 	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
 

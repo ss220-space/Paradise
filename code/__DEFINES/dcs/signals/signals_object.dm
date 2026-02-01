@@ -115,3 +115,6 @@
 
 /// Sent from /datum/powernet/remove_cable()
 #define COMSIG_CABLE_REMOVED_FROM_POWERNET "cable_removed_from_powernet"
+
+/// Sent from /datum/powernet/remove_cable()
+#define COMSIG_UPDATE_TWOHANDED_DAMAGE "update_twohanded_damage"

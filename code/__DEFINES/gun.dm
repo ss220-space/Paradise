@@ -119,3 +119,6 @@ GLOBAL_LIST_INIT(gun_module_slot_ru_name, list(
 #define BULLET_TYPE_FIRE "fire"
 #define BULLET_TYPE_LASER "laser"
 #define BULLET_TYPE_DISABLER "disabler"
+
+/// Magazine reload duration
+#define GUN_MAGAZINE_RELOAD_DURATION (1 SECONDS)

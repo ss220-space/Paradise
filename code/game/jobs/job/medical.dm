@@ -1,15 +1,16 @@
 /datum/job/head_of_staff/cmo
 	title = JOB_TITLE_CMO
 	flag = JOB_FLAG_CMO
+	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
 	selection_color = "#66c6ff"
 	access = list(ACCESS_EVA, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
-			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
+			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
-			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
+			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
 
@@ -19,7 +20,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
 	suit = /obj/item/clothing/suit/storage/labcoat/cmo
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
 	l_pocket = /obj/item/lighter/zippo/cmo
@@ -35,6 +36,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 
 /datum/job/medical
+	department = STATION_DEPARTMENT_MEDICAL
 	department_flag = JOBCAT_MEDSCI
 	is_medical = 1
 	supervisors = "Главным врачом"
@@ -61,7 +63,7 @@
 
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
@@ -145,7 +147,7 @@
 
 	uniform = /obj/item/clothing/under/rank/medical/mortician
 	suit = /obj/item/clothing/suit/storage/labcoat/mortician
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
@@ -179,7 +181,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chemist
 	suit = /obj/item/clothing/suit/storage/labcoat/chemist
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_med
 	glasses = /obj/item/clothing/glasses/science
 	id = /obj/item/card/id/medical
@@ -206,7 +208,7 @@
 
 	uniform = /obj/item/clothing/under/rank/geneticist
 	suit = /obj/item/clothing/suit/storage/labcoat/genetics
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_medsci
 	id = /obj/item/card/id/genetics
 	suit_store = /obj/item/flashlight/pen
@@ -233,7 +235,7 @@
 
 	uniform = /obj/item/clothing/under/rank/virologist
 	suit = /obj/item/clothing/suit/storage/labcoat/virologist
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	mask = /obj/item/clothing/mask/surgical
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
@@ -244,19 +246,19 @@
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
 
-/datum/job/psychiatrist
+/datum/job/medical/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
 	flag = JOB_FLAG_PSYCHIATRIST
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Psychologist", "Therapist")
 	outfit = /datum/outfit/job/psychiatrist
 
 /datum/outfit/job/psychiatrist
 	name = JOB_TITLE_PSYCHIATRIST
-	jobtype = /datum/job/psychiatrist
+	jobtype = /datum/job/medical/psychiatrist
 
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
@@ -282,8 +284,8 @@
 	flag = JOB_FLAG_PARAMEDIC
 	total_positions = 1
 	spawn_positions = 1
-	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
-	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
+	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
+	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	outfit = /datum/outfit/job/paramedic
 
 /datum/outfit/job/paramedic

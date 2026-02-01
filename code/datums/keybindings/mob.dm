@@ -51,6 +51,18 @@
 				if(user.mob.next_move <= world.time && grabber.hand == grabber.pull_hand)
 					grabber.stop_pulling()
 				return TRUE
+
+		if(ishuman(user.mob))
+			var/mob/living/grabber = user.mob
+			var/suppress_target_bodypart = grabber.hand == ACTIVE_HAND_LEFT ? grabber.left_hand_bleed_suppress_lib : grabber.right_hand_bleed_suppress_lib
+			if(suppress_target_bodypart)
+				if(grabber.hand == ACTIVE_HAND_LEFT)
+					grabber.left_hand_bleed_suppress_lib = null
+				else
+					grabber.right_hand_bleed_suppress_lib = null
+				grabber.update_hands_HUD()
+				return TRUE
+
 		to_chat(user, span_warning("Вы ничего не держите в руке!"))
 	return TRUE
 

@@ -10,10 +10,6 @@
 /obj/item/radio/intercom {pixel_x=-28; pixel_y=@UNSET} : /obj/item/radio/intercom {@OLD;name="west bump"}
 /obj/item/radio/intercom {pixel_y=28; pixel_x=@UNSET} : /obj/item/radio/intercom {@OLD;name="north bump"}
 /obj/item/radio/intercom {pixel_y=-28; pixel_x=@UNSET} : /obj/item/radio/intercom {@OLD;name="south bump"}
-/obj/machinery/light_switch {pixel_x=24; pixel_y=@UNSET} : /obj/machinery/light_switch {@OLD;name="east bump"}
-/obj/machinery/light_switch {pixel_x=-24; pixel_y=@UNSET} : /obj/machinery/light_switch {@OLD;name="west bump"}
-/obj/machinery/light_switch {pixel_y=24; pixel_x=@UNSET} : /obj/machinery/light_switch {@OLD;name="north bump"}
-/obj/machinery/light_switch {pixel_y=-24; pixel_x=@UNSET} : /obj/machinery/light_switch {@OLD;name="south bump"}
 /obj/machinery/alarm {pixel_x=24; pixel_y=@UNSET} : /obj/machinery/alarm {@OLD;name="east bump"}
 /obj/machinery/alarm {pixel_x=-24; pixel_y=@UNSET} : /obj/machinery/alarm {@OLD;name="west bump"}
 /obj/machinery/alarm {pixel_y=24; pixel_x=@UNSET} : /obj/machinery/alarm {@OLD;name="north bump"}

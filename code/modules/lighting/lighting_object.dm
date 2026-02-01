@@ -10,6 +10,7 @@
 	invisibility = INVISIBILITY_LIGHTING
 	simulated = FALSE
 	light_system = NO_LIGHT_SUPPORT
+	resistance_flags = FIRE_PROOF|ACID_PROOF
 
 	var/turf/myturf
 

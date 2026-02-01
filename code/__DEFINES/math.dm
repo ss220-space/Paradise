@@ -1,3 +1,6 @@
+#define IS_FINITE__UNSAFE(a) (!isinf(a) && !isnan(a))
+#define IS_FINITE(a) (isnum(a) && IS_FINITE__UNSAFE(a))
+
 #define NUM_E 2.71828183
 
 #define PI 3.1415
@@ -133,3 +136,7 @@
 
 /// rand() but for floats, returns a random floating point number between L and H
 #define randfloat(L, H) ((L) + rand() * ((H) - (L)))
+
+
+/// Tests if the value is in the given range.
+#define IS_IN_BOUNDS(val, lower, upper) ((val) >= (lower) && (val) <= (upper))

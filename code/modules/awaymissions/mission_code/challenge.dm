@@ -21,12 +21,12 @@
 	base_lighting_alpha = 255
 
 /obj/machinery/power/emitter/energycannon
-	name = "Energy Cannon"
+	name = "energy cannon"
 	anchored = TRUE
 
 	idle_power_usage = 0
 	active_power_usage = 0
 
-	active = 1
-	locked = 1
+	active = TRUE
+	locked = TRUE
 	state = 2

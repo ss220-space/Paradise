@@ -10,7 +10,7 @@
 	desc = "Money money money."
 	icon = 'icons/goonstation/objects/money.dmi'
 	icon_state = "cashgreen"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 1
 	throwforce = 1
 	throw_speed = 1

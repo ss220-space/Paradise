@@ -143,7 +143,7 @@
 	for(var/mob/living/L in src_turf)
 		if(creator)
 			add_attack_logs(creator, L, "Resonance field'ed")
-		to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разрывается с вами внутри!"))
+		to_chat(L, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывается с вами внутри!"))
 		L.apply_damage(resonance_damage, BRUTE)
 	for(var/obj/effect/temp_visual/resonance/field in orange(1, src))
 		if(field.rupturing)

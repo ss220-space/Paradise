@@ -37,6 +37,8 @@
 
 #define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
 
+#define iskrampus(A) (istype(A, /mob/living/carbon/true_devil/krampus))
+
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
 #define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
@@ -50,7 +52,7 @@
 #define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
 
 // Simple animals
-// #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
+#define is_simple_animal(A) (istype(A, /mob/living/simple_animal))
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
@@ -79,6 +81,8 @@
 
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
+#define iscloset(A) (istype(A, /obj/structure/closet))
+
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
 
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
@@ -101,6 +105,8 @@
 
 #define isgun(A) (istype(A, /obj/item/gun))
 
+#define isspeedloader(A) (istype(A, /obj/item/ammo_box/speedloader))
+
 #define isbaton(A) (istype(A, /obj/item/melee/baton))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
@@ -116,6 +122,7 @@
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
+#define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
 #define	is_organ(A) (istype((A), /obj/item/organ))
 
@@ -156,9 +163,18 @@ GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,
 	/obj/item/reagent_containers/syringe,
-	/obj/item/kitchen/utensil/fork)))
+	/obj/item/kitchen/utensil/fork,
+)))
 
 #define is_pointed(W) (is_type_in_typecache(W, GLOB.pointed_types))
+
+/// For objects that should embed, but make no sense being sharp or is_pointed e.g: rods
+GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
+	/obj/item/stack/rods,
+	/obj/item/pipe,
+)))
+
+#define can_embed(item) (item?.sharp || is_pointed(item) || is_type_in_typecache(item, GLOB.can_embed_types))
 
 GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/glass,
@@ -167,7 +183,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 	/obj/item/stack/sheet/plasmarglass,
 	/obj/item/stack/sheet/titaniumglass,
 	/obj/item/stack/sheet/plastitaniumglass,
-	/obj/item/stack/sheet/abductorglass)))
+	/obj/item/stack/sheet/abductorglass,
+)))
 
 #define is_glass_sheet(O) (is_type_in_typecache(O, GLOB.glass_sheet_types))
 
@@ -218,6 +235,21 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispill(A) (istype(A, /obj/item/reagent_containers/food/pill))
 
 #define isthrowingmatart(A) (istype(A, /datum/martial_art/throwing))
+
+// Modsuits
+#define ismodcontrol(A) istype(A, /obj/item/mod/control)
+
+#define ismodstorage(A) istype(A, /obj/item/storage/backpack/modstorage)
+
+#define ismodhelmet(A) istype(A, /obj/item/clothing/head/mod)
+
+#define ismodgloves(A) istype(A, /obj/item/clothing/gloves/mod)
+
+#define ismodshoes(A) istype(A, /obj/item/clothing/shoes/mod)
+
+#define ismodchestplate(A) istype(A, /obj/item/clothing/suit/mod)
+
+#define ismodcore(A) istype(A, /obj/item/mod/core)
 
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,
@@ -294,9 +326,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isexternalorgan(A) (istype((A), /obj/item/organ/external))
 
-#define hasorgans(A) (iscarbon(A))
-
-#define is_admin(user) (check_rights(R_ADMIN, 0, (user)) != 0)
+#define is_admin(user) (check_rights(R_ADMIN, FALSE, (user)) != 0)
 
 #define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
@@ -334,3 +364,19 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isdrask(A) (is_species(A, /datum/species/drask))
 #define iswryn(A) (is_species(A, /datum/species/wryn))
 #define ismoth(A) (is_species(A, /datum/species/moth))
+
+#define iswelder(A) (istype(A, /obj/item/weldingtool))
+
+#define iswirecutter(A) (istype(A, /obj/item/wirecutters))
+
+#define ismultitool(A) (istype(A, /obj/item/multitool))
+
+#define iswrench(A) (istype(A, /obj/item/wrench))
+
+#define iscoil(A) (istype(A, /obj/item/stack/cable_coil))
+
+#define ispowertool(A) (istype(A, /obj/item/crowbar/power) || istype(A, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
+
+#define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
+
+#define isspacearea(A)	(istype(A, /area/space))

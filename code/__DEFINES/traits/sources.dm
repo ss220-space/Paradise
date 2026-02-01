@@ -50,7 +50,6 @@
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
 #define INUGAMI_TRAIT "inugami_gl"
-#define MANTIS_BLADE_TRAIT "mantis_blade"
 
 #define WISHGRANTER_TRAIT "wishgranter"
 #define THUNDERDOME_TRAIT "thunderdome"
@@ -173,4 +172,8 @@
 
 #define DEVIL_RITUAL_TRAIT "devil_ritual"
 
+#define MODSUIT_TRAIT "modsuit_trait"
+
 #define TASER_TRAIT "taser"
+
+#define BUTTON_TRAIT "button"

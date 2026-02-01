@@ -1,11 +1,22 @@
 /datum/job/head_of_staff/qm
 	title = JOB_TITLE_QUARTERMASTER
 	flag = JOB_FLAG_QUARTERMASTER
+	department_flag = JOBCAT_SUPPORT
+	department = STATION_DEPARTMENT_SUPPLY
 	is_supply = 1
 	selection_color = "#9f8545"
-	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
-	minimal_access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS, ACCESS_SECURITY, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
+	access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS,
+		ACCESS_SEC_DOORS, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO,
+		ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION,
+		ACCESS_MINERAL_STOREROOM
+	)
+	minimal_access = list(ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_HEADS_VAULT, ACCESS_ALL_PERSONAL_LOCKERS, ACCESS_HEADS,
+		ACCESS_SECURITY, ACCESS_EVA, ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO,
+		ACCESS_CARGO_BOT, ACCESS_QM, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION,
+		ACCESS_MINERAL_STOREROOM
+	)
 	alt_titles = list("Chief Supply Manager")
+	exp_type = EXP_TYPE_SUPPLY
 	outfit = /datum/outfit/job/qm
 
 /datum/outfit/job/qm
@@ -13,7 +24,7 @@
 	jobtype = /datum/job/head_of_staff/qm
 
 	uniform = /obj/item/clothing/under/rank/cargo
-	shoes = /obj/item/clothing/shoes/brown
+	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/heads/qm
 	glasses = /obj/item/clothing/glasses/sunglasses
 	l_pocket = /obj/item/lighter/zippo/qm
@@ -28,12 +39,13 @@
 
 /datum/job/supply
 	department_flag = JOBCAT_SUPPORT
+	department = STATION_DEPARTMENT_SUPPLY
 	is_supply = 1
 	supervisors = "Квартирмейстером"
 	department_head = list(JOB_TITLE_QUARTERMASTER)
 	selection_color = "#e2dbc8"
 	exp_requirements = 600
-	exp_type = EXP_TYPE_SUPPLY
+	exp_type = EXP_TYPE_CREW
 	paycheck = PAYCHECK_CREW
 
 /datum/job/supply/cargo_tech

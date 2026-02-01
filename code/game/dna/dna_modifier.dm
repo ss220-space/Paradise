@@ -17,8 +17,13 @@
 	var/id = null
 	var/implant = null
 	var/ckey = null
-	var/mind = null
+	var/datum/weakref/mind = null
 	var/languages = null
+
+/datum/dna2/record/Destroy(force)
+	dna = null
+	mind = null
+	. = ..()
 
 /datum/dna2/record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)

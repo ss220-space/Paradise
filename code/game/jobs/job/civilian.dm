@@ -2,6 +2,7 @@
 	title = JOB_TITLE_CIVILIAN
 	flag = JOB_FLAG_CIVILIAN
 	department_flag = JOBCAT_SUPPORT
+	department = STATION_DEPARTMENT_CIVILIAN
 	total_positions = -1
 	spawn_positions = -1
 	supervisors = "Главой персонала"
@@ -33,20 +34,6 @@
 	outfit = /datum/outfit/job/assistant/prisoner
 	insurance_type = INSURANCE_TYPE_NONE
 
-/datum/outfit/job/assistant/prisoner
-	name = JOB_TITLE_PRISONER
-	allow_loadout = FALSE
-	jobtype = /datum/job/civilian/prisoner
-	id = /obj/item/card/id/prisoner/random
-	head = /obj/item/clothing/head/prison
-	uniform = /obj/item/clothing/under/prison
-	shoes = /obj/item/clothing/shoes/prison
-	l_ear = /obj/item/radio/headset/prisoner
-	pda = null
-	box = null
-	allow_backbag_choice = FALSE
-	back = null
-
 /datum/job/civilian/prisoner/after_spawn(mob/living/carbon/human/human)
 	. = ..()
 	var/datum/data/record/record = find_security_record("name", human.real_name)
@@ -68,3 +55,17 @@
 		minor_crimes -= crime
 		. += ", [crime]"
 	. += "."
+
+/datum/outfit/job/assistant/prisoner
+	name = JOB_TITLE_PRISONER
+	allow_loadout = FALSE
+	jobtype = /datum/job/civilian/prisoner
+	id = /obj/item/card/id/prisoner/random
+	head = /obj/item/clothing/head/prison
+	uniform = /obj/item/clothing/under/prison
+	shoes = /obj/item/clothing/shoes/prison
+	l_ear = /obj/item/radio/headset/prisoner
+	pda = null
+	box = null
+	allow_backbag_choice = FALSE
+	back = null

@@ -78,6 +78,12 @@
 /obj/item/twohanded/proc/unwield(obj/item/source, mob/living/carbon/user)
 	return
 
+/obj/item/twohanded/proc/update_damage(force_wielded = src.force_wielded, force_unwielded = src.force_unwielded, force_multiplier)
+	src.force_wielded = force_wielded
+	src.force_unwielded = force_unwielded
+	force = wielded ? force_wielded : force_unwielded
+	SEND_SIGNAL(src, COMSIG_UPDATE_TWOHANDED_DAMAGE, force_wielded, force_unwielded, force_multiplier)
+
 ///////////Two hand required objects///////////////
 //This is for objects that require two hands to even pick up
 /obj/item/twohanded/required
@@ -246,7 +252,7 @@
 	charge = 0
 	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
 	user.visible_message(
-		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] со всей силы вгоня[PLUR_ET_YUT(user)] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
+		span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] со всей силы вгоня[PLUR_ET_YUT(user)] заряженный топор в [target.declent_ru(ACCUSATIVE)]!"),
 		span_warning("Вы со всей мощи вгоняете заряженный топор в [target.declent_ru(ACCUSATIVE)]!")
 	)
 	do_sparks(1, TRUE, src)
@@ -286,7 +292,7 @@
 	light_on = FALSE
 	light_system = MOVABLE_LIGHT
 	needs_permit = TRUE
-	var/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
+	var/static/list/colormap = list(red=COLOR_SOFT_RED, blue=LIGHT_COLOR_BLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_BRIGHT_YELLOW, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_ORANGE, darkblue=LIGHT_COLOR_BLUE, rainbow=LIGHT_COLOR_DEFAULT)
 
 /obj/item/twohanded/dualsaber/Initialize(mapload)
 	. = ..()
@@ -316,7 +322,7 @@
 	w_class = w_class_on
 
 /obj/item/twohanded/dualsaber/unwield(obj/item/source, mob/living/carbon/user)
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	w_class = initial(w_class)
 
 /obj/item/twohanded/dualsaber/IsReflect()
@@ -443,6 +449,7 @@
 	..()
 
 /obj/item/twohanded/spear/afterattack(atom/movable/AM, mob/user, proximity, params)
+	. = ..()
 	if(!proximity)
 		return
 	if(isturf(AM)) //So you can actually melee with it
@@ -551,7 +558,7 @@
 	..()
 	if(!proximity)
 		return
-	user.faction |= "greytide(\ref[user])"
+	user.faction |= "greytide([user.UID()])"
 	if(isliving(AM))
 		var/mob/living/L = AM
 		if(istype (L, /mob/living/simple_animal/hostile/illusion))
@@ -571,7 +578,7 @@
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		user.visible_message(
-			span_warning("[capitalize(user.declent_ru(NOMINATIVE))] насажива[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
+			span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] насажива[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] на копьё перед собой!"),
 			span_notice("Вы насаживаете [I.declent_ru(ACCUSATIVE)] на копьё и устанавливаете его вертикально.")
 		)
 		var/obj/structure/headspear/trophy = new(get_turf(src))
@@ -619,7 +626,7 @@
 
 /obj/structure/headspear/attack_hand(mob/living/user)
 	user.visible_message(
-		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] сбива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] ногой!"),
+		span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] сбива[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] ногой!"),
 		span_danger("Вы с пинаете [declent_ru(ACCUSATIVE)], опрокидывая его!")
 	)
 	playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
@@ -647,7 +654,7 @@
 	materials = list(MAT_METAL = 13000)
 	origin_tech = "materials=3;engineering=4;combat=2"
 	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	sharp = TRUE
 	embed_chance = 10
 	embedded_ignore_throwspeed_threshold = TRUE
@@ -656,7 +663,7 @@
 
 /obj/item/twohanded/chainsaw_handmade/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
+	soundloop = new(src)
 
 /obj/item/twohanded/chainsaw_handmade/ComponentInitialize()
 	. = ..()
@@ -681,7 +688,7 @@
 
 /obj/item/twohanded/chainsaw_handmade/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 
 /obj/item/twohanded/chainsaw/update_icon_state()
@@ -737,7 +744,7 @@
 
 /obj/item/twohanded/chainsaw/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src))
+	soundloop = new(src)
 
 /obj/item/twohanded/chainsaw/ComponentInitialize()
 	. = ..()
@@ -763,7 +770,7 @@
 
 /obj/item/twohanded/chainsaw/unwield(obj/item/source, mob/living/carbon/user)
 	soundloop.stop()
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	to_chat(user, "Вы дёргаете стартовый шнур [declent_ru(GENITIVE)], и цепь останавливается.")
 	REMOVE_TRAIT(src, TRAIT_NODROP, CHAINSAW_TRAIT)
 
@@ -906,7 +913,7 @@
 	target.Stun(4 SECONDS)
 	do_sparks(5, TRUE, target.loc)
 	target.visible_message(
-		span_danger("[capitalize(target.declent_ru(NOMINATIVE))] поражён[GEND_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
+		span_danger("[DECLENT_RU_CAP(target, NOMINATIVE)] поражён[GEND_A_O_Y(target)] разрядом [declent_ru(GENITIVE)]!"),
 		span_userdanger("Мощный разряд пронзает ваше тело, отбрасывая вас!"),
 		span_italics("Раздаётся оглушительный электрический треск!")
 	)
@@ -980,7 +987,7 @@
 			var/mob/living/Z = A
 			if(Z.health >= 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] отброшен[GEND_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
+					span_danger("[DECLENT_RU_CAP(Z, NOMINATIVE)] отброшен[GEND_A_O_Y(Z)] сокрушительным ударом [declent_ru(GENITIVE)]!"),
 					span_userdanger("Мощный удар разрывает ваше тело и отшвыривает вас!"),
 					span_danger("Слышен глухой удар и хлюпающий звук разрыва плоти!")
 				)
@@ -989,7 +996,7 @@
 				playsound(user, 'sound/weapons/marauder.ogg', 50, TRUE)
 			else if(HAS_TRAIT(src, TRAIT_WIELDED) && Z.health < 1)
 				Z.visible_message(
-					span_danger("[capitalize(Z.declent_ru(NOMINATIVE))] разрыва[PLUR_ET_YUT(Z)]ся на куски силой [declent_ru(GENITIVE)]!"),
+					span_danger("[DECLENT_RU_CAP(Z, NOMINATIVE)] разрыва[PLUR_ET_YUT(Z)]ся на куски силой [declent_ru(GENITIVE)]!"),
 					span_userdanger("Вы чувствуете, как ваше тело разрывается на куски!"),
 					span_danger("Слышен мощный удар и звук разрывающейся плоти!")
 				)
@@ -1059,11 +1066,23 @@
 	force_unwielded = 100
 	force_wielded = 500000 // Kills you DEAD.
 
+/obj/item/twohanded/pitchfork/demonic/greater/krampus/afterattack(atom/target, mob/user, proximity, params)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+
+	if(is_airlock(target))
+		var/obj/machinery/door/airlock/airlock = target
+		user.visible_message(span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
+		airlock.deconstruct()
+		return TRUE
+	..()
+
 /obj/item/twohanded/pitchfork/update_icon_state()
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[PLUR_ET_YUT(user)] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой..."))
+	user.visible_message(span_suicide("[DECLENT_RU_CAP(user, NOMINATIVE)] пронза[PLUR_ET_YUT(user)] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
@@ -1073,7 +1092,7 @@
 
 	var/mob/living/living_user = user
 
-	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind) //Burn hands unless they are a devil or have sold their soul
+	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || living_user.mind.soulOwner != living_user.mind || isdevil(living_user)) //Burn hands unless they are a devil or have sold their soul
 		return
 
 	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[PLUR_ET_YUT(living_user)] [declent_ru(ACCUSATIVE)], [GEND_HIS_HER(living_user)] руки на мгновение загораются."), \
@@ -1092,10 +1111,10 @@
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.))
 		return .
 
-	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind))
+	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner != user.mind) || isdevil(user))
 		return .
 
-	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))
+	to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] пылают в ваших руках!"))
 	user.apply_damage(rand(user.health / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 // It's no fun being the lord of all hell if you can't get out of a simple room
@@ -1105,14 +1124,14 @@
 
 	if(iswallturf(target))
 		var/turf/simulated/wall/wall = target
-		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		user.visible_message(span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		wall.dismantle_wall(TRUE)
 		return TRUE
 
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/mineral = target
-		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		user.visible_message(span_danger("[DECLENT_RU_CAP(user, NOMINATIVE)] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, TRUE)
 		mineral.gets_drilled(user)
 		return TRUE

@@ -216,7 +216,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=3;combat=3"
 	attack_verb = list("ударил", "ткнул")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 
 /obj/item/scythe/tele/attack_self(mob/user)
 	extend = !extend
@@ -235,7 +235,7 @@
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
 		attack_verb = list("ударил", "ткнул")
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, TRUE)		//Sound credit to Q.K. of Freesound.org
 	set_sharpness(extend)

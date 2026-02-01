@@ -53,6 +53,9 @@ GLOBAL_LIST_EMPTY(game_test_tguis)
  * - You can use the bottom_left and top_right to get turfs for testing
  */
 /datum/game_test
+	/// Do not instantiate if type matches this
+	abstract_type = /datum/game_test
+
 	//Bit of metadata for the future maybe
 	var/list/procs_tested
 

@@ -11,7 +11,15 @@
 	active_power_usage = 200
 	pass_flags = PASSTABLE
 	/// Allowed item to recharge
-	var/list/allowed_devices = list(/obj/item/gun/energy, /obj/item/melee/baton/security, /obj/item/rcs, /obj/item/bodyanalyzer, /obj/item/handheld_chem_dispenser, /obj/item/weapon_cell)
+	var/static/list/allowed_devices = list(
+		/obj/item/gun/energy,
+		/obj/item/melee/baton/security,
+		/obj/item/rcs,
+		/obj/item/bodyanalyzer,
+		/obj/item/handheld_chem_dispenser,
+		/obj/item/weapon_cell,
+		/obj/item/twohanded/spear/secspear,
+	)
 	/// Rechargin multiplier
 	var/recharge_coeff = 1
 	/// The item that is being charged
@@ -66,7 +74,7 @@
 
 	charging = I
 	use_power = ACTIVE_POWER_USE
-	using_power = check_cell_needs_recharging(get_cell_from(I))
+	using_power = check_cell_needs_recharging(I.get_cell())
 	update_icon()
 	return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -180,28 +188,6 @@
 
 	underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
-/proc/get_cell_from(obj/item/I)
-	if(istype(I, /obj/item/gun/energy))
-		var/obj/item/gun/energy/E = I
-		return E.cell
-
-	if(istype(I, /obj/item/melee/baton/security))
-		var/obj/item/melee/baton/security/B = I
-		return B.cell
-
-	if(istype(I, /obj/item/rcs))
-		var/obj/item/rcs/R = I
-		return R.rcell
-
-	if(istype(I, /obj/item/bodyanalyzer))
-		var/obj/item/bodyanalyzer/B = I
-		return B.cell
-
-	if(istype(I, /obj/item/weapon_cell))
-		return I.get_cell()
-
-	return null
-
 /obj/machinery/recharger/proc/check_cell_needs_recharging(obj/item/stock_parts/cell/C)
 	if(!C || C.charge >= C.maxcharge)
 		return FALSE
@@ -212,7 +198,7 @@
 	use_power(power_usage)
 
 /obj/machinery/recharger/proc/try_recharging_if_possible()
-	var/obj/item/stock_parts/cell/C = get_cell_from(charging)
+	var/obj/item/stock_parts/cell/C = charging.get_cell()
 	if(!check_cell_needs_recharging(C))
 		return FALSE
 

@@ -26,13 +26,6 @@
 /mob/living/carbon/brain/incapacitated(ignore_flags)
 	return FALSE
 
-/mob/living/carbon/brain/on_forcemove(atom/newloc)
-	if(container)
-		container.forceMove(newloc)
-	else //something went very wrong.
-		CRASH("Brainmob without container.")
-	forceMove(container)
-
 /mob/living/carbon/brain/update_mouse_pointer()
 	if(!client)
 		return

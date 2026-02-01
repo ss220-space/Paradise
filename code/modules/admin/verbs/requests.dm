@@ -1,7 +1,4 @@
 /// Verb for opening the requests manager panel
-/client/proc/requests()
-	set name = "Requests Manager"
-	set desc = "Open the request manager panel to view all requests during this round"
-	set category = STATPANEL_ADMIN_TICKETS
-	GLOB.requests.ui_interact(usr)
+ADMIN_VERB(requests, R_ADMIN, "Requests Manager", "Open the request manager panel to view all requests during this round.", ADMIN_CATEGORY_GAME)
+	GLOB.requests.ui_interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Request Manager")
