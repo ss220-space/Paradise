@@ -572,34 +572,34 @@
 	dat += "<b>Уровень угрозы на станции: [SSsecurity_level.get_colored_current_security_level_name()]</b><br>"
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		dat += "<span style='color: red;'><b>Станция была эвакуирована.</b></span><br>"
+		dat += "<span style='color: red;'><b>Экипаж объекта был эвакуирован.</b></span><br>"
 	else if((SSshuttle.emergency?.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
-		dat += "<span style='color: red;'>В настоящее время станция проходит процедуру эвакуации.</span><br>"
+		dat += "<span style='color: red;'>В настоящее время экипаж объекта проходит процедуру эвакуации.</span><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<span style='color: lime;'>Станция отметила эти позиции как приоритетные: "
+		dat += "<span style='color: lime;'>Объект отметил эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
 			amt_count++
 			if(amt_count != amt)
-				dat += " [a.title], "
+				dat += " [get_job_title_ru(a.title)], "
 			else
-				dat += " [a.title]. </span><br>"
+				dat += " [get_job_title_ru(a.title)]. </span><br>"
 
 	var/num_jobs_available = 0
 	var/list/activePlayers = list()
 	var/list/categorizedJobs = list(
-		"Командование" = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
-		"Инженерия" = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
-		"Безопасность" = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
+		STATION_DEPARTMENT_RU_COMMAND = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
+		STATION_DEPARTMENT_RU_ENGINEERING = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
+		STATION_DEPARTMENT_RU_SECURITY = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
 		"Разное" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
-		"Синтетики" = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
-		"Обслуживание" = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
-		"Медицина" = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
-		"Наука" = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
-		"Снабжение" = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
-		)
+		STATION_DEPARTMENT_RU_SILICON = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
+		STATION_DEPARTMENT_RU_SERVICE = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
+		STATION_DEPARTMENT_RU_MEDICAL = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
+		STATION_DEPARTMENT_RU_SCIENCE = list(jobs = list(), titles = GLOB.science_positions, color = "#e6b3e6"),
+		STATION_DEPARTMENT_RU_SUPPLY = list(jobs = list(), titles = GLOB.supply_positions, color = "#ead4ae"),
+	)
 	for(var/datum/job/job in SSjobs.occupations)
 		if(job && IsJobAvailable(job.title) && !job.barred_by_disability(client))
 			num_jobs_available++
@@ -612,7 +612,7 @@
 				var/list/jobs = categorizedJobs[jobcat]["jobs"]
 				if(job.title in categorizedJobs[jobcat]["titles"])
 					categorized = 1
-					if(jobcat == "Командование") // Put captain at top of command jobs
+					if(jobcat == STATION_DEPARTMENT_RU_COMMAND) // Put captain at top of command jobs
 						if(job.title == JOB_TITLE_CAPTAIN)
 							jobs.Insert(1, job)
 						else

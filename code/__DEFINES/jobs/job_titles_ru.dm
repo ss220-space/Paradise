@@ -405,6 +405,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define STATION_DEPARTMENT_RU_SUPPLY "Снабжение"
 #define STATION_DEPARTMENT_RU_SERVICE "Обслуживание"
 #define STATION_DEPARTMENT_RU_LEGAL "Юриспруденция"
-#define STATION_DEPARTMENT_RU_SILICON "Силиконы"
+#define STATION_DEPARTMENT_RU_SILICON "Синтетики"
 #define STATION_DEPARTMENT_RU_CIVILIAN "Гражданские"
 #define STATION_DEPARTMENT_RU_OTHER "прочее"
