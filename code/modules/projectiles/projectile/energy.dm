@@ -551,4 +551,24 @@
 	if(!isclocker(to_heal))
 		return ..()
 	to_heal.heal_overall_damage(0, 75)
+
+/obj/projectile/energy/electrode/brass
+	name = "brass electrode"
+	confused = 3 SECONDS
+	stun = 0.5 SECONDS
+	stamina = 20
+	stutter = 10 SECONDS
+	jitter = 30 SECONDS
+	range = 8
+	var/tasered_duration = 8 SECONDS
+
+/obj/projectile/energy/electrode/brass/get_ru_names()
+	return list(
+		NOMINATIVE = "латунный электрод",
+		GENITIVE = "латунного электрода",
+		DATIVE = "латунному электроду",
+		ACCUSATIVE = "латунный электрод",
+		INSTRUMENTAL = "латунным электродом",
+		PREPOSITIONAL = "латунном электроде",
+	)
 #undef ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER
