@@ -326,7 +326,7 @@
 	var/grabbed_something = FALSE
 	for(var/obj/item/recycle_item in recycle_turf)
 		if(is_type_in_list(recycle_item, item_blacklist))
-			to_chat(user, span_danger("Вы не можете переработать [target.declent_ru(ACCUSATIVE)]!"))
+			to_chat(user, span_danger("Вы не можете переработать [recycle_item.declent_ru(ACCUSATIVE)]!"))
 			continue
 		if(LAZYIN(recycle_item.materials, MAT_METAL) && !anchored && (length(grabbed_items) < grab_limit))
 			grabbed_items += recycle_item
