@@ -18,12 +18,16 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "bh" = (
-/obj/effect/mob_spawn/human/hermit{
-	dir = 4
-	},
+/obj/effect/spawner/hermit_random_sleeper,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
+/area/shuttle/hermit/autumn)
+"bs" = (
+/obj/machinery/atmospherics/binary/pump{
+	dir = 4
+	},
+/turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "bL" = (
 /obj/machinery/power/terminal{
@@ -42,6 +46,9 @@
 "dm" = (
 /obj/machinery/hologram/holopad,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -61,19 +68,6 @@
 /area/shuttle/hermit/autumn)
 "gj" = (
 /obj/machinery/computer/camera_advanced/hermit/autumn,
-/obj/machinery/door_control{
-	id = "hermit";
-	pixel_x = 8;
-	req_access = list(500);
-	name = "bow shutters"
-	},
-/obj/machinery/door_control{
-	id = "hermit_back";
-	pixel_x = 8;
-	req_access = list(500);
-	pixel_y = -5;
-	name = "stern shutters"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -99,9 +93,6 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "gN" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -110,6 +101,11 @@
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/unary/outlet_injector/on{
+	dir = 8;
+	id = "co2_in";
+	pixel_y = 1
+	},
 /turf/simulated/floor/plating/airless,
 /area/shuttle/hermit/autumn)
 "hk" = (
@@ -131,21 +127,20 @@
 /obj/item/soap,
 /obj/item/soap,
 /obj/item/soap,
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/structure/railing{
 	dir = 1
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/item/storage/bag/plants/portaseeder,
 /obj/item/pickaxe/emergency,
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
 /area/shuttle/hermit/autumn)
 "hJ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "hermit"
 	},
@@ -155,13 +150,14 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/shuttle,
+/obj/machinery/atmospherics/pipe/simple/visible{
+	desc = "Труба содержит газ для обработки и после возвращает его обратно в трубу смешивания";
+	dir = 4;
+	name = "Труба обработки"
+	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/hermit/autumn)
 "hO" = (
-/obj/machinery/alarm/old{
-	dir = 4;
-	pixel_x = -26
-	},
 /obj/machinery/pipedispenser,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
@@ -170,44 +166,30 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "io" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/sink{
-	pixel_y = 30
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/shuttle/hermit/autumn)
 "jY" = (
 /obj/structure/railing,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
 /area/shuttle/hermit/autumn)
 "ko" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/east,
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
 /area/shuttle/hermit/autumn)
-"kO" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/hermit/autumn)
 "li" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 5
-	},
 /obj/structure/railing,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/structure/rack,
@@ -220,6 +202,7 @@
 /obj/item/reagent_containers/glass/beaker/waterbottle/large/empty{
 	pixel_x = -14
 	},
+/obj/machinery/atmospherics/binary/valve,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -243,6 +226,7 @@
 	},
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/spawner/hermit_random_structure,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -259,22 +243,34 @@
 	amount = 4
 	},
 /obj/item/wrench,
+/obj/machinery/alarm/old{
+	dir = 8;
+	pixel_x = 26
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "qa" = (
 /obj/structure/flora/rock/basalt3,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/template_noop)
+"qr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/hidden,
+/turf/simulated/floor/plating,
+/area/shuttle/hermit/autumn)
 "qz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/hermit_random_structure,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "ru" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycamo";
 	dir = 4
@@ -310,12 +306,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "vC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/firedoor,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycamo";
@@ -337,9 +328,9 @@
 /turf/simulated/floor/plating/airless,
 /area/shuttle/hermit/autumn)
 "wW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden,
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/spawner/hermit_random_structure,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -350,9 +341,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/template_noop)
 "xs" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycamo";
 	dir = 8
@@ -430,10 +421,10 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "FQ" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/universal{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -441,23 +432,24 @@
 	},
 /area/shuttle/hermit/autumn)
 "Ga" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
+/obj/effect/spawner/hermit_random_sleeper,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
 /area/shuttle/hermit/autumn)
 "GC" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/machinery/power/solar_control,
 /obj/structure/cable{
 	d2 = 4;
 	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/binary/valve{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
@@ -470,8 +462,7 @@
 	},
 /area/shuttle/hermit/autumn)
 "He" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/atmospherics/trinary/tvalve/bypass{
+/obj/machinery/atmospherics/pipe/manifold/hidden{
 	dir = 8
 	},
 /turf/simulated/floor/plating,
@@ -480,12 +471,12 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Hu" = (
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 4
-	},
 /obj/item/storage/secure/safe/hermit/autumn{
 	pixel_y = 32;
 	pixel_x = 5
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -498,6 +489,7 @@
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/effect/decal/warning_stripes/yellow,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -512,6 +504,12 @@
 /area/shuttle/hermit/autumn)
 "IG" = (
 /obj/effect/spawner/random_spawners/oil_20,
+/turf/simulated/floor/plating,
+/area/shuttle/hermit/autumn)
+"JD" = (
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Kb" = (
@@ -529,9 +527,6 @@
 /obj/structure/window/reinforced{
 	dir = 1
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8
-	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Ku" = (
@@ -539,7 +534,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/effect/spawner/hermit_random_sleeper,
+/obj/effect/mob_spawn/human/hermit{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -553,9 +550,6 @@
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/hermit/autumn)
 "LJ" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -567,6 +561,10 @@
 "Mv" = (
 /obj/structure/shuttle/engine/propulsion,
 /turf/simulated/floor/plating/airless,
+/area/shuttle/hermit/autumn)
+"Nh" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Oz" = (
 /obj/structure/chair/comfy/shuttle{
@@ -587,11 +585,24 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/clipboard,
-/obj/item/pen,
 /obj/machinery/camera{
 	network = list("Autumn")
 	},
+/obj/machinery/door_control{
+	id = "hermit_back";
+	pixel_x = 8;
+	req_access = list(500);
+	pixel_y = -5;
+	name = "stern shutters"
+	},
+/obj/machinery/door_control{
+	id = "hermit";
+	pixel_x = 8;
+	req_access = list(500);
+	name = "bow shutters"
+	},
+/obj/item/clipboard,
+/obj/item/pen,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -599,9 +610,6 @@
 "OU" = (
 /obj/structure/window/reinforced{
 	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
 	},
 /obj/structure/window/reinforced{
 	dir = 1
@@ -617,38 +625,27 @@
 "PA" = (
 /turf/simulated/mineral/random/volcanic/hard,
 /area/template_noop)
-"QS" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/hermit/autumn)
 "QU" = (
 /obj/effect/spawner/hermit_random_structure,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
-"Rv" = (
-/obj/machinery/atmospherics/pipe/simple/hidden{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plating,
-/area/shuttle/hermit/autumn)
 "RB" = (
-/obj/machinery/atmospherics/binary/valve{
-	dir = 4
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/hermit/autumn)
-"SX" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 5
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "TJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/recharge_station,
+/obj/structure/toilet{
+	dir = 4;
+	pixel_y = 7
+	},
+/obj/item/mounted/shower{
+	pixel_y = 26
+	},
+/obj/machinery/door/window,
+/obj/structure/window/reinforced,
+/obj/structure/curtain/open,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -661,24 +658,25 @@
 /obj/machinery/autolathe,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
-"Wg" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 10
+"UA" = (
+/obj/machinery/atmospherics/unary/vent_pump{
+	dir = 8
 	},
+/turf/simulated/floor/plating,
+/area/shuttle/hermit/autumn)
+"Wg" = (
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
 /area/shuttle/hermit/autumn)
 "WT" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/universal,
+/obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "XE" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 4
-	},
 /obj/effect/spawner/random_spawners/oil_5,
 /obj/effect/decal/warning_stripes/east,
 /turf/simulated/floor/plasteel{
@@ -688,6 +686,9 @@
 "Yz" = (
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
@@ -702,7 +703,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/item/radio/intercom/hermit,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -711,6 +712,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycamo";
 	dir = 8
@@ -768,7 +770,7 @@ Cm
 Cm
 bQ
 TL
-Kb
+io
 xL
 xL
 Kb
@@ -789,18 +791,18 @@ bQ
 TL
 TL
 TL
-Kb
-Kb
+xL
+xL
 TJ
 bh
 Kb
-Kb
 xL
-Kb
+xL
+xL
 Kb
 qz
 QU
-Kb
+xL
 Kb
 bQ
 bQ
@@ -809,11 +811,11 @@ bQ
 HY
 TL
 TL
-Kb
 xL
-Kb
 xL
-io
+xL
+xL
+GX
 GX
 xv
 aD
@@ -830,7 +832,7 @@ bQ
 (6,1,1) = {"
 bQ
 bQ
-Kb
+xL
 Kb
 OE
 gl
@@ -853,19 +855,19 @@ bQ
 bQ
 bQ
 LI
-Ar
+gj
 Oz
 dm
 ZW
 Ga
 Wg
 xs
-kO
-Hk
+Nh
+Nh
 oF
 Ie
 jY
-Hk
+RB
 xL
 xL
 bQ
@@ -875,7 +877,7 @@ bQ
 bQ
 bQ
 LI
-gj
+Ar
 Kg
 FQ
 vC
@@ -887,7 +889,7 @@ WT
 hk
 wW
 li
-Rv
+qr
 xL
 xL
 bQ
@@ -896,7 +898,7 @@ bQ
 (9,1,1) = {"
 bQ
 bQ
-Kb
+xL
 Kb
 ZC
 GC
@@ -909,7 +911,7 @@ bL
 Yz
 gp
 IG
-RB
+bs
 vV
 Mv
 bQ
@@ -919,7 +921,7 @@ bQ
 HY
 lp
 bQ
-Kb
+xL
 xL
 hJ
 xL
@@ -931,7 +933,7 @@ ID
 EG
 pf
 OU
-QS
+JD
 ab
 Mv
 bQ
@@ -947,14 +949,14 @@ gN
 xL
 Pd
 Ct
-Kb
-Kb
+xL
+xL
+xL
 xL
 Kb
-Kb
 Kp
-SX
-Kb
+UA
+xL
 Kb
 bQ
 bQ
