@@ -648,7 +648,22 @@
 		PREPOSITIONAL = "лазере часовой энергии",
 	)
 
+/obj/projectile/beam/brasslaser
+	name = "brass laser beam"
+	damage = 20
+
+/obj/projectile/beam/brasslaser/get_ru_names()
+	return list(
+		NOMINATIVE = "латунный импульс",
+		GENITIVE = "латунного импульса",
+		DATIVE = "латунному импульсу",
+		ACCUSATIVE = "латунный импульс",
+		INSTRUMENTAL = "латунным импульсом",
+	PREPOSITIONAL = "латунном импульсе",
+
 /obj/projectile/beam/laser/light/rat/prehit(atom/target)
 	if(isclocker(target))
 		damage = 0
 	return ..()
+
+	)
