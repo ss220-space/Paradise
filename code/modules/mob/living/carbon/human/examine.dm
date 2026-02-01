@@ -220,10 +220,10 @@
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
 	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
 
-	// Проверяем, не надет ли скафандр (который полностью скрывает тело)
+	//Check for suits that completely obscure body shape to determine if strength is visible.
 	var/fully_covered = FALSE
 	if(wear_suit)
-		var/list/covering_suit_types = list(
+		var/static/list/covering_suit_types = list(
 			/obj/item/clothing/suit/space,
 			/obj/item/clothing/suit/bio_suit,
 			/obj/item/clothing/suit/mod,
@@ -232,11 +232,8 @@
 			/obj/item/clothing/suit/bomb_suit,
 			/obj/item/clothing/suit/radiation,
 		)
-
-		for(var/suit_type in covering_suit_types)
-			if(istype(wear_suit, suit_type))
-				fully_covered = TRUE
-				break
+		if(is_type_in_list(wear_suit, covering_suit_types))
+			fully_covered = TRUE
 
 	if(!fully_covered && strength_level != STRENGTH_LEVEL_DEFAULT)
 		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][GEND_YM_OI_YM_YMI(src)].\n")
