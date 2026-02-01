@@ -1667,7 +1667,7 @@
 	. = ..()
 	if(!proximity)
 		return
-	if(ishuman(target) && isclocker(target) && target.stat == DEAD)
+	if(ishuman(target) && isclocker(target))
 		revive(target, user)
 	if(ismecha(target)) // mech
 		convert_mecha(target, user)
@@ -1678,6 +1678,8 @@
 	target.ratvar_act(convert_mecha = TRUE)
 
 /obj/item/clockwork/shard/proc/revive(mob/living/carbon/human/target, mob/user)
+	if(target.stat != DEAD)
+		return
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 	if(!target.client)
