@@ -638,6 +638,11 @@
 	icon_state = "brasslaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/orange_laser
 
+/obj/projectile/beam/laser/light/rat/prehit(atom/target)
+	if(isclocker(target))
+		damage = 0
+	return ..()
+
 /obj/projectile/beam/laser/light/rat/get_ru_names()
 	return list(
 		NOMINATIVE = "лазер часовой энергии",
@@ -646,17 +651,12 @@
 		ACCUSATIVE = "лазер часовой энергии",
 		INSTRUMENTAL = "лазером часовой энергии",
 		PREPOSITIONAL = "лазере часовой энергии",
-
-/obj/projectile/beam/laser/light/rat/prehit(atom/target)
-	if(isclocker(target))
-		damage = 0
-	return ..()
-
 	)
 
 obj/projectile/beam/laser/light/rat/mecha
 	name = "brass laser beam"
 	damage = 20
+	armour_penetration = 10
 
 obj/projectile/beam/laser/light/rat/mecha/get_ru_names()
 	return list(
@@ -666,5 +666,4 @@ obj/projectile/beam/laser/light/rat/mecha/get_ru_names()
 		ACCUSATIVE = "латунный импульс",
 		INSTRUMENTAL = "латунным импульсом",
 		PREPOSITIONAL = "латунном импульсе",
-
 	)
