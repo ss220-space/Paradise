@@ -130,10 +130,6 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 	user.visible_message(span_userdanger("[user.declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(user)]ся в обезьяну!"))
 	if(ismachineperson(user))
 		user.set_species(/datum/species/human)
-		user.monkeyize()
-		for(var/obj/item/organ/external/limb in user.bodyparts)
-			limb.robotize()
-		return
 	user.monkeyize()
 
 /datum/dice_roll/explode
