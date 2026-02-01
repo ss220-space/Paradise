@@ -144,6 +144,8 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 
 /datum/dice_roll/break_bone/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
 	var/obj/item/organ/external/limb = pick(user.bodyparts)
+	if(!limb)
+		return
 	if(ismachineperson(user))
 		limb.droplimb()
 		to_chat(user, span_userdanger("Вы чувствуете, как ваш[GEND_A_E_I(limb)] [GLOB.body_zone[limb.limb_zone][NOMINATIVE]] треска[PLUR_ET_YUT(limb)]ся и отрыва[PLUR_ET_YUT(limb)]ся!"))
