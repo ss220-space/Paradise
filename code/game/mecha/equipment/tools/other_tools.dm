@@ -187,6 +187,27 @@
 		start_cooldown()
 		return TRUE
 
+/obj/item/mecha_parts/mecha_equipment/brass_armor_booster
+	name = "Brass Armor Booster Module"
+	desc = "Boosts exosuit armor against all attacks. Completely blocks taser shots. Requires energy to operate."
+	icon_state = "mecha_abooster_brass"
+	equip_cooldown = 0.5 SECONDS
+	energy_drain = 25
+	range = 0
+	var/deflect_coeff = 1.30
+	var/damage_coeff = 0.7
+	selectable = MODULE_SELECTABLE_NONE
+
+/obj/item/mecha_parts/mecha_equipment/brass_armor_booster/proc/projectile_react()
+	if(action_checks(src))
+		start_cooldown()
+		return TRUE
+
+/obj/item/mecha_parts/mecha_equipment/brass_armor_booster/proc/attack_react(mob/user)
+	if(action_checks(user))
+		start_cooldown()
+	return TRUE
+
 ////////////////////////////////// REPAIR DROID //////////////////////////////////////////////////
 
 /obj/item/mecha_parts/mecha_equipment/repair_droid
@@ -852,4 +873,32 @@
 		ACCUSATIVE = "механические клешни",
 		INSTRUMENTAL = "механическими клешнями",
 		PREPOSITIONAL = "механических клешнях",
+	)
+
+/obj/item/mecha_parts/mecha_equipment/cage/brass
+	name = "brass cradle"
+	desc = "Модуль для экзокостюмов, используемый для задержания заблудших."
+	icon_state = "mecha_cage_brass"
+	origin_tech = "combat=6;materials=5"
+	equip_cooldown = 2 SECONDS
+	energy_drain = 250
+	salvageable = FALSE
+	alert_category = "mecha_cage"
+
+	var/mob/living/carbon/prisoner
+	var/mob/living/carbon/holding
+	///for custom icons
+	var/datum/action/innate/mecha/select_module/button
+	///wacky case
+	var/current_stage
+	var/obj/effect/supress/supress_effect
+
+/obj/item/mecha_parts/mecha_equipment/cage/brass/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль \"Латунная колыбель\"",
+		GENITIVE = "модуля \"Латунная колыбель\"",
+		DATIVE = "модулю \"Латунная колыбель\"",
+		ACCUSATIVE = "модуль \"Латунная колыбель"",
+		INSTRUMENTAL = "модулем \"Латунная колыбель\"",
+		PREPOSITIONAL = "модуле \"Латунная колыбель\"",
 	)
