@@ -76,7 +76,7 @@ fn sound_length_simple(probed: &ProbeResult) -> eyre::Result<f64> {
 fn sound_length_decode(mut probed: ProbeResult) -> eyre::Result<f64> {
     let track = match probed.format.default_track() {
         Some(r) => r,
-        None => return Err(eyre::eyre!("Could not get default track".to_string())),
+        None => return Err(eyre::eyre!("Could not get default track")),
     };
 
     let samples_capacity = track.codec_params.n_frames.unwrap_or(0) as f64;

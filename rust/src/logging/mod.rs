@@ -27,7 +27,7 @@ pub(crate) fn setup_panic_handler() {
                             let ts = Utc::now().format("%Y%m%d_%H%M%S").to_string();
                             let file_end = format!("{}_{}", ts, panic_guid);
                             let _ = std::fs::write(
-                                format!("data/rustlibs_dm_trace_failed_{}.txt", file_end),
+                                format!("data/logs/rustlibs_dm_trace_failed_{}.txt", file_end),
                                 second_msg.clone(),
                             );
                         }
