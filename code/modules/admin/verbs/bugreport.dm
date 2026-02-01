@@ -22,8 +22,5 @@
 	if(handle_spam_prevention(msg, MUTE_ADMINHELP, OOC_COOLDOWN))
 		return
 
-	if(findtext(msg, "<@") || findtext(msg, "<@&"))
-		tgui_alert(src, "Обнаружена попытка пинга (<@id> или <@&id>)! Сообщение не будет отправленно.", "Баг-репорт")
-		return
 	if(tgui_alert(src, "Ваш репорт выглядит так:\n[msg]\nВы уверены что все заполнено правильно?", "Баг-репорт", list("Да", "Нет"))=="Да")
 		SSdiscord.send2discord_simple(DISCORD_WEBHOOK_BUGREPORT, msg)
