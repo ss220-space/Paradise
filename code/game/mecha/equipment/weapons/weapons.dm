@@ -206,7 +206,7 @@
 	name = "\"Ray of Faith\" Laser"
 	icon_state = "mecha_brassdart"
 	energy_drain = 20
-	projectile = obj/projectile/beam/laser/light/rat/mecha
+	projectile = /obj/projectile/beam/laser/light/rat/mecha
 	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
 	harmful = TRUE
 
