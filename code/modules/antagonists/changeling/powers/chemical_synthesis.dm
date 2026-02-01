@@ -1,7 +1,7 @@
 /datum/action/changeling/chemical_synthesis
 	name = "Химический Синтез"
 	desc = "Мы оптимизируем наши внутренние химические процессы для ускоренного производства реагентов."
-	helptext = "Permanently increases chemical regeneration rate by 50%."
+	helptext = "Постоянно увеличивает скорость химического синтеза на 50%."
 	button_icon_state = "pd_upgrade"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
