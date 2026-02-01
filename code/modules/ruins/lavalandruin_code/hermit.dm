@@ -428,7 +428,7 @@
 /obj/item/pda/hermit/autumn
 	name = "\"Autumn BEES\" PDA"
 	default_cartridge = /obj/item/cartridge/engineering
-	icon_state = "pda—engineer"
+	icon_state = "pda-h"
 	desc = "Специализированный карманный компьютер \"Autumn BEES\". Привязан к кораблю."
 	model_name = "Backup Emergency Evacuation Shuttle OS"
 	owner = "Autumn BEES"
