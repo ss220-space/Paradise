@@ -1665,20 +1665,27 @@
 
 /obj/item/clockwork/shard/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()
-	if(!ishuman(target) || !isclocker(user))
-		return
 	if(!proximity)
 		return
-	var/mob/living/carbon/human/human = target
-	if(human.stat == DEAD && isclocker(human)) // dead clocker
-		user.temporarily_remove_item_from_inventory(src)
-		qdel(src)
-		if(!human.client)
-			give_ghost(human)
-		else
-			human.revive()
-			human.set_species(/datum/species/golem/clockwork)
-			to_chat(human, span_clocklarge("<b>\"You are back once again.\"</b>"))
+	if(ishuman(target) && isclocker(target) && target.stat == DEAD)
+		revive(target, user)
+	if(ismecha(target, user)) // mech
+		convert_mecha(target, user)
+
+/obj/item/clockwork/shard/proc/convert_mecha(obj/mecha/target, mob/user)
+	user.temporarily_remove_item_from_inventory(src)
+	qdel(src)
+	target.ratvar_act(convert_mecha = TRUE)
+
+/obj/item/clockwork/shard/proc/revive(mob/living/carbon/human/target, mob/user)
+	user.temporarily_remove_item_from_inventory(src)
+	qdel(src)
+	if(!target.client)
+		give_ghost(target)
+	else
+		target.revive()
+		target.set_species(/datum/species/golem/clockwork)
+		to_chat(target, span_clocklarge("<b>\"You are back once again.\"</b>"))
 
 /obj/item/clockwork/shard/pickup(mob/living/user)
 	. = ..()
