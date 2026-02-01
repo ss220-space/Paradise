@@ -111,6 +111,23 @@
 	start_cooldown()
 	return TRUE
 
+/obj/item/mecha_parts/mecha_equipment/brass_clamp
+	name = "Brass clamp"
+	desc = "Equipment for brass exosuits. Lifts objects and loads them into cargo."
+	icon_state = "mecha_brassclamp"
+	equip_cooldown = 1 SECONDS
+	energy_drain = 5
+	var/dam_force = 25
+	harmful = TRUE
+	
+/obj/item/mecha_parts/mecha_equipment/brass_clamp/attach_act(obj/mecha/M)
+	chassis.cargo_expanded = TRUE
+	chassis.cargo_capacity = 25
+
+/obj/item/mecha_parts/mecha_equipment/brass_clamp/detach_act(obj/mecha/M)
+	chassis.cargo_expanded = FALSE
+	chassis.cargo_capacity = initial(chassis.cargo_capacity)
+
 /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
 	name = "Cargo expansion upgrade"
 	desc = "A working exosuit module that allows you to turn your Ripley into a hearse, zoo, or armored personnel carrier."
