@@ -12,7 +12,7 @@
 	// if we're just ditzing around carrying something, occasionally print a message so people know we have something
 	if(controller.blackboard[BB_SIMPLE_CARRY_ITEM] && SPT_PROB(5, delta_time))
 		var/obj/item/carry_item = controller.blackboard[BB_SIMPLE_CARRY_ITEM]
-		living_pawn.visible_message(span_notice("[capitalize(living_pawn.declent_ru(NOMINATIVE))] мягко впивается зубами в [carry_item.declent_ru(ACCUSATIVE)] в [GEND_HIS_HER(living_pawn)] пасти."))
+		living_pawn.visible_message(span_notice("[DECLENT_RU_CAP(living_pawn, NOMINATIVE)] мягко впивается зубами в [carry_item.declent_ru(ACCUSATIVE)] в [GEND_HIS_HER(living_pawn)] пасти."))
 
 	if(SPT_PROB(5, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE))
 		var/move_dir = pick(GLOB.alldirs)

@@ -184,7 +184,7 @@
 	active = activate ? TRUE : FALSE
 	if(!active && give_message)
 		visible_message(
-			span_warning("[capitalize(declent_ru(NOMINATIVE))] выключается!")
+			span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выключается!")
 		)
 		playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 
