@@ -197,7 +197,7 @@
 	icon_state = "mecha_taser_brass"
 	energy_drain = 15
 	equip_cooldown = 0.5 SECONDS
-	projectile = /obj/projectile/energy/brasselectrode
+	projectile = /obj/projectile/energy/electrode/brass
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	size = 1
 
