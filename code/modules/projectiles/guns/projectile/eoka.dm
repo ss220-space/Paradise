@@ -12,9 +12,10 @@
 // Eoka gun from rust
 /obj/item/gun/projectile/eoka
 	name = "eoka pistol"
-	desc = "Самодельный одноразовый пистолет, в котором отсутствует надежный спусковой механизм. \
-	Вместо этого пистолет активируется искрой от камня, который ударяется в верхней части оружия. \
-	Из-за ненадёжности этого метода, оружие может взорваться в руках."
+	gender = MALE
+	desc = "Собранное из подручных материалов оружие, отличающееся чрезвычайной ненадёжностью. \
+	Активируется искрой от камня, который ударяется о верхнюю часть оружия. \
+	Не взорвётся ли оно в руках стрелка после такого — предсказать сложно."
 	icon = 'icons/obj/weapons/handmade.dmi'
 	icon_state = "eoka"
 	item_state = "eoka"
@@ -46,7 +47,6 @@
 
 	var/loaded = magazine.reload(item, user, silent = TRUE)
 	if(loaded)
-		balloon_alert(user, "заряжено")
 		chambered = magazine.get_round(TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -56,7 +56,7 @@
 /obj/item/gun/projectile/eoka/welder_act(mob/user, obj/item/welder)
 	. = TRUE
 	if(!broken)
-		balloon_alert(user, "не требует ремонта")
+		balloon_alert(user, "не требует ремонта!")
 		return
 
 	if(welder.use_tool(src, user, EOKA_REPAIR_DURATION, volume = welder.tool_volume))
