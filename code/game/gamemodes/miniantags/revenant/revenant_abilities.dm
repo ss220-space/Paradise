@@ -156,6 +156,7 @@
 			log_say("(REVENANT to [key_name(M)]) [msg]", user)
 			to_chat(user, "[span_revenboldnotice("Вы передаёте [M]:")] [span_revennotice(msg)]")
 			to_chat(M, "[span_revenboldnotice("Голос из ниоткуда раздаётся вокруг...")] [span_italics(msg)]")
+			M.balloon_alert(M, "голос в голове...")
 
 /obj/effect/proc_holder/spell/aoe/revenant
 	clothes_req = FALSE
