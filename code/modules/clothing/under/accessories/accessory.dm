@@ -263,85 +263,289 @@
 //Medals
 /obj/item/clothing/accessory/medal
 	name = "bronze medal"
-	desc = "A bronze medal."
+	desc = "Бронзовая медаль."
 	icon_state = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
+	var/tupemedal = "бронзовой медалью."
+	actions_types = list(/datum/action/item_action/sving_medal)
+
+/obj/item/clothing/accessory/medal/get_ru_names()
+	return list(
+		NOMINATIVE = "бронзовая медаль",
+		GENITIVE = "бронзовой медали",
+		DATIVE = "бронзовой медали",
+		ACCUSATIVE = "бронзовую медаль",
+		INSTRUMENTAL = "бронзовой медалью",
+		PREPOSITIONAL = "бронзовой медали"
+	)
+
+/obj/item/clothing/accessory/medal/attack_self(mob/user)
+	sving_medal(user)
+
+/obj/item/clothing/accessory/medal/item_action_slot_check(slot, mob/user, datum/action/action)
+	if(slot == ITEM_SLOT_ACCESSORY)
+		return TRUE
+
+/obj/item/clothing/accessory/medal/proc/sving_medal(mob/user)
+	user.custom_emote(EMOTE_VISIBLE, "Щеголя[PLUR_ET_YUT(user)] [tupemedal]")
+	playsound(src, 'sound/items/medal.ogg', 15, TRUE)
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
-	name = "gold medal"
-	desc = "A prestigious golden medal."
+	name = "Золотая медаль"
+	desc = "Почётная золотая медаль."
+	tupemedal = "золотой медалью."
 	icon_state = "gold"
 	materials = list(MAT_GOLD=1000)
 
+/obj/item/clothing/accessory/medal/gold/get_ru_names()
+	return list(
+		NOMINATIVE = "золотая медаль",
+		GENITIVE = "золотой медали",
+		DATIVE = "золотой медали",
+		ACCUSATIVE = "золотую медаль",
+		INSTRUMENTAL = "золотой медалью",
+		PREPOSITIONAL = "золотой медали"
+	)
+
 /obj/item/clothing/accessory/medal/gold/captain
-	name = "medal of captaincy"
-	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
+	name = "Медаль капитанства"
+	desc = "Эксклюзивная золотая медаль капитанского звания.\
+Визуальное воплощение санкционированных \"Нанотрейзен\" полномочий и верховной власти над персоналом станции."
+	icon_state = "captaincy"
+	tupemedal = "медалью капитанства."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/item/clothing/accessory/medal/gold/captain/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль капитанства",
+		GENITIVE = "медали капитанства",
+		DATIVE = "медали капитанства",
+		ACCUSATIVE = "медаль капитанства",
+		INSTRUMENTAL = "медалью капитанства",
+		PREPOSITIONAL = "медали капитанства"
+	)
 
 /obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/accessory/medal/gold/heroism
-	name = "medal of exceptional heroism"
-	desc = "An extremely rare golden medal awarded only by CentComm. To receive such a medal is the highest honor and as such, very few exist."
+	name = "Медаль за исключительный героизм"
+	desc = "Уникальная золотая медаль от Центрального Командования. Высшая награда, чья редкость говорит сама за себя."
+	tupemedal = "медалью за героизм."
 	icon_state = "ion"
+
+/obj/item/clothing/accessory/medal/gold/heroism/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль за исключительный героизм",
+		GENITIVE = "медали за исключительный героизм",
+		DATIVE = "медали за исключительный героизм",
+		ACCUSATIVE = "медаль за исключительный героизм",
+		INSTRUMENTAL = "медалью за исключительный героизм",
+		PREPOSITIONAL = "медали за исключительный героизм"
+	)
+
+/obj/item/clothing/accessory/medal/gold/cargo
+	name = "Медаль снабжения"
+	desc = "Награда, учреждённая квартирмейстером для отличившихся сотрудников отдела снабжения. \
+	Вручается за выдающиеся заслуги в области логистики и бесперебойного обеспечения станции всем необходимым для её функционирования."
+	tupemedal = "медалью снабжения."
+	icon_state = "cargomedal"
+
+/obj/item/clothing/accessory/medal/gold/cargo/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль снабжения",
+		GENITIVE = "медали снабжения",
+		DATIVE = "медали снабжения",
+		ACCUSATIVE = "медаль снабжения",
+		INSTRUMENTAL = "медалью снабжения",
+		PREPOSITIONAL = "медали снабжения"
+	)
 
 // SILVER (awarded by Captain)
 
 /obj/item/clothing/accessory/medal/silver
-	name = "silver medal"
-	desc = "A silver medal."
+	name = "Серебряная медаль"
+	desc = "Серебряная медаль."
+	tupemedal = "серебряной медалью."
 	icon_state = "silver"
 	materials = list(MAT_SILVER=1000)
 
+/obj/item/clothing/accessory/medal/silver/get_ru_names()
+	return list(
+		NOMINATIVE = "серебряная медаль",
+		GENITIVE = "серебряной медали",
+		DATIVE = "серебряной медали",
+		ACCUSATIVE = "серебряную медаль",
+		INSTRUMENTAL = "серебряной медалью",
+		PREPOSITIONAL = "серебряной медали"
+	)
+
 /obj/item/clothing/accessory/medal/silver/valor
-	name = "medal of valor"
-	desc = "An award issued by Captains to crew members whose exceptional performance and service to the station has been commended by the station's top leadership."
+	name = "Медаль за отвагу"
+	desc = "Награда, вручаемая капитанами членам экипажа, чьи исключительные заслуги и служба на станции были отмечены высшим руководством станции."
+	tupemedal = "медалью за отвагу."
+	icon_state = "valor"
+
+/obj/item/clothing/accessory/medal/silver/valor/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль за отвагу",
+		GENITIVE = "медали за отвагу",
+		DATIVE = "медали за отвагу",
+		ACCUSATIVE = "медаль за отвагу",
+		INSTRUMENTAL = "медалью за отвагу",
+		PREPOSITIONAL = "медали за отвагу"
+	)
 
 /obj/item/clothing/accessory/medal/silver/leadership
-	name = "medal of command"
-	desc = "An award issued by Captains to heads of department who do an excellent job managing their department. Made of pure silver."
+	name = "Медаль командования"
+	desc = "Награда, вручаемая капитанами главам отделов, которые отлично справляются с управлением своим подразделением. Изготовлена из чистого серебра."
+	tupemedal = "медалью командования."
+	icon_state = "leadership"
+
+/obj/item/clothing/accessory/medal/silver/leadership/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль командования",
+		GENITIVE = "медали командования",
+		DATIVE = "медали командования",
+		ACCUSATIVE = "медаль командования",
+		INSTRUMENTAL = "медалью командования",
+		PREPOSITIONAL = "медали командования"
+	)
 
 // BRONZE (awarded by heads of department, except for the bronze heart)
 
 /obj/item/clothing/accessory/medal/security
-	name = "robust security medal"
-	desc = "An award issued by the HoS to security staff who excel at upholding the law."
+	name = "Медаль имени \"Роберта Астера\""
+	desc = "Почётная награда, учреждённая в память о легендарном офицере безопасности Роберте Астере, известном своей непоколебимой стойкостью и принципиальностью при исполнении служебного долга.\
+	Вручается сотрудникам охраны, проявившим исключительную доблесть и верность уставу."
+	icon_state = "robust"
+	tupemedal = "медалью имени Роберта Астера."
+
+/obj/item/clothing/accessory/medal/security/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль имени \"Роберта Астера\"",
+		GENITIVE = "медали имени \"Роберта Астера\"",
+		DATIVE = "медали имени \"Роберта Астера\"",
+		ACCUSATIVE = "медаль имени \"Роберта Астера\"",
+		INSTRUMENTAL = "медалью имени \"Роберта Астера\"",
+		PREPOSITIONAL = "медали имени \"Роберта Астера\""
+	)
 
 /obj/item/clothing/accessory/medal/science
-	name = "smart science medal"
-	desc = "An award issued by the RD to science staff who advance the frontiers of knowledge."
+	name = "Медаль научного прорыва"
+	desc = "Награда, вручаемая научным руководителем сотрудникам научного отдела, расширяющим границы познания."
+	icon_state = "science"
+	tupemedal = "научной медалью."
+
+/obj/item/clothing/accessory/medal/science/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль научного прорыва",
+		GENITIVE = "медали научного прорыва",
+		DATIVE = "медали научного прорыва",
+		ACCUSATIVE = "медаль научного прорыва",
+		INSTRUMENTAL = "медалью научного прорыва",
+		PREPOSITIONAL = "медали научного прорыва"
+	)
 
 /obj/item/clothing/accessory/medal/engineering
-	name = "excellent engineering medal"
-	desc = "An award issued by the CE to engineering staff whose dedication keep the station running at its best."
+	name = "Медаль инженерного мастерства"
+	desc = "Награда, вручаемая главным инженером сотрудникам инженерного отдела, чья преданность делу обеспечивает бесперебойную работу станции."
+	icon_state = "engineering"
+	tupemedal = "инженерной медалью."
+
+/obj/item/clothing/accessory/medal/engineering/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль инженерного мастерства",
+		GENITIVE = "медали инженерного мастерства",
+		DATIVE = "медали инженерного мастерства",
+		ACCUSATIVE = "медаль инженерного мастерства",
+		INSTRUMENTAL = "медалью инженерного мастерства",
+		PREPOSITIONAL = "медали инженерного мастерства"
+	)
 
 /obj/item/clothing/accessory/medal/service
-	name = "superior service medal"
-	desc = "An award issued by the HoP to service staff who go above and beyond."
+	name = "Медаль безупречного обслуживания"
+	desc = "Награда, вручаемая главой персонала сотрудникам сервисного отдела, которые выполняют свои обязанности выше всяких похвал."
+	icon_state = "service"
+	tupemedal = "сервисной медалью."
+
+/obj/item/clothing/accessory/medal/service/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль безупречного обслуживания",
+		GENITIVE = "медали безупречного обслуживания",
+		DATIVE = "медали безупречного обслуживания",
+		ACCUSATIVE = "медаль безупречного обслуживания",
+		INSTRUMENTAL = "медалью безупречного обслуживания",
+		PREPOSITIONAL = "медали безупречного обслуживания"
+	)
 
 /obj/item/clothing/accessory/medal/medical
-	name = "magnificient medical medal"
-	desc = "An award issued by the CMO to medical staff who excel at saving lives."
+	name = "Медаль медицинской доблести"
+	desc = "Медаль для героев в белых халатах, превращающих неминуемую гибель в историю с хорошим концом. Вручается тем, чьи дефибрилляторы бьют точнее, а скальпели режут острее, чем самые злые языки на станции."
+	icon_state = "medical"
+	tupemedal = "медицинской медалью."
 
+/obj/item/clothing/accessory/medal/medical/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль медицинской доблести",
+		GENITIVE = "медали медицинской доблести",
+		DATIVE = "медали медицинской доблести",
+		ACCUSATIVE = "медаль медицинской доблести",
+		INSTRUMENTAL = "медалью медицинской доблести",
+		PREPOSITIONAL = "медали медицинской доблести"
+	)
 /obj/item/clothing/accessory/medal/legal
-	name = "meritous legal medal"
-	desc = "An award issued by the Magistrate to legal staff who uphold the rule of law."
+	name = "Медаль юридических заслуг"
+	desc = "Высшая юридическая награда для тех, кто знает устав \"Нанотрейзен\" лучше, чем свои права. Вручается магистратом тем, кто способен найти лазейку в любой обвинительной речи и превратить её в оправдательный приговор."
+	icon_state = "legal"
+	tupemedal = "юридической медалью."
+
+/obj/item/clothing/accessory/medal/legal/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль юридических заслуг",
+		GENITIVE = "медали юридических заслуг",
+		DATIVE = "медали юридических заслуг",
+		ACCUSATIVE = "медаль юридических заслуг",
+		INSTRUMENTAL = "медалью юридических заслуг",
+		PREPOSITIONAL = "медали юридических заслуг"
+	)
 
 /obj/item/clothing/accessory/medal/heart
-	name = "bronze heart medal"
-	desc = "A rarely-awarded medal for those who sacrifice themselves in the line of duty to save their fellow crew."
+	name = "Медаль \"Бронзовое сердце\""
+	desc = "Высшая жертва, застывшая в бронзе. Посмертная награда тем, кто обменял биение собственного сердца на продолжение пульса экипажа всей станции."
 	icon_state = "bronze_heart"
+	tupemedal = "бронзовым сердцем."
+
+/obj/item/clothing/accessory/medal/heart/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль \"Бронзовое сердце\"",
+		GENITIVE = "медали \"Бронзовое сердце\"",
+		DATIVE = "медали \"Бронзовое сердце\"",
+		ACCUSATIVE = "медаль \"Бронзовое сердце\"",
+		INSTRUMENTAL = "медалью \"Бронзовое сердце\"",
+		PREPOSITIONAL = "медали \"Бронзовое сердце\""
+	)
 
 // Plasma, from NT research departments. For now, used by the HRD-MDE project for the moderate 2 fauna, drake and hierophant.
 /obj/item/clothing/accessory/medal/plasma
-	name = "plasma medal"
-	desc = "An eccentric medal made of plasma."
+	name = "Плазменная медаль"
+	desc = "Эксцентричная медаль, изготовленная из плазмы."
 	icon_state = "plasma"
 	materials = list(MAT_PLASMA = 1000)
+	tupemedal = "плазменной медалью."
+
+/obj/item/clothing/accessory/medal/plasma/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменная медаль",
+		GENITIVE = "плазменной медали",
+		DATIVE = "плазменной медали",
+		ACCUSATIVE = "плазменную медаль",
+		INSTRUMENTAL = "плазменной медалью",
+		PREPOSITIONAL = "плазменной медали"
+	)
 
 /obj/item/clothing/accessory/medal/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
@@ -362,48 +566,148 @@
 // Alloy, for the vetus speculator, or abductors I guess.
 
 /obj/item/clothing/accessory/medal/alloy
-	name = "alloy medal"
-	desc = "An eccentric medal made of some strange alloy."
+	name = "Крест" //медаль из сплава свучит странно, у медали спрайт
+	desc = "Таинственный крест, выкованный из сплава, которого не должно существовать по всем законам металлургии. Его поверхность мерцает, словто поглощая и переизлучая свет из иного измерения."
 	icon_state = "alloy"
 	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
+	tupemedal = "крестом."
+
+/obj/item/clothing/accessory/medal/alloy/get_ru_names()
+	return list(
+		NOMINATIVE = "крест",
+		GENITIVE = "креста",
+		DATIVE = "кресту",
+		ACCUSATIVE = "крест",
+		INSTRUMENTAL = "крестом",
+		PREPOSITIONAL = "кресте"
+	)
 
 // Mostly mining medals past here
 
 /obj/item/clothing/accessory/medal/gold/bubblegum
-	name = "bubblegum HRD-MDE award"
-	desc = "An award which represents magnificant contributions to the HRD-MDE project in the form of analysing Bubblegum, and the related blood space."
+	name = "Награда HRD-MDE \"Бубльгум\""
+	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Бубльгума и сопряжённого с ним Редспеса."
+	tupemedal = "медалью бубльгума."
+
+/obj/item/clothing/accessory/medal/gold/bubblegum/get_ru_names()
+	return list(
+		NOMINATIVE = "награда HRD-MDE \"Бубльгум\"",
+		GENITIVE = "награды HRD-MDE \"Бубльгум\"",
+		DATIVE = "награде HRD-MDE \"Бубльгум\"",
+		ACCUSATIVE = "награду HRD-MDE \"Бубльгум\"",
+		INSTRUMENTAL = "наградой HRD-MDE \"Бубльгум\"",
+		PREPOSITIONAL = "награде HRD-MDE \"Бубльгум\""
+	)
 
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
-	name = "medal of incredible dedication"
-	desc = "An extremely rare golden medal awarded only by CentComm. This medal was issued for miners who went above and beyond for the HRD-MDE project. Engraved on it is the phrase <i>'mori quam foedari'...</i>"
+	name = "Медаль убийцы богов"
+	desc = "Легендарная золотая награда, вручаемая только Центральным Командованием тем, кто бросил вызов всем богам Лаваленда — и победил. Для шахтёров, чья смена стала эпосом, а добыча — пантеоном поверженных титанов."
+	tupemedal = "медалью убийцы богов."
 
-/obj/item/clothing/accessory/medal/silver/colossus
-	name = "colossus HRD-MDE award"
-	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing a colossus."
+/obj/item/clothing/accessory/medal/gold/heroism/hardmode_full/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль убийцы богов",
+		GENITIVE = "медали убийцы богов",
+		DATIVE = "медали убийцы богов",
+		ACCUSATIVE = "медаль убийцы богов",
+		INSTRUMENTAL = "медалью убийцы богов",
+		PREPOSITIONAL = "медали убийцы богов"
+	)
+
+obj/item/clothing/accessory/medal/silver/colossus
+	name = "Награда HRD-MDE \"Колосс\""
+	desc = "Награда за значительный вклад в проект HRD-MDE, связанный с исследованием и анализом Колосса — одного из самых опасных существ Лаваленда."
+	tupemedal = "медалью колосса."
+	icon_state = "alloy"
+
+/obj/item/clothing/accessory/medal/silver/colossus/get_ru_names()
+	return list(
+		NOMINATIVE = "награда HRD-MDE \"Колосс\"",
+		GENITIVE = "награды HRD-MDE \"Колосс\"",
+		DATIVE = "награде HRD-MDE \"Колосс\"",
+		ACCUSATIVE = "награду HRD-MDE \"Колосс\"",
+		INSTRUMENTAL = "наградой HRD-MDE \"Колосс\"",
+		PREPOSITIONAL = "награде HRD-MDE \"Колосс\""
+	)
 
 /obj/item/clothing/accessory/medal/silver/legion
-	name = "legion HRD-MDE award"
-	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Legion."
+	name = "Награда HRD-MDE \"Легион\""
+	desc = "Награда за анализ одного из самых противоестественных феноменов Лаваленда. Вручается за исследование Легиона — коллективного организма, ставящего под сомнение саму концепцию индивидуальности в инопланетной экосистеме."
+	tupemedal = "медалью легиона."
 
+/obj/item/clothing/accessory/medal/silver/legion/get_ru_names()
+	return list(
+		NOMINATIVE = "награда HRD-MDE \"Легион\"",
+		GENITIVE = "награды HRD-MDE \"Легион\"",
+		DATIVE = "награде HRD-MDE \"Легион\"",
+		ACCUSATIVE = "награду HRD-MDE \"Легион\"",
+		INSTRUMENTAL = "наградой HRD-MDE \"Легион\"",
+		PREPOSITIONAL = "награде HRD-MDE \"Легион\""
+	)
 /obj/item/clothing/accessory/medal/blood_drunk
-	name = "blood drunk HRD-MDE award"
-	desc = "A award which represents minor contributions to the HRD-MDE project in the form of analysing the blood drunk miner."
+	name = "Медаль HRD-MDE \"Кровавый шахтёр\""
+	desc = "Награда за вклад в проект HRD-MDE по изучению и нейтрализации феномена «кровавого шахтёра» — человека, превратившегося в смертоносную угрозу под влиянием проклятия Лаваленда."
+	tupemedal = "медалью кровавого шахтёра."
+
+/obj/item/clothing/accessory/medal/blood_drunk/get_ru_names()
+	return list(
+		NOMINATIVE = "медаль HRD-MDE \"Кровавый шахтёр\"",
+		GENITIVE = "медали HRD-MDE \"Кровавый шахтёр\"",
+		DATIVE = "медали HRD-MDE \"Кровавый шахтёр\"",
+		ACCUSATIVE = "медаль HRD-MDE \"Кровавый шахтёр\"",
+		INSTRUMENTAL = "медалью HRD-MDE \"Кровавый шахтёр\"",
+		PREPOSITIONAL = "медали HRD-MDE \"Кровавый шахтёр\""
+	)
 
 /obj/item/clothing/accessory/medal/plasma/hierophant
-	name = "hierophant HRD-MDE award"
-	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing the Hierophant."
+	name = "Награда HRD-MDE \"Иерофант\""
+	desc = "Награда для тех, кто осмелился изучать не просто существо, а явление. Иерофант не подчиняется привычным законам — он диктует свои, и эта медаль вручается тем, кто начал понимать его язык."
+	tupemedal = "медалью иерофанта."
+
+/obj/item/clothing/accessory/medal/plasma/hierophant/get_ru_names()
+	return list(
+		NOMINATIVE = "награда HRD-MDE \"Иерофант\"",
+		GENITIVE = "награды HRD-MDE \"Иерофант\"",
+		DATIVE = "награде HRD-MDE \"Иерофант\"",
+		ACCUSATIVE = "награду HRD-MDE \"Иерофант\"",
+		INSTRUMENTAL = "наградой HRD-MDE \"Иерофант\"",
+		PREPOSITIONAL = "награде HRD-MDE \"Иерофант\""
+	)
 
 /obj/item/clothing/accessory/medal/plasma/ash_drake
-	name = "ash drake HRD-MDE award"
-	desc = "An award which represents moderate contributions to the HRD-MDE project in the form of analysing an ash drake."
+	name = "Награда HRD-MDE \"Пепельный дракон\""
+	desc = "Награда за значительный вклад в проект HRD-MDE, связанный с исследованием пепельного дракона — древнего существа, чьё дыхание испепеляет скалы, а чешуя прочнее бронесплава."
+	tupemedal = "медалью пепельного дракона."
+
+/obj/item/clothing/accessory/medal/plasma/ash_drake/get_ru_names()
+	return list(
+		NOMINATIVE = "награда HRD-MDE \"Пепельный дракон\"",
+		GENITIVE = "награды HRD-MDE \"Пепельный дракон\"",
+		DATIVE = "награде HRD-MDE \"Пепельный дракон\"",
+		ACCUSATIVE = "награду HRD-MDE \"Пепельный дракон\"",
+		INSTRUMENTAL = "наградой HRD-MDE \"Пепельный дракон\"",
+		PREPOSITIONAL = "награде HRD-MDE \"Пепельный дракон\""
+	)
 
 /obj/item/clothing/accessory/medal/alloy/vetus
-	name = "vetus speculator HRD-MDE award"
-	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Vetus Speculator."
+	name = "Награда HRD-MDE \"Ветус Спекулятор\""
+	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Ветус Спекулятора — одного из самых загадочных и технологически сложных существ Лаваленда."
+	tupemedal = "медалью вертуса."
+
+/obj/item/clothing/accessory/medal/alloy/vetus/get_ru_names()
+	return list(
+		NOMINATIVE = "награда HRD-MDE \"Ветус Спекулятор\"",
+		GENITIVE = "награды HRD-MDE \"Ветус Спекулятор\"",
+		DATIVE = "награде HRD-MDE \"Ветус Спекулятор\"",
+		ACCUSATIVE = "награду HRD-MDE \"Ветус Спекулятор\"",
+		INSTRUMENTAL = "наградой HRD-MDE \"Ветус Спекулятор\"",
+		PREPOSITIONAL = "награде HRD-MDE \"Ветус Спекулятор\""
+	)
 
 /obj/item/clothing/accessory/medal/gold/nothing_award
 	name = "награда \"Ничего Не Произошло\""
 	desc = "Всегда ставьте на то, что ничего не случится."
+	tupemedal = "технической медалью."
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized
 	Security agent - the user details can be imprinted on the badge with a Security-access ID card,
