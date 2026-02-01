@@ -184,7 +184,7 @@
 
 /obj/machinery/recycler/verb/rotate()
 	set name = "Повернуть по часовой"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	var/mob/living/user = usr
@@ -200,7 +200,7 @@
 
 /obj/machinery/recycler/verb/rotateccw()
 	set name = "Повернуть против часовой"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	var/mob/living/user = usr

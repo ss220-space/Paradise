@@ -28,6 +28,7 @@ import { setupPanelFocusHacks } from './panelFocus';
 import { pingMiddleware, pingReducer } from './ping';
 import { settingsMiddleware, settingsReducer } from './settings';
 import { telemetryMiddleware } from './telemetry';
+import { donationsReducer } from './donations';
 
 perf.mark('inception', window.performance?.timeOrigin);
 perf.mark('init');
@@ -39,6 +40,7 @@ const store = configureStore({
     game: gameReducer,
     ping: pingReducer,
     settings: settingsReducer,
+    donations: donationsReducer,
   }),
   middleware: {
     pre: [
@@ -100,6 +102,7 @@ const setupApp = () => {
         './ping',
         './settings',
         './telemetry',
+        './donations',
       ],
       () => {
         render(<Panel />);

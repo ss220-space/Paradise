@@ -4,7 +4,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 
 	if(!target_ckey)
@@ -33,7 +33,7 @@
 
 	if(!ckey_found)
 		if(usr)
-			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+			to_chat(usr, span_redtext("[target_ckey] has not been seen before, you can only add notes to known players."))
 		return
 
 	var/crew_number = 0
@@ -80,7 +80,7 @@
 	var/adminckey
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -114,7 +114,7 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
@@ -151,7 +151,7 @@
 		show_note(target_ckey)
 		qdel(query_update_note)
 
-/proc/show_note(target_ckey, index, linkless = 0)
+/proc/show_note(target_ckey, index, admin_ckey, linkless = FALSE)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
 	var/list/output = list()
@@ -161,7 +161,7 @@
 	navbar = "<a href='byond://?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='byond://?_src_=holder;nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
 		navbar += "|<a href='byond://?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
-	navbar += "<br><form method='GET' name='search' action='?'>\
+	navbar += "<br><form method='get' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
 	<input style='margin-left: 5px;' type='submit' value='Search'></form>"
@@ -170,37 +170,18 @@
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
-			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			SELECT id, ckey, timestamp, notetext, adminckey, last_editor, server, crew_playtime
 			FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
-		if(!query_get_notes.warn_execute())
-			qdel(query_get_notes)
-			return
-		output += "<h2><center>Notes of [target_ckey]</center></h2>"
-		if(!linkless)
-			output += "<center><a href='byond://?_src_=holder;addnote=[target_ckey]'>\[Add Note\]</a></center>"
-		output += ruler
-		while(query_get_notes.NextRow())
-			var/id = query_get_notes.item[1]
-			var/timestamp = query_get_notes.item[2]
-			var/notetext = query_get_notes.item[3]
-			var/adminckey = query_get_notes.item[4]
-			var/last_editor = query_get_notes.item[5]
-			var/server = query_get_notes.item[6]
-			var/mins = text2num(query_get_notes.item[7])
-			output += "<b>[timestamp] | [server] | [adminckey]"
-			if(mins)
-				var/playstring = get_exp_format(mins)
-				output += " | [playstring] as Crew"
-			output += "</b>"
-
-			if(!linkless)
-				output += " <a href='byond://?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='byond://?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
-				if(last_editor)
-					output += " <span style='font-size: 2;'>Last edit by [last_editor]</span>"
-			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
-		qdel(query_get_notes)
+		output += create_note_text(\
+			query = query_get_notes,\
+			ckey = target_sql_ckey,\
+			header = "<h2><center>Notes of [target_ckey]</center></h2>",\
+			ruler = ruler,\
+			show_player_hours = TRUE,\
+			linkless = linkless\
+		)
 	else if(index)
 		var/index_ckey
 		var/search
@@ -219,7 +200,7 @@
 		if(!query_list_notes.warn_execute())
 			qdel(query_list_notes)
 			return
-		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		to_chat(usr, span_notice("Started regex note search for [search]. Please wait for results..."))
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
@@ -227,6 +208,21 @@
 			CHECK_TICK
 		qdel(query_list_notes)
 		message_admins("The note search started by [usr.ckey] has complete. CPU should return to normal.")
+	else if(admin_ckey)
+		var/admin_sql_ckey = ckey(admin_ckey)
+		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
+			SELECT id, ckey, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE adminckey=:adminckey ORDER BY timestamp DESC"}, list(
+				"adminckey" = admin_sql_ckey
+			))
+		output += create_note_text(\
+			query = query_get_notes,\
+			ckey = admin_sql_ckey,\
+			header = "<h2><center>Notes by [admin_ckey]</center></h2>", \
+			ruler = ruler,\
+			show_player_hours = FALSE,\
+			linkless = linkless\
+		)
 	else
 		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
@@ -237,3 +233,47 @@
 	popup.open(TRUE)
 	onclose(usr, "show_notes")
 
+/proc/create_note_text(datum/db_query/query, ckey, header, ruler, show_player_hours = TRUE, linkless = FALSE, show_length = TRUE)
+	var/list/output = list()
+	if(!query.warn_execute())
+		qdel(query)
+		return
+	output += header
+	if(show_length)
+		output += "<center>Notes count: [length(query.rows)]</center>"
+	if(!linkless)
+		output += "<center><a href='byond://?_src_=holder;addnote=[ckey]'>\[Add Note\]</a></center>"
+	output += ruler
+	while(query.NextRow())
+		var/id = query.item[1]
+		var/user_ckey = query.item[2]
+		var/timestamp = query.item[3]
+		var/notetext = query.item[4]
+		var/adminckey = query.item[5]
+		var/last_editor = query.item[6]
+		var/server = query.item[7]
+		var/mins = text2num(query.item[8])
+		output += "<b>[timestamp] | [server] | user: [user_ckey] | admin : [adminckey]"
+		if(show_player_hours && mins)
+			var/playstring = get_exp_format(mins)
+			output += " | [playstring] as Crew"
+		output += "</b>"
+
+		if(!linkless)
+			output += " <a href='byond://?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='byond://?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
+			if(last_editor)
+				output += span_fontsize2(" Last edit by [last_editor]")
+		output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
+	qdel(query)
+	return jointext(output, "")
+
+ADMIN_VERB(notes_by_admin, R_PERMISSIONS, "Notes by admin", "Shows notes by admin ckey.", ADMIN_CATEGORY_MAIN)
+	if(!SSdbcore.IsConnected())
+		to_chat(user, span_warning("База данных не подключена"))
+		return
+
+	var/ckey = tgui_input_text(user, "Введите сикей админа", "Заметки по сикею админа")
+	var/old_usr = usr
+	usr = user.mob
+	show_note(admin_ckey = ckey, linkless = TRUE)
+	usr = old_usr

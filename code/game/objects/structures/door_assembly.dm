@@ -4,6 +4,8 @@
 	icon_state = "construction"
 	density = TRUE
 	max_integrity = 200
+	cares_about_temperature = TRUE
+	var/heat_resistance = 1000
 	var/overlays_file = 'icons/obj/doors/airlocks/station/overlays.dmi'
 	var/state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 	var/mineral
@@ -37,25 +39,25 @@
 	switch(state)
 		if(AIRLOCK_ASSEMBLY_NEEDS_WIRES)
 			if(anchored)
-				. += "<span class='notice'>The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.</span>"
+				. += span_notice("The anchoring bolts are <b>wrenched</b> in place, but the maintenance panel lacks <i>wiring</i>.")
 			else
-				. += "<span class='notice'>The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.</span>"
+				. += span_notice("The assembly is <b>welded together</b>, but the anchoring bolts are <i>unwrenched</i>.")
 		if(AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
-			. += "<span class='notice'>The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.</span>"
+			. += span_notice("The maintenance panel is <b>wired</b>, but the circuit slot is <i>empty</i>.")
 		if(AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER)
-			. += "<span class='notice'>The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			. += span_notice("The circuit is <b>connected loosely</b> to its slot, but the maintenance panel is <i>unscrewed and open</i>.")
 			if(access_electronics)
 				. += span_notice("The access control circuit is connected to its slot.")
 			else
 				. += span_notice("The access control slot is empty.")
 	if(!mineral && !glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows and mineral covers.")
 	else if(!mineral && glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for mineral covers.</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for mineral covers.")
 	else if(mineral && !glass && !noglass)
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname]. There are <i>empty</i> slots for glass windows.")
 	else
-		. += "<span class='notice'>There is a small <i>paper</i> placard on the assembly[doorname].</span>"
+		. += span_notice("There is a small <i>paper</i> placard on the assembly[doorname].")
 
 /obj/structure/door_assembly/attack_hand(mob/living/carbon/human/user)
 	if(user.a_intent == INTENT_HARM && ishuman(user) && (user.dna.species.obj_damage + user.physiology.punch_obj_damage > 0))
@@ -416,3 +418,8 @@
 				mineral_path = text2path("/obj/item/stack/sheet/mineral/[mineral]")
 			new mineral_path(T, 2)
 	qdel(src)
+
+/obj/structure/door_assembly/temperature_expose(exposed_temperature, exposed_volume, base_structure_expose = FALSE)
+	..()
+	if(exposed_temperature > (T0C + heat_resistance))
+		take_damage(round(exposed_volume / 100), BURN, 0, 0)

@@ -96,7 +96,7 @@
 	playsound(user, SFX_EXPLOSION, 100, TRUE)
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
 	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
-	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
+	BW.preparePixelProjectile(target, get_turf(src), params2list(params), 0)
 	BW.firer = user
 	BW.firer_source_atom = src
 	BW.fire()

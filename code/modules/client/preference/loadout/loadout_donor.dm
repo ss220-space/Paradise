@@ -269,6 +269,26 @@
 	display_name = "Нашивка \"Лягушка\""
 	path = /obj/item/clothing/accessory/head_strip/frog
 
+/datum/gear/donor/strip/whitecat
+	index_name = "strip, White cat"
+	path = /obj/item/clothing/accessory/head_strip/whitecatstrip
+	donator_tier = 3
+
+/datum/gear/donor/strip/orangecat
+	index_name = "strip, Orange cat"
+	path = /obj/item/clothing/accessory/head_strip/orangecatstrip
+	donator_tier = 3
+
+/datum/gear/donor/strip/rat
+	index_name = "strip, Rat"
+	path = /obj/item/clothing/accessory/head_strip/ratstrip
+	donator_tier = 3
+
+/datum/gear/donor/strip/devil
+	index_name = "strip, Devil"
+	path = /obj/item/clothing/accessory/head_strip/devilstrip
+	donator_tier = 4
+
 /datum/gear/donor/heartglasses
 	index_name = "heart-shaped glasses, color"
 	path = /obj/item/clothing/glasses/heart

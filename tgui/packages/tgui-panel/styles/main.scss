@@ -25,6 +25,7 @@
 
 // Components specific to tgui-panel
 @include meta.load-css('./components/Chat.scss');
+@include meta.load-css('./components/Donations.scss');
 @include meta.load-css('./components/Ping.scss');
 @include meta.load-css('./components/Notifications.scss');
 
@@ -43,6 +44,7 @@
 @include meta.load-css('~tgui/styles/components/NoticeBox.scss');
 @include meta.load-css('~tgui/styles/components/NumberInput.scss');
 @include meta.load-css('~tgui/styles/components/ProgressBar.scss');
+@include meta.load-css('~tgui/styles/components/RoundGauge.scss');
 @include meta.load-css('~tgui/styles/components/Section.scss');
 @include meta.load-css('~tgui/styles/components/Slider.scss');
 @include meta.load-css('~tgui/styles/components/Stack.scss');

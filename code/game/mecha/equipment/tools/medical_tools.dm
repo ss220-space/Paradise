@@ -233,7 +233,6 @@
 	var/max_volume = 75 //max reagent volume
 	var/synth_speed = 5 //[num] reagent units per cycle
 	energy_drain = 10
-	var/emagged = FALSE
 	/// Toggler for alternative "analyze reagents" mode.
 	var/mode = FIRE_SYRINGE_MODE
 	range = MECHA_MELEE | MECHA_RANGED

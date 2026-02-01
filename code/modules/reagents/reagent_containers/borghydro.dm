@@ -248,8 +248,7 @@
 	item_state = "borghypo_emag"
 	icon_state = "borghypo_emag"
 	amount_per_transfer_from_this = 10
-	// volume = 30
-	var/emagged = TRUE
+	emagged = TRUE
 	var/safety_hypo = FALSE
 	reagent_ids = list( \
 		"amanitin" = list('icons/obj/hydroponics/harvest.dmi', "amanita"), \

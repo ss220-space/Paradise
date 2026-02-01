@@ -149,6 +149,11 @@
 	/// Hand currently used for pulling/grabing
 	var/pull_hand = PULL_WITHOUT_HANDS
 
+	/// The body part where the bleeding was suppressed by the right hand
+	var/left_hand_bleed_suppress_lib = null
+	/// The body part where the bleeding was suppressed by the left hand
+	var/right_hand_bleed_suppress_lib = null
+
 	//Did the blob infected mob burst.
 	var/was_bursted = FALSE
 	//Was death by turning to dust.

@@ -26,9 +26,13 @@
 	var/value = input_port.value
 	if(!isatom(value))
 		output.set_output("[value]")
+		return
 
 	var/turf/location = get_location()
 	var/turf/target_location = get_turf(value)
 	if(target_location.z != location.z || get_dist(location, target_location) > max_range)
 		output.set_output(PORT_TYPE_ATOM)
+		return
+
+	output.set_output("[value]")
 

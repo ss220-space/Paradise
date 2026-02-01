@@ -8,7 +8,7 @@
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.spider_awaymission != spider_awaymission)
 			continue
-		hsline = "* [capitalize(T.declent_ru(NOMINATIVE))] в [get_area(T)], "
+		hsline = "* [DECLENT_RU_CAP(T, NOMINATIVE)] в [get_area(T)], "
 		if(T.stat == DEAD)
 			hsline += "МЁРТВ"
 		else

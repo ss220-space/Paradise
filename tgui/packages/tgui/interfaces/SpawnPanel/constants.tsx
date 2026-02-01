@@ -1,12 +1,12 @@
 export const spawnLocationOptions = [
-  'Current location',
-  'Current location (droppod)',
-  "In own mob's hand",
-  'At a marked object',
-  'In the marked object',
-  'Targeted location',
-  'Targeted location (droppod)',
-  "In targeted mob's hand",
+  'Текущая локация',
+  'Текущая локация (десантная капсула)',
+  'В руке контролируемого моба',
+  'У отмеченного объекта',
+  'В отмеченном объекте',
+  'Выбранная локация',
+  'Выбранная локация (десантная капсула)',
+  'В руке выбранного моба',
 ];
 
 export const listTypes = {
@@ -16,20 +16,32 @@ export const listTypes = {
 };
 
 export const listNames = {
-  Objects: 'Search objects',
-  Turfs: 'Search turfs',
-  Mobs: 'Search mobs',
+  Objects: 'Поиск объектов',
+  Turfs: 'Поиск турфов',
+  Mobs: 'Поиск мобов',
+};
+
+export const OffsetType = {
+  ABSOLUTE: 'Абсолютный сдвиг',
+  RELATIVE: 'Относительный сдвиг',
+};
+
+export const PreciseMode = {
+  OFF: 'Выкл',
+  TARGET: 'Цель',
+  MARK: 'Метка',
+  COPY: 'Копирование',
 };
 
 export const spawnLocationIcons = {
-  'Current location': 'map-marker',
-  'Current location (droppod)': 'parachute-box',
-  "In own mob's hand": 'hand-holding',
-  'At a marked object': 'floppy-disk',
-  'In the marked object': 'floppy-disk',
-  'Targeted location': 'crosshairs',
-  'Targeted location (droppod)': 'crosshairs',
-  "In targeted mob's hand": 'crosshairs',
+  'Текущая локация': 'map-marker',
+  'Текущая локация (десантная капсула)': 'parachute-box',
+  'В руке контролируемого моба': 'hand-holding',
+  'У отмеченного объекта': 'floppy-disk',
+  'В отмеченном объекте': 'floppy-disk',
+  'Выбранная локация': 'crosshairs',
+  'Выбранная локация (десантная капсула)': 'crosshairs',
+  'В руке выбранного моба': 'crosshairs',
 };
 
 export const directionIcons = {
@@ -40,8 +52,8 @@ export const directionIcons = {
 };
 
 export const directionNames = {
-  1: 'NORTH',
-  2: 'SOUTH',
-  4: 'EAST',
-  8: 'WEST',
+  1: 'СЕВЕР',
+  2: 'ЮГ',
+  4: 'ВОСТОК',
+  8: 'ЗАПАД',
 };

@@ -14,6 +14,7 @@
 	antable = FALSE
 	pickup_sound = 'sound/items/handling/pickup/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/generic_small_drop.ogg'
+	custom_price = PAYCHECK_MIN * 0.3
 
 /obj/item/reagent_containers/food/pill/get_ru_names()
 	return list(

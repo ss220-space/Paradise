@@ -26,7 +26,7 @@
 
 	var/turf/location = get_turf(loc)
 	if(location)
-		location.hotspot_expose(1000, 1000)
+		location.hotspot_expose(1000, 1)
 
 	sparks.start()
 

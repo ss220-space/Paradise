@@ -30,7 +30,7 @@
 				var/mob/living/mob = spawner_obj
 				if(mob.stat == DEAD)
 					continue
-			this["uids"] += "\ref[spawner_obj]"
+			this["uids"] += UID_of(spawner_obj)
 			if(!this["desc"])	//haven't set descriptions yet
 				if(istype(spawner_obj, /obj/effect/mob_spawn))
 					var/obj/effect/mob_spawn/MS = spawner_obj
@@ -50,7 +50,7 @@
 	var/list/possible_spawners = params["ID"]
 	if(!length(possible_spawners))
 		return
-	var/obj/effect/mob_spawn/MS = locate(pick(possible_spawners))
+	var/obj/effect/mob_spawn/MS = locateUID(pick(possible_spawners))
 	if(!MS)
 		log_runtime(EXCEPTION("A ghost tried to interact with an invalid spawner, or the spawner didn't exist."))
 		return

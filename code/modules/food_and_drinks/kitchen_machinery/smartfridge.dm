@@ -297,7 +297,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Smartfridge", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "Smartfridge", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/smartfridge/ui_data(mob/user)
@@ -426,7 +426,7 @@
 		return FALSE
 
 	INVOKE_ASYNC(throw_item, TYPE_PROC_REF(/atom/movable, throw_at), target, 16, 3, src)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] кидает [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] кидает [throw_item.declent_ru(ACCUSATIVE)] в [target]!"))
 	return TRUE
 
 /**
@@ -612,6 +612,46 @@
 	icon_state = "smartfridge-syndie"
 	contents_overlay = "smartfridge-syndie"
 	req_access = list(ACCESS_SYNDICATE)
+
+
+/**
+ * # Secure Refrigerated Bloods Storage
+ *
+ * Secure, Medical refrigerator for blood iv bags
+ */
+/obj/machinery/smartfridge/secure/medbay_blood
+	req_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY)
+
+/obj/machinery/smartfridge/secure/medbay_blood/Initialize(mapload)
+	starting_items = list(
+		/obj/item/reagent_containers/iv_bag/blood/ABPlus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/ABMinus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/APlus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/AMinus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/BPlus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/BMinus = 4,
+		/obj/item/reagent_containers/iv_bag/blood/OPlus = 6,
+		/obj/item/reagent_containers/iv_bag/blood/OMinus = 8,
+		/obj/item/reagent_containers/iv_bag/blood/skrell = 8,
+		/obj/item/reagent_containers/iv_bag/blood/tajaran = 8,
+		/obj/item/reagent_containers/iv_bag/blood/vulpkanin = 8,
+		/obj/item/reagent_containers/iv_bag/blood/unathi = 8,
+		/obj/item/reagent_containers/iv_bag/blood/kidan = 8,
+		/obj/item/reagent_containers/iv_bag/blood/grey = 8,
+		/obj/item/reagent_containers/iv_bag/blood/diona = 8,
+		/obj/item/reagent_containers/iv_bag/blood/wryn = 8,
+		/obj/item/reagent_containers/iv_bag/blood/nian = 8,
+		/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis = 8,
+	)
+	. = ..()
+	accepted_items_typecache = typecacheof(list(
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/storage/pill_bottle,
+		/obj/item/reagent_containers/food/pill,
+	))
+
 
 /**
  * # Smart Chemical Storage

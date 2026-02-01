@@ -341,7 +341,7 @@
 
 	var/can_fit = !affected.hidden && tool.w_class <= get_max_wclass(affected)
 	if(!can_fit)
-		to_chat(user, span_warning("[capitalize(tool.declent_ru(NOMINATIVE))] не помест[PLUR_IT_YAT(tool)]ся внутри [affected.declent_ru(GENITIVE)]!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(tool, NOMINATIVE)] не помест[PLUR_IT_YAT(tool)]ся внутри [affected.declent_ru(GENITIVE)]!"))
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(

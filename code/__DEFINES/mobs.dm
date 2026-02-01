@@ -33,11 +33,6 @@
 #define GETPULSE_HAND 0 //less accurate (hand)
 #define GETPULSE_TOOL 1 //more accurate (med scanner, sleeper, etc)
 
-//Reagent Metabolization flags, defines the type of reagents that affect this mob
-#define PROCESS_ORG 1 //Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_SYN 2 //Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_DUO 4 //Only processes reagents with "ORGANIC | SYNTHETIC"
-
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
 #define SHOES_SLOWDOWN 0 // How much shoes slow you down by default. Negative values speed you up
@@ -72,9 +67,9 @@
 #define TASTE_SENSITIVITY_DULL 25
 #define TASTE_SENSITIVITY_NO_TASTE 101
 
-// Reagent type flags, defines the types of mobs this reagent will affect
-#define ORGANIC 1
-#define SYNTHETIC 2
+// Reagent type flags, defines the types of mobs this reagent will affect and the types of reagents this mob will metabolize
+#define ORGANIC (1<<0)
+#define SYNTHETIC (1<<1)
 
 // Reagent tag flags, define reagent behaviour (now use only for anti-stun reagents)
 #define REAGENT_TAG_ANTI_STUN (1<<0)
@@ -505,3 +500,19 @@
 
 /// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
 #define RESIZE_DEFAULT_SIZE 1
+
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
+#define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
+#define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
+#define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
+
+//Mob AI Status
+#define POWER_RESTORATION_OFF 0
+#define POWER_RESTORATION_START 1
+#define POWER_RESTORATION_SEARCH_APC 2
+#define POWER_RESTORATION_APC_FOUND 3
+
+#define PERSONAL_FACTION(src) "faction_[UID_of(src)]"
+
+#define CARBON_MAX_RADIATION 200
+#define NUCLEATION_MAX_RADIATION 800

@@ -76,7 +76,7 @@
 		dat += {"
 				<tr>
 					<td>[scrubber.name]</td>
-					<td width="150"><a class="green" href="byond://?src=[UID()];scrub=\ref[scrubber];toggle=1">Turn On</a> <a class="red" href="byond://?src=[UID()];scrub=\ref[scrubber];toggle=0">Turn Off</a></td>
+					<td width="150"><a class="green" href="byond://?src=[UID()];scrub=[scrubber.UID()];toggle=1">Turn On</a> <a class="red" href="byond://?src=[UID()];scrub=[scrubber.UID()];toggle=0">Turn Off</a></td>
 				</tr>"}
 
 	dat += {"
@@ -98,7 +98,7 @@
 	if(href_list["scan"])
 		scanscrubbers()
 	else if(href_list["toggle"])
-		var/obj/machinery/portable_atmospherics/scrubber/huge/scrubber = locate(href_list["scrub"])
+		var/obj/machinery/portable_atmospherics/scrubber/huge/scrubber = locateUID(href_list["scrub"])
 
 		if(!validscrubber(scrubber))
 			spawn(20)

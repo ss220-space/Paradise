@@ -25,3 +25,19 @@
 	target_client.color = flash_color
 	spawn(0)
 		animate(target_client, color = initial(target_client.color), time = flash_duration)
+
+/// Given a color in the format of "#RRGGBB", will return if the color is dark.
+/proc/is_color_dark(color, threshold = 25)
+	var/hsl = rgb2num(color, COLORSPACE_HSL)
+	return hsl[3] < threshold
+
+GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"))
+
+/proc/random_short_color()
+	return random_string(3, GLOB.hex_characters)
+
+/proc/random_color()
+	return random_string(6, GLOB.hex_characters)
+
+/proc/ready_random_color()
+	return "#" + random_string(6, GLOB.hex_characters)

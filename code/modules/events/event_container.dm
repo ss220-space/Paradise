@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/moderate
 	severity = EVENT_LEVEL_MODERATE
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					615),
+		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ничего",					/datum/event/nothing,					265),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Ложная тревога",			/datum/event/falsealarm,				200,	is_one_shot = TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Скопление карпов",			/datum/event/carp_migration,			200,	list(ASSIGNMENT_ENGINEER = 10, ASSIGNMENT_SECURITY = 20), TRUE),
 		new /datum/event_meta(EVENT_LEVEL_MODERATE, "Сбойные дроны",			/datum/event/rogue_drone,				0,		list(ASSIGNMENT_SECURITY = 20)),
@@ -233,7 +233,7 @@ GLOBAL_LIST_EMPTY(event_last_fired)
 /datum/event_container/major
 	severity = EVENT_LEVEL_MAJOR
 	available_events = list(
-		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Ничего",						/datum/event/nothing,					590),											// 57% on high pop (120+). 64.2% on lowpop (70+)
+		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Ничего",						/datum/event/nothing,					390),											// 57% on high pop (120+). 64.2% on lowpop (70+)
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Миграция карпов",				/datum/event/carp_migration,			10,		list(ASSIGNMENT_SECURITY =  3), TRUE),	// 4.8% on high pop, 3.4% on low pop
 		//new /datum/event_meta(EVENT_LEVEL_MAJOR, "Containment Breach",		/datum/event/prison_break/station,		0,		list(ASSIGNMENT_ANY = 5)),
 		new /datum/event_meta(EVENT_LEVEL_MAJOR, "Перегрузка ЛКП",				/datum/event/apc_overload,				0),

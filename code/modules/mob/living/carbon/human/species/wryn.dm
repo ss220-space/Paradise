@@ -67,7 +67,7 @@
 
 	dies_at_threshold = TRUE
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	base_color = "#704300"
 	flesh_color = "#704300"
 	blood_color = "#FFFF99"
@@ -250,3 +250,6 @@
 /mob/living/carbon/human/proc/get_producing()
 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
 	return glands ? glands.producing : FALSE
+
+/datum/species/wryn/compressor_grind(location)
+	new /obj/item/reagent_containers/honeycomb(location)

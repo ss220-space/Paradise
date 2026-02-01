@@ -384,7 +384,7 @@
 	item_state = "coatwinter"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	cold_protection = UPPER_TORSO|LOWER_TORSO|ARMS
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = COAT_MIN_TEMP_PROTECT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 10, RAD = 0, FIRE = 0, ACID = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/toy, /obj/item/storage/fancy/cigarettes, /obj/item/lighter)
 
@@ -403,7 +403,7 @@
 	desc = "A hood attached to a heavy winter jacket."
 	icon_state = "winterhood"
 	cold_protection = HEAD
-	min_cold_protection_temperature = FIRE_SUIT_MIN_TEMP_PROTECT
+	min_cold_protection_temperature = COAT_HOOD_MIN_TEMP_PROTECT
 	flags_inv = HIDEHEADSETS|HIDEHAIR
 
 	sprite_sheets = list(

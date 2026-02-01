@@ -14,7 +14,7 @@
 	if(slot_flags & ITEM_SLOT_BACK)
 		update_worn_back()
 	if(slot_flags & ITEM_SLOT_MASK)
-		update_worn_mask()
+		wear_mask_update()
 	if(slot_flags & ITEM_SLOT_NECK)
 		update_worn_neck()
 	if(slot_flags & ITEM_SLOT_HANDCUFFED)
@@ -28,15 +28,15 @@
 	if(slot_flags & ITEM_SLOT_EARS)
 		update_worn_ears()
 	if(slot_flags & ITEM_SLOT_EYES)
-		update_worn_glasses()
+		wear_glasses_update()
 	if(slot_flags & ITEM_SLOT_GLOVES)
 		update_worn_gloves()
 	if(slot_flags & ITEM_SLOT_HEAD)
-		update_worn_head()
+		update_head()
 	if(slot_flags & ITEM_SLOT_FEET)
 		update_worn_shoes()
 	if(slot_flags & ITEM_SLOT_CLOTH_OUTER)
-		update_worn_oversuit()
+		wear_suit_update()
 	if(slot_flags & ITEM_SLOT_CLOTH_INNER)
 		update_worn_undersuit()
 	if(slot_flags & ITEM_SLOT_SUITSTORE)
@@ -81,7 +81,7 @@
 /mob/proc/update_mutations()
 	return
 
-/mob/proc/wear_mask_update(obj/item/clothing/mask, toggle_off = TRUE)
+/mob/proc/wear_mask_update(obj/item/clothing/mask, toggle_off)
 	return
 
 ///Updates the oversuit overlay & HUD element.
@@ -103,7 +103,7 @@
 /mob/proc/update_worn_head()
 	return
 
-/mob/proc/update_head(obj/item/I, forced, toggle_off = FALSE)
+/mob/proc/update_head(obj/item/I, forced, toggle_off)
 	return
 
 ///Updates every part of a carbon's body. Including parts, mutant parts, lips, underwear, and socks.

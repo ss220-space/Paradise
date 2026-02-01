@@ -1,6 +1,7 @@
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
+	gender = MALE
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
@@ -22,7 +23,7 @@
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
 	populate_gas()
 
@@ -46,8 +47,6 @@
 		return
 
 	if(user.internal == src)
-		if(!silent)
-			to_chat(user, span_notice("You close [src] valve."))
 		user.internal = null
 		user.update_action_buttons_icon()
 		return
@@ -73,14 +72,8 @@
 
 		if(!internals_allowed)
 			if(!silent)
-				to_chat(user, span_warning("You are not wearing a suitable mask or helmet."))
+				balloon_alert(user, "не к чему полключать!")
 			return
-
-	if(!silent)
-		if(user.internal)
-			to_chat(user, span_notice("You switch your internals to [src]."))
-		else
-			to_chat(user, span_notice("You open [src] valve."))
 
 	user.internal = src
 	user.update_action_buttons_icon()
@@ -97,27 +90,27 @@
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += span_notice("It's \a [icon2html(icon, user)][src]! If you want any more information you'll need to get closer.")
+			. += span_boldnotice("Для получения дополнительной информации нужно подойти ближе.")
 		return
 
-	var/celsius_temperature = air_contents.temperature - T0C
+	var/celsius_temperature = air_contents.temperature() - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
-		descriptive = "cold"
+		descriptive = "холодн[GEND_YI_AYA_OE_YE(src)]"
 	else if(celsius_temperature < 40)
-		descriptive = "room temperature"
+		descriptive = "комнатной температуры"
 	else if(celsius_temperature < 80)
-		descriptive = "lukewarm"
+		descriptive = "слегка тёпл[GEND_IM_EI_IM_IMI(src)]"
 	else if(celsius_temperature < 100)
-		descriptive = "warm"
+		descriptive = "тёпл[GEND_YI_AYA_OE_YE(src)]"
 	else if(celsius_temperature < 300)
-		descriptive = "hot"
+		descriptive = "горяч[GEND_II_AYA_II_IE(src)]"
 	else
-		descriptive = "furiously hot"
+		descriptive = "обжигающе горяч[GEND_II_AYA_II_IE(src)]"
 
-	. += span_notice("[icon2html(icon, user)] [src] feels [descriptive]")
-	. += span_notice("The pressure gauge displays [round(air_contents.return_pressure())] kPa")
+	. += span_notice("На ощупь <b>[descriptive]</b>.")
+	. += span_notice("Манометр показывает <b>[round(air_contents.return_pressure())]</b> кПа.")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src))
@@ -126,7 +119,7 @@
 			qdel(src)
 
 		if(air_contents)
-			location.assume_air(air_contents)
+			location.blind_release_air(air_contents)
 
 		qdel(src)
 
@@ -134,8 +127,7 @@
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)
-			T.assume_air(air_contents)
-			air_update_turf()
+			T.blind_release_air(air_contents)
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
@@ -207,20 +199,12 @@
 	if(.)
 		add_fingerprint(usr)
 
-/obj/item/tank/remove_air(amount)
-	return air_contents.remove(amount)
-
-/obj/item/tank/return_air()
+/obj/item/tank/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
 /obj/item/tank/return_analyzable_air()
 	return air_contents
-
-/obj/item/tank/assume_air(datum/gas_mixture/giver)
-	air_contents.merge(giver)
-
-	check_status()
-	return 1
 
 /obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
@@ -229,9 +213,9 @@
 	var/tank_pressure = air_contents.return_pressure()
 	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature())
 
-	return remove_air(moles_needed)
+	return air_contents.remove(moles_needed)
 
 /obj/item/tank/process()
 	//Allow for reactions
@@ -268,7 +252,7 @@
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
 				return
-			T.assume_air(air_contents)
+			T.blind_release_air(air_contents)
 			playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			qdel(src)
 		else
@@ -280,7 +264,7 @@
 			if(!T)
 				return
 			var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
-			T.assume_air(leaked_gas)
+			T.blind_release_air(leaked_gas)
 		else
 			integrity--
 

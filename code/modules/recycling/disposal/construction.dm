@@ -101,7 +101,7 @@
 
 // flip and rotate verbs
 /obj/structure/disposalconstruct/verb/rotate_verb()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Повернуть трубу"
 	set src in view(1)
 	rotate(usr)
@@ -125,7 +125,7 @@
 	return TRUE
 
 /obj/structure/disposalconstruct/verb/flip_verb()
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set name = "Перевернуть трубу"
 	set src in view(1)
 	flip(usr)
