@@ -600,7 +600,6 @@
 	},
 /obj/item/clipboard,
 /obj/item/pen,
-/obj/machinery/light_switch,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
