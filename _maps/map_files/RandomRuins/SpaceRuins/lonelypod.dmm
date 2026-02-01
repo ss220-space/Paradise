@@ -33,22 +33,6 @@
 	},
 /turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
-"eL" = (
-/obj/item/clothing/under/pants/blackjeans,
-/obj/item/clothing/shoes/color/black,
-/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
-/obj/item/clothing/head/cowboyhat/black,
-/obj/structure/closet{
-	anchored = 1
-	},
-/obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/light_construct{
-	dir = 1
-	},
-/obj/effect/landmark/costume/random,
-/obj/item/poster/random_contraband,
-/turf/simulated/floor/carpet/black,
-/area/ruin/unpowered)
 "ic" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -178,6 +162,16 @@
 "Bp" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
 /area/ruin/unpowered)
+"BH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Ch" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
 "Cv" = (
 /obj/item/trash/tray,
 /obj/item/trash/plate,
@@ -209,11 +203,6 @@
 	locked = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"Fu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Fy" = (
@@ -256,6 +245,22 @@
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Gf" = (
+/obj/item/clothing/under/pants/blackjeans,
+/obj/item/clothing/shoes/color/black,
+/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
+/obj/item/clothing/head/cowboyhat/black,
+/obj/structure/closet{
+	anchored = 1
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/effect/landmark/costume/random,
+/obj/item/poster/random_contraband,
+/turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
 "GX" = (
 /obj/structure/rack,
@@ -436,11 +441,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
-"TU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "TW" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -773,7 +773,7 @@ tz
 lI
 LN
 Yf
-TU
+BH
 Zf
 PO
 my
@@ -823,7 +823,7 @@ mE
 lI
 Zf
 Yf
-Fu
+Ch
 Zf
 PO
 my
@@ -866,7 +866,7 @@ my
 my
 my
 PO
-eL
+Gf
 Pc
 PO
 Yf

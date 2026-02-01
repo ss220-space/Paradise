@@ -194,6 +194,7 @@
  */
 
 GLOBAL_LIST_EMPTY(employmentCabinets)
+GLOBAL_LIST_EMPTY(employmentContracts)
 
 /obj/structure/filingcabinet/employment
 	var/cooldown = FALSE // Only used for devils

@@ -13,6 +13,7 @@
 	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
 	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
 	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
+	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
 	abstract_type = /obj/item/storage/belt
 
 	/// Do we have overlays for items held inside the belt?
@@ -457,6 +458,7 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
+	custom_price = PAYCHECK_MAX // 1 extra slot, so lil bit more expensive
 
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
@@ -1246,6 +1248,7 @@
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/radio,
 	)
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/storage/belt/chef/artist
 	name = "delicate apron"
