@@ -665,6 +665,6 @@ obj/projectile/beam/laser/light/rat/mecha/get_ru_names()
 		DATIVE = "латунному импульсу",
 		ACCUSATIVE = "латунный импульс",
 		INSTRUMENTAL = "латунным импульсом",
-	PREPOSITIONAL = "латунном импульсе",
+		PREPOSITIONAL = "латунном импульсе",
 
 	)
