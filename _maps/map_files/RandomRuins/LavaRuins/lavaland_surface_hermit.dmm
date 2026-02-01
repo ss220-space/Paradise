@@ -300,9 +300,6 @@
 /obj/machinery/camera{
 	network = list("Autumn")
 	},
-/obj/machinery/light_switch{
-	pixel_y = 26
-	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "vC" = (
@@ -603,6 +600,7 @@
 	},
 /obj/item/clipboard,
 /obj/item/pen,
+/obj/machinery/light_switch,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
