@@ -1,6 +1,4 @@
-/** Money printer
- * author: trava0861
- */
+// MARK: Money printer
 /obj/machinery/money_printer
 	name = "money printer"
 	desc = "Устройство для печати кредитов, очевидно является нелегальным."
@@ -8,22 +6,29 @@
 	icon_state = "money_printer"
 	density = TRUE
 	anchored = TRUE
+	/// Level of printer ()
 	var/printer_level = 1
+	/// Delay between printing money
 	var/print_delay = 60 SECONDS
+	/// Printing credits amount
 	var/print_credits_amount = 400
+	/// Stored credits amount
 	var/total_credits_amount = 0
+	/// Maximum credits that can be stored in printer without being empty
 	var/max_credits_amount = 100000
+	/// Printing timer reference
 	var/work_timer
+	/// Opening state
 	var/opened = FALSE
 
 /obj/machinery/money_printer/get_ru_names()
 	return list(
-		NOMINATIVE = "принтер кредитов",
-		GENITIVE = "принтера кредитов",
-		DATIVE = "принтеру кредитов",
-		ACCUSATIVE = "принтер кредитов",
-		INSTRUMENTAL = "принтером кредитов",
-		PREPOSITIONAL = "принтере кредитов",
+		NOMINATIVE = "денежный принтер",
+		GENITIVE = "денежного принтера",
+		DATIVE = "денежному принтеру",
+		ACCUSATIVE = "денежный принтер",
+		INSTRUMENTAL = "денежным принтером",
+		PREPOSITIONAL = "денежном принтере",
 	)
 
 /obj/machinery/money_printer/Initialize(mapload)
@@ -80,13 +85,13 @@
 	return
 
 /obj/machinery/money_printer/click_alt(mob/user)
-	. = ..()
+	. = CLICK_ACTION_SUCCESS
 	if(work_timer)
 		stop_print()
-		balloon_alert_to_viewers("принтер выключен", "принтер выключен")
+		balloon_alert_to_viewers("принтер выключен")
 		return
 	start_print()
-	balloon_alert_to_viewers("принтер включен", "принтер включен")
+	balloon_alert_to_viewers("принтер включен")
 
 /obj/machinery/money_printer/examine(mob/user)
 	. = ..()
@@ -96,15 +101,15 @@
 
 	if(work_timer)
 		. += "<b>Статус:</b> принтер работает."
-		. += span_italics("Используйте Alt+Клик чтобы выключить принтер.")
+		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы выключить принтер.")
 	else
 		. += "<b>Статус:</b> принтер выключен."
-		. += span_italics("Используйте Alt+Клик чтобы включить принтер.")
+		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы включить принтер.")
 
 
 // MARK: Craft blueprints
 /obj/item/craft_blueprints/one_use/money_printer
-	crafting_name = "Принтер кредитов"
+	crafting_name = "Денежный принтер"
 	tools = list(TOOL_WRENCH, TOOL_SCREWDRIVER)
 	components = list(
 		/obj/item/stack/sheet/metal = 30,

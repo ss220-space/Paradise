@@ -29,6 +29,9 @@
 	var/list/hearers = get_hearers_in_view(vision_distance, src)
 	hearers -= ignored_mobs
 
+	if(!self_message)
+		self_message = message
+
 	for(var/mob/hearer in hearers)
 		if(!hearer.has_vision())
 			continue

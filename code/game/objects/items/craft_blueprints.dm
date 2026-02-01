@@ -154,10 +154,22 @@
 /obj/item/craft_blueprints/proc/create_craft_item(mob/user)
 	return new crafting_item(loc)
 
+/// Do not spawn this item (basic type)
 /obj/item/craft_blueprints/one_use
+	name = "one-time crafting blueprint"
 
 	desc = "Одноразовые чертежи для крафта"
 	copy_type = null
+
+/obj/item/craft_blueprints/one_use/get_ru_names()
+	return list(
+		NOMINATIVE = "одноразовые чертежи для крафта",
+		GENITIVE = "одноразовых чертежей для крафта",
+		DATIVE = "одноразовым чертежам для крафта",
+		ACCUSATIVE = "одноразовые чертежи для крафта",
+		INSTRUMENTAL = "одноразовыми чертежами для крафта",
+		PREPOSITIONAL = "одноразовых чертежах для крафта",
+	)
 
 /obj/item/craft_blueprints/one_use/try_craft_item(mob/user)
 	. = ..()
