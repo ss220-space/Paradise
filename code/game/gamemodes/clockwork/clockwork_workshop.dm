@@ -55,6 +55,14 @@
 		CLOCK_DESIGN("Marauder", /obj/item/clockwork/marauder, 1200, 300, 5),
 		CLOCK_DESIGN("Strange Shard", /obj/item/clockwork/shard, 2000, 500, 8),
 	)
+	item_list["|Mecha"] = list(
+		CLOCK_DESIGN("Brass clamp", /obj/item/mecha_parts/mecha_equipment/brass_clamp, 500, 200, 4),
+		CLOCK_DESIGN("Brass Armor Booster Module", /obj/item/mecha_parts/mecha_equipment/brass_armor_booster, 1500, 200, 5),
+		CLOCK_DESIGN("brass cradle", /obj/item/mecha_parts/mecha_equipment/cage/brass, 1000, 100, 4),
+		CLOCK_DESIGN("Brass exosuit drill", /obj/item/mecha_parts/mecha_equipment/drill/brass, 1500, 200, 4),
+		CLOCK_DESIGN("\"Spark of the Righteous\" Mounted Taser", /obj/item/mecha_parts/mecha_equipment/weapon/energy/brasstaser, 2000, 300, 6),
+		CLOCK_DESIGN("\"Ray of Faith\" Laser", /obj/item/mecha_parts/mecha_equipment/weapon/energy/brasslaser, 2500, 500, 6),
+	)
 
 /obj/structure/clockwork/functional/workshop/Destroy()
 	// let all the brass out!
