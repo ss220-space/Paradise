@@ -220,22 +220,13 @@
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
 	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
 
-	//Check for suits that completely obscure body shape to determine if strength is visible.
-	var/fully_covered = FALSE
-	if(wear_suit)
-		var/static/list/covering_suit_types = list(
-			/obj/item/clothing/suit/space,
-			/obj/item/clothing/suit/bio_suit,
-			/obj/item/clothing/suit/mod,
-			/obj/item/clothing/suit/armor/changeling,
-			/obj/item/clothing/suit/space/changeling,
-			/obj/item/clothing/suit/bomb_suit,
-			/obj/item/clothing/suit/radiation,
-		)
-		if(is_type_in_list(wear_suit, covering_suit_types))
-			fully_covered = TRUE
+	// Check if the clothes hide the uniform
+	var/hides_uniform = FALSE
+	if(wear_suit && (wear_suit.flags_inv & HIDEJUMPSUIT))
+		hides_uniform = TRUE
 
-	if(!fully_covered && strength_level != STRENGTH_LEVEL_DEFAULT)
+	// Show strength if clothing does not hide the uniform
+	if(!hides_uniform && strength_level != STRENGTH_LEVEL_DEFAULT)
 		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][GEND_YM_OI_YM_YMI(src)].\n")
 
 	//Status effects
