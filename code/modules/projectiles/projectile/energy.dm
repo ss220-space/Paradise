@@ -556,7 +556,7 @@
 	name = "brass electrode"
 	confused = 3 SECONDS
 	stun = 0.5 SECONDS
-	stamina = 20
+	stamina = 30
 	stutter = 10 SECONDS
 	jitter = 30 SECONDS
 	range = 8
@@ -570,5 +570,16 @@
 		ACCUSATIVE = "латунный электрод",
 		INSTRUMENTAL = "латунным электродом",
 		PREPOSITIONAL = "латунном электроде",
+
+/obj/projectile/beam/laser/light/rat/prehit(atom/target)
+	if(isclocker(target))
+		confused = 0 SECONDS
+		stun = 0 SECONDS
+		stamina = 0
+		stutter = 0 SECONDS
+		jitter = 0 SECONDS
+		var/tasered_duration = 0 SECONDS
+	return ..()
+
 	)
 #undef ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER
