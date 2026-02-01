@@ -646,13 +646,19 @@
 		ACCUSATIVE = "лазер часовой энергии",
 		INSTRUMENTAL = "лазером часовой энергии",
 		PREPOSITIONAL = "лазере часовой энергии",
+
+/obj/projectile/beam/laser/light/rat/prehit(atom/target)
+	if(isclocker(target))
+		damage = 0
+	return ..()
+
 	)
 
-/obj/projectile/beam/brasslaser
+obj/projectile/beam/laser/light/rat/mecha
 	name = "brass laser beam"
 	damage = 20
 
-/obj/projectile/beam/brasslaser/get_ru_names()
+obj/projectile/beam/laser/light/rat/mecha/get_ru_names()
 	return list(
 		NOMINATIVE = "латунный импульс",
 		GENITIVE = "латунного импульса",
@@ -660,10 +666,5 @@
 		ACCUSATIVE = "латунный импульс",
 		INSTRUMENTAL = "латунным импульсом",
 	PREPOSITIONAL = "латунном импульсе",
-
-/obj/projectile/beam/laser/light/rat/prehit(atom/target)
-	if(isclocker(target))
-		damage = 0
-	return ..()
 
 	)
