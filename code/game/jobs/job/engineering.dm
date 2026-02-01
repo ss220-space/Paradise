@@ -17,6 +17,10 @@
 		ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
 		ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM
 	)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_TECHNICAL_DIRECTOR,
+		ALT_JOB_TITLE_RU_LEAD_TECHNICIAN,
+	)
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
 
@@ -63,8 +67,8 @@
 	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_MAINTENANCE_TECHNICIAN,
-		ALT_JOB_TITLE_RU_ENGINE_TECHNICIAN,
+		ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER,
+		ALT_JOB_TITLE_RU_POWER_ENGINEER,
 		ALT_JOB_TITLE_RU_ELECTRICIAN,
 	)
 	outfit = /datum/outfit/job/engineer
@@ -86,6 +90,34 @@
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
+	box = /obj/item/storage/box/survival/engineer
+
+/datum/job/engineering/atmos
+	title = JOB_TITLE_ATMOSTECH
+	flag = JOB_FLAG_ATMOSTECH
+	total_positions = 3
+	spawn_positions = 2
+	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
+	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_LIFE_SUPPORT_SPECIALIST,
+	)
+	outfit = /datum/outfit/job/atmos
+
+/datum/outfit/job/atmos
+	name = JOB_TITLE_ATMOSTECH
+	jobtype = /datum/job/engineering/atmos
+
+	uniform = /obj/item/clothing/under/rank/atmospheric_technician
+	belt = /obj/item/storage/belt/utility/atmostech
+	shoes = /obj/item/clothing/shoes/workboots
+	l_ear = /obj/item/radio/headset/headset_eng
+	id = /obj/item/card/id/engineering
+	pda = /obj/item/pda/atmos
+
+	backpack = /obj/item/storage/backpack/industrial
+	satchel = /obj/item/storage/backpack/satchel_eng
+	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineering/engineer/trainee
@@ -124,28 +156,3 @@
 					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
 			if(ALT_JOB_TITLE_RU_ENGINEER_STUDENT)
 				head = /obj/item/clothing/head/soft/orange
-
-/datum/job/engineering/atmos
-	title = JOB_TITLE_ATMOSTECH
-	flag = JOB_FLAG_ATMOSTECH
-	total_positions = 3
-	spawn_positions = 2
-	access = list(ACCESS_EVA, ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_CONSTRUCTION, ACCESS_ATMOSPHERICS, ACCESS_MINERAL_STOREROOM, ACCESS_EMERGENCY_STORAGE)
-	minimal_access = list(ACCESS_EVA, ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_EMERGENCY_STORAGE, ACCESS_CONSTRUCTION, ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE)
-	outfit = /datum/outfit/job/atmos
-
-/datum/outfit/job/atmos
-	name = JOB_TITLE_ATMOSTECH
-	jobtype = /datum/job/engineering/atmos
-
-	uniform = /obj/item/clothing/under/rank/atmospheric_technician
-	belt = /obj/item/storage/belt/utility/atmostech
-	shoes = /obj/item/clothing/shoes/workboots
-	l_ear = /obj/item/radio/headset/headset_eng
-	id = /obj/item/card/id/engineering
-	pda = /obj/item/pda/atmos
-
-	backpack = /obj/item/storage/backpack/industrial
-	satchel = /obj/item/storage/backpack/satchel_eng
-	dufflebag = /obj/item/storage/backpack/duffel/atmos
-	box = /obj/item/storage/box/survival/engineer

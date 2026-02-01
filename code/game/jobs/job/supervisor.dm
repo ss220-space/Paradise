@@ -25,6 +25,10 @@
 	is_command = 1
 	access = list()	//See get_access()
 	minimal_access = list()	//See get_access()
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_SITE_MANAGER,
+		ALT_JOB_TITLE_RU_FACILITY_DIRECTOR,
+	)
 	law_level = LAW_LEVEL_CAPTAIN
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
@@ -211,7 +215,10 @@
 		ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_LAWYER, ACCESS_MAGISTRATE, ACCESS_HEADS
 	)
 	law_level = LAW_LEVEL_MAGISTRATE
-	alt_titles = list(ALT_JOB_TITLE_RU_JUDGE)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_JUDGE,
+		ALT_JOB_TITLE_RU_HIGH_ARBITRATOR,
+	)
 	outfit = /datum/outfit/job/judge
 	paycheck = PAYCHECK_MAX
 

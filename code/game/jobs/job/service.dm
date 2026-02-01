@@ -22,6 +22,10 @@
 		ACCESS_THEATRE, ACCESS_CHAPEL_OFFICE, ACCESS_LIBRARY, ACCESS_RESEARCH, ACCESS_HEADS_VAULT, ACCESS_MINING_STATION,
 		ACCESS_CLOWN, ACCESS_MIME, ACCESS_HOP, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM
 	)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_HR_DIRECTOR,
+		ALT_JOB_TITLE_RU_PERSONNEL_MANAGER,
+	)
 	exp_type = EXP_TYPE_SERVICE
 	outfit = /datum/outfit/job/hop
 
@@ -62,7 +66,10 @@
 	spawn_positions = 1
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_BAR, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
-	alt_titles = list(ALT_JOB_TITLE_RU_DRINK_ARTIST)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_DRINK_ARTIST,
+		ALT_JOB_TITLE_RU_MIXOLOGIST,
+	)
 	outfit = /datum/outfit/job/bartender
 
 /datum/outfit/job/bartender
@@ -94,9 +101,9 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_CULINARY_ARTIST,
 		ALT_JOB_TITLE_RU_SOUS_CHEF,
-		ALT_JOB_TITLE_RU_BUTCHER,
+		ALT_JOB_TITLE_RU_NUTRITION_EXPERT,
+		ALT_JOB_TITLE_RU_CANTEEN_HEAD,
 	)
 	outfit = /datum/outfit/job/chef
 
@@ -121,16 +128,6 @@
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
 
-/datum/outfit/job/chef/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_CULINARY_ARTIST)
-				uniform = /obj/item/clothing/under/artist
-				belt = /obj/item/storage/belt/chef/artistred
-				head = /obj/item/clothing/head/chefcap
-				suit = /obj/item/clothing/suit/storage/chefbluza
-
 /datum/job/service/botanist
 	title = JOB_TITLE_BOTANIST
 	flag = JOB_FLAG_BOTANIST
@@ -139,8 +136,10 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_HYDROPONIST,
+		ALT_JOB_TITLE_RU_HYDROPONICS_TECH,
 		ALT_JOB_TITLE_RU_BOTANICAL_RESEARCHER,
+		ALT_JOB_TITLE_RU_AGRONOMIST,
+		ALT_JOB_TITLE_RU_AGROBIOLOGIST,
 	)
 	outfit = /datum/outfit/job/botanist
 
@@ -379,7 +378,10 @@
 	spawn_positions = 1
 	access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MIME, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	alt_titles = list(ALT_JOB_TITLE_RU_PANTHOMIMIST)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_PANTHOMIMIST,
+		ALT_JOB_TITLE_RU_ILLUSIONIST,
+	)
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
@@ -425,7 +427,9 @@
 	spawn_positions = 1
 	access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_JANITOR, ACCESS_MAINT_TUNNELS)
-	alt_titles = list(ALT_JOB_TITLE_RU_CLEANING_SPECIALIST)
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CLEANING_SPECIALIST,
+	)
 	outfit = /datum/outfit/job/janitor
 
 /datum/outfit/job/janitor
@@ -446,6 +450,8 @@
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_ARCHIVIST,
 		ALT_JOB_TITLE_RU_JOURNALIST,
+		ALT_JOB_TITLE_RU_PRESS_SECRETARY,
+		ALT_JOB_TITLE_RU_CORRESPONDENT,
 	)
 	outfit = /datum/outfit/job/librarian
 
@@ -471,16 +477,11 @@
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_SPIRITUAL_ADVISOR,
 		ALT_JOB_TITLE_RU_CHAPLAIN,
 		ALT_JOB_TITLE_RU_PREACHER,
 		ALT_JOB_TITLE_RU_REVEREND,
-		ALT_JOB_TITLE_RU_ORACLE,
-		ALT_JOB_TITLE_RU_NUN,
-		ALT_JOB_TITLE_RU_MONK,
-		ALT_JOB_TITLE_RU_IMAM,
-		ALT_JOB_TITLE_RU_RABBI,
-		ALT_JOB_TITLE_RU_PASTOR,
+		ALT_JOB_TITLE_RU_THEOLOGIAN,
+		ALT_JOB_TITLE_RU_SPIRITUAL_MENTOR,
 	)
 	outfit = /datum/outfit/job/chaplain
 
