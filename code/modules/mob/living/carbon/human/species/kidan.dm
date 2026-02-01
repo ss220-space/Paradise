@@ -19,7 +19,7 @@
 	flesh_color = "#ba7814"
 	blood_species = "Kidan"
 	blood_color = "#FB9800"
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	//Default styles for created mobs.
 	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"

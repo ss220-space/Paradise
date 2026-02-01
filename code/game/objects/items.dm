@@ -67,6 +67,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	//	causeerrorheresoifixthis
 	var/obj/item/master = null
 
+	/// Price of an item in a vending machine, overriding the base vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.
+	var/custom_price
+	/// Price of an item in a vending machine, overriding the base premium vending machine price. Define in terms of PAYCHECK defines as opposed to raw numbers.
+	var/custom_premium_price
+
 	/// flags which determine which body parts are protected from heat. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm
 	var/heat_protection = 0
 	/// flags which determine which body parts are protected from cold. Use the HEAD, UPPER_TORSO, LOWER_TORSO, etc. flags. See setup.dm

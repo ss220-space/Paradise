@@ -10,9 +10,10 @@
 	deny_overlay = "engivend_deny"
 	refill_canister = /obj/item/vending_refill/engivend
 	req_access = list(ACCESS_ENGINE_EQUIP, ACCESS_ATMOSPHERICS)
+	default_price = PAYCHECK_MIN * 1.2
+	default_premium_price = PAYCHECK_CREW
 
 	products = list(
-		/obj/item/clothing/glasses/meson = 2,
 		/obj/item/multitool = 4,
 		/obj/item/airlock_electronics = 10,
 		/obj/item/firelock_electronics = 10,
@@ -28,6 +29,7 @@
 		/obj/item/stock_parts/cell/potato = 3,
 	)
 	premium = list(
+		/obj/item/clothing/glasses/meson = 3,
 		/obj/item/storage/belt/utility = 3,
 	)
 

@@ -392,6 +392,7 @@
 		else
 			var/obj/item/new_item = new D.build_path(BuildTurf)
 			new_item.update_materials_coeff(coeff)
+		playsound(loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 	SStgui.update_uis(src)
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, multiplier = 1, custom_metal, custom_glass)
