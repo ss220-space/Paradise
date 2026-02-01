@@ -216,15 +216,29 @@
 	if(wear_id)
 		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_id, user)] <b>[wear_id.declent_ru(ACCUSATIVE)]</b> на креплении ID-карты.\n"
 
-	var/rolled_down = FALSE
-	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/jumpsuit = w_uniform
-		rolled_down = jumpsuit.rolled_down
-
 	var/list/strength_list = list()
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
 	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
-	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength_level != STRENGTH_LEVEL_DEFAULT)
+
+	// Проверяем, не надет ли скафандр (который полностью скрывает тело)
+	var/fully_covered = FALSE
+	if(wear_suit)
+		var/list/covering_suit_types = list(
+			/obj/item/clothing/suit/space,
+			/obj/item/clothing/suit/bio_suit,
+			/obj/item/clothing/suit/mod,
+			/obj/item/clothing/suit/armor/changeling,
+			/obj/item/clothing/suit/space/changeling,
+			/obj/item/clothing/suit/bomb_suit,
+			/obj/item/clothing/suit/radiation,
+		)
+
+		for(var/suit_type in covering_suit_types)
+			if(istype(wear_suit, suit_type))
+				fully_covered = TRUE
+				break
+
+	if(!fully_covered && strength_level != STRENGTH_LEVEL_DEFAULT)
 		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][GEND_YM_OI_YM_YMI(src)].\n")
 
 	//Status effects
