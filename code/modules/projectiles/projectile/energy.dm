@@ -570,6 +570,7 @@
 		ACCUSATIVE = "латунный электрод",
 		INSTRUMENTAL = "латунным электродом",
 		PREPOSITIONAL = "латунном электроде",
+	)
 
 /obj/projectile/beam/laser/light/rat/prehit(atom/target)
 	if(isclocker(target))
@@ -581,5 +582,4 @@
 		var/tasered_duration = 0 SECONDS
 	return ..()
 
-	)
 #undef ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER
