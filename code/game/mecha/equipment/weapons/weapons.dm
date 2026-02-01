@@ -201,7 +201,7 @@
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	size = 1
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/brasslaser
 	equip_cooldown = 0.4 SECONDS
 	name = "\"Ray of Faith\" Laser"
 	icon_state = "mecha_brassdart"
