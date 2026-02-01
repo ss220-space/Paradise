@@ -142,6 +142,14 @@
 	drill_level = DRILL_HARDENED
 	integrated = TRUE
 
+/obj/item/mecha_parts/mecha_equipment/drill/brass
+	name = "Brass exosuit drill"
+	desc = "Equipment for engineering and combat exosuits. This is a blessed version of the drill"
+	icon_state = "mech_brass_drill"
+	equip_cooldown = 0.5 SECONDS
+	drill_delay = 2.5
+	drill_level = DRILL_HARDENED
+
 /obj/item/mecha_parts/mecha_equipment/mining_scanner
 	name = "exosuit mining scanner"
 	desc = "Equipment for engineering and combat exosuits. It will automatically check surrounding rock for useful minerals."
