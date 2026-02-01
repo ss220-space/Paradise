@@ -560,7 +560,6 @@
 	stutter = 10 SECONDS
 	jitter = 30 SECONDS
 	range = 8
-	var/tasered_duration = 10 SECONDS
 
 /obj/projectile/energy/electrode/brass/get_ru_names()
 	return list(
