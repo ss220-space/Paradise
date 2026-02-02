@@ -219,7 +219,7 @@
 //Engi
 
 /mob/living/simple_animal/hostile/hivebot/support
-	name = "Support Hivebot"
+	name = "support hivebot"
 	desc = "Специализированный робот с набором ремонтных инструментов. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "EngBot"
 	icon_living = "EngBot"
@@ -259,7 +259,7 @@
 	if(!COOLDOWN_FINISHED(src, heal_cooldown))
 		return
 	var/list/repair_targets
-	for(var/mob/living/simple_animal/hostile/hivebot/candidate in range(heal_range, src))
+	for(var/mob/living/simple_animal/hostile/hivebot/candidate in hearers(heal_range, src))
 		if(candidate != src && candidate.health < candidate.maxHealth && candidate.stat != DEAD)
 			LAZYINITLIST(repair_targets)
 			repair_targets += candidate
