@@ -170,7 +170,7 @@
 	desc = "Удостоверение о разрешении торговых операций на объектах \"Бизель\". Действительна до 2570 года."
 	icon_state = "centcom"
 	item_state = "centcom"
-	access = list(10, 11, 160)
+	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TRADE_SOL)
 
 /obj/item/card/id/away/hermit/trade/get_ru_names()
 	return list(
@@ -221,7 +221,7 @@
 	desc = "Ключ карта среднего доступа на объектах \"Системы Энштейна\"."
 	icon_state = "guest"
 	item_state = "guestpass—id"
-	access = list(10, 11, 32)
+	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_CONSTRUCTION)
 
 /obj/item/card/id/away/hermit/einstein_engine/get_ru_names()
 	return list(
@@ -253,7 +253,7 @@
 	desc = "Карточка, используемая для идентификации личности и доступа на ИСН \"Ананси\"."
 	icon_state = "CMO"
 	item_state = "CMO"
-	access = list(5, 6, 45, 33, 39, 9, 76)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/away/hermit/medic/get_ru_names()
 	return list(
