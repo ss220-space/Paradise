@@ -454,10 +454,10 @@
 
 /obj/item/craft_blueprints/hermit/autumn/get_ru_names()
 	return list(
-		NOMINATIVE = "чертежи платы",
-		GENITIVE = "чертежей платы",
-		DATIVE = "чертежам платы",
-		ACCUSATIVE = "чертежи платы",
-		INSTRUMENTAL = "чертежами платы",
-		PREPOSITIONAL = "чертежах платы"
+		NOMINATIVE = "чертежи навигационной платы",
+		GENITIVE = "чертежей навигационной платы",
+		DATIVE = "чертежам навигационной платы",
+		ACCUSATIVE = "чертежи навигационной платы",
+		INSTRUMENTAL = "чертежами навигационной платы",
+		PREPOSITIONAL = "чертежах навигационной платы"
 	)
