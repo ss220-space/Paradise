@@ -57,12 +57,16 @@
 		check_for_ants()
 
 /obj/item/reagent_containers/food/set_APTFT()
-	set hidden = TRUE
-	..()
+	set name = ""
+	set category = ADMIN_CATEGORY_HIDDEN
+	set src = null
+	return
 
 /obj/item/reagent_containers/food/empty()
-	set hidden = TRUE
-	..()
+	set name = ""
+	set category = ADMIN_CATEGORY_HIDDEN
+	set src = null
+	return
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)

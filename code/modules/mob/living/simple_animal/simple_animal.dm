@@ -203,6 +203,8 @@
 	if(LAZYLEN(loot))
 		loot = string_list(loot)
 	damage_coeff = string_assoc_list(damage_coeff)
+	if(LAZYLEN(atmos_requirements))
+		atmos_requirements = string_assoc_list(atmos_requirements)
 	if(footstep_type)
 		AddElement(/datum/element/footstep, footstep_type)
 	add_strippable_element()

@@ -19,11 +19,15 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/honeycomb/set_APTFT()
-	set hidden = TRUE
+	set name = ""
+	set category = ADMIN_CATEGORY_HIDDEN
+	set src = null
 	return
 
 /obj/item/reagent_containers/honeycomb/empty()
-	set hidden = TRUE
+	set name = ""
+	set category = ADMIN_CATEGORY_HIDDEN
+	set src = null
 	return
 
 /obj/item/reagent_containers/honeycomb/update_overlays()

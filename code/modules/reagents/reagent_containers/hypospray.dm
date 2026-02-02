@@ -459,7 +459,10 @@
 	return TRUE
 
 /obj/item/reagent_containers/hypospray/autoinjector/empty()
-	set hidden = TRUE
+	set name = ""
+	set category = ADMIN_CATEGORY_HIDDEN
+	set src = null
+
 	return
 
 /obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

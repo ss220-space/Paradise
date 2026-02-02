@@ -17,7 +17,7 @@
 	var/subscriber_delegate
 	var/fatally_errored = FALSE
 	var/message_queue
-	var/sent_assets = list()
+	var/list/sent_assets = list()
 	// Vars passed to initialize proc (and saved for later)
 	var/initial_strict_mode
 	var/initial_fancy
@@ -49,6 +49,9 @@
 	subscriber_object = null
 	client.tgui_windows[id] = null
 	client = null
+	message_queue = null
+	oversized_payloads = null
+	sent_assets = null
 	. = ..()
 
 /**

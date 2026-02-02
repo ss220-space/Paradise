@@ -252,6 +252,9 @@
 	ComponentInitialize()
 	InitializeAIController()
 
+	if(LAZYLEN(hud_possible))
+		hud_possible = string_assoc_list(hud_possible)
+
 	return INITIALIZE_HINT_NORMAL
 
 //called if Initialize returns INITIALIZE_HINT_LATELOAD

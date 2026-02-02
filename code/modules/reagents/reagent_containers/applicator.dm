@@ -40,7 +40,10 @@
 			balloon_alert(user, "протоколы безопасности взломаны")
 
 /obj/item/reagent_containers/applicator/set_APTFT()
-	set hidden = TRUE
+	set name = ""
+	set category = ADMIN_CATEGORY_HIDDEN
+	set src = null
+
 	return
 
 /obj/item/reagent_containers/applicator/on_reagent_change()
