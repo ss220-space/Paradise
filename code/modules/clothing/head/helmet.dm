@@ -325,7 +325,7 @@
 	name = "skull helmet"
 	desc = "Этот шлем, который выглядит устрашающе и походит на племенной, кажется не очень удобным."
 	flags_inv = parent_type::flags_inv|HIDEMASK|HIDENAME
-	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 45, BULLET = 10, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
@@ -487,7 +487,7 @@
 /obj/item/clothing/head/helmet/biker
 	name = "Motorcycle helmet"
 	desc = "Самый обычный мотоциклетный шлем."
-	armor = list(MELEE = 35, BULLET = 10, LASER = 10, ENERGY = 30, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
+	armor = list(MELEE = 35, BULLET = 0, LASER = 5, ENERGY = 20, BOMB = 10, BIO = 0, RAD = 0, FIRE = 30, ACID = 0)
 	icon_state = "biker"
 	item_state = "biker"
 	flash_protect = FLASH_PROTECTION_FLASH

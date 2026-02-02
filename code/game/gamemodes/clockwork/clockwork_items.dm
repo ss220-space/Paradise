@@ -955,7 +955,7 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/clockhood_fake
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
-	armor = list(MELEE = 40, BULLET = 30, LASER = 40, ENERGY = 20, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
+	armor = list(MELEE = 40, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 25, BIO = 10, RAD = 0, FIRE = 10, ACID = 10)
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEJUMPSUIT
 	magical = TRUE
@@ -1034,7 +1034,7 @@
 	desc = "A hood worn by the followers of ratvar. but now its just a simple hood."
 	flags_inv = HIDENAME|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
-	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	armor = list(melee = 30, bullet = 5, laser = 1, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	magical = TRUE
 
 /obj/item/clothing/suit/hooded/clockrobe/equipped(mob/living/user, slot, initial)
@@ -1092,6 +1092,7 @@
 	item_state = "clockwork_cuirass"
 	w_class = WEIGHT_CLASS_BULKY
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	armor = list(MELEE = 30, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 25, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe) // some miners stuff
 	flags_inv = HIDEJUMPSUIT
 	flags_inv_transparent = HIDEGLOVES|HIDESHOES
@@ -1209,7 +1210,7 @@
 	icon_state = "clockwork_gauntlets"
 	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 35, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/gloves/clockwork/Initialize(mapload)
 	. = ..()
@@ -1331,7 +1332,7 @@
 	item_state = "clockwork_treads"
 	strip_delay = 60
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list(MELEE = 40, BULLET = 50, LASER = 30, ENERGY = 30, BOMB = 40, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 35, BULLET = 15, LASER = 10, ENERGY = 10, BOMB = 30, BIO = 30, RAD = 30, FIRE = 100, ACID = 100)
 
 /obj/item/clothing/shoes/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
@@ -1376,7 +1377,7 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME
 	flags_cover = HEADCOVERSMOUTH|HEADCOVERSEYES
-	armor = list(melee = 45, bullet = 65, laser = 10, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
+	armor = list(melee = 40, bullet = 20, laser = 5, energy = 0, bomb = 60, bio = 0, rad = 0, fire = 100, acid = 100)
 
 /obj/item/clothing/head/helmet/clockwork/equipped(mob/living/user, slot, initial)
 	. = ..()
