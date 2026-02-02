@@ -2,7 +2,7 @@
 	name = "vampire+thief"
 	config_tag = "vampirethief"
 	vampire_amount = 2 //hard limit if scaling is turned off
-	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_ROBOT)
 	required_players = 10
 	recommended_enemies = 3
 	var/list/datum/mind/pre_thieves = list()

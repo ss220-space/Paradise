@@ -478,9 +478,9 @@
 	character = character.spawn_equip(rank)
 	SSticker.mode.latespawn(character)
 
-	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
+	if(character.mind.assigned_role == JOB_TITLE_ROBOT)
 		var/mob/living/silicon/robot/R = character
-		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG, join_message)
+		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_ROBOT, join_message)
 		if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 			SSjobs.prioritized_jobs -= thisjob
 
@@ -514,13 +514,13 @@
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_ROBOT) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, announcer.arrivalmsg)
 					announcer.say(";[arrivalmessage]")
 
 		else
 			if(character.mind)
-				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_ROBOT) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
 					radio_announce(arrivalmessage, ARRIVALS_ANNOUNCEMENT_COMPUTER, PUB_FREQ, follow_target_override = character)
 
@@ -593,7 +593,7 @@
 		STATION_DEPARTMENT_RU_COMMAND = list(jobs = list(), titles = GLOB.command_positions, color = "#aac1ee"),
 		STATION_DEPARTMENT_RU_ENGINEERING = list(jobs = list(), titles = GLOB.engineering_positions, color = "#ffd699"),
 		STATION_DEPARTMENT_RU_SECURITY = list(jobs = list(), titles = GLOB.security_positions, color = "#ff9999"),
-		"Разное" = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
+		STATION_DEPARTMENT_RU_OTHER = list(jobs = list(), titles = list(), color = "#ffffff", colBreak = 1),
 		STATION_DEPARTMENT_RU_SILICON = list(jobs = list(), titles = GLOB.nonhuman_positions, color = "#ccffcc"),
 		STATION_DEPARTMENT_RU_SERVICE = list(jobs = list(), titles = GLOB.service_positions, color = "#cccccc"),
 		STATION_DEPARTMENT_RU_MEDICAL = list(jobs = list(), titles = GLOB.medical_positions, color = "#99ffe6", colBreak = 1),
@@ -623,7 +623,7 @@
 						else
 							jobs += job
 			if(!categorized)
-				categorizedJobs["Разное"]["jobs"] += job
+				categorizedJobs[STATION_DEPARTMENT_RU_OTHER]["jobs"] += job
 
 	if(num_jobs_available)
 		dat += "Выберите из следующих открытых позиций:<br><br>"
@@ -636,7 +636,7 @@
 			var/color = categorizedJobs[jobcat]["color"]
 			dat += "<fieldset style='border: 2px solid [color]; display: inline'>"
 			dat += "<legend align='center' style='color: [color]'>[jobcat]</legend>"
-			if(jobcat == "Разное")
+			if(jobcat == STATION_DEPARTMENT_RU_OTHER)
 				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Случайно (из доступных)</a><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)

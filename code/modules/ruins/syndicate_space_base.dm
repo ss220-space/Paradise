@@ -300,7 +300,7 @@
 			role = TAIPAN_HUD_COMMS
 		if(JOB_TITLE_TAIPAN_RD)
 			role = TAIPAN_HUD_RD
-		if(JOB_TITLE_TAIPAN_CYBORG)
+		if(JOB_TITLE_TAIPAN_ROBOT)
 			role = TAIPAN_HUD_CYBORG
 	return role
 

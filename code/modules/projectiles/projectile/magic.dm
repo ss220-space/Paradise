@@ -301,7 +301,7 @@
 					briefing_msg = ""
 				new_mob.gender = M.gender
 				new_mob.invisibility = 0
-				new_mob.job = JOB_TITLE_CYBORG
+				new_mob.job = JOB_TITLE_ROBOT
 				var/mob/living/silicon/robot/Robot = new_mob
 				if(ishuman(M))
 					Robot.mmi = new /obj/item/mmi(new_mob)

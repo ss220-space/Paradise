@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 
 // Silicons
 #define JOB_TITLE_RU_AI "Станционный ИИ"
-#define JOB_TITLE_RU_CYBORG "Робот"
+#define JOB_TITLE_RU_ROBOT "Робот"
 
 // Central Command
 #define JOB_TITLE_RU_CCOFFICER "Офицер ЦК \"Нанотрейзен\""
@@ -96,6 +96,15 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_CCSPECOPS "Офицер специальных операций \"Нанотрейзен\""
 #define JOB_TITLE_RU_CCSUPREME "Верховный главнокомандующий \"Нанотрейзен\""
 #define JOB_TITLE_RU_CCSOLGOV "Адмирал Солнечного Флота ТСФ"
+
+// Emergency Response Team (ERT)
+#define JOB_TITLE_RU_ERT_MEMBER "Член ОБР"
+#define JOB_TITLE_RU_ERT_LEADER "Командир ОБР"
+#define JOB_TITLE_RU_ERT_OFFICER "Оперативник ОБР"
+#define JOB_TITLE_RU_ERT_ENGINEER "Инженер ОБР"
+#define JOB_TITLE_RU_ERT_MEDIC "Медик ОБР"
+#define JOB_TITLE_RU_ERT_INQUISITOR "Инквизитор ОБР"
+#define JOB_TITLE_RU_ERT_JANITOR "Клининг-специалист ОБР"
 
 // Syndicate
 #define JOB_TITLE_RU_SYNDICATE_OFFICER "Офицер \"Синдиката\""
@@ -122,7 +131,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_TAIPAN_ENGINEER "Инженер \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_COMMS "Офицер связи \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_RD "Научный руководитель \"Синдиката\""
-#define JOB_TITLE_RU_TAIPAN_CYBORG "Робот"
+#define JOB_TITLE_RU_TAIPAN_ROBOT "Робот"
 
 // Special ones
 #define JOB_TITLE_RU_DEMOTED "Разжалован"
@@ -194,7 +203,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 
 // Silicons
 	JOB_TITLE_AI = JOB_TITLE_RU_AI,
-	JOB_TITLE_CYBORG = JOB_TITLE_RU_CYBORG,
+	JOB_TITLE_ROBOT = JOB_TITLE_RU_ROBOT,
 
 // Central Command
 	JOB_TITLE_CCOFFICER = JOB_TITLE_RU_CCOFFICER,
@@ -202,6 +211,15 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 	JOB_TITLE_CCSPECOPS = JOB_TITLE_RU_CCSPECOPS,
 	JOB_TITLE_CCSUPREME = JOB_TITLE_RU_CCSUPREME,
 	JOB_TITLE_CCSOLGOV = JOB_TITLE_RU_CCSOLGOV,
+
+// Emergency Response Team (ERT)
+	JOB_TITLE_ERT_MEMBER = JOB_TITLE_RU_ERT_MEMBER,
+	JOB_TITLE_ERT_LEADER = JOB_TITLE_RU_ERT_LEADER,
+	JOB_TITLE_ERT_OFFICER = JOB_TITLE_RU_ERT_OFFICER,
+	JOB_TITLE_ERT_ENGINEER = JOB_TITLE_RU_ERT_ENGINEER,
+	JOB_TITLE_ERT_MEDIC = JOB_TITLE_RU_ERT_MEDIC,
+	JOB_TITLE_ERT_INQUISITOR = JOB_TITLE_RU_ERT_INQUISITOR,
+	JOB_TITLE_ERT_JANITOR = JOB_TITLE_RU_ERT_JANITOR,
 
 // Syndicate
 	JOB_TITLE_SYNDICATE_OFFICER = JOB_TITLE_RU_SYNDICATE_OFFICER,
@@ -228,7 +246,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 	JOB_TITLE_TAIPAN_ENGINEER = JOB_TITLE_RU_TAIPAN_ENGINEER,
 	JOB_TITLE_TAIPAN_COMMS = JOB_TITLE_RU_TAIPAN_COMMS,
 	JOB_TITLE_TAIPAN_RD = JOB_TITLE_RU_TAIPAN_RD,
-	JOB_TITLE_TAIPAN_CYBORG = JOB_TITLE_RU_TAIPAN_CYBORG,
+	JOB_TITLE_TAIPAN_ROBOT = JOB_TITLE_RU_TAIPAN_ROBOT,
 ))
 
 // MARK: Alt Russian job titles
@@ -376,6 +394,9 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 // Internal affairs agent
 #define ALT_JOB_TITLE_RU_LAWYER "Юрист"
 #define ALT_JOB_TITLE_RU_ATTORNEY "Адвокат"
+
+// Silicons
+#define ALT_JOB_TITLE_RU_CYBORG "Киборг"
 
 // Civilian
 #define ALT_JOB_TITLE_RU_TOURIST "Турист"

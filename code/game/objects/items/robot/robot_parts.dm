@@ -284,7 +284,7 @@
 			to_chat(user, span_warning("The [new_mmi.name] is completely unresponsive; there's no point to use it."))
 		return .
 
-	if(jobban_isbanned(new_mmi.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(new_mmi.brainmob, "nonhumandept"))
+	if(jobban_isbanned(new_mmi.brainmob, JOB_TITLE_ROBOT) || jobban_isbanned(new_mmi.brainmob, "nonhumandept"))
 		to_chat(user, span_warning("This [new_mmi.name] is not fit to serve as a cyborg!"))
 		return .
 
@@ -354,7 +354,7 @@
 		to_chat(new_borg, span_userdanger("You have been robotized!"))
 		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 
-	new_borg.job = JOB_TITLE_CYBORG
+	new_borg.job = JOB_TITLE_ROBOT
 
 	chest.cell.forceMove(new_borg)
 	new_borg.cell = chest.cell

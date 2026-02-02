@@ -102,7 +102,7 @@ GLOBAL_LIST_INIT(civilian_positions, list(
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
 	JOB_TITLE_AI,
-	JOB_TITLE_CYBORG,
+	JOB_TITLE_ROBOT,
 	"Drone",
 	"pAI"
 ))
@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(whitelisted_positions, list(
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_LIVING = list(), // all living mobs
-	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | civilian_positions | list(JOB_TITLE_AI, JOB_TITLE_CYBORG) | whitelisted_positions), // crew positions
+	EXP_TYPE_CREW = list(titles = command_positions | engineering_positions | medical_positions | science_positions | support_positions | supply_positions | security_positions | civilian_positions | list(JOB_TITLE_AI, JOB_TITLE_ROBOT) | whitelisted_positions), // crew positions
 	EXP_TYPE_SPECIAL = list(), // antags, ERT, etc
 	EXP_TYPE_GHOST = list(), // dead people, observers
 	EXP_TYPE_EXEMPT = list(), // special grandfather setting
@@ -153,7 +153,7 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_SCIENCE = list(titles = science_positions),
 	EXP_TYPE_SUPPLY = list(titles = supply_positions),
 	EXP_TYPE_SECURITY = list(titles = technically_security_positions),
-	EXP_TYPE_SILICON = list(titles = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)),
+	EXP_TYPE_SILICON = list(titles = list(JOB_TITLE_AI, JOB_TITLE_ROBOT)),
 	EXP_TYPE_SERVICE = list(titles = service_positions),
 	EXP_TYPE_WHITELIST = list(titles = whitelisted_positions), // karma-locked jobs
 	EXP_TYPE_BASE_TUTORIAL = list(), // is basic tutorial complete

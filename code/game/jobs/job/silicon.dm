@@ -23,7 +23,7 @@
 	return length(GLOB.empty_playable_ai_cores) && CONFIG_GET(flag/allow_ai)
 
 /datum/job/cyborg
-	title = JOB_TITLE_CYBORG
+	title = JOB_TITLE_ROBOT
 	flag = JOB_FLAG_CYBORG
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_SILICON
@@ -36,6 +36,9 @@
 	exp_requirements = 300
 	exp_type = EXP_TYPE_CREW
 	insurance_type = INSURANCE_TYPE_NONE
+	alt_titles = list(
+		ALT_JOB_TITLE_RU_CYBORG,
+	)
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H)
 	if(!H)

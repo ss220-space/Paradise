@@ -28,7 +28,7 @@
 /obj/item/card/id/ert/registration
 	name = "EDDITABLE ERT ID"
 	/// The name of the squad role
-	var/membership = "Оперативник"
+	var/membership = "Член"
 	access = list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL, ACCESS_CENT_SECURITY, ACCESS_CENT_STORAGE, ACCESS_CENT_SPECOPS, ACCESS_SALVAGE_CAPTAIN)
 
 /obj/item/card/id/ert/registration/get_ru_names()
@@ -47,7 +47,7 @@
 
 /obj/item/card/id/ert/registration/security
 	icon_state = "ERT_security"
-	membership = "Офицер"
+	membership = "Оперативник"
 
 /obj/item/card/id/ert/registration/engineering
 	icon_state = "ERT_engineering"

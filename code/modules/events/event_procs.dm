@@ -87,7 +87,7 @@ ADMIN_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager P
 		if(M.mind.assigned_role == JOB_TITLE_AI)
 			active_with_role["AI"]++
 
-		if(M.mind.assigned_role == JOB_TITLE_CYBORG)
+		if(M.mind.assigned_role == JOB_TITLE_ROBOT)
 			active_with_role["Cyborg"]++
 
 		if(M.mind.assigned_role == JOB_TITLE_JANITOR)

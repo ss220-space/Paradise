@@ -89,7 +89,7 @@
 			to_chat(user, span_warning("Sticking an MMI with dead occupant would sort of defeat the purpose."))
 			return ATTACK_CHAIN_PROCEED
 
-		if(jobban_isbanned(new_mmi.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(new_mmi.brainmob, "nonhumandept"))
+		if(jobban_isbanned(new_mmi.brainmob, JOB_TITLE_ROBOT) || jobban_isbanned(new_mmi.brainmob, "nonhumandept"))
 			to_chat(user, span_warning("This [new_mmi.name] does not seem to fit."))
 			return ATTACK_CHAIN_PROCEED
 

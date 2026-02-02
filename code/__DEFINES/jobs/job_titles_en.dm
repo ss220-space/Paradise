@@ -66,7 +66,7 @@
 
 // Silicons
 #define JOB_TITLE_AI "AI"
-#define JOB_TITLE_CYBORG "Cyborg"
+#define JOB_TITLE_ROBOT "Robot"
 
 // Central Command
 #define JOB_TITLE_CCOFFICER "Nanotrasen Navy Officer"
@@ -74,6 +74,15 @@
 #define JOB_TITLE_CCSPECOPS "Special Operations Officer"
 #define JOB_TITLE_CCSUPREME "Supreme Commander"
 #define JOB_TITLE_CCSOLGOV "Solar Federation General"
+
+// Emergency Response Team (ERT)
+#define JOB_TITLE_ERT_MEMBER "Emergency Response Team Member"
+#define JOB_TITLE_ERT_LEADER "Emergency Response Team Leader"
+#define JOB_TITLE_ERT_OFFICER "Emergency Response Team Officer"
+#define JOB_TITLE_ERT_ENGINEER "Emergency Response Team Engineer"
+#define JOB_TITLE_ERT_MEDIC "Emergency Response Team Medic"
+#define JOB_TITLE_ERT_INQUISITOR "Emergency Response Team Inquisitor"
+#define JOB_TITLE_ERT_JANITOR "Emergency Response Team Janitor"
 
 // Syndicate
 #define JOB_TITLE_SYNDICATE_OFFICER "Syndicate Officer"
@@ -100,7 +109,7 @@
 #define JOB_TITLE_TAIPAN_ENGINEER "Space Base Syndicate Engineer"
 #define JOB_TITLE_TAIPAN_COMMS "Space Base Syndicate Comms Officer"
 #define JOB_TITLE_TAIPAN_RD "Space Base Syndicate Research Director"
-#define JOB_TITLE_TAIPAN_CYBORG "Cyborg"
+#define JOB_TITLE_TAIPAN_ROBOT "Robot"
 
 /// MARK: Job lists
 GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(
