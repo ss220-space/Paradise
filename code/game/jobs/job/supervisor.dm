@@ -112,6 +112,9 @@
 	alt_titles = list("NT Consultant", "Central Command Consultant")
 	outfit = /datum/outfit/job/nanotrasenrep
 	paycheck = PAYCHECK_MAX
+	skill_levels = list(
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+	)
 
 /datum/outfit/job/nanotrasenrep
 	name = JOB_TITLE_REPRESENTATIVE
@@ -128,9 +131,6 @@
 		/obj/item/melee/baton/ntcane = 1,
 	)
 	implants = list(/obj/item/implant/mindshield/ert)
-	skill_levels = list(
-		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
-	)
 
 /datum/job/blueshield
 	title = JOB_TITLE_BLUESHIELD
