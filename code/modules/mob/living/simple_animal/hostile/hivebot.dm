@@ -219,7 +219,7 @@
 //Engi
 
 /mob/living/simple_animal/hostile/hivebot/support
-	name = "Hivebot"
+	name = "Support Hivebot"
 	desc = "Специализированный робот с набором ремонтных инструментов. Судя по всему, собран из различных деталей, попавшихся под руку. На корпусе видны грубые швы и вмятины от ударов, а также выцарапанная надпись \"ВМС\"."
 	icon_state = "EngBot"
 	icon_living = "EngBot"
@@ -259,10 +259,9 @@
 	if(!COOLDOWN_FINISHED(src, heal_cooldown))
 		return
 	var/list/repair_targets
-	for(var/mob/living/simple_animal/hostile/hivebot/candidate in view(heal_range, src))
+	for(var/mob/living/simple_animal/hostile/hivebot/candidate in range(heal_range, src))
 		if(candidate != src && candidate.health < candidate.maxHealth && candidate.stat != DEAD)
-			if(!repair_targets)
-				repair_targets = list()
+			LAZYINITLIST(repair_targets)
 			repair_targets += candidate
 
 	if(!repair_targets)
@@ -280,91 +279,6 @@
 	sparks.start()
 
 	COOLDOWN_START(src, heal_cooldown, heal_cooldown_time)
-
-//Fabricator
-
-/obj/structure/hivebot_spawner
-	name = "Hivebot Fabricator"
-	desc = "Крупная машина, печатающая роботов улья из металлолома с определённой периодичностью. На боку грубо нацарапанная надпись \"ВМС\"."
-	gender = MALE
-	icon = 'icons/mob/hivebot.dmi'
-	icon_state = "fab_robot"
-	anchored = TRUE
-	density = TRUE
-	/// The number of hivebots that will be produced per cycle before going into recharge
-	var/spawn_count = 2
-	/// Production time for 1 bot
-	var/spawn_interval = 1200
-	/// Cooldown after Production time
-	var/cooldown_duration = 3000
-	/// Whether currently producing bots
-	var/is_active = FALSE
-	/// Current spawn count in cycle
-	var/current_spawn_count = 0
-
-	COOLDOWN_DECLARE(cycle_cooldown)
-	COOLDOWN_DECLARE(spawn_cooldown)
-
-/obj/structure/hivebot_spawner/get_ru_names()
-	return list(
-		NOMINATIVE = "фабрикатор",
-		GENITIVE = "фабрикатора",
-		DATIVE = "фабрикатору",
-		ACCUSATIVE = "фабрикатор",
-		INSTRUMENTAL = "фабрикатором",
-		PREPOSITIONAL = "фабрикаторе"
-	)
-
-/obj/structure/hivebot_spawner/Initialize(mapload)
-	. = ..()
-	COOLDOWN_START(src, cycle_cooldown, spawn_interval)
-	START_PROCESSING(SSobj, src)
-
-/obj/structure/hivebot_spawner/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	return ..()
-
-/obj/structure/hivebot_spawner/process()
-	if(!is_active && COOLDOWN_FINISHED(src, cycle_cooldown))
-		start_production()
-		return
-	else if(is_active && COOLDOWN_FINISHED(src, spawn_cooldown))
-		spawn_bots()
-		return
-
-/obj/structure/hivebot_spawner/proc/start_production()
-	is_active = TRUE
-	current_spawn_count = spawn_count
-	icon_state = "fab_robot"
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает гудеть!"))
-	COOLDOWN_START(src, spawn_cooldown, spawn_interval)
-
-/obj/structure/hivebot_spawner/proc/spawn_bots()
-	new /obj/effect/spawner/hivebot(get_turf(src))
-	current_spawn_count--
-
-	if(current_spawn_count > 0)
-		COOLDOWN_START(src, spawn_cooldown, spawn_interval)
-	else
-		finish_production()
-
-/obj/structure/hivebot_spawner/proc/finish_production()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] останавливается."))
-	is_active = FALSE
-	icon_state = "fab_robot"
-	COOLDOWN_START(src, cycle_cooldown, cooldown_duration)
-
-/obj/structure/hivebot_spawner/Destroy()
-	STOP_PROCESSING(SSobj, src)
-	is_active = FALSE
-	current_spawn_count = 0
-	new /obj/machinery/constructable_frame/machine_frame(drop_location())
-	new /obj/item/rcd/preloaded(drop_location())
-	new /obj/item/mecha_parts/mecha_equipment/cable_layer(drop_location())
-	for(var/i in 1 to 5)
-		new /obj/item/broken_device(drop_location())
-	new /obj/item/circuitboard/broken(drop_location())
-	return ..()
 
 //////////////
 //MARK:Loot
