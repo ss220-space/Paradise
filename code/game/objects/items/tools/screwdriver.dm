@@ -129,6 +129,15 @@
 		PREPOSITIONAL = "латунной отвёртке"
 	)
 
+/obj/item/screwdriver/brass/cogscarab/Initialize(mapload, param_color)
+	. = ..()
+	RegisterSignal(src, COMSIG_PLATING_SCREWDRIVER_CHECK, PROC_REF(on_plating_screwdriver_check))
+
+/obj/item/screwdriver/brass/cogscarab/proc/on_plating_screwdriver_check()
+	SIGNAL_HANDLER
+	//cogscarab screwdriver can not remove plating
+	return COMSIG_MOB_CANCEL_CLICKON
+
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
 	desc = "Инструмент, предназначенный для завинчивания и отвинчивания изделий с резьбой. \

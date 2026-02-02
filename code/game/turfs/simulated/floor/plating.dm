@@ -111,6 +111,8 @@
 
 /turf/simulated/floor/plating/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
+	if(SEND_SIGNAL(I, COMSIG_PLATING_SCREWDRIVER_CHECK, src) & COMSIG_PLATING_SCREWDRIVER_CANCEL)
+		return
 	if(!I.tool_use_check(user, 0))
 		return
 	to_chat(user, span_notice("You start [unfastened ? "fastening" : "unfastening"] [src]."))
