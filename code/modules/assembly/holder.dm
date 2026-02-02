@@ -136,6 +136,8 @@
 		a_right.on_found(finder)
 
 /obj/item/assembly_holder/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
+
 	if(a_left)
 		a_left.hear_talk(M, message_pieces)
 	if(a_right)

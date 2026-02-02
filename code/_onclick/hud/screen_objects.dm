@@ -560,10 +560,10 @@
 	if(I.loc == user)
 		if(I.equip_delay_self > 0 && !user.is_general_slot(user.get_slot_by_item(I)))
 			user.visible_message(
-				span_notice("[user] начинает снимать [I.name]..."),
-				span_notice("Вы начинаете снимать [I.name]..."),
+				span_notice("[user] начина[PLUR_ET_UT(user)] снимать [I.declent_ru(ACCUSATIVE)]..."),
+				span_notice("Вы начинаете снимать [I.declent_ru(ACCUSATIVE)]..."),
 			)
-			if(!do_after(user, I.equip_delay_self, user, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [I.name] было прервано!")))
+			if(!do_after(user, I.equip_delay_self, user, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("Снятие [I.declent_ru(GENITIVE)] было прервано!")))
 				return FALSE
 
 		if(!user.drop_item_ground(I))
@@ -588,6 +588,7 @@
 #define HAND_GRAB_AGGRESSIVE 5
 #define HAND_GRAB_NECK 6
 #define HAND_GRAB_KILL 7
+#define HAND_GRAB_SUPPRESS_BLOODLOSS 8
 
 /atom/movable/screen/inventory/hand/update_overlays()
 	. = ..()
@@ -607,6 +608,7 @@
 			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_aggressive"),
 			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_neck"),
 			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_kill"),
+			iconstate2appearance('icons/mob/screen_gen.dmi', "grab_bleed"),
 		)
 
 	if(!active_overlay)
@@ -645,6 +647,12 @@
 
 			if((left_hand && grabber.pull_hand == PULL_HAND_LEFT) || (!left_hand && grabber.pull_hand == PULL_HAND_RIGHT))
 				. += grab_overlay
+	else if(!hand_blocked && isliving(user))
+		var/mob/living/grabber = user
+		var/suppress_target_bodypart = left_hand ? grabber.left_hand_bleed_suppress_lib : grabber.right_hand_bleed_suppress_lib
+
+		if(suppress_target_bodypart)
+			. += hand_overlays[HAND_GRAB_SUPPRESS_BLOODLOSS]
 
 	if((left_hand && user.hand == ACTIVE_HAND_LEFT) || (!left_hand && user.hand == ACTIVE_HAND_RIGHT))
 		. += active_overlay
@@ -656,6 +664,7 @@
 #undef HAND_GRAB_AGGRESSIVE
 #undef HAND_GRAB_NECK
 #undef HAND_GRAB_KILL
+#undef HAND_GRAB_SUPPRESS_BLOODLOSS
 
 /atom/movable/screen/inventory/hand/Click()
 	// At this point in client Click() code we have passed the 1/10 sec check and little else

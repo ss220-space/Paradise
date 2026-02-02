@@ -7,7 +7,7 @@
 	cures = list("banana")
 	cure_prob = 75
 	permeability_mod = 0.75
-	severity = MEDIUM
+	severity = DISEASE_SEVERITY_MINOR
 	possible_mutations = list(/datum/disease/virus/pierrot_throat/advanced, /datum/disease/virus/wizarditis)
 
 /datum/disease/virus/pierrot_throat/stage_act()
@@ -32,7 +32,7 @@
 	name = "Улучшенный \"Горло Пьеро\""
 	agent = "H0NI<42.B4n4 Virus"
 	desc = "Мутировавший вирус, происходящий от \"Горло Пьеро\". Помимо неконтролируемого желания делать хонк, субъект также отращивает неснимаемую маску клоуна. Хонко-мать одобряет."
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_MEDIUM
 	possible_mutations = null
 
 /datum/disease/virus/pierrot_throat/advanced/stage_act()

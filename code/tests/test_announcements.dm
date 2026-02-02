@@ -3,7 +3,11 @@
 /datum/game_test/announcements
 
 /datum/game_test/announcements/Run()
-	GLOB.major_announcement.announce("Figments from an eldritch god are being summoned into the NSS Cyberiad from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space Law and SOP are suspended. The entire crew must kill cultists on sight.", "Central Command Higher Dimensional Affairs", 'sound/AI/cult_summon.ogg')
+	GLOB.major_announcement.announce(
+		message = "Figments from an eldritch god are being summoned into the NSS Cyberiad from an unknown dimension. Disrupt the ritual at all costs, before the station is destroyed! Space Law and SOP are suspended. The entire crew must kill cultists on sight.",
+		new_title = "Central Command Higher Dimensional Affairs",
+		new_sound = 'sound/AI/cult_summon.ogg'
+	)
 
 	GLOB.major_announcement.announce(
 		message = "We have removed all access requirements on your station's airlocks. You can thank us later!",
@@ -54,4 +58,3 @@
 		new_title = "Priority announcement",
 		new_sound = sound('sound/AI/eshuttle_call.ogg')
 	)
-

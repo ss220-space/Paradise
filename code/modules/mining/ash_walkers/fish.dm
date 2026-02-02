@@ -105,11 +105,11 @@ GLOBAL_LIST_INIT(shore_fish, subtypesof(/obj/item/lavaland_fish/shoreline))
 
 /obj/item/lavaland_fish/attackby(obj/item/I, mob/living/user, params)
 	user.changeNext_move(CLICK_CD_MELEE)
-	var/sharpness = is_sharp(I)
+	var/sharpness = I.sharp
 	if(sharpness && user.a_intent == INTENT_HELP && do_flop_animation)
 		fucking_dies()
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] больше не двигается.."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] больше не двигается.."))
 	if(sharpness && user.a_intent == INTENT_HARM)
 		to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 		playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)

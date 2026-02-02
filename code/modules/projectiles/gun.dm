@@ -178,7 +178,7 @@
 	if(bayonet)
 		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
 		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
-			. += span_notice("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
+			. += span_notice("[DECLENT_RU_CAP(bayonet, NOMINATIVE)] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/update_overlays()
@@ -220,8 +220,14 @@
 		module.on_attach(src, null)
 		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
 
-/obj/item/gun/proc/process_chamber()
-	return FALSE
+//called after the gun has successfully fired its chambered ammo.
+/obj/item/gun/proc/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	handle_chamber(empty_chamber, from_firing, chamber_next_round)
+	SEND_SIGNAL(src, COMSIG_GUN_CHAMBER_PROCESSED)
+
+/obj/item/gun/proc/handle_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	return
 
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
@@ -278,14 +284,14 @@
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
-		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
 			return
 
 	if(!can_trigger_gun(user))
 		return
 
 	if(flag)
-		if(user.zone_selected == "mouth")
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
 				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
 			else
@@ -329,7 +335,7 @@
 			return FALSE
 
 		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
-			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
+			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] несовместим с вашей биологией!"))
 			return FALSE
 
 	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
@@ -448,7 +454,7 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
 		if(!isnull(new_name))
-			to_chat(user, span_notice("Вы оружию имя \"[name]\". Познакомьтесь со своим новым другом."))
+			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(I, /obj/item/kitchen/knife))
@@ -459,11 +465,11 @@
 			to_chat(user, span_warning("Вы не можете прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(bayonet)
-			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже есть [knife.declent_ru(NOMINATIVE)]!"))
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже есть [knife.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(knife, src))
 			return ..()
-		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE )]."))
+		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE)]."))
 		set_bayonet(knife)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -491,7 +497,7 @@
 
 /obj/item/gun/proc/toggle_gunlight_verb()
 	set name = "Оружейный фонарик"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Click to toggle your weapon's attached flashlight."
 
 	toggle_gunlight(usr)
@@ -577,8 +583,8 @@
 		if(icon_exists('icons/obj/weapons/bayonets.dmi', bayonet.icon_state))	//Snowflake state?
 			overlay_type = bayonet.icon_state
 		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
-		bayonet_overlay.pixel_x = bayonet_x_offset
-		bayonet_overlay.pixel_y = bayonet_y_offset
+		bayonet_overlay.pixel_w = bayonet_x_offset
+		bayonet_overlay.pixel_z = bayonet_y_offset
 	else
 		bayonet_overlay = null
 		if(.)
@@ -681,8 +687,13 @@
 		gun.zoom(owner, FALSE)
 
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, FALSE)
+	if(gun)
+		gun.zoom(L, FALSE)
 	..()
+
+/datum/action/toggle_scope_zoom/Destroy()
+	gun = null
+	return ..()
 
 /obj/item/gun/proc/zoom(mob/living/user, forced_zoom)
 	if(!user || !user.client)

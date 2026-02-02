@@ -13,8 +13,8 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
+	custom_price = PAYCHECK_LOWER
 	var/ignore_flags = FALSE
-	var/emagged = FALSE
 	var/safety_hypo = FALSE
 
 /obj/item/reagent_containers/hypospray/get_ru_names()
@@ -70,9 +70,9 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
-				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
@@ -369,6 +369,7 @@
 	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
+	custom_price = PAYCHECK_MIN
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Is it usable only on yourself?
@@ -378,12 +379,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/get_ru_names()
 	return list(
-		NOMINATIVE = "аварийный автоинъектор",
-		GENITIVE = "аварийного автоинъектора",
-		DATIVE = "аварийному автоинъектору",
-		ACCUSATIVE = "аварийный автоинъектор",
-		INSTRUMENTAL = "аварийным автоинъектором",
-		PREPOSITIONAL = "аварийном автоинъекторе",
+		NOMINATIVE = "автоинъектор (Эпинефрин)",
+		GENITIVE = "автоинъектора (Эпинефрин)",
+		DATIVE = "автоинъектору (Эпинефрин)",
+		ACCUSATIVE = "автоинъектор (Эпинефрин)",
+		INSTRUMENTAL = "автоинъектором (Эпинефрин)",
+		PREPOSITIONAL = "автоинъекторе (Эпинефрин)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()
@@ -476,7 +477,7 @@
 		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, 'sound/effects/stimpak.ogg', 35, TRUE)
 
-/obj/item/reagent_containers/hypospray/autoinjector/examine()
+/obj/item/reagent_containers/hypospray/autoinjector/examine(mob/user)
 	. = ..()
 	if(reagents && length(reagents.reagent_list))
 		. += span_notice("Не использовано.")
@@ -485,6 +486,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book
 	icon = 'icons/obj/death_book.dmi'
+	icon_state = null
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
@@ -496,7 +498,7 @@
 	name = "Зловещий зелёный инъектор"
 	desc = "Содержит в себе яйца настоящего ужаса, готового сокрушить станцию."
 	icon_state = "spider-injector"
-	list_reagents = list("terror_eggs" = 10)
+	list_reagents = list("terror_phantom_eggs" = 10)
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror/get_ru_names()
 	return list(
@@ -757,4 +759,22 @@
 		ACCUSATIVE = "автоинъектор (Активированный уголь)",
 		INSTRUMENTAL = "автоинъектором (Активированный уголь)",
 		PREPOSITIONAL = "автоинъекторе (Активированный уголь)",
+	)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguinius
+	name = "Sanguinius autoinjector"
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу \"Сангвиния\" для экстренной помощи при кровопотерях."
+	icon_state = "redinjector"
+	amount_per_transfer_from_this = 15
+	volume = 15
+	list_reagents = list("sanguinius" = 15)
+
+/obj/item/reagent_containers/hypospray/autoinjector/sanguinius/get_ru_names()
+	return list(
+		NOMINATIVE = "автоинъектор (Сангвиний)",
+		GENITIVE = "автоинъектора (Сангвиний)",
+		DATIVE = "автоинъектору (Сангвиний)",
+		ACCUSATIVE = "автоинъектор (Сангвиний)",
+		INSTRUMENTAL = "автоинъектором (Сангвиний)",
+		PREPOSITIONAL = "автоинъекторе (Сангвиний)",
 	)

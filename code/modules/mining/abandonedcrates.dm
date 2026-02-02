@@ -3,6 +3,7 @@
 /obj/structure/closet/crate/secure/loot
 	name = "abandoned crate"
 	desc = "Что может быть внутри?"
+	icon_state = "dangercrate"
 	var/code = null
 	var/lastattempt = null
 	var/attempts = 10
@@ -202,10 +203,11 @@
 			new /obj/item/reagent_containers/food/drinks/bottle/bottleofbanana(src)
 		if(95)
 			new /obj/item/clothing/under/mime(src)
-			new /obj/item/clothing/shoes/black(src)
+			new /obj/item/clothing/shoes/color/black(src)
 			new /obj/item/pda/mime(src)
 			new /obj/item/clothing/gloves/color/white(src)
 			new /obj/item/clothing/mask/gas/mime(src)
+			new /obj/item/clothing/mask/gas/mime/old(src)
 			new /obj/item/clothing/head/beret(src)
 			new /obj/item/clothing/suit/suspenders(src)
 			new /obj/item/toy/crayon/mime(src)

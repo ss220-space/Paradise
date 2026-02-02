@@ -446,7 +446,7 @@
 			clothes_s.Blend(new /icon('icons/mob/clothing/back.dmi', "satchel"), ICON_OVERLAY)
 	else if(job_support_low & JOB_FLAG_PRISONER)
 		clothes_s = new /icon(uniform_dmi, "orange_s")
-		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange"), ICON_UNDERLAY)
+		clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "orange1"), ICON_UNDERLAY)
 
 	else if(job_support_high)//I hate how this looks, but there's no reason to go through this switch if it's empty
 		switch(job_support_high)
@@ -580,7 +580,7 @@
 			if(JOB_FLAG_LAWYER)
 				clothes_s = new /icon(uniform_dmi, "internalaffairs_s")
 				clothes_s.Blend(new /icon('icons/mob/clothing/feet.dmi', "brown"), ICON_UNDERLAY)
-				clothes_s.Blend(new /icon('icons/mob/inhands/items_righthand.dmi', "briefcase"), ICON_UNDERLAY)
+				clothes_s.Blend(new /icon('icons/mob/inhands/storage_righthand.dmi', "briefcase"), ICON_UNDERLAY)
 				if(prob(1))
 					clothes_s.Blend(new /icon('icons/mob/clothing/suit.dmi', "suitjacket_blue"), ICON_OVERLAY)
 				switch(backbag)

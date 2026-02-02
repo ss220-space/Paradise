@@ -1,2 +1,8 @@
 #define BSA_SIZE_FRONT 4
 #define BSA_SIZE_BACK 6
+
+// BRS events
+#define EVENT_LEVEL_MUNDANE 1
+#define EVENT_LEVEL_MODERATE 2
+#define EVENT_LEVEL_MAJOR 3
+#define EVENT_LEVEL_NONE 4

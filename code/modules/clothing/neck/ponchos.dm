@@ -36,7 +36,7 @@
 
 /obj/item/clothing/neck/poncho/verb/flip_poncho()
 	set name = "Перекинуть пончо"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Flip poncho behind your back"
 	set src in usr
 
@@ -124,7 +124,7 @@
 /obj/item/clothing/neck/poncho/ponchoshame
 	name = "poncho of shame"
 	desc = "Forced to live on your shameful acting as a fake Mexican, you and your poncho have grown inseperable. Literally."
-	icon_state = "shameponcho"
+	icon_state = "ponchoshame"
 	item_color = "shame"
 	undyeable = TRUE
 

@@ -3,4 +3,4 @@
 		allocate(/mob/living/carbon/human, pick(available_turfs))
 
 	// There is a 5 second delay here so that all the items on the humans have time to initialize and spawn
-	sleep(50)
+	sleep(5 SECONDS)

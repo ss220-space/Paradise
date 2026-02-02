@@ -43,6 +43,7 @@
 
 /obj/item/ammo_box/speedloader
 	use_bullet_type_overlay = TRUE
+	can_fast_load = FALSE
 
 /obj/item/ammo_box/speedloader/n762
 	name = "speed loader (7.62x38)"
@@ -387,7 +388,7 @@
 /obj/item/ammo_box/shotgun/improvised
 	name = "ammunition box (improvised shells)"
 	desc = "Коробка, содержащая самодельные патроны калибра 12х70."
-	icon = 'icons/obj/storage.dmi'
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "largebox"
 	ammo_type = /obj/item/ammo_casing/shotgun/improvised
 
@@ -549,6 +550,7 @@
 	icon_state = "40n&rbox"
 	ammo_type = /obj/item/ammo_casing/fortynr
 	max_ammo = 40
+	materials = list(MAT_METAL = 1000)
 
 /obj/item/ammo_box/fortynr/get_ru_names()
 	return list(
@@ -701,6 +703,7 @@
 	icon_state = "4630mmbox"
 	ammo_type = /obj/item/ammo_casing/c46x30mm
 	max_ammo = 60
+	materials = list(MAT_METAL = 1200)
 
 /obj/item/ammo_box/c46x30mm/get_ru_names()
 	return list(
@@ -931,6 +934,7 @@
 	icon_state = "ammobox_10AP"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	max_ammo = 60
+	materials = list(MAT_METAL = 750)
 
 /obj/item/ammo_box/m10mm/get_ru_names()
 	return list(
@@ -1014,6 +1018,7 @@
 	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Блюститель\"."
 	icon_state = "specstamina"
 	ammo_type = /obj/item/ammo_casing/enforcer/disable
+	materials = list(MAT_METAL = 1000)
 
 /obj/item/ammo_box/enforcer/disabler/get_ru_names()
 	return list(

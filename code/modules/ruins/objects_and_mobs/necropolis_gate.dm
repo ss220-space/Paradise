@@ -227,7 +227,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 				to_chat(M, span_userdanger("Ваш разум наполняют диссонирующие шёпоты тысяч голосов. Каждый повторяет ваше имя снова и снова..."))
 				to_chat(M, span_userdanger("Выпущено нечто ужасающее!"))
 				M.playsound_local(T, null, 100, FALSE, 0, FALSE, pressure_affected = FALSE, sound_to_use = legion_sound)
-				flash_color(M, flash_color = "#FF0000", flash_time = 50)
+				flash_color(M, flash_color = "#FF0000", flash_duration = 50)
 		var/mutable_appearance/release_overlay = mutable_appearance('icons/effects/effects.dmi', "legiondoor")
 		notify_ghosts("Легион был выпущен в [get_area(src)]!", source = src, alert_overlay = release_overlay, action = NOTIFY_JUMP)
 
@@ -372,7 +372,7 @@ GLOBAL_DATUM(necropolis_gate, /obj/structure/necropolis_gate/legion_gate)
 	falling = TRUE
 	var/break_that_sucker = fall_on_cross == DESTROY_ON_CROSS
 	playsound(src, 'sound/effects/pressureplate.ogg', 50, TRUE)
-	Shake(-1, -1, 25)
+	Shake(pixelshiftx = -1, pixelshifty = -1, duration = 25) // idk
 	sleep(5)
 	if(break_that_sucker)
 		playsound(src, 'sound/effects/break_stone.ogg', 50, TRUE)

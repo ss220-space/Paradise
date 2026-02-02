@@ -77,7 +77,7 @@ Limb Rejection
 	var/obj/projectile/limb/limb_projectile = new(user.loc, limb)
 	limb_projectile.current = get_turf(user)
 	var/turf/target_turf = get_turf(target)
-	limb_projectile.preparePixelProjectile(target, target_turf, user)
+	limb_projectile.preparePixelProjectile(target, user)
 	limb_projectile.firer = user
 	limb_projectile.fire()
 	playsound(get_turf(usr), 'sound/effects/splat.ogg', 50, TRUE)

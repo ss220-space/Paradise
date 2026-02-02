@@ -46,7 +46,7 @@
 	newshot()
 	return ..()
 
-/obj/item/gun/magic/process_chamber()
+/obj/item/gun/magic/handle_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
 		charges--//... drain a charge
 	return

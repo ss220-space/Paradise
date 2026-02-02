@@ -454,8 +454,15 @@
 				H.update_worn_mask()
 
 			if(H.head && !(H.head.resistance_flags & ACID_PROOF))
-				to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] плавится!"))
-				qdel(H.head)
+				if(ismodhelmet(H.head) && ismodcontrol(H.back))
+					var/obj/item/mod/control/mod_control = H.back
+					mod_control.seal_part(H.head, FALSE)
+					mod_control.retract(null, H.head)
+					to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] начина[PLUR_ET_UT(H.head)] оплавляться, \
+											что активирует процедуру экстренного ремонта МЭК, заставляя его выключиться от перегрузки!"))
+				else
+					to_chat(H, span_danger("Ваш[GEND_A_E_I(H.head)] [H.head.declent_ru(NOMINATIVE)] плав[PLUR_IT_AT(H.head)]ся!"))
+					qdel(H.head)
 				H.update_worn_head()
 
 			return
@@ -582,6 +589,7 @@
 	drink_name = "стакан пива"
 	drink_desc = "Освежающая пинта пива."
 	taste_description = "мочи"
+	can_synth = FALSE
 
 /datum/reagent/beer2/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

@@ -61,3 +61,5 @@
 #define AGS_SHUTTLE_STATION_DOCK "graveyard_church"
 /// Funeral shuttle away stationary dock id
 #define AGS_FUNERAL_SHUTTLE_AWAY_DOCK "graveyard_dock"
+
+#define PARALLAX_LOOP_TIME 25

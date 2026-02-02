@@ -71,11 +71,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
-"cP" = (
-/obj/machinery/vending/cigarette/free,
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
-/area/ruin/USSP_SpaceBanya)
 "cZ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -132,6 +127,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
+/area/ruin/USSP_SpaceBanya)
+"ex" = (
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/color/lightbrown,
+/obj/item/clothing/gloves/color/light_brown,
+/obj/item/clothing/shoes/color/brown,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mist,
+/turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "ey" = (
 /obj/structure/spider/stickyweb,
@@ -359,6 +363,11 @@
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
+"py" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood,
+/area/ruin/USSP_SpaceBanya)
 "pL" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/reagent_containers/food/snacks/grown/tomato{
@@ -516,17 +525,6 @@
 /obj/effect/decal/cleanable/blood/gibs/xeno/body,
 /turf/simulated/floor/carpet,
 /area/ruin/USSP_SpaceBanya)
-"uN" = (
-/obj/effect/decal/cleanable/cobweb2,
-/obj/structure/closet/wardrobe,
-/obj/item/clothing/under/color/lightbrown,
-/obj/item/clothing/gloves/color/light_brown,
-/obj/item/clothing/shoes/brown,
-/obj/item/clothing/head/fedora/brownfedora,
-/obj/effect/decal/cleanable/dust,
-/obj/item/clothing/suit/fluff/dusty_jacket,
-/turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
 "vo" = (
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood/writing,
@@ -641,15 +639,6 @@
 /obj/structure/railing,
 /obj/effect/decal/cleanable/dust,
 /obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
-"zo" = (
-/obj/structure/closet/wardrobe,
-/obj/item/clothing/under/color/lightbrown,
-/obj/item/clothing/gloves/color/light_brown,
-/obj/item/clothing/shoes/brown,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/mist,
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "zB" = (
@@ -797,6 +786,17 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
+"Gz" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/color/lightbrown,
+/obj/item/clothing/gloves/color/light_brown,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/fedora/brownfedora,
+/obj/effect/decal/cleanable/dust,
+/obj/item/clothing/suit/fluff/dusty_jacket,
+/turf/simulated/floor/wood/oak,
+/area/ruin/USSP_SpaceBanya)
 "GI" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/decal/cleanable/dust,
@@ -820,10 +820,7 @@
 	pixel_x = 25;
 	pixel_y = -6
 	},
-/obj/machinery/light_switch{
-	pixel_x = -4;
-	pixel_y = -24
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
@@ -1598,11 +1595,11 @@ Nd
 dr
 Dd
 Dd
-uN
+Gz
 mL
 DE
 wR
-zo
+ex
 Dd
 Dd
 Ep
@@ -1702,7 +1699,7 @@ kJ
 Gi
 Vs
 RV
-cP
+py
 Dd
 FV
 vI

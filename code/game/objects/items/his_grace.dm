@@ -7,11 +7,11 @@
 /obj/item/his_grace
 	name = "artistic toolbox"
 	desc = "Покрашенный в ярко-зелёные цвета тулбокс. От одного его вида становится страшно."
-	icon = 'icons/goonstation/objects/objects.dmi'
-	icon_state = "green"
+	icon = 'icons/obj/storage/boxes.dmi'
+	icon_state = "toolbox_green"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "toolbox_green"
-	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 12
 	attack_verb = list("заробастил", "сокрушил")
@@ -70,7 +70,7 @@
 	return ..()
 
 /obj/item/his_grace/update_icon_state()
-	icon_state = ascended ? "gold" : (awakened ? (rogue ? "green4" : "green3") : "green")
+	icon_state = ascended ? "toolbox_gold" : (awakened ? (rogue ? "toolbox_green_frenzy" : "toolbox_green_hunger") : "toolbox_green")
 	item_state = ascended ? "toolbox_gold" : "toolbox_green"
 	return ..()
 
@@ -195,7 +195,7 @@
 		source = src,
 		action = NOTIFY_FOLLOW,
 		title = "Славься Его Светлость!",
-		alert_overlay = image('icons/goonstation/objects/objects.dmi', "green4", pixel_x = pixel_x_offset, pixel_y = pixel_y_offset),
+		alert_overlay = image('icons/goonstation/objects/objects.dmi', "green4", pixel_w = pixel_x_offset, pixel_z = pixel_y_offset),
 		ghost_sound = 'sound/effects/pope_entry.ogg'
 	)
 	playsound(user, 'sound/effects/his_grace/his_grace_awaken.ogg', 100)
@@ -238,7 +238,7 @@
 
 	var/datum/mind/mind = meal.mind
 	if(!mind || mind.madeby_sentience_potion)
-		meal.visible_message(span_his_grace("[capitalize(declent_ru(NOMINATIVE))] не получа[PLUR_ET_YUT(src)] насыщения от подобной пищи. [capitalize(declent_ru(NOMINATIVE))] недоволен!"))
+		meal.visible_message(span_his_grace("[DECLENT_RU_CAP(src, NOMINATIVE)] не получа[PLUR_ET_YUT(src)] насыщения от подобной пищи. [DECLENT_RU_CAP(src, NOMINATIVE)] недоволен!"))
 		meal.forceMove(src)
 		return
 

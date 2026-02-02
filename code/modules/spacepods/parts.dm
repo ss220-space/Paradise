@@ -1,15 +1,17 @@
 /obj/item/pod_parts
 	parent_type = /obj/item/mecha_parts
 	icon = 'icons/goonstation/pods/pod_parts.dmi'
+	icon_state = null
+	abstract_type = /obj/item/mecha_parts
 
 /obj/item/pod_parts/core
-	name="Space Pod Core"
+	name = "Space Pod Core"
 	icon_state = "core"
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 
 /obj/item/pod_parts/pod_frame
 	name = "Space Pod Frame"
-	icon_state = ""
+	icon_state = null
 	var/link_to = null
 	var/link_angle = 0
 
@@ -85,7 +87,7 @@
 		return .
 	set_anchored(!anchored)
 	set_density(anchored)
-	to_chat(user, span_notice("Вы [anchored ? "закрепили [src.declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
+	to_chat(user, span_notice("Вы [anchored ? "закрепили [declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
 
 /obj/item/pod_parts/pod_frame/examine(mob/user)
 	. = ..()
@@ -93,14 +95,14 @@
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Повернуть каркас"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return FALSE
 
 	if(anchored)
-		to_chat(usr, "[capitalize(src.declent_ru(NOMINATIVE))] надёжно закреплён болтами!")
+		to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] надёжно закреплён болтами!")
 		return FALSE
 
 	dir = turn(dir, -90)

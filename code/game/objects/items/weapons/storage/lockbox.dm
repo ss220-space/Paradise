@@ -1,8 +1,11 @@
 /obj/item/storage/lockbox
 	name = "lockbox"
 	desc = "A locked box."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "lockbox+l"
-	item_state = "syringe_kit"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	item_state = "lockbox"
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 4
@@ -85,7 +88,10 @@
 		origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 
 /obj/item/storage/lockbox/hear_talk(mob/living/M, list/message_pieces)
-	return
+	if(locked)
+		return
+
+	..()
 
 /obj/item/storage/lockbox/hear_message(mob/living/M, msg)
 	return
@@ -126,6 +132,7 @@
 	name = "medal box"
 	desc = "A locked box used to store medals of honor."
 	icon_state = "medalbox+l"
+	item_state = "medalbox"
 	w_class = WEIGHT_CLASS_NORMAL
 	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 20
@@ -162,6 +169,20 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 4 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 1
+
+/obj/item/storage/lockbox/research/modsuit
+	name = "Plating lockbox"
+	desc = "Большой защитный кейс. Электронный замок выглядит довольно уязвимым."
+
+/obj/item/storage/lockbox/research/modsuit/emp_act(severity) //I want emp to get around it, it's not a gun, I just want people not to always make sec / med modsuits.
+	. = ..()
+	if(!broken || !prob(50 / severity))
+		return
+
+	locked = FALSE
+	broken = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	origin_tech = null //wipe out any origin tech if it's unlocked in any way so you can't double-dip tech levels at R&D.
 
 /obj/item/storage/lockbox/research/mantis
 	name = "lockbox(hidden blade implant)"

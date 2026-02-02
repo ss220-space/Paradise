@@ -321,7 +321,7 @@
 	desc = "Несколько игральных карт."
 	gender = PLURAL
 	icon = 'icons/obj/playing_cards.dmi'
-	icon_state = "empty"
+	icon_state = "nothing"
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 4
 	throw_range = 20
@@ -329,7 +329,9 @@
 	pickup_sound = 'sound/items/handling/pickup/accessory_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/accessory_drop.ogg'
 	var/maxcardlen = 20
+	/// If true, the cards will be face down.
 	var/concealed = FALSE
+	/// All of the cards in the deck.
 	var/list/cards = list()
 	/// Tracked direction, which is used when updating the hand's appearance instead of messing with the local dir
 	var/direction = NORTH
@@ -630,8 +632,8 @@
 		var/datum/playingcard/card = cards[1]
 		var/image/image = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
 		image.transform = M
-		image.pixel_x += (-5+rand(10))
-		image.pixel_y += (-5+rand(10))
+		image.pixel_w += (-5+rand(10))
+		image.pixel_z += (-5+rand(10))
 		. += image
 		return
 
@@ -650,13 +652,13 @@
 	var/image/I = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
 	switch(direction)
 		if(SOUTH)
-			I.pixel_x = 8 - (offset * index)
+			I.pixel_w = 8 - (offset * index)
 		if(WEST)
-			I.pixel_y = -6 + (offset * index)
+			I.pixel_z = -6 + (offset * index)
 		if(EAST)
-			I.pixel_y = 8 - (offset * index)
+			I.pixel_z = 8 - (offset * index)
 		else
-			I.pixel_x = -7 + (offset * index)
+			I.pixel_w = -7 + (offset * index)
 	I.transform = mat
 	return I
 

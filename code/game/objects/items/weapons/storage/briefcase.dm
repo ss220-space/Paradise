@@ -1,10 +1,13 @@
 /obj/item/storage/briefcase
 	name = "briefcase"
 	desc = "Он сделан из НАСТОЯЩЕЙ искусственной кожи и всё ещё с ценником. Его владелец, должно быть, настоящий профессионал."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "briefcase"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "briefcase"
 	flags = CONDUCT
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	use_sound = 'sound/effects/briefcase.ogg'
 	force = 8
 	throw_range = 4
@@ -54,7 +57,7 @@
 			to_chat(user, span_warning("В потайном дне уже что-то лежит!"))
 			return ATTACK_CHAIN_PROCEED
 		if(I.w_class > WEIGHT_CLASS_NORMAL)
-			to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] слишком большой для потайного дна!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] слишком большой для потайного дна!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()

@@ -7,7 +7,7 @@
 	cure_text = "Правильное питание и сон"
 	cures = list("chicken_soup")
 	cure_prob = 100	//override in has_cure()
-	severity = MINOR
+	severity = DISEASE_SEVERITY_MINOR
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE

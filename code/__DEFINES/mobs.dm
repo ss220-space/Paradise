@@ -33,11 +33,6 @@
 #define GETPULSE_HAND 0 //less accurate (hand)
 #define GETPULSE_TOOL 1 //more accurate (med scanner, sleeper, etc)
 
-//Reagent Metabolization flags, defines the type of reagents that affect this mob
-#define PROCESS_ORG 1 //Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_SYN 2 //Only processes reagents with "SYNTHETIC" or "ORGANIC | SYNTHETIC"
-#define PROCESS_DUO 4 //Only processes reagents with "ORGANIC | SYNTHETIC"
-
 #define HUMAN_STRIP_DELAY 40 //takes 40ds = 4s to strip someone.
 #define ALIEN_SELECT_AFK_BUFFER 1 // How many minutes that a person can be AFK before not being allowed to be an alien.
 #define SHOES_SLOWDOWN 0 // How much shoes slow you down by default. Negative values speed you up
@@ -72,9 +67,9 @@
 #define TASTE_SENSITIVITY_DULL 25
 #define TASTE_SENSITIVITY_NO_TASTE 101
 
-// Reagent type flags, defines the types of mobs this reagent will affect
-#define ORGANIC 1
-#define SYNTHETIC 2
+// Reagent type flags, defines the types of mobs this reagent will affect and the types of reagents this mob will metabolize
+#define ORGANIC (1<<0)
+#define SYNTHETIC (1<<1)
 
 // Reagent tag flags, define reagent behaviour (now use only for anti-stun reagents)
 #define REAGENT_TAG_ANTI_STUN (1<<0)
@@ -433,6 +428,10 @@
 /// Allows pAIs to perform an action
 #define ALLOW_PAI (1<<11)
 
+//Lying angles, which way your head points
+#define LYING_ANGLE_EAST 90
+#define LYING_ANGLE_WEST 270
+
 ///Squash flags. For squashable element
 
 ///Whether or not the squashing requires the squashed mob to be lying down
@@ -447,3 +446,73 @@
 #define SCREWYHUD_CRIT 1
 #define SCREWYHUD_DEAD 2
 #define SCREWYHUD_HEALTHY 3
+
+// Carbon Overlays Indexes
+#define TOTAL_LAYERS 47
+#define MUTANTRACE_LAYER 45
+#define WING_UNDERLIMBS_LAYER 44
+#define TAIL_UNDERLIMBS_LAYER 43 //Tail split-rendering.
+#define LIMBS_LAYER 42
+#define INTORGAN_LAYER 41
+#define MARKINGS_LAYER 40
+#define UNDERWEAR_LAYER 39
+#define MUTATIONS_LAYER 38
+#define H_DAMAGE_LAYER 37
+#define UNIFORM_LAYER 36
+#define SHOES_LAYER 35
+#define OVER_SHOES_LAYER 34
+#define ID_LAYER 33
+#define GLOVES_LAYER 32
+#define EARS_LAYER 31
+#define SUIT_LAYER 30
+#define BELT_LAYER 29 //Possible make this an overlay of somethign required to wear a belt?
+#define NECK_LAYER 28
+#define BACK_LAYER 27
+#define HEAD_ACCESSORY_LAYER 26
+#define FHAIR_LAYER 25
+#define GLASSES_LAYER 24
+#define HAIR_LAYER 23 //TODO: make part of head layer?
+#define HEAD_ACC_OVER_LAYER 22 //Select-layer rendering.
+#define FHAIR_OVER_LAYER 21 //Select-layer rendering.
+#define GLASSES_OVER_LAYER 20 //Select-layer rendering.
+#define WING_LAYER 19
+#define TAIL_LAYER 18 //bs12 specific. this hack is probably gonna come back to haunt me
+#define FACEMASK_LAYER 17
+#define OVER_MASK_LAYER 16 //Select-layer rendering.
+#define HEAD_LAYER 15
+#define SUIT_STORE_LAYER 14
+#define OVER_HEAD_LAYER 13
+#define MUTANT_EARS_LAYER 12
+#define COLLAR_LAYER 11
+#define HANDCUFF_LAYER 10
+#define LEGCUFF_LAYER 9
+#define HANDS_LAYER 8
+#define TARGETED_LAYER 7 //BS12: Layer for the target overlay from weapon targeting system
+#define HALO_LAYER 6 //blood cult ascended halo, because there's currently no better solution for adding/removing
+#define FIRE_LAYER 5 //If you're on fire
+#define MISC_LAYER 4
+#define SLEEP_LAYER 3
+#define FROZEN_LAYER 2
+#define SSD_LAYER 1
+
+/// Get the client from the var
+#define CLIENT_FROM_VAR(I) (ismob(I) ? I:client : (istype(I, /client) ? I : (istype(I, /datum/mind) ? I:current?:client : null)))
+
+/// The default mob sprite size (used for shrinking or enlarging the mob sprite to regular size)
+#define RESIZE_DEFAULT_SIZE 1
+
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
+#define DOING_INTERACTION_LIMIT(user, interaction_key, max_interaction_count) ((LAZYACCESS(user.do_afters, interaction_key) || 0) >= max_interaction_count)
+#define DOING_INTERACTION_WITH_TARGET(user, target) (LAZYACCESS(user.do_afters, target))
+#define DOING_INTERACTION_WITH_TARGET_LIMIT(user, target, max_interaction_count) ((LAZYACCESS(user.do_afters, target) || 0) >= max_interaction_count)
+
+//Mob AI Status
+#define POWER_RESTORATION_OFF 0
+#define POWER_RESTORATION_START 1
+#define POWER_RESTORATION_SEARCH_APC 2
+#define POWER_RESTORATION_APC_FOUND 3
+
+#define PERSONAL_FACTION(src) "faction_[UID_of(src)]"
+
+#define CARBON_MAX_RADIATION 200
+#define NUCLEATION_MAX_RADIATION 800

@@ -197,8 +197,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(!can_cast(user, charge_check, TRUE))
 		return FALSE
 
-	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
-
 	if(ishuman(user))
 		var/mob/living/carbon/human/caster = user
 		if(caster.remoteview_target)
@@ -439,6 +437,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	if(action)
 		action.UpdateButtonIcon()
 
+	user.changeNext_click(CLICK_CD_CLICK_ABILITY)
+
 /**
  * Will write additional logs if create_custom_logs is TRUE and the caster has a ckey. Override this
  *
@@ -668,4 +668,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /// Called when a spell is added
 /obj/effect/proc_holder/spell/proc/on_spell_gain(mob/user = usr)
+	return
+
+/// Called when a spell is removed
+/obj/effect/proc_holder/spell/proc/on_spell_removed(mob/user = usr)
 	return

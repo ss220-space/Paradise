@@ -87,6 +87,12 @@ SUBSYSTEM_DEF(timer)
 	// Dump all the logged data to the world log
 	log_world(to_log.Join("\n"))
 
+/datum/controller/subsystem/timer/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["bucket_count"] = bucket_count
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/timer/fire(resumed = FALSE)
 	// Store local references to datum vars as it is faster to access them
 	var/lit = last_invoke_tick
@@ -550,7 +556,7 @@ SUBSYSTEM_DEF(timer)
 /datum/timedevent/proc/getTimerInfo()
 	var/static/list/bitfield_flags = list("TIMER_UNIQUE", "TIMER_OVERRIDE", "TIMER_CLIENT_TIME", "TIMER_STOPPABLE", "TIMER_NO_HASH_WAIT", "TIMER_LOOP")
 	if(!name)
-		name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield2list(flags, bitfield_flags), ", ")], \
+		name = "Timer: [id] (\ref[src]), TTR: [timeToRun], wait:[wait] Flags: [jointext(bitfield_to_list(flags, bitfield_flags), ", ")], \
 			callBack: \ref[callBack], callBack.object: [callBack.object]\ref[callBack.object]([getcallingtype()]), \
 			callBack.delegate:[callBack.delegate]([callBack.arguments ? callBack.arguments.Join(", ") : ""]), source: [source]"
 	return name
@@ -586,29 +592,18 @@ GLOBAL_LIST_EMPTY(timers_by_type)
  *
  * In-round ability to view what has created a timer, and how many times a timer for that path has been created
  */
-/client/proc/timer_log()
-	set name = "View Timer Log"
-	set category = "Debug"
-	set desc = "Shows the log of what types created timers this round"
-
-	if(!check_rights(R_DEBUG))
-		return
-
+ADMIN_VERB(timer_log, R_DEBUG|R_VIEWRUNTIMES, "View Timer Log", "Shows the log of what types created timers this round.", ADMIN_CATEGORY_DEBUG)
 	var/list/sorted = sortTim(GLOB.timers_by_type, cmp = /proc/cmp_numeric_dsc, associative = TRUE)
 	var/list/text = list("<h1>Timer Log</h1>", "<ul>")
 	for(var/key in sorted)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	var/datum/browser/popup = new(usr, "timerlog", "Timer Log")
+	var/datum/browser/popup = new(user, "timerlog", "Timer Log")
 	popup.set_content(text.Join())
 	popup.open(FALSE)
 
-/client/proc/debug_timers()
-	set name = "Debug Timers"
-	set category = "Debug"
-	set desc = "Shows currently active timers, grouped by callback"
-
+ADMIN_VERB(debug_timers, R_DEBUG|R_VIEWRUNTIMES, "Debug Timers", "Shows currently active timers, grouped by callback.", ADMIN_CATEGORY_DEBUG)
 	var/list/timers = list()
 	for(var/id in SStimer.timer_id_dict)
 		var/datum/timedevent/T = SStimer.timer_id_dict[id]
@@ -640,7 +635,7 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 		text += "<li>[key] - [sorted2[key]]</li>"
 
 	text += "</ul>"
-	var/datum/browser/popup = new(usr, "timerdebug", "Timer Debug")
+	var/datum/browser/popup = new(user, "timerdebug", "Timer Debug")
 	popup.set_content(text.Join())
 	popup.open(FALSE)
 

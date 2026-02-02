@@ -177,7 +177,7 @@
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
 		if(inserted_id)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже содержит другую ID-карту."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже содержит другую ID-карту."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -391,7 +391,7 @@
 /obj/item/storage/box/jumpbootimplant
 	name = "box of jumpboot implants"
 	desc = "Коробка с набором имплантов прыжковых ботинок. Для работы потребуется хирургическая установка."
-	icon_state = "cyber_implants"
+	icon_state = "box_implants"
 
 /obj/item/storage/box/jumpbootimplant/get_ru_names()
 	return list(

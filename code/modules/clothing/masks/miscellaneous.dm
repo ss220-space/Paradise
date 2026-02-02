@@ -206,6 +206,7 @@
 		trigger.HasProximity(AM)
 
 /obj/item/clothing/mask/muzzle/safety/shock/hear_talk(mob/living/M, list/message_pieces)
+	. = ..()
 	if(trigger)
 		trigger.hear_talk(M, message_pieces)
 
@@ -299,24 +300,24 @@
 /obj/item/clothing/mask/bluescarf
 	name = "blue neck scarf"
 	desc = "A blue neck scarf."
-	icon_state = "blueneckscarf"
-	item_state = "blueneckscarf"
+	icon_state = "darkbluescarf"
+	item_state = "darkbluescarf"
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/redscarf
 	name = "red scarf"
 	desc = "A red and white checkered neck scarf."
-	icon_state = "redwhite_scarf"
-	item_state = "redwhite_scarf"
+	icon_state = "redscarf"
+	item_state = "redscarf"
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/greenscarf
 	name = "green scarf"
 	desc = "A green neck scarf."
-	icon_state = "green_scarf"
-	item_state = "green_scarf"
+	icon_state = "greenscarf"
+	item_state = "greenscarf"
 	flags_cover = MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 
@@ -714,3 +715,50 @@
 
 /obj/item/clothing/mask/secscarf/attack_self(mob/user)
 	adjustmask(user)
+
+/obj/item/clothing/head/paper_bag
+	name = "paper bag"
+	desc = "Надетый на голову бумажный пакет. Очень хлипкий!"
+	icon_state = "paper_bag"
+	item_state = "paper_bag"
+	w_class = WEIGHT_CLASS_TINY
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	flags_inv = HIDEHEADSETS|HIDEGLASSES|HIDENAME|HIDEMASK|HIDENECK|HIDE_ALL_HAIR
+	item_flags = DROPDEL
+	sprite_sheets = list(
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+	)
+
+/obj/item/clothing/head/paper_bag/get_ru_names()
+	return list(
+		NOMINATIVE = "бумажный пакет",
+		GENITIVE = "бумажного пакета",
+		DATIVE = "бумажному пакету",
+		ACCUSATIVE = "бумажный пакет",
+		INSTRUMENTAL = "бумажным пакетом",
+		PREPOSITIONAL = "бумажном пакете",
+	)
+
+/obj/item/clothing/head/paper_bag/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(!user || slot != ITEM_SLOT_HEAD)
+		return .
+	var/turf/turf = get_turf(user)
+	if(!turf)
+		return .
+	playsound(user, 'sound/items/poster_ripped.ogg', 40, TRUE)
+	user.clear_fullscreen("fullyblack")
+	user.update_blind_effects()
+
+/obj/item/clothing/head/paper_bag/equipped(mob/living/living, slot)
+	. = ..()
+	if(!living || slot != ITEM_SLOT_HEAD)
+		return .
+	living.overlay_fullscreen("fullyblack", /atom/movable/screen/fullscreen/fullyblack)

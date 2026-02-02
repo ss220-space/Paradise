@@ -4,7 +4,7 @@
 	desc = "Неконтролируемый смех."
 	max_stages = 4
 	stage_prob = 5
-	severity = BIOHAZARD
+	severity = DISEASE_SEVERITY_UNCURABLE
 	visibility_flags = HIDDEN_PANDEMIC
 	curable = FALSE
 	can_immunity = FALSE

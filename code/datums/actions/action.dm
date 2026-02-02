@@ -130,6 +130,7 @@
 	if(owner_has_control)
 		RegisterSignal(grant_to, COMSIG_MOB_KEYDOWN, PROC_REF(keydown), override = TRUE)
 		GiveAction(grant_to)
+	return TRUE
 
 /// Remove the passed mob from being owner of our action
 /datum/action/proc/Remove(mob/remove_from)
@@ -467,11 +468,6 @@
 	SIGNAL_HANDLER
 	if(isnull(full_key) || full_key != src.full_key)
 		return
-	if(istype(source))
-		if(source.next_click > world.time)
-			return
-		else
-			source.next_click = world.time + CLICK_CD_CLICK_ABILITY
 	INVOKE_ASYNC(src, PROC_REF(Trigger))
 	INVOKE_ASYNC(src, PROC_REF(UpdateButtonIcon))
 

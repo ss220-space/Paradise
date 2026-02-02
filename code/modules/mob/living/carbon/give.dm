@@ -1,5 +1,5 @@
 /mob/living/carbon/verb/give(mob/living/carbon/target in oview(1))
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Передать"
 
 	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
@@ -30,8 +30,8 @@
 					to_chat(target, span_warning("[usr.name] ото[GEND_SHEL(usr)] слишком далеко."))
 					return
 				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
-					to_chat(usr, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_LA_LO_LI(I)]  к вашей руке и не отдаётся!"))
-					to_chat(target, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_LA_LO_LI(I)] к руке [usr.name], когда вы попытались взять!"))
+					to_chat(usr, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_LA_LO_LI(I)]  к вашей руке и не отдаётся!"))
+					to_chat(target, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_LA_LO_LI(I)] к руке [usr.name], когда вы попытались взять!"))
 					return
 				if(I != get_active_hand())
 					to_chat(usr, span_warning("Нужно держать предмет в активной руке."))
@@ -56,7 +56,7 @@
  */
 /mob/living/carbon/verb/toggle_give()
 	set name = "Передать предмет"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
@@ -71,7 +71,7 @@
 		to_chat(src, span_warning("У вас нет предмета в руке для передачи!"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(src, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип[GEND_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_YUT(I)]ся!"))
+		to_chat(src, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_YUT(I)]ся!"))
 		return
 	if(I.item_flags & ABSTRACT)
 		to_chat(src, span_warning("Такой предмет нельзя просто взять и передать."))
@@ -251,8 +251,8 @@
 		return
 
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(giver, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип к вашей руке при попытке передачи!"))
-		to_chat(receiver, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] прилип к руке [giver] когда вы пытались взять!"))
+		to_chat(giver, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип к вашей руке при попытке передачи!"))
+		to_chat(receiver, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип к руке [giver] когда вы пытались взять!"))
 		return
 
 	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.

@@ -3,7 +3,7 @@
 	can_immunity = FALSE
 	ignore_immunity = TRUE
 	virus_heal_resistant = TRUE
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 
 /datum/disease/critical/stage_act() //overriden to ensure unique behavior
 	if(affected_mob?.stat == DEAD)

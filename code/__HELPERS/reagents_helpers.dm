@@ -1,1 +1,0 @@
-#define REAGENT_EVAPORATION(amount) (round(amount * REAGENT_EVAPARATION_RATIO, 0.1))

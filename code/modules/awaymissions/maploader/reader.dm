@@ -474,7 +474,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]
 		if(islist(value))
-			value = deepCopyList(value)
+			value = deep_copy_list(value)
 		if(value == null)
 			continue
 		A.vars[attribute] = value

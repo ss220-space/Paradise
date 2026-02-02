@@ -19,6 +19,13 @@
 /// Global list for all telecomms machines in the world
 GLOBAL_LIST_EMPTY(tcomms_machines)
 
+/proc/find_functional_tcomms_core()
+	for(var/obj/machinery/tcomms/core/core in GLOB.tcomms_machines)
+		if(!core.active)
+			continue
+		return TRUE
+	return FALSE
+
 /**
  * # Telecommunications Device
  *
@@ -322,7 +329,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_hearers_in_radio_ranges(radios)
+	var/list/receive = get_hearers_in_radio_ranges(radios) | GLOB.permanent_radio_listeners
 
 	/* ###### Organize the receivers into categories for displaying the message ###### */
 
@@ -335,7 +342,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/mob/R in receive | GLOB.dead_player_list)
+	for(var/mob/R in receive)
 
 		/* --- Loop through the receivers and categorize them --- */
 
@@ -343,9 +350,6 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			continue
 
 		if(isnewplayer(R)) // we don't want new players to hear messages. rare but generates runtimes.
-			continue
-
-		if(isobserver(R) && !R.get_preference(PREFTOGGLE_CHAT_GHOSTRADIO))
 			continue
 
 		// --- Can understand the speech ---

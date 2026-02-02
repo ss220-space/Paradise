@@ -28,6 +28,7 @@
 	name = "fulton extraction kit"
 	gender = MALE
 	icon_state = "box_of_doom"
+	item_state = "syndie"
 
 /obj/item/storage/box/contractor/fulton_kit/get_ru_names()
 	return list(

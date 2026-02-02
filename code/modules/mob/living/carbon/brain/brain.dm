@@ -26,13 +26,6 @@
 /mob/living/carbon/brain/incapacitated(ignore_flags)
 	return FALSE
 
-/mob/living/carbon/brain/on_forcemove(atom/newloc)
-	if(container)
-		container.forceMove(newloc)
-	else //something went very wrong.
-		CRASH("Brainmob without container.")
-	forceMove(container)
-
 /mob/living/carbon/brain/update_mouse_pointer()
 	if(!client)
 		return
@@ -46,7 +39,7 @@ This will return true if the brain has a container that leaves it less helpless 
 I'm using this for Stat to give it a more nifty interface to work with
 */
 /mob/living/carbon/brain/proc/has_synthetic_assistance()
-	return (container && istype(container, /obj/item/mmi)) || in_contents_of(/obj/mecha)
+	return (container && is_mmi(container)) || in_contents_of(/obj/mecha)
 
 /mob/living/carbon/brain/proc/get_race()
 	if(container)

@@ -55,3 +55,19 @@
 #define WORKING_MECH 1
 #define MEDICAL_MECH 2
 #define COMBAT_MECH 3
+
+// Mech Subtypes
+#define MECH_TYPE_NONE (1<<0)
+#define MECH_TYPE_RIPLEY (1<<1)
+#define MECH_TYPE_CLARKE (1<<2)
+#define MECH_TYPE_ODYSSEUS (1<<3)
+#define MECH_TYPE_GYGAX (1<<4)
+#define MECH_TYPE_DURAND (1<<5)
+#define MECH_TYPE_PHAZON (1<<6)
+#define MECH_TYPE_HONKER (1<<7)
+#define MECH_TYPE_RETICENCE (1<<8)
+#define MECH_TYPE_LOCKER (1<<9)
+#define MECH_TYPE_MARAUDER (1<<10)
+#define MECH_TYPE_SIDEWINTER (1<<11)
+#define MECH_TYPE_OLD_DURAND (1<<12)
+#define MECH_TYPE_DARK_GYGAX (1<<13)

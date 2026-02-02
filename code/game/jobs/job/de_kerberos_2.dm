@@ -8,8 +8,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team1
 	insurance_type = INSURANCE_TYPE_NONE
-	min_start_money = 0
-	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
@@ -31,7 +29,7 @@
 	jobtype = /datum/job/civilian/team1
 
 	uniform = /obj/item/clothing/under/color/green
-	shoes = /obj/item/clothing/shoes/green
+	shoes = /obj/item/clothing/shoes/color/green
 	l_ear = /obj/item/radio/headset/green
 
 /datum/job/civilian/team2
@@ -44,8 +42,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team2
 	insurance_type = INSURANCE_TYPE_NONE
-	min_start_money = 0
-	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
@@ -58,7 +54,7 @@
 	jobtype = /datum/job/civilian/team2
 
 	uniform = /obj/item/clothing/under/color/blue
-	shoes = /obj/item/clothing/shoes/blue
+	shoes = /obj/item/clothing/shoes/color/blue
 	l_ear = /obj/item/radio/headset/blue
 
 /datum/job/civilian/team3
@@ -71,8 +67,6 @@
 	spawn_positions = 0
 	outfit = /datum/outfit/job/team/team3
 	insurance_type = INSURANCE_TYPE_NONE
-	min_start_money = 0
-	max_start_money = 10
 	announce_job = FALSE
 	hidden_from_job_prefs = TRUE
 	admin_only = TRUE
@@ -85,5 +79,5 @@
 	jobtype = /datum/job/civilian/team3
 
 	uniform = /obj/item/clothing/under/color/red
-	shoes = /obj/item/clothing/shoes/red
+	shoes = /obj/item/clothing/shoes/color/red
 	l_ear = /obj/item/radio/headset/red

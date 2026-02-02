@@ -74,11 +74,11 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(is_sharp(I) && !harvested && needs_sharp_harvest)
+	if(I.sharp && !harvested && needs_sharp_harvest)
 		add_fingerprint(user)
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_YUT(user)] собирать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
-			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете собирать [declent_ru(ACCUSATIVE)]."),
 		)
 		if(!do_after(user, harvest_time * I.toolspeed, src, category = DA_CAT_TOOL) || harvested)
 			return ATTACK_CHAIN_PROCEED
@@ -91,7 +91,7 @@
 	if(!harvested && !needs_sharp_harvest)
 		user.visible_message(
 			span_notice("[user] начина[PLUR_ET_YUT(user)] собирать [declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете собирать [declent_ru(ACCUSATIVE)]."),
 		)
 		if(do_after(user, harvest_time, src))
 			add_fingerprint(user)
@@ -406,7 +406,7 @@
 	)
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		if(!isturf(loc))
 			add_fingerprint(user)
 			to_chat(user, span_warning("Вы не можете рубить [declent_ru(ACCUSATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc.declent_ru(PREPOSITIONAL)]"]."))

@@ -32,28 +32,6 @@
 		if(GUN_BURST_MODE)
 			. += "[initial(icon_state)]burst"
 
-/obj/item/gun/projectile/automatic/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/ammo_box/magazine))
-		add_fingerprint(user)
-		var/obj/item/ammo_box/magazine/new_magazine = I
-		if(!istype(new_magazine, mag_type))
-			balloon_alert(user, "не совместимо!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(new_magazine, src, silent = TRUE))
-			return ..()
-		if(magazine)
-			magazine.forceMove(get_turf(src))
-			magazine.update_appearance()
-		playsound(loc, magin_sound, 50, TRUE)
-		balloon_alert(user, "заряжено")
-		magazine = new_magazine
-		chamber_round()
-		magazine.update_appearance()
-		update_appearance()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
 /obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(istype(action, /datum/action/item_action/toggle_firemode))
 		toggle_firemode()
@@ -155,10 +133,9 @@
 /obj/item/gun/projectile/automatic/c20r/update_icon_state()
 	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
 
-//C-20rm Full auto
 /obj/item/gun/projectile/automatic/c20r/auto
 	name = "C-20rm SMG"
-	desc = "Новейшая модификация автоматического пистолет-пулемета \"C-20r\" под .45 калибр, отличается выскойим темпом стрельбы в автоматическом режиме."
+	desc = "Новейшая модификация автоматического пистолет-пулемёта \"C-20r\" под .45 калибр. Отличается высоким темпом стрельбы в автоматическом режиме."
 	accuracy = GUN_ACCURACY_PISTOL
 	recoil = GUN_RECOIL_LOW
 	autofire_delay = 0.15 SECONDS
@@ -166,12 +143,12 @@
 
 /obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет-пулемет C-20rm",
-		GENITIVE = "пистолет-пулемета C-20rm",
-		DATIVE = "пистолет-пулемету C-20rm",
-		ACCUSATIVE = "пистолет-пулемету C-20rm",
-		INSTRUMENTAL = "пистолет-пулеметом C-20rm",
-		PREPOSITIONAL = "пистолет-пулемете C-20rm",
+		NOMINATIVE = "пистолет-пулемёт C-20rm",
+		GENITIVE = "пистолет-пулемёта C-20rm",
+		DATIVE = "пистолет-пулемёту C-20rm",
+		ACCUSATIVE = "пистолет-пулемёт C-20rm",
+		INSTRUMENTAL = "пистолет-пулемётом C-20rm",
+		PREPOSITIONAL = "пистолет-пулемёте C-20rm",
 	)
 
 /obj/item/gun/projectile/automatic/c20r/rusted
@@ -181,12 +158,12 @@
 
 /obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
 	return list(
-		NOMINATIVE = "пистолет-пулемет C-20r (ржавый)",
-		GENITIVE = "пистолет-пулемета C-20r (ржавый)",
-		DATIVE = "пистолет-пулемету C-20r (ржавый)",
-		ACCUSATIVE = "пистолет-пулемету C-20r (ржавый)",
-		INSTRUMENTAL = "пистолет-пулеметом C-20r (ржавый)",
-		PREPOSITIONAL = "пистолет-пулемете C-20r (ржавый)",
+		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
+		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
+		DATIVE = "пистолет-пулемёту C-20r (ржавый)",
+		ACCUSATIVE = "пистолет-пулемёт C-20r (ржавый)",
+		INSTRUMENTAL = "пистолет-пулемётом C-20r (ржавый)",
+		PREPOSITIONAL = "пистолет-пулемёте C-20r (ржавый)",
 	)
 
 /obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()

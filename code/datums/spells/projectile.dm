@@ -1,7 +1,7 @@
 /obj/effect/proc_holder/spell/projectile
 	desc = "This spell summons projectiles which try to hit the targets."
 
-	var/proj_icon = 'icons/obj/weapons/projectiles.dmi'
+	var/proj_icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	var/proj_icon_state = "spell"
 	var/proj_name = "a spell projectile"
 

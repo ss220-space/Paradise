@@ -129,7 +129,7 @@
 			break
 		var/image/I = image(M.icon, icon_state = M.icon_state)
 		I.color = opened ? contains_pet_color_open : contains_pet_color_close
-		I.pixel_y = M.mob_size <= MOB_SIZE_TINY ? 6 : 3
+		I.pixel_z = M.mob_size <= MOB_SIZE_TINY ? 6 : 3
 		. += I
 
 	if(!opened)
@@ -192,7 +192,7 @@
 /obj/item/pet_carrier/verb/open_close()
 	set name = "Откр/закр переноску"
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -202,7 +202,7 @@
 /obj/item/pet_carrier/verb/unload_content()
 	set name = "Опустошить переноску"
 	set desc = "Вытаскивает животное из переноски."
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

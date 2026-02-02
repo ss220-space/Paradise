@@ -28,6 +28,12 @@
 	notes = "One of Cybersun Industries oldest and simplest implants. This is the early prototype version of the RX-2. It's significantly cheaper than it's newer version."
 	function = "Subjects injected with this bio-chip can activate an injection of cheap medical cocktails that removes stuns, increases speed, and has mild healing effects."
 
+/datum/implant_fluff/heal
+	name = "Meditech Corporation HRX-8 Healing Nanochip"
+	life = "Seven days."
+	notes = "A reliable implant developed by Meditech Corporation for immediate damage recovery. Its popularity stems from its efficiency and effectiveness in critical situations."
+	function = "When activated, this nanochip consumes nutrients from the subject's body to release a swarm of specialized nanites that quickly repair tissue damage, alleviate pain, and enhance the overall healing process."
+
 /datum/implant_fluff/supercharge
 	name = "Cybersun Industries RX-4 Synthetic Supercharge Bio-chip"
 	life = "Known to last for up to a year."
@@ -162,3 +168,8 @@
 	life = "Lifetime warranty."
 	function = "The onboard gateway system has been modified to reject entry by individuals containing this bio-chip."
 
+/datum/implant_fluff/pathfinder
+	name = "Paizo Productions 5-E Pathfinder Implant"
+	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
+	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
+	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."

@@ -70,7 +70,6 @@
 		layer = ABOVE_ALL_MOB_LAYER	// all should see our monstrosity
 
 /obj/item/reagent_containers/food/snacks/customizable/sandwich
-	icon_state = "breadslice"
 	basename = "sandwich"
 	snack_overlays = TRUE
 
@@ -217,7 +216,7 @@
 /obj/item/reagent_containers/food/snacks/customizable/candy/bar
 	name = "flavored chocolate bar"
 	desc = "Made in a factory downtown."
-	icon_state = "barcustom"
+	icon_state = "barcustom_filling"
 	baseicon = "barcustom"
 	basename = "flavored chocolate bar"
 
@@ -263,7 +262,7 @@
 /obj/item/reagent_containers/food/snacks/customizable/burger
 	name = "burger bun"
 	desc = "A bun for a burger. Delicious."
-	icon_state = "burger"
+	icon_state = "burgercustom"
 	baseicon = "burgercustom"
 	basename = "burger"
 	top = TRUE
@@ -350,19 +349,19 @@
 			else
 				ingredient_image.color = pick("#FF0000", "#0000FF", "#008000", "#FFFF00")
 			if(snack_overlays)
-				ingredient_image.pixel_x = rand(2) - 1
-				ingredient_image.pixel_y = ingredient_num * 2 + 1
+				ingredient_image.pixel_w = rand(2) - 1
+				ingredient_image.pixel_z = ingredient_num * 2 + 1
 		else
 			ingredient_image = new(food.icon, food.icon_state)
-			ingredient_image.pixel_x = rand(2) - 1
-			ingredient_image.pixel_y = rand(2) - 1
+			ingredient_image.pixel_w = rand(2) - 1
+			ingredient_image.pixel_z = rand(2) - 1
 			add_overlay(food.overlays)
 
 		add_overlay(ingredient_image)
 
 	if(top_image)
-		top_image.pixel_x = rand(2) - 1
-		top_image.pixel_y = ingredient_num * 2 + 1
+		top_image.pixel_w = rand(2) - 1
+		top_image.pixel_z = ingredient_num * 2 + 1
 		add_overlay(top_image)
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/newname()

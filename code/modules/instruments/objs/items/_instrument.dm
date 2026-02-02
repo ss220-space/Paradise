@@ -50,7 +50,12 @@
  * Whether the instrument should stop playing
  *
  * Arguments:
- * * user - The user
+ * * music_player - The user
  */
-/obj/item/instrument/proc/should_stop_playing(mob/user)
-	return !(src in user) || !isliving(user) || user.incapacitated()
+/obj/item/instrument/proc/should_stop_playing(atom/music_player)
+	if(!ismob(music_player))
+		return STOP_PLAYING
+	var/mob/user = music_player
+	if(user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))) // sorry, no more TK playing.
+		return STOP_PLAYING
+

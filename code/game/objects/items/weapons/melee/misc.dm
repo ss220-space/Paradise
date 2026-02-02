@@ -1,5 +1,6 @@
 /obj/item/melee
 	needs_permit = TRUE
+	abstract_type = /obj/item/melee
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
@@ -148,6 +149,8 @@
 		swing_sound = SFX_KATANA_SWING \
 	)
 
+	AddElement(/datum/element/lunge_attack, 1.4, 4, 6 SECONDS, TRUE)
+
 /obj/item/melee/mantisblade/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 
@@ -155,12 +158,6 @@
 		transform = null
 	else
 		transform = matrix(-1, 0, 0, 0, 1, 0)
-
-	RegisterSignal(user, COMSIG_MOB_CLICKON, PROC_REF(lunge))
-
-/obj/item/melee/mantisblade/dropped(mob/user, slot, silent)
-	. = ..()
-	UnregisterSignal(user, COMSIG_MOB_CLICKON)
 
 /obj/item/melee/mantisblade/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -182,32 +179,6 @@
 	attack(target, user, params, def_zone)
 	attack_in_progress = FALSE
 
-/obj/item/melee/mantisblade/proc/lunge(mob/living/user, turf/clicked_turf, list/modifiers)
-	SIGNAL_HANDLER
-	if(QDELETED(src) || !user.is_in_hands(src))
-		return
-	if(HAS_TRAIT_FROM(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT))
-		return
-	if(get_dist(user, clicked_turf) <= 1)
-		return
-	if(!LAZYACCESS(modifiers, LEFT_CLICK))
-		return
-	if(IS_HORIZONTAL(user))
-		return
-	if(HAS_TRAIT(user, TRAIT_IMMOBILIZED) || HAS_TRAIT(user, TRAIT_INCAPACITATED))
-		return
-
-	user.apply_status_effect(STATUS_EFFECT_LUNGING)
-	user.throw_at(clicked_turf, 4, 5, src, FALSE, TRUE, callback = CALLBACK(user, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_LUNGING))
-	ADD_TRAIT(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT)
-	addtimer(CALLBACK(src, PROC_REF(allow_lunge), user), 6 SECONDS)
-
-/obj/item/melee/mantisblade/proc/allow_lunge(mob/living/user)
-	if(!HAS_TRAIT_FROM(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT))
-		return
-	REMOVE_TRAIT(user, TRAIT_CANT_LUNGE, MANTIS_BLADE_TRAIT)
-	user.balloon_alert(user, "выпад доступен")
-
 /obj/item/melee/mantisblade/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 
@@ -217,7 +188,7 @@
 	if(prob(25))
 		do_sparks(rand(1, 6), TRUE, loc)
 
-	if(istype(target, /obj/machinery/door/airlock))
+	if(is_airlock(target))
 		var/obj/machinery/door/airlock/A = target
 
 		if(!A.requiresID() || A.allowed(user))

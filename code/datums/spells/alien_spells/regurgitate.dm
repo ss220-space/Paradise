@@ -10,7 +10,7 @@
 	for(var/mob/M in user.stomach_contents)
 		var/turf/output_loc = user.loc
 		M.forceMove(output_loc)
-		visible_message("<span class='alertalien'><b>[user] hurls out the contents of [p_their()] stomach!</span>")
+		visible_message(span_alertalien("<b>[user] hurls out the contents of [p_their()] stomach!"))
 		return
-	visible_message("<span class='alertalien'><b>[user] dry heaves!</span>")
+	visible_message(span_alertalien("<b>[user] dry heaves!"))
 

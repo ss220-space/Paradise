@@ -5,7 +5,7 @@
 	cures = list()              // YOU
 	virus_heal_resistant = TRUE // CAN'T
 	can_immunity = FALSE		// ESCAPE
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_BIOHAZARD
 	stage_prob = 5
 	can_contract_dead = TRUE
 	cure_text = null

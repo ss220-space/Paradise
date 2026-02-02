@@ -1,4 +1,5 @@
 // code\game\machinery\doors\airlock_electronics.dm
+import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
 import { Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
@@ -27,6 +28,7 @@ type AirlockElectronicsData = {
   selected_accesses: number[];
   one_access: boolean;
   regions: Access[];
+  shell: BooleanLike;
 };
 
 const UnrestrictedAccess = (props: unknown) => {
@@ -108,12 +110,23 @@ const UnrestrictedAccess = (props: unknown) => {
 
 const ChooseAccess = (props: unknown) => {
   const { act, data } = useBackend<AirlockElectronicsData>();
-  const { selected_accesses, one_access, regions } = data;
+  const { selected_accesses, one_access, regions, shell } = data;
   return (
     <AccessList
       usedByRcd
       rcdButtons={[
         <>
+          <Button.Checkbox
+            checked={shell}
+            onClick={() => {
+              act('set_shell', {
+                on: !shell,
+              });
+            }}
+            tooltip="Можно ли установить интегральную схему в этот шлюз?"
+          >
+            Оболочка
+          </Button.Checkbox>
           <Button.Checkbox
             checked={one_access}
             onClick={() =>

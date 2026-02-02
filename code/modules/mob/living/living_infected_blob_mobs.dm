@@ -1,4 +1,4 @@
-/mob/living/proc/can_be_blob()
+/mob/proc/can_be_blob()
 	return FALSE
 
 /mob/living/proc/burst_blob_on_die()

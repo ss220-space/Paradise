@@ -1,6 +1,5 @@
 /**
- * Check atmos pipes are not routed under unary devices such as vents and
- * scrubbers.
+ * Check atmos pipes are not routed under unary devices such as vents and scrubbers.
  */
 /datum/map_per_tile_test/pipe_vent_checker
 	var/list/pipe_roots = list(
@@ -39,6 +38,41 @@
 
 	if(center_nodes > 1)
 		Fail(T, "tile has multiple center cable nodes")
+
+/datum/map_per_tile_test/nearspace_checker
+	var/allowed_turfs = list(
+		/turf/space,
+		/turf/simulated/floor/plating/airless,
+		/turf/simulated/floor/plasteel/airless,
+		/turf/simulated/wall,
+	)
+
+/datum/map_per_tile_test/nearspace_checker/New()
+	..()
+	allowed_turfs = typecacheof(allowed_turfs)
+
+/datum/map_per_tile_test/nearspace_checker/CheckTile(turf/T)
+	if(T.loc.type == /area/space/nearstation && !is_type_in_list(T, allowed_turfs))
+		Fail(T, "nearspace area contains a non-space turf: [T], ([T.type])")
+
+/datum/map_per_tile_test/cable_adjacency_checker
+
+/datum/map_per_tile_test/cable_adjacency_checker/CheckTile(turf/T)
+	for(var/obj/structure/cable/cable in T.contents)
+		check_direction(T, cable.d1, "d1")
+		check_direction(T, cable.d2, "d2")
+
+/datum/map_per_tile_test/cable_adjacency_checker/proc/check_direction(origin_turf, direction, report_name)
+	if(!direction) // cable direction = 0, which means its a node
+		return TRUE
+	var/turf/potential_cable_turf = get_step(origin_turf, direction)
+	var/reversed_direction = REVERSE_DIR(direction)
+	for(var/obj/structure/cable/other_cable in potential_cable_turf.contents)
+		if(reversed_direction == other_cable.d1 || reversed_direction == other_cable.d2)
+			return TRUE
+
+	Fail(origin_turf, "tile has an unconnected cable ([report_name] connection: [uppertext(dir2text(direction))]).")
+	return FALSE
 
 /**
  * Check to ensure that APCs have a cable node on their tile.
@@ -107,3 +141,28 @@
 		for(var/invalid_type in invalid_types)
 			if(locate(invalid_type) in T.contents)
 				Fail(T, "Non-multi-z turf contains at least one multi-z object of type [invalid_type]")
+
+/datum/map_per_tile_test/missing_pipe_connection
+
+/datum/map_per_tile_test/missing_pipe_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/pipe/simple/pipe = locate() in T.contents
+	if(isnull(pipe))
+		return
+	if(!pipe.node1 && !pipe.node2)
+		Fail(T, "[pipe] ([pipe.type]) missing both nodes.")
+		return
+	if(istype(pipe, /obj/machinery/atmospherics/pipe/simple/heat_exchanging) && (pipe.node1 || pipe.node2))
+		return // H/E pipes only need one end, because they don't always become full loops
+	if(!pipe.node1)
+		Fail(T, "[pipe] ([pipe.type]) missing node1. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node2))))])")
+	if(!pipe.node2)
+		Fail(T, "[pipe] ([pipe.type]) missing node2. ([uppertext(dir2text(pipe.initialize_directions & ~(get_dir(pipe, pipe.node1))))])")
+
+/datum/map_per_tile_test/unary_device_connection
+
+/datum/map_per_tile_test/unary_device_connection/CheckTile(turf/T)
+	var/obj/machinery/atmospherics/unary/unary_device = locate() in T.contents
+	if(isnull(unary_device))
+		return
+	if(!unary_device.node)
+		Fail(T, "[unary_device] ([unary_device.type]) missing node. ([uppertext(dir2text(unary_device.dir))])")

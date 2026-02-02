@@ -43,9 +43,6 @@
 
 /obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(ismineralturf(AM) || hacked)
-		if(isancientturf(AM) && !hacked)
-			visible_message(span_notice("Эта порода, кажется, устойчива ко всем инструментам, кроме кирок!"))
-			return
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
 				return
@@ -241,7 +238,7 @@
 	if(length(bombs))
 		. += span_notice("Список синхронизированных зарядов:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += span_notice("[icon2html(charge, user)] [capitalize(charge.declent_ru(NOMINATIVE))]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
+			. += span_notice("[icon2html(charge, user)] [DECLENT_RU_CAP(charge, NOMINATIVE)]. Текущий статус: [charge.installed ? "готов к подрыву" : "готов к установке"].")
 
 /obj/item/detonator/update_icon_state()
 	if(length(bombs))

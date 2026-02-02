@@ -32,9 +32,6 @@
 		var/obj/target_obj = target
 		if(target_obj.resistance_flags & UNACIDABLE)
 			return FALSE
-	if(isancientturf(target))
-		visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
-		return FALSE
 	target.visible_message(
 		span_warning("[chassis] starts to drill [target]."),
 		span_userdanger("[chassis] starts to drill [target]..."),

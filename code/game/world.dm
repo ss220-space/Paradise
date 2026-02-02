@@ -4,17 +4,10 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 GLOBAL_DATUM(test_runner, /datum/test_runner)
 #endif
 
-/proc/enable_debugging(mode, port)
-	CRASH("auxtools not loaded")
-
 /world/New()
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
 	prof_init()
-#endif
-
-#ifndef OPENDREAM
-	dmjit_hook_main_init()
 #endif
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
@@ -206,8 +199,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	if(totalPlayersReady <= CONFIG_GET(number/auto_extended_players_num))
 		GLOB.master_mode = "extended"
-		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
-	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
+		to_chat(world, span_boldnotice("Due to the lowpop the mode has been changed."))
+	to_chat(world, span_boldnotice("The mode is now: [GLOB.master_mode]"))
 
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")

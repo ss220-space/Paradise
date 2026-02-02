@@ -264,6 +264,7 @@
 /obj/effect/landmark/awaymissions/spacebattle/mob_spawn
 	name = "spawner"
 	icon = 'icons/obj/spacebattle.dmi'
+	icon_state = null
 	var/id = null
 	var/syndi_mob = null
 
@@ -548,7 +549,7 @@
 	mob_name = "Ship Personnel"
 	id = /obj/item/card/id/away/old
 	uniform = /obj/item/clothing/under/color/random
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 
 /obj/effect/mob_spawn/human/corpse/spacebattle/security
 	name = "Dead Officer"
@@ -643,7 +644,7 @@
 	id = /obj/item/card/id/away/old/med
 	uniform = /obj/item/clothing/under/retro/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	id = /obj/item/card/id/medical
 	back = /obj/item/storage/backpack/satchel_med
 
@@ -682,7 +683,7 @@
 	mob_name = "Scientist"
 	id = /obj/item/card/id/away/old/sci
 	uniform = /obj/item/clothing/under/retro/science
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	suit = /obj/item/clothing/suit/storage/labcoat/science
 
 /obj/item/clothing/suit/space/hardsuit/syndi/damaged

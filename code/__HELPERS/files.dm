@@ -1,4 +1,4 @@
-// Security helpers to ensure you cant arbitrarily load stuff from disk
+/// Security helpers to ensure you cant arbitrarily load stuff from disk
 /proc/wrap_file(filepath)
 	if(IsAdminAdvancedProcCall())
 		// Admins shouldnt fuck with this
@@ -17,8 +17,8 @@
 
 	return file2text(filepath)
 
-//checks if a file exists and contains text
-//returns text as a string if these conditions are met
+///checks if a file exists and contains text
+///returns text as a string if these conditions are met
 /proc/return_file_text(filename)
 	if(fexists(filename) == 0)
 		error("File not found ([filename])")
@@ -31,7 +31,7 @@
 
 	return text
 
-//Sends resource files to client cache
+///Sends resource files to client cache
 /client/proc/getFiles()
 	if(IsAdminAdvancedProcCall())
 		to_chat(usr, span_boldannounceooc("Shelleo blocked: Advanced ProcCall detected."))
@@ -137,17 +137,77 @@
 
 	return filenames
 
-/// Returns the md5 of a file at a given path.
-/proc/md5filepath(path)
-	. = md5(file(path))
-
 /// Save file as an external file then md5 it.
 /// Used because md5ing files stored in the rsc sometimes gives incorrect md5 results.
+/// https://www.byond.com/forum/post/2611357
 /proc/md5asfile(file)
 	var/static/notch = 0
 	// Its importaint this code can handle md5filepath sleeping instead of hard blocking, if it's converted to use rust_g.
 	var/filename = "tmp/md5asfile.[world.realtime].[world.timeofday].[world.time].[world.tick_usage].[notch]"
 	notch = WRAP(notch+1, 0, 2**15)
 	fcopy(file, filename)
-	. = md5filepath(filename)
+	. = rustlib_hash_file(RUSTLIB_HASH_MD5, filename)
 	fdel(filename)
+
+/**
+ * Sanitizes the name of each node in the path.
+ *
+ * Im case you are wondering when to use this proc and when to use SANITIZE_FILENAME,
+ *
+ * You use SANITIZE_FILENAME to sanitize the name of a file [e.g. example.txt]
+ *
+ * You use sanitize_filepath sanitize the path of a file [e.g. root/node/example.txt]
+ *
+ * If you use SANITIZE_FILENAME to sanitize a file path things will break.
+ */
+/proc/sanitize_filepath(path)
+	. = ""
+	var/delimiter = "/" //Very much intentionally hardcoded
+	var/list/all_nodes = splittext(path, delimiter)
+	for(var/node in all_nodes)
+		if(.)
+			. += delimiter // Add the delimiter before each successive node.
+		. += SANITIZE_FILENAME(node)
+
+/**
+ * Verifys wether a string or file ends with a given file type.
+ *
+ * this does not at all check the actual type of the file, a user could just rename it
+ *
+ * Arguments:
+ * * file - A string or file. No checks for if this file ACCTALLY exists
+ * * file_types - A list of strings to check against [e.g. list("ogg" = TRUE, "mp3" = TRUE)]
+ */
+/proc/is_file_type_in_list(file, file_types = list())
+	var/extstart = findlasttext("[file]", ".")
+	if(!extstart)
+		return FALSE
+	var/ext = copytext("[file]", extstart + 1)
+	if(file_types[ext])
+		return TRUE
+
+/**
+ * Verifys wether a string or file ends with a given file type
+ *
+ * this does not at all check the actual type of the file, a user could just rename it
+ *
+ * Arguments:
+ * * file - A string or file. No checks for if this file ACCTALLY exists
+ * * file_type - A string to check against [e.g. "ogg"]
+ */
+/proc/is_file_type(file, file_type)
+	var/extstart = findlasttext("[file]", ".")
+	if(!extstart)
+		return FALSE
+	var/ext = copytext("[file]", extstart + 1)
+	if(ext == file_type)
+		return TRUE
+
+/proc/strip_filepath_extension(file, file_types)
+	var/extstart = findlasttext("[file]", ".")
+	if(!extstart)
+		return "[file]"
+	var/ext = copytext("[file]", extstart + 1)
+	if(ext in file_types)
+		return copytext("[file]", 1, extstart)
+	return "[file]"

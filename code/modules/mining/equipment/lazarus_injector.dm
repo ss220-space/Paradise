@@ -42,7 +42,7 @@
 				if(istype(target, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					if(malfunctioning)
-						H.faction |= list("lazarus", "\ref[user]")
+						H.faction |= list("lazarus", PERSONAL_FACTION(user))
 						H.robust_searching = 1
 						H.friends += user
 						H.attack_same = 1
@@ -75,7 +75,7 @@
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()
 	if(!loaded)
-		. += span_notice("[capitalize(declent_ru(NOMINATIVE))] пуст.")
+		. += span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] пуст.")
 	if(malfunctioning)
 		. += span_notice("Дисплей [declent_ru(GENITIVE)] мерцает.")
 

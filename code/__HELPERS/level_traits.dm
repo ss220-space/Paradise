@@ -57,3 +57,6 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 	if(A.z == B.z)
 		return TRUE
 	return (B.z in SSmapping.get_connected_levels(A))
+
+/proc/is_there_multiz()
+	return length(SSmapping?.map_datum?.traits) > 1

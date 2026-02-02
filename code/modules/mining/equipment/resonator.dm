@@ -136,17 +136,14 @@
 	var/turf/src_turf = get_turf(src)
 	new /obj/effect/temp_visual/resonance_crush(src_turf)
 	if(ismineralturf(src_turf))
-		if(isancientturf(src_turf))
-			visible_message(span_notice("Эта порода устойчива ко всем инструментам, кроме кирок!"))
-		else
-			var/turf/simulated/mineral/M = src_turf
-			M.attempt_drill(creator)
+		var/turf/simulated/mineral/mineral = src_turf
+		mineral.attempt_drill(creator)
 	check_pressure(src_turf)
 	playsound(src_turf,'sound/weapons/resonator_blast.ogg',50, TRUE)
 	for(var/mob/living/L in src_turf)
 		if(creator)
 			add_attack_logs(creator, L, "Resonance field'ed")
-		to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] разрывается с вами внутри!"))
+		to_chat(L, span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывается с вами внутри!"))
 		L.apply_damage(resonance_damage, BRUTE)
 	for(var/obj/effect/temp_visual/resonance/field in orange(1, src))
 		if(field.rupturing)

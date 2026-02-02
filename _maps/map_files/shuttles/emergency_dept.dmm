@@ -118,17 +118,6 @@
 	icon_state = "dark"
 	},
 /area/shuttle/escape)
-"at" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -60
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark"
-	},
-/area/shuttle/escape)
 "au" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
@@ -174,6 +163,7 @@
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
+/obj/item/radio/intercom/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -1162,7 +1152,7 @@ bw
 ac
 aj
 ao
-at
+an
 an
 TX
 cH

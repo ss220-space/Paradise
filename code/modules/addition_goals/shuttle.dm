@@ -103,7 +103,7 @@
 				closet.open()
 		//delete all
 		for(var/atom/movable/content in turf.contents)
-			if(istype(content, /obj/machinery/door/airlock)) //this is airlock
+			if(is_airlock(content)) //this is airlock
 				continue
 			if(istype(content, /obj/machinery/light)) //this is shuttle lamps
 				continue

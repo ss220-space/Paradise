@@ -21,6 +21,7 @@
  */
 
 /obj/item/toy
+	abstract_type = /obj/item/toy
 	throw_speed = 4
 	throw_range = 20
 	var/unique_toy_rename = FALSE
@@ -63,9 +64,9 @@
 	if(istype(A, /obj/structure/reagent_dispensers))
 		var/obj/structure/reagent_dispensers/RD = A
 		if(RD.reagents.total_volume <= 0)
-			to_chat(user, span_warning("[capitalize(RD.declent_ru(NOMINATIVE))] пустой."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(RD, NOMINATIVE)] пустой."))
 		else if(reagents.total_volume >= 10)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] полный."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] полный."))
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
 			A.reagents.trans_to(src, 10)
@@ -84,7 +85,7 @@
 	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		add_fingerprint(user)
 		if(!I.reagents || I.reagents.total_volume < 1)
-			to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] пуст!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] пуст!"))
 			return ATTACK_CHAIN_PROCEED
 		if(I.reagents.has_reagent("facid", 1) || I.reagents.has_reagent("acid", 1))
 			to_chat(user, span_warning("Кислота прожигает шарик!"))
@@ -101,7 +102,7 @@
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(reagents.total_volume >= 1)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] лопается!"), "Вы слышите хлопок и всплеск.")
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] лопается!"), "Вы слышите хлопок и всплеск.")
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
@@ -276,7 +277,7 @@
 	. = ..()
 	do_sparks(3, TRUE, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"), span_warning("Вы слышите хлопок!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
@@ -301,11 +302,11 @@
 /obj/item/toy/snappop/proc/pop_burst(number = 3, cardinal_only = TRUE)
 	do_sparks(number, cardinal_only, src)
 	new ash_type(loc)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"), span_warning("Вы слышите хлопок!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"), span_warning("Вы слышите хлопок!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 	qdel(src)
 
-/obj/item/toy/snappop/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/toy/snappop/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	pop_burst()
 
@@ -528,8 +529,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 
-//This should really be somewhere else but I don't know where. w/e
-
 /obj/item/inflatable_duck
 	name = "inflatable duck"
 	desc = "No bother to sink or swim when you can just float!"
@@ -541,7 +540,6 @@
 /*
  * Fake meteor
  */
-
 /obj/item/toy/minimeteor
 	name = "Mini-Meteor"
 	desc = "Relive the excitement of a meteor shower! SweetMeat-eor. Co is not responsible for any injuries, headaches or hearing loss caused by Mini-Meteor."
@@ -992,11 +990,35 @@
 
 //New generation TG plushies
 
-/obj/item/toy/plushie/lizardplushie
+/obj/item/toy/plushie/lizard_plushie
 	name = "lizard plushie"
 	desc = "An adorable stuffed toy that resembles a lizardperson."
-	icon_state = "plushie_lizard"
+	icon_state = "map_plushie_lizard"
 	item_state = "plushie_lizard"
+	greyscale_config = /datum/greyscale_config/plush_lizard
+	greyscale_config_inhand_left = /datum/greyscale_config/plush_lizard_left
+	greyscale_config_inhand_right = /datum/greyscale_config/plush_lizard_right
+
+/obj/item/toy/plushie/lizard_plushie/Initialize(mapload)
+	. = ..()
+	if(greyscale_colors)
+		return
+
+	// Generate a random valid lizard color for our plushie friend
+	var/generated_lizard_color = "#" + random_color()
+	var/temp_hsv = RGBtoHSV(generated_lizard_color)
+
+	// If our color is too dark, use the classic green lizard plush color
+	if(ReadHSV(temp_hsv)[3] < ReadHSV("#7f7f7f")[3])
+		generated_lizard_color = "#66ff33"
+	// Set our greyscale colors to the lizard color we made + black eyes
+	set_greyscale_colors(colors = list(generated_lizard_color, COLOR_BLACK))
+
+// Preset lizard plushie that uses the original lizard plush green. (Or close to it)
+/obj/item/toy/plushie/lizard_plushie/green
+	desc = "An adorable stuffed toy that resembles a green lizardperson. This one fills you with nostalgia and soul."
+	greyscale_colors = "#66ff33#000000"
+	flags = /obj/item/toy/plushie::flags|NO_NEW_GAGS_PREVIEW
 
 /obj/item/toy/plushie/ashwalkerplushie
 	name = "ash walker plushie"
@@ -1113,11 +1135,11 @@
 		update_icon(UPDATE_ICON_STATE)
 		switch(plushie_color)
 			if("green")
-				user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Я не боюсь тьмы! Я сама тьма!\""))
+				user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Я не боюсь тьмы! Я сама тьма!\""))
 			if("blue")
-				user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Твой жалкий свет меня не остановит!\""))
+				user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Твой жалкий свет меня не остановит!\""))
 			if("red")
-				user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"Ты можешь бежать, но не сможешь спрятаться!\""))
+				user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"Ты можешь бежать, но не сможешь спрятаться!\""))
 		plushie_color = null
 
 //New toys from another builds
@@ -1527,7 +1549,7 @@
 
 /obj/item/toy/plushie/wet_owl/water_act(volume, temperature, source, method)
 	. = ..()
-	visible_message(span_cultitalic("[capitalize(declent_ru(NOMINATIVE))] недовольно завывает."))
+	visible_message(span_cultitalic("[DECLENT_RU_CAP(src, NOMINATIVE)] недовольно завывает."))
 	playsound(src, 'sound/effects/wet_owl_horror.ogg', 50, FALSE, -1)
 	temporary_become_evil(30 SECONDS)
 
@@ -1576,6 +1598,22 @@
 	playsound(loc, poof_sound, 20, FALSE)
 
 #undef EVIL_MODE_CHANCE
+
+/obj/item/toy/plushie/manulplushie
+	name = "manul plushie"
+	desc = "Чёрный котик в красными ушами, в халатике, на халате бирка \"Манул\". Кто-то оставил эту игрушку здесь в память..."
+	icon_state = "kotik_plushie"
+	item_state = "kotik_hand"
+
+/obj/item/toy/plushie/manulplushie/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушка Манула",
+		GENITIVE = "игрушки Манула",
+		DATIVE = "игрушке Манула",
+		ACCUSATIVE = "игрушку Манула",
+		INSTRUMENTAL = "игрушкой Манула",
+		PREPOSITIONAL = "игрушке Манула",
+	)
 
 /*
  * Foam Armblade
@@ -1790,7 +1828,7 @@
 	force = 5
 	throwforce = 5
 	attack_verb = list("атаковал", "ударил", "окаменил")
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 
 /obj/item/toy/pet_rock/fred
 	name = "fred"
@@ -1824,7 +1862,7 @@
 /obj/item/toy/minigibber/attack_self(mob/user)
 
 	if(stored_minature)
-		user.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] издаёт жуткий скрежет, уничтожая миниатюрную фигурку внутри!"))
+		user.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] издаёт жуткий скрежет, уничтожая миниатюрную фигурку внутри!"))
 		QDEL_NULL(stored_minature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, TRUE)
 		cooldown = world.time
@@ -1895,7 +1933,7 @@
 	item_state = "gun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	flags =  CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
@@ -1961,7 +1999,7 @@
 		user.death() // Just in case
 		return TRUE
 	else
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] нужно перезарядить."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] нужно перезарядить."))
 		return FALSE
 
 /obj/item/toy/russian_revolver/trick_revolver
@@ -1991,7 +2029,7 @@
 	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
-	to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] действительно выглядел довольно сомнительно!"))
+	to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] действительно выглядел довольно сомнительно!"))
 	SEND_SOUND(user, sound('sound/misc/sadtrombone.ogg')) //HONK
 /*
  * Rubber Chainsaw
@@ -2049,7 +2087,7 @@
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
-		user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит \"[toysay]\"."))
+		user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит \"[toysay]\"."))
 		playsound(user, 'sound/machines/click.ogg', 20, TRUE)
 
 /obj/item/toy/figure/cmo
@@ -2291,7 +2329,7 @@
 	if(!cooldown)
 		var/answer = pick(possible_answers)
 		user.visible_message(span_notice("[user] сосредотачива[PLUR_ET_YUT(user)]ся на своём вопросе и [use_action]..."))
-		user.visible_message(span_notice("[icon2html(src, viewers(user))] [capitalize(declent_ru(NOMINATIVE))] говорит: \"[answer]\""))
+		user.visible_message(span_notice("[icon2html(src, viewers(user))] [DECLENT_RU_CAP(src, NOMINATIVE)] говорит: \"[answer]\""))
 		spawn(30)
 			cooldown = 0
 		return
@@ -2340,7 +2378,7 @@
 
 /obj/item/toy/desk/verb/rotate()
 	set name = "Повернуть"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -2369,7 +2407,7 @@
 
 /obj/item/toy/desk/newtoncradle/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/newtoncradle/attack_self(mob/user)
 	on = !on
@@ -2387,7 +2425,7 @@
 
 /obj/item/toy/desk/fan/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 /obj/item/toy/desk/fan/attack_self(mob/user)
 	on = !on

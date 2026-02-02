@@ -22,6 +22,7 @@ PROCESSING_SUBSYSTEM_DEF(instruments)
 	var/static/current_instrument_channels = 0
 	/// Single cached list for synthesizer instrument ids, so you don't have to have a new list with every synthesizer.
 	var/static/list/synthesizer_instrument_ids
+	var/static/list/note_sustain_modes = list("Линейно" = SUSTAIN_LINEAR, "Экспоненциально" = SUSTAIN_EXPONENTIAL)
 
 /datum/controller/subsystem/processing/instruments/Initialize()
 	initialize_instrument_data()

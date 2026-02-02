@@ -1,6 +1,6 @@
 /obj/item/organ/internal/xenos
 	origin_tech = "biotech=5"
-	icon_state = "xgibmid2"
+	icon_state = null
 	tough = TRUE
 	sterile = TRUE
 	/// List of all powers carbon will get from inserted organ.

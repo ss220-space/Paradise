@@ -62,7 +62,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
-	icon_state = "none"
+	icon_state = null
 	density = TRUE
 	max_integrity = 500
 	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 80)
@@ -105,17 +105,17 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	. = ..()
 	switch(construction_state)
 		if(ACCELERATOR_UNWRENCHED)
-			. += "<span class='notice'>\The [name]'s <i>anchoring bolts</i> are loose.</span>"
+			. += span_notice("\The [name]'s <i>anchoring bolts</i> are loose.")
 		if(ACCELERATOR_WRENCHED)
-			. += "<span class='notice'>\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.</span>"
+			. += span_notice("\The [name]'s anchoring bolts are <b>wrenched</b> in place, but it lacks <i>wiring</i>.")
 		if(ACCELERATOR_WIRED)
-			. +=  "<span class='notice'>\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.</span>"
+			. +=  span_notice("\The [name] is <b>wired</b>, but the maintenance panel is <i>unscrewed and open</i>.")
 		if(ACCELERATOR_READY)
-			. += "<span class='notice'>\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.</span>"
+			. += span_notice("\The [name] is assembled and the maintenence panel is <b>screwed shut</b>.")
 			if(powered)
 				desc = desc_holder
 	if(!anchored)
-		. += "<span class='notice'><b>Alt-Click</b> to rotate it.</span>"
+		. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 /obj/structure/particle_accelerator/deconstruct(disassembled = TRUE)
 	if(!(obj_flags & NODECONSTRUCT))
@@ -241,7 +241,7 @@ So, hopefully this is helpful if any more icons are to be added/changed/wonderin
 	name = "Particle Accelerator"
 	desc = "Part of a Particle Accelerator."
 	icon = 'icons/obj/engines_and_power/particle_accelerator.dmi'
-	icon_state = "none"
+	icon_state = null
 	density = TRUE
 	use_power = NO_POWER_USE
 	var/construction_state = 0

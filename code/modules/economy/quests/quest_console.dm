@@ -44,7 +44,7 @@
 /obj/machinery/computer/supplyquest/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "QuestConsole", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "QuestConsole", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 #define BASE_HIGHTECH_COST 40000
@@ -73,7 +73,7 @@
 				"tech_id" = initial(tech.id)
 			))
 		data["purchased_techs"] = purchased_techs
-	var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
+	var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 	data["cargo_money"] = cargo_money_account.money
 	data["points"] = round(SSshuttle.points)
 	return data
@@ -111,7 +111,7 @@
 	return data
 
 /obj/machinery/computer/supplyquest/ui_assets(mob/user)
-	return list(get_asset_datum(/datum/asset/spritesheet/cargo_quest))
+	return list(get_asset_datum(/datum/asset/spritesheet_batched/cargo_quest))
 
 /obj/machinery/computer/supplyquest/ui_act(action, list/params)
 	if(..())
@@ -182,7 +182,7 @@
 				to_chat(user, span_warning("Институт ЦК не может поделиться с вами данной технологий в данный момент."))
 				playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 				return FALSE
-			var/datum/money_account/cargo_money_account = GLOB.department_accounts["Cargo"]
+			var/datum/money_account/cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 			var/attempt_pin = tgui_input_number(user, "Введите пароль", "Транзакция с ЦК")
 			if(..() || !attempt_account_access(cargo_money_account.account_number, attempt_pin, 2))
 				to_chat(user, span_warning("Не удаётся получить доступ к учётной записи: неверные учётные данные."))
@@ -245,7 +245,6 @@
 	icon_state = "quest_console"
 	icon_screen = "quest"
 	icon_keyboard = null
-	accept_orders = FALSE
 	circuit = /obj/item/circuitboard/questcons
 	density = FALSE
 

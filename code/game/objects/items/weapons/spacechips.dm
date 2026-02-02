@@ -3,7 +3,7 @@
 	desc = "Chips for playing poker"
 	icon = 'icons/goonstation/objects/pokerchips.dmi'
 	icon_state = "c1000"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 1
 	throwforce = 1
 	throw_speed = 1

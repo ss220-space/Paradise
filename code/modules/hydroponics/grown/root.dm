@@ -30,7 +30,7 @@
 	icon_state = "carrot_wedges"
 
 /obj/item/reagent_containers/food/snacks/grown/carrot/attackby(obj/item/I, mob/user, params)
-	if(is_sharp(I))
+	if(I.sharp)
 		to_chat(user, span_notice("You have sharpen [src] into a shiv with [I]."))
 		var/obj/item/kitchen/knife/carrotshiv/shiv = new(drop_location())
 		transfer_fingerprints_to(shiv)

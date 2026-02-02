@@ -1,5 +1,6 @@
 /mob/living/simple_animal/hostile
-	faction = list("hostile",)
+	abstract_type = /mob/living/simple_animal/hostile
+	faction = list("hostile")
 	stop_automated_movement_when_pulled = 0
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
@@ -531,7 +532,7 @@
 		return
 	if(CheckFriendlyFire(A))
 		return
-	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_danger("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> [ranged_message] на [A.declent_ru(ACCUSATIVE)]!"))
 
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
@@ -549,7 +550,7 @@
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
 		playsound(src, projectilesound, 100, TRUE)
-		casing.fire(targeted_atom, src, zone_override = ran_zone())
+		casing.fire(targeted_atom, src, zone_override = ran_zone(), firer_source_atom = src)
 		casing.after_fire()
 	else if(projectiletype)
 		var/obj/projectile/P = new projectiletype(startloc)
@@ -557,17 +558,18 @@
 		P.current = startloc
 		P.starting = startloc
 		P.firer = src
+		P.firer_source_atom = src
 		P.yo = targeted_atom.y - startloc.y
 		P.xo = targeted_atom.x - startloc.x
 		if(AIStatus != AI_ON)//Don't want mindless mobs to have their movement screwed up firing in space
 			newtonian_move(get_dir(targeted_atom, targets_from))
 		P.original = targeted_atom
-		P.preparePixelProjectile(targeted_atom, get_turf(targeted_atom), src)
+		P.preparePixelProjectile(targeted_atom, startloc)
 		P.fire()
 		return P
 
 /mob/living/simple_animal/hostile/proc/CanSmashTurfs(turf/T)
-	return iswallturf(T) || (ismineralturf(T) && !istype(T, /turf/simulated/mineral/ancient/outer))
+	return (iswallturf(T) || ismineralturf(T))
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	if(dodging && approaching_target && prob(dodge_prob) && !moving_diagonally && isturf(loc) && isturf(newloc))
