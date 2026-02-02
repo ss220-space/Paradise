@@ -55,7 +55,7 @@
 
 //////////////////////////////////////////////////////////////////
 
-// /datum signals
+//MARK: /datum signals
 /// when a component is added to a datum: (/datum/component)
 #define COMSIG_COMPONENT_ADDED "component_added"
 /// before a component is removed from a datum because of ClearFromParent(): (/datum/component)
@@ -74,7 +74,7 @@
 /// fires on the target datum when an element is attached to it  (/datum/element)
 #define COMSIG_ELEMENT_DETACH "element_detach"
 
-// /atom signals
+//MARK: /atom signals
 ///from base of atom/proc/Initialize(): sent any time a new atom is created
 #define COMSIG_ATOM_CREATED "atom_created"
 //from SSatoms InitAtom - Only if the  atom was not deleted or failed initialization
@@ -269,7 +269,8 @@
 /// generally called before temporary non-parallel animate()s on the atom (animation_duration)
 #define COMSIG_ATOM_TEMPORARY_ANIMATION_START "atom_temp_animate_start"
 
-// Attack signals. These should share the returned flags, to standardize the attack chain.
+//MARK: Attack signals.
+// These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
 // tool_act -> pre_attackby -> target.attackby (item.attack) -> afterattack
 // You can use these signal responses to cancel the attack chain at a certain point from most attack signal types.
@@ -332,7 +333,7 @@
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"
 	#define COMPONENT_CANCEL_MOUSEDROPPED_ONTO (1<<0)
 
-// /area signals
+//MARK: /area signals
 
 ///from base of area/proc/power_change(): ()
 #define COMSIG_AREA_POWER_CHANGE "area_power_change"
@@ -353,7 +354,7 @@
 /// Called when some weather ends in this area
 #define COMSIG_WEATHER_ENDED_IN_AREA(event_type) "weather_ended_in_area_[event_type]"
 
-// /turf signals
+//MARK: /turf signals
 
 ///from base of turf/ChangeTurf(): (path, list/new_baseturf, flags, list/transferring_comps)
 #define COMSIG_TURF_CHANGE "turf_change"
@@ -365,8 +366,11 @@
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"
 ///from base of turf/proc/onShuttleMove(): (turf/new_turf)
 #define COMSIG_TURF_ON_SHUTTLE_MOVE "turf_on_shuttle_move"
+///from /turf/simulated/floor/plating/screwdriver_act: ()
+#define COMSIG_PLATING_SCREWDRIVER_CHECK "plating_screwdriver_check"
+	#define COMSIG_PLATING_SCREWDRIVER_CANCEL (1<<0)
 
-// /atom/movable signals
+//MARK: /atom/movable signals
 
 ///from base of atom/movable/Move(): (/atom/new_loc)
 #define COMSIG_MOVABLE_PRE_MOVE "movable_pre_move"
@@ -448,13 +452,14 @@
 ///Called before a movable is being teleported from `initTeleport()`: (turf/origin, turf/destination)
 #define COMSIG_MOVABLE_TELEPORTING "movable_teleporting"
 
-// /datum/mind signals
+//MARK: /datum/mind signals
 
 ///from base of /datum/mind/proc/transfer_to(mob/living/new_character)
 #define COMSIG_MIND_TRANSER_TO "mind_transfer_to"
 ///called on the mob instead of the mind
 #define COMSIG_BODY_TRANSFER_TO "body_transfer_to"
-// /mob signals
+
+//MARK: /mob signals
 
 ///from base of /mob/Login(): ()
 #define COMSIG_MOB_LOGIN "mob_login"
@@ -627,7 +632,8 @@
 #define COMSIG_MOB_UNEQUIPPED_ITEM "mob_unequipped_item"
 /// From base of /mob/proc/update_held_items
 #define COMSIG_MOB_UPDATE_HELD_ITEMS "mob_update_held_items"
-// /mob/living signals
+
+//MARK: /mob/living signals
 
 ///from base of mob/living/resist() (/mob/living)
 #define COMSIG_LIVING_RESIST "living_resist"
@@ -810,7 +816,7 @@
 /// Source: /mob/living/UnarmedAttack (atom/atom, proximity_flag)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 
-// /mob/living/carbon signals
+//MARK: /mob/living/carbon signals
 
 ///from base of mob/living/carbon/soundbang_act(): (list(intensity))
 #define COMSIG_CARBON_SOUNDBANG "carbon_soundbang"
@@ -867,7 +873,7 @@
 ///Called after successfully performing the Devil Sacrifice Ritual
 #define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
 
-// /mob/living/simple_animal/hostile signals
+//MARK: /mob/living/simple_animal/hostile signals
 ///before attackingtarget has happened, source is the attacker and target is the attacked
 #define COMSIG_HOSTILE_PRE_ATTACKINGTARGET "hostile_pre_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //cancel the attack, only works before attack happens
@@ -885,7 +891,7 @@
 /// Source: /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 #define COMSIG_ANIMAL_HANDLE_ENVIRONMENT "animal_handle_environment"
 
-// /obj signals
+//MARK: /obj signals
 
 ///from base of obj/deconstruct(): (disassembled)
 #define COMSIG_OBJ_DECONSTRUCT "obj_deconstruct"
@@ -904,7 +910,7 @@
 	/// returns on succes of species special sink_act()
 	#define COMSIG_SINK_ACT_SUCCESS (1<<0)
 
-// /obj/machinery signals
+//MARK: /obj/machinery signals
 
 ///from /obj/machinery/obj_break(damage_flag): (damage_flag)
 #define COMSIG_MACHINERY_BROKEN "machinery_broken"
@@ -923,7 +929,7 @@
 ///from obj/machinery/crematorium/cremate(): (/mob/living/target)
 #define COMSIG_LIVING_CREMATED "crematorium_cremated_living"
 
-// /obj/item signals
+//MARK: /obj/item signals
 
 ///from base of obj/item/attack(): (/mob/living/target, /mob/living/user, params, def_zone)
 #define COMSIG_ITEM_ATTACK "item_attack"
@@ -1089,7 +1095,7 @@
 ///called in /obj/item/gun/process_fire (user, target, params, zone_override)
 #define COMSIG_GRENADE_ARMED "grenade_armed"
 
-// /obj/projectile signals (sent to the firer)
+//MARK: /obj/projectile signals (sent to the firer)
 
 ///from base of /obj/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle)
 #define COMSIG_PROJECTILE_SELF_ON_HIT "projectile_self_on_hit"
@@ -1109,7 +1115,7 @@
 ///sent to targets during the process_hit proc of projectiles
 #define COMSIG_PELLET_CLOUD_INIT "pellet_cloud_init"
 
-// /obj/mecha signals
+//MARK: /obj/mecha signals
 
 ///sent from mecha action buttons to the mecha they're linked to
 #define COMSIG_MECHA_ACTION_ACTIVATE "mecha_action_activate"
@@ -1119,7 +1125,7 @@
 ///from /obj/docking_port/mobile/proc/dock(): (obj/docking_port/stationary/new_dock)
 #define COMSIG_SHUTTLE_DOCK "shuttle_dock"
 
-// /mob/living/carbon/human signals
+//MARK: /mob/living/carbon/human signals
 
 ///from mob/living/carbon/human/UnarmedAttack(): (atom/target, proximity)
 #define COMSIG_HUMAN_EARLY_UNARMED_ATTACK "human_early_unarmed_attack"
@@ -1158,13 +1164,13 @@
 
 #define COMSIG_HUMAN_DESTROYED "human_destroyed"
 
-// /datum/species signals
+//MARK: /datum/species signals
 ///from datum/species/on_species_gain(): (datum/species/new_species, datum/species/old_species)
 #define COMSIG_SPECIES_GAIN "species_gain"
 ///from datum/species/on_species_loss(): (datum/species/lost_species)
 #define COMSIG_SPECIES_LOSS "species_loss"
 
-// /datum/song signals
+//MARK: /datum/song signals
 
 ///sent to the instrument when a song starts playing: (datum/starting_song, atom/player)
 #define COMSIG_INSTRUMENT_START "instrument_start"
@@ -1177,7 +1183,7 @@
 ///sent to the instrument when tempo changes, skipped on new. (datum/song)
 #define COMSIG_INSTRUMENT_TEMPO_CHANGE "instrument_tempo_change"
 
-/*******Component Specific Signals*******/
+//MARK: Component Specific Signals
 //Janitor
 
 ///(): Returns bitflags of wet values.
@@ -1366,7 +1372,7 @@
 ///from base of atom/CheckParts(): (atom/movable/new_craft) - The atom has just been used in a crafting recipe and has been moved inside new_craft.
 #define COMSIG_ATOM_USED_IN_CRAFT "atom_used_in_craft"
 
-// Lighting:
+//MARK: Lighting
 ///from base of [atom/proc/set_light]: (l_range, l_power, l_color, l_on)
 #define COMSIG_ATOM_SET_LIGHT "atom_set_light"
 	/// Blocks [/atom/proc/set_light], [/atom/proc/set_light_power], [/atom/proc/set_light_range], [/atom/proc/set_light_color], [/atom/proc/set_light_on], and [/atom/proc/set_light_flags].
@@ -1422,7 +1428,7 @@
 /// Sent from /proc/do_after once a do_after action completes, whether via the bar filling or via interruption.
 #define COMSIG_DO_AFTER_ENDED "mob_do_after_ended"
 
-// HUD:
+// MARK: HUD
 /// Sent from /datum/hud/proc/eye_z_changed() : (old_offset, new_offset)
 #define COMSIG_HUD_OFFSET_CHANGED "hud_offset_changed"
 /// Sent from /datum/hud/proc/eye_z_changed() : (new_z)
@@ -1510,7 +1516,7 @@
 //from base of atom/attack_basic_mob(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
 
-///Basic mob signals
+///MARK: Basic mob signals
 ///Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
 #define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
 
@@ -1576,13 +1582,14 @@
 #define COMSIGN_TICKET_COUNT_UPDATE "ticket_count_updated"
 
 
-//Reagent
+//MARK: Reagent
 ///from base of atom/expose_reagents(): (/list, /datum/reagents, chemholder, volume_modifier)
 #define COMSIG_ATOM_EXPOSE_REAGENTS "atom_expose_reagents"
 
 #define COMSIG_SAY_YOUR_NAME "say_your_name"
 	#define SAY_NAME_BLOCK (1<<1)
 
+//MARK: /obj/structure/closet
 /// From /obj/structure/closet/supplypod/proc/preReturn()
 #define COMSIG_SUPPLYPOD_PRE_RETURN "supply_pod_pre_return"
 /// From /obj/structure/closet/supplypod/proc/on_enter()
