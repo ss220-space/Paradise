@@ -764,7 +764,7 @@
 	icon_state = "shamskull"
 	item_state = "shamskull"
 	desc = "К передней части переделанного шлема прикрутили череп какого-то дохлого зверя."
-	armor = list(MELEE = 60, BULLET = 105, LASER = 15, ENERGY = 5, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
+	armor = list(MELEE = 60, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	magical = TRUE
 
 /obj/item/clothing/head/hooded/goliath/wizard/get_ru_names()
