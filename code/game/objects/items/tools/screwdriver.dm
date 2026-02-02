@@ -136,7 +136,7 @@
 /obj/item/screwdriver/brass/cogscarab/proc/on_plating_screwdriver_check()
 	SIGNAL_HANDLER
 	//cogscarab screwdriver can not remove plating
-	return COMSIG_MOB_CANCEL_CLICKON
+	return COMSIG_PLATING_SCREWDRIVER_CANCEL
 
 /obj/item/screwdriver/abductor
 	name = "alien screwdriver"
