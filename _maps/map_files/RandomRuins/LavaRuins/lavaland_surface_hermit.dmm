@@ -150,10 +150,8 @@
 	icon_state = "4-8"
 	},
 /obj/effect/spawner/window/shuttle,
-/obj/machinery/atmospherics/pipe/simple/visible{
-	desc = "Труба содержит газ для обработки и после возвращает его обратно в трубу смешивания";
-	dir = 4;
-	name = "Труба обработки"
+/obj/machinery/atmospherics/pipe/simple/hidden{
+	dir = 4
 	},
 /turf/simulated/floor/shuttle/plating,
 /area/shuttle/hermit/autumn)
@@ -163,6 +161,9 @@
 /area/shuttle/hermit/autumn)
 "hX" = (
 /obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor/shutters{
+	id_tag = "hermit_interior_door"
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "io" = (
@@ -375,6 +376,10 @@
 /area/template_noop)
 "Ct" = (
 /obj/effect/decal/warning_stripes/east,
+/obj/machinery/camera{
+	network = list("Autumn");
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "Ed" = (
@@ -584,19 +589,6 @@
 /obj/machinery/camera{
 	network = list("Autumn")
 	},
-/obj/machinery/door_control{
-	id = "hermit_back";
-	pixel_x = 8;
-	req_access = list(500);
-	pixel_y = -5;
-	name = "stern shutters"
-	},
-/obj/machinery/door_control{
-	id = "hermit";
-	pixel_x = 8;
-	req_access = list(500);
-	name = "bow shutters"
-	},
 /obj/item/clipboard,
 /obj/item/pen,
 /turf/simulated/floor/plasteel{
@@ -696,10 +688,36 @@
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "ZC" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "hermit";
+	req_access = list(500);
+	name = "bow shutters";
+	pixel_y = 8
+	},
+/obj/machinery/door_control{
+	id = "hermit_back";
+	req_access = list(500);
+	pixel_y = -5;
+	name = "stern shutters"
+	},
+/obj/machinery/door_control{
+	id = "hermit_interior_door";
+	req_access = list(500);
+	name = "interior door shutters";
+	pixel_x = -7;
+	pixel_y = 2
+	},
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/table/reinforced,
+/obj/machinery/door_control{
+	id = "hermit_door";
+	req_access = list(500);
+	name = "door shutters";
+	pixel_y = 2;
+	pixel_x = 7
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
