@@ -669,7 +669,7 @@
 	item_state = "dragon"
 	desc = "Доспехи, созданные из останков пепельного дракона."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 70, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -700,7 +700,7 @@
 	icon_state = "dragon"
 	item_state = "dragon"
 	desc = "Череп дрейка."
-	armor = list(MELEE = 70, BULLET = 30, LASER = 50, ENERGY = 40, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
+	armor = list(MELEE = 70, BULLET = 10, LASER = 20, ENERGY = 10, BOMB = 70, BIO = 60, RAD = 50, FIRE = 100, ACID = 100)
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF|ACID_PROOF
@@ -722,7 +722,7 @@
 	item_state = "goliath_cloak"
 	desc = "Прочный и практичный плащ, созданный из различных материалов, добытых из монстров. Он пользуется большим спросом у тех, кто ведёт жизнь отшельника или изгнанника."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
+	armor = list(MELEE = 40, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60) //a fair alternative to bone armor, requiring alternative materials and gaining a suit slot
 	hoodtype = /obj/item/clothing/head/hooded/goliath
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
@@ -741,7 +741,7 @@
 	icon_state = "golhood"
 	item_state = "golhood"
 	desc = "Защитный и скрывающий капюшон."
-	armor = list(MELEE = 40, BULLET = 15, LASER = 30, ENERGY = 15, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
+	armor = list(MELEE = 40, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 35, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	flags_cover = HEADCOVERSEYES
 
 /obj/item/clothing/head/hooded/goliath/get_ru_names()
@@ -755,7 +755,7 @@
 	)
 
 /obj/item/clothing/suit/hooded/goliath/wizard
-	armor = list(MELEE = 60, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
+	armor = list(MELEE = 60, BULLET = 5, LASER = 15, ENERGY = 5, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	hoodtype = /obj/item/clothing/head/hooded/goliath/wizard
 	magical = TRUE
 
@@ -764,7 +764,7 @@
 	icon_state = "shamskull"
 	item_state = "shamskull"
 	desc = "К передней части переделанного шлема прикрутили череп какого-то дохлого зверя."
-	armor = list(MELEE = 60, BULLET = 10, LASER = 25, ENERGY = 10, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
+	armor = list(MELEE = 60, BULLET = 105, LASER = 15, ENERGY = 5, BOMB = 25, BIO = 0, RAD = 0, FIRE = 80, ACID = 60)
 	magical = TRUE
 
 /obj/item/clothing/head/hooded/goliath/wizard/get_ru_names()
@@ -794,7 +794,7 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
-	armor = list(MELEE = 45, BULLET = 30, LASER = 30, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 45, BULLET = 5, LASER = 5, ENERGY = 5, BOMB = 40, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
 	sprite_sheets = list(
@@ -823,7 +823,7 @@
 	icon_state = "makeshift_armor"
 	item_state = "makeshift_armor"
 	resistance_flags = FIRE_PROOF
-	armor = list(MELEE = 8, BULLET = 5, LASER = 5, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 8, BULLET = 1, LASER = 1, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 
 //Dredd
 
@@ -844,7 +844,7 @@
 	item_state = "cartilage_set"
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
-	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
+	armor = list(MELEE = 50, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 10, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	sprite_sheets = list(
 		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/suit.dmi',
