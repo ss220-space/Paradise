@@ -11,15 +11,11 @@
 	minimal_access = list(ACCESS_EVA, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_HEADS,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE,
 			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_PSYCHIATRIST, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_PARAMEDIC, ACCESS_MINERAL_STOREROOM)
-	alt_titles = list(
-		ALT_JOB_TITLE_RU_MEDICAL_DIRECTOR,
-		ALT_JOB_TITLE_RU_HEAD_OF_MEDBAY,
-	)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/cmo
 
 /datum/outfit/job/cmo
-	name = JOB_TITLE_CMO
+	name = JOB_TITLE_RU_CMO
 	jobtype = /datum/job/head_of_staff/cmo
 
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
@@ -63,12 +59,11 @@
 		ALT_JOB_TITLE_RU_TRAUMATOLOGIST,
 		ALT_JOB_TITLE_RU_RESUSCITATOR,
 		ALT_JOB_TITLE_RU_THERAPIST,
-		ALT_JOB_TITLE_RU_FELDSHER,
 	)
 	outfit = /datum/outfit/job/doctor
 
 /datum/outfit/job/doctor
-	name = JOB_TITLE_DOCTOR
+	name = JOB_TITLE_RU_DOCTOR
 	jobtype = /datum/job/medical/doctor
 
 	uniform = /obj/item/clothing/under/rank/medical
@@ -96,11 +91,12 @@
 			head = /obj/item/clothing/head/surgery/blue
 
 /datum/job/medical/doctor/intern
-	title = JOB_TITLE_INTERN
+	title = JOB_TITLE_MEDICAL_ASSISTANT
 	flag = JOB_FLAG_INTERN
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_MEDICAL_STUDENT,
-		ALT_JOB_TITLE_RU_MEDICAL_ASSISTANT,
+		ALT_JOB_TITLE_RU_MEDICAL_TRAINEE,
+		ALT_JOB_TITLE_RU_MEDICAL_INTERN,
 	)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -111,7 +107,7 @@
 	paycheck = PAYCHECK_LOWER
 
 /datum/outfit/job/doctor/intern
-	name = JOB_TITLE_INTERN
+	name = JOB_TITLE_RU_MEDICAL_ASSISTANT
 	jobtype = /datum/job/medical/doctor/intern
 
 	uniform = /obj/item/clothing/under/rank/medical/intern
@@ -128,7 +124,7 @@
 		uniform = /obj/item/clothing/under/rank/medical/intern/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_MEDICAL_ASSISTANT)
+			if(ALT_JOB_TITLE_RU_MEDICAL_TRAINEE)
 				uniform = /obj/item/clothing/under/rank/medical/intern/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/medical/intern/assistant/skirt
@@ -151,7 +147,7 @@
 	outfit = /datum/outfit/job/coroner
 
 /datum/outfit/job/coroner
-	name = JOB_TITLE_CORONER
+	name = JOB_TITLE_RU_CORONER
 	jobtype = /datum/job/medical/coroner
 
 	uniform = /obj/item/clothing/under/rank/medical/mortician
@@ -190,7 +186,7 @@
 	outfit = /datum/outfit/job/chemist
 
 /datum/outfit/job/chemist
-	name = JOB_TITLE_CHEMIST
+	name = JOB_TITLE_RU_CHEMIST
 	jobtype = /datum/job/medical/chemist
 
 	uniform = /obj/item/clothing/under/rank/chemist
@@ -222,7 +218,7 @@
 	outfit = /datum/outfit/job/geneticist
 
 /datum/outfit/job/geneticist
-	name = JOB_TITLE_GENETICIST
+	name = JOB_TITLE_RU_GENETICIST
 	jobtype = /datum/job/medical/geneticist
 
 	uniform = /obj/item/clothing/under/rank/geneticist
@@ -254,7 +250,7 @@
 	outfit = /datum/outfit/job/virologist
 
 /datum/outfit/job/virologist
-	name = JOB_TITLE_VIROLOGIST
+	name = JOB_TITLE_RU_VIROLOGIST
 	jobtype = /datum/job/medical/virologist
 
 	uniform = /obj/item/clothing/under/rank/virologist
@@ -286,7 +282,7 @@
 	outfit = /datum/outfit/job/psychiatrist
 
 /datum/outfit/job/psychiatrist
-	name = JOB_TITLE_PSYCHIATRIST
+	name = JOB_TITLE_RU_PSYCHIATRIST
 	jobtype = /datum/job/medical/psychiatrist
 
 	uniform = /obj/item/clothing/under/rank/medical
@@ -319,11 +315,12 @@
 		ALT_JOB_TITLE_RU_FIELD_MEDIC,
 		ALT_JOB_TITLE_RU_RESCUER,
 		ALT_JOB_TITLE_RU_EMERGENCY_DOC,
+		ALT_JOB_TITLE_RU_FELDSHER,
 	)
 	outfit = /datum/outfit/job/paramedic
 
 /datum/outfit/job/paramedic
-	name = JOB_TITLE_PARAMEDIC
+	name = JOB_TITLE_RU_PARAMEDIC
 	jobtype = /datum/job/medical/paramedic
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic

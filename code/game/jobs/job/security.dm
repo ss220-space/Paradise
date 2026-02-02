@@ -24,7 +24,7 @@
 	outfit = /datum/outfit/job/hos
 
 /datum/outfit/job/hos
-	name = JOB_TITLE_HOS
+	name = JOB_TITLE_RU_HOS
 	jobtype = /datum/job/head_of_staff/hos
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
@@ -86,7 +86,7 @@
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
-	name = JOB_TITLE_WARDEN
+	name = JOB_TITLE_RU_WARDEN
 	jobtype = /datum/job/security/warden
 
 	uniform = /obj/item/clothing/under/rank/warden
@@ -124,13 +124,12 @@
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_INVESTIGATOR,
 		ALT_JOB_TITLE_RU_CRIMINOLOGIST,
-		ALT_JOB_TITLE_RU_CRIMINAL_OPERATIVE,
 	)
 	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
 
 /datum/outfit/job/detective
-	name = JOB_TITLE_DETECTIVE
+	name = JOB_TITLE_RU_DETECTIVE
 	jobtype = /datum/job/security/detective
 
 	uniform = /obj/item/clothing/under/det
@@ -181,12 +180,11 @@
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_PATROL_OFFICER,
 		ALT_JOB_TITLE_RU_SECURITY_OPERATOR,
-		ALT_JOB_TITLE_RU_SECURITY_AGENT,
 	)
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
-	name = JOB_TITLE_OFFICER
+	name = JOB_TITLE_RU_OFFICER
 	jobtype = /datum/job/security/officer
 	uniform = /obj/item/clothing/under/rank/security
 	suit = /obj/item/clothing/suit/armor/vest/security
@@ -234,7 +232,7 @@
 	outfit = /datum/outfit/job/brigdoc
 
 /datum/outfit/job/brigdoc
-	name = JOB_TITLE_BRIGDOC
+	name = JOB_TITLE_RU_BRIGDOC
 	jobtype = /datum/job/security/brigdoc
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
@@ -266,7 +264,7 @@
 	outfit = /datum/outfit/job/pilot
 
 /datum/outfit/job/pilot
-	name = JOB_TITLE_PILOT
+	name = JOB_TITLE_RU_PILOT
 	jobtype = /datum/job/security/pilot
 	uniform = /obj/item/clothing/under/rank/security/pod_pilot
 	suit = /obj/item/clothing/suit/jacket/pilot

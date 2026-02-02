@@ -7,16 +7,16 @@
 #define JOB_TITLE_BLUESHIELD "Blueshield"
 
 // Engineeering
-#define JOB_TITLE_CHIEF "Chief Engineer"
+#define JOB_TITLE_CHIEF_ENGINEER "Chief Engineer"
 #define JOB_TITLE_ENGINEER "Station Engineer"
-#define JOB_TITLE_ENGINEER_TRAINEE "Trainee Engineer"
+#define JOB_TITLE_ENGINEERING_ASSISTANT "Trainee Engineer"
 #define JOB_TITLE_ATMOSTECH "Life Support Specialist"
 #define JOB_TITLE_MECHANIC "Mechanic"
 
 // Medical
 #define JOB_TITLE_CMO "Chief Medical Officer"
 #define JOB_TITLE_DOCTOR "Medical Doctor"
-#define JOB_TITLE_INTERN "Intern"
+#define JOB_TITLE_MEDICAL_ASSISTANT "Intern"
 #define JOB_TITLE_CORONER "Coroner"
 #define JOB_TITLE_CHEMIST "Chemist"
 #define JOB_TITLE_GENETICIST "Geneticist"
@@ -27,7 +27,7 @@
 // Science
 #define JOB_TITLE_RD "Research Director"
 #define JOB_TITLE_SCIENTIST "Scientist"
-#define JOB_TITLE_SCIENTIST_STUDENT "Student Scientist"
+#define JOB_TITLE_SCIENCE_ASSISTANT "Student Scientist"
 #define JOB_TITLE_ROBOTICIST "Roboticist"
 
 // Security
@@ -39,7 +39,7 @@
 #define JOB_TITLE_PILOT "Security Pod Pilot"
 
 // Legal
-#define JOB_TITLE_JUDGE "Magistrate"
+#define JOB_TITLE_MAGISTRATE "Magistrate"
 #define JOB_TITLE_LAWYER "Internal Affairs Agent"
 
 // Supply
@@ -105,7 +105,7 @@
 /// MARK: Job lists
 GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(
 	JOB_TITLE_CAPTAIN,
-	JOB_TITLE_CHIEF,
+	JOB_TITLE_CHIEF_ENGINEER,
 	JOB_TITLE_RD,
 ))
 

@@ -404,7 +404,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Prisoner"
 
 /obj/effect/landmark/start/chief_engineer
-	name = JOB_TITLE_CHIEF
+	name = JOB_TITLE_CHIEF_ENGINEER
 	icon_state = "CE"
 
 /obj/effect/landmark/start/engineer
@@ -412,7 +412,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Engi"
 
 /obj/effect/landmark/start/trainee_engineer
-	name = JOB_TITLE_ENGINEER_TRAINEE
+	name = JOB_TITLE_ENGINEERING_ASSISTANT
 	icon_state = "Trainee_Engi"
 
 /obj/effect/landmark/start/atmospheric
@@ -432,7 +432,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "MD"
 
 /obj/effect/landmark/start/intern
-	name = JOB_TITLE_INTERN
+	name = JOB_TITLE_MEDICAL_ASSISTANT
 	icon_state = "Intern"
 
 /obj/effect/landmark/start/coroner
@@ -468,7 +468,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/student_sientist
-	name = JOB_TITLE_SCIENTIST_STUDENT
+	name = JOB_TITLE_SCIENCE_ASSISTANT
 	icon_state = "Student_Sci"
 
 /obj/effect/landmark/start/roboticist
@@ -524,7 +524,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "BS"
 
 /obj/effect/landmark/start/magistrate
-	name = JOB_TITLE_JUDGE
+	name = JOB_TITLE_MAGISTRATE
 	icon_state = "Magi"
 
 /obj/effect/landmark/start/internal_affairs

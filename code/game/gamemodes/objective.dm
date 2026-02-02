@@ -1155,7 +1155,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	antag_menu_name = "Похищение"
 
 /datum/objective/heist/kidnap/choose_target()
-	var/list/roles = list(JOB_TITLE_CHIEF, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_JUDGE, JOB_TITLE_ROBOTICIST, JOB_TITLE_CHEMIST)
+	var/list/roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_HOP, JOB_TITLE_HOS, JOB_TITLE_REPRESENTATIVE, JOB_TITLE_MAGISTRATE, JOB_TITLE_ROBOTICIST, JOB_TITLE_CHEMIST)
 	var/list/possible_targets = list()
 	var/list/priority_targets = list()
 

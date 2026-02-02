@@ -16,7 +16,7 @@
 		ACCESS_MINERAL_STOREROOM
 	)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_CHIEF_SUPPLY_MANAGER,
+		ALT_JOB_TITLE_RU_CHIEF_ENGINEER_SUPPLY_MANAGER,
 		ALT_JOB_TITLE_RU_LOGISTICS_DIRECTOR,
 		ALT_JOB_TITLE_RU_STORAGE_SUPERVISOR,
 	)
@@ -24,7 +24,7 @@
 	outfit = /datum/outfit/job/qm
 
 /datum/outfit/job/qm
-	name = JOB_TITLE_QUARTERMASTER
+	name = JOB_TITLE_RU_QUARTERMASTER
 	jobtype = /datum/job/head_of_staff/qm
 
 	uniform = /obj/item/clothing/under/rank/cargo
@@ -66,7 +66,7 @@
 	outfit = /datum/outfit/job/cargo_tech
 
 /datum/outfit/job/cargo_tech
-	name = JOB_TITLE_CARGOTECH
+	name = JOB_TITLE_RU_CARGOTECH
 	jobtype = /datum/job/supply/cargo_tech
 
 	uniform = /obj/item/clothing/under/rank/cargotech
@@ -90,7 +90,7 @@
 	insurance_type = INSURANCE_TYPE_EXTENDED
 
 /datum/outfit/job/mining
-	name = JOB_TITLE_MINER
+	name = JOB_TITLE_RU_MINER
 	jobtype = /datum/job/supply/mining
 
 	l_ear = /obj/item/radio/headset/headset_cargo/mining
@@ -152,7 +152,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 
 /datum/outfit/job/mining_medic
-	name = JOB_TITLE_MINING_MEDIC
+	name = JOB_TITLE_RU_MINING_MEDIC
 	jobtype = /datum/job/supply/mining_medic
 	glasses = /obj/item/clothing/glasses/hud/health/meson
 	l_ear = /obj/item/radio/headset/headset_mining_medic

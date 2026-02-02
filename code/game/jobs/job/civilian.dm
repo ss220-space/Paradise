@@ -23,7 +23,7 @@
 	paycheck = PAYCHECK_MIN
 
 /datum/outfit/job/assistant
-	name = JOB_TITLE_CIVILIAN
+	name = JOB_TITLE_RU_CIVILIAN
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
@@ -67,7 +67,7 @@
 	. += "."
 
 /datum/outfit/job/assistant/prisoner
-	name = JOB_TITLE_PRISONER
+	name = JOB_TITLE_RU_PRISONER
 	allow_loadout = FALSE
 	jobtype = /datum/job/civilian/prisoner
 	id = /obj/item/card/id/prisoner/random

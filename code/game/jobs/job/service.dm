@@ -30,7 +30,7 @@
 	outfit = /datum/outfit/job/hop
 
 /datum/outfit/job/hop
-	name = JOB_TITLE_HOP
+	name = JOB_TITLE_RU_HOP
 	jobtype = /datum/job/head_of_staff/hop
 	uniform = /obj/item/clothing/under/rank/head_of_personnel_alt
 	suit = /obj/item/clothing/suit/hop_jacket
@@ -73,7 +73,7 @@
 	outfit = /datum/outfit/job/bartender
 
 /datum/outfit/job/bartender
-	name = JOB_TITLE_BARTENDER
+	name = JOB_TITLE_RU_BARTENDER
 	jobtype = /datum/job/service/bartender
 
 	uniform = /obj/item/clothing/under/rank/bartender
@@ -108,7 +108,7 @@
 	outfit = /datum/outfit/job/chef
 
 /datum/outfit/job/chef
-	name = JOB_TITLE_CHEF
+	name = JOB_TITLE_RU_CHEF
 	jobtype = /datum/job/service/chef
 
 	uniform = /obj/item/clothing/under/rank/chef
@@ -128,6 +128,16 @@
 	var/datum/martial_art/cqc/under_siege/justacook = new
 	justacook.teach(H)
 
+/datum/outfit/job/chef/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(H.mind && H.mind.role_alt_title)
+		switch(H.mind.role_alt_title)
+			if(ALT_JOB_TITLE_RU_NUTRITION_EXPERT)
+				uniform = /obj/item/clothing/under/artist
+				belt = /obj/item/storage/belt/chef/artistred
+				head = /obj/item/clothing/head/chefcap
+				suit = /obj/item/clothing/suit/storage/chefbluza
+
 /datum/job/service/botanist
 	title = JOB_TITLE_BOTANIST
 	flag = JOB_FLAG_BOTANIST
@@ -144,7 +154,7 @@
 	outfit = /datum/outfit/job/botanist
 
 /datum/outfit/job/botanist
-	name = JOB_TITLE_BOTANIST
+	name = JOB_TITLE_RU_BOTANIST
 	jobtype = /datum/job/service/botanist
 
 	uniform = /obj/item/clothing/under/rank/hydroponics
@@ -173,7 +183,7 @@
 	outfit = /datum/outfit/job/clown
 
 /datum/outfit/job/clown
-	name = JOB_TITLE_CLOWN
+	name = JOB_TITLE_RU_CLOWN
 	jobtype = /datum/job/service/clown
 
 	uniform = /obj/item/clothing/under/rank/clown
@@ -385,7 +395,7 @@
 	outfit = /datum/outfit/job/mime
 
 /datum/outfit/job/mime
-	name = JOB_TITLE_MIME
+	name = JOB_TITLE_RU_MIME
 	jobtype = /datum/job/service/mime
 
 	uniform = /obj/item/clothing/under/mime
@@ -433,7 +443,7 @@
 	outfit = /datum/outfit/job/janitor
 
 /datum/outfit/job/janitor
-	name = JOB_TITLE_JANITOR
+	name = JOB_TITLE_RU_JANITOR
 	jobtype = /datum/job/service/janitor
 
 	uniform = /obj/item/clothing/under/rank/janitor
@@ -456,7 +466,7 @@
 	outfit = /datum/outfit/job/librarian
 
 /datum/outfit/job/librarian
-	name = JOB_TITLE_LIBRARIAN
+	name = JOB_TITLE_RU_LIBRARIAN
 	jobtype = /datum/job/service/librarian
 
 	uniform = /obj/item/clothing/under/suit_jacket/red
@@ -486,7 +496,7 @@
 	outfit = /datum/outfit/job/chaplain
 
 /datum/outfit/job/chaplain
-	name = JOB_TITLE_CHAPLAIN
+	name = JOB_TITLE_RU_CHAPLAIN
 	jobtype = /datum/job/service/chaplain
 
 	uniform = /obj/item/clothing/under/rank/chaplain
@@ -567,6 +577,6 @@
 /datum/outfit/job/explorer
 	// This outfit is never used, because there are no slots for this job.
 	// To get it, you have to go to the HOP and ask for a transfer to it.
-	name = JOB_TITLE_EXPLORER
+	name = JOB_TITLE_RU_EXPLORER
 	jobtype = /datum/job/service/explorer
 	uniform = /obj/item/clothing/under/color/random

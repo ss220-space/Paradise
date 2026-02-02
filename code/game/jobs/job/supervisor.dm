@@ -25,10 +25,6 @@
 	is_command = 1
 	access = list()	//See get_access()
 	minimal_access = list()	//See get_access()
-	alt_titles = list(
-		ALT_JOB_TITLE_RU_SITE_MANAGER,
-		ALT_JOB_TITLE_RU_FACILITY_DIRECTOR,
-	)
 	law_level = LAW_LEVEL_CAPTAIN
 	minimal_player_age = 30
 	min_age_type = JOB_MIN_AGE_COMMAND
@@ -53,7 +49,7 @@
 	)
 
 /datum/outfit/job/captain
-	name = JOB_TITLE_CAPTAIN
+	name = JOB_TITLE_RU_CAPTAIN
 	jobtype = /datum/job/captain
 	uniform = /obj/item/clothing/under/rank/captain
 	suit = /obj/item/clothing/suit/armor/vest/capcarapace
@@ -116,7 +112,7 @@
 	paycheck = PAYCHECK_MAX
 
 /datum/outfit/job/nanotrasenrep
-	name = JOB_TITLE_REPRESENTATIVE
+	name = JOB_TITLE_RU_REPRESENTATIVE
 	jobtype = /datum/job/head_of_staff/nanotrasenrep
 	uniform = /obj/item/clothing/under/rank/ntrep
 	suit = /obj/item/clothing/suit/storage/ntrep
@@ -167,7 +163,7 @@
 	paycheck = PAYCHECK_COMMAND
 
 /datum/outfit/job/blueshield
-	name = JOB_TITLE_BLUESHIELD
+	name = JOB_TITLE_RU_BLUESHIELD
 	jobtype = /datum/job/blueshield
 	uniform = /obj/item/clothing/under/rank/blueshield
 	suit = /obj/item/clothing/suit/armor/vest/blueshield
@@ -189,7 +185,7 @@
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
 /datum/job/head_of_staff/judge
-	title = JOB_TITLE_JUDGE
+	title = JOB_TITLE_MAGISTRATE
 	flag = JOB_FLAG_JUDGE
 	department_flag = JOBCAT_KARMA
 	department = STATION_DEPARTMENT_LEGAL
@@ -223,7 +219,7 @@
 	paycheck = PAYCHECK_MAX
 
 /datum/outfit/job/judge
-	name = JOB_TITLE_JUDGE
+	name = JOB_TITLE_RU_MAGISTRATE
 	jobtype = /datum/job/head_of_staff/judge
 	uniform = /obj/item/clothing/under/suit_jacket/really_black
 	suit = /obj/item/clothing/suit/judgerobe
@@ -270,7 +266,7 @@
 	paycheck = PAYCHECK_COMMAND
 
 /datum/outfit/job/lawyer
-	name = JOB_TITLE_LAWYER
+	name = JOB_TITLE_RU_LAWYER
 	jobtype = /datum/job/lawyer
 	uniform = /obj/item/clothing/under/rank/internalaffairs
 	suit = /obj/item/clothing/suit/storage/internalaffairs

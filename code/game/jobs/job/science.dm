@@ -14,8 +14,7 @@
 					ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
 					ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_NETWORK, ACCESS_MECHANIC)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_CHIEF_RESEARCHER,
-		ALT_JOB_TITLE_RU_SCIENTIFIC_SUPERVISOR,
+		ALT_JOB_TITLE_RU_CHIEF_ENGINEER_RESEARCHER,
 	)
 	exp_type = EXP_TYPE_SCIENCE
 	// All science-y guys get bonuses for maxing out their tech.
@@ -25,7 +24,7 @@
 	outfit = /datum/outfit/job/rd
 
 /datum/outfit/job/rd
-	name = JOB_TITLE_RD
+	name = JOB_TITLE_RU_RD
 	jobtype = /datum/job/head_of_staff/rd
 
 	uniform = /obj/item/clothing/under/rank/research_director
@@ -79,7 +78,7 @@
 	outfit = /datum/outfit/job/scientist
 
 /datum/outfit/job/scientist
-	name = JOB_TITLE_SCIENTIST
+	name = JOB_TITLE_RU_SCIENTIST
 	jobtype = /datum/job/science/scientist
 
 	uniform = /obj/item/clothing/under/rank/scientist
@@ -94,15 +93,16 @@
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
 /datum/job/science/scientist/student
-	title = JOB_TITLE_SCIENTIST_STUDENT
+	title = JOB_TITLE_SCIENCE_ASSISTANT
 	flag = JOB_FLAG_SCIENTIST_STUDENT
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_SCIENCE_ASSISTANT,
 		ALT_JOB_TITLE_RU_SCIENCE_STUDENT,
-		ALT_JOB_TITLE_RU_ROBOTICIST_STUDENT,
+		ALT_JOB_TITLE_RU_SCIENCE_TRAINEE,
+		ALT_JOB_TITLE_RU_SCIENCE_INTERN,
+		ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER,
 	)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -113,7 +113,7 @@
 	paycheck = PAYCHECK_LOWER
 
 /datum/outfit/job/scientist/student
-	name = JOB_TITLE_SCIENTIST_STUDENT
+	name = JOB_TITLE_RU_SCIENCE_ASSISTANT
 	jobtype = /datum/job/science/scientist/student
 
 	uniform = /obj/item/clothing/under/rank/scientist/student
@@ -125,15 +125,10 @@
 		uniform = /obj/item/clothing/under/rank/scientist/student/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_SCIENCE_ASSISTANT)
+			if(ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER)
 				uniform = /obj/item/clothing/under/rank/scientist/student/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/scientist/student/assistant/skirt
-			if(ALT_JOB_TITLE_RU_ROBOTICIST_STUDENT)
-				suit = /obj/item/clothing/suit/storage/labcoat
-				uniform = /obj/item/clothing/under/rank/roboticist/student
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/roboticist/skirt/student
 
 /datum/job/science/roboticist
 	title = JOB_TITLE_ROBOTICIST
@@ -149,7 +144,7 @@
 	outfit = /datum/outfit/job/roboticist
 
 /datum/outfit/job/roboticist
-	name = JOB_TITLE_ROBOTICIST
+	name = JOB_TITLE_RU_ROBOTICIST
 	jobtype = /datum/job/science/roboticist
 
 	uniform = /obj/item/clothing/under/rank/roboticist
@@ -170,7 +165,7 @@
 	outfit = /datum/outfit/job/mechanic
 
 /datum/outfit/job/mechanic
-	name = JOB_TITLE_MECHANIC
+	name = JOB_TITLE_RU_MECHANIC
 	jobtype = /datum/job/science/mechanic
 	uniform = /obj/item/clothing/under/rank/mechanic
 	belt = /obj/item/storage/belt/utility/full

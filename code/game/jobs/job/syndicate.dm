@@ -18,7 +18,7 @@
 	return get_syndicate_access(title)
 
 /datum/outfit/job/syndicateofficer
-	name = "Syndicate Officer"
+	name = JOB_TITLE_RU_SYNDICATE_OFFICER
 	jobtype = /datum/job/syndicateofficer
 
 	uniform = /obj/item/clothing/under/syndicate

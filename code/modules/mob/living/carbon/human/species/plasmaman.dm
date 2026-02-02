@@ -112,7 +112,7 @@
 		if(JOB_TITLE_BARTENDER)
 			O = new /datum/outfit/plasmaman/bar
 
-		if(JOB_TITLE_LAWYER, JOB_TITLE_JUDGE)
+		if(JOB_TITLE_LAWYER, JOB_TITLE_MAGISTRATE)
 			O = new /datum/outfit/plasmaman/nt
 
 		if(JOB_TITLE_REPRESENTATIVE)
@@ -154,7 +154,7 @@
 		if(JOB_TITLE_MINING_MEDIC)
 			O = new /datum/outfit/plasmaman/mining_medic
 
-		if(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
+		if(JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_ASSISTANT)
 			O = new /datum/outfit/plasmaman/medical
 
 		if(JOB_TITLE_BRIGDOC)
@@ -181,7 +181,7 @@
 		if(JOB_TITLE_VIROLOGIST)
 			O = new /datum/outfit/plasmaman/viro
 
-		if(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENTIST_STUDENT)
+		if(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_ASSISTANT)
 			O = new /datum/outfit/plasmaman/science
 
 		if("Xenobiologist")
@@ -190,13 +190,13 @@
 		if(JOB_TITLE_RD)
 			O = new /datum/outfit/plasmaman/rd
 
-		if(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
+		if(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEERING_ASSISTANT)
 			O = new /datum/outfit/plasmaman/engineering
 
 		if(JOB_TITLE_MECHANIC)
 			O = new /datum/outfit/plasmaman/engineering/mecha
 
-		if(JOB_TITLE_CHIEF)
+		if(JOB_TITLE_CHIEF_ENGINEER)
 			O = new /datum/outfit/plasmaman/ce
 
 		if(JOB_TITLE_ATMOSTECH)

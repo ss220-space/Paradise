@@ -1,5 +1,5 @@
 /datum/job/head_of_staff/chief_engineer
-	title = JOB_TITLE_CHIEF
+	title = JOB_TITLE_CHIEF_ENGINEER
 	flag = JOB_FLAG_CHIEF
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_ENGINEERING
@@ -19,13 +19,12 @@
 	)
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_TECHNICAL_DIRECTOR,
-		ALT_JOB_TITLE_RU_LEAD_TECHNICIAN,
 	)
 	exp_type = EXP_TYPE_ENGINEERING
 	outfit = /datum/outfit/job/chief_engineer
 
 /datum/outfit/job/chief_engineer
-	name = JOB_TITLE_CHIEF
+	name = JOB_TITLE_RU_CHIEF_ENGINEER
 	jobtype = /datum/job/head_of_staff/chief_engineer
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
@@ -52,7 +51,7 @@
 	department_flag = JOBCAT_ENGSEC
 	is_engineering = 1
 	supervisors = "Главным инженером"
-	department_head = list(JOB_TITLE_CHIEF)
+	department_head = list(JOB_TITLE_CHIEF_ENGINEER)
 	selection_color = "#ffeaca"
 	minimal_player_age = 7
 	exp_requirements = 600
@@ -74,7 +73,7 @@
 	outfit = /datum/outfit/job/engineer
 
 /datum/outfit/job/engineer
-	name = JOB_TITLE_ENGINEER
+	name = JOB_TITLE_RU_ENGINEER
 	jobtype = /datum/job/engineering/engineer
 
 	uniform = /obj/item/clothing/under/rank/engineer
@@ -105,7 +104,7 @@
 	outfit = /datum/outfit/job/atmos
 
 /datum/outfit/job/atmos
-	name = JOB_TITLE_ATMOSTECH
+	name = JOB_TITLE_RU_ATMOSTECH
 	jobtype = /datum/job/engineering/atmos
 
 	uniform = /obj/item/clothing/under/rank/atmospheric_technician
@@ -121,12 +120,13 @@
 	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineering/engineer/trainee
-	title = JOB_TITLE_ENGINEER_TRAINEE
+	title = JOB_TITLE_ENGINEERING_ASSISTANT
 	flag = JOB_FLAG_ENGINEER_TRAINEE
 	spawn_positions = 3
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_ENGINEER_STUDENT,
-		ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT,
+		ALT_JOB_TITLE_RU_ENGINEERING_STUDENT,
+		ALT_JOB_TITLE_RU_ENGINEERING_TRAINEE,
+		ALT_JOB_TITLE_RU_ENGINEERING_INTERN,
 	)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -137,7 +137,7 @@
 	paycheck = PAYCHECK_LOWER
 
 /datum/outfit/job/engineer/trainee
-	name = JOB_TITLE_ENGINEER_TRAINEE
+	name = JOB_TITLE_RU_ENGINEERING_ASSISTANT
 	jobtype = /datum/job/engineering/engineer/trainee
 
 	uniform = /obj/item/clothing/under/rank/engineer/trainee
@@ -150,9 +150,9 @@
 		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT)
+			if(ALT_JOB_TITLE_RU_ENGINEERING_TRAINEE)
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
-			if(ALT_JOB_TITLE_RU_ENGINEER_STUDENT)
+			if(ALT_JOB_TITLE_RU_ENGINEERING_INTERN)
 				head = /obj/item/clothing/head/soft/orange
