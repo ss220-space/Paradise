@@ -431,7 +431,6 @@
 "Ga" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/west,
-/obj/effect/spawner/hermit_random_sleeper,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 4
 	},
