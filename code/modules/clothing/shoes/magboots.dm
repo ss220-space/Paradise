@@ -33,7 +33,7 @@
 	desc = "Combat-edition magboots issued by Nanotrasen Security for extravehicular missions."
 	icon_state = "cmagboots0"
 	base_icon_state = "cmagboots"
-	armor = list(MELEE = 30, BULLET = 20, LASER = 25, ENERGY = 25, BOMB = 60, BIO = 30, RAD = 30, FIRE = 90, ACID = 50)
+	armor = list(MELEE = 30, BULLET = 15, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 25, RAD = 20, FIRE = 90, ACID = 50)
 	slowdown_active = 1
 
 /obj/item/clothing/shoes/magboots/security/captain
