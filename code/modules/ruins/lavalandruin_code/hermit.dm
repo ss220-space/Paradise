@@ -36,7 +36,7 @@
 /obj/effect/mob_spawn/human/hermit/Initialize(mapload)
 	. = ..()
 	var/background_choice = rand(1,4)
-	switch(arrpee)
+	switch(background_choice)
 		if(1)
 			flavour_text += "Вы были торговцем с Бизель. Запах сварочной плазмы, смешанный с ароматом специй из портовых кафе. \
 			Гул тяжёлых грузовиков, плывущих между ангарами. Бизель был не планетой, а пульсирующим узлом, местом, где царил строгий коррумпированный порядок. \
