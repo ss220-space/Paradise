@@ -641,9 +641,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 
 	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/known_total = environment.oxygen() + environment.nitrogen() + environment.carbon_dioxide() + environment.toxins() + environment.sleeping_agent() + environment.hydrogen() + environment.water_vapor()
-	var/total = environment.total_moles()
-	if(total == 0)
-		return null
+	var/total = environment.total_moles() || 1
 
 	var/datum/tlv/cur_tlv
 	var/GET_PP = R_IDEAL_GAS_EQUATION * environment.temperature() / environment.return_volume()
@@ -660,7 +658,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 	var/nitrogen_dangerlevel = cur_tlv.get_danger_level(environment.nitrogen() * GET_PP)
 	var/nitrogen_percent = environment.nitrogen() / total * 100
 
-	cur_tlv = TLV[TLV_CO2 ]
+	cur_tlv = TLV[TLV_CO2]
 	var/co2_dangerlevel = cur_tlv.get_danger_level(environment.carbon_dioxide() * GET_PP)
 	var/co2_percent = environment.carbon_dioxide() / total * 100
 

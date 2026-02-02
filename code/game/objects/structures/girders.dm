@@ -40,9 +40,9 @@
 /// Melting Temperatures for various specific objects
 #define GIRDER_MELTING_TEMP 5000
 
-/obj/structure/girder/temperature_expose(temperature, volume)
+/obj/structure/girder/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	var/temp_check = temperature
+	var/temp_check = exposed_temperature
 	if(temp_check >= GIRDER_MELTING_TEMP)
 		take_damage(10)
 

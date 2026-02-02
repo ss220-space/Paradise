@@ -10,6 +10,7 @@
 	var/light_intensity = 2
 	light_color = LIGHT_COLOR_BLUE
 	resistance_flags = FLAMMABLE
+	custom_price = PAYCHECK_MIN * 0.1
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/get_ru_names()
 	return list(
@@ -95,20 +96,20 @@
 		if(A.volume >= 5 && A.alcohol_perc >= 0.35) //Only an approximation to if something's flammable but it will do
 			return TRUE
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = FALSE)
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/fire_act(exposed_temperature, exposed_volume)
 	if(!isShotFlammable() || (resistance_flags & ON_FIRE)) //You can't light a shot that's not flammable!
 		return
 	..()
 	set_light_range_power_color(light_intensity, 1, light_color)
 	set_light_on(TRUE)
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает гореть синим пламенем!"))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает гореть синим пламенем!"))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
 	set_light_on(FALSE)
 	if(!silent)
-		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] перестаёт гореть!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] перестаёт гореть!"))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot

@@ -13,6 +13,7 @@
 	resistance_flags = ACID_PROOF
 	drop_sound = 'sound/items/handling/drop/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/drinkglass_pickup.ogg'
+	custom_price = PAYCHECK_MIN * 0.2
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
 	return list(
@@ -48,7 +49,7 @@
 
 	return ..()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(exposed_temperature, exposed_volume)
 	if(!reagents.total_volume)
 		return
 	..()

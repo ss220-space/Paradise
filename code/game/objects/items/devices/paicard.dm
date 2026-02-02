@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;powerstorage=2" // Or it will be cloned in the experimentor
+	custom_price = PAYCHECK_COMMAND
 	var/request_cooldown = 5 // five seconds
 	var/last_request
 	var/obj/item/radio/headset/radio
@@ -294,7 +295,7 @@
 		current_emotion = emotion
 
 /obj/item/paicard/proc/alertUpdate()
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выводит сообщение на экран: \"Дополнительные личности доступны для загрузки.\""))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выводит сообщение на экран: \"Дополнительные личности доступны для загрузки.\""))
 	softping()
 
 /obj/item/paicard/proc/softping()

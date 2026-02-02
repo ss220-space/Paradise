@@ -30,19 +30,20 @@
 /datum/data/pda/proc/program_hit_check()
 	return
 
-/datum/data/pda/proc/notify(message, blink = 1)
-	if(message)
-		//Search for holder of the PDA.
-		var/mob/living/L = null
-		if(pda.loc && isliving(pda.loc))
-			L = pda.loc
+/datum/data/pda/proc/notify(message, blink = TRUE)
+	if(!message)
+		return
+	//Search for holder of the PDA.
+	var/mob/living/L = null
+	if(pda.loc && isliving(pda.loc))
+		L = pda.loc
 		//Maybe they are a pAI!
-		else
-			L = get(pda, /mob/living/silicon)
+	else
+		L = get(pda, /mob/living/silicon)
 
-		if(L && L.stat != UNCONSCIOUS) // Awake or dead people can see their messages
-			to_chat(L, "[icon2html(pda, L)] [message]")
-			SStgui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
+	if(L && L.stat != UNCONSCIOUS) // Awake or dead people can see their messages
+		to_chat(L, "[icon2html(pda, L)] [message]")
+		SStgui.update_user_uis(L, pda) // Update the receiving user's PDA UI so that they can see the new message
 
 	if(!pda.silent)
 		pda.play_ringtone()

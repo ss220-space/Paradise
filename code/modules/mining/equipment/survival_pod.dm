@@ -63,7 +63,7 @@
 		to_chat(user, span_notice("Ошибка. Попытка развертывания в секторе станции. Развертывание отменено."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
-	loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает вибрировать. Отойдите!"))
+	loc.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает вибрировать. Отойдите!"))
 	used = TRUE
 	addtimer(CALLBACK(src, PROC_REF(expand), user), 5 SECONDS)
 	return TRUE
@@ -80,9 +80,9 @@
 	var/status = template.check_deploy(deploy_location)
 	switch(status)
 		if(SHELTER_DEPLOY_BAD_AREA)
-			loc.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] не функционирует в этой зоне."))
+			loc.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не функционирует в этой зоне."))
 		if(SHELTER_DEPLOY_BAD_TURFS, SHELTER_DEPLOY_ANCHORED_OBJECTS)
-			loc.visible_message(span_warning("[capitalize(declent_ru(DATIVE))] не хватает места для развертывания! Необходимо очистить площадь [template.width]x[template.height]!"))
+			loc.visible_message(span_warning("[DECLENT_RU_CAP(src, DATIVE)] не хватает места для развертывания! Необходимо очистить площадь [template.width]x[template.height]!"))
 
 	if(status != SHELTER_DEPLOY_ALLOWED)
 		used = FALSE

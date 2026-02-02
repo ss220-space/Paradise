@@ -71,11 +71,6 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
-"cP" = (
-/obj/machinery/vending/cigarette/free,
-/obj/effect/decal/cleanable/blood,
-/turf/simulated/floor/wood,
-/area/ruin/USSP_SpaceBanya)
 "cZ" = (
 /obj/effect/decal/cleanable/dust,
 /obj/structure/cable{
@@ -132,6 +127,15 @@
 	dir = 4
 	},
 /turf/simulated/floor/wood,
+/area/ruin/USSP_SpaceBanya)
+"ex" = (
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/color/lightbrown,
+/obj/item/clothing/gloves/color/light_brown,
+/obj/item/clothing/shoes/color/brown,
+/obj/effect/decal/cleanable/blood,
+/obj/effect/mist,
+/turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "ey" = (
 /obj/structure/spider/stickyweb,
@@ -359,6 +363,11 @@
 /obj/effect/decal/cleanable/vomit,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
+"py" = (
+/obj/machinery/vending/cigarette,
+/obj/effect/decal/cleanable/blood,
+/turf/simulated/floor/wood,
+/area/ruin/USSP_SpaceBanya)
 "pL" = (
 /obj/effect/decal/cleanable/dust,
 /obj/item/reagent_containers/food/snacks/grown/tomato{
@@ -426,17 +435,6 @@
 /obj/effect/decal/cleanable/dust,
 /obj/effect/mist,
 /turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
-"rQ" = (
-/obj/machinery/door_control{
-	id = "Bar";
-	name = "Bar Privacy Shutters Control";
-	pixel_x = 25;
-	pixel_y = -6
-	},
-/obj/machinery/light_switch/directional/south,
-/obj/effect/decal/cleanable/dust,
-/turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "rS" = (
 /obj/effect/decal/cleanable/blood/drip{
@@ -673,17 +671,6 @@
 "AC" = (
 /turf/simulated/floor/indestructible/beach/water,
 /area/ruin/USSP_SpaceBanya)
-"AH" = (
-/obj/effect/decal/cleanable/cobweb2,
-/obj/structure/closet/wardrobe,
-/obj/item/clothing/under/color/lightbrown,
-/obj/item/clothing/gloves/color/light_brown,
-/obj/item/clothing/shoes/color/brown,
-/obj/item/clothing/head/fedora/brownfedora,
-/obj/effect/decal/cleanable/dust,
-/obj/item/clothing/suit/fluff/dusty_jacket,
-/turf/simulated/floor/wood/oak,
-/area/ruin/USSP_SpaceBanya)
 "AJ" = (
 /obj/item/ammo_casing/shotgun/buckshot,
 /turf/simulated/floor/wood{
@@ -799,6 +786,17 @@
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
+"Gz" = (
+/obj/effect/decal/cleanable/cobweb2,
+/obj/structure/closet/wardrobe,
+/obj/item/clothing/under/color/lightbrown,
+/obj/item/clothing/gloves/color/light_brown,
+/obj/item/clothing/shoes/color/brown,
+/obj/item/clothing/head/fedora/brownfedora,
+/obj/effect/decal/cleanable/dust,
+/obj/item/clothing/suit/fluff/dusty_jacket,
+/turf/simulated/floor/wood/oak,
+/area/ruin/USSP_SpaceBanya)
 "GI" = (
 /obj/machinery/vending/boozeomat,
 /obj/effect/decal/cleanable/dust,
@@ -814,6 +812,17 @@
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken"
 	},
+/area/ruin/USSP_SpaceBanya)
+"II" = (
+/obj/machinery/door_control{
+	id = "Bar";
+	name = "Bar Privacy Shutters Control";
+	pixel_x = 25;
+	pixel_y = -6
+	},
+/obj/machinery/light_switch/directional/south,
+/obj/effect/decal/cleanable/dust,
+/turf/simulated/floor/wood,
 /area/ruin/USSP_SpaceBanya)
 "Ja" = (
 /obj/structure/disposalpipe/segment,
@@ -1130,15 +1139,6 @@
 	},
 /obj/structure/barricade/wooden/crude,
 /turf/simulated/floor/wood,
-/area/ruin/USSP_SpaceBanya)
-"XW" = (
-/obj/structure/closet/wardrobe,
-/obj/item/clothing/under/color/lightbrown,
-/obj/item/clothing/gloves/color/light_brown,
-/obj/item/clothing/shoes/color/brown,
-/obj/effect/decal/cleanable/blood,
-/obj/effect/mist,
-/turf/simulated/floor/wood/oak,
 /area/ruin/USSP_SpaceBanya)
 "XY" = (
 /obj/effect/decal/cleanable/dust,
@@ -1595,11 +1595,11 @@ Nd
 dr
 Dd
 Dd
-AH
+Gz
 mL
 DE
 wR
-XW
+ex
 Dd
 Dd
 Ep
@@ -1699,7 +1699,7 @@ kJ
 Gi
 Vs
 RV
-cP
+py
 Dd
 FV
 vI
@@ -2000,7 +2000,7 @@ Tg
 Lc
 eQ
 yh
-rQ
+II
 Dd
 sa
 Xo

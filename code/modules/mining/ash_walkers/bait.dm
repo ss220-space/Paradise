@@ -116,7 +116,7 @@
 /obj/item/reagent_containers/food/snacks/charred_krill/can_be_pulled(atom/movable/user, force, show_message)
 	if(in_lava)
 		if(show_message)
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] почти утонула в лаве!"))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] почти утонула в лаве!"))
 			return
 
 /obj/item/reagent_containers/food/snacks/charred_krill/attack_hand(mob/user, pickupfireoverride)

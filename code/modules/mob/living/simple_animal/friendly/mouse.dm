@@ -251,8 +251,8 @@
 		var/mob/living/simple_animal/pet/cat/C = M
 		if(C.friendly && C.eats_mice && C.a_intent == INTENT_HARM)
 			apply_damage(15, BRUTE) //3x от ХП обычной мыши или полное хп крысы
-			visible_message(span_danger("[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[M.declent_ru(NOMINATIVE)] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_danger("[M.declent_ru(NOMINATIVE)] [M.attacktext] [declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[M.declent_ru(NOMINATIVE)] [M.attacktext] [declent_ru(ACCUSATIVE)]!"))
 			return
 	. = ..()
 

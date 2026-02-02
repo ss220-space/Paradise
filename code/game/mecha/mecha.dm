@@ -161,6 +161,8 @@
 	var/list/module_actions = list()
 
 	var/ratvarized = FALSE
+	///Just stop the mech from doing anything
+	var/completely_disabled = FALSE
 
 /obj/mecha/Initialize(mapload)
 	. = ..()
@@ -252,6 +254,8 @@
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user)
+		return
+	if(completely_disabled)
 		return
 	if(user.incapacitated())
 		return
@@ -410,6 +414,8 @@
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
+		return FALSE
+	if(completely_disabled)
 		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -856,10 +862,10 @@
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
-/obj/mecha/temperature_expose(temperature, volume)
+/obj/mecha/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > max_temperature)
-		take_damage(5, BURN, 0, 1)
+	if(exposed_temperature > max_temperature)
+		take_damage(5, BURN, 0, TRUE)
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
 //////////////////////
@@ -1626,15 +1632,15 @@
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)
-			if(0.75 to INFINITY)
+			if(CELL_CHARGE_HIGH to CELL_CHARGE_UPPER_BORDER)
 				occupant.clear_alert("charge")
-			if(0.5 to 0.75)
+			if(CELL_CHARGE_MEDIUM to CELL_CHARGE_HIGH)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 1)
-			if(0.25 to 0.5)
+			if(CELL_CHARGE_LOW to CELL_CHARGE_MEDIUM)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 2)
 				if(power_warned)
 					power_warned = FALSE
-			if(0.01 to 0.25)
+			if(CELL_CHARGE_LOWER_BORDER to CELL_CHARGE_LOW)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
 					SEND_SOUND(occupant, sound(lowpowersound, volume = 50))
@@ -1895,7 +1901,7 @@
 		var/datum/ratvar_mecha/converter = new rat_mecha
 		if(mech_type in converter.mech_types)
 			converter.convert(src)
-			visible_message(span_clocklarge("[capitalize(declent_ru(NOMINATIVE))] начинает громко грохотать, его механизмы заменяются шестернями!"))
+			visible_message(span_clocklarge("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает громко грохотать, его механизмы заменяются шестернями!"))
 		QDEL_NULL(converter)
 
 #undef OCCUPANT_LOGGING

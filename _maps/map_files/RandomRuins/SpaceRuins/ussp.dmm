@@ -326,15 +326,6 @@
 	icon_state = "darkblue"
 	},
 /area/derelict/bridge)
-"aS" = (
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "darkblue"
-	},
-/area/derelict/bridge)
 "aT" = (
 /obj/machinery/vending/sovietsoda,
 /turf/simulated/floor/plasteel{
@@ -2190,6 +2181,17 @@
 	tag = "icon-wood-broken3"
 	},
 /area/derelict/crew_quarters)
+"fx" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/table/wood,
+/obj/item/trash/candle,
+/obj/item/gun/projectile/shotgun/lethal/rusted,
+/turf/simulated/floor/plasteel{
+	icon_state = "wood"
+	},
+/area/derelict/crew_quarters)
 "fy" = (
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
@@ -2369,20 +2371,6 @@
 	icon_state = "caution"
 	},
 /area/derelict/engineer_area)
-"fT" = (
-/obj/machinery/door_control{
-	id = "ruslock";
-	layer = 2.1;
-	name = "suspicious button"
-	},
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/turf/simulated/floor/wood{
-	broken = 1;
-	icon_state = "wood-broken"
-	},
-/area/derelict/crew_quarters)
 "fU" = (
 /obj/item/spentcasing,
 /turf/simulated/floor/plasteel{
@@ -3083,17 +3071,6 @@
 	icon_state = "brown"
 	},
 /area/derelict/dock)
-"hM" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/obj/effect/decal/cleanable/cobweb2,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "brown"
-	},
-/area/derelict/dock)
 "hN" = (
 /obj/structure/cable{
 	d2 = 4;
@@ -3567,6 +3544,11 @@
 	dir = 1;
 	icon_state = "brown"
 	},
+/area/derelict/dock)
+"iU" = (
+/obj/effect/mapping_helpers/turfs/burn,
+/obj/item/gun/projectile/revolver/nagant/rusted,
+/turf/simulated/floor/plasteel,
 /area/derelict/dock)
 "iV" = (
 /obj/item/spentcasing/rifle,
@@ -5142,14 +5124,6 @@
 	},
 /turf/space,
 /area/space/nearstation)
-"mY" = (
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "bar"
-	},
-/area/derelict/dining)
 "mZ" = (
 /mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
@@ -6351,14 +6325,6 @@
 "qj" = (
 /obj/structure/chair/stool,
 /obj/structure/spider/stickyweb,
-/turf/simulated/floor/plasteel{
-	icon_state = "redfull"
-	},
-/area/derelict/arrival)
-"ql" = (
-/obj/machinery/vending/cigarette/free{
-	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "redfull"
 	},
@@ -7592,6 +7558,14 @@
 	icon_state = "caution"
 	},
 /area/derelict/engineer_area)
+"xm" = (
+/obj/machinery/vending/cigarette{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/derelict/dining)
 "xn" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -7700,18 +7674,6 @@
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel,
 /area/derelict/arrival)
-"yx" = (
-/obj/effect/mapping_helpers/turfs/damage,
-/obj/item/clothing/suit/tracksuit,
-/obj/item/clothing/under/pants/track,
-/obj/item/clothing/shoes/color/black,
-/obj/item/clothing/head/soft/black,
-/obj/structure/closet,
-/turf/simulated/floor/plasteel/airless{
-	dir = 5;
-	icon_state = "green"
-	},
-/area/derelict/garden)
 "yy" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -7764,6 +7726,14 @@
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "red"
+	},
+/area/derelict/arrival)
+"zj" = (
+/obj/machinery/vending/cigarette{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "redfull"
 	},
 /area/derelict/arrival)
 "zk" = (
@@ -8286,6 +8256,18 @@
 	icon_state = "bar"
 	},
 /area/derelict/dining)
+"Ee" = (
+/obj/effect/mapping_helpers/turfs/damage,
+/obj/item/clothing/suit/tracksuit,
+/obj/item/clothing/under/pants/track,
+/obj/item/clothing/shoes/color/black,
+/obj/item/clothing/head/soft/black,
+/obj/structure/closet,
+/turf/simulated/floor/plasteel/airless{
+	dir = 5;
+	icon_state = "green"
+	},
+/area/derelict/garden)
 "Ei" = (
 /obj/structure/cable{
 	icon_state = "1-2";
@@ -8856,6 +8838,15 @@
 /obj/structure/table,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
+"Ko" = (
+/obj/machinery/vending/cigarette{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "darkblue"
+	},
+/area/derelict/bridge)
 "Kw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -9414,11 +9405,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel/airless,
 /area/ruin/unpowered/no_grav)
-"Ra" = (
-/obj/effect/mapping_helpers/turfs/burn,
-/obj/item/gun/projectile/revolver/nagant/rusted,
-/turf/simulated/floor/plasteel,
-/area/derelict/dock)
 "Rc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/dispenser,
@@ -9496,6 +9482,17 @@
 	icon_state = "bar"
 	},
 /area/derelict/dining)
+"RX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "brown"
+	},
+/area/derelict/dock)
 "Se" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -9832,6 +9829,20 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
+"VV" = (
+/obj/machinery/door_control{
+	id = "ruslock";
+	layer = 2.1;
+	name = "suspicious button"
+	},
+/obj/machinery/vending/cigarette{
+	slogan_list = list("Just remember! No capitalist.","Best enjoyed with Vodka!.","Smoke!","Nine out of ten USSP scientists agree, smoking reduces stress!","There's no cigarette like a Russian cigarette!","Cigarettes! Now with 100% less capitalism.")
+	},
+/turf/simulated/floor/wood{
+	broken = 1;
+	icon_state = "wood-broken"
+	},
+/area/derelict/crew_quarters)
 "VX" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -10091,17 +10102,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/derelict/dock)
-"ZI" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/table/wood,
-/obj/item/trash/candle,
-/obj/item/gun/projectile/shotgun/lethal/rusted,
-/turf/simulated/floor/plasteel{
-	icon_state = "wood"
-	},
-/area/derelict/crew_quarters)
 "ZY" = (
 /mob/living/simple_animal/hostile/poison/giant_spider{
 	health = 250;
@@ -15295,7 +15295,7 @@ lv
 jX
 kQ
 UI
-Ra
+iU
 ix
 mw
 mI
@@ -15531,7 +15531,7 @@ Ci
 gM
 hc
 cq
-hM
+RX
 ia
 iz
 Ug
@@ -18230,7 +18230,7 @@ ac
 ac
 AE
 AE
-yx
+Ee
 lN
 OR
 lN
@@ -19325,7 +19325,7 @@ ac
 ac
 Oo
 Oo
-mY
+xm
 jj
 vx
 DX
@@ -19411,7 +19411,7 @@ ac
 ac
 ss
 as
-aS
+Ko
 bc
 aJ
 wu
@@ -19950,7 +19950,7 @@ ac
 ac
 ac
 fG
-ql
+zj
 Jf
 Qx
 iy
@@ -21259,7 +21259,7 @@ ek
 eD
 fb
 eD
-fT
+VV
 aV
 dH
 aV
@@ -21624,7 +21624,7 @@ aV
 zn
 xn
 fd
-ZI
+fx
 fd
 Od
 CB

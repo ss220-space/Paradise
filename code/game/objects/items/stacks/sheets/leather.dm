@@ -400,19 +400,19 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		qdel(src)
 
 //Step three - drying
-/obj/item/stack/sheet/wetleather/temperature_expose(temperature, volume)
+/obj/item/stack/sheet/wetleather/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature >= drying_threshold_temperature)
+	if(exposed_temperature >= drying_threshold_temperature)
 		wetness--
 		if(wetness == 0)
 			//Try locating an exisitng stack on the tile and add to there if possible
-			for(var/obj/item/stack/sheet/leather/HS in src.loc)
+			for(var/obj/item/stack/sheet/leather/HS in loc)
 				if(HS.amount < 50)
 					HS.amount++
-					src.use(1)
+					use(1)
 					wetness = initial(wetness)
 					return
 			//If it gets to here it means it did not find a suitable stack on the tile.
-			new /obj/item/stack/sheet/leather(src.loc, 1)
+			new /obj/item/stack/sheet/leather(loc, 1)
 			wetness = initial(wetness)
-			src.use(1)
+			use(1)

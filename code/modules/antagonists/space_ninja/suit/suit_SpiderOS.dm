@@ -5,7 +5,7 @@
 //Кнопка для вызова интерфейса
 /datum/action/item_action/advanced/ninja/SpiderOS
 	name = "SpiderOS"
-	desc = "Your personal integrated suit AI that will help you configure yourself for the upcoming mission!"
+	desc = "Открывает интерфейс вашего костюма."
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "spider_green"

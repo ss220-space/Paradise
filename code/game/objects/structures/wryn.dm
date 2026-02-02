@@ -127,10 +127,10 @@
 /obj/structure/wryn/floor/proc/fullUpdateWeedOverlays()
 	if(!length(floorImageCache))
 		floorImageCache = list(4)
-		floorImageCache["[NORTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_n", layer=2.11, pixel_y = -32)
-		floorImageCache["[SOUTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_s", layer=2.11, pixel_y = 32)
-		floorImageCache["[EAST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_e", layer=2.11, pixel_x = -32)
-		floorImageCache["[WEST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_w", layer=2.11, pixel_x = 32)
+		floorImageCache["[NORTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_n", layer=2.11, pixel_z = -32)
+		floorImageCache["[SOUTH]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_s", layer=2.11, pixel_z = 32)
+		floorImageCache["[EAST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_e", layer=2.11, pixel_w = -32)
+		floorImageCache["[WEST]"] = image('icons/obj/smooth_structures/wryn/floor.dmi', "wax_floor_side_w", layer=2.11, pixel_w = 32)
 
 	for(var/obj/structure/wryn/floor/floor in range(1,src))
 		floor.update_icon(UPDATE_OVERLAYS)
@@ -152,9 +152,9 @@
 	if(checkpass(mover, PASSGLASS))
 		return !opacity
 
-/obj/structure/wryn/floor/temperature_expose(temperature, volume)
+/obj/structure/wryn/floor/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
+	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 #define WAX_DOOR_CLOSED 0

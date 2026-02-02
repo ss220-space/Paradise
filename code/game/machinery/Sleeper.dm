@@ -449,7 +449,7 @@
 
 /obj/machinery/sleeper/proc/inject_chemical(mob/living/user, chemical, amount)
 	if(!(chemical in possible_chems))
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] не может ввести такое вещество!"))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не может ввести такое вещество!"))
 		return
 	if(!(amount in amounts))
 		return
@@ -463,7 +463,7 @@
 		else
 			to_chat(user, "Организм субъекта отвергает это вещество.")
 	else
-		to_chat(user, "[capitalize(declent_ru(NOMINATIVE))] пуст!")
+		to_chat(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] пуст!")
 
 /obj/machinery/sleeper/verb/eject()
 	set name = "Извлечь пациента"

@@ -6,6 +6,7 @@
 	throwforce = 10
 	dont_save = TRUE // to avoid it messing up in buildmode saving
 	pass_flags_self = PASSMOB
+	abstract_type = /mob
 
 	/// The current client inhabiting this mob. Managed by login/logout
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
@@ -176,6 +177,7 @@
 
 	var/datum/dna/dna = null // Carbon
 	var/radiation = 0 // Carbon
+	var/max_radiation = CARBON_MAX_RADIATION // Carbon
 
 	//see: setup.dm for list of mutations
 

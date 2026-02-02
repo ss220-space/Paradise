@@ -690,6 +690,7 @@
 	name = "specter pistol cell"
 	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
 	internal_cell = new /obj/item/stock_parts/cell/specter()
+	materials = list(MAT_METAL = 35000)
 
 /obj/item/weapon_cell/specter/get_ru_names()
 	return list(
