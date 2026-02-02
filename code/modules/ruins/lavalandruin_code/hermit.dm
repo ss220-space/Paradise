@@ -81,7 +81,7 @@
 			outfit.glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 			outfit.mask = /obj/item/clothing/mask/breath/medical
 			outfit.uniform = /obj/item/clothing/under/rank/chief_medical_officer
-			outfit.shoes = /obj/item/clothing/shoes/leather
+			outfit.shoes = /obj/item/clothing/shoes/brown
 			outfit.back = /obj/item/storage/backpack/satchel_med/hermit
 			outfit.belt = /obj/item/storage/belt/medical
 			outfit.r_pocket = /obj/item/melee/baton/telescopic
@@ -416,13 +416,13 @@
 	access = list(ACCESS_HERMIT_AUTUMN)
 
 /obj/item/card/id/away/hermit/autumn/get_ru_names()
-	ru_names = list(
+	return list(
 		NOMINATIVE = "ключ—карта",
 		GENITIVE = "ключ—карты",
 		DATIVE = "ключ—карте",
 		ACCUSATIVE = "ключ—карту",
 		INSTRUMENTAL = "ключ—картой",
-		PREPOSITIONAL = "ключ—карте",
+		PREPOSITIONAL = "ключ—карте"
 	)
 
 /obj/item/pda/hermit/autumn
