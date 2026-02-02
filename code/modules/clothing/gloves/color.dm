@@ -149,7 +149,7 @@
 	desc = "Примитивные перчатки, которые облегчают переноску."
 	icon_state = "goligloves"
 	item_state = "goligloves"
-	armor = list(MELEE = 20, BULLET = 10, LASER = 10, ENERGY = 5, BOMB = 0, BIO = 0, RAD = 20, FIRE = 50, ACID = 50)
+	armor = list(MELEE = 20, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 20, FIRE = 50, ACID = 50)
 	can_be_cut = FALSE
 
 /obj/item/clothing/gloves/color/black/goliath/get_ru_names()
@@ -167,7 +167,7 @@
 	desc = "Pair of gloves with some protection"
 	icon_state = "armored_gloves"
 	item_state = "armored_gloves"
-	armor = list(MELEE = 5, BULLET = 25, LASER = 10, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
+	armor = list(MELEE = 5, BULLET = 20, LASER = 5, ENERGY = 5, BOMB = 5, BIO = 0, RAD = 0, FIRE = 75, ACID = 75)
 	can_be_cut = FALSE
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
