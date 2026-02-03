@@ -404,7 +404,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_ASSISTANT "Ассистент"
 #define ALT_JOB_TITLE_RU_WORKER "Разнорабочий"
 #define ALT_JOB_TITLE_RU_GENERAL_INTERN "Стажёр общего профиля"
-#define ALT_JOB_TITLE_RU_VISITOR "Посетитель"
 // Prisoner
 #define ALT_JOB_TITLE_RU_ARRESTEE "Арестант"
 #define ALT_JOB_TITLE_RU_CONVICT "Осуждённый"
