@@ -150,7 +150,7 @@
 			eprojectile = /obj/projectile/beam
 			eshot_sound = 'sound/weapons/laser.ogg'
 
-		if(/obj/item/gun/energy/gun)
+		if(/obj/item/gun/energy/accumulator/egun)
 			eprojectile = /obj/projectile/beam	//If it has, going to kill mode
 			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1

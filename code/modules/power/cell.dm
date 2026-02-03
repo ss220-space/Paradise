@@ -558,8 +558,8 @@
 
 /obj/item/stock_parts/cell/dominator
 	name = "Dominator pistol power cell"
-	maxcharge = 3000
-	chargerate = 200
+	maxcharge = 1500
+	chargerate = 100
 	rating = 2
 
 /obj/item/stock_parts/cell/dominator/get_ru_names()
@@ -571,6 +571,39 @@
 		INSTRUMENTAL = "батареей Доминатора",
 		PREPOSITIONAL = "батарее Доминатора",
 	)
+
+/obj/item/stock_parts/cell/multiphase
+	name = "Multiphase pistol power cell"
+	maxcharge = 2000
+	chargerate = 200
+	rating = 2
+
+/obj/item/stock_parts/cell/multiphase/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея X-01",
+		GENITIVE = "батареи X-01",
+		DATIVE = "батарее X-01",
+		ACCUSATIVE = "батарею X-01",
+		INSTRUMENTAL = "батареей X-01",
+		PREPOSITIONAL = "батарее X-01",
+	)
+
+/obj/item/stock_parts/cell/revolver
+	name = "Advanced stun revolver power cell"
+	maxcharge = 1800
+	chargerate = 180
+	rating = 2
+
+/obj/item/stock_parts/cell/multiphase/get_ru_names()
+	return list(
+		NOMINATIVE = "батарея энергетического револьвера",
+		GENITIVE = "батареи энергетического револьвера",
+		DATIVE = "батарее энергетического револьвера",
+		ACCUSATIVE = "батарею энергетического револьвера",
+		INSTRUMENTAL = "батареей энергетического револьвера",
+		PREPOSITIONAL = "батареи энергетического револьвера",
+	)
+
 
 /obj/item/stock_parts/cell/bsg
 	name = "B.S.G power cell"
@@ -647,7 +680,7 @@
 	name = "energy weapon cell magazine"
 	desc = "Магазин к энергооружию."
 	icon = 'icons/obj/weapons/ammo.dmi'
-	icon_state = "Specter_accumulator"
+	icon_state = "specter_accumulator"
 	gender = MALE
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -659,6 +692,7 @@
 	pickup_sound = 'sound/items/handling/pickup/ammobox_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/ammobox_drop.ogg'
 	var/obj/item/stock_parts/cell/internal_cell = new /obj/item/stock_parts/cell/laser
+	var/update_on_move = TRUE
 
 /obj/item/weapon_cell/Initialize(mapload)
 	. = ..()
@@ -679,16 +713,26 @@
 	else
 		. += span_notice("<b>Индикатор заряда:</b> [round(internal_cell.percent())]%.")
 
+/obj/item/weapon_cell/forceMove(atom/destination)
+	. = ..()
+	if(update_on_move && .)
+		update_icon(UPDATE_OVERLAYS)
+
+/obj/item/weapon_cell/dropped(mob/user, silent = FALSE)
+	. = ..()
+	if(update_on_move && .)
+		update_icon(UPDATE_OVERLAYS)
+
 
 /obj/item/stock_parts/cell/specter
 	name = "specter cell"
-	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
-	maxcharge = 7200
-	chargerate = 480
+	desc = "Аккумулятор для энергетического пистолета Спектр."
+	maxcharge = 800
+	chargerate = 80
 
 /obj/item/weapon_cell/specter
 	name = "specter pistol cell"
-	desc = "Аккумулятор, используемый в качестве магазина для пистолета Спектр."
+	desc = "Аккумулятор для энергетического пистолета Спектр."
 	internal_cell = new /obj/item/stock_parts/cell/specter()
 
 /obj/item/weapon_cell/specter/get_ru_names()
@@ -707,12 +751,50 @@
 
 	switch(charge_percent)
 		if(1 to 25)
-			. += "Specter_overlay_low"
+			. += "specter_overlay_low"
 		if(26 to 40)
-			. += "Specter_overlay_half2"
+			. += "specter_overlay_half2"
 		if(41 to 65)
-			. += "Specter_overlay_half"
+			. += "specter_overlay_half"
 		if(66 to 100)
-			. += "Specter_overlay_full"
+			. += "specter_overlay_full"
 		else
-			. += "Specter_overlay_empty"
+			. += "specter_overlay_empty"
+
+/obj/item/stock_parts/cell/egun
+	name = "egun cell"
+	desc = "Аккумулятор для энергетического оружия."
+	maxcharge = 1500
+	chargerate = 150
+
+/obj/item/weapon_cell/egun
+	name = "egun pistol cell"
+	icon_state = "egun_accumulator"
+	desc = "Аккумулятор для энергетического оружия."
+	internal_cell = new /obj/item/stock_parts/cell/egun()
+
+/obj/item/weapon_cell/egun/get_ru_names()
+	return list(
+		NOMINATIVE = "аккумулятор энергетического оружия",
+		GENITIVE = "аккумулятора энергетическгого оружия",
+		DATIVE = "аккумулятору энергетического оружия",
+		ACCUSATIVE = "аккумулятор энергетического оружия",
+		INSTRUMENTAL = "аккумулятором энергетического оружия",
+		PREPOSITIONAL = "аккумуляторе энергетического оружия",
+	)
+
+/obj/item/weapon_cell/egun/update_overlays()
+	. = list()
+	var/charge_percent = internal_cell.percent()
+
+	switch(charge_percent)
+		if(1 to 25)
+			. += "egun_overlay_low"
+		if(26 to 40)
+			. += "egun_overlay_half2"
+		if(41 to 65)
+			. += "egun_overlay_half"
+		if(66 to 100)
+			. += "egun_overlay_full"
+		else
+			. += "egun_overlay_empty"

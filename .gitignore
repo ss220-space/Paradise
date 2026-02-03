@@ -107,3 +107,4 @@ paradise.json
 # dmdoc and output
 dmdoc.exe
 dmdoc/
+code/datums/components/overlay_lighting.dm

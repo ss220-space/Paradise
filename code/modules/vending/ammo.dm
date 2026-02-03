@@ -37,6 +37,7 @@
 				/obj/item/ammo_box/magazine/enforcer/lethal = 10,
 				/obj/item/ammo_box/magazine/lr30mag = 10,
 				/obj/item/weapon_cell/specter = 10,
+				/obj/item/weapon_cell/egun = 10,
 			),
 		),
 		list(

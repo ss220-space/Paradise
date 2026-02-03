@@ -376,6 +376,7 @@
 	icon_state = "pulseslugshell"
 	projectile_type = /obj/projectile/beam/pulse/shot
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
+	overlay_color = LIGHT_COLOR_DARK_BLUE
 
 /obj/item/ammo_casing/shotgun/incendiary
 	name = "incendiary slug"
@@ -416,45 +417,49 @@
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 
 /obj/item/ammo_casing/enforcer/laser
-	desc = "Лазерный патрон для пистолета \"Блюститель\"."
+	desc = "Лазерный патрон 9мм"
 	icon_state = "laser-casing"
 	caliber = CALIBER_9MM
 	materials = list(MAT_METAL = 1000)
-	projectile_type = /obj/projectile/beam/specter/laser
+	projectile_type = /obj/projectile/beam
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 	fire_sound = 'sound/weapons/gunshots/1laser7.ogg'
 	bullet_type = BULLET_TYPE_LASER
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/ammo_casing/enforcer/disable
-	desc = "Парализующий патрон для пистолета \"Блюститель\"."
+	desc = "Парализующий патрон 9мм"
 	icon_state = "stam-casing"
 	caliber = CALIBER_9MM
 	materials = list(MAT_METAL = 800)
-	projectile_type = /obj/projectile/beam/specter/disabler
+	projectile_type = /obj/projectile/beam/disabler
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	bullet_type = BULLET_TYPE_DISABLER
+	overlay_color = COLOR_HEALING_CYAN
 
 /obj/item/ammo_casing/shotgun/laserslug
 	name = "laser slug"
 	desc = "An advanced shotgun shell that uses a micro laser to replicate the effects of a laser weapon in a ballistic package."
 	icon_state = "laserslugshell"
-	projectile_type = /obj/projectile/beam/laser/slug
+	projectile_type = /obj/projectile/beam/heavy
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/ammo_casing/shotgun/lasershot
 	name = "laser shot"
 	desc = "An advanced shotgun shell that uses a micro lasers to replicate the effects of a buckshot in laser appearance."
 	icon_state = "lasershotshell"
-	projectile_type = /obj/projectile/beam/laser/shot
+	projectile_type = /obj/projectile/beam/weak
 	pellets = 6
 	variance = 17
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/ammo_casing/shotgun/bioterror
 	name = "bioterror shell"
@@ -691,8 +696,9 @@
 	icon_state = "lasercasing"
 	materials = list(MAT_METAL = 2000, MAT_PLASMA = 200)
 	caliber = CALIBER_LASER
-	projectile_type = /obj/projectile/beam/laser
+	projectile_type = /obj/projectile/beam
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	muzzle_flash_color = COLOR_SOFT_RED
 	bullet_type = BULLET_TYPE_LASER
+	overlay_color = COLOR_VIVID_RED

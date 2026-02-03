@@ -3,7 +3,7 @@
 	name = "ion rifle"
 	desc = "A man portable anti-armor weapon designed to disable mechanical threats"
 	icon_state = "ionrifle"
-	item_state = null	//so the human update icon uses the icon_state instead.
+	item_state = "ionrifle"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
@@ -22,6 +22,7 @@
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
+	item_state = "advtaser"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
@@ -452,7 +453,7 @@
 	name = "HONK Rifle"
 	desc = "Clown Planet's finest."
 	icon_state = "honkrifle"
-	item_state = null
+	item_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
 	clumsy_check = FALSE
 	selfcharge = TRUE
@@ -487,10 +488,11 @@
 /obj/item/gun/energy/sniperrifle/pod_pilot
 	name = "LSR-39 Queen blade"
 	desc = "Прототип компактной лазерной снайперской винтовки с парализующим и летальным режимом стрельбы, оснащена большим оптическим прицелом для эффективной работы в открытом космосе."
-	icon_state = "LSR-39"
+	icon_state = "LQB"
+	item_state = "LQB"
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/podsniper/disabler,
-		/obj/item/ammo_casing/energy/podsniper/laser,
+		/obj/item/ammo_casing/energy/disabler/heavy,
+		/obj/item/ammo_casing/energy/laser/heavy,
 	)
 	item_state = null
 	weapon_weight = WEAPON_MEDIUM
@@ -691,6 +693,7 @@
 	name = "mimic gun"
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
 	icon_state = "disabler"
+	item_state = "advtaser"
 	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
 	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
 	selfcharge = TRUE
@@ -707,7 +710,6 @@
 /obj/item/gun/energy/dominator
 	name = "Доминатор"
 	desc = "Проприетарное высокотехнологичное оружие правоохранительной организации Sibyl System, произведённое специально для борьбы с преступностью."
-	icon = 'icons/obj/weapons/dominator.dmi'
 	icon_state = "dominator"
 	base_icon_state = "dominator"
 	item_state = null
@@ -719,9 +721,9 @@
 	shaded_charge = TRUE
 	charge_sections = 3
 	ammo_type = list(
-		/obj/item/ammo_casing/energy/dominator/stun,
-		/obj/item/ammo_casing/energy/dominator/paralyzer,
-		/obj/item/ammo_casing/energy/dominator/eliminator,
+		/obj/item/ammo_casing/energy/disabler,
+		/obj/item/ammo_casing/energy/electrode,
+		/obj/item/ammo_casing/energy/laser,
 	)
 	/// Sounds played after selecting the firemode, must be in the same order as ammo_type
 	var/sound_voice = list(
@@ -748,14 +750,6 @@
 		user.playsound_local(user, sound_voice[select], 50, FALSE)
 		COOLDOWN_START(src, last_sound_effect, 2 SECONDS)
 
-/obj/item/gun/energy/dominator/update_icon_state()
-	. = ..()
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(cell.charge < shot.e_cost)
-		item_state = "[base_icon_state]_empty"
-	else
-		item_state = "[base_icon_state]_[shot.select_name]"
-
 /obj/item/gun/energy/dominator/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
 	is_equipped = TRUE
@@ -766,90 +760,396 @@
 	is_equipped = FALSE
 	update_icon()
 
-//Specter//
-/obj/item/gun/energy/specter
-	name = "Specter"
-	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам \"Нанотрейзен\"."
+// Global check procedure for weapon accumulators
+/proc/is_accumulator_cell(obj/item/weapon_cell/cell)
+	return istype(cell, /obj/item/weapon_cell/specter) || istype(cell, /obj/item/weapon_cell/egun)
+
+// Accumulator parent type
+/obj/item/weapon_cell/accumulator
+	name = "Родительский аккумулятор для энергооружия"
+	desc = "Если вы это видите - сообщите разработчикам, это - ошибка."
+	icon_state = "specter_accumulator"
+
+/obj/item/weapon_cell/specter
+	name = "Аккумулятор для пистолета \"Спектр\"."
+	desc = "Подходит только к пистолету \"Спектр\" вмещает энергию на 8 летальных или 16 оглушающих выстрела, имеет адаптивные магниты для быстрой перезарядки из пояса."
+	parent_type = /obj/item/weapon_cell/accumulator
+	icon_state = "specter_accumulator"
+	internal_cell = new /obj/item/stock_parts/cell/specter()
+
+/obj/item/weapon_cell/egun
+	name = "Аккумулятор для энергетического оружия"
+	desc = "Подходит к большинству видов аккумуляторного энергооружия, имеет внушительную ёмкость и адаптивные магниты для быстрой перезарядки из пояса."
+	parent_type = /obj/item/weapon_cell/accumulator
+	icon_state = "egun_accumulator"
+	internal_cell = new /obj/item/stock_parts/cell/egun()
+
+// Parent type for all accumulator based guns
+/obj/item/gun/energy/accumulator
+	name = "Родительское аккумуляторное оружие"
+	desc = "Если вы это видите - сообщите разработчикам, это ошибка"
+	shaded_charge = TRUE
+	var/obj/item/weapon_cell/magazine
+	var/accumulator_type = /obj/item/weapon_cell/specter
+	var/charge_empty = 'sound/weapons/smg_empty_alarm.ogg'
+	var/magazine_out_sound = 'sound/weapons/gun_interactions/spec_magout.ogg'
+	var/magazine_in_sound = 'sound/weapons/gun_interactions/spec_magin.ogg'
+	var/autofire_delay = 0
+	modifystate = FALSE
+	charge_sections = 0
+
+/obj/item/gun/energy/accumulator/Initialize(mapload)
+	. = ..()
+	if(accumulator_type)
+		magazine = new accumulator_type(src)
+		if(magazine && magazine.get_cell())
+			cell = magazine.get_cell()
+	update_icon()
+
+/obj/item/gun/energy/accumulator/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/ammo_alarm)
+
+/obj/item/gun/energy/accumulator/can_shoot(mob/living/user, silent)
+	if(!magazine)
+		if(!silent)
+			balloon_alert(user, "Нет аккумулятора!")
+		return FALSE
+	return ..()
+
+/obj/item/gun/energy/accumulator/attackby(obj/item/item, mob/user, params)
+	if(!is_accumulator_cell(item))
+		return ..()
+
+	add_fingerprint(user)
+
+	if(accumulator_type && !istype(item, accumulator_type))
+		balloon_alert(user, "Неподходящий аккумулятор!")
+		return
+
+	if(!user.drop_transfer_item_to_loc(item, src))
+		balloon_alert(user, "Не получается выбросить!")
+		return ATTACK_CHAIN_PROCEED
+
+	if(magazine)
+		magazine.update_icon(UPDATE_OVERLAYS)
+		user.put_in_hands(magazine)
+
+	magazine = item
+	if(magazine.get_cell())
+		cell = magazine.get_cell()
+		cell_type = cell.type
+
+	balloon_alert(user, "Аккумулятор заменён!")
+	update_icon()
+
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(magazine.is_available_shot(shot.e_cost))
+		playsound(loc, magazine_in_sound, 50, TRUE)
+
+	return ATTACK_CHAIN_PROCEED
+
+/obj/item/gun/energy/accumulator/attack_self(mob/living/user)
+	if(!magazine)
+		return FALSE
+
+	magazine.update_icon(UPDATE_OVERLAYS)
+	user.put_in_hands(magazine)
+
+	cell = null
+	magazine = null
+
+	update_icon()
+	playsound(loc, magazine_out_sound, 50, TRUE)
+	return TRUE
+
+/obj/item/gun/energy/accumulator/examine(mob/user)
+	. = ..()
+	if(magazine && cell)
+		. += span_notice("Заряд аккумулятора: [round(cell.percent())]%")
+		var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+		. += span_notice("Режим: [shot.select_name]")
+	else
+		. += span_warning("Нет аккумулятора!")
+
+/obj/item/gun/energy/accumulator/afterattack(atom/target, mob/user, proximity_flag)
+	if(!proximity_flag || !is_accumulator_cell(target))
+		return ..()
+
+	var/obj/item/weapon_cell/new_cell = target
+	var/belt = new_cell.loc
+
+	if(!istype(belt, /obj/item/storage/belt))
+		return ..()
+
+	if(accumulator_type && !istype(new_cell, accumulator_type))
+		balloon_alert(user, "Неподходящий аккумулятор")
+		return TRUE
+
+	if(magazine)
+		var/obj/item/weapon_cell/old_cell = magazine
+
+		belt:remove_from_storage(new_cell, get_turf(user))
+
+		magazine = new_cell
+		cell = new_cell.internal_cell
+
+		new_cell.forceMove(src)
+		belt:handle_item_insertion(old_cell, FALSE, user)
+
+		old_cell.update_icon(UPDATE_OVERLAYS)
+		update_icon()
+
+		playsound(loc, magazine_in_sound, 30, TRUE)
+		return TRUE
+
+	belt:remove_from_storage(new_cell, get_turf(user))
+	attackby(new_cell, user)
+	playsound(loc, magazine_in_sound, 30, TRUE)
+	return TRUE
+
+/obj/item/gun/energy/accumulator/CtrlClick(mob/user)
+	if(length(ammo_type) > 1)
+		select_fire(user)
+		update_icon()
+		return TRUE
+	return FALSE
+
+/obj/item/gun/energy/accumulator/handle_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE, atom/shooter = null)
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/was_charged = magazine && magazine.is_available_shot(shot.e_cost)
+
+	. = ..()
+
+	var/is_charged_now = magazine && magazine.is_available_shot(shot.e_cost)
+
+	if(was_charged && !is_charged_now)
+		playsound(loc, charge_empty, 50, TRUE)
+
+//Actual weapon types
+/obj/item/gun/energy/accumulator/egun
+	name = "E-DMR \"Скорпион\""
+	desc = "Энергетическая винтовка \"Скорпион\", работающая на съёмных аккумуляторах. Популярна среди множества силовых структур по всей галактике, имеет магнитные захваты для быстрой перезарядки аккумуляторов хранящихся в поясе или тактической разгрузке."
+	icon_state = "EDMR"
+	item_state = "EDMR"
+	force = 10
+	origin_tech = "combat=4;materials=2"
+	accumulator_type = /obj/item/weapon_cell/egun
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
+	materials = list(MAT_METAL = 50000)
+	weapon_weight = WEAPON_LIGHT
+	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -6),
+	)
+	ammo_x_offset = 0
+
+/obj/item/gun/energy/accumulator/egun/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетическая винтовка",
+		GENITIVE = "энергетической винтовки",
+		DATIVE = "энергетической винтовке",
+		ACCUSATIVE = "энергетическую винтовку",
+		INSTRUMENTAL = "энергетической винтовкой",
+		PREPOSITIONAL = "энергетической винтовке",
+	)
+
+/obj/item/gun/energy/accumulator/egun/pistol
+	name = "E-PDW \"Оса\""
+	desc = "Ручной бластер \"Оса\", работающий на съёмных аккумуляторах. Популярен среди множества силовых структур по всей галактике как удобное миниатюрное оружие, имеет магнитные захваты для быстрой перезарядки аккумуляторов хранящихся в поясе или тактической разгрузке."
+	icon_state = "EPDW"
+	item_state = "EPDW"
+	weapon_weight = WEAPON_LIGHT
+	w_class = WEIGHT_CLASS_NORMAL
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 5, "y" = -5),
+	)
+	ammo_x_offset = 0
+
+/obj/item/gun/energy/accumulator/egun/pistol/get_ru_names()
+	return list(
+		NOMINATIVE = "бластер \"Оса\"",
+		GENITIVE = "бластера \"Оса\"",
+		DATIVE = "бластеру \"Оса\"",
+		ACCUSATIVE = "бластер \"Оса\"",
+		INSTRUMENTAL = "бластером \"Оса\"",
+		PREPOSITIONAL = "бластере \"Оса\"",
+	)
+
+/obj/item/gun/energy/accumulator/egun/automatic
+	name = "E-AR \"Скорпион\""
+	desc = "Энергетический автомат \"Скорпион\", работающий на съёмных аккумуляторах. Популярен среди силовых структур по всей галактике как мощное оружие для штурма и подавления множества целей, имеет магнитные захваты для быстрой перезарядки аккумуляторов хранящихся в поясе или тактической разгрузке."
+	icon_state = "EAR"
+	item_state = "EAR"
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/weak, /obj/item/ammo_casing/energy/laser/weak)
+	autofire_delay = 3
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	accuracy = GUN_ACCURACY_RIFLE
+	slot_flags = ITEM_SLOT_SUITSTORE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
+	)
+	ammo_x_offset = 0
+
+/obj/item/gun/energy/accumulator/egun/automatic/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/automatic_fire, autofire_delay)
+
+/obj/item/gun/energy/accumulator/egun/automatic/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический автомат",
+		GENITIVE = "энергетического автомата",
+		DATIVE = "энергетическому автомату",
+		ACCUSATIVE = "энергетический автомат",
+		INSTRUMENTAL = "энергетическим автоматом",
+		PREPOSITIONAL = "энергетическом автомате",
+	)
+
+/obj/item/gun/energy/accumulator/egun/shotgun
+	name = "E-SG \"Скарабей\""
+	desc = "Энергетический дробовик \"Скарабей\", работающий на съёмных аккумуляторах. Популярен среди силовых структур по всей галактике как мощное оружие для боя в тесных условиях, имеет магнитные захваты для быстрой перезарядки аккумуляторов хранящихся в поясе или тактической разгрузке."
+	icon_state = "ESG"
+	item_state = "ESG"
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/scatter, /obj/item/ammo_casing/energy/laser/scatter)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	accuracy = GUN_ACCURACY_RIFLE
+	slot_flags = ITEM_SLOT_SUITSTORE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -8),
+	)
+	ammo_x_offset = 0
+
+/obj/item/gun/energy/accumulator/egun/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический дробовик",
+		GENITIVE = "энергетического робовика",
+		DATIVE = "энергетическому дробовику",
+		ACCUSATIVE = "энергетический дробовик",
+		INSTRUMENTAL = "бэнергетическим дробовиком",
+		PREPOSITIONAL = "энергетическом дробовике",
+	)
+
+/obj/item/gun/energy/accumulator/egun/sniper
+	name = "E-SR \"Богомол\""
+	desc = "Энергетическая снайперская винтовка \"Богомол\", работающая на съёмных аккумуляторах. Популярна среди силовых структур по всей галактике как мощное оружие для боя на дальних дистанциях, имеет магнитные захваты для быстрой перезарядки аккумуляторов хранящихся в поясе или тактической разгрузке."
+	icon = 'icons/obj/weapons/guns_48x32.dmi'
+	icon_state = "ESR"
+	item_state = "ESR"
+	ammo_type = list( /obj/item/ammo_casing/energy/disabler/heavy, /obj/item/ammo_casing/energy/laser/heavy)
+	weapon_weight = WEAPON_HEAVY
+	w_class = WEIGHT_CLASS_BULKY
+	accuracy = GUN_ACCURACY_SNIPER
+	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -7),
+	)
+	ammo_x_offset = 0
+
+/obj/item/gun/energy/accumulator/egun/sniper/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетическая снайперская винтовка",
+		GENITIVE = "энергетической снайперской винтовки",
+		DATIVE = "энергетической снайперской винтовке",
+		ACCUSATIVE = "энергетическую снайперскую винтовку",
+		INSTRUMENTAL = "энергетической снайперской винтовкой",
+		PREPOSITIONAL = "энергетической снайперской винтовке",
+	)
+
+/obj/item/gun/energy/accumulator/specter
+	name = "Энергетический пистолет \"Спектр\"."
+	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет встроенные магнитные захваты для быстрой перезарядки аккумуляторов хранящихся в поясе или тактической разгрузке. Поставляется только силовым структурам Нанотрайзен."
 	icon_state = "specter"
 	item_state = "specter"
 	force = 10
 	origin_tech = "combat=4;materials=2"
-	cell_type = /obj/item/stock_parts/cell/specter
-	var/obj/item/weapon_cell/magazine = new /obj/item/weapon_cell/specter()
-	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
-	materials = list(MAT_METAL = 1000)
+	accumulator_type = /obj/item/weapon_cell/specter
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
+	materials = list(MAT_METAL = 10000)
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 11),
 		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
 	)
 	ammo_x_offset = 0
-	actions_types = list(/datum/action/item_action/toggle_firemode)
 
-/obj/item/gun/energy/specter/get_ru_names()
+	var/rail_color
+	var/grip_color
+
+/obj/item/gun/energy/accumulator/specter/get_ru_names()
 	return list(
-		NOMINATIVE = "Спектр",
-		GENITIVE = "Спектра",
-		DATIVE = "Спектру",
-		ACCUSATIVE = "Спектр",
-		INSTRUMENTAL = "Спектром",
-		PREPOSITIONAL = "Спектре",
+		NOMINATIVE = "спектр",
+		GENITIVE = "спектра",
+		DATIVE = "спектру",
+		ACCUSATIVE = "спектр",
+		INSTRUMENTAL = "спектром",
+		PREPOSITIONAL = "спектре",
 	)
 
-/obj/item/gun/energy/specter/ComponentInitialize()
+/obj/item/gun/energy/accumulator/specter/update_overlays()
 	. = ..()
-	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
-	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/energy/specter)
 
-/obj/item/gun/energy/specter/update_icon_state()
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(current_skin)
-		icon_state = "[current_skin][magazine && magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
+	if(rail_color)
+		var/image/rail = image(icon = icon, icon_state = "specter_rail")
+		rail.color = rail_color
+		rail.blend_mode = BLEND_DEFAULT
+		if(!cell && findtext(icon_state, "-e"))
+			rail.pixel_x = -4
+		. += rail
+
+	if(grip_color)
+		var/image/grip = image(icon = icon, icon_state = "specter_grip")
+		grip.color = grip_color
+		grip.blend_mode = BLEND_DEFAULT
+		. += grip
+
+/obj/item/gun/energy/accumulator/specter/update_icon_state()
+	if(!cell)
+		icon_state = "[initial(icon_state)]-e"
 	else
-		icon_state = "[initial(icon_state)][magazine && magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
+		icon_state = initial(icon_state)
 
-/obj/item/gun/energy/specter/can_shoot(mob/living/user, silent)
-	if(!magazine)
-		return FALSE
-	return ..()
+/obj/item/gun/energy/accumulator/specter/examine(mob/user)
+	. = ..()
+	. += span_notice("Используйте \"Настроить Спектр\" в меню предмета для покраски.")
 
-/obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
-	if(!is_spectercell(item))
-		return ..()
-	add_fingerprint(user)
-	if(!user.drop_transfer_item_to_loc(item, src))
-		balloon_alert(user, "отпустить невозможно!")
-		return ATTACK_CHAIN_PROCEED
-	if(magazine)
-		magazine.update_icon(UPDATE_OVERLAYS)
-		user.put_in_hands(magazine)
-	cell = item.get_cell()
-	cell_type = cell.type
-	magazine = item
-	balloon_alert(user, "батарейка заменена")
-	update_icon(UPDATE_ICON_STATE)
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(magazine.is_available_shot(shot.e_cost))
-		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
-	return ATTACK_CHAIN_PROCEED
+/obj/item/gun/energy/accumulator/specter/verb/customize_specter()
+	set name = "Настроить Спектр"
+	set category = VERB_CATEGORY_OBJECT
+	set src in view(1)
 
-/obj/item/gun/energy/specter/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(istype(action, /datum/action/item_action/toggle_firemode))
-		if(length(ammo_type) > 1)
-			select_fire(user)
+	if(usr.incapacitated() || !usr.Adjacent(src))
+		return
+
+	var/choice = alert(usr, "Что покрасить?", "Покраска Спектра", "Затвор", "Рукоятка", "Сбросить всё")
+
+	switch(choice)
+		if("Затвор")
+			var/color = input(usr, "Цвет затвора:", "Покраска Спектра", rail_color) as color|null
+			if(color && usr.Adjacent(src))
+				rail_color = color
+				update_icon()
+		if("Рукоятка")
+			var/color = input(usr, "Цвет рукоятки:", "Покраска Спектра", grip_color) as color|null
+			if(color && usr.Adjacent(src))
+				grip_color = color
+				update_icon()
+		if("Сбросить всё")
+			rail_color = null
+			grip_color = null
 			update_icon()
-		return TRUE
-	return ..()
-
-/obj/item/gun/energy/specter/attack_self(mob/living/user)
-	if(!magazine)
-		return ..()
-	magazine.update_icon(UPDATE_OVERLAYS)
-	user.put_in_hands(magazine)
-	cell = null
-	magazine = null
-	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/emittergun
 	name = "Handicraft Emitter Rifle"

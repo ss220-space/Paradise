@@ -14,89 +14,99 @@
 	var/fluff_select_name
 
 /obj/item/ammo_casing/energy/laser
-	projectile_type = /obj/projectile/beam/laser
+	projectile_type = /obj/projectile/beam
 	muzzle_flash_color = COLOR_SOFT_RED
 	select_name = "kill"
 	bullet_type = BULLET_TYPE_LASER
+	overlay_color = COLOR_VIVID_RED
+	projectile_type = /obj/projectile/beam
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
+	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
+	apply_color_to_projectile = TRUE
+
+/obj/item/ammo_casing/energy/laser/weak
+	projectile_type = /obj/projectile/beam/weak
+	e_cost = 50
+	delay = 0
+
+/obj/item/ammo_casing/energy/laser/heavy
+	projectile_type = /obj/projectile/beam/heavy
+	e_cost = 250
+	delay = 30
+	fire_sound = 'sound/weapons/LSR-39_kill.ogg'
+	muzzle_flash_color = COLOR_SOFT_RED
+	select_name = "kill"
+
+/obj/item/ammo_casing/energy/laser/scatter
+	projectile_type = /obj/projectile/beam/weak
+	e_cost = 250
+	pellets = 4
+	variance = 25
+	delay = 15
+	fire_sound = 'sound/weapons/gunshots/energyscatter2.ogg'
 
 /obj/item/ammo_casing/energy/laser/light
-	projectile_type = /obj/projectile/beam/laser/light
+	projectile_type = /obj/projectile/beam/weak
 	delay = 0.9
 
 /obj/item/ammo_casing/energy/laser/cyborg //to balance cyborg energy cost seperately
 	e_cost = 250
 
-/obj/item/ammo_casing/energy/lasergun
+/obj/item/ammo_casing/energy/hitscan
+	name = "hitscan laser lens"
+	desc = "An advanced laser lens that produces instantaneous hitscan beams."
 	projectile_type = /obj/projectile/beam/laser
+	select_name = "hitscan"
+	delay = 7
+	fire_sound = 'sound/weapons/gunshots/lasergun.ogg'
 	muzzle_flash_color = COLOR_SOFT_RED
 	e_cost = 75
 	select_name = "kill"
 	bullet_type = BULLET_TYPE_LASER
+	overlay_color = COLOR_VIVID_RED
+	greyscale_overlays = TRUE
 
-/obj/item/ammo_casing/energy/lasergun/hitscan
-	name = "hitscan laser lens"
-	desc = "An advanced laser lens that produces instantaneous hitscan beams."
-	projectile_type = /obj/projectile/beam/laser/hitscan
-	select_name = "hitscan"
-	delay = 7
-	fire_sound = 'sound/weapons/gunshots/lasergun.ogg'
-
-/obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun
+/obj/item/ammo_casing/energy/hitscan/shotgun
 	delay = 15
 	e_cost = 150
-	projectile_type = /obj/projectile/beam/laser/hitscan/lasershotgun
+	projectile_type = /obj/projectile/beam/laser/slug
 	pellets = 1
 	fire_sound = 'sound/weapons/gunshots/lasershotgun.ogg'
 	select_name = "precise"
 
-/obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun/wide
-	pellets = 5
+/obj/item/ammo_casing/energy/hitscan/shotgun/wide
+	pellets = 4
 	variance = 20
 	select_name = "scatter"
-	projectile_type = /obj/projectile/beam/laser/hitscan/lasershotgun/pellet
+	projectile_type = /obj/projectile/beam/laser/weak
 
-/obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle
+/obj/item/ammo_casing/energy/hitscan/sniper
 	delay = 30
 	e_cost = 150
-	projectile_type = /obj/projectile/beam/laser/hitscan/laserrifle
+	projectile_type = /obj/projectile/beam/laser/heavy
 	fire_sound = 'sound/weapons/gunshots/laserrifle.ogg'
 	select_name = "anti-vehicle"
 
-/obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle/armorpierce
+/obj/item/ammo_casing/energy/hitscan/sniper/armorpierce
 	fire_sound = 'sound/weapons/gunshots/laserrifle2.ogg'
-	projectile_type = /obj/projectile/beam/laser/hitscan/laserrifle/armorpierce
+	projectile_type = /obj/projectile/beam/laser/pierce
 	select_name = "pierce"
 
-/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg
-	e_cost = 20
+/obj/item/ammo_casing/energy/hitscan/automatic
+	e_cost = 35
 	delay = 0
-	projectile_type = /obj/projectile/beam/laser/hitscan/lasermg
+	projectile_type = /obj/projectile/beam/laser/weak
 	fire_sound = 'sound/weapons/gunshots/lasermg.ogg'
 	select_name = "energy"
 
-/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg/ricochet
-	select_name = "ricochet"
-	projectile_type = /obj/projectile/beam/laser/hitscan/lasermg/ricochet
-	delay = 1
-
-/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol
-	delay = 10
-	e_cost = 100
-	projectile_type = /obj/projectile/beam/laser/hitscan/laserpistol
-	fire_sound = 'sound/weapons/gunshots/laserpistol.ogg'
-	select_name = "energy"
-
-/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol/light
-	projectile_type = /obj/projectile/beam/laser/hitscan/laserpistol/light
-	delay = 2
-	e_cost = 50
-	select_name = "fast"
-
-/obj/item/ammo_casing/energy/laser/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-	e_cost = 75
-
-/obj/item/ammo_casing/energy/laser/blueshield
-	e_cost = 83
+/obj/item/ammo_casing/energy/hitscan/automatic/ricochet
+	e_cost = 150
+	select_name = "alt"
+	projectile_type = /obj/projectile/beam/ricochet
+	delay = 30
+	overlay_color = COLOR_VIVID_YELLOW
+	fire_sound = 'sound/weapons/gunshots/ricochet.ogg'
 
 /obj/item/ammo_casing/energy/laser/practice
 	projectile_type = /obj/projectile/beam/practice
@@ -104,29 +114,20 @@
 	harmful = FALSE
 	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
 
-/obj/item/ammo_casing/energy/laser/scatter
-	projectile_type = /obj/projectile/beam/scatter
-	pellets = 5
-	variance = 25
-	select_name = "scatter"
-
-/obj/item/ammo_casing/energy/laser/heavy
-	projectile_type = /obj/projectile/beam/laser/heavylaser
-	select_name = "anti-vehicle"
-	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
-
 /obj/item/ammo_casing/energy/laser/pulse
 	projectile_type = /obj/projectile/beam/pulse/hitscan
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	e_cost = 200
 	select_name = "DESTROY"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
+	overlay_color = COLOR_DARK_CYAN
 
 /obj/item/ammo_casing/energy/laser/scatter/pulse
 	projectile_type = /obj/projectile/beam/pulse/hitscan
 	e_cost = 200
 	select_name = "ANNIHILATE"
 	fire_sound = 'sound/weapons/gunshots/1pulse2.ogg'
+	overlay_color = COLOR_DARK_CYAN
 
 /obj/item/ammo_casing/energy/laser/bluetag
 	projectile_type = /obj/projectile/beam/lasertag/bluetag
@@ -134,6 +135,7 @@
 	select_name = "bluetag"
 	harmful = FALSE
 	fire_sound = 'sound/weapons/gunshots/1retrolaser.ogg'
+	overlay_color = COLOR_BLUE_LIGHT
 
 /obj/item/ammo_casing/energy/laser/redtag
 	projectile_type = /obj/projectile/beam/lasertag/redtag
@@ -146,12 +148,14 @@
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	delay = 11
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
+	overlay_color = COLOR_VIBRANT_LIME
 
 /obj/item/ammo_casing/energy/immolator
 	projectile_type = /obj/projectile/beam/immolator
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	e_cost = 125
 	bullet_type = BULLET_TYPE_FIRE
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/ammo_casing/energy/immolator/strong
 	projectile_type = /obj/projectile/beam/immolator/strong
@@ -180,6 +184,8 @@
 	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
 	delay = 2 SECONDS
 	harmful = FALSE
+	overlay_color = COLOR_VIVID_YELLOW
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/electrode/advanced //admin-bus only, k? dont give this thing to 100 year old Charlie crew or other ghost role
 	projectile_type = /obj/projectile/energy/electrode/advanced
@@ -187,33 +193,36 @@
 /obj/item/ammo_casing/energy/electrode/gun
 	fire_sound = 'sound/weapons/gunshots/gunshot.ogg'
 
-/obj/item/ammo_casing/energy/electrode/hos //allows balancing of HoS and blueshit guns seperately from other energy weapons
-
-/obj/item/ammo_casing/energy/electrode/blueshield
-	e_cost = 150
-
 /obj/item/ammo_casing/energy/ion
 	projectile_type = /obj/projectile/ion
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	delay = 0.4 SECONDS
 	select_name = "ion"
 	fire_sound = 'sound/weapons/ionrifle.ogg'
+	overlay_color = COLOR_DARK_CYAN
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/declone
 	projectile_type = /obj/projectile/energy/declone
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name = "declone"
 	fire_sound = 'sound/weapons/gunshots/1declone.ogg'
+	overlay_color = COLOR_JADE
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/mindflayer
 	projectile_type = /obj/projectile/beam/mindflayer
 	select_name = "MINDFUCK"
 	fire_sound = 'sound/weapons/laser.ogg'
+	overlay_color = COLOR_LIGHT_PINK
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/flora
 	fire_sound = 'sound/effects/stealthoff.ogg'
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	harmful = FALSE
+	overlay_color = COLOR_LIGHT_GREEN
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/flora/alpha
 	name = "alpha"
@@ -265,24 +274,44 @@
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
 	muzzle_flash_color = null
 	select_name = "goddamn meteor"
+	overlay_color = COLOR_BLACK
 
-/obj/item/ammo_casing/energy/disabler
-	projectile_type = /obj/projectile/beam/disabler
+/obj/item/ammo_casing/energy/disabler //parent type for all disabler beams
 	muzzle_flash_color = LIGHT_COLOR_BLUE
 	select_name  = "disable"
 	e_cost = 50
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
 	harmful = FALSE
 	bullet_type = BULLET_TYPE_DISABLER
+	overlay_color = COLOR_SLIME_BLUE
+	greyscale_overlays = TRUE
+	projectile_type = /obj/projectile/beam/disabler
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
+	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
 
-/obj/item/ammo_casing/energy/disabler/hos
-	e_cost = 40
+/obj/item/ammo_casing/energy/disabler/weak
+	projectile_type = /obj/projectile/beam/disabler/weak
+	e_cost = 25
+	delay = 0
+
+/obj/item/ammo_casing/energy/disabler/heavy
+	projectile_type = /obj/projectile/beam/disabler/heavy
+	muzzle_flash_color = LIGHT_COLOR_BLUE
+	fire_sound = 'sound/weapons/LSR-39_disabler.ogg'
+	delay = 3 SECONDS
+	select_name = "disable"
+	e_cost = 150
+	delay = 30
+
+/obj/item/ammo_casing/energy/disabler/scatter
+	projectile_type = /obj/projectile/beam/disabler/weak
+	e_cost = 100
+	pellets = 4
+	variance = 20
+	delay = 15
+	fire_sound = 'sound/weapons/gunshots/energyscatter.ogg'
 
 /obj/item/ammo_casing/energy/disabler/cyborg //seperate balancing for cyborg, again
 	e_cost = 175
-
-/obj/item/ammo_casing/energy/disabler/blueshield
-	e_cost = 40
 
 /obj/item/ammo_casing/energy/plasma
 	projectile_type = /obj/projectile/plasma
@@ -291,15 +320,19 @@
 	fire_sound = 'sound/weapons/pulse.ogg'
 	delay = 15
 	e_cost = 50 //30 shots
+	overlay_color = COLOR_CYAN
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/plasma/adv
 	projectile_type = /obj/projectile/plasma/adv
 	delay = 10
 	e_cost = 25 //60 shots
+	overlay_color = COLOR_LIGHT_PINK
 
 /obj/item/ammo_casing/energy/plasma/adv/mega
 	e_cost = 20 //75 shots
 	projectile_type = /obj/projectile/plasma/adv/mega
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/ammo_casing/energy/plasma/shotgun
 	projectile_type = /obj/projectile/plasma/shotgun
@@ -310,6 +343,7 @@
 /obj/item/ammo_casing/energy/plasma/shotgun/mega
 	e_cost = 50 //30 shots
 	projectile_type = /obj/projectile/plasma/adv/mega/shotgun
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/ammo_casing/energy/wormhole
 	projectile_type = /obj/projectile/beam/wormhole
@@ -427,12 +461,15 @@
 	select_name = "lightning beam"
 	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	projectile_type = /obj/projectile/energy/shock_revolver
+	overlay_color = LIGHT_COLOR_LAVENDER
 
 /obj/item/ammo_casing/energy/toxplasma
 	projectile_type = /obj/projectile/energy/toxplasma
 	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = "plasma dart"
+	overlay_color = LIGHT_COLOR_VIVID_GREEN
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/weak_plasma
 	projectile_type = /obj/projectile/energy/weak_plasma
@@ -440,6 +477,7 @@
 	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	fire_sound = 'sound/weapons/gunshots/1plasma.ogg'
 	select_name = null //If the select name is null, it does not send a message of switching modes to the user, important on the pistol.
+	overlay_color = LIGHT_COLOR_LAVENDER
 
 /obj/item/ammo_casing/energy/charged_plasma
 	projectile_type = /obj/projectile/energy/charged_plasma
@@ -447,12 +485,15 @@
 	muzzle_flash_color = LIGHT_COLOR_LAVENDER
 	fire_sound = 'sound/weapons/marauder.ogg' //Should be different enough to get attention
 	select_name = null
+	overlay_color = LIGHT_COLOR_LAVENDER
 
 /obj/item/ammo_casing/energy/clown
 	projectile_type = /obj/projectile/clown
 	muzzle_flash_effect = null
 	fire_sound = 'sound/weapons/gunshots/gunshot_smg.ogg'
 	select_name = "clown"
+	overlay_color = COLOR_GOLD
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/bsg
 	projectile_type = /obj/projectile/energy/bsg
@@ -465,26 +506,12 @@
 	delay = 4 SECONDS //Looooooong cooldown // Used to be 10 seconds, has been rebalanced to be normal firing rate now
 
 /obj/item/ammo_casing/energy/sniper
-	projectile_type = /obj/projectile/beam/sniper
+	projectile_type = /obj/projectile/beam/heavysniper
 	muzzle_flash_color = LIGHT_COLOR_PINK
 	fire_sound = 'sound/weapons/marauder.ogg'
 	delay = 50
 	select_name = "snipe"
-
-/obj/item/ammo_casing/energy/podsniper/disabler
-	projectile_type = /obj/projectile/beam/podsniper/disabler
-	muzzle_flash_color = LIGHT_COLOR_BLUE
-	fire_sound = 'sound/weapons/LSR-39_disabler.ogg'
-	delay = 3 SECONDS
-	select_name = "disable"
-
-/obj/item/ammo_casing/energy/podsniper/laser
-	projectile_type = /obj/projectile/beam/podsniper/laser
-	muzzle_flash_color = COLOR_SOFT_RED
-	fire_sound = 'sound/weapons/LSR-39_kill.ogg'
-	delay = 3 SECONDS
-	e_cost = 150
-	select_name = "kill"
+	overlay_color = LIGHT_COLOR_PINK
 
 /obj/item/ammo_casing/energy/teleport
 	projectile_type = /obj/projectile/energy/teleport
@@ -515,39 +542,16 @@
 /obj/item/ammo_casing/energy/mimic/newshot()
 	..(mimic_type)
 
-/obj/item/ammo_casing/energy/dominator/stun
-	projectile_type = /obj/projectile/energy/electrode/dominator
-	muzzle_flash_color = LIGHT_COLOR_BLUE
-	select_name = "taser"
-	fluff_select_name = "stun"
-	fire_sound = 'sound/weapons/gunshots/1taser.ogg'
-	e_cost = 250
-	delay = 2 SECONDS
-	harmful = FALSE
-
-/obj/item/ammo_casing/energy/dominator/paralyzer
-	projectile_type = /obj/projectile/beam/dominator/paralyzer
-	muzzle_flash_color = LIGHT_COLOR_BLUE
-	select_name = "disable"
-	fluff_select_name  = "non-lethal paralyzer"
-	fire_sound = 'sound/weapons/plasma_cutter.ogg'
-	harmful = FALSE
-
-/obj/item/ammo_casing/energy/dominator/eliminator
-	projectile_type = /obj/projectile/beam/dominator/eliminator
-	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
-	select_name = "lethal"
-	fluff_select_name = "lethal-eliminator"
-	e_cost = 200
-
-/obj/item/ammo_casing/energy/dominator/slaughter
-	projectile_type = /obj/projectile/beam/dominator/slaughter
+/obj/item/ammo_casing/energy/slaughter
+	projectile_type = /obj/projectile/beam/slaughter
 	muzzle_flash_color = LIGHT_COLOR_DARK_BLUE
 	select_name = "destroy"
 	fluff_select_name  = "execution-slaughter"
 	fire_sound = 'sound/weapons/marauder.ogg'
-	e_cost = 250
+	e_cost = 300
 	delay = 30
+	overlay_color = COLOR_LIGHT_PINK
+	greyscale_overlays = TRUE
 
 /obj/item/ammo_casing/energy/emittergun
 	projectile_type = /obj/projectile/beam/emitter
@@ -556,6 +560,7 @@
 	delay = 25
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "emitter"
+	overlay_color = COLOR_LIGHT_GREEN
 
 /obj/item/ammo_casing/energy/emittergunborg
 	projectile_type = /obj/projectile/beam/emitter
@@ -564,6 +569,7 @@
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "emitter"
 	e_cost = 750
+	overlay_color = COLOR_LIGHT_GREEN
 
 /obj/item/ammo_casing/energy/anomaly
 	fire_sound = 'sound/weapons/emitter.ogg'
@@ -572,6 +578,7 @@
 	harmful = FALSE
 	projectile_type = /obj/projectile/beam/anomaly
 	muzzle_flash_color = LIGHT_COLOR_GREEN
+	overlay_color = COLOR_LIGHT_PINK
 
 /obj/item/ammo_casing/energy/anomaly/stabilizer
 	projectile_type = /obj/projectile/beam/anomaly/stabilizer
@@ -580,29 +587,6 @@
 /obj/item/ammo_casing/energy/anomaly/destabilizer
 	projectile_type = /obj/projectile/beam/anomaly/destabilizer
 	muzzle_flash_color = COLOR_SOFT_RED
-
-/obj/item/ammo_casing/energy/specter/laser
-	caliber = CALIBER_SPECTER
-	materials = list(MAT_METAL = 1000)
-	projectile_type = /obj/projectile/beam/specter/laser
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
-	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
-	muzzle_flash_color = COLOR_SOFT_RED
-	select_name = "kill"
-	e_cost = 900
-	fire_sound = 'sound/weapons/gunshots/speclaser.ogg'
-	bullet_type = BULLET_TYPE_LASER
-
-/obj/item/ammo_casing/energy/specter/disable
-	caliber = CALIBER_SPECTER
-	materials = list(MAT_METAL = 800)
-	projectile_type = /obj/projectile/beam/specter/disabler
-	muzzle_flash_color = LIGHT_COLOR_BLUE
-	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash
-	e_cost = 450
-	fire_sound = 'sound/weapons/gunshots/specdisabler.ogg'
-	harmful = FALSE
-	bullet_type = BULLET_TYPE_DISABLER
 
 /obj/item/ammo_casing/energy/rat
 	name = "mechanical energy module"
@@ -652,7 +636,7 @@
 	fire_sound =  'sound/weapons/gunshots/gunshot_mg.ogg'
 
 /obj/item/ammo_casing/energy/laser/light/rat
-	projectile_type = /obj/projectile/beam/laser/light/rat
+	projectile_type = /obj/projectile/beam/weak/rat
 	e_cost = 1
 	color = COLOR_TANGERINE_YELLOW
 	muzzle_flash_color = COLOR_TANGERINE_YELLOW

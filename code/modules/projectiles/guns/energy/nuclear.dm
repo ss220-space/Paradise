@@ -45,7 +45,8 @@
 	icon_state = "hoslaser"
 	origin_tech = null
 	force = 10
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/dominator/slaughter)
+	cell_type = /obj/item/stock_parts/cell/multiphase
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser, /obj/item/ammo_casing/energy/slaughter)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	accuracy = GUN_ACCURACY_RIFLE
@@ -65,7 +66,8 @@
 	icon_state = "bsgun"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/blueshield, /obj/item/ammo_casing/energy/disabler/blueshield, /obj/item/ammo_casing/energy/laser/blueshield)
+	cell_type = /obj/item/stock_parts/cell/revolver
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/disabler/, /obj/item/ammo_casing/energy/laser/)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_PISTOL
@@ -83,7 +85,7 @@
 	icon_state = "pdw9pistol"
 	item_state = "gun"
 	force = 7
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos)
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	attachable_allowed = GUN_MODULE_CLASS_NONE
@@ -175,10 +177,6 @@
 /obj/item/gun/energy/gun/minigun/can_be_pulled(atom/movable/user, force, show_message = FALSE)
 	..()
 	balloon_alert(user, "слишком тяжело!")
-
-/obj/item/gun/energy/gun/minigun/update_icon_state()
-	item_state = !cell ? initial(item_state) : "[initial(item_state)][!can_shoot(silent = TRUE) ? "1" : ""]"
-	icon_state = !cell ? initial(icon_state) : "[initial(icon_state)][!can_shoot(silent = TRUE) ? "1" : ""]"
 
 /obj/item/gun/energy/gun/minigun/examine(mob/user)
 	. = ..()

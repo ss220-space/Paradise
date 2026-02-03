@@ -689,7 +689,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/laser
-	name = "Лазерные карабины LG-Mk.5"
+	name = "Лазерные карабины L-DMR"
 	contains = list(
 		/obj/item/gun/energy/laser/hitscan,
 		/obj/item/gun/energy/laser/hitscan,
@@ -1053,22 +1053,31 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 
 /datum/supply_packs/security/armory/expenergy
-	name = "Энергетические карабины"
+	name = "Энергетические аккумуляторные винтовки E-DMR"
 	contains = list(
-		/obj/item/gun/energy/gun,
-		/obj/item/gun/energy/gun,
-		/obj/item/gun/energy/gun,
+		/obj/item/gun/energy/accumulator/egun,
+		/obj/item/gun/energy/accumulator/egun,
+		/obj/item/gun/energy/accumulator/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
+		/obj/item/weapon_cell/egun,
 	)
 	cost = 40
 	containertype = /obj/structure/closet/crate/secure/plasma
-	containername = "ящик энергетических карабинов"
+	containername = "ящик энергетических винтовок"
 	container_ru_names = list(
-		NOMINATIVE = "ящик энергетических карабинов",
-		GENITIVE = "ящика энергетических карабинов",
-		DATIVE = "ящику энергетических карабинов",
-		ACCUSATIVE = "ящик энергетических карабинов",
-		INSTRUMENTAL = "ящиком энергетических карабинов",
-		PREPOSITIONAL = "ящике энергетических карабинов",
+		NOMINATIVE = "ящик энергетических винтовок",
+		GENITIVE = "ящика энергетических винтовок",
+		DATIVE = "ящику энергетических винтовок",
+		ACCUSATIVE = "ящик энергетических винтовок",
+		INSTRUMENTAL = "ящиком энергетических винтовок",
+		PREPOSITIONAL = "ящике энергетических винтовок",
 	)
 
 /datum/supply_packs/security/armory/epistol	// costs 3/5ths of the normal e-guns for 3/4ths the total ammo, making it cheaper to arm more people, but less convient for any one person

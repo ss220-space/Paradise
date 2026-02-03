@@ -39,6 +39,10 @@
 	. = ..()
 	install_sibyl()
 
-/obj/item/gun/energy/specter/sibyl/Initialize(mapload)
+/obj/item/gun/energy/accumulator/specter/sibyl/Initialize(mapload)
+	. = ..()
+	install_sibyl()
+
+/obj/item/gun/energy/accumulator/egun/sibyl/Initialize(mapload)
 	. = ..()
 	install_sibyl()

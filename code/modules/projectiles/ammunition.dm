@@ -46,6 +46,9 @@
 	var/muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_WEAK
 	/// Ammo type overlay for magazines (not add ovarlay if null)
 	var/bullet_type = null
+	var/overlay_color = TRUE
+	var/greyscale_overlays = TRUE
+	var/apply_color_to_projectile = TRUE
 
 /obj/item/ammo_casing/Initialize(mapload)
 	. = ..()

@@ -296,7 +296,8 @@
 		/obj/item/rcd/preloaded = 1,
 		/obj/item/rcd_ammo = 3,
 		/obj/item/rpd = 1,
-		/obj/item/gun/energy/gun/sibyl = 1,
+		/obj/item/gun/energy/accumulator/egun/sibyl = 1,
+		/obj/item/weapon_cell/egun = 3,
 	)
 	cybernetic_implants = list(
 		/obj/item/organ/internal/cyberimp/eyes/shield,
@@ -392,7 +393,7 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/medical
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	suit_store = /obj/item/gun/energy/gun/sibyl
+	suit_store = /obj/item/gun/energy/accumulator/egun/sibyl
 	belt = /obj/item/defibrillator/compact/loaded
 	l_pocket = /obj/item/reagent_containers/hypospray/safety/ert
 	r_pocket = /obj/item/melee/baton/telescopic
@@ -408,6 +409,7 @@
 		/obj/item/storage/firstaid/ertm = 1,
 		/obj/item/storage/box/autoinjectors = 1,
 		/obj/item/roller/holo = 1,
+		/obj/item/weapon_cell/egun = 3,
 		/obj/item/bodyanalyzer = 1,
 		/obj/item/healthanalyzer/advanced = 1,
 		/obj/item/handheld_defibrillator/advanced = 1,
@@ -509,7 +511,7 @@
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
 	suit = /obj/item/clothing/suit/space/hardsuit/ert/paranormal
-	suit_store = /obj/item/gun/energy/gun/sibyl
+	suit_store = /obj/item/gun/energy/accumulator/egun/sibyl
 	r_pocket = /obj/item/nullrod/ert
 	glasses = /obj/item/clothing/glasses/night
 	hours_dif = 200

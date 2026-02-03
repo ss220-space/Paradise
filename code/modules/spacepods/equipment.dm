@@ -125,7 +125,7 @@
 	name = "solaris system"
 	desc = "A stronger vesion of laser systems for pods. Fires high concetrated bursts of energy"
 	icon_state = "weapon_laser"
-	projectile_type = /obj/projectile/beam/laser/heavylaser
+	projectile_type = /obj/projectile/beam/heavy
 	shot_cost = 1800
 	shots_per = 2
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'

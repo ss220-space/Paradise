@@ -33,6 +33,8 @@
 		/obj/item/flash = 5,
 		/obj/item/flashlight/seclite = 4,
 		/obj/item/restraints/legcuffs/bola/energy = 8,
+		/obj/item/weapon_cell/egun = 20,
+		/obj/item/lg_mod_case = 6,
 
 		/obj/item/ammo_box/shotgun = 4,
 		/obj/item/ammo_box/shotgun/buck = 4,
@@ -121,7 +123,6 @@
 	req_access = list(ACCESS_CENT_SECURITY)
 
 	products = list(
-		/obj/item/gun/energy/gun = 3,
 		/obj/item/gun/energy/ionrifle/carbine = 1,
 		/obj/item/gun/projectile/automatic/lasercarbine = 3,
 		/obj/item/ammo_box/magazine/laser = 6,
@@ -224,6 +225,10 @@
 		/obj/item/gun/projectile/automatic/wt550 = 3,
 		/obj/item/ammo_box/magazine/wt550m9 = 6,
 		/obj/item/gun/energy/dominator/sibyl = 2,
+		/obj/item/gun/energy/laser/hitscan = 3,
+		/obj/item/gun/energy/accumulator/egun = 3,
+		/obj/item/weapon_cell/egun/ = 10,
+		/obj/item/lg_mod_case = 6,
 		/obj/item/melee/baton/telescopic = 4,
 	)
 	contraband = list(

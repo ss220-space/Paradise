@@ -736,11 +736,18 @@
 	build_path = /obj/item/ammo_box/enforcer/laser
 	category = list(PRINTER_CATEGORY_HACKED, AUTOLATHE_CATEGORY_SECURITY)
 
-/datum/design/spectermag_disabler
+/datum/design/specter_accumulator
 	id = "spectermag"
 	build_type = AUTOLATHE
 	materials = list(MAT_METAL = 35000)
 	build_path = /obj/item/weapon_cell/specter
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_SECURITY)
+
+/datum/design/egun_accumulator
+	id = "egun_accumulator"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 50000)
+	build_path = /obj/item/weapon_cell/egun
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_SECURITY)
 
 /datum/design/sp91rc_mag

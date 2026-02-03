@@ -174,7 +174,7 @@
 		if(85)
 			new /obj/item/defibrillator/compact(src)
 		if(86)
-			new /obj/item/gun/energy/specter(src)
+			new /obj/item/gun/energy/accumulator/specter(src)
 			new /obj/item/weapon_cell/specter(src)
 		if(87)
 			new /obj/item/gun/projectile/automatic/pistol/enforcer(src)

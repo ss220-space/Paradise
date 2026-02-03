@@ -3,6 +3,7 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/weapons/energy.dmi'
+	item_state = "energy"
 	fire_sound_text = "laser blast"
 	ammo_x_offset = 2
 
@@ -32,6 +33,30 @@
 	var/can_add_sibyl_system = TRUE
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
 	var/isclockwork = FALSE
+	/// Color for overlays in GAGS system
+	var/overlay_color = "#ffffff"
+	/// Should overlays use greyscale? If false, uses pre-colored sprites
+	var/greyscale_overlays = TRUE
+	var/apply_color_to_projectile = TRUE
+
+/obj/item/ammo_casing/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+	. = ..()
+	if(!BB || !overlay_color)
+		return
+
+	var/obj/projectile/P = BB
+
+	P.light_color = overlay_color
+	P.color = overlay_color
+
+	P.blend_mode = BLEND_OVERLAY
+
+	if(istype(P, /obj/projectile/beam))
+		var/obj/projectile/beam/B = P
+		if(B.hitscan)
+			B.hitscan_light_color_override = overlay_color
+			B.muzzle_flash_color_override = overlay_color
+			B.impact_light_color_override = overlay_color
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -118,7 +143,7 @@
 			if(!I.use_tool(src, user, 16 SECONDS, volume = I.tool_volume))
 				return
 			if(prob(95))
-				if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)
+				if(sibyl_mod.state == SIBSYS_STATE_WELDER_ACT)  // ИСПРАВЛЕНО: было WERDER_ACT
 					sibyl_mod.uninstall(src)
 					to_chat(user, span_notice("Вы успешно отковыряли болты мода Sibyl System от [src]."))
 			else
@@ -293,7 +318,8 @@
 			"accelerator" = "ускоренный выстрел",
 			"pierce" = "бронебойный режим",
 			"fast" = "скорострельный режим",
-			"ricochet" = "режим рикошета"
+			"ricochet" = "режим рикошета",
+			"alt" = "альтернативный режим"
 		)
 
 		balloon_alert(user, "[gun_modes_ru[shot.fluff_select_name ? shot.fluff_select_name : shot.select_name]]")
@@ -305,48 +331,144 @@
 	newshot()
 	update_icon()
 
-/obj/item/gun/energy/update_icon(updates = ALL)
-	. = ..()
-	update_equipped_item(update_speedmods = FALSE)
+/obj/item/gun/energy/proc/get_icon_prefix(for_worn = FALSE)
+	if(for_worn)
+		// For worn_overlays uses item_state, if he pointed, else icon_state
+		var/state_to_use = item_state ? item_state : icon_state
+		var/base_state = state_to_use
+		if(findtext(base_state, "-"))
+			base_state = copytext(base_state, 1, findtext(base_state, "-"))
+		return base_state
+	else
+		// For anything else - icon_state
+		var/base_icon = icon_state
+		if(findtext(base_icon, "-"))
+			base_icon = copytext(base_icon, 1, findtext(base_icon, "-"))
+		return base_icon
+
+/obj/item/gun/energy/proc/update_item_state()
+	var/icon_prefix = get_icon_prefix()
+
+	if(!cell)
+		item_state = "[icon_prefix]-e"
+		return
+
+	item_state = initial(item_state) ? initial(item_state) : initial(icon_state)
 
 /obj/item/gun/energy/update_icon_state()
-	icon_state = initial(icon_state)
-	ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	new_icon_state = "[icon_state]_charge"
-	var/new_item_state = null
-	if(!initial(item_state))
-		new_item_state = icon_state
-	if(modifystate)
-		new_icon_state += "_[shot.select_name]"
-		if(new_item_state)
-			new_item_state += "[shot.select_name]"
-	if(new_item_state)
-		new_item_state += "[ratio]"
-		item_state = new_item_state
-	if(current_skin)
-		icon_state = current_skin
+	var/icon_prefix = get_icon_prefix()
+
+	if(!cell)
+		icon_state = "[icon_prefix]-e"
+		return
+
+	icon_state = icon_prefix
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
+
 	if(isclockwork)
 		return
-	var/overlay_name = overlay_set ? overlay_set : icon_state
-	if(!length(ammo_type))
+
+	var/icon_prefix = get_icon_prefix()
+
+	// If weapon does't have cell, overlays will not shown
+	if(!cell)
 		return
+
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	if(modifystate)
-		. += "[overlay_name]_[shot.select_name]"
-	if(!cell || cell.charge < shot.e_cost)
-		. += "[overlay_name]_empty"
-	else
-		if(!shaded_charge)
-			for(var/i = ratio, i >= 1, i--)
-				. += image(icon = icon, icon_state = new_icon_state, pixel_x = ammo_x_offset * (i - 1))
+	var/charge_percent = (cell.charge / cell.maxcharge) * 100
+
+	// Forces charge_0 overlay if weapon doesn't have energy for a singhe shot.
+	if(cell.charge < shot.e_cost)
+		. += get_charge_overlay(0)
+		return
+
+	// Charge overlays
+	if(charge_percent > 0)
+		if(charge_percent > 75)
+			. += get_charge_overlay(4)
+		else if(charge_percent > 50)
+			. += get_charge_overlay(3)
+		else if(charge_percent > 25)
+			. += get_charge_overlay(2)
 		else
-			. += image(icon = icon, icon_state = "[overlay_name]_[modifystate ? "[shot.select_name]_" : ""]charge[ratio]")
+			. += get_charge_overlay(1)
+
+	// Bayonet
 	if(bayonet && bayonet_overlay)
 		. += bayonet_overlay
+
+/obj/item/gun/energy/proc/get_charge_overlay(level)
+	var/icon_prefix = get_icon_prefix()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+
+	// GAGS
+	var/image/overlay = image(icon = icon, icon_state = "[icon_prefix]_charge[level]")
+	if(shot && shot.overlay_color)
+		overlay.color = shot.overlay_color
+	else
+		overlay.color = "#FFFFFF"
+	return overlay
+
+/obj/item/gun/energy/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
+	. = ..()
+
+	var/icon_prefix = get_icon_prefix(TRUE)  // TRUE = for worn_overlays
+
+	if(!cell)
+		return
+
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/charge_percent = (cell.charge / cell.maxcharge) * 100
+
+	// charge level check
+	var/charge_level = 0
+	if(cell.charge >= shot.e_cost)
+		if(charge_percent > 75)
+			charge_level = 4
+		else if(charge_percent > 50)
+			charge_level = 3
+		else if(charge_percent > 25)
+			charge_level = 2
+		else if(charge_percent > 0)
+			charge_level = 1
+
+	// add charge overlays
+	var/image/overlay
+	if(charge_level > 0)
+		overlay = image(icon = icon_file, icon_state = "[icon_prefix]_charge[charge_level]")
+	else
+		overlay = image(icon = icon_file, icon_state = "[icon_prefix]_charge0")
+
+	if(shot && shot.overlay_color)
+		overlay.color = shot.overlay_color
+	else
+		overlay.color = "#FFFFFF"
+
+	. += overlay
+
+/obj/item/gun/energy/update_icon(updates = ALL)
+	. = ..()
+	update_item_state()
+	update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/gun/energy/handle_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE, atom/shooter = null)
+	. = ..()
+	update_icon()
+
+/obj/item/gun/energy/process_chamber()
+	. = ..()
+	update_icon()
+
+/obj/item/gun/energy/process_fire(atom/target, mob/living/user, message = 1, params, zone_override, bonus_spread = 0)
+	. = ..()
+	update_icon()
+
+/obj/item/gun/energy/select_fire(mob/living/user)
+	. = ..()
+	if(.)
+		update_icon()
 
 /obj/item/gun/energy/suicide_act(mob/user)
 	if(can_trigger_gun(user))

@@ -416,9 +416,9 @@
 	health = 50
 	maxHealth = 50
 	faction = list("syndicate")
-	projectiletype = /obj/projectile/beam/laser/syndrone
+	projectiletype = /obj/projectile/beam/syndrone
 
-/obj/projectile/beam/laser/syndrone
+/obj/projectile/beam/syndrone
 	name = "light immolation beam"
 	damage = 8
 	icon_state = "scatterlaser"

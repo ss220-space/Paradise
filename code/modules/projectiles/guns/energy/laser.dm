@@ -1,11 +1,11 @@
-/obj/item/gun/energy/laser
+/obj/item/gun/energy/laser // Legacy gun, removed from the game at the moment
 	name = "laser gun"
 	desc = "A basic energy-based laser gun that fires concentrated beams of light which pass through glass and thin metal."
 	icon_state = "lasergun"
 	item_state = null
 	materials = list(MAT_METAL=2000)
 	origin_tech = "combat=4;magnets=2"
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
 	accuracy = GUN_ACCURACY_RIFLE_LASER
@@ -16,32 +16,63 @@
 	)
 
 /obj/item/gun/energy/laser/hitscan
-	name = "LG-DMR «Страж»"
-	desc = "Третее поколение стандартной лазерной винтовки службы безопасности. Модель «Страж» сочетает проверенную надёжность ранних EG-серий с современной системой лазерных импульсов."
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan)
+	name = "L-DMR \"Страж\"."
+	icon_state = "LDMR"
+	desc = "Новейшее поколение стандартной лазерной винтовки службы безопасности. Модель «Страж» сочетает проверенную надёжность ранних EG-серий с современной системой лазерных импульсов."
+	ammo_type = list(/obj/item/ammo_casing/energy/hitscan)
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 	var/autofire_delay = 0
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -5),
+	)
 
-/obj/item/gun/energy/laser/hitscan/laserrifle
-	name = "LG-PRO «Игла»"
+/obj/item/gun/energy/laser/hitscan/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерная винтовка",
+		GENITIVE = "лазерной винтовки",
+		DATIVE = "лазерной винтовке",
+		ACCUSATIVE = "лазерную винтовку",
+		INSTRUMENTAL = "лазерной винтовкой",
+		PREPOSITIONAL = "лазерной винтовке",
+	)
+
+/obj/item/gun/energy/laser/hitscan/sniper
+	name = "L-SR \"Игла\"."
 	desc = "Профессиональная лазерная снайперская винтовка военного класса, имеет два режима стрельбы, тяжёлый выстрел широкого диапазона и бронебойный выстрел высокочастотным лазером способный поражать цель за укрытием."
 	icon = 'icons/obj/weapons/guns_48x32.dmi'
-	icon_state = "laserrifle"
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle, /obj/item/ammo_casing/energy/lasergun/hitscan/laserrifle/armorpierce)
+	icon_state = "LSR"
+	ammo_type = list(/obj/item/ammo_casing/energy/hitscan/sniper, /obj/item/ammo_casing/energy/hitscan/sniper/armorpierce)
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BACK
 	accuracy = GUN_ACCURACY_SNIPER
 	weapon_weight = WEAPON_HEAVY
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 4),
+		ATTACHMENT_SLOT_RAIL = list("x" = 8, "y" = 7),
 		ATTACHMENT_SLOT_UNDER = list("x" = 21, "y" = -9),
 	)
 
-/obj/item/gun/energy/laser/hitscan/lasershotgun
-	name = "LG-TAC «Фокус»"
-	desc = "Инновационный лазерный дробовик с динамической фокусировкой луча. «Фокус» использует адаптивную оптику для изменения лазера от рассеянного до сфокусированного."
-	icon_state = "lasershotgun"
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun, /obj/item/ammo_casing/energy/lasergun/hitscan/lasershotgun/wide)
+/obj/item/gun/energy/laser/hitscan/sniper/update_overlays()
+	. = ..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/append = shot.select_name
+	. += image(icon, icon_state = "LSR_[append]")
+
+/obj/item/gun/energy/laser/hitscan/sniper/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерная снайперская винтовка",
+		GENITIVE = "лазерной снайперской винтовки",
+		DATIVE = "лазерной снайперской винтовке",
+		ACCUSATIVE = "лазерную снайперскую винтовку",
+		INSTRUMENTAL = "лазерной снайперской винтовкой",
+		PREPOSITIONAL = "лазерной снайперской винтовке",
+	)
+
+/obj/item/gun/energy/laser/hitscan/shotgun
+	name = "L-SG \"Фокус\"."
+	desc = "Инновационный лазерный дробовик с динамической фокусировкой луча. \"Фокус\" использует адаптивную оптику для изменения лазера от рассеянного до сфокусированного."
+	icon_state = "LSG"
+	ammo_type = list(/obj/item/ammo_casing/energy/hitscan/shotgun/wide, /obj/item/ammo_casing/energy/hitscan/shotgun)
 	slot_flags = ITEM_SLOT_SUITSTORE
 	accuracy = GUN_ACCURACY_RIFLE
 	weapon_weight = WEAPON_HEAVY
@@ -50,39 +81,86 @@
 		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -6),
 	)
 
-/obj/item/gun/energy/laser/hitscan/lasermg
-	name = "LG-LMG «Зенит»"
-	desc = "Лазерный автомат военного типа, «Зенит» сочетает в себе два режима стрельбы: Точные лазерные выстрелы и рикошетящие энергетические снаряды"
-	icon_state = "lasermg"
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg,
-	/obj/item/ammo_casing/energy/lasergun/hitscan/lasermg/ricochet)
+/obj/item/gun/energy/laser/hitscan/shotgun/update_overlays()
+	. = ..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/append = shot.select_name
+	. += image(icon, icon_state = "LSG_[append]")
+
+/obj/item/gun/energy/laser/hitscan/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерный дробовик",
+		GENITIVE = "лазерного дробовика",
+		DATIVE = "лазерному дробовику",
+		ACCUSATIVE = "лазерный дробовик",
+		INSTRUMENTAL = "лазерным дробовиком",
+		PREPOSITIONAL = "лазерном дробовике",
+	)
+
+/obj/item/gun/energy/laser/hitscan/automatic
+	name = "L-AR \"Зенит\"."
+	desc = "Лазерный автомат военного типа, \"Зенит\" сочетает в себе два режима стрельбы: Быстрые лазерные выстрелы и рикошетящие энергетические снаряды"
+	icon_state = "LAR"
+	ammo_type = list(/obj/item/ammo_casing/energy/hitscan/automatic,
+	/obj/item/ammo_casing/energy/hitscan/automatic/ricochet)
 	slot_flags = ITEM_SLOT_SUITSTORE
 	accuracy = GUN_ACCURACY_RIFLE
 	weapon_weight = WEAPON_HEAVY
-	autofire_delay = 1
-	burst_size = 1
+	autofire_delay = 3
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 6),
-		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -6),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -9),
 	)
 
-/obj/item/gun/energy/laser/hitscan/lasermg/Initialize(mapload)
+/obj/item/gun/energy/laser/hitscan/automatic/update_overlays()
+	. = ..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/append = shot.select_name
+	. += image(icon, icon_state = "LAR_[append]")
+
+/obj/item/gun/energy/laser/hitscan/automatic/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/automatic_fire, autofire_delay)
 
-/obj/item/gun/energy/laser/hitscan/laserpistol
-	name = "LG-PDW «Шершень»"
-	desc = "Тактический лазерный пистолет, имеет два режима огня, обычный и скорострельный."
-	icon_state = "laserpistol"
-	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol,
-	/obj/item/ammo_casing/energy/lasergun/hitscan/laserpistol/light)
+/obj/item/gun/energy/laser/hitscan/automatic/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерный автомат",
+		GENITIVE = "лазерного автомата",
+		DATIVE = "лазерному автомату",
+		ACCUSATIVE = "лазерный автомат",
+		INSTRUMENTAL = "лазерным автоматом",
+		PREPOSITIONAL = "лазерном автомате",
+	)
+
+/obj/item/gun/energy/laser/hitscan/pistol
+	name = "L-PDW \"Шершень\"."
+	desc = "Современный лазерный пистолет, имеет два режима огня, обычный и скорострельный."
+	icon_state = "LPDW"
+	ammo_type = list(/obj/item/ammo_casing/energy/hitscan,
+	/obj/item/ammo_casing/energy/hitscan/automatic)
 	slot_flags = ITEM_SLOT_SUITSTORE | ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_NORMAL
 	accuracy = GUN_ACCURACY_PISTOL
 	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
 	attachable_offset = list(
-		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 6),
 		ATTACHMENT_SLOT_UNDER = list("x" = 4, "y" = -5),
+	)
+
+/obj/item/gun/energy/laser/hitscan/pistol/update_overlays()
+	. = ..()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/append = shot.select_name
+	. += image(icon, icon_state = "LPDW_[append]")
+
+/obj/item/gun/energy/laser/hitscan/pistol/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерный пистолет",
+		GENITIVE = "лазерного пистолета",
+		DATIVE = "лазерному пистолету",
+		ACCUSATIVE = "лазерный пистолет",
+		INSTRUMENTAL = "лазерным пистолетом",
+		PREPOSITIONAL = "лазерном пистолете",
 	)
 
 /obj/item/gun/energy/laser/practice
@@ -188,13 +266,13 @@
 	)
 
 /obj/item/ammo_casing/energy/laser/accelerator
-	projectile_type = /obj/projectile/beam/laser/accelerator
+	projectile_type = /obj/projectile/beam/accelerator
 	select_name = "accelerator"
 	fire_sound = 'sound/weapons/gunshots/accelerator_cannon.ogg'
 	e_cost = 150
 	delay = 20
 
-/obj/projectile/beam/laser/accelerator
+/obj/projectile/beam/accelerator
 	name = "accelerator laser"
 	icon_state = "scatterlaser"
 	range = 255
@@ -205,7 +283,7 @@
 	var/size_per_tile = 0.1
 	var/max_scale = 4
 
-/obj/projectile/beam/laser/accelerator/Range()
+/obj/projectile/beam/accelerator/Range()
 	..()
 	// Damage
 	damage = min(damage + 4, 75)
@@ -229,6 +307,7 @@
 	name = "x-ray laser gun"
 	desc = "A high-power laser gun capable of expelling concentrated xray blasts. These blasts will penetrate solid objects, but will decrease in power the longer they have to travel."
 	icon_state = "xray"
+	item_state = "xray"
 	origin_tech = "combat=6;materials=4;magnets=4"
 	ammo_type = list(/obj/item/ammo_casing/energy/xray)
 	accuracy = GUN_ACCURACY_RIFLE_LASER
@@ -242,7 +321,7 @@
 	name = "Immolator laser gun"
 	desc = "A modified laser gun, shooting highly concetrated beams with higher intensity that ignites the target, for the cost of draining more power per shot"
 	icon_state = "immolator"
-	item_state = "laser"
+	item_state = "xray"
 	ammo_type = list(/obj/item/ammo_casing/energy/immolator)
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	shaded_charge = TRUE

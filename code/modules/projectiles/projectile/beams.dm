@@ -1,6 +1,6 @@
 /obj/projectile/beam
 	name = "laser"
-	icon_state = "laser"
+	icon_state = "beam"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	damage = 23
 	damage_type = BURN
@@ -26,81 +26,16 @@
 		PREPOSITIONAL = "лазере",
 	)
 
-/obj/projectile/beam/laser
-	tracer_type = /obj/effect/projectile/tracer/laser
-	muzzle_type = /obj/effect/projectile/muzzle/laser
-	impact_type = /obj/effect/projectile/impact/laser
-
-/obj/projectile/beam/laser/hitscan
-	hitscan = TRUE
-	damage = 20
-	eyeblur = 0
-
-/obj/projectile/beam/laser/hitscan/laserrifle
-	tracer_type = /obj/effect/projectile/tracer/laser/heavy
-	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
-	impact_type = /obj/effect/projectile/impact/laser/heavy
-	damage = 40
-
-/obj/projectile/beam/laser/hitscan/laserrifle/armorpierce
-	tracer_type = /obj/effect/projectile/tracer/laser/armorpierce
-	muzzle_type = /obj/effect/projectile/muzzle/laser/armorpierce
-	impact_type = /obj/effect/projectile/impact/laser/armorpierce
-	armour_penetration = 50
-	damage = 25
-	forcedodge = 3
-
-/obj/projectile/beam/laser/hitscan/lasershotgun
-	tracer_type = /obj/effect/projectile/tracer/laser/heavy
-	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
-	impact_type = /obj/effect/projectile/impact/laser/heavy
-	damage = 25
-	armour_penetration = 25
-
-/obj/projectile/beam/laser/hitscan/lasershotgun/pellet
-	tracer_type = /obj/effect/projectile/tracer/laser/light
-	muzzle_type = /obj/effect/projectile/muzzle/laser/light
-	impact_type = /obj/effect/projectile/impact/laser/light
-	damage = 7
-	armour_penetration = 0
-
-/obj/projectile/beam/laser/hitscan/lasermg
-	tracer_type = /obj/effect/projectile/tracer/laser/light
-	muzzle_type = /obj/effect/projectile/muzzle/laser/light
-	impact_type = /obj/effect/projectile/impact/laser/light
-	damage = 5
-
-/obj/projectile/beam/laser/hitscan/lasermg/ricochet
-	icon_state = "lasershot"
-	damage = 5
-	range = 40
-	hitscan = FALSE
-	ricochet_chance = 100
-	ricochets_max = 10
-	speed = 2
-	flag = LASER
-
-/obj/projectile/beam/laser/hitscan/laserpistol
-
-/obj/projectile/beam/laser/hitscan/laserpistol/light
-	tracer_type = /obj/effect/projectile/tracer/laser/light
-	muzzle_type = /obj/effect/projectile/muzzle/laser/light
-	impact_type = /obj/effect/projectile/impact/laser/light
-	damage=10
-
-/obj/projectile/beam/laser/light
-	damage = 18
-
-/obj/projectile/beam/laser/heavylaser
-	name = "heavy laser"
-	icon_state = "heavylaser"
+/obj/projectile/beam/heavylaser
+	name = "heavy laser beam"
+	icon_state = "heavybeam"
 	damage = 50
 	tracer_type = /obj/effect/projectile/tracer/heavy_laser
 	muzzle_type = /obj/effect/projectile/muzzle/heavy_laser
 	impact_type = /obj/effect/projectile/impact/heavy_laser
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 
-/obj/projectile/beam/laser/heavylaser/get_ru_names()
+/obj/projectile/beam/heavylaser/get_ru_names()
 	return list(
 		NOMINATIVE = "мощный лазер",
 		GENITIVE = "мощного лазера",
@@ -110,12 +45,13 @@
 		PREPOSITIONAL = "мощном лазере",
 	)
 
-/obj/projectile/beam/laser/slug
+/obj/projectile/beam/slug
+	icon_state = "heavybeam"
 	name = "laser slug beam"
 	damage = 50
 	stamina = 33
 
-/obj/projectile/beam/laser/slug/get_ru_names()
+/obj/projectile/beam/slug/get_ru_names()
 	return list(
 		NOMINATIVE = "лазерный импульс",
 		GENITIVE = "лазерного импульса",
@@ -125,19 +61,53 @@
 		PREPOSITIONAL = "лазерном импульсе",
 	)
 
-/obj/projectile/beam/laser/shot
-	name = "laser shot beam"
-	icon_state = "lasershot"
-	damage = 15
+/obj/projectile/beam/weak
+	icon_state = "weakbeam"
+	damage = 10
 
-/obj/projectile/beam/laser/shot/get_ru_names()
+/obj/projectile/beam/weak/get_ru_names()
 	return list(
-		NOMINATIVE = "лазерная дробь",
-		GENITIVE = "лазерной дроби",
-		DATIVE = "лазерной дроби",
-		ACCUSATIVE = "лазерную дробь",
-		INSTRUMENTAL = "лазерной дробью",
-		PREPOSITIONAL = "лазерной дроби",
+		NOMINATIVE = "слабый лазер",
+		GENITIVE = "слабого лазера",
+		DATIVE = "слабому лазеру",
+		ACCUSATIVE = "слабый лазер",
+		INSTRUMENTAL = "слабым лазером",
+		PREPOSITIONAL = "слабом лазере",
+	)
+
+/obj/projectile/beam/weak/rat
+	name = "clockwork energy laser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/orange_laser
+
+/obj/projectile/beam/weak/rat/get_ru_names()
+	return list(
+		NOMINATIVE = "лазер часовой энергии",
+		GENITIVE = "лазера часовой энергии",
+		DATIVE = "лазеру часовой энергии",
+		ACCUSATIVE = "лазер часовой энергии",
+		INSTRUMENTAL = "лазером часовой энергии",
+		PREPOSITIONAL = "лазере часовой энергии",
+	)
+
+/obj/projectile/beam/weak/rat/prehit(atom/target)
+	if(isclocker(target))
+		damage = 0
+	return ..()
+
+/obj/projectile/beam/heavy
+	damage = 45
+	name = "heavy laser beam"
+	icon_state = "heavybeam"
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+
+/obj/projectile/beam/heavy/get_ru_names()
+	return list(
+		NOMINATIVE = "мощный лазер",
+		GENITIVE = "мощного лазера",
+		DATIVE = "мощному лазеру",
+		ACCUSATIVE = "мощный лазер",
+		INSTRUMENTAL = "мощным лазером",
+		PREPOSITIONAL = "мощном лазере",
 	)
 
 /obj/projectile/beam/practice
@@ -159,7 +129,7 @@
 
 /obj/projectile/beam/scatter
 	name = "laser pellet"
-	icon_state = "scatterlaser"
+	icon_state = "weakbeam"
 	damage = 5
 
 /obj/projectile/beam/scatter/get_ru_names()
@@ -174,7 +144,7 @@
 
 /obj/projectile/beam/xray
 	name = "x-ray beam"
-	icon_state = "xray"
+	icon_state = "heavybeam"
 	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	tile_dropoff = 0.75
@@ -197,60 +167,18 @@
 		PREPOSITIONAL = "рентгеновском луче",
 	)
 
-/obj/projectile/beam/disabler
-	name = "disabler beam"
-	icon_state = "omnilaser"
-	damage = 25
-	shockbull = TRUE
-	damage_type = STAMINA
-	flag = "energy"
-	hitsound = 'sound/weapons/plasma_cutter.ogg'
-	eyeblur = 0
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_BLUE
-	tracer_type = /obj/effect/projectile/tracer/disabler
-	muzzle_type = /obj/effect/projectile/muzzle/disabler
-	impact_type = /obj/effect/projectile/impact/disabler
-
-/obj/projectile/beam/disabler/get_ru_names()
-	return list(
-		NOMINATIVE = "дизейблер",
-		GENITIVE = "дизейблера",
-		DATIVE = "дизейблеру",
-		ACCUSATIVE = "дизейблер",
-		INSTRUMENTAL = "дизейблером",
-		PREPOSITIONAL = "дизейблере",
-	)
-
-/obj/projectile/beam/specter/laser
-	name = "specter laser beam"
-	damage = 25
-
-/obj/projectile/beam/specter/disabler
-	name = "specter paralyzer beam"
-	icon_state = "omnilaser"
-	damage = 30
-	shockbull = TRUE
-	damage_type = STAMINA
-	flag = "energy"
-	hitsound = 'sound/weapons/plasma_cutter.ogg'
-	hitsound_wall = 'sound/weapons/sear.ogg'
-	eyeblur = 0
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_LIGHT_CYAN
-
 /obj/projectile/beam/pulse
 	name = "pulse"
-	icon_state = "u_laser"
+	icon_state = "heavybeam"
 	damage = 50
 	var/gib_allowed = TRUE
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	hitsound_wall = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
-	tracer_type = /obj/effect/projectile/tracer/pulse
-	muzzle_type = /obj/effect/projectile/muzzle/pulse
-	impact_type = /obj/effect/projectile/impact/pulse
+	tracer_type = /obj/effect/projectile/tracer/laser/heavy
+	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
+	impact_type = /obj/effect/projectile/impact/laser/heavy
 
 /obj/projectile/beam/pulse/get_ru_names()
 	return list(
@@ -294,7 +222,7 @@
 
 /obj/projectile/beam/emitter
 	name = "emitter beam"
-	icon_state = "emitter"
+	icon_state = "heavybeam"
 	damage = 33
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -312,9 +240,9 @@
 
 /obj/projectile/beam/emitter/hitscan
 	hitscan = TRUE
-	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter
-	tracer_type = /obj/effect/projectile/tracer/laser/emitter
-	impact_type = /obj/effect/projectile/impact/laser/emitter
+	tracer_type = /obj/effect/projectile/tracer/laser/heavy
+	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
+	impact_type = /obj/effect/projectile/impact/laser/heavy
 	impact_effect_type = null
 	hitscan_light_intensity = 3
 	hitscan_light_color_override = COLOR_LIME
@@ -330,7 +258,7 @@
 
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"
-	icon_state = "omnilaser"
+	icon_state = "weakbeam"
 	hitsound = 'sound/weapons/tap.ogg'
 	nodamage = TRUE
 	damage = 0
@@ -360,7 +288,6 @@
 	return 1
 
 /obj/projectile/beam/lasertag/redtag
-	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = COLOR_SOFT_RED
@@ -368,22 +295,15 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
-/obj/projectile/beam/lasertag/redtag/hitscan
-	hitscan = TRUE
-
 /obj/projectile/beam/lasertag/bluetag
-	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
 	tracer_type = /obj/effect/projectile/tracer/laser/blue
 	muzzle_type = /obj/effect/projectile/muzzle/laser/blue
 	impact_type = /obj/effect/projectile/impact/laser/blue
 
-/obj/projectile/beam/lasertag/bluetag/hitscan
-	hitscan = TRUE
-
-/obj/projectile/beam/sniper
+/obj/projectile/beam/heavysniper
 	name = "sniper beam"
-	icon_state = "sniperlaser"
+	icon_state = "sniperbeam"
 	//speed = 0.75
 	//range = 100
 	damage = 60
@@ -395,7 +315,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
 
-/obj/projectile/beam/sniper/get_ru_names()
+/obj/projectile/beam/heavysniper/get_ru_names()
 	return list(
 		NOMINATIVE = "снайперский луч",
 		GENITIVE = "снайперского луча",
@@ -405,46 +325,10 @@
 		PREPOSITIONAL = "снайперском луче",
 	)
 
-/obj/projectile/beam/podsniper/disabler
-	name = "sniper disabler beam"
-	icon_state = "LSR_disabler"
-	damage = 40
-	damage_type = STAMINA
-	hitsound = 'sound/weapons/resonator_blast.ogg'
-	flag = ENERGY
-	eyeblur = 0
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_CYAN
-
-/obj/projectile/beam/podsniper/disabler/get_ru_names()
-	return list(
-		NOMINATIVE = "луч снайперского дизейблера",
-		GENITIVE = "луча снайперского дизейблера",
-		DATIVE = "лучу снайперского дизейблера",
-		ACCUSATIVE = "луч снайперского дизейблера",
-		INSTRUMENTAL = "лучом снайперского дизейблера",
-		PREPOSITIONAL = "луче снайперского дизейблера",
-	)
-
-/obj/projectile/beam/podsniper/laser
-	name = "sniper laser beam"
-	icon_state = "LSR_kill"
-	damage = 45
-	hitsound = 'sound/weapons/resonator_blast.ogg'
-
-/obj/projectile/beam/podsniper/laser/get_ru_names()
-	return list(
-		NOMINATIVE = "снайперский лазер",
-		GENITIVE = "снайперского лазера",
-		DATIVE = "снайперскому лазеру",
-		ACCUSATIVE = "снайперский лазер",
-		INSTRUMENTAL = "снайперским лазером",
-		PREPOSITIONAL = "снайперском лазере",
-	)
-
 /obj/projectile/beam/immolator
 	name = "immolation beam"
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	icon_state = "heavybeam"
 
 /obj/projectile/beam/immolator/get_ru_names()
 	return list(
@@ -459,7 +343,6 @@
 /obj/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
 	damage = 45
-	icon_state = "heavylaser"
 
 /obj/projectile/beam/immolator/strong/get_ru_names()
 	return list(
@@ -474,7 +357,7 @@
 /obj/projectile/beam/immolator/weak
 	name = "light immolation beam"
 	damage = 8
-	icon_state = "scatterlaser"
+	icon_state = "weakbeam"
 
 /obj/projectile/beam/immolator/weak/get_ru_names()
 	return list(
@@ -558,14 +441,9 @@
 		L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] взрывается!"))
 		L.gib()
 
-/obj/projectile/beam/dominator/eliminator
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	icon_state = "blue_laser"
-	light_color = LIGHT_COLOR_LIGHT_CYAN
-
-/obj/projectile/beam/dominator/slaughter
+/obj/projectile/beam/slaughter
 	name = "execution slaughter beam"
-	icon_state = "blue_laser"
+	icon_state = "atomball"
 	damage = 50
 	stamina = 33
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
@@ -573,7 +451,7 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	hitsound_wall = 'sound/weapons/sear.ogg'
 
-/obj/projectile/beam/dominator/slaughter/get_ru_names()
+/obj/projectile/beam/slaughter/get_ru_names()
 	return list(
 		NOMINATIVE = "луч казни",
 		GENITIVE = "луча казни",
@@ -583,32 +461,33 @@
 		PREPOSITIONAL = "луче казни",
 	)
 
-/obj/projectile/beam/dominator/paralyzer
-	name = "paralyzer beam"
-	icon_state = "omnilaser"
-	damage = 25
-	shockbull = TRUE
-	damage_type = STAMINA
-	flag = "energy"
-	hitsound = 'sound/weapons/plasma_cutter.ogg'
-	hitsound_wall = 'sound/weapons/sear.ogg'
-	eyeblur = 0
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
-	light_color = LIGHT_COLOR_LIGHT_CYAN
+/obj/projectile/beam/ricochet
+	icon_state = "atomball"
+	damage = 30
+	range = 100
+	hitscan = FALSE
+	ricochet_chance = 100
+	ricochets_max = 10
+	speed = 3
+	flag = BULLET
+	hitsound = 'sound/weapons/atomichitsound.ogg'
+	hitsound_wall = 'sound/weapons/atomichitsound.ogg'
+	light_color = COLOR_VIVID_YELLOW
+	light_range = 5
 
-/obj/projectile/beam/dominator/paralyzer/get_ru_names()
+/obj/projectile/beam/ricochet/get_ru_names()
 	return list(
-		NOMINATIVE = "дизейблер",
-		GENITIVE = "дизейблера",
-		DATIVE = "дизейблеру",
-		ACCUSATIVE = "дизейблер",
-		INSTRUMENTAL = "дизейблером",
-		PREPOSITIONAL = "дизейблере",
+		NOMINATIVE = "энергетический шар",
+		GENITIVE = "энергетического шара",
+		DATIVE = "энергетическому шару",
+		ACCUSATIVE = "энергетический шар",
+		INSTRUMENTAL = "энергетическим шаром",
+		PREPOSITIONAL = "энергетическом шаре",
 	)
 
 /obj/projectile/beam/anomaly
 	name = "луч стабилизатора аномалий"
-	icon_state = "xray" // Looks mostly like "blue/red_laser" in green colour.
+	icon_state = "pellet" // Looks mostly like "blue/red_laser" in green colour.
 	damage = 0
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
@@ -686,22 +565,147 @@
 		PREPOSITIONAL = "дестабилизирующем луче",
 	)
 
-/obj/projectile/beam/laser/light/rat
-	name = "clockwork energy laser"
-	icon_state = "brasslaser"
-	impact_effect_type = /obj/effect/temp_visual/impact_effect/orange_laser
+/obj/projectile/beam/disabler //parent type for all disabler beams
+	name = "disabler beam"
+	damage = 25
+	shockbull = TRUE
+	damage_type = STAMINA
+	flag = "energy"
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+	tracer_type = /obj/effect/projectile/tracer/disabler
+	muzzle_type = /obj/effect/projectile/muzzle/disabler
+	impact_type = /obj/effect/projectile/impact/disabler
 
-/obj/projectile/beam/laser/light/rat/get_ru_names()
+/obj/projectile/beam/disabler/get_ru_names()
 	return list(
-		NOMINATIVE = "лазер часовой энергии",
-		GENITIVE = "лазера часовой энергии",
-		DATIVE = "лазеру часовой энергии",
-		ACCUSATIVE = "лазер часовой энергии",
-		INSTRUMENTAL = "лазером часовой энергии",
-		PREPOSITIONAL = "лазере часовой энергии",
+		NOMINATIVE = "дизейблер",
+		GENITIVE = "дизейблера",
+		DATIVE = "дизейблеру",
+		ACCUSATIVE = "дизейблер",
+		INSTRUMENTAL = "дизейблером",
+		PREPOSITIONAL = "дизейблере",
 	)
 
-/obj/projectile/beam/laser/light/rat/prehit(atom/target)
-	if(isclocker(target))
-		damage = 0
-	return ..()
+/obj/projectile/beam/disabler/weak
+	damage = 12
+	icon_state = "weakbeam"
+
+/obj/projectile/beam/disabler/weak/get_ru_names()
+	return list(
+		NOMINATIVE = "слабый дизейблер",
+		GENITIVE = "слабого дизейблера",
+		DATIVE = "слабому дизейблеру",
+		ACCUSATIVE = "слабый дизейблер",
+		INSTRUMENTAL = "слабым дизейблером",
+		PREPOSITIONAL = "слабом дизейблере",
+	)
+
+/obj/projectile/beam/disabler/heavy
+	name = "heavy disabler beam"
+	icon_state = "heavybeam"
+	damage = 40
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	flag = ENERGY
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+
+/obj/projectile/beam/disabler/heavy/get_ru_names()
+	return list(
+		NOMINATIVE = "мощный дизейблер",
+		GENITIVE = "мощного дизейблера",
+		DATIVE = "мощному дизейблеру",
+		ACCUSATIVE = "мощный дизейблер",
+		INSTRUMENTAL = "мощным дизейблером",
+		PREPOSITIONAL = "мощном дизейблере",
+	)
+
+/obj/projectile/beam/laser //parent type for hitscan-laser beams
+	name = "laser beam"
+	tracer_type = /obj/effect/projectile/tracer/laser
+	muzzle_type = /obj/effect/projectile/muzzle/laser
+	impact_type = /obj/effect/projectile/impact/laser
+	hitscan = TRUE
+	damage = 20
+
+/obj/projectile/beam/laser/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерный луч",
+		GENITIVE = "лазерного луча",
+		DATIVE = "лазерному лучу",
+		ACCUSATIVE = "лазерный луч",
+		INSTRUMENTAL = "лазерным лучом",
+		PREPOSITIONAL = "лазерном луче",
+	)
+
+/obj/projectile/beam/laser/heavy
+	name = "heavy laser beam"
+	tracer_type = /obj/effect/projectile/tracer/laser/heavy
+	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
+	impact_type = /obj/effect/projectile/impact/laser/heavy
+	damage = 40
+
+/obj/projectile/beam/laser/heavy/get_ru_names()
+	return list(
+		NOMINATIVE = "мощный лазерный луч",
+		GENITIVE = "мощного лазерного луча",
+		DATIVE = "мощному лазерному лучу",
+		ACCUSATIVE = "мощный лазерный луч",
+		INSTRUMENTAL = "мощным лазерным лучом",
+		PREPOSITIONAL = "мощном лазерном луче",
+	)
+
+/obj/projectile/beam/laser/pierce
+	name = "armorpierce laser beam"
+	tracer_type = /obj/effect/projectile/tracer/laser/armorpierce
+	muzzle_type = /obj/effect/projectile/muzzle/laser/armorpierce
+	impact_type = /obj/effect/projectile/impact/laser/armorpierce
+	armour_penetration = 50
+	damage = 25
+	forcedodge = 2
+
+/obj/projectile/beam/laser/pierce/get_ru_names()
+	return list(
+		NOMINATIVE = "бронебойный лазерный луч",
+		GENITIVE = "бронебойного лазерного луча",
+		DATIVE = "бронебойному лазерному лучу",
+		ACCUSATIVE = "бронебойный лазерный луч",
+		INSTRUMENTAL = "бронебойным лазерным лучом",
+		PREPOSITIONAL = "бронебойном лазерном луче",
+	)
+
+/obj/projectile/beam/laser/slug
+	name = "laserslug beam"
+	tracer_type = /obj/effect/projectile/tracer/laser/heavy
+	muzzle_type = /obj/effect/projectile/muzzle/laser/heavy
+	impact_type = /obj/effect/projectile/impact/laser/heavy
+	damage = 25
+	armour_penetration = 25
+
+/obj/projectile/beam/laser/slug/get_ru_names()
+	return list(
+		NOMINATIVE = "сфокусированный лазерный луч",
+		GENITIVE = "сфокусированного лазерного луча",
+		DATIVE = "сфокусированному лазерному лучу",
+		ACCUSATIVE = "сфокусированный лазерный луч",
+		INSTRUMENTAL = "сфокусированным лазерным лучом",
+		PREPOSITIONAL = "сфокусированном лазерном луче",
+	)
+
+/obj/projectile/beam/laser/weak
+	name = "weak laser beam"
+	tracer_type = /obj/effect/projectile/tracer/laser/light
+	muzzle_type = /obj/effect/projectile/muzzle/laser/light
+	impact_type = /obj/effect/projectile/impact/laser/light
+	damage = 10
+	armour_penetration = -30
+
+/obj/projectile/beam/laser/weak/get_ru_names()
+	return list(
+		NOMINATIVE = "слабый лазерный луч",
+		GENITIVE = "слабого лазерного луча",
+		DATIVE = "слабому лазерному лучу",
+		ACCUSATIVE = "слабый лазерный луч",
+		INSTRUMENTAL = "слабым лазерным лучом",
+		PREPOSITIONAL = "слабом лазерном луче",
+	)

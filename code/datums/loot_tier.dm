@@ -105,7 +105,7 @@
 		/obj/item/gun/energy/immolator,
 		/obj/item/gun/energy/gun/hos,
 		/obj/item/gun/energy/mindflayer,
-		/obj/item/gun/energy/gun,
+		/obj/item/gun/energy/accumulator/egun,
 		/obj/item/gun/energy/shock_revolver,
 		/obj/item/gun/energy/laser/scatter,
 		/obj/item/gun/energy/laser/hitscan,
@@ -117,7 +117,7 @@
 		/obj/item/gun/energy/lasercannon,
 		/obj/item/gun/energy/xray,
 		list(
-			/obj/item/gun/energy/specter,
+			/obj/item/gun/energy/accumulator/specter,
 			/obj/item/weapon_cell/specter,
 			/obj/item/weapon_cell/specter,
 			/obj/item/weapon_cell/specter,

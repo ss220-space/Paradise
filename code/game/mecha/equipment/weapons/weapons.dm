@@ -12,6 +12,8 @@
 	var/projectile_delay = 0
 	var/projectiles
 	var/projectile_energy_cost
+	var/overlay_color = "#ffffff"
+	var/greyscale_overlays = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/can_attach(obj/mecha/combat/M)
 	if(..())
@@ -50,6 +52,9 @@
 			A.original = target
 			A.current = curloc
 
+			if(greyscale_overlays && overlay_color)
+				A.color = overlay_color
+
 			var/spread = 0
 			if(variance)
 				if(randomspread)
@@ -76,6 +81,7 @@
 /obj/item/mecha_parts/mecha_equipment/weapon/energy
 	name = "General Energy Weapon"
 	size = 2
+	greyscale_overlays = TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser
 	equip_cooldown = 0.4 SECONDS
@@ -86,6 +92,7 @@
 	projectile = /obj/projectile/beam
 	fire_sound = 'sound/weapons/gunshots/1laser4.ogg'
 	harmful = TRUE
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/disabler
 	name = "CH-PD Disabler"
@@ -96,6 +103,7 @@
 	projectiles_per_shot = 2
 	projectile_delay = 1
 	harmful = FALSE
+	overlay_color = COLOR_HEALING_CYAN
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/laser/heavy
 	equip_cooldown = 1 SECONDS
@@ -103,7 +111,7 @@
 	icon_state = "mecha_solaris"
 	origin_tech = "magnets=4;combat=4;engineering=3"
 	energy_drain = 60
-	projectile = /obj/projectile/beam/laser/heavylaser
+	projectile = /obj/projectile/beam/heavylaser
 	fire_sound = 'sound/weapons/gunshots/1pulse.ogg'
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/ion
@@ -148,6 +156,7 @@
 	projectile = /obj/projectile/beam/xray
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
+	overlay_color = LIGHT_COLOR_VIVID_GREEN
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/xray/triple
 	name = "X-XR Triple-barrel X-Ray Stream Projector"
@@ -166,6 +175,7 @@
 	projectile = /obj/projectile/beam/immolator/mech
 	fire_sound = 'sound/weapons/gunshots/1xray.ogg'
 	harmful = TRUE
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/pulse
 	equip_cooldown = 3 SECONDS
@@ -176,6 +186,7 @@
 	projectile = /obj/projectile/beam/pulse/hitscan/heavy
 	fire_sound = 'sound/weapons/gunshots/1pulse.ogg'
 	harmful = TRUE
+	overlay_color = COLOR_BRIGHT_BLUE
 
 /obj/projectile/beam/pulse/hitscan/heavy
 	name = "heavy pulse laser"
@@ -382,6 +393,8 @@
 	variance = 6
 	projectile_delay = 2
 	harmful = TRUE
+	greyscale_overlays = TRUE
+	overlay_color = COLOR_VIVID_RED
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack
 	name = "SRM-8 Light Missile Rack"
@@ -613,6 +626,7 @@
 	projectile = /obj/projectile/plasma/adv/mech
 	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 	harmful = TRUE
+	overlay_color = COLOR_HEALING_CYAN
 
 /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma/can_attach(obj/mecha/M)
 	if(istype(M, /obj/mecha/working) || istype(M, /obj/mecha/combat/lockersyndie))

@@ -76893,11 +76893,11 @@
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/rack/gunrack,
 /obj/structure/window/reinforced,
-/obj/item/gun/energy/gun{
+/obj/item/gun/energy/accumulator/egun,{
 	pixel_x = -6
 	},
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
+/obj/item/gun/energy/accumulator/egun,
+/obj/item/gun/energy/accumulator/egun,{
 	pixel_x = 6
 	},
 /turf/simulated/floor/plasteel{

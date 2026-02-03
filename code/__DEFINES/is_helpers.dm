@@ -132,6 +132,8 @@
 
 #define is_spectercell(A) (istype(A, /obj/item/weapon_cell/specter))
 
+#define is_eguncell(A) (istype(A, /obj/item/weapon_cell/egun))
+
 #define is_cash(A) (istype(A, /obj/item/coin) || istype(A, /obj/item/stack/spacecash))
 
 #define is_airlock(A) (istype(A, /obj/machinery/door/airlock))

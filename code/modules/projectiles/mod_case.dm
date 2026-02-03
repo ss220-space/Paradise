@@ -1,6 +1,6 @@
 /obj/item/lg_mod_case
-	name = "Набор модификации лазерного оружия"
-	desc = "Набор автоматизированных инструментов для модификации энергетического оружия на базе LG"
+	name = "Набор модификации энергетического оружия"
+	desc = "Набор автоматизированных инструментов для модификации энергетического оружия"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "modcase"
 	item_state = "modcase"
@@ -8,86 +8,111 @@
 
 	var/cooldown = 0
 	var/cooldown_time = 10 SECONDS
-	var/list/modifications = list(
-		"LG-PRO «Игла»" = /obj/item/gun/energy/laser/hitscan/laserrifle,
-		"LG-TAC «Фокус»" = /obj/item/gun/energy/laser/hitscan/lasershotgun,
-		"LG-PDW «Шершень»" = /obj/item/gun/energy/laser/hitscan/laserpistol,
-		"LG-LMG «Зенит»" = /obj/item/gun/energy/laser/hitscan/lasermg
-	)
 
-/obj/item/lg_mod_case/afterattack(obj/item/weapon, mob/user, proximity)
+/obj/item/lg_mod_case/afterattack(obj/item/target_weapon, mob/user, proximity)
 	if(!proximity)
 		return
 
-	// Only base hitscan laser can be modified
-	if(!istype(weapon, /obj/item/gun/energy/laser/hitscan) || weapon.type != /obj/item/gun/energy/laser/hitscan)
-		to_chat(user, "<span class='warning'>Работает только с базовой версией оружия!</span>")
+	var/is_laser = istype(target_weapon, /obj/item/gun/energy/laser/hitscan)
+	var/is_egun = istype(target_weapon, /obj/item/gun/energy/accumulator/egun)
+
+	if(!is_laser && !is_egun)
+		to_chat(user, "<span class='warning'>Несовместимо с этим типом вооружения</span>")
+		return
+
+	if(is_laser && target_weapon.type != /obj/item/gun/energy/laser/hitscan)
+		to_chat(user, "<span class='warning'>Работает только с базовой версией лазерного оружия!</span>")
+		return
+
+	if(is_egun && target_weapon.type != /obj/item/gun/energy/accumulator/egun)
+		to_chat(user, "<span class='warning'>Работает только с базовой версией энергетического оружия!</span>")
 		return
 
 	if(cooldown > world.time)
 		return
 
-	// Create radial menu images
 	var/list/choices = list()
 
-	var/image/rifle_img = image('icons/obj/weapons/guns_48x32.dmi', "laserrifle")
-	rifle_img.name = "LG-PRO «Игла»"
-	choices["LG-PRO «Игла»"] = rifle_img
+	if(is_laser)
+		var/image/rifle_img = image('icons/obj/weapons/guns_48x32.dmi', "LSR")
+		rifle_img.name = "L-SR «Игла»"
+		choices["L-SR «Игла»"] = rifle_img
 
-	var/image/shotgun_img = image('icons/obj/weapons/energy.dmi', "lasershotgun")
-	shotgun_img.name = "LG-TAC «Фокус»"
-	choices["LG-TAC «Фокус»"] = shotgun_img
+		var/image/shotgun_img = image('icons/obj/weapons/energy.dmi', "LSG")
+		shotgun_img.name = "L-SG «Фокус»"
+		choices["L-SG «Фокус»"] = shotgun_img
 
-	var/image/pistol_img = image('icons/obj/weapons/energy.dmi', "laserpistol")
-	pistol_img.name = "LG-PDW «Шершень»"
-	choices["LG-PDW «Шершень»"] = pistol_img
+		var/image/pistol_img = image('icons/obj/weapons/energy.dmi', "LPDW")
+		pistol_img.name = "L-PDW «Шершень»"
+		choices["L-PDW «Шершень»"] = pistol_img
 
-	var/image/mg_img = image('icons/obj/weapons/energy.dmi', "lasermg")
-	mg_img.name = "LG-LMG «Зенит»"
-	choices["LG-LMG «Зенит»"] = mg_img
+		var/image/mg_img = image('icons/obj/weapons/energy.dmi', "LAR")
+		mg_img.name = "L-AR «Зенит»"
+		choices["L-AR «Зенит»"] = mg_img
+	else
+		var/image/rifle_img = image('icons/obj/weapons/guns_48x32.dmi', "ESR")
+		rifle_img.name = "E-SR «Богомол»"
+		choices["E-SR «Богомол»"] = rifle_img
 
-	// Show radial menu
-	var/choice = show_radial_menu(user, weapon, choices, require_near = TRUE)
+		var/image/shotgun_img = image('icons/obj/weapons/energy.dmi', "ESG")
+		shotgun_img.name = "E-SG «Скарабей»"
+		choices["E-SG «Скарабей»"] = shotgun_img
+
+		var/image/pistol_img = image('icons/obj/weapons/energy.dmi', "EPDW")
+		pistol_img.name = "E-PDW «Оса»"
+		choices["E-PDW «Оса»"] = pistol_img
+
+		var/image/mg_img = image('icons/obj/weapons/energy.dmi', "EAR")
+		mg_img.name = "E-AR «Скорпион»"
+		choices["E-AR «Скорпион»"] = mg_img
+
+	var/choice = show_radial_menu(user, target_weapon, choices, require_near = TRUE)
 	if(!choice)
 		return
 
 	cooldown = world.time + cooldown_time
 	to_chat(user, "<span class='notice'>Запущен процесс сборки...</span>")
 
-	// 10 second modification process
-	if(!do_after(user, cooldown_time, target = weapon))
+	if(!do_after(user, cooldown_time, target = target_weapon))
 		cooldown = 0
 		return
 
-	// Determine weapon type
 	var/new_type
-	switch(choice)
-		if("LG-PRO «Игла»")
-			new_type = /obj/item/gun/energy/laser/hitscan/laserrifle
-		if("LG-TAC «Фокус»")
-			new_type = /obj/item/gun/energy/laser/hitscan/lasershotgun
-		if("LG-PDW «Шершень»")
-			new_type = /obj/item/gun/energy/laser/hitscan/laserpistol
-		if("LG-LMG «Зенит»")
-			new_type = /obj/item/gun/energy/laser/hitscan/lasermg
-		else
-			return
-
-	var/turf/T = get_turf(user)
-
-	// Create new weapon
-	var/obj/item/new_gun = new new_type(T)
-	qdel(weapon)
-
-	// Give new weapon to player
-	if(user.put_in_hands(new_gun))
-		to_chat(user, "<span class='notice'>Модификация изавершена!</span>")
+	if(is_laser)
+		switch(choice)
+			if("L-SR «Игла»")
+				new_type = /obj/item/gun/energy/laser/hitscan/sniper
+			if("L-SG «Фокус»")
+				new_type = /obj/item/gun/energy/laser/hitscan/shotgun
+			if("L-PDW «Шершень»")
+				new_type = /obj/item/gun/energy/laser/hitscan/pistol
+			if("L-AR «Зенит»")
+				new_type = /obj/item/gun/energy/laser/hitscan/automatic
 	else
-		new_gun.forceMove(T)
+		switch(choice)
+			if("E-SR «Богомол»")
+				new_type = /obj/item/gun/energy/accumulator/egun/sniper
+			if("E-SG «Скарабей»")
+				new_type = /obj/item/gun/energy/accumulator/egun/shotgun
+			if("E-PDW «Оса»")
+				new_type = /obj/item/gun/energy/accumulator/egun/pistol
+			if("E-AR «Скорпион»")
+				new_type = /obj/item/gun/energy/accumulator/egun/automatic
 
-	// Delete mod case after use
+	if(!new_type)
+		return
+
+	var/turf/spawn_turf = get_turf(user)
+
+	var/obj/item/new_gun = new new_type(spawn_turf)
+	qdel(target_weapon)
+
+	if(user.put_in_hands(new_gun))
+		to_chat(user, "<span class='notice'>Модификация завершена!</span>")
+	else
+		new_gun.forceMove(spawn_turf)
+
 	qdel(src)
 
-	// Effects
 	playsound(user, 'sound/machines/ding.ogg', 50, TRUE)
-	do_sparks(3, TRUE, T)
+	do_sparks(3, TRUE, spawn_turf)

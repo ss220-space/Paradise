@@ -80489,11 +80489,14 @@
 /area/solar/port)
 "sQg" = (
 /obj/structure/rack/gunrack,
-/obj/item/gun/energy/gun{
+/obj/item/gun/energy/accumulator/egun,
+/obj/item/weapon_cell/egunn{
 	pixel_x = -3
 	},
-/obj/item/gun/energy/gun,
-/obj/item/gun/energy/gun{
+/obj/item/gun/energy/accumulator/egun,
+/obj/item/weapon_cell/egun,
+/obj/item/gun/energy/accumulator/egun,
+/obj/item/weapon_cell/egun{
 	pixel_x = 3
 	},
 /obj/structure/window/reinforced,

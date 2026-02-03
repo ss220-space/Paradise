@@ -87,12 +87,15 @@
 	visible_mask = image('icons/effects/light_overlays/light_32.dmi', icon_state = "light")
 	SET_PLANE_EXPLICIT(visible_mask, O_LIGHTING_VISUAL_PLANE, movable_parent)
 	visible_mask.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+	visible_mask.blend_mode = BLEND_ADD
 	visible_mask.alpha = 0
+
 	if(is_directional)
 		directional = TRUE
 		cone = image('icons/effects/light_overlays/light_cone.dmi', icon_state = "light")
 		SET_PLANE_EXPLICIT(cone, O_LIGHTING_VISUAL_PLANE, movable_parent)
 		cone.appearance_flags = RESET_COLOR | RESET_ALPHA | RESET_TRANSFORM
+		cone.blend_mode = BLEND_ADD
 		cone.alpha = 110
 		cone.transform = cone.transform.Translate(-32, -32)
 		set_direction(movable_parent.dir)

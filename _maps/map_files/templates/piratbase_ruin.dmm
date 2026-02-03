@@ -1673,7 +1673,8 @@
 /area/ruin/space/pirate_base/atrium)
 "en" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/gun,
+/obj/item/gun/energy/accumulator/egun,
+/obj/item/weapon_cell/egun,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5190,7 +5191,8 @@
 /area/ruin/space/pirate_base/lab_maint)
 "op" = (
 /obj/structure/table,
-/obj/item/gun/energy/gun{
+/obj/item/gun/energy/accumulator/egun,
+/obj/item/weapon_cell/egun{
 	pixel_x = -3;
 	pixel_y = 6
 	},

@@ -36,13 +36,14 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/hos
 	l_pocket = /obj/item/lighter/zippo/hos
-	suit_store = /obj/item/gun/energy/gun/sibyl
+	suit_store = /obj/item/gun/energy/accumulator/egun/sibyl
 	pda = /obj/item/pda/heads/hos
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/melee/baton/telescopic = 1,
 		/obj/item/security_voucher = 1,
+		/obj/item/weapon_cell/egun = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
