@@ -259,6 +259,7 @@
 	use_duration = 2 SECONDS
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/bruise_pack
+	custom_price = PAYCHECK_MIN * 0.4
 
 /obj/item/stack/medical/bruise_pack/get_ru_names()
 	return list(
@@ -356,6 +357,7 @@
 	heal_brute = 0
 	stop_bleeding = 300 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/military
+	custom_premium_price = PAYCHECK_CREW
 
 /obj/item/stack/medical/bruise_pack/military/get_ru_names()
 	return list(
@@ -411,6 +413,7 @@
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/bruise_pack/advanced
 	use_flags = DA_IGNORE_LYING
+	custom_price = PAYCHECK_MIN * 1.5
 
 /obj/item/stack/medical/bruise_pack/advanced/get_ru_names()
 	return list(
@@ -449,6 +452,7 @@
 	use_duration = 0.7 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/extended
+	custom_premium_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/bruise_pack/extended/get_ru_names()
 	return list(
@@ -481,6 +485,7 @@
 	energy_type = /datum/robot_energy_storage/medical
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/ointment
+	custom_price = PAYCHECK_MIN * 0.4
 
 /obj/item/stack/medical/ointment/get_ru_names()
 	return list(
@@ -540,6 +545,7 @@
 	max_amount = 8
 	use_duration = 1.5 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/advanced
+	custom_price = PAYCHECK_MIN * 1.5
 
 /obj/item/stack/medical/ointment/advanced/get_ru_names()
 	return list(
@@ -573,6 +579,7 @@
 	self_delay = 1.5 SECONDS
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/ointment/extended
+	custom_premium_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/ointment/extended/get_ru_names()
 	return list(
@@ -606,6 +613,7 @@
 	use_duration = 1.5 SECONDS
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/bruise_pack/synthflesh_kit
+	custom_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/bruise_pack/synthflesh_kit/get_ru_names()
 	return list(
@@ -711,6 +719,7 @@
 	)
 	use_flags = DA_IGNORE_LYING
 	merge_type = /obj/item/stack/medical/splint
+	custom_price = PAYCHECK_MIN
 
 /obj/item/stack/medical/splint/get_ru_names()
 	return list(
@@ -828,6 +837,7 @@
 	use_flags = DA_IGNORE_LYING
 	energy_type = /datum/robot_energy_storage/medical
 	merge_type = /obj/item/stack/medical/suture
+	custom_price = PAYCHECK_MIN
 
 /obj/item/stack/medical/suture/get_ru_names()
 	return list(
@@ -904,6 +914,7 @@
 	self_delay = 2 SECONDS
 	use_duration = 0.7 SECONDS
 	merge_type = /obj/item/stack/medical/suture/advanced
+	custom_premium_price = PAYCHECK_LOWER
 
 /obj/item/stack/medical/suture/advanced/get_ru_names()
 	return list(
@@ -929,6 +940,7 @@
 	item_state = "tourniquet"
 	origin_tech = "biotech=3"
 	w_class = WEIGHT_CLASS_TINY
+	custom_price = PAYCHECK_MIN * 0.6
 	/// Duration to apply self
 	var/self_duration = 5 SECONDS
 	/// Duration to apply other mobs
@@ -1168,6 +1180,7 @@
 	self_duration = 3 SECONDS
 	other_duration = 2 SECONDS
 	remove_duration = 1 SECONDS
+	custom_price = PAYCHECK_MIN * 2
 
 /obj/item/tourniquet/advanced/get_ru_names()
 	return list(

@@ -35,12 +35,15 @@
 /obj/structure/fence/door,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/graveyard/church)
-"aR" = (
-/obj/machinery/light_switch/directional/west,
-/turf/simulated/floor/plasteel{
-	icon_state = "lightdark"
+"aV" = (
+/obj/effect/turf_decal{
+	dir = 10;
+	icon_state = "grass_edge_medium";
+	name = "grass"
 	},
-/area/ruin/space/graveyard/church)
+/obj/machinery/light_switch/directional/south,
+/turf/simulated/floor/wood/oak,
+/area/ruin/space/graveyard/graves)
 "aZ" = (
 /obj/effect/clockwork/overlay/floor/bloodcult,
 /obj/item/flashlight/lantern,
@@ -124,19 +127,6 @@
 	color = "red"
 	},
 /turf/simulated/floor/plating,
-/area/ruin/space/graveyard/church)
-"cP" = (
-/obj/effect/turf_decal{
-	dir = 10;
-	icon_state = "grass_edge_medium";
-	name = "grass"
-	},
-/obj/machinery/light_switch/directional/south,
-/turf/simulated/floor/wood/oak,
-/area/ruin/space/graveyard/graves)
-"cW" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/carpet/red,
 /area/ruin/space/graveyard/church)
 "cY" = (
 /obj/structure/bookcase/ashframe/random,
@@ -1003,6 +993,12 @@
 	icon_state = "lightdark"
 	},
 /area/ruin/space/graveyard/church)
+"wS" = (
+/obj/machinery/light_switch/directional/west,
+/turf/simulated/floor/plasteel{
+	icon_state = "lightdark"
+	},
+/area/ruin/space/graveyard/church)
 "wW" = (
 /obj/structure/fence/corner,
 /turf/simulated/floor/plating/asteroid,
@@ -1421,13 +1417,6 @@
 "Gm" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating/burnt,
-/area/ruin/space/graveyard/church)
-"Gt" = (
-/obj/machinery/vending/coffee/free,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "GC" = (
 /obj/effect/turf_decal{
@@ -1911,6 +1900,13 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "lightdark"
 	},
+/area/ruin/space/graveyard/church)
+"Ru" = (
+/obj/machinery/vending/coffee,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/turf/simulated/floor/wood/oak,
 /area/ruin/space/graveyard/church)
 "RA" = (
 /obj/item/stack/sheet/wood{
@@ -2453,6 +2449,10 @@
 /obj/structure/spacepoddoor,
 /turf/space,
 /area/ruin/space/graveyard/church)
+"Zy" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/carpet/red,
+/area/ruin/space/graveyard/church)
 "ZF" = (
 /obj/structure/table/wood,
 /obj/effect/turf_decal/siding/wood{
@@ -2934,7 +2934,7 @@ vN
 vN
 lv
 Hi
-aR
+wS
 vN
 vN
 vN
@@ -3684,7 +3684,7 @@ yA
 ew
 yA
 ew
-cP
+aV
 it
 Hp
 qA
@@ -3794,7 +3794,7 @@ HD
 rb
 PP
 up
-cW
+Zy
 rb
 qR
 Xl
@@ -4096,7 +4096,7 @@ it
 tq
 tq
 ow
-Gt
+Ru
 rb
 Vq
 ow
