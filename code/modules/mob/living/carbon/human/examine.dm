@@ -408,8 +408,13 @@
 				else if(!client)
 					msg += span_deadsay("[GEND_HE_SHE_CAP(src)] внезапно заснул[GEND_A_O_I(src)]. [GEND_HE_SHE_CAP(src)] может скоро проснуться.\n")
 
-		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
-			msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")
+	// Changeling traits
+	if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
+		msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")
+
+	if(HAS_TRAIT_FROM(src, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, CHANGELING_HAND_STRAIN_TRAIT))
+		msg += span_warning("Рука [name] выглядит крайне неестественно и напряжённо.\n")
+
 
 	if(!(skipface || (wear_mask && (wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH))) && is_thrall(src) && in_range(user,src))
 		msg += span_italics("[GEND_HIS_HER_CAP(src)] черты лица выглядят неестественно напряжёнными и застывшими.\n")
