@@ -251,8 +251,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 
 // MARK: Alt Russian job titles
 
-// Chief Engineer
-#define ALT_JOB_TITLE_RU_TECHNICAL_DIRECTOR "Технический директор"
 // Engineer
 #define ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER "Монтажник"
 #define ALT_JOB_TITLE_RU_POWER_ENGINEER "Оператор реакторного зала"
@@ -271,7 +269,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_THERAPIST "Терапевт"
 #define ALT_JOB_TITLE_RU_FELDSHER "Фельдшер"
 // Coroner
-#define ALT_JOB_TITLE_RU_FORENSIC_PATHOLOGIST "Судмедэксперт"
 #define ALT_JOB_TITLE_RU_PATHOLOGIST "Патолог"
 #define ALT_JOB_TITLE_RU_THANATOLOGIST "Танатолог"
 // Chemist
@@ -376,10 +373,8 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 // Quartermaster
 #define ALT_JOB_TITLE_RU_CHIEF_ENGINEER_SUPPLY_MANAGER "Главный менеджер по снабжению"
 #define ALT_JOB_TITLE_RU_LOGISTICS_DIRECTOR "Директор по логистике"
-#define ALT_JOB_TITLE_RU_STORAGE_SUPERVISOR "Заведующий складом"
 // Cargo technician
 #define ALT_JOB_TITLE_RU_LOGISTICS_SPECIALIST "Логист"
-#define ALT_JOB_TITLE_RU_WAREHOUSE_WORKER "Складской рабочий"
 
 // Nanotrasen representative
 #define ALT_JOB_TITLE_RU_NT_AUDITOR "Аудитор \"Нанотрейзен\""
