@@ -500,7 +500,6 @@
 /obj/item/clothing/accessory/medal/legal
 	name = "meritous legal medal"
 	desc = "Высшая юридическая награда для тех, кто знает устав \"Нанотрейзен\" лучше, чем свои права. Вручается магистратом тем, кто способен найти лазейку в любой обвинительной речи и превратить её в оправдательный приговор."
-	icon_state = "legal"
 	tupemedal = "юридической медалью."
 
 /obj/item/clothing/accessory/medal/legal/get_ru_names()
