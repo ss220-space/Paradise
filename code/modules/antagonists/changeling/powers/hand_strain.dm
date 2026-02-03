@@ -32,7 +32,7 @@
 		held_item = user.r_hand
 
 	if(!held_item)
-		user.balloon_alert(user, "В активной руке ничего нет!")
+		user.balloon_alert(user, "в активной руке ничего нет!")
 		return FALSE
 
 	// If there's already an attached item
