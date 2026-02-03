@@ -293,7 +293,7 @@
 
 // GOLD (awarded by centcom)
 /obj/item/clothing/accessory/medal/gold
-	name = "Золотая медаль"
+	name = "gold medal"
 	desc = "Почётная золотая медаль."
 	tupemedal = "золотой медалью."
 	icon_state = "gold"
@@ -310,7 +310,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/gold/captain
-	name = "Медаль капитанства"
+	name = "medal of captaincy"
 	desc = "Эксклюзивная золотая медаль капитанского звания.\
 Визуальное воплощение санкционированных \"Нанотрейзен\" полномочий и верховной власти над персоналом станции."
 	icon_state = "captaincy"
@@ -332,7 +332,7 @@
 	AddElement(/datum/element/high_value_item)
 
 /obj/item/clothing/accessory/medal/gold/heroism
-	name = "Медаль за исключительный героизм"
+	name = "medal of exceptional heroism"
 	desc = "Уникальная золотая медаль от Центрального Командования. Высшая награда, чья редкость говорит сама за себя."
 	tupemedal = "медалью за героизм."
 	icon_state = "ion"
@@ -367,7 +367,7 @@
 // SILVER (awarded by Captain)
 
 /obj/item/clothing/accessory/medal/silver
-	name = "Серебряная медаль"
+	name = "silver medal"
 	desc = "Серебряная медаль."
 	tupemedal = "серебряной медалью."
 	icon_state = "silver"
@@ -384,7 +384,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/silver/valor
-	name = "Медаль за отвагу"
+	name = "medal of valor"
 	desc = "Награда, вручаемая капитанами членам экипажа, чьи исключительные заслуги и служба на станции были отмечены высшим руководством станции."
 	tupemedal = "медалью за отвагу."
 	icon_state = "valor"
@@ -400,7 +400,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/silver/leadership
-	name = "Медаль командования"
+	name = "medal of command"
 	desc = "Награда, вручаемая капитанами главам отделов, которые отлично справляются с управлением своим подразделением. Изготовлена из чистого серебра."
 	tupemedal = "медалью командования."
 	icon_state = "leadership"
@@ -418,7 +418,7 @@
 // BRONZE (awarded by heads of department, except for the bronze heart)
 
 /obj/item/clothing/accessory/medal/security
-	name = "Медаль имени \"Роберта Астера\""
+	name = "medal name of \"Robert Aster\""
 	desc = "Почётная награда, учреждённая в память о легендарном офицере безопасности Роберте Астере, известном своей непоколебимой стойкостью и принципиальностью при исполнении служебного долга.\
 	Вручается сотрудникам охраны, проявившим исключительную доблесть и верность уставу."
 	icon_state = "robust"
@@ -435,7 +435,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/science
-	name = "Медаль научного прорыва"
+	name = "smart science medal"
 	desc = "Награда, вручаемая научным руководителем сотрудникам научного отдела, расширяющим границы познания."
 	icon_state = "science"
 	tupemedal = "научной медалью."
@@ -451,7 +451,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/engineering
-	name = "Медаль инженерного мастерства"
+	name = "excellent engineering medal"
 	desc = "Награда, вручаемая главным инженером сотрудникам инженерного отдела, чья преданность делу обеспечивает бесперебойную работу станции."
 	icon_state = "engineering"
 	tupemedal = "инженерной медалью."
@@ -467,7 +467,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/service
-	name = "Медаль безупречного обслуживания"
+	name = "superior service medal"
 	desc = "Награда, вручаемая главой персонала сотрудникам сервисного отдела, которые выполняют свои обязанности выше всяких похвал."
 	icon_state = "service"
 	tupemedal = "сервисной медалью."
@@ -483,7 +483,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/medical
-	name = "Медаль медицинской доблести"
+	name = "magnificient medical medal"
 	desc = "Медаль для героев в белых халатах, превращающих неминуемую гибель в историю с хорошим концом. Вручается тем, чьи дефибрилляторы бьют точнее, а скальпели режут острее, чем самые злые языки на станции."
 	icon_state = "medical"
 	tupemedal = "медицинской медалью."
@@ -498,7 +498,7 @@
 		PREPOSITIONAL = "медали медицинской доблести"
 	)
 /obj/item/clothing/accessory/medal/legal
-	name = "Медаль юридических заслуг"
+	name = "meritous legal medal"
 	desc = "Высшая юридическая награда для тех, кто знает устав \"Нанотрейзен\" лучше, чем свои права. Вручается магистратом тем, кто способен найти лазейку в любой обвинительной речи и превратить её в оправдательный приговор."
 	icon_state = "legal"
 	tupemedal = "юридической медалью."
@@ -514,7 +514,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/heart
-	name = "Медаль \"Бронзовое сердце\""
+	name = "bronze heart medal"
 	desc = "Высшая жертва, застывшая в бронзе. Посмертная награда тем, кто обменял биение собственного сердца на продолжение пульса экипажа всей станции."
 	icon_state = "bronze_heart"
 	tupemedal = "бронзовым сердцем."
@@ -531,7 +531,7 @@
 
 // Plasma, from NT research departments. For now, used by the HRD-MDE project for the moderate 2 fauna, drake and hierophant.
 /obj/item/clothing/accessory/medal/plasma
-	name = "Плазменная медаль"
+	name = "plasma medal"
 	desc = "Эксцентричная медаль, изготовленная из плазмы."
 	icon_state = "plasma"
 	materials = list(MAT_PLASMA = 1000)
@@ -566,7 +566,7 @@
 // Alloy, for the vetus speculator, or abductors I guess.
 
 /obj/item/clothing/accessory/medal/alloy
-	name = "Крест" //медаль из сплава свучит странно, у медали спрайт
+	name = "alloy medal" //медаль из сплава свучит странно, у медали спрайт
 	desc = "Таинственный крест, выкованный из сплава, которого не должно существовать по всем законам металлургии. Его поверхность мерцает, словто поглощая и переизлучая свет из иного измерения."
 	icon_state = "alloy"
 	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
@@ -585,7 +585,7 @@
 // Mostly mining medals past here
 
 /obj/item/clothing/accessory/medal/gold/bubblegum
-	name = "Награда HRD-MDE \"Бубльгум\""
+	name = "bubblegum HRD-MDE award"
 	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Бубльгума и сопряжённого с ним Редспеса."
 	tupemedal = "медалью бубльгума."
 
@@ -600,7 +600,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
-	name = "Медаль убийцы богов"
+	name = "medal of incredible dedication"
 	desc = "Легендарная золотая награда, вручаемая только Центральным Командованием тем, кто бросил вызов всем богам Лаваленда — и победил. Для шахтёров, чья смена стала эпосом, а добыча — пантеоном поверженных титанов."
 	tupemedal = "медалью убийцы богов."
 
@@ -615,7 +615,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/silver/colossus
-	name = "Награда HRD-MDE \"Колосс\""
+	name = "colossus HRD-MDE award"
 	desc = "Награда за значительный вклад в проект HRD-MDE, связанный с исследованием и анализом Колосса — одного из самых опасных существ Лаваленда."
 	tupemedal = "медалью колосса."
 	icon_state = "alloy"
@@ -631,7 +631,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/silver/legion
-	name = "Награда HRD-MDE \"Легион\""
+	name = "legion HRD-MDE award"
 	desc = "Награда за анализ одного из самых противоестественных феноменов Лаваленда. Вручается за исследование Легиона — коллективного организма, ставящего под сомнение саму концепцию индивидуальности в инопланетной экосистеме."
 	tupemedal = "медалью легиона."
 
@@ -645,7 +645,7 @@
 		PREPOSITIONAL = "награде HRD-MDE \"Легион\""
 	)
 /obj/item/clothing/accessory/medal/blood_drunk
-	name = "Медаль HRD-MDE \"Кровавый шахтёр\""
+	name = "blood drunk HRD-MDE award"
 	desc = "Награда за вклад в проект HRD-MDE по изучению и нейтрализации феномена «кровавого шахтёра» — человека, превратившегося в смертоносную угрозу под влиянием проклятия Лаваленда."
 	tupemedal = "медалью кровавого шахтёра."
 
@@ -660,7 +660,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/plasma/hierophant
-	name = "Награда HRD-MDE \"Иерофант\""
+	name = "hierophant HRD-MDE award"
 	desc = "Награда для тех, кто осмелился изучать не просто существо, а явление. Иерофант не подчиняется привычным законам — он диктует свои, и эта медаль вручается тем, кто начал понимать его язык."
 	tupemedal = "медалью иерофанта."
 
@@ -675,7 +675,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/plasma/ash_drake
-	name = "Награда HRD-MDE \"Пепельный дракон\""
+	name = "ash drake HRD-MDE award"
 	desc = "Награда за значительный вклад в проект HRD-MDE, связанный с исследованием пепельного дракона — древнего существа, чьё дыхание испепеляет скалы, а чешуя прочнее бронесплава."
 	tupemedal = "медалью пепельного дракона."
 
@@ -690,7 +690,7 @@
 	)
 
 /obj/item/clothing/accessory/medal/alloy/vetus
-	name = "Награда HRD-MDE \"Ветус Спекулятор\""
+	name = "vetus speculator HRD-MDE award"
 	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Ветус Спекулятора — одного из самых загадочных и технологически сложных существ Лаваленда."
 	tupemedal = "медалью вертуса."
 
