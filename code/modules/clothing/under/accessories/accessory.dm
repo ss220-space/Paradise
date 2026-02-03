@@ -614,7 +614,7 @@
 		PREPOSITIONAL = "медали убийцы богов"
 	)
 
-obj/item/clothing/accessory/medal/silver/colossus
+/obj/item/clothing/accessory/medal/silver/colossus
 	name = "Награда HRD-MDE \"Колосс\""
 	desc = "Награда за значительный вклад в проект HRD-MDE, связанный с исследованием и анализом Колосса — одного из самых опасных существ Лаваленда."
 	tupemedal = "медалью колосса."
