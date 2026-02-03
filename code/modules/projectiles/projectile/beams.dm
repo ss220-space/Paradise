@@ -329,6 +329,7 @@
 	name = "immolation beam"
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 	icon_state = "heavybeam"
+	immolate = 2
 
 /obj/projectile/beam/immolator/get_ru_names()
 	return list(
@@ -343,6 +344,7 @@
 /obj/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
 	damage = 45
+	immolate = 3
 
 /obj/projectile/beam/immolator/strong/get_ru_names()
 	return list(
@@ -438,7 +440,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] взрывается!"))
+		L.visible_message(span_danger("[DECLENT_RU_CAP(L, NOMINATIVE)] взрывается!"))
 		L.gib()
 
 /obj/projectile/beam/slaughter

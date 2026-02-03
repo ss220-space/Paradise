@@ -129,6 +129,7 @@
 	var/image/overlay_image = image('icons/misc/beach.dmi', icon_state = "water5", layer = ABOVE_MOB_LAYER)
 	overlay_image.plane = GAME_PLANE
 	add_overlay(overlay_image)
+	RegisterSignal(src, COMSIG_ATOM_INITIALIZED_ON, PROC_REF(initialized_on))
 
 /turf/simulated/floor/beach/water/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
@@ -145,11 +146,11 @@
 		return .
 	linkedcontroller.mobinpool -= departed
 
-/turf/simulated/floor/beach/water/InitializedOn(atom/A)
+/turf/simulated/floor/beach/water/proc/initialized_on(atom/target)
 	if(!linkedcontroller)
 		return
-	if(istype(A, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
-		linkedcontroller.decalinpool += A
+	if(istype(target, /obj/effect/decal/cleanable)) // Better a typecheck than looping through thousands of turfs everyday
+		linkedcontroller.decalinpool += target
 
 /turf/simulated/floor/noslip
 	name = "high-traction floor"

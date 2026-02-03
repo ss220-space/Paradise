@@ -188,10 +188,17 @@
 	if(!ishuman(target))
 		return
 
+	if(user.client && !(user.client.prefs.toggles2 & PREFTOGGLE_2_AUTO_AIM_MEDICINE))
+		return //disabled from preferences
+
 	var/mob/living/carbon/human/human_target = target
-	var/obj/item/organ/external/target_bodypart = null
+	var/obj/item/organ/external/target_bodypart = target.get_organ(user.zone_selected)
+	var/accept = call(src, filter_proc)(arglist(list(current = target_bodypart, max = null)))
+	if(accept) //selected zone are accepted, no auto priority
+		return
+
 	for(var/obj/item/organ/external/affecting as anything in human_target.bodyparts)
-		var/accept = call(src, filter_proc)(arglist(list(current = affecting, max = target_bodypart)))
+		accept = call(src, filter_proc)(arglist(list(current = affecting, max = target_bodypart)))
 		if(accept)
 			target_bodypart = affecting
 
@@ -455,6 +462,9 @@
 
 /obj/item/stack/medical/bruise_pack/extended/update_icon_state()
 	icon_state = "extended_trauma_kit_[round_down((amount+1) / 2, 1)]"
+
+/obj/item/stack/medical/bruise_pack/extended/get_priority_targeting(mob/living/target, mob/living/user)
+	return get_priority_targeting_by_filter(target, user, PROC_REF(filter_max_brute_damage_bodypart))
 
 // MARK: Ointment
 

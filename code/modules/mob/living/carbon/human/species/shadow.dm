@@ -31,7 +31,7 @@
 	)
 	dies_at_threshold = TRUE
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	suicide_messages = list(
 		"пытается откусить себе язык!",
 		"выдавливает большими пальцами себе глазницы!",

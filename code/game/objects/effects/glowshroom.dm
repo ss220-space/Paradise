@@ -241,9 +241,9 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/glowshroom/temperature_expose(temperature, volume)
+/obj/structure/glowshroom/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
+	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)

@@ -128,8 +128,8 @@
 		SET_PLANE_EXPLICIT(user_overlay, SEETHROUGH_PLANE, atom_parent)
 
 	// These are inherited, but we already use the atom's loc so we end up at double the pixel offset
-	user_overlay.pixel_x = 0
-	user_overlay.pixel_y = 0
+	user_overlay.pixel_w = 0
+	user_overlay.pixel_z = 0
 
 	fool.client.images += user_overlay
 

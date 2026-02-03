@@ -54,7 +54,7 @@
 /obj/item/magmite_parts/proc/go_inert()
 	if(inert)
 		return
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] теряет свечение!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] теряет свечение!"))
 	inert = TRUE
 	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -70,7 +70,7 @@
 		return
 
 	if(inert)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется неактивным! Возможно, Мировая Кузня сможет восстановить его!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] кажется неактивным! Возможно, Мировая Кузня сможет восстановить его!"))
 		return
 
 	switch(target.type)

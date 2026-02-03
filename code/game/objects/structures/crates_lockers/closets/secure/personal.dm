@@ -53,29 +53,33 @@
 		return ..()
 
 	var/obj/item/card/id/id = I.GetID()
-	if(id)
-		add_fingerprint(user)
-		if(broken)
-			to_chat(user, span_warning("It appears to be broken."))
-			return ATTACK_CHAIN_PROCEED
-		if(!id.registered_name)
-			to_chat(user, span_warning("This ID is blank."))
-			return ATTACK_CHAIN_PROCEED
-		if(src == user.loc)
-			to_chat(user, span_notice("You can't reach the lock from inside."))
-			return ATTACK_CHAIN_PROCEED
-		//they can open all lockers, or nobody owns this, or they own this locker
-		if(!allowed(user) && registered_name && registered_name != id.registered_name)
-			to_chat(user, span_warning("Access Denied."))
-			return ATTACK_CHAIN_PROCEED
-		locked = !locked
-		if(locked)
-			if(!registered_name)
-				registered_name = id.registered_name
-		else
-			registered_name = null
-		update_appearance(UPDATE_ICON|UPDATE_DESC)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+	if(!id)
+		return ..()
 
-	return ..()
+	add_fingerprint(user)
 
+	if(istype(id, /obj/item/card/id/guest))
+		to_chat(user, span_warning("Невозможно открыть временным пропуском."))
+		return ATTACK_CHAIN_PROCEED
+	if(broken)
+		to_chat(user, span_warning("Похоже, замок сломан."))
+		return ATTACK_CHAIN_PROCEED
+	if(!id.registered_name)
+		to_chat(user, span_warning("Невозможно открыть пустой ID-картой."))
+		return ATTACK_CHAIN_PROCEED
+	if(src == user.loc)
+		to_chat(user, span_notice("Вы не можете разблокировать замок изнутри."))
+		return ATTACK_CHAIN_PROCEED
+	//they can open all lockers, or nobody owns this, or they own this locker
+	if(!allowed(user) && registered_name && registered_name != id.registered_name)
+		to_chat(user, span_warning("Доступ запрещен."))
+		return ATTACK_CHAIN_PROCEED
+	locked = !locked
+	if(locked)
+		if(!registered_name)
+			registered_name = id.registered_name
+	else
+		registered_name = null
+	update_appearance(UPDATE_ICON|UPDATE_DESC)
+
+	return ATTACK_CHAIN_PROCEED_SUCCESS

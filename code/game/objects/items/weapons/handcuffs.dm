@@ -65,7 +65,12 @@
 	else
 		target.balloon_alert_to_viewers("начина[PLUR_ET_UT(user)] заковывать в [declent_ru(ACCUSATIVE)]...", "заковывание в [declent_ru(ACCUSATIVE)]...")
 
-	if(!do_after(user, 5 SECONDS, target))
+	var/handcuff_time_mod = 1
+
+	if(HAS_TRAIT(user, TRAIT_FAST_CUFFING))
+		handcuff_time_mod = 0.75
+
+	if(!do_after(user, handcuff_time_mod * 5 SECONDS, target))
 		balloon_alert(user, "заковывание прервано!")
 		return .
 
@@ -267,7 +272,7 @@
 	desc = "Устройство из металла, представляющее собой пару соединённых цепью браслетов. \
 			Используются для ограничения подвижности заключённых посредством сковывания кистей рук. \
 			Для чего данная модель отделана розовым мехом — вопрос."
-	item_state = "pinkcuff"
+	item_state = "cuff_pink"
 
 /obj/item/restraints/handcuffs/pinkcuffs/get_ru_names()
 	return list(

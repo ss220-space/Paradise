@@ -1,8 +1,8 @@
 
 
 /datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode
-	name = "Energy shuriken emitter"
-	desc = "Enable special suit system that generates Shurikens made of pure energy and capable of slowing and damaging enemies far away from you! Energy cost: 300 per burst"
+	name = "Энергетический сюрикеномёт"
+	desc = "Активирует генератор энергетических сюрикенов, которые замедляют и калечат врагов при попадании. Затраты энергии: 300 за залп."
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "shuriken"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
@@ -26,7 +26,7 @@
 
 /obj/item/gun/energy/shuriken_emitter
 	name = "shuriken emitter"
-	desc = "A device sneakily hidden inside Spider Clans ninja suits. Shoots 3 energy shurikens that slows and temporary blinds their targets"
+	desc = "Спрятанный в костюме Ниндзя девайс. Выпускает 3 энергетических сюрикена, которые замедляют и временно ослепляют цели."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "shuriken_emitter"
 	item_state = ""
@@ -41,6 +41,16 @@
 	var/cost = 100
 	var/obj/item/clothing/suit/space/space_ninja/my_suit = null
 	var/datum/action/item_action/advanced/ninja/toggle_shuriken_fire_mode/my_action = null
+
+/obj/item/gun/energy/shuriken_emitter/get_ru_names()
+	return list(
+		NOMINATIVE = "генератор энергетических сюрикенов",
+		GENITIVE = "генератора энергетических сюрикенов",
+		DATIVE = "генератору энергетических сюрикенов",
+		ACCUSATIVE = "генератор энергетических сюрикенов",
+		INSTRUMENTAL = "генератором энергетических сюрикенов",
+		PREPOSITIONAL = "генераторе энергетических сюрикенов",
+	)
 
 /obj/item/gun/energy/shuriken_emitter/Destroy()
 	. = ..()
