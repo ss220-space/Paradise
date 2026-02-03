@@ -180,7 +180,6 @@
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_PHARMACIST,
 		ALT_JOB_TITLE_RU_PROVISOR,
-		ALT_JOB_TITLE_RU_CHEM_TECHNOLOGIST,
 		ALT_JOB_TITLE_RU_BIOCHEMIST,
 	)
 	outfit = /datum/outfit/job/chemist

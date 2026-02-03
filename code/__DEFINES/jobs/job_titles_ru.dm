@@ -46,7 +46,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_MEDICAL_ASSISTANT "Медицинский ассистент"
 
 // Science
-#define JOB_TITLE_RU_RD "Директор НИО"
+#define JOB_TITLE_RU_RD "Директор исследований"
 #define JOB_TITLE_RU_SCIENTIST "Учёный"
 #define JOB_TITLE_RU_ROBOTICIST "Робототехник"
 #define JOB_TITLE_RU_MECHANIC "Механик"
@@ -254,9 +254,9 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 // Chief Engineer
 #define ALT_JOB_TITLE_RU_TECHNICAL_DIRECTOR "Технический директор"
 // Engineer
-#define ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER "Инженер-монтажник"
-#define ALT_JOB_TITLE_RU_POWER_ENGINEER "Инженер-энергетик"
-#define ALT_JOB_TITLE_RU_ELECTRICIAN "Электромонтажник"
+#define ALT_JOB_TITLE_RU_CONSTRUCTION_WORKER "Монтажник"
+#define ALT_JOB_TITLE_RU_POWER_ENGINEER "Оператор реакторного зала"
+#define ALT_JOB_TITLE_RU_ELECTRICIAN "Электрик"
 // Atmostech
 #define ALT_JOB_TITLE_RU_LIFE_SUPPORT_SPECIALIST "Специалист СЖО"
 // Trainee engineer
@@ -277,7 +277,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 // Chemist
 #define ALT_JOB_TITLE_RU_PHARMACIST "Фармацевт"
 #define ALT_JOB_TITLE_RU_PROVISOR "Провизор"
-#define ALT_JOB_TITLE_RU_CHEM_TECHNOLOGIST "Химик-технолог"
 #define ALT_JOB_TITLE_RU_BIOCHEMIST "Биохимик"
 // Geneticist
 #define ALT_JOB_TITLE_RU_GENETIC_ENGINEER "Генный инженер"
@@ -381,8 +380,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 // Cargo technician
 #define ALT_JOB_TITLE_RU_LOGISTICS_SPECIALIST "Логист"
 #define ALT_JOB_TITLE_RU_WAREHOUSE_WORKER "Складской рабочий"
-// Shaft miner
-#define ALT_JOB_TITLE_RU_PIONEER "Первопроходец"
 
 // Nanotrasen representative
 #define ALT_JOB_TITLE_RU_NT_AUDITOR "Аудитор \"Нанотрейзен\""
