@@ -67,9 +67,9 @@
 	attached_item = I
 
 	// Add NODROP trait to the item
-	ADD_TRAIT(attached_item, TRAIT_NODROP, CHANGELING_HAND_STRAIN_TRAIT)
+	ADD_TRAIT(attached_item, TRAIT_NODROP, TRAIT_CHANGELING_HAND_STRAIN)
 	// Add trait to the mob for examine text
-	ADD_TRAIT(owner, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, CHANGELING_HAND_STRAIN_TRAIT)
+	ADD_TRAIT(owner, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, TRAIT_CHANGELING_HAND_STRAIN)
 
 	// Register signals for tracking
 	RegisterSignal(attached_item, COMSIG_ITEM_DROPPED, PROC_REF(on_item_dropped))
@@ -86,9 +86,9 @@
 	releasing = TRUE
 
 	// Remove NODROP trait from the item
-	REMOVE_TRAIT(attached_item, TRAIT_NODROP, CHANGELING_HAND_STRAIN_TRAIT)
+	REMOVE_TRAIT(attached_item, TRAIT_NODROP, TRAIT_CHANGELING_HAND_STRAIN)
 	// Remove trait from the mob
-	REMOVE_TRAIT(owner, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, CHANGELING_HAND_STRAIN_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, TRAIT_CHANGELING_HAND_STRAIN)
 
 	// Unregister signals
 	UnregisterSignal(attached_item, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING))
@@ -117,6 +117,6 @@
 
 	if(source == attached_item)
 		// Remove trait from mob when item is destroyed
-		REMOVE_TRAIT(owner, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, CHANGELING_HAND_STRAIN_TRAIT)
+		REMOVE_TRAIT(owner, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, TRAIT_CHANGELING_HAND_STRAIN)
 		UnregisterSignal(attached_item, list(COMSIG_ITEM_DROPPED, COMSIG_QDELETING))
 		attached_item = null

@@ -426,5 +426,5 @@
 
 #define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"
 
-#define CHANGELING_HAND_STRAIN_TRAIT "changeling_hand_strain"
-#define TRAIT_CHANGELING_HAND_STRAIN_ACTIVE "changeling_hand_strain_active"
+#define TRAIT_CHANGELING_HAND_STRAIN "trait_changeling_hand_strain"
+#define TRAIT_CHANGELING_HAND_STRAIN_ACTIVE "trait_changeling_hand_strain_active"

@@ -412,7 +412,7 @@
 	if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 		msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")
 
-	if(HAS_TRAIT_FROM(src, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, CHANGELING_HAND_STRAIN_TRAIT))
+	if(HAS_TRAIT_FROM(src, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, TRAIT_CHANGELING_HAND_STRAIN))
 		msg += span_warning("Рука [declent_ru(src, GENITIVE)] выглядит крайне неестественно и напряжённо.\n")
 
 
