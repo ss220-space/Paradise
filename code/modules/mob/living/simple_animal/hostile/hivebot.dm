@@ -259,7 +259,7 @@
 	if(!COOLDOWN_FINISHED(src, heal_cooldown))
 		return
 	var/list/repair_targets
-	for(var/mob/living/simple_animal/hostile/hivebot/candidate in hearers(heal_range, src))
+	for(var/mob/living/simple_animal/hostile/hivebot/candidate in range(heal_range, src))
 		if(candidate != src && candidate.health < candidate.maxHealth && candidate.stat != DEAD)
 			LAZYINITLIST(repair_targets)
 			repair_targets += candidate
