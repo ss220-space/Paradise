@@ -50,8 +50,6 @@
 #define ANTIDROP_TRAIT "antidrop"
 #define HOLO_CIGAR_TRAIT "holo_cigar"
 #define INUGAMI_TRAIT "inugami_gl"
-#define CHANGELING_HAND_STRAIN_TRAIT "changeling_hand_strain"
-#define TRAIT_CHANGELING_HAND_STRAIN_ACTIVE "changeling_hand_strain_active"
 
 #define WISHGRANTER_TRAIT "wishgranter"
 #define THUNDERDOME_TRAIT "thunderdome"

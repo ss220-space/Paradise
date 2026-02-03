@@ -1,4 +1,3 @@
-
 /datum/action/changeling/hand_strain
 	name = "Перенапряжение Руки"
 	desc = "Позволяет намертво вцепиться в предмет активной руки. Стоимость 10 химикатов."
@@ -16,9 +15,9 @@
 
 /datum/action/changeling/hand_strain/Remove(mob/user)
 	if(attached_item)
-		var/item_name = attached_item.name
+		var/declined_name = attached_item.declent_ru(ACCUSATIVE)
 		release_item()
-		to_chat(user, span_notice("вы отпускаете [item_name]."))
+		to_chat(user, span_notice("Вы отпускаете [declined_name]."))
 	. = ..()
 
 /datum/action/changeling/hand_strain/sting_action(mob/living/carbon/user)
@@ -33,27 +32,26 @@
 		held_item = user.r_hand
 
 	if(!held_item)
-		to_chat(user, span_warning("это не активная рука!"))
+		user.balloon_alert(user, "В активной руке ничего нет!")
 		return FALSE
 
 	// If there's already an attached item
 	if(attached_item)
 		// If it's the same item - release it
 		if(held_item == attached_item)
-			var/item_name = attached_item.name
+			var/declined_name = attached_item.declent_ru(ACCUSATIVE)
 			release_item()
-			to_chat(user, span_notice("вы отпускаете [item_name]."))
+			to_chat(user, span_notice("Вы отпускаете [declined_name]."))
 		else
 			// Release old item and attach new one
-			var/old_item_name = attached_item.name
+			var/old_item_decl_name = attached_item.declent_ru(ACCUSATIVE)
 			release_item()
 			attach_item(held_item)
-			to_chat(user, span_notice("вы отпускаете [old_item_name] и цепляетесь мёртвой хваткой в [held_item.name]!"))
+			to_chat(user, span_notice("Вы отпускаете [old_item_decl_name] и цепляетесь мёртвой хваткой в [held_item.declent_ru(ACCUSATIVE)]!"))
 	else
 		// Attach new item
 		attach_item(held_item)
-		to_chat(user, span_notice("вы вцепились мёртвой хваткой в [held_item.name]!"))
-
+		to_chat(user, span_notice("Вы вцепились мёртвой хваткой в [held_item.declent_ru(ACCUSATIVE)]!"))
 	return TRUE
 
 /// Attach an item to the hand
@@ -74,8 +72,8 @@
 	ADD_TRAIT(owner, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, CHANGELING_HAND_STRAIN_TRAIT)
 
 	// Register signals for tracking
-	RegisterSignal(attached_item, COMSIG_ITEM_DROPPED, .proc/on_item_dropped)
-	RegisterSignal(attached_item, COMSIG_QDELETING, .proc/on_item_deleted)
+	RegisterSignal(attached_item, COMSIG_ITEM_DROPPED, PROC_REF(on_item_dropped))
+	RegisterSignal(attached_item, COMSIG_QDELETING, PROC_REF(on_item_deleted))
 
 	// Sound effect
 	playsound(owner, 'sound/effects/bone_break_6.ogg', 100, TRUE)
@@ -108,7 +106,7 @@
 		return
 
 	// Return item to hand
-	to_chat(dropper, span_warning("Вы пытаетесь отпустить [I], но ваша рука не слушается!"))
+	to_chat(dropper, span_warning("Вы пытаетесь отпустить [I.declent_ru(ACCUSATIVE)], но ваша рука не слушается!"))
 
 	if(dropper.put_in_active_hand(I))
 		return TRUE
