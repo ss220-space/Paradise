@@ -690,7 +690,7 @@
 
 /obj/item/clothing/accessory/medal/alloy/vetus
 	name = "vetus speculator HRD-MDE award"
-	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Ветус Спекулятора — одного из самых загадочных и технологически сложных существ Лаваленда."
+	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Ветус Спекулятора — одного из самых загадочных и технологически сложных существ Лазиса."
 	tupemedal = "медалью вертуса."
 
 /obj/item/clothing/accessory/medal/alloy/vetus/get_ru_names()
