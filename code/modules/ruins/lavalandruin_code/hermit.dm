@@ -194,7 +194,7 @@
 
 /obj/item/clothing/shoes/magboots/hermit
 	name = "retro magboots"
-	desc = "Магнитные ботинки от корпорации \"Системы Энштейна\" выполненные в старом стиле со всеми нюансами. Они не такие удобные как современные модели, но надёжности им не занимать."
+	desc = "Магнитные ботинки от корпорации \"Системы Эйнштейна\", выполненные в старом стиле со всеми нюансами. Они не такие удобные, как современные модели, но надёжности им не занимать."
 	active_traits = list(TRAIT_NEGATES_GRAVITY, TRAIT_NO_SLIP_ICE, TRAIT_NO_SLIP_WATER, TRAIT_NO_SLIP_SLIDE, TRAIT_GUSTPROTECTION)
 	slowdown_active = 3
 	armor = list(MELEE = 30, BULLET = 5, LASER = 5, ENERGY = 30, BOMB = 30, BIO = 0, RAD = 30, FIRE = 90, ACID = 0)
