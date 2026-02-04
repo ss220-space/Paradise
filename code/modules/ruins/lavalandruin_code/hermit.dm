@@ -167,19 +167,19 @@
 
 /obj/item/card/id/away/hermit/trade
 	name = "biesel certificate"
-	desc = "Удостоверение о разрешении торговых операций на объектах \"Бизель\". Действительно до 2570 года."
+	desc = "Удостоверение о разрешении торговых операций на объектах \"Бизель\". Действительно до 2572 года."
 	icon_state = "centcom"
 	item_state = "centcom"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TRADE_SOL)
 
 /obj/item/card/id/away/hermit/trade/get_ru_names()
 	return list(
-		NOMINATIVE = "сертификат с Бизель",
-		GENITIVE = "сертификата с Бизель",
-		DATIVE = "сертификату с Бизель",
-		ACCUSATIVE = "сертификат с Бизель",
-		INSTRUMENTAL = "сертификатом с Бизель",
-		PREPOSITIONAL = "сертификате с Бизель"
+		NOMINATIVE = "сертификат с \"Бизель\"",
+		GENITIVE = "сертификата с \"Бизель\"",
+		DATIVE = "сертификату с \"Бизель\"",
+		ACCUSATIVE = "сертификат с \"Бизель\"",
+		INSTRUMENTAL = "сертификатом с \"Бизель\"",
+		PREPOSITIONAL = "сертификате с \"Бизель\""
 	)
 
 /obj/item/documents/hermit/shellguard
