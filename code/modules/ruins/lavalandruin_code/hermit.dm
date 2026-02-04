@@ -32,7 +32,7 @@
 	)
 
 /datum/outfit/hermit
-	name = "Lavaland Survivor"
+	name = "Отшельник"
 
 /obj/effect/mob_spawn/human/hermit/Initialize(mapload)
 	. = ..()
