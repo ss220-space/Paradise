@@ -30,6 +30,9 @@
 #define CAT_SOUP "Soups"
 #define CAT_SPAGHETTI "Spaghettis"
 #define CAT_ICE "Frozen"
+#define CAT_ELECTRICAL "Electrical"
+#define CAT_ELECTRICAL_ASSEMBLY "Assembly"
+#define CAT_ELECTRICAL_DISASSEMBLY "Disassembly"
 
 #define RECIPE_MICROWAVE "Microwave"
 #define RECIPE_OVEN "Oven"
