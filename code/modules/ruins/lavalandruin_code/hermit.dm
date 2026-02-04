@@ -202,12 +202,12 @@
 
 /obj/item/clothing/shoes/magboots/hermit/get_ru_names()
 	return list(
-		NOMINATIVE = "старые магнитные ботинки",
-		GENITIVE = "старых магнитных ботинок",
-		DATIVE = "старым магнитным ботинкам",
-		ACCUSATIVE = "старые магнитные ботинки",
-		INSTRUMENTAL = "старыми магнитными ботинками",
-		PREPOSITIONAL = "старых магнитных ботинках"
+		NOMINATIVE = "старые магбутсы",
+		GENITIVE = "старых магбутсов",
+		DATIVE = "старым магбутсам",
+		ACCUSATIVE = "старые магбутсы",
+		INSTRUMENTAL = "старыми магбутсами",
+		PREPOSITIONAL = "старых магбутсах"
 	)
 
 /obj/item/storage/backpack/industrial/hermit
