@@ -1,7 +1,7 @@
 // MARK: Money printer
 /obj/machinery/money_printer
 	name = "money printer"
-	desc = "Устройство для печати кредитов, очевидно является нелегальным."
+	desc = "Устройство для печати денежных купюр. Использование такового запрещенно в большинстве секторов и систем Галактики."
 	icon = 'icons/obj/money_printer.dmi'
 	icon_state = "money_printer"
 	density = TRUE
