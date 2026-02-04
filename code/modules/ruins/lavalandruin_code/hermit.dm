@@ -410,7 +410,7 @@
 
 /obj/item/card/id/away/hermit/autumn
 	name = "\"Autumn BEES\" Access Key"
-	desc = "Криптографическая ключ карта для доступа к системам \"Autumn BEES\"."
+	desc = "Криптографическая ключ-карта для доступа к системам \"Autumn BEES\"."
 	icon_state = "TDgreen"
 	access = list(ACCESS_HERMIT_AUTUMN)
 
