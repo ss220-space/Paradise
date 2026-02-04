@@ -410,10 +410,10 @@
 
 	// Changeling traits
 	if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
-		msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")
+		msg += span_italics("[GEND_HE_SHE_CAP(src)] двигает своё тело неестественным и откровенно нечеловеческим образом.\n")
 
 	if(HAS_TRAIT_FROM(src, TRAIT_CHANGELING_HAND_STRAIN_ACTIVE, TRAIT_CHANGELING_HAND_STRAIN))
-		msg += span_warning("Рука [declent_ru(src, GENITIVE)] выглядит крайне неестественно и напряжённо.\n")
+		msg += span_warning("Рука [declent_ru(src, GENITIVE)] выглядит крайне неестественной и напряжённой.\n")
 
 
 	if(!(skipface || (wear_mask && (wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH))) && is_thrall(src) && in_range(user,src))

@@ -1,5 +1,5 @@
 /datum/action/changeling/hand_strain
-	name = "Перенапряжение Руки"
+	name = "Перенапряжение руки"
 	desc = "Позволяет намертво вцепиться в предмет активной руки. Стоимость 10 химикатов."
 	helptext = "Позволяет крепко схватить предмет в руке, предотвращая его выпадение. Повторное использование отпускает предмет."
 	button_icon_state = "limb_throw"
@@ -15,9 +15,8 @@
 
 /datum/action/changeling/hand_strain/Remove(mob/user)
 	if(attached_item)
-		var/declined_name = attached_item.declent_ru(ACCUSATIVE)
 		release_item()
-		to_chat(user, span_notice("Вы отпускаете [declined_name]."))
+		to_chat(user, span_notice("Вы отпускаете [attached_item.declent_ru(ACCUSATIVE)]."))
 	. = ..()
 
 /datum/action/changeling/hand_strain/sting_action(mob/living/carbon/user)
@@ -32,7 +31,7 @@
 		held_item = user.r_hand
 
 	if(!held_item)
-		user.balloon_alert(user, "в активной руке ничего нет!")
+		user.balloon_alert(user, "активная рука пуста!")
 		return FALSE
 
 	// If there's already an attached item
@@ -61,7 +60,7 @@
 
 	// If item already has NODROP from another source, ignore it
 	if(HAS_TRAIT_FROM(I, TRAIT_NODROP, ANTIDROP_TRAIT))
-		to_chat(owner, span_warning("[I.name] уже невозможно выпустить из-за импланта антидроп!"))
+		to_chat(owner, span_warning("[I.declent_ru(ACCUSATIVE)] уже невозможно выпустить из-за импланта антидроп!"))
 		return
 
 	attached_item = I
