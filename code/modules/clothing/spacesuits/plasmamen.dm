@@ -499,7 +499,7 @@
 	icon_state = "explorer_envirohelm"
 	item_state = "explorer_envirohelm"
 	visor_icon = "explorer_envisor"
-	armor = list(MELEE = 30, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
+	armor = list(MELEE = 15, BULLET = 5, LASER = 5, ENERGY = 25, BOMB = 50, BIO = 100, RAD = 0, FIRE = 100, ACID = 50)
 	vision_flags = SEE_TURFS
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 	max_heat_protection_temperature = FIRE_HELM_MAX_TEMP_PROTECT
