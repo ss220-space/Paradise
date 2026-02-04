@@ -16,6 +16,13 @@
 	/// The result from the output
 	var/datum/port/output/result
 
+/obj/item/circuit_component/compare/Destroy()
+	compare = null
+	true = null
+	false = null
+	result = null
+	. = ..()
+
 /obj/item/circuit_component/compare/populate_ports()
 	populate_custom_ports()
 	compare = add_input_port("Вызов", PORT_TYPE_SIGNAL)

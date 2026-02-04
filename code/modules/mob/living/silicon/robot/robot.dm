@@ -202,6 +202,56 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	add_strippable_element()
 
+//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
+//Improved /N
+/mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
+
+	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
+
+		if(T)
+			mmi.forceMove(T)
+
+		if(mmi.brainmob)
+			mind.transfer_to(mmi.brainmob)
+			mmi.update_icon()
+		else
+			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
+			ghostize()
+			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+
+		mmi = null
+
+	if(connected_ai)
+		connected_ai.connected_robots -= src
+		connected_ai = null
+
+	selected_skin = null
+
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
+	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
+	QDEL_NULL(ion_trail)
+	QDEL_NULL(scanner)
+	QDEL_NULL(rbPDA)
+	QDEL_NULL(radio)
+	QDEL_NULL(inv1)
+	QDEL_NULL(inv2)
+	QDEL_NULL(inv3)
+	QDEL_NULL(lamp_button)
+	QDEL_NULL(thruster_button)
+	QDEL_NULL(robot_modules_background)
+	QDEL_LIST(components)
+	QDEL_LIST(upgrades)
+	QDEL_LIST(module_actions)
+
+	return ..()
+
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
 
@@ -299,41 +349,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	return FALSE
-
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
-//Improved /N
-/mob/living/silicon/robot/Destroy()
-	SStgui.close_uis(wires)
-
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-
-		if(T)
-			mmi.loc = T
-
-		if(mmi.brainmob)
-			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
-		else
-			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
-			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
-
-		mmi = null
-
-	if(connected_ai)
-		connected_ai.connected_robots -= src
-
-	QDEL_NULL(wires)
-	QDEL_NULL(module)
-	QDEL_NULL(camera)
-	QDEL_NULL(cell)
-	QDEL_NULL(robot_suit)
-	QDEL_NULL(spark_system)
-	QDEL_NULL(self_diagnosis)
-	QDEL_NULL(ion_trail)
-
-	return ..()
 
 /mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)

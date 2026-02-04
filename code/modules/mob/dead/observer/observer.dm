@@ -121,6 +121,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
+		ghostimage.loc = null
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	if(orbit_menu)
@@ -667,7 +668,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(target && target != usr)
 			spawn(0)
 				var/turf/pos = get_turf(A)
-				var/turf/T=get_turf(target)
+				var/turf/T = get_turf(target)
 				if(T != pos)
 					if(!T)
 						return

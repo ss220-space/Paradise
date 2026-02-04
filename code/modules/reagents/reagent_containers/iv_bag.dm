@@ -31,10 +31,7 @@
 	)
 
 /obj/item/reagent_containers/iv_bag/empty()
-	set name = ""
-	set category = ADMIN_CATEGORY_HIDDEN
-	set src = null
-
+	set hidden = TRUE
 	return
 
 /obj/item/reagent_containers/iv_bag/Destroy()

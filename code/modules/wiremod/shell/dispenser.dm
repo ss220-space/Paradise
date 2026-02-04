@@ -133,6 +133,13 @@
 
 	var/max_vendor_components = 20
 
+/obj/item/circuit_component/dispenser_bot/Destroy()
+	item_list = null
+	item = null
+	on_item_added = null
+	on_item_removed = null
+	. = ..()
+
 /obj/item/circuit_component/dispenser_bot/populate_ports()
 	item_list = add_output_port("Объекты", PORT_TYPE_LIST(PORT_TYPE_ATOM))
 	item = add_output_port("Объект", PORT_TYPE_ATOM)
@@ -203,6 +210,13 @@
 	var/datum/port/input/vend_item
 
 	circuit_size = 0
+
+/obj/item/circuit_component/vendor_component/Destroy()
+	if(attached_bot)
+		unregister_shell(attached_bot)
+	item_to_vend = null
+	vend_item = null
+	. = ..()
 
 /obj/item/circuit_component/vendor_component/register_shell(atom/movable/shell)
 	. = ..()

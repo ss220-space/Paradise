@@ -268,6 +268,12 @@
 
 	var/obj/structure/reflector/attached_reflector
 
+/obj/item/circuit_component/reflector/Destroy()
+	if(attached_reflector)
+		unregister_usb_parent(attached_reflector)
+	angle = null
+	. = ..()
+
 /obj/item/circuit_component/reflector/populate_ports()
 	angle = add_input_port("Угол", PORT_TYPE_NUMBER)
 

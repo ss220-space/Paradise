@@ -87,9 +87,7 @@
 	bypass_protection = TRUE
 
 /obj/item/reagent_containers/borghypo/empty()
-	set name = ""
-	set category = ADMIN_CATEGORY_HIDDEN
-	set src = null
+	set hidden = TRUE
 	return
 
 /obj/item/reagent_containers/borghypo/Initialize(mapload)

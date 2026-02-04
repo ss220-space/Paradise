@@ -27,6 +27,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/Destroy()
 	QDEL_NULL(active_item)
+	QDEL_LIST(items_list)
 	hand = null
 	return ..()
 

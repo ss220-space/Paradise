@@ -1,11 +1,16 @@
 #define ARMORID "armor-[melee]-[bullet]-[laser]-[energy]-[bomb]-[bio]-[rad]-[fire]-[acid]-[magic]"
 /// Assosciative list of type -> armor. Used to ensure we always hold a reference to default armor datums
 GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
+GLOBAL_LIST_EMPTY(armor_cache)
 
 /proc/getArmor(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0, magic = 0)
-	. = locate(ARMORID)
+	var/armor_id = ARMORID
+	var/list/cached_armor_cache = GLOB.armor_cache
+	. = cached_armor_cache[armor_id]
 	if(!.)
-		. = new /datum/armor(melee, bullet, laser, energy, bomb, bio, rad, fire, acid, magic)
+		var/datum/armor/new_armor = new (melee, bullet, laser, energy, bomb, bio, rad, fire, acid, magic)
+		cached_armor_cache[armor_id] = new_armor
+		. = new_armor
 
 /proc/generate_armor_type_cache()
 	var/list/armor_cache = list()
@@ -27,10 +32,11 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 
 /// Sets the armor of this atom to the specified armor
 /obj/proc/set_armor(datum/armor/armor)
-	if(src.armor == armor)
+	var/datum/armor/obj_armor = src.armor
+	if(obj_armor == armor)
 		return
-	if(!(src.armor?.type in GLOB.armor_by_type))
-		qdel(src.armor)
+	if(obj_armor && !((obj_armor.type in GLOB.armor_by_type) || (obj_armor.tag in GLOB.armor_cache)))
+		qdel(obj_armor)
 	src.armor = ispath(armor) ? get_armor_by_type(armor) : armor
 
 /datum/armor
@@ -57,6 +63,13 @@ GLOBAL_LIST_INIT(armor_by_type, generate_armor_type_cache())
 	acid = acid_value || acid || 0
 	magic = magic_value || magic || 0
 	tag = ARMORID
+
+/datum/armor/Destroy(force)
+	GLOB.armor_cache -= tag
+	GLOB.armor_by_type -= type
+	tag = null
+	. = ..()
+
 
 /datum/armor/proc/modifyRating(melee_value = 0, bullet_value = 0, laser_value = 0, energy_value = 0, bomb_value = 0, bio_value = 0, rad_value = 0, fire_value = 0, acid_value = 0, magic_value = 0)
 	return getArmor(melee + melee_value, bullet + bullet_value, laser + laser_value, energy + energy_value, bomb + bomb_value, bio + bio_value, rad + rad_value, fire + fire_value, acid + acid_value, magic + magic_value)

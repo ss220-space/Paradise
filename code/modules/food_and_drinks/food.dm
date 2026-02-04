@@ -57,15 +57,11 @@
 		check_for_ants()
 
 /obj/item/reagent_containers/food/set_APTFT()
-	set name = ""
-	set category = ADMIN_CATEGORY_HIDDEN
-	set src = null
+	set hidden = TRUE
 	return
 
 /obj/item/reagent_containers/food/empty()
-	set name = ""
-	set category = ADMIN_CATEGORY_HIDDEN
-	set src = null
+	set hidden = TRUE
 	return
 
 /obj/item/reagent_containers/food/proc/check_for_ants()

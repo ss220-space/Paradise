@@ -99,6 +99,16 @@
 
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 
+/obj/item/circuit_component/bci_core/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	QDEL_NULL(charge_action)
+	message = null
+	send_message_signal = null
+	show_charge_meter = null
+	user_port = null
+	return ..()
+
 /obj/item/circuit_component/bci_core/populate_ports()
 
 	message = add_input_port("Сообщение", PORT_TYPE_STRING, trigger = null)
@@ -107,9 +117,6 @@
 
 	user_port = add_output_port("Пользователь", PORT_TYPE_USER)
 
-/obj/item/circuit_component/bci_core/Destroy()
-	QDEL_NULL(charge_action)
-	return ..()
 
 /obj/item/circuit_component/bci_core/proc/update_charge_action()
 	CIRCUIT_TRIGGER

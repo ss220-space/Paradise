@@ -18,6 +18,12 @@
 
 	var/datum/port/input/option/lasercolour_option
 
+/obj/item/circuit_component/laserpointer/Destroy()
+	target_input = null
+	image_pixel_x = null
+	image_pixel_y = null
+	lasercolour_option = null
+	. = ..()
 
 /obj/item/circuit_component/laserpointer/get_ui_notices()
 	. = ..()

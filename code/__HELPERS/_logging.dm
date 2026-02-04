@@ -431,7 +431,7 @@ GLOBAL_PROTECT(log_end)
 		return "(UNKNOWN (?, ?, ?))"
 
 #if defined(REFERENCE_TRACKING) // Doing it locally
-#define log_reftracker(msg) log_world("## REF SEARCH [msg]")
+#define log_reftracker(msg) log_gc("## REF SEARCH [msg]")
 
 #else //Not tracking at all
 #define log_reftracker(msg)
