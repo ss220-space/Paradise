@@ -136,6 +136,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
 	},
+/obj/item/tank/internals/emergency_oxygen,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -164,6 +165,7 @@
 /obj/machinery/door/poddoor/shutters{
 	id_tag = "hermit_interior_door"
 	},
+/obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/plating,
 /area/shuttle/hermit/autumn)
 "io" = (
@@ -267,10 +269,6 @@
 "ru" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/east,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = 26
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgreycamo";
@@ -280,6 +278,15 @@
 "sH" = (
 /obj/effect/spawner/random_spawners/oil_5,
 /turf/simulated/floor/plating,
+/area/shuttle/hermit/autumn)
+"td" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
 /area/shuttle/hermit/autumn)
 "tj" = (
 /obj/structure/flora/firebush,
@@ -349,9 +356,6 @@
 /area/shuttle/hermit/autumn)
 "xv" = (
 /obj/structure/window/reinforced,
-/obj/machinery/light/small{
-	dir = 8
-	},
 /obj/structure/table/reinforced,
 /obj/effect/spawner/hermit_random_firstaid,
 /obj/item/reagent_containers/food/pill/patch/styptic,
@@ -718,6 +722,10 @@
 	pixel_y = 2;
 	pixel_x = 7
 	},
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = 26
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkgrey"
 	},
@@ -829,7 +837,7 @@ xL
 xL
 xL
 xL
-GX
+td
 GX
 xv
 aD
