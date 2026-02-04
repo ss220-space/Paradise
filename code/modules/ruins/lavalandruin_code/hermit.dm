@@ -15,9 +15,10 @@
 	allow_name_pick = TRUE
 	outfit = /datum/outfit/hermit
 	mob_species = /datum/species/human
-	description = "Вы — выживший, чей аварийный шаттл потерпел крушение на Лазисе. Корабль — якорь вашего выживания: он потребляет ресурсы, конвертирует их в полезные вещи, и его можно и нужно чинить. Эта роль для тех, кто хочет получить опыт автономного выживания, отличный от работы на станции."
+	description = "Вы — выживший, чей аварийный шаттл потерпел крушение на Лазисе. Шаттл — якорь вашего выживания: он потребляет ресурсы, конвертирует их в полезные вещи, и его можно \
+	и нужно чинить. Эта роль для тех, кто хочет получить опыт автономного выживания, отличный от работы на станции."
 	flavour_text = "Вы застряли на этой безбожной планете дольше, чем планировали. Каждый день вы занимаетесь рутинными, уже ставшими ритуалом делами. Осталось совсем чуть чуть и ваш \
-	корабль наконец взлетит. Эти мысли развеиваются очередным воспоминанием о том, как вы сюда попали...\n"
+	шаттл наконец взлетит. Эти мысли развеиваются очередным воспоминанием о том, как вы сюда попали...\n"
 	assignedrole = "Hermit"
 
 /obj/effect/mob_spawn/human/hermit/get_ru_names()
@@ -360,7 +361,7 @@
 
 /obj/machinery/computer/shuttle/autumn
 	name = "Autumn BEES console"
-	desc = "Используется для управления шаттлом \"Осень\"."
+	desc = "Используется для управления шаттлом \"Autumn BEES\"."
 	req_access = list(ACCESS_HERMIT_AUTUMN)
 	circuit = /obj/item/circuitboard/shuttle/autumn
 	shuttleId = "autumn"
@@ -428,7 +429,7 @@
 	name = "\"Autumn BEES\" PDA"
 	default_cartridge = /obj/item/cartridge/engineering
 	icon_state = "pda-h"
-	desc = "Специализированный карманный компьютер \"Autumn BEES\". Привязан к кораблю."
+	desc = "Специализированный карманный компьютер \"Autumn BEES\". Привязан к шаттлу."
 	model_name = "Backup Emergency Evacuation Shuttle OS"
 	owner = "Autumn BEES"
 
@@ -436,7 +437,7 @@
 
 /obj/item/areaeditor/create_area_only/hermit/autumn
 	station_name_overrride = "Autumn BEES"
-	fluffnotice = "Чертежи эвакуационного шаттла \"Осень\". Есть штамп о проведённом техническом осмотре."
+	fluffnotice = "Чертежи эвакуационного шаттла \"Autumn BEES\". Есть штамп о проведённом техническом осмотре."
 
 /obj/item/craft_blueprints/hermit/autumn
 	name = "\"Autumn BEES\" circuitboard blueprints"
