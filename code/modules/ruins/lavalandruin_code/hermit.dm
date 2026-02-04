@@ -217,7 +217,7 @@
 
 /obj/item/card/id/away/hermit/einstein_engine
 	name = "Level 3 access card"
-	desc = "Ключ карта среднего доступа на объектах \"Системы Энштейна\"."
+	desc = "Ключ карта среднего уровня доступа, используемая сотрудниками корпорации \"Системы Эйнштейна\"."
 	icon_state = "guest"
 	item_state = "guestpass—id"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_CONSTRUCTION)
