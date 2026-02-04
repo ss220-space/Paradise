@@ -305,7 +305,7 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating."
 	icon_state = "hardsuit0-mining"
 	item_state = "mining_helm"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 45, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 60, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
 	item_color = "mining"
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
@@ -316,7 +316,7 @@
 	desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
 	icon_state = "hardsuit-mining"
 	item_state = "mining_hardsuit"
-	armor = list(MELEE = 30, BULLET = 5, LASER = 10, ENERGY = 15, BOMB = 50, BIO = 100, RAD = 50, FIRE = 50, ACID = 75)
+	armor = list(MELEE = 45, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 60, BIO = 100, RAD = 50, FIRE = 75, ACID = 75)
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
