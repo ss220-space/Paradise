@@ -440,7 +440,7 @@
 
 /obj/item/craft_blueprints/hermit/autumn
 	name = "\"Autumn BEES\" circuitboard blueprints"
-	desc = "Рукописные чертежи на специальной бумаге, это схема какого—то компьютера."
+	desc = "Рукописные чертежи на специальной бумаге. Судя по всему, здесь представлена схема какого-то компьютера."
 	crafting_name = "платы консоли управления"
 	crafting_item = /obj/item/circuitboard/shuttle/autumn
 	tools = list(TOOL_WELDER, TOOL_MULTITOOL)
