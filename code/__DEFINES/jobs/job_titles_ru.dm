@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 
 // Silicons
 #define JOB_TITLE_RU_AI "Станционный ИИ"
-#define JOB_TITLE_RU_ROBOT "Робот"
+#define JOB_TITLE_RU_CYBORG "Киборг"
 
 // Central Command
 #define JOB_TITLE_RU_CCOFFICER "Офицер ЦК \"Нанотрейзен\""
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_TAIPAN_ENGINEER "Инженер \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_COMMS "Офицер связи \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_RD "Научный руководитель \"Синдиката\""
-#define JOB_TITLE_RU_TAIPAN_ROBOT "Робот"
+#define JOB_TITLE_RU_TAIPAN_CYBORG "Киборг"
 
 // Special ones
 #define JOB_TITLE_RU_DEMOTED "Разжалован"
@@ -203,7 +203,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 
 // Silicons
 	JOB_TITLE_AI = JOB_TITLE_RU_AI,
-	JOB_TITLE_ROBOT = JOB_TITLE_RU_ROBOT,
+	JOB_TITLE_CYBORG = JOB_TITLE_RU_CYBORG,
 
 // Central Command
 	JOB_TITLE_CCOFFICER = JOB_TITLE_RU_CCOFFICER,
@@ -246,7 +246,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 	JOB_TITLE_TAIPAN_ENGINEER = JOB_TITLE_RU_TAIPAN_ENGINEER,
 	JOB_TITLE_TAIPAN_COMMS = JOB_TITLE_RU_TAIPAN_COMMS,
 	JOB_TITLE_TAIPAN_RD = JOB_TITLE_RU_TAIPAN_RD,
-	JOB_TITLE_TAIPAN_ROBOT = JOB_TITLE_RU_TAIPAN_ROBOT,
+	JOB_TITLE_TAIPAN_CYBORG = JOB_TITLE_RU_TAIPAN_CYBORG,
 ))
 
 // MARK: Alt Russian job titles
@@ -388,7 +388,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_ATTORNEY "Адвокат"
 
 // Silicons
-#define ALT_JOB_TITLE_RU_CYBORG "Киборг"
+#define ALT_JOB_TITLE_RU_CYBORG "Робот"
 
 // Civilian
 #define ALT_JOB_TITLE_RU_TOURIST "Турист"

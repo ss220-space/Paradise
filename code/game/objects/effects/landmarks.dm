@@ -504,7 +504,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "AI"
 
 /obj/effect/landmark/start/cyborg
-	name = JOB_TITLE_ROBOT
+	name = JOB_TITLE_CYBORG
 	icon_state = "Borg"
 
 /obj/effect/landmark/start/captain

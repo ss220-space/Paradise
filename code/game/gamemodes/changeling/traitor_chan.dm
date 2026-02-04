@@ -2,7 +2,7 @@
 	name = "traitor+changeling"
 	config_tag = "traitorchan"
 	traitors_possible = 3 //hard limit on traitors if scaling is turned off
-	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_ROBOT)
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 10
 	recommended_enemies = 3
 	var/protected_species_changeling = list(SPECIES_MACNINEPERSON)

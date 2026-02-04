@@ -1,7 +1,7 @@
 /datum/game_mode/traitor/thief/changeling
 	name = "traitor+thief+changeling"
 	config_tag = "traitorthiefchan"
-	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_ROBOT)
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 25
 	var/protected_species_changeling = list(SPECIES_MACNINEPERSON)
 

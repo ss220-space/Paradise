@@ -677,7 +677,7 @@
 	return
 
 /mob/proc/is_mechanical()
-	return mind && (mind.assigned_role == JOB_TITLE_ROBOT || mind.assigned_role == JOB_TITLE_AI)
+	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
 
 /mob/proc/is_ready()
 	return client && !!mind

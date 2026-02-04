@@ -99,7 +99,7 @@
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))
 		return FALSE
-	if(jobban_isbanned(O, JOB_TITLE_ROBOT) || jobban_isbanned(O,"nonhumandept"))
+	if(jobban_isbanned(O, JOB_TITLE_CYBORG) || jobban_isbanned(O,"nonhumandept"))
 		return FALSE
 	if(!O.can_reenter_corpse)
 		return FALSE
@@ -190,7 +190,7 @@
 	if(cannotPossess(O))
 		to_chat(O, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 		return
-	if(jobban_isbanned(O, JOB_TITLE_ROBOT) || jobban_isbanned(O,"nonhumandept"))
+	if(jobban_isbanned(O, JOB_TITLE_CYBORG) || jobban_isbanned(O,"nonhumandept"))
 		to_chat(O, span_warning("You are job banned from this role."))
 		return
 	var/deathtime = world.time - O.timeofdeath

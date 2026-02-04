@@ -88,7 +88,7 @@
 
 	if(mind)		//TODO
 		mind.transfer_to(O)
-		if(O.mind.assigned_role == JOB_TITLE_ROBOT)
+		if(O.mind.assigned_role == JOB_TITLE_CYBORG)
 			O.mind.set_original_mob(O)
 		else if(mind?.special_role)
 			O.mind.store_memory("In case you look at this after being borged, the objectives are only here until I find a way to make them not show up for you, as I can't simply delete them without screwing up round-end reporting. --NeoFite")
@@ -96,12 +96,12 @@
 		O.possess_by_player(key)
 
 	O.forceMove(loc)
-	O.job = JOB_TITLE_ROBOT
+	O.job = JOB_TITLE_CYBORG
 
-	if(O.mind && O.mind.assigned_role == JOB_TITLE_ROBOT)
+	if(O.mind && O.mind.assigned_role == JOB_TITLE_CYBORG)
 		var/obj/item/mmi/new_mmi
 		switch(O.mind.role_alt_title)
-			if(JOB_TITLE_ROBOT)
+			if(JOB_TITLE_CYBORG)
 				new_mmi = new /obj/item/mmi/robotic_brain(O)
 				if(new_mmi.brainmob)
 					new_mmi.brainmob.name = O.name

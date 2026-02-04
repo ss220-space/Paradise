@@ -3077,7 +3077,7 @@
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = JOB_TITLE_ROBOT
+	mind.assigned_role = JOB_TITLE_CYBORG
 	if(is_taipan(z))
 		give_taipan_hud()
 		GLOB.taipan_players_active += mind

@@ -478,9 +478,9 @@
 	character = character.spawn_equip(rank)
 	SSticker.mode.latespawn(character)
 
-	if(character.mind.assigned_role == JOB_TITLE_ROBOT)
+	if(character.mind.assigned_role == JOB_TITLE_CYBORG)
 		var/mob/living/silicon/robot/R = character
-		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_ROBOT, join_message)
+		AnnounceCyborg(character, R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG, join_message)
 		if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 			SSjobs.prioritized_jobs -= thisjob
 
@@ -514,13 +514,13 @@
 		if(length(ailist))
 			var/mob/living/silicon/ai/announcer = pick(ailist)
 			if(character.mind)
-				if((character.mind.assigned_role != JOB_TITLE_ROBOT) && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, announcer.arrivalmsg)
 					announcer.say(";[arrivalmessage]")
 
 		else
 			if(character.mind)
-				if((character.mind.assigned_role != JOB_TITLE_ROBOT) && (character.mind.assigned_role != character.mind.special_role))
+				if((character.mind.assigned_role != JOB_TITLE_CYBORG) && (character.mind.assigned_role != character.mind.special_role))
 					var/arrivalmessage = create_announce_message(character, rank, join_message, GLOB.global_announcer_base_text)
 					radio_announce(arrivalmessage, ARRIVALS_ANNOUNCEMENT_COMPUTER, PUB_FREQ, follow_target_override = character)
 

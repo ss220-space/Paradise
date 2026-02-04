@@ -66,7 +66,7 @@
 
 // Silicons
 #define JOB_TITLE_AI "AI"
-#define JOB_TITLE_ROBOT "Robot"
+#define JOB_TITLE_CYBORG "Cyborg"
 
 // Central Command
 #define JOB_TITLE_CCOFFICER "Nanotrasen Navy Officer"
@@ -109,7 +109,7 @@
 #define JOB_TITLE_TAIPAN_ENGINEER "Space Base Syndicate Engineer"
 #define JOB_TITLE_TAIPAN_COMMS "Space Base Syndicate Comms Officer"
 #define JOB_TITLE_TAIPAN_RD "Space Base Syndicate Research Director"
-#define JOB_TITLE_TAIPAN_ROBOT "Robot"
+#define JOB_TITLE_TAIPAN_CYBORG "Cyborg"
 
 /// MARK: Job lists
 GLOBAL_LIST_INIT(ai_death_alarm_jobs, list(

@@ -1,7 +1,7 @@
 /datum/game_mode/traitor/thief/vampire
 	name = "traitor+thief+vampire"
 	config_tag = "traitorthiefvamp"
-	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_ROBOT)
+	restricted_jobs = list(JOB_TITLE_AI, JOB_TITLE_CYBORG)
 	required_players = 25
 	var/protected_species_vampire = list(SPECIES_MACNINEPERSON)
 

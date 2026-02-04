@@ -33,7 +33,7 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 		to_chat(src, span_warning("У вас джоббан на роль бойца ОБР!"))
 		return FALSE
 
-	if(jobban_isbanned(src, JOB_TITLE_OFFICER) || jobban_isbanned(src, JOB_TITLE_CAPTAIN) || jobban_isbanned(src, JOB_TITLE_ROBOT))
+	if(jobban_isbanned(src, JOB_TITLE_OFFICER) || jobban_isbanned(src, JOB_TITLE_CAPTAIN) || jobban_isbanned(src, JOB_TITLE_CYBORG))
 		to_chat(src, span_warning("Один из ваших джоббанов запрещает вам играть в ОБР!"))
 		return FALSE
 

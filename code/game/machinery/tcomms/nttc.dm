@@ -21,7 +21,7 @@
 		"Автоматическое оповещение" = "airadio",
 		JOB_TITLE_AI = "airadio",
 		"Android" = "airadio",
-		JOB_TITLE_ROBOT = "airadio",
+		JOB_TITLE_CYBORG = "airadio",
 		"Personal AI" = "airadio",
 		"Robot" = "airadio",
 		// Assistant

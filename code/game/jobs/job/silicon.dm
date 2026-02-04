@@ -23,7 +23,7 @@
 	return length(GLOB.empty_playable_ai_cores) && CONFIG_GET(flag/allow_ai)
 
 /datum/job/cyborg
-	title = JOB_TITLE_ROBOT
+	title = JOB_TITLE_CYBORG
 	flag = JOB_FLAG_CYBORG
 	department_flag = JOBCAT_ENGSEC
 	department = STATION_DEPARTMENT_SILICON
