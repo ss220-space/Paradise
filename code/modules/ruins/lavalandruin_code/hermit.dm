@@ -167,7 +167,7 @@
 
 /obj/item/card/id/away/hermit/trade
 	name = "biesel certificate"
-	desc = "Удостоверение о разрешении торговых операций на объектах \"Бизель\". Действительна до 2570 года."
+	desc = "Удостоверение о разрешении торговых операций на объектах \"Бизель\". Действительно до 2570 года."
 	icon_state = "centcom"
 	item_state = "centcom"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TRADE_SOL)
