@@ -585,7 +585,7 @@
 
 /obj/item/clothing/accessory/medal/gold/bubblegum
 	name = "bubblegum HRD-MDE award"
-	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Бубльгума и сопряжённого с ним Редспеса."
+	desc = "Награда за выдающийся вклад в проект HRD-MDE, связанный с исследованием Бубльгума и сопряжённого с ним редспейса."
 	tupemedal = "медалью бубльгума."
 
 /obj/item/clothing/accessory/medal/gold/bubblegum/get_ru_names()
