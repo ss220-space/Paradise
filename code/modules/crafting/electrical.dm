@@ -143,7 +143,7 @@
 		/obj/item/flashlight/pen,
 		/obj/item/flashlight/lantern,
 		/obj/item/flashlight/flare/glowstick,
-		/obj/item/flashlight/flare
+		/obj/item/flashlight/flare,
 	)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 20
