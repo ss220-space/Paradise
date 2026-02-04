@@ -1673,6 +1673,8 @@
 		convert_mecha(target, user)
 
 /obj/item/clockwork/shard/proc/convert_mecha(obj/mecha/target, mob/user)
+	if(!do_after(user, 10 SECONDS, target))
+		return
 	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
 	target.ratvar_act(convert_mecha = TRUE)

@@ -653,12 +653,12 @@
 		PREPOSITIONAL = "лазере часовой энергии",
 	)
 
-obj/projectile/beam/laser/light/rat/mecha
+/obj/projectile/beam/laser/light/rat/mecha
 	name = "brass laser beam"
 	damage = 20
 	armour_penetration = 10
 
-obj/projectile/beam/laser/light/rat/mecha/get_ru_names()
+/obj/projectile/beam/laser/light/rat/mecha/get_ru_names()
 	return list(
 		NOMINATIVE = "латунный импульс",
 		GENITIVE = "латунного импульса",

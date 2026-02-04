@@ -117,9 +117,9 @@
 	icon_state = "mecha_brassclamp"
 	equip_cooldown = 1 SECONDS
 	energy_drain = 5
-	var/dam_force = 25
+	dam_force = 25
 	harmful = TRUE
-	
+
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/brass/attach_act(obj/mecha/M)
 	chassis.cargo_expanded = TRUE
 	chassis.cargo_capacity = 25
