@@ -41,3 +41,5 @@
 #define COMSIG_GET_MECHA_DRIVING_SPEED_MOD "get_mecha_driving_speed"
 /// Get speed modifier for climbing into mech (mob/living/user, list/modifiers)
 #define COMSIG_GET_MECHA_CLIMBING_SPEED_MOD "get_mecha_climbing_speed"
+/// Get quality modifier for cell charge usage on mechs (mob/living/user, list/modifiers)
+#define COMSIG_GET_MECHA_CELL_USAGE_MOD "get_mecha_charge_usage"

@@ -1617,9 +1617,12 @@
 
 /obj/mecha/proc/use_power(amount)
 	if(get_charge())
-		cell.use(amount)
 		if(occupant)
+			CALCULATE_SKILL_MOD(occupant, COMSIG_GET_MECHA_CELL_USAGE_MOD, skill_factor)
+			cell.use(round(amount / skill_factor))
 			update_cell()
+			return TRUE
+		cell.use(amount)
 		return TRUE
 	return FALSE
 
