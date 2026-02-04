@@ -4,6 +4,7 @@
 	var/viewing_subcategory = 1
 	var/list/categories = list(
 				CAT_WEAPONRY,
+				CAT_ELECTRICAL,
 				CAT_ROBOT,
 				CAT_MISC,
 				CAT_PRIMAL,
@@ -14,6 +15,9 @@
 						list(//Weapon subcategories
 							CAT_WEAPON,
 							CAT_AMMO),
+						list(//Electrical subcategories
+							CAT_ELECTRICAL_ASSEMBLY,
+							CAT_ELECTRICAL_DISASSEMBLY),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
 						list(//Tribal subcategories

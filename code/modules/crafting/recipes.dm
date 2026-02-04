@@ -84,18 +84,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
-/datum/crafting_recipe/stunprod
-	name = "Stunprod"
-	result = /obj/item/melee/baton/security/cattleprod
-	reqs = list(
-		/obj/item/restraints/handcuffs/cable = 1,
-		/obj/item/stack/rods = 1,
-		/obj/item/assembly/igniter = 1,
-	)
-	time = 40
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-
 /datum/crafting_recipe/bola
 	name = "Bola"
 	result = /obj/item/restraints/legcuffs/bola
@@ -118,6 +106,30 @@
 	blacklist = list(/obj/item/clothing/gloves/color/black/razorgloves) // so we don't craft razorgloves using razorgloves etc.
 	time = 40
 	tools = list(TOOL_WIRECUTTER)
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/assemble_cable_stunprod
+	name = "assemble stunprod"
+	reqs = list(
+		/obj/item/stack/cable_coil = 15,
+		/obj/item/stack/rods = 1,
+		/obj/item/assembly/igniter = 1
+	)
+	result = /obj/item/melee/baton/security/cattleprod
+	time = 40
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+
+/datum/crafting_recipe/assemble_tape_stunprod
+	name = "assemble stunprod"
+	reqs = list(
+		/obj/item/stack/tape_roll = 15,
+		/obj/item/stack/rods = 1,
+		/obj/item/assembly/igniter = 1
+	)
+	result = /obj/item/melee/baton/security/cattleprod
+	time = 40
 	category = CAT_WEAPONRY
 	subcategory = CAT_WEAPON
 
@@ -1233,48 +1245,6 @@
 	)
 	category = CAT_MISC
 
-/datum/crafting_recipe/drill
-	name = "Thermal Drill"
-	result = /obj/item/thermal_drill
-	time = 60
-	reqs = list(
-		/obj/item/stack/cable_coil = 5,
-		/obj/item/mecha_parts/mecha_equipment/drill = 1,
-		/obj/item/stock_parts/cell = 1,
-		/obj/item/stack/rods = 2,
-		/obj/item/assembly/timer = 1,
-	)
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
-	category = CAT_MISC
-
-/datum/crafting_recipe/drill_alt
-	name = "Thermal Drill(Alternative)"
-	result = /obj/item/thermal_drill
-	time = 60
-	reqs = list(
-		/obj/item/stack/cable_coil = 5,
-		/obj/item/surgicaldrill = 1,
-		/obj/item/stock_parts/cell = 1,
-		/obj/item/stack/rods = 2,
-		/obj/item/assembly/timer = 1,
-	)
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
-	category = CAT_MISC
-
-/datum/crafting_recipe/d_drill
-	name = "Diamond Tipped Thermal Drill"
-	result = /obj/item/thermal_drill/diamond_drill
-	time = 60
-	reqs = list(
-		/obj/item/stack/cable_coil = 5,
-		/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
-		/obj/item/stock_parts/cell = 1,
-		/obj/item/stack/rods = 2,
-		/obj/item/assembly/prox_sensor = 1,
-	) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
-	category = CAT_MISC
-
 /datum/crafting_recipe/faketoolbox
 	name = "Black and Red toolbox"
 	result = /obj/item/storage/toolbox/fakesyndi
@@ -2142,3 +2112,7 @@
 		/datum/reagent/medicine/synthflesh = 120,
 	)
 	category = CAT_MISC
+
+//MARK: ELECTRICAL
+
+//ASSEMBLY
