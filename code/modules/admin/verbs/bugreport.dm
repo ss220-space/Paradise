@@ -20,7 +20,7 @@
 	if(!discord)
 		empty_input_alert(3)
 		return
-	var/have_screens = tgui_alert(src, "4. Есть ли у вас скрины?", "Баг-репорт", list("Да", "Нет"))=="Да"
+	var/have_screens = tgui_alert(src, "4. Есть ли у вас скрины/видео?", "Баг-репорт", list("Да", "Нет"))=="Да"
 	if(!have_screens)
 		empty_input_alert(4)
 		return
