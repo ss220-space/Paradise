@@ -35,3 +35,9 @@
 #define COMSIG_GET_COOKING_EXTRA_COUNT_CHANCE "get_cooking_extra_count_chance"
 /// Get modifier for mixing (mob/living/user, list/modifiers)
 #define COMSIG_GET_DRINKS_MIXING_SPEED_MOD "get_drinks_mixing_speed"
+
+// MARK: General
+/// Get speed modifier for mech driving skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_MECHA_DRIVING_SPEED_MOD "get_mecha_driving_speed"
+/// Get speed modifier for climbing into mech (mob/living/user, list/modifiers)
+#define COMSIG_GET_MECHA_CLIMBING_SPEED_MOD "get_mecha_climbing_speed"
