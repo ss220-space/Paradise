@@ -669,6 +669,7 @@
 	item_state = "dragon"
 	desc = "Доспехи, созданные из останков пепельного дракона."
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
+	slowdown = 1
 	armor = list(MELEE = 60, BULLET = 25, LASER = 15, ENERGY = 25, BOMB = 50, BIO = 0, RAD = 0, FIRE = 100, ACID = 0)
 	hoodtype = /obj/item/clothing/head/hooded/drake
 	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
@@ -794,6 +795,7 @@
 	icon_state = "bonearmor"
 	item_state = "bonearmor"
 	blood_overlay_type = "armor"
+	slowdown = 2
 	armor = list(MELEE = 45, BULLET = 15, LASER = 15, ENERGY = 5, BOMB = 50, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/pickaxe, /obj/item/twohanded/spear, /obj/item/organ/internal/regenerative_core/legion, /obj/item/kitchen/knife/combat/survival, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
