@@ -176,6 +176,7 @@
 	icon_state = "hardsuit0-berserker"
 	item_color = "berserker"
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	slowdown = 1
 	armor = list(MELEE = 60, BULLET = 25, LASER = 15, ENERGY = 25, BOMB = 50, BIO = 25, RAD = 25, FIRE = 100, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/helmet.dmi',
