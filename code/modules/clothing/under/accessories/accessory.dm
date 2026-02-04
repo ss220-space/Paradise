@@ -600,7 +600,7 @@
 
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full //Kill every hardmode boss. In a shift. Good luck.
 	name = "medal of incredible dedication"
-	desc = "Легендарная золотая награда, вручаемая только Центральным Командованием тем, кто бросил вызов всем богам Лаваленда — и победил. Для шахтёров, чья смена стала эпосом, а добыча — пантеоном поверженных титанов."
+	desc = "Легендарная золотая награда, вручаемая только Центральным Командованием тем, кто бросил вызов всем богам Лазиса — и победил. Для Шахтёров, чья смена стала эпосом, а добыча — пантеоном поверженных титанов."
 	tupemedal = "медалью убийцы богов."
 
 /obj/item/clothing/accessory/medal/gold/heroism/hardmode_full/get_ru_names()
