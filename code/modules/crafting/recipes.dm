@@ -112,7 +112,7 @@
 /datum/crafting_recipe/assemble_cable_stunprod
 	name = "assemble stunprod"
 	reqs = list(
-		/obj/item/stack/cable_coil = 15,
+		/obj/item/restraints/handcuffs/cable = 1,
 		/obj/item/stack/rods = 1,
 		/obj/item/assembly/igniter = 1
 	)
