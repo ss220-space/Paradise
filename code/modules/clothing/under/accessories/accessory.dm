@@ -312,7 +312,7 @@
 /obj/item/clothing/accessory/medal/gold/captain
 	name = "medal of captaincy"
 	desc = "Эксклюзивная золотая медаль капитанского звания.\
-Визуальное воплощение санкционированных \"Нанотрейзен\" полномочий и верховной власти над персоналом станции."
+Визуальное воплощение санкционированных \"Нанотрейзен\" полномочий и верховной власти Капитана над персоналом вверенного ему объекта."
 	icon_state = "captaincy"
 	tupemedal = "медалью капитанства."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
