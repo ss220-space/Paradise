@@ -479,7 +479,7 @@
 	desc = "Эти обмотки, изготовленные из шкуры голиафа, подарят вашим ступням ощущение уюта и безопасности, оставаясь при этом дышащими и лёгкими."
 	icon_state = "footwraps_goliath"
 	item_state = "footwraps_goliath"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 10, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 5, BOMB = 10, BIO = 0, RAD = 0, FIRE = 15, ACID = 0)
 	resistance_flags = FIRE_PROOF
 	paintable = FALSE
 
@@ -498,7 +498,7 @@
 	desc = "Эти обмотки, изготовленные из шкуры пепельного дракона, обеспечат вам комфорт и безопасность ваших ног, оставаясь при этом лёгкими и дышащими."
 	icon_state = "footwraps_dragon"
 	item_state = "footwraps_dragon"
-	armor = list(MELEE = 10, BULLET = 10, LASER = 15, ENERGY = 10, BOMB = 0, BIO = 10, RAD = 0, FIRE = 15, ACID = 0)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 10, BOMB = 10, BIO = 10, RAD = 0, FIRE = 30, ACID = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	paintable = FALSE
 
