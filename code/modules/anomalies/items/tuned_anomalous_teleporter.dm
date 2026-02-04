@@ -217,16 +217,3 @@ Ranges with core charge 50-100:
 /obj/item/assembly/tuned_anomalous_teleporter/preloaded
 	core = new /obj/item/assembly/signaler/core/bluespace/tier2()
 
-/datum/crafting_recipe/tuned_anomalous_teleporter
-	name = "Tuned anomalous teleporter"
-	result = /obj/item/assembly/tuned_anomalous_teleporter
-	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
-	reqs = list(
-		/obj/item/relict_production/strange_teleporter = 1,
-		/obj/item/gps = 1,
-		/obj/item/stack/ore/bluespace_crystal,
-		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/cable_coil = 5,
-	)
-	time = 300
-	category = CAT_MISC
