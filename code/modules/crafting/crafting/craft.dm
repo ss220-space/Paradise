@@ -1,0 +1,462 @@
+/datum/personal_crafting
+	var/busy
+	var/viewing_category = 1 //typical powergamer starting on the Weapons tab
+	var/viewing_subcategory = 1
+	var/list/categories = list(
+				CAT_WEAPONRY,
+				CAT_ELECTRICAL,
+				CAT_ROBOT,
+				CAT_MISC,
+				CAT_PRIMAL,
+				CAT_FOOD,
+				CAT_DECORATIONS,
+				CAT_CLOTHING)
+	var/list/subcategories = list(
+						list(//Weapon subcategories
+							CAT_WEAPON,
+							CAT_AMMO),
+						list(//Electrical subcategories
+							CAT_ELECTRICAL_ASSEMBLY,
+							CAT_ELECTRICAL_DISASSEMBLY),
+						CAT_NONE, //Robot subcategories
+						CAT_NONE, //Misc subcategories
+						list(//Tribal subcategories
+							CAT_ARMOR,
+							CAT_WEAPONS,
+							CAT_MISC2),
+						list(//Food subcategories
+							CAT_CAKE,
+							CAT_SUSHI,
+							CAT_SANDWICH,
+							CAT_MISCFOOD),
+						list(//Decoration subcategories
+							CAT_DECORATION,
+							CAT_HOLIDAY,
+							CAT_LARGE_DECORATIONS),
+						CAT_CLOTHING) //Clothing subcategories
+	var/display_craftable_only = FALSE
+	var/display_compact = TRUE
+
+/*	This is what procs do:
+	get_environment - gets a list of things accessable for crafting by user
+	get_surroundings - takes a list of things and makes a list of key-types to values-amounts of said type in the list
+	check_contents - takes a recipe and a key-type list and checks if said recipe can be done with available stuff
+	check_tools - takes recipe, a key-type list, and a user and checks if there are enough tools to do the stuff, checks bugs one level deep
+	construct_item - takes a recipe and a user, call all the checking procs, calls do_after, checks all the things again, calls requirements_deletion, creates result, calls CheckParts of said result with argument being list returned by deel_reqs
+	requirements_deletion - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
+*/
+
+/proc/check_contents(list/reqs, list/chem_catalysts, list/blacklist, list/contents)
+	contents = contents["other"]
+	main_loop:
+		for(var/A in reqs)
+			var/needed_amount = reqs[A]
+			for(var/B in contents)
+				if(ispath(B, A))
+					if(blacklist.Find(B))
+						continue
+					if(contents[B] >= reqs[A])
+						continue main_loop
+					else
+						needed_amount -= contents[B]
+						if(needed_amount <= 0)
+							continue main_loop
+						else
+							continue
+			return 0
+	for(var/A in chem_catalysts)
+		if(contents[A] < chem_catalysts[A])
+			return 0
+	return 1
+
+/proc/get_environment(mob/user)
+	. = list()
+	. += user.r_hand
+	. += user.l_hand
+	if(!isturf(user.loc))
+		return
+	var/list/L = block(get_step(user, SOUTHWEST), get_step(user, NORTHEAST))
+	for(var/A in L)
+		var/turf/T = A
+		if(T.Adjacent(user))
+			for(var/B in T)
+				var/atom/movable/AM = B
+				if(AM.flags & HOLOGRAM)
+					continue
+				. += AM
+	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
+		. += user.get_item_by_slot(slot)
+
+/proc/get_surroundings(mob/user)
+	. = list()
+	.["other"] = list() //paths go in here
+	.["toolsother"] = list() // items go in here
+	for(var/obj/item/I in get_environment(user))
+		if(I.flags & HOLOGRAM)
+			continue
+		if(isstack(I))
+			var/obj/item/stack/S = I
+			.["other"][I.type] += S.amount
+		else
+			if(istype(I, /obj/item/reagent_containers))
+				var/obj/item/reagent_containers/RC = I
+				if(RC.is_drainable())
+					for(var/datum/reagent/A in RC.reagents.reagent_list)
+						.["other"][A.type] += A.volume
+			.["other"][I.type] += 1
+		.["toolsother"][I] += 1
+
+/proc/check_tools(mob/user, list/tools, list/contents)
+	if(!length(tools)) //does not run if no tools are needed
+		return TRUE
+	var/list/possible_tools = list()
+	var/list/tools_used = list()
+	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
+		if(isstorage(I))
+			for(var/obj/item/SI in I.contents)
+				if(SI.tool_behaviour) //filters for tool behaviours
+					possible_tools += SI
+		if(I.tool_behaviour)
+			possible_tools += I
+
+	possible_tools |= contents["toolsother"] // this add contents to possible_tools
+	main_loop: // checks if all tools found are usable with the recipe
+		for(var/A in tools)
+			for(var/obj/item/I in possible_tools)
+				if(A == I.tool_behaviour)
+					tools_used += I
+					continue main_loop
+			return FALSE
+	for(var/obj/item/T in tools_used)
+		if(!T.tool_start_check(null, user, 0)) //Check if all our tools are valid for their use
+			return FALSE
+	return TRUE
+
+/proc/check_pathtools(mob/user, list/pathtools, list/contents)
+	if(!length(pathtools)) //does not run if no tools are needed
+		return TRUE
+	var/list/other_possible_tools = list()
+	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
+		if(isstorage(I))
+			for(var/obj/item/SI in I.contents)
+				other_possible_tools += SI.type	// filters type paths
+		other_possible_tools += I.type
+
+	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
+	main_loop: // checks if all tools found are usable with the recipe
+		for(var/A in pathtools)
+			for(var/I in other_possible_tools)
+				if(ispath(I,A))
+					continue main_loop
+			return FALSE
+	return TRUE
+
+/datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
+	var/list/contents = get_surroundings(user)
+	var/send_feedback = 1
+	if(!check_contents(R.reqs, R.chem_catalysts, R.blacklist, contents))
+		return ", missing component."
+	if(!check_tools(user, R.tools, contents))
+		return ", missing tool."
+	if(!check_pathtools(user, R.pathtools, contents))
+		return ", missing tool."
+
+	if(!do_after(user, R.time, user))
+		return "."
+	contents = get_surroundings(user)
+
+	if(!check_contents(R.reqs, R.chem_catalysts, R.blacklist, contents))
+		return ", missing component."
+	if(!check_tools(user, R.tools, contents))
+		return ", missing tool."
+	if(!check_pathtools(user, R.pathtools, contents))
+		return ", missing tool."
+
+	var/list/parts = requirements_deletion(R.reqs, R.blacklist, R.parts, user)
+	if(!parts)
+		return ", missing component."
+
+	var/result_list = R.result
+	if(!islist(result_list))
+		result_list = list(result_list)
+	for(var/result in result_list)
+		var/atom/movable/I = new result(get_turf(user.loc))
+		I.add_fingerprint(user)
+		user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
+		I.CheckParts(parts, R)
+		if(isitem(I))
+			user.put_in_hands(I)
+
+		if(send_feedback)
+			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+	return 0
+
+/proc/requirements_deletion(list/reqs, list/blacklist, list/parts, mob/user)
+	var/list/surroundings = get_environment(user)
+	var/list/parts_used = list()
+	var/list/reagent_containers_for_deletion = list()
+	var/list/item_stacks_for_deletion = list()
+	for(var/atom/movable/thing in surroundings)
+		if(thing.type in blacklist)
+			surroundings -= thing
+
+	for(var/thing in reqs)
+		var/needed_amount = reqs[thing]
+		if(ispath(thing, /datum/reagent))
+			var/datum/reagent/part_reagent = locate(thing) in parts_used
+			if(!part_reagent)
+				part_reagent = new thing()
+				parts_used += part_reagent
+
+			for(var/obj/item/reagent_containers/container in surroundings)
+				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
+				if(!contained_reagent)
+					continue
+
+				var/extracted_amount = min(contained_reagent.volume, needed_amount)
+				if(reagent_containers_for_deletion[container] == null)
+					reagent_containers_for_deletion[container] = list()
+
+				reagent_containers_for_deletion[container][contained_reagent] = extracted_amount
+
+				part_reagent.volume += extracted_amount
+				part_reagent.data += contained_reagent.data
+				needed_amount -= extracted_amount
+				if(needed_amount <= 0)
+					break
+
+			if(needed_amount > 0)
+				stack_trace("While crafting requirements_deletion, some of [thing] went missing (still need [needed_amount])!")
+				continue // ignore the error, and continue crafting for player's benefit
+
+		else if(ispath(thing, /obj/item/stack))
+			var/obj/item/stack/part_stack = locate(thing) in parts_used
+			if(!part_stack)
+				part_stack = new thing()
+				part_stack.amount = 0
+				parts_used += part_stack
+
+			for(var/obj/item/stack/item_stack in (surroundings - item_stacks_for_deletion))
+				if(!istype(item_stack, thing))
+					continue
+
+				var/extracted_amount = min(item_stack.amount, needed_amount)
+				item_stacks_for_deletion[item_stack] = extracted_amount
+				part_stack.amount += extracted_amount
+				needed_amount -= extracted_amount
+				if(needed_amount <= 0)
+					break
+
+			if(needed_amount > 0)
+				stack_trace("While crafting requirements_deletion, some of [thing] went missing (still need [needed_amount])!")
+				continue
+
+		else
+			for(var/i in 1 to needed_amount)
+				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
+				if(!part_atom)
+					stack_trace("While crafting requirements_deletion, the [thing] went missing!")
+					continue
+				parts_used += part_atom
+
+	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
+		for(var/datum/reagent/reagent_to_delete as anything in reagent_containers_for_deletion[container_to_clear])
+			var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][reagent_to_delete]
+
+			if(amount_to_delete < reagent_to_delete.volume)
+				reagent_to_delete.volume -= amount_to_delete
+			else
+				container_to_clear.reagents.reagent_list -= reagent_to_delete
+			container_to_clear.reagents.conditional_update(container_to_clear)
+			container_to_clear.update_icon()
+
+	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
+		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
+		stack_to_delete.use(amount_to_delete)
+
+	// Sort out the used parts into the ones we need to return (denoted by parts),
+	// and the ones we need to delete (the rest of reqs)
+	var/parts_returned = list()
+	for(var/part_path in parts)
+		for(var/i in 1 to parts[part_path])
+			var/part = locate(part_path) in parts_used
+			if(!part)
+				stack_trace("Part [part_path] went missing")
+			parts_returned += part
+			parts_used -= part
+	QDEL_LIST(parts_used)
+
+	return parts_returned
+
+/datum/personal_crafting/ui_state(mob/user)
+	return GLOB.not_incapacitated_state
+
+/datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PersonalCrafting", "Crafting Menu")
+		ui.open()
+
+/datum/personal_crafting/proc/close(mob/user)
+	var/datum/tgui/ui = SStgui.get_open_ui(user, src, "main")
+	if(ui)
+		ui.close()
+
+/datum/personal_crafting/ui_data(mob/user)
+	var/list/data = list()
+	var/list/subs = list()
+	var/cur_subcategory = CAT_NONE
+
+	var/cur_category = categories[viewing_category]
+	if(islist(subcategories[viewing_category]))
+		subs = subcategories[viewing_category]
+		cur_subcategory = subs[viewing_subcategory]
+
+	data["busy"] = busy
+	data["prev_cat"] = categories[prev_cat()]
+	data["prev_subcat"] = subs[prev_subcat()]
+	data["category"] = cur_category
+	data["subcategory"] = cur_subcategory
+	data["next_cat"] = categories[next_cat()]
+	data["next_subcat"] = subs[next_subcat()]
+	data["display_craftable_only"] = display_craftable_only
+	data["display_compact"] = display_compact
+
+	var/list/surroundings = get_surroundings(user)
+	var/list/can_craft = list()
+	var/list/cant_craft = list()
+
+	for(var/rec in GLOB.crafting_recipes)
+		var/datum/crafting_recipe/R = rec
+
+		if(!R.always_availible && !(R.type in user?.mind?.learned_recipes)) //User doesn't actually know how to make this.
+			continue
+
+		if((R.category != cur_category) || (R.subcategory != cur_subcategory))
+			continue
+		if(check_contents(R.reqs, R.chem_catalysts, R.blacklist, surroundings))
+			can_craft += list(build_recipe_data(R))
+		else
+			cant_craft += list(build_recipe_data(R))
+
+	data["can_craft"] = can_craft
+	data["cant_craft"] = cant_craft
+	return data
+
+/datum/personal_crafting/ui_act(action, list/params)
+	if(..())
+		return
+
+	. = TRUE
+
+	switch(action)
+		if("make")
+			var/datum/crafting_recipe/TR = locateUID(params["make"])
+			if(!istype(TR))
+				return
+			busy = TRUE
+			SStgui.update_uis(src)
+			var/fail_msg = construct_item(usr, TR)
+			if(!fail_msg)
+				to_chat(usr, span_notice("[TR.name] constructed."))
+				if(TR.alert_admins_on_craft)
+					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
+			else
+				to_chat(usr, span_warning("Construction failed[fail_msg]"))
+			busy = FALSE
+			SStgui.update_uis(src)
+
+		if("forwardCat")
+			viewing_category = next_cat(FALSE)
+
+		if("backwardCat")
+			viewing_category = prev_cat(FALSE)
+
+		if("forwardSubCat")
+			viewing_subcategory = next_subcat()
+
+		if("backwardSubCat")
+			viewing_subcategory = prev_subcat()
+
+		if("toggle_recipes")
+			display_craftable_only = !display_craftable_only
+
+		if("toggle_compact")
+			display_compact = !display_compact
+
+//Next works nicely with modular arithmetic
+/datum/personal_crafting/proc/next_cat(readonly = TRUE)
+	if(!readonly)
+		viewing_subcategory = 1
+	. = viewing_category % length(categories) + 1
+
+/datum/personal_crafting/proc/next_subcat()
+	if(islist(subcategories[viewing_category]))
+		var/list/subs = subcategories[viewing_category]
+		. = viewing_subcategory % length(subs) + 1
+
+//Previous can go fuck itself
+/datum/personal_crafting/proc/prev_cat(readonly = TRUE)
+	if(!readonly)
+		viewing_subcategory = 1
+	if(viewing_category == length(categories))
+		. = viewing_category-1
+	else
+		. = viewing_category % length(categories) - 1
+	if(. <= 0)
+		. = categories.len
+
+/datum/personal_crafting/proc/prev_subcat()
+	if(islist(subcategories[viewing_category]))
+		var/list/subs = subcategories[viewing_category]
+		if(viewing_subcategory == length(subs))
+			. = viewing_subcategory-1
+		else
+			. = viewing_subcategory % length(subs) - 1
+		if(. <= 0)
+			. = subs.len
+	else
+		. = null
+
+/datum/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)
+	var/list/data = list()
+	data["name"] = R.name
+	data["ref"] = R.UID()
+	var/req_text = ""
+	var/tool_text = ""
+	var/catalyst_text = ""
+
+	for(var/a in R.reqs)
+		//We just need the name, so cheat-typecast to /atom for speed (even tho Reagents are /datum they DO have a "name" var)
+		//Also these are typepaths so sadly we can't just do "[a]"
+		var/atom/A = a
+		req_text += " [R.reqs[A]] [initial(A.name)],"
+	req_text = replacetext(req_text, ",", "", -1)
+	data["req_text"] = req_text
+
+	for(var/a in R.chem_catalysts)
+		var/atom/A = a //cheat-typecast
+		catalyst_text += " [R.chem_catalysts[A]] [initial(A.name)],"
+	catalyst_text = replacetext(catalyst_text, ",", "", -1)
+	data["catalyst_text"] = catalyst_text
+
+	for(var/a in R.pathtools)
+		if(ispath(a, /obj/item))
+			var/obj/item/b = a
+			tool_text += " [initial(b.name)],"
+		else
+			tool_text += " [a],"
+	for(var/a in R.tools)
+		var/b = a
+		tool_text += " [b],"
+	tool_text = replacetext(tool_text, ",", "", -1)
+	data["tool_text"] = tool_text
+
+	return data
+
+//Mind helpers
+
+/datum/mind/proc/teach_crafting_recipe(R)
+	if(!learned_recipes)
+		learned_recipes = list()
+	learned_recipes |= R
