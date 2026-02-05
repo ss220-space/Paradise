@@ -27,7 +27,7 @@
 	desc = "Влияет на готовку."
 	duration_mod_signals = list(COMSIG_GET_COOKING_SPEED_MOD, COMSIG_GET_BUTCHERING_SPEED_MOD)
 	// chance to create extra dish for cooking
-	var/extra_count_chance = list(
+	var/extra_count_chance = alist(
 		SKILL_LEVEL_NONE = 0,
 		SKILL_LEVEL_BEGINNER = 5,
 		SKILL_LEVEL_BASIC = 10,
@@ -46,12 +46,6 @@
 	. = ..()
 	UnregisterSignal(owner, COMSIG_GET_COOKING_EXTRA_COUNT_CHANCE)
 
-
 /datum/skill/general/cooking/proc/get_extra_count_chance(mob/living/user, list/chances)
 	SIGNAL_HANDLER
-	GET_SKILL_LEVEL(user, src.type, level)
-	if(!level)
-		return
-	var/chance = extra_count_chance[level]
-	if(chance != null)
-		chances.Add(chance)
+	get_modifier(user, chances, extra_count_chance)

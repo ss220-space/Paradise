@@ -22,6 +22,16 @@
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/hos
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/guns = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/melee = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/shields = SKILL_LEVEL_PROFESSIONAL,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/hos
 	name = JOB_TITLE_HOS
@@ -80,6 +90,16 @@
 	minimal_player_age = 21
 	exp_requirements = 2100
 	outfit = /datum/outfit/job/warden
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/melee = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/fists = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/shields = SKILL_LEVEL_ADVANCED,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/warden
 	name = JOB_TITLE_WARDEN
@@ -120,6 +140,14 @@
 	alt_titles = list("Forensic Technician")
 	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/shields = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/detective
 	name = JOB_TITLE_DETECTIVE
@@ -172,6 +200,15 @@
 	law_level = LAW_LEVEL_SEC
 	alt_titles = list("Security Trainer", "Patrol Officer", "Security Cadet")
 	outfit = /datum/outfit/job/officer
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/fists = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/shields = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/officer
 	name = JOB_TITLE_OFFICER
@@ -231,7 +268,11 @@
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
 	skill_levels = list(
-		/datum/skill/general/carring = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/carring = SKILL_LEVEL_BASIC,
+		/datum/skill/general/mod_use = SKILL_LEVEL_BEGINNER,
+		/datum/skill/medical/surgery = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/chemistry = SKILL_LEVEL_BEGINNER,
 	)
 
 /datum/outfit/job/brigdoc
@@ -262,6 +303,16 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	law_level = LAW_LEVEL_SEC
 	outfit = /datum/outfit/job/pilot
+	skill_levels = list(
+		/datum/skill/general/mech_drive = SKILL_LEVEL_ADVANCED,
+		/datum/skill/general/mod_use = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/accuracy = SKILL_LEVEL_ADVANCED,
+		/datum/skill/combat/guns = SKILL_LEVEL_BASIC,
+		/datum/skill/combat/melee = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/fists = SKILL_LEVEL_BEGINNER,
+		/datum/skill/combat/shields = SKILL_LEVEL_BASIC,
+		/datum/skill/medical/heal = SKILL_LEVEL_BEGINNER,
+	)
 
 /datum/outfit/job/pilot
 	name = JOB_TITLE_PILOT

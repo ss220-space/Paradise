@@ -43,3 +43,10 @@
 #define COMSIG_GET_MECHA_CLIMBING_SPEED_MOD "get_mecha_climbing_speed"
 /// Get quality modifier for cell charge usage on mechs (mob/living/user, list/modifiers)
 #define COMSIG_GET_MECHA_CELL_USAGE_MOD "get_mecha_charge_usage"
+
+
+// MARK: Combat
+/// Get gun accuracy modifier for accuracy skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_ACCURACY_MOD "get_accuracy_mod"
+/// Get gun spread modifier for accuracy skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_SPREAD_MOD "get_spread_mod"

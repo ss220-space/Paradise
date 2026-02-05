@@ -41,23 +41,24 @@ GLOBAL_LIST_EMPTY(skills)
 	for(var/signal as anything in quality_mod_signals)
 		RegisterSignal(owner, signal, PROC_REF(get_quality_mod_signal))
 
-/datum/skill/proc/get_duration_mod_signal(mob/living/user, list/modifiers)
+/datum/skill/proc/get_duration_mod_signal(mob/living/user, list/results)
 	SIGNAL_HANDLER
-	GET_SKILL_LEVEL(user, src.type, level)
-	if(!level)
-		return
-	var/mod = speed_modifiers[level]
-	if(mod != null)
-		modifiers.Add(mod)
+	get_modifier(user, results, speed_modifiers)
 
-/datum/skill/proc/get_quality_mod_signal(mob/living/user, list/modifiers)
+/datum/skill/proc/get_quality_mod_signal(mob/living/user, list/results)
+	SIGNAL_HANDLER
+	get_modifier(user, results, quality_modifiers)
+
+/datum/skill/proc/get_modifier(mob/living/user, list/results, alist/modifiers)
 	SIGNAL_HANDLER
 	GET_SKILL_LEVEL(user, src.type, level)
 	if(!level)
 		return
-	var/mod = quality_modifiers[level]
+	var/mod = modifiers[level]
 	if(mod != null)
-		modifiers.Add(mod)
+		results.Add(mod)
+	else
+		log_debug("not found modifier result for user=[user.name] skill=[src.type] modifiers=[modifiers] level=[level]")
 
 /datum/skill/proc/remove_from_mob(mob/owner)
 	UnregisterSignal(owner, duration_mod_signals)
