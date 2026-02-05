@@ -110,11 +110,11 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/assemble_cable_stunprod
-	name = "assemble stunprod"
+	name = "изготовить оглушающий прут (стяжки)"
 	reqs = list(
 		/obj/item/restraints/handcuffs/cable = 1,
 		/obj/item/stack/rods = 1,
-		/obj/item/assembly/igniter = 1,
+		/obj/item/assembly/igniter = 1
 	)
 	result = /obj/item/melee/baton/security/cattleprod
 	time = 40
@@ -122,11 +122,11 @@
 	subcategory = CAT_WEAPON
 
 /datum/crafting_recipe/assemble_tape_stunprod
-	name = "assemble stunprod"
+	name = "изготовить оглушающий прут (изолента)"
 	reqs = list(
 		/obj/item/stack/tape_roll = 15,
 		/obj/item/stack/rods = 1,
-		/obj/item/assembly/igniter = 1,
+		/obj/item/assembly/igniter = 1
 	)
 	result = /obj/item/melee/baton/security/cattleprod
 	time = 40
