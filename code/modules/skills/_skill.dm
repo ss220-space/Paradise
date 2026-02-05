@@ -52,8 +52,6 @@ GLOBAL_LIST_EMPTY(skills)
 /datum/skill/proc/get_modifier(mob/living/user, list/results, alist/modifiers)
 	SIGNAL_HANDLER
 	GET_SKILL_LEVEL(user, src.type, level)
-	if(!level)
-		return
 	var/mod = modifiers[level]
 	if(mod != null)
 		results.Add(mod)
