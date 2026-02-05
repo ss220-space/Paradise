@@ -19,11 +19,11 @@ const HeadRoles = [
 const HCC = (role: string) => {
   // Return yellow if they are the head
   if (HeadRoles.indexOf(role) !== -1) {
-    return 'yellow';
+    return 'green';
   }
 
   // Return white if its a regular person
-  return 'white';
+  return 'orange';
 };
 
 // Head bold check. Abbreviated to save on 80 char
