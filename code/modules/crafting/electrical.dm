@@ -7,7 +7,7 @@
 		/obj/item/mecha_parts/mecha_equipment/drill = 1,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/rods = 2,
-		/obj/item/assembly/timer = 1
+		/obj/item/assembly/timer = 1,
 	)
 	result = /obj/item/thermal_drill
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
@@ -22,7 +22,7 @@
 		/obj/item/surgicaldrill = 1,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/rods = 2,
-		/obj/item/assembly/timer = 1
+		/obj/item/assembly/timer = 1,
 	)
 	result = /obj/item/thermal_drill
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
@@ -37,7 +37,7 @@
 		/obj/item/mecha_parts/mecha_equipment/drill/diamonddrill = 1,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/rods = 2,
-		/obj/item/assembly/prox_sensor = 1
+		/obj/item/assembly/prox_sensor = 1,
 	) // Not a timer because the system sees a diamond drill as a drill too, letting you make both otherwise.
 	result = /obj/item/thermal_drill/diamond_drill
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH)
@@ -52,7 +52,7 @@
 		/obj/item/gps = 1,
 		/obj/item/stack/ore/bluespace_crystal,
 		/obj/item/stack/sheet/metal = 2,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	result = /obj/item/assembly/tuned_anomalous_teleporter
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)
@@ -66,7 +66,7 @@
 		/obj/item/clothing/mask/gas = 1,
 		/obj/item/assembly/voice/noise = 1,
 		/obj/item/assembly/voice = 1,
-		/obj/item/stack/cable_coil = 5
+		/obj/item/stack/cable_coil = 5,
 	)
 	result = /obj/item/clothing/mask/gas/voice_modulator
 	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
@@ -81,7 +81,7 @@
 		/obj/item/mounted/frame/light_fixture/small = 1,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/cell = 1,
-		/obj/item/stack/sheet/metal = 5
+		/obj/item/stack/sheet/metal = 5,
 	)
 	result = /obj/item/flashlight/lamp
 	tools = list(TOOL_SCREWDRIVER)
@@ -95,7 +95,7 @@
 	name = "разобрать оглушающий прут"
 	result = list(
 		/obj/item/stack/rods = 1,
-		/obj/item/assembly/igniter = 1
+		/obj/item/assembly/igniter = 1,
 	)
 	reqs = list(/obj/item/melee/baton/security/cattleprod = 1)
 	time = 40
@@ -106,7 +106,7 @@
 	name = "разобрать маску для модуляции голоса"
 	result = list(
 		/obj/item/clothing/mask/gas = 1,
-		/obj/item/assembly/voice = 1
+		/obj/item/assembly/voice = 1,
 	)
 	reqs =  list(/obj/item/clothing/mask/gas/voice_modulator)
 	tools = list(TOOL_SCREWDRIVER)
@@ -120,7 +120,7 @@
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/assembly/voice = 1
+		/obj/item/assembly/voice = 1,
 	)
 	reqs = list(/obj/item/radio = 1)
 	tools = list(TOOL_SCREWDRIVER)
@@ -134,7 +134,7 @@
 		/obj/item/light/bulb = 1,
 		/obj/item/stack/cable_coil = 2,
 		/obj/item/stock_parts/cell = 1,
-		/obj/item/stock_parts/capacitor = 1
+		/obj/item/stock_parts/capacitor = 1,
 	)
 	reqs = list(/obj/item/flashlight = 1)
 	blacklist = list(
@@ -156,7 +156,7 @@
 		/obj/item/mounted/frame/light_fixture/small = 1,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/cell = 1,
-		/obj/item/stack/ore/iron = 5
+		/obj/item/stack/ore/iron = 5,
 	)
 	reqs = list(/obj/item/flashlight/lamp = 1)
 	tools = list(TOOL_SCREWDRIVER)
