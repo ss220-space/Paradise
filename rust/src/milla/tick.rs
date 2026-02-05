@@ -41,7 +41,7 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     let mut interesting_tiles = INTERESTING_TILES.lock().unwrap();
     let new_items_count = new_interesting_tiles.len();
 
-    if interesting_tiles.capacity() * 2 > new_items_count * TARGET_CAPACITY_FACTOR {
+    if interesting_tiles.capacity() > new_items_count * TARGET_CAPACITY_FACTOR {
         interesting_tiles.shrink_to(new_items_count);
     }
 
