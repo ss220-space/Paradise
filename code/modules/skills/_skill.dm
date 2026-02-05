@@ -36,9 +36,9 @@ GLOBAL_LIST_EMPTY(skills)
 	)
 
 /datum/skill/proc/apply_to_mob(mob/owner)
-	for(var/signal as anything in duration_mod_signals)
+	for(var/signal in duration_mod_signals)
 		RegisterSignal(owner, signal, PROC_REF(get_duration_mod_signal))
-	for(var/signal as anything in quality_mod_signals)
+	for(var/signal in quality_mod_signals)
 		RegisterSignal(owner, signal, PROC_REF(get_quality_mod_signal))
 
 /datum/skill/proc/get_duration_mod_signal(mob/living/user, list/results)
