@@ -1,4 +1,29 @@
-//ASSEMBLY
+//MARK: ASSEMBLY
+
+/datum/crafting_recipe/assemble_makeshift_flashlight
+	name = "изготовить самодельный фонарик"
+	reqs = list(
+		/obj/item/stack/tape_roll = 5,
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/light/bulb = 1,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/mounted/frame/light_switch = 1,
+	)
+	result = /obj/item/flashlight/makeshift
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_ASSEMBLY
+
+/datum/crafting_recipe/assemble_mod_health_analyzer
+	name = "изготовить модуль сканера тела (МЭК)"
+	reqs = list(
+		/obj/item/healthanalyzer = 1,
+		/obj/item/usb_cable = 1,
+	)
+	result = /obj/item/mod/module/health_analyzer
+	time = 20
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_ASSEMBLY
 
 /datum/crafting_recipe/assemble_drill
 	name = "собрать термосверло"
@@ -64,7 +89,6 @@
 	name = "собрать маску для модуляции голоса"
 	reqs = list(
 		/obj/item/clothing/mask/gas = 1,
-		/obj/item/assembly/voice/noise = 1,
 		/obj/item/assembly/voice = 1,
 		/obj/item/stack/cable_coil = 5,
 	)
@@ -79,9 +103,11 @@
 	reqs = list(
 		/obj/item/light/bulb = 1,
 		/obj/item/mounted/frame/light_fixture/small = 1,
-		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/cable_coil = 10,
 		/obj/item/stock_parts/cell = 1,
-		/obj/item/stack/sheet/metal = 5,
+		/obj/item/mounted/frame/light_switch = 1,
+		/obj/item/lamp_disassembled = 1,
+		/obj/item/circuit_component/light_switch = 1,
 	)
 	result = /obj/item/flashlight/lamp
 	tools = list(TOOL_SCREWDRIVER)
@@ -89,7 +115,41 @@
 	category = CAT_ELECTRICAL
 	subcategory = CAT_ELECTRICAL_ASSEMBLY
 
-//DISASSEMBLY
+/datum/crafting_recipe/assemble_green_lamp
+	name = "собрать зелёную настольную лампу"
+	reqs = list(
+		/obj/item/light/bulb = 1,
+		/obj/item/mounted/frame/light_fixture/small = 1,
+		/obj/item/stack/cable_coil = 10,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/mounted/frame/light_switch = 1,
+		/obj/item/lamp_disassembled/green = 1,
+		/obj/item/circuit_component/light_switch = 1,
+	)
+	result = /obj/item/flashlight/lamp/green
+	tools = list(TOOL_SCREWDRIVER)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_ASSEMBLY
+
+/datum/crafting_recipe/assemble_banana_lamp
+	name = "собрать банановую настольную лампу"
+	reqs = list(
+		/obj/item/light/bulb = 1,
+		/obj/item/mounted/frame/light_fixture/small = 1,
+		/obj/item/stack/cable_coil = 10,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/mounted/frame/light_switch = 1,
+		/obj/item/lamp_disassembled/bananalamp = 1,
+		/obj/item/circuit_component/light_switch = 1,
+	)
+	result = /obj/item/flashlight/lamp/bananalamp
+	tools = list(TOOL_SCREWDRIVER)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_ASSEMBLY
+
+//MARK: DISASSEMBLY
 
 /datum/crafting_recipe/disassemble_stunprod
 	name = "разобрать оглушающий прут"
@@ -132,9 +192,7 @@
 	name = "разобрать фонарик"
 	result = list(
 		/obj/item/light/bulb = 1,
-		/obj/item/stack/cable_coil = 2,
 		/obj/item/stock_parts/cell = 1,
-		/obj/item/stock_parts/capacitor = 1,
 	)
 	reqs = list(/obj/item/flashlight = 1)
 	blacklist = list(
@@ -156,10 +214,142 @@
 		/obj/item/mounted/frame/light_fixture/small = 1,
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/cell = 1,
-		/obj/item/stack/ore/iron = 5,
+		/obj/item/lamp_disassembled = 1,
+		/obj/item/circuit_component/light_switch = 1,
 	)
 	reqs = list(/obj/item/flashlight/lamp = 1)
+	blacklist = list(
+		/obj/item/flashlight/lamp/green,
+		/obj/item/flashlight/lamp/bananalamp,
+	)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_green_lamp
+	name = "разобрать зелёную настольную лампу"
+	result = list(
+		/obj/item/light/bulb = 1,
+		/obj/item/mounted/frame/light_fixture/small = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/lamp_disassembled/green = 1,
+		/obj/item/circuit_component/light_switch = 1,
+	)
+	reqs = list(/obj/item/flashlight/lamp/green = 1)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_banana_lamp
+	name = "разобрать банановую настольную лампу"
+	result = list(
+		/obj/item/light/bulb = 1,
+		/obj/item/mounted/frame/light_fixture/small = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/lamp_disassembled/bananalamp = 1,
+		/obj/item/grown/bananapeel = 1,
+		/obj/item/circuit_component/light_switch = 1,
+	)
+	reqs = list(/obj/item/flashlight/lamp/bananalamp = 1)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_pda
+	name = "разобрать КПК"
+	result = list(
+		/obj/item/circuit_component/keyboard_shell = 1,
+		/obj/item/circuit_component/arithmetic = 1,
+		/obj/item/circuit_component/id_info_reader = 1,
+		/obj/item/circuit_component/clock = 1,
+		/obj/item/circuit_component/light = 1,
+		/obj/item/stack/sheet/plastic = 2,
+		/obj/item/stack/ore/gold = 2,
+		/obj/item/stock_parts/scanning_module/adv = 1,
+	)
+	reqs = list(/obj/item/pda = 1)
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL)
+	time = 60
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_multitool
+	name = "разобрать мультитул"
+	result = list(
+		/obj/item/circuit_component/arithmetic = 1,
+		/obj/item/circuit_component/assembly_input = 1,
+		/obj/item/circuit_component/assembly_output = 1,
+	)
+	reqs = list(/obj/item/multitool = 1)
+	blacklist = list(
+		/obj/item/multitool/abductor,
+		/obj/item/flashlight/lamp/bananalamp,
+	)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_cameraflash
+	name = "разобрать фотоаппарат"
+	result = list(
+		/obj/item/circuit_component/camera = 1,
+		/obj/item/circuit_component/light = 1,
+	)
+	reqs = list(/obj/item/flash/cameraflash = 1)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_gps
+	name = "разобрать ГПС"
+	result = list(
+		/obj/item/circuit_component/gps = 1,
+		/obj/item/circuit_component/keyboard_shell = 1,
+		/obj/item/circuit_component/light = 1,
+		/obj/item/stock_parts/capacitor = 1,
+	)
+	reqs = list(/obj/item/gps = 1)
+	tools = list(TOOL_SCREWDRIVER)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_healthanalyzer
+	name = "разобрать ручной сканер тела"
+	result = list(
+		/obj/item/assembly/health = 1,
+		/obj/item/circuit_component/light = 1,
+		/obj/item/stock_parts/scanning_module = 1,
+	)
+	reqs = list(/obj/item/healthanalyzer = 1)
+	tools = list(TOOL_SCREWDRIVER)
+	blacklist = list(
+		/obj/item/healthanalyzer/abductor,
+		/obj/item/healthanalyzer/gem_analyzer,
+	)
+	time = 40
+	category = CAT_ELECTRICAL
+	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
+/datum/crafting_recipe/disassemble_healthassembly
+	name = "разобрать сенсор здоровья"
+	result = list(
+		/obj/item/circuit_component/compare/health_state = 1,
+		/obj/item/circuit_component/health = 1,
+	)
+	reqs = list(/obj/item/assembly/health = 1)
+	tools = list(TOOL_SCREWDRIVER)
+	blacklist = list(
+		/obj/item/healthanalyzer/abductor,
+		/obj/item/healthanalyzer/gem_analyzer,
+	)
+	time = 20
 	category = CAT_ELECTRICAL
 	subcategory = CAT_ELECTRICAL_DISASSEMBLY
