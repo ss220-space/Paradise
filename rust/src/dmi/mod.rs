@@ -139,18 +139,14 @@ fn create_png(path: &str, width: &str, height: &str, data: &str) -> eyre::Result
 
     let bytes = data.as_bytes();
 
-    let pixel_count = bytes.split(|&b| b == b'#').count() - 1;
-    let mut result = Vec::with_capacity(pixel_count * 4);
-
+    let mut result: Vec<u8> = Vec::new();
     for pixel in bytes.split(|&b| b == b'#').skip(1) {
         if pixel.len() != 6 && pixel.len() != 8 {
             return Err(eyre::eyre!("Invalid PNG data"));
         }
-
         for channel in pixel.chunks_exact(2) {
             result.push(u8::from_str_radix(std::str::from_utf8(channel)?, 16)?);
         }
-
         // If only RGB is provided for any pixel we also add alpha
         if pixel.len() == 6 {
             result.push(255);
@@ -166,13 +162,8 @@ fn create_png(path: &str, width: &str, height: &str, data: &str) -> eyre::Result
     let mut encoder = Encoder::new(File::create(path)?, width, height);
     encoder.set_color(png::ColorType::Rgba);
     encoder.set_depth(png::BitDepth::Eight);
-
-    {
-        let mut writer = encoder.write_header()?;
-        writer.write_image_data(&result)?;
-    }
-
-    Ok(())
+    let mut writer = encoder.write_header()?;
+    Ok(writer.write_image_data(&result)?)
 }
 
 fn resize_png<P: AsRef<Path>>(
@@ -360,23 +351,12 @@ fn inject_metadata(path: &str, metadata: &str) -> eyre::Result<()> {
     info.compressed_latin1_text
         .push(ZTXtChunk::new("Description", new_metadata_string));
 
-    let estimated_size = info.width as usize
-        * info.height as usize
-        * info.color_type.samples()
-        * info.bit_depth as usize
-        / 8;
-    let mut raw_image_data = Vec::with_capacity(estimated_size);
-
+    let mut raw_image_data: Vec<u8> = vec![];
     while let Some(row) = reader.next_row()? {
-        raw_image_data.extend_from_slice(row.data());
+        raw_image_data.append(&mut row.data().to_vec());
     }
-
-    {
-        let encoder = png::Encoder::with_info(File::create(path)?, info)?;
-        let mut writer = encoder.write_header()?;
-        writer.write_image_data(&raw_image_data)?;
-    }
-
+    let encoder = png::Encoder::with_info(File::create(path)?, info)?;
+    encoder.write_header()?.write_image_data(&raw_image_data)?;
     Ok(())
 }
 
