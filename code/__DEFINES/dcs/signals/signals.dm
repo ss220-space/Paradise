@@ -1563,7 +1563,6 @@
 /// Called when proc need to upgrade mob's strength level.
 #define COMSIG_STRENGTH_LEVEL_UP "strength_level_up"
 /// Called when proc need to reduce mob's strength level.
-#define COMSIG_REDUCE_STRENGTH "reduce_strength"
 /// Called when proc need to get weak mob modifier.
 #define COMSIG_GET_WEAK_MOB_MODIFIERS "get_weak_mob_modifiers"
 #define COMSIG_CRYOPOD_DESPAWN "cryopod_despawn"

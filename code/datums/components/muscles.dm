@@ -10,6 +10,7 @@
 	/// Points of strength that this body already has. They are used to change the strength level.
 	var/strength_points = 0
 
+
 /datum/component/muscles/Initialize(max_species_strength = STRENGTH_LEVEL_MAXDEFAULT, default_strength = STRENGTH_LEVEL_DEFAULT, can_become_stronger = TRUE)
 	..()
 	if(!ishuman(parent))
@@ -37,7 +38,6 @@
 	RegisterSignal(parent, COMSIG_GET_BOLA_MODIFIERS, PROC_REF(get_bolas_time_modifier))
 	RegisterSignal(parent, COMSIG_GET_HUNGER_MODS, PROC_REF(get_hunger_mod))
 	RegisterSignal(parent, COMSIG_STRENGTH_LEVEL_UP, PROC_REF(strength_level_up))
-	RegisterSignal(parent, COMSIG_REDUCE_STRENGTH, PROC_REF(reduce_strength))
 	RegisterSignal(parent, COMSIG_GET_WEAK_MOB_MODIFIERS, PROC_REF(on_get_weak_mob_modifiers))
 
 /datum/component/muscles/UnregisterFromParent()
@@ -292,22 +292,6 @@
 	SIGNAL_HANDLER
 	modifiers.Add(usable_strength_level.weak_mob_modifier)
 
-/datum/component/muscles/proc/reduce_strength(datum/source, amount = 1)
-	SIGNAL_HANDLER
-
-	// Логируем, что сигнал получен
-	log_game("Сигнал reduce_strength получен для [parent]. amount = [amount]")
-
-	// Только уменьшаем очки без изменения уровня
-	strength_points = max(0, strength_points - amount)
-
-	// Можно добавить сообщение игроку
-	if(amount > 0 && isliving(parent))
-		var/mob/living/L = parent
-		to_chat(L, span_danger("Вы чувствуете слабость (-[amount] силы)"))
-
-	return strength_points
-//хуйня не работает😼
 
 #undef REQ_STAMINA_FOR_STRENGTH_POINT
 #undef REQ_NUTRITION_FOR_STRENGTH_POINT
