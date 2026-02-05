@@ -214,7 +214,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 		gun_accuracy = gun.accuracy
 	var/def_zone_accuracy = gun_accuracy.get_accuracy_for(projectile.def_zone)
 	var/distance_mod = accuracy_for_distance(distance) / 100
-	CALCULATE_SKILL_MOD(projectile.firer, COMSIG_GET_ACCURACY_MOD, skill_mod)
+	var/skill_mod = 1
+	if(projectile.firer)
+		CALCULATE_SKILL_MOD(projectile.firer, COMSIG_GET_ACCURACY_MOD, skill_modifier)
+		skill_mod = skill_modifier
 	return clamp(def_zone_accuracy * distance_mod * skill_mod, 0, 100)
 
 #define FULL_ACCURACY_DISTANCE 3
@@ -235,7 +238,10 @@ GLOBAL_DATUM_INIT(gun_accuracy_sniper, /datum/gun_accuracy, GUN_ACCURACY_SNIPER)
 		gun_accuracy = gun.accuracy
 	var/def_zone_accuracy = gun_accuracy.get_accuracy_for(projectile.def_zone)
 	var/distance_accuracy = max(100 - 3*distance, 33) / 100
-	CALCULATE_SKILL_MOD(projectile.firer, COMSIG_GET_ACCURACY_MOD, skill_mod)
+	var/skill_mod
+	if(projectile.firer)
+		CALCULATE_SKILL_MOD(projectile.firer, COMSIG_GET_ACCURACY_MOD, skill_modifier)
+		skill_mod = skill_modifier
 	return clamp(def_zone_accuracy * distance_accuracy * skill_mod, 0, 100)
 
 #undef FULL_ACCURACY_DISTANCE
