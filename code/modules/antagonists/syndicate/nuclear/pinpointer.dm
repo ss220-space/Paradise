@@ -433,6 +433,7 @@
 	icon_medium = "pinonmedium_crew"
 	icon_far = "pinonfar_crew"
 	modes = list(MODE_CREW)
+	custom_price = PAYCHECK_CREW
 
 /obj/item/pinpointer/crew/examine(mob/user)
 	. = ..()

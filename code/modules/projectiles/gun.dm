@@ -687,7 +687,8 @@
 		gun.zoom(owner, FALSE)
 
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, FALSE)
+	if(gun)
+		gun.zoom(L, FALSE)
 	..()
 
 /datum/action/toggle_scope_zoom/Destroy()

@@ -23,6 +23,8 @@
 	broken_lightmask_overlay = "snack_broken_lightmask"
 	broken_lightmask_overlay = "snack_broken_lightmask"
 	refill_canister = /obj/item/vending_refill/sustenance
+	default_price = PAYCHECK_MIN / 2 // prisoners are very poor
+	default_premium_price = PAYCHECK_LOWER / 2
 
 	products = list(
 		/obj/item/reagent_containers/food/snacks/tofu = 24,
