@@ -438,6 +438,7 @@ SUBSYSTEM_DEF(timer)
 		callBack.object.active_timers -= src
 		UNSETEMPTY(callBack.object.active_timers)
 	callBack.object = null
+	LAZYCLEARLIST(callBack?.arguments)
 	callBack = null
 
 	if(flags & TIMER_STOPPABLE)

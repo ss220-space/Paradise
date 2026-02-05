@@ -584,6 +584,10 @@ Difficulty: Hard
 	if(new_caster)
 		caster = new_caster
 
+/obj/effect/temp_visual/hierophant/Destroy()
+	caster = null
+	. = ..()
+
 /obj/effect/temp_visual/hierophant/squares
 	icon_state = "hierophant_squares"
 	duration = 3
@@ -664,6 +668,11 @@ Difficulty: Hard
 	if(new_speed)
 		speed = new_speed
 	addtimer(CALLBACK(src, PROC_REF(seek_target)), 1)
+
+/obj/effect/temp_visual/hierophant/chaser/Destroy()
+	target = null
+	targetturf = null
+	. = ..()
 
 /obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
@@ -762,6 +771,10 @@ Difficulty: Hard
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/temp_visual/hierophant/blast/Destroy()
+	LAZYCLEARLIST(hit_things)
+	. = ..()
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)

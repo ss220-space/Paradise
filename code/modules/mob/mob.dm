@@ -10,6 +10,7 @@
 		observe.stop_orbit()
 		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
+	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
