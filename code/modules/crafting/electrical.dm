@@ -83,7 +83,7 @@
 		/obj/item/stock_parts/cell = 1,
 		/obj/item/stack/sheet/metal = 5
 	)
-	result = /obj/item/flashlight/lamp = 1
+	result = /obj/item/flashlight/lamp
 	tools = list(TOOL_SCREWDRIVER)
 	time = 40
 	category = CAT_ELECTRICAL
