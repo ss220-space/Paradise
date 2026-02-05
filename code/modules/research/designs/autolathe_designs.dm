@@ -19,7 +19,7 @@
 /datum/design/flashlight
 	id = "flashlight"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 800, MAT_GLASS = 600)
 	build_path = /obj/item/flashlight
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_TOOLS)
 
@@ -33,7 +33,7 @@
 /datum/design/multitool
 	id = "multitool"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 50, MAT_GLASS = 20)
+	materials = list(MAT_METAL = 50, MAT_GLASS = 600)
 	build_path = /obj/item/multitool
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_TOOLS)
 
@@ -389,7 +389,7 @@
 /datum/design/healthanalyzer
 	id = "healthanalyzer"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 500, MAT_GLASS = 50)
+	materials = list(MAT_METAL = 200, MAT_GLASS = 600)
 	build_path = /obj/item/healthanalyzer
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
@@ -494,7 +494,7 @@
 /datum/design/bounced_radio
 	id = "bounced_radio"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 75, MAT_GLASS = 25)
+	materials = list(MAT_METAL = 750, MAT_GLASS = 250)
 	build_path = /obj/item/radio/off
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_COMMUNICATION)
 
@@ -508,7 +508,7 @@
 /datum/design/health_sensor
 	id = "health_sensor"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 800, MAT_GLASS = 200)
+	materials = list(MAT_METAL = 100, MAT_GLASS = 400)
 	build_path = /obj/item/assembly/health
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_MEDICAL)
 
