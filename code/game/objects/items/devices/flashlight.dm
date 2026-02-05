@@ -211,6 +211,25 @@
 		PREPOSITIONAL = "маломощном фонаре",
 	)
 
+/obj/item/flashlight/makeshift
+	name = "makeshift flashlight"
+	desc = "Связка из батарейки лампочки и скотча, в качестве кнопки используется настенный выключатель. Оно проклято."
+	icon_state = "makeshift-flashlight"
+	item_state = "makeshift-flashlight"
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = NONE
+	light_range = 4
+
+/obj/item/flashlight/drone/get_ru_names()
+	return list(
+		NOMINATIVE = "самодельный фонарь",
+		GENITIVE = "самодельного фонаря",
+		DATIVE = "самодельному фонарю",
+		ACCUSATIVE = "самодельный фонарь",
+		INSTRUMENTAL = "самодельным фонарём",
+		PREPOSITIONAL = "самодельном фонаре",
+	)
+
 /**
  * MARK: Desk lamps
  */
@@ -223,7 +242,7 @@
 	item_state = "lamp"
 	light_range = 5
 	w_class = WEIGHT_CLASS_BULKY
-	materials = list()
+	materials = list(MAT_METAL=100, MAT_GLASS=100)
 	on = TRUE
 	light_color = COLOR_PALE_YELLOW
 
@@ -235,6 +254,27 @@
 		ACCUSATIVE = "настольную лампу",
 		INSTRUMENTAL = "настольной лампой",
 		PREPOSITIONAL = "настольной лампе",
+	)
+
+/obj/item/lamp_disassembled
+	name = "disassembled desk lamp"
+	desc = "Стационарный источник света. Предназначена в первую очередь для офисного освещения. Разобран."
+	gender = MALE
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lamp"
+	item_state = "lamp-disassembled"
+	w_class = WEIGHT_CLASS_SMALL
+	flags = CONDUCT
+	materials = list(MAT_METAL=50)
+
+/obj/item/lamp_disassembled/get_ru_names()
+	return list(
+		NOMINATIVE = "разобранная настольная лампа",
+		GENITIVE = "разобранной настольной лампы",
+		DATIVE = "разобранной настольной лампе",
+		ACCUSATIVE = "разобранную настольную лампу",
+		INSTRUMENTAL = "разобранной настольной лампой",
+		PREPOSITIONAL = "разобранной настольной лампе",
 	)
 
 /obj/item/flashlight/lamp/green
@@ -254,6 +294,23 @@
 		PREPOSITIONAL = "зелёной настольной лампе",
 	)
 
+/obj/item/lamp_disassembled/green
+	name = "disassembled green desk lamp"
+	desc = "Стационарный источник света. Классический вариант зелёного цвета. Разобран."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lampgreen"
+	item_state = "lampgreen-disassembled"
+
+/obj/item/lamp_disassembled/green/get_ru_names()
+	return list(
+		NOMINATIVE = "разобранная зелёная настольная лампа",
+		GENITIVE = "разобранной зелёной настольной лампы",
+		DATIVE = "разобранной зелёной настольной лампе",
+		ACCUSATIVE = "разобранную зелёную настольную лампу",
+		INSTRUMENTAL = "разобранной зелёной настольной лампой",
+		PREPOSITIONAL = "разобранной зелёной настольной лампе",
+	)
+
 /obj/item/flashlight/lamp/bananalamp
 	name = "banana lamp"
 	desc = "Стационарный источник света. Жёлтого цвета лампа с абажуром в форме \
@@ -270,6 +327,23 @@
 		ACCUSATIVE = "банановую настольную лампу",
 		INSTRUMENTAL = "банановой настольной лампой",
 		PREPOSITIONAL = "банановой настольной лампе",
+	)
+
+/obj/item/lamp_disassembled/bananalamp
+	name = "disassembled banana lamp"
+	desc = "Стационарный источник света. Лампа жёлтого цвета с дурацким шнуром. Нехватает абажура в форме банановой кожуры и остальных деталей."
+	icon = 'icons/obj/lighting.dmi'
+	icon_state = "lampgreen"
+	item_state = "lampgreen-disassembled"
+
+/obj/item/lamp_disassembled/bananalamp/get_ru_names()
+	return list(
+		NOMINATIVE = "разобранная банановая настольная лампа",
+		GENITIVE = "разобранной банановой настольной лампы",
+		DATIVE = "разобранной банановой настольной лампе",
+		ACCUSATIVE = "разобранную банановую настольную лампу",
+		INSTRUMENTAL = "разобранной банановой настольной лампой",
+		PREPOSITIONAL = "разобранной банановой настольной лампе",
 	)
 
 /**
