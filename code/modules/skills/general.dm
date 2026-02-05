@@ -14,7 +14,7 @@
 	name = "Управление мехами (подами)"
 	desc = "Влияет на скорость передвижения мехов и подов. Также влияет на скорость разряда батареи."
 	duration_mod_signals = list(COMSIG_GET_MECHA_DRIVING_SPEED_MOD, COMSIG_GET_MECHA_CLIMBING_SPEED_MOD)
-	duration_mod_signals = list(COMSIG_GET_MECHA_CELL_USAGE_MOD)
+	quality_mod_signals =  = list(COMSIG_GET_MECHA_CELL_USAGE_MOD)
 
 /datum/skill/general/mod_use
 	id = "general.mod_use"
