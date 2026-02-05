@@ -45,7 +45,7 @@
 	id = "digitalcamera"
 	req_tech = list(RESEARCH_TREE_PROGRAMMING = 2, RESEARCH_TREE_MATERIALS = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 500, MAT_GLASS = 300)
+	materials = list(MAT_METAL = 500, MAT_GLASS = 500)
 	build_path = /obj/item/camera/digital
 	category = list(PROTOLATHE_CATEGORY_MISC)
 
