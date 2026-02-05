@@ -1839,7 +1839,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
 	if(!self_chest || !istype(self_chest))
 		return
-	var/body = brains.original_body.resolve()
+	var/body = brains.original_body?.resolve()
 	if(body == self_chest)
 		return
 	if(body)
