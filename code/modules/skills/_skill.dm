@@ -72,8 +72,8 @@ GLOBAL_LIST_EMPTY(skills)
 		var/datum/skill/skill = GLOB.skills[skill_name]
 		var/level = get_skill_level(skill.type)
 		user_mind.set_skill_level(skill.type, level)
-		if(level != SKILL_LEVEL_UNAVAILABLE)
-			skill.apply_to_mob(user)
+		if(level == SKILL_LEVEL_UNAVAILABLE)
+			skill.remove_from_mob(user)
 
 // Show skills window from verbs
 /mob/verb/view_skills_win()

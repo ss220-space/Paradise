@@ -1,3 +1,10 @@
+#define DEFAULT_SKILL_LEVEL SKILL_LEVEL_NONE
+
+/datum/mind/proc/init_skills()
+	for(var/skill_name in GLOB.skills)
+		var/datum/skill/skill = GLOB.skills[skill_name]
+		set_skill_level(skill.type, DEFAULT_SKILL_LEVEL)
+		skill.apply_to_mob(current)
 
 /datum/mind/proc/get_skill_level(skill_type)
 	var/level = skills[skill_type]
@@ -24,3 +31,5 @@
 	if(get_skill_level(skill_type) == SKILL_LEVEL_UNAVAILABLE)
 		return SKILL_NOT_AVAILABLE_RESULT
 	return SKILL_AVAILABLE_RESULT
+
+#undef DEFAULT_SKILL_LEVEL
