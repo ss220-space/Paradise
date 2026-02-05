@@ -35,7 +35,9 @@ const SkillCategoryTable = (category: SkillsCategory) => {
               <br />
             </Table.Cell>
             <Table.Cell width="75%" mb={5}>
-              <span color='#828163'><i>{skill.desc}</i></span>
+              <span color="#828163">
+                <i>{skill.desc}</i>
+              </span>
               <br />
               <Box inline>
                 Уровень: [
@@ -62,20 +64,20 @@ export const SkillsWin = (props: unknown) => {
     <Window width={725} height={800} theme="nologo">
       <Window.Content scrollable>
         <Section title={username}>
-            {categories.map((category: SkillsCategory) => (
-              <Section
-                key={category.name}
-                title={
-                  <Box backgroundColor={category.color} m={-1} pt={1} pb={1}>
-                    <Box ml={1} fontSize={1.2}>
-                      {category.name}
-                    </Box>
+          {categories.map((category: SkillsCategory) => (
+            <Section
+              key={category.name}
+              title={
+                <Box backgroundColor={category.color} m={-1} pt={1} pb={1}>
+                  <Box ml={1} fontSize={1.2}>
+                    {category.name}
                   </Box>
-                }
-              >
-                {SkillCategoryTable(category)}
-              </Section>
-            ))}
+                </Box>
+              }
+            >
+              {SkillCategoryTable(category)}
+            </Section>
+          ))}
         </Section>
       </Window.Content>
     </Window>
