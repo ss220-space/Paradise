@@ -14,12 +14,13 @@
 	name = "Управление мехами (подами)"
 	desc = "Влияет на скорость передвижения мехов и подов. Также влияет на скорость разряда батареи."
 	duration_mod_signals = list(COMSIG_GET_MECHA_DRIVING_SPEED_MOD, COMSIG_GET_MECHA_CLIMBING_SPEED_MOD)
-	duration_mod_signals = list(COMSIG_GET_MECHA_CELL_USAGE_MOD)
+	quality_mod_signals = list(COMSIG_GET_MECHA_CELL_USAGE_MOD)
 
 /datum/skill/general/mod_use
 	id = "general.mod_use"
 	name = "ВКД"
 	desc = "Влияет на скорость одевания МЭКов и РИГов."
+	duration_mod_signals = list(COMSIG_GET_MOD_ACTIVATION_SPEED_MOD, COMSIG_GET_SPACESUIT_SLOWDOWN_MOD)
 
 /datum/skill/general/cooking
 	id = "general.cooking"

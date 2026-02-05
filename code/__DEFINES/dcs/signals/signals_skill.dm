@@ -43,6 +43,10 @@
 #define COMSIG_GET_MECHA_CLIMBING_SPEED_MOD "get_mecha_climbing_speed"
 /// Get quality modifier for cell charge usage on mechs (mob/living/user, list/modifiers)
 #define COMSIG_GET_MECHA_CELL_USAGE_MOD "get_mecha_charge_usage"
+/// Get speed modifier for activating MOD suits (mob/living/user, list/modifiers)
+#define COMSIG_GET_MOD_ACTIVATION_SPEED_MOD "get_mod_activation_speed"
+/// Get slowdown modifier for worn space-suits/hardsuits/MOD suits (mob/living/user, list/modifiers)
+#define COMSIG_GET_SPACESUIT_SLOWDOWN_MOD "get_spacesuit_slowdown"
 
 
 // MARK: Combat
