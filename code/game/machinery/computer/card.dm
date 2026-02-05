@@ -608,7 +608,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				to_chat(usr, span_warning("У вас не хватает прав для выполнения процедуры увольнения сотрудника."))
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
-			var/reason = tgui_input_text(usr, "Укажите законную причину для увольнения. Трудовой контракт с сотрудников будет расторгнут и он перестанет числиться как член экипажа объекта. В случае пустого ввода увольнение будет отменено.", "Увольнение сотрудника", max_length = MAX_MESSAGE_LEN)
+			var/reason = tgui_input_text(usr, "Укажите законную причину для увольнения. Трудовой контракт с сотрудником будет расторгнут и он перестанет числиться как член экипажа объекта. В случае пустого ввода увольнение будет отменено.", "Расторжение контракта", max_length = MAX_MESSAGE_LEN)
 			if(!reason || !has_idchange_access() || !modify)
 				return FALSE
 			var/m_ckey = modify.getPlayerCkey()

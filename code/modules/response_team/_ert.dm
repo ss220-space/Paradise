@@ -54,7 +54,7 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	GLOB.active_team.setSlots(commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 	GLOB.send_emergency_team = TRUE
-	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Присоединиться к Отряду Быстрого Реагирования?",, GLOB.responseteam_age, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
+	var/list/ert_candidates = shuffle(SSghost_spawns.poll_candidates("Присоединиться к Отряду Быстрого Реагирования?",, GLOB.responseteam_age, 5 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_ERT]))
 	if(!length(ert_candidates))
 		GLOB.active_team.cannot_send_team()
 		GLOB.send_emergency_team = FALSE
@@ -77,12 +77,12 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	var/list/ert_prefs = list()
 	for(var/mob/M in GLOB.response_team_members)
 		INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(get_ert_prefs), M, ert_prefs)
-	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), GLOB.response_team_members, ert_prefs), 31 SECONDS) // one additional second for some client-server lags
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(dispatch_response_team), GLOB.response_team_members, ert_prefs), 11 SECONDS) // one additional second for some client-server lags
 
 /proc/get_ert_prefs(mob/user, list/ert_prefs)
 	ert_prefs[user] = list()
-	ert_prefs[user]["gender"] = tgui_input_list(user, "Выберите пол (10 секунд):","", list("Мужской", "Женский"), timeout = 10 SECONDS)
-	ert_prefs[user]["roles"] = tgui_input_ranked_list(user, "Расположите роли ОБР от наиболее предпочтительных к наименее предпочтительным (20 секунд):", "", GLOB.active_team.get_slot_list(), timeout = 20 SECONDS)
+	ert_prefs[user]["gender"] = tgui_input_list(user, "Выберите пол (10 секунд):","", list("Мужской", "Женский"), timeout = 5 SECONDS)
+	ert_prefs[user]["roles"] = tgui_input_ranked_list(user, "Расположите роли ОБР от наиболее предпочтительных к наименее предпочтительным (20 секунд):", "", GLOB.active_team.get_slot_list(), timeout = 5 SECONDS)
 
 /proc/dispatch_response_team(list/response_team_members, list/ert_prefs)
 	var/spawn_index = 1

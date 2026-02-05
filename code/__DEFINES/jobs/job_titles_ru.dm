@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 
 // Special ones
 #define JOB_TITLE_RU_DEMOTED "Разжалован"
-#define JOB_TITLE_RU_TERMINATED "Уволен"
+#define JOB_TITLE_RU_TERMINATED "Контракт расторгнут"
 
 GLOBAL_LIST_INIT(job_titles_ru, list(
 // Command (Solo command, not department heads)

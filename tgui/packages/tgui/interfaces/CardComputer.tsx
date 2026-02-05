@@ -471,9 +471,11 @@ export const CardComputer = (props: unknown) => {
                 {!!data.canterminate && (
                   <LabeledList.Item label="Увольнение">
                     <Button
-                      disabled={data.modify_assignment === 'Уволен'}
+                      disabled={
+                        data.modify_assignment === 'Контракт расторгнут'
+                      }
                       key="Terminate"
-                      tooltip="Без доступа. Не член экипажа."
+                      tooltip="Увольнение и расторжения трудового контракта. Сотрудик лишится всех уровней доступа и перестанет быть членом экипажа."
                       color="red"
                       icon="eraser"
                       onClick={() => act('terminate')}

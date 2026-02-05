@@ -8,7 +8,7 @@
 	W.age = H.age
 	W.sex = capitalize(H.gender)
 	W.registered_name = H.real_name
-	W.access = get_centcom_access(W.assignment)
+	W.access = get_centcom_access(ert_job)
 	W.law_level = LAW_LEVEL_RESPONSE_TEAM
 	W.photo = get_id_photo(H)
 	if(H.mind && H.mind.initial_account && H.mind.initial_account.account_number)
