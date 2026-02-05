@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(skills)
 	var/list/duration_mod_signals = list()
 	var/list/quality_mod_signals = list()
 	// Default modifiers
-	var/speed_modifiers = list(
+	var/speed_modifiers = alist(
 		SKILL_LEVEL_NONE = 2,
 		SKILL_LEVEL_BEGINNER = 1.5,
 		SKILL_LEVEL_BASIC = 1,
@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(skills)
 		SKILL_LEVEL_LEGEND = 0.1,
 		SKILL_LEVEL_UNAVAILABLE = 1000,
 	)
-	var/quality_modifiers = list(
+	var/quality_modifiers = alist(
 		SKILL_LEVEL_NONE = 0.5,
 		SKILL_LEVEL_BEGINNER = 0.75,
 		SKILL_LEVEL_BASIC = 1,

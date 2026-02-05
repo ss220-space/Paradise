@@ -46,9 +46,9 @@ GLOBAL_DATUM_INIT(skills_window, /datum/ui_module/skills_win, new)
 			var/list/skill_data = list()
 			skill_data["name"] = skill.name
 			GET_SKILL_LEVEL(user, skill.type, skill_level)
-			var/skill_level_name = GLOB.skill_level_names["[skill_level]"]
+			var/skill_level_name = GLOB.skill_level_names[skill_level]
 			skill_data["value"] = "[skill_level_name] ([skill_level])"
-			var/skill_level_color = GLOB.skill_level_colors["[skill_level]"]
+			var/skill_level_color = GLOB.skill_level_colors[skill_level]
 			skill_data["level_color"] = skill_level_color
 			skill_data["desc"] = skill.desc
 			skills.Add(list(skill_data))

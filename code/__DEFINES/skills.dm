@@ -1,4 +1,5 @@
 // skill levels defines
+#define SKILL_LEVEL_UNAVAILABLE 0
 #define SKILL_LEVEL_NONE 1
 #define SKILL_LEVEL_BEGINNER 2
 #define SKILL_LEVEL_BASIC 3
@@ -6,7 +7,6 @@
 #define SKILL_LEVEL_PROFESSIONAL 5
 #define SKILL_LEVEL_EXPERT 6
 #define SKILL_LEVEL_LEGEND 7
-#define SKILL_LEVEL_UNAVAILABLE 8
 
 /// Maximal level of skill level
 #define MAX_SKILL_LEVEL 6
@@ -32,23 +32,23 @@
 /// Check level great than
 #define CHECK_SKILL_LEVEL(user, skill_type, req_level) (AVAILABLE_SKILL(user, skill_type) && SEND_SIGNAL(user, COMSIG_SKILL_AVAILABLE, skill_type) >= req_level)
 
-GLOBAL_LIST_INIT(skill_level_names, list(
-	"[SKILL_LEVEL_NONE]" = "нет навыка",
-	"[SKILL_LEVEL_BEGINNER]" = "начальный навык",
-	"[SKILL_LEVEL_BASIC]" = "базовый навык",
-	"[SKILL_LEVEL_ADVANCED]" = "продвинутый навык",
-	"[SKILL_LEVEL_PROFESSIONAL]" = "профессиональный навык",
-	"[SKILL_LEVEL_EXPERT]" = "экспертный навык",
-	"[SKILL_LEVEL_LEGEND]" = "легендарный навык",
-	"[SKILL_LEVEL_UNAVAILABLE]" = "недоступно",
+GLOBAL_LIST_INIT(skill_level_names, alist(
+	SKILL_LEVEL_NONE = "нет навыка",
+	SKILL_LEVEL_BEGINNER = "начальный навык",
+	SKILL_LEVEL_BASIC = "базовый навык",
+	SKILL_LEVEL_ADVANCED = "продвинутый навык",
+	SKILL_LEVEL_PROFESSIONAL = "профессиональный навык",
+	SKILL_LEVEL_EXPERT = "экспертный навык",
+	SKILL_LEVEL_LEGEND = "легендарный навык",
+	SKILL_LEVEL_UNAVAILABLE = "недоступно",
 ))
-GLOBAL_LIST_INIT(skill_level_colors, list(
-	"[SKILL_LEVEL_NONE]" = "#ea9999",
-	"[SKILL_LEVEL_BEGINNER]" = "#ffe599",
-	"[SKILL_LEVEL_BASIC]" = "#b6d7a8",
-	"[SKILL_LEVEL_ADVANCED]" = "#a4c2f4",
-	"[SKILL_LEVEL_PROFESSIONAL]" = "#3c78d8",
-	"[SKILL_LEVEL_EXPERT]" = "#b4a7d6",
-	"[SKILL_LEVEL_LEGEND]" = "#a64d79",
-	"[SKILL_LEVEL_UNAVAILABLE]" = "#999999",
+GLOBAL_LIST_INIT(skill_level_colors, alist(
+	SKILL_LEVEL_NONE = "#ea9999",
+	SKILL_LEVEL_BEGINNER = "#ffe599",
+	SKILL_LEVEL_BASIC = "#b6d7a8",
+	SKILL_LEVEL_ADVANCED = "#a4c2f4",
+	SKILL_LEVEL_PROFESSIONAL = "#3c78d8",
+	SKILL_LEVEL_EXPERT = "#b4a7d6",
+	SKILL_LEVEL_LEGEND = "#a64d79",
+	SKILL_LEVEL_UNAVAILABLE = "#999999",
 ))

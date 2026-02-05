@@ -136,6 +136,9 @@
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Hydroponicist", "Botanical Researcher")
 	outfit = /datum/outfit/job/botanist
+	skill_levels = list(
+		/datum/skill/general/carring = SKILL_LEVEL_UNAVAILABLE,
+	)
 
 /datum/outfit/job/botanist
 	name = JOB_TITLE_BOTANIST
