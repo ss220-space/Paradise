@@ -700,7 +700,7 @@
 	var/total_slowdown = 0
 	var/skill_factor = 1
 	if(wearer)
-		CALCULATE_SKILL_MOD(wearer, GET_SPACESUIT_SLOWDOWN_MOD, skill_modifier)
+		CALCULATE_SKILL_MOD(wearer, COMSIG_GET_SPACESUIT_SLOWDOWN_MOD, skill_modifier)
 		skill_factor = skill_modifier
 	total_slowdown += slowdown_deployed * skill_factor
 

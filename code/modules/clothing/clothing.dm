@@ -1053,8 +1053,8 @@
 		CALCULATE_SKILL_MOD(user, COMSIG_GET_SPACESUIT_SLOWDOWN_MOD, skill_factor)
 		slowdown *= skill_factor
 		if(jetpack)
-		for(var/datum/action/action as anything in jetpack.actions)
-			action.Grant(user)
+			for(var/datum/action/action as anything in jetpack.actions)
+				action.Grant(user)
 	else
 		slowdown = initial(slowdown)
 
