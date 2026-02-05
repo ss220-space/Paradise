@@ -698,7 +698,11 @@
 
 /obj/item/mod/control/proc/update_speed()
 	var/total_slowdown = 0
-	total_slowdown += slowdown_deployed
+	var/skill_factor = 1
+	if(wearer)
+		CALCULATE_SKILL_MOD(wearer, GET_SPACESUIT_SLOWDOWN_MOD, skill_modifier)
+		skill_factor = skill_modifier
+	total_slowdown += slowdown_deployed * skill_factor
 
 	var/list/module_slowdowns = list()
 	SEND_SIGNAL(src, COMSIG_MOD_UPDATE_SPEED, module_slowdowns)

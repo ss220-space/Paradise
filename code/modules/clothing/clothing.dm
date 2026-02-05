@@ -1049,9 +1049,14 @@
 
 /obj/item/clothing/suit/space/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
-	if(jetpack && slot == ITEM_SLOT_CLOTH_OUTER)
+	if(slot == ITEM_SLOT_CLOTH_OUTER)
+		CALCULATE_SKILL_MOD(user, COMSIG_GET_SPACESUIT_SLOWDOWN_MOD, skill_factor)
+		slowdown *= skill_factor
+		if(jetpack)
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Grant(user)
+	else
+		slowdown = initial(slowdown)
 
 /obj/item/clothing/suit/space/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
@@ -1059,6 +1064,7 @@
 		for(var/datum/action/action as anything in jetpack.actions)
 			action.Remove(user)
 		jetpack.turn_off(user)
+	slowdown = initial(slowdown)
 
 /obj/item/clothing/suit/space/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/tank/jetpack/suit))
