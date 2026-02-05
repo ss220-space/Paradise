@@ -114,7 +114,7 @@
 	reqs = list(
 		/obj/item/restraints/handcuffs/cable = 1,
 		/obj/item/stack/rods = 1,
-		/obj/item/assembly/igniter = 1
+		/obj/item/assembly/igniter = 1,
 	)
 	result = /obj/item/melee/baton/security/cattleprod
 	time = 40
@@ -126,7 +126,7 @@
 	reqs = list(
 		/obj/item/stack/tape_roll = 15,
 		/obj/item/stack/rods = 1,
-		/obj/item/assembly/igniter = 1
+		/obj/item/assembly/igniter = 1,
 	)
 	result = /obj/item/melee/baton/security/cattleprod
 	time = 40
