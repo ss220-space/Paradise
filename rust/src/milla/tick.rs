@@ -7,7 +7,7 @@ use scc::Bag;
 use std::sync::RwLock;
 use thread_priority;
 
-const TARGET_CAPACITY_FACTOR: usize = 3;
+const TARGET_CAPACITY_FACTOR: usize = 2;
 
 /// Runs a single tick of the atmospherics model, multi-threaded by Z level.
 pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
