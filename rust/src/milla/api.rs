@@ -764,6 +764,26 @@ fn milla_set_zlevel_frozen(
     Ok(ByondValue::null())
 }
 
+#[byondapi::bind]
+fn milla_reset() -> eyre::Result<ByondValue> {
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    buffers.clear_and_free_z_levels();
+
+    {
+        let mut interesting = INTERESTING_TILES.lock().unwrap();
+        interesting.clear();
+        interesting.shrink_to_fit();
+    }
+
+    {
+        let mut tracked = TRACKED_PRESSURE_TILES.lock().unwrap();
+        tracked.clear();
+        tracked.shrink_to_fit();
+    }
+
+    Ok(ByondValue::null())
+}
+
 // Yay, tests!
 #[cfg(test)]
 mod tests {

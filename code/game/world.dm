@@ -1,5 +1,5 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
-#define CLEAR_RUST_CACHE rustlib_clear_uuid_storage(); rustlib_iconforge_cleanup_all();
+#define CLEAR_RUST_CACHE rustlib_clear_uuid_storage(); rustlib_iconforge_cleanup_all(); milla_reset();
 
 #ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)

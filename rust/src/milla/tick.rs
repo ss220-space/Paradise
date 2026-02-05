@@ -4,10 +4,10 @@ use crate::milla::statics::*;
 use eyre;
 use rayon::prelude::*;
 use scc::Bag;
-use std::sync::Arc;
-use std::sync::Mutex;
 use std::sync::RwLock;
 use thread_priority;
+
+const TARGET_CAPACITY_FACTOR: usize = 3;
 
 /// Runs a single tick of the atmospherics model, multi-threaded by Z level.
 pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
@@ -39,6 +39,12 @@ pub(crate) fn tick(buffers: &Buffers) -> Result<(), eyre::Error> {
     buffers.flip();
 
     let mut interesting_tiles = INTERESTING_TILES.lock().unwrap();
+    let new_items_count = new_interesting_tiles.len();
+
+    if interesting_tiles.capacity() * 2 > new_items_count * TARGET_CAPACITY_FACTOR {
+        interesting_tiles.shrink_to(new_items_count);
+    }
+
     interesting_tiles.clear();
     interesting_tiles.extend(new_interesting_tiles);
 
