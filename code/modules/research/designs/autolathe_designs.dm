@@ -19,7 +19,7 @@
 /datum/design/flashlight
 	id = "flashlight"
 	build_type = AUTOLATHE
-	materials = list(MAT_METAL = 800, MAT_GLASS = 600)
+	materials = list(MAT_METAL = 700, MAT_GLASS = 150)
 	build_path = /obj/item/flashlight
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_TOOLS)
 
