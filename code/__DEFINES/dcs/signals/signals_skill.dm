@@ -47,7 +47,8 @@
 #define COMSIG_GET_MOD_ACTIVATION_SPEED_MOD "get_mod_activation_speed"
 /// Get slowdown modifier for worn space-suits/hardsuits/MOD suits (mob/living/user, list/modifiers)
 #define COMSIG_GET_SPACESUIT_SLOWDOWN_MOD "get_spacesuit_slowdown"
-
+/// Get spacepod battery usage modifier (mob/living/user, list/modifiers)
+#define COMSIG_GET_SPACEPOD_BATTERY_USAGE_MOD "get_spacepod_battery_usage"
 
 // MARK: Combat
 /// Get gun accuracy modifier for accuracy skill (mob/living/user, list/modifiers)

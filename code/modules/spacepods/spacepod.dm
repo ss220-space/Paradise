@@ -1185,6 +1185,10 @@
 
 	. = TRUE
 
+	var/skill_factor
+	if(pilot)
+		CALCULATE_SKILL_MOD(pilot, COMSIG_GET_SPACEPOD_BATTERY_USAGE_MOD, skill_mod)
+		skill_factor = skill_mod
 	if(health <= 0)
 		to_chat(user, span_warning("Она мертва, Джим."))
 		. = FALSE
@@ -1194,7 +1198,7 @@
 	else if(!COOLDOWN_FINISHED(src, cooldown_emp))
 		to_chat(user, span_warning("Интерфейс не отвечает. Перезагрузка через [COOLDOWN_TIMELEFT(src, cooldown_emp)] [DECL_SEC_MIN(COOLDOWN_TIMELEFT(src, cooldown_emp))]."))
 		. = FALSE
-	else if(!battery.use(1))
+	else if(!battery.use(1 / skill_factor))
 		to_chat(user, span_warning("Недостаточно энергии."))
 		. = FALSE
 	if(!.)
