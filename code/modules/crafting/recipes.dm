@@ -2113,6 +2113,3 @@
 	)
 	category = CAT_MISC
 
-//MARK: ELECTRICAL
-
-//ASSEMBLY
