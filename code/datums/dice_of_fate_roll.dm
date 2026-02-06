@@ -211,12 +211,14 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 	var/id = new /obj/item/card/id/captains_spare
 	user.put_in_hands(id)
 
-/datum/dice_roll/revive
+/datum/dice_roll/revive_food
 	number = 14
 
-/datum/dice_roll/revive/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
-	user.visible_message(span_boldnotice("[user.declent_ru(NOMINATIVE)] выгляд[PLUR_IT_YAT(user)] полностью здоров[GEND_YM_OI_YM_YMI(user)]"))
-	user.revive()
+/datum/dice_roll/revive_food/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
+	user.visible_message(span_boldnotice("Рядом с [dice.declent_ru(INSTRUMENTAL)] появляется странное блюдо..."))
+	var/obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/food = new(dice.loc)
+	food.active = TRUE
+	food.update_icon(UPDATE_ICON_STATE)
 
 /datum/dice_roll/unica
 	number = 15
