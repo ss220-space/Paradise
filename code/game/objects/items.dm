@@ -503,7 +503,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if((resistance_flags & ON_FIRE) && !pickupfireoverride)
 		var/mob/living/carbon/human/H = user
 		if(istype(H))
-			if((H.gloves && (H.gloves.max_heat_protection_temperature > 360)) || H.heat_level_1 == INFINITY)
+			if((H.gloves && (H.gloves.max_heat_protection_temperature > 360)) || H.dna.species.heat_level_1 == INFINITY)
 				extinguish()
 				to_chat(user, span_notice("Вы тушите пламя на [declent_ru(PREPOSITIONAL)]."))
 				balloon_alert(user, "потушено")
