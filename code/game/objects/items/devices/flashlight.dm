@@ -220,7 +220,7 @@
 	slot_flags = NONE
 	light_range = 4
 
-/obj/item/flashlight/drone/get_ru_names()
+/obj/item/flashlight/makeshift/get_ru_names()
 	return list(
 		NOMINATIVE = "самодельный фонарь",
 		GENITIVE = "самодельного фонаря",
