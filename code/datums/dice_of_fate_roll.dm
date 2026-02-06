@@ -217,6 +217,8 @@ GLOBAL_ALIST_INIT_EMPTY(dice_rolls)
 /datum/dice_roll/revive_food/activate(mob/living/carbon/human/user, obj/item/dice/d20/fate/dice)
 	user.visible_message(span_boldnotice("Рядом с [dice.declent_ru(INSTRUMENTAL)] появляется странное блюдо..."))
 	var/obj/item/reagent_containers/food/snacks/lavaland_food/cure_curse/food = new(dice.loc)
+	if(!food)
+		return
 	food.active = TRUE
 	food.update_icon(UPDATE_ICON_STATE)
 
