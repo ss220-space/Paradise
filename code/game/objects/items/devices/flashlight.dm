@@ -218,7 +218,6 @@
 	item_state = "makeshift-flashlight"
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = NONE
-	light_range = 4
 
 /obj/item/flashlight/makeshift/get_ru_names()
 	return list(
@@ -297,7 +296,6 @@
 /obj/item/lamp_disassembled/green
 	name = "disassembled green desk lamp"
 	desc = "Стационарный источник света. Классический вариант зелёного цвета. Разобран."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lampgreen"
 	item_state = "lampgreen-disassembled"
 
@@ -332,7 +330,6 @@
 /obj/item/lamp_disassembled/bananalamp
 	name = "disassembled banana lamp"
 	desc = "Стационарный источник света. Лампа жёлтого цвета с дурацким шнуром. Нехватает абажура в форме банановой кожуры и остальных деталей."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lampgreen"
 	item_state = "lampgreen-disassembled"
 
