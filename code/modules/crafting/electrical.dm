@@ -174,20 +174,6 @@
 	category = CAT_ELECTRICAL
 	subcategory = CAT_ELECTRICAL_DISASSEMBLY
 
-/datum/crafting_recipe/disassemble_radio
-	name = "разобрать радио"
-	result = list(
-		/obj/item/stack/cable_coil = 5,
-		/obj/item/stock_parts/cell = 1,
-		/obj/item/stock_parts/capacitor = 1,
-		/obj/item/assembly/voice = 1,
-	)
-	reqs = list(/obj/item/radio = 1)
-	tools = list(TOOL_SCREWDRIVER)
-	time = 20
-	category = CAT_ELECTRICAL
-	subcategory = CAT_ELECTRICAL_DISASSEMBLY
-
 /datum/crafting_recipe/disassemble_flashlight
 	name = "разобрать фонарик"
 	result = list(
@@ -288,7 +274,6 @@
 	reqs = list(/obj/item/multitool = 1)
 	blacklist = list(
 		/obj/item/multitool/abductor,
-		/obj/item/flashlight/lamp/bananalamp,
 	)
 	tools = list(TOOL_SCREWDRIVER)
 	time = 40
@@ -338,18 +323,4 @@
 	category = CAT_ELECTRICAL
 	subcategory = CAT_ELECTRICAL_DISASSEMBLY
 
-/datum/crafting_recipe/disassemble_healthassembly
-	name = "разобрать сенсор здоровья"
-	result = list(
-		/obj/item/circuit_component/compare/health_state = 1,
-		/obj/item/circuit_component/health = 1,
-	)
-	reqs = list(/obj/item/assembly/health = 1)
-	tools = list(TOOL_SCREWDRIVER)
-	blacklist = list(
-		/obj/item/healthanalyzer/abductor,
-		/obj/item/healthanalyzer/gem_analyzer,
-	)
-	time = 20
-	category = CAT_ELECTRICAL
-	subcategory = CAT_ELECTRICAL_DISASSEMBLY
+
