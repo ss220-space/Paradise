@@ -264,6 +264,7 @@
 /obj/item/clothing/accessory/medal
 	name = "bronze medal"
 	desc = "Бронзовая медаль."
+	gender = FEMALE
 	icon_state = "bronze"
 	materials = list(MAT_METAL=1000)
 	resistance_flags = FIRE_PROOF
@@ -551,6 +552,7 @@
 /obj/item/clothing/accessory/medal/alloy
 	name = "alloy medal" //медаль из сплава свучит странно, у медали спрайт креста
 	desc = "Таинственный крест, выкованный из сплава, которого не должно существовать по всем законам металлургии. Его поверхность мерцает, словно поглощая и переизлучая свет из иного измерения."
+	gender = MALE
 	icon_state = "alloy"
 	materials = list(MAT_METAL = 500, MAT_PLASMA = 500)
 
