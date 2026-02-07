@@ -66,6 +66,7 @@
 		src.transform = flip_matrix
 	animate(src, alpha = 200, time = 1, easing = SINE_EASING)
 	animate(alpha = 0, time = duration-1, easing = SINE_EASING)
+
 /obj/effect/temp_visual/jet_plume
 	name = "jet plume"
 	icon_state = "jet_plume"

@@ -658,21 +658,19 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
 
 		var/block_sounds
-		var/effect_color = "#FFFFFF"
+		var/effect_color = COLOR_WHITE
 		switch(attack_type)
 			if(ITEM_ATTACK)
 				block_sounds = melee_blocksound
-				effect_color = "#FFFFFF"
 			if(PROJECTILE_ATTACK)
 				if(istype(hitby, /obj/projectile/energy) || istype(hitby, /obj/projectile/beam))
 					block_sounds = laser_blocksound
-					effect_color = "#CE2F13"
+					effect_color = COLOR_SECURITY_RED
 				else if(istype(hitby, /obj/projectile/bullet))
 					block_sounds = bullet_blocksound
-					effect_color = "#FFA500"
+					effect_color = COLOR_VIVID_YELLOW
 			else
 				block_sounds = SFX_BLUNT_SWING_LIGHT
-				effect_color = "#FFFFFF"
 
 		playsound(owner.loc, block_sounds, 50, TRUE)
 
