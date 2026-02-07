@@ -809,12 +809,12 @@
 
 /obj/item/toy/plushie/rdplushie/get_ru_names()
 	return list(
-		NOMINATIVE = "кукла директора исследований",
-		GENITIVE = "куклы директора исследований",
-		DATIVE = "кукле директора исследований",
-		ACCUSATIVE = "куклу директора исследований",
-		INSTRUMENTAL = "куклой директора исследований",
-		PREPOSITIONAL = "кукле директора исследований"
+		NOMINATIVE = "кукла Директора Исследований",
+		GENITIVE = "куклы Директора Исследований",
+		DATIVE = "кукле Директора Исследований",
+		ACCUSATIVE = "куклу Директора Исследований",
+		INSTRUMENTAL = "куклой Директора Исследований",
+		PREPOSITIONAL = "кукле Директора Исследований"
 	)
 
 /obj/item/toy/plushie/rdplushie/proc/interaction(mob/user)
@@ -877,19 +877,19 @@
 	name = "GSBussy doll"
 	desc = "Глуповатого вида кукла, что держит в руках книгу Космического закона и имитацию револьвера Unica-6. \
 			На задней части имеется следующая надпись: \
-			«Кукла-аниматроник GSBussy, лимитированная серия. Произведено ######» - часть текста невозможно разобрать."
+			\"Кукла-аниматроник GSBussy, лимитированная серия. Произведено ######\" - часть текста невозможно разобрать."
 	icon_state = "GSBussy_doll"
 	item_state = "GSBussy_doll"
 	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/plushie/gsbplushie/get_ru_names()
 	return list(
-		NOMINATIVE = "кукла главы службы безопасности",
-		GENITIVE = "куклы главы службы безопасности",
-		DATIVE = "кукле главы службы безопасности",
-		ACCUSATIVE = "куклу главы службы безопасности",
-		INSTRUMENTAL = "куклой главы службы безопасности",
-		PREPOSITIONAL = "кукле главы службы безопасности"
+		NOMINATIVE = "кукла Главы Службы Безопасности",
+		GENITIVE = "куклы Главы Службы Безопасности",
+		DATIVE = "кукле Главы Службы Безопасности",
+		ACCUSATIVE = "куклу Главы Службы Безопасности",
+		INSTRUMENTAL = "куклой Главы Службы Безопасности",
+		PREPOSITIONAL = "кукле Главы Службы Безопасности"
 	)
 
 /obj/item/toy/plushie/gsbplushie/proc/interaction(mob/user)
@@ -928,12 +928,12 @@
 
 /obj/item/toy/plushie/cmoplushie/get_ru_names()
 	return list(
-		NOMINATIVE = "кукла главного врача",
-		GENITIVE = "куклы главного врача",
-		DATIVE = "кукле главного врача",
-		ACCUSATIVE = "куклу главного врача",
-		INSTRUMENTAL = "куклой главного врача",
-		PREPOSITIONAL = "кукле главного врача"
+		NOMINATIVE = "кукла Главного Врача",
+		GENITIVE = "куклы Главного Врача",
+		DATIVE = "кукле Главного Врача",
+		ACCUSATIVE = "куклу Главного Врача",
+		INSTRUMENTAL = "куклой Главного Врача",
+		PREPOSITIONAL = "кукле Главного Врача"
 	)
 
 /obj/item/toy/plushie/cmoplushie/proc/interaction(mob/user)
