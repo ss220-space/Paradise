@@ -46,12 +46,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	/// Used in attackby() to say how something was attacked "[x] [z.attack_verb][GEND_A_O_Y(x)] [y.declent_ru(ACCUSATIVE)], используя [z.declent_ru(ACCUSATIVE)]."
 	var/list/attack_verb
-	/// Sound plays when you block something with this item.
 	var/hitsound
 	/// Sound played when you block
-	var/list/melee_blocksound = SFX_BLUNT_SWING_LIGHT
-	var/list/bullet_blocksound = SFX_BULLET_BLOCK
-	var/list/laser_blocksound = SFX_LASER_BLOCK
+	var/melee_blocksound
+	var/bullet_blocksound = SFX_BULLET_BLOCK
+	var/laser_blocksound = SFX_LASER_BLOCK
 
 	var/block_effect = /obj/effect/temp_visual/block
 
@@ -671,6 +670,9 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				else if(istype(hitby, /obj/projectile/bullet))
 					block_sounds = bullet_blocksound
 					effect_color = "#FFA500"
+			else
+				block_sounds = SFX_BLUNT_SWING_LIGHT
+				effect_color = "#FFFFFF"
 
 		playsound(owner.loc, block_sounds, 50, TRUE)
 
