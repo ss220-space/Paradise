@@ -99,6 +99,8 @@ have ways of interacting with a specific mob and control it.
 	var/pickpocket = FALSE
 	for(var/mob/living/carbon/human/human in oview(5, living_pawn))
 		var/obj/item/held_weapon = GetBestWeapon(list(human.get_active_hand(), human.get_inactive_hand()) + weapon, list(living_pawn.get_active_hand(), living_pawn.get_inactive_hand()))
+		if(istype(held_weapon, /obj/item/gun/energy/vortex_shotgun))
+			continue
 		if(held_weapon == weapon) // It's just the same one, not a held one
 			continue
 		pickpocket = TRUE
