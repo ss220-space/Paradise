@@ -51,12 +51,10 @@
 /obj/effect/temp_visual/block
 	name = "block"
 	icon_state = "slash"
-	duration = 6
 
 /obj/effect/temp_visual/block/shield
 	name = "block shield"
 	icon_state = "kick"
-	duration = 3
 
 /obj/effect/temp_visual/block/Initialize(mapload, color)
 	. = ..()

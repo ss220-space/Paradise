@@ -49,7 +49,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Sound plays when you block something with this item.
 	var/hitsound
 	/// Sound played when you block
-	var/list/melee_blocksound
+	var/list/melee_blocksound = SFX_BLUNT_SWING_LIGHT
 	var/list/bullet_blocksound = SFX_BULLET_BLOCK
 	var/list/laser_blocksound = SFX_LASER_BLOCK
 
@@ -658,7 +658,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(signal_result != 0)
 		owner.visible_message(span_danger("[owner] блокиру[PLUR_ET_YUT(owner)] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
 
-		var/list/block_sounds
+		var/block_sounds
 		var/effect_color = "#FFFFFF"
 		switch(attack_type)
 			if(ITEM_ATTACK)
@@ -671,7 +671,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 				else if(istype(hitby, /obj/projectile/bullet))
 					block_sounds = bullet_blocksound
 					effect_color = "#FFA500"
-		playsound(owner.loc, pick(block_sounds), 50, TRUE)
+
+		playsound(owner.loc, block_sounds, 50, TRUE)
 
 		if(block_effect)
 			var/owner_turf = get_turf(owner)

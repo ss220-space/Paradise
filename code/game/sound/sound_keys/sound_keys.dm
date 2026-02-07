@@ -473,6 +473,7 @@
 	file_paths = list(
 		'sound/weapons/effects/block/contractorblock_1.ogg',
 		'sound/weapons/effects/block/contractorblock_2.ogg',
+	)
 
 /datum/sound_effect/beakerpour_0_10
 	key = SFX_BEAKERPOUR_0_10
