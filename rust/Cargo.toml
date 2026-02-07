@@ -49,3 +49,4 @@ bitflags = "2.5.0"
 scc = "3.4.8"
 thread-priority = "3.0.0"
 png = "0.18.0"
+uuid = { version = "1.18.1", features = ["v4"] }

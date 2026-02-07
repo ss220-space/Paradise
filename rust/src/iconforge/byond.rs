@@ -204,3 +204,12 @@ fn iconforge_gags_async(
     }) as f32)
         .into())
 }
+
+#[byondapi::bind]
+fn iconforge_cleanup_all() -> eyre::Result<ByondValue> {
+    spritesheet::sprites_to_json_clear();
+    image_cache::icon_cache_clear();
+    image_cache::image_cache_clear();
+
+    Ok(ByondValue::new_str("OK")?)
+}
