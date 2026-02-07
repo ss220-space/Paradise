@@ -35,7 +35,6 @@
 	LAZYCLEARLIST(bodyparts_by_name)
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
-	QDEL_NULL(previous_damage_appearance)
 	LAZYCLEARLIST(splinted_limbs)
 	remoteview_target = null
 	body_accessory = null
