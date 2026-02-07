@@ -120,7 +120,6 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	. = list()
 	var/list/atoms_list = hud_atoms[z_level]
-	list_clear_nulls(atoms_list)
 	. += atoms_list
 
 	var/max_number_of_linked_z_levels_i_care_to_support_here = 10
@@ -131,7 +130,6 @@ GLOBAL_LIST_INIT(huds, list( \
 		if(lower_z_level_exists)
 			z_level--
 			atoms_list = hud_atoms[z_level]
-			list_clear_nulls(atoms_list)
 			. += atoms_list
 			max_number_of_linked_z_levels_i_care_to_support_here--
 			continue
@@ -256,6 +254,9 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	var/turf/atom_turf = get_turf(hud_atom_to_remove)
 	if(!atom_turf)
+		for(var/z, list in hud_atoms)
+			var/list/huds_list = list
+			LAZYREMOVE(huds_list, hud_atom_to_remove)
 		return TRUE
 
 	hud_atoms[atom_turf.z] -= hud_atom_to_remove
