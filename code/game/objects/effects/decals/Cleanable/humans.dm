@@ -65,7 +65,7 @@
 /obj/effect/decal/cleanable/blood/Destroy()
 	if(dry_timer)
 		deltimer(dry_timer)
-	return ..()
+	. = ..()
 
 /obj/effect/decal/cleanable/blood/update_icon(updates = ALL)
 	if(!updates)
@@ -270,7 +270,7 @@
 	else
 		dirs = GLOB.alldirs.Copy()
 
-	INVOKE_ASYNC(src, PROC_REF(streak), dirs)
+	blood_streak(get_turf(src), dirs, basecolor)
 
 /obj/effect/decal/cleanable/blood/gibs/update_icon(updates = ALL)
 	if(!updates)
@@ -309,16 +309,16 @@
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
 
-/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
+/proc/blood_streak(turf/location, list/directions, color)
 	set waitfor = 0
 	var/direction = pick(directions)
 	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
 		sleep(3)
 		if(i > 0)
-			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(loc)
-			b.basecolor = src.basecolor
+			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(location)
+			b.basecolor = color
 			b.update_icon()
-		if(step_to(src, get_step(src, direction), 0))
+		if(step_to(location, get_step(location, direction), 0))
 			break
 
 /obj/effect/decal/cleanable/blood/old/Initialize(mapload)

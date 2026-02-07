@@ -70,6 +70,12 @@
 	if(!selected_pod && length(pods))
 		selected_pod = pods[1]
 
+/obj/machinery/computer/cloning/proc/remove_record(datum/dna2/record)
+	LAZYREMOVE(records, record)
+	if(active_record == record)
+		active_record = null
+	qdel(record)
+
 /obj/machinery/computer/cloning/proc/findscanner()
 	//Try to find scanner on adjacent tiles first
 	for(var/obj/machinery/dna_scannernew/scanner in orange(1, src))
@@ -265,7 +271,7 @@
 					return
 				if(check_access(C.GetID()))
 					records.Remove(active_record)
-					qdel(active_record)
+					remove_record(active_record)
 					set_temp("Запись удалена.", "success")
 					menu = MENU_RECORDS
 				else
@@ -300,7 +306,7 @@
 			active_record = locateUID(ref)
 			if(istype(active_record))
 				if(isnull(active_record.ckey))
-					qdel(active_record)
+					remove_record(active_record)
 					set_temp("Ошибка: запись повреждена.", "danger")
 				else
 					var/obj/item/implant/health/H = null
@@ -398,8 +404,7 @@
 						cloneresult = pod.growclone(C)
 						if(cloneresult)
 							set_temp(emagged ? "Запуск процеса уничтожения... Субъект успешно уничтожен!" : "Запуск процеса клонирования...", "success")
-							records.Remove(C)
-							qdel(C)
+							remove_record(C)
 							menu = MENU_MAIN
 							if(emagged)
 								emp_act()
