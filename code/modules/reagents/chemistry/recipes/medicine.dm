@@ -107,7 +107,6 @@
 	result = "traneksam_acid"
 	required_reagents = list("synthflesh" = 1, "ammonia" = 1, "sal_acid" = 1, "water" = 1)
 	result_amount = 3
-	min_temp = 400 //K
 	mix_message = "The mixture gives off a faint scent of almonds."
 
 /datum/chemical_reaction/traneksam_acid/on_reaction(datum/reagents/holder, created_volume)
