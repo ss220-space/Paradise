@@ -5,7 +5,6 @@
 	button_icon_state = "blood_swell"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	chemical_cost = 0
 	var/chem_reduction = 0.5
 	/// Maintain the original level of strength
 	var/datum/strength_level/backup_strength_level
