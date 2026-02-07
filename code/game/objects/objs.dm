@@ -358,3 +358,8 @@
 		return object.return_obj_air()
 	else
 		return null
+
+/// Use this proc if you need to get special shorter variations of item's name.
+/// ImageButton element in TGUI, for example
+/obj/proc/get_short_name()
+	return declent_ru(NOMINATIVE)

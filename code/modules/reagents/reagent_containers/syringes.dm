@@ -14,6 +14,7 @@
 	pass_open_check = TRUE
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
+	custom_price = PAYCHECK_MIN * 0.2
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
 	var/projectile_type = /obj/projectile/bullet/dart/syringe
