@@ -553,7 +553,7 @@
 /datum/gear/donor/cmoplushie
 	donator_tier = 3
 	index_name = "CMO doll"
-	path = /obj/item/toy/plushie/gsbplushie
+	path = /obj/item/toy/plushie/cmoplushie
 
 /datum/gear/donor/backpack_shitsec
 	donator_tier = 3
