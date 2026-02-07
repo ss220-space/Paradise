@@ -10,7 +10,6 @@
 	var/datum/strength_level/backup_strength_level
 	/// We save the original strength points
 	var/backup_strength_points = 0
-	var/backup_chem_recharge_rate = 0
 
 /datum/action/changeling/anabolic_surge/Remove(mob/user)
 	if(active)
@@ -59,8 +58,7 @@
 // Apply the chemical synthesis modifier
 	var/datum/antagonist/changeling/changeling = human.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
-		backup_chem_recharge_rate = changeling.chem_recharge_rate
-		changeling.chem_recharge_rate = backup_chem_recharge_rate * chem_reduction
+		changeling.chem_recharge_rate *= chem_reduction
 
 	active = TRUE
 	button_icon_state = "blood_swell" //жду спрайты, но можно и так мёржануть
@@ -96,7 +94,7 @@
 	var/datum/antagonist/changeling/changeling = human.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
 		// Restore the original synthesis speed
-		changeling.chem_recharge_rate = backup_chem_recharge_rate
+		changeling.chem_recharge_rate /= chem_reduction
 
 	active = FALSE
 	button_icon_state = "blood_swell" //жду спрайты, но можно и так мёржануть
