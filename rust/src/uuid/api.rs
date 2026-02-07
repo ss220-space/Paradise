@@ -53,3 +53,12 @@ fn get_uuid_counter_value() -> eyre::Result<ByondValue> {
     let len = UUID_STORAGE.with(|storage| storage.borrow().len());
     Ok(ByondValue::try_from(len.to_string())?)
 }
+
+#[byondapi::bind]
+fn clear_uuid_storage() -> eyre::Result<ByondValue> {
+    UUID_STORAGE.with(|storage| {
+        let mut storage = storage.borrow_mut();
+        storage.clear();
+    });
+    Ok(ByondValue::null())
+}
