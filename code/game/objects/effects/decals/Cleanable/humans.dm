@@ -270,7 +270,7 @@
 	else
 		dirs = GLOB.alldirs.Copy()
 
-	blood_streak(get_turf(src), dirs, basecolor)
+	streak(dirs)
 
 /obj/effect/decal/cleanable/blood/gibs/update_icon(updates = ALL)
 	if(!updates)
@@ -309,11 +309,15 @@
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...
 	scoop_reagents = null
 
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
+	blood_streak(get_turf(src), directions, basecolor)
+
 /proc/blood_streak(turf/location, list/directions, color)
-	set waitfor = 0
+	set waitfor = FALSE
+
 	var/direction = pick(directions)
-	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
-		sleep(3)
+	for(var/i in 0 to pick(1, 200; 2, 150; 3, 50; 4))
+		sleep(0.3 SECONDS)
 		if(i > 0)
 			var/obj/effect/decal/cleanable/blood/b = new /obj/effect/decal/cleanable/blood/splatter(location)
 			b.basecolor = color

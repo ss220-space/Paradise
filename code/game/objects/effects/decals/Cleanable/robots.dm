@@ -21,18 +21,22 @@
 	return FALSE
 
 /obj/effect/decal/cleanable/blood/gibs/robot/streak(list/directions)
-	spawn(0)
-		var/direction = pick(directions)
-		for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
-			sleep(3)
-			if(i > 0)
-				if(prob(40))
-					var/obj/effect/decal/cleanable/blood/oil/streak = new(src.loc)
-					streak.update_icon()
-				else if(prob(10))
-					do_sparks(3, TRUE, src)
-			if(step_to(src, get_step(src, direction), 0))
-				break
+	oil_streak(get_turf(src), directions, /obj/effect/decal/cleanable/blood/oil)
+
+/proc/oil_streak(turf/location, list/directions, streaktype)
+	set waitfor = FALSE
+
+	var/direction = pick(directions)
+	for(var/i in 0 to pick(1, 200; 2, 150; 3, 50; 4))
+		sleep(0.3 SECONDS)
+		if(i > 0)
+			if(prob(40))
+				var/obj/effect/decal/streak = new streaktype(location)
+				streak.update_icon()
+			else if(prob(10))
+				do_sparks(3, TRUE, location)
+		if(step_to(location, get_step(location, direction), 0))
+			break
 
 /obj/effect/decal/cleanable/blood/gibs/robot/limb
 	random_icon_states = list("gibarm", "gibleg")
