@@ -58,7 +58,7 @@
 // Apply the chemical synthesis modifier
 	var/datum/antagonist/changeling/changeling = human.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
-		changeling.chem_recharge_rate *= chem_reduction
+		changeling.chem_recharge_rate -= chem_reduction
 
 	active = TRUE
 	button_icon_state = "blood_swell" //жду спрайты, но можно и так мёржануть
@@ -94,7 +94,7 @@
 	var/datum/antagonist/changeling/changeling = human.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
 		// Restore the original synthesis speed
-		changeling.chem_recharge_rate /= chem_reduction
+		changeling.chem_recharge_rate += chem_reduction
 
 	active = FALSE
 	button_icon_state = "blood_swell" //жду спрайты, но можно и так мёржануть
