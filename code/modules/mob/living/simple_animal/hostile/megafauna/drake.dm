@@ -451,46 +451,39 @@ Difficulty: Medium
 	layer = BELOW_MOB_LAYER
 	light_range = 2
 	duration = 13
-	var/reset_time
 
 /obj/effect/temp_visual/lava_warning/ex_act()
 	return
 
 /obj/effect/temp_visual/lava_warning/Initialize(mapload, reset_time = 10)
 	. = ..()
-	pre_fall()
+	INVOKE_ASYNC(src, PROC_REF(fall), reset_time)
 	src.alpha = 63.75
-	src.reset_time = reset_time
 	animate(src, alpha = 255, time = duration)
 
-/obj/effect/temp_visual/lava_warning/Destroy(force)
-	if(!force)
-		lava_fall_effect(get_turf(src), reset_time)
-	. = ..()
+/obj/effect/temp_visual/lava_warning/proc/fall(reset_time)
+	var/turf/T = get_turf(src)
+	playsound(T,'sound/magic/fleshtostone.ogg', 80, TRUE)
+	sleep(duration)
+	playsound(T,'sound/magic/fireball.ogg', 200, TRUE)
 
-/proc/lava_fall_effect(turf/location, reset_time)
-	playsound(location,'sound/magic/fireball.ogg', 200, TRUE)
-
-	for(var/mob/living/living_mob in location.contents)
-		if(istype(living_mob, /mob/living/simple_animal/hostile/megafauna/dragon))
+	for(var/mob/living/L in T.contents)
+		if(istype(L, /mob/living/simple_animal/hostile/megafauna/dragon))
 			continue
-		living_mob.adjustFireLoss(10)
-		to_chat(living_mob, span_userdanger("Вы рухнули в лаву!"))
+		L.adjustFireLoss(10)
+		to_chat(L, span_userdanger("Вы рухнули в лаву!"))
 
 	// deals damage to mechs
-	for(var/obj/mecha/mecha in location.contents)
-		mecha.take_damage(45, BRUTE, MELEE, 1)
+	for(var/obj/mecha/M in T.contents)
+		M.take_damage(45, BRUTE, MELEE, 1)
 
 	// changes turf to lava temporarily
-	if(!location.density && !islava(location))
+	if(!T.density && !islava(T))
 		var/lava_turf = /turf/simulated/floor/lava
-		var/reset_turf = location.type
-		location.ChangeTurf(lava_turf)
-		addtimer(CALLBACK(location, TYPE_PROC_REF(/turf, ChangeTurf), reset_turf), reset_time, TIMER_OVERRIDE|TIMER_UNIQUE)
-
-/obj/effect/temp_visual/lava_warning/proc/pre_fall()
-	var/turf/location = get_turf(src)
-	playsound(location,'sound/magic/fleshtostone.ogg', 80, TRUE)
+		var/reset_turf = T.type
+		T.ChangeTurf(lava_turf)
+		sleep(reset_time)
+		T.ChangeTurf(reset_turf)
 
 /obj/effect/temp_visual/drakewall
 	name = "Fire Barrier"

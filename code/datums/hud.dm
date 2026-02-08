@@ -119,8 +119,7 @@ GLOBAL_LIST_INIT(huds, list( \
 		return FALSE
 
 	. = list()
-	var/list/atoms_list = hud_atoms[z_level]
-	. += atoms_list
+	. += hud_atoms[z_level]
 
 	var/max_number_of_linked_z_levels_i_care_to_support_here = 10
 
@@ -129,8 +128,7 @@ GLOBAL_LIST_INIT(huds, list( \
 
 		if(lower_z_level_exists)
 			z_level--
-			atoms_list = hud_atoms[z_level]
-			. += atoms_list
+			. += hud_atoms[z_level]
 			max_number_of_linked_z_levels_i_care_to_support_here--
 			continue
 

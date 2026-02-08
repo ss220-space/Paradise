@@ -371,8 +371,8 @@
 
 /obj/machinery/computer/scan_consolenew/Initialize(mapload)
 	. = ..()
-	for(var/i in 1 to 3)
-		buffers[i]= new /datum/dna2/record
+	for(var/i=0;i<3;i++)
+		buffers[i+1]=new /datum/dna2/record
 	addtimer(CALLBACK(src, PROC_REF(find_machine)), 1 SECONDS)
 	addtimer(CALLBACK(src, PROC_REF(ready)), 25 SECONDS)
 
@@ -654,7 +654,7 @@
 
 			irradiating = 0
 			connected.locked = lock_state
-
+			
 			var/precision_coeff = connected.precision_coeff
 
 			if(connected.occupant)

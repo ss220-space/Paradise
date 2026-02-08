@@ -15,8 +15,6 @@
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(stomach_contents)
 	QDEL_LIST(processing_patches)
-	LAZYCLEARLIST(internal_organs_slot)
-	last_mind = null
 	var/mob/living/simple_animal/borer/B = has_brain_worms()
 	if(B)
 		B.leave_host()

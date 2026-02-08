@@ -60,7 +60,7 @@
 
 			var/list/directions = gibdirections[gibtype]
 			if(length(directions))
-				blood_streak(location, directions, gib.blood_color)
+				gib.streak(directions)
 
 /**
  * Assigns DNA and blood colour to mob gibs.

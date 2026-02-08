@@ -24,8 +24,7 @@
 	reset_contents()
 	owner = null
 	source_turf = null
-	SSlooting.backlog -= src
-	SSlooting.processing -= src
+
 	return ..()
 
 /datum/lootpanel/ui_interact(mob/user, datum/tgui/ui)

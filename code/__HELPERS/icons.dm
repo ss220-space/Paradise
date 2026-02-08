@@ -1351,7 +1351,3 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 			shift = list("x" = -amount_x, "y" = -amount_y)
 
 	return shift
-
-/image/Destroy(force)
-	loc = null
-	. = ..()

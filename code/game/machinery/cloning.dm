@@ -154,7 +154,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/item/disk/data/proc/initialize()
 	buf = new
-	buf.dna = new
+	buf.dna=new
 
 /obj/item/disk/data/Destroy()
 	QDEL_NULL(buf)

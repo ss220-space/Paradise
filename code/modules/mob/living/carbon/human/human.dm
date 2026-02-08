@@ -30,16 +30,8 @@
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
 	QDEL_LIST(bodyparts)
-	partner = null
-	last_interract = null
-	LAZYCLEARLIST(bodyparts_by_name)
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
-	LAZYCLEARLIST(splinted_limbs)
-	remoteview_target = null
-	body_accessory = null
-	QDEL_NULL(stand_icon)
-	QDEL_NULL(handcrafting)
 	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
 	return ..()
 

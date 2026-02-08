@@ -45,21 +45,6 @@
 		ranged_ability.remove_ranged_ability(src)
 	remove_from_all_data_huds()
 	now_pushing = null
-	cameraFollow = null
-	QDEL_NULL(holder)
-	QDEL_NULL(middleClickOverride)
-	LAZYCLEARLIST(pipes_shown)
-	last_played_vent = null
-	QDEL_NULL(pipetracker)
-	QDEL_LIST(surgeries)
-	QDEL_NULL(health_doll_icon)
-	left_hand_bleed_suppress_lib = null
-	right_hand_bleed_suppress_lib = null
-	leaned_object = null
-	default_language = null
-	QDEL_NULL(halimage)
-	QDEL_NULL(halbody)
-	QDEL_NULL(halitem)
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s

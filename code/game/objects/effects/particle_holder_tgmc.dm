@@ -31,7 +31,6 @@
 	QDEL_NULL(particles)
 	holding_parent = null
 	parent.vis_contents -= src
-	parent = null
 	return ..()
 
 /// Signal called when parent is moved.
