@@ -1062,6 +1062,8 @@
 			req_access = ui.user.get_access()
 		if("set")
 			var/access = text2num(params["access"])
+			if(isnull(access))
+				return
 			if(!(access in req_access))
 				req_access += access
 			else
