@@ -100,7 +100,18 @@
 	return
 
 /obj/effect/decal/cleanable/blood/gibs/clock/streak(list/directions)
-	oil_streak(get_turf(src), directions, /obj/effect/decal/cleanable/blood/clock)
+	set waitfor = FALSE
+	var/direction = pick(directions)
+	for(var/i = 0, i < pick(1, 200; 2, 150; 3, 50; 4), i++)
+		sleep(0.3 SECONDS)
+		if(i > 0)
+			if(prob(40))
+				var/obj/effect/decal/cleanable/blood/clock/streak = new(src.loc)
+				streak.update_icon()
+			else if(prob(10))
+				do_sparks(3, TRUE, src)
+		if(step_to(src, get_step(src, direction), 0))
+			break
 
 /obj/effect/decal/cleanable/blood/clock
 	name = "strange liquid"
