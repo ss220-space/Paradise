@@ -145,7 +145,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
 	GLOB.rcd_list += src
-	rcd_holder = new(mapload)
+	rcd_holder = new(loc)
 	rcd_holder.power_use_multiplier = energy_drain
 	rcd_holder.canRwall = TRUE
 	. = ..()
