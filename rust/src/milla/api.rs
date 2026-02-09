@@ -386,19 +386,22 @@ pub(crate) fn internal_set_tile(
 fn milla_get_tile(turf: ByondValue, list: ByondValue) -> eyre::Result<ByondValue> {
     logging::setup_panic_handler();
     let (x, y, z) = byond_xyz(&turf)?.coordinates();
-    let vec: Vec<ByondValue>;
-    if let Ok(tile) = internal_get_tile(x as i32 - 1, y as i32 - 1, z as i32 - 1) {
-        vec = (&tile).into();
-    } else {
-        // MILLA has died and is unrecoverable.
-        // Uh... uh... report everything as breathable air, I guess?
-        let mut air = Tile::new();
-        air.gases.set_oxygen(20.0);
-        air.gases.set_nitrogen(80.0);
-        air.thermal_energy = air.heat_capacity() * T20C;
-        vec = (&air).into();
-    }
+
+    let tile =
+        std::panic::catch_unwind(|| internal_get_tile(x as i32 - 1, y as i32 - 1, z as i32 - 1))
+            .ok()
+            .and_then(|r| r.ok())
+            .unwrap_or_else(|| {
+                let mut air = Tile::new();
+                air.gases.set_oxygen(20.0);
+                air.gases.set_nitrogen(80.0);
+                air.thermal_energy = air.heat_capacity() * T20C;
+                air
+            });
+
+    let vec: Vec<ByondValue> = (&tile).into();
     list.write_list(vec.as_slice())?;
+
     Ok(ByondValue::null())
 }
 
@@ -758,6 +761,26 @@ fn milla_set_zlevel_frozen(
     }
     let mut z_level = maybe_z_level.unwrap();
     z_level.frozen = frozen;
+    Ok(ByondValue::null())
+}
+
+#[byondapi::bind]
+fn milla_reset() -> eyre::Result<ByondValue> {
+    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
+    buffers.clear_and_free_z_levels();
+
+    {
+        let mut interesting = INTERESTING_TILES.lock().unwrap();
+        interesting.clear();
+        interesting.shrink_to_fit();
+    }
+
+    {
+        let mut tracked = TRACKED_PRESSURE_TILES.lock().unwrap();
+        tracked.clear();
+        tracked.shrink_to_fit();
+    }
+
     Ok(ByondValue::null())
 }
 

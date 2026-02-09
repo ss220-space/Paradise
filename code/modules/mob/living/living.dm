@@ -1668,7 +1668,7 @@
 	return
 
 /mob/living/extinguish_light(force = FALSE)
-	for(var/obj/item/item as anything in get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		item.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)
