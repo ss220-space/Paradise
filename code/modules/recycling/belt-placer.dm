@@ -1,11 +1,8 @@
 /obj/item/storage/conveyor //Stores conveyor belts, click floor to make belt, use a conveyor switch on this to link all belts to that lever.
 	name = "conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts."
-	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "belt_placer"
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
-	item_state = "conv"
+	item_state = "belt_placer"
 	w_class = WEIGHT_CLASS_BULKY //Because belts are large things, you know?
 	can_hold = list(/obj/item/conveyor_construct)
 	flags = CONDUCT
@@ -21,7 +18,7 @@
 	name = "bluespace conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
 	icon_state = "bluespace_belt_placer"
-	item_state = "bs_conv"
+	item_state = "bluespace_belt_placer"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 50
 	max_combined_w_class = 200 //50 belts

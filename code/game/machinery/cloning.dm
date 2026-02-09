@@ -699,7 +699,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 /obj/item/storage/box/disks
 	name = "Diskette Box"
 	desc = "Коробка для хранения дискет."
-	icon_state = "box_disc"
+	icon_state = "disk_kit"
 
 /obj/item/storage/box/disks/get_ru_names()
 	return list(

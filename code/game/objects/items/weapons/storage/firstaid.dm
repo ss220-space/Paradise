@@ -12,11 +12,7 @@
 	name = "first-aid kit"
 	desc = "Если вы видите это, напишите сообщение об ошибке, что-то пошло не так!"
 	gender = FEMALE
-	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "firstaid"
-	item_state = "medkit"
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	drop_sound = 'sound/items/handling/drop/plasticbox_drop.ogg'
 	pickup_sound =  'sound/items/handling/pickup/plasticbox_pickup.ogg'
 	use_sound = 'sound/items/handling/plasticbox_open.ogg'
@@ -44,7 +40,7 @@
 	name = "fire first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при серьёзных термических повреждениях."
 	icon_state = "ointment"
-	item_state = "medkit_burn"
+	item_state = "firstaid-ointment"
 	med_bot_skin = "ointment"
 
 /obj/item/storage/firstaid/fire/get_ru_names()
@@ -125,7 +121,7 @@
 	name = "toxin first aid kit"
 	desc = "Это аптечка для экстренной первой помощи при отравлениях."
 	icon_state = "antitoxin"
-	item_state = "medkit_tox"
+	item_state = "firstaid-toxin"
 	med_bot_skin = "tox"
 
 /obj/item/storage/firstaid/toxin/get_ru_names()
@@ -158,7 +154,7 @@
 	name = "oxygen deprivation first aid kit"
 	desc = "Это аптечка для экстренной первой помощи при удушьях."
 	icon_state = "o2"
-	item_state = "medkit_oxy"
+	item_state = "firstaid-o2"
 	med_bot_skin = "o2"
 
 /obj/item/storage/firstaid/o2/get_ru_names()
@@ -185,7 +181,7 @@
 	name = "brute trauma treatment kit"
 	desc = "Это аптечка для экстренной первой помощи при серьёзных механических повреждениях."
 	icon_state = "brute"
-	item_state = "medkit_brute"
+	item_state = "firstaid-brute"
 	med_bot_skin = "brute"
 
 /obj/item/storage/firstaid/brute/get_ru_names()
@@ -217,7 +213,7 @@
 	name = "advanced first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи, продвинутая версия."
 	icon_state = "advfirstaid"
-	item_state = "medkit_advanced"
+	item_state = "firstaid-advanced"
 	med_bot_skin = "adv"
 
 /obj/item/storage/firstaid/adv/get_ru_names()
@@ -246,7 +242,7 @@
 	name = "paramed first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи при, специализированная версия для Парамедика."
 	icon_state = "firstaid_paramed"
-	item_state = "medkit_paramed"
+	item_state = "firstaid_paramed"
 	med_bot_skin = "paramed"
 
 /obj/item/storage/firstaid/paramed/get_ru_names()
@@ -277,7 +273,7 @@
 	desc = "Это набор для полевого ремонта синтетических форм жизни при повреждениях."
 	gender = MALE
 	icon_state = "machinefirstaid"
-	item_state = "medkit_mechanical"
+	item_state = "firstaid-machine"
 	med_bot_skin = "machine"
 
 /obj/item/storage/firstaid/machine/get_ru_names()
@@ -304,7 +300,6 @@
 	name = "NT first-aid kit"
 	desc = "Тактическая аптечка, содержащая в себе всё самое необходимое для лечения в пылу боя."
 	icon_state = "NTfirstaid"
-	item_state = "medkit_ert"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -350,8 +345,7 @@
 /obj/item/storage/firstaid/ertm
 	name = "NT ert-aid kit"
 	desc = "Тактическая аптечка, содержащая в себе всё самое необходимое для лечения в пылу боя. Продвинутая версия."
-	icon_state = "NTeraid"
-	item_state = "medkit_ert2"
+	icon_state = "NTertaid"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -383,7 +377,6 @@
 	name = "first-aid tacticool kit"
 	desc = "Тактическая аптечка, содержащая в себе всё самое необходимое для лечения в пылу боя. Узкоспециализированная версия."
 	icon_state = "bezerk"
-	item_state = "medkit_bezerk"
 	max_w_class = WEIGHT_CLASS_NORMAL
 	treatment_oxy = "perfluorodecalin"
 	treatment_brute = "bicaridine"
@@ -417,7 +410,6 @@
 	name = "field surgery kit"
 	desc = "Тактическая версия спортивной сумки с медицинскими опознавательными знаками. Содержит в себе набор инструментов для полевой хирургии."
 	gender = MALE
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "duffel-med"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
@@ -454,7 +446,6 @@
 /obj/item/storage/firstaid/crew
 	name = "crewmember first aid kit"
 	desc = "Небольшого размера подсумок, содержащий в себе минимальный набор медикаментов для экстренных ситуаций. Выдаётся сотрудникам \"Нанотрейзен\" в обязательным порядке."
-	icon = 'icons/obj/storage.dmi'
 	icon_state = "crew_medpouch"
 	w_class = WEIGHT_CLASS_SMALL
 	can_hold = list(
@@ -536,7 +527,7 @@
 	name = "mining first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи, используемая шахтёрским врачом."
 	icon_state = "mining_medic_firstaid"
-	item_state = "medkit_mining"
+	item_state = "mining_medic_firstaid"
 
 /obj/item/storage/firstaid/doctor/mining_medic/get_ru_names()
 	return list(

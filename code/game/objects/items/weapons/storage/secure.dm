@@ -12,7 +12,6 @@
 // -----------------------------
 /obj/item/storage/secure
 	name = "secstorage"
-	icon = 'icons/obj/storage/boxes.dmi'
 	var/icon_locking = "secureb"
 	var/icon_sparking = "securespark"
 	var/icon_opened = "secure0"

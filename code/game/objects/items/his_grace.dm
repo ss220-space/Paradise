@@ -7,11 +7,11 @@
 /obj/item/his_grace
 	name = "artistic toolbox"
 	desc = "Покрашенный в ярко-зелёные цвета тулбокс. От одного его вида становится страшно."
-	icon = 'icons/obj/storage/boxes.dmi'
-	icon_state = "toolbox_green"
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	icon = 'icons/goonstation/objects/objects.dmi'
+	icon_state = "green"
 	item_state = "toolbox_green"
+	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
 	force = 12
 	attack_verb = list("заробастил", "сокрушил")
@@ -70,8 +70,8 @@
 	return ..()
 
 /obj/item/his_grace/update_icon_state()
-	icon_state = ascended ? "toolbox_gold" : (awakened ? (rogue ? "toolbox_green_frenzy" : "toolbox_green_hunger") : "toolbox_green")
-	item_state = ascended ? "toolbox_gold" : "toolbox_green"
+	icon_state = ascended ? "gold" : (awakened ? (rogue ? "green4" : "green3") : "green")
+	item_state = ascended ? "gold" : "green"
 	return ..()
 
 /obj/item/his_grace/proc/try_update_tier()

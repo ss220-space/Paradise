@@ -391,7 +391,7 @@
 /obj/item/storage/box/jumpbootimplant
 	name = "box of jumpboot implants"
 	desc = "Коробка с набором имплантов прыжковых ботинок. Для работы потребуется хирургическая установка."
-	icon_state = "box_implants"
+	icon_state = "cyber_implants"
 
 /obj/item/storage/box/jumpbootimplant/get_ru_names()
 	return list(
