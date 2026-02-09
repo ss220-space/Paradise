@@ -14,9 +14,7 @@
 /obj/item/thief_kit
 	name = "набор гильдии воров"
 	desc = "Ничем не примечательная увесистая коробка. Тяжелая. Набор вора-шредингера. Неизвестно что внутри, пока не заглянешь и не определишься."
-	icon = 'icons/obj/storage/boxes.dmi'
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "box_thief"
 	item_state = "theif"
 	w_class = WEIGHT_CLASS_TINY

@@ -2,8 +2,6 @@
 	name = "paper bin"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper_bin"
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
 	item_state = "paper_bin"
 	throwforce = 1
 	throw_speed = 3
