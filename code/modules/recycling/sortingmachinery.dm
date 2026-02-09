@@ -423,9 +423,7 @@
 /obj/item/shippingPackage
 	name = "Shipping package"
 	desc = "A pre-labeled package for shipping an item to coworkers."
-	icon = 'icons/obj/storage/boxes.dmi'
-	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
-	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "shippack"
 	item_state = "shippack"
 	var/obj/item/wrapped = null
