@@ -72,7 +72,6 @@
 /obj/item/storage/box/syringes
 	name = "syringes"
 	desc = "A box full of syringes."
-	desc = "A biohazard alert warning is printed on the box"
 	icon_state = "syringe"
 
 /obj/item/storage/box/syringes/populate_contents()
