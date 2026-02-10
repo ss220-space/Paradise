@@ -934,7 +934,6 @@
 /obj/item/storage/box/bola
 	name = "Energy bola box"
 	desc = "Бола для самых быстрых из быстрых"
-	icon_state = "box_security"
 	item_state = "sec"
 
 /obj/item/storage/box/bola/populate_contents()
@@ -1108,7 +1107,7 @@
 
 /obj/item/storage/box/enforcer_kit
 	name = "Набор пистолета \"Блюститель\""
-	icon_state = "box_enforcer"
+	icon_state = "box_sec"
 	item_state = "sec"
 
 /obj/item/storage/box/enforcer_kit/populate_contents()
@@ -1120,7 +1119,7 @@
 /obj/item/storage/box/specter_kit
 	name = "Набор энергитического пистолета \"Спектр\""
 	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 аккумулятора."
-	icon_state = "box_specter"
+	icon_state = "box_sec"
 	item_state = "sec"
 
 /obj/item/storage/box/specter_kit/get_ru_names()
@@ -1142,7 +1141,7 @@
 /obj/item/storage/box/taurus_kit
 	name = "Набор револьвера \"Таурус\""
 	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
-	icon_state = "box_taurus"
+	icon_state = "box_sec"
 
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
@@ -1163,7 +1162,7 @@
 
 /obj/item/storage/box/revolver_kit
 	name = "Набор револьвера \".38 Mars Special\""
-	icon_state = "box_revolver"
+	icon_state = "box_sec"
 	item_state = "sec"
 
 /obj/item/storage/box/revolver_kit/populate_contents()

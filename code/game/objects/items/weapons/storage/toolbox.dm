@@ -544,7 +544,7 @@
 	name = "artistic toolbox"
 	desc = "Металлический контейнер, предназначенный для хранения различных инструментов, в том числе художественных принадлежностей."
 	icon_state = "green"
-	item_state = "toolbox_green"
+	item_state = "green"
 
 /obj/item/storage/toolbox/green/get_ru_names()
 	return list(
