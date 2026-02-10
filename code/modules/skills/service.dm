@@ -21,5 +21,5 @@
 	id = "service.cleaning"
 	name = "Уборка"
 	desc = "Влияет на мытье полов и уборку."
-	duration_mod_signals = list()
-	quality_mod_signals = list()
+	duration_mod_signals = list(COMSIG_GET_CLEANING_SPEED_MOD)
+	quality_mod_signals = list(COMSIG_GET_CLEANING_DISTANCE_MOD)

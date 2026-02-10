@@ -31,11 +31,13 @@
 		return
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
+	CALCULATE_SKILL_MOD(user, GET_CLEANING_SPEED_MOD, skill_factor)
+	var/cleaning_speed = cleanspeed * skill_factor
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "снимите это с себя!")
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
 		user.balloon_alert(user, "чистка...")
-		if(do_after(user, cleanspeed, target) && target)
+		if(do_after(user, cleaning_speed, target) && target)
 			user.balloon_alert(user, "очищено")
 			if(issimulatedturf(target.loc))
 				clean_turf(target.loc)
@@ -43,12 +45,12 @@
 			qdel(target)
 	else if(issimulatedturf(target))
 		user.balloon_alert(user, "чистка...")
-		if(do_after(user, cleanspeed, target))
+		if(do_after(user, cleaning_speed, target))
 			user.balloon_alert(user, "очищено")
 			clean_turf(target)
 	else
 		user.balloon_alert(user, "чистка...")
-		if(do_after(user, cleanspeed, target))
+		if(do_after(user, cleaning_speed, target))
 			user.balloon_alert(user, "очищено")
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)

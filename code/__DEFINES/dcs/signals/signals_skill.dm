@@ -50,6 +50,12 @@
 /// Get spacepod battery usage modifier (mob/living/user, list/modifiers)
 #define COMSIG_GET_SPACEPOD_BATTERY_USAGE_MOD "get_spacepod_battery_usage"
 
+// MARK: Service
+/// Get speed modifier for cleaning skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_CLEANING_SPEED_MOD "get_cleaning_speed"
+/// Get cleaning distance modifier for cleaning skill (mob/living/user, list/modifiers)
+#define COMSIG_GET_CLEANING_DISTANCE_MOD
+
 // MARK: Combat
 /// Get gun accuracy modifier for accuracy skill (mob/living/user, list/modifiers)
 #define COMSIG_GET_ACCURACY_MOD "get_accuracy_mod"
