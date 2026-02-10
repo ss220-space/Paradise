@@ -107,7 +107,6 @@
 /obj/item/storage/box/injectors
 	name = "DNA injectors"
 	desc = "This box contains injectors it seems."
-	icon_state = "box_syringe"
 
 /obj/item/storage/box/injectors/populate_contents()
 	new /obj/item/dnainjector/h2m(src)
@@ -224,7 +223,7 @@
 /obj/item/storage/box/tapes
 	name = "Tape Box"
 	desc = "A box of spare recording tapes"
-	icon_state = "box_security"
+	icon_state = "flashbang"
 	item_state = "sec"
 
 /obj/item/storage/box/tapes/populate_contents()
@@ -297,7 +296,7 @@
 /obj/item/storage/box/warmdonkpockets
 	name = "box of warm donk-pockets"
 	desc = "Коробка с уже разогретыми Донк-покетами. Ням-ням!"
-	icon_state = "donkpocket_box"
+	icon_state = "donk_kit"
 	item_state = "donks"
 
 /obj/item/storage/box/warmdonkpockets/get_ru_names()
@@ -476,7 +475,6 @@
 /obj/item/storage/box/manacles
 	name = "box of spare manacles"
 	desc = "A box full of manacles. Old but gold."
-	icon_state = "box_manacle"
 	item_state = "ninja"
 
 /obj/item/storage/box/manacles/populate_contents()
@@ -1262,7 +1260,7 @@
  */
 /obj/item/storage/box/disks_tech
 	name = "tech data disks box"
-	icon_state = "box_disc"
+	icon_state = "disk_kit"
 
 /obj/item/storage/box/disks_tech/populate_contents()
 	..()

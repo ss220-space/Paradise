@@ -9,7 +9,7 @@
 	desc = "Покрашенный в ярко-зелёные цвета тулбокс. От одного его вида становится страшно."
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "green"
-	item_state = "toolbox_green"
+	item_state = "green"
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	w_class = WEIGHT_CLASS_GIGANTIC
