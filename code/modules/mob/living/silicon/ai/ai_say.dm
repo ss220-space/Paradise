@@ -42,16 +42,12 @@
 	var/mob/mob_to_track = null
 	speaker_name = html_encode(speaker_name)
 	jobname = html_encode(jobname)
-	if(changed_voice)
-		if(impersonating)
-			mob_to_track = impersonating
-		else
-			mob_to_track = speaker
+	if(changed_voice && impersonating)
+		mob_to_track = impersonating
+	else if(isbot(follow_target))
+		track = "<a href='byond://?src=[UID()];trackbot=[follow_target.UID()]'>[speaker_name] ([jobname])</a>"
 	else
-		if(isbot(follow_target))
-			track = "<a href='byond://?src=[UID()];trackbot=[follow_target.UID()]'>[speaker_name] ([jobname])</a>"
-		else
-			mob_to_track = speaker
+		mob_to_track = speaker
 
 	if(mob_to_track)
 		track = "<a href='byond://?src=[UID()];track=[mob_to_track.UID()]'>[speaker_name] ([jobname])</a>"
