@@ -876,7 +876,7 @@
 	)
 
 /obj/item/mecha_parts/mecha_equipment/cage/brass
-	name = "brass cradle"
+	name = "Brass cradle"
 	desc = "Модуль для экзокостюмов, используемый для задержания заблудших."
 	icon_state = "mecha_cage_brass"
 	origin_tech = "combat=6;materials=5"
