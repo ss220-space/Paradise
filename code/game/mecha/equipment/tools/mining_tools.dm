@@ -144,7 +144,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/drill/brass
 	name = "Brass exosuit drill"
-	desc = "Equipment for engineering and combat exosuits. This is a blessed version of the drill"
+	desc = "Оборудование для инженерных и боевых экзокостюмов. Это благословлённая версия бура."
 	icon_state = "mech_brass_drill"
 	equip_cooldown = 0.5 SECONDS
 	drill_delay = 2.5
