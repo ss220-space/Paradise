@@ -113,7 +113,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/brass
 	name = "Brass clamp"
-	desc = "Equipment for brass exosuits. Lifts objects and loads them into cargo."
+	desc = "Оборудование для латунных экзокостюмов. Поднимает объекты и загружает их в грузовой отсек."
 	icon_state = "mecha_brassclamp"
 	equip_cooldown = 1 SECONDS
 	energy_drain = 5
