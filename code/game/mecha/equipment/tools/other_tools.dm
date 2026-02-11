@@ -189,7 +189,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/brass_armor_booster
 	name = "Brass Armor Booster Module"
-	desc = "Boosts exosuit armor against all attacks. Completely blocks taser shots. Requires energy to operate."
+	desc = "Усиливает броню экзокостюма против всех атак. Полностью блокирует выстрелы тазера. Требует энергию для работы."
 	icon_state = "mecha_abooster_brass"
 	equip_cooldown = 0.5 SECONDS
 	energy_drain = 25
