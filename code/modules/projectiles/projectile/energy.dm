@@ -571,7 +571,7 @@
 		PREPOSITIONAL = "латунном электроде",
 	)
 
-/obj/projectile/beam/laser/light/rat/prehit(atom/target)
+/obj/projectile/energy/electrode/brass/prehit(atom/target)
 	if(isclocker(target))
 		confused = 0 SECONDS
 		stun = 0 SECONDS
