@@ -40,6 +40,8 @@
 
 	var/track = ""
 	var/mob/mob_to_track = null
+	speaker_name = html_encode(speaker_name)
+	jobname = html_encode(jobname)
 	if(changed_voice)
 		if(impersonating)
 			mob_to_track = impersonating
@@ -54,7 +56,6 @@
 	if(mob_to_track)
 		track = "<a href='byond://?src=[UID()];track=[mob_to_track.UID()]'>[speaker_name] ([jobname])</a>"
 		track += "&nbsp;<a href='byond://?src=[UID()];open=[mob_to_track.UID()]'>\[Open\]</a>"
-
 	return track
 
 // MARK: AI VOX Announcements
