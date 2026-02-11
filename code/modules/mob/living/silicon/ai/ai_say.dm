@@ -44,7 +44,7 @@
 		if(impersonating)
 			mob_to_track = impersonating
 		else
-			track = "[speaker_name] ([jobname])"
+			mob_to_track = speaker
 	else
 		if(isbot(follow_target))
 			track = "<a href='byond://?src=[UID()];trackbot=[follow_target.UID()]'>[speaker_name] ([jobname])</a>"

@@ -231,12 +231,7 @@
 			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
 		if(track)
-			// The track already contains a name, so we don't print speaker_name
-			// But we need part_a before the name, which already exists in the track
-			// We split the track into a label and a name
-			var/prefix = copytext(track, 1, findtext(track, speaker_name))
-			var/rest = copytext(track, findtext(track, speaker_name))
-			to_chat(src, "[prefix][part_a][rest][part_b][message]</span></span>")
+			to_chat(src, "[part_a][track][message]</span></span>")
 		else
 			to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 
