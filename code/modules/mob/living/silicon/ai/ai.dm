@@ -1588,7 +1588,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/verb/deploy_to_shell(mob/living/silicon/robot/target)
 	set name = "Подключиться к оболочке"
 	set desc = "Подключитесь к роботу-оболочке по безпроводной связи."
-	set category = STATPANEL_AICOMMANDS
+	set category = VERB_CATEGORY_AICOMMANDS
 
 	if(control_disabled)
 		to_chat(src, span_warning("Подсистема безпроводного подключения не отвечает."))
