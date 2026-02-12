@@ -896,11 +896,6 @@
 	if(!..())
 		return FALSE
 
-	if(!robot.shell)
-		//It somehow installed in non-shell cyborg. Someone has played with VV menu...
-		qdel(src, force = TRUE)
-		return FALSE
-
 	robot.undeploy()
 	robot.revert_shell()
 	return TRUE
