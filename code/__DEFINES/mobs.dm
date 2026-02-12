@@ -158,7 +158,7 @@
 //'evacuate_ai()' proc danger levels
 #define DANGER_LVL_NONE "danger_level_none" //0% kill chance
 #define DANGER_LVL_MAY_DIE "danger_level_may_die" //50% kill chance
-#define DANGER_LVL_INSTA_DEATH "danher_level_insta_death" //100% kill chance
+#define DANGER_LVL_INSTA_DEATH "danger_level_insta_death" //100% kill chance
 //determines if a mob can smash through it
 #define ENVIRONMENT_SMASH_NONE 0
 #define ENVIRONMENT_SMASH_STRUCTURES 1 //crates, lockers, ect
