@@ -1157,7 +1157,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				to_chat(user, span_warning("Криптографический секвенсор искриться, но вы не видите результатов. Кажется, это просто пустая и бесполезая оболочка."))
 			else
 				evacuate_ai(DANGER_LVL_INSTA_DEATH)
-				balloon_alert(user, "ии удален.")
+				balloon_alert(user, "ии удален")
 				death()
 			return
 
