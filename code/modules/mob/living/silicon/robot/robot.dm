@@ -2310,8 +2310,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				mainframe.disconnect_shell()
 				to_chat(AI, span_danger("ВНИМАНИЕ: Безпроводное подключение с оболочкой было принудительно прервано!"))
 			if(DANGER_LVL_MAY_DIE)
+				mainframe.disconnect_shell()
 				if(prob(50))
-					mainframe.disconnect_shell()
 					to_chat(AI, span_alert("ОШИБКА: ВО $#%ВРЕ$#@МЯ ПЕ$#GHРЕН#@$ОСА СИ2С$#@@Т#ЕМН%$@ЫХ Ф#$%АЙЛ#$#!ОВ ПРОИЗО#$%^@#^&$$@^&---"))
 					AI.adjustOxyLoss(200)
 

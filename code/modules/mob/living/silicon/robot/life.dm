@@ -9,7 +9,7 @@
 	handle_equipment()
 	if(shell)
 		if(mainframe)
-			laws = mainframe.laws //AI shells must sync their laws with AI-pilot every SECOND!!!
+			laws = mainframe.laws //AI shells must sync their laws with AI-pilot every tick!!!
 			if(!cell || (cell.charge <= 0))
 				evacuate_ai(DANGER_LVL_NONE)
 
