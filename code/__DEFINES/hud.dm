@@ -53,6 +53,8 @@
 #define PLANT_WEED_HUD "24"
 /// Gland indicators for abductors
 #define GLAND_HUD "25"
+/// AI shell status
+#define DIAG_AISHELL_STAT_HUD "26"
 /// Telepathy bubbles
 #define THOUGHT_HUD "thoughts_hud"
 /// Kidan pheromones hud

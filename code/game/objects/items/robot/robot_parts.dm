@@ -244,142 +244,172 @@
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!is_mmi(I))
-		return ..()
+	if(istype(I, /obj/item/borg/upgrade/ai))
 
-	. = ATTACK_CHAIN_PROCEED
-	add_fingerprint(user)
-	var/obj/item/mmi/new_mmi = I
-	if(!check_completion())
-		to_chat(user, span_warning("The MMI must go in after everything else!"))
-		return .
+		var/obj/item/borg/upgrade/ai/M = I
+		if(check_completion())
+			if(!isturf(loc))
+				to_chat(user, span_warning("You cannot install [M], the frame has to be standing on the ground to be perfectly precise!"))
+				return
+			qdel(M)
+			var/mob/living/silicon/robot/robot = new /mob/living/silicon/robot/shell(get_turf(src))
 
-	if(new_mmi.clock && !isclocker(user))
-		to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to put the soul vessel into the frame."))
-		user.Confused(20 SECONDS)
-		user.Jitter(12 SECONDS)
-		return ATTACK_CHAIN_BLOCKED_ALL
+			if(!aisync)
+				lawsync = FALSE
+				robot.set_connected_ai(null)
+			else
+				if(forced_ai)
+					robot.set_connected_ai(forced_ai)
+				robot.notify_ai(AI_NOTIFICATION_AI_SHELL)
+			if(!lawsync)
+				robot.lawupdate = FALSE
+				robot.make_laws()
 
-	if(!isturf(loc))
-		to_chat(user, span_warning("You can't put [new_mmi] in, the frame has to be standing on the ground to be perfectly precise."))
-		return .
+			robot.cell = chest.cell
+			chest.cell.forceMove(robot)
 
-	if(!new_mmi.brainmob)
-		to_chat(user, span_warning("Sticking an empty [new_mmi.name] into the frame would sort of defeat the purpose."))
-		return .
+			robot.locked = panel_locked
+			robot.job = JOB_TITLE_CYBORG
+			forceMove(robot)
+			robot.robot_suit = src
+			if(!locomotion)
+				robot.set_lockcharge(TRUE)
 
-	if(!new_mmi.brainmob.key)
-		var/ghost_can_reenter = FALSE
-		if(new_mmi.brainmob.mind)
-			for(var/mob/dead/observer/observer in GLOB.player_list)
-				if(observer.can_reenter_corpse && observer.mind == new_mmi.brainmob.mind)
-					ghost_can_reenter = TRUE
-					if(new_mmi.next_possible_ghost_ping < world.time)
-						observer.notify_cloning("Somebody is trying to borg you! Re-enter your corpse if you want to be borged!", 'sound/voice/liveagain.ogg', src)
-						new_mmi.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
-					break
-		if(ghost_can_reenter)
-			to_chat(user, span_warning("The [new_mmi.name] is currently inactive. Try again later."))
-		else
-			to_chat(user, span_warning("The [new_mmi.name] is completely unresponsive; there's no point to use it."))
-		return .
+	if(is_mmi(I))
 
-	if(jobban_isbanned(new_mmi.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(new_mmi.brainmob, "nonhumandept"))
-		to_chat(user, span_warning("This [new_mmi.name] is not fit to serve as a cyborg!"))
-		return .
+		. = ATTACK_CHAIN_PROCEED
+		add_fingerprint(user)
+		var/obj/item/mmi/new_mmi = I
+		if(!check_completion())
+			to_chat(user, span_warning("The MMI must go in after everything else!"))
+			return .
 
-	if(new_mmi.brainmob.stat == DEAD)
-		to_chat(user, span_warning("Sticking a dead [new_mmi.name] into the frame would sort of defeat the purpose."))
-		return .
+		if(new_mmi.clock && !isclocker(user))
+			to_chat(user, span_danger("An overwhelming feeling of dread comes over you as you attempt to put the soul vessel into the frame."))
+			user.Confused(20 SECONDS)
+			user.Jitter(12 SECONDS)
+			return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(new_mmi.brainmob.mind in SSticker.mode.head_revolutionaries)
-		to_chat(user, span_warning("The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [new_mmi]."))
-		return .
+		if(!isturf(loc))
+			to_chat(user, span_warning("You can't put [new_mmi] in, the frame has to be standing on the ground to be perfectly precise."))
+			return .
 
-	var/datum/ai_laws/laws_to_give
-	if(!aisync)
-		lawsync = FALSE
+		if(!new_mmi.brainmob)
+			to_chat(user, span_warning("Sticking an empty [new_mmi.name] into the frame would sort of defeat the purpose."))
+			return .
 
-	if(sabotaged)
-		aisync = FALSE
-		lawsync = FALSE
+		if(!new_mmi.brainmob.key)
+			var/ghost_can_reenter = FALSE
+			if(new_mmi.brainmob.mind)
+				for(var/mob/dead/observer/observer in GLOB.player_list)
+					if(observer.can_reenter_corpse && observer.mind == new_mmi.brainmob.mind)
+						ghost_can_reenter = TRUE
+						if(new_mmi.next_possible_ghost_ping < world.time)
+							observer.notify_cloning("Somebody is trying to borg you! Re-enter your corpse if you want to be borged!", 'sound/voice/liveagain.ogg', src)
+							new_mmi.next_possible_ghost_ping = world.time + 30 SECONDS // Avoid spam
+						break
+			if(ghost_can_reenter)
+				to_chat(user, span_warning("The [new_mmi.name] is currently inactive. Try again later."))
+			else
+				to_chat(user, span_warning("The [new_mmi.name] is completely unresponsive; there's no point to use it."))
+			return .
 
-	if(new_mmi.syndicate)	// ffs
-		aisync = FALSE
-		lawsync = FALSE
-		laws_to_give = new /datum/ai_laws/syndicate_override
+		if(jobban_isbanned(new_mmi.brainmob, JOB_TITLE_CYBORG) || jobban_isbanned(new_mmi.brainmob, "nonhumandept"))
+			to_chat(user, span_warning("This [new_mmi.name] is not fit to serve as a cyborg!"))
+			return .
 
-	if(new_mmi.ninja)
-		aisync = FALSE
-		lawsync = FALSE
-		laws_to_give = new /datum/ai_laws/ninja_override
+		if(new_mmi.brainmob.stat == DEAD)
+			to_chat(user, span_warning("Sticking a dead [new_mmi.name] into the frame would sort of defeat the purpose."))
+			return .
 
-	if(new_mmi.clock)
-		aisync = FALSE
-		lawsync = FALSE
-		laws_to_give = new /datum/ai_laws/ratvar
+		if(new_mmi.brainmob.mind in SSticker.mode.head_revolutionaries)
+			to_chat(user, span_warning("The frame's firmware lets out a shrill sound, and flashes 'Abnormal Memory Engram'. It refuses to accept [new_mmi]."))
+			return .
 
-	var/mob/living/silicon/robot/new_borg = new(loc, syndie = sabotaged, unfinished = TRUE, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
-	if(QDELETED(new_borg))	// somehow??? jesus fucking christ
-		return .
+		var/datum/ai_laws/laws_to_give
+		if(!aisync)
+			lawsync = FALSE
 
-	if(!user.drop_transfer_item_to_loc(new_mmi, src))
-		return ..()
+		if(sabotaged)
+			aisync = FALSE
+			lawsync = FALSE
 
-	. = ATTACK_CHAIN_BLOCKED_ALL
+		if(new_mmi.syndicate)	// ffs
+			aisync = FALSE
+			lawsync = FALSE
+			laws_to_give = new /datum/ai_laws/syndicate_override
 
-	var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
-	if(istype(task))
-		task.unit_completed()
+		if(new_mmi.ninja)
+			aisync = FALSE
+			lawsync = FALSE
+			laws_to_give = new /datum/ai_laws/ninja_override
 
-	new_borg.invisibility = 0
-	new_mmi.forceMove(new_borg) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
-	//Transfer debug settings to new mob
-	new_borg.custom_name = created_name
-	new_borg.rename_character(new_borg.real_name, new_borg.get_default_name())
-	new_borg.locked = panel_locked
+		if(new_mmi.clock)
+			aisync = FALSE
+			lawsync = FALSE
+			laws_to_give = new /datum/ai_laws/ratvar
 
-	if(laws_to_give)
-		new_borg.laws = laws_to_give
-	else if(!lawsync)
-		new_borg.lawupdate = FALSE
-		new_borg.make_laws()
+		var/mob/living/silicon/robot/new_borg = new(loc, syndie = sabotaged, unfinished = TRUE, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
+		if(QDELETED(new_borg))	// somehow??? jesus fucking christ
+			return .
 
-	new_mmi.brainmob.mind.transfer_to(new_borg)
+		if(!user.drop_transfer_item_to_loc(new_mmi, src))
+			return ..()
 
-	SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
+		. = ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!new_mmi.greet(new_borg) && new_borg.mind?.special_role)
-		new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
-		to_chat(new_borg, span_userdanger("You have been robotized!"))
-		to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
+		var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
+		if(istype(task))
+			task.unit_completed()
 
-	new_borg.job = JOB_TITLE_CYBORG
+		new_borg.invisibility = 0
+		new_mmi.forceMove(new_borg) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
+		//Transfer debug settings to new mob
+		new_borg.custom_name = created_name
+		new_borg.rename_character(new_borg.real_name, new_borg.get_default_name())
+		new_borg.locked = panel_locked
 
-	chest.cell.forceMove(new_borg)
-	new_borg.cell = chest.cell
-	chest.cell = null
-	// Since we "magically" installed a cell, we also have to update the correct component.
-	var/datum/robot_component/cell_component = new_borg.components["power cell"]
-	cell_component.wrapped = new_borg.cell
-	cell_component.installed = TRUE
-	new_borg.mmi = new_mmi
-	new_borg.Namepick()
+		if(laws_to_give)
+			new_borg.laws = laws_to_give
+		else if(!lawsync)
+			new_borg.lawupdate = FALSE
+			new_borg.make_laws()
 
-	SSblackbox.record_feedback("amount", "cyborg_birth", 1)
+		new_mmi.brainmob.mind.transfer_to(new_borg)
 
-	forceMove(new_borg)
-	new_borg.robot_suit = src
+		SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-	new_borg.mmi.apply_effects(new_borg)
+		if(!new_mmi.greet(new_borg) && new_borg.mind?.special_role)
+			new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
+			to_chat(new_borg, span_userdanger("You have been robotized!"))
+			to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 
-	if(new_borg.mmi.clock) // so robots created from vessel have magic
-		new_borg.UnlinkSelf()
-		SSticker.mode.add_clock_actions(new_borg.mind)
+		new_borg.job = JOB_TITLE_CYBORG
 
-	if(!locomotion)
-		new_borg.set_lockcharge(TRUE)
-		to_chat(new_borg, span_warning("Error: Servo motors unresponsive."))
+		chest.cell.forceMove(new_borg)
+		new_borg.cell = chest.cell
+		chest.cell = null
+		// Since we "magically" installed a cell, we also have to update the correct component.
+		var/datum/robot_component/cell_component = new_borg.components["power cell"]
+		cell_component.wrapped = new_borg.cell
+		cell_component.installed = TRUE
+		new_borg.mmi = new_mmi
+		new_borg.Namepick()
+
+		SSblackbox.record_feedback("amount", "cyborg_birth", 1)
+
+		forceMove(new_borg)
+		new_borg.robot_suit = src
+
+		new_borg.mmi.apply_effects(new_borg)
+
+		if(new_borg.mmi.clock) // so robots created from vessel have magic
+			new_borg.UnlinkSelf()
+			SSticker.mode.add_clock_actions(new_borg.mind)
+
+		if(!locomotion)
+			new_borg.set_lockcharge(TRUE)
+			to_chat(new_borg, span_warning("Error: Servo motors unresponsive."))
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <a href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"

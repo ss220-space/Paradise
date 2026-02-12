@@ -366,7 +366,7 @@
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 9 SECONDS, candidate))
-				candidate.emp_act(EMP_HEAVY)
+				candidate.Stun(6 SECONDS)
 				candidate.ratvar_act(weak = TRUE)
 				SSticker?.score?.save_silicon_laws(candidate, user, "Ratvar act", log_all_laws = TRUE)
 				channeling = FALSE

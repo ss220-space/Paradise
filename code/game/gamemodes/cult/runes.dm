@@ -397,6 +397,13 @@ structure_check() searches for nearby cultist structures required for the invoca
 	playsound(offering, 'sound/misc/demon_consume.ogg', 100, TRUE)
 
 	if((ishuman(offering) || isrobot(offering) || isbrain(offering)) && offering.mind)
+		if(isrobot(offering))
+			var/mob/living/silicon/robot/robot = offering
+			if(robot.shell && robot.mainframe)
+				robot.evacuate_ai(DANGER_LVL_INSTA_DEATH)
+				robot.dust()
+				playsound(offering, 'sound/magic/disintegrate.ogg', 100, TRUE)
+				return TRUE
 		var/obj/item/soulstone/stone = new /obj/item/soulstone(get_turf(src))
 		stone.invisibility = INVISIBILITY_MAXIMUM // So it's not picked up during transfer_soul()
 		stone.transfer_soul("FORCE", offering, user) // If it cannot be added

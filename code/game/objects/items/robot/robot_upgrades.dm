@@ -111,6 +111,9 @@
 		if(user)
 			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("you have to repair the cyborg before using this module!")]")
 		return FALSE
+	if(robot.shell)
+		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("cant apply on a AI shell!")]")
+		return FALSE
 
 	if(!robot.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
@@ -784,4 +787,41 @@
 
 	robot.module.modules += new /obj/item/reagent_containers/glass/bucket(robot.module)
 	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/ai
+	name = "модуль Б.О.Р.И.С"
+	desc = "Модуль Блюспейс Ореинтированной Роботической Исскуственной Сети. При установке в киборга, позволяет ИИ управлять им напрямую."
+	icon_state = "r_boris"
+
+/obj/item/borg/upgrade/ai/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль Б.О.Р.И.С.",
+		GENITIVE = "модуля Б.О.Р.И.С.",
+		DATIVE = "модулю Б.О.Р.И.С.",
+		ACCUSATIVE = "модуль Б.О.Р.И.С.",
+		INSTRUMENTAL = "модулем Б.О.Р.И.С.",
+		PREPOSITIONAL = "модуле Б.О.Р.И.С.",
+	)
+
+/obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/robot, mob/living/user = usr)
+	. = ..()
+	if(!.)
+		return .
+	if(robot.key)
+		to_chat(user, span_warning("Зафиксированы активные мыслительные процессы. Подключение невозможно."))
+		return FALSE
+	robot.make_shell(src)
+
+/obj/item/borg/upgrade/ai/deactivate(mob/living/silicon/robot/robot, mob/living/user = usr)
+	if(!..())
+		return FALSE
+
+	if(!robot.shell)
+		//It somehow installed in non-shell cyborg. Someone has played with VV menu...
+		qdel(src, force = TRUE)
+		return FALSE
+
+	robot.undeploy()
+	robot.revert_shell()
 	return TRUE
