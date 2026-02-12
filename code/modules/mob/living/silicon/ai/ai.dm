@@ -1561,7 +1561,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
 
-//Notifies comtrolled shell about law change
+//Notifies controlled shell about law change
 /mob/living/silicon/ai/proc/notify_shell()
 	if(deployed_shell)
 		deployed_shell.show_laws()

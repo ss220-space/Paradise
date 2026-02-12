@@ -1157,7 +1157,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				to_chat(user, span_warning("Криптографический секвенсор искриться, но вы не видите результатов. Кажется, это просто пустая и бесполезая оболочка."))
 			else
 				evacuate_ai(DANGER_LVL_INSTA_DEATH)
-				balloon_alert(user, "ИИ удален.")
+				balloon_alert(user, "ии удален.")
 				death()
 			return
 
@@ -1792,7 +1792,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(ROBOT_NOTIFY_AI_NAME) //New Name
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].")]<br>")
 		if(AI_NOTIFICATION_AI_SHELL) //New AI Shell
-			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track=[html_encode(name)]'>[name]</a>")]<br>")
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg shell detected: <a href='byond://?src=[connected_ai.UID()];track=[UID()]'>[name]</a>")]<br>")
 
 /mob/living/silicon/robot/proc/disconnect_from_ai()
 	if(connected_ai)
@@ -1838,8 +1838,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	..()
 	if(mainframe)
+		var/mob/living/silicon/ai/AI = mainframe
 		evacuate_ai(DANGER_LVL_NONE)
-		to_chat(mainframe, span_warningbig("ОШИБКА: ЗАФИКСИРОВАН ЭЛЕКТРО-МАГНИТНЫЙ ИМПУЛЬС. СВЯЗЬ С ОБОЛОЧКОЙ РАЗОРВАНА."))
+		to_chat(AI, span_warningbig("ОШИБКА: ЗАФИКСИРОВАН ЭЛЕКТРО-МАГНИТНЫЙ ИМПУЛЬС. СВЯЗЬ С ОБОЛОЧКОЙ РАЗОРВАНА."))
 
 	switch(severity)
 		if(1)
@@ -2230,7 +2231,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	update_camera_name()
 	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai")
 
-//Called when BORIS module has benn removes from robot. Reverts BORIS module, leaving a normal and non-AIshell cyborg
+//Called when BORIS module has been removes from robot. Reverts BORIS module, leaving a normal and non-AIshell cyborg
 /mob/living/silicon/robot/proc/revert_shell()
 	if(!shell)
 		return
