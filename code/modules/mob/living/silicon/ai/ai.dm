@@ -340,13 +340,15 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
 	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
 	for(var/mob/living/silicon/robot/R in connected_robots)
-		var/robot_status = "Nominal"
-		if(R.shell)
-			robot_status = "AI SHELL"
-		if(R.stat || !R.client && !R.shell)
+		var/robot_status
+		if(R.stat || (!R.client && !R.shell))
 			robot_status = "OFFLINE"
-		else if(!R.cell || R.cell.charge <= 0 && !R.shell)
+		else if(!R.cell || R.cell.charge <= 0)
 			robot_status = "DEPOWERED"
+		else if(R.shell)
+			robot_status = "AI SHELL"
+		else
+			robot_status = "Nominal"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
@@ -1568,7 +1570,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/can_connect_to(mob/living/silicon/robot/target)
 	if(isclocker(target) && !isclocker(src))
-		return
+		return FALSE
 	if(target.key)
 		return FALSE
 	if(!target.shell || target.deployed)
@@ -1603,6 +1605,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	if(!LAZYLEN(possible))
 		to_chat(src, "Активных передатчиков сигнала не обнаружено.")
+		return
 
 	if(!target || !(target in possible))
 		target = tgui_input_list(src, "К какой оболочке подключиться?", "Подключиться", sort_names(possible))
@@ -1610,7 +1613,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isnull(target))
 		return
 	if(!can_connect_to(target))
-		to_chat(src, span_warning("Во время установки сигнала с оболочкой произошла ошибка."))
+		to_chat(src, span_warning("Во время установки cоеденения с оболочкой произошла ошибка."))
 		return
 
 	else if(mind)
