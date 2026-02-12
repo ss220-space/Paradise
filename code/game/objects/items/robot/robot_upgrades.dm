@@ -111,6 +111,9 @@
 		if(user)
 			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("you have to repair the cyborg before using this module!")]")
 		return FALSE
+	if(robot.shell)
+		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("cant apply on a AI shell!")]")
+		return FALSE
 
 	if(!robot.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
