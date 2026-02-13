@@ -560,7 +560,7 @@
 	if(in_cooldown)
 		to_chat(owner, "You feel like something was odd about this one parry")
 		// TODO: make the implant take damage
-	item.attack(user, owner, params) // why are you hitting yourself?
+	//item.attack(user, owner, params) // why are you hitting yourself? temporarily commented due to errors with child process
 	user.drop_from_active_hand(TRUE)
 	parried = TRUE
 	on_duration_end(TRUE)
