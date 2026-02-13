@@ -559,10 +559,9 @@
 		return
 	if(in_cooldown)
 		to_chat(owner, "You feel like something was odd about this one parry")
-		var/item/organ/internal/cyberimp/arm/feedbacker/feedbacker = target
-		feedbacker.damage += 10
+		// TODO: make the implant take damage
 	item.attack(user, owner, params) // why are you hitting yourself?
-	user.drop_from_active_hand(true)
+	user.drop_from_active_hand(TRUE)
 	parried = TRUE
 	on_duration_end(TRUE)
 
@@ -580,6 +579,9 @@
 	SIGNAL_HANDLER
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attack_animal()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_attack_alien()
 	SIGNAL_HANDLER
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_bullet_act()
