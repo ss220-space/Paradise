@@ -510,8 +510,7 @@
 	desc = "An advanced bluespace cybernetic arm implant making you able to reflect anything with just punching it! Just don't forget which one you hands has this implant..."
 	action_icon = list()
 
-/datum/action/item_action/organ_action/feedbacker/use
-	desc = "get ready to parry anything that is going to hit you in next 0.5 seconds."
+/datum/action/item_action/organ_action/feedbacker
 	var/in_cooldown = FALSE
 	var/cooldown_duration = 1 SECONDS
 	var/is_active = FALSE
@@ -519,6 +518,9 @@
 	var/parry_bonus_duration = 0.1 SECONDS // bonus duration for successfull parry
 	var/parried = FALSE
 	var/timer_active = FALSE
+
+/datum/action/item_action/organ_action/feedbacker/use
+	desc = "get ready to parry anything that is going to hit you in next 0.5 seconds."
 
 /datum/action/item_action/organ_action/feedbacker/Grant(mob/grant_to)
 	. = ..()
