@@ -577,33 +577,43 @@
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attack_paw()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attack_animal()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attack_alien()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_bullet_act()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_hitby()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_Crossed()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_startpulling()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_try_syringe()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attack_hulk()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attempt_cuff()
 	SIGNAL_HANDLER
+	return
 
 /datum/action/item_action/organ_action/feedbacker/Trigger(mob/clicker, trigger_flags)
 	. = ..()
