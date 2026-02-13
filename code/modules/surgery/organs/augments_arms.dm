@@ -599,7 +599,7 @@
 		timer_active = FALSE
 		in_cooldown = TRUE
 		if(!has_parried)
-			addtimer(CALLback(src, PROC_REF(clear_cooldown)), cooldown_duration)
+			addtimer(CALLBACK(src, PROC_REF(clear_cooldown)), cooldown_duration)
 
 /datum/action/item_action/organ_action/feedbacker/proc/clear_cooldown()
 	in_cooldown = FALSE
