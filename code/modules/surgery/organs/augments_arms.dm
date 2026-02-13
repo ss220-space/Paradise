@@ -558,12 +558,13 @@
 	if(!is_active)
 		return
 	if(in_cooldown)
-		to_chat(owner, "it's still cooling down from your last miss!")
-		return
+		to_chat(owner, "Your feedbacker implant malfunctions!")
+		owner.balloon_alert(owner, "too early!")
+		var/item/organ/internal/cyberimp/arm/feedbacker = target
+		feedbacker.emp_act(severity = 2)
 
-	if(item.force)
-		item.attack(user, owner, params) // why are you hitting yourself?
-	user.drop_from_active_hand()
+	if(user.drop_item_ground())
+		item.throw_at(user, item.throw_range, item.throw_range, src, force = item.throwforce) // why are you hitting yourself?
 	parried = TRUE
 	on_duration_end(TRUE)
 
