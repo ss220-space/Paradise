@@ -508,7 +508,7 @@
 /obj/item/organ/internal/cyberimp/arm/feedbacker
 	name = "feedbacker arm implant"
 	desc = "An advanced bluespace cybernetic arm implant making you able to reflect anything with just punching it! Just don't forget which one you hands has this implant..."
-	action_icon = list()
+	actions_types = list(/datum/action/item_action/organ_action/feedbacker/use)
 
 /datum/action/item_action/organ_action/feedbacker
 	var/in_cooldown = FALSE
@@ -558,10 +558,12 @@
 	if(!is_active)
 		return
 	if(in_cooldown)
-		to_chat(owner, "You feel like something was odd about this one parry")
-		// TODO: make the implant take damage
-	//item.attack(user, owner, params) // why are you hitting yourself? temporarily commented due to errors with child process
-	user.drop_from_active_hand(TRUE)
+		to_chat(owner, "it's still cooling down from your last miss!")
+		return
+
+	if(item.force)
+		item.attack(user, owner, params) // why are you hitting yourself?
+	user.drop_from_active_hand()
 	parried = TRUE
 	on_duration_end(TRUE)
 
