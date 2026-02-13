@@ -560,7 +560,7 @@
 	if(in_cooldown)
 		to_chat(owner, "Your feedbacker implant malfunctions!")
 		owner.balloon_alert(owner, "too early!")
-		var/item/organ/internal/cyberimp/arm/feedbacker = target
+		var/obj/item/organ/internal/cyberimp/arm/feedbacker/feedbacker = target
 		feedbacker.emp_act(severity = 2)
 
 	if(user.drop_item_ground())
