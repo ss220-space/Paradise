@@ -562,7 +562,7 @@
 		var/item/organ/internal/cyberimp/arm/feedbacker = target
 		feedbacker.damage += 10
 	item.attack(user, owner, params) // why are you hitting yourself?
-	user.drop_from_active_hand()
+	user.drop_from_active_hand(true)
 	parried = TRUE
 	on_duration_end(TRUE)
 
@@ -588,12 +588,12 @@
 	addtimer(CALLBACK(src, PROC_REF(on_duration_end)), parry_duration)
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_duration_end(has_parried = FALSE)
-	if(!is_active || timer_acitve)
+	if(!is_active || timer_active)
 		return
 	if(parried)
 		parried = FALSE
 		timer_active = TRUE
-		addtimer(CALLBACK(src, PROC_REF(on_duration_end)), parry_bonus_duration(TRUE))
+		addtimer(CALLBACK(src, PROC_REF(on_duration_end), list(TRUE)), parry_bonus_duration)
 	else
 		is_active = FALSE
 		timer_active = FALSE
