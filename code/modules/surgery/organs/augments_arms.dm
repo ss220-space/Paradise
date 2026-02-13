@@ -559,7 +559,7 @@
 		return
 	if(in_cooldown)
 		to_chat(owner, "You feel like something was odd about this one parry")
-		var/item/organ/internal/cyberimp/arm/feedbacker = target
+		var/item/organ/internal/cyberimp/arm/feedbacker/feedbacker = target
 		feedbacker.damage += 10
 	item.attack(user, owner, params) // why are you hitting yourself?
 	user.drop_from_active_hand(true)
