@@ -504,3 +504,29 @@
 	contents = newlist(/obj/item/mop/advanced)
 	action_icon = list(/datum/action/item_action/organ_action/toggle = 'icons/obj/janitor.dmi')
 	action_icon_state = list(/datum/action/item_action/organ_action/toggle = "advmop")
+
+/obj/item/organ/internal/cyberimp/arm/feedbacker
+	name = "feedbacker arm implant"
+	desc = "An advanced bluespace cybernetic arm implant making you able to reflect anything with just punching it! Just don't forget which one you hands has this implant..."
+	action_icon = list()
+
+/datum/action/item_action/organ_action/use
+	desc = "get ready to parry anything that is going to hit you in next 0.5 seconds."
+	var/cooldown = FALSE
+	var/is_active = FALSE
+	var/parry_duration = 0.5 SECONDS
+	var/parry_bonus_duration = 0.1 SECONDS // bonus duration for successfull parry
+	var/parried = FALSE
+
+/datum/action/item_action/organ_action/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+	if(is_active)
+		return
+	if(!ishuman(clicker))
+		return FALSE
+	var/mob/living/carbon/human/human = clicker
+
+
+
