@@ -543,7 +543,7 @@
 	UnregisterSignal(remove_from, COMSIG_ATOM_ATTACK_HAND)
 	UnregisterSignal(remove_from, COMSIG_ATOM_ATTACK_PAW)
 	UnregisterSignal(remove_from, COMSIG_ATOM_ATTACK_ANIMAL)
-	UnregisterSignal(remove_from, COMSIG_MOB_ATTACK_ALIE)
+	UnregisterSignal(remove_from, COMSIG_MOB_ATTACK_ALIEN)
 	UnregisterSignal(remove_from, COMSIG_ATOM_BULLET_ACT)
 	UnregisterSignal(remove_from, COMSIG_ATOM_HITBY)
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_CROSS)
@@ -576,7 +576,32 @@
 	if(in_cooldown)
 		to_chat(owner, "You feel like something was odd about this one parry")
 
+/datum/action/item_action/organ_action/feedbacker/proc/on_attack_paw()
+	SIGNAL_HANDLER
 
+/datum/action/item_action/organ_action/feedbacker/proc/on_attack_animal()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_bullet_act()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_hitby()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_Crossed()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_startpulling()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_try_syringe()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_attack_hulk()
+	SIGNAL_HANDLER
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_attempt_cuff()
+	SIGNAL_HANDLER
 
 /datum/action/item_action/organ_action/feedbacker/Trigger(mob/clicker, trigger_flags)
 	. = ..()
