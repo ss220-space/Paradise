@@ -510,23 +510,96 @@
 	desc = "An advanced bluespace cybernetic arm implant making you able to reflect anything with just punching it! Just don't forget which one you hands has this implant..."
 	action_icon = list()
 
-/datum/action/item_action/organ_action/use
+/datum/action/item_action/organ_action/feedbacker/use
 	desc = "get ready to parry anything that is going to hit you in next 0.5 seconds."
-	var/cooldown = FALSE
+	var/in_cooldown = FALSE
+	var/cooldown_duration = 1 SECONDS
 	var/is_active = FALSE
 	var/parry_duration = 0.5 SECONDS
 	var/parry_bonus_duration = 0.1 SECONDS // bonus duration for successfull parry
 	var/parried = FALSE
+	var/timer_active = FALSE
 
-/datum/action/item_action/organ_action/Trigger(mob/clicker, trigger_flags)
+/datum/action/item_action/organ_action/feedbacker/Grant(mob/grant_to)
+	. = ..()
+	RegisterSignal(grant_to, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
+	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
+	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_PAW, PROC_REF(on_attack_paw))
+	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(on_attack_animal))
+	RegisterSignal(grant_to, COMSIG_MOB_ATTACK_ALIEN,PROC_REF(on_attack_alien))
+	RegisterSignal(grant_to, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
+	RegisterSignal(grant_to, COMSIG_ATOM_HITBY, PROC_REF(on_hitby))
+	RegisterSignal(grant_to, COMSIG_MOVABLE_CROSS, PROC_REF(on_Crossed))
+	RegisterSignal(grant_to, COMSIG_LIVING_START_PULL, PROC_REF(on_startpulling))
+	RegisterSignal(grant_to, COMSIG_LIVING_TRY_SYRINGE, PROC_REF(on_try_syringe))
+	RegisterSignal(grant_to, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_hulk))
+	RegisterSignal(grant_to, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
+
+/datum/action/item_action/organ_action/feedbacker/Remove(mob/remove_from)
+	. = ..()
+	UnregisterSignal(remove_from, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(grant_to, COMSIG_ATOM_ATTACK_HAND)
+	UnregisterSignal(grant_to, COMSIG_ATOM_ATTACK_PAW)
+	UnregisterSignal(grant_to, COMSIG_ATOM_ATTACK_ANIMAL)
+	UnregisterSignal(grant_to, COMSIG_MOB_ATTACK_ALIE)
+	UnregisterSignal(grant_to, COMSIG_ATOM_BULLET_ACT)
+	UnregisterSignal(grant_to, COMSIG_ATOM_HITBY)
+	UnregisterSignal(grant_to, COMSIG_MOVABLE_CROSS)
+	UnregisterSignal(grant_to, COMSIG_LIVING_START_PULL)
+	UnregisterSignal(grant_to, COMSIG_LIVING_TRY_SYRINGE)
+	UnregisterSignal(grant_to, COMSIG_ATOM_HULK_ATTACK)
+	UnregisterSignal(grant_to, COMSIG_CARBON_CUFF_ATTEMPTED)
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_attackby(obj/item/item, mob/user, params)
+	SIGNAL_HANDLER
+
+	if(!is_active)
+		return
+	if(in_cooldown)
+		to_chat(owner, "You feel like something was odd about this one parry")
+		var/item/organ/internal/cyberimp/arm/feedbacker = target
+		feedbacker.damage += 10
+	item.attack(user, owner, params) // why are you hitting yourself?
+	user.drop_from_active_hand()
+	parried = TRUE
+	on_duration_end(TRUE)
+
+	return COMPONENT_CANCEL_ATTACK_CHAIN
+
+/datum/action/item_action/organ_action/feedbacker/proc/on_attack_hand(mob/user)
+	SIGNAL_HANDLER
+
+	if(!is_active)
+		return
+	if(in_cooldown)
+		to_chat(owner, "You feel like something was odd about this one parry")
+
+
+
+/datum/action/item_action/organ_action/feedbacker/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
 	if(is_active)
 		return
-	if(!ishuman(clicker))
-		return FALSE
-	var/mob/living/carbon/human/human = clicker
+	is_active = TRUE
+	addtimer(CALLBACK(src, PROC_REF(on_duration_end)), parry_duration)
 
+/datum/action/item_action/organ_action/feedbacker/proc/on_duration_end(has_parried = FALSE)
+	if(!is_active || timer_acitve)
+		return
+	if(parried)
+		parried = FALSE
+		timer_active = TRUE
+		addtimer(CALLBACK(src, PROC_REF(on_duration_end)), parry_bonus_duration(TRUE))
+	else
+		is_active = FALSE
+		timer_active = FALSE
+		in_cooldown = TRUE
+		if(!has_parried)
+			addtimer(CALLback(src, PROC_REF(clear_cooldown)), cooldown_duration)
 
+/datum/action/item_action/organ_action/feedbacker/proc/clear_cooldown()
+	in_cooldown = FALSE
+	return
 
