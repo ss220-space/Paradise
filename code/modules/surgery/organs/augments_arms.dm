@@ -564,14 +564,14 @@
 	var/atom/throw_target = target ? target : get_edge_target_turf(user, get_dir(owner, get_step_away(user, owner)))
 	mobuser.throw_at(throw_target, round(combo / 1.5 + 1), combo / 5 + 1)
 	mobuser.apply_damages(brute = 10 * (combo / 2), stamina = 12 * combo) // first parry is always harmless, unless you didn't try to hit parrier with a heavy weapon
-	mobuser.visible_message(massage ? massage : span_danger("As [user] tries to hit [owner], but [owner] parries the hit throwing [user] away!"), \
+	mobuser.visible_message(message ? message : span_danger("As [user] tries to hit [owner], but [owner] parries the hit throwing [user] away!"), \
 		span_userdanger("You cry out in pain and confusion as you got parried back by [owner]'s fist!"))
 
 /datum/action/item_action/organ_action/feedbacker/proc/throw_back(atom/movable/AM, atom/target, range, speed)
 	if(isliving(AM))
 		throw_away(AM, span_danger("[AM] got parried back!"), target)
 		return
-	AM.throw_at(target, target, range, speed)
+	AM.throw_at(target, range, speed)
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attackby(obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
@@ -580,7 +580,7 @@
 		return
 	if(user == owner)
 		return
-	INVOKE_ASYNC(item, TYPE_ROC_REF(obj/item, attack), user, user, params) // some items have sleep() but we must not sleep
+	INVOKE_ASYNC(item, TYPE_PROC_REF(/obj/item, attack), user, user, params) // some items have sleep() but we must not sleep
 	if(isliving(user))
 		throw_away(user)
 	parry()
@@ -612,8 +612,8 @@
 		var/curloc = get_turf(owner)
 		bullet.starting = curloc
 		bullet.current = curloc
-		bullet.yo = original.new_y - curloc.y
-		bullet.xo = original.new_x - curloc.x
+		bullet.yo = original.y - curloc.y
+		bullet.xo = original.x - curloc.x
 		bullet.hit_crawling_mobs_chance = 100
 		set_angle(get_angle(curloc, bullet.original))
 	else
@@ -628,7 +628,7 @@
 	if(!is_active)
 		return
 
-	throw_back(AM, throwingdatum.thrower, throwingdatum.speed * ((10 + combo) / 10), throwingdatum.range * ((10 + combo) / 10))
+	throw_back(AM, throwingdatum.thrower, 4 * (combo / 3), 0.5 / (combo / 2))
 	parry()
 	return TRUE // we "catched" it
 
@@ -665,7 +665,8 @@
 	if(in_cooldown)
 		owner.balloon_alert(owner, "too early!")
 		return
-	if(target.crit_fail)
+	var/obj/feedbacker = target
+	if(feedbacker.crit_fail)
 		owner.balloon_alert(owner, "2 34rly!") // emp message
 		return
 
