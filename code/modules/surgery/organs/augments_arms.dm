@@ -565,13 +565,19 @@
 	on_duration_end(TRUE)
 	//TODO: add parry effects and sounds
 
-/datum/action/item_action/organ_action/feedbacker/proc/throw_away(mob/user)
-	var/mob/living/mobuser
-	var/atom/throw_target = get_edge_target_turf(user, get_dir(owner, get_step_away(user, owner)))
+/datum/action/item_action/organ_action/feedbacker/proc/throw_away(mob/user, message, atom/target)
+	var/mob/living/mobuser = user
+	var/atom/throw_target = target ? target : get_edge_target_turf(user, get_dir(owner, get_step_away(user, owner)))
 	mobuser.throw_at(throw_target, round(combo / 1.5 + 1), combo / 5 + 1)
 	mobuser.apply_damages(brute = 10 * (combo / 2), stamina = 12 * combo) // first parry is always harmless, unless you didn't try to hit parrier with a heavy weapon
-	mobuser.visible_message(span_danger("As [user] tries to hit [owner], but [owner] parries the hit throwing [user] away!"), \
+	mobuser.visible_message(massage ? massage : span_danger("As [user] tries to hit [owner], but [owner] parries the hit throwing [user] away!"), \
 		span_userdanger("You cry out in pain and confusion as you got parried back by [owner]'s fist!"))
+
+/datum/action/item_action/organ_action/feedbacker/proc/throw_back(atom/movable/AM, atom/target, range, speed)
+	if(isliving(AM))
+		throw_away(AM, span_danger("[AM] got parried back!"), target)
+		return
+	AM.throw_at(target, target, range, speed)
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attackby(obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
@@ -613,12 +619,18 @@
 		set_angle(get_angle(curloc, original))
 	else
 		bullet.reflect_back(src)
-
+	parry()
 	return TRUE
 
-/datum/action/item_action/organ_action/feedbacker/proc/on_hitby()
+/datum/action/item_action/organ_action/feedbacker/proc/on_hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SIGNAL_HANDLER
-	return
+
+	if(!is_active)
+		return
+
+	throw_back(AM, throwingdatum.thrower, throwingdatum.speed * ((10 + combo) / 10), throwingdatum.range * ((10 + combo) / 10))
+	parry()
+	return TRUE // we "catched" it
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_Crossed()
 	SIGNAL_HANDLER
