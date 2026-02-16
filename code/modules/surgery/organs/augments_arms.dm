@@ -518,6 +518,8 @@
 	var/parry_bonus_duration = 0.1 SECONDS // bonus duration for successfull parry
 	var/parried = FALSE
 	var/timer_active = FALSE
+	var/combo = 0
+	var/max_combo = 10
 
 /datum/action/item_action/organ_action/feedbacker/use
 	desc = "get ready to parry anything that is going to hit you in next 0.5 seconds."
@@ -552,22 +554,31 @@
 	UnregisterSignal(remove_from, COMSIG_ATOM_HULK_ATTACK)
 	UnregisterSignal(remove_from, COMSIG_CARBON_CUFF_ATTEMPTED)
 
+/datum/action/item_action/organ_action/feedbacker/proc/parry()
+	SIGNAL_HANDLER
+
+	parried = TRUE
+	timer_active = FALSE
+	combo = min(combo + 1, max_combo)
+	on_duration_end(TRUE)
+	//TODO: add parry effects and sounds
+
 /datum/action/item_action/organ_action/feedbacker/proc/on_attackby(obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
 
 	if(!is_active)
 		return
-	if(in_cooldown)
-		to_chat(owner, "Your feedbacker implant malfunctions!")
-		owner.balloon_alert(owner, "too early!")
-		var/obj/item/organ/internal/cyberimp/arm/feedbacker/feedbacker = target
-		feedbacker.emp_act(severity = 2)
+	INVOKE_ASYNC(item, TYPE_ROC_REF(obj/item, attack), user, user, params) // some items have sleep() but we must not sleep
+	if(isliving(user))
+		var/mob/living/mobuser
+		var/atom/throw_target = get_edge_target_turf(user, get_dir(src, get_step_away(user, src)))
+		mobuser.throw_at(throw_target, round(combo / 1.5 + 1), combo / 5 + 1)
+		mobuser.apply_damage(10 * (combo / 2), BRUTE) // first parry is always harmless, unless you didn't try to hit parrier with a heavy weapon
+		mobuser.visible_message(span_danger("As [user] tries to hit [owner] with [item], \
+			[owner] pucnhes [user]'s [item] with an incredible force making [user] hit himself with his [item]!"), \
+			span_userdanger("You cry out in pain as you got parried back by [user]'s fist!"))
 
-	if(user.drop_item_ground())
-		item.throw_at(user, item.throw_range, item.throw_range, src, force = item.throwforce) // why are you hitting yourself?
-	parried = TRUE
-	on_duration_end(TRUE)
-
+	parry()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attack_hand(mob/user)
@@ -575,12 +586,8 @@
 
 	if(!is_active)
 		return
-	if(in_cooldown)
-		to_chat(owner, "You feel like something was odd about this one parry")
 
-/datum/action/item_action/organ_action/feedbacker/proc/on_attack_paw()
-	SIGNAL_HANDLER
-	return
+	parry()
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_attack_animal()
 	SIGNAL_HANDLER
@@ -624,6 +631,10 @@
 		return
 	if(is_active)
 		return
+	if(in_cooldown)
+		owner.balloon_alert(owner, "too early!")
+		return
+
 	is_active = TRUE
 	addtimer(CALLBACK(src, PROC_REF(on_duration_end)), parry_duration)
 
@@ -637,11 +648,12 @@
 	else
 		is_active = FALSE
 		timer_active = FALSE
-		in_cooldown = TRUE
 		if(!has_parried)
+			combo = 0
+			in_cooldown = TRUE
 			addtimer(CALLBACK(src, PROC_REF(clear_cooldown)), cooldown_duration)
 
-/datum/action/item_action/organ_action/feedbacker/proc/clear_cooldown()
+/datum/action/item_action/organ_action/feedbacker/proc/clear_cooldown() //anti-spam
 	in_cooldown = FALSE
 	return
 
