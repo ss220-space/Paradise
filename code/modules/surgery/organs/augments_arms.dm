@@ -609,13 +609,13 @@
 	if(prob(combo * 10)) // perfect reflect chance
 		bullet.original = bullet.firer ? locate(bullet.firer) : bullet.original
 		bullet.firer = owner
-		var/curloc = get_turf(owner)
+		var/turf/curloc = get_turf(owner)
 		bullet.starting = curloc
 		bullet.current = curloc
-		bullet.yo = original.y - curloc.y
-		bullet.xo = original.x - curloc.x
+		bullet.yo = bullet.original.y - curloc.y
+		bullet.xo = bullet.original.x - curloc.x
 		bullet.hit_crawling_mobs_chance = 100
-		set_angle(get_angle(curloc, bullet.original))
+		bullet.set_angle(get_angle(curloc, bullet.original))
 	else
 		bullet.reflect_back(src)
 
