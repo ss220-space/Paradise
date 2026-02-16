@@ -527,10 +527,10 @@
 /datum/action/item_action/organ_action/feedbacker/Grant(mob/grant_to)
 	. = ..()
 	RegisterSignal(grant_to, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
-	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
-	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_PAW, PROC_REF(on_attack_animal))
-	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(on_attack_animal))
-	RegisterSignal(grant_to, COMSIG_MOB_ATTACK_ALIEN,PROC_REF(on_attack_alien))
+	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_mob))
+	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_PAW, PROC_REF(on_attack_mob))
+	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(on_attack_mob))
+	RegisterSignal(grant_to, COMSIG_MOB_ATTACK_ALIEN, PROC_REF(on_attack_mob))
 	RegisterSignal(grant_to, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
 	RegisterSignal(grant_to, COMSIG_ATOM_HITBY, PROC_REF(on_hitby))
 	RegisterSignal(grant_to, COMSIG_MOVABLE_CROSS, PROC_REF(on_Crossed))
@@ -538,6 +538,7 @@
 	RegisterSignal(grant_to, COMSIG_LIVING_TRY_SYRINGE, PROC_REF(on_try_syringe))
 	RegisterSignal(grant_to, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_hulk))
 	RegisterSignal(grant_to, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
+	RegisterSignal(grant_to, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
 /datum/action/item_action/organ_action/feedbacker/Remove(mob/remove_from)
 	. = ..()
@@ -553,6 +554,7 @@
 	UnregisterSignal(remove_from, COMSIG_LIVING_TRY_SYRINGE)
 	UnregisterSignal(remove_from, COMSIG_ATOM_HULK_ATTACK)
 	UnregisterSignal(remove_from, COMSIG_CARBON_CUFF_ATTEMPTED)
+	UnregisterSignal(remove_from, COMSIG_ATOM_EMP_ACT)
 
 /datum/action/item_action/organ_action/feedbacker/proc/parry()
 	SIGNAL_HANDLER
@@ -563,6 +565,14 @@
 	on_duration_end(TRUE)
 	//TODO: add parry effects and sounds
 
+/datum/action/item_action/organ_action/feedbacker/proc/throw_away(mob/user)
+	var/mob/living/mobuser
+	var/atom/throw_target = get_edge_target_turf(user, get_dir(owner, get_step_away(user, owner)))
+	mobuser.throw_at(throw_target, round(combo / 1.5 + 1), combo / 5 + 1)
+	mobuser.apply_damages(brute = 10 * (combo / 2), stamina = 12 * combo) // first parry is always harmless, unless you didn't try to hit parrier with a heavy weapon
+	mobuser.visible_message(span_danger("As [user] tries to hit [owner], but [owner] parries the hit throwing [user] away!"), \
+		span_userdanger("You cry out in pain and confusion as you got parried back by [owner]'s fist!"))
+
 /datum/action/item_action/organ_action/feedbacker/proc/on_attackby(obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
 
@@ -570,36 +580,41 @@
 		return
 	INVOKE_ASYNC(item, TYPE_ROC_REF(obj/item, attack), user, user, params) // some items have sleep() but we must not sleep
 	if(isliving(user))
-		var/mob/living/mobuser
-		var/atom/throw_target = get_edge_target_turf(user, get_dir(src, get_step_away(user, src)))
-		mobuser.throw_at(throw_target, round(combo / 1.5 + 1), combo / 5 + 1)
-		mobuser.apply_damage(10 * (combo / 2), BRUTE) // first parry is always harmless, unless you didn't try to hit parrier with a heavy weapon
-		mobuser.visible_message(span_danger("As [user] tries to hit [owner] with [item], \
-			[owner] pucnhes [user]'s [item] with an incredible force making [user] hit himself with his [item]!"), \
-			span_userdanger("You cry out in pain as you got parried back by [user]'s fist!"))
-
+		throw_away(user)
 	parry()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/action/item_action/organ_action/feedbacker/proc/on_attack_hand(mob/user)
+/datum/action/item_action/organ_action/feedbacker/proc/on_attack_mob(mob/user)
 	SIGNAL_HANDLER
 
 	if(!is_active)
 		return
-
+	if(isliving(user))
+		throw_away(user)
 	parry()
+	return COMPONENT_CANCEL_ATTACK_CHAIN
 
-/datum/action/item_action/organ_action/feedbacker/proc/on_attack_animal()
+/datum/action/item_action/organ_action/feedbacker/proc/on_bullet_act(obj/projectile/bullet, def_zone)
 	SIGNAL_HANDLER
-	return
 
-/datum/action/item_action/organ_action/feedbacker/proc/on_attack_alien()
-	SIGNAL_HANDLER
-	return
+	if(!is_active)
+		return
+	if(combo) // we dont want to divide any number to 0
+		bullet.speed = bullet.speed / (combo / 5)
+	if(prob(combo * 10)) // perfect reflect chance
+		original = locate(bullet.firer)
+		bullet.firer = owner
+		var/curloc = get_turf(owner)
+		bullet.starting = curloc
+		bullet.current = curloc
+		bullet.yo = original.new_y - curloc.y
+		bullet.xo = original.new_x - curloc.x
+		bullet.hit_crawling_mobs_chance = 100
+		set_angle(get_angle(curloc, original))
+	else
+		bullet.reflect_back(src)
 
-/datum/action/item_action/organ_action/feedbacker/proc/on_bullet_act()
-	SIGNAL_HANDLER
-	return
+	return TRUE
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_hitby()
 	SIGNAL_HANDLER
@@ -625,6 +640,10 @@
 	SIGNAL_HANDLER
 	return
 
+/datum/action/item_action/organ_action/feedbacker/proc/on_emp(severity)
+	SIGNAL_HANDLER
+	return
+
 /datum/action/item_action/organ_action/feedbacker/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
@@ -633,6 +652,9 @@
 		return
 	if(in_cooldown)
 		owner.balloon_alert(owner, "too early!")
+		return
+	if(target.crit_fail)
+		owner.balloon_alert(owner, "2 34rly!") // emp message
 		return
 
 	is_active = TRUE
@@ -656,4 +678,3 @@
 /datum/action/item_action/organ_action/feedbacker/proc/clear_cooldown() //anti-spam
 	in_cooldown = FALSE
 	return
-

@@ -75,7 +75,8 @@ emp_act
 		return bullet_act(P, BODY_ZONE_CHEST) //act on chest instead
 
 	organ.add_autopsy_data(P.name, P.damage) // Add the bullet's name to the autopsy data
-	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)) // some other forces deflected/reflected the projectile
+		return -1
 	return (..(P , def_zone))
 
 /mob/living/carbon/human/welder_act(mob/user, obj/item/item)
