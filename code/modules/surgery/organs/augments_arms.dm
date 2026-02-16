@@ -584,6 +584,8 @@
 
 	if(!is_active)
 		return
+	if(user == owner)
+		return
 	INVOKE_ASYNC(item, TYPE_ROC_REF(obj/item, attack), user, user, params) // some items have sleep() but we must not sleep
 	if(isliving(user))
 		throw_away(user)
@@ -594,6 +596,8 @@
 	SIGNAL_HANDLER
 
 	if(!is_active)
+		return
+	if(user == owner)
 		return
 	if(isliving(user))
 		throw_away(user)
@@ -607,8 +611,9 @@
 		return
 	if(combo) // we dont want to divide any number to 0
 		bullet.speed = bullet.speed / (combo / 5)
+
 	if(prob(combo * 10)) // perfect reflect chance
-		original = locate(bullet.firer)
+		bullet.original = bullet.firer ? locate(bullet.firer) : bullet.original
 		bullet.firer = owner
 		var/curloc = get_turf(owner)
 		bullet.starting = curloc
@@ -616,9 +621,10 @@
 		bullet.yo = original.new_y - curloc.y
 		bullet.xo = original.new_x - curloc.x
 		bullet.hit_crawling_mobs_chance = 100
-		set_angle(get_angle(curloc, original))
+		set_angle(get_angle(curloc, bullet.original))
 	else
 		bullet.reflect_back(src)
+
 	parry()
 	return TRUE
 
