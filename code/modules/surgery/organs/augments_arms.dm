@@ -534,10 +534,7 @@
 	RegisterSignal(grant_to, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
 	RegisterSignal(grant_to, COMSIG_ATOM_HITBY, PROC_REF(on_hitby))
 	RegisterSignal(grant_to, COMSIG_MOVABLE_CROSS, PROC_REF(on_Crossed))
-	RegisterSignal(grant_to, COMSIG_LIVING_START_PULL, PROC_REF(on_startpulling))
-	RegisterSignal(grant_to, COMSIG_LIVING_TRY_SYRINGE, PROC_REF(on_try_syringe))
-	RegisterSignal(grant_to, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_hulk))
-	RegisterSignal(grant_to, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
+	RegisterSignal(grant_to, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_mob))
 	RegisterSignal(grant_to, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
 /datum/action/item_action/organ_action/feedbacker/Remove(mob/remove_from)
@@ -550,10 +547,7 @@
 	UnregisterSignal(remove_from, COMSIG_ATOM_BULLET_ACT)
 	UnregisterSignal(remove_from, COMSIG_ATOM_HITBY)
 	UnregisterSignal(remove_from, COMSIG_MOVABLE_CROSS)
-	UnregisterSignal(remove_from, COMSIG_LIVING_START_PULL)
-	UnregisterSignal(remove_from, COMSIG_LIVING_TRY_SYRINGE)
 	UnregisterSignal(remove_from, COMSIG_ATOM_HULK_ATTACK)
-	UnregisterSignal(remove_from, COMSIG_CARBON_CUFF_ATTEMPTED)
 	UnregisterSignal(remove_from, COMSIG_ATOM_EMP_ACT)
 
 /datum/action/item_action/organ_action/feedbacker/proc/parry()
