@@ -528,7 +528,7 @@
 	. = ..()
 	RegisterSignal(grant_to, COMSIG_PARENT_ATTACKBY, PROC_REF(on_attackby))
 	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
-	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_PAW, PROC_REF(on_attack_paw))
+	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_PAW, PROC_REF(on_attack_animal))
 	RegisterSignal(grant_to, COMSIG_ATOM_ATTACK_ANIMAL, PROC_REF(on_attack_animal))
 	RegisterSignal(grant_to, COMSIG_MOB_ATTACK_ALIEN,PROC_REF(on_attack_alien))
 	RegisterSignal(grant_to, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
