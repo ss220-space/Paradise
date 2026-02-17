@@ -533,7 +533,7 @@
 	RegisterSignal(grant_to, COMSIG_MOB_ATTACK_ALIEN, PROC_REF(on_attack_mob))
 	RegisterSignal(grant_to, COMSIG_ATOM_BULLET_ACT, PROC_REF(on_bullet_act))
 	RegisterSignal(grant_to, COMSIG_ATOM_HITBY, PROC_REF(on_hitby))
-	RegisterSignal(grant_to, COMSIG_MOVABLE_CROSS, PROC_REF(on_Crossed))
+	RegisterSignal(grant_to, COMSIG_MOVABLE_CROSS_OVER, PROC_REF(on_Crossed))
 	RegisterSignal(grant_to, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_mob))
 	RegisterSignal(grant_to, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
@@ -546,7 +546,7 @@
 	UnregisterSignal(remove_from, COMSIG_MOB_ATTACK_ALIEN)
 	UnregisterSignal(remove_from, COMSIG_ATOM_BULLET_ACT)
 	UnregisterSignal(remove_from, COMSIG_ATOM_HITBY)
-	UnregisterSignal(remove_from, COMSIG_MOVABLE_CROSS)
+	UnregisterSignal(remove_from, COMSIG_MOVABLE_CROSS_OVER)
 	UnregisterSignal(remove_from, COMSIG_ATOM_HULK_ATTACK)
 	UnregisterSignal(remove_from, COMSIG_ATOM_EMP_ACT)
 
@@ -606,7 +606,7 @@
 	if(combo) // we dont want to divide any number to 0
 		bullet.speed = bullet.speed / (combo / 5)
 
-	if(prob(combo * 10)) // perfect reflect chance
+	if(prob(combo * 10)) // perfect reflect chance, reflects direct to the sender
 		bullet.original = bullet.firer ? locate(bullet.firer) : bullet.original
 		bullet.firer = owner
 		var/turf/curloc = get_turf(owner)
@@ -616,7 +616,7 @@
 		bullet.xo = bullet.original.x - curloc.x
 		bullet.hit_crawling_mobs_chance = 100
 		bullet.set_angle(get_angle(curloc, bullet.original))
-	else
+	else // unperfect reflect, sends back to location where it was fired. Inaccurate
 		bullet.reflect_back(src)
 
 	parry()
@@ -630,17 +630,9 @@
 
 	throw_back(AM, throwingdatum.thrower, 4 * (combo / 3), 0.5 / (combo / 2))
 	parry()
-	return TRUE // we "catched" it
+	return TRUE // we "catched" it. Catching sound plays here. will fix it later
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_Crossed()
-	SIGNAL_HANDLER
-	return
-
-/datum/action/item_action/organ_action/feedbacker/proc/on_startpulling()
-	SIGNAL_HANDLER
-	return
-
-/datum/action/item_action/organ_action/feedbacker/proc/on_try_syringe()
 	SIGNAL_HANDLER
 	return
 
