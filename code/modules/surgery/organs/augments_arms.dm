@@ -507,7 +507,7 @@
 
 /obj/item/organ/internal/cyberimp/arm/feedbacker
 	name = "feedbacker arm implant"
-	desc = "An advanced bluespace cybernetic arm implant making you able to reflect anything with just punching it! Just don't forget which one you hands has this implant..."
+	desc = "An advanced bluespace cybernetic arm implant able to bend the reality in a tiny area just for a moment. The moment is likely enough to make it a deadly self-defense tool. You just need to catch this tiny moment"
 	actions_types = list(/datum/action/item_action/organ_action/feedbacker/use)
 
 /datum/action/item_action/organ_action/feedbacker
@@ -582,7 +582,7 @@
 		return
 	INVOKE_ASYNC(item, TYPE_PROC_REF(/obj/item, attack), user, user, params) // some items have sleep() but we must not sleep
 	if(isliving(user))
-		throw_away(user)
+		throw_away(user, span_danger("As [user] tries to hit [owner] with [item], [owner] quickly reacts pucnhing [user] away!"))
 	parry()
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
@@ -633,14 +633,6 @@
 	return TRUE // we "catched" it. Catching sound plays here. will fix it later
 
 /datum/action/item_action/organ_action/feedbacker/proc/on_Crossed()
-	SIGNAL_HANDLER
-	return
-
-/datum/action/item_action/organ_action/feedbacker/proc/on_attack_hulk()
-	SIGNAL_HANDLER
-	return
-
-/datum/action/item_action/organ_action/feedbacker/proc/on_attempt_cuff()
 	SIGNAL_HANDLER
 	return
 
