@@ -104319,7 +104319,7 @@
 "tmw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/windowtint{
-	id = "vipbar";
+	id = "dopros";
 	pixel_x = 22;
 	pixel_y = 5
 	},
