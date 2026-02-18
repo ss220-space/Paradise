@@ -41,7 +41,7 @@
 	return ..()
 
 /datum/weather/rad_storm/weather_act(mob/living/target)
-	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+	if(HAS_TRAIT(target, TRAIT_RADIMMUNE) || HAS_TRAIT(target, TRAIT_NO_RADIATION_EFFECTS))
 		return
 
 	var/resist = target.getarmor(attack_flag = RAD)
