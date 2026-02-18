@@ -707,7 +707,7 @@
 		smoke.set_up(amount = 5, location = get_turf(human.loc))
 		smoke.start()
 
-		for(var/obj/item/obj as anything in human.get_equipped_items(TRUE, TRUE))
+		for(var/obj/item/obj as anything in human.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 			human.drop_item_ground(obj)
 
 	return

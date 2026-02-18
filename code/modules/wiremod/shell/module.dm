@@ -11,7 +11,7 @@
 	/// A reference to the shell component, used to access the shell and its attached circuit
 	var/datum/component/shell/shell
 	/// List of installed action components
-	var/list/obj/item/circuit_component/equipment_action/action_comps = list()
+	var/list/obj/item/circuit_component/equipment_action/action_comps
 
 /obj/item/mod/module/circuit/get_ru_names()
 	return list(
@@ -22,7 +22,6 @@
 		INSTRUMENTAL = "модулем интегральной схемы",
 		PREPOSITIONAL = "модуле интегральной схемы",
 	)
-
 
 /obj/item/mod/module/circuit/Initialize(mapload)
 	. = ..()
@@ -42,49 +41,53 @@
 
 /obj/item/mod/module/circuit/proc/action_comp_registered(datum/source, obj/item/circuit_component/equipment_action/action_comp)
 	SIGNAL_HANDLER
-	action_comps += action_comp
+	LAZYADD(action_comps, action_comp)
 
 /obj/item/mod/module/circuit/proc/action_comp_unregistered(datum/source, obj/item/circuit_component/equipment_action/action_comp)
 	SIGNAL_HANDLER
-	action_comps -= action_comp
-	for(var/ref in action_comp.granted_to)
-		unpin_action(action_comp, locateUID(ref))
+	LAZYREMOVE(action_comps, action_comp)
+	for(var/uid in action_comp.granted_to)
+		unpin_action(action_comp, locateUID(uid))
+
 	QDEL_LIST_ASSOC_VAL(action_comp.granted_to)
 
 /obj/item/mod/module/circuit/on_install()
 	. = ..()
 	if(!shell?.attached_circuit)
 		return
+
 	RegisterSignal(shell?.attached_circuit, COMSIG_CIRCUIT_PRE_POWER_USAGE, PROC_REF(override_power_usage))
 
 /obj/item/mod/module/circuit/on_uninstall(deleting = FALSE)
 	. = ..()
 	if(!shell?.attached_circuit)
 		return
+
 	for(var/obj/item/circuit_component/equipment_action/action_comp in action_comps)
-		for(var/ref in action_comp.granted_to)
-			unpin_action(action_comp, locateUID(ref))
+		for(var/uid in action_comp.granted_to)
+			unpin_action(action_comp, locateUID(uid))
+
 	UnregisterSignal(shell?.attached_circuit, COMSIG_CIRCUIT_PRE_POWER_USAGE)
 
 /obj/item/mod/module/circuit/on_use()
 	. = ..()
-	if(!.)
-		return
 	if(!shell.attached_circuit)
 		return
-	shell.attached_circuit?.interact(mod.wearer)
+
+	shell.attached_circuit?.ui_interact(mod.wearer)
 
 /obj/item/mod/module/circuit/get_configuration(mob/user)
 	. = ..()
 	var/unnamed_action_index = 1
 	for(var/obj/item/circuit_component/equipment_action/action_comp in action_comps)
-		.[action_comp.UID()] = add_ui_configuration(action_comp.button_name.value || "Unnamed Action [unnamed_action_index++]", "pin", !!action_comp.granted_to[user.UID()])
+		.[action_comp.UID()] = add_ui_configuration(action_comp.button_name.value || "Безымянное действие [unnamed_action_index++]", "pin", LAZYFIND(action_comp.granted_to, user.UID()))
 
 /obj/item/mod/module/circuit/configure_edit(key, value)
 	. = ..()
 	var/obj/item/circuit_component/equipment_action/action_comp = locateUID(key)
 	if(!istype(action_comp))
 		return
+
 	if(text2num(value))
 		pin_action(action_comp, usr)
 	else
@@ -93,14 +96,17 @@
 /obj/item/mod/module/circuit/proc/pin_action(obj/item/circuit_component/equipment_action/action_comp, mob/user)
 	if(!istype(user))
 		return
-	if(action_comp.granted_to[user.UID()]) // Sanity check - don't pin an action for a mob that has already pinned it
+
+	if(LAZYFIND(action_comp.granted_to, user.UID()))
 		return
+
 	mod.add_item_action(new/datum/action/item_action/mod/pinnable/circuit(mod, user, src, action_comp))
 
 /obj/item/mod/module/circuit/proc/unpin_action(obj/item/circuit_component/equipment_action/action_comp, mob/user)
-	var/datum/action/item_action/mod/pinnable/circuit/action = action_comp.granted_to[user.UID()]
+	var/datum/action/item_action/mod/pinnable/circuit/action = LAZYACCESS(action_comp.granted_to, user.UID())
 	if(!istype(action))
 		return
+
 	qdel(action)
 
 /datum/action/item_action/mod/pinnable/circuit
@@ -114,40 +120,45 @@
 	var/obj/item/circuit_component/equipment_action/circuit_component
 
 /datum/action/item_action/mod/pinnable/circuit/New(Target, mob/user, obj/item/mod/module/circuit/linked_module, obj/item/circuit_component/equipment_action/action_comp)
-	. = ..()
-	module = linked_module
-	action_comp.granted_to[user.UID()] = src
+	name = action_comp.button_name.value || "Действие"
+	button_icon_state = LAZYACCESS(action_comp.options_map, action_comp.icon_options.value) || button_icon_state
+
+	LAZYSET(action_comp.granted_to, user.UID(), src)
 	circuit_component = action_comp
-	name = action_comp.button_name.value
-	button_icon_state = "bci_[replacetextEx(LOWER_TEXT(action_comp.icon_options.value), " ", "_")]"
+	module = linked_module
+
+	. = ..()
 
 /datum/action/item_action/mod/pinnable/circuit/Destroy()
-	circuit_component.granted_to -= pinner.UID()
+	LAZYREMOVE(circuit_component.granted_to, pinner.UID())
 	circuit_component = null
 
 	return ..()
 
-/datum/action/item_action/mod/pinnable/circuit/do_effect(trigger_flags)
+/datum/action/item_action/mod/pinnable/circuit/Trigger(mob/clicker, trigger_flags)
 	. = ..()
 	if(!.)
 		return
+
 	var/obj/item/mod/control/mod = module.mod
 	if(!istype(mod))
 		return FALSE
+
 	if(!mod.active || mod.activating)
 		if(mod.wearer)
-			module.balloon_alert(mod.wearer, "not active!")
+			module.balloon_alert(mod.wearer, "модуль неактивен!")
 		return FALSE
+
 	circuit_component.user.set_output(owner)
 	circuit_component.signal.set_output(COMPONENT_SIGNAL)
 
 /// If the guy whose UI we are pinned to got deleted
 /datum/action/item_action/mod/pinnable/circuit/pinner_deleted()
-	module?.action_comps[circuit_component] -= pinner.UID()
+	LAZYREMOVEASSOC(module?.action_comps, circuit_component, pinner.UID())
 	. = ..()
 
 /obj/item/circuit_component/mod_adapter_core
-	display_name = "ядро адаптера схем для МЭК"
+	display_name = "Ядро адаптера схем для МЭК"
 	desc = "Позволяет считывать информацию о пользователе МЭКа и позволяет удаленно запускать и отключать МЭК."
 
 	/// The MODsuit module this circuit is associated with
@@ -227,10 +238,13 @@
 	for(var/obj/item/mod/module/potential_module as anything in attached_module.mod.modules)
 		if(potential_module.name == module_to_select.value)
 			module = potential_module
+
 	if(COMPONENT_TRIGGERED_BY(toggle_suit, port))
 		INVOKE_ASYNC(attached_module.mod, TYPE_PROC_REF(/obj/item/mod/control, toggle_activate), attached_module.mod.wearer)
+
 	if(COMPONENT_TRIGGERED_BY(toggle_deploy, port))
 		INVOKE_ASYNC(attached_module.mod, TYPE_PROC_REF(/obj/item/mod/control, quick_deploy), attached_module.mod.wearer)
+
 	if(attached_module.mod.active && module && COMPONENT_TRIGGERED_BY(select_module, port))
 		INVOKE_ASYNC(module, TYPE_PROC_REF(/obj/item/mod/module, on_select))
 
@@ -279,6 +293,7 @@
 	for(var/obj/item/mod/module/module in attached_module.mod.modules)
 		if(module.module_type != MODULE_PASSIVE)
 			modules_list += module.name
+
 	module_to_select.possible_options = modules_list
 	if(length(module_to_select.possible_options))
 		module_to_select.set_value(module_to_select.possible_options[1])
@@ -294,13 +309,18 @@
 			var/part_name = "Неизвестно"
 			if(ismodhelmet(part))
 				part_name = "Шлем"
+
 			if(ismodchestplate(part))
 				part_name = "Нагрудник"
+
 			if(ismodgloves(part))
 				part_name = "Перчатки"
+
 			if(ismodshoes(part))
 				part_name = "Ботинки"
+
 			string_list += part_name
+
 	deployed_parts.set_output(string_list)
 	deployed.set_output(is_deployed)
 	on_deploy.set_output(COMPONENT_SIGNAL)
@@ -314,4 +334,5 @@
 	SIGNAL_HANDLER
 	if(!attached_module.mod?.wearer)
 		return
+
 	wearer.set_output(attached_module.mod.wearer)
