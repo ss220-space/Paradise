@@ -141,6 +141,20 @@
 				return 1
 	return 0
 
+/obj/item/robot_parts/robot_suit/proc/install_cell(mob/living/silicon/robot/target)
+	chest.cell.forceMove(target)
+	target.cell = chest.cell
+	chest.cell = null
+	// Since we "magically" installed a cell, we also have to update the correct component.
+	var/datum/robot_component/cell_component = target.components["power cell"]
+	cell_component.wrapped = target.cell
+	cell_component.installed = TRUE
+
+/obj/item/robot_parts/robot_suit/proc/check_locomotion(mob/living/silicon/robot/target)
+	if(!locomotion)
+		target.set_lockcharge(TRUE)
+		to_chat(target, span_warning("Error: Servo motors unresponsive."))
+
 /obj/item/robot_parts/robot_suit/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
 	if(!check_completion())
@@ -246,34 +260,50 @@
 
 	if(istype(I, /obj/item/borg/upgrade/ai))
 
-		var/obj/item/borg/upgrade/ai/M = I
-		if(check_completion())
-			if(!isturf(loc))
-				to_chat(user, span_warning("You cannot install [M], the frame has to be standing on the ground to be perfectly precise!"))
-				return
-			qdel(M)
-			var/mob/living/silicon/robot/robot = new /mob/living/silicon/robot/shell(get_turf(src))
+		. = ATTACK_CHAIN_PROCEED
+		add_fingerprint(user)
+		var/obj/item/borg/upgrade/ai/module = I
+		if(!check_completion())
+			to_chat(user, span_warning("The B.O.R.I.S. module must go in after everything else!"))
+			return .
 
-			if(!aisync)
-				lawsync = FALSE
-				robot.set_connected_ai(null)
-			else
-				if(forced_ai)
-					robot.set_connected_ai(forced_ai)
-				robot.notify_ai(AI_NOTIFICATION_AI_SHELL)
-			if(!lawsync)
-				robot.lawupdate = FALSE
-				robot.make_laws()
+		if(!isturf(loc))
+			to_chat(user, span_warning("You can't put [module] in, the frame has to be standing on the ground to be perfectly precise."))
+			return .
 
-			robot.cell = chest.cell
-			chest.cell.forceMove(robot)
+		if(!aisync)
+			lawsync = FALSE
 
-			robot.locked = panel_locked
-			robot.job = JOB_TITLE_CYBORG
-			forceMove(robot)
-			robot.robot_suit = src
-			if(!locomotion)
-				robot.set_lockcharge(TRUE)
+		if(sabotaged)
+			aisync = FALSE
+			lawsync = FALSE
+
+		if(iscarbon(user))
+			var/mob/living/carbon/carbon = user
+			if(carbon.drop_item_ground(module))
+				qdel(module)
+		var/mob/living/silicon/robot/new_shell = new /mob/living/silicon/robot/shell(get_turf(src))
+		if(QDELETED(new_shell))
+			return .
+
+		. = ATTACK_CHAIN_BLOCKED_ALL
+
+		var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
+		if(istype(task))
+			task.unit_completed()
+
+		new_shell.invisibility = 0
+		new_shell.locked = panel_locked
+
+		new_shell.job = JOB_TITLE_CYBORG
+
+		install_cell(new_shell)
+
+		forceMove(new_shell)
+		new_shell.robot_suit = src
+
+		check_locomotion(new_shell)
+		return .
 
 	if(is_mmi(I))
 
@@ -386,13 +416,7 @@
 
 		new_borg.job = JOB_TITLE_CYBORG
 
-		chest.cell.forceMove(new_borg)
-		new_borg.cell = chest.cell
-		chest.cell = null
-		// Since we "magically" installed a cell, we also have to update the correct component.
-		var/datum/robot_component/cell_component = new_borg.components["power cell"]
-		cell_component.wrapped = new_borg.cell
-		cell_component.installed = TRUE
+		install_cell(new_borg)
 		new_borg.mmi = new_mmi
 		new_borg.Namepick()
 
@@ -407,9 +431,8 @@
 			new_borg.UnlinkSelf()
 			SSticker.mode.add_clock_actions(new_borg.mind)
 
-		if(!locomotion)
-			new_borg.set_lockcharge(TRUE)
-			to_chat(new_borg, span_warning("Error: Servo motors unresponsive."))
+		check_locomotion(new_borg)
+		return .
 
 /obj/item/robot_parts/robot_suit/proc/Interact(mob/user)
 			var/t1 = "Designation: <a href='byond://?src=[UID()];Name=1'>[(created_name ? "[created_name]" : "Default Cyborg")]</a><br>\n"
