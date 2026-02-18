@@ -10,7 +10,7 @@
 		if(!T || !is_station_level(T.z))
 			continue
 		// Leave radiation-immune species/rad armored players completely unaffected
-		if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || H.getarmor(attack_flag = RAD) >= 75)
+		if(HAS_TRAIT(H, TRAIT_RADIMMUNE) || HAS_TRAIT(H, TRAIT_NO_RADIATION_EFFECTS) || H.getarmor(attack_flag = RAD) >= 75)
 			continue
 		H.AdjustHallucinate(rand(100 SECONDS, 200 SECONDS))
 		H.last_hallucinator_log = "Mass hallucination event"
