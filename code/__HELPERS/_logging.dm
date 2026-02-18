@@ -164,11 +164,11 @@ GLOBAL_PROTECT(log_end)
 			count++
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
-/proc/log_world(text)
+/proc/log_world(text, root_log = FALSE)
 	#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
 	SEND_TEXT(world.log, text)
 	#else
-	if(config && CONFIG_GET(flag/enable_root_log))
+	if(config && CONFIG_GET(flag/enable_root_log) || root_log)
 		SEND_TEXT(world.log, text)
 	#endif
 
