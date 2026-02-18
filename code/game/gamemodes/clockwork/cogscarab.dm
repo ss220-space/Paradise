@@ -300,31 +300,43 @@
 	desc = "A machine, spinning and whirring just to create out of thin metal into perfect brass."
 	icon_state = "brassmaker"
 
+	var/static/list/item_blacklist
 	var/metal_amount = 0
 	var/metal_need_per_brass = 8000 //4 metal for one brass
 	var/melt_click_delay = 1.5 //multiplies usual delay of clicking
 	var/list/grabbed_items = list()
 	var/grab_limit = 30 // limits of how much you can take
 
+/obj/item/clockwork/brassmaker/Initialize(mapload)
+	. = ..()
+	if(!item_blacklist)
+	//maybe add more items later
+		item_blacklist = list(
+			/obj/item/gun
+	)
+
 /obj/item/clockwork/brassmaker/afterattack(atom/target, mob/living/user, proximity, params)
 	if(!proximity) return //Not adjacent.
 
 	//We only want to deal with using this on turfs. Specific items aren't important.
-	var/turf/T = get_turf(target)
-	if(!istype(T))
+	var/turf/recycle_turf = get_turf(target)
+	if(!istype(recycle_turf))
 		return
 
 	var/grabbed_something = FALSE
-	for(var/obj/item/A in T)
-		if(LAZYIN(A.materials, MAT_METAL) && !anchored && (length(grabbed_items) < grab_limit))
-			grabbed_items += A
-			A.forceMove(src)
+	for(var/obj/item/recycle_item in recycle_turf)
+		if(is_type_in_list(recycle_item, item_blacklist))
+			to_chat(user, span_danger("Вы не можете переработать [recycle_item.declent_ru(ACCUSATIVE)]!"))
+			continue
+		if(LAZYIN(recycle_item.materials, MAT_METAL) && !anchored && (length(grabbed_items) < grab_limit))
+			grabbed_items += recycle_item
+			recycle_item.forceMove(src)
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, span_notice("You deploy your melter and take some contents to melt from \the [T]."))
+		to_chat(user, span_notice("You deploy your melter and take some contents to melt from \the [recycle_turf]."))
 	else
-		to_chat(user, span_warning("Nothing on \the [T] is useful to you."))
+		to_chat(user, span_warning("Nothing on \the [recycle_turf] is useful to you."))
 
 	return
 
