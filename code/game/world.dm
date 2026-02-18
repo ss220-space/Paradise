@@ -1,14 +1,14 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 #define CLEAR_RUST_CACHE \
-    log_world("Starting UUID clear", TRUE); \
-    var/uuid_start = world.timeofday; \
-    rustlib_clear_uuid_storage(); \
-    log_world("UUID clear took [world.timeofday - uuid_start]ms", TRUE); \
-    \
-    log_world("Starting icon cache clear", TRUE); \
-    var/icon_start = world.timeofday; \
-    rustlib_iconforge_cleanup_all(); \
-    log_world("Icon cache clear took [world.timeofday - icon_start]ms", TRUE); \
+	log_world("Starting UUID clear", TRUE); \
+	var/uuid_start = world.timeofday; \
+	rustlib_clear_uuid_storage(); \
+	log_world("UUID clear took [world.timeofday - uuid_start]ms", TRUE); \
+	\
+	log_world("Starting icon cache clear", TRUE); \
+	var/icon_start = world.timeofday; \
+	rustlib_iconforge_cleanup_all(); \
+	log_world("Icon cache clear took [world.timeofday - icon_start]ms", TRUE); \
 
 #ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
