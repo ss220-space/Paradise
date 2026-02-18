@@ -105,7 +105,6 @@
 	var/power_channel = EQUIP //EQUIP,ENVIRON or LIGHT
 	var/list/component_parts = null //list of all the parts used to build it, if made from certain kinds of frames.
 	var/uid
-	var/manual = 0
 	var/global/gl_uid = 1
 	var/custom_aghost_alerts=0
 	var/panel_open = 0
@@ -225,7 +224,9 @@
 /obj/machinery/process() // If you dont use process or power why are you here
 	return PROCESS_KILL
 
-/obj/machinery/proc/process_atmos() //If you dont use process why are you here
+/obj/machinery/proc/process_atmos(seconds) //If you dont use process why are you here
+	// Any proc that wants MILLA to be synchronous should not sleep.
+	SHOULD_NOT_SLEEP(TRUE)
 	return PROCESS_KILL
 
 /obj/machinery/emp_act(severity)
@@ -635,3 +636,23 @@
 /obj/machinery/extinguish_light(force = FALSE)
 	if(light_on)
 		set_light_on(FALSE)
+
+
+/**
+ * Makes sure the user is allowed to interact with the machine when they use a shortcut, like Control or Alt-clicking.
+ *
+ * Arguments:
+ * * user - the mob who is trying to interact with the machine.
+ */
+/obj/machinery/proc/can_use_shortcut(mob/living/user)
+	if(user.incapacitated())
+		to_chat(user, span_warning("You can't do that right now!"))
+		return FALSE
+
+	if(ishuman(user) && in_range(src, user))
+		return TRUE
+
+	if(issilicon(user))
+		return TRUE
+
+	return FALSE

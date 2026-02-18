@@ -52,7 +52,7 @@ GLOBAL_VAR(bomb_set)
 	GLOB.poi_list |= src
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core)
-	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src)) //Let us not irradiate the vault by default.
+	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src)) //Let us not irradiate the vault by default.
 	AddElement(/datum/element/high_value_item)
 	update_icon(UPDATE_OVERLAYS)
 
@@ -154,7 +154,7 @@ GLOBAL_VAR(bomb_set)
 		removal_stage = NUKE_CORE_PANEL_UNWELDED
 		if(core)
 			STOP_PROCESSING(SSobj, core)
-			ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
+			ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/stack/sheet/metal) && removal_stage == NUKE_CORE_PANEL_EXPOSED)
@@ -219,7 +219,7 @@ GLOBAL_VAR(bomb_set)
 		new /obj/item/stack/sheet/mineral/titanium(loc, 5)
 		if(core)
 			START_PROCESSING(SSobj, core)
-			REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, ref(src))
+			REMOVE_TRAIT(core, TRAIT_BLOCK_RADIATION, UNIQUE_TRAIT_SOURCE(src))
 	if(removal_stage == NUKE_UNWRENCHED)
 		user.visible_message("[user] begins lifting [src] off of the anchors.", "You begin lifting the device off the anchors...")
 		if(!I.use_tool(src, user, 80, volume = I.tool_volume) || removal_stage != NUKE_UNWRENCHED)

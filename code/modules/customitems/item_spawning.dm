@@ -55,13 +55,13 @@
 			if(length(S.contents) < S.storage_slots)
 				Item.loc = M.back
 				ok = 1
-				to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [M.back.name].</span>")
+				to_chat(M, span_notice("Your [Item.name] has been added to your [M.back.name]."))
 		if(ok == 0)
 			for(var/obj/item/storage/S in M.contents) // Try to place it in any item that can store stuff, on the mob.
 				if(length(S.contents) < S.storage_slots)
 					Item.loc = S
 					ok = 1
-					to_chat(M, "<span class='notice'>Your [Item.name] has been added to your [S.name].</span>")
+					to_chat(M, span_notice("Your [Item.name] has been added to your [S.name]."))
 					break
 		if(description)
 			Item.desc = description

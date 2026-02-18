@@ -512,12 +512,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedoffices)
-"fR" = (
-/obj/machinery/vending/chinese/free{
-	pixel_y = 0
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
 "fW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/autodrobe,
@@ -2306,6 +2300,12 @@
 	icon_state = "tranquillite"
 	},
 /area/maintenance/backstage)
+"Ac" = (
+/obj/machinery/vending/chinese{
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedoffices)
 "Ad" = (
 /obj/effect/turf_decal/siding/blue,
 /turf/simulated/floor/carpet/black,
@@ -2801,6 +2801,14 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"EV" = (
+/obj/item/radio/intercom/directional/east,
+/obj/structure/bed,
+/obj/item/bedsheet/captain{
+	name = "Blueshield's bedsheet."
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/blueshield)
 "Fb" = (
 /turf/template_noop,
 /area/template_noop)
@@ -3692,17 +3700,6 @@
 /obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
-"Od" = (
-/obj/item/radio/intercom{
-	name = "east station intercom (General)";
-	pixel_x = 28
-	},
-/obj/structure/bed,
-/obj/item/bedsheet/captain{
-	name = "Blueshield's bedsheet."
-	},
-/turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
 "Og" = (
 /obj/effect/decal/cleanable/glass,
 /obj/item/shard{
@@ -7173,7 +7170,7 @@ Fb
 Fb
 KM
 FD
-Od
+EV
 Nx
 Jp
 Sz
@@ -7197,7 +7194,7 @@ Fb
 Fb
 KM
 FD
-Od
+EV
 Nx
 gT
 PQ
@@ -7251,7 +7248,7 @@ Nx
 Nx
 Ft
 Ft
-fR
+Ac
 tj
 Fj
 Jn

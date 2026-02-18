@@ -58,7 +58,7 @@
 	paperamount += paper_result
 	playsound(loc, 'sound/items/pshred.ogg', 75, TRUE)
 	if(paperamount > max_paper)
-		to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] переполняется и куски бумаги разлетаются повсюду!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] переполняется и куски бумаги разлетаются повсюду!"))
 		var/atom/drop_loc = drop_location()
 		var/turf/throw_to = get_edge_target_turf(src, pick(GLOB.alldirs))
 		for(var/i = 1 to (paperamount - max_paper))
@@ -78,7 +78,7 @@
 
 /obj/machinery/papershredder/verb/empty_contents()
 	set name = "Опустошить корзину"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in range(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

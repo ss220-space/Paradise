@@ -21,7 +21,7 @@
 	health = 200
 	maxHealth = 200
 	speed = 8
-	projectiletype = /obj/projectile/beam/immolator/weak
+	projectiletype = /obj/projectile/beam/immolator/weak/hitscan
 	projectilesound = 'sound/weapons/laser3.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("malf_drone")
@@ -212,7 +212,7 @@
 	declare_arrests = FALSE
 	idcheck = TRUE
 	arrest_type = TRUE
-	projectile = /obj/projectile/beam/immolator/weak
+	projectile = /obj/projectile/beam/immolator/weak/hitscan
 
 /mob/living/simple_animal/bot/ed209/combat_drone/Initialize(mapload)
 	. = ..()
@@ -226,7 +226,7 @@
 	return
 
 /mob/living/simple_animal/bot/ed209/combat_drone/set_weapon()
-	projectile = /obj/projectile/beam/immolator/weak
+	projectile = /obj/projectile/beam/immolator/weak/hitscan
 
 /mob/living/simple_animal/bot/ed209/combat_drone/turn_on()
 	. = ..()

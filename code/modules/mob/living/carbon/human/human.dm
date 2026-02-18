@@ -515,6 +515,13 @@
 				)
 			return
 
+		if(href_list["tourniquet_object"])
+			var/obj/item/organ/external/bodypart = locateUID(href_list["limb"])
+			if(QDELETED(bodypart) || !bodypart.tourniquet)
+				return
+			bodypart.tourniquet.remove_from_bodypart(usr)
+			return
+
 	if(href_list["criminal"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 			if(usr.incapacitated())
@@ -1070,6 +1077,7 @@
 
 	maxHealth = dna.species.total_health
 	max_stamina = dna.species.total_stamina
+	max_radiation = dna.species.max_radiation
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -1276,7 +1284,7 @@
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Рисовать кровью"
 	set desc = "Используйте кровь на ваших руках, чтобы рисовать ею на полу и на стенах."
 
@@ -1892,14 +1900,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/verb/pose()
 	set name = "Задать позу"
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Описание внешности"
 	set desc = "Устанавливает подробное описание внешности вашего персонажа."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	update_flavor_text()
 
@@ -2003,3 +2011,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
+
+/mob/living/carbon/human/compressor_grind()
+	dna.species.compressor_grind(loc)

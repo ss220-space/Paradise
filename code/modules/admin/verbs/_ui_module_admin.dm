@@ -19,4 +19,4 @@ GLOBAL_LIST_EMPTY(admin_ui_modules)
 	GLOB.admin_ui_modules[type] = src
 
 /datum/ui_module/admin/ui_state(mob/user)
-	return GLOB.admin_state
+	return ADMIN_STATE(R_ADMIN)

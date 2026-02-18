@@ -213,8 +213,9 @@
 	playsound(loc, 'sound/effects/clang.ogg', 50, FALSE)
 
 /// Called to vent all gas in holder to a location
-/obj/structure/disposalholder/proc/vent_gas(turf/turf)
-	turf.assume_air(gas)
+/obj/structure/disposalholder/proc/vent_gas(turf/location)
+	if(istype(location))
+		location.blind_release_air(gas)
 
 /obj/structure/disposalholder/AllowDrop()
 	return TRUE

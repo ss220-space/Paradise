@@ -2,29 +2,41 @@
 	name = "mountable frame"
 	desc = "Place it on a wall."
 	origin_tech = "materials=1;engineering=1"
-	var/sheets_refunded = 2
-	var/list/mount_reqs = list() //can contain simfloor, nospace. Used in try_build to see if conditions are needed, then met
 	usesound = 'sound/items/deconstruct.ogg'
 
-/obj/item/mounted/frame/wrench_act(mob/living/user, obj/item/I)
-	if(!sheets_refunded)
-		return FALSE
+	/// Amount of metal sheets returned upon the frame being wrenched
+	var/metal_sheets_refunded = 2
+	/// Amount of glass sheets returned upon the frame being wrenched
+	var/glass_sheets_refunded = 0
+	/// The requirements for this frame to be placed, uses bit flags
+	var/mount_requirements = 0
+
+/obj/item/mounted/frame/wrench_act(mob/living/user, obj/item/item)
 	. = TRUE
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!item.use_tool(src, user, volume = item.tool_volume))
 		return .
-	new /obj/item/stack/sheet/metal(drop_location(), sheets_refunded)
+
+	var/turf/user_turf = get_turf(user)
+	if(metal_sheets_refunded)
+		new /obj/item/stack/sheet/metal(user_turf, metal_sheets_refunded)
+	if(glass_sheets_refunded)
+		new /obj/item/stack/sheet/glass(user_turf, glass_sheets_refunded)
+
 	qdel(src)
 
 /obj/item/mounted/frame/try_build(turf/on_wall, mob/user)
-	if(..()) //if we pass the parent tests
-		var/turf/turf_loc = get_turf(user)
+	if(!..())
+		return FALSE
 
-		if(src.mount_reqs.Find("simfloor") && !isfloorturf(turf_loc))
-			to_chat(user, span_warning("[src] cannot be placed on this spot."))
-			return
-		if(src.mount_reqs.Find("nospace"))
-			var/area/my_area = turf_loc.loc
-			if(!istype(my_area) || (my_area.requires_power == 0 || istype(my_area,/area/space)))
-				to_chat(user, span_warning("[src] cannot be placed in this area."))
-				return
-		return 1
+	var/turf/build_turf = get_turf(user)
+	if((mount_requirements & MOUNTED_FRAME_SIMFLOOR) && !isfloorturf(build_turf))
+		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] не может быть размещен[GEND_A_O_Y(src)] на этом месте."))
+		return FALSE
+
+	if(mount_requirements & MOUNTED_FRAME_NOSPACE)
+		var/area/my_area = get_area(build_turf)
+		if(!istype(my_area) || !my_area.requires_power || isspacearea(my_area))
+			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] не может быть размещен[GEND_A_O_Y(src)] в этой зоне."))
+			return FALSE
+
+	return TRUE

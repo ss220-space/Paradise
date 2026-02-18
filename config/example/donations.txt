@@ -1,0 +1,14 @@
+## The amount of donations to pay for the server infrastructure
+TARGET_DONATION 20000
+
+## The amount of donations for server infrastructure and TTS
+TTS_TARGET_DONATION 40500
+
+## Link to boosty
+BOOSTY_URL "https://boosty.to/ss220"
+
+## Link to kofi
+KOFI_URL "https://ko-fi.com/ss220"
+
+## Link to a Discord channel with detailed information
+DISCORD_URL "https://discord.com/channels/617003227182792704/952603671475155035/952696004367495188"

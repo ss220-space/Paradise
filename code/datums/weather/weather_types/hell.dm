@@ -30,7 +30,7 @@
 
 	self_fire = TRUE
 
-	var/list/affected_turfs_list = list()
+	var/list/affected_turfs_list
 	var/static/list/possible_modes = list(LAVA_MODE = 10, PORTAL_MODE = 5, METEOR_MODE = 10, EMPTY_MODE = 50)
 	var/static/music = 'sound/music/dies_irae.ogg'
 
@@ -38,11 +38,7 @@
 	. = ..()
 	SSshuttle.emergency.request(null, coefficient = 0.3)
 	transform_mobs()
-	for(var/area/area as anything in impacted_areas)
-		for(var/turf/turf in area.get_turfs_from_all_zlevels())
-			if(is_space_or_openspace(turf) || turf.density)
-				continue
-			affected_turfs_list += turf
+	affected_turfs_list = generate_turf_list()
 
 /datum/weather/hell/proc/transform_mobs()
 	var/list/devils
@@ -142,7 +138,7 @@
 			prosses_turfs(PROC_REF(run_meteors), TURF_METEOR_COUNT)
 
 /datum/weather/hell/proc/prosses_turfs(proc_ref, count)
-	for(var/i = 1; i <= count; i++)
+	for(var/i in 1 to count)
 		var/turf = pick(affected_turfs_list)
 		call(src, proc_ref)(turf)
 

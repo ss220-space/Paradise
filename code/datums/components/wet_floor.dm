@@ -126,13 +126,14 @@
 	var/turf/simulated/T = parent
 	var/diff = world.time - last_process
 	var/decrease = 0
-	var/t = T.air ? T.air.temperature : T.temperature
+	var/datum/gas_mixture/air = T.get_readonly_air()
+	var/t = air ? air.temperature() : T.temperature
 	switch(t)
 		if(-INFINITY to T0C)
 			add_wet(TURF_WET_ICE, max_time_left()) //Water freezes into ice!
-		if(T0C to T0C + 100)
+		if(T0C to T100C)
 			decrease = ((t - T0C) / SSwet_floors.temperature_coeff) * (diff / SSwet_floors.time_ratio)
-		if(T0C + 100 to INFINITY)
+		if(T100C to INFINITY)
 			decrease = INFINITY
 	decrease = max(0, decrease)
 	if((is_wet() & TURF_WET_ICE) && t > T0C) //Ice melts into water!

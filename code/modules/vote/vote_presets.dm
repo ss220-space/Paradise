@@ -14,6 +14,8 @@
 	if(SSticker.current_state < GAME_STATE_PLAYING)
 		CRASH("Attempted to call a shuttle vote before the game starts!")
 	..()
+	no_dead_vote = TRUE
+	no_offstation_vote = TRUE
 
 /datum/vote/crew_transfer/handle_result(result)
 	if(result == CREW_TRANSFER_CHOICE)
@@ -66,7 +68,7 @@
 			// Set top voted map
 			if(result == "[initial(M.station_name)] ([initial(M.name)])")
 				top_voted_map = M
-	to_chat(world, "<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>")
+	to_chat(world, span_interface("<b>Map for next round: [initial(top_voted_map.station_name)] ([initial(top_voted_map.name)])</b>"))
 	SSmapping.next_map = new top_voted_map
 
 /datum/vote/gamemode
@@ -76,6 +78,7 @@
 /datum/vote/gamemode/New()
 	..()
 	no_dead_vote = FALSE
+	no_offstation_vote = FALSE
 
 /datum/vote/gamemode/generate_choices()
 	choices.Add(config.votable_modes)

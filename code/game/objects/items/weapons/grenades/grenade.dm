@@ -1,6 +1,7 @@
 /obj/item/grenade
 	name = "grenade"
-	desc = "A hand held grenade, with an adjustable timer."
+	desc = "Взрывчатое устройство, предназначенное для ручного подрыва."
+	gender = FEMALE
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "chemg"
@@ -12,8 +13,11 @@
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
+	/// Will it detonate soon?
 	var/active = FALSE
+	/// Time between activation and detonation
 	var/det_time = 5 SECONDS
+	/// Are we able to see the detonation time on examine?
 	var/display_timer = TRUE
 
 /obj/item/grenade/deconstruct(disassembled = TRUE)
@@ -24,7 +28,7 @@
 
 /obj/item/grenade/proc/clown_check(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, span_warning("Huh? How does this thing work?"))
+		to_chat(user, span_warning("А? Как эта штука вообще работает?"))
 		active = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
@@ -44,13 +48,14 @@
 	. = ..()
 	if(display_timer)
 		if(det_time > 1)
-			. += span_notice("The timer is set to [det_time/10] second\s.")
+			. += span_notice("Таймер установлен на <b>[det_time/10]</b> секунд[DECL_SEC_MIN(det_time/10)].")
 		else
-			. += span_warning("[src] is set for instant detonation.")
+			. += span_warning("Настроено на <b>мгновенную</b> детонацию.")
+	. += span_notice("Механизм активации может быть настроен <b>закручивающим</b> инструментом.")
 
 /obj/item/grenade/attack_self(mob/user)
 	if(!active && clown_check(user))
-		to_chat(user, span_warning("You prime the [name]! [det_time/10] seconds!"))
+		balloon_alert(user, "взведено на [det_time/10] секунд[DECL_SEC_MIN(det_time/10)]!")
 		active = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		add_fingerprint(user)
@@ -76,16 +81,13 @@
 	switch(det_time)
 		if(0.1 SECONDS)
 			det_time = 1 SECONDS
-			to_chat(user, span_notice("You set [src] for 1 second detonation time."))
 		if(1 SECONDS)
 			det_time = 3 SECONDS
-			to_chat(user, span_notice("You set [src] for 3 second detonation time."))
 		if(3 SECONDS)
 			det_time = 5 SECONDS
-			to_chat(user, span_notice("You set [src] for 5 second detonation time."))
 		if(5 SECONDS)
 			det_time = 0.1 SECONDS
-			to_chat(user, span_notice("You set [src] for instant detonation."))
+	balloon_alert(user, "время детонации — [det_time == 0.1 SECONDS ? "мгновенно" : "[det_time/10] секунд[DECL_SEC_MIN(det_time/10)]"]")
 	add_fingerprint(user)
 	return TRUE
 

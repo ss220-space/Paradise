@@ -162,6 +162,26 @@
 	name = "Красная рукоять"
 	icon_state = "enforcer_redgrip"
 
+/datum/item_skin_data/enforcer/blowngrip
+	name = "Деревянная рукоять"
+	icon_state = "enforcer_browngrip"
+	donation_tier = 1
+
+/datum/item_skin_data/enforcer/silver
+	name = "Серебрянный"
+	icon_state = "enforcer_silver"
+	donation_tier = 2
+
+/datum/item_skin_data/enforcer/backgold
+	name = "Черное золото"
+	icon_state = "enforcer_blackgold"
+	donation_tier = 3
+
+/datum/item_skin_data/enforcer/gold
+	name = "Золотой затвор"
+	icon_state = "enforcer_gold"
+	donation_tier = 4
+
 //MARK: SP-8
 /datum/item_skin_data/sp8
 	item_path = /obj/item/gun/projectile/automatic/pistol/sp8

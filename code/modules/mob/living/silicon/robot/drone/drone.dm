@@ -101,6 +101,9 @@
 	remove_verb(src, /mob/living/silicon/robot/verb/Namepick)
 	module = new /obj/item/robot_module/drone(src)
 
+	var/datum/action/innate/robot_magpulse/pulse = new()
+	pulse.Grant(src)
+
 	//Allows Drones to hear the Engineering channel.
 	module.channels = list(ENG_FREQ_NAME = 1)
 	radio.recalculate_channels()

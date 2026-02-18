@@ -30,6 +30,7 @@
 #define INVESTIGATE_RESEARCH "research"
 #define INVESTIGATE_SYNDIE_CARGO "syndicate_cargo"
 #define INVESTIGATE_WIRES "wires"
+#define INVESTIGATE_PRESENTS "presents"
 
 //This is an external call, "true" and "false" are how rust parses out booleans
 #define WRITE_LOG(log, text) rustg_log_write(log, text, "true")

@@ -79,6 +79,9 @@ VOTE_AUTOTRANSFER_INTERVAL 18000
 ## prevents dead players from voting or starting votes
 #VOTE_NO_DEAD
 
+## prevents offstation players from voting or starting votes
+VOTE_NO_OFFSTATION_ROLE
+
 ## players' votes default to "No vote" (otherwise,  default to "No change")
 DEFAULT_NO_VOTE
 

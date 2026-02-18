@@ -220,27 +220,6 @@
 	togglelock(user)
 	return CLICK_ACTION_SUCCESS
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)
-	if(!istype(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
-	if(opened)
-		to_chat(user, span_notice("Close the crate first."))
-		return
-	if(broken)
-		to_chat(user, span_warning("The crate appears to be broken."))
-		return
-	if(allowed(user))
-		locked = !locked
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		visible_message(span_notice("The crate has been [locked ? null : "un"]locked by [user]."))
-		update_icon()
-	else
-		to_chat(user, span_notice("Access Denied"))
-	add_fingerprint(user)
-
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
 		add_fingerprint(user)
@@ -407,22 +386,25 @@
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
+/obj/structure/closet/crate/freezer/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/location = get_turf(src)
+		gas = location.get_readonly_air()
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-	newgas.oxygen = gas.oxygen
-	newgas.carbon_dioxide = gas.carbon_dioxide
-	newgas.nitrogen = gas.nitrogen
-	newgas.toxins = gas.toxins
+	newgas.set_oxygen(gas.oxygen())
+	newgas.set_carbon_dioxide(gas.carbon_dioxide())
+	newgas.set_nitrogen(gas.nitrogen())
+	newgas.set_toxins(gas.toxins())
 	newgas.volume = gas.volume
-	newgas.temperature = gas.temperature
-	if(newgas.temperature <= target_temp)	return
+	newgas.set_temperature(gas.temperature())
+	if(newgas.temperature() <= target_temp)	return
 
-	if((newgas.temperature - cooling_power) > target_temp)
-		newgas.temperature -= cooling_power
+	if((newgas.temperature() - cooling_power) > target_temp)
+		newgas.set_temperature(newgas.temperature() - cooling_power)
 	else
-		newgas.temperature = target_temp
+		newgas.set_temperature(target_temp)
 	return newgas
 
 /obj/structure/closet/crate/can
@@ -493,6 +475,15 @@
 	overlay_sparking = "heavycrate_sparks"
 	overlay_broken = "heavycrate_hacking"
 	overlay_lightmask = "heavysecurecrate_lightmask"
+	
+/obj/structure/closet/crate/secure/weapon/veihit
+	name = "highrisk crate"
+	icon_state = "mortar"
+	overlay_locked = "mortar_locked"
+	overlay_unlocked = "mortar_unlocked"
+	overlay_sparking = "mortar_sparks"
+	overlay_broken = "mortar_hacking"
+	overlay_lightmask = "mortar_lightmask"
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."

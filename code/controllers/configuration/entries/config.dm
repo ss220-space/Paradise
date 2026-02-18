@@ -129,6 +129,10 @@
 /// dead people can't vote (tbi)
 /datum/config_entry/flag/vote_no_dead
 
+/// offstation role people can't vote (tbi)
+/datum/config_entry/flag/vote_no_offstation_role
+	default = TRUE
+
 /// vote does not default to nochange/norestart (tbi)
 /datum/config_entry/flag/default_no_vote
 
@@ -848,3 +852,8 @@
 
 /datum/config_entry/string/internal_ip
 	protection = CONFIG_ENTRY_LOCKED | CONFIG_ENTRY_HIDDEN
+
+/datum/config_entry/flag/smart_cache_assets
+	default = TRUE
+
+/datum/config_entry/flag/generate_assets_in_init

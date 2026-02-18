@@ -147,16 +147,16 @@
 	qdel(src)
 
 /obj/structure/extinguisher_cabinet/update_icon_state()
-	if(!opened)
-		icon_state = "extinguisher_closed"
-		return
+	icon_state = "extinguisher" // Needs to reset the state with every update
+
 	if(has_extinguisher)
 		if(istype(has_extinguisher, /obj/item/extinguisher/mini))
-			icon_state = "extinguisher_mini"
+			icon_state += "_mini"
 		else
-			icon_state = "extinguisher_full"
-	else
-		icon_state = "extinguisher_empty"
+			icon_state += "_full"
+
+	if(!opened)
+		icon_state += "_closed"
 
 /obj/structure/extinguisher_cabinet/empty
 	extinguishertype = NO_EXTINGUISHER

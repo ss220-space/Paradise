@@ -1,5 +1,17 @@
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	abstract_type = /obj/item/clothing/suit/armor
+	allowed = list(
+		/obj/item/twohanded/spear/secspear,
+		/obj/item/gun/energy,
+		/obj/item/reagent_containers/spray/pepper,
+		/obj/item/gun/projectile,
+		/obj/item/ammo_box,
+		/obj/item/ammo_casing,
+		/obj/item/melee/baton,
+		/obj/item/restraints/handcuffs,
+		/obj/item/flashlight/seclite,
+		/obj/item/kitchen/knife/combat,
+	)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	cold_protection = UPPER_TORSO|LOWER_TORSO
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
@@ -170,11 +182,15 @@
 	desc = "A navy-blue armored jacket with blue shoulder designations and '/Warden/' stitched into one of the chest pockets."
 	icon_state = "warden_jacket_alt"
 
-/obj/item/clothing/suit/armor/vest/sec_rps
+/obj/item/clothing/suit/storage/sec_rps
 	name = "security belt-shoulder system"
 	desc = "A belt-shoulder system for officers that are more inclined towards style than safety."
 	icon_state = "sec_rps"
 	armor=  list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 5, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
+	undyeable = TRUE
+	allowed = list(/obj/item/gun/energy,/obj/item/reagent_containers/spray/pepper,/obj/item/gun/projectile,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/melee/baton,/obj/item/restraints/handcuffs,/obj/item/flashlight/seclite,/obj/item/kitchen/knife/combat)
+	pockets_count = 4
+	pockets_max_combined_w_class = 8
 
 /obj/item/clothing/suit/armor/vest/capcarapace
 	name = "captain's carapace"
@@ -399,12 +415,12 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	if(emp_d)
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отключён из-за электромагнитного импульса!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] отключён из-за электромагнитного импульса!"))
 		return
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
-	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь [active ? "активен" : "неактивен"]."))
+	to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] теперь [active ? "активен" : "неактивен"]."))
 	update_equipped_item()
 
 /obj/item/clothing/suit/armor/reactive/emp_act(severity)
@@ -414,7 +430,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
-		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает глючить!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает глючить!"))
 		update_equipped_item()
 	..()
 
@@ -472,7 +488,7 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] блокирует [attack_text], выпуская струи пламени!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], выпуская струи пламени!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		)
 		for(var/mob/living/carbon/C in range(6, owner))
@@ -511,7 +527,7 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] блокирует [attack_text], испуская разряды молний!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] блокирует [attack_text], испуская разряды молний!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		)
 		for(var/mob/living/M in view(6, owner))

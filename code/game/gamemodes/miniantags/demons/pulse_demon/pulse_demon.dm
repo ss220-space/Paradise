@@ -417,7 +417,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/move_up()
 	set name = "Подняться"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
@@ -434,7 +434,7 @@
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
 	set name = "Опуститься"
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
@@ -846,8 +846,8 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	return
 
-/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference()
-	return // no thanks
+/mob/living/simple_animal/demon/pulse_demon/experience_pressure_difference(flow_x, flow_y)
+	return // Immune to gas flow.
 
 /mob/living/simple_animal/demon/pulse_demon/singularity_pull()
 	return

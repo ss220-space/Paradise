@@ -13,6 +13,7 @@
 	resistance_flags = ACID_PROOF
 	container_type = OPENCONTAINER
 	slot_flags = ITEM_SLOT_BELT
+	custom_price = PAYCHECK_LOWER
 	var/ignore_flags = FALSE
 	var/safety_hypo = FALSE
 
@@ -69,9 +70,9 @@
 				found_forbidden_reagent = TRUE
 		if(found_forbidden_reagent)
 			if(ismob(loc))
-				to_chat(loc, span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				to_chat(loc, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 			else
-				visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] определяет и удаляет недопустимое вещество."))
+				visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] определяет и удаляет недопустимое вещество."))
 
 /obj/item/reagent_containers/hypospray/emag_act(mob/user)
 	if(safety_hypo && !emagged)
@@ -368,6 +369,7 @@
 	container_type = DRAWABLE
 	flags = null
 	list_reagents = list("epinephrine" = 10)
+	custom_price = PAYCHECK_MIN
 	/// Whether we can rename and repaint source
 	var/reskin_allowed = FALSE
 	/// Is it usable only on yourself?
@@ -377,12 +379,12 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/get_ru_names()
 	return list(
-		NOMINATIVE = "аварийный автоинъектор",
-		GENITIVE = "аварийного автоинъектора",
-		DATIVE = "аварийному автоинъектору",
-		ACCUSATIVE = "аварийный автоинъектор",
-		INSTRUMENTAL = "аварийным автоинъектором",
-		PREPOSITIONAL = "аварийном автоинъекторе",
+		NOMINATIVE = "автоинъектор (Эпинефрин)",
+		GENITIVE = "автоинъектора (Эпинефрин)",
+		DATIVE = "автоинъектору (Эпинефрин)",
+		ACCUSATIVE = "автоинъектор (Эпинефрин)",
+		INSTRUMENTAL = "автоинъектором (Эпинефрин)",
+		PREPOSITIONAL = "автоинъекторе (Эпинефрин)",
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/update_icon_state()

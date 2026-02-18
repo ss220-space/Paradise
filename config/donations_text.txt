@@ -1,0 +1,6 @@
+Состав расходов: <br>
+Craft-Hosting: 14 500 ₽<br>
+Silero TTS: 19 000 ₽<br>
+Gcore: € 10.69<br>
+Scaleway: € 24+<br>
+Внешнее хранилище: ~ $ 12

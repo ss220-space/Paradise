@@ -193,6 +193,11 @@
 	name = "Mens Hearts"
 	icon_state = "male_hearts"
 
+/datum/sprite_accessory/underwear/male/male_highrise_boxers
+	name = "Mens Highrise Boxers"
+	icon_state = "male_highrise_boxers"
+	species_allowed = list(SPECIES_HUMAN)
+
 /datum/sprite_accessory/underwear/male/colorized
 	allow_change_color = TRUE
 	sprite_sheets = list(

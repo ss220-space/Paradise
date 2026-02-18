@@ -13,6 +13,31 @@
 		icon_state = icon_regular_floor
 		dir = floor_regular_dir
 
+/turf/simulated/floor/plasteel/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
+
+/turf/simulated/floor/plasteel/pressure_debug
+
+/turf/simulated/floor/plasteel/pressure_debug/airless
+	name = "airless floor"
+	oxygen = 0
+	nitrogen = 0
+	temperature = TCMB
+
+/turf/simulated/floor/plasteel/pressure_debug/Initialize(mapload)
+	..()
+	addtimer(CALLBACK(src, PROC_REF(update_color)), 1, TIMER_LOOP)
+
+/turf/simulated/floor/plasteel/pressure_debug/proc/update_color()
+	var/datum/gas_mixture/air = get_readonly_air()
+	var/ratio = min(1, air.return_pressure() / ONE_ATMOSPHERE)
+	color = rgb(255 * (1 - ratio), 0, 255 * ratio)
+
 /turf/simulated/floor/plasteel/airless
 	name = "airless floor"
 	oxygen = 0
@@ -49,6 +74,13 @@
 	oxygen = 0
 	temperature = 80
 
+/turf/simulated/floor/plasteel/dark/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/plasteel/freezer
 	icon_state = "freezerfloor"
 
@@ -63,5 +95,20 @@
 /turf/simulated/floor/plasteel/stairs/old
 	icon_state = "stairs-old"
 
+/turf/simulated/floor/plasteel/stairs/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+
 /turf/simulated/floor/plasteel/grimy
 	icon_state = "grimy"
+
+/turf/simulated/floor/plasteel/grimy/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+

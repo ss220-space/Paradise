@@ -81,7 +81,7 @@
 		shuttle_port = null
 		return
 
-	var/turf/shuttle_eye_pos = get_turf(locate("landmark*Observer-Start"))
+	var/turf/shuttle_eye_pos = get_turf(locate(/obj/effect/landmark/observer_start))
 
 	if(length(jumpto_ports))
 		for(var/obj/docking_port/stationary/S in SSshuttle.stationary)

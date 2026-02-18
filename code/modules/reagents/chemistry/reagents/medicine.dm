@@ -63,6 +63,7 @@
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
+	M.AdjustKnockdown(-2 SECONDS)
 	M.SetSleeping(0)
 	update_flags |= M.adjustStaminaLoss(-8, FALSE)
 	if(prob(50))
@@ -702,6 +703,7 @@
 	M.AdjustParalysis(-2 SECONDS)
 	M.AdjustStunned(-2 SECONDS)
 	M.AdjustWeakened(-2 SECONDS)
+	M.AdjustKnockdown(-2 SECONDS)
 	update_flags |= M.adjustStaminaLoss(-1.5, FALSE)
 	M.AdjustLoseBreath(-2 SECONDS, bound_lower = 10 SECONDS)
 	if(M.getOxyLoss() > 75)
@@ -971,7 +973,7 @@
 				// 0% chance of necrosis within 1 minute of death
 				// 40% chance of necrosis after 20 minutes of death
 				necrotize_body(mob, necrosis_prob)
-			mob.update_revive(TRUE, TRUE)
+			mob.update_revive(updating = TRUE, force = FALSE, defib_revive = TRUE)
 			mob.grab_ghost()
 			add_attack_logs(mob, mob, "Revived with strange reagent") //Yes, the logs say you revived yourself.
 	..()
@@ -1116,14 +1118,15 @@
 	user.AdjustParalysis(-6 SECONDS)
 	user.AdjustStunned(-6 SECONDS)
 	user.AdjustWeakened(-6 SECONDS)
+	user.AdjustKnockdown(-6 SECONDS)
 	update_flags |= user.adjustStaminaLoss(-7.5, FALSE)
-	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+	if(!(user.dna && (user.dna.species.reagent_tag & ORGANIC)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 	return ..() | update_flags
 
 /datum/reagent/medicine/stimulative_agent/on_mob_add(mob/living/user)
 	. = ..()
-	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+	if(user.dna && (user.dna.species.reagent_tag & ORGANIC))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/stimulative_agent)
 
 /datum/reagent/medicine/stimulative_agent/on_mob_delete(mob/living/user)
@@ -1340,6 +1343,7 @@
 		M.AdjustParalysis(-2 SECONDS)
 		M.AdjustStunned(-2 SECONDS)
 		M.AdjustWeakened(-2 SECONDS)
+		M.AdjustKnockdown(-2 SECONDS)
 		M.AdjustConfused(-10 SECONDS)
 	for(var/datum/reagent/R in M.reagents.reagent_list)
 		if(R != src)

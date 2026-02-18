@@ -49,13 +49,11 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/pirate/directional/east,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
 "l" = (
 /obj/structure/table,
-/obj/item/radio/intercom/pirate{
-	name = "listening post intercom"
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -111,9 +109,6 @@
 /area/ruin/powered)
 "s" = (
 /obj/structure/table,
-/obj/item/radio/intercom/pirate{
-	name = "listening post intercom"
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
@@ -307,6 +302,12 @@
 /obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plating/airless,
 /area/space)
+"U" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/decal/cleanable/dirt,
+/obj/item/radio/intercom/pirate/directional/east,
+/turf/simulated/floor/plasteel,
+/area/ruin/powered)
 "V" = (
 /obj/machinery/door/airlock/external,
 /obj/structure/disposalpipe/segment{
@@ -1071,7 +1072,7 @@ c
 f
 k
 q
-b
+U
 b
 X
 b

@@ -36,7 +36,7 @@
 /obj/item/circuit_component/equipment_action
 	display_name = "Действие оборудования"
 	desc = "Представляет действие, которое пользователь может выполнить при использовании поддерживаемых оболочек."
-	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci) // , /obj/item/mod/module/circuit
+	required_shells = list(/obj/item/organ/internal/cyberimp/brain/bci, /obj/item/mod/module/circuit)
 
 	/// The icon of the button
 	var/datum/port/input/option/icon_options
@@ -127,8 +127,9 @@
 /obj/item/circuit_component/equipment_action/proc/update_actions()
 	for(var/uid in granted_to)
 		var/datum/action/granted_action = granted_to[uid]
-		granted_action.name = button_name.value || "Дейстие"
+		granted_action.name = button_name.value || "Действие"
 		granted_action.button_icon_state = LAZYACCESS(options_map, icon_options.value)
+		granted_action.build_all_button_icons(ALL)
 
 
 #undef HUD_BLANK
