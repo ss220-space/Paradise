@@ -2,29 +2,31 @@ GLOBAL_DATUM_INIT(revision_info, /datum/code_revision, new)
 GLOBAL_PROTECT(revision_info) // Dont mess with this
 
 /**
-  * Code Revision Datum
-  *
-  * Allows the server code to be aware of the Git environment it is running in, and lets commit hash be viewed
-  */
+ * Code Revision Datum
+ *
+ * Allows the server code to be aware of the Git environment it is running in, and lets commit hash be viewed
+ */
 /datum/code_revision
 	/// Current commit hash the server is running
 	var/commit_hash
 	/// Date that this commit was made
 	var/commit_date
+	// git rev-parse origin/master220
+	var/originmastercommit
+	// repo name
+	var/repo = "ss220-space/Paradise"
 
 /datum/code_revision/New()
-	commit_hash = "-"
-	commit_date = "-"
-	return
-	// commit_hash = rustg_git_revparse("HEAD")
-	// if(commit_hash)
-	// 	commit_date = rustg_git_commit_date(commit_hash)
+	commit_hash = rustg_git_revparse("HEAD")
+	if(commit_hash)
+		commit_date = rustg_git_commit_date(commit_hash)
+	originmastercommit = rustg_git_revparse("origin/master220")
 
 /**
-  * Code Revision Logging Helper
-  *
-  * Small proc to simplify logging all this stuff
-  */
+ * Code Revision Logging Helper
+ *
+ * Small proc to simplify logging all this stuff
+ */
 /datum/code_revision/proc/log_info()
 	// Put revision info in the world log
 	var/logmsg
@@ -39,25 +41,24 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	log_runtime_summary(logmsg)
 
 /client/verb/get_revision_info()
-	set name = "Get Revision Info"
-	set category = "OOC"
+	set name = "Информация о сборке"
 	set desc = "Retrieve technical information about the server"
+	set category = VERB_CATEGORY_OOC
 
 	var/list/msg = list()
-	msg += "<span class='notice'><b>Server Revision Info</b></span>"
+	msg += span_notice("<b>Server Revision Info</b>")
 	// Round ID first
 	msg += "<b>Round ID:</b> [GLOB.round_id ? GLOB.round_id : "NULL"]"
 
 	// Commit info
 	if(GLOB.revision_info.commit_hash && GLOB.revision_info.commit_date)
-		msg += "<b>Server Commit:</b> <a href='[config.githuburl]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
+		msg += "<b>Server Commit:</b> <a href='[CONFIG_GET(string/githuburl)]/commit/[GLOB.revision_info.commit_hash]'>[GLOB.revision_info.commit_hash]</a> (Date: [GLOB.revision_info.commit_date])"
 	else
 		msg += "<b>Server Commit:</b> <i>Unable to determine</i>"
-
 
 	// Show server BYOND version
 	msg += "<b>Server BYOND Version:</b> [world.byond_version].[world.byond_build]"
 	// And the clients for good measure
 	msg += "<b>Client (your) BYOND Version:</b> [byond_version].[byond_build]"
 
-	to_chat(usr, msg.Join("<br>"))
+	to_chat(usr, chat_box_examine(msg.Join("<br>")))

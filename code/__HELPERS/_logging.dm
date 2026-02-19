@@ -5,11 +5,14 @@
 GLOBAL_VAR_INIT(log_end, (ascii2text(13))) // CRLF for all logs
 GLOBAL_PROTECT(log_end)
 
+//wrapper macros for easier grepping
 #define DIRECT_OUTPUT(A, B) A << B
+#define DIRECT_INPUT(A, B) A >> B
 #define SEND_IMAGE(target, image) DIRECT_OUTPUT(target, image)
 #define SEND_SOUND(target, sound) DIRECT_OUTPUT(target, sound)
 #define SEND_TEXT(target, text) DIRECT_OUTPUT(target, text)
 #define WRITE_FILE(file, text) DIRECT_OUTPUT(file, text)
+#define READ_FILE(file, text) DIRECT_INPUT(file, text)
 
 /proc/error(msg)
 	log_world("## ERROR: [msg]")
@@ -30,115 +33,146 @@ GLOBAL_PROTECT(log_end)
 // don't use this for logging. We have add_type_logs() for this situation
 // you can look all the way down in this file for those procs
 
-/proc/log_admin(text)
-	GLOB.admin_log.Add(text)
-	if(config.log_admin)
+/proc/log_admin(text, skip_glob = FALSE)
+	if(!skip_glob)
+		GLOB.admin_log.Add(text)
+	if(CONFIG_GET(flag/log_admin))
 		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text][GLOB.log_end]")
 
 /proc/log_debug(text)
-	if(config.log_debug)
+	if(CONFIG_GET(flag/log_debug))
 		WRITE_LOG(GLOB.world_game_log, "DEBUG: [text][GLOB.log_end]")
 
 	for(var/client/C in GLOB.admins)
-		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "DEBUG: [text]")
+		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+			to_chat(C, span_debug("DEBUG: [text]"), MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
-	if(config.log_game)
+	if(CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text][GLOB.log_end]")
 
+/proc/log_mapmanip(text)
+	if(!CONFIG_GET(flag/log_mapmanip))
+		return
+
+	WRITE_LOG(GLOB.mapmanip_log, "MAPMANIP: [text][GLOB.log_end]")
+
 /proc/log_vote(text)
-	if(config.log_vote)
+	if(CONFIG_GET(flag/log_vote))
 		WRITE_LOG(GLOB.world_game_log, "VOTE: [text][GLOB.log_end]")
 
 /proc/log_access_in(client/new_client)
-	if(config.log_access)
+	if(CONFIG_GET(flag/log_access))
 		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version].[new_client.byond_build]"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS IN: [message][GLOB.log_end]")
+		if(new_client.ckey in GLOB.admin_datums)
+			var/datum/admins/admin = GLOB.admin_datums[new_client.ckey]
+			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(new_client)] ([admin.rank]) logged in[GLOB.log_end]")
 
 /proc/log_access_out(mob/last_mob)
-	if(config.log_access)
+	if(CONFIG_GET(flag/log_access))
 		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
 		WRITE_LOG(GLOB.world_game_log, "ACCESS OUT: [message][GLOB.log_end]")
+		if(last_mob.ckey in GLOB.admin_datums)
+			WRITE_LOG(GLOB.world_game_log, "ADMIN: Admin [key_name(last_mob)] logged out[GLOB.log_end]")
 
 /proc/log_say(text, mob/speaker)
-	if(config.log_say)
+	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_whisper(text, mob/speaker)
-	if(config.log_whisper)
+	if(CONFIG_GET(flag/log_whisper))
 		WRITE_LOG(GLOB.world_game_log, "WHISPER: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ooc(text, client/user)
-	if(config.log_ooc)
+	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_aooc(text, client/user)
-	if(config.log_ooc)
+	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_looc(text, client/user)
-	if(config.log_ooc)
+	if(CONFIG_GET(flag/log_ooc))
 		WRITE_LOG(GLOB.world_game_log, "LOOC: [user.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_emote(text, mob/speaker)
-	if(config.log_emote)
+	if(CONFIG_GET(flag/log_emote))
 		WRITE_LOG(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_attack(attacker, defender, message, newhp)
-	if(config.log_attack)
+	if(CONFIG_GET(flag/log_attack))
 		WRITE_LOG(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message] [newhp][GLOB.log_end]") //Seperate attack logs? Why?
 
 /proc/log_conversion(text, mob/converting)
-	if(config.log_conversion)
+	if(CONFIG_GET(flag/log_conversion))
 		WRITE_LOG(GLOB.world_game_log, "CONVERSION: [converting.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_adminsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
+/proc/log_admin_private(text, mob/speaker)
+	if(CONFIG_GET(flag/log_adminchat))
+		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
+/proc/log_ping_all_admins(text, mob/speaker)
+	if(CONFIG_GET(flag/log_adminchat))
+		WRITE_LOG(GLOB.world_game_log, "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
 /proc/log_mentorsay(text, mob/speaker)
-	if(config.log_adminchat)
+	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostsay(text, mob/speaker)
-	if(config.log_say)
+	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
+/proc/log_devsay(text, mob/speaker)
+	if(CONFIG_GET(flag/log_adminchat))
+		WRITE_LOG(GLOB.world_game_log, "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
 /proc/log_ghostemote(text, mob/speaker)
-	if(config.log_emote)
+	if(CONFIG_GET(flag/log_emote))
 		WRITE_LOG(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_adminwarn(text)
-	if(config.log_adminwarn)
+	if(CONFIG_GET(flag/log_adminwarn))
 		WRITE_LOG(GLOB.world_game_log, "ADMINWARN: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_pda(text, mob/speaker)
-	if(config.log_pda)
-		WRITE_LOG(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+	if(CONFIG_GET(flag/log_pda))
+		WRITE_LOG(GLOB.world_game_log, "[speaker ? "PDA: [speaker.simple_info_line()]:" : "(No sender)"] [html_decode(text)][GLOB.log_end]")
 
 /proc/log_chat(text, mob/speaker)
-	if(config.log_pda)
+	if(CONFIG_GET(flag/log_pda))
 		WRITE_LOG(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][GLOB.log_end]")
 
 /proc/log_misc(text)
 	WRITE_LOG(GLOB.world_game_log, "MISC: [text][GLOB.log_end]")
 
 /proc/log_antag_objectives(datum/mind/Mind)
-	WRITE_LOG(GLOB.world_game_log, "GAME: Start objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
-	var/count = 1
-	for(var/datum/objective/objective in Mind.objectives)
-		WRITE_LOG(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
-		count++
-	WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
+	var/list/all_objectives = Mind.get_all_objectives()
+	if(length(all_objectives))
+		WRITE_LOG(GLOB.world_game_log, "GAME: Start objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
+		var/count = 1
+		for(var/datum/objective/objective in all_objectives)
+			WRITE_LOG(GLOB.world_game_log, "GAME: Objective #[count]: [objective.explanation_text][GLOB.log_end]")
+			count++
+		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
 /proc/log_world(text)
-	if(config && !config.disable_root_log)
+	#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
+	SEND_TEXT(world.log, text)
+	#else
+	if(config && CONFIG_GET(flag/enable_root_log))
 		SEND_TEXT(world.log, text)
-	if(config && config.log_world_output)
+	#endif
+
+	if(config && CONFIG_GET(flag/log_world_output))
 		WRITE_LOG(GLOB.world_game_log, "WORLD: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
@@ -157,8 +191,27 @@ GLOBAL_PROTECT(log_end)
 /proc/log_runtime_summary(text)
 	WRITE_LOG(GLOB.runtime_summary_log, "[text][GLOB.log_end]")
 
-/proc/log_tgui(text)
-	WRITE_LOG(GLOB.tgui_log, "[text][GLOB.log_end]")
+/proc/log_tgui(user_or_client, text)
+	var/list/messages = list()
+	if(!user_or_client)
+		messages.Add("no user")
+	else if(ismob(user_or_client))
+		var/mob/user = user_or_client
+		messages.Add("[user.ckey] (as [user])")
+	else if(isclient(user_or_client))
+		var/client/client = user_or_client
+		messages.Add("[client.ckey]")
+	messages.Add(": [text]")
+	messages.Add("[GLOB.log_end]")
+	WRITE_LOG(GLOB.tgui_log, messages.Join())
+
+#ifdef REFERENCE_TRACKING
+/proc/log_gc(text)
+	rustg_log_write(GLOB.gc_log, "[text][GLOB.log_end]", "true")
+	for(var/client/C in GLOB.admins)
+		if(check_rights(R_DEBUG | R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
+			to_chat(C, "GC DEBUG: [text]")
+#endif
 
 /proc/log_sql(text)
 	WRITE_LOG(GLOB.sql_log, "[text][GLOB.log_end]")
@@ -167,15 +220,15 @@ GLOBAL_PROTECT(log_end)
 /**
  * Standardized method for tracking startup times.
  */
-/proc/log_startup_progress(var/message)
-	to_chat(world, "<span class='danger'>[message]</span>")
-	log_world(message)
+/proc/log_startup_progress_global(prefix, message)
+	to_chat(world, span_danger("<small>\[[prefix]]</small> [message]"))
+	log_world("\[[prefix]] [message]")
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
-/proc/log_after_setup(var/message)
+/proc/log_after_setup(message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
-		to_chat(world, "<span class='danger'>[message]</span>")
+		to_chat(world, span_danger("[message]"))
 		log_world(message)
 
 /* For logging round startup. */
@@ -184,7 +237,7 @@ GLOBAL_PROTECT(log_end)
 
 // Helper procs for building detailed log lines
 
-/proc/datum_info_line(var/datum/d)
+/proc/datum_info_line(datum/d)
 	if(!istype(d))
 		return
 	if(!istype(d, /mob))
@@ -192,14 +245,18 @@ GLOBAL_PROTECT(log_end)
 	var/mob/m = d
 	return "[m] ([m.ckey]) ([m.type])"
 
-/proc/atom_loc_line(var/atom/a)
-	if(!istype(a))
-		return
-	var/turf/t = get_turf(a)
-	if(istype(t))
-		return "[a.loc] ([t.x],[t.y],[t.z]) ([a.loc.type])"
-	else if(a.loc)
-		return "[a.loc] (0,0,0) ([a.loc.type])"
+/proc/atom_loc_line(atom/A)
+	if(!istype(A))
+		return "(INVALID LOCATION)"
+
+	var/turf/T = A
+	if(!istype(T))
+		T = get_turf(A)
+
+	if(istype(T))
+		return "([AREACOORD(T)])"
+	else if(A.loc)
+		return "(UNKNOWN (?, ?, ?))"
 
 /mob/proc/simple_info_line()
 	return "[key_name(src)] ([x],[y],[z])"
@@ -228,14 +285,17 @@ GLOBAL_PROTECT(log_end)
 		var/list/targets = target
 		for(var/t in targets)
 			add_attack_logs(user, t, what_done, custom_level)
+
 		return
 
 	var/user_str
-	if(ismecha(user?.loc) || isspacepod(user?.loc))
+	if((user?.loc) && (ismecha(user?.loc) || isspacepod(user?.loc)))
 		var/obj/vehicle = user.loc
 		user_str = key_name_log(user) + COORD(vehicle)
+
 	else
 		user_str = key_name_log(user) + COORD(user)
+
 	var/target_str
 	var/target_info
 	if(isatom(target))
@@ -253,8 +313,10 @@ GLOBAL_PROTECT(log_end)
 	//sending logs to Log Viewer and then logs into game.log
 	if(istype(MU))
 		MU.create_log(ATTACK_LOG, what_done, target, get_turf(user))
+		MU.create_attack_log("<font color='red'>Attacked [target_str]: [what_done]</font>")
 	if(istype(MT))
 		MT.create_log(DEFENSE_LOG, what_done, user, get_turf(MT))
+		MT.create_attack_log("<font color='orange'>Attacked by [user_str]: [what_done]</font>")
 	var/mob/living/alive = target
 	if(istype(alive))
 		newhp += "\[HP:[alive.health]:[alive.getOxyLoss()]-[alive.getToxLoss()]-[alive.getFireLoss()]-[alive.getBruteLoss()]-[alive.getStaminaLoss()]-[alive.getBrainLoss()]-[alive.getCloneLoss()]\]"
@@ -272,7 +334,7 @@ GLOBAL_PROTECT(log_end)
 				loglevel = ATKLOG_ALMOSTALL
 		else
 			var/area/A = get_area(MT)
-			if(A && A.hide_attacklogs)
+			if(A?.hide_attacklogs)
 				loglevel = ATKLOG_ALMOSTALL
 	else
 		loglevel = ATKLOG_ALL // Hitting an object. Not a mob
@@ -354,3 +416,23 @@ GLOBAL_PROTECT(log_end)
 	else
 		user.mob.create_log(OOC_LOG, text)
 		log_ooc(text, user)
+
+/proc/loc_name(atom/A)
+	if(!istype(A))
+		return "(INVALID LOCATION)"
+
+	var/turf/T = A
+	if(!istype(T))
+		T = get_turf(A)
+
+	if(istype(T))
+		return "([AREACOORD(T)])"
+	else if(A.loc)
+		return "(UNKNOWN (?, ?, ?))"
+
+#if defined(REFERENCE_TRACKING) // Doing it locally
+#define log_reftracker(msg) log_world("## REF SEARCH [msg]")
+
+#else //Not tracking at all
+#define log_reftracker(msg)
+#endif

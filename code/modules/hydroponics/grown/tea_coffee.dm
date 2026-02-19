@@ -45,7 +45,6 @@
 	tastes = list("tea leaves" = 1, "pure energy" = 1)
 	filling_color = "#4582B4"
 
-
 // Coffee
 /obj/item/seeds/coffee
 	name = "pack of coffee arabica seeds"

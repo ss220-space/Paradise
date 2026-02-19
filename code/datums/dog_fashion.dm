@@ -1,16 +1,25 @@
 /datum/dog_fashion
+	/// Visible name of the entity (e.g. "Ian", "Medibot").
 	var/name
+	/// Description shown when examined (examine verb).
 	var/desc
+	/// List of visible emotes (e.g. list("nods", "shakes head")). Seen without associated text.
 	var/emote_see
+	/// List of audible emotes/sounds (e.g. list("growls", "hisses")). Heard by nearby players.
 	var/emote_hear
+	/// List of phrases randomly spoken (e.g. list("Beep!", "Status update?"))
 	var/speak
+	/// Verb used when speaking phrases (e.g. "states", "chirps", "beeps"). Appears before speak messages.
 	var/speak_emote
 
-	// This isn't applied to the dog, but stores the icon_state of the
-	// sprite that the associated item uses
+	// This isn't applied to the dog, but stores the icon_state of the sprite that the associated item uses.
+	/// File path to the icon set (e.g., 'icons/effects/blood.dmi').
 	var/icon_file
+	/// Icon state within the file (e.g., "floor1", "spark").
 	var/obj_icon_state
+	/// Transparency level (0-255) where 255 = fully opaque.
 	var/obj_alpha
+	/// Color string in hex/rgb format.
 	var/obj_color
 
 /datum/dog_fashion/New(mob/M)
@@ -31,13 +40,12 @@
 	if(speak_emote)
 		D.speak_emote = speak_emote
 
-/datum/dog_fashion/proc/get_overlay(var/dir)
+/datum/dog_fashion/proc/get_overlay(dir)
 	if(icon_file && obj_icon_state)
 		var/image/corgI = image(icon_file, obj_icon_state, dir = dir)
 		corgI.alpha = obj_alpha
 		corgI.color = obj_color
 		return corgI
-
 
 /datum/dog_fashion/head
 	icon_file = 'icons/mob/corgi_head.dmi'
@@ -47,7 +55,7 @@
 
 /datum/dog_fashion/head/hardhat/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.set_light(4)
+	D.set_light_range(4)
 
 /datum/dog_fashion/head/helmet
 	name = "Sergeant REAL_NAME"
@@ -56,7 +64,6 @@
 /datum/dog_fashion/head/chef
 	name = "Sous chef REAL_NAME"
 	desc = "Your food will be taste-tested.  All of it."
-
 
 /datum/dog_fashion/head/captain
 	name = "Captain REAL_NAME"
@@ -80,12 +87,10 @@
 	speak = list("le woof!", "le bark!", "JAPPE!!")
 	emote_see = list("cowers in fear.", "surrenders.", "plays dead.","looks as though there is a wall in front of him.")
 
-
 /datum/dog_fashion/head/detective
 	name = "Detective REAL_NAME"
 	desc = "NAME sees through your lies..."
 	emote_see = list("investigates the area.","sniffs around for clues.","searches for scooby snacks.","takes a candycorn from the hat.")
-
 
 /datum/dog_fashion/head/nurse
 	name = "Nurse REAL_NAME"
@@ -131,7 +136,7 @@
 	desc = "Result of robotics budget cuts."
 
 /datum/dog_fashion/head/ghost
-	name = "\improper Ghost"
+	name = "Ghost"
 	speak = list("WoooOOOooo~","AUUUUUUUUUUUUUUUUUU")
 	emote_see = list("stumbles around.", "shivers.")
 	emote_hear = list("howls!","groans.")
@@ -155,11 +160,11 @@
 
 /datum/dog_fashion/head/reindeer/apply(mob/living/simple_animal/pet/dog/D)
 	..()
-	D.set_light(2, 2, LIGHT_COLOR_RED)
+	D.set_light_range_power_color(2, 2, COLOR_SOFT_RED)
 
 /datum/dog_fashion/head/sombrero
 	name = "Segnor REAL_NAME"
-	desc = "You must respect Elder Dogname"
+	desc = "You must respect Elder Dogname."
 
 /datum/dog_fashion/head/sombrero/New(mob/M)
 	..()
@@ -193,17 +198,18 @@
 
 /datum/dog_fashion/head/cone
 	name = "REAL_NAME"
-	desc = "Omnicone's Chosen Champion"
+	desc = "Omnicone's Chosen Champion."
 
 /datum/dog_fashion/back/hardsuit
 	name = "Space Explorer REAL_NAME"
 	desc = "That's one small step for a corgi. One giant yap for corgikind."
 
-/datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/D)
+/datum/dog_fashion/back/hardsuit/apply(mob/living/simple_animal/pet/dog/doggo)
 	..()
-	D.mutations.Add(BREATHLESS)
-	D.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	D.minbodytemp = 0
+	ADD_TRAIT(doggo, TRAIT_NO_BREATH, CORGI_HARDSUIT_TRAIT)
+	doggo.atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	var/datum/component/animal_temperature/temp = doggo.GetComponent(/datum/component/animal_temperature)
+	temp?.minbodytemp = 0
 
 /datum/dog_fashion/head/fried_vox_empty
 	name = "Colonel REAL_NAME"

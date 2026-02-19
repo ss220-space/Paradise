@@ -114,12 +114,7 @@
 	},
 /area/shuttle/escape)
 "at" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -60
-	},
+/obj/item/radio/intercom/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -183,7 +178,7 @@
 "aF" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -288,10 +283,7 @@
 	},
 /area/shuttle/escape)
 "aW" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
@@ -331,7 +323,7 @@
 "be" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Emergency Airlock Access";
-	req_one_access_txt = "2;19"
+	req_access = list(2,19)
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -361,7 +353,7 @@
 "bj" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -467,7 +459,7 @@
 "bC" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_one_access_txt = "2;19"
+	req_access = list(2,19)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -485,7 +477,8 @@
 	dwidth = 11;
 	height = 18;
 	timid = 1;
-	width = 29
+	width = 29;
+	port_direction = 8
 	},
 /turf/simulated/floor/plasteel,
 /area/shuttle/escape)
@@ -673,10 +666,7 @@
 /turf/simulated/wall/shuttle/onlyselfsmooth,
 /area/shuttle/escape)
 "cd" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/machinery/recharge_station,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -760,7 +750,6 @@
 /area/shuttle/escape)
 "cl" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /obj/effect/decal/warning_stripes/south,
@@ -812,7 +801,6 @@
 /area/shuttle/escape)
 "cu" = (
 /obj/machinery/door/airlock/medical/glass{
-	id_tag = null;
 	name = "Escape Shuttle Infirmary"
 	},
 /turf/simulated/floor/plasteel{
@@ -911,12 +899,7 @@
 	},
 /area/shuttle/escape)
 "cF" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	name = "Station Intercom (General)";
-	pixel_x = 29;
-	pixel_y = -30
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	icon_state = "cmo"

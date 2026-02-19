@@ -1,6 +1,6 @@
 /**
-  * Get all non admin_only instruments as a list of text ids.
-  */
+ * Get all non admin_only instruments as a list of text ids.
+ */
 /proc/get_allowed_instrument_ids()
 	. = list()
 	for(var/id in SSinstruments.instrument_data)
@@ -9,22 +9,21 @@
 			. += I.id
 
 /**
-  * # Instrument Datums
-  *
-  * Instrument datums hold the data for any given instrument, as well as data on how to play it and what bounds there are to playing it.
-  *
-  * The datums themselves are kept in SSinstruments in a list by their unique ID. The reason it uses ID instead of typepath is to support the runtime creation of instruments.
-  * Since songs cache them while playing, there isn't realistic issues regarding performance from accessing.
-  */
+ * # Instrument Datums
+ *
+ * Instrument datums hold the data for any given instrument, as well as data on how to play it and what bounds there are to playing it.
+ *
+ * The datums themselves are kept in SSinstruments in a list by their unique ID. The reason it uses ID instead of typepath is to support the runtime creation of instruments.
+ * Since songs cache them while playing, there isn't realistic issues regarding performance from accessing.
+ */
 /datum/instrument
+	abstract_type = /datum/instrument
 	/// Name of the instrument
 	var/name = "Generic instrument"
 	/// Uniquely identifies this instrument so runtime changes are possible as opposed to paths. If this is unset, things will use path instead.
 	var/id
 	/// Category
 	var/category = "Unsorted"
-	/// Used for categorization subtypes
-	var/abstract_type = /datum/instrument
 	/// Write here however many samples, follow this syntax: "%note num%"='%sample file%' eg. "27"='synthesizer/e2.ogg'. Key must never be lower than 0 and higher than 127
 	var/list/real_samples
 	/// assoc list key = /datum/instrument_key. do not fill this yourself!
@@ -61,16 +60,16 @@
 	return ..()
 
 /**
-  * Initializes the instrument, calculating its samples if necessary.
-  */
+ * Initializes the instrument, calculating its samples if necessary.
+ */
 /datum/instrument/proc/Initialize()
 	if(instrument_flags & (INSTRUMENT_LEGACY | INSTRUMENT_DO_NOT_AUTOSAMPLE))
 		return
 	calculate_samples()
 
 /**
-  * Checks if this instrument is ready to play.
-  */
+ * Checks if this instrument is ready to play.
+ */
 /datum/instrument/proc/is_ready()
 	if(instrument_flags & INSTRUMENT_LEGACY)
 		return legacy_instrument_path && legacy_instrument_ext
@@ -79,9 +78,9 @@
 	return length(samples) >= 128
 
 /**
-  * For synthesized instruments, this is how the instrument generates the "keys" that a [/datum/song] uses to play notes.
-  * Calculating them on the fly would be unperformant, so we do it during init and keep it all cached in a list.
-  */
+ * For synthesized instruments, this is how the instrument generates the "keys" that a [/datum/song] uses to play notes.
+ * Calculating them on the fly would be unperformant, so we do it during init and keep it all cached in a list.
+ */
 /datum/instrument/proc/calculate_samples()
 	if(!length(real_samples))
 		CRASH("No real samples defined for [id] [type] on calculate_samples() call.")
@@ -89,7 +88,7 @@
 	samples = list()
 	for(var/key in real_samples)
 		real_keys += text2num(key)
-	sortTim(real_keys, /proc/cmp_numeric_asc, associative = FALSE)
+	sortTim(real_keys, cmp = /proc/cmp_numeric_asc, associative = FALSE)
 
 	for(var/i in 1 to (length(real_keys) - 1))
 		var/from_key = real_keys[i]

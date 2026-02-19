@@ -8,21 +8,22 @@
 
 /obj/item/pen/multi/robopen/attack_self(mob/user as mob)
 
-	var/choice = input("Would you like to change colour or mode?") as null|anything in list("Colour","Mode")
-	if(!choice) return
+	var/choice = tgui_input_list(user, "Would you like to change colour or mode?", name, list("Colour","Mode"))
+	if(!choice)
+		return
 
 	switch(choice)
-
 		if("Colour")
 			select_colour(user)
-
 		if("Mode")
 			if(mode == 1)
 				mode = 2
+
 			else
 				mode = 1
+
 			to_chat(user, "Changed printing mode to '[mode == 2 ? "Rename Paper" : "Write Paper"]'")
-			playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
+			playsound(src.loc, 'sound/effects/pop.ogg', 50, FALSE)
 
 	return
 
@@ -30,15 +31,14 @@
 // see code\modules\paperwork\paper.dm line 62
 
 /obj/item/pen/multi/robopen/proc/RenamePaper(mob/user as mob,obj/paper as obj)
-	if( !user || !paper )
-		return
-	var/n_name = input(user, "What would you like to label the paper?", "Paper Labelling", null)  as text
-	if( !user || !paper )
+	if(!user || !paper)
 		return
 
-	n_name = copytext(n_name, 1, 32)
-	if(( get_dist(user,paper) <= 1  && user.stat == 0))
-		paper.name = "paper[(n_name ? text("- '[n_name]'") : null)]"
+	var/n_name = tgui_input_text(user, "What would you like to label the paper?", "Paper Labelling", max_length = MAX_NAME_LEN)
+	if(!Adjacent(user) || !n_name)
+		return
+
+	paper.name = "paper - [n_name]"
 	add_fingerprint(user)
 	return
 
@@ -47,31 +47,25 @@
 	//name = "paperwork printer"
 	name = "paper dispenser"
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "paper_bin1"
+	icon_state = "paper_bin"
 	item_state = "sheet-metal"
 
-/obj/item/form_printer/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
-	return
+/obj/item/form_printer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
 
-/obj/item/form_printer/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
-
+/obj/item/form_printer/afterattack(atom/target, mob/living/user, flag, params)
 	if(!target || !flag)
 		return
 
-	if(istype(target,/obj/structure/table))
+	if(istype(target, /obj/structure/table))
 		deploy_paper(get_turf(target))
 
 /obj/item/form_printer/attack_self(mob/user as mob)
 	deploy_paper(get_turf(src))
 
-/obj/item/form_printer/proc/deploy_paper(var/turf/T)
-	T.visible_message("<span class='notice'>\The [src.loc] dispenses a sheet of crisp white paper.</span>")
+/obj/item/form_printer/proc/deploy_paper(turf/T)
+	T.visible_message(span_notice("\The [src.loc] dispenses a sheet of crisp white paper."))
 	new /obj/item/paper(T)
-
-
-//Personal shielding for the combat module.
-/obj/item/borg
-	var/powerneeded // Percentage of power remaining required to run item
 
 /obj/item/borg/destroyer/mobility
 	name = "mobility module"

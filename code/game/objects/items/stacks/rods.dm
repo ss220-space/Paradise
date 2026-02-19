@@ -2,8 +2,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	new /datum/stack_recipe("grille", /obj/structure/grille, 2, time = 10, one_per_turf = 1, on_floor = 1, on_lattice = 1), \
 	new /datum/stack_recipe("table frame", /obj/structure/table_frame, 2, time = 10, one_per_turf = 1, on_floor = 1), \
 	null,
-	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, one_per_turf = 1, on_floor = 1), \
-	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, one_per_turf = 1, on_floor = 1), \
+	new /datum/stack_recipe("railing", /obj/structure/railing, 3, time = 10, on_floor = 1, check_direction = TRUE), \
+	new /datum/stack_recipe("railing corner", /obj/structure/railing/corner, 3, time = 10, on_floor = 1, check_direction = TRUE), \
 	null,
 	new /datum/stack_recipe_list("chainlink fence", list( \
 		new /datum/stack_recipe("chainlink fence", /obj/structure/fence, 5, time = 10, one_per_turf = 1, on_floor = 1), \
@@ -21,16 +21,12 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	icon_state = "rods"
 	item_state = "rods"
 	flags = CONDUCT
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 9.0
 	throwforce = 10.0
 	throw_speed = 3
-	throw_range = 7
 	materials = list(MAT_METAL=1000)
-	max_amount = 50
-	attack_verb = list("hit", "bludgeoned", "whacked")
+	attack_verb = list("ударил", "огрел")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/rods/ten
@@ -42,21 +38,18 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 /obj/item/stack/rods/fifty
 	amount = 50
 
-/obj/item/stack/rods/New(loc, amount=null)
-	..()
+/obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	AddElement(/datum/element/openspace_item_click_handler)
 	recipes = GLOB.rod_recipes
-	update_icon()
 
-/obj/item/stack/rods/update_icon()
+/obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
-	if((amount <= 5) && (amount > 0))
-		icon_state = "rods-[amount]"
-	else
-		icon_state = "rods"
+	icon_state = "rods-[clamp(amount, 1, 5)]"
 
 /obj/item/stack/rods/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 2)
-		to_chat(user, "<span class='warning'>You need at least two rods to do this!</span>")
+		to_chat(user, span_warning("You need at least two rods to do this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
@@ -65,19 +58,55 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	if(new_item.get_amount() <= 0)
 		// stack was moved into another one on the pile
 		new_item = locate() in user.loc
-	visible_message("<span class='notice'>[user.name] shapes [src] into metal with [I]!</span>", \
-				 	"<span class='notice'>You shape [src] into metal with [I]!</span>", \
-					"<span class='warning'>You hear welding.</span>")
+	visible_message(span_notice("[user.name] shapes [src] into metal with [I]!"), \
+					span_notice("You shape [src] into metal with [I]!"), \
+					span_warning("You hear welding."))
 	var/replace = user.is_in_inactive_hand(src)
 	use(2)
 	if(get_amount() <= 0 && replace)
-		user.unEquip(src, 1)
+		user.drop_item_ground(src, force = TRUE)
 		if(new_item)
 			user.put_in_hands(new_item)
 
 /obj/item/stack/rods/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
+	cyborg_construction_stack = /obj/item/stack/rods
+	energy_type = /datum/robot_energy_storage/metal
+	merge_type = /obj/item/stack/rods
+	cost = 2
 
-/obj/item/stack/rods/cyborg/update_icon()
-	return
+/obj/item/stack/rods/cyborg/update_icon_state()
+	return // icon_state should always be a full stack of rods.
+
+/obj/item/stack/rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		melee_attack_chain(user, target, click_parameters)
+
+/obj/item/stack/fireproof_rods
+	name = "fireproof rods"
+	desc = "Жаропрочные стержни, способные выдержать жар в несколько тысяч градусов. Могут использоваться для строительства мостов над лавой."
+	singular_name = "fireproof rod"
+	icon_state = "f_rods"
+	item_state = "f_rods"
+	flags = CONDUCT
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	force = 9.0
+	throwforce = 10.0
+	throw_speed = 3
+	attack_verb = list("ударил", "огрел")
+	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
+	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/stack/fireproof_rods/twentyfive
+	amount = 25
+
+/obj/item/stack/fireproof_rods/update_icon_state()
+	var/amount = get_amount()
+	icon_state = "f_rods-[clamp(amount, 1, 5)]"
+
+/obj/item/stack/fireproof_rods/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		melee_attack_chain(user, target, click_parameters)
+

@@ -3,15 +3,16 @@
 	body_parts_covered = LOWER_TORSO|LEGS
 	displays_id = FALSE
 
-/obj/item/clothing/under/pants/equipped(mob/user, slot)
-	if(ishuman(user) && slot == slot_w_uniform)
+/obj/item/clothing/under/pants/equipped(mob/user, slot, initial)
+	. = ..()
+
+	if(ishuman(user) && slot == ITEM_SLOT_CLOTH_INNER)
 		var/mob/living/carbon/human/H = user
 		if(H.undershirt != "Nude")
 			var/additional_body_parts = UPPER_TORSO|ARMS
 			body_parts_covered |= additional_body_parts
-			return ..()
+			return
 	body_parts_covered = LOWER_TORSO|LEGS
-	..()
 
 /obj/item/clothing/under/pants/classicjeans
 	name = "classic jeans"
@@ -36,6 +37,24 @@
 	desc = "For those tired of boring old jeans. Relive the passion of your youth!"
 	icon_state = "jeansyoungfolks"
 	item_color = "jeansyoungfolks"
+
+/obj/item/clothing/under/pants/lowjeans
+	name = "low-rise jeans"
+	desc = "Джинсы с низкой посадкой. Для бунтарей и желающих показать своё исподнее окружающим."
+	icon_state = "lowjeans"
+	item_color = "lowjeans"
+	species_restricted = list(SPECIES_HUMAN)
+	over_shoes = TRUE
+
+/obj/item/clothing/under/pants/lowjeans/get_ru_names()
+	return list(
+		NOMINATIVE = "заниженные джинсы",
+		GENITIVE = "заниженных джинсов",
+		DATIVE = "заниженным джинсам",
+		ACCUSATIVE = "заниженные джинсы",
+		INSTRUMENTAL = "заниженными джинсами",
+		PREPOSITIONAL = "заниженных джинсах",
+	)
 
 /obj/item/clothing/under/pants/white
 	name = "white pants"
@@ -90,3 +109,50 @@
 	desc = "A pair of woodland camouflage pants. Probably not the best choice for a space station."
 	icon_state = "camopants"
 	item_color = "camopants"
+
+/obj/item/clothing/under/pants/camo/commando
+	armor = list(MELEE = 10, BULLET = 10, LASER = 10, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
+
+/obj/item/clothing/under/pants/galifepants
+	name = "check breeches"
+	desc = "Штаны широкого фасона в бёдрах."
+	icon_state = "galifepants"
+	item_state = "galifepants"
+	item_color = "galifepants"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/pants/sandpants
+	name = "long sand pants"
+	desc = "Брюки песочного цвета, расклешённые от колена."
+	icon_state = "sandpants"
+	item_state = "sandpants"
+	item_color = "sandpants"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)

@@ -2,11 +2,15 @@
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #a14c49,
-  $blue: #d0212d,
-  $label: #a7817e,
-  $fg-map-keys: ('label'),
-  $bg-map-keys: ('good')
+  $primary: hsl(2, 37.6%, 45.9%),
+  $blue: hsl(355.9, 72.6%, 47.3%),
+  $label: hsl(4.4, 18.9%, 57.5%),
+  $fg-map-keys: (
+    'label',
+  ),
+  $bg-map-keys: (
+    'good',
+  )
 );
 @use '../base.scss';
 
@@ -15,12 +19,18 @@
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  @include meta.load-css('../components/Button.scss', $with: (
-    'color-default': colors.$primary,
-  ));
-  @include meta.load-css('../components/Input.scss', $with: (
-    'border-color': #ff8d88,
-  ));
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: ('color-default': colors.$primary)
+  );
+  @include meta.load-css(
+    '../components/ImageButton.scss',
+    $with: ('color-default': color.adjust(colors.$primary, $lightness: -23%))
+  );
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(2.5, 100%, 76.7%))
+  );
   @include meta.load-css('../components/NoticeBox.scss');
   @include meta.load-css('../components/Section.scss');
 

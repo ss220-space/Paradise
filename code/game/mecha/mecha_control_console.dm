@@ -1,25 +1,27 @@
 /obj/machinery/computer/mecha
 	name = "exosuit control console"
-	icon = 'icons/obj/computer.dmi'
 	icon_keyboard = "rd_key"
 	icon_screen = "mecha"
-	light_color = LIGHT_COLOR_FADEDPURPLE
+	light_color = LIGHT_COLOR_LAVENDER
 	req_access = list(ACCESS_ROBOTICS)
 	circuit = /obj/item/circuitboard/mecha_control
 	var/list/located = list()
 	var/screen = 0
-	var/stored_data = list()
 
 /obj/machinery/computer/mecha/attack_ai(mob/user)
 	return attack_hand(user)
 
 /obj/machinery/computer/mecha/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/mecha/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/mecha/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "MechaControlConsole", name, 420, 500, master_ui, state)
+		ui = new(user, src, "MechaControlConsole", name)
 		ui.open()
 
 /obj/machinery/computer/mecha/ui_data(mob/user)
@@ -35,10 +37,7 @@
 		if(tr_data)
 			data["beacons"] += list(tr_data)
 
-	data["stored_data"] = stored_data
-
 	return data
-
 
 /obj/machinery/computer/mecha/ui_act(action, params)
 	if(..())
@@ -47,7 +46,7 @@
 		if("send_message")
 			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
 			if(istype(MT))
-				var/message = strip_html_simple(input(usr, "Input message", "Transmit message") as text)
+				var/message = strip_html_simple(tgui_input_text(usr, "Input message", "Transmit message"))
 				if(!message || !trim(message) || ..())
 					return FALSE
 				var/obj/mecha/M = MT.in_mecha()
@@ -59,14 +58,6 @@
 			if(istype(MT))
 				MT.shock()
 				return TRUE
-		if("get_log")
-			var/obj/item/mecha_parts/mecha_tracking/MT = locateUID(params["mt"])
-			if(istype(MT))
-				stored_data = MT.get_mecha_log()
-				return TRUE
-		if("clear_log")
-			stored_data = list()
-			return TRUE
 
 /obj/item/mecha_parts/mecha_tracking
 	name = "Exosuit tracking beacon"
@@ -82,7 +73,7 @@
 		return FALSE
 	var/obj/mecha/M = loc
 	var/list/answer[0]
-	answer["reference"] = "\ref[src]"
+	answer["reference"] = UID()
 	answer["name"] = sanitize(replacetext(M.name,"\"","'")) // Double apostrophes break JSON
 	if(M.cell)
 		answer["cell"] = 1
@@ -92,10 +83,10 @@
 	else
 		answer["cell"] = 0
 	answer["integrity"] = round((M.obj_integrity/M.max_integrity*100), 0.01)
-	answer["airtank"] = M.return_pressure()
+	answer["airtank"] = M.internal_tank.return_pressure()
 	answer["pilot"] = "[M.occupant||"None"]"
 	var/area/area = get_area(M)
-	answer["location"] = "[sanitize(area.name)||"Unknown"]"
+	answer["location"] = "[sanitize(area.name)||UNKNOWN_STATUS_RUS]"
 	answer["equipment"] = "[M.selected||"None"]"
 	if(istype(M, /obj/mecha/working))
 		var/obj/mecha/working/RM = M
@@ -113,9 +104,9 @@
 	var/answer = {"<b>Name:</b> [M.name]
 						<b>Integrity:</b> [M.obj_integrity / M.max_integrity * 100]%
 						<b>Cell charge:</b> [isnull(cell_charge)?"Not found":"[M.cell.percent()]%"]
-						<b>Airtank:</b> [M.return_pressure()]kPa
+						<b>Airtank:</b> [M.internal_tank.return_pressure()]kPa
 						<b>Pilot:</b> [M.occupant||"None"]
-						<b>Location:</b> [sanitize(A.name)||"Unknown"]
+						<b>Location:</b> [sanitize(A.name)||UNKNOWN_STATUS_RUS]
 						<b>Active equipment:</b> [M.selected||"None"]<br>"}
 	if(istype(M, /obj/mecha/working))
 		var/obj/mecha/working/RM = M
@@ -137,7 +128,7 @@
 	if(M.cell)
 		data["cellCharge"] = M.cell.charge
 		data["cellMaxCharge"] = M.cell.charge
-	data["airtank"] = M.return_pressure()
+	data["airtank"] = M.internal_tank.return_pressure()
 	data["pilot"] = M.occupant
 	data["location"] = get_area(M)
 	data["active"] = M.selected
@@ -151,7 +142,7 @@
 	qdel(src)
 
 /obj/item/mecha_parts/mecha_tracking/proc/in_mecha()
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		return loc
 	return FALSE
 
@@ -160,12 +151,6 @@
 	if(M)
 		M.emp_act(2)
 	qdel(src)
-
-/obj/item/mecha_parts/mecha_tracking/proc/get_mecha_log()
-	if(!in_mecha())
-		return list()
-	var/obj/mecha/M = loc
-	return M.get_log_tgui()
 
 /obj/item/mecha_parts/mecha_tracking/ai_control
 	name = "exosuit AI control beacon"
@@ -176,12 +161,7 @@
 /obj/item/storage/box/mechabeacons
 	name = "Exosuit Tracking Beacons"
 
-/obj/item/storage/box/mechabeacons/New()
-	..()
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
-	new /obj/item/mecha_parts/mecha_tracking(src)
+/obj/item/storage/box/mechabeacons/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+

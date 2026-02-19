@@ -1,21 +1,24 @@
-/obj/var/list/req_access = null
-/obj/var/req_access_txt = "0"
-/obj/var/list/req_one_access = null
-/obj/var/req_one_access_txt = "0"
-
 //returns 1 if this mob has sufficient access to use this object
-/obj/proc/allowed(mob/M)
+/obj/proc/allowed(mob/accessor)
+	var/result_bitflags = SEND_SIGNAL(src, COMSIG_OBJ_ALLOWED, accessor)
+
+	if(result_bitflags & COMPONENT_OBJ_ALLOW)
+		return TRUE
+
+	if(result_bitflags & COMPONENT_OBJ_DISALLOW) // override all other checks
+		return FALSE
+
 	//check if we don't require any access at all
 	if(check_access())
-		return 1
+		return TRUE
 
-	if(!M)
-		return 0
+	if(!accessor)
+		return FALSE
 
-	var/acc = M.get_access() //see mob.dm
+	var/acc = accessor.get_access() //see mob.dm
 
-	if(acc == IGNORE_ACCESS || M.can_admin_interact())
-		return 1 //Mob ignores access
+	if(acc == IGNORE_ACCESS || accessor.can_admin_interact())
+		return TRUE //Mob ignores access
 
 	else
 		return check_access_list(acc)
@@ -26,26 +29,6 @@
 /obj/item/proc/GetID()
 	return null
 
-/obj/proc/generate_req_lists()
-	//These generations have been moved out of /obj/New() because they were slowing down the creation of objects that never even used the access system.
-	if(!req_access)
-		req_access = list()
-		if(req_access_txt)
-			var/list/req_access_str = splittext(req_access_txt, ";")
-			for(var/x in req_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_access += n
-
-	if(!req_one_access)
-		req_one_access = list()
-		if(req_one_access_txt)
-			var/list/req_one_access_str = splittext(req_one_access_txt,";")
-			for(var/x in req_one_access_str)
-				var/n = text2num(x)
-				if(n)
-					req_one_access += n
-
 /obj/proc/check_access(obj/item/I)
 	var/list/L
 	if(I)
@@ -54,25 +37,25 @@
 		L = list()
 	return check_access_list(L)
 
-/obj/proc/check_access_list(var/list/L)
-	generate_req_lists()
-
+/obj/proc/check_access_list(list/L)
 	if(!L)
-		return 0
+		return FALSE
 	if(!istype(L, /list))
-		return 0
-	return has_access(req_access, req_one_access, L)
+		return FALSE
+	return has_access(req_access, check_one_access, L)
 
-/proc/has_access(var/list/req_access, var/list/req_one_access, var/list/accesses)
-	for(var/req in req_access)
-		if(!(req in accesses)) //doesn't have this access
-			return 0
-	if(req_one_access.len)
-		for(var/req in req_one_access)
-			if(req in accesses) //has an access from the single access list
-				return 1
-		return 0
-	return 1
+/proc/has_access(list/req_access, check_one_access, list/accesses)
+	if(check_one_access)
+		if(length(req_access))
+			for(var/req in req_access)
+				if(req in accesses) //has an access from the single access list
+					return TRUE
+			return FALSE
+	else
+		for(var/req in req_access)
+			if(!(req in accesses)) //doesn't have this access
+				return FALSE
+	return TRUE
 
 /proc/get_centcom_access(job)
 	switch(job)
@@ -100,56 +83,56 @@
 			return get_all_centcom_access() + get_all_accesses()
 		if("Special Reaction Team Member")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Special Operations Officer")
+		if(JOB_TITLE_CCSPECOPS)
 			return get_all_centcom_access() + get_all_accesses()
-		if("Solar Federation General")
+		if(JOB_TITLE_CCSOLGOV)
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Representative")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Officer")
+		if(JOB_TITLE_CCOFFICER)
 			return get_all_centcom_access() + get_all_accesses()
-		if("Nanotrasen Navy Field Officer")
+		if(JOB_TITLE_CCFIELD)
 			return get_all_centcom_access() + get_all_accesses()
 		if("Nanotrasen Navy Captain")
 			return get_all_centcom_access() + get_all_accesses()
-		if("Supreme Commander")
+		if(JOB_TITLE_CCSUPREME)
 			return get_all_centcom_access() + get_all_accesses()
 
 /proc/get_syndicate_access(job)
 	switch(job)
-		if("Syndicate Operative")
-			return list(ACCESS_SYNDICATE)
-		if("Syndicate Operative Leader")
-			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_LEADER)
-		if("Syndicate Agent")
+		if(SYNDICATE_OPERATIVE)
+			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_CONTAINER)
+		if(SYNDICATE_OPERATIVE_LEADER)
+			return list(ACCESS_SYNDICATE, ACCESS_SYNDICATE_CONTAINER, ACCESS_SYNDICATE_LEADER)
+		if(SYNDICATE_AGENT)
 			return list(ACCESS_SYNDICATE, ACCESS_MAINT_TUNNELS)
-		if("Vox Raider")
+		if(VOX_RAIDER)
 			return list(ACCESS_VOX)
-		if("Vox Trader")
+		if(VOX_TRADER)
 			return list(ACCESS_VOX)
-		if("Syndicate Commando")
-			return list(	ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_ENGINE)
-		if("Syndicate Officer")
-			return list(	ACCESS_SYNDICATE,
-							ACCESS_SYNDICATE_LEADER,
-							ACCESS_SYNDICATE_COMMAND,
-							ACCESS_SYNDICATE_COMMS_OFFICER,
-							ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
-							ACCESS_SYNDICATE_SCIENTIST,
-							ACCESS_SYNDICATE_CARGO,
-							ACCESS_SYNDICATE_KITCHEN,
-							ACCESS_SYNDICATE_MEDICAL,
-							ACCESS_SYNDICATE_BOTANY,
-							ACCESS_SYNDICATE_ENGINE)
+		if(SYNDICATE_COMMANDO)
+			return list(ACCESS_SYNDICATE,
+						ACCESS_SYNDICATE_LEADER,
+						ACCESS_SYNDICATE_COMMS_OFFICER,
+						ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+						ACCESS_SYNDICATE_SCIENTIST,
+						ACCESS_SYNDICATE_CARGO,
+						ACCESS_SYNDICATE_KITCHEN,
+						ACCESS_SYNDICATE_MEDICAL,
+						ACCESS_SYNDICATE_BOTANY,
+						ACCESS_SYNDICATE_ENGINE)
+		if(JOB_TITLE_SYNDICATE)
+			return list(ACCESS_SYNDICATE,
+						ACCESS_SYNDICATE_LEADER,
+						ACCESS_SYNDICATE_COMMAND,
+						ACCESS_SYNDICATE_COMMS_OFFICER,
+						ACCESS_SYNDICATE_RESEARCH_DIRECTOR,
+						ACCESS_SYNDICATE_SCIENTIST,
+						ACCESS_SYNDICATE_CARGO,
+						ACCESS_SYNDICATE_KITCHEN,
+						ACCESS_SYNDICATE_MEDICAL,
+						ACCESS_SYNDICATE_BOTANY,
+						ACCESS_SYNDICATE_ENGINE)
 
 /proc/get_all_accesses()
 	return list(ACCESS_MINISAT, ACCESS_AI_UPLOAD,  ACCESS_ARMORY, ACCESS_ATMOSPHERICS, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_BLUESHIELD,
@@ -232,7 +215,6 @@
 			return "CentComm"
 		if(REGION_TAIPAN) //Taipan
 			return "RAMSS Taipan"
-
 
 /proc/get_access_desc(A)
 	switch(A)
@@ -469,61 +451,18 @@
 	return all_jobs
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer","Special Operations Officer","Nanotrasen Navy Representative","Nanotrasen Navy Officer", "Nanotrasen Navy Field Officer","Nanotrasen Diplomat","Nanotrasen Navy Captain","Supreme Commander")
+	return list("VIP Guest","Custodian","Thunderdome Overseer","Emergency Response Team Member","Emergency Response Team Leader","Intel Officer","Medical Officer","Death Commando","Research Officer","Deathsquad Officer", JOB_TITLE_CCSPECOPS,"Nanotrasen Navy Representative", JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD,"Nanotrasen Diplomat","Nanotrasen Navy Captain", JOB_TITLE_CCSUPREME)
 
 /proc/get_all_solgov_jobs()
-	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader","Solar Federation General")
+	return list("Solar Federation Specops Lieutenant","Solar Federation Marine","Solar Federation Specops Marine","Solar Federation Representative","Sol Trader", JOB_TITLE_CCSOLGOV)
 
 /proc/get_all_soviet_jobs()
-	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral")
+	return list("Soviet Tourist","Soviet Conscript","Soviet Soldier","Soviet Officer","Soviet Marine","Soviet Marine Captain","Soviet Admiral","Soviet General","Soviet Engineer","Soviet Scientist","Soviet Medic")
 
 /proc/get_all_special_jobs()
 	return list("Special Reaction Team Member", "HONKsquad", "Clown Security")
 
-//gets the actual job rank (ignoring alt titles)
-//this is used solely for sechuds
-/obj/proc/GetJobRealName()
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/rank
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			rank = src:id:rank
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		rank = src:rank
-		assignment = src:assignment
-
-	if( rank in GLOB.joblist )
-		return rank
-
-	if( assignment in GLOB.joblist )
-		return assignment
-
-	return "Unknown"
-
-//gets the alt title, failing that the actual job rank
-//this is unused
-// THEN WHY IS IT STILL HERE?? -AA07, 2020-07-31
-/obj/proc/sdsdsd()	//GetJobDisplayName
-	if(!istype(src, /obj/item/pda) && !istype(src,/obj/item/card/id))
-		return
-
-	var/assignment
-	if(istype(src, /obj/item/pda))
-		if(src:id)
-			assignment = src:id:assignment
-	else if(istype(src, /obj/item/card/id))
-		assignment = src:assignment
-
-	if(assignment)
-		return assignment
-
-	return "Unknown"
-
-/proc/GetIdCard(var/mob/living/carbon/human/H)
+/proc/GetIdCard(mob/living/carbon/human/H)
 	if(H.wear_id)
 		var/id = H.wear_id.GetID()
 		if(id)
@@ -532,41 +471,12 @@
 		var/obj/item/I = H.get_active_hand()
 		return I.GetID()
 
-/proc/FindNameFromID(var/mob/living/carbon/human/H)
-	ASSERT(istype(H))
-	var/obj/item/card/id/C = H.get_active_hand()
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
-	C = H.wear_id
-
-	if( istype(C) || istype(C, /obj/item/pda) )
-		var/obj/item/card/id/ID = C
-
-		if( istype(C, /obj/item/pda) )
-			var/obj/item/pda/pda = C
-			ID = pda.id
-		if(!istype(ID))
-			ID = null
-
-		if(ID)
-			return ID.registered_name
-
 /proc/get_all_job_icons() //For all existing HUD icons
 	return GLOB.joblist + list("Prisoner")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
-	var/rankName = "Unknown"
-	if(istype(src, /obj/item/pda))
+	var/rankName = UNKNOWN_STATUS_RUS
+	if(is_pda(src))
 		var/obj/item/pda/P = src
 		rankName = P.ownrank
 	else
@@ -581,6 +491,11 @@
 	var/special = get_all_special_jobs()
 
 	if(rankName in centcom) //Return with the NT logo if it is a Centcom job
+		switch(rankName)
+			if("Deathsquad Officer")
+				return "deathsquad"
+			if("Death Commando")
+				return "deathsquad"
 		return "Centcom"
 
 	if(rankName in solgov) //Return with the SolGov logo if it is a SolGov job
@@ -604,7 +519,7 @@
 
 	return "Unknown" //Return unknown if none of the above apply
 
-/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_COMMAND)
+/proc/get_accesslist_static_data(num_min_region = REGION_GENERAL, num_max_region = REGION_TAIPAN, list_to_form)
 	var/list/retval
 	for(var/region in num_min_region to num_max_region)
 		var/list/accesses = list()
@@ -613,9 +528,11 @@
 			available_accesses = get_all_centcom_access()
 		else
 			available_accesses = get_region_accesses(region)
+		if(list_to_form)
+			available_accesses &= list_to_form
 		for(var/access in available_accesses)
 			var/access_desc = get_region_access_desc(region, access)
-			if (access_desc)
+			if(access_desc)
 				accesses += list(list(
 					"desc" = replacetext(access_desc, "&nbsp", " "),
 					"ref" = access,

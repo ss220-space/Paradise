@@ -1,0 +1,313 @@
+'2023-08-01':
+  Den109G:
+  - bugfix: SpaceBar shuttle fix window (#3280)
+  - bugfix: Ranks are kinda visible on syndie frequencies (#3281)
+  LiquidPotroh:
+  - add: Mr. Chang's Aggressive Marketing (#3273)
+  - tweak: Pale skin (#3265)
+  Roman:
+  - add: Dangerous Tray | Chef Update (#3259)
+  WolfLox:
+  - bugfix: some fix for vulp sprite (#3284)
+  Zwei:
+  - bugfix: Few Runtimes And Bugs Fixed (#3283)
+  - tweak: Make Queen Great Again (#3272)
+  - tweak: Improve antag objective generation (#3277)
+'2023-08-02':
+  Den109G:
+  - bugfix: Robo surgery And Mantis (#3296)
+  Rerik007:
+  - bugfix: double ..() in sheet/glass/attackby (#3291)
+  - bugfix: pelmeni craft  (#3293)
+  - bugfix: puts space dragon alphabetically (#3292)
+  Vladisvell:
+  - add: Borg's Chameleon Projector buff (#3286)
+  Zwei:
+  - bugfix: Throw Fixes (#3290)
+  - bugfix: Vampire Usable Blood Clamp (#3294)
+  - tweak: Stack Check (#3288)
+  - bugfix: Mouse Drop In Hands (#3210)
+  - refactor: Bind Soul (#3263)
+'2023-08-06':
+  BeebBeebBoob:
+  - tweak: Final touches on my brass creation. (#3313)
+  Den109G:
+  - bugfix: Round tips (#3305)
+  Dimach:
+  - tweak: buff pepper spray agains people in glasses (#3318)
+  JoharDude:
+  - add: Biosuit boots & gloves (#3261)
+  Ksaikok46:
+  - add: cargo - jetpack upgrade crate (#3299)
+  NightDawnFox:
+  - bugfix: bad detective sprites (#3297)
+  Roman:
+  - tweak: arrow size (#3306)
+  Shakalchik:
+  - add: CQC for Blueshield (#3308)
+  aeternaclose:
+  - add: CereImprovement-pt5 (#3300)
+'2023-08-08':
+  LiquidPotroh:
+  - tweak: Slime potions added to the Smart Fridge (#3323)
+  - add: explanation text for Mr. Chang's Aggressive Marketing (#3309)
+  Rerik007:
+  - bugfix: simplemob alien queen's typo in icon_dead state (#3321)
+  Vladisvell:
+  - refactor: atmospherics span messages (#3289)
+  - tweak: hydroponics tray lid overlay position (#3314)
+  - refactor: 'span refactor: machinery pack part 1 (#3278)'
+  Zardesse:
+  - tweak: Laser arm implant tech requirements (#3316)
+  Zwei:
+  - bugfix: Few Stack Fixes (#3310)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3320)
+'2023-08-09':
+  DeDerevce:
+  - unknown: organ fridge (#3327)
+  Den109G:
+  - bugfix: Drasks can break doors on centcomm (#3312)
+  Ksaikok46:
+  - add: new automatic shotgun for nuclear operatives and nuclear shotgun ammo tweaks
+      (#3319)
+  LiquidPotroh:
+  - add: Reason text for sentience potion (#3325)
+  NightDawnFox:
+  - add: snake petcollars, new cargo crate and ability to "wear" snake on the neck
+      (#3301)
+  Rerik007:
+  - bugfix: drunk martial art not removing (#3328)
+  Vladisvell:
+  - add: Rubber Toolbox (#3315)
+  - tweak: taipan remoter no longer works cross-sector (#3228)
+  - bugfix: blacklisted items usage in crafting (#3243)
+  Zwei:
+  - bugfix: Logging All Objectives Again (#3330)
+  spaghetti:
+  - add: mimejutsu (#3311)
+'2023-08-10':
+  Vladisvell:
+  - refactor: turfs span messages (#3282)
+  - add: Big Iron (#3317)
+  - qol: allow cables to be laid on fireproof catwalks on lava (#3331)
+  - qol: Broken APCs cover now can be pried off. (#3326)
+  WolfLox:
+  - add: braindamage from holywater (#3329)
+  yosoyrebelde:
+  - add: new station goal - bluespace rift scan (#3295)
+'2023-08-12':
+  Daeberdir:
+  - add: Brig Healer Handheld Crew Monitor (#3336)
+  Den109G:
+  - bugfix: bolts on syndie-prison (#3335)
+  Dimach:
+  - tweak: prevent send multiple messages to same radio channel (#3337)
+  Vladisvell:
+  - bugfix: holoparasites no longer get spammed by healing pylons (#3339)
+  Zwei:
+  - bugfix: Cuffs and Welding Visor Fixes (#3332)
+  aeternaclose:
+  - bugfix: CorobImprovement-pt1 (#3307)
+  - bugfix: CereBeltFix (#3334)
+  captainnelly:
+  - tweak: health hud no longer displayed on 100% HP mobs (#3302)
+  Сиротка:
+  - tweak: increase Space Dragon min players (#3333)
+'2023-08-13':
+  Vladisvell:
+  - add: bread monster (#3197)
+  Zwei:
+  - add: Accurate Item Drop (#3171)
+  - tweak: Clever Odysseus Sleeper (#3192)
+'2023-08-14':
+  Bizzonium:
+  - add: force kick client on redirection
+  Den109G:
+  - bugfix: icons for holders (#3341)
+  - del: Reverts changes in USSP (#3345)
+  Honker9999999:
+  - bugfix: rnd server now die properly (#3348)
+  WolfLox:
+  - bugfix: problem with spawn red sec ERT (#3349)
+  Zwei:
+  - bugfix: Few Objectives Fixes (#3346)
+  - bugfix: More Runtimes Fixed (#3298)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3340)
+  Сиротка:
+  - add: Fake cult sheets and armour (#3080)
+'2023-08-16':
+  Den109G:
+  - bugfix: Dead do not should spam death message (#3352)
+  Furukia:
+  - bugfix: taipan sector accessibility (#3350)
+  LiquidPotroh:
+  - bugfix: Invisible viruses (#3358)
+  Vladisvell:
+  - imageadd: some missing sprites for drasks and voxes, flags (#3354)
+  Zwei:
+  - bugfix: Defined Descreation Sound (#3351)
+  aeternaclose:
+  - bugfix: Cere CMO Fix (#3360)
+'2023-08-17':
+  Den109G:
+  - bugfix: few fixes (#3357)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3362)
+'2023-08-18':
+  Den109G:
+  - bugfix: cult-healing to robots (#3363)
+  Zwei:
+  - bugfix: MouseDrop In Range (#3364)
+'2023-08-19':
+  Den109G:
+  - bugfix: ACTUALLY healing robot parts (#3366)
+  - bugfix: more fixes (#3367)
+  Dimach:
+  - bugfix: runtime in taipan code (#3369)
+  - bugfix: wormholes teleport only to other wormholes (#3370)
+'2023-08-22':
+  Albonix:
+  - add: new spraycan icons (#3372)
+  Daeberdir:
+  - tweak: security medic's sensor device now stored in cryo storage. (#3379)
+  Den109G:
+  - bugfix: delete CC camera (#3382)
+  - bugfix: station trurl -> ship trurl (#3378)
+  Dimach:
+  - bugfix: return normal font (#3389)
+  Igz0m:
+  - tweak: Increase the required playtime for cadets to 10 hours crew (#3386)
+  NightDawnFox:
+  - tweak: event tweaks (#3375)
+  - add: 3 new tail options for unathi. Also tail clipping fix (#3353)
+  - add: new engiborg skin (#3377)
+  Vladisvell:
+  - add: thunderdome clears after all player death (#3380)
+  Zwei:
+  - add: WideScreen Port (#3204)
+'2023-08-23':
+  Bizzonium:
+  - del: use and migrate old TTS cache"
+  - bugfix: move play tts callback creation
+  - unknown: bump rust-g to 3.0.0-ss220
+  DeDerevce:
+  - imageadd: holy constructs (#3347)
+  Honker9999999:
+  - tweak: vault stun gene+golem (#3381)
+  LiquidPotroh:
+  - tweak: Holy water braindamage (#3393)
+  NightDawnFox:
+  - add: gas mask with voice modulator (#3359)
+  - add: new weapon to Gamma ERT/armory (#3374)
+  SAAD:
+  - add: Remap Bridge, Central Hallway, Barber (#3361)
+  - bugfix: Bridge accesses and account console (#3394)
+  Vladisvell:
+  - add: New icons for quiver and Santa's gift bag (#3355)
+  Zardesse:
+  - add: Rockso costume (#3376)
+  Zwei:
+  - bugfix: Items Offer Fix (#3391)
+  - tweak: Abductors Fixes (#3373)
+  Сиротка:
+  - bugfix: Guardian issues (#3390)
+'2023-08-24':
+  SAAD:
+  - bugfix: Bridge disposal pipes and some improvements (#3403)
+  Vladisvell:
+  - refactor: Closets render (#3384)
+  - refactor: 'span refactor: machinery pack part 2 (#3279)'
+  - add: New xenomorph type - Alien Vector (#3247)
+  - refactor: Guardian booby traps refactor to component (#3383)
+  Zwei:
+  - bugfix: Morph Reproduce Fix (#3399)
+  - bugfix: Borgs Gripper And Smartfridges (#3401)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3398)
+'2023-08-25':
+  Honker9999999:
+  - add: capitalism (starting money depending on job) (#3343)
+  Vladisvell:
+  - bugfix: custom closets render (#3406)
+  - add: Supermatter Engine explosion special effects (#3303)
+  - qol: Fireproof rods design can be imported into ore redemption (#3402)
+  Zwei:
+  - bugfix: Stack Fixes Once More (#3404)
+  - refactor: Datumized Thief (#3387)
+  aeternaclose:
+  - add: CereImprovement-pt6 (#3392)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3405)
+  yosoyrebelde:
+  - tweak: (bluespace rift) patch pack for new station goal (#3365)
+'2023-08-27':
+  Daeberdir:
+  - bugfix: completed plasmamen operations. (#3416)
+  Vladisvell:
+  - tweak: overlay locker and critter closet fix (#3414)
+  Zwei:
+  - refactor: Subsystems Polishing (#3271)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3413)
+  Сиротка:
+  - bugfix: BSG (#3397)
+  - tweak: RND SPAI nerf (#3395)
+  - tweak: chameleon counterfeiter illegal level (#3396)
+  - tweak: Ninja borgo hypo pierce (#3412)
+'2023-08-28':
+  Daxya:
+  - add: Spacebar update (#3388)
+  DeDerevce:
+  - add: culinary artist clothes (#3415)
+  Den109G:
+  - bugfix: check syndie ban in ninja objectives (#3428)
+  Dimach:
+  - bugfix: wormholes runtime (#3425)
+  NightDawnFox:
+  - bugfix: unathi cult robes  (#3421)
+  - add: radio AltClick, radio CtrlShiftClick, new intercom sprites (#3342)
+  Vladisvell:
+  - tweak: bluespace closet icon adjust (#3419)
+  - tweak: Thunderdome update (#3420)
+  - bugfix: mr.cheng thunderdome runtime fix (#3430)
+  Zwei:
+  - bugfix: Mass Hallucination Runtime (#3424)
+  - bugfix: Radioactivity Fix (#3422)
+  - tweak: GPS & PDA Mousedrop (#3426)
+  - bugfix: Collect Objective Completion (#3429)
+  Сиротка:
+  - balance: Guns (#3417)
+  - tweak: increase solaris damage (#3418)
+'2023-08-29':
+  SAAD:
+  - bugfix: remove missclicked windows spawner   (#3432)
+  Vladisvell:
+  - add: Self-hosted Silero TTS Server (#3344)
+  Zwei:
+  - tweak: Title Screen (#3434)
+  - add: Items Pixel Shift (#3175)
+  Сиротка:
+  - add: Uplink Chameleon hardsuit (#3411)
+'2023-08-30':
+  Daeberdir:
+  - bugfix: user sight updating while modifying glasses prescription. (#3437)
+  DeDerevce:
+  - bugfix: bluza stats (#3435)
+  Dimach:
+  - bugfix: incorrect shuttles camera starting pos (#3445)
+  LiquidPotroh:
+  - bugfix: don't stumble if both walking (#3448)
+  NightDawnFox:
+  - add: Lavaland rework (#3130)
+  - bugfix: Old ussp station (#3446)
+  - bugfix: lavaland hotfixes (#3447)
+  SAAD:
+  - bugfix: delta detective and IFA disposals (#3449)
+  Zwei:
+  - bugfix: Transfer Plasma (#3438)
+  - bugfix: Terror Spiders Fixes (#3443)
+  - bugfix: Identity Theft Objective (#3440)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3442)

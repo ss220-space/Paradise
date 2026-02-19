@@ -11,18 +11,17 @@
 	speed = 0
 	maxHealth = 250
 	health = 250
+	pass_flags = PASSFLAPS
 
 	harm_intent_damage = 5
 	melee_damage_lower = 8
 	melee_damage_upper = 12
-	attacktext = "атакует"
 	attack_sound = 'sound/weapons/bite.ogg'
-	emote_taunt = list("growls")
-	speak_emote = list("creaks")
+	emote_taunt = list("рычит")
+	speak_emote = list("скрипит")
 	taunt_chance = 30
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	faction = list("mimic")
 	move_to_delay = 9
@@ -30,6 +29,13 @@
 	var/is_electronic = 0
 	gold_core_spawnable = HOSTILE_SPAWN
 	del_on_death = 1
+	AI_delay_max = 0.5 SECONDS
+
+/mob/living/simple_animal/hostile/mimic/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/mimic/emp_act(severity)
 	if(is_electronic)
@@ -60,11 +66,6 @@
 	else
 		icon_state = initial(icon_state)
 
-/mob/living/simple_animal/hostile/mimic/crate/ListTargets()
-	if(attempt_open)
-		return ..()
-	return ..(1)
-
 /mob/living/simple_animal/hostile/mimic/crate/FindTarget()
 	. = ..()
 	if(.)
@@ -76,19 +77,26 @@
 		icon_state = initial(icon_state)
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
-			C.Weaken(2)
-			C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+			C.Weaken(4 SECONDS)
+			C.visible_message(span_danger("\The [src] knocks down \the [C]!"), span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/crate/proc/trigger()
 	if(!attempt_open)
 		visible_message("<b>[src]</b> starts to move!")
 		attempt_open = 1
 
-/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(amount, updating_health = TRUE)
-	trigger()
-	. = ..()
+/mob/living/simple_animal/hostile/mimic/crate/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	if(amount > 0)
+		trigger()
+	return ..()
 
-/mob/living/simple_animal/hostile/mimic/crate/LoseTarget()
+/mob/living/simple_animal/hostile/mimic/crate/lose_target()
 	..()
 	icon_state = initial(icon_state)
 
@@ -112,8 +120,8 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	var/image/googly_eyes = null
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/hostile/mimic/copy/New(loc, obj/copy, mob/living/creator, destroy_original = 0)
-	..(loc)
+/mob/living/simple_animal/hostile/mimic/copy/Initialize(mapload, obj/copy, mob/living/creator, destroy_original = 0)
+	. = ..()
 	CopyObject(copy, creator, destroy_original)
 
 /mob/living/simple_animal/hostile/mimic/copy/Life()
@@ -134,18 +142,18 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	return . - creator
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(var/mob/owner)
+/mob/living/simple_animal/hostile/mimic/copy/proc/ChangeOwner(mob/owner)
 	if(owner != creator)
-		LoseTarget()
+		lose_target()
 		creator = owner
-		faction |= "\ref[owner]"
+		faction |= PERSONAL_FACTION(owner)
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(var/obj/O)
-	if((istype(O, /obj/item) || istype(O, /obj/structure)) && !is_type_in_list(O, GLOB.protected_objects))
+/mob/living/simple_animal/hostile/mimic/copy/proc/CheckObject(obj/O)
+	if((isitem(O) || isstructure(O)) && !is_type_in_list(O, GLOB.protected_objects))
 		return 1
 	return 0
 
-/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(var/obj/O, var/mob/living/user, var/destroy_original = 0)
+/mob/living/simple_animal/hostile/mimic/copy/proc/CopyObject(obj/O, mob/living/user, destroy_original = FALSE)
 	if(destroy_original || CheckObject(O))
 		O.loc = src
 		name = O.name
@@ -153,19 +161,19 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		icon = O.icon
 		icon_state = O.icon_state
 		icon_living = icon_state
-		overlays = O.overlays
+		copy_overlays(O)
 		googly_eyes = image('icons/mob/mob.dmi',"googly_eyes")
-		overlays += googly_eyes
-		if(istype(O, /obj/structure) || istype(O, /obj/machinery))
+		add_overlay(googly_eyes)
+		if(isstructure(O) || ismachinery(O))
 			health = (anchored * 50) + 50
 			destroy_objects = 1
 			if(O.density && O.anchored)
 				knockdown_people = 1
 				melee_damage_lower *= 2
 				melee_damage_upper *= 2
-			if(istype(O, /obj/machinery))
+			if(ismachinery(O))
 				is_electronic = 1
-		else if(istype(O, /obj/item))
+		else if(isitem(O))
 			var/obj/item/I = O
 			health = 15 * I.w_class
 			melee_damage_lower = 2 + I.force
@@ -174,7 +182,7 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		maxHealth = health
 		if(user)
 			creator = user
-			faction += "\ref[creator]" // very unique
+			faction += PERSONAL_FACTION(creator) // very unique
 		if(destroy_original)
 			qdel(O)
 		return 1
@@ -187,19 +195,21 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 	. = ..()
 	if(knockdown_people && . && prob(15) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.Weaken(2)
-		C.visible_message("<span class='danger'>\The [src] knocks down \the [C]!</span>", "<span class='userdanger'>\The [src] knocks you down!</span>")
+		C.Weaken(4 SECONDS)
+		C.visible_message(span_danger("\The [src] knocks down \the [C]!"), span_userdanger("\The [src] knocks you down!"))
 
 /mob/living/simple_animal/hostile/mimic/copy/Aggro()
 	..()
 	googly_eyes.dir = get_dir(src,target)
 
 /mob/living/simple_animal/hostile/mimic/copy/machine
-	speak = list("HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
-				 "My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!")
+	speak = list(
+		"HUMANS ARE IMPERFECT!", "YOU SHALL BE ASSIMILATED!", "YOU ARE HARMING YOURSELF", "You have been deemed hazardous. Will you comply?", \
+		"My logic is undeniable.", "One of us.", "FLESH IS WEAK", "THIS ISN'T WAR, THIS IS EXTERMINATION!"
+	)
 	speak_chance = 15
 
-/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(var/atom/the_target)
+/mob/living/simple_animal/hostile/mimic/copy/machine/CanAttack(atom/the_target)
 	if(the_target == creator) // Don't attack our creator AI.
 		return 0
 	if(isrobot(the_target))
@@ -263,17 +273,17 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 				Pewgun.chambered.update_icon()
 				..()
 			else
-				visible_message("<span class='danger'>The <b>[src]</b> clears a jam!</span>")
+				visible_message(span_danger("The <b>[src]</b> clears a jam!"))
 			Pewgun.chambered.loc = loc //rip revolver immersions, blame shotgun snowflake procs
 			Pewgun.chambered = null
-			if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len)
+			if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo))
 				Pewgun.chambered = Pewgun.magazine.get_round(0)
 				Pewgun.chambered.loc = Pewgun
 			Pewgun.update_icon()
-		else if(Pewgun.magazine && Pewgun.magazine.stored_ammo.len) //only true for pumpguns i think
+		else if(Pewgun.magazine && length(Pewgun.magazine.stored_ammo)) //only true for pumpguns i think
 			Pewgun.chambered = Pewgun.magazine.get_round(0)
 			Pewgun.chambered.loc = Pewgun
-			visible_message("<span class='danger'>The <b>[src]</b> cocks itself!</span>")
+			visible_message(span_danger("The <b>[src]</b> cocks itself!"))
 	else
 		ranged = 0 //BANZAIIII
 		retreat_distance = 0
@@ -281,3 +291,49 @@ GLOBAL_LIST_INIT(protected_objects, list(/obj/structure/table, /obj/structure/ca
 		return
 	icon_state = TrueGun.icon_state
 	icon_living = TrueGun.icon_state
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor
+	is_electronic = TRUE
+	/// The vendor we were turned from.
+	var/obj/machinery/vending/orig_vendor
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/CheckObject(obj/O)
+	return istype(O, /obj/machinery/vending)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/Initialize(mapload, obj/machinery/base, mob/living/creator)
+	if(!base)
+		var/list/vendors = subtypesof(/obj/machinery/vending)
+		var/obj/machinery/vending/vendor_type = pick(vendors)
+		base = new vendor_type(src)
+
+	if(!istype(base))
+		qdel(src)
+		return
+
+	orig_vendor = base
+	orig_vendor.forceMove(src)
+	orig_vendor.aggressive = FALSE // just to be safe, in case this was converted
+
+	return ..(mapload, base, creator, destroy_original = FALSE)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/AttackingTarget()
+	. = ..()
+	if(. && target && Adjacent(target))
+		visible_message(span_danger("[src] throws itself on top of [target], crushing [target.p_them()]!"))
+		orig_vendor.forceMove(get_turf(target))  // just to be sure it'll tilt onto them
+		orig_vendor.tilt(target, TRUE, FALSE)  // geeeeet dunked on
+		orig_vendor = null
+		qdel(src)
+
+/mob/living/simple_animal/hostile/mimic/copy/vendor/death(gibbed)
+	if(!QDELETED(orig_vendor))
+		orig_vendor.forceMove(get_turf(src))
+		// tilt over in place
+		orig_vendor.tilted = TRUE
+		orig_vendor.set_anchored(FALSE)
+		orig_vendor.tilt_over()
+		if(prob(70))
+			orig_vendor.obj_break()
+		orig_vendor = null
+	return ..()
+

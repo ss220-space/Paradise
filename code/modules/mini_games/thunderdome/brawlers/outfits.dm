@@ -1,0 +1,21 @@
+/**
+ * Here lie outfits for thunderdome brawlers.
+ */
+
+/datum/outfit/thunderdome
+	implants = list(
+		/obj/item/implant/postponed_death,
+	)
+	uniform = /obj/item/clothing/under/redhawaiianshirt
+	shoes = /obj/item/clothing/shoes/sandal
+	back = /obj/item/storage/backpack/thunderdome_infinite
+	head = /obj/item/clothing/head/sunflower_crown
+
+/datum/outfit/thunderdome/cqc
+	name = "Fighter"
+
+/datum/outfit/thunderdome/ranged
+	name = "Ranger"
+
+/datum/outfit/thunderdome/mixed
+	name = "Gladiator"

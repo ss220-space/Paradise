@@ -4,22 +4,28 @@
 //
 //
 */
+#define BLOOD_ANTIGEN_A (1 << 0)
+#define BLOOD_ANTIGEN_B (1 << 1)
 
-
+GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
+			"blood",
+			"slimejelly",
+			"cryoxadone",
+		))
 
 /datum/reagent/water
-	name = "Water"
+	name = "Вода"
 	id = "water"
-	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
+	description = "Повсеместно распространённое химическое вещество, состоящее из водорода и кислорода."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
-	taste_description = "water"
+	taste_description = "воды"
 	var/cooling_temperature = 2
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
-	drink_name = "Glass of Water"
-	drink_desc = "The father of all refreshments."
-	var/water_temperature = 283.15 // As reagents don't have a temperature value, we'll just use 10 celsius.
+	drink_name = "Стакан воды"
+	drink_desc = "Обычный стакан обычной воды."
+	var/water_temperature = COLD_WATER_TEMPERATURE	// As reagents don't have a temperature value, we'll just use 10 celsius.
 
 /datum/reagent/water/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume)
 	M.water_act(volume, water_temperature, src, method)
@@ -34,36 +40,41 @@
 	O.water_act(volume, water_temperature, src)
 
 /datum/reagent/lube
-	name = "Space Lube"
+	name = "Космическая смазка"
 	id = "lube"
-	description = "Lubricant is a substance introduced between two moving surfaces to reduce the friction and wear between them. giggity."
+	description = "Вещество, используемое для уменьшения трения между двумя движущимися поверхностями."
 	reagent_state = LIQUID
 	color = "#1BB1AB"
 	harmless = TRUE
-	taste_description = "cherry"
+	taste_description = "вишни"
 
 /datum/reagent/lube/reaction_turf(turf/simulated/T, volume)
 	if(volume >= 1 && istype(T))
-		T.MakeSlippery(TURF_WET_LUBE)
-
+		T.MakeSlippery(TURF_WET_LUBE, 120 SECONDS)
 
 /datum/reagent/space_cleaner
-	name = "Space cleaner"
+	name = "Космочист"
 	id = "cleaner"
-	description = "A compound used to clean things. Now with 50% more sodium hypochlorite!"
+	description = "Состав, используемый для очистки поверхностей. Теперь на 50% больше гипохлорита натрия!"
 	reagent_state = LIQUID
 	color = "#61C2C2"
 	harmless = TRUE
-	taste_description = "floor cleaner"
+	process_flags = ORGANIC | SYNTHETIC
+	taste_description = "средства для мытья полов"
 
 /datum/reagent/space_cleaner/reaction_obj(obj/O, volume)
-	if(is_cleanable(O))
-		var/obj/effect/decal/cleanable/blood/B = O
-		if(!(istype(B) && B.off_floor))
-			qdel(O)
+	if(iseffect(O))
+		var/obj/effect/E = O
+		if(E.is_cleanable())
+			var/obj/effect/decal/cleanable/blood/B = E
+			if(!(istype(B) && B.off_floor))
+				qdel(E)
 	else
 		if(O.simulated)
 			O.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
+			var/obj/item/clothing/suit/space/hardsuit/H = O
+			if(istype(H) && H.helmet)
+				H.helmet.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 		O.clean_blood()
 
 /datum/reagent/space_cleaner/reaction_turf(turf/T, volume)
@@ -84,32 +95,76 @@
 
 /datum/reagent/space_cleaner/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	M.clean_blood()
+	SEND_SIGNAL(M, COMSIG_COMPONENT_CLEAN_ACT, 1)
 
 /datum/reagent/blood
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#A10808","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
-	name = "Blood"
+	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"=BLOOD_COLOR_RED,"resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	name = "Кровь"
 	id = "blood"
 	reagent_state = LIQUID
 	color = "#770000" // rgb: 40, 0, 0
 	metabolization_rate = 12.5 * REAGENTS_METABOLISM //fast rate so it disappears fast.
 	drink_icon = "glass_red"
-	drink_name = "Glass of Tomato juice"
-	drink_desc = "Are you sure this is tomato juice?"
-	taste_description = "<span class='warning'>blood</span>"
+	drink_name = "Стакан томатного сока"
+	drink_desc = "Стоп, а это точно томатный сок?"
+	taste_description = "крови"
 	taste_mult = 1.3
 
-/datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(data && data["viruses"])
-		for(var/thing in data["viruses"])
-			var/datum/disease/D = thing
+/datum/reagent/blood/proc/get_antigens(blood_type)
+	var/antigens = null
 
-			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+	if(findtext(blood_type, "AB"))
+		antigens = (BLOOD_ANTIGEN_A | BLOOD_ANTIGEN_B)
+	else if(findtext(blood_type, "A"))
+		antigens = BLOOD_ANTIGEN_A
+	else if(findtext(blood_type, "B"))
+		antigens = BLOOD_ANTIGEN_B
+
+	return antigens
+
+/datum/reagent/blood/proc/mix_blood_type(list/mix_data)
+	var/blood_type = null
+	var/antigens = get_antigens(data["blood_type"])
+	var/antigens2 = get_antigens(mix_data["blood_type"])
+	var/rh = (findtext(data["blood_type"], "+") > 0)
+	var/rh2 = (findtext(mix_data["blood_type"], "+") > 0)
+
+	var/combined_antigens = antigens | antigens2
+	var/combined_rh = rh || rh2
+
+	if(!combined_antigens)
+		blood_type = "O"
+	else if(combined_antigens == (BLOOD_ANTIGEN_A | BLOOD_ANTIGEN_B))
+		blood_type = "AB"
+	else if(combined_antigens & BLOOD_ANTIGEN_A)
+		blood_type = "A"
+	else if(combined_antigens & BLOOD_ANTIGEN_B)
+		blood_type = "B"
+
+	blood_type += combined_rh ? "+" : "-"
+	return blood_type
+
+/datum/reagent/blood/proc/merge_type_and_species(list/mix_data)
+	if(!data || !mix_data)
+		return FALSE
+
+	if(data["blood_type"] != mix_data["blood_type"])
+		data["blood_type"] = mix_blood_type(mix_data)
+
+	if(data["blood_species"] != mix_data["blood_species"])
+		data["blood_species"] = "Unsorted"
+
+/datum/reagent/blood/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(data && data["diseases"])
+		for(var/datum/disease/virus/V in data["diseases"])
+
+			if(V.spread_flags < BLOOD)
 				continue
 
 			if(method == REAGENT_TOUCH)
-				M.ContractDisease(D)
-			else //ingest, patch or inject
-				M.ForceContractDisease(D)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
 
 	if(method == REAGENT_INGEST && iscarbon(M))
 		var/mob/living/carbon/C = M
@@ -124,32 +179,18 @@
 		SetViruses(src, data)
 
 /datum/reagent/blood/on_merge(list/mix_data)
-	if(data && mix_data)
-		data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
-		if(data["viruses"] || mix_data["viruses"])
+	merge_diseases_data(mix_data)
 
-			var/list/mix1 = data["viruses"]
-			var/list/mix2 = mix_data["viruses"]
+	if(!data || !mix_data)
+		return TRUE
 
-			// Stop issues with the list changing during mixing.
-			var/list/to_mix = list()
+	merge_type_and_species(mix_data)
 
-			for(var/datum/disease/advance/AD in mix1)
-				to_mix += AD
-			for(var/datum/disease/advance/AD in mix2)
-				to_mix += AD
+	data["cloneable"] = 0 //On mix, consider the genetic sampling unviable for pod cloning, or else we won't know who's even getting cloned, etc
+	if(mix_data["blood_color"])
+		color = mix_data["blood_color"]
 
-			var/datum/disease/advance/AD = Advance_Mix(to_mix)
-			if(AD)
-				var/list/preserve = list(AD)
-				for(var/D in data["viruses"])
-					if(!istype(D, /datum/disease/advance))
-						preserve += D
-				data["viruses"] = preserve
-
-		if(mix_data["blood_color"])
-			color = mix_data["blood_color"]
-	return 1
+	return TRUE
 
 /datum/reagent/blood/on_update(atom/A)
 	if(data["blood_color"])
@@ -161,13 +202,13 @@
 		return
 	if(volume < 3)
 		return
-	if(!data["donor"] || istype(data["donor"], /mob/living/carbon/human))
+	if(!data["donor"] || ishuman(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/blood_prop = locate() in T //find some blood here
 		if(!blood_prop) //first blood!
 			blood_prop = new(T)
 			blood_prop.blood_DNA[data["blood_DNA"]] = data["blood_type"]
 
-	else if(istype(data["donor"], /mob/living/carbon/alien))
+	else if(isalien(data["donor"]))
 		var/obj/effect/decal/cleanable/blood/xeno/blood_prop = locate() in T
 		if(!blood_prop)
 			blood_prop = new(T)
@@ -177,22 +218,21 @@
 	id = "sblood"
 
 /datum/reagent/blood/synthetic/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(data && data["viruses"])
-		for(var/thing in data["viruses"])
-			var/datum/disease/D = thing
+	if(data && data["diseases"])
+		for(var/datum/disease/virus/V in data["diseases"])
 
-			if(D.spread_flags & SPECIAL || D.spread_flags & NON_CONTAGIOUS)
+			if(V.spread_flags < BLOOD)
 				continue
 
 			if(method == REAGENT_TOUCH)
-				M.ContractDisease(D)
-			else //ingest, patch or inject
-				M.ForceContractDisease(D)
+				V.Contract(M, need_protection_check = TRUE, act_type = CONTACT)
+			else
+				V.Contract(M, need_protection_check = FALSE)
 
 /datum/reagent/blood/synthetic/vox
-	name = "Synthetic Blood"
+	name = "Синтетическая кровь (Азот)"
 	id = "sbloodvox"
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#6093dc","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#6093dc","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	color = "#6093dc"
 
 /datum/reagent/blood/synthetic/vox/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -209,9 +249,9 @@
 				C.blood_volume = min(C.blood_volume + round(volume, 0.1), BLOOD_VOLUME_NORMAL)
 
 /datum/reagent/blood/synthetic/oxy
-	name = "Synthetic Blood"
+	name = "Синтетическая кровь (Кислород)"
 	id = "sbloodoxy"
-	data = list("donor"=null,"viruses"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#e8479d","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
+	data = list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=null,"blood_species"=null,"blood_colour"="#e8479d","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null, "dna" = null)
 	color = "#e8479d"
 
 /datum/reagent/blood/synthetic/oxy/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
@@ -229,34 +269,34 @@
 
 /datum/reagent/vaccine
 	//data must contain virus type
-	name = "Vaccine"
+	name = "Вакцина"
 	id = "vaccine"
 	color = "#C81040" // rgb: 200, 16, 64
-	taste_description = "antibodies"
+	taste_description = "антител"
 
 /datum/reagent/vaccine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(islist(data) && (method == REAGENT_INGEST))
-		for(var/thing in M.viruses)
+		for(var/thing in M.diseases)
 			var/datum/disease/D = thing
 			if(D.GetDiseaseID() in data)
 				D.cure()
-		M.resistances |= data
+		LAZYOR(M.resistances, data)
 
 /datum/reagent/vaccine/on_merge(list/data)
 	if(istype(data))
 		data |= data.Copy()
 
 /datum/reagent/fishwater
-	name = "Fish Water"
+	name = "Аквариумная вода"
 	id = "fishwater"
-	description = "Smelly water from a fish tank. Gross!"
+	description = "Вонючая вода из аквариума. Мерзость!"
 	reagent_state = LIQUID
 	color = "#757547"
-	taste_description = "puke"
+	taste_description = "блевотины"
 
 /datum/reagent/fishwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		to_chat(M, "Oh god, why did you drink that?")
+		to_chat(M, "Для чего вы это выпили?")
 
 /datum/reagent/fishwater/on_mob_life(mob/living/M)
 	if(prob(30))		// Nasty, you drank this stuff? 30% chance of the fakevomit (non-stunning version)
@@ -267,54 +307,55 @@
 	return ..()
 
 /datum/reagent/fishwater/toiletwater
-	name = "Toilet Water"
+	name = "Вода из унитаза"
 	id = "toiletwater"
-	description = "Filthy water scoured from a nasty toilet bowl. Absolutely disgusting."
-	reagent_state = LIQUID
-	color = "#757547"
-	taste_description = "the inside of a toilet... or worse"
+	description = "Грязная вода, которую взяли из унитаза. Абсолютно отвратительно."
+	taste_description = "жидкого дерьма"
 
 /datum/reagent/fishwater/toiletwater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume) //For shennanigans
 	return
 
 /datum/reagent/holywater
-	name = "Water"
+	name = "Вода"
 	id = "holywater"
-	description = "A ubiquitous chemical substance that is composed of hydrogen and oxygen."
+	description = "Повсеместно распространённое химическое вещество, состоящее из водорода и кислорода."
 	reagent_state = LIQUID
 	color = "#0064C8" // rgb: 0, 100, 200
 	process_flags = ORGANIC | SYNTHETIC
 	drink_icon = "glass_clear"
-	drink_name = "Glass of Water"
-	drink_desc = "The father of all refreshments."
-	taste_description = "water"
+	drink_name = "Стакан воды"
+	drink_desc = "Обычный стакан обычной воды."
+	taste_description = "воды"
+	devil_regen_ignored = TRUE
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	M.AdjustJitter(-5)
+	M.AdjustJitter(-10 SECONDS)
 	if(current_cycle >= 30)		// 12 units, 60 seconds @ metabolism 0.4 units & tick rate 2.0 sec
-		M.AdjustStuttering(4, bound_lower = 0, bound_upper = 20)
-		M.Dizzy(5)
+		M.AdjustStuttering(8 SECONDS, bound_lower = 0, bound_upper = 40 SECONDS)
+		M.Dizzy(10 SECONDS)
 		if(isclocker(M) && prob(5))
-			M.AdjustClockSlur(5)
-			M.say(pick("Via Ra'var!", "P'res Ni", "Nu'nce te Ren'", "Et Def'Fre", "RELO'JE AR SAGE", "Ric'gui'nea", "Uy'a Rad kos", "Uo Rom'tis!", "Rup'ru ge"))
+			M.AdjustClockSlur(10 SECONDS)
+			M.say(pick("Виа Ра'вар!", "П'рес Ни", "Ню'нс те Рен", "Эт Деф'Фре", "РЕЛО'ЙЕ АР СЕЙЖ", "Рик'гуай'ни", "Уй'а Рад кос", "Уо Ром'тис!", "Руп'ру ге"))
 		if(iscultist(M))
 			for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
 				for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
-					to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
+					to_chat(M, span_cultlarge("Ваша кровавая магия ослабевает из-за святой воды в вашем организме!"))
 					qdel(BS)
 			if(prob(5))
-				M.AdjustCultSlur(5)//5 seems like a good number...
-				M.say(pick("Av'te Nar'sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","Egkau'haom'nai en Chaous","Ho Diak'nos tou Ap'iron","R'ge Na'sie","Diabo us Vo'iscum","Si gn'um Co'nu"))
+				M.AdjustCultSlur(10 SECONDS)//5 seems like a good number...
+				M.say(pick("Ав'те Нар'си","Па'лид Морс","ИНО ИНО ОРА АНА","САТ АНА!","Дайм'ниодиес Арс'иай Ле'ионес","Игкау'хом'нау ен Кеосу","Хо Дьяк'нос ту Ап'айрон","Ар'ж На'си","Диабо ас Во'исцум","Си гн'ам Ко'ну"))
 	if(current_cycle >= 75 && prob(33))	// 30 units, 150 seconds
-		M.AdjustConfused(3)
+		M.AdjustConfused(6 SECONDS)
 		if(isvampirethrall(M))
-			SSticker.mode.remove_vampire_mind(M.mind)
+			M.mind.remove_antag_datum(/datum/antagonist/mindslave/thrall)
 			holder.remove_reagent(id, volume)
+			M.visible_message(span_biggerdanger("[M] отшатыва[PLUR_ET_YUT(M)]ся, [GEND_HIS_HER(M)] кожа окрашивается в яркий цвет, [GEND_HE_SHE(M)] вновь обрета[PLUR_ET_YUT(M)] чувство контроля над собой!"))
 			M.SetJitter(0)
 			M.SetStuttering(0)
 			M.SetConfused(0)
 			return
+
 		if(iscultist(M))
 			SSticker.mode.remove_cultist(M.mind)
 			holder.remove_reagent(id, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
@@ -325,7 +366,7 @@
 				var/mob/living/carbon/human/H = M
 				for(var/I in H.contents - (H.bodyparts | H.internal_organs)) // Satanic liver NYI
 					if(is_type_in_list(I, CULT_CLOTHING))
-						H.unEquip(I)
+						H.drop_item_ground(I)
 			return
 		if(isclocker(M))
 			SSticker.mode.remove_clocker(M.mind)
@@ -337,67 +378,77 @@
 				var/mob/living/carbon/human/H = M
 				for(var/I in H.contents - (H.bodyparts | H.internal_organs))
 					if(is_type_in_list(I, CLOCK_CLOTHING))
-						H.unEquip(I)
+						H.drop_item_ground(I)
 
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full) && prob(80))
+	var/datum/antagonist/vampire/vamp = M.mind?.has_antag_datum(/datum/antagonist/vampire)
+	if(ishuman(M) && vamp && !vamp.get_ability(/datum/vampire_passive/full) && prob(80))
 		var/mob/living/carbon/V = M
-		if(M.mind.vampire.bloodusable)
-			M.Stuttering(1)
-			M.Jitter(30)
+		if(vamp.bloodusable)
+			M.Stuttering(2 SECONDS)
+			M.Jitter(60 SECONDS)
 			update_flags |= M.adjustStaminaLoss(5, FALSE)
 			if(prob(20))
 				M.emote("scream")
-			M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-			M.mind.vampire.bloodusable = max(M.mind.vampire.bloodusable - 3,0)
-			if(M.mind.vampire.bloodusable)
-				V.vomit(0,1)
+			vamp.base_nullification()
+			vamp.bloodusable = max(vamp.bloodusable - 3,0)
+			var/vomit_stun = (vamp.nullification == OLD_NULLIFICATION)? 8 SECONDS : FALSE
+			if(vamp.bloodusable)
+				V.vomit(0, VOMIT_BLOOD, vomit_stun)
+				if(!vomit_stun)
+					V.adjustBruteLoss(3)
 			else
 				holder.remove_reagent(id, volume)
-				V.vomit(0,0)
+				V.vomit(0, stun = vomit_stun)
 				return
 		else
+			if(!vamp.bloodtotal && vamp.nullification == NEW_NULLIFICATION)
+				return ..() | update_flags
 			switch(current_cycle)
 				if(1 to 4)
-					to_chat(M, "<span class = 'warning'>Something sizzles in your veins!</span>")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					to_chat(M, span_warning("Вы чувствуете, как что-то начинает бурлить в ваших жилах!"))
+					vamp.base_nullification()
 				if(5 to 12)
-					to_chat(M, "<span class = 'danger'>You feel an intense burning inside of you!</span>")
+					to_chat(M, span_danger("Вы чувствуете сильное жжение внутри!"))
 					update_flags |= M.adjustFireLoss(1, FALSE)
-					M.Stuttering(1)
-					M.Jitter(20)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(40 SECONDS)
 					if(prob(20))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
+					vamp.base_nullification()
 				if(13 to INFINITY)
-					to_chat(M, "<span class = 'danger'>You suddenly ignite in a holy fire!</span>")
-					for(var/mob/O in viewers(M, null))
-						O.show_message(text("<span class = 'danger'>[] suddenly bursts into flames!</span>", M), 1)
-					M.fire_stacks = min(5,M.fire_stacks + 3)
-					M.IgniteMob()			//Only problem with igniting people is currently the commonly availible fire suits make you immune to being on fire
-					update_flags |= M.adjustFireLoss(3, FALSE)		//Hence the other damages... ain't I a bastard?
-					M.Stuttering(1)
-					M.Jitter(30)
+					M.visible_message(span_danger("[M] внезапно вспыхива[PLUR_ET_YUT(M)]!"),
+									span_danger("Внезапно святая вода внутри вас начинает гореть!"))
+					M.fire_stacks = min(5, M.fire_stacks + 3)
+					M.IgniteMob()
+					update_flags |= M.adjustFireLoss(3, FALSE)
+					M.Stuttering(2 SECONDS)
+					M.Jitter(60 SECONDS)
 					if(prob(40))
 						M.emote("scream")
-					M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-	return ..() | update_flags
+					vamp.base_nullification()
 
+	return ..() | update_flags
 
 /datum/reagent/holywater/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	// Vampires have their powers weakened by holy water applied to the skin.
-	if(ishuman(M) && M.mind && M.mind.vampire && !M.mind.vampire.get_ability(/datum/vampire_passive/full))
-		var/mob/living/carbon/human/H=M
+	if(!ishuman(M) || !M.mind)
+		return
+
+	var/mob/living/carbon/human/target = M
+
+	var/datum/antagonist/vampire/vamp = target.mind.has_antag_datum(/datum/antagonist/vampire)
+	if(vamp && !vamp.get_ability(/datum/vampire_passive/full))
+
 		if(method == REAGENT_TOUCH)
-			if(H.wear_mask)
-				to_chat(H, "<span class='warning'>Your mask protects you from the holy water!</span>")
+			if(target.wear_mask)
+				to_chat(target, span_warning("Ваша маска защищает вас от святой воды!"))
 				return
-			else if(H.head)
-				to_chat(H, "<span class='warning'>Your helmet protects you from the holy water!</span>")
+			else if(target.head)
+				to_chat(target, span_warning("Ваш шлем защищает вас от святой воды!"))
 				return
 			else
-				to_chat(M, "<span class='warning'>Something holy interferes with your powers!</span>")
-				M.mind.vampire.nullified = max(5, M.mind.vampire.nullified + 2)
-
+				to_chat(target, span_warning("Вы чувствуете, как ваши силы ослабевают из-за внезапного святого присутствия рядом!"))
+				vamp.adjust_nullification(5, 2)
 
 /datum/reagent/holywater/reaction_turf(turf/simulated/T, volume)
 	if(!istype(T))
@@ -408,20 +459,20 @@
 	T.Bless()
 
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
-	name = "Unholy Water"
+	name = "Нечестивая вода"
 	id = "unholywater"
-	description = "Something that shouldn't exist on this plane of existance."
-	process_flags = ORGANIC | SYNTHETIC //ethereal means everything processes it.
+	description = "Что-то, что не должно существовать в этой реальности."
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
-	taste_description = "sulfur"
+	taste_description = "серы"
 
 /datum/reagent/fuel/unholywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(iscultist(M))
-		M.AdjustDrowsy(-5)
-		update_flags |= M.AdjustParalysis(-1, FALSE)
-		update_flags |= M.AdjustStunned(-2, FALSE)
-		update_flags |= M.AdjustWeakened(-2, FALSE)
+		M.AdjustDrowsy(-10 SECONDS)
+		M.AdjustParalysis(-2 SECONDS)
+		M.AdjustStunned(-4 SECONDS)
+		M.AdjustWeakened(-4 SECONDS)
+		M.AdjustKnockdown(-4 SECONDS)
 		update_flags |= M.adjustToxLoss(-2, FALSE)
 		update_flags |= M.adjustFireLoss(-2, FALSE)
 		update_flags |= M.adjustOxyLoss(-2, FALSE)
@@ -432,17 +483,17 @@
 		update_flags |= M.adjustFireLoss(2, FALSE)
 		update_flags |= M.adjustOxyLoss(2, FALSE)
 		update_flags |= M.adjustBruteLoss(2, FALSE)
-		M.AdjustCultSlur(10)//CUASE WHY THE HELL NOT
+		M.AdjustCultSlur(20 SECONDS) //CUASE WHY THE HELL NOT
 	return ..() | update_flags
 
 /datum/reagent/hellwater
-	name = "Hell Water"
+	name = "Адская вода"
 	id = "hell_water"
-	description = "YOUR FLESH! IT BURNS!"
+	description = "ЖЖЁТСЯ, КАК ЖЖЁТСЯ!"
 	process_flags = ORGANIC | SYNTHETIC		//Admin-bus has no brakes! KILL THEM ALL.
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	can_synth = FALSE
-	taste_description = "burning"
+	taste_description = "ожогов"
 
 /datum/reagent/hellwater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -454,36 +505,36 @@
 	return ..() | update_flags
 
 /datum/reagent/liquidgibs
-	name = "Liquid gibs"
+	name = "Жидкие ошмётки"
 	id = "liquidgibs"
 	color = "#FF9966"
-	description = "You don't even want to think about what's in here."
+	description = "Вы даже думать не хотите, что это такое."
 	reagent_state = LIQUID
-	taste_description = "meat"
+	taste_description = "мяса"
 
 /datum/reagent/liquidgibs/reaction_turf(turf/T, volume) //yes i took it from synthflesh...
 	if(volume >= 5 && !isspaceturf(T))
 		new /obj/effect/decal/cleanable/blood/gibs/cleangibs(T)
-		playsound(T, 'sound/effects/splat.ogg', 50, 1, -3)
+		playsound(T, 'sound/effects/splat.ogg', 50, TRUE, -3)
 
 /datum/reagent/lye
-	name = "Lye"
+	name = "Щёлочь"
 	id = "lye"
-	description = "Also known as sodium hydroxide."
+	description = "Также известна как гидроксид натрия."
 	reagent_state = LIQUID
 	color = "#FFFFD6" // very very light yellow
-	taste_description = "<span class='userdanger'>ACID</span>"//don't drink lye, kids
+	taste_description = "едкой кислоты"//don't drink lye, kids
 
 /datum/reagent/drying_agent
-	name = "Drying agent"
+	name = "Сушильный агент"
 	id = "drying_agent"
-	description = "Can be used to dry things."
+	description = "Используется для осушения различных поверхностей."
 	reagent_state = LIQUID
 	color = "#A70FFF"
-	taste_description = "dry mouth"
+	taste_description = "сухости"
 
 /datum/reagent/drying_agent/reaction_turf(turf/simulated/T, volume)
-	if(istype(T) && T.wet)
+	if(istype(T))
 		T.MakeDry(TURF_WET_WATER)
 
 /datum/reagent/drying_agent/reaction_obj(obj/O, volume)
@@ -491,3 +542,77 @@
 		var/t_loc = get_turf(O)
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
+
+/datum/reagent/status_effect
+	id = "status_effect"
+	metabolization_rate = REAGENTS_METABOLISM / 4
+	/// Type of status effect that applys on reagent add, and deleats on reagent deleat.
+	var/status_effect_type
+
+/datum/reagent/status_effect/on_mob_add(mob/living/user)
+	. = ..()
+	user.apply_status_effect(status_effect_type)
+
+/datum/reagent/status_effect/on_mob_delete(mob/living/user)
+	. = ..()
+	user.remove_status_effect(status_effect_type)
+
+/datum/reagent/status_effect/creatine
+	name = "Креатин"
+	id = "creatine"
+	description = "Вещество участвующее в энергетическом обмене в мышечных и нервных клетках."
+	color = "#dcbf00"
+	taste_description = "соды"
+	status_effect_type = /datum/status_effect/sport_reagents/creatine
+
+/datum/reagent/status_effect/creatine/liquid
+	name = "Разбавленный креатин"
+	id = "creatine_liquid"
+	description = "Смесь воды и креатина."
+	reagent_state = LIQUID
+	status_effect_type = /datum/status_effect/sport_reagents/creatine/liquid
+
+/datum/reagent/status_effect/guarana
+	name = "Экстракт гуараны"
+	id = "guarana"
+	description = "Вещество временно стимулирующее мышечную активность."
+	color = "#dc3b00"
+	taste_description = "горечи"
+	status_effect_type = /datum/status_effect/sport_reagents/guarana
+
+/datum/reagent/status_effect/steroids
+	name = "Стероиды"
+	id = "steroids"
+	description = "Используется для ускоренного развития мышц. \
+					Не рекомендуется употреблять обладающим хвостом, беременным, перенесшим тяжелую травму, переболевшим ветрянкой, состоящим из слизи и бесхвостым."
+	reagent_state = LIQUID
+	color = "#c2ff34"
+	taste_description = "силы"
+	status_effect_type = /datum/status_effect/sport_reagents/steroids
+
+/datum/reagent/status_effect/steroids/on_mob_life(mob/living/target)
+	. = ..()
+	if(!ishuman(target))
+		return
+
+	if(!prob(3))
+		return
+
+	var/mob/living/carbon/human/human = target
+	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
+
+	if(head_organ.f_style != "Shaved" || head_organ.h_style != "Bald")
+		target.visible_message(span_warning("Волосы [target] внезапно осыпаются!"), \
+								span_userdanger("Ваши волосы внезапно осыпаются!"))
+
+	head_organ.f_style = "Shaved"
+	head_organ.h_style = "Bald"
+	human.update_hair()
+	human.update_fhair()
+	ADD_TRAIT(human, TRAIT_BALD, id)
+
+#undef BLOOD_ANTIGEN_A
+#undef BLOOD_ANTIGEN_B
+

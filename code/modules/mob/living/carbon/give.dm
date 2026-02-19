@@ -1,78 +1,80 @@
-/mob/living/carbon/verb/give(var/mob/living/carbon/target in oview(1))
-	set category = "IC"
-	set name = "Give"
+/mob/living/carbon/verb/give(mob/living/carbon/target in oview(1))
+	set category = VERB_CATEGORY_IC
+	set name = "Передать"
 
 	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
-		to_chat(usr, "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>")//cheesy messages ftw
+		to_chat(usr, span_danger("Погодите-ка... у [target.declent_ru(ACCUSATIVE)] НЕТ РУК! ААА!"))
 		return
 
-	if(target.incapacitated() || usr.incapacitated() || target.client == null)
+	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
 		return
 
 	var/obj/item/I = get_active_hand()
 
 	if(!I)
-		to_chat(usr, "<span class='warning'> You don't have anything in your hand to give to [target.name]</span>")
+		to_chat(usr, span_warning("У вас ничего нет в руке, чтобы передать [target.declent_ru(ACCUSATIVE)]."))
 		return
-	if((I.flags & NODROP) || (I.flags & ABSTRACT))
-		to_chat(usr, "<span class='notice'>That's not exactly something you can give.</span>")
+	if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
+		to_chat(usr, span_warning("Это нельзя просто так взять и передать."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
-		var/ans = alert(target,"[usr] wants to give you \a [I]?",,"Yes","No")
+		var/ans = tgui_alert(target,"[usr] хо[PLUR_CHET_TYAT(usr)] передать вам [I.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять","Не брать"))
 		if(!I || !target)
 			return
 		switch(ans)
-			if("Yes")
-				if(target.incapacitated() || usr.incapacitated())
+			if("Взять")
+				if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 					return
 				if(!Adjacent(target))
-					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
-					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
+					to_chat(usr, span_warning("Нужно оставаться в пределах досягаемости!"))
+					to_chat(target, span_warning("[usr.name] ото[GEND_SHEL(usr)] слишком далеко."))
 					return
-				if((I.flags & NODROP) || (I.flags & ABSTRACT))
-					to_chat(usr, "<span class='warning'>[I] stays stuck to your hand when you try to give it!</span>")
-					to_chat(target, "<span class='warning'>[I] stays stuck to [usr.name]'s hand when you try to take it!</span>")
+				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
+					to_chat(usr, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_LA_LO_LI(I)]  к вашей руке и не отдаётся!"))
+					to_chat(target, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_LA_LO_LI(I)] к руке [usr.name], когда вы попытались взять!"))
 					return
 				if(I != get_active_hand())
-					to_chat(usr, "<span class='warning'> You need to keep the item in your active hand.</span>")
-					to_chat(target, "<span class='warning'> [usr.name] seem to have given up on giving [I] to you.</span>")
+					to_chat(usr, span_warning("Нужно держать предмет в активной руке."))
+					to_chat(target, span_warning("[usr.name] передумал[GEND_A_O_I(usr)] передавать вам [I.declent_ru(NOMINATIVE)]."))
 					return
 				if(target.r_hand != null && target.l_hand != null)
-					to_chat(target, "<span class='warning'> Your hands are full.</span>")
-					to_chat(usr, "<span class='warning'> Their hands are full.</span>")
+					to_chat(target, span_warning("Ваши руки заняты."))
+					to_chat(usr, span_warning("[GEND_HIS_HER_CAP(usr)] руки заняты."))
 					return
-				usr.unEquip(I)
-				target.put_in_hands(I)
+				usr.drop_item_ground(I)
+				target.put_in_hands(I, ignore_anim = FALSE)
 				I.add_fingerprint(target)
-				target.visible_message("<span class='notice'> [usr.name] handed [I] to [target.name].</span>")
+				target.visible_message(span_notice("[usr.name] передаёт [I.declent_ru(ACCUSATIVE)] [target.name]."))
 				I.on_give(usr, target)
-			if("No")
-				target.visible_message("<span class='warning'> [usr.name] tried to hand [I] to [target.name] but [target.name] didn't want it.</span>")
+			if("Не брать")
+				target.visible_message(span_warning("[usr.name] пытался передать [I.declent_ru(ACCUSATIVE)] [target.name], но [GEND_HE_SHE(usr)] отказал[GEND_SYA_AS_OS_IS(usr)]."))
 	else
-		to_chat(usr, "<span class='warning'> [target.name]'s hands are full.</span>")
+		to_chat(usr, span_warning("Руки [target.name] заняты."))
 
 /**
  * Toggles the [/datum/click_intercept/give] on or off for the src mob.
  */
 /mob/living/carbon/verb/toggle_give()
-	set name = "Give Item (Toggle)"
-	set category = "IC"
+	set name = "Передать предмет"
+	set category = VERB_CATEGORY_IC
 
+	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+		return
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
-		to_chat(src, "<span class='warning'>You're already offering an item to someone!</span>")
+		to_chat(src, span_warning("Вы уже предлагаете предмет другому игроку!"))
 		return
 	if(istype(client.click_intercept, /datum/click_intercept/give))
 		QDEL_NULL(client.click_intercept)
 		return
 	var/obj/item/I = get_active_hand()
 	if(!I)
-		to_chat(src, "<span class='warning'>You don't have anything in your hand to give!</span>")
+		to_chat(src, span_warning("У вас нет предмета в руке для передачи!"))
 		return
-	if(I.flags & NODROP)
-		to_chat(src, "<span class='warning'>[I] is stuck to your hand, you can't give it away!</span>")
+	if(HAS_TRAIT(I, TRAIT_NODROP))
+		to_chat(src, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип[GEND_A_O_I(I)] к вашей руке и не отда[PLUR_YOT_YUT(I)]ся!"))
 		return
-	if(I.flags & ABSTRACT)
-		to_chat(src, "<span class='warning'>That's not exactly something you can give.</span>")
+	if(I.item_flags & ABSTRACT)
+		to_chat(src, span_warning("Такой предмет нельзя просто взять и передать."))
 		return
 
 	new /datum/click_intercept/give(client)
@@ -85,32 +87,30 @@
 /datum/status_effect/offering_item
 	id = "offering item"
 	duration = 10 SECONDS
-	alert_type = /obj/screen/alert/status_effect/offering_item
+	alert_type = /atom/movable/screen/alert/status_effect/offering_item
 
 /datum/status_effect/offering_item/on_creation(mob/living/new_owner, receiver_UID, item_UID)
 	. = ..()
-	var/obj/screen/alert/status_effect/offering_item/offer = linked_alert
+	var/atom/movable/screen/alert/status_effect/offering_item/offer = linked_alert
 	offer.item_UID = item_UID
 	offer.receiver_UID = receiver_UID
 
-
-/obj/screen/alert/status_effect/offering_item
-	name = "Offering Item"
-	desc = "You're currently offering an item someone. Make sure to keep the item in your hand so they can accept it! Click to stop offering your item."
+/atom/movable/screen/alert/status_effect/offering_item
+	name = "Предложение предмета"
+	desc = "Вы предлагаете предмет игроку. Держите предмет в руке, чтобы он мог принять его! Нажмите чтобы отменить."
 	icon_state = "offering_item"
 	/// UID of the mob who's being offered the item.
 	var/receiver_UID
 	/// UID of the item being given.
 	var/item_UID
 
-/obj/screen/alert/status_effect/offering_item/Click(location, control, params)
+/atom/movable/screen/alert/status_effect/offering_item/Click(location, control, params)
 	var/mob/living/carbon/receiver = locateUID(receiver_UID)
 	var/mob/living/carbon/giver = attached_effect.owner
 	var/obj/item/I = locateUID(item_UID)
-	to_chat(giver, "<span class='info'>You decide against giving [I] to [receiver].</span>")
-	to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [I].</span>")
+	to_chat(giver, span_notice("Вы передумали передавать [I.declent_ru(ACCUSATIVE)] [receiver]."))
+	to_chat(receiver, span_warning("[giver] передумал[PLUR_I(giver)] передавать вам [I.declent_ru(ACCUSATIVE)]."))
 	receiver.clear_alert("take item [item_UID]") // This cancels *everything* related to the giving/item offering.
-
 
 /**
  * # Give click intercept
@@ -120,42 +120,56 @@
 /datum/click_intercept/give
 	/// If the intercept user has succesfully offered the item to another player.
 	var/item_offered = FALSE
+	/// The mob offering the receiver an item.
+	var/mob/living/giver
+	/// The item being given.
+	var/obj/item/giving_item
 
 /datum/click_intercept/give/New(client/C)
 	..()
-	holder.mouse_pointer_icon = 'icons/mouse_icons/give_item.dmi'
-	to_chat(holder, "<span class='info'>You can now left click on someone to give them your held item.</span>")
-	RegisterSignal(holder.mob.get_active_hand(), list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), /datum/proc/signal_qdel)
+	giver = holder.mob
+	giving_item = giver.get_active_hand()
+	holder.mouse_pointer_icon = 'icons/misc/mouse_icons/give_item.dmi'
+	to_chat(giver, span_notice("ЛКМ по игроку — предложить предмет в руке."))
+	RegisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(signal_qdel))
+	RegisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(signal_qdel))
 
-
-/datum/click_intercept/give/Destroy(force = FALSE, ...)
+/datum/click_intercept/give/Destroy(force = FALSE)
 	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	if(!item_offered)
-		to_chat(holder.mob, "<span class='info'>You're no longer trying to give someone your held item.</span>")
+		to_chat(giver, span_notice("Вы прекратили попытку передачи предмета."))
+	if(giving_item)
+		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+		giving_item = null
+	if(giver)
+		UnregisterSignal(giver, list(COMSIG_QDELETING, COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+		giver = null
 	return ..()
 
-
 /datum/click_intercept/give/InterceptClickOn(mob/user, params, atom/object)
+	. = TRUE
 	if(user == object || !iscarbon(object))
 		return
 	var/mob/living/carbon/receiver = object
 	if(receiver.stat != CONSCIOUS)
-		to_chat(user, "<span class='warning'>[receiver] can't accept any items because they're not conscious!</span>")
+		to_chat(user, span_warning("[receiver] без сознания и не мо[PLUR_JET_GUT(user)] принять предмет!"))
 		return
-	var/obj/item/I = user.get_active_hand()
+	if(!receiver.IsAdvancedToolUser())
+		to_chat(user, span_warning("[receiver] недостаточно ловк[GEND_II_AYA_II_IE(receiver)] для передачи!"))
+		return
+	var/obj/item/item = giving_item
 	if(!user.Adjacent(receiver))
-		to_chat(user, "<span class='warning'>You need to be closer to [receiver] to offer them [I].</span>")
+		to_chat(user, span_warning("Подойдите ближе к [receiver] для передачи [item.declent_ru(GENITIVE)]."))
 		return
 	if(!receiver.client)
-		to_chat(user, "<span class='warning'>You offer [I] to [receiver], but they don't seem to respond...</span>")
+		to_chat(user, span_warning("Вы предлагаете [item.declent_ru(ACCUSATIVE)] [receiver], но реакции нет..."))
 		return
 	// We use UID() here so that the receiver can have more then one give request at one time.
 	// Otherwise, throwing a new "take item" alert would override any current one also named "take item".
-	receiver.throw_alert("take item [I.UID()]", /obj/screen/alert/take_item, alert_args = list(user, receiver, I))
+	receiver.throw_alert("take item [item.UID()]", /atom/movable/screen/alert/take_item, alert_args = list(user, receiver, item))
 	item_offered = TRUE // TRUE so we don't give them the default chat message in Destroy.
-	to_chat(user, "<span class='info'>You offer [I] to [receiver].</span>")
+	to_chat(user, span_notice("Вы предлагаете [item.declent_ru(ACCUSATIVE)] [receiver]."))
 	qdel(src)
-
 
 /**
  * # Take Item alert
@@ -163,9 +177,9 @@
  * Alert which appears for a user when another player is attempting to offer them an item.
  * The user can click the alert to accept, or simply do nothing to not take the item.
  */
-/obj/screen/alert/take_item
-	name = "Take Item"
-	desc = "someone wants to hand you an item!"
+/atom/movable/screen/alert/take_item
+	name = "Взять предмет"
+	desc = "Вам хотят передать предмет!"
 	icon_state = "template"
 	timeout = 10 SECONDS
 	/// UID of the mob offering the receiver an item.
@@ -175,68 +189,89 @@
 	/// UID of the item being given.
 	var/item_UID
 
-
-/obj/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/I)
+/atom/movable/screen/alert/take_item/Initialize(mapload, mob/living/giver, mob/living/receiver, obj/item/item)
 	. = ..()
-	desc = "[giver] wants to hand you \a [I]. Click here to accept it!"
+	desc = "[giver] хо[PLUR_CHET_TYAT(giver)] передать вам [item.declent_ru(ACCUSATIVE)]. Нажмите чтобы принять!"
 	giver_UID = giver.UID()
 	receiver_UID = receiver.UID()
-	item_UID = I.UID()
+	item_UID = item.UID()
 	giver.apply_status_effect(STATUS_EFFECT_OFFERING_ITEM, receiver_UID, item_UID)
-	add_overlay(icon(I.icon, I.icon_state, SOUTH))
+	add_overlay(icon(item.icon, item.icon_state, SOUTH))
 	add_overlay("alert_flash")
-	RegisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), .proc/cancel_give)
 	// If either of these atoms are deleted, we need to cancel everything. Also saves having to do null checks before interacting with these atoms.
-	RegisterSignal(I, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
-	RegisterSignal(giver, COMSIG_PARENT_QDELETING, /datum/proc/signal_qdel)
+	// So there is no more COMSIG_QDELETING for giver, because it overrides the same registration
+	// in /atom/movable/screen/proc/set_new_hud, which is probably worse then not having it here, because alert will be cleared
+	// anyway in do_timeout()
+	RegisterSignal(item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED), PROC_REF(cancel_give))
+	RegisterSignal(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)), PROC_REF(cancel_give))
 
-
-/obj/screen/alert/take_item/Destroy()
+/atom/movable/screen/alert/take_item/Destroy()
 	var/mob/living/giver = locateUID(giver_UID)
-	giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
+	var/obj/item/giving_item = locateUID(item_UID)
+	if(giver)
+		giver.remove_status_effect(STATUS_EFFECT_OFFERING_ITEM)
+		UnregisterSignal(giver, list(COMSIG_MOB_SWAP_HANDS, SIGNAL_ADDTRAIT(TRAIT_HANDS_BLOCKED)))
+	if(giving_item)
+		UnregisterSignal(giving_item, list(COMSIG_QDELETING, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+
 	return ..()
 
-
-/obj/screen/alert/take_item/proc/cancel_give()
+/atom/movable/screen/alert/take_item/proc/cancel_give()
 	SIGNAL_HANDLER
+
 	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
-	to_chat(giver, "<span class='warning'>You need to keep the item in your active hand if you want to hand it to someone!</span>")
-	to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [locateUID(item_UID)].</span>")
+
+	to_chat(giver, span_warning("Держите предмет в активной руке для передачи!"))
+	to_chat(receiver, span_warning("[giver] передумал[GEND_A_O_I(giver)] передавать вам [locateUID(item_UID)]."))
+
 	receiver.clear_alert("take item [item_UID]")
 
-
-/obj/screen/alert/take_item/Click(location, control, params)
+/atom/movable/screen/alert/take_item/Click(location, control, params)
+	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
+	// hopefully this will do instead of COMSIG_QDELETING
+	if(!giver)
+		to_chat(receiver, span_warning("Что-то пошло не так при передаче предмета, сообщите об этом в баг-репорты!"))
+		return
+
 	if(receiver.stat != CONSCIOUS)
 		return
+
 	var/obj/item/I = locateUID(item_UID)
+	if(!I)
+		return
+
 	if(receiver.r_hand && receiver.l_hand)
-		to_chat(receiver, "<span class='warning'>You need to have your hands free to accept [I]!</span>")
+		to_chat(receiver, span_warning("Освободите руки для принятия [I.declent_ru(ACCUSATIVE)]!"))
 		return
-	var/mob/living/giver = locateUID(giver_UID)
+
 	if(!giver.Adjacent(receiver))
-		to_chat(receiver, "<span class='warning'>You need to stay in reaching distance of [giver] to take [I]!</span>")
+		to_chat(receiver, span_warning("Подойдите ближе к [giver] чтобы взять [I.declent_ru(ACCUSATIVE)]!"))
 		return
-	if(I.flags & NODROP)
-		to_chat(giver, "<span class='warning'>[I] stays stuck to your hand when [receiver] tries to take it!</span>")
-		to_chat(receiver, "<span class='warning'>[I] stays stuck to [giver]'s hand when you try to take it!</span>")
+
+	if(HAS_TRAIT(I, TRAIT_NODROP))
+		to_chat(giver, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип к вашей руке при попытке передачи!"))
+		to_chat(receiver, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] прилип к руке [giver] когда вы пытались взять!"))
 		return
+
 	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.
-	giver.unEquip(I)
-	receiver.put_in_hands(I)
+
+	giver.drop_item_ground(I)
+	receiver.put_in_hands(I, ignore_anim = FALSE)
+
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
-	receiver.visible_message("<span class='notice'>[giver] handed [I] to [receiver].</span>")
+
+	receiver.visible_message(span_notice("[giver] переда[PLUR_YOT_YUT(giver)] [I.declent_ru(ACCUSATIVE)] [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
-
-/obj/screen/alert/take_item/do_timeout(mob/M, category)
+/atom/movable/screen/alert/take_item/do_timeout(mob/M, category)
 	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
 	// Make sure we're still nearby. We don't want to show a message if the giver not near us.
 	if(giver in view(3, receiver))
 		var/obj/item/I = locateUID(item_UID)
-		to_chat(giver, "<span class='warning'>You tried to hand [I] to [receiver], but they didn't want it.</span>")
-		to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [I].</span>")
+		to_chat(giver, span_warning("Вы пытались передать [I.declent_ru(ACCUSATIVE)] [receiver], но [GEND_HE_SHE(receiver)] отказал[GEND_SYA_AS_OS_IS(receiver)]."))
+		to_chat(receiver, span_warning("[giver] прекратил[GEND_A_O_I(giver)] попытку передать вам [I.declent_ru(ACCUSATIVE)]."))
 	..()

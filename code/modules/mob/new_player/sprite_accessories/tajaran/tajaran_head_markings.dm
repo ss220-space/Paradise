@@ -1,7 +1,7 @@
 
 /datum/sprite_accessory/body_markings/head/tajara
-    icon = 'icons/mob/sprite_accessories/tajaran/tajaran_head_markings.dmi'
-    species_allowed = list("Tajaran")
+	icon = 'icons/mob/sprite_accessories/tajaran/tajaran_head_markings.dmi'
+	species_allowed = list(SPECIES_TAJARAN)
 
 /datum/sprite_accessory/body_markings/head/tajara/tiger_head_taj
 	name = "Tajaran Tiger Head"
@@ -10,6 +10,10 @@
 /datum/sprite_accessory/body_markings/head/tajara/tiger_face_taj
 	name = "Tajaran Tiger Head and Face"
 	icon_state = "tiger_face"
+
+/datum/sprite_accessory/body_markings/head/tajara/lynx
+	name = "Tajaran Lynx Ears and Cheeks"
+	icon_state = "lynx"
 
 /datum/sprite_accessory/body_markings/head/tajara/outears_taj
 	name = "Tajaran Outer Ears"

@@ -1,3 +1,9 @@
+/// Amount of time after the rounds starts, that the player disconnect report is issued.
+#define ROUNDSTART_LOGOUT_REPORT_TIME (10 MINUTES)
+
+/// The number of station goals generated each round.
+#define STATION_GOAL_BUDGET 1
+
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -8,140 +14,324 @@
  * 2. Conditions of finishing the round.
  *
  */
-
-
 /datum/game_mode
 	var/name = "invalid"
 	var/config_tag = null
-	var/intercept_hacked = 0
-	var/votable = 1
+	/// Probablity for this mode in secret mode type.
 	var/probability = 0
-	var/station_was_nuked = 0 //see nuclearbomb.dm and malfunction.dm
-	var/explosion_in_progress = 0 //sit back and relax
-	var/list/datum/mind/modePlayer = new
-	var/list/restricted_jobs = list()	// Jobs it doesn't make sense to be.  I.E chaplain or AI cultist
-	var/list/protected_jobs = list()	// Jobs that can't be antags
-	var/list/protected_species = list() // Species that can't be antags
-	var/list/prefered_species = list()	// Species duplicate for antags
-	var/prefered_species_mod = 0
+	/// Whether this mode can be voted by players.
+	var/votable = TRUE
+	/// See nuclearbomb.dm and malfunction.dm
+	var/station_was_nuked = FALSE
+	/// See nuclearbomb.dm and malfunction.dm
+	var/explosion_in_progress = FALSE //sit back and relax
+	var/false_report_weight = 0 //How often will this show up incorrectly in a centcom report? --Not used--
+	// Jobs it doesn't make sense to be antags. I.E chaplain or AI cultist
+	var/list/restricted_jobs = list()
+	/// Jobs that can't be antags.
+	var/list/protected_jobs = list()
+	/// Species that can't be antags.
+	var/list/protected_species = list()
+	/// Specified associative list of "antag - job" restrictions
+	var/list/forbidden_antag_jobs = list()
+	/// How many players should press ready for mode to activate.
 	var/required_players = 0
+	/// How many antagonists are required for mode start.
 	var/required_enemies = 0
+	/// Legacy code, currently used in heist mode only.
 	var/recommended_enemies = 0
+	/// Whether ERT call is even allowed in this mode.
+	var/ert_disabled = FALSE
 	var/newscaster_announcements = null
-	var/ert_disabled = 0
-	var/uplink_welcome = "Syndicate Uplink Console:"
-	var/uplink_uses = 20
 
-	var/const/waittime_l = 600  //lower bound on time before intercept arrives (in tenths of seconds)
-	var/const/waittime_h = 1800 //upper bound on time before intercept arrives (in tenths of seconds)
+	/// Lower bound on time before intercept arrives.
+	var/const/waittime_l = 60 SECONDS
+	/// Upper bound on time before intercept arrives.
+	var/const/waittime_h = 180 SECONDS
 	var/list/player_draft_log = list()
-	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/datum/mind/traders = list()
+	var/list/datum/mind/morphs = list()
+	var/list/datum/mind/swarmers = list()
+	var/list/datum/mind/guardians = list()
+	var/list/datum/mind/revenants = list()
+	var/list/datum/mind/headslugs = list()
+	var/list/datum/mind/deathsquad = list()
+	var/list/datum/mind/honksquad = list()
+	var/list/datum/mind/sst = list()
+	var/list/datum/mind/sit = list()
 	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
+	/// A list of all station goals for this game mode
+	var/list/datum/station_goal/station_goals = list()
 
-	var/list/datum/station_goal/station_goals = list() // A list of all station goals for this game mode
+	/// A list of all minds which have the traitor antag datum.
+	var/list/datum/mind/traitors = list()
+	/// An associative list with mindslave minds as keys and their master's minds as values.
+	var/list/datum/mind/implanted = list()
+	/// A list of all minds which have the changeling antag datum
+	var/list/datum/mind/changelings = list()
+	/// A list of all minds which have the vampire antag datum
+	var/list/datum/mind/vampires = list()
+	/// A list of all minds which are thralled by a vampire
+	var/list/datum/mind/vampire_enthralled = list()
+
+	/// A list containing references to the minds of soon-to-be traitors. This is seperate to avoid duplicate entries in the `traitors` list.
+	var/list/datum/mind/pre_traitors = list()
+	/// A list containing references to the minds of soon-to-be changelings. This is seperate to avoid duplicate entries in the `changelings` list.
+	var/list/datum/mind/pre_changelings = list()
+	///list of minds of soon to be vampires
+	var/list/datum/mind/pre_vampires = list()
+	/// A list containing references to the minds of soon-to-be mindflayers.
+	var/list/datum/mind/pre_mindflayers = list()
+	/// A list of all minds which have the wizard special role
+	var/list/datum/mind/wizards = list()
+	/// A list of all minds that are wizard apprentices
+	var/list/datum/mind/apprentices = list()
+
+	/// How many abductor teams do we have
+	var/abductor_teams = 0
+	/// A list which contains the minds of all abductors
+	var/list/datum/mind/abductors = list()
+	/// A list which contains the minds of all abductees
+	var/list/datum/mind/abductees = list()
+
+	/// A list of all the nuclear operatives' minds
+	var/list/datum/mind/syndicates = list()
+
+	/// A list of all the minds of head revolutionaries
+	var/list/datum/mind/head_revolutionaries = list()
+	/// A list of all the minds of revolutionaries
+	var/list/datum/mind/revolutionaries = list()
+
+	/// A list of all the minds with the superhero special role
+	var/list/datum/mind/superheroes = list()
+	/// A list of all the minds with the supervillain special role
+	var/list/datum/mind/supervillains = list()
+	/// A list of all the greyshirt minds
+	var/list/datum/mind/greyshirts = list()
+
+	/// A list of all the minds that have the ERT special role
+	var/list/datum/mind/ert = list()
+
+	/// The Contractor Support Units
+	var/list/datum/mind/support = list()
+	var/datum/mind/exchange_red
+	var/datum/mind/exchange_blue
+	/// The number of contractors who accepted the offer.
+	var/contractor_accepted = 0
+
+	/// A list of all demon minds spawned via event or wizard artefact.
+	var/list/datum/mind/demons = list()
+
+	var/list/datum/mind/sintouched = list()
+	var/list/datum/mind/devils = list()
+
+	/// A list of all minds currently in the cult
+	var/list/datum/mind/cult = list()
+	var/datum/cult_objectives/cult_objs = new
+	/// Does the cult have glowing eyes
+	var/cult_risen = FALSE
+	/// Does the cult have halos
+	var/cult_ascendant = FALSE
+	/// How many crew need to be converted to rise
+	var/rise_number
+	/// How many crew need to be converted to ascend
+	var/ascend_number
+	/// Used for the CentComm announcement at ascension
+	var/ascend_percent
+	/// The number of ghost summons available to the cult.
+	var/ghost_summons = null
+
+	/// A list of all minds currently in the cult
+	var/list/datum/mind/clockwork_cult = list()
+	var/datum/clockwork_objectives/clocker_objs = new
+	/// Does the clockers have significant power stored
+	var/power_reveal = FALSE
+	/// Does the cult have halos
+	var/crew_reveal = FALSE
+	/// How many power need to be in supply to reveal
+	var/power_reveal_number
+	/// How many crew need to be converted to reveal
+	var/crew_reveal_number
+	/// Used for CentCom announcement when reached crew limit conversion
+	var/reveal_percent
+
+	/// List of of blobs, their offsprings and blobburnouts spawned by them
+	var/list/blobs = list(
+		"infected" = list(),
+		"offsprings" = list(),
+		"minions" = list()
+	)
+	/// Count of blob tiles to blob win
+	var/blob_win_count = BLOB_BASE_TARGET_POINT
+	/// Number of resource produced by the core
+	var/blob_point_rate = 3
+	/// Number of bursted blob infected
+	var/bursted_blobs_count = 0
+	/// Total blob submode stage
+	var/blob_stage = BLOB_STAGE_NONE
+	/// The need to delay the end of the game when the blob wins
+	var/delay_blob_end = FALSE
+	/// Disables automatic GAMMA code
+	var/off_auto_gamma = FALSE
+	/// Disables automatic nuke codes
+	var/off_auto_nuke_codes = FALSE
+	/// Is all blobs have infinity points
+	var/is_blob_infinity_points = FALSE
+	/// Is all blobs have infinity points
+	var/list/legit_blobs = list()
+	/// Total blobs objective
+	var/datum/objective/blob_critical_mass/blob_objective
+
+	// LEGACY SHIT!
+	var/list/datum/mind/shadows = list()
+	var/list/datum/mind/shadowling_thralls = list()
+	var/list/shadow_objectives = list()
+	var/required_thralls = 15 //How many thralls are needed (hardcoded for now)
+	var/shadowling_ascended = 0 //If at least one shadowling has ascended
+	var/shadowling_dead = 0 //is shadowling kill
+	var/objective_explanation
+	var/warning_threshold
+	var/victory_warning_announced = FALSE
+	var/thrall_ratio = 1
+
+	var/list/datum/mind/thieves = list()
+
+	var/list/datum/mind/space_ninjas = list()
+
+	var/list/datum/mind/goon_vampires = list()
+	var/list/datum/mind/goon_vampire_enthralled = list()
+
+	var/syndies_didnt_escape = 0
+	var/nuke_off_station = 0
+
+	var/list/datum/mind/raiders = list() //Antags.
+	var/list/raid_objectives = list() //Raid objectives
 
 /datum/game_mode/proc/announce() //to be calles when round starts
-	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
+	to_chat(world, "<b>Notice</b>: [src] did not define announce()")
 
+/datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
+	return "Gamemode report for [name] not set. Contact a coder."
 
-///can_start()
-///Checks to see if the game can be setup and ran with the current number of players or whatnot.
+/**
+ * Checks to see if the game can be setup and ran with the current number of players or whatnot.
+ */
 /datum/game_mode/proc/can_start()
 	var/playerC = num_players()
 
 	if(playerC < required_enemies)
-		return 0
-	if(!config.enable_gamemode_player_limit || (playerC >= config.mode_required_players[src.config_tag]))
-		return 1
-	return 0
+		return FALSE
 
-//pre_pre_setup() For when you really don't want certain jobs ingame.
-/datum/game_mode/proc/pre_pre_setup()
+	if(!CONFIG_GET(flag/enable_gamemode_player_limit) || (playerC >= config.mode_required_players[src.config_tag]))
+		return TRUE
 
-	return 1
+	return FALSE
 
-///pre_setup()
-///Attempts to select players for special roles the mode might have.
+/**
+ * Attempts to select players for special roles the mode might have.
+ */
 /datum/game_mode/proc/pre_setup()
+	return TRUE
 
-	return 1
-
-
-///post_setup()
-///Everyone should now be on the station and have their normal gear.  This is the place to give the special roles extra things
+/**
+ * Everyone should now be on the station and have their normal gear. This is the place to give the special roles extra things.
+ */
 /datum/game_mode/proc/post_setup()
 
-	spawn (ROUNDSTART_LOGOUT_REPORT_TIME)
+	spawn(ROUNDSTART_LOGOUT_REPORT_TIME)
 		display_roundstart_logout_report()
 
-	if(SSticker && SSticker.mode && SSdbcore.IsConnected())
-		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE [format_table_name("round")] SET game_mode=:gm WHERE id=:rid", list(
-			"gm" = SSticker.mode,
-			"rid" = GLOB.round_id
-		))
-		if(query_round_game_mode.warn_execute())
-			qdel(query_round_game_mode)
+	INVOKE_ASYNC(src, PROC_REF(set_mode_in_db)) // Async query, dont bother slowing roundstart
 
+	SScargo_quests.roll_start_quests()
 	generate_station_goals()
 	GLOB.start_state = new /datum/station_state()
 	GLOB.start_state.count()
-	return 1
+	return TRUE
 
-///process()
-///Called by the gameticker
-/datum/game_mode/process()
-	return 0
+/datum/game_mode/proc/set_mode_in_db()	// I wonder what this could do guessing by the name
+	if(SSticker?.mode && SSdbcore.IsConnected())
+		var/datum/db_query/query_round_game_mode = SSdbcore.NewQuery("UPDATE round SET game_mode=:gm WHERE id=:rid", list(
+			"gm" = SSticker.mode.name,
+			"rid" = GLOB.round_id
+		))
+		// We dont do anything with output. Dont bother wrapping with if()
+		query_round_game_mode.warn_execute()
+		qdel(query_round_game_mode)
 
-//Called by the gameticker
+/**
+ * Called by the gameticker.
+ */
+/datum/game_mode/process(wait)
+	return PROCESS_KILL
+
+/**
+ * Called by the gameticker.
+ */
 /datum/game_mode/proc/process_job_tasks()
-	var/obj/machinery/message_server/useMS = null
+	var/obj/machinery/message_server/message_server = null
 	if(GLOB.message_servers)
-		for(var/obj/machinery/message_server/MS in GLOB.message_servers)
-			if(MS.active)
-				useMS = MS
+		for(var/obj/machinery/message_server/check in GLOB.message_servers)
+			if(check.active)
+				message_server = check
 				break
-	for(var/mob/M in GLOB.player_list)
-		if(M.mind)
-			var/obj/item/pda/P=null
-			for(var/obj/item/pda/check_pda in GLOB.PDAs)
-				if(check_pda.owner==M.name)
-					P=check_pda
+
+	for(var/mob/player in GLOB.player_list)
+
+		if(player.mind)
+			var/obj/item/pda/pda_owned = null
+			for(var/obj/item/pda/check in GLOB.PDAs)
+				if(check.owner == player.name)
+					pda_owned = check
 					break
-			var/count=0
-			for(var/datum/job_objective/objective in M.mind.job_objectives)
+
+			var/count = 0
+			for(var/datum/job_objective/objective in player.mind.job_objectives)
 				count++
-				var/msg=""
-				var/pay=0
-				if(objective.per_unit && objective.units_compensated<objective.units_completed)
+				var/msg = ""
+				var/pay = 0
+
+				if(objective.per_unit && objective.units_compensated < objective.units_completed)
 					var/newunits = objective.units_completed - objective.units_compensated
-					msg="We see that you completed [newunits] new unit[newunits>1?"s":""] for Task #[count]! "
+					msg="We see that you completed [newunits] new unit[newunits > 1 ? "s" : ""] for Task #[count]! "
 					pay=objective.completion_payment * newunits
 					objective.units_compensated += newunits
 					objective.is_completed() // So we don't get many messages regarding completion
+
 				else if(!objective.completed)
 					if(objective.is_completed())
-						pay=objective.completion_payment
-						msg="Task #[count] completed! "
-				if(pay>0)
-					if(M.mind.initial_account)
-						M.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
+						pay = objective.completion_payment
+						msg = "Task #[count] completed! "
+
+				if(pay > 0)
+					if(player.mind.initial_account)
+						player.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
 						msg += "You have been sent the $[pay], as agreed."
+
 					else
 						msg += "However, we were unable to send you the $[pay] you're entitled."
-					if(useMS && P)
-						useMS.send_pda_message("[P.owner]", "[command_name()] Payroll", msg)
 
-						var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
-						PM.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
+					if(message_server && pda_owned)
+						message_server.send_pda_message("[pda_owned.owner]", "[command_name()] Payroll", msg)
+
+						var/datum/data/pda/app/messenger/messenger = pda_owned.find_program(/datum/data/pda/app/messenger)
+						messenger.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
 					break
 
-/datum/game_mode/proc/check_finished() //to be called by ticker
-	if((SSshuttle.emergency && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
-		return 1
-	return 0
+/**
+ * Check to be called by ticker
+ */
+/datum/game_mode/proc/check_finished()
+	if((SSshuttle.emergency && SSshuttle.emergency.mode == SHUTTLE_ENDGAME) || station_was_nuked)
+		return TRUE
 
-/datum/game_mode/proc/cleanup()	//This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
+	return FALSE
+
+/**
+ * This is called when the round has ended but not the game, if any cleanup would be necessary in that case.
+ */
+/datum/game_mode/proc/cleanup()
 	return
 
 /datum/game_mode/proc/declare_completion()
@@ -159,35 +349,43 @@
 
 	var/list/area/escape_locations = list(/area/shuttle/escape, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
 
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME) //shuttle didn't get to centcom
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME) //shuttle didn't get to centcom
 		escape_locations -= /area/shuttle/escape
 
-	for(var/mob/M in GLOB.player_list)
-		if(M.client)
+	for(var/mob/player in GLOB.player_list)
+		if(player.client)
 			clients++
-			if(ishuman(M))
-				if(!M.stat)
+
+			var/area/player_area = get_area(player)
+
+			if(ishuman(player))
+				if(!player.stat)
 					surviving_humans++
-					if(M.loc && M.loc.loc && (M.loc.loc.type in escape_locations))
+					if(player_area?.type in escape_locations)
 						escaped_humans++
-			if(!M.stat)
+
+			if(!player.stat)
 				surviving_total++
-				if(M.loc && M.loc.loc && (M.loc.loc.type in escape_locations))
+
+				if(player_area?.type in escape_locations)
 					escaped_total++
 
-				if(M.loc && M.loc.loc && M.loc.loc.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
+				if(player_area?.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode == SHUTTLE_ENDGAME)
 					escaped_on_shuttle++
 
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod1/centcom)
+				if(player_area?.type == /area/shuttle/escape_pod1/centcom)
 					escaped_on_pod_1++
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod2/centcom)
+
+				if(player_area?.type == /area/shuttle/escape_pod2/centcom)
 					escaped_on_pod_2++
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod3/centcom)
+
+				if(player_area?.type == /area/shuttle/escape_pod3/centcom)
 					escaped_on_pod_3++
-				if(M.loc && M.loc.loc && M.loc.loc.type == /area/shuttle/escape_pod5/centcom)
+
+				if(player_area?.type == /area/shuttle/escape_pod5/centcom)
 					escaped_on_pod_5++
 
-			if(isobserver(M))
+			if(isobserver(player))
 				ghosts++
 
 	if(clients)
@@ -213,197 +411,296 @@
 	if(escaped_on_pod_5)
 		SSblackbox.record_feedback("nested tally", "round_end_stats", escaped_on_pod_5, list("escapees", "on_pod_5"))
 
-	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts.")
-	return 0
+	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_PRIMARY, "A round of [name] has ended - [surviving_total] survivors, [ghosts] ghosts. Round ID - [GLOB.round_id]. Duration - [ROUND_TIME_TEXT()]")
 
+	if(!SSredis.connected)
+		return FALSE
 
-/datum/game_mode/proc/check_win() //universal trigger to be called at mob death, nuke explosion, etc. To be called from everywhere.
-	return 0
+	if(CONFIG_GET(flag/enable_instance_announce))
+		// Send our presence to required channels
+		var/list/presence_data = list()
+		presence_data["author"] = "system"
+		presence_data["source"] = CONFIG_GET(string/instance_id)
+		presence_data["message"] = "Round [GLOB.round_id] ended at `[SQLtime()]`"
 
-/datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
+		var/presence_text = json_encode(presence_data)
+
+		for(var/channel in list("byond.asay", "byond.msay")) // Channels to announce to
+			SSredis.publish(channel, presence_text)
+
+	// Report detailed presence info to system
+	var/list/presence_data_2 = list()
+	presence_data_2["source"] = CONFIG_GET(string/instance_id)
+	presence_data_2["round_id"] = GLOB.round_id
+	presence_data_2["event"] = "round_end"
+	SSredis.publish("byond.system", json_encode(presence_data_2))
+
+	return FALSE
+
+/**
+ * Returns a list of player minds who had the antagonist role set to yes, regardless of recomended_enemies.
+ * Jobbans and restricted jobs are checked. Species lock and prefered species are checked. List is already shuffled.
+ */
+/datum/game_mode/proc/get_players_for_role(role, list/prefered_species, req_job_rank)
 	var/list/players = list()
 	var/list/candidates = list()
-	//var/list/drafted = list()
-	//var/datum/mind/applicant = null
 
-	var/roletext = get_roletext(role)
-
-	// Assemble a list of active players without jobbans.
+	// Assemble a list of active players without jobbans and role enabled
 	for(var/mob/new_player/player in GLOB.player_list)
-		if(player.client && player.ready && player.has_valid_preferences())
-			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
-				if(player_old_enough_antag(player.client,role))
-					players += player
+		if(!player.client || !player.ready || !player.has_valid_preferences() \
+			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
+			|| !(role in player.client.prefs.be_special))
+			continue
+
+		players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
 
 	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
 	for(var/mob/new_player/player in players)
-		if(!player.client.skip_antag)
-			if((role in player.client.prefs.be_special) && !(player.client.prefs.species in protected_species))
-				player_draft_log += "[player.key] had [roletext] enabled, so we are drafting them."
-				candidates += player.mind
-				if(length(prefered_species) && (player.client.prefs.species in prefered_species))
-					for (var/i in 1 to prefered_species_mod)	//prefered mod
-						candidates += player.mind
-				players -= player
-
-	// If we don't have enough antags, draft people who voted for the round.
-	if(candidates.len < recommended_enemies)
-		for(var/key in SSvote.round_voters)
-			for(var/mob/new_player/player in players)
-				if(player.ckey == key)
-					player_draft_log += "[player.key] voted for this round, so we are drafting them."
+		if(length(protected_species) && (player.client.prefs.species in protected_species))
+			continue
+		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
+		candidates += player.mind
+		if(length(prefered_species))
+			var/prefered_species_mod = prefered_species[player.client.prefs.species]
+			if(isnum(prefered_species_mod))
+				for(var/i in 1 to prefered_species_mod)	//prefered mod
 					candidates += player.mind
-					players -= player
-					break
 
-	// Remove candidates who want to be antagonist but have a job that precludes it
-	if(restricted_jobs)
-		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					candidates -= player
+	return candidates
 
+/**
+ * Works like get_players_for_role, but for alive mobs.
+ */
+/datum/game_mode/proc/get_alive_players_for_role(role, list/preferred_species, req_job_rank)
+	var/list/players = list()
+	var/list/candidates = list()
 
-	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
-							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
-							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
+	// Assemble a list of active players without jobbans and role enabled
+	for(var/mob/living/carbon/human/player in GLOB.alive_mob_list)
+		if(req_job_rank && player.job != req_job_rank)
+			continue
 
+		if(!player.client \
+			|| jobban_isbanned(player, ROLE_SYNDICATE) || jobban_isbanned(player, role) \
+			|| !player_old_enough_antag(player.client, role, req_job_rank) || player.client.prefs?.skip_antag \
+			|| !(role in player.client.prefs.be_special) || !is_player_station_relevant(player))
+			continue
 
-/datum/game_mode/proc/latespawn(var/mob)
+		players += player
 
-/*
-/datum/game_mode/proc/check_player_role_pref(var/role, var/mob/player)
-	if(player.preferences.be_special & role)
-		return 1
-	return 0
-*/
+	// Shuffle the players list so that it becomes ping-independent.
+	players = shuffle(players)
+
+	// Get a list of all the people who want to be the antagonist for this round, except those with incompatible species
+	for(var/mob/living/carbon/human/player in players)
+		if(length(protected_species) && (player.client.prefs.species in protected_species))
+			continue
+		if(length(restricted_jobs) && (player.mind.assigned_role in restricted_jobs))
+			continue
+		if(length(forbidden_antag_jobs) && (player.mind.assigned_role in forbidden_antag_jobs[role]))
+			continue
+
+		player_draft_log += "[player.key] had [role] enabled, so we are drafting them."
+		candidates += player.mind
+		if(length(preferred_species))
+			var/prefered_species_mod = preferred_species[player.client.prefs.species]
+			if(isnum(prefered_species_mod))
+				for(var/i in 1 to prefered_species_mod)	//prefered mod
+					candidates += player.mind
+
+	return candidates
+
+/datum/game_mode/proc/get_alive_AIs_for_role(role)
+	. = list()
+	for(var/mob/living/silicon/ai/AI in GLOB.alive_mob_list)
+		if(!AI.client || !AI.mind \
+			|| jobban_isbanned(AI, ROLE_SYNDICATE) || jobban_isbanned(AI, role) \
+			|| !player_old_enough_antag(AI.client, role, JOB_TITLE_AI) || AI.client.prefs?.skip_antag \
+			|| !(role in AI.client.prefs.be_special) || AI.stat == DEAD || AI.control_disabled \
+			|| AI.mind.offstation_role || AI.mind.special_role)
+			continue
+		. += AI.mind
+
+/// All the checks required to find baseline human being
+/proc/is_player_station_relevant(mob/living/carbon/human/player)
+	if(QDELING(player))
+		return FALSE
+	if(!player.client)
+		return FALSE
+	if(!player.mind)
+		return FALSE
+	if(player.mind.special_role)	// already "special"
+		return FALSE
+	if(player.mind.offstation_role)	// spawned mobs
+		return FALSE
+	if(player.stat == DEAD)	// no zombies
+		return FALSE
+	var/turf/player_turf = get_turf(player)
+	if(!player_turf)	// nullspace, eh?
+		return FALSE
+	if(!is_level_reachable(player_turf.z) && !is_away_level(player_turf.z))	// taipan is not available, mkay?
+		return FALSE
+	if(is_monkeybasic(player))	// no monkas
+		return FALSE
+	if(isgolem(player))	// get out of here
+		return FALSE
+	if(is_evolvedslime(player))	// no evolved slimes please
+		return FALSE
+	return TRUE	// congratulations, you are normal!
+
+/datum/game_mode/proc/latespawn(mob/player)
+	return
 
 /datum/game_mode/proc/num_players()
 	. = 0
-	for(var/mob/new_player/P in GLOB.player_list)
-		if(P.client && P.ready)
+	for(var/mob/new_player/player in GLOB.player_list)
+		if(player.client && player.ready)
+			.++
+
+/proc/num_station_players()
+	. = 0
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(is_player_station_relevant(player))
 			.++
 
 /datum/game_mode/proc/num_players_started()
 	. = 0
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(H.client)
+	for(var/mob/living/carbon/human/player in GLOB.player_list)
+		if(player.client)
 			.++
 
-///////////////////////////////////
-//Keeps track of all living heads//
-///////////////////////////////////
+/**
+ * Keeps track of all living heads.
+ */
 /datum/game_mode/proc/get_living_heads()
 	. = list()
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/player = thing
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
-
-////////////////////////////
-//Keeps track of all heads//
-////////////////////////////
+/**
+ * Keeps track of all heads.
+ */
 /datum/game_mode/proc/get_all_heads()
 	. = list()
+
 	for(var/mob/player in GLOB.mob_list)
-		var/list/real_command_positions = GLOB.command_positions.Copy() - "Nanotrasen Representative"
+		if(!player)
+			continue
+
+		var/list/real_command_positions = GLOB.command_positions.Copy() - JOB_TITLE_REPRESENTATIVE
 		if(player.mind && (player.mind.assigned_role in real_command_positions))
 			. |= player.mind
 
-//////////////////////////////////////////////
-//Keeps track of all living security members//
-//////////////////////////////////////////////
+/**
+ * Keeps track of all living security members.
+ */
 /datum/game_mode/proc/get_living_sec()
 	. = list()
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/player = thing
+
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+
 		if(player.stat != DEAD && player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
-////////////////////////////////////////
-//Keeps track of all  security members//
-////////////////////////////////////////
+/**
+ * Keeps track of all  security members.
+ */
 /datum/game_mode/proc/get_all_sec()
 	. = list()
-	for(var/thing in GLOB.human_list)
-		var/mob/living/carbon/human/player = thing
+
+	for(var/mob/living/carbon/human/player in GLOB.human_list)
+		if(!player)
+			continue
+
 		if(player.mind && (player.mind.assigned_role in GLOB.security_positions))
 			. |= player.mind
 
 /datum/game_mode/proc/check_antagonists_topic(href, href_list[])
-	return 0
+	return FALSE
 
 /datum/game_mode/New()
 	newscaster_announcements = pick(GLOB.newscaster_standard_feeds)
 
-//////////////////////////
-//Reports player logouts//
-//////////////////////////
+/**
+ * Reports player logouts.
+ */
 /proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
-	for(var/mob/living/L in GLOB.mob_list)
+	var/msg = "[span_notice("Roundstart logout report")]\n\n"
+	for(var/mob/living/mob_living in GLOB.mob_list)
 
-		if(L.ckey)
-			var/found = 0
-			for(var/client/C in GLOB.clients)
-				if(C.ckey == L.ckey)
-					found = 1
+		if(mob_living.ckey)
+			var/found = FALSE
+			for(var/client/mob_client in GLOB.clients)
+				if(mob_client.ckey == mob_living.ckey)
+					found = TRUE
 					break
 			if(!found)
-				msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='#ffcc00'><b>Disconnected</b></font>)\n"
+				msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (<font color='#ffcc00'><b>Disconnected</b></font>)\n"
 
-
-		if(L.ckey && L.client)
-			if(L.client.inactivity >= (ROUNDSTART_LOGOUT_REPORT_TIME / 2))	//Connected, but inactive (alt+tabbed or something)
-				msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='#ffcc00'><b>Connected, Inactive</b></font>)\n"
+		if(mob_living.ckey && mob_living.client)
+			if(mob_living.client.inactivity >= (ROUNDSTART_LOGOUT_REPORT_TIME / 2))	//Connected, but inactive (alt+tabbed or something)
+				msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (<font color='#ffcc00'><b>Connected, Inactive</b></font>)\n"
 				continue //AFK client
-			if(L.stat)
-				if(L.suiciding)	//Suicider
-					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
-					SSjobs.FreeRole(L.job)
-					message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
+
+			if(mob_living.stat)
+				if(mob_living.suiciding)	//Suicider
+					msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (<font color='red'><b>Suicide</b></font>)\n"
+					SSjobs.FreeRole(mob_living.job)
+					message_admins("<b>[key_name_admin(mob_living)]</b>, the [mob_living.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
 					continue //Disconnected client
-				if(L.stat == UNCONSCIOUS)
-					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Dying)\n"
+
+				if(mob_living.stat == UNCONSCIOUS)
+					msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (Dying)\n"
 					continue //Unconscious
-				if(L.stat == DEAD)
-					msg += "<b>[L.name]</b> ([L.ckey]), the [L.job] (Dead)\n"
+
+				if(mob_living.stat == DEAD)
+					msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (Dead)\n"
 					continue //Dead
 
 			continue //Happy connected client
-		for(var/mob/dead/observer/D in GLOB.mob_list)
-			if(D.mind && (D.mind.original == L || D.mind.current == L))
-				if(L.stat == DEAD)
-					if(L.suiciding)	//Suicider
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Suicide</b></font>)\n"
+
+		for(var/mob/dead/observer/observer in GLOB.mob_list)
+			if(observer.mind && (observer.mind.is_original_mob(mob_living) || observer.mind.current == mob_living))
+				if(mob_living.stat == DEAD)
+					if(mob_living.suiciding)	//Suicider
+						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (<font color='red'><b>Suicide</b></font>)\n"
 						continue //Disconnected client
+
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (Dead)\n"
+						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (Dead)\n"
 						continue //Dead mob, ghost abandoned
+
 				else
-					if(D.can_reenter_corpse)
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>This shouldn't appear.</b></font>)\n"
+					if(observer.can_reenter_corpse)
+						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (<font color='red'><b>This shouldn't appear.</b></font>)\n"
 						continue //Lolwhat
+
 					else
-						msg += "<b>[L.name]</b> ([ckey(D.mind.key)]), the [L.job] (<font color='red'><b>Ghosted</b></font>)\n"
-						SSjobs.FreeRole(L.job)
-						message_admins("<b>[key_name_admin(L)]</b>, the [L.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
+						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (<font color='red'><b>Ghosted</b></font>)\n"
+						SSjobs.FreeRole(mob_living.job)
+						message_admins("<b>[key_name_admin(mob_living)]</b>, the [mob_living.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
 						continue //Ghosted while alive
 
+	for(var/mob/mob in GLOB.mob_list)
 
+		if(check_rights(R_ADMIN, FALSE, mob))
+			to_chat(mob, msg)
 
-	for(var/mob/M in GLOB.mob_list)
-		if(check_rights(R_ADMIN, 0, M))
-			to_chat(M, msg)
-
-//Announces objectives/generic antag text.
-/proc/show_generic_antag_text(var/datum/mind/player)
-	if(player.current)
+/**
+ * Announces objectives/generic antag text.
+ */
+/proc/show_generic_antag_text(datum/mind/player)
+	if(player?.current)
 		to_chat(player.current, "You are an antagonist! <font color=blue>Within the rules,</font> \
 		try to act as an opposing force to the crew. Further RP and try to make sure \
 		other players have <i>fun</i>! If you are confused or at a loss, always adminhelp, \
@@ -411,113 +708,148 @@
 		Think through your actions and make the roleplay immersive! <b>Please remember all \
 		rules aside from those without explicit exceptions apply to antagonists.</b>")
 
-/proc/show_objectives(var/datum/mind/player)
-	if(!player || !player.current) return
+/proc/show_objectives(datum/mind/player)
+	if(!player?.current)
+		return
 
 	var/obj_count = 1
-	to_chat(player.current, "<span class='notice'>Your current objectives:</span>")
-	for(var/datum/objective/objective in player.objectives)
-		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+	to_chat(player.current, span_notice("Your current objectives:"))
+	for(var/datum/objective/objective in player.get_all_objectives())
+		to_chat(player.current, "<b>Objective #[obj_count]</b>: [objective.explanation_text]")
 		obj_count++
 
-/proc/get_roletext(var/role)
-	return role
-
 /proc/get_nuke_code()
-	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
-		if(bomb && bomb.r_code && is_station_level(bomb.z))
-			nukecode = bomb.r_code
-	return nukecode
+	return GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 
-/datum/game_mode/proc/replace_jobbanned_player(mob/living/M, role_type)
+/proc/get_nuke_status()
+	var/nuke_status = NUKE_MISSING
+	for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
+		if(is_station_level(bomb.z))
+			nuke_status = NUKE_CORE_MISSING
+			if(bomb.core)
+				nuke_status = NUKE_STATUS_INTACT
+	return nuke_status
+
+/datum/game_mode/proc/replace_jobbanned_player(mob/living/player, role_type)
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as a [role_type]?", role_type, FALSE, 10 SECONDS)
+	
+	if(QDELETED(player))
+		return
+	
 	var/mob/dead/observer/theghost = null
 	if(length(candidates))
 		theghost = pick(candidates)
-		to_chat(M, "<span class='userdanger'>Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!</span>")
-		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(M)]) to replace a jobbanned player.")
-		M.ghostize()
-		M.key = theghost.key
+		to_chat(player, span_userdanger("Your mob has been taken over by a ghost! Appeal your job ban if you want to avoid this in the future!"))
+		message_admins("[key_name_admin(theghost)] has taken control of ([key_name_admin(player)]) to replace a jobbanned player.")
+		log_game("[theghost.key] has taken control of ([player.key]) to replace a jobbanned for [role_type] player.")
+		player.ghostize()
+		player.possess_by_player(theghost.key)
 	else
-		message_admins("[M] ([M.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [M.p_their()] place.")
-		to_chat(M, "<span class='biggerdanger'>You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban.</span>")
+		log_game("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take player's place.")
+		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")
+		to_chat(player, span_biggerdanger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
 
-/proc/printplayer(datum/mind/ply, fleecheck)
+/proc/printplayer(datum/mind/player, flee_check)
 	var/jobtext = ""
-	if(ply.assigned_role)
-		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
-	if(ply.current)
-		if(ply.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+	if(player.assigned_role)
+		jobtext = " the <b>[player.assigned_role]</b>"
+
+	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
+	if(player.current)
+		if(player.current.stat == DEAD)
+			text += " [span_redtext("died")]"
 		else
-			text += " <span class='greentext'>survived</span>"
-		if(fleecheck)
-			var/turf/T = get_turf(ply.current)
-			if(!T || !is_station_level(T.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
-		if(ply.current.real_name != ply.name)
-			text += " as <b>[ply.current.real_name]</b>"
+			text += " [span_greentext("survived")]"
+
+		if(flee_check)
+			var/turf/player_turf = get_turf(player.current)
+			if(!player_turf || !is_station_level(player_turf.z))
+				text += " while [span_redtext("fleeing the station")]"
+
+		if(player.current.real_name != player.name)
+			text += " as <b>[player.current.real_name]</b>"
+
 	else
-		text += " <span class='redtext'>had [ply.p_their()] body destroyed</span>"
+		text += " [span_redtext("had [player.p_their()] body destroyed")]"
+
 	return text
 
-/proc/printeventplayer(datum/mind/ply)
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>"
-	if(ply.special_role != SPECIAL_ROLE_EVENTMISC)
-		text += " the [ply.special_role]"
+/proc/printeventplayer(datum/mind/player)
+	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>"
+	if(player.special_role != SPECIAL_ROLE_EVENTMISC)
+		text += " the [player.special_role]"
+
 	text += " and"
-	if(ply.current)
-		if(ply.current.stat == DEAD)
+
+	if(player.current)
+		if(player.current.stat == DEAD)
 			text += " <b>died</b>"
 		else
 			text += " <b>survived</b>"
+
 	else
-		text += " <b>had [ply.p_their()] body destroyed</b>"
+		text += " <b>had [player.p_their()] body destroyed</b>"
+
 	return text
 
-/proc/printobjectives(datum/mind/ply)
+/proc/printobjectives(datum/mind/player)
 	var/list/objective_parts = list()
+
 	var/count = 1
-	for(var/datum/objective/objective in ply.objectives)
+	for(var/datum/objective/objective in player.get_all_objectives())
 		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Success!")]"
 		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Fail")]"
 		count++
+
 	return objective_parts.Join("<br>")
 
 /datum/game_mode/proc/generate_station_goals()
 	var/list/possible = list()
-	for(var/T in subtypesof(/datum/station_goal))
-		var/datum/station_goal/G = T
-		if(config_tag in initial(G.gamemode_blacklist))
-			continue
-		possible += T
-	var/goal_weights = 0
-	while(possible.len && goal_weights < STATION_GOAL_BUDGET)
-		var/datum/station_goal/picked = pick_n_take(possible)
-		goal_weights += initial(picked.weight)
-		station_goals += new picked
 
-	if(station_goals.len)
+	for(var/T in subtypesof(/datum/station_goal))
+		var/datum/station_goal/goal = new T
+		if(config_tag in goal.gamemode_blacklist)
+			continue
+
+		if(!goal.can_gain())
+			continue
+
+		#ifndef GAME_TESTS
+		possible += goal
+		#endif
+
+	var/goal_weights = 0
+	while(length(possible) && goal_weights < STATION_GOAL_BUDGET)
+		var/datum/station_goal/picked_goal = pick_n_take(possible)
+		goal_weights += picked_goal.weight
+		station_goals += picked_goal
+
+	if(length(station_goals))
 		send_station_goals_message()
 
 /datum/game_mode/proc/send_station_goals_message()
-	for(var/datum/station_goal/G in station_goals)
-		var/message_text = "<div style='text-align:center;'><img src='ntlogo.png'>"
+
+	var/list/goals = list()
+	for(var/datum/station_goal/goal in station_goals)
+
+		var/message_text = "<div style='text-align:center;'><img src = ntlogo.png>"
 		message_text += "<h3>Приказания [command_name()]</h3></div><hr>"
 		message_text += "<b>Особые указания для [station_name()]</b><br><br>"
-		G.on_report()
-		message_text += G.get_report()
-		message_text += "<hr>"
-		print_command_report(message_text, "Приказания [command_name()]", FALSE, G)
+		goal.on_report()
+		message_text += goal.get_report()
+		print_command_report(message_text, "Приказания [command_name()]", FALSE, goal)
+		goals += goal.name
+
+	log_game("Station goals at round start were: [english_list(goals)].")
 
 /datum/game_mode/proc/declare_station_goal_completion()
-	for(var/V in station_goals)
-		var/datum/station_goal/G = V
-		G.print_result()
+	for(var/datum/station_goal/goal in station_goals)
+		if(!goal)
+			continue
+
+		goal.print_result()
 
 /datum/game_mode/proc/update_eventmisc_icons_added(datum/mind/mob_mind)
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
@@ -528,3 +860,110 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+/// Gets the value of all end of round stats through auto_declare and returns them
+/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
+	. = list()
+	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_vampire()
+	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_wizard()
+	. += auto_declare_completion_revolution()
+	. += auto_declare_completion_abduction()
+	. += auto_declare_completion_morph()
+	. += auto_declare_completion_revenant()
+	. += auto_declare_completion_honksquad()
+	. += auto_declare_completion_deathsquad()
+	. += auto_declare_completion_sst()
+	. += auto_declare_completion_sit()
+	. += auto_declare_completion_blob()
+	. += auto_declare_completion_heist()
+	. += auto_declare_completion_ninja()
+	. += auto_declare_completion_thief()
+	. += auto_declare_completion_goon_vampire()
+	. += auto_declare_completion_goon_enthralled()
+	. += auto_declare_completion_devil()
+	. += auto_declare_completion_sintouched()
+	list_clear_nulls(.)
+
+/datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
+	if(istype(god, /obj/singularity/god/narsie))
+		return SSticker.cultdat.apocalypse_cinema
+
+	if(istype(god, /obj/singularity/god/ratvar))
+		return /datum/cinematic/cult_arm_ratvar
+
+	return FALSE
+
+/datum/game_mode/proc/apocalypse(god_name)
+	GLOB.major_announcement.announce(
+		message = "Обнаружена вторжение внепространственного бога по имени [god_name]. Помощь и инструкции по противодействию будут направлены в ближайшее время. Всему лояльному экипажу — не допустить распространения угрозы.",
+		new_title = ANNOUNCE_CCPARANORMAL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
+	)
+	sleep(50 SECONDS)
+	SSsecurity_level.set_level(SEC_LEVEL_DELTA)
+	GLOB.major_announcement.announce(
+		message = "Помощь в пути. Всему лояльному экипажу следует закрепиться на текущих позициях и ожидать прибытия подкрепления.",
+		new_title = ANNOUNCE_CCPARANORMAL_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
+	)
+	sleep(30 SECONDS)
+
+	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
+
+	if(!god)
+		GLOB.minor_announcement.announce(
+			message = "Сенсоры более не фиксируют признаков угрозы. Санкционирована экстренная эвакуация.",
+			new_title = ANNOUNCE_CCPARANORMAL_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
+		)
+		SSshuttle.emergency.request(null, 0.3)
+		SSshuttle.emergency.canRecall = FALSE
+		return
+
+	var/datum/cinematic/cinema = apocalypse_cinema(god, FALSE)
+
+	if(!cinema)
+		var/obj/machinery/nuclearbomb/bomb
+		for(var/obj/machinery/nuclearbomb/bomb_to_find in GLOB.poi_list)
+			if(is_station_level(bomb_to_find.z) && bomb_to_find.core)
+				bomb = bomb_to_find
+				break
+
+		if(bomb)
+			bomb.safety = FALSE
+			bomb.explode()
+			qdel(god)
+			return
+
+		cinema = apocalypse_cinema(god, TRUE)
+
+	play_cinematic(cinema, world)
+	sleep(15 SECONDS)
+	SSticker.force_ending = TRUE
+	return
+
+/datum/game_mode/proc/special_directive(custom_text = null, custom_name = null)
+	var/intercepttext = custom_text ? custom_text : ""
+	var/interceptname = custom_name ? custom_name : ""
+	if(!custom_name)
+		interceptname = "Директива 7-10"
+	if(!custom_text)
+		intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Особая директива.<hr>")
+		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
+		intercepttext += "Приказы для всего персонала [station_name()] следующие:<br>"
+		intercepttext += " 1. Не покидать карантинную зону.<br>"
+		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<br>"
+		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<br>"
+		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<br>"
+		intercepttext += "<br>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<br>"
+		intercepttext += "Конец сообщения."
+	print_command_report(intercepttext, interceptname, FALSE)
+
+/datum/game_mode/proc/late_join(mob/new_player/player)
+	return FALSE
+
+#undef ROUNDSTART_LOGOUT_REPORT_TIME
+#undef STATION_GOAL_BUDGET

@@ -11,18 +11,21 @@
 				CAT_DECORATIONS,
 				CAT_CLOTHING)
 	var/list/subcategories = list(
-						list(	//Weapon subcategories
+						list(//Weapon subcategories
 							CAT_WEAPON,
 							CAT_AMMO),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
-						CAT_NONE, //Tribal subcategories
-						list(	//Food subcategories
+						list(//Tribal subcategories
+							CAT_ARMOR,
+							CAT_WEAPONS,
+							CAT_MISC2),
+						list(//Food subcategories
 							CAT_CAKE,
 							CAT_SUSHI,
 							CAT_SANDWICH,
 							CAT_MISCFOOD),
-						list(	//Decoration subcategories
+						list(//Decoration subcategories
 							CAT_DECORATION,
 							CAT_HOLIDAY,
 							CAT_LARGE_DECORATIONS),
@@ -39,16 +42,16 @@
 	requirements_deletion - takes recipe and a user, loops over the recipes reqs var and tries to find everything in the list make by get_environment and delete it/add to parts list, then returns the said list
 */
 
-/datum/personal_crafting/proc/check_contents(datum/crafting_recipe/R, list/contents)
+/proc/check_contents(list/reqs, list/chem_catalysts, list/blacklist, list/contents)
 	contents = contents["other"]
 	main_loop:
-		for(var/A in R.reqs)
-			var/needed_amount = R.reqs[A]
+		for(var/A in reqs)
+			var/needed_amount = reqs[A]
 			for(var/B in contents)
 				if(ispath(B, A))
-					if (R.blacklist.Find(B))
+					if(blacklist.Find(B))
 						continue
-					if(contents[B] >= R.reqs[A])
+					if(contents[B] >= reqs[A])
 						continue main_loop
 					else
 						needed_amount -= contents[B]
@@ -57,12 +60,12 @@
 						else
 							continue
 			return 0
-	for(var/A in R.chem_catalysts)
-		if(contents[A] < R.chem_catalysts[A])
+	for(var/A in chem_catalysts)
+		if(contents[A] < chem_catalysts[A])
 			return 0
 	return 1
 
-/datum/personal_crafting/proc/get_environment(mob/user)
+/proc/get_environment(mob/user)
 	. = list()
 	. += user.r_hand
 	. += user.l_hand
@@ -74,21 +77,20 @@
 		if(T.Adjacent(user))
 			for(var/B in T)
 				var/atom/movable/AM = B
-				if(AM.flags_2 & HOLOGRAM_2)
+				if(AM.flags & HOLOGRAM)
 					continue
 				. += AM
-	for(var/slot in list(slot_r_store, slot_l_store))
+	for(var/slot in list(ITEM_SLOT_POCKET_RIGHT, ITEM_SLOT_POCKET_LEFT))
 		. += user.get_item_by_slot(slot)
 
-
-/datum/personal_crafting/proc/get_surroundings(mob/user)
+/proc/get_surroundings(mob/user)
 	. = list()
 	.["other"] = list() //paths go in here
 	.["toolsother"] = list() // items go in here
 	for(var/obj/item/I in get_environment(user))
-		if(I.flags_2 & HOLOGRAM_2)
+		if(I.flags & HOLOGRAM)
 			continue
-		if(istype(I, /obj/item/stack))
+		if(isstack(I))
 			var/obj/item/stack/S = I
 			.["other"][I.type] += S.amount
 		else
@@ -100,13 +102,13 @@
 			.["other"][I.type] += 1
 		.["toolsother"][I] += 1
 
-/datum/personal_crafting/proc/check_tools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.tools.len) //does not run if no tools are needed
+/proc/check_tools(mob/user, list/tools, list/contents)
+	if(!length(tools)) //does not run if no tools are needed
 		return TRUE
 	var/list/possible_tools = list()
 	var/list/tools_used = list()
 	for(var/obj/item/I in user.contents) //searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				if(SI.tool_behaviour) //filters for tool behaviours
 					possible_tools += SI
@@ -115,7 +117,7 @@
 
 	possible_tools |= contents["toolsother"] // this add contents to possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
-		for(var/A in R.tools)
+		for(var/A in tools)
 			for(var/obj/item/I in possible_tools)
 				if(A == I.tool_behaviour)
 					tools_used += I
@@ -126,19 +128,19 @@
 			return FALSE
 	return TRUE
 
-/datum/personal_crafting/proc/check_pathtools(mob/user, datum/crafting_recipe/R, list/contents)
-	if(!R.pathtools.len) //does not run if no tools are needed
+/proc/check_pathtools(mob/user, list/pathtools, list/contents)
+	if(!length(pathtools)) //does not run if no tools are needed
 		return TRUE
 	var/list/other_possible_tools = list()
 	for(var/obj/item/I in user.contents) // searchs the inventory of the mob
-		if(istype(I, /obj/item/storage))
+		if(isstorage(I))
 			for(var/obj/item/SI in I.contents)
 				other_possible_tools += SI.type	// filters type paths
 		other_possible_tools += I.type
 
 	other_possible_tools |= contents["other"] // this adds contents to the other_possible_tools
 	main_loop: // checks if all tools found are usable with the recipe
-		for(var/A in R.pathtools)
+		for(var/A in pathtools)
 			for(var/I in other_possible_tools)
 				if(ispath(I,A))
 					continue main_loop
@@ -148,59 +150,71 @@
 /datum/personal_crafting/proc/construct_item(mob/user, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(user)
 	var/send_feedback = 1
-	if(!check_contents(R, contents))
+	if(!check_contents(R.reqs, R.chem_catalysts, R.blacklist, contents))
 		return ", missing component."
-	if(!check_tools(user, R, contents))
+	if(!check_tools(user, R.tools, contents))
 		return ", missing tool."
-	if(!check_pathtools(user, R, contents))
+	if(!check_pathtools(user, R.pathtools, contents))
 		return ", missing tool."
 
-	if(!do_after(user, R.time, target = user))
+	if(!do_after(user, R.time, user))
 		return "."
 	contents = get_surroundings(user)
 
-	if(!check_contents(R, contents))
+	if(!check_contents(R.reqs, R.chem_catalysts, R.blacklist, contents))
 		return ", missing component."
-	if(!check_tools(user, R, contents))
+	if(!check_tools(user, R.tools, contents))
 		return ", missing tool."
-	if(!check_pathtools(user, R, contents))
+	if(!check_pathtools(user, R.pathtools, contents))
 		return ", missing tool."
 
-	var/list/parts = requirements_deletion(R, user)
+	var/list/parts = requirements_deletion(R.reqs, R.blacklist, R.parts, user)
 	if(!parts)
 		return ", missing component."
 
-	var/atom/movable/I = new R.result (get_turf(user.loc))
-	user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
-	I.CheckParts(parts, R)
-	if(isitem(I))
-		user.put_in_hands(I)
+	var/result_list = R.result
+	if(!islist(result_list))
+		result_list = list(result_list)
+	for(var/result in result_list)
+		var/atom/movable/I = new result(get_turf(user.loc))
+		I.add_fingerprint(user)
+		user.investigate_log("[key_name_log(user)] crafted [I]", INVESTIGATE_CRAFTING)
+		I.CheckParts(parts, R)
+		if(isitem(I))
+			user.put_in_hands(I)
 
-	if(send_feedback)
-		SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
+		if(send_feedback)
+			SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 	return 0
 
-/datum/personal_crafting/proc/requirements_deletion(datum/crafting_recipe/recipe, mob/user)
+/proc/requirements_deletion(list/reqs, list/blacklist, list/parts, mob/user)
 	var/list/surroundings = get_environment(user)
 	var/list/parts_used = list()
 	var/list/reagent_containers_for_deletion = list()
 	var/list/item_stacks_for_deletion = list()
+	for(var/atom/movable/thing in surroundings)
+		if(thing.type in blacklist)
+			surroundings -= thing
 
-	for(var/thing in recipe.reqs)
-		var/needed_amount = recipe.reqs[thing]
+	for(var/thing in reqs)
+		var/needed_amount = reqs[thing]
 		if(ispath(thing, /datum/reagent))
 			var/datum/reagent/part_reagent = locate(thing) in parts_used
 			if(!part_reagent)
 				part_reagent = new thing()
 				parts_used += part_reagent
 
-			for(var/obj/item/reagent_containers/container in (surroundings - reagent_containers_for_deletion))
+			for(var/obj/item/reagent_containers/container in surroundings)
 				var/datum/reagent/contained_reagent = container.reagents.get_reagent(thing)
 				if(!contained_reagent)
 					continue
 
 				var/extracted_amount = min(contained_reagent.volume, needed_amount)
-				reagent_containers_for_deletion[container] = list(contained_reagent, extracted_amount)
+				if(reagent_containers_for_deletion[container] == null)
+					reagent_containers_for_deletion[container] = list()
+
+				reagent_containers_for_deletion[container][contained_reagent] = extracted_amount
+
 				part_reagent.volume += extracted_amount
 				part_reagent.data += contained_reagent.data
 				needed_amount -= extracted_amount
@@ -208,7 +222,7 @@
 					break
 
 			if(needed_amount > 0)
-				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				stack_trace("While crafting requirements_deletion, some of [thing] went missing (still need [needed_amount])!")
 				continue // ignore the error, and continue crafting for player's benefit
 
 		else if(ispath(thing, /obj/item/stack))
@@ -230,37 +244,37 @@
 					break
 
 			if(needed_amount > 0)
-				stack_trace("While crafting [recipe], some of [thing] went missing (still need [needed_amount])!")
+				stack_trace("While crafting requirements_deletion, some of [thing] went missing (still need [needed_amount])!")
 				continue
 
 		else
 			for(var/i in 1 to needed_amount)
 				var/atom/movable/part_atom = locate(thing) in (surroundings - parts_used)
 				if(!part_atom)
-					stack_trace("While crafting [recipe], the [thing] went missing!")
+					stack_trace("While crafting requirements_deletion, the [thing] went missing!")
 					continue
 				parts_used += part_atom
 
 	for(var/obj/item/reagent_containers/container_to_clear as anything in reagent_containers_for_deletion)
-		var/datum/reagent/reagent_to_delete = reagent_containers_for_deletion[container_to_clear][1]
-		var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][2]
+		for(var/datum/reagent/reagent_to_delete as anything in reagent_containers_for_deletion[container_to_clear])
+			var/amount_to_delete = reagent_containers_for_deletion[container_to_clear][reagent_to_delete]
 
-		if(amount_to_delete < reagent_to_delete.volume)
-			reagent_to_delete.volume -= amount_to_delete
-		else
-			container_to_clear.reagents.reagent_list -= reagent_to_delete
-		container_to_clear.reagents.conditional_update(container_to_clear)
-		container_to_clear.update_icon()
+			if(amount_to_delete < reagent_to_delete.volume)
+				reagent_to_delete.volume -= amount_to_delete
+			else
+				container_to_clear.reagents.reagent_list -= reagent_to_delete
+			container_to_clear.reagents.conditional_update(container_to_clear)
+			container_to_clear.update_icon()
 
 	for(var/obj/item/stack/stack_to_delete as anything in item_stacks_for_deletion)
 		var/amount_to_delete = item_stacks_for_deletion[stack_to_delete]
 		stack_to_delete.use(amount_to_delete)
 
-	// Sort out the used parts into the ones we need to return (denoted by recipe.parts),
-	// and the ones we need to delete (the rest of recipe.reqs)
+	// Sort out the used parts into the ones we need to return (denoted by parts),
+	// and the ones we need to delete (the rest of reqs)
 	var/parts_returned = list()
-	for(var/part_path in recipe.parts)
-		for(var/i in 1 to recipe.parts[part_path])
+	for(var/part_path in parts)
+		for(var/i in 1 to parts[part_path])
 			var/part = locate(part_path) in parts_used
 			if(!part)
 				stack_trace("Part [part_path] went missing")
@@ -270,11 +284,13 @@
 
 	return parts_returned
 
+/datum/personal_crafting/ui_state(mob/user)
+	return GLOB.not_incapacitated_state
 
-/datum/personal_crafting/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.not_incapacitated_turf_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/personal_crafting/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PersonalCrafting", "Crafting Menu", 700, 800, master_ui, state)
+		ui = new(user, src, "PersonalCrafting", "Crafting Menu")
 		ui.open()
 
 /datum/personal_crafting/proc/close(mob/user)
@@ -314,7 +330,7 @@
 
 		if((R.category != cur_category) || (R.subcategory != cur_subcategory))
 			continue
-		if(check_contents(R, surroundings))
+		if(check_contents(R.reqs, R.chem_catalysts, R.blacklist, surroundings))
 			can_craft += list(build_recipe_data(R))
 		else
 			cant_craft += list(build_recipe_data(R))
@@ -331,18 +347,18 @@
 
 	switch(action)
 		if("make")
-			var/datum/crafting_recipe/TR = locate(params["make"]) in GLOB.crafting_recipes
+			var/datum/crafting_recipe/TR = locateUID(params["make"])
 			if(!istype(TR))
 				return
 			busy = TRUE
 			SStgui.update_uis(src)
 			var/fail_msg = construct_item(usr, TR)
 			if(!fail_msg)
-				to_chat(usr, "<span class='notice'>[TR.name] constructed.</span>")
+				to_chat(usr, span_notice("[TR.name] constructed."))
 				if(TR.alert_admins_on_craft)
 					message_admins("[key_name_admin(usr)] has created a [TR.name] at [ADMIN_COORDJMP(usr)]")
 			else
-				to_chat(usr, "<span class='warning'>Construction failed[fail_msg]</span>")
+				to_chat(usr, span_warning("Construction failed[fail_msg]"))
 			busy = FALSE
 			SStgui.update_uis(src)
 
@@ -366,34 +382,33 @@
 
 //Next works nicely with modular arithmetic
 /datum/personal_crafting/proc/next_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
-	. = viewing_category % categories.len + 1
+	. = viewing_category % length(categories) + 1
 
 /datum/personal_crafting/proc/next_subcat()
 	if(islist(subcategories[viewing_category]))
 		var/list/subs = subcategories[viewing_category]
-		. = viewing_subcategory % subs.len + 1
-
+		. = viewing_subcategory % length(subs) + 1
 
 //Previous can go fuck itself
 /datum/personal_crafting/proc/prev_cat(readonly = TRUE)
-	if (!readonly)
+	if(!readonly)
 		viewing_subcategory = 1
-	if(viewing_category == categories.len)
+	if(viewing_category == length(categories))
 		. = viewing_category-1
 	else
-		. = viewing_category % categories.len - 1
+		. = viewing_category % length(categories) - 1
 	if(. <= 0)
 		. = categories.len
 
 /datum/personal_crafting/proc/prev_subcat()
 	if(islist(subcategories[viewing_category]))
 		var/list/subs = subcategories[viewing_category]
-		if(viewing_subcategory == subs.len)
+		if(viewing_subcategory == length(subs))
 			. = viewing_subcategory-1
 		else
-			. = viewing_subcategory % subs.len - 1
+			. = viewing_subcategory % length(subs) - 1
 		if(. <= 0)
 			. = subs.len
 	else
@@ -402,7 +417,7 @@
 /datum/personal_crafting/proc/build_recipe_data(datum/crafting_recipe/R)
 	var/list/data = list()
 	data["name"] = R.name
-	data["ref"] = "\ref[R]"
+	data["ref"] = R.UID()
 	var/req_text = ""
 	var/tool_text = ""
 	var/catalyst_text = ""

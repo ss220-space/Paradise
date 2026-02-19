@@ -1,18 +1,17 @@
 /*
 NOTE: IF YOU UPDATE THE REAGENT-SYSTEM, ALSO UPDATE THIS README.
 
-Structure: ///////////////////          //////////////////////////
-		   // Mob or object // -------> // Reagents var (datum) // 	    Is a reference to the datum that holds the reagents.
-		   ///////////////////          //////////////////////////
-		   			|				    			 |
-    The object that holds everything.   			 V
-		   							      reagent_list var (list)   	A List of datums, each datum is a reagent.
+Structure: ///////////////////			//////////////////////////
+			// Mob or object // -------> // Reagents var (datum) // Is a reference to the datum that holds the reagents.
+			///////////////////			//////////////////////////
+					|								|
+	The object that holds everything.				V
+										reagent_list var (list) A List of datums, each datum is a reagent.
 
-		   							      |          |          |
-		   							      V          V          V
+										|			|			|
+										V			V			V
 
-		   							         reagents (datums)	    	Reagents. I.e. Water , antitoxins or mercury.
-
+										reagents (datums) Reagents. I.e. Water , antitoxins or mercury.
 
 Random important notes:
 
@@ -114,7 +113,6 @@ About the Holder:
 				This is the atom the holder is 'in'. Useful if you need to find the location.
 				(i.e. for explosions)
 
-
 About Reagents:
 
 	Reagents are all the things you can mix and fille in bottles etc. This can be anything from
@@ -174,9 +172,6 @@ About Reagents:
 
 			A good website for color calculations: http://www.psyclops.com/tools/rgb/
 
-
-
-
 About Recipes:
 
 	Recipes are simple datums that contain a list of required reagents and a result.
@@ -217,7 +212,6 @@ About Recipes:
 		required_other
 			Basically like a reagent's data variable. You can set extra requirements for a
 			reaction with this.
-
 
 About the Tools:
 

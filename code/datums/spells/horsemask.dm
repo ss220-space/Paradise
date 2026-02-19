@@ -1,40 +1,43 @@
-/obj/effect/proc_holder/spell/targeted/click/horsemask
+/obj/effect/proc_holder/spell/horsemask
 	name = "Curse of the Horseman"
 	desc = "This spell triggers a curse on a target, causing them to wield an unremovable horse head mask. They will speak like a horse! Any masks they are wearing will be disintegrated. This spell does not require robes."
 	school = "transmutation"
-	charge_type = "recharge"
-	charge_max = 150
-	charge_counter = 0
+	base_cooldown = 15 SECONDS
+	cooldown_min = 3 SECONDS //30 deciseconds reduction per rank
 	clothes_req = FALSE
-	stat_allowed = FALSE
+	human_req = FALSE
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"
-	range = 7
-	cooldown_min = 30 //30 deciseconds reduction per rank
-	selection_type = "range"
 
-	selection_activated_message = "<span class='notice'>You start to quietly neigh an incantation. Click on or near a target to cast the spell.</span>"
-	selection_deactivated_message = "<span class='notice'>You stop neighing to yourself.</span>"
-	allowed_type = /mob/living/carbon/human
+	selection_activated_message = span_notice("You start to quietly neigh an incantation. Click on or near a target to cast the spell.")
+	selection_deactivated_message = span_notice("You stop neighing to yourself.")
 
 	action_icon_state = "barn"
 	sound = 'sound/magic/HorseHead_curse.ogg'
+	need_active_overlay = TRUE
 
-/obj/effect/proc_holder/spell/targeted/click/horsemask/cast(list/targets, mob/user = usr)
-	if(!targets.len)
-		to_chat(user, "<span class='notice'>No target found in range.</span>")
+/obj/effect/proc_holder/spell/horsemask/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.selection_type = SPELL_SELECTION_RANGE
+	return T
+
+/obj/effect/proc_holder/spell/horsemask/cast(list/targets, mob/user = usr)
+	if(!length(targets))
+		user.balloon_alert(user, "рядом нет подходящих целей!")
 		return
 
 	var/mob/living/carbon/human/target = targets[1]
 
 	var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
-	magichead.flags |= NODROP | DROPDEL	//curses!
-	magichead.flags_inv = null	//so you can still see their face
-	magichead.voicechange = 1	//NEEEEIIGHH
-	target.visible_message(	"<span class='danger'>[target]'s face  lights up in fire, and after the event a horse's head takes its place!</span>", \
-							"<span class='danger'>Your face burns up, and shortly after the fire you realise you have the face of a horse!</span>")
-	if(!target.unEquip(target.wear_mask))
+	magichead.item_flags |= DROPDEL	//curses!
+	ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
+	magichead.flags_inv &= ~HIDENAME	//so you can still see their face
+	magichead.voicechange = TRUE	//NEEEEIIGHH
+	target.visible_message(	span_danger("[target]'s face  lights up in fire, and after the event a horse's head takes its place!"), \
+							span_danger("Your face burns up, and shortly after the fire you realise you have the face of a horse!"))
+	if(!target.drop_item_ground(target.wear_mask))
 		qdel(target.wear_mask)
-	target.equip_to_slot_if_possible(magichead, slot_wear_mask, TRUE, TRUE)
+	target.equip_to_slot_or_del(magichead, ITEM_SLOT_MASK)
 
 	target.flash_eyes()
+

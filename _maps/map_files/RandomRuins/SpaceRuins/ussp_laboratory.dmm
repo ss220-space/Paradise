@@ -6,8 +6,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
@@ -54,8 +52,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -67,7 +63,7 @@
 "bT" = (
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/power/apc{
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = 27
 	},
 /obj/structure/cable{
@@ -117,8 +113,6 @@
 	pixel_y = -4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -135,8 +129,6 @@
 	welded = 1
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -216,8 +208,6 @@
 /area/ruin/ussp_xeno/storage)
 "dB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds/node,
@@ -283,10 +273,7 @@
 	},
 /area/ruin/ussp_xeno/dorms_ussp)
 "fa" = (
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = -22
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
@@ -342,8 +329,6 @@
 "fz" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -359,8 +344,6 @@
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -416,8 +399,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -441,7 +422,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -22;
+	alarm_frequency = 1200
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -480,8 +462,6 @@
 /area/ruin/ussp_xeno/medbay)
 "gW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/alien/weeds,
@@ -504,8 +484,6 @@
 	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /obj/structure/alien/weeds,
@@ -517,18 +495,13 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/blood/xeno,
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/alien/weeds,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -555,8 +528,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -637,8 +608,6 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "iT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/chair/comfy/red{
@@ -653,8 +622,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -694,8 +661,6 @@
 /mob/living/simple_animal/hostile/alien/drone,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -707,8 +672,7 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/external{
-	id_tag = "SSSP_Xeno_inner";
-	tag = null
+	id_tag = "SSSP_Xeno_inner"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -718,8 +682,6 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds,
@@ -736,8 +698,7 @@
 "jC" = (
 /obj/structure/barricade/wooden/crude,
 /obj/machinery/door/airlock/external{
-	id_tag = "SSSP_Xeno_outer";
-	tag = null
+	id_tag = "SSSP_Xeno_outer"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -817,8 +778,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -861,13 +820,9 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "lM" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -879,8 +834,6 @@
 "lO" = (
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -927,8 +880,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -988,8 +939,7 @@
 	pixel_y = 12
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
@@ -1013,7 +963,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable{
@@ -1041,8 +991,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1056,18 +1004,13 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /obj/structure/disposalpipe/junction{
-	dir = 8;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1107,8 +1050,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -1167,8 +1108,6 @@
 "qG" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds,
@@ -1207,8 +1146,6 @@
 	},
 /obj/effect/decal/cleanable/blood/drip,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1224,8 +1161,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1241,8 +1176,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds/node,
@@ -1309,8 +1242,6 @@
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1405,10 +1336,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/ussp_xeno/out)
 "uw" = (
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = -22
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -1417,8 +1345,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1437,8 +1363,6 @@
 	pixel_y = -3
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds,
@@ -1450,8 +1374,6 @@
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -1599,8 +1521,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -1662,12 +1582,9 @@
 /area/ruin/ussp_xeno/medbay)
 "wG" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -1675,8 +1592,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -1698,8 +1613,6 @@
 	pixel_y = 14
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -1728,8 +1641,6 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -1778,19 +1689,12 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "xN" = (
 /obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/light_switch{
-	pixel_x = 21;
-	pixel_y = -8
-	},
+/obj/machinery/light_switch/directional/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1853,7 +1757,8 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -1873,8 +1778,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -1908,8 +1811,6 @@
 	},
 /obj/structure/alien/weeds,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/cable{
@@ -1985,8 +1886,6 @@
 	pixel_x = 7
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2015,7 +1914,7 @@
 "Bn" = (
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable,
@@ -2028,10 +1927,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 32
 	},
-/obj/machinery/light_switch{
-	pixel_x = -11;
-	pixel_y = 23
-	},
+/obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -2047,13 +1943,10 @@
 "BB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
-	health = 0
+	dir = 8
 	},
 /obj/structure/alien/weeds,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2084,14 +1977,9 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/light_switch{
-	pixel_x = 22;
-	pixel_y = 21
-	},
+/obj/machinery/light_switch/directional/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/effect/decal/remains/human,
@@ -2111,8 +1999,6 @@
 "BZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -2149,7 +2035,8 @@
 /obj/effect/decal/warning_stripes/south,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -2180,7 +2067,7 @@
 "CX" = (
 /obj/structure/bed,
 /obj/item/bedsheet/red,
-/obj/structure/sign/poster/secret/yug0{
+/obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
 /obj/machinery/vending/wallmed{
@@ -2205,8 +2092,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2233,8 +2118,6 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -2261,7 +2144,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
 	dir = 1;
-	pixel_y = -22
+	pixel_y = -22;
+	alarm_frequency = 1200
 	},
 /obj/structure/sink{
 	dir = 1
@@ -2332,8 +2216,6 @@
 "FA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds,
@@ -2346,7 +2228,6 @@
 /obj/structure/filingcabinet/chestdrawer,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/photocopier{
-	icon_state = "fax";
 	layer = 3.5;
 	pixel_y = 8
 	},
@@ -2459,14 +2340,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2 (EAST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2545,8 +2422,6 @@
 "Hi" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /mob/living/simple_animal/hostile/alien/drone,
@@ -2581,8 +2456,6 @@
 	pixel_y = -30
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/safe/floor,
@@ -2625,15 +2498,12 @@
 	dir = 6
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2683,8 +2553,6 @@
 /area/ruin/ussp_xeno/admiral)
 "JD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds,
@@ -2709,8 +2577,6 @@
 /area/ruin/ussp_xeno/medbay)
 "Kq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -2726,10 +2592,8 @@
 /area/ruin/ussp_xeno/out)
 "KA" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/structure/alien/weeds,
 /turf/simulated/floor/plasteel{
@@ -2747,17 +2611,12 @@
 /area/ruin/ussp_xeno/entrance)
 "KM" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -2789,7 +2648,7 @@
 	},
 /area/ruin/ussp_xeno/gym_ussp)
 "KR" = (
-/mob/living/simple_animal/mouse/white,
+/obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -2797,8 +2656,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -2821,8 +2678,6 @@
 "La" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -2845,8 +2700,7 @@
 /area/ruin/ussp_xeno/out)
 "LM" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/effect/decal/warning_stripes/north,
@@ -2887,7 +2741,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable,
@@ -2926,7 +2780,8 @@
 /obj/item/clothing/head/ushanka,
 /obj/machinery/alarm{
 	dir = 4;
-	pixel_x = -22
+	pixel_x = -22;
+	alarm_frequency = 1200
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2949,7 +2804,7 @@
 /obj/item/bedsheet/rainbow,
 /obj/machinery/power/apc{
 	dir = 1;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = -26
 	},
 /obj/structure/cable,
@@ -3003,7 +2858,7 @@
 	on = 1
 	},
 /obj/structure/table/wood/poker,
-/obj/item/toy/cards/deck{
+/obj/item/deck/cards{
 	pixel_x = -5;
 	pixel_y = 7
 	},
@@ -3037,8 +2892,7 @@
 	pixel_y = 10
 	},
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
-	health = 0
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -3058,10 +2912,7 @@
 	},
 /obj/effect/decal/cleanable/cobweb2,
 /obj/structure/alien/weeds,
-/obj/machinery/light_switch{
-	pixel_x = 21;
-	pixel_y = -9
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -3072,8 +2923,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3087,8 +2936,7 @@
 	dir = 9
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
@@ -3099,8 +2947,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -3114,8 +2960,6 @@
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds,
@@ -3144,8 +2988,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
@@ -3176,8 +3018,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
@@ -3191,14 +3031,10 @@
 "OL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /mob/living/simple_animal/hostile/alien/sentinel,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -3234,10 +3070,7 @@
 /obj/structure/closet/crate{
 	name = "Базовый набор экипировки для выхода в космос"
 	},
-/obj/effect/spawner/lootdrop/maintenance{
-	lootcount = 3;
-	name = "3maintenance loot spawner"
-	},
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /obj/item/flashlight{
 	on = 1
 	},
@@ -3299,8 +3132,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -3335,10 +3166,7 @@
 	pixel_x = 3;
 	pixel_y = 5
 	},
-/obj/machinery/light_switch{
-	pixel_x = -21;
-	pixel_y = 10
-	},
+/obj/machinery/light_switch/directional/north,
 /obj/machinery/camera{
 	c_tag = "Xeno laboratory 2";
 	dir = 5;
@@ -3352,8 +3180,6 @@
 /area/ruin/ussp_xeno/medbay)
 "Qi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/alien/weeds,
@@ -3428,8 +3254,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /turf/simulated/floor/plasteel{
@@ -3519,13 +3343,9 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8"
 	},
 /obj/structure/alien/weeds,
@@ -3545,8 +3365,6 @@
 	},
 /obj/effect/decal/cleanable/blood,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/alien/weeds,
@@ -3571,8 +3389,6 @@
 "TX" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/structure/alien/weeds,
@@ -3583,7 +3399,7 @@
 /area/ruin/ussp_xeno/dorms_ussp)
 "Ua" = (
 /obj/structure/closet/cardboard,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 2
 	},
@@ -3631,7 +3447,7 @@
 /obj/effect/decal/warning_stripes/yellow,
 /obj/effect/decal/warning_stripes/south,
 /obj/machinery/power/apc{
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = 27
 	},
 /obj/structure/cable{
@@ -3644,12 +3460,9 @@
 	},
 /area/ruin/ussp_xeno/entrance)
 "UO" = (
-/obj/machinery/slot_machine,
+/obj/machinery/computer/slot_machine,
 /obj/effect/decal/cleanable/cobweb,
-/obj/machinery/light_switch{
-	pixel_x = -19;
-	pixel_y = -9
-	},
+/obj/machinery/light_switch/directional/south,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -3667,8 +3480,6 @@
 "Ve" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3681,8 +3492,6 @@
 	dir = 9
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3697,8 +3506,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -3727,7 +3534,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/power/apc{
 	dir = 8;
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_x = -27
 	},
 /obj/structure/cable{
@@ -3754,8 +3561,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3771,7 +3576,8 @@
 /obj/item/bedsheet/red,
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /obj/machinery/light{
 	dir = 1;
@@ -3792,7 +3598,8 @@
 /area/ruin/ussp_xeno/medbay)
 "Xh" = (
 /obj/machinery/alarm{
-	pixel_y = 24
+	pixel_y = 24;
+	alarm_frequency = 1200
 	},
 /obj/structure/chair/comfy/red{
 	dir = 8
@@ -3860,13 +3667,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/cobweb,
 /mob/living/simple_animal/hostile/alien/drone{
-	dir = 8;
-	health = 0
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3877,16 +3682,13 @@
 	dir = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
@@ -3912,8 +3714,6 @@
 	pixel_y = 14
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
@@ -3922,7 +3722,7 @@
 /area/ruin/ussp_xeno/gym_ussp)
 "Zg" = (
 /obj/machinery/power/apc{
-	equipment = 0;
+	equipment_channel = 0;
 	pixel_y = 27
 	},
 /obj/structure/cable{
@@ -3968,13 +3768,9 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8"
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/simulated/floor/plasteel{

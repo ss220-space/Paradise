@@ -1,0 +1,130 @@
+/mob/living/simple_animal/demon
+	name = "a generic demon"
+	desc = "Если вы это видите, составьте баг-репорт в Discord."
+	speak_emote = list("клокочет", "урчит", "булькает")
+	emote_hear = list("визжит", "воет")
+	tts_seed = "Mannoroth"
+	response_help  = "решает не трогать"
+	response_disarm = "машет в сторону"
+	response_harm   = "бьёт"
+	a_intent = INTENT_HARM
+	stop_automated_movement = TRUE
+	attack_sound = 'sound/misc/demon_attack1.ogg'
+	death_sound = 'sound/misc/demon_dies.ogg'
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+	faction = list(ROLE_DEMON)
+	attacktext = "неистово терзает"
+	maxHealth = 200
+	health = 200
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
+	obj_damage = 50
+	melee_damage_lower = 30
+	melee_damage_upper = 30
+	nightvision = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	del_on_death = TRUE
+	dirslash_enabled = TRUE
+	slowed_by_pull_and_push = FALSE
+	var/vialspawned = FALSE
+	var/playstyle_string
+	var/datum/action/innate/demon/whisper/whisper_action
+
+/mob/living/simple_animal/demon/get_ru_names()
+	return list(
+		NOMINATIVE = "обычный демон",
+		GENITIVE = "обычного демона",
+		DATIVE = "обычному демону",
+		ACCUSATIVE = "обычного демона",
+		INSTRUMENTAL = "обычным демоном",
+		PREPOSITIONAL = "обычном демоне",
+	)
+
+/mob/living/simple_animal/demon/Initialize(mapload)
+	. = ..()
+	whisper_action = new()
+	whisper_action.Grant(src)
+	addtimer(CALLBACK(src, PROC_REF(attempt_objectives)), 5 SECONDS)
+	ADD_TRAIT(src, TRAIT_WET_IMMUNITY, INNATE_TRAIT)
+
+/mob/living/simple_animal/demon/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
+
+/mob/living/simple_animal/demon/Destroy()
+	if(mind)
+		SSticker.mode.demons -= mind
+	if(whisper_action)
+		whisper_action = null
+	return ..()
+
+/datum/action/innate/demon/whisper
+	name = "Демонический шёпот"
+	button_icon_state = "cult_comms"
+	background_icon_state = "bg_demon"
+
+/datum/action/innate/demon/whisper/proc/choose_targets(mob/user = usr)//yes i am copying from telepathy..hush...
+	var/list/validtargets = list()
+	for(var/mob/living/target in (view(user.client.view, get_turf(user)) - user))
+		if(target?.mind && target.stat != DEAD)
+			validtargets += target
+
+	if(!length(validtargets))
+		user.balloon_alert(usr, "нет подходящих целей!")
+		return
+
+	var/mob/living/target = tgui_input_list(user, "Выберите цель для разговора", "Выбор цели", validtargets)
+	return target
+
+/datum/action/innate/demon/whisper/Activate()
+	var/mob/living/choice = choose_targets()
+	if(!choice)
+		return
+
+	var/msg = tgui_input_text(usr, "Что вы хотите сказать [choice]?", null, "")
+	if(!msg)
+		return
+
+	add_say_logs(usr, msg, choice, "SLAUGHTER")
+	to_chat(usr, span_notice("<b>Вы шепчете [choice]: </b>[msg]"))
+	to_chat(choice, "[span_deadsay("<b>Внезапно странный демонический голос звучит у вас в голове... </b>")][span_danger("<i> [msg]</i>")]")
+	for(var/mob/dead/observer/G in GLOB.player_list)
+		G.show_message("<i>Демоническое сообщение от ([ghost_follow_link(usr, ghost = G)]) <b>[usr]</b> к ([ghost_follow_link(choice, ghost = G)]) <b>[choice]</b>: [msg]</i>")
+
+/obj/item/organ/internal/heart/demon
+	name = "demon heart"
+	desc = "Оно всё ещё яростно бьётся, излучая ауру абсолютной ненависти."
+	icon_state = "demon_heart"
+	origin_tech = "combat=5;biotech=7"
+
+/obj/item/organ/internal/heart/demon/get_ru_names()
+	return list(
+		NOMINATIVE = "демоническое сердце",
+		GENITIVE = "демонического сердца",
+		DATIVE = "демоническому сердцу",
+		ACCUSATIVE = "демоническое сердце",
+		INSTRUMENTAL = "демоническим сердцем",
+		PREPOSITIONAL = "демоническом сердце",
+	)
+
+/obj/item/organ/internal/heart/demon/update_icon_state()
+	return //always beating visually
+
+/obj/item/organ/internal/heart/demon/prepare_eat()
+	return // Just so people don't accidentally waste it
+
+/obj/item/organ/internal/heart/demon/Stop()
+	return // Always beating.
+
+/obj/item/organ/internal/heart/demon/attack_self(mob/living/user)
+	user.visible_message(
+		span_warning("[user] поднимает [declent_ru(ACCUSATIVE)] ко рту и вгрызается в него зубами!"), \
+		span_danger("Неестественный голод охватывает вас. Вы поднимаете [declent_ru(ACCUSATIVE)] ко рту и пожираете его!")
+	)
+	playsound(user, 'sound/misc/demon_consume.ogg', 50, TRUE)
+
+/mob/living/simple_animal/demon/proc/attempt_objectives()
+	return !isnull(mind)
+

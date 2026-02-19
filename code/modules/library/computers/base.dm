@@ -1,34 +1,47 @@
-#define MAX_BOOK_FLAGS	3	// maximum number of times a book can be flagged before being removed from results
+#define MAX_BOOK_FLAGS 3 // maximum number of times a book can be flagged before being removed from results
 
 /obj/machinery/computer/library
 	name = "visitor computer"
-	anchored = 1
-	density = 1
-	icon_keyboard = ""
-	icon_screen = "computer_on"
+	desc = "Старый библиотечный компьютер с ограниченным функционалом — специально для посетителей книжного храма."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "oldcomp"
+	icon_screen = "library"
+	icon_keyboard = null
 	var/screenstate = 0
 	var/page_num = 1
 	var/num_pages = 0
 	var/num_results = 0
 	var/datum/library_query/query = new()
 
-	icon = 'icons/obj/library.dmi'
-	icon_state = "computer"
+/obj/machinery/computer/library/get_ru_names()
+	return list(
+		NOMINATIVE = "гостевой компьютер",
+		GENITIVE = "гостевого компьютера",
+		DATIVE = "гостевому компьютеру",
+		ACCUSATIVE = "гостевой компьютер",
+		INSTRUMENTAL = "гостевым компьютером",
+		PREPOSITIONAL = "гостевом компьютере",
+	)
 
-/obj/machinery/computer/library/proc/interact_check(var/mob/user)
+/obj/machinery/computer/library/attack_animal(mob/living/simple_animal/M)
+	if(istype(M, /mob/living/simple_animal/pet/library_owl))
+		interact(M)
+	. = ..()
+
+/obj/machinery/computer/library/proc/interact_check(mob/user)
 	if(stat & (BROKEN | NOPOWER))
 		return 1
 
 	if(!Adjacent(user))
 		if(!issilicon(user) && !isobserver(user))
 			user.unset_machine()
-			user << browse(null, "window=library")
+			close_window(user, "library")
 			return 1
 
 	user.set_machine(src)
 	return 0
 
-/obj/machinery/computer/library/proc/get_page(var/page_num)
+/obj/machinery/computer/library/proc/get_page(page_num)
 	var/searchquery = ""
 	var/where = 0
 	var/list/sql_params = list()
@@ -47,7 +60,7 @@
 			if(query.category == "Fiction")
 				searchquery += " AND category NOT LIKE '%Non-Fiction%'"
 			where = 1
-	
+
 	// This one doesnt take player input directly, so it doesnt require params
 	searchquery += " [!where ? "WHERE" : "AND"] flagged < [MAX_BOOK_FLAGS]"
 	// This does though
@@ -57,7 +70,7 @@
 
 	// Pagination
 	var/datum/db_query/select_query = SSdbcore.NewQuery(sql, sql_params)
-	
+
 	if(!select_query.warn_execute())
 		qdel(select_query)
 		return
@@ -97,14 +110,16 @@
 	var/start = max(1, page_num - 3)
 	var/end = min(num_pages, page_num + 3)
 	for(var/i = start to end)
-		var/dat = "<a href='?src=[UID()];page=[i]'>[i]</a>"
+		var/dat = "<a href='byond://?src=[UID()];page=[i]'>[i]</a>"
 		if(i == page_num)
-			dat = "<font size=3><b>[dat]</b></font>"
+			dat = (span_bold(span_fontsize3("[dat]")))
 		if(i != end)
 			dat += " "
 		pagelist += dat
 	pagelist += "</div>"
 	return pagelist
 
-/obj/machinery/computer/library/proc/getBookByID(var/id as text)
+/obj/machinery/computer/library/proc/getBookByID(id)
 	return GLOB.library_catalog.getBookByID(id)
+
+#undef MAX_BOOK_FLAGS

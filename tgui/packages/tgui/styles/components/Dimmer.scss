@@ -1,3 +1,9 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+$background-dimness: 0.75 !default;
+
 .Dimmer {
   // Align everything in the middle.
   // A fat middle finger for anything less than IE11.
@@ -11,6 +17,7 @@
   left: 0;
   right: 0;
   // Dim everything around it
-  background-color: rgba(0, 0, 0, 0.75);
-  z-index: 1;
+  background-color: rgba(0, 0, 0, $background-dimness);
+  // Should be enough to cover everything except tooltips
+  z-index: 100;
 }

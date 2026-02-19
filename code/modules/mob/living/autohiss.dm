@@ -7,94 +7,21 @@
 	return dna.species.handle_autohiss(message, L, client.prefs.autohiss_mode)
 
 /client/verb/toggle_autohiss()
-	set name = "Toggle Auto-Accent"
-	set desc = "Toggle automatic accents for your species"
-	set category = "OOC"
+	set name = "Авто-акцент"
+	set desc = "Переключает автоматический акцент вашей расы при общении."
+	set category = VERB_CATEGORY_OOC
 
 	prefs.autohiss_mode = (prefs.autohiss_mode + 1) % AUTOHISS_NUM
 	switch(prefs.autohiss_mode)
 		if(AUTOHISS_OFF)
-			to_chat(src, "Auto-hiss is now OFF.")
+			to_chat(src, "Авто-акцент: Выключен.")
 		if(AUTOHISS_BASIC)
-			to_chat(src, "Auto-hiss is now BASIC.")
+			to_chat(src, "Авто-акцент: Базовый.")
 		if(AUTOHISS_FULL)
-			to_chat(src, "Auto-hiss is now FULL.")
+			to_chat(src, "Авто-акцент: Полный.")
 		else
 			prefs.autohiss_mode = AUTOHISS_OFF
-			to_chat(src, "Auto-hiss is now OFF.")
-
-/datum/species
-	var/list/autohiss_basic_map = null
-	var/list/autohiss_extra_map = null
-	var/list/autohiss_exempt = null
-
-/datum/species/unathi
-	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss"),
-			"с" = list("сс", "ссс", "сссс")
-		)
-	autohiss_extra_map = list(
-			"x" = list("ks", "kss", "ksss"),
-			"ш" = list("шш", "шшш", "шшшш"),
-			"ч" = list("щ", "щщ", "щщщ")
-		)
-	autohiss_exempt = list("Sinta'unathi")
-
-/datum/species/tajaran
-	autohiss_basic_map = list(
-			"r" = list("rr", "rrr", "rrrr"),
-			"р" = list("рр", "ррр", "рррр")
-		)
-	autohiss_exempt = list("Siik'tajr")
-
-/datum/species/vulpkanin
-	autohiss_basic_map = list(
-			"r" = list("r", "rr", "rrr"),
-			"р" = list("р", "рр", "ррр")
-		)
-	autohiss_exempt = list("Canilunzt")
-
-/datum/species/vox
-	autohiss_basic_map = list(
-			"ch" = list("ch", "chch", "chich"),
-			"k" = list("k", "kk", "kik"),
-			"ч" = list("ч", "чч", "чич"),
-			"к" = list("к", "кк", "кик")
-		)
-	autohiss_exempt = list("Vox-pidgin")
-
-/datum/species/plasmaman
-	autohiss_basic_map = list(
-			"s" = list("ss", "sss", "ssss"),
-			"с" = list("сс", "ссс", "сссс")
-		)
-
-/datum/species/kidan
-	autohiss_basic_map = list(
-			"z" = list("zz", "zzz", "zzzz"),
-			"v" = list("vv", "vvv", "vvvv"),
-			"з" = list("зз", "ззз", "зззз"),
-			"в" = list("вв", "ввв", "вввв")
-		)
-	autohiss_extra_map = list(
-			"s" = list("z", "zs", "zzz", "zzsz"),
-			"с" = list("з", "зс", "ззз", "ззсз")
-		)
-	autohiss_exempt = list("Chittin")
-
-/datum/species/drask
-	autohiss_basic_map = list(
-			"o" = list ("oo", "ooo"),
-			"u" = list ("uu", "uuu"),			
-			"о" = list ("оо", "ооо"),
-			"у" = list ("уу", "ууу")			
-		)
-	autohiss_extra_map = list(
-			"m" = list ("mm", "mmm"),
-			"м" = list ("мм", "ммм")
-		)
-	autohiss_exempt = list("Orluum")
-
+			to_chat(src, "Авто-акцент: Выключен.")
 
 /datum/species/proc/handle_autohiss(message, datum/language/lang, mode)
 	if(!autohiss_basic_map)

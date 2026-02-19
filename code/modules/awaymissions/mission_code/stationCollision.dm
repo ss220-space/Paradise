@@ -18,27 +18,26 @@
 /*
  * Areas
  */
- //Gateroom gets its own APC specifically for the gate
+//Gateroom gets its own APC specifically for the gate
 /area/awaymission/gateroom
 
- //Library, medbay, storage room
+//Library, medbay, storage room
 /area/awaymission/southblock
 
- //Arrivals, security, hydroponics, shuttles (since they dont move, they dont need specific areas)
+//Arrivals, security, hydroponics, shuttles (since they dont move, they dont need specific areas)
 /area/awaymission/arrivalblock
 
- //Crew quarters, cafeteria, chapel
+//Crew quarters, cafeteria, chapel
 /area/awaymission/midblock
 
- //engineering, bridge (not really north but it doesnt really need its own APC)
+//engineering, bridge (not really north but it doesnt really need its own APC)
 /area/awaymission/northblock
 
- //That massive research room
+//That massive research room
 /area/awaymission/research
 
 //Syndicate shuttle
 /area/awaymission/syndishuttle
-
 
 /*
  * Landmarks - Instead of spawning a new object type, I'll spawn the bible using a landmark!
@@ -69,8 +68,8 @@
 //Syndicate sub-machine guns.
 /obj/item/gun/projectile/automatic/c20r/sc_c20r
 
-/obj/item/gun/projectile/automatic/c20r/sc_c20r/New()
-	..()
+/obj/item/gun/projectile/automatic/c20r/sc_c20r/Initialize(mapload)
+	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
@@ -78,8 +77,8 @@
 //Barman's shotgun
 /obj/item/gun/projectile/shotgun/sc_pump
 
-/obj/item/gun/projectile/shotgun/sc_pump/New()
-	..()
+/obj/item/gun/projectile/shotgun/sc_pump/Initialize(mapload)
+	. = ..()
 	for(var/ammo in magazine.stored_ammo)
 		if(prob(95)) //95% chance
 			magazine.stored_ammo -= ammo
@@ -88,7 +87,6 @@
 /obj/item/gun/energy/laser/practice/sc_laser
 	name = "Old laser"
 	desc = "A once potent weapon, years of dust have collected in the chamber and lens of this weapon, weakening the beam significantly."
-	clumsy_check = 0
 
 /*
  * Safe code hints
@@ -134,7 +132,7 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 			<br>
 			Our on-board spy has learned the code and has hidden away a few copies of the code around the station. Unfortunatly he has been captured by security
 			Your objective is to split up, locate any of the papers containing the captain's safe code, open the safe and
-			secure anything found inside. If possible, recover the imprisioned syndicate operative and recieve the code from him.<br>
+			secure anything found inside. If possible, recover the imprisioned syndicate operative and receive the code from him.<br>
 			<br>
 			<u>As always, eliminate anyone who gets in the way.</u><br>
 			<br>
@@ -147,10 +145,12 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /obj/item/storage/secure/safe/sc_ssafe
 	name = "Captain's secure safe"
 
-/obj/item/storage/secure/safe/sc_ssafe/New()
-	..()
+/obj/item/storage/secure/safe/sc_ssafe/Initialize(mapload)
+	. = ..()
 	l_code = "[GLOB.sc_safecode1][GLOB.sc_safecode2][GLOB.sc_safecode3][GLOB.sc_safecode4][GLOB.sc_safecode5]"
 	l_set = 1
+
+/obj/item/storage/secure/safe/sc_ssafe/populate_contents()
 	new /obj/item/gun/energy/mindflayer(src)
 	new /obj/item/soulstone(src)
 	new /obj/item/clothing/head/helmet/space/cult(src)
@@ -161,32 +161,32 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 /*
  * Modified Nar-Sie
  */
-/obj/singularity/narsie/sc_Narsie
+/obj/singularity/god/narsie/sc_Narsie
 	desc = "Your body becomes weak and your feel your mind slipping away as you try to comprehend what you know can't be possible."
 	move_self = 0 //Contianed narsie does not move!
 	grav_pull = 0 //Contained narsie does not pull stuff in!
 	var/uneatable = list(/turf/space, /obj/effect/overlay, /mob/living/simple_animal/hostile/construct)
 
 //Override this to prevent no adminlog runtimes and admin warnings about a singularity without containment
-/obj/singularity/narsie/sc_Narsie/admin_investigate_setup()
+/obj/singularity/god/narsie/sc_Narsie/admin_investigate_setup()
 	return
 
-/obj/singularity/narsie/sc_Narsie/process()
+/obj/singularity/god/narsie/sc_Narsie/process()
 	eat()
 	if(prob(25))
 		mezzer()
 
-/obj/singularity/narsie/sc_Narsie/consume(var/atom/A)
+/obj/singularity/god/narsie/sc_Narsie/consume(atom/A)
 	if(!A.simulated)
 		return FALSE
 	if(is_type_in_list(A, uneatable))
 		return FALSE
-	if(istype(A,/mob/living))
+	if(isliving(A))
 		var/mob/living/L = A
 		L.gib()
 	else if(istype(A,/obj/))
 		var/obj/O = A
-		O.ex_act(1)
+		O.ex_act(EXPLODE_DEVASTATE)
 		if(O) qdel(O)
 	else if(isturf(A))
 		var/turf/T = A
@@ -194,10 +194,10 @@ GLOBAL_VAR_INIT(sc_safecode5, "[rand(0,9)]")
 			for(var/obj/O in T.contents)
 				if(O.level != 1)
 					continue
-				if(O.invisibility == 101)
+				if(O.invisibility == INVISIBILITY_MAXIMUM || O.invisibility == INVISIBILITY_ABSTRACT)
 					src.consume(O)
 		T.ChangeTurf(T.baseturf)
 	return
 
-/obj/singularity/narsie/sc_Narsie/ex_act()
+/obj/singularity/god/narsie/sc_Narsie/ex_act()
 	return

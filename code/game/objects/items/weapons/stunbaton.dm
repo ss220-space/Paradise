@@ -1,245 +1,321 @@
-/obj/item/melee/baton
+// One and only
+/obj/item/melee/baton/security
 	name = "stunbaton"
-	desc = "A stun baton for incapacitating people with."
+	desc = "Несмертельное средство обезвреживания. Удар во включенном состоянии генерирует маломощный электрический импульс, \
+			вызывающий резкое сокращение мышц цели и последующее оглушение. Работает от сменного аккумулятора. \
+			Используется многими силовыми и охранными структурами по всей Галактике."
 	icon_state = "stunbaton"
-	var/base_icon = "stunbaton"
+	base_icon_state = "stunbaton"
 	item_state = "baton"
-	slot_flags = SLOT_BELT
+	belt_icon = "stunbaton"
 	force = 10
 	throwforce = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2"
-	attack_verb = list("beaten")
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
-	var/staminaforce = 20
-	var/stunforce = 2
-	var/status = 0
-	var/obj/item/stock_parts/cell/high/cell = null
-	var/hitcost = 500
-	var/throw_hit_chance = 50
+	attack_verb = list("огрел", "ударил")
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 50, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
+	active = FALSE
+	allows_stun_in_harm = TRUE
+	force_say_chance = 50
+	stamina_damage = 45
+	knockdown_time = 5 SECONDS
+	clumsy_knockdown_time = 15 SECONDS
+	cooldown = 2.5 SECONDS
+	on_stun_sound = 'sound/weapons/egloves.ogg'
+	on_stun_volume = 50
+	/// Time passed between a hit and knockdown effect.
+	var/knockdown_delay_time = 4 SECONDS
+	/// Chance for the baton to stun when thrown at someone.
+	var/throw_stun_chance = 50
+	/// Cell to use, can be a path, to start loaded.
+	var/obj/item/stock_parts/cell/cell
+	/// How much power does it cost to stun someone.
+	var/cell_hit_cost = 500
 
-/obj/item/melee/baton/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is putting the live [name] in [user.p_their()] mouth! It looks like [user.p_theyre()] trying to commit suicide.</span>")
-	return FIRELOSS
+/obj/item/melee/baton/security/get_ru_names()
+	return list(
+		NOMINATIVE = "оглушающая дубинка",
+		GENITIVE = "оглушающей дубинки",
+		DATIVE = "оглушающей дубинке",
+		ACCUSATIVE = "оглушающую дубинку",
+		INSTRUMENTAL = "оглушающей дубинкой",
+		PREPOSITIONAL = "оглушающей дубинке"
+	)
 
-/obj/item/melee/baton/get_cell()
-	return cell
-
-/obj/item/melee/baton/New()
-	..()
+/obj/item/melee/baton/security/Initialize(mapload)
+	. = ..()
+	link_new_cell()
 	update_icon()
-	return
 
-/obj/item/melee/baton/Destroy()
-	QDEL_NULL(cell)
+/obj/item/melee/baton/security/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/melee/baton/security)
+
+/obj/item/melee/baton/security/loaded
+	cell = /obj/item/stock_parts/cell/high
+
+/obj/item/melee/baton/security/Destroy()
+	if(cell?.loc == src)
+		QDEL_NULL(cell)
 	return ..()
 
-/obj/item/melee/baton/throw_impact(atom/hit_atom)
-	..()
-	if(status && prob(throw_hit_chance) && !issilicon(hit_atom))
-		baton_stun(hit_atom)
+/obj/item/melee/baton/security/get_cell()
+	return cell
 
-/obj/item/melee/baton/loaded/New() //this one starts with a cell pre-installed.
-	..()
-	cell = new(src)
-	update_icon()
-	return
+/**
+ * Updates the linked power cell on the baton.
+ *
+ * If the baton is held by a cyborg, link it to their internal cell.
+ * Else, spawn a new cell and use that instead.
+ * Arguments:
+ * * unlink - If TRUE, sets the `cell` variable to `null` rather than linking it to a new one.
+ */
+/obj/item/melee/baton/security/proc/link_new_cell(unlink = FALSE)
+	if(unlink)
+		cell = null
+		update_appearance(UPDATE_ICON_STATE)
+		return
+	var/mob/living/silicon/robot/robot = get(loc, /mob/living/silicon/robot)
+	if(robot)
+		cell = robot.cell
+	else if(ispath(cell))
+		cell = new cell(src)
+	update_appearance(UPDATE_ICON_STATE)
 
-/obj/item/melee/baton/proc/deductcharge(var/chrgdeductamt)
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R.cell && R.cell.charge < (hitcost+chrgdeductamt))
-			status = 0
-			update_icon()
-			playsound(loc, "sparks", 75, 1, -1)
-		if(R.cell.use(chrgdeductamt))
-			return 1
-		else
-			return 0
-	if(cell)
-		if(cell.charge < (hitcost+chrgdeductamt)) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
-			status = 0
-			update_icon()
-			playsound(loc, "sparks", 75, 1, -1)
-		if(cell.use(chrgdeductamt))
-			return 1
-		else
-			return 0
-
-/obj/item/melee/baton/update_icon()
-	if(status)
-		icon_state = "[base_icon]_active"
+/obj/item/melee/baton/security/update_icon_state()
+	if(active)
+		icon_state = "[base_icon_state]_active"
 	else if(!cell)
-		icon_state = "[base_icon]_nocell"
+		icon_state = "[base_icon_state]_nocell"
 	else
-		icon_state = "[base_icon]"
+		icon_state = "[base_icon_state]"
 
-/obj/item/melee/baton/examine(mob/user)
+/obj/item/melee/baton/security/examine(mob/user)
 	. = ..()
 	if(isrobot(loc))
-		. += "<span class='notice'>This baton is drawing power directly from your own internal charge.</span>"
+		. += span_notice("Заряжается напрямую от вашей внутренней батареи.")
 	if(cell)
-		. += "<span class='notice'>The baton is [round(cell.percent())]% charged.</span>"
-	if(!cell)
-		. += "<span class='warning'>The baton does not have a power source installed.</span>"
-
-/obj/item/melee/baton/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = W
-		if(cell)
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-		else
-			if(C.maxcharge < hitcost)
-				to_chat(user, "<span class='notice'>[src] requires a higher capacity cell.</span>")
-				return
-			if(!user.unEquip(W))
-				return
-			W.loc = src
-			cell = W
-			to_chat(user, "<span class='notice'>You install a cell in [src].</span>")
-			update_icon()
-
-	else if(istype(W, /obj/item/screwdriver))
-		if(cell)
-			cell.update_icon()
-			cell.loc = get_turf(src.loc)
-			cell = null
-			to_chat(user, "<span class='notice'>You remove the cell from the [src].</span>")
-			status = 0
-			update_icon()
-			return
-		..()
-	return
-
-/obj/item/melee/baton/attack_self(mob/user)
-
-	if(isrobot(loc))
-		var/mob/living/silicon/robot/R = loc
-		if(R && R.cell &&  R.cell.charge >= (hitcost))
-			status = !status
-			to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
-			playsound(loc, "sparks", 75, 1, -1)
-		else
-			status = 0
-			to_chat(user, "<span class='warning'>You do not have enough reserve power to charge the [src]!</span>")
-	else if(cell && cell.charge >= hitcost)
-		status = !status
-		to_chat(user, "<span class='notice'>[src] is now [status ? "on" : "off"].</span>")
-		playsound(loc, "sparks", 75, 1, -1)
+		. += span_notice("Индикатор заряда: <b>[round(cell.percent())]%</b>.")
 	else
-		status = 0
-		if(!cell)
-			to_chat(user, "<span class='warning'>[src] does not have a power source!</span>")
+		. += span_boldwarning("Батарея отсутствует.")
+
+/obj/item/melee/baton/security/suicide_act(mob/user)
+	user.visible_message(span_suicide("[user.declent_ru(NOMINATIVE)] засовыва[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)] себе в рот и включа[PLUR_ET_YUT(user)]! Это похоже на попытку самоубийства!"))
+	return FIRELOSS
+
+/obj/item/melee/baton/security/proc/deductcharge(amount)
+	if(!cell)
+		return FALSE
+	var/cell_rigged = cell.rigged
+	. = cell.use(amount)
+	if(cell_rigged)
+		cell = null
+		active = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		return .
+
+	if(cell.charge < cell_hit_cost) // If after the deduction the baton doesn't have enough charge for a stun hit it turns off.
+		//we're below minimum, turn off
+		active = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		playsound(src, SFX_SPARKS, 75, TRUE, -1)
+
+/obj/item/melee/baton/security/clumsy_check(mob/living/carbon/human/user, mob/living/intented_target)
+	. = ..()
+	if(.)
+		deductcharge(cell_hit_cost)
+
+/obj/item/melee/baton/security/attackby(obj/item/I, mob/user, params)
+	if(iscell(I))
+		var/obj/item/stock_parts/cell/new_cell = I
+		if(cell)
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(new_cell.maxcharge < cell_hit_cost)
+			balloon_alert(user, "энергоёмкость недостаточна!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(new_cell, src))
+			return ..()
+		cell = new_cell
+		balloon_alert(user, "установлено")
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+/obj/item/melee/baton/security/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!cell)
+		balloon_alert(user, "батарея отсутствует!")
+		return .
+	if(isrobot(loc))
+		balloon_alert(user, "невозможно!")
+		return .
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+
+	cell.forceMove_turf()
+	user.put_in_hands(cell, ignore_anim = FALSE)
+	balloon_alert(user, "батарея извлечена")
+	cell.update_icon()
+	cell = null
+	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/melee/baton/security/attack_self(mob/user)
+	if(cell?.charge >= cell_hit_cost)
+		active = !active
+		balloon_alert(user, "[active ? "включено" : "выключено"]")
+		playsound(src, SFX_SPARKS, 75, TRUE, -1)
+	else
+		if(isrobot(loc))
+			balloon_alert(user, "недостаточно заряда!")
+		else if(!cell)
+			balloon_alert(user, "батарея отсутствует!")
 		else
-			to_chat(user, "<span class='warning'>[src] is out of charge.</span>")
-	update_icon()
+			balloon_alert(user, "разряжено!")
+	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
 
-/obj/item/melee/baton/attack(mob/M, mob/living/user)
-	if(status && (CLUMSY in user.mutations) && prob(50))
-		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src]!</span>", \
-							"<span class='userdanger'>You accidentally hit yourself with [src]!</span>")
-		user.Weaken(stunforce*3)
-		deductcharge(hitcost)
+/obj/item/melee/baton/security/baton_effect(mob/living/target, mob/living/user, stun_override)
+	if(!deductcharge(cell_hit_cost))
+		return FALSE
+	stun_override = 0 //Avoids knocking people down prematurely.
+	return ..()
+
+/*
+ * After a target is hit, we apply some status effects.
+ * After a period of time, we then check to see what stun duration we give.
+ */
+/obj/item/melee/baton/security/additional_effects_non_cyborg(mob/living/carbon/target, mob/living/user)
+	. = ..()
+	if(!.)
 		return
 
-	if(isrobot(M))
-		..()
-		return
+	target.AdjustJitter(40 SECONDS, bound_upper = 40 SECONDS)
+	target.AdjustStuttering(16 SECONDS, bound_upper = 16 SECONDS)
+	target.AdjustConfused(10 SECONDS, bound_upper = 10 SECONDS)
 
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(check_martial_counter(H, user))
-			return
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
+	if(iscarbon(target))
+		target.shock_internal_organs(33)
 
-	if(!isliving(M))
-		return
+	addtimer(CALLBACK(src, PROC_REF(apply_stun_effect_end), target), knockdown_delay_time)
 
-	var/mob/living/L = M
+/// After the initial stun period, we check to see if the target needs to have the stun applied.
+/obj/item/melee/baton/security/proc/apply_stun_effect_end(mob/living/target)
+	if(!target.IsKnockdown())
+		to_chat(target, span_warning("Ваши мышцы сводит судорогой, и вы падаете на землю!"))
+	target.Knockdown(knockdown_time)
 
-	if(user.a_intent != INTENT_HARM)
-		if(status)
-			user.do_attack_animation(L)
-			baton_stun(L, user)
-		else
-			L.visible_message("<span class='warning'>[user] has prodded [L] with [src]. Luckily it was off.</span>", \
-							"<span class='warning'>[user] has prodded you with [src]. Luckily it was off</span>")
-			return
-	else
-		if(status)
-			baton_stun(L, user)
-		..()
+/obj/item/melee/baton/security/get_wait_description()
+	return "заряжается!"
 
+/obj/item/melee/baton/security/get_stun_description(mob/living/target, mob/living/user)
+	. = list()
+	.["visible"] = span_danger("[user.declent_ru(NOMINATIVE)] оглуша[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] ударом [declent_ru(GENITIVE)]!")
+	.["local"] = span_userdanger("[user.declent_ru(NOMINATIVE)] оглуша[PLUR_ET_YUT(user)] вас ударом [declent_ru(GENITIVE)]!")
 
-/obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user)
-	if(!ismob(L)) //because this was being called on turfs for some reason
-		return
+/obj/item/melee/baton/security/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	if(!. && active && prob(throw_stun_chance) && isliving(hit_atom))
+		finalize_baton_attack(hit_atom, locateUID(thrownby), in_attack_chain = FALSE)
 
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
-			playsound(L, 'sound/weapons/genhit.ogg', 50, 1)
-			return
+/obj/item/melee/baton/security/emp_act(severity)
+	. = ..()
+	deductcharge(1000 / severity)
 
-	if(iscarbon(L))
-		var/mob/living/carbon/C = L
-		C.shock_internal_organs(33)
+/obj/item/melee/baton/security/wash(mob/living/user, atom/source)
+	if(active && cell?.charge)
+		flick("baton_active", source)
+		finalize_baton_attack(user, user, in_attack_chain = FALSE)
+		user.visible_message(
+			span_warning("[user] получа[PLUR_ET_YUT(user)] удар током при попытке помыть включённую [declent_ru(ACCUSATIVE)]!"),
+			span_userdanger("Вы получаете удар током при попытке помыть включённую [declent_ru(ACCUSATIVE)]!"),
+		)
+		playsound(src, SFX_SPARKS, 50, TRUE)
+		deductcharge(cell_hit_cost)
+		return TRUE
+	return ..()
 
-	L.Stun(stunforce)
-	L.Weaken(stunforce)
-	L.SetStuttering(stunforce)
-	L.adjustStaminaLoss(staminaforce)
-	if(user)
-		L.lastattacker = user.real_name
-		L.lastattackerckey = user.ckey
-		L.visible_message("<span class='danger'>[user] has stunned [L] with [src]!</span>", \
-								"<span class='userdanger'>[user] has stunned you with [src]!</span>")
-		add_attack_logs(user, L, "stunned")
-	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
-
-	deductcharge(hitcost)
-
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.forcesay(GLOB.hit_appends)
-
-/obj/item/melee/baton/emp_act(severity)
-	if(cell)
-		deductcharge(1000 / severity)
-	..()
-
-/obj/item/melee/baton/wash(mob/user, atom/source)
-	if(cell)
-		if(cell.charge > 0 && status == 1)
-			flick("baton_active", source)
-			user.Stun(stunforce)
-			user.Weaken(stunforce)
-			user.stuttering = stunforce
-			deductcharge(hitcost)
-			user.visible_message("<span class='warning'>[user] shocks [user.p_them()]self while attempting to wash the active [src]!</span>", \
-								"<span class='userdanger'>You unwisely attempt to wash [src] while it's still on.</span>")
-			playsound(src, "sparks", 50, 1)
-			return 1
-	..()
-
-//Makeshift stun baton. Replacement for stun gloves.
-/obj/item/melee/baton/cattleprod
+// Makeshift stun baton. Replacement for stun gloves.
+/obj/item/melee/baton/security/cattleprod
 	name = "stunprod"
-	desc = "An improvised stun baton."
+	desc = "Кустарное оружие несмертельного действия. Представляет собой металлический прут с прикреплённым воспламенителем, \
+			запитанным от батареи. Громоздкий и неудобный аналог стандартных оглушающих дубинок."
+	gender = MALE
 	icon_state = "stunprod_nocell"
-	base_icon = "stunprod"
+	base_icon_state = "stunprod"
 	item_state = "prod"
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 3
 	throwforce = 5
-	staminaforce = 25
-	stunforce = 1
-	hitcost = 500
-	throw_hit_chance = 50
-	slot_flags = SLOT_BACK
+	stamina_damage = 35
+	knockdown_time = 3 SECONDS
+	throw_stun_chance = 40
+	slot_flags = ITEM_SLOT_BACK
+	/// Our prescious sparks holder
+	var/obj/item/assembly/igniter/sparkler
 
-/obj/item/melee/baton/cattleprod/baton_stun()
-	do_sparks(1, 1, src)
-	playsound(src.loc, pick('sound/effects/sparks1.ogg', 'sound/effects/sparks2.ogg', 'sound/effects/sparks3.ogg'), 20, 1)
-	..()
+/obj/item/melee/baton/security/cattleprod/get_ru_names()
+	return list(
+		NOMINATIVE = "оглушающий прут",
+		GENITIVE = "оглушающего прута",
+		DATIVE = "оглушающему пруту",
+		ACCUSATIVE = "оглушающий прут",
+		INSTRUMENTAL = "оглушающий прутом",
+		PREPOSITIONAL = "оглушающем пруте"
+	)
+
+
+/obj/item/melee/baton/security/cattleprod/Initialize(mapload)
+	. = ..()
+	sparkler = new(src)
+
+/obj/item/melee/baton/security/cattleprod/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/item_skins, item_path = /obj/item/melee/baton/security/cattleprod)
+
+/obj/item/melee/baton/security/cattleprod/Destroy()
+	QDEL_NULL(sparkler)
+	return ..()
+
+/obj/item/melee/baton/security/cattleprod/baton_effect(mob/living/target, mob/living/user, stun_override)
+	if(!sparkler.activate())
+		return BATON_ATTACK_DONE
+	return ..()
+
+// Teleprod
+/obj/item/melee/baton/security/cattleprod/teleprod
+	name = "teleprod"
+	desc = "Металлический прут с прикреплённым блюспейс-кристаллом, \
+			подключённым к батарее. От наконечника кристалла веет странной энергией. \
+			Его точно безопасно трогать?"
+	icon_state = "teleprod_nocell"
+	base_icon_state = "teleprod"
+	item_state = "teleprod"
+	origin_tech = "combat=2;bluespace=4;materials=3"
+
+/obj/item/melee/baton/security/cattleprod/teleprod/get_ru_names()
+	return list(
+		NOMINATIVE = "теле-прут",
+		GENITIVE = "теле-прута",
+		DATIVE = "теле-пруту",
+		ACCUSATIVE = "теле-прут",
+		INSTRUMENTAL = "теле-прутом",
+		PREPOSITIONAL = "теле-пруте"
+	)
+
+/obj/item/melee/baton/security/cattleprod/teleprod/clumsy_check(mob/living/carbon/human/user, mob/living/intented_target)
+	. = ..()
+	if(!.)
+		return .
+	var/turf/user_turf = get_turf(user)
+	do_teleport(user, user_turf, 50)	// honk honk
+	user.investigate_log("[key_name_log(user)] teleprodded himself from [COORD(user_turf)].", INVESTIGATE_TELEPORTATION)
+
+/obj/item/melee/baton/security/cattleprod/teleprod/baton_effect(mob/living/target, mob/living/user, stun_override)
+	. = ..()
+	if(!. || target.move_resist >= MOVE_FORCE_OVERPOWERING)
+		return .
+	var/turf/target_turf = get_turf(target)
+	do_teleport(target, target_turf, 15)
+	user.investigate_log("[key_name_log(user)] teleprodded [key_name_log(target)] from [COORD(target_turf)] to [COORD(target)].", INVESTIGATE_TELEPORTATION)
 

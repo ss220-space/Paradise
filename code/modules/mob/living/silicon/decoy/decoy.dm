@@ -2,16 +2,17 @@
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
 	icon_state = "ai"
-	anchored = 1 // -- TLE
-	canmove = 0
+	anchored = TRUE // -- TLE
 	a_intent = INTENT_HARM // This is apparently the only thing that stops other mobs walking through them as if they were thin air.
+	silicon_subsystems = list(
+		/mob/living/silicon/proc/subsystem_law_manager,
+	)
 
-/mob/living/silicon/decoy/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/aicard))
-		to_chat(user, "<span class='warning'>You cannot find an intellicard slot on [src].</span>")
-		return TRUE
-	else
-		return ..()
+/mob/living/silicon/decoy/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/aicard))
+		to_chat(user, span_warning("You cannot find an intellicard slot on [src]."))
+		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+	return ..()
 
 /mob/living/silicon/decoy/welder_act()
 	return
@@ -40,18 +41,10 @@
 	else
 		say("Connection failure!")
 
-/mob/living/silicon/decoy/syndicate/depot/death(pass)
+/mob/living/silicon/decoy/syndicate/depot/death(gibbed)
 	if(!raised_alert)
 		raise_alert()
-	. = ..(pass)
+	. = ..()
 
-/mob/living/silicon/decoy/syndicate/depot/adjustBruteLoss(dmg)
-	. = ..(dmg)
-	updatehealth()
-
-/mob/living/silicon/decoy/syndicate/depot/adjustFireLoss(dmg)
-	. = ..(dmg)
-	updatehealth()
-
-/mob/living/silicon/decoy/syndicate/depot/ex_act(severity)
+/mob/living/silicon/decoy/syndicate/depot/ex_act(severity, target)
 	adjustBruteLoss(250)

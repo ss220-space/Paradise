@@ -21,24 +21,27 @@
 /obj/structure/musician/ui_data(mob/user)
 	return song.ui_data(user)
 
-/obj/structure/musician/ui_interact(mob/user)
-	song.ui_interact(user)
+/obj/structure/musician/ui_state(mob/user)
+	return GLOB.physical_state
 
-/obj/structure/musician/ui_act(action, params)
+/obj/structure/musician/ui_interact(mob/user, datum/tgui/ui = null)
+	song.ui_interact(user, ui)
+
+/obj/structure/musician/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	return song.ui_act(action, params)
+	return song.ui_act(action, params, ui, state)
 
 /obj/structure/musician/wrench_act(mob/living/user, obj/item/I)
 	default_unfasten_wrench(user, I, 40)
 	return TRUE
 
 /**
-  * Whether the instrument should stop playing
-  *
-  * Arguments:
-  * * user - The user
-  */
+ * Whether the instrument should stop playing
+ *
+ * Arguments:
+ * * user - The user
+ */
 /obj/structure/musician/proc/should_stop_playing(mob/user)
 	if(!(anchored || can_play_unanchored))
 		return TRUE

@@ -1,6 +1,6 @@
 /obj/machinery/computer/monitor
 	name = "power monitoring console"
-	desc = "Used to monitor power levels across the station."
+	desc = "Используется для мониторинга уровня энергопотребления на всей станции."
 	icon_screen = "power"
 	icon_keyboard = "power_key"
 	use_power = ACTIVE_POWER_USE
@@ -23,38 +23,46 @@
 
 /obj/machinery/computer/monitor/secret //Hides the power monitor (such as ones on ruins & CentCom) from PDA's to prevent metagaming.
 	name = "outdated power monitoring console"
-	desc = "It monitors power levels across the local powernet."
+	desc = "Используется для отслеживания уровня энергопотребления в локальной сети."
 	circuit = /obj/item/circuitboard/powermonitor/secret
 	is_secret_monitor = TRUE
 
-/obj/machinery/computer/monitor/New()
-	..()
+/obj/machinery/computer/monitor/secret/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "power_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb11"
+
+/obj/machinery/computer/monitor/Initialize(mapload)
+	. = ..()
 	GLOB.power_monitors += src
 	GLOB.power_monitors = sortAtom(GLOB.power_monitors)
 	power_monitor = new(src)
 
-/obj/machinery/computer/monitor/Initialize()
-	..()
-	GLOB.powermonitor_repository.update_cache()
+	if(!is_secret_monitor && !(stat & (NOPOWER|BROKEN)))
+		GLOB.powermonitor_repository.add_to_cache(src)
 	powernet = find_powernet()
 	history["supply"] = list()
 	history["demand"] = list()
 
 /obj/machinery/computer/monitor/Destroy()
 	GLOB.power_monitors -= src
-	GLOB.powermonitor_repository.update_cache()
+	GLOB.powermonitor_repository.remove_from_cache(src)
 	QDEL_NULL(power_monitor)
 	return ..()
 
-/obj/machinery/computer/monitor/power_change()
-	..()
-	GLOB.powermonitor_repository.update_cache()
+/obj/machinery/computer/monitor/power_change(forced = FALSE)
+	. = ..()
+	if(is_secret_monitor)
+		return
+	if(!(stat & (NOPOWER|BROKEN)))
+		GLOB.powermonitor_repository.add_to_cache(src)
+	else
+		GLOB.powermonitor_repository.remove_from_cache(src)
 
-/obj/machinery/computer/monitor/proc/find_powernet()
-	var/obj/structure/cable/attached = null
+/obj/machinery/proc/find_powernet()
 	var/turf/T = loc
-	if(isturf(T))
-		attached = locate() in T
+	var/obj/structure/cable/attached = T.get_cable_node()
 	if(attached)
 		return attached.powernet
 
@@ -62,15 +70,19 @@
 	attack_hand(user)
 
 /obj/machinery/computer/monitor/attack_hand(mob/user)
-	add_fingerprint(user)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	// Update the powernet
 	powernet = find_powernet()
 	ui_interact(user)
 
-/obj/machinery/computer/monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	power_monitor.ui_interact(user, ui_key, ui, force_open)
+/obj/machinery/computer/monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	power_monitor.ui_interact(user, ui)
 
 /obj/machinery/computer/monitor/interact(mob/user)
 	power_monitor.ui_interact(user)
@@ -79,11 +91,11 @@
 	record()
 
 /**
-  * Power snapshot recording proc
-  *
-  * This proc handles recording powernet history for the graph on the TGUI
-  * It is called every process(), but only logs every 5 seconds
-  */
+ * Power snapshot recording proc
+ *
+ * This proc handles recording powernet history for the graph on the TGUI
+ * It is called every process(), but only logs every 5 seconds
+ */
 /obj/machinery/computer/monitor/proc/record()
 	if(world.time >= next_record)
 		next_record = world.time + record_interval

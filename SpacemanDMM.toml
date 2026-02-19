@@ -1,23 +1,24 @@
-[langserver]
-dreamchecker = true
-
+# Keep the keys in this file alphabetical please
 [code_standards]
-disallow_relative_type_definitions = true
 disallow_relative_proc_definitions = true
-
-[dmdoc]
-use_typepath_names = true
+disallow_relative_type_definitions = true
 
 [debugger]
 engine = "auxtools"
 
+[dmdoc]
+use_typepath_names = true
+
+[langserver]
+dreamchecker = true
+
 [map_renderer]
 # Objects inside this list will never render
 hide_invisible = [
-"/obj/effect/landmark",
-"/obj/effect/mapping_helpers",
-"/obj/effect/spawner/random_barrier",
-"/obj/effect/spawner/random_spawners",
+	"/obj/effect/landmark",
+	"/obj/effect/mapping_helpers",
+	"/obj/effect/spawner/random_barrier",
+	"/obj/effect/spawner/random_spawners",
 ]
 
 [map_renderer.fancy_layers]

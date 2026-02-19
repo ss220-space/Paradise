@@ -10,25 +10,45 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	var/list/trader_objectives = list()
 
 /datum/event/traders/setup()
-	if(GLOB.unused_trade_stations.len)
+	if(length(GLOB.unused_trade_stations))
 		station = pick_n_take(GLOB.unused_trade_stations)
+
+/datum/event/traders/fake_announce()
+	. = TRUE
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+		GLOB.minor_announcement.announce(
+			message = "Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
+			new_title = "Запрос на стыковку шаттла торговцев отклонен.",
+			new_sound = 'sound/AI/traderdeny.ogg'
+		)
+		return
+	var/map_trader_port = 5
+	if(english_station_name() == "NSS Cyberiad")
+		map_trader_port = 4
+	GLOB.minor_announcement.announce(
+		message = "Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
+		new_title = "Запрос на стыковку шаттла торговцев принят.",
+		new_sound = 'sound/AI/tradergranted.ogg'
+	)
 
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
-	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
-		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев отклонен.")
-		// if the docking request was refused, fire another major event in 60 seconds
-		var/datum/event_container/EC = SSevents.event_containers[EVENT_LEVEL_MAJOR]
-		EC.next_event_time = world.time + (60 * 10)
+	if(SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED)
+		GLOB.minor_announcement.announce(
+			message = "Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].",
+			new_title = "Запрос на стыковку шаттла торговцев отклонен.",
+			new_sound = 'sound/AI/traderdeny.ogg'
+		)
+		// if the docking request was refused, fire another moderate event in 60 seconds
+		reroll_event_in_category(EVENT_LEVEL_MODERATE)
 		return
 
 	var/list/spawnlocs = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/landmark = thing
+	for(var/obj/effect/landmark/landmark in GLOB.landmarks_list)
 		if(landmark.name == "traderstart_[station]")
 			spawnlocs += get_turf(landmark)
-	if(!spawnlocs.len)
+	if(!length(spawnlocs))
 		return
 
 	trader_objectives = forge_trader_objectives()
@@ -36,8 +56,8 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 	spawn()
 		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Торговца ТСФ?", ROLE_TRADER, TRUE)
 		var/index = 1
-		while(spawn_count > 0 && candidates.len > 0)
-			if(index > spawnlocs.len)
+		while(spawn_count > 0 && length(candidates) > 0)
+			if(index > length(spawnlocs))
 				index = 1
 
 			var/turf/picked_loc = spawnlocs[index]
@@ -45,29 +65,37 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 			var/mob/C = pick_n_take(candidates)
 			spawn_count--
 			if(C)
-				GLOB.respawnable_list -= C.client
+				GLOB.respawnable_list -= C
 				var/mob/living/carbon/human/M = new /mob/living/carbon/human(picked_loc)
-				M.ckey = C.ckey // must be before equipOutfit, or that will runtime due to lack of mind
+				M.possess_by_player(C.ckey) // must be before equipOutfit, or that will runtime due to lack of mind
 				M.equipOutfit(/datum/outfit/admin/sol_trader)
 				M.dna.species.after_equip_job(null, M)
 				M.mind.objectives += trader_objectives
 				M.mind.offstation_role = TRUE
 				greet_trader(M)
-				success_spawn = 1
+				log_game("[M.ckey] has become TSF trader.")
+				SSticker.mode.traders |= M.mind
+				success_spawn = TRUE
 		if(success_spawn)
 			var/map_trader_port = 5
-			if(station_name() == "NSS Cyberiad")
+			if(english_station_name() == "NSS Cyberiad")
 				map_trader_port = 4
-			GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "ОПОВЕЩЕНИЕ: Запрос на стыковку шаттла торговцев принят.")
+			GLOB.minor_announcement.announce(
+				message = "Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].",
+				new_title = "Запрос на стыковку шаттла торговцев принят.",
+				new_sound = 'sound/AI/tradergranted.ogg'
+			)
 		else
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 
-/datum/event/traders/proc/greet_trader(var/mob/living/carbon/human/M)
-	to_chat(M, "<span class='boldnotice'>Вы - торговец!</span>")
-	to_chat(M, "<span class='notice'>В данный момент вы находитесь на [get_area(M)].</span>")
-	to_chat(M, "<span class='notice'>Вам предстоит торговать со станцией [station_name()].</span>")
-	spawn(25)
-		show_objectives(M.mind)
+/datum/event/traders/proc/greet_trader(mob/living/carbon/human/M)
+	var/list/messages = list()
+	messages.Add(span_boldnotice("Вы — торговец!"))
+	messages.Add(span_notice("В данный момент вы находитесь на [get_area(M)]."))
+	messages.Add(span_notice("Вам предстоит торговать со станцией [station_name()]."))
+	messages.Add(M.mind.prepare_announce_objectives())
+	to_chat(M, chat_box_green(messages.Join("<br>")))
+	log_game("[M] was made into a Sol Trader")
 
 /datum/event/traders/proc/forge_trader_objectives()
 	var/list/objs = list()

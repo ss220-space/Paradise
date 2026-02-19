@@ -2,13 +2,17 @@
 	startWhen = 3 //30 minutes
 	announceWhen = 10
 
-/datum/event/spawn_swarmer/announce()
-	if(prob(25)) //25% chance to announce it to the crew
-		var/swarmer_report = "<font size=3><b>[command_name()] High-Priority Update</b></span>"
+/datum/event/spawn_swarmer/announce(false_alarm)
+	if(false_alarm || prob(25)) //25% chance to announce it to the crew
+		var/swarmer_report = span_fontsize3(span_bold("[command_name()] High-Priority Update"))
 		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come \
 		through."
 		print_command_report(swarmer_report, "Classified [command_name()] Update", FALSE)
-		GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg')
+		GLOB.minor_announcement.announce(
+			message = "Отчёт был загружен и распечатан на всех консолях связи.",
+			new_title = ANNOUNCE_SECRETMSG_RU,
+			new_sound = 'sound/AI/commandreport.ogg'
+		)
 
 /datum/event/spawn_swarmer/start()
 	if(find_swarmer())
@@ -16,7 +20,6 @@
 	if(!GLOB.the_gateway)
 		return 0
 	new /obj/effect/mob_spawn/swarmer(get_turf(GLOB.the_gateway))
-
 
 /datum/event/spawn_swarmer/proc/find_swarmer()
 	for(var/mob/living/M in GLOB.mob_list)

@@ -2,8 +2,11 @@
 /datum/fish
 	var/fish_name = "generic fish"
 	var/egg_item = /obj/item/fish_eggs
+	///Path or list of paths to determine generated item. If list is passed [pickweight()] will be used to determine final item.
+	///List can be associative [item = weight], otherwise every item in a list will have an equal chance to appear.
 	var/fish_item = /obj/item/fish
-	var/crossbreeder = 1	//determines if the fish will attempt to breed with other types, set to 0 if you want the fish to only lay eggs with its own species
+	///Determines if the fish will attempt to breed with other types, set to `FALSE` if you want the fish to only lay eggs with its own species.
+	var/crossbreeder = TRUE
 
 /datum/fish/proc/special_interact(obj/machinery/fishtank/my_tank)
 	return
@@ -53,7 +56,7 @@
 	fish_name = "shrimp"
 	egg_item = /obj/item/fish_eggs/shrimp
 	fish_item = /obj/item/reagent_containers/food/snacks/shrimp
-	crossbreeder = 0
+	crossbreeder = FALSE
 
 /datum/fish/feederfish
 	fish_name = "feeder fish"
@@ -63,7 +66,7 @@
 /datum/fish/feederfish/special_interact(obj/machinery/fishtank/my_tank)
 	if(!my_tank || !istype(my_tank))
 		return
-	if(my_tank.fish_count < 2)
+	if(my_tank.get_num_fish() < 2)
 		return
 	if(my_tank.food_level <= 5 && prob(25))
 		my_tank.adjust_food_level(1)
@@ -73,4 +76,13 @@
 	fish_name = "electric eel"
 	egg_item = /obj/item/fish_eggs/electric_eel
 	fish_item = /obj/item/fish/electric_eel
-	crossbreeder = 0
+	crossbreeder = FALSE
+
+/datum/fish/crayfish
+	fish_name = "crayfish"
+	egg_item = /obj/item/fish_eggs/crayfish
+	fish_item = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_raw,
+		/obj/item/reagent_containers/food/snacks/crayfish_raw_small,
+	)
+	crossbreeder = FALSE

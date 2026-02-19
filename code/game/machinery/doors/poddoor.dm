@@ -9,71 +9,72 @@
 	heat_proof = TRUE
 	safe = FALSE
 	max_integrity = 600
-	armor = list("melee" = 50, "bullet" = 100, "laser" = 100, "energy" = 100, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 70)
+	armor = list(MELEE = 50, BULLET = 100, LASER = 100, ENERGY = 100, BOMB = 50, BIO = 100, RAD = 100, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	damage_deflection = 70
-	var/id_tag = 1.0
+	can_open_with_hands = FALSE
+	var/id_tag
 	var/protected = 1
 
 /obj/machinery/door/poddoor/preopen
 	icon_state = "open"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/impassable
 	name = "reinforced blast door"
 	desc = "A heavy duty blast door that opens mechanically. Looks even tougher than usual."
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|UNACIDABLE|ACID_PROOF
+	hackable = FALSE
 
-/obj/machinery/door/poddoor/impassable/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this door are far too advanced for your primitive hacking peripherals.</span>")
-	return
+/obj/machinery/door/poddoor/impassable/unhittable
+	obj_flags = IGNORE_HITS
 
-/obj/machinery/door/poddoor/Bumped(atom/AM)
-	if(density)
-		return
-	else
-		return 0
+/obj/machinery/door/poddoor/Bumped(atom/movable/moving_atom, skip_effects = TRUE)
+	. = ..()
+
+/obj/machinery/door/poddoor/impassable/preopen
+	icon_state = "open"
+	density = FALSE
+	opacity = FALSE
 
 //"BLAST" doors are obviously stronger than regular doors when it comes to BLASTS.
-/obj/machinery/door/poddoor/ex_act(severity)
-	if(severity == 3)
+/obj/machinery/door/poddoor/ex_act(severity, target)
+	if(severity <= EXPLODE_LIGHT)
 		return
-	..()
+	return ..()
 
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
 		if("opening")
 			flick("opening", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, TRUE)
 		if("closing")
 			flick("closing", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			playsound(src, 'sound/machines/blastdoor.ogg', 30, TRUE)
 
-/obj/machinery/door/poddoor/update_icon()
-	if(density)
-		icon_state = "closed"
-	else
-		icon_state = "open"
+/obj/machinery/door/poddoor/update_icon_state()
+	icon_state = density ? "closed" : "open"
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/try_to_activate_door(mob/user)
- 	return
+	return
 
 /obj/machinery/door/poddoor/try_to_crowbar(mob/user, obj/item/I)
 	if(!density)
 		return
 	if(!hasPower())
-		to_chat(user, "<span class='notice'>You start forcing [src] open...</span>")
-		if(do_after(user, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
+		to_chat(user, span_notice("You start forcing [src] open..."))
+		if(do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			if(!hasPower())
 				open()
 			else
-				to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+				to_chat(user, span_warning("[src] resists your efforts to force it!"))
 	else
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
- // Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
- // Wise words. - Bxil
+// Whoever wrote the old code for multi-tile spesspod doors needs to burn in hell. - Unknown
+// Wise words. - Bxil
 /obj/machinery/door/poddoor/multi_tile
 	name = "large pod door"
 	layer = CLOSED_DOOR_LAYER
@@ -84,24 +85,23 @@
 	apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/multi_tile/open()
-	if(..())
+	. = ..()
+	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
-
 /obj/machinery/door/poddoor/multi_tile/close()
-	if(..())
+	. = ..()
+	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/multi_tile/Destroy()
-	apply_opacity_to_my_turfs(0)
+	apply_opacity_to_my_turfs(FALSE)
 	return ..()
 
 //Multi-tile poddoors don't turn invisible automatically, so we change the opacity of the turfs below instead one by one.
-/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
-	for(var/turf/T in locs)
-		T.opacity = new_opacity
-		T.has_opaque_atom = new_opacity
-		T.reconsider_lights()
+/obj/machinery/door/poddoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
+	for(var/turf/turf as anything in locs)
+		turf.set_opacity(new_opacity)
 	update_freelook_sight()
 
 /obj/machinery/door/poddoor/multi_tile/four_tile_ver

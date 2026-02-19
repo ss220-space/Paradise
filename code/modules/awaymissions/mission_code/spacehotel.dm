@@ -3,7 +3,6 @@
 /area/awaymission/spacehotel
 	name = "Deep Space Hotel 419"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /area/awaymission/spacehotel/kitchen
 	name = "Hotel Kitchen"
@@ -15,24 +14,22 @@
 
 /area/awaymission/spacehotel/amazing_place
 	name = "Amazing Place"
-	requires_power = 0
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/spacehotel/snowland
 	name = "Snowland"
-	requires_power = 0
 
 /area/awaymission/spacehotel/undersea
 	name = "Undersea"
 	icon_state = "undersea"
-	requires_power = 0
 
 // "Directional" map template loader for N or S hotel room
 /obj/effect/landmark/map_loader/hotel_room
-	icon = 'icons/testing/turf_analysis.dmi'
+	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
 /obj/item/paper/crumpled/hotel_scrap_1
-	name = "paper scrap"
 	info = "I can't believe this shitty hotel assigned me a purple-themed room. <i>Why does the shower dump grape drink everywhere??</i>"
 
 /obj/item/paper/hotel_scrap_2
@@ -68,8 +65,8 @@
 	name = "space hotel pamphlet"
 	info = "<h3>Welcome to Deep Space Hotel 419!</h3>Thank you for choosing our hotel. Simply hand your credit or debit card to the concierge and get your room key! To check out, hand your credit card back.<small><h4>Conditions:</h4><ul><li>The hotel is not responsible for any losses due to time or space anomalies.<li>The hotel is not responsible for events that occur outside of the hotel station, including, but not limited to, events that occur inside of dimensional pockets.<li>The hotel is not responsible for overcharging your account.<li>The hotel is not responsible for missing persons.<li>The hotel is not responsible for mind-altering effects due to drugs, magic, demons, or space worms.</ul></small>"
 
-/obj/effect/landmark/map_loader/hotel_room/Initialize()
-	..()
+/obj/effect/landmark/map_loader/hotel_room/Initialize(mapload)
+	. = ..()
 	// load and randomly assign rooms
 	var/global/list/south_room_templates = list()
 	var/global/list/north_room_templates = list()
@@ -135,7 +132,7 @@
 
 /obj/machinery/door/unpowered/hotel_door/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This room is currently [occupant ? "" : "un"]occupied.</span>"
+	. += span_notice("This room is currently [occupant ? "" : "un"]occupied.")
 
 /obj/machinery/door/unpowered/hotel_door/allowed(mob/living/carbon/user)
 	for(var/obj/item/card/hotel_card/C in user.get_all_slots())
@@ -144,8 +141,7 @@
 			return 1
 	return 0
 
-/obj/machinery/door/unpowered/hotel_door/update_icon()
-	overlays.Cut()
+/obj/machinery/door/unpowered/hotel_door/update_icon_state()
 	if(density)
 		icon_state = "door_closed"
 	else
@@ -154,13 +150,13 @@
 /obj/machinery/door/unpowered/hotel_door/do_animate(animation)
 	switch(animation)
 		if("opening")
-			playsound(loc, doorOpen, 30, 1)
+			playsound(loc, doorOpen, 30, TRUE)
 			flick("door_opening", src)
 		if("closing")
-			playsound(loc, doorClose, 30, 1)
+			playsound(loc, doorClose, 30, TRUE)
 			flick("door_closing", src)
 		if("deny")
-			playsound(src.loc, doorDeni, 50, 0, 3)
+			playsound(src.loc, doorDeni, 50, FALSE, 3)
 			flick("door_deny", src)
 
 /obj/machinery/door/unpowered/hotel_door/autoclose()
@@ -192,28 +188,22 @@
 	name = "Deep Space Hotel 419"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x"
-	invisibility = 101
-	anchored = 1
-	density = 0
-	opacity = 0
+	invisibility = INVISIBILITY_ABSTRACT
 	var/list/room_doors[0]			// assoc list of [room id]=hotel_door
 	var/list/vacant_rooms[0]		// list of vacant room doors
 	var/list/guests[0]				// assoc list of [guest mob]=room id
 
-	var/obj/item/radio/radio	// for shouting at deadbeats
+/obj/effect/hotel_controller/Initialize(mapload)
+	. = ..()
 
-/obj/effect/hotel_controller/New()
-	..()
 	if(controller)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
+
 	controller = src
 
-	radio = new()
-	radio.broadcasting = 0
-	radio.listening = 0
-
+	var/area/myArea = get_area(src)
 	// get room doors
-	for(var/obj/machinery/door/unpowered/hotel_door/D in get_area(src))
+	for(var/obj/machinery/door/unpowered/hotel_door/D in myArea?.machinery_cache)
 		add_room(D)
 
 /obj/effect/hotel_controller/proc/add_room(obj/machinery/door/unpowered/hotel_door/D)
@@ -224,8 +214,6 @@
 	room_doors.Cut()
 	vacant_rooms.Cut()
 	guests.Cut()
-
-	QDEL_NULL(radio)
 
 	return ..()
 
@@ -244,7 +232,7 @@
 		return null
 
 	D.occupant = occupant
-	D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+	D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	vacant_rooms -= D
 	guests[occupant] = roomid
 
@@ -258,7 +246,7 @@
 		return
 
 	if(D.account.charge(100, null, "10 minutes hotel stay extension", "Biesel GalaxyNet Terminal [rand(111,1111)]", "[name]"))
-		D.roomtimer = addtimer(CALLBACK(src, .proc/process_room, roomid), PAY_INTERVAL, TIMER_STOPPABLE)
+		D.roomtimer = addtimer(CALLBACK(src, PROC_REF(process_room), roomid), PAY_INTERVAL, TIMER_STOPPABLE)
 	else
 		force_checkout(roomid)
 
@@ -284,9 +272,10 @@
 		return 0
 
 	var/mob/deadbeat = D.occupant
-
-	radio.autosay("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name)
+	radio_announce("[deadbeat], your card has been rejected. You have 30 seconds to check out.", name, PUB_FREQ, D)
 	spawn(300)
 		if(D.occupant == deadbeat)
 			// they still haven't checked out...
 			checkout(roomid)
+
+#undef PAY_INTERVAL

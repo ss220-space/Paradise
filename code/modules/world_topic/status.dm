@@ -8,11 +8,11 @@
 	status_info["mode"] = GLOB.master_mode
 	status_info["respawn"] = GLOB.abandon_allowed
 	status_info["enter"] = GLOB.enter_allowed
-	status_info["vote"] = config.allow_vote_mode
-	status_info["ai"] = config.allow_ai
+	status_info["vote"] = CONFIG_GET(flag/allow_vote_mode)
+	status_info["ai"] = CONFIG_GET(flag/allow_ai)
 	status_info["host"] = world.host ? world.host : null
 	status_info["players"] = list()
-	status_info["roundtime"] = worldtime2text()
+	status_info["roundtime"] = ROUND_TIME_TEXT()
 	status_info["stationtime"] = station_time_timestamp()
 	status_info["oldstationtime"] = classic_worldtime2text() // more "consistent" indication of the round's running time
 	status_info["listed"] = "Public"
@@ -30,24 +30,24 @@
 		player_count++
 	status_info["players"] = player_count
 	status_info["admins"] = admin_count
-	status_info["map_name"] = GLOB.map_name ? GLOB.map_name : "Unknown"
+	status_info["map_name"] = SSmapping.map_datum ? SSmapping.map_datum.name : UNKNOWN_STATUS_RUS
 
 	if(SSticker)
 		status_info["ticker_state"] = SSticker.current_state
 
 	// Add more info if we are authed
 	if(key_valid)
-		if(SSticker && SSticker.mode)
+		if(SSticker?.mode)
 			status_info["real_mode"] = SSticker.mode.name
-			status_info["security_level"] = get_security_level()
+			status_info["security_level"] = capitalize(SSsecurity_level.get_current_level_as_text())
 
-		if(SSshuttle && SSshuttle.emergency)
+		if(SSshuttle?.emergency)
 			// Shuttle status, see /__DEFINES/stat.dm
 			status_info["shuttle_mode"] = SSshuttle.emergency.mode
 			// Shuttle timer, in seconds
 			status_info["shuttle_timer"] = SSshuttle.emergency.timeLeft()
 
-		for(var/i in 1 to admins.len)
+		for(var/i in 1 to length(admins))
 			var/list/A = admins[i]
 			status_info["admin[i - 1]"] = A[1]
 			status_info["adminrank[i - 1]"] = A[2]

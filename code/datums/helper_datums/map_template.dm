@@ -49,6 +49,10 @@
 	// if given a multi-z template
 	// it might need to be adapted for that when that time comes
 	GLOB.space_manager.add_dirt(placement.z)
+	var/datum/milla_safe/freeze_z_level/milla_freeze = new()
+	milla_freeze.invoke_async(T.z)
+	UNTIL(milla_freeze.done)
+	SSicon_smooth.add_halt_source(src)
 	try
 		var/list/bounds = GLOB.maploader.load_map(get_file(), min_x, min_y, placement.z, shouldCropMap = TRUE)
 		if(!bounds)
@@ -58,17 +62,18 @@
 		if(ST_bot_left == null || ST_top_right == null)
 			stack_trace("One of the smoothing corners is bust")
 	catch(var/exception/e)
+		SSicon_smooth.remove_halt_source(src)
 		GLOB.space_manager.remove_dirt(placement.z)
-		late_setup_level(block(bot_left, top_right), block(ST_bot_left, ST_top_right))
+		var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
+		milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 		message_admins("Map template [name] threw an error while loading. Safe exit attempted, but check for errors at [ADMIN_COORDJMP(placement)].")
 		log_admin("Map template [name] threw an error while loading. Safe exit attempted.")
 		throw e
 
+	SSicon_smooth.remove_halt_source(src)
 	GLOB.space_manager.remove_dirt(placement.z)
-	late_setup_level(
-		block(bot_left, top_right),
-		block(ST_bot_left, ST_top_right))
-
+	var/datum/milla_safe_must_sleep/late_setup_level/milla = new()
+	milla.invoke_async(bot_left, top_right, block(ST_bot_left, ST_top_right))
 	add_game_logs("[name] loaded at [min_x],[min_y],[placement.z]")
 	return 1
 
@@ -91,8 +96,7 @@
 
 	var/max_x = min_x + width-1
 	var/max_y = min_y + height-1
-	placement = locate(max(min_x,1), max(min_y,1), placement.z)
-	return block(placement, locate(min(max_x, world.maxx), min(max_y, world.maxy), placement.z))
+	return block(max(min_x,1), max(min_y,1), placement.z, min(max_x, world.maxx), min(max_y, world.maxy), placement.z)
 
 /datum/map_template/proc/fits_in_map_bounds(turf/T, centered = 0)
 	var/turf/placement = T
@@ -109,17 +113,17 @@
 	else
 		return 1
 
-
 /proc/preloadTemplates(path = "_maps/map_files/templates/") //see master controller setup
 	for(var/map in flist(path))
 		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
 			var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
 			GLOB.map_templates[T.name] = T
 
-	if(!config.disable_space_ruins) // so we don't unnecessarily clutter start-up
+	if(!CONFIG_GET(flag/disable_space_ruins) && !(SSmapping.map_datum.disables & DISABLE_SPACE_RUINS)) // so we don't unnecessarily clutter start-up
 		preloadRuinTemplates()
 	preloadShelterTemplates()
 	preloadShuttleTemplates()
+	preloadBridgeTemplates()
 
 /proc/preloadRuinTemplates()
 	// Still supporting bans by filename
@@ -168,3 +172,19 @@
 
 		GLOB.shuttle_templates[S.shuttle_id] = S
 		GLOB.map_templates[S.shuttle_id] = S
+
+/proc/preloadBridgeTemplates()
+	for(var/item in subtypesof(/datum/map_template/ruin/bridge/horizontal))
+		var/datum/map_template/ruin/bridge/horizontal/horizontal_type = item
+		if(!(initial(horizontal_type.suffix)))
+			continue
+		var/datum/map_template/ruin/bridge/horizontal/S = new horizontal_type()
+		GLOB.bridge_horizontal_templates[S.suffix] = S
+		GLOB.map_templates[S.suffix] = S
+	for(var/item in subtypesof(/datum/map_template/ruin/bridge/vertical))
+		var/datum/map_template/ruin/bridge/horizontal/vertical_type = item
+		if(!(initial(vertical_type.suffix)))
+			continue
+		var/datum/map_template/ruin/bridge/vertical/V = new vertical_type()
+		GLOB.bridge_vertical_templates[V.suffix] = V
+		GLOB.map_templates[V.suffix] = V

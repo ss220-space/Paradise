@@ -31,13 +31,13 @@
 	else if(isatom(subject))
 		var/atom/A = subject
 		. = A.name
-	else if(istype(subject, /datum))
+	else if(isdatum(subject))
 		var/datum/D = subject
 		return D.type
 	else
 		. = subject
 
-/datum/log_record/proc/get_health_string(var/mob/living/L)
+/datum/log_record/proc/get_health_string(mob/living/L)
 	var/OX = L.getOxyLoss() > 50 ? "<b>[L.getOxyLoss()]</b>" : L.getOxyLoss()
 	var/TX = L.getToxLoss() > 50 ? "<b>[L.getToxLoss()]</b>" : L.getToxLoss()
 	var/FI = L.getFireLoss() > 50 ? "<b>[L.getFireLoss()]</b>" : L.getFireLoss()

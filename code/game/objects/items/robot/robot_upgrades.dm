@@ -7,28 +7,30 @@
 	icon = 'icons/obj/module.dmi'
 	icon_state = "cyborg_upgrade"
 	origin_tech = "programming=2"
-	var/locked = 0
-	var/installed = 0
+	var/installed = FALSE
 	var/require_module = FALSE
 	var/module_type = null
 	var/instant_use = FALSE
 	var/multiple_use = FALSE
 
-/obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R)
-	if(R.stat == DEAD)
-		to_chat(usr, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
+/obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/robot, mob/user)
+	if(robot.stat == DEAD)
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("[src] will not function on a deceased cyborg!")]")
 		return FALSE
-	if(src in R.upgrades && !multiple_use)
-		to_chat(R, "<span class='notice'>There is already [src] inside!</span>")
+	if((locate(src) in robot.upgrades) && !multiple_use)
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there is already [src] inside!")]")
 		return FALSE
-	if(module_type && !istype(R.module, module_type))
-		to_chat(R, "Upgrade mounting error!  No suitable hardpoint detected!")
-		to_chat(usr, "There's no mounting point for the module!")
+	if(module_type && !istype(robot.module, module_type))
+		to_chat(robot, span_warning("Upgrade mounting error! No suitable hardpoint detected!"))
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no mounting point for the module!")]")
 		return FALSE
 	return TRUE
 
-/obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/R, user = usr)
-	if (!(src in R.upgrades))
+/obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!(src in robot.upgrades))
 		return FALSE
 	return TRUE
 
@@ -39,35 +41,64 @@
 	require_module = TRUE
 	instant_use = TRUE
 
-/obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/R)
-	if(..())
-		if(!isclocker(R))
-			R.reset_module()
+/obj/item/borg/upgrade/reset/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
+	if(isclocker(robot))
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("this unit somehow refuses to reset!")]")
+		return FALSE
+
+	robot.reset_module()
 	return TRUE
 
 /obj/item/borg/upgrade/rename
 	name = "cyborg reclassification board"
 	desc = "Used to rename a cyborg."
 	icon_state = "cyborg_upgrade1"
-	var/heldname = "default name"
+	var/heldname = "Default Name"
 	instant_use = TRUE
 
 /obj/item/borg/upgrade/rename/attack_self(mob/user)
-	heldname = stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	var/new_heldname = tgui_input_text(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN)
+	new_heldname = reject_bad_name(new_heldname, TRUE, MAX_NAME_LEN)
+	if(!new_heldname)
+		return
+	heldname = new_heldname
 
-/obj/item/borg/upgrade/rename/action(var/mob/living/silicon/robot/R)
-	if(..())
-		if(!R.allow_rename)
-			to_chat(R, "<span class='warning'>Internal diagnostic error: incompatible upgrade module detected.</span>")
-			return 0
-		R.notify_ai(ROBOT_NOTIFY_AI_NAME, R.name, heldname)
-		R.name = heldname
-		R.custom_name = heldname
-		R.real_name = heldname
-		if(R.mmi && R.mmi.brainmob)
-			R.mmi.brainmob.name = R.name
-		return TRUE
+/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(!robot.allow_rename)
+		to_chat(robot, span_warning("Internal diagnostic error: incompatible upgrade module detected."))
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("incompatible upgrade module detected!")]")
+		return FALSE
+
+	if(!robot.shouldRename(heldname))
+		robot.rename_self(robot.braintype, TRUE)
+	else
+		if(heldname == "Default Name")
+			robot.custom_name = "" //allows usage of Namepick
+			robot.rename_character(robot.name, robot.get_default_name())
+		else
+			robot.rename_character(robot.name, heldname)
+	return TRUE
+
+/mob/living/silicon/robot/proc/shouldRename(newname)
+	if(src.stat == CONSCIOUS)
+		var/choice = tgui_alert(src, "Активирован протокол переименования. Предложенное имя: [newname]. Продолжить операцию?", "Внимание!", list("Да", "Нет"))
+		if(src.stat == CONSCIOUS) //no abuse by using window in unconscious state
+			if(isnull("choice"))
+				return FALSE
+			switch(choice)
+				if("Да")
+					return TRUE
+				if("Нет")
+					return FALSE
+	return TRUE
 
 /obj/item/borg/upgrade/restart
 	name = "cyborg emergency reboot module"
@@ -75,18 +106,21 @@
 	icon_state = "cyborg_upgrade1"
 	instant_use = TRUE
 
-/obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R)
-	if(R.health < 0)
-		to_chat(usr, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
+/obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/robot, mob/user)
+	if(robot.health < 0)
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("you have to repair the cyborg before using this module!")]")
 		return FALSE
-	if(!R.key)
+
+	if(!robot.key)
 		for(var/mob/dead/observer/ghost in GLOB.player_list)
-			if(ghost.mind && ghost.mind.current == R)
-				R.key = ghost.key
-	R.stat = CONSCIOUS
-	GLOB.dead_mob_list -= R //please never forget this ever kthx
-	GLOB.alive_mob_list += R
-	R.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
+			if(ghost.mind && ghost.mind.current == robot)
+				robot.possess_by_player(ghost.key)
+
+	robot.set_stat(CONSCIOUS)
+	robot.remove_from_dead_mob_list() //please never forget this ever kthx
+	robot.add_to_alive_mob_list()
+	robot.notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 	return TRUE
 
 /obj/item/borg/upgrade/vtec
@@ -96,15 +130,42 @@
 	require_module = TRUE
 	origin_tech = "engineering=4;materials=5;programming=4"
 
-/obj/item/borg/upgrade/vtec/action(var/mob/living/silicon/robot/R)
-	if(..())
-		R.speed = -1 // Gotta go fast.
+/obj/item/borg/upgrade/vtec/action(mob/living/silicon/robot/robot)
+	if(!..())
+		return FALSE
 
-		return TRUE
+	robot.add_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)	// Gotta go fast.
+	return TRUE
 
-/obj/item/borg/upgrade/vtec/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		R.speed = 0
+/obj/item/borg/upgrade/vtec/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	robot.remove_movespeed_modifier(/datum/movespeed_modifier/robot_vtec_upgrade)
+	return TRUE
+
+/obj/item/borg/upgrade/magboots
+	name = "cyborg floor magnet module"
+	desc = "Данный модуль позволить киборгу примагничиваться к полу, таким образом позволяя эффективно передвигаться в условиях отсутсвия гравитации."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "engineering=4;materials=4powerstorage=4"
+
+/obj/item/borg/upgrade/magboots/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(HAS_TRAIT_FROM(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT))
+		return FALSE
+
+	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+	return TRUE
+
+/obj/item/borg/upgrade/magboots/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	REMOVE_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
+	return TRUE
 
 /obj/item/borg/upgrade/disablercooler
 	name = "cyborg rapid disabler cooling module"
@@ -114,22 +175,29 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/security
 
-/obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R)
-	if(..())
-		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
-		if(!T)
-			to_chat(usr, "<span class='notice'>There's no disabler in this unit!</span>")
-			return
-		T.charge_delay = max(2 , T.charge_delay - 4)
+/obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-		return TRUE
+	var/obj/item/gun/energy/disabler/cyborg/disabler = locate() in robot.module.modules
+	if(!disabler)
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no disabler in this unit!")]")
+		return FALSE
 
-/obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
-		if(!T)
-			return FALSE
-		T.charge_delay = initial(T.charge_delay)
+	disabler.charge_delay = max(2 , disabler.charge_delay - 4)
+	return TRUE
+
+/obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/obj/item/gun/energy/disabler/cyborg/disabler = locate() in robot.module.modules
+	if(!disabler)
+		return FALSE
+
+	disabler.charge_delay = initial(disabler.charge_delay)
+	return TRUE
 
 /obj/item/borg/upgrade/thrusters
 	name = "ion thruster upgrade"
@@ -137,14 +205,22 @@
 	icon_state = "cyborg_upgrade3"
 	origin_tech = "engineering=4;powerstorage=4"
 
-/obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R)
-	if(..())
-		R.ionpulse = TRUE
-		return TRUE
+/obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		R.ionpulse = FALSE
+	robot.ionpulse = TRUE
+	return TRUE
+
+/obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(robot.ionpulse_on)
+		robot.toggle_ionpulse(silent = TRUE)
+
+	robot.ionpulse = FALSE
+	return TRUE
 
 /obj/item/borg/upgrade/ddrill
 	name = "mining cyborg diamond drill"
@@ -154,26 +230,30 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R)
-	if(..())
-		for(var/obj/item/pickaxe/drill/cyborg/D in R.module.modules)
-			qdel(D)
-		for(var/obj/item/shovel/S in R.module.modules)
-			qdel(S)
+/obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-		R.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(R.module)
-		R.module.rebuild()
+	for(var/obj/item/pickaxe/drill/cyborg/drill in robot.module.modules)
+		qdel(drill)
+	for(var/obj/item/shovel/shovel in robot.module.modules)
+		qdel(shovel)
 
-		return TRUE
+	robot.module.modules += new /obj/item/pickaxe/drill/cyborg/diamond(robot.module)
+	robot.module.rebuild()
+	return TRUE
 
-/obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		for(var/obj/item/pickaxe/drill/cyborg/diamond/DD in R.module)
-			qdel(DD)
+/obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-		R.module.modules += new /obj/item/pickaxe/drill/cyborg(R.module)
-		R.module.modules += new /obj/item/shovel(R.module)
-		R.module.rebuild()
+	for(var/obj/item/pickaxe/drill/cyborg/diamond/drill in robot.module)
+		qdel(drill)
+
+	robot.module.modules += new /obj/item/pickaxe/drill/cyborg(robot.module)
+	robot.module.modules += new /obj/item/shovel(robot.module)
+	robot.module.rebuild()
+	return TRUE
 
 /obj/item/borg/upgrade/soh
 	name = "mining cyborg satchel of holding"
@@ -183,23 +263,44 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
-	if(..())
-		for(var/obj/item/storage/bag/ore/cyborg/S in R.module.modules)
-			qdel(S)
+/obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-		R.module.modules += new /obj/item/storage/bag/ore/holding/cyborg(R.module)
-		R.module.rebuild()
+	for(var/obj/item/storage/bag/ore/cyborg/orebag in robot.module.modules)
+		qdel(orebag)
 
-		return TRUE
+	robot.module.modules += new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
+	robot.module.rebuild()
+	return TRUE
 
-/obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		for(var/obj/item/storage/bag/ore/holding/cyborg/H in R.module)
-			qdel(H)
+/obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-		R.module.modules += new /obj/item/storage/bag/ore/cyborg(R.module)
-		R.module.rebuild()
+	for(var/obj/item/storage/bag/ore/holding/cyborg/orebag in robot.module)
+		qdel(orebag)
+
+	robot.module.modules += new /obj/item/storage/bag/ore/cyborg(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/gps
+	name = "cyborg gps upgrade"
+	desc = "Upgraded GPS for cyborgs."
+	icon_state = "cyborg_upgrade3"
+
+/obj/item/borg/upgrade/gps/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+	robot.gps.upgraded = TRUE
+	return TRUE
+
+/obj/item/borg/upgrade/gps/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+	robot.gps.upgraded = FALSE
+	return TRUE
 
 /obj/item/borg/upgrade/abductor_engi
 	name = "engineering cyborg abductor upgrade"
@@ -209,54 +310,56 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/engineering
 
-/obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/R)
-	if(..())
-		for(var/obj/item/weldingtool/largetank/cyborg/W in R.module.modules)
-			qdel(W)
-		for(var/obj/item/screwdriver/cyborg/S in R.module.modules)
-			qdel(S)
-		for(var/obj/item/wrench/cyborg/E in R.module.modules)
-			qdel(E)
-		for(var/obj/item/crowbar/cyborg/C in R.module.modules)
-			qdel(C)
-		for(var/obj/item/wirecutters/cyborg/I in R.module.modules)
-			qdel(I)
-		for(var/obj/item/multitool/cyborg/M in R.module.modules)
-			qdel(M)
-		R.module.modules += new /obj/item/weldingtool/abductor(R.module)
-		R.module.modules += new /obj/item/wrench/abductor(R.module)
-		R.module.modules += new /obj/item/screwdriver/abductor(R.module)
-		R.module.modules += new /obj/item/crowbar/abductor(R.module)
-		R.module.modules += new /obj/item/wirecutters/abductor(R.module)
-		R.module.modules += new /obj/item/multitool/abductor(R.module)
-		R.module.rebuild()
-		return TRUE
+/obj/item/borg/upgrade/abductor_engi/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/abductor_engi/deactivate(mob/living/silicon/robot/R)
-	if(..())
-		return
+	for(var/obj/item/weldingtool/largetank/cyborg/weldingtool in robot.module.modules)
+		qdel(weldingtool)
+	for(var/obj/item/screwdriver/cyborg/screwdriver in robot.module.modules)
+		qdel(screwdriver)
+	for(var/obj/item/wrench/cyborg/wrench in robot.module.modules)
+		qdel(wrench)
+	for(var/obj/item/crowbar/cyborg/crowbar in robot.module.modules)
+		qdel(crowbar)
+	for(var/obj/item/wirecutters/cyborg/wirecutters in robot.module.modules)
+		qdel(wirecutters)
+	for(var/obj/item/multitool/cyborg/multitool in robot.module.modules)
+		qdel(multitool)
 
-	for(var/obj/item/weldingtool/abductor/W in R.module.modules)
-		qdel(W)
-	for(var/obj/item/screwdriver/abductor/S in R.module.modules)
-		qdel(S)
-	for(var/obj/item/wrench/abductor/E in R.module.modules)
-		qdel(E)
-	for(var/obj/item/crowbar/abductor/C in R.module.modules)
-		qdel(C)
-	for(var/obj/item/wirecutters/abductor/I in R.module.modules)
-		qdel(I)
-	for(var/obj/item/multitool/abductor/M in R.module.modules)
-		qdel(M)
+	robot.module.modules += new /obj/item/weldingtool/abductor(robot.module)
+	robot.module.modules += new /obj/item/wrench/abductor(robot.module)
+	robot.module.modules += new /obj/item/screwdriver/abductor(robot.module)
+	robot.module.modules += new /obj/item/crowbar/abductor(robot.module)
+	robot.module.modules += new /obj/item/wirecutters/abductor(robot.module)
+	robot.module.modules += new /obj/item/multitool/abductor(robot.module)
+	robot.module.rebuild()
+	return TRUE
 
-	R.module.modules += new /obj/item/weldingtool/abductor(R.module)
-	R.module.modules += new /obj/item/wrench/cyborg(R.module)
-	R.module.modules += new /obj/item/screwdriver/cyborg(R.module)
-	R.module.modules += new /obj/item/crowbar/cyborg(R.module)
-	R.module.modules += new /obj/item/wirecutters/cyborg(R.module)
-	R.module.modules += new /obj/item/multitool/cyborg(R.module)
-	R.module.rebuild()
+/obj/item/borg/upgrade/abductor_engi/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
+	for(var/obj/item/weldingtool/abductor/weldingtool in robot.module.modules)
+		qdel(weldingtool)
+	for(var/obj/item/screwdriver/abductor/screwdriver in robot.module.modules)
+		qdel(screwdriver)
+	for(var/obj/item/wrench/abductor/wrench in robot.module.modules)
+		qdel(wrench)
+	for(var/obj/item/crowbar/abductor/crowbar in robot.module.modules)
+		qdel(crowbar)
+	for(var/obj/item/wirecutters/abductor/wirecutters in robot.module.modules)
+		qdel(wirecutters)
+	for(var/obj/item/multitool/abductor/multitool in robot.module.modules)
+		qdel(multitool)
+
+	robot.module.modules += new /obj/item/weldingtool/abductor(robot.module)
+	robot.module.modules += new /obj/item/wrench/cyborg(robot.module)
+	robot.module.modules += new /obj/item/screwdriver/cyborg(robot.module)
+	robot.module.modules += new /obj/item/crowbar/cyborg(robot.module)
+	robot.module.modules += new /obj/item/wirecutters/cyborg(robot.module)
+	robot.module.modules += new /obj/item/multitool/cyborg(robot.module)
+	robot.module.rebuild()
 	return TRUE
 
 /obj/item/borg/upgrade/abductor_medi
@@ -267,66 +370,68 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/medical
 
-/obj/item/borg/upgrade/abductor_medi/action(mob/living/silicon/robot/R)
-	if(..())
-		for(var/obj/item/scalpel/laser/laser1/L in R.module.modules)
-			qdel(L)
-		for(var/obj/item/hemostat/H in R.module.modules)
-			qdel(H)
-		for(var/obj/item/retractor/E in R.module.modules)
-			qdel(E)
-		for(var/obj/item/bonegel/B in R.module.modules)
-			qdel(B)
-		for(var/obj/item/FixOVein/F in R.module.modules)
-			qdel(F)
-		for(var/obj/item/bonesetter/S in R.module.modules)
-			qdel(S)
-		for(var/obj/item/circular_saw/C in R.module.modules)
-			qdel(C)
-		for(var/obj/item/surgicaldrill/D in R.module.modules)
-			qdel(D)
-		R.module.modules += new /obj/item/scalpel/laser/laser3(R.module) //no abductor laser scalpel, so next best thing.
-		R.module.modules += new /obj/item/hemostat/alien(R.module)
-		R.module.modules += new /obj/item/retractor/alien(R.module)
-		R.module.modules += new /obj/item/bonegel/alien(R.module)
-		R.module.modules += new /obj/item/FixOVein/alien(R.module)
-		R.module.modules += new /obj/item/bonesetter/alien(R.module)
-		R.module.modules += new /obj/item/circular_saw/alien(R.module)
-		R.module.modules += new /obj/item/surgicaldrill/alien(R.module)
-		R.module.rebuild()
-		return TRUE
+/obj/item/borg/upgrade/abductor_medi/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/abductor_medi/deactivate(mob/living/silicon/robot/R)
-	if(..())
-		return
+	for(var/obj/item/scalpel/laser/laser1/scalpel in robot.module.modules)
+		qdel(scalpel)
+	for(var/obj/item/hemostat/hemostat in robot.module.modules)
+		qdel(hemostat)
+	for(var/obj/item/retractor/retractor in robot.module.modules)
+		qdel(retractor)
+	for(var/obj/item/bonegel/bonegel in robot.module.modules)
+		qdel(bonegel)
+	for(var/obj/item/FixOVein/fix_o_vein in robot.module.modules)
+		qdel(fix_o_vein)
+	for(var/obj/item/bonesetter/bonesetter in robot.module.modules)
+		qdel(bonesetter)
+	for(var/obj/item/circular_saw/circular_saw in robot.module.modules)
+		qdel(circular_saw)
+	for(var/obj/item/surgicaldrill/surgical_drill in robot.module.modules)
+		qdel(surgical_drill)
 
-	for(var/obj/item/scalpel/laser/laser3/L in R.module.modules)
-		qdel(L)
-	for(var/obj/item/hemostat/alien/H in R.module.modules)
-		qdel(H)
-	for(var/obj/item/retractor/alien/E in R.module.modules)
-		qdel(E)
-	for(var/obj/item/bonegel/alien/B in R.module.modules)
-		qdel(B)
-	for(var/obj/item/FixOVein/alien/F in R.module.modules)
-		qdel(F)
-	for(var/obj/item/bonesetter/alien/S in R.module.modules)
-		qdel(S)
-	for(var/obj/item/circular_saw/alien/C in R.module.modules)
-		qdel(C)
-	for(var/obj/item/surgicaldrill/alien/D in R.module.modules)
-		qdel(D)
+	robot.module.modules += new /obj/item/scalpel/laser/laser3(robot.module) //no abductor laser scalpel, so next best thing.
+	robot.module.modules += new /obj/item/hemostat/alien(robot.module)
+	robot.module.modules += new /obj/item/retractor/alien(robot.module)
+	robot.module.modules += new /obj/item/bonegel/alien(robot.module)
+	robot.module.modules += new /obj/item/FixOVein/alien(robot.module)
+	robot.module.modules += new /obj/item/bonesetter/alien(robot.module)
+	robot.module.modules += new /obj/item/circular_saw/alien(robot.module)
+	robot.module.modules += new /obj/item/surgicaldrill/alien(robot.module)
+	robot.module.rebuild()
+	return TRUE
 
-	R.module.modules += new /obj/item/scalpel/laser/laser1(R.module)
-	R.module.modules += new /obj/item/hemostat(R.module)
-	R.module.modules += new /obj/item/retractor(R.module)
-	R.module.modules += new /obj/item/bonegel(R.module)
-	R.module.modules += new /obj/item/FixOVein(R.module)
-	R.module.modules += new /obj/item/bonesetter(R.module)
-	R.module.modules += new /obj/item/circular_saw(R.module)
-	R.module.modules += new /obj/item/surgicaldrill(R.module)
-	R.module.rebuild()
+/obj/item/borg/upgrade/abductor_medi/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
+	for(var/obj/item/scalpel/laser/laser3/scalpel in robot.module.modules)
+		qdel(scalpel)
+	for(var/obj/item/hemostat/alien/hemostat in robot.module.modules)
+		qdel(hemostat)
+	for(var/obj/item/retractor/alien/retractor in robot.module.modules)
+		qdel(retractor)
+	for(var/obj/item/bonegel/alien/bonegel in robot.module.modules)
+		qdel(bonegel)
+	for(var/obj/item/FixOVein/alien/fix_o_vein in robot.module.modules)
+		qdel(fix_o_vein)
+	for(var/obj/item/bonesetter/alien/bonesetter in robot.module.modules)
+		qdel(bonesetter)
+	for(var/obj/item/circular_saw/alien/circular_saw in robot.module.modules)
+		qdel(circular_saw)
+	for(var/obj/item/surgicaldrill/alien/surgical_drill in robot.module.modules)
+		qdel(surgical_drill)
+
+	robot.module.modules += new /obj/item/scalpel/laser/laser1(robot.module)
+	robot.module.modules += new /obj/item/hemostat(robot.module)
+	robot.module.modules += new /obj/item/retractor(robot.module)
+	robot.module.modules += new /obj/item/bonegel(robot.module)
+	robot.module.modules += new /obj/item/FixOVein(robot.module)
+	robot.module.modules += new /obj/item/bonesetter(robot.module)
+	robot.module.modules += new /obj/item/circular_saw(robot.module)
+	robot.module.modules += new /obj/item/surgicaldrill(robot.module)
+	robot.module.rebuild()
 	return TRUE
 
 /obj/item/borg/upgrade/syndicate
@@ -336,16 +441,21 @@
 	origin_tech = "combat=6;materials=6"
 	require_module = TRUE
 
-/obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R)
-	if(..())
-		to_chat(R, "<span class='warning'>Warning: Safety Overide Protocols have been disabled.</span>")
-		R.weapons_unlock = TRUE
-		return TRUE
+/obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		to_chat(R, "<span class='notice'>Notice: Safety Overide Protocols have been restored.</span>")
-		R.weapons_unlock = FALSE
+	to_chat(robot, span_warning("Warning: Safety Overide Protocols have been disabled."))
+	robot.weapons_unlock = TRUE
+	return TRUE
+
+/obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	to_chat(robot, span_notice("Notice: Safety Overide Protocols have been restored."))
+	robot.weapons_unlock = FALSE
+	return TRUE
 
 /obj/item/borg/upgrade/lavaproof
 	name = "mining cyborg lavaproof chassis"
@@ -355,14 +465,19 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
-/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R)
-	if(..())
-		R.weather_immunities += "lava"
-		return TRUE
+/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..() && ("lava" in R.weather_immunities))
-		R.weather_immunities -= "lava"
+	ADD_TRAIT(robot, TRAIT_LAVA_IMMUNE, ROBOT_TRAIT)
+	return TRUE
+
+/obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	REMOVE_TRAIT(robot, TRAIT_LAVA_IMMUNE, ROBOT_TRAIT)
+	return TRUE
 
 /obj/item/borg/upgrade/selfrepair
 	name = "self-repair module"
@@ -372,60 +487,64 @@
 	var/repair_amount = -1
 	var/repair_tick = 1
 	var/msg_cooldown = 0
-	var/on = 0
+	var/on = FALSE
 	var/powercost = 10
 	var/mob/living/silicon/robot/cyborg
 	var/datum/action/toggle_action
 
-/obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R)
-	if(..())
-		icon_state = "selfrepair_off"
-		cyborg = R
-		toggle_action = new /datum/action/item_action/toggle(src)
-		toggle_action.Grant(R)
-		return TRUE
+/obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		cyborg = null
-		toggle_action.Remove(R)
-		QDEL_NULL(toggle_action)
-		STOP_PROCESSING(SSobj, src)
-		if(!QDELETED(src))
-			qdel(src)
+	icon_state = "selfrepair_off"
+	cyborg = robot
+	toggle_action = new /datum/action/item_action/toggle(src)
+	toggle_action.Grant(robot)
+	return TRUE
+
+/obj/item/borg/upgrade/selfrepair/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	cyborg = null
+	toggle_action.Remove(robot)
+	QDEL_NULL(toggle_action)
+	STOP_PROCESSING(SSobj, src)
+	if(!QDELETED(src))
+		qdel(src)
+	return TRUE
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
-	on = 0
+	on = FALSE
 	return ..()
 
-/obj/item/borg/upgrade/selfrepair/ui_action_click()
+/obj/item/borg/upgrade/selfrepair/ui_action_click(mob/user, datum/action/action, leftclick)
 	on = !on
 	if(on)
-		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
+		to_chat(cyborg, span_notice("You activate the self-repair module."))
 		activate_sr()
 	else
-		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
+		to_chat(cyborg, span_notice("You deactivate the self-repair module."))
 		deactivate_sr()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/borg/upgrade/selfrepair/update_icon()
+/obj/item/borg/upgrade/selfrepair/update_icon_state()
 	if(cyborg)
 		icon_state = "selfrepair_[on ? "on" : "off"]"
-		for(var/X in actions)
-			var/datum/action/A = X
-			A.UpdateButtonIcon()
+		for(var/datum/action/action as anything in actions)
+			action.UpdateButtonIcon()
 	else
 		icon_state = "cyborg_upgrade5"
 
 /obj/item/borg/upgrade/selfrepair/proc/activate_sr()
 	START_PROCESSING(SSobj, src)
 	on = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/borg/upgrade/selfrepair/process()
 	if(!repair_tick)
@@ -434,12 +553,12 @@
 
 	if(cyborg && (cyborg.stat != DEAD) && on)
 		if(!cyborg.cell)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please, insert the power cell.</span>")
+			to_chat(cyborg, span_warning("Self-repair module deactivated. Please, insert the power cell."))
 			deactivate_sr()
 			return
 
 		if(cyborg.cell.charge < powercost * 2)
-			to_chat(cyborg, "<span class='warning'>Self-repair module deactivated. Please recharge.</span>")
+			to_chat(cyborg, span_notice("Self-repair module deactivated. Please recharge."))
 			deactivate_sr()
 			return
 
@@ -456,77 +575,148 @@
 			cyborg.cell.use(5)
 		repair_tick = 0
 
-		if((world.time - 2000) > msg_cooldown )
+		if((world.time - 2000) > msg_cooldown)
 			var/msgmode = "standby"
 			if(cyborg.health < 0)
 				msgmode = "critical"
 			else if(cyborg.health < cyborg.maxHealth)
 				msgmode = "normal"
-			to_chat(cyborg, "<span class='notice'>Self-repair is active in <span class='boldnotice'>[msgmode]</span> mode.</span>")
+			to_chat(cyborg, span_notice("Self-repair is active in [span_boldnotice("[msgmode]")] mode."))
 			msg_cooldown = world.time
 	else
 		deactivate_sr()
 
 /obj/item/borg/upgrade/storageincreaser
 	name = "storage increaser"
-	desc = "Improves cyborg storage with bluespace technology to store more medicines"
+	desc = "Improves cyborg storage with bluespace technology to store more medicines."
 	icon_state = "cyborg_upgrade2"
 	origin_tech = "bluespace=4;materials=5;engineering=3"
 	require_module = TRUE
 
-/obj/item/borg/upgrade/storageincreaser/action(mob/living/silicon/robot/R)
-	if(..())
-		for(var/datum/robot_energy_storage/ES in R.module.storages)
-			ES.max_energy *= 3
-			ES.recharge_rate *= 2
-			ES.energy = ES.max_energy
-		return TRUE
+/obj/item/borg/upgrade/storageincreaser/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/storageincreaser/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		for(var/datum/robot_energy_storage/ES in R.module.storages)
-			ES.max_energy = initial(ES.max_energy)
-			ES.recharge_rate = initial(ES.recharge_rate)
-			ES.energy = initial(ES.max_energy)
+	if(istype(robot.module, /obj/item/robot_module/miner))
+		var/obj/item/storage/bag/kaboom/cyborg/satchel = robot.module.emag
+		satchel.storage_slots = 15
+		satchel.upgraded = TRUE
+		robot.module.emag = satchel
+		robot.module.emag.update_icon(UPDATE_ICON_STATE)
+
+	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
+		energy_storage.max_energy *= 3
+		energy_storage.recharge_rate *= 2
+		energy_storage.energy = energy_storage.max_energy
+	return TRUE
+
+/obj/item/borg/upgrade/storageincreaser/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	if(istype(robot.module, /obj/item/robot_module/miner))
+		var/obj/item/storage/bag/kaboom/cyborg/satchel = robot.module.emag
+		satchel.storage_slots = 5
+		satchel.upgraded = FALSE
+		robot.module.emag = satchel
+		robot.module.emag.update_icon(UPDATE_ICON_STATE)
+
+	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
+		energy_storage.max_energy = initial(energy_storage.max_energy)
+		energy_storage.recharge_rate = initial(energy_storage.recharge_rate)
+		energy_storage.energy = initial(energy_storage.max_energy)
+	return TRUE
 
 /obj/item/borg/upgrade/hypospray
 	name = "cyborg hypospray upgrade"
-	desc = "Adds and replaces some reagents with better ones"
+	desc = "Adds and replaces some reagents with better ones."
 	icon_state = "cyborg_upgrade2"
 	origin_tech = "biotech=6;materials=5"
 	require_module = TRUE
 
-/obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/R)
-	if(..())
-		var/obj/item/reagent_containers/borghypo/basic/H2 = locate() in R.module.modules
-		if(H2)
-			qdel(H2)
-			R.module.modules += new /obj/item/reagent_containers/borghypo/basic/upgraded(R.module)
-			R.module.rebuild()
-			return TRUE
+/obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-		var/obj/item/reagent_containers/borghypo/H = locate() in R.module.modules
-		if(H)
-			qdel(H)
-			R.module.modules += new /obj/item/reagent_containers/borghypo/upgraded(R.module)
-			R.module.rebuild()
-			return TRUE
+	var/list/hypos_to_add = list()
+	for(var/obj/item/reagent_containers/borghypo/hypospray in robot.module.modules)
+		if(hypospray.upgrade_path)
+			var/obj/item/reagent_containers/borghypo/borghypo = new hypospray.upgrade_path(robot.module)
+			borghypo.bypass_protection = hypospray.bypass_protection
+			qdel(hypospray)
+			hypos_to_add += borghypo
 
-		to_chat(usr, "<span class='notice'>There's no hypospray in this unit!</span>")
-		return 0
+	for(var/hypo in hypos_to_add)
+		var/obj/item/reagent_containers/borghypo/hypospray = hypo
+		robot.module.modules += hypospray
 
-/obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
-	if(..())
-		var/obj/item/reagent_containers/borghypo/basic/upgraded/H2 = locate() in R.module.modules
-		if(H2)
-			qdel(H2)
-			R.module.modules += new /obj/item/reagent_containers/borghypo/basic(R.module)
-			R.module.rebuild()
-		var/obj/item/reagent_containers/borghypo/upgraded/H = locate() in R.module.modules
-		if(H)
-			qdel(H)
-			R.module.modules += new /obj/item/reagent_containers/borghypo(R.module)
-			R.module.rebuild()
+	if(length(hypos_to_add))
+		robot.module.rebuild()
+		return TRUE
+
+	to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no hypospray in this unit!")]")
+	return FALSE
+
+/obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+	var/obj/item/reagent_containers/borghypo/basic/upgraded/borghypo_basic = locate() in robot.module.modules
+	if(borghypo_basic)
+		var/obj/item/reagent_containers/borghypo/basic/hypo = new /obj/item/reagent_containers/borghypo/basic(robot.module)
+		robot.module.modules += hypo
+		hypo.bypass_protection = borghypo_basic.bypass_protection
+		qdel(borghypo_basic)
+		robot.module.rebuild()
+		return TRUE
+
+	var/obj/item/reagent_containers/borghypo/upgraded/borghypo = locate() in robot.module.modules
+	if(borghypo)
+		var/obj/item/reagent_containers/borghypo/hypo = new /obj/item/reagent_containers/borghypo(robot.module)
+		robot.module.modules += hypo
+		hypo.bypass_protection = borghypo.bypass_protection
+		qdel(borghypo)
+		robot.module.rebuild()
+		return TRUE
+
+	return FALSE
+
+/obj/item/borg/upgrade/hypospray_pierce
+	name = "cyborg hypospray advanced injector"
+	desc = "Upgrades cyborg hypospray with advanced injector allowing it to pierce thick tissue and materials."
+	icon_state = "cyborg_upgrade2"
+	origin_tech = "materials=4;biotech=5;engineering=5"
+	require_module = TRUE
+
+/obj/item/borg/upgrade/hypospray_pierce/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/was_upgraded = FALSE
+	for(var/obj/item/reagent_containers/borghypo/hypo in robot.module.modules)
+		if(hypo.bypass_protection)
+			continue
+		hypo.bypass_protection = TRUE
+		was_upgraded = TRUE
+
+	if(!was_upgraded)
+		to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no upgradable hypospray in this unit!")]")
+		return FALSE
+
+	return TRUE
+
+/obj/item/borg/upgrade/hypospray_pierce/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/was_deactivated = FALSE
+	for(var/obj/item/reagent_containers/borghypo/hypo in robot.module.modules)
+		hypo.bypass_protection = initial(hypo.bypass_protection)
+		was_deactivated = TRUE
+
+	if(!was_deactivated)
+		return FALSE
+
+	return TRUE
 
 /obj/item/borg/upgrade/syndie_rcd
 	name = "Syndicate cyborg RCD upgrade"
@@ -534,24 +724,143 @@
 	icon_state = "syndicate_cyborg_upgrade"
 	origin_tech = "engineering=6;materials=6;syndicate=5"
 
-/obj/item/borg/upgrade/syndie_rcd/action(mob/living/silicon/robot/R)
-	if(..())
-		var/obj/item/rcd/borg/borg_rcd = locate() in R.module.modules
-		if(!borg_rcd)
-			to_chat(usr, "<span class='notice'>There's no RCD in this unit!</span>")
-			return 0
-		for(borg_rcd in R.module.modules)
-			qdel(borg_rcd)
-		R.module.modules += new /obj/item/rcd/syndicate/borg(R.module)
-		R.module.rebuild()
-		return TRUE
+/obj/item/borg/upgrade/syndie_rcd/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
 
-/obj/item/borg/upgrade/syndie_rcd/deactivate(mob/living/silicon/robot/R)
-	if(..())
-		var/obj/item/rcd/syndicate/borg/borg_rcd = locate() in R.module.modules
-		if(!borg_rcd)
-			return
-		for(borg_rcd in R.module.modules)
-			qdel(borg_rcd)
-		R.module.modules += new /obj/item/rcd/borg(R.module)
-		R.module.rebuild()
+	var/obj/item/rcd/borg/borg_rcd = locate() in robot.module.modules
+	if(!borg_rcd)
+		if(user)
+			to_chat(user, "[span_danger("UPGRADE ERROR: ")]" + "[span_notice("there's no RCD in this unit!")]")
+		return FALSE
+
+	for(borg_rcd in robot.module.modules)
+		qdel(borg_rcd)
+
+	robot.module.modules += new /obj/item/rcd/syndicate/borg(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/syndie_rcd/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/obj/item/rcd/syndicate/borg/borg_rcd = locate() in robot.module.modules
+	if(!borg_rcd)
+		return FALSE
+
+	for(borg_rcd in robot.module.modules)
+		qdel(borg_rcd)
+
+	robot.module.modules += new /obj/item/rcd/borg(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/bs_beaker
+	name = "blue space beaker"
+	desc = "A blue space beaker for butler unit"
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "bluespace=4;materials=5"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/butler
+
+/obj/item/borg/upgrade/bs_beaker/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/reagent_containers/glass/bucket/container in robot.module.modules)
+		qdel(container)
+
+	robot.module.modules += new /obj/item/reagent_containers/glass/beaker/bluespace(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/bs_beaker/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	for(var/obj/item/reagent_containers/glass/beaker/bluespace/container2 in robot.module)
+		qdel(container2)
+
+	robot.module.modules += new /obj/item/reagent_containers/glass/bucket(robot.module)
+	robot.module.rebuild()
+	return TRUE
+
+/obj/item/borg/upgrade/mounted_seat
+	name = "robotic mounted seat module"
+	desc = "Модуль для киборгов в виде сидения. Позволяет окружающим садиться на робота и использовать его в качестве эффективного средства передвижения."
+	icon_state = "seat_module"
+	require_module = TRUE
+	origin_tech = "engineering=3;materials=3;"
+	var/datum/action/innate/toggle_seat/toggle_action = new
+	var/datum/action/innate/launch_riders/launch_action = new
+
+/obj/item/borg/upgrade/mounted_seat/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль встроенного сидения",
+		GENITIVE = "модуля встроенного сидения",
+		DATIVE = "модулю встроенного сидения",
+		ACCUSATIVE = "модуль встроенного сидения",
+		INSTRUMENTAL = "модулем встроенного сидения",
+		PREPOSITIONAL = "модуле встроенного сидения",
+	)
+
+/obj/item/borg/upgrade/mounted_seat/emag_act(mob/user)
+	if(!emagged)
+		emagged = TRUE
+		balloon_alert(user, "регуляторы мощности взломаны!")
+	else
+		balloon_alert(user, "нет эффекта!")
+
+/obj/item/borg/upgrade/mounted_seat/action(mob/living/silicon/robot/robot)
+	if(!..())
+		return FALSE
+
+	robot.can_buckle = TRUE
+	toggle_action.Grant(robot, src)
+	if(emagged)
+		launch_action.Grant(robot, src)
+	return TRUE
+
+/obj/item/borg/upgrade/mounted_seat/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	robot.can_buckle = FALSE
+	toggle_action.Remove(robot, src)
+	launch_action.Remove(robot, src) //REMOVE IT!!!
+	return TRUE
+
+/datum/action/innate/toggle_seat
+	name = "Выдвинуть/задвинуть cидение"
+	desc = "Переключите режим своего встроенного сидения."
+	button_icon_state = "seat_on"
+
+/datum/action/innate/toggle_seat/Activate()
+	if(!isrobot(usr))
+		return
+
+	var/mob/living/silicon/robot/robot = usr
+	robot.toggle_seat()
+	switch(robot.can_buckle)
+		if(TRUE)
+			button_icon_state = "seat_on"
+			UpdateButtonIcon()
+		if(FALSE)
+			button_icon_state = "seat_off"
+			UpdateButtonIcon()
+
+/datum/action/innate/launch_riders
+	name = "Выкинуть всех пассажиров"
+	desc = "Скидывает пассажиров, сидящих на вашем сидении."
+	button_icon_state = "launch_riders"
+
+/datum/action/innate/launch_riders/Activate()
+	if(!isrobot(usr))
+		return
+
+	var/mob/living/silicon/robot/robot = usr
+	robot.eject_riders_harmfull()
+
+/obj/item/borg/upgrade/mounted_seat/pre_emaged
+	emagged = TRUE

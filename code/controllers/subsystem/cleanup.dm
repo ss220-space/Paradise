@@ -18,10 +18,12 @@ SUBSYSTEM_DEF(cleanup)
 	init_order = INIT_ORDER_CLEANUP
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	offline_implications = "Certain global lists will no longer be cleared of nulls, which may result in runtimes. No immediate action is needed."
+	cpu_display = SS_CPUDISPLAY_LOW
+	ss_id = "null_cleanup"
 	/// A list of global lists we want the subsystem to clean.
 	var/list/lists_to_clean
 
-/datum/controller/subsystem/cleanup/Initialize(start_timeofday)
+/datum/controller/subsystem/cleanup/Initialize()
 	// If you want this subsystem to clean out nulls from a specific list, add it here.
 	lists_to_clean = list(
 		GLOB.clients = "clients",
@@ -30,15 +32,15 @@ SUBSYSTEM_DEF(cleanup)
 		GLOB.alive_mob_list = "alive_mob_list",
 		GLOB.dead_mob_list = "dead_mob_list",
 		GLOB.human_list = "human_list",
-		GLOB.carbon_list = "carbon_list"
+		GLOB.carbon_list = "carbon_list",
 	)
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/cleanup/fire(resumed)
 	for(var/L in lists_to_clean)
 		var/list/_list = L
 		var/prev_length = length(_list)
-		listclearnulls(_list)
+		list_clear_nulls(_list)
 
 		if(length(_list) < prev_length)
 			stack_trace("Found a null value in GLOB.[lists_to_clean[_list]]!")

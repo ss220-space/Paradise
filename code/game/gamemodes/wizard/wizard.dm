@@ -1,7 +1,3 @@
-/datum/game_mode
-	var/list/datum/mind/wizards = list()
-	var/list/datum/mind/apprentices = list()
-
 /datum/game_mode/wizard
 	name = "wizard"
 	config_tag = "wizard"
@@ -16,52 +12,46 @@
 	var/required_num_players_for_apprentice = 25	//Each additional number of players above the minimum, a new apprentice is added
 
 /datum/game_mode/wizard/announce()
-	to_chat(world, "<B>The current game mode is - Wizard!</B>")
-	to_chat(world, "<B>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</B>")
+	to_chat(world, "<b>The current game mode is - Wizard!</b>")
+	to_chat(world, "<b>There is a <font color='red'>SPACE WIZARD</font> on the station. You can't let him achieve his objective!</b>")
 
-/datum/game_mode/wizard/can_start()//This could be better, will likely have to recode it later
+/datum/game_mode/wizard/can_start()
 	if(!..())
-		return 0
+		return FALSE
+	if(!length(GLOB.wizardstart))
+		stack_trace("A starting location for wizard could not be found, please report this bug!")
+		return FALSE
 	var/list/datum/mind/possible_wizards = get_players_for_role(ROLE_WIZARD)
 	if(!length(possible_wizards))
-		return 0
-	var/datum/mind/wizard = pick(possible_wizards)
+		return FALSE
+	var/datum/mind/wizard = pick_n_take(possible_wizards)
 
 	wizards += wizard
-	modePlayer += wizard
-	wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
-	wizard.special_role = SPECIAL_ROLE_WIZARD
-	wizard.original = wizard.current
-	if(GLOB.wizardstart.len == 0)
-		to_chat(wizard.current, "<span class='danger'>A starting location for you could not be found, please report this bug!</span>")
-		return 0
-
-
 	var/playerC = num_players()
-	possible_wizards.Remove(wizard)
 	if(playerC >= required_players)
 		for(var/i in 1 to round((playerC - required_players) / required_num_players_for_apprentice))
 			if(!length(possible_wizards))
-				return 1
-			var/datum/mind/apprentice = pick(possible_wizards)
-
+				break
+			var/datum/mind/apprentice = pick_n_take(possible_wizards)
 			apprentices += apprentice
-			modePlayer += apprentice
 
-			apprentice.assigned_role = SPECIAL_ROLE_WIZARD_APPRENTICE //So they aren't chosen for other jobs.
-			apprentice.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
-			possible_wizards.Remove(apprentice)
-			apprentice.original = apprentice.current
-
-	return 1
+	return TRUE
 
 /datum/game_mode/wizard/pre_setup()
-	for(var/datum/mind/wiz in wizards)
-		wiz.current.loc = pick(GLOB.wizardstart)
-	for(var/datum/mind/app in apprentices)
-		app.current.loc = pick(GLOB.wizardstart)
+	for(var/datum/mind/wizard in wizards)
+		wizard.assigned_role = SPECIAL_ROLE_WIZARD //So they aren't chosen for other jobs.
+		wizard.special_role = SPECIAL_ROLE_WIZARD
+		wizard.offstation_role = TRUE
+		wizard.set_original_mob(wizard.current)
+		wizard.current.loc = pick(GLOB.wizardstart)
+	for(var/datum/mind/apprentice in apprentices)
+		apprentice.assigned_role = SPECIAL_ROLE_WIZARD_APPRENTICE //So they aren't chosen for other jobs.
+		apprentice.special_role = SPECIAL_ROLE_WIZARD_APPRENTICE
+		apprentice.offstation_role = TRUE
+		apprentice.set_original_mob(apprentice.current)
+		apprentice.current.loc = pick(GLOB.wizardstart)
 	..()
-	return 1
+	return TRUE
 
 /datum/game_mode/wizard/post_setup()
 	var/datum/mind/wizard_teacher
@@ -69,7 +59,7 @@
 		add_game_logs("has been selected as a Wizard", wizard.current)
 		forge_wizard_objectives(wizard)
 		equip_wizard(wizard.current)
-		INVOKE_ASYNC(src, .proc/name_wizard, wizard.current)
+		INVOKE_ASYNC(src, PROC_REF(name_wizard), wizard.current)
 		greet_wizard(wizard)
 		if(use_huds)
 			update_wiz_icons_added(wizard)
@@ -80,7 +70,7 @@
 		log_game("[key_name(apprentice)] has been selected as a Wizard-Apprentice")
 		forge_wizard_apprentice_objectives(wizard_teacher, apprentice)
 		equip_wizard_apprentice(apprentice.current)
-		INVOKE_ASYNC(src, .proc/name_wizard, apprentice.current)
+		INVOKE_ASYNC(src, PROC_REF(name_wizard), apprentice.current)
 		greet_wizard(apprentice)
 		if(use_huds)
 			update_wiz_icons_added(apprentice)
@@ -95,9 +85,9 @@
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been turned into a robot! You can feel your magical powers fading away..."))
 		else
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard.</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been brainwashed! You are no longer a wizard."))
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 	else if(wizard_mind in apprentices)
 		SSticker.mode.apprentices -= wizard_mind
@@ -106,9 +96,9 @@
 		wizard_mind.current.spellremove(wizard_mind.current)
 		wizard_mind.current.faction = list("Station")
 		if(issilicon(wizard_mind.current))
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been turned into a robot! You can feel your magical powers fading away...</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been turned into a robot! You can feel your magical powers fading away..."))
 		else
-			to_chat(wizard_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a wizard-apprentice.</span>")
+			to_chat(wizard_mind.current, span_userdanger("You have been brainwashed! You are no longer a wizard-apprentice."))
 		SSticker.mode.update_wiz_icons_removed(wizard_mind)
 
 /datum/game_mode/proc/update_wiz_icons_added(datum/mind/wiz_mind)
@@ -121,13 +111,13 @@
 	wizhud.leave_hud(wiz_mind.current)
 	set_antag_hud(wiz_mind.current, null)
 
-/datum/game_mode/proc/forge_wizard_objectives(var/datum/mind/wizard)
+/datum/game_mode/proc/forge_wizard_objectives(datum/mind/wizard)
 	var/datum/objective/wizchaos/wiz_objective = new
 	wiz_objective.owner = wizard
 	wizard.objectives += wiz_objective
 	return
 
-/datum/game_mode/proc/forge_wizard_apprentice_objectives(var/datum/mind/wizard, var/datum/mind/apprentice)
+/datum/game_mode/proc/forge_wizard_apprentice_objectives(datum/mind/wizard, datum/mind/apprentice)
 	apprentice.objectives += wizard.objectives
 
 	var/datum/objective/wizchaos/wiz_objective = new /datum/objective/protect
@@ -142,7 +132,7 @@
 	var/wizard_name_first = pick(GLOB.wizard_first)
 	var/wizard_name_second = pick(GLOB.wizard_second)
 	var/randomname = "[wizard_name_first] [wizard_name_second]"
-	var/newname = sanitize(copytext_char(input(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname) as null|text,1,MAX_NAME_LEN))
+	var/newname = tgui_input_text(wizard_mob, "You are the Space Wizard. Would you like to change your name to something else?", "Name change", randomname, max_length = MAX_NAME_LEN)
 
 	if(!newname)
 		newname = randomname
@@ -152,22 +142,20 @@
 	if(wizard_mob.mind)
 		wizard_mob.mind.name = newname
 
-	if (!(wizard_mob in wizards))
-		for (var/datum/mind/apprentice in apprentices)
-			for (var/datum/objective/protect/objective in apprentice.objectives)
+	if(!(wizard_mob in wizards))
+		for(var/datum/mind/apprentice in apprentices)
+			for(var/datum/objective/protect/objective in apprentice.objectives)
 				objective.explanation_text = "Protect [wizard_mob.real_name], the wizard teacher."
 
-
-/datum/game_mode/proc/greet_wizard(var/datum/mind/wizard, var/you_are=1)
-	addtimer(CALLBACK(wizard.current, /mob/.proc/playsound_local, null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
+/datum/game_mode/proc/greet_wizard(datum/mind/wizard, you_are=1)
+	addtimer(CALLBACK(wizard.current, TYPE_PROC_REF(/mob, playsound_local), null, 'sound/ambience/antag/ragesmages.ogg', 100, 0), 30)
+	var/list/messages = list()
 	if(you_are)
-		to_chat(wizard.current, "<span class='danger'>You are the Space Wizard!</span>")
-	to_chat(wizard.current, "<B>The Space Wizards Federation has given you the following tasks:</B>")
-
-	var/obj_count = 1
-	for(var/datum/objective/objective in wizard.objectives)
-		to_chat(wizard.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
+		messages.Add(span_danger("You are the Space Wizard!"))
+	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
+	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Wizard\">Маг</a>"))
+	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
 	return
 
 /datum/game_mode/proc/equip_wizard(mob/living/carbon/human/wizard_mob)
@@ -190,31 +178,29 @@
 		if(isvox(wizard_mob))
 			wizard_mob.internal = wizard_mob.r_hand
 			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), slot_head)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), ITEM_SLOT_CLOTH_INNER)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard(wizard_mob), ITEM_SLOT_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), ITEM_SLOT_EAR_LEFT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), ITEM_SLOT_FEET)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe(wizard_mob), ITEM_SLOT_CLOTH_OUTER)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), ITEM_SLOT_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/spellbook/spellbook = new /obj/item/spellbook(wizard_mob)
 	spellbook.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(spellbook, slot_l_hand)
+	wizard_mob.equip_to_slot_or_del(spellbook, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
-
-
 
 	to_chat(wizard_mob, "You will find a list of available spells in your spell book. Choose your magic arsenal carefully.")
 	to_chat(wizard_mob, "The spellbook is bound to you, and others cannot use it.")
 	to_chat(wizard_mob, "In your pockets you will find a teleport scroll. Use it as needed.")
-	wizard_mob.mind.store_memory("<B>Remember:</B> do not forget to prepare your spells.")
+	wizard_mob.mind.store_memory("<b>Remember:</b> do not forget to prepare your spells.")
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return TRUE
@@ -239,36 +225,33 @@
 		if(isvox(wizard_mob))
 			wizard_mob.internal = wizard_mob.r_hand
 			wizard_mob.update_action_buttons_icon()
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), slot_w_uniform)
-		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), slot_head)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/under/color/lightpurple(wizard_mob), ITEM_SLOT_CLOTH_INNER)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/head/wizard/red(wizard_mob), ITEM_SLOT_HEAD)
 		wizard_mob.dna.species.after_equip_job(null, wizard_mob)
 	wizard_mob.rejuvenate() //fix any damage taken by naked vox/plasmamen/etc while round setups
-	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), slot_l_ear)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), slot_shoes)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(wizard_mob), slot_wear_suit)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), slot_back)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/radio/headset(wizard_mob), ITEM_SLOT_EAR_LEFT)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/shoes/sandal(wizard_mob), ITEM_SLOT_FEET)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/clothing/suit/wizrobe/red(wizard_mob), ITEM_SLOT_CLOTH_OUTER)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/storage/backpack/satchel(wizard_mob), ITEM_SLOT_BACK)
 	if(wizard_mob.dna.species.speciesbox)
-		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), slot_in_backpack)
+		wizard_mob.equip_to_slot_or_del(new wizard_mob.dna.species.speciesbox(wizard_mob), ITEM_SLOT_BACKPACK)
 	else
-		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, slot_in_backpack)
-	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), slot_r_store)
+		wizard_mob.equip_to_slot_or_del(new /obj/item/storage/box/survival(wizard_mob), ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/reagent_containers/food/drinks/mugwort, ITEM_SLOT_BACKPACK)
+	wizard_mob.equip_to_slot_or_del(new /obj/item/teleportation_scroll(wizard_mob), ITEM_SLOT_POCKET_RIGHT)
 	var/obj/item/contract/apprentice_choose_book/apprentice_book = new /obj/item/contract/apprentice_choose_book(wizard_mob)
 	apprentice_book.owner = wizard_mob
-	wizard_mob.equip_to_slot_or_del(apprentice_book, slot_l_hand)
+	wizard_mob.equip_to_slot_or_del(apprentice_book, ITEM_SLOT_HAND_LEFT)
 
 	wizard_mob.faction = list("wizard")
 
-
-
-	to_chat(wizard_mob, "<span class='notice'>Вы найдёте набор из доступных закинаний в вашем магическом учебнике.</span>")
-	to_chat(wizard_mob, "<span class='notice'>Магический учебник привязан к вам, другие не могут ей воспользоваться.</span>")
-	to_chat(wizard_mob, "<span class='notice'>В карманах вы найдёте свиток телепортации. Используйте его при необходимости.</span>")
-	wizard_mob.mind.store_memory("<B>Помните:</B> не забудьте выбрать предпочитаемый набор.")
+	to_chat(wizard_mob, span_notice("Вы найдёте набор из доступных закинаний в вашем магическом учебнике."))
+	to_chat(wizard_mob, span_notice("Магический учебник привязан к вам, другие не могут ей воспользоваться."))
+	to_chat(wizard_mob, span_notice("В карманах вы найдёте свиток телепортации. Используйте его при необходимости."))
+	wizard_mob.mind.store_memory("<b>Помните:</b> не забудьте выбрать предпочитаемый набор.")
 	wizard_mob.update_icons()
 	wizard_mob.gene_stability += DEFAULT_GENE_STABILITY //magic
 	return TRUE
-
 
 // Checks if the game should end due to all wizards and apprentices being dead, or MMI'd/Borged
 /datum/game_mode/wizard/check_finished()
@@ -277,22 +260,22 @@
 
 	// Wizards
 	for(var/datum/mind/wizard in wizards)
-		if(!istype(wizard.current,/mob/living/carbon))
+		if(!iscarbon(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			continue
-		if(istype(wizard.current, /obj/item/mmi)) // wizard is in an MMI, don't count them as alive
+		if(is_mmi(wizard.current)) // wizard is in an MMI, don't count them as alive
 			continue
 		wizards_alive++
 
 	// Apprentices
 	if(!wizards_alive)
 		for(var/datum/mind/apprentice in apprentices)
-			if(!istype(apprentice.current,/mob/living/carbon))
+			if(!iscarbon(apprentice.current))
 				continue
 			if(apprentice.current.stat==DEAD)
 				continue
-			if(istype(apprentice.current, /obj/item/mmi)) // apprentice is in an MMI, don't count them as alive
+			if(is_mmi(apprentice.current)) // apprentice is in an MMI, don't count them as alive
 				continue
 			apprentices_alive++
 
@@ -302,27 +285,27 @@
 		finished = 1
 		return 1
 
-/datum/game_mode/wizard/declare_completion(var/ragin = 0)
+/datum/game_mode/wizard/declare_completion(ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		to_chat(world, span_warning(span_bold(span_fontsize3(" The wizard[(length(wizards)>1)?"s":""] [(length(apprentices)>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!"))))
 	..()
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
-	if(wizards.len)
-		var/text = "<br><font size=3><b>the wizards/witches were:</b></font>"
+	if(length(wizards))
+		var/list/text = list(span_bold(span_fontsize3("<br>the wizards/witches were:")))
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.key]</b> was <b>[wizard.name]</b> ("
+			text += "<br>[span_bold(wizard.get_display_key())] was [span_bold(wizard.name)] ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"
 				else
 					text += "survived"
 				if(wizard.current.real_name != wizard.name)
-					text += " as <b>[wizard.current.real_name]</b>"
+					text += " as [span_bold(wizard.current.real_name)]"
 			else
 				text += "body destroyed"
 			text += ")"
@@ -331,34 +314,34 @@
 			var/wizardwin = 1
 			for(var/datum/objective/objective in wizard.objectives)
 				if(objective.check_completion())
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+					text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 					SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 					wizardwin = 0
 				count++
 
 			if(wizard.current && wizard.current.stat!=DEAD && wizardwin)
-				text += "<br><font color='green'><B>The wizard was successful!</B></font>"
+				text += "<br><font color='green'><b>The wizard was successful!</b></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>The wizard has failed!</B></font>"
+				text += "<br><font color='red'><b>The wizard has failed!</b></font>"
 				SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
-			if(wizard.spell_list)
-				text += "<br><B>[wizard.name] used the following spells: </B>"
+			if(LAZYLEN(wizard.spell_list))
+				text += "<br><b>[wizard.name] used the following spells: </b>"
 				var/i = 1
-				for(var/obj/effect/proc_holder/spell/S in wizard.spell_list)
-					text += "[S.name]"
-					if(wizard.spell_list.len > i)
+				for(var/obj/effect/proc_holder/spell/spell as anything in wizard.spell_list)
+					text += "[spell.name]"
+					if(length(wizard.spell_list) > i)
 						text += ", "
 					i++
 			text += "<br>"
 
-		if(apprentices.len)
-			text += "<br><font size=3><b>the wizards/witches apprentices were:</b></font>"
+		if(length(apprentices))
+			text += span_bold(span_fontsize3("<br>the wizards/witches apprentices were:"))
 			for(var/datum/mind/apprentice in apprentices)
-				text += "<br><b>[apprentice.key]</b> was <b>[apprentice.name]</b> ("
+				text += "<br><b>[apprentice.get_display_key()]</b> was <b>[apprentice.name]</b> ("
 				if(apprentice.current)
 					if(apprentice.current.stat == DEAD)
 						text += "died"
@@ -374,24 +357,23 @@
 				var/wizardwin = 1
 				for(var/datum/objective/objective in apprentice.objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 						SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						SSblackbox.record_feedback("nested tally", "wizard_objective", 1, list("[objective.type]", "FAIL"))
 						wizardwin = 0
 					count++
 
 				if(apprentice.current && apprentice.current.stat!=DEAD && wizardwin)
-					text += "<br><font color='green'><B>The wizard was successful!</B></font>"
+					text += "<br><font color='green'><b>The wizard was successful!</b></font>"
 					SSblackbox.record_feedback("tally", "wizard_success", 1, "SUCCESS")
 				else
-					text += "<br><font color='red'><B>The wizard has failed!</B></font>"
+					text += "<br><font color='red'><b>The wizard has failed!</b></font>"
 					SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 				text += "<br>"
 
-		to_chat(world, text)
-	return 1
+		return text.Join("")
 
 //OTHER PROCS
 
@@ -399,15 +381,13 @@
 /mob/proc/spellremove(mob/M)
 	if(!mind)
 		return
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mind.spell_list)
-		qdel(spell_to_remove)
-		mind.spell_list -= spell_to_remove
+	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mind.spell_list)
+		mind.RemoveSpell(spell_to_remove)
 
 //To batch-remove mob spells.
 /mob/proc/mobspellremove(mob/M)
-	for(var/obj/effect/proc_holder/spell/spell_to_remove in mob_spell_list)
-		qdel(spell_to_remove)
-		mob_spell_list -= spell_to_remove
+	for(var/obj/effect/proc_holder/spell/spell_to_remove as anything in mob_spell_list)
+		RemoveSpell(spell_to_remove)
 
 /*Checks if the wizard can cast spells.
 Made a proc so this is not repeated 14 (or more) times.*/
@@ -426,4 +406,4 @@ Made a proc so this is not repeated 14 (or more) times.*/
 		return 1
 
 /proc/iswizard(mob/living/M as mob)
-	return istype(M) && M.mind && SSticker && SSticker.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))
+	return istype(M) && M.mind && SSticker?.mode && ((M.mind in SSticker.mode.wizards) || (M.mind in SSticker.mode.apprentices))

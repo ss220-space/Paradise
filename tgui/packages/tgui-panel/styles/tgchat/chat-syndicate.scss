@@ -1,0 +1,28 @@
+.adminooc {
+  color: hsl(174.8, 66.5%, 48%);
+}
+
+.debug {
+  color: hsl(269.8, 77.6%, 56.3%);
+}
+
+// MARK: Boxed messages
+.boxed_message {
+  background: hsl(0, 70%, 12.5%);
+}
+
+.boxed_message.red_border {
+  background: hsl(0, 100%, 12.5%);
+}
+
+.boxed_message.green_border {
+  background: hsl(40, 100%, 7.5%);
+}
+
+.boxed_message.purple_border {
+  background: hsl(300, 100%, 7.5%);
+}
+
+.boxed_message.notice_border {
+  background: hsl(325, 100%, 7.5%);
+}

@@ -33,7 +33,6 @@
 	tastes = list("soy" = 1)
 	foodtype = VEGETABLES
 
-
 //////////////////////
 //		Cheese		//
 //////////////////////
@@ -41,6 +40,7 @@
 /obj/item/reagent_containers/food/snacks/sliceable/cheesewheel
 	name = "cheese wheel"
 	desc = "A big wheel of delicious Cheddar."
+	w_class = WEIGHT_CLASS_NORMAL
 	icon_state = "cheesewheel"
 	slice_path = /obj/item/reagent_containers/food/snacks/cheesewedge
 	slices_num = 5
@@ -52,6 +52,7 @@
 /obj/item/reagent_containers/food/snacks/cheesewedge
 	name = "cheese wedge"
 	desc = "A wedge of delicious Cheddar. The cheese wheel it was cut from can't have gone far."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "cheesewedge"
 	filling_color = "#FFF700"
 	tastes = list("cheese" = 1)
@@ -60,11 +61,11 @@
 /obj/item/reagent_containers/food/snacks/weirdcheesewedge
 	name = "weird cheese"
 	desc = "Some kind of... gooey, messy, gloopy thing. Similar to cheese, but only in the broad sense of the word."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "weirdcheesewedge"
 	filling_color = "#00FF33"
 	list_reagents = list("mercury" = 5, "lsd" = 5, "ethanol" = 5, "weird_cheese" = 5)
 	foodtype = DAIRY | TOXIC
-
 
 //////////////////////
 //		Plants		//
@@ -89,16 +90,33 @@
 	list_reagents = list("protein" = 2)
 	tastes = list("tomato" = 1)
 	foodtype = VEGETABLES
-	
+
 /obj/item/reagent_containers/food/snacks/cucumberslice
- 	name = "cucumber slice"
- 	desc = "A slice from a cucumber."
- 	icon_state = "cucumberslice"
- 	filling_color = "#00DB00"
- 	bitesize = 6
- 	list_reagents = list("kelotane" = 1)
- 	tastes = list("cucumber" = 1)
- 	foodtype = VEGETABLES
+	name = "cucumber slice"
+	desc = "A slice from a cucumber."
+	icon_state = "cucumberslice"
+	filling_color = "#00DB00"
+	bitesize = 6
+	list_reagents = list("kelotane" = 1)
+	tastes = list("cucumber" = 1)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/cucumberslice/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/cucumberslice) && I != src)
+		if(!user.is_in_hands(src))
+			to_chat(user, span_warning("You need to hold both slices in hands."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/clothing/glasses/sunglasses/blindfold/cucumbermask/cucumbermask = new(drop_location())
+		cucumbermask.add_fingerprint(user)
+		to_chat(user, span_notice("You have completed [cucumbermask]."))
+		user.temporarily_remove_item_from_inventory(src, force = TRUE)
+		user.temporarily_remove_item_from_inventory(I, force = TRUE)
+		user.put_in_hands(cucumbermask)
+		qdel(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/watermelonslice
 	name = "watermelon slice"
@@ -116,7 +134,6 @@
 	tastes = list("pineapple" = 1)
 	foodtype = FRUIT
 
-
 //////////////////////
 //		Dough		//
 //////////////////////
@@ -130,17 +147,37 @@
 	tastes = list("dough" = 1)
 	foodtype = GRAIN
 
-// Dough + rolling pin = flat dough
 /obj/item/reagent_containers/food/snacks/dough/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/kitchen/rollingpin))
-		if(isturf(loc))
-			new /obj/item/reagent_containers/food/snacks/sliceable/flatdough(loc)
-			to_chat(user, "<span class='notice'>You flatten [src].</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
-	else
-		..()
+	. = ..()
+
+	// Dough + rolling pin = flat dough
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/kitchen/rollingpin))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot flatten [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot flatten [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/reagent_containers/food/snacks/sliceable/flatdough/flatdough = new(loc)
+	transfer_fingerprints_to(flatdough)
+	flatdough.add_fingerprint(user)
+	to_chat(user, span_notice("You have flattened [src]."))
+	qdel(src)
 
 // slicable into 3xdoughslices
 /obj/item/reagent_containers/food/snacks/sliceable/flatdough
@@ -154,7 +191,6 @@
 	tastes = list("dough" = 1)
 	foodtype = GRAIN
 
-
 /obj/item/reagent_containers/food/snacks/doughslice
 	name = "dough slice"
 	desc = "The building block of an impressive dish."
@@ -164,72 +200,140 @@
 	tastes = list("dough" = 1)
 	foodtype = GRAIN
 
+/obj/item/reagent_containers/food/snacks/doughslice/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	// Dough + rolling pin = flat dough
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/reagent_containers/food/snacks/rawcutlet))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot cannot make a pelmeni [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot make a pelmeni here! You need a table or at least a tray to do it."))
+		return .
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/reagent_containers/food/snacks/pelmeni/pelmeni = new(loc)
+	transfer_fingerprints_to(pelmeni)
+	pelmeni.add_fingerprint(user)
+	to_chat(user, span_notice("You have made some pelmeni."))
+	qdel(src)
+	qdel(I)
 
 ///cookies by Ume
 
 /obj/item/reagent_containers/food/snacks/cookiedough
-	var/flat = FALSE
 	name = "pastry dough"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	desc = "The base for tasty cookies."
 	icon_state = "cookiedough"
-	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	list_reagents = list("nutriment" = 5, "sugar" = 1)
 	tastes = list("dough" = 1, "sugar" = 1)
-	foodtype = GRAIN | SUGAR
+	foodtype = GRAIN|SUGAR
+	var/flat = FALSE
 
-/obj/item/reagent_containers/food/snacks/cookiedough/update_icon()
-    if(flat)
-        icon_state = "cookiedough_flat"
-        name = "flat pastry dough"
-    else
-        icon_state = "cookiedough"
+/obj/item/reagent_containers/food/snacks/cookiedough/update_icon_state()
+	icon_state = "cookiedough[flat ? "_flat" : ""]"
 
+/obj/item/reagent_containers/food/snacks/cookiedough/update_name(updates = ALL)
+	. = ..()
+	name = flat ? "flat pastry dough" : initial(name)
 
-
-// Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
 /obj/item/reagent_containers/food/snacks/cookiedough/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/kitchen/rollingpin) && !flat)
-		if(isturf(loc))
-			to_chat(user, "<span class='notice'>You flatten [src].</span>")
-			flat = TRUE
-			update_icon()
-		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to roll it out!</span>")
-	else if(istype(I, /obj/item/kitchen/cutter) && flat)
-		if(isturf(loc))
-			new /obj/item/reagent_containers/food/snacks/rawcookies(loc)
-			to_chat(user, "<span class='notice'>You cut [src] into cookies.</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
-	else
-		return ..()
+	. = ..()
 
+	// Dough + rolling pin = flat cookie dough // Flat dough + circular cutter = unbaked cookies
+	var/rolling = istype(I, /obj/item/kitchen/rollingpin)
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || (!rolling && !istype(I, /obj/item/kitchen/cutter)))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot [rolling ? "flatten" : "cut"] [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot [rolling ? "flatten" : "cut"] [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	if(rolling && flat)
+		to_chat(user, span_warning("The [name] is already flat enough."))
+		return .
+
+	if(!rolling && !flat)
+		to_chat(user, span_warning("You should roll it out first."))
+		return .
+
+	if(rolling)
+		to_chat(user, span_notice("You have flattened [src]."))
+		flat = TRUE
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
+		return .|ATTACK_CHAIN_SUCCESS
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/reagent_containers/food/snacks/rawcookies/cookies = new(loc)
+	transfer_fingerprints_to(cookies)
+	cookies.add_fingerprint(user)
+	to_chat(user, span_notice("You have cut [src] into raw cookies."))
+	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/rawcookies
 	name = "raw cookies"
 	desc = "Ready for oven!"
 	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies"
-	list_reagents = list("nutriment" = 5, "sugar" = 5)
+	list_reagents = list("nutriment" = 5, "sugar" = 2)
 	foodtype = GRAIN | SUGAR
 
 /obj/item/reagent_containers/food/snacks/rawcookies/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
-		if(isturf(loc))
-			new /obj/item/reagent_containers/food/snacks/rawcookies/chocochips(loc)
-			to_chat(user, "<span class='notice'>You sprinkle [I] all over the cookies.</span>")
-			qdel(src)
-			qdel(I)
-		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to add this</span>")
-	else
-		return ..()
+	. = ..()
+
+	// Dough + rolling pin = flat dough
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/reagent_containers/food/snacks/choc_pile))
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You need to put [src] on a surface to add [I]."))
+		return .
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/reagent_containers/food/snacks/rawcookies/chocochips/chocochips = new(loc)
+	transfer_fingerprints_to(chocochips)
+	chocochips.add_fingerprint(user)
+	to_chat(user, span_notice("You sprinkle [I] all over the cookies."))
+	qdel(src)
+	qdel(I)
 
 /obj/item/reagent_containers/food/snacks/rawcookies/chocochips
-	name = "raw cookies"
 	desc = "Ready for oven! They have little pieces of chocolate all over them"
-	icon = 'icons/obj/food/food_ingredients.dmi'
 	icon_state = "unbaked_cookies_choco"
 	list_reagents = list("nutriment" = 5, "sugar" = 5, "chocolate" = 5)
 	tastes = list("dough" = 1, "sugar" = 1, "chocolate" = 1)
@@ -243,22 +347,41 @@
 	desc = "Such sweet, fattening food."
 	icon_state = "chocolatebar"
 	filling_color = "#7D5F46"
-	list_reagents = list("nutriment" = 2, "sugar" = 2, "cocoa" = 2)
+	list_reagents = list("nutriment" = 2, "sugar" = 5, "cocoa" = 2)
 	tastes = list("chocolate" = 1)
 	foodtype = SUGAR
 
-///Chocolate crumbles/pile
 /obj/item/reagent_containers/food/snacks/chocolatebar/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/kitchen/knife))
-		if(isturf(loc))
-			new /obj/item/reagent_containers/food/snacks/choc_pile(loc)
-			to_chat(user, "<span class='notice'>You cut [src] into little crumbles.</span>")
-			qdel(src)
-		else
-			to_chat(user, "<span class='notice'>You need to put [src] on a surface to cut it out!</span>")
-	else
-		return ..()
+	. = ..()
 
+	// chocolate crumbles/pile
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp)
+		return .
+
+	if(!isturf(loc))
+		to_chat(user, span_warning("You cannot cut [src] [ismob(loc) ? "in inventory" : "in [loc]"]."))
+		return .
+
+	var/static/list/acceptable_surfaces = typecacheof(list(
+		/obj/structure/table,
+		/obj/machinery/optable,
+		/obj/item/storage/bag/tray,
+	))
+	var/acceptable = FALSE
+	for(var/thing in loc)
+		if(is_type_in_typecache(thing, acceptable_surfaces))
+			acceptable = TRUE
+			break
+	if(!acceptable)
+		to_chat(user, span_warning("You cannot cut [src] here! You need a table or at least a tray to do it."))
+		return .
+
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	var/obj/item/reagent_containers/food/snacks/choc_pile/choc_pile = new(loc)
+	transfer_fingerprints_to(choc_pile)
+	choc_pile.add_fingerprint(user)
+	to_chat(user, span_notice("You have cut [src] into little crumbles."))
+	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/choc_pile //for reagent chocolate being spilled on turfs
 	name = "pile of chocolate"

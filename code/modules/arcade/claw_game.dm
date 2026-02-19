@@ -3,8 +3,6 @@ GLOBAL_VAR(claw_game_html)
 /obj/machinery/arcade/claw
 	name = "Claw Game"
 	desc = "One of the most infuriating ways to win a toy."
-	icon = 'icons/obj/arcade.dmi'
-	icon_state = "clawmachine_1_on"
 	token_price = 5
 	window_name = "Claw Game"
 	var/machine_image = "_1"
@@ -17,10 +15,10 @@ GLOBAL_VAR(claw_game_html)
 								'icons/obj/arcade_images/prize_inside.png',
 								'icons/obj/arcade_images/prizeorbs.png')
 
-/obj/machinery/arcade/claw/New()
-	..()
+/obj/machinery/arcade/claw/Initialize(mapload)
+	. = ..()
 	machine_image = pick("_1", "_2")
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/clawgame(null)
@@ -36,10 +34,10 @@ GLOBAL_VAR(claw_game_html)
 /obj/machinery/arcade/claw/RefreshParts()
 	var/bin_upgrades = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		bin_upgrades = B.rating
-	bonus_prize_chance = bin_upgrades * 5	//equals +5% chance per matter bin rating level (+20% with rating 4)
+		bin_upgrades += B.rating
+	bonus_prize_chance = bin_upgrades * 5	//equals +5% chance per matter bin rating level (+25% with rating 5)
 
-/obj/machinery/arcade/claw/update_icon()
+/obj/machinery/arcade/claw/update_icon_state()
 	if(stat & BROKEN)
 		icon_state = "clawmachine[machine_image]_broken"
 	else if(panel_open)
@@ -58,12 +56,12 @@ GLOBAL_VAR(claw_game_html)
 		atom_say("ПОБЕДИТЕЛЬ!")
 	new /obj/item/toy/prizeball(get_turf(src))
 	playsound(loc, 'sound/arcade/win.ogg', 50, TRUE)
-	addtimer(CALLBACK(src, .proc/update_icon), 10)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), 1 SECONDS)
 
 /obj/machinery/arcade/claw/start_play(mob/user as mob)
 	..()
 	user << browse_rsc('page.css')
-	for(var/i in 1 to img_resources.len)
+	for(var/i in 1 to length(img_resources))
 		user << browse_rsc(img_resources[i])
 	var/my_game_html = replacetext(GLOB.claw_game_html, "/* ref src */", UID())
 	var/datum/browser/popup = new(user, window_name, name, 915, 700, src)

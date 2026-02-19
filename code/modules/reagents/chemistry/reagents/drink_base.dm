@@ -1,11 +1,10 @@
 /datum/reagent/consumable/drink
-	name = "Drink"
+	name = "Напиток"
 	id = "drink"
-	description = "Uh, some kind of drink."
+	description = "Напиток, вроде как."
 	reagent_state = LIQUID
 	color = "#E78108" // rgb: 231, 129, 8
-	harmless = TRUE
-	taste_description = "something which should not exist"
+	taste_description = "чего-то неописуемого"
 	var/adj_dizzy = 0
 	var/adj_drowsy = 0
 	var/adj_sleepy = 0
@@ -19,11 +18,11 @@
 	if(adj_drowsy)
 		M.AdjustDrowsy(adj_drowsy)
 	if(adj_sleepy)
-		update_flags |= M.AdjustSleeping(adj_sleepy, FALSE)
+		M.AdjustSleeping(adj_sleepy)
 	if(adj_temp_hot)
-		if(M.bodytemperature < 310)//310 is the normal bodytemp. 310.055
-			M.bodytemperature = min(310, M.bodytemperature + (adj_temp_hot * TEMPERATURE_DAMAGE_COEFFICIENT))
+		if(M.bodytemperature < BODYTEMP_NORMAL)
+			M.adjust_bodytemperature(adj_temp_hot * TEMPERATURE_DAMAGE_COEFFICIENT)
 	if(adj_temp_cool)
-		if(M.bodytemperature > 310)//310 is the normal bodytemp. 310.055
-			M.bodytemperature = max(310, M.bodytemperature - (adj_temp_cool * TEMPERATURE_DAMAGE_COEFFICIENT))
+		if(M.bodytemperature > BODYTEMP_NORMAL)
+			M.adjust_bodytemperature(-(adj_temp_cool * TEMPERATURE_DAMAGE_COEFFICIENT))
 	return ..() | update_flags

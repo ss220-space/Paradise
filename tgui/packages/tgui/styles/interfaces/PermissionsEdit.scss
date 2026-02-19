@@ -1,0 +1,25 @@
+@use '../base.scss';
+@use '../colors.scss';
+@use '../functions.scss' as *;
+
+.PermissionsEdit__list {
+  tr > td {
+    text-align: center;
+  }
+
+  tr:not(:first-child) {
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+
+    transition: background-color 50ms;
+    &:hover,
+    &:focus {
+      background-color: hsla(212, 20%, 22%, 1);
+    }
+  }
+
+  tr:nth-child(even) {
+    background: hsla(212, 20%, 22%, 0.5);
+  }
+}

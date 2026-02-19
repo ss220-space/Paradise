@@ -8,4 +8,4 @@
 	if(pr_substring == "Pull Request merged by")
 		GLOB.pending_server_update = TRUE
 	for(var/client/C in GLOB.clients)
-		to_chat(C, "<span class='announce'>PR: [prtext]</span>")
+		to_chat(C, span_announce("PR: [prtext]"))

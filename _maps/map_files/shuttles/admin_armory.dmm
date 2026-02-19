@@ -39,8 +39,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /obj/machinery/light/small,
 /turf/simulated/floor/carpet/royalblack,
@@ -126,8 +125,7 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -138,15 +136,13 @@
 	id_tag = "adminshuttle";
 	name = "Bridge";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 8;
-	do_not_delete_me = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/black{
-	dir = 4;
-	do_not_delete_me = 1
+	dir = 4
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -194,7 +190,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_sensor";
 	pixel_y = 26;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "vfloor"
@@ -218,7 +214,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_air_control";
 	pixel_y = 24;
-	req_access_txt = "152";
+	req_access = list(152);
 	tag_airpump = "admin_s_pump";
 	tag_chamber_sensor = "admin_s_sensor";
 	tag_exterior_door = "admin_s_outer";
@@ -242,7 +238,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 6;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -274,8 +269,7 @@
 	name = "NTV Argos shuttle navigation computer"
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -297,7 +291,7 @@
 	color = "#22aab7";
 	dir = 1;
 	icon_state = "rightsecure";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -348,7 +342,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle{
@@ -362,7 +356,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_exterior";
@@ -370,7 +364,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -387,7 +381,9 @@
 	name = "NRV Sparta";
 	roundstart_move = "admin_away";
 	timid = 1;
-	width = 18
+	width = 18;
+	port_direction = 2;
+	preferred_direction = 8
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -395,9 +391,7 @@
 	},
 /area/shuttle/administration)
 "mw" = (
-/obj/machinery/vending/medical{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/medical,
 /turf/simulated/floor/shuttle{
 	icon_state = "floor3"
 	},
@@ -407,8 +401,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 6;
-	do_not_delete_me = 1
+	dir = 6
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -418,7 +411,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_outer";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -434,21 +427,21 @@
 /area/shuttle/administration)
 "nQ" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -495,8 +488,7 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -522,7 +514,7 @@
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/hatch{
 	name = "NRV Sparta";
-	req_access = "101"
+	req_access = list(101)
 	},
 /obj/machinery/door/poddoor{
 	density = 0;
@@ -555,8 +547,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/gold{
-	dir = 5;
-	do_not_delete_me = 1
+	dir = 5
 	},
 /turf/simulated/floor/carpet/royalblack,
 /area/shuttle/administration)
@@ -596,7 +587,6 @@
 	},
 /obj/effect/turf_decal/stripes/gold{
 	dir = 5;
-	do_not_delete_me = 1;
 	icon_state = "gs_deadlock"
 	},
 /turf/simulated/floor/carpet/royalblack,
@@ -803,8 +793,7 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -860,21 +849,21 @@
 /area/shuttle/administration)
 "yk" = (
 /obj/structure/rack,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck,
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/storage/box/buck{
+/obj/item/ammo_box/shotgun/buck{
 	pixel_x = -3;
 	pixel_y = 3
 	},
@@ -936,7 +925,7 @@
 	},
 /area/shuttle/administration)
 "Az" = (
-/turf/simulated/wall/shuttle/nodiagonal{
+/turf/simulated/wall/shuttle{
 	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/administration)
@@ -957,7 +946,7 @@
 	},
 /area/shuttle/administration)
 "Bc" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
@@ -1036,8 +1025,7 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -1087,7 +1075,7 @@
 /area/shuttle/administration)
 "FU" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 1
@@ -1149,7 +1137,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/brigdoor{
 	color = "#22aab7";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1193,7 +1181,7 @@
 	frequency = 1331;
 	id_tag = "admin_s_inner";
 	name = "Ship External Access";
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/machinery/access_button{
 	command = "cycle_interior";
@@ -1201,7 +1189,7 @@
 	master_tag = "admin_s_air_control";
 	pixel_x = -1;
 	pixel_y = -29;
-	req_one_access_txt = "101"
+	req_access = list(101)
 	},
 /obj/structure/fans/tiny,
 /turf/simulated/floor/shuttle{
@@ -1228,8 +1216,7 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -1239,11 +1226,6 @@
 /obj/effect/spawner/window/shuttle/gray,
 /obj/structure/fans/tiny/invisible,
 /turf/simulated/floor/shuttle/plating,
-/area/shuttle/administration)
-"Jg" = (
-/turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
-	},
 /area/shuttle/administration)
 "Jt" = (
 /obj/item/clothing/shoes/combat/swat,
@@ -1400,8 +1382,7 @@
 	anchored = 1;
 	layer = 2;
 	name = "Weapons";
-	req_access = null;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon_state = "floor4"
@@ -1427,7 +1408,7 @@
 	},
 /area/shuttle/administration)
 "PE" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
 	dir = 8
@@ -1447,7 +1428,7 @@
 	},
 /area/shuttle/administration)
 "Rh" = (
-/obj/machinery/suit_storage_unit/security/secure,
+/obj/machinery/suit_storage_unit/security,
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7"
 	},
@@ -1467,7 +1448,7 @@
 	name = "Shuttle Blast Door Control";
 	pixel_x = -26;
 	pixel_y = 25;
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1587,7 +1568,7 @@
 	id_tag = "adminshuttle";
 	name = "Armory";
 	opacity = 1;
-	req_access_txt = "101"
+	req_access = list(101)
 	},
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
@@ -1606,11 +1587,6 @@
 	dir = 8;
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "navybluealt"
-	},
-/area/shuttle/administration)
-"XL" = (
-/turf/simulated/wall/shuttle{
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi'
 	},
 /area/shuttle/administration)
 "XP" = (
@@ -1649,112 +1625,112 @@
 (1,1,1) = {"
 Vc
 Vc
-XL
+Az
 UX
 UX
 UX
-XL
+Az
 wS
 Vc
 Vc
 wS
-XL
-XL
-XL
-XL
-XL
+Az
+Az
+Az
+Az
+Az
 Vc
 Vc
 "}
 (2,1,1) = {"
 Vc
-XL
-XL
+Az
+Az
 Mj
 aP
 dP
-XL
+Az
 rW
 Ir
 Ir
 rW
-XL
+Az
 MY
 vA
 cl
 aH
-XL
+Az
 Vc
 "}
 (3,1,1) = {"
-XL
-XL
+Az
+Az
 mw
 Cl
 Cl
 Qt
-XL
+Az
 hP
 ua
 gh
 bQ
-XL
+Az
 FF
 VQ
 VQ
 VQ
 aH
-XL
+Az
 "}
 (4,1,1) = {"
-XL
+Az
 xZ
 Cl
 Cl
 Cl
 zd
-XL
+Az
 Ru
 qQ
 mZ
 xF
-XL
+Az
 uv
 Jt
 XP
 VQ
 GS
-XL
+Az
 "}
 (5,1,1) = {"
-XL
+Az
 Gx
 Cl
 Cl
 Cl
 Cl
-XL
+Az
 Az
 VQ
 VQ
 Az
-XL
+Az
 oG
 cP
 xH
 VQ
 dl
-XL
+Az
 "}
 (6,1,1) = {"
-XL
+Az
 bi
 Cl
 Cl
-XL
+Az
 VI
 Az
-Jg
+rW
 cV
 cV
 rW
@@ -1764,11 +1740,11 @@ VQ
 VQ
 VQ
 Lz
-XL
+Az
 "}
 (7,1,1) = {"
-XL
-XL
+Az
+Az
 VI
 VI
 Az
@@ -1777,17 +1753,17 @@ XG
 rA
 xQ
 so
-XL
+Az
 we
 Pe
 Dw
 HX
 VQ
 oj
-XL
+Az
 "}
 (8,1,1) = {"
-XL
+Az
 oY
 VQ
 Ev
@@ -1797,14 +1773,14 @@ Ur
 Ur
 Ur
 al
-XL
+Az
 LK
 TF
 Uc
 vV
 VQ
 BZ
-XL
+Az
 "}
 (9,1,1) = {"
 UX
@@ -1824,14 +1800,14 @@ VQ
 VQ
 VQ
 Vi
-XL
+Az
 "}
 (10,1,1) = {"
 UX
 dH
 VQ
 VQ
-XL
+Az
 zg
 RS
 Mv
@@ -1844,7 +1820,7 @@ VQ
 VQ
 VQ
 vz
-XL
+Az
 "}
 (11,1,1) = {"
 rW
@@ -1852,12 +1828,12 @@ Pj
 VQ
 VQ
 Az
-XL
+Az
 Hc
 YF
-XL
-XL
-XL
+Az
+Az
+Az
 eY
 uY
 wh
@@ -1877,7 +1853,7 @@ VQ
 VQ
 BR
 BR
-XL
+Az
 we
 VQ
 VQ
@@ -1897,7 +1873,7 @@ VQ
 VQ
 VQ
 VQ
-XL
+Az
 PE
 VQ
 Bc
@@ -1927,12 +1903,12 @@ AH
 UX
 "}
 (15,1,1) = {"
-XL
+Az
 Du
 jF
 Gn
-XL
-XL
+Az
+Az
 Az
 rW
 le
@@ -1944,47 +1920,47 @@ Az
 Du
 jF
 Gn
-XL
+Az
 "}
 (16,1,1) = {"
-XL
+Az
 Fd
 Fd
 Fd
-XL
-XL
-XL
+Az
+Az
+Az
 fq
 iK
 pc
 iz
-XL
-XL
-XL
+Az
+Az
+Az
 Fd
 Fd
 Fd
-XL
+Az
 "}
 (17,1,1) = {"
-XL
+Az
 Ki
 FT
 Ki
 Ni
 Pn
-XL
+Az
 eG
 iz
 yu
 sq
-XL
+Az
 Pn
 ce
 Ki
 FT
 Ki
-XL
+Az
 "}
 (18,1,1) = {"
 Vc
@@ -1993,12 +1969,12 @@ Ki
 Ki
 Vc
 qE
-XL
+Az
 rW
 nl
 lf
 rW
-XL
+Az
 qE
 Vc
 Ki

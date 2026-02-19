@@ -4,40 +4,39 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
-	opacity = 0
 	force = 5 //Plastic is soft
 	throwforce = 5
 	throw_speed = 1
-	throw_range = 7
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "engineering=4;materials=2"
 	var/max_amount = 90
 	var/active = 0
 	var/obj/structure/cable/last = null
 	var/obj/item/stack/cable_coil/loaded = null
 
-/obj/item/twohanded/rcl/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/C = W
+/obj/item/twohanded/rcl/attackby(obj/item/I, mob/user, params)
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
 		if(!loaded)
-			if(user.drop_item())
-				loaded = W
-				loaded.forceMove(src)
-				loaded.max_amount = max_amount //We store a lot.
-			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
-				return
-		else
-			if(loaded.amount < max_amount)
-				var/amount = min(loaded.amount + C.amount, max_amount)
-				C.use(amount - loaded.amount)
-				loaded.amount = amount
-			else
-				return
-		update_icon()
-		to_chat(user, "<span class='notice'>You add the cables to the [src]. It now contains [loaded.amount].</span>")
-	else
-		..()
+			if(!user.drop_transfer_item_to_loc(coil, src))
+				return ..()
+			loaded = coil
+			loaded.max_amount = max_amount //We store a lot.
+			update_icon(UPDATE_ICON_STATE)
+			to_chat(user, span_notice("You add the cables to the [src]. It now contains [loaded.amount]."))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(loaded.amount >= max_amount)
+			to_chat(user, span_warning("The [name]'s cable storage is full."))
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You load some cable into [src]."))
+		var/amount = min(loaded.amount + coil.amount, max_amount)
+		coil.use(amount - loaded.amount)
+		loaded.amount = amount
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, span_notice("You add the cables to the [src]. It now contains [loaded.amount]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
 
 /obj/item/twohanded/rcl/screwdriver_act(mob/user, obj/item/I)
 	if(!loaded)
@@ -45,7 +44,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires.</span>")
+	to_chat(user, span_notice("You loosen the securing screws on the side, allowing you to lower the guiding edge and retrieve the wires."))
 	while(loaded.amount > 30) //There are only two kinds of situations: "nodiff" (60,90), or "diff" (31-59, 61-89)
 		var/diff = loaded.amount % 30
 		if(diff)
@@ -58,12 +57,12 @@
 	loaded.forceMove(user.loc)
 	user.put_in_hands(loaded)
 	loaded = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/twohanded/rcl/examine(mob/user)
 	. = ..()
 	if(loaded)
-		. += "<span class='notice'>It contains [loaded.amount]/[max_amount] cables.</span>"
+		. += span_notice("It contains [loaded.amount]/[max_amount] cables.")
 
 /obj/item/twohanded/rcl/Destroy()
 	QDEL_NULL(loaded)
@@ -71,7 +70,7 @@
 	active = 0
 	return ..()
 
-/obj/item/twohanded/rcl/update_icon()
+/obj/item/twohanded/rcl/update_icon_state()
 	if(!loaded)
 		icon_state = "rcl-0"
 		item_state = "rcl-0"
@@ -89,25 +88,29 @@
 		else
 			icon_state = "rcl-0"
 			item_state = "rcl-0"
-	..()
 
 /obj/item/twohanded/rcl/proc/is_empty(mob/user, loud = 1)
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if(!loaded || !loaded.amount)
 		if(loud)
-			to_chat(user, "<span class='notice'>The last of the cables unreel from [src].</span>")
+			to_chat(user, span_notice("The last of the cables unreel from [src]."))
 		if(loaded)
 			qdel(loaded)
 			loaded = null
-		unwield(user)
+		user.mode()
 		active = wielded
 		return 1
 	return 0
 
-/obj/item/twohanded/rcl/dropped(mob/wearer)
-	..()
+/obj/item/twohanded/rcl/equipped(mob/user, slot, initial)
+	. = ..()
+	RegisterSignal(user, COMSIG_MOB_CLIENT_MOVED, PROC_REF(on_mob_move), override = TRUE)
+
+/obj/item/twohanded/rcl/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
 	active = 0
 	last = null
+	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 
 /obj/item/twohanded/rcl/attack_self(mob/user)
 	..()
@@ -120,18 +123,18 @@
 				last = C
 				break
 
-/obj/item/twohanded/rcl/on_mob_move(direct, mob/user)
+/obj/item/twohanded/rcl/on_mob_move(mob/user, dir)
 	if(active)
 		trigger(user)
 
 /obj/item/twohanded/rcl/proc/trigger(mob/user)
 	if(is_empty(user, 0))
-		to_chat(user, "<span class='warning'>\The [src] is empty!</span>")
+		to_chat(user, span_warning("\The [src] is empty!"))
 		return
 	if(last)
 		if(get_dist(last, user) == 1) //hacky, but it works
 			var/turf/T = get_turf(user)
-			if(!isturf(T) || T.intact || !T.can_have_cabling())
+			if(!T || !T.can_lay_cable())
 				last = null
 				return
 			if(get_dir(last, user) == last.d2)
@@ -151,4 +154,4 @@
 	loaded = new()
 	loaded.max_amount = max_amount
 	loaded.amount = max_amount
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)

@@ -1,15 +1,24 @@
+// Floragun
+/// The amount by which a plant's characteristics increase when hit_act to BETA mode (/energy/floragun)
+#define FLORAGUN_POTENCY 50
+#define FLORAGUN_YIELD 2
+#define FLORAGUN_PRODUCTION -1
+#define FLORAGUN_ENDURANCE 10
+
 // ********************************************************
 // Here's all the seeds (plants) that can be used in hydro
 // ********************************************************
-
+GLOBAL_LIST_EMPTY(plant_seeds)
 /obj/item/seeds
 	icon = 'icons/obj/hydroponics/seeds.dmi'
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
+	abstract_type = /obj/item/seeds
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/product						// A type path. The thing that is created when the plant is harvested.
 	var/species = ""				// Used to update icons. Should match the name in the sprites unless all icon_* are overriden.
+	var/variant = null				// Optional custom name to track modified plants. Can be set with pen or from gene modder.
 
 	var/growing_icon = 'icons/obj/hydroponics/growing.dmi' //the file that stores the sprites of the growing plant from this seed.
 	var/icon_grow					// Used to override grow icon (default is "[species]-grow"). You can use one grow icon for multiple closely related plants with it.
@@ -34,8 +43,14 @@
 
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
+	var/nogenes = FALSE
 
-/obj/item/seeds/New(loc, nogenes = 0)
+/obj/item/seeds/get_short_name()
+	if(!plantname)
+		return declent_ru(NOMINATIVE)
+	return plantname
+
+/obj/item/seeds/New(loc, nogenes = FALSE)
 	..()
 	pixel_x = rand(-8, 8)
 	pixel_y = rand(-8, 8)
@@ -48,7 +63,11 @@
 
 	if(!icon_harvest && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && yield != -1)
 		icon_harvest = "[species]-harvest"
+	src.nogenes = nogenes
+	GLOB.plant_seeds += src
 
+/obj/item/seeds/Initialize(mapload)
+	. = ..()
 	if(!nogenes) // not used on Copy()
 		genes += new /datum/plant_gene/core/lifespan(lifespan)
 		genes += new /datum/plant_gene/core/endurance(endurance)
@@ -70,6 +89,7 @@
 
 /obj/item/seeds/Destroy()
 	QDEL_LIST(genes)
+	GLOB.plant_seeds -= src
 	return ..()
 
 /obj/item/seeds/proc/Copy()
@@ -83,6 +103,8 @@
 	S.potency = potency
 	S.weed_rate = weed_rate
 	S.weed_chance = weed_chance
+	S.variant = variant
+	S.apply_variant_name()
 	S.genes = list()
 	for(var/g in genes)
 		var/datum/plant_gene/G = g
@@ -109,22 +131,11 @@
 	if(prob(traitmut))
 		add_random_traits(1, 1)
 
-
-
-/obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
-	if(istype(Proj, /obj/item/projectile/energy/florayield))
-		var/rating = 1
-		if(istype(loc, /obj/machinery/hydroponics))
-			var/obj/machinery/hydroponics/H = loc
-			rating = H.rating
-
-		if(yield == 0)//Oh god don't divide by zero you'll doom us all.
-			adjust_yield(1 * rating)
-		else if(prob(1/(yield * yield) * 100))//This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
-			adjust_yield(1 * rating)
+/obj/item/seeds/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
+	if(istype(Proj, /obj/projectile/energy/florabeta))
+		on_floragun_beta_act()
 	else
 		return ..()
-
 
 // Harvest procs
 /obj/item/seeds/proc/getYield()
@@ -138,7 +149,6 @@
 			return_yield *= (parent.yieldmod)
 
 	return return_yield
-
 
 /obj/item/seeds/proc/harvest(mob/user = usr)
 	var/obj/machinery/hydroponics/parent = loc //for ease of access
@@ -159,7 +169,6 @@
 
 	return result
 
-
 /obj/item/seeds/proc/prepare_result(obj/item/T)
 	if(!T.reagents)
 		CRASH("[T] has no reagents.")
@@ -177,7 +186,6 @@
 				data = grown_edible.tastes.Copy()
 
 		T.reagents.add_reagent(rid, amount, data)
-
 
 /// Setters procs ///
 /obj/item/seeds/proc/adjust_yield(adjustamt)
@@ -278,7 +286,6 @@
 	if(C)
 		C.value = weed_chance
 
-
 /obj/item/seeds/proc/get_analyzer_text()  //in case seeds have something special to tell to the analyzer
 	var/text = ""
 	if(!get_gene(/datum/plant_gene/trait/plant_type/weed_hardy) && !get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism) && !get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
@@ -288,7 +295,7 @@
 	if(get_gene(/datum/plant_gene/trait/plant_type/fungal_metabolism))
 		text += "- Plant type: Mushroom. Can grow in dry soil.\n"
 	if(get_gene(/datum/plant_gene/trait/plant_type/alien_properties))
-		text += "- Plant type: <span class='warning'>UNKNOWN</span> \n"
+		text += "- Plant type: [span_warning("UNKNOWN")] \n"
 	if(potency != -1)
 		text += "- Potency: [potency]\n"
 	if(yield != -1)
@@ -300,8 +307,6 @@
 	text += "- Lifespan: [lifespan]\n"
 	text += "- Weed Growth Rate: [weed_rate]\n"
 	text += "- Weed Vulnerability: [weed_chance]\n"
-	if(rarity)
-		text += "- Species Discovery Value: [rarity]\n"
 	var/all_traits = ""
 	for(var/datum/plant_gene/trait/traits in genes)
 		if(istype(traits, /datum/plant_gene/trait/plant_type))
@@ -309,31 +314,60 @@
 		all_traits += " [traits.get_name()]"
 	text += "- Plant Traits:[all_traits]\n"
 
-	text += "*---------*"
-
 	return text
 
 /obj/item/seeds/proc/on_chem_reaction(datum/reagents/S)  //in case seeds have some special interaction with special chems
 	return
 
-/obj/item/seeds/attackby(obj/item/O, mob/user, params)
-	if (istype(O, /obj/item/plant_analyzer))
-		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
-		var/text = get_analyzer_text()
-		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
+/obj/item/seeds/proc/on_floragun_beta_act()
+	adjust_potency(FLORAGUN_POTENCY)
+	adjust_yield(FLORAGUN_YIELD)
+	adjust_production(FLORAGUN_PRODUCTION)
+	adjust_endurance(FLORAGUN_ENDURANCE)
 
+/obj/item/seeds/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
+		variant_prompt(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/plant_analyzer))
+		add_fingerprint(user)
+		to_chat(user, "[span_notice("This is the ")][span_name("[name]")]")
+		var/advanced_info = get_analyzer_text()
+		if(advanced_info)
+			to_chat(user, span_notice("[advanced_info]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/obj/item/seeds/proc/variant_prompt(mob/user, obj/item/container = null)
+	var/prev = variant
+	var/V = tgui_input_text(user, "Choose variant name:", "Plant Variant Naming", variant, encode = FALSE)
+	if(isnull(V)) // Did the user cancel?
 		return
-	..() // Fallthrough to item/attackby() so that bags can pick seeds up
+	if(container && (loc != container)) // Was the seed removed from the container, if there is a container?
+		return
+	if(!(container ? container : src).Adjacent(user)) // Is the user next to the seed/container?
+		return
+	variant = copytext(sanitize(html_encode(trim(V))), 1, 64) // Sanitization must happen after null check because it converts nulls to empty strings
+	if(variant == "")
+		variant = null
+	if(prev != variant)
+		to_chat(user, span_notice("You [variant ? "change" : "remove"] the [plantname]'s variant designation."))
+	apply_variant_name()
 
-
-
-
-
-
+/obj/item/seeds/proc/apply_variant_name()
+	var/V = variant ? " \[[variant]]" : "" // If we have a non-empty variant add it to the name
+	var/N = initial(name)
+	if(copytext(name, 1, 13) == "experimental") // Don't delete 'experimental'
+		N = "experimental " + N
+	name = N + V
+	if(GetComponent(/datum/component/label))
+		GetComponent(/datum/component/label).apply_label() // Don't delete labels
 
 // Checks plants for broken tray icons. Use Advanced Proc Call to activate.
-// Maybe some day it would be used as unit test.
+// Maybe some day it would be used as game test.
 /proc/check_plants_growth_stages_icons()
 	var/list/states = icon_states('icons/obj/hydroponics/growing.dmi')
 	states |= icon_states('icons/obj/hydroponics/growing_fruits.dmi')
@@ -396,3 +430,23 @@
 			genes += P
 		else
 			qdel(P)
+
+/obj/item/seeds/proc/transform_into_random()
+	name = "pack of strange seeds"
+	desc = "Mysterious seeds as strange as their name implies. Spooky"
+	icon_state = "seed-x"
+	randomize_stats()
+	add_random_reagents(1,2)
+	add_random_traits(1,2)
+	return
+
+/obj/item/seeds/attack_ghost(mob/dead/observer/user)
+	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.
+		return
+	if(user.plant_analyzer)
+		to_chat(user, get_analyzer_text())
+
+#undef FLORAGUN_POTENCY
+#undef FLORAGUN_YIELD
+#undef FLORAGUN_PRODUCTION
+#undef FLORAGUN_ENDURANCE

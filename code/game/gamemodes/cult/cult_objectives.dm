@@ -10,6 +10,7 @@
 		return FALSE
 	cult_status = NARSIE_DEMANDS_SACRIFICE
 	var/datum/objective/sacrifice/obj_sac = new
+	obj_summon.owner = SSticker.mode
 	if(obj_sac.find_target())
 		presummon_objs.Add(obj_sac)
 	else
@@ -21,25 +22,25 @@
 
 	switch(cult_status)
 		if(NARSIE_IS_ASLEEP)
-			to_chat(M, "<span class='cult'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] is asleep.</span>")
+			to_chat(M, span_cult("[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] is asleep."))
 		if(NARSIE_DEMANDS_SACRIFICE)
 			if(!length(presummon_objs))
-				to_chat(M, "<span class='danger'>Error: No objectives in sacrifice list. Something went wrong. Oof.</span>")
+				to_chat(M, span_danger("Error: No objectives in sacrifice list. Something went wrong. Oof."))
 			else
 				var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)] //get the last obj in the list, ie the current one
-				to_chat(M, "<span class='cult'>The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"].</span>")
-				to_chat(M, "<span class='cult'>Current goal: [current_obj.explanation_text]</span>")
+				to_chat(M, span_cult("The Veil needs to be weakened before we are able to summon [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"]."))
+				to_chat(M, span_cult("Current goal: [current_obj.explanation_text]"))
 		if(NARSIE_NEEDS_SUMMONING)
-			to_chat(M, "<span class='cult'>The Veil is weak! We can summon [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "The Dark One"]!</span>")
-			to_chat(M, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
+			to_chat(M, span_cult("The Veil is weak! We can summon [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "The Dark One"]!"))
+			to_chat(M, span_cult("Current goal: [obj_summon.explanation_text]"))
 		if(NARSIE_HAS_RISEN)
-			to_chat(M, "<span class='cultlarge'>\"I am here.\"</span>")
-			to_chat(M, "<span class='cult'>Current goal:</span> <span class='cultlarge'>\"Feed me.\"</span>")
+			to_chat(M, span_cultlarge("\"I am here.\""))
+			to_chat(M, "[span_cult("Current goal:")] [span_cultlarge("\"Feed me.\"")]")
 		if(NARSIE_HAS_FALLEN)
-			to_chat(M, "<span class='cultlarge'>[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!</span>")
-			to_chat(M, "<span class='cult'>Current goal: Slaughter the unbelievers!</span>")
+			to_chat(M, span_cultlarge("[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!"))
+			to_chat(M, span_cult("Current goal: Slaughter the unbelievers!"))
 		else
-			to_chat(M, "<span class='danger'>Error: Cult objective status currently unknown. Something went wrong. Oof.</span>")
+			to_chat(M, span_danger("Error: Cult objective status currently unknown. Something went wrong. Oof."))
 
 	if(display_members)
 		var/list/cult = SSticker.mode.get_cultists(TRUE)
@@ -47,18 +48,17 @@
 		var/rise = SSticker.mode.rise_number - total_cult
 		var/ascend = SSticker.mode.ascend_number - total_cult
 
-		var/overview = "<span class='cultitalic'><br><b>Current cult members: [total_cult]"
+		var/overview = span_cultitalic("<br><b>Current cult members: [total_cult]")
 		if(!SSticker.mode.cult_ascendant)
 			if(rise > 0)
 				overview += " | Conversions until Rise: [rise]"
 			else if(ascend > 0)
 				overview += " | Conversions until Ascension: [ascend]"
-		to_chat(M, "[overview]</b></span>")
+		to_chat(M, "[overview]</b>")
 
 		if(cult[2]) // If there are any constructs, separate them out
-			to_chat(M, "<span class='cultitalic'><b>Cultists:</b> [cult[1]]")
-			to_chat(M, "<span class='cultitalic'><b>Constructs:</b> [cult[2]]")
-
+			to_chat(M, span_cultitalic("<b>Cultists:</b> [cult[1]]"))
+			to_chat(M, span_cultitalic("<b>Constructs:</b> [cult[2]]"))
 
 /datum/cult_objectives/proc/current_sac_objective() //Return the current sacrifice objective datum, if any
 	if(cult_status == NARSIE_DEMANDS_SACRIFICE && length(presummon_objs))
@@ -78,8 +78,8 @@
 	var/datum/objective/sacrifice/current_obj = presummon_objs[length(presummon_objs)]
 	if(current_obj.find_target())
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
-			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='danger'>[SSticker.cultdat.entity_name]</span> murmurs, <span class='cultlarge'>Our goal is beyond your reach. Sacrifice [current_obj.target] instead...</span>")
+			if(cult_mind?.current)
+				to_chat(cult_mind.current, "[span_danger(SSticker.cultdat.entity_name)] murmurs, [span_cultlarge("Our goal is beyond your reach. Sacrifice [current_obj.target] instead...")]")
 		return TRUE
 	return FALSE
 
@@ -94,18 +94,18 @@
 		if(obj_sac.find_target())
 			presummon_objs += obj_sac
 			for(var/datum/mind/cult_mind in SSticker.mode.cult)
-				if(cult_mind && cult_mind.current)
-					to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!</span>")
-					to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_sac.explanation_text]</span>")
+				if(cult_mind?.current)
+					to_chat(cult_mind.current, span_cult("You and your acolytes have made progress, but there is more to do still before [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "The Dark One"] can be summoned!"))
+					to_chat(cult_mind.current, span_cult("Current goal: [obj_sac.explanation_text]"))
 		else
 			ready_to_summon()
 
 /datum/cult_objectives/proc/ready_to_summon()
 	cult_status = NARSIE_NEEDS_SUMMONING
 	for(var/datum/mind/cult_mind in SSticker.mode.cult)
-		if(cult_mind && cult_mind.current)
-			to_chat(cult_mind.current, "<span class='cult'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(cult_mind.current, "<span class='cult'>Current goal: [obj_summon.explanation_text]</span>")
+		if(cult_mind?.current)
+			to_chat(cult_mind.current, span_cult("You and your acolytes have succeeded in preparing the station for the ultimate ritual!"))
+			to_chat(cult_mind.current, span_cult("Current goal: [obj_summon.explanation_text]"))
 
 /datum/cult_objectives/proc/succesful_summon()
 	cult_status = NARSIE_HAS_RISEN
@@ -118,17 +118,25 @@
 //Objectives
 
 /datum/objective/servecult //Given to cultists on conversion/roundstart
-	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
+	explanation_text = "Помогите собратьям-культистам и разорвите завесу между мирами! (Используйте действие «Изучение вуали», чтобы проверить свой прогресс.)"
 	completed = TRUE
+	needs_target = FALSE
+	antag_menu_name = "Помогать культу"
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
-	explanation_text = "Sacrifice a crewmember in order to prepare the summoning."
+	needs_target = FALSE
+	antag_menu_name = "Принести в жертву"
+	explanation_text = "Пожертвуйте членом экипажа, чтобы подготовить призыв бога."
+
+/datum/objective/sacrifice/New()
+	..()
+	owner = SSticker.mode
 
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
 
-/datum/objective/sacrifice/find_target()
+/datum/objective/sacrifice/find_target(list/target_blacklist)
 	var/list/target_candidates = list()
 	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(is_admin_level(H.z)) //We can't sacrifice people that are on the centcom z-level
@@ -143,13 +151,13 @@
 				target_candidates += H.mind
 	if(length(target_candidates))
 		target = pick(target_candidates)
-		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_their()] body or brain on it and three acolytes around it."
+		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [GEND_HIS_HER(target.current)] тела или мозга на ней и трёх культистов вокруг руны."
 		return TRUE
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE
 
-
 /datum/objective/eldergod
+	needs_target = FALSE
 	var/summoned = FALSE
 	var/killed = FALSE
 	var/list/summon_spots = list()
@@ -157,13 +165,17 @@
 /datum/objective/eldergod/New()
 	..()
 	find_summon_locations()
+	antag_menu_name = "Призвать [SSticker.cultdat.entity_name]"
+
+/datum/objective/eldergod/check_anatag_menu_ability()
+	return SSticker.mode.cult_objs.cult_status != NARSIE_IS_ASLEEP
 
 /datum/objective/eldergod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)
 		summon_spots = new()
 	var/sanity = 0
 	while(length(summon_spots) < SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon = pick(return_sorted_areas() - summon_spots)
+		var/area/summon = pick(get_sorted_areas() - summon_spots)
 		var/valid_spot = FALSE
 		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
 			for(var/turf/T as anything in get_area_turfs(summon))
@@ -179,9 +191,8 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it.\
-	\nThe summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin."
-
+	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"], вызвав руну «Разорвать завесу» вместе с 9 культистами, конструкциями или вызванными призраками внутри неё.\
+		\nПризыв может быть осуществлён только в [english_list(summon_spots)] — где завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/eldergod/check_completion()
 	if(killed)

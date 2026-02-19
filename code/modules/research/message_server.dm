@@ -5,7 +5,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	var/sender = "Unspecified" //name of the sender
 	var/message = "Blank" //transferred message
 
-/datum/data_pda_msg/New(var/param_rec = "",var/param_sender = "",var/param_message = "")
+/datum/data_pda_msg/New(param_rec = "", param_sender = "", param_message = "")
 
 	if(param_rec)
 		recipient = param_rec
@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	var/id_auth = "Unauthenticated"
 	var/priority = "Normal"
 
-/datum/data_rc_msg/New(var/param_rec = "",var/param_sender = "",var/param_message = "",var/param_stamp = "",var/param_id_auth = "",var/param_priority)
+/datum/data_rc_msg/New(param_rec = "", param_sender = "", param_message = "", param_stamp = "", param_id_auth = "", param_priority)
 	if(param_rec)
 		rec_dpt = param_rec
 	if(param_sender)
@@ -48,9 +48,8 @@ GLOBAL_LIST_EMPTY(message_servers)
 	icon = 'icons/obj/machines/research.dmi'
 	icon_state = "server"
 	name = "Messaging Server"
-	density = 1
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
+	density = TRUE
+	anchored = TRUE
 	idle_power_usage = 10
 	active_power_usage = 100
 
@@ -74,17 +73,16 @@ GLOBAL_LIST_EMPTY(message_servers)
 	//if(decryptkey == "password")
 	//	decryptkey = generateKey()
 	if(active && (stat & (BROKEN|NOPOWER)))
-		active = 0
+		active = FALSE
+		update_icon(UPDATE_ICON_STATE)
 		return
 	if(prob(3))
-		playsound(loc, "computer_ambience", 50, 1)
-	update_icon()
-	return
+		playsound(loc, SFX_COMPUTER_AMBIENCE, 50, TRUE)
 
-/obj/machinery/message_server/proc/send_pda_message(var/recipient = "",var/sender = "",var/message = "")
+/obj/machinery/message_server/proc/send_pda_message(recipient = "", sender = "", message = "")
 	pda_msgs += new/datum/data_pda_msg(recipient,sender,message)
 
-/obj/machinery/message_server/proc/send_rc_message(var/recipient = "",var/sender = "",var/message = "",var/stamp = "", var/id_auth = "", var/priority = 1)
+/obj/machinery/message_server/proc/send_rc_message(recipient = "", sender = "", message = "", stamp = "", id_auth = "", priority = 1)
 	rc_msgs += new/datum/data_rc_msg(recipient,sender,message,stamp,id_auth)
 	var/authmsg = "[message]"
 	if(id_auth)
@@ -99,44 +97,50 @@ GLOBAL_LIST_EMPTY(message_servers)
 				continue
 			if(RC.newmessagepriority < priority)
 				RC.newmessagepriority = priority
-				RC.icon_state = "req_comp[priority]"
+				RC.update_icon(UPDATE_OVERLAYS)
+			var/rendered_message = null
 			switch(priority)
 				if(2)
 					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 						RC.atom_say("PRIORITY Alert in [sender]")
-					RC.message_log += "High Priority message from [sender]: [authmsg]"
+					rendered_message = "High Priority message from [sender]: [authmsg]"
 				else
 					if(!RC.silent)
-						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
+						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 						RC.atom_say("Message from [sender]")
-					RC.message_log += "Message [sender]: [authmsg]"
-			RC.set_light(2)
+					rendered_message = "Message [sender]: [authmsg]"
+			if(!isnull(rendered_message))
+				RC.write_to_message_log(rendered_message)
 
-/obj/machinery/message_server/attack_hand(user as mob)
-//	to_chat(user, "<span class='notice'>There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays.</span>")
+/obj/machinery/message_server/attack_hand(user)
+//	to_chat(user, span_notice("There seem to be some parts missing from this server. They should arrive on the station in a few days, give or take a few CentComm delays."))
+	if(..())
+		return TRUE
+	add_fingerprint(user)
 	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
 	active = !active
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-	return
-
-/obj/machinery/message_server/update_icon()
+/obj/machinery/message_server/update_icon_state()
 	if((stat & (BROKEN|NOPOWER)))
-		icon_state = "server-nopower"
+		icon_state = "server_nopower"
 	else if(!active)
-		icon_state = "server-off"
+		icon_state = "server_off"
 	else
-		icon_state = "server-on"
+		icon_state = "server_on"
 
-	return
+/proc/find_pda_server()
+	if(GLOB.message_servers)
+		for(var/obj/machinery/message_server/check in GLOB.message_servers)
+			if(check.active)
+				return check
+
 /obj/machinery/blackbox_recorder
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "blackbox"
 	name = "Blackbox Recorder"
-	density = 1
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
+	density = TRUE
+	anchored = TRUE
 	idle_power_usage = 10
 	active_power_usage = 100
 

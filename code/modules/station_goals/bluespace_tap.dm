@@ -1,7 +1,7 @@
 //Station goal stuff goes here
 /datum/station_goal/bluespace_tap
 	name = "Bluespace Harvester"
-	var/goal = 45000
+	var/goal = 25000
 
 /datum/station_goal/bluespace_tap/get_report()
 	return {"<b>Bluespace Harvester Experiment</b><br>
@@ -19,16 +19,19 @@
 	P.special_enabled = TRUE
 	supply_list.Add(P)
 
+/datum/station_goal/bluespace_tap/proc/get_highscore()
+	. = 0
+
+	for(var/obj/machinery/power/bluespace_tap/harvester in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
+		. = max(., harvester.total_points)
+
 /datum/station_goal/bluespace_tap/check_completion()
-	if(..())
-		return TRUE
-	var/highscore = 0
-	for(var/obj/machinery/power/bluespace_tap/T in GLOB.machines)
-		highscore = max(highscore, T.total_points)
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounce'>"][highscore]</span>")
-	if(highscore >= goal)
-		return TRUE
-	return FALSE
+	return ..() || get_highscore() >= goal
+
+/datum/station_goal/bluespace_tap/print_result()
+	..()
+	var/highscore = get_highscore()
+	to_chat(world, "[span_bold("Bluespace Harvester Highscore")]: [highscore >= goal ? "[span_greenannounce(highscore)]": "[span_boldannounceooc(highscore)]"]")
 
 //needed for the vending part of it
 /datum/data/bluespace_tap_product
@@ -36,55 +39,54 @@
 	var/product_path = null
 	var/product_cost = 100	//cost in mining points to generate
 
-
 /datum/data/bluespace_tap_product/New(name, path, cost)
 	product_name = name
 	product_path = path
 	product_cost = cost
 
 /obj/item/circuitboard/machine/bluespace_tap
-	name = "Bluespace Harvester (Machine Board)"
+	board_name = "Bluespace Harvester"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	build_path = /obj/machinery/power/bluespace_tap
 	origin_tech = "engineering=2;combat=2;bluespace=3"
 	req_components = list(
-							/obj/item/stock_parts/capacitor/quadratic = 5,//Probably okay, right?
-							/obj/item/stack/ore/bluespace_crystal = 5)
+		/obj/item/stock_parts/capacitor/quadratic = 5, //Probably okay, right?
+		/obj/item/stack/ore/bluespace_crystal = 5,
+	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap
 	name = "bluespace harvester reward spawner"
-	lootcount = 1
 
 /obj/effect/spawner/lootdrop/bluespace_tap/hat
 	name = "exotic hat"
 	loot = list(
-			/obj/item/clothing/head/collectable/chef,	//same weighing on all of them
-			/obj/item/clothing/head/collectable/paper,
-			/obj/item/clothing/head/collectable/tophat,
-			/obj/item/clothing/head/collectable/captain,
-			/obj/item/clothing/head/collectable/beret,
-			/obj/item/clothing/head/collectable/welding,
-			/obj/item/clothing/head/collectable/flatcap,
-			/obj/item/clothing/head/collectable/pirate,
-			/obj/item/clothing/head/collectable/kitty,
-			/obj/item/clothing/head/crown/fancy,
-			/obj/item/clothing/head/collectable/rabbitears,
-			/obj/item/clothing/head/collectable/wizard,
-			/obj/item/clothing/head/collectable/hardhat,
-			/obj/item/clothing/head/collectable/HoS,
-			/obj/item/clothing/head/collectable/thunderdome,
-			/obj/item/clothing/head/collectable/swat,
-			/obj/item/clothing/head/collectable/slime,
-			/obj/item/clothing/head/collectable/police,
-			/obj/item/clothing/head/collectable/slime,
-			/obj/item/clothing/head/collectable/xenom,
-			/obj/item/clothing/head/collectable/petehat
+		/obj/item/clothing/head/collectable/chef,	//same weighing on all of them
+		/obj/item/clothing/head/collectable/paper,
+		/obj/item/clothing/head/collectable/tophat,
+		/obj/item/clothing/head/collectable/captain,
+		/obj/item/clothing/head/collectable/beret,
+		/obj/item/clothing/head/collectable/welding,
+		/obj/item/clothing/head/collectable/flatcap,
+		/obj/item/clothing/head/collectable/pirate,
+		/obj/item/clothing/head/collectable/kitty,
+		/obj/item/clothing/head/crown/fancy,
+		/obj/item/clothing/head/collectable/rabbitears,
+		/obj/item/clothing/head/collectable/wizard,
+		/obj/item/clothing/head/collectable/hardhat,
+		/obj/item/clothing/head/collectable/HoS,
+		/obj/item/clothing/head/collectable/thunderdome,
+		/obj/item/clothing/head/collectable/swat,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/police,
+		/obj/item/clothing/head/collectable/slime,
+		/obj/item/clothing/head/collectable/xenom,
+		/obj/item/clothing/head/collectable/petehat,
 	)
-
 
 /obj/effect/spawner/lootdrop/bluespace_tap/cultural
 	name = "cultural artifacts"
 	loot = list(
-		/obj/vehicle/space/speedbike/red = 10,
+		/obj/vehicle/ridden/speedbike/red = 10,
 		/obj/item/grenade/clusterbuster/honk = 10,
 		/obj/item/toy/katana = 10,
 		/obj/item/stack/sheet/mineral/abductor/fifty = 20,
@@ -96,7 +98,7 @@
 		/obj/item/gun/projectile/automatic/c20r/toy = 1,
 		/obj/item/gun/projectile/automatic/l6_saw/toy = 1,
 		/obj/item/gun/projectile/automatic/toy/pistol = 2,
-		/obj/item/gun/projectile/automatic/toy/pistol/enforcer = 1,
+		/obj/item/gun/projectile/automatic/toy/pistol/enforcer/riot = 1,
 		/obj/item/gun/projectile/shotgun/toy = 1,
 		/obj/item/gun/projectile/shotgun/toy/crossbow = 1,
 		/obj/item/gun/projectile/shotgun/toy/tommygun = 1,
@@ -115,7 +117,8 @@
 		/obj/item/bedsheet/cult = 2,
 		/obj/item/bedsheet/wiz = 2,
 		/obj/item/stack/sheet/mineral/tranquillite/fifty = 3,
-		/obj/item/clothing/gloves/combat = 5
+		/obj/item/clothing/gloves/combat = 5,
+		/obj/item/melee/bigiron = 5,
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/organic
@@ -152,7 +155,7 @@
 		/obj/item/storage/box/monkeycubes = 5,
 		/obj/item/stack/tile/carpet/twenty = 10,
 		/obj/item/stack/tile/carpet/black/twenty = 10,
-		/obj/item/soap/deluxe = 5
+		/obj/item/soap/deluxe = 5,
 	)
 
 /obj/effect/spawner/lootdrop/bluespace_tap/food
@@ -177,7 +180,7 @@
 		/obj/item/reagent_containers/food/snacks/fishandchips,
 		/obj/item/reagent_containers/food/snacks/meatpie,
 		/obj/item/pizzabox/hawaiian, //it ONLY gives hawaiian. MUHAHAHA
-		/obj/item/reagent_containers/food/snacks/sliceable/xenomeatbread //maybe add some dangerous/special food here, ie robobuger?
+		/obj/item/reagent_containers/food/snacks/sliceable/bread/xeno, //maybe add some dangerous/special food here, ie robobuger?
 	)
 
 #define kW *1000
@@ -185,14 +188,14 @@
 #define GW MW *1000
 
 /**
-  * # Bluespace Harvester
-  *
-  * A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards
-  *
-  * A machine that takes power each tick, generates points based on it
-  * and lets you spend those points on rewards. A certain amount of points
-  * has to be generated for the station goal to count as completed.
-  */
+ * # Bluespace Harvester
+ *
+ * A station goal that consumes enormous amounts of power to generate (mostly fluff) rewards
+ *
+ * A machine that takes power each tick, generates points based on it
+ * and lets you spend those points on rewards. A certain amount of points
+ * has to be generated for the station goal to count as completed.
+ */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
@@ -200,9 +203,9 @@
 	max_integrity = 300
 	pixel_x = -32	//shamelessly stolen from dna vault
 	pixel_y = -64
+	plane = BELOW_GAME_PLANE
 	/// For faking having a big machine, dummy 'machines' that are hidden inside the large sprite and make certain tiles dense. See new and destroy.
 	var/list/obj/structure/fillers = list()
-	use_power = NO_POWER_USE	// power usage is handelled manually
 	density = TRUE
 	interact_offline = TRUE
 	luminosity = 1
@@ -232,7 +235,6 @@
 	/// How much power the machine needs per processing tick at the current level.
 	var/actual_power_usage = 0
 
-
 	// Tweak these and active_power_usage to balance power generation
 
 	/// Max power input level, I don't expect this to be ever reached
@@ -242,9 +244,18 @@
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
 
+/obj/machinery/power/bluespace_tap/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике",
+	)
 
-/obj/machinery/power/bluespace_tap/New()
-	..()
+/obj/machinery/power/bluespace_tap/Initialize(mapload)
+	. = ..()
 	//more code stolen from dna vault, inculding comment below. Taking bets on that datum being made ever.
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
 	var/list/occupied = list()
@@ -270,37 +281,37 @@
 	return ..()
 
 /**
-  * Increases the desired mining level
-  *
-  * Increases the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT increase the actual mining level directly.
-  */
+ * Increases the desired mining level
+ *
+ * Increases the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT increase the actual mining level directly.
+ */
 /obj/machinery/power/bluespace_tap/proc/increase_level()
 	if(desired_level < max_level)
 		desired_level++
 /**
-  * Decreases the desired mining level
-  *
-  * Decreases the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT decrease the actual mining level directly.
-  */
+ * Decreases the desired mining level
+ *
+ * Decreases the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT decrease the actual mining level directly.
+ */
 /obj/machinery/power/bluespace_tap/proc/decrease_level()
 	if(desired_level > 0)
 		desired_level--
 
 /**
-  * Sets the desired mining level
-  *
-  * Sets the desired mining level, that
-  * the machine tries to reach if there
-  * is enough power for it. Note that it does
-  * NOT change the actual mining level directly.
-  * Arguments:
-  * * t_level - The level we try to set it at, between 0 and max_level
+ * Sets the desired mining level
+ *
+ * Sets the desired mining level, that
+ * the machine tries to reach if there
+ * is enough power for it. Note that it does
+ * NOT change the actual mining level directly.
+ * Arguments:
+ * * t_level - The level we try to set it at, between 0 and max_level
  */
 /obj/machinery/power/bluespace_tap/proc/set_level(t_level)
 	if(t_level < 0)
@@ -310,12 +321,12 @@
 	desired_level = t_level
 
 /**
-  * Gets the amount of power at a set input level
-  *
-  * Gets the amount of power (in W) a set input level needs.
-  * Note that this is not necessarily the current power use.
-  * * i_level - The hypothetical input level for which we want to know the power use.
-  */
+ * Gets the amount of power at a set input level
+ *
+ * Gets the amount of power (in W) a set input level needs.
+ * Note that this is not necessarily the current power use.
+ * * i_level - The hypothetical input level for which we want to know the power use.
+ */
 /obj/machinery/power/bluespace_tap/proc/get_power_use(i_level)
 	if(!i_level)
 		return 0
@@ -337,15 +348,17 @@
 	else if(input_level > desired_level)
 		input_level--
 	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		GLOB.event_announcement.Announce("Непредвиденный скачок напряжения во время работы блюспейс-сборщика. Внимание, обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "ВНИМАНИЕ: Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]", "ВНИМАНИЕ: Сбой блюспейс-сборщика.")
+		GLOB.major_announcement.announce(
+			message = "Непредвиденный скачок напряжения во время работы Блюспейс-сборщика. Обнаружены появления внепространственных объектов. Возможная локация: [get_area(src)]. [emagged ? "Ошибка аварийного отключения! Пожалуйста, перейдите к ручной остановке." : "Запущено аварийное отключение."]",
+			new_title = ANNOUNCE_BLUESPACETAP_RU,
+			new_sound = 'sound/AI/harvester.ogg'
+		)
 		if(!emagged)
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
 		for(var/i in 1 to rand(1, 3))
 			var/turf/location = locate(x + rand(-5, 5), y + rand(-5, 5), z)
 			new /obj/structure/spawner/nether/bluespace_tap(location)
-
-
 
 /obj/machinery/power/bluespace_tap/ui_data(mob/user)
 	var/list/data = list()
@@ -372,8 +385,10 @@
 	data["product"] = listed_items
 	return data
 
-
 /obj/machinery/power/bluespace_tap/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
 	add_fingerprint(user)
 	ui_interact(user)
 
@@ -384,8 +399,8 @@
 	ui_interact(user)
 
 /**
-  * Produces the product with the desired key and increases product cost accordingly
-  */
+ * Produces the product with the desired key and increases product cost accordingly
+ */
 /obj/machinery/power/bluespace_tap/proc/produce(key)
 	if(key <= 0 || key > length(product_list))	//invalid key
 		return
@@ -399,8 +414,6 @@
 	playsound(src, 'sound/magic/blink.ogg', 50)
 	do_sparks(2, FALSE, src)
 	new A.product_path(get_turf(src))
-
-
 
 //UI stuff below
 
@@ -419,21 +432,21 @@
 			var/key = text2num(params["target"])
 			produce(key)
 
-/obj/machinery/power/bluespace_tap/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/power/bluespace_tap/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "BluespaceTap", name, 650, 400, master_ui, state)
+		ui = new(user, src, "BluespaceTap", name)
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
-/obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
+/obj/machinery/power/bluespace_tap/emag_act(mob/user)
 	if(emagged)
 		return
 	add_attack_logs(user, src, "emagged")
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+		user.visible_message(span_warning("[user] переписыва[PLUR_ET_YUT(user)] протоколы безопасности [declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

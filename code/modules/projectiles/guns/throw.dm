@@ -12,8 +12,14 @@
 	var/projectile_speed = 1
 	var/projectile_range = 1
 
+/obj/item/gun/throw/Destroy()
+	QDEL_NULL(to_launch)
+	QDEL_LIST(loaded_projectiles)
+	loaded_projectiles = null
+	return ..()
+
 /obj/item/gun/throw/proc/notify_ammo_count()
-	return
+	return ""
 
 /obj/item/gun/throw/proc/get_throwrange()
 	return projectile_range
@@ -32,45 +38,41 @@
 
 /obj/item/gun/throw/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is [to_launch ? "loaded with \a [to_launch]" : "not loaded"].</span>"
-	. += notify_ammo_count()
-
-/obj/item/gun/throw/Destroy()
-	QDEL_NULL(to_launch)
-	QDEL_LIST(loaded_projectiles)
-	loaded_projectiles = null
-	return ..()
-
-/obj/item/gun/throw/update_icon()
-	return
+	. += span_notice("It is [to_launch ? "loaded with [to_launch]" : "not loaded"].")
+	var/ammo_count = notify_ammo_count()
+	if(ammo_count)
+		. += span_notice(ammo_count)
 
 /obj/item/gun/throw/attackby(obj/item/I, mob/user, params)
-	if(istype(I, valid_projectile_type) && !(I.flags & NODROP))
-		if(get_ammocount() < max_capacity)
-			user.drop_item()
-			I.forceMove(src)
-			loaded_projectiles += I
-			to_chat(user, "<span class='notice'>You load [I] into [src].</span>")
-			if(!to_launch)
-				process_chamber()
-			to_chat(user, notify_ammo_count())
-		else
-			to_chat(user, "<span class='warning'>[src] cannot hold any more projectiles.</span>")
-	else
-		to_chat(user, "<span class='warning'>You cannot load [I] into [src]!</span>")
+	if(istype(I, valid_projectile_type))
+		add_fingerprint(user)
+		if(get_ammocount() >= max_capacity)
+			to_chat(user, span_warning("The [name] cannot hold more."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		loaded_projectiles += I
+		var/message = span_notice("You have loaded [I] into [src].")
+		var/ammo_count = notify_ammo_count()
+		if(ammo_count)
+			message += span_notice(" [ammo_count]")
+		to_chat(user, message)
+		if(!to_launch)
+			process_chamber()
+		update_appearance()
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/gun/throw/process_chamber()
-	if(!to_launch && loaded_projectiles.len)
+	return ..()
+
+/obj/item/gun/throw/handle_chamber()
+	if(!to_launch && length(loaded_projectiles))
 		to_launch = loaded_projectiles[1]
 		loaded_projectiles -= to_launch
-	return
 
-/obj/item/gun/throw/can_shoot()
-	if(to_launch)
-		return 1
-	return 0
+/obj/item/gun/throw/can_shoot(mob/user)
+	return to_launch
 
-/obj/item/gun/throw/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override)
+/obj/item/gun/throw/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	add_fingerprint(user)
 	if(semicd)
 		return
@@ -79,7 +81,7 @@
 	I.forceMove(get_turf(src))
 	to_launch = null
 	modify_projectile(I)
-	playsound(user, fire_sound, 50, 1)
+	playsound(user, fire_sound, 50, TRUE)
 	I.throw_at(target, get_throwrange(), get_throwspeed(), user, FALSE)
 	add_attack_logs(user, target, "fired [I] from a [src]")
 	process_chamber()

@@ -19,12 +19,12 @@
 GLOBAL_LIST(ui_logins)
 
 /**
-  * Call this from a proc that is called in ui_act() to process login actions
-  *
-  * Arguments:
-  * * action - The called action
-  * * params - The params to the action
-  */
+ * Call this from a proc that is called in ui_act() to process login actions
+ *
+ * Arguments:
+ * * action - The called action
+ * * params - The params to the action
+ */
 /obj/proc/ui_login_act(action = "", params)
 	. = null
 	switch(action)
@@ -42,13 +42,13 @@ GLOBAL_LIST(ui_logins)
 			return ui_login_logout()
 
 /**
-  * Appends login state data.
-  *
-  * Arguments:
-  * * data - The data list to be returned
-  * * user - The user calling ui_data()
-  * * state - The current login state
-  */
+ * Appends login state data.
+ *
+ * Arguments:
+ * * data - The data list to be returned
+ * * user - The user calling ui_data()
+ * * state - The current login state
+ */
 /obj/proc/ui_login_data(list/data, mob/user, datum/ui_login/state = ui_login_get())
 	data["loginState"] = list(
 		"id" = state.id ? state.id.name : null,
@@ -56,38 +56,44 @@ GLOBAL_LIST(ui_logins)
 		"rank" = state.rank,
 		"logged_in" = state.logged_in,
 	)
-	data["isAI"] = isAI(user)
+	if(ispAI(user))
+		var/mob/living/silicon/pai/pai = user
+		if(pai.syndipai)
+			data["isAI"] = TRUE
+	else
+		data["isAI"] = isAI(user)
 	data["isRobot"] = isrobot(user)
 	data["isAdmin"] = user.can_admin_interact()
 
 /**
-  * Convenience function to perform login actions when
-  * the source object is hit by specific items.
-  *
-  * Arguments:
-  * * O - The object
-  * * user - The user
-  */
+ * Convenience function to perform login actions when
+ * the source object is hit by specific items.
+ *
+ * Arguments:
+ * * O - The object
+ * * user - The user
+ */
 /obj/proc/ui_login_attackby(obj/item/O, mob/user)
 	if(istype(O, /obj/item/card/id) && ui_login_insert(O))
+		add_fingerprint(user)
 		ui_interact(user)
 		return TRUE
 
 /**
-  * Attempts to insert an object as an ID.
-  *
-  * Arguments:
-  * * O - The object to try inserting
-  * * state - The current login state
-  */
+ * Attempts to insert an object as an ID.
+ *
+ * Arguments:
+ * * O - The object to try inserting
+ * * state - The current login state
+ */
 /obj/proc/ui_login_insert(obj/item/O, datum/ui_login/state = ui_login_get())
 	if(state.id)
-		return
+		return FALSE
 
 	if(istype(O, /obj/item/card/id))
 		// Move the ID inside
-		usr.drop_item()
-		O.forceMove(src)
+		if(!usr.drop_transfer_item_to_loc(O, src))
+			return FALSE
 
 		// Update the state
 		state.id = O
@@ -95,19 +101,19 @@ GLOBAL_LIST(ui_logins)
 		return TRUE
 
 /**
-  * Attempts to eject the inserted ID.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Attempts to eject the inserted ID.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_eject(datum/ui_login/state = ui_login_get())
 	if(!state.id)
 		return
 
 	// Drop the ID
 	state.id.forceMove(loc)
-	if(ishuman(usr) && !usr.get_active_hand())
-		usr.put_in_hands(state.id)
+	if(ishuman(usr))
+		usr.put_in_hands(state.id, ignore_anim = FALSE)
 
 	// Update the state
 	state.id = null
@@ -115,12 +121,12 @@ GLOBAL_LIST(ui_logins)
 	return TRUE
 
 /**
-  * Attempts to log in with the given login type.
-  *
-  * Arguments:
-  * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI, LOGIN_TYPE_ROBOT and LOGIN_TYPE_ADMIN
-  * * state - The current login state
-  */
+ * Attempts to log in with the given login type.
+ *
+ * Arguments:
+ * * login_type - The login type: LOGIN_TYPE_NORMAL (checks for inserted ID), LOGIN_TYPE_AI, LOGIN_TYPE_ROBOT and LOGIN_TYPE_ADMIN
+ * * state - The current login state
+ */
 /obj/proc/ui_login_login(login_type = LOGIN_TYPE_NORMAL, datum/ui_login/state = ui_login_get())
 	if(state.logged_in)
 		return
@@ -130,22 +136,26 @@ GLOBAL_LIST(ui_logins)
 			state.name = state.id.registered_name
 			state.rank = state.id.assignment
 			state.access = state.id.access
+			state.law_level = state.id.law_level
 		else
-			to_chat(usr, "<span class='warning'>Access Denied</span>")
+			to_chat(usr, span_warning("Отказано в доступе."))
 			return
-	else if(login_type == LOGIN_TYPE_AI && isAI(usr))
+	else if(login_type == LOGIN_TYPE_AI && (isAI(usr) || ispAI(usr)))
 		state.name = usr.name
-		state.rank = "AI"
+		state.rank = JOB_TITLE_AI
+		state.law_level = LAW_LEVEL_BASE
 	else if(iscogscarab(usr))
-		to_chat(usr, "<span class='warning'>Access Denied</span>")
+		to_chat(usr,  span_warning("Отказано в доступе."))
 		return
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name
-		state.rank = "[R.modtype] [R.braintype]"
+		state.rank = "[R.modtype?.name] [R.braintype]"
+		state.law_level = LAW_LEVEL_BASE
 	else if(login_type == LOGIN_TYPE_ADMIN && usr.can_admin_interact())
-		state.name = "*CONFIDENTIAL*"
-		state.rank = "CentComm Secure Connection"
+		state.name = "*ЗАСЕКРЕЧЕНО*"
+		state.rank = "Защищённый канал ЦентКома"
+		state.law_level = LAW_LEVEL_CENTCOMM
 		state.access = get_all_accesses() + get_all_centcom_access()
 
 	state.logged_in = TRUE
@@ -154,11 +164,11 @@ GLOBAL_LIST(ui_logins)
 	return TRUE
 
 /**
-  * Attempts to log out.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Attempts to log out.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_logout(datum/ui_login/state = ui_login_get())
 	if(!state.logged_in)
 		return
@@ -172,11 +182,11 @@ GLOBAL_LIST(ui_logins)
 	return TRUE
 
 /**
-  * Returns (or creates) the login state for the source object.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Returns (or creates) the login state for the source object.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_get()
 	RETURN_TYPE(/datum/ui_login)
 	. = LAZYACCESS(GLOB.ui_logins, UID())
@@ -185,31 +195,32 @@ GLOBAL_LIST(ui_logins)
 		. = GLOB.ui_logins[UID()] = new /datum/ui_login
 
 /**
-  * Called on successful login.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Called on successful login.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_on_login(datum/ui_login/state = ui_login_get())
 	return
 
 /**
-  * Called on successful logout.
-  *
-  * Arguments:
-  * * state - The current login state
-  */
+ * Called on successful logout.
+ *
+ * Arguments:
+ * * state - The current login state
+ */
 /obj/proc/ui_login_on_logout(datum/ui_login/state = ui_login_get())
 	return
 
 /**
-  * Login state (there should be only one for one datum)
-  */
+ * Login state (there should be only one for one datum)
+ */
 /datum/ui_login
 	var/obj/item/card/id/id = null
 	var/name = ""
 	var/rank = ""
 	var/list/access = null
+	var/law_level = LAW_LEVEL_BASE
 	var/logged_in = FALSE
 
 /datum/ui_login/New(id, name, rank, access)

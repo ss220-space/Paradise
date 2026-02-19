@@ -11,6 +11,7 @@
 	var/win_prob = 5
 
 /obj/structure/cursed_slot_machine/attack_hand(mob/user)
+	add_fingerprint(user)
 	interact(user)
 
 /obj/structure/cursed_slot_machine/interact(mob/living/carbon/human/user)
@@ -23,43 +24,42 @@
 	in_use = TRUE
 	user.adjustCloneLoss(20)
 	if(user.stat)
-		to_chat(user, "<span class='userdanger'>No... just one more try...</span>")
+		to_chat(user, span_userdanger("No... just one more try..."))
 		user.gib()
 	else
-		user.visible_message("<span class='warning'>[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!</span>", "<span class='warning'>You feel a draining as you pull the lever, but you \
-		know it'll be worth it.</span>")
+		user.visible_message(span_warning("[user] pulls [src]'s lever with a glint in [user.p_their()] eyes!"), span_warning("You feel a draining as you pull the lever, but you \
+		know it'll be worth it."))
 	icon_state = "slots-on"
-	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, 0)
-	addtimer(CALLBACK(src, .proc/determine_victor, user), 50)
+	playsound(src, 'sound/lavaland/cursed_slot_machine.ogg', 50, FALSE)
+	addtimer(CALLBACK(src, PROC_REF(determine_victor), user), 50)
 
 /obj/structure/cursed_slot_machine/proc/determine_victor(mob/living/user)
 	icon_state = "slots-off"
 	in_use = FALSE
 	if(prob(win_prob))
-		playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50, 0)
+		playsound(src, 'sound/lavaland/cursed_slot_machine_jackpot.ogg', 50, FALSE)
 		new/obj/structure/cursed_money(get_turf(src))
 		if(user)
-			to_chat(user, "<span class='boldwarning'>You've hit jackpot. Laughter echoes around you as your reward appears in the machine's place.</span>")
+			to_chat(user, span_boldwarning("You've hit jackpot. Laughter echoes around you as your reward appears in the machine's place."))
 		qdel(src)
 	else
 		if(user)
-			to_chat(user, "<span class='boldwarning'>Fucking machine! Must be rigged. Still... one more try couldn't hurt, right?</span>")
+			to_chat(user, span_boldwarning("Fucking machine! Must be rigged. Still... one more try couldn't hurt, right?"))
 
 /obj/structure/cursed_money
 	name = "bag of money"
 	desc = "RICH! YES! YOU KNEW IT WAS WORTH IT! YOU'RE RICH! RICH! RICH!"
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "moneybag"
-	anchored = FALSE
 	density = TRUE
 
-/obj/structure/cursed_money/Initialize()
+/obj/structure/cursed_money/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/collapse), 600)
+	addtimer(CALLBACK(src, PROC_REF(collapse)), 600)
 
 /obj/structure/cursed_money/proc/collapse()
-	visible_message("<span class='warning'>[src] falls in on itself, \
-		canvas rotting away and contents vanishing.</span>")
+	visible_message(span_warning("[src] falls in on itself, \
+		canvas rotting away and contents vanishing."))
 	qdel(src)
 
 /obj/structure/cursed_money/attack_hand(mob/living/user)
@@ -67,61 +67,65 @@
 	if(.)
 		return .
 
-	user.visible_message("<span class='warning'>[user] opens the bag and \
-		and removes a die. The bag then vanishes.</span>",
-		"<span class='boldwarning'>You open the bag...!</span>\n\
+	user.visible_message(span_warning("[user] opens the bag and \
+		and removes a die. The bag then vanishes."),
+		"[span_boldwarning("You open the bag...!")]\n\
 		<span class='danger'>And see a bag full of dice. Confused, \
 		you take one... and the bag vanishes.</span>")
-	var/turf/T = get_turf(user)
-	var/obj/item/dice/d20/fate/one_use/critical_fail = new(T)
-	user.put_in_hands(critical_fail)
+
+	var/obj/item/dice/d20/fate/one_use/critical_fail = new(drop_location())
+	user.put_in_hands(critical_fail, ignore_anim = FALSE)
 	qdel(src)
 
 // Gluttony
 /obj/effect/gluttony //Gluttony's wall: Used in the Gluttony ruin. Only lets the overweight through.
 	name = "gluttony's wall"
 	desc = "Only those who truly indulge may pass."
-	anchored = TRUE
 	density = TRUE
 	icon_state = "blob"
 	icon = 'icons/mob/blob.dmi'
 	color = rgb(145, 150, 0)
 
-/obj/effect/gluttony/CanPass(atom/movable/mover, turf/target)//So bullets will fly over and stuff.
+/obj/effect/gluttony/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
 	if(ishuman(mover))
-		var/mob/living/carbon/human/H = mover
-		if(H.nutrition >= NUTRITION_LEVEL_FAT || (FAT in H.mutations))
-			H.visible_message("<span class='warning'>[H] pushes through [src]!</span>", "<span class='notice'>You've seen and eaten worse than this.</span>")
+		var/mob/living/carbon/human/human_mover = mover
+		if(human_mover.nutrition >= NUTRITION_LEVEL_FAT || HAS_TRAIT(human_mover, TRAIT_FAT))
+			human_mover.visible_message(
+				span_warning("[human_mover] pushes through [src]!"),
+				span_notice("You've seen and eaten worse than this."),
+			)
 			return TRUE
 		else
-			to_chat(H, "<span class='warning'>You're repulsed by even looking at [src]. Only a pig could force themselves to go through it.</span>")
+			to_chat(human_mover, span_warning("You're repulsed by even looking at [src]. Only a pig could force themselves to go through it."))
+
 	if(istype(mover, /mob/living/simple_animal/hostile/morph))
 		return TRUE
-	else
-		return FALSE
 
 // Pride
 /obj/structure/mirror/magic/pride //Pride's mirror: Used in the Pride ruin.
 	name = "pride's mirror"
 	desc = "Pride cometh before the..."
-	icon_state = "magic_mirror"
 
 /obj/structure/mirror/magic/pride/curse(mob/user)
-	user.visible_message("<span class='danger'><B>The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!</B></span>", \
-	"<span class='notice'>Perfect. Much better! Now <i>nobody</i> will be able to resist yo-</span>")
+	user.visible_message(
+		span_bolddanger("The ground splits beneath [user] as [user.p_their()] hand leaves the mirror!"),
+		span_notice("Perfect. Much better! Now <i>nobody</i> will be able to resist yo-"),
+	)
 
-	var/turf/T = get_turf(user)
+	var/turf/user_turf = get_turf(user)
 	var/list/levels = GLOB.space_manager.z_list.Copy()
 	for(var/level in levels)
-		if(!is_teleport_allowed(level))
+		if(!is_teleport_allowed(level) || is_taipan(level) || text2num(level) == user_turf.z)
 			levels -= level
 
-	T.ChangeTurf(/turf/simulated/floor/chasm)
-	var/turf/simulated/floor/chasm/C = T
-	C.drop_x = T.x
-	C.drop_y = T.y
-	C.drop_z = pick(levels)
-	C.drop(user)
+	var/turf/dest
+	if(length(levels))
+		dest = locate(user_turf.x, user_turf.y, pick(levels))
+
+	user_turf.ChangeTurf(/turf/simulated/floor/chasm)
+	var/turf/simulated/floor/chasm/new_chasm = user_turf
+	new_chasm.set_target(dest)
 
 // Envy
 /obj/item/kitchen/knife/envy //Envy's knife: Found in the Envy ruin. Attackers take on the appearance of whoever they strike.
@@ -131,11 +135,9 @@
 	icon_state = "render"
 	item_state = "knife"
 	force = 18
-	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
-	hitsound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity)
+/obj/item/kitchen/knife/envy/afterattack(atom/movable/AM, mob/living/carbon/human/user, proximity, params)
 	. = ..()
 	if(!proximity)
 		return
@@ -146,8 +148,8 @@
 		if(user.real_name != H.dna.real_name)
 			user.real_name = H.dna.real_name
 			H.dna.transfer_identity(user)
-			user.visible_message("<span class='warning'>[user]'s appearance shifts into [H]'s!</span>", \
-			"<span class='boldannounce'>[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't.</span>")
+			user.visible_message(span_warning("[user]'s appearance shifts into [H]'s!"), \
+			span_boldannounceic("[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't."))
 
 // Sloth
 /obj/item/paper/fluff/stations/lavaland/sloth/note

@@ -1,0 +1,94 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../colors.scss' with (
+  $primary: #4c10ae,
+  $label: #ecebec,
+  $good: #ffe940,
+  $average: #7c45d6,
+  $bad: #b2f63d,
+
+  $fg-map-keys: (
+    'label',
+    'good',
+    'bad',
+    'average',
+  ),
+
+  $bg-map-keys: (
+    'good',
+    'bad',
+    'average',
+  )
+);
+
+@use '../base.scss' with (
+  $color-bg: #e83a93,
+  $color-bg-grad-spread: 6%
+);
+
+.theme-honker {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss', $with: ());
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': colors.$primary,
+      'color-disabled': #946bd6,
+      'color-selected': #ffe940,
+      'color-caution': #be6209,
+      'color-danger': #9a9d00,
+      'color-transparent-text': rgba(227, 240, 255, 0.75)
+    )
+  );
+  @include meta.load-css(
+    '../components/ImageButton.scss',
+    $with: (
+      'color-default': color.adjust(colors.$primary, $lightness: -20%),
+      'color-disabled': #ff9ef4,
+      'color-selected': #dde128
+    )
+  );
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': #dde128)
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': #ff9ef4)
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': #ffe940)
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
+  @include meta.load-css('../components/Section.scss');
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': #ff00aa)
+  );
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': #d2006b)
+  );
+
+  .Layout__content {
+    // From 'packages/tgui/assets/bg-syndicate.svg', converted to base64 manually to stop webpack exploding
+    background-image: url('../../assets/bg-clown.svg');
+  }
+  .candystripe:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .candystripe:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+}

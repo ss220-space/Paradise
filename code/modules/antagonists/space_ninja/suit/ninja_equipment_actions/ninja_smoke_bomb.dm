@@ -1,0 +1,37 @@
+/datum/action/item_action/advanced/ninja/ninja_smoke_bomb
+	name = "Встроенная дымовая завеса"
+	desc = "Генерирует большое облако дыма, ухудшающее видимость. Затраты энергии: 1000"
+	check_flags = AB_CHECK_CONSCIOUS
+	charge_max = 3 SECONDS
+	button_icon_state = "smoke"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+	action_initialisation_text = "Integrated Smoke Generator"
+
+/datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto
+	name = "Переключение авто-использования дымовой завесы"
+	desc = "Переключает автоматическую активацию дымовой завесы другими модулями при использовании. Затраты энергии за каждое использование: 250."
+	check_flags = NONE
+	charge_type = ADV_ACTION_TYPE_TOGGLE
+	button_icon_state = "smoke_auto"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+	action_initialisation_text = null
+
+/obj/item/clothing/suit/space/space_ninja/proc/prime_smoke(lowcost = FALSE)
+	var/datum/action/item_action/advanced/ninja/ninja_smoke_bomb/ninja_action = locate() in actions
+	if(!ninja_action.IsAvailable(feedback = FALSE))
+		return
+	var/cost = lowcost ? 250 : 1000
+	if(!ninjacost(cost))
+		playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
+		var/smoke_amount = lowcost ? 5 : 20
+		smoke_system.set_up(amount = smoke_amount, location = src)
+		smoke_system.start()
+		ninja_action.use_action()
+
+/obj/item/clothing/suit/space/space_ninja/proc/toggle_smoke()
+	for(var/datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto/ninja_action in actions)
+		ninja_action.use_action()
+		auto_smoke = !auto_smoke
+		break

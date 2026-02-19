@@ -1,82 +1,132 @@
+
+#define MAX_ICON_STATES_FOR_NOTICES 12
+
 /obj/structure/noticeboard
 	name = "notice board"
 	desc = "A board for pinning important notices upon."
 	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "nboard00"
-	density = 0
-	anchored = 1
+	icon_state = "nboard"
+	anchored = TRUE
 	max_integrity = 150
 	var/notices = 0
 
-/obj/structure/noticeboard/Initialize()
-	..()
-	for(var/obj/item/I in loc)
-		if(notices > 4) break
-		if(istype(I, /obj/item/paper))
-			I.loc = src
-			notices++
-	icon_state = "nboard0[notices]"
+/obj/structure/noticeboard/Initialize(mapload)
+	. = ..()
+	for(var/obj/item/paper/paper in loc)
+		paper.forceMove(src)
+		notices++
+	update_icon(UPDATE_OVERLAYS)
 
-//attaching papers!!
-/obj/structure/noticeboard/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(istype(O, /obj/item/paper))
-		if(notices < 5)
-			O.add_fingerprint(user)
-			add_fingerprint(user)
-			user.drop_item()
-			O.loc = src
-			notices++
-			icon_state = "nboard0[notices]"	//update sprite
-			to_chat(user, "<span class='notice'>You pin the paper to the noticeboard.</span>")
-		else
-			to_chat(user, "<span class='notice'>You reach to pin your paper to the board but hesitate. You are certain your paper will not be seen among the many others already attached.</span>")
-		return
+/obj/structure/noticeboard/update_overlays()
+	. = list()
+	for(var/I in 1 to notices)
+		if(I > MAX_ICON_STATES_FOR_NOTICES)
+			break
+		. += image(src.icon, icon_state = "[src.icon_state][I]")
+
+/obj/structure/noticeboard/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/paper))	//attaching papers!!
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		notices++
+		update_icon(UPDATE_OVERLAYS)
+		to_chat(user, span_notice("You pin the paper to the noticeboard."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
-/obj/structure/noticeboard/attack_hand(user as mob)
-	var/dat = {"<meta charset="UTF-8"><B>Noticeboard</B><BR>"}
+/obj/structure/noticeboard/attack_hand(mob/user)
+	add_fingerprint(user)
+	var/list/dat = list()
+	dat += "<b>Noticeboard</b><br>"
+	var/uid = UID()
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[UID()];read=\ref[P]'>[P.name]</A> <A href='?src=[UID()];write=\ref[P]'>Write</A> <A href='?src=[UID()];remove=\ref[P]'>Remove</A><BR>"
-	user << browse({"<meta charset="UTF-8"><HEAD><TITLE>Notices</TITLE></HEAD>[dat]"},"window=noticeboard")
+		dat += "<a href='byond://?src=[uid];read=[P.UID()]'>[P.name]</a> <a href='byond://?src=[uid];write=[P.UID()]'>Write</a> <a href='byond://?src=[uid];remove=[P.UID()]'>Remove</a><br>"
+	var/datum/browser/popup = new(user, "noticeboard", "Notices")
+	popup.set_content(dat.Join(""))
+	popup.open(TRUE)
 	onclose(user, "noticeboard")
 
-/obj/structure/noticeboard/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
-		new /obj/item/stack/sheet/metal (loc, 1)
+/obj/structure/noticeboard/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 1 SECONDS, volume = I.tool_volume))
+		return
+	to_chat(user, span_notice("You unfasten [src.name] with [I]."))
+	new /obj/item/noticeboard(src.loc)
+	for(var/obj/item/paper/paper in src)
+		paper.forceMove_turf()
 	qdel(src)
+
+/obj/structure/noticeboard/deconstruct(disassembled = TRUE)
+	if(!(obj_flags & NODECONSTRUCT))
+		new /obj/item/stack/sheet/wood(loc, 5)
+		..()
 
 /obj/structure/noticeboard/Topic(href, href_list)
 	..()
 	usr.set_machine(src)
 	if(href_list["remove"])
-		if((usr.stat || usr.restrained()))	//For when a player is handcuffed while they have the notice window open
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))	//For when a player is handcuffed while they have the notice window open
 			return
-		var/obj/item/P = locate(href_list["remove"])
-		if((P && P.loc == src))
-			P.loc = get_turf(src)	//dump paper on the floor because you're a clumsy fuck
-			P.add_fingerprint(usr)
+		var/obj/item/paper/paper = locateUID(href_list["remove"])
+		if(istype(paper) && paper.loc == src)
+			paper.forceMove_turf()	//dump paper on the floor because you're a clumsy fuck
+			paper.add_fingerprint(usr)
 			add_fingerprint(usr)
 			notices--
-			icon_state = "nboard0[notices]"
+			update_icon(UPDATE_OVERLAYS)
+			usr.put_in_hands(paper, ignore_anim = FALSE)
 
 	if(href_list["write"])
-		if((usr.stat || usr.restrained())) //For when a player is handcuffed while they have the notice window open
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED)) //For when a player is handcuffed while they have the notice window open
 			return
-		var/obj/item/P = locate(href_list["write"])
-
-		if((P && P.loc == src)) //ifthe paper's on the board
-			if(istype(usr.r_hand, /obj/item/pen)) //and you're holding a pen
+		var/obj/item/paper/paper = locateUID(href_list["write"])
+		if(istype(paper) && paper.loc == src) //ifthe paper's on the board
+			if(is_pen(usr.r_hand)) //and you're holding a pen
 				add_fingerprint(usr)
-				P.attackby(usr.r_hand, usr) //then do ittttt
+				paper.show_content(usr, infolinks = TRUE)
+			else if(is_pen(usr.l_hand)) //check other hand for pen
+				add_fingerprint(usr)
+				paper.show_content(usr, infolinks = TRUE)
 			else
-				if(istype(usr.l_hand, /obj/item/pen)) //check other hand for pen
-					add_fingerprint(usr)
-					P.attackby(usr.l_hand, usr)
-				else
-					to_chat(usr, "<span class='notice'>You'll need something to write with!</span>")
+				to_chat(usr, span_notice("You'll need something to write with!"))
 
 	if(href_list["read"])
-		var/obj/item/paper/P = locate(href_list["read"])
-		if((P && P.loc == src))
-			P.show_content(usr)
+		var/obj/item/paper/paper = locateUID(href_list["read"])
+		if(istype(paper) && paper.loc == src)
+			paper.show_content(usr)
 	return
+
+/obj/item/noticeboard
+	name = "notice board"
+	desc = "A board for pinning important notices upon."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "nboard"
+	resistance_flags = FLAMMABLE
+
+/obj/item/noticeboard/screwdriver_act(mob/living/user, obj/item/I)
+	if(!isturf(user.loc))
+		return
+	var/direction = tgui_input_list(usr, "In which direction?", "Select direction.", list("North", "East", "South", "West", "Cancel"))
+	if(direction == "Cancel")
+		return
+	if(QDELETED(src))
+		return
+	if(!isturf(user.loc) || !Adjacent(user))
+		return
+	var/obj/structure/noticeboard/noticeboard = new(user.loc)
+	switch(direction)
+		if("North")
+			noticeboard.pixel_y = 32
+		if("East")
+			noticeboard.pixel_x = 32
+		if("South")
+			noticeboard.pixel_y = -32
+		if("West")
+			noticeboard.pixel_x = -32
+	src.transfer_fingerprints_to(noticeboard)
+	to_chat(user, span_notice("You fasten [noticeboard.name] with your [I]."))
+	qdel(src)
+
+#undef MAX_ICON_STATES_FOR_NOTICES

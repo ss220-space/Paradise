@@ -1,0 +1,11 @@
+name: Setup build artifacts
+
+on:
+  workflow_call:
+
+jobs:
+  station_artifacts:
+    uses: ./.github/workflows/setup_build_artifact_station_tests.yml
+
+  game_artifacts:
+    uses: ./.github/workflows/setup_build_artifact_game_tests.yml

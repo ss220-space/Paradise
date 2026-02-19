@@ -2,38 +2,78 @@
 /obj/item/organ/internal/nucleation
 	species_type = /datum/species/nucleation
 	name = "nucleation organ"
-	icon = 'icons/obj/surgery.dmi'
-	desc = "A crystalized human organ. /red It has a strangely iridescent glow."
 
 /obj/item/organ/internal/nucleation/resonant_crystal
-	species_type = /datum/species/nucleation
 	name = "resonant crystal"
+	desc = "Жёлтого цвета странно выглядящий кристалл. Судя по всему, он принадлежал нуклеату."
 	icon_state = "resonant-crystal"
-	organ_tag = "resonant crystal"
-	parent_organ = "head"
-	slot = "res_crystal"
+	parent_organ_zone = BODY_ZONE_HEAD
+	slot = INTERNAL_ORGAN_RESONANT_CRYSTAL
+
+/obj/item/organ/internal/nucleation/resonant_crystal/get_ru_names()
+	return list(
+		NOMINATIVE = "резонантный кристалл",
+		GENITIVE = "резонантного кристалла",
+		DATIVE = "резонантному кристаллу",
+		ACCUSATIVE = "резонантный кристалл",
+		INSTRUMENTAL = "резонантным кристаллом",
+		PREPOSITIONAL = "резонантном кристалле",
+	)
 
 /obj/item/organ/internal/nucleation/strange_crystal
-	species_type = /datum/species/nucleation
 	name = "strange crystal"
+	desc = "Жёлтого цвета странно выглядящий кристалл. Судя по всему, он принадлежал нуклеату."
 	icon_state = "strange-crystal"
-	organ_tag = "strange crystal"
-	parent_organ = "chest"
-	slot = "heart"
+	slot = INTERNAL_ORGAN_STRANGE_CRYSTAL
+
+/obj/item/organ/internal/nucleation/strange_crystal/get_ru_names()
+	return list(
+		NOMINATIVE = "странный кристалл",
+		GENITIVE = "странного кристалла",
+		DATIVE = "странному кристаллу",
+		ACCUSATIVE = "странный кристалл",
+		INSTRUMENTAL = "странным кристаллом",
+		PREPOSITIONAL = "странном кристалле",
+	)
 
 /obj/item/organ/internal/eyes/luminescent_crystal
 	species_type = /datum/species/nucleation
 	name = "luminescent eyes"
+	desc = "Необычного вида глаза, источающие свет. Эти принадлежали нуклеату."
 	icon_state = "crystal-eyes"
-	organ_tag = "luminescent eyes"
-	light_color = "#1C1C00"
+	light_color = "#f7f792"
+	light_range = 2
 
-/obj/item/organ/internal/eyes/luminescent_crystal/New()
-	set_light(2)
-	..()
+/obj/item/organ/internal/eyes/luminescent_crystal/get_ru_names()
+	return list(
+		NOMINATIVE = "люминесцентные глаза",
+		GENITIVE = "люминесцентных глаз",
+		DATIVE = "люминесцентным глазам",
+		ACCUSATIVE = "люминесцентные глаза",
+		INSTRUMENTAL = "люминесцентными глазами",
+		PREPOSITIONAL = "люминесцентных глазах",
+	)
 
 /obj/item/organ/internal/brain/crystal
 	species_type = /datum/species/nucleation
 	name = "crystallized brain"
+	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Судя по кристаллизированной структуре, этот принадлежал нуклеату."
 	icon_state = "crystal-brain"
-	organ_tag = "crystallized brain"
+
+/obj/item/organ/internal/brain/crystal/get_ru_names()
+	return list(
+		NOMINATIVE = "кристаллизированный мозг",
+		GENITIVE = "кристаллизированного мозга",
+		DATIVE = "кристаллизированному мозгу",
+		ACCUSATIVE = "кристаллизированный мозг",
+		INSTRUMENTAL = "кристаллизированным мозгом",
+		PREPOSITIONAL = "кристаллизированном мозге",
+	)
+
+/obj/item/organ/internal/brain/crystal/insert(mob/living/target, special = ORGAN_MANIPULATION_DEFAULT)
+	..(target, special)
+	if(isnucleation(target))
+		return //no need to apply disease to nucleation
+	var/datum/disease/virus/nuclefication/D = new()
+	D.Contract(target, need_protection_check = FALSE)
+

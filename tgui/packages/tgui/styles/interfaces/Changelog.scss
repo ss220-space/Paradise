@@ -1,0 +1,17 @@
+.Changelog {
+  a {
+    color: hsl(0, 0%, 100%);
+  }
+
+  &__Button {
+    height: 22px;
+  }
+
+  &__Cell {
+    padding: 3px 0;
+
+    &--Icon {
+      width: 25px;
+    }
+  }
+}

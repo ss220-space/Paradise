@@ -7,28 +7,37 @@
 	status_flags = CANPARALYSE
 	mob_size = MOB_SIZE_LARGE
 	bubble_icon = "alienroyal"
-	large = 1
-	ventcrawler = 0
+	large = TRUE
+	move_resist = MOVE_FORCE_STRONG
+	obj_damage = 100
+	time_to_open_doors = 0.2 SECONDS
+	attack_damage = 50
+	disarm_stamina_damage = 60
+	armour_penetration = 60
+	environment_smash = ENVIRONMENT_SMASH_RWALLS
+	ventcrawler_trait = null
+	pressure_resistance = 200 //Because big, stompy xenos should not be blown around like paper.
+	antag_datum_type = /datum/antagonist/xenomorph/queen
 
 /mob/living/carbon/alien/humanoid/empress/large
-	name = "alien empress"
-	caste = "e"
 	icon = 'icons/mob/alienhuge.dmi'
-	icon_state = "empress_s"
 	pixel_x = -32
 
 /mob/living/carbon/alien/humanoid/empress/large/update_icons()
-	overlays.Cut()
+	cut_overlays()
 
 	if(stat == DEAD)
-		icon_state = "empress_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
-		icon_state = "empress_sleep"
+		icon_state = "alien[caste]_dead"
+	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
+		icon_state = "alien[caste]_sleep"
 	else
-		icon_state = "empress_s"
+		icon_state = "alien[caste]_s"
 
 	for(var/image/I in overlays_standing)
-		overlays += I
+		add_overlay(I)
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
 
 /mob/living/carbon/alien/humanoid/empress/New()
 	//there should only be one queen
@@ -42,28 +51,18 @@
 			break
 
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel/queen
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
-	alien_organs += new /obj/item/organ/internal/xenos/eggsac
-	alien_organs += new /obj/item/organ/internal/xenos/resinspinner
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
 
-/datum/action/innate/xeno_action/lay_egg
-	name = "Lay Egg (250)"
-	desc = "Lay an egg to produce huggers to impregnate prey with."
-	button_icon_state = "alien_egg"
+/mob/living/carbon/alien/humanoid/empress/get_caste_organs()
+	. = ..()
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel/queen,
+		/obj/item/organ/internal/xenos/acidgland/queen,
+		/obj/item/organ/internal/xenos/eggsac,
+		/obj/item/organ/internal/xenos/resinspinner,
+		/obj/item/organ/internal/xenos/neurotoxin
+	)
 
-/datum/action/innate/xeno_action/lay_egg/Activate()
-	var/mob/living/carbon/alien/humanoid/empress/host = owner
+/mob/living/carbon/alien/humanoid/empress/is_strong()
+	return TRUE
 
-	if(locate(/obj/structure/alien/egg) in get_turf(owner))
-		to_chat(owner, "<span class='noticealien'>There's already an egg here.</span>")
-		return
-
-	if(plasmacheck(250,1))//Can't plant eggs on spess tiles. That's silly.
-		host.adjustPlasma(-250)
-		for(var/mob/O in viewers(owner, null))
-			O.show_message(text("<span class=notice'><B>[src] has laid an egg!</B></span>"), 1)
-		new /obj/structure/alien/egg(owner.loc)
-	return

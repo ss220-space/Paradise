@@ -20,7 +20,7 @@
 /datum/ui_module/appearance_changer/New(datum/host, mob/living/carbon/human/H, check_species_whitelist = TRUE, list/species_whitelist = list(), list/species_blacklist = list())
 	..()
 	owner = H
-	head_organ = owner.get_organ("head")
+	head_organ = owner.get_organ(BODY_ZONE_HEAD)
 	check_whitelist = check_species_whitelist
 	whitelist = species_whitelist
 	blacklist = species_blacklist
@@ -38,7 +38,7 @@
 				if(owner.set_species(S.type))
 					cut_and_generate_data()
 					// Species change creates new organs - runtimes ahoy if we forget this
-					head_organ = owner.get_organ("head")
+					head_organ = owner.get_organ(BODY_ZONE_HEAD)
 
 		if("gender")
 			if(can_change(APPEARANCE_GENDER))
@@ -49,7 +49,7 @@
 			if(can_change_skin_tone())
 				var/new_s_tone = null
 				if(owner.dna.species.bodyflags & HAS_SKIN_TONE)
-					new_s_tone = input(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone) as num|null
+					new_s_tone = tgui_input_number(usr, "Choose your character's skin tone:\n(Light 1 - 220 Dark)", "Skin Tone", owner.s_tone, max_value = 220)
 					if(isnum(new_s_tone) && (!..()))
 						new_s_tone = 35 - max(min(round(new_s_tone), 220),1)
 				else if(owner.dna.species.bodyflags & HAS_ICON_SKIN_TONE)
@@ -63,7 +63,7 @@
 							prompt += ", "
 					prompt += ")"
 
-					new_s_tone = input(usr, prompt, "Skin Tone", owner.s_tone) as num|null
+					new_s_tone = tgui_input_number(usr, prompt, "Skin Tone", owner.s_tone)
 					if(isnum(new_s_tone) && (!..()))
 						new_s_tone = max(min(round(new_s_tone), length(owner.dna.species.icon_skin_tones)), 1)
 
@@ -72,8 +72,8 @@
 
 		if("skin_color")
 			if(can_change_skin_color())
-				var/new_skin = input(usr, "Choose your character's skin colour: ", "Skin Color", owner.skin_colour) as color|null
-				if(new_skin && (!..()) && owner.change_skin_color(new_skin))
+				var/new_skin = tgui_input_color(usr, "Choose your character's skin colour: ", "Skin Color", owner.skin_colour)
+				if(!isnull(new_skin) && (!..()) && owner.change_skin_color(new_skin))
 					update_dna()
 
 		if("hair")
@@ -83,37 +83,37 @@
 
 		if("hair_color")
 			if(can_change(APPEARANCE_HAIR_COLOR))
-				var/new_hair = input("Please select hair color.", "Hair Color", head_organ.hair_colour) as color|null
-				if(new_hair && (!..()) && owner.change_hair_color(new_hair))
+				var/new_hair = tgui_input_color(usr, "Please select hair color.", "Hair Color", head_organ.hair_colour)
+				if(!isnull(new_hair) && (!..()) && owner.change_hair_color(new_hair))
 					update_dna()
 
 		if("secondary_hair_color")
 			if(can_change(APPEARANCE_SECONDARY_HAIR_COLOR))
-				var/new_hair = input("Please select secondary hair color.", "Secondary Hair Color", head_organ.sec_hair_colour) as color|null
-				if(new_hair && (!..()) && owner.change_hair_color(new_hair, 1))
+				var/new_hair = tgui_input_color(usr, "Please select secondary hair color.", "Secondary Hair Color", head_organ.sec_hair_colour)
+				if(!isnull(new_hair) && (!..()) && owner.change_hair_color(new_hair, 1))
 					update_dna()
 
 		if("hair_gradient")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_style = input("Please select gradient style.", "Hair Gradient", head_organ.h_grad_style) as null|anything in GLOB.hair_gradients_list
+				var/new_style = tgui_input_list(usr, "Please select gradient style", "Hair Gradient", GLOB.hair_gradients_list, head_organ.h_grad_style)
 				if(new_style)
 					owner.change_hair_gradient(style = new_style)
 
 		if("hair_gradient_offset")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_offset = input("Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]") as null|text
+				var/new_offset = tgui_input_text(usr, "Please enter gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Hair Gradient", "[head_organ.h_grad_offset_x],[head_organ.h_grad_offset_y]")
 				if(new_offset)
 					owner.change_hair_gradient(offset_raw = new_offset)
 
 		if("hair_gradient_colour")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_color = input("Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour) as null|color
+				var/new_color = tgui_input_color(usr, "Please select gradient color.", "Hair Gradient", head_organ.h_grad_colour)
 				if(new_color)
 					owner.change_hair_gradient(color = new_color)
 
 		if("hair_gradient_alpha")
 			if(can_change(APPEARANCE_HAIR) && length(valid_hairstyles))
-				var/new_alpha = input("Please enter gradient alpha (0-200).", "Hair Gradient", head_organ.h_grad_alpha) as null|num
+				var/new_alpha = tgui_input_number(usr, "Please enter gradient alpha (0-200).", "Hair Gradient", head_organ.h_grad_alpha, max_value = 200)
 				if(!isnull(new_alpha))
 					owner.change_hair_gradient(alpha = new_alpha)
 
@@ -124,21 +124,21 @@
 
 		if("facial_hair_color")
 			if(can_change(APPEARANCE_FACIAL_HAIR_COLOR))
-				var/new_facial = input("Please select facial hair color.", "Facial Hair Color", head_organ.facial_colour) as color|null
-				if(new_facial && (!..()) && owner.change_facial_hair_color(new_facial))
+				var/new_facial = tgui_input_color(usr, "Please select facial hair color.", "Facial Hair Color", head_organ.facial_colour)
+				if(!isnull(new_facial) && (!..()) && owner.change_facial_hair_color(new_facial))
 					update_dna()
 
 		if("secondary_facial_hair_color")
 			if(can_change(APPEARANCE_SECONDARY_FACIAL_HAIR_COLOR))
-				var/new_facial = input("Please select secondary facial hair color.", "Secondary Facial Hair Color", head_organ.sec_facial_colour) as color|null
-				if(new_facial && (!..()) && owner.change_facial_hair_color(new_facial, 1))
+				var/new_facial = tgui_input_color(usr, "Please select secondary facial hair color.", "Secondary Facial Hair Color", head_organ.sec_facial_colour)
+				if(!isnull(new_facial) && (!..()) && owner.change_facial_hair_color(new_facial, 1))
 					update_dna()
 
 		if("eye_color")
 			if(can_change(APPEARANCE_EYE_COLOR))
 				var/obj/item/organ/internal/eyes/eyes_organ = owner.get_int_organ(/obj/item/organ/internal/eyes)
-				var/new_eyes = input("Please select eye color.", "Eye Color", eyes_organ.eye_colour) as color|null
-				if(new_eyes && (!..()) && owner.change_eye_color(new_eyes))
+				var/new_eyes = tgui_input_color(usr, "Please select eye color.", "Eye Color", eyes_organ.eye_colour)
+				if(!isnull(new_eyes) && (!..()) && owner.change_eye_color(new_eyes))
 					update_dna()
 
 		if("head_accessory")
@@ -148,8 +148,8 @@
 
 		if("head_accessory_color")
 			if(can_change_head_accessory())
-				var/new_head_accessory = input("Please select head accessory color.", "Head Accessory Color", head_organ.headacc_colour) as color|null
-				if(new_head_accessory && (!..()) && owner.change_head_accessory_color(new_head_accessory))
+				var/new_head_accessory = tgui_input_color(usr, "Please select head accessory color.", "Head Accessory Color", head_organ.headacc_colour)
+				if(!isnull(new_head_accessory) && (!..()) && owner.change_head_accessory_color(new_head_accessory))
 					update_dna()
 
 		if("head_marking")
@@ -159,8 +159,8 @@
 
 		if("head_marking_color")
 			if(can_change_markings("head"))
-				var/new_markings = input("Please select head marking color.", "Marking Color", owner.m_colours["head"]) as color|null
-				if(new_markings && (!..()) && owner.change_marking_color(new_markings, "head"))
+				var/new_markings = tgui_input_color(usr, "Please select head marking color.", "Marking Color", owner.m_colours["head"])
+				if(!isnull(new_markings) && (!..()) && owner.change_marking_color(new_markings, "head"))
 					update_dna()
 
 		if("body_marking")
@@ -170,8 +170,8 @@
 
 		if("body_marking_color")
 			if(can_change_markings("body"))
-				var/new_markings = input("Please select body marking color.", "Marking Color", owner.m_colours["body"]) as color|null
-				if(new_markings && (!..()) && owner.change_marking_color(new_markings, "body"))
+				var/new_markings = tgui_input_color(usr, "Please select body marking color.", "Marking Color", owner.m_colours["body"])
+				if(!isnull(new_markings) && (!..()) && owner.change_marking_color(new_markings, "body"))
 					update_dna()
 
 		if("tail_marking")
@@ -181,8 +181,8 @@
 
 		if("tail_marking_color")
 			if(can_change_markings("tail"))
-				var/new_markings = input("Please select tail marking color.", "Marking Color", owner.m_colours["tail"]) as color|null
-				if(new_markings && (!..()) && owner.change_marking_color(new_markings, "tail"))
+				var/new_markings = tgui_input_color(usr, "Please select tail marking color.", "Marking Color", owner.m_colours["tail"])
+				if(!isnull(new_markings) && (!..()) && owner.change_marking_color(new_markings, "tail"))
 					update_dna()
 
 		if("body_accessory")
@@ -195,14 +195,13 @@
 			if(can_change_alt_head() && (params["alt_head"] in valid_alt_head_styles))
 				if(owner.change_alt_head(params["alt_head"]))
 					update_dna()
-					head_organ = owner.get_organ("head") //Update the head with the new information.
+					head_organ = owner.get_organ(BODY_ZONE_HEAD) //Update the head with the new information.
 					cut_and_generate_data()
 
-
-/datum/ui_module/appearance_changer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/appearance_changer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AppearanceChanger", name, 800, 450, master_ui, state)
+		ui = new(user, src, "AppearanceChanger", name)
 		ui.open()
 
 /datum/ui_module/appearance_changer/ui_data(mob/user)
@@ -267,7 +266,8 @@
 
 	data["change_tail_markings"] = can_change_markings("tail")
 	if(data["change_tail_markings"])
-		var/m_style = owner.bodypart_tail.m_styles["tail"]
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		var/m_style = bodypart_tail.m_styles["tail"]
 		var/list/tail_marking_styles = list()
 		for(var/tail_marking_style in valid_tail_marking_styles)
 			tail_marking_styles += list(list("tailmarkingstyle" = tail_marking_style))
@@ -276,14 +276,16 @@
 
 	data["change_body_accessory"] = can_change_body_accessory()
 	if(data["change_body_accessory"])
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
 		var/list/body_accessory_styles = list()
 		for(var/body_accessory_style in valid_body_accessories)
 			body_accessory_styles += list(list("bodyaccessorystyle" = body_accessory_style))
 		data["body_accessory_styles"] = body_accessory_styles
-		if(owner.bodypart_tail)
-			data["body_accessory_style"] = (owner.bodypart_tail.body_accessory ? owner.bodypart_tail.body_accessory.name : "None")
-		if(owner.bodypart_wing)
-			data["body_accessory_style"] = (owner.bodypart_wing.body_accessory ? owner.bodypart_wing.body_accessory.name : "None")
+		if(bodypart_tail)
+			data["body_accessory_style"] = (bodypart_tail.body_accessory ? bodypart_tail.body_accessory.name : "None")
+		if(bodypart_wing)
+			data["body_accessory_style"] = (bodypart_wing.body_accessory ? bodypart_wing.body_accessory.name : "None")
 
 	data["change_alt_head"] = can_change_alt_head()
 	if(data["change_alt_head"])
@@ -345,18 +347,22 @@
 	if(location == "body")
 		marking_flag = HAS_BODY_MARKINGS
 	if(location == "tail")
-		tailcheck = owner.bodypart_tail && (owner.bodypart_tail.dna.species.bodyflags & HAS_TAIL_MARKINGS & HAS_BODY_ACCESSORY)
+		var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+		tailcheck = bodypart_tail && (bodypart_tail.dna?.species?.bodyflags & HAS_TAIL_MARKINGS & HAS_BODY_ACCESSORY)
 	if(location == "wing")
-		wingcheck = owner.bodypart_wing && (owner.bodypart_wing.dna.species.bodyflags & HAS_BODY_ACCESSORY)
+		var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
+		wingcheck = bodypart_wing && (bodypart_wing.dna?.species?.bodyflags & HAS_BODY_ACCESSORY)
 	return owner && (flags & APPEARANCE_MARKINGS) && (body_flags & marking_flag) && tailcheck && wingcheck
 
 /datum/ui_module/appearance_changer/proc/can_change_body_accessory()
-	if(owner.bodypart_tail)
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
-	if(owner.bodypart_wing)
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && owner.bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+	var/obj/item/organ/external/tail/bodypart_tail = owner.get_organ(BODY_ZONE_TAIL)
+	var/obj/item/organ/external/wing/bodypart_wing = owner.get_organ(BODY_ZONE_WING)
+	if(bodypart_tail)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_tail && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, FALSE, owner)
+	if(bodypart_wing)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && bodypart_wing && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, FALSE, owner)
 	else
-		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, 0, owner)
+		return owner && (flags & APPEARANCE_BODY_ACCESSORY) && HAS_BODY_ACCESSORY && check_rights(R_ADMIN, FALSE, owner)
 
 /datum/ui_module/appearance_changer/proc/can_change_alt_head()
 	if(!head_organ)

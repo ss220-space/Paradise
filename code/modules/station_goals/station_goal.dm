@@ -2,6 +2,7 @@
 // Admin button to override with your own
 // Sabotage objective for tators
 // Multiple goals with less impact but more department focused
+#define STATION_GOAL_DEFAULT_BOUNTY 30000
 
 /datum/station_goal
 	var/name = "Generic Goal"
@@ -13,11 +14,27 @@
 	var/list/obj/item/paper/papers_list = list()
 	var/list/datum/supply_packs/supply_list = list()
 
+	var/station_bounty = STATION_GOAL_DEFAULT_BOUNTY
+	var/list/personal_reward = list(
+		JOB_TITLE_ENGINEER = 1000,
+		JOB_TITLE_ENGINEER_TRAINEE = 1000,
+		JOB_TITLE_ATMOSTECH = 1000,
+		JOB_TITLE_MECHANIC = 1000,
+		JOB_TITLE_CHIEF = 1500
+	)
+
+/datum/station_goal/proc/can_gain()
+	return TRUE
+
 /datum/station_goal/proc/send_report()
-	var/directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
-	GLOB.priority_announcement.Announce("Поступила приоритетная директива Нанотрейзен. Отправлены подробности проекта «[name]».", "Приоритетное оповещение.", 'sound/AI/commandreport.ogg')
-	print_command_report("<div style='text-align:center;'><img src='ntlogo.png'>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)
 	on_report()
+	var/directive = "Директива \"Нанотрейзен\" [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
+	GLOB.minor_announcement.announce(
+		message = "Поступила приоритетная директива \"Нанотрейзен\". Отправлены подробности проекта \"[html_decode(name)]\".",
+		new_title = ANNOUNCE_PRIORITY_RU,
+		new_sound = 'sound/AI/commandreport.ogg'
+	)
+	print_command_report("<div style='text-align:center;'><img src = ntlogo.png>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)
 
 /datum/station_goal/proc/on_report()
 	//Additional unlocks/changes go here
@@ -31,9 +48,9 @@
 
 /datum/station_goal/proc/print_result()
 	if(check_completion())
-		to_chat(world, "<b>Station Goal</b>: [name]:  <span class='greenannounce'>Completed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]:  [span_greenannounce("Completed!")]")
 	else
-		to_chat(world, "<b>Station Goal</b>: [name]: <span class='boldannounce'>Failed!</span>")
+		to_chat(world, "<b>Station Goal</b>: [name]: [span_boldannounceooc("Failed!")]")
 
 /datum/station_goal/Destroy()
 	SSticker.mode.station_goals -= src
@@ -49,7 +66,8 @@
 		return
 
 	if(href_list["announce"])
-		on_report()
 		send_report()
 	else if(href_list["remove"])
 		qdel(src)
+
+#undef STATION_GOAL_DEFAULT_BOUNTY

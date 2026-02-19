@@ -23,7 +23,6 @@
 	name = "cucumber"
 	desc = "The power of Earth itself!"
 	icon_state = "cucumber"
-	splat_type = /obj/effect/decal/cleanable/plant_smudge
 	slice_path = /obj/item/reagent_containers/food/snacks/cucumberslice
 	slices_num = 5
 	filling_color = "#47FF91"

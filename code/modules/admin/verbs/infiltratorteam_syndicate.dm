@@ -3,109 +3,81 @@
 
 GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
+ADMIN_VERB(syndicate_infiltration_team, R_ADMIN, "Отправить Диверсионный Отряд \"Синдиката\"", "Спавнит Диверсионный Отряд \"Синдиката\" в их месте постоянной дислокации на СЦК.", ADMIN_CATEGORY_EVENTS)
+	if(user.holder)
+		user.syndicate_infiltration_team()
+
 /client/proc/syndicate_infiltration_team()
-	set category = "Event"
-	set name = "Send Syndicate Infiltration Team"
-	set desc = "Spawns a squad of syndicate infiltrators on the Syndicate Mothership if you want to run an admin event."
-	if(!check_rights(R_ADMIN))
-		to_chat(src, "Only administrators may use this command.")
-		return
 	if(!SSticker)
-		alert("The game hasn't started yet!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
-	if(alert("Do you want to send in the Syndicate Infiltration Team?",,"Yes","No")=="No")
+	if(tgui_alert(src, "Вы хотите отправить Диверсионный Отряд \"Синдиката\"?", "Подтверждение", list("Да","Нет")) != "Да")
 		return
 	var/spawn_dummies = 0
-	if(alert("Spawn full-size team, even if there aren't enough ghosts to populate them?",,"Yes","No")=="Yes")
+	if(tgui_alert(src, "Создавать полноразмерную команду, даже если призраков недостаточно для их заполнения?", "Подтверждение", list("Да","Нет")) == "Да")
 		spawn_dummies = 1
-	var/pick_manually = 0
-	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
-		pick_manually = 1
 	var/list/teamsizeoptions = list(2,3,4,5,6)
-	var/teamsize = input(src, "How many team members, including the team leader?") as null|anything in teamsizeoptions
+	var/teamsize = tgui_input_list(src, "Сколько должно быть членов, включая лидера?","Количество членов отряда", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
-		alert("Invalid team size specified. Aborting.")
+		tgui_alert(src, "Недопустимый размер команды. Отмена.")
 		return
 	var/input = null
 	while(!input)
-		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate infiltration team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд \"Синдиката\".", "Укажите миссию", "", encode = FALSE)
 		if(!input)
-			alert("No mission specified. Aborting.")
+			tgui_alert(src, "Миссия не указана. Отмена.")
 			return
-	var/tctext = input(src, "How much TC do you want to give each team member? Suggested: 20-30. They cannot trade TC.") as num
-	var/tcamount = text2num(tctext)
-	tcamount = between(0, tcamount, 1000)
+	var/tcamount = tgui_input_number(src, "Как много ТК вы хотите дать каждому члену команды? Рекомендовано: 100-150. Они не могут продавать ТК.","Количество ТК", 100, 5000)
+
 	if(GLOB.sent_syndicate_infiltration_team == 1)
-		if(alert("A Syndicate Infiltration Team has already been sent. Sure you want to send another?",,"Yes","No")=="No")
+		if(tgui_alert(src, "Диверсионный Отряд \"Синдиката\" уже был отправлен. Нужно ли посылать ещё один?","Подтверждение", list("Да","Нет")) != "Да")
 			return
 
 	var/syndicate_leader_selected = 0
 
 	var/list/infiltrators = list()
 
-	if(pick_manually)
-		var/list/possible_ghosts = list()
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			if(!G.client.is_afk())
-				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					possible_ghosts += G
-		for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every SIT member selected.
-			var/candidate = input("Pick characters to spawn as a SIT member. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
-			possible_ghosts -= candidate
-			infiltrators += candidate
-	else
-		to_chat(src, "Polling candidates...")
-		var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
-		infiltrators = SSghost_spawns.poll_candidates("Do you want to play as a Syndicate infiltrator?", ROLE_TRAITOR, TRUE, source = I, role_cleanname = "Syndicate infiltrator")
+	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_sit")
+	infiltrators = pick_candidates_all_types(src, teamsize, "Вы хотите поиграть за Диверсанта \"Синдиката\"?", ROLE_TRAITOR, 21, 30 SECONDS, FALSE, GLOB.role_playtime_requirements[ROLE_TRAITOR], TRUE, FALSE, I, "Диверсант \"Синдиката\"", input)
 
-	if(!infiltrators.len)
-		to_chat(src, "Nobody volunteered.")
+	if(!length(infiltrators))
+		to_chat(src, "Никто не захотел быть Диверсантом \"Синдиката\".")
 		return 0
 
 	GLOB.sent_syndicate_infiltration_team = 1
 
 	var/list/sit_spawns = list()
-	var/list/sit_spawns_leader = list()
-	var/list/sit_spawns_mgmt = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(L.name == "Syndicate-Infiltrator")
 			sit_spawns += L
-		if(L.name == "Syndicate-Infiltrator-Leader")
-			sit_spawns_leader += L
-		if(L.name == "Syndicate-Infiltrator-Admin")
-			sit_spawns_mgmt += L
 
 	var/num_spawned = 1
 	var/team_leader = null
 	for(var/obj/effect/landmark/L in sit_spawns)
-		if(!infiltrators.len && !spawn_dummies) break
+		if(!length(infiltrators) && !spawn_dummies) break
 		syndicate_leader_selected = num_spawned == 1?1:0
 		var/mob/living/carbon/human/new_syndicate_infiltrator = create_syndicate_infiltrator(L, syndicate_leader_selected, tcamount, 0)
-		if(infiltrators.len)
+		if(length(infiltrators))
 			var/mob/theguy = pick(infiltrators)
 			if(theguy.key != key)
-				new_syndicate_infiltrator.key = theguy.key
+				new_syndicate_infiltrator.possess_by_player(theguy.key)
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
-		to_chat(new_syndicate_infiltrator, "<span class='danger'>You are a [!syndicate_leader_selected?"Infiltrator":"<B>Lead Infiltrator</B>"] in the service of the Syndicate. \nYour current mission is: <B>[input]</B></span>")
-		to_chat(new_syndicate_infiltrator, "<span class='notice'>You are equipped with an uplink implant to help you achieve your objectives. ((activate it via button in top left of screen))</span>")
+		to_chat(new_syndicate_infiltrator, span_danger("Вы [!syndicate_leader_selected?"Диверсант":"<b>Командир Диверсантов</b>"] в подчинении \"Синдиката\". \nВаша миссия: <b>[input]</b>"))
+		to_chat(new_syndicate_infiltrator, span_notice("Вы оснащены имплантом аплинка, который поможет вам достичь ваших целей. ((активируйте его с помощью кнопки в левом верхнем углу экрана))"))
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
 		if(syndicate_leader_selected)
-			var/obj/effect/landmark/warpto = pick(sit_spawns_leader)
-			new_syndicate_infiltrator.loc = warpto.loc
-			sit_spawns_leader -= warpto
 			team_leader = new_syndicate_infiltrator
-			to_chat(new_syndicate_infiltrator, "<span class='danger'>As team leader, it is up to you to organize your team! Give the job to someone else if you can't handle it.</span>")
+			to_chat(new_syndicate_infiltrator, span_danger("Как лидер отряда, вы должны организовать его! Отдайте роль кому-нибудь другому, если вы не можете с ней справиться."))
 		else
-			to_chat(new_syndicate_infiltrator, "<span class='danger'>Your team leader is: [team_leader]. They are in charge!</span>")
+			to_chat(new_syndicate_infiltrator, span_danger("Лидер отряда: [team_leader]. Он отвечает за миссию!"))
 		teamsize--
-		to_chat(new_syndicate_infiltrator, "<span class='notice'>You have more helpful information stored in your Notes.</span>")
-		new_syndicate_infiltrator.mind.store_memory("<B>Mission:</B> [input] ")
-		new_syndicate_infiltrator.mind.store_memory("<B>Team Leader:</B> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<B>Starting Equipment:</B> <BR>- Syndicate Headset ((.h for your radio))<BR>- Chameleon Jumpsuit ((right click to Change Color))<BR> - Agent ID card ((disguise as another job))<BR> - Uplink Implant ((top left of screen)) <BR> - Dust Implant ((destroys your body on death)) <BR> - Combat Gloves ((insulated, disguised as black gloves)) <BR> - Anything bought with your uplink implant")
+		to_chat(new_syndicate_infiltrator, span_notice("В ваших заметках хранится ещё больше полезной информации."))
+		new_syndicate_infiltrator.mind.store_memory("<b>Миссия:</b> [input] ")
+		new_syndicate_infiltrator.mind.store_memory("<b>Лидер:</b> [team_leader] ")
+		new_syndicate_infiltrator.mind.store_memory("<b>Стартовое снаряжение:</b> <br>- Наушник \"Синдиката\" ((:t для вашего канала))<br>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<br> - ID карта агента ((Может изменять должность и другие данные))<br> - Имплант аплинка ((в левом верхнем углу экрана)) <br> - Имплант распыления ((превращает тело при смерти в пыль)) <br> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <br> - Все, что куплено с помощью вашего импланта аплинка")
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
@@ -114,7 +86,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		if(!teamsize)
 			break
 	log_and_message_admins("has spawned a Syndicate Infiltration Team.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn SIT") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Spawn SIT")
 
 // ---------------------------------------------------------------------------------------------------------
 
@@ -133,7 +105,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to z2 so make them inelligible as antag targets
-	SSticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
+	SSticker.mode.sit |= new_syndicate_infiltrator.mind //Adds them to extra antag list
+	new_syndicate_infiltrator.change_voice()
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	return new_syndicate_infiltrator
 
@@ -141,23 +114,23 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /mob/living/carbon/human/proc/equip_syndicate_infiltrator(syndicate_leader_selected = 0, num_tc, flag_mgmt)
 	// Storage items
-	equip_to_slot_or_del(new /obj/item/storage/backpack(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), slot_w_uniform)
+	equip_to_slot_or_del(new /obj/item/storage/backpack(src), ITEM_SLOT_BACK)
+	equip_to_slot_or_del(new /obj/item/storage/box/survival(src), ITEM_SLOT_BACKPACK)
+	equip_to_slot_or_del(new /obj/item/clothing/under/chameleon(src), ITEM_SLOT_CLOTH_INNER)
 	if(!flag_mgmt)
-		equip_to_slot_or_del(new /obj/item/flashlight(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), slot_belt)
+		equip_to_slot_or_del(new /obj/item/flashlight(src), ITEM_SLOT_BACKPACK)
+		equip_to_slot_or_del(new /obj/item/storage/belt/utility/full/multitool(src), ITEM_SLOT_BELT)
 
 	var/obj/item/clothing/gloves/combat/G = new /obj/item/clothing/gloves/combat(src)
 	G.name = "black gloves"
-	equip_to_slot_or_del(G, slot_gloves)
+	equip_to_slot_or_del(G, ITEM_SLOT_GLOVES)
 
 	// Implants:
 	// Uplink
 	var/obj/item/implant/uplink/sit/U = new /obj/item/implant/uplink/sit(src)
 	U.implant(src)
-	if (flag_mgmt)
-		U.hidden_uplink.uses = 500
+	if(flag_mgmt)
+		U.hidden_uplink.uses = 2500
 	else
 		U.hidden_uplink.uses = num_tc
 	// Dust
@@ -167,20 +140,20 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	// Radio & PDA
 	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/syndteam(src)
 	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, slot_l_ear)
-	equip_or_collect(new /obj/item/pda(src), slot_in_backpack)
+	equip_to_slot_or_del(R, ITEM_SLOT_EAR_LEFT)
+	equip_or_collect(new /obj/item/pda(src), ITEM_SLOT_BACKPACK)
 
 	// Other gear
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/chameleon/noslip(src), ITEM_SLOT_FEET)
 
 	var/obj/item/card/id/syndicate/W = new(src)
-	if (flag_mgmt)
+	if(flag_mgmt)
 		W.icon_state = "commander"
 	else
 		W.icon_state = "id"
 	W.access = list(ACCESS_MAINT_TUNNELS,ACCESS_EXTERNAL_AIRLOCKS)
-	W.assignment = "Civilian"
-	W.access += get_access("Civilian")
+	W.assignment = JOB_TITLE_CIVILIAN
+	W.access += get_access(JOB_TITLE_CIVILIAN)
 	W.access += list(ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CARGO, ACCESS_RESEARCH)
 	if(flag_mgmt)
 		W.assignment = "Syndicate Management Consultant"
@@ -189,8 +162,8 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		W.access += get_syndicate_access("Syndicate Commando")
 	else
 		W.access += get_syndicate_access("Syndicate Operative")
-	W.name = "[real_name]'s ID Card ([W.assignment])"
+	W.name = "[real_name]’s ID Card ([W.assignment])"
 	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
+	equip_to_slot_or_del(W, ITEM_SLOT_ID)
 
 	return 1

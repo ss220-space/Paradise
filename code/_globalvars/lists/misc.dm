@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"))
 GLOBAL_LIST_INIT(alphabet_uppercase, list("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"))
+GLOBAL_LIST_INIT(alphabet_cyrillic, list("а","б","в","г","д","е","ё","ж","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ц","ч","ш","щ","ъ","ы","ь","э","ю","я"))
 GLOBAL_LIST_INIT(zero_character_only, list("0"))
-GLOBAL_LIST_INIT(hex_characters, list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"))
 GLOBAL_LIST_INIT(binary, list("0","1"))
 GLOBAL_LIST_INIT(html_colors, list("Alice Blue","Antique White","Aqua","Aquamarine","Azure","Beige","Bisque","Black","Blanched Almond","Blue","Blue Violet",
 									"Brown","Burly Wood","Cadet Blue","Chartreuse","Chocolate","Coral","Cornflower Blue","Cornsilk","Crimson","Cyan",
@@ -21,6 +21,8 @@ GLOBAL_LIST_INIT(html_colors, list("Alice Blue","Antique White","Aqua","Aquamari
 
 GLOBAL_LIST_INIT(day_names, list("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"))
 GLOBAL_LIST_INIT(month_names, list("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))
+// keep si_suffixes balanced and with a pivot in the middle!
+GLOBAL_LIST_INIT(si_suffixes, list("y", "z", "a", "f", "p", "n", "u", "m", "", "k", "M", "G", "T", "P", "E", "Z", "Y"))
 
 GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"CentComm",
@@ -30,12 +32,23 @@ GLOBAL_LIST_INIT(restricted_camera_networks, list(
 	"UO45",
 	"UO45R",
 	"UO71",
+	"MO19",
+	"MO19X",
+	"MO19R",
 	"Xeno",
 	"Hotel",
-	"USSP_LAB"
+	"spacehotel",
+	"spacebar",
+	"USSP",
+	"USSP_LAB",
+	"USSP_gorky17",
+	"Bunker1"
 	)) //Those networks can only be accessed by preexisting terminals. AIs and new terminals can't use them.
 
-GLOBAL_LIST_INIT(ruin_landmarks, list())
+GLOBAL_LIST_EMPTY(ruin_landmarks)
+
+/// List of all the maps that have been cached for /proc/load_map
+GLOBAL_LIST_EMPTY(cached_maps)
 
 GLOBAL_LIST_INIT(round_end_sounds, list(
 		'sound/AI/newroundsexy.ogg' = 2.3 SECONDS,
@@ -50,14 +63,59 @@ GLOBAL_LIST_INIT(cooking_recipe_types, list(
 	RECIPE_MICROWAVE = /datum/recipe/microwave,
 	RECIPE_OVEN = /datum/recipe/oven,
 	RECIPE_GRILL = /datum/recipe/grill,
-	RECIPE_CANDY = /datum/recipe/candy
+	RECIPE_CANDY = /datum/recipe/candy,
+	RECIPE_TRIBAL_OVEN = /datum/recipe/tribal_oven
 	))
-GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
-GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
-GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list()))
+GLOBAL_LIST_INIT(cooking_recipes, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list(), RECIPE_TRIBAL_OVEN = list()))
+GLOBAL_LIST_INIT(cooking_ingredients, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list(), RECIPE_TRIBAL_OVEN = list()))
+GLOBAL_LIST_INIT(cooking_reagents, list(RECIPE_MICROWAVE = list(), RECIPE_OVEN = list(), RECIPE_GRILL = list(), RECIPE_CANDY = list(), RECIPE_TRIBAL_OVEN = list()))
 
 #define EGG_LAYING_MESSAGES list("lays an egg.", "squats down and croons.", "begins making a huge racket.", "begins clucking raucously.")
 
 GLOBAL_LIST_EMPTY(geoip_ckey_updated)
 
 GLOBAL_LIST_INIT(all_taipan_jobs, list(TAIPAN_SCIENTIST,TAIPAN_MEDIC,TAIPAN_BOTANIST,TAIPAN_CARGO,TAIPAN_CHEF,TAIPAN_ENGINEER,TAIPAN_COMMS,TAIPAN_RD,CYBORG))
+
+/// List of looping sounds
+GLOBAL_LIST_EMPTY(looping_sounds)
+
+/// List of ckeys that have seen a blurb of a given key.
+GLOBAL_LIST_EMPTY(blurb_witnesses)
+
+/// List of cargo consoles that print reports on completed/expired orders
+GLOBAL_LIST_EMPTY(cargo_announcers)
+
+GLOBAL_LIST_EMPTY(devil_contracts)
+
+GLOBAL_LIST_EMPTY(nuke_codes)
+
+GLOBAL_LIST_INIT(permissions_name_to_flag, list(
+	R_BUILDMODE_NAME = R_BUILDMODE,
+	R_ADMIN_NAME = R_ADMIN,
+	R_BAN_NAME = R_BAN,
+	R_EVENT_NAME = R_EVENT,
+	R_SERVER_NAME = R_SERVER,
+	R_DEBUG_NAME = R_DEBUG,
+	R_POSSESS_NAME = R_POSSESS,
+	R_PERMISSIONS_NAME = R_PERMISSIONS,
+	R_STEALTH_NAME = R_STEALTH,
+	R_REJUVINATE_NAME = R_REJUVINATE,
+	R_VAREDIT_NAME = R_VAREDIT,
+	R_SOUNDS_NAME = R_SOUNDS,
+	R_SPAWN_NAME = R_SPAWN,
+	R_PROCCALL_NAME = R_PROCCALL,
+	R_MOD_NAME = R_MOD,
+	R_MENTOR_NAME = R_MENTOR,
+	R_VIEWRUNTIMES_NAME = R_VIEWRUNTIMES,
+	R_SKINS_NAME = R_SKINS
+))
+
+GLOBAL_LIST_EMPTY(exoframe_types)
+
+GLOBAL_LIST_EMPTY(secspear_modes)
+
+GLOBAL_LIST_EMPTY(ash_storm_sounds)
+
+GLOBAL_LIST_EMPTY(snowstorm_sounds)
+
+GLOBAL_LIST_EMPTY(world_flora)

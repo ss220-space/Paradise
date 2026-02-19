@@ -1,14 +1,14 @@
 // Do not attemtp to remove the blank string from the server arg. It will break DB saving.
-/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, server = "", checkrights = 1)
+/proc/add_note(target_ckey, notetext, timestamp, adminckey, logged = 1, checkrights = 1)
 	if(checkrights && !check_rights(R_ADMIN|R_MOD))
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 
 	if(!target_ckey)
-		var/new_ckey = ckey(clean_input("Who would you like to add a note for?","Enter a ckey",null))
+		var/new_ckey = ckey(tgui_input_text(usr, "Who would you like to add a note for?", "Enter a ckey", null))
 		if(!new_ckey)
 			return
 		target_ckey = ckey(new_ckey)
@@ -33,7 +33,7 @@
 
 	if(!ckey_found)
 		if(usr)
-			to_chat(usr, "<span class='redtext'>[target_ckey] has not been seen before, you can only add notes to known players.</span>")
+			to_chat(usr, span_redtext("[target_ckey] has not been seen before, you can only add notes to known players."))
 		return
 
 	var/crew_number = 0
@@ -42,7 +42,7 @@
 		crew_number = play_records[EXP_TYPE_CREW]
 
 	if(!notetext)
-		notetext = input(usr,"Write your note","Add Note") as message|null
+		notetext = tgui_input_text(usr, "Write your note", "Add Note", multiline = TRUE, encode = FALSE)
 		if(!notetext)
 			return
 
@@ -53,18 +53,14 @@
 	else if(usr && (usr.ckey == ckey(adminckey))) // Don't ckeyize special note sources
 		adminckey = ckey(adminckey)
 
-	if(!server)
-		if(config && config.server_name)
-			server = config.server_name
-
 	var/datum/db_query/query_noteadd = SSdbcore.NewQuery({"
-		INSERT INTO [sqlfdbkdbutil].[format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("notes")] (ckey, timestamp, notetext, adminckey, server, crew_playtime)
 		VALUES (:targetckey, NOW(), :notetext, :adminkey, :server, :crewnum)
 	"}, list(
 		"targetckey" = target_ckey,
 		"notetext" = notetext,
 		"adminkey" = adminckey,
-		"server" = server,
+		"server" = CONFIG_GET(string/instance_id),
 		"crewnum" = crew_number
 	))
 	if(!query_noteadd.warn_execute())
@@ -84,12 +80,12 @@
 	var/adminckey
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
 	note_id = text2num(note_id)
-	var/datum/db_query/query_find_note_del = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
+	var/datum/db_query/query_find_note_del = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE id=:note_id", list(
 		"note_id" = note_id
 	))
 	if(!query_find_note_del.warn_execute())
@@ -101,7 +97,7 @@
 		adminckey = query_find_note_del.item[3]
 	qdel(query_find_note_del)
 
-	var/datum/db_query/query_del_note = SSdbcore.NewQuery("DELETE FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
+	var/datum/db_query/query_del_note = SSdbcore.NewQuery("DELETE FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE id=:note_id", list(
 		"note_id" = note_id
 	))
 	if(!query_del_note.warn_execute())
@@ -118,13 +114,13 @@
 		return
 	if(!SSdbcore.IsConnected())
 		if(usr)
-			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
+			to_chat(usr, span_danger("Failed to establish database connection."))
 		return
 	if(!note_id)
 		return
 	note_id = text2num(note_id)
 	var/target_ckey
-	var/datum/db_query/query_find_note_edit = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE id=:note_id", list(
+	var/datum/db_query/query_find_note_edit = SSdbcore.NewQuery("SELECT ckey, notetext, adminckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE id=:note_id", list(
 		"note_id" = note_id
 	))
 	if(!query_find_note_edit.warn_execute())
@@ -134,11 +130,14 @@
 		target_ckey = query_find_note_edit.item[1]
 		var/old_note = query_find_note_edit.item[2]
 		var/adminckey = query_find_note_edit.item[3]
-		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
+		var/new_note = tgui_input_text(usr, "Input new note", "New Note", "[old_note]", multiline = TRUE, encode = FALSE)
 		if(!new_note)
 			return
-		var/edit_text = "Edited by [usr.ckey] on [SQLtime()] from \"[old_note]\" to \"[new_note]\"<hr>"
-		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("notes")] SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
+		var/server
+		if(config && CONFIG_GET(string/servername))
+			server = CONFIG_GET(string/servername)
+		var/edit_text = "Last edit by [usr.ckey] at [SQLtime()][server ? " on [server]" : ""]"
+		var/datum/db_query/query_update_note = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("notes")] SET notetext=:new_note, last_editor=:akey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE id=:note_id", list(
 			"new_note" = new_note,
 			"akey" = usr.ckey,
 			"edit_text" = edit_text,
@@ -152,60 +151,41 @@
 		show_note(target_ckey)
 		qdel(query_update_note)
 
-/proc/show_note(target_ckey, index, linkless = 0)
+/proc/show_note(target_ckey, index, admin_ckey, linkless = FALSE)
 	if(!check_rights(R_ADMIN|R_MOD))
 		return
-	var/output = {"<meta charset="UTF-8">"}
-	var/navbar
-	var/ruler
-	ruler = "<hr style='background:#000000; border:0; height:3px'>"
-	navbar = "<a href='?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='?_src_=holder;nonalpha=2'>\[#\]</a>"
+	var/list/output = list()
+	var/list/navbar = list()
+	var/ruler = "<hr style='background:#000000; border:0; height:3px'>"
+
+	navbar = "<a href='byond://?_src_=holder;nonalpha=1'>\[All\]</a>|<a href='byond://?_src_=holder;nonalpha=2'>\[#\]</a>"
 	for(var/letter in GLOB.alphabet)
-		navbar += "|<a href='?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
-	navbar += "<br><form method='GET' name='search' action='?'>\
+		navbar += "|<a href='byond://?_src_=holder;shownote=[letter]'>\[[letter]\]</a>"
+	navbar += "<br><form method='get' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='notessearch' value='[index]'>\
-	<input type='submit' value='Search'></form>"
+	<input style='margin-left: 5px;' type='submit' value='Search'></form>"
 	if(!linkless)
 		output += navbar
 	if(target_ckey)
 		var/target_sql_ckey = ckey(target_ckey)
 		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
-			SELECT id, timestamp, notetext, adminckey, last_editor, server, crew_playtime
-			FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp"}, list(
+			SELECT id, ckey, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey=:targetkey ORDER BY timestamp"}, list(
 				"targetkey" = target_sql_ckey
 			))
-		if(!query_get_notes.warn_execute())
-			qdel(query_get_notes)
-			return
-		output += "<h2><center>Notes of [target_ckey]</center></h2>"
-		if(!linkless)
-			output += "<center><a href='?_src_=holder;addnote=[target_ckey]'>\[Add Note\]</a></center>"
-		output += ruler
-		while(query_get_notes.NextRow())
-			var/id = query_get_notes.item[1]
-			var/timestamp = query_get_notes.item[2]
-			var/notetext = query_get_notes.item[3]
-			var/adminckey = query_get_notes.item[4]
-			var/last_editor = query_get_notes.item[5]
-			var/server = query_get_notes.item[6]
-			var/mins = text2num(query_get_notes.item[7])
-			output += "<b>[timestamp] | [server] | [adminckey]"
-			if(mins)
-				var/playstring = get_exp_format(mins)
-				output += " | [playstring] as Crew"
-			output += "</b>"
-
-			if(!linkless)
-				output += " <a href='?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
-				if(last_editor)
-					output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;noteedits=[id]'>(Click here to see edit log)</a></font>"
-			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
-		qdel(query_get_notes)
+		output += create_note_text(\
+			query = query_get_notes,\
+			ckey = target_sql_ckey,\
+			header = "<h2><center>Notes of [target_ckey]</center></h2>",\
+			ruler = ruler,\
+			show_player_hours = TRUE,\
+			linkless = linkless\
+		)
 	else if(index)
 		var/index_ckey
 		var/search
-		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
 		switch(index)
 			if(1)
@@ -214,22 +194,86 @@
 				search = "^\[^\[:alpha:\]\]"
 			else
 				search = "^[index]"
-		var/datum/db_query/query_list_notes = SSdbcore.NewQuery("SELECT DISTINCT ckey FROM [sqlfdbkdbutil].[format_table_name("notes")] WHERE ckey REGEXP :search ORDER BY ckey", list(
+		var/datum/db_query/query_list_notes = SSdbcore.NewQuery("SELECT DISTINCT ckey FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE ckey REGEXP :search ORDER BY ckey", list(
 			"search" = search
 		))
 		if(!query_list_notes.warn_execute())
 			qdel(query_list_notes)
 			return
-		to_chat(usr, "<span class='notice'>Started regex note search for [search]. Please wait for results...</span>")
+		to_chat(usr, span_notice("Started regex note search for [search]. Please wait for results..."))
 		message_admins("[usr.ckey] has started a note search with the following regex: [search] | CPU usage may be higher.")
 		while(query_list_notes.NextRow())
 			index_ckey = query_list_notes.item[1]
-			output += "<a href='?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
+			output += "<a href='byond://?_src_=holder;shownoteckey=[index_ckey]'>[index_ckey]</a><br>"
 			CHECK_TICK
 		qdel(query_list_notes)
 		message_admins("The note search started by [usr.ckey] has complete. CPU should return to normal.")
+	else if(admin_ckey)
+		var/admin_sql_ckey = ckey(admin_ckey)
+		var/datum/db_query/query_get_notes = SSdbcore.NewQuery({"
+			SELECT id, ckey, timestamp, notetext, adminckey, last_editor, server, crew_playtime
+			FROM [CONFIG_GET(string/utility_database)].[format_table_name("notes")] WHERE adminckey=:adminckey ORDER BY timestamp DESC"}, list(
+				"adminckey" = admin_sql_ckey
+			))
+		output += create_note_text(\
+			query = query_get_notes,\
+			ckey = admin_sql_ckey,\
+			header = "<h2><center>Notes by [admin_ckey]</center></h2>", \
+			ruler = ruler,\
+			show_player_hours = FALSE,\
+			linkless = linkless\
+		)
 	else
-		output += "<center><a href='?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
+		output += "<center><a href='byond://?_src_=holder;addnoteempty=1'>\[Add Note\]</a></center>"
 		output += ruler
-	usr << browse(output, "window=show_notes;size=900x500")
+	var/datum/browser/popup = new(usr, "show_notes", "<div align='center'>Notes</div>", 900, 500)
+	popup.set_content(output.Join(""))
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open(TRUE)
+	onclose(usr, "show_notes")
 
+/proc/create_note_text(datum/db_query/query, ckey, header, ruler, show_player_hours = TRUE, linkless = FALSE, show_length = TRUE)
+	var/list/output = list()
+	if(!query.warn_execute())
+		qdel(query)
+		return
+	output += header
+	if(show_length)
+		output += "<center>Notes count: [length(query.rows)]</center>"
+	if(!linkless)
+		output += "<center><a href='byond://?_src_=holder;addnote=[ckey]'>\[Add Note\]</a></center>"
+	output += ruler
+	while(query.NextRow())
+		var/id = query.item[1]
+		var/user_ckey = query.item[2]
+		var/timestamp = query.item[3]
+		var/notetext = query.item[4]
+		var/adminckey = query.item[5]
+		var/last_editor = query.item[6]
+		var/server = query.item[7]
+		var/mins = text2num(query.item[8])
+		output += "<b>[timestamp] | [server] | user: [user_ckey] | admin : [adminckey]"
+		if(show_player_hours && mins)
+			var/playstring = get_exp_format(mins)
+			output += " | [playstring] as Crew"
+		output += "</b>"
+
+		if(!linkless)
+			output += " <a href='byond://?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='byond://?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
+			if(last_editor)
+				output += span_fontsize2(" Last edit by [last_editor]")
+		output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
+	qdel(query)
+	return jointext(output, "")
+
+ADMIN_VERB(notes_by_admin, R_PERMISSIONS, "Notes by admin", "Shows notes by admin ckey.", ADMIN_CATEGORY_MAIN)
+	if(!SSdbcore.IsConnected())
+		to_chat(user, span_warning("База данных не подключена"))
+		return
+
+	var/ckey = tgui_input_text(user, "Введите сикей админа", "Заметки по сикею админа")
+	var/old_usr = usr
+	usr = user.mob
+	show_note(admin_ckey = ckey, linkless = TRUE)
+	usr = old_usr

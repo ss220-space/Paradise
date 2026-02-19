@@ -14,7 +14,6 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 
 	var/datum/controller/exclude_these = new
 	gvars_datum_in_built_vars = exclude_these.vars + list("gvars_datum_protected_varlist", "gvars_datum_in_built_vars", "gvars_datum_init_order")
-	QDEL_IN(exclude_these, 0)	//signal logging isn't ready
 
 	Initialize()
 
@@ -23,7 +22,6 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 	if(!force)
 		return QDEL_HINT_LETMELIVE
 
-	QDEL_NULL(statclick)
 	gvars_datum_protected_varlist.Cut()
 	gvars_datum_in_built_vars.Cut()
 
@@ -31,13 +29,18 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 
 	return ..()
 
-/datum/controller/global_vars/stat_entry()
-	if(!statclick)
-		statclick = new/obj/effect/statclick/debug(null, "Initializing...", src)
-
-	stat("Globals:", statclick.update("Edit"))
+/datum/controller/global_vars/stat_entry(msg)
+	msg += "Edit"
+	return ..()
 
 /datum/controller/global_vars/can_vv_get(var_name)
+	var/static/list/protected_vars = list(
+		"asays", "admin_log", "logging", "open_logging_views"
+	)
+
+	if(!check_rights(R_ADMIN, FALSE, usr) && (var_name in protected_vars))
+		return FALSE
+
 	if(gvars_datum_protected_varlist[var_name])
 		return FALSE
 	return ..()
@@ -47,14 +50,20 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 		return FALSE
 	return ..()
 
+/datum/controller/global_vars/vv_get_var(var_name)
+	switch(var_name)
+		if(NAMEOF(src, vars))
+			return debug_variable(var_name, list(), 0, src)
+	return debug_variable(var_name, vars[var_name], 0, src, display_flags = VV_ALWAYS_CONTRACT_LIST)
+
 /datum/controller/global_vars/Initialize()
 	gvars_datum_init_order = list()
 	gvars_datum_protected_varlist = list("gvars_datum_protected_varlist" = TRUE)
 	var/list/global_procs = typesof(/datum/controller/global_vars/proc)
-	var/expected_len = vars.len - gvars_datum_in_built_vars.len
-	if(global_procs.len != expected_len)
-		warning("Unable to detect all global initialization procs! Expected [expected_len] got [global_procs.len]!")
-		if(global_procs.len)
+	var/expected_len = length(vars) - gvars_datum_in_built_vars.len
+	if(length(global_procs) != expected_len)
+		warning("Unable to detect all global initialization procs! Expected [expected_len] got [length(global_procs)]!")
+		if(length(global_procs))
 			var/list/expected_global_procs = vars - gvars_datum_in_built_vars
 			for(var/I in global_procs)
 				expected_global_procs -= replacetext("[I]", "InitGlobal", "")

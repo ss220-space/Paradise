@@ -8,9 +8,7 @@
 	icon_living = "skeleton_s"
 	icon_dead = "skeleton_l"
 	retaliate_only = TRUE
-	speak_chance = 0
 	turns_per_move = 10
-	speed = 1
 	maxHealth = 20
 	health = 20
 	harm_intent_damage = 10

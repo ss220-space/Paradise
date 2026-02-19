@@ -6,15 +6,24 @@
 	w_class = WEIGHT_CLASS_BULKY
 	can_holster = FALSE
 	force = 10
-	flags =  CONDUCT
-	slot_flags = SLOT_BACK
-	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse , /obj/item/ammo_casing/energy/laser)
+	slot_flags = ITEM_SLOT_BACK
+	ammo_type = list(/obj/item/ammo_casing/energy/electrode/advanced, /obj/item/ammo_casing/energy/laser/pulse, /obj/item/ammo_casing/energy/laser)
 	cell_type = /obj/item/stock_parts/cell/pulse
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
+	)
 
 /obj/item/gun/energy/pulse/emp_act(severity)
 	return
 
+/obj/item/gun/energy/pulse/prize
+	cell_type = /obj/item/stock_parts/cell/pulse/prise
+
 /obj/item/gun/energy/pulse/cyborg
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/cyborg/newshot()
 	..()
@@ -24,33 +33,38 @@
 	name = "pulse carbine"
 	desc = "A compact variant of the pulse rifle with less firepower but easier storage."
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_carbine"
 	item_state = "pulse"
 	cell_type = /obj/item/stock_parts/cell/pulse/carbine
-	can_flashlight = 1
-	flight_x_offset = 18
-	flight_y_offset = 12
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
+	)
 
 /obj/item/gun/energy/pulse/pistol
 	name = "pulse pistol"
 	desc = "A pulse rifle in an easily concealed handgun package with low capacity."
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	icon_state = "pulse_pistol"
 	item_state = "gun"
 	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/pulse/pistol
-	can_charge = 0
+	can_charge = FALSE
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/pulse/destroyer
 	name = "pulse destroyer"
 	desc = "A heavy-duty, pulse-based energy weapon."
 	cell_type = /obj/item/stock_parts/cell/infinite
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pulse)
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/pulse/destroyer/attack_self(mob/living/user)
-	to_chat(user, "<span class='danger'>[name] has three settings, and they are all DESTROY.</span>")
+	to_chat(user, span_danger("[name] has three settings, and they are all DESTROY."))
 
 /obj/item/gun/energy/pulse/destroyer/annihilator
 	name = "pulse ANNIHILATOR"
@@ -58,12 +72,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/pulse)
 
 /obj/item/gun/energy/pulse/pistol/m1911
-	name = "\improper M1911-P"
+	name = "M1911-P"
 	desc = "A compact pulse core in a classic handgun frame for Nanotrasen officers. It's not the size of the gun, it's the size of the hole it puts through people."
 	icon_state = "m1911"
-	item_state = "gun"
-	can_holster = TRUE
 	cell_type = /obj/item/stock_parts/cell/infinite
+	accuracy = GUN_ACCURACY_PISTOL
 
 /obj/item/gun/energy/pulse/turret
 	name = "pulse turret gun"
@@ -74,6 +87,6 @@
 	w_class = WEIGHT_CLASS_HUGE
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode, /obj/item/ammo_casing/energy/laser/pulse)
 	weapon_weight = WEAPON_MEDIUM
-	can_flashlight = 0
 	trigger_guard = TRIGGER_GUARD_NONE
-	ammo_x_offset = 2
+	accuracy = GUN_ACCURACY_SNIPER
+	attachable_allowed = GUN_MODULE_CLASS_NONE

@@ -22,24 +22,23 @@ REVIVAL_BRAIN_LIFE -1
 ## These values get directly added to values and totals in-game. To speed things up make the number negative, to slow things down, make the number positive.
 
 ## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied.
-RUN_SPEED 1
-WALK_SPEED 4
+RUN_DELAY 1
+WALK_DELAY 4
 
-## The variables below affect the movement of specific mob types.
-HUMAN_DELAY 1.5
-ROBOT_DELAY 1.5
-MONKEY_DELAY 1.5
-ALIEN_DELAY 1.5
-SLIME_DELAY 1.5
-ANIMAL_DELAY 2.5
+## The variables below affect the movement of specific mob types. THIS AFFECTS ALL SUBTYPES OF THE TYPE YOU CHOOSE!
+## Entries completely override all subtypes. Later entries have precedence over earlier entries.
+## This means if you put /mob 0 on the last entry, it will null out all changes, while if you put /mob as the first entry and
+## /mob/living/carbon/human on the last entry, the last entry will override the first.
+MULTIPLICATIVE_MOVESPEED /mob/living/carbon/human 1.5
+MULTIPLICATIVE_MOVESPEED /mob/living/silicon/robot 2.5
+MULTIPLICATIVE_MOVESPEED /mob/living/silicon/pai 3.5
+MULTIPLICATIVE_MOVESPEED /mob/living/carbon/alien 1.5
+MULTIPLICATIVE_MOVESPEED /mob/living/simple_animal 2.5
+MULTIPLICATIVE_MOVESPEED /mob/living/simple_animal/slime 1.5
 
 ## Comment for "normal" explosions, which ignore obstacles
 ## Uncomment for explosions that react to doors and walls
 REACTIONARY_EXPLOSIONS
-
-# The number of objectives traitors get.
-# Not including escaping/hijacking.
-TRAITOR_OBJECTIVES_AMOUNT 2
 
 ### Configure the bomb cap
 ## This caps all explosions to the specified range. Used for both balance reasons and to prevent overloading the server and lagging the game out.
@@ -66,13 +65,6 @@ RANDOMIZE_SHIFT_TIME
 
 ## Enable Nightshift - Causes the station to go into "night mode" from 19:30 to 07:30. Best used with RANDOMIZED_SHIFT_TIME.
 ENABLE_NIGHT_SHIFTS
-
-## Lavaland "Budget"
-# Lavaland ruin spawning has an imaginary budget to spend on ruins, where
-# a less lootfilled or smaller or less round effecting ruin costs less to
-# spawn, while the converse is true. Alter this number to affect the amount
-# of ruins.
-LAVALAND_BUDGET 60
 
 ## Cube monkey limit
 # Amount of cube monkeys that can be spawned before the game limits them

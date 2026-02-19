@@ -50,7 +50,7 @@
 /obj/effect/decal/warning_stripes/northwestsouth
 	icon_state = "U-E"
 
-/obj/effect/decal/warning_stripes/Initialize()
+/obj/effect/decal/warning_stripes/Initialize(mapload)
 	. = ..()
 	var/image/I = image(icon, icon_state = icon_state, dir = dir)
 	loc?.add_overlay(I)
@@ -70,7 +70,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow
 	icon_state = "6"
 
-
 /obj/effect/decal/warning_stripes/red
 	icon_state = "8"
 
@@ -79,7 +78,6 @@
 
 /obj/effect/decal/warning_stripes/red/hollow
 	icon_state = "9"
-
 
 /obj/effect/decal/warning_stripes/green
 	icon_state = "11"
@@ -90,7 +88,6 @@
 /obj/effect/decal/warning_stripes/green/hollow
 	icon_state = "12"
 
-
 /obj/effect/decal/warning_stripes/white
 	icon_state = "14"
 
@@ -99,7 +96,6 @@
 
 /obj/effect/decal/warning_stripes/white/hollow
 	icon_state = "15"
-
 
 /obj/effect/decal/warning_stripes/blue
 	icon_state = "17"

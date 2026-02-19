@@ -1,14 +1,18 @@
+#define CLUSTERBUSTER_PAYLOAD_POWER 0.8
+#define SEGMENTATION_PAYLOAD_DECREASE 1.8
+
 ////////////////////
 //Clusterbang
 ////////////////////
 /obj/item/grenade/clusterbuster
 	desc = "Use of this weapon may constiute a war crime in your area, consult your local captain."
 	name = "clusterbang"
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang"
 	var/payload = /obj/item/grenade/flashbang/cluster
+	var/payload_power = CLUSTERBUSTER_PAYLOAD_POWER
 
 /obj/item/grenade/clusterbuster/prime()
+	. = ..()
 	update_mob()
 	var/numspawned = rand(4,8)
 	var/again = 0
@@ -21,12 +25,11 @@
 	for(var/loop = again ,loop > 0, loop--)
 		new /obj/item/grenade/clusterbuster/segment(loc, payload)//Creates 'segments' that launches a few more payloads
 
-	new /obj/effect/payload_spawner(loc, payload, numspawned)//Launches payload
+	new /obj/effect/payload_spawner(loc, payload, numspawned, payload_power)//Launches payload
 
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 
 	qdel(src)
-
 
 //////////////////////
 //Clusterbang segment
@@ -34,44 +37,42 @@
 /obj/item/grenade/clusterbuster/segment
 	desc = "A smaller segment of a clusterbang. Better run."
 	name = "clusterbang segment"
-	icon = 'icons/obj/grenade.dmi'
 	icon_state = "clusterbang_segment"
 
-/obj/item/grenade/clusterbuster/segment/New(var/loc, var/payload_type = /obj/item/grenade/flashbang/cluster)
+/obj/item/grenade/clusterbuster/segment/New(loc, payload_type = /obj/item/grenade/flashbang/cluster)
 	..()
 	icon_state = "clusterbang_segment_active"
 	payload = payload_type
 	active = 1
-	walk_away(src,loc,rand(1,4))
+	GLOB.move_manager.move_away(src, loc, rand(1,4), 1)
+	payload_power /= SEGMENTATION_PAYLOAD_DECREASE
 	spawn(rand(15,60))
 		prime()
 
-
 /obj/item/grenade/clusterbuster/segment/prime()
 
-	new /obj/effect/payload_spawner(loc, payload, rand(4,8))
+	new /obj/effect/payload_spawner(loc, payload, rand(4,8), payload_power)
 
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
 
 	qdel(src)
 
 //////////////////////////////////
 //The payload spawner effect
 /////////////////////////////////
-/obj/effect/payload_spawner/New(var/turf/newloc,var/type, var/numspawned as num)
+/obj/effect/payload_spawner/New(turf/newloc,type, numspawned as num, power)
 	. = ..()
 	for(var/loop = numspawned ,loop > 0, loop--)
 		var/obj/item/grenade/P = new type(loc)
 		if(istype(P, /obj/item/grenade))
 			P.active = 1
-		walk_away(P,loc,rand(1,4))
+		GLOB.move_manager.move_away(P, loc, rand(1,4), 1)
 
 		spawn(rand(15,60))
 			if(!QDELETED(P))
 				if(istype(P, /obj/item/grenade))
-					P.prime()
+					P.prime(power)
 			qdel(src)
-
 
 //////////////////////////////////
 //Custom payload clusterbusters
@@ -102,6 +103,12 @@
 /obj/item/grenade/clusterbuster/cleaner
 	name = "Mr. Proper"
 	payload = /obj/item/grenade/chem_grenade/cleaner
+	icon_state = "proper"
+
+/obj/item/grenade/clusterbuster/oxygen
+	name = "Clusterbuster oxygen"
+	payload = /obj/item/grenade/gas/oxygen
+	icon_state = "clusterbusteroxy"
 
 /obj/item/grenade/clusterbuster/teargas
 	name = "Oignon Teargas Grenade"
@@ -178,7 +185,7 @@
 
 /obj/item/grenade/clusterbuster/xmas
 	name = "Christmas Miracle"
-	payload = /obj/item/a_gift
+	payload = /obj/item/gift
 
 /obj/item/grenade/clusterbuster/dirt
 	name = "Megamaid's Job Security Grenade"
@@ -199,7 +206,7 @@
 	desc = "An assistant's every dream."
 	payload = /obj/random/tool
 
-/obj/item/grenade/clusterbuster/tools
+/obj/item/grenade/clusterbuster/eng_tools
 	name = "Engineering Deployment Platfom"
 	desc = "For the that time when gearing up was just too hard."
 	payload = /obj/random/tech_supply
@@ -273,3 +280,18 @@
 /obj/item/grenade/clusterbuster/mega_emp
 	name = "Electromagnetic Storm"
 	payload = /obj/item/grenade/clusterbuster/emp
+
+/obj/item/grenade/clusterbuster/admincleaner
+	desc = "Для уборки <b>действительно</b> больших беспорядков."
+	payload = /obj/item/grenade/chem_grenade/cleaner/everything
+
+/obj/item/grenade/clusterbuster/admincleaner/organic
+	desc = "Для очистки множества остатков, на множестве мест преступлений."
+	payload = /obj/item/grenade/chem_grenade/cleaner/organic
+
+/obj/item/grenade/clusterbuster/admincleaner/object
+	desc = "Для уборки типичной корпоративной вечеринки Nanotrasen."
+	payload = /obj/item/grenade/chem_grenade/cleaner/object
+
+#undef CLUSTERBUSTER_PAYLOAD_POWER
+#undef SEGMENTATION_PAYLOAD_DECREASE

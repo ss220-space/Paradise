@@ -1,0 +1,35 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../colors.scss' with (
+  $primary: hsl(120, 37.6%, 45.9%),
+  $blue: hsl(120, 72.6%, 47.3%),
+  $label: hsl(120, 18.9%, 57.5%),
+  $fg-map-keys: (
+    'label',
+  ),
+  $bg-map-keys: (
+    'good',
+  )
+);
+@use '../base.scss';
+
+.theme-hydroponics {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: ('color-default': colors.$primary)
+  );
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(120, 100%, 76.7%))
+  );
+  @include meta.load-css('../components/NoticeBox.scss');
+  @include meta.load-css('../components/Section.scss');
+
+  // Interfaces
+  @include meta.load-css('../interfaces/Newscaster.scss');
+}

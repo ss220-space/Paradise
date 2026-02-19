@@ -1,0 +1,479 @@
+/datum/outfit/admin/debug
+	name = "Debug outfit"
+
+	uniform = /obj/item/clothing/under/patriotsuit
+	suit = /obj/item/clothing/suit/space/deathsquad/officer
+	head = /obj/item/clothing/head/helmet/space/deathsquad/beret
+	back = /obj/item/storage/backpack/ert/security
+	backpack_contents = list(
+		/obj/item/melee/energy/axe = 1,
+		/obj/item/storage/part_replacer/bluespace/tier4 = 1,
+		/obj/item/gun/magic/wand/resurrection/debug = 1,
+		/obj/item/gun/magic/wand/death/debug = 1,
+		/obj/item/debug/human_spawner = 1,
+	)
+	belt = /obj/item/storage/belt/military/abductor/full
+	l_ear = /obj/item/radio/headset/centcom/debug
+	glasses = /obj/item/clothing/glasses/hud/debug
+	mask = /obj/item/clothing/mask/gas/welding/advanced
+	shoes = /obj/item/clothing/shoes/combat/swat
+
+	// shit down here is mine
+	box = /obj/item/storage/box/debug/debugtools
+	suit_store = /obj/item/tank/internals/oxygen
+	gloves = /obj/item/clothing/gloves/combat
+	id = /obj/item/card/id/admin
+	pda = /obj/item/pda/centcom
+
+	toggle_helmet = TRUE
+
+	cybernetic_implants = list(
+		/obj/item/organ/internal/cyberimp/arm/surgery/advanced,
+		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus/hardened,
+		/obj/item/organ/internal/cyberimp/arm/janitorial/advanced,
+	)
+
+/datum/outfit/admin/debug/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		apply_to_card(I, H, get_all_accesses(), "Debugger", "admin")
+
+/obj/item/radio/headset/centcom/debug
+	name = "AVD-CNED bowman headset"
+	ks2type = /obj/item/encryptionkey/all
+
+/obj/item/radio/headset/centcom/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "тактическая гарнитура AVD-CNED",
+		GENITIVE = "тактической гарнитуры AVD-CNED",
+		DATIVE = "тактической гарнитуре AVD-CNED",
+		ACCUSATIVE = "тактическую гарнитуру AVD-CNED",
+		INSTRUMENTAL = "тактической гарнитурой AVD-CNED",
+		PREPOSITIONAL = "тактической гарнитуре AVD-CNED",
+	)
+
+/obj/item/encryptionkey/all
+	name = "AVD-CNED Encryption Key"
+	icon = 'icons/obj/radio.dmi'
+	icon_state = "rainbow"
+	greyscale_config = null
+	greyscale_colors = null
+	channels = list(ERT_FREQ_NAME = 1, DTH_FREQ_NAME = 1, SCI_FREQ_NAME = 1, COMM_FREQ_NAME = 1, MED_FREQ_NAME = 1, ENG_FREQ_NAME = 1, SEC_FREQ_NAME = 1, SUP_FREQ_NAME = 1, SRV_FREQ_NAME = 1, PRS_FREQ_NAME = 1, PROC_FREQ_NAME = 1) // just in case
+	syndie = TRUE
+
+/obj/item/encryptionkey/all/get_ru_names()
+	return list(
+		NOMINATIVE = "ключ шифрования AVD-CNED",
+		GENITIVE = "ключа шифрования AVD-CNED",
+		DATIVE = "ключу шифрования AVD-CNED",
+		ACCUSATIVE = "ключ шифрования AVD-CNED",
+		INSTRUMENTAL = "ключом шифрования AVD-CNED",
+		PREPOSITIONAL = "ключе шифрования AVD-CNED",
+	)
+
+/obj/item/encryptionkey/all/Initialize(mapload)
+	. = ..()
+	for(var/channel in SSradio.radiochannels)
+		channels[channel] = TRUE // yeah, all channels, sure, probably fine
+
+/obj/item/clothing/mask/gas/welding/advanced
+	name = "AVD-CNED welding mask"
+	desc = "Повреждение сетчатки — это не шутка."
+	tint = FLASH_PROTECTION_NONE
+
+/obj/item/clothing/mask/gas/welding/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "сварочная маска AVD-CNED",
+		GENITIVE = "сварочной маски AVD-CNED",
+		DATIVE = "сварочной маске AVD-CNED",
+		ACCUSATIVE = "сварочную маску AVD-CNED",
+		INSTRUMENTAL = "сварочной маской AVD-CNED",
+		PREPOSITIONAL = "сварочной маске AVD-CNED",
+	)
+
+/obj/item/gun/magic/wand/resurrection/debug
+	desc = "Возможно ли что-то более могущественное, чем обычная магия? Эта палочка."
+	max_charges = 500
+	variable_charges = FALSE
+	can_charge = TRUE
+	recharge_rate = 1
+
+/obj/item/gun/magic/wand/death/debug
+	desc = "В некоторых тёмных кругах это известно как «друг тестировщика-клонера»."
+	max_charges = 500
+	variable_charges = FALSE
+	can_charge = TRUE
+	recharge_rate = 1
+
+/obj/item/clothing/glasses/hud/debug
+	name = "AVD-CNED glasses"
+	desc = "Медицинский, охранно-диагностический худ."
+	icon_state = "nvgmeson"
+	flash_protect = FLASH_PROTECTION_WELDER
+
+	prescription_upgradable = FALSE
+
+	HUDType = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED, DATA_HUD_HYDROPONIC)
+	examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE | EXAMINE_HUD_MEDICAL | EXAMINE_HUD_SKILLS
+
+	var/xray = FALSE
+
+/obj/item/clothing/glasses/hud/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "очки AVD-CNED",
+		GENITIVE = "очков AVD-CNED",
+		DATIVE = "очкам AVD-CNED",
+		ACCUSATIVE = "очки AVD-CNED",
+		INSTRUMENTAL = "очками AVD-CNED",
+		PREPOSITIONAL = "очках AVD-CNED",
+	)
+
+/obj/item/clothing/glasses/hud/debug/equipped(mob/living/carbon/human/user, slot)
+	. = ..()
+	if(xray)
+		add_xray(user)
+
+/obj/item/clothing/glasses/hud/debug/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(xray)
+		remove_xray(user)
+
+/obj/item/clothing/glasses/hud/debug/examine(mob/user)
+	. = ..()
+	. += span_notice("Щелкните <b>Alt + ЛКМ</b>, чтобы переключить иксрей.")
+
+/obj/item/clothing/glasses/hud/debug/click_alt(mob/user)
+	if(!ishuman(user))
+		return NONE
+	var/mob/living/carbon/human/human_user = user
+	if(human_user.glasses != src)
+		return CLICK_ACTION_BLOCKING
+	if(xray)
+		remove_xray(human_user)
+	else
+		add_xray(human_user)
+	xray = !xray
+	balloon_alert(user, "рентген-зрение [!xray ? "де" : ""]активировано") // ctodo test
+	human_user.update_sight()
+	return CLICK_ACTION_SUCCESS
+
+/obj/item/clothing/glasses/hud/debug/visor_toggling(mob/living/carbon/human/user)
+	return
+
+/obj/item/clothing/glasses/hud/debug/proc/remove_xray(mob/user)
+	see_in_dark = initial(see_in_dark)
+	lighting_alpha = initial(lighting_alpha)
+	REMOVE_TRAIT(user, TRAIT_XRAY, "debug_glasses[UID()]")
+
+/obj/item/clothing/glasses/hud/debug/proc/add_xray(mob/user)
+	see_in_dark = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
+	ADD_TRAIT(user, TRAIT_XRAY, "debug_glasses[UID()]")
+
+/obj/item/debug
+	abstract_type = /obj/item/debug
+
+/obj/item/debug/human_spawner
+	name = "human spawner"
+	desc = "Создайте гуманоида, нацелившись на турф и нажав ЛКМ. Используйте в руке, чтобы изменить расу."
+	icon = 'icons/obj/weapons/magic.dmi'
+	icon_state = "nothingwand"
+	w_class = WEIGHT_CLASS_SMALL
+	var/datum/species/selected_species
+	var/valid_species = list()
+
+/obj/item/debug/human_spawner/get_ru_names()
+	return list(
+		NOMINATIVE = "создатель гуманоидов",
+		GENITIVE = "создателя гуманоидов",
+		DATIVE = "создателю гуманоидов",
+		ACCUSATIVE = "создатель гуманоидов",
+		INSTRUMENTAL = "создателем гуманоидов",
+		PREPOSITIONAL = "создателе гуманоидов",
+	)
+
+/obj/item/debug/human_spawner/afterattack(atom/target, mob/user, proximity)
+	..()
+	if(isturf(target))
+		var/mob/living/carbon/human/H = new /mob/living/carbon/human(target)
+		if(selected_species)
+			H.setup_dna(selected_species.type)
+
+/obj/item/debug/human_spawner/attack_self(mob/user)
+	..()
+	var/choice = tgui_input_list(user, "Выберите расу", "Создатель гуманоидов", GLOB.all_species, null)
+	selected_species = GLOB.all_species[choice]
+
+/obj/item/rcd/combat/admin
+	name = "AVD-CNED RCD"
+	max_matter = INFINITY
+	matter = INFINITY
+	locked = FALSE
+
+/obj/item/rcd/combat/admin/get_ru_names()
+	return list(
+		NOMINATIVE = "AVD-CNED УБС",
+		GENITIVE = "AVD-CNED УБС",
+		DATIVE = "AVD-CNED УБС",
+		ACCUSATIVE = "AVD-CNED УБС",
+		INSTRUMENTAL = "AVD-CNED УБС",
+		PREPOSITIONAL = "AVD-CNED УБС",
+	)
+
+/obj/item/stack/spacecash/debug
+	amount = 50000
+	max_amount = 50000
+
+/obj/item/bodyanalyzer/debug
+	name = "AVD-CNED handheld body analyzer"
+	cell_type = /obj/item/stock_parts/cell/infinite
+	scan_time = 1 SECONDS
+	scan_cd = 0
+
+/obj/item/bodyanalyzer/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "портативный анализатор тела AVD-CNED",
+		GENITIVE = "портативного анализатора тела AVD-CNED",
+		DATIVE = "портативному анализатору тела AVD-CNED",
+		ACCUSATIVE = "портативный анализатор тела AVD-CNED",
+		INSTRUMENTAL = "портативным анализатором тела AVD-CNED",
+		PREPOSITIONAL = "портативном анализаторе тела AVD-CNED",
+	)
+
+/obj/item/scalpel/laser/manager/debug
+	name = "AVD-CNED IMS"
+	desc = "Чудо современной медицины. Этот инструмент действует как любой другой хирургический инструмент и заканчиает операции в кратчайшие сроки. Эй, а как ты вообще это заполучил?"
+	toolspeed = 0.01
+
+/obj/item/scalpel/laser/manager/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "лазерный скальпель AVD-CNED",
+		GENITIVE = "лазерного скальпеля AVD-CNED",
+		DATIVE = "лазерному скальпелю AVD-CNED",
+		ACCUSATIVE = "лазерный скальпель AVD-CNED",
+		INSTRUMENTAL = "лазерным скальпелем AVD-CNED",
+		PREPOSITIONAL = "лазерном скальпеле AVD-CNED",
+	)
+
+/obj/item/scalpel/laser/manager/debug/attack_self(mob/user)
+	. = ..()
+	toolspeed = toolspeed == 0.5 ? 0.01 : 0.5
+	to_chat(user, "Установленная скорость работы у [declent_ru(GENITIVE)] - [toolspeed].")
+	balloon_alert(user, "скорость изменена")
+	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)		//Change the mode
+
+/obj/item/organ/internal/cyberimp/arm/surgery/advanced
+	name = "AVD-CNED surgical toolset implant"
+	contents = newlist(
+		/obj/item/scalpel/laser/manager/debug,
+		/obj/item/hemostat/alien, // its needed specifically for some surgeries
+		/obj/item/circular_saw/alien,
+		/obj/item/healthanalyzer/advanced,
+		/obj/item/gun/medbeam,
+		/obj/item/handheld_defibrillator,
+		/obj/item/bodyanalyzer/debug
+	)
+
+/obj/item/organ/internal/cyberimp/arm/surgery/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "хирургический имплант AVD-CNED",
+		GENITIVE = "хирургического импланта AVD-CNED",
+		DATIVE = "хирургическому импланту AVD-CNED",
+		ACCUSATIVE = "хирургический имплант AVD-CNED",
+		INSTRUMENTAL = "хирургическим имплантом AVD-CNED",
+		PREPOSITIONAL = "хирургическом импланте AVD-CNED",
+	)
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced
+	name = "AVD-CNED janitorial toolset"
+	desc = "Набор продвинутых инструментов для уборки, спрятанных за скрытой панелью на руке пользователя с электрошокером? Какого черта."
+	parent_organ_zone = BODY_ZONE_L_ARM
+	slot = INTERNAL_ORGAN_L_ARM_DEVICE
+
+	contents = newlist(
+		/obj/item/mop/advanced/debug,
+		/obj/item/soap/syndie/debug,
+		/obj/item/lightreplacer/bluespace/debug,
+		/obj/item/reagent_containers/spray/cleaner/advanced/debug,
+		/obj/item/gun/energy/gun/advtaser/mounted // yeah why not
+	)
+
+/obj/item/organ/internal/cyberimp/arm/janitorial/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "имплант уборщика AVD-CNED",
+		GENITIVE = "импланта уборщика AVD-CNED",
+		DATIVE = "импланту уборщика AVD-CNED",
+		ACCUSATIVE = "имплант уборщика AVD-CNED",
+		INSTRUMENTAL = "имплантом уборщика AVD-CNED",
+		PREPOSITIONAL = "импланте уборщика AVD-CNED",
+	)
+
+/obj/item/mop/advanced/debug
+	name = "AVD-CNED mop"
+	desc = "Я знаю, что ты хочешь это сделать. Сделайте дерьмо скользким."
+	mopcap = 100
+	mopspeed = 1
+	refill_rate = 50
+
+/obj/item/mop/advanced/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "швабра AVD-CNED",
+		GENITIVE = "швабры AVD-CNED",
+		DATIVE = "швабре AVD-CNED",
+		ACCUSATIVE = "швабру AVD-CNED",
+		INSTRUMENTAL = "шваброй AVD-CNED",
+		PREPOSITIONAL = "швабре AVD-CNED",
+	)
+
+/obj/item/soap/syndie/debug
+	name = "super soap"
+	desc = "Самое быстрое мыло на космическом западе."
+	cleanspeed = 1
+
+/obj/item/soap/syndie/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "супер-мыло",
+		GENITIVE = "супер-мыла",
+		DATIVE = "супер-мылу",
+		ACCUSATIVE = "супер-мыло",
+		INSTRUMENTAL = "супер-мылом",
+		PREPOSITIONAL = "супер-мыле",
+	)
+
+/obj/item/lightreplacer/bluespace/debug
+	name = "AVD-CNED light... thingy. You know what it is."
+	max_uses = 20000
+	uses = 20000
+
+/obj/item/lightreplacer/bluespace/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "заменитель ламп AVD-CNED",
+		GENITIVE = "заменителя ламп AVD-CNED",
+		DATIVE = "заменителю ламп AVD-CNED",
+		ACCUSATIVE = "заменитель ламп AVD-CNED",
+		INSTRUMENTAL = "заменителем ламп AVD-CNED",
+		PREPOSITIONAL = "заменителе ламп AVD-CNED",
+	)
+
+/obj/item/reagent_containers/spray/cleaner/advanced/debug
+	name = "AVD-CNED advanced space cleaner"
+	desc = "AVD-CNED! — непенящееся чистящее средство для помещений! Как чудесно."
+	volume = 50000
+	spray_maxrange = 10
+	spray_currentrange = 10
+	list_reagents = list("cleaner" = 50000)
+	delay = 0.1 SECONDS // it costs 1000 reagents to fire this cleaner... for 12 seconds.
+
+/obj/item/reagent_containers/spray/cleaner/advanced/debug/get_ru_names()
+	return list(
+		NOMINATIVE = "усовершенствованный космический очиститель AVD-CNED",
+		GENITIVE = "усовершенствованного космического очистителя AVD-CNED",
+		DATIVE = "усовершенствованному космическому очистителю AVD-CNED",
+		ACCUSATIVE = "усовершенствованный космический очиститель AVD-CNED",
+		INSTRUMENTAL = "усовершенствованным космическим очистителем AVD-CNED",
+		PREPOSITIONAL = "усовершенствованном космическом очистителе AVD-CNED",
+	)
+
+//
+// Funny matryoshka doll boxes
+//
+
+/obj/item/storage/box/debug
+	max_w_class = WEIGHT_CLASS_GIGANTIC
+	max_combined_w_class = 1000
+	storage_slots = 99
+
+/obj/item/storage/box/debug/debugtools
+	name = "debug tools"
+
+/obj/item/storage/box/debug/debugtools/get_ru_names()
+	return list(
+		NOMINATIVE = "инструменты отладки",
+		GENITIVE = "инструментов отладки",
+		DATIVE = "инструментам отладки",
+		ACCUSATIVE = "инструменты отладки",
+		INSTRUMENTAL = "инструментами отладки",
+		PREPOSITIONAL = "инструментах отладки",
+	)
+
+/obj/item/storage/box/debug/debugtools/populate_contents()
+	new /obj/item/card/emag(src)
+	new /obj/item/rcd/combat/admin(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/rpd/bluespace(src)
+	new /obj/item/stack/spacecash/debug(src)
+	new /obj/item/storage/box/beakers/bluespace(src)
+	new /obj/item/storage/box/debug/material(src)
+	new /obj/item/storage/box/debug/misc_debug(src)
+	new /obj/item/storage/box/survival/centcomofficer(src)
+	new /obj/item/radio/uplink/admin(src)
+
+/obj/item/storage/box/debug/material
+	name = "box of materials"
+
+/obj/item/storage/box/debug/material/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка с материалами",
+		GENITIVE = "коробки с материалами",
+		DATIVE = "коробке с материалами",
+		ACCUSATIVE = "коробку с материалами",
+		INSTRUMENTAL = "коробкой с материалами",
+		PREPOSITIONAL = "коробке с материалами",
+	)
+
+/obj/item/storage/box/debug/material/populate_contents()
+	new /obj/item/stack/sheet/metal/fifty(src)
+	new /obj/item/stack/sheet/plasteel/fifty(src)
+	new /obj/item/stack/sheet/plastic/fifty(src)
+	new /obj/item/stack/sheet/runed_metal/fifty(src)
+	new /obj/item/stack/sheet/glass/fifty(src)
+	new /obj/item/stack/sheet/rglass/fifty(src)
+	new /obj/item/stack/sheet/plasmaglass/fifty(src)
+	new /obj/item/stack/sheet/plasmarglass/fifty(src)
+	new /obj/item/stack/sheet/titaniumglass/fifty(src)
+	new /obj/item/stack/sheet/plastitaniumglass/fifty(src)
+	new /obj/item/stack/sheet/mineral/sandstone/fifty(src)
+	new /obj/item/stack/sheet/mineral/diamond/fifty(src)
+	new /obj/item/stack/sheet/mineral/uranium/fifty(src)
+	new /obj/item/stack/sheet/mineral/plasma/fifty(src)
+	new /obj/item/stack/sheet/mineral/gold/fifty(src)
+	new /obj/item/stack/sheet/mineral/silver/fifty(src)
+	new /obj/item/stack/sheet/mineral/bananium/fifty(src)
+	new /obj/item/stack/sheet/mineral/tranquillite/fifty(src)
+	new /obj/item/stack/sheet/mineral/titanium/fifty(src)
+	new /obj/item/stack/sheet/mineral/plastitanium/fifty(src)
+	new /obj/item/stack/sheet/mineral/abductor/fifty(src)
+	new /obj/item/stack/sheet/mineral/adamantine/fifty(src)
+	new /obj/item/stack/sheet/mineral/snow/fifty(src)
+	new /obj/item/stack/sheet/mineral/mythril/fifty(src)
+
+/obj/item/storage/box/debug/misc_debug
+	name = "misc admin items"
+
+/obj/item/storage/box/debug/misc_debug/get_ru_names()
+	return list(
+		NOMINATIVE = "прочие предметы администратора",
+		GENITIVE = "прочих административных предметов администратора",
+		DATIVE = "прочим предметам администратора",
+		ACCUSATIVE = "прочие предметы администратора",
+		INSTRUMENTAL = "прочими предметами администратора",
+		PREPOSITIONAL = "прочих предметах администратора",
+	)
+
+// put cool admin-only shit here :)
+/obj/item/storage/box/debug/misc_debug/populate_contents()
+	new /obj/item/badminBook(src)
+	new /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka(src)
+	new /obj/item/crowbar/power(src) // >admin only lol
+	new /obj/item/clothing/gloves/fingerless/rapid/admin(src)
+	new /obj/item/clothing/under/acj(src)
+	new /obj/item/clothing/suit/advanced_protective_suit(src)
+	new /obj/item/multitool/ai_detect/admin(src) // for giggles and shits
+	new /obj/item/adminfu_scroll(src)
+	new /obj/item/teleporter/admin(src)
+	new /obj/item/storage/belt/bluespace/admin(src) // god i love storage nesting
+	new /obj/item/mining_scanner/admin(src)
+	new /obj/item/gun/energy/meteorgun/pen(src)

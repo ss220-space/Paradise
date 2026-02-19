@@ -3,21 +3,35 @@
 	desc = "Used for repairing or building mass driver buttons"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "launcherbtt_frame"
-	mount_reqs = list("simfloor")
-	sheets_refunded = 1
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR
+	metal_sheets_refunded = 1
 
 /obj/item/mounted/frame/driver_button/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/driver_button(get_turf(user), get_dir(user, on_wall))
+	var/obj/machinery/driver_button/button = new(get_turf(user), get_dir(user, on_wall))
+	button.add_fingerprint(user)
 	qdel(src)
 
 /obj/item/mounted/frame/light_switch
 	name = "light switch frame"
 	desc = "Used for repairing or building light switches"
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "light-p"
-	mount_reqs = list("simfloor", "nospace")
-	sheets_refunded = 1
+	mount_requirements = MOUNTED_FRAME_SIMFLOOR | MOUNTED_FRAME_NOSPACE
+	metal_sheets_refunded = 1
 
 /obj/item/mounted/frame/light_switch/do_build(turf/on_wall, mob/user)
-	new /obj/machinery/light_switch(get_turf(user), get_dir(user, on_wall))
+	var/obj/machinery/light_switch/button = new(get_turf(user), get_dir(user, on_wall))
+	button.add_fingerprint(user)
+	qdel(src)
+
+/obj/item/mounted/frame/door_control
+	name = "button frame"
+	desc = "Used for repairing or building door control buttons"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "doorctrl-panel"
+	metal_sheets_refunded = 1
+
+/obj/item/mounted/frame/door_control/do_build(turf/on_wall, mob/user)
+	var/obj/machinery/door_control/button = new(get_turf(user), get_dir(user, on_wall), TRUE)
+	button.add_fingerprint(user)
 	qdel(src)

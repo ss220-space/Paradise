@@ -1,42 +1,61 @@
 /obj/item/vending_refill
 	name = "resupply canister"
-	var/machine_name = "Generic"
-
+	desc = "Контейнер, предназначенный для пополнения ассортимента торгового автомата."
+	gender = MALE
 	icon = 'icons/obj/vending_restock.dmi'
 	icon_state = "refill_snack"
 	item_state = "restock_unit"
-	desc = "A vending machine restock cart."
 	usesound = 'sound/items/deconstruct.ogg'
 	flags = CONDUCT
 	force = 7
 	throwforce = 10
 	throw_speed = 1
-	throw_range = 7
 	w_class = WEIGHT_CLASS_BULKY
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 30)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 70, ACID = 30)
+	var/machine_name = "Шаблонное название"
 
 	// Built automatically from the corresponding vending machine.
 	// If null, considered to be full. Otherwise, is list(/typepath = amount).
 	var/list/products
+	var/list/product_categories
 	var/list/contraband
 	var/list/premium
 
+/obj/item/vending_refill/get_ru_names()
+	return list(
+		NOMINATIVE = "набор пополнения",
+		GENITIVE = "набора пополнения",
+		DATIVE = "набору пополнения",
+		ACCUSATIVE = "набор пополнения",
+		INSTRUMENTAL = "набором пополнения",
+		PREPOSITIONAL = "наборе пополнения",
+	)
+
 /obj/item/vending_refill/Initialize(mapload)
 	. = ..()
-	name = "\improper [machine_name] restocking unit"
+	name = "[machine_name] restocking unit"
+	ru_names = new /list(6)
+	ru_names = list(
+		NOMINATIVE = "набор пополнения \"[machine_name]\"",
+		GENITIVE = "набора пополнения \"[machine_name]\"",
+		DATIVE = "набору пополнения \"[machine_name]\"",
+		ACCUSATIVE = "набор пополнения \"[machine_name]\"",
+		INSTRUMENTAL = "набором пополнения \"[machine_name]\"",
+		PREPOSITIONAL = "наборе пополнения \"[machine_name]\"",
+	)
 
 /obj/item/vending_refill/examine(mob/user)
 	. = ..()
 	var/num = get_part_rating()
-	if (num == INFINITY)
-		. += "<span class='notice'>It's sealed tight, completely full of supplies.</span>"
-	else if (num == 0)
-		. += "<span class='notice'>It's empty!</span>"
+	if(num == INFINITY)
+		. += span_notice("Полностью заполнен товарами.")
+	else if(num == 0)
+		. += span_notice("Пустой.")
 	else
-		. += "<span class='notice'>It can restock [num] item\s.</span>"
+		. += span_notice("Может пополнить <b>[num]</b> товар[DECL_CREDIT(num)].")
 
 /obj/item/vending_refill/get_part_rating()
-	if (!products || !contraband || !premium)
+	if(!products || !product_categories || !contraband || !premium)
 		return INFINITY
 	. = 0
 	for(var/key in products)
@@ -45,6 +64,12 @@
 		. += contraband[key]
 	for(var/key in premium)
 		. += premium[key]
+	for(var/list/category as anything in product_categories)
+		var/list/products = category["products"]
+		for(var/product_key in products)
+			. += products[product_key]
+
+	return .
 
 //NOTE I decided to go for about 1/3 of a machine's capacity
 
@@ -105,6 +130,15 @@
 /obj/item/vending_refill/clothing/law
 	machine_name = "Law Departament ClothesMate"
 
+/obj/item/vending_refill/clothing/service
+	machine_name = "Service Departament ClothesMate"
+
+/obj/item/vending_refill/clothing/service/chaplain
+	machine_name = "Service Departament ClothesMate Chaplain"
+
+/obj/item/vending_refill/clothing/service/botanical
+	machine_name = "Service Departament ClothesMate Botanical"
+
 /obj/item/vending_refill/crittercare
 	machine_name = "CritterCare"
 	icon_state = "refill_pet"
@@ -132,6 +166,10 @@
 	machine_name = "Robco Tool Maker"
 	icon_state = "refill_engi"
 
+/obj/item/vending_refill/youtool
+	machine_name = "YouTool"
+	icon_state = "refill_engi"
+
 /obj/item/vending_refill/engivend
 	machine_name = "Engi-Vend"
 	icon_state = "refill_engi"
@@ -151,13 +189,17 @@
 /obj/item/vending_refill/security
 	icon_state = "refill_sec"
 
+/obj/item/vending_refill/gun_mods
+	machine_name = "ModTech"
+	icon_state = "refill_mods"
+	item_state = "refill_mods"
+
 /obj/item/vending_refill/sovietsoda
 	machine_name = "BODA"
 	icon_state = "refill_cola"
 
 /obj/item/vending_refill/sustenance
 	machine_name = "Sustenance Vendor"
-	icon_state = "refill_snack"
 
 /obj/item/vending_refill/donksoft
 	machine_name = "Donksoft Toy Vendor"
@@ -166,3 +208,132 @@
 /obj/item/vending_refill/robotics
 	machine_name = "Robotech Deluxe"
 	icon_state = "refill_engi"
+
+/obj/item/vending_refill/nta
+	machine_name = "NT Ammunition"
+	icon_state = "refill_nta"
+
+/obj/item/vending_refill/pai
+	machine_name = "RoboFriends"
+	icon_state = "restock_pai"
+
+/obj/item/vending_refill/plasma
+	machine_name = "PlasmaMate"
+	icon_state = "refill_plasma"
+
+/obj/item/vending_refill/protein
+	machine_name = "Автомат спортивного питания"
+
+/obj/item/vending_refill/ammo
+	machine_name = "Liberty"
+
+/obj/item/vending_refill/custom
+	machine_name = "Customat"
+	icon = 'icons/obj/machines/customat.dmi'
+	icon_state = "custommate-refill"
+	var/list/datum/money_account/linked_accounts = list()
+	var/list/datum/money_account/accounts_weights = list()
+	var/sum_of_weigths = 0
+
+/obj/item/vending_refill/custom/Initialize(mapload)
+	linked_accounts = list(GLOB.station_account)
+	accounts_weights = list(100)
+	sum_of_weigths = 100
+	. = ..()
+
+/obj/item/vending_refill/custom/proc/add_account(datum/money_account/new_account, weight)
+	linked_accounts += new_account
+	accounts_weights += weight
+	sum_of_weigths += weight
+
+/obj/item/vending_refill/custom/proc/clear_accounts(mob/user)
+	linked_accounts = list()
+	accounts_weights = list()
+	sum_of_weigths = 0
+	balloon_alert(user, "счета отвязаны")
+
+/obj/item/vending_refill/custom/proc/try_add_account(mob/user)
+	. = FALSE
+	if(length(linked_accounts) >= 150) // better to do it
+		balloon_alert(user, "лимит привязки достигнут")
+		return
+
+	var/new_acc_number = tgui_input_number(user, "Пожалуйста, введите номер счета, который вы хотите привязать.", "Выбор счета", (user.mind && user.mind.initial_account) ? user.mind.initial_account.account_number : 999999, 999999, 0, ui_state = GLOB.hands_state, ui_source = src)
+
+	if(isnull(new_acc_number))
+		balloon_alert(user, "номер не введен")
+		return
+
+	var/new_account = attempt_account_access(new_acc_number, pin_needed = FALSE, security_level_passed = 3, pin_needed = FALSE)
+	if(!new_account)
+		balloon_alert(user, "аккаунт не существует")
+		return
+
+	if(new_account in linked_accounts)
+		balloon_alert(user, "аккаунт уже привязан")
+		return
+
+	var/weight = tgui_input_number(user, "Пожалуйста, введите вес счета от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
+
+	if(isnull(weight))
+		balloon_alert(user, "вес не введен")
+		return
+
+	add_account(new_account, weight)
+	balloon_alert(user, "новый счет добавлен")
+	return TRUE
+
+/obj/item/vending_refill/custom/proc/try_add_station_account(mob/user)
+	. = FALSE
+	var/weight = tgui_input_number(user, "Пожалуйста, введите вес для счета станции от 1 до 1000000.", "Выбор веса", 100, 1000000, 1, ui_state = GLOB.hands_state, ui_source = src)
+
+	if(isnull(weight))
+		balloon_alert(user, "вес не введен")
+		return
+
+	if(GLOB.station_account in linked_accounts)
+		balloon_alert(user, "аккаунт станции уже привязан")
+		return
+
+	add_account(GLOB.station_account, weight)
+	balloon_alert(user, "счет станции привязан")
+	return TRUE
+
+/obj/item/vending_refill/custom/attack_self(mob/user) // It works this way not because I'm lazy, but for better immersion.
+	var/operation = tgui_input_number(user, "Введите 0 чтобы сбросить список сохраненных счетов, 1 чтобы добавить новый счет в список получателей, 2 чтобы добавить счет станции.", "Настройка счетов", 0, 2, 0, ui_state = GLOB.hands_state, ui_source = src)
+
+	if(isnull(operation))
+		balloon_alert(user, "значение не введено")
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
+		return
+
+	var/correct = TRUE
+	switch(operation)
+		if(0)
+			correct = clear_accounts(user)
+		if(1)
+			correct = try_add_account(user)
+		if(2)
+			correct = try_add_station_account(user)
+		if(-INFINITY to -1)
+			correct = FALSE
+			balloon_alert(user, "значение должно быть больше 0")
+		if(3 to INFINITY)
+			correct = FALSE
+			balloon_alert(user, "значение должно быть меньше 3")
+
+	if(correct)
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, FALSE)
+	else
+		playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, TRUE)
+
+/obj/item/vending_refill/custom/examine(mob/user)
+	. = ..()
+	if(in_range(user, src))
+		if(!length(linked_accounts))
+			. += span_notice("К этой канистре не привязанно ни одного счета.")
+		else
+			. += span_notice("К этой канистре привязанны следующее счета:")
+			for(var/i = 1; i <= length(linked_accounts); ++i)
+				. += span_notice("Владелец: " + linked_accounts[i].owner_name + ", вес: [accounts_weights[i]], доля: [round(accounts_weights[i]/sum_of_weigths, 0.01)].")
+

@@ -1,92 +1,127 @@
-# CONTRIBUTING
+# Руководство по внесению вклада в проект SS1984
 
-## Introduction
-This is the contribution guide for Paradise Station. These guidelines apply to
-both new issues and new pull requests. If you are making a pull request, please refer to
-the [Pull request](#pull-requests) section, and if you are making an issue report, please
-refer to the [Issue Report](#issues) section, as well as the
-[Issue Report Template](ISSUE_TEMPLATE.md).
+Перед вами руководство по внесению вклада в билд **Paradise** проекта [SS1984](https://github.com/ss220-space/Paradise). Здесь вы найдёте как советы по работе с Github, так и стандарты разработки/написания кода, которые являются обязательными для ознакомления и знания.
 
-## Commenting
-If you comment on an active pull request, or issue report, make sure your comment is
-concise and to the point. Comments on issue reports or pull requests should be relevant
-and friendly, not attacks on the author or adages about something minimally relevant.
-If you believe an issue report is not a "bug", please report it to the Maintainers, or
-point out specifically and concisely your reasoning in a comment on the issue report.
+## Содержание
 
-## Issues
-The Issues section is not a place to request features, or ask for things to be changed
-because you think they should be that way; The Issues section is specifically for
-reporting bugs in the code. Refer to ISSUE_TEMPLATE for the exact format that your Issue
-should be in.
+1. [Github](#github)
+   - [Комментарии](#комментарии)
+   - [Pull Request'ы](#pull-requests)
+     - [Правила](#правила)
+     - [Использование Changelog](#использование-changelog)
+2. [Спецификации](#спецификации)
+   - [Объектно-ориентированный код](#объектно-ориентированный-код)
+   - [Все пути должны быть полноценными](#все-пути-должны-быть-полноценными)
+   - [Пользовательские интерфейсы (UI)](#пользовательские-интерфейсы-ui)
+   - [Не переопределяйте проверки типов](#не-переопределяйте-проверки-типов)
+   - [Пути объектов должны начинаться с `/`](#пути-объектов-должны-начинаться-с-)
+   - [Пути `datum` объектов должны начинаться с "datum"](#пути-datum-объектов-должны-начинаться-с-datum)
+   - [Не используйте строковое определение путей](#не-используйте-строковое-определение-путей)
+   - [Используйте `[A.UID()]` вместо `\ref[A]`](#используйте-auid-вместо-refa)
+   - [Используйте формат `var/name` при объявлении переменных](#используйте-формат-varname-при-объявлении-переменных)
+   - [Используйте табуляцию, а не пробелы](#используйте-табуляцию-а-не-пробелы)
+   - [Не пишите "костыльный" код](#не-пишите-костыльный-код)
+   - [Не дублируйте код](#не-дублируйте-код)
+   - [Компромиссы при старте и во время выполнения: списки и "скрытая" процедура `init`](#компромиссы-при-старте-и-во-время-выполнения-списки-и-скрытая-процедура-init)
+   - [Приоритет `Initialize()` вместо `New()` для атомов](#приоритет-initialize-вместо-new-для-атомов)
+   - [Не используйте неявный `var/`](#не-используйте-неявный-var)
+   - [Не используйте "магические" числа и строки](#не-используйте-магические-числа-и-строки)
+   - [Управляющие конструкции](#управляющие-конструкции)
+   - [Используйте ранний возврат](#используйте-ранний-возврат)
+   - [Используйте `addtimer()` вместо `sleep()` или `spawn()`](#используйте-addtimer-вместо-sleep-или-spawn)
+   - [Устаревший код (legacy)](#устаревший-код-legacy)
+   - [Пишите безопасный код](#пишите-безопасный-код)
+   - [Работа с файлами](#работа-с-файлами)
+   - [Прочие замечания](#прочие-замечания)
+3. [Особенности Dream Maker](#особенности-dream-maker)
+   - ["In-To" `for`-циклы](#in-to-for-циклы)
+   - [`for(var/A in list)` против `for(var/i in 1 to list.len)`](#forvara-in-list-против-forvari-in-1-to-listlen)
+   - [Циклы без проверки на тип](#циклы-без-проверки-на-тип)
+   - [Точка `.` как оператор](#точка--как-оператор)
+   - [`global` против `static`](#global-против-static)
+   - [Глобальные переменные](#глобальные-переменные)
+4. [Операторы](#операторы)
+   - [Пробелы](#пробелы)
+   - [Использование](#использование)
+   - [Битовые флаги](#битовые-флаги)
+5. [SQL](#sql)
+6. [Rust](#rust)
+7. [Стандарты маппинга](#стандарты-маппинга)
+   - [Map Merge](#map-merge)
+   - [Редактирование переменных ("var-edits")](#редактирование-переменных-var-edits)
 
-#### Guidelines:
- * Issue reports should be as detailed as possible, and if applicable, should include
- instructions on how to reproduce the bug.
+## Вступление
 
-## Pull requests
-Players are welcome to participate in the development of this fork and submit their own
-pull requests. If the work you are submitting is a new feature, or affects balance, it is
-strongly recommended you get approval/traction for it from our forums before starting the
-actual development.
+Перед вами руководство по внесению вклада в билд **Paradise** проекта **SS1984**. Здесь вы найдёте как советы по работе с Github, так и стандарты разработки/написания кода.
 
-#### Guidelines:
- * Pull requests should be atomic; Make one commit for each distinct change, so if a part
- of a pull request needs to be removed/changed, you may simply modify that single commit.
- Due to limitations of the engine, this may not always be possible; but do try your best.
+## Github
 
- * Document and explain your pull requests thoroughly. Failure to do so will delay a PR as
-  we question why changes were made. This is especially important if you're porting a PR
-  from another codebase (i.e. TG) and divert from the original. Explaining with single
-  comment on why you've made changes will help us review the PR faster and understand your
-  decision making process.
+### Комментарии
 
- * Any pull request must have a changelog, this is to allow us to know when a PR is deployed
- on the live server. Inline changelogs are supported through the format described
- [here](https://github.com/ParadiseSS13/Paradise/pull/3291#issuecomment-172950466)
- and should be used rather than manually edited .yml file changelogs.
+Если вы оставляете комментарий под чьим-то Pull Request'ом (далее **"PR"**), убедитесь, что он ёмко и лаконично выражает вашу мысль. Не следует писать на отвлечённые темы или выражать агрессию/токсичность по отношению к автору — будьте **дружелюбны** и пишите **по теме** PR'а.
 
- * Pull requests should not have any merge commits except in the case of fixing merge
- conflicts for an existing pull request. New pull requests should not have any merge
- commits. Use `git rebase` or `git reset` to update your branches, not `git pull`.
+### Pull Request'ы
 
- * Please explain why you are submitting the pull request, and how you think your change will be beneficial to the game. Failure to do so will be grounds for rejecting the PR.
+Вклад в разработку проекта и создание PR'ов игроками приветствуется и поощряется. Учтите, что ваш PR может не получить одобрение от **Ведущего Разработчика**, либо вас попросят его доработать. Это особенно актуально для PR'ов большого размера или тех, которые затрагивают баланс. Совещайтесь с другими разработчиками и задавайте вопросы. Вы же не хотите потратить своё время и силы на работу, которую в итоге забракуют.
 
- * If your pull request is not finished make sure it is at least testable in a live environment. Pull requests that do not at least meet this requirement may be closed at maintainer discretion. You may request a maintainer reopen the pull request when you're ready, or make a new one.
+#### Правила:
 
- * While we have no issue helping contributors (and especially new contributors) bring reasonably sized contributions up to standards via the pull request review process, larger contributions are expected to pass a higher bar of completeness and code quality *before* you open a pull request. Maintainers may close such pull requests that are deemed to be substantially flawed. You should take some time to discuss with maintainers or other contributors on how to improve the changes.
+- PR'ы должны быть **атомизированы**. Разбивайте значимые изменения на отдельные commit'ы. Благодаря такому подходу, в случае необходимости модификации/удаления определённого изменения вы можете работать только с соответствующим commit'ом. Хотя следование этому правилу не всегда является возможным из-за ограничений движка, старайтесь не пренебрегать им по возможности.
 
-#### Using Changelog
- * Tags used in changelog include add/rscadd, del/rscdel, fix/fixes, typo/spellcheck.
- * Without specifying a name it will default to using your GitHub name.
- Some examples
+- Тщательно **документируйте** и **объясняйте** свои PR'ы. Это особенно актуально, если вы портируете PR с другой кодбазы (**TG station**, например), структура кода которой может разительно отличаться от нашей. Чем лучше вы подходите к документированию своих работ, тем легче членам ревью-команды проверять ваши PR'ы и понимать ваш ход принятия решений. Иногда даже небольшая ремарка может значительно ускорить **процесс одобрения** ваших изменений.
+
+- PR'ы не должны иметь каких-либо **merge-конфликтов**. Используйте `git rebase` или `git reset`, чтобы обновлять свои ветки, не `git pull`.
+
+- Всегда объясняйте, почему ваш PR должен быть **одобрен** и какую **ценность** для проекта несут данные изменения. Этим правилом можно пренебречь, если вы считаете, что польза PR'а очевидна и не требует каких-либо дополнительных пояснений. Тем не менее, дополнительная информация никогда не будет лишней.
+
+#### Использование Changelog
+
+Перед заголовком вашего PR'а требуется поставить корректный **тег**, что необходимо для корректного отображения оного в Changelog-меню игры, а также для сортировки PR'ов на Github. Названия PR'а рекомендуется писать на русском, хотя это не является обязательным (особенно для чисто технических изменений).
+
+Учтите, что вы можете использовать **мульти-теги**, прописывая теги PR'а через `/`.
+
+**Пример**:
+
 ```
-:cl:
-add: The ability to change the color of wires
-del: Deleted depreciated wire merging now handled in parent
-fix: Moving wires now follows the user input instead of moving the stack
-/:cl:
-```
-```
-:cl: N3X15
-typo: Fixes some misspelled words under Using Changelog
-/:cl:
+bugfix: пропажа спрайта одежды при смене её внешнего вида
+add/local: новый босс для Лазиса + локализация старых боссов
 ```
 
+**Список тегов для PR'а**:
 
-## Specifications
+- **add:** Вы добавляете новый контент в игру.
+- **admin:** Вы изменяете что-то, связанное с администрацией (кнопки, управление, панели, щитспавн и т.д.)
+- **balance:** Вы производите балансировку в игре.
+- **bugfix:** Вы исправляете некий баг.
+- **code_imp:** Вы имплементируете новое для билда, не изменяя при этом ничего в самой игре.
+- **config:** Вы изменяете конфиг или работу SQL.
+- **del:** Вы удаляете контент из игры.
+- **experiment:** Ваш PR создан с целью какого-то эксперимента.
+- **map** Вы изменяете только карту.
+- **local** Вы переводите текст на русский.
+- **imageadd:** Вы добавляете новый спрайт.
+- **imagedel:** Вы удаляете старый спрайт.
+- **soundadd:** Вы добавляете новый звук.
+- **sounddel:** Вы удаляете старый звук.
+- **spellcheck:** Вы исправляете опечатку.
+- **tweak:** Вы внесли незначительную правку.
+- **refactor:** Вы полностью переписываете старый код, улучшая его, НО не изменяя функционал.
+- **server:** Вы изменяете что-то связанное с серверной частью или Github.
+- **wip:** Ваш PR в драфте и вы планируете разрабатывать его в течение долгого времени.
 
-As mentioned before, you are expected to follow these specifications in order to make everyone's lives easier. It'll save both your time and ours, by making
-sure you don't have to make any changes and we don't have to ask you to. Thank you for reading this section!
+## Спецификации
 
-### Object Oriented Code
-As BYOND's Dream Maker (henceforth "DM") is an object-oriented language, code must be object-oriented when possible in order to be more flexible when adding
-content to it. If you don't know what "object-oriented" means, we highly recommend you do some light research to grasp the basics.
+Ниже перечислены стандарты написания кода и разработки в общем. Вы обязаны им следовать, чтобы в билд попадал только качественно написанный код, удобный для дальнейшей разработки. Чем лучше ваш PR соответствует этим правилам, тем больше своего и чужого времени вы сэкономите и тем быстрее ваши изменения попадут в билд. **Большое спасибо за ознакомление с этим разделом**!
 
-### All BYOND paths must contain the full path
-(i.e. absolute pathing)
+### Объектно-ориентированный код
 
-DM will allow you nest almost any type keyword into a block, such as:
+Dream Maker, язык движка BYOND, (далее **"DM"**) — **объекто-ориентированный язык**, поэтому написанный вами код должен соответствовать стандартам ООП по возможности. Если "ООП" вам ни о чём не говорит, крайне рекомендуем вам поискать материалы по данной теме, чтобы иметь хотя бы базовое понимание.
+
+### Все пути должны быть полноценными
+
+Иными словами, пути должны быть **абсолютными**.
+
+DM позволит вам поместить почти что любое ключевое слово в блок, например:
 
 ```DM
 datum
@@ -113,10 +148,11 @@ datum
         code
 ```
 
-The use of this is not allowed in this project *unless the majority of the file is already relatively pathed* as it makes finding definitions via full text
-searching next to impossible. The only exception is the variables of an object may be nested to the object, but must not nest further.
+Тем не менее, использование такого подхода **запрещено**.
 
-The previous code made compliant:
+**Исключение** из данного правила: большая часть объектов в файле имеет _относительные_ пути, что делает нахождение определений по полному пути практически невозможным.
+
+Вот исправленная версия кода выше с использованием абсолютных путей:
 
 ```DM
 /datum/datum1
@@ -138,142 +174,118 @@ The previous code made compliant:
   code
 ```
 
-### User Interfaces
-All new user interfaces in the game must be created using the TGUI framework. Documentation can be found inside the `tgui/docs` folder.
-This is to ensure all ingame UIs are snappy and respond well. An exception is made for user interfaces which are purely for OOC actions (Such as character creation, or anything admin related)
+### Пользовательские интерфейсы (UI)
 
-### No overriding type safety checks
-The use of the : operator to override type safety checks is not allowed. You must cast the variable to the proper type.
+Все новые пользовательские интерфейсы (они же **"UI"**), добавляемые в игру, должны быть созданы с помощью **TGUI фреймворка**. Соответствующая документация может быть найдена в папке `tgui/docs`. Это необходимо для того, чтобы все игровые UI были работоспособными и удобными для использования.
+**Исключение**: если конкретный UI предназначен только для OOC поля (админ. функционал, к примеру), то требованием к TGUI можно пренебречь. Тем не менее, если вы сделаете TGUI, то хуже не будет.
 
-### Type paths must begin with a /
-eg: `/datum/thing`, not `datum/thing`
+### Не переопределяйте проверки типов
 
-### Datum type paths must began with "datum"
-In DM, this is optional, but omitting it makes finding definitions harder. To be specific, you can declare the path `/arbitrary`, but it
-will still be, in actuality, `/datum/arbitrary`. Write your code to reflect this.
+Использовать `:` оператор, чтобы переопределить проверку на тип объекта **запрещено**. Вы должны приводить переменную к корректному типу.
 
-### Do not use text/string based type paths
-It is rarely allowed to put type paths in a text format, as there are no compile errors if the type path no longer exists. Here is an example:
+### Пути объектов должны начинаться с `/`
+
+То есть: `/datum/thing`, но не `datum/thing`.
+
+### Пути `datum` объектов должны начинаться с "datum"
+
+Хоть это и опционально в DM, но использование именно такого стиля облегчает обнаружение и поиск определений объектов в коде. Для понимания, путь `/arbitrary` функционально идентичен пути `/datum/arbitrary`. И всё же, определяйте пути по примеру второго объекта.
+
+### Не используйте строковое определение путей
+
+Пример:
 
 ```DM
-//Good
+// Хорошо
 var/path_type = /obj/item/baseball_bat
 
-//Bad
+// Плохо
 var/path_type = "/obj/item/baseball_bat"
 ```
 
-### Do not use `\The`.
-The `\The` macro doesn't actually do anything when used in the format `\The [atom reference]`. Directly referencing an atom in an embedded string
-will automatically prefix `The` or `the` to it as appropriate. As an extension, when referencing an atom, don't use `[atom.name]`, use `[atom]`.
-The only exception to this rule is when dealing with items "belonging" to a mob, in which case you should use `[mob]'s [atom.name]` to avoid `The`
-ever forming.
+Использование строковых путей редко допускается, поскольку в таком случае компилятор не выдаст ошибку, если указанный путь перестанет существовать, что может привести к ошибкам во время выполнения.
+
+### Используйте `[A.UID()]` вместо `\ref[A]`
+
+В BYOND существует система передачи "мягких ссылок" на датумы (datum) с использованием формата `"\ref[datum]"`. Это позволяет находить объект только по текстовой строке, что особенно удобно при взаимодействии кода BYOND с HTML/JS в пользовательских интерфейсах. При возврате в BYOND ссылка преобразуется обратно в датум с помощью `locate("\ref[datum]")`. Проблема заключается в том, что если исходный объект был удалён, `locate()` может вернуть совершенно другой объект — BYOND повторно использует ссылки после удаления.
+
+**Идентификаторы UID** ("уникальные идентификаторы") действительно уникальны: они генерируются с помощью глобального счётчика и **никогда** не переиспользуются. Каждому объекту UID присваивается при создании и доступен через [datum.UID()]. Вы можете использовать UID как прямую замену `\ref`, заменив все вызовы `locate(ref)` в вашем коде на `locateUID(ref)`. Использование этой системы **обязательно** для всех вызовов `/Topic(`, иначе DM будет выдавать ошибку. Используйте `<a href='byond://?src=[UID()];'>`, а не `<a href='byond://?src=\ref[src];'>`.
+
+### Используйте формат `var/name` при объявлении переменных
+
+Хотя DM допускает и другие способы объявления переменных, для единообразия следует использовать **именно этот**.
+
+### Используйте табуляцию, а не пробелы
+
+Вы **обязаны** использовать табуляцию для отступов в коде, **НЕ ПРОБЕЛЫ**.
+
+Пробелы разрешается использовать для **выравнивания**, но сначала сделайте отступ до уровня блока с помощью табуляции, а затем добавьте нужное количество пробелов.
+
+### Не пишите "костыльный" код
+
+"Костыльный" код — например, добавление специфических проверок вроде `istype(src, /obj/whatever)`, крайне не рекомендуется и допускается только тогда, когда другого варианта **действительно нет**.
+Подсказка: фраза "Я не смог сразу придумать нормального решения, значит другого варианта нет" здесь **не сработает**! Если вы не знаете, как решить задачу правильно — прямо скажите об этом и попросите помощи. Именно для этого и **существуют мейнтейнеры**.
+
+**Избегайте** костылей, применяя **объектно-ориентированные подходы**: переопределяйте процедуры (procs) или выносите код в отдельные функции, которые можно переопределять при необходимости.
+
+То же самое касается **исправления багов**: если в процедуру передаётся некорректное значение откуда-то, где его быть не должно, не исправляйте проблему внутри самой процедуры — устраните её в источнике, если это возможно.
+
+### Не дублируйте код
+
+Копирование кода из одного места в другое допустимо в небольших краткосрочных проектах, но наш билд — **долгосрочный** проект, и дублирование здесь **крайне** не рекомендуется.
+
+Вместо этого используйте ООП или просто выносите повторяющийся код в **отдельные функции**.
+
+### Компромиссы при старте и во время выполнения: списки и "скрытая" процедура `init`
+
+**Сначала** прочитайте комментарии в [этой теме на форуме BYOND](http://www.byond.com/forum/?post=2086980&page=2#comment19776775), начиная с указанного места.
+
+Здесь два ключевых момента:
+
+1. Определение списка прямо в объявлении переменной вызывает скрытую процедуру `init`. Если список нужно создавать при запуске — делайте это в `New()` (или, что лучше, в `Initialize()`), чтобы избежать накладных расходов от двойного вызова (`Init()`, а затем `New()`).
+
+2. Такой подход также потребляет больше памяти — список резервируется сразу, даже если объект, которому он принадлежит, никогда его не использует.
+
+Помните: хотя такой компромисс часто оправдан, он не подходит для всех случаев. Внимательно подумайте, **действительно** ли он нужен в **вашем** случае.
+
+### Приоритет `Initialize()` вместо `New()` для атомов
+
+Наш игровой контроллер хорошо справляется с длительными операциями и лагами, но он **не может** повлиять на то, что происходит при загрузке карты, когда вызывается `New()` для всех атомов на карте. Если вы создаёте новый атом — используйте процедуру `Initialize()` **вместо** `New()` для инициализации. Это уменьшит количество вызовов процедур при загрузке мира.
+
+Обычно мы требуем обновлять устаревший код, если вы вносите правки рядом с ним. Однако это правило **не распространяется** на замену `New()` → `Initialize()`. Такие системы сильно зависят от иерархии наследования, и неосторожная модификация существующего кода может привести к багам, которые проявятся только через месяцы.
+
+### Не используйте неявный `var/`
+
+При объявлении параметров процедуры префикс `var/` подразумевается **автоматически**. Не включайте его явно.
+
+Пример:
 
 ```DM
-//Good
-var/atom/A
-"[A]"
-
-//Bad
-"\The [A]"
-```
-
-### Use the pronoun library instead of `\his` macros.
-We have a system in code/\_\_HELPERS/pronouns.dm for addressing all forms of pronouns. This is useful in a number of ways;
- * BYOND's \his macro can be unpredictable on what object it references.
-   Take this example: `"[user] waves \his [user.weapon] around, hitting \his opponents!"`.
-   This will end up referencing the user's gender in the first occurence, but what about the second?
-   It'll actually print the gender set on the weapon he's carrying, which is unintended - and there's no way around this.
- * It always prints the real `gender` variable of the atom it's referencing. This can lead to exposing a mob's gender even when their face is covered,
-   which would normally prevent it's gender from being printed.
-
-The way to avoid these problems is to use the pronoun system. Instead of `"[user] waves \his arms."`, you can do `"[user] waves [user.p_their()] arms."`
-
-```
-//Good
-"[H] waves [H.p_their()] hands!"
-"[user] waves [H.p_their()] [user.weapon] around, hitting [H.p_their()] opponents!"`
-
-//Bad
-"[H] waves \his hands!"
-"[user] waves \his [user.weapon] around, hitting \his opponents!"
-```
-
-### Use `[A.UID()]` over `\ref[A]`
-BYOND has a system to pass "soft references" to datums, using the format `"\ref[datum]"` inside a string. This allows you to find the object just based
-off of a text string, which is especially useful when dealing with the bridge between BYOND code and HTML/JS in UIs. It's resolved back into an object
-reference by using `locate("\ref[datum]")` when the code comes back to BYOND. The issue with this is that locate() can return a unexpected datum
-if the original datum has been deleted - BYOND recycles the references.
-
-UID's are actually unique; they work off of a global counter and are not recycled. Each datum has one assigned to it when it's created, which can be
-accessed by `[datum.UID()]`. You can use this as a snap-in replacement for `\ref` by changing any `locate(ref)` calls in your code to `locateUID(ref)`.
-Usage of this system is mandatory for any /Topic( calls, and will produce errors in Dream Daemon if it's not used. `<a href='?src=[UID()];'>`, not `<a href='?src=\ref[src];'`.
-
-### Use var/name format when declaring variables
-While DM allows other ways of declaring variables, this one should be used for consistency.
-
-### Tabs, not spaces
-You must use tabs to indent your code, NOT SPACES.
-
-(You may use spaces to align something, but you should tab to the block level first, then add the remaining spaces)
-
-### No hacky code
-Hacky code, such as adding specific checks (ex: `istype(src, /obj/whatever)`), is highly discouraged and only allowed when there is ***no*** other option. (
-Protip: 'I couldn't immediately think of a proper way so thus there must be no other option' is not gonna cut it here! If you can't think of anything else, say that outright and admit that you need help with it. Maintainers exist for exactly that reason.)
-
-You can avoid hacky code by using object-oriented methodologies, such as overriding a function (called "procs" in DM) or sectioning code into functions and
-then overriding them as required.
-
-The same also applies to bugfix - If an invalid value is being passed into a proc from something that shouldn't have that value, don't fix it on the proc itself, fix it at its origin! (Where feasible)
-
-### No duplicated code
-Copying code from one place to another may be suitable for small, short-time projects, but Paradise is a long-term project and highly discourages this.
-
-Instead you can use object orientation, or simply placing repeated code in a function, to obey this specification easily.
-
-### Startup/Runtime tradeoffs with lists and the "hidden" init proc
-First, read the comments in [this BYOND thread](http://www.byond.com/forum/?post=2086980&page=2#comment19776775), starting where the link takes you.
-
-There are two key points here:
-
-1) Defining a list in the variable's definition calls a hidden proc - init. If you have to define a list at startup, do so in New() (or preferably Initialize()) and avoid the overhead of a second call (Init() and then New())
-
-2) It also consumes more memory to the point where the list is actually required, even if the object in question may never use it!
-
-Remember: although this tradeoff makes sense in many cases, it doesn't cover them all. Think carefully about your addition before deciding if you need to use it.
-
-### Prefer `Initialize()` over `New()` for atoms
-Our game controller is pretty good at handling long operations and lag, but it can't control what happens when the map is loaded, which calls `New` for all atoms on the map. If you're creating a new atom, use the `Initialize` proc to do what you would normally do in `New`. This cuts down on the number of proc calls needed when the world is loaded.
-
-While we normally encourage (and in some cases, even require) bringing out of date code up to date when you make unrelated changes near the out of date code, that is not the case for `New` -> `Initialize` conversions. These systems are generally more dependant on parent and children procs so unrelated random conversions of existing things can cause bugs that take months to figure out.
-
-### No implicit var/
-When you declare a parameter in a proc, the var/ is implicit. Do not include any implicit var/ when declaring a variable.
-
-I.e.
-Bad:
-````
+// Плохо
 obj/item/proc1(var/input1, var/input2)
-````
-Good:
 
-````
+// Хорошо
 obj/item/proc1(input1, input2)
-````
+```
 
-### No magic numbers or strings
-This means stuff like having a "mode" variable for an object set to "1" or "2" with no clear indicator of what that means. Make these #defines with a name that
-more clearly states what it's for. For instance:
-````DM
+### Не используйте "магические" числа и строки
+
+Это означает использование переменных вроде `mode = 1` или `mode = 2` без пояснения, что они значат. **Вместо этого** создавайте `#define` с понятными именами.
+
+Пример:
+
+```DM
 /datum/proc/do_the_thing(thing_to_do)
   switch(thing_to_do)
     if(1)
       (...)
     if(2)
       (...)
-````
-There's no indication of what "1" and "2" mean! Instead, you should do something like this:
-````DM
+```
+
+Непонятно, что означают `1` и `2`. Лучше сделать так:
+
+```DM
 #define DO_THE_THING_REALLY_HARD 1
 #define DO_THE_THING_EFFICIENTLY 2
 /datum/proc/do_the_thing(thing_to_do)
@@ -282,44 +294,35 @@ There's no indication of what "1" and "2" mean! Instead, you should do something
       (...)
     if(DO_THE_THING_EFFICIENTLY)
       (...)
-````
-This is clearer and enhances readability of your code! Get used to doing it!
+```
 
-### Control statements
-(if, while, for, etc)
+Это делает код читабельнее. **Привыкайте** так писать!
 
-* All control statements must not contain code on the same line as the statement (`if(condition) return`)
-* All control statements comparing a variable to a number should use the formula of `thing` `operator` `number`, not the reverse
-  (eg: `if(count <= 10)` not `if(10 >= count)`)
-* All control statements must be spaced as `if()`, with the brackets touching the keyword.
-* Do not use one-line control statements.
-  Instead of doing
-  ```
-  if(x) return
-  ```
-  You should do
-  ```
-  if(x)
-    return
-  ```
+### Управляющие конструкции
 
-### Player Output
-Due to the use of "Goonchat", Paradise requires a special syntax for outputting text messages to players. Instead of `mob/client/world << "message"`,
-you must use `to_chat(mob/client/world, "message")`. Failure to do so will lead to your code not working.
+(`if`, `while`, `for` и т.д.)
 
-### Use early return
-Do not enclose a proc in an if-block when returning on a condition is more feasible.
+- В одной строке с управляющей конструкцией не должно быть кода: `if(condition) return ...` — запрещено.
+- При сравнении переменной с числом используйте форму `переменная оператор число`, а не наоборот.
+  Например: `if(count <= 10)`, а не `if(10 >= count)`.
+- Управляющие конструкции должны быть записаны как `if()`, без пробела между ключевым словом и скобками.
 
-This is bad:
-````DM
+### Используйте ранний возврат
+
+Он же "early return", он же "ранний ретёрн".
+Не оборачивайте всю процедуру в `if`-блок, если можно **просто вернуться** при невыполнении условия.
+
+Пример:
+
+```DM
+// Плохо
 /datum/datum1/proc/proc1()
   if(thing1)
     if(!thing2)
       if(thing3 == 30)
-        do stuff
-````
-This is good:
-````DM
+        сделать чё-то
+
+// Хорошо
 /datum/datum1/proc/proc1()
   if(!thing1)
     return
@@ -327,305 +330,290 @@ This is good:
     return
   if(thing3 != 30)
     return
-  do stuff
-````
-This prevents nesting levels from getting deeper then they need to be.
+  сделать чё-то
+```
 
-### Uses addtimer() instead of sleep() or spawn()
-If you need to call a proc after a set amount of time, use addtimer() instead of spawn() / sleep() where feasible.
-Although it is more complex, it is more  performant and unlike spawn() or sleep(), it can be cancelled.
-For more details, see https://github.com/tgstation/tgstation/pull/22933.
+Это предотвращает чрезмерную вложенность и облегчает читаемость кода.
 
-Look for code example on how to properly use it.
+### Используйте `addtimer()` вместо `sleep()` или `spawn()`
 
-This is bad:
-````DM
+Если вам нужно вызвать процедуру через определённое время — используйте `addtimer()` **вместо** `spawn()` и `sleep()` там, где это возможно.
+Хотя это сложнее, это **производительнее** и, в отличие от `spawn()` или `sleep()`, может быть **отменено**.
+Подробнее: https://github.com/tgstation/tgstation/pull/22933.
+
+Пример:
+
+```DM
+// Плохо
 /datum/datum1/proc/proc1()
   spawn(5)
-  dothing(arg1, arg2, arg3)
-````
-This is good:
-````DM
-  addtimer(CALLBACK(procsource, .proc/dothing, arg1, arg2, arg3), waittime, timertype)
-````
-This prevents nesting levels from getting deeper then they need to be.
+  do_thing(arg1, arg2, arg3)
 
-### Operators
-#### Spacing
-* Operators that should be separated by spaces
-  * Boolean and logic operators like &&, || <, >, ==, etc (but not !)
-  * Bitwise AND &
-  * Argument separator operators like , (and ; when used in a forloop)
-  * Assignment operators like = or += or the like
-  * Math operators like +, -, /, or \*
-* Operators that should not be separated by spaces
-  * Bitwise OR |
-  * Access operators like . and :
-  * Parentheses ()
-  * logical not !
-
-#### Use
-* Bitwise AND - '&'
-  * Should be written as ```bitfield & bitflag``` NEVER ```bitflag & bitfield```, both are valid, but the latter is confusing and nonstandard.
-* Associated lists declarations must have their key value quoted if it's a string
-  * WRONG: list(a = "b")
-  * RIGHT: list("a" = "b")
-
-#### Bitflags
-* We prefer using bitshift operators instead of directly typing out the value. I.E.
-    ```
-    #define MACRO_ONE (1<<0)
-    #define MACRO_TWO (1<<1)
-    #define MACRO_THREE (1<<2)
-    ```
-    Is preferable to
-    ```
-    #define MACRO_ONE 1
-    #define MACRO_TWO 2
-    #define MACRO_THREE 4
-    ```
-    This make the code more readable and less prone to error
-
-### Legacy Code
-SS13 has a lot of legacy code that's never been updated. Here are some examples of common legacy trends which are no longer acceptable:
-  * To display messages to all mobs that can view `src`, you should use
-  `visible_message()`.
-    * Bad:
-     ```
-     for(var/mob/M in viewers(src))
-             M.show_message("<span class='warning'>Arbitrary text</span>")
-     ```
-    * Good:
-     ```
-     visible_message("<span class='warning'>Arbitrary text</span>")
-     ```
-  * You should not use color macros (`\red, \blue, \green, \black`) to color text,
-  instead, you should use span classes. `<span class='warning'>red text</span>`,
-  `<span class='notice'>blue text</span>`.
-    * Bad:
-    ```
-    to_chat("\red Red Text \black black text")
-    ```
-    * Good:
-    ```
-    to_chat("<span class='warning'>Red Text</span>black text")
-    ```
-  * To use variables in strings, you should **never** use the `text()` operator, use
-   embedded expressions directly in the string.
-     * Bad:
-     ```
-     to_chat(text("[] is leaking []!", src.name, src.liquid_type))
-     ```
-     * Good:
-     ```
-     to_chat("[src] is leaking [liquid_type]")
-     ```
- * To reference a variable/proc on the src object, you should **not** use
-   `src.var`/`src.proc()`. The `src.` in these cases is implied, so you should just use
-   `var`/`proc()`.
-    * Bad:
-     ```
-     var/user = src.interactor
-     src.fillReserves(user)
-     ```
-    * Good:
-     ```
-     var/user = interactor
-     fillReserves(user)
-     ```
-
-
-### Develop Secure Code
-
-* Player input must always be escaped safely, we recommend you use stripped_input in all cases where you would use input. Essentially, just always treat input from players as inherently malicious and design with that use case in mind
-
-* Calls to the database must be escaped properly - use proper parameters (values starting with a :). You can then replace these with a list of parameters, and these will be properly escaped during the query, and prevent any SQL injection.
-	* Good:
-	```dm
-		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
-			"target_ckey" = target_ckey
-		)) // Note the use of parameters on the above line and :target_ckey in the query
-	```
-
-	* Bad:
-	```dm
-		var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
-	```
-
-* All calls to topics must be checked for correctness. Topic href calls can be easily faked by clients, so you should ensure that the call is valid for the state the item is in. Do not rely on the UI code to provide only valid topic calls, because it won't.
-
-* Information that players could use to metagame (that is, to identify round information and/or antagonist type via information that would not be available to them in character) should be kept as administrator only.
-
-* Where you have code that can cause large-scale modification and *FUN*, make sure you start it out locked behind one of the default admin roles - use common sense to determine which role fits the level of damage a function could do.
-
-### Files
-* Because runtime errors do not give the full path, try to avoid having files with the same name across folders.
-
-* File names should not be mixed case, or contain spaces or any character that would require escaping in a uri.
-
-* Files and path accessed and referenced by code above simply being #included should be strictly lowercase to avoid issues on filesystems where case matters.
-
-### SQL
-* Do not use the shorthand sql insert format (where no column names are specified) because it unnecessarily breaks all queries on minor column changes and prevents using these tables for tracking outside related info such as in a connected site/forum.
-
-* Use parameters for queries (Mentioned above in) [###Develop Secure Code](###Develop Secure Code)
-
-* Always check your queries for success with if(!query.warn_execute()). By using this standard format, you can ensure the correct log messages are used
-
-* Always qdel() your queries after you are done with them, this cleans up the results and helps things run smoother
-
-* All changes to the database's layout(schema) must be specified in the database changelog in SQL, as well as reflected in the schema files
-
-* Any time the schema is changed the `SQL_VERSION` defines must be incremented, as well as the example config, with an appropriate conversion kit placed
-in the SQL/updates folder.
-
-* Queries must never specify the database, be it in code, or in text files in the repo.
-
-### Mapping Standards
-* Map Merge
-  * You MUST run Map Merge prior to opening your PR when updating existing maps to minimize the change differences (even when using third party mapping programs such as FastDMM.)
-    * Failure to run Map Merge on a map after using third party mapping programs (such as FastDMM) greatly increases the risk of the map's key dictionary
-    becoming corrupted by future edits after running map merge. Resolving the corruption issue involves rebuilding the map's key dictionary;
-
-* Variable Editing (Var-edits)
-  * While var-editing an item within the editor is perfectly fine, it is preferred that when you are changing the base behavior of an item (how it functions) that you make a new subtype of that item within the code, especially if you plan to use the item in multiple locations on the same map, or across multiple maps. This makes it easier to make corrections as needed to all instances of the item at one time as opposed to having to find each instance of it and change them all individually.
-    * Subtypes only intended to be used on away mission or ruin maps should be contained within an .dm file with a name corresponding to that map within `code\modules\awaymissions` or `code\modules\ruins` respectively. This is so in the event that the map is removed, that subtype will be removed at the same time as well to minimize leftover/unused data within the repo.
-  * Please attempt to clean out any dirty variables that may be contained within items you alter through var-editing. For example, due to how DM functions, changing the `pixel_x` variable from 23 to 0 will leave a dirty record in the map's code of `pixel_x = 0`. Likewise this can happen when changing an item's icon to something else and then back. This can lead to some issues where an item's icon has changed within the code, but becomes broken on the map due to it still attempting to use the old entry.
-  * Areas should not be var-edited on a map to change it's name or attributes. All areas of a single type and it's altered instances are considered the same area within the code, and editing their variables on a map can lead to issues with powernets and event subsystems which are difficult to debug.
-
-### Other Notes
-* Code should be modular where possible; if you are working on a new addition, then strongly consider putting it in its own file unless it makes sense to put it with similar ones (i.e. a new tool would go in the "tools.dm" file)
-
-* Bloated code may be necessary to add a certain feature, which means there has to be a judgement over whether the feature is worth having or not. You can help make this decision easier by making sure your code is modular.
-
-* You are expected to help maintain the code that you add, meaning that if there is a problem then you are likely to be approached in order to fix any issues, runtimes, or bugs.
-
-* If you used regex to replace code during development of your code, post the regex in your PR for the benefit of future developers and downstream users.
-
-* All new var/proc names should use the American English spelling of words. This is for consistency with BYOND.
-
-### Dream Maker Quirks/Tricks
-Like all languages, Dream Maker has its quirks, some of them are beneficial to us, like these
-
-#### In-To for-loops
-```for(var/i = 1, i <= some_value, i++)``` is a fairly standard way to write an incremental for loop in most languages (especially those in the C family), but
-DM's ```for(var/i in 1 to some_value)``` syntax is oddly faster than its implementation of the former syntax; where possible, it's advised to use DM's syntax. (
-Note, the ```to``` keyword is inclusive, so it automatically defaults to replacing ```<=```; if you want ```<``` then you should write it as ```1 to
-some_value-1```).
-
-HOWEVER, if either ```some_value``` or ```i``` changes within the body of the for (underneath the ```for(...)``` header) or if you are looping over a list AND
-changing the length of the list then you can NOT use this type of for-loop!
-
-### for(var/A in list) VS for(var/i in 1 to list.len)
-The former is faster than the latter, as shown by the following profile results:
-https://file.house/zy7H.png
-Code used for the test in a readable format:
-https://pastebin.com/w50uERkG
-
-#### Istypeless for loops
-A name for a differing syntax for writing for-each style loops in DM. It's NOT DM's standard syntax, hence why this is considered a quirk. Take a look at this:
-```DM
-var/list/bag_of_items = list(sword, apple, coinpouch, sword, sword)
-var/obj/item/sword/best_sword
-for(var/obj/item/sword/S in bag_of_items)
-  if(!best_sword || S.damage > best_sword.damage)
-    best_sword = S
+// Хорошо
+  addtimer(CALLBACK(procsource, PROC_REF(do_thing), arg1, arg2, arg3), waittime, timertype)
 ```
-The above is a simple proc for checking all swords in a container and returning the one with the highest damage, and it uses DM's standard syntax for a
-for-loop by specifying a type in the variable of the for's header that DM interprets as a type to filter by. It performs this filter using ```istype()``` (or
-some internal-magic similar to ```istype()``` - this is BYOND, after all). This is fine in its current state for ```bag_of_items```, but if ```bag_of_items```
-contained ONLY swords, or only SUBTYPES of swords, then the above is inefficient. For example:
+
+### Устаревший код (legacy)
+
+В коде игры много устаревшего кода, использование которого больше не приветствуется. Вот примеры:
+
+- Не используйте цветовые макросы (`\red`, `\blue` и т.д.). Вместо этого — `span`-макросы. (`span_warning("Красный текст")`, `span_notice("Синий текст")`).
+
+  ```DM
+  // Плохо
+  to_chat("\red Красный текст \black чёрный текст")
+  to_chat("<span class='warning'>Красный текст</span>")
+
+  // Хорошо
+  to_chat("[span_warning("Красный текст")] чёрный текст")
+  ```
+
+- При обращении к переменной/процедуре объекта не пишите
+  `src.var`/`src.proc()` — `src.` подразумевается автоматически:
+
+  ```DM
+  // Плохо
+  var/user = src.interactor
+  src.fillReserves(user)
+
+  // Хорошо
+  var/user = interactor
+  fillReserves(user)
+  ```
+
+### Пишите безопасный код
+
+- Входные данные от игроков всегда должны быть экранированы. Используйте `stripped_input` вместо обычного `input`. Считайте, что любой ввод от игрока — потенциально вредоносный.
+
+- Запросы к базе данных должны использовать параметры (значения с `:`). Это предотвращает SQL-инъекции.
+
+  ```DM
+  // Плохо
+  	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey='[target_ckey]'")
+
+  	// Хорошо
+  	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [format_table_name("watch")] WHERE ckey=:target_ckey", list(
+  		"target_ckey" = target_ckey
+  	))
+  ```
+
+- Все вызовы `/Topic()` должны проверяться на корректность. Клиенты легко могут подделать вызов, поэтому убедитесь, что он допустим для текущего состояния объекта. **Не полагайтесь на UI**!
+
+- Информация, которую игроки могут использовать для метаигры (например, определение типа антагониста или стадии раунда), должна быть доступна **только** администраторам.
+
+- Функции, способные вызвать масштабные изменения или хаос (вкладка "Веселье"), должны быть изначально **заблокированы** за одной из стандартных админ-ролей. Выбирайте роль по уровню потенциального ущерба.
+
+### Работа с файлами
+
+- Поскольку ошибки времени выполнения не показывают полный путь, старайтесь избегать файлов с одинаковыми именами в разных папках.
+
+- Имена файлов не должны содержать заглавных букв, пробелов или символов, требующих экранирования в URI.
+
+- Все файлы и пути, на которые есть ссылки в коде (кроме `#include`), должны быть **строго** в нижнем регистре, чтобы избежать проблем на чувствительных к регистру файловых системах.
+
+### Прочие замечания
+
+- **Код должен быть модульным:** если вы добавляете новый функционал — он должен идти в отдельный файл, если для него нет подходящего существующего файла (например, новый инженерный инструмент имеет смысл добавить в `tools.dm`, а не создавать новый файл с нуля).
+
+- **Раздутый код иногда необходим**, но в любом случае, перед добавлением нового функционала хорошо подумайте — **стоит ли оно того?** Вам будет гораздо легче дать ответ на данный вопрос, если вы делаете свой код модульным.
+
+- **Поддерживайте свой код:** если появятся ошибки — вас первым попросят исправить это. Конечно, некоторые возникающие в последствии баги и недочёты могут быть слишком трудными конкретно для вас и в таком случае стоит попросить кого-то более опытного о помощи. Но тем не менее, брать ответственность за сопровождение своего кода — правило хорошего тона.
+
+- Если вы использовали **регулярные выражения ("regex")** для поиска и замены кода при рефакторинге, **укажите их** в описании PR'а. Это может существенно упростить дальнейшую работу с затронутым кодом для будущих разработчиков.
+
+## Особенности Dream Maker
+
+Как любой другой язык программирования, Dream Maker имеет свои особенности, нюансы и фишки. Знание некоторых из них может быть очень полезно, к примеру:
+
+### "In-To" `for`-циклы
+
+`for(var/i = 1, i <= some_value, i++)` — это стандартный способ написания возрастающего цикла в большинстве языков (особенно "C"-подобных). Однако, существующий в DM вариант вида `for(var/i in 1 to some_value)` **работает быстрее**, как ни странно. Соответственно, лучше используйте DM синтаксис в целях **производительности**.
+
+Обратите внимание: `to` **включает** последнее значение, т.е. эквивалентно `<=`. Для использования `<` логики **пишите** `1 to some_value - 1`.
+
+**НО**, если `some_value` или `i` изменяются внутри тела цикла или если длина итерируемого списка изменяется во время выполнения цикла, использование цикла данного вида **НЕВОЗМОЖНО**!
+
+### `for(var/A in list)` против `for(var/i in 1 to list.len)`
+
+**Первый вариант быстрее второго.**
+
+Результаты тестирования можно посмотреть здесь: https://file.house/zy7H.png. Использованный для тестирования код в читабельном виде: https://pastebin.com/w50uERkG
+
+### Циклы без проверки на тип
+
+Если вы хотите итерировать какой-либо список с помощью цикла и при это уверены, что все объекты в списке имеют конкретный тип, мы можем оптимизировать работу данного списка, избавившись от какой-либо проверки на тип, не имеющий смысла.
+
+То есть:
+
 ```DM
 var/list/bag_of_swords = list(sword, sword, sword, sword)
-var/obj/item/sword/best_sword
+
+// Плохо
 for(var/obj/item/sword/S in bag_of_swords)
-  if(!best_sword || S.damage > best_sword.damage)
-    best_sword = S
-```
-specifies a type for DM to filter by.
+	...
 
-With the previous example that's perfectly fine, we only want swords, but here the bag only contains swords? Is DM still going to try to filter because we gave
-it a type to filter by? YES, and here comes the inefficiency. Wherever a list (or other container, such as an atom (in which case you're technically accessing
-their special contents list, but that's irrelevant)) contains datums of the same datatype or subtypes of the datatype you require for your loop's body,
-you can circumvent DM's filtering and automatic ```istype()``` checks by writing the loop as such:
-```DM
-var/list/bag_of_swords = list(sword, sword, sword, sword)
-var/obj/item/sword/best_sword
+// Плохо
+for(var/s in bag_of_swords)
+  if(istype(s, /obj/item/sword))
+  	var/obj/item/sword/S = s
+  ...
+
+// Хорошо
 for(var/s in bag_of_swords)
   var/obj/item/sword/S = s
-  if(!best_sword || S.damage > best_sword.damage)
-    best_sword = S
+  ...
 ```
-Of course, if the list contains data of a mixed type then the above optimisation is DANGEROUS, as it will blindly typecast all data in the list as the
-specified type, even if it isn't really that type, causing runtime errors (AKA your shit won't work if this happens).
 
-#### Dot variable
-Like other languages in the C family, DM has a ```.``` or "Dot" operator, used for accessing variables/members/functions of an object instance.
-eg:
+Очевидно, если в списке будет объект отличного типа, то его обработка закономерно приведёт к рантаймам. В общем смысле, при использовании такой конструкции проверка на тип перекладывается с DM на кодера.
+
+### Точка `.` как оператор
+
+Как и в других "C"-подобных языках, в DM существует оператор `.`, он же "dot-operator". Он используется для доступа к полям (переменным) и методам (функциям) экземпляров объекта.
+
+Пример:
+
 ```DM
 var/mob/living/carbon/human/H = YOU_THE_READER
 H.gib()
 ```
-However, DM also has a dot variable, accessed just as `.` on its own, defaulting to a value of null. Now, what's special about the dot operator is that it is automatically returned (as in the `return` statement) at the end of a proc, provided the proc does not already manually return (`return count` for example.) Why is this special?
 
-With `.` being everpresent in every proc, can we use it as a temporary variable? Of course we can! However, the `.` operator cannot replace a typecasted variable - it can hold data any other var in DM can, it just can't be accessed as one, although the `.` operator is compatible with a few operators that look weird but work perfectly fine, such as: `.++` for incrementing `.'s` value, or `.[1]` for accessing the first element of `.`, provided that it's a list.
+Однако, в случае DM `.` может иметь форму переменной, по умолчанию имеющей `null` значение. Особенность `.` заключается в том, что оно автоматически возвращается (`return`) в конце процедуры (`proc`), если явный `return` не был указан ранее в теле процедуры. И что тут особенного, спросите вы?
 
-## Globals versus static
+Как вы могли догадаться, оператор `.`, существующий в каждой процедуре, может быть использован как временная переменная. Хоть такая переменная не может заменить приведённую к типу переменную, она может хранить в себе значение, как и любой другой `var` в DM, хотя и прямой доступ как к обычной переменной невозможен.
 
-DM has a var keyword, called global. This var keyword is for vars inside of types. For instance:
+`.` совместима с рядом операторов, таких как:
+
+```DM
+. = 5
+.++ // . == 6
+
+.[1] // если . — список
+
+```
+
+### `global` против `static`
+
+В DM есть ключевое слово `global`, но оно не делает переменную глобальной **в обычном смысле**. Это слово означает, что конкретная переменная является **общей** для всех экземпляров данного типа (как `static` в C++/Java)
+
+Пример:
 
 ```DM
 /mob
   var/global/thing = TRUE
 ```
-This does NOT mean that you can access it everywhere like a global var. Instead, it means that that var will only exist once for all instances of its type, in this case that var will only exist once for all mobs - it's shared across everything in its type. (Much more like the keyword `static` in other languages like PHP/C++/C#/Java)
 
-Isn't that confusing?
+Помимо этого, также существует незадокументированное ключевое слово `static`, которое делает то же самое, но лучше отражает его суть. Поэтому **всегда используйте** `static` вместо `global`.
 
-There is also an undocumented keyword called `static` that has the same behaviour as global but more correctly describes BYOND's behaviour. Therefore, we always use static instead of global where we need it, as it reduces suprise when reading BYOND code.
+### Глобальные переменные
 
-### Global Vars
+А теперь о "по-настоящему" глобальных переменных. Они должны быть заданы с помощью `#define` в `code/DEFINES/globals.dm`. Примеры ниже.
 
-All new global vars must use the defines in code/\_\_DEFINES/\_globals.dm. Basic usage is as follows:
+Объявление глобальной переменной:
 
-To declare a global var:
 ```DM
 GLOBAL_VAR(my_global_here)
 ```
-To access it:
+
+Доступ к ней:
+
 ```
 GLOB.my_global_here = X
 ```
 
-There are a few other defines that do other things. `GLOBAL_REAL` shouldn't be used unless you know exactly what you're doing.
-`GLOBAL_VAR_INIT` allows you to set an initial value on the var, like `GLOBAL_VAR_INIT(number_one, 1)`.
-`GLOBAL_LIST_INIT` allows you to define a list global var with an initial value. Etc.
+Также есть:
 
-## Maintainers
-The only current official role for GitHub staff are the `Maintainers`. They share equal power. The `Maintainers` are
-responsible for properly tagging new pull requests and issues, moderating comments in
-pull requests/issues, and merging/closing pull requests.
+- GLOBAL_VAR_INIT(name, value) — с начальным значением переменной.
+- GLOBAL_LIST_INIT — для объявления списков.
+- И так далее.
 
-### Maintainer List
-* [Fox P McCloud](https://github.com/Fox-McCloud)
-* [Crazy Lemon](https://github.com/Crazylemon64)
-* [Ansari](https://github.com/variableundefined)
-* [AffectedArc07](https://github.com/AffectedArc07)
+## Операторы
 
-### Maintainer instructions
-* Do not `self-merge`; this refers to the practice of opening a pull request, then
-  merging it yourself. A different maintainer must review and merge your pull request, no
-  matter how trivial. This is to ensure quality.
-  * A subset of this instruction: Do not push directly to the repository, always make a
-  pull request.
-* Wait for the CI build to complete. If it fails, the pull request may only be
- merged if there is a very good reason (example: fixing the CI configuration).
-* Pull requests labeled as bugfixes and refactors may be merged as soon as they are
- reviewed.
-* The shortest waiting period for -any- feature or balancing altering pull request is 24
- hours, to allow other coders and the community time to discuss the proposed changes.
-* If the discussion is active, or the change is controversial, the pull request is to be
- put on hold until a consensus is reached.
-* To keep commit history easy to navigate for future contributors (e.g. Git Blame), squash merge
-is to be preferred to normal merge where suitable. Ensure that the squashed commit name is easy
-to understand and read. Modify it if needed.
+### Пробелы
+
+- Разделяемые пробелами операторы:
+  - Булевы и логические операторы: `&&`, `||`, `<`, `>`, `==` и т.д. (но не `!`)
+  - Побитовое И: `&`
+  - Разделители аргументов: `,` (и `;` в `for`-циклах)
+  - Операторы присваивания: `=`, `+=` и т.д.
+  - Математические операторы: `+`, `-`, `/`, `*`
+- Неразделяемые пробелами операторы:
+  - Побитовое ИЛИ: `|`
+  - Операторы доступа: `.`, `:`
+  - Скобки: `()`
+  - Логическое НЕ: `!`
+
+### Использование операторов
+
+- Побитовое И - `&`
+  - Пишите как `bitfield & bitflag`, но **НИКОГДА** не `bitflag & bitfield`. Хотя оба варианта работают, обратный порядок нестандартен и запутывает.
+- В ассоциативных списках ключи-строки должны быть в кавычках:
+  - ПЛОХО: `list(a = "b")`
+  - ХОРОШО: `list("a" = "b")`
+
+### Битовые флаги
+
+- Мы предпочитаем использовать побитовые сдвиги вместо прямого указания чисел.
+
+  ```DM
+  // Хорошо
+  #define MACRO_ONE (1<<0)
+  #define MACRO_TWO (1<<1)
+  #define MACRO_THREE (1<<2)
+  #define MACRO_ALL (~0)
+
+  // Плохо
+  #define MACRO_ONE 1
+  #define MACRO_TWO 2
+  #define MACRO_THREE 4
+  #define MACRO_ALL 7 // или 16777215 как более точное значение
+  ```
+
+  Это делает код читабельнее и снижает вероятность ошибок.
+
+## SQL
+
+- Не используйте сокращённый синтаксис `INSERT` без указания названий колонок — это ломает запросы при малейших изменениях схемы и мешает использовать таблицы извне (например, на сайте).
+
+- Используйте параметры в запросах (упомянуто в "[Пишите безопасный код](#пишите-безопасный-код)")
+
+- Всегда проверяйте успешность выполнения `if(!query.warn_execute())`. Используя данный стандартный формат вы можете быть уверены, что используются корректные сообщения для логов.
+
+- Всегда вызывайте `qdel()` для запросов после использования — это освобождает память.
+
+- Все изменения схемы БД должны быть задокументированы в `changelog` базы данных в SQL и отражены в файлах схемы.
+
+- При любом изменении схемы увеличивайте define `SQL_VERSION` и обновляйте пример конфига, а также добавляйте скрипт миграции в папку `SQL/updates`.
+
+- Запросы **никогда** не должны указывать название базы данных — ни в коде, ни в файлах.
+
+## Rust
+
+Некоторые части кода написаны на [Rust][] по соображениям производительности и надёжности:
+
+- Атмосферный движок, "MILLA", находящийся в директории `rust/src/milla/`.
+- Модуль `mapmanip` от "Aurora Station" используемый для автоматизации изменения `DMM`-файлов, находящийся в директории `rust/src/mapmanip`.
+
+Все Rust-компоненты в билде компилируются в единую библиотеку, отдельную от остального кода.
+Если вы используете Windows, то по умолчанию получаете уже собранную версию.
+Если вы на Linux — вы уже собирали её самостоятельно, чтобы запустить сервер.
+
+Если вы вносите изменения в Rust-библиотеку, вам нужно будет пересобрать её. Процесс почти идентичен тому, что используется в проекте [rust-g][]. Единственное отличие — команду `cargo` следует запускать из директории `rust/`, при этом указывать флаг `--all-features` не обязательно (хотя это и не повредит).
+
+Сервер автоматически обнаружит вашу локальную сборку и будет использовать её вместо стандартной Windows-версии.
+
+Когда будете готовы создавать PR, **НЕ ИЗМЕНЯЙТЕ** файлы `rustlibs.dll` или `tools/ci/librustlibs_ci.so`. Оставьте опцию `"Allow edits and access to secrets by maintainers"` включённой и оставьте следующий комментарий в своём PR: `!build_rust`. Бот автоматически соберёт нужные файлы и обновит вашу ветку.
+
+[Rust]: https://www.rust-lang.org/
+[rust-g]: https://github.com/ParadiseSS13/rust-g
+## Стандарты маппинга
+
+### **Map Merge**
+
+Перед созданием PR **обязательно** запустите `Map Merge`, чтобы убедиться в том, что разница файлов карт при изменении будет минимальной. Даже если вы использовали сторонние программы для маппинга (например, "StrongDMM").
+
+### **Редактирование переменных ("var-edits")**
+
+- Локальные правки переменных атомов через маппинг-редактор **недопустимы**. Если вы хотите изменить базовое поведение объекта — **обязательно** создавайте новый сабтайп в коде. Это упрощает изменение всех экземпляров атома одновременно и избавляет от необходимости искать и изменять каждый экземпляр вручную.
+- Сабтайпы, предназначенные только для away-миссий, гейтов и подобного, **должны** находиться в `.dm` файлах, названия которых соответствуют названию конкретной карты, хранящейся в `code\modules\awaymissions` или `code\modules\ruins`. Это упрощает удаление ненужных объектов при удалении карты, снижая вероятность **оставить мусор** в коде.
+- Убирайте **"грязные" переменные** после редактирования (например, `pixel_x = 0`) если значение переменной совпадает с дефолтным.
+- **Не редактируйте** зоны (`area`) через "var-editing" непосредственно на карте. Все зоны с одинаковыми типами (даже с изменёнными вручную переменными) DM'ом расцениваются как одна и та же зона, что может привести ко многим проблемам (например, ломаются подсистемы событий или системы электросетей, которые очень трудно отлаживать).

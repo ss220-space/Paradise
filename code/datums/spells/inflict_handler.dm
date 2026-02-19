@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/targeted/inflict_handler
+/obj/effect/proc_holder/spell/inflict_handler
 	name = "Inflict Handler"
 	desc = "This spell blinds and/or destroys/damages/heals and/or weakens/stuns the target."
 
@@ -19,7 +19,10 @@
 
 	var/summon_type = null //this will put an obj at the target's location
 
-/obj/effect/proc_holder/spell/targeted/inflict_handler/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/inflict_handler/create_new_targeting()
+	return new /datum/spell_targeting/self // Dummy value since it is never used for this spell... why is this even a spell
+
+/obj/effect/proc_holder/spell/inflict_handler/cast(list/targets, mob/user = usr)
 
 	for(var/mob/living/target in targets)
 		switch(destroys)
@@ -31,20 +34,23 @@
 		if(!target)
 			continue
 		//damage
+		var/update = NONE
 		if(amt_dam_brute > 0)
 			if(amt_dam_fire >= 0)
-				target.take_overall_damage(amt_dam_brute,amt_dam_fire)
+				update |= target.take_overall_damage(amt_dam_brute, amt_dam_fire)
 			else if(amt_dam_fire < 0)
-				target.take_overall_damage(amt_dam_brute,0)
-				target.heal_overall_damage(0,amt_dam_fire)
+				update |= target.take_overall_damage(amt_dam_brute, 0)
+				update |= target.heal_overall_damage(0, amt_dam_fire)
 		else if(amt_dam_brute < 0)
 			if(amt_dam_fire > 0)
-				target.take_overall_damage(0,amt_dam_fire)
-				target.heal_overall_damage(amt_dam_brute,0)
+				update |= target.take_overall_damage(0, amt_dam_fire)
+				update |= target.heal_overall_damage(amt_dam_brute, 0)
 			else if(amt_dam_fire <= 0)
-				target.heal_overall_damage(amt_dam_brute,amt_dam_fire)
-		target.adjustToxLoss(amt_dam_tox)
-		target.adjustOxyLoss(amt_dam_oxy)
+				update |= target.heal_overall_damage(amt_dam_brute, amt_dam_fire)
+		update |= target.adjustToxLoss(amt_dam_tox, FALSE)
+		update |= target.adjustOxyLoss(amt_dam_oxy, FALSE)
+		if(update)
+			target.updatehealth("Spell Inflict Handler")
 		//disabling
 		target.Weaken(amt_weakened)
 		target.Paralyse(amt_paralysis)
@@ -55,3 +61,4 @@
 		//summoning
 		if(summon_type)
 			new summon_type(target.loc, target)
+

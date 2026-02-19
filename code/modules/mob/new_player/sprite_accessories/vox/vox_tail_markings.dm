@@ -1,6 +1,6 @@
 /datum/sprite_accessory/body_markings/tail/vox
 	icon = 'icons/mob/sprite_accessories/vox/vox_tail_markings.dmi'
-	species_allowed = list("Vox")
+	species_allowed = list(SPECIES_VOX)
 
 /datum/sprite_accessory/body_markings/tail/vox/vox_band
 	name = "Vox Tail Band"

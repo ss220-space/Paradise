@@ -1,36 +1,39 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
 #define COCOON_EMERGE_DELAY 15 SECONDS
 #define COCOON_HARM_AMOUNT 50
-#define COCOON_NUTRITION_REQUIREMENT 201
+#define COCON_HEAL_AMOUNT 20
 #define COCOON_NUTRITION_AMOUNT -200
-#define FLYSWATTER_DAMAGE_MULTIPLIER 9
+#define FLYSWATTER_DAMAGE_MULTIPLIER 10
+#define MOTH_PITCH_SHIFT 0.15 // a bit higher emotes
 
 /datum/species/moth
-	name = "Nian"
+	name = SPECIES_MOTH
 	name_plural = "Nianae"
-	language = "Tkachi"
+	language = LANGUAGE_MOTH
 	icobase = 'icons/mob/human_races/r_moth.dmi'
 	deform = 'icons/mob/human_races/r_moth.dmi'
 	inherent_factions = list("moth")
-	species_traits = list(IS_WHITELISTED)
+	inherent_traits = list(
+		TRAIT_HAS_REGENERATION,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | HAS_SKIN_COLOR
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	tox_mod = 1.5
 	blood_species = "Nian"
 	blood_color = "#b9ae9c"
 	unarmed_type = /datum/unarmed_attack/claws
-	scream_verb = "жужжит"
-	female_giggle_sound = 'sound/voice/mothchitter.ogg'
-	male_giggle_sound = 'sound/voice/mothchitter.ogg'
-	male_scream_sound = 'sound/voice/scream_moth.ogg'
-	female_scream_sound = 'sound/voice/scream_moth.ogg'
-	male_sneeze_sound = 'sound/effects/mob_effects/mothsneeze.ogg'
-	female_sneeze_sound = 'sound/effects/mob_effects/mothsneeze.ogg'
-	female_laugh_sound = 'sound/voice/mothlaugh.ogg'
-	male_laugh_sound = 'sound/voice/mothlaugh.ogg'
-	female_cough_sounds = 'sound/effects/mob_effects/mothcough.ogg'
-	male_cough_sounds = 'sound/effects/mob_effects/mothcough.ogg'
+	scream_verb = "жужж%(ит,ат)%"
+	female_giggle_sound = list('sound/voice/mothchitter.ogg')
+	male_giggle_sound = list('sound/voice/mothchitter.ogg')
+	male_scream_sound = list('sound/voice/scream_moth.ogg')
+	female_scream_sound = list('sound/voice/scream_moth.ogg')
+	male_sneeze_sound = list('sound/effects/mob_effects/mothsneeze.ogg')
+	female_sneeze_sound = list('sound/effects/mob_effects/mothsneeze.ogg')
+	female_laugh_sound = list('sound/voice/mothlaugh.ogg')
+	male_laugh_sound = list('sound/voice/mothlaugh.ogg')
+	female_cough_sounds = list('sound/effects/mob_effects/mothcough.ogg')
+	male_cough_sounds = list('sound/effects/mob_effects/mothcough.ogg')
 	default_headacc = "Plain Antennae"
 	default_headacc_colour = "#F7D896"
 	default_bodyacc = "Plain Wings"
@@ -40,64 +43,84 @@
 	siemens_coeff = 1.5
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/nian,
-		"lungs" =    /obj/item/organ/internal/lungs/nian,
-		"liver" =    /obj/item/organ/internal/liver/nian,
-		"kidneys" =  /obj/item/organ/internal/kidneys/nian,
-		"brain" =    /obj/item/organ/internal/brain/nian,
-		"eyes" =     /obj/item/organ/internal/eyes/nian
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/nian,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/nian,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/nian,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/nian,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/nian,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/nian,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/nian,
 	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nian
+
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right),
-		"wing" =   list("path" = /obj/item/organ/external/wing/nian))
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+		BODY_ZONE_WING = list("path" = /obj/item/organ/external/wing/nian),
+	)
 
 	optional_body_accessory = FALSE
-
-	var/datum/action/innate/cocoon/cocoon
 
 	suicide_messages = list(
 		"откусывает свои усики!",
 		"вспарывает себе живот!",
 		"отрывает себе крылья!",
-		"заддерживает своё дыхание!"
+		"заддерживает своё дыхание!",
 	)
 	toxic_food = MEAT | JUNKFOOD
 	disliked_food = FRIED | RAW | EGG
 	liked_food = SUGAR | GROSS | FRUIT | VEGETABLES
+	special_diet = MATERIAL_CLASS_CLOTH
+
+	age_sheet = list(
+		SPECIES_AGE_MIN = 3,
+		SPECIES_AGE_MAX = 60,
+		JOB_MIN_AGE_HIGH_ED = 15,
+		JOB_MIN_AGE_COMMAND = 15,
+	)
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
-	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_flap
+	. = ..()
+	H.add_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
+	add_verb(H, /mob/living/carbon/human/proc/emote_flap)
+	add_verb(H, /mob/living/carbon/human/proc/emote_aflap)
+	add_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
 	if(!cocoon)
 		cocoon = new
 		cocoon.Grant(H)
-	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, .proc/check_burn_wings)
-	RegisterSignal(H, COMSIG_LIVING_AHEAL, .proc/on_aheal)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, .proc/on_change_body_accessory)
-	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, .proc/on_change_head_accessory)
+	RegisterSignal(H, COMSIG_LIVING_FIRE_TICK, PROC_REF(check_burn_wings))
+	RegisterSignal(H, COMSIG_LIVING_AHEAL, PROC_REF(on_aheal))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY, PROC_REF(on_change_body_accessory))
+	RegisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY, PROC_REF(on_change_head_accessory))
+	RegisterSignal(H, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS, PROC_REF(damage_weakness))
+
+/datum/species/monkey/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_WEAK, STRENGTH_LEVEL_STRONG, can_become_stronger)
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
-	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_flap
+	. = ..()
+	H.remove_movespeed_mod_immunities(type, /datum/movespeed_modifier/limbless)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_flap)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_aflap)
+	remove_verb(H, /mob/living/carbon/human/proc/emote_flutter)
 	var/datum/action/innate/cocoon/cocoon = locate() in H.actions
-	if(cocoon)
-		cocoon.Remove(H)
+	cocoon?.Remove(H)
 	UnregisterSignal(H, COMSIG_LIVING_FIRE_TICK)
 	UnregisterSignal(H, COMSIG_LIVING_AHEAL)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_BODY_ACCESSORY)
 	UnregisterSignal(H, COMSIG_HUMAN_CHANGE_HEAD_ACCESSORY)
+	UnregisterSignal(H, COMSIG_MOB_APPLY_DAMAGE_MODIFIERS)
 	H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/handle_reagents(mob/living/carbon/human/H, datum/reagent/R)
@@ -111,35 +134,36 @@
 /datum/species/moth/get_species_runechat_color(mob/living/carbon/human/H)
 	return H.m_colours["body"]
 
-/datum/species/moth/spec_attacked_by(obj/item/I, mob/living/user, obj/item/organ/external/affecting, intent, mob/living/carbon/human/H)
-	if(istype(I, /obj/item/melee/flyswatter) && I.force)
-		apply_damage(I.force * FLYSWATTER_DAMAGE_MULTIPLIER, I.damtype, affecting, FALSE, H) //making flyswatters do 10x damage to moff
+/datum/species/moth/proc/damage_weakness(datum/source, list/damage_mods, damage_amount, damagetype, def_zone, sharp, obj/item/used_weapon)
+	SIGNAL_HANDLER
 
-/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/H)
-	var/turf/A = get_turf(H)
-	if(isspaceturf(A))
+	if(istype(used_weapon, /obj/item/melee/flyswatter))
+		damage_mods += FLYSWATTER_DAMAGE_MULTIPLIER // Yes, a 10x damage modifier
+
+/datum/species/moth/spec_Process_Spacemove(mob/living/carbon/human/user, movement_dir, continuous_move = FALSE)
+	. = FALSE
+	var/turf/user_turf = get_turf(user)
+	if(!user_turf)
+		return .
+	if(isspaceturf(user_turf))
+		return .
+	if(user.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !user.get_organ(BODY_ZONE_WING))
+		return .
+	if(isobj(user.loc))
+		// Can't fly if you're in a box/mech/whatever.
 		return FALSE
-	if(H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) || !H.bodypart_wing)
-		return FALSE
-	var/datum/gas_mixture/current = A.return_air()
-	if(current && (current.return_pressure() >= ONE_ATMOSPHERE*0.85))//as long as there's reasonable pressure and no gravity, flight is possible
+	var/datum/gas_mixture/current = user_turf.get_readonly_air()
+	if(current && (current.return_pressure() >= ONE_ATMOSPHERE * 0.85)) //as long as there's reasonable pressure and no gravity, flight is possible
 		return TRUE
 
 /datum/species/moth/spec_thunk(mob/living/carbon/human/H)
 	if(!H.has_status_effect(STATUS_EFFECT_BURNT_WINGS))
 		return TRUE
 
-/datum/species/moth/spec_movement_delay()
-	return FALSE
-
-/datum/species/moth/spec_WakeUp(mob/living/carbon/human/H)
-	if(H.has_status_effect(STATUS_EFFECT_COCOONED))
-		return TRUE //Cocooned mobs dont get to wake up
-
 /datum/species/moth/proc/check_burn_wings(mob/living/carbon/human/H) //do not go into the extremely hot light. you will not survive
 	SIGNAL_HANDLER
 	if(H.on_fire && !H.has_status_effect(STATUS_EFFECT_BURNT_WINGS) && H.bodytemperature >= 400 && H.fire_stacks > 0)
-		to_chat(H, "<span class='warning'>Your precious wings burn to a crisp!</span>")
+		to_chat(H, span_warning("Ваши драгоценные крылья сгорят дотла!"))
 		H.apply_status_effect(STATUS_EFFECT_BURNT_WINGS)
 
 /datum/species/moth/proc/on_aheal(mob/living/carbon/human/H)
@@ -157,71 +181,68 @@
 		return COMSIG_HUMAN_NO_CHANGE_APPEARANCE
 
 /datum/action/innate/cocoon
-	name = "Cocoon"
-	desc = "Restore your wings and antennae, and heal some damage. If your cocoon is broken externally you will take heavy damage!"
-	check_flags = AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_CONSCIOUS|AB_CHECK_TURF
-	icon_icon = 'icons/effects/effects.dmi'
+	name = "Кокон"
+	desc = "Восстанавливает крылья и усики, а также лечит повреждения. Если кокон будет разрушен извне, вы получите серьёзные травмы!"
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_TURF
+	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon1"
 
 /datum/action/innate/cocoon/Activate()
 	var/mob/living/carbon/human/moth/H = owner
 	if(H.nutrition < COCOON_NUTRITION_AMOUNT)
-		to_chat(H, "<span class='warning'>You are too hungry to cocoon!</span>")
+		to_chat(H, span_warning("Вы слишком голодны для создания кокона!"))
 		return
-	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", "<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds, and you must hold still.)</span>")
-	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
+	H.visible_message(span_notice("[H] замирает, начиная плести кокон..."), span_notice("Вы концентрируетесь на создании кокона... (Это займёт [COCOON_WEAVE_DELAY / 10] секунд, вы должны оставаться неподвижным.)"))
+	if(do_after(H, COCOON_WEAVE_DELAY, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		if(H.incapacitated())
-			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
+			to_chat(H, span_warning("Вы не можете создать кокон в текущем состоянии."))
 			return
-		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
+		H.visible_message(span_notice("[H] заканчивает плести кокон!"), span_notice("Вы заканчиваете плести свой кокон."))
 		add_game_logs("weaved [src] at [AREACOORD(H)].", H)
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
+		ADD_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
 		H.forceMove(C)
-		C.preparing_to_emerge = TRUE
-		H.apply_status_effect(STATUS_EFFECT_COCOONED)
-		H.KnockOut()
-		addtimer(CALLBACK(src, .proc/emerge, C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
+		addtimer(CALLBACK(src, PROC_REF(emerge), C), COCOON_EMERGE_DELAY, TIMER_UNIQUE)
 	else
-		to_chat(H, "<span class='warning'>You need to hold still in order to weave a cocoon!</span>")
+		to_chat(H, span_warning("Для создания кокона необходимо оставаться неподвижным!"))
 
 /**
  * Removes moth from cocoon, restores burnt wings */
 
 /datum/action/innate/cocoon/proc/emerge(obj/structure/moth/cocoon/C)
-	for(var/mob/living/carbon/human/H in C.contents)
-		H.remove_status_effect(STATUS_EFFECT_COCOONED)
-		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
 /obj/structure/moth/cocoon
-	name = "\improper Nian cocoon"
-	desc = "Someone wrapped in a Nian cocoon."
+	name = "Кокон Ниан"
+	desc = "Кто-то завернулся в кокон."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon1"
-	color = COLOR_PALE_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
+	color = LIGHT_COLOR_DIM_YELLOW //So tiders (hopefully) don't decide to immediately bust them open
 	max_integrity = 60
-	var/preparing_to_emerge
+	var/preparing_to_emerge = TRUE
 
 /obj/structure/moth/cocoon/Initialize(mapload)
 	. = ..()
 	icon_state = pick("cocoon1", "cocoon2", "cocoon3")
 
 /obj/structure/moth/cocoon/Destroy()
-	if(!preparing_to_emerge)
-		visible_message("<span class='danger'>[src] splits open from within!</span>")
-	else
-		visible_message("<span class='danger'>[src] is smashed open, harming the Nian within!</span>")
+	if(preparing_to_emerge)
+		visible_message(span_danger("[src] разбивается, нанося вред Ниан внутри!"))
 		for(var/mob/living/carbon/human/H in contents)
-			H.adjustBruteLoss(COCOON_HARM_AMOUNT)
-			H.adjustFireLoss(COCOON_HARM_AMOUNT)
-			H.AdjustWeakened(5)
+			H.forceMove(loc)
+			REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
+			H.take_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
+			H.AdjustWeakened(10 SECONDS)
+		return ..()
 
+	visible_message(span_danger("[src] раскрывается изнутри!"))
 	for(var/mob/living/carbon/human/H in contents)
-		H.remove_status_effect(STATUS_EFFECT_COCOONED)
-		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
-		H.WakeUp()
 		H.forceMove(loc)
+		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
+		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
+		REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
+		H.heal_overall_damage(COCON_HEAL_AMOUNT, COCON_HEAL_AMOUNT)
 	return ..()
 
 /datum/status_effect/burnt_wings
@@ -239,12 +260,14 @@
 	owner.UpdateAppearance()
 	return ..()
 
-/datum/status_effect/cocooned
-	id = "cocooned"
-	alert_type = null
+/datum/species/moth/get_emote_pitch(mob/living/carbon/human/H, tolerance)
+	. = ..()
+	. += MOTH_PITCH_SHIFT
 
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY
 #undef COCOON_HARM_AMOUNT
+#undef COCON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
 #undef FLYSWATTER_DAMAGE_MULTIPLIER
+#undef MOTH_PITCH_SHIFT

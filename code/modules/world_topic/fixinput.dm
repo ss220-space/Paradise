@@ -7,6 +7,6 @@
 	if(SSinput.state == SS_SLEEPING)
 		log_debug("SSinput.state is sleeping")
 		SSinput.state = SS_IDLE
-		to_chat(world, "<span class='announce'>SERVER: подсистема SSinput была восстановлена!</span>")
+		to_chat(world, span_announce("SERVER: подсистема SSinput была восстановлена!"))
 		return json_encode(list("success" = "SSinput was resumed"))
 	return json_encode(list("error" = "SSinput state is not SS_SLEEPING"))

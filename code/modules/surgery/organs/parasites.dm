@@ -22,24 +22,22 @@
 			if(prob(12))
 				owner.reagents.add_reagent("histamine", 5)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel like something is tearing its way out of your skin...</span>")
+			to_chat(owner, span_danger("Вы чувствуете, как будто что-то рвется из вашей кожи..."))
 			owner.reagents.add_reagent("histamine", 10)
 			if(prob(30))
 				owner.emote("scream")
 				var/spiders = rand(3,5)
 				for(var/i in 1 to spiders)
 					new/obj/structure/spider/spiderling(get_turf(owner))
-				owner.visible_message("<span class='danger'>[owner] bursts open! Holy fuck!</span>")
+				owner.visible_message(span_danger("[owner] разрывается! Ёб вашу мать!"))
 				owner.gib()
 
-/obj/item/organ/internal/body_egg/spider_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/spider_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
 	M.reagents.del_reagent("spidereggs") //purge all remaining spider eggs reagent if caught, in time.
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others
 	return null
-
-
 
 // Terror Spiders - white spider infection
 
@@ -50,20 +48,27 @@
 
 	var/cycle_num = 0 // # of on_life() cycles completed, never reset
 	var/egg_progress = 0 // # of on_life() cycles completed, unlike cycle_num this is reset on each hatch event
-	var/egg_progress_per_hatch = 90 // if egg_progress > this, chance to hatch and reset egg_progress
+	var/egg_progress_per_hatch = 120 // if egg_progress > this, chance to hatch and reset egg_progress
 	var/eggs_hatched = 0 // num of hatch events completed
 	var/awaymission_checked = FALSE
 	var/awaymission_infection = FALSE // TRUE if infection occurred inside gateway
+	var/mob/asigned_ghost
+	var/ghost_poll = FALSE
 
+	var/list/roll_1 = list(/mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/reaper)
+	var/list/roll_2 = list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/healer, /mob/living/simple_animal/hostile/poison/terror_spider/builder)
+	var/list/roll_3 = list(/mob/living/simple_animal/hostile/poison/terror_spider/widow, /mob/living/simple_animal/hostile/poison/terror_spider/lurker, /mob/living/simple_animal/hostile/poison/terror_spider/builder, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/knight)
 
 /obj/item/organ/internal/body_egg/terror_eggs/on_life()
 	// Safety first.
 	if(!owner)
 		return
-
+	if(GLOB.global_degenerate && !awaymission_infection && !QDELETED(src))
+		qdel(src)
+		return
 	// Parasite growth
 	cycle_num += 1
-	egg_progress += pick(0, 1, 2)
+	egg_progress += 1
 	egg_progress += calc_variable_progress()
 
 	// Detect & stop people attempting to bring a gateway white spider infection back to the main station.
@@ -71,27 +76,38 @@
 		awaymission_checked = TRUE
 		if(is_away_level(owner.z))
 			awaymission_infection = TRUE
+		else
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_IFECTION_CREATED, src)
 	if(awaymission_infection)
 		var/turf/T = get_turf(owner)
 		if(istype(T) && !is_away_level(T.z))
 			owner.gib()
 			qdel(src)
 			return
+	if(egg_progress_per_hatch - egg_progress <= TERROR_VOTE_TICKS && !ghost_poll && !awaymission_infection)
+		find_spider_owner()
 
-	// Once at least one egg has hatched from you, you'll need help to reach medbay.
-	if(eggs_hatched >= 1)
-		owner.SetConfused(45)
-
-	if(egg_progress > egg_progress_per_hatch)
-		egg_progress -= egg_progress_per_hatch
+	if(egg_progress > egg_progress_per_hatch && awaymission_infection)
 		hatch_egg()
+
+/obj/item/organ/internal/body_egg/terror_eggs/proc/find_spider_owner()
+	ghost_poll = TRUE
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Ужаса?", ROLE_TERROR_SPIDER, TRUE, TERROR_VOTE_LEN, , role_cleanname = "Паук Ужаса")
+	if(QDELETED(src))
+		return
+	ghost_poll = FALSE
+	if(!length(candidates) || awaymission_infection)
+		hatch_egg()
+		return
+	asigned_ghost = pick_n_take(candidates)
+	hatch_egg()
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/calc_variable_progress()
 	var/extra_progress = 0
 	if(owner.nutrition > NUTRITION_LEVEL_FULL)
 		extra_progress += 1
 	var/antibiotics = owner.reagents.get_reagent_amount("spaceacillin")
-	if(antibiotics > 50)
+	if(antibiotics > 15)
 		extra_progress -= 0.5
 	var/boosters = owner.reagents.get_reagent_amount("salglu_solution")
 	if(boosters > 1)
@@ -100,28 +116,36 @@
 
 /obj/item/organ/internal/body_egg/terror_eggs/proc/hatch_egg()
 	var/infection_completed = FALSE
+	egg_progress -= egg_progress_per_hatch
 	var/obj/structure/spider/spiderling/terror_spiderling/S = new(get_turf(owner))
 	switch(eggs_hatched)
 		if(0) // 1st spiderling
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/lurker
+			S.grow_as = pick(roll_1)
 		if(1) // 2nd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/knight
-		if(2) // 3rd
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/destroyer
-		if(3) // 4th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/reaper
-		if(4) // 5th
-			S.grow_as = /mob/living/simple_animal/hostile/poison/terror_spider/healer
+			S.grow_as = pick(roll_2)
+		if(2) // 3d spiderling. can only grow if egg owner is being healed, and/or eggs isnt removed by surgeons
+			S.grow_as = pick(roll_3)
+			owner.adjustBruteLoss(200)
+			owner.death()
 			infection_completed = TRUE
 	S.immediate_ventcrawl = TRUE
+	S.asigned_ghost = asigned_ghost
 	eggs_hatched++
-	to_chat(owner, "<span class='warning'>A strange prickling sensation moves across your skin... then suddenly the whole world seems to spin around you!</span>")
-	owner.Paralyse(10)
+	owner.adjustBruteLoss(80)
+	owner.Paralyse(20 SECONDS)
+	owner.SetConfused(40 SECONDS)
+	to_chat(owner, span_warning("Странное покалывание распространяется по вашей коже... внезапно весь мир начинает кружиться вокруг вас!"))
+
 	if(infection_completed && !QDELETED(src))
 		qdel(src)
 
-/obj/item/organ/internal/body_egg/terror_eggs/remove(var/mob/living/carbon/M, var/special = 0)
+/obj/item/organ/internal/body_egg/terror_eggs/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_IFECTION_REMOVED, src)
 	if(!QDELETED(src))
 		qdel(src) // prevent people re-implanting them into others
 	return null
+
+/obj/item/organ/internal/body_egg/terror_eggs/phantom
+	//no healer!
+	roll_2 = list(/mob/living/simple_animal/hostile/poison/terror_spider/destroyer, /mob/living/simple_animal/hostile/poison/terror_spider/reaper, /mob/living/simple_animal/hostile/poison/terror_spider/knight, /mob/living/simple_animal/hostile/poison/terror_spider/builder)

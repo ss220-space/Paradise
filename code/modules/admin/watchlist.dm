@@ -2,7 +2,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(!target_ckey)
-		var/new_ckey = ckey(clean_input("Who would you like to add to the watchlist?","Enter a ckey",null))
+		var/new_ckey = ckey(tgui_input_text(usr, "Who would you like to add to the watchlist?", "Enter a ckey", null))
 		if(!new_ckey)
 			return
 		var/datum/db_query/query_watchfind = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey=:new_ckey", list(
@@ -12,22 +12,22 @@
 			qdel(query_watchfind)
 			return
 		if(!query_watchfind.NextRow())
-			to_chat(usr, "<span class='redtext'>[new_ckey] has not been seen before, you can only add known players.</span>")
+			to_chat(usr, span_redtext("[new_ckey] has not been seen before, you can only add known players."))
 			qdel(query_watchfind)
 			return
 		else
 			target_ckey = new_ckey
 	if(check_watchlist(target_ckey))
-		to_chat(usr, "<span class='redtext'>[target_ckey] is already on the watchlist.</span>")
+		to_chat(usr, span_redtext("[target_ckey] is already on the watchlist."))
 		return
-	var/reason = input(usr,"Please state the reason","Reason") as message|null
+	var/reason = tgui_input_text(usr, "Please state the reason", "Reason", multiline = TRUE, encode = FALSE)
 	if(!reason)
 		return
 	var/adminckey = usr.ckey
 	if(!adminckey)
 		return
 	var/datum/db_query/query_watchadd = SSdbcore.NewQuery({"
-		INSERT INTO [sqlfdbkdbutil].[format_table_name("watch")] (ckey, reason, adminckey, timestamp)
+		INSERT INTO [CONFIG_GET(string/utility_database)].[format_table_name("watch")] (ckey, reason, adminckey, timestamp)
 		VALUES (:targetkey, :reason, :adminkey, NOW())"},
 		list(
 			"targetkey" = target_ckey,
@@ -46,7 +46,7 @@
 /client/proc/watchlist_remove(target_ckey, browse = 0)
 	if(!check_rights(R_ADMIN))
 		return
-	var/datum/db_query/query_watchdel = SSdbcore.NewQuery("DELETE FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
+	var/datum/db_query/query_watchdel = SSdbcore.NewQuery("DELETE FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
 		"target_ckey" = target_ckey
 	))
 	if(!query_watchdel.warn_execute())
@@ -60,7 +60,7 @@
 /client/proc/watchlist_edit(target_ckey, browse = 0)
 	if(!check_rights(R_ADMIN))
 		return
-	var/datum/db_query/query_watchreason = SSdbcore.NewQuery("SELECT reason FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
+	var/datum/db_query/query_watchreason = SSdbcore.NewQuery("SELECT reason FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
 		"target_ckey" = target_ckey
 	))
 	if(!query_watchreason.warn_execute())
@@ -68,13 +68,13 @@
 		return
 	if(query_watchreason.NextRow())
 		var/watch_reason = query_watchreason.item[1]
-		var/new_reason = input("Input the new reason", "New Reason", "[watch_reason]") as message|null
+		var/new_reason = tgui_input_text(usr, "Input the new reason", "New Reason", "[watch_reason]", multiline = TRUE, encode = FALSE)
 		if(!new_reason || new_reason == watch_reason)
 			return
 		var/sql_ckey = usr.ckey
 		var/edit_text = "Edited by [sql_ckey] on [SQLtime()] from \"[watch_reason]\" to \"[new_reason]\""
 
-		var/datum/db_query/query_watchupdate = SSdbcore.NewQuery("UPDATE [sqlfdbkdbutil].[format_table_name("watch")] SET reason=:new_reason, last_editor=:sql_ckey, edits = CONCAT(IFNULL(edits,''), :edit_text) WHERE ckey=:target_ckey", list(
+		var/datum/db_query/query_watchupdate = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("watch")] SET reason=:new_reason, last_editor=:sql_ckey, edits = CONCAT(IFNULL(edits,''), :edit_text) WHERE ckey=:target_ckey", list(
 			"new_reason" = new_reason,
 			"sql_ckey" = sql_ckey,
 			"edit_text" = edit_text,
@@ -94,19 +94,19 @@
 /client/proc/watchlist_show(search)
 	if(!check_rights(R_ADMIN))
 		return
-	var/output = {"<meta charset="UTF-8">"}
-	output += "<form method='GET' name='search' action='?'>\
+	var/output = ""
+	output += "<form method='get' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"
-	output += "<a href='?_src_=holder;watchshow=1'>\[Clear Search\]</a> <a href='?_src_=holder;watchaddbrowse=1'>\[Add Ckey\]</a>"
+	output += "<a href='byond://?_src_=holder;watchshow=1'>\[Clear Search\]</a> <a href='byond://?_src_=holder;watchaddbrowse=1'>\[Add Ckey\]</a>"
 	output += "<hr style='background:#000000; border:0; height:3px'>"
 	if(search)
 		search = "^[search]"
 	else
 		search = "^."
 
-	var/datum/db_query/query_watchlist = SSdbcore.NewQuery("SELECT ckey, reason, adminckey, timestamp, last_editor FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey REGEXP :search ORDER BY ckey", list(
+	var/datum/db_query/query_watchlist = SSdbcore.NewQuery("SELECT ckey, reason, adminckey, timestamp, last_editor FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey REGEXP :search ORDER BY ckey", list(
 		"search" = search
 	))
 	if(!query_watchlist.warn_execute())
@@ -118,15 +118,18 @@
 		var/adminckey = query_watchlist.item[3]
 		var/timestamp = query_watchlist.item[4]
 		var/last_editor = query_watchlist.item[5]
-		output += "<b>[ckey]</b> | Added by <b>[adminckey]</b> on <b>[timestamp]</b> <a href='?_src_=holder;watchremovebrowse=[ckey]'>\[Remove\]</a> <a href='?_src_=holder;watcheditbrowse=[ckey]'>\[Edit Reason\]</a>"
+		output += "<b>[ckey]</b> | Added by <b>[adminckey]</b> on <b>[timestamp]</b> <a href='byond://?_src_=holder;watchremovebrowse=[ckey]'>\[Remove\]</a> <a href='byond://?_src_=holder;watcheditbrowse=[ckey]'>\[Edit Reason\]</a>"
 		if(last_editor)
-			output += " <font size='2'>Last edit by [last_editor] <a href='?_src_=holder;watcheditlog=[ckey]'>(Click here to see edit log)</a></font>"
+			output += " <font size='2'>Last edit by [last_editor] <a href='byond://?_src_=holder;watcheditlog=[ckey]'>(Click here to see edit log)</a></font>"
 		output += "<br>[reason]<hr style='background:#000000; border:0; height:1px'>"
-	usr << browse(output, "window=watchwin;size=900x500")
+	var/datum/browser/popup = new(usr, "watchwin", "Watch list", 900, 500)
+	popup.set_content(output)
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open(FALSE)
 	qdel(query_watchlist)
 
 /proc/check_watchlist(target_ckey)
-	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [sqlfdbkdbutil].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
+	var/datum/db_query/query_watch = SSdbcore.NewQuery("SELECT reason FROM [CONFIG_GET(string/utility_database)].[format_table_name("watch")] WHERE ckey=:target_ckey", list(
 		"target_ckey" = target_ckey
 	))
 	if(!query_watch.warn_execute())

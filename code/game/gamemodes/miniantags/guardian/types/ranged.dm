@@ -1,27 +1,49 @@
-/obj/item/projectile/guardian
+/obj/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 20
-	damage_type = BRUTE
+	armour_penetration = 100
 
 /mob/living/simple_animal/hostile/guardian/ranged
 	friendly = "quietly assesses"
 	melee_damage_lower = 10
 	melee_damage_upper = 10
-	damage_transfer = 0.9
-	projectiletype = /obj/item/projectile/guardian
+	projectiletype = /obj/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1
 	range = 13
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	see_in_dark = 8
-	playstyle_string = "As a <b>Ranged</b> type, you have only light damage resistance, but are capable of spraying shards of crystal at incredibly high speed. You can also deploy surveillance snares to monitor enemy movement. Finally, you can switch to scout mode, in which you can't attack, but can move without limit."
-	magic_fluff_string = "..And draw the Sentinel, an alien master of ranged combat."
-	tech_fluff_string = "Boot sequence complete. Ranged combat modules active. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, capable of spraying shards of crystal."
+	nightvision = 8
+	playstyle_string = "Будучи <b>Стрелком</b>, вы не обладаете сопротивлением урону, но способны распылять осколки кристалла с невероятно высокой скоростью. Вы также можете расставлять наблюдательные силки, чтобы следить за передвижением противника. Наконец, вы можете перейти в режим разведчика, в котором вы не можете атаковать, но можете двигаться без ограничений. Следите за энергией для стрельбы и старайтесь не стрелять в хозяина!"
+	magic_fluff_string = "...и вытаскиваете Дозорного, инопланетного мастера дальнего боя."
+	tech_fluff_string = "Последовательность загрузки завершена. Активированы модули дальнего боя. Рой голопаразитов запущен."
+	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, способный рассыпать осколки кристалла."
+	var/energy = 150
 	var/list/snares = list()
 	var/toggle = FALSE
+
+/mob/living/simple_animal/hostile/guardian/ranged/Life(seconds, times_fired)
+	..()
+	if(energy <=145)
+		energy+=5
+	if(!toggle)
+		if(energy>=20)
+			ranged = 1
+		if(energy<=5)
+			to_chat(src, span_danger("Энергия на нуле. Стрельба заблокирована."))
+			ranged = 0
+
+/mob/living/simple_animal/hostile/guardian/ranged/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	status_tab_data[++status_tab_data.len] = list("Запас энергии:", "[max(round(energy, 0.1), 0)]/150")
+
+/mob/living/simple_animal/hostile/guardian/ranged/OpenFire(atom/A)
+	if(ranged)
+		ranged_cooldown = world.time + ranged_cooldown_time
+		Shoot(A)
+		energy-=10
 
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleMode()
 	if(loc == summoner)
@@ -34,7 +56,7 @@
 			alpha = 255
 			range = 13
 			incorporeal_move = INCORPOREAL_NONE
-			to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+			to_chat(src, span_danger("Вы переключились в боевой режим."))
 			toggle = FALSE
 		else
 			ranged = 0
@@ -45,60 +67,79 @@
 			alpha = 60
 			range = 255
 			incorporeal_move = INCORPOREAL_NORMAL
-			to_chat(src, "<span class='danger'>You switch to scout mode.</span>")
+			to_chat(src, span_danger("Вы переключились в режим разведки."))
 			toggle = TRUE
 	else
-		to_chat(src, "<span class='danger'>You have to be recalled to toggle modes!</span>")
+		to_chat(src, span_danger("Нужно быть в хозяине для смены режимов!"))
 
 /mob/living/simple_animal/hostile/guardian/ranged/ToggleLight()
 	var/msg
 	switch(lighting_alpha)
-		if (LIGHTING_PLANE_ALPHA_VISIBLE)
+		if(LIGHTING_PLANE_ALPHA_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-			msg = "You activate your night vision."
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+			msg = "Вы активировали ночное зрение."
+		if(LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-			msg = "You increase your night vision."
-		if (LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
+			msg = "Вы усилили ночное зрение."
+		if(LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
-			msg = "You maximize your night vision."
+			msg = "Вы увеличили ночное зрение до максимума."
 		else
 			lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
-			msg = "You deactivate your night vision."
+			msg = "Вы выключили ночное зрение."
 
 	update_sight()
 
-	to_chat(src, "<span class='notice'>[msg]</span>")
+	to_chat(src, span_notice("[msg]"))
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/Snare()
-	set name = "Set Surveillance Trap"
-	set category = "Guardian"
-	set desc = "Set an invisible trap that will alert you when living creatures walk over it. Max of 5"
-	if(snares.len <6)
+	set name = "Установить ловушку"
+	set category = VERB_CATEGORY_GUARDIAN
+	set desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
+	if(length(snares) <6)
 		var/turf/snare_loc = get_turf(loc)
-		var/obj/item/effect/snare/S = new /obj/item/effect/snare(snare_loc)
-		S.spawner = src
-		S.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
-		snares |= S
-		to_chat(src, "<span class='danger'>Surveillance trap deployed!</span>")
+		var/obj/item/effect/snare/snare = new(snare_loc, src)
+		snare.name = "[get_area(snare_loc)] trap ([rand(1, 1000)])"
+		snares |= snare
+		to_chat(src, span_danger("Ловушка слежения установлена!"))
 	else
-		to_chat(src, "<span class='danger'>You have too many traps deployed. Delete some first.</span>")
+		to_chat(src, span_danger("У вас установлено слишком много ловушек. Сначала удалите некоторые."))
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
-	set name = "Remove Surveillance Trap"
-	set category = "Guardian"
-	set desc = "Disarm unwanted surveillance traps."
-	var/picked_snare = input(src, "Pick which trap to disarm", "Disarm Trap") as null|anything in snares
+	set name = "Удалить ловушку"
+	set category = VERB_CATEGORY_GUARDIAN
+	set desc = "Обезвреживание нежелательных ловушек слежения."
+	var/picked_snare = tgui_input_list(src, "Выберите ловушку для обезвреживания", "Уничтожить ловушку", snares)
 	if(picked_snare)
 		snares -= picked_snare
 		qdel(picked_snare)
-		to_chat(src, "<span class='danger'>Snare disarmed.</span>")
+		to_chat(src, span_danger("Ловушка убрана."))
 
 /obj/item/effect/snare
 	name = "snare"
 	desc = "You shouldn't be seeing this!"
-	var/mob/living/spawner
 	invisibility = 1
+	var/mob/living/simple_animal/hostile/guardian/guardian
+
+/obj/item/effect/snare/Initialize(mapload, mob/living/simple_animal/hostile/guardian/guardian)
+	. = ..()
+	src.guardian = guardian
+	if(guardian)
+		var/static/list/loc_connections = list(
+			COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+		)
+		AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/item/effect/snare/proc/on_entered(datum/source, mob/living/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!isliving(arrived))
+		return
+
+	var/area/snare_area = get_area(loc)
+	to_chat(guardian, span_danger("[arrived.name] пересек Вашу ловушку в [snare_area.name]."))
+	if(guardian.summoner)
+		to_chat(guardian.summoner, span_danger("[arrived.name] пересек Вашу ловушку в [snare_area.name]."))
 
 /obj/effect/snare/singularity_act()
 	return
@@ -106,12 +147,3 @@
 /obj/effect/snare/singularity_pull()
 	return
 
-/obj/item/effect/snare/Crossed(AM as mob|obj, oldloc)
-	if(isliving(AM))
-		var/turf/snare_loc = get_turf(loc)
-		if(spawner)
-			to_chat(spawner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")
-			if(istype(spawner, /mob/living/simple_animal/hostile/guardian))
-				var/mob/living/simple_animal/hostile/guardian/G = spawner
-				if(G.summoner)
-					to_chat(G.summoner, "<span class='danger'>[AM] has crossed your surveillance trap at [get_area(snare_loc)].</span>")

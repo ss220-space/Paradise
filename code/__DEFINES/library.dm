@@ -1,0 +1,1 @@
+#define LIBRARY_BOOKS_PER_PAGE 25

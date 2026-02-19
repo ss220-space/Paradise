@@ -6,7 +6,7 @@
 	l_ear = /obj/item/radio/headset/abductor
 
 /datum/outfit/abductor/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.team == team_number)
 			return C
 
@@ -23,9 +23,9 @@
 		var/obj/item/clothing/suit/armor/abductor/vest/V = locate() in H
 		if(V)
 			console.vest = V
-			V.flags |= NODROP
+			ADD_TRAIT(V, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT)
 
-		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(slot_back)
+		var/obj/item/abductor/gizmo/G = locate() in H.get_item_by_slot(ITEM_SLOT_BACK)
 		if(G)
 			console.gizmo = G
 			G.console = console
@@ -35,7 +35,6 @@
 	if(!visualsOnly)
 		link_to_console(H)
 
-
 /datum/outfit/abductor/agent
 	name = "Abductor Agent"
 	head = /obj/item/clothing/head/helmet/abductor
@@ -44,18 +43,19 @@
 	gloves = /obj/item/clothing/gloves/abductor_agent
 
 	backpack_contents = list(
-		/obj/item/abductor_baton = 1,
+		/obj/item/melee/baton/abductor = 1,
 		/obj/item/gun/energy/alien = 1,
-		/obj/item/abductor/silencer = 1
-		)
+		/obj/item/abductor/silencer = 1,
+	)
 
 /datum/outfit/abductor/scientist
 	name = "Abductor Scientist"
 	gloves = /obj/item/clothing/gloves/abductor_science
+	belt = /obj/item/storage/belt/medical/surgery/abductor/loaded
 
 	backpack_contents = list(
-		/obj/item/abductor/gizmo = 1
-		)
+		/obj/item/abductor/gizmo = 1,
+	)
 
 /datum/outfit/abductor/scientist/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

@@ -9,7 +9,6 @@
 	if(input)
 		return 1
 
-
 	if(!input)
 		var/turf/T = get_step(src, dir)
 		if(T)
@@ -38,9 +37,6 @@
 	else
 		icon_state = "bulb0"
 
-
-
-
 //Sensors only have one output and no inputs
 /obj/machinery/logic/sensor
 	//Output is searched from the 'dir' direction
@@ -63,7 +59,7 @@
 
 //Constant high generator. This will continue to send a signal of LOGIC_HIGH as long as it exists.
 /obj/machinery/logic/sensor/constant_high
-	icon = 'icons/obj/atmospherics/outlet_injector.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/outlet_injector.dmi'
 	icon_state = "off"
 
 /obj/machinery/logic/sensor/constant_high/process()
@@ -76,16 +72,13 @@
 
 	pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)
 
-
-
-
 //ONE INPUT logic elements have one input and one output
 /obj/machinery/logic/oneinput
 	var/dir_input = 2
 	var/dir_output = 1
 	var/obj/structure/cable/input
 	var/obj/structure/cable/output
-	icon = 'icons/atmos/heat.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/heat.dmi'
 	icon_state = "intact"
 
 /obj/machinery/logic/oneinput/process()
@@ -127,18 +120,10 @@
 	if(!pn_output)
 		return
 
-	if( !(pn_input.avail >= LOGIC_HIGH))
+	if(!(pn_input.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
-
-
-
-
-
-
-
-
 
 //TWO INPUT logic elements have two inputs and one output
 /obj/machinery/logic/twoinput
@@ -148,7 +133,7 @@
 	var/obj/structure/cable/input1
 	var/obj/structure/cable/input2
 	var/obj/structure/cable/output
-	icon = 'icons/obj/atmospherics/mixer.dmi'
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/mixer.dmi'
 	icon_state = "intact_off"
 
 /obj/machinery/logic/twoinput/process()
@@ -199,7 +184,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) && (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) && (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -219,7 +204,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) || (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) || (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -239,7 +224,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) != (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) != (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -259,7 +244,7 @@
 	if(!pn_output)
 		return
 
-	if( (pn_input1.avail >= LOGIC_HIGH) == (pn_input2.avail >= LOGIC_HIGH) )
+	if((pn_input1.avail >= LOGIC_HIGH) == (pn_input2.avail >= LOGIC_HIGH))
 		pn_output.newavail = max(pn_output.avail, LOGIC_HIGH)	//Set the output avilable power to 5 or whatever it was before.
 	else
 		pn_output.load += LOGIC_HIGH		//Otherwise increase the load to 5
@@ -276,7 +261,7 @@
 	if(!pn_input1)
 		return
 
-	if( pn_input1.avail >= LOGIC_HIGH )
+	if(pn_input1.avail >= LOGIC_HIGH)
 		var/datum/powernet/pn_input2 = input2.powernet
 		var/datum/powernet/pn_output = output.powernet
 
@@ -286,7 +271,6 @@
 		if(pn_input2.avail >= RELAY_POWER_TRANSFER)
 			pn_input2.load += RELAY_POWER_TRANSFER
 			pn_output.newavail += RELAY_POWER_TRANSFER
-
 
 #undef RELAY_POWER_TRANSFER
 #undef LOGIC_HIGH

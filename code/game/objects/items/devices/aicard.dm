@@ -2,15 +2,14 @@
 	name = "inteliCard"
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
-	item_state = "electronic"
+	item_state = "aicard"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
-	flags = NOBLUDGEON
+	slot_flags = ITEM_SLOT_BELT
+	item_flags = NOBLUDGEON
 	var/flush = null
 	origin_tech = "programming=3;materials=3"
 
-
-/obj/item/aicard/afterattack(atom/target, mob/user, proximity)
+/obj/item/aicard/afterattack(atom/target, mob/user, proximity, params)
 	..()
 	if(!proximity || !target)
 		return
@@ -22,30 +21,47 @@
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 	update_state() //Whatever happened, update the card's state (icon, name) to match.
 
-/obj/item/aicard/proc/update_state()
-	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+/obj/item/aicard/update_icon_state()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
 	if(AI)
-		name = "intelliCard - [AI.name]"
 		if(AI.stat == DEAD)
 			icon_state = "aicard-404"
 		else
 			icon_state = "aicard-full"
-		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
 	else
 		icon_state = "aicard"
+
+/obj/item/aicard/update_overlays()
+	. = ..()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
+	if(AI)
+		. += "aicard-on"
+
+/obj/item/aicard/update_name(updates = ALL)
+	. = ..()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src
+	if(AI)
+		name = "intelliCard - [AI.name]"
+	else
 		name = "intelliCard"
-		overlays.Cut()
+
+/obj/item/aicard/proc/update_state()
+	var/mob/living/silicon/ai/AI = locate(/mob/living/silicon/ai) in src //AI is inside.
+	update_appearance(UPDATE_ICON|UPDATE_NAME)
+	if(AI)
+		AI.cancel_camera() //AI are forced to move when transferred, so do this whenver one is downloaded.
 
 /obj/item/aicard/attack_self(mob/user)
 	ui_interact(user)
 
+/obj/item/aicard/ui_state(mob/user)
+	return GLOB.inventory_state
 
-/obj/item/aicard/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/aicard/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AICard", "[name]", 600, 394,  master_ui, state)
+		ui = new(user, src, "AICard", "[name]")
 		ui.open()
-
 
 /obj/item/aicard/ui_data(mob/user)
 	var/list/data = list()
@@ -74,7 +90,6 @@
 
 	return data
 
-
 /obj/item/aicard/ui_act(action, params)
 	if(..())
 		return
@@ -87,22 +102,22 @@
 	switch(action)
 		if("wipe")
 			if(flush) // Don't doublewipe.
-				to_chat(user, "<span class='warning'>You are already wiping this AI!</span>")
+				to_chat(user, span_warning("You are already wiping this AI!"))
 				return
-			var/confirm = alert("Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", "Yes", "No")
-			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == STATUS_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
+			var/confirm = tgui_alert(user, "Are you sure you want to wipe this card's memory? This cannot be undone once started.", "Confirm Wipe", list("Yes", "No"))
+			if(confirm == "Yes" && (ui_status(user, GLOB.inventory_state) == UI_INTERACTIVE)) // And make doubly sure they want to wipe (three total clicks)
 				add_attack_logs(user, AI, "Wiped with [src].", ATKLOG_FEW)
-				INVOKE_ASYNC(src, .proc/wipe_ai)
+				INVOKE_ASYNC(src, PROC_REF(wipe_ai))
 
 		if("radio")
 			AI.aiRadio.disabledAi = !AI.aiRadio.disabledAi
-			to_chat(AI, "<span class='warning'>Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!</span>")
-			to_chat(user, "<span class='notice'>You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver.</span>")
+			to_chat(AI, span_warning("Your Subspace Transceiver has been [AI.aiRadio.disabledAi ? "disabled" : "enabled"]!"))
+			to_chat(user, span_notice("You [AI.aiRadio.disabledAi ? "disable" : "enable"] the AI's Subspace Transceiver."))
 
 		if("wireless")
 			AI.control_disabled = !AI.control_disabled
-			to_chat(AI, "<span class='warning'>Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!</span>")
-			to_chat(user, "<span class='notice'>You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface.</span>")
+			to_chat(AI, span_warning("Your wireless interface has been [AI.control_disabled ? "disabled" : "enabled"]!"))
+			to_chat(user, span_notice("You [AI.control_disabled ? "disable" : "enable"] the AI's wireless interface."))
 			update_icon()
 
 	return TRUE
@@ -115,4 +130,19 @@
 	while(AI && AI.stat != DEAD)
 		AI.adjustOxyLoss(2)
 		sleep(10)
+	for(var/mob/living/silicon/robot/R in AI.connected_robots)
+		R.disconnect_from_ai()
+		R.show_laws()
 	flush = FALSE
+
+/obj/item/aicard/add_tape()
+	var/mob/living/silicon/ai/AI = locate() in src
+	if(!AI)
+		return
+	QDEL_NULL(AI.builtInCamera)
+
+/obj/item/aicard/remove_tape()
+	var/mob/living/silicon/ai/AI = locate() in src
+	if(!AI)
+		return
+	AI.builtInCamera = new(AI, list("SS13"), AI.name)

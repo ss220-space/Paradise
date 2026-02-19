@@ -1,25 +1,20 @@
 /mob/living/carbon/alien/larva/Life(seconds, times_fired)
-	set invisibility = 0
-	if(notransform)
-		return
-	if(..()) //not dead and not in stasis
-		// GROW!
-		if(amount_grown < max_grown)
-			amount_grown++
-			update_icons()
+	var/old_evo_points = evolution_points
+	. = ..()
+	if(. && old_evo_points != evolution_points)
+		update_icons()
 
 /mob/living/carbon/alien/larva/update_stat(reason = "none given", should_log = FALSE)
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return ..()
 	if(stat != DEAD)
 		if(health <= -maxHealth || !get_int_organ(/obj/item/organ/internal/brain))
 			death()
 			return
 
-		if(paralysis || sleeping || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
-			if(stat == CONSCIOUS)
-				KnockOut()
+		if(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || getOxyLoss() > 50 || (health <= HEALTH_THRESHOLD_CRIT && check_death_method()))
+			set_stat(UNCONSCIOUS)
 		else
-			if(stat == UNCONSCIOUS)
-				WakeUp()
-	..()
+			set_stat(CONSCIOUS)
+
+	return ..()

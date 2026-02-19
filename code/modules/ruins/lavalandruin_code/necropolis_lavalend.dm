@@ -2,13 +2,14 @@
 	name = "Necropolis"
 	icon_state = "cave"
 	tele_proof = TRUE
+	holomap_should_draw = FALSE
 
 /obj/effect/landmark/map_loader/lavaland_room
-	icon = 'icons/testing/turf_analysis.dmi'
+	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
-/obj/effect/landmark/map_loader/lavaland_room/Initialize()
-	..()
+/obj/effect/landmark/map_loader/lavaland_room/Initialize(mapload)
+	. = ..()
 	// load and randomly assign rooms
 	var/global/list/south_necropolisroom_templates = list()
 	var/global/list/north_necropolisroom_templates = list()
@@ -47,7 +48,6 @@
 		else
 			room = east_necropolisroom_templates
 
-
 	var/datum/map_template/M = safepick(room)
 	if(M)
 		switch(dir)
@@ -61,75 +61,73 @@
 				east_necropolisroom_templates -= M
 	load(M)
 
-
 //----------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------door-------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor
 	name = "necropolis door"
-	desc = "Древние двери которые откроются только только избранным"
+	desc = "Древние двери которые откроются только избранным."
 	icon = 'icons/obj/lavaland/necrdoor.dmi'
 	icon_state = "necr"
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/preopen
 	icon_state = "necropen"
 	density = FALSE
-	opacity = 0
+	opacity = FALSE
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/do_animate(animation)
 	switch(animation)
 		if("opening")
 			flick("necropening", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 		if("closing")
 			flick("necrclosing", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 
-/obj/machinery/door/poddoor/impassable/necropolisdoor/update_icon()
+/obj/machinery/door/poddoor/impassable/necropolisdoor/update_icon_state()
 	if(density)
 		icon_state = "necr"
 	else
 		icon_state = "necropen"
+	SSdemo.mark_dirty(src)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_activate_door(mob/user)
- 	return
+	return
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/try_to_crowbar(mob/user, obj/item/I)
-		to_chat(user, "<span class='warning'>[src] resists your efforts to force it!</span>")
+		to_chat(user, span_warning("[src] resists your efforts to force it!"))
 
 /mob/living/simple_animal/hostile/megafauna/legion/proc/UnlockBlastDoors(target_id_tag)
 	for(var/obj/machinery/door/poddoor/impassable/necropolisdoor/P in GLOB.airlocks)
 		if(P.density && P.id_tag == target_id_tag && P.z == z && !P.operating)
 			P.open()
 
-
 //----------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------multi tile door-------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
-
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/Initialize(mapload)
 	. = ..()
 	apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/open()
-	if(..())
+	. = ..()
+	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/close()
-	if(..())
+	. = ..()
+	if(.)
 		apply_opacity_to_my_turfs(opacity)
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/Destroy()
-	apply_opacity_to_my_turfs(0)
+	apply_opacity_to_my_turfs(FALSE)
 	return ..()
 
-/obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/proc/apply_opacity_to_my_turfs(var/new_opacity)
-	for(var/turf/T in locs)
-		T.opacity = new_opacity
-		T.has_opaque_atom = new_opacity
-		T.reconsider_lights()
+/obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/proc/apply_opacity_to_my_turfs(new_opacity)
+	for(var/turf/turf as anything in locs)
+		turf.set_opacity(new_opacity)
 	update_freelook_sight()
 
 /obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor
@@ -145,12 +143,12 @@
 	switch(animation)
 		if("opening")
 			flick("blocked_passage", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 		if("closing")
 			flick("blocked_passage", src)
-			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, 1)
+			playsound(src, 'sound/effects/stonedoor_openclose.ogg', 30, TRUE)
 
-/obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor/update_icon()
+/obj/machinery/door/poddoor/impassable/necropolisdoor/multi_tile/four_tile_hor/update_icon_state()
 	if(density)
 		icon_state = "blocked_passage"
 	else

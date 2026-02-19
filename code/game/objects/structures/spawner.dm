@@ -9,11 +9,32 @@
 	density = TRUE
 
 	var/max_mobs = 5
-	var/spawn_time = 300 //30 seconds default
+	var/spawn_time = 30 SECONDS
 	var/mob_types = list(/mob/living/simple_animal/hostile/carp)
-	var/spawn_text = "emerges from"
+	var/spawn_text = "выходит из"
 	var/faction = list("hostile")
 	var/spawner_type = /datum/component/spawner
+	/// Is this spawner taggable with something?
+	var/scanner_taggable = FALSE
+	/// If this spawner's taggable, what can we tag it with?
+	var/static/list/scanner_types = list(/obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner)
+	/// Has this spawner been tagged/analyzed by a mining scanner?
+	var/gps_tagged = FALSE
+	/// A short identifier for the mob it spawns. Keep around 3 characters or less?
+	var/mob_gps_id = "???"
+	/// A short identifier for what kind of spawner it is, for use in putting together its GPS tag.
+	var/spawner_gps_id = "Гнездо существ"
+	/// A complete identifier. Generated on tag (if tagged), used for its examine.
+	var/assigned_tag
+
+/obj/structure/spawner/examine(mob/user)
+	. = ..()
+	if(!scanner_taggable)
+		return
+	if(gps_tagged)
+		. += span_notice("Прикреплён GPS-голотег: <b>[assigned_tag]</b>.")
+	else
+		. += span_notice("Может быть отмечено GPS-сигнатурой с помощью <b>шахтёрского сканера</b>.")
 
 /obj/structure/spawner/Initialize(mapload)
 	. = ..()
@@ -24,6 +45,31 @@
 		return
 	..()
 
+/obj/structure/spawner/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !scanner_taggable || !is_type_in_list(I, scanner_types))
+		return .
+	. |= ATTACK_CHAIN_SUCCESS
+	gps_tag(user)
+
+/// Tag the spawner, prefixing its GPS entry with an identifier - or giving it one, if nonexistent.
+/obj/structure/spawner/proc/gps_tag(mob/user)
+	if(gps_tagged)
+		balloon_alert(user, "уже отмечено!")
+		return
+	playsound(src, 'sound/machines/twobeep.ogg', 50)
+	gps_tagged = TRUE
+	assigned_tag = "\[[mob_gps_id]-[rand(100,999)]\] " + spawner_gps_id
+	var/obj/item/gps/internal = new /obj/item/gps/internal/tendril(src)
+	if(internal)
+		internal.gpstag = assigned_tag
+
+/obj/item/gps/internal/tendril
+	icon_state = null
+	gpstag = "Null  Signal"
+	desc = "Holotag to a tendrill."
+	invisibility = 100
+
 /obj/structure/spawner/syndicate
 	name = "warp beacon"
 	icon = 'icons/obj/device.dmi'
@@ -31,11 +77,12 @@
 	spawn_text = "warps in from"
 	mob_types = list(/mob/living/simple_animal/hostile/syndicate/ranged)
 	faction = list(ROLE_SYNDICATE)
+	mob_gps_id = "SYN" // syndicate
+	spawner_gps_id = "Hostile Warp Beacon"
 
 /obj/structure/spawner/skeleton
 	name = "bone pit"
 	desc = "A pit full of bones, and some still seem to be moving..."
-	icon_state = "hole"
 	icon = 'icons/mob/nest.dmi'
 	max_integrity = 150
 	max_mobs = 15
@@ -43,6 +90,8 @@
 	mob_types = list(/mob/living/simple_animal/hostile/skeleton)
 	spawn_text = "climbs out of"
 	faction = list("undead")
+	mob_gps_id = "SKL" // skeletons
+	spawner_gps_id = "Bone Pit"
 
 /obj/structure/spawner/clown
 	name = "Laughing Larry"
@@ -55,11 +104,11 @@
 	mob_types = list(/mob/living/simple_animal/hostile/retaliate/clown)
 	spawn_text = "climbs out of"
 	faction = list("clown")
+	spawner_gps_id = "Clown Planet Distortion"
 
 /obj/structure/spawner/mining
 	name = "monster den"
 	desc = "A hole dug into the ground, harboring all kinds of monsters found within most caves or mining asteroids."
-	icon_state = "hole"
 	max_integrity = 200
 	max_mobs = 3
 	icon = 'icons/mob/nest.dmi'
@@ -71,21 +120,25 @@
 	name = "goldgrub den"
 	desc = "A den housing a nest of goldgrubs, annoying but arguably much better than anything else you'll find in a nest."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goldgrub)
+	mob_gps_id = "GG"
 
 /obj/structure/spawner/mining/goliath
 	name = "goliath den"
 	desc = "A den housing a nest of goliaths, oh god why?"
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/goliath)
+	mob_gps_id = "GL"
 
 /obj/structure/spawner/mining/hivelord
 	name = "hivelord den"
 	desc = "A den housing a nest of hivelords."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord)
+	mob_gps_id = "HL"
 
 /obj/structure/spawner/mining/basilisk
 	name = "basilisk den"
 	desc = "A den housing a nest of basilisks, bring a coat."
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/basilisk)
+	mob_gps_id = "BK"
 
 /obj/structure/spawner/headcrab
 	name = "headcrab nest"
@@ -98,3 +151,4 @@
 	mob_types = list(/mob/living/simple_animal/hostile/headcrab, /mob/living/simple_animal/hostile/headcrab/fast, /mob/living/simple_animal/hostile/headcrab/poison)
 	spawn_text = "crawls out of"
 	faction = list("hostile")
+	mob_gps_id = "HC"

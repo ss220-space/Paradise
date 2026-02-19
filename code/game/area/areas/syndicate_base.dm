@@ -1,3 +1,7 @@
+/area/syndicate/unpowered
+	has_gravity = STANDARD_GRAVITY
+	holomap_should_draw = FALSE
+
 /area/syndicate/unpowered/syndicate_space_base
 	name = "Secret Space Base"
 	icon_state = "syndie-control"
@@ -17,7 +21,6 @@
 /area/syndicate/unpowered/syndicate_space_base/medbay
 	name = "Syndicate Space Medbay"
 	ambientsounds = MEDICAL_SOUNDS
-	sound_environment = SOUND_AREA_STANDARD_STATION
 	icon_state = "taipan_medbay"
 
 /area/syndicate/unpowered/syndicate_space_base/medbay/surgery1
@@ -117,8 +120,6 @@
 	icon_state = "taipan_janitor"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
-
-
 /area/syndicate/unpowered/syndicate_space_base/toilets
 	name = "Syndicate Space Toilets"
 	icon_state = "taipan_toilet"
@@ -168,7 +169,6 @@
 
 /area/syndicate/unpowered/syndicate_space_base/turrets
 	name = "Syndicate Space Turrets"
-	dynamic_lighting = DYNAMIC_LIGHTING_IFSTARLIGHT
 	sound_environment = SOUND_AREA_SPACE
 	icon_state = "taipan_turrets"
 

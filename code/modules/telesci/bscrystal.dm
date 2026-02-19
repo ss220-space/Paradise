@@ -10,32 +10,34 @@
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/sheet/bluespace_crystal
-	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/stack/ore/bluespace_crystal/attack_self_tk(mob/user)
+	return
 
 /obj/item/stack/ore/bluespace_crystal/New(loc, new_amount, merge = TRUE)
 	..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-/obj/item/stack/ore/bluespace_crystal/attack_self(var/mob/user)
-	if(do_after(user, 1 SECONDS, target = user))
+/obj/item/stack/ore/bluespace_crystal/attack_self(mob/user)
+	if(do_after(user, 1 SECONDS, user))
 		var/mob/living/carbon/human/bs_user = user
 		if(use(1))
 			blink_mob(bs_user)
 			bs_user.adjustStaminaLoss(33) // same as taser ; balance ideas - increase staminoloss / time to crush, move staminaLoss before blink or even do_after, replace if(do_after...) and if(use(1))
-			bs_user.visible_message("<span class='notice'>[bs_user] crushes a [singular_name]!</span>")
+			bs_user.visible_message(span_notice("[bs_user] раздавлива[PLUR_ET_YUT(bs_user)] [singular_name]!"))
 	else
-		to_chat(user, "<span class='notice'>You need to hold still to crush [singular_name].</span>")
+		to_chat(user, span_notice("Вам нужно оставаться неподвижным, чтобы раздавить [singular_name]."))
 
-/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
+/obj/item/stack/ore/bluespace_crystal/proc/blink_mob(mob/living/L)
 	if(!is_teleport_allowed(L.z))
-		src.visible_message("<span class='warning'>[src]'s fragments begin rapidly vibrating and blink out of existence.</span>")
+		src.visible_message(span_warning("Осколки [declent_ru(GENITIVE)] начинают быстро вибрировать и исчезают."))
 		qdel(src)
 		return
 	do_teleport(L, get_turf(L), blink_range, asoundin = 'sound/effects/phasein.ogg')
 
-/obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom)
+/obj/item/stack/ore/bluespace_crystal/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	..()
 	if(isliving(hit_atom))
 		blink_mob(hit_atom)
@@ -65,17 +67,15 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	name = "bluespace polycrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "polycrystal"
+	protolathe_name = "bluespace_polycrystal"
 	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
-	toolspeed = 1
-	usesound = 'sound/items/deconstruct.ogg'
+	attack_verb = list("блюспейс полиударил", "блюспейс полиогрел", "блюспейс полистукнул", "блюспейс полисокрушил")
 	point_value = 30
 
-/obj/item/stack/sheet/bluespace_crystal/New()
-	..()
+/obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.bluespace_crystal_recipes
-	pixel_x = rand(0,4)-4
-	pixel_y = rand(0,4)-4
+

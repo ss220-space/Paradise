@@ -1,32 +1,42 @@
 /datum/species/abductor
-	name = "Abductor"
+	name = SPECIES_ABDUCTOR
 	name_plural = "Abductors"
 	a = "an"
 	icobase = 'icons/mob/human_races/r_abductor.dmi'
 	deform = 'icons/mob/human_races/r_abductor.dmi'
-	language = "Abductor Mindlink"
-	default_language = "Abductor Mindlink"
+	language = LANGUAGE_HIVE_ABDUCTOR
+	default_language = LANGUAGE_HIVE_ABDUCTOR
 	eyes = "blank_eyes"
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart,
-		"liver" =    /obj/item/organ/internal/liver,
-		"kidneys" =  /obj/item/organ/internal/kidneys,
-		"brain" =    /obj/item/organ/internal/brain/abductor,
-		"eyes" =     /obj/item/organ/internal/eyes/abductor //3 darksight.
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/grey/abductor,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/grey/abductor,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/grey/abductor,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/abductor,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/grey/abductor,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/grey/abductor,
+	)
 
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey
 
-	species_traits = list(NO_BLOOD, NO_BREATHE, VIRUSIMMUNE, NOGUNS, NO_HUNGER, NO_EXAMINE)
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_GUNS,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NO_SPECIES_EXAMINE,
+		TRAIT_NO_HUNGER,
+		TRAIT_MASTER_SURGEON,
+	)
 	dies_at_threshold = TRUE
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
 
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	blood_color = "#FF5AFF"
-	female_scream_sound = 'sound/goonstation/voice/male_scream.ogg'
+	female_scream_sound = list('sound/goonstation/voice/male_scream.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/m_cougha.ogg','sound/effects/mob_effects/m_coughb.ogg', 'sound/effects/mob_effects/m_coughc.ogg')
-	female_sneeze_sound = 'sound/effects/mob_effects/sneeze.ogg' //Abductors always scream like guys
+	female_sneeze_sound = list('sound/effects/mob_effects/sneeze.ogg') //Abductors always scream like guys
 	var/team = 1
 	var/scientist = FALSE // vars to not pollute spieces list with castes
 
@@ -37,14 +47,15 @@
 	return TRUE
 
 /datum/species/abductor/on_species_gain(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	H.gender = NEUTER
-	H.languages.Cut() //Under no condition should you be able to speak any language
-	H.add_language("Abductor Mindlink") //other than over the abductor's own mindlink
+	LAZYREINITLIST(H.languages) //Under no condition should you be able to speak any language
+	H.add_language(LANGUAGE_HIVE_ABDUCTOR) //other than over the abductor's own mindlink
+	H.add_language(LANGUAGE_GREY) // still grey enouhg to speak in psi link
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.add_hud_to(H)
+	abductor_hud.show_to(H)
 
 /datum/species/abductor/on_species_loss(mob/living/carbon/human/H)
-	..()
+	. = ..()
 	var/datum/atom_hud/abductor_hud = GLOB.huds[DATA_HUD_ABDUCTOR]
-	abductor_hud.remove_hud_from(H)
+	abductor_hud.hide_from(H)

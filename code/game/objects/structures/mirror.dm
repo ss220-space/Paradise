@@ -4,10 +4,10 @@
 	desc = "Mirror mirror on the wall, who's the most robust of them all?"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "mirror"
-	density = 0
-	anchored = 1
+	anchored = TRUE
 	max_integrity = 200
 	integrity_failure = 100
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	var/list/ui_users = list()
 
 /obj/structure/mirror/Initialize(mapload, newdir = SOUTH, building = FALSE)
@@ -22,9 +22,11 @@
 				pixel_x = -32
 			if(WEST)
 				pixel_x = 32
+	GLOB.mirrors += src
 
 /obj/structure/mirror/Destroy()
 	QDEL_LIST_ASSOC_VAL(ui_users)
+	GLOB.mirrors -= src
 	return ..()
 
 /obj/structure/mirror/attack_hand(mob/user)
@@ -37,35 +39,39 @@
 			AC = new(src, user)
 			AC.name = "SalonPro Nano-Mirror"
 			AC.flags = APPEARANCE_ALL_BODY
+			if(iswryn(user))
+				AC.flags -= APPEARANCE_HAIR
 			ui_users[user] = AC
+		add_fingerprint(user)
 		AC.ui_interact(user)
 
 /obj/structure/mirror/obj_break(damage_flag, mapload)
-	if(!broken && !(flags & NODECONSTRUCT))
+	if(!broken && !(obj_flags & NODECONSTRUCT))
 		icon_state = "mirror_broke"
 		if(!mapload)
-			playsound(src, "shatter", 70, TRUE)
+			playsound(src, SFX_SHATTER, 70, TRUE)
 		if(desc == initial(desc))
 			desc = "Oh no, seven years of bad luck!"
 		broken = TRUE
+		GLOB.mirrors -= src
 
 /obj/structure/mirror/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	user.visible_message("<span class='notice'>[user] begins to unfasten [src].</span>", "<span class='notice'>You begin to unfasten [src].</span>")
+	user.visible_message(span_notice("[user] begins to unfasten [src]."), span_notice("You begin to unfasten [src]."))
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
 	if(broken)
-		user.visible_message("<span class='notice'>[user] drops the broken shards to the floor.</span>", "<span class='notice'>You drop the broken shards on the floor.</span>")
+		user.visible_message(span_notice("[user] drops the broken shards to the floor."), span_notice("You drop the broken shards on the floor."))
 		new /obj/item/shard(get_turf(user))
 	else
-		user.visible_message("<span class='notice'>[user] carefully places [src] on the floor.</span>", "<span class='notice'>You carefully place [src] on the floor.</span>")
+		user.visible_message(span_notice("[user] carefully places [src] on the floor."), span_notice("You carefully place [src] on the floor."))
 		new /obj/item/mounted/mirror(get_turf(user))
 	qdel(src)
 
 /obj/structure/mirror/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(!disassembled)
 			new /obj/item/shard( src.loc )
 	qdel(src)
@@ -77,6 +83,17 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
+/obj/structure/mirror/handle_ricochet(obj/projectile/P)
+	if(!anchored)
+		return FALSE
+
+	if(broken)
+		if(prob(90))
+			return FALSE
+	else if(prob(70))
+		return FALSE
+
+	return ..()
 
 /obj/item/mounted/mirror
 	name = "mirror"
@@ -86,7 +103,7 @@
 
 /obj/item/mounted/mirror/do_build(turf/on_wall, mob/user)
 	var/obj/structure/mirror/M = new /obj/structure/mirror(get_turf(user), get_dir(on_wall, user), 1)
-	transfer_prints_to(M, TRUE)
+	transfer_fingerprints_to(M)
 	qdel(src)
 
 /obj/structure/mirror/magic
@@ -98,11 +115,13 @@
 		return
 
 	var/mob/living/carbon/human/H = user
-	var/choice = input(user, "Something to change?", "Magical Grooming") as null|anything in list("Name", "Body", "Voice")
+	var/choice = tgui_input_list(user, "Something to change?", "Magical Grooming", list("Name", "Body", "Voice"))
+
+	add_fingerprint(user)
 
 	switch(choice)
 		if("Name")
-			var/newname = copytext(sanitize(input(H, "Who are we again?", "Name change", H.name) as null|text),1,MAX_NAME_LEN)
+			var/newname = tgui_input_text(H, "Who are we again?", "Name change", H.name, max_length = MAX_NAME_LEN)
 
 			if(!newname)
 				return
@@ -117,13 +136,8 @@
 				curse(user)
 
 		if("Body")
-			var/list/race_list = list("Human", "Tajaran", "Skrell", "Unathi", "Diona", "Vulpkanin", "Nian")
-			if(config.usealienwhitelist)
-				for(var/Spec in GLOB.whitelisted_species)
-					if(is_alien_whitelisted(H, Spec))
-						race_list += Spec
-			else
-				race_list += GLOB.whitelisted_species
+			var/list/race_list = list(SPECIES_HUMAN)
+			race_list += CONFIG_GET(str_list/playable_species)
 
 			var/datum/ui_module/appearance_changer/AC = ui_users[user]
 			if(!AC)
@@ -135,7 +149,7 @@
 			AC.ui_interact(user)
 
 		if("Voice")
-			var/voice_choice = input(user, "Perhaps...", "Voice effects") as null|anything in list("Comic Sans", "Wingdings", "Swedish", "Староимперский", "Mute")
+			var/voice_choice = tgui_input_list(user, "Perhaps...", "Voice effects", list("Comic Sans", "Wingdings", "Swedish", "Староимперский", "Mute"))
 			var/voice_mutation
 			switch(voice_choice)
 				if("Comic Sans")
@@ -147,14 +161,12 @@
 				if("Староимперский")
 					voice_mutation = GLOB.auld_imperial_block
 				if("Mute")
-					voice_mutation = GLOB.muteblock
+					if(HAS_TRAIT_FROM(user, TRAIT_MUTE, "mirror"))
+						REMOVE_TRAIT(user, TRAIT_MUTE, "mirror")
+					else
+						ADD_TRAIT(user, TRAIT_MUTE, "mirror")
 			if(voice_mutation)
-				if(H.dna.GetSEState(voice_mutation))
-					H.dna.SetSEState(voice_mutation, FALSE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
-				else
-					H.dna.SetSEState(voice_mutation, TRUE)
-					genemutcheck(H, voice_mutation, null, MUTCHK_FORCED)
+				H.force_gene_block(voice_mutation, !H.dna.GetSEState(voice_mutation))
 
 			if(voice_choice)
 				curse(user)
@@ -163,7 +175,7 @@
 	curse(user)
 
 /obj/structure/mirror/magic/attackby(obj/item/I, mob/living/user, params)
-	return
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/structure/mirror/magic/proc/curse(mob/living/user)
 	return

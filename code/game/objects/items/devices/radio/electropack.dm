@@ -3,22 +3,22 @@
 	desc = "Dance my monkeys! DANCE!!!"
 	icon_state = "electropack0"
 	item_state = "electropack"
-	frequency = AIRLOCK_FREQ
-	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
 	materials = list(MAT_METAL=10000, MAT_GLASS=2500)
+	default_frequency = AIRLOCK_FREQ
 	var/code = 2
+	var/intensivity = TRUE
 
-/obj/item/radio/electropack/attack_hand(mob/user as mob)
+/obj/item/radio/electropack/attack_hand(mob/user)
 	if(src == user.back)
-		to_chat(user, "<span class='notice'>You need help taking this off!</span>")
-		return 0
+		to_chat(user, span_notice("You need help taking this off!"))
+		return FALSE
 	. = ..()
 
 /obj/item/radio/electropack/Destroy()
-	if(istype(src.loc, /obj/item/assembly/shock_kit))
-		var/obj/item/assembly/shock_kit/S = src.loc
+	if(istype(loc, /obj/item/assembly/shock_kit))
+		var/obj/item/assembly/shock_kit/S = loc
 		if(S.part1 == src)
 			S.part1 = null
 		else if(S.part2 == src)
@@ -26,61 +26,63 @@
 		master = null
 	return ..()
 
-/obj/item/radio/electropack/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/clothing/head/helmet))
+/obj/item/radio/electropack/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clothing/head/helmet))
+		add_fingerprint(user)
 		if(!b_stat)
-			to_chat(user, "<span class='notice'>[src] is not ready to be attached!</span>")
-			return
-		var/obj/item/assembly/shock_kit/A = new /obj/item/assembly/shock_kit( user )
-		A.icon = 'icons/obj/assemblies.dmi'
+			to_chat(user, span_notice("[src] is not ready to be attached!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/assembly/shock_kit/shock_kit = new(drop_location())
+		if((loc == user && !user.can_unEquip(src)) || !user.drop_transfer_item_to_loc(I, shock_kit))
+			qdel(shock_kit)
+			return ATTACK_CHAIN_PROCEED
+		if(loc == user)
+			user.transfer_item_to_loc(src, shock_kit, silent = TRUE)
+		else
+			forceMove(shock_kit)
+		shock_kit.icon = 'icons/obj/assemblies.dmi'
+		shock_kit.add_fingerprint(user)
 
-		if(!user.unEquip(W))
-			to_chat(user, "<span class='notice'>\the [W] is stuck to your hand, you cannot attach it to \the [src]!</span>")
-			return
-		W.loc = A
-		W.master = A
-		A.part1 = W
+		I.master = shock_kit
+		shock_kit.part1 = I
 
-		user.unEquip(src)
-		loc = A
-		master = A
-		A.part2 = src
+		master = shock_kit
+		shock_kit.part2 = src
 
-		user.put_in_hands(A)
-		A.add_fingerprint(user)
-		if(src.flags & NODROP)
-			A.flags |= NODROP
+		user.put_in_hands(shock_kit, ignore_anim = FALSE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
+	return ..()
 
 /obj/item/radio/electropack/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption != code)
 		return
 
-	if(ismob(loc) && on)
-		var/mob/M = loc
-		var/turf/T = M.loc
-		if(istype(T, /turf))
-			if(!M.moved_recently && M.last_move)
-				M.moved_recently = 1
-				step(M, M.last_move)
-				sleep(50)
-				if(M)
-					M.moved_recently = 0
-		to_chat(M, "<span class='danger'>You feel a sharp shock!</span>")
-		do_sparks(3, 1, M)
+	if(isliving(loc) && on)
+		var/mob/living/M = loc
+		if(isturf(M.loc) && M.last_move && intensivity)
+			step(M, M.last_move)
+			intensivity = FALSE
+			addtimer(CALLBACK(src, PROC_REF(intensify)), 5 SECONDS)
+		to_chat(M, span_userdanger("You feel a sharp shock!"))
+		do_sparks(3, TRUE, M)
 
-		M.Weaken(5)
+		M.Weaken(10 SECONDS)
 
 	if(master)
 		master.receive_signal()
 	return
 
+/obj/item/radio/electropack/proc/intensify()
+	intensivity = TRUE
 
-/obj/item/radio/electropack/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/radio/electropack/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/radio/electropack/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Electropack", name, 360, 150, master_ui, state)
+		ui = new(user, src, "Electropack", name)
 		ui.open()
 
 /obj/item/radio/electropack/ui_data(mob/user)
@@ -93,7 +95,7 @@
 	return data
 
 /obj/item/radio/electropack/ui_act(action, params)
-	if(..())
+	if(isnull(..()))	// We still can use item if parent returns FALSE.
 		return
 	. = TRUE
 	switch(action)
@@ -102,7 +104,7 @@
 		if("freq")
 			var/value = params["freq"]
 			if(value)
-				frequency = sanitize_frequency(value)
+				frequency = sanitize_frequency(text2num(value) * 10)
 				set_frequency(frequency)
 			else
 				. = FALSE

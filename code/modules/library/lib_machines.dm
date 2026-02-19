@@ -1,5 +1,3 @@
-#define LIBRARY_BOOKS_PER_PAGE 25
-
 GLOBAL_DATUM_INIT(library_catalog, /datum/library_catalog, new())
 GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "Adult", "Reference", "Religion"))
 
@@ -26,14 +24,16 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	var/forbidden=0
 	var/path = /obj/item/book // Type path of the book to generate
 	var/flagged = 0
+	var/flaggedby
 
-/datum/cachedbook/proc/LoadFromRow(var/list/row)
+/datum/cachedbook/proc/LoadFromRow(list/row)
 	id = row["id"]
 	author = row["author"]
 	title = row["title"]
 	category = row["category"]
 	ckey = row["ckey"]
 	flagged = row["flagged"]
+	flaggedby = row["flaggedby"]
 	if("content" in row)
 		content = row["content"]
 	programmatic=0
@@ -68,18 +68,21 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		var/datum/cachedbook/CB = cached_books["[id]"]
 		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be flagged in the system, as it does not actually exist in the database.</span>")
+			to_chat(user, span_danger("Эту книгу невозможно пометить в системе, так как она отсутствует в базе данных."))
 			return
 
 	if("[id]" in books_flagged_this_round)
-		to_chat(user, "<span class='danger'>This book has already been flagged this shift.</span>")
+		to_chat(user, span_danger("Эту книгу уже помечали на этой смене."))
 		return
 
 	books_flagged_this_round["[id]"] = 1
 	message_admins("[key_name_admin(user)] has flagged book #[id] as inappropriate.")
 
-	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1 WHERE id=:id", list(
-		"id" = text2num(id)
+	log_game("[user] (ckey: [user.key]) has flagged book #[id] as inappropriate.")
+
+	var/datum/db_query/query = SSdbcore.NewQuery("UPDATE [format_table_name("library")] SET flagged = flagged + 1, flaggedby=:flaggedby WHERE id=:id", list(
+		"id" = text2num(id),
+		"flaggedby" = user.key
 	))
 	if(!query.warn_execute())
 		qdel(query)
@@ -90,7 +93,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		var/datum/cachedbook/CB = cached_books["[id]"]
 		if(CB.programmatic)
-			to_chat(user, "<span class='danger'>That book cannot be removed from the system, as it does not actually exist in the database.</span>")
+			to_chat(user, span_danger("Эту книгу невозможно убрать из системы, так как она отсутсвует в базе данных"))
 			return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("DELETE FROM [format_table_name("library")] WHERE id=:id", list(
@@ -105,7 +108,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	if("[id]" in cached_books)
 		return cached_books["[id]"]
 
-	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged FROM [format_table_name("library")] WHERE id=:id", list(
+	var/datum/db_query/query = SSdbcore.NewQuery("SELECT id, author, title, category, content, ckey, flagged, flaggedby FROM [format_table_name("library")] WHERE id=:id", list(
 		"id" = text2num(id)
 	))
 	if(!query.warn_execute())
@@ -122,7 +125,8 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 			"category"=query.item[4],
 			"content" =query.item[5],
 			"ckey"    =query.item[6],
-			"flagged" =query.item[7]
+			"flagged" =query.item[7],
+			"flaggedby"=query.item[8]
 		))
 		results += CB
 		cached_books["[id]"]=CB
@@ -134,50 +138,69 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 /** Scanner **/
 /obj/machinery/libraryscanner
 	name = "scanner"
+	desc = "Крупная машина для сканирования печатной литературы."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
-	anchored = 1
-	density = 1
-	var/obj/item/book/cache		// Last scanned book
+	anchored = TRUE
+	density = TRUE
+	/// Last scanned book
+	var/obj/item/book/cache
 
-/obj/machinery/libraryscanner/attackby(obj/item/I, mob/user)
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
-	if(istype(I, /obj/item/book))
-		// NT with those pesky DRM schemes
-		var/obj/item/book/B = I
-		if(B.has_drm)
-			atom_say("Copyrighted material detected. Scanner is unable to copy book to memory.")
-			return FALSE
-		user.drop_item()
-		I.forceMove(src)
-		return 1
-	else
+/obj/machinery/libraryscanner/get_ru_names()
+	return list(
+		NOMINATIVE = "сканер",
+		GENITIVE = "сканера",
+		DATIVE = "сканеру",
+		ACCUSATIVE = "сканер",
+		INSTRUMENTAL = "сканером",
+		PREPOSITIONAL = "сканере",
+	)
+
+/obj/machinery/libraryscanner/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/book))
+		add_fingerprint(user)
+		// NT with those pesky DRM schemes
+		var/obj/item/book/book = I
+		if(book.has_drm)
+			atom_say("Обнаружен материал, защищенный авторским правом. Сканер не способен поместить эту книгу в память.", FALSE)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(book, src))
+			return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
 
 /obj/machinery/libraryscanner/attack_hand(mob/user)
 	if(istype(user,/mob/dead))
-		to_chat(user, "<span class='danger'>Nope.</span>")
+		to_chat(user, span_danger("Фигу видишь?"))
 		return
+	add_fingerprint(user)
 	usr.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>Scanner Control Interface</TITLE></HEAD><BODY>\n"} // <META HTTP-EQUIV='Refresh' CONTENT='10'>
+	var/dat = ""
 	if(cache)
-		dat += "<FONT color=#005500>Data stored in memory.</FONT><BR>"
+		dat += "[span_green("Данные помещены в память.")]"
 	else
-		dat += "No data stored in memory.<BR>"
-	dat += "<A href='?src=[UID()];scan=1'>\[Scan\]</A>"
+		dat += "В памяти отсутствуют данные."
+	dat += "<a href='byond://?src=[UID()];scan=1'>\[сканировать\]</a>"
 	if(cache)
-		dat += "       <A href='?src=[UID()];clear=1'>\[Clear Memory\]</A><BR><BR><A href='?src=[UID()];eject=1'>\[Remove Book\]</A>"
+		dat += "       <a href='byond://?src=[UID()];clear=1'>\[Очистить память\]</a><br><br><a href='byond://?src=[UID()];eject=1'>\[Убрать книгу\]</a>"
 	else
-		dat += "<BR>"
-	user << browse(dat, "window=scanner")
-	onclose(user, "scanner")
+		dat += "<br>"
+	var/datum/browser/popup = new(usr, "libraryscanner", "Интерфейс управления сканером")
+	popup.set_content(dat)
+	popup.open(TRUE)
+	onclose(user, "libraryscanner")
 
 /obj/machinery/libraryscanner/Topic(href, href_list)
 	if(..())
-		usr << browse(null, "window=scanner")
-		onclose(usr, "scanner")
+		close_window(usr, "libraryscanner")
+		onclose(usr, "libraryscanner")
 		return
 
 	if(href_list["scan"])
@@ -193,33 +216,67 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 	src.updateUsrDialog()
 	return
 
-
 /*
  * Book binder
  */
 /obj/machinery/bookbinder
 	name = "Book Binder"
+	desc = "Крупное устройство для скрепления листов бумаги в книжный переплёт."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "binder"
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 
-/obj/machinery/bookbinder/attackby(obj/item/I, mob/user)
-	var/obj/item/paper/P = I
-	if(default_unfasten_wrench(user, I))
-		power_change()
-		return
-	if(istype(P))
-		user.drop_item()
-		user.visible_message("[user] loads some paper into [src].", "You load some paper into [src].")
-		src.visible_message("[src] begins to hum as it warms up its printing drums.")
-		sleep(rand(200,400))
-		src.visible_message("[src] whirs as it prints and binds a new book.")
-		var/obj/item/book/b = new(loc)
-		b.dat = P.info
-		b.name = "Print Job #[rand(100, 999)]"
-		b.icon_state = "book[rand(1,16)]"
-		qdel(P)
-		return 1
-	else
+/obj/machinery/bookbinder/get_ru_names()
+	return list(
+		NOMINATIVE = "брошюратор",
+		GENITIVE = "брошюратора",
+		DATIVE = "брошюратору",
+		ACCUSATIVE = "брошюратор",
+		INSTRUMENTAL = "брошюратором",
+		PREPOSITIONAL = "брошюраторе",
+	)
+
+/obj/machinery/bookbinder/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
+
+	if(istype(I, /obj/item/paper))
+		add_fingerprint(user)
+		var/obj/item/paper/paper = I
+		if(!user.drop_transfer_item_to_loc(paper, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] загружа[PLUR_ET_YUT(user)] немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
+			span_notice("Вы загружаете немного бумаги в [declent_ru(ACCUSATIVE)]. По мере прогрева печатных барабанов машина начинает гудеть."),
+		)
+		atom_say("Проходит печать книги...", FALSE)
+		playsound(src, 'sound/machines/binder_work.ogg', 25, FALSE)
+		addtimer(CALLBACK(src, PROC_REF(finalize_printing), paper), rand(20 SECONDS, 40 SECONDS))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/obj/machinery/bookbinder/proc/finalize_printing(obj/item/paper/paper)
+	if(QDELETED(paper) || paper.loc != src)
+		return
+	var/obj/item/book/new_book = new(loc)
+	new_book.dat = paper.info
+	new_book.name = "Print Job #[rand(100, 999)]"
+	new_book.ru_names = list(
+		NOMINATIVE = "печатное издание №[rand(100, 999)]",
+		GENITIVE = "печатного издания №[rand(100, 999)]",
+		DATIVE = "печатному изданию №[rand(100, 999)]",
+		ACCUSATIVE = "печатное издание №[rand(100, 999)]",
+		INSTRUMENTAL = "печатным изданием №[rand(100, 999)]",
+		PREPOSITIONAL = "печатном издании №[rand(100, 999)]",
+	)
+	new_book.icon_state = "book[rand(1,16)]"
+	new_book.item_state = new_book.icon_state
+	atom_say("Печать книги успешно завершена.", FALSE)
+	playsound(loc, 'sound/machines/ping.ogg', 20, TRUE)
+	qdel(paper)
+
+/obj/machinery/libraryscanner/wrench_act(mob/living/user, obj/item/I)
+	return default_unfasten_wrench(user, I)
+

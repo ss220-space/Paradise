@@ -4,7 +4,7 @@
 	name = "ambrosia branch"
 	desc = "This is a plant."
 	icon_state = "ambrosiavulgaris"
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#008000"
 	bitesize_mod = 2
 	tastes = list("ambrosia" = 1)
@@ -27,7 +27,6 @@
 	reagents_add = list("space_drugs" = 0.15, "bicaridine" = 0.1, "kelotane" = 0.1, "vitamin" = 0.04, "plantmatter" = 0.05, "toxin" = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
-	seed = /obj/item/seeds/ambrosia
 	name = "ambrosia vulgaris branch"
 	desc = "This is a plant containing various healing chemicals."
 	origin_tech = "biotech=2"
@@ -85,7 +84,8 @@
 // Ambrosia Cruciatus
 /obj/item/seeds/ambrosia/cruciatus
 	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/cruciatus
-	potency = 10
+	potency = 50
+	yield = 5
 	mutatelist = list()
 	reagents_add = list("thc" = 0.15, "kelotane" = 0.15, "bicaridine" = 0.1, "bath_salts" = 0.20, "plantmatter" = 0.05)
 

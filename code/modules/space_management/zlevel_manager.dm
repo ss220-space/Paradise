@@ -12,8 +12,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/spacewalk_grid/linkage_map
 	var/initialized = 0
 
-	var/list/areas_in_z = list()
-
 // Populate our space level list
 // and prepare space transitions
 /datum/zlev_manager/proc/initialize()
@@ -26,31 +24,28 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 			CRASH("More map attributes pre-defined than existent z levels - [num_official_z_levels]")
 		var/name = features["name"]
 		var/linking = features["linkage"]
-		var/list/attributes = features["attributes"]
-		attributes = attributes.Copy() // Clone the list so it can't be changed on accident
+		var/list/traits = features["traits"]
+		traits = traits.Copy() // Clone the list so it can't be changed on accident
 
-		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = attributes)
+		milla_init_z(k)
+		var/datum/space_level/S = new /datum/space_level(k, name, transition_type = linking, traits = traits)
 		z_list["[k]"] = S
 		levels_by_name[name] = S
+		SSmapping.manage_z_level(S)
 		k++
 
 	// Then, we take care of unmanaged z levels
 	// They get the default linkage of SELFLOOPING
 	for(var/i = k, i <= world.maxz, i++)
+		milla_init_z(k)
 		z_list["[i]"] = new /datum/space_level(i)
 	initialized = 1
 
-
 /datum/zlev_manager/proc/get_zlev(z)
-	if(!("[z]" in z_list))
-		throw EXCEPTION("Unmanaged z level: '[z]'")
-	else
-		return z_list["[z]"]
+	return z_list["[z]"] == null ? log_runtime(EXCEPTION("Unmanaged z level: '[z]'")) : z_list["[z]"]
 
 /datum/zlev_manager/proc/get_zlev_by_name(A)
-	if(!(A in levels_by_name))
-		throw EXCEPTION("Non-existent z level: '[A]'")
-	return levels_by_name[A]
+	return levels_by_name[A] == null ? log_runtime(EXCEPTION("Non-existent z level: '[A]'")) : levels_by_name[A]
 
 /*
 * "Dirt" management
@@ -60,12 +55,10 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 * among other things
 */
 
-
 // Returns whether the given z level has a freeze on initialization
 /datum/zlev_manager/proc/is_zlevel_dirty(z)
 	var/datum/space_level/our_z = get_zlev(z)
 	return (our_z.dirt_count > 0)
-
 
 // Increases the dirt count on a z level
 /datum/zlev_manager/proc/add_dirt(z)
@@ -73,7 +66,6 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	if(our_z.dirt_count == 0)
 		log_debug("Placing an init freeze on z-level '[our_z.zpos]'!")
 	our_z.dirt_count++
-
 
 // Decreases the dirt count on a z level
 /datum/zlev_manager/proc/remove_dirt(z)
@@ -89,13 +81,11 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	var/datum/space_level/our_z = get_zlev(z)
 	our_z.init_list.Add(thing)
 
-
 /**
 *
 *	SPACE ALLOCATION
 *
 */
-
 
 // For when you need the z-level to be at a certain point
 /datum/zlev_manager/proc/increase_max_zlevel_to(new_maxz)
@@ -104,69 +94,26 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	while(world.maxz<new_maxz)
 		add_new_zlevel("Anonymous Z level [world.maxz]")
 
-// Increments the max z-level by one
-// For convenience's sake returns the z-level added
+/*
+ * * add_new_zlevel - Increments max z-level of world by one more z-level.
+ * Then applies name, linkage and traits to it.
+ * For convenience's sake returns the z-level added.
+ *
+ * This is a default way to create new z-level on your desire.
+ *
+ * * name - a name of new z-level. It should be unique. If you'll make multiple with same name, at least add "# [i]" in the end ("Ruin #1", "Ruin #2"...)
+ * * linkage - a state of how /turf/space on the edge of the z-level will interact with movable atoms. SELFLOOPING, CROSSLINKED will teleport, while UNAFFECTED won't do anything.
+ * * traits - traits/flags/attributes for z-level. All setting are in '_maps/_MAP_DEFINES.dm'
+ */
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
-	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, args)
 	if(name in levels_by_name)
 		throw EXCEPTION("Name already in use: [name]")
-	world.maxz++
+	world.incrementMaxZ()
 	var/our_z = world.maxz
+	milla_init_z(our_z)
 	var/datum/space_level/S = new /datum/space_level(our_z, name, transition_type = linkage, traits = traits)
 	levels_by_name[name] = S
 	z_list["[our_z]"] = S
+	SSmapping.manage_z_level(S)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_Z, S)
 	return our_z
-
-/datum/zlev_manager/proc/cut_levels_downto(new_maxz)
-	if(world.maxz <= new_maxz)
-		return
-	while(world.maxz>new_maxz)
-		kill_topmost_zlevel()
-
-// Decrements the max z-level by one
-// not normally used, but hey the swapmap loader wanted it
-/datum/zlev_manager/proc/kill_topmost_zlevel()
-	var/our_z = world.maxz
-	var/datum/space_level/S = get_zlev(our_z)
-	z_list.Remove(S)
-	qdel(S)
-	world.maxz--
-
-
-// An internally-used proc used for heap-zlevel management
-/datum/zlev_manager/proc/add_new_heap()
-	world.maxz++
-	var/our_z = world.maxz
-	var/datum/space_level/yup = new /datum/space_level/heap(our_z, traits = list(BLOCK_TELEPORT, ADMIN_LEVEL))
-	z_list["[our_z]"] = yup
-	return yup
-
-// This is what you can call to allocate a section of space
-// Later, I'll add an argument to let you define the flags on the region
-/datum/zlev_manager/proc/allocate_space(width, height)
-	if(width > world.maxx || height > world.maxy)
-		throw EXCEPTION("Too much space requested! \[[width],[height]\]")
-	if(!heaps.len)
-		heaps.len++
-		heaps[heaps.len] = add_new_heap()
-	var/datum/space_level/heap/our_heap
-	var/weve_got_vacancy = 0
-	for(our_heap in heaps)
-		weve_got_vacancy = our_heap.request(width, height)
-		if(weve_got_vacancy)
-			break // We're sticking with the present value of `our_heap` - it's got room
-		// This loop will also run out if no vacancies are found
-
-	if(!weve_got_vacancy)
-		heaps.len++
-		our_heap = add_new_heap()
-		heaps[heaps.len] = our_heap
-	return our_heap.allocate(width, height)
-
-/datum/zlev_manager/proc/free_space(datum/space_chunk/C)
-	if(!istype(C))
-		return
-	var/datum/space_level/heap/heap = z_list["[C.zpos]"]
-	if(!istype(heap))
-		throw EXCEPTION("Attempted to free chunk at invalid z-level ([C.x],[C.y],[C.zpos]) [C.width]x[C.height]")
-	heap.free(C)

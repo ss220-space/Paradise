@@ -6,7 +6,7 @@
 	The system is made up of two objects. A main core and relays.
 
 	The main core is basically the same as all of the machines from the previous implementation, apart from the relay
-	The core handles recieving and sending messages, logging messages, the NTTC configuration, and serves as the linkage hub for relays
+	The core handles receiving and sending messages, logging messages, the NTTC configuration, and serves as the linkage hub for relays
 
 	Relays function much in the same way as the old ones. They just expand the reach of tcomms from one z-level to another.
 
@@ -19,39 +19,55 @@
 /// Global list for all telecomms machines in the world
 GLOBAL_LIST_EMPTY(tcomms_machines)
 
+/proc/find_functional_tcomms_core()
+	for(var/obj/machinery/tcomms/core/core in GLOB.tcomms_machines)
+		if(!core.active)
+			continue
+		return TRUE
+	return FALSE
+
 /**
-  * # Telecommunications Device
-  *
-  * This is the base machine for both tcomms devices (core + relay)
-  *
-  * This holds a few base procs (Icon updates, enable/disable, etc)
-  * It also has the initial overrides for Initialize() and Destroy()
-  */
+ * # Telecommunications Device
+ *
+ * This is the base machine for both tcomms devices (core + relay)
+ *
+ * This holds a few base procs (Icon updates, enable/disable, etc)
+ * It also has the initial overrides for Initialize() and Destroy()
+ */
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
-	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
-	icon = 'icons/obj/tcomms.dmi'
+	desc = "Если вы это видите, составьте баг-репорт в Discord."
+	icon = 'icons/obj/machines/tcomms.dmi'
 	icon_state = "error"
 	density = TRUE
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 500
 	/// Network ID used for names + auto linkage
-	var/network_id = "None"
+	var/network_id = "Нет"
 	/// Is the machine active
 	var/active = TRUE
 	/// Has the machine been hit by an ionospheric anomaly
 	var/ion = FALSE
 
+/obj/machinery/tcomms/get_ru_names()
+	return list(
+		NOMINATIVE = "устройство телекоммуникаций",
+		GENITIVE = "устройства телекоммуникаций",
+		DATIVE = "устройству телекоммуникаций",
+		ACCUSATIVE = "устройство телекоммуникаций",
+		INSTRUMENTAL = "устройством телекоммуникаций",
+		PREPOSITIONAL = "устройстве телекоммуникаций",
+	)
+
 /**
-  * Base Initializer
-  *
-  * Ensures that the machine is put into the global list of tcomms devices, and then its made sure that the icon is correct if the machine starts offline
-  */
+ * Base Initializer
+ *
+ * Ensures that the machine is put into the global list of tcomms devices, and then its made sure that the icon is correct if the machine starts offline
+ */
 /obj/machinery/tcomms/Initialize(mapload)
 	. = ..()
 	GLOB.tcomms_machines += src
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	if((!mapload) && (usr))
 		// To the person who asks "Hey affected, why are you using this massive operator when you can use AREACOORD?" Well, ill tell you
 		// get_area_name is fucking broken and uses a for(x in world) search
@@ -67,10 +83,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 
 /**
-  * Base Destructor
-  *
-  * Ensures that the machine is taken out of the global list when destroyed
-  */
+ * Base Destructor
+ *
+ * Ensures that the machine is taken out of the global list when destroyed
+ */
 /obj/machinery/tcomms/Destroy()
 	GLOB.tcomms_machines -= src
 	if(usr)
@@ -78,18 +94,16 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	return ..()
 
 /**
-  * Icon Updater
-  *
-  * Ensures that the icon updates properly based on if the machine is active or not. This removes the need for this check in many other places.
-  */
-/obj/machinery/tcomms/update_icon()
-	. = ..()
+ * Icon Updater
+ *
+ * Ensures that the icon updates properly based on if the machine is active or not. This removes the need for this check in many other places.
+ */
+/obj/machinery/tcomms/update_icon_state()
 	// Show the off sprite if were inactive, ion'd or unpowered
 	if(!active || (stat & NOPOWER) || ion)
 		icon_state = "[initial(icon_state)]_off"
 	else
 		icon_state = initial(icon_state)
-
 
 // Attack overrides. These are needed so the UIs can be opened up //
 /obj/machinery/tcomms/attack_ai(mob/user)
@@ -104,82 +118,81 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		return
 	ui_interact(user)
 
-
 // If we do not override the default process(), the machine defaults to not processing, meaning it uses no power.
 /obj/machinery/tcomms/process()
 	return
 
 /**
-  * Start of Ion Anomaly Event
-  *
-  * Proc to easily start an Ion Anomaly's effects, and update the icon
-  */
+ * Start of Ion Anomaly Event
+ *
+ * Proc to easily start an Ion Anomaly's effects, and update the icon
+ */
 /obj/machinery/tcomms/proc/start_ion()
 	ion = TRUE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * End of Ion Anomaly Event
-  *
-  * Proc to easily stop an Ion Anomaly's effects, and update the icon
-  */
+ * End of Ion Anomaly Event
+ *
+ * Proc to easily stop an Ion Anomaly's effects, and update the icon
+ */
 /obj/machinery/tcomms/proc/end_ion()
 	ion = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * Z-Level transit change helper
-  *
-  * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
-  */
-/obj/machinery/tcomms/onTransitZ(old_z, new_z)
+ * Z-Level transit change helper
+ *
+ * Proc to make sure you cant have two of these active on a Z-level at once. It also makes sure to update the linkage
+ */
+/obj/machinery/tcomms/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
 	. = ..()
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, /atom.proc/visible_message, "<span class='warning'>Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.</span>"), 5)
-	update_icon()
-
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), span_warning("Оборудование радиосвязи на [declent_ru(NOMINATIVE)] было перегружено мощным блюспейс-воздействием. Пожалуйста, перезагрузите устройство.")), 5)
+	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * Logging helper
-  *
-  * Proc which allows easy logging of changs made to tcomms machines
-  * Arguments:
-  * * user - The user who did the action
-  * * msg - The log message
-  * * adminmsg - Should an admin log be sent when this happens
-  */
+ * Logging helper
+ *
+ * Proc which allows easy logging of changs made to tcomms machines
+ * Arguments:
+ * * user - The user who did the action
+ * * msg - The log message
+ * * adminmsg - Should an admin log be sent when this happens
+ */
 /obj/machinery/tcomms/proc/log_action(user, msg, adminmsg = FALSE)
 	add_misc_logs(user, "NTTC: [key_name(user)] [msg]")
 	if(adminmsg)
 		message_admins("[key_name_admin(user)] [msg]")
 /**
-  * Power Change Handler
-  *
-  * Proc which ensures icons are updated when machines lose power
-  */
-/obj/machinery/tcomms/power_change()
-	..()
-	update_icon()
+ * Power Change Handler
+ *
+ * Proc which ensures icons are updated when machines lose power
+ */
+/obj/machinery/tcomms/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /**
-  * # Telecommunications Message
-  *
-  * Datum which holds all the data for a message being sent
-  *
-  * This used to be a single associative list with just keys and values
-  * It had no typepath or presence checking, and was absolutely awful to work with
-  * This fixes that
-  *
-  */
+ * # Telecommunications Message
+ *
+ * Datum which holds all the data for a message being sent
+ *
+ * This used to be a single associative list with just keys and values
+ * It had no typepath or presence checking, and was absolutely awful to work with
+ * This fixes that
+ *
+ */
 /datum/tcomms_message
 	/// Who sent the message
-	var/sender_name = "Error"
+	var/sender_name = "Ошибка"
 	/// What job are they
-	var/sender_job = "Error"
-	/// What rank are they
-	var/sender_rank = "Error"
+	var/sender_job = "Ошибка"
+	/// What rank are they (this is used for formatting)
+	var/sender_rank = "Ошибка"
 	/// Pieces of the message
 	var/list/message_pieces = list()
 	/// Source Z-level
@@ -193,49 +206,48 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	/// Origin of the signal
 	var/datum/radio_frequency/connection
 	/// Who sent it
-	var/mob/sender
-	/// The radio it was sent from
-	var/obj/item/radio/radio
+	var/atom/movable/sender
 	/// The signal data (See defines/radio.dm)
 	var/data
 	/// Verbage used
-	var/verbage = "says"
+	var/verbage = "говор%(ит,ят)%"
 	/// Follow target for AI use
 	var/atom/follow_target = null
 	/// Is this signal meant to be rejected
 	var/reject = FALSE
 	/// Voice name if the person doesnt have a name (diona, alien, etc)
 	var/vname
-	/// List of all channels this can be sent or recieved on
+	/// sender_name before modify_message modifies it, because it introduces html tags.
+	var/pre_modify_name
+	/// List of all channels this can be sent or received on
 	var/list/zlevels = list()
 	/// Should this signal be re-broadcasted (Can be modified by NTTC, defaults to TRUE)
 	var/pass = TRUE
 
 /**
-  * Destructor for the TCM datum.
-  *
-  * This needs to happen like this so that things dont keep references held in place
-  */
+ * Destructor for the TCM datum.
+ *
+ * This needs to happen like this so that things dont keep references held in place
+ */
 /datum/tcomms_message/Destroy()
 	connection = null
-	radio = null
+	sender = null
 	follow_target = null
 	return ..()
-
 
 #define CREW_RADIO_TYPE 0
 #define CENTCOMM_RADIO_TYPE 1
 #define SYNDICATE_RADIO_TYPE 2
 
 /**
-  * Connection checker
-  *
-  * Checks the connection frequency against the intended frequency for the message
-  * NOTE: I barely know what on earth this does, but it works and it scares me
-  * Arguments:
-  * * old_freq - Frequency of the connection
-  * * new_freq - Frequency of the message
-  */
+ * Connection checker
+ *
+ * Checks the connection frequency against the intended frequency for the message
+ * NOTE: I barely know what on earth this does, but it works and it scares me
+ * Arguments:
+ * * old_freq - Frequency of the connection
+ * * new_freq - Frequency of the message
+ */
 /proc/is_bad_connection(old_freq, new_freq)
 	var/old_type = CREW_RADIO_TYPE
 	var/new_type = CREW_RADIO_TYPE
@@ -257,17 +269,15 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 #undef CENTCOMM_RADIO_TYPE
 #undef SYNDICATE_RADIO_TYPE
 
-
 /**
-  * Message Broadcast Proc
-  *
-  * This big fat disaster is responsible for sending the message out to all headsets and radios on the station
-  * It is absolutely disgusting, but used to take about 20 arguments before I slimmed it down to just one
-  * Arguments:
-  * * tcm - The tcomms message datum
-  */
+ * Message Broadcast Proc
+ *
+ * This big fat disaster is responsible for sending the message out to all headsets and radios on the station
+ * It is absolutely disgusting, but used to take about 20 arguments before I slimmed it down to just one
+ * Arguments:
+ * * tcm - The tcomms message datum
+ */
 /proc/broadcast_message(datum/tcomms_message/tcm)
-
 
 	/* ###### Prepare the radio connection ###### */
 
@@ -319,23 +329,22 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 					radios |= R
 
 	// Get a list of mobs who can hear from the radios we collected.
-	var/list/receive = get_mobs_in_radio_ranges(radios)
+	var/list/receive = get_hearers_in_radio_ranges(radios) | GLOB.permanent_radio_listeners
 
-  /* ###### Organize the receivers into categories for displaying the message ###### */
+	/* ###### Organize the receivers into categories for displaying the message ###### */
 
-  	// Understood the message:
-	var/list/heard_masked 	= list() // masked name or no real name
-	var/list/heard_normal 	= list() // normal message
+	// Understood the message:
+	var/list/heard_masked	= list() // masked name or no real name
+	var/list/heard_normal	= list() // normal message
 
 	// Did not understand the message:
-	var/list/heard_voice 	= list() // voice message	(ie "chimpers")
+	var/list/heard_voice	= list() // voice message	(ie "chimpers")
 	var/list/heard_garbled	= list() // garbled message (ie "f*c* **u, **i*er!")
 	var/list/heard_gibberish= list() // completely screwed over message (ie "F%! (O*# *#!<>&**%!")
 
-	for(var/M in receive)
-		var/mob/R = M
+	for(var/mob/R in receive)
 
-	  /* --- Loop through the receivers and categorize them --- */
+		/* --- Loop through the receivers and categorize them --- */
 
 		if(is_admin(R) && !R.get_preference(PREFTOGGLE_CHAT_RADIO)) //Adminning with 80 people on can be fun when you're trying to talk and all you can hear is radios.
 			continue
@@ -360,11 +369,10 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 			// - Just display a garbled message -
 			heard_garbled += R
 
-
-  /* ###### Begin formatting and sending the message ###### */
+	/* ###### Begin formatting and sending the message ###### */
 	if(length(heard_masked) || length(heard_normal) || length(heard_voice) || length(heard_garbled) || length(heard_gibberish))
 
-	  /* --- Some miscellaneous variables to format the string output --- */
+		/* --- Some miscellaneous variables to format the string output --- */
 		var/freq_text = get_frequency_name(display_freq)
 
 		var/part_a = "<span class='[SSradio.frequency_span_class(display_freq)]'><b>\[[freq_text]\]</b> <span class='name'>" // goes in the actual output
@@ -376,29 +384,28 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 
 		SSblackbox.LogBroadcast(display_freq)
 
-	 /* ###### Send the message ###### */
+	/* ###### Send the message ###### */
 
-
-	  	/* --- Process all the mobs that heard a masked voice (understood) --- */
+		/* --- Process all the mobs that heard a masked voice (understood) --- */
 
 		if(length(heard_masked))
 			for(var/M in heard_masked)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (understood) --- */
 
 		if(length(heard_normal))
 			for(var/M in heard_normal)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 0, tcm.sender_name, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.sender_name, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard the voice normally (did not understand) --- */
 
 		if(length(heard_voice))
 			for(var/M in heard_voice)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender,0, tcm.vname, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, FALSE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Process all the mobs that heard a garbled voice (did not understand) --- */
 			// Displays garbled message (ie "f*c* **u, **i*er!")
@@ -406,70 +413,81 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 		if(length(heard_garbled))
 			for(var/M in heard_garbled)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, tcm.vname, follow_target=tcm.follow_target)
-
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, tcm.vname, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 		/* --- Complete gibberish. Usually happens when there's a compressed message --- */
 
 		if(length(heard_gibberish))
 			for(var/M in heard_gibberish)
 				var/mob/R = M
-				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, 1, follow_target=tcm.follow_target)
+				R.hear_radio(tcm.message_pieces, tcm.verbage, part_a, part_b, tcm.sender, TRUE, follow_target=tcm.follow_target, check_name_against = tcm.pre_modify_name)
 
 	return TRUE
 
-
 /**
-  * # Telecommunications Password Paper
-  *
-  * Piece of paper that spawns with the default link password
-  *
-  * This is spawned in the CE office and has the default link password
-  * While convenient, this is not necessary and doesnt matter if it gets lost or destroyed
-  * Because you can view the password easily by just looking at the core link page
-  */
+ * # Telecommunications Password Paper
+ *
+ * Piece of paper that spawns with the default link password
+ *
+ * This is spawned in the CE office and has the default link password
+ * While convenient, this is not necessary and doesnt matter if it gets lost or destroyed
+ * Because you can view the password easily by just looking at the core link page
+ */
 /obj/item/paper/tcommskey
 	name = "Telecommunications linkage password"
+	desc = "Памятка, содержащая коды для изменения конфигурации телекоммуникационных систем."
+
+/obj/item/paper/tcommskey/get_ru_names()
+	return list(
+		NOMINATIVE = "\"Пароль привязки телекоммуникаций\"",
+		GENITIVE = "\"Пароль привязки телекоммуникаций\"",
+		DATIVE = "\"Пароль привязки телекоммуникаций\"",
+		ACCUSATIVE = "\"Пароль привязки телекоммуникаций\"",
+		INSTRUMENTAL = "\"Пароль привязки телекоммуникаций\"",
+		PREPOSITIONAL = "\"Пароль привязки телекоммуникаций\"",
+	)
 
 /**
-  * Password Paper Initializer
-  *
-  * This paper MUST be LateInitialized so the core has a chance to initialize and setup its password
-  * Otherwise shit breaks BADLY
-  */
+ * Password Paper Initializer
+ *
+ * This paper MUST be LateInitialized so the core has a chance to initialize and setup its password
+ * Otherwise shit breaks BADLY
+ */
 /obj/item/paper/tcommskey/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 
 /**
-  * Password Paper Late Initializer
-  *
-  * Since the core was regularly initialized, we can now use the LateInitialize here to grab its password, then put it on paper
-  */
+ * Password Paper Late Initializer
+ *
+ * Since the core was regularly initialized, we can now use the LateInitialize here to grab its password, then put it on paper
+ */
 /obj/item/paper/tcommskey/LateInitialize(mapload)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-		if(C.network_id == "STATION-CORE")
-			info = "<center><h2>Telecommunications Key</h2></center>\n\t<br>The station core linkage password is '[C.link_password]'.<br>Should this paper be misplaced or destroyed, fear not, as the password is visible under the core linkage section. Should you wish to modify this password, it can be modified from the core."
+		if(C.network_id == "СТАНЦИЯ-ЯДРО")
+			info = "<center><h2>Пароль привязки телекоммуникаций</h2></center>\n\t<br>Пароль для привязки к станционному ядру: \"[C.link_password]\".<br> \
+			Если эта записка будет утеряна или уничтожена, вы всегда можете найти пароль во вкладке \"Привязка к ядру\".<br> \
+			Если вы захотите сменить пароль, это можно сделать с помощью конфигурации ядра телекоммуникаций."
 			info_links = info
-			update_icon()
-			// Save time, even though there should only be one STATION-CORE in the world
+			update_icon(UPDATE_ICON_STATE)
+			// Save time, even though there should only be one СТАНЦИЯ-ЯДРО in the world
 			break
 	return ..()
 
 /**
-  * Screwdriver Act Handler
-  *
-  * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
-  */
+ * Screwdriver Act Handler
+ *
+ * Handles the screwdriver action for all tcomms machines, so they can be open and closed to be deconstructed
+ */
 /obj/machinery/tcomms/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
 
 /**
-  * Crowbar Act Handler
-  *
-  * Handles the crowbar action for all tcomms machines, so they can be deconstructed
-  */
+ * Crowbar Act Handler
+ *
+ * Handles the crowbar action for all tcomms machines, so they can be deconstructed
+ */
 /obj/machinery/tcomms/crowbar_act(mob/user, obj/item/I)
 	. = TRUE
 	default_deconstruction_crowbar(user, I)

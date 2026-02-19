@@ -10,7 +10,7 @@
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round (created_volume/10, 1), holder.my_atom, 0, 0)
 	e.start()
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/emp_pulse
@@ -25,7 +25,7 @@
 	// 100 created volume = 4 heavy range & 7 light range. A few tiles smaller than traitor EMP grandes.
 	// 200 created volume = 8 heavy range & 14 light range. 4 tiles larger than traitor EMP grenades.
 	empulse(location, round(created_volume / 24), round(created_volume / 14), TRUE, "Chem Reaction")
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/beesplosion
@@ -38,9 +38,9 @@
 /datum/chemical_reaction/beesplosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
 	if(created_volume < 5)
-		playsound(location,'sound/effects/sparks1.ogg', 100, 1)
+		playsound(location,'sound/effects/sparks1.ogg', 100, TRUE)
 	else
-		playsound(location,'sound/creatures/bee.ogg', 100, 1)
+		playsound(location,'sound/creatures/bee.ogg', 100, TRUE)
 		var/list/beeagents = list()
 		for(var/X in holder.reagent_list)
 			var/datum/reagent/R = X
@@ -65,7 +65,7 @@
 	var/datum/effect_system/reagents_explosion/e = new()
 	e.set_up(round(created_volume/2, 1), holder.my_atom, 0, 0)
 	e.start()
-	if(!istype(holder.my_atom, /mob/living/carbon))
+	if(!iscarbon(holder.my_atom))
 		holder.clear_reagents()
 
 /datum/chemical_reaction/stabilizing_agent
@@ -105,6 +105,11 @@
 
 /datum/chemical_reaction/sorium_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
+	if(isliving(holder.my_atom))
+		var/mob/living/victim = holder.my_atom
+		victim.apply_damages(brute = created_volume, tox = created_volume, stamina = created_volume, spread_damage = TRUE)
+		to_chat(victim, span_danger("You feel like you are being torn apart!"))
+
 	if(!T)
 		return
 	goonchem_vortex(T, 0, created_volume)
@@ -166,8 +171,8 @@
 
 /datum/chemical_reaction/blackpowder_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	do_sparks(2, 1, location)
-	addtimer(CALLBACK(null, .proc/blackpowder_detonate, holder, created_volume), rand(5, 15))
+	do_sparks(2, TRUE, location)
+	addtimer(CALLBACK(src, PROC_REF(blackpowder_detonate), holder, created_volume), rand(5, 15))
 
 /datum/chemical_reaction/blackpowder_explosion/proc/blackpowder_detonate(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
@@ -175,7 +180,7 @@
 	var/ex_heavy = round(created_volume / 42)
 	var/ex_light = round(created_volume / 20)
 	var/ex_flash = round(created_volume / 8)
-	explosion(T, ex_severe, ex_heavy,ex_light, ex_flash, 1, cause = src)
+	explosion(T, devastation_range = ex_severe, heavy_impact_range = ex_heavy, light_impact_range = ex_light, flash_range = ex_flash, adminlog = TRUE, cause = src)
 	// If this black powder is in a decal, remove the decal, because it just exploded
 	if(istype(holder.my_atom, /obj/effect/decal/cleanable/dirt/blackpowder))
 		qdel(holder.my_atom)
@@ -200,7 +205,7 @@
 	var/location = get_turf(holder.my_atom)
 	if(!location)
 		return
-	do_sparks(2, 1, location)
+	do_sparks(2, TRUE, location)
 	bang(location, holder.my_atom, 5, flash = TRUE, bang = FALSE)
 
 /datum/chemical_reaction/flash/flash_powder
@@ -266,27 +271,42 @@
 	for(var/f_reagent in forbidden_reagents)
 		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/smoke_spread/chem/S = new
-	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-	if(S)
-		S.set_up(holder, location)
-		if(created_volume < 5)
-			S.start(1)
-		if(created_volume >=5 && created_volume < 10)
-			S.start(2)
-		if(created_volume >= 10 && created_volume < 15)
-			S.start(3)
-		if(created_volume >=15)
-			S.start(4)
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	playsound(location, 'sound/effects/smoke.ogg', 50, TRUE, -3)
+	if(smoke)
+		smoke.set_up(amount = round(created_volume), carry = holder, location = location)
+		smoke.start(TRUE)
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list("smoke_powder" = 1)
 	min_temp = T0C + 100
-	result_amount = 1
 	forbidden_reagents = list("stimulants")
 	mix_sound = null
+
+/datum/chemical_reaction/smoke_solid
+	name = "smoke"
+	id = "smoke_solid"
+	result = null
+	required_reagents = list("aluminum" = 1, "sodium" = 1, "potassium" = 1, "chlorine" = 1)
+	result_amount = 1
+	mix_message = "The mixture quickly turns into a thick cloud of smoke!"
+
+/datum/chemical_reaction/smoke_solid/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect_system/fluid_spread/smoke/solid/smoke = new
+	playsound(location, 'sound/effects/smoke.ogg', 50, TRUE, -3)
+	if(smoke)
+		if(created_volume < 15)
+			smoke.set_up(amount = 3, location = location, effect_range = 0)
+		if(created_volume >= 15 && created_volume < 30)
+			smoke.set_up(amount = 3, location = location, effect_range = "2x2")
+		if(created_volume >= 30 && created_volume < 48)
+			smoke.set_up(amount = 3, location = location, effect_range = 1)
+		if(created_volume >= 48)
+			smoke.set_up(amount = 3, location = location, effect_range = 2)
+		smoke.start()
 
 /datum/chemical_reaction/sonic_powder
 	name = "sonic_powder"
@@ -343,7 +363,7 @@
 
 /datum/chemical_reaction/azide/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, 0, 1, 4, cause = src)
+	explosion(location, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 4, cause = src)
 
 /datum/chemical_reaction/firefighting_foam
 	name = "firefighting_foam"
@@ -365,7 +385,7 @@
 
 /datum/chemical_reaction/clf3_firefighting/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	explosion(location, -1, 0, 2, cause = src)
+	explosion(location, devastation_range = -1, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /datum/chemical_reaction/shock_explosion
 	name = "shock_explosion"
@@ -373,14 +393,18 @@
 	result = null
 	required_reagents = list("teslium" = 5, "uranium" = 5) //uranium to this so it can't be spammed like no tomorrow without mining help.
 	result_amount = 1
-	mix_message = "<span class='danger'>The reaction releases an electrical blast!</span>"
+	mix_message = span_danger("The reaction releases an electrical blast!")
 	mix_sound = 'sound/magic/lightningbolt.ogg'
+
+/atom/proc/do_shock_ex(radius, damage = 3.5, animate = FALSE)
+	var/turf/epicenter = get_turf(src)
+	for(var/mob/living/L in view(radius, src))
+		L.Beam(epicenter, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
+		L.electrocute_act(damage, src)
 
 /datum/chemical_reaction/shock_explosion/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
-	for(var/mob/living/L in view(min(8, round(created_volume * 2)), T))
-		L.Beam(T, icon_state = "lightning[rand(1, 12)]", icon = 'icons/effects/effects.dmi', time = 5) //What? Why are we beaming from the mob to the turf? Turf to mob generates really odd results.
-		L.electrocute_act(3.5, "electrical blast")
+	T.do_shock_ex(min(8, round(created_volume * 2)))
 	holder.del_reagent("teslium") //Clear all remaining Teslium and Uranium, but leave all other reagents untouched.
 	holder.del_reagent("uranium")
 

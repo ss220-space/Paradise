@@ -18,7 +18,7 @@
 	unnotify()
 
 /datum/data/pda/app/messenger/update_ui(mob/user as mob, list/data)
-	data["silent"] = notify_silent						// does the pda make noise when it receives a message?
+	data["silent"] = pda.silent						// does the pda make noise when it receives a message?
 	data["toff"] = toff									// is the messenger function turned off?
 	// Yes I know convo is awful, but it lets me stay inside the 80 char TGUI line limit
 	data["active_convo"] = active_conversation	// Which conversation are we following right now?
@@ -28,17 +28,17 @@
 		data["messages"] = tnote
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
-				data["convo_name"] = sanitize(c["owner"])
-				data["convo_job"] = sanitize(c["job"])
+				var/obj/item/pda/device = locateUID(c["target"])
+				data["convo_device"] = QDELETED(device) ? "Error#1133: Unable to find UserName." : "[device.owner] ([device.ownjob])"
 				break
 	else
 		var/list/convopdas = list()
 		var/list/pdas = list()
 		for(var/A in GLOB.PDAs)
 			var/obj/item/pda/P = A
-			var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+			var/datum/data/pda/app/messenger/recipient_messenger = P.find_program(/datum/data/pda/app/messenger)
 
-			if(!P.owner || PM.toff || P == pda || PM.m_hidden)
+			if(!P.owner || recipient_messenger.toff || P == pda || recipient_messenger.m_hidden)
 				continue
 			if(conversations.Find("[P.UID()]"))
 				convopdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
@@ -64,12 +64,15 @@
 
 	unnotify()
 
+	var/play_beep = TRUE
+
 	. = TRUE
+
 	switch(action)
 		if("Toggle Messenger")
 			toff = !toff
 		if("Toggle Ringer")//If viewing texts then erase them, if not then toggle silent status
-			notify_silent = !notify_silent
+			pda.silent = !pda.silent
 		if("Clear")//Clears messages
 			if(params["option"] == "All")
 				tnote.Cut()
@@ -84,8 +87,9 @@
 
 			active_conversation = null
 		if("Message")
-			var/obj/item/pda/P = locateUID(params["target"])
-			create_message(usr, P)
+			play_beep = FALSE
+			var/obj/item/pda/target_pda = locateUID(params["target"])
+			create_message(target_pda, usr)
 			if(params["target"] in conversations)            // Need to make sure the message went through, if not welp.
 				active_conversation = params["target"]
 		if("Select Conversation")
@@ -108,97 +112,125 @@
 		if("Back")
 			active_conversation = null
 
-/datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
-	var/t = input(U, "Please enter message", name, null) as text|null
-	if(!t)
-		return
-	t = sanitize(copytext_char(t, 1, MAX_MESSAGE_LEN))
-	t = readd_quotes(t)
-	if(!t || !istype(P))
-		return
-	if(!in_range(pda, U) && pda.loc != U)
+	if(play_beep && !pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
+// If there is no sender, will ignore cheks for sender.
+/datum/data/pda/app/messenger/proc/create_message(obj/item/pda/recipient_pda, mob/living/sender, message)
+	if(!message)
+		message = tgui_input_text(sender, "Введите сообщение", name)
+
+	if(!message || !istype(recipient_pda))
 		return
 
-	var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+	if(sender && !in_range(pda, sender) && pda.loc != sender)
+		return
 
-	if(!PM || PM.toff || toff)
+	var/datum/data/pda/app/messenger/recipient_messenger = recipient_pda.find_program(/datum/data/pda/app/messenger)
+
+	if(!recipient_messenger || recipient_messenger.toff || toff)
 		return
 
 	if(last_text && world.time < last_text + 5)
 		return
 
-	if(!pda.can_use())
+	if(sender && !pda.can_use(sender))
 		return
 
 	last_text = world.time
 	// check if telecomms I/O route 1459 is stable
-	//var/telecomms_intact = telecomms_process(P.owner, owner, t)
-	var/obj/machinery/message_server/useMS = null
-	if(GLOB.message_servers)
-		for(var/A in GLOB.message_servers)
-			var/obj/machinery/message_server/MS = A
-		//PDAs are now dependent on the Message Server.
-			if(MS.active)
-				useMS = MS
-				break
+	//var/telecomms_intact = telecomms_process(recipient_pda.owner, owner, message)
+	var/obj/machinery/message_server/useMS = find_pda_server()
+	if(!can_send_message(message, sender, recipient_pda, useMS))
+		return
 
-	var/turf/sender_pos = get_turf(U)
-	var/turf/recipient_pos = get_turf(P)
+	useMS.send_pda_message("[recipient_pda.owner]","[pda.owner]","[message]")
+	tnote.Add(list(list("sent" = 1, "message" = "[html_decode(message)]", "target" = "[recipient_pda.UID()]")))
+	recipient_messenger.tnote.Add(list(list("sent" = 0, "message" = "[html_decode(message)]", "target" = "[pda.UID()]")))
+	show_message_to_ghosts(pda, recipient_pda, message)
+
+	if(!conversations.Find("[recipient_pda.UID()]"))
+		conversations.Add("[recipient_pda.UID()]")
+
+	if(!recipient_messenger.conversations.Find("[pda.UID()]"))
+		recipient_messenger.conversations.Add("[pda.UID()]")
+
+	SStgui.update_uis(src)
+	recipient_messenger.notify("[span_bold("Новое сообщение! Отправитель: [pda.owner][pda.ownjob ? " ([pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
+	to_chat(sender, "[icon2html(pda, sender)] [span_bold("Новое сообщение. Получатель: [recipient_pda.owner][recipient_pda.ownjob ? " ([recipient_pda.ownjob])" : ""], ")]\"[message]\" (<a href='byond://?src=[UID()];choice=Message;target=[recipient_pda.UID()]'>Отправить ещё сообщение</a>)")
+
+	log_pda_message(message, sender, pda, recipient_pda)
+	if(pda.silent)
+		return
+
+	playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
+
+/datum/data/pda/app/messenger/proc/show_message_to_ghosts(obj/item/pda/pda, obj/item/pda/recipient_pda, message)
+	for(var/mob/mob as anything in GLOB.dead_mob_list)
+		if(!isobserver(mob) || !mob.client || !HASBIT(mob.client.prefs.toggles, PREFTOGGLE_CHAT_GHOSTPDA))
+			continue
+
+		var/ghost_message = "([ghost_follow_link(pda, ghost = mob)]) [span_name("[pda.owner]")] [span_gamesay("Сообщение на КПК")] --> ([ghost_follow_link(recipient_pda, ghost = mob)]) [span_name("[recipient_pda.owner]")]: [span_message("[message]")]"
+		to_chat(mob, "[ghost_message]")
+
+/datum/data/pda/app/messenger/proc/can_send_message(message, sender, recipient_pda, useMS)
+	var/turf/sender_pos = sender ? get_turf(sender) : null
+	var/turf/recipient_pos = get_turf(recipient_pda)
 
 	// Can the message be sent
 	var/sendable = FALSE
 	// Can the message be received?
 	var/receivable = FALSE
 
-	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-		if(C.zlevel_reachable(sender_pos.z))
+	for(var/obj/machinery/tcomms/core/core in GLOB.tcomms_machines)
+		if(!sender || core.zlevel_reachable(sender_pos.z))
 			sendable = TRUE
-		if(C.zlevel_reachable(recipient_pos.z))
+
+		if(core.zlevel_reachable(recipient_pos.z))
 			receivable = TRUE
+
 		// Once both are done, exit the loop
 		if(sendable && receivable)
 			break
 
-	if(!sendable) // Are we in the range of a reciever?
-		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
+	if(!sendable) // Are we in the range of a receiver?
+		to_chat(sender, span_warning("ОШИБКА: Нет связи с сервером."))
+		if(pda.silent)
+			return
+
+		playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
-	if(!receivable) // Is our recipient in the range of a reciever?
-		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
+	if(!receivable) // Is our recipient in the range of a receiver?
+		to_chat(sender, span_warning("ОШИБКА: Нет связи с получателем."))
+		if(pda.silent)
+			return
+
+		playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return
 
-	if(useMS && sendable && receivable) // only send the message if its going to work
+	if(!useMS || !sendable || !receivable) // only send the message if its going to work
+		to_chat(sender, span_warning("ОШИБКА: Сервер не отвечает."))
+		if(pda.silent)
+			return
 
+		playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
+		return
 
-		useMS.send_pda_message("[P.owner]","[pda.owner]","[t]")
-		tnote.Add(list(list("sent" = 1, "owner" = "[P.owner]", "job" = "[P.ownjob]", "message" = "[t]", "target" = "[P.UID()]")))
-		PM.tnote.Add(list(list("sent" = 0, "owner" = "[pda.owner]", "job" = "[pda.ownjob]", "message" = "[t]", "target" = "[pda.UID()]")))
+	return TRUE
 
-		// Show it to ghosts
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(isobserver(M) && M.client && (M.client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTPDA))
-				var/ghost_message = "<span class='name'>[pda.owner]</span> ([ghost_follow_link(pda, ghost=M)]) <span class='game say'>PDA Message</span> --> <span class='name'>[P.owner]</span> ([ghost_follow_link(P, ghost=M)]): <span class='message'>[t]</span>"
-				to_chat(M, "[ghost_message]")
-
-		if(!conversations.Find("[P.UID()]"))
-			conversations.Add("[P.UID()]")
-		if(!PM.conversations.Find("[pda.UID()]"))
-			PM.conversations.Add("[pda.UID()]")
-
-		SStgui.update_uis(src)
-		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
-		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", U)
-		var/log_message = "sent PDA message \"[t]\" using [pda]"
-		var/receiver
-		if(ishuman(P.loc))
-			receiver = P.loc
-			log_message = "[log_message] to [P]"
-		else
-			receiver = P
-			log_message = "[log_message] (no holder)"
-		add_misc_logs(U, log_message, receiver)
+/datum/data/pda/app/messenger/proc/log_pda_message(message, sender, pda, atom/recipient_pda)
+	log_pda("(PDA: [name]) sent \"[message]\" to [recipient_pda.name]", sender)
+	var/log_message = "sent PDA message \"[message]\" using [pda]"
+	var/receiver
+	if(ishuman(recipient_pda.loc))
+		receiver = recipient_pda.loc
+		log_message = "[log_message] to [recipient_pda]"
 	else
-		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
+		receiver = recipient_pda
+		log_message = "[log_message] (no holder)"
+
+	add_misc_logs(sender, log_message, receiver)
 
 /datum/data/pda/app/messenger/proc/available_pdas()
 	var/list/names = list()
@@ -211,9 +243,9 @@
 
 	for(var/A in GLOB.PDAs)
 		var/obj/item/pda/P = A
-		var/datum/data/pda/app/messenger/PM = P.find_program(/datum/data/pda/app/messenger)
+		var/datum/data/pda/app/messenger/recipient_messenger = P.find_program(/datum/data/pda/app/messenger)
 
-		if(!P.owner || !PM || PM.hidden || P == pda || PM.toff)
+		if(!P.owner || !recipient_messenger || recipient_messenger.hidden || P == pda || recipient_messenger.toff)
 			continue
 
 		var/name = P.owner
@@ -232,12 +264,12 @@
 
 // Handler for the in-chat reply button
 /datum/data/pda/app/messenger/Topic(href, href_list)
-	if(!pda.can_use())
+	if(!pda.can_use(usr))
 		return
 	unnotify()
 	switch(href_list["choice"])
 		if("Message")
-			var/obj/item/pda/P = locateUID(href_list["target"])
-			create_message(usr, P)
+			var/obj/item/pda/target_pda = locateUID(href_list["target"])
+			create_message(target_pda, usr)
 			if(href_list["target"] in conversations)            // Need to make sure the message went through, if not welp.
 				active_conversation = href_list["target"]

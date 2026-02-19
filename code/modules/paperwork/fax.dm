@@ -15,23 +15,20 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 	GLOB.faxes += src
 
 /datum/fax/admin
-	var/list/reply_to = null
+	var/reply_to = null
 
 /datum/fax/admin/New()
 	GLOB.adminfaxes += src
 
-// Fax panel - lets admins check all faxes sent during the round
-/client/proc/fax_panel()
-	set name = "Fax Panel"
-	set category = "Event"
-	if(holder)
-		holder.fax_panel(usr)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Fax Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-	return
+ADMIN_VERB(fax_panel, R_ADMIN, "Fax Panel", "View and respond to faxes sent to CC.", ADMIN_CATEGORY_EVENTS)
+	if(!user.holder)
+		return
+	user.holder.fax_panel(user.mob)
+	BLACKBOX_LOG_ADMIN_VERB("Fax Panel")
 
-/datum/admins/proc/fax_panel(var/mob/living/user)
-	var/html = "<A align='right' href='?src=[UID()];refreshfaxpanel=1'>Refresh</A>"
-	html += "<A align='right' href='?src=[UID()];AdminFaxCreate=1;faxtype=Administrator'>Create Fax</A>"
+/datum/admins/proc/fax_panel(mob/living/user)
+	var/html = "<a align='right' href='byond://?src=[UID()];refreshfaxpanel=1'>Refresh</a>"
+	html += "<a align='right' href='byond://?src=[UID()];AdminFaxCreate=1;faxtype=Administrator'>Create Fax</a>"
 
 	html += "<div class='block'>"
 	html += "<h2>Admin Faxes</h2>"
@@ -48,19 +45,19 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[A.message]'>View</A></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(A.message)]'>View</a></td>"
 		if(!A.reply_to)
 			if(A.from_department == "Administrator")
 				html += "<td>N/A</td>"
 			else
-				html += "<td><A align='right' href='?src=[UID()];AdminFaxCreate=\ref[A.sent_by];originfax=\ref[A.origin];faxtype=[A.to_department];replyto=\ref[A.message]'>Reply</A>"
+				html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxCreate=[UID_of(A.sent_by)];originfax=[UID_of(A.origin)];faxtype=[A.to_department];replyto=[UID_of(A.message)]'>Reply</a>"
 				if(A.sent_by)
-					html += "<BR><A align='right' href='?src=[UID()];AdminFaxNotify=\ref[A.sent_by]'>Notify</A>"
+					html += "<br><a align='right' href='byond://?src=[UID()];AdminFaxNotify=[UID_of(A.sent_by)]'>Notify</a>"
 				html += "</td>"
 			html += "<td>N/A</td>"
 		else
 			html += "<td>N/A</td>"
-			html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[A.reply_to]'>Original</A></td>"
+			html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(A.reply_to)]'>Original</a></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"
@@ -80,7 +77,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 			html += "<td>[ADMIN_PP(S,"[S.name]")]</td>"
 		else
 			html += "<td>Unknown</td>"
-		html += "<td><A align='right' href='?src=[UID()];AdminFaxView=\ref[F.message]'>View</A></td>"
+		html += "<td><a align='right' href='byond://?src=[UID()];AdminFaxView=[UID_of(F.message)]'>View</a></td>"
 		html += "</tr>"
 	html += "</table>"
 	html += "</div>"

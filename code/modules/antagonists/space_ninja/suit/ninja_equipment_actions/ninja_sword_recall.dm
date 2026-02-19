@@ -1,0 +1,54 @@
+/datum/action/item_action/advanced/ninja/ninja_sword_recall
+	name = "Призыв энерго-катаны"
+	desc = "Телепортирует вашу энерго-катану к вам. Затраты энергии: 200"
+	check_flags = FALSE
+	charge_max = 0.5 SECONDS
+	button_icon_state = "energy_katana_green"
+	button_icon = 'icons/obj/ninjaobjects.dmi'
+	background_icon_state = "background_green"
+	action_initialisation_text = "Katana Recall System"
+
+/**
+ * Proc called to recall the ninja's sword.
+ *
+ * Called to summon the ninja's katana back to them
+ * If the katana can see the ninja, it will throw itself towards them.
+ * If not, the katana will teleport itself to the ninja.
+ */
+/obj/item/clothing/suit/space/space_ninja/proc/ninja_sword_recall()
+	var/mob/living/carbon/human/ninja = affecting
+	var/inview = TRUE
+
+	if(!energyKatana)
+		balloon_alert(ninja, "не удалось найти!")
+		return
+
+	if(energyKatana in ninja)
+		return
+
+	var/distance = get_dist(ninja,energyKatana)
+
+	if(!(energyKatana in view(ninja)))
+		inview = FALSE
+
+	if(!ninjacost(200))	//Статичная цена в 200 энергии
+		for(var/datum/action/item_action/advanced/ninja/ninja_sword_recall/ninja_action in actions)
+			ninja_action.use_action()
+			break
+		if(iscarbon(energyKatana.loc))
+			var/mob/living/carbon/sword_holder = energyKatana.loc
+			sword_holder.drop_item_ground(energyKatana, force = TRUE)
+		else
+			energyKatana.forceMove(get_turf(energyKatana))
+
+		if(inview) //If we can see the katana, throw it towards ourselves, damaging people as we go.
+			if(energyKatana.loc == ninja.loc)	//При нажатии катана уже была на той же клетке, что и мы? Подбираем её
+				energyKatana.returnToOwner(ninja, 1)
+				return
+			energyKatana.spark_system.start()
+			playsound(ninja, SFX_SPARKS, 50, TRUE, -9)
+			ninja.visible_message(span_danger("[DECLENT_RU_CAP(energyKatana, NOMINATIVE)] летит навстречу [ninja.declent_ru(DATIVE)]!"), span_warning("Вы протягиваете руку и [energyKatana.declent_ru(NOMINATIVE)] летит к вам!"))
+			energyKatana.throw_at(ninja, distance+1, energyKatana.throw_speed)
+
+		else //Else just TP it to us.
+			energyKatana.returnToOwner(ninja, 1)

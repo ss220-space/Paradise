@@ -10,13 +10,11 @@
 
 	return get_rune(bits, animated)
 
-
 GLOBAL_LIST_EMPTY(cult_rune_cache)
 GLOBAL_VAR_INIT(cult_rune_style, "rune") // Style of run the cult is using (fire, death, regular, etc)
 
 /proc/get_rune(symbol_bits, animated = 0)
 	var/lookup = "[symbol_bits]-[animated]"
-
 
 	if(!SSticker.mode)//work around for maps with runes and cultdat is not loaded all the way
 		GLOB.cult_rune_style = "rune"
@@ -24,7 +22,6 @@ GLOBAL_VAR_INIT(cult_rune_style, "rune") // Style of run the cult is using (fire
 		GLOB.cult_rune_style = "fire-rune"
 	else if(SSticker.cultdat.theme == "death")
 		GLOB.cult_rune_style = "death-rune"
-
 
 	if(lookup in GLOB.cult_rune_cache)
 		return GLOB.cult_rune_cache[lookup]
@@ -34,7 +31,6 @@ GLOBAL_VAR_INIT(cult_rune_style, "rune") // Style of run the cult is using (fire
 	for(var/i = 0, i < 10, i++)
 		if(symbol_bits & (1 << i))
 			I.Blend(icon('icons/effects/uristrunes.dmi', "[GLOB.cult_rune_style]-[1 << i]"), ICON_OVERLAY)
-
 
 	I.SwapColor(rgb(0, 0, 0, 100), rgb(100, 0, 0, 200))//TO DO COMMENT:NEED TO ADJUST FOR DIFFRNET CULTS
 	I.SwapColor(rgb(0, 0, 0, 50), rgb(150, 0, 0, 200))

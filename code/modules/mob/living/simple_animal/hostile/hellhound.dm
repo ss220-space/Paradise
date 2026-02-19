@@ -1,21 +1,16 @@
 // Hellhound
 /mob/living/simple_animal/hostile/hellhound
 	// Sprites by FoS: https://www.paradisestation.org/forum/profile/335-fos
-	name = "Lesser Hellhound"
-	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. A firey, lava-like substance drips from it."
+	name = "lesser hellhound"
+	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. С его тела стекает лава."
 	icon_state = "hellhound"
 	icon_living = "hellhound"
 	icon_dead = "hellhound_dead"
 	icon_resting = "hellhound_rest"
-	mutations = list(BREATHLESS)
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	maxbodytemp = INFINITY
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	melee_damage_lower = 10 // slightly higher than araneus
 	melee_damage_upper = 30
-	a_intent = INTENT_HARM
-	environment_smash = 1
-	speak_chance = 0
 	speed = 0
 	maxHealth = 250 // same as sgt araneus
 	health = 250
@@ -24,10 +19,10 @@
 	stat_attack = UNCONSCIOUS
 	attacktext = "кусает"
 	attack_sound = 'sound/effects/bite.ogg'
-	speak_emote = list("growls")
-	see_in_dark = 9
-	universal_understand = 1
+	speak_emote = list("рычит")
+	nightvision = 9
 	wander = 0
+	AI_delay_max = 0.5 SECONDS
 	var/life_regen_cycles = 0
 	var/life_regen_cycle_trigger = 10 // heal once for every X number of cycles spent resting
 	var/life_regen_amount = -10 // negative, because negative = healing
@@ -35,52 +30,69 @@
 	var/smoke_freq = 300 // 30 seconds
 	var/datum/action/innate/demon/whisper/whisper_action
 
-/mob/living/simple_animal/hostile/hellhound/New()
+/mob/living/simple_animal/hostile/hellhound/get_ru_names()
+	return list(
+		NOMINATIVE = "низший адский пёс",
+		GENITIVE = "низшего адского пса",
+		DATIVE = "низшему адскому псу",
+		ACCUSATIVE = "низшего адского пса",
+		INSTRUMENTAL = "низшим адским псом",
+		PREPOSITIONAL = "низшем адском псе",
+	)
+
+/mob/living/simple_animal/hostile/hellhound/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_NO_BREATH, INNATE_TRAIT)
 	whisper_action = new()
 	whisper_action.Grant(src)
+
+/mob/living/simple_animal/hostile/hellhound/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/hostile/hellhound/handle_automated_action()
 	if(!..())
 		return
 	if(resting)
 		if(!wants_to_rest())
-			custom_emote(1, "growls, and gets up.")
-			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, 1)
-			StopResting()
+			custom_emote(EMOTE_AUDIBLE, "рыч%(ит,ат)% и поднима%(ет,ют)%ся.")
+			playsound(get_turf(src), 'sound/hallucinations/growl2.ogg', 50, TRUE)
+			set_resting(FALSE, instant = TRUE)
 	else if(wants_to_rest())
-		custom_emote(1, "lays down, and starts to lick their wounds.")
-		StartResting()
+		custom_emote(EMOTE_VISIBLE, "лож%(ит,ат)%ся и начина%(ет,ют)% зализывать свои раны.")
+		set_resting(TRUE, instant = TRUE)
 
 /mob/living/simple_animal/hostile/hellhound/examine(mob/user)
 	. = ..()
 	if(stat != DEAD)
 		var/list/msgs = list()
 		if(key)
-			msgs += "<span class='warning'>Its eyes have the spark of intelligence.</span>"
+			msgs += span_warning("Its eyes have the spark of intelligence.")
 		if(health > (maxHealth*0.95))
-			msgs += "<span class='notice'>It appears to be in excellent health.</span>"
+			msgs += span_notice("It appears to be in excellent health.")
 		else if(health > (maxHealth*0.75))
-			msgs += "<span class='notice'>It has a few injuries.</span>"
+			msgs += span_notice("It has a few injuries.")
 		else if(health > (maxHealth*0.55))
-			msgs += "<span class='warning'>It has many injuries.</span>"
+			msgs += span_warning("It has many injuries.")
 		else if(health > (maxHealth*0.25))
-			msgs += "<span class='warning'>It is covered in wounds!</span>"
+			msgs += span_warning("It is covered in wounds!")
 		if(resting)
 			if(getBruteLoss() || getFireLoss())
-				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
+				msgs += span_warning("It is currently licking its wounds, regenerating the damage to its body!")
 			else
-				msgs += "<span class='notice'>It is currently resting.</span>"
-		. += msgs.Join("<BR>")
+				msgs += span_notice("It is currently resting.")
+		. += msgs.Join("<br>")
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
 	if(stat != DEAD && resting && (getBruteLoss() || getFireLoss()))
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
-			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
-			adjustBruteLoss(life_regen_amount)
-			adjustFireLoss(life_regen_amount)
+			to_chat(src, span_notice("You lick your wounds, helping them close."))
+			heal_overall_damage(life_regen_amount, life_regen_amount)
 		else
 			life_regen_cycles++
 
@@ -91,16 +103,18 @@
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/hostile/hellhound/attackby(obj/item/C, mob/user, params)
+/mob/living/simple_animal/hostile/hellhound/attackby(obj/item/I, mob/user, params)
+	var/current_health = health
 	. = ..()
-	if(target && isliving(target))
-		var/mob/living/L = target
-		if(L.stat != CONSCIOUS)
-			target = user
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || health >= current_health)
+		return .
+	var/mob/living/living_target = target
+	if(isliving(target) && living_target.stat != CONSCIOUS)
+		GiveTarget(user)
 
 /mob/living/simple_animal/hostile/hellhound/greater
-	name = "Greater Hellhound"
-	desc = "A demonic-looking black canine monster with glowing red eyes and sharp teeth. Greater hounds are far stronger than their lesser kin, and typically employed by powerful bluespace entities."
+	name = "greater hellhound"
+	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. Высшие гончие намного сильнее своих низших сородичей, и обычно их призывают могущественные существа из блюспейс пространства."
 	icon_state = "hellhoundgreater"
 	icon_living = "hellhoundgreater"
 	icon_resting = "hellhoundgreater_sit"
@@ -111,28 +125,29 @@
 	smoke_freq = 200
 	life_regen_cycle_trigger = 5
 	melee_damage_lower = 20
-	melee_damage_upper = 30
 	environment_smash = 2
 
-/mob/living/simple_animal/hostile/hellhound/greater/New()
+/mob/living/simple_animal/hostile/hellhound/greater/Initialize(mapload)
 	. = ..()
 	// Movement
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift)
-	var/obj/effect/proc_holder/spell/targeted/area_teleport/teleport/telespell = new
+	AddSpell(new /obj/effect/proc_holder/spell/ethereal_jaunt/shift)
+	var/obj/effect/proc_holder/spell/area_teleport/teleport/telespell = new
 	telespell.clothes_req = FALSE
+	telespell.human_req = FALSE
 	telespell.invocation_type = "none"
 	AddSpell(telespell)
-	var/obj/effect/proc_holder/spell/aoe_turf/knock/knockspell = new
+	var/obj/effect/proc_holder/spell/aoe/knock/knockspell = new
 	knockspell.invocation_type = "none"
 	AddSpell(knockspell)
 	// Defense
-	var/obj/effect/proc_holder/spell/targeted/forcewall/greater/wallspell = new
+	var/obj/effect/proc_holder/spell/forcewall/greater/wallspell = new
 	wallspell.clothes_req = FALSE
+	wallspell.human_req = FALSE
 	wallspell.invocation_type = "none"
 	AddSpell(wallspell)
 	// Offense
-	var/obj/effect/proc_holder/spell/aoe_turf/conjure/creature/summonspell = new
-	summonspell.charge_max = 1
+	var/obj/effect/proc_holder/spell/aoe/conjure/creature/summonspell = new
+	summonspell.base_cooldown = 1
 	summonspell.invocation_type = "none"
 	summonspell.summon_type = list(/mob/living/simple_animal/hostile/hellhound)
 	summonspell.summon_amt = 1
@@ -147,6 +162,25 @@
 	if(world.time < (smoke_lastuse + smoke_freq))
 		return
 	smoke_lastuse = world.time
-	var/datum/effect_system/smoke_spread/sleeping/smoke = new
-	smoke.set_up(10, 0, loc)
+	var/datum/effect_system/fluid_spread/smoke/sleeping/smoke = new
+	smoke.set_up(amount = 10, location = loc)
 	smoke.start()
+
+/mob/living/simple_animal/hostile/hellhound/tear
+	name = "frenzied hellhound"
+	desc = "Чёрное существо с демоническим обликом, горящими красными глазами и острыми клыками, словно вышедшее из преисподней. С его тела стекает лава. Он далеко не обычный низший пёс."
+	maxHealth = 300
+	health = 300
+	melee_damage_lower = 30
+	melee_damage_upper = 50
+	faction = list("rift")
+
+/mob/living/simple_animal/hostile/hellhound/tear/get_ru_names()
+	return list(
+		NOMINATIVE = "бешеный адский пёс",
+		GENITIVE = "бешеного адского пса",
+		DATIVE = "бешеному адскому псу",
+		ACCUSATIVE = "бешеного адского пса",
+		INSTRUMENTAL = "бешеным адским псом",
+		PREPOSITIONAL = "бешеном адском псе",
+	)

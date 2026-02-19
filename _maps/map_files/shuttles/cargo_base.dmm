@@ -21,7 +21,7 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
@@ -57,10 +57,11 @@
 /obj/machinery/door/airlock/external{
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch";
-	req_access_txt = "31"
+	req_access = list(31)
 	},
 /obj/docking_port/mobile/supply{
-	timid = 1
+	timid = 1;
+	port_direction = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
@@ -74,9 +75,6 @@
 /area/shuttle/supply)
 "o" = (
 /obj/machinery/light/spot,
-/turf/simulated/floor/shuttle,
-/area/shuttle/supply)
-"p" = (
 /turf/simulated/floor/shuttle,
 /area/shuttle/supply)
 "t" = (
@@ -135,7 +133,7 @@ i
 e
 e
 e
-p
+e
 u
 w
 "}
@@ -191,7 +189,7 @@ j
 e
 e
 e
-p
+e
 u
 y
 "}

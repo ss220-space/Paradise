@@ -265,10 +265,7 @@
 	},
 /area/shuttle/escape)
 "aV" = (
-/obj/item/radio/intercom{
-	dir = 4;
-	pixel_x = 28
-	},
+/obj/item/radio/intercom/directional/east,
 /obj/structure/bed/roller,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -292,7 +289,7 @@
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
 "aY" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -351,7 +348,7 @@
 "bc" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Escape Shuttle Cell";
-	req_access_txt = "2"
+	req_access = list(63)
 	},
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -367,7 +364,7 @@
 "bf" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Escape Shuttle Cockpit";
-	req_access_txt = "19"
+	req_access = list(19)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -378,7 +375,7 @@
 /obj/machinery/door/airlock/medical/glass{
 	id_tag = "ShuttleMedbay";
 	name = "Shuttle Medbay";
-	req_access_txt = "5"
+	req_access = list(5)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -389,7 +386,8 @@
 	dwidth = 11;
 	height = 13;
 	timid = 1;
-	width = 24
+	width = 24;
+	port_direction = 8
 	},
 /obj/machinery/door/airlock/shuttle{
 	aiControlDisabled = 1;
@@ -412,10 +410,7 @@
 	},
 /area/shuttle/escape)
 "bj" = (
-/obj/item/radio/intercom{
-	dir = 8;
-	pixel_x = -28
-	},
+/obj/item/radio/intercom/directional/west,
 /obj/machinery/light/spot{
 	dir = 8;
 	tag = "icon-tube1 (WEST)"

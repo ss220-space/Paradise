@@ -4,7 +4,7 @@
 	navigate the popup window to the data/logs/runtime/ folder from where your tgstation .dmb is located.
 	(you may have to make this folder yourself)
 
-	OPTIONAL: 	you can select the little checkbox down the bottom to make dreamdeamon save the log everytime you
+	OPTIONAL:	you can select the little checkbox down the bottom to make dreamdeamon save the log everytime you
 				start a world. Just remember to repeat these steps with a new name when you update to a new revision!
 
 	Save it with the name of the revision your server uses (e.g. r3459.txt).
@@ -13,13 +13,11 @@
 	codebase for the entire /TG/station commuity a TONNE easier :3 Thanks for your help!
 */
 
+ADMIN_VERB(get_server_logs, R_ADMIN, "Get Server Logs", "View or retrieve logfiles.", ADMIN_CATEGORY_DEBUG)
+	user.browseserverlogs()
 
 //This proc allows download of past server logs saved within the data/logs/ folder.
-/client/proc/getserverlogs()
-	set name = "Get Server Logs"
-	set desc = "View/retrieve logfiles."
-	set category = "Admin"
-
+/client/proc/browseserverlogs()
 	var/path = browse_files("data/logs/")
 	if(!path)
 		return
@@ -28,14 +26,15 @@
 		return
 
 	message_admins("[key_name_admin(src)] accessed file: [path]")
-	switch(alert("View (in game), Open (in your system's text editor), or Download?", path, "View", "Open", "Download"))
-		if ("View")
-			src << browse("<pre style='word-wrap: break-word;'>[html_encode(wrap_file2text(wrap_file(path)))]</pre>", list2params(list("window" = "viewfile.[path]")))
-		if ("Open")
+	switch(tgui_alert(usr, "View (in game), Open (in your system's text editor), or Download?", path, list("View", "Open", "Download")))
+		if("View")
+			var/datum/browser/popup = new(src, "viewfile.[path]", "Server Logs")
+			popup.set_content("<pre style='word-wrap: break-word;'>[html_encode(wrap_file2text(wrap_file(path)))]</pre>")
+			popup.open(FALSE)
+		if("Open")
 			src << run(wrap_file(path))
-		if ("Download")
+		if("Download")
 			src << ftp(wrap_file(path))
 		else
 			return
-	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.")
-	return
+	to_chat(src, "Attempting to send [path], this may take a fair few minutes if the file is very large.", confidential = TRUE)

@@ -8,15 +8,13 @@
 
 /obj/machinery/power
 	name = null
-	icon = 'icons/obj/power.dmi'
+	icon = 'icons/obj/engines_and_power/power.dmi'
 	anchored = TRUE
 	on_blueprints = TRUE
 	var/datum/powernet/powernet = null
 	use_power = NO_POWER_USE
-	idle_power_usage = 0
-	active_power_usage = 0
 
-/obj/machinery/power/Destroy()
+/obj/machinery/power/Destroy(force)
 	disconnect_from_network()
 	return ..()
 
@@ -73,12 +71,11 @@
 
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
-/obj/machinery/proc/powered(var/chan = -1) // defaults to power_channel
+/obj/machinery/proc/powered(chan = -1) // defaults to power_channel
 	if(!loc)
 		return FALSE
 	if(!use_power)
 		return TRUE
-
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
 		return FALSE					// if not, then not powered
@@ -104,15 +101,14 @@
 /obj/machinery/proc/removeStaticPower(value, powerchannel)
 	addStaticPower(-value, powerchannel)
 
-/obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
+/obj/machinery/proc/power_change(forced = FALSE)		// called whenever the power settings of the containing area change
 										// by default, check equipment channel & set flag
-										// can override if needed
+	var/old_stat = stat					// can override if needed
 	if(powered(power_channel))
 		stat &= ~NOPOWER
 	else
-
 		stat |= NOPOWER
-	return
+	return old_stat != stat || forced //performance saving for machines that use power_change() to update icons!
 
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
@@ -134,20 +130,22 @@
 	powernet.remove_machine(src)
 	return TRUE
 
-// attach a wire to a power machine - leads from the turf you are standing on
-//almost never called, overwritten by all power machines but terminal and generator
 /obj/machinery/power/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = I
-		var/turf/T = user.loc
-		if(T.intact || !isfloorturf(T))
-			return
-		if(get_dist(src, user) > 1)
-			return
-		coil.place_turf(T, user)
-	else
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(iscoil(I))
+		add_fingerprint(user)
+		var/obj/item/stack/cable_coil/coil = I
+		var/turf/our_turf = get_turf(src)
+		if(!isfloorturf(our_turf) || !our_turf.can_lay_cable())
+			return ATTACK_CHAIN_PROCEED
+		if(get_dist(src, user) > 1)	// probably needed, ffs
+			return ATTACK_CHAIN_PROCEED
+		coil.place_turf(our_turf, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 ///////////////////////////////////////////
 // Powernet handling helpers
@@ -205,7 +203,6 @@
 // GLOBAL PROCS for powernets handling
 //////////////////////////////////////////
 
-
 // returns a list of all power-related objects (nodes, cable, junctions) in turf,
 // excluding source, that match the direction d
 // if unmarked==1, only return those with no powernet
@@ -240,9 +237,9 @@
 	var/index = 1
 	var/obj/P = null
 
-	worklist+=O //start propagating from the passed object
+	worklist[O] = TRUE //start propagating from the passed object
 
-	while(index<=worklist.len) //until we've exhausted all power objects
+	while(index<=length(worklist)) //until we've exhausted all power objects
 		P = worklist[index] //get the next power object found
 		index++
 
@@ -250,20 +247,21 @@
 			var/obj/structure/cable/C = P
 			if(C.powernet != PN) //add it to the powernet, if it isn't already there
 				PN.add_cable(C)
-			worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
+			//worklist |= C.get_connections() //get adjacents power objects, with or without a powernet
+			for(var/i in C.get_connections())
+				worklist[i] = TRUE
 
 		else if(P.anchored && istype(P, /obj/machinery/power))
 			var/obj/machinery/power/M = P
-			found_machines |= M //we wait until the powernet is fully propagates to connect the machines
+			found_machines[P] = M //we wait until the powernet is fully propagates to connect the machines
 
 		else
 			continue
 
 	//now that the powernet is set, connect found machines to it
-	for(var/obj/machinery/power/PM in found_machines)
+	for(var/obj/machinery/power/PM as anything in found_machines)
 		if(!PM.connect_to_network()) //couldn't find a node on its turf...
 			PM.disconnect_from_network() //... so disconnect if already on a powernet
-
 
 //Merge two powernets, the bigger (in cable length term) absorbing the other
 /proc/merge_powernets(datum/powernet/net1, datum/powernet/net2)
@@ -274,7 +272,7 @@
 		return
 
 	//We assume net1 is larger. If net2 is in fact larger we are just going to make them switch places to reduce on code.
-	if(net1.cables.len < net2.cables.len)	//net2 is larger than net1. Let's switch them around
+	if(length(net1.cables) < length(net2.cables))	//net2 is larger than net1. Let's switch them around
 		var/temp = net1
 		net1 = net2
 		net2 = temp
@@ -290,22 +288,22 @@
 	return net1
 
 //Determines how strong could be shock, deals damage to mob, uses power.
-//M is a mob who touched wire/whatever
+//victim is a mob who touched wire/whatever
 //power_source is a source of electricity, can be powercell, area, apc, cable, powernet or null
 //source is an object caused electrocuting (airlock, grille, etc)
+//siemens_coeff - layman's terms, conductivity
+//dist_check - set to only shock mobs within 1 of source (vendors, airlocks, etc.)
 //No animations will be performed by this proc.
-/proc/electrocute_mob(mob/living/M, power_source, obj/source, siemens_coeff = 1, dist_check = FALSE)
-	if(!M || ismecha(M.loc))
-		return FALSE	//feckin mechs are dumb
-	if(dist_check)
-		if(!in_range(source, M))
-			return FALSE
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.gloves)
-			var/obj/item/clothing/gloves/G = H.gloves
-			if(G.siemens_coefficient == 0)
-				return FALSE		//to avoid spamming with insulated glvoes on
+/proc/electrocute_mob(mob/living/victim, power_source, obj/source, siemens_coeff = 1, dist_check = FALSE)
+	if(!isliving(victim) || ismecha(victim.loc))
+		return FALSE //feckin mechs are dumb
+
+	if(dist_check && !in_range(source, victim))
+		return FALSE
+
+	var/mob/living/carbon/human/h_victim = victim
+	if(ishuman(h_victim) && h_victim.wearing_shock_proof_gloves())
+		return FALSE	//to avoid spamming with insulated glvoes on
 
 	var/area/source_area
 	if(istype(power_source, /area))
@@ -322,18 +320,18 @@
 		PN = power_source
 	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell = power_source
-	else if(istype(power_source, /obj/machinery/power/apc))
+	else if(isapc(power_source))
 		var/obj/machinery/power/apc/apc = power_source
 		cell = apc.cell
 		if(apc.terminal)
 			PN = apc.terminal.powernet
 	else if(!power_source)
-		return 0
+		return FALSE
 	else
-		log_admin("ERROR: /proc/electrocute_mob([M], [power_source], [source]): wrong power_source")
-		return 0
+		log_admin("ERROR: /proc/electrocute_mob([victim], [power_source], [source]): wrong power_source")
+		return FALSE
 	if(!cell && !PN)
-		return 0
+		return FALSE
 	var/PN_damage = 0
 	var/cell_damage = 0
 	if(PN)
@@ -347,7 +345,7 @@
 	else
 		power_source = cell
 		shock_damage = cell_damage
-	var/drained_hp = M.electrocute_act(shock_damage, source, siemens_coeff) //zzzzzzap!
+	var/drained_hp = victim.electrocute_act(shock_damage, source, siemens_coeff) //zzzzzzap!
 	var/drained_energy = drained_hp*20
 
 	if(source_area)
@@ -355,14 +353,13 @@
 	else if(istype(power_source, /datum/powernet))
 		var/drained_power = drained_energy/GLOB.CELLRATE //convert from "joules" to "watts"
 		PN.delayedload += (min(drained_power, max(PN.newavail - PN.delayedload, 0)))
-	else if (istype(power_source, /obj/item/stock_parts/cell))
+	else if(istype(power_source, /obj/item/stock_parts/cell))
 		cell.use(drained_energy)
 	return drained_energy
 
 ////////////////////////////////////////////////
 // Misc.
 ///////////////////////////////////////////////
-
 
 // return a knot cable (O-X) if one is present in the turf
 // null if there's none

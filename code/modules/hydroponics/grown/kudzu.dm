@@ -22,23 +22,35 @@
 	return S
 
 /obj/item/seeds/kudzu/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide..</span>")
+	user.visible_message(span_suicide("[user] swallows the pack of kudzu seeds! It looks like [user.p_theyre()] trying to commit suicide.."))
 	plant(user)
 	return BRUTELOSS
 
 /obj/item/seeds/kudzu/proc/plant(mob/user)
-	if(istype(user.loc, /turf/space))
-		return
-	var/turf/T = get_turf(src)
-	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_COORDJMP(T)]")
-	investigate_log("was planted by [key_name_log(user)] at [COORD(T)]", INVESTIGATE_BOTANY)
-	new /obj/structure/spacevine_controller(user.loc, mutations, potency, production)
-	user.drop_item()
+	var/turf/user_turf = user.loc
+	if(!isturf(user_turf) || isspaceturf(user_turf) || !is_location_within_transition_boundaries(user_turf))
+		return FALSE
+	message_admins("Kudzu planted by [ADMIN_LOOKUPFLW(user)] at [ADMIN_COORDJMP(user_turf)]")
+	investigate_log("was planted by [key_name_log(user)] at [COORD(user_turf)]", INVESTIGATE_BOTANY)
+	new /obj/structure/spacevine_controller(user_turf, mutations, potency, production)
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
+	return TRUE
+
+/obj/item/seeds/kudzu/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/seeds/kudzu))
+		var/obj/item/seeds/kudzu/AttackerSeed = I
+		mutations |= AttackerSeed.mutations
+
+		add_fingerprint(user)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 /obj/item/seeds/kudzu/attack_self(mob/user)
-	plant(user)
-	to_chat(user, "<span class='notice'>You plant the kudzu. You monster.</span>")
+	if(plant(user))
+		to_chat(user, span_notice("You plant the kudzu. You monster."))
 
 /obj/item/seeds/kudzu/get_analyzer_text()
 	var/text = ..()
@@ -55,7 +67,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == NEGATIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -63,7 +75,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == POSITIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -71,7 +83,7 @@
 		for(var/datum/spacevine_mutation/SM in mutations)
 			if(SM.quality == MINOR_NEGATIVE)
 				temp_mut_list += SM
-		if(prob(20) && temp_mut_list.len)
+		if(prob(20) && length(temp_mut_list))
 			mutations.Remove(pick(temp_mut_list))
 		temp_mut_list.Cut()
 
@@ -87,11 +99,10 @@
 	if(S.has_reagent("holywater", 10))
 		adjust_potency(rand(15, -5))
 
-
 /obj/item/reagent_containers/food/snacks/grown/kudzupod
 	seed = /obj/item/seeds/kudzu
 	name = "kudzu pod"
-	desc = "<I>Pueraria Virallis</I>: An invasive species with vines that rapidly creep and wrap around whatever they contact."
+	desc = "<i>Pueraria Virallis</i>: An invasive species with vines that rapidly creep and wrap around whatever they contact."
 	icon_state = "kudzupod"
 	filling_color = "#6B8E23"
 	bitesize_mod = 2

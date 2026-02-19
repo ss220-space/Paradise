@@ -11,8 +11,8 @@
 /obj/item/stack/tile/mineral/plasma/welder_act(mob/user, obj/item/I)
 	if(I.use_tool(src, user, volume = I.tool_volume))
 		atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 5)
-		user.visible_message("<span class='warning'>[user.name] sets the plasma tiles on fire!</span>", \
-							"<span class='warning'>You set the plasma tiles on fire!</span>")
+		user.visible_message(span_warning("[user.name] sets the plasma tiles on fire!"), \
+							span_warning("You set the plasma tiles on fire!"))
 		add_attack_logs(user, src, "Ignited [amount], using [I]", ATKLOG_FEW)
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)] in [amount] amount.", INVESTIGATE_ATMOS)
 		qdel(src)
@@ -39,8 +39,8 @@ GLOBAL_LIST_INIT(gold_tile_recipes, list ( \
 	mineralType = "gold"
 	materials = list(MAT_GOLD=500)
 
-/obj/item/stack/tile/mineral/gold/New(loc, amount=null)
-	..()
+/obj/item/stack/tile/mineral/gold/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.gold_tile_recipes
 
 GLOBAL_LIST_INIT(goldfancy_tile_recipes, list ( \
@@ -51,12 +51,12 @@ GLOBAL_LIST_INIT(goldfancy_tile_recipes, list ( \
 	icon_state = "tile_goldfancy"
 	turf_type = /turf/simulated/floor/mineral/gold/fancy
 
-/obj/item/stack/tile/mineral/gold/fancy/New(loc, amount=null)
-	..()
+/obj/item/stack/tile/mineral/gold/fancy/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.goldfancy_tile_recipes
 
 GLOBAL_LIST_INIT(silver_tile_recipes, list ( \
-	new/datum/stack_recipe("fancy silver tile", /obj/item/stack/tile/mineral/silver/fancy, max_res_amount = 20), \
+	new/datum/stack_recipe("fancy silver tile", /obj/item/stack/tile/mineral/silver/fancy, max_res_amount = 20) \
 	))
 
 /obj/item/stack/tile/mineral/silver
@@ -68,8 +68,8 @@ GLOBAL_LIST_INIT(silver_tile_recipes, list ( \
 	mineralType = "silver"
 	materials = list(MAT_SILVER=500)
 
-/obj/item/stack/tile/mineral/silver/New(loc, amount=null)
-	..()
+/obj/item/stack/tile/mineral/silver/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
 	recipes = GLOB.silver_tile_recipes
 
 GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
@@ -80,7 +80,7 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 	icon_state = "tile_silverfancy"
 	turf_type = /turf/simulated/floor/mineral/silver/fancy
 
-/obj/item/stack/tile/mineral/silver/fancy/New(loc, amount=null)
+/obj/item/stack/tile/mineral/silver/fancy/Initialize(mapload, new_amount, merge = TRUE)
 	..()
 	recipes = GLOB.silverfancy_tile_recipes
 

@@ -6,21 +6,17 @@
 /turf/simulated/wall/indestructible/metal,
 /area/template_noop)
 "c" = (
-/obj/effect/view_portal{
-	id = "mazeland_room"
-	},
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/simulated/floor/indestructible{
 	icon_state = "floor"
 	},
 /area/template_noop)
 "d" = (
-/obj/effect/view_portal/visual{
-	dist = 2;
-	frustrum = 0;
-	id = "mazeland";
+/obj/machinery/light{
+	dir = 4
+	},
+/obj/effect/visual_portal{
+	id = "mazeland_room";
+	distance = 1;
 	radius = 1
 	},
 /turf/simulated/floor/indestructible{
@@ -28,10 +24,10 @@
 	},
 /area/template_noop)
 "e" = (
-/turf/simulated/wall/indestructible{
-	icon = null;
-	dynamic_lighting = 0
-	},
+/turf/simulated/floor/indestructible/view_portal/dense,
+/area/template_noop)
+"o" = (
+/turf/simulated/wall/indestructible/invisible/view_portal,
 /area/template_noop)
 
 (1,1,1) = {"
@@ -46,19 +42,19 @@ a
 (2,1,1) = {"
 a
 b
-b
-b
-b
-b
+e
+e
+e
+e
 a
 "}
 (3,1,1) = {"
 a
 b
 b
-e
-e
 b
+b
+e
 a
 "}
 (4,1,1) = {"
@@ -66,8 +62,8 @@ a
 c
 d
 e
-e
 b
+e
 a
 "}
 (5,1,1) = {"
@@ -75,17 +71,17 @@ a
 b
 b
 e
-e
 b
+e
 a
 "}
 (6,1,1) = {"
 a
 b
 b
+o
 b
-b
-b
+e
 a
 "}
 (7,1,1) = {"

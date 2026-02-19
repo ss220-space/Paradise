@@ -7,20 +7,20 @@ SAFE CODES
 */
 
 #define DRILL_SPARK_CHANCE 15
-#define DRILL_TIME 300 SECONDS
+#define DRILL_TIME 150 SECONDS
 #define SOUND_CHANCE 10
 
 GLOBAL_LIST_EMPTY(safes)
 
 /**
-  * # Safe
-  *
-  * A locked container that can only be opened by entering a combination through a dial.
-  */
+ * # Safe
+ *
+ * A locked container that can only be opened by entering a combination through a dial.
+ */
 /obj/structure/safe
 	name = "safe"
-	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
-	icon = 'icons/obj/structures.dmi'
+	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от концерна \"Скарборо\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
+	gender = MALE
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
@@ -62,6 +62,18 @@ GLOBAL_LIST_EMPTY(safes)
 	var/drill_y_offset = -3
 	/// Used by [/obj/item/paper/safe_code] to tell the codes through a paper spawned on map load.
 	var/known_by = list()
+	/// UID of that who placed the drill on the safe. Used to trigger the status effect.
+	var/driller_UID
+
+/obj/structure/safe/get_ru_names()
+	return list(
+		NOMINATIVE = "сейф",
+		GENITIVE = "сейфа",
+		DATIVE = "сейфу",
+		ACCUSATIVE = "сейф",
+		INSTRUMENTAL = "сейфом",
+		PREPOSITIONAL = "сейфе",
+	)
 
 /obj/structure/safe/Initialize(mapload)
 	. = ..()
@@ -83,36 +95,39 @@ GLOBAL_LIST_EMPTY(safes)
 		drill.soundloop.stop()
 		drill.forceMove(loc)
 		drill = null
-
+	driller_UID = null
 	QDEL_NULL(progress_bar)
 	QDEL_NULL(drill_overlay)
+	clear_payback() // Lets not leave the overlay if an admin deletes the safe during the event.
 	return ..()
 
 /obj/structure/safe/process()
 	if(!drill_timer)
 		return
 	cut_overlay(progress_bar)
-	progress_bar = image('icons/effects/progessbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
+	progress_bar = image('icons/effects/progressbar.dmi', src, "prog_bar_[round((((world.time - drill_start_time) / time_to_drill) * 100), 5)]", HUD_LAYER)
 	add_overlay(progress_bar)
 	if(prob(DRILL_SPARK_CHANCE))
 		drill.spark_system.start()
+	if(!drill.spotted && drill.payback)
+		security_check()
 
 /obj/structure/safe/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>This model appears to have [number_of_tumblers] tumblers.</span>"
+	. += span_notice("Похоже, что эта модель имеет [number_of_tumblers] [declension_ru(number_of_tumblers,"тумблер","тумблера","тумблеров")].")
 	if(open)
-		. += "<span class='notice'>The inside of the the door has numbers written on it: <b>[get_combination()]</b></span>"
+		. += span_notice("На внутренней стороне двери написаны цифры: <b>[get_combination()]</b>.")
 
 /obj/structure/safe/blob_act(obj/structure/blob/B)
 	return
 
-/obj/structure/safe/ex_act(severity)
+/obj/structure/safe/ex_act(severity, target)
 	return
 
 /obj/structure/safe/examine_status(mob/user)
 	return
 
-/obj/structure/safe/update_icon()
+/obj/structure/safe/update_icon_state()
 	if(open)
 		if(broken)
 			icon_state = "[initial(icon_state)]-open-broken"
@@ -124,17 +139,15 @@ GLOBAL_LIST_EMPTY(safes)
 		else
 			icon_state = initial(icon_state)
 
-	var/list/overlays_to_cut = list(drill_overlay)
-	if(!drill_timer)
-		overlays_to_cut += progress_bar
-
-	cut_overlay(overlays_to_cut)
-
+/obj/structure/safe/update_overlays()
+	. = ..()
 	if(istype(drill, /obj/item/thermal_drill))
 		var/drill_icon = istype(drill, /obj/item/thermal_drill/diamond_drill) ? "d" : "h"
 		var/state = "[initial(icon_state)]_[drill_icon]-drill-[drill_timer ? "on" : "off"]"
-		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state, pixel_x = drill_x_offset, pixel_y = drill_y_offset)
-		add_overlay(drill_overlay)
+		drill_overlay = image(icon = 'icons/effects/drill.dmi', icon_state = state)
+		drill_overlay.pixel_w = drill_x_offset
+		drill_overlay.pixel_z = drill_y_offset
+		. += drill_overlay
 
 /obj/structure/safe/attack_ghost(mob/user)
 	if(..() || drill)
@@ -145,79 +158,105 @@ GLOBAL_LIST_EMPTY(safes)
 	if(..())
 		return TRUE
 
-	if(drill)
-		switch(alert("What would you like to do?", "Thermal Drill", "Turn [drill_timer ? "Off" : "On"]", "Remove Drill", "Cancel"))
-			if("Turn On")
-				if(do_after(user, 2 SECONDS, target = src))
-					drill_timer = addtimer(CALLBACK(src, .proc/drill_open), time_to_drill, TIMER_STOPPABLE)
+	if(drill && !broken)
+		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
+			if("Включить")
+				if(do_after(user, 2 SECONDS, src))
+					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
 					drill_start_time = world.time
 					drill.soundloop.start()
 					update_icon()
+					driller_UID = user.UID()
 					START_PROCESSING(SSobj, src)
-			if("Turn Off")
-				if(do_after(user, 2 SECONDS, target = src))
+			if("Выключить")
+				if(do_after(user, 10 SECONDS, src)) //Can't be too easy to turn off
+					var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
 					deltimer(drill_timer)
 					drill_timer = null
 					drill.soundloop.stop()
+					cut_overlay(progress_bar)
 					update_icon()
+					driller_human?.remove_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+					driller_UID = null
 					STOP_PROCESSING(SSobj, src)
-			if("Remove Drill")
+			if("Убрать дрель")
 				if(drill_timer)
-					to_chat(user, "<span class='warning'>You cannot remove the drill while it's running!</span>")
-				else if(do_after(user, 2 SECONDS, target = src))
-					user.put_in_hands(drill)
-					drill = null
-					update_icon()
-			if("Cancel")
+					user.balloon_alert(user, "дрель работает!")
+				else if(do_after(user, 2 SECONDS, src))
+					remove_drill(user)
+			if("Отмена")
 				return
+	else if(drill && broken)
+		remove_drill(user)
 	else
 		ui_interact(user)
 
-/obj/structure/safe/attackby(obj/item/I, mob/user, params)
+/obj/structure/safe/attackby(obj/item/item, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(open)
-		if(broken && istype(I, /obj/item/safe_internals) && do_after(user, 2 SECONDS, target = src))
-			to_chat(user, "<span class='notice'>You replace the broken mechanism.</span>")
-			qdel(I)
+		if(item.item_flags & ABSTRACT)
+			return ..()
+		add_fingerprint(user)
+		if(broken && istype(item, /obj/item/safe_internals))
+			user.balloon_alert(user, "замена началась")
+			if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || !broken)
+				return ATTACK_CHAIN_PROCEED
+			if(!user.drop_transfer_item_to_loc(item, src))
+				return ..()
+			user.balloon_alert(user, "механизм заменён")
 			broken = FALSE
+			locked = FALSE
 			update_icon()
-		else if(I.w_class + space <= maxspace)
-			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>\The [I] is stuck to your hand, you cannot put it in the safe!</span>")
-				return
-			space += I.w_class
-			I.forceMove(src)
-			to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-			SStgui.update_uis(src)
-		else
-			to_chat(user, "<span class='warning'>[I] won't fit in [src].</span>")
-	else
-		if(istype(I, /obj/item/clothing/accessory/stethoscope))
-			attack_hand(user)
-			return
-		else if(istype(I, /obj/item/thermal_drill))
-			if(drill)
-				to_chat(user, "<span class='warning'>There is already a drill attached!</span>")
-			else if(do_after(user, 2 SECONDS, target = src))
-				if(!user.drop_item())
-					to_chat(user, "<span class='warning'>[I] is stuck to your hand, you cannot put it in the safe!</span>")
-					return
-				I.forceMove(src)
-				drill = I
-				time_to_drill = DRILL_TIME * drill.time_multiplier
-				update_icon()
-		else
-			to_chat(user, "<span class='warning'>You can't put [I] into the safe while it is closed!</span>")
-			return
+			qdel(item)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(item.w_class + space > maxspace)
+			to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] не помещается [item.declent_ru(NOMINATIVE)]."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(item, src))
+			return ATTACK_CHAIN_PROCEED
+		space += item.w_class
+		to_chat(user, span_notice("Вы кладёте [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		SStgui.update_uis(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/structure/safe/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	var/datum/asset/safe_assets = get_asset_datum(/datum/asset/simple/safe)
-	safe_assets.send(user)
+	if(istype(item, /obj/item/clothing/accessory/stethoscope))
+		attack_hand(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+	add_fingerprint(user)
+	if(istype(item, /obj/item/thermal_drill))
+		if(drill)
+			user.balloon_alert(user, "дрель уже стоит!")
+			return ATTACK_CHAIN_PROCEED
+		user.balloon_alert(user, "установка началась")
+		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || drill)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(item, src))
+			return ATTACK_CHAIN_PROCEED
+		drill = item
+		time_to_drill = DRILL_TIME * drill.time_multiplier
+		update_icon()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	user.balloon_alert(user,"сейф закрыт!")
+	return ATTACK_CHAIN_PROCEED
+
+/obj/structure/safe/ui_state(mob/user)
+	return GLOB.physical_state
+
+/obj/structure/safe/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Safe", name, 600, 750)
+		ui = new(user, src, "Safe", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
+
+/obj/structure/safe/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/simple/safe)
+	)
 
 /obj/structure/safe/ui_data(mob/user)
 	var/list/data = list()
@@ -239,29 +278,29 @@ GLOBAL_LIST_EMPTY(safes)
 		return
 
 	if(!usr.IsAdvancedToolUser() && !isobserver(usr))
-		to_chat(usr, "<span class='warning'>You are not able to operate the safe.</span>")
+		to_chat(usr, span_warning("Вы не можете взаимодействовать с этим сейфом."))
 		return
 
 	var/canhear = FALSE
 	if(ishuman(usr))
 		var/mob/living/carbon/human/H = usr
-		if(H.can_hear() && H.is_in_hands(/obj/item/clothing/accessory/stethoscope))
+		if(H.can_hear() && H.is_type_in_hands(/obj/item/clothing/accessory/stethoscope))
 			canhear = TRUE
 
 	. = TRUE
 	switch(action)
 		if("open")
 			if(check_unlocked() || open || broken)
-				to_chat(usr, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
+				to_chat(usr, span_notice("Вы [open ? "закрываете" : "открываете"] [declent_ru(ACCUSATIVE)]."))
 				open = !open
 				update_icon()
 			else
-				to_chat(usr, "<span class='warning'>You cannot open [src], as its lock is engaged!</span>")
+				to_chat(usr, span_warning("Вы не можете открыть [declent_ru(ACCUSATIVE)], пока замок закрыт!"))
 		if("turnright")
 			if(open)
 				return
 			if(broken)
-				to_chat(usr, "<span class='warning'>The dial will not turn, as the mechanism is destroyed!</span>")
+				to_chat(usr, span_warning("Циферблат не поворачивается, так как его механизм сломан!"))
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)
@@ -272,16 +311,16 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(usr, canhear, list("tink", "krink", "plink"), ticks, i)
+					notify_user(usr, canhear, list("тинк", "кринк", "плинк"), ticks, i)
 					current_tumbler_index++
 				else
-					notify_user(usr, canhear, list("clack", "scrape", "clank"), ticks, i)
+					notify_user(usr, canhear, list("клак", "скрип", "кланк"), ticks, i)
 			check_unlocked()
 		if("turnleft")
 			if(open)
 				return
 			if(broken)
-				to_chat(usr, "<span class='warning'>The dial will not turn, as the mechanism is destroyed!</span>")
+				to_chat(usr, span_warning("Циферблат не поворачивается, так как его механизм сломан!"))
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)
@@ -292,10 +331,10 @@ GLOBAL_LIST_EMPTY(safes)
 					current_tumbler_index = 1
 
 				if(!invalid_turn && dial == tumblers[current_tumbler_index])
-					notify_user(usr, canhear, list("tonk", "krunk", "plunk"), ticks, i)
+					notify_user(usr, canhear, list("тонк", "кранк", "планк"), ticks, i)
 					current_tumbler_index++
 				else
-					notify_user(usr, canhear, list("click", "chink", "clink"), ticks, i)
+					notify_user(usr, canhear, list("клик", "чик", "клинк"), ticks, i)
 			check_unlocked()
 		if("retrieve")
 			if(!open)
@@ -305,67 +344,130 @@ GLOBAL_LIST_EMPTY(safes)
 				return
 			var/obj/item/I = contents[index]
 			if(I && in_range(src, usr))
-				usr.put_in_hands(I)
+				I.forceMove_turf()
+				usr.put_in_hands(I, ignore_anim = FALSE)
 				space -= I.w_class
 		else
 			return FALSE
 
 	add_fingerprint(usr)
 
+/obj/structure/safe/proc/remove_drill(mob/user)
+	user.put_in_hands(drill)
+	drill = null
+	update_icon()
+
+/obj/structure/safe/proc/security_check()
+	var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
+	if(!istype(driller_human) || get_dist(src, driller_human) >= 9)
+		return //You need to be near the drill if you want to get the buff.
+	for(var/mob/living/carbon/human/H in view(9, driller_human))
+		if((H.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_CLOWN)) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
+			drill.spotted = TRUE
+			security_assualt_in_progress(driller_human)
+			return
+	for(var/mob/living/carbon/human/H in view(9, src))
+		if((H.job in list(JOB_TITLE_OFFICER, JOB_TITLE_PILOT, JOB_TITLE_DETECTIVE, JOB_TITLE_WARDEN, JOB_TITLE_HOS, JOB_TITLE_CAPTAIN, JOB_TITLE_CLOWN)) && !H.mind?.special_role || H.mind?.special_role == SPECIAL_ROLE_ERT)
+			drill.spotted = TRUE
+			security_assualt_in_progress(driller_human)
+			return
+
+/obj/structure/safe/proc/security_assualt_in_progress(mob/living/carbon/human/driller_human)
+	driller_human.apply_status_effect(STATUS_EFFECT_DRILL_PAYBACK, src)
+	drill.song.start_playing(driller_human)
+	drill.atom_say("Security spotted. Nanites deployed. Give them <b>hell.</b>")
+	notify_ghosts("Security assault in progress in [get_area(src)]!", enter_link = "<a href=byond://?src=[UID()];follow=1>(Click to jump to!)</a>", source = src, action = NOTIFY_FOLLOW)
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 0)
+	addtimer(CALLBACK(src, PROC_REF(ghost_payback_phase_2)), 2.7 SECONDS)
+
+/obj/structure/safe/proc/ghost_payback_phase_2()
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		O.clear_fullscreen("payback")
+		O.overlay_fullscreen("payback", /atom/movable/screen/fullscreen/payback, 1)
+	addtimer(CALLBACK(src, PROC_REF(clear_payback)), 2 MINUTES)
+
+/obj/structure/safe/proc/clear_payback()
+	for(var/mob/dead/observer/O in GLOB.player_list)
+		O.clear_fullscreen("payback")
+
 /**
-  * Called every dial turn to determine whether the safe should unlock or not.
-  */
+ * Called every dial turn to determine whether the safe should unlock or not.
+ */
 /obj/structure/safe/proc/check_unlocked()
 	if(current_tumbler_index > number_of_tumblers)
 		locked = FALSE
-		visible_message("<span class='boldnotice'>[pick("Spring", "Sprang", "Sproing", "Clunk", "Krunk")]!</span>")
+		visible_message(span_boldnotice("[pick("Спринк", "Спранк", "Спроинк", "Кланк", "Кранк")]!"))
 		return TRUE
 	locked = TRUE
 	return FALSE
 
 /**
-  * Called every dial turn to provide feedback if possible.
-  */
+ * Called every dial turn to provide feedback if possible.
+ */
 /obj/structure/safe/proc/notify_user(user, canhear, sounds, total_ticks, current_tick)
 	if(!canhear)
 		return
 
 	if(current_tick == 2)
-		to_chat(user, "<span class='italics'>The sounds from [src] are too fast and blend together.</span>")
+		to_chat(user, span_italics("Звуки от [declent_ru(GENITIVE)] издаются слишком быстро и смешиваются друг с другом."))
 	if(total_ticks == 1 || prob(SOUND_CHANCE))
-		to_chat(user, "<span class='italics'>You hear a [pick(sounds)] from [src].</span>")
+		to_chat(user, span_italics("Вы слышите [pick(sounds)] от [declent_ru(GENITIVE)]."))
 
 /**
-  * Returns the combination to unlock the safe as text.
-  */
+ * Returns the combination to unlock the safe as text.
+ */
 /obj/structure/safe/proc/get_combination()
 	return jointext(tumblers, ", ")
 
 /**
-  * Called when the current thermal drill has finished drilling.
-  */
+ * Called when the current thermal drill has finished drilling.
+ */
 /obj/structure/safe/proc/drill_open()
 	broken = TRUE
 	drill_timer = null
 	drill.soundloop.stop()
 	update_icon()
+	playsound(loc, 'sound/machines/ding.ogg', 50, TRUE)
+	cut_overlay(progress_bar)
+	update_icon()
+	if(drill.payback)
+		var/mob/living/carbon/human/driller_human = locateUID(driller_UID)
+		var/datum/status_effect/drill_payback/D = driller_human?.has_status_effect(STATUS_EFFECT_DRILL_PAYBACK)
+		if(D)
+			D.drilled_successfully = TRUE
+			addtimer(CALLBACK(driller_human, TYPE_PROC_REF(/mob/living, remove_status_effect), STATUS_EFFECT_DRILL_PAYBACK), 30 SECONDS) //Give them time to escape
+			drill.payback = FALSE //Can't be used again / no more adding timers
+			drill.song.stop_playing()
 	STOP_PROCESSING(SSobj, src)
 
 /**
-  * # Floor Safe
-  *
-  * Like a safe, but without density. Can be hidden with flooring.
-  */
+ * # Floor Safe
+ *
+ * Like a safe, but without density. Can be hidden with flooring.
+ */
 /obj/structure/safe/floor
 	name = "floor safe"
+	desc = "Огромный металлический люк со встроенным в него цифербалтом. Мелким шрифтом на циферблате написано: \"Напольный сейф от концерна \"Скарборо\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
 	icon_state = "floorsafe"
 	density = FALSE
 	level = 1 //Under the floor
-	layer = LOW_OBJ_LAYER
+	plane = FLOOR_PLANE
+	layer = ABOVE_PLATING_LAYER
 	drill_x_offset = -1
 	drill_y_offset = 20
 
-/obj/structure/safe/floor/Initialize()
+/obj/structure/safe/floor/get_ru_names()
+	return list(
+		NOMINATIVE = "напольный сейф",
+		GENITIVE = "напольного сейфа",
+		DATIVE = "напольному сейфу",
+		ACCUSATIVE = "напольный сейф",
+		INSTRUMENTAL = "напольным сейфом",
+		PREPOSITIONAL = "напольном сейфе",
+	)
+
+/obj/structure/safe/floor/Initialize(mapload)
 	. = ..()
 	var/turf/T = loc
 	if(!T.transparent_floor)
@@ -375,27 +477,48 @@ GLOBAL_LIST_EMPTY(safes)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
 
 /**
-  * # Safe Internals
-  *
-  * Can be used to replace a safe's broken mechanism.
-  */
+ * # Safe Internals
+ *
+ * Can be used to replace a safe's broken mechanism.
+ */
 /obj/item/safe_internals
 	name = "safe internals"
-	desc = "The mechanism and locking bolts for a Scarborough Arms - 2 tumbler safe."
+	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс – \"."
 	icon_state = "safe_internals"
 
+/obj/item/safe_internals/get_ru_names()
+	return list(
+		NOMINATIVE = "внутренности сейфа",
+		GENITIVE = "внтренностей сейфа",
+		DATIVE = "внутренностям сейфа",
+		ACCUSATIVE = "внутренности сейфа",
+		INSTRUMENTAL = "внутренностями сейфа",
+		PREPOSITIONAL = "внутренностях сейфа",
+	)
+
 /**
-  * # Safe Codes
-  *
-  * Contains the (generated on map load) codes for all publicly known safes.
-  */
+ * # Safe Codes
+ *
+ * Contains the (generated on map load) codes for all publicly known safes.
+ */
 /obj/item/paper/safe_code
 	name = "safe codes"
+	desc = "Надежный способ сохранить секретность важных цифр."
 	var/owner
-	info = "<div style='text-align:center;'><img src='ntlogo.png'><center><h3>Safe Codes</h3></center>"
+	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
+
+/obj/item/paper/safe_code/get_ru_names()
+	return list(
+		NOMINATIVE = "коды от сейфа",
+		GENITIVE = "кодов от сейфа",
+		DATIVE = "кодам от сейфа",
+		ACCUSATIVE = "коды от сейфа",
+		INSTRUMENTAL = "кодами от сейфа",
+		PREPOSITIONAL = "кодах от сейфа",
+	)
 
 /obj/item/paper/safe_code/Initialize(mapload)
-	..()
+	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/safe_code/LateInitialize(mapload)
@@ -403,7 +526,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.known_by)
-			info += "<br> The combination for the safe located in the [get_area(S)] is: [S.get_combination()]<br>"
+			info += "<br> Комбинация для сейфа, расположенного в <b>[get_area(S)]</b>, следующая: <b>[S.get_combination()]</b><br>"
 			info_links = info
 			update_icon()
 

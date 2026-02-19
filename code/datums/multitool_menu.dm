@@ -48,14 +48,14 @@
 
 /datum/multitool_menu_host/proc/notify_if_no_access(mob/user)
 	if(!multitool.allowed(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		user.balloon_alert(user, "доступ запрещён")
 		return TRUE
 	return FALSE
 
-/datum/multitool_menu_host/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/multitool_menu_host/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Multitool", multitool.name, 510, 420, master_ui, state)
+		ui = new(user, src, "Multitool", multitool.name)
 		ui.set_autoupdate(TRUE)
 		ui.open()
 
@@ -106,7 +106,7 @@
 ////////////////////////////////
 /datum/multitool_menu
 	/// The object the state of which can be changed via the multitool menu.
-	var/obj/machinery/holder
+	var/obj/holder
 	/// The holder type; used to make sure that the holder is the correct type.
 	var/holder_type
 	/// Which menu should be opened for the holder. For example "default_no_machine".
@@ -115,7 +115,7 @@
 	/// Do not apply any changes while this is null.
 	var/obj/item/multitool/multitool
 
-/datum/multitool_menu/New(obj/machinery/holder)
+/datum/multitool_menu/New(obj/holder)
 	..()
 	if(!istype(holder, holder_type))
 		CRASH("My holder is null/the wrong type!")
@@ -142,7 +142,7 @@
 		return
 	holder.add_fingerprint(user)
 	if(inoperable())
-		to_chat(user, "<span class='warning'>You attach [multitool] to [holder], but nothing happens. [holder] seems to be inoperable.</span>")
+		to_chat(user,  span_warning("You attach [multitool] to [holder], but nothing happens. [holder] seems to be inoperable."))
 		return
 	src.multitool = multitool
 	src.multitool.menu.interact(user, src)
@@ -161,7 +161,7 @@
 	Used to check if we still need to apply changes (returns true if we don't), e.g. after input() call.
 	*/
 	if(!multitool)
-		to_chat(user, "<span class='warning'>You are unable to reach [holder ? holder : "the thing"].</span>")
+		to_chat(user, span_warning("You are unable to reach [holder ? holder : "the thing"]."))
 		return TRUE
 	return FALSE
 
@@ -204,14 +204,14 @@
 	var/message = "Enter an ID tag"
 	var/current_tag = get_tag()
 	var/default = current_tag ? current_tag : ""
-	return reject_bad_text(stripped_input(user=user, message=message, title=title, default=default))
+	return reject_bad_text(tgui_input_text(user, message, title, default))
 
 ////////////////////////////////
 //	Mass driver
 ////////////////////////////////
 /datum/multitool_menu/idtag/mass_driver
 	holder_type = /obj/machinery/mass_driver
-	
+
 /datum/multitool_menu/idtag/mass_driver/get_tag()
 	var/obj/machinery/mass_driver/my_holder = holder
 	return my_holder.id_tag
@@ -237,6 +237,91 @@
 	if(my_holder.id_tag == new_tag)
 		return
 	my_holder.id_tag = new_tag
+
+////////////////////////////////
+//	Airlock electronics
+////////////////////////////////
+/datum/multitool_menu/idtag/airlock_electronics
+	holder_type = /obj/item/airlock_electronics
+
+/datum/multitool_menu/idtag/airlock_electronics/get_tag()
+	var/obj/item/airlock_electronics/my_holder = holder
+	return my_holder.id
+
+/datum/multitool_menu/idtag/airlock_electronics/set_tag(new_tag)
+	var/obj/item/airlock_electronics/my_holder = holder
+	if(my_holder.id == new_tag)
+		return
+	my_holder.id = new_tag
+
+////////////////////////////////
+//	Multitool menu "multiple_tags"
+//  ABSTRACT
+////////////////////////////////
+/datum/multitool_menu/idtag/multiple_tags
+	menu_id = "multiple_tags"
+
+/datum/multitool_menu/idtag/multiple_tags/_ui_data()
+	var/list/data = list()
+	. = ..()
+	if(.)
+		data.Add(.)
+	data["attachedTags"] = get_tags()
+	return data
+
+/datum/multitool_menu/idtag/multiple_tags/_ui_act(mob/user, action, list/params)
+	. = TRUE
+	switch(action)
+		if("add_tag")
+			var/new_tag = enter_new_tag(user)
+			if(!new_tag || notify_if_cannot_apply(user))
+				return FALSE
+			add_tag(new_tag)
+		if("remove_tag")
+			var/tag_index = text2num(params["tag_index"])
+			var/dm_tag_index = tag_index + 1
+			remove_tag(dm_tag_index)
+		else
+			return ..()
+
+/datum/multitool_menu/idtag/multiple_tags/proc/get_tags()
+	return
+
+/datum/multitool_menu/idtag/multiple_tags/proc/add_tag(new_tag)
+	return
+
+/datum/multitool_menu/idtag/multiple_tags/proc/remove_tag(tag_index)
+	return
+
+////////////////////////////////
+//	Door control
+////////////////////////////////
+/datum/multitool_menu/idtag/multiple_tags/door_control
+	holder_type = /obj/item/assembly/control
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/get_tags()
+	var/obj/item/assembly/control/my_holder = holder
+	return my_holder.ids
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/add_tag(new_tag)
+	if(notify_if_restricted_tag(new_tag))
+		return
+	var/obj/item/assembly/control/my_holder = holder
+	if(new_tag in my_holder.ids)
+		return
+	my_holder.ids.Add(new_tag)
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/remove_tag(tag_index)
+	var/obj/item/assembly/control/my_holder = holder
+	if(notify_if_restricted_tag(my_holder.ids[tag_index]))
+		return
+	my_holder.ids.Cut(tag_index, tag_index + 1)
+
+/datum/multitool_menu/idtag/multiple_tags/door_control/proc/notify_if_restricted_tag(new_tag)
+	if(new_tag in GLOB.restricted_door_tags)
+		service_message("Настройка тега \"[new_tag]\" ограничена протоколами безопасности. Попробуйте ввести другой тег.")
+		return TRUE
+	return FALSE
 
 ////////////////////////////////
 //	Multitool menu "frequency_and_tag"
@@ -282,7 +367,7 @@
 	var/list/tags = list()
 	if(!frequency)
 		return tags
-	for(var/obj/machinery/air_sensor/sensor in GLOB.machines)
+	for(var/obj/machinery/atmospherics/air_sensor/sensor as anything in GLOB.gas_sensors)
 		if(!(sensor.id_tag && sensor.frequency == frequency))
 			continue
 		tags |= sensor.id_tag
@@ -293,7 +378,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/vent_pump
 	holder_type = /obj/machinery/atmospherics/unary/vent_pump
-	
+
 /datum/multitool_menu/idtag/freq/vent_pump/get_tag()
 	var/obj/machinery/atmospherics/unary/vent_pump/my_holder = holder
 	return my_holder.id_tag
@@ -326,7 +411,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/vent_scrubber
 	holder_type = /obj/machinery/atmospherics/unary/vent_scrubber
-	
+
 /datum/multitool_menu/idtag/freq/vent_scrubber/get_tag()
 	var/obj/machinery/atmospherics/unary/vent_scrubber/my_holder = holder
 	return my_holder.id_tag
@@ -359,7 +444,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/outlet_injector
 	holder_type = /obj/machinery/atmospherics/unary/outlet_injector
-	
+
 /datum/multitool_menu/idtag/freq/outlet_injector/get_tag()
 	var/obj/machinery/atmospherics/unary/outlet_injector/my_holder = holder
 	return my_holder.id_tag
@@ -389,7 +474,7 @@
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/dp_vent_pump
 	holder_type = /obj/machinery/atmospherics/binary/dp_vent_pump
-	
+
 /datum/multitool_menu/idtag/freq/dp_vent_pump/get_tag()
 	var/obj/machinery/atmospherics/binary/dp_vent_pump/my_holder = holder
 	return my_holder.id_tag
@@ -418,7 +503,7 @@
 //	air_sensor
 ////////////////////////////////
 /datum/multitool_menu/idtag/freq/air_sensor
-	holder_type = /obj/machinery/air_sensor
+	holder_type = /obj/machinery/atmospherics/air_sensor
 	menu_id = "air_sensor"
 
 /datum/multitool_menu/idtag/freq/air_sensor/_ui_data()
@@ -426,14 +511,17 @@
 	. = ..()
 	if(.)
 		data.Add(.)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	data["bolts"] = my_holder.bolts
-	data["pressureCheck"] = my_holder.output & 1
-	data["temperatureCheck"] = my_holder.output & 2
-	data["oxygenCheck"] = my_holder.output & 4
-	data["toxinsCheck"] = my_holder.output & 8
-	data["nitrogenCheck"] = my_holder.output & 16
-	data["carbonDioxideCheck"] = my_holder.output & 32
+	data["pressureCheck"] = my_holder.output & SENSOR_SCAN_PRESSURE
+	data["temperatureCheck"] = my_holder.output & SENSOR_SCAN_TEMPERATURE
+	data["oxygenCheck"] = my_holder.output & SENSOR_COMPOSITION_OXYGEN
+	data["toxinsCheck"] = my_holder.output & SENSOR_COMPOSITION_TOXINS
+	data["nitrogenCheck"] = my_holder.output & SENSOR_COMPOSITION_NITROGEN
+	data["carbonDioxideCheck"] = my_holder.output & SENSOR_COMPOSITION_CO2
+	data["nitrousOxideCheck"] = my_holder.output & SENSOR_COMPOSITION_N2O
+	data["hydrogenCheck"] = my_holder.output & SENSOR_COMPOSITION_H2
+	data["waterVaporCheck"] = my_holder.output & SENSOR_COMPOSITION_H2O
 	return data
 
 /datum/multitool_menu/idtag/freq/air_sensor/_ui_act(mob/user, action, list/params)
@@ -448,11 +536,11 @@
 			return ..()
 
 /datum/multitool_menu/idtag/freq/air_sensor/get_tag()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	return my_holder.id_tag
 
 /datum/multitool_menu/idtag/freq/air_sensor/set_tag(new_tag)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	if(my_holder.id_tag == new_tag)
 		return
 	if(!is_unique_tag(new_tag, my_holder.frequency))
@@ -461,15 +549,15 @@
 	my_holder.id_tag = new_tag
 
 /datum/multitool_menu/idtag/freq/air_sensor/get_frequency()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	return my_holder.frequency
 
 /datum/multitool_menu/idtag/freq/air_sensor/get_default_frequency()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	return initial(my_holder.frequency)
 
 /datum/multitool_menu/idtag/freq/air_sensor/set_frequency(new_frequency)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	if(my_holder.frequency == new_frequency)
 		return
 	if(!is_unique_tag(my_holder.id_tag, new_frequency))
@@ -478,11 +566,11 @@
 	my_holder.set_frequency(new_frequency)
 
 /datum/multitool_menu/idtag/freq/air_sensor/proc/toggle_out_flag(bitflag_value)
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	my_holder.toggle_out_flag(bitflag_value)
 
 /datum/multitool_menu/idtag/freq/air_sensor/proc/toggle_bolts()
-	var/obj/machinery/air_sensor/my_holder = holder
+	var/obj/machinery/atmospherics/air_sensor/my_holder = holder
 	my_holder.toggle_bolts()
 
 /datum/multitool_menu/idtag/freq/air_sensor/proc/is_unique_tag(tag, frequency)
@@ -524,7 +612,7 @@
 			if(!length(sensors))
 				service_message("No sensors on this frequency.")
 				return FALSE
-			var/sensor_tag = input(user, "Select a sensor", "Sensors on the frequency") as null|anything in sensors
+			var/sensor_tag = tgui_input_list(user, "Select a sensor", "Sensors on the frequency", sensors)
 			if(!sensor_tag || notify_if_cannot_apply(user))
 				return FALSE
 			add_sensor(sensor_tag)
@@ -554,7 +642,7 @@
 	var/title = "Sensor label"
 	var/message = "Choose a sensor label"
 	var/default = my_holder.sensors[sensor_tag]
-	return reject_bad_text(stripped_input(user=user, message=message, title=title, default=default))
+	return reject_bad_text(tgui_input_text(user, message, title, default))
 
 /datum/multitool_menu/idtag/freq/general_air_control/get_frequency()
 	var/obj/machinery/computer/general_air_control/my_holder = holder
@@ -628,7 +716,7 @@
 			my_holder.unlink_output()
 		else
 			return ..()
-		
+
 /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/is_null_idtag()
 	var/buffer_tag = multitool?.buffer?.multitool_menu?.get_tag()
 	if(!buffer_tag)
@@ -651,7 +739,7 @@
 		return TRUE
 	return FALSE
 
-/datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/frequency_change_reminder(obj/machinery/device_linked)
+/datum/multitool_menu/idtag/freq/general_air_control/large_tank_control/proc/frequency_change_reminder(obj/device_linked)
 	if(!istype(device_linked.multitool_menu, /datum/multitool_menu/idtag/freq))
 		return
 	var/datum/multitool_menu/idtag/freq/menu_linked = device_linked.multitool_menu

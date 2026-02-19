@@ -4,26 +4,26 @@
 
 /obj/item/mecha_parts
 	name = "mecha part"
-	icon = 'icons/mecha/mech_construct.dmi'
+	icon = 'icons/obj/mecha/mech_construct.dmi'
 	icon_state = "blank"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;engineering=2"
 
-
 /obj/item/mecha_parts/chassis
 	name="Mecha Chassis"
 	icon_state = "backbone"
 	var/datum/construction/construct
-	flags = CONDUCT
 
 /obj/item/mecha_parts/chassis/Destroy()
 	QDEL_NULL(construct)
 	return ..()
 
-/obj/item/mecha_parts/chassis/attackby(obj/item/W, mob/user, params)
-	if(!construct || !construct.action(W, user))
-		return ..()
+/obj/item/mecha_parts/chassis/attackby(obj/item/I, mob/user, params)
+	if(construct?.action(I, user))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/item/mecha_parts/chassis/attack_hand()
 	return
@@ -33,8 +33,8 @@
 /obj/item/mecha_parts/chassis/ripley
 	name = "Ripley Chassis"
 
-/obj/item/mecha_parts/chassis/ripley/New()
-	..()
+/obj/item/mecha_parts/chassis/ripley/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/ripley_chassis(src)
 
 /obj/item/mecha_parts/part/ripley_torso
@@ -68,8 +68,8 @@
 /obj/item/mecha_parts/chassis/clarke
 	name = "Clarke Chassis"
 
-/obj/item/mecha_parts/chassis/clarke/New()
-	..()
+/obj/item/mecha_parts/chassis/clarke/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/clarke_chassis(src)
 
 /obj/item/mecha_parts/part/clarke_torso
@@ -113,8 +113,8 @@
 /obj/item/mecha_parts/chassis/gygax
 	name = "Gygax Chassis"
 
-/obj/item/mecha_parts/chassis/gygax/New()
-	..()
+/obj/item/mecha_parts/chassis/gygax/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/gygax_chassis(src)
 
 /obj/item/mecha_parts/part/gygax_torso
@@ -156,14 +156,13 @@
 	icon_state = "gygax_armour"
 	origin_tech = "materials=6;combat=4;engineering=4"
 
-
 //////////// Durand
 
 /obj/item/mecha_parts/chassis/durand
 	name = "Durand Chassis"
 
-/obj/item/mecha_parts/chassis/durand/New()
-	..()
+/obj/item/mecha_parts/chassis/durand/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/durand_chassis(src)
 
 /obj/item/mecha_parts/part/durand_torso
@@ -205,8 +204,8 @@
 /obj/item/mecha_parts/chassis/rover
 	name = "Rover Chassis"
 
-/obj/item/mecha_parts/chassis/rover/New()
-	..()
+/obj/item/mecha_parts/chassis/rover/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/rover_chassis(src)
 
 /obj/item/mecha_parts/part/rover_torso
@@ -249,8 +248,8 @@
 /obj/item/mecha_parts/chassis/darkgygax
 	name = "Dark Gygax Chassis"
 
-/obj/item/mecha_parts/chassis/darkgygax/New()
-	..()
+/obj/item/mecha_parts/chassis/darkgygax/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/darkgygax_chassis(src)
 
 /obj/item/mecha_parts/part/darkgygax_torso
@@ -292,14 +291,13 @@
 	icon_state = "darkgygax_armour"
 	origin_tech = "materials=6;combat=4;engineering=4;syndicate=2"
 
-
 ////////// Firefighter
 
 /obj/item/mecha_parts/chassis/firefighter
 	name = "Firefighter Chassis"
 
-/obj/item/mecha_parts/chassis/firefighter/New()
-	..()
+/obj/item/mecha_parts/chassis/firefighter/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/firefighter_chassis(src)
 
 ////////// HONK
@@ -307,8 +305,8 @@
 /obj/item/mecha_parts/chassis/honker
 	name = "H.O.N.K Chassis"
 
-/obj/item/mecha_parts/chassis/honker/New()
-	..()
+/obj/item/mecha_parts/chassis/honker/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/honker_chassis(src)
 
 /obj/item/mecha_parts/part/honker_torso
@@ -335,20 +333,19 @@
 	name="H.O.N.K Right Leg"
 	icon_state = "honker_r_leg"
 
-
 ////////// Reticence
 
 /obj/item/mecha_parts/chassis/reticence
 	name = "Reticence Chassis"
 
-/obj/item/mecha_parts/chassis/reticence/New()
-	..()
+/obj/item/mecha_parts/chassis/reticence/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/reticence_chassis(src)
 
 /obj/effect/dummy/mecha_emote_step
 	var/emote
 
-/obj/effect/dummy/mecha_emote_step/New(e)
+/obj/effect/dummy/mecha_emote_step/Initialize(mapload, e)
 	. = ..()
 	emote = e
 
@@ -384,20 +381,19 @@
 	name = "Reticence Right Leg"
 	icon_state = "reticence_r_leg"
 
-
 ////////// Phazon
 
 /obj/item/mecha_parts/chassis/phazon
 	name = "Phazon Chassis"
 
-/obj/item/mecha_parts/chassis/phazon/New()
-	..()
+/obj/item/mecha_parts/chassis/phazon/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/phazon_chassis(src)
 
 /obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
-		to_chat(user, "<span class='warning'>The anomaly core socket only accepts bluespace anomaly cores!</span>")
+	if(iscore(I) && !iscorebluespace(I))
+		to_chat(user, span_warning("The anomaly core socket only accepts bluespace anomaly cores!"))
 
 /obj/item/mecha_parts/part/phazon_torso
 	name="Phazon Torso"
@@ -439,8 +435,8 @@
 /obj/item/mecha_parts/chassis/odysseus
 	name = "Odysseus Chassis"
 
-/obj/item/mecha_parts/chassis/odysseus/New()
-	..()
+/obj/item/mecha_parts/chassis/odysseus/Initialize(mapload)
+	. = ..()
 	construct = new /datum/construction/mecha/odysseus_chassis(src)
 
 /obj/item/mecha_parts/part/odysseus_head
@@ -478,132 +474,127 @@
 	icon_state = "odysseus_armour"
 	origin_tech = "materials=3;engineering=3")*/
 
-
 ///////// Circuitboards
 
 /obj/item/circuitboard/mecha
-	name = "Exosuit Circuit board"
-	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
-	item_state = "electronic"
 	board_type = "other"
+	greyscale_config = null
 	flags = CONDUCT
-	force = 5.0
-	w_class = WEIGHT_CLASS_SMALL
-	throwforce = 5.0
+	force = 5
+	throwforce = 5
 	throw_speed = 3
 	throw_range = 15
 
 /obj/item/circuitboard/mecha/ripley
-	origin_tech = "programming=2"
-
-/obj/item/circuitboard/mecha/ripley/peripherals
-	name = "Circuit board (Ripley Peripherals Control module)"
-	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/ripley/main
-	name = "Circuit board (Ripley Central Control module)"
+	board_name = "Ripley Central Control Module"
 	icon_state = "mainboard"
+
+/obj/item/circuitboard/mecha/ripley/peripherals
+	board_name = "Ripley Peripherals Control Module"
+	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/gygax
 	origin_tech = "programming=4;combat=3;engineering=3"
 
+/obj/item/circuitboard/mecha/gygax/main
+	board_name = "Gygax Central Control Module"
+	icon_state = "mainboard"
+
 /obj/item/circuitboard/mecha/gygax/peripherals
-	name = "Circuit board (Gygax Peripherals Control module)"
+	board_name = "Gygax Peripherals Control Module"
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/gygax/targeting
-	name = "Circuit board (Gygax Weapon Control and Targeting module)"
+	board_name = "Gygax Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
 	origin_tech = "programming=4;combat=4"
-
-/obj/item/circuitboard/mecha/gygax/main
-	name = "Circuit board (Gygax Central Control module)"
-	icon_state = "mainboard"
 
 /obj/item/circuitboard/mecha/durand
 	origin_tech = "programming=4;combat=3;engineering=3"
 
+/obj/item/circuitboard/mecha/durand/main
+	board_name = "Durand Central Control Module"
+	icon_state = "mainboard"
+
 /obj/item/circuitboard/mecha/durand/peripherals
-	name = "Circuit board (Durand Peripherals Control module)"
+	board_name = "Durand Peripherals Control Module"
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/durand/targeting
-	name = "Circuit board (Durand Weapon Control and Targeting module)"
+	board_name = "Durand Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
 	origin_tech = "programming=4;combat=4;engineering=3"
-
-/obj/item/circuitboard/mecha/durand/main
-	name = "Circuit board (Durand Central Control module)"
-	icon_state = "mainboard"
 
 /obj/item/circuitboard/mecha/phazon
 	origin_tech = "programming=5;plasmatech=4"
 
+/obj/item/circuitboard/mecha/phazon/main
+	board_name = "Phazon Central Control Module"
+	icon_state = "mainboard"
+
 /obj/item/circuitboard/mecha/phazon/peripherals
-	name = "Circuit board (Phazon Peripherals Control module)"
+	board_name = "Phazon Peripherals Control Module"
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/phazon/targeting
-	name = "Circuit board (Phazon Weapon Control and Targeting module)"
+	board_name = "Phazon Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
-
-/obj/item/circuitboard/mecha/phazon/main
-	name = "Circuit board (Phazon Central Control module)"
-	icon_state = "mainboard"
 
 /obj/item/circuitboard/mecha/honker
 	origin_tech = "programming=3;engineering=3"
 
+/obj/item/circuitboard/mecha/honker/main
+	board_name = "H.O.N.K Central Control Module"
+	icon_state = "mainboard"
+
 /obj/item/circuitboard/mecha/honker/peripherals
-	name = "Circuit board (H.O.N.K Peripherals Control module)"
+	board_name = "H.O.N.K Peripherals Control Module"
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/honker/targeting
-	name = "Circuit board (H.O.N.K Weapon Control and Targeting module)"
+	board_name = "H.O.N.K Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
-
-/obj/item/circuitboard/mecha/honker/main
-	name = "Circuit board (H.O.N.K Central Control module)"
-	icon_state = "mainboard"
 
 /obj/item/circuitboard/mecha/reticence
 	origin_tech = "programming=3;engineering=3"
 
+/obj/item/circuitboard/mecha/reticence/main
+	board_name = "Reticence Central Control Module"
+	icon_state = "mainboard"
+
 /obj/item/circuitboard/mecha/reticence/peripherals
-	name = "circuit board (Reticence Peripherals Control module)"
+	board_name = "Reticence Peripherals Control Module"
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/reticence/targeting
-	name = "circuit board (Reticence Weapon Control and Targeting module)"
+	board_name = "Reticence Weapon Control and Targeting Module"
 	icon_state = "mcontroller"
-
-/obj/item/circuitboard/mecha/reticence/main
-	name = "circuit board (Reticence Central Control module)"
-	icon_state = "mainboard"
 
 /obj/item/circuitboard/mecha/odysseus
 	origin_tech = "programming=3;biotech=3"
 
-/obj/item/circuitboard/mecha/odysseus/peripherals
-	name = "Circuit board (Odysseus Peripherals Control module)"
-	icon_state = "mcontroller"
-
 /obj/item/circuitboard/mecha/odysseus/main
-	name = "Circuit board (Odysseus Central Control module)"
+	board_name = "Odysseus Central Control Module"
 	icon_state = "mainboard"
+
+/obj/item/circuitboard/mecha/odysseus/peripherals
+	board_name = "Odysseus Peripherals Control Module"
+	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/clarke
 	origin_tech = "programming=3"
 
 /obj/item/circuitboard/mecha/clarke/peripherals
-	name = "Circuit board (Clarke Peripherals Control module)"
+	board_name = "Clarke Peripherals Control module"
 	icon_state = "mcontroller"
 
 /obj/item/circuitboard/mecha/clarke/main
-	name = "Circuit board (Clarke Central Control module))"
+	board_name = "Clarke Central Control module"
 	icon_state = "mainboard"
 
 /obj/item/circuitboard/mecha/pod
-	name = "Circuit board (Space Pod Mainboard)"
+	board_name = "Space Pod Mainboard"
 	icon_state = "mainboard"

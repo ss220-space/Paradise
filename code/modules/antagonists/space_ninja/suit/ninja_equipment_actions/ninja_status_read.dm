@@ -1,0 +1,54 @@
+/datum/action/item_action/ninjastatus
+	check_flags = NONE
+	name = "Status Readout"
+	desc = "Выводит вам полную информацию о вашем текущем состоянии."
+	button_icon_state = "healthstatus"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+	//action_initialisation_text = "Integrated Health Analizer"
+
+/**
+ * Proc called to put a status readout to the ninja in chat.
+ *
+ * Called put some information about the ninja's current status into chat.
+ * This information used to be displayed constantly on the status tab screen
+ * when the suit was on, but was turned into this as to remove the code from
+ * human.dm
+ */
+/obj/item/clothing/suit/space/space_ninja/proc/ninjastatus()
+	var/mob/living/carbon/human/ninja = affecting
+	var/list/info_list = list()
+	info_list += "[span_notice("Статус SpiderOS: [s_initialized ? "Активно" : "Отключено"]")]\n"
+	info_list += "[span_notice("Текущее время: [station_time_timestamp()]")]\n"
+	//Ninja status
+	info_list += "[span_notice("Отпечатки: [md5(ninja.dna.uni_identity)]")]\n"
+	info_list += "[span_notice("ДНК: [ninja.dna.unique_enzymes]")]\n"
+	info_list += "[span_notice("Общее состояние здоровья: [ninja.stat > 1 ? "Мёртв" : "[ninja.health]%"]")]\n"
+	info_list += "[span_notice("Уровень питательных веществ: [ninja.nutrition]")]\n"
+	info_list += "[span_notice("Удушье: [ninja.getOxyLoss()]")]\n"
+	info_list += "[span_notice("Токсины: [ninja.getToxLoss()]")]\n"
+	info_list += "[span_notice("Ожоги: [ninja.getFireLoss()]")]\n"
+	info_list += "[span_notice("Физ.: [ninja.getBruteLoss()]")]\n"
+	info_list += "[span_notice("Температура тела: [ninja.bodytemperature-T0C] градусов C ([ninja.bodytemperature*1.8-459.67] градусов F)")]\n"
+
+	//Diseases
+	if(LAZYLEN(ninja.diseases))
+		info_list += "[span_notice("Вирусы:")]\n"
+		for(var/datum/disease/ninja_disease in ninja.diseases)
+			info_list += "[span_notice("* [ninja_disease.name], Тип: [ninja_disease.additional_info], Стадия: [ninja_disease.stage]/[ninja_disease.max_stages], Возможное лекарство: [ninja_disease.cure_text]")]\n"
+	//Реагенты
+	if(length(ninja.reagents.reagent_list))
+		info_list += "[span_notice("Обнаружены реагенты:")]\n"
+		for(var/datum/reagent/ninja_reagent in ninja.reagents.reagent_list)
+			info_list += "[span_notice("&emsp;[ninja_reagent.volume]u [ninja_reagent.name][ninja_reagent.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]")]\n"
+	else
+		info_list += "[span_notice("Реагенты не обнаружены.")]\n"
+	if(length(ninja.reagents.addiction_list))
+		info_list += "[span_danger("Обнаружены зависимости от реагентов:")]\n"
+		for(var/datum/reagent/ninja_reagent in ninja.reagents.addiction_list)
+			info_list += "[span_danger("&emsp;[ninja_reagent.name] Стадия: [ninja_reagent.addiction_stage]/5")]\n"
+	else
+		info_list += "[span_notice("Зависимости от реагентов не обнаружены.")]\n"
+
+	to_chat(ninja, "[info_list.Join()]")

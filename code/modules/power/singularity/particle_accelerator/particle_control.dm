@@ -1,29 +1,37 @@
+#define PARTICLE_LEFT 1
+#define PARTICLE_CENTER 2
+#define PARTICLE_RIGHT 3
+#define EMITTER 1
+#define POWER_BOX 2
+#define FUEL_CHAMBER 3
+#define END_CAP 4
 /obj/machinery/particle_accelerator/control_box
 	name = "Particle Accelerator Control Console"
 	desc = "This part controls the density of the particles."
-	icon = 'icons/obj/machines/particle_accelerator.dmi'
 	icon_state = "control_box"
 	reference = "control_box"
-	anchored = 0
-	density = 1
-	use_power = NO_POWER_USE
 	idle_power_usage = 500
 	active_power_usage = 10000
-	construction_state = 0
-	active = 0
 	dir = 1
 	var/strength_upper_limit = 2
 	var/interface_control = 1
 	var/list/obj/structure/particle_accelerator/connected_parts
-	var/assembled = 0
+	var/assembled = TRUE
 	var/parts = null
 	var/datum/wires/particle_acc/control_box/wires = null
+	/// Layout of the particle accelerator. Used by the UI
+	var/list/layout = list(
+		list(list("name" = "EM Containment Grid Left", "icon_state" = "emitter_right", "status" = "Not In Position", "dir" = 1), list("name" = "Blank1", "icon_state" = "blank", "status" = "good", "dir" = 1), list("name" = "Blank2", "icon_state" = "blank", "status" = "good", "dir" = 1), list("name" = "Blank3", "icon_state" = "blank", "status" = "good", "dir" = 1)),
+		list(list("name" = "EM Containment Grid Center", "icon_state" = "emitter_center", "status" = "Not In Position", "dir" = 1), list("name" = "Particle Focusing EM Lens", "icon_state" = "power_box", "status" = "Not In Position", "dir" = 1), list("name" = "EM Acceleration Chamber", "icon_state" = "fuel_chamber", "status" = "Not In Position", "dir" = 1), list("name" = "Alpha Particle Generation Array", "icon_state" = "end_cap", "status" = "Not In Position", "dir" = 1)),
+		list(list("name" = "EM Containment Grid Right", "icon_state" = "emitter_left", "status" = "Not In Position", "dir" = 1), list("name" = "Blank4", "icon_state" = "blank", "status" = "good", "dir" = 1), list("name" = "Blank5", "icon_state" = "blank", "status" = "good", "dir" = 1), list("name" = "Blank6", "icon_state" = "blank", "status" = "good", "dir" = 1)))
+	/// The expected orientation of the accelerator this is trying to link. In text form so the UI can use it
+	var/dir_text
 
 /obj/machinery/particle_accelerator/control_box/Initialize(mapload)
 	. = ..()
 	wires = new(src)
 	connected_parts = list()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	use_log = list()
 
 /obj/machinery/particle_accelerator/control_box/Destroy()
@@ -37,250 +45,299 @@
 	return attack_hand(user)
 
 /obj/machinery/particle_accelerator/control_box/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	if(construction_state >= 3)
-		interact(user)
+		ui_interact(user)
 	else if(construction_state == 2) // Wires exposed
 		wires.Interact(user)
 
 /obj/machinery/particle_accelerator/control_box/multitool_act(mob/living/user, obj/item/I)
-	if(construction_state == 2) // Wires exposed
-		wires.Interact(user)
-		return TRUE
+	if(construction_state != 2) // Wires exposed
+		return
+	wires.Interact(user)
+	return TRUE
 
 /obj/machinery/particle_accelerator/control_box/update_state()
 	if(construction_state < 3)
 		use_power = NO_POWER_USE
-		assembled = 0
-		active = 0
+		assembled = FALSE
+		active = FALSE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
-			part.powered = 0
-			part.update_icon()
+			part.powered = FALSE
+			part.update_icon(UPDATE_ICON_STATE)
 		connected_parts = list()
 		return
-	if(!part_scan())
-		use_power = IDLE_POWER_USE
-		active = 0
-		connected_parts = list()
 
-	return
+	if(part_scan())
+		return
 
-/obj/machinery/particle_accelerator/control_box/update_icon()
+	use_power = IDLE_POWER_USE
+	active = FALSE
+	connected_parts = list()
+
+/obj/machinery/particle_accelerator/control_box/update_icon_state()
 	if(active)
 		icon_state = "[reference]p[strength]"
-	else
-		if(stat & NOPOWER)
+		return
+
+	if(stat & NOPOWER)
+		icon_state = "[reference]w"
+		return
+
+	if(use_power && assembled)
+		icon_state = "[reference]p"
+		return
+
+	switch(construction_state)
+		if(0)
+			icon_state = "[reference]"
+		if(1)
+			icon_state = "[reference]"
+		if(2)
 			icon_state = "[reference]w"
-			return
-		else if(use_power && assembled)
-			icon_state = "[reference]p"
 		else
-			switch(construction_state)
-				if(0)
-					icon_state = "[reference]"
-				if(1)
-					icon_state = "[reference]"
-				if(2)
-					icon_state = "[reference]w"
-				else
-					icon_state = "[reference]c"
-	return
-
-/obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
-	if(..(href, href_list))
-		return 1
-
-	if(!interface_control)
-		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
-		return
-
-	if(href_list["close"])
-		usr << browse(null, "window=pacontrol")
-		usr.unset_machine()
-		return
-	if(href_list["togglep"])
-		if(!wires.is_cut(WIRE_PARTICLE_POWER))
-			toggle_power()
-
-	else if(href_list["scan"])
-		part_scan()
-
-	else if(href_list["strengthup"])
-		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
-			add_strength()
-
-	else if(href_list["strengthdown"])
-		if(!wires.is_cut(WIRE_PARTICLE_STRENGTH))
-			remove_strength()
-
-	updateDialog()
-	update_icon()
-	return
-
+			icon_state = "[reference]c"
 
 /obj/machinery/particle_accelerator/control_box/proc/strength_change()
 	for(var/obj/structure/particle_accelerator/part in connected_parts)
 		part.strength = strength
-		part.update_icon()
+		part.update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/particle_accelerator/control_box/proc/add_strength(var/s)
-	if(assembled)
-		strength++
-		if(strength > strength_upper_limit)
-			strength = strength_upper_limit
-		else
-			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
-			add_game_logs("increased PA Control Computer to [strength] in [COORD(src)]", usr)
-			investigate_log("increased to <font color='red'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</font>")
+/obj/machinery/particle_accelerator/control_box/proc/add_strength(s)
+	if(!assembled)
+		return
+	strength++
+	if(strength > strength_upper_limit)
+		strength = strength_upper_limit
+	else
+		message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
+		add_game_logs("increased PA Control Computer to [strength] in [COORD(src)]", usr)
+		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+		use_log += text("\[[time_stamp()]\] <span style='color: red;'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</span>")
 
-			investigate_log("increased to <font color='red'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-		strength_change()
+		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+	strength_change()
 
-/obj/machinery/particle_accelerator/control_box/proc/remove_strength(var/s)
-	if(assembled)
-		strength--
-		if(strength < 0)
-			strength = 0
-		else
-			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
-			add_game_logs("decreased PA Control Computer to [strength] in [COORD(src)]", usr)
-			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")
+/obj/machinery/particle_accelerator/control_box/proc/remove_strength(s)
+	if(!assembled)
+		return
 
-		strength_change()
+	strength--
+	if(strength < 0)
+		strength = 0
+	else
+		message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
+		add_game_logs("decreased PA Control Computer to [strength] in [COORD(src)]", usr)
+		investigate_log("decreased to <span style='color: green;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+		use_log += text("\[[time_stamp()]\] <span style='color: orange;'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</span>")
 
-/obj/machinery/particle_accelerator/control_box/power_change()
+	strength_change()
+
+/obj/machinery/particle_accelerator/control_box/power_change(forced = FALSE)
 	..()
 	if(stat & NOPOWER)
 		active = 0
 		use_power = NO_POWER_USE
 	else if(!stat && construction_state <= 3)
 		use_power = IDLE_POWER_USE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-	if((stat & NOPOWER) || (!stat && construction_state <= 3)) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
-		for(var/obj/structure/particle_accelerator/part in connected_parts)
-			part.strength = null
-			part.powered = 0
-			part.update_icon()
-	return
+	if(!((stat & NOPOWER) || (!stat && construction_state <= 3))) //Only update the part icons if something's changed (i.e. any of the above condition sets are met).
+		return
 
+	for(var/obj/structure/particle_accelerator/part in connected_parts)
+		part.strength = null
+		part.powered = FALSE
+		part.update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/particle_accelerator/control_box/process()
-	if(active)
-		//a part is missing!
-		if(length(connected_parts) < 6)
-			investigate_log("lost a connected part; It <font color='red'>powered down</font>.", INVESTIGATE_ENGINE)
-			toggle_power()
-			return
-		//emit some particles
-		for(var/obj/structure/particle_accelerator/particle_emitter/PE in connected_parts)
-			if(PE)
-				PE.emit_particle(strength)
-	return
-
+	if(!active)
+		return
+	//a part is missing!
+	if(length(connected_parts) < 6)
+		investigate_log("lost a connected part; It <span style='color: red;>powered down</span>.", INVESTIGATE_ENGINE)
+		toggle_power()
+		return
+	//emit some particles
+	for(var/obj/structure/particle_accelerator/particle_emitter/emitter in connected_parts)
+		if(!emitter)
+			continue
+		emitter.emit_particle(strength)
 
 /obj/machinery/particle_accelerator/control_box/proc/part_scan()
-	for(var/obj/structure/particle_accelerator/fuel_chamber/F in orange(1,src))
-		dir = F.dir
+	dir_text = null
+	var/turf/turf
+	for(var/obj/structure/particle_accelerator/fuel_chamber/fuel in orange(1, src))
+		dir = fuel.dir
+		turf = fuel.loc
+
+	if(!turf)
+		return FALSE
+
+	dir_text = dir2text(dir) // Only set dir_text if we found an EM acceleration chamber
 	connected_parts = list()
 	var/tally = 0
-	var/ldir = turn(dir,-90)
-	var/rdir = turn(dir,90)
-	var/odir = turn(dir,180)
-	var/turf/T = loc
-	T = get_step(T,rdir)
-	if(check_part(T,/obj/structure/particle_accelerator/fuel_chamber))
+	var/ldir = turn(dir, -90)
+	var/rdir = turn(dir, 90)
+	var/odir = turn(dir, 180)
+
+	if(check_part(turf, /obj/structure/particle_accelerator/fuel_chamber, PARTICLE_CENTER, FUEL_CHAMBER))
 		tally++
-	T = get_step(T,odir)
-	if(check_part(T,/obj/structure/particle_accelerator/end_cap))
+		layout[PARTICLE_CENTER][FUEL_CHAMBER]["status"] = "good"
+
+	turf = get_step(turf, odir)
+	if(check_part(turf, /obj/structure/particle_accelerator/end_cap, PARTICLE_CENTER, END_CAP))
 		tally++
-	T = get_step(T,dir)
-	T = get_step(T,dir)
-	if(check_part(T,/obj/structure/particle_accelerator/power_box))
+		layout[PARTICLE_CENTER][END_CAP]["status"] = "good"
+	turf = get_step(turf, dir)
+	turf = get_step(turf, dir)
+	if(check_part(turf, /obj/structure/particle_accelerator/power_box, PARTICLE_CENTER, POWER_BOX))
 		tally++
-	T = get_step(T,dir)
-	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/center))
+		layout[PARTICLE_CENTER][POWER_BOX]["status"] = "good"
+	turf = get_step(turf, dir)
+	if(check_part(turf, /obj/structure/particle_accelerator/particle_emitter/center, PARTICLE_CENTER, EMITTER))
 		tally++
-	T = get_step(T,ldir)
-	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/left))
+		layout[PARTICLE_CENTER][EMITTER]["status"] = "good"
+	turf = get_step(turf, ldir)
+	if(check_part(turf, /obj/structure/particle_accelerator/particle_emitter/left, PARTICLE_LEFT, EMITTER))
 		tally++
-	T = get_step(T,rdir)
-	T = get_step(T,rdir)
-	if(check_part(T,/obj/structure/particle_accelerator/particle_emitter/right))
+		layout[PARTICLE_LEFT][EMITTER]["status"] = "good"
+	turf = get_step(turf, rdir)
+	turf = get_step(turf, rdir)
+	if(check_part(turf, /obj/structure/particle_accelerator/particle_emitter/right, PARTICLE_RIGHT, EMITTER))
 		tally++
+		layout[PARTICLE_RIGHT][EMITTER]["status"] = "good"
 	if(tally >= 6)
-		assembled = 1
-		return 1
+		assembled = TRUE
+		return TRUE
 	else
-		assembled = 0
-		return 0
+		assembled = FALSE
+		return FALSE
 
+/obj/machinery/particle_accelerator/control_box/proc/check_part(turf/checked_turf, type, column, row)
+	if(!(checked_turf) || !(type))
+		return FALSE
 
-/obj/machinery/particle_accelerator/control_box/proc/check_part(var/turf/T, var/type)
-	if(!(T)||!(type))
-		return 0
-	var/obj/structure/particle_accelerator/PA = locate(/obj/structure/particle_accelerator) in T
-	if(istype(PA, type))
-		if(PA.connect_master(src))
-			if(PA.report_ready(src))
-				connected_parts.Add(PA)
-				return 1
-	return 0
+	var/obj/structure/particle_accelerator/accelerator = locate(/obj/structure/particle_accelerator) in checked_turf
+	if(!istype(accelerator, type))
+		layout[column][row]["status"] = "Not In Position"
+		layout[column][row]["dir"] = dir
+		return
 
+	if(!accelerator.connect_master(src))
+		if(accelerator)
+			layout[column][row]["status"] = "Wrong Orientation"
+			layout[column][row]["dir"] = accelerator.dir
+			layout[column][row]["icon_state"] = accelerator.icon_state
+		return
+
+	if(!accelerator.report_ready(src))
+		if(accelerator)
+			layout[column][row]["status"] = "Incomplete"
+			layout[column][row]["dir"] = accelerator.dir
+			layout[column][row]["icon_state"] = accelerator.icon_state
+		return
+
+	connected_parts |= accelerator
+	return TRUE
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
-	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
+	investigate_log("turned [active?"<span style='color: red;'>ON</span>":"<span style='color: green;'>OFF</span>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
 	if(active)
 		message_admins("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
 		add_game_logs("turned ON PA Control Computer in [COORD(src)]", usr)
-		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
+		use_log += text("\[[time_stamp()]\] <span style='color: red;'>[key_name(usr)] has turned on the PA Control Computer.</pan>")
 	if(active)
 		use_power = ACTIVE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = strength
-			part.powered = 1
-			part.update_icon()
+			part.powered = TRUE
+			part.update_icon(UPDATE_ICON_STATE)
 	else
 		use_power = IDLE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
 			part.strength = null
-			part.powered = 0
-			part.update_icon()
-	return 1
+			part.powered = FALSE
+			part.update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
+/obj/machinery/particle_accelerator/control_box/ui_state(mob/user)
+	return GLOB.default_state
 
-/obj/machinery/particle_accelerator/control_box/interact(mob/user)
-	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
-		if(!istype(user, /mob/living/silicon))
-			user.unset_machine()
-			user << browse(null, "window=pacontrol")
-			return
-	user.set_machine(src)
+/obj/machinery/particle_accelerator/control_box/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ParticleAccelerator", name)
+		ui.open()
 
-	var/dat = {"<meta charset="UTF-8">"}
-	dat += "<A href='?src=[UID()];close=1'>Close</A><BR><BR>"
-	dat += "<h3>Status</h3>"
-	if(!assembled)
-		dat += "Unable to detect all parts!<BR>"
-		dat += "<A href='?src=[UID()];scan=1'>Run Scan</A><BR><BR>"
+/obj/machinery/particle_accelerator/control_box/ui_data(mob/user)
+	var/list/data = list()
+	var/list/ui_col_1 = list()
+	var/list/ui_col_2 = list()
+	var/list/ui_col_3 = list()
+	part_scan()
+	if(dir != NORTH || dir == WEST)
+		ui_col_1 = layout[PARTICLE_RIGHT]
+		ui_col_2 = layout[PARTICLE_CENTER]
+		ui_col_3 = layout[PARTICLE_LEFT]
 	else
-		dat += "All parts in place.<BR><BR>"
-		dat += "Power:"
-		if(active)
-			dat += "On<BR>"
-		else
-			dat += "Off <BR>"
-		dat += "<A href='?src=[UID()];togglep=1'>Toggle Power</A><BR><BR>"
-		dat += "Particle Strength: [strength] "
-		dat += "<A href='?src=[UID()];strengthdown=1'>--</A>|<A href='?src=[UID()];strengthup=1'>++</A><BR><BR>"
+		var/len = length(layout[PARTICLE_CENTER])
+		for(var/i in 0 to (len - 1))
+			ui_col_1.Add(list(layout[PARTICLE_RIGHT][len - i]))
+			ui_col_2.Add(list(layout[PARTICLE_CENTER][len - i]))
+			ui_col_3.Add(list(layout[PARTICLE_LEFT][len - i]))
 
-	//user << browse(dat, "window=pacontrol;size=420x500")
-	//onclose(user, "pacontrol")
-	var/datum/browser/popup = new(user, "pacontrol", name, 420, 500)
-	popup.set_content(dat)
-	popup.set_title_image(user.browse_rsc_icon(icon, icon_state))
-	popup.open()
-	return
+	data["assembled"] = assembled
+	data["power"] = active
+	data["strength"] = strength
+	data["max_strength"] = strength_upper_limit
+	data["layout_1"] = ui_col_1
+	data["layout_2"] = ui_col_2
+	data["layout_3"] = ui_col_3
+	data["orientation"] = dir_text ? dir_text : FALSE
+	data["icon"] = icon
+	return data
+
+/obj/machinery/particle_accelerator/control_box/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	if(!interface_control)
+		to_chat(usr, span_error("ERROR: Request timed out. Check wire contacts."))
+		return
+
+	switch(action)
+		if("power")
+			if(wires.is_cut(WIRE_PARTICLE_POWER))
+				return
+			toggle_power()
+			. = TRUE
+		if("scan")
+			part_scan()
+			. = TRUE
+		if("add_strength")
+			if(wires.is_cut(WIRE_PARTICLE_STRENGTH))
+				return
+			add_strength()
+			. = TRUE
+		if("remove_strength")
+			if(wires.is_cut(WIRE_PARTICLE_STRENGTH))
+				return
+			remove_strength()
+			. = TRUE
+
+	if(.)
+		update_icon()
+
+#undef PARTICLE_LEFT
+#undef PARTICLE_CENTER
+#undef PARTICLE_RIGHT
+#undef EMITTER
+#undef POWER_BOX
+#undef FUEL_CHAMBER
+#undef END_CAP

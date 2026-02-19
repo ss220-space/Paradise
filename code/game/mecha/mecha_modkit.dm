@@ -5,9 +5,9 @@
 	icon_state = "harddisk_mini"
 	var/install_time = 15
 
-/obj/item/mecha_modkit/proc/install(var/obj/mecha/mech, var/mob/user)
+/obj/item/mecha_modkit/proc/install(obj/mecha/mech, mob/user)
 	if(user)
-		to_chat(user, "<span class='notice'>You install [src] into [mech].</span>")
+		to_chat(user, span_notice("You install [src] into [mech]."))
 	return TRUE
 
 /obj/item/mecha_modkit/voice
@@ -20,13 +20,14 @@
 	var/lowpowersound = 'sound/mecha/lowpower.ogg'
 	var/longactivationsound = 'sound/mecha/nominal.ogg'
 
-/obj/item/mecha_modkit/voice/install(var/obj/mecha/mech, var/mob/living/carbon/user)
+/obj/item/mecha_modkit/voice/install(obj/mecha/mech, mob/living/carbon/user)
 	if(istype(mech, /obj/mecha/combat/reticence) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!</span>")
+		to_chat(user, span_warning("You attempt to install [src] into [mech], but an invisible barrier prevents you from doing so!"))
 		return FALSE
 	if(istype(mech, /obj/mecha/combat/honker) && user)
-		to_chat(user, "<span class='warning'>You attempt to install [src] into [mech], but you somehow trip before you get it in!</span>")
-		user.slip("your own foot", 8, 5, 0, FALSE, TRUE, TRUE, "trip")
+		to_chat(user, span_warning("You attempt to install [src] into [mech], but you somehow trip before you get it in!"))
+		user.Weaken(16 SECONDS)
+		playsound(user.loc, 'sound/misc/slip.ogg', 50, TRUE, -3)
 		return FALSE
 	mech.nominalsound = nominalsound
 	mech.zoomsound = zoomsound

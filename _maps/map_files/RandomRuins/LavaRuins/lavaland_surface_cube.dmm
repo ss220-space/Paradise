@@ -10,6 +10,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "d" = (
+/obj/effect/mapping_helpers/no_lava,
 /turf/simulated/wall/indestructible,
 /area/lavaland/surface/outdoors)
 "e" = (
@@ -21,41 +22,44 @@
 /obj/item/gun/energy/gun/nuclear,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"G" = (
+/turf/template_noop,
+/area/template_noop)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-a
-b
-b
-b
-b
-b
-b
-a
-a
-a
-a
-a
-a
-a
-b
-a
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
 "}
 (2,1,1) = {"
-a
+G
 a
 a
 a
@@ -84,10 +88,10 @@ a
 a
 a
 a
-a
+G
 "}
 (3,1,1) = {"
-a
+G
 b
 a
 a
@@ -116,10 +120,10 @@ b
 b
 a
 a
-a
+G
 "}
 (4,1,1) = {"
-a
+G
 a
 a
 a
@@ -148,31 +152,11 @@ c
 b
 a
 b
-b
+G
 "}
 (5,1,1) = {"
+G
 a
-a
-b
-b
-b
-b
-b
-a
-a
-a
-a
-a
-a
-a
-a
-a
-b
-b
-b
-b
-b
-b
 b
 b
 b
@@ -180,10 +164,30 @@ b
 b
 a
 a
+a
+a
+a
+a
+a
+a
+a
 b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+b
+a
+a
+G
 "}
 (6,1,1) = {"
-b
+G
 a
 a
 a
@@ -212,10 +216,10 @@ b
 b
 b
 a
-b
+G
 "}
 (7,1,1) = {"
-b
+G
 a
 a
 a
@@ -244,10 +248,10 @@ b
 b
 b
 b
-a
+G
 "}
 (8,1,1) = {"
-a
+G
 a
 a
 a
@@ -276,10 +280,10 @@ b
 b
 c
 b
-a
+G
 "}
 (9,1,1) = {"
-a
+G
 a
 b
 a
@@ -308,10 +312,10 @@ b
 b
 b
 b
-b
+G
 "}
 (10,1,1) = {"
-a
+G
 a
 a
 a
@@ -340,10 +344,10 @@ b
 c
 b
 b
-b
+G
 "}
 (11,1,1) = {"
-a
+G
 a
 a
 b
@@ -372,10 +376,10 @@ b
 b
 b
 b
-b
+G
 "}
 (12,1,1) = {"
-a
+G
 a
 b
 a
@@ -404,10 +408,10 @@ b
 b
 b
 b
-b
+G
 "}
 (13,1,1) = {"
-a
+G
 a
 b
 b
@@ -436,11 +440,11 @@ b
 b
 b
 c
-b
+G
 "}
 (14,1,1) = {"
+G
 a
-a
 b
 c
 b
@@ -468,42 +472,42 @@ b
 b
 b
 b
-b
+G
 "}
 (15,1,1) = {"
-a
-a
-b
-b
-b
-b
-c
-b
-b
-b
-d
-d
-d
-d
-d
-d
-d
-c
-b
-b
-c
-b
+G
 a
 b
 b
 b
+b
 c
 b
 b
 b
+d
+d
+d
+d
+d
+d
+d
+c
+b
+b
+c
+b
+a
+b
+b
+b
+c
+b
+b
+G
 "}
 (16,1,1) = {"
-a
+G
 a
 b
 b
@@ -532,10 +536,10 @@ b
 b
 b
 b
-b
+G
 "}
 (17,1,1) = {"
-a
+G
 a
 b
 c
@@ -564,10 +568,10 @@ b
 b
 a
 b
-b
+G
 "}
 (18,1,1) = {"
-a
+G
 a
 b
 a
@@ -596,10 +600,10 @@ b
 b
 c
 a
-a
+G
 "}
 (19,1,1) = {"
-a
+G
 a
 b
 a
@@ -628,10 +632,10 @@ a
 b
 b
 a
-a
+G
 "}
 (20,1,1) = {"
-a
+G
 a
 b
 b
@@ -660,10 +664,10 @@ a
 a
 a
 a
-a
+G
 "}
 (21,1,1) = {"
-a
+G
 a
 b
 b
@@ -692,16 +696,12 @@ a
 a
 a
 a
-a
+G
 "}
 (22,1,1) = {"
+G
 a
-a
 b
-b
-b
-b
-a
 b
 b
 b
@@ -709,12 +709,16 @@ a
 b
 b
 b
+a
 b
 b
 b
 b
 b
 b
+b
+b
+b
 a
 a
 a
@@ -724,10 +728,10 @@ a
 a
 a
 a
-a
+G
 "}
 (23,1,1) = {"
-a
+G
 a
 a
 a
@@ -756,10 +760,10 @@ a
 a
 a
 a
-a
+G
 "}
 (24,1,1) = {"
-a
+G
 a
 a
 a
@@ -788,10 +792,10 @@ a
 a
 a
 a
-a
+G
 "}
 (25,1,1) = {"
-a
+G
 a
 b
 b
@@ -820,10 +824,10 @@ a
 a
 a
 a
-a
+G
 "}
 (26,1,1) = {"
-b
+G
 b
 b
 b
@@ -852,10 +856,10 @@ a
 a
 a
 a
-a
+G
 "}
 (27,1,1) = {"
-b
+G
 b
 b
 a
@@ -884,10 +888,10 @@ a
 a
 a
 a
-a
+G
 "}
 (28,1,1) = {"
-b
+G
 b
 b
 a
@@ -916,10 +920,10 @@ b
 b
 b
 b
-b
+G
 "}
 (29,1,1) = {"
-b
+G
 a
 a
 a
@@ -948,37 +952,37 @@ a
 b
 b
 b
-b
+G
 "}
 (30,1,1) = {"
-b
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
+G
 "}

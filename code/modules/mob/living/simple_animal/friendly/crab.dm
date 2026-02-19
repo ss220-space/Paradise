@@ -1,42 +1,43 @@
 //Look Sir, free crabs!
 /mob/living/simple_animal/crab
 	name = "crab"
-	desc = "A hard-shelled crustacean. Seems quite content to lounge around all the time."
+	desc = "Небольшое ракообразное с твёрдым панцирем. Похоже, что ему нравится шляться без дела."
 	icon_state = "crab"
 	icon_living = "crab"
 	icon_dead = "crab_dead"
-	speak_emote = list("clicks")
-	emote_hear = list("clicks")
-	emote_see = list("clacks")
+	speak_emote = list("щёлкает")
+	emote_hear = list("цокает клешнями")
+	emote_see = list("клацает клешнями")
 	death_sound = 'sound/creatures/crack_death2.ogg'
 	speak_chance = 1
 	turns_per_move = 5
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 1)
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "stomps"
+	response_help  = "гладит"
+	response_disarm = "отталкивает"
+	response_harm   = "топчет"
 	stop_automated_movement = 1
-	friendly = "pinches"
-	ventcrawler = 2
-	can_hide = 1
+	friendly = "щипает"
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	can_hide = TRUE
+	pass_door_while_hidden = TRUE
 	can_collar = 1
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Riki"
 	holder_type = /obj/item/holder/crab
 	mob_size = MOB_SIZE_SMALL
 
-/mob/living/simple_animal/crab/handle_automated_movement()
-	//CRAB movement
-	if(!stat)
-		if(isturf(src.loc) && !resting && !buckled)		//This is so it only moves if it's not inside a closet, gentics machine, etc.
-			turns_since_move++
-			if(turns_since_move >= turns_per_move)
-				var/east_vs_west = pick(4, 8)
-				if(Process_Spacemove(east_vs_west))
-					Move(get_step(src, east_vs_west), east_vs_west)
+/mob/living/simple_animal/crab/get_ru_names()
+	return list(
+		NOMINATIVE = "краб",
+		GENITIVE = "краба",
+		DATIVE = "крабу",
+		ACCUSATIVE = "краба",
+		INSTRUMENTAL = "крабом",
+		PREPOSITIONAL = "крабе",
+	)
 
 /mob/living/simple_animal/crab/royal
-	name = "королевский краб"
+	name = "royal crab"
 	desc = "Величественный королевский краб."
 	icon_state = "royalcrab"
 	icon_living = "royalcrab"
@@ -48,23 +49,74 @@
 	maxHealth = 50
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 
+/mob/living/simple_animal/crab/royal/get_ru_names()
+	return list(
+		NOMINATIVE = "королевский краб",
+		GENITIVE = "королевского краба",
+		DATIVE = "королевскому крабу",
+		ACCUSATIVE = "королевского краба",
+		INSTRUMENTAL = "королевским крабом",
+		PREPOSITIONAL = "королевском крабе",
+	)
+
 //COFFEE! SQUEEEEEEEEE!
 /mob/living/simple_animal/crab/Coffee
 	name = "Coffee"
-	real_name = "Coffee"
+	real_name = "Коффи"
 	desc = "Любитель потягать топливные баки и штангу. Коффи? Кофе?"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
+/mob/living/simple_animal/crab/Coffee/get_ru_names()
+	return list(
+		NOMINATIVE = "Коффи",
+		GENITIVE = "Коффи",
+		DATIVE = "Коффи",
+		ACCUSATIVE = "Коффи",
+		INSTRUMENTAL = "Коффи",
+		PREPOSITIONAL = "Коффи",
+	)
+
+// Billy Crabbington, MASTER OF THE GYM
+
+/mob/living/simple_animal/crab/billy
+	name = "Billy Crabington"
+	real_name = "Билли Крабингтон"
+	desc = "Босс качалки в этом и всех ближайших секторах, известен также как мастер глубоководных подземелий. \
+			От долгого нахождения в обществе суровых мужчин научился говорить несколько фраз."
+	speak = list("ААААРГХ!", "О, йес сэр!", "Шёл бы ты, кожевник")
+	emote_hear = list("клацает по своему блестящему панцирю")
+	emote_see = list("играет панцирем")
+	response_harm   = "шлёпает"
+	gold_core_spawnable = NO_SPAWN
+	unique_pet = TRUE
+
+/mob/living/simple_animal/crab/billy/get_ru_names()
+	return list(
+		NOMINATIVE = "Билли Крабингтон",
+		GENITIVE = "Билли Крабингтона",
+		DATIVE = "Билли Крабингтону",
+		ACCUSATIVE = "Билли Крабингтона",
+		INSTRUMENTAL = "Билли Крабингтоном",
+		PREPOSITIONAL = "Билли Крабингтоне",
+	)
+
 /mob/living/simple_animal/crab/evil
-	name = "Evil Crab"
-	real_name = "Evil Crab"
-	desc = "Unnerving, isn't it? It has to be planning something nefarious..."
+	name = "evil crab"
+	real_name = "Злой краб"
+	desc = "Жуткий, да? Похоже, он что-то замышляет..."
 	icon_state = "evilcrab"
 	icon_living = "evilcrab"
 	icon_dead = "evilcrab_dead"
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "stomps"
 	gold_core_spawnable = HOSTILE_SPAWN
 	holder_type = /obj/item/holder/evilcrab
+
+/mob/living/simple_animal/crab/evil/get_ru_names()
+	return list(
+		NOMINATIVE = "злой краб",
+		GENITIVE = "злого краба",
+		DATIVE = "злому крабу",
+		ACCUSATIVE = "злого краба",
+		INSTRUMENTAL = "злым крабом",
+		PREPOSITIONAL = "злом крабе",
+	)

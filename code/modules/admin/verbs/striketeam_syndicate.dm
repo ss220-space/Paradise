@@ -1,68 +1,60 @@
 //STRIKE TEAMS
 
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
+
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
+
+ADMIN_VERB(syndicate_strike_team, R_ADMIN, "Отправить Ударный Отряд \"Синдиката\"", "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК.", ADMIN_CATEGORY_EVENTS)
+	if(user.holder)
+		user.syndicate_strike_team()
+
 /client/proc/syndicate_strike_team()
-	set category = "Event"
-	set name = "Spawn Syndicate Strike Team"
-	set desc = "Spawns a squad of commandos in the Syndicate Mothership if you want to run an admin event."
-	if(!src.holder)
-		to_chat(src, "Only administrators may use this command.")
-		return
 	if(!SSticker)
-		alert("The game hasn't started yet!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)
-		alert("The Syndicate are already sending a team, Mr. Dumbass.")
+		tgui_alert(src, "Синдикат уже отправил отряд, Мистер Тупой.")
 		return
-	if(alert("Do you want to send in the Syndicate Strike Team? Once enabled, this is irreversible.",,"Yes","No")=="No")
+	if(tgui_alert(src, "Вы действительно хотите отправить Ударный Отряд \"Синдиката\"? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
 		return
-	alert("This 'mode' will go on until everyone is dead or the station is destroyed. You may also admin-call the evac shuttle when appropriate. Spawned syndicates have internals cameras which are viewable through a monitor inside the Syndicate Mothership Bridge. Assigning the team's detailed task is recommended from there. The first one selected/spawned will be the team leader.")
+	tgui_alert(src, "Этот 'режим' будет продолжаться до тех пор, пока все не погибнут или станция не будет разрушена. Также, при необходимости, можно вызвать эвакуационный шаттл через админские кнопки. У появившихся агентов \"Синдиката\" есть внутренние камеры, которые можно просматривать через монитор на мостике корабля \"Синдиката\". Руководить командой рекомендуется оттуда. Первый выбранный/появившийся будет лидером команды.")
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has started to spawn a Syndicate Strike Team.</span>")
+	message_admins(span_notice("[key_name_admin(usr)] has started to spawn a Syndicate Strike Team."))
 
 	var/input = null
 	while(!input)
-		input = sanitize(copytext_char(input(src, "Please specify which mission the syndicate strike team shall undertake.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд \"Синдиката\".", "Укажите миссию", "", encode = FALSE)
 		if(!input)
-			if(alert("Error, no mission set. Do you want to exit the setup process?",,"Yes","No")=="Yes")
+			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return
 
 	if(GLOB.sent_syndicate_strike_team)
-		to_chat(src, "Looks like someone beat you to it.")
+		to_chat(src, "Кажется кто-то стукнет вас за это.")
 		return
 
 	var/syndicate_commando_number = SYNDICATE_COMMANDOS_POSSIBLE //for selecting a leader
 	var/is_leader = TRUE // set to FALSE after leader is spawned
 
 	// Find the nuclear auth code
-	var/nuke_code
-	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
-		temp_code = text2num(N.r_code)
-		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
-			nuke_code = N.r_code
-			break
+	var/nuke_code = GLOB.nuke_codes[/obj/machinery/nuclearbomb]
 
 	// Find ghosts willing to be SST
 	var/image/I = new('icons/obj/cardboard_cutout.dmi', "cutout_commando")
-	var/list/commando_ghosts = pollCandidatesWithVeto(src, usr, SYNDICATE_COMMANDOS_POSSIBLE, "Join the Syndicate Strike Team?",, 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, source = I)
-	if(!commando_ghosts.len)
-		to_chat(usr, "<span class='userdanger'>Nobody volunteered to join the SST.</span>")
+	var/list/commando_ghosts = pick_candidates_all_types(src, SYNDICATE_COMMANDOS_POSSIBLE, "Присоединиться к Ударному Отряду \"Синдиката\"?", , 21, 60 SECONDS, TRUE, GLOB.role_playtime_requirements[ROLE_DEATHSQUAD], TRUE, FALSE, I, "Ударный Отряд \"Синдиката\"", input)
+	if(!length(commando_ghosts))
+		to_chat(src, span_userdanger("Никто не присоединился к SST."))
 		return
 
 	GLOB.sent_syndicate_strike_team = 1
 
 	//Spawns commandos and equips them.
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/L = thing
-
+	for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 		if(syndicate_commando_number <= 0)
 			break
 
 		if(L.name == "Syndicate-Commando")
 
-			if(!commando_ghosts.len)
+			if(!length(commando_ghosts))
 				break
 
 			var/mob/ghost_mob = pick(commando_ghosts)
@@ -76,16 +68,16 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			if(!new_syndicate_commando)
 				continue
 
-			new_syndicate_commando.key = ghost_mob.key
+			new_syndicate_commando.possess_by_player(ghost_mob.key)
 			new_syndicate_commando.internal = new_syndicate_commando.s_store
 			new_syndicate_commando.update_action_buttons_icon()
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<B>Nuke Code:</B> <span class='warning'>[nuke_code]</span>.")
-			new_syndicate_commando.mind.store_memory("<B>Mission:</B> <span class='warning'>[input]</span>.")
+				new_syndicate_commando.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code]")].")
+			new_syndicate_commando.mind.store_memory("<b>Миссия:</b> [span_warning("[input]")].")
 
-			to_chat(new_syndicate_commando, "<span class='notice'>You are an Elite Syndicate [is_leader ? "<B>TEAM LEADER</B>" : "commando"] in the service of the Syndicate. \nYour current mission is: <span class='userdanger'>[input]</span></span>")
+			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<b>Лидер</b>" : "боец"] Элитного Отряда в подчинении \"Синдиката\". \nВаша миссия: [span_userdanger("[input]")]"))
 			new_syndicate_commando.faction += "syndicate"
 			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 			opshud.join_hud(new_syndicate_commando.mind.current)
@@ -94,15 +86,15 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 			is_leader = FALSE
 			syndicate_commando_number--
 
-	message_admins("<span class='notice'>[key_name_admin(usr)] has spawned a Syndicate strike squad.</span>")
+	message_admins(span_notice("[key_name_admin(usr)] has spawned a Syndicate strike squad."))
 	log_admin("[key_name(usr)] used Spawn Syndicate Squad.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Send SST") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Send SST")
 
 /client/proc/create_syndicate_death_commando(obj/spawn_location, is_leader = FALSE)
 	var/mob/living/carbon/human/new_syndicate_commando = new(spawn_location.loc)
 	var/syndicate_commando_leader_rank = pick("Лейтенант", "Капитан", "Майор")
 	var/syndicate_commando_rank = pick("Младший Сержант", "Сержант", "Старший Сержант", "Старшина", "Прапорщик", "Старший Прапорщик")
-	var/syndicate_commando_name = pick(GLOB.last_names)
+	var/syndicate_commando_name = pick(GLOB.last_names_male)
 
 	var/datum/preferences/A = new()//Randomize appearance for the commando.
 	if(is_leader)
@@ -119,53 +111,13 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	new_syndicate_commando.mind.assigned_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.offstation_role = TRUE
-	SSticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
-	new_syndicate_commando.equip_syndicate_commando(is_leader)
+	new_syndicate_commando.change_voice()
+	SSticker.mode.sst |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
+	if(is_leader)
+		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team/officer)
+	else
+		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team)
 	qdel(spawn_location)
 	return new_syndicate_commando
 
-/mob/living/carbon/human/proc/equip_syndicate_commando(is_leader = FALSE, full_gear = FALSE)
-	var/obj/item/radio/R = new /obj/item/radio/headset/syndicate/alt/syndteam(src)
-	R.set_frequency(SYNDTEAM_FREQ)
-	equip_to_slot_or_del(R, slot_l_ear)
-	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate(src), slot_w_uniform)
-	if(!full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/combat(src), slot_gloves)
-
-	equip_to_slot_or_del(new /obj/item/storage/backpack/security(src), slot_back)
-	equip_to_slot_or_del(new /obj/item/storage/box/survival_syndi(src), slot_in_backpack)
-
-	equip_to_slot_or_del(new /obj/item/gun/projectile/revolver(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/ammo_box/a357(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/reagent_containers/hypospray/combat/nanites(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-	if(is_leader)
-		equip_to_slot_or_del(new /obj/item/pinpointer(src), slot_in_backpack)
-		equip_to_slot_or_del(new /obj/item/disk/nuclear/unrestricted(src), slot_in_backpack)
-	else
-		equip_to_slot_or_del(new /obj/item/grenade/plastic/x4(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/card/emag(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/melee/energy/sword/saber/red(src), slot_l_store)
-
-	if(full_gear)
-		equip_to_slot_or_del(new /obj/item/clothing/mask/gas/syndicate(src), slot_wear_mask)
-		equip_to_slot_or_del(new /obj/item/clothing/suit/space/hardsuit/syndi/elite/sst(src), slot_wear_suit)
-		equip_to_slot_or_del(new /obj/item/clothing/glasses/thermal/sunglasses(src), slot_glasses)
-		equip_to_slot_or_del(new /obj/item/storage/belt/military/sst(src), slot_belt)
-		equip_to_slot_or_del(new /obj/item/tank/jetpack/oxygen/harness(src), slot_s_store)
-		equip_to_slot_or_del(new /obj/item/clothing/shoes/magboots/syndie/advance(src), slot_shoes)
-		equip_to_slot_or_del(new /obj/item/gun/projectile/automatic/l6_saw(src), slot_r_hand)
-		equip_to_slot_or_del(new /obj/item/ammo_box/magazine/mm556x45(src), slot_in_backpack)
-
-	var/obj/item/implant/dust/D = new /obj/item/implant/dust(src)
-	D.implant(src)
-	var/obj/item/card/id/syndicate/W = new(src) //Untrackable by AI
-	W.name = "[real_name]'s ID Card"
-	W.icon_state = "syndie"
-	W.assignment = "Syndicate Commando"
-	W.access += get_syndicate_access(W.assignment)
-	W.registered_name = real_name
-	equip_to_slot_or_del(W, slot_wear_id)
-
-	return 1
+#undef SYNDICATE_COMMANDOS_POSSIBLE

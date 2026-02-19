@@ -11,12 +11,12 @@
 	name = "control wand"
 	desc = "Remotely controls airlocks."
 	w_class = WEIGHT_CLASS_TINY
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	var/mode = WAND_OPEN
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
-	var/emagged = FALSE
+	var/z_cross = TRUE //Allows using remoters cross-sectory
 
 /obj/item/door_remote/New()
 	..()
@@ -24,7 +24,7 @@
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
 	ID.access += additional_access
-	ID.access = uniquelist(ID.access)
+	ID.access = unique_list(ID.access)
 
 /obj/item/door_remote/Destroy()
 	QDEL_NULL(ID)
@@ -35,7 +35,7 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
+			to_chat(user, span_warning("You short out the safeties on [src]"))
 
 /obj/item/door_remote/attack_self(mob/user)
 	if(emagged)
@@ -61,19 +61,28 @@
 			if(WAND_SPEED)
 				mode = WAND_OPEN
 
-	to_chat(user, "<span class='notice'>Now in mode: [mode].</span>")
+	to_chat(user, span_notice("Now in mode: [mode]."))
 
 /obj/item/door_remote/afterattack(obj/machinery/door/airlock/D, mob/user)
 	if(!istype(D))
+		D = locate() in get_turf(D)
+	if(!istype(D))
+		return
+	var/turf/t = get_turf(user)
+	if((D.z != t.z) && !z_cross)
+		to_chat(user, span_danger("[D] is too far away to be controlled!"))
+		return
+	if(HAS_TRAIT(D, TRAIT_CMAGGED))
+		to_chat(user, span_danger("The door doesn't respond to [src]"))
 		return
 	if(D.is_special)
-		to_chat(user, "<span class='danger'>[src] cannot access this kind of door!</span>")
+		to_chat(user, span_danger("[src] cannot access this kind of door!"))
 		return
 	if(!(D.arePowerSystemsOn()))
-		to_chat(user, "<span class='danger'>[D] has no power!</span>")
+		to_chat(user, span_danger("[D] has no power!"))
 		return
 	if(!D.requiresID())
-		to_chat(user, "<span class='danger'>[D]'s ID scan is disabled!</span>")
+		to_chat(user, span_danger("[D]'s ID scan is disabled!"))
 		return
 	if(D.check_access(src.ID))
 		D.add_hiddenprint(user)
@@ -103,16 +112,16 @@
 					D.update_icon()
 				if(WAND_SPEED)
 					D.normalspeed = !D.normalspeed
-					to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+					to_chat(user, span_notice("[D] is now in [D.normalspeed ? "normal" : "fast"] mode."))
 					add_attack_logs(user, D, "changed speed mode")
 				if(WAND_ELECTRIFY)
 					if(D.electrified_until == -1)
 						D.electrified_until = 0
-						to_chat(user, "<span class='notice'>[D] is no longer electrified.</span>")
+						to_chat(user, span_notice("[D] is no longer electrified."))
 						add_attack_logs(user, D, "un-electrified")
 					else
 						D.electrified_until = -1
-						to_chat(user, "<span class='notice'>You electrify [D].</span>")
+						to_chat(user, span_notice("You electrify [D]."))
 						add_attack_logs(user, D, "electrified")
 		if(emagged == FALSE)
 			switch(mode)
@@ -140,10 +149,10 @@
 					D.update_icon()
 				if(WAND_SPEED)
 					D.normalspeed = !D.normalspeed
-					to_chat(user, "<span class='notice'>[D] is now in [D.normalspeed ? "normal" : "fast"] mode.</span>")
+					to_chat(user, span_notice("[D] is now in [D.normalspeed ? "normal" : "fast"] mode."))
 					add_attack_logs(user, D, "changed speed mode")
 	else
-		to_chat(user, "<span class='danger'>[src] does not have access to this door.</span>")
+		to_chat(user, span_danger("[src] does not have access to this door."))
 
 /obj/item/door_remote/omni
 	name = "omni door remote"
@@ -182,9 +191,8 @@
 	region_access = list(REGION_MEDBAY)
 
 /obj/item/door_remote/civillian
-	name = "civillian door remote"
-	icon_state = "gangtool-white"
-	region_access = list(REGION_GENERAL, REGION_SUPPLY)
+	name = "civilian door remote"
+	region_access = list(REGION_GENERAL)
 	additional_access = list(ACCESS_HOP)
 
 /obj/item/door_remote/centcomm
@@ -198,6 +206,7 @@
 	desc = "High-ranking Syndicate officials only."
 	icon_state = "gangtool-syndie"
 	region_access = list(REGION_TAIPAN)
+	z_cross = FALSE
 
 /obj/item/door_remote/omni/access_tuner
 	name = "access tuner"
@@ -205,24 +214,31 @@
 	icon_state = "hacktool"
 	item_state = "hacktool"
 	emagged = TRUE
-	var/hack_speed = 30
+	var/hack_speed = 1 SECONDS
 	var/busy = FALSE
 
-/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user)
+/obj/item/door_remote/omni/access_tuner/update_icon_state()
+	icon_state = "hacktool[busy ? "-g" : ""]"
+
+/obj/item/door_remote/omni/access_tuner/afterattack(obj/machinery/door/airlock/D, mob/user, proximity, params)
 	if(!istype(D))
 		return
-	if(busy)
-		to_chat(user, "<span class='warning'>[src] is alreading interfacing with a door!</span>")
+	if(HAS_TRAIT(D, TRAIT_CMAGGED))
+		to_chat(user, span_danger("The door doesn't respond to [src]!"))
 		return
-	icon_state = "hacktool-g"
+	if(busy)
+		to_chat(user, span_warning("[src] is alreading interfacing with a door!"))
+		return
 	busy = TRUE
-	to_chat(user, "<span class='notice'>[src] is attempting to interface with [D]...</span>")
-	if(do_after(user, hack_speed, target = D))
+	update_icon(UPDATE_ICON_STATE)
+	to_chat(user, span_notice("[src] is attempting to interface with [D]..."))
+	if(do_after(user, hack_speed, D))
 		. = ..()
 	busy = FALSE
-	icon_state = "hacktool"
+	update_icon(UPDATE_ICON_STATE)
 
 #undef WAND_OPEN
 #undef WAND_BOLT
 #undef WAND_EMERGENCY
 #undef WAND_SPEED
+#undef WAND_ELECTRIFY

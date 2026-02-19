@@ -1,44 +1,62 @@
 /obj/machinery/computer
 	name = "computer"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'icons/obj/machines/computer.dmi'
 	icon_state = "computer"
-	density = 1
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
+	density = TRUE
+	anchored = TRUE
 	idle_power_usage = 300
 	active_power_usage = 300
-	max_integrity = 200
 	integrity_failure = 100
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 20)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 40, ACID = 20)
 	var/obj/item/circuitboard/circuit = null //if circuit==null, computer can't disassembly
-	var/processing = 0
+	var/obj/structure/computerframe/frame = /obj/structure/computerframe
 	var/icon_keyboard = "generic_key"
 	var/icon_screen = "generic"
 	var/light_range_on = 2
-	var/light_power_on = 1
-	var/overlay_layer
+	var/light_power_on = 0.9
+	var/abductor = FALSE
 	/// Are we in the middle of a flicker event?
 	var/flickering = FALSE
 	/// Are we forcing the icon to be represented in a no-power state?
 	var/force_no_power_icon_state = FALSE
 
-/obj/machinery/computer/New()
-	overlay_layer = layer
-	..()
+/obj/machinery/computer/Initialize(mapload, obj/structure/computerframe/frame)
+	. = ..()
 
-/obj/machinery/computer/Initialize()
-	..()
+	if(frame)
+		src.frame = frame
+
+	else
+		var/frame_type = abductor ? /obj/structure/computerframe/abductor : src.frame
+		src.frame = new frame_type(src, circuit)
+
+	src.frame.on_construction(src)
 	power_change()
 	update_icon()
+
+/obj/machinery/computer/Destroy()
+	if(istype(frame))
+		qdel(frame)
+
+	frame = null
+
+	return ..()
 
 /obj/machinery/computer/process()
 	if(stat & (NOPOWER|BROKEN))
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/extinguish_light()
-	set_light(0)
-	visible_message("<span class='danger'>[src] grows dim, its screen barely readable.</span>")
+/obj/machinery/computer/extinguish_light(force = FALSE)
+	if(light_on)
+		set_light_on(FALSE)
+		underlays.Cut()
+		visible_message(span_danger("Экран [declent_ru(GENITIVE)] тускнеет, изображение становится едва видимым."))
+
+/obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /*
  * Reimp, flash the screen on and off repeatedly.
@@ -51,7 +69,7 @@
 		return FALSE
 
 	flickering = TRUE
-	INVOKE_ASYNC(src, /obj/machinery/computer/.proc/flicker_event)
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/machinery/computer, flicker_event))
 
 	return TRUE
 
@@ -72,29 +90,48 @@
 	update_icon()
 	flickering = FALSE
 
-/obj/machinery/computer/update_icon()
-	overlays.Cut()
+/obj/machinery/computer/update_icon_state()
+	icon_state = abductor ? "aliencomputer" : initial(icon_state)
+
+/obj/machinery/computer/update_overlays()
+	. = ..()
+	underlays.Cut()
+
 	if((stat & NOPOWER) || force_no_power_icon_state)
-		if(icon_keyboard)
-			overlays += image(icon,"[icon_keyboard]_off",overlay_layer)
+		if(icon_keyboard && abductor)
+			. += "alien_key_off"
+		else if(icon_keyboard)
+			. += "[icon_keyboard]_off"
 		return
 
 	if(stat & BROKEN)
-		overlays += image(icon,"[icon_state]_broken",overlay_layer)
+		. += "[icon_state]_broken"
 	else
-		overlays += image(icon,icon_screen,overlay_layer)
+		if(icon_screen)
+			. += "[icon_screen]"
+		if(light_on)
+			underlays += emissive_appearance(icon, "[icon_state]_lightmask", src)
 
-	if(icon_keyboard)
-		overlays += image(icon, icon_keyboard ,overlay_layer)
+	if(icon_keyboard && abductor)
+		. += "alien_key"
+		underlays += emissive_appearance(icon, "alien_key_lightmask", src)
+	else if(icon_keyboard)
+		. += "[icon_keyboard]"
+		underlays += emissive_appearance(icon, "[icon_keyboard]_lightmask", src)
 
-
-/obj/machinery/computer/power_change()
-	..()
-	update_icon()
+/obj/machinery/computer/power_change(forced = FALSE)
+	. = ..() //we don't check parent return due to this also being contigent on the BROKEN stat flag
 	if((stat & (BROKEN|NOPOWER)))
-		set_light(0)
+		set_light_on(FALSE)
 	else
-		set_light(light_range_on, light_power_on)
+		// Get the average color of the computer screen so it can be used as a tinted glow
+		// Shamelessly stolen from /tg/'s /datum/component/customizable_reagent_holder.
+		var/icon/emissive_avg_screen_color = new(icon, icon_screen)
+		emissive_avg_screen_color.Scale(1, 1)
+		var/screen_emissive_color = copytext(emissive_avg_screen_color.GetPixel(1, 1), 1, 8) // remove opacity
+		set_light(l_range = light_range_on, l_power = light_power_on, l_color = screen_emissive_color, l_on = TRUE)
+	if(.)
+		update_icon()
 
 /obj/machinery/computer/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -107,12 +144,12 @@
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/machinery/computer/obj_break(damage_flag)
-	if(circuit && !(flags & NODECONSTRUCT)) //no circuit, no breaking
+	if(circuit && !(obj_flags & NODECONSTRUCT)) //no circuit, no breaking
 		if(!(stat & BROKEN))
 			playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 			stat |= BROKEN
 			update_icon()
-			set_light(0)
+			set_light_on(FALSE)
 
 /obj/machinery/computer/emp_act(severity)
 	..()
@@ -126,29 +163,25 @@
 
 /obj/machinery/computer/deconstruct(disassembled = TRUE, mob/user)
 	on_deconstruction()
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		if(circuit) //no circuit, no computer frame
-			var/obj/structure/computerframe/A = new /obj/structure/computerframe(loc)
-			var/obj/item/circuitboard/M = new circuit(A)
-			A.setDir(dir)
-			A.circuit = M
-			A.anchored = TRUE
 			if(stat & BROKEN)
 				if(user)
-					to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+					to_chat(user, span_notice("Из рамки дисплея выпадает разбитое стекло."))
 				else
 					playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 				new /obj/item/shard(drop_location())
 				new /obj/item/shard(drop_location())
-				A.state = 3
-				A.icon_state = "3"
+				frame.state = 4
 			else
 				if(user)
-					to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
-				A.state = 4
-				A.icon_state = "4"
+					loc.balloon_alert(user, "монитор отключён")
+			frame.update_icon()
+
 		for(var/obj/C in src)
-			C.forceMove(loc)
+			C.forceMove(get_turf(src))
+
+	frame = null
 	qdel(src)
 
 /obj/machinery/computer/proc/set_broken()
@@ -158,7 +191,7 @@
 
 /obj/machinery/computer/proc/decode(text)
 	// Adds line breaks
-	text = replacetext(text, "\n", "<BR>")
+	text = replacetext(text, "\n", "<br>")
 	return text
 
 /obj/machinery/computer/attack_ghost(mob/user)
@@ -173,6 +206,61 @@
 	. = TRUE
 	if(!I.tool_start_check(src, user, 0))
 		return
-	if(circuit && !(flags & NODECONSTRUCT))
+	if(circuit && !(obj_flags & NODECONSTRUCT))
 		if(I.use_tool(src, user, 20, volume = I.tool_volume))
 			deconstruct(TRUE, user)
+
+/obj/machinery/computer/hit_by_thrown_mob(mob/living/hit_by_thrown_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	if(!self_hurt && prob(50 * (damage / 15)))
+		obj_break(MELEE)
+		take_damage(damage, BRUTE)
+		self_hurt = TRUE
+	return ..()
+
+///////// Decorative frames
+
+/obj/machinery/computer/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_screen = "common_computerframe"
+
+/obj/machinery/computer/old_frame/engineering
+	icon_screen = "common2_oldframe"
+	icon_state = "frame-eng"
+	icon_keyboard = "kb14"
+
+/obj/machinery/computer/old_frame/medical
+	icon_screen = "common2_oldframe"
+	icon_state = "frame-med"
+	icon_keyboard = "kb4"
+
+/obj/machinery/computer/old_frame/big
+	icon = 'icons/obj/machines/computer.dmi'
+	icon_state = "left"
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/big/alert
+	icon_state = "leftb"
+
+/obj/machinery/computer/old_frame/big/right
+	icon_state = "right-closed"
+
+/obj/machinery/computer/old_frame/macintosh
+	icon_screen = "stock_computer"
+	icon_state = "oldcomp"
+
+/obj/machinery/computer/old_frame/server
+	icon_screen = "command"
+	icon_state = "serverframe"
+
+/obj/machinery/computer/old_frame/server/rackframe
+	name = "rackframe"
+	icon_state = "rackframe"
+	icon_screen = null
+	icon_keyboard = null
+
+/obj/machinery/computer/old_frame/locator
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "tdoppler"
+
+/obj/machinery/computer/old_frame/thick
+	icon_state = "thick"

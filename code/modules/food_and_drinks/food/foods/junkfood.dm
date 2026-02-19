@@ -12,7 +12,7 @@
 	filling_color = "#E8C31E"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 3)
+	list_reagents = list("nutriment" = 1, "sodiumchloride" = 1, "sugar" = 2)
 	tastes = list("crisps" = 1)
 	foodtype = JUNKFOOD | FRIED
 
@@ -36,21 +36,31 @@
 	filling_color = "#BAD145"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 4)
+	list_reagents = list("plantmatter" = 2, "sodiumchloride" = 1, "sugar" = 2)
 	tastes = list("pistachios" = 1)
 	foodtype = JUNKFOOD
 
 /obj/item/reagent_containers/food/snacks/no_raisin
-	name = "4no Raisins"
-	icon_state = "4no_raisins"
-	desc = "Best raisins in the universe. Not sure why."
+	name = "raisins 1984"
+	icon_state = "1984_raisins"
+	desc = "Пачка сухого изюма производства \"DonkCo\". Слоган на упаковке гласит: \"Вы любите этот вкус. Вы всегда любили его. Даже не пытайтесь думать иначе\"."
 	trash = /obj/item/trash/raisins
 	filling_color = "#343834"
 	junkiness = 25
 	antable = FALSE
-	list_reagents = list("plantmatter" = 2, "sugar" = 4)
+	list_reagents = list("plantmatter" = 2, "sugar" = 2)
 	tastes = list("dried raisins" = 1)
 	foodtype = JUNKFOOD | FRUIT
+
+/obj/item/reagent_containers/food/snacks/no_raisin/get_ru_names()
+	return list(
+		NOMINATIVE = "изюм \"1984\"",
+		GENITIVE = "изюма \"1984\"",
+		DATIVE = "изюму \"1984\"",
+		ACCUSATIVE = "изюм \"1984\"",
+		INSTRUMENTAL = "изюмом \"1984\"",
+		PREPOSITIONAL = "изюме \"1984\""
+	)
 
 /obj/item/reagent_containers/food/snacks/spacetwinkie
 	name = "Space Twinkie"
@@ -95,10 +105,33 @@
 	filling_color = "#A66829"
 	junkiness = 20
 	antable = FALSE
-	list_reagents = list("nutriment" = 2, "sugar" = 4)
+	list_reagents = list("protein" = 2, "sugar" = 2)
 	tastes = list("bread" = 1)
 	foodtype = JUNKFOOD | GRAIN
 
+/obj/item/reagent_containers/food/snacks/doshik
+	name = "Doshi Co"
+	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow."
+	icon_state = "doshik"
+	trash = /obj/item/trash/doshik
+	filling_color = "#d1a62f"
+	junkiness = 20
+	list_reagents = list("protein" = 3)
+	tastes = list("doshi co" = 1, "pleasure" = 1)
+	foodtype = JUNKFOOD | MEAT
+	opened = FALSE
+
+/obj/item/reagent_containers/food/snacks/doshik_spicy
+	name = "Doshi Co Special"
+	desc = "Very famous instant noodles. When opened, it brewes immediantly. Wow. It seems to have hot spices in it."
+	icon_state = "doshikspicy"
+	trash = /obj/item/trash/doshik
+	filling_color = "#d16a2f"
+	junkiness = 20
+	list_reagents = list("protein" = 3, "capsaicin" = 5)
+	tastes = list("doshi co" = 1, "pain" = 1, "pleasure" = 1)
+	foodtype = JUNKFOOD | MEAT
+	opened = FALSE
 
 //////////////////////
 //		Homemade	//

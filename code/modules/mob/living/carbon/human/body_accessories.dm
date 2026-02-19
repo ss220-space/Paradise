@@ -1,6 +1,6 @@
 
 GLOBAL_LIST_INIT(body_accessory_by_name, list("None" = null))
-GLOBAL_LIST_INIT(body_accessory_by_species, list())
+GLOBAL_LIST_EMPTY(body_accessory_by_species)
 
 /proc/initialize_body_accessory_by_species()
 	for(var/B in GLOB.body_accessory_by_name)
@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 				GLOB.body_accessory_by_species["[species]"] = list()
 			GLOB.body_accessory_by_species["[species]"]["[accessory.name]"] = accessory
 
-	if(GLOB.body_accessory_by_species.len)
+	if(length(GLOB.body_accessory_by_species))
 		return TRUE
 	return FALSE
 
@@ -63,15 +63,14 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 
 	else	return icon_state
 
-
 //Bodies
 /datum/body_accessory/body
 	blend_mode = ICON_MULTIPLY
 
 //Tails
 /datum/body_accessory/tail
-	icon = 'icons/mob/body_accessory.dmi'
-	animated_icon = 'icons/mob/body_accessory.dmi'
+	icon = 'icons/mob/clothing/body_accessory.dmi'
+	animated_icon = 'icons/mob/clothing/body_accessory.dmi'
 	blend_mode = ICON_ADD
 	icon_state = "null"
 	animated_icon_state = "null"
@@ -82,48 +81,63 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	return ..()
 
 //Tajaran
-/datum/body_accessory/tail/wingler_tail // Jay wingler fluff tail
-	name = "Striped Tail"
-	icon_state = "winglertail"
-	animated_icon_state = "winglertail_a"
-	allowed_species = list("Tajaran")
+/datum/body_accessory/tail/leopard_tail
+	name = "Leopard Tail"
+	icon_state = "leopard"
+	animated_icon_state = "leopard_a"
+	allowed_species = list(SPECIES_TAJARAN)
 
 /datum/body_accessory/tail/tiny //Pretty ambiguous as to what species it belongs to, tail could've been injured or docked.
 	name = "Tiny Tail"
 	icon_state = "tiny"
 	animated_icon_state = "tiny_a"
-	allowed_species = list("Vulpkanin", "Tajaran")
+	allowed_species = list(SPECIES_VULPKANIN, SPECIES_TAJARAN)
 
 /datum/body_accessory/tail/short //Same as above.
 	name = "Short Tail"
 	icon_state = "short"
 	animated_icon_state = "short_a"
-	allowed_species = list("Vulpkanin", "Tajaran")
+	allowed_species = list(SPECIES_VULPKANIN, SPECIES_TAJARAN)
 
 //Vulpkanin
 /datum/body_accessory/tail/bushy
 	name = "Bushy Tail"
 	icon_state = "bushy"
 	animated_icon_state = "bushy_a"
-	allowed_species = list("Vulpkanin")
+	allowed_species = list(SPECIES_VULPKANIN)
 
 /datum/body_accessory/tail/straight
 	name = "Straight Tail"
 	icon_state = "straight"
 	animated_icon_state = "straight_a"
-	allowed_species = list("Vulpkanin")
+	allowed_species = list(SPECIES_VULPKANIN)
 
 /datum/body_accessory/tail/straight_bushy
 	name = "Straight Bushy Tail"
 	icon_state = "straightbushy"
 	animated_icon_state = "straightbushy_a"
-	allowed_species = list("Vulpkanin")
+	allowed_species = list(SPECIES_VULPKANIN)
 
 //Wryn
-/datum/body_accessory/tail/wryn
+/datum/body_accessory/tail/bee
 	name = "Bee Tail"
-	icon_state = "wryntail"
-	allowed_species = list("Wryn")
+	icon_state = "beetail"
+	allowed_species = list(SPECIES_WRYN)
+
+/datum/body_accessory/tail/roach
+	name = "Cockroach Tail"
+	icon_state = "roachtail"
+	allowed_species = list(SPECIES_WRYN)
+
+/datum/body_accessory/tail/wasp
+	name = "Wasp Tail"
+	icon_state = "wasptail"
+	allowed_species = list(SPECIES_WRYN)
+
+/datum/body_accessory/tail/wasper
+	name = "Wasper Tail"
+	icon_state = "waspertail"
+	allowed_species = list(SPECIES_WRYN)
 
 //Nian
 /datum/body_accessory/wing
@@ -131,7 +145,7 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	animated_icon = null
 	name = "Plain Wings"
 	icon_state = "plain"
-	allowed_species = list("Nian")
+	allowed_species = list(SPECIES_MOTH)
 	has_behind = TRUE
 
 /datum/body_accessory/wing/plain
@@ -207,3 +221,34 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 /datum/body_accessory/wing/witchwing
 	name = "Witch Wing Wings"
 	icon_state = "witchwing"
+
+/datum/body_accessory/wing/plasmafire
+	name = "Plasmafire Wings"
+	icon_state = "plasmafire"
+
+/datum/body_accessory/wing/brown
+	name = "Brown Wings"
+	icon_state = "brown"
+
+/datum/body_accessory/wing/feathery
+	name = "Feathery Wings"
+	icon_state = "feathery"
+
+//Unathi
+/datum/body_accessory/tail/smooth
+	name = "Smooth"
+	icon_state = "smooth"
+	animated_icon_state = "smooth_a"
+	allowed_species = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
+
+/datum/body_accessory/tail/tiger
+	name = "Tiger"
+	icon_state = "dtiger"
+	animated_icon_state = "dtiger_a"
+	allowed_species = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
+
+/datum/body_accessory/tail/spikes
+	name = "Spikes"
+	icon_state = "spikes"
+	animated_icon_state = "spikes_a"
+	allowed_species = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)

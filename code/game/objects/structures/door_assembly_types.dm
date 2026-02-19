@@ -146,20 +146,20 @@
 /obj/structure/door_assembly/multi_tile/Initialize(mapload)
 	. = ..()
 	if(dir in list(EAST, WEST))
-		bound_width = width * world.icon_size
-		bound_height = world.icon_size
+		bound_width = width * ICON_SIZE_X
+		bound_height = ICON_SIZE_Y
 	else
-		bound_width = world.icon_size
-		bound_height = width * world.icon_size
+		bound_width = ICON_SIZE_X
+		bound_height = width * ICON_SIZE_Y
 
-/obj/structure/door_assembly/multi_tile/Move()
+/obj/structure/door_assembly/multi_tile/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
 	if(dir in list(EAST, WEST))
-		bound_width = width * world.icon_size
-		bound_height = world.icon_size
+		bound_width = width * ICON_SIZE_X
+		bound_height = ICON_SIZE_Y
 	else
-		bound_width = world.icon_size
-		bound_height = width * world.icon_size
+		bound_width = ICON_SIZE_X
+		bound_height = width * ICON_SIZE_Y
 
 /obj/structure/door_assembly/door_assembly_cult
 	name = "cult airlock assembly"
@@ -173,7 +173,21 @@
 	. = ..()
 	icon = SSticker.cultdat?.airlock_runed_icon_file
 	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/door_assembly/door_assembly_cult_fake
+	name = "cult airlock assembly"
+	icon = 'icons/obj/doors/airlocks/cult/runed/cult.dmi'
+	base_name = "cult airlock"
+	overlays_file = 'icons/obj/doors/airlocks/cult/runed/cult-overlays.dmi'
+	airlock_type = /obj/machinery/door/airlock/cult_fake
+	glass_type = /obj/machinery/door/airlock/cult_fake/glass
+
+/obj/structure/door_assembly/door_assembly_cult_fake/Initialize(mapload)
+	. = ..()
+	icon = SSticker.cultdat?.airlock_runed_icon_file
+	overlays_file = SSticker.cultdat?.airlock_runed_overlays_file
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/door_assembly_cult/unruned
 	icon = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
@@ -185,7 +199,7 @@
 	. = ..()
 	icon = SSticker.cultdat?.airlock_unruned_icon_file
 	overlays_file = SSticker.cultdat?.airlock_unruned_overlays_file
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/structure/door_assembly/door_assembly_clock
 	name = "clock airlock assembly"

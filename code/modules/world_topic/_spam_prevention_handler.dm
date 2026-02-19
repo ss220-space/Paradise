@@ -17,11 +17,11 @@
 	ip = _ip
 
 /**
-  * Lockout handler
-  *
-  * Updates strikes and timers of the most recent client to topic the server
-  * including any relevant detail
-  */
+ * Lockout handler
+ *
+ * Updates strikes and timers of the most recent client to topic the server
+ * including any relevant detail
+ */
 /datum/world_topic_spam_prevention_handler/proc/check_lockout()
 	// Check if they are already locked out
 	if(locked_out && (unlock_time >= world.time))

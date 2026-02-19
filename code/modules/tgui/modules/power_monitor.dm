@@ -1,20 +1,20 @@
 /datum/ui_module/power_monitor
 	name = "Power monitor"
-	var/select_monitor = FALSE
+	var/can_select_monitor = FALSE
 	var/obj/machinery/computer/monitor/powermonitor
 
 /datum/ui_module/power_monitor/digital
-	select_monitor = TRUE
+	can_select_monitor = TRUE
 
 /datum/ui_module/power_monitor/New()
 	..()
-	if(!select_monitor)
+	if(!can_select_monitor)
 		powermonitor = ui_host()
 
-/datum/ui_module/power_monitor/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/power_monitor/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "PowerMonitor", name, 600, 650, master_ui, state)
+		ui = new(user, src, "PowerMonitor", name)
 		ui.open()
 
 /datum/ui_module/power_monitor/ui_data(mob/user)
@@ -25,17 +25,17 @@
 		powermonitor = null
 
 	data["powermonitor"] = powermonitor
-	if(select_monitor)
-		data["select_monitor"] = TRUE
-		data["powermonitors"] = GLOB.powermonitor_repository.powermonitor_data()
+	if(can_select_monitor && !powermonitor)
+		data["can_select_monitor"] = TRUE
+		data["powermonitors"] = GLOB.powermonitor_repository.get_data(user.z)
 
 	if(powermonitor)
-		if(select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
+		if(can_select_monitor && (powermonitor.stat & (NOPOWER|BROKEN)))
 			powermonitor = null
 			return
 		if(powermonitor.powernet)
-			data["poweravail"] = DisplayPower(powermonitor.powernet.viewavail)
-			data["powerdemand"] = DisplayPower(powermonitor.powernet.viewload)
+			data["poweravail"] = display_power(powermonitor.powernet.viewavail)
+			data["powerdemand"] = display_power(powermonitor.powernet.viewload)
 			data["history"] = powermonitor.history
 			data["apcs"] = GLOB.apc_repository.apc_data(powermonitor.powernet)
 			data["no_powernet"] = FALSE
@@ -49,7 +49,7 @@
 		return
 
 	// Dont allow people to break regular ones
-	if(!select_monitor)
+	if(!can_select_monitor)
 		return
 
 	. = TRUE

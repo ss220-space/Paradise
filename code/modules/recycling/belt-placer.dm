@@ -1,8 +1,11 @@
 /obj/item/storage/conveyor //Stores conveyor belts, click floor to make belt, use a conveyor switch on this to link all belts to that lever.
 	name = "conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts."
+	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "belt_placer"
-	item_state = "belt_placer"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	item_state = "conv"
 	w_class = WEIGHT_CLASS_BULKY //Because belts are large things, you know?
 	can_hold = list(/obj/item/conveyor_construct)
 	flags = CONDUCT
@@ -18,7 +21,7 @@
 	name = "bluespace conveyor belt placer"
 	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
 	icon_state = "bluespace_belt_placer"
-	item_state = "bluespace_belt_placer"
+	item_state = "bs_conv"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 50
 	max_combined_w_class = 200 //50 belts
@@ -26,21 +29,24 @@
 
 /obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))
-		var/obj/item/conveyor_switch_construct/S = I
+		add_fingerprint(user)
+		var/obj/item/conveyor_switch_construct/switch_construct = I
 		var/linked = FALSE //For nice message
-		for(var/obj/item/conveyor_construct/C in src)
-			C.id = S.id
+		for(var/obj/item/conveyor_construct/conveyor in contents)
+			conveyor.id = switch_construct.id
 			linked = TRUE
 		if(linked)
-			to_chat(user, "<span class='notice'>All belts in [src] linked with [S].</span>")
-	else
-		return ..()
+			to_chat(user, span_notice("All belts in [src] linked with [switch_construct]."))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-/obj/item/storage/conveyor/afterattack(atom/A, mob/user, proximity)
+	return ..()
+
+/obj/item/storage/conveyor/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
 		return
-	var/obj/item/conveyor_construct/C = locate() in src
-	if(!C)
-		to_chat(user, "<span class='notice'>There are no belts in [src].</span>")
-	else
-		C.afterattack(A, user, proximity)
+	var/obj/item/conveyor_construct/conveyor = locate() in contents
+	if(!conveyor)
+		to_chat(user, span_warning("There are no belts in [src]."))
+		return
+	conveyor.afterattack(target, user, proximity, params)
+

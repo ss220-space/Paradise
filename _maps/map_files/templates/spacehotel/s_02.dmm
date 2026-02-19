@@ -38,7 +38,6 @@
 "f" = (
 /obj/structure/rack,
 /obj/item/clothing/head/collectable/police,
-/obj/item/clothing/head/hooded/nun_hood,
 /obj/item/clothing/head/mailman,
 /obj/item/clothing/head/nursehat,
 /obj/item/clothing/head/wizard/fake,
@@ -90,7 +89,6 @@
 /obj/machinery/button/windowtint{
 	id = "room_s";
 	pixel_x = -24;
-	pixel_y = 0;
 	range = 5
 	},
 /turf/simulated/floor/indestructible{
@@ -116,7 +114,6 @@
 /area/template_noop)
 "o" = (
 /obj/structure/sink{
-	icon_state = "sink";
 	dir = 8;
 	pixel_x = -12;
 	pixel_y = 2

@@ -1,0 +1,29 @@
+.Donation__Section {
+  .Section__title {
+    border-bottom: 0;
+  }
+  .Section__buttons {
+    margin-top: -1.45em;
+    margin-right: -0.45em;
+  }
+}
+
+.Donation_Image {
+  width: 32px;
+  height: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.Boosty__Image {
+  background-image: url('../assets/boosty.svg');
+}
+
+.Kofi__Image {
+  background-image: url('../assets/ko-fi.svg');
+}
+
+.Discord__Image {
+  background-image: url('../assets/discord.svg');
+}

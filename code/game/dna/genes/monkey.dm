@@ -5,79 +5,68 @@
 	..()
 	block = GLOB.monkeyblock
 
-/datum/dna/gene/monkey/can_activate(mob/M, flags)
-	return ishuman(M)
+/datum/dna/gene/monkey/can_activate(mob/living/mutant, flags)
+	return ishuman(mutant) && !is_monkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
 
-/datum/dna/gene/monkey/activate(mob/living/carbon/human/H, connected, flags)
-	if(!istype(H))
-		return
-	if(issmall(H))
-		return
-	for(var/obj/item/W in H)
-		if(istype(W,/obj/item/organ))
-			continue
-		if(istype(W,/obj/item/implant))
-			continue
-		H.unEquip(W)
+/datum/dna/gene/monkey/can_deactivate(mob/living/mutant, flags)
+	return ishuman(mutant) && is_monkeybasic(mutant) && !HAS_TRAIT(mutant, TRAIT_NO_TRANSFORM)
 
-	H.regenerate_icons()
-	H.SetStunned(1)
-	H.canmove = FALSE
-	H.icon = null
-	H.invisibility = 101
-	var/has_primitive_form = H.dna.species.primitive_form // cache this
+/datum/dna/gene/monkey/activate(mob/living/carbon/human/mutant, flags)
+	. = ..()
+
+	for(var/obj/item/item as anything in mutant.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
+		mutant.drop_item_ground(item, force = TRUE)
+
+	ADD_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
+	mutant.invisibility = INVISIBILITY_ABSTRACT
+	var/has_primitive_form = mutant.dna.species.primitive_form // cache this
 	if(has_primitive_form)
-		H.set_species(has_primitive_form)
+		mutant.set_species(has_primitive_form, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
-	new /obj/effect/temp_visual/monkeyify(H.loc)
-	sleep(22)
+	new /obj/effect/temp_visual/monkeyify(mutant.loc)
+	sleep(2.2 SECONDS)
+	if(QDELETED(mutant))
+		return
 
-	H.SetStunned(0)
-	H.invisibility = initial(H.invisibility)
+	REMOVE_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
+	mutant.invisibility = initial(mutant.invisibility)
 
 	if(!has_primitive_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
-		H.gib()
+		mutant.gib()
 		return
 
-	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
+	mutant.balloon_alert(mutant, "вы трансформировались!")
+	to_chat(mutant, span_big("Вы трансформировались в [mutant.dna.species.name]."))
 
-	return H
+/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/mutant, flags)
+	. = ..()
 
-/datum/dna/gene/monkey/deactivate(mob/living/carbon/human/H, connected, flags)
-	if(!istype(H))
-		return
-	if(!issmall(H))
-		return
-	for(var/obj/item/W in H)
-		if(W == H.w_uniform) // will be torn
+	for(var/obj/item/item as anything in mutant.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
+		if(item == mutant.w_uniform) // will be torn
 			continue
-		if(istype(W,/obj/item/organ))
-			continue
-		if(istype(W,/obj/item/implant))
-			continue
-		H.unEquip(W)
-	H.regenerate_icons()
-	H.SetStunned(1)
-	H.canmove = 0
-	H.icon = null
-	H.invisibility = 101
-	var/has_greater_form = H.dna.species.greater_form //cache this
+		mutant.drop_item_ground(item, force = TRUE)
+
+	ADD_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
+	mutant.invisibility = INVISIBILITY_ABSTRACT
+	var/has_greater_form = mutant.dna.species.greater_form //cache this
 	if(has_greater_form)
-		H.set_species(has_greater_form)
+		mutant.set_species(has_greater_form, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 
-	new /obj/effect/temp_visual/monkeyify/humanify(H.loc)
-	sleep(22)
+	new /obj/effect/temp_visual/monkeyify/humanify(mutant.loc)
+	sleep(2.2 SECONDS)
+	if(QDELETED(mutant))
+		return
 
-	H.SetStunned(0)
-	H.invisibility = initial(H.invisibility)
+	REMOVE_TRAIT(mutant, TRAIT_NO_TRANSFORM, TEMPORARY_TRANSFORMATION_TRAIT)
+	mutant.invisibility = initial(mutant.invisibility)
 
 	if(!has_greater_form) //If the pre-change mob in question has no primitive set, this is going to be messy.
-		H.gib()
+		mutant.gib()
 		return
 
-	H.real_name = H.dna.real_name
-	H.name = H.real_name
+	mutant.real_name = mutant.dna.real_name
+	mutant.name = mutant.real_name
 
-	to_chat(H, "<B>You are now a [H.dna.species.name].</B>")
+	mutant.balloon_alert(mutant, "вы трансформировались!")
+	to_chat(mutant, span_big("Вы трансформировались в [mutant.dna.species.name]."))
 
-	return H

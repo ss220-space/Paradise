@@ -8,3 +8,22 @@
 #define SEC_RECORD_STATUS_DEMOTE "Demote"
 #define SEC_RECORD_STATUS_SEARCH "Search"
 #define SEC_RECORD_STATUS_MONITOR "Monitor"
+
+#define SEC_STATUS_NONE "none"
+#define SEC_STATUS_ARREST "arrest"
+#define SEC_STATUS_EXECUTE "execute"
+#define SEC_STATUS_INCARCERATED "incarcerated"
+#define SEC_STATUS_RELEASED "released"
+#define SEC_STATUS_PAROLLED "parolled"
+#define SEC_STATUS_DEMOTE "demote"
+#define SEC_STATUS_SEARCH "search"
+#define SEC_STATUS_MONITOR "monitor"
+
+#define LAW_LEVEL_BASE 0
+#define LAW_LEVEL_SEC 1
+#define LAW_LEVEL_WARDEN 2
+#define LAW_LEVEL_HOS 3
+#define LAW_LEVEL_CAPTAIN 4
+#define LAW_LEVEL_MAGISTRATE 5
+#define LAW_LEVEL_RESPONSE_TEAM 6
+#define LAW_LEVEL_CENTCOMM 7

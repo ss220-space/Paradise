@@ -1,15 +1,24 @@
 /**********************Unloading unit**************************/
 
-
 /obj/machinery/mineral/unloading_machine
 	name = "unloading machine"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "unloader"
-	density = 1
-	anchored = 1.0
+	density = TRUE
+	anchored = TRUE
 	input_dir = WEST
 	output_dir = EAST
 	speed_process = 1
+
+/obj/machinery/mineral/unloading_machine/get_ru_names()
+	return list(
+		NOMINATIVE = "разгрузочная машина",
+		GENITIVE = "разгрузочной машины",
+		DATIVE = "разгрузочной машине",
+		ACCUSATIVE = "разгрузочную машину",
+		INSTRUMENTAL = "разгрузочной машиной",
+		PREPOSITIONAL = "разгрузочной машине",
+	)
 
 /obj/machinery/mineral/unloading_machine/process()
 	var/turf/T = get_step(src,input_dir)

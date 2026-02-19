@@ -11,7 +11,7 @@
 	dir = 8
 	},
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "bm" = (
 /obj/structure/stone_tile/cracked{
@@ -152,7 +152,7 @@
 /obj/structure/chair/brass{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "eY" = (
 /obj/structure/stone_tile,
@@ -238,7 +238,7 @@
 	dir = 8
 	},
 /obj/item/clockwork/clockgolem_remains,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "jO" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -278,7 +278,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/asteroid/basilisk/watcher/magmawing,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "lB" = (
 /obj/structure/stone_tile/cracked{
@@ -292,7 +292,7 @@
 	dir = 8
 	},
 /obj/structure/stone_tile/surrounding/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "mx" = (
 /obj/structure/stone_tile/cracked{
@@ -354,7 +354,7 @@
 /obj/structure/chair/brass{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "pc" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -533,7 +533,7 @@
 /obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "zY" = (
 /obj/structure/stone_tile/surrounding,
@@ -563,7 +563,7 @@
 /obj/structure/stone_tile{
 	dir = 4
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "AH" = (
 /obj/structure/stone_tile/block/cracked{
@@ -572,7 +572,7 @@
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Bt" = (
 /obj/structure/stone_tile,
@@ -657,19 +657,19 @@
 	dir = 8
 	},
 /obj/structure/bookcase,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ew" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/bookcase/random/religion{
 	move_resist = 45000
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Fh" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/item/clockwork/clockgolem_remains,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Fr" = (
 /obj/structure/stone_tile,
@@ -684,9 +684,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"FT" = (
-/turf/simulated/wall/indestructible/boss,
-/area/template_noop)
 "Gd" = (
 /obj/structure/stone_tile/slab/cracked,
 /obj/structure/table/reinforced/brass,
@@ -752,7 +749,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /obj/item/storage/toolbox/brass,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ij" = (
 /obj/structure/stone_tile,
@@ -791,7 +788,7 @@
 	},
 /obj/structure/table/reinforced/brass,
 /obj/item/wirecutters/brass,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Jk" = (
 /obj/structure/stone_tile/cracked{
@@ -810,7 +807,7 @@
 "Jx" = (
 /obj/structure/stone_tile/surrounding,
 /obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "JR" = (
 /obj/structure/stone_tile/block/cracked{
@@ -914,7 +911,7 @@
 	dir = 1
 	},
 /obj/structure/bookcase,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "MQ" = (
 /obj/structure/stone_tile/cracked{
@@ -928,7 +925,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "MX" = (
 /obj/structure/stone_tile/block/cracked{
@@ -938,7 +935,7 @@
 	dir = 8
 	},
 /obj/structure/bookcase,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "Ny" = (
 /obj/structure/stone_tile/block/cracked{
@@ -950,7 +947,7 @@
 /obj/structure/table/reinforced/brass,
 /obj/item/weldingtool/experimental/brass,
 /obj/item/screwdriver/brass,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "ND" = (
 /obj/structure/stone_tile/cracked{
@@ -1015,7 +1012,7 @@
 /area/mine/necropolis)
 "PD" = (
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "PG" = (
 /obj/structure/stone_tile/surrounding,
@@ -1116,7 +1113,7 @@
 	},
 /obj/structure/stone_tile/center,
 /obj/item/stack/sheet/wood,
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 "TZ" = (
 /obj/structure/stone_tile/slab/cracked,
@@ -1269,7 +1266,7 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/plating/lava/smooth/lava_land_surface,
+/turf/simulated/floor/lava/lava_land_surface,
 /area/mine/necropolis)
 
 (1,1,1) = {"
@@ -1310,9 +1307,9 @@ WU
 WU
 WU
 WU
-FT
-FT
-FT
+WU
+WU
+WU
 YS
 Mg
 "}
@@ -1332,9 +1329,9 @@ WU
 MX
 TX
 Zu
-FT
-FT
-FT
+WU
+WU
+WU
 xY
 Mg
 "}
@@ -1355,8 +1352,8 @@ jO
 Zu
 lq
 On
-FT
-FT
+WU
+WU
 xY
 Mg
 "}
@@ -1377,8 +1374,8 @@ US
 US
 lB
 as
-FT
-FT
+WU
+WU
 fl
 Mg
 "}
@@ -1399,8 +1396,8 @@ MH
 GU
 US
 qJ
-FT
-FT
+WU
+WU
 Xt
 Mg
 "}
@@ -1421,8 +1418,8 @@ Zs
 rj
 Or
 US
-FT
-FT
+WU
+WU
 Xt
 Mg
 "}
@@ -1443,8 +1440,8 @@ GU
 eY
 jO
 On
-FT
-FT
+WU
+WU
 Xt
 Mg
 "}
@@ -1464,10 +1461,10 @@ WU
 WU
 Zs
 US
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (10,1,1) = {"
@@ -1487,9 +1484,9 @@ eY
 qJ
 tr
 Gd
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (11,1,1) = {"
@@ -1510,8 +1507,8 @@ cv
 Zs
 ex
 Gd
-FT
-FT
+WU
+WU
 Mg
 "}
 (12,1,1) = {"
@@ -1532,8 +1529,8 @@ Uj
 US
 dw
 zY
-FT
-FT
+WU
+WU
 Mg
 "}
 (13,1,1) = {"
@@ -1554,8 +1551,8 @@ eY
 Wy
 CU
 RA
-FT
-FT
+WU
+WU
 Mg
 "}
 (14,1,1) = {"
@@ -1576,8 +1573,8 @@ vl
 Zs
 US
 KC
-FT
-FT
+WU
+WU
 Mg
 "}
 (15,1,1) = {"
@@ -1598,8 +1595,8 @@ fq
 qJ
 fw
 VC
-FT
-FT
+WU
+WU
 Mg
 "}
 (16,1,1) = {"
@@ -1619,9 +1616,9 @@ Fh
 Zu
 Uj
 GU
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (17,1,1) = {"
@@ -1641,9 +1638,9 @@ AB
 AH
 Zs
 US
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (18,1,1) = {"
@@ -1663,9 +1660,9 @@ On
 Jx
 US
 On
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (19,1,1) = {"
@@ -1684,10 +1681,10 @@ WU
 WU
 iv
 fq
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (20,1,1) = {"
@@ -1707,9 +1704,9 @@ On
 vl
 Zs
 On
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (21,1,1) = {"
@@ -1730,8 +1727,8 @@ fq
 US
 GU
 VT
-FT
-FT
+WU
+WU
 Mg
 "}
 (22,1,1) = {"
@@ -1753,7 +1750,7 @@ CF
 US
 oz
 Ew
-FT
+WU
 Mg
 "}
 (23,1,1) = {"
@@ -1775,7 +1772,7 @@ GU
 eY
 Jx
 yU
-FT
+WU
 Mg
 "}
 (24,1,1) = {"
@@ -1797,7 +1794,7 @@ US
 ND
 wg
 jq
-FT
+WU
 Mg
 "}
 (25,1,1) = {"
@@ -1819,7 +1816,7 @@ eY
 qJ
 Zs
 eH
-FT
+WU
 Mg
 "}
 (26,1,1) = {"
@@ -1841,7 +1838,7 @@ YG
 GU
 Jk
 Ny
-FT
+WU
 Mg
 "}
 (27,1,1) = {"
@@ -1862,8 +1859,8 @@ Fr
 US
 JT
 On
-FT
-FT
+WU
+WU
 Mg
 "}
 (28,1,1) = {"
@@ -1883,9 +1880,9 @@ US
 eY
 Ln
 CF
-FT
-FT
-FT
+WU
+WU
+WU
 Mg
 "}
 (29,1,1) = {"
@@ -1904,10 +1901,10 @@ TK
 cv
 Zs
 US
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (30,1,1) = {"
@@ -1926,10 +1923,10 @@ GU
 Uj
 Wp
 eY
-FT
-FT
-FT
-FT
+WU
+WU
+WU
+WU
 Mg
 "}
 (31,1,1) = {"
@@ -1947,8 +1944,8 @@ Zs
 eb
 dw
 fq
-FT
-FT
+WU
+WU
 Mg
 Mg
 Mg
@@ -1969,8 +1966,8 @@ cv
 WU
 WU
 WU
-FT
-FT
+WU
+WU
 Mg
 Mg
 Mg

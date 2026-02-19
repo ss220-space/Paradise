@@ -1,0 +1,167 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
+@use 'sass:color';
+@use 'sass:meta';
+//@use 'sass:map';
+
+//palette
+$dark-purple: hsl(279.9, 67.2%, 47.8%);
+$purple: hsl(279.9, 58.4%, 52%);
+$light-purple: hsl(280, 50%, 60%);
+
+$light-gray: hsl(282.9, 21.2%, 93.5%);
+$dark-gray: hsl(280, 5.6%, 78.8%);
+$scrollbar-color-multiplier: 0.5;
+
+$nanotrasen: hsl(0, 0%, 17.3%);
+
+@use '../colors.scss' with (
+  $primary: hsl(280.2, 63.9%, 32.5%),
+  $label: hsl(280, 5.6%, 78.8%),
+  $good: hsl(280, 5.6%, 78.8%),
+  $bad: red,
+  // $fg-map-keys: (),
+  // $bg-map-keys: (),
+);
+
+@use '../base.scss' with (
+  $color-bg: hsl(280, 89.7%, 19%),
+  $color-bg-grad-spread: 12% //$border-radius: 0,
+);
+
+.theme-ntos_roboquest {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss', $with: ());
+
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': hsl(271, 100%, 57.1%),
+      'color-transparent-text': rgba(227, 240, 255, 0.75),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(227, 37.2%, 43.7%),
+      'color-caution': hsl(29.5, 91%, 39%)
+    )
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: (
+      'color-default-fill': $nanotrasen,
+      'background-color': rgba(0, 0, 0, 0.5)
+    )
+  );
+  @include meta.load-css('../components/Divider.scss');
+  @include meta.load-css('../components/Section.scss');
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': hsl(280, 5.6%, 78.8%))
+  );
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(279.2, 48.1%, 21.2%))
+  );
+
+  .Section {
+    outline: 2px inset hsl(280.2, 63.9%, 32.5%);
+  }
+
+  .Section__buttons {
+    position: absolute;
+    display: inline-block;
+    right: 6px;
+    margin-top: 0px;
+  }
+
+  .Button {
+    color: hsl(282.9, 21.2%, 93.5%);
+    background-color: hsl(280.2, 63.9%, 32.5%);
+  }
+
+  .ProgressBar {
+    color: hsl(280.2, 63.9%, 32.5%);
+  }
+
+  .Divider--vertical {
+    &:not(.Divider--hidden) {
+      border-left: 2px solid hsl(280.2, 63.9%, 32.5%);
+    }
+  }
+
+  .Divider--horizontal {
+    &:not(.Divider--hidden) {
+      border-top: 2px solid hsl(280.2, 63.9%, 32.5%);
+    }
+  }
+
+  .Layout__content {
+    background-image: url('../../assets/bg-grayripley.svg');
+    background-size: 300%;
+    background-repeat: no-repeat;
+  }
+  .Layout,
+  .Layout * {
+    // Fancy scrollbar
+    scrollbar-base-color: color.scale(
+      hsl(249.5, 12.6%, 29.6%),
+      $lightness: -25% * $scrollbar-color-multiplier
+    );
+    scrollbar-face-color: color.scale(
+      hsl(249.5, 12.6%, 29.6%),
+      $lightness: 10% * $scrollbar-color-multiplier
+    );
+
+    scrollbar-3dlight-color: color.scale(
+      orange,
+      $lightness: 0% * $scrollbar-color-multiplier
+    );
+    scrollbar-highlight-color: color.scale(
+      orange,
+      $lightness: 0% * $scrollbar-color-multiplier
+    );
+    scrollbar-track-color: color.scale(
+      hsl(270.9, 52.5%, 47.8%),
+      $lightness: -25% * $scrollbar-color-multiplier
+    );
+    scrollbar-arrow-color: color.scale(
+      rgb(47, 3, 94),
+      $lightness: 50% * $scrollbar-color-multiplier
+    );
+    scrollbar-shadow-color: color.scale(
+      hsl(249.5, 12.6%, 29.6%),
+      $lightness: 10% * $scrollbar-color-multiplier
+    );
+  }
+  .Tab {
+    color: rgb(255, 132, 153);
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  .Tab--selected {
+    color: black;
+    background-color: rgb(255, 132, 153);
+  }
+  .Box {
+    outline: 3px outset hsl(0, 0%, 75.3%);
+  }
+  .Tooltip {
+    color: black;
+  }
+  .Input {
+    background-color: white;
+    outline: 2px inset rgb(255, 132, 153);
+  }
+  .NtosWindow__header {
+    background-color: hsl(249.5, 12.6%, 29.6%);
+  }
+  .Flex {
+    color: white;
+    background-color: rgba(0, 0, 0, 0);
+  }
+}

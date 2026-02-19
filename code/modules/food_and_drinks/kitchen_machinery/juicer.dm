@@ -1,12 +1,10 @@
 
 /obj/machinery/juicer
 	name = "Juicer"
+	desc = "Машина для переработки твёрдых пищевых продуктов в форму сока. Принимает практически любой выращенный плод."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "juicer1"
-	layer = 2.9
-	density = 1
-	anchored = 0
-	use_power = IDLE_POWER_USE
+	density = TRUE
 	idle_power_usage = 5
 	active_power_usage = 100
 	pass_flags = PASSTABLE
@@ -27,47 +25,62 @@
 		/obj/item/reagent_containers/food/snacks/grown/berries = "berryjuice",
 		/obj/item/reagent_containers/food/snacks/grown/pumpkin = "pumpkinjuice",
 		/obj/item/reagent_containers/food/snacks/grown/blumpkin = "blumpkinjuice",
-		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice"
+		/obj/item/reagent_containers/food/snacks/grown/pineapple = "pineapplejuice",
+		/obj/item/reagent_containers/food/snacks/grown/peaslaugh = "laughsyrup"
 	)
 
-/obj/machinery/juicer/New()
+/obj/machinery/juicer/get_ru_names()
+	return list(
+		NOMINATIVE = "соковыжималка",
+		GENITIVE = "соковыжималки",
+		DATIVE = "соковыжималке",
+		ACCUSATIVE = "соковыжималку",
+		INSTRUMENTAL = "соковыжималкой",
+		PREPOSITIONAL = "соковыжималке"
+	)
+
+/obj/machinery/juicer/Initialize(mapload)
 	. = ..()
 	beaker = new /obj/item/reagent_containers/glass/beaker/large(src)
 
-/obj/machinery/juicer/update_icon()
+/obj/machinery/juicer/update_icon_state()
 	icon_state = "juicer"+num2text(!isnull(beaker))
-	return
 
+/obj/machinery/juicer/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-/obj/machinery/juicer/attackby(obj/item/O, mob/user, params)
-	if(istype(O,/obj/item/reagent_containers/glass) || \
-		istype(O,/obj/item/reagent_containers/food/drinks/drinkingglass))
+	add_fingerprint(user)
+	if(istype(I, /obj/item/reagent_containers/glass) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass))
 		if(beaker)
-			return 1
-		else
-			if(!user.unEquip(O))
-				to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
-				return 0
-			O.forceMove(src)
-			beaker = O
-			verbs += /obj/machinery/juicer/verb/detach
-			update_icon()
-			updateUsrDialog()
-			return 0
-	if(!is_type_in_list(O, allowed_items))
-		to_chat(user, "It doesn't look like that contains any juice.")
-		return 1
-	if(!user.unEquip(O))
-		to_chat(user, "<span class='notice'>\the [O] is stuck to your hand, you cannot put it in \the [src]</span>")
-		return 0
-	O.forceMove(src)
+			balloon_alert(user, "внутри уже есть ёмкость!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		beaker = I
+		verbs += /obj/machinery/juicer/verb/detach
+		update_icon(UPDATE_ICON_STATE)
+		updateUsrDialog()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(!is_type_in_list(I, allowed_items))
+		balloon_alert(user, "не подходит для выжимки!")
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+
 	updateUsrDialog()
-	return 0
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/machinery/juicer/attack_ai(mob/user)
 	return 0
 
 /obj/machinery/juicer/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	user.set_machine(src)
 	interact(user)
 
@@ -81,37 +94,36 @@
 		for(var/obj/item/O in contents)
 			if(!istype(O,i))
 				continue
-			processing_chamber+= "some <B>[O]</B><BR>"
+			processing_chamber+= "some <b>[O]</b><br>"
 			break
 	if(!processing_chamber)
 		is_chamber_empty = 1
-		processing_chamber = "Nothing."
+		processing_chamber = "Ничего."
 	if(!beaker)
-		beaker_contents = "\The [src] has no beaker attached."
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] не имеет присоединённой ёмкости."
 	else if(!beaker.reagents.total_volume)
-		beaker_contents = "\The [src]  has attached an empty beaker."
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] содержит пустую ёмкость."
 		is_beaker_ready = 1
 	else if(beaker.reagents.total_volume < beaker.reagents.maximum_volume)
-		beaker_contents = "\The [src]  has attached a beaker with something."
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] содержит ёмкость с чем-то внутри."
 		is_beaker_ready = 1
 	else
-		beaker_contents = "\The [src]  has attached a beaker and beaker is full!"
+		beaker_contents = "[DECLENT_RU_CAP(src, NOMINATIVE)] содержит заполненную ёмкость."
 
 	var/dat = {"<meta charset="UTF-8">
-<b>Processing chamber contains:</b><br>
+<b>Камера обработки содержит:</b><br>
 [processing_chamber]<br>
 [beaker_contents]<hr>
 "}
 	if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-		dat += "<A href='?src=[UID()];action=juice'>Turn on!<BR>"
+		dat += "<a href='byond://?src=[UID()];action=juice'>Включить<br>"
 	if(beaker)
-		dat += "<A href='?src=[UID()];action=detach'>Detach a beaker!<BR>"
+		dat += "<a href='byond://?src=[UID()];action=detach'>Вытащить ёмкость<br>"
 	var/datum/browser/popup = new(user, "juicer", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)
 	onclose(user, "juicer")
 	return
-
 
 /obj/machinery/juicer/Topic(href, href_list)
 	if(..())
@@ -127,8 +139,8 @@
 	return
 
 /obj/machinery/juicer/verb/detach()
-	set category = "Object"
-	set name = "Detach Beaker from the juicer"
+	set category = VERB_CATEGORY_OBJECT
+	set name = "Извлечь ёмкость"
 	set src in oview(1)
 	if(usr.stat != 0)
 		return
@@ -137,17 +149,17 @@
 	verbs -= /obj/machinery/juicer/verb/detach
 	beaker.forceMove(loc)
 	beaker = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/juicer/proc/get_juice_id(obj/item/reagent_containers/food/snacks/grown/O)
-	for (var/i in allowed_items)
-		if (istype(O, i))
+	for(var/i in allowed_items)
+		if(istype(O, i))
 			return allowed_items[i]
 
 /obj/machinery/juicer/proc/get_juice_amount(obj/item/reagent_containers/food/snacks/grown/O)
 	if(!istype(O) || !O.seed)
 		return 5
-	else if (O.seed.potency == -1)
+	else if(O.seed.potency == -1)
 		return 5
 	else
 		return round(5*sqrt(O.seed.potency))
@@ -158,7 +170,7 @@
 		return
 	if(!beaker || beaker.reagents.total_volume >= beaker.reagents.maximum_volume)
 		return
-	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
+	playsound(loc, 'sound/machines/juicer.ogg', 50, TRUE)
 	for(var/obj/item/reagent_containers/food/snacks/O in contents)
 		var/r_id = get_juice_id(O)
 		beaker.reagents.add_reagent(r_id,get_juice_amount(O))

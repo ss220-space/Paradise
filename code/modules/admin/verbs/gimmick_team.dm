@@ -1,78 +1,60 @@
 // Gimmick Team
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
+ADMIN_VERB(gimmick_team, R_EVENT, "Отправить \"Гиммик комманду\"", "Спавнит команду игроков в выбранной экипировке.", ADMIN_CATEGORY_EVENTS)
+	user.gimmick_team()
+
 /client/proc/gimmick_team()
-	set category = "Event"
-	set name = "Send Gimmick Team"
-	set desc = "Spawns a group of players in the specified outfit."
-	if(!check_rights(R_EVENT))
-		return
-
 	if(!SSticker)
-		alert("The game hasn't started yet!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 
-	if(alert("Do you want to spawn a Gimmick Team at YOUR CURRENT LOCATION?",,"Yes","No")=="No")
+	if(tgui_alert(src, "Вы хотите заспавнить Гиммик тим в ВАШЕЙ ТЕКУЩЕЙ ЛОКАЦИИ?", "Подтверждение", list("Да","Нет")) != "Да")
 		return
+
 	var/turf/T = get_turf(mob)
-
-	var/pick_manually = 0
-	if(alert("Pick the team members manually? If you select yes, you pick from ghosts. If you select no, ghosts get offered the chance to join.",,"Yes","No")=="Yes")
-		pick_manually = 1
 
 	var/force_species = FALSE
 	var/selected_species = null
-	if(alert("Do you want to enforce a specific species of the team? No - defaults to human.",,"Yes","No")=="Yes")
+	if(tgui_alert(src, "Вы хотите выбрать какую-то расу для отряда? Нет — будут обычные люди.", "Подтверждение", list("Да","Нет")) == "Да")
 		force_species = TRUE
-		selected_species = input("Select a species", "Species Selection",null) as null|anything in GLOB.all_species
+		selected_species = tgui_input_list(src, "Выберете расу", "Выбор расы", GLOB.all_species)
 		if(!selected_species)
-			alert("Spawning stopped.")
+			tgui_alert(src, "Спавн остановлен.")
 			return	// You didn't pick, abort
 
 	var/list/teamsizeoptions = list(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-	var/teamsize = input(src, "How many team members?") as null|anything in teamsizeoptions
+	var/teamsize = tgui_input_list(src, "Укажите количество игроков.", "Количество игроков", teamsizeoptions)
 	if(!(teamsize in teamsizeoptions))
-		alert("Invalid team size specified. Aborting.")
+		tgui_alert(src, "Недопустимый размер отряда. Отмена.")
 		return
 
 	var/team_name = null
 	while(!team_name)
-		team_name = sanitize(copytext_char(input(src, "Please specify a name for the team. Defaults to \"Gimmick Team\".", "Specify Name", ""),1,MAX_MESSAGE_LEN))
+		team_name = tgui_input_text(src, "Укажите название команды. По умолчанию \"Гиммик тим\".", "Укажите название", "",encode = FALSE)
 		if(!team_name)
-			team_name = "Gimmick Team"
+			team_name = "Гиммик тим"
 
 	var/themission = null
 	while(!themission)
-		themission = sanitize(copytext_char(input(src, "Please specify a briefing message for the team.", "Specify Mission", ""),1,MAX_MESSAGE_LEN))
+		themission = tgui_input_text(src, "Укажите миссию отряда.", "Укажите миссию", "", encode = FALSE)
 		if(!themission)
-			alert("No mission specified. Aborting.")
+			tgui_alert(src, "Миссия не указана. Отмена.")
 			return
+
+	var/minhours = tgui_input_number(src, "Укажите минимальное количество часов для [team_name]?", "Минимальное число часов", 60)
 
 	var/dresscode = robust_dress_shop()
 	if(!dresscode)
 		return
 
-	var/is_syndicate = 0
-	if(alert("Do you want these characters automatically classified as antagonists?",,"Yes","No")=="Yes")
-		is_syndicate = 1
+	var/is_syndicate = tgui_alert(src, "Вы хотите, чтобы члены отряда автоматически классифицировались как антагонисты?", "Подтверждение", list("Да","Нет")) == "Да"
 
 	var/list/players_to_spawn = list()
-	if(pick_manually)
-		var/list/possible_ghosts = list()
-		for(var/mob/dead/observer/G in GLOB.player_list)
-			if(!G.client.is_afk())
-				if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-					possible_ghosts += G
-		for(var/i=teamsize,(i>0&&possible_ghosts.len),i--) //Decrease with every member selected.
-			var/candidate = input("Pick characters to spawn. This will go on until there either no more ghosts to pick from, or the slots are full.", "Active Players") as null|anything in possible_ghosts // auto-picks if only one candidate
-			possible_ghosts -= candidate
-			players_to_spawn += candidate
-	else
-		to_chat(src, "Polling candidates...")
-		players_to_spawn = SSghost_spawns.poll_candidates("Do you want to play as \a [team_name]?")
+	players_to_spawn = pick_candidates_all_types(src, teamsize, "Вы хотите сыграть за \a [team_name]?", min_hours=minhours, role_cleanname=team_name, reason=themission)
 
-	if(!players_to_spawn.len)
-		to_chat(src, "Nobody volunteered.")
+	if(!length(players_to_spawn))
+		to_chat(src, "Никто не согласился.")
 		return 0
 
 	var/players_spawned = 0
@@ -90,16 +72,18 @@
 			H.regenerate_icons()
 
 		H.mind_initialize()
-		H.mind.assigned_role = "Event Character"
-		H.mind.special_role = "Event Character"
+		H.mind.assigned_role = SPECIAL_ROLE_EVENTMISC
+		H.mind.special_role = SPECIAL_ROLE_EVENTMISC
+		SSticker.mode.eventmiscs += H.mind
+		SSticker.mode.update_eventmisc_icons_added(H.mind)
 		H.mind.offstation_role = TRUE
-
-		H.key = thisplayer.key
+		H.possess_by_player(thisplayer.key)
+		H.change_voice()
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<BR><span class='danger'><B>[themission]</B></span>")
-		H.mind.store_memory("<B>[themission]</B><BR><BR>")
+		to_chat(H, "<br>[span_danger("<b>[themission]</b>")]")
+		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)
 			SSticker.mode.traitors |= H.mind //Adds them to extra antag list
@@ -108,8 +92,7 @@
 		if(players_spawned >= teamsize)
 			break
 
-
 	log_and_message_admins("used Spawn Gimmick Team.")
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Gimmick Team") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	BLACKBOX_LOG_ADMIN_VERB("Spawn Gimmick Team")
 
 // ---------------------------------------------------------------------------------------------------------

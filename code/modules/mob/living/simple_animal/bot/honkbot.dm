@@ -1,28 +1,26 @@
 /mob/living/simple_animal/bot/honkbot
-	name = "\improper honkbot"
-	desc = "A little robot. It looks happy with its bike horn."
-	icon = 'icons/obj/aibots.dmi'
+	name = "honkbot"
+	desc = "Маленький робот. У него есть гудок. Он счастлив."
 	icon_state = "honkbot"
 	density = FALSE
-	anchored = FALSE
 	health = 25
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
-	pass_flags = PASSMOB
-	radio_channel = "Service" //Service
+	pass_flags = PASSMOB|PASSFLAPS
+	radio_channel = SRV_FREQ_NAME
 	bot_type = HONK_BOT
 	bot_filter = RADIO_HONKBOT
 	model = "Honkbot"
 	bot_core_type = /obj/machinery/bot_core/honkbot
 	window_id = "autohonk"
-	window_name = "Honkomatic Bike Horn Unit v1.0.7"
+	window_name = "Хонкоматическая Клоуновая Единица v1.0.7"
 	data_hud_type = DATA_HUD_SECURITY_BASIC // show jobs
 	path_image_color = "#FF69B4"
 
 	var/honksound = 'sound/items/bikehorn.ogg' //customizable sound
 	var/spam_flag = FALSE
-	var/cooldowntime = 30
-	var/cooldowntimehorn = 10
+	var/cooldowntime = 3 SECONDS
+	var/cooldowntimehorn = 1 SECONDS
 	var/mob/living/carbon/target
 	var/oldtarget_name
 	var/target_lastloc = FALSE	//Loc of target when arrested.
@@ -30,30 +28,42 @@
 	var/threatlevel = FALSE
 	var/arrest_type = FALSE
 
+/mob/living/simple_animal/bot/honkbot/get_ru_names()
+	return list(
+		NOMINATIVE = "хонкобот",
+		GENITIVE = "хонкобота",
+		DATIVE = "хонкоботу",
+		ACCUSATIVE = "хонкобота",
+		INSTRUMENTAL = "хонкоботом",
+		PREPOSITIONAL = "хонкоботе",
+	)
+
 /obj/machinery/bot_core/honkbot
-	req_one_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
+	req_access = list(ACCESS_CLOWN, ACCESS_ROBOTICS, ACCESS_MIME)
 
 /mob/living/simple_animal/bot/honkbot/Initialize(mapload)
 	. = ..()
 	update_icon()
 	auto_patrol = TRUE
-	var/datum/job/clown/J = new /datum/job/clown()
+	var/datum/job/service/clown/J = new /datum/job/service/clown()
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 
-/mob/living/simple_animal/bot/honkbot/proc/spam_flag_false() //used for addtimer
-	spam_flag = FALSE
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /mob/living/simple_animal/bot/honkbot/proc/sensor_blink()
 	icon_state = "honkbot-c"
-	addtimer(CALLBACK(src, .proc/update_icon), 5, TIMER_OVERRIDE|TIMER_UNIQUE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 0.5 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 //honkbots react with sounds.
 /mob/living/simple_animal/bot/honkbot/proc/react_ping()
 	playsound(src, 'sound/machines/ping.ogg', 50, TRUE, -1) //the first sound upon creation!
 	spam_flag = TRUE
 	sensor_blink()
-	addtimer(CALLBACK(src, .proc/spam_flag_false), 18) // calibrates before starting the honk
+	addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), 1.8 SECONDS)	// calibrates before starting the honk
 
 /mob/living/simple_animal/bot/honkbot/proc/react_buzz()
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
@@ -63,30 +73,30 @@
 	..()
 	target = null
 	oldtarget_name = null
-	anchored = FALSE
-	walk_to(src, 0)
+	set_anchored(FALSE)
+	GLOB.move_manager.stop_looping(src)
 	last_found = world.time
 	spam_flag = FALSE
 
 /mob/living/simple_animal/bot/honkbot/set_custom_texts()
-	text_hack = "You overload [name]'s sound control system"
-	text_dehack = "You reboot [name] and restore the sound control system."
-	text_dehack_fail = "[name] refuses to accept your authority!"
+	text_hack = "Вы перегрузили звуковую систему [declent_ru(GENITIVE)]."
+	text_dehack = "Вы восстановили звуковую систему [declent_ru(GENITIVE)]."
+	text_dehack_fail = "[DECLENT_RU_CAP(src, NOMINATIVE)] отказывается вам подчиняться!"
 
 /mob/living/simple_animal/bot/honkbot/get_controls(mob/user)
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
 	dat += text({"
-	<TT><B>Honkomatic Bike Horn Unit v1.0.7 controls</B></TT><BR><BR>
-	Status: []<BR>
-	Behaviour controls are [locked ? "locked" : "unlocked"]<BR>
-	Maintenance panel is [open ? "opened" : "closed"]<BR>"},
+	<tt><b>Панель управления Хонкоматической Клоуновой Единицей v1.0.7</b></tt><br><br>
+	Состояние: []<br>
+	Управление поведением [locked ? "заблокировано" : "разблокировано"]<br>
+	Панель технического обслуживания [open ? "открыта" : "закрыта"]<br>"},
 
-	"<A href='?src=[UID()];power=1'>[on ? "On" : "Off"]</A>")
+	"<a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</a>")
 
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Auto Patrol <A href='?src=[UID()];operation=patrol'>[auto_patrol ? "On" : "Off"]</A><BR>"
+		dat += "Режим патрулирования: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Да" : "Нет"]</a><br>"
 
 	return	dat
 
@@ -98,45 +108,43 @@
 /mob/living/simple_animal/bot/honkbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_HARM)
 		retaliate(H)
-		addtimer(CALLBACK(src, .proc/react_buzz), 5)
+		addtimer(CALLBACK(src, PROC_REF(react_buzz)), 0.5 SECONDS)
 	return ..()
 
 /mob/living/simple_animal/bot/honkbot/emag_act(mob/user)
 	..()
 	if(emagged == 2)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out [src]'s target assessment circuits. It gives out an evil laugh!!</span>")
+			to_chat(user, span_warning("Вы замыкаете микросхемы системы целеуказания [declent_ru(GENITIVE)]. [DECLENT_RU_CAP(src, NOMINATIVE)] злобно смеётся!"))
 			oldtarget_name = user.name
-		audible_message("<span class='danger'>[src] gives out an evil laugh!</span>")
-		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, 1, -1) // evil laughter
+		audible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] злобно смеётся!"))
+		playsound(src, 'sound/machines/honkbot_evil_laugh.ogg', 75, TRUE, -1) // evil laughter
 		update_icon()
 
-/mob/living/simple_animal/bot/honkbot/bullet_act(obj/item/projectile/Proj)
-	if((istype(Proj,/obj/item/projectile/beam)) || (istype(Proj,/obj/item/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
+/mob/living/simple_animal/bot/honkbot/bullet_act(obj/projectile/Proj)
+	if((istype(Proj,/obj/projectile/beam)) || (istype(Proj,/obj/projectile/bullet) && (Proj.damage_type == BURN))||(Proj.damage_type == BRUTE) && (!Proj.nodamage && Proj.damage < health && ishuman(Proj.firer)))
 		retaliate(Proj.firer)
 	..()
 
-/mob/living/simple_animal/bot/honkbot/UnarmedAttack(atom/A)
-	if(!on)
-		return
+/mob/living/simple_animal/bot/honkbot/OnUnarmedAttack(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if(emagged <= 1)
 			honk_attack(A)
 		else
-			if(!C.stunned || arrest_type) //originaly was paralisysed in tg ported as stun
+			if(!C.IsWeakened() || arrest_type)
 				stun_attack(A)
 		..()
 	else if(!spam_flag) //honking at the ground
 		bike_horn(A)
 
 /mob/living/simple_animal/bot/honkbot/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
-	if(istype(AM, /obj/item))
+	if(isitem(AM))
 		playsound(src, honksound, 50, TRUE, -1)
 		var/obj/item/I = AM
-		if(I.throwforce < src.health && I.thrownby && ishuman(I.thrownby))
-			var/mob/living/carbon/human/H = I.thrownby
-			retaliate(H)
+		var/mob/thrower = locateUID(I.thrownby)
+		if(I.throwforce < health && ishuman(thrower))
+			retaliate(thrower)
 	..()
 
 /mob/living/simple_animal/bot/honkbot/proc/bike_horn() //use bike_horn
@@ -145,21 +153,21 @@
 			playsound(src, honksound, 50, TRUE, -1)
 			spam_flag = TRUE //prevent spam
 			sensor_blink()
-			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
+			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 	else if(emagged == 2) //emagged honkbots will spam short and memorable sounds.
 		if(!spam_flag)
-			playsound(src, "honkbot_e", 50, 0)
+			playsound(src, SFX_HONKBOT_E, 50, FALSE)
 			spam_flag = TRUE // prevent spam
 			icon_state = "honkbot-e"
-			addtimer(CALLBACK(src, .proc/update_icon), 30, TIMER_OVERRIDE|TIMER_UNIQUE)
-		addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
+			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE)
+		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/honk_attack(mob/living/carbon/C) // horn attack
 	if(!spam_flag)
 		playsound(loc, honksound, 50, TRUE, -1)
 		spam_flag = TRUE // prevent spam
 		sensor_blink()
-		addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntimehorn)
+		addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntimehorn)
 
 /mob/living/simple_animal/bot/honkbot/proc/stun_attack(mob/living/carbon/C) // airhorn stun
 	if(!spam_flag)
@@ -167,11 +175,16 @@
 		sensor_blink()
 	if(!spam_flag)
 		if(ishuman(C))
-			C.stuttering = 20 //stammer
-			C.MinimumDeafTicks(0, 5) //far less damage than the H.O.N.K.
-			C.Jitter(50)
-			C.Weaken(5)
-			C.Stun(5)      // Paralysis from tg ported as stun
+			var/mob/living/carbon/human/H = C
+			if(H.check_ear_prot() >= HEARING_PROTECTION_MAJOR)
+				return
+			C.SetStuttering(40 SECONDS) //stammer
+			C.AdjustDeaf(10 SECONDS) //far less damage than the H.O.N.K.
+			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
+			if(istype(ears))
+				ears.internal_receive_damage(5)
+			C.Jitter(100 SECONDS)
+			C.Weaken(10 SECONDS)
 			if(client) //prevent spam from players..
 				spam_flag = TRUE
 			if(emagged <= 1) //HONK once, then leave
@@ -179,31 +192,33 @@
 				target = oldtarget_name
 			else // you really don't want to hit an emagged honkbot
 				threatlevel = 6 // will never let you go
-			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
+			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntime)
 			add_attack_logs(src, C, "honked by [src]")
-			C.visible_message("<span class='danger'>[src] has honked [C]!</span>",\
-					"<span class='userdanger'>[src] has honked you!</span>")
+			C.visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] хонкнул [C]!"),
+							span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] хонкнул вас!"))
 		else
-			C.stuttering = 20
-			C.Stun(10)
-			addtimer(CALLBACK(src, .proc/spam_flag_false), cooldowntime)
-
+			C.Stuttering(40 SECONDS)
+			C.Stun(20 SECONDS)
+			addtimer(VARSET_CALLBACK(src, spam_flag, FALSE), cooldowntime)
 
 /mob/living/simple_animal/bot/honkbot/handle_automated_action()
 	if(!..())
 		return
+
 	switch(mode)
 		if(BOT_IDLE)		// idle
-			walk_to(src, 0)
+			GLOB.move_manager.stop_looping(src)
 			look_for_perp()
 			if(!mode && auto_patrol)
 				mode = BOT_START_PATROL
 		if(BOT_HUNT)
 			// if can't reach perp for long enough, go idle
 			if(frustration >= 5) //gives up easier than beepsky
-				walk_to(src, 0)
+				GLOB.move_manager.stop_looping(src)
+				playsound(loc, 'sound/misc/sadtrombone.ogg', 25, TRUE, -1)
 				back_to_idle()
 				return
+
 			if(target)		// make sure target exists
 				if(Adjacent(target) && isturf(target.loc))
 					if(threatlevel <= 4)
@@ -212,12 +227,12 @@
 						if(threatlevel >= 6)
 							set waitfor = 0
 							stun_attack(target)
-							anchored = FALSE
+							set_anchored(FALSE)
 							target_lastloc = target.loc
 					return
 				else	// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					walk_to(src, target, 1, 4)
+					GLOB.move_manager.move_to(src, target, 1, BOT_STEP_DELAY)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -232,24 +247,23 @@
 		if(BOT_PATROL)
 			look_for_perp()
 			bot_patrol()
-	return
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_idle()
-	anchored = FALSE
+	set_anchored(FALSE)
 	mode = BOT_IDLE
 	target = null
 	last_found = world.time
 	frustration = 0
-	INVOKE_ASYNC(src, .proc/handle_automated_action) //responds quickly
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) //responds quickly
 
 /mob/living/simple_animal/bot/honkbot/proc/back_to_hunt()
-	anchored = FALSE
+	set_anchored(FALSE)
 	frustration = 0
 	mode = BOT_HUNT
-	INVOKE_ASYNC(src, .proc/handle_automated_action) // responds quickly
+	INVOKE_ASYNC(src, PROC_REF(handle_automated_action)) // responds quickly
 
 /mob/living/simple_animal/bot/honkbot/proc/look_for_perp()
-	anchored = FALSE
+	set_anchored(FALSE)
 	for(var/mob/living/carbon/C in view(7, src))
 		if((C.stat) || (C.handcuffed))
 			continue
@@ -257,28 +271,29 @@
 		if((C.name == oldtarget_name) && (world.time < last_found + 100))
 			continue
 
-		if(threatlevel <= 3)
+		if(threatlevel <= 3 && emagged <= 1)
 			if(C in view(4, src)) //keep the range short for patrolling
 				if(!spam_flag)
 					bike_horn()
-		else if(threatlevel >= 10)
-			bike_horn() //just spam the shit outta this
 		else if(threatlevel >= 4)
-			if(!spam_flag)
+			if(!spam_flag || emagged > 1)
 				target = C
 				oldtarget_name = C.name
 				bike_horn()
-				speak("Honk!")
-				visible_message("<b>[src]</b> starts chasing [C.name]!")
+				speak("Хонк!")
+				visible_message("<b>[DECLENT_RU_CAP(src, NOMINATIVE)]</b> начинает гнаться за [C.name]!")
 				mode = BOT_HUNT
-				INVOKE_ASYNC(src, .proc/handle_automated_action)
+				INVOKE_ASYNC(src, PROC_REF(handle_automated_action))
 				break
 			else
 				continue
 
+		else if(emagged > 1)
+			bike_horn() //just spam the shit outta this
+
 /mob/living/simple_animal/bot/honkbot/explode()	//doesn't drop cardboard nor its assembly, since its a very frail material.
-	walk_to(src, 0)
-	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	GLOB.move_manager.stop_looping(src)
+	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 	new /obj/item/bikehorn(Tsec)
 	new /obj/item/assembly/prox_sensor(Tsec)
@@ -290,29 +305,28 @@
 	s.start()
 	..()
 
-/mob/living/simple_animal/bot/honkbot/attack_alien(var/mob/living/carbon/alien/user as mob)
+/mob/living/simple_animal/bot/honkbot/attack_alien(mob/living/carbon/alien/user)
 	..()
 	if(!isalien(target))
 		target = user
 		mode = BOT_HUNT
 
-/mob/living/simple_animal/bot/honkbot/Crossed(atom/movable/AM, oldloc)
-	if(ismob(AM) && on) //only if its online
-		if(prob(30)) //you're far more likely to trip on a honkbot
-			var/mob/living/carbon/C = AM
-			if(!istype(C) || !C || in_range(src, target))
-				return
-			C.visible_message("<span class='warning'>[pick( \
-						  	"[C] dives out of [src]'s way!", \
-						  	"[C] stumbles over [src]!", \
-						  	"[C] jumps out of [src]'s path!", \
-						  	"[C] trips over [src] and falls!", \
-						  	"[C] topples over [src]!", \
-						  	"[C] leaps out of [src]'s way!")]</span>")
-			C.Weaken(5)
-			playsound(loc, 'sound/misc/sadtrombone.ogg', 50, 1, -1)
-			if(!client)
-				speak("Honk!")
-			sensor_blink()
-			return
-	..()
+/mob/living/simple_animal/bot/honkbot/proc/on_entered(datum/source, mob/living/carbon/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
+	if(!on || !iscarbon(arrived) || arrived != target || in_range(src, target))
+		return
+
+	arrived.visible_message(span_warning("[pick( \
+		"[arrived] спотыка[PLUR_ET_YUT(arrived)]ся об [declent_ru(GENITIVE)]!", \
+		"[arrived] опрокидыва[PLUR_ET_YUT(arrived)]ся на [declent_ru(GENITIVE)]!", \
+		"[arrived] отлета[PLUR_ET_YUT(arrived)] с пути [declent_ru(GENITIVE)]!", \
+		"[DECLENT_RU_CAP(src, NOMINATIVE)] сбивает [arrived]!", \
+		"[DECLENT_RU_CAP(src, NOMINATIVE)] влетает в [arrived], заставляя [GEND_HIS_HER(arrived)] упасть!", \
+		"[DECLENT_RU_CAP(src, NOMINATIVE)] опрокидывает [arrived]!")]")
+	)
+	arrived.Weaken(10 SECONDS)
+	if(!client)
+		INVOKE_ASYNC(src, PROC_REF(speak), "хонк!")
+	sensor_blink()
+

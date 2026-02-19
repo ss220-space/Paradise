@@ -1,617 +1,1152 @@
-#define GHETTO_DISINFECT_AMOUNT 5 //Amount of units to transfer from the container to the organs during ghetto surgery disinfection step
+/// Amount of units to transfer from the container to the organs during disinfection step.
+#define GHETTO_DISINFECT_AMOUNT 5
+/// Amount of mito necessary to revive an organ
+#define MITO_REVIVAL_COST 5
 
 /datum/surgery/organ_manipulation
-	name = "Organ Manipulation"
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/open_encased/saw,
-	/datum/surgery_step/open_encased/retract, /datum/surgery_step/internal/manipulate_organs, /datum/surgery_step/glue_bone, /datum/surgery_step/set_bone,/datum/surgery_step/finish_bone,/datum/surgery_step/generic/cauterize)
-	possible_locs = list("chest","head")
-	requires_organic_bodypart = 1
+	name = "Манипуляция с внутренними органами"
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/open_encased/saw,
+		/datum/surgery_step/open_encased/retract,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/internal/manipulate_organs/finish,
+		/datum/surgery_step/glue_bone,
+		/datum/surgery_step/set_bone,
+		/datum/surgery_step/finish_bone,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/generic/cauterize,
+	)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+	)
+	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
 
 /datum/surgery/organ_manipulation/soft
-	possible_locs = list("groin", "eyes", "mouth")
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
-	requires_organic_bodypart = 1
+	possible_locs = list(BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/generic/cauterize,
+	)
 
 /datum/surgery/organ_manipulation_boneless
-	name = "Organ Manipulation"
-	possible_locs = list("chest","head","groin", "eyes", "mouth", "l_arm", "r_arm")
-	steps = list(/datum/surgery_step/generic/cut_open,/datum/surgery_step/generic/clamp_bleeders, /datum/surgery_step/generic/retract_skin, /datum/surgery_step/internal/manipulate_organs,/datum/surgery_step/generic/cauterize)
-	requires_organic_bodypart = 1
+	name = "Манипуляция с внутренними органами"
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_TAIL,
+	)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/generic/cauterize,
+	)
+
+/datum/surgery/organ_manipulation/plasmaman
+	name = "Манипуляция с внутренними органами (Плазмолюд)"
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/open_organ/plasma,
+		/datum/surgery_step/open_encased/saw,
+		/datum/surgery_step/open_encased/retract,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/internal/manipulate_organs/finish,
+		/datum/surgery_step/glue_bone/plasma,
+		/datum/surgery_step/proxy/open_organ/plasma,
+		/datum/surgery_step/generic/cauterize,
+	)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+	)
+	target_speciestypes = list(/datum/species/plasmaman)
+	restricted_speciestypes = null
+
+/datum/surgery/organ_manipulation/plasmaman/soft
+	possible_locs = list(
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
+	)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/generic/cauterize,
+	)
+
+/datum/surgery/organ_manipulation/insect
+	name = "Манипуляция с внутренними органами (Инсектоид)"
+	steps = list(
+		/datum/surgery_step/open_encased/saw,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/internal/manipulate_organs/finish,
+		/datum/surgery_step/glue_bone,
+		/datum/surgery_step/set_bone,
+		/datum/surgery_step/finish_bone,
+		/datum/surgery_step/proxy/open_organ,
+		/datum/surgery_step/generic/cauterize,
+	)
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+	)
+	target_speciestypes = list(/datum/species/kidan, /datum/species/wryn)
+	restricted_speciestypes = null
+
+/datum/surgery/organ_manipulation/insect/soft
+	possible_locs = list(
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
+	)
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/proxy/manipulate_organs,
+		/datum/surgery_step/generic/cauterize,
+	)
 
 /datum/surgery/organ_manipulation/alien
-	name = "Alien Organ Manipulation"
-	possible_locs = list("chest", "head", "groin", "eyes", "mouth")
-	allowed_mob = list(/mob/living/carbon/alien/humanoid)
-	steps = list(/datum/surgery_step/saw_carapace,/datum/surgery_step/cut_carapace, /datum/surgery_step/retract_carapace,/datum/surgery_step/internal/manipulate_organs)
+	name = "Манипуляция с внутренними органами (Ксеноморф)"
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
+	)
+	requires_bodypart = FALSE  // xenos just don't have "bodyparts"
+	target_mobtypes = list(/mob/living/carbon/alien/humanoid)
+	restricted_speciestypes = null
 
+	steps = list(
+		/datum/surgery_step/saw_carapace,
+		/datum/surgery_step/cut_carapace,
+		/datum/surgery_step/retract_carapace,
+		/datum/surgery_step/proxy/manipulate_organs/alien,
+		/datum/surgery_step/generic/seal_carapace,
+	)
 
 /datum/surgery/organ_manipulation/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
-		if(!affected)
-			// I'd like to see you do surgery on LITERALLY NOTHING
-			return 0
-		if(affected.is_robotic())
-			return 0
+	. = ..()
+	if(!.)
+		return FALSE
+	if(ishuman(target)) //aliens pass it
+		var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
 		if(!affected.encased) //no bone, problem.
-			return 0
-		return 1
+			return FALSE
 
 /datum/surgery/organ_manipulation_boneless/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/external/affected = H.get_organ(user.zone_selected)
+	. = ..()
+	if(!.)
+		return FALSE
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+	if(affected?.encased) //no bones no problem.
+		return FALSE
 
-		if(affected && affected.is_robotic())
-			return 0//no operating on robotic limbs in an organic surgery
-		if(!affected)
-			// I'd like to see you do surgery on LITERALLY NOTHING
-			return 0
+/datum/surgery/translator_manipulations
+	name = "Манипуляция с имплантом-переводчиком"
+	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
+	restricted_speciestypes = null
 
-		if(affected && affected.encased) //no bones no problem.
-			return 0
-		return 1
+	steps = list(
+		/datum/surgery_step/generic/cut_open,
+		/datum/surgery_step/generic/clamp_bleeders,
+		/datum/surgery_step/generic/retract_skin,
+		/datum/surgery_step/screwdriver_use,
+		/datum/surgery_step/proxy/manipulate_translator,
+		/datum/surgery_step/screwdriver_use,
+		/datum/surgery_step/generic/cauterize,
+	)
 
-/datum/surgery/organ_manipulation/alien/can_start(mob/user, mob/living/carbon/target)
-	if(istype(target,/mob/living/carbon/alien/humanoid))
-		return 1
-	else return 0
+/datum/surgery/translator_manipulations/can_start(mob/user, mob/living/carbon/target)
+	if(!..())
+		return FALSE
+
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	if(!translator) // nothing to maniplate with..
+		return FALSE
+
+	return TRUE
+
+/datum/surgery_step/screwdriver_use
+	name = "откручивание/закручивание импланта-переводчика"
+	allowed_tools = list(TOOL_SCREWDRIVER = 100)
+
+/datum/surgery_step/screwdriver_use/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] [translator.open ? "за" : "от"]кручиать механизм блокировки на корпусе импланта-переводчика [target]."),
+		span_notice("Вы начинаете [translator.open ? "за" : "от"]кручиать механизм блокировки на корпусе импланта-переводчика [target]."),
+	)
+	tool.play_tool_sound(target, 30)
+
+	return ..()
+
+/datum/surgery_step/screwdriver_use/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	user.visible_message(
+		span_notice("[user] [translator.open ? "за" : "от"]кручива[PLUR_ET_YUT(user)] механизм блокировки на корпусе импланта-переводчика [target]."),
+		span_notice("Вы [translator.open ? "за" : "от"]кручиваете механизм блокировки на корпусе импланта-переводчика [target]."),
+	)
+	translator.open = !translator.open
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/proxy/manipulate_translator
+	name = "манипуляция с имплантом-переводчиком — прокси"
+	branches = list(
+		/datum/surgery/intermediate/manipulate_translator/install,
+		/datum/surgery/intermediate/manipulate_translator/uninstall,
+	)
+
+/datum/surgery/intermediate/manipulate_translator
+	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
+
+/datum/surgery/intermediate/manipulate_translator/install
+	steps = list(/datum/surgery_step/internal/manipulate_translator/install)
+
+/datum/surgery_step/internal/manipulate_translator/install
+	name = "установка чипа/улучшения"
+	allowed_tools = list(
+		/obj/item/translator_chip = 100,
+		/obj/item/translator_upgrade = 100,
+	)
+	time = 5 SECONDS
+
+/datum/surgery_step/internal/manipulate_translator/install/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] устанавливать [tool.declent_ru(ACCUSATIVE)] в слот импланта-переводчика [target]."),
+		span_notice("Вы начинаете устанавливать [tool.declent_ru(ACCUSATIVE)] в слот импланта-переводчика [target]."),
+	)
+
+	return ..()
+
+/datum/surgery_step/internal/manipulate_translator/install/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+
+	if(istype(tool, /obj/item/translator_chip))
+		var/obj/item/translator_chip/chip = tool
+
+		if(!chip.stored_language_rus)
+			user.balloon_alert(user, "чип не активирован!")
+			return SURGERY_STEP_INCOMPLETE
+
+		if(LAZYLEN(translator.stored_chips) >= translator.maximum_slots)
+			user.balloon_alert(user, "нет места под чип!")
+			return SURGERY_STEP_INCOMPLETE
+
+		if(chip.stored_language_rus in translator.given_languages_rus)
+			user.balloon_alert(user, "чип уже установлен!")
+			return SURGERY_STEP_INCOMPLETE
+
+		translator.install_chip(user, chip)
+
+	else if(istype(tool, /obj/item/translator_upgrade))
+		if(translator.stored_upgrade)
+			user.balloon_alert(user, "переводчик уже улучшен!")
+			return SURGERY_STEP_INCOMPLETE
+
+		translator.install_upgrade(user, tool)
+
+	user.visible_message(
+		span_notice("[user] устанавлива[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в слот импланта-переводчика [target]."),
+		span_notice("Вы устанавливаете [tool.declent_ru(ACCUSATIVE)] в слот импланта-переводчика [target]."),
+	)
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery/intermediate/manipulate_translator/uninstall
+	steps = list(/datum/surgery_step/internal/manipulate_translator/uninstall)
+
+/datum/surgery_step/internal/manipulate_translator/uninstall
+	name = "извлечение чипа/улучшения"
+	allowed_tools = list(TOOL_MULTITOOL = 100)
+	time = 0
+
+/datum/surgery_step/internal/manipulate_translator/uninstall/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	var/list/choises = list()
+
+	if(translator.stored_upgrade)
+		choises["Улучшение"] = image(icon = translator.stored_upgrade.icon, icon_state = translator.stored_upgrade.icon_state)
+
+	for(var/obj/item/translator_chip/chip in translator.stored_chips)
+		choises[chip.stored_language_rus] = image(icon = chip.icon, icon_state = chip.icon_state)
+
+	if(!choises)
+		user.balloon_alert(user, "нечего извлекать!")
+		return SURGERY_STEP_INCOMPLETE
+
+	var/choise
+	if(LAZYLEN(choises) == 1)
+		choise = choises[1]
+	else
+		choise = show_radial_menu(user, target, choises, require_near = TRUE)
+
+	if(!choise) //closed
+		return SURGERY_STEP_INCOMPLETE
+
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] отключать проводку импланта-переводчика [target]."),
+		span_notice("Вы начинаете отключать проводку импланта-переводчика [target]."),
+	)
+
+	if(!do_after(user, 4 SECONDS, target))
+		return SURGERY_STEP_INCOMPLETE
+
+	var/add_msg = ""
+	if(choise == "Улучшение")
+		if(LAZYLEN(translator.stored_chips) > initial(translator.maximum_slots))
+			user.balloon_alert(user, "сначала извлеките чипы!")
+			return SURGERY_STEP_INCOMPLETE
+
+		translator.uninstall_upgrade(user)
+		add_msg = "улучшение"
+
+	else
+		var/obj/item/translator_chip/chip
+		for(chip in translator.stored_chips)
+			if(chip.stored_language_rus == choise)
+				break
+
+		add_msg = "чип"
+		translator.remove_chip(user, chip)
+
+	user.visible_message(
+		span_notice("[user] извлека[PLUR_ET_YUT(user)] [add_msg] из слота импланта-переводчика [target]."),
+		span_notice("Вы извлекаете [add_msg] из слота импланта-переводчика [target]."),
+	)
+
+	return ..()
+
+// Intermediate steps for branching organ manipulation.
+/datum/surgery/intermediate/manipulate
+	possible_locs = list(
+		BODY_ZONE_CHEST,
+		BODY_ZONE_HEAD,
+		BODY_ZONE_PRECISE_GROIN,
+		BODY_ZONE_PRECISE_EYES,
+		BODY_ZONE_PRECISE_MOUTH,
+		BODY_ZONE_L_ARM,
+		BODY_ZONE_R_ARM,
+		BODY_ZONE_L_LEG,
+		BODY_ZONE_R_LEG,
+		BODY_ZONE_TAIL,
+	)
+
+// All these surgeries are necessary for slotting into proxy steps
+
+/datum/surgery/intermediate/manipulate/extract
+	steps = list(/datum/surgery_step/internal/manipulate_organs/extract)
+
+/datum/surgery/intermediate/manipulate/implant
+	steps = list(/datum/surgery_step/internal/manipulate_organs/implant)
+
+/datum/surgery/intermediate/manipulate/mend
+	steps = list(/datum/surgery_step/internal/manipulate_organs/mend)
+
+/datum/surgery/intermediate/manipulate/clean
+	steps = list(/datum/surgery_step/internal/manipulate_organs/clean)
+
+/// The surgery step to trigger this whole situation
+/datum/surgery_step/proxy/manipulate_organs
+	name = "манипуляция с внутренними органами — прокси"
+	branches = list(
+		/datum/surgery/intermediate/manipulate/extract,
+		/datum/surgery/intermediate/manipulate/implant,
+		/datum/surgery/intermediate/manipulate/mend,
+		/datum/surgery/intermediate/manipulate/clean,
+		/datum/surgery/intermediate/bleeding,
+	)
+
+/datum/surgery_step/proxy/manipulate_organs/soft
+	name = "манипуляция с внутренними органами (Мягкая) – прокси"
+	branches = list(
+		/datum/surgery/intermediate/manipulate/extract,
+		/datum/surgery/intermediate/manipulate/implant,
+		/datum/surgery/intermediate/manipulate/mend,
+		/datum/surgery/intermediate/manipulate/clean,
+		/datum/surgery/intermediate/bleeding,
+	)
+
+// have to redefine all of these because xenos don't technically have bodyparts.
+/datum/surgery/intermediate/manipulate/extract/xeno
+	requires_bodypart = FALSE
+
+/datum/surgery/intermediate/manipulate/implant/xeno
+	requires_bodypart = FALSE
+
+/datum/surgery/intermediate/manipulate/mend/xeno
+	requires_bodypart = FALSE
+
+/datum/surgery/intermediate/manipulate/clean/xeno
+	requires_bodypart = FALSE
+
+/datum/surgery_step/proxy/manipulate_organs/alien
+	name = "манипуляция с внутренними органами (Ксеноморф) – прокси"
+	branches = list(
+		/datum/surgery/intermediate/manipulate/extract/xeno,
+		/datum/surgery/intermediate/manipulate/implant/xeno,
+		/datum/surgery/intermediate/manipulate/mend/xeno,
+		/datum/surgery/intermediate/manipulate/clean/xeno,
+	)
 
 // Internal surgeries.
 /datum/surgery_step/internal
-	priority = 2
-	can_infect = 1
-	blood_level = 1
+	can_infect = TRUE
+	blood_level = SURGERY_BLOODSPREAD_HANDS
 
+/**
+ * Get an internal list of organs for a zone (or an external organ).
+ *
+ * Helper function since we end up calling this a ton to work with carbons
+ */
+/datum/surgery_step/internal/proc/get_organ_list(target_zone, mob/living/carbon/target, obj/item/organ/external/affected)
+	var/list/organs
+
+	if(istype(affected))
+		organs = affected.internal_organs
+	else
+		organs = target.get_organs_zone(target_zone)
+
+	return organs
 
 /datum/surgery_step/internal/manipulate_organs
-	name = "manipulate organs"
-	allowed_tools = list(/obj/item/organ/internal = 100, /obj/item/reagent_containers/food/snacks/organ = 0)
-	var/implements_extract = list(/obj/item/hemostat = 100, /obj/item/kitchen/utensil/fork = 70)
-	var/implements_mend = list(/obj/item/stack/medical/bruise_pack = 20,/obj/item/stack/medical/bruise_pack/advanced = 100,/obj/item/stack/nanopaste = 100)
-	var/implements_clean = list(/obj/item/reagent_containers/dropper = 100,
-                /obj/item/reagent_containers/syringe = 100,
-								/obj/item/reagent_containers/glass/bottle = 90,
-								/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
-								/obj/item/reagent_containers/food/drinks/bottle = 80,
-								/obj/item/reagent_containers/glass/beaker = 75,
-								/obj/item/reagent_containers/spray = 60,
-								/obj/item/reagent_containers/glass/bucket = 50)
+	time = 6.4 SECONDS
 
-	//Finish is just so you can close up after you do other things.
-	var/implements_finsh = list(/obj/item/scalpel/laser/manager = 100,/obj/item/retractor = 100 ,/obj/item/crowbar = 90)
-	var/current_type
-	var/obj/item/organ/internal/I = null
-	var/obj/item/organ/external/affected = null
-	time = 64
+/datum/surgery_step/internal/manipulate_organs/mend
+	name = "заживление органов"
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		/obj/item/stack/medical/bruise_pack/advanced = 100,
+		/obj/item/stack/medical/bruise_pack/extended = 100,
+		/obj/item/stack/medical/bruise_pack = 20,
+		/obj/item/stack/nanopaste = 100,
+	)
 
-/datum/surgery_step/internal/manipulate_organs/New()
-	..()
-	allowed_tools = allowed_tools + implements_extract + implements_mend + implements_clean + implements_finsh
+/datum/surgery_step/internal/manipulate_organs/mend/proc/get_tool_name(obj/item/tool)
+	var/tool_name = "[tool.declent_ru(ACCUSATIVE)]"
+	if(istype(tool, /obj/item/stack/medical/bruise_pack))
+		tool_name = "лечебный пластырь"
+	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced) || istype(tool, /obj/item/stack/medical/bruise_pack/extended))
+		tool_name = "заживляющую мембрану"
 
+	return tool_name
 
-/datum/surgery_step/internal/manipulate_organs/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	I = null
-	var/mob/living/carbon/human/H
-	if(ishuman(target))
-		H = target
-		affected = H.get_organ(target_zone)
+/datum/surgery_step/internal/manipulate_organs/mend/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/tool_name = get_tool_name(tool)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-	if(is_int_organ(tool))
-		current_type = "insert"
-		I = tool
+	if(!iscarbon(target))
+		user.balloon_alert(user, "органы отсутствуют!")
+		// note that we want to return skip here so we can go "back" to the proxy step
+		return SURGERY_BEGINSTEP_SKIP
 
-		if(I.requires_robotic_bodypart)
-			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
-			return -1
+	var/any_organs_damaged = FALSE
 
-		if(target_zone != I.parent_organ || target.get_organ_slot(I.slot))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
-			return -1
-
-		if((RUNIC_MIND in target.dna.species.species_traits) && istype(I, /obj/item/organ/internal/brain) && !istype(I, /obj/item/organ/internal/brain/golem))
-			to_chat(user, "<span class='notice'>There is no room for [I] in [target]'s [parse_zone(target_zone)]!</span>")
-			return -1
-
-		if(I.damage > (I.max_damage * 0.75))
-			to_chat(user, "<span class='notice'> [I] is in no state to be transplanted.</span>")
-			return -1
-
-		if(target.get_int_organ(I))
-			to_chat(user, "<span class='warning'> [target] already has [I].</span>")
-			return -1
-
-		if(affected)
-			user.visible_message("[user] starts transplanting [tool] into [target]'s [affected.name].", \
-			"You start transplanting [tool] into [target]'s [affected.name].")
-			H.custom_pain("Someone's rooting around in your [affected.name]!")
-		else
-			user.visible_message("[user] starts transplanting [tool] into [target]'s [parse_zone(target_zone)].", \
-			"You start transplanting [tool] into [target]'s [parse_zone(target_zone)].")
-
-	else if(implement_type in implements_clean)
-		current_type = "clean"
-
-		if(!istype(tool, /obj/item/reagent_containers))
-			return
-
-		var/obj/item/reagent_containers/C = tool
-
-		if(C.reagents.has_reagent("mitocholide", 5))
-			var/list/dead_organs = list()
-
-			for(var/obj/item/organ/internal/P in affected.internal_organs)
-				if(P.status & ORGAN_DEAD)
-					dead_organs[P] = P.name
-			if(dead_organs.len >= 1)
-				if(dead_organs.len == 1)
-					I = dead_organs[1]
-				else
-					I = input("Choose organ to rejuvenate:", "Rejuvenation", null, null) as null|anything in dead_organs
-				if(istype(C,/obj/item/reagent_containers/syringe))
-					user.visible_message("[user] begins injecting [tool] into [target]'s [I.name].", \
-					"You begin injecting [tool] into [target]'s [I.name].")
-				else
-					user.visible_message("[user] starts pouring some of [tool] over [target]'s [I.name].", \
-					"You start pouring some of [tool] over [target]'s [I.name].")
-			else
-				user.visible_message("[user] notices that no dead organs in [target]'s [affected.name].", \
-				"You notice that no dead organs in [target]'s [affected.name].")
-			return 0
-		else if(C.reagents.has_reagent("mitocholide"))
-			user.visible_message("[user] notices there is not enough mitocholide in [tool].", \
-			"You notice there is not enough mitocholide in [tool].")
-			return 0
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				if(C.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
-					user.visible_message("[user] notices [tool] is empty.", \
-					"You notice [tool] is empty.")
-					return 0
-
-				var/msg = "[user] starts pouring some of [tool] over [target]'s [I.name]."
-				var/self_msg = "You start pouring some of [tool] over [target]'s [I.name]."
-				if(istype(C,/obj/item/reagent_containers/syringe))
-					msg = "[user] begins injecting [tool] into [target]'s [I.name]."
-					self_msg = "You begin injecting [tool] into [target]'s [I.name]."
-				user.visible_message(msg, self_msg)
-				if(H && affected)
-					H.custom_pain("Something burns horribly in your [affected.name]!")
-
-	else if(implement_type in implements_finsh)
-	//same as surgery step /datum/surgery_step/open_encased/close/
-		current_type = "finish"
-
-		if(affected && affected.encased)
-			var/msg = "[user] starts bending [target]'s [affected.encased] back into place with [tool]."
-			var/self_msg = "You start bending [target]'s [affected.encased] back into place with [tool]."
-			user.visible_message(msg, self_msg)
-		else
-			var/msg = "[user] starts pulling [target]'s skin back into place with [tool]."
-			var/self_msg = "You start pulling [target]'s skin back into place with [tool]."
-			user.visible_message(msg, self_msg)
-
-		if(H && affected)
-			H.custom_pain("Something hurts horribly in your [affected.name]!")
-
-	else if(implement_type in implements_extract)
-		current_type = "extract"
-		var/list/organs = target.get_organs_zone(target_zone)
-		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
-		if(target_zone == "head" && B)
-			user.visible_message("[user] begins to extract [B] from [target]'s [parse_zone(target_zone)].",
-					"<span class='notice'>You begin to extract [B] from [target]'s [parse_zone(target_zone)]...</span>")
-			return TRUE
-		if(!organs.len)
-			to_chat(user, "<span class='notice'>There are no removeable organs in [target]'s [parse_zone(target_zone)]!</span>")
-			return -1
-
-		for(var/obj/item/organ/internal/O in organs)
-			if(O.unremovable)
+	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
+		if(!organ.has_damage())
+			continue
+		any_organs_damaged = TRUE
+		var/can_treat_robotic = organ.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+		var/can_treat_organic = !organ.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+		if(can_treat_robotic || can_treat_organic)
+			if(organ.is_dead())
+				to_chat(user, span_warning("[DECLENT_RU_CAP(organ, NOMINATIVE)] мертв[GEND_A_O_Y(organ)]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
 				continue
-			O.on_find(user)
-			organs -= O
-			organs[O.name] = O
-
-		I = input("Remove which organ?", "Surgery", null, null) as null|anything in organs
-		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
-			I = organs[I]
-			if(!I)
-				return -1
-			user.visible_message("[user] starts to separate [target]'s [I] with [tool].", \
-			"You start to separate [target]'s [I] with [tool] for removal." )
-			if(H && affected)
-				H.custom_pain("The pain in your [affected.name] is living hell!")
+			user.visible_message(
+				span_notice("[user] начина[PLUR_ET_YUT(user)] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
+				span_notice("Вы начинаете восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
+			)
+			if(can_treat_organic && !organ.sterile)
+				spread_germs_to_organ(organ, user, tool)
 		else
-			return -1
+			to_chat(user, span_warning("Использование [tool.declent_ru(GENITIVE)] на [organ.declent_ru(PREPOSITIONAL)] бессмысленно!"))
 
-	else if(implement_type in implements_mend)
-		current_type = "mend"
-		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack))
-			tool_name = "the bandaid"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
-		else if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+	if(!any_organs_damaged)
+		user.balloon_alert(user, "органы в норме!")
+		return SURGERY_BEGINSTEP_SKIP
 
-		if(!hasorgans(target))
-			to_chat(user, "They do not have organs to mend!")
-			return
+	if(affected)
+		var/mob/living/carbon/patient = target
+		patient.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					if(!(I.sterile))
-						spread_germs_to_organ(I, user, tool)
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-					"You start treating damage to [target]'s [I.name] with [tool_name]." )
-				else if(I.is_robotic() && istype(tool, /obj/item/stack/nanopaste))
-					user.visible_message("[user] starts treating damage to [target]'s [I.name] with [tool_name].", \
-					"You start treating damage to [target]'s [I.name] with [tool_name]." )
+	return ..()
 
-			else
-				to_chat(user, "[I] does not appear to be damaged.")
+/datum/surgery_step/internal/manipulate_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/tool_name = get_tool_name(tool)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(!iscarbon(target))
+		return SURGERY_STEP_INCOMPLETE
 
-		if(affected)
-			H.custom_pain("The pain in your [affected.name] is living hell!")
+	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
+		var/treated_robotic = organ.is_robotic() && istype(tool, /obj/item/stack/nanopaste)
+		var/treated_organic = !organ.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
+		if(treated_robotic || treated_organic)
+			if(organ.is_dead())
+				continue
+			user.visible_message(
+				span_notice("[user] восстанавлива[PLUR_ET_YUT(user)] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
+				span_notice("Вы восстаналиваете [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
+			)
+			organ.damage = 0
+			organ.surgeryize()
 
-	else if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
-		to_chat(user, "<span class='warning'>[tool] was bitten by someone! It's too damaged to use!</span>")
-		return -1
+	return SURGERY_STEP_CONTINUE
 
-	..()
+/datum/surgery_step/internal/manipulate_organs/mend/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!iscarbon(target))
+		return SURGERY_STEP_INCOMPLETE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
-/datum/surgery_step/internal/manipulate_organs/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(current_type == "mend")
-		var/tool_name = "[tool]"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			tool_name = "regenerative membrane"
-		if(istype(tool, /obj/item/stack/medical/bruise_pack))
-			tool_name = "the bandaid"
-		if(istype(tool, /obj/item/stack/nanopaste))
-			tool_name = "[tool]" //what else do you call nanopaste medically?
+	user.visible_message(
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] внутренности в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] внутренности в [affected.declent_ru(PREPOSITIONAL)] [target]!"),
+	)
 
-		if(!hasorgans(target))
-			return
+	var/dam_amt = 2
 
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				I.surgeryize()
-			if(I && I.damage)
-				if(!I.is_robotic() && !istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
-					I.damage = 0
-				else if(I.is_robotic() && istype (tool, /obj/item/stack/nanopaste))
-					user.visible_message("<span class='notice'> [user] treats damage to [target]'s [I.name] with [tool_name].</span>", \
-					"<span class='notice'> You treat damage to [target]'s [I.name] with [tool_name].</span>" )
-					I.damage = 0
+	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced) || istype(tool, /obj/item/stack/medical/bruise_pack/extended))
+		target.adjustToxLoss(5)
 
-	else if(current_type == "insert")
-		I = tool
-		if(I.requires_robotic_bodypart)
-			to_chat(user, "<span class='warning'>[I] is an organ that requires a robotic interface[target].</span>")
-			return FALSE
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[I] is stuck to your hand, you can't put it in [target]!</span>")
-			return 0
-		I.insert(target)
-		if(istype(I, /obj/item/organ/internal/cyberimp))
-			add_attack_logs(user, target, "Surgically inserted [I]([I.type])", ATKLOG_ALMOSTALL)
-		spread_germs_to_organ(I, user, tool)
+	else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
+		dam_amt = 5
+		target.apply_damages(brute = 5, tox = 10, def_zone = affected)
 
-		if(affected)
-			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [affected.name].</span>",
-			"<span class='notice'> You have transplanted [tool] into [target]'s [affected.name].</span>")
+	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
+		if(organ.damage && !(organ.tough))
+			organ.internal_receive_damage(dam_amt)
+
+	return SURGERY_STEP_RETRY
+
+/datum/surgery_step/internal/manipulate_organs/extract
+	name = "извлечение органа"
+	begin_sound = 'sound/surgery/hemostat1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		TOOL_HEMOSTAT = 100,
+		/obj/item/kitchen/utensil/fork = 70,
+	)
+
+	var/obj/item/organ/internal/extracting = null
+
+/datum/surgery_step/internal/manipulate_organs/extract/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/list/organs = target.get_organs_zone(target_zone)
+	if(!length(organs))
+		user.balloon_alert(user, "нечего извлекать!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
+		user.visible_message(
+			span_notice("[user] начина[PLUR_ET_YUT(user)] извлекать [B.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете извлекать [B.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		)
+		return ..()
+
+	for(var/obj/item/organ/internal/organ as anything in organs)
+		if(organ.unremovable)
+			continue
+		organ.on_find(user)
+		organs -= organ
+		organs[DECLENT_RU_CAP(organ, NOMINATIVE)] = organ
+
+	var/obj/item/organ/internal/I = tgui_input_list(user, "Выберите орган для извлечения", "Извлечение органа", organs)
+	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
+		extracting = organs[I]
+		if(!extracting)
+			return SURGERY_BEGINSTEP_SKIP
+		user.visible_message(
+			span_notice("[user] начина[PLUR_ET_YUT(user)] извлекать [extracting.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете извлекать [extracting.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		)
+		if(target && affected)
+			target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
+	else
+		return SURGERY_BEGINSTEP_SKIP
+
+	return ..()
+
+/datum/surgery_step/internal/manipulate_organs/extract/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/mob/living/simple_animal/borer/B = target.has_brain_worms()
+	if(target_zone == BODY_ZONE_HEAD && B && B.host == target)
+		user.visible_message(
+			span_notice("[user] извлека[PLUR_ET_YUT(user)] [B.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы извлекаете [B.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		)
+		add_attack_logs(user, target, "Surgically removed [B]. INTENT: [uppertext(user.a_intent)]")
+		B.leave_host()
+		return SURGERY_STEP_CONTINUE
+
+	if(!extracting || extracting.owner != target)
+		user.visible_message(
+			span_notice("[user] доста[PLUR_YOT_YUT(user)] [tool.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], ничего не извлекая."),
+			span_notice("Вы достаёте [tool.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], ничего не извлекая."),
+		)
+		return SURGERY_STEP_CONTINUE
+
+	user.visible_message(
+		span_notice("[user] извлека[PLUR_ET_YUT(user)] [extracting.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы извлекаете [extracting.declent_ru(ACCUSATIVE)][affected ? " из [affected.declent_ru(GENITIVE)]" : ""] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+	)
+
+	add_attack_logs(user, target, "Surgically removed [extracting.name]. INTENT: [uppertext(user.a_intent)]")
+	spread_germs_to_organ(extracting, user, tool)
+	var/obj/item/thing = extracting.remove(target)
+	if(!QDELETED(thing)) // some "organs", like egg infections, can have I.remove(target) return null, and so we can't use "thing" in that case
+		if(istype(thing))
+			thing.forceMove(get_turf(target))
+			user.put_in_hands(thing, ignore_anim = FALSE)
 		else
-			user.visible_message("<span class='notice'> [user] has transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>",
-			"<span class='notice'> You have transplanted [tool] into [target]'s [parse_zone(target_zone)].</span>")
+			thing.forceMove(get_turf(target))
 
-	else if(current_type == "extract")
-		var/mob/living/simple_animal/borer/B = target.has_brain_worms()
-		if(target_zone == "head" && B && B.host == target)
-			user.visible_message("[user] successfully extracts [B] from [target]'s [parse_zone(target_zone)]!",
-				"<span class='notice'>You successfully extract [B] from [target]'s [parse_zone(target_zone)].</span>")
-			add_attack_logs(user, target, "Surgically removed [B]. INTENT: [uppertext(user.a_intent)]")
-			B.leave_host()
-			return FALSE
-		if(I && I.owner == target)
-			user.visible_message("<span class='notice'> [user] has separated and extracts [target]'s [I] with [tool].</span>",
-			"<span class='notice'> You have separated and extracted [target]'s [I] with [tool].</span>")
+	target.update_icons()
 
-			add_attack_logs(user, target, "Surgically removed [I.name]. INTENT: [uppertext(user.a_intent)]")
-			spread_germs_to_organ(I, user, tool)
-			var/obj/item/thing = I.remove(target)
-			if(thing) // some "organs", like egg infections, can have I.remove(target) return null, and so we can't use "thing" in that case
-				if(istype(thing))
-					user.put_in_hands(thing)
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/extract/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/body_zone = target.get_organ(target_zone)
+	var/obj/item/organ/internal/affected = target.get_organ(user.zone_selected)
+	if(extracting && extracting.owner == target)
+		if(affected)
+			user.visible_message(
+				span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] [affected ? affected.declent_ru(ACCUSATIVE) : ""] [target]!"),
+				span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] [affected ? affected.declent_ru(ACCUSATIVE) : ""] [target]!"),
+			)
+			target.apply_damage(20, def_zone = affected)
+		else
+			user.visible_message(
+				span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] [body_zone.declent_ru(ACCUSATIVE)] [target]!"),
+				span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] [body_zone.declent_ru(ACCUSATIVE)] [target]!"),
+			)
+		return SURGERY_STEP_RETRY
+	else
+		user.visible_message(
+			span_notice("[user] доста[PLUR_YOT_YUT(user)] [tool.declent_ru(ACCUSATIVE)] из [body_zone.declent_ru(GENITIVE)] [target], ничего не извлекая."),
+			span_notice("Вы достаёте [tool.declent_ru(ACCUSATIVE)] из [body_zone.declent_ru(GENITIVE)] [target], ничего не извлекая."),
+		)
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/implant
+	name = "трансплантация органа"
+	begin_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		/obj/item/organ/internal = 100,
+		/obj/item/reagent_containers/food/snacks/organ = 0,  // there for the flavor text
+	)
+
+/datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
+		user.balloon_alert(user, "орган укушен!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+	var/obj/item/organ/internal/organ = tool
+	if(!istype(organ))
+		// dunno how you got here but okay
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(!organ.can_insert(user, target)) // checks species whitelist and special organ restrictions
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
+		user.balloon_alert(user, "нет места под орган!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(isskeleton(target) && istype(organ, /obj/item/organ/internal/brain) && !istype(organ, /obj/item/organ/internal/brain/golem))
+		user.balloon_alert(user, "нет места под орган!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(organ.damage > (organ.max_damage * 0.75))
+		user.balloon_alert(user, "орган слишком повреждён!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(target.get_int_organ(organ) && !affected)
+		user.balloon_alert(user, "цель уже имеет этот орган!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if((istype(organ, /obj/item/organ/internal/cyberimp)) && HAS_TRAIT(target, TRAIT_NO_CYBERIMPLANTS))
+		user.balloon_alert(user, "несовместимо с организмом!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if((organ.status == ORGAN_ROBOT) && HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
+		user.balloon_alert(user, "несовместимо с организмом!")
+		return SURGERY_BEGINSTEP_SKIP
+
+	if(affected)
+		user.visible_message(
+			span_notice("[user] начина[PLUR_ET_YUT(user)] трансплантировать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+			span_notice("Вы начинаете трансплантировать [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+		)
+		target.custom_pain("Кто-то копается в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
+	else
+		user.visible_message(
+			span_notice("[user] начина[PLUR_ET_YUT(user)] трансплантировать [tool.declent_ru(ACCUSATIVE)] в [parse_zone(target_zone)] [target]."),
+			span_notice("Вы начинаете трансплантировать [tool.declent_ru(ACCUSATIVE)] в [parse_zone(target_zone)] [target]."),
+		)
+	return ..()
+
+/datum/surgery_step/internal/manipulate_organs/implant/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/internal/I = tool
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	if(!istype(tool))
+		return SURGERY_STEP_INCOMPLETE
+	if(!user.drop_item_ground(I))
+		user.balloon_alert(user, "не получается выпустить!")
+		return SURGERY_STEP_INCOMPLETE
+	I.insert(target, ORGAN_MANIPULATION_TRANSPLANTATE)
+	if(istype(I, /obj/item/organ/internal/cyberimp))
+		add_attack_logs(user, target, "Surgically inserted [I]([I.type])", ATKLOG_ALMOSTALL)
+	spread_germs_to_organ(I, user, tool)
+
+	if(affected)
+		user.visible_message(
+			span_notice("[user] трансплантиру[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+			span_notice("Вы трансплантируете [tool.declent_ru(ACCUSATIVE)] в [affected.declent_ru(ACCUSATIVE)] [target]."),
+		)
+	else
+		user.visible_message(
+			span_notice("[user] трансплантиру[PLUR_ET_YUT(user)] [tool.declent_ru(ACCUSATIVE)] в [parse_zone(target_zone)] [target]."),
+			span_notice("Вы трансплантируете [tool.declent_ru(ACCUSATIVE)] в [parse_zone(target_zone)] [target]."),
+		)
+
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/internal/manipulate_organs/implant/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(ACCUSATIVE)]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(ACCUSATIVE)]!"),
+	)
+	var/obj/item/organ/internal/I = tool
+	if(istype(I) && !I.tough)
+		I.internal_receive_damage(rand(3,5))
+
+	return SURGERY_STEP_RETRY
+
+/datum/surgery_step/internal/manipulate_organs/clean
+	name = "дезинфекция"
+	begin_sound = 'sound/surgery/bonegel.ogg'
+	end_sound = 'sound/surgery/organ1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		/obj/item/reagent_containers/dropper = 100,
+		/obj/item/reagent_containers/syringe = 100,
+		/obj/item/reagent_containers/glass/bottle = 90,
+		/obj/item/reagent_containers/food/drinks/drinkingglass = 85,
+		/obj/item/reagent_containers/food/drinks/bottle = 80,
+		/obj/item/reagent_containers/glass/beaker = 75,
+		/obj/item/reagent_containers/spray = 60,
+		/obj/item/reagent_containers/glass/bucket = 50,
+	)
+
+/datum/surgery_step/internal/manipulate_organs/clean/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+
+	var/obj/item/reagent_containers/container = tool
+
+	var/obj/item/organ/external/affected = target.get_organ(user.zone_selected)
+
+	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
+		if(container.reagents.total_volume <= 0) //end_step handles if there is not enough reagent
+			user.balloon_alert(user, "пусто!")
+			return SURGERY_BEGINSTEP_SKIP
+
+		var/msg = "[user] начина[PLUR_ET_YUT(user)] выливать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
+		var/self_msg = "Вы начинаете выливать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
+		if(istype(container, /obj/item/reagent_containers/syringe))
+			msg = "[user] начина[PLUR_ET_YUT(user)] вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
+			self_msg = "Вы начинаете вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
+		user.visible_message(span_notice(msg), span_notice(self_msg))
+		target.custom_pain("Вы чувствуете жгучую боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)]!")
+
+	return ..()
+
+/datum/surgery_step/internal/manipulate_organs/clean/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!iscarbon(target))
+		return SURGERY_STEP_INCOMPLETE
+	if(!istype(tool, /obj/item/reagent_containers))
+		return SURGERY_STEP_INCOMPLETE
+
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+
+	var/obj/item/reagent_containers/C = tool
+	var/datum/reagents/R = C.reagents
+
+	var/ethanol = 0 //how much alcohol is in the thing
+	var/spaceacillin = 0 //how much actual antibiotic is in the thing
+	var/mito_tot = 0 // same for mito, thanks farie
+
+	if(length(R.reagent_list))
+		for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+			ethanol += alcohol.alcohol_perc * 300
+		ethanol /= length(R.reagent_list)
+
+		mito_tot = R.get_reagent_amount("mitocholide")
+		spaceacillin = R.get_reagent_amount("spaceacillin")
+
+	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
+		if(organ.germ_level < INFECTION_LEVEL_ONE / 2 && !(organ.is_dead()))  // not dead, don't need to inject mito either
+			user.balloon_alert(user, "обработка не требуется!")
+			continue
+		if(!spaceacillin && !ethanol && !mito_tot)
+			user.balloon_alert(user, "нечем обрабатывать!")
+			break
+		var/success = FALSE
+		if(organ.germ_level >= INFECTION_LEVEL_ONE / 2)
+			// spacecillin completely cures infections if there is enough, ethanol just reduces the infection strength by the amount used.
+			if(spaceacillin || ethanol)
+				if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
+					organ.germ_level = 0
 				else
-					thing.forceMove(get_turf(target))
-			target.update_icons()
+					organ.germ_level = max(organ.germ_level-ethanol, 0)
+				success = TRUE // we actually injected some chemicals
+
+			else if(!(organ.is_dead())) // Not dead and got nothing to disinfect the organ with. Don't waste the other chems
+				user.balloon_alert(user, "нечем обрабатывать!")
+				continue
+
+		var/mito_trans
+		if(mito_tot && (organ.is_dead()) && !organ.is_robotic())
+			mito_trans = min(mito_tot, C.amount_per_transfer_from_this / length(R.reagent_list)) // How much mito is actually transfered
+			success = TRUE
+		if(!success)
+			user.balloon_alert(user, "нечем обрабатывать!")
+			continue
+
+		// now try actually injecting.
+
+		if(istype(C, /obj/item/reagent_containers/syringe))
+			user.visible_message(
+				span_notice("[user] вкалыва[PLUR_ET_YUT(user)] содержимое [tool.declent_ru(GENITIVE)] в [organ.declent_ru(ACCUSATIVE)] [target]."),
+				span_notice("Вы вкалываете содержимое [tool.declent_ru(GENITIVE)] в [organ.declent_ru(ACCUSATIVE)] [target].")
+			)
 		else
-			user.visible_message("<span class='notice'>[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!</span>",
-				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
+			user.visible_message(
+				span_notice("[user] вылива[PLUR_ET_YUT(user)] содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."),
+				span_notice("Вы выливаете содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target].")
+			)
 
-	else if(current_type == "clean")
-		if(!hasorgans(target))
-			return
-		if(!istype(tool,/obj/item/reagent_containers))
-			return
+		R.reaction(target, REAGENT_INGEST, R.total_volume / C.amount_per_transfer_from_this)
+		R.trans_to(target, C.amount_per_transfer_from_this)
 
-		var/obj/item/reagent_containers/C = tool
-		var/datum/reagents/R = C.reagents
-
-		if(R.has_reagent("mitocholide", 5))
-			if(I == null)
-				user.visible_message("[user] didn't find dead organs in [target]'s [affected.name]", \
-				"You didn't find dead organs in [target]'s [affected.name]")
-				return 0
-			I.rejuvenate()
-			R.remove_reagent("mitocholide", 5)
-			if(istype(C,/obj/item/reagent_containers/syringe))
-				user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
-				"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
+		if(mito_trans)
+			mito_tot -= mito_trans
+			if(organ.is_robotic()) // Get out cyborg people
+				continue
+			if(mito_trans >= MITO_REVIVAL_COST)
+				organ.rejuvenate() // Just like splashing it onto it
+				user.visible_message(span_warning("[DECLENT_RU_CAP(organ, NOMINATIVE)] восстанавлива[PLUR_ET_YUT(organ)]ся прямо на глазах под воздействием митоколида!"))
 			else
-				user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
-				"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
-			return 0
-		else if(C.reagents.has_reagent("mitocholide"))
-			user.visible_message("[user] notices there is not enough mitocholide in [tool].", \
-			"You notice there is not enough mitocholide in [tool].")
-			return 0
+				user.balloon_alert(user, "недостаточно митоколида!")
 
-		var/ethanol = 0 //how much alcohol is in the thing
-		var/spaceacillin = 0 //how much actual antibiotic is in the thing
+	return SURGERY_STEP_CONTINUE
 
-		if(R.reagent_list.len)
-			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
-				ethanol += alcohol.alcohol_perc * 300
-			ethanol /= R.reagent_list.len
+/datum/surgery_step/internal/manipulate_organs/clean/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	if(!istype(tool, /obj/item/reagent_containers))
+		return SURGERY_STEP_INCOMPLETE
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/obj/item/reagent_containers/C = tool
+	var/datum/reagents/R = C.reagents
+	var/ethanol = 0 //how much alcohol is in the thing
 
-			spaceacillin = R.get_reagent_amount("spaceacillin")
+	if(length(R.reagent_list))
+		for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
+			ethanol += alcohol.alcohol_perc * 300
+		ethanol /= length(C.reagents.reagent_list)
 
+	for(var/obj/item/organ/internal/organ as anything in target.get_organs_zone(target_zone))
+		organ.germ_level = max(organ.germ_level-ethanol, 0)
+		organ.internal_receive_damage(rand(4, 8))
 
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I)
-				if(R.total_volume < GHETTO_DISINFECT_AMOUNT)
-					user.visible_message("[user] notices there is not enough in [tool].", \
-					"You notice there is not enough in [tool].")
-					return 0
-				if(I.germ_level < INFECTION_LEVEL_ONE / 2)
-					to_chat(user, "[I] does not appear to be infected.")
-				if(I.germ_level >= INFECTION_LEVEL_ONE / 2)
-					if(spaceacillin >= GHETTO_DISINFECT_AMOUNT)
-						I.germ_level = 0
-					else
-						I.germ_level = max(I.germ_level-ethanol, 0)
-					if(istype(C,/obj/item/reagent_containers/syringe))
-						user.visible_message("<span class='notice'> [user] has injected [tool] into [target]'s [I.name].</span>",
-					"<span class='notice'> You have injected [tool] into [target]'s [I.name].</span>")
-					else
-						user.visible_message("<span class='notice'> [user] has poured some of [tool] over [target]'s [I.name].</span>",
-					"<span class='notice'> You have poured some of [tool] over [target]'s [I.name].</span>")
-					R.trans_to(target, GHETTO_DISINFECT_AMOUNT)
-					R.reaction(target, REAGENT_INGEST)
+	R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
+	R.reaction(target, REAGENT_INGEST)
 
-	else if(current_type == "finish")
-		if(affected && affected.encased)
-			var/msg = "<span class='notice'> [user] bends [target]'s [affected.encased] back into place with [tool].</span>"
-			var/self_msg = "<span class='notice'> You bend [target]'s [affected.encased] back into place with [tool].</span>"
-			user.visible_message(msg, self_msg)
-			affected.open = 2.5
-		else
-			var/msg = "<span class='notice'>[user] pulls [target]'s flesh back into place with [tool].</span>"
-			var/self_msg = "<span class='notice'>You pull [target]'s flesh back into place with [tool].</span>"
-			user.visible_message(msg, self_msg)
+	user.visible_message(
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, разливая содержимое [tool.declent_ru(GENITIVE)] на [affected ? "[affected.declent_ru(ACCUSATIVE)] " : ""][target]!"),
+		span_warning("Вы дёргаете рукой, разливая содержимое [tool.declent_ru(GENITIVE)] на [affected ? "[affected.declent_ru(ACCUSATIVE)] " : ""][target]!"),
+	)
+	// continue here since we want to keep moving in the surgery
+	return SURGERY_STEP_CONTINUE
 
-		return 1
+// FINISH
+/datum/surgery_step/internal/manipulate_organs/finish
+	name = "закрытие краёв раны"
+	begin_sound = 'sound/surgery/retractor1.ogg'
+	end_sound = 'sound/surgery/retractor2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		/obj/item/scalpel/laser/manager = 100,
+		TOOL_RETRACTOR = 100,
+		TOOL_CROWBAR = 90,
+	)
 
-	return 0
+/datum/surgery_step/internal/manipulate_organs/finish/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg
+	var/self_msg
+	if(target_zone == BODY_ZONE_CHEST)
+		msg = "[user] начина[PLUR_ET_YUT(user)] вставлять кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы начинаете вставлять кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+	if(target_zone == BODY_ZONE_HEAD)
+		msg = "[user] начина[PLUR_ET_YUT(user)] вставлять кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы начинаете вставлять кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+	else
+		msg = "[user] начина[PLUR_ET_YUT(user)] закрывать края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы начинаете закрывать края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
 
-/datum/surgery_step/internal/manipulate_organs/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	if(current_type == "mend")
-		if(!hasorgans(target))
-			return
+	user.visible_message(span_notice(msg), span_notice(self_msg))
 
-		user.visible_message("<span class='warning'> [user]'s hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>", \
-		"<span class='warning'> Your hand slips, getting mess and tearing the inside of [target]'s [affected.name] with [tool]!</span>")
+	if(target && affected)
+		target.custom_pain("Боль в ваш[GEND_EM_EI_EM_IH(affected)] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 
-		var/dam_amt = 2
+	return ..()
 
-		if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced))
-			target.adjustToxLoss(5)
+/datum/surgery_step/internal/manipulate_organs/finish/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg
+	var/self_msg
+	if(target_zone == BODY_ZONE_CHEST)
+		msg = "[user] вставля[PLUR_ET_YUT(user)] кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы вставляете кости грудной клетки [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+		affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+	if(target_zone == BODY_ZONE_HEAD)
+		msg = "[user] вставля[PLUR_ET_YUT(user)] кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы вставляете кости черепа [target] обратно, используя [tool.declent_ru(ACCUSATIVE)]."
+		affected.open = ORGAN_ORGANIC_ENCASED_OPEN
+	else
+		msg = "[user] закрыва[PLUR_ET_YUT(user)] края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы закрываете края раны на [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
 
-		else if(istype(tool, /obj/item/stack/medical/bruise_pack) || istype(tool, /obj/item/stack/nanopaste))
-			dam_amt = 5
-			target.adjustToxLoss(10)
-			affected.receive_damage(5)
+	user.visible_message(span_notice(msg), span_notice(self_msg))
+	return SURGERY_STEP_CONTINUE
 
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			if(I && I.damage && !(I.tough))
-				I.receive_damage(dam_amt,0)
-
-		return 0
-
-	else if(current_type == "insert")
-		user.visible_message("<span class='warning'> [user]'s hand slips, damaging [tool]!</span>", \
-		"<span class='warning'> Your hand slips, damaging [tool]!</span>")
-		var/obj/item/organ/internal/I = tool
-		if(istype(I) && !I.tough)
-			I.receive_damage(rand(3,5),0)
-
-		return 0
-
-	else if(current_type == "clean")
-		if(!hasorgans(target))
-			return
-		if(!istype(tool,/obj/item/reagent_containers))
-			return
-
-		var/obj/item/reagent_containers/C = tool
-		var/datum/reagents/R = C.reagents
-		var/ethanol = 0 //how much alcohol is in the thing
-
-		if(R.reagent_list.len)
-			for(var/datum/reagent/consumable/ethanol/alcohol in R.reagent_list)
-				ethanol += alcohol.alcohol_perc * 300
-			ethanol /= C.reagents.reagent_list.len
-
-		for(var/obj/item/organ/internal/I in affected.internal_organs)
-			I.germ_level = max(I.germ_level-ethanol, 0)
-			I.receive_damage(rand(4,8),0)
-
-		R.trans_to(target, GHETTO_DISINFECT_AMOUNT * 10)
-		R.reaction(target, REAGENT_INGEST)
-
-		user.visible_message("<span class='warning'> [user]'s hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>", \
-		"<span class='warning'> Your hand slips, splashing the contents of [tool] all over [target]'s [affected.name] incision!</span>")
-		return 0
-
-	else if(current_type == "extract")
-		if(I && I.owner == target)
-			if(affected)
-				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [affected.name] with [tool]!</span>", \
-				"<span class='warning'> Your hand slips, damaging [target]'s [affected.name] with [tool]!</span>")
-				affected.receive_damage(20)
-			else
-				user.visible_message("<span class='warning'> [user]'s hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>", \
-				"<span class='warning'> Your hand slips, damaging [target]'s [parse_zone(target_zone)] with [tool]!</span>")
-		else
-			user.visible_message("[user] can't seem to extract anything from [target]'s [parse_zone(target_zone)]!",
-				"<span class='notice'>You can't extract anything from [target]'s [parse_zone(target_zone)]!</span>")
-		return 0
-
-	else if(current_type == "finish")
-		if(affected && affected.encased)
-			var/msg = "<span class='warning'> [user]'s hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
-			var/self_msg = "<span class='warning'> Your hand slips, bending [target]'s [affected.encased] the wrong way!</span>"
-			user.visible_message(msg, self_msg)
-			affected.fracture()
-		else
-			var/msg = "<span class='warning'> [user]'s hand slips, tearing the skin!</span>"
-			var/self_msg = "<span class='warning'> Your hand slips, tearing skin!</span>"
-			user.visible_message(msg, self_msg)
-		if(affected)
-			affected.receive_damage(20)
-		return 0
-
-
-	return 0
-
+/datum/surgery_step/internal/manipulate_organs/finish/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
+	var/msg
+	var/self_msg
+	if(target_zone == BODY_ZONE_CHEST)
+		msg = "[user] дёрга[PLUR_ET_YUT(user)] рукой, ломая [tool.declent_ru(INSTRUMENTAL)] кости грудной клетки [target]!"
+		self_msg = "Вы дёргаете рукой, ломая [tool.declent_ru(INSTRUMENTAL)] кости грудной клетки [target]!"
+		affected.fracture()
+	if(target_zone == BODY_ZONE_HEAD)
+		msg = "[user] дёрга[PLUR_ET_YUT(user)] рукой, ломая [tool.declent_ru(INSTRUMENTAL)] кости черепа [target]!"
+		self_msg = "Вы дёргаете рукой, ломая [tool.declent_ru(INSTRUMENTAL)] кости черепа [target]!"
+		affected.fracture()
+	else
+		msg = "[user] дёрга[PLUR_ET_YUT(user)] рукой, разрывая [tool.declent_ru(INSTRUMENTAL)] кожу на [affected.declent_ru(PREPOSITIONAL)] [target]!"
+		self_msg = "Вы дёргаете рукой, разрывая [tool.declent_ru(INSTRUMENTAL)] кожу на [affected.declent_ru(PREPOSITIONAL)] [target]!"
+	target.apply_damage(20, def_zone = affected)
+	user.visible_message(span_warning(msg), span_warning(self_msg))
+	return SURGERY_STEP_RETRY
 
 //////////////////////////////////////////////////////////////////
 //						SPESHUL AYLIUM STUPS					//
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery_step/saw_carapace
-	name = "saw carapace"
+	name = "распиливание панциря"
+	begin_sound = 'sound/surgery/saw1.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
-	/obj/item/circular_saw = 100, \
-	/obj/item/melee/energy/sword/cyborg/saw = 100, \
-	/obj/item/hatchet = 90
+		TOOL_SAW = 100,
+		/obj/item/melee/energy/sword/cyborg/saw = 100,
+		/obj/item/primitive_saw = 100,
+		/obj/item/hatchet = 90,
+		/obj/item/circular_saw_blade = 80,
+		/obj/item/wirecutters = 70,
 	)
 
-	time = 54
+	time = 5.4 SECONDS
 
+/datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] распиливать панцирь [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете распиливать панцирь [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+	)
+	return ..()
 
-/datum/surgery_step/saw_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] распилива[PLUR_ET_YUT(user)] панцирь [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы распиливаете панцирь [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+	)
+	return SURGERY_STEP_CONTINUE
 
-	user.visible_message("[user] begins to cut through [target]'s [target_zone] with [tool].", \
-	"You begin to cut through [target]'s [target_zone] with [tool].")
-	..()
+/datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] панцирь [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] панцирь [target]!"),
+	)
 
-/datum/surgery_step/saw_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	user.visible_message("<span class='notice'> [user] has cut [target]'s [target_zone] open with [tool].</span>",		\
-	"<span class='notice'> You have cut [target]'s [target_zone] open with [tool].</span>")
-	return 1
-
-/datum/surgery_step/saw_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	user.visible_message("<span class='warning'> [user]'s hand slips, cracking [target]'s [target_zone] with [tool]!</span>" , \
-	"<span class='warning'> Your hand slips, cracking [target]'s [target_zone] with [tool]!</span>" )
-	return 0
+	target.apply_damage(20)
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/cut_carapace
-	name = "cut carapace"
+	name = "разрезание панциря"
+	begin_sound = 'sound/surgery/scalpel1.ogg'
+	end_sound = 'sound/surgery/scalpel2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
-	/obj/item/scalpel = 100,		\
-	/obj/item/kitchen/knife = 90,	\
-	/obj/item/shard = 60, 		\
-	/obj/item/scissors = 12,		\
-	/obj/item/twohanded/chainsaw = 1, \
-	/obj/item/claymore = 6, \
-	/obj/item/melee/energy/ = 6, \
-	/obj/item/pen/edagger = 6, \
+		TOOL_SCALPEL = 100,
+		/obj/item/kitchen/knife = 90,
+		/obj/item/shard = 60,
+		/obj/item/scissors = 12,
+		/obj/item/twohanded/chainsaw = 1,
+		/obj/item/melee/claymore = 6,
+		/obj/item/melee/energy = 6,
+		/obj/item/pen/edagger = 6,
 	)
 
-	time = 16
+	time = 1.6 SECONDS
 
-/datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
+/datum/surgery_step/cut_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] делать надрез на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете делать надрез на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+		)
+	return ..()
 
-	user.visible_message("[user] starts the incision on [target]'s [target_zone] with [tool].", \
-	"You start the incision on [target]'s [target_zone] with [tool].")
-	..()
+/datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] дела[PLUR_ET_YUT(user)] надрез на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы делаете надрез на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	return SURGERY_STEP_CONTINUE
 
-/datum/surgery_step/cut_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	user.visible_message("<span class='notice'> [user] has made an incision on [target]'s [target_zone] with [tool].</span>", \
-	"<span class='notice'> You have made an incision on [target]'s [target_zone] with [tool].</span>",)
-	return 1
-
-/datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-
-	user.visible_message("<span class='warning'> [user]'s hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!</span>", \
-	"<span class='warning'> Your hand slips, slicing open [target]'s [target_zone] in a wrong spot with [tool]!</span>")
-	return 0
+/datum/surgery_step/cut_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, проводя лезвием [tool.declent_ru(GENITIVE)] по панцирю [target]!"),
+		span_warning("Вы дёргаете рукой, проводя лезвием [tool.declent_ru(GENITIVE)] по панцирю [target]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	target.apply_damage(10)
+	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/retract_carapace
-	name = "retract carapace"
-
+	name = "расширение краёв раны на панцире"
+	begin_sound = 'sound/surgery/retractor1.ogg'
+	end_sound = 'sound/surgery/retractor2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
-	/obj/item/scalpel/laser/manager = 100, \
-	/obj/item/retractor = 100, 	\
-	/obj/item/crowbar = 90,	\
-	/obj/item/kitchen/utensil/fork = 60
+		/obj/item/scalpel/laser/manager = 100,
+		TOOL_RETRACTOR = 100,
+		/obj/item/crowbar = 90,
+		/obj/item/kitchen/utensil/fork = 60,
 	)
 
-	time = 24
+	time = 2.4 SECONDS
 
-/datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/msg = "[user] starts to pry open the incision on [target]'s [target_zone] with [tool]."
-	var/self_msg = "You start to pry open the incision on [target]'s [target_zone] with [tool]."
-	if(target_zone == "chest")
-		msg = "[user] starts to separate the ribcage and rearrange the organs in [target]'s torso with [tool]."
-		self_msg = "You start to separate the ribcage and rearrange the organs in [target]'s torso with [tool]."
-	if(target_zone == "groin")
-		msg = "[user] starts to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
-		self_msg = "You start to pry open the incision and rearrange the organs in [target]'s lower abdomen with [tool]."
-	user.visible_message(msg, self_msg)
-	..()
+/datum/surgery_step/retract_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/msg = "[user] начина[PLUR_ET_YUT(user)] раздвигать края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	var/self_msg = "Вы начинаете раздвигать края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	if(target_zone == BODY_ZONE_CHEST)
+		msg = "[user] начина[PLUR_ET_YUT(user)] раздвигать органы в грудной клетке [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы начинаете раздвигать органы в грудной клетке [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	if(target_zone == BODY_ZONE_PRECISE_GROIN)
+		msg = "[user] начина[PLUR_ET_YUT(user)] раздвигать органы в брюшной полости [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы начинаете раздвигать органы в брюшной полости [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
+	return ..()
 
 /datum/surgery_step/retract_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/msg = "<span class='notice'> [user] keeps the incision open on [target]'s [target_zone] with [tool]</span>."
-	var/self_msg = "<span class='notice'> You keep the incision open on [target]'s [target_zone] with [tool].</span>"
-	if(target_zone == "chest")
-		msg = "<span class='notice'> [user] keeps the ribcage open on [target]'s torso with [tool].</span>"
-		self_msg = "<span class='notice'> You keep the ribcage open on [target]'s torso with [tool].</span>"
-	if(target_zone == "groin")
-		msg = "<span class='notice'> [user] keeps the incision open on [target]'s lower abdomen with [tool].</span>"
-		self_msg = "<span class='notice'> You keep the incision open on [target]'s lower abdomen with [tool].</span>"
-	user.visible_message(msg, self_msg)
-	return 1
+	var/msg = "[user] раздвига[PLUR_ET_YUT(user)] края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	var/self_msg = "Вы раздвигаете края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	if(target_zone == BODY_ZONE_CHEST)
+		msg = "[user] раздвига[PLUR_ET_YUT(user)] органы в грудной клетке [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы раздвигаете органы в грудной клетке [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	if(target_zone == BODY_ZONE_PRECISE_GROIN)
+		msg = "[user] раздвига[PLUR_ET_YUT(user)] органы в брюшной полости [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		self_msg = "Вы раздвигаете органы в брюшной полости [target], используя [tool.declent_ru(ACCUSATIVE)]."
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
+	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/generic/retract_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool,datum/surgery/surgery)
-	var/msg = "<span class='warning'> [user]'s hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
-	var/self_msg = "<span class='warning'> Your hand slips, tearing the edges of incision on [target]'s [target_zone] with [tool]!</span>"
-	if(target_zone == "chest")
-		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s torso with [tool]!</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s torso with [tool]!</span>"
-	if(target_zone == "groin")
-		msg = "<span class='warning'> [user]'s hand slips, damaging several organs [target]'s lower abdomen with [tool]</span>"
-		self_msg = "<span class='warning'> Your hand slips, damaging several organs [target]'s lower abdomen with [tool]!</span>"
-	user.visible_message(msg, self_msg)
-	return 0
+	var/msg = "[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] края раны на панцире [target]!"
+	var/self_msg = "Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] края раны на панцире [target]!"
+	if(target_zone == BODY_ZONE_CHEST)
+		msg = "[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] органы в грудной клетке [target]!"
+		self_msg = "Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] органы в грудной клетке [target]!"
+	if(target_zone == BODY_ZONE_PRECISE_GROIN)
+		msg = "[user] дёрга[PLUR_ET_YUT(user)] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] органы в брюшной полости [target]!"
+		self_msg = "Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] органы в брюшной полости [target]!"
+	user.visible_message(msg, self_msg, chat_message_type = MESSAGE_TYPE_COMBAT)
+	return SURGERY_STEP_RETRY
+
+// redefine cauterize for every step because of course it relies on get_organ()
+/datum/surgery_step/generic/seal_carapace
+	name = "прижигание краёв раны на панцире"
+	begin_sound = 'sound/surgery/cautery1.ogg'
+	end_sound = 'sound/surgery/cautery2.ogg'
+	fail_sound = 'sound/effects/meatslap.ogg'
+	allowed_tools = list(
+		/obj/item/scalpel/laser = 100,
+		TOOL_CAUTERY = 100,
+		/obj/item/clothing/mask/cigarette = 90,
+		/obj/item/lighter = 60,
+		TOOL_WELDER = 30,
+	)
+
+	time = 2.4 SECONDS
+
+/datum/surgery_step/generic/seal_carapace/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] начина[PLUR_ET_YUT(user)] прижигать края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете прижигать края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	target.custom_pain("Вы чувствуете сильное жжение!")
+	return ..()
+
+/datum/surgery_step/generic/seal_carapace/end_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] прижига[PLUR_ET_YUT(user)] края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы прижигаете края раны на панцире [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	return SURGERY_STEP_CONTINUE
+
+/datum/surgery_step/generic/seal_carapace/fail_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_warning("[user] дёрга[PLUR_ET_YUT(user)] рукой, оставляя [tool.declent_ru(INSTRUMENTAL)] небольшой ожог на панцире [target]!"),
+		span_warning("Вы дёргаете рукой, оставляя [tool.declent_ru(INSTRUMENTAL)] небольшой ожог на панцире [target]!"),
+		chat_message_type = MESSAGE_TYPE_COMBAT
+	)
+	target.apply_damage(3, BURN, target_zone)
+	return SURGERY_STEP_RETRY
+
+#undef MITO_REVIVAL_COST
+#undef GHETTO_DISINFECT_AMOUNT

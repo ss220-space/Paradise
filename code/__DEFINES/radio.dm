@@ -1,5 +1,4 @@
 
-#define DISPLAY_FREQ 1435 //status displays
 #define ATMOS_FIRE_FREQ 1437 //air alarms
 #define ENGINE_FREQ 1438 //engine components
 #define ATMOS_VENTSCRUB 1439 //vents, scrubbers, atmos control
@@ -7,6 +6,8 @@
 #define ATMOS_TANKS_FREQ 1441 //atmos supply tanks
 #define BOT_BEACON_FREQ 1445 //bot navigation beacons
 #define AIRLOCK_FREQ 1449 //airlock controls, electropack, magnets
+
+#define DEFAULT_SIGNALER_CODE 30
 
 #define RSD_FREQ 1457 //radio signal device
 #define IMPL_FREQ 1451 //tracking implant
@@ -20,7 +21,7 @@
 #define SYND_TAIPAN_FREQ 1227 //Taipan frequency
 #define SYNDTEAM_FREQ 1244
 #define SOV_FREQ 1217 //Soviet
-#define SPY_SPIDER_FREQ	1251
+#define SPY_SPIDER_FREQ 1251
 #define NINJA_FREQ 1265
 #define DTH_FREQ 1341 //Special Operations
 #define AI_FREQ 1343
@@ -29,6 +30,10 @@
 #define PROC_FREQ 1339 //Procedure
 #define BOT_FREQ 1447 //mulebot, secbot, ed209
 
+// Event channels
+#define EVENT_ALPHA_FREQ 1522
+#define EVENT_BETA_FREQ 1532
+#define EVENT_GAMMA_FREQ 1542
 
 // Department channels
 #define PUB_FREQ 1459 //standard radio chat
@@ -38,19 +43,23 @@
 #define MED_FREQ 1355 //medical
 #define SUP_FREQ 1347 //cargo
 #define SRV_FREQ 1349 //service
+#define PRS_FREQ 1361 //prisoners
+#define T1_FREQ 1371 //team 1
+#define T2_FREQ 1381 //team 2
+#define T3_FREQ 1391 //team 3
 
 // Internal department channels
 #define MED_I_FREQ 1485
 #define SEC_I_FREQ 1475
 
 // Transmission methods
-#define TRANSMISSION_WIRE	0
-#define TRANSMISSION_RADIO	1
+#define TRANSMISSION_WIRE 0
+#define TRANSMISSION_RADIO 1
 
-//This filter is special because devices belonging to default also recieve signals sent to any other filter.
+//This filter is special because devices belonging to default also receive signals sent to any other filter.
 #define RADIO_DEFAULT "radio_default"
 #define RADIO_TO_AIRALARM "radio_airalarm" //air alarms
-#define RADIO_FROM_AIRALARM "radio_airalarm_rcvr" //devices interested in recieving signals from air alarms
+#define RADIO_FROM_AIRALARM "radio_airalarm_rcvr" //devices interested in receiving signals from air alarms
 #define RADIO_CHAT "radio_telecoms"
 #define RADIO_ATMOSIA "radio_atmos"
 #define RADIO_NAVBEACONS "radio_navbeacon"
@@ -63,6 +72,7 @@
 #define RADIO_MEDBOT "12"
 #define RADIO_MAGNETS "radio_magnet"
 #define RADIO_LOGIC "radio_logic"
+#define RADIO_SIGNALER "signaler"
 
 // Signal types
 #define SIGNALTYPE_NORMAL 0
@@ -70,3 +80,42 @@
 #define SIGNALTYPE_INTERCOM_SBR 2 // Will only broadcast to intercoms and station-bounced radios
 #define SIGNALTYPE_AINOTRACK 4 // AI can't track down this person. Useful for imitation broadcasts where you can't find the actual mob
 
+// Channel names
+#define PUB_FREQ_NAME "Общий"
+#define SCI_FREQ_NAME "Наука"
+#define COMM_FREQ_NAME "Командование"
+#define PROC_FREQ_NAME "Юриспруденция"
+#define MED_FREQ_NAME "Медицина"
+#define ENG_FREQ_NAME "Инженерия"
+#define SEC_FREQ_NAME "Безопасность"
+#define ERT_FREQ_NAME "ОБР"
+#define DTH_FREQ_NAME "ССО"
+#define SYND_FREQ_NAME "Синдикат"
+#define SYND_TAIPAN_FREQ_NAME "СиндиТайпан"
+#define SYNDTEAM_FREQ_NAME "СиндиДОС"
+#define SOV_FREQ_NAME "СССП"
+#define SUP_FREQ_NAME "Снабжение"
+#define SRV_FREQ_NAME "Обслуживание"
+#define PRS_FREQ_NAME "Заключенные"
+#define AI_FREQ_NAME "ИИ"
+#define MED_I_FREQ_NAME "Медицина (ИТК)"
+#define SEC_I_FREQ_NAME "Безопасность (ИТК)"
+#define SPY_SPIDER_FREQ_NAME "Жучок"
+#define NINJA_FREQ_NAME "Клан Паука"
+#define EVENT_ALPHA_FREQ_NAME "Альфа частота"
+#define EVENT_BETA_FREQ_NAME "Бета частота"
+#define EVENT_GAMMA_FRE_NAME "Гамма частота"
+
+#define RED_NAME "Красные"
+#define BLUE_NAME "Синие"
+#define GREEN_NAME "Зеленые"
+
+#define SPEC_FREQ_NAME "Cпециальный"
+#define DEPARTMENT_FREQ_NAME "Отдел"
+
+///give this to can_receive to specify that there is no restriction on what z level this signal is sent to
+#define RADIO_NO_Z_LEVEL_RESTRICTION 0
+
+// Used by radios to indicate that they have sent a message via something other than subspace
+#define RADIO_CONNECTION_FAIL 0
+#define RADIO_CONNECTION_NON_SUBSPACE 1

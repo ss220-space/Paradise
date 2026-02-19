@@ -26,18 +26,27 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * allowed to romp unchecked.
  */
 /datum/dmm_suite/proc/load_map(dmm_file, x_offset = 0, y_offset = 0, z_offset = 0, shouldCropMap = FALSE, measureOnly = FALSE)
-	var/tfile = dmm_file// the map file we're creating
+	var/map_data
 	var/fname = "Lambda"
-	if(isfile(tfile))
-		fname = "[tfile]"
+	if(isfile(dmm_file))
+		fname = "[dmm_file]"
 		// Make sure we dont load a dir up
 		var/lastchar = copytext(fname, -1)
 		if(lastchar == "/" || lastchar == "\\")
-			log_debug("Attempted to load map template without filename (Attempted [tfile])")
+			log_debug("Attempted to load map template without filename (Attempted [dmm_file])")
 			return
-		tfile = wrap_file2text(tfile)
-		if(!length(tfile))
-			log_runtime( EXCEPTION("Map path '[fname]' does not exist!"))
+
+		// use rustlib to read, parse, process, mapmanip etc
+		// this will "crash"/stacktrace on fail
+		// is not passed `dmm_file` because byondapi-rs doesn't support resource types yet
+		map_data = mapmanip_read_dmm(fname)
+		// if rustlib for whatever reason fails and returns null
+		// try to load it the old dm way instead
+		if(!map_data)
+			map_data = wrap_file2text(dmm_file)
+
+		if(!LAZYLEN(map_data))
+			throw EXCEPTION("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
 		x_offset = 1
@@ -51,13 +60,14 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/key_len = 0
 
 	var/datum/dmm_suite/loaded_map/LM = new
-	// This try-catch is used as a budget "Finally" clause, as the dirt count
-	// needs to be reset
+	// This try-catch is used as a budget "Finally" clause, as the dirt count.
+	// needs to be reset.
 	var/watch = start_watch()
 	log_debug("[measureOnly ? "Measuring" : "Loading"] map: [fname]")
+
 	try
 		LM.index = 1
-		while(dmmRegex.Find(tfile, LM.index))
+		while(dmmRegex.Find(map_data, LM.index))
 			LM.index = dmmRegex.next
 
 			// "aa" = (/type{vars=blah})
@@ -65,32 +75,32 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/key = dmmRegex.group[1]
 				if(grid_models[key]) // Duplicate model keys are ignored in DMMs
 					continue
-				if(key_len != length(key))
+				if(key_len != LAZYLEN(key))
 					if(!key_len)
-						key_len = length(key)
+						key_len = LAZYLEN(key)
 					else
-						log_runtime( EXCEPTION("Inconsistent key length in DMM"))
-						return
+						throw EXCEPTION("Inconsistent key length in DMM")
 				if(!measureOnly)
 					grid_models[key] = dmmRegex.group[2]
 
 			// (1,1,1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 			else if(dmmRegex.group[3]) // Coords
 				if(!key_len)
-					log_runtime( EXCEPTION("Coords before model definition in DMM"))
-					return
+					throw EXCEPTION("Coords before model definition in DMM")
 
 				var/xcrdStart = text2num(dmmRegex.group[3]) + x_offset - 1
 				// position of the currently processed square
 				var/xcrd
 				var/ycrd = text2num(dmmRegex.group[4]) + y_offset - 1
 				var/zcrd = text2num(dmmRegex.group[5]) + z_offset - 1
+				var/new_z = FALSE
 
 				if(!measureOnly)
 					if(zcrd > world.maxz)
 						if(shouldCropMap)
 							continue
 						else
+							new_z = TRUE
 							GLOB.space_manager.increase_max_zlevel_to(zcrd) // create a new z_level if needed
 
 				bounds[MAP_MINX] = min(bounds[MAP_MINX], xcrdStart)
@@ -100,18 +110,18 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/list/gridLines = splittext(dmmRegex.group[6], "\n")
 
 				var/leadingBlanks = 0
-				while(leadingBlanks < gridLines.len && gridLines[++leadingBlanks] == "")
+				while(leadingBlanks < LAZYLEN(gridLines) && gridLines[++leadingBlanks] == "")
 				if(leadingBlanks > 1)
 					gridLines.Cut(1, leadingBlanks) // Remove all leading blank lines.
 
-				if(!gridLines.len) // Skip it if only blank lines exist.
+				if(!LAZYLEN(gridLines)) // Skip it if only blank lines exist.
 					continue
 
-				if(gridLines.len && gridLines[gridLines.len] == "")
-					gridLines.Cut(gridLines.len) // Remove only one blank line at the end.
+				if(LAZYLEN(gridLines) && gridLines[LAZYLEN(gridLines)] == "")
+					gridLines.Cut(LAZYLEN(gridLines)) // Remove only one blank line at the end.
 
 				bounds[MAP_MINY] = min(bounds[MAP_MINY], ycrd)
-				ycrd += gridLines.len - 1 // Start at the top and work down
+				ycrd += LAZYLEN(gridLines) - 1 // Start at the top and work down
 
 				if(!shouldCropMap && ycrd > world.maxy)
 					if(!measureOnly)
@@ -123,12 +133,12 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 				var/maxx = xcrdStart
 				if(measureOnly)
 					for(var/line in gridLines)
-						maxx = max(maxx, xcrdStart + length(line) / key_len - 1)
+						maxx = max(maxx, xcrdStart + LAZYLEN(line) / key_len - 1)
 				else
 					for(var/line in gridLines)
 						if(ycrd <= world.maxy && ycrd >= 1)
 							xcrd = xcrdStart
-							for(var/tpos = 1 to (length(line) - key_len + 1) step key_len)
+							for(var/tpos = 1 to (LAZYLEN(line) - key_len + 1) step key_len)
 								if(xcrd > world.maxx)
 									if(shouldCropMap)
 										break
@@ -138,9 +148,8 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 								if(xcrd >= 1)
 									var/model_key = copytext(line, tpos, tpos + key_len)
 									if(!grid_models[model_key])
-										log_runtime( EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname]."))
-										return
-									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM)
+										throw EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname].")
+									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM, new_z)
 									// After this call, it is NOT safe to reference `dmmRegex` without another call to
 									// "Find" - we might've hit a map loader here and changed its state
 									CHECK_TICK
@@ -153,28 +162,21 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			CHECK_TICK
 	catch(var/exception/e)
 		GLOB._preloader.reset()
-		log_runtime(e)
-		return
+		throw e
 
 	GLOB._preloader.reset()
 	log_debug("Loaded map in [stop_watch(watch)]s.")
 	qdel(LM)
+
 	if(bounds[MAP_MINX] == 1.#INF) // Shouldn't need to check every item
-		log_runtime(EXCEPTION("Bad Map bounds in [fname]"), src, list(
-		"Min x: [bounds[MAP_MINX]]",
-		"Min y: [bounds[MAP_MINY]]",
-		"Min z: [bounds[MAP_MINZ]]",
-		"Max x: [bounds[MAP_MAXX]]",
-		"Max y: [bounds[MAP_MAXY]]",
-		"Max z: [bounds[MAP_MAXZ]]",
-		"Try again"))
-		return null
+		CRASH("Bad Map bounds in [fname], Min x: [bounds[MAP_MINX]], Min y: [bounds[MAP_MINY]], Min z: [bounds[MAP_MINZ]], Max x: [bounds[MAP_MAXX]], Max y: [bounds[MAP_MAXY]], Max z: [bounds[MAP_MAXZ]]")
 	else
 		if(!measureOnly)
-			for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))
+			for(var/t in block(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ], bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ]))
 				var/turf/T = t
 				// we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
-				T.AfterChange(TRUE, keep_cabling = TRUE)
+				T.AfterChange(CHANGETURF_IGNORE_AIR|CHANGETURF_KEEP_CABLING)
+				CHECK_TICK
 		return bounds
 
 /**
@@ -194,7 +196,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
  * 4) Instanciates the atom with its variables
  *
  */
-/datum/dmm_suite/proc/parse_grid(model = "", xcrd = 0, ycrd = 0, zcrd = 0, datum/dmm_suite/loaded_map/LM)
+/datum/dmm_suite/proc/parse_grid(model = "", xcrd = 0, ycrd = 0, zcrd = 0, datum/dmm_suite/loaded_map/LM, new_z)
 	/*Method parse_grid()
 	- Accepts a text string containing a comma separated list of type paths of the
 		same construction as those contained in a .dmm file, and instantiates them.
@@ -231,7 +233,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			old_position = dpos + 1
 
 			if(!atom_def) // Skip the item if the path does not exist.  Fix your crap, mappers!
-				log_runtime(EXCEPTION("Bad path: [atom_text]"), src, list("Source String: [model]", "dpos: [dpos]"))
+				stack_trace("Bad path: [atom_text] | Source String: [model] | dpos: [dpos]")
 				continue
 			members.Add(atom_def)
 
@@ -239,8 +241,13 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			var/list/fields = list()
 
 			if(variables_start) // if there's any variable
-				full_def = copytext(full_def, variables_start + 1, length(full_def)) // removing the last '}'
+				full_def = copytext(full_def, variables_start + 1, LAZYLEN(full_def)) // removing the last '}'
 				fields = readlist(full_def, ";")
+
+				for(var/I in fields)
+					var/value = fields[I]
+					if(istext(value))
+						fields[I] = apply_text_macros(value)
 
 			// then fill the members_attributes list with the corresponding variables
 			members_attributes.len++
@@ -251,7 +258,6 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 		modelCache[model] = list(members, members_attributes)
 
-
 	////////////////
 	// Instanciation
 	////////////////
@@ -260,23 +266,28 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	// first instance the /area and remove it from the members list
 	index = members.len
-
+	var/area/old_area
 	var/turf/crds = locate(xcrd, ycrd, zcrd)
 	if(members[index] != /area/template_noop)
 		// We assume `members[index]` is an area path, as above, yes? I will operate
 		// on that assumption.
 		if(!ispath(members[index], /area))
-			log_runtime( EXCEPTION("Oh no, I thought this was an area!"))
-			return
+			throw EXCEPTION("Oh no, I thought this was an area!")
 
 		GLOB._preloader.setup(members_attributes[index]) // preloader for assigning  set variables on atom creation
-		var/atom/instance = LM.area_path_to_real_area(members[index])
+		// If this parsed map doesn't have that area already, we check the global cache
+		var/area/area_instance = LM.area_path_to_real_area(members[index])
 
-		if(crds)
-			instance.contents.Add(crds)
+		if(!new_z)
+			old_area = crds.loc
+			LISTASSERTLEN(old_area.turfs_to_uncontain_by_zlevel, crds.z, list())
+			LISTASSERTLEN(area_instance.turfs_by_zlevel, crds.z, list())
+			old_area.turfs_to_uncontain_by_zlevel[crds.z] += crds
+			area_instance.turfs_by_zlevel[crds.z] += crds
+		area_instance.contents.Add(crds)
 
-		if(GLOB.use_preloader && instance)
-			GLOB._preloader.load(instance)
+		if(GLOB.use_preloader && area_instance)
+			GLOB._preloader.load(area_instance)
 
 	// then instance the /turf and, if multiple tiles are presents, simulates the DMM underlays piling effect
 
@@ -287,15 +298,18 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	// instanciate the first /turf
 	var/turf/T
 	if(members[first_turf_index] != /turf/template_noop)
-		T = instance_atom(members[first_turf_index], members_attributes[first_turf_index], xcrd, ycrd, zcrd)
+		if(members[first_turf_index] == /turf/simulated/floor/lava/lava_land_surface)
+			T = instance_atom(SSmapping.lavaland_theme?.primary_turf_type, members_attributes[first_turf_index], xcrd, ycrd, zcrd)
+		else
+			T = instance_atom(members[first_turf_index], members_attributes[first_turf_index], xcrd, ycrd, zcrd)
 
 	if(T)
 		// if others /turf are presents, simulates the underlays piling effect
 		index = first_turf_index + 1
-		var/mlen = members.len - 1
+		var/mlen = length(members) - 1
 		while(index <= mlen) // Last item is an /area
 			var/underlay
-			if(istype(T, /turf)) // I blame this on the stupid clown who coded the BYOND map editor
+			if(isturf(T)) // I blame this on the stupid clown who coded the BYOND map editor
 				underlay = T.appearance
 			T = instance_atom(members[index], members_attributes[index], xcrd, ycrd, zcrd) // instance new turf
 			if(ispath(members[index], /turf))
@@ -319,13 +333,14 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 
 	var/turf/T = locate(x, y, z)
 	if(T)
+		// Turfs need special attention
 		if(ispath(path, /turf))
-			T.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE)
+			T.ChangeTurf(path, defer_change = TRUE, keep_icon = FALSE, copy_existing_baseturf = FALSE)
 			instance = T
-		else if(ispath(path, /area))
-
 		else
-			instance = new path(T) // first preloader pass
+			// Anything that isnt an area, init!
+			if(!ispath(path, /area))
+				instance = new path(T) // first preloader pass
 
 	if(GLOB.use_preloader && instance) // second preloader pass, for those atoms that don't ..() in New()
 		GLOB._preloader.load(instance)
@@ -359,61 +374,70 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 /datum/dmm_suite/proc/readlist(text, delimiter = ",")
 	var/list/to_return = list()
 
-	var/position
+	var/delimiter_position
 	var/old_position = 1
 
 	do
 		// find next delimiter that is not within  "..."
-		position = find_next_delimiter_position(text, old_position, delimiter)
+		delimiter_position = find_next_delimiter_position(text, old_position, delimiter)
 
 		// check if this is a simple variable (as in list(var1, var2)) or an associative one (as in list(var1="foo", var2=7))
-		var/equal_position = findtext(text, "=", old_position, position)
+		var/equal_position = findtext(text, "=", old_position, delimiter_position)
 
-		var/trim_left = trim_text(copytext(text, old_position, (equal_position ? equal_position : position)), 1) // the name of the variable, must trim quotes to build a BYOND compliant associatives list
-		old_position = position + 1
+		// Take the left value of the association or just the value if it isn't an association
+		var/left_value = copytext(text, old_position, (equal_position ? equal_position : delimiter_position))
+		old_position = delimiter_position + 1
 
 		if(equal_position) // associative var, so do the association
-			var/trim_right = trim_text(copytext(text, equal_position + 1, position)) // the content of the variable
+			left_value = trim_text(left_value, TRUE) // the name of the variable, must trim quotes to build a BYOND compliant associatives list
+			var/trim_right = trim_text(copytext(text, equal_position + 1, delimiter_position)) // the content of the variable
 
-			// Check for string
-			// Make it read to the next delimiter, instead of the quote
-			if(findtext(trim_right, quote, 1, 2))
-				var/endquote = findtext(trim_right, quote, -1)
-				if(!endquote)
-					log_runtime(EXCEPTION("Terminating quote not found!"), src)
-				// Our map writer escapes quotes and curly brackets to avoid
-				// letting our simple parser choke on meanly-crafted names/etc
-				// - so we decode it here so it's back to good ol' legibility
-				trim_right = dmm_decode(copytext(trim_right, 2, endquote))
-
-			// Check for number
-			else if(isnum(text2num(trim_right)))
-				trim_right = text2num(trim_right)
-
-			// Check for null
-			else if(trim_right == "null")
-				trim_right = null
-
-			// Check for list
-			else if(copytext(trim_right, 1, 5) == "list")
-				trim_right = readlist(copytext(trim_right, 6, length(trim_right)))
-
-			// Check for file
-			else if(copytext(trim_right, 1, 2) == "'")
-				trim_right = wrap_file(copytext(trim_right, 2, length(trim_right)))
-
-			// Check for path
-			else if(ispath(text2path(trim_right)))
-				trim_right = text2path(trim_right)
-
-			to_return[trim_left] = trim_right
+			to_return[left_value] = parse_value(trim_right)
 
 		else// simple var
-			to_return[trim_left] = null
+			to_return += parse_value(trim_text(left_value)) // Don't trim the quotes
 
-	while(position != 0)
+	while(delimiter_position != 0)
 
 	return to_return
+
+/**
+ * Tries to parse the given value_text. Will fallback on the value_text as a string if it fails
+ */
+/datum/dmm_suite/proc/parse_value(value_text)
+	// Check for string
+	// Make it read to the next delimiter, instead of the quote
+	if(findtext(value_text, quote, 1, 2))
+		var/endquote = findtext(value_text, quote, -1)
+		if(!endquote)
+			stack_trace("Terminating quote not found!")
+		// Our map writer escapes quotes and curly brackets to avoid
+		// letting our simple parser choke on meanly-crafted names/etc
+		// - so we decode it here so it's back to good ol' legibility
+		. = dmm_decode(copytext(value_text, 2, endquote))
+
+	// Check for number
+	else if(isnum(text2num(value_text)))
+		. = text2num(value_text)
+
+	// Check for null
+	else if(value_text == "null")
+		. = null
+
+	// Check for list
+	else if(copytext(value_text, 1, 5) == "list")
+		. = readlist(copytext(value_text, 6, LAZYLEN(value_text)))
+
+	// Check for file
+	else if(copytext(value_text, 1, 2) == "'")
+		. = wrap_file(copytext(value_text, 2, LAZYLEN(value_text)))
+
+	// Check for path
+	else if(ispath(text2path(value_text)))
+		. = text2path(value_text)
+
+	else
+		. = value_text // Assume it is a string without quotes
 
 /datum/dmm_suite/Destroy()
 	..()
@@ -430,7 +454,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 	var/json_ready = 0
 
 /datum/dmm_suite/preloader/proc/setup(list/the_attributes, path)
-	if(the_attributes.len)
+	if(length(the_attributes))
 		json_ready = 0
 		if("map_json_data" in the_attributes)
 			json_ready = 1
@@ -445,12 +469,12 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		try
 			A.deserialize(json_decode(json_data))
 		catch(var/exception/E)
-			log_runtime(EXCEPTION("Bad json data: '[json_data]'"), src)
-			return E
+			stack_trace("Bad json data: '[json_data]'")
+			throw E
 	for(var/attribute in attributes)
 		var/value = attributes[attribute]
 		if(islist(value))
-			value = deepCopyList(value)
+			value = deep_copy_list(value)
 		if(value == null)
 			continue
 		A.vars[attribute] = value
@@ -467,21 +491,25 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 // yet have a single area type for use of mapping, instead of creating
 // a new area type for each new ruin
 /datum/dmm_suite/loaded_map
-	var/list/area_list = list()
+	/// List of area types we've loaded AS A PART OF THIS MAP
+	/// We do this to allow non unique areas, so we'll only load one per map
+	var/list/area/loaded_areas = list()
 	var/index = 1 // To store the state of the regex
 
 /datum/dmm_suite/loaded_map/proc/area_path_to_real_area(area/A)
-	if(!ispath(A, /area))
-		log_runtime(EXCEPTION("Wrong argument to `area_path_to_real_area`"))
-		return null
+	var/area/area_instance = loaded_areas[A]
+	if(!area_instance)
+		var/area_type = A
+		// If this parsed map doesn't have that area already, we check the global cache
+		area_instance = GLOB.areas_by_type[area_type]
+		// If the global list DOESN'T have this area it's either not a unique area, or it just hasn't been created yet
+		if(!area_instance)
+			area_instance = new area_type(null)
+			if(!area_instance)
+				CRASH("[area_type] failed to be new'd, what'd you do?")
+		loaded_areas[area_type] = area_instance
 
-	if(!(A in area_list))
-		if(initial(A.there_can_be_many))
-			area_list[A] = new A
-		else
-			area_list[A] = locate(A)
-
-	return area_list[A]
+	return area_instance
 
 /area/template_noop
 	name = "Area Passthrough"
@@ -489,3 +517,4 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 /turf/template_noop
 	name = "Turf Passthrough"
 	icon_state = "noop" // now turf passthrought won't mess with other structures like lattice or plates in space on ruin maps in map editor. it was too much annoyng before the change. noop icon added in areas.dmi as well
+	init_air = FALSE

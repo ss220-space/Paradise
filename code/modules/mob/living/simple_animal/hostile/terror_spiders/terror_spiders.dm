@@ -15,8 +15,8 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider
 	//COSMETIC
-	name = ""
-	desc = "The generic parent of all other terror spider types. If you see this in-game, it is a bug."
+	name = "Паучок"
+	desc = "Стандартный паук. Если ты это видишь, это баг."
 	gender = FEMALE
 	icon = 'icons/mob/terrorspider.dmi'
 	icon_state = "terror_red"
@@ -24,48 +24,48 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	icon_dead = "terror_red_dead"
 	attacktext = "кусает"
 	attack_sound = 'sound/creatures/terrorspiders/bite.ogg'
-	deathmessage = "Screams in pain and slowly stops moving."
+	deathmessage = "кричит от боли и медленно перестаёт двигаться."
 	death_sound = 'sound/creatures/terrorspiders/death.ogg'
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
-	talk_sound = list('sound/creatures/spider_talk1.ogg', 'sound/creatures/spider_talk2.ogg')
-	var/spider_intro_text = "Если ты это видишь, напиши разрабам"
-	speak_chance = 0 // quiet but deadly
-	speak_emote = list("hisses")
-	emote_hear = list("hisses")
+	var/spider_intro_text = "Если ты это видишь, это баг."
+	speak_emote = list("шипит")
+	emote_hear = list("шипит")
 	tts_seed = "Anubarak"
 	sentience_type = SENTIENCE_OTHER
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
+	response_help  = "гладит"
+	response_disarm = "осторожно отодвигает в сторону"
+	friendly = "осторожно проводит лапками по"
 	footstep_type = FOOTSTEP_MOB_CLAW
-	var/list/speech_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
+	talk_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
+	damaged_sound = list('sound/creatures/terrorspiders/speech_1.ogg', 'sound/creatures/terrorspiders/speech_2.ogg', 'sound/creatures/terrorspiders/speech_3.ogg', 'sound/creatures/terrorspiders/speech_4.ogg', 'sound/creatures/terrorspiders/speech_5.ogg', 'sound/creatures/terrorspiders/speech_6.ogg')
 
 	//HEALTH
 	maxHealth = 120
 	health = 120
-	unsuitable_atmos_damage = 0
-	a_intent = INTENT_HARM
 	var/regeneration = 2 //pure regen on life
 	var/degenerate = FALSE // if TRUE, they slowly degen until they all die off.
 	//also regenerates by using /datum/status_effect/terror/food_regen when wraps a carbon, wich grants full health witin ~25 seconds
 	damage_coeff = list(BRUTE = 0.75, BURN = 1.25, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 
 	//ATTACK
 	melee_damage_lower = 15
 	melee_damage_upper = 20
+	AI_delay_max = 0 SECONDS
 
 	//MOVEMENT
 	pass_flags = PASSTABLE
 	turns_per_move = 3 // number of turns before AI-controlled spiders wander around. No effect on actual player or AI movement speed!
 	move_to_delay = 6
 	speed = 0
-	var/magpulse = 1
 	// AI spider speed at chasing down targets. Higher numbers mean slower speed. Divide 20 (server tick rate / second) by this to get tiles/sec.
+
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 
 	//SPECIAL
 	var/list/special_abillity = list()  //has spider unique abillities?
 	var/can_wrap = TRUE   //can spider wrap corpses and objects?
 	var/web_type = /obj/structure/spider/terrorweb
-	ventcrawler = 1 // allows player ventcrawling, set 0 to disallow
 	var/delay_web = 25 // delay between starting to spin web, and finishing
 	faction = list("terrorspiders")
 	var/spider_opens_doors = 1 // all spiders can open firedoors (they have no security). 1 = can open depowered doors. 2 = can open powered doors
@@ -82,9 +82,12 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	// Vision
 	vision_range = 10
 	aggro_vision_range = 10
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	sight = SEE_MOBS
+	sight = SEE_TURFS|SEE_MOBS|SEE_OBJS
+
+	// HUD
+	hud_type = /datum/hud/simple_animal/spider
 
 	// AI aggression settings
 	var/ai_target_method = TS_DAMAGE_SIMPLE
@@ -133,15 +136,22 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	var/datum/action/innate/terrorspider/web/web_action
 	var/datum/action/innate/terrorspider/wrap/wrap_action
 
-	// Breathing - require some oxygen, and no toxins
-	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-
-	// Temperature
-	heat_damage_per_tick = 6.5 // Takes 250% normal damage from being in a hot environment ("kill it with fire!")
+	// DATUM
+	var/datum_type = /datum/antagonist/terror_spider
 
 	// DEBUG OPTIONS & COMMANDS
 	var/spider_growinstantly = FALSE
 	var/spider_debug = FALSE
+
+/mob/living/simple_animal/hostile/poison/terror_spider/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, INNATE_TRAIT)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		heat_damage = 6.5, \
+	)
 
 // --------------------------------------------------------------------------------
 // --------------------- TERROR SPIDERS: SHARED ATTACK CODE -----------------------
@@ -159,30 +169,30 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			enemies -= target
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = target
 		if(T.spider_tier > spider_tier)
-			visible_message("<span class='notice'>[src] cowers before [target].</span>")
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] съёживается перед [target.declent_ru(INSTRUMENTAL)]."))
 		else if(T.spider_tier == spider_tier)
-			visible_message("<span class='notice'>[src] nuzzles [target].</span>")
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] тычется носом в [target.declent_ru(ACCUSATIVE)]."))
 		else if(T.spider_tier < spider_tier && spider_tier >= 4)
 			target.attack_animal(src)
 		else
-			visible_message("<span class='notice'>[src] harmlessly nuzzles [target].</span>")
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] безобидно тычет носом [target.declent_ru(ACCUSATIVE)]."))
 		T.CheckFaction()
 		CheckFaction()
 	else if(istype(target, /obj/structure/spider/royaljelly))
 		consume_jelly(target)
 	else if(istype(target, /obj/structure/spider)) // Prevents destroying coccoons (exploit), eggs (horrible misclick), etc
-		to_chat(src, "Destroying things created by fellow spiders would not help us.")
+		to_chat(src, "Уничтожение вещей, созданных другими пауками, нам не поможет.")
 	else if(istype(target, /obj/machinery/door/firedoor))
 		var/obj/machinery/door/firedoor/F = target
 		if(F.density)
 			if(F.welded)
-				to_chat(src, "The fire door is welded shut.")
+				to_chat(src, "[DECLENT_RU_CAP(F, NOMINATIVE)] заварен.")
 			else
-				visible_message("<span class='danger'>[src] pries open the firedoor!</span>")
+				visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] открывает [F.declent_ru(ACCUSATIVE)]!"))
 				F.open()
 		else
-			to_chat(src, "Closing fire doors does not help.")
-	else if(istype(target, /obj/machinery/door/airlock))
+			to_chat(src, "Закрытие противопожарных дверей не помогает.")
+	else if(is_airlock(target))
 		var/obj/machinery/door/airlock/A = target
 		try_open_airlock(A)
 	else if(isliving(target) && (!client || a_intent == INTENT_HARM))
@@ -194,7 +204,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			var/can_poison = 1
 			if(ishuman(G))
 				var/mob/living/carbon/human/H = G
-				if(!(H.dna.species.reagent_tag & PROCESS_ORG) || (!H.dna.species.tox_mod))
+				if(!(H.dna.species.reagent_tag & ORGANIC) || (!H.dna.species.tox_mod))
 					can_poison = 0
 			spider_specialattack(G,can_poison)
 		else
@@ -203,14 +213,14 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	L.attack_animal(src)
+	return L.attack_animal(src)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/consume_jelly(obj/structure/spider/royaljelly/J)
 	if(health == maxHealth)
-		to_chat(src, "<span class='warning'>You don't need healing!</span>")
+		to_chat(src, span_warning("Вам не нужно лечиться!"))
 		return
-	to_chat(src, "<span class='notice'>You consume royal jelly to heal yourself!</span>")
-	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, 1)
+	to_chat(src, span_notice("Вы употребляете королевское желе, чтобы исцелить себя!"))
+	playsound(src.loc, 'sound/creatures/terrorspiders/jelly.ogg', 100, TRUE)
 	apply_status_effect(STATUS_EFFECT_TERROR_REGEN)
 	qdel(J)
 
@@ -222,30 +232,30 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	. = ..()
 	if(stat != DEAD)
 		if(key)
-			. += "<span class='warning'>[p_they(TRUE)] regards [p_their()] surroundings with a curious intelligence.</span>"
+			. += span_warning("Внимательно осматривает окружение взглядом, говорящем о признаках разумности.")
 		if(health > (maxHealth*0.95))
-			. += "<span class='notice'>[p_they(TRUE)] is in excellent health.</span>"
+			. += span_notice("Не имеет видимых повреждений.")
 		else if(health > (maxHealth*0.75))
-			. += "<span class='notice'>[p_they(TRUE)] has a few injuries.</span>"
+			. += span_notice("Имеет несколько царапин.")
 		else if(health > (maxHealth*0.55))
-			. += "<span class='warning'>[p_they(TRUE)] has many injuries.</span>"
+			. += span_warning("Имеет серьёзные травмы.")
 		else if(health > (maxHealth*0.25))
-			. += "<span class='warning'>[p_they(TRUE)] is barely clinging on to life!</span>"
-		if(degenerate)
-			. += "<span class='warning'>[p_they(TRUE)] appears to be dying.</span>"
+			. += span_danger("Едва стоит на своих лапах!")
+		if(degenerate || !spider_awaymission && GLOB.global_degenerate)
+			. += span_danger("Находится на грани жизни и смерти.")
 		if(killcount >= 1)
-			. += "<span class='warning'>[p_they(TRUE)] has blood dribbling from [p_their()] mouth.</span>"
+			. += span_warning("Разбрызгивает во все стороны алую кровь, струяющуюся из пасти.")
 
 /mob/living/simple_animal/hostile/poison/terror_spider/New()
 	..()
 	GLOB.ts_spiderlist += src
-	add_language("Spider Hivemind")
+	add_language(LANGUAGE_HIVE_TERRORSPIDER)
 	for(var/spell in special_abillity)
 		src.AddSpell(new spell)
 
 	if(spider_tier >= TS_TIER_2)
-		add_language("Galactic Common")
-	default_language = GLOB.all_languages["Spider Hivemind"]
+		add_language(LANGUAGE_GALACTIC_COMMON)
+	default_language = GLOB.all_languages[LANGUAGE_HIVE_TERRORSPIDER]
 
 	if(web_type)
 		web_action = new()
@@ -255,7 +265,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		wrap_action.Grant(src)
 	name += " ([rand(1, 1000)])"
 	real_name = name
-	msg_terrorspiders("[src] has grown in [get_area(src)].")
+	msg_terrorspiders("[DECLENT_RU_CAP(src, NOMINATIVE)] вырастает в локации \"[get_area(src)]\".")
 	if(is_away_level(z))
 		spider_awaymission = 1
 		GLOB.ts_count_alive_awaymission++
@@ -270,10 +280,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	else
 		GLOB.ts_count_alive_station++
 	// after 3 seconds, assuming nobody took control of it yet, offer it to ghosts.
-	addtimer(CALLBACK(src, .proc/CheckFaction), 20)
-	addtimer(CALLBACK(src, .proc/announcetoghosts), 30)
+	addtimer(CALLBACK(src, PROC_REF(CheckFaction)), 20)
+	addtimer(CALLBACK(src, PROC_REF(announcetoghosts)), 30)
 	var/datum/atom_hud/U = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	U.add_hud_to(src)
+	U.show_to(src)
 	spider_creation_time = world.time
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/announcetoghosts()
@@ -282,10 +292,10 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(stat == DEAD)
 		return
 	if(ckey)
-		notify_ghosts("[src] (player controlled) has appeared in [get_area(src)].")
+		notify_ghosts("[DECLENT_RU_CAP(src, NOMINATIVE)] (контролируется игроком) появляется в локации \"[get_area(src)]\".")
 	else if(ai_playercontrol_allowtype)
-		var/image/alert_overlay = image('icons/mob/terrorspider.dmi', icon_state)
-		notify_ghosts("[src] has appeared in [get_area(src)].", enter_link = "<a href=?src=[UID()];activate=1>(Click to control)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		var/image/alert_overlay = image(icon, icon_state)
+		notify_ghosts("[DECLENT_RU_CAP(src, NOMINATIVE)] появляется в локации \"[get_area(src)]\".", enter_link = "<a href=byond://?src=[UID()];activate=1>(Нажмите для взятия контроля)</a>", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/Destroy()
 	GLOB.ts_spiderlist -= src
@@ -295,15 +305,15 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 /mob/living/simple_animal/hostile/poison/terror_spider/Life(seconds, times_fired)
 	. = ..()
 	if(stat == DEAD) // Can't use if(.) for this due to the fact it can sometimes return FALSE even when mob is alive.
-		if(prob(2))
-			// 2% chance every cycle to decompose
-			visible_message("<span class='notice'>\The dead body of the [src] decomposes!</span>")
+		if(prob(10))
+			// 10% chance every cycle to decompose
+			visible_message(span_notice("Труп [declent_ru(GENITIVE)] разлагается!"))
 			gib()
 	else
-		if(stat != DEAD)
+		if(health < maxHealth)
 			adjustBruteLoss(-regeneration)
-		if(degenerate)
-			adjustBruteLoss(rand(15,20))
+		if(degenerate || !spider_awaymission && GLOB.global_degenerate)
+			adjustBruteLoss(6)
 		if(prob(5))
 			CheckFaction()
 
@@ -317,43 +327,39 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		else
 			GLOB.ts_count_alive_station--
 
-/mob/living/simple_animal/hostile/poison/terror_spider/proc/give_intro_text()
-	to_chat(src, "<center><span class='userdanger'>Вы паук ужаса!</span></center>")
-	to_chat(src, "<center>Работайте сообща, помогайте своим братьям и сёстрам, саботируйте станцию, убивайте экипаж, превратите это место в своё гнездо!</center>")
-	to_chat(src, "<center><span class='big'>[spider_intro_text]</span></center><br>")
-	SEND_SOUND(src, sound('sound/ambience/antag/terrorspider.ogg'))
-
 /mob/living/simple_animal/hostile/poison/terror_spider/death(gibbed)
 	if(can_die())
 		if(!gibbed)
-			msg_terrorspiders("[src] has died in [get_area(src)].")
+			msg_terrorspiders("[DECLENT_RU_CAP(src, NOMINATIVE)] умирает в локации \"[get_area(src)]\".")
 		handle_dying()
+		if(mind)
+			SEND_SIGNAL(mind, COMSIG_TERROR_SPIDER_DIED)
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/spider_special_action()
 	return
 
-/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/O)
-	if(istype(O, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/L = O
-		if(L.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
-			return try_open_airlock(L)
-	if(istype(O, /obj/machinery/door/firedoor))
-		var/obj/machinery/door/firedoor/F = O
-		if(F.density && !F.welded)
-			F.open()
-			return 1
+/mob/living/simple_animal/hostile/poison/terror_spider/ObjBump(obj/object)
+	if(is_airlock(object))
+		var/obj/machinery/door/airlock/airlock = object
+		if(airlock.density) // must check density here, to avoid rapid bumping of an airlock that is in the process of opening, instantly forcing it closed
+			return try_open_airlock(airlock)
+	if(istype(object, /obj/machinery/door/firedoor))
+		var/obj/machinery/door/firedoor/firedoor = object
+		if(firedoor.density && !firedoor.welded)
+			firedoor.open()
+			return TRUE
 	. = ..()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/msg_terrorspiders(msgtext)
 	for(var/thing in GLOB.ts_spiderlist)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/T = thing
 		if(T.stat != DEAD)
-			to_chat(T, "<span class='terrorspider'>TerrorSense: [msgtext]</span>")
+			to_chat(T, span_terrorspider("TerrorSense: [msgtext]"))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/CheckFaction()
-	if(faction.len != 2 || (!("terrorspiders" in faction)) || master_commander != null)
-		to_chat(src, "<span class='userdanger'>Your connection to the hive mind has been severed!</span>")
+	if(length(faction) != 2 || (!("terrorspiders" in faction)) || master_commander != null)
+		to_chat(src, span_userdanger("Ваша связь с коллективным разумом разрывается!"))
 		log_runtime(EXCEPTION("Terror spider with incorrect faction list at: [atom_loc_line(src)]"))
 		gib()
 
@@ -361,9 +367,9 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(D.operating)
 		return
 	if(D.welded)
-		to_chat(src, "<span class='warning'>The door is welded.</span>")
+		to_chat(src, span_warning("Дверь заварена."))
 	else if(D.locked)
-		to_chat(src, "<span class='warning'>The door is bolted.</span>")
+		to_chat(src, span_warning("Дверь заболтирована."))
 	else if(D.allowed(src))
 		if(D.density)
 			D.open(TRUE)
@@ -371,45 +377,42 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 			D.close(TRUE)
 		return TRUE
 	else if(D.arePowerSystemsOn() && (spider_opens_doors != 2))
-		to_chat(src, "<span class='warning'>The door's motors resist your efforts to force it.</span>")
+		to_chat(src, span_warning("Привод шлюза сопротивляется вашим попыткам взломать её."))
 	else if(!spider_opens_doors)
-		to_chat(src, "<span class='warning'>Your type of spider is not strong enough to force open doors.</span>")
+		to_chat(src, span_warning("Вы недостаточно сильны, чтобы взломать шлюз."))
 	else
-		visible_message("<span class='danger'>[src] forces the door!</span>")
-		playsound(src.loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] открывает дверь силой!"))
+		playsound(src.loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		if(D.density)
 			D.open(TRUE)
 		else
 			D.close(TRUE)
 		return TRUE
 
-
-/mob/living/simple_animal/hostile/poison/terror_spider/get_spacemove_backup()
+/mob/living/simple_animal/hostile/poison/terror_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
 	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
 	if(!.)
-		for(var/obj/structure/spider/S in range(1, get_turf(src)))
-			return S
+		for(var/obj/structure/spider/spider_thing in range(1, get_turf(src)))
+			return spider_thing
 
-/mob/living/simple_animal/hostile/poison/terror_spider/Stat()
-	..()
-	// Determines what shows in the "Status" tab for player-controlled spiders. Used to help players understand spider health regeneration mechanics.
-	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
-	if(statpanel("Status") && ckey && stat == CONSCIOUS)
-		if(degenerate)
-			stat(null, "<font color='#eb4034'>Hivemind Connection Severed! Dying...</font>") // color=red
-			return
+/mob/living/simple_animal/hostile/poison/terror_spider/get_status_tab_items()
+	var/list/status_tab_data = ..()
+	. = status_tab_data
+	if(ckey && stat == CONSCIOUS)
+		if(degenerate || !spider_awaymission && GLOB.global_degenerate)
+			status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#eb4034'>Связь с Коллективным разумом разорвана! Смерть..</font>") // color=red
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))
 		// This check prevents spiders using this ability while inside an atmos pipe, which will mess up their vision
-		to_chat(src, "<span class='warning'>You must be standing on a floor to do this.</span>")
+		to_chat(src, span_warning("Для этого вам необходимо стоять на полу."))
 		return
 	if(client && (client.eye != client.mob))
 		reset_perspective()
 		return
-	if(health != maxHealth)
-		to_chat(src, "<span class='warning'>You must be at full health to do this!</span>")
+	if(health <= (maxHealth*0.75))
+		to_chat(src, span_warning("Для этого вы должны быть полностью здоровы!"))
 		return
 	var/list/targets = list()
 	targets += src // ensures that self is always at top of the list
@@ -420,36 +423,20 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 		if(T.spider_awaymission != spider_awaymission)
 			continue
 		targets |= T // we use |= instead of += to avoid adding src to the list twice
-	var/mob/living/L = input("Choose a terror to watch.", "Selection") in targets
+	var/mob/living/L = tgui_input_list(usr, "Выберите Паука Ужаса для просмотра.", "Выбор", targets)
 	if(istype(L))
 		reset_perspective(L)
 
-/mob/living/simple_animal/hostile/poison/terror_spider/adjustHealth(amount, updating_health = TRUE)
-	if(client && (client.eye != client.mob) && ismob(client.eye)) // the ismob check is required because client.eye can = atmos machines if a spider is in the vent
-		to_chat(src, "<span class='warning'>Cancelled remote view due to being under attack!</span>")
-		reset_perspective()
+/mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-
-/mob/living/simple_animal/hostile/poison/terror_spider/CanPass(atom/movable/O)
-	if(istype(O, /obj/item/projectile/terrorspider))
+	if(istype(mover, /obj/projectile/terrorspider))
 		return TRUE
-	return ..()
-
-/mob/living/simple_animal/hostile/poison/terror_spider/say(message, verb)
-	. = ..()
-	playsound(src, pick(src.speech_sound), 50, 1)
-
-/mob/living/simple_animal/hostile/poison/terror_spider/mob_negates_gravity()
-	return magpulse
-
-/mob/living/simple_animal/hostile/poison/terror_spider/mob_has_gravity()
-	return ..() || mob_negates_gravity()
 
 /mob/living/simple_animal/hostile/poison/terror_spider/experience_pressure_difference(pressure_difference, direction)
-	if(!magpulse)
+	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 
-/obj/item/projectile/terrorspider
+/obj/projectile/terrorspider
 	name = "basic"
 	damage = 0
 	icon_state = "toxin"

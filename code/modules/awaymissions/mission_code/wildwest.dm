@@ -7,32 +7,29 @@
 //Wild West Areas
 
 /area/awaymission/wwmines
-	name = "\improper Wild West Mines"
+	name = "Wild West Mines"
 	icon_state = "away1"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/wwgov
-	name = "\improper Wild West Mansion"
+	name = "Wild West Mansion"
 	icon_state = "away2"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/wwrefine
-	name = "\improper Wild West Refinery"
+	name = "Wild West Refinery"
 	icon_state = "away3"
 	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/wwvault
-	name = "\improper Wild West Vault"
+	name = "Wild West Vault"
 	icon_state = "away3"
-
-/area/awaymission/wwvaultdoors
-	name = "\improper Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
-	icon_state = "away2"
-	requires_power = FALSE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
 
 /*
  * Wish Granter
@@ -43,21 +40,21 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "syndbeacon"
 
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	use_power = NO_POWER_USE
 
 	var/chargesa = 1
 	var/insistinga = 0
 
-/obj/machinery/wish_granter_dark/attack_hand(var/mob/living/carbon/human/user as mob)
+/obj/machinery/wish_granter_dark/attack_hand(mob/living/carbon/human/user as mob)
 	usr.set_machine(src)
 
 	if(chargesa <= 0)
 		to_chat(user, "The Wish Granter lies silent.")
 		return
 
-	else if(!istype(user, /mob/living/carbon/human))
+	else if(!ishuman(user))
 		to_chat(user, "You feel a dark stirring inside of the Wish Granter, something you want nothing of. Your instincts are better than any man's.")
 		return
 
@@ -71,89 +68,90 @@
 	else
 		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in list("Power","Wealth","Immortality","Peace")
+		var/wish = tgui_input_list(usr, "You want...", "Wish", list("Power", "Wealth", "Immortality", "Peace"))
 		switch(wish)
 			if("Power")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
+				to_chat(user, "<b>Your wish is granted, but at a terrible cost...</b>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.mutations.Add(LASER)
-				user.mutations.Add(COLDRES)
-				user.mutations.Add(XRAY)
+				ADD_TRAIT(user, TRAIT_LASEREYES, WISHGRANTER_TRAIT)
+				ADD_TRAIT(user, TRAIT_RESIST_COLD, WISHGRANTER_TRAIT)
+				ADD_TRAIT(user, TRAIT_XRAY, WISHGRANTER_TRAIT)
+				user.update_sight()
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
+						to_chat(user, span_warning("Your flesh rapidly mutates!"))
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
+						to_chat(user, "[span_warning("Your body reacts violently to light.")] [span_notice("However, it naturally heals in darkness.")]")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Wealth")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
+				to_chat(user, "<b>Your wish is granted, but at a terrible cost...</b>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
 				new /obj/structure/closet/syndicate/resources/everything(loc)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
+						to_chat(user, span_warning("Your flesh rapidly mutates!"))
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
+						to_chat(user, "[span_warning("Your body reacts violently to light.")] [span_notice("However, it naturally heals in darkness.")]")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Immortality")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
+				to_chat(user, "<b>Your wish is granted, but at a terrible cost...</b>")
 				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.verbs += /mob/living/carbon/proc/immortality
+				add_verb(user, /mob/living/carbon/proc/immortality)
 				if(ishuman(user))
 					var/mob/living/carbon/human/human = user
 					if(!isshadowperson(human))
-						to_chat(user, "<span class='warning'>Your flesh rapidly mutates!</span>")
+						to_chat(user, span_warning("Your flesh rapidly mutates!"))
 						to_chat(user, "<b>You are now a Shadow Person, a mutant race of darkness-dwelling humanoids.</b>")
-						to_chat(user, "<span class='warning'>Your body reacts violently to light.</span> <span class='notice'>However, it naturally heals in darkness.</span>")
+						to_chat(user, "[span_warning("Your body reacts violently to light.")] [span_notice("However, it naturally heals in darkness.")]")
 						to_chat(user, "Aside from your new traits, you are mentally unchanged and retain your prior obligations.")
 						human.set_species(/datum/species/shadow)
 				user.regenerate_icons()
 			if("Peace")
-				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
+				to_chat(user, "<b>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</b>")
 				to_chat(user, "You feel as if you just narrowly avoided a terrible fate...")
 				for(var/mob/living/simple_animal/hostile/faithless/F in GLOB.mob_living_list)
 					F.death()
 
-
 ///////////////Meatgrinder//////////////
-
 
 /obj/effect/meatgrinder
 	name = "Meat Grinder"
 	desc = "What is that thing?"
-	density = 1
-	anchored = 1
-	layer = 3
+	density = TRUE
 	icon = 'icons/mob/blob.dmi'
 	icon_state = "blobpod"
-	var/triggerproc = "triggerrad1" //name of the proc thats called when the mine is triggered
-	var/triggered = 0
+	var/triggered = FALSE
 
-/obj/effect/meatgrinder/Crossed(AM as mob|obj, oldloc)
-	Bumped(AM)
+/obj/effect/meatgrinder/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/effect/meatgrinder/Bumped(mob/M as mob|obj)
+/obj/effect/meatgrinder/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
 
-	if(triggered) return
+	INVOKE_ASYNC(src, PROC_REF(collide), arrived)
 
-	if(istype(M, /mob/living/carbon/human))
-		for(var/mob/O in viewers(world.view, src.loc))
-			to_chat(O, "<font color='red'>[M] triggered the [bicon(src)] [src]</font>")
-		triggered = 1
-		call(src,triggerproc)(M)
+/obj/effect/meatgrinder/Bumped(atom/movable/moving_atom)
+	. = ..()
+	collide(moving_atom)
 
-/obj/effect/meatgrinder/proc/triggerrad1(mob)
-	for(var/mob/O in viewers(world.view, src.loc))
-		do_sparks(3, 1, src)
-		explosion(mob, 1, 0, 0, 0)
-		qdel(src)
-
+/obj/effect/meatgrinder/proc/collide(atom/movable/moving_atom)
+	if(triggered || !ishuman(moving_atom))
+		return
+	visible_message(span_warning("[moving_atom] triggered the [icon2html(src, viewers(src))] [src]!"))
+	triggered = TRUE
+	do_sparks(3, TRUE, src)
+	explosion(src, devastation_range = 1, heavy_impact_range = 0, light_impact_range = 0, flash_range = 0)
+	qdel(src)
 
 /////For the Wishgranter///////////
 
@@ -163,15 +161,20 @@
 
 	var/mob/living/carbon/C = usr
 	if(C.stat != DEAD)
-		to_chat(C, "<span class='notice'>You're not dead yet!</span>")
+		to_chat(C, span_notice("You're not dead yet!"))
 		return
-	to_chat(C, "<span class='notice'>Death is not your end!</span>")
-	addtimer(CALLBACK(C, .proc/resurrect, C), rand(80 SECONDS, 120 SECONDS))
+	if(revival_in_progress)
+		to_chat(C, span_notice("You're already rising from the dead!"))
+		return //no spam callbacks
+	C.revival_in_progress = TRUE
+	to_chat(C, span_notice("Death is not your end!"))
+	addtimer(CALLBACK(C, PROC_REF(resurrect), C), rand(80 SECONDS, 120 SECONDS))
 
-/mob/living/carbon/proc/resurrect(var/mob/living/carbon/user)
+/mob/living/carbon/proc/resurrect(mob/living/carbon/user)
 	user.revive()
-	to_chat(user, "<span class='notice'>You have regenerated.</span>")
-	user.visible_message("<span class='warning'>[user] appears to wake from the dead, having healed all wounds.</span>")
+	user.revival_in_progress = FALSE
+	to_chat(user, span_notice("You have regenerated."))
+	user.visible_message(span_warning("[user] appears to wake from the dead, having healed all wounds."))
 	return 1
 
 /obj/item/wildwest_communicator
@@ -185,39 +188,37 @@
 /obj/item/wildwest_communicator/attack_self(mob/living/user)
 
 	if(!is_away_level(user.z))
-		to_chat(user, "<span class='warning'>The communicator emits a faint beep. Perhaps it is out of range?</span>")
+		to_chat(user, span_warning("The communicator emits a faint beep. Perhaps it is out of range?"))
 		return
 
 	if(used)
-		to_chat(user, "<span class='warning'>The communicator buzzes, and then dies. Apparently nobody is responding.</span>")
+		to_chat(user, span_warning("The communicator buzzes, and then dies. Apparently nobody is responding."))
 		return
 
-	var/initial_question = "<span class='warning'>The communicator buzzes, and you hear a voice on the line, almost lost in the static. 'Hello? Who is this?'.</span>"
-	to_chat(user, initial_question)
+	to_chat(user, span_warning("The communicator buzzes, and you hear a voice on the line, almost lost in the static. 'Hello? Who is this?'."))
 
-	var/const/option_explorer = "(TRUTH) Explorers."
-	var/const/option_bluff = "(BLUFF) Weapons delivery."
-	var/const/option_threat = "(THREAT) NT, here to kick your ass!"
-	var/const/option_syndicate = "(SYNDI) Agent reporting in..."
+	var/const/option_explorer = "(TRUTH) \"Explorers.\""
+	var/const/option_bluff = "(BLUFF) \"Weapons delivery.\""
+	var/const/option_threat = "(THREAT) \"NT, here to kick your ass!\""
+	var/const/option_syndicate = "(SYNDI) \"Agent reporting in...\""
 	var/list/response_choices = list(option_explorer, option_bluff, option_threat)
 
-	if(istype(user, /mob/living) && user.mind)
-		if(user.mind.special_role == "Traitor")
-			response_choices |= option_syndicate
+	if(user.mind?.has_antag_datum(/datum/antagonist/traitor))
+		response_choices |= option_syndicate
 
-	var/selected_choice = input(user, "How do you respond on the comms device?", "Response to Syndicate") as null|anything in response_choices
+	var/selected_choice = tgui_input_list(user, "How do you respond on the comms device?", "Response to Syndicate", response_choices)
 
-	if(!selected_choice)
+	if(!selected_choice || used)
 		return
+
 	switch(selected_choice)
 		if(option_explorer)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Hah! You sure picked the wrong asteroid to explore. Get em, boys!'</span>")
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Hah! You sure picked the wrong asteroid to explore. Get em, boys!'"))
 		if(option_bluff)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'</span>")
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Really? I think not. Get them!'"))
 		if(option_threat)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble'. Then the line goes dead.</span>")
-			for(var/thing in GLOB.landmarks_list)
-				var/obj/effect/landmark/L = thing
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Oh really now?' You hear a clicking sound. 'Team, get back here. We have trouble.' Then the line goes dead."))
+			for(var/obj/effect/landmark/L in GLOB.landmarks_list)
 				if(L.name == "wildwest_syndipod")
 					var/obj/spacepod/syndi/P = new /obj/spacepod/syndi(get_turf(L))
 					P.name = "Syndi Recon Pod"
@@ -225,7 +226,7 @@
 					var/mob/living/simple_animal/hostile/syndicate/ranged/space/R = new /mob/living/simple_animal/hostile/syndicate/ranged/space(get_turf(L))
 					R.name = "Syndi Recon Team"
 		if(option_syndicate)
-			to_chat(user, "<span class='warning'>The communicator buzzes, and you hear the voice again: 'Well, I'll be damned. An agent out here? You must be off-mission! Leave my troops alone, and they will do the same for you. Our Commander will handle you himself.'</span>")
+			to_chat(user, span_warning("The communicator buzzes, and you hear the voice again: 'Well, I'll be damned. An agent out here? You must be off-mission! Leave my troops alone, and they will do the same for you. Our Commander will handle you himself.'"))
 			stand_down()
 	used = TRUE
 

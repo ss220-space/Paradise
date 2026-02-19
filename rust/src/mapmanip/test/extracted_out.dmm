@@ -1,0 +1,115 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/simulated/floor/marble,
+/area/space)
+"k" = (
+/obj/random/action_figure,
+/obj/random/action_figure,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"r" = (
+/obj/random/action_figure,
+/obj/aiming_overlay,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"s" = (
+/obj/random/action_figure,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"B" = (
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"F" = (
+/turf/simulated/floor/shuttle,
+/area/space)
+"J" = (
+/obj/random/chameleon,
+/turf/simulated/floor/shuttle,
+/area/space)
+"Q" = (
+/obj/aiming_overlay,
+/turf/simulated/floor/marble,
+/area/space)
+"S" = (
+/obj/aiming_overlay,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"U" = (
+/obj/random/mre,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+"W" = (
+/obj/random/chameleon,
+/turf/simulated/floor/lino/diamond,
+/area/space)
+
+(1,1,1) = {"
+a
+Q
+B
+B
+B
+"}
+(2,1,1) = {"
+B
+S
+B
+B
+B
+"}
+(3,1,1) = {"
+s
+S
+s
+B
+B
+"}
+(4,1,1) = {"
+B
+r
+s
+k
+k
+"}
+(5,1,1) = {"
+B
+S
+B
+B
+k
+"}
+(6,1,1) = {"
+U
+S
+U
+U
+U
+"}
+(7,1,1) = {"
+B
+B
+B
+B
+B
+"}
+(8,1,1) = {"
+B
+B
+B
+B
+B
+"}
+(9,1,1) = {"
+W
+B
+B
+F
+F
+"}
+(10,1,1) = {"
+B
+J
+J
+J
+B
+"}

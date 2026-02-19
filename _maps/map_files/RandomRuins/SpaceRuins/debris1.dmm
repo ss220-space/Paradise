@@ -39,11 +39,11 @@
 /turf/space,
 /area/space)
 "m" = (
-/obj/effect/spawner/random_spawners/grille_often,
+/obj/effect/spawner/random_spawners/grille_50,
 /turf/space,
 /area/space)
 "n" = (
-/obj/effect/spawner/random_spawners/grille_maybe,
+/obj/effect/spawner/random_spawners/grille_13,
 /turf/space,
 /area/space)
 "o" = (
@@ -59,8 +59,6 @@
 /area/template_noop)
 "t" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8"
 	},
 /turf/space,
@@ -75,7 +73,9 @@
 /turf/space,
 /area/space)
 "x" = (
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /turf/space,
 /area/space)
 "y" = (
@@ -98,10 +98,7 @@
 /area/space)
 "D" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
-	pixel_y = 0;
 	tag = ""
 	},
 /turf/simulated/floor/plating/burnt,
@@ -128,10 +125,6 @@
 /area/space)
 "K" = (
 /obj/item/shard,
-/turf/space,
-/area/space)
-"N" = (
-/obj/structure/lattice,
 /turf/space,
 /area/space)
 "O" = (
@@ -467,7 +460,7 @@ X
 v
 X
 v
-N
+v
 E
 E
 K

@@ -5,6 +5,7 @@
 	var/dagger_icon = "blood_dagger"
 	var/sword_icon = "blood_blade"
 	var/construct_glow = LIGHT_COLOR_BLOOD_MAGIC
+	var/apocalypse_cinema = /datum/cinematic/cult_arm
 
 	//God Entity
 	var/entity_name = "Nar'Sie"
@@ -13,7 +14,6 @@
 	var/entity_title3 = "The Geometer of Blood"
 	var/entity_icon_state = "narsie"
 	var/entity_spawn_animation = "narsie_spawn_anim"
-
 
 	//Builder Construct
 	var/artificer_name = "Artificer"
@@ -73,7 +73,6 @@
 	var/airlock_unruned_icon_file = 'icons/obj/doors/airlocks/cult/unruned/cult.dmi'
 	var/airlock_unruned_overlays_file = 'icons/obj/doors/airlocks/cult/unruned/cult-overlays.dmi'
 
-
 /datum/cult_info/fire
 	name = "Cult of Kha'Rin"
 	theme = "fire"
@@ -81,6 +80,7 @@
 	dagger_icon = "hell_dagger"
 	sword_icon = "hell_blade"
 	construct_glow = LIGHT_COLOR_FIRE
+	apocalypse_cinema = /datum/cinematic/cult_arm_kharin
 
 	entity_name = "Kha'Rin"
 	entity_title1 = "The Burning One"
@@ -139,7 +139,8 @@
 	tome_icon = "deathtome"
 	dagger_icon = "death_dagger"
 	sword_icon = "death_blade"
-	construct_glow = LIGHT_COLOR_DARKRED
+	construct_glow = COLOR_SOFT_RED
+	apocalypse_cinema = /datum/cinematic/cult_arm_reaper
 
 	entity_name = "The Reaper"
 	entity_title1 = "The Silent One"

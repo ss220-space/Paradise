@@ -1,7 +1,21 @@
 /mob/living/carbon/human
-
-	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD)
+	name = UNKNOWN_NAME_RUS
+	real_name = UNKNOWN_NAME_RUS
+	voice_name = UNKNOWN_STATUS_RUS
+	icon = 'icons/mob/human.dmi'
+	icon_state = "body_m_s"
+	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
+	deathgasp_on_death = TRUE
+	hud_possible = list(HEALTH_HUD,STATUS_HUD,ID_HUD,WANTED_HUD,IMPMINDSHIELD_HUD,IMPCHEM_HUD,IMPTRACK_HUD,SPECIALROLE_HUD,GLAND_HUD,THOUGHT_HUD,DIAG_STAT_HUD,DIAG_HUD,PACIFISM_HUD,INSURANCE_HUD,DIABLERIE_AURA_HUD)
 	pressure_resistance = 25
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
+	max_grab = GRAB_KILL
+	num_legs = 0 //Populated on init through list/bodyparts
+	usable_legs = 0 //Populated on init through list/bodyparts
+	num_hands = 0 //Populated on init through list/bodyparts
+	usable_hands = 0 //Populated on init through list/bodyparts
+	status_flags = parent_type::status_flags|CANSTAMCRIT
+	hud_type = /datum/hud/human
 	//Marking colour and style
 	var/list/m_colours = DEFAULT_MARKING_COLOURS //All colours set to #000000.
 	var/list/m_styles = DEFAULT_MARKING_STYLES //All markings set to None.
@@ -17,7 +31,9 @@
 	var/age = 30		//Player's age (pure fluff)
 
 	var/underwear = "Nude"	//Which underwear the player wants
+	var/color_underwear = "#ffffff"
 	var/undershirt = "Nude"	//Which undershirt the player wants
+	var/color_undershirt = "#ffffff"
 	var/socks = "Nude" //Which socks the player wants
 	var/backbag = 2		//Which backpack type the player has chosen. Nothing, Satchel or Backpack.
 
@@ -43,6 +59,7 @@
 	var/datum/personal_crafting/handcrafting
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
+	var/special_tts_voice = ""
 
 	var/hand_blood_color
 
@@ -57,19 +74,38 @@
 	var/bleed_rate = 0
 	var/bleedsuppress = 0 //for stopping bloodloss
 
-	var/check_mutations=0 // Check mutations on next life tick
-
 	var/heartbeat = 0
 	var/receiving_cpr = FALSE
-
-	var/fire_dmi = 'icons/mob/OnFire.dmi'
-	var/fire_sprite = "Standing"
 
 	var/datum/body_accessory/body_accessory = null
 	/// Name of tail image in species effects icon file.
 	var/tail
 	/// Same as tail but wing
 	var/wing
-
-	var/list/splinted_limbs = list() //limbs we know are splinted
+	/// Lazy list of all limbs we know are splinted.
+	var/list/splinted_limbs
 	var/original_eye_color = "#000000"
+
+	/// Holder for the physiology datum
+	var/datum/physiology/physiology
+
+	/// What types of mobs are allowed to ride/buckle to this mob. Only human for now
+	var/static/list/can_ride_typecache = typecacheof(list(/mob/living/carbon/human))
+
+	/// All external organs in src.
+	var/list/bodyparts = list()
+	/// Map organ zones to external organs.
+	var/list/bodyparts_by_name = list()
+
+	var/mob/living/carbon/human/partner
+	var/mob/living/carbon/human/last_interract
+
+	/// Store what the body last looked like, so we only have to update it if something changed
+	var/previous_damage_appearance
+
+	/// Time required to repair cybernetic limbs
+	var/robotic_limb_repair_time = 1 SECONDS
+	/// EMP damage multiplier for internal organs
+	var/emp_damage_multiplier_internal = 1
+	/// EMP damage multiplier for external organs
+	var/emp_damage_multiplier_external = 1

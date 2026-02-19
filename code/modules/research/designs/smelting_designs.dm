@@ -1,53 +1,57 @@
 ///////SMELTABLE ALLOYS///////
 
-/datum/design/plasteel_alloy
-	name = "Plasma + Iron alloy"
-	id = "plasteel"
+/datum/design/smelter
 	build_type = SMELTER
+
+/datum/design/smelter/plasteel_alloy
+	desc = "Плазма + Сталь"
+	id = "plasteel"
 	materials = list(MAT_METAL = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plasteel
-	category = list("initial")
+	category = list(PRINTER_CATEGORY_INITIAL)
 
-
-/datum/design/plastitanium_alloy
-	name = "Plasma + Titanium alloy"
+/datum/design/smelter/plastitanium_alloy
+	desc = "Плазма + Титан"
 	id = "plastitanium"
-	build_type = SMELTER
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/mineral/plastitanium
-	category = list("initial")
+	category = list(PRINTER_CATEGORY_INITIAL)
 
-/datum/design/plaglass_alloy
-	name = "Plasma + Glass alloy"
+/datum/design/smelter/plaglass_alloy
+	desc = "Плазма + Стекло"
 	id = "plasmaglass"
-	build_type = SMELTER
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plasmaglass
-	category = list("initial")
+	category = list(PRINTER_CATEGORY_INITIAL)
 
-/datum/design/titaniumglass_alloy
-	name = "Titanium + Glass alloy"
+/datum/design/smelter/titaniumglass_alloy
+	desc = "Титан + Стекло"
 	id = "titaniumglass"
-	build_type = SMELTER
 	materials = list(MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/titaniumglass
-	category = list("initial")
+	category = list(PRINTER_CATEGORY_INITIAL)
 
-/datum/design/plastitaniumglass_alloy
-	name = "Plasma + Titanium + Glass alloy"
+/datum/design/smelter/plastitaniumglass_alloy
+	desc = "Плазма + Титан + Стекло"
 	id = "plastitaniumglass"
-	build_type = SMELTER
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_TITANIUM = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
 	build_path = /obj/item/stack/sheet/plastitaniumglass
-	category = list("initial")
+	category = list(PRINTER_CATEGORY_INITIAL)
 
-/datum/design/alienalloy
-	name = "Alien Alloy"
-	desc = "A sheet of reverse-engineered alien alloy."
+/datum/design/smelter/alienalloy
 	id = "alienalloy"
-	req_tech = list("abductor" = 1, "materials" = 7, "plasmatech" = 2)
+	req_tech = list(RESEARCH_TREE_ALIEN = 1, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_PLASMA = 2)
 	build_type = PROTOLATHE | SMELTER
 	materials = list(MAT_METAL = 4000, MAT_PLASMA = 4000)
 	build_path = /obj/item/stack/sheet/mineral/abductor
-	category = list("Stock Parts")
+	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS)
+	lathe_time_factor = 5
+
+/datum/design/smelter/alienglass
+	id = "alienglass"
+	req_tech = list(RESEARCH_TREE_ALIEN = 1, RESEARCH_TREE_MATERIALS = 7, RESEARCH_TREE_PLASMA = 2)
+	build_type = PROTOLATHE | SMELTER
+	materials = list(MAT_METAL = 4000, MAT_PLASMA = 4000, MAT_GLASS = 4000)
+	build_path = /obj/item/stack/sheet/abductorglass
+	category = list(PROTOLATHE_CATEGORY_STOCK_PARTS)
 	lathe_time_factor = 5

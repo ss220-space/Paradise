@@ -1,7 +1,7 @@
 
 /obj/item/mixing_bowl
 	name = "mixing bowl"
-	desc = "Mixing it up in the kitchen."
+	desc = "Для смешивания всего, что может оказаться на кухне. И не только."
 	flags = OPENCONTAINER
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "mixing_bowl"
@@ -11,69 +11,99 @@
 	var/dirty_icon = "mixing_bowl_dirty"
 	var/is_GUI_opened = FALSE
 
-/obj/item/mixing_bowl/New()
-	..()
+/obj/item/mixing_bowl/get_ru_names()
+	return list(
+		NOMINATIVE = "миска для смешивания",
+		GENITIVE = "миски для смешивания",
+		DATIVE = "миске для смешивания",
+		ACCUSATIVE = "миску для смешивания",
+		INSTRUMENTAL = "миской для смешивания",
+		PREPOSITIONAL = "миске для смешивания"
+	)
+
+/obj/item/mixing_bowl/Initialize(mapload)
+	. = ..()
 	create_reagents(100)
 
-/obj/item/mixing_bowl/attackby(obj/item/I, mob/user, params)
-	if(dirty)
-		if(istype(I, /obj/item/soap))
-			user.visible_message("<span class='notice'>[user] starts to scrub [src].</span>", "<span class='notice'>You start to scrub [src].</span>")
-			if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
-				clean()
-				user.visible_message("<span class='notice'>[user] has scrubbed [src] clean.</span>", "<span class='notice'>You have scrubbed [src] clean.</span>")
-				update_dialog(user)
-			return 0
-		else
-			to_chat(user, "<span class='warning'>You should clean [src] before you use it for food prep.</span>")
-			return 1
-	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
-		if(contents.len>=max_n_of_items)
-			to_chat(user, "<span class='alert'>This [src] is full of ingredients, you cannot put more.</span>")
-			return 1
-		if(istype(I, /obj/item/stack))
-			var/obj/item/stack/S = I
-			if(S.get_amount() > 1)
-				var/obj/item/stack/to_add = S.split(user, 1)
-				to_add.forceMove(src)
-				user.visible_message("<span class='notice'>[user] adds one of [S] to [src].</span>", "<span class='notice'>You add one of [S] to [src].</span>")
-				update_dialog(user)
-				return 0
-			else
-				return add_item(S, user)
-		else
-			return add_item(I, user)
-	else if(is_type_in_list(I, list(/obj/item/reagent_containers/glass, /obj/item/reagent_containers/food/drinks, /obj/item/reagent_containers/food/condiment)))
-		if(!I.reagents)
-			return 1
-		for(var/datum/reagent/R in I.reagents.reagent_list)
-			if(!(R.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(R.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(R.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(R.id in GLOB.cooking_reagents[RECIPE_CANDY]))
-				to_chat(user, "<span class='alert'>Your [I] contains components unsuitable for cookery.</span>")
-				return 1
-		var/obj/item/reagent_containers/I_container = I
-		var/IS = "[I]"
-		var/transfered_amount = I_container.reagents.trans_to(src, I_container.amount_per_transfer_from_this)
-		user.visible_message("<span class='notice'>[user] transfer some solution from [IS] to [src].</span>", "<span class='notice'>You transfer [transfered_amount] units of the solution to [src].</span>")
+/obj/item/mixing_bowl/attackby(obj/item/stack/I, mob/user, params)
+	if(istype(I, /obj/item/soap))
+		add_fingerprint(user)
+		if(!dirty)
+			balloon_alert(user, "миска чистая!")
+			return ATTACK_CHAIN_PROCEED
+		user.visible_message(
+			span_notice("[user] начина[PLUR_ET_YUT(user)] мыть [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете мыть [declent_ru(ACCUSATIVE)]."),
+		)
+		if(!do_after(user, 2 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !dirty)
+			return ATTACK_CHAIN_PROCEED
+		clean()
+		user.visible_message(
+			span_notice("[user] заканчива[PLUR_ET_YUT(user)] мыть [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы заканчиваете мыть [declent_ru(ACCUSATIVE)]."),
+		)
 		update_dialog(user)
-		return 0
-	else
-		to_chat(user, "<span class='alert'>You have no idea what you can cook with [I].</span>")
-		return 1
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-/obj/item/mixing_bowl/proc/add_item(obj/item/I, mob/user)
-	if(!user.drop_item())
-		to_chat(user, "<span class='notice'>\The [I] is stuck to your hand, you cannot put it in [src]</span>")
-		return 1
-	else
-		I.forceMove(src)
-		user.visible_message("<span class='notice'>[user] adds [I] to [src].</span>", "<span class='notice'>You add [I] to [src].</span>")
+	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_TRIBAL_OVEN]))
+		add_fingerprint(user)
+		if(dirty)
+			balloon_alert(user, "нужно очистить!")
+			return ATTACK_CHAIN_PROCEED
+		if(length(contents) >= max_n_of_items)
+			balloon_alert(user, "нет места!")
+			return ATTACK_CHAIN_PROCEED
+		if(isstack(I) && I.get_amount() > 1)
+			var/obj/item/stack/to_add = I.split(user, 1)
+			to_add.forceMove(src)
+			user.visible_message(
+				span_notice("[user] добавля[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы добавляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			)
+			update_dialog(user)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] добавля[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы добавляете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		)
 		update_dialog(user)
-		return 0
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	var/static/list/containers = list(
+		/obj/item/reagent_containers/glass,
+		/obj/item/reagent_containers/food/drinks,
+		/obj/item/reagent_containers/food/condiment,
+	)
+	if(is_type_in_list(I, containers))
+		add_fingerprint(user)
+		if(dirty)
+			balloon_alert(user, "нужно очистить!")
+			return ATTACK_CHAIN_PROCEED
+		if(!I.reagents)
+			balloon_alert(user, "пусто!")
+			return ATTACK_CHAIN_PROCEED
+		for(var/datum/reagent/reagent as anything in I.reagents.reagent_list)
+			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_TRIBAL_OVEN]))
+				to_chat(user, span_warning("[DECLENT_RU_CAP(I, NOMINATIVE)] содержит компоненты, непригодные для готовки."))
+				return ATTACK_CHAIN_PROCEED
+		var/obj/item/reagent_containers/container = I
+		var/transfered_amount = container.reagents.trans_to(src, container.amount_per_transfer_from_this)
+		user.visible_message(
+			span_notice("[user] перелива[PLUR_ET_YUT(user)] содержимое [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы переливаете [transfered_amount] единиц[DECL_SEC_MIN(transfered_amount)] содержимого [container.declent_ru(GENITIVE)] в [declent_ru(ACCUSATIVE)]."),
+		)
+		update_dialog(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	to_chat(user, span_warning("Вы даже не представляете, что можно приготовить из [I.declent_ru(GENITIVE)]."))
+	return ..()
 
 /obj/item/mixing_bowl/attack_self(mob/user)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = ""
 	if(dirty)
-		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
+		dat = {"<code>This [src] is dirty!<br>Please clean it before use!</code>"}
 	else
 		var/list/items_counts = new
 		var/list/items_measures = new
@@ -100,12 +130,12 @@
 		for(var/O in items_counts)
 			var/N = items_counts[O]
 			if(!(O in items_measures))
-				dat += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
+				dat += {"<b>[capitalize(O)]:</b> [N] [lowertext(O)]\s<br>"}
 			else
 				if(N==1)
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
+					dat += {"<b>[capitalize(O)]:</b> [N] [items_measures[O]]<br>"}
 				else
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
+					dat += {"<b>[capitalize(O)]:</b> [N] [items_measures_p[O]]<br>"}
 
 		for(var/datum/reagent/R in reagents.reagent_list)
 			var/display_name = R.name
@@ -113,13 +143,13 @@
 				display_name = "Hotsauce"
 			if(R.id == "frostoil")
 				display_name = "Coldsauce"
-			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
+			dat += {"<b>[display_name]:</b> [R.volume] unit\s<br>"}
 
 		if(items_counts.len==0 && reagents.reagent_list.len==0)
-			dat = {"<B>The [src] is empty</B><BR>"}
+			dat = {"<b>The [src] is empty</b><br>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<HR><BR> <A href='?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
+		dat += {"<hr><br> <a href='byond://?src=[UID()];action=dispose'>Eject ingredients!</a><br>"}
 
 	var/datum/browser/popup = new(user, "[name][UID()]", "[name]", 400, 400, src)
 	popup.set_content(dat)
@@ -142,7 +172,7 @@
 	if(reagents.total_volume)
 		make_dirty(5)
 	reagents.clear_reagents()
-	to_chat(usr, "<span class='notice'>You dispose of [src]'s contents.</span>")
+	balloon_alert(usr, "очищено")
 	update_dialog(usr)
 
 /obj/item/mixing_bowl/proc/update_dialog(mob/user)
@@ -155,12 +185,12 @@
 	if(prob(chance))
 		dirty = TRUE
 		flags = null
-		icon_state = dirty_icon
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mixing_bowl/proc/clean()
 	dirty = FALSE
 	flags = OPENCONTAINER
-	icon_state = clean_icon
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/mixing_bowl/wash(mob/user, atom/source)
 	if(..())
@@ -178,7 +208,7 @@
 			if(id)
 				amount+=O.reagents.get_reagent_amount(id)
 		qdel(O)
-	if(reagents && reagents.total_volume)
+	if(reagents?.total_volume)
 		var/id = reagents.get_master_reagent_id()
 		if(id)
 			amount += reagents.get_reagent_amount(id)
@@ -187,3 +217,7 @@
 	ffuu.reagents.add_reagent("carbon", amount)
 	ffuu.reagents.add_reagent("????", amount/10)
 	make_dirty(75)
+
+/obj/item/mixing_bowl/update_icon_state()
+	icon_state = dirty ? dirty_icon : clean_icon
+

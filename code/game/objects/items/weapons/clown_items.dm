@@ -1,6 +1,6 @@
 /* Clown Items
  * Contains:
- * 		Banana Peels
+ *		Banana Peels
  *		Soap
  *		Bike Horns
  */
@@ -12,18 +12,17 @@
 /obj/item/bikehorn
 	name = "bike horn"
 	desc = "A horn off of a bicycle."
-	icon = 'icons/obj/items.dmi'
 	icon_state = "bike_horn"
 	item_state = "bike_horn"
 	hitsound = null
 	throwforce = 3
 	w_class = WEIGHT_CLASS_TINY
-	var/list/honk_sounds = list('sound/items/bikehorn.ogg' = 1)
+	var/list/honk_sounds = list('sound/items/bikehorn.ogg')
 	throw_speed = 3
 	throw_range = 15
-	attack_verb = list("HONKED")
+	attack_verb = list("хонкнул")
 
-/obj/item/bikehorn/Initialize()
+/obj/item/bikehorn/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/squeak, honk_sounds, 50, falloff_exponent = 20) //die off quick please
 
@@ -32,7 +31,7 @@
 	desc = "Damn son, where'd you find this?"
 	icon_state = "air_horn"
 	origin_tech = "materials=4;engineering=4"
-	honk_sounds = list('sound/items/airhorn2.ogg' = 1)
+	honk_sounds = list('sound/items/airhorn2.ogg')
 
 /obj/item/bikehorn/golden
 	name = "golden bike horn"
@@ -40,9 +39,10 @@
 	icon_state = "gold_horn"
 	item_state = "gold_horn"
 
-/obj/item/bikehorn/golden/attack()
-	flip_mobs()
-	return ..()
+/obj/item/bikehorn/golden/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		flip_mobs()
 
 /obj/item/bikehorn/golden/attack_self(mob/user)
 	flip_mobs()
@@ -51,8 +51,43 @@
 /obj/item/bikehorn/golden/proc/flip_mobs(mob/living/carbon/M, mob/user)
 	var/turf/T = get_turf(src)
 	for(M in ohearers(7, T))
-		if(istype(M, /mob/living/carbon/human))
+		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(!H.can_hear())
 				continue
 		M.emote("flip")
+
+#define LAUGH_COOLDOWN 30 SECONDS
+#define LAUGH_COOLDOWN_CMAG 10 SECONDS
+
+/obj/item/clown_recorder
+	name = "clown recorder"
+	desc = "When you just can't get those laughs coming the natural way!"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "clown_recorder"
+	item_state = "analyzer"
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_BELT
+	materials = list(MAT_METAL = 180, MAT_GLASS = 90)
+	force = 2
+	actions_types = list(/datum/action/item_action/laugh_track)
+	var/cooldown = 0
+
+/obj/item/clown_recorder/attack_self(mob/user)
+	if(cooldown > world.time)
+		to_chat(user, span_notice("The tape is still winding back."))
+		return
+	playsound(src, pick('sound/voice/sitcom_laugh1.ogg', 'sound/voice/sitcom_laugh2.ogg', 'sound/voice/sitcom_laugh3.ogg', 'sound/voice/sitcom_laugh4.ogg', 'sound/voice/sitcom_laugh5.ogg'), 50, FALSE)
+
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		cooldown = world.time + LAUGH_COOLDOWN
+	else
+		cooldown = world.time + LAUGH_COOLDOWN_CMAG
+
+/obj/item/clown_recorder/cmag_act(mob/user)
+	if(!HAS_TRAIT(src, TRAIT_CMAGGED))
+		to_chat(user, span_notice("Winding back speed has been improved by the bananium ooze!"))
+		ADD_TRAIT(src, TRAIT_CMAGGED, CMAGGED)
+
+#undef LAUGH_COOLDOWN
+#undef LAUGH_COOLDOWN_CMAG

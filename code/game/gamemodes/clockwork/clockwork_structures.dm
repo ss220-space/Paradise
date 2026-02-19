@@ -1,46 +1,106 @@
 /obj/structure/clockwork
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	layer = BELOW_OBJ_LAYER
 	icon = 'icons/obj/clockwork.dmi'
 
 /obj/structure/clockwork/beacon
 	name = "herald's beacon"
-	desc = "An imposing spire formed of brass. It somewhat pulsates."
+	desc = "An imposing spire formed of brass. It somewhat pulsates. Cool and pretty!"
 	icon_state = "beacon"
 
 /obj/structure/clockwork/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods..."
+	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 	icon_state = "altar"
-	density = 0
+	density = FALSE
 
 /obj/structure/clockwork/functional
 	max_integrity = 100
 	var/cooldowntime = 0
-	var/death_message = "<span class='danger'>The structure falls apart.</span>"
+	var/death_message = span_danger("The structure falls apart.")
 	var/death_sound = 'sound/effects/forge_destroy.ogg'
+	var/canbehidden = FALSE
 	var/hidden = FALSE
+	var/hidden_type
+	var/list/atom/choosable_items = list(
+		"rack" = /obj/structure/rack,
+		"table" = /obj/structure/table,
+		"wooden table" = /obj/structure/table/wood,
+		"personal closet" = /obj/structure/closet/secure_closet/personal,
+		"girder" = /obj/structure/girder,
+		"bookcase" = /obj/structure/bookcase
+		)
+
+/obj/structure/clockwork/functional/update_name(updates = ALL)
+	. = ..()
+	if(!hidden)
+		name = initial(name)
+		return
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	name = initial(selected_type.name)
+
+/obj/structure/clockwork/functional/update_desc(updates = ALL)
+	. = ..()
+	if(!hidden)
+		desc = initial(desc)
+		return
+	switch(hidden_type) //used in case, where objects "examine" text aren't in their desc var (like in proc/examine()) or if you want do something funny
+		if("rack")
+			desc = "Different from the Middle Ages version. <br>[span_notice("It's held together by a couple of <b>bolts</b>.")]"
+		if("table")
+			desc = "A square piece of metal standing on four metal legs. It can not move. <br>[span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")]"
+		if("wooden table")
+			desc = "Do not apply fire to this. Rumour says it burns easily. <br>[span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")]"
+		if("girder")
+			desc = "[span_notice("The bolts are <b>lodged</b> in place.")]"
+		if("broken grille")
+			desc = "A flimsy framework of metal rods. <br>[span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")]"
+		else
+			var/atom/selected_type = choosable_items[hidden_type]
+			desc = initial(selected_type.desc)
+
+/obj/structure/clockwork/functional/update_icon_state()
+	if(!hidden)
+		icon = initial(icon)
+		icon_state = anchored ? "[initial(icon_state)]-off" : initial(icon_state)
+		return
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
+	icon_state = initial(selected_type.icon_state)
 
 /obj/structure/clockwork/functional/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		if(I.enchant_type == HIDE_SPELL)
-			toggle_hide()
-			to_chat(user, "<span class='notice'>You [hidden ? null : "un"]disguise [src].</span>")
+		add_fingerprint(user)
+		if(I.enchant_type == HIDE_SPELL && canbehidden)
+			var/choice
+			if(!hidden)
+				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+					return ATTACK_CHAIN_BLOCKED_ALL
+			toggle_hide(choice)
+			to_chat(user, span_notice("You [hidden ? null : "un"]disguise [src]."))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			I.deplete_spell()
-			return TRUE
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(hidden)
-			to_chat(user, "<span class='warning'>You have to clear the view of this structure in order to manipulate with it!</span>")
-			return TRUE
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
-		if(!anchored)
-			icon_state = "[initial(icon_state)]-off"
-		else
-			icon_state = "[initial(icon_state)]"
-		update_icon()
-		return TRUE
+			toggle_hide(null)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!anchored && !isfloorturf(loc))
+			to_chat(user, span_warning("A floor must be present to secure [src]!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(locate(/obj/structure/clockwork) in (loc.contents-src))
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(locate(/obj/structure/falsewall) in loc)
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		set_anchored(!anchored)
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
+		update_icon(UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /obj/structure/clockwork/functional/obj_destruction()
@@ -51,54 +111,26 @@
 /obj/structure/clockwork/functional/examine(mob/user)
 	. = ..()
 	if(hidden && isclocker(user))
-		. += "<span class='notice'>It's a disguised [initial(name)]!</span>"
+		. += span_notice("It's a disguised [initial(name)]!")
 
 // returns TRUE if hidden, if unhidden FALSE
-/obj/structure/clockwork/functional/proc/toggle_hide()
+/obj/structure/clockwork/functional/proc/toggle_hide(chosen_type)
 	hidden = !hidden
 	if(!hidden)
-		name = initial(name)
-		desc = initial(desc)
-		icon = initial(icon)
-		if(!anchored)
-			icon_state = "[initial(icon_state)]-off"
-		else
-			icon_state = "[initial(icon_state)]"
+		hidden_type = null
+		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 		return FALSE
-	switch(rand(1,5))
-		if(1)
-			name = "rack"
-			desc = "Different from the Middle Ages version. <BR><span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
-			icon = 'icons/obj/objects.dmi'
-			icon_state = "rack"
-		if(2)
-			name = "wooden table"
-			desc = "Do not apply fire to this. Rumour says it burns easily. <BR><span class='notice'>The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.</span>"
-			icon = 'icons/obj/smooth_structures/wood_table.dmi'
-			icon_state = "wood_table"
-		if(3)
-			name = "personal closet"
-			desc = "It's a secure locker for personnel. The first card swiped gains control."
-			icon = 'icons/obj/closet.dmi'
-			icon_state = "secureoff"
-		if(4)
-			name = "girder"
-			desc = "<span class='notice'>The bolts are <b>lodged</b> in place.</span>"
-			icon = 'icons/obj/structures.dmi'
-			icon_state = "girder"
-		if(5)
-			name = "bookcase"
-			desc = null
-			icon = 'icons/obj/library.dmi'
-			icon_state = "book-4"
+
+	hidden_type = chosen_type
+	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 	return TRUE
 
 /obj/structure/clockwork/functional/beacon
 	name = "herald's beacon"
 	desc = "An imposing spire formed of brass. It somewhat pulsates."
 	icon_state = "beacon"
-	max_integrity = 750 // A very important one
-	death_message = "<span class='danger'>The beacon crumbles and falls in parts to the ground relaesing it's power!</span>"
+	max_integrity = 250 // A very important one
+	death_message = span_danger("The beacon crumbles and falls in parts to the ground relaesing it's power!")
 	death_sound = 'sound/effects/creepyshriek.ogg'
 	var/heal_delay = 6 SECONDS
 	var/last_heal = 0
@@ -126,47 +158,55 @@
 			if(!isclocker(L))
 				continue
 			if(L.reagents?.has_reagent("holywater"))
-				to_chat(L, "<span class='warning'>You feel a terrible liquid disappearing from your body.</span>")
+				to_chat(L, span_warning("You feel a terrible liquid disappearing from your body."))
 				L.reagents.del_reagent("holywater")
 			if(iscogscarab(L))
 				var/mob/living/silicon/robot/cogscarab/C = L
-				C.wind_up_timer = min(C.wind_up_timer + 25, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 25 seconds. roughly, every second 5 to timer.
+				C.wind_up_timer = min(C.wind_up_timer + 60, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 60 seconds. roughly, every second 10 to timer.
 			if(!(L.health < L.maxHealth))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
 
 			if(ishuman(L))
-				L.heal_overall_damage(10, 10, TRUE, FALSE, TRUE)
+				L.heal_overall_damage(10, 10, affect_robotic = TRUE)
 			if(isrobot(L))
-				L.heal_overall_damage(5, 5, TRUE)
+				L.heal_overall_damage(5, 5)
 
 			else if(isanimal(L))
 				var/mob/living/simple_animal/M = L
 				if(M.health < M.maxHealth)
 					M.adjustHealth(-8)
 
-			if(ishuman(L) && L.blood_volume < BLOOD_VOLUME_NORMAL)
-				L.blood_volume += 1
+			if(ishuman(L) && !HAS_TRAIT(L, TRAIT_NO_BLOOD_RESTORE) && L.blood_volume < BLOOD_VOLUME_NORMAL)
+				L.AdjustBlood(1)
 
 /obj/structure/clockwork/functional/beacon/Destroy()
 	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)
 	for(var/datum/mind/M in SSticker.mode.clockwork_cult)
-		to_chat(M.current, "<span class='danger'>You get the feeling that one of the beacons have been destroyed! The source comes from [areabeacon.name]</span>")
+		to_chat(M.current, span_danger("You get the feeling that one of the beacons have been destroyed! The source comes from [areabeacon.name]"))
 	return ..()
 
 /obj/structure/clockwork/functional/beacon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		to_chat(user, "<span class='danger'>You try to unsecure [src], but it's secures himself back tightly!</span>")
-		return TRUE
+		add_fingerprint(user)
+		to_chat(user, span_danger("You try to unsecure [src], but it's secures himself back tightly!"))
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /obj/structure/clockwork/functional/altar
 	name = "credence"
-	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods..."
+	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
-	density = 0
-	death_message = "<span class='danger'>The alter breaks in pieces as it dusts into nothing!</span>"
+	density = FALSE
+	death_message = span_danger("The credence breaks in pieces as it dusts into nothing!")
+	canbehidden = TRUE
+	choosable_items = list(
+		"potted plant" = /obj/item/twohanded/required/kirbyplants,
+		"chair" = /obj/structure/chair,
+		"stool" = /obj/structure/chair/stool,
+		"broken grille" = /obj/structure/grille/broken
+		)
 	var/locname = null
 	var/obj/effect/temp_visual/ratvar/altar_convert/glow
 
@@ -175,8 +215,11 @@
 
 	var/first_stage = FALSE // Did convert started?
 	var/second_stage = FALSE // Did we started to gib someone?
-	var/third_stage = FALSE // Did we already made a cube?
 	var/convert_timer = 0
+
+// For fake brass
+/obj/structure/clockwork/functional/fake_altar
+	desc = "A strange brass platform with spinning cogs inside. It demands somethinge in exchange for goods... once upon a time. Now it's just a dull piece of brass."
 
 /obj/structure/clockwork/functional/altar/Initialize(mapload)
 	. = ..()
@@ -192,227 +235,299 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
-/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
-		if(hidden)
-			toggle_hide()
-			if(anchored)
-				START_PROCESSING(SSprocessing, src)
-			to_chat(user, "<span class='notice'>You undisguise [src].</span>")
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			return TRUE
-		else if(I.enchant_type == HIDE_SPELL)
-			toggle_hide()//cuz we sure its unhidden
-			if(isprocessing)
-				STOP_PROCESSING(SSprocessing, src)
-			to_chat(user, "<span class='notice'>You disguise [src].</span>")
-			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-			I.deplete_spell()
-			return TRUE
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor.</span>")
-		if(!anchored)
-			icon_state = "[initial(icon_state)]-off"
-			STOP_PROCESSING(SSprocessing, src)
-		else
-			icon_state = "[initial(icon_state)]"
-			START_PROCESSING(SSprocessing, src)
-		update_icon()
-		return TRUE
-	return ..()
-
-/obj/structure/clockwork/functional/altar/toggle_hide()
-	hidden = !hidden
+/obj/structure/clockwork/functional/altar/update_icon_state()
 	if(!hidden)
-		name = initial(name)
-		desc = initial(desc)
 		icon = initial(icon)
 		if(!anchored)
 			icon_state = "[initial(icon_state)]-off"
+			return
+		icon_state = first_stage ? "[initial(icon_state)]-fast" : initial(icon_state)
+		return
+
+	var/atom/selected_type = choosable_items[hidden_type]
+	icon = initial(selected_type.icon)
+	if(hidden_type == "potted plant")
+		icon_state = "plant-[rand(1, 36)]"
+	else
+		icon_state = initial(selected_type.icon_state)
+
+/obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
+		add_fingerprint(user)
+		if(hidden)
+			toggle_hide(null)
+			if(anchored)
+				START_PROCESSING(SSprocessing, src)
+			to_chat(user, span_notice("You undisguise [src]."))
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(I.enchant_type == HIDE_SPELL && canbehidden)
+			var/choice
+			if(!hidden)
+				choice = show_radial_menu(user, src, choosable_items, require_near = TRUE)
+				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
+					return ATTACK_CHAIN_BLOCKED_ALL
+			toggle_hide(choice)//cuz we sure its unhidden
+			if(isprocessing)
+				STOP_PROCESSING(SSprocessing, src)
+				if(glow)
+					QDEL_NULL(glow)
+				first_stage = FALSE
+				second_stage = FALSE
+				convert_timer = 0
+				converting = null
+			to_chat(user, span_notice("You disguise [src]."))
+			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+			I.deplete_spell()
+			return ATTACK_CHAIN_BLOCKED_ALL
+		if(!anchored && !isfloorturf(loc))
+			to_chat(user, span_warning("A floor must be present to secure [src]!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(locate(/obj/structure/falsewall) in loc)
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		set_anchored(!anchored)
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
+		if(!anchored)
+			stop_convert(TRUE)
+			STOP_PROCESSING(SSprocessing, src)
 		else
-			icon_state = "[initial(icon_state)]"
-		return FALSE
-	switch(rand(1,5))
-		if(1, 2, 3)
-			name = "potted plant"
-			desc = null
-			icon = 'icons/obj/flora/plants.dmi'
-			icon_state = "plant-[rand(1,36)]"
-		if(4)
-			name = "chair"
-			desc = "You sit in this. Either by will or force."
-			icon = 'icons/obj/chairs.dmi'
-			icon_state = "chair"
-		if(5)
-			name = "stool"
-			desc = "Apply butt."
-			icon = 'icons/obj/chairs.dmi'
-			icon_state = "stool"
-	return hidden
-
-/obj/structure/clockwork/functional/altar/Crossed(atom/movable/AM, oldloc)
-	. = ..()
-	if(!has_clocker)
-		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat == CONSCIOUS)
-				has_clocker = M
-				break
-	if(!converting && ishuman(AM) && !isclocker(AM) && !hidden && anchored && has_clocker)
-		converting = AM
-		first_stage_check(converting)
-
-
-/obj/structure/clockwork/functional/altar/Uncrossed(atom/movable/AM)
-	. = ..()
-	if(AM == converting)
-		if(first_stage)
-			stop_convert()
-		converting = null
-		convert_timer = 1
+			START_PROCESSING(SSprocessing, src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/structure/clockwork/functional/altar/process()
-	if(!converting)
-		var/list/mob/living/carbon/human/bodies = list()
+	for(var/mob/living/M in range(1, src))
+		if(isclocker(M) && M.stat == CONSCIOUS)
+			has_clocker = M
+			break
+	if(!converting && has_clocker)
 		for(var/mob/living/carbon/human/H in range(0, src))
 			if(isclocker(H))
 				continue
 			if(!H.mind)
 				continue
-			bodies += H
-		if(bodies.len)
-			converting = pick(bodies)
-		convert_timer = 0
-	else if(!has_clocker)
-		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat == CONSCIOUS)
-				has_clocker = M
+			if(H)
+				converting = H
 				break
-	else
-		convert_timer++
-		has_clocker = null
-		for(var/mob/living/M in range(1, src))
-			if(isclocker(M) && M.stat == CONSCIOUS)
-				has_clocker = M
-				break
-		if(!has_clocker)
-			stop_convert()
+	if(converting && (converting in range(0, src)) && (has_clocker || second_stage))
 		if(!anchored || hidden)
 			stop_convert()
-		if(isclocker(converting))
-			stop_convert(TRUE)
+			return
+		convert_timer++
+		has_clocker = null
 		switch(convert_timer)
-			if(-INFINITY to 8)
+			if(0 to 8)
 				if(!first_stage)
 					first_stage_check(converting)
-			if(8 to 16)
+			if(9 to 16)
 				if(!second_stage)
 					second_stage_check(converting)
 				else
-					converting.adjustBruteLoss(5)
-					converting.adjustFireLoss(5)
-			if(16 to INFINITY)
-				if(!third_stage)
-					convert_to_cube(converting)
-				stop_convert() // one time the third stage activates
+					converting.take_overall_damage(5, 5)
+			if(17)
+				adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
+				var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
+				cube.try_to_transfer(converting)
+	else if(first_stage)
+		stop_convert()
 
-/obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/first_stage_check(mob/living/carbon/human/target)
 	first_stage = TRUE
-	target.visible_message("<span class='warning'>[src] begins to glow a piercing amber!</span>", "<span class='clock'>You feel something start to invade your mind...</span>")
+	target.visible_message(span_warning("[src] begins to glow a piercing amber!"), span_clock("You feel something start to invade your mind..."))
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
-	icon_state = "[initial(icon_state)]-fast"
-	convert_timer = 0
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/clockwork/functional/altar/proc/second_stage_check(var/mob/living/carbon/human/target)
+/obj/structure/clockwork/functional/altar/proc/second_stage_check(mob/living/carbon/human/target)
 	second_stage = TRUE
 	if(!is_convertable_to_clocker(target.mind) || target.stat == DEAD) // mindshield or holy or mindless monkey. or dead guy
-		target.visible_message("<span class='warning'>[src] in glowing manner starts corrupting [target]!</span>", \
-		"<span class='danger'>You feel as your body starts to corrupt by [src] underneath!</span>")
-		target.Weaken(10)
+		target.visible_message(span_warning("[src] in glowing manner starts corrupting [target]!"), \
+		span_danger("You feel as your body starts to corrupt by [src] underneath!"))
+		target.Weaken(20 SECONDS)
 	else // just a living non-clocker civil
-		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
-		target.heal_overall_damage(50, 50, TRUE)
+		to_chat(target, span_clocklarge("<b>\"You belong to me now.\"</b>"))
+		target.heal_overall_damage(50, 50)
 		if(isgolem(target))
 			target.mind.wipe_memory()
 			target.set_species(/datum/species/golem/clockwork)
 		SSticker.mode.add_clocker(target.mind)
-		target.Weaken(5) //Accept new power... and new information
-		target.EyeBlind(5)
+		target.Weaken(10 SECONDS) //Accept new power... and new information
+		target.EyeBlind(10 SECONDS)
 		stop_convert(TRUE)
 
-/obj/structure/clockwork/functional/altar/proc/convert_to_cube(var/mob/living/carbon/human/target)
-	third_stage = TRUE
-	var/obj/item/mmi/robotic_brain/clockwork/cube = new (get_turf(src))
-	cube.try_to_transfer(target)
-	adjust_clockwork_power(CLOCK_POWER_SACRIFICE)
-
-/obj/structure/clockwork/functional/altar/proc/stop_convert(var/silent = FALSE)
+/obj/structure/clockwork/functional/altar/proc/stop_convert(silent = FALSE)
 	QDEL_NULL(glow)
 	first_stage = FALSE
 	second_stage = FALSE
-	third_stage = FALSE
 	convert_timer = 0
 	converting = null
-	if(anchored)
-		icon_state = "[initial(icon_state)]"
-	else
-		icon_state = "[initial(icon_state)]-off"
+	update_icon(UPDATE_ICON_STATE)
 	if(!silent)
-		visible_message("<span class='warning'>[src] slowly stops glowing!</span>")
+		visible_message(span_warning("[src] slowly stops glowing!"))
 
 /obj/structure/clockwork/functional/altar/attackby(obj/item/I, mob/user, params)
-	. = ..()
 	if(istype(I, /obj/item/clockwork/shard))
+		add_fingerprint(user)
 		if(!ishuman(user))
-			to_chat(user, "span class='warning'>You are too weak to push the shard inside!</span>")
-			return
-		var/area/A = get_area(src)
+			to_chat(user, span_warning("You are too weak to push the shard inside!"))
+			return ATTACK_CHAIN_PROCEED
 		if(!anchored)
-			to_chat(user, "<span class='warning'>It has to be anchored before you can start!</span>")
+			to_chat(user, span_warning("It has to be anchored before you can start!"))
+			return ATTACK_CHAIN_PROCEED
+		var/area/A = get_area(src)
 		if(!double_check(user, A))
-			return
-		GLOB.command_announcement.Announce("Была обнаружена аномально высокая концентрация энергии в [A.map_name]. Источник энергии указывает на попытку вызвать потустороннего бога по имени Ратвар. Сорвите ритуал любой ценой, пока станция не была уничтожена! Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать культистов на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
-		visible_message("<span class='biggerdanger'>[user] ominously presses [I] into [src] as the mechanism inside starts to shine!</span>")
-		user.unEquip(I)
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ATTACK_CHAIN_PROCEED
+		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар. Служба безопасности получает право свободно применять летальную силу для уничтожения угрозы. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+			ANNOUNCE_CCPARANORMAL_RU,
+			'sound/AI/commandreport.ogg')
+		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
-		begin_the_ritual()
+		begin_the_ritual(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+/obj/structure/clockwork/functional/altar/proc/check_pos()
+	for(var/turf/check_turf in range(1, src))
+		if(iswallturf(check_turf))
+			return FALSE
+	return TRUE
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
 
-	if(GLOB.ark_of_the_clockwork_justiciar)
-		to_chat(user, "<span class='clockitalic'>There is already Gateway somewhere!</span>")
+	if(GLOB.heart)
+		balloon_alert(user, "сердце уже призвано!")
 		return FALSE
 
-	if(gamemode.clocker_objs.clock_status < RATVAR_NEEDS_SUMMONING)
-		to_chat(user, "<span class='clockitalic'><b>Ratvar</b> is not ready to be summoned yet!</span>")
+	if(gamemode.clocker_objs.clock_status < RATVAR_NEED_HEART)
+		to_chat(user, span_clockitalic("<b>Ratvar</b> is not ready to be summoned yet!"))
 		return FALSE
-	if(gamemode.clocker_objs.clock_status == RATVAR_HAS_RISEN)
-		to_chat(user, "<span class='clocklarge'>\"My fellow. There is no need for it anymore.\"</span>")
+	if(gamemode.clocker_objs.clock_status > RATVAR_NEED_HEART)
+		to_chat(user, span_clockitalic("\"My fellow. There is no need for it anymore.\""))
 		return FALSE
 
 	var/list/summon_areas = gamemode.clocker_objs.obj_summon.ritual_spots
 	if(!(A in summon_areas))
-		to_chat(user, "<span class='cultlarge'>Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!</span>")
+		to_chat(user, span_cultlarge("Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!"))
 		return FALSE
-	var/confirm_final = alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
-	"The power comes...", "Let Ratvar shine ones more!", "No")
+	if(!(check_pos()))
+		balloon_alert(user, "недостаточно места!")
+		return FALSE
+	var/confirm_final = tgui_alert(user, "Совершив это действие, вы пробудите Сердце Ратвара. Перенос его станет невозможен. Еретики узнают о ритуале и его местоположении. Вы уверены, что хотите продолжить?",
+	"Финал грядет...", list("Да воссияет же Ратвар!", "Нет"))
 	if(user)
-		if(confirm_final == "No" || confirm_final == null)
-			to_chat(user, "<span class='clockitalic'><b>You decide to prepare further before pincing the shard.</b></span>")
+		if(confirm_final != "Да воссияет же Ратвар!")
+			to_chat(user, span_clockitalic("<b>You decide to prepare further before pincing the shard.</b>"))
 			return FALSE
 		return TRUE
 
-/obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
-	visible_message("<span class='danger'>The [src] expands itself revealing into the great Ark!</span>")
-	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+/obj/structure/clockwork/functional/altar/proc/begin_the_ritual(mob/user)
+	visible_message(span_danger("На месте [declent_ru(GENITIVE)] появляется огромное сердце!"))
+	new /obj/structure/clockwork/functional/heart(get_turf(src))
+	var/clockpointer = new /obj/item/pinpointer/clock(get_turf(user))
+	user.put_in_hands(clockpointer)
 	qdel(src)
 	return
 
-/// for area.get_beacon() returns BEACON if it exists
-/area/proc/get_beacon()
-	for(var/thing in GLOB.clockwork_beacons)
-		var/obj/structure/clockwork/functional/beacon/BEACON = thing
-		if(BEACON.areabeacon == get_area(src))
-			return BEACON
+/obj/structure/clockwork/functional/cogscarab_fabricator
+	name = "cogscarab fabricator"
+	desc = "House for a tons of little cogscarabs, self-producing and maintaining itself."
+	icon_state = "fabricator"
+	death_message = span_danger("Fabricator crumbles and dusts, leaving nothing behind!")
+	var/list/cogscarab_list = list()
+	canbehidden = TRUE
+	var/cog_slots = 0
+	var/timer_fabrictor = null
 
+/obj/structure/clockwork/functional/cogscarab_fabricator/examine(mob/user)
+	. = ..()
+	if(!hidden && (isclocker(user) || isobserver(user)))
+		. += span_notice("There's [cog_slots - length(cogscarab_list)] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."].")
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
+	. = ..()
+	GLOB.clockwork_fabricators += src
+	timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+	notify_ghosts("[src] is created at [get_area(src)].", title = "New cogscarab fabricator!", source = src, flashwindow = FALSE, action = NOTIFY_JUMP)
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/obj_destruction()
+	. = ..()
+	GLOB.clockwork_fabricators -= src
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/proc/open_slot()
+	cog_slots += 1
+	notify_ghosts("[src] made a new shell at [get_area(src)]!", title = "Cogscarab ready!", source = src, action = NOTIFY_ATTACK)
+	if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+	else
+		timer_fabrictor = null
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/proc/close_slot(cogscarab)
+	cogscarab_list -= cogscarab
+	cog_slots -= 1
+	if(!timer_fabrictor)
+		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
+		add_fingerprint(user)
+		if(!anchored && !isfloorturf(loc))
+			to_chat(user, span_warning("A floor must be present to secure [src]!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(locate(/obj/structure/clockwork) in (loc.contents-src))
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		if(locate(/obj/structure/falsewall) in loc)
+			to_chat(user, span_warning("There is a structure here!"))
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		set_anchored(!anchored)
+		update_icon(UPDATE_ICON_STATE)
+		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
+		if(!anchored)
+			if(timer_fabrictor)
+				deltimer(timer_fabrictor)
+				timer_fabrictor = null
+		else
+			if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+				timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
+	. = ..()
+	if(. && timer_fabrictor) // hidden
+		deltimer(timer_fabrictor)
+		timer_fabrictor = null
+	else
+		if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
+			timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
+
+/obj/structure/clockwork/functional/cogscarab_fabricator/attack_ghost(mob/dead/observer/user)
+	if(hidden)
+		to_chat(user, span_warning("It's hidden and cannot produce you at this state!"))
+		return FALSE
+	if(!anchored)
+		to_chat(user, span_warning("It seems to be non-functional to produce a new shell!"))
+		return FALSE
+	if(length(cogscarab_list) >= cog_slots)
+		to_chat(user, span_notice("There's no empty shells to take!"))
+		return FALSE
+	if(alert(user, "Do you wish to become cogscarab?",,"Yes","No") == "Yes")
+		if(length(cogscarab_list) >= cog_slots) //Double check. No duplications
+			to_chat(user, span_notice("There's no empty shells to take!"))
+			return FALSE
+		var/mob/living/silicon/robot/cogscarab/cog = new(loc)
+		cog.possess_by_player(user.key)
+		if(SSticker.mode.add_clocker(cog.mind))
+			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone")
+		cog.fabr = src
+		cogscarab_list += cog
+		return TRUE
+	return FALSE

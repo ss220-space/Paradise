@@ -1,45 +1,47 @@
 /mob/living/simple_animal/hostile/guardian/protector
-	melee_damage_lower = 15
-	melee_damage_upper = 15
+	tts_seed = "Cairne"
 	range = 15 //worse for it due to how it leashes
 	damage_transfer = 0.4
-	playstyle_string = "As a <b>Protector</b> type you cause your summoner to leash to you instead of you leashing to them and have two modes; Combat Mode, where you do and take medium damage, and Protection Mode, where you do and take almost no damage, but move slightly slower."
-	magic_fluff_string = "..And draw the Guardian, a stalwart protector that never leaves the side of its charge."
-	tech_fluff_string = "Boot sequence complete. Protector modules loaded. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm finishes mutating and stirs to life, ready to defend you."
+	playstyle_string = "Как <b>Защитник</b>, вы заставляете своего призывателя привязываться к вам, вместо того чтобы вы привязывались к нему, и имеете два режима: боевой режим, в котором вы наносите средний урон и получаете очень малый, и режим защиты, в котором вы почти не наносите и не получаете урона, даже от взрывов. Вы так же обладаете заклинанием создания краткосрочных барьеров."
+	magic_fluff_string = "..и берете Стража — непоколебимого защитника, который никогда не покидает сторону своего подопечного."
+	tech_fluff_string = "Последовательность загрузки завершена. Загружены модули защиты. Голопаразитный рой в сети."
+	bio_fluff_string = "Ваш рой скарабеев заканчивает мутировать и оживает, готовый защищать вас."
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity)
-	if(severity == 1)
+/mob/living/simple_animal/hostile/guardian/protector/ex_act(severity, target)
+	if(severity >= EXPLODE_DEVASTATE)
 		adjustBruteLoss(400) //if in protector mode, will do 20 damage and not actually necessarily kill the summoner
 	else
-		..()
+		. = ..()
 	if(toggle)
-		visible_message("<span class='danger'>The explosion glances off [src]'s energy shielding!</span>")
+		visible_message(span_danger("Взрыв отражается от энергетического щита [src]!")) //FLEX
+
+/mob/living/simple_animal/hostile/guardian/protector/New()
+	..()
+	AddSpell(new /obj/effect/proc_holder/spell/forcewall/greater/guardian)
 
 /mob/living/simple_animal/hostile/guardian/protector/ToggleMode()
 	if(cooldown > world.time)
 		return 0
 	cooldown = world.time + 10
+	var/static/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
+
 	if(toggle)
-		overlays.Cut()
+		cut_overlay(shield_overlay)
 		melee_damage_lower = initial(melee_damage_lower)
 		melee_damage_upper = initial(melee_damage_upper)
 		obj_damage = initial(obj_damage)
-		speed = initial(speed)
 		damage_transfer = 0.4
-		to_chat(src, "<span class='danger'>You switch to combat mode.</span>")
+		to_chat(src, span_danger("Вы переключились в боевой режим."))
 		toggle = FALSE
 	else
-		var/icon/shield_overlay = icon('icons/effects/effects.dmi', "shield-grey")
+
 		shield_overlay *= name_color
-		overlays.Add(shield_overlay)
+		add_overlay(shield_overlay)
 		melee_damage_lower = 2
 		melee_damage_upper = 2
-		obj_damage = 6 //40/7.5 rounded up, we don't want a protector guardian 2 shotting blob tiles while taking 5% damage, thats just silly.
-		speed = 1
 		damage_transfer = 0.05 //damage? what's damage?
-		to_chat(src, "<span class='danger'>You switch to protection mode.</span>")
+		to_chat(src, span_danger("Вы переключились в режим защиты."))
 		toggle = TRUE
 
 /mob/living/simple_animal/hostile/guardian/protector/snapback() //snap to what? snap to the guardian!
@@ -49,12 +51,58 @@
 			return
 		else
 			if(istype(summoner.loc, /obj/effect))
-				to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-				visible_message("<span class='danger'>[src] jumps back to its user.</span>")
+				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
+				visible_message(span_danger("[src] возвращается к своему хозяину."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from <b>[src]</b>!</span>")
-				summoner.visible_message("<span class='danger'>[summoner] jumps back to [summoner.p_their()] protector.</span>")
+				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[DECL_CREDIT(range)] от <b>[src]</b>!"))
+				summoner.visible_message(span_danger("[summoner] отпрыгива[PLUR_ET_YUT(summoner)] назад к своему защитнику."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector
+
+/mob/living/simple_animal/hostile/guardian/protector/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	if(!summoner || loc == summoner)
+		return .
+
+	if(prob(15))	// 15% chance of block
+		to_chat(summoner, span_danger("Ваш [name] под атакой, поглощает урон!"))
+		visible_message(span_danger("[src] поглотил урон!"))
+		return .
+
+	amount *= damage_transfer
+	summoner.adjustBruteLoss(amount)
+	if(amount <= 0)
+		return .
+
+	to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
+	if(summoner.stat == UNCONSCIOUS)
+		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src] в таком состоянии, оно начинает разрушаться!"))
+		summoner.adjustCloneLoss(amount / 2)
+
+/obj/effect/proc_holder/spell/forcewall/greater/guardian
+	name = "Голографическая силовая стена"
+	desc = "Создает перед вами непробиваемый барьер, через который могут проходить вы и ваш хозяин."
+	clothes_req = FALSE
+	invocation = "YOU SHALL NOT PASS!"
+	wall_type = /obj/effect/forcefield/wizard/guardian
+
+/obj/effect/forcefield/wizard/guardian
+	desc = "Непробиваемый барьер неизвестной сущности."
+	icon_state = "at_shield2"
+	lifetime = 15 SECONDS
+
+/obj/effect/forcefield/wizard/guardian/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	var/mob/living/simple_animal/hostile/guardian/guardian = wizard
+	if(istype(guardian) && mover == guardian.summoner)
+		return TRUE
+

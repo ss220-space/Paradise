@@ -20,7 +20,7 @@
 	. = ..()
 	var/obj/machinery/nuclearbomb/N = holder
 	. += "The device is [N.timing ? "shaking!" : "still."]"
-	. += "The device is is [N.safety ? "quiet" : "whirring"]."
+	. += "The device is [N.safety ? "quiet" : "whirring"]."
 	. += "The lights are [N.lighthack ? "static" : "functional"]."
 
 /datum/wires/nuclearbomb/on_pulse(wire)
@@ -28,7 +28,8 @@
 	switch(wire)
 		if(WIRE_BOMB_LIGHT)
 			N.lighthack = !N.lighthack
-			addtimer(CALLBACK(N, /obj/machinery/nuclearbomb/.proc/reset_lighthack_callback), 10 SECONDS)
+			N.update_icon()
+			addtimer(CALLBACK(N, TYPE_PROC_REF(/obj/machinery/nuclearbomb, reset_lighthack_callback)), 10 SECONDS)
 
 		if(WIRE_BOMB_TIMING)
 			if(N.timing)
@@ -37,7 +38,8 @@
 
 		if(WIRE_BOMB_SAFETY)
 			N.safety = !N.safety
-			addtimer(CALLBACK(N, /obj/machinery/nuclearbomb/.proc/reset_safety_callback), 10 SECONDS)
+			N.update_icon()
+			addtimer(CALLBACK(N, TYPE_PROC_REF(/obj/machinery/nuclearbomb, reset_safety_callback)), 10 SECONDS)
 
 /datum/wires/nuclearbomb/on_cut(wire, mend)
 	var/obj/machinery/nuclearbomb/N = holder
@@ -48,11 +50,12 @@
 				N.explode()
 
 		if(WIRE_BOMB_TIMING)
-			if(!N.lighthack)
-				if(N.icon_state == "nuclearbomb2")
-					N.icon_state = "nuclearbomb1"
-			N.timing = 0
+			if(!N.is_syndicate)
+				SSsecurity_level.set_level(N.previous_level)
+			N.timing = FALSE
+			N.update_icon()
 			GLOB.bomb_set = FALSE
+			SSshuttle?.remove_hostile_environment(N)
 
 		if(WIRE_BOMB_LIGHT)
 			N.lighthack = !N.lighthack

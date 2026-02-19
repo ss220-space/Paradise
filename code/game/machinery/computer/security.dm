@@ -1,15 +1,16 @@
-#define SEC_DATA_R_LIST	1	// Record list
-#define SEC_DATA_MAINT	2	// Records maintenance
-#define SEC_DATA_RECORD	3	// Record
+#define SEC_DATA_R_LIST 1 // Record list
+#define SEC_DATA_MAINT 2 // Records maintenance
+#define SEC_DATA_RECORD 3 // Record
 
 #define SEC_FIELD(N, V, E, LB) list(field = N, value = V, edit = E, line_break = LB)
 
 /obj/machinery/computer/secure_data
 	name = "security records"
-	desc = "Used to view and edit personnel's security records."
+	desc = "Используется для просмотра и редактирования записей службы безопасности о персонале."
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
+	req_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	/// The current page being viewed.
 	var/current_page = SEC_DATA_R_LIST
 	/// The current general record being viewed.
@@ -24,12 +25,13 @@
 	var/static/list/field_edit_choices
 	/// The current temporary notice.
 	var/temp_notice
+	/// For records in pai
+	var/atom/movable/parent
 
-	light_color = LIGHT_COLOR_RED
+	light_color = COLOR_SOFT_RED
 
 /obj/machinery/computer/secure_data/Initialize(mapload)
 	. = ..()
-	req_one_access = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
 	if(!field_edit_questions)
 		field_edit_questions = list(
 			// General
@@ -58,24 +60,32 @@
 	record_security = null
 	return ..()
 
-/obj/machinery/computer/secure_data/attackby(obj/item/O, mob/user, params)
-	if(ui_login_attackby(O, user))
-		return
+/obj/machinery/computer/secure_data/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(ui_login_attackby(I, user))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 /obj/machinery/computer/secure_data/attack_hand(mob/user)
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, "<span class='danger'>Unable to establish a connection</span>: You're too far away from the station!")
+		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/secure_data/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/secure_data/ui_host()
+	return parent ? parent : src
+
+/obj/machinery/computer/secure_data/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SecurityRecords", name, 800, 800)
+		ui = new(user, src, "SecurityRecords", name)
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -109,15 +119,15 @@
 				if(record_general && GLOB.data_core.general.Find(record_general))
 					var/list/gen_fields = record_general.fields
 					general["fields"] = list(
-						SEC_FIELD("Name", 				gen_fields["name"], 		"name",			FALSE),
-						SEC_FIELD("ID", 				gen_fields["id"], 			"id",			TRUE),
-						SEC_FIELD("Sex", 				gen_fields["sex"], 			"sex",			FALSE),
-						SEC_FIELD("Age", 				gen_fields["age"], 			"age",			TRUE),
-						SEC_FIELD("Assignment", 		gen_fields["rank"], 		null,			FALSE),
-						SEC_FIELD("Fingerprint", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
-						SEC_FIELD("Physical Status", 	gen_fields["p_stat"], 		null,			FALSE),
-						SEC_FIELD("Mental Status", 		gen_fields["m_stat"], 		null,			TRUE),
-						SEC_FIELD("Important Notes", 	gen_fields["notes"], 		null,			FALSE),
+						SEC_FIELD("Name",				gen_fields["name"],		"name",			FALSE),
+						SEC_FIELD("ID",				gen_fields["id"],			"id",			TRUE),
+						SEC_FIELD("Sex",				gen_fields["sex"],			"sex",			FALSE),
+						SEC_FIELD("Age",				gen_fields["age"],			"age",			TRUE),
+						SEC_FIELD("Assignment",		gen_fields["rank"],		null,			FALSE),
+						SEC_FIELD("Fingerprint",		gen_fields["fingerprint"],	"fingerprint",	TRUE),
+						SEC_FIELD("Physical Status",	gen_fields["p_stat"],		null,			FALSE),
+						SEC_FIELD("Mental Status",		gen_fields["m_stat"],		null,			TRUE),
+						SEC_FIELD("Important Notes",	gen_fields["notes"],		null,			FALSE),
 					)
 					general["photos"] = list(
 						gen_fields["photo-south"],
@@ -133,12 +143,12 @@
 				if(record_security && GLOB.data_core.security.Find(record_security))
 					var/list/sec_fields = record_security.fields
 					security["fields"] = list(
-						SEC_FIELD("Criminal Status", 	sec_fields["criminal"], 	"criminal", 	TRUE),
-						SEC_FIELD("Minor Crimes", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["mi_crim_d"], 	"mi_crim_d", 	TRUE),
-						SEC_FIELD("Major Crimes", 		sec_fields["ma_crim"], 		"ma_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["ma_crim_d"], 	"ma_crim_d", 	TRUE),
-						SEC_FIELD("Important Notes", 	sec_fields["notes"], 		null, 			FALSE),
+						SEC_FIELD("Criminal Status",	sec_fields["criminal"],	"criminal",	TRUE),
+						SEC_FIELD("Minor Crimes",		sec_fields["mi_crim"],		"mi_crim",		FALSE),
+						SEC_FIELD("Details",			sec_fields["mi_crim_d"],	"mi_crim_d",	TRUE),
+						SEC_FIELD("Major Crimes",		sec_fields["ma_crim"],		"ma_crim",		FALSE),
+						SEC_FIELD("Details",			sec_fields["ma_crim_d"],	"ma_crim_d",	TRUE),
+						SEC_FIELD("Important Notes",	sec_fields["notes"],		null,			FALSE),
 					)
 					if(!islist(sec_fields["comments"]))
 						sec_fields["comments"] = list()
@@ -163,6 +173,7 @@
 	switch(action)
 		if("cleartemp")
 			temp_notice = null
+
 		if("page") // Select Page
 			if(!logged_in)
 				return
@@ -170,6 +181,7 @@
 			current_page = page_num
 			record_general = null
 			record_security = null
+
 		if("view") // View Record
 			if(!logged_in)
 				return
@@ -183,6 +195,7 @@
 			record_general = G
 			record_security = S
 			current_page = SEC_DATA_RECORD
+
 		if("new_general") // New General Record
 			if(!logged_in)
 				return
@@ -190,20 +203,21 @@
 				return
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "New Record"
-			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7)), 6)]"
+			G.fields["id"] = "[add_zero(num2hex(rand(1, SHORT_REAL_LIMIT), 2), 6)]"
 			G.fields["rank"] = "Unassigned"
 			G.fields["real_rank"] = "Unassigned"
 			G.fields["sex"] = "Male"
-			G.fields["age"] = "Unknown"
-			G.fields["fingerprint"] = "Unknown"
+			G.fields["age"] = UNKNOWN_STATUS_RUS
+			G.fields["fingerprint"] = UNKNOWN_STATUS_RUS
 			G.fields["p_stat"] = "Active"
 			G.fields["m_stat"] = "Stable"
-			G.fields["species"] = "Human"
+			G.fields["species"] = SPECIES_HUMAN
 			G.fields["notes"] = "No notes."
 			GLOB.data_core.general += G
 			record_general = G
 			record_security = null
 			current_page = SEC_DATA_RECORD
+
 		if("new_security") // New Security Record
 			if(!logged_in)
 				return
@@ -222,6 +236,7 @@
 			GLOB.data_core.security += S
 			record_security = S
 			update_all_mob_security_hud()
+
 		if("delete_general") // Delete General, Security and Medical Records
 			if(!logged_in)
 				return
@@ -238,6 +253,7 @@
 			update_all_mob_security_hud()
 			current_page = SEC_DATA_R_LIST
 			set_temp("General, Security and Medical records deleted.")
+
 		if("delete_security") // Delete Security Record
 			if(!logged_in)
 				return
@@ -249,6 +265,7 @@
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			set_temp("Security record deleted.")
+
 		if("delete_security_all") // Delete All Security Records
 			if(!logged_in)
 				return
@@ -259,6 +276,7 @@
 			usr.investigate_log("deleted all security records", INVESTIGATE_RECORDS)
 			update_all_mob_security_hud()
 			set_temp("All security records deleted.")
+
 		if("delete_cell_logs") // Delete All Cell Logs
 			if(!logged_in)
 				return
@@ -270,6 +288,7 @@
 			usr.investigate_log("deleted all cell logs", INVESTIGATE_RECORDS)
 			GLOB.cell_logs.Cut()
 			set_temp("All cell logs deleted.")
+
 		if("comment_delete") // Delete Comment
 			if(!logged_in)
 				return
@@ -282,6 +301,7 @@
 				return
 			index = clamp(index, 1, length(comments))
 			comments.Cut(index, index + 1)
+
 		if("print_record")
 			if(!logged_in)
 				return
@@ -289,19 +309,19 @@
 				return
 			is_printing = TRUE
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-			addtimer(CALLBACK(src, .proc/print_record_finish), 5 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(print_record_finish)), 5 SECONDS)
 		else
 			return FALSE
 
 	add_fingerprint(usr)
 
 /**
-  * Called in ui_act() to process modal actions
-  *
-  * Arguments:
-  * * action - The action passed by tgui
-  * * params - The params passed by tgui
-  */
+ * Called in ui_act() to process modal actions
+ *
+ * Arguments:
+ * * action - The action passed by tgui
+ * * params - The params passed by tgui
+ */
 /obj/machinery/computer/secure_data/proc/ui_act_modal(action, list/params)
 	if(!ui_login_get().logged_in)
 		return
@@ -321,8 +341,10 @@
 						ui_modal_choice(src, id, question, arguments = arguments, value = arguments["value"], choices = choices)
 					else
 						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
+
 				if("comment_add")
 					ui_modal_input(src, id, "Please enter your message:")
+
 				if("print_cell_log")
 					if(is_printing)
 						return
@@ -340,6 +362,7 @@
 					ui_modal_choice(src, id, "Please select the cell log you would like printed:", choices = choices)
 				else
 					return FALSE
+
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
 			switch(id)
@@ -352,12 +375,19 @@
 						return
 
 					if(field == "age")
-						var/new_age = text2num(answer)
-						if(new_age < AGE_MIN || new_age > AGE_MAX)
-							set_temp("Invalid age. It must be between [AGE_MIN] and [AGE_MAX].", "danger")
+						if(!record_general)
 							return
+
+						var/datum/species/species = GLOB.all_species[record_general.fields["species"]]
+						var/new_age = text2num(answer)
+						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
+						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
+							set_temp("Invalid age. It must be between [age_limits[SPECIES_AGE_MIN]] and [age_limits[SPECIES_AGE_MAX]].", "danger")
+							return
+
 						answer = new_age
-					else if(field == "criminal")
+
+					if(field == "criminal")
 						var/text = "Please enter a reason for the status change to [answer]:"
 						if(answer == SEC_RECORD_STATUS_EXECUTE)
 							text = "Please explain why they are being executed. Include a list of their crimes, and victims."
@@ -368,8 +398,9 @@
 
 					if(record_security && (field in record_security.fields))
 						record_security.fields[field] = answer
-					else if(record_general && (field in record_general.fields))
+					if(record_general && (field in record_general.fields))
 						record_general.fields[field] = answer
+
 				if("criminal_reason")
 					var/status = arguments["status"]
 					if(!record_security || !(status in field_edit_choices["criminal"]))
@@ -378,8 +409,10 @@
 						set_temp("A valid reason must be provided for this status.", "danger")
 						return
 					var/datum/ui_login/state = ui_login_get()
-					if(!set_criminal_status(usr, record_security, status, answer, state.rank, state.access, state.name))
+
+					if(!set_criminal_status(usr, record_security, status, answer, state.rank, state.access, state.name, state.law_level))
 						set_temp("Required permissions to set this criminal status not found!", "danger")
+
 				if("comment_add")
 					var/datum/ui_login/state = ui_login_get()
 					if(!length(answer) || !record_security || !length(state.name))
@@ -401,15 +434,15 @@
 						return
 					is_printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-					addtimer(CALLBACK(src, .proc/print_cell_log_finish, T.name, T.info), 5 SECONDS)
+					addtimer(CALLBACK(src, PROC_REF(print_cell_log_finish), T.name, T.info), 5 SECONDS)
 				else
 					return FALSE
 		else
 			return FALSE
 
 /**
-  * Called when the print record timer finishes
-  */
+ * Called when the print record timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
 	P.info = "<center><b>Security Record</b></center><br>"
@@ -421,6 +454,14 @@
 				<br>\nPhysical Status: [record_general.fields["p_stat"]]
 				<br>\nMental Status: [record_general.fields["m_stat"]]<br>"}
 		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
+		var/obj/item/photo/photo = new(loc)
+		//photo.img = record_general.fields["photo"]
+		var/icon/new_photo = icon('icons/effects/64x32.dmi', "records")
+		new_photo.Blend(icon(record_general.fields["photo"], dir = SOUTH), ICON_OVERLAY, 0)
+		new_photo.Blend(icon(record_general.fields["photo"], dir = WEST), ICON_OVERLAY, 32)
+		new_photo.Scale(new_photo.Width() * 3, new_photo.Height() * 3)
+		photo.img = new_photo
+		photo.name = "photo - 'Security Record: [record_general.fields["name"]]'"
 	else
 		P.info += "<b>General Record Lost!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))
@@ -431,7 +472,7 @@
 		<br>\nMajor Crimes: [record_security.fields["ma_crim"]]
 		<br>\nDetails: [record_security.fields["ma_crim_d"]]<br>\n
 		<br>\nImportant Notes:
-		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><B>Comments/Log</B></center><br>"}
+		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"}
 		for(var/c in record_security.fields["comments"])
 			P.info += "[c]<br>"
 	else
@@ -440,8 +481,8 @@
 	SStgui.update_uis(src)
 
 /**
-  * Called when the print cell log timer finishes
-  */
+ * Called when the print cell log timer finishes
+ */
 /obj/machinery/computer/secure_data/proc/print_cell_log_finish(name, info)
 	var/obj/item/paper/P = new(loc)
 	P.name = name
@@ -458,13 +499,14 @@
 		if(prob(10 / severity))
 			switch(rand(1, 6))
 				if(1)
-					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
+					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names_male)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
 					R.fields["sex"] = pick("Male", "Female")
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
 					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
+					R.fields["last_modifier_level"] = LAW_LEVEL_HOS
 				if(5)
 					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
 				if(6)
@@ -478,12 +520,12 @@
 	..(severity)
 
 /**
-  * Sets a temporary message to display to the user
-  *
-  * Arguments:
-  * * text - Text to display, null/empty to clear the message from the UI
-  * * style - The style of the message: (color name), info, success, warning, danger
-  */
+ * Sets a temporary message to display to the user
+ *
+ * Arguments:
+ * * text - Text to display, null/empty to clear the message from the UI
+ * * style - The style of the message: (color name), info, success, warning, danger
+ */
 /obj/machinery/computer/secure_data/proc/set_temp(text = "", style = "info", update_now = FALSE)
 	temp_notice = list(text = text, style = style)
 	if(update_now)
@@ -491,7 +533,7 @@
 
 /obj/machinery/computer/secure_data/laptop
 	name = "security laptop"
-	desc = "Nanotrasen Security laptop. Bringing modern compact computing to this century!"
+	desc = "Ноутбук службы безопасности Nanotrasen. Привносим современные компактные компьютеры в наше столетие!"
 	icon_state = "laptop"
 	icon_keyboard = "seclaptop_key"
 	icon_screen = "seclaptop"

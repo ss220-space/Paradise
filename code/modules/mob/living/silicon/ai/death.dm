@@ -5,7 +5,7 @@
 		return FALSE
 	if(custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
 		icon_state = "[ckey]-ai_dead"
-	else if("[icon_state]_dead" in icon_states(icon,1))
+	else if(icon_exists_or_scream(icon, "[icon_state]_dead"))
 		icon_state = "[icon_state]_dead"
 	else
 		icon_state = "ai_dead"
@@ -19,26 +19,25 @@
 		GLOB.disable_robotics_consoles = FALSE
 
 	if(nuking)
-		set_security_level("red")
+		SSsecurity_level.set_level(SEC_LEVEL_RED)
 		nuking = 0
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = null //Point back to the disk.
 
 	if(doomsday_device)
 		doomsday_device.timing = 0
-		SSshuttle.emergencyNoEscape = 0
-		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-			SSshuttle.emergency.mode = SHUTTLE_DOCKED
-			SSshuttle.emergency.timer = world.time
-			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
+		SSshuttle.remove_hostile_environment(doomsday_device, 'sound/AI/eshuttle_dock.ogg')
 		qdel(doomsday_device)
 
 	if(explosive)
 		spawn(10)
-			explosion(src.loc, 3, 6, 12, 15, cause = "AI exploded")
+			explosion(loc, devastation_range = 3, heavy_impact_range = 6, light_impact_range = 12, flash_range = 15, cause = "AI exploded")
 
-	for(var/obj/machinery/ai_status_display/O in GLOB.machines) //change status
-		O.mode = 2
+	for(var/obj/machinery/ai_status_display/display as anything in GLOB.ai_displays) //change status
+		display.mode = AI_DISPLAY_MODE_BSOD
+		display.update_icon(UPDATE_OVERLAYS)
 
 	if(istype(loc, /obj/item/aicard))
 		loc.icon_state = "aicard-404"
+
+	send_ai_alarm("Обнаружена потеря сигнала ИИ.")

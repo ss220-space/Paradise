@@ -16,7 +16,7 @@
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 	if(istype(parent, /obj/item/clothing/shoes))
-		RegisterSignal(parent, COMSIG_SHOES_STEP_ACTION, .proc/step_sound)
+		RegisterSignal(parent, COMSIG_SHOES_STEP_ACTION, PROC_REF(step_sound))
 
 /datum/component/jackboots/proc/step_sound()
 	if(steps > step_delay)
@@ -30,4 +30,4 @@
 		var/mob/M = parent
 		if(M.stat == DEAD)
 			return
-	playsound(parent, pickweight(step_sounds), 50, TRUE, 0, falloff_exponent = sound_falloff_exponent)
+	playsound(parent, pickweight(step_sounds), 20, TRUE, 0, falloff_exponent = sound_falloff_exponent)

@@ -2,59 +2,48 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	if(!ismachineperson(src))
 		animation = new(loc)
 		animation.icon_state = "blank"
 		animation.icon = 'icons/mob/mob.dmi'
 		animation.master = src
 
-		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, 1)
+		playsound(src.loc, 'sound/goonstation/effects/gib.ogg', 50, TRUE)
 	else
-		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+		playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 
-	for(var/obj/item/organ/internal/I in internal_organs)
-		if(isturf(loc))
-			var/atom/movable/thing = I.remove(src)
-			if(thing)
-				thing.forceMove(get_turf(src))
+	var/drop_loc = drop_location()
+	for(var/obj/item/organ/internal/organ as anything in internal_organs)
+		var/atom/movable/thing = organ.remove(src)
+		if(!QDELETED(thing))
+			thing.forceMove(drop_loc)
+			if(isturf(thing.loc))
 				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1,3), 5)
 
-	for(var/obj/item/organ/external/E in bodyparts)
-		if(istype(E, /obj/item/organ/external/chest))
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(istype(bodypart, /obj/item/organ/external/chest))
 			continue
 		// Only make the limb drop if it's not too damaged
-		if(prob(100 - E.get_damage()))
+		if(prob(100 - bodypart.get_damage()))
 			// Override the current limb status and don't cause an explosion
-			E.droplimb(DROPLIMB_SHARP)
+			bodypart.droplimb()
 
 	for(var/mob/M in src)
 		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_location())
-		visible_message("<span class='danger'>[M] bursts out of [src]!</span>")
+		M.forceMove(drop_loc)
+		visible_message(span_danger("[M] bursts out of [src]!"))
 
 	if(!ismachineperson(src))
 		flick("gibbed-h", animation)
 		hgibs(loc, dna)
 	else
 		new /obj/effect/decal/cleanable/blood/gibs/robot(loc)
-		do_sparks(3, 1, src)
+		do_sparks(3, TRUE, src)
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 0)
-	return TRUE
-
-/mob/living/carbon/human/dust()
-	if(!death(TRUE) && stat != DEAD)
-		return FALSE
-	notransform = 1
-	canmove = 0
-	icon = null
-	invisibility = 101
-	dust_animation()
-	QDEL_IN(src, 15)
 	return TRUE
 
 /mob/living/carbon/human/dust_animation()
@@ -74,10 +63,9 @@
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
@@ -91,8 +79,6 @@
 	return TRUE
 
 /mob/living/carbon/human/death(gibbed)
-	if(can_die() && !gibbed && deathgasp_on_death)
-		emote("deathgasp", force = TRUE) //let the world KNOW WE ARE DEAD
 
 	// Only execute the below if we successfully died
 	. = ..(gibbed)
@@ -105,80 +91,98 @@
 		//Handle species-specific deaths.
 		dna.species.handle_death(gibbed, src)
 
-	if(SSticker && SSticker.mode)
+	if(SSticker?.mode)
 		SSblackbox.ReportDeath(src)
 
-/mob/living/carbon/human/update_revive(updating)
+/mob/living/carbon/human/update_revive(updating = TRUE, force = FALSE, defib_revive = FALSE)
 	. = ..()
 	if(. && healthdoll)
 		// We're alive again, so re-build the entire healthdoll
 		healthdoll.cached_healthdoll_overlays.Cut()
 		update_health_hud()
+		update_stamina_hud()
 	// Update healthdoll
 	if(dna.species)
 		dna.species.update_sight(src)
 
-/mob/living/carbon/human/proc/makeSkeleton()
-	var/obj/item/organ/external/head/H = get_organ("head")
-	if(SKELETON in src.mutations)
-		return
+/mob/living/carbon/human/proc/makeSkeleton(update_appearance = TRUE)
+	if(isskeleton(src) || HAS_TRAIT_FROM(src, TRAIT_SKELETON, GENERIC_TRAIT))
+		return FALSE
 
-	if(istype(H))
-		H.disfigured = TRUE
-		if(H.f_style)
-			H.f_style = initial(H.f_style)
-		if(H.h_style)
-			H.h_style = initial(H.h_style)
-		if(H.ha_style)
-			H.ha_style = initial(H.ha_style)
-		if(H.alt_head)
-			H.alt_head = initial(H.alt_head)
-			H.handle_alt_icon()
+	. = TRUE
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(head_organ)
+		head_organ.disfigure()
+		if(head_organ.f_style)
+			head_organ.f_style = initial(head_organ.f_style)
+		if(head_organ.h_style)
+			head_organ.h_style = initial(head_organ.h_style)
+		if(head_organ.ha_style)
+			head_organ.ha_style = initial(head_organ.ha_style)
+		if(head_organ.alt_head)
+			head_organ.alt_head = initial(head_organ.alt_head)
+			head_organ.handle_alt_icon()
 	m_styles = DEFAULT_MARKING_STYLES
-	update_fhair()
-	update_hair()
-	update_head_accessory()
-	update_markings()
 
-	mutations.Add(SKELETON)
-	mutations.Add(NOCLONE)
-	update_body()
-	update_mutantrace()
-	return
+	ADD_TRAIT(src, TRAIT_SKELETON, GENERIC_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_CLONE, TRAIT_SKELETON)
+	if(update_appearance)
+		UpdateAppearance()
 
-/mob/living/carbon/human/proc/ChangeToHusk()
+/mob/living/carbon/human/proc/remove_skeleton(update_appearance = TRUE)
+	if(isskeleton(src) || !HAS_TRAIT_FROM(src, TRAIT_SKELETON, GENERIC_TRAIT))
+		return FALSE
+	. = TRUE
+	REMOVE_TRAIT(src, TRAIT_SKELETON, GENERIC_TRAIT)
+	REMOVE_TRAIT(src, TRAIT_NO_CLONE, TRAIT_SKELETON)
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	head_organ?.undisfigure()
+	if(update_appearance)
+		UpdateAppearance()
 
+/mob/living/carbon/human/proc/ChangeToHusk(update_appearance = TRUE)
 	// If the target has no DNA to begin with, its DNA can't be damaged beyond repair.
-	if(NO_DNA in dna.species.species_traits)
-		return
-	if(HUSK in mutations)
-		return
+	if(HAS_TRAIT(src, TRAIT_NO_DNA))
+		return FALSE
+	if(HAS_TRAIT_FROM(src, TRAIT_HUSK, GENERIC_TRAIT))
+		return FALSE
 
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(istype(H))
-		H.disfigured = TRUE //makes them unknown without fucking up other stuff like admintools
-		if(H.f_style)
-			H.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
-		if(H.h_style)
-			H.h_style = "Bald"
-	update_fhair()
-	update_hair()
+	. = TRUE
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	if(head_organ)
+		head_organ.disfigure()	//makes them unknown without fucking up other stuff like admintools
+		if(head_organ.f_style)
+			head_organ.f_style = "Shaved"		//we only change the icon_state of the hair datum, so it doesn't mess up their UI/UE
+		if(head_organ.h_style)
+			head_organ.h_style = "Bald"
 
-	mutations.Add(HUSK)
-	update_body()
-	update_mutantrace()
-	return
+	ADD_TRAIT(src, TRAIT_HUSK, GENERIC_TRAIT)
+	if(update_appearance)
+		UpdateAppearance()
 
 /mob/living/carbon/human/proc/Drain()
-	ChangeToHusk()
-	mutations |= NOCLONE
-	return
+	if(ChangeToHusk())
+		ADD_TRAIT(src, TRAIT_NO_CLONE, TRAIT_HUSK)
 
-/mob/living/carbon/human/proc/cure_husk()
-	mutations.Remove(HUSK)
-	var/obj/item/organ/external/head/H = bodyparts_by_name["head"]
-	if(istype(H))
-		H.disfigured = FALSE
-	update_body()
-	update_mutantrace()
-	UpdateAppearance() // reset hair from DNA
+/mob/living/carbon/human/proc/cure_husk(update_appearance = TRUE)
+	if(!HAS_TRAIT_FROM(src, TRAIT_HUSK, GENERIC_TRAIT))
+		return FALSE
+	. = TRUE
+	REMOVE_TRAIT(src, TRAIT_HUSK, GENERIC_TRAIT)
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	head_organ?.undisfigure()
+	REMOVE_TRAIT(src, TRAIT_NO_CLONE, TRAIT_HUSK)
+	if(update_appearance)
+		UpdateAppearance() // reset hair from DNA
+
+/mob/living/carbon/human/proc/revive_no_clone_removal()
+	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_NO_CLONE))
+		REMOVE_TRAIT(src, TRAIT_NO_CLONE, trait_source)
+
+/mob/living/carbon/human/proc/make_nugget(mob/living)
+	for(var/obj/item/organ/external/limb as anything in bodyparts)
+		if(limb.limb_body_flag == LEG_RIGHT || limb.limb_body_flag == LEG_LEFT || limb.limb_body_flag == ARM_RIGHT || limb.limb_body_flag == ARM_LEFT)
+			limb.droplimb()
+	emote("scream")
+	playsound(src, 'sound/misc/desceration-03.ogg', 70)
+

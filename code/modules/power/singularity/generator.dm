@@ -2,10 +2,9 @@
 /obj/machinery/the_singularitygen
 	name = "Gravitational Singularity Generator"
 	desc = "An odd device which produces a Gravitational Singularity when set up."
-	icon = 'icons/obj/singularity.dmi'
+	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "TheSingGen"
-	anchored = 0
-	density = 1
+	density = TRUE
 	use_power = NO_POWER_USE
 	resistance_flags = FIRE_PROOF
 	var/energy = 0
@@ -21,18 +20,21 @@
 		transfer_fingerprints_to(S)
 		if(src) qdel(src)
 
-/obj/machinery/the_singularitygen/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wrench))
-		anchored = !anchored
-		playsound(src.loc, W.usesound, 75, 1)
-		if(anchored)
-			user.visible_message("[user.name] secures [src.name] to the floor.", \
-				"You secure the [src.name] to the floor.", \
-				"You hear a ratchet")
-			src.add_hiddenprint(user)
-		else
-			user.visible_message("[user.name] unsecures [src.name] from the floor.", \
-				"You unsecure the [src.name] from the floor.", \
-				"You hear a ratchet")
-		return
-	return ..()
+/obj/machinery/the_singularitygen/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	if(anchored)
+		user.visible_message(
+			span_notice("[user] has secured [src] to the floor."),
+			span_notice("You have secured [src] to the floor."),
+			span_italics("You hear a ratchet"),
+		)
+	else
+		user.visible_message(
+			span_notice("[user] has unsecured [src] from floor."),
+			span_notice("You have unsecured [src] from floor."),
+			span_italics("You hear a ratchet"),
+		)
+

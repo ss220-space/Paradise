@@ -1,12 +1,11 @@
 /obj/item/gun/energy/spikethrower //It's like the cyborg LMG, uses energy to make spikes
-	name = "\improper Vox spike thrower"
+	name = "Vox spike thrower"
 	desc = "A vicious alien projectile weapon. Parts of it quiver gelatinously, as though the thing is insectile and alive."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "spikethrower"
 	item_state = "spikethrower"
 	w_class = WEIGHT_CLASS_SMALL
 	fire_sound_text = "a strange noise"
-	can_suppress = 0
 	burst_size = 2 // burst has to be stored here
 	can_charge = FALSE
 	selfcharge = TRUE
@@ -20,23 +19,22 @@
 /obj/item/ammo_casing/energy/spike
 	name = "alloy spike"
 	desc = "A broadhead spike made out of a weird silvery metal."
-	projectile_type = /obj/item/projectile/bullet/spike
+	projectile_type = /obj/projectile/bullet/spike
 	muzzle_flash_effect = null
-	e_cost = 100
 	delay = 3 //and delay has to be stored here on energy guns
 	select_name = "spike"
 	fire_sound = 'sound/weapons/bladeslice.ogg'
 
-/obj/item/projectile/bullet/spike
+/obj/projectile/bullet/spike
 	name = "alloy spike"
 	desc = "It's about a foot of weird silvery metal with a wicked point."
 	damage = 25
-	stun = 1
+	stun = 2 SECONDS
 	armour_penetration = 30
 	icon_state = "magspear"
 
-/obj/item/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
-	if((blocked != 100) && istype(target, /mob/living/carbon/human))
+/obj/projectile/bullet/spike/on_hit(atom/target, blocked = 0)
+	if((blocked != 100) && ishuman(target))
 		var/mob/living/carbon/human/H = target
 		H.bleed(50)
 	..()
@@ -47,30 +45,31 @@
 	desc = "It's some kind of enormous alien weapon, as long as a man is tall."
 	icon_state = "noisecannon"
 	item_state = "noisecannon"
-	recoil = 1
 	force = 10
 	ammo_type = list(/obj/item/ammo_casing/energy/sonic)
 	cell_type = /obj/item/stock_parts/cell/super
 	restricted_species = list(/datum/species/vox/armalis)
-	sprite_sheets_inhand = list("Vox Armalis" = 'icons/mob/species/armalis/held.dmi') //Big guns big birds.
+	sprite_sheets_inhand = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/held.dmi') //Big guns big birds.
+	recoil = GUN_RECOIL_HIGH
 
-/obj/item/gun/energy/noisecannon/update_icon()
+/obj/item/gun/energy/noisecannon/update_icon_state()
 	return
+
+/obj/item/gun/energy/noisecannon/update_overlays()
+	return list()
 
 //Casing
 /obj/item/ammo_casing/energy/sonic
-	projectile_type = /obj/item/projectile/energy/sonic
+	projectile_type = /obj/projectile/energy/sonic
 	fire_sound = 'sound/effects/basscannon.ogg'
 	delay = 40
 
 //Projectile.
-/obj/item/projectile/energy/sonic
+/obj/projectile/energy/sonic
 	name = "distortion"
 	icon_state = "particle"
 	damage = 60
 	damage_type = BRUTE
-	flag = "bullet"
+	flag = BULLET
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-
-	weaken = 5
-	stun = 5
+	weaken = 10 SECONDS

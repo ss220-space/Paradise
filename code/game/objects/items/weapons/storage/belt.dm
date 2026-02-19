@@ -1,52 +1,155 @@
 /obj/item/storage/belt
-	name = "belt"
-	desc = "Can hold various things."
+	name = "not actually a toolbelt"
+	desc = "Can hold various things. This is the base type of /belt, are you sure you should have this?"
+	gender = MALE
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
-	slot_flags = SLOT_BELT
-	attack_verb = list("whipped", "lashed", "disciplined")
+	slot_flags = ITEM_SLOT_BELT
+	attack_verb = list("хлестнул", "стегнул", "проучил")
 	max_integrity = 300
-	var/use_item_overlays = 0 // Do we have overlays for items held inside the belt?
+	pickup_sound = 'sound/items/handling/pickup/toolbelt_pickup.ogg'
+	equip_sound = 'sound/items/handling/equip/toolbelt_equip.ogg'
+	drop_sound = 'sound/items/handling/drop/toolbelt_drop.ogg'
+	custom_price = PAYCHECK_COMMAND // belts are useful => they're expensive
+	abstract_type = /obj/item/storage/belt
 
-/obj/item/storage/belt/update_icon()
-	if(use_item_overlays)
-		overlays.Cut()
-		for(var/obj/item/I in contents)
-			overlays += "[I.name]"
-	..()
+	/// Do we have overlays for items held inside the belt?
+	var/use_item_overlays = FALSE
+	/// Won't change it's size even with items inside if TRUE
+	var/storable = FALSE
+	/// Size after putting smth in
+	var/expanded_size = WEIGHT_CLASS_BULKY
+	/// Size when there's no contents
+	var/folded_size = WEIGHT_CLASS_NORMAL
+
+/obj/item/storage/belt/examine(mob/user)
+	. = ..()
+	if(storable || initial(w_class) == expanded_size)
+		. += span_notice("Размер останется <b>неизменным</b> вне зависимости от содержимого.")
+	else if(length(contents))
+		. += span_notice("<b>Уменьшится</b> в размере после извлечения содержимого.")
+	else
+		. += span_notice("<b>Увеличится</b> в размере при наличии содержимого.")
+
+/obj/item/storage/belt/proc/update_weight()
+	if(initial(w_class) == expanded_size) // so initially BULKY belts won't become NORMAL when they get empty
+		return
+	if(!length(contents) || storable)
+		w_class = folded_size
+		return
+	w_class = expanded_size
+
+/obj/item/storage/belt/remove_from_storage(obj/item/I, atom/new_location)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/belt/can_be_inserted(obj/item/I, stop_messages = FALSE)
+	if(isstorage(loc) && !istype(loc, /obj/item/storage/backpack/holding) && !storable)
+		balloon_alert(usr, "сначала вытащите пояс!")
+		return FALSE
+	. = ..()
+
+/obj/item/storage/belt/Initialize(mapload)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/belt/handle_item_insertion(obj/item/I, prevent_warning)
+	. = ..()
+	update_weight()
+
+/obj/item/storage/belt/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
+	return TRUE
+
+/obj/item/storage/belt/proc/collect_radial_menu_choices()
+	var/list/choices = list()
+	for(var/i = length(contents); i >= 1; i--) // Reverse order
+		var/obj/item = contents[i]
+		choices["[item.declent_ru(NOMINATIVE)]"] = image(icon = item.icon, icon_state = item.icon_state)
+	return choices
+
+/obj/item/storage/belt/proc/try_fast_equip_item_from_belt(obj/item/item)
+	if(item == null)
+		return
+	if(!usr.put_in_any_hand_if_possible(item))
+		return
+	balloon_alert(usr, "снято с пояса")
+
+/obj/item/storage/belt/proc/try_fast_unequip_item_to_belt(obj/item/item)
+	if(item == null)
+		return
+	if(!can_be_inserted(item)) // Detail stop message in check proc
+		balloon_alert(usr, "не помещается!")
+		return
+	if(handle_item_insertion(item))
+		balloon_alert(usr, "повешено на пояс")
+
+/obj/item/storage/belt/proc/find_content_by_name(choice)
+	for(var/obj/item in contents)
+		if(item.declent_ru(NOMINATIVE) == choice)
+			return item
+	return null
+
+/obj/item/storage/belt/proc/select_item_by_radial_menu(mob/user, list/choices)
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user), anim_speed = 0)
+	if(!check_menu(user))
+		return null
+	return find_content_by_name(choice)
+
+/obj/item/storage/belt/proc/radial_menu(mob/user)
+	if(!check_menu(user))
+		return
+	var/list/choices = collect_radial_menu_choices()
+	if(length(choices) == 0)
+		balloon_alert(user, "пояс пуст!")
+		return
+	if(length(choices) == 1) // Auto extract for single item without radial menu
+		var/obj/item/selected = contents[1]
+		try_fast_equip_item_from_belt(selected)
+		return
+	var/obj/item/selected = select_item_by_radial_menu(user, choices)
+	try_fast_equip_item_from_belt(selected)
+
+/obj/item/storage/belt/attack_self(mob/user = usr)
+	var/obj/item/hand_item = user.get_active_hand()
+	if(hand_item)
+		try_fast_unequip_item_to_belt(hand_item)
+		return
+	radial_menu(user)
+
+/obj/item/storage/belt/item_action_slot_check(slot, mob/user, datum/action/action)
+	if(slot & ITEM_SLOT_BELT)
+		return TRUE
+
+/obj/item/storage/belt/update_overlays()
+	. = ..()
+	if(!use_item_overlays)
+		return
+	for(var/obj/item/item in contents)
+		var/mutable_appearance/icon = item.get_belt_overlay()
+		if(!icon)
+			continue
+		. += icon
 
 /obj/item/storage/belt/proc/can_use()
 	return is_equipped()
-
-/obj/item/storage/belt/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/M = usr
-	if(!istype(over_object, /obj/screen))
-		return ..()
-	playsound(src.loc, "rustle", 50, 1, -5)
-	if(!M.restrained() && !M.stat && can_use())
-		switch(over_object.name)
-			if("r_hand")
-				M.unEquip(src)
-				M.put_in_r_hand(src)
-			if("l_hand")
-				M.unEquip(src)
-				M.put_in_l_hand(src)
-		src.add_fingerprint(usr)
-		return
 
 /obj/item/storage/belt/deserialize(list/data)
 	..()
 	update_icon()
 
 /obj/item/storage/belt/utility
-	name = "tool-belt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
+	name = "tool-belt" // Utility belt is nicer, but it bamboozles the text parsing.
 	desc = "Can hold various tools."
-	icon_state = "utilitybelt"
-	item_state = "utility"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
+	max_combined_w_class = 18
+	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/crowbar,
 		/obj/item/screwdriver,
@@ -59,10 +162,15 @@
 		/obj/item/t_scanner,
 		/obj/item/analyzer,
 		/obj/item/extinguisher/mini,
-		/obj/item/holosign_creator)
+		/obj/item/holosign_creator,
+		/obj/item/radio,
+		/obj/item/robotanalyzer,
+		/obj/item/clothing/gloves,
+		/obj/item/rcd,
+		/obj/item/rpd,
+	)
 
-/obj/item/storage/belt/utility/full/New()
-	..()
+/obj/item/storage/belt/utility/full/populate_contents()
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
@@ -71,13 +179,12 @@
 	new /obj/item/stack/cable_coil/random(src, 30)
 	update_icon()
 
-/obj/item/storage/belt/utility/full/multitool/New()
+/obj/item/storage/belt/utility/full/multitool/populate_contents()
 	..()
 	new /obj/item/multitool(src)
 	update_icon()
 
-/obj/item/storage/belt/utility/atmostech/New()
-	..()
+/obj/item/storage/belt/utility/atmostech/populate_contents()
 	new /obj/item/screwdriver(src)
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool(src)
@@ -92,26 +199,27 @@
 	desc = "Holds tools, looks snazzy"
 	icon_state = "utilitybelt_ce"
 	item_state = "utility_ce"
+	storage_slots = 8
+	max_combined_w_class = 20 // set of tools + RCD/RPD
+	storable = TRUE
 
-/obj/item/storage/belt/utility/chief/full/New()
-	..()
+/obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
 	new /obj/item/crowbar/power(src)
-	new /obj/item/weldingtool/experimental(src)//This can be changed if this is too much
+	new /obj/item/weldingtool/experimental(src)
 	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil/random(src, 30)
 	new /obj/item/extinguisher/mini(src)
 	new /obj/item/analyzer(src)
 	update_icon()
-	//much roomier now that we've managed to remove two tools
 
 /obj/item/storage/belt/medical
-	use_to_pickup = 1 //Allow medical belt to pick up medicine
 	name = "medical belt"
-	desc = "Can hold various medical equipment."
+	desc = "Универсальный медицинский пояс, предназначенный для размещения и переноски медицинских приспособлений и лекарственных средств. \
+			Оборудован рядом карманов и креплений для мелких предметов. Используется медицинским персоналом."
 	icon_state = "medicalbelt"
 	item_state = "medical"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	max_w_class = WEIGHT_CLASS_NORMAL
 	can_hold = list(
 		/obj/item/healthanalyzer,
@@ -135,17 +243,29 @@
 		/obj/item/sensor_device,
 		/obj/item/wrench/medical,
 		/obj/item/handheld_defibrillator,
-		/obj/item/reagent_containers/applicator
+		/obj/item/reagent_containers/applicator,
+		/obj/item/radio,
+	)
+	use_to_pickup = 1 //Allow medical belt to pick up medicine
+
+/obj/item/storage/belt/medical/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский пояс",
+		GENITIVE = "медицинского пояса",
+		DATIVE = "медицинскому поясу",
+		ACCUSATIVE = "медицинский пояс",
+		INSTRUMENTAL = "медицинским поясом",
+		PREPOSITIONAL = "медицинском поясе",
 	)
 
 /obj/item/storage/belt/medical/surgery
-	max_w_class = WEIGHT_CLASS_NORMAL
-	max_combined_w_class = 17
-	use_to_pickup = 1
 	name = "surgical belt"
-	desc = "Can hold various surgical tools."
-	storage_slots = 9
-	use_item_overlays = 1
+	desc = "Универсальный хирургический пояс, предназначенный для размещения и переноски хирургических инструментов. \
+			Оборудован нескользящими вставками для удержания инструментов. Используется хирургическим персоналом."
+	icon_state = "surgicalbelt"
+	item_state = "surgical"
+	max_combined_w_class = 17
+	storage_slots = 11
 	can_hold = list(
 		/obj/item/scalpel,
 		/obj/item/hemostat,
@@ -156,12 +276,22 @@
 		/obj/item/FixOVein,
 		/obj/item/surgicaldrill,
 		/obj/item/cautery,
+		/obj/item/radio,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/spray/cleaner,
 	)
 
-/obj/item/storage/belt/medical/surgery/loaded
+/obj/item/storage/belt/medical/surgery/get_ru_names()
+	return list(
+		NOMINATIVE = "хирургический пояс",
+		GENITIVE = "хирургического пояса",
+		DATIVE = "хирургическому поясу",
+		ACCUSATIVE = "хирургический пояс",
+		INSTRUMENTAL = "хирургическим поясом",
+		PREPOSITIONAL = "хирургическом поясе",
+	)
 
-/obj/item/storage/belt/medical/surgery/loaded/New()
-	..()
+/obj/item/storage/belt/medical/surgery/loaded/populate_contents()
 	new /obj/item/scalpel(src)
 	new /obj/item/hemostat(src)
 	new /obj/item/retractor(src)
@@ -172,10 +302,7 @@
 	new /obj/item/surgicaldrill(src)
 	new /obj/item/cautery(src)
 
-/obj/item/storage/belt/medical/response_team
-
-/obj/item/storage/belt/medical/response_team/New()
-	..()
+/obj/item/storage/belt/medical/response_team/populate_contents()
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/salbutamol(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
@@ -185,19 +312,63 @@
 	new /obj/item/reagent_containers/food/pill/salicylic(src)
 	update_icon()
 
+/obj/item/storage/belt/medical/surgery/abductor
+	name = "agent surgical belt"
+	desc = "Хирургический пояс инопланетного происхождения."
+	icon = 'icons/obj/abductor.dmi'
+	item_state = "surgical_alien"
+	max_combined_w_class = 19
+	storable = TRUE
+	can_hold = list(
+		/obj/item/scalpel,
+		/obj/item/hemostat,
+		/obj/item/retractor,
+		/obj/item/circular_saw,
+		/obj/item/bonegel,
+		/obj/item/bonesetter,
+		/obj/item/FixOVein,
+		/obj/item/surgicaldrill,
+		/obj/item/cautery,
+		/obj/item/radio,
+		/obj/item/clothing/gloves/color/latex,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/spray/cleaner,
+	)
+
+/obj/item/storage/belt/medical/surgery/abductor/get_ru_names()
+	return list(
+		NOMINATIVE = "инопланетный хирургический пояс",
+		GENITIVE = "инопланетного хирургического пояса",
+		DATIVE = "инопланетному хирургическому поясу",
+		ACCUSATIVE = "инопланетный хирургический пояс",
+		INSTRUMENTAL = "инопланетным хирургическим поясом",
+		PREPOSITIONAL = "инопланетном хирургическом поясе",
+	)
+
+/obj/item/storage/belt/medical/surgery/abductor/loaded/populate_contents()
+	new /obj/item/scalpel/alien(src)
+	new /obj/item/hemostat/alien(src)
+	new /obj/item/retractor/alien(src)
+	new /obj/item/circular_saw/alien(src)
+	new /obj/item/bonegel/alien(src)
+	new /obj/item/bonesetter/alien(src)
+	new /obj/item/FixOVein/alien(src)
+	new /obj/item/surgicaldrill/alien(src)
+	new /obj/item/cautery/alien(src)
+	new /obj/item/reagent_containers/applicator/abductor/brute(src)
+	new /obj/item/reagent_containers/applicator/abductor/burn(src)
+
 /obj/item/storage/belt/botany
 	name = "botanist belt"
 	desc = "Can hold various botanical supplies."
 	icon_state = "botanybelt"
 	item_state = "botany"
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/plant_analyzer,
 		/obj/item/cultivator,
 		/obj/item/hatchet,
 		/obj/item/reagent_containers/glass/bottle,
-//		/obj/item/reagent_containers/syringe,
-//		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/lighter/zippo,
 		/obj/item/storage/fancy/cigarettes,
 		/obj/item/shovel/spade,
@@ -206,17 +377,18 @@
 		/obj/item/wirecutters,
 		/obj/item/wrench,
 		/obj/item/reagent_containers/spray/weedspray,
-		/obj/item/reagent_containers/spray/pestspray
-		)
+		/obj/item/reagent_containers/spray/pestspray,
+		/obj/item/radio,
+	)
 
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
-	item_state = "security"//Could likely use a better one.
+	item_state = "security"
 	storage_slots = 5
 	max_w_class = WEIGHT_CLASS_NORMAL
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/flashbang,
 		/obj/item/grenade/chem_grenade/teargas,
@@ -227,24 +399,27 @@
 		/obj/item/ammo_casing/shotgun,
 		/obj/item/ammo_box,
 		/obj/item/reagent_containers/food/snacks/donut,
+		/obj/item/reagent_containers/food/snacks/candy/confectionery/toffee,
 		/obj/item/kitchen/knife/combat,
+		/obj/item/melee/baton/security,
 		/obj/item/melee/baton,
-		/obj/item/melee/classic_baton,
 		/obj/item/flashlight/seclite,
 		/obj/item/holosign_creator/security,
-		/obj/item/melee/classic_baton/telescopic,
+		/obj/item/melee/baton/telescopic,
 		/obj/item/restraints/legcuffs/bola,
 		/obj/item/forensics/sample_kit/powder,
 		/obj/item/forensics/sample_kit,
-		/obj/item/eftpos/sec)
+		/obj/item/eftpos/sec,
+		/obj/item/weapon_cell,
+		/obj/item/radio,
+	)
 
-/obj/item/storage/belt/security/sec/New()
-	..()
+/obj/item/storage/belt/security/sec/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/restraints/handcuffs(src)
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/flash(src)
-	new /obj/item/melee/baton/loaded(src)
+	new /obj/item/melee/baton/security/loaded(src)
 	update_icon()
 
 /obj/item/storage/belt/security/detective
@@ -253,18 +428,23 @@
 	icon_state = "detective_belt"
 	item_state = "detective_belt"
 
-/obj/item/storage/belt/security/response_team/New()
-	..()
-	new /obj/item/reagent_containers/spray/pepper(src)
-	new /obj/item/melee/baton/loaded(src)
+/obj/item/storage/belt/security/detective/populate_contents()
 	new /obj/item/flash(src)
-	new /obj/item/melee/classic_baton/telescopic(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/holosign_creator/security(src)
+	new /obj/item/flashlight/seclite(src)
+	update_icon()
+
+/obj/item/storage/belt/security/response_team/populate_contents()
+	new /obj/item/reagent_containers/spray/pepper(src)
+	new /obj/item/melee/baton/security/loaded(src)
+	new /obj/item/flash(src)
+	new /obj/item/melee/baton/telescopic(src)
 	new /obj/item/grenade/flashbang(src)
 	update_icon()
 
-/obj/item/storage/belt/security/response_team_gamma/New()
-	..()
-	new /obj/item/melee/baton/loaded(src)
+/obj/item/storage/belt/security/response_team_gamma/populate_contents()
+	new /obj/item/melee/baton/security/loaded(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flash(src)
 	new /obj/item/grenade/flashbang(src)
@@ -278,13 +458,13 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
+	custom_price = PAYCHECK_MAX // 1 extra slot, so lil bit more expensive
 
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
 	desc = "Unique and versatile chest rig, can hold SRT gear."
 
-/obj/item/storage/belt/security/webbing/srt/full/New()
-	..()
+/obj/item/storage/belt/security/webbing/srt/full/populate_contents()
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/kitchen/knife/combat(src)
 	new /obj/item/restraints/handcuffs(src)
@@ -299,21 +479,15 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
-		"/obj/item/soulstone"
-		)
+		"/obj/item/soulstone",
+	)
 
-/obj/item/storage/belt/soulstone/full/New()
-	..()
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
-	new /obj/item/soulstone(src)
+/obj/item/storage/belt/soulstone/full/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/soulstone(src)
 	update_icon()
-
 
 /obj/item/storage/belt/champion
 	name = "championship belt"
@@ -322,16 +496,15 @@
 	item_state = "champion"
 	materials = list(MAT_GOLD=400)
 	storage_slots = 1
-	can_hold = list(
-		"/obj/item/clothing/mask/luchador"
-		)
+	can_hold = list("/obj/item/clothing/mask")
 
 /obj/item/storage/belt/military
 	name = "military belt"
 	desc = "A syndicate belt designed to be used by boarding parties.  Its style is modelled after the hardsuits they wear."
 	icon_state = "militarybelt"
 	item_state = "military"
-	max_w_class = WEIGHT_CLASS_SMALL
+	max_combined_w_class = 18
+	storable = TRUE
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/belt/military/sst
@@ -343,19 +516,31 @@
 	desc = "Can hold various tools. This model seems to have additional compartments."
 	icon_state = "utilitybelt"
 	item_state = "utility"
-	use_item_overlays = 1 // So it will still show tools in it in case sec get lazy and just glance at it.
+	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+	)
 
-/obj/item/storage/belt/military/traitor/hacker
-
-/obj/item/storage/belt/military/traitor/hacker/New()
-	..()
+/obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
 	new /obj/item/wrench(src)
 	new /obj/item/weldingtool/largetank(src)
-	new /obj/item/crowbar/red(src)
+	new /obj/item/crowbar/small(src)
 	new /obj/item/wirecutters(src, "red")
+	new /obj/item/multitool/ai_detect(src)
 	new /obj/item/stack/cable_coil(src, 30, COLOR_RED)
 	update_icon()
+
+/obj/item/storage/belt/military/traitor/sec
+	name = "security belt"
+	desc = "Can hold security gear like handcuffs and flashes."
+	icon_state = "securitybelt"
+	item_state = "security"
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
@@ -368,71 +553,71 @@
 	can_hold = list(
 		/obj/item/grenade,
 		/obj/item/lighter,
-		/obj/item/reagent_containers/food/drinks/bottle/molotov
-		)
+		/obj/item/reagent_containers/food/drinks/bottle/molotov,
+	)
 
-/obj/item/storage/belt/grenade/full/New()
-	..()
-	new /obj/item/grenade/smokebomb(src) //4
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/empgrenade(src) //2
-	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/grenade/gluon(src) //4
-	new /obj/item/grenade/gluon(src)
-	new /obj/item/grenade/gluon(src)
-	new /obj/item/grenade/gluon(src)
+/obj/item/storage/belt/grenade/full/populate_contents()
+	for(var/I in 1 to 4)// Four of each
+		new /obj/item/grenade/smokebomb(src)
+		new /obj/item/grenade/gluon(src)
+	for(var/I in 1 to 10)//10
+		new /obj/item/grenade/frag(src)
+	for(var/I in 1 to 2)//2
+		new /obj/item/grenade/gas/plasma(src)
+		new /obj/item/grenade/empgrenade(src)
+		new /obj/item/grenade/syndieminibomb(src)
 	new /obj/item/grenade/chem_grenade/facid(src) //1
 	new /obj/item/grenade/chem_grenade/saringas(src) //1
-	new /obj/item/grenade/gas/plasma(src) //2
-	new /obj/item/grenade/gas/plasma(src)
-	new /obj/item/grenade/frag(src) //10
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/frag(src)
-	new /obj/item/grenade/syndieminibomb(src) //2
-	new /obj/item/grenade/syndieminibomb(src)
 
+/obj/item/storage/belt/grenade/nonlethal/populate_contents()
+	for(var/I in 1 to 14)
+		new /obj/item/grenade/smokebomb(src) //14
+	for(var/I in 1 to 6)
+		new /obj/item/grenade/chem_grenade/teargas(src)	//6
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/chem_grenade/metalfoam(src) //4
+	for(var/I in 1 to 2)//2
+		new /obj/item/grenade/chem_grenade/lube(src) //2
+		new /obj/item/grenade/chem_grenade/drugs(src) //2
+		new /obj/item/grenade/gas/knockout(src)	//2
 
-/obj/item/storage/belt/grenade/nonlethal/New()
-	..()
-	new /obj/item/grenade/smokebomb(src) //14
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)	//6
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/metalfoam(src) //4
-	new /obj/item/grenade/chem_grenade/metalfoam(src)
-	new /obj/item/grenade/chem_grenade/metalfoam(src)
-	new /obj/item/grenade/chem_grenade/metalfoam(src)
-	new /obj/item/grenade/chem_grenade/lube(src) //2
-	new /obj/item/grenade/chem_grenade/lube(src)
-	new /obj/item/grenade/chem_grenade/drugs(src) //2
-	new /obj/item/grenade/chem_grenade/drugs(src)
-	new /obj/item/grenade/gas/knockout(src)	//2
-	new /obj/item/grenade/gas/knockout(src)
+/obj/item/storage/belt/grenade/frag/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/frag(src)
+
+/obj/item/storage/belt/grenade/demolitionist/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/frag(src)
+		new /obj/item/grenade/gluon(src)
+		new /obj/item/grenade/smokebomb(src)
+		new /obj/item/grenade/plastic/c4(src)
+	for(var/I in 1 to 2)
+		new /obj/item/grenade/empgrenade(src)
+
+/obj/item/storage/belt/rocketman
+	name = "rocket belt"
+	desc = "A belt for holding rockets."
+	icon_state = "assaultbelt"
+	item_state = "assault"
+	max_combined_w_class = 30 //just to be sure..
+	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
+	can_hold = /obj/item/ammo_casing/caseless/rocket
+
+/obj/item/storage/belt/rocketman/get_ru_names()
+	return list(
+		NOMINATIVE = "пояс с ракетами",
+		GENITIVE = "пояса с ракетами",
+		DATIVE = "поясу с ракетами",
+		ACCUSATIVE = "пояс с ракетами",
+		INSTRUMENTAL = "поясом с ракетами",
+		PREPOSITIONAL = "поясе с ракетами",
+	)
+
+/obj/item/storage/belt/rocketman/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket(src)
+	for(var/I in 1 to 3)
+		new /obj/item/ammo_casing/caseless/rocket/hedp(src)
 
 /obj/item/storage/belt/military/abductor
 	name = "agent belt"
@@ -441,8 +626,7 @@
 	icon_state = "belt"
 	item_state = "security"
 
-/obj/item/storage/belt/military/abductor/full/New()
-	..()
+/obj/item/storage/belt/military/abductor/full/populate_contents()
 	new /obj/item/screwdriver/abductor(src)
 	new /obj/item/wrench/abductor(src)
 	new /obj/item/weldingtool/abductor(src)
@@ -458,8 +642,7 @@
 	item_state = "assault"
 	storage_slots = 6
 
-/obj/item/storage/belt/military/assault/marines/full/New()
-	..()
+/obj/item/storage/belt/military/assault/marines/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
 	new /obj/item/ammo_box/magazine/m12g(src)
@@ -468,8 +651,16 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
-/obj/item/storage/belt/military/assault/marines/elite/full/New()
-	..()
+/obj/item/storage/belt/military/assault/marines/cats/full/populate_contents()
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/beanbang(src)
+	new /obj/item/ammo_box/magazine/cats12g/large(src)
+	update_icon()
+
+/obj/item/storage/belt/military/assault/marines/elite/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
 	new /obj/item/ammo_box/magazine/m556(src)
@@ -477,8 +668,7 @@
 	new /obj/item/ammo_box/magazine/m45(src)
 	update_icon()
 
-/obj/item/storage/belt/military/assault/soviet/full/New()
-	..()
+/obj/item/storage/belt/military/assault/soviet/full/populate_contents()
 	new /obj/item/ammo_box/magazine/ak814(src)
 	new /obj/item/ammo_box/magazine/ak814(src)
 	new /obj/item/ammo_box/magazine/ak814(src)
@@ -486,14 +676,20 @@
 	new /obj/item/grenade/plastic/x4/thermite(src)
 	new /obj/item/storage/pill_bottle/sovietstimulants(src)
 
+/obj/item/storage/belt/military/assault/gammaert/full/populate_contents()
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/storage/pouch/fast(src)
+	new /obj/item/melee/baton/telescopic(src)
+
 /obj/item/storage/belt/janitor
 	name = "janibelt"
 	desc = "A belt used to hold most janitorial supplies."
 	icon_state = "janibelt"
 	item_state = "janibelt"
 	storage_slots = 6
-	max_w_class = WEIGHT_CLASS_BULKY // Set to this so the  light replacer can fit.
-	use_item_overlays = 1
+	max_w_class = WEIGHT_CLASS_BULKY // So the light replacer can fit.
+	use_item_overlays = TRUE
 	can_hold = list(
 		/obj/item/grenade/chem_grenade/cleaner,
 		/obj/item/lightreplacer,
@@ -502,93 +698,115 @@
 		/obj/item/soap,
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
-		)
+		/obj/item/radio,
+	)
 
-/obj/item/storage/belt/janitor/full/New()
-	..()
+/obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
 	new /obj/item/holosign_creator/janitor(src)
 	new /obj/item/reagent_containers/spray/cleaner(src)
 	new /obj/item/soap(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
 	new /obj/item/grenade/chem_grenade/cleaner(src)
-	new /obj/item/melee/flyswatter(src)
+	update_icon()
+
+/obj/item/storage/belt/janitor/ert/populate_contents()
+	new /obj/item/lightreplacer(src)
+	new /obj/item/holosign_creator/janitor(src)
+	new /obj/item/reagent_containers/spray/cleaner(src)
+	new /obj/item/soap/ert(src)
+	new /obj/item/grenade/chem_grenade/cleaner(src)
+	new /obj/item/grenade/chem_grenade/cleaner(src)
 	update_icon()
 
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
-	desc = "For the mining master, holds your lazarus capsules."
-	icon_state = "lazarusbelt"
+	desc = "Для шахтёров-мастеров — хранит капсулы Лазаря."
+	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_TINY
 	max_combined_w_class = 6
 	storage_slots = 6
-	can_hold = list(/obj/item/mobcapsule)
+	can_hold = list(
+		/obj/item/mobcapsule,
+		/obj/item/radio,
+	)
 
-/obj/item/storage/belt/lazarus/New()
-	..()
-	update_icon()
+/obj/item/storage/belt/lazarus/get_ru_names()
+	return list(
+		NOMINATIVE = "пояс тренера",
+		GENITIVE = "пояса тренера",
+		DATIVE = "поясу тренера",
+		ACCUSATIVE = "пояс тренера",
+		INSTRUMENTAL = "поясом тренера",
+		PREPOSITIONAL = "поясе тренера",
+	)
 
-
-/obj/item/storage/belt/lazarus/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]_[contents.len]"
-
-/obj/item/storage/belt/lazarus/attackby(obj/item/W, mob/user)
-	var/amount = contents.len
+/obj/item/storage/belt/lazarus/Initialize(mapload)
 	. = ..()
-	if(amount != contents.len)
-		update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/storage/belt/lazarus/remove_from_storage(obj/item/W as obj, atom/new_location)
-	..()
-	update_icon()
+/obj/item/storage/belt/lazarus/update_icon_state()
+	icon_state = "lazarusbelt_[length(contents)]"
 
+/obj/item/storage/belt/lazarus/attackby(obj/item/I, mob/user, params)
+	var/amount = length(contents)
+	. = ..()
+	if(amount != length(contents))
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
-	desc = "A bandolier for holding shotgun ammunition."
-	icon_state = "bandolier"
+	desc = "Патронташ для хранения патронов к дробовику."
+	icon_state = "bandolier_0"
 	item_state = "bandolier"
-	storage_slots = 8
-	can_hold = list(
-		/obj/item/ammo_casing/shotgun
-		)
+	base_icon_state = "bandolier"
+	storage_slots = 16
+	max_combined_w_class = 16
+	display_contents_with_number = TRUE
+	can_hold = list(/obj/item/ammo_casing/shotgun)
 
-/obj/item/storage/belt/bandolier/New()
-	..()
-	update_icon()
+/obj/item/storage/belt/bandolier/get_ru_names()
+	return list(
+		NOMINATIVE = "патронташ",
+		GENITIVE = "патронташа",
+		DATIVE = "патронташу",
+		ACCUSATIVE = "патронташ",
+		INSTRUMENTAL = "патронташем",
+		PREPOSITIONAL = "патронташе",
+	)
 
-/obj/item/storage/belt/bandolier/full/New()
-	..()
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	new /obj/item/ammo_casing/shotgun/beanbag(src)
-	update_icon()
-
-/obj/item/storage/belt/bandolier/update_icon()
-	..()
-	icon_state = "[initial(icon_state)]_[contents.len]"
-
-/obj/item/storage/belt/bandolier/attackby(obj/item/W, mob/user)
-	var/amount = contents.len
+/obj/item/storage/belt/bandolier/Initialize(mapload)
 	. = ..()
-	if(amount != contents.len)
-		update_icon()
-
-/obj/item/storage/belt/bandolier/remove_from_storage(obj/item/W as obj, atom/new_location)
-	..()
 	update_icon()
+
+/obj/item/storage/belt/bandolier/full/populate_contents()
+	for(var/I in 1 to 16)
+		new /obj/item/ammo_casing/shotgun/beanbag(src)
+	update_icon()
+
+/obj/item/storage/belt/bandolier/booze
+	description_antag = "Этот патронташ содержит 16 опьяняющих патронов, способных превратить противника или жертву в беззащитное существо. \
+						Обратите внимание, что эти патроны особенно эффективны против людей, находящихся в состоянии алкогольного опьянения. \
+						На трезвых они действуют не так сильно!"
+
+/obj/item/storage/belt/bandolier/booze/populate_contents()
+	for(var/I in 1 to 16)
+		new /obj/item/ammo_casing/shotgun/beanbag/fake(src)
+	update_icon()
+
+/obj/item/storage/belt/bandolier/update_icon_state()
+	icon_state = "[base_icon_state]_[length(contents)]"
+
+/obj/item/storage/belt/bandolier/attackby(obj/item/I, mob/user, params)
+	var/amount = length(contents)
+	. = ..()
+	if(amount != length(contents))
+		update_icon(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
-	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
+	desc = "Кобура, предназначенная для хранения пистолета."
 	icon_state = "holster"
 	item_state = "holster"
 	storage_slots = 1
@@ -596,8 +814,8 @@
 	can_hold = list(
 		/obj/item/gun/projectile/automatic/pistol,
 		/obj/item/gun/projectile/revolver/detective,
-		/obj/item/gun/projectile/automatic/toy/pistol
-		)
+		/obj/item/gun/projectile/automatic/toy/pistol,
+	)
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
@@ -605,13 +823,12 @@
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	storage_slots = 6
-	use_item_overlays = 1
+	use_item_overlays = TRUE
 	can_hold = list(
-		/obj/item/gun/magic/wand
-		)
+		/obj/item/gun/magic/wand,
+	)
 
-/obj/item/storage/belt/wands/full/New()
-	..()
+/obj/item/storage/belt/wands/full/populate_contents()
 	new /obj/item/gun/magic/wand/death(src)
 	new /obj/item/gun/magic/wand/resurrection(src)
 	new /obj/item/gun/magic/wand/polymorph(src)
@@ -619,9 +836,9 @@
 	new /obj/item/gun/magic/wand/door(src)
 	new /obj/item/gun/magic/wand/fireball(src)
 
-	for(var/obj/item/gun/magic/wand/W in contents) //All wands in this pack come in the best possible condition
-		W.max_charges = initial(W.max_charges)
-		W.charges = W.max_charges
+	for(var/obj/item/gun/magic/wand/wand in contents)
+		wand.max_charges = initial(wand.max_charges)
+		wand.charges = wand.max_charges
 	update_icon()
 
 /obj/item/storage/belt/fannypack
@@ -630,7 +847,6 @@
 	icon_state = "fannypack_leather"
 	item_state = "fannypack_leather"
 	storage_slots = 3
-	max_w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -689,13 +905,12 @@
 	item_state = "sheath"
 	storage_slots = 1
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_BULKY
-	can_hold = list(/obj/item/melee/rapier)
+	max_w_class = WEIGHT_CLASS_BULKY // So the rapier will fit
+	can_hold = list(/obj/item/melee/rapier/captain)
 
-/obj/item/storage/belt/rapier/New()
-	..()
-	new /obj/item/melee/rapier(src)
-	update_icon()
+/obj/item/storage/belt/rapier/populate_contents()
+	new /obj/item/melee/rapier/captain(src)
+	update_appearance(UPDATE_ICON_STATE)
 
 /obj/item/storage/belt/rapier/attack_hand(mob/user)
 	if(loc != user)
@@ -709,11 +924,11 @@
 
 	if(length(contents))
 		var/obj/item/I = contents[1]
-		H.visible_message("<span class='notice'>[H] takes [I] out of [src].</span>", "<span class='notice'>You take [I] out of [src].</span>")
-		H.put_in_hands(I)
+		H.visible_message(span_notice("[H] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
+		H.put_in_hands(I, ignore_anim = FALSE)
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>[src] is empty!</span>")
+		to_chat(user, span_warning("[src] is empty!"))
 
 /obj/item/storage/belt/rapier/handle_item_insertion(obj/item/W, prevent_warning)
 	if(!..())
@@ -725,20 +940,39 @@
 		return
 	playsound(src, 'sound/weapons/blade_unsheath.ogg', 20)
 
-/obj/item/storage/belt/rapier/update_icon()
-	. = ..()
+/obj/item/storage/belt/rapier/update_icon_state()
 	icon_state = initial(icon_state)
 	item_state = initial(item_state)
 	if(length(contents))
 		icon_state = "[icon_state]-rapier"
 		item_state = "[item_state]-rapier"
-	if(isliving(loc))
-		var/mob/living/L = loc
-		L.update_inv_belt()
+	update_equipped_item(update_speedmods = FALSE)
 
-// -------------------------------------
-//     Bluespace Belt
-// -------------------------------------
+/obj/item/storage/belt/rapier/syndie
+	name = "suspicious rapier sheath"
+	desc = "A sinister, thin sheath, suitable for a rapier."
+	icon_state = "syndie_sheath"
+	item_state = "syndie_sheath"
+	can_hold = list(/obj/item/melee/rapier/syndie)
+
+/obj/item/storage/belt/rapier/syndie/populate_contents()
+	new /obj/item/melee/rapier/syndie(src)
+	update_appearance(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/rapier/centcomm
+	name = "centcomm rapier sheath"
+	desc = "Украшенные ножны, корпоративный кич в комплекте."
+	icon_state = "centcomm_sheath"
+	item_state = "centcomm_sheath"
+	can_hold = list(/obj/item/melee/rapier/centcomm)
+
+/obj/item/storage/belt/rapier/centcomm/populate_contents()
+	new /obj/item/melee/rapier/centcomm(src)
+	update_appearance(UPDATE_ICON_STATE)
+
+/**
+ * MARK: Bluespace belt
+ */
 
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
@@ -747,10 +981,18 @@
 	item_state = "holdingbelt"
 	storage_slots = 14
 	w_class = WEIGHT_CLASS_BULKY
-	max_w_class = WEIGHT_CLASS_SMALL
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
+	w_class_override = list(
+		/obj/item/crowbar,
+		/obj/item/screwdriver,
+		/obj/item/weldingtool,
+		/obj/item/wirecutters,
+		/obj/item/wrench,
+		/obj/item/multitool,
+		/obj/item/handheld_defibrillator,
+	)
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
@@ -760,28 +1002,27 @@
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 18
-	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	allow_quick_empty = 1
 	can_hold = list(
 		/obj/item/grenade/smokebomb,
-		/obj/item/restraints/legcuffs/bola
-		)
+		/obj/item/restraints/legcuffs/bola,
+	)
 
-	flags = NODROP
 	var/smokecount = 0
 	var/bolacount = 0
 	var/cooldown = 0
 
-/obj/item/storage/belt/bluespace/owlman/New()
-	..()
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/grenade/smokebomb(src)
-	new /obj/item/restraints/legcuffs/bola(src)
-	new /obj/item/restraints/legcuffs/bola(src)
+/obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 	START_PROCESSING(SSobj, src)
 	cooldown = world.time
+
+/obj/item/storage/belt/bluespace/owlman/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/grenade/smokebomb(src)
+	new /obj/item/restraints/legcuffs/bola(src)
+	new /obj/item/restraints/legcuffs/bola(src)
 
 /obj/item/storage/belt/bluespace/owlman/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -813,8 +1054,8 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/attack(mob/M as mob, mob/user as mob, def_zone)
-	return
+/obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/storage/belt/bluespace/admin
 	name = "Admin's Tool-belt"
@@ -827,8 +1068,7 @@
 	max_combined_w_class = 280
 	can_hold = list()
 
-/obj/item/storage/belt/bluespace/admin/New()
-	..()
+/obj/item/storage/belt/bluespace/admin/populate_contents()
 	new /obj/item/crowbar(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/weldingtool/hugetank(src)
@@ -842,10 +1082,6 @@
 	new /obj/item/dnainjector/firemut(src)
 	new /obj/item/dnainjector/telemut(src)
 	new /obj/item/dnainjector/hulkmut(src)
-//		new /obj/item/spellbook(src) // for smoke effects, door openings, etc
-//		new /obj/item/magic/spellbook(src)
-
-//		new/obj/item/reagent_containers/hypospray/admin(src)
 
 /obj/item/storage/belt/bluespace/sandbox
 	name = "Sandbox Mode Toolbelt"
@@ -856,8 +1092,7 @@
 	max_combined_w_class = 280
 	can_hold = list()
 
-/obj/item/storage/belt/bluespace/sandbox/New()
-	..()
+/obj/item/storage/belt/bluespace/sandbox/populate_contents()
 	new /obj/item/crowbar(src)
 	new /obj/item/screwdriver(src)
 	new /obj/item/weldingtool/hugetank(src)
@@ -865,21 +1100,20 @@
 	new /obj/item/wrench(src)
 	new /obj/item/multitool(src)
 	new /obj/item/stack/cable_coil(src)
-
 	new /obj/item/analyzer(src)
 	new /obj/item/healthanalyzer(src)
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
-	desc = "A versatile chest rig, cherished by miners and hunters alike."
+	desc = "Универсальная нагрудная система, высоко ценимая шахтёрами и охотниками."
 	icon_state = "explorer1"
 	item_state = "explorer1"
 	storage_slots = 6
 	max_w_class = WEIGHT_CLASS_BULKY
 	max_combined_w_class = 20
-	use_item_overlays = 0
 	can_hold = list(
 		/obj/item/crowbar,
+		/obj/item/grenade/plastic/miningcharge,
 		/obj/item/screwdriver,
 		/obj/item/weldingtool,
 		/obj/item/wirecutters,
@@ -915,11 +1149,26 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/wormhole_jaunter,
 		/obj/item/storage/bag/plants,
-		/obj/item/stack/marker_beacon)
+		/obj/item/stack/marker_beacon,
+		/obj/item/gem,
+	)
+
+/obj/item/storage/belt/mining/get_ru_names()
+	return list(
+		NOMINATIVE = "разгрузка исследователя",
+		GENITIVE = "разгрузки исследователя",
+		DATIVE = "разгрузке исследователя",
+		ACCUSATIVE = "разгрузку исследователя",
+		INSTRUMENTAL = "разгрузкой исследователя",
+		PREPOSITIONAL = "разгрузке исследователя",
+	)
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
 	new /obj/item/survivalcapsule(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/grenade/plastic/miningcharge/lesser(src)
+	new /obj/item/wormhole_jaunter(src)
 
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
@@ -927,10 +1176,50 @@
 
 /obj/item/storage/belt/mining/primitive
 	name = "hunter's belt"
-	desc = "A versatile belt, woven from sinew."
-	icon_state = "ebelt"
+	desc = "Универсальный пояс, сплетённый из сухожилий."
+	icon_state = "hunter_belt"
 	item_state = "ebelt"
-	storage_slots = 5
+	use_item_overlays = TRUE
+	max_w_class = WEIGHT_CLASS_NORMAL
+	can_hold = list(
+		/obj/item/hatchet,
+		/obj/item/flashlight/lantern,
+		/obj/item/pickaxe,
+		/obj/item/shovel,
+		/obj/item/stack/sheet/animalhide,
+		/obj/item/stack/sheet/sinew,
+		/obj/item/stack/sheet/bone,
+		/obj/item/kitchen/knife,
+		/obj/item/organ/internal/regenerative_core,
+		/obj/item/stack/ore,
+		/obj/item/reagent_containers/food/snacks/grown,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/food/snacks/bait,
+		/obj/item/reagent_containers/food/snacks/charred_krill,
+		/obj/item/whetstone,
+		/obj/item/reagent_containers/food/snacks/lavaland,
+		/obj/item/lavaland_dye,
+		/obj/item/conductive_organ,
+		/obj/item/stack/sheet/cartilage_plate,
+		/obj/item/stack/sheet/razor_sharp_teeth,
+		/obj/item/hivelordstabilizer,
+		/obj/item/circular_saw_blade,
+		/obj/item/t_scanner/adv_mining_scanner/bleary_eye,
+		/obj/item/acid_bladder,
+		/obj/item/shovel/spade/wooden,
+		/obj/item/hatchet/wooden,
+		/obj/item/cultivator/wooden,
+	)
+
+/obj/item/storage/belt/mining/primitive/get_ru_names()
+	return list(
+		NOMINATIVE = "охотничий пояс",
+		GENITIVE = "охотничьего пояса",
+		DATIVE = "охотничьему поясу",
+		ACCUSATIVE = "охотничий пояс",
+		INSTRUMENTAL = "охотничьим поясом",
+		PREPOSITIONAL = "охотничьем поясе",
+	)
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"
@@ -956,4 +1245,81 @@
 		/obj/item/reagent_containers/food/drinks/shaker,
 		/obj/item/reagent_containers/food/snacks,
 		/obj/item/reagent_containers/food/condiment,
-		/obj/item/reagent_containers/glass/beaker)
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/radio,
+	)
+	custom_price = PAYCHECK_LOWER
+
+/obj/item/storage/belt/chef/artist
+	name = "delicate apron"
+	desc = "Apron with pockets. Ideal for the best butchers!"
+	icon_state = "cabelt"
+	item_state = "cabelt"
+
+/obj/item/storage/belt/chef/artistred
+	name = "red delicate apron"
+	desc = "Red apron with pockets. Ideal for the best butchers!"
+	icon_state = "cabeltred"
+	item_state = "cabeltred"
+
+/obj/item/storage/belt/claymore
+	name = "holy claymore sheath"
+	desc = "Can hold claymore."
+	icon_state = "sheath_holy"
+	item_state = "sheath_holy"
+	storage_slots = 1
+	w_class = WEIGHT_CLASS_BULKY
+	max_w_class = WEIGHT_CLASS_BULKY
+	can_hold = list(/obj/item/nullrod/claymore)
+	var/claymore_path = /obj/item/nullrod/claymore
+	var/sheath_sound = 'sound/weapons/blade_holy_sheath.ogg'
+	var/unsheath_sound = 'sound/weapons/blade_holy_unsheath.ogg'
+
+/obj/item/storage/belt/claymore/dark
+	name = "dark claymore sheath"
+	icon_state = "sheath_dark"
+	item_state = "sheath_dark"
+	claymore_path = /obj/item/nullrod/claymore/darkblade
+	sheath_sound = 'sound/weapons/blade_dark_sheath.ogg'
+	unsheath_sound = 'sound/weapons/blade_dark_unsheath.ogg'
+
+/obj/item/storage/belt/claymore/update_icon_state()
+	if(length(contents))
+		icon_state = "[initial(icon_state)]_blade"
+		item_state = "[initial(icon_state)]_blade"
+	else
+		icon_state = initial(icon_state)
+		item_state = initial(item_state)
+	update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/storage/belt/claymore/populate_contents()
+	new claymore_path(src)
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/storage/belt/claymore/attack_hand(mob/user)
+	if(loc != user)
+		return ..()
+
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.incapacitated())
+		return
+
+	if(length(contents))
+		var/obj/item/I = contents[1]
+		H.visible_message(span_notice("[H] takes [I] out of [src]."), span_notice("You take [I] out of [src]."))
+		H.put_in_hands(I, ignore_anim = FALSE)
+		update_icon(UPDATE_ICON_STATE)
+	else
+		to_chat(user, span_warning("[src] is empty!"))
+
+/obj/item/storage/belt/claymore/handle_item_insertion(obj/item/W, prevent_warning)
+	if(!..())
+		return
+	playsound(src, sheath_sound, 20)
+
+/obj/item/storage/belt/claymore/remove_from_storage(obj/item/W, atom/new_location)
+	if(!..())
+		return
+	playsound(src, unsheath_sound, 20)

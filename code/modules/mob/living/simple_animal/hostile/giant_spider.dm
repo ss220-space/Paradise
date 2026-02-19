@@ -1,9 +1,3 @@
-
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 //basic spider mob, these generally guard nests
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"
@@ -12,12 +6,12 @@
 	var/butcher_state = 8 // Icon state for dead spider icons
 	icon_living = "guard"
 	icon_dead = "guard_dead"
-	speak_emote = list("chitters")
-	emote_hear = list("chitters")
+	speak_emote = list("щебечет")
+	emote_hear = list("щебечет")
 	tts_seed = "Anubarak"
 	speak_chance = 5
 	turns_per_move = 5
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/spidermeat= 2, /obj/item/reagent_containers/food/snacks/monstermeat/spiderleg= 8)
 	response_help  = "pets"
@@ -28,8 +22,6 @@
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 20
-	heat_damage_per_tick = 20	//amount of damage applied if animal's body temperature is higher than maxbodytemp
-	cold_damage_per_tick = 20	//same as heat_damage_per_tick, only if the bodytemperature it's lower than minbodytemp
 	faction = list("spiders")
 	pass_flags = PASSTABLE
 	move_to_delay = 6
@@ -39,25 +31,24 @@
 	talk_sound = list('sound/creatures/spider_talk1.ogg', 'sound/creatures/spider_talk2.ogg')
 	damaged_sound = list('sound/creatures/spider_attack1.ogg', 'sound/creatures/spider_attack2.ogg')
 	gold_core_spawnable = HOSTILE_SPAWN
-	var/venom_per_bite = 0 // While the /poison/ type path remains as-is for consistency reasons, we're really talking about venom, not poison.
 	var/busy = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
+	AI_delay_max = 0.5 SECONDS
+	hud_type = /datum/hud/simple_animal/spider
 
-/mob/living/simple_animal/hostile/poison/giant_spider/AttackingTarget()
-	// This is placed here, NOT on /poison, because the other subtypes of /poison/ already override AttackingTarget() completely, and as such it would do nothing but confuse people there.
-	. = ..()
-	if(. && venom_per_bite > 0 && iscarbon(target) && (!client || a_intent == INTENT_HARM))
-		var/mob/living/carbon/C = target
-		var/inject_target = pick("chest", "head")
-		if(C.can_inject(null, FALSE, inject_target, FALSE))
-			C.reagents.add_reagent("spidertoxin", venom_per_bite)
+/mob/living/simple_animal/hostile/poison/giant_spider/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		heat_damage = 20, \
+		cold_damage = 20, \
+	)
 
-/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup()
+/mob/living/simple_animal/hostile/poison/giant_spider/get_spacemove_backup(moving_direction, continuous_move)
 	. = ..()
 	// If we don't find any normal thing to use, attempt to use any nearby spider structure instead.
 	if(!.)
-		for(var/obj/structure/spider/S in range(1, get_turf(src)))
-			return S
+		for(var/obj/structure/spider/spider_thing in range(1, get_turf(src)))
+			return spider_thing
 
 //nursemaids - these create webs and eggs
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
@@ -71,9 +62,20 @@
 	health = 40
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	venom_per_bite = 30
 	var/atom/cocoon_target
 	var/fed = 0
+
+/mob/living/simple_animal/hostile/poison/giant_spider/nurse/Initialize(mapload)
+	. = ..()
+
+	AddElement( \
+		/datum/element/reagent_attack, \
+		"spidertoxin", \
+		30, \
+		FALSE, \
+		null, \
+		list(BODY_ZONE_CHEST, BODY_ZONE_HEAD), \
+		)
 
 //hunters have the most poison and move the fastest, so they can find prey
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
@@ -84,21 +86,46 @@
 	maxHealth = 120
 	health = 120
 	melee_damage_lower = 10
-	melee_damage_upper = 20
-	venom_per_bite = 10
 	move_to_delay = 5
+
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/Initialize(mapload)
+	. = ..()
+
+	AddElement(
+		/datum/element/reagent_attack, \
+		"spidertoxin", \
+		10, \
+		FALSE, \
+		null, \
+		list(BODY_ZONE_CHEST, BODY_ZONE_HEAD), \
+		)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_movement() //Hacky and ugly.
 	. = ..()
-	if(AIStatus == AI_IDLE)
-		//1% chance to skitter madly away
-		if(!busy && prob(1))
-			stop_automated_movement = 1
-			Goto(pick(urange(20, src, 1)), move_to_delay)
-			spawn(50)
-				stop_automated_movement = 0
-				walk(src,0)
-		return 1
+	if(AIStatus != AI_IDLE)
+		return .
+
+	. = TRUE
+
+	//1% chance to skitter madly away
+	if(busy || !prob(1))
+		return .
+
+	var/turf/where
+	for(var/turf/check as anything in RANGE_TURFS(20, src))
+		if(!check.density)
+			where = check
+			break
+	if(!where)
+		return .
+
+	stop_automated_movement = TRUE
+	Goto(where, move_to_delay)
+	addtimer(CALLBACK(src, PROC_REF(start_automated_movement)), 5 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
+
+/mob/living/simple_animal/hostile/poison/giant_spider/proc/start_automated_movement()
+	GLOB.move_manager.stop_looping(src)
+	stop_automated_movement = FALSE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	spawn(100)
@@ -153,14 +180,14 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/verb/Web()
 	set name = "Lay Web"
-	set category = "Spider"
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Spread a sticky web to slow down prey."
 
 	var/T = src.loc
 
 	if(busy != SPINNING_WEB)
 		busy = SPINNING_WEB
-		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance.</span>")
+		src.visible_message(span_notice("\the [src] begins to secrete a sticky substance."))
 		stop_automated_movement = 1
 		spawn(40)
 			if(busy == SPINNING_WEB && src.loc == T)
@@ -168,10 +195,9 @@
 			busy = 0
 			stop_automated_movement = 0
 
-
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/Wrap()
 	set name = "Wrap"
-	set category = "Spider"
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Wrap up prey to feast upon and objects for safe keeping."
 
 	if(!cocoon_target)
@@ -193,16 +219,16 @@
 			if(Adjacent(O))
 				choices += O
 		if(length(choices))
-			cocoon_target = input(src,"What do you wish to cocoon?") in null|choices
+			cocoon_target = tgui_input_list(src, "What do you wish to cocoon?", , choices)
 		else
 			to_chat(src, "<span class='warning'>No suitable dead prey or wrappable objects found nearby.")
 			return
 
 	if(cocoon_target && busy != SPINNING_COCOON)
 		busy = SPINNING_COCOON
-		src.visible_message("<span class='notice'>\the [src] begins to secrete a sticky substance around \the [cocoon_target].</span>")
+		src.visible_message(span_notice("\the [src] begins to secrete a sticky substance around \the [cocoon_target]."))
 		stop_automated_movement = 1
-		walk(src,0)
+		GLOB.move_manager.stop_looping(src)
 		spawn(50)
 			if(busy == SPINNING_COCOON)
 				if(cocoon_target && istype(cocoon_target.loc, /turf) && get_dist(src,cocoon_target) <= 1)
@@ -226,11 +252,11 @@
 						if(L.stat != DEAD)
 							continue
 						large_cocoon = 1
-						L.loc = C
+						L.forceMove(C)
 						C.pixel_x = L.pixel_x
 						C.pixel_y = L.pixel_y
 						fed++
-						visible_message("<span class='danger'>\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out.</span>")
+						visible_message(span_danger("\the [src] sticks a proboscis into \the [L] and sucks a viscous substance out."))
 
 						break
 					if(large_cocoon)
@@ -241,17 +267,17 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/LayEggs()
 	set name = "Lay Eggs"
-	set category = "Spider"
+	set category = VERB_CATEGORY_SPIDER
 	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
 	if(E)
-		to_chat(src, "<span class='notice'>There is already a cluster of eggs here!</span>")
+		to_chat(src, span_notice("There is already a cluster of eggs here!"))
 	else if(!fed)
-		to_chat(src, "<span class='warning'>You are too hungry to do this!</span>")
+		to_chat(src, span_warning("You are too hungry to do this!"))
 	else if(busy != LAYING_EGGS)
 		busy = LAYING_EGGS
-		src.visible_message("<span class='notice'>\the [src] begins to lay a cluster of eggs.</span>")
+		src.visible_message(span_notice("\the [src] begins to lay a cluster of eggs."))
 		stop_automated_movement = 1
 		spawn(50)
 			if(busy == LAYING_EGGS)
@@ -265,8 +291,3 @@
 					fed--
 			busy = 0
 			stop_automated_movement = 0
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

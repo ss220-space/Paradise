@@ -1,6 +1,6 @@
 /obj/machinery/computer/HolodeckControl
 	name = "holodeck control computer"
-	desc = "A computer used to control a nearby holodeck."
+	desc = "Компьютер, используемый для управления ближайшим голодеком."
 	icon_keyboard = "tech_key"
 	icon_screen = "holocontrol"
 	var/area/linkedholodeck = null
@@ -12,56 +12,55 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/HolodeckControl/attack_ai(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_ai(mob/user as mob)
 	return attack_hand(user)
 
-
-/obj/machinery/computer/HolodeckControl/attack_hand(var/mob/user as mob)
+/obj/machinery/computer/HolodeckControl/attack_hand(mob/user as mob)
 	if(..())
 		return 1
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = ""
 
-	dat += "<B>Holodeck Control System</B><BR>"
-	dat += "<HR>Current Loaded Programs:<BR>"
+	dat += "<b>Holodeck Control System</b><br>"
+	dat += "<hr>Current Loaded Programs:<br>"
 
-	dat += "<A href='?src=[UID()];emptycourt=1'>((Empty Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];boxingcourt=1'>((Boxing Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];basketball=1'>((Basketball Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];thunderdomecourt=1'>((Thunderdome Court)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];beach=1'>((Beach)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];desert=1'>((Desert)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];space=1'>((Space)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];picnicarea=1'>((Picnic Area)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];snowfield=1'>((Snow Field)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];theatre=1'>((Theatre)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];meetinghall=1'>((Meeting Hall)</font>)</A><BR>"
-	dat += "<A href='?src=[UID()];knightarena=1'>((Knight Arena)</font>)</A><BR>"
-//		dat += "<A href='?src=[UID()];turnoff=1'>((Shutdown System)</font>)</A><BR>"
+	dat += "<a href='byond://?src=[UID()];emptycourt=1'>((Empty Court))</a><br>"
+	dat += "<a href='byond://?src=[UID()];boxingcourt=1'>((Boxing Court))</a><br>"
+	dat += "<a href='byond://?src=[UID()];basketball=1'>((Basketball Court))</br><br>"
+	dat += "<a href='byond://?src=[UID()];thunderdomecourt=1'>((Thunderdome Court))</a><br>"
+	dat += "<a href='byond://?src=[UID()];beach=1'>((Beach))</a><br>"
+	dat += "<a href='byond://?src=[UID()];desert=1'>((Desert))</a><br>"
+	dat += "<a href='byond://?src=[UID()];space=1'>((Space))</a><br>"
+	dat += "<a href='byond://?src=[UID()];picnicarea=1'>((Picnic Area))</a><br>"
+	dat += "<a href='byond://?src=[UID()];snowfield=1'>((Snow Field))</a><br>"
+	dat += "<a href='byond://?src=[UID()];theatre=1'>((Theatre))</a><br>"
+	dat += "<a href='byond://?src=[UID()];meetinghall=1'>((Meeting Hall))</a><br>"
+	dat += "<a href='byond://?src=[UID()];knightarena=1'>((Knight Arena))</a><br>"
+//		dat += "<a href='byond://?src=[UID()];turnoff=1'>((Shutdown System))</a><br>"
 
-	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<BR>"
+	dat += "Please ensure that only holographic weapons are used in the holodeck if a combat simulation has been loaded.<br>"
 
 	if(emagged)
-/*			dat += "<A href='?src=[UID()];burntest=1'>(<font color=red>Begin Atmospheric Burn Simulation</font>)</A><BR>"
-		dat += "Ensure the holodeck is empty before testing.<BR>"
-		dat += "<BR>"*/
-		dat += "<A href='?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</A><BR>"
-		dat += "Ensure the holodeck is empty before testing.<BR>"
-		dat += "<BR>"
+/*			dat += "<a href='byond://?src=[UID()];burntest=1'>(<span style='color: red;' color=red>Begin Atmospheric Burn Simulation</span>)</a><br>"
+		dat += "Ensure the holodeck is empty before testing.<br>"
+		dat += "<br>"*/
+		dat += "<a href='byond://?src=[UID()];wildlifecarp=1'>(<font color=red>Begin Wildlife Simulation</font>)</a><br>"
+		dat += "Ensure the holodeck is empty before testing.<br>"
+		dat += "<br>"
 		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</A><BR>"
-		dat += "Safety Protocols are <font color=red> DISABLED </font><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=green>Re-Enable Safety Protocols?</font>)</a><br>"
+		dat += "Safety Protocols are <font color=red> DISABLED </font><br>"
 	else
 		if(issilicon(user))
-			dat += "<A href='?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</A><BR>"
-		dat += "<BR>"
-		dat += "Safety Protocols are <font color=green> ENABLED </font><BR>"
+			dat += "<a href='byond://?src=[UID()];AIoverride=1'>(<font color=red>Override Safety Protocols?</font>)</a><br>"
+		dat += "<br>"
+		dat += "Safety Protocols are <font color=green> ENABLED </font><br>"
 
 	var/datum/browser/popup = new(user, "holodeck_computer", name, 400, 500)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "computer")
+	popup.open(TRUE)
+	onclose(user, "holodeck_computer")
 	return
 
 /obj/machinery/computer/HolodeckControl/Topic(href, href_list)
@@ -159,20 +158,21 @@
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/HolodeckControl/attackby(var/obj/item/D as obj, var/mob/user as mob, params)
-	return
+/obj/machinery/computer/HolodeckControl/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED
 
-/obj/machinery/computer/HolodeckControl/emag_act(user as mob)
+/obj/machinery/computer/HolodeckControl/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
-		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
+		playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
 		emagged = 1
-		to_chat(user, "<span class='notice'>You vastly increase projector power and override the safety and security protocols.</span>")
-		to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
+		if(user)
+			to_chat(user, span_notice("You vastly increase projector power and override the safety and security protocols."))
+			to_chat(user, "Warning.  Automatic shutoff and derezing protocols have been corrupted.  Please call Nanotrasen maintenance and do not use the simulator.")
 		src.updateUsrDialog()
 
-/obj/machinery/computer/HolodeckControl/New()
-	..()
+/obj/machinery/computer/HolodeckControl/Initialize(mapload)
+	. = ..()
 	linkedholodeck = locate(/area/holodeck/alphadeck)
 	//if(linkedholodeck)
 	//	target = locate(/area/holodeck/source_emptycourt)
@@ -186,11 +186,11 @@
 
 /obj/machinery/computer/HolodeckControl/emp_act(severity)
 	emergencyShutdown()
-	..()
+	return ..()
 
-/obj/machinery/computer/HolodeckControl/ex_act(severity)
+/obj/machinery/computer/HolodeckControl/ex_act(severity, target)
 	emergencyShutdown()
-	..()
+	return ..()
 
 /obj/machinery/computer/HolodeckControl/blob_act(obj/structure/blob/B)
 	emergencyShutdown()
@@ -214,14 +214,13 @@
 			for(var/mob/M in range(10,src))
 				M.show_message("The holodeck overloads!")
 
-
 			for(var/turf/T in linkedholodeck)
 				if(prob(30))
-					do_sparks(2, 1, T)
-				T.ex_act(3)
-				T.hotspot_expose(1000,500,1)
+					do_sparks(2, TRUE, T)
+				T.ex_act(EXPLODE_LIGHT)
+				T.hotspot_expose(1000, 500)
 
-/obj/machinery/computer/HolodeckControl/proc/derez(var/obj/obj , var/silent = 1)
+/obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
 	holographic_items.Remove(obj)
 
 	if(obj == null)
@@ -230,46 +229,33 @@
 	if(isobj(obj))
 		var/mob/M = obj.loc
 		if(ismob(M))
-			M.unEquip(obj, 1) //Holoweapons should always drop.
+			M.temporarily_remove_item_from_inventory(obj, force = TRUE) //Holoweapons should always drop.
 
 	if(!silent)
 		var/obj/oldobj = obj
 		visible_message("The [oldobj.name] fades away!")
 	qdel(obj)
 
-/obj/machinery/computer/HolodeckControl/proc/checkInteg(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/checkInteg(area/A)
 	for(var/turf/T in A)
-		if(istype(T, /turf/space))
+		if(isspaceturf(T))
 			return 0
 
 	return 1
 
-/obj/machinery/computer/HolodeckControl/proc/togglePower(var/toggleOn = 0)
-
+/obj/machinery/computer/HolodeckControl/proc/togglePower(toggleOn = 0)
 	if(toggleOn)
 		var/area/targetsource = locate(/area/holodeck/source_emptycourt)
 		holographic_items = targetsource.copy_contents_to(linkedholodeck)
-
-/*		spawn(30)
-			for(var/obj/effect/landmark/L in linkedholodeck)
-				if(L.name=="Atmospheric Test Start")
-					spawn(20)
-						var/turf/T = get_turf(L)
-						do_sparks(2, 1, T)
-						if(T)
-							T.temperature = 5000
-							T.hotspot_expose(50000,50000,1)*/
-
 		active = 1
 	else
 		for(var/item in holographic_items)
 			derez(item)
 		var/area/targetsource = locate(/area/holodeck/source_plating)
-		targetsource.copy_contents_to(linkedholodeck , 1)
+		targetsource.copy_contents_to(linkedholodeck, TRUE)
 		active = 0
 
-
-/obj/machinery/computer/HolodeckControl/proc/loadProgram(var/area/A)
+/obj/machinery/computer/HolodeckControl/proc/loadProgram(area/A)
 
 	if(world.time < (last_change + 25))
 		if(world.time < (last_change + 15))//To prevent super-spam clicking, reduced process size and annoyance -Sieve
@@ -291,7 +277,7 @@
 	for(var/mob/living/simple_animal/hostile/carp/holocarp/C in linkedholodeck)
 		qdel(C)
 
-	holographic_items = A.copy_contents_to(linkedholodeck , 1)
+	holographic_items = A.copy_contents_to(linkedholodeck, TRUE)
 
 	if(emagged)
 		for(var/obj/item/holo/H in linkedholodeck)
@@ -299,16 +285,8 @@
 
 	spawn(30)
 		for(var/obj/effect/landmark/L in linkedholodeck)
-/*			if(L.name=="Atmospheric Test Start")
-				spawn(20)
-					var/turf/T = get_turf(L)
-					do_sparks(2, 1, T)
-					if(T)
-						T.temperature = 5000
-						T.hotspot_expose(50000,50000,1)*/
 			if(L.name=="Holocarp Spawn")
 				new /mob/living/simple_animal/hostile/carp/holocarp(L.loc)
-
 
 /obj/machinery/computer/HolodeckControl/proc/emergencyShutdown()
 	//Get rid of any items
@@ -320,7 +298,7 @@
 		loadProgram(target)
 
 	var/area/targetsource = locate(/area/holodeck/source_plating)
-	targetsource.copy_contents_to(linkedholodeck , 1)
+	targetsource.copy_contents_to(linkedholodeck, TRUE)
 	active = 0
 
 // Holographic Items!
@@ -332,18 +310,16 @@
 	icon_state = "grass1"
 	floor_tile = /obj/item/stack/tile/grass
 
-/turf/simulated/floor/holofloor/grass/New()
-	..()
-	spawn(1)
-		update_icon()
+/turf/simulated/floor/holofloor/grass/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), 0.1 SECONDS)
 
-/turf/simulated/floor/holofloor/grass/update_icon()
-	..()
+/turf/simulated/floor/holofloor/grass/update_icon_state()
 	if(!(icon_state in list("grass1", "grass2", "grass3", "grass4", "sand")))
 		icon_state = "grass[pick("1","2","3","4")]"
 
-/turf/simulated/floor/holofloor/attackby(obj/item/W as obj, mob/user as mob, params)
-	return
+/turf/simulated/floor/holofloor/attackby(obj/item/I, mob/user, params)
+	return ATTACK_CHAIN_BLOCKED
 	// HOLOFLOOR DOES NOT GIVE A FUCK
 
 /turf/simulated/floor/holofloor/space
@@ -359,43 +335,50 @@
 /turf/simulated/floor/holofloor/space/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/space.dmi'
 	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
+	SET_PLANE(underlay_appearance, PLANE_SPACE, src)
 	return TRUE
 
+/obj/structure/table/holotable/has_prints()
+	return FALSE
+
 /obj/structure/table/holotable
-	flags = NODECONSTRUCT
-	canSmoothWith = list(/obj/structure/table/holotable)
+	obj_flags = NODECONSTRUCT
 
 /obj/structure/table/holotable/wood
 	name = "wooden table"
 	desc = "A square piece of wood standing on four wooden legs. It can not move."
 	icon = 'icons/obj/smooth_structures/wood_table.dmi'
 	icon_state = "wood_table"
-	canSmoothWith = list(/obj/structure/table/holotable/wood)
+	base_icon_state = "wood_table"
+	canSmoothWith = SMOOTH_GROUP_WOOD_TABLES
+
+/obj/structure/chair/stool/holostool/has_prints()
+	return FALSE
 
 /obj/structure/chair/stool/holostool
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	item_chair = null
 
 /obj/item/clothing/gloves/boxing/hologlove
-	name = "boxing gloves"
-	desc = "Because you really needed another excuse to punch your crewmates."
-	icon_state = "boxing"
-	item_state = "boxing"
+
+/obj/structure/holowindow/has_prints()
+	return FALSE
 
 /obj/structure/holowindow
 	name = "reinforced window"
-	icon = 'icons/obj/structures.dmi'
 	icon_state = "rwindow"
 	desc = "A window."
-	density = 1
+	density = TRUE
 	layer = 3.2//Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
-	anchored = 1.0
+	anchored = TRUE
 	flags = ON_BORDER
 
+/obj/structure/rack/holorack/has_prints()
+	return FALSE
+
 /obj/structure/rack/holorack
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 
 /obj/item/holo
 	damtype = STAMINA
@@ -409,7 +392,7 @@
 	force = 40
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
 
 /obj/item/holo/claymore/blue
@@ -424,53 +407,52 @@
 	name = "Holographic Energy Sword"
 	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
-	throwforce = 0
 	w_class = WEIGHT_CLASS_SMALL
 	armour_penetration = 50
 	block_chance = 50
 	var/active = 0
 
 /obj/item/holo/esword/green/New()
-	..()
+	. = ..()
 	item_color = "green"
 
 /obj/item/holo/esword/red/New()
-	..()
+	. = ..()
 	item_color = "red"
 
-/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(active)
 		return ..()
 	return 0
 
 /obj/item/holo/esword/New()
-	..()
+	. = ..()
 	item_color = pick("red","blue","green","purple")
+
+/obj/item/holo/esword/update_icon_state()
+	icon_state = active ? "sword[item_color]" : "sword0"
 
 /obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
+	update_icon(UPDATE_ICON_STATE)
 	if(active)
 		force = 30
-		icon_state = "sword[item_color]"
-		hitsound = "sound/weapons/blade1.ogg"
+		hitsound = 'sound/weapons/blade1.ogg'
 		w_class = WEIGHT_CLASS_BULKY
-		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] is now active.</span>")
+		playsound(user, 'sound/weapons/saberon.ogg', 20, TRUE)
+		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
-		icon_state = "sword0"
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 		w_class = WEIGHT_CLASS_SMALL
-		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
-		to_chat(user, "<span class='notice'>[src] can now be concealed.</span>")
-	if(istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.update_inv_l_hand()
-		H.update_inv_r_hand()
+		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
+		to_chat(user, span_notice("[src] can now be concealed."))
+
+	user.update_held_items()
 	add_fingerprint(user)
 	return
 
@@ -494,63 +476,88 @@
 	desc = "Boom, Shakalaka!"
 	icon = 'icons/obj/basketball.dmi'
 	icon_state = "hoop"
-	anchored = 1
-	density = 1
-	pass_flags = LETPASSTHROW
+	anchored = TRUE
+	density = TRUE
+	pass_flags_self = LETPASSTHROW
+	damage_deflection = 7	// You can't just break it with da foking glass ashtray.
 
-/obj/structure/holohoop/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/grab) && get_dist(src,user)<2)
-		var/obj/item/grab/G = W
-		if(G.state<2)
-			to_chat(user, "<span class='warning'>You need a better grip to do that!</span>")
-			return
-		G.affecting.loc = src.loc
-		G.affecting.Weaken(5)
-		visible_message("<span class='warning'>[G.assailant] dunks [G.affecting] into the [src]!</span>")
-		qdel(W)
-		return
-	else if(istype(W, /obj/item) && get_dist(src,user)<2)
-		user.drop_item(src)
-		visible_message("<span class='notice'>[user] dunks [W] into the [src]!</span>")
+/obj/structure/holohoop/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+
+	if(!isliving(grabbed_thing))
 		return
 
-/obj/structure/holohoop/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover,/obj/item) && mover.throwing)
-		var/obj/item/I = mover
-		if(istype(I, /obj/item/projectile))
-			return
-		if(prob(50))
-			I.loc = src.loc
-			visible_message("<span class='notice'>Swish! \the [I] lands in \the [src].</span>")
-		else
-			visible_message("<span class='alert'>\The [I] bounces off of \the [src]'s rim!</span>")
-		return 0
+	if(grabber.grab_state < GRAB_NECK)
+		to_chat(grabber, span_warning("You need a better grip to do that!"))
+		return
+
+	var/mob/living/target = grabbed_thing
+
+	visible_message(span_warning("[grabber] dunks [target] into [src]!"))
+	target.forceMove(get_turf(src))
+	target.Weaken(10 SECONDS)
+
+/obj/structure/holohoop/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)	// Players may use (DISARM|GRAB) intent for pushing each other.
+		return ..()
+
+	if(user.drop_transfer_item_to_loc(I, get_turf(src)))
+		visible_message(span_notice("[user] dunks [I] into [src]!"))
+
+	return ATTACK_CHAIN_BLOCKED
+
+/obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
+	if(!isitem(mover) || isprojectile(mover))
+		return ..()
+
+	if((mover.throwing && mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) || prob(50))
+		mover.forceMove(get_turf(src))
+		visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
+
 	else
-		return ..(mover, target, height)
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
+
+	return FALSE
+
+/obj/structure/holohoop/has_prints()
+	return FALSE
+
+/obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(!isitem(mover) || isprojectile(mover) || !mover.throwing || mover.pass_flags == PASSEVERYTHING)
+		return
+
+	if(prob(50))
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
+		return FALSE
+
+	mover.forceMove(loc)
+	visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
+	return FALSE
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !istype(AM,/obj/item/projectile))
-		if(prob(50))
-			AM.forceMove(get_turf(src))
-			visible_message("<span class='warning'>Swish! [AM] lands in [src].</span>")
-			return
-		else
-			visible_message("<span class='danger'>[AM] bounces off of [src]'s rim!</span>")
-			return ..()
-	else
+	if(!isitem(AM) || isprojectile(AM))
 		return ..()
+
+	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
+		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
+		return ..()
+
+	AM.forceMove(get_turf(src))
+	visible_message(span_warning("Вжух! [AM.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
+	return
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"
 	desc = "This device is used to declare ready. If all devices in an area are ready, the event will begin!"
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "auth_off"
 	var/ready = 0
 	var/area/currentarea = null
 	var/eventstarted = 0
 
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
+	anchored = TRUE
 	idle_power_usage = 2
 	active_power_usage = 6
 	power_channel = ENVIRON
@@ -559,8 +566,10 @@
 	to_chat(user, "The station AI is not to interact with these devices.")
 	return
 
-/obj/machinery/readybutton/attackby(obj/item/W as obj, mob/user as mob, params)
+/obj/machinery/readybutton/attackby(obj/item/I, mob/user, params)
+	add_fingerprint(user)
 	to_chat(user, "The device is a solid button, there's nothing you can do with it!")
+	return ATTACK_CHAIN_BLOCKED
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 	if(user.stat || stat & (BROKEN))
@@ -575,13 +584,14 @@
 		to_chat(usr, "The event has already begun!")
 		return
 
+	add_fingerprint(user)
 	ready = !ready
 
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 	var/numbuttons = 0
 	var/numready = 0
-	for(var/obj/machinery/readybutton/button in currentarea)
+	for(var/obj/machinery/readybutton/button in currentarea.machinery_cache)
 		numbuttons++
 		if(button.ready)
 			numready++
@@ -589,11 +599,8 @@
 	if(numbuttons == numready)
 		begin_event()
 
-/obj/machinery/readybutton/update_icon()
-	if(ready)
-		icon_state = "auth_on"
-	else
-		icon_state = "auth_off"
+/obj/machinery/readybutton/update_icon_state()
+	icon_state = ready ? "auth_on" : "auth_off"
 
 /obj/machinery/readybutton/proc/begin_event()
 	eventstarted = 1

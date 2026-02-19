@@ -44,7 +44,7 @@
       color: colors.$white;
 
       &:after {
-        content: "";
+        content: '';
         background-color: colors.$primary;
         width: 2px;
         height: 24px;
@@ -91,12 +91,12 @@
 }
 
 $_gen_map: (
-  'security': #a14c49,
-  'engineering': #a17849,
-  'medical': #499ea1,
-  'science': #a14972,
-  'service': #a1499e,
-  'supply': #9ea149,
+  'security': hsl(2, 37.6%, 45.9%),
+  'engineering': hsl(32, 37.6%, 45.9%),
+  'medical': hsl(182, 37.6%, 45.9%),
+  'science': hsl(332, 37.6%, 45.9%),
+  'service': hsl(302, 37.6%, 45.9%),
+  'supply': hsl(62, 37.6%, 45.9%),
 );
 
 .Newscaster__jobCategory {
@@ -142,10 +142,10 @@ $_gen_map: (
   width: 96px;
   border: 1px solid colors.$black;
   transition: border-color 0.1s;
-  -ms-interpolation-mode: nearest-neighbor;
+  image-rendering: pixelated;
 
   &:hover {
-    border-color: color.scale(colors.$black, $lightness: 50%);;
+    border-color: color.scale(colors.$black, $lightness: 50%);
   }
 }
 
@@ -154,7 +154,7 @@ $_gen_map: (
 
   & > img {
     transform: scale(2);
-    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
   }
 
   & > .Button {
@@ -172,7 +172,7 @@ $_gen_map: (
 
     .Section__title {
       color: colors.$bad;
-      border-bottom: 2px solid #a14c49 !important;
+      border-bottom: 2px solid hsl(2, 37.6%, 45.9%) !important;
     }
   }
 

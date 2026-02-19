@@ -1,33 +1,44 @@
 /obj/machinery/processor
 	name = "Food Processor"
+	desc = "Высокоэффективный прибор для стандартизации процесса приготовления. Автоматически нарезает, мнёт, формует и экструдирует."
 	icon = 'icons/obj/kitchen.dmi'
 	icon_state = "processor"
-	layer = 2.9
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 
 	var/broken = 0
-	var/processing = 0
+	var/processing = FALSE
 
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
 	active_power_usage = 50
-	var/rating_speed = 1
-	var/rating_amount = 1
+	var/rating_speed = 0
+	var/rating_amount = 0
 
-/obj/machinery/processor/New()
-		..()
-		component_parts = list()
-		component_parts += new /obj/item/circuitboard/processor(null)
-		component_parts += new /obj/item/stock_parts/matter_bin(null)
-		component_parts += new /obj/item/stock_parts/manipulator(null)
-		RefreshParts()
+/obj/machinery/processor/get_ru_names()
+	return list(
+		NOMINATIVE = "кухонный комбайн",
+		GENITIVE = "кухонного комбайна",
+		DATIVE = "кухонному комбайну",
+		ACCUSATIVE = "кухонный комбайн",
+		INSTRUMENTAL = "кухонным комбайном",
+		PREPOSITIONAL = "кухонном комбайне"
+	)
+
+/obj/machinery/processor/Initialize(mapload)
+	. = ..()
+	component_parts = list()
+	component_parts += new /obj/item/circuitboard/processor(null)
+	component_parts += new /obj/item/stock_parts/matter_bin(null)
+	component_parts += new /obj/item/stock_parts/manipulator(null)
+	RefreshParts()
 
 /obj/machinery/processor/RefreshParts()
+	rating_speed = 0
+	rating_amount = 0
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		rating_amount = B.rating
+		rating_amount += B.rating
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		rating_speed = M.rating
+		rating_speed += M.rating
 
 /obj/machinery/processor/process()
 	if(processing)
@@ -45,7 +56,7 @@
 	if(!P)
 		return
 
-	visible_message("<span class='notice'>[picked_slime] is sucked into [src].</span>")
+	visible_message(span_notice("[DECLENT_RU_CAP(picked_slime, NOMINATIVE)] затягивается внутрь [declent_ru(GENITIVE)]."))
 	picked_slime.forceMove(src)
 
 //RECIPE DATUMS
@@ -56,7 +67,7 @@
 
 /datum/food_processor_process/proc/process_food(loc, what, obj/machinery/processor/processor)
 	if(output && loc && processor)
-		for(var/i = 0, i < processor.rating_amount, i++)
+		for(var/i in 1 to processor.rating_amount)
 			new output(loc)
 	if(what)
 		qdel(what)
@@ -115,7 +126,7 @@
 	var/C = S.cores
 	if(S.stat != DEAD)
 		S.forceMove(processor.drop_location())
-		S.visible_message("<span class='notice'>[S] crawls free of the processor!</span>")
+		S.visible_message(span_notice("[DECLENT_RU_CAP(S, NOMINATIVE)] выползает из комбайна!"))
 		return
 	for(var/i in 1 to (C+processor.rating_amount-1))
 		new S.coretype(processor.drop_location())
@@ -128,11 +139,14 @@
 
 /datum/food_processor_process/mob/monkey/process_food(loc, what, processor)
 	var/mob/living/carbon/human/lesser/monkey/O = what
+	var/obj/machinery/processor/combine = processor
 	if(O.client) //grief-proof
-		O.loc = loc
-		O.visible_message("<span class='notice'>Suddenly [O] jumps out from the processor!</span>", \
-				"<span class='notice'>You jump out of \the [src].</span>", \
-				"<span class='notice'>You hear a chimp.</span>")
+		O.forceMove(loc)
+		O.visible_message(
+			span_notice("Внезапно [O.declent_ru(NOMINATIVE)] выпрыгивает из [combine.declent_ru(GENITIVE)]!"),
+			span_notice("Вы выпрыгиваете из [combine.declent_ru(GENITIVE)]."),
+			span_notice("Вы слышите странные звуки...")
+		)
 		return
 	var/obj/item/reagent_containers/glass/bucket/bucket_of_blood = new(loc)
 	var/datum/reagent/blood/B = new()
@@ -160,59 +174,82 @@
 		return P
 	return 0
 
-/obj/machinery/processor/attackby(obj/item/O, mob/user, params)
+/obj/machinery/processor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
-		return 1
+		balloon_alert(user, "работает!")
+		return ATTACK_CHAIN_PROCEED
 
-	if(default_deconstruction_screwdriver(user, "processor_open", "processor", O))
-		return
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(exchange_parts(user, O))
-		return
+	add_fingerprint(user)
+	var/datum/food_processor_process/recipe = select_recipe(I)
+	if(!recipe)
+		balloon_alert(user, "невозможно измельчить!")
+		return ATTACK_CHAIN_PROCEED
 
-	if(default_unfasten_wrench(user, O))
-		return
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
 
-	default_deconstruction_crowbar(user, O)
+	user.visible_message(
+		span_notice("[user] помеща[PLUR_ET_YUT(user)] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
+	)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
-	var/obj/item/what = O
+/obj/machinery/processor/screwdriver_act(mob/living/user, obj/item/I)
+	if(processing)
+		balloon_alert(user, "работает!")
+		return TRUE
+	return default_deconstruction_screwdriver(user, "processor_open", "processor", I)
 
-	if(istype(O, /obj/item/grab))
-		var/obj/item/grab/G = O
-		what = G.affecting
+/obj/machinery/processor/wrench_act(mob/living/user, obj/item/I)
+	if(processing)
+		balloon_alert(user, "работает!")
+		return TRUE
+	return default_unfasten_wrench(user, I)
 
-	var/datum/food_processor_process/P = select_recipe(what)
+/obj/machinery/processor/crowbar_act(mob/living/user, obj/item/I)
+	if(processing)
+		balloon_alert(user, "работает!")
+		return TRUE
+	return default_deconstruction_crowbar(user, I)
 
-	if(!P)
-		to_chat(user, "<span class='warning'>That probably won't blend.</span>")
-		return 1
-
-	user.visible_message("<span class='notice'>\the [user] puts \the [what] into \the [src].</span>", \
-		"<span class='notice'>You put \the [what] into \the [src].")
-
-	user.drop_item()
-
-	what.loc = src
-	return
+/obj/machinery/processor/grab_attack(mob/living/grabber, atom/movable/grabbed_thing)
+	. = TRUE
+	if(grabber.grab_state < GRAB_AGGRESSIVE)
+		return .
+	if(processing)
+		balloon_alert(grabber, "работает!")
+		return .
+	var/datum/food_processor_process/recipe = select_recipe(grabbed_thing)
+	if(!recipe)
+		balloon_alert(grabber, "невозможно измельчить!")
+		return .
+	add_fingerprint(grabber)
+	grabbed_thing.forceMove(src)
+	grabber.visible_message(
+		span_notice("[grabber.declent_ru(NOMINATIVE)] помеща[PLUR_ET_YUT(grabber)] [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы помещаете [grabbed_thing.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)].")
+	)
 
 /obj/machinery/processor/attack_hand(mob/user)
 	if(stat & (NOPOWER|BROKEN)) //no power or broken
 		return
 
 	if(processing)
-		to_chat(user, "<span class='warning'>\the [src] is already processing something!</span>")
+		balloon_alert(user, "работает!")
 		return 1
 
-	if(contents.len == 0)
-		to_chat(user, "<span class='warning'>\the [src] is empty.</span>")
+	if(length(contents) == 0)
+		balloon_alert(user, "пусто!")
 		return 1
-	processing = 1
-	user.visible_message("[user] turns on [src].", \
-		"<span class='notice'>You turn on [src].</span>", \
-		"<span class='italics'>You hear a food processor.</span>")
-	playsound(loc, 'sound/machines/blender.ogg', 50, 1)
+	processing = TRUE
+	balloon_alert_to_viewers("включа[PLUR_ET_YUT(user)] [declent_ru(ACCUSATIVE)]", "включено")
+	playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 	use_power(500)
 	var/total_time = 0
 	for(var/O in contents)
@@ -229,8 +266,6 @@
 			log_debug("The [O] in processor([src]) does not have a suitable recipe, but it was somehow put inside of the processor anyways.")
 			continue
 		P.process_food(loc, O, src)
-	processing = 0
+	processing = FALSE
 
-	visible_message("<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>\the [src] has finished processing.</span>", \
-		"<span class='notice'>You hear a food processor stopping.</span>")
+	balloon_alert_to_viewers("обработка завершена")

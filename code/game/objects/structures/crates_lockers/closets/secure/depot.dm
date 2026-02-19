@@ -3,15 +3,10 @@
 	name = "depot supply closet"
 	desc = ""
 	locked = 0
-	anchored = 1
+	anchored = TRUE
 	req_access = list()
 	max_integrity = 250
-	icon_state = "secure1"
-	icon_closed = "secure"
-	icon_locked = "secure1"
-	icon_opened = "secureopen"
-	icon_broken = "securebroken"
-	icon_off = "secureoff"
+	icon_state = "secure"
 	var/is_armory = FALSE
 	var/ignore_use = FALSE
 
@@ -38,14 +33,19 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
 	if(isanimal(M) && ("syndicate" in M.faction))
-		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
+		to_chat(M, span_warning("The [src] resists your attack!"))
 		return
 	return ..()
 
-/obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/rcs))
-		to_chat(user, "<span class='warning'>Bluespace interference prevents the [W] from locking onto [src]!</span>")
-		return
+/obj/structure/closet/secure_closet/syndicate/depot/attackby(obj/item/I, mob/user, params)
+	if(opened)
+		return ..()
+
+	if(istype(I, /obj/item/rcs))
+		add_fingerprint(user)
+		to_chat(user, span_warning("Bluespace interference prevents [I] from locking onto [src]!"))
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
 
 /obj/structure/closet/secure_closet/syndicate/depot/emp_act(severity)

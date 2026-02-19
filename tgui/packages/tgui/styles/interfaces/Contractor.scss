@@ -31,11 +31,10 @@
 
   & > img {
     width: 96px;
-    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: pixelated;
   }
 
   & > .Button {
     position: absolute;
   }
 }
-

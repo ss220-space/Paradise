@@ -1,109 +1,100 @@
 /datum/objective/devil
 
-/datum/objective/devil/soulquantity
-	explanation_text = "You shouldn't see this text.  Error:DEVIL1"
-	target_amount = 4
+/datum/objective/devil/sacrifice
+	antag_menu_name = "Завладеть душой"
+	explanation_text = "Ошибка. Цель не сгенерирована"
 
-/datum/objective/devil/soulquantity/New()
-	target_amount = pick(6, 7, 8)
-	update_explanation_text()
+/datum/objective/devil/sacrifice/proc/forge()
+	if(!target)
+		return FALSE
 
-/datum/objective/devil/proc/update_explanation_text()
-	//Intentionally empty
+	explanation_text = "Принесите в жертву [target.name], [target.assigned_role].\n<br>"
 
-/datum/objective/devil/soulquantity/update_explanation_text()
-	explanation_text = "Purchase, and retain control over at least [target_amount] souls."
+	return TRUE
 
-/datum/objective/devil/soulquantity/check_completion()
-	var/count = 0
-	for(var/S in owner.devilinfo.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner == owner)
-			count++
-	return count >= target_amount
+/datum/objective/devil/sacrifice/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return .
+	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
+	if(LAZYIN(devil.devil_targets, possible_target))
+		return TRUE
 
+/datum/objective/devil/sacrifice/proc/is_valid_prof(datum/mind/possible_target)
+	return TRUE
 
+/datum/objective/devil/sacrifice/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
 
-/datum/objective/devil/soulquality
-	explanation_text = "You shouldn't see this text.  Error:DEVIL2"
-	var/contractType
-	var/contractName
+	var/list/prof_targets
+	var/list/other_targets
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
+			continue
 
-/datum/objective/devil/soulquality/New()
-	contractType = pick(CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_REVIVE, CONTRACT_KNOWLEDGE)
-	target_amount = pick(1, 2)
-	switch(contractType)
-		if(CONTRACT_POWER)
-			contractName = "for power"
-		if(CONTRACT_WEALTH)
-			contractName = "for wealth"
-		if(CONTRACT_PRESTIGE)
-			contractName = "for prestige"
-		if(CONTRACT_MAGIC)
-			contractName = "for magic"
-		if(CONTRACT_REVIVE)
-			contractName = "of revival"
-		if(CONTRACT_KNOWLEDGE)
-			contractName = "for knowledge"
-	update_explanation_text()
+		if(is_valid_prof(possible_target))
+			LAZYADD(prof_targets, possible_target)
+		else
+			LAZYADD(other_targets, possible_target)
 
-/datum/objective/devil/soulquality/update_explanation_text()
-	explanation_text = "Have mortals sign at least [target_amount] contracts [contractName]."
+	if(!LAZYLEN(prof_targets) && !LAZYLEN(other_targets))
+		return
 
-/datum/objective/devil/soulquality/check_completion()
-	var/count = 0
-	for(var/S in owner.devilinfo.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner != L && L.damnation_type == contractType)
-			count++
-	return count >= target_amount
+	target = LAZYLEN(prof_targets)? pick_n_take(prof_targets) : pick_n_take(other_targets)
+	RegisterSignal(target, COMSIG_DEVIL_SACRIFICE_CHECK, PROC_REF(on_devil_sacrifice_check))
+	RegisterSignal(target, COMSIG_DEVIL_SACRIFICE, PROC_REF(on_devil_sacrifice))
+	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
 
+	LAZYOR(devil.devil_targets, target)
 
+	forge()
+
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+
+/datum/objective/devil/sacrifice/Destroy(force)
+	if(target)
+		UnregisterSignal(target, list(COMSIG_DEVIL_SACRIFICE_CHECK, COMSIG_DEVIL_SACRIFICE))
+	. = ..()
+
+/datum/objective/devil/sacrifice/proc/on_devil_sacrifice_check()
+	SIGNAL_HANDLER
+	return COMPONENT_SACRIFICE_VALID
+
+/datum/objective/devil/sacrifice/proc/on_devil_sacrifice()
+	SIGNAL_HANDLER
+	completed = TRUE
+	return
+
+/datum/objective/devil/sacrifice/other
+
+/datum/objective/devil/sacrifice/command/is_valid_prof(datum/mind/possible_target)
+	return LAZYIN(GLOB.command_positions, possible_target.assigned_role)
+
+/datum/objective/devil/sacrifice/security/is_valid_prof(datum/mind/possible_target)
+	return LAZYIN(GLOB.security_positions, possible_target.assigned_role)
 
 /datum/objective/devil/sintouch
-	explanation_text = "You shouldn't see this text.  Error:DEVIL3"
+	needs_target = FALSE
+	explanation_text = "Вы не должны видеть этот текст. Error: DEVIL3"
+	antag_menu_name = "Осквернить души"
 
 /datum/objective/devil/sintouch/New()
 	target_amount = pick(4, 5)
-	explanation_text = "Ensure at least [target_amount] mortals are sintouched."
+	explanation_text = "Убедитесь, что хотя бы [target_amount] смертных было осквернено грехом."
 
 /datum/objective/devil/sintouch/check_completion()
 	return target_amount <= SSticker.mode.sintouched.len
 
+/datum/objective/devil/ascend
+	explanation_text = "Возвыситься до Архидьявола. Для ритуала возвышения вам понадобится 2 жертвы из списка."
+	needs_target = FALSE
+	antag_menu_name = "Возвыситься"
 
+/datum/objective/devil/ascend/check_completion()
+	return  isascendeddevil(owner)
 
-/datum/objective/devil/buy_target
-	explanation_text = "You shouldn't see this text.  Error:DEVIL4"
-
-/datum/objective/devil/buy_target/New()
-	find_target()
-	update_explanation_text()
-
-/datum/objective/devil/buy_target/update_explanation_text()
-	if(target)
-		explanation_text = "Purchase and retain the soul of [target.name], the [target.assigned_role]."
-	else
-		explanation_text = "Free objective."
-
-/datum/objective/devil/buy_target/check_completion()
-	return target.soulOwner == owner
-
-
-/datum/objective/devil/outsell
-	explanation_text = "You shouldn't see this text.  Error:DEVIL5"
-
-/datum/objective/devil/outsell/update_explanation_text()
-	explanation_text = "Purchase and retain control over more souls than [target.devilinfo.truename], known to mortals as [target.name], the [target.assigned_role]."
-
-/datum/objective/devil/outsell/check_completion()
-	var/selfcount = 0
-	for(var/S in owner.devilinfo.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner == owner)
-			selfcount++
-	var/targetcount = 0
-	for(var/S in target.devilinfo.soulsOwned)
-		var/datum/mind/L = S
-		if(L.soulOwner == target)
-			targetcount++
-	return selfcount > targetcount
+/datum/objective/imp
+	explanation_text = "Постарайтесь получить повышение до следующего адского ранга."
+	needs_target = FALSE
+	antag_menu_name = "Получить повышение"

@@ -1,19 +1,5 @@
-// So you can be all 10 SECONDS
-#define SECONDS *10
-
-#define MINUTES SECONDS*60
-
-#define HOURS MINUTES*60
-
-#define TICKS *world.tick_lag
-
-#define SECONDS_TO_LIFE_CYCLES /2
-
-#define DS2TICKS(DS) ((DS)/world.tick_lag)
-
-#define TICKS2DS(T) ((T) TICKS)
-
-/* This proc should only be used for world/Topic.
+/**
+ * This proc should only be used for world/Topic.
  * If you want to display the time for which dream daemon has been running ("round time") use worldtime2text.
  * If you want to display the canonical station "time" (aka the in-character time of the station) use station_time_timestamp
  */
@@ -21,9 +7,16 @@
 	time = (SSticker.round_start_time ? (time - SSticker.round_start_time) : (time - world.time))
 	return "[round(time / 36000)+12]:[(time / 600 % 60) < 10 ? add_zero(time / 600 % 60, 1) : time / 600 % 60]"
 
-//Returns the world time in english
+/// Returns the world time in english
 /proc/worldtime2text()
 	return gameTimestamp("hh:mm:ss", world.time)
+
+/// Returns the world time in english
+/proc/roundtime2text()
+	return gameTimestamp("hh:mm:ss", world.time - SSticker.time_game_started)
+
+/proc/shifttime2text()
+	return gameTimestamp("hh:mm:ss", world.time - SSticker.round_start_time)
 
 // This is ISO-8601
 // If anything that uses this proc shouldn't be ISO-8601, change that thing, not this proc. This is important for logging.
@@ -36,6 +29,15 @@
 	if(wtime == null)
 		wtime = world.time
 	return time2text(wtime - GLOB.timezoneOffset, format)
+
+/proc/deciseconds_to_time_stamp(deciseconds)
+	if(istext(deciseconds))
+		deciseconds = text2num(deciseconds)
+	var/hour_calc = round(deciseconds / 36000) < 10 ? add_zero(round(deciseconds / 36000), 1) : round(deciseconds / 36000)
+	var/minute_calc = round((deciseconds % 36000) / 600) < 10 ? add_zero(round((deciseconds % 36000) / 600), 1) : round((deciseconds % 36000) / 600)
+	var/second_calc = round(((deciseconds % 36000) % 600) / 10) < 10 ? add_zero(round(((deciseconds % 36000) % 600) / 10), 1) : round(((deciseconds % 36000) % 600) / 10)
+
+	return "[hour_calc]:[minute_calc]:[second_calc]"
 
 // max hh:mm:ss supported
 /proc/timeStampToNum(timestamp)
@@ -51,29 +53,34 @@
 			if(0)
 				. += splits[i] SECONDS
 
-/* This is used for displaying the "station time" equivelent of a world.time value
- Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
- - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date
-   which is much more useful for a player)*/
+/**
+ * This is used for displaying the "station time" equivelent of a world.time value
+ * Calling it with no args will give you the current time, but you can specify a world.time-based value as an argument
+ * - You can use this, for example, to do "This will expire at [station_time_at(world.time + 500)]" to display a "station time" expiration date which is much more useful for a player)
+ */
 /proc/station_time(time=world.time, display_only=FALSE)
 	return ((((time - SSticker.round_start_time)) + GLOB.gametime_offset) % 864000) - (display_only ? GLOB.timezoneOffset : 0)
 
-/proc/station_time_timestamp(format = "hh:mm:ss", time=world.time)
+/proc/station_time_timestamp(format = "hh:mm:ss", time = world.time)
 	return time2text(station_time(time, TRUE), format)
 
-/* Returns 1 if it is the selected month and day */
-/proc/isDay(var/month, var/day)
-	if(isnum(month) && isnum(day))
-		var/MM = text2num(time2text(world.timeofday, "MM")) // get the current month
-		var/DD = text2num(time2text(world.timeofday, "DD")) // get the current day
-		if(month == MM && day == DD)
-			return 1
+/**
+ * Converts a time expressed in deciseconds (like world.time) to the 12-hour time format.
+ * the format arg is the format passed down to time2text() (e.g. "hh:mm" is hours and minutes but not seconds).
+ * the timezone is the time value offset from the local time. It's to be applied outside time2text() to get the AM/PM right.
+ */
+/proc/time_to_twelve_hour(format = "hh:mm:ss", time = world.time)
+	time = station_time(time, TRUE)
+	var/am_pm = "AM"
+	if(time > 12 HOURS)
+		am_pm = "PM"
+		if(time > 13 HOURS)
+			time -= 12 HOURS // e.g. 4:16 PM but not 00:42 PM
+	else if(time < 1 HOURS)
+		time += 12 HOURS // e.g. 12.23 AM
+	return "[time2text(time, format)] [am_pm]"
 
-		// Uncomment this out when debugging!
-		//else
-			//return 1
-
-//returns timestamp in a sql and ISO 8601 friendly format
+/// Returns timestamp in a sql and ISO 8601 friendly format
 /proc/SQLtime()
 	return time2text(world.realtime, "YYYY-MM-DD hh:mm:ss")
 
@@ -90,118 +97,49 @@
 /proc/stop_watch(wh)
 	return round(0.1 * (REALTIMEOFDAY - wh), 0.1)
 
-/proc/numberToMonthName(number)
-	return GLOB.month_names.Find(number)
-
-//Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
-/proc/seconds_to_time(var/seconds as num)
+/// Take a value in seconds and returns a string of minutes and seconds in the format X minute(s) and X seconds.
+/proc/seconds_to_time(seconds as num)
 	var/numSeconds = seconds % 60
 	var/numMinutes = (seconds - numSeconds) / 60
 	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
-//Take a value in seconds and makes it display like a clock
-/proc/seconds_to_clock(var/seconds as num)
+/// Take a value in seconds and makes it display like a clock
+/proc/seconds_to_clock(seconds as num)
 	return "[add_zero(num2text((seconds / 60) % 60), 2)]:[add_zero(num2text(seconds % 60), 2)]"
 
-//Takes a value of time in deciseconds.
-//Returns a text value of that number in hours, minutes, or seconds.
-/proc/DisplayTimeText(time_value)
-	var/second = time_value * 0.1
-	var/second_adjusted = null
-	var/second_rounded = FALSE
-	var/minute = null
-	var/hour = null
-	var/day = null
-
+/// Takes a value of time in deciseconds.
+/// Returns a text value of that number in hours, minutes, or seconds.
+/proc/DisplayTimeText(time_value, round_seconds_to = 0.1)
+	var/second = FLOOR(time_value * 0.1, round_seconds_to)
 	if(!second)
-		return "0 seconds"
-	if(second >= 60)
-		minute = round_down(second / 60)
-		second = round(second - (minute * 60), 0.1)
-		second_rounded = TRUE
-	if(second)	//check if we still have seconds remaining to format, or if everything went into minute.
-		second_adjusted = round(second)	//used to prevent '1 seconds' being shown
-		if(day || hour || minute)
-			if(second_adjusted == 1 && second >= 1)
-				second = " and 1 second"
-			else if(second > 1)
-				second = " and [second_adjusted] seconds"
-			else	//shows a fraction if seconds is < 1
-				if(second_rounded) //no sense rounding again if it's already done
-					second = " and [second] seconds"
-				else
-					second = " and [round(second, 0.1)] seconds"
-		else
-			if(second_adjusted == 1 && second >= 1)
-				second = "1 second"
-			else if(second > 1)
-				second = "[second_adjusted] seconds"
-			else
-				if(second_rounded)
-					second = "[second] seconds"
-				else
-					second = "[round(second, 0.1)] seconds"
-	else
-		second = null
-
-	if(!minute)
-		return "[second]"
-	if(minute >= 60)
-		hour = round_down(minute / 60,1)
-		minute = (minute - (hour * 60))
-	if(minute) //alot simpler from here since you don't have to worry about fractions
-		if(minute != 1)
-			if((day || hour) && second)
-				minute = ", [minute] minutes"
-			else if((day || hour) && !second)
-				minute = " and [minute] minutes"
-			else
-				minute = "[minute] minutes"
-		else
-			if((day || hour) && second)
-				minute = ", 1 minute"
-			else if((day || hour) && !second)
-				minute = " and 1 minute"
-			else
-				minute = "1 minute"
-	else
-		minute = null
-
-	if(!hour)
-		return "[minute][second]"
-	if(hour >= 24)
-		day = round_down(hour / 24,1)
-		hour = (hour - (day * 24))
+		return "right now"
+	if(second < 60)
+		return "[second] second[(second != 1)? "s":""]"
+	var/minute = FLOOR(second / 60, 1)
+	second = FLOOR(MODULUS(second, 60), round_seconds_to)
+	var/secondT
+	if(second)
+		secondT = " and [second] second[(second != 1)? "s":""]"
+	if(minute < 60)
+		return "[minute] minute[(minute != 1)? "s":""][secondT]"
+	var/hour = FLOOR(minute / 60, 1)
+	minute = MODULUS(minute, 60)
+	var/minuteT
+	if(minute)
+		minuteT = " and [minute] minute[(minute != 1)? "s":""]"
+	if(hour < 24)
+		return "[hour] hour[(hour != 1)? "s":""][minuteT][secondT]"
+	var/day = FLOOR(hour / 24, 1)
+	hour = MODULUS(hour, 24)
+	var/hourT
 	if(hour)
-		if(hour != 1)
-			if(day && (minute || second))
-				hour = ", [hour] hours"
-			else if(day && (!minute || !second))
-				hour = " and [hour] hours"
-			else
-				hour = "[hour] hours"
-		else
-			if(day && (minute || second))
-				hour = ", 1 hour"
-			else if(day && (!minute || !second))
-				hour = " and 1 hour"
-			else
-				hour = "1 hour"
-	else
-		hour = null
-
-	if(!day)
-		return "[hour][minute][second]"
-	if(day > 1)
-		day = "[day] days"
-	else
-		day = "1 day"
-
-	return "[day][hour][minute][second]"
+		hourT = " and [hour] hour[(hour != 1)? "s":""]"
+	return "[day] day[(day != 1)? "s":""][hourT][minuteT][secondT]"
 
 GLOBAL_VAR_INIT(midnight_rollovers, 0)
 GLOBAL_VAR_INIT(rollovercheck_last_timeofday, 0)
 /proc/update_midnight_rollover()
 	if(world.timeofday < GLOB.rollovercheck_last_timeofday) //TIME IS GOING BACKWARDS!
-		return GLOB.midnight_rollovers++
+		GLOB.midnight_rollovers++
+	GLOB.rollovercheck_last_timeofday = world.timeofday
 	return GLOB.midnight_rollovers

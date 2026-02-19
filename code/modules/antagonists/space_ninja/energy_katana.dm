@@ -1,0 +1,212 @@
+/**
+ * # Energy Katana
+ *
+ * The space ninja's katana.
+ *
+ * The katana that only space ninja spawns with.  Comes with 40 force and throwforce, along with a signature special jaunting system.
+ * Upon clicking on a tile when clicking with disarm intent, the user will teleport to that tile, assuming their target was not dense.
+ * The katana has 3 dashes stored at maximum, and upon using the dash, it will return 20 seconds after it was used.
+ * It also has a special feature where if it is tossed at a space ninja who owns it (determined by the ninja suit), the ninja will catch the katana instead of being hit by it.
+ *
+ */
+/obj/item/melee/energy_katana
+	name = "energy katana"
+	desc = "A katana infused with strong energy."
+	icon = 'icons/obj/ninjaobjects.dmi'
+	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
+	icon_state = "energy_katana_green"
+	item_state = "energy_katana_green"
+	var/color_style = "green"
+	force = 40
+	throwforce = 20
+	block_chance = 50
+	armour_penetration = 50
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
+	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
+	sharp = TRUE
+	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	var/datum/effect_system/spark_spread/spark_system
+	var/datum/action/innate/dash/ninja/jaunt
+
+/obj/item/melee/energy_katana/Destroy()
+	QDEL_NULL(spark_system)
+	QDEL_NULL(jaunt)
+	return ..()
+
+/obj/item/melee/energy_katana/Initialize(mapload)
+	. = ..()
+	jaunt = new(src)
+	spark_system = new /datum/effect_system/spark_spread()
+	spark_system.set_up(5, 0, src)
+	spark_system.attach(src)
+
+/obj/item/melee/energy_katana/ComponentInitialize()
+	. = ..()
+	AddComponent( \
+		/datum/component/cleave_attack, \
+		swing_speed_mod = 1.75, \
+		afterswing_slowdown = 0, \
+		swing_sound = SFX_BLADE_SCIFI_SWING \
+	)
+
+/obj/item/melee/energy_katana/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(user && user.a_intent == INTENT_DISARM && !target.density)
+		if(isninja(user))
+			jaunt.teleport(user, target)
+			if(user.client)
+				user.client.mouse_pointer_icon = file(jaunt.update_cursor())
+				jaunt.update_action_style(color_style)
+		else
+			var/mob/living/carbon/human/H = user
+			var/obj/item/organ/external/affecting = H.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+			if(affecting.droplimb())
+				H.UpdateDamageIcon()
+				playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, TRUE)
+				to_chat(user, span_userdanger("That was a bad idea."))
+				H.emote("scream")
+
+/obj/item/melee/energy_katana/pickup(mob/living/user)
+	. = ..()
+	if(user?.client)
+		jaunt.Grant(user, src)
+		user.client.mouse_pointer_icon = file(jaunt.update_cursor())
+		jaunt.update_action_style(color_style)
+		user.update_icons()
+		playsound(get_turf(src), 'sound/items/unsheath.ogg', 25, TRUE, 5)
+	if(!isninja(user) && !isrobot(user))
+		user.apply_damage(20, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		to_chat(user, span_userdanger("Oh fuck, it hurts!."))
+		playsound(user, 'sound/weapons/bladeslice.ogg', 100, TRUE)
+
+/obj/item/melee/energy_katana/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	if(user?.client)
+		jaunt.Remove(user)
+		user.client.mouse_pointer_icon = initial(user.client.mouse_pointer_icon)
+		user.update_icons()
+
+/obj/item/melee/energy_katana/attack(mob/living/target, mob/living/carbon/human/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!isninja(user) && !isrobot(user) && ishuman(user))
+		var/obj/item/organ/external/affecting = user.get_organ(user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+		if(affecting.droplimb())
+			playsound(src, 'sound/creatures/terrorspiders/rip.ogg', 120, TRUE)
+			to_chat(user, span_userdanger("That was a bad idea."))
+			if(user.has_pain())
+				user.emote("scream")
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
+
+//If we hit the Ninja who owns this Katana, they catch it.
+//Works for if the Ninja throws it or it throws itself(nope) or someone tries
+//To throw it at the ninja
+/obj/item/melee/energy_katana/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(ishuman(hit_atom))
+		var/mob/living/carbon/human/hit_human = hit_atom
+		if(istype(hit_human.wear_suit, /obj/item/clothing/suit/space/space_ninja))
+			var/obj/item/clothing/suit/space/space_ninja/ninja_suit = hit_human.wear_suit
+			if(ninja_suit.energyKatana && ninja_suit.energyKatana == src)
+				returnToOwner(hit_human, 0, 1)
+				return
+	..()
+
+/obj/item/melee/energy_katana/Destroy()
+	QDEL_NULL(spark_system)
+	QDEL_NULL(jaunt)
+	return ..()
+
+/**
+ * Proc called when the katana is recalled to its space ninja.
+ *
+ * Proc called when space ninja is hit with its suit's katana or the recall ability is used.
+ * Arguments:
+ * * user - To whom the katana is returning to.
+ * * doSpark - whether or not the katana will spark when it returns.
+ * * caught - boolean for whether or not the katana was caught or was teleported back.
+ */
+/obj/item/melee/energy_katana/proc/returnToOwner(mob/living/carbon/human/user, doSpark = TRUE, caught = FALSE)
+	if(!istype(user))
+		return
+	forceMove(get_turf(user))
+
+	if(doSpark)
+		spark_system.start()
+		playsound(get_turf(src), SFX_SPARKS, 50, TRUE, 5)
+
+	var/msg = ""
+
+	if(user.put_in_active_hand(src))
+		msg = "Ваша энергетическая катана телепортируется к вам в руки!"
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, disable_warning = TRUE))
+		msg = "Ваша энергетическая катана телепортируется к вам на пояс!"
+	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_SUITSTORE, disable_warning = TRUE))
+		msg = "Ваша энергетическая катана телепортируется к вам на спину!"
+	else
+		msg = "Ваша энергетическая катана телепортируется к вам!"
+
+	if(caught)
+		if(loc == user)
+			msg = "Вы ловите вашу энергетическую катану!"
+		else
+			msg = "Ваша энергетическая катана падает к вашим ногам!"
+
+	if(msg)
+		to_chat(user, span_notice("[msg]"))
+
+/obj/item/melee/energy_katana/suicide_act(mob/user)
+	user.visible_message(span_suicide("[user] пронза[PLUR_ET_YUT(user)] свой живот с помощью [src]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить сеппуку!"))
+	return BRUTELOSS
+
+/datum/action/innate/dash/ninja
+	name = "Энергорывок"
+	desc = "Мгновенно переместиться в выбранную точку. Просто используйте катану в обезоруживающем намерении."
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	button_icon_state = "arrows_3"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+	current_charges = 3
+	max_charges = 3
+	charge_rate = 200
+	recharge_sound = 'sound/weapons/knife_on_knife.ogg'
+	beam_effect = "ninja_blink"
+
+/datum/action/innate/dash/ninja/proc/update_cursor()
+	switch(current_charges)
+		if(3)
+			return "icons/misc/mouse_pointers/ninja_cursor_three.dmi"
+		if(2)
+			return "icons/misc/mouse_pointers/ninja_cursor_two.dmi"
+		if(1)
+			return "icons/misc/mouse_pointers/ninja_cursor_one.dmi"
+		if(0)
+			return "icons/misc/mouse_pointers/ninja_cursor_off.dmi"
+
+/datum/action/innate/dash/ninja/proc/update_action_style(color_style)
+	button_icon_state = "arrows_[clamp(current_charges, 0, max_charges)]" //Защита от потери иконок при админ абузе
+	background_icon_state = "background_[color_style]_active"
+	if(current_charges == 0)
+		background_icon_state = "background_[color_style]"
+	UpdateButtonIcon()
+
+/datum/action/innate/dash/ninja/charge()
+	. = ..()
+	if(owner?.client)
+		owner.client.mouse_pointer_icon = file(update_cursor())
+		var/obj/item/melee/energy_katana/katana = dashing_item
+		update_action_style(katana.color_style)
+
+/// Катана для взломанного борга. У них нет интентов и рук как таковых.
+/// Так что блинки сами по себе работать не будут.
+/// Плюс урезанный урон
+/obj/item/melee/energy_katana/borg
+	name = "robotic energy katana"
+	desc = "A katana infused with strong energy. Integrated inside a robot! Cyborg ninja's doesn't sound so funny anymore?"
+	// Борг-ниндзя — чёрно-красный. Катана тоже будет красной
+	icon_state = "energy_katana_red"
+	item_state = "energy_katana_red"
+	force = 30
+	block_chance = 40
+	armour_penetration = 40

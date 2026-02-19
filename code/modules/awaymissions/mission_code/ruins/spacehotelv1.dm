@@ -94,6 +94,7 @@
 /area/ruin/space/spacehotelv1/entryhallway
 	name = "Hotel Entry Hallway"
 	icon_state = "entry"
+	lightswitch = FALSE
 
 /area/ruin/space/spacehotelv1/evamaints
 	name = "Hotel EVA Maintenance Room"

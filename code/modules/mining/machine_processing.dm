@@ -22,6 +22,16 @@
 	var/machinedir = EAST
 	speed_process = TRUE
 
+/obj/machinery/mineral/processing_unit_console/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль производственного аппарата",
+		GENITIVE = "консоли производственного аппарата",
+		DATIVE = "консоли производственного аппарата",
+		ACCUSATIVE = "консоль производственного аппарата",
+		INSTRUMENTAL = "консолью производственного аппарата",
+		PREPOSITIONAL = "консоли производственного аппарата",
+	)
+
 /obj/machinery/mineral/processing_unit_console/Initialize(mapload)
 	. = ..()
 	machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
@@ -43,9 +53,9 @@
 	if(!machine)
 		return
 
-	var/dat = {"<meta charset="UTF-8">"} + machine.get_machine_data()
+	var/dat = machine.get_machine_data()
 
-	var/datum/browser/popup = new(user, "processing", "Smelting Console", 300, 500)
+	var/datum/browser/popup = new(user, "processing", "Плавильная консоль", 300, 500)
 	popup.set_content(dat)
 	popup.open()
 
@@ -89,6 +99,16 @@
 	var/datum/research/files
 	speed_process = TRUE
 
+/obj/machinery/mineral/processing_unit/get_ru_names()
+	return list(
+		NOMINATIVE = "плавильная печь",
+		GENITIVE = "плавильной печи",
+		DATIVE = "плавильной печи",
+		ACCUSATIVE = "плавильную печь",
+		INSTRUMENTAL = "плавильной печью",
+		PREPOSITIONAL = "плавильной печи",
+	)
+
 /obj/machinery/mineral/processing_unit/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_PLASMA, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_BLUESPACE), INFINITY, TRUE, /obj/item/stack)
@@ -130,36 +150,36 @@
 			CONSOLE.updateUsrDialog()
 
 /obj/machinery/mineral/processing_unit/proc/get_machine_data()
-	var/dat = "<b>Smelter control console</b><br><br>"
+	var/dat = "<b>Консоль управления плавильней</b><br><br>"
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
-		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] cm&sup3;"
+		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] см&sup3;"
 		if(selected_material == mat_id)
-			dat += " <i>Smelting</i>"
+			dat += " <i>Плавка</i>"
 		else
-			dat += " <A href='?src=[CONSOLE.UID()];material=[mat_id]'><b>Not Smelting</b></A> "
+			dat += " <a href='byond://?src=[CONSOLE.UID()];material=[mat_id]'><b>Не плавить</b></a> "
 		dat += "<br>"
 
 	dat += "<br><br>"
-	dat += "<b>Smelt Alloys</b><br>"
+	dat += "<b>Плавить сплавы</b><br>"
 
 	for(var/v in files.known_designs)
 		var/datum/design/D = files.known_designs[v]
-		dat += "<span class=\"res_name\">[D.name] "
+		dat += "<span class=\"res_name\">[D]"
 		if(selected_alloy == D.id)
-			dat += " <i>Smelting</i>"
+			dat += " <i>Плавка</i>"
 		else
-			dat += " <A href='?src=[CONSOLE.UID()];alloy=[D.id]'><b>Not Smelting</b></A> "
+			dat += " <a href='byond://?src=[CONSOLE.UID()];alloy=[D.id]'><b>Не плавить</b></a> "
 		dat += "<br>"
 
 	dat += "<br><br>"
 	//On or off
-	dat += "Machine is currently "
+	dat += "Текущий статус: "
 	if(on)
-		dat += "<A href='?src=[CONSOLE.UID()];set_on=off'>On</A> "
+		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=off'>Вкл</a> "
 	else
-		dat += "<A href='?src=[CONSOLE.UID()];set_on=on'>Off</A> "
+		dat += "<a href='byond://?src=[CONSOLE.UID()];set_on=on'>Выкл</a> "
 
 	return dat
 
@@ -192,7 +212,7 @@
 	generate_mineral(alloy.build_path)
 
 /obj/machinery/mineral/processing_unit/proc/can_smelt(datum/design/D)
-	if(D.make_reagents.len)
+	if(length(D.make_reagents))
 		return FALSE
 
 	var/build_amount = SMELT_AMOUNT

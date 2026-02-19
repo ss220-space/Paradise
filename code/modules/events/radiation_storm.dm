@@ -4,7 +4,11 @@
 	announceWhen = 1
 
 /datum/event/radiation_storm/announce()
-	GLOB.priority_announcement.Announce("Вблизи станции обнаружено радиационное поле высокой интенсивности. Всему персоналу надлежит проследовать в технические тоннели.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/radiation.ogg')
+	GLOB.major_announcement.announce(
+		message = "Вблизи станции обнаружено радиационное поле высокой интенсивности. Всему персоналу надлежит проследовать в технические тоннели.",
+		new_title = ANNOUNCE_ANOMALY_RU,
+		new_sound = 'sound/AI/radiation.ogg'
+	)
 	//sound not longer matches the text, but an audible warning is probably good
 
 /datum/event/radiation_storm/start()

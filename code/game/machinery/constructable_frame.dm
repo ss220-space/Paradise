@@ -1,27 +1,28 @@
+// Construction | Deconstruction
+#define STATE_EMPTY 1 // Add wires | Wrench to destroy
+#define STATE_WIRED 2 // Add cicuit / Wrench to unchor/unanchor | Remove wires with wirecutters
+#define STATE_COMPONENTS 3 // Add components / Wrench to unchor/unanchor | Remove circuit/components with crowbar
+
 /obj/machinery/constructable_frame //Made into a seperate type to make future revisions easier.
 	name = "machine frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
-	density = 1
+	density = TRUE
 	anchored = TRUE
 	use_power = NO_POWER_USE
 	max_integrity = 250
-	var/obj/item/circuitboard/circuit = null
-	var/list/components = null
-	var/list/req_components = null
-	var/list/req_component_names = null // user-friendly names of components
-	var/state = 1
-
-	// For pods
-	var/list/connected_parts = list()
-	var/pattern_idx=0
+	var/obj/item/circuitboard/circuit
+	var/list/components
+	var/list/req_components
+	/// User-friendly names of components
+	var/list/req_component_names
+	var/state = STATE_EMPTY
 
 /obj/machinery/constructable_frame/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		if(state >= 2)
-			var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(loc)
-			A.amount = 5
+			new /obj/item/stack/cable_coil(loc, 5)
 		if(circuit)
 			circuit.forceMove(loc)
 			circuit = null
@@ -30,18 +31,12 @@
 /obj/machinery/constructable_frame/obj_break(damage_flag)
 	deconstruct()
 
-// unfortunately, we have to instance the objects really quickly to get the names
-// fortunately, this is only called once when the board is added and the items are immediately GC'd
-// and none of the parts do much in their constructors
-/obj/machinery/constructable_frame/proc/update_namelist()
-	if(!req_components)
-		return
-
-	req_component_names = new()
-	for(var/tname in req_components)
-		var/path = tname
-		var/obj/O = new path()
-		req_component_names[tname] = O.name
+/obj/machinery/constructable_frame/proc/update_lists(list/circuit_components)
+	req_components = circuit_components.Copy()
+	components = list()
+	req_component_names = list()
+	for(var/atom/path as anything in req_components)
+		req_component_names[path] = initial(path.name)
 
 /obj/machinery/constructable_frame/proc/get_req_components_amt()
 	var/amt = 0
@@ -49,138 +44,205 @@
 		amt += req_components[path]
 	return amt
 
-// update description of required components remaining
-/obj/machinery/constructable_frame/proc/update_req_desc()
+/obj/machinery/constructable_frame/proc/get_req_desc()
+	. = ""
+
 	if(!req_components || !req_component_names)
 		return
 
-	var/hasContent = 0
-	desc = "Requires"
-	for(var/i = 1 to req_components.len)
+	var/hasContent = FALSE
+	var/components_len = length(req_components)
+	. = "<span class='notice'>Required components:"
+	for(var/i = 1 to components_len)
 		var/tname = req_components[i]
 		var/amt = req_components[tname]
-		if(amt == 0)
+		if(!amt)
 			continue
-		var/use_and = i == req_components.len
-		desc += "[(hasContent ? (use_and ? ", and" : ",") : "")] [amt] [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
-		hasContent = 1
+		var/use_and = (i == components_len)
+		. += "[(hasContent ? (use_and ? ", and" : ",") : "")] <b>[amt]</b> [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
+		hasContent = TRUE
 
-	if(!hasContent)
-		desc = "Does not require any more components."
+	if(hasContent)
+		. += ".</span>"
 	else
-		desc += "."
+		. = span_notice("Does not require any more components.")
 
-/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/P, mob/user, params)
+/obj/machinery/constructable_frame/machine_frame/examine(mob/user)
+	. = ..()
+	. += span_notice("It is [anchored ? "<b>bolted</b> to the floor" : "<b>unbolted</b>"].")
 	switch(state)
-		if(1)
-			if(istype(P, /obj/item/stack/cable_coil))
-				var/obj/item/stack/cable_coil/C = P
-				if(C.get_amount() >= 5)
-					playsound(src.loc, C.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You start to add cables to the frame.</span>")
-					if(do_after(user, 20 * C.toolspeed * gettoolspeedmod(user), target = src))
-						if(state == 1 && C.use(5))
-							to_chat(user, "<span class='notice'>You add cables to the frame.</span>")
-							state = 2
-							icon_state = "box_1"
-						else
-							to_chat(user, "<span class='warning'>At some point during construction you lost some cable. Make sure you have five lengths before trying again.</span>")
-							return
-				else
-					to_chat(user, "<span class='warning'>You need five lengths of cable to wire the frame.</span>")
-				return
+		if(STATE_EMPTY)
+			. += span_notice("The frame is constructed, but it is missing a <i>wiring</i>.")
+		if(STATE_WIRED)
+			. += span_notice("The frame is <b>wired</b>, but it is missing a <i>circuit board</i>")
+		if(STATE_COMPONENTS)
+			var/required = get_req_desc()
+			if(required)
+				. += required
 
-			if(istype(P, /obj/item/wrench))
-				playsound(src.loc, P.usesound, 75, 1)
-				to_chat(user, "<span class='notice'>You dismantle the frame.</span>")
-				deconstruct(TRUE)
-				return
-		if(2)
-			if(istype(P, /obj/item/circuitboard))
-				var/obj/item/circuitboard/B = P
-				if(B.board_type == "machine")
-					playsound(src.loc, B.usesound, 50, 1)
-					to_chat(user, "<span class='notice'>You add the circuit board to the frame.</span>")
-					circuit = P
-					user.drop_item()
-					P.loc = src
-					icon_state = "box_2"
-					state = 3
-					components = list()
-					req_components = circuit.req_components.Copy()
-					update_namelist()
-					update_req_desc()
-				else
-					to_chat(user, "<span class='danger'>This frame does not accept circuit boards of this type!</span>")
-				return
-			if(istype(P, /obj/item/wirecutters))
-				playsound(src.loc, P.usesound, 50, 1)
-				to_chat(user, "<span class='notice'>You remove the cables.</span>")
-				state = 1
-				icon_state = "box_0"
-				var/obj/item/stack/cable_coil/A = new /obj/item/stack/cable_coil(src.loc,5)
-				A.amount = 5
-				return
-			if(istype(P, /obj/item/wrench))
-				playsound(src.loc, P.usesound, 75, 1)
-				if(!anchored && !isinspace())
-					anchored = TRUE
-					WRENCH_ANCHOR_MESSAGE
-				else if(anchored)
-					anchored = FALSE
-					WRENCH_UNANCHOR_MESSAGE
-				return
-		if(3)
-			if(istype(P, /obj/item/crowbar))
-				playsound(src.loc, P.usesound, 50, 1)
-				state = 2
-				circuit.loc = src.loc
-				circuit = null
-				if(components.len == 0)
-					to_chat(user, "<span class='notice'>You remove the circuit board.</span>")
-				else
-					to_chat(user, "<span class='notice'>You remove the circuit board and other components.</span>")
-					for(var/obj/item/I in components)
-						I.loc = src.loc
-				desc = initial(desc)
-				req_components = null
-				components = null
-				icon_state = "box_1"
-				return
+/obj/machinery/constructable_frame/machine_frame/update_icon_state()
+	switch(state)
+		if(STATE_EMPTY)
+			icon_state = "box_0"
+		if(STATE_WIRED)
+			icon_state = "box_1"
+		if(STATE_COMPONENTS)
+			icon_state = "box_2"
 
-			if(istype(P, /obj/item/wrench))
-				playsound(src.loc, P.usesound, 75, 1)
-				if(!anchored && !isinspace())
-					anchored = TRUE
-					WRENCH_ANCHOR_MESSAGE
-				else if(anchored)
-					anchored = FALSE
-					WRENCH_UNANCHOR_MESSAGE
-				return
+/obj/machinery/constructable_frame/machine_frame/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return .
 
-			if(istype(P, /obj/item/screwdriver))
-				var/component_check = 1
-				for(var/R in req_components)
-					if(req_components[R] > 0)
-						component_check = 0
-						break
-				if(component_check)
-					playsound(src.loc, P.usesound, 50, 1)
-					var/obj/machinery/new_machine = new src.circuit.build_path(src.loc)
-					new_machine.on_construction()
-					for(var/obj/O in new_machine.component_parts)
-						qdel(O)
-					new_machine.component_parts = list()
-					for(var/obj/O in src)
-						O.loc = null
-						new_machine.component_parts += O
-					circuit.loc = null
-					new_machine.RefreshParts()
-					qdel(src)
-				return
+	if(state == STATE_EMPTY)
+		deconstruct(TRUE)
+		to_chat(user, span_notice("You dismantle the frame."))
+		return .
 
-			if(istype(P, /obj/item/storage/part_replacer) && P.contents.len && get_req_components_amt())
-				var/obj/item/storage/part_replacer/replacer = P
+	if(anchored)
+		set_anchored(FALSE)
+		WRENCH_UNANCHOR_MESSAGE
+		return .
+
+	if(isinspace())
+		to_chat(user, span_warning("You cannot tightens the bolts in space!"))
+		return .
+
+	set_anchored(TRUE)
+	WRENCH_ANCHOR_MESSAGE
+
+/obj/machinery/constructable_frame/machine_frame/wirecutter_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(state != STATE_WIRED)
+		return .
+
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_WIRED)
+		return .
+
+	state = STATE_EMPTY
+	WIRECUTTER_SNIP_MESSAGE
+	update_icon(UPDATE_ICON_STATE)
+	new /obj/item/stack/cable_coil(loc, 5)
+
+/obj/machinery/constructable_frame/machine_frame/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(state != STATE_COMPONENTS)
+		return .
+
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || state != STATE_COMPONENTS)
+		return .
+
+	state = STATE_WIRED
+	circuit.forceMove(loc)
+	circuit = null
+
+	if(length(components))
+		to_chat(user, span_notice("You remove the circuit board and other components."))
+		for(var/obj/item/component in components)
+			component.forceMove(loc)
+	else
+		to_chat(user, span_notice("You remove the circuit board."))
+
+	name = initial(name)
+	desc = initial(desc)
+	req_components = null
+	components = null
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/constructable_frame/machine_frame/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	add_fingerprint(user)
+	if(state != STATE_COMPONENTS)
+		return .
+
+	var/component_check = TRUE
+	for(var/component in req_components)
+		if(req_components[component] > 0)
+			component_check = FALSE
+			break
+
+	if(!component_check)
+		to_chat(user, span_warning("Machine frame requires more components!"))
+		return .
+
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		return .
+
+	to_chat(user, span_notice("You finish the construction."))
+	var/obj/machinery/new_machine = new circuit.build_path(loc)
+	new_machine.on_construction()
+	for(var/obj/component in new_machine.component_parts)
+		qdel(component)
+	new_machine.component_parts = list()
+	for(var/obj/component in src)
+		component.loc = null
+		new_machine.component_parts += component
+	circuit.loc = null
+	new_machine.RefreshParts()
+	transfer_fingerprints_to(new_machine)
+	qdel(src)
+
+/obj/machinery/constructable_frame/machine_frame/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	add_fingerprint(user)
+	. = ATTACK_CHAIN_PROCEED
+
+	switch(state)
+		if(STATE_EMPTY)
+			if(!iscoil(I))
+				return ..()
+
+			var/obj/item/stack/cable_coil/coil = I
+			if(coil.get_amount() < 5)
+				to_chat(user, span_warning("You need five lengths of cable to wire the frame."))
+				return .
+
+			playsound(loc, coil.usesound, 50, TRUE)
+			to_chat(user, span_notice("You start to add cables to the frame..."))
+			if(!do_after(user, 2 SECONDS * coil.toolspeed, src, category = DA_CAT_TOOL) || state != STATE_EMPTY || QDELETED(coil))
+				return .
+
+			if(!coil.use(5))
+				to_chat(user, span_warning("At some point during construction you lost some cable. Make sure you have five lengths before trying again."))
+				return .
+
+			state = STATE_WIRED
+			update_icon(UPDATE_ICON_STATE)
+			to_chat(user, span_notice("You add cables to the frame."))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		if(STATE_WIRED)
+			if(!istype(I, /obj/item/circuitboard))
+				return ..()
+
+			var/obj/item/circuitboard/new_circuit = I
+			if(new_circuit.board_type != "machine")
+				to_chat(user, span_warning("This frame does not accept circuit boards of this type!"))
+				return .
+
+			if(!user.drop_transfer_item_to_loc(new_circuit, src))
+				return ..()
+
+			state = STATE_COMPONENTS
+			circuit = new_circuit
+			name += " ([new_circuit.board_name])"
+			if(length(circuit.req_components))
+				update_lists(circuit.req_components)
+			else
+				stack_trace("Circuit without req_components list, placed in [src].")
+			playsound(loc, new_circuit.usesound, 50, TRUE)
+			to_chat(user, span_notice("You add the circuit board to the frame."))
+			update_icon(UPDATE_ICON_STATE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+		if(STATE_COMPONENTS)
+			if(istype(I, /obj/item/storage/part_replacer) && length(I.contents) && get_req_components_amt())
+				var/obj/item/storage/part_replacer/replacer = I
 				var/list/added_components = list()
 				var/list/part_list = list()
 
@@ -198,42 +260,63 @@
 
 				for(var/obj/item/stock_parts/part in added_components)
 					components += part
-					to_chat(user, "<span class='notice'>[part.name] applied.</span>")
+					to_chat(user, span_notice("[part.name] applied."))
 				replacer.play_rped_sound()
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-				update_req_desc()
-				return
+			if(istype(I, /obj/item/storage/bag/construction) && length(I.contents) && get_req_components_amt())
+				var/obj/item/storage/bag/construction/bag = I
+				INVOKE_ASYNC(src, PROC_REF(apply_parts_from_construction_bag), bag, user)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
 
-			if(istype(P, /obj/item))
-				var/success
-				for(var/I in req_components)
-					if(istype(P, I) && (req_components[I] > 0) && (!(P.flags & NODROP) || istype(P, /obj/item/stack)))
-						success=1
-						playsound(src.loc, P.usesound, 50, 1)
-						if(istype(P, /obj/item/stack))
-							var/obj/item/stack/S = P
-							var/camt = min(S.get_amount(), req_components[I])
-							var/obj/item/stack/NS = new P.type(src)
-							NS.amount = camt
-							NS.update_icon()
-							S.use(camt)
-							components += NS
-							req_components[I] -= camt
-							update_req_desc()
+			if(isitem(I))
+				var/success = FALSE
+				for(var/path in req_components)
+					var/is_stack = isstack(I)
+					if(istype(I, path) && (req_components[path] > 0) && (!HAS_TRAIT(I, TRAIT_NODROP) || is_stack))
+						success = TRUE
+						playsound(loc, I.usesound, 50, TRUE)
+						if(is_stack)
+							var/obj/item/stack/stack = I
+							var/camt = min(stack.get_amount(), req_components[path])
+							var/obj/item/stack/new_stack
+							if(stack.is_cyborg && stack.cyborg_construction_stack)
+								new_stack = new stack.cyborg_construction_stack(src, camt)
+							else
+								new_stack = new stack.type(src, camt)
+							new_stack.update_icon()
+							stack.use(camt)
+							components += new_stack
+							req_components[path] -= camt
 							break
-						user.drop_item()
-						P.forceMove(src)
-						components += P
-						req_components[I]--
-						update_req_desc()
-						return 1
-				if(!success)
-					to_chat(user, "<span class='danger'>You cannot add that to the machine!</span>")
-					return 0
-				return
-	if(user.a_intent == INTENT_HARM)
-		return ..()
+						user.drop_transfer_item_to_loc(I, src)
+						components += I
+						req_components[path]--
+						break
 
+				if(!success)
+					to_chat(user, span_warning("You cannot add that to the machine!"))
+
+				return ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/machinery/constructable_frame/machine_frame/proc/apply_parts_from_construction_bag(obj/item/storage/bag/construction/bag, mob/user, count = 0)
+	for(var/path in req_components)
+		if(req_components[path] <= 0 || !(locate(path) in bag))
+			continue
+		if(!do_after(user, 0.7 SECONDS, src, interaction_key = bag, max_interact_count = 1))
+			return FALSE
+		var/obj/item/part = (locate(path) in bag)
+		bag.remove_from_storage(part, src)
+		req_components[path]--
+		components += part
+		to_chat(user, span_notice("[part.declent_ru(NOMINATIVE)] вставлен[GEND_A_O_Y(part)]."))
+		return apply_parts_from_construction_bag(bag, user, count + 1)
+	balloon_alert(user, "вставлен[declension_ru(count, "а", "о", "о")] [count] детал[declension_ru(count, "ь", "и", "ей")]")
+	return TRUE
+
+#undef STATE_EMPTY
+#undef STATE_WIRED
+#undef STATE_COMPONENTS
 
 //Machine Frame Circuit Boards
 /*Common Parts: Parts List: Ignitor, Timer, Infra-red laser, Infra-red sensor, t_scanner, Capacitor, Valve, sensor unit,
@@ -242,383 +325,465 @@ Note: Once everything is added to the public areas, will add MAT_METAL and MAT_G
 to destroy them and players will be able to make replacements.
 */
 /obj/item/circuitboard/vendor
-	name = "circuit board (Booze-O-Mat Vendor)"
+	board_name = "Booze-O-Mat Vendor"
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=1"
 	build_path = /obj/machinery/vending/boozeomat
 	req_components = list(/obj/item/vending_refill/boozeomat = 1)
+	/// whether or not the circuit board will build into a vendor whose products cost nothing (used for offstation vending machines mostly)
+	var/all_products_free = FALSE
 
-	var/static/list/vending_names_paths = list(
-		/obj/machinery/vending/boozeomat = "Booze-O-Mat",
-		/obj/machinery/vending/coffee = "Solar's Best Hot Drinks",
-		/obj/machinery/vending/snack = "Getmore Chocolate Corp",
-		/obj/machinery/vending/chinese = "Mr. Chang",
-		/obj/machinery/vending/cola = "Robust Softdrinks",
-		/obj/machinery/vending/cigarette = "ShadyCigs Deluxe",
-		/obj/machinery/vending/hatdispenser = "Hatlord 9000",
-		/obj/machinery/vending/suitdispenser = "Suitlord 9000",
-		/obj/machinery/vending/shoedispenser = "Shoelord 9000",
-		/obj/machinery/vending/autodrobe = "AutoDrobe",
-		/obj/machinery/vending/clothing = "ClothesMate",
-		/obj/machinery/vending/medical = "NanoMed Plus",
-		/obj/machinery/vending/wallmed = "NanoMed",
-		/obj/machinery/vending/assist  = "Vendomat",
-		/obj/machinery/vending/engivend = "Engi-Vend",
-		/obj/machinery/vending/hydronutrients = "NutriMax",
-		/obj/machinery/vending/hydroseeds = "MegaSeed Servitor",
-		/obj/machinery/vending/sustenance = "Sustenance Vendor",
-		/obj/machinery/vending/dinnerware = "Plasteel Chef's Dinnerware Vendor",
-		/obj/machinery/vending/cart = "PTech",
-		/obj/machinery/vending/robotics = "Robotech Deluxe",
-		/obj/machinery/vending/engineering = "Robco Tool Maker",
-		/obj/machinery/vending/sovietsoda = "BODA",
-		/obj/machinery/vending/security = "SecTech",
-		/obj/machinery/vending/crittercare = "CritterCare",
-		/obj/machinery/vending/clothing/departament/security = "Departament Security ClothesMate",
-		/obj/machinery/vending/clothing/departament/medical = "Departament Medical ClothesMate",
-		/obj/machinery/vending/clothing/departament/engineering = "Departament Engineering ClothesMate",
-		/obj/machinery/vending/clothing/departament/science = "Departament Science ClothesMate",
-		/obj/machinery/vending/clothing/departament/cargo = "Departament Cargo ClothesMate",
-		/obj/machinery/vending/clothing/departament/law = "Departament Law ClothesMate")
+	var/static/list/station_vendors = list(
+		"Booze-O-Mat" = /obj/machinery/vending/boozeomat,
+		"Solar's Best Hot Drinks" = /obj/machinery/vending/coffee,
+		"Getmore Chocolate Corp" = /obj/machinery/vending/snack,
+		"Mr. Chang" = /obj/machinery/vending/chinese,
+		"Robust Softdrinks" = /obj/machinery/vending/cola,
+		"ShadyCigs Deluxe" = /obj/machinery/vending/cigarette,
+		"Hatlord 9000" = /obj/machinery/vending/hatdispenser,
+		"Suitlord 9000" = /obj/machinery/vending/suitdispenser,
+		"Shoelord 9000" = /obj/machinery/vending/shoedispenser,
+		"AutoDrobe" = /obj/machinery/vending/autodrobe,
+		"ClothesMate" = /obj/machinery/vending/clothesmate,
+		"NanoMed Plus" = /obj/machinery/vending/medical,
+		"NanoMed" = /obj/machinery/vending/wallmed,
+		"Vendomat" = /obj/machinery/vending/assist,
+		"YouTool" = /obj/machinery/vending/tool,
+		"Engi-Vend" = /obj/machinery/vending/engivend,
+		"NutriMax" = /obj/machinery/vending/hydronutrients,
+		"MegaSeed Servitor" = /obj/machinery/vending/hydroseeds,
+		"Sustenance Vendor" = /obj/machinery/vending/sustenance,
+		"Plasteel Chef's Dinnerware Vendor" = /obj/machinery/vending/dinnerware,
+		"PTech" = /obj/machinery/vending/cart,
+		"Robotech Deluxe" = /obj/machinery/vending/robotics,
+		"Robco Tool Maker" = /obj/machinery/vending/engineering,
+		"BODA" = /obj/machinery/vending/sovietsoda,
+		"SecTech" = /obj/machinery/vending/security,
+		"ModTech" = /obj/machinery/vending/gun_mods,
+		"CritterCare" = /obj/machinery/vending/crittercare,
+		"Departament Security ClothesMate" = /obj/machinery/vending/department_clothesmate/security,
+		"Departament Medical ClothesMate" = /obj/machinery/vending/department_clothesmate/medical,
+		"Departament Engineering ClothesMate" = /obj/machinery/vending/department_clothesmate/engineering,
+		"Departament Science ClothesMate" = /obj/machinery/vending/department_clothesmate/science,
+		"Departament Cargo ClothesMate" = /obj/machinery/vending/department_clothesmate/cargo,
+		"Departament Law ClothesMate" = /obj/machinery/vending/department_clothesmate/law,
+		"Service Departament ClothesMate Botanical" = /obj/machinery/vending/department_clothesmate/service/botanical,
+		"Service Departament ClothesMate Chaplain" = /obj/machinery/vending/department_clothesmate/service/chaplain,
+		"RoboFriends" = /obj/machinery/vending/pai,
+		"Customat" = /obj/machinery/customat,
+		"Автомат спортивного питания" = /obj/machinery/vending/protein,
+		"Liberty" = /obj/machinery/vending/ammo,
+	)
+
+	var/static/list/unique_vendors = list(
+		"ShadyCigs Ultra" = /obj/machinery/vending/cigarette/beach,
+		"SyndiWallMed" = /obj/machinery/vending/wallmed/syndicate,
+		"SyndiMed Plus" = /obj/machinery/vending/medical/syndicate_access,
+		"PlasmaMate" = /obj/machinery/vending/plasmamate,
+	)
 
 /obj/item/circuitboard/vendor/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	var/static/list/display_vending_names_paths
-	if(!display_vending_names_paths)
-		display_vending_names_paths = list()
-		for(var/path in vending_names_paths)
-			display_vending_names_paths[vending_names_paths[path]] = path
-	var/choice =  input(user, "Choose a new brand","Select an Item") as null|anything in display_vending_names_paths
-	if(!(loc == user || (istype(loc, /obj/item/gripper) && loc && loc.loc == user)))
-		to_chat(user, "<span class='notice'>You need to keep [src] in your hands while doing that!</span>")
+	var/choice = tgui_input_list(user, "Choose a new brand", "Select an Item", station_vendors)
+	if(!choice)
 		return
-	set_type(display_vending_names_paths[choice])
+	set_type(choice)
 
-/obj/item/circuitboard/vendor/proc/set_type(obj/machinery/vending/typepath)
+/obj/item/circuitboard/vendor/proc/set_type(type)
+	var/static/list/buildable_vendors = station_vendors + unique_vendors
+	var/obj/machinery/vending/typepath = buildable_vendors[type]
 	build_path = typepath
-	name = "circuit board ([vending_names_paths[build_path]] Vendor)"
+	board_name = "[type] Vendor"
+	format_board_name()
 	req_components = list(initial(typepath.refill_canister) = 1)
 
 /obj/item/circuitboard/smes
-	name = "circuit board (SMES)"
+	board_name = "SMES"
 	build_path = /obj/machinery/power/smes
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;powerstorage=3;engineering=3"
 	req_components = list(
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stock_parts/cell = 5,
-							/obj/item/stock_parts/capacitor = 1)
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/cell = 5,
+		/obj/item/stock_parts/capacitor = 1,
+	)
+
+/obj/item/circuitboard/smes/vintage
+	build_path = /obj/machinery/power/smes/vintage
+	origin_tech = "programming=2;powerstorage=2;engineering=2"
+	req_components = list(
+		/obj/item/stack/cable_coil = 7,
+		/obj/item/stock_parts/cell = 7,
+		/obj/item/stock_parts/capacitor = 3,
+	)
 
 /obj/item/circuitboard/emitter
-	name = "circuit board (Emitter)"
+	board_name = "Emitter"
 	build_path = /obj/machinery/power/emitter
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;powerstorage=4;engineering=4"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stock_parts/manipulator = 1)
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 /obj/item/circuitboard/power_compressor
-	name = "circuit board (Power Compressor)"
+	board_name = "Power Compressor"
 	build_path = /obj/machinery/power/compressor
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=4;powerstorage=4;engineering=4"
 	req_components = list(
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stock_parts/manipulator = 6)
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/manipulator = 6,
+	)
 
 /obj/item/circuitboard/power_turbine
-	name = "circuit board (Power Turbine)"
+	board_name = "Power Turbine"
 	build_path = /obj/machinery/power/turbine
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=4;powerstorage=4;engineering=4"
 	req_components = list(
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stock_parts/capacitor = 6)
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/capacitor = 6,
+	)
 
 /obj/item/circuitboard/thermomachine
-	name = "circuit board (Freezer)"
+	board_name = "Freezer"
 	desc = "Use screwdriver to switch between heating and cooling modes."
-	build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
+	build_path = /obj/machinery/atmospherics/unary/thermomachine/freezer
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;plasmatech=3"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
-/obj/item/circuitboard/thermomachine/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		if(build_path == /obj/machinery/atmospherics/unary/cold_sink/freezer)
-			build_path = /obj/machinery/atmospherics/unary/heat_reservoir/heater
-			name = "circuit board (Heater)"
-			to_chat(user, "<span class='notice'>You set the board to heating.</span>")
-		else
-			build_path = /obj/machinery/atmospherics/unary/cold_sink/freezer
-			name = "circuit board (Freezer)"
-			to_chat(user, "<span class='notice'>You set the board to cooling.</span>")
-		return
-	return ..()
+/obj/item/circuitboard/thermomachine/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	if(build_path == /obj/machinery/atmospherics/unary/thermomachine/freezer)
+		build_path = /obj/machinery/atmospherics/unary/thermomachine/heater
+		board_name = "Heater"
+		to_chat(user, span_notice("You set the board to heating."))
+	else
+		build_path = /obj/machinery/atmospherics/unary/thermomachine/freezer
+		board_name = "Freezer"
+		to_chat(user, span_notice("You set the board to cooling."))
 
-/obj/item/circuitboard/recharger
-	name = "circuit board (Recharger)"
-	build_path = /obj/machinery/recharger
+/obj/item/circuitboard/cell_charger
+	board_name = "Cell Recharger"
+	build_path = /obj/machinery/cell_charger
 	board_type = "machine"
 	origin_tech = "powerstorage=3;materials=2"
 	req_components = list(/obj/item/stock_parts/capacitor = 1)
 
+/obj/item/circuitboard/recharger
+	board_name = "Recharger"
+	build_path = /obj/machinery/recharger
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
+	origin_tech = "powerstorage=3;materials=2"
+	req_components = list(/obj/item/stock_parts/capacitor = 1)
+
 /obj/item/circuitboard/snow_machine
-	name = "circuit board (snow machine)"
+	board_name = "Snow Machine"
 	build_path = /obj/machinery/snow_machine
 	board_type = "machine"
 	origin_tech = "programming=2;materials=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/micro_laser = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+	)
 
 /obj/item/circuitboard/biogenerator
-	name = "circuit board (Biogenerator)"
+	board_name = "Biogenerator"
 	build_path = /obj/machinery/biogenerator
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=2;biotech=3;materials=3"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/plantgenes
-	name = "Plant DNA Manipulator (Machine Board)"
+	board_name = "Plant DNA Manipulator"
 	build_path = /obj/machinery/plantgenes
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=3;biotech=3"
 	req_components = list(
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/scanning_module = 1)
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/scanning_module = 1,
+	)
 
 /obj/item/circuitboard/plantgenes/vault
 
 /obj/item/circuitboard/seed_extractor
-	name = "circuit board (Seed Extractor)"
+	board_name = "Seed Extractor"
 	build_path = /obj/machinery/seed_extractor
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 /obj/item/circuitboard/hydroponics
-	name = "circuit board (Hydroponics Tray)"
+	board_name = "Hydroponics Tray"
 	build_path = /obj/machinery/hydroponics/constructable
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=1;biotech=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/microwave
-	name = "circuit board (Microwave)"
+	board_name = "Microwave"
 	build_path = /obj/machinery/kitchen_machine/microwave
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/oven
-	name = "circuit board (Oven)"
+	board_name = "Oven"
 	build_path = /obj/machinery/kitchen_machine/oven
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/grill
-	name = "circuit board (Grill)"
+	board_name = "Grill"
 	build_path = /obj/machinery/kitchen_machine/grill
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/candy_maker
-	name = "circuit board (Candy Maker)"
+	board_name = "Candy Maker"
 	build_path = /obj/machinery/kitchen_machine/candy_maker
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/deepfryer
-	name = "circuit board (Deep Fryer)"
+	board_name = "Deep Fryer"
 	build_path = /obj/machinery/cooker/deepfryer
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stack/cable_coil = 5)
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stack/cable_coil = 5,
+	)
 
 /obj/item/circuitboard/gibber
-	name = "circuit board (Gibber)"
+	board_name = "Gibber"
 	build_path = /obj/machinery/gibber
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=2;engineering=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 /obj/item/circuitboard/tesla_coil
-	name = "circuit board (Tesla Coil)"
+	board_name = "Tesla Coil"
 	build_path = /obj/machinery/power/tesla_coil
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;magnets=3;powerstorage=3"
 	req_components = list(
-							/obj/item/stock_parts/capacitor = 1)
+		/obj/item/stock_parts/capacitor = 1,
+	)
 
 /obj/item/circuitboard/grounding_rod
-	name = "circuit board (Grounding Rod)"
+	board_name = "Grounding Rod"
 	build_path = /obj/machinery/power/grounding_rod
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=3;powerstorage=3;magnets=3;plasmatech=2"
 	req_components = list(
-							/obj/item/stock_parts/capacitor = 1)
+		/obj/item/stock_parts/capacitor = 1,
+	)
 
 /obj/item/circuitboard/processor
-	name = "circuit board (Food processor)"
+	board_name = "Food Processor"
 	build_path = /obj/machinery/processor
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 /obj/item/circuitboard/recycler
-	name = "circuit board (Recycler)"
+	board_name = "Recycler"
 	build_path = /obj/machinery/recycler
 	board_type = "machine"
 	origin_tech = "programming=2;engineering=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 /obj/item/circuitboard/dnaforensics
-	name = "circuit board (Анализатор ДНК)"
+	board_name = "Анализатор ДНК"
 	build_path = /obj/machinery/dnaforensics
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	origin_tech = "programming=2;combat=2"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 2,
-							/obj/item/stock_parts/manipulator = 1,)
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 /obj/item/circuitboard/microscope
-	name = "circuit board (Электронный микроскоп)"
+	board_name = "Электронный микроскоп"
 	build_path = /obj/machinery/microscope
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	origin_tech = "programming=2;combat=2"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/smartfridge
-	name = "circuit board (Smartfridge)"
+	board_name = "Smartfridge"
 	build_path = /obj/machinery/smartfridge
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1)
-	var/list/fridge_names_paths = list(
-							"\improper SmartFridge" = /obj/machinery/smartfridge,
-							"\improper MegaSeed Servitor" = /obj/machinery/smartfridge/seeds,
-							"\improper Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
-							"\improper Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
-							"\improper Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay,
-							"\improper Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
-							"smart virus storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
-							"\improper Drink Showcase" = /obj/machinery/smartfridge/drinks,
-							"\improper Disk Storage" = /obj/machinery/smartfridge/disks,
-							"\improper Dish Showcase" = /obj/machinery/smartfridge/dish
+		/obj/item/stock_parts/matter_bin = 1,
+	)
+	var/static/list/fridge_names_paths = list(
+		"SmartFridge" = /obj/machinery/smartfridge,
+		"Seed Storage" = /obj/machinery/smartfridge/seeds,
+		"Refrigerated Medicine Storage" = /obj/machinery/smartfridge/medbay,
+		"Slime Extract Storage" = /obj/machinery/smartfridge/secure/extract,
+		"Secure Refrigerated Medicine Storage" = /obj/machinery/smartfridge/secure/medbay/organ,
+		"Smart Chemical Storage" = /obj/machinery/smartfridge/secure/chemistry,
+		"Smart Virus Storage" = /obj/machinery/smartfridge/secure/chemistry/virology,
+		"Drink Showcase" = /obj/machinery/smartfridge/drinks,
+		"Disk Storage" = /obj/machinery/smartfridge/disks,
+		"Dish Showcase" = /obj/machinery/smartfridge/dish,
 	)
 
-
-
-/obj/item/circuitboard/smartfridge/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver))
-		set_type(null, user)
+/obj/item/circuitboard/smartfridge/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	return ..()
+	var/choice = tgui_input_list(user, "Circuit Setting", "What would you change the board setting to?", fridge_names_paths)
+	if(!choice)
+		return
+	set_type(user, choice)
 
-/obj/item/circuitboard/smartfridge/proc/set_type(typepath, mob/user)
-	var/new_name = ""
-	if(!typepath)
-		new_name = input("Circuit Setting", "What would you change the board setting to?") in fridge_names_paths
-		typepath = fridge_names_paths[new_name]
+/obj/item/circuitboard/smartfridge/proc/set_type(mob/user, type)
+	if(!ispath(type))
+		board_name = type
+		type = fridge_names_paths[type]
 	else
 		for(var/name in fridge_names_paths)
-			if(fridge_names_paths[name] == typepath)
-				new_name = name
+			if(fridge_names_paths[name] == type)
+				board_name = name
 				break
-	build_path = typepath
-	name = new_name
-	if(findtextEx(new_name, "\improper"))
-		new_name = replacetext(new_name, "\improper", "")
+	build_path = type
+	format_board_name()
 	if(user)
-		to_chat(user, "<span class='notice'>You set the board to [new_name].</span>")
+		to_chat(user, span_notice("You set the board to [board_name]."))
 
 /obj/item/circuitboard/monkey_recycler
-	name = "circuit board (Monkey Recycler)"
+	board_name = "Monkey Recycler"
 	build_path = /obj/machinery/monkey_recycler
 	board_type = "machine"
 	origin_tech = "programming=1;biotech=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 /obj/item/circuitboard/holopad
-	name = "circuit board (AI Holopad)"
+	board_name = "AI Holopad"
 	build_path = /obj/machinery/hologram/holopad
 	board_type = "machine"
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/capacitor = 1)
+		/obj/item/stock_parts/capacitor = 1,
+	)
 
 /obj/item/circuitboard/chem_dispenser
-	name = "circuit board (Chem Dispenser)"
+	board_name = "Chem Dispenser"
 	build_path = /obj/machinery/chem_dispenser
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SECURITY
 	origin_tech = "materials=4;programming=4;plasmatech=4;biotech=3"
-	req_one_access = list(ACCESS_TOX, ACCESS_CHEMISTRY, ACCESS_SYNDICATE_SCIENTIST)
-	req_components = list(	/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/cell = 1)
+	req_access = list(ACCESS_TOX, ACCESS_CHEMISTRY, ACCESS_SYNDICATE_SCIENTIST)
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell = 1,
+	)
 
 /obj/item/circuitboard/chem_dispenser/botanical
-	name = "circuit board (Botanical Chem Dispenser)"
+	board_name = "Botanical Chem Dispenser"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/botanical
 
 /obj/item/circuitboard/chem_master
-	name = "circuit board (ChemMaster 3000)"
+	board_name = "ChemMaster 3000"
 	build_path = /obj/machinery/chem_master
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "materials=3;programming=2;biotech=3"
 	req_components = list(
-							/obj/item/reagent_containers/glass/beaker = 2,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/reagent_containers/glass/beaker = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/chem_master/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -633,407 +798,552 @@ to destroy them and players will be able to make replacements.
 
 	build_path = new_path
 	name = "circuit board ([new_name] 3000)"
-	to_chat(user, "<span class='notice'>You change the circuit board setting to \"[new_name]\".</span>")
+	to_chat(user, span_notice("You change the circuit board setting to \"[new_name]\"."))
 
 /obj/item/circuitboard/chem_master/condi_master
-	name = "circuit board (CondiMaster 3000)"
+	board_name = "CondiMaster 3000"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_master/condimaster
 
 /obj/item/circuitboard/chem_heater
-	name = "circuit board (Chemical Heater)"
+	board_name = "Chemical Heater"
 	build_path = /obj/machinery/chem_heater
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "programming=2;engineering=2;biotech=2"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/reagentgrinder
-	name = "circuit board (All-In-One Grinder)"
+	board_name = "All-In-One Grinder"
 	build_path = /obj/machinery/reagentgrinder/empty
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "materials=2;engineering=2;biotech=2"
 	req_components = list(
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stock_parts/matter_bin = 1)
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/matter_bin = 1,
+	)
 
 //Almost the same recipe as destructive analyzer to give people choices.
 /obj/item/circuitboard/experimentor
-	name = "circuit board (E.X.P.E.R.I-MENTOR)"
+	board_name = "E.X.P.E.R.I-MENTOR"
 	build_path = /obj/machinery/r_n_d/experimentor
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "magnets=1;engineering=1;programming=1;biotech=1;bluespace=2"
 	req_components = list(
-							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stock_parts/micro_laser = 2)
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stock_parts/micro_laser = 2,
+	)
 
 /obj/item/circuitboard/destructive_analyzer
-	name = "Circuit board (Destructive Analyzer)"
+	board_name = "Destructive Analyzer"
 	build_path = /obj/machinery/r_n_d/destructive_analyzer
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "magnets=2;engineering=2;programming=2"
 	req_components = list(
-							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1)
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+	)
 
 /obj/item/circuitboard/autolathe
-	name = "Circuit board (Autolathe)"
+	board_name = "Autolathe"
 	build_path = /obj/machinery/autolathe
 	board_type = "machine"
 	origin_tech = "engineering=2;programming=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 3,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/matter_bin = 3,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/protolathe
-	name = "Circuit board (Protolathe)"
+	board_name = "Protolathe"
 	build_path = /obj/machinery/r_n_d/protolathe
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "engineering=2;programming=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/reagent_containers/glass/beaker = 2,
+	)
 
 /obj/item/circuitboard/chem_dispenser/soda
-	name = "Circuit board (Soda Machine)"
+	board_name = "Soda Machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/soda
 
 /obj/item/circuitboard/chem_dispenser/beer
-	name = "Circuit board (Beer Machine)"
+	board_name = "Beer Machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	build_path = /obj/machinery/chem_dispenser/beer
 
 /obj/item/circuitboard/circuit_imprinter
-	name = "Circuit board (Circuit Imprinter)"
+	board_name = "Circuit Imprinter"
 	build_path = /obj/machinery/r_n_d/circuit_imprinter
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "engineering=2;programming=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/reagent_containers/glass/beaker = 2)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/reagent_containers/glass/beaker = 2,
+	)
 
 /obj/item/circuitboard/pacman
-	name = "Circuit Board (PACMAN-type Generator)"
+	board_name = "PACMAN-type Generator"
 	build_path = /obj/machinery/power/port_gen/pacman
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=2;powerstorage=3;plasmatech=3;engineering=3"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/capacitor = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stock_parts/capacitor = 1,
+	)
 
 /obj/item/circuitboard/pacman/super
-	name = "Circuit Board (SUPERPACMAN-type Generator)"
+	board_name = "SUPERPACMAN-type Generator"
 	build_path = /obj/machinery/power/port_gen/pacman/super
 	origin_tech = "programming=3;powerstorage=4;engineering=4"
 
 /obj/item/circuitboard/pacman/mrs
-	name = "Circuit Board (MRSPACMAN-type Generator)"
+	board_name = "MRSPACMAN-type Generator"
 	build_path = /obj/machinery/power/port_gen/pacman/mrs
 	origin_tech = "programming=3;powerstorage=4;engineering=4;plasmatech=4"
 
 /obj/item/circuitboard/rdserver
-	name = "Circuit Board (R&D Server)"
+	board_name = "R&D Server"
 	build_path = /obj/machinery/r_n_d/server
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=3"
 	req_components = list(
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/scanning_module = 1)
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stock_parts/scanning_module = 1,
+	)
 
 /obj/item/circuitboard/mechfab
-	name = "Circuit board (Exosuit Fabricator)"
+	board_name = "Exosuit Fabricator"
 	build_path = /obj/machinery/mecha_part_fabricator
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=2;engineering=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/mechfab/syndicate
-	name = "Circuit board (Syndicate Exosuit Fabricator)"
+	board_name = "Syndicate Exosuit Fabricator"
 	icon_state = "syndicate_circuit"
+	greyscale_config = null
 	build_path = /obj/machinery/mecha_part_fabricator/syndicate
 	origin_tech = "programming=2;engineering=2;syndicate=5"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stack/telecrystal = 5)
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stack/telecrystal = 25,
+	)
 
 /obj/item/circuitboard/podfab
-	name = "Circuit board (Spacepod Fabricator)"
+	board_name = "Spacepod Fabricator"
 	build_path = /obj/machinery/mecha_part_fabricator/spacepod
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=2;engineering=2"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 2,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1)
-
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/clonepod
-	name = "Circuit board (Clone Pod)"
+	board_name = "Experimental Biomass Pod"
 	build_path = /obj/machinery/clonepod
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "programming=2;biotech=2"
 	req_components = list(
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stock_parts/scanning_module = 2,
-							/obj/item/stock_parts/manipulator = 2,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stock_parts/scanning_module = 2,
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/capacitor/quadratic = 5,
+	)
 
 /obj/item/circuitboard/clonescanner
-	name = "Circuit board (Cloning Scanner)"
+	board_name = "DNA Scanner"
 	build_path = /obj/machinery/dna_scannernew
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "programming=2;biotech=2"
 	req_components = list(
-							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stack/cable_coil = 2,)
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stack/cable_coil = 2,
+	)
 
 /obj/item/circuitboard/mech_recharger
-	name = "circuit board (Mech Bay Recharger)"
+	board_name = "Mech Bay Recharger"
 	build_path = /obj/machinery/mech_bay_recharge_port
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=3;powerstorage=3;engineering=3"
 	req_components = list(
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stock_parts/capacitor = 5)
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stock_parts/capacitor = 5,
+	)
 
 /obj/item/circuitboard/teleporter_hub
-	name = "circuit board (Teleporter Hub)"
+	board_name = "Teleporter Hub"
 	build_path = /obj/machinery/teleport/hub
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 3,
-							/obj/item/stock_parts/matter_bin = 1)
+		/obj/item/stack/ore/bluespace_crystal = 3,
+		/obj/item/stock_parts/matter_bin = 1,
+	)
 
 /obj/item/circuitboard/teleporter_station
-	name = "circuit board (Teleporter Station)"
+	board_name = "Teleporter Station"
 	build_path = /obj/machinery/teleport/station
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=4;engineering=4;bluespace=4;plasmatech=3"
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 2,
-							/obj/item/stock_parts/capacitor = 2,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stack/ore/bluespace_crystal = 2,
+		/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/teleporter_perma
-	name = "circuit board (Permanent Teleporter)"
+	board_name = "Permanent Teleporter"
 	build_path = /obj/machinery/teleport/perma
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=3;engineering=4;bluespace=4;materials=4"
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 3,
-							/obj/item/stock_parts/matter_bin = 1)
+		/obj/item/stack/ore/bluespace_crystal = 3,
+		/obj/item/stock_parts/matter_bin = 1,
+	)
 	var/target
 
 /obj/item/circuitboard/teleporter_perma/attackby(obj/item/I, mob/living/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(istype(I, /obj/item/gps))
-		var/obj/item/gps/L = I
-		if(L.locked_location)
-			target = get_turf(L.locked_location)
-			to_chat(user, "<span class='caution'>You upload the data from [L]</span>")
-		return
+		add_fingerprint(user)
+		var/obj/item/gps/gps = I
+		if(gps.locked_location)
+			target = get_turf(gps.locked_location)
+			to_chat(user, span_caution("You upload the data from [gps]"))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 /obj/item/circuitboard/telesci_pad
-	name = "Circuit board (Telepad)"
+	board_name = "Telepad"
 	build_path = /obj/machinery/telepad
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=4;engineering=3;plasmatech=4;bluespace=4"
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 2,
-							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stack/ore/bluespace_crystal = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/quantumpad
-	name = "circuit board (Quantum Pad)"
+	board_name = "Quantum Pad"
 	build_path = /obj/machinery/quantumpad
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4"
 	req_components = list(
-							/obj/item/stack/ore/bluespace_crystal = 1,
-							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 1)
-	var/emagged = FALSE
+		/obj/item/stack/ore/bluespace_crystal = 1,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 1,
+	)
 
 // syndie pads can be created by emagging normal quantumpads
 /obj/item/circuitboard/quantumpad/emag_act(mob/user)
 	if(!emagged)
 		if(user)
-			user.visible_message("<span class='warning'>Sparks fly out of the [src]!</span>", "<span class='notice'>You emag the [src], rewriting it's protocols for redspace usage.</span>")
+			user.visible_message(span_warning("Sparks fly out of the [src]!"), span_notice("You emag the [src], rewriting it's protocols for redspace usage."))
 			playsound(src.loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 		emagged = TRUE
 		name = "circuit board (Syndicate Quantum Pad)"
 		build_path = /obj/machinery/syndiepad
 		board_type = "machine"
 		req_components = list(
-								/obj/item/stack/telecrystal = 1,
-								/obj/item/stock_parts/capacitor = 1,
-								/obj/item/stock_parts/manipulator = 1,
-								/obj/item/stack/cable_coil = 1)
+			/obj/item/stack/telecrystal = 5,
+			/obj/item/stock_parts/capacitor = 1,
+			/obj/item/stock_parts/manipulator = 1,
+			/obj/item/stack/cable_coil = 1,
+		)
 	return
 // syndie pads by Furukai
 
 /obj/item/circuitboard/quantumpad/syndiepad
-	name = "circuit board (Syndicate Quantum Pad)"
+	board_name = "Syndicate Quantum Pad"
 	build_path = /obj/machinery/syndiepad
-	board_type = "machine"
 	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=4;syndicate=6" //Технология достойная подобного уровня нелегала как по мне
 	req_components = list(
-							/obj/item/stack/telecrystal = 1,
-							/obj/item/stock_parts/capacitor = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 1)
+		/obj/item/stack/telecrystal = 5,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 1,
+	)
 	emagged = TRUE
 
+/obj/item/circuitboard/roboquest_pad
+
+	board_name = "Robotics Request Quantum Pad"
+	build_path = /obj/machinery/roboquest_pad
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	origin_tech = "programming=3;engineering=3;plasmatech=3;bluespace=5"
+	req_components = list(
+		/obj/item/stack/ore/bluespace_crystal = 5,
+		/obj/item/stack/cable_coil = 15,
+	)
+
+/obj/item/circuitboard/advanced_roboquest_pad
+	board_name = "Robotics Request Advanced Quantum Pad"
+	icon_state = "abductor_mod"
+	greyscale_config = null
+	build_path = /obj/machinery/roboquest_pad/advanced
+	board_type = "machine"
+	origin_tech = "programming=4;engineering=5;plasmatech=5;bluespace=6"
+	req_components = list(
+		/obj/item/stack/ore/bluespace_crystal = 5,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stack/cable_coil = 15,
+	)
+
 /obj/item/circuitboard/sleeper
-	name = "circuit board (Sleeper)"
+	board_name = "Sleeper"
 	build_path = /obj/machinery/sleeper
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "programming=3;biotech=2;engineering=3"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stack/sheet/glass = 2)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 2,
+	)
 
 /obj/item/circuitboard/sleeper/syndicate
-	name = "circuit board (Sleeper Syndicate)"
+	board_name = "Sleeper - Syndicate"
 	build_path = /obj/machinery/sleeper/syndie
 
 /obj/item/circuitboard/sleeper/survival
-	name = "circuit board (Sleeper Survival Pod)"
+	board_name = "Sleeper - Survival Pod"
 	build_path = /obj/machinery/sleeper/survival_pod
 
-
 /obj/item/circuitboard/bodyscanner
-	name = "circuit board (Body Scanner)"
+	board_name = "Body Scanner"
 	build_path = /obj/machinery/bodyscanner
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "programming=3;biotech=2;engineering=3"
 	req_components = list(
-							/obj/item/stock_parts/scanning_module = 1,
-							/obj/item/stack/cable_coil = 2,
-							/obj/item/stack/sheet/glass = 2)
+		/obj/item/stock_parts/scanning_module = 1,
+		/obj/item/stack/cable_coil = 2,
+		/obj/item/stack/sheet/glass = 2,
+	)
 
 /obj/item/circuitboard/cryo_tube
-	name = "circuit board (Cryotube)"
+	board_name = "Cryotube"
 	build_path = /obj/machinery/atmospherics/unary/cryo_cell
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_MEDICAL
 	origin_tech = "programming=4;biotech=3;engineering=4;plasmatech=3"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stack/cable_coil = 1,
-							/obj/item/stack/sheet/glass = 4)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stack/cable_coil = 1,
+		/obj/item/stack/sheet/glass = 4,
+	)
 
 /obj/item/circuitboard/cyborgrecharger
-	name = "circuit board (Cyborg Recharger)"
+	board_name = "Cyborg Recharger"
 	build_path = /obj/machinery/recharge_station
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
 	origin_tech = "powerstorage=3;engineering=3"
 	req_components = list(
-							/obj/item/stock_parts/capacitor = 2,
-							/obj/item/stock_parts/cell = 1,
-							/obj/item/stock_parts/manipulator = 1)
+		/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stock_parts/cell = 1,
+		/obj/item/stock_parts/manipulator = 1,
+	)
 
 // Telecomms circuit boards:
 /obj/item/circuitboard/tcomms/relay
-	name = "Circuit Board (Telecommunications Relay)"
+	board_name = "Telecommunications Relay"
 	build_path = /obj/machinery/tcomms/relay
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=2;engineering=2;bluespace=2"
-	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stack/cable_coil = 2,
+	)
 
 /obj/item/circuitboard/tcomms/core
-	name = "Circuit Board (Telecommunications Core)"
+	board_name = "Telecommunications Core"
 	build_path = /obj/machinery/tcomms/core
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	origin_tech = "programming=2;engineering=2"
-	req_components = list(/obj/item/stock_parts/manipulator = 2, /obj/item/stack/cable_coil = 2)
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 2,
+		/obj/item/stack/cable_coil = 2,
+	)
 // End telecomms circuit boards
+
 /obj/item/circuitboard/ore_redemption
-	name = "circuit board (Ore Redemption)"
+	board_name = "Ore Redemption"
 	build_path = /obj/machinery/mineral/ore_redemption
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	origin_tech = "programming=1;engineering=2"
 	req_components = list(
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/assembly/igniter = 1)
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/assembly/igniter = 1,
+	)
 
 /obj/item/circuitboard/ore_redemption/golem
-	name = "circuit board (Golem Ore Redemption)"
+	board_name = "Ore Redemption - Golem"
 	build_path = /obj/machinery/mineral/ore_redemption/golem
 
 /obj/item/circuitboard/ore_redemption/labor
-	name = "circuit board (Labor Ore Redemption)"
+	board_name = "Ore Redemption - Labour"
 	build_path = /obj/machinery/mineral/ore_redemption/labor
 
 /obj/item/circuitboard/mining_equipment_vendor
-	name = "circuit board (Mining Equipment Vendor)"
+	board_name = "Mining Equipment Vendor"
 	build_path = /obj/machinery/mineral/equipment_vendor
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SUPPLY
 	origin_tech = "programming=1;engineering=3"
 	req_components = list(
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stock_parts/matter_bin = 3)
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/matter_bin = 3,
+	)
 
 /obj/item/circuitboard/mining_equipment_vendor/golem
-	name = "circuit board (Mining Equipment Vendor)"
+	board_name = "Golem Equipment Vendor"
 	build_path = /obj/machinery/mineral/equipment_vendor/golem
 
 /obj/item/circuitboard/mining_equipment_vendor/labor
-	name = "circuit board (Labor Equipment Vendor)"
+	board_name = "Labour Equipment Vendor"
 	build_path = /obj/machinery/mineral/equipment_vendor/labor
 
 /obj/item/circuitboard/clawgame
-	name = "circuit board (Claw Game)"
+	board_name = "Claw Game"
 	build_path = /obj/machinery/arcade/claw
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/cable_coil = 5,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/glass = 1,
+	)
+
+/obj/item/circuitboard/minesweeper
+	board_name = "Сапер"
+	build_path = /obj/machinery/arcade/minesweeper
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
+	origin_tech = "programming=1"
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stack/sheet/glass = 1,
+	)
 
 /obj/item/circuitboard/prize_counter
-	name = "circuit board (Prize Counter)"
+	board_name = "Prize Counter"
 	build_path = /obj/machinery/prize_counter
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/matter_bin = 1,
-							/obj/item/stock_parts/manipulator = 1,
-							/obj/item/stack/sheet/glass = 1,
-							/obj/item/stack/cable_coil = 1)
+		/obj/item/stock_parts/matter_bin = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stack/cable_coil = 1,
+	)
 
 /obj/item/circuitboard/gameboard
-	name = "circuit board (Virtual Gameboard)"
+	board_name = "Virtual Gameboard"
 	build_path = /obj/machinery/gameboard
 	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SERVICE
 	origin_tech = "programming=1"
 	req_components = list(
-							/obj/item/stock_parts/micro_laser = 1,
-							/obj/item/stack/cable_coil = 3,
-							/obj/item/stack/sheet/glass = 1)
+		/obj/item/stock_parts/micro_laser = 1,
+		/obj/item/stack/cable_coil = 3,
+		/obj/item/stack/sheet/glass = 1,
+	)
+
+/obj/item/circuitboard/vendor/plasmamate
+
+/obj/item/circuitboard/vendor/plasmamate/Initialize(mapload)
+	. = ..()
+	set_type("PlasmaMate")
+
+/obj/item/circuitboard/anomaly_generator
+	board_name = "генератор аномалий"
+	build_path = /obj/machinery/power/anomaly_generator
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_SCIENCE
+	origin_tech = "programming=1;bluespace=3"
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/capacitor = 2,
+	)
+
+/obj/item/circuitboard/electrolyzer
+	board_name = "Electrolyzer"
+	build_path = /obj/machinery/power/electrolyzer
+	board_type = "machine"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
+	origin_tech = "programming=3;engineering=3"
+	req_components = list(
+		/obj/item/stock_parts/micro_laser = 2,
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stack/cable_coil = 5,
+	)
+

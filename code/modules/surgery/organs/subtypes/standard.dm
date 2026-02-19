@@ -1,21 +1,34 @@
 /****************************************************
-			   ORGAN DEFINES
+				ORGAN DEFINES
 ****************************************************/
 
 /obj/item/organ/external/chest
 	name = "upper body"
-	limb_name = "chest"
+	desc = "Верхняя часть туловища."
+	gender = FEMALE
+	limb_zone = BODY_ZONE_CHEST
 	icon_name = "torso"
 	max_damage = 100
 	min_broken_damage = 35
+	max_bleeding_amount = 5
 	w_class = WEIGHT_CLASS_HUGE
-	body_part = UPPER_TORSO
+	limb_body_flag = UPPER_TORSO
 	vital = TRUE
-	amputation_point = "spine"
-	gendered_icon = 1
-	parent_organ = null
-	encased = "ribcage"
+	gendered_icon = TRUE
+	parent_organ_zone = null
+	amputation_point = "спину"
+	encased = "грудную клетку"
 	convertable_children = list(/obj/item/organ/external/groin)
+
+/obj/item/organ/external/chest/get_ru_names()
+	return list(
+		NOMINATIVE = "грудь",
+		GENITIVE = "груди",
+		DATIVE = "груди",
+		ACCUSATIVE = "грудь",
+		INSTRUMENTAL = "грудью",
+		PREPOSITIONAL = "груди",
+	)
 
 /obj/item/organ/external/chest/emp_act(severity)
 	..()
@@ -26,186 +39,432 @@
 			owner?.adjustStaminaLoss(20)
 		if(2)
 			owner?.adjustStaminaLoss(10)
-	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, вызывая усталость!</span>")
+	to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, вызывая сильное истощение!"))
 
 /obj/item/organ/external/groin
 	name = "lower body"
-	limb_name = "groin"
+	desc = "Нижняя часть туловища."
+	limb_zone = BODY_ZONE_PRECISE_GROIN
 	icon_name = "groin"
 	max_damage = 100
 	min_broken_damage = 35
+	max_bleeding_amount = 5
 	w_class = WEIGHT_CLASS_BULKY // if you know what I mean ;)
-	body_part = LOWER_TORSO
+	limb_body_flag = LOWER_TORSO
 	vital = TRUE
-	parent_organ = "chest"
-	amputation_point = "lumbar"
-	gendered_icon = 1
+	amputation_point = "поясницу"
+	gendered_icon = TRUE
+
+/obj/item/organ/external/groin/get_ru_names()
+	return list(
+		NOMINATIVE = "живот",
+		GENITIVE = "живота",
+		DATIVE = "животу",
+		ACCUSATIVE = "живот",
+		INSTRUMENTAL = "животом",
+		PREPOSITIONAL = "животе",
+	)
 
 /obj/item/organ/external/arm
-	limb_name = "l_arm"
 	name = "left arm"
+	desc = "Левая рука."
+	gender = FEMALE
 	icon_name = "l_arm"
+	limb_zone = BODY_ZONE_L_ARM
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
-	body_part = ARM_LEFT
-	parent_organ = "chest"
-	amputation_point = "left shoulder"
-	can_grasp = 1
+	max_bleeding_amount = 2.5
+	bleeding_mod = 0.8
+	limb_body_flag = ARM_LEFT
+	amputation_point = "левое плечо"
+	can_grasp = TRUE
 	convertable_children = list(/obj/item/organ/external/hand)
+
+/obj/item/organ/external/arm/get_ru_names()
+	return list(
+		NOMINATIVE = "левая рука",
+		GENITIVE = "левой руки",
+		DATIVE = "левой руке",
+		ACCUSATIVE = "левую руку",
+		INSTRUMENTAL = "левой рукой",
+		PREPOSITIONAL = "левой руке",
+	)
 
 /obj/item/organ/external/arm/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
-	var/hand = (body_part == ARM_LEFT) ? owner.l_hand : owner.r_hand
-	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, бросая то что держал!</span>")
-		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя!")
+	var/hand = (limb_zone == BODY_ZONE_L_ARM) ? owner.l_hand : owner.r_hand
+	if(hand && owner.can_unEquip(hand))
+		owner.drop_item_ground(hand)
+		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, выбрасывая удерживаемый предмет!"))
+		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% удерживаемый предмет, %(его,её,его,их)% рука выходит из строя!")
 
 /obj/item/organ/external/arm/right
-	limb_name = "r_arm"
 	name = "right arm"
+	desc = "Правая рука."
 	icon_name = "r_arm"
-	body_part = ARM_RIGHT
-	amputation_point = "right shoulder"
+	limb_zone = BODY_ZONE_R_ARM
+	limb_body_flag = ARM_RIGHT
+	amputation_point = "правое плечо"
 	convertable_children = list(/obj/item/organ/external/hand/right)
 
+/obj/item/organ/external/arm/right/get_ru_names()
+	return list(
+		NOMINATIVE = "правая рука",
+		GENITIVE = "правой руки",
+		DATIVE = "правой руке",
+		ACCUSATIVE = "правую руку",
+		INSTRUMENTAL = "правой рукой",
+		PREPOSITIONAL = "правой руке",
+	)
+
 /obj/item/organ/external/leg
-	limb_name = "l_leg"
 	name = "left leg"
+	desc = "Левая нога."
+	gender = FEMALE
 	icon_name = "l_leg"
+	limb_zone = BODY_ZONE_L_LEG
 	max_damage = 50
-	min_broken_damage = 30
-	w_class = WEIGHT_CLASS_NORMAL
-	body_part = LEG_LEFT
+	max_bleeding_amount = 2.5
+	bleeding_mod = 0.8
+	limb_body_flag = LEG_LEFT
 	icon_position = LEFT
-	parent_organ = "groin"
-	amputation_point = "left hip"
-	can_stand = 1
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	amputation_point = "левое бедро"
 	convertable_children = list(/obj/item/organ/external/foot)
+
+/obj/item/organ/external/leg/get_ru_names()
+	return list(
+		NOMINATIVE = "левая нога",
+		GENITIVE = "левой ноги",
+		DATIVE = "левой ноге",
+		ACCUSATIVE = "левую ногу",
+		INSTRUMENTAL = "левой ногой",
+		PREPOSITIONAL = "левой ноге",
+	)
+
+/obj/item/organ/external/leg/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/leg/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.update_fractures_slowdown()
+
+/obj/item/organ/external/leg/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/leg/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/leg/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/leg/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
 
 /obj/item/organ/external/leg/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
-		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя!")
+	if(owner.IsWeakened())
+		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, не давая вам встать!"))
+		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% нога выходит из строя!")
 	else
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, заставив вас упасть на пол!</span>")
-		owner.custom_emote(1, "упал на пол, [owner.p_their()] [name] выходя из строя!")
+		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, заставляя вас упасть с ног!"))
+		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)% на пол, %(его,её,его,их)% нога выходит из строя!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/leg/right
-	limb_name = "r_leg"
 	name = "right leg"
+	desc = "Правая нога."
 	icon_name = "r_leg"
-	body_part = LEG_RIGHT
+	limb_zone = BODY_ZONE_R_LEG
+	limb_body_flag = LEG_RIGHT
 	icon_position = RIGHT
-	amputation_point = "right hip"
+	amputation_point = "правое бедро"
 	convertable_children = list(/obj/item/organ/external/foot/right)
 
+/obj/item/organ/external/leg/right/get_ru_names()
+	return list(
+		NOMINATIVE = "правая нога",
+		GENITIVE = "правой ноги",
+		DATIVE = "правой ноге",
+		ACCUSATIVE = "правую ногу",
+		INSTRUMENTAL = "правой ногой",
+		PREPOSITIONAL = "правой ноге",
+	)
+
 /obj/item/organ/external/foot
-	limb_name = "l_foot"
 	name = "left foot"
+	desc = "Левая ступня."
+	gender = FEMALE
 	icon_name = "l_foot"
+	limb_zone = BODY_ZONE_PRECISE_L_FOOT
 	max_damage = 30
+	max_bleeding_amount = 1.5
+	cannot_internal_bleed = TRUE
+	cannot_arterial_bleed = TRUE
 	min_broken_damage = 15
+	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = FOOT_LEFT
+	limb_body_flag = FOOT_LEFT
 	icon_position = LEFT
-	parent_organ = "l_leg"
-	amputation_point = "left ankle"
-	can_stand = 1
+	parent_organ_zone = BODY_ZONE_L_LEG
+	amputation_point = "левую лодыжку"
+
+/obj/item/organ/external/foot/get_ru_names()
+	return list(
+		NOMINATIVE = "левая ступня",
+		GENITIVE = "левой ступни",
+		DATIVE = "левой ступне",
+		ACCUSATIVE = "левую ступню",
+		INSTRUMENTAL = "левой ступнёй",
+		PREPOSITIONAL = "левой ступне",
+	)
+
+/obj/item/organ/external/foot/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	owner.set_num_legs(owner.num_legs + 1)
+	if(is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1, special)
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/foot/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_legs(user.num_legs - 1)
+	if(is_usable())
+		user.set_usable_legs(user.usable_legs - 1, special)
+	user.update_fractures_slowdown()
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.shoes, force = TRUE)
+
+/obj/item/organ/external/foot/fracture(silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/foot/mend_fracture()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/foot/apply_splint()
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/foot/remove_splint(splint_break = FALSE, silent = FALSE)
+	. = ..()
+	if(!. || !owner)
+		return .
+	owner.update_fractures_slowdown()
+
+/obj/item/organ/external/foot/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+/obj/item/organ/external/foot/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
+
+/obj/item/organ/external/foot/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs - 1)
+
+/obj/item/organ/external/foot/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_legs(owner.usable_legs + 1)
 
 /obj/item/organ/external/foot/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
-	if(owner.weakened)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, не давая вам встать!</span>")
-		owner.custom_emote(1, "не может встать, [owner.p_their()] [name] выходя из строя")
+	if(owner.IsWeakened())
+		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, не давая вам встать!"))
+		owner.custom_emote(EMOTE_VISIBLE, "не мо%(жет,гут)% встать, %(его,её,его,их)% ступня выходит из строя!")
 	else
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, падая на пол!</span>")
-		owner.custom_emote(1, "падая на пол, [owner.p_their()] [name] выходя из строя")
+		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, заставляя вас упасть!"))
+		owner.custom_emote(EMOTE_VISIBLE, "пада%(ет,ют)%, %(его,её,его,их)% ступня выходит из строя!")
 	switch(severity)
 		if(1)
-			owner.AdjustWeakened(4)
+			owner.AdjustWeakened(8 SECONDS)
 		if(2)
-			owner.AdjustWeakened(2)
-
-/obj/item/organ/external/foot/remove()
-	if(owner && owner.shoes) owner.unEquip(owner.shoes)
-	. = ..()
+			owner.AdjustWeakened(4 SECONDS)
 
 /obj/item/organ/external/foot/right
-	limb_name = "r_foot"
 	name = "right foot"
+	desc = "Правая ступня."
 	icon_name = "r_foot"
-	body_part = FOOT_RIGHT
+	limb_zone = BODY_ZONE_PRECISE_R_FOOT
+	limb_body_flag = FOOT_RIGHT
 	icon_position = RIGHT
-	parent_organ = "r_leg"
-	amputation_point = "right ankle"
+	parent_organ_zone = BODY_ZONE_R_LEG
+	amputation_point = "правую лодыжку"
+
+/obj/item/organ/external/foot/right/get_ru_names()
+	return list(
+		NOMINATIVE = "правая ступня",
+		GENITIVE = "правой ступни",
+		DATIVE = "правой ступне",
+		ACCUSATIVE = "правую ступню",
+		INSTRUMENTAL = "правой ступнёй",
+		PREPOSITIONAL = "правой ступне",
+	)
 
 /obj/item/organ/external/hand
-	limb_name = "l_hand"
 	name = "left hand"
+	desc = "Левая кисть."
+	gender = FEMALE
 	icon_name = "l_hand"
+	limb_zone = BODY_ZONE_PRECISE_L_HAND
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 1.5
+	cannot_internal_bleed = TRUE
+	cannot_arterial_bleed = TRUE
+	bleeding_mod = 0.65
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = HAND_LEFT
-	parent_organ = "l_arm"
-	amputation_point = "left wrist"
-	can_grasp = 1
+	limb_body_flag = HAND_LEFT
+	parent_organ_zone = BODY_ZONE_L_ARM
+	amputation_point = "левое запястье"
+	can_grasp = TRUE
+
+/obj/item/organ/external/hand/get_ru_names()
+	return list(
+		NOMINATIVE = "левая кисть",
+		GENITIVE = "левой кисти",
+		DATIVE = "левой кисти",
+		ACCUSATIVE = "левую кисть",
+		INSTRUMENTAL = "левой кистью",
+		PREPOSITIONAL = "левой кисти",
+	)
+
+/obj/item/organ/external/hand/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	. = ..()
+	owner.set_num_hands(owner.num_hands + 1)
+	if(is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1, special, limb_zone)
+
+/obj/item/organ/external/hand/remove(mob/living/carbon/human/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	. = ..()
+	user.set_num_hands(user.num_hands - 1)
+	if(is_usable())
+		user.set_usable_hands(user.usable_hands - 1, special, limb_zone)
+	if(special == ORGAN_MANIPULATION_DEFAULT)
+		user.drop_item_ground(user.gloves, force = TRUE)
+		user.drop_item_ground(limb_zone == BODY_ZONE_PRECISE_L_HAND ? user.l_hand : user.r_hand, force = TRUE)
+
+/obj/item/organ/external/hand/necrotize(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
+
+/obj/item/organ/external/hand/unnecrotize()
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
+
+/obj/item/organ/external/hand/mutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands - 1, hand_index = limb_zone)
+
+/obj/item/organ/external/hand/unmutate(silent = FALSE)
+	. = ..()
+	if(isnull(.) || !owner)
+		return .
+
+	if(. != is_usable())
+		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
 /obj/item/organ/external/hand/emp_act(severity)
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
-	var/hand = (body_part == HAND_LEFT) ? owner.l_hand : owner.r_hand
-	if(hand && owner.canUnEquip(hand))
-		owner.unEquip(hand)
-		to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, dropping what it was holding!</span>")
-		owner.custom_emote(1, "бросает [owner.p_they()] [owner.p_were()] держали, [owner.p_their()] [name] выходя из строя")
-
-/obj/item/organ/external/hand/remove()
-	if(owner)
-		if(owner.gloves)
-			owner.unEquip(owner.gloves)
-		if(owner.l_hand)
-			owner.unEquip(owner.l_hand, TRUE)
-		if(owner.r_hand)
-			owner.unEquip(owner.r_hand, TRUE)
-
-	. = ..()
+	var/hand = (limb_zone == BODY_ZONE_PRECISE_L_HAND) ? owner.l_hand : owner.r_hand
+	if(hand && owner.can_unEquip(hand))
+		owner.drop_item_ground(hand)
+		to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, выбрасывая удерживаемый предмет!"))
+		owner.custom_emote(EMOTE_VISIBLE, "роня%(ет,ют)% удерживаемый предмет,, %(его,её,его,их)% кисть выходит из строя!")
 
 /obj/item/organ/external/hand/right
-	limb_name = "r_hand"
 	name = "right hand"
+	desc = "Правая кисть."
 	icon_name = "r_hand"
-	body_part = HAND_RIGHT
-	parent_organ = "r_arm"
-	amputation_point = "right wrist"
+	limb_zone = BODY_ZONE_PRECISE_R_HAND
+	limb_body_flag = HAND_RIGHT
+	parent_organ_zone = BODY_ZONE_R_ARM
+	amputation_point = "правое запястье"
+
+/obj/item/organ/external/hand/right/get_ru_names()
+	return list(
+		NOMINATIVE = "правая кисть",
+		GENITIVE = "правой кисти",
+		DATIVE = "правой кисти",
+		ACCUSATIVE = "правую кисть",
+		INSTRUMENTAL = "правой кистью",
+		PREPOSITIONAL = "правой кисти",
+	)
 
 /obj/item/organ/external/head
-	limb_name = "head"
-	icon_name = "head"
 	name = "head"
+	desc = "Голова."
+	gender = FEMALE
+	limb_zone = BODY_ZONE_HEAD
+	icon_name = "head"
 	max_damage = 75
 	min_broken_damage = 35
-	w_class = WEIGHT_CLASS_NORMAL
-	body_part = HEAD
-	parent_organ = "chest"
-	amputation_point = "neck"
-	gendered_icon = 1
-	encased = "skull"
+	max_bleeding_amount = 3.75
+	bleeding_mod = 1.1
+	limb_body_flag = HEAD
+	gendered_icon = TRUE
+	amputation_point = "шею"
+	encased = "череп"
 	var/can_intake_reagents = 1
 	var/alt_head = "None"
 
@@ -228,36 +487,62 @@
 	var/sec_facial_colour = "#000000"
 	var/f_style = "Shaved"
 
-/obj/item/organ/external/head/remove()
-	if(owner)
+/obj/item/organ/external/head/get_ru_names()
+	return list(
+		NOMINATIVE = "голова",
+		GENITIVE = "головы",
+		DATIVE = "голове",
+		ACCUSATIVE = "голову",
+		INSTRUMENTAL = "головой",
+		PREPOSITIONAL = "голове",
+	)
+
+/obj/item/organ/external/head/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
+	if(owner && special == ORGAN_MANIPULATION_DEFAULT)
 		if(!istype(dna))
 			dna = owner.dna.Clone()
-		name = "[dna.real_name]'s head"
-		if(owner.glasses)
-			owner.unEquip(owner.glasses)
-		if(owner.head)
-			owner.unEquip(owner.head)
-		if(owner.l_ear)
-			owner.unEquip(owner.l_ear)
-		if(owner.r_ear)
-			owner.unEquip(owner.r_ear)
-		if(owner.wear_mask)
-			owner.unEquip(owner.wear_mask)
+		get_icon()
+		name = "[dna.real_name]’s head"
+		if(ru_names)
+			for(var/i = 1; i <= 6; i++)
+				ru_names[i] += " [dna.real_name]"
+		owner.drop_item_ground(owner.head, force = TRUE)
+		owner.drop_item_ground(owner.wear_mask, force = TRUE)
+		owner.drop_item_ground(owner.glasses, force = TRUE)
+		owner.drop_item_ground(owner.l_ear, force = TRUE)
+		owner.drop_item_ground(owner.r_ear, force = TRUE)
 		owner.update_hair()
 		owner.update_fhair()
 		owner.update_head_accessory()
 		owner.update_markings()
 	. = ..()
 
-/obj/item/organ/external/head/replaced()
-	name = limb_name
-	..()
+/obj/item/organ/external/head/replaced(mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
+	name = limb_zone
+	. = ..()
 
-/obj/item/organ/external/head/receive_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list(), ignore_resists = FALSE, updating_health = TRUE)
-	..()
-	if(!disfigured)
-		if(brute_dam + burn_dam > 50)
-			disfigure()
+/obj/item/organ/external/head/external_receive_damage(
+	brute = 0,
+	burn = 0,
+	blocked = 0,
+	sharp = FALSE,
+	used_weapon = null,
+	list/forbidden_limbs = list(),
+	forced = FALSE,
+	updating_health = TRUE,
+	silent = FALSE,
+)
+	. = ..()
+	if(brute_dam + burn_dam > 50)
+		disfigure(silent)
+
+/obj/item/organ/external/head/examine(mob/user)
+	. = ..()
+	if(in_range(user, src) || istype(user, /mob/dead/observer))
+		if(!length(contents))
+			. += span_notice("Выглядит пустой.")
+		else
+			. += span_notice("Выглядит относительно целой, внутри что-то есть.")
 
 /obj/item/organ/external/head/proc/handle_alt_icon()
 	if(alt_head && GLOB.alt_heads_list[alt_head])
@@ -270,46 +555,60 @@
 		alt_head = initial(alt_head)
 		icon_name = initial(icon_name)
 
-/obj/item/organ/external/head/robotize(company, make_tough = 0, convert_all = 1) //Undoes alt_head business to avoid getting in the way of robotization. Make sure we pass all args down the line...
+/obj/item/organ/external/head/robotize(make_tough = FALSE, company, convert_all = TRUE) //Undoes alt_head business to avoid getting in the way of robotization. Make sure we pass all args down the line...
 	alt_head = initial(alt_head)
 	icon_name = initial(icon_name)
 	..()
 
-/obj/item/organ/external/head/set_dna(datum/dna/new_dna)
+/obj/item/organ/external/head/update_DNA(datum/dna/new_dna, update_blood = TRUE, use_species_type = TRUE, randomize = FALSE)
 	..()
-	new_dna.write_head_attributes(src)
+	new_dna?.write_head_attributes(src)
 
 /obj/item/organ/external/head/emp_act(severity)
 	..()
-	if(!is_robotic() || emp_proof || !tough) // Augmented head confuses the user on EMP.
+	if(!is_robotic() || emp_proof || !tough || !owner) // Augmented head confuses the user on EMP.
 		return
 	switch(severity)
 		if(1)
-			owner?.AdjustConfused(30)
+			owner.AdjustConfused(60 SECONDS)
 		if(2)
-			owner?.AdjustConfused(20)
-	to_chat(owner, "<span class='userdanger'>Ваш [name] выходит из строя, перегружая ваше управление!</span>")
+			owner.AdjustConfused(40 SECONDS)
+	to_chat(owner, span_userdanger("Ваша [declent_ru(NOMINATIVE)] выходит из строя, вызывая перегрузку управления!"))
 
 /obj/item/organ/external/tail
-	limb_name = "tail"
 	name = "tail"
+	desc = "Хвост."
 	force_icon = "icons/effects/species.dmi"
+	limb_zone = BODY_ZONE_TAIL
 	icon_name = "tail"
 	max_damage = 30
 	min_broken_damage = 15
+	max_bleeding_amount = 1.25
+	bleeding_mod = 0.65
+	cannot_arterial_bleed = TRUE
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = TAIL
-	parent_organ = "groin"
-	amputation_point = "lower spine"
+	limb_body_flag = TAIL
+	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
+	amputation_point = "нижнюю часть спины"
 	var/datum/body_accessory/body_accessory
 	var/list/m_styles = list("tail" = "None")
 	var/list/m_colours = list("tail" = "#000000")
 	s_col = "#000000"
 
-/obj/item/organ/external/tail/New(var/mob/living/carbon/holder)
-	..()
-	var/mob/living/carbon/human/H = holder
-	if(!H)
+/obj/item/organ/external/tail/get_ru_names()
+	return list(
+		NOMINATIVE = "хвост",
+		GENITIVE = "хвоста",
+		DATIVE = "хвосту",
+		ACCUSATIVE = "хвост",
+		INSTRUMENTAL = "хвостом",
+		PREPOSITIONAL = "хвосте",
+	)
+
+/obj/item/organ/external/tail/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
+	if(!ishuman(loc))
 		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
 		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
 		tempicon2.Flip(SOUTH)
@@ -318,7 +617,7 @@
 		icon_name = null
 		return
 
-/obj/item/organ/external/tail/sync_colour_to_human(var/mob/living/carbon/human/H)
+/obj/item/organ/external/tail/sync_colour_to_human(mob/living/carbon/human/H)
 	..()
 	var/datum/sprite_accessory/tail_marking_style = GLOB.marking_styles_list[H.m_styles["tail"]]
 	if(body_accessory && (dna.species.name in body_accessory.allowed_species))
@@ -333,46 +632,102 @@
 		m_colours["tail"] = H.m_colours["tail"]
 
 /obj/item/organ/external/tail/monkey
-	species_type = /datum/species/monkey
 	name = "monkey tail"
+	desc = "Хвост обезьяны."
 	icon_name = "chimptail_s"
+	species_type = /datum/species/monkey
 	max_damage = 15
 	min_broken_damage = 10
 
+/obj/item/organ/external/tail/monkey/get_ru_names()
+	return list(
+		NOMINATIVE = "хвост обезьяны",
+		GENITIVE = "хвоста обезьяны",
+		DATIVE = "хвосту обезьяны",
+		ACCUSATIVE = "хвост обезьяны",
+		INSTRUMENTAL = "хвостом обезьяны",
+		PREPOSITIONAL = "хвосте обезьяны",
+	)
+
 /obj/item/organ/external/tail/monkey/tajaran
-	species_type = /datum/species/monkey/tajaran
 	name = "farwa tail"
+	desc = "Хвост фарвы."
 	icon_name = "farwatail_s"
+	species_type = /datum/species/monkey/tajaran
+
+/obj/item/organ/external/tail/monkey/tajaran/get_ru_names()
+	return list(
+		NOMINATIVE = "хвост фарвы",
+		GENITIVE = "хвоста фарвы",
+		DATIVE = "хвосту фарвы",
+		ACCUSATIVE = "хвост фарвы",
+		INSTRUMENTAL = "хвостом фарвы",
+		PREPOSITIONAL = "хвосте фарвы",
+	)
 
 /obj/item/organ/external/tail/monkey/vulpkanin
-	species_type = /datum/species/monkey/vulpkanin
 	name = "wolpin tail"
+	desc = "Хвост вульпина."
 	icon_name = "wolpintail_s"
+	species_type = /datum/species/monkey/vulpkanin
+
+/obj/item/organ/external/tail/monkey/vulpkanin/get_ru_names()
+	return list(
+		NOMINATIVE = "хвост вульпина",
+		GENITIVE = "хвоста вульпина",
+		DATIVE = "хвосту вульпина",
+		ACCUSATIVE = "хвост вульпина",
+		INSTRUMENTAL = "хвостом вульпина",
+		PREPOSITIONAL = "хвосте вульпина",
+	)
 
 /obj/item/organ/external/tail/monkey/unathi
-	species_type = /datum/species/monkey/unathi
 	name = "stok tail"
+	desc = "Хвост стока."
 	icon_name = "stoktail_s"
+	species_type = /datum/species/monkey/unathi
+
+/obj/item/organ/external/tail/monkey/unathi/get_ru_names()
+	return list(
+		NOMINATIVE = "хвост стока",
+		GENITIVE = "хвоста стока",
+		DATIVE = "хвосту стока",
+		ACCUSATIVE = "хвост стока",
+		INSTRUMENTAL = "хвостом стока",
+		PREPOSITIONAL = "хвосте стока",
+	)
 
 /obj/item/organ/external/wing
-	limb_name = "wing"
 	name = "wings"
+	desc = "Крылья."
+	gender = PLURAL
 	icon_name = "wing"
+	limb_zone = BODY_ZONE_WING
 	max_damage = 30
 	min_broken_damage = 15
+	cannot_arterial_bleed = TRUE
 	w_class = WEIGHT_CLASS_SMALL
-	body_part = WING
-	parent_organ = "chest"
-	amputation_point = "spine"
+	limb_body_flag = WING
+	amputation_point = "спину"
 	var/datum/body_accessory/body_accessory
 	var/list/m_styles = list("wing" = "None")
 	var/list/m_colours = list("wing" = "#000000")
 	s_col = "#000000"
 
-/obj/item/organ/external/wing/New(var/mob/living/carbon/holder)
-	..()
-	var/mob/living/carbon/human/H = holder
-	if(!H)
+/obj/item/organ/external/wing/get_ru_names()
+	return list(
+		NOMINATIVE = "крылья",
+		GENITIVE = "крыльев",
+		DATIVE = "крыльям",
+		ACCUSATIVE = "крылья",
+		INSTRUMENTAL = "крыльями",
+		PREPOSITIONAL = "крыльях",
+	)
+
+/obj/item/organ/external/wing/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
+	if(!ishuman(loc))
 		var/icon/tempicon = new/icon("icon" = force_icon, "icon_state" = icon_name)
 		var/icon/tempicon2 = new/icon(tempicon,dir=NORTH)
 		tempicon2.Flip(SOUTH)

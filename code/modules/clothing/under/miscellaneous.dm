@@ -53,6 +53,11 @@
 	item_state = "b_suit"
 	item_color = "mailman"
 
+/obj/item/clothing/under/rank/mailman/skirt
+	name = "mailman's jumpskirt"
+	icon_state = "mail_skirt"
+	item_color = "mail_skirt"
+
 /obj/item/clothing/under/rank/vice
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."
@@ -62,41 +67,115 @@
 
 /obj/item/clothing/under/solgov
 	name = "Sol Federation marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии."
 	icon_state = "solgov"
-	item_state = "ro_suit"
+	item_state = "solgov"
 	item_color = "solgov"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/solgov/forest
+	desc = "Комфортный и удобный лесной камуфляж Транс-Солнечной Федерациии."
+	icon_state = "solgov_forest"
+	item_state = "solgov_forest"
+	item_color = "solgov_forest"
+
+/obj/item/clothing/under/solgov/urban
+	desc = "Комфортный и удобный городской камуфляж Транс-Солнечной Федерациии."
+	icon_state = "solgov_urban"
+	item_state = "solgov_urban"
+	item_color = "solgov_urban"
+
+/obj/item/clothing/under/solgov/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа ВМС ТСФ",
+		GENITIVE = "униформы ВМС ТСФ",
+		DATIVE = "униформе ВМС ТСФ",
+		ACCUSATIVE = "униформу ВМС ТСФ",
+		INSTRUMENTAL = "униформой ВМС ТСФ",
+		PREPOSITIONAL = "униформе ВМС ТСФ",
+	)
+
+/obj/item/clothing/under/solgov/civ
+	desc = "Комфортная, воссоздающая военную униформу, одежда. Не похоже, чтобы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/solgov/forest/civ
+	desc = "Комфортная, воссоздающая лесной камуфляж, одежда. Не похоже, чтобы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
+/obj/item/clothing/under/solgov/urban/civ
+	desc = "Комфортная, воссоздающая городской камуфляж, одежда. Не похоже, чтобы она защищала."
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0)
+
 /obj/item/clothing/under/solgov/elite
-	name = "\improper Trans-Solar Federation Specops marine uniform"
-	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces."
+	name = "Trans-Solar Federation Specops marine uniform"
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии."
 	icon_state = "solgovelite"
 	item_color = "solgovelite"
 
+/obj/item/clothing/under/solgov/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа спецназа ВМС ТСФ",
+		GENITIVE = "униформы спецназа ВМС ТСФ",
+		DATIVE = "униформе спецназа ВМС ТСФ",
+		ACCUSATIVE = "униформу спецназа ВМС ТСФ",
+		INSTRUMENTAL = "униформой спецназа ВМС ТСФ",
+		PREPOSITIONAL = "униформе спецназа ВМС ТСФ",
+	)
+
 /obj/item/clothing/under/solgov/command
 	name = "Sol Federation Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Sol Federation Marine Forces. This one has additional insignia on its shoulders."
+	desc = "Комфортная и удобная униформа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах."
 	icon_state = "solgovc"
 	item_color = "solgovc"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+
+/obj/item/clothing/under/solgov/command/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа лейтенанта ВМС ТСФ",
+		GENITIVE = "униформы лейтенанта ВМС ТСФ",
+		DATIVE = "униформе лейтенанта ВМС ТСФ",
+		ACCUSATIVE = "униформу лейтенанта ВМС ТСФ",
+		INSTRUMENTAL = "униформой лейтенанта ВМС ТСФ",
+		PREPOSITIONAL = "униформе лейтенанта ВМС ТСФ",
+	)
 
 /obj/item/clothing/under/solgov/command/elite
-	name = "\improper Trans-Solar Federation Specops Lieutenant's uniform"
-	desc = "A comfortable and durable combat uniform worn by Trans-Solar Federation Specops Marine Forces. This one has additional insignia on its shoulders and cuffs."
+	name = "Trans-Solar Federation Specops Lieutenant's uniform"
+	desc = "Комфортная и удобная униформа спецназа военно-морских сил Транс-Солнечной Федерациии. Имеет дополнительные погоны на плечах и манжеты на рукавах."
 	icon_state = "solgovcelite"
 	item_color = "solgovcelite"
 
+/obj/item/clothing/under/solgov/command/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа лейтенанта спецназа ВМС ТСФ",
+		GENITIVE = "униформы лейтенанта спецназа ВМС ТСФ",
+		DATIVE = "униформе лейтенанта спецназа ВМС ТСФ",
+		ACCUSATIVE = "униформу лейтенанта спецназа ВМС ТСФ",
+		INSTRUMENTAL = "униформой лейтенанта спецназа ВМС ТСФ",
+		PREPOSITIONAL = "униформе лейтенанта спецназа ВМС ТСФ",
+	)
+
 /obj/item/clothing/under/solgov/rep
 	name = "Sol Federation representative's uniform"
-	desc = "A formal uniform worn by the diplomatic representatives of the Sol Federation."
+	desc = "Официальная форма для дипломатических встреч Транс-Солнечной Федерации."
 	icon_state = "solgovr"
 	item_color = "solgovr"
 
+/obj/item/clothing/under/solgov/rep/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа представителя ТСФ",
+		GENITIVE = "униформы представителя ТСФ",
+		DATIVE = "униформе представителя ТСФ",
+		ACCUSATIVE = "униформу представителя ТСФ",
+		INSTRUMENTAL = "униформой представителя ТСФ",
+		PREPOSITIONAL = "униформе представителя ТСФ",
+	)
+
 /obj/item/clothing/under/rank/centcom_officer
 	desc = "It's a jumpsuit worn by CentComm Officers."
-	name = "\improper CentComm officer's jumpsuit"
+	name = "CentComm officer's jumpsuit"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
@@ -107,69 +186,95 @@
 
 /obj/item/clothing/under/rank/centcom_commander
 	desc = "It's a jumpsuit worn by CentComm's highest-tier Commanders."
-	name = "\improper CentComm officer's jumpsuit"
+	name = "CentComm officer's jumpsuit"
 	icon_state = "centcom"
 	item_state = "dg_suit"
 	item_color = "centcom"
 
 /obj/item/clothing/under/rank/centcom/officer
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Officer Uniform"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "Nanotrasen Naval Officer Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = 0
 
+/obj/item/clothing/under/rank/centcom/officer/skirt
+	desc = "Gold trim on space-black cloth, this skirt displays the rank of \"Lieutenant-Commander\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "Nanotrasen Naval Officer Skirt"
+	icon_state = "navy_goldf"
+	item_state = "navy_goldf"
+	item_color = "navy_goldf"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
 /obj/item/clothing/under/rank/centcom/captain
-	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears \"N.A.S. Trurl \" on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
-	name = "\improper Nanotrasen Naval Captain Uniform"
+	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Captain\" and bears АКН Трурль on the left shoulder. Worn exclusively by officers of the Nanotrasen Navy. It's got exotic materials for protection."
+	name = "Nanotrasen Naval Captain Uniform"
 	icon_state = "navy_gold"
 	item_state = "navy_gold"
 	item_color = "navy_gold"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/captain/solgov
-	name = "\improper Trans-Solar Federation commander's uniform"
+	name = "Trans-Solar Federation commander's uniform"
 	desc = "Gold trim on space-black cloth, this uniform is worn by generals of the Trans-Solar Federation. It has exotic materials for protection."
 
 /obj/item/clothing/under/rank/centcom/blueshield
 	desc = "Gold trim on space-black cloth, this uniform bears \"Close Protection\" on the left shoulder. It's got exotic materials for protection."
-	name = "\improper Formal Blueshield's Uniform"
+	name = "Formal Blueshield's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 	displays_id = 0
 
 /obj/item/clothing/under/rank/centcom/representative
 	desc = "Gold trim on space-black cloth, this uniform bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Nanotrasen Representative's Uniform"
+	name = "Formal Nanotrasen Representative's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/representative/New()
-	..()
+/obj/item/clothing/under/rank/centcom/representative/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+/obj/item/clothing/under/rank/centcom/representative/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/magistrate
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears \"N.S.S. Cyberiad\" on the left shoulder."
-	name = "\improper Formal Magistrate's Uniform"
+	name = "Formal Magistrate's Uniform"
 	icon_state = "officer"
 	item_state = "g_suit"
 	item_color = "officer"
 	displays_id = 0
 
-/obj/item/clothing/under/rank/centcom/magistrate/New()
-	..()
+/obj/item/clothing/under/rank/centcom/magistrate/Initialize(mapload)
+	. = ..()
+	update_appearance(UPDATE_DESC)
+
+/obj/item/clothing/under/rank/centcom/magistrate/update_desc(updates = ALL)
+	. = ..()
 	desc = "Gold trim on space-black cloth, this uniform displays the rank of \"Magistrate\" and bears [station_name()] on the left shoulder."
 
 /obj/item/clothing/under/rank/centcom/diplomatic
 	desc = "A very gaudy and official looking uniform of the Nanotrasen Diplomatic Corps."
-	name = "\improper Nanotrasen Diplomatic Uniform"
+	name = "Nanotrasen Diplomatic Uniform"
 	icon_state = "presidente"
 	item_state = "g_suit"
 	item_color = "presidente"
@@ -181,7 +286,7 @@
 	icon_state = "ert_uniform"
 	item_state = "bl_suit"
 	item_color = "ert_uniform"
-	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
 
 /obj/item/clothing/under/rank/blueshield/skirt
 	name = "blueshield's skirt"
@@ -191,9 +296,9 @@
 	item_color = "blueshieldf"
 
 /obj/item/clothing/under/space
-	name = "\improper NASA jumpsuit"
+	name = "NASA jumpsuit"
 	desc = "It has a NASA logo on it and is made of space-proofed materials."
-	icon_state = "black"
+	icon_state = "jumpsuit"
 	item_state = "bl_suit"
 	item_color = "black"
 	w_class = WEIGHT_CLASS_BULKY
@@ -206,6 +311,14 @@
 	max_heat_protection_temperature = SPACE_SUIT_MAX_TEMP_PROTECT
 	resistance_flags = NONE
 
+/obj/item/clothing/under/space/Initialize(mapload)
+	. = ..()
+	var/obj/item/clothing/under/color/black/temp_item = new(null)
+	icon = temp_item.icon
+	onmob_sheets = temp_item.onmob_sheets
+	sprite_sheets = temp_item.sprite_sheets
+	qdel(temp_item)
+
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
 	icon_state = "syndicate"
@@ -215,7 +328,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|HEAD
-	armor = list("melee" = 100, "bullet" = 100, "laser" = 100,"energy" = 100, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 100, BULLET = 100, LASER = 100,ENERGY = 100, BOMB = 100, BIO = 100, RAD = 100, FIRE = 100, ACID = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS | HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
 	heat_protection = UPPER_TORSO | LOWER_TORSO|LEGS|FEET|ARMS|HANDS | HEAD
@@ -223,6 +336,16 @@
 	slowdown = -10
 	siemens_coefficient = 0
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF | FREEZE_PROOF
+
+/obj/item/clothing/under/acj/get_ru_names()
+	return list(
+		NOMINATIVE = "кибернетический комбинезон админа",
+		GENITIVE = "кибернетического комбинезона админа",
+		DATIVE = "кибернетическому комбинезону админа",
+		ACCUSATIVE = "кибернетический комбинезон админа",
+		INSTRUMENTAL = "кибернетическим комбинезоном админа",
+		PREPOSITIONAL = "кибернетическом комбинезоне админа",
+	)
 
 /obj/item/clothing/under/johnny
 	name = "johnny~~ jumpsuit"
@@ -236,12 +359,7 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	item_color = "rainbow"
-
-/obj/item/clothing/under/cloud
-	name = "cloud"
-	desc = "cloud"
-	icon_state = "cloud"
-	item_color = "cloud"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/psysuit
 	name = "dark undersuit"
@@ -275,11 +393,10 @@
 	name = "executive suit"
 	desc = "A formal black suit and red tie, intended for the station's finest."
 	icon_state = "really_black_suit"
-	item_state = "bl_suit"
 	item_color = "really_black_suit"
 
 /obj/item/clothing/under/suit_jacket/female
-	name = "executive suit"
+	name = "women\'s executive suit"
 	desc = "A formal trouser suit for women, intended for the station's finest."
 	icon_state = "black_suit_fem"
 	item_state = "black_suit_fem"
@@ -291,6 +408,17 @@
 	icon_state = "red_suit"
 	item_state = "r_suit"
 	item_color = "red_suit"
+
+/obj/item/clothing/under/suit_jacket/red/skirt
+	name = "red jumpskirt"
+	desc = "A red jumpskirt and blue tie. Somewhat formal."
+	icon_state = "red_suitf"
+	item_color = "red_suitf"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+	)
 
 /obj/item/clothing/under/suit_jacket/navy
 	name = "navy suit"
@@ -357,22 +485,21 @@
 	item_color = "piraterags"
 
 /obj/item/clothing/under/soviet
-	name = "\improper Soviet uniform"
+	name = "Soviet uniform"
 	desc = "A standard U.S.S.P military uniform."
 	icon_state = "soviet"
 	item_state = "soviet"
 	item_color = "soviet"
 
-
 /obj/item/clothing/under/sovietofficer
-	name = "\improper Soviet officer uniform"
+	name = "Soviet officer uniform"
 	desc = "A U.S.S.P commanding officer's uniform."
 	icon_state = "sovietofficer"
 	item_state = "sovietofficer"
 	item_color = "sovietofficer"
 
 /obj/item/clothing/under/sovietadmiral
-	name = "\improper Soviet admiral uniform"
+	name = "Soviet admiral uniform"
 	desc = "A U.S.S.P naval admiral's uniform."
 	icon_state = "sovietadmiral"
 	item_state = "sovietadmiral"
@@ -384,6 +511,7 @@
 	icon_state = "redcoat"
 	item_state = "redcoat"
 	item_color = "redcoat"
+	dying_key = DYE_REGISTRY_UNDER
 
 /obj/item/clothing/under/kilt
 	name = "kilt"
@@ -401,6 +529,22 @@
 	item_color = "sexymime"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/mimeshorts
+	name = "mime shorts"
+	desc = "..."
+	icon_state = "mime_shorts"
+	item_state = "mime_shorts"
+	item_color = "mime_shorts"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
+/obj/item/clothing/under/mimeskirt
+	name = "sexy mime skirt"
+	desc = "..."
+	icon_state = "mime_skirt"
+	item_state = "mime_skirt"
+	item_color = "mime_skirt"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
+
 /obj/item/clothing/under/gladiator
 	name = "gladiator uniform"
 	desc = "Are you not entertained? Is that not why you are here?"
@@ -412,11 +556,40 @@
 
 /obj/item/clothing/under/ash_walker
 	name = "ash-walker uniform"
-	desc = ""
+	desc = "Простая, но надежная одежда из ткани, пропитанная пеплом. Швы украшены символами племени, а потертые края выглядят так, будто они видели не одно извержение вулкана."
 	icon_state = "ash"
 	item_state = "ash"
 	item_color = "ash"
 	has_sensor = FALSE
+
+/obj/item/clothing/under/ash_walker/get_ru_names()
+	return list(
+		NOMINATIVE = "одеяние пеплоходца",
+		GENITIVE = "одеяния пеплоходца",
+		DATIVE = "одеянию пеплоходца",
+		ACCUSATIVE = "одеяние пеплоходца",
+		INSTRUMENTAL = "одеянием пеплоходца",
+		PREPOSITIONAL = "одеянии пеплоходца",
+	)
+
+/obj/item/clothing/under/ash_walker_shaman
+	name = "shaman tribal rags"
+	desc = "Пропитанные пеплом лохмотья с Лазиса, с костяными украшениями, усыпанными грубыми самоцветами на шее. Кажется, это одеяние предназначено для шамана племени."
+	icon_state = "shamanrags"
+	item_state = "shamanrags"
+	item_color = "shamanrags"
+	has_sensor = FALSE
+	species_restricted = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
+
+/obj/item/clothing/under/ash_walker_shaman/get_ru_names()
+	return list(
+		NOMINATIVE = "лохмотья шамана",
+		GENITIVE = "лохмотьев шамана",
+		DATIVE = "лохмотьям шамана",
+		ACCUSATIVE = "лохмотья шамана",
+		INSTRUMENTAL = "лохмотьями шамана",
+		PREPOSITIONAL = "лохмотьях шамана",
+	)
 
 //dress
 
@@ -437,6 +610,7 @@
 	desc = "A fancy orange gown for those who like to show leg."
 	icon_state = "dress_orange"
 	item_color = "dress_orange"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/dress/dress_pink
 	name = "pink dress"
@@ -475,7 +649,7 @@
 	item_state = "dress_parade"
 
 /obj/item/clothing/under/dress/dress_hop
-	name = "head of personal dress uniform"
+	name = "head of personnel dress uniform"
 	desc = "Feminine fashion for the style concious HoP."
 	icon_state = "dress_hop"
 	item_color = "dress_hop"
@@ -511,30 +685,35 @@
 	desc = "A big and puffy orange dress."
 	icon_state = "bride_orange"
 	item_color = "bride_orange"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_purple
 	name = "purple wedding dress"
 	desc = "A big and puffy purple dress."
 	icon_state = "bride_purple"
 	item_color = "bride_purple"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_blue
 	name = "blue wedding dress"
 	desc = "A big and puffy blue dress."
 	icon_state = "bride_blue"
 	item_color = "bride_blue"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_red
 	name = "red wedding dress"
 	desc = "A big and puffy red dress."
 	icon_state = "bride_red"
 	item_color = "bride_red"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/wedding/bride_white
 	name = "white wedding dress"
 	desc = "A white wedding gown made from the finest silk."
 	icon_state = "bride_white"
 	item_color = "bride_white"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/sundress
 	name = "sundress"
@@ -599,6 +778,7 @@
 	icon_state = "ysing"
 	item_state = "ysing"
 	item_color = "ysing"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/singerb
 	name = "blue performer's outfit"
@@ -655,21 +835,12 @@
 	item_state = "mafiatan"
 	item_color = "mafiatan"
 
-
 /obj/item/clothing/under/bane
 	name = "Bane Harness"
 	desc = "Wear this harness to become the bane of the station."
 	icon_state = "bane"
 	item_state = "bane"
 	item_color = "bane"
-
-/obj/item/clothing/under/vox
-	name = "Ripped Jumpsuit"
-	desc = "A jumpsuit that looks like it's been shredded by some talons. Who could wear this now?"
-	icon = 'icons/obj/clothing/species/vox/uniforms.dmi'
-	icon_state = "vgrey"
-	item_state = "vgrey"
-	item_color = "vgrey"
 
 /obj/item/clothing/under/psyjump
 	name = "Psychic Amp Jumpsuit"
@@ -706,6 +877,47 @@
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/sweettooth
+	name = "Sweet Tooth Costume"
+	desc = "Брутально выглядящий костюм, отдалённо смахивающий на клоунский. Такой отлично подошёл бы какому-нибудь серийному убийце."
+	icon_state = "sweettooth_uniform"
+	item_color = "sweettooth_uniform"
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/sweettooth/get_ru_names()
+	return list(
+		NOMINATIVE = "Костюм Сладкоежки",
+		GENITIVE = "Костюма Сладкоежки",
+		DATIVE = "Костюму Сладкоежки",
+		ACCUSATIVE = "Костюм Сладкоежки",
+		INSTRUMENTAL = "Костюмом Сладкоежки",
+		PREPOSITIONAL = "Костюме Сладкоежки",
+	)
+
+/obj/item/clothing/under/rockso
+	name = "Rockso Costume"
+	desc = "I DO COCAINE!"
+	icon_state = "rocksouniform"
+	item_color = "rocksouniform"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi',
+	)
+
 /obj/item/clothing/under/assistantformal
 	name = "assistant's formal uniform"
 	desc = "An assistant's formal-wear. Why an assistant needs formal-wear is still unknown."
@@ -719,6 +931,7 @@
 	icon_state = "black_tango"
 	item_state = "wcoat"
 	item_color = "black_tango"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/stripeddress
 	name = "striped dress"
@@ -740,6 +953,7 @@
 	icon_state = "red_evening_gown"
 	item_state = "redeveninggown"
 	item_color = "red_evening_gown"
+	over_shoes = TRUE
 
 /obj/item/clothing/under/suit_jacket/checkered
 	name = "checkered suit"
@@ -774,26 +988,19 @@
 	item_state = "atmos_suit"
 	item_color = "atmos"
 	resistance_flags = FIRE_PROOF
+	clothing_traits = list(TRAIT_VENTCRAWLER_ITEM_BASED)
 
-/obj/item/clothing/under/contortionist/equipped(mob/living/carbon/human/user, slot)
-	..()
-	if(slot == slot_w_uniform)
-		if(!user.ventcrawler)
-			user.ventcrawler = 2
+/// Allowed to wear: glasses, shoes, gloves, mask, ears, pockets, id, pda and jumpsuit (obviously)
+#define CONTORTIONIST_ALLOWED_SLOTS (ITEM_SLOT_CLOTH_INNER|ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_GLOVES|ITEM_SLOT_FEET|ITEM_SLOT_MASK|ITEM_SLOT_EYES|ITEM_SLOT_EARS|ITEM_SLOT_POCKETS)
 
-/obj/item/clothing/under/contortionist/dropped(mob/living/carbon/human/user)
-	if(!user.get_int_organ(/obj/item/organ/internal/heart/gland/ventcrawling))
-		user.ventcrawler = 0
-	..()
+/obj/item/clothing/under/contortionist/used_for_ventcrawling(mob/living/user, provide_feedback = TRUE)
+	if(user.get_equipped_slots(include_hands = TRUE) & ~CONTORTIONIST_ALLOWED_SLOTS)
+		if(provide_feedback)
+			to_chat(user, span_warning("Вы можете ползать по вентиляции только с перчатками, обувью, маской, очками, наушниками, а также комбинезоном с ID-картой и PDA."))
+		return FALSE
+	return TRUE
 
-/obj/item/clothing/under/contortionist/proc/check_clothing(mob/user as mob)
-	//Allowed to wear: glasses, shoes, gloves, pockets, mask, and jumpsuit (obviously)
-	var/list/slot_must_be_empty = list(slot_back,slot_handcuffed,slot_legcuffed,slot_l_hand,slot_r_hand,slot_belt,slot_head,slot_wear_suit)
-	for(var/slot_id in slot_must_be_empty)
-		if(user.get_item_by_slot(slot_id))
-			to_chat(user,"<span class='warning'>You can't fit inside while wearing that \the [user.get_item_by_slot(slot_id)].</span>")
-			return 0
-	return 1
+#undef CONTORTIONIST_ALLOWED_SLOTS
 
 /obj/item/clothing/under/cursedclown
 	name = "cursed clown suit"
@@ -802,12 +1009,17 @@
 	icon_state = "cursedclown"
 	item_state = "cclown_uniform"
 	item_color = "cursedclown"
-	icon_override = 'icons/goonstation/mob/clothing/uniform.dmi'
+	onmob_sheets = list(
+		ITEM_SLOT_CLOTH_INNER_STRING = 'icons/goonstation/mob/clothing/uniform.dmi',
+	)
 	lefthand_file = 'icons/goonstation/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/clothing_righthand.dmi'
-	flags = NODROP
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	has_sensor = 0 // HUNKE
+
+/obj/item/clothing/under/cursedclown/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
 /obj/item/clothing/under/victdress
 	name = "black victorian dress"
@@ -816,6 +1028,7 @@
 	item_state = "victorianblackdress"
 	item_color = "victorianblackdress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	over_shoes = TRUE
 
 /obj/item/clothing/under/victdress/red
 	name = "red victorian dress"
@@ -845,11 +1058,24 @@
 
 /obj/item/clothing/under/medigown
 	name = "medical gown"
-	desc = "a flimsy examination gown, the back ties never close."
+	desc = "Халат, предназначенный для использования медицинским персоналом. \
+			Изготовлен из лёгкой ткани с минимальной защитой от биологических загрязнений. \
+			Застёжки на спине слабые и не застёгиваются должным образом, \
+			что делает этот халат не самым популярным выбором среди остальной униформы."
 	icon_state = "medicalgown"
 	item_state = "medicalgown"
 	item_color = "medicalgown"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/medigown/get_ru_names()
+	return list(
+		NOMINATIVE = "медицинский халат",
+		GENITIVE = "медицинского халата",
+		DATIVE = "медицинскому халату",
+		ACCUSATIVE = "медицинский халат",
+		INSTRUMENTAL = "медицинским халатом",
+		PREPOSITIONAL = "медицинском халате",
+	)
 
 /obj/item/clothing/under/burial
 	name = "burial garments"
@@ -907,3 +1133,428 @@
 	icon_state = "tourist"
 	icon_state = "tourist"
 	item_color = "tourist"
+
+/obj/item/clothing/under/red_chaps
+	name = "red chaps"
+	desc = "A stylish chaps that will make you look like a desert bandit."
+	icon_state = "red_chaps"
+	icon_state = "red_chaps"
+	item_color = "red_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/white_chaps
+	name = "white chaps"
+	desc = "A stylish chaps that will make you look like one of that cool guys from old movies."
+	icon_state = "white_chaps"
+	icon_state = "white_chaps"
+	item_color = "white_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/tan_chaps
+	name = "tan chaps"
+	desc = "A stylish chaps that will make you look like a real sheriff."
+	icon_state = "tan_chaps"
+	icon_state = "tan_chaps"
+	item_color = "tan_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/brown_chaps
+	name = "brown chaps"
+	desc = "A stylish chaps that will make you look like a real cowboy."
+	icon_state = "brown_chaps"
+	icon_state = "brown_chaps"
+	item_color = "brown_chaps"
+	over_shoes = TRUE
+
+/obj/item/clothing/under/colour/skirt
+	name = "dyeable skirt"
+	desc = "A skirt that can be dyed any color you want!"
+	icon_state = "colorize_skirt"
+	item_state = "colorize_skirt"
+	item_color = "colorize_skirt"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/colour/skirt/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+
+/obj/item/clothing/under/ussptracksuit_red
+	name = "red track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_red"
+	item_state = "ussptracksuit_red"
+	item_color = "ussptracksuit_red"
+
+/obj/item/clothing/under/ussptracksuit_blue
+	name = "blue track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_blue"
+	item_state = "ussptracksuit_blue"
+	item_color = "ussptracksuit_blue"
+
+/obj/item/clothing/under/ussptracksuit_black
+	name = "black track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_black"
+	item_state = "ussptracksuit_black"
+	item_color = "ussptracksuit_black"
+
+/obj/item/clothing/under/ussptracksuit_white
+	name = "white track suit"
+	desc = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
+	icon_state = "ussptracksuit_white"
+	item_state = "ussptracksuit_white"
+	item_color = "ussptracksuit_white"
+
+/obj/item/clothing/under/night_dress
+	name = "night dress"
+	desc = "A classic night dress."
+	displays_id = FALSE
+	over_shoes = TRUE
+	icon_state = "night_dress"
+	item_state = "night_dress"
+	item_color = "night_dress"
+
+/obj/item/clothing/under/night_dress/darkred
+	icon_state = "night_dress_darkred"
+	item_state = "night_dress_darkred"
+	item_color = "night_dress_darkred"
+
+/obj/item/clothing/under/night_dress/red
+	icon_state = "night_dress_red"
+	item_state = "night_dress_red"
+	item_color = "night_dress_red"
+
+/obj/item/clothing/under/night_dress/silver
+	icon_state = "night_dress_silver"
+	item_state = "night_dress_silver"
+	item_color = "night_dress_silver"
+
+/obj/item/clothing/under/night_dress/white
+	icon_state = "night_dress_white"
+	item_state = "night_dress_white"
+	item_color = "night_dress_white"
+
+/obj/item/clothing/under/steampunkdress
+	name = "victorian blue-white dress"
+	desc = "Изящное бело-кремовое платье с синим жакетом. Платье повторяет одежду викторианской эпохи, но с небольшими современными идеями. На лацкане жакета нацеплена брош символизирующая превосходство."
+	over_shoes = TRUE
+	icon_state = "steampunkdress"
+	item_state = "steampunkdress"
+	item_color = "steampunkdress"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/dress50s
+	name = "old Soviet dress"
+	desc = "Платье в горошек на манер старой моды. Кажется, такое носят женщины из СССП."
+	over_shoes = TRUE
+	icon_state = "dress50s"
+	item_state = "dress50s"
+	item_color = "dress50s"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/maid/short
+	name = "short maid costume"
+	desc = "Костюм для косплея горничной."
+	over_shoes = TRUE
+	icon_state = "maid"
+	item_state = "maid"
+	item_color = "maid"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/satan
+	name = "satanic clothes"
+	desc = "Костюм, который обычно носят сатанисты."
+	over_shoes = TRUE
+	icon_state = "satan"
+	item_state = "satan"
+	item_color = "satan"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi',
+	)
+
+/obj/item/clothing/under/satan/get_ru_names()
+	return list(
+		NOMINATIVE = "сатанинские одеяния",
+		GENITIVE = "сатанинских одеяний",
+		DATIVE = "сатанинским одеяниям",
+		ACCUSATIVE = "сатанинские одеяния",
+		INSTRUMENTAL = "сатанинскими одеяниями",
+		PREPOSITIONAL = "сатанинских одеяниях",
+	)
+
+/obj/item/clothing/under/martialsuit/masterli
+	name = "Master Li clothes"
+	desc = "Одеяние великого воина — жаль, что это всего лишь копия. Оригинал хранится в одном из дворцов династии Чанг."
+	can_adjust = FALSE
+	icon_state = "masterli"
+	item_state = "masterli"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martialsuit/masterli/get_ru_names()
+	return list(
+		NOMINATIVE = "костюм Мастера Ли",
+		GENITIVE = "костюма Мастера Ли",
+		DATIVE = "костюму Мастера Ли",
+		ACCUSATIVE = "костюм Мастера Ли",
+		INSTRUMENTAL = "костюмом Мастера Ли",
+		PREPOSITIONAL = "костюме Мастера Ли",
+	)
+
+/obj/item/clothing/under/martialsuit/masterdragon
+	name = "Gold dragon master clothes"
+	desc = "Надевая этот костюм, вы чувствуете прилив социальных кредитов, вкус риса и родство с таярой."
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "masterdragon"
+	item_state = "masterdragon"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martialsuit/masterdragon/get_ru_names()
+	return list(
+		NOMINATIVE = "костюм мастера Золотого дракона",
+		GENITIVE = "костюма мастера Золотого дракона",
+		DATIVE = "костюму мастера Золотого дракона",
+		ACCUSATIVE = "костюм мастера Золотого дракона",
+		INSTRUMENTAL = "костюмом мастера Золотого дракона",
+		PREPOSITIONAL = "костюме мастера Золотого дракона",
+	)
+
+/obj/item/clothing/under/martialsuit/redkunoichi
+	name = "Red Kunoichi clothes"
+	desc = "Раньше этот костюм был синим, но теперь он приобрёл злодейский вид. Курьер прошёл долгий и кровавый путь, чтобы доставить его."
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "redkunoichi"
+	item_state = "redkunoichi"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martialsuit/redkunoichi/get_ru_names()
+	return list(
+		NOMINATIVE = "красный костюм Куноичи",
+		GENITIVE = "красного костюма Куноичи",
+		DATIVE = "красному костюму Куноичи",
+		ACCUSATIVE = "красный костюм Куноичи",
+		INSTRUMENTAL = "красным костюмом Куноичи",
+		PREPOSITIONAL = "красном костюме Куноичи",
+	)
+
+/obj/item/clothing/under/martialsuit/bluekunoichi
+	name = "Blue Kunoichi clothes"
+	desc = "Костюм сделан из высококачественных нитей для лучшего контроля чакры! На бирке указано: \"Made in Chang\""
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "bluekunoichi"
+	item_state = "bluekunoichi"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martialsuit/bluekunoichi/get_ru_names()
+	return list(
+		NOMINATIVE = "голубой костюм Куноичи",
+		GENITIVE = "голубого костюма Куноичи",
+		DATIVE = "голубому костюму Куноичи",
+		ACCUSATIVE = "голубой костюм Куноичи",
+		INSTRUMENTAL = "голубым костюмом Куноичи",
+		PREPOSITIONAL = "голубом костюме Куноичи",
+	)
+
+/obj/item/clothing/under/martialsuit/random
+	name = "Random martial arts suit"
+	icon_state = "masterli"
+
+/obj/item/clothing/under/martialsuit/random/get_ru_names()
+	return list(
+		NOMINATIVE = "случайный костюм боевых искусств",
+		GENITIVE = "случайного костюма боевых искусств",
+		DATIVE = "случайному костюму боевых искусств",
+		ACCUSATIVE = "случайный костюм боевых искусств",
+		INSTRUMENTAL = "случайным костюмом боевых искусств",
+		PREPOSITIONAL = "случайном костюме боевых искусств",
+	)
+
+/obj/item/clothing/under/martialsuit/random/Initialize(mapload)
+	. = ..()
+	var/suit = pick(subtypesof(/obj/item/clothing/under/martialsuit))
+	new suit(loc)
+	qdel(src)
+
+/obj/item/clothing/under/tchaikowsky
+	species_restricted = list(SPECIES_HUMAN)
+
+/obj/item/clothing/under/tchaikowsky/sechighwaist
+	name = "security high waist female uniform"
+	desc = "Женская униформа Службы Безопасности с завышенной талией."
+	icon_state = "high_waist_sec"
+	item_state = "high_waist_sec"
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 30, ACID = 30)
+
+/obj/item/clothing/under/tchaikowsky/sechighwaist/get_ru_names()
+	return list(
+		NOMINATIVE = "униформа с завышенной талией",
+		GENITIVE = "униформы с завышенной талией",
+		DATIVE = "униформе с завышенной талией",
+		ACCUSATIVE = "униформу с завышенной талией",
+		INSTRUMENTAL = "униформой с завышенной талией",
+		PREPOSITIONAL = "униформе с завышенной талией",
+	)
+
+/obj/item/clothing/under/tchaikowsky/dress
+	name = "formal blue dress"
+	desc = "Синее платье, которое обычно носят секретарши важных представителей корпораций."
+	icon_state = "formal_dress_blue"
+	item_state = "formal_dress_blue"
+
+/obj/item/clothing/under/tchaikowsky/dress/get_ru_names()
+	return list(
+		NOMINATIVE = "синее платье",
+		GENITIVE = "синего платья",
+		DATIVE = "синему платью",
+		ACCUSATIVE = "синее платье",
+		INSTRUMENTAL = "синим платьем",
+		PREPOSITIONAL = "синем платье",
+	)
+
+/obj/item/clothing/under/tchaikowsky/dress/black
+	name = "formal black dress"
+	desc = "Чёрное платье, которое обычно носят секретарши важных представителей корпораций."
+	icon_state = "formal_dress_black"
+	item_state = "formal_dress_black"
+
+/obj/item/clothing/under/tchaikowsky/dress/black/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье",
+	)
+
+/obj/item/clothing/under/tchaikowsky/highwaistpants
+	name = "hight waist pants"
+	desc = "Женские штаны с завышенной талией. Идут в комплекте с чёрной рубашкой!"
+	icon_state = "high_waist_pants"
+	item_state = "high_waist_pants"
+
+/obj/item/clothing/under/tchaikowsky/highwaistpants/get_ru_names()
+	return list(
+		NOMINATIVE = "штаны с завышенной талией",
+		GENITIVE = "штанов с завышенной талией",
+		DATIVE = "штанам с завышенной талией",
+		ACCUSATIVE = "штаны с завышенной талией	",
+		INSTRUMENTAL = "штанами с завышенной талией",
+		PREPOSITIONAL = "штанах с завышенной талией",
+	)
+
+/obj/item/clothing/under/tchaikowsky/evening_dress
+	name = "evening dress (black)"
+	desc = "Платье для официальных мероприятий."
+	icon_state = "evening_dress_black"
+	item_state = "evening_dress_black"
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/get_ru_names()
+	return list(
+		NOMINATIVE = "чёрное платье",
+		GENITIVE = "чёрного платья",
+		DATIVE = "чёрному платью",
+		ACCUSATIVE = "чёрное платье",
+		INSTRUMENTAL = "чёрным платьем",
+		PREPOSITIONAL = "чёрном платье",
+	)
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan
+	name = "evening dress (cyan)"
+	icon_state = "evening_dress_cyan"
+	item_state = "evening_dress_cyan"
+
+/obj/item/clothing/under/tchaikowsky/evening_dress/cyan/get_ru_names()
+	return list(
+		NOMINATIVE = "сине-зелёное платье",
+		GENITIVE = "сине-зелёного платья",
+		DATIVE = "сине-зелёному платью",
+		ACCUSATIVE = "сине-зелёное платье",
+		INSTRUMENTAL = "сине-зелёным платьем",
+		PREPOSITIONAL = "сине-зелёном платье",
+	)
+
+/obj/item/clothing/under/tchaikowsky/baseball
+	name = "baseball uniform (blue)"
+	desc = "Бейсбольная униформа синего цвета. Мерч бейсбольной команды \"Нанотрейзен Лейкерс\"."
+	icon_state = "baseball_uniform_blue"
+	item_state = "baseball_uniform_blue"
+
+/obj/item/clothing/under/tchaikowsky/baseball/get_ru_names()
+	return list(
+		NOMINATIVE = "синяя бейсбольная униформа",
+		GENITIVE = "синей бейсбольной униформы",
+		DATIVE = "синей бейсбольной униформе",
+		ACCUSATIVE = "синюю бейсбольную униформу",
+		INSTRUMENTAL = "синей бейсбольной униформой",
+		PREPOSITIONAL = "синей бейсбольной униформе",
+	)
+
+/obj/item/clothing/under/tchaikowsky/baseball/brown
+	name = "baseball uniform (brown)"
+	desc = "Бейсбольная униформа коричневого цвета. Мерч бейсбольной команды \"Киберсан Индастриз\"."
+	icon_state = "baseball_uniform_brown"
+	item_state = "baseball_uniform_brown"
+
+/obj/item/clothing/under/tchaikowsky/baseball/brown/get_ru_names()
+	return list(
+		NOMINATIVE = "коричневая бейсбольная униформа",
+		GENITIVE = "коричневой бейсбольной униформы",
+		DATIVE = "коричневой бейсбольной униформе",
+		ACCUSATIVE = "коричневую бейсбольную униформу",
+		INSTRUMENTAL = "коричневой бейсбольной униформой",
+		PREPOSITIONAL = "коричневой бейсбольной униформе",
+	)

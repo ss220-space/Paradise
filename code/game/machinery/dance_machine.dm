@@ -3,8 +3,7 @@
 	desc = "The first three prototypes were discontinued after mass casualty incidents."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "disco0"
-	anchored = FALSE
-	atom_say_verb = "states"
+	atom_say_verb = "заявляет"
 	density = TRUE
 	var/active = FALSE
 	var/list/rangers = list()
@@ -13,10 +12,10 @@
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 	var/static/list/songs = list(
-		new /datum/track("Engineering's Basic Beat", 					'sound/misc/disco.ogg', 	600, 	5),
-		new /datum/track("Engineering's Domination Dance", 				'sound/misc/e1m1.ogg', 		950, 	6),
-		new /datum/track("Engineering's Superiority Shimmy", 			'sound/misc/paradox.ogg', 	2400, 	4),
-		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770, 	5),
+		new /datum/track("Engineering's Basic Beat",					'sound/misc/disco.ogg',	600,	5),
+		new /datum/track("Engineering's Domination Dance",				'sound/misc/e1m1.ogg',		950,	6),
+		new /datum/track("Engineering's Superiority Shimmy",			'sound/misc/paradox.ogg',	2400,	4),
+		new /datum/track("Engineering's Ultimate High-Energy Hustle",	'sound/misc/boogie2.ogg',	1770,	5),
 		)
 	var/datum/track/selection = null
 
@@ -46,10 +45,9 @@
 	var/datum/track/T = new /datum/track(name, file, length, beat)
 	songs += T
 
-/obj/machinery/disco/New()
+/obj/machinery/disco/Initialize(mapload)
 	. = ..()
 	selection = songs[1]
-
 
 /obj/machinery/disco/Destroy()
 	dance_over()
@@ -64,20 +62,25 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!anchored && !isinspace())
-		anchored = TRUE
+		set_anchored(TRUE)
 		WRENCH_ANCHOR_MESSAGE
 	else if(anchored)
-		anchored = FALSE
+		set_anchored(FALSE)
 		WRENCH_UNANCHOR_MESSAGE
-	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 
-/obj/machinery/disco/update_icon()
+/obj/machinery/disco/update_icon_state()
 	if(active)
 		icon_state = "disco1"
 	else
 		icon_state = "disco0"
-	..()
 
+/obj/machinery/disco/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(active)
+		underlays += emissive_appearance(icon, "disco_lightmask", src)
 
 /obj/machinery/disco/attack_hand(mob/user)
 	if(..())
@@ -87,32 +90,31 @@
 
 /obj/machinery/disco/interact(mob/user)
 	if(!anchored)
-		to_chat(user,"<span class='warning'>This device must be anchored by a wrench!</span>")
+		to_chat(user,span_warning("This device must be anchored by a wrench!"))
 		return
 	if(!Adjacent(user) && !isAI(user))
 		return
 	user.set_machine(src)
 	var/list/dat = list()
 	dat +="<div class='statusDisplay' style='text-align:center'>"
-	dat += "<b><A href='?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
+	dat += "<b><a href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></a><br>"
 	dat += "</div><br>"
-	dat += "<A href='?src=[UID()];action=select'> Select Track</A><br>"
+	dat += "<a href='byond://?src=[UID()];action=select'> Select Track</a><br>"
 	dat += "Track Selected: [selection.song_name]<br>"
 	dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
 	dat += "<br>DJ's Soundboard:<b><br>"
 	dat +="<div class='statusDisplay'><div style='text-align:center'>"
-	dat += "<A href='?src=[UID()];action=horn'>Air Horn</A>  "
-	dat += "<A href='?src=[UID()];action=alert'>Station Alert</A>  "
-	dat += "<A href='?src=[UID()];action=siren'>Warning Siren</A>  "
-	dat += "<A href='?src=[UID()];action=honk'>Honk</A><br>"
-	dat += "<A href='?src=[UID()];action=pump'>Shotgun Pump</A>"
-	dat += "<A href='?src=[UID()];action=pop'>Gunshot</A>"
-	dat += "<A href='?src=[UID()];action=saber'>Esword</A>"
-	dat += "<A href='?src=[UID()];action=harm'>Harm Alarm</A>"
+	dat += "<a href='byond://?src=[UID()];action=horn'>Air Horn</a>  "
+	dat += "<a href='byond://?src=[UID()];action=alert'>Station Alert</a>  "
+	dat += "<a href='byond://?src=[UID()];action=siren'>Warning Siren</a>  "
+	dat += "<a href='byond://?src=[UID()];action=honk'>Honk</a><br>"
+	dat += "<a href='byond://?src=[UID()];action=pump'>Shotgun Pump</a>"
+	dat += "<a href='byond://?src=[UID()];action=pop'>Gunshot</a>"
+	dat += "<a href='byond://?src=[UID()];action=saber'>Esword</a>"
+	dat += "<a href='byond://?src=[UID()];action=harm'>Harm Alarm</a>"
 	var/datum/browser/popup = new(user, "vending", "Radiance Dance Machine - Mark IV", 400, 350)
 	popup.set_content(dat.Join())
 	popup.open()
-
 
 /obj/machinery/disco/Topic(href, href_list)
 	if(..())
@@ -124,8 +126,8 @@
 				return
 			if(!active)
 				if(stop > world.time)
-					to_chat(usr, "<span class='warning'>Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)].</span>")
-					playsound(src, 'sound/misc/compiler-failure.ogg', 50, 1)
+					to_chat(usr, span_warning("Error: The device is still resetting from the last activation, it will be ready again in [DisplayTimeText(stop-world.time)]."))
+					playsound(src, 'sound/machines/compiler/compiler-failure.ogg', 50, TRUE)
 					return
 				active = TRUE
 				update_icon()
@@ -138,13 +140,13 @@
 				updateUsrDialog()
 		if("select")
 			if(active)
-				to_chat(usr, "<span class='warning'>Error: You cannot change the song until the current one is over.</span>")
+				to_chat(usr, span_warning("Error: You cannot change the song until the current one is over."))
 				return
 
 			var/list/available = list()
 			for(var/datum/track/S in songs)
 				available[S.song_name] = S
-			var/selected = input(usr, "Choose your song", "Track:") as null|anything in available
+			var/selected = tgui_input_list(usr, "Choose your song", "Track:", available)
 			if(QDELETED(src) || !selected || !istype(available[selected], /datum/track))
 				return
 			selection = available[selected]
@@ -168,10 +170,10 @@
 
 /obj/machinery/disco/proc/deejay(S)
 	if(QDELETED(src) || !active || charge < 5)
-		to_chat(usr, "<span class='warning'>The device is not able to play more DJ sounds at this time.</span>")
+		to_chat(usr, span_warning("The device is not able to play more DJ sounds at this time."))
 		return
 	charge -= 5
-	playsound(src, S, 300, 1)
+	playsound(src, S, 300, TRUE)
 
 /obj/machinery/disco/proc/dance_setup()
 	stop = world.time + selection.song_length
@@ -234,7 +236,7 @@
 			spotlights+=L
 			continue
 		continue
-	END_FOR_DVIEW
+	FOR_DVIEW_END
 
 /obj/machinery/disco/proc/hierofunk()
 	for(var/i in 1 to 10)
@@ -317,9 +319,8 @@
 				glow.update_light()
 				continue
 		if(prob(2))  // Unique effects for the dance floor that show up randomly to mix things up
-			INVOKE_ASYNC(src, .proc/hierofunk)
+			INVOKE_ASYNC(src, PROC_REF(hierofunk))
 		sleep(selection.song_beat)
-
 
 /obj/machinery/disco/proc/dance(mob/living/M) //Show your moves
 	set waitfor = FALSE
@@ -392,7 +393,6 @@
 		sleep(1)
 	M.lying_fix()
 
-
 /obj/machinery/disco/proc/dance4(mob/living/M)
 	var/speed = rand(1, 3)
 	set waitfor = 0
@@ -401,9 +401,8 @@
 		sleep(speed)
 		for(var/i in 1 to speed)
 			M.setDir(pick(GLOB.cardinal))
-			M.resting = !M.resting
-			M.update_canmove()
-		 time--
+			M.set_resting(!M.resting, instant = TRUE)
+		time--
 
 /obj/machinery/disco/proc/dance5(mob/living/M)
 	animate(M, transform = matrix(180, MATRIX_ROTATE), time = 1, loop = 0)
@@ -440,8 +439,6 @@
 		sleep(1)
 	M.lying_fix()
 
-
-
 /mob/living/proc/lying_fix()
 	animate(src, transform = null, time = 1, loop = 0)
 	lying_prev = 0
@@ -455,36 +452,36 @@
 		L.stop_sound_channel(CHANNEL_JUKEBOX)
 	rangers = list()
 
-
-
 /obj/machinery/disco/process()
 	if(charge < 35)
 		charge += 1
+
 	if(world.time < stop && active)
 		var/sound/song_played = sound(selection.song_path)
 
-		for(var/mob/M in range(10,src))
-			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
-				if(!(M in rangers))
-					rangers[M] = TRUE
-					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
-		for(var/mob/L in rangers)
-			if(get_dist(src, L) > 10)
-				rangers -= L
-				if(!L || !L.client)
+		for(var/mob/mob in range(10, src))
+			if(LAZYIN(rangers, mob) || !HASBIT(mob.client?.prefs.sound, SOUND_DISCO))
+				continue
+
+			rangers[mob] = TRUE
+			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound_to_use = song_played, use_reverb = FALSE)
+
+		for(var/mob/mob as anything in rangers)
+			var/mob/living/l_mob = mob
+			if(get_dist(src, mob) > 10)
+				rangers -= mob
+				if(!mob || !mob.client)
 					continue
-				L.stop_sound_channel(CHANNEL_JUKEBOX)
-			else if(prob(9) && L.canmove && isliving(L))
-				dance(L)
+				mob.stop_sound_channel(CHANNEL_JUKEBOX)
+			else if(isliving(mob) && prob(9) && (l_mob.mobility_flags & MOBILITY_STAND))
+				dance(l_mob)
 	else if(active)
 		active = FALSE
 		STOP_PROCESSING(SSobj, src)
 		dance_over()
-		playsound(src,'sound/machines/terminal_off.ogg',50,1)
-		icon_state = "disco0"
+		playsound(src,'sound/machines/terminal_off.ogg',50, TRUE)
+		update_icon()
 		stop = world.time + 100
-
-
 
 /obj/machinery/disco/immobile
 	name = "radiant dance machine mark V"

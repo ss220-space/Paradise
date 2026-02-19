@@ -16,8 +16,6 @@
 	name = "emergency closet"
 	desc = "It's a storage unit for emergency breathmasks and o2 tanks."
 	icon_state = "emergency"
-	icon_closed = "emergency"
-	icon_opened = "emergencyopen"
 
 /obj/structure/closet/emcloset/anchored
 	anchored = TRUE
@@ -44,17 +42,10 @@
 			new /obj/item/tank/internals/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/storage/firstaid/o2(src)
-		if("nothing")
-			// doot
 
 		// teehee - Ah, tg coders...
 		if("delete")
-			qdel(src)
-
-		//If you want to re-add fire, just add "fire" = 15 to the pick list.
-		/*if("fire")
-			new /obj/structure/closet/firecloset(src.loc)
-			qdel(src)*/
+			qdel(src) // Please make this use init hints its called from Initialize() I beg
 
 /obj/structure/closet/emcloset/legacy/populate_contents()
 	new /obj/item/tank/internals/oxygen(src)
@@ -67,8 +58,6 @@
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "firecloset"
-	icon_closed = "firecloset"
-	icon_opened = "fireclosetopen"
 
 /obj/structure/closet/firecloset/populate_contents()
 	new /obj/item/extinguisher(src)
@@ -85,7 +74,6 @@
 	new /obj/item/tank/internals/oxygen/red(src)
 	new /obj/item/clothing/head/hardhat/red(src)
 
-
 /*
  * Tool Closet
  */
@@ -93,8 +81,6 @@
 	name = "tool closet"
 	desc = "It's a storage unit for tools."
 	icon_state = "toolcloset"
-	icon_closed = "toolcloset"
-	icon_opened = "toolclosetopen"
 
 /obj/structure/closet/toolcloset/populate_contents()
 	if(prob(40))
@@ -128,16 +114,14 @@
 	if(prob(40))
 		new /obj/item/clothing/head/hardhat(src)
 
-
 /*
  * Radiation Closet
  */
 /obj/structure/closet/radiation
 	name = "radiation suit closet"
 	desc = "It's a storage unit for rad-protective suits."
-	icon_state = "radsuitcloset"
-	icon_opened = "toolclosetopen"
-	icon_closed = "radsuitcloset"
+	icon_state = "toolcloset"
+	custom_door_overlay = "radsuit"
 
 /obj/structure/closet/radiation/populate_contents()
 	new /obj/item/clothing/suit/radiation(src)
@@ -147,30 +131,25 @@
  * Bombsuit closet
  */
 /obj/structure/closet/bombcloset
-	name = "\improper EOD closet"
+	name = "EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bombsuit"
-	icon_closed = "bombsuit"
-	icon_opened = "bombsuitopen"
 
 /obj/structure/closet/bombcloset/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit( src )
 	new /obj/item/clothing/under/color/black( src )
-	new /obj/item/clothing/shoes/black( src )
+	new /obj/item/clothing/shoes/color/black( src )
 	new /obj/item/clothing/head/bomb_hood( src )
 
-
 /obj/structure/closet/bombclosetsecurity
-	name = "\improper EOD closet"
+	name = "EOD closet"
 	desc = "It's a storage unit for explosion-protective suits."
 	icon_state = "bombsuitsec"
-	icon_closed = "bombsuitsec"
-	icon_opened = "bombsuitsecopen"
 
 /obj/structure/closet/bombclosetsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security( src )
 	new /obj/item/clothing/under/rank/security( src )
-	new /obj/item/clothing/shoes/brown( src )
+	new /obj/item/clothing/shoes/color/brown( src )
 	new /obj/item/clothing/head/bomb_hood/security( src )
 
 /*
@@ -180,11 +159,9 @@
 	name = "fire-safety closet"
 	desc = "It's a storage unit for fire-fighting supplies."
 	icon_state = "hydrant"
-	icon_closed = "hydrant"
-	icon_opened = "hydrant_open"
-	anchored = 1
-	density = 0
-	wall_mounted = 1
+	anchored = TRUE
+	density = FALSE
+	wall_mounted = TRUE
 
 /obj/structure/closet/hydrant/populate_contents()
 	new /obj/item/clothing/suit/fire/firefighter(src)
@@ -201,14 +178,7 @@
 	name = "first-aid closet"
 	desc = "It's wall-mounted storage unit for first aid supplies."
 	icon_state = "medical_wall"
-	icon_closed = "medical_wall"
-	icon_opened = "medical_wall_open"
-	anchored = 1
-	density = 0
-	wall_mounted = 1
+	anchored = TRUE
+	density = FALSE
+	wall_mounted = TRUE
 
-/obj/structure/closet/medical_wall/update_icon()
-	if(!opened)
-		icon_state = icon_closed
-	else
-		icon_state = icon_opened

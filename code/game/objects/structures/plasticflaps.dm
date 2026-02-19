@@ -3,8 +3,10 @@
 	desc = "Completely impassable - or are they?"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "plasticflaps"
-	density = 0
-	anchored = 1
+	anchored = TRUE
+	pass_flags_self = PASSFLAPS
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
+	opacity = TRUE
 	layer = 4
 	armor = list(melee = 100, bullet = 80, laser = 80, energy = 100, bomb = 50, bio = 100, rad = 100, fire = 50, acid = 50)
 	var/state = PLASTIC_FLAPS_NORMAL
@@ -13,28 +15,30 @@
 	. = ..()
 	switch(state)
 		if(PLASTIC_FLAPS_NORMAL)
-			. += "<span class='notice'>[src] are <b>screwed</b> to the floor.</span>"
+			. += span_notice("[src] are <b>screwed</b> to the floor.")
 		if(PLASTIC_FLAPS_DETACHED)
-			. += "<span class='notice'>[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.</span>"
+			. += span_notice("[src] are no longer <i>screwed</i> to the floor, and the flaps can be <b>sliced</b> apart.")
 
 /obj/structure/plasticflaps/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
 	if(state == PLASTIC_FLAPS_NORMAL)
-		user.visible_message("<span class='warning'>[user] starts unscrewing [src] from the floor...</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		user.visible_message(span_warning("[user] starts unscrewing [src] from the floor..."), span_notice("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
 		if(!I.use_tool(src, user, 180, volume = I.tool_volume) || state != PLASTIC_FLAPS_NORMAL)
 			return
 		state = PLASTIC_FLAPS_DETACHED
-		anchored = FALSE
-		to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+		opacity = FALSE
+		set_anchored(FALSE)
+		to_chat(user, span_notice("You unscrew [src] from the floor."))
 	else if(state == PLASTIC_FLAPS_DETACHED)
-		user.visible_message("<span class='warning'>[user] starts screwing [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		user.visible_message(span_warning("[user] starts screwing [src] to the floor."), span_notice("You start to screw [src] to the floor..."), "You hear rustling noises.")
 		if(!I.use_tool(src, user, 40, volume = I.tool_volume) || state != PLASTIC_FLAPS_DETACHED)
 			return
+		opacity = TRUE
 		state = PLASTIC_FLAPS_NORMAL
-		anchored = TRUE
-		to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
+		set_anchored(TRUE)
+		to_chat(user, span_notice("You screw [src] to the floor."))
 
 /obj/structure/plasticflaps/welder_act(mob/user, obj/item/I)
 	if(state != PLASTIC_FLAPS_DETACHED)
@@ -49,48 +53,44 @@
 		P.add_fingerprint(user)
 		qdel(src)
 
-/obj/structure/plasticflaps/CanPass(atom/A, turf/T)
-	if(istype(A) && A.checkpass(PASSGLASS))
+/obj/structure/plasticflaps/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+
+	if(checkpass(mover, PASSFLAPS)) //For anything specifically engineered to cross plastic flaps.
+		return TRUE
+
+	if(checkpass(mover, PASSGLASS))
 		return prob(60)
 
-	var/obj/structure/bed/B = A
-	if(istype(A, /obj/structure/bed) && (B.has_buckled_mobs() || B.density))//if it's a bed/chair and is dense or someone is buckled, it will not pass
+	if(istype(mover, /obj/structure/bed))
+		var/obj/structure/bed/bed_mover = mover
+		if(bed_mover.density || bed_mover.has_buckled_mobs())	//if it's a bed/chair and is dense or someone is buckled, it will not pass
+			return FALSE
+
+	else if(ismecha(mover))
 		return FALSE
 
-	if(istype(A, /obj/structure/closet/cardboard))
-		var/obj/structure/closet/cardboard/C = A
-		if(C.move_delay)
-			return FALSE
-
-	if(ismecha(A))
-		return FALSE
-
-	else if(isliving(A)) // You Shall Not Pass!
-		var/mob/living/M = A
-		if(isbot(A)) //Bots understand the secrets
-			return TRUE
-		if(M.buckled && istype(M.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
-			return TRUE
-		if(!M.lying && !M.ventcrawler && M.mob_size != MOB_SIZE_TINY)	//If your not laying down, or a ventcrawler or a small creature, no pass.
-			return FALSE
-	return ..()
-
-
-/obj/structure/plasticflaps/CanAStarPass(ID, to_dir, caller)
-	if(isliving(caller))
-		if(isbot(caller))
+	else if(isliving(mover)) // You Shall Not Pass!
+		var/mob/living/living_mover = mover
+		if(istype(living_mover.buckled, /mob/living/simple_animal/bot/mulebot)) // mulebot passenger gets a free pass.
 			return TRUE
 
-		var/mob/living/M = caller
-		if(!M.ventcrawler && M.mob_size != MOB_SIZE_TINY)
+		if(living_mover.body_position != LYING_DOWN && living_mover.mob_size != MOB_SIZE_TINY && !is_ventcrawler(living_mover))	//If your not laying down, or a ventcrawler or a small creature, no pass.
 			return FALSE
-	var/atom/movable/M = caller
-	if(M && M.pulling)
-		return CanAStarPass(ID, to_dir, M.pulling)
+
+/obj/structure/plasticflaps/CanAStarPass(to_dir, datum/can_pass_info/pass_info)
+	if(pass_info.is_living)
+		if(pass_info.is_bot)
+			return TRUE
+		if(!pass_info.can_ventcrawl && pass_info.mob_size != MOB_SIZE_TINY)
+			return FALSE
+
+	if(pass_info.pulling_info)
+		return CanAStarPass(to_dir, pass_info.pulling_info)
 	return TRUE //diseases, stings, etc can pass
 
 /obj/structure/plasticflaps/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/plastic/five(loc)
 	qdel(src)
 
@@ -98,14 +98,14 @@
 	name = "airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."
 
-/obj/structure/plasticflaps/mining/Initialize()
-	air_update_turf(TRUE)
-	..()
+/obj/structure/plasticflaps/mining/Initialize(mapload)
+	recalculate_atmos_connectivity()
+	. = ..()
 
 /obj/structure/plasticflaps/mining/Destroy()
 	var/turf/T = get_turf(src)
 	. = ..()
-	T.air_update_turf(TRUE)
+	T.recalculate_atmos_connectivity()
 
-/obj/structure/plasticflaps/mining/CanAtmosPass(turf/T)
+/obj/structure/plasticflaps/mining/CanAtmosPass(direction)
 	return FALSE

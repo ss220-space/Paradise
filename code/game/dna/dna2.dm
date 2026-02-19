@@ -44,7 +44,9 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/real_name          // Stores the real name of the person who originally got this dna datum. Used primarily for changelings,
 
 	var/datum/species/species = new /datum/species/human //The type of mutant race the player is if applicable (i.e. potato-man)
-	var/list/default_blocks = list() //list of all blocks toggled at roundstart
+	/// Lazylist of all blocks toggled at roundstart
+	var/list/default_blocks
+	var/tts_seed_dna
 
 // Make a copy of this strand.
 // USE THIS WHEN COPYING STUFF OR YOU'LL GET CORRUPTION!
@@ -52,6 +54,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	var/datum/dna/new_dna = new()
 	new_dna.unique_enzymes = unique_enzymes
 	new_dna.struc_enzymes_original = struc_enzymes_original // will make clone's SE the same as the original, do we want this?
+	new_dna.default_blocks = default_blocks
 	new_dna.blood_type = blood_type
 	new_dna.real_name = real_name
 	new_dna.species = new species.type
@@ -65,6 +68,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			new_dna.UI[b] = 0
 	new_dna.UpdateUI()
 	new_dna.UpdateSE()
+	new_dna.tts_seed_dna = tts_seed_dna
 	return new_dna
 
 ///////////////////////////////////////
@@ -87,7 +91,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	ResetUI(1)
 	// Hair
 	// FIXME:  Species-specific defaults pls
-	var/obj/item/organ/external/head/H = character.get_organ("head")
+	var/obj/item/organ/external/head/H = character.get_organ(BODY_ZONE_HEAD)
 	var/obj/item/organ/internal/eyes/eyes_organ = character.get_int_organ(/obj/item/organ/internal/eyes)
 
 	// Body Accessory
@@ -124,10 +128,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 
 	SetUIValueRange(DNA_UI_SKIN_TONE,	35-character.s_tone,	220,	1) // Value can be negative.
 
-	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		GLOB.body_accessory_by_name.len,	1)
-	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		GLOB.marking_styles_list.len,		1)
-	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		GLOB.marking_styles_list.len,		1)
+	SetUIValueRange(DNA_UI_BACC_STYLE,		bodyacc,		length(GLOB.body_accessory_by_name),	1)
+	SetUIValueRange(DNA_UI_HEAD_MARK_STYLE,	head_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_BODY_MARK_STYLE,	body_marks,		length(GLOB.marking_styles_list),		1)
+	SetUIValueRange(DNA_UI_TAIL_MARK_STYLE,	tail_marks,		length(GLOB.marking_styles_list),		1)
 
 	SetUIValueRange(DNA_UI_BACC_STYLE, bodyacc, length(GLOB.body_accessory_by_name), 1)
 
@@ -139,7 +143,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_MALE, 1)
 		if(PLURAL)
 			SetUITriState(DNA_UI_GENDER, DNA_GENDER_PLURAL, 1)
-
 
 	UpdateUI()
 
@@ -188,7 +191,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 	return UI[block] > 2050
 
-
 // Set UI gene "on" (1) or "off" (0)
 /datum/dna/proc/SetUIState(block, on, defer = FALSE)
 	if(block <= 0)
@@ -229,7 +231,6 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 			val = rand(2761, 4095)
 	SetUIValue(block, val, defer)
 
-
 // Get a hex-encoded UI block.
 /datum/dna/proc/GetUIBlock(block)
 	return EncodeDNABlock(GetUIValue(block))
@@ -266,8 +267,10 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 ///////////////////////////////////////
 
 // "Zeroes out" all of the blocks.
-/datum/dna/proc/ResetSE()
+/datum/dna/proc/ResetSE(monkeybasic = FALSE)
 	for(var/i = 1, i <= DNA_SE_LENGTH, i++)
+		if(i == DNA_SE_LENGTH && monkeybasic)
+			continue
 		SetSEValue(i, rand(1, 1024), 1)
 	UpdateSE()
 
@@ -360,9 +363,8 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 	//testing("SetSESubBlock([block],[subBlock],[newSubBlock],[defer]): [oldBlock] -> [newBlock]")
 	SetSEBlock(block, newBlock, defer)
 
-
 /proc/EncodeDNABlock(value)
-	return add_zero2(num2hex(value, 1), 3)
+	return uppertext(add_zero2(num2hex(value, 1), 3))
 
 /datum/dna/proc/UpdateUI()
 	uni_identity = ""
@@ -384,7 +386,7 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Just checks our character has all the crap it needs.
 /datum/dna/proc/check_integrity(mob/living/carbon/human/character)
 	if(character)
-		if(UI.len != DNA_UI_LENGTH)
+		if(length(UI) != DNA_UI_LENGTH)
 			ResetUIFrom(character)
 
 		if(length(struc_enzymes)!= 3 * DNA_SE_LENGTH)
@@ -402,12 +404,12 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 //  Initial DNA setup.  I'm kind of wondering why the hell this doesn't just call the above.
 //    ready_dna is (hopefully) only used on mob creation, and sets the struc_enzymes_original and SE_original only once - Bone White
 
-/datum/dna/proc/ready_dna(mob/living/carbon/human/character, flatten_SE = 1)
+/datum/dna/proc/ready_dna(mob/living/carbon/human/character, flatten_SE = TRUE, monkeybasic = FALSE)
 
 	ResetUIFrom(character)
 
 	if(flatten_SE)
-		ResetSE()
+		ResetSE(monkeybasic)
 
 	struc_enzymes_original = struc_enzymes // sets the original struc_enzymes when ready_dna is called
 	SE_original = SE.Copy()
@@ -444,11 +446,11 @@ GLOBAL_LIST_EMPTY(bad_blocks)
 		return
 
 	// We manually set the species to ensure all proper species change procs are called.
-	destination.set_species(species.type, retain_damage = TRUE)
+	destination.set_species(species.type, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 	var/datum/dna/new_dna = Clone()
 	new_dna.species = destination.dna.species
 	destination.dna = new_dna
 	destination.dna.species.handle_dna(destination) // Handle DNA has to be re-called as the DNA was changed.
 
 	destination.UpdateAppearance()
-	domutcheck(destination, null, MUTCHK_FORCED)
+	destination.check_genes(MUTCHK_FORCED)

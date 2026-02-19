@@ -2,6 +2,8 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 /datum/repository/crew
 	var/static/list/bold_jobs
+	var/static/list/security_jobs_list
+	var/static/list/mining_jobs_list
 
 /datum/repository/crew/New()
 	cache_data = list()
@@ -26,7 +28,16 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		bold_jobs = list()
 		bold_jobs += GLOB.command_positions
 		bold_jobs += get_all_centcom_jobs()
-		bold_jobs += list("Nanotrasen Representative", "Blueshield", "Magistrate")
+		bold_jobs += list(JOB_TITLE_REPRESENTATIVE, JOB_TITLE_BLUESHIELD, JOB_TITLE_JUDGE)
+
+	// It's needed for correct finding security crew in CrewMonitor.js
+	if(!security_jobs_list)
+		security_jobs_list = list()
+		security_jobs_list += GLOB.security_positions
+
+	if(!mining_jobs_list)
+		mining_jobs_list = list()
+		mining_jobs_list += GLOB.mining_positions
 
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
@@ -34,15 +45,19 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 		if(!C || C.sensor_mode == SUIT_SENSOR_OFF || !C.has_sensor)
 			continue
 		var/turf/pos = get_turf(C)
-		if(!istype(pos) || !T || pos.z != T.z)
+		if(!istype(pos) || !T)
 			continue
-		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = "\ref[H]")
+		if((pos.z != T.z) && !(is_station_level(pos.z) && is_station_level(T.z)) && !(HAS_TRAIT(H, TRAIT_MULTIZ_SUIT_SENSORS))) // same z_level or both on STATION_LEVEL or has special trait
+			continue
+		var/list/crewmemberData = list("dead"=0, "oxy"=-1, "tox"=-1, "fire"=-1, "brute"=-1, "area"="", "x"=-1, "y"=-1, "ref" = H.UID())
 
 		crewmemberData["sensor_type"] = C.sensor_mode
-		crewmemberData["name"] = H.get_authentification_name(if_no_id="Unknown")
-		crewmemberData["rank"] = H.get_authentification_rank(if_no_id="Unknown", if_no_job="No Job")
-		crewmemberData["assignment"] = H.get_assignment(if_no_id="Unknown", if_no_job="No Job")
-		crewmemberData["is_command"] = (crewmemberData["assignment"] in bold_jobs)
+		crewmemberData["name"] = H.get_authentification_name(if_no_id=UNKNOWN_STATUS_RUS)
+		crewmemberData["rank"] = H.get_authentification_rank(if_no_id=UNKNOWN_STATUS_RUS, if_no_job=NOJOB_STATUS_RUS)
+		crewmemberData["assignment"] = H.get_assignment(if_no_id=UNKNOWN_STATUS_RUS, if_no_job=NOJOB_STATUS_RUS)
+		crewmemberData["is_command"] = (crewmemberData["rank"] in bold_jobs)
+		crewmemberData["is_security"] = (crewmemberData["rank"] in security_jobs_list)
+		crewmemberData["is_shaft_miner"] = (crewmemberData["rank"] in mining_jobs_list)
 
 		if(C.sensor_mode >= SUIT_SENSOR_BINARY)
 			crewmemberData["dead"] = H.stat == DEAD
@@ -57,13 +72,13 @@ GLOBAL_DATUM_INIT(crew_repository, /datum/repository/crew, new())
 
 		if(C.sensor_mode >= SUIT_SENSOR_TRACKING)
 			var/area/A = get_area(H)
-			crewmemberData["area"] = sanitize(A.name)
+			crewmemberData["area"] = A.name
 			crewmemberData["x"] = pos.x
 			crewmemberData["y"] = pos.y
+			crewmemberData["z"] = pos.z
 
 		crewmembers[++crewmembers.len] = crewmemberData
 
-	crewmembers = sortByKey(crewmembers, "name")
 	cache_entry.timestamp = world.time + 5 SECONDS
 	cache_entry.data = crewmembers
 

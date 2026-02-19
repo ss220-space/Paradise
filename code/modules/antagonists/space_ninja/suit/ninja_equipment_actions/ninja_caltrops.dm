@@ -1,0 +1,91 @@
+/datum/action/item_action/advanced/ninja/ninja_caltrops
+
+	name = "Энергетические шипы"
+	desc = "Разбрасывает смертельные шипы позади вас. Отлично замедляет врагов в случае погони. Затраты энергии: 1500"
+	check_flags = AB_CHECK_HANDS_BLOCKED|AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	charge_max = 1 SECONDS
+	button_icon_state = "caltrop"
+	button_icon = 'icons/mob/actions/actions_ninja.dmi'
+	background_icon_state = "background_green"
+	action_initialisation_text = "Energy Caltrops Scattering Device"
+
+/obj/item/clothing/suit/space/space_ninja/proc/scatter_caltrops()
+	var/mob/living/carbon/human/ninja = affecting
+	if(!ninja)
+		return
+	if(!ninjacost(1500))
+		var/list/possible_turfs = list()
+		var/direct
+		if(ninja.dir == NORTH)
+			for(direct in list(SOUTH,SOUTHEAST,SOUTHWEST))
+				possible_turfs += get_step(src,direct)
+		else if(ninja.dir == SOUTH)
+			for(direct in list(NORTH,NORTHEAST,NORTHWEST))
+				possible_turfs += get_step(src,direct)
+		else if(ninja.dir == WEST)
+			for(direct in list(EAST,SOUTHEAST,NORTHEAST))
+				possible_turfs += get_step(src,direct)
+		else if(ninja.dir == EAST)
+			for(direct in list(WEST,SOUTHWEST,NORTHWEST))
+				possible_turfs += get_step(src,direct)
+		else if(ninja.dir == NORTHWEST)
+			for(direct in list(EAST,SOUTHEAST,SOUTH))
+				possible_turfs += get_step(src,direct)
+		else if(ninja.dir == NORTHEAST)
+			for(direct in list(WEST,SOUTHWEST,SOUTH))
+				possible_turfs += get_step(src,direct)
+		else if(ninja.dir == SOUTHWEST)
+			for(direct in list(EAST,NORTHEAST,NORTH))
+				possible_turfs += get_step(src,direct)
+		else if(ninja.dir == SOUTHEAST)
+			for(direct in list(WEST,NORTHWEST,NORTH))
+				possible_turfs += get_step(src,direct)
+		for(var/turf/spawn_turf in possible_turfs)
+			if(!iswallturf(spawn_turf) && !locate(/obj/structure/grille) in spawn_turf)
+				new /obj/structure/energy_caltrops(spawn_turf)
+		for(var/datum/action/item_action/advanced/ninja/ninja_caltrops/ninja_action in actions)
+			ninja_action.use_action()
+			break
+		playsound(ninja, 'sound/effects/glass_step_sm.ogg', 50, TRUE)
+		if(auto_smoke)
+			if(locate(/datum/action/item_action/advanced/ninja/ninja_smoke_bomb) in actions)
+				prime_smoke(lowcost = TRUE)
+
+///The caltrops object
+/obj/structure/energy_caltrops
+	name = "Caltrops"
+	desc = "Шипы, созданные из концентрированной энергии. Чрезвычайно острые."
+	gender = PLURAL
+	icon = 'icons/obj/ninjaobjects.dmi'
+	icon_state = "caltrops"
+	resistance_flags = INDESTRUCTIBLE
+	max_integrity = 30
+	anchored = TRUE
+	var/destroy_after = 10 SECONDS
+	var/self_destroy = TRUE
+
+/obj/structure/energy_caltrops/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетические шипы",
+		GENITIVE = "энергетических шипов",
+		DATIVE = "энергетическим шипам",
+		ACCUSATIVE = "энергетические шипы",
+		INSTRUMENTAL = "энергетическими шипами",
+		PREPOSITIONAL = "энергетических шипах",
+	)
+
+/obj/structure/energy_caltrops/noselfdestroy
+	self_destroy = FALSE
+
+/obj/structure/energy_caltrops/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/caltrop, 5, 10, 100, 6 SECONDS, CALTROP_BYPASS_SHOES|CALTROP_BYPASS_ROBOTIC_FOOTS|CALTROP_BYPASS_WALKERS|CALTROP_BYPASS_CRAWLING, null, 'sound/weapons/bladeslice.ogg', TRUE)
+	for(var/obj/structure/energy_caltrops/other_caltrop in src.loc.contents)
+		if(other_caltrop!=src)
+			qdel(other_caltrop)	//Не больше одной кучки калтропов на тайле!
+	if(self_destroy)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), destroy_after)
+
+/obj/structure/energy_caltrops/has_prints()
+	return FALSE
+

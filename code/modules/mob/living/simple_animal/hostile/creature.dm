@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/creature
 	name = "creature"
 	desc = "A sanity-destroying otherthing."
-	speak_emote = list("gibbers")
+	speak_emote = list("бормочет")
 	tts_seed = "Earth"
 	icon_state = "otherthing"
 	icon_living = "otherthing"
@@ -15,4 +15,4 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = list("creature")
 	gold_core_spawnable = HOSTILE_SPAWN
-
+	AI_delay_max = 0 SECONDS

@@ -1,97 +1,106 @@
-//PIMP-CART
-/obj/vehicle/janicart
+/**
+ * # Janicart
+ */
+/obj/vehicle/ridden/janicart
 	name = "janicart (pimpin' ride)"
 	desc = "A brave janitor cyborg gave its life to produce such an amazing combination of speed and utility."
 	icon_state = "pussywagon"
 	key_type = /obj/item/key/janitor
+	movedelay = 1
+	/// The attached garbage bag, if present
 	var/obj/item/storage/bag/trash/trash_bag
-	var/floorbuffer = FALSE
+	/// The installed upgrade, if present
+	var/obj/item/janiupgrade/installed_upgrade
 
-/obj/vehicle/janicart/Destroy()
-	QDEL_NULL(trash_bag)
+/obj/vehicle/ridden/janicart/Initialize(mapload)
+	. = ..()
+	update_appearance()
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/janicart)
+
+/obj/vehicle/ridden/janicart/Destroy()
+	if(trash_bag)
+		QDEL_NULL(trash_bag)
+	if(installed_upgrade)
+		QDEL_NULL(installed_upgrade)
 	return ..()
 
-/obj/vehicle/janicart/handle_vehicle_offsets()
-	..()
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			switch(buckled_mob.dir)
-				if(NORTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
-				if(EAST)
-					buckled_mob.pixel_x = -12
-					buckled_mob.pixel_y = 7
-				if(SOUTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 7
-				if(WEST)
-					buckled_mob.pixel_x = 12
-					buckled_mob.pixel_y = 7
-
-/obj/vehicle/janicart/Move(atom/OldLoc, Dir)
+/obj/vehicle/ridden/janicart/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(floorbuffer)
-		var/turf/tile = loc
-		if(isturf(tile))
-			tile.clean_blood()
-			for(var/A in tile)
-				if(is_cleanable(A))
-					qdel(A)
+	if(. && installed_upgrade && isturf(loc))
+		loc.clean_blood()
+		for(var/obj/effect/check in loc)
+			if(check.is_cleanable())
+				qdel(check)
 
-/obj/vehicle/janicart/examine(mob/user)
+/obj/vehicle/ridden/janicart/examine(mob/user)
 	. = ..()
-	if(floorbuffer)
-		. += "<span class='notice'>It has been upgraded with a floor buffer.</span>"
+	if(installed_upgrade)
+		. += "It has been upgraded with [installed_upgrade], which can be removed with a screwdriver."
 
-/obj/vehicle/janicart/attackby(obj/item/I, mob/user, params)
+/obj/vehicle/ridden/janicart/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(istype(I, /obj/item/storage/bag/trash))
+		add_fingerprint(user)
 		if(trash_bag)
-			to_chat(user, "<span class='warning'>[src] already has a trashbag hooked!</span>")
-			return
-		if(!user.drop_item())
-			return
-		I.forceMove(src)
-		to_chat(user, "<span class='notice'You hook the trashbag onto [src].</span>")
+			balloon_alert(user, "уже прицеплено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.transfer_item_to_loc(I, src))
+			return ..()
+		balloon_alert(user, "прицеплено к машине")
 		trash_bag = I
-		update_icon()
+		update_appearance()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	else if(istype(I, /obj/item/janiupgrade))
-		if(floorbuffer)
-			to_chat(user, "<span class='warning'>[src] already has an upgrade installed! Use a screwdriver to remove it.</span>")
-			return
-		floorbuffer = TRUE
-		qdel(I)
-		to_chat(user,"<span class='notice'>You upgrade [src] with [I].</span>")
-		update_icon()
+		if(installed_upgrade)
+			balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		var/obj/item/janiupgrade/new_upgrade = I
+		new_upgrade.forceMove(src)
+		installed_upgrade = new_upgrade
+		balloon_alert(user, "установлено")
+		update_appearance()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	else if(istype(I, /obj/item/screwdriver) && installed_upgrade)
+		installed_upgrade.forceMove(get_turf(user))
+		user.put_in_hands(installed_upgrade)
+		balloon_alert(user, "удалено")
+		installed_upgrade = null
+		update_appearance()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	else if(trash_bag && (!is_key(I) || is_key(inserted_key))) // don't put a key in the trash when we need it
-		trash_bag.attackby(I, user)
+		trash_bag.attackby(I, user, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	else
 		return ..()
 
-/obj/vehicle/janicart/update_icon()
-	cut_overlays()
+/obj/vehicle/ridden/janicart/update_overlays()
+	. = ..()
 	if(trash_bag)
-		add_overlay("cart_garbage")
-	if(floorbuffer)
-		add_overlay("cart_buffer")
+		if(istype(trash_bag, /obj/item/storage/bag/trash/bluespace))
+			. += "cart_bluespace_garbage"
+		else
+			. += "cart_garbage"
+	if(installed_upgrade)
+		. += "cart_buffer"
 
-/obj/vehicle/janicart/attack_hand(mob/user)
+/obj/vehicle/ridden/janicart/attack_hand(mob/user)
 	if(..())
 		return TRUE
 	else if(trash_bag)
-		trash_bag.forceMove(get_turf(user))
-		user.put_in_hands(trash_bag)
+		trash_bag.forceMove_turf()
+		user.put_in_hands(trash_bag, ignore_anim = FALSE)
 		trash_bag = null
-		update_icon()
-
-/obj/item/key/janitor
-	desc = "A keyring with a small steel key, and a pink fob reading \"Pussy Wagon\"."
-	icon_state = "keyjanitor"
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/janiupgrade
 	name = "floor buffer upgrade"
 	desc = "An upgrade for mobile janicarts."
-	icon = 'icons/obj/vehicles.dmi'
+	icon = 'icons/obj/vehicles/vehicles.dmi'
 	icon_state = "upgrade"
 	origin_tech = "materials=3;engineering=4"

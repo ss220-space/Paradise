@@ -1,21 +1,6 @@
 //pronoun procs, for getting pronouns without using the text macros that only work in certain positions
 //datums don't have gender, but most of their subtypes do!
 
-/proc/declension_ru(num, single_name, double_name, multiple_name)
-	if(!isnum(num) || round(num) != num)
-		return double_name // fractional numbers
-	if(((num % 10) == 1) && ((num % 100) != 11)) // 1, not 11
-		return single_name
-	if(((num % 10) in 2 to 4) && !((num % 100) in 12 to 14)) // 2, 3, 4, not 12, 13, 14
-		return double_name
-	return multiple_name // 5, 6, 7, 8, 9, 0
-
-/proc/genderize_ru(gender, male_word, female_word, neuter_word, multiple_word)
-	return gender == MALE ? male_word : (gender == FEMALE ? female_word : (gender == NEUTER ? neuter_word : multiple_word))
-
-/proc/pluralize_ru(gender, single_word, plural_word)
-	return gender == PLURAL ? plural_word : single_word
-
 /datum/proc/p_they(capitalized, temp_gender)
 	. = "it"
 	if(capitalized)
@@ -48,6 +33,9 @@
 
 /datum/proc/p_theyre(capitalized, temp_gender)
 	. = p_they(capitalized, temp_gender) + "'" + copytext(p_are(temp_gender), 2)
+
+/datum/proc/p_themselves(capitalized, temp_gender)
+	. = "itself"
 
 // For help conjugating verbs, eg they look, but she looks
 /datum/proc/p_s(temp_gender)
@@ -92,6 +80,18 @@
 			. = "her"
 		if(MALE)
 			. = "him"
+	if(capitalized)
+		. = capitalize(.)
+
+/client/p_themselves(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	. = p_them(capitalized, temp_gender)
+	switch(temp_gender)
+		if(MALE, FEMALE)
+			. += "self"
+		if(NEUTER, PLURAL)
+			. += "selves"
 	if(capitalized)
 		. = capitalize(.)
 
@@ -172,6 +172,18 @@
 	if(capitalized)
 		. = capitalize(.)
 
+/mob/p_themselves(capitalized, temp_gender)
+	if(!temp_gender)
+		temp_gender = gender
+	. = p_them(capitalized, temp_gender)
+	switch(temp_gender)
+		if(MALE, FEMALE, NEUTER)
+			. += "self"
+		if(PLURAL)
+			. += "selves"
+	if(capitalized)
+		. = capitalize(.)
+
 /mob/p_have(temp_gender)
 	if(!temp_gender)
 		temp_gender = gender
@@ -216,6 +228,10 @@
 	return ..()
 
 /mob/living/carbon/human/p_them(capitalized, temp_gender)
+	temp_gender = get_visible_gender()
+	return ..()
+
+/mob/living/carbon/human/p_themselves(capitalized, temp_gender)
 	temp_gender = get_visible_gender()
 	return ..()
 

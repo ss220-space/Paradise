@@ -6,16 +6,15 @@
 	name = "curtain"
 	icon_state = "closed"
 	layer = SHOWER_CLOSED_LAYER
-	opacity = 1
-	density = 0
+	opacity = TRUE
 
 /obj/structure/curtain/open
 	icon_state = "open"
 	layer = SHOWER_OPEN_LAYER
-	opacity = 0
+	opacity = FALSE
 
 /obj/structure/curtain/attack_hand(mob/user)
-	playsound(get_turf(loc), "rustle", 15, 1, -5)
+	playsound(get_turf(loc), SFX_RUSTLE, 15, TRUE, -5)
 	toggle()
 	..()
 
@@ -31,17 +30,24 @@
 
 /obj/structure/curtain/proc/toggle()
 	set_opacity(!opacity)
-	if(opacity)
-		icon_state = "closed"
-		layer = SHOWER_CLOSED_LAYER
-	else
-		icon_state = "open"
-		layer = SHOWER_OPEN_LAYER
+	layer = opacity ? SHOWER_CLOSED_LAYER : SHOWER_OPEN_LAYER
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/structure/curtain/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/toy/crayon))
-		color = input(user, "Choose Color") as color
-		return
+/obj/structure/curtain/update_icon_state()
+	icon_state = opacity ? "closed" : "open"
+
+/obj/structure/curtain/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		var/new_color = tgui_input_color(user, "Choose Color")
+		if(isnull(new_color))
+			return ATTACK_CHAIN_PROCEED
+		color = new_color
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 /obj/structure/curtain/screwdriver_act(mob/user, obj/item/I)
@@ -49,17 +55,15 @@
 	if(!I.tool_start_check(src, user, 0))
 		return
 	if(anchored)
-		user.visible_message("<span class='warning'>[user] unscrews [src] from the floor.</span>", "<span class='notice'>You start to unscrew [src] from the floor...</span>", "You hear rustling noises.")
+		user.visible_message(span_warning("[user] unscrews [src] from the floor."), span_notice("You start to unscrew [src] from the floor..."), "You hear rustling noises.")
 		if(I.use_tool(src, user, 50, volume = I.tool_volume) && anchored)
-			anchored = FALSE
-			to_chat(user, "<span class='notice'>You unscrew [src] from the floor.</span>")
+			set_anchored(FALSE)
+			to_chat(user, span_notice("You unscrew [src] from the floor."))
 	else
-		user.visible_message("<span class='warning'>[user] screws [src] to the floor.</span>", "<span class='notice'>You start to screw [src] to the floor...</span>", "You hear rustling noises.")
+		user.visible_message(span_warning("[user] screws [src] to the floor."), span_notice("You start to screw [src] to the floor..."), "You hear rustling noises.")
 		if(I.use_tool(src, user, 50, volume = I.tool_volume) && !anchored)
-			anchored = TRUE
-			to_chat(user, "<span class='notice'>You screw [src] to the floor.</span>")
-
-
+			set_anchored(TRUE)
+			to_chat(user, span_notice("You screw [src] to the floor."))
 
 /obj/structure/curtain/wirecutter_act(mob/user, obj/item/I)
 	if(anchored)
@@ -74,7 +78,7 @@
 
 /obj/structure/curtain/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/cloth(loc, 2)
-	new /obj/item/stack/sheet/plastic(loc, 2)
+	new /obj/item/stack/sheet/plastic(loc, 1)
 	new /obj/item/stack/rods(loc, 1)
 	qdel(src)
 

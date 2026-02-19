@@ -1,14 +1,23 @@
 /obj/item/storage/pill_bottle/dice
-	name = "Мешок игральных костей"
-	desc = "Содержит всю удачу, которая вам могла бы пригодиться."
+	name = "dice pack"
+	desc = "Мешочек с игральными костями внутри."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
 	can_hold = list(/obj/item/dice)
 	allow_wrap = FALSE
 
-/obj/item/storage/pill_bottle/dice/New()
-	..()
-	var/special_die = pick("1","2","fudge","00","100")
+/obj/item/storage/pill_bottle/dice/get_ru_names()
+	return list(
+		NOMINATIVE = "мешок игральных костей",
+		GENITIVE = "мешка игральных костей",
+		DATIVE = "мешку игральных костей",
+		ACCUSATIVE = "мешок игральных костей",
+		INSTRUMENTAL = "мешком игральных костей",
+		PREPOSITIONAL = "мешке игральных костей",
+	)
+
+/obj/item/storage/pill_bottle/dice/populate_contents()
+	var/special_die = pick("1", "2", "fudge", "00", "100")
 	if(special_die == "1")
 		new /obj/item/dice/d1(src)
 	if(special_die == "2")
@@ -26,13 +35,27 @@
 	if(special_die == "100")
 		new /obj/item/dice/d100(src)
 
+/obj/item/storage/box/dice
+	name = "Коробка игральных костей"
+	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
+
+/obj/item/storage/box/dice/populate_contents()
+	new /obj/item/dice/d2(src)
+	new /obj/item/dice/d4(src)
+	new /obj/item/dice/d8(src)
+	new /obj/item/dice/d10(src)
+	new /obj/item/dice/d00(src)
+	new /obj/item/dice/d12(src)
+	new /obj/item/dice/d20(src)
+
 /obj/item/storage/pill_bottle/dice/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] Игра[pluralize_ru(user.gender,"ет","ют")] со смертью! Похоже, он[genderize_ru(user.gender,"","а","о","и")] пыта[pluralize_ru(user.gender,"ется","ются")] покончить жизнь самоубийством!</span>")
+	user.visible_message(span_suicide("[user] игра[PLUR_ET_YUT(user)] со смертью! Похоже, он[GEND_A_O_I(user)] пыта[PLUR_ET_YUT(user)]ся покончить жизнь самоубийством!"))
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
-	name = "Игральная кость"
+	name = "dice"
 	desc = "Кость с шестью гранями. Непримечательна и проста в обращении."
+	gender = FEMALE
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
@@ -44,14 +67,28 @@
 	var/rigged = DICE_NOT_RIGGED
 	var/rigged_value
 
+/obj/item/dice/get_ru_names()
+	return list(
+		NOMINATIVE = "игральная кость",
+		GENITIVE = "игральной кости",
+		DATIVE = "игральной кости",
+		ACCUSATIVE = "игральную кость",
+		INSTRUMENTAL = "игральной костью",
+		PREPOSITIONAL = "игральной кости",
+	)
+
 /obj/item/dice/Initialize(mapload)
 	. = ..()
 	if(!result)
 		result = roll(sides)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/dice/update_overlays()
+	. = ..()
+	. += "[icon_state][result]"
 
 /obj/item/dice/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] играет со смертью! Похоже [user.p_theyre()] пытается покончить жизнь самоубийством!</span>")
+	user.visible_message(span_suicide("[user] играет со смертью! Похоже [user.p_theyre()] пытается покончить жизнь самоубийством!"))
 	return (OXYLOSS)
 
 /obj/item/dice/d1
@@ -122,8 +159,8 @@
 	icon_state = "d100"
 	sides = 100
 
-/obj/item/dice/d100/update_icon()
-	return
+/obj/item/dice/d100/update_overlays()
+	return list()
 
 /obj/item/dice/d20/e20
 	var/triggered = FALSE
@@ -131,8 +168,8 @@
 /obj/item/dice/attack_self(mob/user)
 	diceroll(user)
 
-/obj/item/dice/throw_impact(atom/target)
-	diceroll(thrownby)
+/obj/item/dice/throw_impact(atom/target, datum/thrownthing/throwingdatum)
+	diceroll(locateUID(thrownby))
 	. = ..()
 
 /obj/item/dice/proc/diceroll(mob/user)
@@ -151,17 +188,19 @@
 		comment = "ДВАДЦАТКА!"
 	else if(sides == 20 && result == 1)
 		comment = "М-да, невезуха."
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(initial(icon_state) == "d00")
 		result = (result - 1) * 10
 	if(length(special_faces) == sides)
 		result = special_faces[result]
 	if(user != null) //Dice was rolled in someone's hand
-		user.visible_message("[user] броса[pluralize_ru(user.gender,"ет","ют")] [src.name]. На [src.name] выпадает [result]. [comment]",
-							 "<span class='notice'>Вы бросили [src.name] и выпало [result]. [comment]</span>",
-							 "<span class='italics'>Вы слышите как катится [src.name], звучит как [fake_result].</span>")
+		user.visible_message(
+			"[user] броса[PLUR_ET_YUT(user)] [src.name]. На [src.name] выпадает [result]. [comment]",
+			span_notice("Вы бросили [src.name] и выпало [result]. [comment]"),
+			span_italics("Вы слышите как катится [src.name], звучит как [fake_result].")
+		)
 	else if(!throwing) //Dice was thrown and is coming to rest
-		visible_message("<span class='notice'>[src.name] прекращает катиться, остановившись на [result]. [comment]</span>")
+		visible_message(span_notice("[src.name] прекращает катиться, остановившись на [result]. [comment]"))
 
 /obj/item/dice/d20/e20/diceroll(mob/user, thrown)
 	if(triggered)
@@ -170,13 +209,13 @@
 	. = ..()
 
 	if(result == 1)
-		to_chat(user, "<span class='danger'>На вас упали камни и вы умерли.</span>")
+		to_chat(user, span_danger("На вас упали камни и вы умерли."))
 		user.gib()
 		add_attack_logs(src, user, "detonated with a roll of [result], gibbing them!", ATKLOG_FEW)
 	else
 		triggered = TRUE
-		visible_message("<span class='notice'>Вы слышите тихий щелчок.</span>")
-		addtimer(CALLBACK(src, .proc/boom, user, result), 4 SECONDS)
+		visible_message(span_notice("Вы слышите тихий щелчок."))
+		addtimer(CALLBACK(src, PROC_REF(boom), user, result), 4 SECONDS)
 
 /obj/item/dice/d20/e20/proc/boom(mob/user, result)
 	var/capped = FALSE
@@ -191,23 +230,97 @@
 	investigate_log("E20 detonated with a roll of [actual_result]. Triggered by: [key_name_log(user)]", INVESTIGATE_BOMB)
 	add_game_logs("threw E20, detonating at [AREACOORD(epicenter)] with a roll of [actual_result].", user)
 	add_attack_logs(user, src, "detonated with a roll of [actual_result]", ATKLOG_FEW)
-	explosion(epicenter, round(result * 0.25), round(result * 0.5), round(result), round(result * 1.5), TRUE, capped, cause = key_name(user)+" E20")
+	explosion(epicenter, devastation_range = round(result * 0.25), heavy_impact_range = round(result * 0.5), light_impact_range = round(result), flash_range = round(result * 1.5), adminlog = TRUE, ignorecap = capped, cause = (key_name(user)+" E20"))
 
-/obj/item/dice/update_icon()
-	overlays.Cut()
-	overlays += "[icon_state][result]"
+// Die of Fate
+/obj/item/dice/d20/fate
+	name = "Die of Fate"
+	desc = "Кубик с двадцатью гранями. От него исходит таинственная энергия. Использовать его может быть ОЧЕНЬ рискованно."
+	var/reusable = TRUE
+	var/used = FALSE
 
-/obj/item/storage/box/dice
-	name = "Коробка игральных костей"
-	desc = "ЕЩЁ ОДНИ!? ДА БЛЯДЬ!"
-	icon_state = "box"
+/obj/item/dice/d20/fate/get_ru_names()
+	return list(
+		NOMINATIVE = "Игральная Кость Судьбы",
+		GENITIVE = "Игральной Кости Судьбы",
+		DATIVE = "Игральной Кости Судьбы",
+		ACCUSATIVE = "Игральную Кость Судьбы",
+		INSTRUMENTAL = "Игральной Костью Судьбы",
+		PREPOSITIONAL = "Игральной Кости Судьбы"
+	)
 
-/obj/item/storage/box/dice/New()
-	..()
-	new /obj/item/dice/d2(src)
-	new /obj/item/dice/d4(src)
-	new /obj/item/dice/d8(src)
-	new /obj/item/dice/d10(src)
-	new /obj/item/dice/d00(src)
-	new /obj/item/dice/d12(src)
-	new /obj/item/dice/d20(src)
+/obj/item/dice/d20/fate/stealth
+	name = "d20"
+	desc = "Кость с двадцатью гранями. Именно такой чаще всего бросают в игровых мастеров."
+
+/obj/item/dice/d20/fate/stealth/get_ru_names()
+	return list(
+		NOMINATIVE = "игральная кость",
+		GENITIVE = "игральной кости",
+		DATIVE = "игральной кости",
+		ACCUSATIVE = "игральную кость",
+		INSTRUMENTAL = "игральной костью",
+		PREPOSITIONAL = "игральной кости"
+	)
+
+/obj/item/dice/d20/fate/one_use
+	reusable = FALSE
+
+/obj/item/dice/d20/fate/one_use/stealth
+	name = "d20"
+	desc = "Кость с двадцатью гранями. Именно такой чаще всего бросают в игровых мастеров."
+
+/obj/item/dice/d20/fate/one_use/stealth/get_ru_names()
+	return list(
+		NOMINATIVE = "игральная кость",
+		GENITIVE = "игральной кости",
+		DATIVE = "игральной кости",
+		ACCUSATIVE = "игральную кость",
+		INSTRUMENTAL = "игральной костью",
+		PREPOSITIONAL = "игральной кости"
+	)
+
+
+/obj/item/dice/d20/fate/cursed
+	name = "cursed Die of Fate"
+	desc = "Кость с двадцатью гранями. Вы чувствуете, что бросать её это ОЧЕНЬ плохая идея."
+	color = "#00BB00"
+
+	rigged = DICE_TOTALLY_RIGGED
+	rigged_value = 1
+
+/obj/item/dice/d20/fate/cursed/get_ru_names()
+	return list(
+		NOMINATIVE = "проклятая Игральная Кость Судьбы",
+		GENITIVE = "проклятой Игральной Кости Судьбы",
+		DATIVE = "проклятой Игральной Кости Судьбы",
+		ACCUSATIVE = "проклятую Игральную Кость Судьбы",
+		INSTRUMENTAL = "проклятой Игральной Костью Судьбы",
+		PREPOSITIONAL = "проклятой Игральной Кости Судьбы"
+	)
+
+/obj/item/dice/d20/fate/diceroll(mob/user)
+	. = ..()
+	if(!used)
+		if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
+			return
+
+		if(!reusable)
+			used = TRUE
+
+		var/turf/T = get_turf(src)
+		T.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] ярко вспыхива[PLUR_ET_YUT(src)]!"))
+
+		addtimer(CALLBACK(src, PROC_REF(effect), user, .), 1 SECONDS)
+
+/obj/item/dice/d20/fate/equipped(mob/user, slot, initial)
+	. = ..()
+
+	if(!ishuman(user) || !user.mind || (user.mind in SSticker.mode.wizards))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отказывается вам подчиняться!"))
+		user.drop_item_ground(src)
+
+/obj/item/dice/d20/fate/proc/effect(mob/living/carbon/human/user, roll)
+	var/datum/dice_roll/d_action = GLOB.dice_rolls[roll]
+	d_action.activate(user, src)

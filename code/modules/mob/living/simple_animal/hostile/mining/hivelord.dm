@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/asteroid/hivelord
 	name = "hivelord"
-	desc = "A truly alien creature, it is a mass of unknown organic material, constantly fluctuating. When attacking, pieces of it split off and attack in tandem with the original."
+	desc = "Поистине чуждое создание — бесформенная масса неизвестной органики, постоянно пульсирующая. При атаке от него отделяются фрагменты, атакующие вместе с основным телом."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelord"
 	icon_living = "Hivelord"
@@ -11,33 +11,39 @@
 	move_to_delay = 14
 	ranged = 1
 	vision_range = 5
-	aggro_vision_range = 9
 	speed = 3
-	maxHealth = 75
-	health = 75
+	maxHealth = 100
+	health = 100
 	harm_intent_damage = 5
-	melee_damage_lower = 0
-	melee_damage_upper = 0
 	attacktext = "хлещет"
-	speak_emote = list("telepathically cries")
+	speak_emote = list("телепатически вопит")
 	tts_seed = "Ladyvashj"
 	attack_sound = 'sound/weapons/pierce.ogg'
-	throw_message = "falls right through the strange body of the"
-	ranged_cooldown = 0
+	throw_message = "проходит сквозь странное тело"
 	ranged_cooldown_time = 20
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	retreat_distance = 3
 	minimum_distance = 3
 	pass_flags = PASSTABLE
-	loot = list(/obj/item/organ/internal/regenerative_core)
+	butcher_results = list(/obj/item/organ/internal/regenerative_core = 1)
 	var/brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/get_ru_names()
+	return list(
+		NOMINATIVE = "рой",
+		GENITIVE = "роя",
+		DATIVE = "рою",
+		ACCUSATIVE = "рой",
+		INSTRUMENTAL = "роем",
+		PREPOSITIONAL = "рое",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/OpenFire(the_target)
 	if(world.time >= ranged_cooldown)
 		var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/A = new brood_type(loc)
-
-		A.admin_spawned = admin_spawned
+		if(flags & ADMIN_SPAWNED)
+			A.flags |= ADMIN_SPAWNED
 		A.GiveTarget(target)
 		A.friends = friends
 		A.faction = faction.Copy()
@@ -60,7 +66,7 @@
 //A fragile but rapidly produced creature
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood
 	name = "hivelord brood"
-	desc = "A fragment of the original Hivelord, rallying behind its original. One isn't much of a threat, but..."
+	desc = "Фрагмент оригинала, действующий в унисон с ним. Один не опасен, но..."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelordbrood"
 	icon_living = "Hivelordbrood"
@@ -69,42 +75,62 @@
 	icon_gib = "syndicate_gib"
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	move_to_delay = 1
-	friendly = "buzzes near"
+	friendly = "жужжит рядом"
 	vision_range = 10
 	speed = 3
 	maxHealth = 1
 	health = 1
-	flying = TRUE
 	harm_intent_damage = 5
 	melee_damage_lower = 2
 	melee_damage_upper = 2
 	attacktext = "кромсает"
-	speak_emote = list("telepathically cries")
+	speak_emote = list("телепатически вопит")
 	tts_seed = "Ladyvashj"
 	attack_sound = 'sound/weapons/pierce.ogg'
-	throw_message = "falls right through the strange body of the"
+	throw_message = "проходит сквозь странное тело"
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
 	del_on_death = 1
+	var/life_time = 10 SECONDS
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/get_ru_names()
+	return list(
+		NOMINATIVE = "фрагмент роя",
+		GENITIVE = "фрагмента роя",
+		DATIVE = "фрагменту роя",
+		ACCUSATIVE = "фрагмент роя",
+		INSTRUMENTAL = "фрагментом роя",
+		PREPOSITIONAL = "фрагменте роя",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/Initialize(mapload)
 	. = ..()
-	addtimer(CALLBACK(src, .proc/death), 100)
+	addtimer(CALLBACK(src, PROC_REF(death)), life_time)
 	AddComponent(/datum/component/swarming)
-
+	AddElement(/datum/element/simple_flying)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood
 	name = "blood brood"
-	desc = "A living string of blood and alien materials."
+	desc = "Живая нить из крови и чужеродных материалов."
 	icon_state = "bloodbrood"
 	icon_living = "bloodbrood"
 	icon_aggro = "bloodbrood"
 	attacktext = "пронзает"
-	color = "#C80000"
+	color = BLOOD_COLOR_RED
 
-/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death()
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/get_ru_names()
+	return list(
+		NOMINATIVE = "кровавый рой",
+		GENITIVE = "кровавого роя",
+		DATIVE = "кровавому рою",
+		ACCUSATIVE = "кровавый рой",
+		INSTRUMENTAL = "кровавым роем",
+		PREPOSITIONAL = "кровавом рое",
+	)
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/death(gibbed)
 	if(can_die() && loc)
 		// Splash the turf we are on with blood
 		reagents.reaction(get_turf(src))
@@ -120,20 +146,22 @@
 		transfer_reagents(target, 1)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_hand(mob/living/carbon/human/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/attack_alien(mob/living/carbon/alien/humanoid/M)
-	if("\ref[M]" in faction)
+	if(PERSONAL_FACTION(M) in faction)
 		reabsorb_host(M)
 	else
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
-	C.visible_message("<span class='notice'>[src] is reabsorbed by [C]'s body.</span>", \
-								"<span class='notice'>[src] is reabsorbed by your body.</span>")
+	C.visible_message(
+		span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощается телом [C.declent_ru(GENITIVE)]."), \
+		span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] поглощается вашим телом.")
+	)
 	transfer_reagents(C)
 	death()
 
@@ -148,37 +176,44 @@
 	reagents.trans_to(C, volume)
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/link_host(mob/living/carbon/C)
-	faction = list("\ref[src]", "\ref[C]") // Hostile to everyone except the host.
+	faction = list(PERSONAL_FACTION(src), PERSONAL_FACTION(C)) // Hostile to everyone except the host.
 	C.transfer_blood_to(src, 30)
 	color = mix_color_from_reagents(reagents.reagent_list)
 
 //Legion
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion
 	name = "legion"
-	desc = "You can still see what was once a person under the shifting mass of corruption."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	desc = "Под этой массой разложения ещё можно разглядеть очертания бывшего человека."
 	icon_state = "legion"
 	icon_living = "legion"
 	icon_aggro = "legion"
 	icon_dead = "legion"
-	icon_gib = "syndicate_gib"
 	mouse_opacity = MOUSE_OPACITY_ICON
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 15
-	attacktext = "хлещет"
-	speak_emote = list("echoes")
+	speak_emote = list("отдаётся эхом")
 	tts_seed = "Bloodseeker"
-	attack_sound = 'sound/weapons/pierce.ogg'
-	throw_message = "bounces harmlessly off of"
+	throw_message = "отскакивает от"
 	crusher_loot = /obj/item/crusher_trophy/legion_skull
 	loot = list(/obj/item/organ/internal/regenerative_core/legion)
+	butcher_results = null
 	brood_type = /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	del_on_death = 1
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
 	var/dwarf_mob = FALSE
 	var/mob/living/carbon/human/stored_mob
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/get_ru_names()
+	return list(
+		NOMINATIVE = "легион",
+		GENITIVE = "легиона",
+		DATIVE = "легиону",
+		ACCUSATIVE = "легион",
+		INSTRUMENTAL = "легионом",
+		PREPOSITIONAL = "легионе",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/random/Initialize(mapload)
 	. = ..()
@@ -188,26 +223,42 @@
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf
 	name = "dwarf legion"
-	desc = "You can still see what was once a midget under the shifting mass of corruption."
+	desc = "Под этой массой разложения ещё можно разглядеть очертания бывшего карлика."
 	icon_state = "dwarf_legion"
 	icon_living = "dwarf_legion"
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
-	maxHealth = 60
-	health = 60
+	maxHealth = 80
+	health = 80
 	speed = 2 //faster!
 	crusher_drop_mod = 20
 	dwarf_mob = TRUE
+
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf/get_ru_names()
+	return list(
+		NOMINATIVE = "легион-карлик",
+		GENITIVE = "легиона-карлика",
+		DATIVE = "легиону-карлику",
+		ACCUSATIVE = "легион-карлика",
+		INSTRUMENTAL = "легионом-карликом",
+		PREPOSITIONAL = "легионе-карлике",
+	)
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
 	fromtendril = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
-	visible_message("<span class='warning'>The skulls on [src] wail in anger as they flee from their dying host!</span>")
+	visible_message(span_warning("Черепа на [declent_ru(PREPOSITIONAL)] вопят в ярости, спасаясь от умирающего носителя!"))
 	var/turf/T = get_turf(src)
+	if(!T) // When legion dusts T = null. Maybe not onli this way.
+		return
+	for(var/i in 1 to 2)
+		new /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken(T)
 	if(T)
 		if(stored_mob)
 			stored_mob.forceMove(get_turf(src))
+			stored_mob.rejuvenate()
+			stored_mob.death()
 			stored_mob = null
 		else if(fromtendril)
 			new /obj/effect/mob_spawn/human/corpse/charredskeleton(T)
@@ -220,48 +271,64 @@
 //Legion skull
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion
 	name = "legion"
-	desc = "One of many."
-	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	desc = "Один из многих."
 	icon_state = "legion_head"
 	icon_living = "legion_head"
 	icon_aggro = "legion_head"
 	icon_dead = "legion_head"
-	icon_gib = "syndicate_gib"
 	friendly = "buzzes near"
-	vision_range = 10
-	maxHealth = 1
 	health = 5
-	harm_intent_damage = 5
 	melee_damage_lower = 12
 	melee_damage_upper = 12
 	attacktext = "кусает"
-	speak_emote = list("echoes")
-	attack_sound = 'sound/weapons/pierce.ogg'
-	throw_message = "is shrugged off by"
-	del_on_death = TRUE
+	speak_emote = list("отдаётся эхом")
+	throw_message = "отскакивает от"
 	stat_attack = UNCONSCIOUS
 	robust_searching = 1
+	var/can_infest = TRUE
 	var/can_infest_dead = FALSE
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/get_ru_names()
+	return list(
+		NOMINATIVE = "легион",
+		GENITIVE = "легиона",
+		DATIVE = "легиону",
+		ACCUSATIVE = "легион",
+		INSTRUMENTAL = "легионом",
+		PREPOSITIONAL = "легионе",
+	)
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/Life(seconds, times_fired)
-	if(isturf(loc))
+	if(isturf(loc) && can_infest)
 		for(var/mob/living/carbon/human/H in view(src,1)) //Only for corpse right next to/on same tile
 			if(H.stat == UNCONSCIOUS || (can_infest_dead && H.stat == DEAD))
 				infest(H)
 	..()
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/AttackingTarget()
+	. = ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/victim = target
+		if(victim.can_inject(null, FALSE, BODY_ZONE_CHEST, FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
+			new /obj/item/organ/internal/legion_tumour(victim)
+			visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] вгрызается в шею [target], впрыскивая странную черную жидкость!")) //made it on russian to attract more attention from attacklogs
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
-	visible_message("<span class='warning'>[name] burrows into the flesh of [H]!</span>")
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] зарывается в плоть [H]!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/L
-	if((DWARF in H.mutations)) //dwarf legions aren't just fluff!
+	if(HAS_TRAIT(H, TRAIT_DWARF)) //dwarf legions aren't just fluff!
 		L = new /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf(H.loc)
 	else
 		L = new(H.loc)
-	visible_message("<span class='warning'>[L] staggers to [L.p_their()] feet!</span>")
+	visible_message(span_warning("[DECLENT_RU_CAP(L, NOMINATIVE)] с трудом поднимается на ноги!"))
 	H.death()
 	H.adjustBruteLoss(1000)
 	L.stored_mob = H
 	H.forceMove(L)
+	if(prob(75) && !H.get_int_organ(/obj/item/organ/internal/legion_tumour)) // Congratulations you have won a special prize: cancer!
+		var/obj/item/organ/internal/legion_tumour/cancer = new()
+		cancer.insert(H)
+
 	qdel(src)
 
 //Advanced Legion is slightly tougher to kill and can raise corpses (revive other legions)
@@ -275,14 +342,25 @@
 	icon_aggro = "dwarf_legion"
 	icon_dead = "dwarf_legion"
 
+/mob/living/simple_animal/hostile/asteroid/hivelord/legion/advanced/tendril
+	fromtendril = TRUE
+
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/advanced
 	stat_attack = DEAD
 	can_infest_dead = TRUE
 
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/weaken
+	melee_damage_lower = 6
+	melee_damage_upper = 6
+	can_infest = FALSE
+
+/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/magic
+	life_time = 30 SECONDS
+
 //Legion that spawns Legions
 /mob/living/simple_animal/hostile/big_legion
 	name = "legion"
-	desc = "One of many."
+	desc = "Один из многих."
 	icon = 'icons/mob/lavaland/64x64megafauna.dmi'
 	icon_state = "legion"
 	icon_living = "legion"
@@ -291,28 +369,35 @@
 	maxHealth = 450
 	melee_damage_lower = 20
 	melee_damage_upper = 20
-	anchored = FALSE
-	AIStatus = AI_ON
-	stop_automated_movement = FALSE
-	wander = TRUE
-	maxbodytemp = INFINITY
-	layer = MOB_LAYER
 	del_on_death = TRUE
 	sentience_type = SENTIENCE_BOSS
 	attack_sound = 'sound/misc/demon_attack1.ogg'
 	loot = list(/obj/item/organ/internal/regenerative_core/legion = 3, /obj/effect/mob_spawn/human/corpse/damaged/legioninfested = 5)
 	move_to_delay = 14
 	vision_range = 5
-	aggro_vision_range = 9
 	speed = 3
 	faction = list("mining")
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	tts_seed = "Mannoroth"
 
+/mob/living/simple_animal/hostile/big_legion/get_ru_names()
+	return list(
+		NOMINATIVE = "легион",
+		GENITIVE = "легиона",
+		DATIVE = "легиону",
+		ACCUSATIVE = "легион",
+		INSTRUMENTAL = "легионом",
+		PREPOSITIONAL = "легионе",
+	)
+
+/mob/living/simple_animal/hostile/big_legion/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+	)
 
 /mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
 	.=..()
@@ -328,14 +413,21 @@
 	mob_species = /datum/species/skeleton
 	mob_color = "#454545"
 
+/obj/effect/mob_spawn/human/corpse/charredskeleton/get_ru_names()
+	return list(
+		NOMINATIVE = "обугленные останки",
+		GENITIVE = "обугленных останков",
+		DATIVE = "обугленным останкам",
+		ACCUSATIVE = "обугленные останки",
+		INSTRUMENTAL = "обугленными останками",
+		PREPOSITIONAL = "об обугленных останках",
+	)
+
 //Legion infested mobs
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/dwarf/equip(mob/living/carbon/human/H, use_prefs = FALSE, _mob_name = FALSE, _mob_gender = FALSE, _mob_species = FALSE)
 	. = ..()
-	H.dna.SetSEState(GLOB.smallsizeblock, 1, 1)
-	H.mutations.Add(DWARF)
-	genemutcheck(H, GLOB.smallsizeblock, null, MUTCHK_FORCED)
-	H.update_mutations()
+	H.force_gene_block(GLOB.smallsizeblock, TRUE)
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
 	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
@@ -358,7 +450,7 @@
 			if(prob(30))
 				r_pocket = pickweight(list(/obj/item/stack/marker_beacon = 20, /obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/damage = 1 ))
 			if(prob(10))
-				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown = 1 ))
+				l_pocket = pickweight(list(/obj/item/stack/spacecash/c1000 = 7, /obj/item/reagent_containers/hypospray/autoinjector/survival = 2, /obj/item/borg/upgrade/modkit/cooldown/haste = 1 ))
 		if("Ashwalker")
 			mob_species = /datum/species/unathi/ashwalker
 			uniform = /obj/item/clothing/under/ash_walker
@@ -382,11 +474,13 @@
 			belt = null
 			backpack_contents = list()
 			if(prob(70))
-				backpack_contents += pick(list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1))
+				backpack_contents += list(/obj/item/stamp/clown = 1, /obj/item/reagent_containers/spray/waterflower = 1, /obj/item/reagent_containers/food/snacks/grown/banana = 1, /obj/item/megaphone = 1)
 			if(prob(30))
-				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list( 1 = 3, 2 = 2, 3 = 1)))
+				backpack_contents += list(/obj/item/stack/sheet/mineral/bananium = pickweight(list(1 = 3, 2 = 2, 3 = 1)))
 			if(prob(10))
 				l_pocket = pickweight(list(/obj/item/bikehorn/golden = 3, /obj/item/bikehorn/airhorn= 1 ))
+			if(prob(10))
+				r_pocket = /obj/item/implanter/sad_trombone
 		if("Golem")
 			mob_species = pick(list(/datum/species/golem/adamantine, /datum/species/golem/plasma, /datum/species/golem/diamond, /datum/species/golem/gold, /datum/species/golem/silver, /datum/species/golem/plasteel, /datum/species/golem/titanium, /datum/species/golem/plastitanium))
 			if(prob(30))
@@ -414,9 +508,9 @@
 		if("Shadow")
 			mob_species = /datum/species/shadow
 			uniform = /obj/item/clothing/under/color/black
-			shoes = /obj/item/clothing/shoes/black
+			shoes = /obj/item/clothing/shoes/color/black
 			suit = /obj/item/clothing/suit/storage/labcoat
-			glasses = /obj/item/clothing/glasses/sunglasses/blindfold
+			glasses = /obj/item/clothing/glasses/sunglasses/blindfold/black
 			back = /obj/item/tank/internals/oxygen
 			mask = /obj/item/clothing/mask/breath
 		if("Cultist")

@@ -4,81 +4,107 @@ RSF
 */
 
 /obj/item/rsf
-	name = "\improper Rapid-Service-Fabricator"
+	name = "Rapid-Service-Fabricator"
+	var/name_short = "RSF"
 	desc = "A device used to rapidly deploy service items."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rsf"
-	opacity = 0
-	density = 0
-	anchored = 0.0
 	var/matter = 0
 	var/mode = 1
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	w_class = WEIGHT_CLASS_NORMAL
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 0, ACID = 0)
 	var/list/configured_items = list()
 
-/obj/item/rsf/New()
+/obj/item/rsf/New(use_rsf_list = TRUE)
 	..()
-	desc = "A RSF. It currently holds [matter]/30 fabrication-units."
-	// configured_items[ID_NUMBER] = list("Human-readable name", price in energy, /type/path)
-	configured_items[++configured_items.len] = list("Dosh", 50, /obj/item/stack/spacecash/c10)
-	configured_items[++configured_items.len] = list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass)
-	configured_items[++configured_items.len] = list("Paper", 50, /obj/item/paper)
-	configured_items[++configured_items.len] = list("Pen", 50, /obj/item/pen)
-	configured_items[++configured_items.len] = list("Dice Pack", 50, /obj/item/storage/pill_bottle/dice)
-	configured_items[++configured_items.len] = list("Cigarette", 50, /obj/item/clothing/mask/cigarette)
-	configured_items[++configured_items.len] = list("Snack - Newdles", 4000, /obj/item/reagent_containers/food/snacks/chinese/newdles)
-	configured_items[++configured_items.len] = list("Snack - Donut", 4000, /obj/item/reagent_containers/food/snacks/donut)
-	configured_items[++configured_items.len] = list("Snack - Chicken Soup", 4000, /obj/item/reagent_containers/food/drinks/chicken_soup)
-	configured_items[++configured_items.len] = list("Snack - Tofu Burger", 4000, /obj/item/reagent_containers/food/snacks/tofuburger)
+	if(use_rsf_list)
+		configured_items = list(
+			list("Dosh", 50, /obj/item/stack/spacecash/c10),
+			list("Drinking Glass", 50, /obj/item/reagent_containers/food/drinks/drinkingglass),
+			list("Paper", 50, /obj/item/paper),
+			list("Pen", 50, /obj/item/pen),
+			list("Dice Pack", 50, /obj/item/storage/pill_bottle/dice),
+			list("Cigarette", 50, /obj/item/clothing/mask/cigarette/menthol),
+			list("Deck of cards", 50, /obj/item/deck/cards),
+			list("Prize ticket", 250, /obj/item/stack/tickets/five)
+		)
+		update_appearance(UPDATE_DESC)
 
-/obj/item/rsf/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
-	if(istype(W, /obj/item/rcd_ammo))
+/obj/item/rsf/rff
+	name = "Rapid-Food-Fabricator"
+	name_short = "RFF"
+	desc = "A device used to rapidly deploy delucious food!"
+	icon_state = "rff"
+
+/obj/item/rsf/rff/New()
+	..(use_rsf_list = FALSE)
+	configured_items = list(
+		list("Chinese noodles", 3000, /obj/item/reagent_containers/food/snacks/chinese/newdles),
+		list("Donut", 3000, /obj/item/reagent_containers/food/snacks/donut),
+		list("Chiken soup", 3000, /obj/item/reagent_containers/food/drinks/chicken_soup),
+		list("Tofu burger", 3000, /obj/item/reagent_containers/food/snacks/tofuburger),
+		list("Admiral Yamomoto's carp", 3000, /obj/item/reagent_containers/food/snacks/chinese/tao),
+		list("Chimichanga", 3000, /obj/item/reagent_containers/food/snacks/chimichanga),
+		list("Ikura sushi", 3000, /obj/item/reagent_containers/food/snacks/sushi_Ikura),
+	)
+	update_appearance(UPDATE_DESC)
+
+/obj/item/rsf/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/rcd_ammo))
+		add_fingerprint(user)
 		if((matter + 10) > 30)
-			to_chat(user, "The RSF cant hold any more matter.")
-			return
-		qdel(W)
+			to_chat(user, span_warning("The [name_short] cant hold any more matter."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		qdel(I)
 		matter += 10
-		playsound(src.loc, 'sound/machines/click.ogg', 10, 1)
-		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
-		desc = "A RSF. It currently holds [matter]/30 fabrication-units."
-		return
+		playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
+		to_chat(user, span_notice("The [name_short] now holds [matter]/30 fabrication-units."))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/rsf/attack_self(mob/user as mob)
-	playsound(src.loc, 'sound/effects/pop.ogg', 50, 0)
-	if(mode == configured_items.len)
+	return ..()
+
+/obj/item/rsf/attack_self(mob/user)
+	playsound(src.loc, 'sound/effects/pop.ogg', 50, FALSE)
+	if(mode >= length(configured_items))
 		mode = 1
 	else
 		mode++
 	to_chat(user, "Changed dispensing mode to '" + configured_items[mode][1] + "'")
+	update_appearance(UPDATE_DESC)
 
+/obj/item/rsf/update_desc(updates = ALL)
+	. = ..()
+	desc = initial(desc) + " Currently set to dispense '[configured_items[mode][1]]'."
 
-/obj/item/rsf/afterattack(atom/A, mob/user as mob, proximity)
+/obj/item/rsf/examine(mob/user)
+	. = ..()
+	. += span_notice("It currently holds <b>[matter]/30</b> fabrication-units.")
+
+/obj/item/rsf/afterattack(atom/A, mob/user, proximity, params)
 	if(!proximity) return
-	if(!(istype(A, /obj/structure/table) || istype(A, /turf/simulated/floor)))
+	if(!(istype(A, /obj/structure/table) || isfloorturf(A)))
 		return
 	var/spawn_location
 	var/turf/T = get_turf(A)
 	if(istype(T) && !T.density)
 		spawn_location = T
 	else
-		to_chat(user, "The RSF can only create service items on tables, or floors.")
+		to_chat(user, "The [name_short] can only create service items on tables, or floors.")
 		return
 	if(isrobot(user))
 		var/mob/living/silicon/robot/engy = user
 		if(!engy.cell.use(configured_items[mode][2]))
-			to_chat(user, "<span class='warning'>Insufficient energy.</span>")
+			to_chat(user, span_warning("Insufficient energy."))
 			return
 	else
 		if(!matter)
-			to_chat(user, "<span class='warning'>Insufficient matter.</span>")
+			to_chat(user, span_warning("Insufficient matter."))
 			return
 		matter--
-		to_chat(user, "The RSF now holds [matter]/30 fabrication-units.")
-		desc = "A RSF. It currently holds [matter]/30 fabrication-units."
+		to_chat(user, "The [name_short] now holds [matter]/30 fabrication-units.")
 
 	to_chat(user, "Dispensing " + configured_items[mode][1] + "...")
-	playsound(loc, 'sound/machines/click.ogg', 10, 1)
+	playsound(loc, 'sound/machines/click.ogg', 10, TRUE)
 	var/type_path = configured_items[mode][3]
 	new type_path(spawn_location)

@@ -7,3 +7,7 @@ sound/music/pilotpriest-origin-one.ogg is song by PILOTPRIEST (Anthony Scott Bur
 sound/music/pilotpriest-tell-them-now.ogg is song by PILOTPRIEST (Anthony Scott Burns). Non-profit usage was permitted via personal email (on Jul 28, 2020).
 
 sound/music/pilotpriest-now-be-the-light.ogg is song by PILOTPRIEST (Anthony Scott Burns). Non-profit usage was permitted via personal email (on Jul 28, 2020).
+
+sound/music/dies_irae.ogg is Dies Irae (Day of Wrath) from Requiem in D minor, K. 626 by Wolfgang Amadeus Mozart. The composition is in the public domain.
+
+sound/music/knight_dance.ogg is Dance of the Knights from Romeo and Juliet, Op. 64 by Sergei Prokofiev. This recording is in the public domain.

@@ -1,0 +1,55 @@
+Captain=1
+Head of Personnel=1
+Head of Security=1
+Chief Engineer=1
+Research Director=1
+Chief Medical Officer=1
+Quartermaster=1
+Magistrate=1
+Nanotrasen Representative=1
+Blueshield=1
+
+Station Engineer=5
+Life Support Specialist=3
+Trainee Engineer=3
+Mechanic=1
+
+Medical Doctor=5
+Chemist=2
+Coroner=1
+Geneticist=2
+Virologist=1
+Intern=3
+Psychiatrist=1
+Paramedic=1
+
+Scientist=5
+Roboticist=2
+Student Scientist=3
+
+Bartender=1
+Botanist=2
+Chef=1
+Janitor=1
+Librarian=1
+Chaplain=1
+Clown=1
+Mime=1
+
+Shaft Miner=6
+Cargo Technician=4
+Mining Medic=1
+
+Warden=1
+Detective=1
+Security Officer=5
+Brig Physician=1
+Security Pod Pilot=1
+
+Internal Affairs Agent=1
+
+Civilian=-1
+Prisoner=-1
+
+AI=1
+Cyborg=2

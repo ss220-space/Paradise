@@ -3,7 +3,6 @@
 	bitesize_mod = 2
 	wine_power = 0.4
 
-
 // Reishi
 /obj/item/seeds/reishi
 	name = "pack of reishi mycelium"
@@ -26,11 +25,10 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/reishi
 	seed = /obj/item/seeds/reishi
 	name = "reishi"
-	desc = "<I>Ganoderma lucidum</I>: A special fungus known for its medicinal and stress relieving properties."
+	desc = "<i>Ganoderma lucidum</i>: A special fungus known for its medicinal and stress relieving properties."
 	icon_state = "reishi"
 	tastes = list("reishi" = 1)
 	filling_color = "#FF4500"
-
 
 // Fly Amanita
 /obj/item/seeds/amanita
@@ -54,12 +52,11 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita
 	seed = /obj/item/seeds/amanita
 	name = "fly amanita"
-	desc = "<I>Amanita Muscaria</I>: Learn poisonous mushrooms by heart. Only pick mushrooms you know."
+	desc = "<i>Amanita Muscaria</i>: Learn poisonous mushrooms by heart. Only pick mushrooms you know."
 	icon_state = "amanita"
 	tastes = list("amanita" = 1)
 	filling_color = "#FF0000"
 	log_eating = TRUE
-
 
 // Destroying Angel
 /obj/item/seeds/angel
@@ -85,7 +82,7 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/angel
 	seed = /obj/item/seeds/angel
 	name = "destroying angel"
-	desc = "<I>Amanita Virosa</I>: Deadly poisonous basidiomycete fungus filled with alpha amanitin."
+	desc = "<i>Amanita Virosa</i>: Deadly poisonous basidiomycete fungus filled with alpha amanitin."
 	icon_state = "angel"
 	filling_color = "#C0C0C0"
 	tastes = list("destroying angel" = 1)
@@ -112,13 +109,12 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap
 	seed = /obj/item/seeds/liberty
 	name = "liberty-cap"
-	desc = "<I>Psilocybe Semilanceata</I>: Liberate yourself!"
+	desc = "<i>Psilocybe Semilanceata</i>: Liberate yourself!"
 	icon_state = "libertycap"
 	filling_color = "#DAA520"
 	wine_power = 0.8
 	tastes = list("liberty-cap" = 1)
 	wine_flavor = "freedom"
-
 
 // Plump Helmet
 /obj/item/seeds/plump
@@ -141,12 +137,11 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet
 	seed = /obj/item/seeds/plump
 	name = "plump-helmet"
-	desc = "<I>Plumus Hellmus</I>: Plump, soft and s-so inviting~"
+	desc = "<i>Plumus Hellmus</i>: Plump, soft and s-so inviting~"
 	icon_state = "plumphelmet"
 	filling_color = "#9370DB"
 	tastes = list("plump helmet" = 1, "dwarven hardiness" = 1)
 	distill_reagent = "manlydorf"
-
 
 // Walking Mushroom
 /obj/item/seeds/plump/walkingmushroom
@@ -160,7 +155,6 @@
 	endurance = 30
 	maturation = 5
 	yield = 1
-	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list()
 	reagents_add = list("vitamin" = 0.05, "nutriment" = 0.15)
 	rarity = 30
@@ -168,7 +162,7 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom
 	seed = /obj/item/seeds/plump/walkingmushroom
 	name = "walking mushroom"
-	desc = "<I>Plumus Locomotus</I>: The beginning of the great walk."
+	desc = "<i>Plumus Locomotus</i>: The beginning of the great walk."
 	icon_state = "walkingmushroom"
 	filling_color = "#9370DB"
 	origin_tech = "biotech=4;programming=5"
@@ -185,8 +179,7 @@
 	M.move_to_delay -= round(seed.production / 50)
 	M.health = M.maxHealth
 	qdel(src)
-	to_chat(user, "<span class='notice'>You plant the walking mushroom.</span>")
-
+	to_chat(user, span_notice("You plant the walking mushroom."))
 
 // Chanterelle
 /obj/item/seeds/chanter
@@ -210,11 +203,10 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle
 	seed = /obj/item/seeds/chanter
 	name = "chanterelle cluster"
-	desc = "<I>Cantharellus Cibarius</I>: These jolly yellow little shrooms sure look tasty!"
+	desc = "<i>Cantharellus Cibarius</i>: These jolly yellow little shrooms sure look tasty!"
 	icon_state = "chanterelle"
 	tastes = list("chanterelle" = 1)
 	filling_color = "#FFA500"
-
 
 // Glowshroom
 /obj/item/seeds/glowshroom
@@ -228,7 +220,6 @@
 	endurance = 30
 	maturation = 15
 	production = 1
-	yield = 3 //-> spread
 	potency = 30 //-> brightness
 	growthstages = 4
 	rarity = 20
@@ -240,7 +231,7 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom
 	seed = /obj/item/seeds/glowshroom
 	name = "glowshroom cluster"
-	desc = "<I>Mycena Bregprox</I>: This species of mushroom glows in the dark."
+	desc = "<i>Mycena Bregprox</i>: This species of mushroom glows in the dark."
 	icon_state = "glowshroom"
 	filling_color = "#00FA9A"
 	var/effect_path = /obj/structure/glowshroom
@@ -250,10 +241,10 @@
 	wine_power = 0.5
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/attack_self(mob/user)
-	if(istype(user.loc, /turf/space))
+	if(isspaceturf(user.loc))
 		return FALSE
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to plant [src].</span>")
+		to_chat(user, span_warning("You need more space to plant [src]."))
 		return FALSE
 	var/count = 0
 	var/maxcount = 1
@@ -264,14 +255,13 @@
 	for(var/obj/structure/glowshroom/G in user.loc)
 		count++
 	if(count >= maxcount)
-		to_chat(user, "<span class='warning'>There are too many shrooms here to plant [src].</span>")
+		to_chat(user, span_warning("There are too many shrooms here to plant [src]."))
 		return FALSE
 	new effect_path(user.loc, seed)
 	investigate_log("was planted by [key_name_log(user)] at [COORD(user)]", INVESTIGATE_BOTANY)
-	to_chat(user, "<span class='notice'>You plant [src].</span>")
+	to_chat(user, span_notice("You plant [src]."))
 	qdel(src)
 	return TRUE
-
 
 // Glowcap
 /obj/item/seeds/glowshroom/glowcap
@@ -290,9 +280,8 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
 	seed = /obj/item/seeds/glowshroom/glowcap
 	name = "glowcap cluster"
-	desc = "<I>Mycena Ruthenia</I>: This species of mushroom glows in the dark, but isn't actually bioluminescent. They're warm to the touch..."
+	desc = "<i>Mycena Ruthenia</i>: This species of mushroom glows in the dark, but isn't actually bioluminescent. They're warm to the touch..."
 	icon_state = "glowcap"
-	filling_color = "#00FA9A"
 	effect_path = /obj/structure/glowshroom/glowcap
 	origin_tech = "biotech=4;powerstorage=6;plasmatech=4"
 	light_color = "#8E0300"
@@ -342,7 +331,7 @@
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom
 	seed = /obj/item/seeds/glowshroom/shadowshroom
 	name = "shadowshroom cluster"
-	desc = "<I>Mycena Umbra</I>: This species of mushroom emits shadow instead of light."
+	desc = "<i>Mycena Umbra</i>: This species of mushroom emits shadow instead of light."
 	icon_state = "shadowshroom"
 	effect_path = /obj/structure/glowshroom/shadowshroom
 	origin_tech = "biotech=4;plasmatech=4;magnets=4"

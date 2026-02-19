@@ -1,69 +1,156 @@
 /obj/item/reagent_containers/food/pill/patch
 	name = "chemical patch"
-	desc = "A chemical patch for touch based applications."
-	icon = 'icons/obj/chemical.dmi'
+	desc = "Химический пластырь, предназначенный для медленного ввода веществ в кровоток пациента через контакт с кожей."
 	icon_state = "bandaid"
 	item_state = "bandaid"
 	possible_transfer_amounts = null
 	volume = 20
 	container_type = 0 //nooo my insta-kill patch!!!
 	apply_type = REAGENT_TOUCH
-	apply_method = "apply"
+	apply_method = "налепи"
 	transfer_efficiency = 0.5 //patches aren't as effective at getting chemicals into the bloodstream.
 	temperature_min = 270
 	temperature_max = 350
 	var/needs_to_apply_reagents = TRUE
+	var/application_zone = null
 
-/obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/M, mob/user, def_zone)
-	if(!istype(M))
-		return FALSE
+/obj/item/reagent_containers/food/pill/patch/get_ru_names()
+	return list(
+		NOMINATIVE = "пластырь",
+		GENITIVE = "пластыря",
+		DATIVE = "пластырю",
+		ACCUSATIVE = "пластырь",
+		INSTRUMENTAL = "пластырем",
+		PREPOSITIONAL = "пластыре",
+	)
+
+/obj/item/reagent_containers/food/pill/patch/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+	if(!iscarbon(target))
+		return .
+	if(!user.can_unEquip(src))
+		return .
+	if(!target.can_inject(user, FALSE))
+		return .
 	bitesize = 0
-	if(M.eat(src, user))
-		user.drop_item()
-		forceMove(M)
-		LAZYADD(M.processing_patches, src)
-		return TRUE
-	return FALSE
+	if(!target.eat(src, user) || !user.can_unEquip(src))
+		return .
+	user.drop_transfer_item_to_loc(src, target)
+	application_zone = def_zone
+	LAZYADD(target.processing_patches, src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user , proximity)
+/obj/item/reagent_containers/food/pill/patch/afterattack(obj/target, mob/user, proximity, params)
 	return // thanks inheritance again
 
 /obj/item/reagent_containers/food/pill/patch/styptic
 	name = "healing patch"
-	desc = "Helps with brute injuries."
-	icon_state = "bandaid_brute"
+	desc = "Помогает при порезах и ушибах."
+	icon_state = "bandaid2"
 	instant_application = 1
 	list_reagents = list("styptic_powder" = 20)
 
+/obj/item/reagent_containers/food/pill/patch/styptic/get_ru_names()
+	return list(
+		NOMINATIVE = "пластырь (Мех. Повреждения)",
+		GENITIVE = "пластыря (Мех. Повреждения)",
+		DATIVE = "пластырю (Мех. Повреждения)",
+		ACCUSATIVE = "пластырь (Мех. Повреждения)",
+		INSTRUMENTAL = "пластырем (Мех. Повреждения)",
+		PREPOSITIONAL = "пластыре (Мех. Повреждения)",
+	)
+
 /obj/item/reagent_containers/food/pill/patch/styptic/small
 	name = "healing mini-patch"
+	icon_state = "bandaid1"
 	list_reagents = list("styptic_powder" = 10)
+
+/obj/item/reagent_containers/food/pill/patch/styptic/small/get_ru_names()
+	return list(
+		NOMINATIVE = "мини-пластырь (Мех. Повреждения)",
+		GENITIVE = "мини-пластыря (Мех. Повреждения)",
+		DATIVE = "мини-пластырю (Мех. Повреждения)",
+		ACCUSATIVE = "мини-пластырь (Мех. Повреждения)",
+		INSTRUMENTAL = "мини-пластырем (Мех. Повреждения)",
+		PREPOSITIONAL = "мини-пластыре (Мех. Повреждения)",
+	)
 
 /obj/item/reagent_containers/food/pill/patch/silver_sulf
 	name = "burn patch"
-	desc = "Helps with burn injuries."
-	icon_state = "bandaid_burn"
+	desc = "Помогает при ожогах."
+	icon_state = "bandaid4"
 	instant_application = 1
 	list_reagents = list("silver_sulfadiazine" = 20)
 
+/obj/item/reagent_containers/food/pill/patch/silver_sulf/get_ru_names()
+	return list(
+		NOMINATIVE = "пластырь (Терм. Повреждения)",
+		GENITIVE = "пластыря (Терм. Повреждения)",
+		DATIVE = "пластырю (Терм. Повреждения)",
+		ACCUSATIVE = "пластырь (Терм. Повреждения)",
+		INSTRUMENTAL = "пластырем (Терм. Повреждения)",
+		PREPOSITIONAL = "пластыре (Терм. Повреждения)",
+	)
+
 /obj/item/reagent_containers/food/pill/patch/silver_sulf/small
 	name = "burn mini-patch"
+	icon_state = "bandaid3"
 	list_reagents = list("silver_sulfadiazine" = 10)
+
+/obj/item/reagent_containers/food/pill/patch/silver_sulf/small/get_ru_names()
+	return list(
+		NOMINATIVE = "мини-пластырь (Терм. Повреждения)",
+		GENITIVE = "мини-пластыря (Терм. Повреждения)",
+		DATIVE = "мини-пластырю (Терм. Повреждения)",
+		ACCUSATIVE = "мини-пластырь (Терм. Повреждения)",
+		INSTRUMENTAL = "мини-пластырем (Терм. Повреждения)",
+		PREPOSITIONAL = "мини-пластыре (Терм. Повреждения)",
+	)
 
 /obj/item/reagent_containers/food/pill/patch/synthflesh
 	name = "synthflesh patch"
-	desc = "Helps with brute and burn injuries."
-	icon_state = "bandaid_med"
+	desc = "Помогает лечить как механические, так и термические повреждения."
+	icon_state = "bandaid8"
 	instant_application = 1
 	list_reagents = list("synthflesh" = 10)
 
+/obj/item/reagent_containers/food/pill/patch/synthflesh/get_ru_names()
+	return list(
+		NOMINATIVE = "пластырь (Синт-плоть)",
+		GENITIVE = "пластыря (Синт-плоть)",
+		DATIVE = "пластырю (Синт-плоть)",
+		ACCUSATIVE = "пластырь (Синт-плоть)",
+		INSTRUMENTAL = "пластырем (Синт-плоть)",
+		PREPOSITIONAL = "пластыре (Синт-плоть)",
+	)
+
 /obj/item/reagent_containers/food/pill/patch/nicotine
 	name = "nicotine patch"
-	desc = "Helps temporarily curb the cravings of nicotine dependency."
+	desc = "Помогает облегчить никотиновую зависимость."
 	list_reagents = list("nicotine" = 10)
+
+/obj/item/reagent_containers/food/pill/patch/nicotine/get_ru_names()
+	return list(
+		NOMINATIVE = "пластырь (Никотин)",
+		GENITIVE = "пластыря (Никотин)",
+		DATIVE = "пластырю (Никотин)",
+		ACCUSATIVE = "пластырь (Никотин)",
+		INSTRUMENTAL = "пластырем (Никотин)",
+		PREPOSITIONAL = "пластыре (Никотин)",
+	)
 
 /obj/item/reagent_containers/food/pill/patch/jestosterone
 	name = "jestosterone patch"
-	desc = "Helps with brute injuries if the affected person is a clown, otherwise inflicts various annoying effects."
-	icon_state = "bandaid_clown"
+	desc = "Вводит необходимую дозу хи-хи и ха-ха прямо в кровь."
+	icon_state = "bandaid20"
 	list_reagents = list("jestosterone" = 20)
+
+/obj/item/reagent_containers/food/pill/patch/jestosterone/get_ru_names()
+	return list(
+		NOMINATIVE = "пластырь (Шутостерон)",
+		GENITIVE = "пластыря (Шутостерон)",
+		DATIVE = "пластырю (Шутостерон)",
+		ACCUSATIVE = "пластырь (Шутостерон)",
+		INSTRUMENTAL = "пластырем (Шутостерон)",
+		PREPOSITIONAL = "пластыре (Шутостерон)",
+	)

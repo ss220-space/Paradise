@@ -1,6 +1,6 @@
 /obj/machinery/computer/atmos_alert
 	name = "atmospheric alert computer"
-	desc = "Used to access the station's atmospheric sensors."
+	desc = "Используется для мониторинга атмосферных датчиков станции."
 	circuit = /obj/item/circuitboard/atmos_alert
 	var/ui_x = 350
 	var/ui_y = 300
@@ -10,6 +10,7 @@
 	var/list/priority_alarms = list()
 	var/list/minor_alarms = list()
 	var/receive_frequency = ATMOS_FIRE_FREQ
+	var/list/modes = list()
 
 /obj/machinery/computer/atmos_alert/Initialize(mapload)
 	. = ..()
@@ -20,23 +21,23 @@
 	return ..()
 
 /obj/machinery/computer/atmos_alert/attack_hand(mob/user)
+	if(..())
+		return TRUE
+
+	add_fingerprint(user)
 	ui_interact(user)
 
-/obj/machinery/computer/atmos_alert/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/atmos_alert/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "AtmosAlertConsole", name, ui_x, ui_y, master_ui, state)
+		ui = new(user, src, "AtmosAlertConsole", name)
 		ui.open()
 
 /obj/machinery/computer/atmos_alert/ui_data(mob/user)
 	var/list/data = list()
-
-	data["priority"] = list()
-	for(var/zone in priority_alarms)
-		data["priority"] |= zone
-	data["minor"] = list()
-	for(var/zone in minor_alarms)
-		data["minor"] |= zone
+	data["priority"] = priority_alarms
+	data["minor"] = minor_alarms
+	data["mode"] = modes
 
 	return data
 
@@ -47,11 +48,11 @@
 		if("clear")
 			var/zone = params["zone"]
 			if(zone in priority_alarms)
-				to_chat(usr, "<span class='notice'>Priority alarm for [zone] cleared.</span>")
+				to_chat(usr, span_notice("Priority alarm for [zone] cleared."))
 				priority_alarms -= zone
 				. = TRUE
 			if(zone in minor_alarms)
-				to_chat(usr, "<span class='notice'>Minor alarm for [zone] cleared.</span>")
+				to_chat(usr, span_notice("Minor alarm for [zone] cleared."))
 				minor_alarms -= zone
 				. = TRUE
 	update_icon()
@@ -67,23 +68,35 @@
 
 	var/zone = signal.data["zone"]
 	var/severity = signal.data["alert"]
+	var/mode = signal.data["mode"]
 
-	if(!zone || !severity)
+	if(!zone || !(severity || mode))
+		return
+
+	if(mode)
+		if(mode == AALARM_MODE_FILTERING)
+			modes -= zone
+		else
+			modes[zone] = GLOB.aalarm_modes["[mode]"]
 		return
 
 	minor_alarms -= zone
 	priority_alarms -= zone
 	if(severity == "severe")
-		priority_alarms += zone
+		priority_alarms |= zone
 	else if(severity == "minor")
-		minor_alarms += zone
+		minor_alarms |= zone
 	update_icon()
 
-/obj/machinery/computer/atmos_alert/update_icon()
+/obj/machinery/computer/atmos_alert/update_icon_state()
 	if(length(priority_alarms))
 		icon_screen = "alert:2"
 	else if(length(minor_alarms))
 		icon_screen = "alert:1"
 	else
 		icon_screen = "alert:0"
-	..()
+
+/obj/machinery/computer/atmos_alert/old_frame
+	icon = 'icons/obj/machines/computer3.dmi'
+	icon_state = "frame-eng"
+	icon_keyboard = "kb4"

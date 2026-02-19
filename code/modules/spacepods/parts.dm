@@ -1,19 +1,17 @@
 /obj/item/pod_parts
 	parent_type = /obj/item/mecha_parts
 	icon = 'icons/goonstation/pods/pod_parts.dmi'
+	icon_state = null
+	abstract_type = /obj/item/mecha_parts
 
 /obj/item/pod_parts/core
-	name="Space Pod Core"
+	name = "Space Pod Core"
 	icon_state = "core"
-	flags = CONDUCT
 	origin_tech = "programming=2;materials=2;biotech=2;engineering=2"
 
 /obj/item/pod_parts/pod_frame
 	name = "Space Pod Frame"
-	icon_state = ""
-	flags = CONDUCT
-	density = 0
-	anchored = 0
+	icon_state = null
 	var/link_to = null
 	var/link_angle = 0
 
@@ -44,7 +42,7 @@
 				connectedparts += pointer
 			linked = pointer
 			pointer = null
-	if(connectedparts.len < 4)
+	if(length(connectedparts) < 4)
 		return 0
 	for(var/i = 1; i <=4; i++)
 		var/obj/item/pod_parts/pod_frame/F = connectedparts[i]
@@ -55,43 +53,67 @@
 			return 0
 	return connectedparts
 
-/obj/item/pod_parts/pod_frame/attackby(var/obj/item/O, mob/user)
-	if(istype(O, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = O
+/obj/item/pod_parts/pod_frame/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/rods))
+		add_fingerprint(user)
+		var/obj/item/stack/rods/rods = I
 		var/list/linkedparts = find_square()
 		if(!linkedparts)
-			to_chat(user, "<span class='rose'>You cannot assemble a pod frame because you do not have the necessary assembly.</span>")
-			return
-		if(!R.use(10))
-			to_chat(user, "<span class='warning'>Вам не хватает арматуры! Нужно минимум десять!</span>")
-			return
-		var/obj/structure/spacepod_frame/pod = new /obj/structure/spacepod_frame(src.loc)
-		pod.dir = src.dir
-		to_chat(user, "<span class='notice'>You strut the pod frame together.</span>")
-		for(var/obj/item/pod_parts/pod_frame/F in linkedparts)
-			if(1 == turn(F.dir, -F.link_angle)) //if the part links north during construction, as the bottom left part always does
+			to_chat(user, span_warning("Вы не можете собрать каркас шаттла — отсутствуют необходимые компоненты."))
+			return ATTACK_CHAIN_PROCEED
+		var/cached_sound = rods.usesound
+		if(!rods.use(10))
+			to_chat(user, span_warning("Требуется как минимум 10 стержней для укрепления каркаса."))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/structure/spacepod_frame/new_pod = new(loc)
+		new_pod.setDir(dir)
+		transfer_fingerprints_to(new_pod)
+		new_pod.add_fingerprint(user)
+		to_chat(user, span_notice("Вы укрепили каркас шаттла."))
+		for(var/obj/item/pod_parts/pod_frame/frame in linkedparts)
+			//if the part links north during construction, as the bottom left part always does
+			if(turn(frame.dir, -frame.link_angle) == NORTH)
 				//log_admin("Repositioning")
-				pod.loc = F.loc
-			qdel(F)
-		playsound(get_turf(src), O.usesound, 50, 1)
-	if(istype(O, /obj/item/wrench))
-		to_chat(user, "<span class='notice'>You [!anchored ? "secure \the [src] in place."  : "remove the securing bolts."]</span>")
-		anchored = !anchored
-		density = anchored
-		playsound(get_turf(src), O.usesound, 50, 1)
+				new_pod.forceMove(frame.loc)
+			qdel(frame)
+		playsound(new_pod.loc, cached_sound, 50, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/obj/item/pod_parts/pod_frame/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	set_anchored(!anchored)
+	set_density(anchored)
+	to_chat(user, span_notice("Вы [anchored ? "закрепили [declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
+
+/obj/item/pod_parts/pod_frame/examine(mob/user)
+	. = ..()
+	. += span_notice("<b>Alt+ЛКМ</b> для поворота.")
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
-	set name = "Rotate Frame"
-	set category = "Object"
+	set name = "Повернуть каркас"
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
+
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
+
 	if(anchored)
-		to_chat(usr, "\The [src] is securely bolted!")
-		return 0
-	src.dir = turn(src.dir, -90)
-	return 1
+		to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] надёжно закреплён болтами!")
+		return FALSE
+
+	dir = turn(dir, -90)
+	return TRUE
+
+/obj/item/pod_parts/pod_frame/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/pod_parts/pod_frame/attack_hand()
-	src.rotate()
+	return
 
 /obj/item/pod_parts/pod_frame/fore_port
 	name = "fore port pod frame"
@@ -112,7 +134,6 @@
 	icon_state = "pod_ap"
 	desc = "A space pod frame component. This is the aft port component."
 	link_to = /obj/item/pod_parts/pod_frame/fore_port
-	link_angle = 0
 
 /obj/item/pod_parts/pod_frame/aft_starboard
 	name = "aft starboard pod frame"
@@ -123,6 +144,5 @@
 
 /obj/item/pod_parts/armor
 	name = "civilian pod armor"
-	icon = 'icons/goonstation/pods/pod_parts.dmi'
 	icon_state = "pod_armor_civ"
 	desc = "Spacepod armor. This is the civilian version. It looks rather flimsy."

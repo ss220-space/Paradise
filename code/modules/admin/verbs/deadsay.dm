@@ -1,50 +1,46 @@
-/client/proc/dsay(msg as text)
-	set category = "Admin"
-	set name = "Dsay" //Gave this shit a shorter name so you only have to time out "dsay" rather than "dead say" to use it --NeoFite
-
-	if(!check_rights(R_ADMIN|R_MOD))
+ADMIN_VERB(dsay, R_ADMIN|R_MOD, "DSay", "Speak to the dead.", ADMIN_CATEGORY_GAME, msg as text)
+	if(!user.mob)
 		return
 
-	if(!src.mob)
+	if(check_mute(user.ckey, MUTE_DEADCHAT))
+		to_chat(user, span_danger("You cannot send DSAY messages (muted)."), confidential = TRUE)
 		return
 
-	if(prefs.muted & MUTE_DEADCHAT)
-		to_chat(src, "<span class='warning'>You cannot send DSAY messages (muted).</span>")
+	if(!(user.prefs.toggles & PREFTOGGLE_CHAT_DEAD))
+		to_chat(user, span_danger("You have deadchat muted."), confidential = TRUE)
 		return
 
-	if(!(prefs.toggles & PREFTOGGLE_CHAT_DEAD))
-		to_chat(src, "<span class='warning'>You have deadchat muted.</span>")
-		return
-
-	if(handle_spam_prevention(msg,MUTE_DEADCHAT))
+	if(user.handle_spam_prevention(msg, MUTE_DEADCHAT))
 		return
 
 	var/stafftype = null
 
-	if(check_rights(R_MENTOR, 0))
+	if(check_rights(R_MENTOR, FALSE))
 		stafftype = "MENTOR"
 
-	if(check_rights(R_MOD, 0))
+	if(check_rights(R_MOD, FALSE))
 		stafftype = "MOD"
 
-	if(check_rights(R_ADMIN, 0))
+	if(check_rights(R_ADMIN, FALSE))
 		stafftype = "ADMIN"
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
-	log_admin("[key_name(src)] : [msg]")
+	log_admin("[key_name(user)] : [msg]")
 
 	if(!msg)
 		return
 
-	var/prefix = "[stafftype] ([src.key])"
-	if(holder.fakekey)
-		prefix = "Administrator"
-	say_dead_direct("<span class='name'>[prefix]</span> says, <span class='message'>\"[msg]\"</span>")
+	msg = handleDiscordEmojis(msg)
 
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	var/prefix = "[stafftype] ([user.key])"
+	if(user.holder.fakekey)
+		prefix = "Administrator"
+	say_dead_direct("[span_name(prefix)] says, [span_message("\"[msg]\"")]")
+
+	BLACKBOX_LOG_ADMIN_VERB("Dsay")
 
 /client/proc/get_dead_say()
-	if(!check_rights(R_ADMIN|R_MOD))
+	var/msg = tgui_input_text(src, null, "dsay \"text\"", encode = FALSE)
+	if(isnull(msg))
 		return
-	var/msg = input(src, null, "dsay \"text\"") as text | null
-	dsay(msg)
+	SSadmin_verbs.dynamic_invoke_verb(usr, /datum/admin_verb/dsay, msg)

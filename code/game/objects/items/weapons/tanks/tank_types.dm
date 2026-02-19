@@ -20,7 +20,7 @@
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/tank/internals/oxygen/populate_gas()
-	air_contents.oxygen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_oxygen((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/oxygen/yellow
 	desc = "A tank of oxygen, this one is yellow."
@@ -46,8 +46,8 @@
 	force = 10
 
 /obj/item/tank/internals/anesthetic/populate_gas()
-	air_contents.oxygen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD
-	air_contents.sleeping_agent = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD
+	air_contents.set_oxygen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD)
+	air_contents.set_sleeping_agent((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD)
 
 /*
  * Plasma
@@ -57,27 +57,33 @@
 	name = "plasma tank"
 	desc = "Contains dangerous plasma. Do not inhale. Warning: extremely flammable."
 	icon_state = "plasma"
-	flags = CONDUCT
-	slot_flags = null	//they have no straps!
+	slot_flags = NONE	//they have no straps!
 
 /obj/item/tank/internals/plasma/populate_gas()
-	air_contents.toxins = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasma/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/flamethrower))
-		var/obj/item/flamethrower/F = I
-		if((!F.status)||(F.ptank))
-			return
-		master = F
-		F.ptank = src
-		user.unEquip(src)
-		loc = F
-		F.update_icon()
-	else
-		return ..()
+		add_fingerprint(user)
+		var/obj/item/flamethrower/flamethrower = I
+		if(loc == user && !user.can_unEquip(src))
+			return ATTACK_CHAIN_PROCEED
+		if(flamethrower.ptank)
+			flamethrower.ptank.forceMove_turf()
+			to_chat(user, span_notice("You swap the plasma tank in [flamethrower]."))
+		else
+			to_chat(user, span_notice("You have installed new plasma tank in [flamethrower]."))
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src)
+		forceMove(flamethrower)
+		master = flamethrower
+		flamethrower.ptank = src
+		flamethrower.update_icon()
+		return ATTACK_CHAIN_PROCEED_SUCCESS|ATTACK_CHAIN_NO_AFTERATTACK
+	return ..()
 
 /obj/item/tank/internals/plasma/full/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasma/empty/populate_gas()
 	return
@@ -93,21 +99,21 @@
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/plasmaman/populate_gas()
-	air_contents.toxins = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasmaman/full/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasmaman/belt
 	icon_state = "plasmaman_tank_belt"
 	item_state = "plasmaman_tank_belt"
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	force = 5
 	volume = 35
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/tank/internals/plasmaman/belt/full/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/plasmaman/belt/empty/populate_gas()
 	return
@@ -118,7 +124,7 @@
 	icon_state = "emergency_p"
 
 /obj/item/tank/internals/emergency_oxygen/plasma/populate_gas()
-	air_contents.toxins = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_toxins((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /*
  * Emergency Oxygen
@@ -127,15 +133,14 @@
 	name = "emergency oxygen tank"
 	desc = "Used for emergencies. Contains very little oxygen, so try to conserve it until you actually need it."
 	icon_state = "emergency"
-	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	w_class = WEIGHT_CLASS_SMALL
 	force = 4
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 	volume = 3 //Tiny. Real life equivalents only have 21 breaths of oxygen in them. They're EMERGENCY tanks anyway -errorage (dangercon 2011)
 
 /obj/item/tank/internals/emergency_oxygen/populate_gas()
-	air_contents.oxygen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_oxygen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/emergency_oxygen/empty/populate_gas()
 	return
@@ -153,6 +158,11 @@
 	icon_state = "emergency_syndi"
 	desc = "A dark emergency oxygen tank. The label on the back reads \"Original Oxygen Tank Design, Do Not Steal.\""
 
+/obj/item/tank/internals/emergency_oxygen/engi/sec
+	name = "security extended-capacity emergency oxygen tank"
+	icon_state = "emergency_sec"
+	desc = "A black-red emergency oxygen tank. Used by corporate security departments."
+
 /obj/item/tank/internals/emergency_oxygen/double
 	name = "double emergency oxygen tank"
 	icon_state = "emergency_double"
@@ -168,11 +178,11 @@
 	name = "nitrogen tank"
 	desc = "A tank of nitrogen."
 	icon_state = "oxygen_fr"
-	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/back.dmi') //Do it for Big Bird.
+	sprite_sheets = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/back.dmi') //Do it for Big Bird.
 	distribute_pressure = TANK_DEFAULT_RELEASE_PRESSURE
 
 /obj/item/tank/internals/nitrogen/populate_gas()
-	air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_nitrogen((6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/emergency_oxygen/nitrogen
 	name = "emergency nitrogen tank"
@@ -180,17 +190,17 @@
 	icon_state = "emergency_nitrogen"
 
 /obj/item/tank/internals/emergency_oxygen/nitrogen/populate_gas()
-	air_contents.nitrogen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_nitrogen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /obj/item/tank/internals/emergency_oxygen/double/vox
 	name = "vox specialized nitrogen tank"
 	desc = "A high-tech nitrogen tank designed specifically for Vox."
 	icon_state = "emergency_vox"
-	sprite_sheets = list("Vox Armalis" = 'icons/mob/species/armalis/belt.dmi') //Do it for Big Bird.
+	sprite_sheets = list(SPECIES_VOX_ARMALIS = 'icons/mob/clothing/species/armalis/belt.dmi') //Do it for Big Bird.
 	volume = 35
 
 /obj/item/tank/internals/emergency_oxygen/double/vox/populate_gas()
-	air_contents.nitrogen = (10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+	air_contents.set_nitrogen((10 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C))
 
 /*
  * Air Mix
@@ -200,11 +210,10 @@
 	desc = "Mixed anyone?"
 	icon_state = "air"
 	item_state = "air"
-	distribute_pressure = ONE_ATMOSPHERE
 
 /obj/item/tank/internals/air/populate_gas()
-	air_contents.oxygen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD
-	air_contents.nitrogen = (3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD
+	air_contents.set_oxygen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * O2STANDARD)
+	air_contents.set_nitrogen((3 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C) * N2STANDARD)
 
 /*
  * Generic

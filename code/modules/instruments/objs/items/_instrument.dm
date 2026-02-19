@@ -24,30 +24,38 @@
 	return ..()
 
 /obj/item/instrument/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] begins to play 'Gloomy Sunday'! It looks like [user.p_theyre()] trying to commit suicide!"))
 	return BRUTELOSS
 
 /obj/item/instrument/attack_self(mob/user)
 	ui_interact(user)
 
+/obj/item/instrument/ui_state(mob/user)
+	return GLOB.inventory_state
+
 /obj/item/instrument/ui_data(mob/user)
 	return song.ui_data(user)
 
-/obj/item/instrument/ui_interact(mob/user)
+/obj/item/instrument/ui_interact(mob/user, datum/tgui/ui = null)
 	if(!isliving(user) || user.incapacitated())
 		return
-	song.ui_interact(user)
+	song.ui_interact(user, ui)
 
-/obj/item/instrument/ui_act(action, params)
+/obj/item/instrument/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
-	return song.ui_act(action, params)
+	return song.ui_act(action, params, ui, state)
 
 /**
-  * Whether the instrument should stop playing
-  *
-  * Arguments:
-  * * user - The user
-  */
-/obj/item/instrument/proc/should_stop_playing(mob/user)
-	return !(src in user) || !isliving(user) || user.incapacitated()
+ * Whether the instrument should stop playing
+ *
+ * Arguments:
+ * * music_player - The user
+ */
+/obj/item/instrument/proc/should_stop_playing(atom/music_player)
+	if(!ismob(music_player))
+		return STOP_PLAYING
+	var/mob/user = music_player
+	if(user.incapacitated() || !((loc == user) || (isturf(loc) && Adjacent(user)))) // sorry, no more TK playing.
+		return STOP_PLAYING
+

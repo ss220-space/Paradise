@@ -25,10 +25,7 @@
 	reagents_add = list("vitamin" = 0.04, "plantmatter" = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/citrus/lime
-	seed = /obj/item/seeds/lime
 	name = "lime"
-	desc = "It's so sour, your face will twist."
-	icon_state = "lime"
 	filling_color = "#00FF00"
 	tastes = list("lime" = 1)
 
@@ -114,15 +111,15 @@
 	wine_flavor = "fire"
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] primes the [src]!</span>", "<span class='userdanger'>You prime the [src]!</span>")
+	user.visible_message(span_warning("[user] primes the [src]!"), span_userdanger("You prime the [src]!"))
 	investigate_log("[key_name_log(user)] primed a combustible lemon for detonation at [COORD(user)].", INVESTIGATE_BOMB)
 	add_attack_logs(user, src, "primed a combustible lemon for detonation", ATKLOG_FEW)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		C.throw_mode_on()
 	icon_state = "firelemon_active"
-	playsound(loc, 'sound/weapons/armbomb.ogg', 75, 1, -3)
-	addtimer(CALLBACK(src, .proc/prime), rand(10, 60))
+	playsound(loc, 'sound/weapons/armbomb.ogg', 75, TRUE, -3)
+	addtimer(CALLBACK(src, PROC_REF(prime)), rand(10, 60))
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/burn()
 	prime()
@@ -131,32 +128,32 @@
 /obj/item/reagent_containers/food/snacks/grown/firelemon/proc/update_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.unEquip(src)
+		M.drop_item_ground(src)
 
-/obj/item/reagent_containers/food/snacks/grown/firelemon/ex_act(severity)
+/obj/item/reagent_containers/food/snacks/grown/firelemon/ex_act(severity, target)
 	qdel(src) //Ensuring that it's deleted by its own explosion
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/proc/prime()
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 1, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 1, cause = src)
 			qdel(src)
 		if(31 to 50)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 2, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 2, cause = src)
 			qdel(src)
 		if(51 to 70)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 3, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 3, cause = src)
 			qdel(src)
 		if(71 to 90)
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 4, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 4, cause = src)
 			qdel(src)
 		else
 			update_mob()
-			explosion(loc,-1,-1,2, flame_range = 5, cause = src)
+			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flame_range = 5, cause = src)
 			qdel(src)
 
 //3D Orange
@@ -185,11 +182,37 @@
 	filling_color = "#FFA500"
 	distill_reagent = "lsd"
 	tastes = list("polygons" = 1, "oranges" = 1)
+	var/big_icon = TRUE
 
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/pickup(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/equipped(mob/user, slot, initial = FALSE)
+	big_icon = FALSE
+	update_icon(UPDATE_ICON_STATE)
 	. = ..()
-	icon_state = "orange"
 
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user)
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	icon_state = "orang"
+	big_icon = TRUE
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/orange_3d/update_icon_state()
+	icon_state = big_icon ? "orang" : "orange"
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/tangerine
+	name = "tangerine"
+	desc = "Очень ароматный, вкусный и полезный фрукт. Жаль, что достать его можно только в новогодние праздники."
+	icon_state = "tangerine"
+	filling_color = "#FFA500"
+	tastes = list("нового года" = 1)
+	list_reagents = list("adminordrazine" = 1, "vitamin" = 2, "orangejuice" = 5, "nutriment" = 5)
+	antable = FALSE
+	bitecount = 3
+
+/obj/item/reagent_containers/food/snacks/grown/citrus/tangerine/get_ru_names()
+		return list(
+		NOMINATIVE = "мандарин",
+		GENITIVE = "мандарина",
+		DATIVE = "мандарину",
+		ACCUSATIVE = "мандарин",
+		INSTRUMENTAL = "мандарином",
+		PREPOSITIONAL = "мандарине",
+	)

@@ -8,12 +8,12 @@
 	name = "glowshroom"
 	desc = "Mycena Bregprox, a species of mushroom that glows in the dark."
 	anchored = TRUE
-	opacity = 0
-	density = FALSE
 	icon = 'icons/obj/lighting.dmi'
 	//replaced in Initialize()
 	icon_state = "glowshroom"
+	base_icon_state = "glowshroom"
 	layer = ABOVE_NORMAL_TURF_LAYER
+	cares_about_temperature = TRUE
 	/// Boolean to indicate if the shroom is on the floor/wall
 	var/is_on_floor = FALSE
 	/// Mushroom generation number
@@ -22,39 +22,52 @@
 	var/max_failed_spreads = 5
 	/// Turfs where the glowshroom cannot spread to
 	var/static/list/blacklisted_glowshroom_turfs = typecacheof(list(
-		/turf/simulated/floor/plating/lava,
-		/turf/simulated/floor/beach/water))
+		/turf/simulated/floor/lava,
+		/turf/simulated/floor/chasm,
+		/turf/simulated/floor/beach/water,
+		/turf/simulated/floor/indestructible/beach/water))
 	/// Internal seed of the glowshroom, stats are stored here
 	var/obj/item/seeds/myseed = /obj/item/seeds/glowshroom
+
+/obj/structure/glowshroom/has_prints()
+	return FALSE
+
+/obj/structure/glowshroom/extinguish_light(force = FALSE)
+	visible_message(span_warning("[src] withers away!"))
+	qdel(src)
 
 /obj/structure/glowshroom/glowcap
 	name = "glowcap"
 	desc = "Mycena Ruthenia, a species of mushroom that, while it does glow in the dark, is not actually bioluminescent."
 	icon_state = "glowcap"
+	base_icon_state = "glowcap"
 	myseed = /obj/item/seeds/glowshroom/glowcap
 
 /obj/structure/glowshroom/shadowshroom
 	name = "shadowshroom"
 	desc = "Mycena Umbra, a species of mushroom that emits shadow instead of light."
 	icon_state = "shadowshroom"
+	base_icon_state = "shadowshroom"
 	myseed = /obj/item/seeds/glowshroom/shadowshroom
+
+/obj/structure/glowshroom/shadowshroom/extinguish_light(force = FALSE)
+	return
 
 /obj/structure/glowshroom/single/Spread()
 	return
 
 /obj/structure/glowshroom/examine(mob/user)
 	. = ..()
-	. += SPAN_NOTICE("This is a [generation]\th generation [name]!")
+	. += span_notice("This is a [generation]\th generation [name]!")
 
 /**
-  *	Creates a new glowshroom structure.
-  *
-  * Arguments:
-  * * newseed - Seed of the shroom
-  * * mutate_stats - If the plant needs to mutate their stats
-  * * spread - If the plant is a result of spreading, reduce its stats
-  */
-
+ *	Creates a new glowshroom structure.
+ *
+ * Arguments:
+ * * newseed - Seed of the shroom
+ * * mutate_stats - If the plant needs to mutate their stats
+ * * spread - If the plant is a result of spreading, reduce its stats
+ */
 /obj/structure/glowshroom/Initialize(mapload, obj/item/seeds/newseed, mutate_stats, spread)
 	. = ..()
 	if(newseed)
@@ -72,9 +85,8 @@
 
 	if(myseed.get_gene(/datum/plant_gene/trait/glow))
 		var/datum/plant_gene/trait/glow/glow_gene = myseed.get_gene(/datum/plant_gene/trait/glow)
-		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color)
+		set_light(glow_gene.glow_range(myseed), glow_gene.glow_power(myseed), glow_gene.glow_color, l_on = TRUE)
 	setDir(calc_dir())
-	var/base_icon_state = initial(icon_state)
 	if(!is_on_floor)
 		//offset to make it be on the wall rather than on the floor
 		switch(dir)
@@ -91,8 +103,18 @@
 		//if on the floor, glowshroom on-floor sprite
 		icon_state = "[base_icon_state]f"
 
-	addtimer(CALLBACK(src, .proc/Spread), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
-	addtimer(CALLBACK(src, .proc/Decay), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
+	addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
+	addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)	// Start decaying the plant
+	RegisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK, PROC_REF(on_cleave_attack))
+
+/obj/structure/glowshroom/Destroy(force)
+	if(!ispath(myseed))
+		QDEL_NULL(myseed)
+	UnregisterSignal(src, COMSIG_ATOM_CLEAVE_ATTACK)
+	. = ..()
+
+/obj/structure/glowshroom/proc/on_cleave_attack()
+	return ATOM_ALLOW_CLEAVE_ATTACK // don't have density, but still cleavable
 
 /obj/structure/glowshroom/proc/Spread()
 	//We could be deleted at any point and the timers might not be cleaned up
@@ -107,7 +129,7 @@
 	for(var/turf/simulated/floor/earth in RANGE_TURFS(1, src))
 		if(is_type_in_typecache(earth, blacklisted_glowshroom_turfs))
 			continue
-		if(!ownturf.CanAtmosPass(earth))
+		if(!ownturf.CanAtmosPass(get_dir(ownturf, earth)))
 			continue
 		possible_locs += earth
 
@@ -154,7 +176,7 @@
 	if((shrooms_planted <= myseed.yield) && (max_failed_spreads >= 0))
 		myseed.adjust_yield(-shrooms_planted)
 		//Lets make this a unique hash
-		addtimer(CALLBACK(src, .proc/Spread), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
+		addtimer(CALLBACK(src, PROC_REF(Spread)), SPREAD_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT)
 
 /obj/structure/glowshroom/proc/calc_dir(turf/location = loc)
 	var/direction = (1<<4)
@@ -189,12 +211,12 @@
 	is_on_floor = TRUE
 	return NORTH
 /**
-  * Causes the glowshroom to decay by decreasing its endurance.
-  *
-  * Arguments:
-  * * spread - Boolean to indicate if the decay is due to spreading or natural decay.
-  * * amount - Amount of endurance to be reduced due to spread decay.
-  */
+ * Causes the glowshroom to decay by decreasing its endurance.
+ *
+ * Arguments:
+ * * spread - Boolean to indicate if the decay is due to spreading or natural decay.
+ * * amount - Amount of endurance to be reduced due to spread decay.
+ */
 /obj/structure/glowshroom/proc/Decay(spread, amount)
 	// Decay due to spread
 	if(spread)
@@ -203,7 +225,7 @@
 		// Timed decay
 		myseed.endurance -= 2
 		if(myseed.endurance > 0)
-			addtimer(CALLBACK(src, .proc/Decay), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
+			addtimer(CALLBACK(src, PROC_REF(Decay)), DECAY_DELAY, TIMER_UNIQUE|TIMER_NO_HASH_WAIT) // Recall decay timer
 			return
 	// Plant is gone
 	if(myseed.endurance < 1)
@@ -219,39 +241,50 @@
 		if(BURN)
 			playsound(src.loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/glowshroom/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/glowshroom/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
 /obj/structure/glowshroom/acid_act(acidpwr, acid_volume)
 	. = 1
-	visible_message(SPAN_DANGER("[src] melts away!"))
+	visible_message(span_danger("[src] melts away!"))
 	var/obj/effect/decal/cleanable/molten_object/object = new (get_turf(src))
 	object.desc = "Looks like this was \an [src] some time ago."
 	qdel(src)
 
-/obj/structure/glowshroom/attacked_by(obj/item/tool, mob/living/user)
-	var/damage_dealt = tool.force
-	if(istype(tool, /obj/item/scythe))
-		var/obj/item/scythe/weapon = tool
-		//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
-		if(weapon.extend)
-			damage_dealt *= 10
-			for(var/obj/structure/glowshroom/shroom in view(1, src))
-				shroom.take_damage(damage_dealt, tool.damtype, "melee", 1)
-			return
+/obj/structure/glowshroom/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
+	if(!item.force)
+		user.visible_message(
+			span_warning("[user] gently pokes [src] with [item]."),
+			span_warning("You gently poke [src] with [item]."),
+		)
+		return .
+	user.visible_message(
+		span_danger("[user] has hit [src] with [item]!"),
+		span_danger("You have hit [src] with [item]!"),
+	)
+	var/damage_dealt = item.get_final_force(user)
+	var/obj/item/scythe/scythe = item
+	//so folded telescythes won't get damage boosts / insta-clears (they instead will be treated like non-scythes)
+	if(istype(item, /obj/item/scythe) && scythe.extend)
+		damage_dealt *= 20
 
-	if(is_sharp(tool) || tool.damtype == BURN)
+	else if(item.sharp || item.damtype == BURN)
 		damage_dealt *= 4
 
-	take_damage(damage_dealt, tool.damtype, "melee", 1)
+	take_damage(damage_dealt, item.damtype, MELEE, TRUE, get_dir(user, src), item.armour_penetration)
+	if(QDELETED(src))
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 //Way to check glowshroom stats using plant analyzer
-/obj/structure/glowshroom/attackby(obj/item/plant_analyzer/plant_analyzer, mob/living/user, params)
-	if(istype(plant_analyzer))
-		// Hacky I guess
-		return myseed.attackby(plant_analyzer, user, params)
+/obj/structure/glowshroom/attackby(obj/item/item, mob/living/user, params)
+	if(istype(item, /obj/item/plant_analyzer))
+		// Hacky item guess
+		item.melee_attack_chain(user, myseed, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 #undef SPREAD_DELAY

@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(spawntypes)
 /datum/spawnpoint/cryo
 	display_name = "Cryogenic Storage"
 	msg = "has completed cryogenic revival"
-	disallow_job = list("Cyborg")
+	disallow_job = list(JOB_TITLE_CYBORG)
 
 /datum/spawnpoint/cryo/New()
 	..()
@@ -50,8 +50,18 @@ GLOBAL_LIST_EMPTY(spawntypes)
 /datum/spawnpoint/cyborg
 	display_name = "Cyborg Storage"
 	msg = "has been activated from storage"
-	restrict_job = list("Cyborg")
+	restrict_job = list(JOB_TITLE_CYBORG)
 
 /datum/spawnpoint/cyborg/New()
 	..()
 	turfs = GLOB.latejoin_cyborg
+
+/datum/spawnpoint/prisoner
+	display_name = "Permabrig"
+	msg = "очнулся от криогенного сна в пермабриге"
+	restrict_job = list(JOB_TITLE_PRISONER)
+
+/datum/spawnpoint/prisoner/New()
+	..()
+	turfs = GLOB.latejoin_prisoner
+

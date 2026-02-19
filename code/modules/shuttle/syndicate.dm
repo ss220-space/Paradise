@@ -1,4 +1,4 @@
-#define SYNDICATE_CHALLENGE_TIMER 12000 //20 minutes
+#define SYNDICATE_CHALLENGE_TIMER 13 MINUTES
 
 /obj/machinery/computer/shuttle/syndicate
 	name = "syndicate shuttle terminal"
@@ -10,8 +10,9 @@
 	shuttleId = "syndicate"
 	possible_destinations = "syndicate_away;syndicate_z5;syndicate_z3;syndicate_ne;syndicate_nw;syndicate_n;syndicate_se;syndicate_sw;syndicate_s;syndicate_custom"
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	flags = NODECONSTRUCT
+	obj_flags = NODECONSTRUCT
 	var/challenge = FALSE
+	var/challenge_start_time
 
 /obj/machinery/computer/shuttle/syndicate/recall
 	name = "syndicate shuttle recall terminal"
@@ -20,14 +21,14 @@
 
 /obj/machinery/computer/shuttle/syndicate/can_call_shuttle(user, action)
 	if(action == "move")
-		if(challenge && world.time < SYNDICATE_CHALLENGE_TIMER)
-			to_chat(user, "<span class='warning'>You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - world.time) / 10) / 60)] more minutes to allow them to prepare.</span>")
+		if(challenge && (world.time - challenge_start_time) < SYNDICATE_CHALLENGE_TIMER)
+			to_chat(user, span_warning("You've issued a combat challenge to the station! You've got to give them at least [round(((SYNDICATE_CHALLENGE_TIMER - (world.time - SSticker.round_start_time)) / 10) / 60)] more minutes to allow them to prepare."))
 			return FALSE
 	return TRUE
 
 /obj/machinery/computer/shuttle/syndicate/drop_pod
 	name = "syndicate assault pod control"
-	icon = 'icons/obj/terminals.dmi'
+	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "dorm_available"
 	req_access = list(ACCESS_SYNDICATE)
 	circuit = /obj/item/circuitboard/shuttle/syndicate/drop_pod
@@ -37,13 +38,34 @@
 /obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
 	if(action == "move")
 		if(z != level_name_to_num(CENTCOMM))
-			to_chat(user, "<span class='warning'>Pods are one way!</span>")
+			to_chat(user, span_warning("Pods are one way!"))
+			return FALSE
+	return ..()
+
+/obj/machinery/computer/shuttle/nt/drop_pod
+	name = "nanotrasen emergency pod control"
+	icon = 'icons/obj/machines/terminals.dmi'
+	icon_state = "dorm_available"
+	req_access = list(109)
+	circuit = /obj/item/circuitboard/shuttle/nt/drop_pod
+	shuttleId = "shit_rain"
+	possible_destinations = null
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+
+/obj/machinery/computer/shuttle/nt/drop_pod/recall
+	name = "nanotrasen emergency pod recall"
+	possible_destinations = "pod_recall"
+
+/obj/machinery/computer/shuttle/syndicate/drop_pod/can_call_shuttle(user, action)
+	if(action == "move")
+		if(z != level_name_to_num(CENTCOMM))
+			to_chat(user, span_warning("Pods are one way!"))
 			return FALSE
 	return ..()
 
 /obj/machinery/computer/shuttle/sst
 	name = "Syndicate Strike Team Shuttle Console"
-	desc = "Used to call and send the SST shuttle."
+	desc = "Используется для вызова и отправки шаттла Ударного Отряда \"Синдиката\"."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
@@ -54,7 +76,7 @@
 
 /obj/machinery/computer/shuttle/sit
 	name = "Syndicate Infiltration Team Shuttle Console"
-	desc = "Used to call and send the SIT shuttle."
+	desc = "Используется для вызова и отправки шаттла Диверсионного Отряда \"Синдиката\"."
 	icon_keyboard = "syndie_key"
 	icon_screen = "syndishuttle"
 	req_access = list(ACCESS_SYNDICATE)
@@ -65,7 +87,7 @@
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate
 	name = "syndicate shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the syndicate shuttle."
+	desc = "Используется, чтобы указать точное местоположение для отправки шаттла \"Синдиката\"."
 	icon_screen = "syndinavigation"
 	icon_keyboard = "syndie_key"
 	shuttleId = "syndicate"
@@ -76,31 +98,21 @@
 	y_offset = -1
 	see_hidden = TRUE
 	resistance_flags = INDESTRUCTIBLE
-	access_station = TRUE 		//can we park near station?
-	access_admin_zone = FALSE	//can we park on Admin z_lvls?
-	access_mining = FALSE		//can we park on Lavaland z_lvl?
-	access_taipan = FALSE 		//can we park on Taipan z_lvl?
-	access_away = FALSE 		//can we park on Away_Mission z_lvl?
-	access_derelict = FALSE		//can we park in Unexplored Space?
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sst
 	name = "SST shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the SST shuttle."
+	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Ударного Отряда \"Синдиката\"."
 	shuttleId = "sst"
 	shuttlePortId = "sst_custom"
-	bubble_icon = "syndibot"
-	view_range = 13
 	x_offset = 0
 	y_offset = 0
 	access_taipan = TRUE
 
 /obj/machinery/computer/camera_advanced/shuttle_docker/syndicate/sit
 	name = "SIT shuttle navigation computer"
-	desc = "Used to designate a precise transit location for the SIT shuttle."
+	desc = "Используется, чтобы указать точное местоположение для отправки шаттла Диверсионного Отряда \"Синдиката\"."
 	shuttleId = "sit"
 	shuttlePortId = "sit_custom"
-	bubble_icon = "syndibot"
-	view_range = 13
 	x_offset = 0
 	y_offset = 0
 	access_taipan = TRUE

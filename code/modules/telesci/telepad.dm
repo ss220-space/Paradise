@@ -3,15 +3,14 @@
 	name = "telepad"
 	desc = "A bluespace telepad used for teleporting objects to and from a location."
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "pad-idle"
-	anchored = 1
-	use_power = IDLE_POWER_USE
+	icon_state = "pad"
+	anchored = TRUE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/efficiency
 
-/obj/machinery/telepad/New()
-	..()
+/obj/machinery/telepad/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
@@ -20,8 +19,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 1)
 	RefreshParts()
 
-/obj/machinery/telepad/upgraded/New()
-	..()
+/obj/machinery/telepad/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/telesci_pad(null)
 	component_parts += new /obj/item/stack/ore/bluespace_crystal/artificial(null, 2)
@@ -37,13 +36,17 @@
 	efficiency = E
 
 /obj/machinery/telepad/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 /obj/machinery/telepad/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	default_deconstruction_screwdriver(user, "pad-idle-o", "pad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/telepad/multitool_act(mob/user, obj/item/I)
 	if(!panel_open)
@@ -65,9 +68,8 @@
 	name = "cargo telepad"
 	desc = "A telepad used by the Rapid Crate Sender."
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "pad-idle"
+	icon_state = "pad"
 	anchored = TRUE
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 20
 	active_power_usage = 500
 	var/stage = 0
@@ -82,20 +84,18 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class = 'caution'> You [stage ? "screw in" : "unscrew"] the telepad's tracking beacon.</span>")
+	to_chat(user, span_caution("Вы [stage ? "прикручиваете" : "откручиваете"] маячок отслеживания телепада."))
 	stage = !stage
 
 /obj/machinery/telepad_cargo/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	default_unfasten_wrench(user, I)
 
-
 /obj/machinery/telepad_cargo/deconstruct(disassembled = TRUE)
-	if(!(flags & NODECONSTRUCT))
+	if(!(obj_flags & NODECONSTRUCT))
 		new /obj/item/stack/sheet/metal(loc)
 		new /obj/item/stack/sheet/glass(loc)
 	..()
-
 
 ///TELEPAD CALLER///
 /obj/item/telepad_beacon
@@ -108,8 +108,8 @@
 
 /obj/item/telepad_beacon/attack_self(mob/user as mob)
 	if(user)
-		to_chat(user, "<span class = 'caution'> Locked In</span>")
+		to_chat(user, span_caution("Фиксация завершена"))
 		new /obj/machinery/telepad_cargo(user.loc)
-		playsound(src, 'sound/effects/pop.ogg', 100, 1, 1)
+		playsound(src, 'sound/effects/pop.ogg', 100, TRUE, 1)
 		qdel(src)
 	return

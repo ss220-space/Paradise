@@ -47,13 +47,14 @@
 	if(!GLOB.wire_color_directory[holder_type])
 		randomize()
 		GLOB.wire_color_directory[holder_type] = colors
+		GLOB.wire_name_directory[holder_type] = proper_name
 	else
 		colors = GLOB.wire_color_directory[holder_type]
 
 /datum/wires/Destroy()
-	holder = null
 	for(var/color in colors)
 		detach_assembly(color)
+	holder = null
 	return ..()
 
 /**
@@ -92,11 +93,33 @@
 /datum/wires/ui_host()
 	return holder
 
-/datum/wires/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.physical_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/wires/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/wires/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Wires", "[proper_name] wires", window_x, window_y + wire_count * 30, master_ui, state)
+		ui = new(user, src, "Wires", "[proper_name] wires")
 		ui.open()
+
+/**
+ * Used for wire name appearances. Replaces the color name on the left with the one on the right.
+ * The color on the left is the one used as the actual color of the wire, but it doesn't look good when written.
+ * So, we need to replace the name to something that looks better.
+ */
+#define LIST_COLOR_RENAME list( \
+	"rebeccapurple" = "dark purple", \
+	"darkslategrey" = "dark grey", \
+	"darkolivegreen" = "dark green", \
+	"darkslateblue" = "dark blue", \
+	"darkkhaki" = "khaki", \
+	"darkseagreen" = "light green", \
+	"midnightblue" = "blue", \
+	"lightgrey" = "light grey", \
+	"darkgrey" = "dark grey", \
+	"steelblue" = "blue", \
+	"goldenrod" = "gold" \
+)
 
 /datum/wires/ui_data(mob/user)
 	var/list/data = list()
@@ -105,7 +128,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/obj/item/organ/internal/eyes/eyes = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(eyes && (COLOURBLIND in H.mutations)) // Check if the human has colorblindness.
+		if(eyes && HAS_TRAIT(H, TRAIT_COLORBLIND)) // Check if the human has colorblindness.
 			replace_colors = eyes.replace_colours // Get the colorblind replacement colors list.
 
 	var/list/wires_list = list()
@@ -149,6 +172,8 @@
 	data["status"] = status
 	return data
 
+#undef LIST_COLOR_RENAME
+
 /datum/wires/ui_act(action, list/params)
 	if(..())
 		return
@@ -157,29 +182,43 @@
 	if(!interactable(user))
 		return
 
-	var/obj/item/I = user.get_active_hand()
+	var/obj/item/I
+
+	if(ismecha(user.loc))
+		var/obj/mecha/mecha = user.loc
+		if(istype(mecha.selected, /obj/item/mecha_parts/mecha_equipment/eng_toolset))
+			var/obj/item/mecha_parts/mecha_equipment/eng_toolset/toolset = mecha.selected
+			I = toolset.selected_item
+
+	else
+		I = user.get_active_hand()
+
 	var/color = lowertext(params["wire"])
 	holder.add_hiddenprint(user)
 
 	switch(action)
-		 // Toggles the cut/mend status.
+		// Toggles the cut/mend status.
 		if("cut")
-			if(!istype(I, /obj/item/wirecutters) && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need wirecutters!</span>")
+			if(!I)
+				return
+			if(I.tool_behaviour != TOOL_WIRECUTTER && !user.can_admin_interact())
+				to_chat(user, span_error("You need wirecutters!"))
 				return
 
 			if(istype(I))
-				playsound(holder, I.usesound, 20, 1)
+				playsound(holder, I.usesound, 20, TRUE)
 				cut_color(color)
 				return TRUE
 
 		// Pulse a wire.
 		if("pulse")
-			if(!istype(I, /obj/item/multitool) && !user.can_admin_interact())
-				to_chat(user, "<span class='error'>You need a multitool!</span>")
+			if(!I)
+				return
+			if(I.tool_behaviour != TOOL_MULTITOOL && !user.can_admin_interact())
+				to_chat(user, span_error("You need a multitool!"))
 				return
 
-			playsound(holder, 'sound/weapons/empty.ogg', 20, 1)
+			playsound(holder, 'sound/weapons/empty.ogg', 20, TRUE)
 			pulse_color(color)
 
 			// If they pulse the electrify wire, call interactable() and try to shock them.
@@ -188,23 +227,23 @@
 
 			return TRUE
 
-		 // Attach a signaler to a wire.
+		// Attach a signaler to a wire.
 		if("attach")
 			if(is_attached(color))
 				var/obj/item/O = detach_assembly(color)
 				if(O)
-					user.put_in_hands(O)
+					user.put_in_hands(O, ignore_anim = FALSE)
 					return TRUE
 
-			if(!istype(I, /obj/item/assembly/signaler))
-				to_chat(user, "<span class='error'>You need a remote signaller!</span>")
+			if(!issignaler(I))
+				to_chat(user, span_error("You need a remote signaller!"))
 				return
 
-			if(user.drop_item())
+			if(user.drop_from_active_hand())
 				attach_assembly(color, I)
 				return TRUE
 			else
-				to_chat(user, "<span class='warning'>[user.get_active_hand()] is stuck to your hand!</span>")
+				to_chat(user, span_warning("[user.get_active_hand()] is stuck to your hand!"))
 
 /**
  * Proc called to determine if the user can see wire define information, such as "Contraband", "Door Bolts", etc.
@@ -217,10 +256,13 @@
 /datum/wires/proc/can_see_wire_info(mob/user)
 	if(user.can_admin_interact())
 		return TRUE
-	else if(istype(user.get_active_hand(), /obj/item/multitool))
+
+	if(istype(user.get_active_hand(), /obj/item/multitool))
 		var/obj/item/multitool/M = user.get_active_hand()
 		if(M.shows_wire_information)
 			return TRUE
+	if(HAS_TRAIT(user, TRAIT_CAN_SEE_WIRES))
+		return TRUE
 	return FALSE
 
 /**
@@ -367,6 +409,16 @@
 	on_pulse(wire)
 
 /**
+ * Pulses random wire. Calls `on_pulse()`.
+ *
+ */
+/datum/wires/proc/pulse_random()
+	var/cable = wires[rand(1, length(wires))]
+	if(is_cut(cable))
+		return
+	on_pulse(cable)
+
+/**
  * Pulses the wire associated with the given color.
  *
  * Arugments:
@@ -413,6 +465,7 @@
  */
 /datum/wires/proc/attach_assembly(color, obj/item/assembly/signaler/S)
 	if(S && istype(S) && !is_attached(color))
+		S.do_pickup_animation(holder)
 		assemblies[color] = S
 		S.forceMove(holder)
 		S.connected = src
@@ -454,3 +507,16 @@
 /datum/wires/proc/is_attached(color)
 	if(assemblies[color])
 		return TRUE
+
+/// Use this proc if you want wires to be pulsed on EMP
+/datum/wires/proc/emp_pulse()
+	var/list/possible_wires = shuffle(wires)
+	var/remaining_pulses = 3
+
+	for(var/wire in possible_wires)
+		if(!prob(33))
+			continue
+		pulse(wire)
+		remaining_pulses--
+		if(!remaining_pulses)
+			break

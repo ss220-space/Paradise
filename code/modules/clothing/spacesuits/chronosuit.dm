@@ -4,19 +4,18 @@
 	icon_state = "chronohelmet"
 	item_state = "chronohelmet"
 	slowdown = 1
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 100)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/suit/space/chronos/suit = null
 
-/obj/item/clothing/head/helmet/space/chronos/dropped()
-	if(suit)
+/obj/item/clothing/head/helmet/space/chronos/dropped(mob/user, slot, silent = FALSE)
+	if(suit && slot == ITEM_SLOT_HEAD)
 		suit.deactivate()
-	..()
+	. = ..()
 
 /obj/item/clothing/head/helmet/space/chronos/Destroy()
-	dropped()
+	suit?.deactivate()
 	return ..()
-
 
 /obj/item/clothing/suit/space/chronos
 	name = "Chronosuit"
@@ -24,7 +23,7 @@
 	icon_state = "chronosuit"
 	item_state = "chronosuit"
 	actions_types = list(/datum/action/item_action/toggle)
-	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 60, "bomb" = 30, "bio" = 90, "rad" = 90, "fire" = 100, "acid" = 1000)
+	armor = list(MELEE = 60, BULLET = 60, LASER = 60, ENERGY = 60, BOMB = 30, BIO = 90, RAD = 90, FIRE = 100, ACID = 1000)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/obj/item/clothing/head/helmet/space/chronos/helmet = null
 	var/obj/effect/chronos_cam/camera = null
@@ -33,28 +32,27 @@
 	var/cooldowntime = 50 //deciseconds
 	var/teleporting = 0
 
-
-/obj/item/clothing/suit/space/chronos/proc/new_camera(var/mob/user)
+/obj/item/clothing/suit/space/chronos/proc/new_camera(mob/user)
 	if(camera)
 		qdel(camera)
 	camera = new /obj/effect/chronos_cam(get_turf(user))
 	camera.holder = user
 	user.remote_control = camera
 
-/obj/item/clothing/suit/space/chronos/ui_action_click()
+/obj/item/clothing/suit/space/chronos/ui_action_click(mob/user, datum/action/action, leftclick)
 	if((cooldown <= world.time) && !teleporting && !activating)
 		if(!activated)
 			activate()
 		else
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/dropped()
-	if(activated)
+/obj/item/clothing/suit/space/chronos/dropped(mob/user, slot, silent = FALSE)
+	if(slot == ITEM_SLOT_CLOTH_OUTER && activated)
 		deactivate()
-	..()
+	. = ..()
 
 /obj/item/clothing/suit/space/chronos/Destroy()
-	dropped()
+	deactivate()
 	return ..()
 
 /obj/item/clothing/suit/space/chronos/emp_act(severity)
@@ -62,10 +60,10 @@
 	switch(severity)
 		if(1)
 			if(user && ishuman(user) && (user.wear_suit == src))
-				to_chat(user, "<span class='userdanger'>Elecrtromagnetic pulse detected, shutting down systems to preserve integrity...</span>")
+				to_chat(user, span_userdanger("Elecrtromagnetic pulse detected, shutting down systems to preserve integrity..."))
 			deactivate()
 
-/obj/item/clothing/suit/space/chronos/proc/chronowalk(var/mob/living/carbon/human/user)
+/obj/item/clothing/suit/space/chronos/proc/chronowalk(mob/living/carbon/human/user)
 	if(!teleporting && user && (user.stat == CONSCIOUS))
 		teleporting = 1
 		var/turf/from_turf = get_turf(user)
@@ -78,7 +76,7 @@
 		phaseanim.name = "phasing [user.name]"
 		phaseanim.icon = 'icons/mob/mob.dmi'
 		phaseanim.icon_state = "chronostuck"
-		phaseanim.density = 1
+		phaseanim.set_density(TRUE)
 		phaseanim.layer = FLY_LAYER
 		phaseanim.master = user
 		user.ExtinguishMob()
@@ -87,7 +85,7 @@
 		spawn(7)
 			if(user)
 				if(phaseanim)
-					if(camera && camera.loc)
+					if(camera?.loc)
 						to_turf = camera.loc
 						flick("chronounphase", phaseanim)
 					else
@@ -96,20 +94,20 @@
 					sleep(7)
 			if(holder)
 				if(user && (user in holder.contents))
-					user.loc = to_turf
+					user.forceMove(to_turf)
 					if(user.client)
 						if(camera)
-							user.client.eye = camera
+							user.client.set_eye(camera)
 						else
-							user.client.eye = user
+							user.client.set_eye(user)
 				qdel(holder)
 			else if(user)
-				user.loc = from_turf
+				user.forceMove(from_turf)
 			if(phaseanim)
 				qdel(phaseanim)
 			teleporting = 0
 			if(user && !user.loc) //ubersanity
-				user.loc = locate(0,0,1)
+				user.forceMove(locate(0,0,1))
 				user.gib()
 
 /obj/item/clothing/suit/space/chronos/process()
@@ -136,9 +134,9 @@
 				if(user.head && istype(user.head, /obj/item/clothing/head/helmet/space/chronos))
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Mounting /dev/helmet")
 					helmet = user.head
-					helmet.flags |= NODROP
+					ADD_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = src
-					src.flags |= NODROP
+					ADD_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting brainwave scanner")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Starting ui display driver")
 					to_chat(user, "\[ <span style='color: #00ff00;'>ok</span> \] Initializing chronowalk4-view")
@@ -167,22 +165,18 @@
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping ui display driver")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Stopping brainwave scanner")
 					to_chat(user, "\[ <span style='color: #ff5500;'>ok</span> \] Unmounting /dev/helmet")
-					helmet.flags &= ~NODROP
+					REMOVE_TRAIT(helmet, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 					helmet.suit = null
 					helmet = null
 				to_chat(user, "logout")
-		src.flags &= ~NODROP
+		REMOVE_TRAIT(src, TRAIT_NODROP, CHRONOSUIT_TRAIT)
 		cooldown = world.time + cooldowntime * 1.5
 		activated = 0
 		activating = 0
 
-
 /obj/effect/chronos_cam
 	name = "Chronosuit View"
-	density = 0
-	anchored = 1
-	invisibility = 101
-	opacity = 0
+	invisibility = INVISIBILITY_ABSTRACT
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	var/mob/holder = null
 
@@ -192,15 +186,15 @@
 /obj/effect/chronos_cam/singularity_pull()
 	return
 
-/obj/effect/chronos_cam/relaymove(var/mob/user, direction)
+/obj/effect/chronos_cam/relaymove(mob/user, direction)
 	if(holder)
 		if(user == holder)
 			if(user.client && user.client.eye != src)
 				src.loc = get_turf(user)
-				user.client.eye = src
+				user.client.set_eye(src)
 			var/step = get_step(src, direction)
 			if(step)
-				if(istype(step, /turf/space))
+				if(isspaceturf(step))
 					if(!src.Move(step))
 						src.loc = step
 				else
@@ -213,5 +207,5 @@
 		if(holder.remote_control == src)
 			holder.remote_control = null
 		if(holder.client && (holder.client.eye == src))
-			holder.client.eye = holder
+			holder.client.set_eye(holder)
 	return ..()

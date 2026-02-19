@@ -9,10 +9,9 @@
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mass driver."
 	var/id_tag = "default"
-	var/active = 0
-	anchored = 1.0
+	var/active = FALSE
+	anchored = TRUE
 	armor = list(melee = 50, bullet = 50, laser = 50, energy = 50, bomb = 10, bio = 100, rad = 100, fire = 90, acid = 70)
-	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 4
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
@@ -20,11 +19,10 @@
 	var/logic_id_tag = "default"					//Defines the ID tag to send logic signals to, so you don't have to unlink from doors and stuff
 	var/logic_connect = 0							//Set this to allow the button to send out logic signals when pressed in addition to normal stuff
 
-/obj/machinery/button/indestructible
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	multitool_menu_type = /datum/multitool_menu/idtag/driver_button
 
-/obj/machinery/driver_button/New(turf/loc, var/w_dir=null)
-	..()
+/obj/machinery/driver_button/Initialize(mapload, w_dir = null)
+	. = ..()
 	switch(w_dir)
 		if(NORTH)
 			pixel_y = 25
@@ -36,13 +34,6 @@
 			pixel_x = -25
 	if(SSradio)
 		set_frequency(frequency)
-
-/obj/machinery/driver_button/Initialize()
-	..()
-	set_frequency(frequency)
-
-/obj/machinery/driver_button/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/driver_button(src)
 
 /obj/machinery/driver_button/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
@@ -56,6 +47,8 @@
 	radio_connection = null
 	return ..()
 
+/obj/machinery/driver_button/update_icon_state()
+	icon_state = active ? "launcheract" : "launcherbtt"
 
 /obj/machinery/driver_button/attack_ai(mob/user as mob)
 	return attack_hand(user)
@@ -66,26 +59,23 @@
 
 /obj/machinery/driver_button/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/driver_button/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	playsound(get_turf(src), I.usesound, 50, 1)
-	if(do_after(user, 30 * I.toolspeed * gettoolspeedmod(user), target = src))
-		to_chat(user, "<span class='notice'>You detach [src] from the wall.</span>")
-		new/obj/item/mounted/frame/driver_button(get_turf(src))
-		qdel(src)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume))
+		return .
+	to_chat(user, span_notice("You detach [src] from the wall."))
+	new /obj/item/mounted/frame/driver_button(loc)
+	qdel(src)
 
-/obj/machinery/driver_button/attackby(obj/item/W, mob/user as mob, params)
-
-	if(istype(W, /obj/item/detective_scanner))
-		return
-
+/obj/machinery/driver_button/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/detective_scanner))
+		return ATTACK_CHAIN_PROCEED
 	return ..()
 
 /obj/machinery/driver_button/attack_hand(mob/user as mob)
 
-	add_fingerprint(usr)
 	if(stat & (NOPOWER|BROKEN))
 		return
 	if(active)
@@ -97,8 +87,8 @@
 	launch_sequence()
 
 /obj/machinery/driver_button/proc/launch_sequence()
-	active = 1
-	icon_state = "launcheract"
+	active = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
 	if(logic_connect)
 		if(!radio_connection)		//can't output without this
@@ -121,7 +111,7 @@
 
 	if(!id_tag)
 		// play animation, but do nothing if id_tag is null
-		addtimer(CALLBACK(src, .proc/rearm), 7 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(rearm)), 7 SECONDS)
 		return
 
 	for(var/obj/machinery/door/poddoor/M in range(src,range))
@@ -146,8 +136,8 @@
 	rearm()
 
 /obj/machinery/driver_button/proc/rearm()
-	icon_state = "launcherbtt"
 	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 //////////////////////////////////////
 //			Ignition Switch			//
@@ -159,9 +149,8 @@
 	icon_state = "launcherbtt"
 	desc = "A remote control switch for a mounted igniter."
 	var/id = null
-	var/active = 0
-	anchored = 1.0
-	use_power = IDLE_POWER_USE
+	var/active = FALSE
+	anchored = TRUE
 	idle_power_usage = 2
 	active_power_usage = 4
 
@@ -178,17 +167,19 @@
 	if(active)
 		return
 
+	add_fingerprint(user)
+
 	use_power(5)
 
-	active = 1
-	icon_state = "launcheract"
+	active = TRUE
+	update_icon(UPDATE_ICON_STATE)
 
-	for(var/obj/machinery/sparker/M in GLOB.machines)
+	for(var/obj/machinery/sparker/M in SSmachines.get_by_type(/obj/machinery/sparker))
 		if(M.id == id)
 			spawn( 0 )
 				M.spark()
 
-	for(var/obj/machinery/igniter/M in GLOB.machines)
+	for(var/obj/machinery/igniter/M in SSmachines.get_by_type(/obj/machinery/igniter))
 		if(M.id == id)
 			use_power(50)
 			M.on = !( M.on )
@@ -196,5 +187,9 @@
 
 	sleep(50)
 
-	icon_state = "launcherbtt"
-	active = 0
+	active = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/ignition_switch/update_icon_state()
+	icon_state = active ? "launcheract" : "launcherbtt"
+

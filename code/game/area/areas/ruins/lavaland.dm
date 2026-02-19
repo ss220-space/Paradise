@@ -21,7 +21,7 @@
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/golem_ship
-	name = "Free Golem Landing"
+	name = "Free Golem Ship"
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/greed
@@ -31,10 +31,21 @@
 	name = "Hierophant's Arena"
 	icon_state = "dk_yellow"
 
+/area/ruin/unpowered/drake
+	name = "Ancient Temple"
+	icon_state = "dk_yellow"
+
 /area/ruin/powered/pride
 	icon_state = "dk_yellow"
 
 /area/ruin/powered/seedvault
+	icon_state = "dk_yellow"
+
+/area/ruin/powered/green_bio
+	name = "Biodome"
+	icon_state = "dk_yellow"
+
+/area/ruin/powered/lavaland
 	icon_state = "dk_yellow"
 
 /area/ruin/unpowered/syndicate_lava_base
@@ -93,3 +104,12 @@
 
 // This area exists so that lavaland ruins dont overwrite the baseturfs on regular space ruins
 /area/ruin/unpowered/misc_lavaruin
+
+//'safe' caves
+/area/ruin/unpowered/safe_cave
+	icon_state = "dk_yellow"
+
+// pirate ship
+/area/ruin/powered/pirateship
+	name = "Crashed Pirate Ship"
+	icon_state = "green"

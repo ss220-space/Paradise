@@ -60,7 +60,7 @@
 	if(length(templates) == 0)
 		CRASH("No templates found!")
 
-	var/key_length = round(log(length(letter_digits), length(templates) - 1) + 1) // or floor
+	var/key_length = round(log(length(letter_digits), max(length(templates) - 1, 1)) + 1) // or floor
 	var/list/keys[length(templates)]
 
 	// Write the list of key/model pairs to the file
@@ -228,3 +228,11 @@
 		return "[name] = '[attr]'"
 	else
 		return ""
+
+#undef DMM_IGNORE_AREAS
+#undef DMM_IGNORE_TURFS
+#undef DMM_IGNORE_OBJS
+#undef DMM_IGNORE_NPCS
+#undef DMM_IGNORE_PLAYERS
+#undef DMM_IGNORE_MOBS
+#undef DMM_USE_JSON

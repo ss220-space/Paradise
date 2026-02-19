@@ -16,37 +16,44 @@
 	var/ckey = ckey(key)
 
 	var/client/C = GLOB.directory[ckey]
-	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
+	if(C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
 		return //don't recheck connected clients.
 
-	if((ckey in GLOB.admin_datums) || (ckey in GLOB.deadmins))
+	if((ckey in GLOB.admin_datums) || (ckey in GLOB.de_admins))
 		var/datum/admins/A = GLOB.admin_datums[ckey]
 		if(A && (A.rights & R_ADMIN))
 			admin = 1
 
+	// Lets see if they are logged in on another paradise server
+	#ifdef MULTIINSTANCE
+	if(!admin && SSdbcore.IsConnected()) // we allow admins to multijoin
+		var/other_server_login = SSinstancing.check_player(ckey)
+		if(other_server_login)
+			return list("reason"="duplicate login", "desc"="\nReason: You are already logged in on server '[other_server_login]'. Please contact the server host if you believe this is an error.")
+	#endif
+
 	//Guest Checking
-	if(!GLOB.guests_allowed && IsGuestKey(key))
+	if(!GLOB.guests_allowed && is_guest_key(key))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Guests not allowed")
-		// message_admins("<span class='notice'>Failed Login: [key] - Guests not allowed</span>")
+		// message_admins(span_notice("Failed Login: [key] - Guests not allowed"))
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a BYOND account.")
 
 	//check if the IP address is a known proxy/vpn, and the user is not whitelisted
-	if(check_ipintel && config.ipintel_email && config.ipintel_whitelist && ipintel_is_banned(key, address))
+	if(check_ipintel && CONFIG_GET(string/ipintel_email) && CONFIG_GET(flag/ipintel_whitelist) && ipintel_is_banned(key, address))
 		log_adminwarn("Failed Login: [key] [computer_id] [address] - Proxy/VPN")
 		var/mistakemessage = ""
-		if(config.banappeals)
-			mistakemessage = "\nIf you have to use one, request whitelisting at:  [config.banappeals]"
+		if(CONFIG_GET(string/banappeals))
+			mistakemessage = "\nIf you have to use one, request whitelisting at:  [CONFIG_GET(string/banappeals)]"
 		return list("reason"="using proxy or vpn", "desc"="\nReason: Proxies/VPNs are not allowed here. [mistakemessage]")
 
-
-	if(config.ban_legacy_system)
+	if(CONFIG_GET(flag/ban_legacy_system))
 		//Ban Checking
 		. = CheckBan(ckey(key), computer_id, address)
 		if(.)
 			if(admin)
 				log_admin("The admin [key] has been allowed to bypass a matching ban on [.["key"]]")
-				message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [.["key"]]</span>")
-				addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [.["key"]].</span>")
+				message_admins(span_adminnotice("The admin [key] has been allowed to bypass a matching ban on [.["key"]]"))
+				addclientmessage(ckey,span_adminnotice("You have been allowed to bypass a matching ban on [.["key"]]."))
 			else
 				log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["reason"]]")
 				return .
@@ -74,7 +81,7 @@
 			sql_query_params["cid"] = computer_id
 
 			var/datum/db_query/ban_wl_query = SSdbcore.NewQuery({"
-			SELECT computerid FROM [sqlfdbkdbutil].[format_table_name("ban_whitelist")]
+			SELECT computerid FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban_whitelist")]
 			WHERE ckey=:ckeytext [cidquery]"}, sql_query_params)
 
 			if(!ban_wl_query.warn_execute())
@@ -87,7 +94,7 @@
 			qdel(ban_wl_query)
 
 		var/datum/db_query/query = SSdbcore.NewQuery({"
-		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [sqlfdbkdbutil].[format_table_name("ban")]
+		SELECT ckey, ip, computerid, a_ckey, reason, expiration_time, duration, bantime, bantype FROM [CONFIG_GET(string/utility_database)].[format_table_name("ban")]
 		WHERE (ckey=:ckeytext [ipquery] [cidquery]) AND (bantype = 'PERMABAN' OR bantype = 'ADMIN_PERMABAN'
 		OR ((bantype = 'TEMPBAN' OR bantype = 'ADMIN_TEMPBAN') AND expiration_time > Now())) AND isnull(unbanned)"}, sql_query_params)
 
@@ -117,16 +124,16 @@
 			if(admin)
 				if(bantype == "ADMIN_PERMABAN" || bantype == "ADMIN_TEMPBAN")
 					log_admin("The admin [key] is admin banned, and has been disallowed access")
-					message_admins("<span class='adminnotice'>The admin [key] is admin banned, and has been disallowed access</span>")
+					message_admins(span_adminnotice("The admin [key] is admin banned, and has been disallowed access"))
 				else
 					log_admin("The admin [key] has been allowed to bypass a matching ban on [pckey]")
-					message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching ban on [pckey]</span>")
-					addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching ban on [pckey].</span>")
+					message_admins(span_adminnotice("The admin [key] has been allowed to bypass a matching ban on [pckey]"))
+					addclientmessage(ckey,span_adminnotice("You have been allowed to bypass a matching ban on [pckey]."))
 					continue
 			var/expires = ""
 			var/appealmessage = ""
-			if(config.banappeals)
-				appealmessage = " You may appeal it at <a href='[config.banappeals]'>[config.banappeals]</a>."
+			if(CONFIG_GET(string/banappeals))
+				appealmessage = " You may appeal it at <a href='[CONFIG_GET(string/banappeals)]'>[CONFIG_GET(string/banappeals)]</a>."
 			if(text2num(duration) > 0)
 				expires = " The ban is for [duration] minutes and expires on [expiration] (server time).[appealmessage]"
 			else
@@ -148,8 +155,8 @@
 		//So it's safe to let admins walk thru host/sticky bans here
 		if(admin)
 			log_admin("The admin [key] has been allowed to bypass a matching host/sticky ban")
-			message_admins("<span class='adminnotice'>The admin [key] has been allowed to bypass a matching host/sticky ban</span>")
-			addclientmessage(ckey,"<span class='adminnotice'>You have been allowed to bypass a matching host/sticky ban.</span>")
+			message_admins(span_adminnotice("The admin [key] has been allowed to bypass a matching host/sticky ban"))
+			addclientmessage(ckey,span_adminnotice("You have been allowed to bypass a matching host/sticky ban."))
 			return null
 		else
 			log_adminwarn("Failed Login: [key] [computer_id] [address] - Banned [.["message"]]")

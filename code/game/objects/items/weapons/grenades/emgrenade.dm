@@ -6,6 +6,7 @@
 	origin_tech = "magnets=3;combat=2"
 
 /obj/item/grenade/empgrenade/prime()
+	. = ..()
 	update_mob()
 	empulse(src, 4, 10, TRUE, name)
 	qdel(src)

@@ -1,108 +1,182 @@
+#define ICON_MODE_PASSIVE "passive"
+#define ICON_MODE_ACTIVE "active"
+
 /obj/item/handheld_defibrillator
 	name = "handheld defibrillator"
-	desc = "Used to restart stopped hearts."
-	icon = 'icons/obj/items.dmi'
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	icon_state = "defib-on"
-	item_state = "defib"
-	var/shield_ignore = FALSE
+	desc = "Компактное устройство жёлтого цвета, используемое для экстренной кардиостимуляции."
+	gender = MALE
+	icon = 'icons/obj/handheld_defibrillator.dmi'
+	icon_state = "defib_passive-on"
+	item_state = "defib_passive"
+	belt_icon = "handheld_defibrillator"
 	var/icon_base = "defib"
+	var/icon_mode = ICON_MODE_PASSIVE
+	/// Can defib penetrate through hardsuits and etc.
+	var/shield_ignore = FALSE
 	var/cooldown = FALSE
+	/// ~10 seconds
 	var/charge_time = 100
-	var/emagged = FALSE
+	/// becomes TRUE for 1 second when used, changes the icon and is the delay between uses in advanced defib
+	var/shocking = FALSE
+	/// Affects the success rate of defibrillation
+	var/is_advanced = FALSE
+	/// Current number of charges
+	var/charges = 1
+	/// Maximum number of charges to which restoration occurs
+	var/max_charges = 1
 
-/obj/item/handheld_defibrillator/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = TRUE
-		desc += " The screen only shows the word KILL flashing over and over."
-		if(user)
-			to_chat(user, "<span class='warning'>you short out the safeties on [src]</span>")
-	else
-		add_attack_logs(user, src, "un-emagged")
-		emagged = FALSE
-		desc = "Used to restart stopped hearts."
-		if(user)
-			to_chat(user, "<span class='warning'>You restore the safeties on [src]</span>")
 
-/obj/item/handheld_defibrillator/emp_act(severity)
-	if(emagged)
-		emagged = FALSE
-		desc = "Used to restart stopped hearts."
-		visible_message("<span class='notice'>[src] beeps: Safety protocols enabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyon.ogg', 50, 0)
-	else
-		emagged = TRUE
-		desc += " The screen only shows the word KILL flashing over and over."
-		visible_message("<span class='notice'>[src] beeps: Safety protocols disabled!</span>")
-		playsound(get_turf(src), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+/obj/item/handheld_defibrillator/get_ru_names()
+	return list(
+		NOMINATIVE = "ручной дефибриллятор",
+		GENITIVE = "ручного дефибриллятора",
+		DATIVE = "ручному дефибриллятору",
+		ACCUSATIVE = "ручной дефибриллятор",
+		INSTRUMENTAL = "ручным дефибриллятором",
+		PREPOSITIONAL = "ручном дефибрилляторе",
+	)
 
-/obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/user)
-	var/blocked = FALSE
-	var/obj/item/I = H.get_item_by_slot(slot_wear_suit)
+/obj/item/handheld_defibrillator/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
+
+/obj/item/handheld_defibrillator/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_DROPPED)
+	. = ..()
+
+/obj/item/handheld_defibrillator/attack_self(mob/user)
+	. = ..()
+	icon_mode = "[icon_mode == ICON_MODE_PASSIVE ? ICON_MODE_ACTIVE : ICON_MODE_PASSIVE]"
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/handheld_defibrillator/proc/on_drop(datum/source, mob/user)
+	SIGNAL_HANDLER  // COMSIG_ITEM_DROPPED
+	icon_mode = ICON_MODE_PASSIVE
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/handheld_defibrillator/update_icon_state()
+	if(shocking)
+		icon_state = "[icon_base]_[icon_mode]-shock"
+		return
+	if(max_charges == 1)  // yellow and syndicate
+		icon_state = "[icon_base]_[icon_mode][charges == 0 ? "-off" : "-on"]"
+	else  // advanced
+		icon_state = "[icon_base]_[icon_mode]-[charges]"
+
+/obj/item/handheld_defibrillator/attack(mob/living/carbon/human/H, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!istype(H))
 		return ..()
+	. = ATTACK_CHAIN_PROCEED
+	var/blocked = FALSE
+	var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_CLOTH_OUTER)
 	if(istype(I, /obj/item/clothing/suit/space) && !shield_ignore)
-		blocked = TRUE
 		if(istype(I, /obj/item/clothing/suit/space/hardsuit))
-			var/obj/item/clothing/suit/space/hardsuit/HardS = I
-			if(HardS.shield)
-				HardS.shield.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(cooldown)
-		to_chat(user, "<span class='warning'>[src] is still charging!</span>")
-		return
-	if(emagged || (H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
-		user.visible_message("<span class='notice'>[user] shocks [H] with [src].</span>", "<span class='notice'>You tried to shock [H] with [src].</span>")
+			var/obj/item/clothing/suit/space/hardsuit/hardsuit = I
+			blocked = hardsuit.hit_reaction(user, src, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+
+	if(icon_mode == ICON_MODE_PASSIVE)
+		balloon_alert(user, "лопасти не разложены!")
+		return .
+
+	if(charges == 0 || shocking)
+		balloon_alert(user, "всё ещё заряжается!")
+		return .
+
+	if((H.health <= HEALTH_THRESHOLD_CRIT) || (H.undergoing_cardiac_arrest()))
+		. |= ATTACK_CHAIN_SUCCESS
+		H.balloon_alert_to_viewers("провод[PLUR_IT_YAT(user)] дефибрилляцию...", ignored_mobs = user)
 		add_attack_logs(user, H, "defibrillated with [src]")
-		playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
+		playsound(get_turf(src), 'sound/weapons/egloves.ogg', 75, TRUE)
 		if(!blocked)
 			if(H.stat == DEAD)
-				to_chat(user, "<span class='danger'>[H] doesn't respond at all!</span>")
+				H.balloon_alert(user, "цель не реагирует!")
 			if(H.stat != DEAD)
-				playsound(user.loc, "sound/weapons/Egloves.ogg", 75, 1)
 				H.set_heartattack(FALSE)
 				var/total_damage = H.getBruteLoss() + H.getFireLoss() + H.getToxLoss()
 				if(H.health <= HEALTH_THRESHOLD_CRIT)
 					if(total_damage >= 90)
-						to_chat(user, "<span class='danger'>[H] looks horribly injured. Resuscitation alone may not help revive them.</span>")
-					if(prob(66))
-						to_chat(user, "<span class='notice'>[H] inhales deeply!</span>")
+						balloon_alert(user, "цель слишком ранена!")   /// not h.balloon_alert so that they don't overlap each other
+					if((prob(66)) || (is_advanced))
+						H.balloon_alert(user, "дефибрилляция успешна")
 						H.adjustOxyLoss(-50)
 					else
-						to_chat(user, "<span class='danger'>[H] doesn't respond!</span>")
+						H.balloon_alert(user, "цель не реагирует!")
 
-				H.AdjustWeakened(2)
-				H.AdjustStuttering(10)
-				to_chat(H, "<span class='danger'>You feel a powerful jolt!</span>")
+				H.AdjustKnockdown(4 SECONDS)
+				H.AdjustStuttering(20 SECONDS)
+				to_chat(H, span_danger("Вы чувствуете сильный удар током!"))
 				H.shock_internal_organs(100)
-
-				if(emagged && prob(10))
-					to_chat(user, "<span class='danger'>[src]'s on board scanner indicates that the target is undergoing a cardiac arrest!</span>")
-					H.set_heartattack(TRUE)
-		if(blocked)
-			to_chat(user, "<span class='danger'>[H] has a hardsuit!</span>")
-		cooldown = TRUE
-		icon_state = "[icon_base]-shock"
-		addtimer(CALLBACK(src, .proc/short_charge), 10)
-		addtimer(CALLBACK(src, .proc/recharge), charge_time)
+		else
+			H.balloon_alert(user, "закрыто одеждой!")
+		shocking = TRUE
+		update_icon(UPDATE_ICON_STATE)
+		addtimer(CALLBACK(src, PROC_REF(short_charge)), 1 SECONDS)
+		if(charges > 0)
+			charges--
+			update_icon(UPDATE_ICON_STATE)
+			addtimer(CALLBACK(src, PROC_REF(recharge)), charge_time)
 
 	else
-		to_chat(user, "<span class='notice'>[src]'s on board medical scanner indicates that no shock is required.</span>")
+		H.balloon_alert(user, "дефибрилляция не требуется!")
 
 /obj/item/handheld_defibrillator/proc/short_charge()
-	icon_state = "[icon_base]-off"
+	shocking = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/handheld_defibrillator/proc/recharge()
-	cooldown = FALSE
-	icon_state = "[icon_base]-on"
-	playsound(loc, "sound/weapons/flash.ogg", 75, 1)
+	charges++
+	update_icon(UPDATE_ICON_STATE)
+	playsound(loc, 'sound/weapons/flash.ogg', 75, TRUE)
+
+#undef ICON_MODE_PASSIVE
+#undef ICON_MODE_ACTIVE
 
 /obj/item/handheld_defibrillator/syndie
 	name = "combat handheld defibrillator"
-	desc = "Used to restart stopped hearts(Not nanotrasen's pigs hearts"
-	icon_state = "sdefib-on"
-	item_state = "sdefib"
+	desc = "Компактное устройство матово-чёрного цвета, используемое для экстренной кардиостимуляции. \
+			За счёт интеграции конденсаторов нового поколения скорость перезарядки была увеличена втрое по сравнению со стандартной моделью. \
+			Специализированная боевая версия, используемая элитными тактическими отрядами \"Синдиката\"."
+	icon_state = "syndie_defib_passive-on"
+	item_state = "syndie_defib_passive"
+	icon_base = "syndie_defib"
 	charge_time = 30
-	icon_base = "sdefib"
 	shield_ignore = TRUE
+
+/obj/item/handheld_defibrillator/syndie/get_ru_names()
+	return list(
+		NOMINATIVE = "боевой ручной дефибриллятор",
+		GENITIVE = "боевого ручного дефибриллятора",
+		DATIVE = "боевому ручному дефибриллятору",
+		ACCUSATIVE = "боевой ручной дефибриллятор",
+		INSTRUMENTAL = "боевым ручным дефибриллятором",
+		PREPOSITIONAL = "боевом ручном дефибрилляторе",
+	)
+
+/obj/item/handheld_defibrillator/advanced
+	name = "advanced handheld defibrillator"
+	desc = "Компактное устройство тёмно-синего цвета с противоударными вставками, предназначенное для экстренной кардиостимуляции. \
+			Использование продвинутых конденсаторов и энергомодуля нового поколения позволило повысить скорость перезарядки батареи, \
+			а также увеличить её максимальную вместимость до трёх зарядов."
+	icon_state = "adv_defib_passive-3"
+	item_state = "adv_defib_passive"
+	icon_base = "adv_defib"
+	belt_icon = "advanced_handheld_defibrillator"
+	origin_tech = "materials=6;biotech=6;magnets=5"
+	is_advanced = TRUE
+	charges = 3
+	max_charges = 3
+	charge_time = 70
+
+/obj/item/handheld_defibrillator/advanced/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый ручной дефибриллятор",
+		GENITIVE = " продвинутого ручного дефибриллятора",
+		DATIVE = "продвинутому ручному дефибриллятору",
+		ACCUSATIVE = "продвинутый ручной дефибриллятор",
+		INSTRUMENTAL = "продвинутым ручным дефибриллятором",
+		PREPOSITIONAL = "продвинутом ручном дефибрилляторе",
+	)
+
+/obj/item/handheld_defibrillator/advanced/examine(mob/user)
+	. = ..()
+	. += span_boldnotice("Индикатор заряда: [charges]/[max_charges].")

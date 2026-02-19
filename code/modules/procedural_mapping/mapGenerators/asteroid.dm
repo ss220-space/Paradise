@@ -23,7 +23,6 @@
 		/mob/living/simple_animal/hostile/asteroid/hivelord = 10, \
 		/mob/living/simple_animal/hostile/asteroid/goliath = 10)
 
-
 // GENERATORS
 
 /datum/mapGenerator/asteroid/hollow

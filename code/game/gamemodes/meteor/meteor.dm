@@ -1,31 +1,31 @@
-/datum/game_mode/meteor
+/datum/game_mode/meteor // Where is the hero that will remove this shit?
 	name = "meteor"
 	config_tag = "meteor"
 	var/const/initialmeteordelay = 6000
 	var/wave = 1
 	required_players = 35
 
-
 /datum/game_mode/meteor/announce()
-	to_chat(world, "<B>The current game mode is - Meteor!</B>")
-	to_chat(world, "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>")
-
+	to_chat(world, "<b>The current game mode is - Meteor!</b>")
+	to_chat(world, "<b>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</b>")
 
 /datum/game_mode/meteor/post_setup()
 	spawn(rand(waittime_l, waittime_h))
-		GLOB.command_announcement.Announce("Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.", "ВНИМАНИЕ: ПРИБЛИЖЕНИЕ МЕТЕОРОВ.", 'sound/effects/siren.ogg')
+		GLOB.major_announcement.announce(
+			message = "Станция находится на пути надвигающегося потока метеоров. Укрепите обшивку и подготовьте группы по устранению повреждений.",
+			new_title = ANNOUNCE_METEOR_RU,
+			new_sound = 'sound/effects/siren.ogg'
+		)
 	spawn(initialmeteordelay)
 		sendmeteors()
 	..()
-
-
 
 /datum/game_mode/meteor/proc/sendmeteors()
 	var/waveduration = world.time + rand(0,1000) + text2num("[wave]000") / 2
 	var/waitduration = rand(3000,6000)
 	while(waveduration - world.time > 0)
 		sleep(max(65 - text2num("[wave]0") / 2, 40))
-		spawn() spawn_meteors(6, GLOB.meteors_normal)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/spawn_meteors, 6, GLOB.meteors_normal)
 	wave++
 	sleep(waitduration)
 	sendmeteors()
@@ -39,20 +39,20 @@
 			if(!location)	continue
 
 			if(location.loc.type == SSshuttle.emergency.areaInstance.type) //didn't work in the switch for some reason
-				text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
+				text += (span_bold(span_fontsize2("<br>[player.real_name] escaped on the emergency shuttle")))
 
 			else
 				switch(location.loc.type)
-					if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
-						text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
+					if(/area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
+						text += span_fontsize2("<br>[player.real_name] escaped in a life pod.")
 					else
-						text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
+						text += span_fontsize1("<br>[player.real_name] survived but is stranded without any hope of rescue.")
 			survivors++
 
 	if(survivors)
-		to_chat(world, "<span class='boldnotice'>The following survived the meteor storm</span>:[text]")
+		to_chat(world, "[span_boldnotice("The following survived the meteor storm")]:[text]")
 	else
-		to_chat(world, "<span class='boldnotice'>Nobody survived the meteor storm!</span>")
+		to_chat(world, span_boldnotice("Nobody survived the meteor storm!"))
 
 	SSticker.mode_result = "meteor end - evacuation"
 

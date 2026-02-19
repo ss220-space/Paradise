@@ -15,7 +15,7 @@ function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData('text');
   if (data && ev.target.getAttribute('index')) {
-    window.location = '?src=' + uid + ';' + 'cut=' + data + ';' + 'insert=' + ev.target.getAttribute('index');
+    window.location = 'byond://?src=' + uid + ';' + 'cut=' + data + ';' + 'insert=' + ev.target.getAttribute('index');
   }
 }
 

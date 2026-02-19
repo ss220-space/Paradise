@@ -1,13 +1,12 @@
 // Used for spray that you spray at walls, tables, hydrovats etc
 /obj/effect/decal/spraystill
-	density = FALSE
-	anchored = TRUE
 	layer = 50
 	plane = HUD_PLANE
 
 /obj/effect/decal/chempuff
 	name = "chemicals"
-	icon = 'icons/obj/chempuff.dmi'
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "chempuff"
 	pass_flags = PASSTABLE | PASSGRILLE
 
 /obj/effect/decal/chempuff/blob_act(obj/structure/blob/B)
@@ -15,8 +14,6 @@
 
 /obj/effect/decal/snow
 	name = "snow"
-	density = FALSE
-	anchored = TRUE
 	layer = TURF_DECAL_LAYER
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
@@ -35,16 +32,12 @@
 
 /obj/effect/decal/leaves
 	name = "fall leaves"
-	density = FALSE
-	anchored = TRUE
 	layer = HIGH_TURF_LAYER
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "fallleaves"
 
 /obj/effect/decal/straw
 	name = "scattered straw"
-	density = FALSE
-	anchored = TRUE
 	layer = HIGH_TURF_LAYER
 	icon = 'icons/obj/flora/plants.dmi'
 	icon_state = "strawscattered"
@@ -70,3 +63,13 @@
 	var/scale = (rand(2, 10) / 10) + (rand(0, 5) / 100)
 	transform = matrix(transform, scale, scale, MATRIX_SCALE)
 	setDir(pick(NORTH, SOUTH, EAST, WEST))
+
+/obj/effect/decal/ants/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/caltrop, 5, 5, 100, 6 SECONDS, CALTROP_BYPASS_WALKERS|CALTROP_BYPASS_CRAWLING, list(SPECIES_KIDAN, SPECIES_WRYN))
+
+/obj/effect/decal/fakelattice
+	name = "lattice"
+	desc = "A lightweight support lattice."
+	icon = 'icons/obj/smooth_structures/lattice.dmi'
+	icon_state = "lattice-255"

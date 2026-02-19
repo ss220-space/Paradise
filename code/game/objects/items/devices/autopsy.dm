@@ -1,15 +1,31 @@
+#define PRINT_TIMER 3 SECONDS
+
 /obj/item/autopsy_scanner
 	name = "autopsy scanner"
-	desc = "Extracts information on wounds."
+	desc = "Небольшое устройство, используемое для проведения аутопсии."
 	icon = 'icons/obj/autopsy_scanner.dmi'
-	icon_state = ""
+	icon_state = "autopsy_scanner"
 	flags = CONDUCT
-	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BELT
+	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=1;biotech=1"
-	var/list/datum/autopsy_data_scanner/wdata = list()
-	var/list/chemtraces = list()
-	var/target_name = null
+	var/list/datum/autopsy_data_scanner/wdata
+	var/list/chemtraces
+	var/target_UID = null
+	var/target_name = null	// target.name can change after scanning, so better save it here.
 	var/timeofdeath = null
+	var/target_rank = null
+	STATIC_COOLDOWN_DECLARE(print_cooldown)
+
+/obj/item/autopsy_scanner/get_ru_names()
+	return list(
+		NOMINATIVE = "сканер аутопсии",
+		GENITIVE = "сканера аутопсии",
+		DATIVE = "сканеру аутопсии",
+		ACCUSATIVE = "сканер аутопсии",
+		INSTRUMENTAL = "сканером аутопсии",
+		PREPOSITIONAL = "сканере аутопсии",
+	)
 
 /obj/item/autopsy_scanner/Destroy()
 	QDEL_LIST_ASSOC_VAL(wdata)
@@ -18,7 +34,7 @@
 /datum/autopsy_data_scanner
 	var/weapon = null // this is the DEFINITE weapon type that was used
 	var/list/organs_scanned = list() // this maps a number of scanned organs to
-									 // the wounds to those organs with this data's weapon type
+									// the wounds to those organs with this data's weapon type
 	var/organ_names = ""
 
 /datum/autopsy_data_scanner/Destroy()
@@ -32,144 +48,177 @@
 	var/time_inflicted = 0
 
 /datum/autopsy_data/proc/copy()
-	var/datum/autopsy_data/W = new()
-	W.weapon = weapon
-	W.damage = damage
-	W.hits = hits
-	W.time_inflicted = time_inflicted
-	return W
+	var/datum/autopsy_data/weapon_data = new()
+	weapon_data.weapon = weapon
+	weapon_data.damage = damage
+	weapon_data.hits = hits
+	weapon_data.time_inflicted = time_inflicted
+	return weapon_data
 
-/obj/item/autopsy_scanner/proc/add_data(obj/item/organ/O)
-	if(O.autopsy_data.len)
-		for(var/V in O.autopsy_data)
-			var/datum/autopsy_data/W = O.autopsy_data[V]
+/obj/item/autopsy_scanner/proc/add_autopsy_data(obj/item/organ/check_organ)
+	if(!length(check_organ.autopsy_data))
+		return
 
-			var/datum/autopsy_data_scanner/D = wdata[V]
-			if(!D)
-				D = new()
-				D.weapon = W.weapon
-				wdata[V] = D
+	for(var/index in check_organ.autopsy_data)
+		var/datum/autopsy_data/weapon_data = check_organ.autopsy_data[index]
 
-			if(!D.organs_scanned[O.name])
-				if(D.organ_names == "")
-					D.organ_names = O.name
-				else
-					D.organ_names += ", [O.name]"
+		var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, index)
+		if(!scanner_data)
+			scanner_data = new()
+			scanner_data.weapon = weapon_data.weapon
+			LAZYADDASSOC(wdata, index, scanner_data)
 
-			qdel(D.organs_scanned[O.name])
-			D.organs_scanned[O.name] = W.copy()
+		var/organ_name = check_organ.declent_ru(NOMINATIVE)
 
-	if(O.trace_chemicals.len)
-		for(var/V in O.trace_chemicals)
-			if(O.trace_chemicals[V] > 0 && !chemtraces.Find(V))
-				chemtraces += V
+		if(!scanner_data.organs_scanned[organ_name])
+			if(scanner_data.organ_names == "")
+				scanner_data.organ_names = organ_name
+			else
+				scanner_data.organ_names += ", [organ_name]"
 
-/obj/item/autopsy_scanner/attackby(obj/item/P, mob/user)
-	if(istype(P, /obj/item/pen))
-		var/dead_name = input("Insert name of deceased individual")
-		var/dead_rank = input("Insert rank of deceased individual")
-		var/dead_tod = input("Insert time of death")
-		var/dead_cause = input("Insert cause of death")
-		var/dead_chems = input("Insert any chemical traces")
-		var/dead_notes = input("Insert any relevant notes")
-		var/obj/item/paper/R = new(user.loc)
-		R.name = "Official Coroner's Report - [dead_name]"
-		R.info = "<b>Nanotrasen Science Station [GLOB.using_map.station_short] - Coroner's Report</b><br><br><b>Name of Deceased:</b> [dead_name]</br><br><b>Rank of Deceased:</b> [dead_rank]<br><br><b>Time of Death:</b> [dead_tod]<br><br><b>Cause of Death:</b> [dead_cause]<br><br><b>Trace Chemicals:</b> [dead_chems]<br><br><b>Additional Coroner's Notes:</b> [dead_notes]<br><br><b>Coroner's Signature:</b> <span class=\"paper_field\">"
-		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-		sleep(10)
-		user.put_in_hands(R)
-	else
+		qdel(scanner_data.organs_scanned[organ_name])
+		scanner_data.organs_scanned[organ_name] = weapon_data.copy()
+
+/obj/item/autopsy_scanner/proc/add_chemical_traces(obj/item/organ/check_organ)
+	if(!length(check_organ.trace_chemicals))
+		return
+
+	for(var/chemID in check_organ.trace_chemicals)
+		if(check_organ.trace_chemicals[chemID] <= 0)
+			continue
+		if(LAZYIN(chemtraces, chemID))
+			continue
+		LAZYADD(chemtraces, chemID)
+
+/obj/item/autopsy_scanner/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += span_notice("Вы можете воспользоваться ручкой, чтобы быстро написать отчет.")
+
+/obj/item/autopsy_scanner/proc/paper_work(mob/user)
+	var/dead_name = tgui_input_text(user, "Укажите имя субъекта", default = target_name, title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_rank = tgui_input_text(user, "Укажите должность субъекта", default = target_rank, title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_tod = tgui_input_text(user, "Укажите время смерти", default = station_time_timestamp("hh:mm", timeofdeath), title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_cause = tgui_input_text(user, "Укажите причину смерти", title = "Отчёт патологоанатома", max_length = 60)
+	var/dead_chems = tgui_input_text(user, "Укажите химические следы", multiline = TRUE, title = "Отчёт патологоанатома")
+	var/dead_notes = tgui_input_text(user, "Укажите важные детали", multiline = TRUE, title = "Отчёт патологоанатома")
+
+	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
+	var/obj/item/paper/paper = new(user.loc)
+	paper.name = "Отчёт патологоанатома — [dead_name]"
+	paper.info = "<b><center>[station_name()] — Отчёт патологоанатома</b></center><br><br><b>Имя погибшего:</b> [dead_name]</br><br><b>Должность погибшего:</b> [dead_rank]<br><br><b>Время смерти:</b> [dead_tod]<br><br><b>Причина смерти:</b> [dead_cause]<br><br><b>Химические следы:</b> [dead_chems]<br><br><b>Дополнительные детали:</b> [dead_notes]<br><br><b>Подпись патологоанатома:</b> <span class=\"paper_field\">"
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	user.put_in_hands(paper, ignore_anim = FALSE)
+
+/obj/item/autopsy_scanner/attackby(obj/item/used, mob/user, params)
+	if(!is_pen(used))
 		return ..()
 
+	if(!COOLDOWN_FINISHED(src, print_cooldown))
+		user.balloon_alert(user, "идёт печать...")
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	add_fingerprint(user)
+	paper_work(user)
+
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 /obj/item/autopsy_scanner/attack_self(mob/user)
+	if(..())
+		return TRUE
+
+	if(!COOLDOWN_FINISHED(src, print_cooldown))
+		user.balloon_alert(user, "идёт печать...")
+		return
+
+	COOLDOWN_START(src, print_cooldown, PRINT_TIMER)
 	var/scan_data = ""
 
 	if(timeofdeath)
-		scan_data += "<b>Time of death:</b> [station_time_timestamp("hh:mm:ss", timeofdeath)]<br><br>"
+		scan_data += "<b>Время смерти:</b> [station_time_timestamp("hh:mm:ss", timeofdeath)]<br><br>"
 	else
-		scan_data += "<b>Time of death:</b> Unknown / Still alive<br><br>"
+		scan_data += "<b>Время смерти:</b> Н/Д<br><br>"
 
-	if(wdata.len)
+	if(LAZYLEN(wdata))
 		var/n = 1
 		for(var/wdata_idx in wdata)
-			var/datum/autopsy_data_scanner/D = wdata[wdata_idx]
+			var/datum/autopsy_data_scanner/scanner_data = LAZYACCESS(wdata, wdata_idx)
 			var/total_hits = 0
 			var/total_score = 0
 			var/age = 0
 
-			for(var/wound_idx in D.organs_scanned)
-				var/datum/autopsy_data/W = D.organs_scanned[wound_idx]
-				total_hits += W.hits
-				total_score+=W.damage
-
-
-				var/wound_age = W.time_inflicted
-				age = max(age, wound_age)
+			for(var/wound_idx in scanner_data.organs_scanned)
+				var/datum/autopsy_data/weapon_data = scanner_data.organs_scanned[wound_idx]
+				total_hits += weapon_data.hits
+				total_score += weapon_data.damage
+				age = max(age, weapon_data.time_inflicted)
 
 			var/damage_desc
 			// total score happens to be the total damage
 			switch(total_score)
 				if(1 to 5)
-					damage_desc = "<font color='green'>negligible</font>"
+					damage_desc = span_green("небольшой тяжести")
 				if(5 to 15)
-					damage_desc = "<font color='green'>light</font>"
+					damage_desc = span_green("средней тяжести")
 				if(15 to 30)
-					damage_desc = "<font color='orange'>moderate</font>"
+					damage_desc = span_orange("тяжёлое")
 				if(30 to 1000)
-					damage_desc = "<font color='red'>severe</font>"
+					damage_desc = span_red("критическое")
 				else
-					damage_desc = "Unknown"
+					damage_desc = "Н/Д"
 
-			var/damaging_weapon = (total_score != 0)
-			scan_data += "<b>Weapon #[n]</b><br>"
-			if(damaging_weapon)
-				scan_data += "Severity: [damage_desc]<br>"
-				scan_data += "Hits by weapon: [total_hits]<br>"
-			scan_data += "Approximate time of wound infliction: [station_time_timestamp("hh:mm", age)]<br>"
-			scan_data += "Affected limbs: [D.organ_names]<br>"
-			scan_data += "Weapon: [D.weapon]<br>"
+			scan_data += "<b>Оружие №[n]</b><br>"
+			if(total_score > 0)
+				scan_data += "Тяжесть: [damage_desc]<br>"
+				scan_data += "Нанесено ударов: [total_hits]<br>"
+			scan_data += "Приблизительное время нанесения ранения: [station_time_timestamp("hh:mm", age)]<br>"
+			scan_data += "Поражённые части тела: [scanner_data.organ_names]<br>"
+			scan_data += "Оружие: [scanner_data.weapon]<br>"
 			scan_data += "<br>"
-
 			n++
 
-	if(chemtraces.len)
-		scan_data += "<b>Trace Chemicals: </b><br>"
+	if(LAZYLEN(chemtraces))
+		scan_data += "<b>Химические следы: </b><br>"
 		for(var/chemID in chemtraces)
 			scan_data += chemID
 			scan_data += "<br>"
-	user.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
 
-	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
-	sleep(10)
+	user.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
+	playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
+	flick("autopsy_scanner_anim", src)
+	sleep(PRINT_TIMER)
 
-	var/obj/item/paper/P = new(user.loc)
-	P.name = "Autopsy Data ([target_name])"
-	P.info = "<tt>[scan_data]</tt>"
-	P.overlays += "paper_words"
+	var/obj/item/paper/paper = new(drop_location())
+	paper.name = "Отчёт об аутопсии — [target_name]"
+	paper.info = "<tt>[scan_data]</tt>"
+	paper.update_icon()
+	user.put_in_hands(paper, ignore_anim = FALSE)
 
-	user.put_in_hands(P)
+/obj/item/autopsy_scanner/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!ishuman(target) || !on_operable_surface(target))
+		return ATTACK_CHAIN_PROCEED
 
-/obj/item/autopsy_scanner/attack(mob/living/carbon/human/M, mob/living/carbon/user)
-	if(!istype(M))
-		return
+	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(!can_operate(M))
-		return
-
-	if(target_name != M.name)
-		target_name = M.name
-		wdata.Cut()
-		chemtraces.Cut()
+	if(target_UID != target.UID())
+		target_UID = target.UID()
+		target_name = target.name
+		target_rank = target.get_assignment(if_no_id = UNKNOWN_STATUS_RUS, if_no_job = null)
+		LAZYCLEARLIST(wdata)
+		LAZYCLEARLIST(chemtraces)
 		timeofdeath = null
-		to_chat(user, "<span class='warning'>A new patient has been registered. Purging data for previous patient.</span>")
+		to_chat(user, span_notice("Обнаружен новый пациент. Данные о предыдущем пациенте удалены."))
 
-	timeofdeath = M.timeofdeath
+	timeofdeath = target.timeofdeath
 
-	var/obj/item/organ/external/S = M.get_organ(user.zone_selected)
-	if(!S)
-		to_chat(user, "<span class='warning'>You can't scan this body part.</span>")
-		return
-	M.visible_message("<span class='warning'>[user] scans the wounds on [M]'s [S] with [src]</span>")
+	var/obj/item/organ/external/limb = target.get_organ(user.zone_selected)
+	if(!limb)
+		user.balloon_alert(user, "часть тела нельзя просканировать!")
+		return NONE
 
-	add_data(S)
-	return 1
+	target.visible_message(span_notice("[user] сканирует [limb.declent_ru(ACCUSATIVE)] [target] на предмет ранений, используя [declent_ru(ACCUSATIVE)]."))
+
+	add_autopsy_data(limb)
+	add_chemical_traces(limb)
+
+#undef PRINT_TIMER

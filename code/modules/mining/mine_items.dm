@@ -3,14 +3,22 @@
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
 	name = "Light emitter"
-	anchored = TRUE
-	invisibility = 101
-	var/set_luminosity = 8
-	var/set_cap = 0
+	icon_state = "at_shield1"
+	invisibility = INVISIBILITY_ABSTRACT
+
+/obj/effect/light_emitter/get_ru_names()
+	return list(
+		NOMINATIVE = "световой излучатель",
+		GENITIVE = "светового излучателя",
+		DATIVE = "световому излучателю",
+		ACCUSATIVE = "световой излучатель",
+		INSTRUMENTAL = "световым излучателем",
+		PREPOSITIONAL = "световом излучателе",
+	)
 
 /obj/effect/light_emitter/Initialize(mapload)
 	. = ..()
-	set_light(set_luminosity, set_cap)
+	icon_state = null
 
 /obj/effect/light_emitter/singularity_pull()
 	return
@@ -22,8 +30,18 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
-	icon_state = "mixed"
-	icon_closed = "mixed"
+	desc = "Стандартный шкаф, в котором хранится сменная шахтёрская одежда."
+	icon_state = "mine_ward"
+
+/obj/structure/closet/wardrobe/miner/get_ru_names()
+	return list(
+		NOMINATIVE = "шахтёрский гардероб",
+		GENITIVE = "шахтёрского гардероба",
+		DATIVE = "шахтёрскому гардеробу",
+		ACCUSATIVE = "шахтёрский гардероб",
+		INSTRUMENTAL = "шахтёрским гардеробом",
+		PREPOSITIONAL = "шахтёрском гардеробе",
+	)
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
 	new /obj/item/storage/backpack/duffel(src)
@@ -38,55 +56,194 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
-	icon_state = "miningsec1"
-	icon_closed = "miningsec"
-	icon_locked = "miningsec1"
-	icon_opened = "miningsecopen"
-	icon_broken = "miningsecbroken"
-	icon_off = "miningsecoff"
+	desc = "Шкаф с электронным замком, в котором хранится всё необходимое для работы шахтёра."
+	icon_state = "mining"
 	req_access = list(ACCESS_MINING)
+
+/obj/structure/closet/secure_closet/miner/get_ru_names()
+	return list(
+		NOMINATIVE = "снаряжение шахтёра",
+		GENITIVE = "снаряжения шахтёра",
+		DATIVE = "снаряжению шахтёра",
+		ACCUSATIVE = "снаряжение шахтёра",
+		INSTRUMENTAL = "снаряжением шахтёра",
+		PREPOSITIONAL = "снаряжении шахтёра",
+	)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()
 	new /obj/item/stack/sheet/mineral/sandbags(src, 5)
-	new /obj/item/storage/box/emptysandbags(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe/mini(src)
-	new /obj/item/radio/headset/headset_cargo/mining(src)
 	new /obj/item/flashlight/seclite(src)
+	new /obj/item/gun_module/under/flashlight/rifle(src)
 	new /obj/item/storage/bag/plants(src)
+	new /obj/item/storage/bag/gem(src)
 	new /obj/item/storage/bag/ore(src)
-	new /obj/item/t_scanner/adv_mining_scanner/lesser(src)
+	new /obj/item/mining_scanner(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)
 	new /obj/item/clothing/glasses/meson(src)
-	new /obj/item/survivalcapsule(src)
+
+/obj/structure/closet/secure_closet/mining_medic
+	name = "mining medic's equipment"
+	desc = "Шкаф с электронным замком, в котором хранятся личные вещи шахтёрского врача."
+	icon_state = "mining_medic"
+	req_access = list(ACCESS_MEDICAL)
+
+/obj/structure/closet/secure_closet/mining_medic/get_ru_names()
+	return list(
+		NOMINATIVE = "снаряжение шахтёрского медика",
+		GENITIVE = "снаряжения шахтёрского медика",
+		DATIVE = "снаряжению шахтёрского медика",
+		ACCUSATIVE = "снаряжение шахтёрского медика",
+		INSTRUMENTAL = "снаряжением шахтёрского медика",
+		PREPOSITIONAL = "снаряжении шахтёрского медика",
+	)
+
+/obj/structure/closet/secure_closet/mining_medic/populate_contents()
+	new /obj/item/storage/backpack/medic(src)
+	new /obj/item/storage/garmentbag/mining_medic(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/camera_bug/mining(src)
+	new /obj/item/flashlight/lantern(src)
+	new /obj/item/storage/box/mining_cameras(src)
+	new /obj/item/radio/headset/headset_mining_medic(src)
+	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/storage/box/bodybags/biohazard(src)
+	new /obj/item/sensor_device/advanced/mining(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
 
 /**********************Shuttle Computer**************************/
 
 /obj/machinery/computer/shuttle/mining
 	name = "Mining Shuttle Console"
-	desc = "Used to call and send the mining shuttle."
+	desc = "Используется для вызова и отправки шахтёрского шаттла."
 	circuit = /obj/item/circuitboard/mining_shuttle
 	shuttleId = "mining"
 	possible_destinations = "mining_home;mining_away"
+	lockdown_affected = TRUE
+
+/obj/machinery/computer/shuttle/mining/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль управления шахтёрским шаттлом",
+		GENITIVE = "консоли управления шахтёрским шаттлом",
+		DATIVE = "консоли управления шахтёрским шаттлом",
+		ACCUSATIVE = "консоль управления шахтёрским шаттлом",
+		INSTRUMENTAL = "консолью управления шахтёрским шаттлом",
+		PREPOSITIONAL = "консоли управления шахтёрским шаттлом",
+	)
 
 /******************************Lantern*******************************/
 
 /obj/item/flashlight/lantern
 	name = "lantern"
+	desc = "Шахтёрская лампа."
+	gender = FEMALE
 	icon_state = "lantern"
 	item_state = "lantern"
-	desc = "A mining lantern."
-	brightness_on = 6			// luminosity when on
+	belt_icon = "lantern"
+	light_range = 6		// luminosity when on
+	light_color = LIGHT_COLOR_DIM_YELLOW
+	light_system = MOVABLE_LIGHT
+	var/obj/item/gem/inserted_gem = null
+	var/mutable_appearance/lantern_light_overlay
+
+/obj/item/flashlight/lantern/get_ru_names()
+	return list(
+		NOMINATIVE = "лампа",
+		GENITIVE = "лампы",
+		DATIVE = "лампе",
+		ACCUSATIVE = "лампу",
+		INSTRUMENTAL = "лампой",
+		PREPOSITIONAL = "лампе",
+	)
+
+/obj/item/flashlight/lantern/Initialize(mapload)
+	. = ..()
+	lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+
+/obj/item/flashlight/lantern/examine(mob/user)
+	. = ..()
+	if(!inserted_gem)
+		. += span_notice("Внутри лампы есть небольшое отверстие под самоцвет.")
+	else
+		. += span_notice("Внутри лампы находится [inserted_gem.declent_ru(NOMINATIVE)]. Его можно извлечь с помощью лома.")
+
+/obj/item/flashlight/lantern/update_icon_state()
+	cut_overlay(lantern_light_overlay)
+	if(on)
+		add_overlay(lantern_light_overlay)
+
+/obj/item/flashlight/lantern/crowbar_act(mob/living/user, obj/item/I)
+	if(on)
+		balloon_alert(user, "лампа включена!")
+		return
+	if(!inserted_gem)
+		balloon_alert(user, "самоцвет отсутствует!")
+		return
+	to_chat(user, span_notice("Вы осторожно вынимаете [inserted_gem.declent_ru(ACCUSATIVE)] из лампы."))
+	inserted_gem.set_light_on(TRUE)
+	inserted_gem.forceMove(get_turf(user))
+	inserted_gem = null
+	refresh_lantern_lights()
+	return TRUE
+
+/obj/item/flashlight/lantern/proc/refresh_lantern_lights()
+	if(on)
+		on = !on
+	cut_overlay(lantern_light_overlay)
+	if(!inserted_gem)
+		set_light_color(LIGHT_COLOR_DIM_YELLOW)
+		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+	else
+		set_light_color(inserted_gem.light_color)
+		lantern_light_overlay = mutable_appearance('icons/obj/lighting.dmi',"lantern_light", color = light_color)
+
+/obj/item/flashlight/lantern/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(I, /obj/item/gem))
+		return .
+
+	if(on)
+		balloon_alert(user, "лампа включена!")
+		return .
+
+	add_fingerprint(user)
+	var/obj/item/gem/new_gem = I
+	if(inserted_gem)
+		balloon_alert(user, "уже вставлено!")
+		return .
+	if(!user.drop_transfer_item_to_loc(new_gem, src))
+		return .
+	. |= ATTACK_CHAIN_BLOCKED_ALL
+	to_chat(user, span_notice("вы осторожно устанавливаете [new_gem.declent_ru(NOMINATIVE)] в лампу."))
+	inserted_gem = new_gem
+	inserted_gem.set_light_on(FALSE)
+	refresh_lantern_lights()
 
 /**********************Mining car (Crate like thing, not the rail car)**************************/
 
 /obj/structure/closet/crate/miningcar
-	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
-	name = "mining car (not for rails)"
+	name = "mining car"
+	desc = "Шахтёрская вагонетка. К сожалению, рельсов на Лазисе нет. Зато её можно тащить."
+	gender = FEMALE
 	icon_state = "miningcar"
-	density = 1
-	icon_opened = "miningcaropen"
-	icon_closed = "miningcar"
+
+/obj/structure/closet/crate/miningcar/get_ru_names()
+	return list(
+		NOMINATIVE = "вагонетка",
+		GENITIVE = "вагонетки",
+		DATIVE = "вагонетке",
+		ACCUSATIVE = "вагонетку",
+		INSTRUMENTAL = "вагонеткой",
+		PREPOSITIONAL = "вагонетке",
+	)

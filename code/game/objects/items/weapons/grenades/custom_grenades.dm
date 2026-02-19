@@ -15,12 +15,10 @@
 
 	beakers += B1
 
-
 /obj/item/grenade/chem_grenade/meat
 	payload_name = "meat"
 	desc = "Not always as messy as the name implies."
 	stage = 2
-
 
 /obj/item/grenade/chem_grenade/meat/New()
 	..()
@@ -39,7 +37,7 @@
 	payload_name = "holy water"
 	desc = "Then shalt thou count to three, no more, no less."
 	stage = 2
-	det_time = 30
+	det_time = 3 SECONDS
 
 /obj/item/grenade/chem_grenade/holywater/New()
 	..()
@@ -51,7 +49,7 @@
 	payload_name = "hell water"
 	desc = "And he struck them down with an unholy fury that burn like one-thousands badmins."
 	stage = 2
-	det_time = 30
+	det_time = 3 SECONDS
 
 /obj/item/grenade/chem_grenade/hellwater/New()
 	..()
@@ -62,7 +60,6 @@
 	B2.reagents.add_reagent("hell_water", 60)
 	B2.reagents.add_reagent("potassium", 20)
 	B2.reagents.add_reagent("phosphorus", 20)
-
 
 /obj/item/grenade/chem_grenade/drugs
 	payload_name = "miracle"
@@ -130,7 +127,6 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/infra)
 
-
 // Basic explosion grenade
 /obj/item/grenade/chem_grenade/explosion
 	payload_name = "conventional"
@@ -164,7 +160,6 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/mousetrap/armed)
 
-
 // Water + Potassium = Boom
 
 /obj/item/grenade/chem_grenade/waterpotassium
@@ -188,7 +183,6 @@
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/prox_sensor)
 
-
 /obj/item/grenade/chem_grenade/waterpotassium/tripwire/New()
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/infra)
@@ -200,9 +194,6 @@
 /obj/item/grenade/chem_grenade/waterpotassium/tripwire_armed_stealth/New()
 	..()
 	CreateDefaultTrigger(/obj/item/assembly/infra/armed/stealth)
-
-
-
 
 // Basic EMP grenade
 /obj/item/grenade/chem_grenade/emp
@@ -278,29 +269,23 @@
 /obj/item/storage/box/syndie_kit/remotegrenade
 	name = "Remote Grenade Kit"
 
-/obj/item/storage/box/syndie_kit/remotegrenade/New()
-	..()
+/obj/item/storage/box/syndie_kit/remotegrenade/populate_contents()
 	new /obj/item/grenade/chem_grenade/explosion/remote(src)
 	new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
 	new /obj/item/assembly/signaler(src)
-	return
 
 /obj/item/storage/box/syndie_kit/remoteemp
 	name = "Remote EMP Kit"
 
-/obj/item/storage/box/syndie_kit/remoteemp/New()
-	..()
+/obj/item/storage/box/syndie_kit/remoteemp/populate_contents()
 	new /obj/item/grenade/chem_grenade/emp/remote(src)
 	new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
 	new /obj/item/assembly/signaler(src)
-	return
 
 /obj/item/storage/box/syndie_kit/remotelube
 	name = "Remote Lube Kit"
 
-/obj/item/storage/box/syndie_kit/remotelube/New()
-	..()
+/obj/item/storage/box/syndie_kit/remotelube/populate_contents()
 	new /obj/item/grenade/chem_grenade/lube(src)
 	new /obj/item/multitool(src) // used to adjust the chemgrenade's signaller
 	new /obj/item/assembly/signaler(src)
-	return

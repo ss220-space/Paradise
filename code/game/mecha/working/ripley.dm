@@ -4,29 +4,79 @@
 	icon_state = "ripley"
 	initial_icon = "ripley"
 	step_in = 4 //Move speed, lower is faster.
-	var/fast_pressure_step_in = 2 //step_in while in normal pressure conditions
-	var/slow_pressure_step_in = 4 //step_in while in better pressure conditions
+	slow_pressure_step_in = 4 //step_in while in better pressure conditions
 	max_temperature = 20000
 	max_integrity = 200
 	lights_power = 7
 	deflect_chance = 15
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 20, LASER = 10, ENERGY = 20, BOMB = 40, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	max_equip = 6
 	wreckage = /obj/structure/mecha_wreckage/ripley
 	var/hides = 0
+	var/plates = 0
 
-/obj/mecha/working/ripley/Move()
+	mech_type = MECH_TYPE_RIPLEY
+
+/obj/mecha/working/ripley/Destroy()
+	for(var/i=1, i <= hides, i++)
+		new /obj/item/stack/sheet/animalhide/goliath_hide(loc) //If a goliath-plated ripley gets killed, all the plates drop
+	return ..()
+
+/obj/mecha/working/ripley/update_overlays()
 	. = ..()
-	update_pressure()
-
-/obj/mecha/working/ripley/update_icon()
-	..()
-	if(hides)
-		cut_overlays()
+	if(hides && !plates)
 		if(hides < 3)
-			add_overlay(occupant ? "ripley-g" : "ripley-g-open")
+			. += occupant ? "ripley-g" : "ripley-g-open"
 		else
-			add_overlay(occupant ? "ripley-g-full" : "ripley-g-full-open")
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+
+	else if(plates && !hides)
+		if(plates < 3)
+			. += occupant ? "ripley-a" : "ripley-a-open"
+		else
+			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+
+	else if(plates && hides)
+		if(plates < 3 && hides >= 3)
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+			. += occupant ? "ripley-a" : "ripley-a-open"
+
+		else if(plates < 3 && hides < 3)
+			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+			. += occupant ? "ripley-g" : "ripley-g-open"
+
+		else if(plates >= 3 && hides < 3)
+			. += occupant ? "ripley-a-full" : "ripley-a-full-open"
+			. += occupant ? "ripley-g" : "ripley-g-open"
+
+		else if(plates >= 3 && hides >= 3)
+			. += occupant ? "ripley-g-full" : "ripley-g-full-open"
+			. += occupant ? "ripley-a" : "ripley-a-open"
+
+/obj/mecha/working/ripley/update_desc(updates = ALL)
+	. = ..()
+
+	if(hides && !plates)
+		if(hides < 3)
+			desc = "Autonomous Power Loader Unit. You see reinforcements made of plates of goliath hide attached to the armor."
+		else
+			desc = "Autonomous Power Loader Unit. It has an intimidating carapace composed entirely of plates of goliath hide - its pilot must be an experienced monster hunter."
+
+	else if(plates && !hides)
+		if(plates < 3)
+			desc = "Autonomous Power Loader Unit. You can see the pieces of homemade armor on the hull."
+		else
+			desc = "Autonomous Power Loader Unit. Completely encrusted with reinforced debris, this shiny lump of metal looks incredibly durable."
+
+	else if(plates && hides)
+		if(plates < 3 && hides >= 3)
+			desc = "Autonomous Power Loader Unit. Not only is the goliath hide armor intimidating, it's additionally covered in pieces of homemade armor. How do you kill that?!"
+		else if(plates < 3 && hides < 3)
+			desc = "Autonomous Power Loader Unit. The owner of the mech decided to go all out - clad in pieces of homemade armor and goliath skins."
+		else if(plates >= 3 && hides < 3)
+			desc = "Autonomous Power Loader Unit. Fully covered with homemade armor and few goliath hides on top."
+		else if(plates >= 3 && hides >= 3)
+			desc = "Autonomous Power Loader Unit. Clad in homemade armor from ear to toe, with Goliath plates on top - a real tank, no other way."
 
 /obj/mecha/working/ripley/firefighter
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
@@ -36,10 +86,18 @@
 	max_temperature = 65000
 	max_integrity = 250
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	lights_power = 7
-	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 60, "bio" = 0, "rad" = 70, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100)
 	max_equip = 5 // More armor, less tools
 	wreckage = /obj/structure/mecha_wreckage/ripley/firefighter
+
+/obj/mecha/working/ripley/mkii
+	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection and armor."
+	name = "APLU MK-II \"Ripley\""
+	icon_state = "ripleymkii"
+	max_temperature = 30000
+	max_integrity = 250
+	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 60, BIO = 0, RAD = 70, FIRE = 100, ACID = 100)
+	wreckage = /obj/structure/mecha_wreckage/ripley/mkii
 
 /obj/mecha/working/ripley/deathripley
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
@@ -48,28 +106,26 @@
 	initial_icon = "deathripley"
 	step_in = 3
 	slow_pressure_step_in = 3
-	opacity=0
+	opacity = FALSE
 	max_temperature = 65000
 	max_integrity = 300
-	lights_power = 7
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 0, "bomb" = 70, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	armor = list(MELEE = 40, BULLET = 40, LASER = 40, ENERGY = 0, BOMB = 70, BIO = 0, RAD = 0, FIRE = 100, ACID = 100)
 	wreckage = /obj/structure/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 	normal_step_energy_drain = 0
 
-/obj/mecha/working/ripley/deathripley/New()
-	..()
+/obj/mecha/working/ripley/deathripley/Initialize(mapload)
+	. = ..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
 	ME.attach(src)
-	return
 
 /obj/mecha/working/ripley/mining
 	desc = "An old, dusty mining ripley."
 	name = "APLU \"Miner\""
 	obj_integrity = 75 //Low starting health
 
-/obj/mecha/working/ripley/mining/New()
-	..()
+/obj/mecha/working/ripley/mining/Initialize(mapload)
+	. = ..()
 	if(cell)
 		cell.charge = FLOOR(cell.charge * 0.25, 1) //Starts at very low charge
 	//Attach drill
@@ -86,7 +142,7 @@
 		P.attach(src)
 
 	//Add ore box to cargo
-	cargo.Add(new /obj/structure/ore_box(src))
+	LAZYADD(cargo, new /obj/structure/ore_box(src))
 
 	//Attach hydraulic clamp
 	var/obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/HC = new
@@ -96,37 +152,61 @@
 	var/obj/item/mecha_parts/mecha_equipment/mining_scanner/scanner = new
 	scanner.attach(src)
 
-/obj/mecha/working/ripley/Exit(atom/movable/O)
-	if(O in cargo)
-		return 0
-	return ..()
-
-/obj/mecha/working/ripley/ex_act(severity)
-	..()
-	for(var/X in cargo)
-		var/obj/O = X
-		if(prob(30 / severity))
-			cargo -= O
-			O.forceMove(drop_location())
-
-/obj/mecha/working/ripley/proc/update_pressure()
-	var/turf/T = get_turf(loc)
-
-	if(lavaland_equipment_pressure_check(T))
-		step_in = fast_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)/2
-	else
-		step_in = slow_pressure_step_in
-		for(var/obj/item/mecha_parts/mecha_equipment/drill/drill in equipment)
-			drill.equip_cooldown = initial(drill.equip_cooldown)
-
 /obj/mecha/working/ripley/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
-		to_chat(user, "<span class='notice'>You slide the card through [src]'s ID slot.</span>")
-		playsound(loc, "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		desc += "</br><span class='danger'>The mech's equipment slots spark dangerously!</span>"
-	else
-		to_chat(user, "<span class='warning'>[src]'s ID slot rejects the card.</span>")
+		if(user)
+			to_chat(user, span_notice("You slide the card through [src]'s ID slot."))
+		playsound(loc, SFX_SPARKS, 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		desc += span_danger("</br>The mech's equipment slots spark dangerously!")
+	else if(user)
+		to_chat(user, span_warning("[src]'s ID slot rejects the card."))
+
+/obj/mecha/working/ripley/full_load
+	name = "Тестовый Рипли"
+	desc = "Рипли, который несет в себе все возможные модули, предназначенные для рабочих мехов, с целью их испытания в индивидуальном порядке. Конструкция надежна как Nokia 3310, скорость как у гоночного болида, но стоимость производства настолько высока, что в массовое производство он никогда не пойдет. Специально для ведущих гениев робототехники."
+	max_equip = 40
+	strafe_allowed = TRUE
+	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 0, acid = 0) // для тестов урона
+	max_integrity = 1000
+	deflect_chance = 0 // нахуй рандом
+	mech_enter_time = 1
+	fast_pressure_step_in = 1 //не хочу страдать на щитспавн мехе для тестов
+	slow_pressure_step_in = 0.5
+
+/obj/mecha/working/ripley/full_load/Initialize(mapload)
+	. = ..()
+	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/drill
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/drill/diamonddrill
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/plasma
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/hydraulic_clamp/kill
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/multimodule/atmos_module
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/rcd
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/wormhole_generator
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/gravcatapult
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/teleporter/precise
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/mining_scanner
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/eng_toolset
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/cargo_upgrade
+	ME.attach(src)
+	ME = new /obj/item/mecha_parts/mecha_equipment/weapon/energy/mecha_kineticgun
+	ME.attach(src)
+
+/obj/mecha/working/ripley/full_load/add_cell()
+	cell = new /obj/item/stock_parts/cell/bluespace(src) // для тестов энергопотребления.

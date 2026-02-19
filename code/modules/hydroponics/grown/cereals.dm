@@ -10,7 +10,7 @@
 	yield = 4
 	potency = 15
 	icon_dead = "wheat-dead"
-	mutatelist = list(/obj/item/seeds/wheat/oat, /obj/item/seeds/wheat/meat)
+	mutatelist = list(/obj/item/seeds/wheat/oat)
 	reagents_add = list("plantmatter" = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/wheat
@@ -111,10 +111,10 @@
 	can_distill = FALSE
 
 /obj/item/reagent_containers/food/snacks/grown/meatwheat/attack_self(mob/living/user)
-	user.visible_message("<span class='notice'>[user] crushes [src] into meat.</span>", "<span class='notice'>You crush [src] into something that resembles meat.</span>")
-	playsound(user, 'sound/effects/blobattack.ogg', 50, 1)
-	var/obj/item/reagent_containers/food/snacks/meat/meatwheat/M = new(get_turf(user))
-	user.drop_item()
+	user.visible_message(span_notice("[user] crushes [src] into meat."), span_notice("You crush [src] into something that resembles meat."))
+	playsound(user, 'sound/effects/blobattack.ogg', 50, TRUE)
+	var/obj/item/reagent_containers/food/snacks/meat/meatwheat/M = new(drop_location())
+	user.temporarily_remove_item_from_inventory(src)
 	qdel(src)
-	user.put_in_hands(M)
+	user.put_in_hands(M, ignore_anim = FALSE)
 	return 1

@@ -1,166 +1,290 @@
 /obj/item/gun/projectile/automatic
-	w_class = WEIGHT_CLASS_NORMAL
-	var/alarmed = 0
-	var/select = 1
+	var/select = GUN_BURST_MODE
 	can_tactical = TRUE
-	can_suppress = 1
 	can_holster = FALSE
 	burst_size = 3
 	fire_delay = 2
 	actions_types = list(/datum/action/item_action/toggle_firemode)
+	var/fire_modes = GUN_MODE_SINGLE_BURST
+	var/autofire_delay = 0.2 SECONDS
 
-/obj/item/gun/projectile/automatic/update_icon()
-	..()
-	overlays.Cut()
-	if(!select)
-		overlays += "[initial(icon_state)]semi"
-	if(select == 1)
-		overlays += "[initial(icon_state)]burst"
-	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
-	if(bayonet && can_bayonet)
-		overlays += knife_overlay
-
-/obj/item/gun/projectile/automatic/attackby(var/obj/item/A as obj, mob/user as mob, params)
+/obj/item/gun/projectile/automatic/Initialize(mapload)
+	if(fire_modes == GUN_MODE_SINGLE_ONLY)
+		actions_types = null
 	. = ..()
-	if(.)
-		if(alarmed) // Did the empty clip alarm go off already?
-			alarmed = 0 // Reset the alarm once a magazine is loaded
+
+/obj/item/gun/projectile/automatic/ComponentInitialize()
+	. = ..()
+	if(fire_modes != GUN_MODE_SINGLE_BURST_AUTO)
 		return
-	if(istype(A, /obj/item/ammo_box/magazine))
-		var/obj/item/ammo_box/magazine/AM = A
-		if(istype(AM, mag_type))
-			if(magazine)
-				to_chat(user, "<span class='notice'>You perform a tactical reload on \the [src], replacing the magazine.</span>")
-				magazine.loc = get_turf(loc)
-				magazine.update_icon()
-				magazine = null
-			else
-				to_chat(user, "<span class='notice'>You insert the magazine into \the [src].</span>")
-			if(alarmed)
-				alarmed = 0
-			user.remove_from_mob(AM)
-			magazine = AM
-			magazine.loc = src
-			chamber_round()
-			A.update_icon()
-			update_icon()
-			return 1
+	select = GUN_AUTO_MODE
+	burst_size = 1
+	AddComponent(/datum/component/automatic_fire, autofire_delay)
 
-/obj/item/gun/projectile/automatic/ui_action_click(var/owner, var/action_type)
-    if (ispath(action_type, /datum/action/item_action/toggle_firemode))
-        burst_select()
-        return TRUE
+/obj/item/gun/projectile/automatic/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "-[magazine.max_ammo]" : ""][chambered ? "" : "-e"]"
 
-/obj/item/gun/projectile/automatic/proc/burst_select()
+/obj/item/gun/projectile/automatic/update_overlays()
+	. = ..()
+	switch(select)
+		if(GUN_SINGLE_MODE)
+			. += "[initial(icon_state)]semi"
+		if(GUN_BURST_MODE)
+			. += "[initial(icon_state)]burst"
+
+/obj/item/gun/projectile/automatic/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		toggle_firemode()
+		return TRUE
+	. = ..()
+
+/obj/item/gun/projectile/automatic/proc/toggle_firemode()
+	if(fire_modes == GUN_MODE_SINGLE_ONLY)
+		return // not available change modes
 	var/mob/living/carbon/human/user = usr
-	select = !select
-	if(!select)
-		burst_size = 1
-		fire_delay = 0
-		to_chat(user, "<span class='notice'>You switch to semi-automatic.</span>")
-	else
-		burst_size = initial(burst_size)
-		fire_delay = initial(fire_delay)
-		to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
-
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+	select++
+	if(select >= fire_modes)
+		select = GUN_SINGLE_MODE
+	if(select == GUN_BURST_MODE && initial(burst_size) == 1)
+		select = GUN_AUTO_MODE //skip burst mode if not configured burst size
+	switch(select)
+		if(GUN_SINGLE_MODE)
+			burst_size = 1
+			fire_delay = 0
+			balloon_alert(user, "полуавтомат")
+		if(GUN_BURST_MODE)
+			burst_size = initial(burst_size) == 1 ? 2 : initial(burst_size)
+			fire_delay = initial(fire_delay)
+			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону", "патрона", "патронов")]")
+		if(GUN_AUTO_MODE)
+			burst_size = 1
+			fire_delay = initial(fire_delay)
+			balloon_alert(user, "автоматический")
+	SEND_SIGNAL(src, COMSIG_GUN_TOGGLE_FIREMODE, user, select)
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 
-/obj/item/gun/projectile/automatic/can_shoot()
+/obj/item/gun/projectile/automatic/can_shoot(mob/user)
 	return get_ammo()
 
-/obj/item/gun/projectile/automatic/proc/empty_alarm()
-	if(!chambered && !get_ammo() && !alarmed)
-		playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
-		update_icon()
-		alarmed = 1
+/obj/item/gun/projectile/automatic/CtrlClick(mob/user)
+	if(user.is_in_hands(src) && chambered)
+		process_chamber(TRUE, TRUE)
+		balloon_alert(user, "патрон извлечён")
+		playsound(loc, 'sound/weapons/gun_interactions/remove_bullet.ogg', 50, TRUE)
+		return
+	. = ..()
 
 //Saber SMG//
 /obj/item/gun/projectile/automatic/proto
-	name = "\improper Nanotrasen Saber SMG"
+	name = "Nanotrasen Saber SMG"
 	desc = "A prototype three-round burst 9mm submachine gun, designated 'SABR'. Has a threaded barrel for suppressors."
 	icon_state = "saber"
 	mag_type = /obj/item/ammo_box/magazine/smgm9mm
 	origin_tech = "combat=4;materials=2"
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 16, "y" = 3),
+	)
+
+/obj/item/gun/projectile/automatic/proto/rubber
+
+/obj/item/gun/projectile/automatic/proto/rubber/Initialize(mapload)
+	magazine = new/obj/item/ammo_box/magazine/smgm9mm/rubber
+	. = ..()
 
 //C-20r SMG//
 /obj/item/gun/projectile/automatic/c20r
-	name = "\improper C-20r SMG"
-	desc = "A two-round burst .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
+	name = "C-20r SMG"
+	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp."
 	icon_state = "c20r"
 	item_state = "c20r"
 	origin_tech = "combat=5;materials=2;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/smgm45
 	fire_sound = 'sound/weapons/gunshots/1c20.ogg'
-	fire_delay = 2
 	burst_size = 2
 	can_bayonet = TRUE
-	knife_x_offset = 26
-	knife_y_offset = 12
+	bayonet_x_offset = 26
+	bayonet_y_offset = 12
+	accuracy = GUN_ACCURACY_RIFLE_UPLINK
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 6),
+	)
+	recoil = GUN_RECOIL_MEDIUM
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
+	autofire_delay = 0.25 SECONDS
 
-/obj/item/gun/projectile/automatic/c20r/New()
-	..()
+/obj/item/gun/projectile/automatic/c20r/Initialize(mapload)
+	. = ..()
 	update_icon()
 
-/obj/item/gun/projectile/automatic/c20r/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
-	..()
-	empty_alarm()
+/obj/item/gun/projectile/automatic/c20r/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/c20r/update_icon()
-	..()
-	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""][chambered ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+/obj/item/gun/projectile/automatic/c20r/update_icon_state()
+	icon_state = "c20r[magazine ? "-[CEILING(get_ammo(FALSE)/4, 1)*4]" : ""][chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/c20r/auto
+	name = "C-20rm SMG"
+	desc = "Новейшая модификация автоматического пистолет-пулемёта \"C-20r\" под .45 калибр. Отличается высоким темпом стрельбы в автоматическом режиме."
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+	autofire_delay = 0.15 SECONDS
+	fire_delay = 0.15 SECONDS
+
+/obj/item/gun/projectile/automatic/c20r/auto/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемёт C-20rm",
+		GENITIVE = "пистолет-пулемёта C-20rm",
+		DATIVE = "пистолет-пулемёту C-20rm",
+		ACCUSATIVE = "пистолет-пулемёт C-20rm",
+		INSTRUMENTAL = "пистолет-пулемётом C-20rm",
+		PREPOSITIONAL = "пистолет-пулемёте C-20rm",
+	)
+
+/obj/item/gun/projectile/automatic/c20r/rusted
+	name = "C-20r SMG (Rusted)"
+	desc = "A .45 SMG, designated 'C-20r'. Has a 'Scarborough Arms - Per falcis, per pravitas' buttstamp. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/c20r/rusted/get_ru_names()
+	return list(
+		NOMINATIVE = "пистолет-пулемёт C-20r (ржавый)",
+		GENITIVE = "пистолет-пулемёта C-20r (ржавый)",
+		DATIVE = "пистолет-пулемёту C-20r (ржавый)",
+		ACCUSATIVE = "пистолет-пулемёт C-20r (ржавый)",
+		INSTRUMENTAL = "пистолет-пулемётом C-20r (ржавый)",
+		PREPOSITIONAL = "пистолет-пулемёте C-20r (ржавый)",
+	)
+
+/obj/item/gun/projectile/automatic/c20r/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //WT550//
 /obj/item/gun/projectile/automatic/wt550
-	name = "security auto rifle"
-	desc = "An outdated personal defense weapon utilized by law enforcement. The WT-550 Automatic Rifle fires 4.6x30mm rounds."
+	name = "WT-550 PDW"
+	desc = "An outdated personal defense weapon utilized by law enforcement. Chambered in 4.6x30mm."
 	icon_state = "wt550"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/wt550m9
 	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	fire_delay = 2
-	can_suppress = 0
-	can_flashlight = 1
 	burst_size = 2
 	can_bayonet = TRUE
-	knife_x_offset = 25
-	knife_y_offset = 12
+	bayonet_x_offset = 25
+	bayonet_y_offset = 12
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+	)
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
-/obj/item/gun/projectile/automatic/wt550/update_icon()
-	..()
-	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(0)/4, 1)*4]" : ""]"
+/obj/item/gun/projectile/automatic/wt550/update_icon_state()
+	icon_state = "wt550[magazine ? "-[CEILING(get_ammo(FALSE)/6, 1)*6]" : ""]"
 
-	if(gun_light)
-		var/iconF = "wt-light"
-		if(gun_light.on)
-			iconF = "wt-light-on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = 0)
+//"SP-91-RC//
+/obj/item/gun/projectile/automatic/sp91rc
+	name = "SP-91-RC"
+	desc = "Компактный пистолет-пулемёт, предназначенный для \"нелетального\" подавления беспорядков."
+	icon_state = "SP-91-RC"
+	item_state = "SP-91-RC"
+	mag_type = /obj/item/ammo_box/magazine/sp91rc
+	fire_sound = 'sound/weapons/gunshots/1sp_91.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	accuracy = new /datum/gun_accuracy/rifle/extend_spread()
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = -2, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+	)
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
-/obj/item/gun/projectile/automatic/wt550/ui_action_click(var/owner, var/action_type)
-    if(..()) return TRUE
-    if (action_type == /datum/action/item_action/toggle_gunlight)
-        toggle_gunlight()
-        return TRUE
+/obj/item/gun/projectile/automatic/sp91rc/update_icon_state()
+	icon_state = "SP-91-RC[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
+	item_state = "SP-91-RC[magazine ? "-[get_ammo(FALSE) ? "20" : "0"]" : ""]"
 
-//Type-U3 Uzi//
+// MARK: Sparkle-A12
+/obj/item/gun/projectile/automatic/sparkle_a12
+	name = "A9 \"Sparkle\""
+	desc = "Пистолет-пулемёт под калибр 9x19 мм, произведённый концерном \"Скарборо\". Штатно используется силовыми структурами \"Нанотрейзен\". Отличается надёжностью, высокой точностью и малыми габаритами. Предназначен для ближнего боя в условиях ограниченного пространства."
+	icon_state = "sparkle-a12"
+	item_state = "sparkle-a12"
+	mag_type = /obj/item/ammo_box/magazine/sparkle_a12
+	fire_sound = 'sound/weapons/gunshots/1wt.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 19, "y" = 3),
+		ATTACHMENT_SLOT_RAIL = list("x" = 4, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+	)
+	starting_attachment_types = list(/obj/item/gun_module/muzzle/suppressor/integrated)
+	recoil = GUN_RECOIL_MEDIUM
+	weapon_weight = WEAPON_HEAVY
+	fire_delay = 1
+	damage_mod = 0.7
+
+/obj/item/gun/projectile/automatic/sparkle_a12/get_ru_names()
+	return list(
+		NOMINATIVE = "А9 \"Искра\"",
+		GENITIVE = "А9 \"Искра\"",
+		DATIVE = "А9 \"Искра\"",
+		ACCUSATIVE = "А9 \"Искра\"",
+		INSTRUMENTAL = "А9 \"Искра\"",
+		PREPOSITIONAL = "А9 \"Искра\""
+	)
+
+/obj/item/gun/projectile/automatic/sparkle_a12/update_icon_state()
+	icon_state = "sparkle-a12[magazine ? "" : "-e"]"
+
+/*Type-U3 Uzi
+name = "Пистолет-пулемёт Uzi"
+desc = "Полностью заряженный лёгкий пистолет-пулемёт, оснащённый магазином на 32 патрона калибра 9 мм.
+Имеет два режима стрельбы: полуавтоматический и с отсечкой по 4 патрона. Совместим с глушителем."
+TODO Use this name and desc for localisation*/
+
 /obj/item/gun/projectile/automatic/mini_uzi
-	name = "\improper ''Type U3 Uzi"
+	name = "''Type U3 Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
 	icon_state = "mini-uzi"
 	origin_tech = "combat=4;materials=2;syndicate=4"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	fire_sound = 'sound/weapons/gunshots/1uzi.ogg'
-	burst_size = 4
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_MUZZLE | GUN_MODULE_CLASS_PISTOL_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 14, "y" = 7),
+		ATTACHMENT_SLOT_RAIL = list("x" = -4, "y" = 12),
+	)
+	accuracy = GUN_ACCURACY_PISTOL
+	recoil = GUN_RECOIL_LOW
+	fire_modes = GUN_MODE_SINGLE_BURST_AUTO
 
 //M-90gl Carbine//
 /obj/item/gun/projectile/automatic/m90
-	name = "\improper M-90gl Carbine"
+	name = "M-90gl Carbine"
 	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off."
 	icon_state = "m90"
 	item_state = "m90-4"
@@ -171,62 +295,84 @@
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
 	can_suppress = 1
 	var/obj/item/gun/projectile/revolver/grenadelauncher/underbarrel
-	burst_size = 3
-	fire_delay = 2
+	accuracy = GUN_ACCURACY_RIFLE_UPLINK
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 18, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 12, "y" = 7),
+	)
+	recoil = GUN_RECOIL_MEDIUM
 
-/obj/item/gun/projectile/automatic/m90/New()
-	..()
+/obj/item/gun/projectile/automatic/m90/Initialize(mapload)
+	. = ..()
 	underbarrel = new /obj/item/gun/projectile/revolver/grenadelauncher(src)
 	update_icon()
 
-/obj/item/gun/projectile/automatic/m90/afterattack(var/atom/target, var/mob/living/user, flag, params)
+/obj/item/gun/projectile/automatic/m90/afterattack(atom/target, mob/living/user, flag, params)
 	if(select == 0)
 		underbarrel.afterattack(target, user, flag, params)
 	else
 		..()
-		return
 
-/obj/item/gun/projectile/automatic/m90/attackby(var/obj/item/A, mob/user, params)
-	if(istype(A, /obj/item/ammo_casing))
-		if(istype(A, underbarrel.magazine.ammo_type))
-			underbarrel.attack_self()
-			underbarrel.attackby(A, user, params)
-	else
-		return ..()
+/obj/item/gun/projectile/automatic/m90/attackby(obj/item/I, mob/user, params)
+	if(istype(I, underbarrel.magazine.ammo_type))
+		add_fingerprint(user)
+		var/reload = underbarrel.magazine.reload(I, user, replace_spent = TRUE)
+		if(reload)
+			underbarrel.chamber_round(FALSE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
-/obj/item/gun/projectile/automatic/m90/update_icon()
-	..()
-	overlays.Cut()
-	switch(select)
-		if(1)
-			overlays += "[initial(icon_state)]burst"
-		if(0)
-			overlays += "[initial(icon_state)]gren"
-	icon_state = "[initial(icon_state)][magazine ? "" : "-e"][suppressed ? "-suppressed" : ""]"
+	return ..()
+
+/obj/item/gun/projectile/automatic/m90/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
 	if(magazine)
-		overlays += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(0)/6, 1)*6]")
-		item_state = "m90-[CEILING(get_ammo(0)/7.5, 1)]"
+		item_state = "m90-[CEILING(get_ammo(FALSE)/7.5, 1)]"
 	else
 		item_state = "m90-0"
-	return
 
-/obj/item/gun/projectile/automatic/m90/burst_select()
+/obj/item/gun/projectile/automatic/m90/update_overlays()
+	. = ..()
+	if(magazine)
+		. += image(icon = icon, icon_state = "m90-[CEILING(get_ammo(FALSE)/6, 1)*6]")
+	switch(select)
+		if(GUN_SINGLE_MODE)
+			. += "[initial(icon_state)]gren"
+		if(GUN_BURST_MODE)
+			.  += "[initial(icon_state)]burst"
+
+/obj/item/gun/projectile/automatic/m90/toggle_firemode()
 	var/mob/living/carbon/human/user = usr
 	switch(select)
-		if(0)
-			select = 1
+		if(GUN_SINGLE_MODE)
+			select = GUN_BURST_MODE
 			burst_size = initial(burst_size)
 			fire_delay = initial(fire_delay)
-			to_chat(user, "<span class='notice'>You switch to [burst_size] round burst.</span>")
-		if(1)
-			select = 0
-			to_chat(user, "<span class='notice'>You switch to grenades.</span>")
-	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
+			balloon_alert(user, "отсечка по [burst_size] [declension_ru(burst_size, "патрону",  "патрона",  "патронов")]")
+		if(GUN_BURST_MODE)
+			select = GUN_SINGLE_MODE
+			balloon_alert(user, "подствольный гранатомёт")
+	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, TRUE)
 	update_icon()
+
+/obj/item/gun/projectile/automatic/m90/rusted
+	name = "M-90gl Carbine (Rusted)"
+	desc = "A three-round burst 5.56 toploading carbine, designated 'M-90gl'. Has an attached underbarrel grenade launcher which can be toggled on and off. Looks rusty."
+	damage_mod = 0.85
+
+/obj/item/gun/projectile/automatic/m90/rusted/Initialize(mapload)
+	. = ..()
+	QDEL_NULL(underbarrel.chambered)
+
+/obj/item/gun/projectile/automatic/m90/rusted/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rusted_weapon, face_shot_max_chance = 10, destroy_max_chance = 3, malf_low_bound = 50, malf_high_bound = 100)
+	AddElement(/datum/element/misfire_weapon, misfire_max_chance = 5, misfire_low_bound = 50, misfire_high_bound = 100)
 
 //Tommy Gun//
 /obj/item/gun/projectile/automatic/tommygun
-	name = "\improper Thompson SMG"
+	name = "Thompson SMG"
 	desc = "A genuine 'Chicago Typewriter'."
 	icon_state = "tommygun"
 	item_state = "shotgun"
@@ -235,9 +381,10 @@
 	origin_tech = "combat=5;materials=1;syndicate=3"
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshots/1saber.ogg'
-	can_suppress = 0
 	burst_size = 4
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 //ARG Assault Rifle//
 /obj/item/gun/projectile/automatic/ar
@@ -251,13 +398,19 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
-	burst_size = 3
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+	)
+	recoil = GUN_RECOIL_MEDIUM
 
 //AK-814 Soviet Assault Rifle
 /obj/item/gun/projectile/automatic/ak814
-	name = "\improper AK-814 assault rifle"
+	name = "AK-814 assault rifle"
 	desc = "A modern AK assault rifle favored by elite Soviet soldiers."
 	icon_state = "ak814"
 	item_state = "ak814"
@@ -266,38 +419,64 @@
 	fire_sound = 'sound/weapons/gunshots/1m90.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = FALSE
 	can_bayonet = TRUE
-	knife_x_offset = 26
-	knife_y_offset = 10
+	bayonet_x_offset = 26
+	bayonet_y_offset = 10
 	burst_size = 2
 	fire_delay = 1
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 21, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 5, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -5),
+	)
+	recoil = GUN_RECOIL_MEDIUM
 
 // Bulldog shotgun //
 /obj/item/gun/projectile/automatic/shotgun/bulldog
-	name = "\improper 'Bulldog' Shotgun"
-	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 8-round drum magazines."
+	name = "'Bulldog' Shotgun"
+	desc = "A compact, mag-fed semi-automatic shotgun for combat in narrow corridors, nicknamed 'Bulldog' by boarding parties. Compatible only with specialized 12/24-round drum magazines."
 	icon_state = "bulldog"
 	item_state = "bulldog"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=6;materials=4;syndicate=6"
 	mag_type = /obj/item/ammo_box/magazine/m12g
-	fire_sound = 'sound/weapons/gunshots/1shotgunpipe.ogg'
+	fire_sound = 'sound/weapons/gunshots/bulldog.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
 	burst_size = 1
 	fire_delay = 0
-	actions_types = list()
+	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 7, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -6),
+	)
+	recoil = GUN_RECOIL_HIGH
+	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/New()
-	..()
-	update_icon()
+/obj/item/gun/projectile/automatic/shotgun/bulldog/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/proc/update_magazine()
+/obj/item/gun/projectile/automatic/shotgun/bulldog/mastiff
+	name = "'Mastiff' Shotgun"
+	desc = "A cheap copy of famous mag-fed semi-automatic 'Bulldog' shotgun used by multiple pirate groups. A critical duplication failure has made it impossible to use the original drum magazines, so do not lose them."
+	mag_type = /obj/item/ammo_box/magazine/cheap_m12g
+	color = COLOR_ASSEMBLY_BROWN
+
+/obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon_state()
+	icon_state = "bulldog[chambered ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/shotgun/bulldog/update_overlays()
+	. = ..()
 	if(magazine)
-		overlays.Cut()
-		overlays += "[magazine.icon_state]"
+		. += "[magazine.icon_state]"
+
+/obj/item/gun/projectile/automatic/shotgun/bulldog/update_weight()
+	if(magazine)
 		if(istype(magazine, /obj/item/ammo_box/magazine/m12g/XtrLrg))
 			w_class = WEIGHT_CLASS_BULKY
 		else
@@ -305,39 +484,158 @@
 	else
 		w_class = WEIGHT_CLASS_NORMAL
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/update_icon()
-	overlays.Cut()
-	update_magazine()
-	icon_state = "bulldog[chambered ? "" : "-e"]"
+/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/ammo_box/magazine/m12g/XtrLrg) && isstorage(loc))	// To prevent inventory exploits
+		var/obj/item/storage/storage = loc
+		if(storage.max_w_class < WEIGHT_CLASS_BULKY)
+			to_chat(user, span_warning("You cannot reload [src] with a XL mag, while it's in a normal bag."))
+			return ATTACK_CHAIN_PROCEED
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/attackby(var/obj/item/A as obj, mob/user as mob, params)
-	if(istype(A, /obj/item/ammo_box/magazine/m12g/XtrLrg))
-		if(istype(loc, /obj/item/storage))	// To prevent inventory exploits
-			var/obj/item/storage/Strg = loc
-			if(Strg.max_w_class < WEIGHT_CLASS_BULKY)
-				to_chat(user, "<span class='warning'>You can't reload [src], with a XL mag, while it's in a normal bag.</span>")
-				return
 	return ..()
 
-/obj/item/gun/projectile/automatic/shotgun/bulldog/afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+//AS-12 Minotaur//
+/obj/item/gun/projectile/automatic/shotgun/minotaur
+	name = "AS-12 'Minotaur' Shotgun"
+	desc = "Smooth, powerful, highly illegal. The newest full auto shotgun available at the market, utilizes standard 12g drum mags. Property of Gorlex Marauders."
+	icon_state = "minotaur"
+	item_state = "minotaur"
+	weapon_weight = WEAPON_HEAVY
+	origin_tech = "combat=6;materials=4;syndicate=6"
+	mag_type = /obj/item/ammo_box/magazine/m12g
+	fire_sound = 'sound/weapons/gunshots/minotaur.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_in.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/autoshotgun_mag_out.ogg'
+	fire_delay = 1.5
+	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL | GUN_MODULE_CLASS_SHOTGUN_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 1, "y" = 4),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -5),
+	)
+	recoil = GUN_RECOIL_HIGH
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/smg_empty_alarm.ogg')
+
+/obj/item/gun/projectile/automatic/shotgun/minotaur/New()
+	magazine = new/obj/item/ammo_box/magazine/m12g/XtrLrg
 	..()
-	empty_alarm()
+
+//Combat Automatic Tactical Shotgun//
+
+/obj/item/gun/projectile/automatic/cats
+	name = "C.A.T. Shotgun"
+	desc = "Terra Light Armories - Combat Automatic Tactical Shotgun - мощный автоматический дробовик, в основном используемый силами Транс-Солнечной Федерации. Производится корпорацией Terra Industries."
+	icon_state = "tla_cats"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/cats12g
+	fire_delay = 0
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	suppressed_fire_sound = 'sound/weapons/gunshots/shotgunsupp.ogg'
+	burst_size = 2
+	accuracy = GUN_ACCURACY_SHOTGUN
+	attachable_allowed = GUN_MODULE_CLASS_SHOTGUN_MUZZLE | GUN_MODULE_CLASS_SHOTGUN_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 23, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 6, "y" = 6),
+	)
+	recoil = GUN_RECOIL_HIGH
+
+/obj/item/gun/projectile/automatic/cats/update_icon_state()
+	icon_state = "tla_cats[magazine ? "" : "-e"]"
+
+/obj/item/gun/projectile/automatic/cats/examine(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		if(user.say_understands(null, GLOB.all_languages[LANGUAGE_SOL_COMMON]))
+			. += "Вы видите гравировку на прикладе, написанную на Общесолнечном: 'Свобода через тотальное превосходство'"
+		else
+			. += "Вы видите символы на прикладе, но не понимаете что они значат."
 
 //Laser carbine//
 /obj/item/gun/projectile/automatic/lasercarbine
-	name = "\improper IK-60 Laser Carbine"
+	name = "IK-60 Laser Carbine"
 	desc = "A short, compact carbine like rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
 	icon_state = "lasercarbine"
 	item_state = "laser"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;materials=2"
 	mag_type = /obj/item/ammo_box/magazine/laser
 	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
 	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
 	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
-	can_suppress = 0
 	burst_size = 2
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 6),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -4),
+	)
+	recoil = GUN_RECOIL_MIN
 
-/obj/item/gun/projectile/automatic/lasercarbine/update_icon()
-	..()
-	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(0)/5, 1)*5]" : ""]"
+/obj/item/gun/projectile/automatic/lasercarbine/update_icon_state()
+	icon_state = "lasercarbine[magazine ? "-[CEILING(get_ammo(FALSE)/5, 1)*5]" : ""]"
+
+/obj/item/gun/projectile/automatic/lr30
+	name = "LR-30 Laser Rifle"
+	desc = "A compact rifle, relying more on battery cartridges rather than a built in power cell. Utilized by the Nanotrasen Navy for combat operations."
+	icon_state = "lr30"
+	item_state = "lr30"
+	origin_tech = "combat=3;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/lr30mag
+	fire_sound = 'sound/weapons/gunshots/gunshot_lascarbine.ogg'
+	magin_sound = 'sound/weapons/gun_interactions/batrifle_magin.ogg'
+	magout_sound = 'sound/weapons/gun_interactions/batrifle_magout.ogg'
+	burst_size = 1
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 3, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 10, "y" = -2),
+	)
+	recoil = GUN_RECOIL_MIN
+	fire_modes = GUN_MODE_SINGLE_ONLY
+
+/obj/item/gun/projectile/automatic/lr30/update_icon_state()
+	icon_state = "lr30[magazine ? "-[CEILING(get_ammo(FALSE)/3, 1)*3]" : ""]"
+
+//Semi-Machine Gun SFG
+
+/obj/item/gun/projectile/automatic/sfg
+	name = "SFG-5 SMG"
+	desc = "Данное оружие, созданное для различных спецслужб по всей галактике одной компанией, имеет в качестве калибра 9мм, возможность стрельбы очередями отсечкой по 3 патрона и имеет место для фонарика и глушителя."
+	icon_state = "sfg-5"
+	item_state = "arg"
+	mag_type = /obj/item/ammo_box/magazine/sfg9mm
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 17, "y" = 1),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 5),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -5),
+	)
+	recoil = GUN_RECOIL_MEDIUM
+
+/obj/item/gun/projectile/automatic/sfg/update_icon_state()
+	icon_state = "[initial(icon_state)][magazine ? "" : "-e"]"
+
+//Aussec Armory M-52
+
+/obj/item/gun/projectile/automatic/m52
+	name = "aussec armory M-52"
+	desc = "One of the least popular examples of heavy assault rifles. It has impressive firepower."
+	icon_state = "M52"
+	item_state = "arg"
+	fire_sound = 'sound/weapons/gunshots/aussec.ogg'
+	mag_type = /obj/item/ammo_box/magazine/m52mag
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_MUZZLE | GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 20, "y" = 2),
+		ATTACHMENT_SLOT_RAIL = list("x" = 2, "y" = 9),
+		ATTACHMENT_SLOT_UNDER = list("x" = 9, "y" = -7),
+	)
+	recoil = GUN_RECOIL_MEDIUM
+

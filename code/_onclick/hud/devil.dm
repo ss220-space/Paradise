@@ -1,68 +1,124 @@
 
 //Soul counter is stored with the humans, it does weird when you place it here apparently...
 
-
-/datum/hud/devil/New(mob/owner, ui_style = 'icons/mob/screen_midnight.dmi')
+/datum/hud/devil/New(mob/owner)
 	..()
 
-	var/obj/screen/using
-	var/obj/screen/inventory/inv_box
+	var/atom/movable/screen/using
+	var/atom/movable/screen/inventory/inv_box
+	var/client/client = owner.client
+	var/ui_style = ui_style2icon(client.prefs.UI_style)
+	var/ui_color = client.prefs.UI_style_color
+	var/ui_alpha = client.prefs.UI_style_alpha
 
-	using = new /obj/screen/drop()
+	using = new /atom/movable/screen/language_menu(null, src)
 	using.icon = ui_style
-	using.screen_loc = ui_drop_throw
+	using.color = ui_color
+	using.alpha = ui_alpha
 	static_inventory += using
 
-	mymob.pullin = new /obj/screen/pull()
+	using = new /atom/movable/screen/act_intent(null, src)
+	using.icon_state = mymob.a_intent
+	using.alpha = ui_alpha
+	static_inventory += using
+	action_intent = using
+
+	using = new /atom/movable/screen/mov_intent(null, src)
+	using.icon = ui_style
+	using.update_icon(UPDATE_ICON_STATE)
+	using.screen_loc = ui_movi
+	using.color = ui_color
+	using.alpha = ui_alpha
+	static_inventory += using
+	move_intent = using
+
+	using = new /atom/movable/screen/drop(null, src)
+	using.icon = ui_style
+	using.screen_loc = ui_drop_throw
+	using.color = ui_color
+	using.alpha = ui_alpha
+	static_inventory += using
+
+	mymob.pullin = new /atom/movable/screen/pull(null, src)
 	mymob.pullin.icon = ui_style
-	mymob.pullin.update_icon(mymob)
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
 	mymob.pullin.screen_loc = ui_pull_resist
 	static_inventory += mymob.pullin
 
-	inv_box = new /obj/screen/inventory/hand()
-	inv_box.name = "right hand"
+	inv_box = new /atom/movable/screen/inventory/hand(null, src)
+	inv_box.name = "r_hand"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_r"
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_rhand
-	inv_box.slot_id = slot_r_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_RIGHT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
-	inv_box = new /obj/screen/inventory/hand()
-	inv_box.name = "left hand"
+	inv_box = new /atom/movable/screen/inventory/hand(null, src)
+	inv_box.name = "l_hand"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "hand_l"
+	inv_box.color = ui_color
+	inv_box.alpha = ui_alpha
 	inv_box.screen_loc = ui_lhand
-	inv_box.slot_id = slot_l_hand
+	inv_box.slot_id = ITEM_SLOT_HAND_LEFT
 	static_inventory += inv_box
+	hand_slots += inv_box
 
-	using = new /obj/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.name = "hand"
 	using.icon = ui_style
 	using.icon_state = "swap_1"
 	using.screen_loc = ui_swaphand1
+	using.color = ui_color
+	using.alpha = ui_alpha
 	static_inventory += using
 
-	using = new /obj/screen/swap_hand()
+	using = new /atom/movable/screen/swap_hand(null, src)
 	using.name = "hand"
 	using.icon = ui_style
 	using.icon_state = "swap_2"
 	using.screen_loc = ui_swaphand2
+	using.color = ui_color
+	using.alpha = ui_alpha
 	static_inventory += using
 
-	zone_select = new /obj/screen/zone_sel()
-	zone_select.icon = ui_style
-	zone_select.update_icon(mymob)
+	using = new /atom/movable/screen/resist(null, src)
+	using.icon = ui_style
+	using.color = ui_color
+	using.alpha = ui_alpha
+	using.screen_loc = ui_pull_resist
+	hotkeybuttons += using
 
-	lingchemdisplay = new /obj/screen/ling/chems()
-	devilsouldisplay = new /obj/screen/devil/soul_counter
+	mymob.throw_icon = new /atom/movable/screen/throw_catch(null, src)
+	mymob.throw_icon.icon = ui_style
+	mymob.throw_icon.screen_loc = ui_drop_throw
+	mymob.throw_icon.color = ui_color
+	mymob.throw_icon.alpha = ui_alpha
+	hotkeybuttons += mymob.throw_icon
+
+	mymob.healths = new /atom/movable/screen/healthdoll/living(null, src)
+	infodisplay += mymob.healths
+
+	mymob.pullin = new /atom/movable/screen/pull(null, src)
+	mymob.pullin.icon = ui_style
+	mymob.pullin.update_icon(UPDATE_ICON_STATE)
+	mymob.pullin.screen_loc = ui_pull_resist
+	static_inventory += mymob.pullin
+
+	zone_select =  new /atom/movable/screen/zone_sel(null, src, ui_style, ui_alpha, ui_color)
+	static_inventory += zone_select
+
+	lingchemdisplay = new /atom/movable/screen/ling/chems(null, src)
+	devilsouldisplay = new /atom/movable/screen/devil/soul_counter(null, src)
 	infodisplay += devilsouldisplay
 
-	for(var/obj/screen/inventory/inv in static_inventory)
+	for(var/atom/movable/screen/inventory/inv in static_inventory)
 		if(inv.slot_id)
-			inv.hud = src
-			inv_slots[inv.slot_id] = inv
-			inv.update_icon()
-
+			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
+			inv.update_appearance()
 
 /datum/hud/devil/persistent_inventory_update()
 	if(!mymob)
@@ -81,7 +137,3 @@
 			D.r_hand.screen_loc = null
 		if(D.l_hand)
 			D.l_hand.screen_loc = null
-
-/mob/living/carbon/true_devil/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/devil(src, ui_style2icon(client.prefs.UI_style))

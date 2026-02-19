@@ -2,10 +2,11 @@
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
+	gender = FEMALE
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
-	density = FALSE
 	max_integrity = 15
+	cares_about_temperature = TRUE
 	var/mob/living/carbon/human/master_commander = null
 	var/new_mind_memory = "Я свободный паук."
 
@@ -13,9 +14,8 @@
 	if(damage_type == BURN)//the stickiness of the web mutes all attack sounds except fire damage type
 		playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-
 /obj/structure/spider/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee")
+	if(damage_flag == MELEE)
 		switch(damage_type)
 			if(BURN)
 				damage_amount *= 2
@@ -27,7 +27,10 @@
 	master_commander = null
 	return ..()
 
-/obj/structure/spider/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+/obj/structure/spider/has_prints()
+	return FALSE
+
+/obj/structure/spider/temperature_expose(exposed_temperature, exposed_volume)
 	..()
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
@@ -40,26 +43,24 @@
 	if(prob(50))
 		icon_state = "stickyweb2"
 
-/obj/structure/spider/stickyweb/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASS_OTHER_THINGS))
-		return TRUE
-	if(height == 0)
+/obj/structure/spider/stickyweb/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
 		return TRUE
 	if(istype(mover, /mob/living/simple_animal/hostile/poison/giant_spider) || isterrorspider(mover))
 		return TRUE
-	else if(istype(mover, /mob/living))
-		if(prob(50))
-			to_chat(mover, "<span class='danger'>You get stuck in [src] for a moment.</span>")
-			return FALSE
-	else if(istype(mover, /obj/item/projectile))
+	if(isliving(mover) && prob(50))
+		to_chat(mover, span_danger("You get stuck in [src] for a moment."))
+		return FALSE
+	if(isprojectile(mover))
 		return prob(30)
-	return TRUE
 
 /obj/structure/spider/eggcluster
 	name = "egg cluster"
 	desc = "They seem to pulse slightly with an inner life"
 	icon_state = "eggs"
 	var/amount_grown = 0
+	var/grown_tick_count = 100
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 
@@ -70,14 +71,17 @@
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/spider/eggcluster/process()
+	if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS - 10) //eggs gonna chill out until there is less spiders
+		return
+
 	amount_grown += rand(0,2)
-	if(amount_grown >= 100)
+	if(amount_grown >= grown_tick_count)
 		var/num = rand(3, 12)
 		for(var/i in 1 to num)
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.new_mind_memory = master_commander ? "<B>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</B>" : new_mind_memory
+			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [GEND_HIS_HER(master_commander)] цели любой ценой!</b>" : new_mind_memory
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -86,7 +90,7 @@
 	name = "spiderling"
 	desc = "It never stays still for long."
 	icon_state = "spiderling"
-	anchored = 0
+	anchored = FALSE
 	layer = 2.75
 	max_integrity = 3
 	var/amount_grown = 0
@@ -96,6 +100,8 @@
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 	var/selecting_player = 0
+	///Is this spiderling created from a xenobiology mob?
+	var/xenobiology_spawned = FALSE
 
 /obj/structure/spider/spiderling/Initialize(mapload)
 	. = ..()
@@ -110,11 +116,17 @@
 	new /obj/effect/decal/cleanable/spiderling_remains(get_turf(src))
 	return ..()
 
-/obj/structure/spider/spiderling/Bump(atom/user)
-	if(istype(user, /obj/structure/table))
-		loc = user.loc
-	else
-		..()
+/obj/structure/spider/spiderling/attack_hand(mob/living/user)
+	. = ..()
+	if(ishuman(user))
+		if(user.a_intent == INTENT_HELP)
+			visible_message(span_notice("Вы пощекотали брюшко [src.name]."), span_notice("[user.name] пощекотал[GEND_A_O_I(user)] брюшко [src.name]."))
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+		else
+			user.changeNext_move(CLICK_CD_MELEE)
+			user.do_attack_animation(src, user.dna.species.unarmed.animation_type)
+			playsound(src.loc, user.dna.species.unarmed.attack_sound, 25, TRUE, -1)
+			attack_generic(user, max_integrity/3)
 
 /obj/structure/spider/spiderling/process()
 	if(travelling_in_vent)
@@ -126,13 +138,13 @@
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in entry_vent.parent.other_atmosmch)
 				vents.Add(temp_vent)
-			if(!vents.len)
+			if(!length(vents))
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(50))
-				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
-								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+				visible_message("<b>[src] scrambles into the ventilation ducts!</b>", \
+								span_notice("You hear something squeezing through the ventilation ducts."))
 
 			spawn(rand(20,60))
 				loc = exit_vent
@@ -145,7 +157,7 @@
 						return
 
 					if(prob(50))
-						audible_message("<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
+						audible_message(span_notice("You hear something squeezing through the ventilation ducts."))
 					sleep(travel_time)
 
 					if(!exit_vent || exit_vent.welded)
@@ -161,34 +173,41 @@
 
 	else if(prob(33))
 		if(random_skitter() && prob(40))
-			visible_message("<span class='notice'>[src] skitters[pick(" away"," around","")].</span>")
+			visible_message(span_notice("[src] skitters[pick(" away"," around","")]."))
 	else if(prob(10))
 		//ventcrawl!
 		for(var/obj/machinery/atmospherics/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				walk_to(src, entry_vent, 1)
+				GLOB.move_manager.move_to(src, entry_vent, 1, rand(2, 4))
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
+			if(SSmobs.xenobiology_mobs > MAX_GOLD_CORE_MOBS && xenobiology_spawned)
+				qdel(src)
+				return
 			if(!grow_as)
 				grow_as = pick(typesof(/mob/living/simple_animal/hostile/poison/giant_spider))
 			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
 			S.mind?.store_memory(new_mind_memory)
+			S.xenobiology_spawned = xenobiology_spawned
+			if(xenobiology_spawned)
+				SSmobs.xenobiology_mobs++
 			if(player_spiders && !selecting_player)
 				selecting_player = 1
 				spawn()
 					var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a giant spider?", ROLE_GSPIDER, TRUE, source = S)
 
-					if(candidates.len)
+					if(length(candidates))
 						var/mob/C = pick(candidates)
 						if(C)
-							S.key = C.key
+							S.possess_by_player(C.key)
 							if(S.master_commander)
-								to_chat(S, "<span class='biggerdanger'>You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost.</span>")
+								to_chat(S, span_biggerdanger("You are a spider who is loyal to [S.master_commander], obey [S.master_commander]'s every order and assist [S.master_commander.p_them()] in completing [S.master_commander.p_their()] goals at any cost."))
+							add_game_logs("was made giant spider, master: [S.master_commander ? S.master_commander : "None"]")
 			qdel(src)
 
 /obj/structure/spider/spiderling/proc/random_skitter()
@@ -200,13 +219,13 @@
 		available_turfs += S
 	if(!length(available_turfs))
 		return FALSE
-	walk_to(src, pick(available_turfs))
+	GLOB.move_manager.move_to(src, pick(available_turfs), 1, rand(2, 4))
 	return TRUE
 
 /obj/structure/spider/spiderling/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!isdrone(user))
-		user.visible_message("<span class='notice'>[user] sucks [src] into its decompiler. There's a horrible crunching noise.</span>", \
-		"<span class='warning'>It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises.</span>")
+		user.visible_message(span_notice("[user] sucks [src] into its decompiler. There's a horrible crunching noise."), \
+								span_warning("It's a bit of a struggle, but you manage to suck [user] into your decompiler. It makes a series of visceral crunching noises."))
 		C.stored_comms["wood"] += 2
 		C.stored_comms["glass"] += 2
 		qdel(src)
@@ -216,9 +235,7 @@
 /obj/effect/decal/cleanable/spiderling_remains
 	name = "spiderling remains"
 	desc = "Green squishy mess."
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "greenshatter"
-	anchored = 1
 
 /obj/structure/spider/cocoon
 	name = "cocoon"
@@ -231,7 +248,7 @@
 	icon_state = pick("cocoon1","cocoon2","cocoon3")
 
 /obj/structure/spider/cocoon/Destroy()
-	visible_message("<span class='danger'>[src] splits open.</span>")
+	visible_message(span_danger("[src] splits open."))
 	for(var/atom/movable/A in contents)
 		A.forceMove(loc)
 	return ..()

@@ -1,0 +1,31 @@
+name: Compile All Maps
+
+on:
+  workflow_call:
+
+jobs:
+  compile_all_stations:
+    name: Compile All Station Maps
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.11.0
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
+        with:
+          release: 'STABLE'
+
+      - name: Compile All Maps
+        run: |
+          tools/ci/install_byond.sh
+          source $HOME/BYOND/byond/bin/byondsetup
+          tools/ci/generate_maplist.sh
+          tools/ci/dm.sh -Mci_map_testing paradise.dme

@@ -27,12 +27,8 @@
 	mix_message = "The mixture gives off a faint scent of almonds."
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/cyanide/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("cyanide", 7)
+/datum/chemical_reaction/cyanide/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("cyanide"), holder, created_volume, 1)
 
 /datum/chemical_reaction/itching_powder
 	name = "Itching Powder"
@@ -86,12 +82,8 @@
 	min_temp = T0C + 100
 	mix_sound = 'sound/goonstation/misc/drinkfizz.ogg'
 
-/datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 2))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("sarin", 4)
+/datum/chemical_reaction/sarin/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("sarin"), holder, created_volume, 2)
 
 /datum/chemical_reaction/glyphosate
 	name = "glyphosate"
@@ -138,13 +130,13 @@
 	result = "teslium"
 	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
 	result_amount = 3
-	mix_message = "<span class='danger'>A jet of sparks flies from the mixture as it merges into a flickering slurry.</span>"
+	mix_message = span_danger("A jet of sparks flies from the mixture as it merges into a flickering slurry.")
 	min_temp = T0C + 50
 	mix_sound = null
 
 /datum/chemical_reaction/teslium/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	do_sparks(6, 1, location)
+	do_sparks(6, TRUE, location)
 
 /datum/chemical_reaction/mutagen
 	name = "Unstable mutagen"
@@ -173,4 +165,4 @@
 	result = "rotatium"
 	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
 	result_amount = 3
-	mix_message = "<span class='danger'>After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.</span>"
+	mix_message = span_danger("After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.")

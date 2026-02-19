@@ -31,13 +31,12 @@
 	if(speak_emote)
 		D.speak_emote = speak_emote
 
-/datum/muhtar_fashion/proc/get_overlay(var/dir)
+/datum/muhtar_fashion/proc/get_overlay(dir)
 	if(icon_file && obj_icon_state)
 		var/image/muhtar = image(icon_file, obj_icon_state, dir = dir)
 		muhtar.alpha = obj_alpha
 		muhtar.color = obj_color
 		return muhtar
-
 
 /datum/muhtar_fashion/head
 	icon_file = 'icons/mob/muhtar_accessories.dmi'
@@ -52,7 +51,6 @@
 
 /datum/muhtar_fashion/mask/cigar
 	obj_icon_state = "cigar"
-
 
 /datum/muhtar_fashion/head/beret
 	name = "Лейтенант REAL_NAME"

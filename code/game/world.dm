@@ -1,33 +1,38 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
+#define CLEAR_RUST_CACHE rustlib_clear_uuid_storage(); rustlib_iconforge_cleanup_all(); milla_reset();
 
-/proc/enable_debugging(mode, port)
-	CRASH("auxtools not loaded")
+#ifdef TEST_RUNNER
+GLOBAL_DATUM(test_runner, /datum/test_runner)
+#endif
 
 /world/New()
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
-	init_byond_tracy()
+	prof_init()
 #endif
-
-	dmjit_hook_main_init()
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
 	// This is BAD.
 
 	//temporary file used to record errors with loading config and the database, moved to log directory once logging is set up
 	GLOB.config_error_log = GLOB.world_game_log = GLOB.world_runtime_log = GLOB.sql_log = "data/logs/config_error.log"
-	load_configuration()
 
 	// Proc to enable the extools debugger, which allows breakpoints, live var checking, and many other useful tools
 	// The DLL is injected into the env by visual studio code. If not running VSCode, the proc will not call the initialization
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
-		call(debug_server, "auxtools_init")()
+		CALL_EXT(debug_server, "auxtools_init")()
 		enable_debugging()
 
+	load_configuration()
 	// Right off the bat, load up the DB
 	SSdbcore.CheckSchemaVersion() // This doesnt just check the schema version, it also connects to the db! This needs to happen super early! I cannot stress this enough!
 	SSdbcore.SetRoundID() // Set the round ID here
+	load_poll_data()
+
+	#ifdef MULTIINSTANCE
+	SSinstancing.seed_data() // Set us up in the DB
+	#endif
 
 	// Setup all log paths and stamp them with startups, including round IDs
 	SetupLogs()
@@ -37,23 +42,22 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	TgsNew(new /datum/tgs_event_handler/impl, TGS_SECURITY_TRUSTED) // creates a new TGS object
 	log_world("World loaded at [time_stamp()]")
-	log_world("[GLOB.vars.len - GLOB.gvars_datum_in_built_vars.len] global variables")
+	log_world("[length(GLOB.vars) - length(GLOB.gvars_datum_in_built_vars)] global variables")
 	GLOB.revision_info.log_info()
 	load_admins(run_async=FALSE) // This better happen early on.
 
-	#ifdef UNIT_TESTS
-	log_world("Unit Tests Are Enabled!")
+	#ifdef TEST_RUNNER
+	log_world("Test runner enabled.")
 	#endif
-
 
 	if(byond_version < MIN_COMPILER_VERSION || byond_build < MIN_COMPILER_BUILD)
 		log_world("Your server's byond version does not meet the recommended requirements for this code. Please update BYOND")
 
-	if(config && config.server_name != null && config.server_suffix && world.port > 0)
+	if(config && CONFIG_GET(string/servername) != null && CONFIG_GET(number/server_suffix) && world.port > 0)
 		// dumb and hardcoded but I don't care~
-		config.server_name += " #[(world.port % 1000) / 100]"
+		CONFIG_SET(string/servername, CONFIG_GET(string/servername) + " #[(world.port % 1000) / 100]")
 
-	GLOB.timezoneOffset = text2num(time2text(0, "hh")) * 36000
+	GLOB.timezoneOffset = timezone * 36000
 
 	startup_procs() // Call procs that need to occur on startup (Generate lists, load MOTD, etc)
 
@@ -65,9 +69,9 @@ GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
 
 	Master.Initialize(10, FALSE, TRUE)
 
-
-	#ifdef UNIT_TESTS
-	HandleTestRun()
+	#ifdef TEST_RUNNER
+	GLOB.test_runner = new
+	GLOB.test_runner.Start()
 	#endif
 
 	return
@@ -85,13 +89,12 @@ GLOBAL_LIST_EMPTY(world_topic_spam_prevention_handlers)
 /// List of all world topic handler datums. Populated inside makeDatumRefLists()
 GLOBAL_LIST_EMPTY(world_topic_handlers)
 
-
 /world/Topic(T, addr, master, key)
 	TGS_TOPIC
-	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == config?.comms_password ? "*secret*" : key]")
+	log_misc("WORLD/TOPIC: \"[T]\", from:[addr], master:[master], key:[key == CONFIG_GET(string/comms_password) ? "*secret*" : key]")
 
 	// Handle spam prevention
-	if(!(addr in config?.topic_filtering_whitelist))
+	if(!(addr in CONFIG_GET(str_list/topic_filtering_whitelist)))
 		if(!GLOB.world_topic_spam_prevention_handlers[addr])
 			GLOB.world_topic_spam_prevention_handlers[addr] = new /datum/world_topic_spam_prevention_handler(addr)
 
@@ -125,10 +128,11 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				log_and_message_admins("attempted to restart the server via the Profiler, without access.")
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
-			to_chat(world, "<span class='boldannounce'>Rebooting world immediately due to host request</span>")
+			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
+		CLEAR_RUST_CACHE
 		// Now handle a reboot
-		if(config && config.shutdown_on_reboot)
+		if(config && CONFIG_GET(flag/shutdown_on_reboot))
 			sleep(0)
 			if(GLOB.shutdown_shell_command)
 				shell(GLOB.shutdown_shell_command)
@@ -142,27 +146,28 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	// If we got here, we are in a "normal" reboot
 	Master.Shutdown() // Shutdown subsystems
 
-	// If we were running unit tests, finish that run
-	#ifdef UNIT_TESTS
-	FinishTestRun()
+	// If we were running game tests, finish that run
+	#ifdef TEST_RUNNER
+	GLOB.test_runner.Finalize()
 	return
 	#endif
 
 	// If we had an update or pending TM, set a 60 second timeout
-	var/secs_before_auto_reconnect = 10
 	if(GLOB.pending_server_update)
-		secs_before_auto_reconnect = 60
-		to_chat(world, "<span class='boldannounce'>Reboot will take a little longer, due to pending updates.</span>")
+		to_chat(world, span_boldannounceooc("Reboot will take a little longer, due to pending updates."))
 
 	// Send the reboot banner to all players
+	var/position = 0 // queue autoreconnect
 	for(var/client/C in GLOB.clients)
-		C << output(list2params(list(secs_before_auto_reconnect)), "browseroutput:reboot")
-		if(config.server) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
-			C << link("byond://[config.server]")
+		C?.tgui_panel?.send_roundrestart(position)
+		position++
+		if(CONFIG_GET(string/server)) // If you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
+			C << link("byond://[CONFIG_GET(string/server)]")
 
 	// And begin the real shutdown
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
-	if(config && config.shutdown_on_reboot)
+	CLEAR_RUST_CACHE
+	if(config && CONFIG_GET(flag/shutdown_on_reboot))
 		sleep(0)
 		if(GLOB.shutdown_shell_command)
 			shell(GLOB.shutdown_shell_command)
@@ -175,19 +180,19 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		..(0)
 
 /world/proc/load_mode()
-	var/list/Lines = file2list("data/mode.txt")
-	if(Lines.len)
+	var/list/Lines = world.file2list("data/mode.txt")
+	if(length(Lines))
 		if(Lines[1])
 			GLOB.master_mode = Lines[1]
 			add_game_logs("Saved mode is '[GLOB.master_mode]'")
 
-/world/proc/save_mode(var/the_mode)
+/world/proc/save_mode(the_mode)
 	var/F = file("data/mode.txt")
 	fdel(F)
 	F << the_mode
 
 /world/proc/check_for_lowpop()
-	if(!config.auto_extended_players_num)
+	if(!CONFIG_GET(number/auto_extended_players_num))
 		return
 
 	var/totalPlayersReady = 0
@@ -195,22 +200,18 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		if(player.ready)
 			totalPlayersReady++
 
-	if(totalPlayersReady <= config.auto_extended_players_num)
+	if(totalPlayersReady <= CONFIG_GET(number/auto_extended_players_num))
 		GLOB.master_mode = "extended"
-		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
-	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
+		to_chat(world, span_boldnotice("Due to the lowpop the mode has been changed."))
+	to_chat(world, span_boldnotice("The mode is now: [GLOB.master_mode]"))
 
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
 	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
-	config = new /datum/configuration()
-	config.load("config/config.txt")
-	config.load("config/game_options.txt","game_options")
-	config.loadsql("config/dbconfig.txt")
-	config.loadoverflowwhitelist("config/ofwhitelist.txt")
-	config.load("config/twitch_censor.txt", "twitch_censor")
+	config = new /datum/controller/configuration()
+	config.Load()
 	// apply some settings from config..
 
 /world/proc/update_status()
@@ -222,17 +223,17 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 /world/proc/get_status_text()
 	var/s = ""
 
-	if(config && config.server_name)
-		s += "<b>[config.server_name]</b> &#8212; "
-	s += "<b>[station_name()]</b> "
-	if(config && config.githuburl)
+	if(config && CONFIG_GET(string/servername))
+		s += "<b>[CONFIG_GET(string/servername)]</b> &#8212; "
+	s += "<b>[english_station_name()]</b> "
+	if(config && CONFIG_GET(string/githuburl))
 		s+= "([GLOB.game_version])"
 
-	if(config && config.server_tag_line)
-		s += "<br>[config.server_tag_line]"
+	if(config && CONFIG_GET(string/server_tag_line))
+		s += "<br>[CONFIG_GET(string/server_tag_line)]"
 
 	if(SSticker && ROUND_TIME > 0)
-		s += "<br>[round(ROUND_TIME / 36000)]:[add_zero(num2text(ROUND_TIME / 600 % 60), 2)], " + capitalize(get_security_level())
+		s += "<br>[ROUND_TIME_TEXT()], " + capitalize(SSsecurity_level.get_current_level_as_text())
 	else
 		s += "<br><b>STARTING</b>"
 
@@ -242,14 +243,14 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	if(!GLOB.enter_allowed)
 		features += "closed"
 
-	if(config && config.server_extra_features)
-		features += config.server_extra_features
+	if(config && CONFIG_GET(string/server_extra_features))
+		features += CONFIG_GET(string/server_extra_features)
 
-	if(config && config.allow_vote_mode)
+	if(config && CONFIG_GET(flag/allow_vote_mode))
 		features += "vote"
 
-	if(config && config.wikiurl)
-		features += "<a href=\"[config.wikiurl]\">Wiki</a>"
+	if(config && CONFIG_GET(string/wikiurl))
+		features += "<a href=\"[CONFIG_GET(string/wikiurl)]\">Wiki</a>"
 
 	if(GLOB.abandon_allowed)
 		features += "respawn"
@@ -260,18 +261,22 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	return s
 
 /world/proc/SetupLogs()
-	if(GLOB.round_id && !config.full_day_logs)
+	if(GLOB.round_id && !CONFIG_GET(flag/full_day_logs))
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]/round-[GLOB.round_id]"
 	else
 		GLOB.log_directory = "data/logs/[time2text(world.realtime, "YYYY/MM-Month/DD-Day")]" // Dont stick a round ID if we dont have one
+
 	GLOB.world_game_log = "[GLOB.log_directory]/game.log"
 	GLOB.world_href_log = "[GLOB.log_directory]/hrefs.log"
 	GLOB.world_runtime_log = "[GLOB.log_directory]/runtime.log"
 	GLOB.world_qdel_log = "[GLOB.log_directory]/qdel.log"
 	GLOB.world_asset_log = "[GLOB.log_directory]/asset.log"
 	GLOB.tgui_log = "[GLOB.log_directory]/tgui.log"
+	GLOB.demo_log = "[GLOB.log_directory]/demo.txt"
 	GLOB.http_log = "[GLOB.log_directory]/http.log"
 	GLOB.sql_log = "[GLOB.log_directory]/sql.log"
+	GLOB.mapmanip_log = "[GLOB.log_directory]/mapmanip.log"
+
 	start_log(GLOB.world_game_log)
 	start_log(GLOB.world_href_log)
 	start_log(GLOB.world_runtime_log)
@@ -279,6 +284,12 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	start_log(GLOB.tgui_log)
 	start_log(GLOB.http_log)
 	start_log(GLOB.sql_log)
+	start_log(GLOB.mapmanip_log)
+
+	#ifdef REFERENCE_TRACKING
+	GLOB.gc_log = "[GLOB.log_directory]/gc_debug.log"
+	start_log(GLOB.gc_log)
+	#endif
 
 	// This log follows a special format and this path should NOT be used for anything else
 	GLOB.runtime_summary_log = "data/logs/runtime_summary.log"
@@ -296,25 +307,59 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	fdel(F)
 	F << GLOB.log_directory
 
+	var/latest_changelog = file("html/changelogs/archive/" + time2text(world.timeofday, "YYYY-MM") + ".yml")
+	GLOB.changelog_hash = fexists(latest_changelog) ? md5(latest_changelog) : 0 //for telling if the changelog has changed recently
 
 /world/Del()
 	rustg_close_async_http_client() // Close the HTTP client. If you dont do this, youll get phantom threads which can crash DD from memory access violations
+	CLEAR_RUST_CACHE
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
-	if (debug_server)
-		call(debug_server, "auxtools_shutdown")()
+	if(debug_server)
+		CALL_EXT(debug_server, "auxtools_shutdown")()
+	if(SSredis.connected)
+		rustg_redis_disconnect() // Disconnects the redis connection. See above.
+	prof_stop()
 	..()
 
-/world/proc/init_byond_tracy()
-	var/library
+/**
+ * Handles incresing the world's maxx var and intializing the new turfs and assigning them to the global area.
+ * If map_load_z_cutoff is passed in, it will only load turfs up to that z level, inclusive.
+ * This is because maploading will handle the turfs it loads itself.
+ */
+/world/proc/increase_max_x(new_maxx, map_load_z_cutoff = maxz)
+	if(new_maxx <= maxx)
+		return
+	var/old_max = world.maxx
+	maxx = new_maxx
+	if(!map_load_z_cutoff)
+		return
+	var/area/global_area = GLOB.areas_by_type[world.area] // We're guaranteed to be touching the global area, so we'll just do this
+	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
+	for(var/zlevel in 1 to map_load_z_cutoff)
+		var/list/to_add = block(
+			locate(old_max + 1, 1, zlevel),
+			locate(maxx, maxy, zlevel))
 
-	switch (system_type)
-		if (MS_WINDOWS)
-			library = "prof.dll"
-		if (UNIX)
-			library = "libprof.so"
-		else
-			CRASH("Unsupported platform: [system_type]")
+		global_area.turfs_by_zlevel[zlevel] += to_add
 
-	var/init_result = call(library, "init")()
-	if (init_result != "0")
-		CRASH("Error initializing byond-tracy: [init_result]")
+/world/proc/increase_max_y(new_maxy, map_load_z_cutoff = maxz)
+	if(new_maxy <= maxy)
+		return
+	var/old_maxy = maxy
+	maxy = new_maxy
+	if(!map_load_z_cutoff)
+		return
+	var/area/global_area = GLOB.areas_by_type[world.area] // We're guarenteed to be touching the global area, so we'll just do this
+	LISTASSERTLEN(global_area.turfs_by_zlevel, map_load_z_cutoff, list())
+	for(var/zlevel in 1 to map_load_z_cutoff)
+		var/list/to_add = block(
+			locate(1, old_maxy + 1, 1),
+			locate(maxx, maxy, map_load_z_cutoff))
+		global_area.turfs_by_zlevel[zlevel] += to_add
+
+/world/proc/incrementMaxZ()
+	maxz++
+	SSmobs.MaxZChanged()
+	SSidlenpcpool.MaxZChanged()
+
+#undef CLEAR_RUST_CACHE

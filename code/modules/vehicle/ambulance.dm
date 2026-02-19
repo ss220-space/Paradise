@@ -1,124 +1,64 @@
-/obj/vehicle/ambulance
+/obj/vehicle/ridden/ambulance
 	name = "ambulance"
 	desc = "This is what the paramedic uses to run over people they need to take to medbay."
 	icon_state = "docwagon2"
-	vehicle_move_delay = 1.5
 	key_type = /obj/item/key/ambulance
+
 	var/obj/structure/bed/amb_trolley/bed = null
-	var/datum/action/ambulance_alarm/AA
 	var/datum/looping_sound/ambulance_alarm/soundloop
 
-/obj/vehicle/ambulance/Initialize(mapload)
+	//Lights on ability activation
+	light_on = FALSE
+	light_system = MOVABLE_LIGHT
+	light_range = 4
+	light_power = 3
+	light_color = "#F70027"
+
+/obj/vehicle/ridden/ambulance/generate_actions()
 	. = ..()
-	AA = new(src)
-	soundloop = new(list(src), FALSE)
+	initialize_controller_action_type(/datum/action/vehicle/ridden/ambulance/ambulance_alarm, VEHICLE_CONTROL_DRIVE)
 
-/datum/action/ambulance_alarm
-	name = "Toggle Sirens"
-	icon_icon = 'icons/obj/vehicles.dmi'
-	button_icon_state = "docwagon2"
-	check_flags = AB_CHECK_RESTRAINED | AB_CHECK_STUNNED | AB_CHECK_LYING | AB_CHECK_CONSCIOUS
-	var/toggle_cooldown = 40
-	var/cooldown = 0
+/obj/vehicle/ridden/ambulance/Initialize(mapload)
+	. = ..()
+	soundloop = new(src, FALSE)
+	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/ambulance)
 
-
-/datum/action/ambulance_alarm/Trigger()
-	if(!..())
-		return FALSE
-
-	var/obj/vehicle/ambulance/A = target
-
-	if(!istype(A) || !A.soundloop)
-		return FALSE
-
-	if(world.time < cooldown + toggle_cooldown)
-		return FALSE
-
-	cooldown = world.time
-
-	if(A.soundloop.muted)
-		A.soundloop.start()
-		A.set_light(4,3,"#F70027")
-	else
-		A.soundloop.stop()
-		A.set_light(0)
-
-
-/datum/looping_sound/ambulance_alarm
-    start_length = 0
-    mid_sounds = list('sound/items/weeoo1.ogg' = 1)
-    mid_length = 14
-    volume = 100
-
-
-/obj/vehicle/ambulance/post_buckle_mob(mob/living/M)
-    . = ..()
-    if(has_buckled_mobs())
-        AA.Grant(M)
-    else
-        AA.Remove(M)
-
-/obj/vehicle/ambulance/post_unbuckle_mob(mob/living/M)
-	AA.Remove(M)
+/obj/vehicle/ridden/ambulance/Destroy()
+	QDEL_NULL(soundloop)
+	bed = null
 	return ..()
 
-/obj/item/key/ambulance
-	name = "ambulance key"
-	desc = "A keyring with a small steel key, and tag with a red cross on it."
-	icon_state = "keydoc"
-
-
-/obj/vehicle/ambulance/handle_vehicle_offsets()
-	..()
-	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			switch(buckled_mob.dir)
-				if(SOUTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 7
-				if(WEST)
-					buckled_mob.pixel_x = 13
-					buckled_mob.pixel_y = 7
-				if(NORTH)
-					buckled_mob.pixel_x = 0
-					buckled_mob.pixel_y = 4
-				if(EAST)
-					buckled_mob.pixel_x = -13
-					buckled_mob.pixel_y = 7
-
-/obj/vehicle/ambulance/Move(newloc, Dir, movetime)
+/obj/vehicle/ridden/ambulance/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/oldloc = loc
 	if(bed && !Adjacent(bed))
 		bed = null
 	. = ..()
-	if(bed && get_dist(oldloc, loc) <= 2)
-		bed.glide_size = glide_size
-		bed.Move(oldloc, get_dir(bed, oldloc))
-		bed.dir = Dir
+	if(. && bed && get_dist(oldloc, loc) <= 2)
+		bed.Move(oldloc, get_dir(bed, oldloc), glide_size)
 		if(bed.has_buckled_mobs())
-			for(var/m in bed.buckled_mobs)
-				var/mob/living/buckled_mob = m
-				buckled_mob.setDir(Dir)
+			for(var/mob/living/buckled_mob as anything in bed.buckled_mobs)
+				buckled_mob.setDir(direct)
 
 /obj/structure/bed/amb_trolley
 	name = "ambulance train trolley"
-	icon = 'icons/vehicles/CargoTrain.dmi'
+	icon = 'icons/obj/vehicles/CargoTrain.dmi'
 	icon_state = "ambulance"
 	anchored = FALSE
-	pull_push_speed_modifier = 1
+	pull_push_slowdown = 0	// used for transporting lying mobs
 
 /obj/structure/bed/amb_trolley/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Drag [src]'s sprite over the ambulance to (de)attach it.</span>"
+	. += span_notice("Drag [src]'s sprite over the ambulance to (de)attach it.")
 
-/obj/structure/bed/amb_trolley/MouseDrop(obj/over_object as obj)
-	..()
-	if(istype(over_object, /obj/vehicle/ambulance))
-		var/obj/vehicle/ambulance/amb = over_object
-		if(amb.bed)
-			amb.bed = null
-			to_chat(usr, "You unhook the bed to the ambulance.")
-		else
-			amb.bed = src
-			to_chat(usr, "You hook the bed to the ambulance.")
+/obj/structure/bed/amb_trolley/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	. = ..()
+	if(!istype(over_object, /obj/vehicle/ridden/ambulance) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+		return FALSE
+
+	var/obj/vehicle/ridden/ambulance/amb = over_object
+	if(amb.bed)
+		amb.bed = null
+		balloon_alert(usr, "отцеплено от машины")
+	else
+		amb.bed = src
+		balloon_alert(usr, "прицеплено к машине")

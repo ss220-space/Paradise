@@ -1,30 +1,35 @@
 /obj/item/assembly/signaler
 	name = "remote signaling device"
-	desc = "Used to remotely activate devices."
+	desc = "Используется для удалённой активации устройств."
 	icon_state = "signaller"
 	item_state = "signaler"
 	materials = list(MAT_METAL=400, MAT_GLASS=120)
 	origin_tech = "magnets=1;bluespace=1"
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
+	toolbox_radial_menu_compatibility = TRUE
 
-	secured = 1
 	var/receiving = FALSE
 
 	bomb_name = "remote-control bomb"
 
-	var/code = 30
+	var/code = DEFAULT_SIGNALER_CODE
 	var/frequency = RSD_FREQ
 	var/delay = 0
 	var/datum/radio_frequency/radio_connection
 	var/airlock_wire = null
 
-/obj/item/assembly/signaler/New()
-	..()
-	if(SSradio)
-		set_frequency(frequency)
+/obj/item/assembly/signaler/get_ru_names()
+	return list(
+		NOMINATIVE = "сигнальное устройство",
+		GENITIVE = "сигнального устройства",
+		DATIVE = "сигнальному устройству",
+		ACCUSATIVE = "сигнальное устройство",
+		INSTRUMENTAL = "сигнальным устройством",
+		PREPOSITIONAL = "сигнальном устройстве",
+	)
 
-/obj/item/assembly/signaler/Initialize()
-	..()
+/obj/item/assembly/signaler/Initialize(mapload)
+	. = ..()
 	if(SSradio)
 		set_frequency(frequency)
 
@@ -34,61 +39,62 @@
 	radio_connection = null
 	return ..()
 
-/obj/item/assembly/signaler/describe()
-	return "[src]'s power light is [receiving ? "on" : "off"]"
+/obj/item/assembly/signaler/examine(mob/user)
+	. = ..()
+	. += span_notice("The power light is <b>[receiving ? "on" : "off"]</b>.")
+	. += span_notice("<b>Alt+Click</b> to send a signal.")
+
+/obj/item/assembly/signaler/click_alt(mob/user)
+	to_chat(user, span_notice("You activate [src]."))
+	activate()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/assembly/signaler/activate()
-	if(cooldown > 0)
+	if(!..())
 		return FALSE
-	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
 
 	signal()
 	return TRUE
 
-/obj/item/assembly/signaler/update_icon()
-	if(holder)
-		holder.update_icon()
-	return
+/obj/item/assembly/signaler/update_icon_state()
+	holder?.update_icon()
 
 /obj/item/assembly/signaler/interact(mob/user, flag1)
 	var/t1 = "-------"
-	var/dat = {"<meta charset="UTF-8">
-		<TT>
-	"}
+	var/dat = "<tt>"
 	if(!flag1)
 		dat += {"
-			<A href='byond://?src=[UID()];send=1'>Send Signal</A><BR>
-			Receiver is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
+			<a href='byond://?src=[UID()];send=1'>Send Signal</a><br>
+			Receiver is <a href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</a><br>
 		"}
 	dat += {"
-		<B>Frequency/Code</B> for signaler:<BR>
+		<b>Frequency/Code</b> for signaler:<br>
 		Frequency:
-		<A href='byond://?src=[UID()];freq=-10'>-</A>
-		<A href='byond://?src=[UID()];freq=-2'>-</A>
+		<a href='byond://?src=[UID()];freq=-10'>-</a>
+		<a href='byond://?src=[UID()];freq=-2'>-</a>
 		[format_frequency(frequency)]
-		<A href='byond://?src=[UID()];freq=2'>+</A>
-		<A href='byond://?src=[UID()];freq=10'>+</A><BR>
+		<a href='byond://?src=[UID()];freq=2'>+</a>
+		<a href='byond://?src=[UID()];freq=10'>+</a><br>
 
 		Code:
-		<A href='byond://?src=[UID()];code=-5'>-</A>
-		<A href='byond://?src=[UID()];code=-1'>-</A>
+		<a href='byond://?src=[UID()];code=-5'>-</a>
+		<a href='byond://?src=[UID()];code=-1'>-</a>
 		[code]
-		<A href='byond://?src=[UID()];code=1'>+</A>
-		<A href='byond://?src=[UID()];code=5'>+</A><BR>
+		<a href='byond://?src=[UID()];code=1'>+</a>
+		<a href='byond://?src=[UID()];code=5'>+</a><br>
 		[t1]
-		</TT>
+		</tt>
 	"}
 	var/datum/browser/popup = new(user, "radio", name, 400, 400)
 	popup.set_content(dat)
-	popup.open(0)
+	popup.open(FALSE)
 	onclose(user, "radio")
 
 /obj/item/assembly/signaler/Topic(href, href_list)
 	..()
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
-		usr << browse(null, "window=radio")
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
+		close_window(usr, "radio")
 		onclose(usr, "radio")
 		return
 
@@ -103,12 +109,12 @@
 		code = round(code)
 		code = min(100, code)
 		code = max(1, code)
+
 	if(href_list["receive"])
 		receiving = !receiving
 
 	if(href_list["send"])
-		spawn( 0 )
-			signal()
+		INVOKE_ASYNC(src, PROC_REF(signal))
 
 	if(usr)
 		attack_self(usr)
@@ -127,7 +133,7 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(src)
 	if(usr)
-		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		GLOB.lastsignalers.Add("[time] <b>:</b> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
 	if(!receiving || !signal)
@@ -140,15 +146,14 @@
 		return FALSE
 	pulse(1, signal.user)
 
-	for(var/mob/O in hearers(1, loc))
-		O.show_message("[bicon(src)] *beep* *beep*", 3, "*beep* *beep*", 2)
+	audible_message("[icon2html(src, hearers(1, loc))] *beep* *beep* *beep*")
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	return TRUE
 
 /obj/item/assembly/signaler/proc/set_frequency(new_frequency)
-	if(!SSradio)
-		sleep(20)
 	if(!SSradio)
 		return
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_CHAT)
+

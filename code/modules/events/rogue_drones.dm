@@ -5,10 +5,7 @@
 
 /datum/event/rogue_drone/start()
 	var/list/possible_spawns = list()
-	for(var/thing in GLOB.landmarks_list)
-		var/obj/effect/landmark/C = thing
-		if(C.name == "carpspawn") //spawn them at the same place as carp
-			possible_spawns.Add(C)
+	possible_spawns += GLOB.carplist
 
 	var/num = rand(2, 12)
 	for(var/i = 0, i < num, i++)
@@ -18,12 +15,15 @@
 /datum/event/rogue_drone/announce()
 	var/msg
 	if(prob(33))
-		msg = "Группа боевых дронов, оперируемых с борта ИКН «Икар», не вернулась с зачистки сектора. В случае контакта с дронами проявляйте осторожность."
+		msg = "Группа боевых дронов, оперируемых с борта ИКН \"Икар\", не вернулась с зачистки сектора. В случае контакта с дронами проявляйте осторожность."
 	else if(prob(50))
-		msg = "Потеряна связь с группой боевых дронов, оперируемых с борта ИКН «Икар». В случае контакта с дронами проявляйте осторожность."
+		msg = "Потеряна связь с группой боевых дронов, оперируемых с борта ИКН \"Икар\". В случае контакта с дронами проявляйте осторожность."
 	else
-		msg = "Неопознанные хакеры взломали систему контроля боевых дронов, оперируемых с борта ИКН «Икар». В случае контакта с дронами проявляйте осторожность."
-	GLOB.event_announcement.Announce(msg, "ВНИМАНИЕ: СБОЙНЫЕ ДРОНЫ.")
+		msg = "Неопознанные хакеры взломали систему контроля боевых дронов, оперируемых с борта ИКН \"Икар\". В случае контакта с дронами проявляйте осторожность."
+	GLOB.minor_announcement.announce(
+		message = msg,
+		new_title = ANNOUNCE_ROGUE_DRONE_RU
+	)
 
 /datum/event/rogue_drone/tick()
 	return
@@ -31,11 +31,17 @@
 /datum/event/rogue_drone/end()
 	var/num_recovered = 0
 	for(var/mob/living/simple_animal/hostile/malf_drone/D in drones_list)
-		do_sparks(3, 0, D.loc)
+		do_sparks(3, FALSE, D.loc)
 		qdel(D)
 		num_recovered++
 
-	if(num_recovered > drones_list.len * 0.75)
-		GLOB.event_announcement.Announce("Система контроля боевых дронов сообщает, что все единицы успешно вернулись на борт «Икара».", "ВНИМАНИЕ: СБОЙНЫЕ ДРОНЫ.")
+	if(num_recovered > length(drones_list) * 0.75)
+		GLOB.minor_announcement.announce(
+			message = "Система контроля боевых дронов сообщает, что все единицы успешно вернулись на борт ИКН \"Икар\".",
+			new_title = ANNOUNCE_ROGUE_DRONE_RU
+		)
 	else
-		GLOB.event_announcement.Announce("Система контроля боевых дронов сообщает о потере всех боевых единиц, однако жертв не зарегистрировано.", "ВНИМАНИЕ: СБОЙНЫЕ ДРОНЫ.")
+		GLOB.minor_announcement.announce(
+			message = "Система контроля боевых дронов сообщает о потере всех боевых единиц, однако жертв не зарегистрировано.",
+			new_title = ANNOUNCE_ROGUE_DRONE_RU
+		)

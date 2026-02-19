@@ -2,16 +2,28 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass
 	name = "glass"
-	desc = "Your standard drinking glass."
+	desc = "Стеклянный стакан, из таких обычно пьют. Постарайтесь не разбить его."
 	icon_state = "glass_empty"
 	item_state = "drinking_glass"
 	amount_per_transfer_from_this = 10
-	volume = 50
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
 	materials = list(MAT_GLASS=500)
 	max_integrity = 20
 	resistance_flags = ACID_PROOF
+	drop_sound = 'sound/items/handling/drop/drinkglass_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/drinkglass_pickup.ogg'
+	custom_price = PAYCHECK_MIN * 0.2
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/get_ru_names()
+	return list(
+		NOMINATIVE = "стакан",
+		GENITIVE = "стакана",
+		DATIVE = "стакану",
+		ACCUSATIVE = "стакан",
+		INSTRUMENTAL = "стаканом",
+		PREPOSITIONAL = "стакане",
+	)
 
 /obj/item/reagent_containers/food/drinks/set_APTFT()
 	set hidden = FALSE
@@ -23,19 +35,21 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
-		var/obj/item/reagent_containers/food/snacks/egg/E = I
-		if(reagents)
-			if(reagents.total_volume >= reagents.maximum_volume)
-				to_chat(user, "<span class='notice'>[src] is full.</span>")
-			else
-				to_chat(user, "<span class='notice'>You break [E] in [src].</span>")
-				E.reagents.trans_to(src, E.reagents.total_volume)
-				qdel(E)
-			return
-	else
-		..()
+		add_fingerprint(user)
+		if(!reagents)
+			balloon_alert(user, "яйцо пустое!")
+			return ATTACK_CHAIN_PROCEED
+		if(reagents.total_volume >= reagents.maximum_volume)
+			balloon_alert(user, "нет места!")
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("Вы разбиваете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		I.reagents.trans_to(src, I.reagents.total_volume)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+	return ..()
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/fire_act(exposed_temperature, exposed_volume)
 	if(!reagents.total_volume)
 		return
 	..()
@@ -44,27 +58,43 @@
 	reagents.clear_reagents()
 	extinguish()
 
-/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
-	overlays.Cut()
-	if(reagents.reagent_list.len)
-		var/datum/reagent/R = reagents.get_master_reagent()
-		name = R.drink_name
-		desc = R.drink_desc
-		if(R.drink_icon)
-			icon_state = R.drink_icon
-		else
-			var/image/I = image(icon, "glassoverlay")
-			I.color = mix_color_from_reagents(reagents.reagent_list)
-			overlays += I
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_icon_state()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		if(check.drink_icon)
+			icon_state = check.drink_icon
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_overlays()
+	. = ..()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		if(!check.drink_icon)
+			. += mutable_appearance(icon, "glassoverlay", color = mix_color_from_reagents(reagents.reagent_list))
 	else
-		icon_state = "glass_empty"
-		name = "glass"
-		desc = "Your standard drinking glass."
+		icon_state = initial(icon_state)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_name(updates)
+	. = ..()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		name = check.drink_name
+	else
+		name = initial(name)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/update_desc(updates)
+	. = ..()
+	if(length(reagents.reagent_list))
+		var/datum/reagent/check = reagents.get_master_reagent()
+		desc = check.drink_desc
+	else
+		desc = initial(desc)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/on_reagent_change()
+	update_appearance()
 
 // for /obj/machinery/vending/sovietsoda
 /obj/item/reagent_containers/food/drinks/drinkingglass/soda
 	list_reagents = list("sodawater" = 50)
-
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/cola
 	list_reagents = list("cola" = 50)
@@ -74,3 +104,6 @@
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/alliescocktail
 	list_reagents = list("alliescocktail" = 25, "omnizine" = 25)
+
+/obj/item/reagent_containers/food/drinks/drinkingglass/mulled_wine
+	list_reagents = list("mulled_wine" = 50)

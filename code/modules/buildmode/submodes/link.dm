@@ -4,7 +4,6 @@
 	var/list/link_lines = list()
 	var/obj/link_obj
 
-
 /datum/buildmode_mode/link/proc/clear_lines()
 	QDEL_LIST(link_lines)
 
@@ -27,24 +26,26 @@
 	..()
 
 /datum/buildmode_mode/link/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on obj  = Select button to link</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on obj = Link/unlink to selected button")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+	to_chat(user, span_purple(chat_box_examine(
+		"[span_bold("Select button to link")] -> Left Mouse Button on obj\n\
+		[span_bold("Link/unlink to selected button")] -> Right Mouse Button on obj"))
+	)
 
 // FIXME: this probably would work better with something component-based
 /datum/buildmode_mode/link/handle_click(mob/user, params, obj/object)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/right_click = pa.Find("right")
-	if(left_click && istype(object, /obj/machinery))
+	var/list/modifiers = params2list(params)
+
+	var/left_click = LAZYACCESS(modifiers, LEFT_CLICK)
+	var/right_click = LAZYACCESS(modifiers, RIGHT_CLICK)
+
+	if(left_click && ismachinery(object))
 		link_obj = object
-	if(right_click && istype(object, /obj/machinery))
-		if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/airlock))
+	if(right_click && ismachinery(object))
+		if(istype(link_obj, /obj/machinery/door_control) && is_airlock(object))
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/airlock/P = object
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = tgui_input_text(user, "Please select an ID for the button", "Buildmode", "", encode = FALSE)
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
@@ -54,11 +55,11 @@
 				speed_execute()
 				return
 			if(!M.normaldoorcontrol)
-				if(link_lines.len && alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", "Yes", "No") == "No")
+				if(length(link_lines) && tgui_alert(user, "Warning: This will disable links to connected pod doors. Continue?", "Buildmode", list("Yes", "No")) == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = 1
-			if(P.id_tag && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+			if(P.id_tag && tgui_alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", list("Yes", "No")) == "No")
 				speed_execute()
 				return
 			P.id_tag = M.id
@@ -66,7 +67,7 @@
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/poddoor/P = object
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = tgui_input_text(user, "Please select an ID for the button", "Buildmode", "", encode = FALSE)
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
@@ -76,16 +77,16 @@
 				speed_execute()
 				return
 			if(M.normaldoorcontrol)
-				if(link_lines.len && alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", "Yes", "No") == "No")
+				if(length(link_lines) && tgui_alert(user, "Warning: This will disable links to connected airlocks. Continue?", "Buildmode", list("Yes", "No")) == "No")
 					speed_execute()
 					return
 				M.normaldoorcontrol = 0
 			if(!M.id || M.id == "")
-				M.id = input(user, "Please select an ID for the button", "Buildmode", "")
+				M.id = tgui_input_text(user, "Please select an ID for the button", "Buildmode", "", encode = FALSE)
 				if(!M.id || M.id == "")
 					speed_execute()
 					return
-			if(P.id_tag && P.id_tag != 1 && alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", "Yes", "No") == "No")
+			if(P.id_tag && P.id_tag != 1 && tgui_alert(user, "Warning: This will unlink something else from the door. Continue?", "Buildmode", list("Yes", "No")) == "No")
 				speed_execute()
 				return
 			P.id_tag = M.id

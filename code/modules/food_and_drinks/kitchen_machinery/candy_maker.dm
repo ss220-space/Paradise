@@ -1,8 +1,8 @@
 
 /obj/machinery/kitchen_machine/candy_maker
 	name = "candy machine"
-	desc = "The stuff of nightmares for a dentist."
-	icon = 'icons/obj/cooking_machines.dmi'
+	desc = "Мощный смеситель, предназначенный для производства кондитерских изделий. Настоящий кошмар дантиста и лучший друг диабета."
+	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "candymaker_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")
 	recipe_type = RECIPE_CANDY
@@ -12,14 +12,24 @@
 	dirty_icon = "candymaker_dirty"
 	open_icon = "candymaker_open"
 
+/obj/machinery/kitchen_machine/candy_maker/get_ru_names()
+	return list(
+		NOMINATIVE = "конфетный автомат",
+		GENITIVE = "конфетного автомата",
+		DATIVE = "конфетному автомату",
+		ACCUSATIVE = "конфетный автомат",
+		INSTRUMENTAL = "конфетным автоматом",
+		PREPOSITIONAL = "конфетном автомате"
+	)
+
 // see code/modules/food/recipes_candy.dm for recipes
 
 /*******************
 *   Initialising
 ********************/
 
-/obj/machinery/kitchen_machine/candy_maker/New()
-	..()
+/obj/machinery/kitchen_machine/candy_maker/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/candy_maker(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
@@ -27,8 +37,8 @@
 	component_parts += new /obj/item/stack/cable_coil(null, 5)
 	RefreshParts()
 
-/obj/machinery/kitchen_machine/candy_maker/upgraded/New()
-	..()
+/obj/machinery/kitchen_machine/candy_maker/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/candy_maker(null)
 	component_parts += new /obj/item/stock_parts/manipulator/pico(null)

@@ -1,21 +1,22 @@
-/obj/structure/chair	// fuck you Pete
+/obj/structure/chair	// fuck you Pete and Jonsonmt
 	name = "chair"
 	desc = "You sit in this. Either by will or force."
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "chair"
-	layer = OBJ_LAYER
+	layer = BELOW_OBJ_LAYER
 	can_buckle = TRUE
-	buckle_lying = FALSE // you sit in a chair, not lay
-	resistance_flags = NONE
+	buckle_lying = 0 // you sit in a chair, not lay
 	max_integrity = 250
 	integrity_failure = 25
-	buckle_offset = 0
+	pull_push_slowdown = 1.5
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
 	var/movable = FALSE // For mobility checks
 	var/propelled = FALSE // Check for fire-extinguisher-driven chairs
-	var/comfort = 0
+	var/comfort = 0.3
+	var/flip_on_buckled_move = TRUE
 
 /obj/structure/chair/narsie_act()
 	if(prob(20))
@@ -28,39 +29,56 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/Move(atom/newloc, direct)
-	..()
+/obj/structure/chair/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	. = ..()
 	handle_rotation()
+	if(flip_on_buckled_move && has_buckled_mobs() && item_chair)
+		addtimer(CALLBACK(src, PROC_REF(flip_buckled_mobs)), 1)
 
-/obj/structure/chair/buckle_mob(mob/living/M, force, check_loc)
-	. = ..()
-	if(. && !movable)
-		anchored = TRUE
-
-/obj/structure/chair/unbuckle_mob(mob/living/buckled_mob, force)
-	anchored = initial(anchored)
-	. = ..()
-
-/obj/structure/chair/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/assembly/shock_kit))
-		var/obj/item/assembly/shock_kit/SK = W
-		if(!SK.status)
-			to_chat(user, "<span class='notice'>[SK] is not ready to be attached!</span>")
-			return
-		user.drop_item()
-		var/obj/structure/chair/e_chair/E = new /obj/structure/chair/e_chair(get_turf(src), SK)
-		playsound(src.loc, W.usesound, 50, 1)
-		E.dir = dir
-		SK.loc = E
-		SK.master = E
-		qdel(src)
+/obj/structure/chair/proc/flip_buckled_mobs()
+	var/flipped = TRUE
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		var/mob/living/carbon/carbon = buckled_mob
+		if(istype(carbon) && carbon.handcuffed)
+			flipped = FALSE
+			continue
+		buckled_mob.Weaken(1 SECONDS)
+		unbuckle_mob(buckled_mob, force = TRUE)
+	if(!flipped)
 		return
+	new item_chair(drop_location())
+	qdel(src)
+
+/obj/structure/chair/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/assembly/shock_kit))
+		var/obj/item/assembly/shock_kit/shock_kit = I
+		if(!shock_kit.status)
+			to_chat(user, span_notice("The [shock_kit.name] is not ready to be attached!"))
+			return ATTACK_CHAIN_PROCEED
+		if((loc == user && !user.can_unEquip(src)) || (I.loc == user && !user.can_unEquip(I)))
+			return ..()
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src)
+		user.drop_transfer_item_to_loc(shock_kit, src)
+		var/obj/structure/chair/e_chair/chair = new(loc, shock_kit)
+		transfer_fingerprints_to(chair)
+		chair.add_fingerprint(user)
+		I.play_tool_sound(src)
+		chair.setDir(dir)
+		shock_kit.forceMove(chair)
+		shock_kit.master = chair
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 /obj/structure/chair/wrench_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+	if(obj_flags & NODECONSTRUCT)
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -68,32 +86,34 @@
 
 /obj/structure/chair/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
 
-/obj/structure/chair/MouseDrop(over_object, src_location, over_location)
-	. = ..()
-	if(over_object == usr && Adjacent(usr))
-		if(!item_chair || has_buckled_mobs() || anchored)
-			return
-		if(usr.incapacitated())
-			to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+/obj/structure/chair/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	if(over_object == usr && ishuman(usr) && item_chair && !anchored && !has_buckled_mobs() && usr.Adjacent(src))
+		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
+			to_chat(usr, span_warning("You can't do that right now!"))
 			return
 		if(!usr.has_right_hand() && !usr.has_left_hand())
-			to_chat(usr, "<span class='warning'>You try to grab the chair, but you are missing both of your hands!</span>")
+			to_chat(usr, span_warning("You try to grab the chair, but you are missing both of your hands!"))
 			return
 		if(usr.get_active_hand() && usr.get_inactive_hand())
-			to_chat(usr, "<span class='warning'>You try to grab the chair, but your hands are already full!</span>")
+			to_chat(usr, span_warning("You try to grab the chair, but your hands are already full!"))
 			return
-		if(!ishuman(usr))
-			return
-		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>You grab \the [src.name].</span>")
-		var/C = new item_chair(loc)
-		usr.put_in_hands(C)
+		usr.visible_message(
+			span_notice("[usr] grabs [src]."),
+			span_notice("You grab [src]."),
+		)
+		var/new_chair = new item_chair(drop_location())
+		transfer_fingerprints_to(new_chair)
+		usr.put_in_hands(new_chair, ignore_anim = FALSE)
 		qdel(src)
+		return FALSE
 
-/obj/structure/chair/attack_tk(mob/user as mob)
+	return ..()
+
+/obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
 		..()
 	else
@@ -102,48 +122,44 @@
 /obj/structure/chair/proc/handle_rotation(direction)
 	handle_layer()
 	if(has_buckled_mobs())
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			buckled_mob.setDir(direction)
+		for(var/mob/living/buckled_mob as anything in buckled_mobs)
+			buckled_mob.setDir(dir)
 
 /obj/structure/chair/proc/handle_layer()
 	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
-		layer = OBJ_LAYER
+		layer = initial(layer)
 
-/obj/structure/chair/post_buckle_mob(mob/living/M)
-	. = ..()
+/obj/structure/chair/post_buckle_mob(mob/living/target)
 	handle_layer()
 
-/obj/structure/chair/post_unbuckle_mob()
-	. = ..()
+/obj/structure/chair/post_unbuckle_mob(mob/living/target)
 	handle_layer()
 
 /obj/structure/chair/setDir(newdir)
-	..()
-	handle_rotation(newdir)
+	. = ..()
+	handle_rotation()
 
-/obj/structure/chair/verb/rotate()
-	set name = "Rotate Chair"
-	set category = "Object"
-	set src in oview(1)
+/obj/structure/chair/examine(mob/user)
+	. = ..()
+	. += span_notice("Вы можете <b>Alt-ЛКМ</b> по [declent_ru(DATIVE)] чтобы повернуть его.")
 
-	if(config.ghost_interaction)
-		setDir(turn(dir, 90))
-		handle_rotation()
-		return
-
-	if(usr.incapacitated())
-		return
+/obj/structure/chair/proc/rotate(mob/living/user)
+	if(user)
+		if(isobserver(user))
+			if(!CONFIG_GET(flag/ghost_interaction))
+				return FALSE
+		else if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
+			return FALSE
 
 	setDir(turn(dir, 90))
 	handle_rotation()
+	return TRUE
 
-/obj/structure/chair/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
-	rotate()
+/obj/structure/chair/click_alt(mob/living/user)
+	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 // CHAIR TYPES
 
@@ -173,7 +189,9 @@
 	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
+	comfort = 0.6
 	var/image/armrest = null
+	flip_on_buckled_move = FALSE
 
 /obj/structure/chair/comfy/Initialize(mapload)
 	armrest = GetArmrest()
@@ -187,11 +205,11 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
+/obj/structure/chair/comfy/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/M)
+/obj/structure/chair/comfy/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
@@ -228,12 +246,6 @@
 /obj/structure/chair/comfy/lime
 	color = rgb(255,251,0)
 
-/obj/structure/chair/office
-	movable = TRUE
-	item_chair = null
-	buildstackamount = 5
-	pull_push_speed_modifier = 1
-
 /obj/structure/chair/comfy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for smoother flights."
@@ -249,22 +261,25 @@
 /obj/structure/chair/comfy/shuttle/dark/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_dark_armrest")
 
-/obj/structure/chair/office/Bump(atom/A)
-	..()
-	if(!has_buckled_mobs())
-		return
+/obj/structure/chair/office
+	movable = TRUE
+	item_chair = null
+	pull_push_slowdown = 0.5
+	flip_on_buckled_move = FALSE
 
-	if(propelled)
-		for(var/m in buckled_mobs)
-			var/mob/living/buckled_mob = m
-			unbuckle_mob(buckled_mob)
-			buckled_mob.throw_at(A, 3, propelled)
-			buckled_mob.apply_effect(6, STUN, 0)
-			buckled_mob.apply_effect(6, WEAKEN, 0)
-			buckled_mob.apply_effect(6, STUTTER, 0)
-			buckled_mob.take_organ_damage(10)
-			playsound(loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-			buckled_mob.visible_message("<span class='danger'>[buckled_mob] crashed into [A]!</span>")
+/obj/structure/chair/office/Bump(atom/bumped_atom)
+	. = ..()
+	if(!propelled || !has_buckled_mobs())
+		return .
+	for(var/m in buckled_mobs)
+		var/mob/living/buckled_mob = m
+		unbuckle_mob(buckled_mob)
+		buckled_mob.throw_at(bumped_atom, 3, propelled)
+		buckled_mob.Weaken(12 SECONDS)
+		buckled_mob.Stuttering(12 SECONDS)
+		buckled_mob.take_organ_damage(10)
+		playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+		buckled_mob.visible_message(span_danger("[buckled_mob] crashed into [bumped_atom]!"))
 
 /obj/structure/chair/office/light
 	icon_state = "officechair_white"
@@ -274,18 +289,18 @@
 
 /obj/structure/chair/barber
 	icon_state = "barber_chair"
-	buildstackamount = 1
 	item_chair = null
 	anchored = TRUE
 
 // SOFAS
 /obj/structure/chair/sofa
 	name = "sofa"
-	icon_state = "sofamiddle"
+	icon_state = "leather_sofa_middle"
 	anchored = TRUE
 	item_chair = null
-	buildstackamount = 1
-	var/image/armrest = null
+	comfort = 0.6
+	var/mutable_appearance/armrest
+	flip_on_buckled_move = FALSE
 
 /obj/structure/chair/sofa/Initialize(mapload)
 	armrest = GetArmrest()
@@ -299,11 +314,11 @@
 	QDEL_NULL(armrest)
 	return ..()
 
-/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+/obj/structure/chair/sofa/post_buckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/M)
+/obj/structure/chair/sofa/post_unbuckle_mob(mob/living/target)
 	. = ..()
 	update_armrest()
 
@@ -314,16 +329,15 @@
 		cut_overlay(armrest)
 
 /obj/structure/chair/sofa/left
-	icon_state = "sofaend_left"
+	icon_state = "leather_sofa_left"
 
 /obj/structure/chair/sofa/right
-	icon_state = "sofaend_right"
+	icon_state = "leather_sofa_right"
 
 /obj/structure/chair/sofa/corner
-	icon_state = "sofacorner"
+	icon_state = "leather_sofa_corner"
 
 /obj/structure/chair/sofa/corp
-	name = "sofa"
 	desc = "Soft and cushy."
 	icon_state = "corp_sofamiddle"
 
@@ -340,8 +354,8 @@
 	name = "pew"
 	desc = "Rigid and uncomfortable, perfect for keeping you awake and alert."
 	icon_state = "pewmiddle"
-	buildstackamount = 1
 	buildstacktype = /obj/item/stack/sheet/wood
+	comfort = 0.2
 
 /obj/structure/chair/sofa/pew/left
 	icon_state = "pewend_left"
@@ -353,7 +367,6 @@
 	name = "stool"
 	desc = "Apply butt."
 	icon_state = "stool"
-	can_buckle = FALSE
 	item_chair = /obj/item/chair/stool
 
 /obj/structure/chair/stool/bar
@@ -361,6 +374,13 @@
 	desc = "It has some unsavory stains on it..."
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
+
+/obj/structure/chair/stool/bar/dark
+	icon_state = "bar_dark"
+	item_chair = /obj/item/chair/stool/bar/dark
+
+/obj/structure/chair/stool/handle_layer()
+	return
 
 /obj/item/chair
 	name = "chair"
@@ -380,15 +400,11 @@
 	var/break_chance = 5 //Likely hood of smashing the chair.
 	var/obj/structure/chair/origin_type = /obj/structure/chair
 
-
 /obj/item/chair/stool
 	name = "stool"
-	icon = 'icons/obj/chairs.dmi'
 	icon_state = "stool_toppled"
 	item_state = "stool"
 	force = 10
-	throwforce = 10
-	w_class = WEIGHT_CLASS_HUGE
 	origin_type = /obj/structure/chair/stool
 	break_chance = 0 //It's too sturdy.
 
@@ -398,24 +414,38 @@
 	item_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
 
+/obj/item/chair/stool/bar/dark
+	icon_state = "bar_toppled_dark"
+	item_state = "stool_bar_dark"
+	origin_type = /obj/structure/chair/stool/bar/dark
+
 /obj/item/chair/attack_self(mob/user)
 	plant(user)
 
 /obj/item/chair/proc/plant(mob/user)
-	for(var/obj/A in get_turf(loc))
+	if(QDELETED(src))
+		return
+	var/turf/T = get_turf(loc)
+	if(density || isopenspaceturf(T))
+		to_chat(user, span_warning("You need ground to plant this on!"))
+		return
+
+	for(var/obj/A in get_turf(T))
 		if(istype(A, /obj/structure/chair))
-			to_chat(user, "<span class='danger'>There is already a chair here.</span>")
+			to_chat(user, span_danger("There is already [A] here."))
 			return
 
-	user.visible_message("<span class='notice'>[user] rights \the [src.name].</span>", "<span class='notice'>You right \the [name].</span>")
+	user.visible_message(span_notice("[user] rights \the [src]."), span_notice("You right \the [src]."))
 	var/obj/structure/chair/C = new origin_type(get_turf(loc))
+	transfer_fingerprints_to(C)
 	C.setDir(dir)
 	qdel(src)
 
-/obj/item/chair/proc/smash(mob/living/user)
+/obj/item/chair/proc/smash()
 	var/stack_type = initial(origin_type.buildstacktype)
 	if(!stack_type)
-		return
+		return FALSE
+	. = TRUE
 	var/remaining_mats = initial(origin_type.buildstackamount)
 	remaining_mats-- //Part of the chair was rendered completely unusable. It magically dissapears. Maybe make some dirt?
 	if(remaining_mats)
@@ -423,45 +453,31 @@
 			new stack_type(get_turf(loc))
 	qdel(src)
 
-/obj/item/chair/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+/obj/item/chair/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type == UNARMED_ATTACK && prob(hit_reaction_chance))
-		owner.visible_message("<span class='danger'>[owner] fends off [attack_text] with [src]!</span>")
-		return 1
-	return 0
+		owner.visible_message(span_danger("[owner] fends off [attack_text] with [src]!"))
+		return TRUE
+	return FALSE
 
-/obj/item/chair/afterattack(atom/target, mob/living/carbon/user, proximity)
-	..()
-	if(!proximity)
-		return
-	if(prob(break_chance))
-		user.visible_message("<span class='danger'>[user] smashes \the [src] to pieces against \the [target]</span>")
-		if(iscarbon(target))
-			var/mob/living/carbon/C = target
-			if(C.health < C.maxHealth*0.5)
-				C.apply_effect(6, STUN, 0)
-				C.apply_effect(6, WEAKEN, 0)
-				C.apply_effect(6, STUTTER, 0)
-				playsound(src.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
-		smash(user)
+/obj/item/chair/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
+		return .
+	user.visible_message(span_combatdanger("[user] smashes [src] to pieces against [target]."))
+	if(iscarbon(target) && target.health < target.maxHealth * 0.5)
+		target.Knockdown(8 SECONDS)
+		target.Stuttering(12 SECONDS)
+		playsound(loc, 'sound/weapons/punch1.ogg', 50, TRUE, -1)
+	if(smash())
+		. |= ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/chair/stool/attack_self(mob/user as mob)
-	..()
-	new origin_type(get_turf(loc))
-	user.unEquip(src)
-	user.visible_message("<span class='notice'>[user] puts [src] down.</span>", "<span class='notice'>You put [src] down.</span>")
-	qdel(src)
-
-/obj/item/chair/stool/attack(mob/M as mob, mob/user as mob)
-	if(prob(5) && istype(M,/mob/living))
-		user.visible_message("<span class='danger'>[user] breaks [src] over [M]'s back!.</span>")
-		user.unEquip(src)
-		var/obj/item/stack/sheet/metal/m = new/obj/item/stack/sheet/metal
-		m.loc = get_turf(src)
-		qdel(src)
-		var/mob/living/T = M
-		T.Weaken(3)
-		return
-	..()
+/obj/item/chair/attack_obj(obj/object, mob/living/user, params)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !prob(break_chance))
+		return .
+	user.visible_message(span_danger("[user] smashes [src] to pieces against [object]."))
+	if(smash())
+		. |= ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/chair/wood
 	name = "wooden chair"
@@ -486,6 +502,8 @@
 	desc = "You sit in this. Either by will or force. Looks REALLY uncomfortable."
 	icon_state = "chairold"
 	item_chair = null
+	comfort = 0
+	flip_on_buckled_move = FALSE
 
 // Brass chair
 /obj/structure/chair/brass
@@ -494,16 +512,17 @@
 	icon_state = "brass_chair"
 	max_integrity = 150
 	buildstacktype = /obj/item/stack/sheet/brass
-	buildstackamount = 1
 	item_chair = null
+	comfort = 0.2
 	var/turns = 0
+	flip_on_buckled_move = FALSE
 
 /obj/structure/chair/brass/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
 	. = ..()
 
 /obj/structure/chair/brass/process()
-	setDir(turn(dir,-90))
+	setDir(turn(dir, -90))
 	playsound(src, 'sound/effects/servostep.ogg', 50, FALSE)
 	turns++
 	if(turns >= 8)
@@ -512,18 +531,65 @@
 /obj/structure/chair/brass/ratvar_act()
 	return
 
-/obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(!in_range(src, user))
-		return
+/obj/structure/chair/brass/click_alt(mob/living/user)
+	add_fingerprint(user)
 	turns = 0
 	if(!isprocessing)
-		user.visible_message("<span class='notice'>[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER.</span>", \
-		"<span class='notice'>Automated spinny chairs. The pinnacle of Ratvarian technology.</span>")
+		user.visible_message(span_notice("[user] spins [src] around, and Ratvarian technology keeps it spinning FOREVER."), \
+		span_notice("Automated spinny chairs. The pinnacle of Ratvarian technology."))
 		START_PROCESSING(SSfastprocess, src)
 	else
-		user.visible_message("<span class='notice'>[user] stops [src]'s uncontrollable spinning.</span>", \
-		"<span class='notice'>You grab [src] and stop its wild spinning.</span>")
+		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
+		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
+	return CLICK_ACTION_SUCCESS
+
+/obj/structure/chair/brass/fake
+	desc = "A spinny chair made of brass. It looks uncomfortable. Totally not magic!"
+	buildstacktype = /obj/item/stack/sheet/brass_fake
+
+/obj/structure/chair/comfy/abductor
+	name = "alien chair"
+	desc = "Alien chair. It look strange but comfortable."
+	icon_state = "alien_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = /obj/item/stack/sheet/mineral/abductor
+
+/obj/structure/chair/comfy/abductor/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")
+
+/obj/structure/chair/comfy/mouse
+	name = "Кресло Господина Мышкина"
+	desc = "Очень дорогое красное кресло из натуральной кожи. Сделано специально по заказу Господина Мышкина."
+	icon_state = "mouse_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = null
+
+/obj/structure/chair/comfy/mouse/get_ru_names()
+	return list(
+		NOMINATIVE = "кресло господина Мышкина",
+		GENITIVE = "кресла господина Мышкина",
+		DATIVE = "креслу господина Мышкина",
+		ACCUSATIVE = "кресло господина Мышкина",
+		INSTRUMENTAL = "креслом господина Мышкина",
+		PREPOSITIONAL = "кресле господина Мышкина",
+	)
+
+/obj/structure/chair/comfy/mouse/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "mouse_chair_armrest")
+
+/obj/structure/chair/comfy/mouse/is_buckle_possible(mob/living/target, mob/living/user, force, check_loc)
+	. = ..()
+	if(!istype(target, /mob/living/simple_animal/mouse/wooly/rep))
+		target.visible_message(
+			span_warning("[target.declent_ru(NOMINATIVE)] слишком велик для [declent_ru(GENITIVE)]!"),
+			span_userdanger("[src] слишком мало для вас!"),
+		)
+		return FALSE
+
+/obj/structure/chair/comfy/mouse/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, span_warning("Вы не можете осмелиться разобрать это дорогущее кресло!"))
+	return

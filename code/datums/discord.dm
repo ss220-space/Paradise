@@ -4,14 +4,14 @@
 */
 
 /**
-  * # Discord Webhook Payload
-  *
-  * Holder datum for discord webhook POST send data
-  *
-  * Holds all information that a webhook would need,
-  * as well as a method to serialize the entire thing into JSON.
-  * See https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
-  */
+ * # Discord Webhook Payload
+ *
+ * Holder datum for discord webhook POST send data
+ *
+ * Holds all information that a webhook would need,
+ * as well as a method to serialize the entire thing into JSON.
+ * See https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
+ */
 /datum/discord_webhook_payload
 	/// Name the webhook user should post as
 	var/webhook_name
@@ -24,11 +24,11 @@
 	embeds = list()
 
 /**
-  * Webhook Serializer
-  *
-  * Converts the DM webhook object into JSON for a POST request.
-  * Not called serialize() because thats a proc at the /datum level already
-  */
+ * Webhook Serializer
+ *
+ * Converts the DM webhook object into JSON for a POST request.
+ * Not called serialize() because thats a proc at the /datum level already
+ */
 /datum/discord_webhook_payload/proc/serialize2json()
 	var/list/json = list()
 	if(webhook_name)
@@ -37,6 +37,14 @@
 		var/sanitized_content = webhook_content
 		sanitized_content = replacetext(sanitized_content, "@everyone", "(Attempted atEveryone)")
 		sanitized_content = replacetext(sanitized_content, "@here", "(Attempted atHere)")
+
+		sanitized_content = replacetext(sanitized_content, "&#64;everyone", "(Attempted atEveryone)")
+		sanitized_content = replacetext(sanitized_content, "&#64;here", "(Attempted atHere)")
+
+		var/list/replacement_list = list("<@", "<&#64;", "&#60;@", "&#60;&#64;", "&lt;&#64;", "&lt;@")
+		for(var/to_replace in replacement_list)
+			sanitized_content = replacetext(sanitized_content, to_replace, "(Attempted ping)<")
+
 		// Fixes speech marks being replaced by invalid chars
 		// Note that we dont have to care about having to sanitize <> out, because discord handles that
 		sanitized_content = html_decode(sanitized_content)
@@ -46,7 +54,7 @@
 	if(length(embeds))
 		json["embeds"] = list()
 		if(length(embeds) > 10)
-			embeds.Cut(11) // Cut to 10 embeds because thats the limit of the Discord API
+			embeds.len = 10 // Cut to 10 embeds because thats the limit of the Discord API
 
 		for(var/e in embeds)
 			var/datum/discord_embed/embed = e
@@ -55,13 +63,13 @@
 	return json_encode(json)
 
 /**
-  * # Discord Embed
-  *
-  * Holder datum for discord embeds
-  *
-  * Used in [/datum/discord_webhook_payload] and serves as a code-first means to add an embed.
-  * See https://discord.com/developers/docs/resources/channel#embed-object
-  */
+ * # Discord Embed
+ *
+ * Holder datum for discord embeds
+ *
+ * Used in [/datum/discord_webhook_payload] and serves as a code-first means to add an embed.
+ * See https://discord.com/developers/docs/resources/channel#embed-object
+ */
 /datum/discord_embed
 	/// Title of the embed
 	var/embed_title
@@ -79,11 +87,11 @@
 	fields = list() // Initialize the list
 
 /**
-  * Embed Serializer
-  *
-  * Converts the DM embed object into JSON for a POST request.
-  * Not called serialize() because thats a proc at the /datum level already
-  */
+ * Embed Serializer
+ *
+ * Converts the DM embed object into JSON for a POST request.
+ * Not called serialize() because thats a proc at the /datum level already
+ */
 /datum/discord_embed/proc/serialize2list()
 	var/list/json = list()
 	// All these fields can be nulled so presence check them all
@@ -105,13 +113,13 @@
 	return json
 
 /**
-  * # Discord Embed Field
-  *
-  * Holder datum for discord embed fields
-  *
-  * Used in [/datum/discord_embed] and serves as a code-first means to add fields to an embed
-  * See https://discord.com/developers/docs/resources/channel#embed-object-embed-field-structure
-  */
+ * # Discord Embed Field
+ *
+ * Holder datum for discord embed fields
+ *
+ * Used in [/datum/discord_embed] and serves as a code-first means to add fields to an embed
+ * See https://discord.com/developers/docs/resources/channel#embed-object-embed-field-structure
+ */
 /datum/discord_embed_field
 	/// Name of the field
 	var/field_name

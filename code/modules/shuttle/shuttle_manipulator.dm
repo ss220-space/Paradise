@@ -11,6 +11,7 @@
 
 	icon = 'icons/obj/machines/shuttle_manipulator.dmi'
 	icon_state = "holograph_on"
+	anchored = TRUE
 
 	/// Used for cooldown, very obvious name, required due to shuttles spawning in the same location and causing the server to implode
 	var/shuttle_and_preview_cooldown = 0
@@ -24,18 +25,14 @@
 	var/list/templates = list()
 	var/list/shuttle_data = list()
 
-/obj/machinery/shuttle_manipulator/New()
+/obj/machinery/shuttle_manipulator/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/shuttle_manipulator/update_icon()
-	overlays.Cut()
-	var/image/hologram_projection = image(icon, "hologram_on")
-	hologram_projection.pixel_y = 22
-	var/image/hologram_ship = image(icon, "hologram_whiteship")
-	hologram_ship.pixel_y = 27
-	overlays += hologram_projection
-	overlays += hologram_ship
+/obj/machinery/shuttle_manipulator/update_overlays()
+	. = ..()
+	. += image(icon, icon_state = "hologram_on", pixel_z = 22)
+	. += image(icon, icon_state = "hologram_whiteship", pixel_z = 27)
 
 /obj/machinery/shuttle_manipulator/attack_ghost(user as mob)
 	attack_hand(user)
@@ -44,6 +41,8 @@
 	switch(mode)
 		if(SHUTTLE_IDLE)
 			. = "idle"
+		if(SHUTTLE_IGNITING)
+			. = "engines charging"
 		if(SHUTTLE_RECALL)
 			. = "recalled"
 		if(SHUTTLE_CALL)
@@ -54,22 +53,32 @@
 			. = "stranded"
 		if(SHUTTLE_ESCAPE)
 			. = "escape"
+		if(SHUTTLE_RECHARGING)
+			. = "recharging"
 	if(!.)
 		. = "ERROR"
 
 /obj/machinery/shuttle_manipulator/attack_hand(mob/user)
+	if(..())
+		return TRUE
+	add_fingerprint(user)
 	ui_interact(user)
 
 /obj/machinery/shuttle_manipulator/vv_edit_var(var_name, var_value)
-	switch(var_name)
-		if("shuttle_and_preview_cooldown")
-			log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
-			return FALSE // Extremely important that this doesn't get varedited by mistake, otherwise horrible, horrible things can happen to the server.
+	// Extremely important that this doesn't get varedited by mistake, otherwise horrible,
+	// horrible things can happen to the server.
+	if(var_name == NAMEOF(src, shuttle_and_preview_cooldown))
+		log_and_message_admins("has attempted to change the [var_name] variable. Please do not do this, this can cause entire Z levels to freeze if spammed too quickly.")
+		return FALSE
+	return ..()
 
-/obj/machinery/shuttle_manipulator/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.admin_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/shuttle_manipulator/ui_state(mob/user)
+	return ADMIN_STATE(R_ADMIN)
+
+/obj/machinery/shuttle_manipulator/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "ShuttleManipulator", name, 650, 700, master_ui, state)
+		ui = new(user, src, "ShuttleManipulator", name)
 		ui.open()
 
 /obj/machinery/shuttle_manipulator/ui_data(mob/user)
@@ -136,7 +145,7 @@
 	if(..())
 		return
 	if(shuttle_and_preview_cooldown > world.time)
-		to_chat(usr, "<span class='warning'>Please wait until the desired shuttle has finished being loaded.</span>")
+		to_chat(usr, span_warning("Please wait until the desired shuttle has finished being loaded."))
 		return
 	. = TRUE
 
@@ -195,7 +204,6 @@
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
 
-
 /obj/machinery/shuttle_manipulator/proc/action_load(datum/map_template/shuttle/loading_template)
 	// Check for an existing preview
 	if(preview_shuttle && (loading_template != preview_template))
@@ -225,6 +233,9 @@
 		throw EXCEPTION(m)
 
 	var/result = preview_shuttle.canDock(D)
+	if(result == SHUTTLE_LOCKED)
+		// currenct shuttle is locked, do nothing
+		return
 	// truthy value means that it cannot dock for some reason
 	// but we can ignore the someone else docked error because we'll
 	// be moving into their place shortly
@@ -258,7 +269,7 @@
 
 /obj/machinery/shuttle_manipulator/proc/load_template(datum/map_template/shuttle/S)
 	// load shuttle template, centred at shuttle import landmark,
-	var/turf/landmark_turf = get_turf(locate("landmark*Shuttle Import"))
+	var/turf/landmark_turf = get_turf(locate(/obj/effect/landmark/shuttle_import)) // e.g. /obj/effect/landmark/shuttle_import
 	S.load(landmark_turf, centered = TRUE)
 
 	var/affected = S.get_affected_turfs(landmark_turf, centered=TRUE)

@@ -1,13 +1,16 @@
 /**
-  * # Telecommunications Relay
-  *
-  * Extends the reach of telecomms to the z-level it is built on
-  *
-  * Relays themselves dont do any processing, they just tell the core that this z-level is available in the tcomms network.
-  */
+ * # Telecommunications Relay
+ *
+ * Extends the reach of telecomms to the z-level it is built on
+ *
+ * Relays themselves dont do any processing, they just tell the core that this z-level is available in the tcomms network.
+ */
 /obj/machinery/tcomms/relay
-	name = "Telecommunications Relay"
-	desc = "A large device with several radio antennas on it."
+	name = "telecommunications relay"
+	desc = "Реле телекоммуникационной системы — узел маршрутизации сигнала, обеспечивающий связь на объекте посредством подключения к удалённому ядру телекоммуникаций. \
+			Представляет собой массивное устройство с металлическим корпусом, оснащённым защитой от электромагнитных помех, \
+			антеннами для передачи сигнала, а также дисплеем, отображающим данные о текущих подключениях и конфигурации системы."
+	gender = NEUTER
 	icon_state = "relay"
 	// This starts as off so you cant make cores as hot spares
 	active = FALSE
@@ -20,36 +23,46 @@
 	/// Is this link invisible on the hub?
 	var/hidden_link = FALSE
 
+/obj/machinery/tcomms/relay/get_ru_names()
+	return list(
+		NOMINATIVE = "реле телекоммуникаций",
+		GENITIVE = "реле телекоммуникаций",
+		DATIVE = "реле телекоммуникаций",
+		ACCUSATIVE = "реле телекоммуникаций",
+		INSTRUMENTAL = "реле телекоммуникаций",
+		PREPOSITIONAL = "реле телекоммуникаций",
+	)
+
 /**
-  * Initializer for the relay.
-  *
-  * Calls parent to ensure its added to the GLOB of tcomms machines, before checking if there is an autolink that needs to be added.
-  */
+ * Initializer for the relay.
+ *
+ * Calls parent to ensure its added to the GLOB of tcomms machines, before checking if there is an autolink that needs to be added.
+ */
 /obj/machinery/tcomms/relay/Initialize(mapload)
 	. = ..()
 	component_parts += new /obj/item/circuitboard/tcomms/relay(null)
 	if(check_power_on())
 		active = TRUE
 	else
-		visible_message("<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
-	update_icon()
+		visible_message(span_warning("Ошибка: в секторе уже имеется работающее реле телекоммуникаций. Процесс активации отменён во избежание возможных помех."))
+	update_icon(UPDATE_ICON_STATE)
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
 
 /**
-  * Descrutor for the relay.
-  *
-  * Ensures that the machine is taken out of the global list when destroyed, and also removes the link to the core.
-  */
+ * Descrutor for the relay.
+ *
+ * Ensures that the machine is taken out of the global list when destroyed, and also removes the link to the core.
+ */
 /obj/machinery/tcomms/relay/Destroy()
 	Reset()
 	return ..()
 
 /**
-  * Late Initialize for the relay.
-  *
-  * Calls parent, then adds links to the cores. This is a LateInitialize because the core MUST be initialized first
-  */
+ * Late Initialize for the relay.
+ *
+ * Calls parent, then adds links to the cores. This is a LateInitialize because the core MUST be initialized first
+ */
 /obj/machinery/tcomms/relay/LateInitialize()
 	. = ..()
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
@@ -59,21 +72,20 @@
 			break
 
 /**
-  * Z-Level transit change helper
-  *
-  * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
-  */
-/obj/machinery/tcomms/relay/onTransitZ(old_z, new_z)
+ * Z-Level transit change helper
+ *
+ * Handles parent call of disabling the machine if it changes Z-level, but also rebuilds the list of reachable levels on the linked core
+ */
+/obj/machinery/tcomms/relay/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer)
 	. = ..()
 	if(linked_core)
 		linked_core.refresh_zlevels()
 
-
 /**
-  * Power-on checker
-  *
-  * Checks the z-level to see if an existing relay is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
-  */
+ * Power-on checker
+ *
+ * Checks the z-level to see if an existing relay is already powered on, and deny this one turning on if there is one. Returns TRUE if it can power on, or FALSE if it cannot
+ */
 /obj/machinery/tcomms/relay/proc/check_power_on()
 	// Cancel if we are already on
 	if(active)
@@ -84,26 +96,26 @@
 		if(R == src)
 			continue
 		// We dont care about ones on other zlevels
-		if(!atoms_share_level(R, src))
+		if(!are_zs_connected(R, src))
 			continue
 		// If another relay is active, return FALSE
 		if(R.active)
 			if(R.stat & NOPOWER)	// If another relay has no power but is supposed to be on, we shut it down so we can continue.
 				R.active = FALSE	// Since only one active relay is allowed per z level, give priority to the one that's actually working.
-				R.update_icon()
+				R.update_icon(UPDATE_ICON_STATE)
 			else
 				return FALSE
 	// If we got here there isnt an active relay on this Z-level. So return TRUE
 	return TRUE
 
 /**
-  * Proc to link the relay to the core.
-  *
-  * Sets the linked core to the target (argument below), before adding it to the list of linked relays, then re-freshing the zlevel list
-  * The relay is then marked as linked
-  * Arguments:
-  * * target - The telecomms core that this relay should be linked to
-  */
+ * Proc to link the relay to the core.
+ *
+ * Sets the linked core to the target (argument below), before adding it to the list of linked relays, then re-freshing the zlevel list
+ * The relay is then marked as linked
+ * Arguments:
+ * * target - The telecomms core that this relay should be linked to
+ */
 /obj/machinery/tcomms/relay/proc/AddLink(obj/machinery/tcomms/core/target)
 	linked_core = target
 	target.linked_relays |= src
@@ -111,10 +123,10 @@
 	linked = TRUE
 
 /**
-  * Proc to rest the relay.
-  *
-  * Resets the relay, removing its linkage status, and refreshing the core's list of z-levels
-  */
+ * Proc to rest the relay.
+ *
+ * Resets the relay, removing its linkage status, and refreshing the core's list of z-levels
+ */
 /obj/machinery/tcomms/relay/proc/Reset()
 	if(linked_core)
 		linked_core.linked_relays -= src
@@ -123,12 +135,13 @@
 		linked = FALSE
 
 /**
-  * Power Change Handler
-  *
-  * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
-  */
-/obj/machinery/tcomms/relay/power_change()
-	..()
+ * Power Change Handler
+ *
+ * Proc which ensures the host core has its zlevels updated (icons are updated by parent call)
+ */
+/obj/machinery/tcomms/relay/power_change(forced = FALSE)
+	if(!..())
+		return
 	if(linked_core)
 		linked_core.refresh_zlevels()
 
@@ -136,10 +149,10 @@
 // UI STUFF //
 //////////////
 
-/obj/machinery/tcomms/relay/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/tcomms/relay/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TcommsRelay", name, 600, 400, master_ui, state)
+		ui = new(user, src, "TcommsRelay", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/tcomms/relay/ui_data(mob/user)
@@ -156,11 +169,11 @@
 	// Only send linked tab stuff if we are linked. This saves on sending overhead.
 	if(linked)
 		data["linked_core_id"] = linked_core.network_id
-		data["linked_core_addr"] = "\ref[linked_core]"
+		data["linked_core_addr"] = linked_core.UID()
 	else
 		var/list/cores = list()
 		for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-			cores += list(list("addr" = "\ref[C]", "net_id" = C.network_id, "sector" = C.loc.z))
+			cores += list(list("addr" = C.UID(), "net_id" = C.network_id, "sector" = C.loc.z))
 		data["cores"] = cores
 
 	return data
@@ -176,17 +189,19 @@
 		if("toggle_active")
 			if(check_power_on())
 				active = !active
-				update_icon()
+				update_icon(UPDATE_ICON_STATE)
 				if(linked_core)
 					linked_core.refresh_zlevels()
 			else
-				to_chat(usr, "<span class='warning'>Error: Another relay is already active in this sector. Power-up cancelled due to radio interference.</span>")
+				to_chat(usr, span_warning("Ошибка: в секторе уже имеется работающее реле телекоммуникаций. Процесс активации отменён во избежание возможных помех."))
 
 		// Set network ID
 		if("network_id")
-			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
-			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			to_chat(usr, "<span class='notice'>Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>.</span>")
+			var/new_id = tgui_input_text(usr, "Введите новый сетевой идентификатор", "Сетевой идентификатор", network_id)
+			if(!new_id)
+				return
+			log_action(usr, "renamed relay with ID [network_id] to [new_id]")
+			to_chat(usr, span_notice("Вы меняете сетевой идентификатор устройства с <b>[network_id]</b> на <b>[new_id]</b>."))
 			network_id = new_id
 
 		// Only do these hrefs if we are linked to prevent bugs/exploits
@@ -199,8 +214,8 @@
 		if("unlink")
 			if(!linked)
 				return
-			var/choice = alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink","Yes","No")
-			if(choice == "Yes")
+			var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле? Для обратной привязки вам потребуется ввести пароль.", "Отвязка реле", list("Да", "Нет"))
+			if(confirm == "Да")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()
 
@@ -208,16 +223,14 @@
 		if("link")
 			if(linked)
 				return
-			var/obj/machinery/tcomms/core/C = locate(params["addr"])
+			var/obj/machinery/tcomms/core/C = locateUID(params["addr"])
 			if(istype(C, /obj/machinery/tcomms/core))
-				var/user_pass = input(usr, "Please enter core password","Password Entry")
+				var/user_pass = tgui_input_text(usr, "Введите пароль для привязки к ядру", "Ввод пароля")
 				// Check the password
 				if(user_pass == C.link_password)
 					AddLink(C)
-					to_chat(usr, "<span class='notice'>Successfully linked to <b>[C.network_id]</b>.</span>")
+					to_chat(usr, span_notice("Вы привязываете [declent_ru(ACCUSATIVE)] к <b>[C.network_id]</b>."))
 				else
-					to_chat(usr, "<span class='alert'><b>ERROR:</b> Password incorrect.</span>")
+					to_chat(usr, span_alert("<b>ОШИБКА:</b> Неправильный пароль."))
 			else
-				to_chat(usr, "<span class='alert'><b>ERROR:</b> Core not found. Please file an issue report.</span>")
-
-
+				to_chat(usr, span_alert("<b>ОШИБКА:</b> Ядро не обнаружено. Сообщите об этом в #баг-репорты-v2"))

@@ -1,0 +1,31 @@
+/*
+//////////////////////////////////////
+
+Uncontrolled Laughter Effect
+
+//////////////////////////////////////
+*/
+
+/datum/symptom/laugh
+
+	name = "Эффект неконтролируемого смеха"
+	id = "laugh"
+	resistance = -3
+	stage_speed = 3
+	transmittable = -1
+	level = 2
+	severity = 1
+
+/datum/symptom/laugh/Activate(datum/disease/virus/advance/A)
+	..()
+	if(prob(SYMPTOM_ACTIVATION_PROB * 2))
+		var/mob/living/M = A.affected_mob
+		switch(A.stage)
+			if(1, 2, 3)
+				to_chat(M, span_notice(pick("Хе-хе, забавное зрелище.", "Вам хочется смеяться.", "Вы пошутили у себя в голове!", "О, да! Эта шутка!")))
+			else
+				M.emote(pick("laugh", "giggle"))
+				var/obj/item/I = M.get_active_hand()
+				if(I && I.w_class == 1)
+					M.drop_from_active_hand()
+	return

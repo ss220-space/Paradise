@@ -2,8 +2,6 @@
 
 /area/awaymission/BMPship
 	name = "BMP Asteroids"
-	icon_state = "away"
-	report_alerts = FALSE
 	requires_power = FALSE
 	ambientsounds = list('sound/music/space.ogg', 'sound/ambience/ambiatmos.ogg', 'sound/ambience/ambigen11.ogg', 'sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/music/traitor.ogg')
 
@@ -65,13 +63,13 @@
 	name = "BMP Chem Lab"
 	icon_state = "away8"
 	requires_power = TRUE
-	ambientsounds = "sound/ambience/ambifailure.ogg"
+	ambientsounds = 'sound/ambience/ambifailure.ogg'
 
 /area/awaymission/BMPship/Shelter
 	name = "BMP Shelter"
 	icon_state = "away9"
 	requires_power = TRUE
-	ambientsounds = "sound/ambience/ambifailure.ogg"
+	ambientsounds = 'sound/ambience/ambifailure.ogg'
 
 /area/awaymission/BMPship/Dormitories
 	name = "BMP Dormitories"
@@ -118,20 +116,12 @@
 	name = "BMP Trader Shuttle"
 	icon_state = "away16"
 	requires_power = TRUE
-	ambientsounds = "sound/spookoween/ghost_whisper.ogg"
+	ambientsounds = 'sound/spookoween/ghost_whisper.ogg'
 
 /area/awaymission/BMPship/Mining
 	name = "BMP Mining"
 	icon_state = "away17"
 	requires_power = TRUE
-
-//Невидимая и неразрушаемая стена, для ограничения уровня
-
-/turf/simulated/wall/indestructible/invisible
-	name = "Deep space"
-	desc = "Deep space nothing"
-	icon = null
-	icon_state = null
 
 //Пустые аптечки с мышеловкой и насмешкой
 
@@ -144,17 +134,9 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/tactical/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/tactical/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
-
-/obj/item/storage/firstaid/with_mousetrap/tactical/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/tactical/attack_ghost(var/mob/user)
-	return
 
 /obj/item/paper/taunt
 	name = "Shrot note"
@@ -169,28 +151,20 @@
 	storage_slots = 2
 	can_hold = list(/obj/item/assembly/mousetrap, /obj/item/paper)
 
-/obj/item/storage/firstaid/with_mousetrap/syndie/New()
-	..()
+/obj/item/storage/firstaid/with_mousetrap/syndie/populate_contents()
 	new /obj/item/assembly/mousetrap/armed(src)
 	new /obj/item/paper/taunt(src)
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/AltClick(var/mob/user)
-	if (isliving(user))
-		return ..()
-
-/obj/item/storage/firstaid/with_mousetrap/syndie/attack_ghost(var/mob/user)
-	return
 
 // Дисплей кейс с лодкой
 
 /obj/structure/displaycase/boat
 	desc = "A display case containing a bottle whith an ancient ship. Could it surf space?"
-	req_access_txt = "111"
+	req_access = list(ACCESS_CENT_BLACKOPS)
 	start_showpiece_type = /obj/item/ship_in_a_bottle
 
 //Сейф с рандомными документами
 
-/obj/structure/safe/floor/random_documents/Initialize()
+/obj/structure/safe/floor/random_documents/Initialize(mapload)
 	var/doc_spawn = pick(list(/obj/item/documents, /obj/item/documents/nanotrasen, /obj/item/documents/syndicate, /obj/item/documents/syndicate/yellow/trapped))
 	new doc_spawn(loc)
 	return ..()
@@ -200,30 +174,33 @@
 /obj/machinery/broken/porta_turret
 	name = "Broken turret"
 	desc = "Seriously battered turret, gun mount torn out"
-	icon = 'icons/obj/turrets.dmi'
+	icon = 'icons/obj/machines/turrets.dmi'
 	icon_state = "destroyed_target_prism"
 
-/obj/machinery/broken/porta_turret/attackby(obj/item/I, mob/user)
-	if(istype(I, /obj/item/crowbar))
-		to_chat(user, "<span class='notice'>You begin prying the metal coverings off.</span>")
-	if(do_after(user, 20 * I.toolspeed * gettoolspeedmod(user), target = src))
-		if(prob(70))
-			to_chat(user, "<span class='notice'>You remove the turret and salvage some components.</span>")
-			if(prob(50))
-				new /obj/item/stack/sheet/metal(loc, rand(1,4))
-			if(prob(50))
-				new /obj/item/assembly/prox_sensor(loc)
-		else
-			to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
-		qdel(src)
+/obj/machinery/broken/porta_turret/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	to_chat(user, span_notice("You begin prying the metal coverings off..."))
+	if(!I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
+		return .
+	var/salvaged = FALSE
+	if(prob(70))
+		if(prob(50))
+			salvaged = TRUE
+			new /obj/item/stack/sheet/metal(loc, rand(1, 4))
+		if(prob(50))
+			salvaged = TRUE
+			new /obj/item/assembly/prox_sensor(loc)
+	if(salvaged)
+		to_chat(user, span_notice("You have removed the turret and salvage some components."))
+	else
+		to_chat(user, span_notice("You have removed the turret but did not manage to salvage anything."))
+	qdel(src)
 
 // Активированная пожарная тревога, проgисать в зоне fire = TRUE
 
 /obj/machinery/firealarm/triggered_nosignals
 	report_fire_alarms = FALSE
 	show_alert_level = FALSE
-	triggered = TRUE
-	icon_state = "fire1"
 
 //Spieder spawner
 
@@ -233,8 +210,8 @@
 	icon_state = "eggs"
 	icon = 'icons/effects/effects.dmi'
 	max_integrity = 200
-	max_mobs = 5
 	spawn_time = 600
 	mob_types = list(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter)
 	spawn_text = "crawls out of"
 	faction = list("spiders")
+	mob_gps_id = "SPD"

@@ -1,5 +1,5 @@
 /datum/species/machine
-	name = "Machine"
+	name = SPECIES_MACNINEPERSON
 	name_plural = "Machines"
 
 	blurb = "Positronic intelligence really took off in the 26th century, and it is not uncommon to see independant, free-willed \
@@ -10,23 +10,33 @@
 
 	icobase = 'icons/mob/human_races/r_machine.dmi'
 	deform = 'icons/mob/human_races/r_machine.dmi'
-	language = "Trinary"
+	language = LANGUAGE_TRINARY
 	remains_type = /obj/effect/decal/remains/robot
 	skinned_type = /obj/item/stack/sheet/metal // Let's grind up IPCs for station resources!
 
 	eyes = "blank_eyes"
-	brute_mod = 1 // 100% * 2.28 * 0.66 (robolimbs) ~= 150% // nope
-	burn_mod = 1  // So they take 50% extra damage from brute/burn overall // nope
 	tox_mod = 0
 	clone_mod = 0
-	death_message = "издаёт резкие пронзительные звуки и, конвульсивно подёргивая шасси,  окончательно отключается."
+	death_message = "изда%(ёт,ют)% резкие пронзительные звуки и, конвульсивно подёргивая шасси, окончательно отключа%(ет,ют)%ся."
 	death_sounds = list('sound/voice/borg_deathsound.ogg') //I've made this a list in the event we add more sounds for dead robots.
 
-	species_traits = list(IS_WHITELISTED, NO_BREATHE, NO_BLOOD, NO_SCAN, NO_INTORGANS, NO_PAIN, NO_DNA, RADIMMUNE, VIRUSIMMUNE, NO_GERMS, NO_DECAY, NOTRANSSTING) //Computers that don't decay? What a lie!
+	inherent_traits = list(
+		TRAIT_NO_BLOOD,
+		TRAIT_NO_BREATH,
+		TRAIT_NO_DNA,
+		TRAIT_NO_SCAN,
+		TRAIT_NO_PAIN,
+		TRAIT_NO_INTORGANS,
+		TRAIT_RADIMMUNE,
+		TRAIT_VIRUSIMMUNE,
+		TRAIT_NO_GERMS,
+		TRAIT_NO_DECAY,	// computers that don't decay? What a lie!
+		TRAIT_NO_NUTRITION_EFFECTS,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_HEAD_MARKINGS | HAS_HEAD_ACCESSORY | ALL_RPARTS
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE
-	blood_color = COLOR_BLOOD_MACHINE
+	blood_color = BLOOD_COLOR_MACHINE
 	flesh_color = "#AAAAAA"
 
 	//Default styles for created mobs.
@@ -34,37 +44,39 @@
 	dies_at_threshold = TRUE
 	can_revive_by_healing = 1
 	has_gender = FALSE
-	reagent_tag = PROCESS_SYN
-	male_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
-	female_scream_sound = 'sound/goonstation/voice/robot_scream.ogg'
+	reagent_tag = SYNTHETIC
+	male_scream_sound = list('sound/goonstation/voice/robot_scream.ogg')
+	female_scream_sound = list('sound/goonstation/voice/robot_scream.ogg')
 	male_cough_sounds = list('sound/effects/mob_effects/m_machine_cougha.ogg','sound/effects/mob_effects/m_machine_coughb.ogg', 'sound/effects/mob_effects/m_machine_coughc.ogg')
 	female_cough_sounds = list('sound/effects/mob_effects/f_machine_cougha.ogg','sound/effects/mob_effects/f_machine_coughb.ogg')
-	male_sneeze_sound = 'sound/effects/mob_effects/machine_sneeze.ogg'
-	female_sneeze_sound = 'sound/effects/mob_effects/f_machine_sneeze.ogg'
+	male_sneeze_sound = list('sound/effects/mob_effects/machine_sneeze.ogg')
+	female_sneeze_sound = list('sound/effects/mob_effects/f_machine_sneeze.ogg')
 	butt_sprite = "machine"
+	hunger_type = "machine"
 
 	has_organ = list(
-		"brain" = /obj/item/organ/internal/brain/mmi_holder/posibrain,
-		"cell" = /obj/item/organ/internal/cell,
-		"optics" = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
-		"charger" = /obj/item/organ/internal/cyberimp/arm/power_cord
-		)
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/mmi_holder/posibrain,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/cell,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/optical_sensor, //Default darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/microphone, //Default darksight of 2.
+		INTERNAL_ORGAN_R_ARM_DEVICE = /obj/item/organ/internal/cyberimp/arm/power_cord,
+	)
 
-	vision_organ = /obj/item/organ/internal/eyes/optical_sensor
-	mutantears = /obj/item/organ/internal/ears/microphone
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/machine
+
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest/ipc),
-		"groin" =  list("path" = /obj/item/organ/external/groin/ipc),
-		"head" =   list("path" = /obj/item/organ/external/head/ipc),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm/ipc),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right/ipc),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg/ipc),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right/ipc),
-		"l_hand" = list("path" = /obj/item/organ/external/hand/ipc),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right/ipc),
-		"l_foot" = list("path" = /obj/item/organ/external/foot/ipc),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right/ipc)
-		)
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/ipc),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/ipc),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/ipc),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm/ipc),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right/ipc),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg/ipc),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right/ipc),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand/ipc),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right/ipc),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot/ipc),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/ipc),
+	)
 
 	suicide_messages = list(
 		"is powering down!",
@@ -74,70 +86,92 @@
 		"is frying their own circuits!",
 		"is blocking their ventilation port!")
 
-	var/datum/action/innate/change_monitor/monitor
-
-	speciesbox = /obj/item/storage/box/survival_machine
+	speciesbox = /obj/item/storage/box/survival/species/machine
 
 	liked_food = NONE
 	disliked_food = NONE
 	toxic_food = NONE
 
-/datum/species/machine/on_species_gain(mob/living/carbon/human/H)
-	..()
-	monitor = new()
-	monitor.Grant(H)
-	H.verbs |= /mob/living/carbon/human/proc/emote_ping
-	H.verbs |= /mob/living/carbon/human/proc/emote_beep
-	H.verbs |= /mob/living/carbon/human/proc/emote_buzz
-	H.verbs |= /mob/living/carbon/human/proc/emote_buzz2
-	H.verbs |= /mob/living/carbon/human/proc/emote_yes
-	H.verbs |= /mob/living/carbon/human/proc/emote_no
+	age_sheet = list(
+		SPECIES_AGE_MIN = 1,
+		SPECIES_AGE_MAX = 58,
+		JOB_MIN_AGE_HIGH_ED = 15,
+		JOB_MIN_AGE_COMMAND = 15,
+	)
 
-/datum/species/machine/on_species_loss(mob/living/carbon/human/H)
-	..()
-	if(monitor)
-		monitor.Remove(H)
-	H.verbs -= /mob/living/carbon/human/proc/emote_ping
-	H.verbs -= /mob/living/carbon/human/proc/emote_beep
-	H.verbs -= /mob/living/carbon/human/proc/emote_buzz
-	H.verbs -= /mob/living/carbon/human/proc/emote_buzz2
-	H.verbs -= /mob/living/carbon/human/proc/emote_yes
-	H.verbs -= /mob/living/carbon/human/proc/emote_no
+/datum/species/machine/on_species_gain(mob/living/carbon/human/human)
+	. = ..()
+	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
 
-/datum/species/machine/handle_death(gibbed, mob/living/carbon/human/H)
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-	if(!head_organ)
+	if(!monitor)
+		monitor = new
+		monitor.Grant(human)
+
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.remove_atom_from_hud(human)
+
+	add_verb(human, list(
+		/mob/living/carbon/human/proc/emote_ping,
+		/mob/living/carbon/human/proc/emote_beep,
+		/mob/living/carbon/human/proc/emote_buzz,
+		/mob/living/carbon/human/proc/emote_buzz2,
+		/mob/living/carbon/human/proc/emote_yes,
+		/mob/living/carbon/human/proc/emote_no))
+
+/datum/species/machine/gain_muscles(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default, max_level, FALSE)
+
+/datum/species/machine/on_species_loss(mob/living/carbon/human/human)
+	. = ..()
+	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
+	monitor?.Remove(human)
+
+	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
+	medhud.add_atom_to_hud(human)
+
+	remove_verb(human, list(
+		/mob/living/carbon/human/proc/emote_ping,
+		/mob/living/carbon/human/proc/emote_beep,
+		/mob/living/carbon/human/proc/emote_buzz,
+		/mob/living/carbon/human/proc/emote_buzz2,
+		/mob/living/carbon/human/proc/emote_yes,
+		/mob/living/carbon/human/proc/emote_no))
+
+/datum/species/machine/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
+	. = ..()
+
+	if(!.)
 		return
-	head_organ.h_style = "Bald"
-	head_organ.f_style = "Shaved"
-	spawn(100)
-		if(H && head_organ)
-			H.update_hair()
-			H.update_fhair()
+
+	if(!robohead.is_monitor || !(style.models_allowed && (robohead.company in style.models_allowed)) && style.models_allowed)
+		return FALSE
+
+	else if(robohead.is_monitor || !(SPECIES_HUMAN in style.species_allowed))
+		return FALSE
 
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
-	name = "Change Monitor"
-	check_flags = AB_CHECK_CONSCIOUS
+	name = "Изменить монитор"
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED|AB_CHECK_HANDS_BLOCKED
 	button_icon_state = "scan_mode"
 
 /datum/action/innate/change_monitor/Activate()
 	var/mob/living/carbon/human/H = owner
-	var/obj/item/organ/external/head/head_organ = H.get_organ("head")
+	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(H, "<span class='warning'>Куда делась голова? Невозможно сменить дисплей без неё.</span>")
+		to_chat(H, span_warning("Куда делась голова? Невозможно сменить дисплей без неё."))
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
-		if(H.incapacitated(TRUE, TRUE, TRUE))
-			to_chat(H, "<span class='warning'>Ваша попытка сменить отображаемый цвет была прервана.</span>")
+		var/optic_colour = tgui_input_color(H, "Выберите цвет оптики", H.m_colours["head"])
+		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+			to_chat(H, span_warning("Ваша попытка сменить отображаемый цвет была прервана."))
 			return
-		if(optic_colour)
+		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.
@@ -152,21 +186,37 @@
 
 		for(var/line in lines)									// Looks for lines set up as screen:ckey:screen_name
 			var/list/Entry = splittext(line, ":")				// split lines
-			for(var/i = 1 to Entry.len)
+			for(var/i = 1 to length(Entry))
 				Entry[i] = trim(Entry[i])						// Cleans up lines
-				if(Entry.len != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
+				if(length(Entry) != 3 || Entry[1] != "screen")		// Ignore entries that aren't for screens
 					continue
 				if(Entry[2] == H.ckey)							// They're in the list? Custom sprite time, var and icon change required
 					hair += Entry[3]							// Adds custom screen to list
 
-		var/new_style = input(H, "Select a monitor display", "Monitor Display", head_organ.h_style) as null|anything in hair
-		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
+		var/new_style = tgui_input_list(H, "Выберите изображение", "Изменить монитор", hair, head_organ.h_style)
+		if(!new_style)
+			return
+		var/new_color = tgui_input_color(usr, "Выберите цвет", "Цвет монитора", head_organ.hair_colour)
 
-		if(H.incapacitated(TRUE, TRUE, TRUE))
-			to_chat(H, "<span class='warning'>Ваша попытка сменить изображения на дисплее была прервана.</span>")
+		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
+			to_chat(H, span_warning("Ваша попытка сменить изображения на дисплее была прервана."))
 			return
 
 		if(new_style)
 			H.change_hair(new_style, 1)							// The 1 is to enable custom sprites
 		if(new_color)
 			H.change_hair_color(new_color)
+
+/datum/species/machine/get_emote_pitch(mob/living/carbon/human/H, tolerance)
+	return 1 + (0.01*rand(-tolerance,tolerance))
+
+/datum/species/machine/job_pre_equip(mob/living/carbon/human/human)
+	if(human.client.prefs.exoframe_type)
+		var/exoframe_path = GLOB.exoframe_types[human.client.prefs.exoframe_type]
+		var/obj/item/organ/internal/cyberimp/chest/exoframe/exoframe = new exoframe_path
+		exoframe.insert(human)
+
+	return ..()
+
+/datum/species/machine/compressor_grind(location)
+	new /obj/item/stack/sheet/mineral/titanium(location)

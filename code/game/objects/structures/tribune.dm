@@ -3,18 +3,24 @@
 	icon = 'icons/obj/tribune.dmi'
 	icon_state = "nt_tribune"
 	desc = "Sturdy wooden tribune. When you look at it, you want to start making a speech."
+	flags = ON_BORDER
 	density = TRUE
-	anchored = FALSE
 	max_integrity = 100
 	resistance_flags = FLAMMABLE
+	pass_flags_self = PASSGLASS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/wood
 	var/buildstackamount = 5
 	var/mover_dir = null
 	var/ini_dir = null
 
-/obj/structure/tribune/attack_hand(obj/item/I, mob/living/user, params)
-	..()
-	add_fingerprint(user)
+/obj/structure/tribune/Initialize(mapload)
+	. = ..()
+	handle_layer()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXIT = PROC_REF(on_exit),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/tribune/wrench_act(mob/user, obj/item/I)
 	. = TRUE
@@ -22,8 +28,8 @@
 
 /obj/structure/tribune/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
-	if(flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct [src].</span>")
+	if(obj_flags & NODECONSTRUCT)
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct [src]."))
 		return
 	if(!I.use_tool(src, user, 30, volume = I.tool_volume))
 		return
@@ -31,23 +37,19 @@
 
 /obj/structure/tribune/deconstruct()
 	// If we have materials, and don't have the NOCONSTRUCT flag
-	if(buildstacktype && (!(flags & NODECONSTRUCT)))
+	if(buildstacktype && (!(obj_flags & NODECONSTRUCT)))
 		new buildstacktype(loc, buildstackamount)
 	..()
 
 /obj/structure/tribune/proc/after_rotation(mob/user)
 	add_fingerprint(user)
 
-/obj/structure/tribune/Initialize(mapload) //Only for mappers
-	..()
-	handle_layer()
-
 /obj/structure/tribune/setDir(newdir)
-	..()
+	. = ..()
 	handle_layer()
 
-/obj/structure/tribune/Move(newloc, direct, movetime)
-	..()
+/obj/structure/tribune/Move(atom/newloc, direct = NONE, glide_size_override = 0)
+	. = ..()
 	handle_layer()
 
 /obj/structure/tribune/proc/handle_layer()
@@ -56,31 +58,39 @@
 	else
 		layer = ABOVE_MOB_LAYER
 
-/obj/structure/tribune/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
+/obj/structure/tribune/click_alt(mob/user)
 	if(anchored)
-		to_chat(user, "It is fastened to the floor!")
-		return
+		to_chat(user, span_warning("It is fastened to the floor!"))
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
 	after_rotation(user)
+	return CLICK_ACTION_SUCCESS
 
-/obj/structure/tribune/CanPass(atom/movable/mover, turf/target, height=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(loc, target) == dir)
-		return !density
-	return 1
+/obj/structure/tribune/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(dir != border_dir || (mover.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return TRUE
 
-/obj/structure/tribune/CheckExit(atom/movable/O, target)
-	if(istype(O) && O.checkpass(PASSGLASS))
-		return 1
-	if(get_dir(O.loc, target) == dir)
-		return 0
-	return 1
+/obj/structure/tribune/proc/on_exit(datum/source, atom/movable/leaving, atom/newLoc)
+	SIGNAL_HANDLER
+
+	if(leaving.movement_type & PHASING)
+		return
+
+	if(leaving == src)
+		return // Let's not block ourselves.
+
+	if(leaving.throwing)
+		return
+
+	if(pass_flags_self & leaving.pass_flags)
+		return
+
+	if(density && dir == get_dir(leaving, newLoc))
+		leaving.Bump(src)
+		return COMPONENT_ATOM_BLOCK_EXIT
 
 /obj/structure/tribune/centcom
 	name = "CentCom tribune"
-	icon = 'icons/obj/tribune.dmi'
 	icon_state = "nt_tribune_cc"
 	desc = "A richly decorated tribune. Just looking at her makes your heart skip a beat."

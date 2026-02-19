@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 /**
  * tgui state: self_state
  *
@@ -6,7 +11,7 @@
 
 GLOBAL_DATUM_INIT(self_state, /datum/ui_state/self_state, new)
 
-/datum/ui_state/self_state/can_use_topic(src_object, mob/user)
+/datum/ui_state/self_state/can_use_topic(src_object, mob/user, atom/ui_source)
 	if(src_object != user)
-		return STATUS_CLOSE
+		return UI_CLOSE
 	return user.shared_ui_interaction(src_object)

@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 /datum/event/money_hacker/setup()
 	end_time = world.time + 6000
-	if(GLOB.all_money_accounts.len)
+	if(length(GLOB.all_money_accounts))
 		affected_account = pick(GLOB.all_money_accounts)
 
 		GLOB.account_hack_attempted = 1
@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 Уведомления будут отправляться по мере появления обновлений."
 	var/my_department = "[station_name()] firewall subroutines"
 
-	for(var/obj/machinery/message_server/MS in GLOB.machines)
+	for(var/obj/machinery/message_server/MS in SSmachines.get_by_type(/obj/machinery/message_server))
 		if(!MS.active) continue
 		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
 
@@ -42,7 +42,6 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 		affected_account.phantom_charge(lost)
 
-
 		//create a taunting log entry
 		var/dest_name = pick("","yo brotha from anotha motha","el Presidente","chieF smackDowN")
 		var/amount = pick("","([rand(0,99999)])","alla money","9001$","HOLLA HOLLA GET DOLLA","([lost])")
@@ -57,14 +56,13 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 		affected_account.makeTransactionLog(amount, purpose, source_terminal, dest_name, TRUE, date, time)
 
-
 	else
 		//crew wins
 		message = "Атака прекратилась, пострадавший аккаунт теперь можно вновь использовать."
 
 	var/my_department = "[station_name()] firewall subroutines"
 
-	for(var/obj/machinery/message_server/MS in GLOB.machines)
+	for(var/obj/machinery/message_server/MS in SSmachines.get_by_type(/obj/machinery/message_server))
 		if(!MS.active) continue
 		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
 

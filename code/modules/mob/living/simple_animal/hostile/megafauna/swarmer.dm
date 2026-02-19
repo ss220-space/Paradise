@@ -19,7 +19,6 @@ GLOBAL_LIST_EMPTY(AISwarmers)
 GLOBAL_LIST_EMPTY(AISwarmersByType)//AISwarmersByType[.../resource] = list(1st, 2nd, nth), AISwarmersByType[../ranged] = list(1st, 2nd, nth) etc.
 GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swarmer/ai/resource = 30, /mob/living/simple_animal/hostile/swarmer/ai/ranged_combat = 20, /mob/living/simple_animal/hostile/swarmer/ai/melee_combat = 10))
 
-
 //returns a type of AI swarmer that is NOT at max cap
 //type order is shuffled, to prevent bias
 /proc/GetUncappedAISwarmerType()
@@ -27,9 +26,8 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	LAZYINITLIST(GLOB.AISwarmersByType)
 	for(var/t in shuffle(swarmerTypes))
 		var/list/amount = GLOB.AISwarmersByType[t]
-		if(!amount || amount.len <  GLOB.AISwarmerCapsByType[t])
+		if(!amount || length(amount) <  GLOB.AISwarmerCapsByType[t])
 			return t
-
 
 //Total of all subtype caps
 /proc/GetTotalAISwarmerCap()
@@ -39,7 +37,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	for(var/t in swarmerTypes)
 		. += GLOB.AISwarmerCapsByType[t]
 
-
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon
 	name = "swarmer beacon"
 	desc = "That name is a bit of a mouthful, but stop paying attention to your mouth they're eating everything!"
@@ -48,10 +45,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	health = 750
 	maxHealth = 750 //""""low-ish"""" HP because it's a passive boss, and the swarm itself is the real foe
 	internal_type = /obj/item/gps/internal/swarmer_beacon
-	medal_type = BOSS_MEDAL_SWARMERS
-	score_type = SWARMER_BEACON_SCORE
+	achievement_type = /datum/award/achievement/boss/swarmer_beacon_kill
+	crusher_achievement_type = /datum/award/achievement/boss/swarmer_beacon_crusher
+	score_achievement_type = /datum/award/score/swarmer_beacon_score
 	faction = list("mining", "boss", "swarmer")
-	weather_immunities = list("lava","ash")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	stop_automated_movement = TRUE
 	wander = FALSE
 	layer = BELOW_MOB_LAYER
@@ -68,7 +66,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	var/static/list/swarmer_caps
 	tts_seed = "Antimage"
 
-
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Initialize(mapload)
 	. = ..()
 	swarmer_caps = GLOB.AISwarmerCapsByType //for admin-edits
@@ -77,19 +74,23 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		var/mob/living/simple_animal/hostile/swarmer/ai/resource/R = new(loc)
 		step(R, ddir) //Step the swarmers, instead of spawning them there, incase the turf is solid
 
-
 /mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/Life()
 	. = ..()
 	if(.)
 		var/createtype = GetUncappedAISwarmerType()
-		if(createtype && world.time > swarmer_spawn_cooldown && GLOB.AISwarmers.len < (GetTotalAISwarmerCap()*0.5))
+		if(createtype && world.time > swarmer_spawn_cooldown && length(GLOB.AISwarmers) < (GetTotalAISwarmerCap()*0.5))
 			swarmer_spawn_cooldown = world.time + swarmer_spawn_cooldown_amt
 			new createtype(loc)
 
-
-/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(amount, updating_health = TRUE)
+/mob/living/simple_animal/hostile/megafauna/swarmer_swarm_beacon/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
 	. = ..()
-	if(. > 0 && world.time > call_help_cooldown)
+	if(. && amount > 0 && world.time > call_help_cooldown)
 		call_help_cooldown = world.time + call_help_cooldown_amt
 		summon_backup(25) //long range, only called max once per 15 seconds, so it's not deathlag
 
@@ -100,7 +101,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	icon_state = null
 	gpstag = "Hungry Signal"
 	desc = "Transmitted over the signal is a strange message repeated in every language you know of, and some you don't too..." //the message is "nom nom nom"
-	invisibility = 100
 
 //SWARMER AI
 //AI versions of the swarmer mini-antag
@@ -108,7 +108,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai
 	wander = 1
 	faction = list("swarmer", "mining")
-	weather_immunities = list("ash") //wouldn't be fun otherwise
+	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE) //wouldn't be fun otherwise
 	AIStatus = AI_ON
 
 /mob/living/simple_animal/hostile/swarmer/ai/Initialize(mapload)
@@ -118,16 +118,13 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	GLOB.AISwarmers += src
 	GLOB.AISwarmersByType[type] += src
 
-
 /mob/living/simple_animal/hostile/swarmer/ai/Destroy()
 	GLOB.AISwarmers -= src
 	GLOB.AISwarmersByType[type] -= src
 	return ..()
 
-
 /mob/living/simple_animal/hostile/swarmer/ai/SwarmerTypeToCreate()
 	return GetUncappedAISwarmerType()
-
 
 /mob/living/simple_animal/hostile/swarmer/ai/resource/handle_automated_action()
 	. = ..()
@@ -138,36 +135,32 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 				RepairSelf()
 				return
 
+/mob/living/simple_animal/hostile/swarmer/ai/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	if(!newloc)
+		return FALSE
 
-/mob/living/simple_animal/hostile/swarmer/ai/Move(atom/newloc)
-	if(newloc)
-		if(newloc.z == z) //so these actions are Z-specific
-			if(islava(newloc))
-				var/turf/simulated/floor/plating/lava/L = newloc
-				if(!L.is_safe())
-					StartAction(20)
-					new /obj/structure/lattice/catwalk/swarmer_catwalk(newloc)
-					return FALSE
-
-			if(ischasm(newloc) && !throwing)
-				throw_at(get_edge_target_turf(src, get_dir(src, newloc)), 7 , 3, src, FALSE) //my planet needs me
+	if(newloc.z == z) //so these actions are Z-specific
+		if(islava(newloc))
+			var/turf/simulated/floor/lava/L = newloc
+			if(!L.is_safe())
+				StartAction(20)
+				new /obj/structure/lattice/catwalk/swarmer_catwalk(newloc)
 				return FALSE
 
-		return ..()
+		if(ischasm(newloc) && !throwing)
+			throw_at(get_edge_target_turf(src, get_dir(src, newloc)), 7 , 3, src, FALSE) //my planet needs me
+			return FALSE
 
+	. = ..()
 
 /mob/living/simple_animal/hostile/swarmer/ai/proc/StartAction(deci = 0)
 	stop_automated_movement = TRUE
 	AIStatus = AI_OFF
-	addtimer(CALLBACK(src, .proc/EndAction), deci)
-
+	addtimer(CALLBACK(src, PROC_REF(EndAction)), deci)
 
 /mob/living/simple_animal/hostile/swarmer/ai/proc/EndAction()
 	stop_automated_movement = FALSE
 	AIStatus = AI_ON
-
-
-
 
 //RESOURCE SWARMER:
 //Similar to the original Player-Swarmers, these dismantle things to obtain the metal inside
@@ -201,11 +194,9 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 
 	return ..()	//else, have a nibble, see if it's food
 
-
 /mob/living/simple_animal/hostile/swarmer/ai/resource/OpenFire(atom/A)
 	if(isliving(A)) //don't shoot rocks, sillies.
 		..()
-
 
 /mob/living/simple_animal/hostile/swarmer/ai/resource/AttackingTarget()
 	if(target.swarmer_act(src))
@@ -215,12 +206,11 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		add_type_to_ignore(target.type)
 		return FALSE
 
-
 /mob/living/simple_animal/hostile/swarmer/ai/resource/handle_automated_action()
 	. = ..()
 	if(.)
 		if(!stop_automated_movement)
-			if(GLOB.AISwarmers.len < GetTotalAISwarmerCap() && resources >= 50)
+			if(length(GLOB.AISwarmers) < GetTotalAISwarmerCap() && resources >= 50)
 				StartAction(100) //so they'll actually sit still and use the verbs
 				CreateSwarmer()
 				return
@@ -234,23 +224,20 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 					CreateTrap()
 					return
 
-
 //So swarmers can learn what is and isn't food
 /mob/living/simple_animal/hostile/swarmer/ai/resource/proc/add_type_to_wanted(typepath)
 	if(!sharedWanted[typepath])// this and += is faster than |=
 		sharedWanted += typecacheof(typepath)
 
-
 /mob/living/simple_animal/hostile/swarmer/ai/resource/proc/add_type_to_ignore(typepath)
 	if(!sharedIgnore[typepath])
 		sharedIgnore += typecacheof(typepath)
-
 
 //RANGED SWARMER
 /mob/living/simple_animal/hostile/swarmer/ai/ranged_combat
 	icon_state = "swarmer_ranged"
 	icon_living = "swarmer_ranged"
-	projectiletype = /obj/item/projectile/beam/laser
+	projectiletype = /obj/projectile/beam/laser
 	projectilesound = 'sound/weapons/laser.ogg'
 	check_friendly_fire = TRUE //you're supposed to protect the resource swarmers, you poop
 	retreat_distance = 3
@@ -259,7 +246,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 /mob/living/simple_animal/hostile/swarmer/ai/ranged_combat/Aggro()
 	..()
 	summon_backup(15, TRUE) //Exact matching, so that goliaths don't come to aid the swarmers, that'd be silly
-
 
 //MELEE SWARMER
 /mob/living/simple_animal/hostile/swarmer/ai/melee_combat
@@ -273,7 +259,6 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 	..()
 	summon_backup(15, TRUE)
 
-
 /mob/living/simple_animal/hostile/swarmer/ai/melee_combat/AttackingTarget()
 	if(isliving(target))
 		if(prob(35))
@@ -282,7 +267,7 @@ GLOBAL_LIST_INIT(AISwarmerCapsByType, list(/mob/living/simple_animal/hostile/swa
 		else
 			var/mob/living/L = target
 			L.attack_animal(src)
-			L.electrocute_act(10, src, safety = TRUE) //safety = TRUE means we don't check gloves... Ok?
+			L.electrocute_act(10, src, flags = SHOCK_NOGLOVES) // SHOCK_NOGLOVES means we don't check gloves... Ok?
 		return TRUE
 	else
 		return ..()

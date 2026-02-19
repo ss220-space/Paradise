@@ -8,7 +8,7 @@
 
 /datum/wires/alarm/New(atom/_holder)
 	wires = list(
-		WIRE_IDSCAN , WIRE_MAIN_POWER1 , WIRE_SYPHON,
+		WIRE_IDSCAN , WIRE_MAIN_POWER1 , WIRE_SIPHON,
 		WIRE_AI_CONTROL, WIRE_AALARM
 	)
 	return ..()
@@ -41,9 +41,9 @@
 		if(WIRE_AI_CONTROL)
 			A.aidisabled = !mend
 
-		if(WIRE_SYPHON)
+		if(WIRE_SIPHON)
 			if(!mend)
-				A.mode = 3 // AALARM_MODE_PANIC
+				A.mode = AALARM_MODE_PANIC
 				A.apply_mode()
 
 		if(WIRE_AALARM)
@@ -62,20 +62,19 @@
 			if(!A.shorted)
 				A.shorted = TRUE
 				A.update_icon()
-			addtimer(CALLBACK(A, /obj/machinery/alarm/.proc/unshort_callback), 120 SECONDS)
+			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/alarm, unshort_callback)), 120 SECONDS)
 
 		if(WIRE_AI_CONTROL)
 			if(!A.aidisabled)
 				A.aidisabled = TRUE
 			A.updateDialog()
-			addtimer(CALLBACK(A, /obj/machinery/alarm/.proc/enable_ai_control_callback), 10 SECONDS)
+			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/alarm, enable_ai_control_callback)), 10 SECONDS)
 
-
-		if(WIRE_SYPHON)
-			if(A.mode == 1) // AALARM_MODE_SCRUB
-				A.mode = 3 // AALARM_MODE_PANIC
+		if(WIRE_SIPHON)
+			if(A.mode == AALARM_MODE_FILTERING)
+				A.mode = AALARM_MODE_PANIC
 			else
-				A.mode = 1 // AALARM_MODE_SCRUB
+				A.mode = AALARM_MODE_FILTERING
 			A.apply_mode()
 
 		if(WIRE_AALARM)

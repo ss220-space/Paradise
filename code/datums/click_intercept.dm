@@ -8,8 +8,8 @@
 /datum/click_intercept
 	/// A reference to the client which is assigned this click intercept datum.
 	var/client/holder = null
-	/// Any `obj/screen/buttons` the client is meant to receive when assigned this click intercept datum.
-	var/list/obj/screen/buttons = list()
+	/// Any `atom/movable/screen/buttons` the client is meant to receive when assigned this click intercept datum.
+	var/list/atom/movable/screen/buttons = list()
 
 /datum/click_intercept/New(client/C)
 	create_buttons()
@@ -30,7 +30,7 @@
 /**
  * Called when you want to cancel a client's click intercept and return to normal clicking.
  */
-/datum/click_intercept/proc/quit()
+/datum/click_intercept/proc/quit(force)
 	qdel(src)
 
 /**
@@ -50,4 +50,4 @@
  * * object - the atom that was just clicked.
  */
 /datum/click_intercept/proc/InterceptClickOn(mob/user, params, atom/object)
-	return
+	return FALSE

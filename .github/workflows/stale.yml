@@ -1,0 +1,26 @@
+name: Mark stale pull requests
+on:
+  schedule:
+    - cron: "0 0 * * *" # Runs at midnight UTC every day
+
+permissions:
+  contents: read
+
+jobs:
+  stale:
+    permissions:
+      issues: write # for actions/stale to close stale issues
+      pull-requests: write # for actions/stale to close stale PRs
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/stale@v10
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-pr-message: 'Этот PR считается устаревшим, так как он не обновлялся уже 30 дней. Пожалуйста, внесите изменения в течение следующих 7 дней, иначе PR будет закрыт. Если вы считаете, что это ошибка, сообщите об этом участнику команды разработчиков в Discord.'
+          close-pr-message: 'Этот PR не получил обновлений после того, как был помечен как устаревший, и поэтому он будет автоматически закрыт. Вы можете переоткрыть этот PR или создать новый, когда у вас появятся новые обновления.'
+          days-before-stale: 30
+          days-before-close: 7
+          stale-pr-label: "💀 Устаревший"
+          exempt-pr-labels: "🛑 Не закрывать"
+          operations-per-run: 300

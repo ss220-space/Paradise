@@ -1,0 +1,4 @@
+#Entries here contain flags that are used only on testing.
+
+## Enables bombarda craft.
+ENABLE_BOMBARDA_CRAFT 

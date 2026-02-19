@@ -2,9 +2,8 @@
 	name = "Syndicate quantum pad"
 	desc = "Syndicate redspace quantumpads! Can transport goods through galaxies and completely ignores bluespace interference!"
 	icon = 'icons/obj/telescience.dmi'
-	icon_state = "sqpad-idle"
-	anchored = 1
-	use_power = IDLE_POWER_USE
+	icon_state = "sqpad"
+	anchored = TRUE
 	idle_power_usage = 200
 	active_power_usage = 5000
 	var/teleport_cooldown = 250 //if 400, cd = 30 seconds due to base parts
@@ -39,8 +38,8 @@
 	target_id = "syndie_cargo_receive" //админский синдипад отправляющий посылки
 	allow_humans = TRUE
 
-/obj/machinery/syndiepad/Initialize()
-	..()
+/obj/machinery/syndiepad/Initialize(mapload)
+	. = ..()
 	GLOB.syndiepads += src
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/quantumpad/syndiepad(null)
@@ -53,6 +52,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/syndiepad/LateInitialize()
+	. = ..()
 	pad_sync()
 
 /obj/machinery/syndiepad/Destroy()
@@ -68,10 +68,8 @@
 	E = 0
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		E += M.rating
-	teleport_speed = initial(teleport_speed)
-	teleport_speed -= (E*10)
-	teleport_cooldown = initial(teleport_cooldown)
-	teleport_cooldown -= (E * 56.25) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
+	teleport_speed = max(initial(teleport_speed) - (E*10), 0)
+	teleport_cooldown = max(initial(teleport_cooldown) - (E * 56.25), 0) //Это число гарантирует кулдаун в 2.5 секунды у телепада и в 20 секунд у карго с 8 телепадами при максимальных деталях
 	if(console_link)
 		var/datum/syndie_data_storage/S = LocateDataStorage()
 		S?.sync()
@@ -86,8 +84,10 @@
 	return null
 
 /obj/machinery/syndiepad/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 /obj/machinery/syndiepad/crowbar_act(mob/user, obj/item/I)
@@ -113,26 +113,25 @@
 			var/datum/syndie_data_storage/S = LocateDataStorage()
 			S?.sync()
 
-
 /obj/machinery/syndiepad/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(console_link)
-		to_chat(user, "<span class='notice'>Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!</span>")
+		to_chat(user, span_notice("Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!"))
 		return
 	receive = !receive
 	if(receive)
-		to_chat(user, "<span class='notice'>Включен режим получения посылок.</span>")
-		var/new_id = input("Задайте ID этому телепаду для получения им посылок")
+		to_chat(user, span_notice("Включен режим получения посылок."))
+		var/new_id = tgui_input_text(usr, "Задайте ID этому телепаду для получения им посылок")
 		if(new_id)
 			id = new_id
 		linked_pad = null
 		target_id = null
 	else
-		to_chat(user, "<span class='notice'>Включен режим отправки посылок.</span>")
-		var/new_target_id = input("Задайте ID телепада на который будут приходить посылки.")
+		to_chat(user, span_notice("Включен режим отправки посылок."))
+		var/new_target_id = tgui_input_text(usr, "Задайте ID телепада на который будут приходить посылки.")
 		if(new_target_id && new_target_id != id)
 			target_id = new_target_id
 		linked_pad = null
@@ -141,10 +140,10 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	default_deconstruction_screwdriver(user, "pad-idle-o", "sqpad-idle", I)
+	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/syndiepad/proc/pad_sync()
-	for(var/obj/machinery/syndiepad/S in GLOB.machines)
+	for(var/obj/machinery/syndiepad/S in SSmachines.get_by_type(/obj/machinery/syndiepad))
 		if(S.console_link && src.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам если мы привязаны к консоли
 			continue
 		if(!S.id)
@@ -157,7 +156,7 @@
 
 /obj/machinery/syndiepad/attack_hand(mob/user)
 	if(console_link)
-		to_chat(user, "<span class='notice'>Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!</span>")
+		to_chat(user, span_notice("Этот телепад привязан к консоли, воспользуйтесь ею для управления устройством!"))
 	add_fingerprint(user)
 	if(!console_link)
 		checks(usr)
@@ -165,45 +164,45 @@
 /obj/machinery/syndiepad/proc/checks(mob/user)
 
 	if(panel_open)
-		to_chat(user, "<span class='warning'>The panel must be closed before operating this machine!</span>")
+		to_chat(user, span_warning("The panel must be closed before operating this machine!"))
 		return
 
 	if(receive)
 		if(!console_link)
-			to_chat(user, "<span class='warning'>Receive mode is on! Please change mode if you want this pad to deliver your crates!</span>")
+			to_chat(user, span_warning("Receive mode is on! Please change mode if you want this pad to deliver your crates!"))
 			return
 
 	if(!linked_pad || QDELETED(linked_pad))
-		to_chat(user, "<span class='notice'>No linked target pad detected! Attempting to link '[src]' to the target!</span>")
+		to_chat(user, span_notice("No linked target pad detected! Attempting to link '[src]' to the target!"))
 		pad_sync()
 		if(!linked_pad || target_id == null)
-			to_chat(user, "<span class='warning'>Attempt failed! No target with the ID: '[target_id]' was found!</span>")
+			to_chat(user, span_warning("Attempt failed! No target with the ID: '[target_id]' was found!"))
 		else
 			if(console_link)
 				doteleport(usr)
-			to_chat(user, "<span class='notice'>Successfully linked!</span>")
+			to_chat(user, span_notice("Successfully linked!"))
 		return
 
 	if(world.time < last_teleport + teleport_cooldown)
-		to_chat(user, "<span class='warning'>[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds.</span>")
+		to_chat(user, span_warning("[src] is recharging power. Please wait [round((last_teleport + teleport_cooldown - world.time) / 10)] seconds."))
 		return
 
 	if(teleporting)
-		to_chat(user, "<span class='warning'>[src] is charging up. Please wait.</span>")
+		to_chat(user, span_warning("[src] is charging up. Please wait."))
 		return
 
 	if(linked_pad.teleporting)
-		to_chat(user, "<span class='warning'>Linked pad is busy. Please wait.</span>")
+		to_chat(user, span_warning("Linked pad is busy. Please wait."))
 		return
 
 	if(linked_pad.stat & NOPOWER)
-		to_chat(user, "<span class='warning'>Linked pad is not responding to ping.</span>")
+		to_chat(user, span_warning("Linked pad is not responding to ping."))
 		return
 
 	return doteleport(usr)
 
 /obj/machinery/syndiepad/proc/sparks()
-	do_sparks(5, 1, get_turf(src))
+	do_sparks(5, TRUE, get_turf(src))
 
 /obj/machinery/syndiepad/attack_ghost(mob/dead/observer/ghost)
 	if(linked_pad)
@@ -211,18 +210,18 @@
 
 /obj/machinery/syndiepad/proc/doteleport(mob/user)
 	if(linked_pad)
-		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, 1)
+		playsound(get_turf(src), 'sound/weapons/flash.ogg', 25, TRUE)
 		teleporting = 1
 		spawn(teleport_speed)
 			if(!src || QDELETED(src))
 				teleporting = 0
 				return
 			if(stat & NOPOWER)
-				to_chat(user, "<span class='warning'>[src] is unpowered!</span>")
+				to_chat(user, span_warning("[src] is unpowered!"))
 				teleporting = 0
 				return
 			if(!linked_pad || QDELETED(linked_pad) || linked_pad.stat & NOPOWER)
-				to_chat(user, "<span class='warning'>Linked pad is not responding to ping. Teleport aborted.</span>")
+				to_chat(user, span_warning("Linked pad is not responding to ping. Teleport aborted."))
 				teleporting = 0
 				return
 
@@ -232,9 +231,9 @@
 			use_power(10000 / power_efficiency)
 			sparks()
 			linked_pad.sparks()
-			flick("sqpad-beam", src)
+			flick("[initial(icon_state)]-beam", src)
 			playsound(get_turf(src), 'sound/weapons/emitter2.ogg', 25, TRUE)
-			flick("sqpad-beam", linked_pad)
+			flick("[initial(linked_pad.icon_state)]-beam", linked_pad)
 			playsound(get_turf(linked_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 			var/tele_success = FALSE
 
@@ -242,18 +241,18 @@
 				// if is living, check if allowed, don't let through if not
 				if(isliving(ROI) && allow_humans == FALSE)
 					if(!console_link)
-						to_chat(user, "<span class='warning'>Error: You cannot teleport living organisms for security reasons!</span>")
+						to_chat(user, span_warning("Error: You cannot teleport living organisms for security reasons!"))
 					else
-						to_chat(user, "<span class='warning'>Error: '[ROI]' was not teleported! You cannot teleport living organisms for security reasons!</span>")
+						to_chat(user, span_warning("Error: '[ROI]' was not teleported! You cannot teleport living organisms for security reasons!"))
 					continue
 				// if is living and in container, check if allowed, don't let through if not
 				if((ROI.contents) && allow_humans == FALSE)
 					var/check = FALSE
 					for(var/mob/living/M in ROI.contents)
 						if(!console_link)
-							to_chat(user, "<span class='warning'>Error: You cannot teleport living organisms for security reasons!</span>")
+							to_chat(user, span_warning("Error: You cannot teleport living organisms for security reasons!"))
 						else
-							to_chat(user, "<span class='warning'>Error: Object '[ROI]' and it's contents were not teleported! You cannot teleport living organisms for security reasons!</span>")
+							to_chat(user, span_warning("Error: Object '[ROI]' and it's contents were not teleported! You cannot teleport living organisms for security reasons!"))
 						check = TRUE
 						break
 					if(check)
@@ -273,7 +272,6 @@
 							continue
 				tele_success = do_teleport(ROI, get_turf(linked_pad), bypass_area_flag = force_ignore_teleport_blocking)
 				if(!tele_success)
-					to_chat(user, "<span class='warning'>Object '[ROI]'' was not teleported for unknown reason!</span>")
+					to_chat(user, span_warning("Object '[ROI]'' was not teleported for unknown reason!"))
 			return
-
 

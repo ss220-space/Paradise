@@ -3,18 +3,19 @@ GLOBAL_LIST_EMPTY(GPS_list)
 #define EMP_DISABLE_TIME 30 SECONDS
 
 /**
-  * # GPS
-  *
-  * A small item that reports its current location. Has a tag to help distinguish between them.
-  */
+ * # GPS
+ *
+ * A small item that reports its current location. Has a tag to help distinguish between them.
+ */
 /obj/item/gps
 	name = "default gps"
-	desc = "Helping lost spacemen find their way through the planets since 2016."
+	desc = "Помогает потерявшимся космонавтам не заблудиться на просторах планет с 2016 года."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=2;magnets=1;bluespace=2"
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING | NEED_DEXTERITY
 	/// Whether the GPS is on.
 	var/tracking = TRUE
 	/// The tag that is visible to other GPSes.
@@ -28,6 +29,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	/// Turf reference. If set, it will appear in the UI. Used by [/obj/machinery/computer/telescience].
 	var/turf/locked_location
 	var/upgraded = 0
+	/// For GPS in pAI
+	var/atom/movable/parent
 
 /obj/item/gps/Initialize(mapload)
 	. = ..()
@@ -35,43 +38,42 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	GLOB.poi_list.Add(src)
 	if(name == initial(name))
 		name = "global positioning system ([gpstag])"
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gps/Destroy()
 	GLOB.GPS_list.Remove(src)
 	GLOB.poi_list.Remove(src)
+	locked_location = null
+	parent = null
 	return ..()
 
-/obj/item/gps/update_icon()
-	cut_overlays()
+/obj/item/gps/update_overlays()
+	. = ..()
 	if(emped)
-		add_overlay("emp")
+		. += "emp"
 	else if(tracking)
-		add_overlay("working")
+		. += "working"
 
 /obj/item/gps/emp_act(severity)
 	emped = TRUE
-	update_icon()
-	addtimer(CALLBACK(src, .proc/reboot), EMP_DISABLE_TIME)
+	update_icon(UPDATE_OVERLAYS)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), EMP_DISABLE_TIME)
 
-/obj/item/gps/AltClick(mob/living/user)
-	if(!Adjacent(user))
-		return
-	if(!iscarbon(usr) && !isrobot(usr))
-		return
-	if(!istype(user) || user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/gps/click_alt(mob/living/user)
+	toggle_gps(user)
+	return CLICK_ACTION_SUCCESS
+
+/obj/item/gps/proc/toggle_gps(mob/living/user)
 	if(emped)
-		to_chat(user, "<span class='warning'>It's busted!</span>")
+		to_chat(user, span_warning("Оно сломано!"))
 		return
 
 	tracking = !tracking
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 	if(tracking)
-		to_chat(user, "[src] is now tracking, and visible to other GPS devices.")
+		to_chat(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь отслеживается и виден другим GPS устройствам.")
 	else
-		to_chat(user, "[src] is no longer tracking, or visible to other GPS devices.")
+		to_chat(user, "[DECLENT_RU_CAP(src, NOMINATIVE)] больше не отслеживается и не виден другим GPS устройствам.")
 	SStgui.update_uis(src)
 
 /obj/item/gps/ui_data(mob/user)
@@ -119,10 +121,25 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/attack_self(mob/user)
 	ui_interact(user)
 
-/obj/item/gps/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/gps/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params)
+	. = ..()
+
+	if(!ishuman(user) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return FALSE
+
+	attack_self(user)
+	return TRUE
+
+/obj/item/gps/ui_host()
+	return parent ? parent : src
+
+/obj/item/gps/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "GPS", "GPS", 450, 700)
+		ui = new(user, src, "GPS", "GPS")
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -139,7 +156,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			gpstag = newtag
 			name = "global positioning system ([gpstag])"
 		if("toggle")
-			AltClick(usr)
+			toggle_gps(usr)
 			return FALSE
 		if("same_z")
 			same_z = !same_z
@@ -147,11 +164,11 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			return FALSE
 
 /**
-  * Turns off the GPS's EMPed state. Called automatically after an EMP.
-  */
+ * Turns off the GPS's EMPed state. Called automatically after an EMP.
+ */
 /obj/item/gps/proc/reboot()
 	emped = FALSE
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gps/science
 	icon_state = "gps-s"
@@ -164,37 +181,59 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/mining
 	icon_state = "gps-m"
 	gpstag = "MINE0"
-	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+	desc = "Система позиционирования для поиска застрявших или пострадавших шахтёров. Если носить её с собой во время работ — ваш труп может быть и найдут."
+	tracking = FALSE
+
+/obj/item/gps/security
+	icon_state = "gps-r"
+	gpstag = "SEC0"
+	desc = "Система слежения для наблюдения за осуждёнными с имплантированными маячками."
+	local = TRUE
 
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
 	gpstag = "BORG0"
-	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
-	flags = NODROP
+	desc = "Внутренняя система позиционирования шахтёрского робота. Служит маяком для поиска повреждённых единиц или инструментом координации командой."
+
+/obj/item/gps/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
+/obj/item/gps/cyborg/New(gpstag = "gps-b", upgraded = FALSE, tracking = TRUE)
+	. = ..()
+	src.gpstag = gpstag
+	src.upgraded = upgraded
+	src.tracking = tracking
+
+/obj/item/gps/cyborg/upgraded
+	upgraded = 1
 
 /obj/item/gps/syndiecyborg
 	icon_state = "gps-b"
 	local = TRUE
 	gpstag = "SBORG0"
-	desc = "A syndicate version of cyborg GPS that only shows it's location on current Z-level"
-	flags = NODROP
+	desc = "Версия GPS синдиката для роботов. Отображает свои координаты только в пределах текущего сектора. Никакой излишней информации."
+
+/obj/item/gps/syndiecyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
 /obj/item/gps/internal
 	icon_state = null
-	flags = ABSTRACT
+	item_flags = ABSTRACT
 	local = TRUE
 	gpstag = "Eerie Signal"
 	desc = "Report to a coder immediately."
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_ABSTRACT
 
 /obj/item/gps/internal/mining
 	icon_state = "gps-m"
 	gpstag = "MINER"
-	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
+	desc = "Система позиционирования для поиска застрявших или пострадавших шахтёров. Если носить её с собой во время работ — ваш труп может быть и найдут."
 
 /obj/item/gps/internal/base
 	gpstag = "NT_AUX"
-	desc = "A homing signal from Nanotrasen's mining base."
+	desc = "Наводящий сигнал с шахтёрской базы \"Нанотрейзен\"."
 
 /obj/item/gps/visible_debug
 	name = "visible GPS"
@@ -215,11 +254,11 @@ GLOBAL_LIST_EMPTY(GPS_list)
 		// I assume it's faster to color,tag and OR the turf in, rather
 		// then checking if its there
 		T.color = RANDOM_COLOUR
-		T.maptext = "[T.x],[T.y],[T.z]"
+		T.maptext = MAPTEXT("[T.x],[T.y],[T.z]")
 		tagged |= T
 
 /obj/item/gps/visible_debug/proc/clear()
-	while(tagged.len)
+	while(length(tagged))
 		var/turf/T = pop(tagged)
 		T.color = initial(T.color)
 		T.maptext = initial(T.maptext)
@@ -233,14 +272,45 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gpsupgrade
 	name = "GPS upgrade"
-	desc = "A data cartridge for portable microcomputers."
+	desc = "Картридж с данными для улучшения системы GPS."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "cart-mine"
 	w_class = WEIGHT_CLASS_TINY
 
-/obj/item/gps/attackby(obj/item/C as obj)
-	if(istype(C, /obj/item/gpsupgrade) && !upgraded)
-		upgraded = 1
-		del(C)
+/obj/item/gpsupgrade/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль улучшения GPS",
+		GENITIVE = "модуля улучшения GPS",
+		DATIVE = "модулю улучшения GPS",
+		ACCUSATIVE = "модуль улучшения GPS",
+		INSTRUMENTAL = "модулем улучшения GPS",
+		PREPOSITIONAL = "модуле улучшения GPS"
+	)
+
+/obj/item/gps/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gpsupgrade))
+		add_fingerprint(user)
+		if(upgraded)
+			to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] уже улучшен."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		to_chat(user, span_notice("Вы улучшили [declent_ru(ACCUSATIVE)]."))
+		upgraded = TRUE
+		SStgui.update_uis(src)
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/obj/item/gps/mod
+	icon_state = "gps-m"
+	gpstag = "MOD0"
+	desc = "Система GPS-позиционирования для МЭК, предназначенная для поиска и эвакуации шахтёров, оказавшихся в чрезвычайной ситуации \
+			Передаёт точные координаты костюма, позволяя отследить пользователя с помощью других GPS-устройств."
+
+/obj/item/gps/mod/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, MODSUIT_TRAIT)
 
 #undef EMP_DISABLE_TIME

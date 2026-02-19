@@ -14,6 +14,5 @@
 /obj/item/card/id/away/gtl
 	name = "DF17 Manager ID"
 	desc = "Used to open airlocks and other doors in Disposal Facility 17."
-	icon = 'icons/obj/card.dmi'
 	icon_state = "red"
 	access = list(ACCESS_AWAY01)

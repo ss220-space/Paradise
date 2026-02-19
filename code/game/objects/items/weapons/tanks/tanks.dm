@@ -1,10 +1,10 @@
 /obj/item/tank
 	name = "tank"
 	icon = 'icons/obj/tank.dmi'
+	gender = MALE
 	flags = CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/smash.ogg'
-	w_class = WEIGHT_CLASS_NORMAL
 	pressure_resistance = ONE_ATMOSPHERE * 5
 	force = 5
 	throwforce = 10
@@ -16,18 +16,18 @@
 	var/distribute_pressure = ONE_ATMOSPHERE
 	var/integrity = 3
 	var/volume = 70
+	var/fillable = TRUE
 
-/obj/item/tank/New()
-	..()
+/obj/item/tank/Initialize(mapload)
+	. = ..()
 
 	air_contents = new /datum/gas_mixture()
 	air_contents.volume = volume //liters
-	air_contents.temperature = T20C
+	air_contents.set_temperature(T20C)
 
 	populate_gas()
 
 	START_PROCESSING(SSobj, src)
-	return
 
 /obj/item/tank/Destroy()
 	QDEL_NULL(air_contents)
@@ -39,78 +39,87 @@
 /obj/item/tank/proc/populate_gas()
 	return
 
-/obj/item/tank/ui_action_click(mob/user)
+/obj/item/tank/ui_action_click(mob/user, datum/action/action, leftclick)
 	toggle_internals(user)
 
-/obj/item/tank/proc/toggle_internals(mob/user, silent = FALSE)
-	var/mob/living/carbon/C = user
-	if(!istype(C))
-		return FALSE
+/obj/item/tank/proc/toggle_internals(mob/living/carbon/user, silent = FALSE)
+	if(!iscarbon(user))
+		return
 
-	if(C.internal == src)
-		to_chat(C, "<span class='notice'>You close \the [src] valve.</span>")
-		C.internal = null
-	else
-		if(!C.get_organ_slot("breathing_tube")) // Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
-			if(!C.wear_mask) // Do we have a mask equipped?
-				return FALSE
+	if(user.internal == src)
+		user.internal = null
+		user.update_action_buttons_icon()
+		return
 
-			var/obj/item/clothing/mask/M = C.wear_mask
-			// If the "mask" isn't actually a mask OR That mask isn't internals compatible AND Their headgear isn't internals compatible
-			if(!istype(M) || (!(initial(M.flags) & AIRTIGHT) && !(C.head && C.head.flags & AIRTIGHT)))
-				if(!silent)
-					to_chat(C, "<span class='warning'>You are not wearing a suitable mask or helmet.</span>")
-				return FALSE
-			if(M.mask_adjusted) // If the mask is equipped but pushed down
-				M.adjustmask(C) // Adjust it back
+	// Breathing tubes can always use internals, if they have one, skip ahead and turn internals on/off
+	if(!user.get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+		var/internals_allowed = FALSE
+		if(isclothing(user.wear_mask))
+			var/obj/item/clothing/cloth = user.wear_mask
+			if(cloth.clothing_flags & AIRTIGHT)
+				internals_allowed = TRUE
 
-		if(!silent)
-			if(C.internal)
-				to_chat(C, "<span class='notice'>You switch your internals to [src].</span>")
-			else
-				to_chat(C, "<span class='notice'>You open \the [src] valve.</span>")
-		C.internal = src
-	C.update_action_buttons_icon()
+			// If the mask is equipped but pushed down
+			var/obj/item/clothing/mask/our_mask = user.wear_mask
+			if(!internals_allowed && istype(our_mask) && our_mask.up && (initial(our_mask.clothing_flags) & AIRTIGHT))
+				our_mask.adjustmask(user) // Adjust it back
+				internals_allowed = TRUE
 
-/obj/item/tank/examine(mob/user)
+		if(!internals_allowed && isclothing(user.head))
+			var/obj/item/clothing/our_helmet = user.head
+			if(our_helmet.clothing_flags & AIRTIGHT)
+				internals_allowed = TRUE
+
+		if(!internals_allowed)
+			if(!silent)
+				balloon_alert(user, "не к чему полключать!")
+			return
+
+	user.internal = src
+	user.update_action_buttons_icon()
+
+/obj/item/tank/examine(mob/user, show_contents_info = TRUE)
 	. = ..()
 
+	if(!show_contents_info)
+		return
+
 	var/obj/icon = src
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
 	if(!in_range(src, user))
 		if(icon == src)
-			. += "<span class='notice'>It's \a [bicon(icon)][src]! If you want any more information you'll need to get closer.</span>"
+			. += span_boldnotice("Для получения дополнительной информации нужно подойти ближе.")
 		return
 
-	var/celsius_temperature = air_contents.temperature - T0C
+	var/celsius_temperature = air_contents.temperature() - T0C
 	var/descriptive
 
 	if(celsius_temperature < 20)
-		descriptive = "cold"
+		descriptive = "холодн[GEND_YI_AYA_OE_YE(src)]"
 	else if(celsius_temperature < 40)
-		descriptive = "room temperature"
+		descriptive = "комнатной температуры"
 	else if(celsius_temperature < 80)
-		descriptive = "lukewarm"
+		descriptive = "слегка тёпл[GEND_IM_EI_IM_IMI(src)]"
 	else if(celsius_temperature < 100)
-		descriptive = "warm"
+		descriptive = "тёпл[GEND_YI_AYA_OE_YE(src)]"
 	else if(celsius_temperature < 300)
-		descriptive = "hot"
+		descriptive = "горяч[GEND_II_AYA_II_IE(src)]"
 	else
-		descriptive = "furiously hot"
+		descriptive = "обжигающе горяч[GEND_II_AYA_II_IE(src)]"
 
-	. += "<span class='notice'>\The [bicon(icon)][src] feels [descriptive]</span>"
-	. += "<span class='notice'>The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
+	. += span_notice("На ощупь <b>[descriptive]</b>.")
+	. += span_notice("Манометр показывает <b>[round(air_contents.return_pressure())]</b> кПа.")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B && B.loc == loc && !QDELETED(src))
 		var/turf/location = get_turf(src)
 		if(!location)
 			qdel(src)
 
 		if(air_contents)
-			location.assume_air(air_contents)
+			location.blind_release_air(air_contents)
 
 		qdel(src)
 
@@ -118,23 +127,20 @@
 	if(!disassembled)
 		var/turf/T = get_turf(src)
 		if(T)
-			T.assume_air(air_contents)
-			air_update_turf()
+			T.blind_release_air(air_contents)
 		playsound(src.loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 	qdel(src)
 
-/obj/item/tank/attackby(obj/item/W as obj, mob/user as mob, params)
-	..()
+/obj/item/tank/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 
-	add_fingerprint(user)
-	if(istype(loc, /obj/item/assembly))
+	if(isassembly(loc))
 		icon = loc
 
-	if((istype(W, /obj/item/analyzer)) && get_dist(user, src) <= 1)
-		atmosanalyzer_scan(air_contents, user)
-
-	if(istype(W, /obj/item/assembly_holder))
-		bomb_assemble(W,user)
+	if(istype(I, /obj/item/assembly_holder) && bomb_assemble(I, user))
+		. |= ATTACK_CHAIN_SUCCESS
 
 /obj/item/tank/attack_self(mob/user as mob)
 	if(!(air_contents))
@@ -142,10 +148,13 @@
 
 	ui_interact(user)
 
-/obj/item/tank/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = TRUE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.inventory_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/item/tank/ui_state(mob/user)
+	return GLOB.inventory_state
+
+/obj/item/tank/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Tank",  name, 300, 150, master_ui, state)
+		ui = new(user, src, "Tank", name)
 		ui.open()
 
 /obj/item/tank/ui_data(mob/user)
@@ -190,17 +199,12 @@
 	if(.)
 		add_fingerprint(usr)
 
-/obj/item/tank/remove_air(amount)
-	return air_contents.remove(amount)
-
-/obj/item/tank/return_air()
+/obj/item/tank/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
 	return air_contents
 
-/obj/item/tank/assume_air(datum/gas_mixture/giver)
-	air_contents.merge(giver)
-
-	check_status()
-	return 1
+/obj/item/tank/return_analyzable_air()
+	return air_contents
 
 /obj/item/tank/proc/remove_air_volume(volume_to_return)
 	if(!air_contents)
@@ -209,15 +213,14 @@
 	var/tank_pressure = air_contents.return_pressure()
 	var/actual_distribute_pressure = clamp(tank_pressure, 0, distribute_pressure)
 
-	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature)
+	var/moles_needed = actual_distribute_pressure * volume_to_return / (R_IDEAL_GAS_EQUATION * air_contents.temperature())
 
-	return remove_air(moles_needed)
+	return air_contents.remove(moles_needed)
 
 /obj/item/tank/process()
 	//Allow for reactions
 	air_contents.react()
 	check_status()
-
 
 /obj/item/tank/proc/check_status()
 	//Handle exploding, leaking, and rupturing of the tank
@@ -230,7 +233,6 @@
 		if(!istype(loc,/obj/item/transfer_valve))
 			message_admins("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [ADMIN_COORDJMP(src)]")
 			add_game_logs("Explosive tank rupture! last key to touch the tank was [fingerprintslast] at [COORD(src)]")
-//		to_chat(world, "<span class='notice'>[x],[y] tank is exploding: [pressure] kPa</span>")
 		//Give the gas a chance to build up more pressure through reacting
 		air_contents.react()
 		air_contents.react()
@@ -239,34 +241,30 @@
 		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
 
-//		to_chat(world, "<span class='notice'>Exploding Pressure: [pressure] kPa, intensity: [range]</span>")
-
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cause = src)
+		explosion(epicenter, devastation_range = round(range*0.25), heavy_impact_range = round(range*0.5), light_impact_range = round(range), flash_range = round(range*1.5), cause = src)
 		if(istype(loc,/obj/item/transfer_valve))
 			qdel(loc)
 		else
 			qdel(src)
 
 	else if(pressure > TANK_RUPTURE_PRESSURE)
-//		to_chat(world, "<span class='notice'>[x],[y] tank is rupturing: [pressure] kPa, integrity [integrity]</span>")
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
 				return
-			T.assume_air(air_contents)
-			playsound(loc, 'sound/effects/spray.ogg', 10, 1, -3)
+			T.blind_release_air(air_contents)
+			playsound(loc, 'sound/effects/spray.ogg', 10, TRUE, -3)
 			qdel(src)
 		else
 			integrity--
 
 	else if(pressure > TANK_LEAK_PRESSURE)
-//		to_chat(world, "<span class='notice'>[x],[y] tank is leaking: [pressure] kPa, integrity [integrity]</span>")
 		if(integrity <= 0)
 			var/turf/simulated/T = get_turf(src)
 			if(!T)
 				return
 			var/datum/gas_mixture/leaked_gas = air_contents.remove_ratio(0.25)
-			T.assume_air(leaked_gas)
+			T.blind_release_air(leaked_gas)
 		else
 			integrity--
 

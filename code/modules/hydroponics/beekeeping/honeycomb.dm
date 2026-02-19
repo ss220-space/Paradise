@@ -12,28 +12,29 @@
 	list_reagents = list("honey" = 5)
 	var/honey_color = ""
 
-/obj/item/reagent_containers/honeycomb/New()
-	..()
+/obj/item/reagent_containers/honeycomb/Initialize(mapload)
+	. = ..()
 	pixel_x = rand(8,-8)
 	pixel_y = rand(8,-8)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/honeycomb/set_APTFT()
 	set hidden = TRUE
+	return
 
 /obj/item/reagent_containers/honeycomb/empty()
 	set hidden = TRUE
+	return
 
-/obj/item/reagent_containers/honeycomb/update_icon()
-	overlays.Cut()
+/obj/item/reagent_containers/honeycomb/update_overlays()
+	. = ..()
 	var/image/honey
 	if(honey_color)
 		honey = image(icon = 'icons/obj/hydroponics/harvest.dmi', icon_state = "greyscale_honey")
 		honey.color = honey_color
 	else
 		honey = image(icon = 'icons/obj/hydroponics/harvest.dmi', icon_state = "honey")
-	overlays += honey
-
+	. += honey
 
 /obj/item/reagent_containers/honeycomb/proc/set_reagent(reagent)
 	var/datum/reagent/R = GLOB.chemical_reagents_list[reagent]
@@ -43,4 +44,5 @@
 		reagents.add_reagent(R.id,5)
 	else
 		honey_color = ""
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
+

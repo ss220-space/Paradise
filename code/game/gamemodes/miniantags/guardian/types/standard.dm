@@ -2,34 +2,41 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 20
 	armour_penetration = 100
-	obj_damage = 80
+	obj_damage = 100
 	damage_transfer = 0.4
-	playstyle_string = "As a <b>Standard</b> type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
+	tts_seed = "Heavy"
+	playstyle_string = "Будучи <b>Стандартным</b> типом, вы обладаете огромной броней, сильными ударами пробивающими даже стены и ваше присутствие ужасает врагов, замедляя их. Кричите, повергая врагов в страх!"
 	environment_smash = 2
-	magic_fluff_string = "..And draw the Assistant, faceless and generic, but never to be underestimated."
-	tech_fluff_string = "Boot sequence complete. Standard combat modules loaded. Holoparasite swarm online."
-	bio_fluff_string = "Your scarab swarm stirs to life, ready to tear apart your enemies."
-	var/battlecry = "AT"
+	magic_fluff_string = "..И вытаскиваете Ассистента, безликого и типичного, но которого никогда нельзя недооценивать."
+	tech_fluff_string = "Инициализация завершена. Стандартные модули загружены. Рой голопаразитов активирован."
+	bio_fluff_string = "Ваш рой скарабеев оживает, готовый разорвать ваших врагов на части."
+	var/battlecry = "ORA"
 
 /mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
-	set name = "Set Battlecry"
-	set category = "Guardian"
-	set desc = "Choose what you shout as you punch"
-	var/input = stripped_input(src,"What do you want your battlecry to be? Max length of 5 characters.", ,"", 6)
+	set name = "Боевой клич"
+	set category = VERB_CATEGORY_GUARDIAN
+	set desc = "Выбери крик при ударе"
+	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Изменить Боевой клич", battlecry, 8)
 	if(input)
 		battlecry = input
 
 /mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
 	. = ..()
 	if(iscarbon(target) && target != summoner)
-		if(length(battlecry) > 11)//no more then 11 letters in a battle cry.
-			visible_message("<span class='danger'>[src] punches [target]!</span>")
+		if(length_char(battlecry) > 8)//no more then 8 letters in a battle cry.
+			visible_message(span_danger("[src] бьёт [target.declent_ru(ACCUSATIVE )]!"))
 		else
-			say("[battlecry][battlecry][battlecry][battlecry][battlecry]", TRUE)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
-		playsound(loc, attack_sound, 50, 1, 1)
+			say("[battlecry]", TRUE)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+		playsound(loc, attack_sound, 50, TRUE, 1)
+
+/mob/living/simple_animal/hostile/guardian/punch/Life(seconds, times_fired)
+	. = ..()
+	for(var/mob/living/carbon/human/L in view(2, src))
+		if(L.stat != DEAD && L != summoner)
+			L.Slowed(4 SECONDS)
 
 /mob/living/simple_animal/hostile/guardian/punch/sealpunch
 	name = "Seal Sprit"
@@ -38,12 +45,12 @@
 	icon_living = "seal"
 	icon_state = "seal"
 	attacktext = "шлёпает"
-	speak_emote = list("barks")
+	speak_emote = list("лает", "рявкает")
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	melee_damage_type = STAMINA
 	damage_transfer = 0
-	playstyle_string = "As a standard type you have no special abilities, but have a high damage resistance and a powerful attack capable of smashing through walls."
-	environment_smash = 2
+	playstyle_string = "URK URK!"
 	battlecry = "URK"
-	admin_spawned = TRUE
+	flags = ADMIN_SPAWNED
+

@@ -1,0 +1,213 @@
+/datum/vote
+	/// Person who started the vote
+	var/initiator = "сервером"
+	/// world.time the vote started at
+	var/started_time
+	/// The question being asked
+	var/question
+	/// Vote type text, for showing in UIs and stuff
+	var/vote_type_text = "админское"
+	/// Do we want to show the vote counts as it goes
+	var/show_counts = FALSE
+	/// Vote result type. This determines how a winner is picked
+	var/vote_result_type = VOTE_RESULT_TYPE_MAJORITY
+	/// Was this vote custom started?
+	var/is_custom = FALSE
+	/// Is dead players allowed to vote
+	var/no_dead_vote = FALSE
+	/// Is offstation role players allowed to vote
+	var/no_offstation_vote = FALSE
+	/// Is we muted OOC for vote, and it should be enabled
+	var/ooc_auto_muted = 0
+	/// Choices available in the vote
+	var/list/choices = list()
+	// Assoc list of [ckeys => choice] who have voted. We dont want to hold client refs.
+	var/list/voted = list()
+
+/datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
+	if(SSvote.active_vote)
+		CRASH("Attempted to start another vote with one already in progress!")
+
+	if(_initiator)
+		initiator = _initiator
+	if(_question)
+		question = _question
+	if(_choices)
+		choices = _choices
+
+	is_custom = _is_custom
+
+	no_dead_vote = CONFIG_GET(flag/vote_no_dead)
+	no_offstation_vote = CONFIG_GET(flag/vote_no_offstation_role)
+
+	// If we have no choices, dynamically generate them
+	if(!length(choices))
+		generate_choices()
+
+/datum/vote/proc/start()
+	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]"
+	if(is_custom)
+		vote_type_text = "custom"
+		text += "\n[question]"
+		if(usr)
+			log_admin("[capitalize(vote_type_text)] ([question]) vote started by [key_name(usr)].")
+
+	else if(usr)
+		log_admin("[capitalize(vote_type_text)] vote started by [key_name(usr)].")
+
+	if(CONFIG_GET(flag/ooc_allowed))
+		ooc_auto_muted = TRUE
+		toggle_ooc()
+
+	log_vote(text)
+	started_time = world.time
+	announce(text)
+
+/datum/vote/proc/remaining()
+	return max(((started_time + CONFIG_GET(number/vote_period)) - world.time), 0)
+
+// Returns the result
+/datum/vote/proc/calculate_result()
+	switch(vote_result_type)
+		if(VOTE_RESULT_TYPE_MAJORITY)
+			if(!length(voted))
+				to_chat(world, span_interface("Не было подано ни одного голоса. Вы все так ненавидите демократию?!")) // shame them
+				return null
+
+			var/list/results = list()
+
+			// Count up all votes
+			for(var/ck in voted)
+				if(voted[ck] in results)
+					results[voted[ck]]++
+				else
+					results[voted[ck]] = 1
+
+			// Get the biggest vote count, since we can also use this to pick tiebreaks
+			var/maxvotes = 0
+			for(var/res in results)
+				maxvotes = max(results[res], maxvotes)
+
+			var/list/winning_options = list()
+
+			for(var/res in results)
+				if(results[res] == maxvotes)
+					winning_options |= res
+
+			// Print all results
+			for(var/res in results)
+				if(res in winning_options)
+					// Make it stand out
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
+				else
+					// Make it normal
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[DECL_CREDIT(results[res])]"))
+
+			if(length(winning_options) > 1)
+				var/random_dictator = pick(winning_options)
+				to_chat(world, span_interface("<b>Ничья между [russian_list(sanitize(winning_options))]. Выбираем [sanitize(capitalize(random_dictator))] наугад!</b>")) // shame them
+				return random_dictator
+
+			// If we got here there must only be one thing in the list
+			var/res = winning_options[1]
+
+			if(res in choices)
+				to_chat(world, span_interface("<b>Победитель голосования — [sanitize(capitalize(res))]</b>"))
+				return res
+
+			to_chat(world, span_interface("Победитель голосования — [sanitize(capitalize(res))] не может считаться действительным выбором? Что за бред?!"))
+			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
+			return null
+
+/datum/vote/proc/announce(start_text)
+	to_chat(world, chat_box_purple(span_purple("<b>[start_text]</b>\n\
+		<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
+		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[DECL_SEC_MIN(CONFIG_GET(number/vote_period) / 10)], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
+	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
+
+/datum/vote/proc/tick()
+	if(remaining() == 0)
+		var/result = calculate_result()
+		handle_result(result)
+		qdel(src)
+
+/datum/vote/Destroy(force)
+	if(SSvote.active_vote == src)
+		SSvote.active_vote = null
+		if(ooc_auto_muted && !CONFIG_GET(flag/ooc_allowed))
+			toggle_ooc()
+		addtimer(CALLBACK(SSvote, TYPE_PROC_REF(/datum/controller/subsystem/vote, on_vote_end)), 3 SECONDS)
+	return ..()
+
+/datum/vote/proc/handle_result(result)
+	return
+
+/datum/vote/proc/generate_choices()
+	return
+
+/*
+	UI STUFFS
+*/
+/datum/vote/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/vote/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "VotePanel", "Меню голосования")
+		ui.open()
+
+/datum/vote/ui_data(mob/user)
+	var/list/data = list()
+	data["remaining"] = remaining()
+	data["user_vote"] = null
+	if(user.ckey in voted)
+		data["user_vote"] = voted[user.ckey]
+
+	data["question"] = question
+	data["choices"] = choices
+
+	// Admins see counts anyway
+	if(show_counts || check_rights(R_ADMIN, FALSE, user))
+		data["show_counts"] = TRUE
+
+		// Show counts
+		var/list/counts = list()
+		for(var/ck in voted)
+			if(voted[ck] in counts)
+				counts[voted[ck]]++
+			else
+				counts[voted[ck]] = 1
+
+		data["counts"] = counts
+	else
+		data["show_counts"] = FALSE
+		data["counts"] = list()
+
+	data["show_cancel"] = check_rights(R_ADMIN, FALSE, user)
+
+	return data
+
+/datum/vote/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	if(..())
+		return
+
+	if(no_dead_vote && (usr.stat == DEAD || isanimal((usr))) && !usr.client.holder)
+		return FALSE
+
+	if(no_offstation_vote && usr.mind && usr.mind.offstation_role && !check_rights(R_ADMIN))
+		return FALSE
+
+	. = TRUE
+
+	switch(action)
+		if("vote")
+			if(params["target"] in choices)
+				voted[usr.ckey] = params["target"]
+			else
+				message_admins("[span_boldannounceooc("\[EXPLOIT\]")] User [key_name_admin(usr)] spoofed a vote in the vote panel!")
+		if("cancel")
+			if(check_rights(R_ADMIN))
+				to_chat(world, "<b>Голосование было отменено!</b>")
+				log_and_message_admins("Canceled a vote")
+				qdel(src)

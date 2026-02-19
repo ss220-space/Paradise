@@ -50,8 +50,8 @@
 /obj/item/grenade/clusterbuster/meat,
 /obj/item/reagent_containers/food/snacks/meat/corgi,
 /obj/item/reagent_containers/food/snacks/meat/ham,
-/obj/item/reagent_containers/food/snacks/meat/human,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/human,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /obj/item/reagent_containers/food/snacks/meat/pug,
 /obj/item/reagent_containers/food/snacks/meat/slab/meatproduct,
 /obj/item/reagent_containers/food/snacks/meat/syntiflesh,
@@ -125,7 +125,8 @@
 	name = "ferry shuttle";
 	roundstart_move = "ferry_away";
 	timid = 1;
-	width = 5
+	width = 5;
+	preferred_direction = 4
 	},
 /turf/simulated/floor/shuttle,
 /area/shuttle/transport)
@@ -167,7 +168,7 @@
 "x" = (
 /obj/machinery/door/airlock/freezer{
 	name = "Meat tadeship backroom";
-	req_access = "28"
+	req_access = list(28)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"

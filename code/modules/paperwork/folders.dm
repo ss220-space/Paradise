@@ -7,6 +7,9 @@
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
 
+	lefthand_file = 'icons/mob/inhands/folder_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/folder_righthand.dmi'
+
 /obj/item/folder/emp_act(severity)
 	..()
 	for(var/i in contents)
@@ -29,70 +32,85 @@
 	desc = "A white folder."
 	icon_state = "folder_white"
 
-/obj/item/folder/update_icon()
-	overlays.Cut()
-	if(contents.len)
-		overlays += "folder_paper"
-	..()
+/obj/item/folder/update_overlays()
+	. = ..()
+	if(length(contents))
+		. += "folder_paper"
 
-/obj/item/folder/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/paper) || istype(W, /obj/item/photo) || istype(W, /obj/item/paper_bundle) || istype(W, /obj/item/documents))
-		user.drop_item()
-		W.loc = src
-		to_chat(user, "<span class='notice'>You put the [W] into \the [src].</span>")
-		update_icon()
-	else if(istype(W, /obj/item/pen))
-		rename_interactive(user, W)
-	else
-		return ..()
+/obj/item/folder/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		rename_interactive(user, I)
+		return ATTACK_CHAIN_BLOCKED
+
+	var/static/list/allowed_to_store = typecacheof(list(
+		/obj/item/paper,
+		/obj/item/photo,
+		/obj/item/paper_bundle,
+		/obj/item/documents,
+	))
+	if(is_type_in_typecache(I, allowed_to_store))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		to_chat(user, span_notice("You put [I] into [src]."))
+		update_icon(UPDATE_OVERLAYS)
+		updateUsrDialog()
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(user.a_intent != INTENT_HARM)
+		to_chat(user, span_warning("You cannot put [I] into [src]!"))
+		return ATTACK_CHAIN_PROCEED
+
+	return ..()
 
 /obj/item/folder/attack_self(mob/user as mob)
-	var/dat = {"<meta charset="UTF-8"><title>[name]</title>"}
+	var/dat = ""
 
 	for(var/obj/item/paper/P in src)
-		dat += "<A href='?src=[UID()];remove=\ref[P]'>Remove</A> - <A href='?src=[UID()];read=\ref[P]'>[P.name]</A><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=[P.UID()]'>Remove</a> - <a href='byond://?src=[UID()];read=[P.UID()]'>[P.name]</a><br>"
 	for(var/obj/item/photo/Ph in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Ph]'>Remove</A> - <A href='?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=[Ph.UID()]'>Remove</a> - <a href='byond://?src=[UID()];look=[Ph.UID()]'>[Ph.name]</a><br>"
 	for(var/obj/item/paper_bundle/Pa in src)
-		dat += "<A href='?src=[UID()];remove=\ref[Pa]'>Remove</A> - <A href='?src=[UID()];look=\ref[Pa]'>[Pa.name]</A><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=[Pa.UID()]'>Remove</a> - <a href='byond://?src=[UID()];look=[Pa.UID()]'>[Pa.name]</a><br>"
 	for(var/obj/item/documents/doc in src)
-		dat += "<A href='?src=[UID()];remove=\ref[doc]'>Remove</A> - <A href='?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
-	user << browse(dat, "window=folder")
+		dat += "<a href='byond://?src=[UID()];remove=[doc.UID()]'>Remove</a> - <a href='byond://?src=[UID()];look=[doc.UID()]'>[doc.name]</a><br>"
+	var/datum/browser/popup = new(user, "folder", name)
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "folder")
-	add_fingerprint(usr)
+	add_fingerprint(user)
 	return
 
 /obj/item/folder/Topic(href, href_list)
 	..()
-	if((usr.stat || usr.restrained()))
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(src.loc == usr)
 
 		if(href_list["remove"])
-			var/obj/item/P = locate(href_list["remove"])
+			var/obj/item/P = locateUID(href_list["remove"])
 			if(P && (P.loc == src) && istype(P))
-				P.loc = usr.loc
-				usr.put_in_hands(P)
+				P.forceMove_turf()
+				usr.put_in_hands(P, ignore_anim = FALSE)
 
 		else if(href_list["read"])
-			var/obj/item/paper/P = locate(href_list["read"])
+			var/obj/item/paper/P = locateUID(href_list["read"])
 			if(P && (P.loc == src) && istype(P))
 				P.show_content(usr)
 		else if(href_list["look"])
-			var/obj/item/photo/P = locate(href_list["look"])
+			var/obj/item/photo/P = locateUID(href_list["look"])
 			if(P && (P.loc == src) && istype(P))
 				P.show(usr)
 		else if(href_list["browse"])
-			var/obj/item/paper_bundle/P = locate(href_list["browse"])
+			var/obj/item/paper_bundle/P = locateUID(href_list["browse"])
 			if(P && (P.loc == src) && istype(P))
 				P.attack_self(usr)
 				onclose(usr, "[P.name]")
 
 		//Update everything
 		attack_self(usr)
-		update_icon()
-	return
+		update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/documents
 	name = "folder- 'TOP SECRET'"
@@ -101,7 +119,7 @@
 /obj/item/folder/documents/New()
 	..()
 	new /obj/item/documents/nanotrasen(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate
 	name = "folder- 'TOP SECRET'"
@@ -113,7 +131,7 @@
 /obj/item/folder/syndicate/red/New()
 	..()
 	new /obj/item/documents/syndicate/red(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
@@ -121,7 +139,7 @@
 /obj/item/folder/syndicate/blue/New()
 	..()
 	new /obj/item/documents/syndicate/blue(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/yellow
 	icon_state = "folder_syellow"
@@ -129,11 +147,13 @@
 /obj/item/folder/syndicate/yellow/full/New()
 	..()
 	new /obj/item/documents/syndicate/yellow(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/folder/syndicate/mining/New()
 	. = ..()
 	new /obj/item/documents/syndicate/mining(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-
+/obj/item/folder/ussp
+	desc = "A folder with a hammer and sickle seal."
+	icon_state = "folder_ussp"

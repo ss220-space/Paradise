@@ -92,6 +92,20 @@
 #define ACCESS_CENT_BRIDGE 113//Bridge.
 #define ACCESS_CENT_COMMANDER 114//Commander's Office/ID computer.
 
+// USSP ACCESS
+#define ACCESS_USSP_TOURIST 120
+#define ACCESS_USSP_CONSCRIPT 121
+#define ACCESS_USSP_SOLDIER 122
+#define ACCESS_USSP_OFFICER 123
+#define ACCESS_USSP_MARINE 124
+#define ACCESS_USSP_MARINE_CAPTAIN 125
+#define ACCESS_USSP_MARINE_ADMIRAL 126
+#define ACCESS_USSP_MEDICAL 127
+#define ACCESS_USSP_SECURITY 128 // Ghost role 'USSP'
+#define ACCESS_USSP_COMAND 129 // Ghost role 'USSP'
+#define ACCESS_USSP_ENGINEERING 130 // Ghost role 'USSP'
+#define ACCESS_USSP_SCIENTIST 131 // Ghost role 'USSP'
+
 //The Syndicate
 #define ACCESS_SYNDICATE 150//General Syndicate Access
 #define ACCESS_SYNDICATE_LEADER 151//Nuke Op Leader Access
@@ -106,7 +120,7 @@
 //Поскольку дальше уже зона Сол трейдеров и т.д. Следующие доступы будут идти по убывающей начиная с 149-ой
 #define ACCESS_SYNDICATE_MEDICAL 149 // Ghost role 'Taipan' Syndicate Medical Access
 #define ACCESS_SYNDICATE_BOTANY 148 // Ghost role 'Taipan' Syndicate Botany Access
-
+#define ACCESS_SYNDICATE_CONTAINER 163
 
 //Trade Stations
 #define ACCESS_TRADE_SOL 160
@@ -114,8 +128,24 @@
 //MONEY
 #define ACCESS_CRATE_CASH 200
 
+// de_kerberos 2
+#define ACCESS_CAPTAIN_REAL 310
+#define ACCESS_ARMORY_REAL 311
+
 //Awaymissions
 #define ACCESS_AWAY01 271
 
 //Ghost roles
 #define ACCESS_FREE_GOLEMS 300
+
+//Access Region Codes
+#define REGION_ALL 0
+#define REGION_GENERAL 1
+#define REGION_SECURITY 2
+#define REGION_MEDBAY 3
+#define REGION_RESEARCH 4
+#define REGION_ENGINEERING 5
+#define REGION_SUPPLY 6
+#define REGION_COMMAND 7
+#define REGION_CENTCOMM 8
+#define REGION_TAIPAN 9

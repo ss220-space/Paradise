@@ -1,11 +1,14 @@
+/// List of all guardians currently extant
+GLOBAL_LIST_EMPTY(parasites)
+
 /mob/living/simple_animal/hostile/guardian
 	name = "Guardian Spirit"
 	real_name = "Guardian Spirit"
-	desc = "A mysterious being that stands by it's charge, ever vigilant."
-	speak_emote = list("intones")
+	desc = "Таинственное существо, которое всегда настороже, охраняет своего подопечного."
+	speak_emote = list("распевает", "поёт", "произносит нараспев", "интонирует")
 	tts_seed = "Earth"
 	bubble_icon = "guardian"
-	response_help  = "passes through"
+	response_help  = "gently pets"
 	response_disarm = "flails at"
 	response_harm   = "punches"
 	icon = 'icons/mob/guardian.dmi'
@@ -13,71 +16,90 @@
 	icon_living = "magicOrange"
 	icon_dead = "magicOrange"
 	speed = 0
-	a_intent = INTENT_HARM
 	can_change_intents = 0
 	stop_automated_movement = 1
-	flying = TRUE
+	universal_speak = TRUE
 	attack_sound = 'sound/weapons/punch1.ogg'
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	attacktext = "бьёт"
 	maxHealth = INFINITY //The spirit itself is invincible
 	health = INFINITY
 	environment_smash = 0
-	obj_damage = 40
 	melee_damage_lower = 15
 	melee_damage_upper = 15
+	move_resist = MOVE_FORCE_STRONG
 	AIStatus = AI_OFF
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/ectoplasm = 1)
+	hud_type = /datum/hud/guardian
 	var/summoned = FALSE
 	var/cooldown = 0
 	var/damage_transfer = 1 //how much damage from each attack we transfer to the owner
-	var/light_on = 0
+	//var/light_on = 0
 	var/luminosity_on = 3
-	var/mob/living/summoner
+	light_range = 3
+	var/mob/living/carbon/human/summoner
 	var/range = 10 //how far from the user the spirit can be
-	var/playstyle_string = "You are a standard Guardian. You shouldn't exist!"
-	var/magic_fluff_string = " You draw the Coder, symbolizing bugs and errors. This shouldn't happen! Submit a bug report!"
-	var/tech_fluff_string = "BOOT SEQUENCE COMPLETE. ERROR MODULE LOADED. THIS SHOULDN'T HAPPEN. Submit a bug report!"
-	var/bio_fluff_string = "Your scarabs fail to mutate. This shouldn't happen! Submit a bug report!"
+	var/playstyle_string = "Вы — стандартный Хранитель. Вы не должны существовать!"
+	var/magic_fluff_string = " Вы призываете Кодера, символ багов и ошибок. Этого не должно происходить! Отправьте отчёт об ошибке!"
+	var/tech_fluff_string = "ПОСЛЕДОВАТЕЛЬНОСТЬ ЗАГРУЗКИ ЗАВЕРШЕНА. МОДУЛЬ ОШИБОК ЗАГРУЖЕН. ЭТОГО НЕ ДОЛЖНО БЫТЬ. Отправьте отчёт об ошибке!"
+	var/bio_fluff_string = "Ваши скарабеи не смогли мутировать. Этого не должно происходить! Отправьте отчёт об ошибке!"
 	var/admin_fluff_string = "URK URF!"//the wheels on the bus...
 	var/name_color = "white"//only used with protector shields for the time being
 
+/mob/living/simple_animal/hostile/guardian/get_ru_names()
+	return list(
+		NOMINATIVE = "Дух-Хранитель",
+		GENITIVE = "Духа-Хранителя",
+		DATIVE = "Духу-Хранителю",
+		ACCUSATIVE = "Духа-Хранителя",
+		INSTRUMENTAL = "Духом-Хранителем",
+		PREPOSITIONAL = "Духе-Хранителе",
+	)
+
 /mob/living/simple_animal/hostile/guardian/Initialize(mapload, mob/living/host)
 	. = ..()
+	GLOB.parasites += src
+	AddElement(/datum/element/simple_flying)
 	if(!host)
 		return
 	summoner = host
 	host.grant_guardian_actions(src)
 
+/mob/living/simple_animal/hostile/guardian/Destroy()
+	GLOB.parasites -= src
+	return ..()
+
+/mob/living/simple_animal/hostile/guardian/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
+
 /mob/living/simple_animal/hostile/guardian/med_hud_set_health()
 	if(summoner)
-		var/image/holder = hud_list[HEALTH_HUD]
-		holder.icon_state = "hud[RoundHealth(summoner)]"
+		set_hud_image_state(HEALTH_HUD, "hud[RoundHealth(summoner)]")
 
 /mob/living/simple_animal/hostile/guardian/med_hud_set_status()
 	if(summoner)
-		var/image/holder = hud_list[STATUS_HUD]
-		var/icon/I = icon(icon, icon_state, dir)
-		holder.pixel_y = I.Height() - world.icon_size
+		var/pixel_y = get_cached_height() - ICON_SIZE_Y
 		if(summoner.stat == DEAD)
-			holder.icon_state = "huddead"
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_DEAD, y_offset = pixel_y)
 		else
-			holder.icon_state = "hudhealthy"
+			set_hud_image_state(STATUS_HUD, STATUS_HUD_HEALTHY, y_offset = pixel_y)
 
 /mob/living/simple_animal/hostile/guardian/Life(seconds, times_fired)
 	..()
 	if(summoner)
 		if(summoner.stat == DEAD || (!summoner.check_death_method() && summoner.health <= HEALTH_THRESHOLD_DEAD) || QDELETED(summoner))
 			summoner.remove_guardian_actions()
-			to_chat(src, "<span class='danger'>Your summoner has died!</span>")
-			visible_message("<span class='danger'>[src] dies along with its user!</span>")
+			to_chat(src, span_danger("Ваш призыватель умер!"))
+			visible_message(span_danger("[src] умирает вместе с носителем!"))
 			ghostize()
 			qdel(src)
 	snapback()
-	if(summoned && !summoner && !admin_spawned)
-		to_chat(src, "<span class='danger'>You somehow lack a summoner! As a result, you dispel!</span>")
+	if(summoned && !summoner && !(flags & ADMIN_SPAWNED))
+		to_chat(src, span_danger("Каким-то образом у вас нет призывателя! Вы исчезаете!"))
 		ghostize()
 		qdel(src)
 
@@ -87,9 +109,9 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, "<span class='holoparasite'>You moved out of range, and were pulled back! You can only move [range] meters from [summoner.real_name]!</span>")
-			visible_message("<span class='danger'>\The [src] jumps back to its user.</span>")
-			if(istype(summoner.loc, /obj/effect))
+			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[DECL_CREDIT(range)] от [summoner.real_name]!"))
+			visible_message(span_danger("[src] вернулся к носителю."))
+			if(iseffect(summoner.loc))
 				Recall(TRUE)
 			else
 				new /obj/effect/temp_visual/guardian/phase/out(loc)
@@ -101,15 +123,15 @@
 
 /mob/living/simple_animal/hostile/guardian/AttackingTarget()
 	if(!is_deployed() && a_intent == INTENT_HARM)
-		to_chat(src, "<span class='danger'>You must be manifested to attack!</span>")
+		to_chat(src, span_danger("Вы должны показать себя для атаки!"))
 		return FALSE
 	else if(!is_deployed() && a_intent == INTENT_HELP)
 		return FALSE
 	else
 		return ..()
 
-/mob/living/simple_animal/hostile/guardian/Move() //Returns to summoner if they move out of range
-	..()
+/mob/living/simple_animal/hostile/guardian/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE) //Returns to summoner if they move out of range
+	. = ..()
 	snapback()
 
 /mob/living/simple_animal/hostile/guardian/death(gibbed)
@@ -117,9 +139,8 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	to_chat(summoner, "<span class='danger'>Your [name] died somehow!</span>")
+	to_chat(summoner, span_danger("Ваш [name] как-то умер!"))
 	summoner.death()
-
 
 /mob/living/simple_animal/hostile/guardian/update_health_hud()
 	if(summoner)
@@ -131,34 +152,56 @@
 		if(hud_used)
 			hud_used.guardianhealthdisplay.maptext = "<div align='center' valign='middle' style='position:relative; top:0px; left:6px'><font color='#efeeef'>[resulthealth]%</font></div>"
 
-/mob/living/simple_animal/hostile/guardian/adjustHealth(amount, updating_health = TRUE) //The spirit is invincible, but passes on damage to the summoner
-	var/damage = amount * damage_transfer
-	if(summoner)
-		if(loc == summoner)
-			return
-		summoner.adjustBruteLoss(damage)
-		if(damage)
-			to_chat(summoner, "<span class='danger'>Your [name] is under attack! You take damage!</span>")
-			summoner.visible_message("<span class='danger'>Blood sprays from [summoner] as [src] takes damage!</span>")
-		if(summoner.stat == UNCONSCIOUS)
-			to_chat(summoner, "<span class='danger'>Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!</span>")
-			summoner.adjustCloneLoss(damage/2)
+/mob/living/simple_animal/hostile/guardian/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = STATUS_UPDATE_NONE
+	//The spirit is invincible, but passes on damage to the summoner
+	if(!summoner || loc == summoner)
+		return .
+
+	amount *= damage_transfer
+	summoner.adjustBruteLoss(amount)
+	if(amount <= 0)
+		return .
+
+	to_chat(summoner, span_danger("Вашего хранителя [name] атакуют! Вы получаете урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [declent_ru(NOMINATIVE)] получает урон!"))
+	if(summoner.stat == UNCONSCIOUS)
+		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
+		summoner.adjustCloneLoss(amount / 2)
+
+/mob/living/simple_animal/hostile/guardian/adjustStaminaLoss(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	forced = FALSE,
+	used_weapon = null,
+)
+	return FALSE
+
+/mob/living/simple_animal/hostile/guardian/setStaminaLoss(amount, updating_health = TRUE)
+	return FALSE
 
 /mob/living/simple_animal/hostile/guardian/ex_act(severity, target)
 	switch(severity)
-		if(1)
+		if(EXPLODE_DEVASTATE)
 			gib()
 			return
-		if(2)
+		if(EXPLODE_HEAVY)
 			adjustBruteLoss(60)
 
-		if(3)
+		if(EXPLODE_LIGHT)
 			adjustBruteLoss(30)
 
 /mob/living/simple_animal/hostile/guardian/gib()
 	if(summoner)
-		to_chat(summoner, "<span class='danger'>Your [src] was blown up!</span>")
-		summoner.Weaken(10)// your fermillier has died! ROLL FOR CON LOSS!
+		to_chat(summoner, span_danger("Ваш [src] взорвался!"))
+		summoner.Weaken(20 SECONDS)// your fermillier has died! ROLL FOR CON LOSS!
 	ghostize()
 	qdel(src)
 
@@ -172,72 +215,61 @@
 		forceMove(get_turf(summoner))
 		new /obj/effect/temp_visual/guardian/phase(loc)
 		reset_perspective()
-		cooldown = world.time + 30
+		cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Recall(forced = FALSE)
 	if(!summoner || loc == summoner || (cooldown > world.time && !forced))
 		return
-	if(!summoner) return
+	buckled?.unbuckle_mob(src, force = TRUE)
 	new /obj/effect/temp_visual/guardian/phase/out(get_turf(src))
 	forceMove(summoner)
-	buckled = null
-	cooldown = world.time + 30
+	cooldown = world.time + 10
 
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
 	if(!message)
-		input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
+		input = tgui_input_text(src, "Введите сообщение для отправки вашему призывателю.", "Страж")
 	else
 		input = message
 	if(!input)
 		return
 
 	// Show the message to the host and to the guardian.
-	to_chat(summoner, "<span class='changeling'><i>[src]:</i> [input]</span>")
-	to_chat(src, "<span class='changeling'><i>[src]:</i> [input]</span>")
+	to_chat(summoner, span_alien("<i>[src]:</i> [input]"))
+	to_chat(src, span_alien("<i>[src]:</i> [input]"))
 	add_say_logs(src, input, summoner, "Guardian")
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
-		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, "<span class='changeling'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
-
-//override set to true if message should be passed through instead of going to host communication
-/mob/living/simple_animal/hostile/guardian/say(message, override = FALSE)
-	if(admin_spawned || override)//if it's an admin-spawned guardian without a host it can still talk normally
-		return ..(message)
-	Communicate(message)
-
+		if(M?.client && M.stat == DEAD && !isnewplayer(M))
+			to_chat(M, span_alien("([ghost_follow_link(src, ghost = M)]) <i>Сообщение Стража <b>[src]</b>: [input]</i>"))
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()
-	to_chat(src, "<span class='danger'>You dont have another mode!</span>")
-
+	to_chat(src, span_danger("У вас нет другого режима!"))
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleLight()
-	if(!light_on)
-		set_light(luminosity_on)
-		to_chat(src, "<span class='notice'>You activate your light.</span>")
+	set_light_on(!light_on)
+	if(light_on)
+		to_chat(src, span_notice("Вы активировали свет."))
 	else
-		set_light(0)
-		to_chat(src, "<span class='notice'>You deactivate your light.</span>")
-	light_on = !light_on
+		to_chat(src, span_notice("Вы выключили свет."))
 
 ////////Creation
 
 /obj/item/guardiancreator
-	name = "deck of tarot cards"
-	desc = "An enchanted deck of tarot cards, rumored to be a source of unimaginable power. "
+	name = "колода карт Таро"
+	desc = "Зачарованная колода карт, по слухам — источник невероятной силы. "
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "deck_syndicate_full"
 	var/used = FALSE
 	var/theme = "magic"
-	var/mob_name = "Guardian Spirit"
-	var/confirmation_message = "The cards are still unused. Do you wish to use them?"
-	var/use_message = "You shuffle the deck..."
-	var/used_message = "All the cards seem to be blank now."
-	var/failure_message = "..And draw a card! It's...blank? Maybe you should try again later."
-	var/ling_failure = "The deck refuses to respond to a souless creature such as you."
-	var/list/possible_guardians = list("Chaos", "Standard", "Ranged", "Support", "Explosive", "Assassin", "Lightning", "Charger", "Protector")
+	var/mob_name = "Дух-хранитель"
+	var/confirmation_message = "Карты все ещё не использованы. Желаете попытать счастье?"
+	var/use_message = "Вы перетасовываете колоду..."
+	var/used_message = "Все карты выглядят пустыми."
+	var/failure_message = "..и вытаскиваете карту! Она...пустая? Возможно лучше попытаться позже."
+	var/ling_failure = "Колода отказывается реагировать на отродия по типу ВАС."
+	var/list/possible_guardians = list("Хаос", "Стандарт", "Стрелок", "Поддержка", "Подрывник", "Ассасин", "Молния", "Налетчик", "Защитник")
 	var/random = FALSE
 	/// What type was picked the first activation
 	var/picked_random_type
@@ -248,21 +280,31 @@
 		"Blue" = "#0000FF")
 	var/name_list = list("Aries", "Leo", "Sagittarius", "Taurus", "Virgo", "Capricorn", "Gemini", "Libra", "Aquarius", "Cancer", "Scorpio", "Pisces")
 
+/obj/item/guardiancreator/get_ru_names()
+	return list(
+		NOMINATIVE = "колода карт Таро",
+		GENITIVE = "колоды карт Таро",
+		DATIVE = "колоде карт Таро",
+		ACCUSATIVE = "колоду карт Таро",
+		INSTRUMENTAL = "колодой карт Таро",
+		PREPOSITIONAL = "колоде карт Таро",
+	)
+
 /obj/item/guardiancreator/attack_self(mob/living/user)
 	for(var/mob/living/simple_animal/hostile/guardian/G in GLOB.alive_mob_list)
 		if(G.summoner == user)
-			to_chat(user, "You already have a [mob_name]!")
+			to_chat(user, "У вас уже есть [mob_name]!")
 			return
-	if(user.mind && (user.mind.changeling || user.mind.vampire))
+	if(user.mind && (ischangeling(user) || isvampire(user)))
 		to_chat(user, "[ling_failure]")
 		return
 	if(used == TRUE)
 		to_chat(user, "[used_message]")
 		return
 	used = TRUE // Set this BEFORE the popup to prevent people using the injector more than once, polling ghosts multiple times, and receiving multiple guardians.
-	var/choice = alert(user, "[confirmation_message]",, "Yes", "No")
-	if(choice == "No")
-		to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+	var/choice = tgui_alert(user, "[confirmation_message]", "Confirm", list("Да", "Нет"))
+	if(choice == "Нет")
+		to_chat(user, span_warning("Вы решили не использовать [name]."))
 		used = FALSE
 		return
 	to_chat(user, "[use_message]")
@@ -273,64 +315,71 @@
 			picked_random_type = pick(possible_guardians)
 		guardian_type = picked_random_type
 	else
-		guardian_type = input(user, "Pick the type of [mob_name]", "[mob_name] Creation") as null|anything in possible_guardians
+		guardian_type = tgui_input_list(user, "Выберите тип [mob_name]", "Создание [mob_name] ", possible_guardians)
 		if(!guardian_type)
-			to_chat(user, "<span class='warning'>You decide against using the [name].</span>")
+			to_chat(user, span_warning("Вы решили не использовать [name]."))
 			used = FALSE
 			return
 
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Do you want to play as the [mob_name] ([guardian_type]) of [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Вы хотите поиграть за [mob_name] ([guardian_type]) у [user.real_name]?", ROLE_GUARDIAN, FALSE, 10 SECONDS, source = src, role_cleanname = "[mob_name] ([guardian_type])")
+
+	if(QDELETED(user))
+		return
+
 	var/mob/dead/observer/theghost = null
 
-	if(candidates.len)
+	if(length(candidates))
 		theghost = pick(candidates)
+		log_game("[user](ckey: [user.key]) has successfully spawned [guardian_type] type guardian(ckey: [theghost.key])")
 		spawn_guardian(user, theghost.key, guardian_type)
 	else
 		to_chat(user, "[failure_message]")
+		log_game("[user](ckey: [user.key]) has failed to spawn Guardian.")
 		used = FALSE
 
 /obj/item/guardiancreator/examine(mob/user, distance)
 	. = ..()
 	if(used)
-		. += "<span class='notice'>[used_message]</span>"
+		. += span_notice("[used_message]")
 
 /obj/item/guardiancreator/proc/spawn_guardian(mob/living/user, key, guardian_type)
 	var/pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 	switch(guardian_type)
 
-		if("Chaos")
+		if("Хаос")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/fire
 
-		if("Standard")
+		if("Стандарт")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/punch
 
-		if("Ranged")
+		if("Стрелок")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/ranged
 
-		if("Support")
+		if("Поддержка")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/healer
 
-		if("Explosive")
+		if("Подрывник")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/bomb
 
-		if("Assassin")
+		if("Ассасин")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/assassin
 
-		if("Lightning")
+		if("Молния")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/beam
 
-		if("Charger")
+		if("Налетчик")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/charger
 
-		if("Protector")
+		if("Защитник")
 			pickedtype = /mob/living/simple_animal/hostile/guardian/protector
 
 	var/mob/living/simple_animal/hostile/guardian/G = new pickedtype(user, user)
 	G.summoned = TRUE
-	G.key = key
-	to_chat(G, "You are a [mob_name] bound to serve [user.real_name].")
-	to_chat(G, "You are capable of manifesting or recalling to your master with verbs in the Guardian tab. You will also find a verb to communicate with them privately there.")
-	to_chat(G, "While personally invincible, you will die if [user.real_name] does, and any damage dealt to you will have a portion passed on to them as you feed upon them to sustain yourself.")
+	G.possess_by_player(key)
+	SSticker.mode.guardians |= G.mind
+	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
+	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
+	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [GEND_HE_SHE(user)] погибн[PLUR_ET_UT(user)] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [GEND_HIM_HER(user)], так как вы существуете за счёт [GEND_HIS_HER(user)] жизненной силы.")
 	to_chat(G, "[G.playstyle_string]")
 	G.faction = user.faction
 
@@ -338,6 +387,7 @@
 	G.name_color = color_list[color]
 	var/picked_name = pick(name_list)
 	create_theme(G, user, picked_name, color)
+	G.client?.init_verbs()
 
 /obj/item/guardiancreator/proc/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
@@ -348,20 +398,19 @@
 	to_chat(user, "[G.magic_fluff_string].")
 
 /obj/item/guardiancreator/choose
-	random = FALSE
 
 /obj/item/guardiancreator/tech
-	name = "holoparasite injector"
-	desc = "It contains alien nanoswarm of unknown origin. Though capable of near sorcerous feats via use of hardlight holograms and nanomachines, it requires an organic host as a home base and source of fuel."
+	name = "инъектор голопаразитов"
+	desc = "Содержит нанороботов неизвестного производства. Хотя он способен на почти колдовские подвиги с помощью голограмм жесткого света и наномашин, ему требуется органический носитель в качестве домашней базы и источника топлива."
 	icon = 'icons/obj/hypo.dmi'
 	icon_state = "combat_hypo"
 	theme = "tech"
-	mob_name = "Holoparasite"
-	confirmation_message =  "The injector still contains holoparasites. Do you wish to use it?"
-	use_message = "You start to power on the injector..."
-	used_message = "The injector has already been used."
-	failure_message = "<B>...ERROR. BOOT SEQUENCE ABORTED. AI FAILED TO INTIALIZE. PLEASE CONTACT SUPPORT OR TRY AGAIN LATER.</B>"
-	ling_failure = "The holoparasites recoil in horror. They want nothing to do with a creature like you."
+	mob_name = "Голопаразит"
+	confirmation_message =  "Инъектор все ещё содержит голопаразитов. Вы хотите использовать его?"
+	use_message = "Вы начинаете подавать питание на инъектор..."
+	used_message = "Инъектор уже был использован."
+	failure_message = "<b>...ОШИБКА. ПОСЛЕДОВАТЕЛЬНОСТЬ ЗАГРУЗКИ ПРЕРВАНА. AI НЕ УДАЛОСЬ ИНИЦИАЛИЗИРОВАТЬ. ОБРАТИТЕСЬ В СЛУЖБУ ПОДДЕРЖКИ ИЛИ ПОВТОРИТЕ ПОПЫТКУ ПОЗЖЕ.</b>"
+	ling_failure = "Голопаразиты отпрянули в ужасе. Они не хотят иметь ничего общего с таким существом, как вы."
 	color_list = list("Rose" = "#F62C6B",
 		"Peony" = "#E54750",
 		"Lily" = "#F6562C",
@@ -375,6 +424,16 @@
 		"Orchid" = "#F62CF5")
 	name_list = list("Gallium", "Indium", "Thallium", "Bismuth", "Aluminium", "Mercury", "Iron", "Silver", "Zinc", "Titanium", "Chromium", "Nickel", "Platinum", "Tellurium", "Palladium", "Rhodium", "Cobalt", "Osmium", "Tungsten", "Iridium")
 
+/obj/item/guardiancreator/tech/get_ru_names()
+	return list(
+		NOMINATIVE = "инъектор голопаразитов",
+		GENITIVE = "инъектора голопаразитов",
+		DATIVE = "инъектору голопаразитов",
+		ACCUSATIVE = "инъектор голопаразитов",
+		INSTRUMENTAL = "инъектором голопаразитов",
+		PREPOSITIONAL = "инъекторе голопаразитов",
+	)
+
 /obj/item/guardiancreator/tech/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[picked_name] [color]"
 	G.real_name = "[picked_name] [color]"
@@ -382,25 +441,24 @@
 	G.icon_state = "[theme][color]"
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.tech_fluff_string].")
-	G.speak_emote = list("states")
+	G.speak_emote = list("констатирует")
 
 /obj/item/guardiancreator/tech/check_uplink_validity()
 	return !used
 
 /obj/item/guardiancreator/tech/choose
-	random = FALSE
 
 /obj/item/guardiancreator/biological
-	name = "scarab egg cluster"
-	desc = "A parasitic species that will nest in the closest living creature upon birth. While not great for your health, they'll defend their new 'hive' to the death."
+	name = "скопление яиц скарабеев"
+	desc = "Паразитический вид, который при рождении будет гнездиться в ближайшем живом существе. Хотя это и не очень полезно для вашего здоровья, они будут защищать свой новый улей насмерть."
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "eggs"
 	theme = "bio"
-	mob_name = "Scarab Swarm"
-	use_message = "The eggs begin to twitch..."
-	confirmation_message =  "These eggs are still dormant. Do you wish to activate them?"
-	used_message = "The cluster already hatched."
-	failure_message = "<B>...but soon settles again. Guess they weren't ready to hatch after all.</B>"
+	mob_name = "Рой Скарабеев"
+	use_message = "Яйца начинают дергаться..."
+	confirmation_message =  "Эти яйца все ещё в спящем состоянии. Хотите ли вы активировать их?"
+	used_message = "Скопление уже вылупилось."
+	failure_message = "<b>..но вскоре снова успокаиваются. Видимо, они не были готовы к вылуплению.</b>"
 	color_list = list("Rose" = "#F62C6B",
 		"Peony" = "#E54750",
 		"Lily" = "#F6562C",
@@ -414,6 +472,16 @@
 		"Orchid" = "#F62CF5")
 	name_list = list("brood", "hive", "nest")
 
+/obj/item/guardiancreator/biological/get_ru_names()
+	return list(
+		NOMINATIVE = "скопление яиц скарабеев",
+		GENITIVE = "скопления яиц скарабеев",
+		DATIVE = "скоплению яиц скарабеев",
+		ACCUSATIVE = "скопление яиц скарабеев",
+		INSTRUMENTAL = "скоплением яиц скарабеев",
+		PREPOSITIONAL = "скоплении яиц скарабеев",
+	)
+
 /obj/item/guardiancreator/biological/create_theme(mob/living/simple_animal/hostile/guardian/G, mob/living/user, picked_name, color)
 	G.name = "[color] [picked_name]"
 	G.real_name = "[color] [picked_name]"
@@ -422,46 +490,41 @@
 	G.icon_dead = "[theme][color]"
 	to_chat(user, "[G.bio_fluff_string].")
 	G.attacktext = "swarms"
-	G.speak_emote = list("chitters")
+	G.speak_emote = list("щебечет")
 
 /obj/item/guardiancreator/biological/choose
-	random = FALSE
-
 
 /obj/item/paper/guardian
-	name = "Holoparasite Guide"
-	icon_state = "paper"
-	info = {"<b>A list of Holoparasite Types</b><br>
+	name = "Справочник по голопаразитам"
+	icon_state = "paper_words"
+	info = {"<b>Cписок видов голопаразитов</b><br>
 
- <br>
- <b>Chaos</b>: Has two modes. Deception: Causes target of attacks to hallucinate. Dispersion: Attacks have a chance to teleport the target randomly. Ignites mobs on touch. Automatically extinguishes the user if they catch fire.<br>
- <br>
- <b>Standard</b>: Devestating close combat attacks and high damage resist. No special powers.<br>
- <br>
- <b>Ranged</b>: Has two modes. Ranged: Extremely weak, highly spammable projectile attack. Scout: Can not attack, but can move through walls. Can lay surveillance snares in either mode.<br>
- <br>
- <b>Support</b>: Has two modes. Combat: Medium power attacks and damage resist. Healer: Attacks heal damage, but low damage resist and slow movement. Can deploy a bluespace beacon and warp targets to it (including you) in either mode.<br>
- <br>
- <b>Explosive</b>: High damage resist and medium power attack. Can turn any object into a bomb, dealing explosive damage to the next person to touch it. The object will return to normal after the trap is triggered.<br>
- <br>
- <b>Assassin</b>: Medium damage with no damage resistance, can enter stealth which massively increases the damage of the next attack causing it to ignore armour.
- <br>
- <b>Charger</b>: Medium damage and defense, very fast and has a special charge attack which damages a target and knocks items out of their hands.
- <br>
- <b>Lightning</b>: Applies lightning chains to any targets on attack with a link to your summoner, lightning chains will shock anyone nearby.
- <br>
- <b>Protector</b>: You will become leashed to your holoparasite instead of them to you. Has two modes, a medium attack/defense mode and a protection mode which greatly reduces incoming damage to the holoparasite.
+<br>
+<b>Хаос</b>: Телепортирует врагов при ударе(не всегда), телепортация приводит к вашим легким галлюцинациям. Поджигает врагов при прикосновении. Автоматически тушит носителя. Имеет в арсенале заклинание, накладывающее на всех в огромном радиусе оглушающие галлюцинации с быстрой перезарядкой.<br>
+<br>
+<b>Стандарт</b>: Сокрушительные атаки ближнего боя способные пробивать стены, экстремально высокая прочность, имеет ауру замедления на врагов. Может кричать на врагов при ударе.<br>
+<br>
+<b>Стрелок</b>: Имеет два режима. Дальнобойный: очень хрупкий, очень часто выпускает опасные дальнобойные снаряды, игнорирующие броню, но тратящие энергию. Скаут: не может атаковать, но слабо видим и может перемещаться сквозь стены на огромные расстояния. Может ставить силки для наблюдения в любом режиме.<br>
+<br>
+<b>Поддержка</b>: Имеет два режима: Боевой: урон токсинами пробивающий броню и средняя защита. Лекарь: Атаки лечат все виды урона, но становится медленным. Может поставить блюспейс маяк на пол и телепортировать всё и всех не прибитых к полу на него на Alt+Click. Имеет в арсенале навык, исцеляющий сломанные кости, органы и внутренние кровотечения.<br>
+<br>
+<b>Подрывник</b>: Слабая броня и атака. Может превратить любой объект в скрытую бомбу, подрывающую любого кто коснулся неё. Может минировать вещи даже будучи внутри хозяина.<br>
+<br>
+<b>Ассасин</b>: Катастрофически высокий урон грубым уроном и ядом, может входить в невидимость для нанесения удара ещё большей силы, игнорирующего броню. Совершенно нет никакой защиты, а в невидимости получает даже больше урона чем это возможно.<br>
+<br>
+<b>Налетчик</b>: Слабая атака с двойной скоростью атаки, средняя броня, невероятно быстр, имеет особый рывок, который при столкновении пробивает броню и опрокидывает жертву.<br>
+<br>
+<b>Молния</b>: Слабая атака и средняя броня, имеет цепь молнии между собой и хозяином, что дезинтегрирует любую цель при нахождении в ней. Может метать молнии во врагов.<br>
+<br>
+<b>Защитник</b>: При нарушении дальности связи хозяин призывается к нему, а не наоборот. Имеет два режима: низкая атака с высокой защитой, и режим ультра-защиты, практически полностью нивелирующий входящий и исходящий урон. В режиме ультра-защиты способен пережить даже взрыв бомбы, лишь слегка ранив хозяина. Может ставить силовые барьеры, через которые могут пройти только вы и ваш подопечный.<br>
 "}
 
-/obj/item/paper/guardian/update_icon()
+/obj/item/paper/guardian/update_icon_state()
 	return
-
 
 /obj/item/storage/box/syndie_kit/guardian
-	name = "holoparasite injector kit"
+	name = "Набор инжектора голопаразита"
 
-/obj/item/storage/box/syndie_kit/guardian/New()
-	..()
+/obj/item/storage/box/syndie_kit/guardian/populate_contents()
 	new /obj/item/guardiancreator/tech/choose(src)
 	new /obj/item/paper/guardian(src)
-	return

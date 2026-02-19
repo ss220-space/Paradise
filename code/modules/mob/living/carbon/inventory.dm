@@ -1,0 +1,458 @@
+/mob/living/carbon/swap_hand()
+	var/obj/item/item_in_hand = get_active_hand()
+
+	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, item_in_hand) & COMPONENT_BLOCK_SWAP)
+		balloon_alert(src, "ваши руки заняты!")
+		return FALSE
+
+	hand = !hand
+	update_hands_HUD()
+	SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS)
+	return TRUE
+
+/mob/living/carbon/activate_hand(selhand)
+	if(selhand != hand)
+		swap_hand()
+
+/mob/living/carbon/resist_restraints()
+	INVOKE_ASYNC(src, PROC_REF(resist_muzzle))
+	var/obj/item/restraints
+	if(wear_suit?.breakout_time)
+		restraints = wear_suit
+	else if(handcuffed)
+		restraints = handcuffed
+	else if(legcuffed)
+		restraints = legcuffed
+	if(restraints)
+		cuff_resist(restraints)
+
+/// Simple helper used to equip passed item to the predefined slots.
+/mob/living/carbon/proc/apply_restraints(cuffs, slot_flag, qdel_on_fail = FALSE, silent = FALSE)
+	if(!isitem(cuffs))
+		CRASH("Wrong object ([cuffs]) passed as argument")
+	switch(slot_flag)
+		if(ITEM_SLOT_HANDCUFFED)
+			return equip_to_slot_if_possible(cuffs, ITEM_SLOT_HANDCUFFED, qdel_on_fail = qdel_on_fail, disable_warning = silent, initial = silent)
+		if(ITEM_SLOT_LEGCUFFED)
+			return equip_to_slot_if_possible(cuffs, ITEM_SLOT_LEGCUFFED, qdel_on_fail = qdel_on_fail, disable_warning = silent, initial = silent)
+		else
+			CRASH("Wrong slot passed as argument")
+
+/// Forcefully removes legcuffs and handcuffs.
+/mob/living/carbon/proc/uncuff()
+	if(handcuffed)
+		drop_item_ground(handcuffed, TRUE)
+
+	if(legcuffed)
+		drop_item_ground(legcuffed, TRUE)
+
+/// Modifies the handcuffed value if a different value is passed, returning FALSE otherwise.
+/// The variable should only be changed through this proc.
+/mob/living/carbon/proc/set_handcuffed(new_value)
+	if(handcuffed == new_value)
+		return FALSE
+	. = handcuffed
+	handcuffed = new_value
+	if(.)
+		if(!handcuffed)
+			clear_alert(ALERT_HANDCUFFED)
+			REMOVE_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+	else if(handcuffed)
+		throw_alert(ALERT_HANDCUFFED, /atom/movable/screen/alert/restrained/handcuffed, new_master = handcuffed)
+		ADD_TRAIT(src, TRAIT_RESTRAINED, HANDCUFFED_TRAIT)
+		cuff_breakout_attempts = 0
+
+	update_hands_HUD()
+	update_worn_handcuffs()
+
+/// Modifies the legcuffed value if a different value is passed, returning FALSE otherwise.
+/// The variable should only be changed through this proc.
+/mob/living/carbon/proc/set_legcuffed(new_value)
+	if(legcuffed == new_value)
+		return FALSE
+	. = legcuffed
+	legcuffed = new_value
+
+/// Updates move intent, popup alert and human legcuffed overlay.
+/mob/living/carbon/proc/update_legcuffed_status()
+	if(legcuffed)
+		throw_alert(ALERT_LEGCUFFED, /atom/movable/screen/alert/restrained/legcuffed, new_master = legcuffed)
+		toggle_move_intent(MOVE_INTENT_WALK)
+
+	else
+		clear_alert(ALERT_LEGCUFFED)
+		toggle_move_intent(MOVE_INTENT_RUN)
+
+	update_worn_legcuffs()
+
+/// General proc to resist passed item.
+/mob/living/carbon/proc/cuff_resist(obj/item/cuffs, cuff_break = FALSE)
+	. = FALSE
+	var/breakout_time = cuff_break ? 5 SECONDS : cuffs.breakout_time
+	var/breakout_mod = 1
+	var/list/breakouttime_modifiers = list()
+	SEND_SIGNAL(src, COMSIG_GET_BREAKOUTTIME_MODIFIERS, breakouttime_modifiers)
+	for(var/mod in breakouttime_modifiers)
+		breakout_mod *= mod
+
+	breakout_time *= breakout_mod
+	var/breakout_iter = (5 SECONDS) * breakout_mod
+
+	var/is_processed = LAZYACCESS(do_afters, src)
+
+	if(cuff_break)
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[GEND_A_O_I(src)] пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться сломать [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
+		else
+			visible_message(
+				span_warning("[name] пыта[PLUR_ET_YUT(src)]ся сломать [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы пытаетесь сломать [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
+			)
+		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
+			. = clear_cuffs(cuffs, cuff_break)
+		else
+			balloon_alert(src, "не вышло снять [cuffs.declent_ru(ACCUSATIVE)]!!")
+
+	else if(istype(cuffs, /obj/item/restraints/handcuffs))
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[GEND_A_O_I(src)] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
+		else
+			balloon_alert(src, "попытка снять [cuffs.declent_ru(ACCUSATIVE)]...")
+
+		while(do_after(src, breakout_iter, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
+			cuff_breakout_attempts++
+			if(!handcuffed) //if someone uncuffs us
+				break
+			if(cuff_breakout_attempts * breakout_iter >= breakout_time)
+				. = clear_cuffs(cuffs, cuff_break)
+				break
+			else if(prob(4))
+				visible_message(span_warning("[name] пыта[PLUR_ET_YUT(src)]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"))
+
+	else
+		if(is_processed)
+			visible_message(
+				span_warning("[name] перестал[GEND_A_O_I(src)] пытаться снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы перестали пытаться снять [cuffs.declent_ru(ACCUSATIVE)]."),
+			)
+		else
+			visible_message(
+				span_warning("[name] пыта[PLUR_ET_YUT(src)]ся снять [cuffs.declent_ru(ACCUSATIVE)]!"),
+				span_notice("Вы пытаетесь снять [cuffs.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakout_time / 10] секунд[DECL_SEC_MIN(breakout_time / 10)]."),
+			)
+		if(do_after(src, breakout_time, src, DA_IGNORE_USER_LOC_CHANGE|DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM, max_interact_count = 1,
+			cancel_on_max = TRUE, cancel_message = ""))
+			. = clear_cuffs(cuffs, cuff_break)
+		else
+			balloon_alert(src, "не вышло снять [cuffs.declent_ru(ACCUSATIVE)]!!")
+
+/mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
+	if(!I.loc)
+		return FALSE
+	if(I != handcuffed && I != legcuffed && I != wear_suit)
+		return FALSE
+	visible_message(
+		span_danger("[name] [cuff_break ? "лома" : "снима"][PLUR_ET_YUT(src)] [I.declent_ru(ACCUSATIVE)]!"),
+		span_notice("Вы [cuff_break ? "лома" : "снима"]ете [I.declent_ru(ACCUSATIVE)]."),
+	)
+	if(cuff_break)
+		qdel(I)
+		return TRUE
+	return drop_item_ground(I)
+
+/mob/living/carbon/is_muzzled()
+	return istype(wear_mask, /obj/item/clothing/mask/muzzle)
+
+/mob/living/carbon/is_facehugged()
+	return istype(wear_mask, /obj/item/clothing/mask/facehugger)
+
+/mob/living/carbon/resist_muzzle()
+	if(!istype(wear_mask, /obj/item/clothing/mask/muzzle))
+		return
+	var/obj/item/clothing/mask/muzzle/I = wear_mask
+	var/time = I.resist_time
+	if(!time)	//if it's 0, you can't get out of it
+		balloon_alert(src, "слишком крепко сидит!")
+		return
+
+	visible_message(
+		span_warning("[name] грыз[PLUR_YOT_UT(src)] [I.declent_ru(GENITIVE)], пытаясь освободиться!"),
+		span_notice("Вы пытаетесь избавиться от [I.declent_ru(GENITIVE)]. Это займёт примерно [time / 10] секунд[DECL_SEC_MIN(time / 10)]."),
+	)
+
+	if(!do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) || QDELETED(I) || I != wear_mask)
+		return
+
+	visible_message(
+		span_danger("[name] избавля[PLUR_ET_UT(src)]ся от [I.declent_ru(GENITIVE)]!"),
+		span_notice("Вы избавляетесь от [I.declent_ru(GENITIVE)]."),
+	)
+	if(I.security_lock)
+		I.do_break()
+	drop_item_ground(I, TRUE)
+
+/mob/living/carbon/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
+	. = ..()
+	if(!. || !I)
+		return .
+	//if we actually unequipped an item, this is because we dont want to run this proc twice, once for carbons and once for humans
+	var/not_handled = FALSE
+	if(I == back)
+		back = null
+		if(!QDELETED(src))
+			update_worn_back()
+
+	else if(I == wear_mask)
+		if(ishuman(src)) //If we don't do this hair won't be properly rebuilt.
+			return
+		wear_mask = null
+		if(!QDELETED(src))
+			update_worn_mask()
+
+	else if(I == handcuffed)
+		set_handcuffed(null)
+		if(buckled?.buckle_requires_restraints)
+			buckled.unbuckle_mob(src)
+
+	else if(I == legcuffed)
+		set_legcuffed(null)
+		if(!QDELETED(src))
+			update_legcuffed_status()
+	else
+		not_handled = TRUE
+
+	if(not_handled)
+		return .
+
+	update_equipment_speed_mods()
+
+/**
+ * All the necessary checks for carbon to put an item in hand
+ */
+/mob/living/carbon/put_in_hand_check(obj/item/item, hand_id)
+	if(!istype(item))
+		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, item, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
+		return FALSE
+
+	if(SEND_SIGNAL(item, COMSIG_ITEM_TRY_PUT_IN_HAND, src, hand_id) & COMPONENT_ITEM_CANT_PUT_IN_HAND)
+		return FALSE
+
+	if(item.item_flags & NOPICKUP)
+		return FALSE
+
+	if(!(mobility_flags & MOBILITY_PICKUP) && !(item.item_flags & ABSTRACT))
+		return FALSE
+
+	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())
+		return FALSE
+
+	else if(hand_id == ITEM_SLOT_HAND_RIGHT && !has_right_hand())
+		return FALSE
+
+	if((hand_id == ITEM_SLOT_HAND_RIGHT && right_hand_bleed_suppress_lib) || (hand_id == ITEM_SLOT_HAND_LEFT && left_hand_bleed_suppress_lib))
+		return FALSE
+
+	if(!isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && ((hand_id == ITEM_SLOT_HAND_LEFT && pull_hand == PULL_HAND_LEFT) || (hand_id == ITEM_SLOT_HAND_RIGHT && pull_hand == PULL_HAND_RIGHT)))
+		return FALSE
+
+	return hand_id == ITEM_SLOT_HAND_LEFT ? !l_hand : !r_hand
+
+/**
+ * Put item in our active hand if possible. Failing that it tries our inactive hand. Returns `TRUE` on success.
+ * If both fail it drops item on the floor and returns `FALSE`
+ * Just puts stuff on the floor for most mobs, since all mobs have hands but putting stuff in the AI/corgi/ghost hand is VERY BAD.
+ *
+ * Arguments
+ * * 'force' overrides TRAIT_NODROP and clothing obscuration.
+ * * 'qdel_on_fail' qdels item if failed to pick in both hands.
+ * * 'merge_stacks' set to `TRUE` to allow stack auto-merging even when both hands are full.
+ * * 'ignore_anim' set to `TRUE` to prevent pick up animation.
+ * * 'silent' set to `TRUE` to stop pick up sounds.
+ */
+/mob/living/carbon/put_in_hands(obj/item/I, force = FALSE, qdel_on_fail = FALSE, merge_stacks = TRUE, ignore_anim = TRUE, silent = FALSE)
+
+	// Its always TRUE if there is no item, since we are using this proc in 'if()' statements
+	if(!I)
+		return TRUE
+
+	if(QDELING(I))
+		return FALSE
+
+	if(!real_human_being())	// Not a real hero :'(
+		var/atom/drop_loc = drop_location()
+		I.forceMove(drop_loc)
+		I.pixel_x = I.base_pixel_x
+		I.pixel_y = I.base_pixel_y
+		I.layer = initial(I.layer)
+		SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
+		I.dropped(src, NONE, silent, src)
+		return TRUE
+
+	// If the item is a stack and we're already holding a stack then merge
+	if(isstack(I))
+		var/obj/item/stack/item_stack = I
+		var/obj/item/stack/active_stack = get_active_hand()
+
+		if(item_stack.is_zero_amount(delete_if_zero = TRUE))
+			return FALSE
+
+		if(merge_stacks)
+			if(istype(active_stack) && active_stack.can_merge(item_stack, inhand = TRUE))
+				if(!ignore_anim)
+					I.do_pickup_animation(src)
+				if(item_stack.merge(active_stack))
+					to_chat(src, span_notice("Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s."))
+					return TRUE
+			else
+				var/obj/item/stack/inactive_stack = get_inactive_hand()
+				if(istype(inactive_stack) && inactive_stack.can_merge(item_stack, inhand = TRUE))
+					if(!ignore_anim)
+						I.do_pickup_animation(src)
+					if(item_stack.merge(inactive_stack))
+						to_chat(src, span_notice("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
+						return TRUE
+
+	if(put_in_active_hand(I, force, ignore_anim, silent))
+		return TRUE
+	if(put_in_inactive_hand(I, force, ignore_anim, silent))
+		return TRUE
+
+	if(qdel_on_fail)
+		qdel(I)
+		return FALSE
+
+	var/atom/drop_loc = drop_location()
+	I.forceMove(drop_loc)
+	I.layer = initial(I.layer)
+	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
+	I.dropped(src, NONE, silent, src)
+
+	return FALSE
+
+/mob/living/carbon/get_item_by_slot(slot_flag)
+	switch(slot_flag)
+		if(ITEM_SLOT_BACK)
+			return back
+		if(ITEM_SLOT_MASK)
+			return wear_mask
+		if(ITEM_SLOT_CLOTH_OUTER)
+			return wear_suit
+		if(ITEM_SLOT_HAND_LEFT)
+			return l_hand
+		if(ITEM_SLOT_HAND_RIGHT)
+			return r_hand
+		if(ITEM_SLOT_HANDCUFFED)
+			return handcuffed
+		if(ITEM_SLOT_LEGCUFFED)
+			return legcuffed
+	return null
+
+/mob/living/carbon/get_slot_by_item(item)
+	if(item == back)
+		return ITEM_SLOT_BACK
+	if(item == wear_mask)
+		return ITEM_SLOT_MASK
+	if(item == wear_suit)
+		return ITEM_SLOT_CLOTH_OUTER
+	if(item == l_hand)
+		return ITEM_SLOT_HAND_LEFT
+	if(item == r_hand)
+		return ITEM_SLOT_HAND_RIGHT
+	if(item == handcuffed)
+		return ITEM_SLOT_HANDCUFFED
+	if(item == legcuffed)
+		return ITEM_SLOT_LEGCUFFED
+	return NONE
+
+/mob/living/carbon/get_all_slots()
+	return list(l_hand,
+				r_hand,
+				handcuffed,
+				legcuffed,
+				back,
+				wear_mask)
+
+/mob/living/carbon/get_access_locations()
+	. = ..()
+	. |= list(l_hand, r_hand)
+
+/mob/living/carbon/get_equipped_slots(include_pockets = FALSE, include_hands = FALSE)
+	. = ..()
+	if(wear_suit)
+		. |= ITEM_SLOT_CLOTH_OUTER
+	if(head)
+		. |= ITEM_SLOT_HEAD
+
+// Returns items which are currently visible on the mob
+/mob/living/carbon/proc/get_visible_items()
+	var/list/obscured = check_obscured_slots()
+	var/list/visible_items = list()
+
+	for(var/obj/item/thing in get_equipped_items(INCLUDE_HELD))
+		if(!(get_slot_by_item(thing) & obscured))
+			visible_items += thing
+
+	return visible_items
+
+/mob/living/carbon/update_equipment_speed_mods()
+	. = ..()
+	update_limbless_slowdown()	// in case we get crutches
+
+/mob/living/carbon/proc/has_airtight_items()
+	if(get_organ_slot(INTERNAL_ORGAN_BREATHING_TUBE))
+		return TRUE
+
+	if(isclothing(wear_mask))
+		var/obj/item/clothing/our_mask = wear_mask
+		if(our_mask.clothing_flags & AIRTIGHT)
+			return TRUE
+
+	if(isclothing(head))
+		var/obj/item/clothing/our_helmet = head
+		if(our_helmet.clothing_flags & AIRTIGHT)
+			return TRUE
+
+	return FALSE
+
+/mob/living/carbon/covered_with_thick_material(check_zone, full_body_check = FALSE)
+	if(full_body_check)
+		if(!isclothing(head))
+			return FALSE
+		var/obj/item/clothing/cloth = head
+		if(!(cloth.clothing_flags & THICKMATERIAL))
+			return FALSE
+
+		if(!isclothing(wear_suit))
+			return FALSE
+		cloth = wear_suit
+		if(!(cloth.clothing_flags & THICKMATERIAL))
+			return FALSE
+
+		return TRUE
+
+	if(!check_zone)
+		check_zone = BODY_ZONE_CHEST
+
+	if(above_neck(check_zone))
+		if(isclothing(head))
+			var/obj/item/clothing/cloth = head
+			if(cloth.clothing_flags & THICKMATERIAL)
+				return TRUE
+	else
+		if(isclothing(wear_suit))
+			var/obj/item/clothing/cloth = wear_suit
+			if(cloth.clothing_flags & THICKMATERIAL)
+				return TRUE
+
+	return FALSE
+

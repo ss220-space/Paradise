@@ -1,0 +1,73 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '~tgui/styles/colors.scss' with (
+  $primary: hsl(120, 34.1%, 33.9%),
+  $label: hsl(0, 19%, 61.8%)
+);
+@use '~tgui/styles/base.scss' with (
+  $color-bg: hsl(0, 94.9%, 15.5%),
+  $color-bg-section: hsl(0, 95.5%, 8.6%),
+  $color-bg-grad-spread: 0%
+);
+
+// A fat warning to anyone who wants to use this: this only half works.
+// It was made almost purely for the nuke ui, and requires a good amount of manual hacks to get it working as intended.
+.theme-syndicate {
+  // Atomic classes
+  @include meta.load-css('~tgui/styles/atomic/color.scss');
+
+  // Components
+  @include meta.load-css('~tgui/styles/components/Section.scss');
+  @include meta.load-css(
+    '~tgui/styles/components/Button.scss',
+    $with: (
+      'color-default': colors.$primary,
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
+    )
+  );
+  @include meta.load-css(
+    '~tgui/styles/components/Input.scss',
+    $with: ('border-color': hsl(120, 42%, 66.9%))
+  );
+  @include meta.load-css(
+    '~tgui/styles/components/NoticeBox.scss',
+    $with: ('background-color': hsl(0, 98.6%, 28.6%))
+  );
+  @include meta.load-css(
+    '~tgui/styles/components/NumberInput.scss',
+    $with: ('border-color': hsl(120, 42%, 66.9%))
+  );
+  @include meta.load-css('~tgui/styles/components/TextArea.scss');
+  @include meta.load-css('~tgui/styles/components/Knob.scss');
+  @include meta.load-css('~tgui/styles/components/Slider.scss');
+  @include meta.load-css(
+    '~tgui/styles/components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
+
+  // Components specific to tgui-panel
+  @include meta.load-css('../components/Chat.scss');
+
+  // Layouts
+  @include meta.load-css(
+    '~tgui/styles/layouts/Layout.scss',
+    $with: ('scrollbar-color-multiplier': 1)
+  );
+  @include meta.load-css('~tgui/styles/layouts/Window.scss');
+  @include meta.load-css(
+    '~tgui/styles/layouts/TitleBar.scss',
+    $with: ('background-color': hsl(0, 98.6%, 28.6%))
+  );
+
+  // Goonchat styles
+  @include meta.load-css('../tgchat/chat-syndicate.scss');
+}

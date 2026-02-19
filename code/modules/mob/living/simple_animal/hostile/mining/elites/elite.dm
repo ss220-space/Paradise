@@ -1,0 +1,590 @@
+#define TUMOR_INACTIVE 0
+#define TUMOR_ACTIVE 1
+#define TUMOR_PASSIVE 2
+#define ARENA_RADIUS 10
+#define REVIVE_COOLDOWN_MULT 10
+#define REVIVE_COOLDOWN_MULT_ANTAG 2
+#define REVIVE_HEALTH_MULT 0.2
+#define REVIVE_HEALTH_MULT_ANTAG 0.3
+#define STRENGTH_INCREASE_TIME 60 MINUTES
+
+//Elite mining mobs
+/mob/living/simple_animal/hostile/asteroid/elite
+	name = "elite"
+	desc = "Элитный монстр, найденный в одном из странных опухолей на Лазисе."
+	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
+	faction = list("boss")
+	robust_searching = TRUE
+	ranged_ignores_vision = TRUE
+	ranged = TRUE
+	var/mech_damage = 50
+	vision_range = 6
+	aggro_vision_range = 18
+	environment_smash = ENVIRONMENT_SMASH_NONE  //This is to prevent elites smashing up the mining station (entirely), we'll make sure they can smash minerals fine below.
+	harm_intent_damage = 0 //Punching elites gets you nowhere
+	stat_attack = UNCONSCIOUS
+	layer = LARGE_MOB_LAYER
+	has_laser_resist = FALSE
+	universal_speak = TRUE
+	sentience_type = SENTIENCE_BOSS
+	AI_delay_max = 0 SECONDS
+	var/scale_with_time = TRUE
+	var/reviver = null
+	var/dif_mult = 1 // Scales with number of enemies
+	var/dif_mult_dmg = 1
+	var/chosen_attack = 1
+	var/list/attack_action_types = list()
+	var/obj/loot_drop = null
+	var/revive_cooldown = FALSE // Actually is a flag to check if is revived by a non antag
+	var/antag_revived_heal_mod = 0.33 // How much max hp loses if is revived by antag and then healed
+	var/enemies_count_scale = 1.3 // 30% stronger per enemy
+
+/mob/living/simple_animal/hostile/asteroid/elite/get_ru_names()
+	return list(
+		NOMINATIVE = "элита",
+		GENITIVE = "элиты",
+		DATIVE = "элите",
+		ACCUSATIVE = "элиту",
+		INSTRUMENTAL = "элитой",
+		PREPOSITIONAL = "элите",
+	)
+
+//Gives player-controlled variants the ability to swap attacks
+/mob/living/simple_animal/hostile/asteroid/elite/Initialize(mapload)
+	. = ..()
+	for(var/action_type in attack_action_types)
+		var/datum/action/innate/elite_attack/attack_action = new action_type()
+		attack_action.Grant(src)
+
+//Prevents elites from attacking members of their faction (can't hurt themselves either) and lets them mine rock with an attack despite not being able to smash walls.
+
+/mob/living/simple_animal/hostile/asteroid/elite/examine(mob/user)
+	. = ..()
+	if(reviver)
+		. += "Однако, этот кажется менее диким."
+
+/mob/living/simple_animal/hostile/asteroid/elite/AttackingTarget()
+	if(istype(target, /mob/living/simple_animal/hostile))
+		var/mob/living/simple_animal/hostile/M = target
+		if(faction_check_mob(M))
+			return FALSE
+	if(istype(target, /obj/structure/elite_tumor))
+		var/obj/structure/elite_tumor/T = target
+		if(T.mychild == src && T.activity == TUMOR_PASSIVE)
+			var/response = tgui_alert(src, "Вернуться в опухоль?", "Вернуться?", list("Да", "Нет"))
+			if(response != "Да" || QDELETED(src) || !Adjacent(T))
+				return
+			T.clear_activator(src)
+			T.mychild = null
+			T.activity = TUMOR_INACTIVE
+			T.icon_state = "advanced_tumor"
+			qdel(src)
+			return FALSE
+	. = ..()
+	if(ismineralturf(target))
+		var/turf/simulated/mineral/M = target
+		M.attempt_drill()
+	if(ismecha(target))
+		var/obj/mecha/M = target
+		M.take_damage(mech_damage, BRUTE, MELEE, 1)
+	if(. && isliving(target)) //Taken from megafauna. This exists purely to stop someone from cheesing a weaker melee fauna by letting it get punched.
+		var/mob/living/L = target
+		if(L.stat != DEAD)
+			if(!client && ranged && ranged_cooldown <= world.time)
+				OpenFire()
+		else if(L.health < -400)
+			L.gib()
+
+/mob/living/simple_animal/hostile/asteroid/elite/proc/revive_multiplier() //If on lavaland, return 1, or 1x cooldown. 10 if revived by a non antag, 2 if by an antag. 1 otherwise
+	if(is_mining_level(z))
+		return 1
+	if(revive_cooldown)
+		return REVIVE_COOLDOWN_MULT
+	if(del_on_death)
+		return REVIVE_COOLDOWN_MULT_ANTAG
+	return 1
+
+/mob/living/simple_animal/hostile/asteroid/elite/adjustHealth(
+	amount = 0,
+	updating_health = TRUE,
+	blocked = 0,
+	damage_type = BRUTE,
+	forced = FALSE,
+)
+	. = ..()
+	if(. && del_on_death)
+		setMaxHealth(max(maxHealth - (amount * antag_revived_heal_mod), 0))
+
+/mob/living/simple_animal/hostile/asteroid/elite/ex_act(severity, origin) //No surrounding the tumor with gibtonite and one shotting them.
+	switch(severity)
+		if(EXPLODE_DEVASTATE)
+			adjustBruteLoss(75)
+		if(EXPLODE_HEAVY)
+			adjustBruteLoss(50)
+		if(EXPLODE_LIGHT)
+			adjustBruteLoss(25)
+
+/mob/living/simple_animal/hostile/asteroid/elite/proc/scale_stats(list/activators)
+	dif_mult = enemies_count_scale ** (length(activators)-1)
+	dif_mult_dmg = (dif_mult + 1) * 0.5
+	if(scale_with_time && world.time > STRENGTH_INCREASE_TIME)
+		dif_mult *= 1.4
+	setMaxHealth(initial(maxHealth) * dif_mult)
+	setHealth(initial(health) * dif_mult)
+	melee_damage_lower = initial(melee_damage_lower) * dif_mult_dmg
+	melee_damage_upper = initial(melee_damage_upper) * dif_mult_dmg
+
+/mob/living/simple_animal/hostile/asteroid/elite/can_die()
+	return ..() && health <= 0
+
+/mob/living/simple_animal/hostile/asteroid/elite/AltShiftClickOn(atom/A)
+	. = ..()
+	if(isliving(A))
+		var/mob/living/mob = A
+		var/mobref = PERSONAL_FACTION(mob)
+		if(mob == reviver)
+			return
+		if(mobref in faction)
+			faction -= mobref
+			friends -= mob
+			to_chat(src, span_warning("Вы удалили [mob.declent_ru(ACCUSATIVE)] из списка друзей."))
+		else
+			faction += mobref
+			friends += mob
+			to_chat(src, span_notice("Вы добавили [mob.declent_ru(ACCUSATIVE)] в список друзей."))
+
+/*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
+While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
+
+/datum/action/innate/elite_attack
+	name = "Элитная атака"
+	button_icon = 'icons/mob/actions/actions_elites.dmi'
+	button_icon_state = ""
+	overlay_icon_state = "bg_default_border"
+	///The displayed message into chat when this attack is selected
+	var/chosen_message
+	///The internal attack ID for the elite's OpenFire() proc to use
+	var/chosen_attack_num = 0
+
+/datum/action/innate/elite_attack/create_button()
+	var/atom/movable/screen/movable/action_button/button = ..()
+	button.maptext = ""
+	button.maptext_x = 6
+	button.maptext_y = 2
+	button.maptext_width = 24
+	button.maptext_height = 12
+	return button
+
+/datum/action/innate/elite_attack/process()
+	if(owner == null)
+		STOP_PROCESSING(SSfastprocess, src)
+		qdel(src)
+		return
+
+	build_all_button_icons(UPDATE_BUTTON_STATUS)
+
+/datum/action/innate/elite_attack/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
+	. = ..()
+	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	if(!istype(owner))
+		button.maptext = ""
+		return
+
+	var/timeleft = max(elite_owner.ranged_cooldown - world.time, 0)
+	if(timeleft == 0)
+		button.maptext = ""
+	else
+		button.maptext = MAPTEXT("<b>[round(timeleft/10, 0.1)]</b>")
+
+/datum/action/innate/elite_attack/Grant(mob/living/L)
+	if(istype(L, /mob/living/simple_animal/hostile/asteroid/elite))
+		START_PROCESSING(SSfastprocess, src)
+		return ..()
+	return FALSE
+
+/datum/action/innate/elite_attack/Activate()
+	var/mob/living/simple_animal/hostile/asteroid/elite/elite_owner = owner
+	elite_owner.chosen_attack = chosen_attack_num
+	to_chat(elite_owner, chosen_message)
+
+//The Pulsing Tumor, the actual "spawn-point" of elites, handles the spawning, arena, and procs for dealing with basic scenarios.
+
+/obj/structure/elite_tumor
+	name = "pulsing tumor"
+	desc = "Странная, пульсирующая опухоль, торчащая из земли. Вы чувствуете побуждение протянуть руку и коснуться её..."
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	icon = 'icons/obj/lavaland/tumor.dmi'
+	icon_state = "tumor"
+	pixel_x = -16
+	light_color = LIGHT_COLOR_BLOOD_MAGIC
+	light_range = 3
+	anchored = TRUE
+	var/activity = TUMOR_INACTIVE
+	var/boosted = FALSE
+	var/times_won = 0
+	var/list/mob/living/carbon/human/activators
+	var/mob/living/simple_animal/hostile/asteroid/elite/mychild = null
+	///List of all potentially spawned elites
+	var/potentialspawns = list(
+		/mob/living/simple_animal/hostile/asteroid/elite/broodmother,
+		/mob/living/simple_animal/hostile/asteroid/elite/pandora,
+		/mob/living/simple_animal/hostile/asteroid/elite/legionnaire,
+		/mob/living/simple_animal/hostile/asteroid/elite/herald,
+	)
+
+	///List of invaders that have teleportes into the arena *multiple times*. They will be suffering.
+	var/list/invaders = list()
+
+/obj/structure/elite_tumor/get_ru_names()
+	return list(
+		NOMINATIVE = "пульсирующая опухоль",
+		GENITIVE = "пульсирующей опухоли",
+		DATIVE = "пульсирующей опухоли",
+		ACCUSATIVE = "пульсирующую опухоль",
+		INSTRUMENTAL = "пульсирующей опухолью",
+		PREPOSITIONAL = "пульсирующей опухоли",
+	)
+
+/obj/structure/elite_tumor/attack_hand(mob/user, list/modifiers)
+	. = ..()
+	if(!ishuman(user))
+		return
+	switch(activity)
+		if(TUMOR_PASSIVE)
+			// Prevents the user from being forcemoved back and forth between two elite arenas.
+			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
+				user.visible_message(span_warning("[user] протягива[PLUR_ET_YUT(user)] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
+				return
+			activity = TUMOR_ACTIVE
+			user.visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
+			activators = list()
+			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
+				if(fighter.stat != DEAD)
+					make_activator(fighter)
+			if(boosted)
+				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
+				to_chat(mychild, span_warning("Кто-то активировал вашу опухоль. Вскоре вы будете возвращены для боя, будьте готовы!"))
+			addtimer(CALLBACK(src, PROC_REF(return_elite)), 3 SECONDS)
+			INVOKE_ASYNC(src, PROC_REF(arena_checks))
+		if(TUMOR_INACTIVE)
+			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
+				user.visible_message(span_warning("[user] протягива[PLUR_ET_YUT(user)] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
+				return
+			activity = TUMOR_ACTIVE
+			var/mob/dead/observer/elitemind = null
+			visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
+			activators = list()
+			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
+				if(fighter.stat != DEAD)
+					make_activator(fighter)
+			if(!boosted)
+				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
+				return
+			visible_message(span_danger("Что-то шевелится внутри [declent_ru(GENITIVE)]..."))
+			var/list/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за элиту Лазиса?", ROLE_ELITE, TRUE, 10 SECONDS, source = src)
+			if(length(candidates))
+				audible_message(span_userdanger("Глухие удары под ногами становятся отчётливее!"))
+				elitemind = pick(candidates)
+				SEND_SOUND(elitemind, sound('sound/magic/cult_spell.ogg'))
+				to_chat(elitemind, "<b>Вы были избраны на роль Элиты Лазиса.\nЧерез несколько секунд вы появитесь в виде сильного монстра, с целью убить призвавшего вас.\n\
+					Вы можете выбирать разные атаки, нажимая на кнопки в верхнем левом углу экрана, а так же использовать их с помощью нажатия на тайл или моба.\n\
+					Хоть и оппонент снаряжен шахтёрской экипировкой и различными артефактами, у вас есть мощные способности, которые обычно были ограничены ИИ.\n\
+					Если вы захотите победить, вам придется использовать свои способности с умом. Вам лучше ознакомиться с ними всеми так быстро, насколько возможно.\n\
+					Good luck!</b>")
+
+				addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 10 SECONDS)
+			else
+				visible_message(span_warning("Опухоль замирает, и ничего не происходит. Возможно, стоит попробовать позже."))
+				activity = TUMOR_INACTIVE
+				for(var/mob/living/carbon/human/activator in activators)
+					if(activator.stat != DEAD)
+						clear_activator(activator)
+
+/obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
+	if(QDELETED(src) || QDELETED(loc))
+		return
+
+	var/selectedspawn = pick(potentialspawns)
+	mychild = new selectedspawn(loc)
+	mychild.scale_stats(activators)
+	visible_message(span_userdanger("[DECLENT_RU_CAP(mychild, NOMINATIVE)] появляется из [declent_ru(GENITIVE)]!"))
+	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
+	if(boosted)
+		mychild.possess_by_player(elitemind.key)
+		mychild.sentience_act()
+		notify_ghosts("[DECLENT_RU_CAP(mychild, NOMINATIVE)] пробуждается в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+		log_game("[mychild.key] has become [mychild] from lavaland elite tumor.")
+	update_icon(UPDATE_ICON_STATE)
+	INVOKE_ASYNC(src, PROC_REF(arena_checks))
+
+/obj/structure/elite_tumor/proc/return_elite()
+	mychild.forceMove(loc)
+	visible_message(span_userdanger("[DECLENT_RU_CAP(mychild, NOMINATIVE)] появляется из [declent_ru(GENITIVE)]!"))
+	playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
+	mychild.revive()
+	if(boosted)
+		mychild.setMaxHealth(mychild.maxHealth * 2.5)
+		mychild.setHealth(mychild.maxHealth)
+		mychild.grab_ghost()
+		notify_ghosts("[DECLENT_RU_CAP(mychild, NOMINATIVE)] вызван в [get_area(src)]!", enter_link="<a href=byond://?src=[UID()];follow=1>(Click to help)</a>", source = mychild, action = NOTIFY_FOLLOW)
+	INVOKE_ASYNC(src, PROC_REF(arena_checks))
+
+/obj/structure/elite_tumor/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/obj/structure/elite_tumor/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	invaders.Cut()
+	for(var/mob/living/carbon/human/activator in activators)
+		clear_activator(activator)
+	if(mychild)
+		clear_activator(mychild)
+	return ..()
+
+/obj/structure/elite_tumor/proc/make_activator(mob/user)
+	activators += user
+	ADD_TRAIT(user, TRAIT_ELITE_CHALLENGER, "activation")
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(clear_activator))
+
+/obj/structure/elite_tumor/proc/clear_activator(mob/source)
+	SIGNAL_HANDLER
+	if(source in activators)
+		activators -= source
+	else
+		mychild = null
+	REMOVE_TRAIT(source, TRAIT_ELITE_CHALLENGER, "activation")
+	UnregisterSignal(source, COMSIG_QDELETING)
+
+/obj/structure/elite_tumor/process()
+	if(!isturf(loc))
+		return
+
+	for(var/mob/living/simple_animal/hostile/asteroid/elite/elitehere in loc)
+		if(elitehere == mychild && activity == TUMOR_PASSIVE)
+			mychild.adjustHealth(-mychild.maxHealth * 0.025)
+			var/obj/effect/temp_visual/heal/H = new(get_turf(mychild))
+			H.color = "#FF0000"
+
+/obj/structure/elite_tumor/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	if(istype(I, /obj/item/organ/internal/regenerative_core))
+		add_fingerprint(user)
+		if(activity != TUMOR_INACTIVE || boosted)
+			to_chat(user, span_warning("Ядро сейчас нельзя использовать."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		visible_message(span_warning("Когда [user] помеща[PLUR_ET_YUT(user)] ядро в [declent_ru(ACCUSATIVE)], оно начинает пульсировать."))
+		update_icon(UPDATE_ICON_STATE)
+		set_light(6, l_on = TRUE)
+		qdel(I)
+		boosted = TRUE
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
+
+/obj/structure/elite_tumor/update_icon_state()
+	if(mychild)
+		icon_state = "tumor_popped"
+		return
+	icon_state = boosted ? "advanced_tumor" : "tumor"
+
+/obj/structure/elite_tumor/examine(mob/user)
+	. = ..()
+	if(boosted)
+		. += "оно излучает мощное сияние"
+
+/obj/structure/elite_tumor/proc/arena_checks()
+	if(activity != TUMOR_ACTIVE || QDELETED(src))
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(arena_trap))  //Gets another arena trap queued up for when this one runs out.
+	INVOKE_ASYNC(src, PROC_REF(border_check))  //Checks to see if our fighters got out of the arena somehow.
+	INVOKE_ASYNC(src, PROC_REF(fighters_check))  //Checks to see if our fighters died.
+	if(QDELETED(src))
+		return
+
+	addtimer(CALLBACK(src, PROC_REF(arena_checks)), 5 SECONDS)
+
+/obj/structure/elite_tumor/proc/fighters_check()
+	if(QDELETED(mychild) || mychild.stat == DEAD)
+		onEliteLoss()
+		return
+	for(var/mob/living/carbon/human/activator in activators)
+		if(QDELETED(activator) || activator.stat == DEAD || (activator.health <= HEALTH_THRESHOLD_DEAD))
+			continue
+		else
+			return
+	onEliteWon()
+
+/obj/structure/elite_tumor/proc/arena_trap()
+	var/turf/tumor_turf = get_turf(src)
+	if(loc == null)
+		return
+	for(var/tumor_range_turf in RANGE_EDGE_TURFS(ARENA_RADIUS, tumor_turf))
+		new /obj/effect/temp_visual/elite_tumor_wall(tumor_range_turf, src)
+
+/obj/structure/elite_tumor/proc/border_check()
+	if(length(activators))
+		for(var/mob/living/carbon/human/activator in activators)
+			if(get_dist(src, activator) >= ARENA_RADIUS)
+				activator.forceMove(loc)
+				visible_message(span_warning("[capitalize(activator)] внезапно материализуется над [declent_ru(INSTRUMENTAL)]!"))
+				playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
+	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
+		mychild.forceMove(loc)
+		visible_message(span_warning("[capitalize(mychild)] внезапно возникает над [declent_ru(INSTRUMENTAL)]!"))
+		playsound(loc,'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
+	for(var/mob/living/carbon/human/invader in range(ARENA_RADIUS, src.loc))
+		if(invader in activators)
+			continue
+		if(invader in invaders)
+			to_chat(invader, span_colossus("<b>Ты посмел нарушить святость нашей арены? СТРАДАЙ...</b>"))
+			for(var/i in 1 to 4)
+				invader.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
+		else
+			to_chat(invader, span_userdanger("Зрителям запрещено вмешиваться, пока идёт бой..."))
+			invaders += invader
+		var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src)
+		invader.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
+		playsound(invader, 'sound/effects/phasein.ogg', 200, FALSE, 50, TRUE, TRUE)
+
+/obj/structure/elite_tumor/proc/onEliteLoss()
+	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, FALSE, 50, TRUE, TRUE)
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает яростно биться в конвульсиях, затем начинает растворяться."))
+	visible_message(span_warning("Что-то выталкивается, когда [declent_ru(NOMINATIVE)] закрывается."))
+	var/lootloc = loc
+	if(boosted)
+		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
+		new /obj/item/tumor_shard(lootloc)
+		to_chat(mychild, span_warning("Не покидайте своё тело, если хотите быть воскрешённым."))
+		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
+	else
+		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
+	new mychild.loot_drop(lootloc)
+	mychild.dif_mult = 1
+	mychild.dif_mult_dmg = 1
+	qdel(src)
+
+/obj/structure/elite_tumor/proc/onEliteWon()
+	to_chat(mychild, span_danger("Вы победили в схватке. Элитная опухоль снова защищена."))
+	activity = TUMOR_INACTIVE
+	icon_state = "tumor"
+	if(length(activators))
+		for(var/mob/living/carbon/human/activator in activators)
+			clear_activator(activator)
+	sleep(300)
+	to_chat(mychild, span_danger("Вы выполнили свою роль и отправляетесь на заслуженный покой."))
+	qdel(mychild)
+	var/obj/structure/elite_tumor/copy = new(loc)
+	if(boosted)
+		copy.boosted = TRUE
+		copy.update_icon(UPDATE_ICON_STATE)
+		SSblackbox.record_feedback("tally", "Player controlled Elite win", 1, mychild.name)
+		times_won++
+	else
+		SSblackbox.record_feedback("tally", "AI controlled Elite win", 1, mychild.name)
+	qdel(src)
+
+/obj/item/tumor_shard
+	name = "tumor shard"
+	desc = "Странный острый кристаллический осколок из необычной опухоли Лазиса. Если пронзить им труп элиты Лазиса, это воскресит существо — при условии, что его душа ещё не ушла. Воскрешённые элиты имеют только половину здоровья, и абсолютно лояльны к своему воскресителю."
+	icon = 'icons/obj/lavaland/artefacts.dmi'
+	icon_state = "crevice_shard"
+	throwforce = 5
+	w_class = WEIGHT_CLASS_SMALL
+	throw_speed = 3
+	throw_range = 5
+
+/obj/item/tumor_shard/get_ru_names()
+	return list(
+		NOMINATIVE = "осколок опухоли",
+		GENITIVE = "осколка опухоли",
+		DATIVE = "осколку опухоли",
+		ACCUSATIVE = "осколок опухоли",
+		INSTRUMENTAL = "осколком опухоли",
+		PREPOSITIONAL = "осколке опухоли",
+	)
+
+/obj/item/tumor_shard/afterattack(atom/target, mob/user, proximity_flag, params)
+	. = ..()
+	if(istype(target, /mob/living/simple_animal/hostile/asteroid/elite) && proximity_flag)
+		var/mob/living/simple_animal/hostile/asteroid/elite/E = target
+		if(E.stat != DEAD || E.sentience_type != SENTIENCE_BOSS || !E.key)
+			user.visible_message(span_warning("Похоже, [E.declent_ru(ACCUSATIVE)] сейчас невозможно воскресить. Попробуйте позже."))
+			return
+		E.faction = list(PERSONAL_FACTION(user))
+		E.friends += user
+		E.reviver = user
+		E.revive()
+		user.visible_message(span_notice("[user] пронза[PLUR_ET_YUT(user)] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
+		SEND_SOUND(E, sound('sound/magic/cult_spell.ogg'))
+		to_chat(user, span_notice("Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам."))
+		to_chat(E, span_userdanger("Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск."))
+		to_chat(E, span_bigbold("Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!"))
+		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
+		if(user.mind.special_role)
+			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG)
+			E.setHealth(initial(E.health) * REVIVE_HEALTH_MULT_ANTAG)
+			E.del_on_death = TRUE
+		else
+			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT)
+			E.setHealth(initial(E.health) * REVIVE_HEALTH_MULT)
+			E.revive_cooldown = TRUE
+		E.sentience_type = SENTIENCE_ORGANIC
+		qdel(src)
+	else
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] работает только с трупами разумных элит Лазиса."))
+
+/obj/effect/temp_visual/elite_tumor_wall
+	name = "magic wall"
+	icon = 'icons/turf/walls/hierophant_wall_temp.dmi'
+	icon_state = "wall"
+	base_icon_state = "hierophant_wall_temp"
+	duration = 50
+	layer = BELOW_MOB_LAYER
+	color = rgb(255,0,0)
+	light_range = MINIMUM_USEFUL_LIGHT_RANGE
+	light_color = LIGHT_COLOR_INTENSE_RED
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_HIERO_VORTEX
+	smoothing_groups = SMOOTH_GROUP_HIERO_VORTEX
+
+/obj/effect/temp_visual/elite_tumor_wall/get_ru_names()
+	return list(
+		NOMINATIVE = "магическая стена",
+		GENITIVE = "магической стены",
+		DATIVE = "магической стене",
+		ACCUSATIVE = "магическую стену",
+		INSTRUMENTAL = "магической стеной",
+		PREPOSITIONAL = "магической стене",
+	)
+
+/obj/effect/temp_visual/elite_tumor_wall/Initialize(mapload, new_caster)
+	. = ..()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	QUEUE_SMOOTH(src)
+
+/obj/effect/temp_visual/elite_tumor_wall/Destroy()
+	QUEUE_SMOOTH_NEIGHBORS(src)
+	return ..()
+
+/obj/effect/temp_visual/elite_tumor_wall/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	if(checkpass(mover))
+		return TRUE
+	if(isliving(mover) || isprojectile(mover))
+		return FALSE
+
+#undef TUMOR_INACTIVE
+#undef TUMOR_ACTIVE
+#undef TUMOR_PASSIVE
+#undef ARENA_RADIUS
+#undef REVIVE_COOLDOWN_MULT
+#undef REVIVE_COOLDOWN_MULT_ANTAG
+#undef REVIVE_HEALTH_MULT
+#undef REVIVE_HEALTH_MULT_ANTAG
+#undef STRENGTH_INCREASE_TIME

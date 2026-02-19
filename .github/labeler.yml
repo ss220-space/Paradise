@@ -1,21 +1,43 @@
-# When the .py is changed
-python:
-  - './*.py'
-  - '**/*.py'
+':snake: Python':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.py']
 
-# Javascript changes
-javascript:
-  - '**/*.js'
+':globe_with_meridians: HTML':
+  - changed-files:
+      - any-glob-to-any-file: ['html/**']
 
-# Any .dmi changes
-DMI:
-  - '**/*.dmi'
+':crab: Rust':
+  - changed-files:
+      - any-glob-to-any-file: ['rust/**']
 
-# Changes to a .dmm
-MAP:
-  - '**/*.dmm'
+':cd: SQL':
+  - changed-files:
+      - any-glob-to-any-file: ['SQL/**']
 
-# Encompasses both the tgui and the tgui-next folder
-TGUI:
-  - 'tgui/**'
-  - 'tgui-next/**'
+':computer: TGUI':
+  - changed-files:
+      - any-glob-to-any-file: ['tgui/**']
+
+':art: Спрайты':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.dmi']
+
+':world_map: Изменение карты':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.dmm']
+
+':gear: Изменение конфига':
+  - changed-files:
+      - any-glob-to-any-file: ['config/**']
+
+':book: Документация':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.md']
+
+':sound: Звук':
+  - changed-files:
+      - any-glob-to-any-file: ['**/*.ogg']
+
+':hammer_and_wrench: Инструменты':
+  - changed-files:
+      - any-glob-to-any-file: ['.github/**', 'tools/**', '.vscode/**', '.bin/**']

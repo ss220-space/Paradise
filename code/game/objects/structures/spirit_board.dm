@@ -3,8 +3,8 @@
 	desc = "A wooden board with letters etched into it, used in seances."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "spirit_board"
-	density = 1
-	anchored = 1
+	density = TRUE
+	anchored = TRUE
 	var/used = FALSE
 	var/cooldown = 0
 	var/planchette = "А"
@@ -12,19 +12,17 @@
 
 /obj/structure/spirit_board/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The planchette is sitting at \"[planchette]\".</span>"
+	. += span_notice("The planchette is sitting at \"[planchette]\".")
 
 /obj/structure/spirit_board/attack_hand(mob/user as mob)
 	if(..())
 		return
 	spirit_board_pick_letter(user)
 
-
 /obj/structure/spirit_board/attack_ghost(mob/dead/observer/user as mob)
 	spirit_board_pick_letter(user)
 
-
-/obj/structure/spirit_board/proc/spirit_board_pick_letter(var/mob/M)
+/obj/structure/spirit_board/proc/spirit_board_pick_letter(mob/M)
 	if(!spirit_board_checks(M))
 		return 0
 
@@ -32,7 +30,7 @@
 		used = TRUE
 		notify_ghosts("Someone has begun playing with a [src.name] in [get_area(src)]!", source = src)
 
-	planchette = input("Choose the letter.", "Seance!") in list("А","Б","В","Г","Д","Е","Ё","Ж","З","И","Й","К","Л","М","Н","О","П","Р","С","T","У","Ф","Х","Ц","Ч","Ш","Щ","Ъ","Ы","Ь","Э","Ю","Я")
+	planchette = tgui_input_list(usr, "Choose the letter.", "Seance!", list("А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "T", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"))
 	add_attack_logs(M, src, "Picked a letter on [src] which was \"[planchette]\".")
 	cooldown = world.time
 	lastuser = M.ckey
@@ -40,10 +38,9 @@
 	var/turf/T = loc
 	sleep(rand(20,30))
 	if(T == loc)
-		visible_message("<span class='notice'>The planchette slowly moves... and stops at the letter \"[planchette]\".</span>")
+		visible_message(span_notice("The planchette slowly moves... and stops at the letter \"[planchette]\"."))
 
-
-/obj/structure/spirit_board/proc/spirit_board_checks(var/mob/M)
+/obj/structure/spirit_board/proc/spirit_board_checks(mob/M)
 	//cooldown
 	var/bonus = 0
 	if(M.ckey == lastuser)
@@ -61,20 +58,20 @@
 		light_amount = 10
 
 	if(light_amount > 2)
-		to_chat(M, "<span class='warning'>It's too bright here to use [src.name]!</span>")
+		to_chat(M, span_warning("It's too bright here to use [src.name]!"))
 		return 0
 
 	//mobs in range check
 	var/users_in_range = 0
 	for(var/mob/living/L in orange(1,src))
 		if(L.ckey && L.client)
-			if((world.time - L.client.inactivity) < (world.time - 300) || L.stat != CONSCIOUS || L.restrained())//no playing with braindeads or corpses or handcuffed dudes.
-				to_chat(M, "<span class='warning'>[L] doesn't seem to be paying attention...</span>")
+			if((world.time - L.client.inactivity) < (world.time - 300) || L.incapacitated() || HAS_TRAIT(L, TRAIT_HANDS_BLOCKED))//no playing with braindeads or corpses or handcuffed dudes.
+				to_chat(M, span_warning("[L] doesn't seem to be paying attention..."))
 			else
 				users_in_range++
 
 	if(users_in_range < 2)
-		to_chat(M, "<span class='warning'>There aren't enough people to use the [src.name]!</span>")
+		to_chat(M, span_warning("There aren't enough people to use the [src.name]!"))
 		return 0
 
 	return 1

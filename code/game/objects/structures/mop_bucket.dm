@@ -3,7 +3,7 @@
 	name = "mop bucket"
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "mopbucket"
-	density = 1
+	density = TRUE
 	container_type = OPENCONTAINER
 	var/obj/item/mop/mymop = null
 	var/amount_per_transfer_from_this = 5 //shit I dunno, adding this so syringes stop runtime erroring. --NeoFite
@@ -19,43 +19,60 @@
 
 /obj/structure/mopbucket/Destroy()
 	GLOB.janitorial_equipment -= src
+	QDEL_NULL(mymop)
 	return ..()
 
 /obj/structure/mopbucket/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>[bicon(src)] [src] contains [reagents.total_volume] units of water left.</span>"
+		. += span_notice("[icon2html(src, user)] [src] contains [reagents.total_volume] units of water left.")
 
-/obj/structure/mopbucket/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/mop))
-		var/obj/item/mop/m = W
-		if(m.reagents.total_volume < m.reagents.maximum_volume)
-			m.wet_mop(src, user)
-			return
-		if(!mymop)
-			m.janicart_insert(user, src)
-			return
-		to_chat(user, "<span class='notice'>Theres already a mop in the mopbucket.</span>")
-		return
+/obj/structure/mopbucket/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || I.is_robot_module())
+		return ..()
+
+	if(istype(I, /obj/item/mop))
+		add_fingerprint(user)
+		var/obj/item/mop/mop = I
+		mop.wet_mop(src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
-/obj/structure/mopbucket/proc/put_in_cart(obj/item/mop/I, mob/user)
-	user.drop_item()
-	I.forceMove(src)
-	to_chat(user, "<span class='notice'>You put [I] into [src].</span>")
-	return
+/obj/structure/mopbucket/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!reagents || !reagents.total_volume)
+		to_chat(user, span_warning("The [name] is empty."))
+		return .
+	user.visible_message(
+		span_notice("[user] starts to empty [src]."),
+		span_notice("You start to empty [src]..."),
+	)
+	if(!I.use_tool(src, user, 3 SECONDS, volume = I.tool_volume) || !reagents || !reagents.total_volume)
+		return .
+	user.visible_message(
+		span_notice("[user] empties the contents of [src] onto the floor."),
+		span_notice("You have emptied the contents of [src] onto the floor."),
+	)
+	reagents.reaction(loc)
+	reagents.clear_reagents()
+
+/obj/structure/mopbucket/proc/put_in_cart(obj/item/I, mob/user)
+	. = user.drop_transfer_item_to_loc(I, src)
+	if(.)
+		to_chat(user, span_notice("You put [I] into [src]."))
 
 /obj/structure/mopbucket/on_reagent_change()
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
-/obj/structure/mopbucket/update_icon()
-	overlays.Cut()
+/obj/structure/mopbucket/update_overlays()
+	. = ..()
 	if(mymop)
-		overlays += image(icon,"mopbucket_mop")
+		. += "mopbucket_mop"
 	if(reagents.total_volume > 0)
 		var/image/reagentsImage = image(icon, src, "mopbucket_reagents0")
 		reagentsImage.alpha = 150
-		switch((reagents.total_volume/reagents.maximum_volume)*100)
+		switch((reagents.total_volume / reagents.maximum_volume) * 100)
 			if(1 to 25)
 				reagentsImage.icon_state = "mopbucket_reagents1"
 			if(26 to 50)
@@ -65,13 +82,14 @@
 			if(76 to 100)
 				reagentsImage.icon_state = "mopbucket_reagents4"
 		reagentsImage.icon += mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(reagentsImage)
+		. += reagentsImage
 
 /obj/structure/mopbucket/attack_hand(mob/living/user)
 	. = ..()
 	if(mymop)
-		user.put_in_hands(mymop)
-		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+		mymop.forceMove_turf()
+		user.put_in_hands(mymop, ignore_anim = FALSE)
+		to_chat(user, span_notice("You take [mymop] from [src]."))
 		mymop = null
-		update_icon()
-		return
+		update_icon(UPDATE_OVERLAYS)
+

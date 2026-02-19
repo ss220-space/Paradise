@@ -1,29 +1,28 @@
 /obj/item/gun
 	name = "gun"
 	desc = "It's a gun. It's pretty terrible, though."
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "detective"
 	item_state = "gun"
+	appearance_flags = TILE_BOUND|PIXEL_SCALE|KEEP_TOGETHER|LONG_GLIDE
 	flags =  CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=2000)
-	w_class = WEIGHT_CLASS_NORMAL
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
 	force = 5
-	origin_tech = "combat=1"
-	needs_permit = 1
-	attack_verb = list("struck", "hit", "bashed")
+	origin_tech = "materials=3;combat=3"
+	needs_permit = TRUE
+	attack_verb = list("ударил")
+	pickup_sound = 'sound/items/handling/pickup/gun_pickup.ogg'
+	drop_sound = 'sound/items/handling/drop/gun_drop.ogg'
 
-	var/fire_sound = "gunshot"
+	var/fire_sound = SFX_GUNSHOT
+	var/suppressed_fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	var/magin_sound = 'sound/weapons/gun_interactions/smg_magin.ogg'
 	var/magout_sound = 'sound/weapons/gun_interactions/smg_magout.ogg'
-	var/fire_sound_text = "gunshot" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
-	var/suppressed = 0					//whether or not a message is displayed when fired
-	var/can_suppress = 0
-	var/can_unsuppress = 1
-	var/recoil = 0						//boom boom shake the room
+	var/fire_sound_text = "выстрел" //the fire sound that shows in chat messages: laser blast, gunshot, etc.
 	var/clumsy_check = 1
 	var/obj/item/ammo_casing/chambered = null
 	var/trigger_guard = TRIGGER_GUARD_NORMAL	//trigger guard on the weapon, hulks can't fire them with their big meaty fingers
@@ -35,27 +34,67 @@
 	var/semicd = 0						//cooldown handler
 	var/weapon_weight = WEAPON_LIGHT
 	var/list/restricted_species
-	var/ninja_weapon = FALSE 			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
+	var/ninja_weapon = FALSE			//Оружия со значением TRUE обходят ограничение ниндзя на использование пушек
 	var/bolt_open = FALSE
-	var/spread = 0
-	var/randomspread = 1
+	/// Gun accuracy (without distance accuracy)
+	var/datum/gun_accuracy/accuracy = GUN_ACCURACY_DEFAULT
+	var/datum/gun_recoil/recoil = null
+	var/barrel_dir = EAST // barel direction need for a rotate gun with telekinesis for shot to target (default: matched with tile direction)
+	var/randomspread = TRUE
 
-	var/unique_rename = TRUE //allows renaming with a pen
-	var/unique_reskin = TRUE //allows one-time reskinning
-	var/current_skin = null //the skin choice if we had a reskin
-	var/list/options = list()
+	/// Allows renaming with a pen
+	var/unique_rename = TRUE
 
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 
-	var/obj/item/flashlight/gun_light = null
-	var/can_flashlight = 0
+	/// Guns can be placed on racks
+	var/on_rack = FALSE
 
-	var/can_bayonet = FALSE //if a bayonet can be added or removed if it already has one.
+	/// Damage modifier for projectile
+	var/damage_mod = 1
+	/// Stamina modifier for projectile
+	var/stamina_mod = 1
+
+/*
+ * Gun modules
+ */
+	///List of allowed attachments, IT MUST INCLUDE THE STARTING ATTACHMENT TYPES OR THEY WILL NOT ATTACH.
+	var/attachable_allowed = 0
+	///The attachments this gun starts with on Init
+	var/list/starting_attachment_types = null
+	///Image list of attachments overlays.
+	var/list/image/attachment_overlays = list()
+	///List of offsets to make attachment overlays not look wonky.
+	var/list/attachable_offset = list(
+		ATTACHMENT_SLOT_MUZZLE = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 0),
+		ATTACHMENT_SLOT_UNDER = list("x" = 0, "y" = 0)
+	)
+	///List of slots a gun can have.
+	var/list/obj/item/gun_module/attachments_by_slot = list(
+		ATTACHMENT_SLOT_MUZZLE,
+		ATTACHMENT_SLOT_RAIL,
+		ATTACHMENT_SLOT_UNDER
+	)
+
+	var/suppressed = FALSE
+	var/suppress_muzzle_flash = FALSE
+	var/can_suppress = 0
+	var/can_unsuppress = 1
+	/// Currently attached flashlight.
+	var/obj/item/flashlight/seclite/gun_light
+
+	/// Whether user can attach/detach bayonets to/from this gun.
+	var/can_bayonet = FALSE
+	/// Currently attached bayonet.
 	var/obj/item/kitchen/knife/bayonet
-	var/mutable_appearance/knife_overlay
-	var/knife_x_offset = 0
-	var/knife_y_offset = 0
+	/// Currently used bayonet overlay.
+	var/mutable_appearance/bayonet_overlay
+	/// Offsets bayonet's overlay pixel_x by this value.
+	var/bayonet_x_offset = 0
+	/// Offsets bayonet's overlay pixel_y by this value.
+	var/bayonet_y_offset = 0
 
 	var/can_holster = TRUE
 
@@ -63,8 +102,6 @@
 
 	var/ammo_x_offset = 0 //used for positioning ammo count overlay on sprite
 	var/ammo_y_offset = 0
-	var/flight_x_offset = 0
-	var/flight_y_offset = 0
 
 	//Zooming
 	var/zoomable = FALSE //whether the gun generates a Zoom action on creation
@@ -72,72 +109,165 @@
 	var/zoom_amt = 3 //Distance in TURFs to move the user's screen forward (the "zoom" effect)
 	var/datum/action/toggle_scope_zoom/azoom
 
-/obj/item/gun/New()
-	..()
+	light_on = FALSE
+
+	/// Responsible for the range of the throwing back when shooting at point blank range
+	var/pb_knockback = 0
+	/// Shots counter
+	var/shots_counter = 0
+
+/obj/item/gun/Initialize(mapload)
+	. = ..()
 	appearance_flags |= KEEP_TOGETHER
-	if(gun_light)
-		verbs += /obj/item/gun/proc/toggle_gunlight
 	build_zooming()
+	create_start_gun_modules()
+	if(islist(accuracy))
+		accuracy = getAccuracy(arglist(accuracy))
+	else if(!accuracy)
+		accuracy = GUN_ACCURACY_DEFAULT
+	else if(!istype(accuracy, /datum/gun_accuracy))
+		stack_trace("Invalid type [accuracy.type] found in .accuracy during /obj/item/gun Initialize()")
 
 /obj/item/gun/Destroy()
+	QDEL_NULL(gun_light)
 	QDEL_NULL(bayonet)
+	for(var/attachment in attachments_by_slot)
+		if(!attachments_by_slot[attachment])
+			continue
+		qdel(attachments_by_slot[attachment])
+	attachments_by_slot.Cut()
+	attachment_overlays.Cut()
+	if(accuracy)
+		QDEL_NULL(accuracy)
+	if(recoil)
+		QDEL_NULL(recoil)
 	return ..()
 
-/obj/item/gun/handle_atom_del(atom/A)
-	if(A == bayonet)
-		clear_bayonet()
+/obj/item/gun/handle_atom_del(atom/target)
+	if(target == bayonet)
+		set_bayonet(null)
+	else if(target == gun_light)
+		set_gun_light(null)
 	return ..()
 
 /obj/item/gun/examine(mob/user)
 	. = ..()
-	if(unique_reskin && !current_skin)
-		. += "<span class='info'>Alt-click it to reskin it.</span>"
-	if(unique_rename)
-		. += "<span class='info'>Use a pen on it to rename it.</span>"
-	if(bayonet)
-		. += "<span class='notice'>It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.</span>"
-		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
-	else if(can_bayonet)
-		. += "<span class='notice'>It has a <b>bayonet</b> lug on it.</span>"
+	if(attachments_by_slot[ATTACHMENT_SLOT_RAIL])
+		. += span_notice("На прицельную планку прикреплен [attachments_by_slot[ATTACHMENT_SLOT_RAIL].declent_ru(NOMINATIVE)].")
+	else if(attachable_allowed & GUN_MODULE_CLASS_RIFLE_RAIL)
+		. += span_notice("Имеет большое крепление для прицелов. Можно установить все виды прицелов.")
+	if(attachable_allowed & GUN_MODULE_CLASS_SHOTGUN_RAIL)
+		. += span_notice("Имеет среднее крепление для прицелов. Подойдут большинство прицелов и коллиматоров.")
+	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_RAIL)
+		. += span_notice("Имеет малое крепление для прицелов. Подойдут только маленькие коллиматоры.")
 
-/obj/item/gun/proc/process_chamber()
-	return 0
+	if(attachments_by_slot[ATTACHMENT_SLOT_MUZZLE])
+		. += span_notice("На ствол прикручен [attachments_by_slot[ATTACHMENT_SLOT_MUZZLE].declent_ru(NOMINATIVE)].")
+	else if(attachable_allowed & GUN_MODULE_CLASS_ANY_MUZZLE)
+		. += span_notice("Имеет нарезы для крепления наствольных модулей.")
+
+	if(attachments_by_slot[ATTACHMENT_SLOT_UNDER])
+		. += span_notice("К цевью прикреплен [attachments_by_slot[ATTACHMENT_SLOT_UNDER].declent_ru(NOMINATIVE)].")
+	else if(attachable_allowed & GUN_MODULE_CLASS_PISTOL_UNDER)
+		. += span_notice("Имеет маленькую планку на цевье для крепление пистолетного фонаря.")
+	else if(attachable_allowed & (GUN_MODULE_CLASS_RIFLE_UNDER|GUN_MODULE_CLASS_SHOTGUN_UNDER))
+		. += span_notice("Имеет большую планку на цевье для крепление большого фонаря или рукоятки.")
+
+	if(unique_rename)
+		. += span_notice("Используйте ручку чтобы переименовать его.")
+	if(bayonet)
+		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
+		if(can_bayonet) // if it has a bayonet and this is false, the bayonet is permanent.
+			. += span_notice("[DECLENT_RU_CAP(bayonet, NOMINATIVE)] можно [span_bold("открутить")] от [declent_ru(GENITIVE)].")
+
+
+/obj/item/gun/update_overlays()
+	. = ..()
+	for(var/slot in attachment_overlays)
+		var/image/overlay = attachment_overlays[slot]
+		if(!overlay)
+			continue
+		. += overlay
+
+/obj/item/gun/proc/add_attachment_overlay(obj/item/gun_module/module)
+	var/image/overlay = module.create_overlay()
+	if(attachable_offset)
+		var/x_offset = attachable_offset[module.slot]["x"]
+		var/y_offset = attachable_offset[module.slot]["y"]
+		if(module.overlay_offset)
+			x_offset += module.overlay_offset["x"]
+			y_offset += module.overlay_offset["y"]
+		overlay.pixel_w = x_offset
+		overlay.pixel_z = y_offset
+	attachment_overlays[module.slot] = overlay
+	update_icon()
+
+/obj/item/gun/proc/remove_attachment_overlay(obj/item/gun_module/module)
+	if(attachment_overlays[module.slot])
+		attachment_overlays[module.slot] = null
+	update_icon()
+
+/obj/item/gun/proc/create_start_gun_modules()
+	if(!starting_attachment_types)
+		return
+	for(var/module_path in starting_attachment_types)
+		if(!ispath(module_path, /obj/item/gun_module))
+			continue
+		var/obj/item/gun_module/module = new module_path(src)
+		attachments_by_slot[module.slot] = module
+		add_attachment_overlay(module)
+		module.gun = src
+		module.on_attach(src, null)
+		SEND_SIGNAL(src, COMSIG_GUN_MODULE_ATTACH, null, src, module)
+
+//called after the gun has successfully fired its chambered ammo.
+/obj/item/gun/proc/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	SHOULD_CALL_PARENT(TRUE)
+	handle_chamber(empty_chamber, from_firing, chamber_next_round)
+	SEND_SIGNAL(src, COMSIG_GUN_CHAMBER_PROCESSED)
+
+/obj/item/gun/proc/handle_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	return
 
 //check if there's enough ammo/energy/whatever to shoot one time
 //i.e if clicking would make it shoot
-/obj/item/gun/proc/can_shoot()
-	return 1
+/obj/item/gun/proc/can_shoot(mob/user)
+	return TRUE
 
-/obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	to_chat(user, "<span class='danger'>*click*</span>")
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
+/obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user)
+	to_chat(user, span_danger("*клик*"))
+	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, atom/target, pointblank = FALSE, message = TRUE)
-	if(recoil)
-		shake_camera(user, recoil + 1, recoil)
+	do_recoil(user, target)
 
 	var/muzzle_range = chambered.muzzle_flash_range
 	var/muzzle_strength = chambered.muzzle_flash_strength
 	var/muzzle_flash_time = 0.2 SECONDS
-	if(suppressed)
-		playsound(user, fire_sound, 10, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+	if(suppress_muzzle_flash)
 		muzzle_range *= 0.5
 		muzzle_strength *= 0.2
 		muzzle_flash_time *= 0.5
+	if(suppressed)
+		playsound(user, suppressed_fire_sound, 30, TRUE, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
 	else
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите [fire_sound_text]!"), projectile_message = TRUE)
+				if(pb_knockback > 0 && isliving(target))
+					var/mob/living/living_target = target
+					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
+						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
+						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+				user.visible_message(span_danger("[user] стреля[PLUR_ET_YUT(user)] из [declent_ru(GENITIVE)]!"), span_danger("Вы стреляете из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
 		if(chambered.muzzle_flash_color)
 			effect.color = chambered.muzzle_flash_color
-			effect.set_light(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
+			effect.set_light_range_power_color(muzzle_range, muzzle_strength, chambered.muzzle_flash_color)
 		else
 			effect.color = LIGHT_COLOR_TUNGSTEN
 
@@ -146,6 +276,7 @@
 		O.emp_act(severity)
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
+	. = ..()
 	if(firing_burst)
 		return
 	if(flag) //It's adjacent, is the user, or is on the user's person
@@ -153,36 +284,30 @@
 			return
 		if(!ismob(target) || user.a_intent == INTENT_HARM) //melee attack
 			return
-		if(target == user && user.zone_selected != "mouth") //so we can't shoot ourselves (unless mouth selected)
+		if(target == user && user.zone_selected != BODY_ZONE_PRECISE_MOUTH) //so we can't shoot ourselves (unless mouth selected)
 			return
 
-	if(istype(user))//Check if the user can use the gun, if the user isn't alive(turrets) assume it can.
-		var/mob/living/L = user
-		if(!can_trigger_gun(L))
-			return
-
-	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
-		shoot_with_empty_chamber(user)
+	if(!can_trigger_gun(user))
 		return
 
 	if(flag)
-		if(user.zone_selected == "mouth")
-			handle_suicide(user, target, params)
+		if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
+				user.visible_message(span_danger("[user] сдул[GEND_A_O_I(user)] дым с дула [declent_ru(GENITIVE )]. Как же [GEND_HE_SHE(user)] хорош[GEND_A_O_I(user)]!"))
+			else
+				handle_suicide(user, target, params)
 			return
 
-
 	//Exclude lasertag guns from the CLUMSY check.
-	if(clumsy_check)
-		if(istype(user))
-			if((CLUMSY in user.mutations) && prob(40))
-				to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
-				var/shot_leg = pick("l_foot", "r_foot")
-				process_fire(user, user, 0, params, zone_override = shot_leg)
-				user.drop_item()
-				return
+	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
+		to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE )]!"))
+		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
+		process_fire(user, user, 0, params, zone_override = shot_leg)
+		user.drop_from_active_hand()
+		return
 
-	if(weapon_weight == WEAPON_HEAVY && user.get_inactive_hand())
-		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
+	if(!HAS_TRAIT(user, TRAIT_BADASS) && weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
+		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE )] нужны две свободные руки!"))
 		return
 
 	//DUAL WIELDING
@@ -191,58 +316,74 @@
 	if(ishuman(user) && user.a_intent == INTENT_HARM)
 		var/mob/living/carbon/human/H = user
 		for(var/obj/item/gun/G in get_both_hands(H))
-			if(G == src || G.weapon_weight >= WEAPON_MEDIUM)
+			if(G == src || (!HAS_TRAIT(user, TRAIT_BADASS) && G.weapon_weight >= WEAPON_MEDIUM))
 				continue
 			else if(G.can_trigger_gun(user))
-				bonus_spread += 24 * G.weapon_weight
+				if(!HAS_TRAIT(user, TRAIT_BADASS))
+					bonus_spread += accuracy.dual_wield_spread * G.weapon_weight
 				loop_counter++
-				addtimer(CALLBACK(G, .proc/process_fire, target, user, 1, params, null, bonus_spread), loop_counter)
+				addtimer(CALLBACK(G, PROC_REF(process_fire), target, user, 1, params, null, bonus_spread), loop_counter)
+	//CLOWN CHECK
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		bonus_spread += 45
 
 	process_fire(target,user,1,params, null, bonus_spread)
 
 /obj/item/gun/proc/can_trigger_gun(mob/living/user)
-	if(!user.can_use_guns(src))
-		return 0
-	if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
-		to_chat(user, "<span class='danger'>[src] is incompatible with your biology!</span>")
-		return 0
-	return 1
+	if(istype(user))
+		if(!user.can_use_guns(src))
+			return FALSE
+
+		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
+			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] несовместим с вашей биологией!"))
+			return FALSE
+
+	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
+		shoot_with_empty_chamber(user)
+		return FALSE
+	return TRUE
 
 /obj/item/gun/proc/newshot()
 	return
 
-/obj/item/gun/proc/process_fire(atom/target as mob|obj|turf, mob/living/user as mob|obj, message = 1, params, zone_override, bonus_spread = 0)
-	add_fingerprint(user)
+/obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	var/is_tk_grab = !isnull(user.tkgrabbed_objects[src])
+	if(is_tk_grab) // don't add fingerprints if gun is hold by telekinesis grab
+		add_fingerprint(user)
+
 	if(chambered)
 		chambered.leave_residue(user)
 
 	if(semicd)
 		return
 
+	if(user.buckled)
+		bonus_spread += 45
+
+	SEND_SIGNAL(src, COMSIG_GUN_FIRED, user, target)
 	var/sprd = 0
-	var/randomized_gun_spread = 0
-	if(spread)
-		randomized_gun_spread =	rand(0,spread)
-	var/randomized_bonus_spread = rand(0, bonus_spread)
+
+	if(is_tk_grab)
+		rotate_to_target(target)
 
 	if(burst_size > 1)
-		if(chambered && chambered.harmful)
-			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
-				to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+		if(chambered?.harmful)
+			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
 		firing_burst = 1
 		for(var/i = 1 to burst_size)
 			if(!user)
 				break
 			if(!issilicon(user))
-				if( i>1 && !(src in get_both_hands(user))) //for burst firing
+				if(i>1 && !(src in get_both_hands(user))) //for burst firing
 					break
 			if(chambered)
 				if(randomspread)
-					sprd = round((rand() - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
+					sprd = accuracy.randomize_spread(user, bonus_spread)
 				else
-					sprd = round((i / burst_size - 0.5) * (randomized_gun_spread + randomized_bonus_spread))
-				if(!chambered.fire(target, user, params, ,suppressed, zone_override, sprd))
+					sprd = round((i / burst_size - 0.5) * accuracy.randomize_spread(user, bonus_spread))
+				if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 					shoot_with_empty_chamber(user)
 					break
 				else
@@ -250,6 +391,8 @@
 						shoot_live_shot(user, target, TRUE, message)
 					else
 						shoot_live_shot(user, target, FALSE, message)
+				if(chambered)
+					chambered.after_fire()
 			else
 				shoot_with_empty_chamber(user)
 				break
@@ -259,12 +402,12 @@
 		firing_burst = 0
 	else
 		if(chambered)
-			if(HAS_TRAIT(user, TRAIT_PACIFISM)) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
+			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
-					to_chat(user, "<span class='warning'>[src] is lethally chambered! You don't want to risk harming anyone...</span>")
+					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
-			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
-			if(!chambered.fire(target, user, params, , suppressed, zone_override, sprd))
+			sprd = accuracy.randomize_spread(user, bonus_spread)
+			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src, damage_mod = damage_mod, stamina_mod = stamina_mod))
 				shoot_with_empty_chamber(user)
 				return
 			else
@@ -272,6 +415,8 @@
 					shoot_live_shot(user, target, TRUE, message)
 				else
 					shoot_live_shot(user, target, FALSE, message)
+			if(chambered)
+				chambered.after_fire()
 		else
 			shoot_with_empty_chamber(user)
 			return
@@ -282,155 +427,212 @@
 			semicd = 0
 
 	if(user)
-		if(user.hand)
-			user.update_inv_l_hand()
-		else
-			user.update_inv_r_hand()
+		user.update_held_items()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
+	shots_counter += burst_size
+	SEND_SIGNAL(src, COMSIG_GUN_AFTER_PROCESS_FIRE, target, user)
 
-/obj/item/gun/attack(mob/M, mob/user)
-	if(user.a_intent == INTENT_HARM) //Flogging
-		if(bayonet)
-			M.attackby(bayonet, user)
-		else
-			return ..()
+/obj/item/gun/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(user.a_intent != INTENT_HARM)
+		return ATTACK_CHAIN_BLOCKED
+	if(bayonet) //Flogging
+		bayonet.melee_attack_chain(user, target, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
-/obj/item/gun/attack_obj(obj/O, mob/user)
-	if(user.a_intent == INTENT_HARM)
-		if(bayonet)
-			O.attackby(bayonet, user)
-			return
+/obj/item/gun/attack_obj(obj/object, mob/user, params)
+	if(bayonet)
+		bayonet.melee_attack_chain(user, object, params)
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/flashlight/seclite))
-		var/obj/item/flashlight/seclite/S = I
-		if(can_flashlight)
-			if(!gun_light)
-				if(!user.unEquip(I))
-					return
-				to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
-				if(S.on)
-					set_light(0)
-				gun_light = S
-				I.loc = src
-				update_icon()
-				update_gun_light(user)
-				var/datum/action/A = new /datum/action/item_action/toggle_gunlight(src)
-				if(loc == user)
-					A.Grant(user)
+	if(is_pen(I))
+		if(!unique_rename)
+			add_fingerprint(user)
+			to_chat(user, span_warning("Вы не можете переименовать [declent_ru(ACCUSATIVE)]!"))
+			return ATTACK_CHAIN_BLOCKED_ALL
+		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
+		if(!isnull(new_name))
+			to_chat(user, span_notice("Вы переименовываете \"[name]\". Познакомьтесь со своим новым другом."))
+		return ATTACK_CHAIN_BLOCKED
 
-	if(unique_rename)
-		if(istype(I, /obj/item/pen))
-			var/t = rename_interactive(user, I, use_prefix = FALSE)
-			if(!isnull(t))
-				to_chat(user, "<span class='notice'>You name the gun [name]. Say hello to your new friend.</span>")
 	if(istype(I, /obj/item/kitchen/knife))
-		var/obj/item/kitchen/knife/K = I
-		if(!can_bayonet || !K.bayonet || bayonet) //ensure the gun has an attachment point available, and that the knife is compatible with it.
+		add_fingerprint(user)
+		var/obj/item/kitchen/knife/knife = I
+		//ensure the gun has an attachment point available and that the knife is compatible with it.
+		if(!can_bayonet || !knife.bayonet_suitable)
+			to_chat(user, span_warning("Вы не можете прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(bayonet)
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже есть [knife.declent_ru(NOMINATIVE)]!"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(knife, src))
 			return ..()
-		if(!user.drop_item())
-			return
-		K.forceMove(src)
-		to_chat(user, "<span class='notice'>You attach [K] to [src]'s bayonet lug.</span>")
-		bayonet = K
-		var/state = "bayonet"							//Generic state.
-		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
-			state = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/obj/guns/bayonets.dmi'
-		knife_overlay = mutable_appearance(bayonet_icons, state)
-		knife_overlay.pixel_x = knife_x_offset
-		knife_overlay.pixel_y = knife_y_offset
-		overlays += knife_overlay
-	else
-		return ..()
+		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE)]."))
+		set_bayonet(knife)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/gun_module))
+		add_fingerprint(user)
+		var/obj/item/gun_module/module = I
+		if(module.try_attach(src, user))
+			return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 /obj/item/gun/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(gun_light && can_flashlight)
-		for(var/obj/item/flashlight/seclite/S in src)
-			to_chat(user, "<span class='notice'>You unscrew the seclite from [src].</span>")
-			gun_light = null
-			S.loc = get_turf(user)
-			update_gun_light(user)
-			S.update_brightness(user)
-			update_icon()
-			for(var/datum/action/item_action/toggle_gunlight/TGL in actions)
-				qdel(TGL)
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		bayonet.forceMove(get_turf(user))
-		clear_bayonet()
+		to_chat(user, span_notice("Вы снимаете [bayonet] с [declent_ru(ACCUSATIVE)]."))
+		set_bayonet(null)
 
-/obj/item/gun/proc/toggle_gunlight()
-	set name = "Toggle Gun Light"
-	set category = "Object"
+/obj/item/gun/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
+		toggle_gunlight()
+		return TRUE
+	return ..()
+
+/obj/item/gun/proc/toggle_gunlight_verb()
+	set name = "Оружейный фонарик"
+	set category = VERB_CATEGORY_OBJECT
 	set desc = "Click to toggle your weapon's attached flashlight."
 
+	toggle_gunlight(usr)
+
+/obj/item/gun/proc/toggle_gunlight(mob/user, silent = FALSE)
 	if(!gun_light)
 		return
 
-	var/mob/living/carbon/human/user = usr
-	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You cannot turn the light on while in this [user.loc]!</span>")
-	gun_light.on = !gun_light.on
-	to_chat(user, "<span class='notice'>You toggle the gun light [gun_light.on ? "on":"off"].</span>")
-
-	playsound(user, 'sound/weapons/empty.ogg', 100, 1)
-	update_gun_light(user)
-
-/obj/item/gun/proc/update_gun_light(mob/user = null)
-	if(gun_light)
-		if(gun_light.on)
-			set_light(gun_light.brightness_on)
-		else
-			set_light(0)
-		update_icon()
-	else
-		set_light(0)
-
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/gun/proc/clear_bayonet()
-	if(!bayonet)
+	if(user && !isturf(user.loc))
+		if(!silent)
+			to_chat(user, span_warning("Вы не можете переключить фонарь, находясь в [user.loc]!"))
 		return
-	bayonet = null
-	if(knife_overlay)
-		overlays -= knife_overlay
-		knife_overlay = null
-	return TRUE
 
-/obj/item/gun/extinguish_light()
-	if(gun_light.on)
-		toggle_gunlight()
-		visible_message("<span class='danger'>[src]'s light fades and turns off.</span>")
+	gun_light.on = !gun_light.on
+	if(!silent)
+		playsound(loc, 'sound/weapons/empty.ogg', 100, TRUE)
+		if(user)
+			to_chat(user, span_notice("Вы переключаете фонарь: [gun_light.on ? "вкл": "выкл"]."))
+	gun_light.set_light_on(gun_light.on)
+	SEND_SIGNAL(src, COMSIG_GUN_LIGHT_TOGGLE, user)
+	update_icon(UPDATE_OVERLAYS)
+	update_equipped_item(update_speedmods = FALSE)
 
+/// Sets gun's flashlight and do all the necessary updates
+/obj/item/gun/proc/set_gun_light(obj/item/flashlight/seclite/new_light)
+	if(gun_light == new_light)
+		return
 
-/obj/item/gun/dropped(mob/user)
-	..()
-	zoom(user,FALSE)
+	if(new_light && !istype(new_light))
+		CRASH("Wrong object passed as an argument ([isdatum(new_light) ? "[new_light.type]" : "[new_light]"])")
+
+	. = gun_light
+	gun_light = new_light
+
+	if(gun_light)
+		gun_light.set_light_flags(gun_light.light_flags | LIGHT_ATTACHED)
+		verbs |= /obj/item/gun/proc/toggle_gunlight_verb
+		if(gun_light.loc != src)
+			gun_light.forceMove(src)
+		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
+		if(!toggle_gunlight_action)
+			toggle_gunlight_action = new(src)
+			add_item_action(toggle_gunlight_action)
+	else
+		verbs -= /obj/item/gun/proc/toggle_gunlight_verb
+
+		var/datum/action/item_action/toggle_gunlight/toggle_gunlight_action = locate() in actions
+		if(toggle_gunlight_action)
+			remove_item_action(toggle_gunlight_action)
+			qdel(toggle_gunlight_action)
+
+		if(.)
+			var/obj/item/flashlight/seclite/old_gun_light = .
+			old_gun_light.set_light_flags(old_gun_light.light_flags & ~LIGHT_ATTACHED)
+			if(old_gun_light.loc == src)
+				old_gun_light.forceMove(get_turf(src))
+			old_gun_light.update_brightness()
+
+	update_icon(UPDATE_OVERLAYS)
+	update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/gun/extinguish_light(force = FALSE)
+	if(gun_light?.on)
+		toggle_gunlight(silent = TRUE)
+		visible_message(span_danger("Фонарь [declent_ru(GENITIVE)] гаснет."))
+
+/// Sets gun's bayonet and do all the necessary updates
+/obj/item/gun/proc/set_bayonet(obj/item/kitchen/knife/new_bayonet)
+	if(bayonet == new_bayonet)
+		return
+
+	if(new_bayonet && (!istype(new_bayonet) || !new_bayonet.bayonet_suitable))
+		CRASH("Wrong object passed as an argument ([isdatum(new_bayonet) ? "[new_bayonet.type]" : "[new_bayonet]"])")
+
+	. = bayonet
+	bayonet = new_bayonet
+
+	if(bayonet)
+		if(bayonet.loc != src)
+			bayonet.forceMove(src)
+
+		var/overlay_type = "bayonet"	//Generic state.
+		if(icon_exists('icons/obj/weapons/bayonets.dmi', bayonet.icon_state))	//Snowflake state?
+			overlay_type = bayonet.icon_state
+		bayonet_overlay = mutable_appearance('icons/obj/weapons/bayonets.dmi', overlay_type)
+		bayonet_overlay.pixel_w = bayonet_x_offset
+		bayonet_overlay.pixel_z = bayonet_y_offset
+	else
+		bayonet_overlay = null
+		if(.)
+			var/obj/item/kitchen/knife/old_bayonet = .
+			if(old_bayonet.loc == src)
+				old_bayonet.forceMove(get_turf(src))
+
+	update_icon(UPDATE_OVERLAYS)
+	update_equipped_item(update_speedmods = FALSE)
+
+/obj/item/gun/dropped(mob/user, slot, silent = FALSE)
+	. = ..()
+	zoom(user, FALSE)
 	if(azoom)
 		azoom.Remove(user)
 
-/obj/item/gun/AltClick(mob/user)
-	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+/obj/item/gun/click_alt(mob/user)
+	if(loc != user)
+		return NONE
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		to_chat(user, span_warning("Вы не можете сделать это сейчас!"))
+		return CLICK_ACTION_BLOCKING
+	try_detach_gun_module(user)
+	return CLICK_ACTION_SUCCESS
+
+/obj/item/gun/proc/try_detach_gun_module(mob/user)
+	. = FALSE
+	var/list/choices = list()
+	for(var/slot in attachments_by_slot)
+		if(!attachments_by_slot[slot])
+			continue
+		var/obj/item/gun_module/module = attachments_by_slot[slot]
+		if(module.can_detach)
+			choices[module.declent_ru(NOMINATIVE)] = image(icon = module.icon, icon_state = module.icon_state)
+	if(length(choices) == 0)
 		return
-	if(unique_reskin && !current_skin && loc == user)
-		reskin_gun(user)
+	var/choice = choices[1]
+	if(length(choices) > 1)
+		choice = show_radial_menu(user, src, choices, require_near = TRUE)
+	if(!choice)
+		return FALSE
+	for(var/slot in attachments_by_slot)
+		if(!attachments_by_slot[slot])
+			continue
+		var/obj/item/gun_module/module = attachments_by_slot[slot]
+		if(module.declent_ru(NOMINATIVE) == choice)
+			return module.detach_without_check(src, user)
 
-/obj/item/gun/proc/reskin_gun(mob/M)
-	var/choice = input(M,"Warning, you can only reskin your weapon once!","Reskin Gun") in options
-
-	if(src && choice && !current_skin && !M.incapacitated() && in_range(M,src))
-		if(options[choice] == null)
-			return
-		current_skin = options[choice]
-		to_chat(M, "Your gun is now skinned as [choice]. Say hello to your new friend.")
-		update_icon()
 
 /obj/item/gun/proc/handle_suicide(mob/living/carbon/human/user, mob/living/carbon/human/target, params)
 	if(!ishuman(user) || !ishuman(target))
@@ -440,29 +642,29 @@
 		return
 
 	if(user == target)
-		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+		target.visible_message(span_warning("[user] вставляет ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."), \
+							span_userdanger("Вы вставляеете ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
 	else
-		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+		target.visible_message(span_warning("[user] направляет [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."), \
+							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] вам в голову, готовясь выстрелить!"))
 
 	semicd = 1
 
-	if(!do_mob(user, target, 120) || user.zone_selected != "mouth")
+	if(!do_after(user, 12 SECONDS, target, NONE) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		if(user)
 			if(user == target)
-				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
+				user.visible_message(span_notice("[user] решает, что жить всё-таки хочется."))
 			else if(target && target.Adjacent(user))
-				target.visible_message("<span class='notice'>[user] has decided to spare [target]'s life.</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+				target.visible_message(span_notice("[user] решает пощадить [target]."), span_notice("[user] решает оставить вас в живых!"))
 		semicd = 0
 		return
 
 	semicd = 0
 
-	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
+	target.visible_message(span_warning("[user] нажимает на спусковой крючок!"), span_userdanger("[user] нажимает на спусковой крючок!"))
 
-	if(chambered && chambered.BB)
-		chambered.BB.damage *= 5
+	if(chambered?.BB)
+		chambered.BB.damage *= 15
 
 	process_fire(target, user, 1, params)
 
@@ -471,27 +673,33 @@
 /////////////
 
 /datum/action/toggle_scope_zoom
-	name = "Toggle Scope"
-	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_RESTRAINED|AB_CHECK_STUNNED|AB_CHECK_LYING
+	name = "Масштаб"
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED|AB_CHECK_INCAPACITATED
 	button_icon_state = "sniper_zoom"
 	var/obj/item/gun/gun = null
 
-/datum/action/toggle_scope_zoom/Trigger()
+/datum/action/toggle_scope_zoom/Trigger(mob/clicker, trigger_flags)
 	gun.zoom(owner)
 
-/datum/action/toggle_scope_zoom/IsAvailable()
+/datum/action/toggle_scope_zoom/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!. && gun)
 		gun.zoom(owner, FALSE)
 
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, FALSE)
+	if(gun)
+		gun.zoom(L, FALSE)
 	..()
+
+/datum/action/toggle_scope_zoom/Destroy()
+	gun = null
+	return ..()
 
 /obj/item/gun/proc/zoom(mob/living/user, forced_zoom)
 	if(!user || !user.client)
 		return
 
+	var/old_zoomed = zoomed
 	switch(forced_zoom)
 		if(FALSE)
 			zoomed = FALSE
@@ -499,6 +707,9 @@
 			zoomed = TRUE
 		else
 			zoomed = !zoomed
+
+	if(old_zoomed != zoomed) // Send signal only if zoomed state changed!
+		SEND_SIGNAL(src, COMSIG_GUN_ZOOM_TOGGLE, user, zoomed)
 
 	if(zoomed)
 		var/_x = 0
@@ -513,12 +724,25 @@
 			if(WEST)
 				_x = -zoom_amt
 
-		user.client.pixel_x = world.icon_size*_x
-		user.client.pixel_y = world.icon_size*_y
+		user.client.pixel_x = ICON_SIZE_X*_x
+		user.client.pixel_y = ICON_SIZE_Y*_y
+
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
+				continue
+			observe.client.pixel_x = ICON_SIZE_X*_x
+			observe.client.pixel_y = ICON_SIZE_Y*_y
 	else
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
 
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
+				continue
+			observe.client.pixel_x = 0
+			observe.client.pixel_y = 0
 
 //Proc, so that gun accessories/scopes/etc. can easily add zooming.
 /obj/item/gun/proc/build_zooming()
@@ -528,7 +752,15 @@
 	if(zoomable)
 		azoom = new()
 		azoom.gun = src
-		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, .proc/ZoomGrantCheck)
+		RegisterSignal(src, COMSIG_ITEM_EQUIPPED, PROC_REF(ZoomGrantCheck))
+
+/obj/item/gun/proc/destroy_zooming()
+	if(!azoom)
+		return
+	if(zoomable)
+		return
+	QDEL_NULL(azoom)
+	UnregisterSignal(src, COMSIG_ITEM_EQUIPPED)
 
 /**
  * Proc which will be called when the gun receives the `COMSIG_ITEM_EQUIPPED` signal.
@@ -544,7 +776,7 @@
  */
 /obj/item/gun/proc/ZoomGrantCheck(datum/source, mob/user, slot)
 	// Checks if the gun got equipped into either of the user's hands.
-	if(slot != slot_r_hand && slot != slot_l_hand)
+	if(!(slot & ITEM_SLOT_HANDS))
 		// If its not in their hands, un-zoom, and remove the zoom action button.
 		zoom(user, FALSE)
 		azoom.Remove(user)
@@ -552,3 +784,49 @@
 
 	// The gun is equipped in their hands, give them the zoom ability.
 	azoom.Grant(user)
+
+/obj/item/gun/proc/place_on_rack()
+	on_rack = TRUE
+	var/matrix/M = matrix()
+	M.Turn(-90)
+	transform = M
+	barrel_dir = NORTH
+
+/obj/item/gun/proc/remove_from_rack()
+	var/matrix/M = matrix()
+	transform = M
+	on_rack = FALSE
+	barrel_dir = EAST
+
+// rotating the gun to targer for a shot with telekinesis
+/obj/item/gun/proc/rotate_to_target(atom/target)
+	setDir(barrel_dir)
+	var/upd_dir = get_dir(src, target)
+	if(barrel_dir == upd_dir)
+		return
+	var/angle = dir2angle(upd_dir) - dir2angle(barrel_dir)
+	if(angle > 180)
+		angle -= 360
+	var/matrix/M = matrix(transform)
+	M.Turn(angle)
+	animate(src, transform = M, time = 2)
+	barrel_dir = upd_dir
+
+// if the gun have rotate transformation - reset it
+/obj/item/gun/proc/reset_direction()
+	if(barrel_dir == EAST)
+		return
+	var/matrix/M = matrix()
+	transform = M
+	barrel_dir = EAST
+
+/obj/item/gun/pickup(mob/user)
+	. = ..()
+	if(on_rack)
+		remove_from_rack()
+	else
+		reset_direction()
+
+/obj/item/gun/equipped(mob/user, slot, initial)
+	reset_direction()
+	return ..()

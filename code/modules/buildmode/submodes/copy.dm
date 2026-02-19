@@ -2,26 +2,25 @@
 	key = "copy"
 	var/atom/movable/stored = null
 
-/datum/buildmode_mode/copy/exit_mode()
+/datum/buildmode_mode/copy/Destroy()
 	stored = null
 	return ..()
 
-/datum/buildmode_mode/copy/show_help(mob/user)
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
-	to_chat(user, "<span class='notice'>Left Mouse Button on obj/turf/mob   = Spawn a Copy of selected target</span>")
-	to_chat(user, "<span class='notice'>Right Mouse Button on obj/mob = Select target to copy</span>")
-	to_chat(user, "<span class='notice'>***********************************************************</span>")
+/datum/buildmode_mode/copy/show_help(mob/builder)
+	to_chat(builder, span_purple(chat_box_examine(
+		"[span_bold("Создать копию выбранной цели")] -> ЛКМ на obj/turf/mob\n\
+		[span_bold("Выбрать цель для копирования")] -> ПКМ на obj/mob"))
+	)
 
 /datum/buildmode_mode/copy/handle_click(user, params, obj/object)
-	var/list/pa = params2list(params)
-	var/left_click = pa.Find("left")
-	var/right_click = pa.Find("right")
+	var/list/modifiers = params2list(params)
 
-	if(left_click)
-		var/turf/T = get_turf(object)
+	if(LAZYACCESS(modifiers, LEFT_CLICK))
+		var/turf/turf = get_turf(object)
 		if(stored)
-			DuplicateObject(stored, perfectcopy=1, sameloc=0,newloc=T)
-	else if(right_click)
+			DuplicateObject(stored, perfectcopy=1, sameloc=0,newloc=turf)
+			log_admin("Build Mode: [key_name(user)] copied [stored] to [AREACOORD(object)]")
+	else if(LAZYACCESS(modifiers, RIGHT_CLICK))
 		if(ismovable(object)) // No copying turfs for now.
-			to_chat(user, "<span class='notice'>[object] set as template.</span>")
+			to_chat(user, span_notice("[object] set as template."))
 			stored = object

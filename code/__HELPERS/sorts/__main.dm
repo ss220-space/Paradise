@@ -30,7 +30,6 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 	var/list/runBases = list()
 	var/list/runLens = list()
 
-
 /datum/sortInstance/proc/timSort(start, end)
 	runBases.Cut()
 	runLens.Cut()
@@ -71,11 +70,10 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 
 	while(remaining > 0)
 
-
 		//Merge all remaining runs to complete sort
 	//ASSERT(start == end)
 	mergeForceCollapse();
-	//ASSERT(runBases.len == 1)
+	//ASSERT(length(runBases) == 1)
 
 		//reset minGallop, for successive calls
 	minGallop = MIN_GALLOP
@@ -101,7 +99,9 @@ start	the index of the first element in the range that is	not already known to b
 	if(start <= lo)
 		start = lo + 1
 
-	for(,start < hi, ++start)
+	var/list/L = src.L
+
+	for(start in start to hi - 1)
 		var/pivot = fetchElement(L,start)
 
 		//set left and right to the index where pivot belongs
@@ -119,7 +119,7 @@ start	the index of the first element in the range that is	not already known to b
 				left = mid + 1
 
 		//ASSERT(left == right)
-		moveElement(L, start, left)	//move pivot element to correct location in the sorted range
+		move_element(L, start, left)	//move pivot element to correct location in the sorted range
 
 /*
 Returns the length of the run beginning at the specified position and reverses the run if it is back-to-front
@@ -140,6 +140,7 @@ reverse a descending sequence without violating stability.
 	if(runHi >= hi)
 		return 1
 
+	var/list/L = src.L
 	var/last = fetchElement(L, lo)
 	var/current = fetchElement(L, runHi++)
 
@@ -150,7 +151,7 @@ reverse a descending sequence without violating stability.
 			if(call(cmp)(current, last) >= 0)
 				break
 			++runHi
-		reverseRange(L, lo, runHi)
+		reverse_range(L, lo, runHi)
 	else
 		while(runHi < hi)
 			last = current
@@ -177,8 +178,8 @@ reverse a descending sequence without violating stability.
 //This method is called each time a new run is pushed onto the stack.
 //So the invariants are guaranteed to hold for i<stackSize upon entry to the method
 /datum/sortInstance/proc/mergeCollapse()
-	while(runBases.len >= 2)
-		var/n = runBases.len - 1
+	while(length(runBases) >= 2)
+		var/n = length(runBases) - 1
 		if(n > 1 && runLens[n - 1] <= runLens[n] + runLens[n + 1])
 			if(runLens[n - 1] < runLens[n + 1])
 				--n
@@ -188,24 +189,22 @@ reverse a descending sequence without violating stability.
 		else
 			break	//Invariant is established
 
-
 //Merges all runs on the stack until only one remains.
 //Called only once, to finalise the sort
 /datum/sortInstance/proc/mergeForceCollapse()
-	while(runBases.len >= 2)
-		var/n = runBases.len - 1
+	while(length(runBases) >= 2)
+		var/n = length(runBases) - 1
 		if(n > 1 && runLens[n - 1] < runLens[n + 1])
 			--n
 		mergeAt(n)
-
 
 //Merges the two consecutive runs at stack indices i and i+1
 //Run i must be the penultimate or antepenultimate run on the stack
 //In other words, i must be equal to stackSize-2 or stackSize-3
 /datum/sortInstance/proc/mergeAt(i)
-	//ASSERT(runBases.len >= 2)
+	//ASSERT(length(runBases) >= 2)
 	//ASSERT(i >= 1)
-	//ASSERT(i == runBases.len - 1 || i == runBases.len - 2)
+	//ASSERT(i == length(runBases) - 1 || i == length(runBases) - 2)
 
 	var/base1 = runBases[i]
 	var/base2 = runBases[i + 1]
@@ -220,7 +219,6 @@ reverse a descending sequence without violating stability.
 	runLens[i] += runLens[i + 1]
 	runLens.Cut(i + 1, i + 2)
 	runBases.Cut(i + 1, i + 2)
-
 
 	//Find where the first element of run2 goes in run1.
 	//Prior elements in run1 can be ignored (because they're already in place)
@@ -244,7 +242,6 @@ reverse a descending sequence without violating stability.
 	else
 		mergeHi(base1, len1, base2, len2)
 
-
 /*
 	Locates the position to insert key within the specified sorted range
 	If the range contains elements equal to key, this will return the index of the LEFTMOST of those elements
@@ -259,6 +256,7 @@ reverse a descending sequence without violating stability.
 /datum/sortInstance/proc/gallopLeft(key, base, len, hint)
 	//ASSERT(len > 0 && hint >= 0 && hint < len)
 
+	var/list/L = src.L
 	var/lastOffset = 0
 	var/offset = 1
 	if(call(cmp)(key, fetchElement(L,base + hint)) > 0)
@@ -318,6 +316,7 @@ reverse a descending sequence without violating stability.
 /datum/sortInstance/proc/gallopRight(key, base, len, hint)
 	//ASSERT(len > 0 && hint >= 0 && hint < len)
 
+	var/list/L = src.L
 	var/offset = 1
 	var/lastOffset = 0
 	if(call(cmp)(key, fetchElement(L, base + hint)) < 0)	//key <= L[base+hint]
@@ -360,27 +359,26 @@ reverse a descending sequence without violating stability.
 
 	return offset
 
-
 //Merges two adjacent runs in-place in a stable fashion.
 //For performance this method should only be called when len1 <= len2!
 /datum/sortInstance/proc/mergeLo(base1, len1, base2, len2)
 	//ASSERT(len1 > 0 && len2 > 0 && base1 + len1 == base2)
 
+	var/list/L = src.L
 	var/cursor1 = base1
 	var/cursor2 = base2
 
 	//degenerate cases
 	if(len2 == 1)
-		moveElement(L, cursor2, cursor1)
+		move_element(L, cursor2, cursor1)
 		return
 
 	if(len1 == 1)
-		moveElement(L, cursor1, cursor2 + len2)
+		move_element(L, cursor1, cursor2 + len2)
 		return
 
-
 	//Move first element of second run
-	moveElement(L, cursor2++, cursor1++)
+	move_element(L, cursor2++, cursor1++)
 	--len2
 
 	outer:
@@ -393,7 +391,7 @@ reverse a descending sequence without violating stability.
 			do
 				//ASSERT(len1 > 1 && len2 > 0)
 				if(call(cmp)(fetchElement(L, cursor2), fetchElement(L, cursor1)) < 0)
-					moveElement(L, cursor2++, cursor1++)
+					move_element(L, cursor2++, cursor1++)
 					--len2
 
 					++count2
@@ -412,7 +410,6 @@ reverse a descending sequence without violating stability.
 
 			while((count1 | count2) < minGallop)
 
-
 			//one run is winning consistently so galloping may provide huge benifits
 			//so try galloping, until such time as the run is no longer consistently winning
 			do
@@ -426,7 +423,7 @@ reverse a descending sequence without violating stability.
 					if(len1 <= 1)
 						break outer
 
-				moveElement(L, cursor2, cursor1)
+				move_element(L, cursor2, cursor1)
 				++cursor2
 				++cursor1
 				if(--len2 == 0)
@@ -434,7 +431,7 @@ reverse a descending sequence without violating stability.
 
 				count2 = gallopLeft(fetchElement(L, cursor1), cursor2, len2, 0)
 				if(count2)
-					moveRange(L, cursor2, cursor1, count2)
+					move_range(L, cursor2, cursor1, count2)
 
 					cursor2 += count2
 					cursor1 += count2
@@ -455,32 +452,31 @@ reverse a descending sequence without violating stability.
 				minGallop = 0
 			minGallop += 2;  // Penalize for leaving gallop mode
 
-
 	if(len1 == 1)
 		//ASSERT(len2 > 0)
-		moveElement(L, cursor1, cursor2 + len2)
+		move_element(L, cursor1, cursor2 + len2)
 
 	//else
 		//ASSERT(len2 == 0)
 		//ASSERT(len1 > 1)
 
-
 /datum/sortInstance/proc/mergeHi(base1, len1, base2, len2)
 	//ASSERT(len1 > 0 && len2 > 0 && base1 + len1 == base2)
 
+	var/list/L = src.L
 	var/cursor1 = base1 + len1 - 1	//start at end of sublists
 	var/cursor2 = base2 + len2 - 1
 
 	//degenerate cases
 	if(len2 == 1)
-		moveElement(L, base2, base1)
+		move_element(L, base2, base1)
 		return
 
 	if(len1 == 1)
-		moveElement(L, base1, cursor2 + 1)
+		move_element(L, base1, cursor2 + 1)
 		return
 
-	moveElement(L, cursor1--, cursor2-- + 1)
+	move_element(L, cursor1--, cursor2-- + 1)
 	--len1
 
 	outer:
@@ -492,7 +488,7 @@ reverse a descending sequence without violating stability.
 			do
 				//ASSERT(len1 > 0 && len2 > 1)
 				if(call(cmp)(fetchElement(L, cursor2), fetchElement(L, cursor1)) < 0)
-					moveElement(L, cursor1--, cursor2-- + 1)
+					move_element(L, cursor1--, cursor2-- + 1)
 					--len1
 
 					++count1
@@ -520,7 +516,7 @@ reverse a descending sequence without violating stability.
 				if(count1)
 					cursor1 -= count1
 
-					moveRange(L, cursor1 + 1, cursor2 + 1, count1)	//cursor1+1 == cursor2 by definition
+					move_range(L, cursor1 + 1, cursor2 + 1, count1)	//cursor1+1 == cursor2 by definition
 
 					cursor2 -= count1
 					len1 -= count1
@@ -541,7 +537,7 @@ reverse a descending sequence without violating stability.
 					if(len2 <= 1)
 						break outer
 
-				moveElement(L, cursor1--, cursor2-- + 1)
+				move_element(L, cursor1--, cursor2-- + 1)
 				--len1
 
 				if(len1 == 0)
@@ -558,12 +554,11 @@ reverse a descending sequence without violating stability.
 		//ASSERT(len1 > 0)
 
 		cursor1 -= len1
-		moveRange(L, cursor1 + 1, cursor2 + 1, len1)
+		move_range(L, cursor1 + 1, cursor2 + 1, len1)
 
 	//else
 		//ASSERT(len1 == 0)
 		//ASSERT(len2 > 0)
-
 
 /datum/sortInstance/proc/mergeSort(start, end)
 	var/remaining = end - start
@@ -590,8 +585,8 @@ reverse a descending sequence without violating stability.
 
 	while(remaining > 0)
 
-	while(runBases.len >= 2)
-		var/n = runBases.len - 1
+	while(length(runBases) >= 2)
+		var/n = length(runBases) - 1
 		if(n > 1 && runLens[n - 1] <= runLens[n] + runLens[n + 1])
 			if(runLens[n - 1] < runLens[n + 1])
 				--n
@@ -601,8 +596,8 @@ reverse a descending sequence without violating stability.
 		else
 			break	//Invariant is established
 
-	while(runBases.len >= 2)
-		var/n = runBases.len - 1
+	while(length(runBases) >= 2)
+		var/n = length(runBases) - 1
 		if(n > 1 && runLens[n - 1] < runLens[n + 1])
 			--n
 		mergeAt2(n)
@@ -610,6 +605,7 @@ reverse a descending sequence without violating stability.
 	return L
 
 /datum/sortInstance/proc/mergeAt2(i)
+	var/list/L = src.L
 	var/cursor1 = runBases[i]
 	var/cursor2 = runBases[i + 1]
 
@@ -625,7 +621,7 @@ reverse a descending sequence without violating stability.
 				break
 			val1 = fetchElement(L, cursor1)
 		else
-			moveElement(L, cursor2, cursor1)
+			move_element(L, cursor2, cursor1)
 
 			if(++cursor2 >= end2)
 				break
@@ -633,7 +629,6 @@ reverse a descending sequence without violating stability.
 			++cursor1
 
 			val2 = fetchElement(L, cursor2)
-
 
 	//Record the legth of the combined runs. If i is the 3rd last run now, also slide over the last run
 	//(which isn't involved in this merge). The current run (i+1) goes away in any case.

@@ -1,31 +1,33 @@
 GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 /mob/living/silicon/ai/verb/wipe_core()
-	set name = "Wipe Core"
-	set category = "OOC"
+	set name = "Выгрузить ядро ИИ"
+	set category = VERB_CATEGORY_OOC
 	set desc = "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
 
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
-	if(alert("WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?",
-					"Wipe Core", "No", "No", "Yes") != "Yes")
+	if(tgui_alert(usr, "WARNING: This will immediately wipe your core and ghost you, removing your character from the round permanently (similar to cryo and robotic storage). Are you entirely sure you want to do this?", "Wipe Core", list("No", "Yes")) != "Yes")
 		return
 
 	// We warned you.
-	GLOB.empty_playable_ai_cores += new /obj/structure/AIcore/deactivated(loc)
-	GLOB.global_announcer.autosay("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight")
+	var/dead_aicore = new /obj/structure/AIcore/deactivated(loc)
+	GLOB.empty_playable_ai_cores += dead_aicore
+	radio_announce("[src] has been moved to intelligence storage.", "Artificial Intelligence Oversight", PUB_FREQ, follow_target_override = dead_aicore)
+
+	for(var/mob/living/silicon/robot/R in connected_robots)
+		R.disconnect_from_ai()
+		R.show_laws()
 
 	//Handle job slot/tater cleanup.
 	var/job = mind.assigned_role
 
 	SSjobs.FreeRole(job)
 
-	if(mind.objectives.len)
+	if(length(mind.objectives))
 		mind.objectives.Cut()
 		mind.special_role = null
-	else
-		if(SSticker.mode.name == "AutoTraitor")
-			var/datum/game_mode/traitor/autotraitor/current_mode = SSticker.mode
-			current_mode.possible_traitors.Remove(src)
+
+	view_core()
 
 	// Ghost the current player and allow or disallow them to respawn, depends on time
 	if(TOO_EARLY_TO_GHOST)
@@ -39,7 +41,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 /mob/living/silicon/ai/proc/moveToAILandmark()
 	var/obj/loc_landmark
 	for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-		if(sloc.name != "AI")
+		if(sloc.name != JOB_TITLE_AI)
 			continue
 		if(locate(/mob/living) in sloc.loc)
 			continue
@@ -53,7 +55,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(!loc_landmark)
 		to_chat(src, "Oh god sorry we can't find an unoccupied AI spawn location, so we're spawning you on top of someone.")
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
-			if(sloc.name == "AI")
+			if(sloc.name == JOB_TITLE_AI)
 				loc_landmark = sloc
 
 	forceMove(loc_landmark.loc)
@@ -61,7 +63,7 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 // Before calling this, make sure an empty core exists, or this will no-op
 /mob/living/silicon/ai/proc/moveToEmptyCore()
-	if(!GLOB.empty_playable_ai_cores.len)
+	if(!length(GLOB.empty_playable_ai_cores))
 		log_runtime(EXCEPTION("moveToEmptyCore called without any available cores"), src)
 		return
 

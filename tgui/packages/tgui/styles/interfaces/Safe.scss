@@ -1,25 +1,21 @@
-.Safe
-{
-  &--engraving
-  {
+.Safe {
+  &--engraving {
     position: absolute;
     width: 95%;
     height: 96%;
     left: 2.5%;
     top: 2%;
-    border: 5px outset #3e4f6a;
+    border: 5px outset hsl(216.8, 26.2%, 32.9%);
     padding: 5px;
     text-align: center;
 
-    &--arrow
-    {
-      color: #35435a;
+    &--arrow {
+      color: hsl(217.3, 25.9%, 28%);
     }
 
-    &--hinge
-    {
-      content: " ";
-      background-color: #191f2a;
+    &--hinge {
+      content: ' ';
+      background-color: hsl(218.8, 25.4%, 13.1%);
       width: 25px;
       height: 40px;
       position: absolute;
@@ -28,48 +24,40 @@
     }
   }
 
-  &--dialer
-  {
+  &--dialer {
     margin-bottom: 0.5rem;
 
-    &--number
-    {
-      color: #bbbbbb;
+    &--number {
+      color: hsl(0, 0%, 73.3%);
       display: inline;
-      background-color: #191f2a;
+      background-color: hsl(218.8, 25.4%, 13.1%);
       font-size: 1.5rem;
       font-weight: bold;
       padding: 0 0.5rem;
     }
 
-    &--right
-    {
-      .Button
-      {
-        i
-        {
+    &--right {
+      .Button {
+        i {
           z-index: -100;
         }
       }
     }
 
-    .Button
-    {
+    .Button {
       width: 80px;
     }
   }
 
-  &--contents
-  {
-    border: 10px solid #191f2a;
-    background-color: #0f131a;
+  &--contents {
+    border: 10px solid hsl(218.8, 25.4%, 13.1%);
+    background-color: hsl(218.2, 26.8%, 8%);
     height: calc(85% + 7.5px);
     text-align: left;
     padding: 5px;
   }
 
-  &--help
-  {
+  &--help {
     position: absolute;
     bottom: 10px;
     left: 5px;

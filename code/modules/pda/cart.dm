@@ -28,12 +28,31 @@
 		var/datum/data/pda/messenger_plugin/P = A
 		P.pda = pda
 
+/obj/item/cartridge/proc/stamp_act(stamp)
+	var/result = FALSE
+	for(var/A in programs)
+		var/datum/data/pda/P = A
+		result = result || P.stamp_act(stamp)
+	for(var/A in messenger_plugins)
+		var/datum/data/pda/messenger_plugin/P = A
+		result = result || P.stamp_act(stamp)
+	return result
+
+/obj/item/cartridge/proc/on_id_updated()
+	for(var/A in programs)
+		var/datum/data/pda/P = A
+		P.on_id_updated()
+	for(var/A in messenger_plugins)
+		var/datum/data/pda/messenger_plugin/P = A
+		P.on_id_updated()
+
 /obj/item/cartridge/engineering
 	name = "Power-ON Cartridge"
 	icon_state = "cart-e"
 	programs = list(
 		new/datum/data/pda/app/power,
-		new/datum/data/pda/utility/scanmode/halogen)
+		new/datum/data/pda/utility/scanmode/halogen,
+	)
 
 /obj/item/cartridge/atmos
 	name = "BreatheDeep Cartridge"
@@ -45,7 +64,8 @@
 	icon_state = "cart-m"
 	programs = list(
 		new/datum/data/pda/app/crew_records/medical,
-		new/datum/data/pda/utility/scanmode/medical)
+		new/datum/data/pda/utility/scanmode/medical,
+	)
 
 /obj/item/cartridge/chemistry
 	name = "ChemWhiz Cartridge"
@@ -57,7 +77,8 @@
 	icon_state = "cart-s"
 	programs = list(
 		new/datum/data/pda/app/crew_records/security,
-		new/datum/data/pda/app/secbot_control)
+		new/datum/data/pda/app/secbot_control,
+	)
 
 /obj/item/cartridge/security/Initialize(mapload)
 	. = ..()
@@ -69,9 +90,8 @@
 	programs = list(
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,
-
-		new/datum/data/pda/app/crew_records/security)
-
+		new/datum/data/pda/app/crew_records/security,
+	)
 
 /obj/item/cartridge/janitor
 	name = "CustodiPRO Cartridge"
@@ -119,10 +139,9 @@
 	icon_state = "cart-tox"
 	programs = list(
 		new/datum/data/pda/utility/scanmode/gas,
-
 		new/datum/data/pda/utility/scanmode/reagent,
-
-		new/datum/data/pda/app/signaller)
+		new/datum/data/pda/app/signaller,
+	)
 
 /obj/item/cartridge/quartermaster
 	name = "Space Parts & Space Vendors Cartridge"
@@ -130,7 +149,8 @@
 	icon_state = "cart-q"
 	programs = list(
 		new/datum/data/pda/app/supply,
-		new/datum/data/pda/app/mule_control)
+		new/datum/data/pda/app/mule_control,
+	)
 
 /obj/item/cartridge/quartermaster/Initialize(mapload)
 	. = ..()
@@ -146,13 +166,11 @@
 	icon_state = "cart-h"
 	programs = list(
 		new/datum/data/pda/app/crew_records/security,
-
 		new/datum/data/pda/app/janitor,
-
 		new/datum/data/pda/app/supply,
 		new/datum/data/pda/app/mule_control,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/hop/Initialize(mapload)
 	. = ..()
@@ -164,8 +182,8 @@
 	programs = list(
 		new/datum/data/pda/app/crew_records/security,
 		new/datum/data/pda/app/secbot_control,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/hos/Initialize(mapload)
 	. = ..()
@@ -177,10 +195,9 @@
 	programs = list(
 		new/datum/data/pda/app/power,
 		new/datum/data/pda/utility/scanmode/halogen,
-
 		new/datum/data/pda/utility/scanmode/gas,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/cmo
 	name = "Med-U DELUXE"
@@ -188,22 +205,19 @@
 	programs = list(
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,
-
 		new/datum/data/pda/utility/scanmode/reagent,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/rd
 	name = "Signal Ace DELUXE"
 	icon_state = "cart-rd"
 	programs = list(
 		new/datum/data/pda/utility/scanmode/gas,
-
 		new/datum/data/pda/utility/scanmode/reagent,
-
 		new/datum/data/pda/app/signaller,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/rd/Initialize(mapload)
 	. = ..()
@@ -216,22 +230,16 @@
 	programs = list(
 		new/datum/data/pda/app/power,
 		new/datum/data/pda/utility/scanmode/halogen,
-
 		new/datum/data/pda/utility/scanmode/gas,
-
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,
-
 		new/datum/data/pda/utility/scanmode/reagent,
-
 		new/datum/data/pda/app/crew_records/security,
 		new/datum/data/pda/app/secbot_control,
-
 		new/datum/data/pda/app/janitor,
-
 		new/datum/data/pda/app/supply,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/captain/Initialize(mapload)
 	. = ..()
@@ -242,8 +250,8 @@
 	icon_state = "cart-h"
 	programs = list(
 		new/datum/data/pda/app/crew_records/security,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/centcom
 	name = "Value-PAK Cartridge"
@@ -252,22 +260,16 @@
 	programs = list(
 		new/datum/data/pda/app/power,
 		new/datum/data/pda/utility/scanmode/halogen,
-
 		new/datum/data/pda/utility/scanmode/gas,
-
 		new/datum/data/pda/app/crew_records/medical,
 		new/datum/data/pda/utility/scanmode/medical,
-
 		new/datum/data/pda/utility/scanmode/reagent,
-
 		new/datum/data/pda/app/crew_records/security,
 		new/datum/data/pda/app/secbot_control,
-
 		new/datum/data/pda/app/janitor,
-
 		new/datum/data/pda/app/supply,
-
-		new/datum/data/pda/app/status_display)
+		new/datum/data/pda/app/status_display,
+	)
 
 /obj/item/cartridge/centcom/Initialize(mapload)
 	. = ..()
@@ -275,7 +277,6 @@
 
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
-	icon_state = "cart"
 	var/initial_remote_door_id = "smindicate" //Make sure this matches the syndicate shuttle's shield/door id!!	//don't ask about the name, testing.
 	charges = 4
 	programs = list(new/datum/data/pda/utility/toggle_door)
@@ -289,36 +290,16 @@
 
 /obj/item/cartridge/frame
 	name = "F.R.A.M.E. cartridge"
-	icon_state = "cart"
 	charges = 5
 	var/telecrystals = 0
 	messenger_plugins = list(new/datum/data/pda/messenger_plugin/virus/frame)
 
-/obj/item/cartridge/mob_hunt_game
-	name = "Nano-Mob Hunter GO! Cartridge"
-	desc = "The hit new PDA game that lets you track down and capture your favorite Nano-Mobs living in your world!"
-	icon_state = "cart-eye"
-	programs = list(new/datum/data/pda/app/mob_hunter_game)
-	var/emagged = 0
-
-/obj/item/cartridge/mob_hunt_game/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/nanomob_card))
-		var/obj/item/nanomob_card/card = O
-		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]
-		if(my_game.register_capture(card.mob_data))
-			to_chat(user, "<span class='notice'>Transfer successful!</span>")
-			qdel(card)
-		else
-			to_chat(user, "<span class='warning'>Transfer failed. Could not read mob data from card.</span>")
-	else
-		..()
-
-/obj/item/cartridge/mob_hunt_game/emag_act(mob/user)
-	if(!emagged)
-		add_attack_logs(user, src, "emagged")
-		emagged = 1
-		var/datum/data/pda/app/mob_hunter_game/my_game = programs[1]
-		my_game.hacked = 1
-		to_chat(user, "<span class='warning'>TR4P_M45T3R.mod successfully initialized. ToS violated. User Agreement nullified. Gotta pwn them all.</span>")
-		to_chat(user, "<span class='warning'>You can now create trapped versions of any mob in your collection that will damage hunters who attempt to capture it.</span>")
-		description_antag = "This copy of Nano-Mob Hunter GO! has been hacked to allow the creation of trap mobs which will cause any PDA that attempts to capture it to shock anyone holding it. Hacked copies of the game will not trigger the trap."
+/obj/item/cartridge/frame/get_ru_names()
+	return list(
+		NOMINATIVE = "картридж П.О.Д.С.Т.А.В.А.",
+		GENITIVE = "картриджа П.О.Д.С.Т.А.В.А.",
+		DATIVE = "картриджу П.О.Д.С.Т.А.В.А.",
+		ACCUSATIVE = "картридж П.О.Д.С.Т.А.В.А.",
+		INSTRUMENTAL = "картриджем П.О.Д.С.Т.А.В.А.",
+		PREPOSITIONAL = "картридже П.О.Д.С.Т.А.В.А.",
+	)

@@ -20,3 +20,34 @@
 		name = "space piano"
 		desc = "This is a space piano, like a regular piano, but always in tune! Even if the musician isn't."
 		icon_state = "piano"
+	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE, impact_sound = 'sound/effects/piano_hit.ogg')
+
+/obj/structure/pianoclassic
+	parent_type = /obj/structure/musician
+	name = "space minimoog"
+	desc = "This is a minimoog, like a space piano, but more spacey!"
+	icon = 'icons/obj/musician.dmi'
+	icon_state = "minipiano"
+	anchored = TRUE
+	density = TRUE
+	allowed_instrument_ids = "piano"
+
+/obj/structure/pianoclassic/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/falling_hazard, damage = 80, hardhat_safety = FALSE, crushes = TRUE, impact_sound = 'sound/effects/piano_hit.ogg')
+
+/obj/structure/pianoclassic/ghostpiano
+	name = "cursed piano"
+	desc = "<b>You feel an evil presence watching you...</b>"
+	allowed_instrument_ids = "r3grand"
+	light_range = 2
+	light_color = "#ff0000"
+	light_system = MOVABLE_LIGHT
+
+/obj/structure/pianoclassic/ghostpiano/ui_state(mob/user)
+	if(isobserver(user))
+		return GLOB.observer_state
+	. = ..()
+
+/obj/structure/pianoclassic/ghostpiano/attack_ghost(mob/dead/observer/user)
+	ui_interact(user)

@@ -5,13 +5,13 @@
 
 /datum/martial_combo/cqc/consecutive/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(!target.stat)
-		target.visible_message("<span class='warning'>[user] strikes [target]'s abdomen, neck and back consecutively</span>", \
-							"<span class='userdanger'>[user] strikes your abdomen, neck and back consecutively!</span>")
-		playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
+		target.visible_message(span_warning("[user] strikes [target]'s abdomen, neck and back consecutively"), \
+							span_userdanger("[user] strikes your abdomen, neck and back consecutively!"))
+		playsound(get_turf(target), 'sound/weapons/cqchit2.ogg', 50, TRUE, -1)
 		var/obj/item/I = target.get_active_hand()
-		if(I && target.drop_item())
-			user.put_in_hands(I)
-		target.adjustStaminaLoss(50)
+		if(I && target.drop_from_active_hand())
+			user.put_in_hands(I, ignore_anim = FALSE)
+		target.apply_damage(50, STAMINA)
 		target.apply_damage(25, BRUTE)
 		objective_damage(user, target, 25, BRUTE)
 		add_attack_logs(user, target, "Melee attacked with martial-art [src] : Consecutive", ATKLOG_ALL)

@@ -3,10 +3,22 @@
 
 //Returns the thing in our active hand (whatever is in our active module-slot, in this case)
 /mob/living/silicon/robot/get_active_hand()
+	if(istype(module_active, /obj/item/gripper))
+		var/obj/item/gripper/gripper = module_active
+		return gripper.gripped_item == null ? module_active : gripper.gripped_item
 	return module_active
 
 /mob/living/silicon/robot/get_all_slots()
 	return list(module_state_1, module_state_2, module_state_3)
+
+/mob/living/silicon/robot/get_equipped_items(include_flags = NONE)
+	. = list()
+	if(module_state_1)
+		. += module_state_1
+	if(module_state_2)
+		. += module_state_2
+	if(module_state_3)
+		. += module_state_3
 
 /*-------TODOOOOOOOOOO--------*/
 /mob/living/silicon/robot/proc/uneq_module(obj/item/O)
@@ -17,6 +29,7 @@
 
 	if(client)
 		client.screen -= O
+		observer_screen_update(O, FALSE)
 	contents -= O
 	if(module)
 		O.loc = module	//Return item to module so it appears in its contents, so it can be taken out again.
@@ -25,6 +38,8 @@
 			A.Remove(src)
 
 	if(module_active == O)
+		if(istype(module_active, /obj/item/borg/destroyer/mobility))
+			remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 		module_active = null
 	if(module_state_1 == O)
 		inv1.icon_state = "inv1"
@@ -37,9 +52,10 @@
 		inv3.icon_state = "inv3"
 	if(hud_used)
 		hud_used.update_robot_modules_display()
-	return 1
+	update_icons()
+	return TRUE
 
-/mob/living/silicon/robot/proc/activate_module(var/obj/item/O)
+/mob/living/silicon/robot/proc/activate_module(obj/item/O)
 	if(!(locate(O) in src.module.modules) && O != src.module.emag)
 		return
 	if(activated(O))
@@ -56,30 +72,43 @@
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_1 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv1.screen_loc
+		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
 	else if(!module_state_2)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_2 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv2.screen_loc
+		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
 	else if(!module_state_3)
 		O.mouse_opacity = initial(O.mouse_opacity)
 		module_state_3 = O
 		O.layer = ABOVE_HUD_LAYER
-		O.plane = ABOVE_HUD_PLANE
+		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv3.screen_loc
+		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
 	else
 		to_chat(src, "You need to disable a module first!")
 	check_module_damage(FALSE)
-	update_icons()
+
+/mob/living/silicon/robot/proc/observer_screen_update(obj/item/item_to_update, add = TRUE)
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
+		if(!(observe.client && observe.client.eye == src))
+			LAZYREMOVE(inventory_observers, observe)
+			continue
+
+		if(add)
+			observe.client.screen += item_to_update
+		else
+			observe.client.screen -= item_to_update
 
 /mob/living/silicon/robot/proc/set_actions(obj/item/I)
 	for(var/X in I.actions)
@@ -94,7 +123,7 @@
 	uneq_module(module_state_2)
 	uneq_module(module_state_3)
 
-/mob/living/silicon/robot/proc/uneq_numbered(var/module)
+/mob/living/silicon/robot/proc/uneq_numbered(module)
 	if(module < 1 || module > 3) return
 
 	switch(module)
@@ -115,22 +144,22 @@
 	else
 		return 0
 
-/mob/living/silicon/robot/drop_item()
-	var/obj/item/gripper/G = get_active_hand()
+/mob/living/silicon/robot/drop_from_active_hand(force = FALSE)
+	var/obj/item/gripper/G = module_active
 	if(istype(G))
 		G.drop_gripped_item(silent = TRUE)
 		return TRUE // The gripper is special because it has a normal item inside that we can drop.
-	return FALSE // All robot inventory items have NODROP, so they should return FALSE.
+	return FALSE // All robot inventory items have NODROP trait, so they should return FALSE.
 
 //Helper procs for cyborg modules on the UI.
 //These are hackish but they help clean up code elsewhere.
 
 //module_selected(module) - Checks whether the module slot specified by "module" is currently selected.
-/mob/living/silicon/robot/proc/module_selected(var/module) //Module is 1-3
+/mob/living/silicon/robot/proc/module_selected(module) //Module is 1-3
 	return module == get_selected_module()
 
 //module_active(module) - Checks whether there is a module active in the slot specified by "module".
-/mob/living/silicon/robot/proc/module_active(var/module) //Module is 1-3
+/mob/living/silicon/robot/proc/module_active(module) //Module is 1-3
 	if(module < 1 || module > 3) return 0
 
 	switch(module)
@@ -157,11 +186,14 @@
 	return 0
 
 //select_module(module) - Selects the module slot specified by "module"
-/mob/living/silicon/robot/proc/select_module(var/module) //Module is 1-3
-	if(module < 1 || module > 3) return
+/mob/living/silicon/robot/proc/select_module(module) //Module is 1-3
+	if(module < 1 || module > 3)
+		return
 
-	if(!module_active(module)) return
+	if(!module_active(module))
+		return
 
+	deselect_module(get_selected_module())
 	switch(module)
 		if(1)
 			if(module_active != module_state_1)
@@ -169,47 +201,51 @@
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3"
 				module_active = module_state_1
-				return
+
 		if(2)
 			if(module_active != module_state_2)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2 +a"
 				inv3.icon_state = "inv3"
 				module_active = module_state_2
-				return
+
 		if(3)
 			if(module_active != module_state_3)
 				inv1.icon_state = "inv1"
 				inv2.icon_state = "inv2"
 				inv3.icon_state = "inv3 +a"
 				module_active = module_state_3
-				return
-	return
+
+	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		add_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
+	update_icons()
 
 //deselect_module(module) - Deselects the module slot specified by "module"
-/mob/living/silicon/robot/proc/deselect_module(var/module) //Module is 1-3
-	if(module < 1 || module > 3) return
+/mob/living/silicon/robot/proc/deselect_module(module) //Module is 1-3
+	if(module < 1 || module > 3)
+		return
+
+	if(istype(module_active, /obj/item/borg/destroyer/mobility))
+		remove_movespeed_modifier(/datum/movespeed_modifier/destroyer_mobility)
 
 	switch(module)
 		if(1)
 			if(module_active == module_state_1)
 				inv1.icon_state = "inv1"
 				module_active = null
-				return
 		if(2)
 			if(module_active == module_state_2)
 				inv2.icon_state = "inv2"
 				module_active = null
-				return
 		if(3)
 			if(module_active == module_state_3)
 				inv3.icon_state = "inv3"
 				module_active = null
-				return
-	return
+
+	update_icons()
 
 //toggle_module(module) - Toggles the selection of the module slot specified by "module".
-/mob/living/silicon/robot/proc/toggle_module(var/module) //Module is 1-3
+/mob/living/silicon/robot/proc/toggle_module(module) //Module is 1-3
 	if(module < 1 || module > 3) return
 
 	if(module_selected(module))
@@ -243,13 +279,13 @@
 
 	return
 
-/mob/living/silicon/robot/unEquip(obj/item/I, force)
+/mob/living/silicon/robot/do_unEquip(obj/item/I, force = FALSE, atom/newloc, no_move = FALSE, invdrop = TRUE, silent = FALSE)
 	if(I == module_active)
 		uneq_active(I)
 	return ..()
 
 /mob/living/silicon/robot/proc/update_module_icon()
-	if (!hands)
+	if(!hands)
 		return
 
 	if(!module)

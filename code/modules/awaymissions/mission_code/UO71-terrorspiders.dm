@@ -1,9 +1,6 @@
 /area/awaymission/UO71
 	name = "UO71"
-	icon_state = "away"
-	report_alerts = FALSE
 	tele_proof = TRUE
-
 
 /area/awaymission/UO71/plaza
 	name = "UO71 Plaza"
@@ -49,31 +46,31 @@
 	icon_state = "awaycontent21"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/UO71/queen
 	name = "UO71 Queen Lair"
 	icon_state = "awaycontent9"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/UO71/prince
 	name = "UO71 Prince Containment"
 	icon_state = "awaycontent10"
 	fire = TRUE
 	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /area/awaymission/UO71/loot
 	name = "UO71 Loot Vault"
 	icon_state = "awaycontent11"
 	requires_power = FALSE
-	tele_proof = TRUE
-	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	static_lighting = FALSE
+	base_lighting_alpha = 255
 
 /obj/item/paper/terrorspiders1
 	name = "paper - 'Sealed Facility'"
@@ -102,7 +99,6 @@
 	Based on the situation, Commander, I advise immediate evacuation through the gateway.<br>
 	-Research Director Simons<br>
 	"}
-
 
 /obj/item/paper/terrorspiders3
 	name = "paper - 'Final Report'"
@@ -178,73 +174,69 @@
 	desc = "An energy gun that recharges wirelessly during away missions. Does not work on the main station."
 	force = 10
 	origin_tech = null
-	selfcharge = 1
-	can_charge = 0
-	// Selfcharge is enabled and disabled, and used as the away mission tracker
-	selfcharge = TRUE
+	can_charge = FALSE
+	selfcharge = TRUE	// Selfcharge is enabled and disabled, and used as the away mission tracker
 
-/obj/item/gun/energy/laser/awaymission_aeg/Initialize(mapload)
-	. = ..()
-	// Force update it incase it spawns outside an away mission and shouldnt be charged
-	onTransitZ(new_z = loc.z)
-
-/obj/item/gun/energy/laser/awaymission_aeg/onTransitZ(old_z, new_z)
-	if(is_away_level(new_z))
+/obj/item/gun/energy/laser/awaymission_aeg/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
+	if(is_away_level(new_turf?.z))
 		if(ismob(loc))
-			to_chat(loc, "<span class='notice'>Your [src] activates, starting to draw power from a nearby wireless power source.</span>")
+			to_chat(loc, span_notice("Your [src] activates, starting to draw power from a nearby wireless power source."))
 		selfcharge = TRUE
 	else
 		if(selfcharge)
 			if(ismob(loc))
-				to_chat(loc, "<span class='danger'>Your [src] deactivates, as it is out of range from its power source.</span>")
+				to_chat(loc, span_danger("Your [src] deactivates, as it is out of range from its power source."))
 			cell.charge = 0
 			selfcharge = FALSE
 			update_icon()
+	return ..()
 
 /obj/item/reagent_containers/glass/beaker/terror_black_toxin
 	name = "beaker 'Black Terror Venom'"
-
-/obj/item/reagent_containers/glass/beaker/terror_black_toxin/New()
-	..()
-	reagents.add_reagent("terror_black_toxin", 50)
-	update_icon()
-
+	list_reagents = list("terror_black_toxin" = 50)
 
 /obj/machinery/computer/id_upgrader
 	name = "ID Upgrade Machine"
 	icon_state = "guest"
 	icon_screen = "pass"
 	var/list/access_to_give = list(ACCESS_AWAY01)
-	var/beenused = 0
+	var/beenused = FALSE
 	var/door_to_open = "UO71_Start"
 
 /obj/machinery/computer/id_upgrader/attackby(obj/item/I, mob/user, params)
-	if(I.GetID())
-		var/obj/item/card/id/D = I.GetID()
-		if(!access_to_give.len)
-			to_chat(user, "<span class='notice'>This machine appears to be configured incorrectly.</span>")
-			return
-		var/did_upgrade = 0
-		var/list/id_access = D.GetAccess()
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
+	var/obj/item/card/id/id = I.GetID()
+	if(id)
+		add_fingerprint(user)
+		if(!length(access_to_give))
+			to_chat(user, span_warning("This machine appears to be configured incorrectly."))
+			return ATTACK_CHAIN_PROCEED
+		var/did_upgrade = FALSE
+		var/list/id_access = id.GetAccess()
 		for(var/this_access in access_to_give)
 			if(!(this_access in id_access))
 				// don't have it - add it
-				D.access |= this_access
-				did_upgrade = 1
+				id.access |= this_access
+				did_upgrade = TRUE
 		if(did_upgrade)
-			to_chat(user, "<span class='notice'>An access type was added to your ID card.</span>")
-			if(beenused)
-				return
-			spawn(1)
-				beenused = 1
-				var/unlocked_something = 0
-				for(var/obj/machinery/door/poddoor/P in GLOB.airlocks)
-					if(P.density && P.id_tag == door_to_open && P.z == z)
-						P.open()
-						unlocked_something = 1
-				if(unlocked_something)
-					to_chat(user, "<span class='danger'>Activating the machine has unlocked a way forward!</span>")
+			to_chat(user, span_notice("An access type was added to your ID card."))
 		else
-			to_chat(user, "<span class='notice'>Your ID card already has all the access this machine can give.</span>")
-		return
+			to_chat(user, span_warning("Your ID card already has all the access this machine can give."))
+		if(!beenused)
+			to_chat(user, span_danger("Activating the machine has unlocked a way forward!"))
+			unlock_doors()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
+
+/// Unlocks some blast doors on the gate level
+/obj/machinery/computer/id_upgrader/proc/unlock_doors()
+	set waitfor = FALSE
+
+	beenused = TRUE
+	for(var/obj/machinery/door/poddoor/poddoor in GLOB.airlocks)
+		if(poddoor.density && poddoor.id_tag == door_to_open && poddoor.z == z)
+			poddoor.open()
+

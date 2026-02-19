@@ -1,11 +1,19 @@
 //Cloaks. No, not THAT kind of cloak.
 
-/obj/item/clothing/neck/cloak
-	name = "grey cloak"
+/obj/item/clothing/neck/cloak //We need this "White" for better color adjustment.
+	name = "cloak"
 	desc = "It's a cloak that can be worn around your neck in a pretty dull color."
 	icon_state = "cloak"
-	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = UPPER_TORSO | ARMS
+	var/colour = null
+
+/obj/item/clothing/neck/cloak/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spraycan_paintable)
+	add_atom_colour(colour, FIXED_COLOUR_PRIORITY)
+
+/obj/item/clothing/neck/cloak/grey
+	colour = "#535353"
 
 /obj/item/clothing/neck/cloak/head_of_security
 	name = "head of security's cloak"
@@ -16,6 +24,7 @@
 	name = "security officer's cloak"
 	desc = "Worn by security officers."
 	icon_state = "seccloak"
+
 /obj/item/clothing/neck/cloak/quartermaster
 	name = "quartermaster's cloak"
 	desc = "Worn by the God-emperor of Cargonia, supplying the station with the necessary tools for survival."
@@ -32,7 +41,6 @@
 	icon_state = "cecloak"
 
 /obj/item/clothing/neck/cloak/chief_engineer/white
-	name = "chief engineer's white cloak"
 	desc = "Worn by the leader of both Atmosia and Delamistan, wielder of unlimited power. This one is white."
 	icon_state = "cecloak_white"
 
@@ -56,8 +64,8 @@
 	icon_state = "hopcloak"
 
 /obj/item/clothing/neck/cloak/nanotrasen_representative
-	name = "NanoTrasen Representative's cloak"
-	desc = "Worn by a NanoTrasen representative. A faint whisper of denunciation can be heard from under the cloak."
+	name = "Nanotrasen Representative's cloak"
+	desc = "Worn by a Nanotrasen representative. A faint whisper of denunciation can be heard from under the cloak."
 	icon_state = "ntrcloak"
 
 /obj/item/clothing/neck/cloak/blueshield
@@ -111,20 +119,8 @@
 	icon_state = "syndadmiral"
 	item_state = "syndadmiral"
 
-/obj/item/clothing/neck/toggle/attack_self(mob/user)
-	if(icon_state == initial(icon_state))
-		icon_state = icon_state + "_t"
-		item_state = icon_state + "_t"
-	else
-		icon_state = initial(icon_state)
-		item_state = initial(item_state)
-	user.update_inv_neck()
-	for(var/X in actions)
-		var/datum/action/A = X
-		A.UpdateButtonIcon()
-
-/obj/item/clothing/neck/cloak/New()
-	..()
-	AddComponent(/datum/component/spraycan_paintable)
-	START_PROCESSING(SSobj, src)
-	update_icon()
+/obj/item/clothing/neck/cloak/spacecloak
+	name = "space cloak"
+	desc = "Hole, a blackhole on your back!"
+	icon_state = "spacecloak"
+	item_state = "spacecloak"

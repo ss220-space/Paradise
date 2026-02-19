@@ -87,9 +87,9 @@
 	var/list/data = list()
 
 	if(!use_teens)
-		data = list( list(units, 10), list(tens, 100), list(hundreds, 1000) )
+		data = list(list(units, 10), list(tens, 100), list(hundreds, 1000))
 	else
-		data = list( list(teens, 10), list(hundreds, 1000) )
+		data = list(list(teens, 10), list(hundreds, 1000))
 	for(var/list in data)
 
 		var/names = list[1]

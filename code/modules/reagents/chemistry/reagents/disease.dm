@@ -1,8 +1,9 @@
+#define REAGENT_UNITS_1 1
+
 /datum/reagent/spider_eggs
-	name = "spider eggs"
+	name = "Паучьи яйца"
 	id = "spidereggs"
-	description = "A fine dust containing spider eggs. Oh gosh."
-	reagent_state = SOLID
+	description = "Мелкая пыль, содержащая паучьи яйца. О боже."
 	color = "#FFFFFF"
 	can_synth = FALSE
 	taste_mult = 0
@@ -14,77 +15,92 @@
 				new/obj/item/organ/internal/body_egg/spider_eggs(M) //Yes, even Xenos can fall victim to the plague that is spider infestation.
 	return ..()
 
-
 /datum/reagent/nanomachines
-	name = "Nanomachines"
+	name = "Наномашины"
 	id = "nanomachines"
-	description = "Microscopic construction robots."
+	description = "Микроскопические строительные роботы."
 	color = "#535E66" // rgb: 83, 94, 102
 	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/nanomachines/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
-		M.ForceContractDisease(new /datum/disease/transformation/robot(0))
+		var/datum/disease/virus/transformation/robot/D = new
+		D.Contract(M)
 	return ..()
 
-
 /datum/reagent/xenomicrobes
-	name = "Xenomicrobes"
+	name = "Ксеномикробы"
 	id = "xenomicrobes"
-	description = "Microbes with an entirely alien cellular structure."
+	description = "Микробы с совершенно чужеродной клеточной структурой."
 	color = "#535E66" // rgb: 83, 94, 102
 	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume > 1.5)
-		M.ContractDisease(new /datum/disease/transformation/xeno)
+		var/datum/disease/virus/transformation/xeno/D = new
+		D.Contract(M)
 	return ..()
 
+//I was told that someone will soon change the logic of their work, so I keep the old behavior.
+/datum/reagent/xenomicrobes/phantom
+	id = "xenomicrobes_phantom"
+	description = "Микробы с совершенно чужеродной клеточной структурой. Кажутся более активными чем обычно."
+	metabolization_rate = 1
+
+/datum/reagent/xenomicrobes/phantom/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	if(volume < REAGENT_UNITS_1)
+		return
+	var/datum/disease/virus/transformation/xeno/phantom/D = new
+	D.Contract(M)
+
 /datum/reagent/fungalspores
-	name = "Tubercle bacillus Cosmosis microbes"
+	name = "Микробы Космического Туберкулёза"
 	id = "fungalspores"
-	description = "Active fungal spores."
+	description = "Активные споры грибов."
 	color = "#92D17D" // rgb: 146, 209, 125
 	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/fungalspores/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
-		M.ForceContractDisease(new /datum/disease/tuberculosis(0))
+		var/datum/disease/virus/tuberculosis/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/jagged_crystals
-	name = "Jagged Crystals"
+	name = "Зазубренные кристаллы"
 	id = "jagged_crystals"
-	description = "Rapid chemical decomposition has warped these crystals into twisted spikes."
-	reagent_state = SOLID
+	description = "В результате быстрого химического разложения эти кристаллы превратились в витые шипы."
 	color = "#FA0000" // rgb: 250, 0, 0
 	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/jagged_crystals/on_mob_life(mob/living/carbon/M)
-	M.ForceContractDisease(new /datum/disease/berserker(0))
+	var/datum/disease/berserker/D = new
+	D.Contract(M)
 	return ..()
 
 /datum/reagent/salmonella
-	name = "Salmonella"
+	name = "Сальмонелла"
 	id = "salmonella"
-	description = "A nasty bacteria found in spoiled food."
+	description = "Отвратительная бактерия, встречающаяся в испорченных продуктах."
 	reagent_state = LIQUID
 	color = "#1E4600"
 	can_synth = FALSE
 	taste_mult = 0
 
 /datum/reagent/salmonella/on_mob_life(mob/living/carbon/M)
-	M.ForceContractDisease(new /datum/disease/food_poisoning(0))
+	var/datum/disease/food_poisoning/D = new
+	D.Contract(M)
 	return ..()
 
 /datum/reagent/gibbis
-	name = "Gibbis"
+	name = "Гиббис"
 	id = "gibbis"
-	description = "Liquid gibbis."
+	description = "Гиббис в жидкой форме."
 	reagent_state = LIQUID
 	color = "#FF0000"
 	can_synth = FALSE
@@ -92,13 +108,14 @@
 
 /datum/reagent/gibbis/on_mob_life(mob/living/carbon/M)
 	if(volume > 2.5)
-		M.ForceContractDisease(new /datum/disease/gbs/curable(0))
+		var/datum/disease/virus/gbs/non_con/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/prions
-	name = "Prions"
+	name = "Прионы"
 	id = "prions"
-	description = "A disease-causing agent that is neither bacterial nor fungal nor viral and contains no genetic material."
+	description = "Возбудитель болезни, который не является ни бактериальным, ни грибковым, ни вирусным агентом и не содержит генетического материала."
 	reagent_state = LIQUID
 	color = "#FFFFFF"
 	can_synth = FALSE
@@ -106,13 +123,14 @@
 
 /datum/reagent/prions/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/kuru(0))
+		var/datum/disease/kuru/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/grave_dust
-	name = "Grave Dust"
+	name = "Могильная пыль"
 	id = "grave_dust"
-	description = "Moldy old dust taken from a grave site."
+	description = "Заплесневелая пыль, взятая кладбища."
 	reagent_state = LIQUID
 	color = "#465046"
 	can_synth = FALSE
@@ -120,28 +138,29 @@
 
 /datum/reagent/grave_dust/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/vampire(0))
+		var/datum/disease/vampire/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/bacon_grease
-	name = "pure bacon grease"
+	name = "Чистый сальный жир"
 	id = "bacon_grease"
-	description = "Hook me up to an IV of that sweet, sweet stuff!"
+	description = "Принесите мне капельницу этого сладкого, сладкого жира!"
 	reagent_state = LIQUID
 	color = "#F7E6B1"
 	can_synth = FALSE
-	taste_description = "bacon"
+	taste_description = "бекона"
 
 /datum/reagent/bacon_grease/on_mob_life(mob/living/carbon/M)
 	if(volume > 4.5)
-		M.ForceContractDisease(new /datum/disease/critical/heart_failure(0))
+		var/datum/disease/critical/heart_failure/D = new
+		D.Contract(M)
 	return ..()
 
 /datum/reagent/heartworms
-	name = "Space heartworms"
+	name = "Сердечные черви"
 	id = "heartworms"
-	description = "Aww, gross! These things can't be good for your heart. They're gunna eat it!"
-	reagent_state = SOLID
+	description = "Какая гадость! Эти черви будут не против полакомиться твоим сердечком!"
 	color = "#925D6C"
 	can_synth = FALSE
 	taste_mult = 0
@@ -157,9 +176,9 @@
 	return ..()
 
 /datum/reagent/concentrated_initro
-	name = "Concentrated Initropidril"
+	name = "Сгущённый инитропидрил"
 	id = "concentrated_initro"
-	description = "A guaranteed heart-stopper!"
+	description = "Остановка сердца в жидкой форме!"
 	reagent_state = LIQUID
 	color = "#AB1CCF"
 	can_synth = FALSE
@@ -176,39 +195,41 @@
 //virus foods
 
 /datum/reagent/consumable/virus_food
-	name = "Virus Food"
+	name = "Питательная среда"
 	id = "virusfood"
-	description = "A mixture of water, milk, and oxygen. Virus cells can use this mixture to reproduce."
+	description = "Смесь воды, молока и кислорода. Вирусные клетки могут использовать эту смесь для размножения."
 	reagent_state = LIQUID
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	color = "#899613" // rgb: 137, 150, 19
-	taste_description = "watery milk"
+	taste_description = "водянистого молока"
 
 /datum/reagent/mutagen/mutagenvirusfood
-	name = "mutagenic agar"
+	name = "Мутагенный агар"
 	id = "mutagenvirusfood"
-	description = "mutates blood"
+	description = "Вещество, способствующее ускоренной мутации вирусных форм жизни."
 	color = "#A3C00F" // rgb: 163,192,15
 
 /datum/reagent/mutagen/mutagenvirusfood/sugar
-	name = "sucrose agar"
+	name = "Сахарный агар"
 	id = "sugarvirusfood"
 	color = "#41B0C0" // rgb: 65,176,192
 	taste_mult = 1.5
 
 /datum/reagent/medicine/diphenhydramine/diphenhydraminevirusfood
-	name = "virus rations"
+	name = "Вирусный пайки"
 	id = "diphenhydraminevirusfood"
-	description = "mutates blood"
+	description = "Вещество, способствующее ускоренной мутации вирусных форм жизни."
 	color = "#D18AA5" // rgb: 209,138,165
 
 /datum/reagent/plasma_dust/plasmavirusfood
-	name = "virus plasma"
+	name = "Вирусная плазма"
 	id = "plasmavirusfood"
-	description = "mutates blood"
+	description = "Вещество, способствующее ускоренной мутации вирусных форм жизни."
 	color = "#A69DA9" // rgb: 166,157,169
 
 /datum/reagent/plasma_dust/plasmavirusfood/weak
-	name = "weakened virus plasma"
+	name = "Ослабленная вирусная плазма"
 	id = "weakplasmavirusfood"
 	color = "#CEC3C6" // rgb: 206,195,198
+
+#undef REAGENT_UNITS_1

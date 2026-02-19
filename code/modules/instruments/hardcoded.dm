@@ -49,6 +49,12 @@
 	legacy_instrument_ext = "ogg"
 	legacy_instrument_path = "piano"
 
+/datum/instrument/hardcoded/drumkit
+	name = "Drum kit"
+	id = "drumkit"
+	legacy_instrument_ext = "ogg"
+	legacy_instrument_path = "drumkit"
+
 /datum/instrument/hardcoded/recorder
 	name = "Recorder"
 	id = "recorder"

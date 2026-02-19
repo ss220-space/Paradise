@@ -1,22 +1,38 @@
+#define SECURE_CRATE_STAGE_NO_BROKEN 0
+#define SECURE_CRATE_STAGE_PANEL_OPEN 3
+#define SECURE_CRATE_STAGE_WIRES_PREPARED 2
+#define SECURE_CRATE_STAGE_OPENED 1
+
+// MARK: Basic crate
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
 	climbable = TRUE
-//	mouse_drag_pointer = MOUSE_ACTIVE_POINTER	//???
+	open_sound = 'sound/machines/crate_open.ogg'
+	close_sound = 'sound/machines/crate_close.ogg'
+	pass_flags_self = PASSSTRUCTURE|LETPASSTHROW
 	var/rigged = FALSE
 	var/obj/item/paper/manifest/manifest
 	// A list of beacon names that the crate will announce the arrival of, when delivered.
 	var/list/announce_beacons = list()
+	/// Overlay for lightmask of our crate
+	var/overlay_lightmask
+	/// Can our crate make emissive light?
+	var/can_be_emissive = FALSE
 
-/obj/structure/closet/crate/update_icon()
-	..()
-	overlays.Cut()
+/obj/structure/closet/crate/update_icon_state()
+	icon_state = "[initial(icon_state)][opened ? "_open" : ""]"
+
+/obj/structure/closet/crate/update_overlays()
+	// . = ..() is not needed here because of different overlay handling logic for crates
+	underlays.Cut()
+	. = list()
 	if(manifest)
-		overlays += "manifest"
+		. += "manifest"
+	if(can_be_emissive)
+		underlays += emissive_appearance(icon, overlay_lightmask, src)
 
 /obj/structure/closet/crate/can_open()
 	return TRUE
@@ -25,34 +41,35 @@
 	return TRUE
 
 /obj/structure/closet/crate/open(by_hand = FALSE)
-	if(src.opened)
+	if(opened)
 		return FALSE
-	if(!src.can_open())
+	if(!can_open())
 		return FALSE
 
 	if(by_hand)
 		for(var/obj/O in src)
 			if(O.density)
-				var/response = alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?","Bluespace Compression Warning", "No", "Yes")
-				if(response == "No" || !Adjacent(usr))
+				var/response = tgui_alert(usr, "This crate has been packed with bluespace compression, an item inside won't fit back inside. Are you sure you want to open it?", "Bluespace Compression Warning", list("Yes", "No"))
+				if(response != "Yes" || !Adjacent(usr))
 					return FALSE
 				break
 
-	if(rigged && locate(/obj/item/radio/electropack) in src)
+	var/obj/item/radio/electropack = locate() in src
+	if(rigged && electropack)
 		if(isliving(usr))
 			var/mob/living/L = usr
-			if(L.electrocute_act(17, src))
-				do_sparks(5, 1, src)
+			if(L.electrocute_act(17, electropack))
+				do_sparks(5, TRUE, src)
 				return 2
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, open_sound, open_sound_volume, TRUE, -3)
 	for(var/obj/O in src) //Objects
-		O.layer = src.layer + 0.1
 		O.forceMove(loc)
 	for(var/mob/M in src) //Mobs
 		M.forceMove(loc)
-	icon_state = icon_opened
-	src.opened = TRUE
+
+	opened = TRUE
+	update_icon()
 
 	if(climbable)
 		structure_shaken()
@@ -60,55 +77,50 @@
 	return TRUE
 
 /obj/structure/closet/crate/close()
-	if(!src.opened || !src.can_close())
+	if(!opened || !can_close())
 		return FALSE
 
-	playsound(src.loc, 'sound/machines/click.ogg', 15, 1, -3)
+	playsound(loc, close_sound, close_sound_volume, TRUE, -3)
 	var/itemcount = 0
-	for(var/obj/O in get_turf(src))
+	for(var/atom/movable/O in get_turf(src))
 		if(itemcount >= storage_capacity)
 			break
-		if(O.density || O.anchored || istype(O,/obj/structure/closet))
+		if(O.density || O.anchored || istype(O,/obj/structure/closet) || isobserver(O) || O.has_buckled_mobs())
 			continue
-		if(istype(O, /obj/structure/bed)) //This is only necessary because of rollerbeds and swivel chairs.
-			var/obj/structure/bed/B = O
-			if(B.has_buckled_mobs())
-				continue
 		O.forceMove(src)
 		itemcount++
 
-	icon_state = icon_closed
-	src.opened = FALSE
+	opened = FALSE
+	update_icon()
 	return TRUE
 
-/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
-	if(!opened && try_rig(W, user))
-		return
+/obj/structure/closet/crate/attackby(obj/item/I, mob/user, params)
+	if(!opened && try_rig(I, user))
+		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
 /obj/structure/closet/crate/toggle(mob/user, by_hand = FALSE)
 	if(!(opened ? close() : open(by_hand)))
-		to_chat(user, "<span class='notice'>It won't budge!</span>")
+		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/crate/proc/try_rig(obj/item/W, mob/user)
 	if(istype(W, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = W
 		if(rigged)
-			to_chat(user, "<span class='notice'>[src] is already rigged!</span>")
+			to_chat(user, span_notice("[src] is already rigged!"))
 			return TRUE
 		if(C.use(15))
-			to_chat(user, "<span class='notice'>You rig [src].</span>")
+			to_chat(user, span_notice("You rig [src]."))
 			rigged = TRUE
 		else
-			to_chat(user, "<span class='warning'>You need atleast 15 wires to rig [src]!</span>")
+			to_chat(user, span_warning("You need atleast 15 wires to rig [src]!"))
 		return TRUE
 	if(istype(W, /obj/item/radio/electropack))
 		if(rigged)
-			if(!user.drop_item())
-				to_chat(user, "<span class='warning'>[W] seems to be stuck to your hand!</span>")
+			if(!user.drop_transfer_item_to_loc(W, src))
+				to_chat(user, span_warning("[W] seems to be stuck to your hand!"))
 				return TRUE
-			to_chat(user, "<span class='notice'>You attach [W] to [src].</span>")
-			W.forceMove(src)
+			to_chat(user, span_notice("You attach [W] to [src]."))
 		return TRUE
 
 /obj/structure/closet/crate/wirecutter_act(mob/living/user, obj/item/I)
@@ -118,8 +130,8 @@
 		return
 
 	if(I.use_tool(src, user))
-		to_chat(user, "<span class='notice'>You cut away the wiring.</span>")
-		playsound(loc, I.usesound, 100, 1)
+		to_chat(user, span_notice("You cut away the wiring."))
+		playsound(loc, I.usesound, 100, TRUE)
 		rigged = FALSE
 		return TRUE
 
@@ -128,61 +140,62 @@
 
 /obj/structure/closet/crate/attack_hand(mob/user)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		add_fingerprint(user)
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
+		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
 		update_icon()
 		return
 	else
-		if(rigged && locate(/obj/item/radio/electropack) in src)
+		var/obj/item/radio/electropack = locate() in src
+		if(rigged && electropack)
 			if(isliving(user))
 				var/mob/living/L = user
-				if(L.electrocute_act(17, src))
-					do_sparks(5, 1, src)
+				if(L.electrocute_act(17, electropack))
+					do_sparks(5, TRUE, src)
 					return
-		src.add_fingerprint(user)
-		src.toggle(user, by_hand = TRUE)
+		add_fingerprint(user)
+		toggle(user, by_hand = TRUE)
 
 // Called when a crate is delivered by MULE at a location, for notifying purposes
-/obj/structure/closet/crate/proc/notifyRecipient(var/destination)
+/obj/structure/closet/crate/proc/notifyRecipient(destination)
 	var/msg = "[capitalize(name)] has arrived at [destination]."
 	if(destination in announce_beacons)
 		for(var/obj/machinery/requests_console/D in GLOB.allRequestConsoles)
 			if(D.department in src.announce_beacons[destination])
 				D.createMessage(name, "Your Crate has Arrived!", msg, 1)
 
+// MARK: Secure crate
+
 /obj/structure/closet/crate/secure
 	desc = "A secure crate."
 	name = "Secure crate"
 	icon_state = "securecrate"
-	icon_opened = "securecrateopen"
-	icon_closed = "securecrate"
-	var/redlight = "securecrater"
-	var/greenlight = "securecrateg"
-	var/sparks = "securecratesparks"
-	var/emag = "securecrateemag"
+	overlay_locked = "securecrater"
+	overlay_unlocked = "securecrateg"
+	overlay_sparking = "securecratesparks"
+	/// Overlay for crate with broken lock
+	var/overlay_broken = "securecrateemag"
 	max_integrity = 500
-	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
+	armor = list(MELEE = 30, BULLET = 50, LASER = 50, ENERGY = 100, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 80)
 	damage_deflection = 25
 	var/tamperproof = FALSE
-	broken = FALSE
 	locked = TRUE
 	can_be_emaged = TRUE
+	overlay_lightmask = "securecrate_lightmask"
+	can_be_emissive = TRUE
 
-/obj/structure/closet/crate/secure/update_icon()
-	..()
-	overlays.Cut()
-	if(manifest)
-		overlays += "manifest"
+/obj/structure/closet/crate/secure/update_overlays()
+	. = ..()
 	if(locked)
-		overlays += redlight
-	else if(broken)
-		overlays += emag
+		. += overlay_locked
+	else if(broken && overlay_broken)
+		. += overlay_broken
 	else
-		overlays += greenlight
+		. += overlay_unlocked
 
 /obj/structure/closet/crate/secure/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1)
 	if(prob(tamperproof) && damage_amount >= DAMAGE_PRECISION)
@@ -192,145 +205,173 @@
 
 /obj/structure/closet/crate/secure/proc/boom(mob/user)
 	if(user)
-		to_chat(user, "<span class='danger'>The crate's anti-tamper system activates!</span>")
+		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
 	for(var/atom/movable/AM in src)
 		qdel(AM)
-	explosion(get_turf(src), 0, 1, 5, 5, cause = src)
+	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
 /obj/structure/closet/crate/secure/can_open()
 	return !locked
 
-/obj/structure/closet/crate/secure/proc/togglelock(mob/user)
-	if(src.opened)
-		to_chat(user, "<span class='notice'>Close the crate first.</span>")
-		return
-	if(src.broken)
-		to_chat(user, "<span class='warning'>The crate appears to be broken.</span>")
-		return
-	if(src.allowed(user))
-		src.locked = !src.locked
-		visible_message("<span class='notice'>The crate has been [locked ? null : "un"]locked by [user].</span>")
-		update_icon()
-	else
-		to_chat(user, "<span class='notice'>Access Denied</span>")
-
-/obj/structure/closet/crate/secure/verb/verb_togglelock()
-	set src in oview(1) // One square distance
-	set category = null
-	set name = "Toggle Lock"
-
-	if(!usr.canmove || usr.stat || usr.restrained()) // Don't use it if you're not able to! Checks for stuns, ghost and restrain
-		return
-
-	if(ishuman(usr))
-		src.add_fingerprint(usr)
-		src.togglelock(usr)
-	else
-		to_chat(usr, "<span class='warning'>This mob type can't use this verb.</span>")
+/obj/structure/closet/crate/secure/click_alt(mob/living/user)
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/closet/crate/secure/attack_hand(mob/user)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		add_fingerprint(user)
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
+		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
 		update_icon()
 		return
 	if(locked)
-		src.togglelock(user)
-	else
-		src.toggle(user, by_hand = TRUE)
+		togglelock(user)
+		return
+	add_fingerprint(user)
+	toggle(user, by_hand = TRUE)
 
 /obj/structure/closet/crate/secure/closed_item_click(mob/user)
 	togglelock(user)
 
 /obj/structure/closet/crate/secure/emag_act(mob/user)
-	if(locked)
-		add_attack_logs(user, src, "emagged")
-		overlays += sparks
-		spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-		playsound(src.loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		src.locked = 0
-		src.broken = 1
-		update_icon()
-		to_chat(user, "<span class='notice'>You unlock \the [src].</span>")
+	if(!locked)
+		return
+	add_attack_logs(user, src, "emagged")
+	locked = FALSE
+	broken = TRUE
+	playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
+	if(!user)
+		return
+	balloon_alert(user, "разблокировано")
 
 /obj/structure/closet/crate/secure/emp_act(severity)
-	for(var/obj/O in src)
-		O.emp_act(severity)
-	if(!broken && !opened  && prob(50/severity))
-		if(!locked)
-			src.locked = 1
+	for(var/obj/object in src)
+		object.emp_act(severity)
+	if(broken || opened)
+		return
+	if(prob(50 / severity))
+		locked = !locked
+		playsound(loc, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), sparking_duration)
+	if(prob(20 / severity))
+		if(locked)
+			req_access = list()
+			req_access += pick(get_all_accesses())
 		else
-			overlays += sparks
-			spawn(6) overlays -= sparks //Tried lots of stuff but nothing works right. so i have to use this *sadface*
-			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, TRUE)
-			src.locked = 0
-		update_icon()
-	if(!opened && prob(20/severity))
-		if(!locked)
 			open()
-		else
-			src.req_access = list()
-			src.req_access += pick(get_all_accesses())
-	..()
+
+/obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
+	if(!locked || broken)
+		return
+	if(user)
+		balloon_alert(user, "не удалось!")
+	playsound(loc, 'sound/misc/sadtrombone.ogg', 60, TRUE)
+
+/obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(!locked || broken != SECURE_CRATE_STAGE_NO_BROKEN || user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	balloon_alert(user, "откручиваем панель...")
+	if(!tool.use_tool(src, user, 160, volume = tool.tool_volume))
+		return
+	if(prob(95)) // EZ
+		if(broken == SECURE_CRATE_STAGE_PANEL_OPEN)
+			return
+		balloon_alert(user, "панель снята")
+		desc += " Панель управления снята."
+		broken = SECURE_CRATE_STAGE_PANEL_OPEN
+		//icon_state = icon_off // Crates has no icon_off :(
+		return
+	// Bad day)
+	var/mob/living/carbon/human/human = user
+	var/obj/item/organ/external/affecting = human.get_organ(user.r_hand == tool ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+	user.apply_damage(5, BRUTE , affecting)
+	user.emote("scream")
+	to_chat(user, span_warning("[tool.declent_ru(NOMINATIVE)] сорвал[GEND_SYA_AS_OS_IS(tool)]ась и повредил[GEND_A_O_I(tool)] [affecting.declent_ru(ACCUSATIVE)]!"))
+
+/obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(!locked || broken != SECURE_CRATE_STAGE_PANEL_OPEN || user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	balloon_alert(user, "подготавливаем провода...")
+	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
+		return
+	if(prob(80)) // Good hacker!
+		if(broken == SECURE_CRATE_STAGE_WIRES_PREPARED)
+			return
+		balloon_alert(user, "провода подготовлены")
+		desc += " Провода отключены и торчат наружу."
+		broken = SECURE_CRATE_STAGE_WIRES_PREPARED
+		return
+	balloon_alert(user, "не тот провод!")
+	do_sparks(5, TRUE, src)
+	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+
+/obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/tool)
+	. = ..()
+	if(!locked || broken != SECURE_CRATE_STAGE_WIRES_PREPARED || user.a_intent == INTENT_HARM)
+		return
+	. = TRUE
+	balloon_alert(user, "подключаем провода...")
+	if(!tool.use_tool(src, user, 16 SECONDS, volume = tool.tool_volume))
+		return
+	if(prob(80)) // Good hacker!
+		if(broken == SECURE_CRATE_STAGE_NO_BROKEN || broken == SECURE_CRATE_STAGE_OPENED)
+			return
+		balloon_alert(user, "взломано!")
+		desc += " Замок отключён."
+		broken = SECURE_CRATE_STAGE_OPENED // Can be emagged
+		emag_act(user)
+		return
+	balloon_alert(user, "не тот провод!")
+	do_sparks(5, TRUE, src)
+	electrocute_mob(user, get_area(src), src, 0.5, TRUE)
+
+// MARK: Specific crates
 
 /obj/structure/closet/crate/plastic
 	name = "plastic crate"
 	desc = "A rectangular plastic crate."
 	icon_state = "plasticcrate"
-	icon_opened = "plasticcrateopen"
-	icon_closed = "plasticcrate"
 
 /obj/structure/closet/crate/internals
 	desc = "A internals crate."
 	name = "internals crate"
 	icon_state = "o2crate"
-	icon_opened = "o2crateopen"
-	icon_closed = "o2crate"
 
 /obj/structure/closet/crate/trashcart
 	desc = "A heavy, metal trashcart with wheels."
 	name = "trash Cart"
 	icon_state = "trashcart"
-	icon_opened = "trashcartopen"
-	icon_closed = "trashcart"
-	pull_push_speed_modifier = 1
 
-/*these aren't needed anymore
-/obj/structure/closet/crate/hat
-	desc = "A crate filled with Valuable Collector's Hats!."
-	name = "Hat Crate"
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
+/obj/structure/closet/crate/trashcart/NTdelivery
+	name = "Special Delivery from Central Command"
 
-/obj/structure/closet/crate/contraband
-	name = "Poster crate"
-	desc = "A random assortment of posters manufactured by providers NOT listed under Nanotrasen's whitelist."
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
-*/
+/obj/structure/closet/crate/trashcart/gibs
+	desc = "A heavy, metal trashcart with wheels. You better don't ask."
+	name = "trash cart with gibs"
+	icon_state = "trashcartgib"
 
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "medical crate"
 	icon_state = "medicalcrate"
-	icon_opened = "medicalcrateopen"
-	icon_closed = "medicalcrate"
 
 /obj/structure/closet/crate/rcd
 	desc = "A crate for the storage of the RCD."
-	name = "\improper RCD crate"
-	icon_state = "crate"
-	icon_opened = "crateopen"
-	icon_closed = "crate"
+	name = "RCD crate"
 
 /obj/structure/closet/crate/rcd/populate_contents()
 	new /obj/item/rcd_ammo(src)
@@ -342,35 +383,34 @@
 	desc = "A freezer."
 	name = "Freezer"
 	icon_state = "freezer"
-	icon_opened = "freezeropen"
-	icon_closed = "freezer"
 	var/target_temp = T0C - 40
 	var/cooling_power = 40
 
-/obj/structure/closet/crate/freezer/return_air()
-	var/datum/gas_mixture/gas = (..())
-	if(!gas)	return null
+/obj/structure/closet/crate/freezer/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	var/datum/gas_mixture/gas = ..()
+	if(!gas)
+		var/turf/location = get_turf(src)
+		gas = location.get_readonly_air()
 	var/datum/gas_mixture/newgas = new/datum/gas_mixture()
-	newgas.oxygen = gas.oxygen
-	newgas.carbon_dioxide = gas.carbon_dioxide
-	newgas.nitrogen = gas.nitrogen
-	newgas.toxins = gas.toxins
+	newgas.set_oxygen(gas.oxygen())
+	newgas.set_carbon_dioxide(gas.carbon_dioxide())
+	newgas.set_nitrogen(gas.nitrogen())
+	newgas.set_toxins(gas.toxins())
 	newgas.volume = gas.volume
-	newgas.temperature = gas.temperature
-	if(newgas.temperature <= target_temp)	return
+	newgas.set_temperature(gas.temperature())
+	if(newgas.temperature() <= target_temp)	return
 
-	if((newgas.temperature - cooling_power) > target_temp)
-		newgas.temperature -= cooling_power
+	if((newgas.temperature() - cooling_power) > target_temp)
+		newgas.set_temperature(newgas.temperature() - cooling_power)
 	else
-		newgas.temperature = target_temp
+		newgas.set_temperature(target_temp)
 	return newgas
 
 /obj/structure/closet/crate/can
 	desc = "A large can, looks like a bin to me."
 	name = "garbage can"
 	icon_state = "largebin"
-	icon_opened = "largebinopen"
-	icon_closed = "largebin"
 	anchored = TRUE
 
 /obj/structure/closet/crate/can/wrench_act(mob/user, obj/item/I)
@@ -383,8 +423,6 @@
 	desc = "A crate with a radiation sign on it."
 	name = "radioactive gear crate"
 	icon_state = "radiation"
-	icon_opened = "radiationopen"
-	icon_closed = "radiation"
 
 /obj/structure/closet/crate/radiation/populate_contents()
 	new /obj/item/clothing/suit/radiation(src)
@@ -396,62 +434,102 @@
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
 
+/obj/structure/closet/crate/vault
+	desc = "Ящик с ценностями."
+	name = "vault crate"
+	icon_state = "vaultcrate"
+
+/obj/structure/closet/crate/vault/get_ru_names()
+	return list(
+		NOMINATIVE = "ящик с ценностями",
+		GENITIVE = "ящика с ценностями",
+		DATIVE = "ящику с ценностями",
+		ACCUSATIVE = "ящик с ценностями",
+		INSTRUMENTAL = "ящиком с ценностями",
+		PREPOSITIONAL = "ящике с ценностями",
+	)
+
+/obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
+	name = "wooden crate"
+	desc = "Ящик, сделанный из дерева."
+	icon_state = "wooden_crate"
+
+/obj/structure/closet/crate/wooden/get_ru_names()
+	return list(
+		NOMINATIVE = "деревянный ящик",
+		GENITIVE = "деревянного ящика",
+		DATIVE = "деревянному ящику",
+		ACCUSATIVE = "деревянный ящик",
+		INSTRUMENTAL = "деревянным ящиком",
+		PREPOSITIONAL = "деревянном ящике",
+	)
+
+// MARK: Specific secure crates
+
 /obj/structure/closet/crate/secure/weapon
 	desc = "A secure weapons crate."
 	name = "weapons crate"
 	icon_state = "weaponcrate"
-	icon_opened = "weaponcrateopen"
-	icon_closed = "weaponcrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
+	
+/obj/structure/closet/crate/secure/weapon/veihit
+	name = "highrisk crate"
+	icon_state = "mortar"
+	overlay_locked = "mortar_locked"
+	overlay_unlocked = "mortar_unlocked"
+	overlay_sparking = "mortar_sparks"
+	overlay_broken = "mortar_hacking"
+	overlay_lightmask = "mortar_lightmask"
 
 /obj/structure/closet/crate/secure/plasma
 	desc = "A secure plasma crate."
 	name = "plasma crate"
 	icon_state = "plasmacrate"
-	icon_opened = "plasmacrateopen"
-	icon_closed = "plasmacrate"
+	overlay_locked = "heavycrate_locked"
+	overlay_unlocked = "heavycrate_unlocked"
+	overlay_sparking = "heavycrate_sparks"
+	overlay_broken = "heavycrate_hacking"
+	overlay_lightmask = "heavysecurecrate_lightmask"
 
 /obj/structure/closet/crate/secure/gear
 	desc = "A secure gear crate."
 	name = "gear crate"
 	icon_state = "secgearcrate"
-	icon_opened = "secgearcrateopen"
-	icon_closed = "secgearcrate"
 
 /obj/structure/closet/crate/secure/hydrosec
 	desc = "A crate with a lock on it, painted in the scheme of the station's botanists."
 	name = "secure hydroponics crate"
 	icon_state = "hydrosecurecrate"
-	icon_opened = "hydrosecurecrateopen"
-	icon_closed = "hydrosecurecrate"
 
 /obj/structure/closet/crate/secure/bin
 	desc = "A secure bin."
 	name = "secure bin"
 	icon_state = "largebins"
-	icon_opened = "largebinsopen"
-	icon_closed = "largebins"
-	redlight = "largebinr"
-	greenlight = "largebing"
-	sparks = "largebinsparks"
-	emag = "largebinemag"
+	overlay_locked = "largebinr"
+	overlay_unlocked = "largebing"
+	overlay_sparking = "largebinsparks"
+	overlay_broken = "largebinemag"
 
 /obj/structure/closet/crate/large
 	name = "large crate"
 	desc = "A hefty metal crate."
 	icon_state = "largemetal"
-	icon_opened = "largemetalopen"
-	icon_closed = "largemetal"
+	pass_flags_self = PASSSTRUCTURE
 	integrity_failure = 0 //Makes the crate break when integrity reaches 0, instead of opening and becoming an invisible sprite.
 
 /obj/structure/closet/crate/large/close()
 	. = ..()
 	if(.)//we can hold up to one large item
-		var/found = 0
+		var/found = FALSE
 		for(var/obj/structure/S in src.loc)
 			if(S == src)
 				continue
 			if(!S.anchored)
-				found = 1
+				found = TRUE
 				S.forceMove(src)
 				break
 		if(!found)
@@ -464,41 +542,40 @@
 	name = "large crate"
 	desc = "A hefty metal crate with an electronic locking system."
 	icon_state = "largemetal"
-	icon_opened = "largemetalopen"
-	icon_closed = "largemetal"
-	redlight = "largemetalr"
-	greenlight = "largemetalg"
+	overlay_locked = "largemetalr"
+	overlay_unlocked = "largemetalg"
+	overlay_broken = ""
 
 /obj/structure/closet/crate/secure/large/close()
 	. = ..()
-	if(.)//we can hold up to one large item
-		var/found = 0
-		for(var/obj/structure/S in src.loc)
-			if(S == src)
-				continue
-			if(!S.anchored)
-				found = 1
-				S.forceMove(src)
-				break
-		if(!found)
-			for(var/obj/machinery/M in src.loc)
-				if(!M.anchored)
-					M.forceMove(src)
-					break
+	if(!.)//we can hold up to one large item
+		return
+	var/found = FALSE
+	for(var/obj/structure/structure in loc)
+		if(structure == src)
+			continue
+		if(structure.anchored)
+			continue
+		found = TRUE
+		structure.forceMove(src)
+		break
+	if(found)
+		return
+	for(var/obj/machinery/machinery in loc)
+		if(machinery.anchored)
+			continue
+		machinery.forceMove(src)
+		break
 
 //fluff variant
 /obj/structure/closet/crate/secure/large/reinforced
 	desc = "A hefty, reinforced metal crate with an electronic locking system."
 	icon_state = "largermetal"
-	icon_opened = "largermetalopen"
-	icon_closed = "largermetal"
 
 /obj/structure/closet/crate/hydroponics
 	name = "hydroponics crate"
 	desc = "All you need to destroy those pesky weeds and pests."
 	icon_state = "hydrocrate"
-	icon_opened = "hydrocrateopen"
-	icon_closed = "hydrocrate"
 
 /obj/structure/closet/crate/hydroponics/prespawned
 	//This exists so the prespawned hydro crates spawn with their contents.
@@ -524,40 +601,35 @@
 	name = "science crate"
 	desc = "A science crate."
 	icon_state = "scicrate"
-	icon_opened = "scicrateopen"
-	icon_closed = "scicrate"
 
 /obj/structure/closet/crate/secure/scisec
 	name = "secure science crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's scientists."
 	icon_state = "scisecurecrate"
-	icon_opened = "scisecurecrateopen"
-	icon_closed = "scisecurecrate"
 
 /obj/structure/closet/crate/engineering
 	name = "engineering crate"
 	desc = "An engineering crate."
 	icon_state = "engicrate"
-	icon_opened = "engicrateopen"
-	icon_closed = "engicrate"
 
 /obj/structure/closet/crate/secure/engineering
 	name = "secure engineering crate"
 	desc = "A crate with a lock on it, painted in the scheme of the station's engineers."
 	icon_state = "engisecurecrate"
-	icon_opened = "engisecurecrateopen"
-	icon_closed = "engisecurecrate"
 
 /obj/structure/closet/crate/engineering/electrical
 	name = "electrical engineering crate"
 	desc = "An electrical engineering crate."
 	icon_state = "electricalcrate"
-	icon_opened = "electricalcrateopen"
-	icon_closed = "electricalcrate"
 
 /obj/structure/closet/crate/tape/populate_contents()
 	if(prob(10))
 		new /obj/item/bikehorn/rubberducky(src)
+
+/obj/structure/closet/crate/secure/biohazard
+	name = "secure biohazard crate"
+	desc = "An protected biohazard crate."
+	icon_state = "biohazard"
 
 //crates of gear in the free golem ship
 /obj/structure/closet/crate/golemgear/populate_contents()
@@ -572,71 +644,97 @@
 
 //syndie crates by Furukai
 /obj/structure/closet/crate/syndicate
-
 	desc = "Definitely a property of an evil corporation!"
 	icon_state = "syndiecrate"
-	icon_opened = "syndiecrateopen"
-	icon_closed = "syndiecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 
 /obj/structure/closet/crate/secure/syndicate
 	name = "Secure suspicious crate"
 	desc = "Definitely a property of an evil corporation! And it has a hardened lock! And a microphone?"
 	icon_state = "syndiesecurecrate"
-	icon_opened = "syndiesecurecrateopen"
-	icon_closed = "syndiesecurecrate"
 	material_drop = /obj/item/stack/sheet/mineral/plastitanium
 	can_be_emaged = FALSE
 
-/obj/structure/closet/crate/secure/syndicate/emag_act(mob/user)
-	if(locked && !broken)
-		to_chat(user, "<span class='notice'>Отличная попытка, но нет!</span>")
-		playsound(src.loc, "sound/misc/sadtrombone.ogg", 60, 1)
+// MARK: Blood crates
 
-/obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
-		to_chat(user, "<span class='notice'>Вы начинаете откручивать панель замка [src]...</span>")
-		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(95)) // EZ
-				to_chat(user, "<span class='notice'>Вы успешно открутили и сняли панель с замка [src]!</span>")
-				desc += " Панель управления снята."
-				broken = 3
-				//icon_state = icon_off // Crates has no icon_off :(
-			else // Bad day)
-				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? "l_hand" : "r_hand")
-				user.apply_damage(5, BRUTE , affecting)
-				user.emote("scream")
-				to_chat(user, "<span class='warning'>Проклятье! [I] сорвалась и повредила [affecting.name]!</span>")
-		return TRUE
+/obj/structure/closet/crate/secure/blood
+	name = "secure human blood crate"
+	desc = "Ящик, содержащий капельницы с человеческой кровью."
+	icon_state = "bloodcrate"
+	material_drop = /obj/item/stack/sheet/mineral/plastitanium
+	req_access = list(ACCESS_MEDICAL)
 
-/obj/structure/closet/crate/secure/wirecutter_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(locked && broken == 3 && user.a_intent != INTENT_HARM) // Stage two
-		to_chat(user, "<span class='notice'>Вы начинаете подготавливать провода панели [src]...</span>")
-		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(80)) // Good hacker!
-				to_chat(user, "<span class='notice'>Вы успешно подготовили провода панели замка [src]!</span>")
-				desc += " Провода отключены и торчат наружу."
-				broken = 2
-			else // woopsy
-				to_chat(user, "<span class='warning'>Черт! Не тот провод!</span>")
-				do_sparks(5, 1, src)
-				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
-		return TRUE
+/obj/structure/closet/crate/secure/blood/get_ru_names()
+	return list(
+		NOMINATIVE = "комплект донорской крови (человеческий)",
+		GENITIVE = "комплекта донорской крови (человеческий)",
+		DATIVE = "комплекту донорской крови (человеческий)",
+		ACCUSATIVE = "комплект донорской крови (человеческий)",
+		INSTRUMENTAL = "комплектом донорской крови (человеческий)",
+		PREPOSITIONAL = "комплекте донорской крови (человеческий)",
+	)
 
-/obj/structure/closet/crate/secure/multitool_act(mob/living/user, obj/item/I)
-	. = ..()
-	if(locked && broken == 2 && user.a_intent != INTENT_HARM) // Stage three
-		to_chat(user, "<span class='notice'>Вы начинаете подключать провода панели замка [src] к [I]...</span>")
-		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(80)) // Good hacker!
-				desc += " Замок отключен."
-				broken = 0 // Can be emagged
-				emag_act(user)
-			else // woopsy
-				to_chat(user, "<span class='warning'>Черт! Не тот провод!</span>")
-				do_sparks(5, 1, src)
-				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
-		return TRUE
+/obj/structure/closet/crate/secure/blood/xeno
+	name = "secure xenoblood crate"
+	desc = "Ящик, содержащий капельницы с кровью различных рас."
+	icon_state = "xenobloodcrate"
+
+/obj/structure/closet/crate/secure/blood/xeno/get_ru_names()
+	return list(
+		NOMINATIVE = "комплект донорской крови (ксено)",
+		GENITIVE = "комплекта донорской крови (ксено)",
+		DATIVE = "комплекту донорской крови (ксено)",
+		ACCUSATIVE = "комплект донорской крови (ксено)",
+		INSTRUMENTAL = "комплектом донорской крови (ксено)",
+		PREPOSITIONAL = "комплекте донорской крови (ксено)",
+	)
+
+/obj/structure/closet/crate/secure/blood/mixed
+	name = "secure mixed blood crate"
+	desc = "Ящик, содержащий капельницы с различной кровью."
+	icon_state = "mixbloodcrate"
+
+/obj/structure/closet/crate/secure/blood/mixed/get_ru_names()
+	return list(
+		NOMINATIVE = "комплект донорской крови (смешанная)",
+		GENITIVE = "комплекта донорской крови (смешанная)",
+		DATIVE = "комплекту донорской крови (смешанная)",
+		ACCUSATIVE = "комплект донорской крови (смешанная)",
+		INSTRUMENTAL = "комплектом донорской крови (смешанная)",
+		PREPOSITIONAL = "комплекте донорской крови (смешанная)",
+	)
+
+/obj/structure/closet/crate/secure/blood/nitrogenis
+	name = "secure nitrogenis blood crate"
+	desc = "Ящик, содержащий капельницы с синтетической кровью (Азот)."
+	icon_state = "syntheticbloodcrate"
+
+/obj/structure/closet/crate/secure/blood/nitrogenis/get_ru_names()
+	return list(
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — азот)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — азот)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — азот)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — азот)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — азот)",
+	)
+
+/obj/structure/closet/crate/secure/blood/oxygenis
+	name = "secure synthetic blood crate"
+	desc = "Ящик, содержащий капельницы с синтетической кровью (Кислород)."
+	icon_state = "nitrogenbloodcrate"
+
+/obj/structure/closet/crate/secure/blood/oxygenis/get_ru_names()
+	return list(
+		NOMINATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		GENITIVE = "комплекта донорской крови (синтетическая кровь — кислород)",
+		DATIVE = "комплекту донорской крови (синтетическая кровь — кислород)",
+		ACCUSATIVE = "комплект донорской крови (синтетическая кровь — кислород)",
+		INSTRUMENTAL = "комплектом донорской крови (синтетическая кровь — кислород)",
+		PREPOSITIONAL = "комплекте донорской крови (синтетическая кровь — кислород)",
+	)
+
+#undef SECURE_CRATE_STAGE_NO_BROKEN
+#undef SECURE_CRATE_STAGE_PANEL_OPEN
+#undef SECURE_CRATE_STAGE_WIRES_PREPARED
+#undef SECURE_CRATE_STAGE_OPENED

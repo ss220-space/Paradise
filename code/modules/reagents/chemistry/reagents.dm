@@ -1,6 +1,7 @@
 /datum/reagent
-	var/name = "Reagent"
+	var/name = "Реагент"
 	var/id = "reagent"
+	var/tags = 0
 	var/description = ""
 	var/datum/reagents/holder = null
 	var/reagent_state = SOLID
@@ -13,6 +14,8 @@
 	var/heart_rate_decrease = 0
 	var/heart_rate_stop = 0
 	var/penetrates_skin = FALSE //Whether or not a reagent penetrates the skin
+	/// Shows how the reagent penetrates the protection from clothing in TOUCH reactions. Should be [0-1]. 0 by default, 1 - full penetration.
+	var/clothing_penetration = 0
 	//Processing flags, defines the type of mobs the reagent will affect
 	//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
 	var/process_flags = ORGANIC
@@ -28,11 +31,38 @@
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 	var/drink_icon = null
-	var/drink_name = "Glass of ..what?"
-	var/drink_desc = "You can't really tell what this is."
+	var/drink_name = "стакан... чего?"
+	var/drink_desc = "Вы понятия не имеете, чем это может быть."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
-	var/taste_description = "metaphorical salt"
+	var/taste_description = "метафорической соли"
 	var/addict_supertype = /datum/reagent
+	var/devil_regen_ignored = FALSE
+
+	// For chemical fire
+	var/chemfiresupp = FALSE
+	var/intensitymod = 0
+	var/durationmod = 0
+	var/radiusmod = 0
+	// For chemical fire from flamethrowers
+	var/intensityfire = 0
+	var/durationfire = 0
+	var/rangefire = 0 // Set to -1 if you want an infinite range
+	var/flameshape = FLAMESHAPE_LINE
+	var/fire_penetrating = FALSE // Whether it can damage fire-immune xenos
+	// For both chemical fires
+	var/burn_sprite = "dynamic"
+	var/burncolor = "#f88818"
+	var/burncolormod = 1
+	var/fire_type = FIRE_VARIANT_DEFAULT //Unique types of fire not modeled by chemfire (1 = Armor Shredding Greenfire). Effects in flamer.dm
+
+	// borer roundstart reagents located at GLOB.borer_reagents.
+	/// borer special chemical description.
+	var/chemdesc
+	var/chemuse = 30
+	var/quantity = 10
+
+	var/metabolizing
+	var/list/metabolized_traits
 
 /datum/reagent/New()
 	addict_supertype = type
@@ -47,20 +77,17 @@
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
-	if(holder)  //for catching rare runtimes
-		if(method == REAGENT_TOUCH && penetrates_skin)
-			var/block  = M.get_permeability_protection()
-			var/amount = round(volume * (1 - block), 0.1)
-			if(M.reagents)
-				if(amount >= 1)
-					M.reagents.add_reagent(id, amount)
+/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) // Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
+	if(holder)  // for catching rare runtimes
+		if(method == REAGENT_TOUCH && penetrates_skin && M.reagents && volume >= 1)
+			M.reagents.add_reagent(id, volume)
 
 		if(method == REAGENT_INGEST) //Yes, even Xenos can get addicted to drugs.
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 			if(can_become_addicted)
 				if(count_by_type(M.reagents.addiction_list, addict_supertype) > 0)
-					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
+					to_chat(M, span_notice("Вы чувствуете себя немногим лучше, но надолго ли?")) // sate_addiction handles this now, but kept this for the feed back.
+
 		return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
@@ -79,6 +106,17 @@
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
 	return STATUS_UPDATE_NONE
 
+/// Called when this reagent first starts being metabolized by a liver
+/datum/reagent/proc/on_mob_metabolize(mob/living/affected_mob)
+	SHOULD_CALL_PARENT(TRUE)
+	if(metabolized_traits)
+		affected_mob.add_traits(metabolized_traits, "metabolize:[type]")
+
+/// Called when this reagent stops being metabolized by a liver
+/datum/reagent/proc/on_mob_end_metabolize(mob/living/affected_mob)
+	SHOULD_CALL_PARENT(TRUE)
+	REMOVE_TRAITS_IN(affected_mob, "metabolize:[type]")
+
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)
 		var/datum/reagent/new_reagent = new addict_supertype()
@@ -86,7 +124,7 @@
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
-			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+			to_chat(M, span_danger("Вы чувствуете сильную эйфорию с лёгким оттенком вины..."))
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
 
@@ -115,13 +153,25 @@
 		add_attack_logs(M, COORD(holder.my_atom.loc), "Caused a flashfire reaction of [name]. Last associated key is [holder.my_atom.fingerprintslast]", ATKLOG_FEW)
 	holder.my_atom.investigate_log("A Flashfire reaction, (reagent type [name]) last touched by [holder.my_atom.fingerprintslast ? "[holder.my_atom.fingerprintslast]" : "*null*"], triggered at [COORD(holder.my_atom.loc)].", INVESTIGATE_BOMB)
 
-// Called when this reagent is first added to a mob
-/datum/reagent/proc/on_mob_add(mob/living/L)
-	return
+/// Called when this reagent is first added to a mob
+/datum/reagent/proc/on_mob_add(mob/living/carbon/human/user)
+	SHOULD_CALL_PARENT(TRUE)
 
-// Called when this reagent is removed while inside a mob
-/datum/reagent/proc/on_mob_delete(mob/living/M)
-	return
+	if(shock_reduction && ishuman(user))
+		user.update_movespeed_damage_modifiers()
+
+	if(tags & REAGENT_TAG_ANTI_STUN)
+		ADD_TRAIT(user, TRAIT_ANTI_STUN_REAGENT, id)
+
+/// Called when this reagent is removed while inside a mob
+/datum/reagent/proc/on_mob_delete(mob/living/carbon/human/user)
+	SHOULD_CALL_PARENT(TRUE)
+
+	if(shock_reduction)
+		user.update_movespeed_damage_modifiers()
+
+	if(tags & REAGENT_TAG_ANTI_STUN)
+		REMOVE_TRAIT(user, TRAIT_ANTI_STUN_REAGENT, id)
 
 /datum/reagent/proc/on_move(mob/M)
 	return
@@ -132,6 +182,39 @@
 
 // Called when two reagents of the same are mixing.
 /datum/reagent/proc/on_merge(data)
+	return
+
+// Called in on_merge() proc if reagent can carry diseases
+/datum/reagent/proc/merge_diseases_data(list/mix_data)
+	if(!(id in GLOB.diseases_carrier_reagents))
+		return
+
+	if(data && mix_data)
+		if(data["diseases"] || mix_data["diseases"])
+			var/list/preserve = list()
+			var/list/all_diseases = data["diseases"] + mix_data["diseases"]
+
+			var/list/advances_to_mix = list()
+			for(var/datum/disease/virus/advance/A in all_diseases)
+				advances_to_mix += A
+				all_diseases -= A
+
+			var/datum/disease/virus/advance/A = Advance_Mix(advances_to_mix)
+			if(istype(A))
+				preserve += A
+
+			// It's almost always 1-3 items in this list, so there shouldn't be any problems with nested loops.
+			for(var/datum/disease/D1 in all_diseases)
+				var/unique = TRUE
+				for(var/datum/disease/D2 in preserve)
+					if(D1.GetDiseaseID() == D2.GetDiseaseID())
+						unique = FALSE
+						break
+				if(unique)
+					preserve += D1.Copy()
+
+			data["diseases"] = preserve
+
 	return
 
 /datum/reagent/proc/on_update(atom/A)
@@ -158,103 +241,143 @@
 /datum/reagent/proc/overdose_start(mob/living/M)
 	return
 
+/datum/reagent/proc/overdose_end(mob/living/M)
+	return
+
 /datum/reagent/proc/addiction_act_stage1(mob/living/M)
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage2(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You briefly think about getting some more [name].</span>")
+			to_chat(M, span_notice("Вам ненадолго приходит мысль о том, чтобы принять ещё немного [name]."))
 	else
 		if(prob(8))
 			M.emote("shiver")
-			M.Jitter(60)
+			M.Jitter(120 SECONDS)
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
+			to_chat(M, span_notice("Вы чувствуете тупую головную боль."))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage3(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, span_notice("Вам бы сейчас не помешало немного [name]."))
 	else
 		if(prob(8))
 			M.emote("twitch_s")
-			M.Jitter(80)
+			M.Jitter(160 SECONDS)
 		if(prob(8))
 			M.emote("shiver")
-			M.Jitter(60)
+			M.Jitter(120 SECONDS)
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head hurts.</span>")
+			to_chat(M, span_warning("У вас болит голова."))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
+			to_chat(M, span_warning("Вам хочется [name]!"))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage4(mob/living/M)
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, span_notice("Вам ОЧЕНЬ хочется [name]. <b>Прямо сейчас!</b>"))
 		if(prob(4))
 			M.emote("twitch")
-			M.Jitter(80)
+			M.Jitter(160 SECONDS)
 	else
 		if(prob(8))
 			M.emote("twitch")
-			M.Jitter(80)
+			M.Jitter(160 SECONDS)
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
+			to_chat(M, span_warning("У вас пульсирующая головная боль!"))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+			to_chat(M, span_warning("Вы чувствуете сильное желание принять [name]!"))
 		else if(prob(4))
-			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
+			to_chat(M, span_warning("Вам РЕАЛЬНО НУЖЕН [name]!"))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
+			to_chat(M, span_notice("Вы не можете перестать думать о [name]..."))
 		if(prob(4))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
-			M.Jitter(80)
+			M.Jitter(160 SECONDS)
 	else
 		if(prob(6))
-			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
-			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
-			update_flags |= M.Stun(rand(2,4), FALSE)
-			update_flags |= M.Weaken(rand(2,4), FALSE)
+			to_chat(M, span_warning("У вас болезненно сводит желудок!"))
+			M.visible_message(span_warning("[M] давится и блюёт!"))
+			M.Weaken(rand(4 SECONDS, 8 SECONDS))
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
-			M.Jitter(80)
+			M.Jitter(160 SECONDS)
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
+			to_chat(M, span_warning("Голова раскалывается от боли..."))
 		if(prob(5))
-			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
+			to_chat(M, span_warning("Вы чувствуете, что не можете жить без [name]!"))
 		else if(prob(5))
-			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
+			to_chat(M, span_warning("Вы готовы СДОХНУТЬ ради одной дозы [name]!"))
 	return update_flags
 
 /datum/reagent/proc/fakedeath(mob/living/M)
-	if(M.status_flags & FAKEDEATH)
+	if(HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
+
 	if(!(M.status_flags & CANPARALYSE))
 		return
-	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating) //no messing with changeling's fake death
-		return
+
 	M.emote("deathgasp")
-	M.status_flags |= FAKEDEATH
+	ADD_TRAIT(M, TRAIT_FAKEDEATH, id)
 	M.updatehealth("fakedeath reagent")
 
 /datum/reagent/proc/fakerevive(mob/living/M)
-	if(!(M.status_flags & FAKEDEATH))
+	if(!HAS_TRAIT_FROM(M, TRAIT_FAKEDEATH, id))
 		return
-	if(M.mind && M.mind.changeling && M.mind.changeling.regenerating)
-		return
-	if(M.resting)
-		M.StopResting()
-	M.status_flags &= ~(FAKEDEATH)
+
+	REMOVE_TRAIT(M, TRAIT_FAKEDEATH, id)
 	if(M.healthdoll)
 		M.healthdoll.cached_healthdoll_overlays.Cut()
 	M.updatehealth("fakedeath reagent end")
+
+/datum/reagent/proc/taste_amplification(mob/living/user)
+	. = list()
+	var/taste_desc = taste_description
+	var/taste_amount = volume * taste_mult
+	.[taste_desc] = taste_amount
+
+/**
+ * Input a reagent_list, outputs pretty readable text!
+ * Default output will be formatted as
+ * * water, 5 | silicon, 6 | soup, 4 | space lube, 8
+ *
+ * * names_only will remove the amount displays, showing
+ * * water | silicon | soup | space lube
+ *
+ * * join_text will alter the text between reagents
+ * * setting to ", " will result in
+ * * water, 5, silicon, 6, soup, 4, space lube, 8
+ *
+ * * final_and should be combined with the above. will format as
+ * * water, 5, silicon, 6, soup, 4, and space lube, 8
+ *
+ * * capitalize_names will result in
+ * * Water, 5 | Silicon, 6 | Soup, 4 | Space lube, 8
+ *
+ * * * use (reagents.reagent_list, names_only, join_text = ", ", final_and, capitalize_names) for the formatting
+ * * * Water, Silicon, Soup, and Space Lube
+ */
+/proc/pretty_string_from_reagent_list(list/reagent_list, names_only, join_text = " | ", final_and, capitalize_names)
+	//Convert reagent list to a printable string for logging etc
+	var/list/reagent_strings = list()
+	var/reagents_left = length(reagent_list)
+	var/intial_list_length = reagents_left
+	for(var/datum/reagent/reagent as anything in reagent_list)
+		reagents_left--
+		if(final_and && intial_list_length > 1 && reagents_left == 0)
+			reagent_strings += "and [capitalize_names ? capitalize(reagent.name) : reagent.name][names_only ? null : ", [reagent.volume]"]"
+		else
+			reagent_strings += "[capitalize_names ? capitalize(reagent.name) : reagent.name][names_only ? null : ", [reagent.volume]"]"
+
+	return reagent_strings.Join(join_text)

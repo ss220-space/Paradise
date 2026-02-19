@@ -6,21 +6,25 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "minibar"
 	anchored = TRUE
-	density = FALSE
-	opacity = 0
 	var/deconstructible = TRUE
 
-/obj/structure/fluff/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/wrench) && deconstructible)
-		user.visible_message("<span class='notice'>[user] starts disassembling [src]...</span>", "<span class='notice'>You start disassembling [src]...</span>")
-		playsound(loc, I.usesound, 50, 1)
-		if(do_after(src, 50 * I.toolspeed * gettoolspeedmod(user), target = src))
-			user.visible_message("<span class='notice'>[user] disassembles [src]!</span>", "<span class='notice'>You break down [src] into scrap metal.</span>")
-			playsound(user, 'sound/items/deconstruct.ogg', 50, 1)
-			new/obj/item/stack/sheet/metal(drop_location())
-			qdel(src)
-		return
-	return ..()
+/obj/structure/fluff/wrench_act(mob/living/user, obj/item/I)
+	if(!deconstructible)
+		return FALSE
+	. = TRUE
+	user.visible_message(
+		span_notice("[user] starts disassembling [src]."),
+		span_notice("You start disassembling [src]..."),
+	)
+	if(!I.use_tool(src, user, 5 SECONDS, volume = I.tool_volume))
+		return .
+	var/obj/item/stack/sheet/metal/metal = new(drop_location())
+	metal.add_fingerprint(user)
+	user.visible_message(
+		span_notice("[user] disassembles [src]."),
+		span_notice("You break down [src] into scrap metal."),
+	)
+	qdel(src)
 
 /obj/structure/fluff/empty_terrarium //Empty terrariums are created when a preserved terrarium in a lavaland seed vault is activated.
 	name = "empty terrarium"
@@ -32,7 +36,7 @@
 /obj/structure/fluff/empty_sleeper //Empty sleepers are created by a good few ghost roles in lavaland.
 	name = "empty sleeper"
 	desc = "An open sleeper. It looks as though it would be awaiting another patient, were it not broken."
-	icon = 'icons/obj/cryogenic2.dmi'
+	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 
 /obj/structure/fluff/empty_sleeper/nanotrasen
@@ -52,13 +56,23 @@
 
 /obj/structure/fluff/drake_statue //Ash drake status spawn on either side of the necropolis gate in lavaland.
 	name = "drake statue"
-	desc = "A towering basalt sculpture of a proud and regal drake. Its eyes are six glowing gemstones."
+	desc = "Величественная базальтовая скульптура гордого дрейка. Его глаза — шесть светящихся самоцветов."
 	icon = 'icons/effects/64x64.dmi'
 	icon_state = "drake_statue"
 	pixel_x = -16
 	density = TRUE
 	deconstructible = FALSE
 	layer = EDGED_TURF_LAYER
+
+/obj/structure/fluff/drake_statue/get_ru_names()
+	return list(
+		NOMINATIVE = "статуя дрейка",
+		GENITIVE = "статуи дрейка",
+		DATIVE = "статуе дрейка",
+		ACCUSATIVE = "статую дрейка",
+		INSTRUMENTAL = "статуей дрейка",
+		PREPOSITIONAL = "статуе дрейка",
+	)
 
 /obj/structure/fluff/drake_statue/falling //A variety of statue in disrepair; parts are broken off and a gemstone is missing
 	desc = "A towering basalt sculpture of a drake. Cracks run down its surface and parts of it have fallen off."
@@ -67,7 +81,7 @@
 /obj/structure/fluff/divine
 	name = "Miracle"
 	icon = 'icons/obj/hand_of_god_structures.dmi'
-	anchored = TRUE
+	icon_state = null
 	density = TRUE
 
 /obj/structure/fluff/divine/nexus
@@ -79,3 +93,25 @@
 	name = "conduit"
 	desc = "It allows a deity to extend their reach.  Their powers are just as potent near a conduit as a nexus."
 	icon_state = "conduit"
+
+/obj/structure/fluff/grave
+	name = "grave"
+	desc = "A desolate and shallow grave for those who have fallen."
+	icon = 'icons/obj/lavaland/misc.dmi'
+	icon_state = "grave"
+	deconstructible = FALSE
+
+/obj/structure/fluff/grave/empty
+	name = "empty grave"
+	desc = "Разграбленная могила."
+	icon_state = "grave_empty"
+
+/obj/structure/fluff/grave/empty/get_ru_names()
+	return list(
+		NOMINATIVE = "пустая могила",
+		GENITIVE = "пустой могилы",
+		DATIVE = "пустой могиле",
+		ACCUSATIVE = "пустую могилу",
+		INSTRUMENTAL = "пустой могилой",
+		PREPOSITIONAL = "пустой могиле",
+	)

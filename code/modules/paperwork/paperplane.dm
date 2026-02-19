@@ -4,13 +4,11 @@
 	desc = "Paper, folded in the shape of a plane."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paperplane"
-	throw_range = 7
 	throw_speed = 1
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
-	no_spin = TRUE
+	no_spin_thrown = TRUE
 
 	var/obj/item/paper/internal_paper
 
@@ -25,70 +23,76 @@
 		new_paper.forceMove(src)
 	else
 		internal_paper = new /obj/item/paper(src)
-	update_icon()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/paperplane/Destroy()
 	QDEL_NULL(internal_paper)
 	return ..()
 
 /obj/item/paperplane/suicide_act(mob/living/user)
-	user.Stun(10)
-	user.visible_message("<span class='suicide'>[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	user.EyeBlurry(6)
+	user.Stun(20 SECONDS)
+	user.visible_message(span_suicide("[user] jams [name] in [user.p_their()] nose. It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.EyeBlurry(12 SECONDS)
 	var/obj/item/organ/internal/eyes/E = user.get_int_organ(/obj/item/organ/internal/eyes)
 	if(E)
 		E.take_damage(8, 1)
 	sleep(10)
 	return BRUTELOSS
 
-/obj/item/paperplane/update_icon()
-	overlays.Cut()
+/obj/item/paperplane/update_overlays()
+	. = ..()
 	var/list/stamped = internal_paper.stamped
-	if(!stamped)
-		stamped = new
-	else if(stamped)
-		for(var/S in stamped)
-			var/obj/item/stamp = S
-			var/image/stampoverlay = image('icons/obj/bureaucracy.dmi', "paperplane_[initial(stamp.icon_state)]")
-			overlays += stampoverlay
+	if(LAZYLEN(stamped))
+		for(var/obj/item/stamp/stamp_path as anything in stamped)
+			. += "paperplane_[initial(stamp_path.icon_state)]"
 
 /obj/item/paperplane/attack_self(mob/user) // Unfold the paper plane
-	to_chat(user, "<span class='notice'>You unfold [src].</span>")
+	to_chat(user, span_notice("You unfold [src]."))
 	if(internal_paper)
 		internal_paper.forceMove(get_turf(src))
 		user.put_in_hands(internal_paper)
 		internal_paper = null
 		qdel(src)
 
-/obj/item/paperplane/attackby(obj/item/P, mob/living/carbon/human/user, params)
-	..()
+/obj/item/paperplane/attackby(obj/item/I, mob/living/user, params)
+	if(resistance_flags & ON_FIRE)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(P, /obj/item/pen) || istype(P, /obj/item/toy/crayon))
-		to_chat(user, "<span class='notice'>You should unfold [src] before changing it.</span>")
-		return
+	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
+		add_fingerprint(user)
+		to_chat(user, span_warning("You should unfold [src] before changing it."))
+		return ATTACK_CHAIN_PROCEED
 
-	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
-		internal_paper.attackby(P, user) //spoofed attack to update internal paper.
-		update_icon()
+	if(istype(I, /obj/item/stamp))	//we don't randomize stamps on a paperplane
+		add_fingerprint(user)
+		internal_paper.attackby(I, user, params) //spoofed attack to update internal paper.
+		update_icon(UPDATE_OVERLAYS)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	else if(is_hot(P))
-		if((CLUMSY in user.mutations) && prob(10))
-			user.visible_message("<span class='warning'>[user] accidentally ignites [user.p_them()]self!</span>", \
-				"<span class='userdanger'>You miss [src] and accidentally light yourself on fire!</span>")
-			user.unEquip(P)
-			user.adjust_fire_stacks(1)
-			user.IgniteMob()
-			return
+	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.get_heat() || !Adjacent(user))
+		return .
 
-		if(!in_range(user, src)) //to prevent issues as a result of telepathically lighting a paper
-			return
-		user.unEquip(src)
-		user.visible_message("<span class='danger'>[user] lights [src] on fire with [P]!</span>", "<span class='danger'>You lights [src] on fire!</span>")
-		fire_act()
-
+	. |= ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
+		user.visible_message(
+			span_warning("[user] accidentally ignites [user.p_them()]self!"),
+			span_userdanger("You miss the paperplane and accidentally light yourself on fire!"),
+		)
+		user.drop_item_ground(I)
+		user.adjust_fire_stacks(1)
+		user.IgniteMob()
+		return .
 
-/obj/item/paperplane/throw_impact(atom/hit_atom)
+	user.drop_item_ground(src)
+	user.visible_message(
+		span_danger("[user] lights [src] ablaze with [I]!"),
+		span_danger("You light [src] on fire!"),
+	)
+	fire_act()
+
+/obj/item/paperplane/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(..())
 		return
 	if(!ishuman(hit_atom))
@@ -101,28 +105,22 @@
 			return
 		if(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES)
 			return
-		visible_message("<span class='danger'>[src] hits [H] in the eye!</span>")
-		H.EyeBlurry(6)
-		H.Weaken(2)
+		visible_message(span_danger("[src] hits [H] in the eye!"))
+		H.EyeBlurry(12 SECONDS)
+		H.Weaken(4 SECONDS)
 		var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 		if(E)
 			E.take_damage(8, 1)
 		H.emote("scream")
 
-/obj/item/paper/AltClick(mob/user, obj/item/I)
+/obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/paper)
 	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		I = H.is_in_hands(/obj/item/paper)
-		if(I)
-			ProcFoldPlane(H, I)
-
-/obj/item/paper/proc/ProcFoldPlane(mob/living/carbon/user, obj/item/I)
-	if(istype(user))
-		if((!in_range(src, user)) || user.stat || user.restrained())
+		if(!Adjacent(user) || user.incapacitated())
 			return
-		to_chat(user, "<span class='notice'>You fold [src] into the shape of a plane!</span>")
-		user.unEquip(src)
-		I = new /obj/item/paperplane(user, src)
-		user.put_in_hands(I)
+		to_chat(user, span_notice("You fold [src] into the shape of a plane!"))
+		user.drop_item_ground(src)
+		paper = new /obj/item/paperplane(user, src)
+		user.put_in_hands(paper, ignore_anim = FALSE)
 	else
-		to_chat(user, "<span class='notice'>You lack the dexterity to fold [src].</span>")
+		to_chat(user, span_notice("You lack the dexterity to fold [src]."))
+

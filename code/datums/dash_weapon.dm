@@ -1,7 +1,6 @@
 /datum/action/innate/dash
-	name = "Dash"
-	desc = "Teleport to the targeted location."
-	icon_icon = 'icons/mob/actions/actions.dmi'
+	name = "Рывок"
+	desc = "Мгновенный телепорт в указанную точку."
 	button_icon_state = "jetboot"
 	var/current_charges = 1
 	var/max_charges = 1
@@ -22,7 +21,7 @@
 	dashing_item = null
 	return ..()
 
-/datum/action/innate/dash/IsAvailable()
+/datum/action/innate/dash/IsAvailable(feedback = FALSE)
 	if(current_charges > 0)
 		return TRUE
 	else if((last_used + (charge_rate * max_charges)) <= world.time && current_charges != max_charges)	// Существует неприятный баг из-за которого заряды переставали регениться совсем.
@@ -41,10 +40,10 @@
 
 	var/turf/target_turf = get_turf(target)
 	var/turf/starting_turf = get_turf(user)
-	if(target in view(user.client.view, user))
+	if(!user.Adjacent(target) && (target in view(user.client.view, user)))
 		var/mob/living/pulled_mob = user.pulling
-		if(!do_teleport(user, target_turf))
-			to_chat(user, "<span class='warning'>Dash blocked by location!</span>")
+		if(!do_teleport(user, target_turf, ignore_bluespace_interference = TRUE))
+			user.balloon_alert(user, "нельзя телепортироваться!")
 			return FALSE
 		var/obj/spot1 = new phaseout(starting_turf, user.dir)
 		playsound(target_turf, dash_sound, 25, TRUE)
@@ -53,7 +52,7 @@
 		current_charges--
 		if(owner)
 			owner.update_action_buttons_icon()
-		addtimer(CALLBACK(src, .proc/charge), charge_rate)
+		addtimer(CALLBACK(src, PROC_REF(charge)), charge_rate)
 		last_used = world.time
 		if(istype(pulled_mob))
 			pulled_mob.forceMove(target_turf)
@@ -70,4 +69,4 @@
 	if(!owner)
 		return
 	owner.update_action_buttons_icon()
-	to_chat(owner, "<span class='warning'>[current_charges]/[max_charges] dash charges</span>")
+	owner.balloon_alert(owner, "[declension_ru(current_charges, "[current_charges] заряд доступен", "[current_charges] заряда доступно", "[current_charges] зарядов доступно")]")

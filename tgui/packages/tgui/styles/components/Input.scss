@@ -1,32 +1,43 @@
-@use 'sass:color';
-@use '../base.scss';
-@use '../functions.scss' as *;
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
 
-$border-color: #88bfff !default;
-$border-color-disabled: color.adjust($border-color, $saturation: -100%, $lightness: -25%) !default;
+@use '../base';
+@use 'sass:color';
+@use '../functions' as *;
+
+$text-color: base.$color-fg !default;
+$background-color: hsl(0, 0%, 3.9%) !default;
+$border-color: hsl(212.3, 100%, 76.7%) !default;
 $border-radius: base.$border-radius !default;
+$font-family: Verdana, sans-serif !default;
+$mono-font-family: 'Consolas', monospace !default;
+$border-color-disabled: color.adjust(
+  $border-color,
+  $saturation: -100%,
+  $lightness: -25%
+) !default;
 
 .Input {
   position: relative;
   display: inline-block;
-  width: 120px;
-  border: 1px solid $border-color;
-  border: 1px solid rgba($border-color, 0.75);
+  width: base.em(120px);
+  border: base.em(1px) solid $border-color;
+  border: base.em(1px) solid rgba($border-color, 0.75);
   border-radius: $border-radius;
-  color: #fff;
-  background-color: #000;
-  background-color: rgba(0, 0, 0, 0.75);
-  padding: 0 4px;
-  margin-right: 2px;
-  line-height: 17px;
+  color: $text-color;
+  background-color: $background-color;
+  padding: 0 base.em(4px);
+  margin-right: base.em(2px);
+  line-height: base.em(17px);
   overflow: visible;
-  white-space: nowrap;
 
   &--disabled {
-    color: #777;
+    color: hsl(0, 0%, 46.7%);
     border-color: $border-color-disabled;
     border-color: rgba($border-color-disabled, 0.75);
-    background-color: #333;
+    background-color: hsl(0, 0%, 20%);
     background-color: rgba(0, 0, 0, 0.25);
   }
 }
@@ -51,19 +62,19 @@ $border-radius: base.$border-radius !default;
   border: 0;
   outline: 0;
   width: 100%;
-  font-size: 12px;
-  line-height: 17px;
-  height: 17px;
+  font-size: base.em(12px);
+  line-height: base.em(17px);
+  height: base.em(17px);
   margin: 0;
-  padding: 0 6px;
-  font-family: Verdana, sans-serif;
+  padding: 0 0.5em;
+  font-family: $font-family;
   background-color: transparent;
-  color: #fff;
+  color: $text-color;
   color: inherit;
 
-  &:-ms-input-placeholder {
+  &::placeholder {
     font-style: italic;
-    color: #777;
+    color: hsl(0, 0%, 46.7%);
     color: rgba(255, 255, 255, 0.45);
   }
 }
@@ -71,20 +82,21 @@ $border-radius: base.$border-radius !default;
 .Input__textarea {
   border: 0;
   width: calc(100% + 4px);
-  font-size: 12px;
-  line-height: 17px;
-  margin-left: -4px;
+  font-size: base.em(12px);
+  line-height: base.em(17px);
+  margin-left: base.em(-4px);
   font-family: Verdana, sans-serif;
-  background-color: transparent;
-  color: #fff;
-  color: inherit;
   resize: both;
   overflow: auto;
   white-space: pre-wrap;
 
-  &:-ms-input-placeholder {
+  &::placeholder {
     font-style: italic;
-    color: #777;
+    color: hsl(0, 0%, 46.7%);
     color: rgba(255, 255, 255, 0.45);
   }
+}
+
+.Input--monospace .Input__input {
+  font-family: $mono-font-family;
 }

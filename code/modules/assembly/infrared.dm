@@ -4,10 +4,9 @@
 	icon_state = "infrared"
 	materials = list(MAT_METAL=1000, MAT_GLASS=500)
 	origin_tech = "magnets=2;materials=2"
-
 	bomb_name = "tripwire mine"
-
-	secured = FALSE // toggle_secure()'ed in New() for correct adding to processing_objects, won't work otherwise
+	set_dir_on_move = FALSE
+	secured = FALSE // toggle_secure()'ed in Initialize() for correct adding to processing_objects, won't work otherwise
 	dir = EAST
 	var/on = FALSE
 	var/visible = TRUE
@@ -18,6 +17,11 @@
 	var/emission_cycles = 0
 	var/emission_cap = 20
 
+/obj/item/assembly/infra/Initialize(mapload)
+	. = ..()
+	if(!secured)
+		toggle_secure()
+
 /obj/item/assembly/infra/Destroy()
 	if(first)
 		QDEL_NULL(first)
@@ -25,12 +29,10 @@
 		fire_location = null
 	return ..()
 
-/obj/item/assembly/infra/describe()
-	return "<span class='notice'>The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].</span>"
-
 /obj/item/assembly/infra/examine(mob/user)
 	. = ..()
-	. += describe()
+	. += span_notice("The assembly is [secured ? "secure" : "not secure"]. The infrared trigger is [on ? "on" : "off"].")
+	. += span_notice("<b>Alt-Click</b> to rotate it.")
 
 /obj/item/assembly/infra/activate()
 	if(!..())
@@ -51,25 +53,19 @@
 	update_icon()
 	return secured
 
-/obj/item/assembly/infra/New()
-	..()
-	if(!secured)
-		toggle_secure()
-
-/obj/item/assembly/infra/proc/arm() // Forces the device to arm no matter its current state.
+/// Forces the device to arm no matter its current state.
+/obj/item/assembly/infra/proc/arm()
 	if(!secured) // Checked because arm() might be called sometime after the object is spawned.
 		toggle_secure()
-	on = 1
+	on = TRUE
 
-/obj/item/assembly/infra/update_icon()
-	overlays.Cut()
+/obj/item/assembly/infra/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(on)
-		overlays += "infrared_on"
+		. += "infrared_on"
 		attached_overlays += "infrared_on"
-
-	if(holder)
-		holder.update_icon()
+	holder?.update_icon()
 
 /obj/item/assembly/infra/process()
 	var/turf/T = get_turf(src)
@@ -89,13 +85,13 @@
 		emission_cycles = 0
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(T)
 		I.master = src
-		I.density = 1
+		I.set_density(TRUE)
 		I.dir = dir
 		I.update_icon()
 		first = I
 		step(I, I.dir)
 		if(first)
-			I.density = FALSE
+			I.set_density(FALSE)
 			I.vis_spread(visible)
 			I.limit = 8
 			I.process()
@@ -104,10 +100,8 @@
 	qdel(first)
 	..()
 
-/obj/item/assembly/infra/Move()
-	var/t = dir
+/obj/item/assembly/infra/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
-	dir = t
 	qdel(first)
 
 /obj/item/assembly/infra/holder_movement()
@@ -116,7 +110,7 @@
 	qdel(first)
 	return TRUE
 
-/obj/item/assembly/infra/equipped(var/mob/user, var/slot)
+/obj/item/assembly/infra/equipped(mob/user, slot, initial)
 	qdel(first)
 	return ..()
 
@@ -125,39 +119,42 @@
 	return ..()
 
 /obj/item/assembly/infra/proc/trigger_beam(atom/movable/AM)
+	if(!secured || !on || !COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
 	var/mob/triggered
 	if(AM.throwing?.thrower)
 		triggered = AM.throwing.thrower
+
 	else if(ismob(AM))
 		triggered = AM
-	if(!secured || !on || cooldown > 0)
-		return FALSE
-	audible_message("[bicon(src)] *beep* *beep*", hearing_distance = 3)
+
+	COOLDOWN_START(src, cooldown, cooldown_time)
+	pulse(FALSE, triggered)
+	audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*", hearing_distance = 3)
+	playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
 	if(first)
 		qdel(first)
-	cooldown = 2
-	addtimer(CALLBACK(src, .proc/process_cooldown), 10)
-	pulse(FALSE, triggered)
 
 /obj/item/assembly/infra/interact(mob/user)//TODO: change this this to the wire control panel
-	if(!secured)	return
+	if(!secured)
+		return
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><TT><B>Infrared Laser</B>
-				<B>Status</B>: [on ? "<A href='?src=[UID()];state=0'>On</A>" : "<A href='?src=[UID()];state=1'>Off</A>"]<BR>
-				<B>Visibility</B>: [visible ? "<A href='?src=[UID()];visible=0'>Visible</A>" : "<A href='?src=[UID()];visible=1'>Invisible</A>"]<BR>
-				<B>Current Direction</B>: <A href='?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
-				</TT>
-				<BR><BR><A href='?src=[UID()];refresh=1'>Refresh</A>
-				<BR><BR><A href='?src=[UID()];close=1'>Close</A>"}
-	var/datum/browser/popup = new(user, "infra", name, 400, 400)
+	var/dat = {"<tt><b>Infrared Laser</b>
+				<b>Status</b>: [on ? "<a href='byond://?src=[UID()];state=0'>On</a>" : "<a href='byond://?src=[UID()];state=1'>Off</a>"]<br>
+				<b>Visibility</b>: [visible ? "<a href='byond://?src=[UID()];visible=0'>Visible</a>" : "<a href='byond://?src=[UID()];visible=1'>Invisible</a>"]<br>
+				<b>Current Direction</b>: <a href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</a><br>
+				</tt>
+				<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>
+				<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"}
+	var/datum/browser/popup = new(user, "infra", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "infra")
+	popup.open()
 
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
-		usr << browse(null, "window=infra")
+	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
+		close_window(usr, "infra")
 		onclose(usr, "infra")
 		return
 	if(href_list["state"])
@@ -168,48 +165,53 @@
 		if(first)
 			first.vis_spread(visible)
 	if(href_list["rotate"])
-		rotate()
+		rotate(usr)
 	if(href_list["close"])
-		usr << browse(null, "window=infra")
+		close_window(usr, "infra")
 		return
 	if(usr)
 		attack_self(usr)
 
-/obj/item/assembly/infra/verb/rotate()//This could likely be better
-	set name = "Rotate Infrared Laser"
-	set category = "Object"
+/obj/item/assembly/infra/click_alt(mob/user)
+	rotate(user)
+	return CLICK_ACTION_SUCCESS
+
+/obj/item/assembly/infra/verb/rotate_verb()
+	set name = "Повернуть"
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
-	if(usr.stat || !usr.canmove || usr.restrained())
+	rotate(usr)
+
+/obj/item/assembly/infra/proc/rotate(mob/living/user = usr)
+	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
 	dir = turn(dir, 90)
 
-	if(usr.machine == src)
-		interact(usr)
+	if(user.machine == src)
+		interact(user)
 
 	if(first)
 		qdel(first)
 
+/obj/item/assembly/infra/armed/Initialize(mapload)
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(delayed_arm)), 0.3 SECONDS)
 
-
-/obj/item/assembly/infra/armed/New()
-	..()
-	spawn(3)
-		if(holder)
-			if(holder.master)
-				dir = holder.master.dir
-		arm()
+/obj/item/assembly/infra/armed/proc/delayed_arm()
+	if(holder?.master)
+		dir = holder.master.dir
+	arm()
 
 /obj/item/assembly/infra/armed/stealth
 	visible = FALSE
-
 
 /***************************IBeam*********************************/
 
 /obj/effect/beam/i_beam
 	name = "i beam"
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
 	icon_state = "ibeam"
 	var/obj/effect/beam/i_beam/next = null
 	var/obj/effect/beam/i_beam/previous = null
@@ -219,21 +221,35 @@
 	var/left = null
 	var/life_cycles = 0
 	var/life_cap = 20
-	anchored = TRUE
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE | PASSFENCE
+	pass_flags_self = LETPASSTHROW
+	pass_flags = PASSTABLE|PASSGLASS|PASSGRILLE|PASSFENCE
 
+/obj/effect/beam/i_beam/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/beam/i_beam/Destroy()
+	if(master && master.first == src)
+		master.first = null
+	QDEL_NULL(next)
+	if(previous)
+		previous.next = null
+		master?.last = previous
+	return ..()
 
 /obj/effect/beam/i_beam/proc/hit(atom/movable/AM)
-	if(master)
-		master.trigger_beam(AM)
+	master?.trigger_beam(AM)
 	qdel(src)
 
-/obj/effect/beam/i_beam/proc/vis_spread(v)
-	visible = v
+/obj/effect/beam/i_beam/proc/vis_spread(new_visibility)
+	visible = new_visibility
 	if(next)
-		next.vis_spread(v)
+		next.vis_spread(new_visibility)
 
-/obj/effect/beam/i_beam/update_icon()
+/obj/effect/beam/i_beam/update_icon_state()
 	transform = turn(matrix(), dir2angle(dir))
 
 /obj/effect/beam/i_beam/process()
@@ -243,48 +259,42 @@
 		return
 	if(left > 0)
 		left--
-	if(left < 1)
-		if(!(visible))
-			invisibility = 101
-		else
-			invisibility = FALSE
+	if(left < 1 && !visible)
+		invisibility = INVISIBILITY_ABSTRACT
 	else
-		invisibility = FALSE
+		invisibility = 0
 
 	if(!next && (limit > 0))
 		var/obj/effect/beam/i_beam/I = new /obj/effect/beam/i_beam(loc)
 		I.master = master
-		I.density = 1
+		I.set_density(TRUE)
 		I.dir = dir
 		I.update_icon()
 		I.previous = src
 		next = I
 		step(I, I.dir)
 		if(next)
-			I.density = FALSE
+			I.set_density(FALSE)
 			I.vis_spread(visible)
 			I.limit = limit - 1
 			master.last = I
 			I.process()
 
-/obj/effect/beam/i_beam/Bump()
+/obj/effect/beam/i_beam/Bump(atom/bumped_atom)
 	qdel(src)
 
-/obj/effect/beam/i_beam/Bumped(atom/movable/AM)
-	hit(AM)
+/obj/effect/beam/i_beam/Bumped(atom/movable/moving_atom)
+	. = ..()
+	hit(moving_atom)
 
-/obj/effect/beam/i_beam/Crossed(atom/movable/AM, oldloc)
-	if(!isobj(AM) && !isliving(AM))
-		return
-	if(istype(AM, /obj/effect))
-		return
-	hit(AM)
+/obj/effect/beam/i_beam/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
 
-/obj/effect/beam/i_beam/Destroy()
-	if(master.first == src)
-		master.first = null
-	QDEL_NULL(next)
-	if(previous)
-		previous.next = null
-		master.last = previous
-	return ..()
+	if(!isobj(arrived) && !isliving(arrived))
+		return
+
+	if(iseffect(arrived))
+		return
+
+	INVOKE_ASYNC(src, PROC_REF(hit), arrived)
+

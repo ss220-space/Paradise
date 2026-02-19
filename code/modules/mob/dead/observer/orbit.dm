@@ -1,15 +1,19 @@
 /datum/orbit_menu
 	var/mob/dead/observer/owner
+	var/auto_observe = FALSE
 
 /datum/orbit_menu/New(mob/dead/observer/new_owner)
 	if(!istype(new_owner))
 		qdel(src)
 	owner = new_owner
 
-/datum/orbit_menu/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.observer_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/orbit_menu/ui_state(mob/user)
+	return GLOB.observer_state
+
+/datum/orbit_menu/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "Orbit", "Orbit", 700, 500, master_ui, state)
+		ui = new(user, src, "Orbit", "Orbit")
 		ui.open()
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
@@ -19,33 +23,79 @@
 
 	switch(action)
 		if("orbit")
-			var/ref = params["ref"]
+			handle_orbit_action(params)
+			return TRUE
 
-			var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
-			if(poi == null)
-				. = TRUE
-				return
-			owner.ManualFollow(poi)
-			. = TRUE
 		if("refresh")
 			update_static_data(owner, ui)
-			. = TRUE
+			return TRUE
+
+		if("toggle_observe")
+			toggle_auto_observe()
+			return TRUE
+	return FALSE
+
+/datum/orbit_menu/proc/handle_orbit_action(list/params)
+	var/ref = params["ref"]
+	var/atom/movable/poi = locateUID(ref)
+
+	if(!poi)
+		return
+
+	var/atom/movable/cached_target = owner.orbiting
+	owner.orbiting = null
+	owner.reset_perspective(null)
+	owner.orbiting = cached_target
+
+	if(auto_observe)
+		var/mob/eye_mob = poi
+		if(istype(eye_mob) && eye_mob.client)
+			owner.handle_when_autoobserve_move()
+			owner.do_observe(eye_mob)
+		else
+			owner.handle_when_autoobserve_move()
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока! Показать инвентарь <b>невозможно</b>."))
+
+	owner.ManualFollow(poi)
+
+/datum/orbit_menu/proc/toggle_auto_observe()
+	auto_observe = !auto_observe
+
+	if(!owner.orbiting)
+		owner.handle_when_autoobserve_move()
+		return
+
+	if(auto_observe)
+		var/mob/eye_mob = owner.orbiting
+		if(istype(eye_mob) && eye_mob.client)
+			owner.do_observe(eye_mob)
+			return
+		else
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
+
+	var/atom/movable/eye_mob = owner.orbiting
+	owner.orbiting = null
+	owner.handle_when_autoobserve_move()
+	owner.orbiting = eye_mob
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
+	data["auto_observe"] = auto_observe
 	return data
 
 /datum/orbit_menu/ui_static_data(mob/user)
 	var/list/data = list()
 
 	var/list/alive = list()
+	var/list/highlights = list()
 	var/list/antagonists = list()
 	var/list/dead = list()
 	var/list/ghosts = list()
 	var/list/misc = list()
 	var/list/npcs = list()
+	var/length_of_ghosts = length(get_observers())
 
-	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
+	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = TRUE)
 	for(var/name in pois)
 		var/mob/M = pois[name]
 		if(name == null)
@@ -61,7 +111,13 @@
 			stack_trace("getpois returned something under a non-string name [name] - [pois[name]] - [M.type]")
 			continue
 
-		serialized["ref"] = "\ref[M]"
+		serialized["ref"] = M.UID()
+		var/orbiters = 0
+		if(ismob(M))
+			orbiters = M.ghost_orbiting
+
+		if(orbiters > 0)
+			serialized["orbiters"] = orbiters
 
 		if(istype(M))
 			if(isnewplayer(M))  // People in the lobby screen; only have their ckey as a name.
@@ -73,20 +129,17 @@
 			else if(M.stat == DEAD)
 				dead += list(serialized)
 			else
+				if(orbiters >= 0.2 * length_of_ghosts) // They're important if 20% of observers are watching them
+					highlights += list(serialized)
 				alive += list(serialized)
 
 				var/datum/mind/mind = M.mind
 				var/list/other_antags = list()
 
-				if(GLOB.ts_spiderlist.len && M.ckey)
-					var/list/spider_minds = list()
-					for(var/mob/living/simple_animal/hostile/poison/terror_spider/S in GLOB.ts_spiderlist)
-						if(S.key)
-							spider_minds += S.mind
-					other_antags += list(
-						"Terror Spiders ([spider_minds.len])" = (mind.current in GLOB.ts_spiderlist),
-					)
-
+				for(var/team_type in GLOB.antagonist_teams)
+					var/datum/team/team = GLOB.antagonist_teams[team_type]
+					if(!team.need_antag_hud)
+						other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
 				if(user.antagHUD)
 					// If a mind is many antags at once, we'll display all of them, each
 					// under their own antag sub-section.
@@ -95,34 +148,44 @@
 					// Traitors - the only antags in `.antag_datums` at the time of writing.
 					for(var/_A in mind.antag_datums)
 						var/datum/antagonist/A = _A
+						if(!A.show_in_orbit)
+							continue
 						var/antag_serialized = serialized.Copy()
 						antag_serialized["antag"] = A.name
 						antagonists += list(antag_serialized)
 
+					for(var/team_type in GLOB.antagonist_teams)
+						var/datum/team/team = GLOB.antagonist_teams[team_type]
+						if(team.need_antag_hud)
+							other_antags += list("[team.name] — ([team.alife_members_count()])" = (mind in team.members))
 					// Not-very-datumized antags follow
 					// Associative list of antag name => whether this mind is this antag
-					if(SSticker && SSticker.mode)
+					if(SSticker?.mode)
 						other_antags += list(
-							"Abductees — ([SSticker.mode.abductees.len])" = (mind in SSticker.mode.abductees),
-							"Abductors — ([SSticker.mode.abductors.len])" = (mind in SSticker.mode.abductors),
-							"Changelings — ([SSticker.mode.changelings.len])" = (mind.changeling != null),
-							"Devils — ([SSticker.mode.devils.len])" = (mind in SSticker.mode.devils),
-							"Event Roles — ([SSticker.mode.eventmiscs.len])" = (mind in SSticker.mode.eventmiscs),
-							"Nar’Sie Cultists — ([SSticker.mode.cult.len])" = (mind in SSticker.mode.cult),
-							"Nuclear Operatives — ([SSticker.mode.syndicates.len])" = (mind in SSticker.mode.syndicates),
-							"Ratvar Cultists — ([SSticker.mode.clockwork_cult.len])" = (mind in SSticker.mode.clockwork_cult),
-							"Revolutionary Comrades — ([SSticker.mode.revolutionaries.len])" = (mind in SSticker.mode.revolutionaries),
-							"Revolutionary Heads — ([SSticker.mode.head_revolutionaries.len])" = (mind in SSticker.mode.head_revolutionaries),
-							"Shadowling Thralls — ([SSticker.mode.shadowling_thralls.len])" = (mind in SSticker.mode.shadowling_thralls),
-							"Shadowlings — ([SSticker.mode.shadows.len])" = (mind in SSticker.mode.shadows),
-							"Sintouched — ([SSticker.mode.sintouched.len])" = (mind in SSticker.mode.sintouched),
-							"Spider Clan — ([SSticker.mode.space_ninjas.len])" = (mind in SSticker.mode.space_ninjas),
-							"Vampire Thralls — ([SSticker.mode.vampire_enthralled.len])" = (mind in SSticker.mode.vampire_enthralled),
-							"Vampires — ([SSticker.mode.vampires.len])" = (mind.vampire != null),
-							"Thieves — ([SSticker.mode.thieves.len])" = (mind in SSticker.mode.thieves),
-							"Wizards — ([SSticker.mode.wizards.len])" = (mind in SSticker.mode.wizards),
-							"Wizard’s Apprentices — ([SSticker.mode.apprentices.len])" = (mind in SSticker.mode.apprentices),
-							"Xenomorphs — ([SSticker.mode.xenos.len])" = (mind in SSticker.mode.xenos),
+							"Жертвы абдукторов — ([length(SSticker.mode.abductees)])" = (mind in SSticker.mode.abductees),
+							"Абдукторы — ([length(SSticker.mode.abductors)])" = (mind in SSticker.mode.abductors),
+							"Демоны — ([length(SSticker.mode.demons)])" = (mind in SSticker.mode.demons),
+							"Ивент роли — ([length(SSticker.mode.eventmiscs)])" = (mind in SSticker.mode.eventmiscs),
+							"Культисты [SSticker.cultdat.entity_name] — ([length(SSticker.mode.cult)])" = (mind in SSticker.mode.cult),
+							"Культисты Ратвара — ([length(SSticker.mode.clockwork_cult)])" = (mind in SSticker.mode.clockwork_cult),
+							"Революционеры — ([length(SSticker.mode.revolutionaries)])" = (mind in SSticker.mode.revolutionaries),
+							"Главы революции — ([length(SSticker.mode.head_revolutionaries)])" = (mind in SSticker.mode.head_revolutionaries),
+							"Рабы теней — ([length(SSticker.mode.shadowling_thralls)])" = (mind in SSticker.mode.shadowling_thralls),
+							"Тени — ([length(SSticker.mode.shadows)])" = (mind in SSticker.mode.shadows),
+							"Маги — ([length(SSticker.mode.wizards)])" = (mind in SSticker.mode.wizards),
+							"Ученики магов — ([length(SSticker.mode.apprentices)])" = (mind in SSticker.mode.apprentices),
+							"Торговцы — ([length(SSticker.mode.traders)])" = (mind in SSticker.mode.traders),
+							"Морфы — ([length(SSticker.mode.morphs)])" = (mind in SSticker.mode.morphs),
+							"Свармеры — ([length(SSticker.mode.swarmers)])" = (mind in SSticker.mode.swarmers),
+							"Голопаразиты — ([length(SSticker.mode.guardians)])" = (mind in SSticker.mode.guardians),
+							"Ревенанты — ([length(SSticker.mode.revenants)])" = (mind in SSticker.mode.revenants),
+							"Воксы рейдеры — ([length(SSticker.mode.raiders)])" = (mind in SSticker.mode.raiders),
+							"Супергерои — ([length(SSticker.mode.superheroes)])" = (mind in SSticker.mode.superheroes),
+							"Суперзлодеи — ([length(SSticker.mode.supervillains)])" = (mind in SSticker.mode.supervillains),
+							"Отряд Смерти — ([length(SSticker.mode.deathsquad)])" = (mind in SSticker.mode.deathsquad),
+							"Хонксквад — ([length(SSticker.mode.honksquad)])" = (mind in SSticker.mode.honksquad),
+							"Ударный Отряд \"Синдиката\" — ([length(SSticker.mode.sst)])" = (mind in SSticker.mode.sst),
+							"Диверсионный Отряд \"Синдиката\" — ([length(SSticker.mode.sit)])" = (mind in SSticker.mode.sit),
 						)
 
 				for(var/antag_name in other_antags)
@@ -134,10 +197,13 @@
 					antagonists += list(antag_serialized)
 
 		else
+			if(length(orbiters) >= 0.2 * length_of_ghosts) // If a bunch of people are orbiting an object, like the nuke disk.
+				highlights += list(serialized)
 			misc += list(serialized)
 
 	data["alive"] = alive
 	data["antagonists"] = antagonists
+	data["highlights"] = highlights
 	data["dead"] = dead
 	data["ghosts"] = ghosts
 	data["misc"] = misc

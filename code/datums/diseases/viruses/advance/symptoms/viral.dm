@@ -1,0 +1,66 @@
+/*
+//////////////////////////////////////
+Viral adaptation
+
+	Moderate stealth boost.
+	Major Increases to resistance.
+	Reduces stage speed.
+	No change to transmission
+	Critical Level.
+
+BONUS
+	Extremely useful for buffing viruses
+
+//////////////////////////////////////
+*/
+/datum/symptom/viraladaptation
+	name = "Вирусная самоадаптация"
+	id = "viraladaptation"
+	stealth = 3
+	resistance = 5
+	stage_speed = -3
+	level = 3
+
+/datum/symptom/viraladaptation/Activate(datum/disease/virus/advance/A)
+	..()
+	if(prob(SYMPTOM_ACTIVATION_PROB))
+		var/mob/living/M = A.affected_mob
+		switch(A.stage)
+			if(1)
+				to_chat(M, span_notice("Вы чувствуете себя странно, всё кажется как-то по другому..."))
+			if(5)
+				to_chat(M, span_notice("Вы чувствуете себя лучше, но ничего интересного не происходит."))
+
+/*
+//////////////////////////////////////
+Viral evolution
+
+	Moderate stealth reductopn.
+	Major decreases to resistance.
+	increases stage speed.
+	increase to transmission
+	Critical Level.
+
+BONUS
+	Extremely useful for buffing viruses
+
+//////////////////////////////////////
+*/
+/datum/symptom/viralevolution
+	name = "Вирусное эволюционное ускорение"
+	id = "viralevolution"
+	stealth = -2
+	resistance = -3
+	stage_speed = 5
+	transmittable = 3
+	level = 3
+
+/datum/symptom/viraladaptation/Activate(datum/disease/virus/advance/A)
+	..()
+	if(prob(SYMPTOM_ACTIVATION_PROB))
+		var/mob/living/M = A.affected_mob
+		switch(A.stage)
+			if(1)
+				to_chat(M, span_notice("Вы чувствуете себя странно, всё кажется как-то по другому..."))
+			if(5)
+				to_chat(M, span_notice("Вы чувствуете себя странно, но ничего интересного не происходит."))

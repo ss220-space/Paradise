@@ -1,5 +1,8 @@
 /obj/item/disk
+	gender = FEMALE
 	icon = 'icons/obj/module.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_state = "card-id"
 	icon_state = "datadisk0"
+	drop_sound = 'sound/items/handling/drop/disk_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/disk_pickup.ogg'

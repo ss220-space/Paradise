@@ -2,20 +2,24 @@
 /// Food.
 ////////////////////////////////////////////////////////////////////////////////
 
-#define HATE_MESSAGES list(	"What the hell was that?! I hate <b>$TYPE</b>, I'm $ASPECIES!", "That was awful! As a self-respecting $ASPECIES I can't eat <b>$TYPE</b>.", "God, that was outright dangerous! <b>$CAPITALTYPE</b> $IS not good for $PLURALSPECIES!")
-#define DISLIKE_MESSAGES list("That wasn't very good. I should probably stay away from <b>$TYPE</b>, since I'm $ASPECIES.", "<b>$CAPITALTYPE</b> $ISn't great for $PLURALSPECIES. Let's not eat that again.", "Eugh. <b>$CAPITALTYPE</b> really $ISn't something $ASPECIES should be eating.")
-#define LOVE_MESSAGES list("Delicious! I love <b>$TYPE</b>.", "Scrump. I was born to eat <b>$TYPE</b>.", "I love this taste. <b>$CAPITALTYPE</b> $IS great.", "<b>$CAPITALTYPE</b> $IS amazing. I should eat more of this stuff.")
+#define HATE_MESSAGES list("Что это было?! Я ненавижу <b>$TYPE</b>, я же $ASPECIES!", "Это было ужасно! Как уважающий себя $ASPECIES, я не могу есть <b>$TYPE</b>.", "Боже, это было опасно! <b>$CAPITALTYPE</b> $IS вредно для $PLURALSPECIES!")
+#define DISLIKE_MESSAGES list("Не очень вкусно. Мне, как $ASPECIES, лучше избегать <b>$TYPE</b>.", "<b>$CAPITALTYPE</b> $IS не лучшая еда для $PLURALSPECIES. Больше не буду это есть.", "Фу. <b>$CAPITALTYPE</b> $IS не то, что должен есть $ASPECIES.")
+#define LOVE_MESSAGES list("Восхитительно! Обожаю <b>$TYPE</b>!", "Ням. Я создан, чтобы есть <b>$TYPE</b>.", "Обожаю этот вкус. <b>$CAPITALTYPE</b> $IS прекрасно.", "<b>$CAPITALTYPE</b> $IS потрясающе. Надо есть это чаще.")
 
 /obj/item/reagent_containers/food
 	possible_transfer_amounts = null
 	volume = 50 //Sets the default container amount for all food items.
 	visible_transfer_rate = FALSE
+	righthand_file = 'icons/mob/inhands/foods_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/foods_lefthand.dmi'
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
+	var/has_special_eating_effects = FALSE
+	var/eat_time = 0 SECONDS
 	var/consume_sound = 'sound/items/eatfood.ogg'
 	var/apply_type = REAGENT_INGEST
-	var/apply_method = "swallow"
+	var/apply_method = "проглоти"
 	var/transfer_efficiency = 1.0
 	var/instant_application = 0 //if we want to bypass the forcedfeed delay
 	var/can_taste = TRUE//whether you can taste eating from this
@@ -28,6 +32,11 @@
 	resistance_flags = FLAMMABLE
 	container_type = INJECTABLE
 	var/log_eating = FALSE // do we log if someone eats us?
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
+
+/obj/item/reagent_containers/food/get_short_name()
+	return declent_ru(NOMINATIVE)
 
 /obj/item/reagent_containers/food/Initialize(mapload)
 	. = ..()
@@ -73,28 +82,28 @@
 
 	last_ant_time = world.time
 
-/obj/item/reagent_containers/food/proc/check_liked(var/fraction, mob/M)
+/obj/item/reagent_containers/food/proc/check_liked(fraction, mob/M)
 	if(last_check_time + 2 SECONDS < world.time)
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(foodtype & H.dna.species.toxic_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.toxic_food)
-				to_chat(H, "<span class='warning'>[format_message(type_string, HATE_MESSAGES, H.dna.species)]</span>")
+				to_chat(H, span_warning("[format_message(type_string, HATE_MESSAGES, H.dna.species)]"))
 
-				H.AdjustDisgust(25 + 30 * fraction)
+				H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
 			if(foodtype & H.dna.species.disliked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
-				to_chat(H, "<span class='warning'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
+				to_chat(H, span_warning("[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]"))
 
-				H.AdjustDisgust(15 + 16 * fraction)
+				H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
 			if(foodtype & H.dna.species.liked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
-				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, H.dna.species)]</span>")
+				to_chat(H, span_notice("[format_message(type_string, LOVE_MESSAGES, H.dna.species)]"))
 
-				H.AdjustDisgust(-12 + -8 * fraction)
+				H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
 			last_check_time = world.time
 
-/obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)
+/obj/item/reagent_containers/food/proc/format_message(type, list/messages, datum/species/species)
 	var/plural = cmptext(type[length(type)], "s") ? "are" : "is"
 
 	var/with_type = replacetext(pick(messages), "$TYPE", type)
@@ -104,8 +113,10 @@
 	var/with_a_species = replacetext(with_plural_species, "$ASPECIES", "[species.a] [species.name]")
 	return replacetext(with_a_species, "$IS", plural)
 
+/obj/item/reagent_containers/food/proc/on_mob_eating_effect(mob/user)
+	return
 
-/obj/item/reagent_containers/food/proc/matched_food_type(var/matching_flags)
+/obj/item/reagent_containers/food/proc/matched_food_type(matching_flags)
 	if(matching_flags & MEAT)
 		return pick("meat", "flesh", "dead animals")
 	if(matching_flags & VEGETABLES)
@@ -136,26 +147,35 @@
 /obj/item/reagent_containers/food/examine(mob/user)
 	. = ..()
 	if(foodtype & MEAT)
-		. += "<span class='notice'>It contains meat.</span>"
+		. += span_notice("It contains meat.")
 	if(foodtype & VEGETABLES)
-		. += "<span class='notice'>It contains vegetables.</span>"
+		. += span_notice("It contains vegetables.")
 	if(foodtype & RAW)
-		. += "<span class='notice'>It is not properly cooked.</span>"
+		. += span_notice("It is not properly cooked.")
 	if(foodtype & JUNKFOOD)
-		. += "<span class='notice'>It is junkfood.</span>"
+		. += span_notice("It is junkfood.")
 	if(foodtype & GRAIN)
-		. += "<span class='notice'>It is made of grain.</span>"
+		. += span_notice("It is made of grain.")
 	if(foodtype & FRUIT)
-		. += "<span class='notice'>It contains fruits.</span>"
+		. += span_notice("It contains fruits.")
 	if(foodtype & DAIRY)
-		. += "<span class='notice'>It contains dairy.</span>"
+		. += span_notice("It contains dairy.")
 	if(foodtype & FRIED)
-		. += "<span class='notice'>It is fried.</span>"
+		. += span_notice("It is fried.")
 	if(foodtype & SUGAR)
-		. += "<span class='notice'>It is sugary.</span>"
+		. += span_notice("It is sugary.")
 	if(foodtype & EGG)
-		. += "<span class='notice'>It contains eggs.</span>"
+		. += span_notice("It contains eggs.")
 	if(foodtype & GROSS)
-		. += "<span class='notice'>This is pure garbage.</span>"
+		. += span_notice("This is pure garbage.")
 	if(foodtype & TOXIC)
-		. += "<span class='notice'>This is straight up poisonous.</span>"
+		. += span_notice("This is straight up poisonous.")
+	if(user.can_see_food()) //Show each individual reagent
+		. += span_notice("It contains:")
+		for(var/I in reagents.reagent_list)
+			var/datum/reagent/R = I
+			. += span_notice("[R.volume] units of [R.name]")
+
+#undef HATE_MESSAGES
+#undef DISLIKE_MESSAGES
+#undef LOVE_MESSAGES

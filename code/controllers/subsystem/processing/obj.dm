@@ -4,3 +4,4 @@ PROCESSING_SUBSYSTEM_DEF(obj)
 	flags = SS_NO_INIT
 	wait = 20
 	offline_implications = "Objects using the 'Objects' processor will no longer process. Shuttle call recommended."
+	ss_id = "objects"

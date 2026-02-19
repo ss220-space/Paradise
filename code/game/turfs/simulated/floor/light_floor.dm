@@ -11,11 +11,10 @@
 #define LIGHTFLOOR_CYCLEB 10
 
 /turf/simulated/floor/light
-	name = "\improper light floor"
+	name = "light floor"
 	light_range = 5
 	icon_state = "light_on"
 	floor_tile = /obj/item/stack/tile/light
-	broken_states = list("light_broken")
 	var/on = TRUE
 	var/state = LIGHTFLOOR_ON
 	var/can_modify_colour = TRUE
@@ -24,49 +23,52 @@
 	. = ..()
 	update_icon()
 
-/turf/simulated/floor/light/update_icon()
-	..()
-	if(on)
-		switch(state)
-			if(LIGHTFLOOR_ON)
-				icon_state = "light_on"
-				set_light(5, null,LIGHT_COLOR_LIGHTBLUE)
-			if(LIGHTFLOOR_WHITE)
-				icon_state = "light_on-w"
-				set_light(5, null,LIGHT_COLOR_WHITE)
-			if(LIGHTFLOOR_RED)
-				icon_state = "light_on-r"
-				set_light(5, null,LIGHT_COLOR_RED)
-			if(LIGHTFLOOR_GREEN)
-				icon_state = "light_on-g"
-				set_light(5, null,LIGHT_COLOR_PURE_GREEN)
-			if(LIGHTFLOOR_YELLOW)
-				icon_state = "light_on-y"
-				set_light(5, null,"#FFFF00")
-			if(LIGHTFLOOR_BLUE)
-				icon_state = "light_on-b"
-				set_light(5, null,LIGHT_COLOR_DARKBLUE)
-			if(LIGHTFLOOR_PURPLE)
-				icon_state = "light_on-p"
-				set_light(5, null,LIGHT_COLOR_PURPLE)
-			if(LIGHTFLOOR_GENERICCYCLE)
-				icon_state = "light_on-cycle_all"
-				set_light(5, null,LIGHT_COLOR_WHITE)
-			if(LIGHTFLOOR_CYCLEA)
-				icon_state = "light_on-dancefloor_A"
-				set_light(5,null,LIGHT_COLOR_RED)
-			if(LIGHTFLOOR_CYCLEB)
-				icon_state = "light_on-dancefloor_B"
-				set_light(5, null,LIGHT_COLOR_DARKBLUE)
-			else
-				icon_state = "light_off"
-				set_light(0)
-	else
-		set_light(0)
+/turf/simulated/floor/light/broken_states()
+	return list("light_broken")
+
+/turf/simulated/floor/light/update_icon_state()
+	if(!on)
+		set_light_on(FALSE)
 		icon_state = "light_off"
+		return
+
+	switch(state)
+		if(LIGHTFLOOR_ON)
+			icon_state = "light_on"
+			set_light(5, null,LIGHT_COLOR_BLUE, l_on = TRUE)
+		if(LIGHTFLOOR_WHITE)
+			icon_state = "light_on-w"
+			set_light(5, null,COLOR_WHITE, l_on = TRUE)
+		if(LIGHTFLOOR_RED)
+			icon_state = "light_on-r"
+			set_light(5, null,COLOR_SOFT_RED, l_on = TRUE)
+		if(LIGHTFLOOR_GREEN)
+			icon_state = "light_on-g"
+			set_light(5, null,LIGHT_COLOR_ELECTRIC_GREEN, l_on = TRUE)
+		if(LIGHTFLOOR_YELLOW)
+			icon_state = "light_on-y"
+			set_light(5, null,LIGHT_COLOR_DIM_YELLOW, l_on = TRUE)
+		if(LIGHTFLOOR_BLUE)
+			icon_state = "light_on-b"
+			set_light(5, null,LIGHT_COLOR_DARK_BLUE, l_on = TRUE)
+		if(LIGHTFLOOR_PURPLE)
+			icon_state = "light_on-p"
+			set_light(5, null,LIGHT_COLOR_PURPLE, l_on = TRUE)
+		if(LIGHTFLOOR_GENERICCYCLE)
+			icon_state = "light_on-cycle_all"
+			set_light(5, null,COLOR_WHITE, l_on = TRUE)
+		if(LIGHTFLOOR_CYCLEA)
+			icon_state = "light_on-dancefloor_A"
+			set_light(5,null,COLOR_RED, l_on = TRUE)
+		if(LIGHTFLOOR_CYCLEB)
+			icon_state = "light_on-dancefloor_B"
+			set_light(5, null,LIGHT_COLOR_DARK_BLUE, l_on = TRUE)
+		else
+			icon_state = "light_off"
+			set_light_on(FALSE)
 
 /turf/simulated/floor/light/BeforeChange()
-	set_light(0)
+	set_light_on(FALSE)
 	..()
 
 /turf/simulated/floor/light/attack_hand(mob/user)
@@ -74,17 +76,23 @@
 		return
 	toggle_light(!on)
 
-/turf/simulated/floor/light/attackby(obj/item/C, mob/user, params)
-	if(istype(C, /obj/item/light/bulb)) //only for light tiles
-		if(!state)
-			qdel(C)
-			state = LIGHTFLOOR_ON
-			update_icon()
-			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
-		else
-			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")
-	else
-		return ..()
+/turf/simulated/floor/light/attackby(obj/item/I, mob/user, params)
+	. = ..()
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/light/bulb)) //only for light tiles
+		if(state)
+			to_chat(user, span_notice("The light bulb seems fine, no need to replace it."))
+			return .
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return .
+		qdel(I)
+		state = LIGHTFLOOR_ON
+		update_icon()
+		to_chat(user, span_notice("You replace the light bulb."))
+		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 /turf/simulated/floor/light/multitool_act(mob/user, obj/item/I)
 	. = TRUE
@@ -97,10 +105,10 @@
 			state++
 		else
 			state = LIGHTFLOOR_ON
-		to_chat(user, "<span class='notice'>You change [src]'s light bulb color.</span>")
+		to_chat(user, span_notice("You change [src]'s light bulb color."))
 		update_icon()
 	else
-		to_chat(user, "<span class='warning'>[src]'s light bulb appears to have burned out.</span>")
+		to_chat(user, span_warning("[src]'s light bulb appears to have burned out."))
 
 /turf/simulated/floor/light/proc/toggle_light(light)
 	// 0 = OFF
@@ -108,9 +116,10 @@
 	on = light
 	update_icon()
 
-/turf/simulated/floor/light/extinguish_light()
-	toggle_light(FALSE)
-	visible_message("<span class='danger'>[src] flickers and falls dark.</span>")
+/turf/simulated/floor/light/extinguish_light(force = FALSE)
+	if(on)
+		toggle_light(FALSE)
+		visible_message(span_danger("[src] flickers and falls dark."))
 
 //Cycles through all of the colours
 /turf/simulated/floor/light/colour_cycle
@@ -129,6 +138,12 @@
 	desc = "Funky floor."
 	state = LIGHTFLOOR_CYCLEB
 
+/turf/simulated/floor/light/lavaland_air
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
 
 #undef LIGHTFLOOR_ON
 #undef LIGHTFLOOR_WHITE

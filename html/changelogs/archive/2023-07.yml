@@ -1,0 +1,280 @@
+'2023-07-01':
+  Rerik007:
+  - add: pai encryptionkeys (#3102)
+  - bugfix: wires for mecha noninteractive (#3104)
+  - bugfix: jacob ladder ignore safed zones (#3103)
+  Vladisvell:
+  - bugfix: now light replacer can be filled without dropping material (#3105)
+  Zwei:
+  - bugfix: Diablo Pizza Typo (#3113)
+  - tweak: Tray Layer Fix (#3108)
+  - refactor: Xeno Secrete Resin (#3063)
+  - add: Xeno Door (#3062)
+  Сиротка:
+  - add: Gibtonite can be defused by mecha scanner (#3101)
+  - bugfix: Brain damage for diona, nucleation and vox (#3079)
+  - tweak: Mannitol not heal brain with damage above 100 (#3110)
+  - tweak: Mech recharge rate (#3109)
+'2023-07-02':
+  NightDawnFox:
+  - add: '"prevent from escape" target now can be completed if target handcuffed (#3111)'
+  - add: emergency light activation when power out (#2972)
+  Rerik007:
+  - bugfix: add updated wiki links for drinks guide (#3122)
+  Zwei:
+  - bugfix: No Random Pixel Shift When Dropping Flags (#3120)
+  - tweak: Put In Hand Null Item (#3117)
+  Сиротка:
+  - tweak: Upgrade Leg Upgrade (#3107)
+  - tweak: increase rescue jaw airlock open speed (#3116)
+  - tweak: reduce rezadone heal (#3115)
+  - tweak: nerf autolathe resource coef (#3114)
+  - add: Space dragon (#3041)
+'2023-07-03':
+  Daeberdir:
+  - bugfix: spider bomb planting. (#3112)
+  Den109G:
+  - bugfix: Vox's icon in riot and Crusader armor (#3119)
+  Roman:
+  - add: PowerFist 2.0 (#3033)
+  Vladisvell:
+  - tweak: terror spiders are no more on lowpop (#3121)
+  - bugfix: time stat now doesn't go zero when 24h of round have passed (#3126)
+  Zwei:
+  - refactor: Immortality Talisman Consume (#3118)
+  Сиротка:
+  - unknown: ATMOS module & X-ray (#3083)
+'2023-07-05':
+  Dimach:
+  - tweak: add cerestation to map rotation (#3141)
+  Rerik007:
+  - bugfix: big ruins create infinity loop (#3128)
+  - qol: configurable loading taipan and lavaland (#3129)
+  - bugfix: holster logic and dupe naming cryopod (#3131)
+  - bugfix: aoe KAmods for borgs don't install (#3139)
+  - add: agent card save slots (#2951)
+  Vladisvell:
+  - bugfix: indestructible tiles can't be pried, screwdrivered, weldered. (#3127)
+  - add: fire makeshift bolts (#3133)
+  aeternaclose:
+  - add: Cere improvements part 3 (#3097)
+  captainnelly:
+  - tweak: replace TSF traders autoimplanter by old one (#3132)
+  mqopi:
+  - add: patriotic-crate (cargo) (#3017)
+  Сиротка:
+  - balance: Space dragon (#3134)
+'2023-07-06':
+  Rerik007:
+  - qol: html-tgui links(f.e. in changelog) send you into your browser (#3140)
+  - bugfix: puppy collars don't remove (#3137)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3142)
+'2023-07-08':
+  Rerik007:
+  - bugfix: chasm can be pried (#3144)
+  Vladisvell:
+  - bugfix: now teleporter console shows correct calibration state (#3125)
+  Zwei:
+  - refactor: Inventory Code Tweaks (#3124)
+  captainnelly:
+  - bugfix: wrong sniper ammo type in traitor uplink (#3145)
+  Сиротка:
+  - balance: Space Dragon (#3146)
+  - tweak: Increase laugh threshold for N2O (#3143)
+  - add: new weapon - B.S.G (#3138)
+'2023-07-10':
+  Daeberdir:
+  - imageadd: Pack of new facial hair sprites for humans. (#3123)
+  NightDawnFox:
+  - bugfix: Nuke core container ex_act() fixes (#3152)
+  Vladisvell:
+  - bugfix: now loading crossbow doesn't invoke crash (#3147)
+  Zwei:
+  - bugfix: Runtime On Storage Exit (#3148)
+  - add: New Patch Styles (#3099)
+  Сиротка:
+  - imageadd: Mech guns (#3156)
+  - imageadd: Medical Belt (#3158)
+  - tweak: defib no longer heal BruteBurn damage (#3151)
+'2023-07-11':
+  dependabot[bot]:
+  - unknown: bump semver from 5.7.1 to 5.7.2 in /tgui (#3162)
+'2023-07-12':
+  Rerik007:
+  - bugfix: boosting person pulled by you (#3166)
+  Vladisvell:
+  - bugfix: raising modules on mechas now shows correct message (#3163)
+  WolfLox:
+  - balance: mantis blade tweaks (#3161)
+  - add: vulp sprites (#3160)
+  Сиротка:
+  - bugfix: Jetpack installing (#3164)
+'2023-07-14':
+  Albonix:
+  - tweak: lower fiber wire garrote cost (#3170)
+  ArtemDerp:
+  - bugfix: language, textures, description and more for ussp ghost role (#3066)
+  UEDCommander:
+  - bugfix: Drask naval uniform (#3169)
+  Сиротка:
+  - add: Hunter belt (#3150)
+  - tweak: Nerf RCD (#3155)
+'2023-07-15':
+  Rerik007:
+  - refactor: Moves stuns and weakens etc. to status effects (#3135)
+'2023-07-18':
+  NightDawnFox:
+  - bugfix: epsilon aren't working (#3181)
+  - add: new posters! (#3174)
+  Rerik007:
+  - bugfix: abductor baton not sleeping you (#3186)
+  Zwei:
+  - bugfix: Package Wrapper Now Works With Gigantic Items (#3183)
+  - bugfix: Lights Removing Duping (#3182)
+  - tweak: Default Screen Filtering (#3173)
+  - imageadd: Shadowling Clothes (#3176)
+  - tweak: Asclepius Heal Fractures and Internal Bleedings Again (#3184)
+  dontbetank:
+  - bugfix: bees now work (#3172)
+  Сиротка:
+  - add: Cargo expansion upgrade (#3153)
+'2023-07-21':
+  Albonix:
+  - tweak: give cmo sunglasses hud (#3190)
+  Dimach:
+  - bugfix: belts not show overlay for some items (#3193)
+  Ksaikok46:
+  - add: plushie bubblegum toy (#3187)
+  Rerik007:
+  - tweak: remove confusion effect for stunbatons (#3195)
+  WolfLox:
+  - balance: ert soap, amber ERT equip, PDW9, ammo vend, cargo AP ammo (#3180)
+  Zwei:
+  - add: Skin Update and Webmap Button (#3194)
+  - bugfix: Wooden Door Assembly Deconstruction (#3191)
+  aeternaclose:
+  - bugfix: CereImprovement-pt4 (#3179)
+  dependabot[bot]:
+  - unknown: bump word-wrap from 1.2.3 to 1.2.4 in /tgui (#3189)
+  dontbetank:
+  - tweak: ERT can be requested after disease outbreak  (#3188)
+  - bugfix: getting wrong materials on machine deconstruct (#3167)
+  mqopi:
+  - tweak: add tape boxes for IIA, magistrate (cere, box, delta) (#3177)
+'2023-07-23':
+  Aziz Chynaliev:
+  - add: add new 94 TTS voices from Witcher (27), Evil Islands (27), L4D (4), SpongeBob
+      (4), Tiny Bunny (10), Dota 2 (13), STALKER (7), Warcraft 3 (1), Portal 2 (1)
+      (#3219)
+'2023-07-24':
+  Daeberdir:
+  - add: Ashwalker Plushie on Mining Outpost. (#3218)
+  DeDerevce:
+  - add: Holy Floor resprite (#3202)
+  JoharDude:
+  - bugfix: durathread jumpsuit hand sprite (#3203)
+  - bugfix: sheath-rapier left side sprite fix (#3205)
+  LiquidPotroh:
+  - bugfix: Hardsuit's helmets don't wash with cleaner (#3222)
+  NightDawnFox:
+  - tweak: squash plants cooldown (#3209)
+  - add: species gib colors (#3208)
+  - tweak: Sibyl voice is disabled by default (#3214)
+  - add: HL deathsound for security gas masks (#3212)
+  - add: new detective outfit (#3215)
+  Zwei:
+  - bugfix: Ctrl Click on Alien Pulls Again (#3201)
+  - refactor: Jetpack Dupe Code Removal (#3216)
+  - bugfix: Emote Fixes (#3217)
+  - tweak: Put In Any Hand Remade (#3213)
+  - bugfix: Defib Phys Damage Threshold (#3207)
+  aeternaclose:
+  - bugfix: Shuttle Fix (#3198)
+  captainnelly:
+  - bugfix: handheld defib sound (#3199)
+  dontbetank:
+  - bugfix: dragon destroyng own portals (#3206)
+  - bugfix: MMIs dying to ash storms and robotic brains not reviving after death (#3196)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3200)
+'2023-07-25':
+  Daeberdir:
+  - bugfix: Restore two inventory icon updates for Smoking Pipe and Shoes procs. Correcting
+      Jackboots icons. (#3226)
+  Dimach:
+  - bugfix: bsg sprites fix (#3225)
+  Rerik007:
+  - bugfix: correct calc_decay for disgust status effect (#3223)
+  Vladisvell:
+  - bugfix: incorporeal living beings now aren't struck by containment fields (#3232)
+  Zwei:
+  - refactor: Antag Datums (#3157)
+  - bugfix: Station Goals (#3234)
+  captainnelly:
+  - bugfix: handheld defib sound (#3230)
+  - tweak: stun to weaken while being pulled in walk mode (#3229)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3227)
+'2023-07-26':
+  Ksaikok46:
+  - tweak: pig-meatyores (#3220)
+  LiquidPotroh:
+  - bugfix: stethoscope counts pulse of a stopped heart (#3224)
+  Roman:
+  - add: Plov Update! (#3237)
+  Vladisvell:
+  - bugfix: dinnerware old vendor in delta's Old Restaurant now sells stuff properly
+      (#3231)
+  WolfLox:
+  - balance: Weakness weaken (#3236)
+  Zwei:
+  - bugfix: Contractor Role Update (#3235)
+  - tweak: Stack Overweight Drop (#3221)
+'2023-07-27':
+  Daeberdir:
+  - tweak: knuckles are not so yummy anymore. (#3245)
+  Vladisvell:
+  - qol: mecha cable layer tool now can place cables (#3241)
+  - bugfix: pod tracking console no longer BSODs (#3233)
+  Zwei:
+  - refactor: Porting and Refactoring Official Paradise Spells System (#3168)
+  - bugfix: Terror Spellcasters No More (#3248)
+  - bugfix: Carp Rift Grant (#3244)
+  - bugfix: Background For Ninja's Buttons (#3249)
+  - bugfix: Revenant Ectoplasm Refactor (#3238)
+  - tweak: Changeling Stasis Update (#3239)
+  dontbetank:
+  - add: organ fridge to medbay (#3178)
+'2023-07-28':
+  Den109G:
+  - bugfix: BloodCrawl (#3252)
+  LiquidPotroh:
+  - bugfix: Sentience potion dont affect mokey from cubes (#3255)
+  Zwei:
+  - bugfix: Contractor Runtime (#3257)
+  - tweak: More Sanity Loops (#3250)
+  - bugfix: Thrall Vision (#3260)
+  - bugfix: Bloodcrawl Typo (#3258)
+  dontbetank:
+  - add: Floor painter for drones (#3251)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#3253)
+'2023-07-29':
+  Den109G:
+  - bugfix: Randomtypos (#3262)
+  Zwei:
+  - bugfix: Few Fixes to Alien Larva and Hide Action (#3264)
+'2023-07-30':
+  Vladisvell:
+  - refactor: added new defines to span.dm (#3268)
+  - add: IPC's don't lose hair on death (#3270)
+  Zwei:
+  - add: port offparadise vampire (#3246)
+  dontbetank:
+  - bugfix: cleaning IPC with space cleaner (#3269)
+  - bugfix: mass hallucinations of guardian now have owner (#3266)
+'2023-07-31':
+  Zwei:
+  - bugfix: FAT Once More (#3274)
+  - bugfix: Few Runtimes Fixed And Vampire Tweaks (#3275)

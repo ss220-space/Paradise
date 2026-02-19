@@ -1,6 +1,9 @@
 // Playtime requirements for special roles (hours)
 
 GLOBAL_LIST_INIT(role_playtime_requirements, list(
+	// SPECIFIC ROLES
+	ROLE_THUNDERDOME = 0,
+
 	// NT ROLES
 	ROLE_PAI = 0,
 	ROLE_POSIBRAIN = 5, // Same as cyborg job.
@@ -12,6 +15,8 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 
 	// SOLO ANTAGS
 	ROLE_TRAITOR = 30,
+	ROLE_MALF_AI = 30,
+	ROLE_ESCAPING_PRISONER = 30,
 	ROLE_CHANGELING = 30,
 	ROLE_WIZARD = 30,
 	ROLE_VAMPIRE = 30,
@@ -22,6 +27,7 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_MORPH = 30,
 	ROLE_DEMON = 30,
 	ROLE_THIEF = 30,
+	ROLE_ELITE = 100,
 
 	// DUO ANTAGS
 	ROLE_GUARDIAN = 40,
@@ -39,65 +45,52 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	ROLE_ABDUCTOR = 50,
 ))
 
-// Client Verbs
-
-/client/verb/cmd_check_own_playtime()
-	set category = "Special Verbs"
-	set name = "Check my playtime"
-
-	if(!config.use_exp_tracking)
-		to_chat(src, "<span class='warning'>Playtime tracking is not enabled.</span>")
-		return
-
-	to_chat(src, "<span class='notice'>Your [EXP_TYPE_CREW] playtime is [get_exp_type(EXP_TYPE_CREW)].</span>")
-
 // Admin Verbs
-
-/client/proc/cmd_mentor_check_player_exp()	//Allows admins to determine who the newer players are.
-	set category = "Admin"
-	set name = "Check Player Playtime"
-	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
-		return
-	var/msg = {"<html><meta charset="UTF-8"><head><title>Playtime Report</title></head><body>"}
+/// Allows admins to determine who the newer players are.
+ADMIN_VERB(check_player_exp, R_ADMIN|R_MOD|R_MENTOR, "Check Player Playtime", "Return a playtime report.", ADMIN_CATEGORY_MAIN)
+	var/list/msg = list()
 	var/datum/job/theirjob
 	var/jtext
-	msg += "<TABLE border ='1'><TR><TH>Player</TH><TH>Job</TH><TH>Crew</TH>"
+	msg += "<table border='1'><tr><th>Player</th><th>Job</th><th>Crew</th>"
 	for(var/thisdept in EXP_DEPT_TYPE_LIST)
-		msg += "<TH>[thisdept]</TH>"
-	msg += "</TR>"
+		msg += "<th>[thisdept]</th>"
+	msg += "</tr>"
 	for(var/client/C in GLOB.clients)
-		msg += "<TR>"
-		if(check_rights(R_ADMIN, 0))
-			msg += "<TD>[key_name_admin(C.mob)]</TD>"
+		if(C?.holder?.fakekey && !check_rights(R_ADMIN, FALSE))
+			continue // Skip those in stealth mode if an admin isnt viewing the panel
+		msg += "<tr>"
+		if(check_rights(R_ADMIN, FALSE))
+			msg += "<td>[key_name_admin(C.mob)]</td>"
 		else
-			msg += "<TD>[key_name_mentor(C.mob)]</TD>"
+			msg += "<td>[key_name_mentor(C.mob)]</td>"
 
 		jtext = "-"
 		if(C.mob.mind && C.mob.mind.assigned_role)
 			theirjob = SSjobs.GetJob(C.mob.mind.assigned_role)
 			if(theirjob)
 				jtext = theirjob.title
-		msg += "<TD>[jtext]</TD>"
+		msg += "<td>[jtext]</td>"
 
-		msg += "<TD><A href='?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></TD>"
+		msg += "<td><a href='byond://?_src_=holder;getplaytimewindow=[C.mob.UID()]'>" + C.get_exp_type(EXP_TYPE_CREW) + "</a></td>"
 		msg += "[C.get_exp_dept_string()]"
-		msg += "</TR>"
+		msg += "</tr>"
 
-	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_playtime_check;size=1000x300")
+	msg += "</table>"
+	var/datum/browser/popup = new(user, "player_playtime_check", "Playtime Report", 1000, 300)
+	popup.set_content(msg.Join(""))
+	popup.open(FALSE)
 
-
-/datum/admins/proc/cmd_mentor_show_exp_panel(var/client/C)
+/datum/admins/proc/cmd_mentor_show_exp_panel(client/C)
 	if(!C)
 		to_chat(usr, "ERROR: Client not found.")
 		return
 	if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
 		return
-	var/body = {"<html><meta charset="UTF-8"><head><title>Playtime for [C.key]</title></head><BODY><BR>Playtime:"}
+	var/body = "<br>Playtime:"
 	body += C.get_exp_report()
-	body += "</BODY></HTML>"
-	usr << browse(body, "window=playerplaytime[C.ckey];size=550x615")
-
+	var/datum/browser/popup = new(usr, "playerplaytime[C.ckey]", "Playtime for [C.key]", 550, 615)
+	popup.set_content(body)
+	popup.open(FALSE)
 
 // Procs
 
@@ -107,9 +100,9 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return 0
 	if(!role)
 		return 0
-	if(!config.use_exp_restrictions)
+	if(!CONFIG_GET(flag/use_exp_restrictions))
 		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, FALSE, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -124,15 +117,14 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return req_mins
 	return max(0, req_mins - my_exp)
 
-
 /datum/job/proc/available_in_playtime(client/C)
 	if(!C)
 		return 0
 	if(!exp_requirements || !exp_type)
 		return 0
-	if(!config.use_exp_restrictions)
+	if(!CONFIG_GET(flag/use_exp_restrictions))
 		return 0
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, C.mob))
+	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, FALSE, C.mob))
 		return 0
 	var/list/play_records = params2list(C.prefs.exp)
 	var/isexempt = text2num(play_records[EXP_TYPE_EXEMPT])
@@ -158,12 +150,12 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 		return "[src] has no client."
 
 /client/proc/get_exp_report()
-	if(!config.use_exp_tracking)
+	if(!CONFIG_GET(flag/use_exp_tracking))
 		return "Tracking is disabled in the server configuration file."
 	var/list/play_records = params2list(prefs.exp)
-	if(!play_records.len)
+	if(!length(play_records))
 		return "[key] has no records."
-	var/return_text = "<UL>"
+	var/return_text = "<ul>"
 	var/list/exp_data = list()
 	for(var/category in GLOB.exp_jobsmap)
 		if(text2num(play_records[category]))
@@ -173,13 +165,13 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	for(var/dep in exp_data)
 		if(exp_data[dep] > 0)
 			if(dep == EXP_TYPE_EXEMPT)
-				return_text += "<LI>Exempt (all jobs auto-unlocked)</LI>"
+				return_text += "<li>Exempt (all jobs auto-unlocked)</li>"
 			else if(exp_data[EXP_TYPE_LIVING] > 0)
-				return_text += "<LI>[dep]: [get_exp_format(exp_data[dep])]</LI>"
-	if(config.use_exp_restrictions_admin_bypass && check_rights(R_ADMIN, 0, mob))
-		return_text += "<LI>Admin</LI>"
-	return_text += "</UL>"
-	if(config.use_exp_restrictions)
+				return_text += "<li>[dep]: [get_exp_format(exp_data[dep])]</li>"
+	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights(R_ADMIN, FALSE, mob))
+		return_text += "<li>Admin</li>"
+	return_text += "</ul>"
+	if(CONFIG_GET(flag/use_exp_restrictions))
 		var/list/jobs_locked = list()
 		var/list/jobs_unlocked = list()
 		for(var/datum/job/job in SSjobs.occupations)
@@ -189,20 +181,20 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 				else
 					var/xp_req = job.get_exp_req_amount()
 					jobs_locked += "[job.title] ([get_exp_format(text2num(play_records[job.get_exp_req_type()]))] / [get_exp_format(xp_req)] as [job.get_exp_req_type()])"
-		if(jobs_unlocked.len)
-			return_text += "<BR><BR>Jobs Unlocked:<UL><LI>"
-			return_text += jobs_unlocked.Join("</LI><LI>")
-			return_text += "</LI></UL>"
-		if(jobs_locked.len)
-			return_text += "<BR><BR>Jobs Not Unlocked:<UL><LI>"
-			return_text += jobs_locked.Join("</LI><LI>")
-			return_text += "</LI></UL>"
+		if(length(jobs_unlocked))
+			return_text += "<br><br>Jobs Unlocked:<ul><li>"
+			return_text += jobs_unlocked.Join("</li><li>")
+			return_text += "</li></ul>"
+		if(length(jobs_locked))
+			return_text += "<br><br>Jobs Not Unlocked:<ul><li>"
+			return_text += jobs_locked.Join("</li><li>")
+			return_text += "</li></ul>"
 	return return_text
 
-/client/proc/get_exp_type(var/etype)
+/client/proc/get_exp_type(etype)
 	return get_exp_format(get_exp_type_num(etype))
 
-/client/proc/get_exp_type_num(var/etype)
+/client/proc/get_exp_type_num(etype)
 	var/list/play_records = params2list(prefs.exp)
 	return text2num(play_records[etype])
 
@@ -212,17 +204,16 @@ GLOBAL_LIST_INIT(role_playtime_requirements, list(
 	for(var/thistype in EXP_DEPT_TYPE_LIST)
 		var/thisvalue = text2num(play_records[thistype])
 		if(thisvalue)
-			result_text.Add("<TD>[get_exp_format(thisvalue)]</TD>")
+			result_text.Add("<td>[get_exp_format(thisvalue)]</td>")
 		else
-			result_text.Add("<TD>-</TD>")
+			result_text.Add("<td>-</td>")
 	return result_text.Join("")
 
-
-/proc/get_exp_format(var/expnum)
+/proc/get_exp_format(expnum)
 	if(expnum > 60)
-		return num2text(round(expnum / 60)) + "h"
+		return num2text(round(expnum / 60)) + "ч"
 	else if(expnum > 0)
-		return num2text(expnum) + "m"
+		return num2text(expnum) + "м"
 	else
-		return "none"
+		return "нет"
 

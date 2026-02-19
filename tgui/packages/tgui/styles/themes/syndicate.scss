@@ -1,15 +1,19 @@
+/**
+ * Copyright (c) 2020 Aleksej Komarov
+ * SPDX-License-Identifier: MIT
+ */
+
 @use 'sass:color';
 @use 'sass:meta';
 
 @use '../colors.scss' with (
-  $primary: #397439,
+  $primary: hsl(120, 34.1%, 33.9%),
   $fg-map-keys: (),
-  $bg-map-keys: (),
+  $bg-map-keys: ()
 );
 @use '../base.scss' with (
-  $color-bg: #550202,
-  $color-bg-grad-spread: 6%,
-  $border-radius: 2px,
+  $color-bg: hsl(0, 95.4%, 17.1%),
+  $color-bg-grad-spread: 6%
 );
 
 .theme-syndicate {
@@ -17,38 +21,63 @@
   @include meta.load-css('../atomic/color.scss');
 
   // Components
-  @include meta.load-css('../components/Button.scss', $with: (
-    'color-default': colors.$primary,
-    'color-disabled': #363636,
-    'color-selected': #9d0808,
-    'color-caution': #be6209,
-    'color-danger': #9a9d00,
-  ));
-  @include meta.load-css('../components/Input.scss', $with: (
-    'border-color': #87ce87,
-  ));
-  @include meta.load-css('../components/NoticeBox.scss', $with: (
-    'color-background': #910101,
-  ));
-  @include meta.load-css('../components/NumberInput.scss', $with: (
-    'border-color': #87ce87,
-  ));
-  @include meta.load-css('../components/ProgressBar.scss', $with: (
-    'color-background': rgba(0, 0, 0, 0.5),
-  ));
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': colors.$primary,
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%),
+      'color-caution': hsl(29.5, 91%, 39%),
+      'color-danger': hsl(61.1, 100%, 30.8%)
+    )
+  );
+  @include meta.load-css(
+    '../components/ImageButton.scss',
+    $with: (
+      'color-default': color.adjust(colors.$primary, $lightness: -20%),
+      'color-disabled': hsl(0, 0%, 21.2%),
+      'color-selected': hsl(0, 90.3%, 32.4%)
+    )
+  );
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': hsl(120, 42%, 66.9%))
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': hsl(0, 98.6%, 28.6%))
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': hsl(120, 42%, 66.9%))
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
   @include meta.load-css('../components/Section.scss');
-  @include meta.load-css('../components/Tooltip.scss', $with: (
-    'color-background': #4a0202,
-  ));
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': hsl(0, 94.7%, 14.9%))
+  );
 
   // Layouts
   @include meta.load-css('../layouts/Layout.scss');
   @include meta.load-css('../layouts/Window.scss');
-  @include meta.load-css('../layouts/TitleBar.scss', $with: (
-    'color-background': #910101,
-  ));
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': hsl(0, 98.6%, 28.6%))
+  );
 
   .Layout__content {
+    // From 'packages/tgui/assets/bg-syndicate.svg', converted to base64 manually to stop webpack exploding
     background-image: url('../../assets/bg-syndicate.svg');
+  }
+  .candystripe:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  .candystripe:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.25);
   }
 }

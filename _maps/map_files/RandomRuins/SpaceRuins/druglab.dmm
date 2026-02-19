@@ -81,12 +81,7 @@
 	pixel_y = 1;
 	d2 = 2
 	},
-/obj/machinery/power/apc{
-	dir = 4;
-	layer = 5;
-	name = "east bump";
-	pixel_x = 24
-	},
+/obj/item/mounted/frame/apc_frame,
 /turf/simulated/floor/plating,
 /area/exploration/methlab)
 "q" = (
@@ -127,6 +122,9 @@
 /obj/machinery/kitchen_machine/microwave,
 /turf/simulated/floor/plating,
 /area/exploration/methlab)
+"Y" = (
+/turf/space,
+/area/space)
 
 (1,1,1) = {"
 a
@@ -135,10 +133,10 @@ a
 a
 a
 a
-b
-b
-b
-b
+a
+a
+a
+a
 a
 a
 a
@@ -146,24 +144,24 @@ a
 "}
 (2,1,1) = {"
 a
-a
-a
-a
+Y
+Y
+Y
 b
 b
 b
 b
 b
 b
-a
-a
-a
+Y
+Y
+Y
 a
 "}
 (3,1,1) = {"
 a
-a
-a
+Y
+Y
 b
 b
 b
@@ -172,14 +170,14 @@ b
 b
 b
 b
-a
-a
+Y
+Y
 a
 "}
 (4,1,1) = {"
 a
-a
-a
+Y
+Y
 b
 b
 l
@@ -188,14 +186,14 @@ r
 u
 w
 b
-a
-a
+Y
+Y
 a
 "}
 (5,1,1) = {"
 a
-a
-a
+Y
+Y
 b
 c
 i
@@ -206,11 +204,11 @@ j
 b
 b
 b
-b
+a
 "}
 (6,1,1) = {"
 a
-a
+Y
 b
 b
 d
@@ -222,11 +220,11 @@ j
 y
 b
 b
-b
+a
 "}
 (7,1,1) = {"
 a
-a
+Y
 b
 b
 e
@@ -252,12 +250,12 @@ b
 b
 b
 b
-a
-a
+Y
+Y
 a
 "}
 (9,1,1) = {"
-b
+a
 b
 b
 b
@@ -268,12 +266,12 @@ i
 j
 x
 b
-a
-a
+Y
+Y
 a
 "}
 (10,1,1) = {"
-b
+a
 b
 b
 b
@@ -284,13 +282,13 @@ j
 j
 x
 b
-a
-a
+Y
+Y
 a
 "}
 (11,1,1) = {"
 a
-a
+Y
 b
 b
 h
@@ -300,13 +298,13 @@ b
 b
 b
 b
-a
-a
+Y
+Y
 a
 "}
 (12,1,1) = {"
 a
-a
+Y
 b
 b
 i
@@ -314,10 +312,10 @@ b
 b
 b
 b
-a
-a
-a
-a
+Y
+Y
+Y
+Y
 a
 "}
 (13,1,1) = {"
@@ -330,10 +328,10 @@ b
 b
 b
 b
-a
-a
-a
-a
+Y
+Y
+Y
+Y
 a
 "}
 (14,1,1) = {"
@@ -345,34 +343,34 @@ k
 b
 b
 b
-a
-a
-a
-a
-a
+Y
+Y
+Y
+Y
+Y
 a
 "}
 (15,1,1) = {"
 a
-a
+Y
 b
 b
-a
-a
+Y
+Y
 b
-a
-a
-a
-a
-a
-a
+Y
+Y
+Y
+Y
+Y
+Y
 a
 "}
 (16,1,1) = {"
 a
 a
 a
-b
+a
 a
 a
 a

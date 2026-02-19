@@ -3,7 +3,7 @@
 #define MOVE_RESIST_DEFAULT 1000
 #define PULL_FORCE_DEFAULT 1000
 
- //Factors/modifiers
+//Factors/modifiers
 #define MOVE_FORCE_PULL_RATIO 1				//Same move force to pull objects
 #define MOVE_FORCE_PUSH_RATIO 1				//Same move force to normally push
 #define MOVE_FORCE_FORCEPUSH_RATIO 2		//2x move force to forcefully push

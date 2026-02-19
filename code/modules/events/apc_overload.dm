@@ -19,20 +19,30 @@
 		if(!M.client || !is_station_level(T.z))
 			continue
 		SEND_SOUND(M, S)
-// уточнить про underfloor
+
 /datum/event/apc_overload/announce()
-	GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.", "ВНИМАНИЕ: КРИТИЧЕСКИЙ СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/AI/attention.ogg')
+	GLOB.minor_announcement.announce(
+		message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
+		new_title = ANNOUNCE_APC_CRIT_RU,
+		new_sound = 'sound/AI/power_overload.ogg'
+	)
 
 /datum/event/apc_overload/end()
 	return TRUE
 
 /proc/apc_overload_failure(announce=TRUE)
-	var/list/skipped_areas_apc = list(
-		/area/engine/engineering,
-		/area/turret_protected/ai)
+	var/static/list/skipped_areas_apc = typecacheof(list(
+		/area/engineering/engine,
+		/area/engineering/supermatter,
+		/area/turret_protected/ai,
+	))
 
 	if(announce)
-		GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.", "ВНИМАНИЕ: КРИТИЧЕСКИЙ СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/AI/attention.ogg')
+		GLOB.minor_announcement.announce(
+			message = "Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все терминалы ЛКП под напольным покрытием.",
+			new_title = ANNOUNCE_APC_CRIT_RU,
+			new_sound = 'sound/AI/power_overload.ogg'
+		)
 
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
@@ -40,7 +50,7 @@
 		var/obj/machinery/power/apc/C = thing
 		// skip any APCs that are too critical to break
 		var/area/current_area = get_area(C)
-		if((current_area.type in skipped_areas_apc) || !is_station_level(C.z))
+		if(is_type_in_typecache(current_area, skipped_areas_apc) || !is_station_level(C.z))
 			continue
 		// if we are going to break this one
 		if(prob(APC_BREAK_PROBABILITY))

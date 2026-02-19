@@ -1,7 +1,7 @@
-GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage datums
+GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /********************
-    SUPPLY ORDER //доработать
+	SUPPLY ORDER //доработать
  ********************/
 /datum/syndie_supply_order
 
@@ -12,13 +12,12 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/comment = null
 	var/crates
 
-
 /datum/syndie_supply_order/proc/generateRequisition(atom/_loc)
 	if(!object)
 		return
 
 	var/obj/item/paper/reqform = new /obj/item/paper(_loc)
-	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
+	playsound(_loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, TRUE)
 	reqform.name = "Requisition Form - [crates] '[object.name]' for [orderedby]"
 
 	reqform.info = {"<h3>Syndicate RaMSS 'Taipan' Supply Requisition Form</h3><hr>
@@ -35,7 +34,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 	reqform.update_icon()	//Fix for appearing blank when printed.
 
-/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, var/datum/syndie_data_storage/data_storage) // тут код создающий ящики
+/datum/syndie_supply_order/proc/createObject(atom/_loc, errors=0, datum/syndie_data_storage/data_storage) // тут код создающий ящики
 	if(!object)
 		return
 
@@ -53,7 +52,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	slip.ordernumber = ordernum
 
 	var/stationName = "Syndicate RaMSS 'Taipan' Supply Mannifest"
-	var/packagesAmt = data_storage.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
+	var/packagesAmt = length(data_storage?.shoppinglist) + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 
@@ -92,12 +91,12 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			var/mob/crittername = CritCrate.content_mob
 			slip.info += "<li>[initial(crittername.name)]</li>"
 
-	if((errors & MANIFEST_ERROR_ITEM))
+	if(errors & MANIFEST_ERROR_ITEM)
 		//secure and large crates cannot lose items
 		if(findtext("[object.containertype]", "/secure/") || findtext("[object.containertype]","/largecrate/"))
 			errors &= ~MANIFEST_ERROR_ITEM
 		else
-			var/lostAmt = max(round(crate.contents.len/10), 1)
+			var/lostAmt = max(round(length(crate.contents)/10), 1)
 			//lose some of the items
 			while(--lostAmt >= 0)
 				qdel(pick(crate.contents))
@@ -109,15 +108,14 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	if(istype(crate, /obj/structure/closet/crate))
 		var/obj/structure/closet/crate/CR = crate
 		CR.manifest = slip
-		CR.update_icon()
+		CR.update_icon(UPDATE_OVERLAYS)
 	if(istype(crate, /obj/structure/largecrate))
 		var/obj/structure/largecrate/LC = crate
 		LC.manifest = slip
-		LC.update_icon()
-
+		LC.update_icon(UPDATE_OVERLAYS)
 
 /***************************
-    Хранилище данных.
+	Хранилище данных.
 	Консоли её находят и используют как сервер для снхронизации данных.
 	Если консоль построить в зоне без хранилища данных, консоль создаст новое хранилище данных в своей зоне при попытке синхронизации через кнопку "Link pads"
 	Такой подход позволяет игрокам построить собственное синдикарго
@@ -143,11 +141,12 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/cash_per_intel = 2500		//points gained per intel returned
 	var/cash_per_plasma = 100		//points gained per plasma returned
 	var/cash_per_design = 500		//points gained per research design returned
-	var/cash_multiplier = 100		//points bonus for plants, designs, etc.
+	var/cash_per_gem = 2000			//points gained per gem returned
+	var/cash_multiplier = 100		//points bonus for plants, tech disks, etc.
 	var/blackmarket_message = null	//Remarks from Black Market on how well you checked the last order.
 /***************************
 Возможные статусы для телепадов
-	"Pads not linked!" 	// Статус только что построенной консоли.
+	"Pads not linked!"	// Статус только что построенной консоли.
 	"Pads on cooldown"
 	"Pads ready"
 **************************/
@@ -170,7 +169,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	var/sold_atoms = ""
 
 /datum/syndie_data_storage/proc/sync()
-	linked_pads = list() 	// Обнуление на случай повторной синхронизации.
+	linked_pads = list()	// Обнуление на случай повторной синхронизации.
 	receiving_pads = list() // Мы же не хотим два одинаковых обьекта в одном списке
 	pads_cooldown = 0
 	for(var/obj/machinery/syndiepad/P in GLOB.syndiepads)
@@ -187,11 +186,11 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			linked_pads += P
 			continue
 	pads_cooldown = round(pads_cooldown)
-	if (length(receiving_pads) && length(linked_pads))
+	if(length(receiving_pads) && length(linked_pads))
 		telepads_status = "Pads ready"
 	else
 		if(usr) //Во избежание рантаймов по to_chat при автоматической раундстарт синхронизации синдипадов
-			to_chat(usr, "<span class='warning'>Synchronization failure! There's no pads in [cargoarea]!</span>")
+			to_chat(usr, span_warning("Synchronization failure! There's no pads in [cargoarea]!"))
 		telepads_status = "Pads not linked!"
 
 /datum/syndie_data_storage/proc/cooldown()
@@ -204,7 +203,6 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			is_cooldown = FALSE
 		return wait_time
 	return 0
-
 
 /datum/syndie_data_storage/proc/generateSupplyOrder(packId, _orderedby, _orderedbyRank, _comment, _crates)
 	if(!packId)
@@ -249,19 +247,17 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	researchDesigns = null
 	return ..()
 /***************************
-    Консоль заказов синдикарго
+	Консоль заказов синдикарго
  **************************/
 /obj/machinery/computer/syndie_supplycomp
 	name = "Supply Pad Console"
-	desc = "Used to order supplies by using syndiepads!"
+	desc = "Необходим для оформления заказов используя SyndiePads!"
 	icon_screen = "syndinavigation"
 	icon_keyboard = "syndie_key"
 	req_access = list(ACCESS_SYNDICATE_CARGO)
 	circuit = /obj/item/circuitboard/syndicatesupplycomp
 	/// Is this a public console
 	var/is_public = FALSE
-	/// Time of last request
-	var/reqtime = 0
 	var/datum/syndie_data_storage/data_storage = null
 
 /obj/machinery/computer/syndie_supplycomp/Initialize(mapload)
@@ -270,6 +266,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/syndie_supplycomp/LateInitialize()
+	. = ..()
 	compSync()
 
 /obj/machinery/computer/syndie_supplycomp/Destroy()
@@ -294,9 +291,9 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		return
 
 	var/list/spawnTurfs = list()
-	var/list/recievingPads = data_storage.receiving_pads
-	for(var/j in 1 to length(recievingPads))
-		spawnTurfs += get_turf(recievingPads[j])
+	var/list/receivingPads = data_storage.receiving_pads
+	for(var/j in 1 to length(receivingPads))
+		spawnTurfs += get_turf(receivingPads[j])
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
 		if(!SO.object)
@@ -304,10 +301,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in
-		for(var/obj/machinery/syndiepad/recieving_pad as anything in recievingPads)
-			recieving_pad.use_power(10000 / recieving_pad.power_efficiency)
-			flick("sqpad-beam", recieving_pad )
-			playsound(get_turf(recieving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
+		for(var/obj/machinery/syndiepad/receiving_pad as anything in receivingPads)
+			receiving_pad.use_power(10000 / receiving_pad.power_efficiency)
+			flick("[initial(receiving_pad.icon_state)]-beam", receiving_pad)
+			playsound(get_turf(receiving_pad), 'sound/weapons/emitter2.ogg', 25, TRUE)
 
 		if(!T)
 			data_storage.shoppinglist.Cut(1, data_storage.shoppinglist.Find(SO))
@@ -324,11 +321,9 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 	data_storage.shoppinglist.Cut()
 
-
 /obj/machinery/computer/syndie_supplycomp/proc/sell() //Этот код ищет зоны где находятся телепады отправки и продаёт ящики и товар в них
 
 	var/plasma_count = 0
-	var/intel_count = 0
 	var/crate_count = 0
 
 	var/msg = "<center>---[station_time_timestamp()]---</center><br>"
@@ -343,7 +338,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			if(MA.anchored)
 				continue
 			var/mob/MB = get_mob_in_atom_without_warning(MA)
-			if(MB?.stat || istype(MA, /mob/living)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
+			if(MB?.stat || isliving(MA)) // Если окажется что на паде труп или живое существо, то это защитит его от уничтожения
 				continue
 			if(istype(MA,/obj/structure/closet/crate/syndicate) || istype(MA,/obj/structure/closet/crate/secure/syndicate))
 				++crate_count
@@ -355,7 +350,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			// Must be in a crate (or a critter crate)!
 			if(istype(MA,/obj/structure/closet/crate) || istype(MA,/obj/structure/closet/critter))
 				data_storage.sold_atoms += ":"
-				if(!MA.contents.len)
+				if(!length(MA.contents))
 					data_storage.sold_atoms += " (empty)"
 				++crate_count
 
@@ -374,7 +369,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 					if(find_slip && istype(thing,/obj/item/paper/manifest))
 						var/obj/item/paper/manifest/slip = thing
-						var/slip_stamped_len = length(slip.stamped)
+						var/slip_stamped_len = LAZYLEN(slip.stamped)
 						if(slip_stamped_len) //yes, the clown stamp will work. clown is the highest authority on the station, it makes sense
 							// Did they mark it as erroneous?
 							var/denied = 0
@@ -385,7 +380,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 							if(slip.erroneous && denied) // Caught a mistake
 								cashEarned = slip.points - data_storage.cash_per_crate
 								data_storage.cash += cashEarned // For now, give a full refund for paying attention (minus the crate cost)
-								msg += "<span class='good'>+[cashEarned]</span>: Station correctly denied package [slip.ordernumber]: "
+								msg += "[span_good("+[cashEarned]")]: Station correctly denied package [slip.ordernumber]: "
 								if(slip.erroneous & MANIFEST_ERROR_NAME)
 									msg += "Destination station incorrect. "
 								else if(slip.erroneous & MANIFEST_ERROR_COUNT)
@@ -395,10 +390,10 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 								msg += "Credits refunded.<br>"
 							else if(!slip.erroneous && !denied) // Approving a proper order awards the relatively tiny cash_per_slip
 								data_storage.cash += data_storage.cash_per_slip
-								msg += "<span class='good'>+[data_storage.cash_per_slip]</span>: Package [slip.ordernumber] accorded.<br>"
+								msg += "[span_good("+[data_storage.cash_per_slip]")]: Package [slip.ordernumber] accorded.<br>"
 							else // You done goofed.
 								if(slip.erroneous)
-									msg += "<span class='good'>+0</span>: Station approved package [slip.ordernumber] despite error: "
+									msg += "[span_good("+0")]: Station approved package [slip.ordernumber] despite error: "
 									if(slip.erroneous & MANIFEST_ERROR_NAME)
 										msg += "Destination station incorrect."
 									else if(slip.erroneous & MANIFEST_ERROR_COUNT)
@@ -409,7 +404,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 								else
 									cashEarned = round(data_storage.cash_per_crate - slip.points)
 									data_storage.cash += cashEarned
-									msg += "<span class='bad'>[cashEarned]</span>: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
+									msg += "[span_bad("[cashEarned]")]: Station denied package [slip.ordernumber]. Our records show no fault on our part.<br>"
 							find_slip = 0
 						continue
 
@@ -418,9 +413,13 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						var/obj/item/stack/sheet/mineral/plasma/P = thing
 						plasma_count += P.amount
 
-					// Sell nanotrasen intel
-					if(istype(thing, /obj/item/documents/nanotrasen))
-						++intel_count
+					// Sell intel
+					if(istype(thing, /obj/item/documents))
+						var/obj/item/documents/docs = thing
+						if(INTEREST_SYNDICATE & docs.sell_interest)
+							cashEarned = round(data_storage.cash_per_intel * docs.sell_multiplier)
+							data_storage.cash += cashEarned
+							msg += "[span_good("+[cashEarned]")]: Received enemy intelligence.<br>"
 
 					// Sell tech levels
 					if(istype(thing, /obj/item/disk/tech_disk))
@@ -432,7 +431,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						if(cost)
 							data_storage.techLevels[tech.id] = tech.level
 							data_storage.cash += cost
-							msg += "<span class='good'>+[cost]</span>: [tech.name] - new data.<br>"
+							msg += "[span_good("+[cost]")]: [tech.name] - new data.<br>"
 
 					// Sell designs
 					if(istype(thing, /obj/item/disk/design_disk))
@@ -444,89 +443,98 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 							continue
 						data_storage.cash += data_storage.cash_per_design
 						data_storage.researchDesigns += design.id
-						msg += "<span class='good'>+[data_storage.cash_per_design]</span>: [design.name] design.<br>"
+						msg += "[span_good("+[data_storage.cash_per_design]")]: [design.name] design.<br>"
 
 					// Sell exotic plants
 					if(istype(thing, /obj/item/seeds))
 						var/obj/item/seeds/S = thing
 						if(!S.rarity) // Mundane species
-							msg += "<span class='bad'>+0</span>: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
+							msg += "[span_bad("+0")]: We don't need samples of mundane species \"[capitalize(S.species)]\".<br>"
 						else if(data_storage.discoveredPlants[S.type]) // This species has already been sent to Black Market
 							var/potDiff = S.potency - data_storage.discoveredPlants[S.type] // Compare it to the previous best
 							if(potDiff > 0) // This sample is better
 								data_storage.discoveredPlants[S.type] = S.potency
-								msg += "<span class='good'>+[(potDiff * data_storage.cash_multiplier)]</span>: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
+								msg += "[span_good("+[(potDiff * data_storage.cash_multiplier)]")]: New sample of \"[capitalize(S.species)]\" is superior. Good work.<br>"
 								data_storage.cash += (potDiff * data_storage.cash_multiplier)
 							else // This sample is worthless
-								msg += "<span class='bad'>+0</span>: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[S.type]] potency).<br>"
+								msg += "[span_bad("+0")]: New sample of \"[capitalize(S.species)]\" is not more potent than existing sample ([data_storage.discoveredPlants[S.type]] potency).<br>"
 						else // This is a new discovery!
 							data_storage.discoveredPlants[S.type] = S.potency
-							msg += "<span class='good'>[(S.rarity + S.potency)*data_storage.cash_multiplier]</span>: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
+							msg += "[span_good("[(S.rarity + S.potency)*data_storage.cash_multiplier]")]: New species discovered: \"[capitalize(S.species)]\". Excellent work.<br>"
 							data_storage.cash += (S.rarity + S.potency)*data_storage.cash_multiplier// That's right, no bonus for potency.  Send a crappy sample first to "show improvement" later
-					qdel(thing)
+					// Sell gems
+					if(istype(thing, /obj/item/gem))
+						var/obj/item/gem/Gem = thing
+						cashEarned = round(Gem.sell_multiplier * data_storage.cash_per_gem)
+						msg += "[span_good("+[cashEarned]")]: Received [Gem.name]. Great work.<br>"
+						data_storage.cash += cashEarned
+						qdel(thing, force = TRUE) //ovveride for special gems
 
+					if(!QDELETED(thing))
+						qdel(thing)
 			qdel(MA)
 			data_storage.sold_atoms += "."
 
 	if(plasma_count > 0)
 		cashEarned = round(plasma_count * data_storage.cash_per_plasma)
-		msg += "<span class='good'>+[cashEarned]</span>: Received [plasma_count] unit(s) of exotic material.<br>"
-		data_storage.cash += cashEarned
-
-	if(intel_count > 0)
-		cashEarned = round(intel_count * data_storage.cash_per_intel)
-		msg += "<span class='good'>+[cashEarned]</span>: Received [intel_count] article(s) of enemy intelligence.<br>"
+		msg += "[span_good("+[cashEarned]")]: Received [plasma_count] unit(s) of exotic material.<br>"
 		data_storage.cash += cashEarned
 
 	if(crate_count > 0)
 		cashEarned = round(crate_count * data_storage.cash_per_crate)
-		msg += "<span class='good'>+[cashEarned]</span>: Received [crate_count] crate(s).<br>"
+		msg += "[span_good("+[cashEarned]")]: Received [crate_count] crate(s).<br>"
 		data_storage.cash += cashEarned
 
 	data_storage.blackmarket_message += "[msg]<hr>"
 
-
 /obj/machinery/computer/syndie_supplycomp/public
 	name = "Supply Ordering Console"
-	desc = "Used to order supplies from cargo staff."
+	desc = "Используется для оформления заказов у отдела снабжения"
 	circuit = /obj/item/circuitboard/syndicatesupplycomp/public
 	req_access = list()
 	is_public = TRUE
 
 /obj/machinery/computer/syndie_supplycomp/emag_act(mob/user)
-	to_chat(user, "<span class='notice'>The electronic systems in this console are far too advanced for your primitive hacking peripherals.</span>")
+	if(user)
+		to_chat(user, span_notice("The electronic systems in this console are far too advanced for your primitive hacking peripherals."))
 	return
 
+/obj/machinery/computer/syndie_supplycomp/attack_hand(mob/user as mob)
+	if(..())
+		return TRUE
 
-/obj/machinery/computer/syndie_supplycomp/attack_hand(var/mob/user as mob)
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, "<span class='warning'>Access denied.</span>")
+		to_chat(user, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return 1
+	add_fingerprint(user)
 	ui_interact(user)
 	return
 
-/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/user, params)
-	if(!powered())
-		return 0
+/obj/machinery/computer/syndie_supplycomp/attackby(obj/item/I, mob/living/carbon/human/user, params)
+	if(user.a_intent == INTENT_HARM || !powered() || !ishuman(user))
+		return ..()
+
 	if(istype(I, /obj/item/stack/spacecash))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
 		//consume the money
-		var/obj/item/stack/spacecash/C = I
+		var/obj/item/stack/spacecash/cash = I
 		playsound(loc, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 50, TRUE)
-		data_storage.cash += C.amount
-		to_chat(user, "<span class='info'>You insert [C] into [src].</span>")
-		var/mob/living/carbon/human/H = user
-		var/name = H.get_authentification_name()
-		data_storage.blackmarket_message += "<span class='good'>+[C.amount]</span>: [name] adds credits to the console.<br>"
+		data_storage.cash += cash.amount
+		to_chat(user, span_notice("You insert [cash] into [src]."))
+		data_storage.blackmarket_message += "[span_good("+[cash.amount]")]: [user.get_authentification_name()] adds credits to the console.<br>"
 		SStgui.update_uis(src)
-		C.use(C.amount)
-		return 1
+		qdel(cash)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
-/obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/computer/syndie_supplycomp/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "SyndieCargoConsole", name, 900, 800, master_ui, state)
+		ui = new(user, src, "SyndieCargoConsole", name)
 		ui.open()
 
 /obj/machinery/computer/syndie_supplycomp/ui_data(mob/user)
@@ -580,7 +588,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 
 	return FALSE
 
-/obj/machinery/computer/syndie_supplycomp/ui_act(action, list/params)
+/obj/machinery/computer/syndie_supplycomp/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 
@@ -590,7 +598,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	. = TRUE
 	switch(action)
 		if("withdraw")
-			var/cash_sum = input(usr, "Amount", "How much money do you wish to withdraw") as null|num
+			var/cash_sum = tgui_input_number(usr, "Amount", "How much money do you wish to withdraw")
 			if(cash_sum <= 0 || (!is_public && !is_authorized(usr)) || ..())
 				return
 			if(in_range(usr, src)) //эта проверка нужна чтобы деньги не могли снять при этом отойдя далеко от консоли
@@ -620,18 +628,16 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 		if("order")
 			var/amount = 1
 			if(params["multiple"] == "1") // 1 is a string here. DO NOT MAKE THIS A BOOLEAN YOU DORK
-				var/num_input = input(usr, "Amount", "How many crates? (20 Max)") as null|num
+				var/num_input = tgui_input_number(ui.user, "Amount", "How many crates?", max_value = 20)
 				if(!num_input || (!is_public && !is_authorized(usr)) || ..()) // Make sure they dont walk away
 					return
-				amount = clamp(round(num_input), 1, 20)
 
 			var/datum/syndie_supply_packs/SP = locateUID(params["crate"])
 			if(!istype(SP))
 				return
 
-			var/timeout = world.time + 600 // If you dont type the reason within a minute, theres bigger problems here
-			var/reason = input(usr, "Reason", "Why do you require this item?","") as null|text
-			if(world.time > timeout || !reason || (!is_public && !is_authorized(usr)) || ..())
+			var/reason = tgui_input_text(ui.user, "Reason", "Why do you require this item?", encode = FALSE, timeout = 60 SECONDS)
+			if(!reason || (!is_public && !is_authorized(usr)) || ..())
 				// Cancel if they take too long, they dont give a reason, they aint authed, or if they walked away
 				return
 			reason = sanitize(copytext_char(reason, 1, MAX_MESSAGE_LEN))
@@ -673,7 +679,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 						data_storage.shoppinglist += O
 						investigate_log("[key_name_log(usr)] has authorized an order for [P.name]. Remaining credits: [data_storage.cash].", INVESTIGATE_SYNDIE_CARGO)
 					else
-						to_chat(usr, "<span class='warning'>There are insufficient credits for this request.</span>")
+						to_chat(usr, span_warning("There are insufficient credits for this request."))
 					break
 
 		if("deny")
@@ -701,30 +707,28 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 			bmmsg_browser.set_content(data_storage.blackmarket_message)
 			bmmsg_browser.open()
 		if("add_money") //Admin button. Used to reward or tax cargo with the money.
-			var/money2add = round(input("Введите сколько кредитов вы хотите добавить") as null|num)
+			var/money2add = round(tgui_input_number(usr, "Введите сколько кредитов вы хотите добавить"))
 			message_admins("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			log_admin("[key_name_admin(usr)] added [money2add] credits to the cargo console at [data_storage.cargoarea.name]")
 			usr.investigate_log("added [money2add] credits to the cargo console at [data_storage.cargoarea.name]", INVESTIGATE_SYNDIE_CARGO)
 			data_storage.cash += money2add
 			if(money2add > 0)
-				data_storage.blackmarket_message += "<span class='good'>+[money2add]</span>: We are pleased with your work. Here's your reward.<br>"
+				data_storage.blackmarket_message += "[span_good("+[money2add]")]: We are pleased with your work. Here's your reward.<br>"
 			else if(money2add < 0)
-				data_storage.blackmarket_message += "<span class='bad'>[money2add]</span>: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
-
+				data_storage.blackmarket_message += "[span_bad("[money2add]")]: Don't anger us anymore! You won't be able to get away with such a little tax again.<br>"
 
 	add_fingerprint(usr)
-
 
 /obj/machinery/computer/syndie_supplycomp/proc/withdraw_cash(cash_sum, mob/user)
 	if(cash_sum <= data_storage.cash)
 		data_storage.cash -= cash_sum
 		playsound(src, 'sound/machines/chime.ogg', 50, TRUE)
-		var/obj/item/stack/spacecash/C = new(amt = cash_sum)
-		to_chat(user, "<span class='info'>The machine give you [C]!</span>")
+		var/obj/item/stack/spacecash/C = new(drop_location(), cash_sum)
+		to_chat(user, span_notice("The machine give you [C]!"))
 		var/mob/living/carbon/human/H = user
 		var/name = H.get_authentification_name()
-		data_storage.blackmarket_message += "<span class='bad'>-[cash_sum]</span>: [name] withdraws credits from the console.<br>"
-		user.put_in_hands(C)
+		data_storage.blackmarket_message += "[span_bad("-[cash_sum]")]: [name] withdraws credits from the console.<br>"
+		user.put_in_hands(C, ignore_anim = FALSE)
 	else
-		to_chat(user, "<span class='notice'>Нельзя снять больше денег, чем доступно в консоли!</span>")
+		to_chat(user, span_notice("Нельзя снять больше денег, чем доступно в консоли!"))
 		return

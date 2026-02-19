@@ -1,7 +1,8 @@
 /turf/space/transit
+	name = "\proper hyperspace"
 	icon_state = "black_arrow"
-	dir = SOUTH
-	plane = PLANE_SPACE
+	baseturf = /turf/space/transit
+	turf_flags = NOJAUNT
 
 /turf/space/transit/north
 	dir = NORTH
@@ -10,27 +11,50 @@
 	dir = EAST
 
 /turf/space/transit/south
-	dir = SOUTH
 
 /turf/space/transit/west
 	dir = WEST
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby(obj/O as obj, mob/user as mob, params)
-	return
+/turf/space/transit/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_TURF_RESERVATION_RELEASED, PROC_REF(launch_contents))
 
-/turf/space/transit/Entered(atom/movable/AM, atom/OldLoc, ignoreRest = 0)
-	if(!AM)
+/turf/space/transit/Destroy()
+	//Signals are NOT removed from turfs upon replacement, and we get replaced ALOT, so unregister our signal
+	UnregisterSignal(src, list(COMSIG_TURF_RESERVATION_RELEASED))
+
+	return ..()
+
+/turf/space/transit/attackby(obj/item/I, mob/user, params)
+	//Overwrite because we dont want people building rods in space.
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+///Get rid of all our contents, called when our reservation is released (which in our case means the shuttle arrived)
+/turf/space/transit/proc/launch_contents(datum/turf_reservation/reservation)
+	SIGNAL_HANDLER
+
+	for(var/atom/movable/movable in contents)
+		dump_in_space(movable)
+
+/turf/space/transit/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(!arrived)
 		return
-	if(!AM.simulated || istype(AM, /obj/docking_port))
+	if(!arrived.simulated || istype(arrived, /obj/docking_port))
 		return //this was fucking hilarious, the docking ports were getting thrown to random Z-levels
+	if(isobserver(arrived))
+		return
+	dump_in_space(arrived)
+
+///Dump a movable in a random valid spacetile
+/proc/dump_in_space(atom/movable/dumpee)
 	var/max = world.maxx-TRANSITIONEDGE
 	var/min = 1+TRANSITIONEDGE
 
 	//now select coordinates for a border turf
 	var/_x
 	var/_y
-	switch(dir)
+	switch(dumpee.dir)
 		if(SOUTH)
 			_x = rand(min,max)
 			_y = max
@@ -46,22 +70,20 @@
 
 	var/list/levels_available = get_all_linked_levels_zpos()
 	var/turf/T = locate(_x, _y, pick(levels_available))
-	AM.forceMove(T)
-	AM.newtonian_move(dir)
-
+	dumpee.forceMove(T)
+	dumpee.newtonian_move(dumpee.dir)
 
 /turf/space/transit/rpd_act()
 	return
 
-//Overwrite because we dont want people building rods in space.
-/turf/space/transit/attackby()
-	return
+/turf/space/transit/rcd_act()
+	return RCD_NO_ACT
 
 /turf/space/transit/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/turf/space/transit/proc/update_icon()
+/turf/space/transit/update_icon_state()
 	var/p = 9
 	var/angle = 0
 	var/state = 1
@@ -86,7 +108,4 @@
 	transform = turn(matrix(), angle)
 
 /turf/space/transit/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
-	underlay_appearance.icon = 'icons/turf/space.dmi'
-	underlay_appearance.icon_state = SPACE_ICON_STATE
-	underlay_appearance.plane = PLANE_SPACE
-	return TRUE
+	. = ..()

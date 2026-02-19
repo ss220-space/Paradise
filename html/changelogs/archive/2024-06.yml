@@ -1,0 +1,296 @@
+'2024-06-01':
+  Baldek0:
+  - bugfix: Translation error of term "department" (#5117)
+  Daeberdir:
+  - tweak: Better armor for military gas masks. (#5118)
+  MstrKabach:
+  - add: nucleation emergency box (#5119)
+  PiotrTheTchaikowsky:
+  - tweak: Toolbox throw damage up (Prictice PR for stydying) (#5097)
+  Zwei:
+  - bugfix: Crawling Fixes N3 (#5123)
+  - bugfix: Buttons Icons Fixes (#5122)
+  - bugfix: Crawling Fixes N4 (#5134)
+'2024-06-02':
+  Honker9999999:
+  - add: nunchucks (#5073)
+  NightDawnFox:
+  - bugfix: added missed knockdown in apply_effect() (#5142)
+  Vladisvell:
+  - qol: Added more info to discord round end notification admin webhook (#5089)
+  Zwei:
+  - bugfix: Projectiles Skip Mobs Not Capable Of Resting (#5139)
+  - bugfix: Correct Abstract Flag Check (#5140)
+'2024-06-03':
+  Arceniu:
+  - qol: Folded masks in boxes (#5087)
+  BeebBeebBoob:
+  - bugfix: Multi-z Light (#5130)
+  Daeberdir:
+  - bugfix: Bold names for all command role titles. (#5108)
+  - tweak: '''Current Map Excluded'' map vote. (#5151)'
+  LiquidPotroh:
+  - bugfix: teporone stabilizing and species (#5112)
+  NightDawnFox:
+  - balance: no more jumps in space (and without gravity) (#5136)
+  Valtor:
+  - bugfix: airlock access deny sound with no power  (#5093)
+  Vladisvell:
+  - bugfix: Fixed reagent crafting not spending reagents issue (#5124)
+  - bugfix: Kudzu vines no longer grow on transition or map borders (#5029)
+  - tweak: Diagonal movement adjustments (#5052)
+  Zwei:
+  - bugfix: No More Screams On Species Change (#5146)
+  - bugfix: Admin Move And Point Layer Fix (#5148)
+  - bugfix: Correct Ears Overlay Updates (#5051)
+  - bugfix: DNA and Embedded Fixes (#5095)
+  - bugfix: Ventcrawling With Clothing Fixed (#5101)
+  - bugfix: Changeling Swap Fix (#5106)
+  - bugfix: Antag Paradise Typo Fix (#5113)
+  - tweak: Antag Paradise Changeling Weight Adjustment (#5114)
+  - bugfix: Shuttle Smash Skips Silicon Search (#5115)
+  - bugfix: Kudzu Spawn Respects Level Boundaries (#5152)
+'2024-06-04':
+  BoshyG:
+  - imageadd: Vox sunglasses hud FIX (#5131)
+  LiquidPotroh:
+  - add: inquisitor's hardsuit in necropolis chest (#5126)
+  MrVivor:
+  - add: new clothes by PT (#5090)
+  NightDawnFox:
+  - tweak: new text objective for magic survivalists (#5138)
+  kukur:
+  - bugfix: IV drip can now be used again to collect or inject reagents. (#5154)
+'2024-06-06':
+  Den109G:
+  - bugfix: TeleKinesis no longer drops on ground (#5155)
+  ROdenFL:
+  - tweak: loadout veil stack (#5129)
+'2024-06-10':
+  BeebBeebBoob:
+  - bugfix: AI fail to click on certain lines of map (#5178)
+  Den109G:
+  - bugfix: Emotes check stat before show runechat (#5156)
+  Zwei:
+  - bugfix: Cards Shuffle Fix (#5165)
+  - bugfix: Legion Transform Fix (#5173)
+  - bugfix: Plasmaman Vampire Hunger Fix (#5174)
+  - refactor: Runechat Tweaks (#5060)
+  - bugfix: Minor Fixes Collection (#5153)
+'2024-06-12':
+  PiotrTheTchaikowsky:
+  - unknown: Pda Сart resprite (Prictice PR) (#5192)
+  - imageadd: Decals-resprite (Prictice PR for studying) (#5128)
+  ROdenFL:
+  - bugfix: shadowling can`t cast their spell (#5189)
+  Vladisvell:
+  - bugfix: Bunch of bugfixes (#5184)
+  - bugfix: Now you can unequip donation-tier gear if you don't have said tier. (#5187)
+  Zwei:
+  - bugfix: Prefs Runtime Fix (#5181)
+  - bugfix: Proper Layers For Closet Overlays (#5171)
+'2024-06-13':
+  Daeberdir:
+  - qol: Map votes popup at the end of the round are now shown immediately (#5193)
+  Vesterlim13:
+  - add: New event ruin Pirates Base (#5149)
+  Vladisvell:
+  - server: End-round map voting is now configurable (#5197)
+  endipe:
+  - bugfix: Dark shard cannot be eaten (#5186)
+'2024-06-14':
+  BeebBeebBoob:
+  - bugfix: Fixes runtime logout parallax (#5204)
+  - bugfix: Ghosts no longer squeaks (#5207)
+  Daeberdir:
+  - bugfix: Many map fixes... Cyberiad moved to the centre of the level. (#5145)
+  ROdenFL:
+  - tweak: mouse idle anim addiction (#5048)
+  Vladisvell:
+  - bugfix: Fixed status effects typo (#5199)
+  - refactor: Button layers are now defined (#5200)
+  - tweak: Mob spawners, including ash walker eggs, now can fall into chasms (#5198)
+  Zwei:
+  - tweak: Components Optimization (#5071)
+  - refactor: Inventory Optimization (#5080)
+  - unknown: Additional Can Equip Check (#5167)
+  - bugfix: Just Another Genes Fix (#5201)
+  - bugfix: Accessory Overlay Fix (#5209)
+  aeternaclose:
+  - bugfix: Event files architecture improvement (#5150)
+  gornomogilo:
+  - bugfix: now mind return into carbon after gib simple_animal from anomalous_crystal
+      (#5179)
+  pilygun:
+  - tweak: Clone machine is now cheaper for ordering in cargo (#5195)
+'2024-06-15':
+  LiquidPotroh:
+  - bugfix: emagged CMO defib don't stop hearts (#5211)
+  MrVivor:
+  - unknown: Drink resprites and some stuff (#5194)
+  kukur:
+  - unknown: camera bugfix/refactor + ninja invisible 2 (#5217)
+  - tweak: Correction recommendation CMO (#5220)
+  pilygun:
+  - balance: Vending capitalism update (#5196)
+'2024-06-16':
+  FanTik-Ratge:
+  - server: '[imageadd] fix mouse-ass anim (#5229)'
+  ROdenFL:
+  - bugfix: donour loadout (#5222)
+  Zwei:
+  - bugfix: Wet Floor Runtimes Fix (#5210)
+  - bugfix: Final Genes Patch (#5221)
+  - bugfix: Overlays Fixes (#5218)
+  - refactor: Obscured Slots Refining (#5230)
+  pilygun:
+  - add: Spell books in the spell book update! (#5219)
+  - add: LIBRARIAN spell book in uplink (#5216)
+  - soundadd: Shovel sound appdate (#5094)
+'2024-06-17':
+  Aziz Chynaliev:
+  - del: Drink resprites and some stuff (#5194)"
+  Vladisvell:
+  - bugfix: Fixed genetics getting wrong assignments (#5236)
+  Zwei:
+  - tweak: Absorption Possibilities For Generic Effects (#5224)
+  - balance: Combat Crawling Update N1 (#5180)
+  - refactor: Sharpness Rework (#5160)
+  - tweak: Monka's Check Standardisation (#5127)
+  - refactor: Movement Looping System (#5102)
+  - bugfix: Buckling And Stamcrit Absorption Fixes (#5234)
+'2024-06-18':
+  BeebBeebBoob:
+  - qol: Parallax is now smoother & better (#5215)
+  Den109G:
+  - bugfix: Veils now correctly show what happens to them (#5233)
+  - tweak: Change turfs temps to not give LINDA extra work (#5231)
+  - bugfix: Chameleon mask is now can be removed (#5239)
+  - bugfix: Effects on_apply correctly sees this effect (#5237)
+  endipe:
+  - bugfix: Now blood is unsafe (#5226)
+'2024-06-19':
+  BeebBeebBoob:
+  - refactor: remove from all block proc all locate procs (#5208)
+  Daeberdir:
+  - bugfix: AI internal camera & entertainment monitor overlays working properly.  (#5203)
+  Zwei:
+  - bugfix: Bunch Of Important Fixes (#5243)
+  - tweak: Antag Paradise Autotraitor Update (#5157)
+  - unknown: Chameleon Rework (#5065)
+'2024-06-20':
+  NightDawnFox:
+  - balance: disarm now knockdowns instead of stun (#5141)
+  Zwei:
+  - bugfix: Plasmaman Helmet / Clown Gun / Immovable Rod / Ninja Visor Fixes (#5249)
+  pilygun:
+  - bugfix: blobinfected mouse krytit jopoi (#5252)
+'2024-06-21':
+  Antoonij:
+  - add: changestone update (#5228)
+  Den109G:
+  - bugfix: Return flags after unsuccessful buckling (#5253)
+  - bugfix: Change name inhands sprites for a advmop (#5254)
+  PlayerUnknown14:
+  - balance: Bath Salts buff and Amrosia Cruciatus update (#5238)
+  Vladisvell:
+  - bugfix: Removed runtime report with attempting to reset DNA when head is missing
+      (#5260)
+  Zwei:
+  - bugfix: Vehicles Speed Boost Fix / No Glide Size Defaults To 8 / High RP Curse
+      Fix (#5251)
+  pilygun:
+  - tweak: Removal jetpack upgrade in vend (#5246)
+'2024-06-22':
+  FanTik-Ratge:
+  - imageadd: New lavaland eee-rock (#5250)
+  Honker9999999:
+  - add: cowboy hat for QMs in locker (#5271)
+  MrVivor:
+  - imageadd: Cult cutouts update (#5269)
+  NightDawnFox:
+  - tweak: porting balloon-alerts from tg (kinda completed) (#4980)
+  Vladisvell:
+  - bugfix: Fixed compilation issues with testing flag enabled (#5267)
+  Zwei:
+  - bugfix: Few Projectile Runtimes (#5257)
+  pilygun:
+  - unknown: Disable Tech requires a magician's robe from a librarian (#5241)
+'2024-06-24':
+  MrVivor:
+  - unknown: Drinks resprite (#5268)
+  PiotrTheTchaikowsky:
+  - tweak: Add new poster (#5255)
+  - tweak: Add pockets to Trenchcoats (#5242)
+  ROdenFL:
+  - tweak: arcade game ballons (#5275)
+  Rafnik02:
+  - qol: add skirt for CMO (#5276)
+  Vladisvell:
+  - tweak: Mouse idle animations no longer spam into runechat (#5277)
+  - bugfix: Fixed lighting on alien ship (#5264)
+  Zwei:
+  - refactor: Opacity Standartisation (#5258)
+  pilygun:
+  - bugfix: Fedora spr. Fix (#5278)
+'2024-06-25':
+  BeebBeebBoob:
+  - bugfix: Parallax move delay (#5262)
+  Dimach:
+  - del: '#5048 (#5283)'
+  Vladisvell:
+  - bugfix: Matter eater no longer works from far distances (#5259)
+  Zwei:
+  - bugfix: Runtimes/Bugs Fixes (#5274)
+  - bugfix: Runechat Languages Colorization (#5279)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#5213)
+'2024-06-26':
+  Den109G:
+  - bugfix: Clean up after rock resprite (#5284)
+  - bugfix: Ambient Occlusion updates real time (#5288)
+  PiotrTheTchaikowsky:
+  - imageadd: New bags sprites (#5248)
+  SAAD:
+  - add: New map "Celestation" (#5175)
+  Vladisvell:
+  - add: Added Celestation to nanomap rendering sequence (#5291)
+  - tweak: Added initial celestation nanomap files (#5292)
+  - bugfix: Fixed death nettle and attack checks (#5294)
+  Zwei:
+  - bugfix: Runechat MultiZ Fix (#5290)
+'2024-06-27':
+  FanTik-Ratge:
+  - add: new Donor clothes (#5272)
+  Helmsman:
+  - tweak: Shooting in the mouth more deadly (#5109)
+  MstrKabach:
+  - tweak: jetpack in syndie/contractor box (#5280)
+  NightDawnFox:
+  - tweak: legion tumour tweaks (#5159)
+  PiotrTheTchaikowsky:
+  - imageadd: Resprite of smashed drink cans (#5286)
+  ROdenFL:
+  - add: holocigar (#5133)
+  SHODAN:
+  - imageadd: update_pda (#5232)
+  endipe:
+  - tweak: new hairstyles for dions and nucleations | by vadim722 (#5256)
+  pilygun:
+  - bugfix: healtouch MAGEEEE Slomalsa pizdec (#5296)
+  - imageadd: New sprites of energy crossbows (#5125)
+  - bugfix: Disable Tech Opat slomalsa syka (#5300)
+'2024-06-28':
+  Den109G:
+  - bugfix: Vampires has hungriness (#5297)
+'2024-06-29':
+  Den109G:
+  - bugfix: Change flash's null center to get_turf (#5306)
+'2024-06-30':
+  ROdenFL:
+  - tweak: emoji additions (#5225)
+  SAAD:
+  - bugfix: Celestation patch (#5310)
+  Zwei:
+  - unknown: Grab And Pull Rework (#5245)
+  - bugfix: Multitile Objects Move Fix (#5314)

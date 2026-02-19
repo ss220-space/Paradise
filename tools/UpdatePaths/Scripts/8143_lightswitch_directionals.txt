@@ -1,0 +1,4 @@
+/obj/machinery/light_switch {pixel_x=26} : /obj/machinery/light_switch/directional/east
+/obj/machinery/light_switch {pixel_x=-26} : /obj/machinery/light_switch/directional/west
+/obj/machinery/light_switch {pixel_y=26} : /obj/machinery/light_switch/directional/north
+/obj/machinery/light_switch {pixel_y=-26} : /obj/machinery/light_switch/directional/south

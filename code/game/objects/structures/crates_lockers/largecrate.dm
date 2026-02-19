@@ -3,97 +3,93 @@
 	desc = "A hefty wooden crate."
 	icon = 'icons/obj/crates.dmi'
 	icon_state = "largecrate"
-	density = 1
+	density = TRUE
 	var/obj/item/paper/manifest/manifest
+	/// What animal type this crate contains
+	var/animal_type
 
-/obj/structure/largecrate/Initialize(mapload)
+/obj/structure/largecrate/Destroy()
+	var/turf/crate_location = get_turf(src)
+	for(var/obj/contained_object in contents)
+		contained_object.forceMove(crate_location)
+	return ..()
+
+/obj/structure/largecrate/add_debris_element()
+	AddElement(/datum/element/debris, DEBRIS_WOOD, -40, 5)
+
+/obj/structure/largecrate/update_overlays()
 	. = ..()
-	update_icon()
-
-/obj/structure/largecrate/update_icon()
-	..()
-	overlays.Cut()
 	if(manifest)
-		overlays += "manifest"
+		. += "manifest"
 
-/obj/structure/largecrate/attack_hand(mob/user as mob)
+/obj/structure/largecrate/attack_hand(mob/user)
 	if(manifest)
-		to_chat(user, "<span class='notice'>You tear the manifest off of the crate.</span>")
-		playsound(src.loc, 'sound/items/poster_ripped.ogg', 75, 1)
-		manifest.forceMove(loc)
+		add_fingerprint(user)
+		to_chat(user, span_notice("You tear the manifest off of the crate."))
+		playsound(loc, 'sound/items/poster_ripped.ogg', 75, TRUE)
+		manifest.forceMove_turf()
 		if(ishuman(user))
-			user.put_in_hands(manifest)
+			user.put_in_hands(manifest, ignore_anim = FALSE)
 		manifest = null
-		update_icon()
-		return
-	else
-		to_chat(user, "<span class='notice'>You need a crowbar to pry this open!</span>")
+		update_icon(UPDATE_OVERLAYS)
 		return
 
-/obj/structure/largecrate/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/crowbar))
-		if(manifest)
-			manifest.forceMove(loc)
-			manifest = null
-			update_icon()
-		new /obj/item/stack/sheet/wood(src)
-		var/turf/T = get_turf(src)
-		for(var/O in contents)
-			var/atom/movable/A = O
-			A.forceMove(T)
-		user.visible_message("<span class='notice'>[user] pries \the [src] open.</span>", \
-							 "<span class='notice'>You pry open \the [src].</span>", \
-							 "<span class='notice'>You hear splitting wood.</span>")
-		qdel(src)
-	else if(user.a_intent != INTENT_HARM)
+	to_chat(user, span_notice("You need a crowbar to pry this open!"))
+
+/obj/structure/largecrate/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(!I.use_tool(src, user, volume = I.tool_volume))
+		return .
+	if(manifest)
+		manifest.forceMove(loc)
+		manifest = null
+		update_icon(UPDATE_OVERLAYS)
+	if(animal_type)
+		new animal_type(loc)
+	new /obj/item/stack/sheet/wood(loc)
+	for(var/atom/movable/thing as anything in contents)
+		thing.forceMove(loc)
+	user.visible_message(
+		span_notice("[user] pries [src] open."),
+		span_notice("You pry open [src]."),
+		span_italics("You hear splitting wood."),
+	)
+	qdel(src)
+
+/obj/structure/largecrate/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent != INTENT_HARM)
 		attack_hand(user)
-	else
-		return ..()
+		return ATTACK_CHAIN_BLOCKED_ALL
+	return ..()
 
 /obj/structure/largecrate/mule
 
 /obj/structure/largecrate/lisa
 	icon_state = "lisacrate"
-
-/obj/structure/largecrate/lisa/attackby(obj/item/W as obj, mob/user as mob)	//ugly but oh well
-	if(istype(W, /obj/item/crowbar))
-		new /mob/living/simple_animal/pet/dog/corgi/Lisa(loc)
-	return ..()
+	animal_type = /mob/living/simple_animal/pet/dog/corgi/Lisa
 
 /obj/structure/largecrate/cow
 	name = "cow crate"
 	icon_state = "lisacrate"
-
-/obj/structure/largecrate/cow/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/crowbar))
-		new /mob/living/simple_animal/cow(loc)
-	return ..()
+	animal_type = /mob/living/simple_animal/cow
 
 /obj/structure/largecrate/goat
 	name = "goat crate"
 	icon_state = "lisacrate"
+	animal_type = /mob/living/simple_animal/hostile/retaliate/goat
 
-/obj/structure/largecrate/goat/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/crowbar))
-		new /mob/living/simple_animal/hostile/retaliate/goat(loc)
-	return ..()
+/obj/structure/largecrate/cat
+	name = "cat crate"
+	icon_state = "lisacrate"
+	animal_type = /mob/living/simple_animal/pet/cat
 
 /obj/structure/largecrate/chick
 	name = "chicken crate"
 	icon_state = "lisacrate"
 
-/obj/structure/largecrate/chick/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/crowbar))
-		var/num = rand(4, 6)
-		for(var/i = 0, i < num, i++)
-			new /mob/living/simple_animal/chick(loc)
-	return ..()
+/obj/structure/largecrate/chick/crowbar_act(mob/living/user, obj/item/I)
+	var/atom/cached_loc = loc
+	. = ..()
+	for(var/i = 1 to rand(4, 6))
+		new /mob/living/simple_animal/chick(cached_loc)
 
-/obj/structure/largecrate/cat
-	name = "cat crate"
-	icon_state = "lisacrate"
-
-/obj/structure/largecrate/cat/attackby(obj/item/W as obj, mob/user as mob, params)
-	if(istype(W, /obj/item/crowbar))
-		new /mob/living/simple_animal/pet/cat(loc)
-	return ..()

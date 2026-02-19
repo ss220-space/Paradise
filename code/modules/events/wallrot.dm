@@ -3,7 +3,10 @@
 	endWhen = announceWhen + 1
 
 /datum/event/wallrot/announce()
-	GLOB.event_announcement.Announce("На станции обнаружен вредоносный грибок. Возможно загрязнение некоторых структур станции.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.")
+	GLOB.minor_announcement.announce(
+		message = "На станции обнаружен вредоносный грибок. Возможно загрязнение некоторых структур станции.",
+		new_title = ANNOUNCE_BIOHAZARD_RU
+	)
 
 /datum/event/wallrot/start()
 	spawn()
@@ -11,8 +14,8 @@
 
 		// 100 attempts
 		for(var/i=0, i<100, i++)
-			var/turf/candidate = locate(rand(1, world.maxx), rand(1, world.maxy), 1)
-			if(istype(candidate, /turf/simulated/wall))
+			var/turf/candidate = locate(rand(1, world.maxx), rand(1, world.maxy), pick(levels_by_trait(STATION_LEVEL)))
+			if(iswallturf(candidate))
 				center = candidate
 
 		if(center)

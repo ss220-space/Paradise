@@ -1,0 +1,155 @@
+/*
+//////////////////////////////////////
+
+Uncontrollable Aggression
+
+//////////////////////////////////////
+*/
+
+/datum/symptom/aggression
+
+	name = "Неконтролируемая агрессия"
+	id = "aggression"
+	stealth = -4
+	resistance = 2
+	stage_speed = -3
+	transmittable = 1
+	level = 6
+	severity = 4
+
+/datum/symptom/aggression/Activate(datum/disease/virus/advance/A)
+	..()
+	var/mob/living/carbon/human/aggressor = A.affected_mob
+	if(!istype(aggressor))
+		return
+
+	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
+		var/mob/living/possible_victim = GetLivingTarget(7, aggressor)
+		switch(A.stage)
+			if(2, 3)
+				to_chat(aggressor, span_alert(pick("Вы не можете себя контролировать.", "Прошло много времени с тех пор, как вы в последний раз кого-то ударили.", "Вы чувствуете злость и тревогу.", "Вы признаёте, что у [possible_victim ? possible_victim : "этого ублюдка"] лицо, которое хочется ударить.")))
+			if(4)
+				to_chat(aggressor, span_alert(pick("Вы думаете о том, чтобы задушить [possible_victim ? possible_victim : "кого-то"], и вам [span_danger("ЭТО НРАВИТСЯ!")].", "Я, бля, ненавижу этих людей!", "Вы никогда не слышали треск черепа... Давайте это исправим!")))
+			if(5)
+				switch(rand(1, 2))
+					if(1)
+						to_chat(aggressor, span_danger(pick("ХАХАХАХА, Я ОБОЖАЮ ИХ ВИЗГ, КОГДА ИМ БОЛЬНО!!", "ННГХХХ, БЛЯТЬ!!", "НАСИЛИЕ НАСИЛИЕ НАСИЛИЕ НАСИЛИЕ НАСИЛИЕ!!", "ЁБАНЫЙ БЛЯТЬ, ТВОЮ МАТЬ, ДЕРЬМО И УЁБКИ, ШЛЮХИ И СУКИ!!")))
+					if(2)
+						aggressor.say(pick("ААААААААААА!!!!", "ГРРР!!!", "СУКА!! БЛЯТЬ!!!", "ЁБАНЫЕ ГОВНЮКИ!!", "ВАААААААГХХ!!"))
+
+	if(A.stage >= 5 && prob(50))
+		if(aggressor.incapacitated() || HAS_TRAIT(aggressor, TRAIT_HANDS_BLOCKED))
+			aggressor.visible_message(span_danger("[aggressor] дёрга[PLUR_ET_YUT(aggressor)]ся и корчится!"))
+			return
+		aggressor.visible_message(span_danger("[aggressor] яростно бь[PLUR_YOT_YUT(aggressor)]ся вокруг!"))
+
+		var/obj/item/attacking_item = aggressor.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
+		if(!attacking_item)
+			attacking_item = aggressor.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
+		if(!attacking_item)
+			UnarmedAttack(aggressor)
+		else
+			if(isgun(attacking_item))
+				var/obj/item/gun/gun = attacking_item
+				GunAttack(aggressor, gun)
+			else
+				if(attacking_item.force > 5)
+					WeaponAttack(aggressor, attacking_item)
+				else
+					UnarmedAttack(aggressor)
+	return
+
+/datum/symptom/aggression/proc/UnarmedAttack(mob/living/carbon/human/aggressor)
+	var/mob/living/victim = GetLivingTarget(1, aggressor)
+	if(istype(victim))
+		aggressor.dna?.species?.harm(aggressor, victim)
+
+/datum/symptom/aggression/proc/GunAttack(mob/living/carbon/human/aggressor, obj/item/gun/attacking_item)
+	var/mob/living/victim = GetLivingTarget(7, aggressor)
+	if(istype(victim))
+		attacking_item.process_fire(victim, aggressor)
+
+/datum/symptom/aggression/proc/WeaponAttack(mob/living/carbon/human/aggressor, obj/item/attacking_item)
+	var/mob/living/victim = GetLivingTarget(1, aggressor)
+	if(istype(victim))
+		attacking_item.attack(victim, aggressor)
+
+/datum/symptom/proc/GetLivingTarget(distance, mob/living/carbon/human/aggressor)
+	var/list/victims = oview(distance, aggressor) - aggressor
+	var/length = victims.len
+	var/mob/living/victim
+	for(var/i = 0, i < length, i++)
+		victim = pick_n_take(victims)
+		if(istype(victim) && victim.stat == CONSCIOUS)
+			return victim
+
+/*
+//////////////////////////////////////
+
+Uncontrollable Actions
+
+//////////////////////////////////////
+*/
+
+/datum/symptom/obsession
+
+	name = "Неконтролируемые действия"
+	id = "obsession"
+	stealth = -4
+	resistance = 1
+	transmittable = -1
+	level = 6
+	severity = 4
+
+/datum/symptom/obsession/Activate(datum/disease/virus/advance/A)
+	..()
+	var/mob/living/carbon/human/possesed = A.affected_mob
+	if(!istype(possesed))
+		return
+
+	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
+		switch(A.stage)
+			if(2, 3)
+				to_chat(possesed, span_alert(pick("Вы не можете себя контролировать.", "Вы замечаете, что ваши действия не совпадают с мыслями.", "Зачем я это сделал?", "Что только что произошло?")))
+			if(4, 5)
+				possesed.emote(pick("twitch_s", "twitch", "drool", "blink_r"))
+				to_chat(possesed, span_alert(pick("Всё выходит из-под контроля.", "Как будто что-то управляет вашим телом.", "Вы чувствуете непреодолимое желание что-то сделать.", "Вы не можете себя контролировать!")))
+
+	if(A.stage >= 5 && prob(30))
+		if(possesed.incapacitated())
+			possesed.visible_message(span_danger("[possesed] дёргается!"))
+			return
+
+		var/obj/item/item = possesed.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
+		if(!item)
+			item = possesed.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
+		if(!item)
+			item = TakeItem(possesed)
+		if(!item)
+			return
+
+		if(isgun(item))
+			var/obj/item/gun/gun = item
+			UseGun(possesed, gun)
+		else
+			item.attack_self(possesed)
+			if(item != possesed.get_active_hand())
+				possesed.swap_hand()
+			possesed.throw_item(locate(/turf) in shuffle(view(3, possesed)))
+
+	return
+
+/datum/symptom/obsession/proc/TakeItem(mob/living/carbon/human/H)
+	var/list/targets = orange(1, H)
+	var/obj/item/target = locate(/obj/item) in shuffle(targets)
+	if(istype(target) && target.Adjacent(H) && !target.anchored)
+		target.forceMove(get_turf(H))
+		H.put_in_hands(target)
+		return target
+
+/datum/symptom/obsession/proc/UseGun(mob/living/carbon/human/aggressor, obj/item/gun/attacking_item)
+	var/list/targets = range(7, aggressor)
+	var/turf/target = locate(/turf) in shuffle(targets)
+	if(istype(target))
+		attacking_item.process_fire(target, aggressor)
+

@@ -4,10 +4,9 @@
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "taser"
 	item_state = "armcannonstun4"
-	force = 5
-	selfcharge = 1
-	can_flashlight = 0
+	selfcharge = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses neural signals instead
+	attachable_allowed = null
 
 /obj/item/gun/energy/laser/mounted
 	name = "mounted laser"
@@ -15,6 +14,6 @@
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "laser"
 	item_state = "armcannonlase"
-	force = 5
-	selfcharge = 1
+	selfcharge = TRUE
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	attachable_allowed = null

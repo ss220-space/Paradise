@@ -1,10 +1,10 @@
 /datum/reagent/paint
-	name = "Paint"
+	name = "Краска"
 	id = "paint_"
-	description = "Floor paint is used to color floor tiles."
+	description = "Краска, используемая для покраски полов."
 	reagent_state = LIQUID
 	color = "#808080"
-	taste_description = "paint"
+	taste_description = "краски"
 
 /datum/reagent/paint/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))
@@ -15,47 +15,47 @@
 		O.add_atom_colour(color, WASHABLE_COLOUR_PRIORITY)
 
 /datum/reagent/paint/red
-	name = "Red Paint"
+	name = "Красная краска"
 	id = "paint_red"
 	color = "#FF0000"
 
 /datum/reagent/paint/green
-	name = "Green Paint"
+	name = "Зелёная краска"
 	id = "paint_green"
 	color = "#00FF00"
 
 /datum/reagent/paint/blue
-	name = "Blue Paint"
+	name = "Синяя краска"
 	id = "paint_blue"
 	color = "#0000FF"
 
 /datum/reagent/paint/yellow
-	name = "Yellow Paint"
+	name = "Жёлтая краска"
 	id = "paint_yellow"
 	color = "#FFFF00"
 
 /datum/reagent/paint/violet
-	name = "Violet Paint"
+	name = "Фиолетовая краска"
 	id = "paint_violet"
 	color = "#FF00FF"
 
 /datum/reagent/paint/black
-	name = "Black Paint"
+	name = "Чёрная краска"
 	id = "paint_black"
 	color = "#333333"
 
 /datum/reagent/paint/white
-	name = "White Paint"
+	name = "Белая краска"
 	id = "paint_white"
 	color = "#FFFFFF"
 
 /datum/reagent/paint_remover
-	name = "Paint Remover"
+	name = "Средство для удаления краски"
 	id = "paint_remover"
-	description = "Paint remover is used to remove floor paint from floor tiles."
+	description = "Вещество, используемое для удаления краски с пола."
 	reagent_state = LIQUID
 	color = "#808080"
-	taste_description = "alcohol"
+	taste_description = "спирта"
 
 /datum/reagent/paint_remover/reaction_turf(turf/T, volume)
 	if(!isspaceturf(T))

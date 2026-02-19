@@ -3,11 +3,11 @@
 /obj/machinery/recycler
 	name = "recycler"
 	desc = "A large crushing machine used to recycle small items inefficiently. There are lights on the side."
-	icon = 'icons/obj/recycling.dmi'
+	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "grinder-o0"
 	layer = MOB_LAYER+1 // Overhead
-	anchored = 1
-	density = 1
+	anchored = TRUE
+	density = TRUE
 	damage_deflection = 15
 	var/emergency_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
@@ -18,15 +18,15 @@
 	var/eat_victim_items = 1
 	var/item_recycle_sound = 'sound/machines/recycler.ogg'
 
-/obj/machinery/recycler/New()
+/obj/machinery/recycler/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/material_container, list(MAT_METAL, MAT_GLASS, MAT_PLASMA, MAT_SILVER, MAT_GOLD, MAT_DIAMOND, MAT_URANIUM, MAT_BANANIUM, MAT_TRANQUILLITE, MAT_TITANIUM, MAT_PLASTIC, MAT_BLUESPACE), 0, TRUE, null, null, null, TRUE)
-	..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/recycler(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
 	component_parts += new /obj/item/stock_parts/manipulator(null)
 	RefreshParts()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/RefreshParts()
 	var/amt_made = 0
@@ -46,14 +46,16 @@
 	. += "The operation light is [emergency_mode ? "<b>off</b>. [src] has detected a forbidden object with its sensors, and has shut down temporarily." : "<b>on</b>. [src] is active."]"
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
 
-/obj/machinery/recycler/power_change()
-	..()
-	update_icon()
+/obj/machinery/recycler/power_change(forced = FALSE)
+	if(!..())
+		return
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/recycler/attackby(obj/item/I, mob/user, params)
-	add_fingerprint(user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 	if(exchange_parts(user, I))
-		return
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 /obj/machinery/recycler/crowbar_act(mob/user, obj/item/I)
@@ -68,48 +70,35 @@
 	if(default_unfasten_wrench(user, I))
 		return TRUE
 
-
-
 /obj/machinery/recycler/emag_act(mob/user)
 	if(!emagged)
 		emagged = 1
 		if(emergency_mode)
 			emergency_mode = FALSE
-			update_icon()
-		playsound(src, "sparks", 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-		to_chat(user, "<span class='notice'>You use the cryptographic sequencer on the [name].</span>")
+			update_icon(UPDATE_ICON_STATE)
+		playsound(src, SFX_SPARKS, 75, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+		if(user)
+			to_chat(user, span_notice("You use the cryptographic sequencer on the [name]."))
 		add_attack_logs(user, src, "emagged")
 
-/obj/machinery/recycler/update_icon()
-	..()
+/obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
 	if(emergency_mode)
-		is_powered = 0
+		is_powered = FALSE
 	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
 
-// This is purely for admin possession !FUN!.
-/obj/machinery/recycler/Bump(atom/movable/AM)
-	..()
-	if(AM)
-		Bumped(AM)
-
-/obj/machinery/recycler/Bumped(atom/movable/AM)
-
-	if(stat & (BROKEN|NOPOWER))
-		return
-	if(!anchored)
-		return
-	if(emergency_mode)
-		return
-
-	var/move_dir = get_dir(loc, AM.loc)
+/obj/machinery/recycler/Bumped(atom/movable/moving_atom)
+	. = ..()
+	if((stat & (BROKEN|NOPOWER)) || !anchored || emergency_mode)
+		return .
+	var/move_dir = get_dir(loc, moving_atom.loc)
 	if(move_dir == eat_dir)
-		eat(AM)
+		eat(moving_atom)
 
 /obj/machinery/recycler/proc/eat(atom/AM0, sound = 1)
 	var/list/to_eat = list(AM0)
-	if(istype(AM0, /obj/item))
-		to_eat += AM0.GetAllContents()
+	if(isitem(AM0))
+		to_eat += AM0.get_all_contents()
 	var/items_recycled = 0
 
 	for(var/i in to_eat)
@@ -121,15 +110,17 @@
 				crush_living(AM)
 			else
 				emergency_stop(AM)
-		else if(istype(AM, /obj/item))
+		else if(isitem(AM))
+			if(ismob(AM.loc) || ismob(AM.loc.loc))
+				continue
 			recycle_item(AM)
 			items_recycled++
 		else
-			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+			playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 			AM.forceMove(loc)
 
 	if(items_recycled && sound)
-		playsound(loc, item_recycle_sound, 100, 0)
+		playsound(loc, item_recycle_sound, 100, FALSE)
 
 /obj/machinery/recycler/proc/recycle_item(obj/item/I)
 	I.forceMove(loc)
@@ -143,95 +134,92 @@
 	qdel(I)
 	materials.retrieve_all()
 
-
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
-	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
+	playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 	emergency_mode = TRUE
-	update_icon()
-	L.loc = loc
-	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
+	update_icon(UPDATE_ICON_STATE)
+	L.forceMove(loc)
+	addtimer(CALLBACK(src, PROC_REF(reboot)), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+	playsound(loc, 'sound/machines/ping.ogg', 50, FALSE)
 	emergency_mode = FALSE
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/machinery/recycler/proc/crush_living(mob/living/L)
+/obj/machinery/recycler/proc/crush_living(mob/living/target)
+	target.forceMove(loc)
 
-	L.loc = loc
-
-	if(issilicon(L))
-		playsound(loc, 'sound/items/welder.ogg', 50, 1)
+	if(issilicon(target))
+		playsound(loc, 'sound/items/welder.ogg', 50, TRUE)
 	else
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
+		playsound(loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 	var/gib = 1
 	// By default, the emagged recycler will gib all non-carbons. (human simple animal mobs don't count)
-	if(iscarbon(L))
+	if(iscarbon(target))
 		gib = 0
-		if(L.stat == CONSCIOUS)
-			L.say("ARRRRRRRRRRRGH!!!")
-		add_mob_blood(L)
+		if(target.stat == CONSCIOUS)
+			target.say("ARRRRRRRRRRRGH!!!")
+		add_mob_blood(target)
 
-	if(!blood && !issilicon(L))
+	if(!blood && !issilicon(target))
 		blood = 1
-		update_icon()
+		update_icon(UPDATE_ICON_STATE)
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)
-		for(var/obj/item/I in L.get_equipped_items(TRUE))
-			if(L.unEquip(I))
-				eat(I, sound = 0)
+		for(var/obj/item/item in target.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
+			if(target.drop_item_ground(item))
+				eat(item, sound = 0)
 
 	// Instantly lie down, also go unconscious from the pain, before you die.
-	L.Paralyse(5)
+	target.Paralyse(10 SECONDS)
 
 	// For admin fun, var edit emagged to 2.
 	if(gib || emagged == 2)
-		L.gib()
+		target.gib()
 	else if(emagged == 1)
-		L.adjustBruteLoss(crush_damage)
-
+		target.adjustBruteLoss(crush_damage)
 
 /obj/machinery/recycler/verb/rotate()
-	set name = "Rotate Clockwise"
-	set category = "Object"
+	set name = "Повернуть по часовой"
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	var/mob/living/user = usr
 
-	if(usr.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 270)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
 
 /obj/machinery/recycler/verb/rotateccw()
-	set name = "Rotate Counter Clockwise"
-	set category = "Object"
+	set name = "Повернуть против часовой"
+	set category = VERB_CATEGORY_OBJECT
 	set src in oview(1)
 
 	var/mob/living/user = usr
 
-	if(usr.incapacitated())
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(anchored)
 		to_chat(usr, "[src] is fastened to the floor!")
 		return 0
 	eat_dir = turn(eat_dir, 90)
-	to_chat(user, "<span class='notice'>[src] will now accept items from [dir2text(eat_dir)].</span>")
+	to_chat(user, span_notice("[src] will now accept items from [dir2text(eat_dir)]."))
 	return 1
-
 
 /obj/machinery/recycler/deathtrap
 	name = "dangerous old crusher"
 	emagged = 1
 	crush_damage = 120
 
-
 /obj/item/paper/recycler
 	name = "paper - 'garbage duty instructions'"
 	info = "<h2>New Assignment</h2> You have been assigned to collect garbage from trash bins, located around the station. The crewmembers will put their trash into it and you will collect the said trash.<br><br>There is a recycling machine near your closet, inside maintenance; use it to recycle the trash for a small chance to get useful minerals. Then deliver these minerals to cargo or engineering. You are our last hope for a clean station, do not screw this up!"
+
+#undef SAFETY_COOLDOWN

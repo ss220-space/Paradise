@@ -1,40 +1,47 @@
 /mob/living/carbon/alien/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	..(AM, hitpush = FALSE)
+	var/skip_catch = FALSE
+	if(isitem(AM))
+		var/obj/item/throw_item = AM
+		skip_catch = !throw_item.allowed_for_alien()
+	..(AM, skip_catch, FALSE, blocked, throwingdatum)
 
-/*Code for aliens attacking aliens. Because aliens act on a hivemind, I don't see them as very aggressive with each other.
-As such, they can either help or harm other aliens. Help works like the human help command while harm is a simple nibble.
-In all, this is a lot like the monkey code. /N
-*/
+/// Alien attack another alien
 /mob/living/carbon/alien/attack_alien(mob/living/carbon/alien/M)
-	if(istype(loc, /turf) && istype(loc.loc, /area/start))
-		to_chat(M, "No attacking people at spawn, you jackass.")
-		return
-
 	switch(M.a_intent)
 		if(INTENT_HELP)
-			AdjustSleeping(-5)
-			StopResting()
-			AdjustParalysis(-3)
-			AdjustStunned(-3)
-			AdjustWeakened(-3)
-			visible_message("<span class='notice'>[M.name] nuzzles [src] trying to wake it up!</span>")
+			if(M != src)
+				AdjustSleeping(-10 SECONDS)
+				AdjustParalysis(-6 SECONDS)
+				AdjustStunned(-6 SECONDS)
+				AdjustWeakened(-6 SECONDS)
+				set_resting(FALSE, instant = TRUE)
+
+			if(on_fire)
+				M.visible_message(span_warning("[M] trying to extinguish [src.name]!"), span_warning("You trying to extinguish [src.name]!"))
+				playsound(get_turf(src), 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+				adjust_fire_stacks(-0.5)
+			else
+				M.visible_message(span_notice("[M.name] nuzzles [src] trying to wake it up!"))
 
 		if(INTENT_GRAB)
 			grabbedby(M)
 
-		else
-			if(health > 0)
-				M.do_attack_animation(src, ATTACK_EFFECT_BITE)
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
-				visible_message("<span class='danger'>[M.name] bites [src]!</span>", \
-						"<span class='userdanger'>[M.name] bites [src]!</span>")
-				adjustBruteLoss(1)
-				add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
-			else
-				to_chat(M, "<span class='warning'>[name] is too injured for that.</span>")
+		if(INTENT_DISARM)
+			..()
+			if(drop_from_active_hand())
+				M.visible_message(span_danger("[M.name] disarms [src.name]!"))
+			playsound(src.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+
+		if(INTENT_HARM)
+			..()
+			visible_message(span_danger("[M] has slashed at [src]!"), span_userdanger("[M] has slashed at [src]!"))
+			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
+			adjustBruteLoss(M.attack_damage)
+			add_attack_logs(M, src, "Alien attack", ATKLOG_ALL)
 
 /mob/living/carbon/alien/attack_larva(mob/living/carbon/alien/larva/L)
-	return attack_alien(L)
+	if(..() && L.a_intent == INTENT_HARM)
+		adjustBruteLoss(L.attack_damage)
 
 /mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
 	if(..())	//to allow surgery to return properly.
@@ -56,19 +63,7 @@ In all, this is a lot like the monkey code. /N
 	. = ..()
 	if(.)
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
-		switch(M.melee_damage_type)
-			if(BRUTE)
-				adjustBruteLoss(damage)
-			if(BURN)
-				adjustFireLoss(damage)
-			if(TOX)
-				adjustToxLoss(damage)
-			if(OXY)
-				adjustOxyLoss(damage)
-			if(CLONE)
-				adjustCloneLoss(damage)
-			if(STAMINA)
-				adjustStaminaLoss(damage)
+		apply_damage(damage, M.melee_damage_type)
 
 /mob/living/carbon/alien/acid_act(acidpwr, acid_volume)
 	return 0 //aliens are immune to acid.
@@ -80,4 +75,11 @@ In all, this is a lot like the monkey code. /N
 			damage = rand(10 + M.age_state.damage, 40 + M.age_state.damage)
 		adjustBruteLoss(damage)
 		add_attack_logs(M, src, "Slime'd for [damage] damage")
-		updatehealth("slime attack")
+
+/mob/living/carbon/xenomorph/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	. = ..()
+	switch(fire.fire_variant)
+		if(FIRE_VARIANT_TYPE_B) //Armor Shredding Greenfire
+			fire.set_on_fire(src) //Deals an extra proc of fire when you're crossing it. 30 damage per tile crossed, plus 15 per Process().
+			SetSlowed(1 SECONDS, (SLOWDOWN_AMT_GREENFIRE))
+			to_chat(src, span_danger("We feel pieces of our exoskeleton fusing with the viscous fluid below and tearing off as we struggle to move through the flames!"))

@@ -1,200 +1,196 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
-	desc = "Watch your step."
+	desc = "Смотри куда идёшь."
 	baseturf = /turf/simulated/floor/chasm
-	smooth = SMOOTH_TRUE | SMOOTH_BORDER | SMOOTH_MORE
+	smooth = SMOOTH_BITMASK
 	icon = 'icons/turf/floors/Chasms.dmi'
 	icon_state = "smooth"
-	canSmoothWith = list(/turf/simulated/floor/chasm)
+	base_icon_state = "Chasms"
+	canSmoothWith = SMOOTH_GROUP_TURF_CHASM
+	smoothing_groups = SMOOTH_GROUP_TURF_CHASM
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
-	var/static/list/falling_atoms = list() //Atoms currently falling into the chasm
-	var/static/list/forbidden_types = typecacheof(list(
-		/obj/singularity,
-		/obj/docking_port,
-		/obj/structure/lattice,
-		/obj/structure/stone_tile,
-		/obj/item/projectile,
-		/obj/effect/portal,
-		/obj/effect/hotspot,
-		/obj/effect/landmark,
-		/obj/effect/temp_visual,
-		/obj/effect/light_emitter/tendril,
-		/obj/effect/collapse,
-		/obj/effect/particle_effect/ion_trails
-		))
-	var/drop_x = 1
-	var/drop_y = 1
-	var/drop_z = 1
-
+	layer = PLATING_LAYER
+	intact = FALSE
+	explosion_vertical_block = 0
 	footstep = null
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
 
-/turf/simulated/floor/chasm/Entered(atom/movable/AM)
-	..()
-	START_PROCESSING(SSprocessing, src)
-	drop_stuff(AM)
+/turf/simulated/floor/chasm/get_ru_names()
+	return list(
+		NOMINATIVE = "пропасть",
+		GENITIVE = "пропасти",
+		DATIVE = "пропасти",
+		ACCUSATIVE = "пропасть",
+		INSTRUMENTAL = "пропастью",
+		PREPOSITIONAL = "пропасти",
+	)
 
-/turf/simulated/floor/chasm/process()
-	if(!drop_stuff())
-		STOP_PROCESSING(SSprocessing, src)
+/turf/simulated/floor/chasm/Initialize(mapload)
+	. = ..()
+	apply_components(mapload)
+
+/// Handles adding the chasm component to the turf (So stuff falls into it!)
+/turf/simulated/floor/chasm/proc/apply_components(mapload)
+	AddComponent(/datum/component/chasm, GET_TURF_BELOW(src), mapload)
+
+/// Lets people walk into chasms.
+/turf/simulated/floor/chasm/CanAllowThrough(atom/movable/mover, border_dir)
+	. = ..()
+	return TRUE
+
+/turf/simulated/floor/chasm/proc/set_target(turf/target)
+	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)
+	chasm_component.target_turf = target
+
+/turf/simulated/floor/chasm/proc/drop(atom/movable/AM)
+	var/datum/component/chasm/chasm_component = GetComponent(/datum/component/chasm)
+	chasm_component.drop(AM)
 
 /turf/simulated/floor/chasm/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	underlay_appearance.icon = 'icons/turf/floors.dmi'
 	underlay_appearance.icon_state = "basalt"
 	return TRUE
 
-/turf/simulated/floor/chasm/attackby(obj/item/C, mob/user, params, area/area_restriction)
-	..()
-	if(istype(C, /obj/item/stack/rods))
-		var/obj/item/stack/rods/R = C
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		if(!L)
-			if(R.use(1))
-				to_chat(user, "<span class='notice'>You construct a lattice.</span>")
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				ReplaceWithLattice()
-			else
-				to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
-			return
-	if(istype(C, /obj/item/stack/tile/plasteel))
-		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
-		if(L)
-			var/obj/item/stack/tile/plasteel/S = C
-			if(S.use(1))
-				qdel(L)
-				playsound(src, 'sound/weapons/genhit.ogg', 50, 1)
-				to_chat(user, "<span class='notice'>You build a floor.</span>")
-				ChangeTurf(/turf/simulated/floor/plating)
-			else
-				to_chat(user, "<span class='warning'>You need one floor tile to build a floor!</span>")
-		else
-			to_chat(user, "<span class='warning'>The plating is going to need some support! Place metal rods first.</span>")
-
 /turf/simulated/floor/chasm/is_safe()
-	if(find_safeties() && ..())
+	if(HAS_TRAIT(src, TRAIT_CHASM_STOPPED) && ..())
 		return TRUE
 	return FALSE
 
-/turf/simulated/floor/chasm/proc/drop_stuff(AM)
-	. = 0
-	if(find_safeties())
-		return FALSE
-	var/thing_to_check = src
-	if(AM)
-		thing_to_check = list(AM)
-	for(var/thing in thing_to_check)
-		if(droppable(thing))
-			. = 1
-			INVOKE_ASYNC(src, .proc/drop, thing)
+/turf/simulated/floor/chasm/can_have_cabling()
+	if(locate(/obj/structure/lattice/catwalk/fireproof, src))
+		return TRUE
+	return FALSE
 
-/turf/simulated/floor/chasm/proc/droppable(atom/movable/AM)
-	if(falling_atoms[AM])
-		return FALSE
-	if(!isliving(AM) && !isobj(AM))
-		return FALSE
-	if(!AM.simulated || is_type_in_typecache(AM, forbidden_types) || AM.throwing)
-		return FALSE
-	//Flies right over the chasm
-	if(isliving(AM))
-		var/mob/living/M = AM
-		if(M.flying || M.floating || M.incorporeal_move)
-			return FALSE
-	if(ishuman(AM))
-		var/mob/living/carbon/human/H = AM
-		if(istype(H.belt, /obj/item/wormhole_jaunter))
-			var/obj/item/wormhole_jaunter/J = H.belt
-			//To freak out any bystanders
-			visible_message("<span class='boldwarning'>[H] falls into [src]!</span>")
-			J.chasm_react(H)
-			return FALSE
-	return TRUE
-
-/turf/simulated/floor/chasm/proc/drop(atom/movable/AM)
-	//Make sure the item is still there after our sleep
-	if(!AM || QDELETED(AM))
-		return
-	falling_atoms[AM] = TRUE
-	var/turf/T = locate(drop_x, drop_y, drop_z)
-	if(T)
-		AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>GAH! Ah... where are you?</span>")
-		T.visible_message("<span class='boldwarning'>[AM] falls from above!</span>")
-		AM.forceMove(T)
-		if(isliving(AM))
-			var/mob/living/L = AM
-			L.Weaken(5)
-			L.adjustBruteLoss(30)
-	falling_atoms -= AM
-
-/turf/simulated/floor/chasm/straight_down/Initialize()
+/turf/simulated/floor/chasm/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	drop_x = x
-	drop_y = y
-	drop_z = z - 1
-	var/turf/T = locate(drop_x, drop_y, drop_z)
-	if(T)
-		T.visible_message("<span class='boldwarning'>The ceiling gives way!</span>")
-		playsound(T, 'sound/effects/break_stone.ogg', 50, 1)
+
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
+
+	if(istype(I, /obj/item/stack/fireproof_rods))
+		var/obj/item/stack/fireproof_rods/rods = I
+		if(locate(/obj/structure/lattice/catwalk/fireproof, src))
+			to_chat(user, span_warning("Здесь уже есть мостик!"))
+			return .
+		var/obj/structure/lattice/fireproof/lattice = locate() in src
+		if(!lattice)
+			if(!rods.use(1))
+				to_chat(user, span_warning("Вам нужен один огнеупорный стержень для постройки решётки!"))
+				return .
+			to_chat(user, span_notice("Вы установили прочную решётку."))
+			playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+			new /obj/structure/lattice/fireproof(src)
+			return .|ATTACK_CHAIN_SUCCESS
+		if(!rods.use(2))
+			to_chat(user, span_warning("Вам нужно два огнеупорных стержня для постройки мостика!"))
+			return .
+		qdel(lattice)
+		playsound(src, 'sound/weapons/genhit.ogg', 50, TRUE)
+		to_chat(user, span_notice("Вы установили огнеупорный мостик."))
+		new /obj/structure/lattice/catwalk/fireproof(src)
+		return .|ATTACK_CHAIN_SUCCESS
+
+	if(istype(I, /obj/item/twohanded/fishing_rod))
+		var/obj/item/twohanded/fishing_rod/rod = I
+		if(!HAS_TRAIT(rod, TRAIT_WIELDED))
+			to_chat(user, span_warning("Для того чтобы начать ловлю следует взять удочку в обе руки!"))
+			return .
+		user.visible_message(
+			span_notice("[user] забрасывает удочку в пропасть, надеясь что-либо поймать!"),
+			span_notice("Вы приступили к рыбалке."),
+			span_italics("Вы слышите долгий потрескивающий звук."),
+		)
+		playsound(rod, 'sound/effects/fishing_rod_throw.ogg', 30)
+		if(!do_after(user, 6 SECONDS * rod.toolspeed, src, extra_checks = CALLBACK(src, PROC_REF(rod_checks), rod), category = DA_CAT_TOOL))
+			return .
+
+		var/list/fishing_contents = list()
+		for(var/turf/simulated/floor/chasm/chasm in range(4, src))
+			fishing_contents += chasm.get_fish()
+
+		if(!length(fishing_contents))
+			to_chat(user, span_boldwarning("Не клюёт!"))
+			return .
+
+		var/mob/fish = pick(fishing_contents)
+		var/obj/effect/abstract/chasm_storage/pool = fish.loc
+		pool.get_fish(fish, user.loc)
+		to_chat(user, span_boldnotice("Попался [fish.declent_ru(NOMINATIVE)]!"))
+		playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
+		return .|ATTACK_CHAIN_SUCCESS
+
+/turf/simulated/floor/chasm/proc/rod_checks(obj/item/twohanded/fishing_rod/rod)
+	return HAS_TRAIT(rod, TRAIT_WIELDED)
+
+/turf/simulated/floor/chasm/proc/get_fish()
+	. = list()
+	var/obj/effect/abstract/chasm_storage/pool = locate() in contents
+	if(pool)
+		for(var/mob/fish in pool.contents)
+			. += fish
+
+/turf/simulated/floor/chasm/ex_act()
+	return
+
+/turf/simulated/floor/chasm/acid_act(acidpwr, acid_volume)
+	return
+
+/turf/simulated/floor/chasm/singularity_act()
+	return
+
+/turf/simulated/floor/chasm/singularity_pull(S, current_size)
+	return
+
+/turf/simulated/floor/chasm/crowbar_act()
+	return
+
+/turf/simulated/floor/chasm/make_plating()
+	return
+
+/turf/simulated/floor/chasm/remove_plating()
+	return
+
+/turf/simulated/floor/chasm/rcd_act()
+	return RCD_NO_ACT
+
+/turf/simulated/floor/chasm/MakeSlippery(wet_setting = TURF_WET_WATER, min_wet_time = 0, wet_time_to_add = 0, max_wet_time = MAXIMUM_WET_TIME, permanent = FALSE, should_display_overlay = TRUE)
+	return
+
+/turf/simulated/floor/chasm/MakeDry(wet_setting = TURF_WET_WATER, immediate = FALSE, amount = INFINITY)
+	return
+
+// Subtypes
+
+/turf/simulated/floor/chasm/straight_down
+
+/turf/simulated/floor/chasm/straight_down/apply_components(mapload)
+	AddComponent(/datum/component/chasm, null, mapload)	//Don't pass anything for below_turf.
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	oxygen = 14
-	nitrogen = 23
-	temperature = 300
-	planetary_atmos = TRUE
-	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface
-	light_range = 1.9 //slightly less range than lava
-	light_power = 0.65 //less bright, too
+	oxygen = LAVALAND_OXYGEN
+	nitrogen = LAVALAND_NITROGEN
+	temperature = LAVALAND_TEMPERATURE
+	atmos_mode = ATMOS_MODE_EXPOSED_TO_ENVIRONMENT
+	atmos_environment = ENVIRONMENT_LAVALAND
+	baseturf = /turf/simulated/floor/chasm/straight_down/lava_land_surface //Chasms should not turn into lava
+	light_range = 2
+	light_power = 0.75
 	light_color = LIGHT_COLOR_LAVA //let's just say you're falling into lava, that makes sense right
 
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/drop(atom/movable/AM)
-	//Make sure the item is still there after our sleep
-	if(!AM || QDELETED(AM) || AM.anchored)
-		return
-	falling_atoms[AM] = TRUE
-	AM.visible_message("<span class='boldwarning'>[AM] falls into [src]!</span>", "<span class='userdanger'>You stumble and stare into an abyss before you. It stares back, and you fall \
-	into the enveloping dark.</span>")
-	if(isliving(AM))
-		var/mob/living/L = AM
-		L.notransform = TRUE
-		L.Stun(200)
-		L.resting = TRUE
-	var/oldtransform = AM.transform
-	var/oldcolor = AM.color
-	var/oldalpha = AM.alpha
-	animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
-	if(iscarbon(AM) && prob(25))
-		playsound(AM.loc, 'sound/effects/wilhelm_scream.ogg', 150)
-	for(var/i in 1 to 5)
-		//Make sure the item is still there after our sleep
-		if(!AM || QDELETED(AM))
-			return
-		AM.pixel_y--
-		sleep(2)
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Initialize(mapload)
+	. = ..()
+	GLOB.lazis_primary_turfs |= src
 
-	//Make sure the item is still there after our sleep
-	if(!AM || QDELETED(AM))
-		return
-
-	if(isrobot(AM))
-		var/mob/living/silicon/robot/S = AM
-		qdel(S.mmi)
-
-	falling_atoms -= AM
-
-	qdel(AM)
-
-	if(AM && !QDELETED(AM))	//It's indestructible
-		visible_message("<span class='boldwarning'>[src] spits out the [AM]!</span>")
-		AM.alpha = oldalpha
-		AM.color = oldcolor
-		AM.transform = oldtransform
-		AM.throw_at(get_edge_target_turf(src,pick(GLOB.alldirs)),rand(1, 10),rand(1, 10))
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/Destroy()
+	GLOB.lazis_primary_turfs -= src
+	. = ..()
 
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air
 	oxygen = MOLES_O2STANDARD
 	nitrogen = MOLES_N2STANDARD
 	temperature = T20C
+	atmos_mode = ATMOS_MODE_SEALED
+	atmos_environment = null
 
-/turf/simulated/floor/chasm/CanPass(atom/movable/mover, turf/target)
-	return 1

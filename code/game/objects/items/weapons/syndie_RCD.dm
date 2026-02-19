@@ -1,22 +1,15 @@
-#define MATTER_100 100
-#define MATTER_500 500
-
 /obj/item/rcd/syndicate
 	name = "Syndicate rapid-construction-device (RCD)"
 	desc = "A device used to rapidly build and deconstruct walls, floors and airlocks. This one is made by syndicate"
-	icon = 'icons/obj/tools.dmi'
 	icon_state = "syndi_rcd"
 	item_state = "syndi_rcd"
 	materials = list(MAT_PLASMA = 10000, MAT_TITANIUM = 10000, MAT_METAL = 20000)
 	origin_tech = "engineering=4;materials=2;syndicate=4"
 	req_access = list(ACCESS_SYNDICATE)
-	usesound = 'sound/items/deconstruct.ogg'
 	/// The max amount of matter that can be stored.
-	max_matter = MATTER_100
 	/// If the RCD can deconstruct reinforced walls.
 	canRwall = TRUE
 	/// Is the RCD's airlock access selection menu locked?
-	locked = TRUE
 	/// The current airlock type that will be build.
 	door_type = /obj/machinery/door/airlock/syndicate/public
 	/// An associative list of airlock type paths as keys, and their names as values.
@@ -29,14 +22,12 @@
 	region_min = REGION_TAIPAN
 	region_max = REGION_TAIPAN
 
-	fulltile_window = TRUE
 	window_type = /obj/structure/window/plastitanium
-	floor_type = /turf/simulated/floor/plating
 	wall_type = /turf/simulated/wall/mineral/plastitanium
 	matter_type = /obj/item/rcd_ammo/syndicate
 	matter_type_large = /obj/item/rcd_ammo/syndicate/large
 
-/obj/item/rcd/syndicate/Initialize()
+/obj/item/rcd/syndicate/Initialize(mapload)
 	. = ..()
 	if(!length(syndie_rcd_door_types))
 		syndie_rcd_door_types = list(
@@ -63,7 +54,7 @@
 			/obj/machinery/door/airlock/syndicate/freezer = "Freezer",
 			/obj/machinery/door/airlock/syndicate/freezer/glass = "Freezer (Glass)",
 			/obj/machinery/door/airlock/hatch = "Airtight Hatch",
-			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch"
+			/obj/machinery/door/airlock/maintenance_hatch = "Maintenance Hatch",
 		)
 	if(!length(syndie_door_types_ui_list))
 		for(var/type in syndie_rcd_door_types)
@@ -93,43 +84,43 @@
 	if(!check_menu(user))
 		return
 	var/list/choices = list(
-		MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_airlock"),
-		MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_delete"),
-		MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_grillewindow"),
-		MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
+		RCD_MODE_AIRLOCK = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_airlock"),
+		RCD_MODE_DECON = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_delete"),
+		RCD_MODE_WINDOW = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_grillewindow"),
+		RCD_MODE_TURF = image(icon = 'icons/obj/interface.dmi', icon_state = "wallfloor"),
 		"UI" = image(icon = 'icons/obj/interface.dmi', icon_state = "ui_interact")
 	)
-	if(mode == MODE_AIRLOCK)
+	if(mode == RCD_MODE_AIRLOCK)
 		choices += list(
 			"Change Access" = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_access"),
 			"Change Airlock Type" = image(icon = 'icons/obj/interface.dmi', icon_state = "syndie_airlocktype")
 		)
 	choices -= mode // Get rid of the current mode, clicking it won't do anything.
-	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, .proc/check_menu, user))
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
 	switch(choice)
-		if(MODE_AIRLOCK, MODE_DECON, MODE_WINDOW, MODE_TURF)
+		if(RCD_MODE_AIRLOCK, RCD_MODE_DECON, RCD_MODE_WINDOW, RCD_MODE_TURF)
 			mode = choice
 		if("UI")
 			ui_interact(user)
 			return
 		if("Change Access")
-			ui_tab = TAB_AIRLOCK_ACCESS
+			ui_tab = RCD_TAB_AIRLOCK_ACCESS
 			ui_interact(user)
 			return
 		if("Change Airlock Type")
-			ui_tab = TAB_AIRLOCK_TYPE
+			ui_tab = RCD_TAB_AIRLOCK_TYPE
 			ui_interact(user)
 			return
 		else
 			return
-	playsound(src, 'sound/effects/pop.ogg', 50, 0)
-	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
+	playsound(src, 'sound/effects/pop.ogg', 50, FALSE)
+	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
 
 /obj/item/rcd/syndicate/combat
 	name = "Syndicate combat rapid-construction-device (RCD)"
-	max_matter = MATTER_500
+	max_matter = RCD_MATTER_500
 
 /obj/item/rcd/syndicate/borg
 	borg_rcd = TRUE
@@ -137,8 +128,6 @@
 
 /obj/item/rcd_ammo/syndicate
 	name = "suspicious matter cartridge"
-	desc = "Highly compressed matter for the RCD."
-	icon = 'icons/obj/ammo.dmi'
 	icon_state = "syndie_rcd"
 	item_state = "syndie_rcdammo"
 	origin_tech = "materials=3,syndicate=2"
@@ -147,6 +136,3 @@
 /obj/item/rcd_ammo/syndicate/large
 	ammoamt = 100
 	materials = list(MAT_METAL = 40000, MAT_GLASS = 20000, MAT_TITANIUM = 20000, MAT_PLASMA = 20000)
-
-#undef MATTER_100
-#undef MATTER_500

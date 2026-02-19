@@ -21,6 +21,9 @@
 		add_random_traits()
 	add_random_plant_type(35)
 
+/obj/item/seeds/random/transform_into_random()
+	return
+
 /obj/item/seeds/random/labelled
 	name = "pack of exotic strange seeds"
 
@@ -37,9 +40,9 @@
 	icon_state = "crunchy"
 	bitesize_mod = 2
 
-/obj/item/reagent_containers/food/snacks/grown/random/Initialize()
+/obj/item/reagent_containers/food/snacks/grown/random/Initialize(mapload)
 	. = ..()
-	wine_power = rand(0.1,1.5)
+	wine_power = randfloat(0.1, 1.5)
 	if(prob(1))
-		wine_power = 2.0
+		wine_power = 2
 

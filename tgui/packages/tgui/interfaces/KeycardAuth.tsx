@@ -1,0 +1,162 @@
+import { useBackend } from '../backend';
+import { Box, Button, Section, LabeledList } from '../components';
+import { Window } from '../layouts';
+
+type KeycardAuthData = {
+  swiping: boolean;
+  busy: boolean;
+  hasSwiped: boolean;
+  redAvailable: boolean;
+  ertreason: string;
+  event: string;
+  hasConfirm: boolean;
+  isRemote: boolean;
+};
+export const KeycardAuth = (props: unknown) => {
+  const { act, data } = useBackend<KeycardAuthData>();
+  let infoBox = (
+    <Section title="Keycard Authentication Device">
+      <Box>
+        This device is used to trigger certain high security events. It requires
+        the simultaneous swipe of two high-level ID cards.
+      </Box>
+    </Section>
+  );
+  if (!data.swiping && !data.busy) {
+    return (
+      <Window width={540} height={280}>
+        <Window.Content>
+          {infoBox}
+          <Section title="Choose Action">
+            <LabeledList>
+              <LabeledList.Item label="Red Alert">
+                <Button
+                  icon="exclamation-triangle"
+                  disabled={!data.redAvailable}
+                  onClick={() =>
+                    act('triggerevent', { 'triggerevent': 'Red Alert' })
+                  }
+                >
+                  Red Alert
+                </Button>
+              </LabeledList.Item>
+              <LabeledList.Item label="ERT">
+                <Button
+                  icon="broadcast-tower"
+                  onClick={() =>
+                    act('triggerevent', {
+                      'triggerevent': 'Emergency Response Team',
+                    })
+                  }
+                >
+                  Call ERT
+                </Button>
+              </LabeledList.Item>
+              <LabeledList.Item label="Emergency Maint Access">
+                <Button
+                  icon="door-open"
+                  onClick={() =>
+                    act('triggerevent', {
+                      'triggerevent': 'Grant Emergency Maintenance Access',
+                    })
+                  }
+                >
+                  Grant
+                </Button>
+                <Button
+                  icon="door-closed"
+                  onClick={() =>
+                    act('triggerevent', {
+                      'triggerevent': 'Revoke Emergency Maintenance Access',
+                    })
+                  }
+                >
+                  Revoke
+                </Button>
+              </LabeledList.Item>
+              <LabeledList.Item label="Emergency Station-Wide Access">
+                <Button
+                  icon="door-open"
+                  onClick={() =>
+                    act('triggerevent', {
+                      'triggerevent': 'Activate Station-Wide Emergency Access',
+                    })
+                  }
+                >
+                  Grant
+                </Button>
+                <Button
+                  icon="door-closed"
+                  onClick={() =>
+                    act('triggerevent', {
+                      'triggerevent':
+                        'Deactivate Station-Wide Emergency Access',
+                    })
+                  }
+                >
+                  Revoke
+                </Button>
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
+        </Window.Content>
+      </Window>
+    );
+  } else {
+    let swipeInfo = <Box color="red">Waiting for YOU to swipe your ID...</Box>;
+    if (
+      !data.hasSwiped &&
+      !data.ertreason &&
+      data.event === 'Emergency Response Team'
+    ) {
+      swipeInfo = (
+        <Box color="red">Fill out the reason for your ERT request.</Box>
+      );
+    } else if (data.hasConfirm) {
+      swipeInfo = <Box color="green">Request Confirmed!</Box>;
+    } else if (data.isRemote) {
+      swipeInfo = (
+        <Box color="orange">Swipe your card to CONFIRM the remote request.</Box>
+      );
+    } else if (data.hasSwiped) {
+      swipeInfo = (
+        <Box color="orange">Waiting for second person to confirm...</Box>
+      );
+    }
+    return (
+      <Window width={540} height={265}>
+        <Window.Content>
+          {infoBox}
+          {data.event === 'Emergency Response Team' && (
+            <Section title="Reason for ERT Call">
+              <Box>
+                <Button
+                  color={data.ertreason ? '' : 'red'}
+                  icon={data.ertreason ? 'check' : 'pencil-alt'}
+                  disabled={data.busy}
+                  onClick={() => act('ert')}
+                >
+                  {data.ertreason ? data.ertreason : '-----'}
+                </Button>
+              </Box>
+            </Section>
+          )}
+          <Section
+            title={data.event}
+            buttons={
+              <Button
+                icon="arrow-circle-left"
+                disabled={data.busy || data.hasConfirm}
+                onClick={() => act('reset')}
+              >
+                Back
+              </Button>
+            }
+          >
+            {swipeInfo}
+          </Section>
+        </Window.Content>
+      </Window>
+    );
+  }
+};

@@ -18,171 +18,82 @@
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
-
+#define BAG_PUTTING_DELAY 6 SECONDS
 /obj/item/storage/box
 	name = "box"
-	desc = "It's just an ordinary box."
+	icon = 'icons/obj/storage/boxes.dmi'
+	desc = "Это обычная коробка."
 	icon_state = "box"
-	item_state = "syringe_kit"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	item_state = "normal"
 	resistance_flags = FLAMMABLE
+	use_sound = 'sound/items/handling/cardboard_box_rustle.ogg'
+	drop_sound = 'sound/items/handling/drop/cardboardbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/cardboardbox_pickup.ogg'
 	foldable = /obj/item/stack/sheet/cardboard
 	foldable_amt = 1
 
 /obj/item/storage/box/large
 	name = "large box"
-	desc = "You could build a fort with this."
+	desc = "Это крайне вместительная коробка."
 	icon_state = "largebox"
+	item_state = "largebox"
 	w_class = 4 // Big, bulky.
 	foldable_amt = 4
 	storage_slots = 21
 	max_combined_w_class = 42 // 21*2
 
-/obj/item/storage/box/survival
-	icon_state = "box_civ"
-
-/obj/item/storage/box/survival/New()
-	..()
-	contents = list()
-	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/internals/emergency_oxygen( src )
-	new /obj/item/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/flashlight/flare/glowstick/emergency( src )
-	return
-
-/obj/item/storage/box/survival_vox
-	icon_state = "box_vox"
-
-/obj/item/storage/box/survival_vox/New()
-	..()
-	contents = list()
-	new /obj/item/clothing/mask/breath/vox(src)
-	new /obj/item/tank/internals/emergency_oxygen/nitrogen(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-
-/obj/item/storage/box/survival_machine
-	icon_state = "box_machine"
-
-/obj/item/storage/box/survival_machine/New()
-	..()
-	contents = list()
-	new /obj/item/weldingtool/mini(src)
-	new /obj/item/stack/cable_coil/random(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-
-/obj/item/storage/box/survival_plasmaman
-	icon_state = "box_plasma"
-
-/obj/item/storage/box/survival_plasmaman/New()
-	..()
-	contents = list()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/plasma(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-
-/obj/item/storage/box/engineer
-	icon_state = "box_eng"
-
-/obj/item/storage/box/engineer/New()
-	..()
-	contents = list()
-	new /obj/item/clothing/mask/breath( src )
-	new /obj/item/tank/internals/emergency_oxygen/engi( src )
-	new /obj/item/reagent_containers/hypospray/autoinjector( src )
-	new /obj/item/flashlight/flare/glowstick/emergency( src )
-	return
-
-/obj/item/storage/box/survival_mining
-	icon_state = "box_min"
-
-/obj/item/storage/box/survival_mining/New()
-	..()
-	contents = list()
-	new /obj/item/clothing/mask/gas/explorer(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/crowbar/red(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/flashlight/flare/glowstick/emergency(src)
-
-/obj/item/storage/box/survival_syndi
-	icon_state = "box_syndi"
-
-/obj/item/storage/box/survival_syndi/New()
-	..()
-	contents = list()
-	new /obj/item/clothing/mask/gas/syndicate(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi/syndi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
-	new /obj/item/reagent_containers/food/pill/initropidril(src)
-	new /obj/item/flashlight/flare/glowstick/red(src)
+/obj/item/storage/box/large/get_ru_names()
+	return list(
+		NOMINATIVE = "большая коробка",
+		GENITIVE = "большой коробки",
+		DATIVE = "большой коробке",
+		ACCUSATIVE = "большую коробку",
+		INSTRUMENTAL = "большой коробкой",
+		PREPOSITIONAL = "большой коробке",
+	)
 
 /obj/item/storage/box/gloves
 	name = "box of latex gloves"
 	desc = "Contains white gloves."
-	icon_state = "latex"
+	icon_state = "box_gloves"
 
-/obj/item/storage/box/gloves/New()
-	..()
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
-	new /obj/item/clothing/gloves/color/latex(src)
+/obj/item/storage/box/gloves/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/clothing/gloves/color/latex(src)
 
 /obj/item/storage/box/masks
 	name = "sterile masks"
 	desc = "This box contains masks of sterility."
-	icon_state = "sterile"
+	icon_state = "box_mask"
 
-/obj/item/storage/box/masks/New()
-	..()
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/mask/surgical(src)
-
+/obj/item/storage/box/masks/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/clothing/mask/surgical(src)
 
 /obj/item/storage/box/syringes
 	name = "syringes"
 	desc = "A box full of syringes."
 	desc = "A biohazard alert warning is printed on the box"
-	icon_state = "syringe"
+	icon_state = "box_syringe"
 
-/obj/item/storage/box/syringes/New()
-	..()
-	new /obj/item/reagent_containers/syringe( src )
-	new /obj/item/reagent_containers/syringe( src )
-	new /obj/item/reagent_containers/syringe( src )
-	new /obj/item/reagent_containers/syringe( src )
-	new /obj/item/reagent_containers/syringe( src )
-	new /obj/item/reagent_containers/syringe( src )
-	new /obj/item/reagent_containers/syringe( src )
+/obj/item/storage/box/syringes/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/syringe(src)
 
 /obj/item/storage/box/beakers
 	name = "beaker box"
-	icon_state = "beaker"
+	icon_state = "box_beaker"
 
-/obj/item/storage/box/beakers/New()
-	..()
-	new /obj/item/reagent_containers/glass/beaker( src )
-	new /obj/item/reagent_containers/glass/beaker( src )
-	new /obj/item/reagent_containers/glass/beaker( src )
-	new /obj/item/reagent_containers/glass/beaker( src )
-	new /obj/item/reagent_containers/glass/beaker( src )
-	new /obj/item/reagent_containers/glass/beaker( src )
-	new /obj/item/reagent_containers/glass/beaker( src )
+/obj/item/storage/box/beakers/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/glass/beaker(src)
 
 /obj/item/storage/box/beakers/bluespace
 	name = "box of bluespace beakers"
-	icon_state = "beaker"
 
-/obj/item/storage/box/beakers/bluespace/New()
+/obj/item/storage/box/beakers/bluespace/populate_contents()
 	..()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/glass/beaker/bluespace(src)
@@ -190,373 +101,262 @@
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
 	desc = "A box full of empty IV bags."
-	icon_state = "beaker"
+	icon_state = "box_cross1"
 
-/obj/item/storage/box/iv_bags/New()
-	..()
-	new /obj/item/reagent_containers/iv_bag( src )
-	new /obj/item/reagent_containers/iv_bag( src )
-	new /obj/item/reagent_containers/iv_bag( src )
-	new /obj/item/reagent_containers/iv_bag( src )
-	new /obj/item/reagent_containers/iv_bag( src )
-	new /obj/item/reagent_containers/iv_bag( src )
-	new /obj/item/reagent_containers/iv_bag( src )
+/obj/item/storage/box/iv_bags/populate_contents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/iv_bag(src)
 
 /obj/item/storage/box/injectors
-	name = "\improper DNA injectors"
+	name = "DNA injectors"
 	desc = "This box contains injectors it seems."
+	icon_state = "box_syringe"
 
-/obj/item/storage/box/injectors/New()
-	..()
+/obj/item/storage/box/injectors/populate_contents()
 	new /obj/item/dnainjector/h2m(src)
 	new /obj/item/dnainjector/h2m(src)
 	new /obj/item/dnainjector/h2m(src)
 	new /obj/item/dnainjector/m2h(src)
 	new /obj/item/dnainjector/m2h(src)
 	new /obj/item/dnainjector/m2h(src)
-
-/obj/item/storage/box/slug
-	name = "Ammunition Box (Slug)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "slugbox"
-
-/obj/item/storage/box/slug/New()
-	..()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun(src)
-
-
-/obj/item/storage/box/buck
-	name = "Ammunition Box (Buckshot)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "buckshotbox"
-
-/obj/item/storage/box/buck/New()
-	..()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/buckshot(src)
-
-/obj/item/storage/box/dragonsbreath
-	name = "Ammunition Box (Dragonsbreath)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "dragonsbreathbox"
-
-/obj/item/storage/box/dragonsbreath/New()
-	..()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/incendiary/dragonsbreath(src)
-
-/obj/item/storage/box/stun
-	name = "Ammunition Box (Stun shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "stunbox"
-
-/obj/item/storage/box/stun/New()
-	..()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/stunslug(src)
-
-/obj/item/storage/box/beanbag
-	name = "Ammunition Box (Beanbag shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "beanbagbox"
-
-/obj/item/storage/box/beanbag/New()
-	..()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/beanbag(src)
-
-/obj/item/storage/box/rubbershot
-	name = "Ammunition Box (Rubbershot shells)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "rubbershotbox"
-
-/obj/item/storage/box/rubbershot/New()
-	..()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/rubbershot(src)
-
-/obj/item/storage/box/tranquilizer
-	name = "Ammunition Box (Tranquilizer darts)"
-	desc = "A small box capable of holding seven shotgun shells."
-	icon_state = "tranqbox"
-
-/obj/item/storage/box/tranquilizer/New()
-	..()
-	for(var/i in 1 to 7)
-		new /obj/item/ammo_casing/shotgun/tranquilizer(src)
 
 /obj/item/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
-	icon_state = "flashbang"
+	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</b>"
+	icon_state = "box_flashbang"
+	item_state = "sec"
 
-/obj/item/storage/box/flashbangs/New()
-	..()
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/grenade/flashbang(src)
-	new /obj/item/grenade/flashbang(src)
+/obj/item/storage/box/flashbangs/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/flashbang(src)
 
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
-	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
-	icon_state = "flashbang"
+	desc = "<b>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</b>"
+	icon_state = "box_security"
+	item_state = "sec"
 
-/obj/item/storage/box/flashes/New()
-	..()
-	new /obj/item/flash(src)
-	new /obj/item/flash(src)
-	new /obj/item/flash(src)
-	new /obj/item/flash(src)
-	new /obj/item/flash(src)
-	new /obj/item/flash(src)
+/obj/item/storage/box/flashes/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/flash(src)
 
 /obj/item/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
-	icon_state = "flashbang"
+	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</b>"
+	icon_state = "box_flashbang"
+	item_state = "sec"
 
-/obj/item/storage/box/teargas/New()
-	..()
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
-	new /obj/item/grenade/chem_grenade/teargas(src)
+/obj/item/storage/box/teargas/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/chem_grenade/teargas(src)
 
 /obj/item/storage/box/barrier
 	name = "box of barrier grenades"
-	desc = "Instant cover.</B>"
-	icon_state = "flashbang"
+	desc = "Instant cover.</b>"
+	icon_state = "box_flashbang"
+	item_state = "sec"
 
-/obj/item/storage/box/barrier/New()
-	..()
-	new /obj/item/grenade/barrier(src)
-	new /obj/item/grenade/barrier(src)
-	new /obj/item/grenade/barrier(src)
-	new /obj/item/grenade/barrier(src)
-	new /obj/item/grenade/barrier(src)
-	new /obj/item/grenade/barrier(src)
-	new /obj/item/grenade/barrier(src)
+/obj/item/storage/box/barrier/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/barrier(src)
 
 /obj/item/storage/box/emps
 	name = "emp grenades"
 	desc = "A box with 5 emp grenades."
-	icon_state = "flashbang"
+	icon_state = "box_of_doom"
+	item_state = "syndie"
 
-/obj/item/storage/box/emps/New()
-	..()
-	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/grenade/empgrenade(src)
-	new /obj/item/grenade/empgrenade(src)
-
+/obj/item/storage/box/emps/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/grenade/empgrenade(src)
 
 /obj/item/storage/box/trackimp
 	name = "tracking implant kit"
 	desc = "Box full of scum-bag tracking utensils."
-	icon_state = "implant"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
-/obj/item/storage/box/trackimp/New()
-	..()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
+/obj/item/storage/box/trackimp/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/minertracker
 	name = "boxed tracking implant kit"
 	desc = "For finding those who have died on the accursed lavaworld."
-	icon_state = "implant"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
-/obj/item/storage/box/minertracker/New()
-	..()
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
-	new /obj/item/implantcase/tracking(src)
+/obj/item/storage/box/minertracker/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/implantcase/tracking(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
-	new /obj/item/locator(src)
+	new /obj/item/gps/security(src)
 
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"
 	desc = "Box of stuff used to implant chemicals."
-	icon_state = "implant"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
-/obj/item/storage/box/chemimp/New()
-	..()
-	new /obj/item/implantcase/chem(src)
-	new /obj/item/implantcase/chem(src)
-	new /obj/item/implantcase/chem(src)
-	new /obj/item/implantcase/chem(src)
-	new /obj/item/implantcase/chem(src)
+/obj/item/storage/box/chemimp/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/implantcase/chem(src)
 	new /obj/item/implanter(src)
 	new /obj/item/implantpad(src)
 
 /obj/item/storage/box/exileimp
 	name = "boxed exile implant kit"
 	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
-	icon_state = "implant"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
-/obj/item/storage/box/exileimp/New()
-	..()
-	new /obj/item/implantcase/exile(src)
-	new /obj/item/implantcase/exile(src)
-	new /obj/item/implantcase/exile(src)
-	new /obj/item/implantcase/exile(src)
-	new /obj/item/implantcase/exile(src)
+/obj/item/storage/box/exileimp/populate_contents()
+	for(var/I in 1 to 5)
+		new /obj/item/implantcase/exile(src)
 	new /obj/item/implanter(src)
 
 /obj/item/storage/box/deathimp
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
-	icon_state = "implant"
+	icon_state = "box_biochip"
+	item_state = "spec"
+	storage_slots = 8
 
-/obj/item/storage/box/deathimp/New()
-	..()
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
+/obj/item/storage/box/deathimp/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/implantcase/death_alarm(src)
 	new /obj/item/implanter(src)
 
 /obj/item/storage/box/tapes
 	name = "Tape Box"
 	desc = "A box of spare recording tapes"
-	icon_state = "box"
+	icon_state = "box_security"
+	item_state = "sec"
 
-/obj/item/storage/box/tapes/New()
-	..()
-	new /obj/item/tape(src)
-	new /obj/item/tape(src)
-	new /obj/item/tape(src)
-	new /obj/item/tape(src)
-	new /obj/item/tape(src)
-	new /obj/item/tape(src)
+/obj/item/storage/box/tapes/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/tape(src)
 
 /obj/item/storage/box/rxglasses
 	name = "prescription glasses"
 	desc = "This box contains nerd glasses."
-	icon_state = "glasses"
+	icon_state = "box_glasses"
 
-/obj/item/storage/box/rxglasses/New()
-	..()
-	new /obj/item/clothing/glasses/regular(src)
-	new /obj/item/clothing/glasses/regular(src)
-	new /obj/item/clothing/glasses/regular(src)
-	new /obj/item/clothing/glasses/regular(src)
-	new /obj/item/clothing/glasses/regular(src)
-	new /obj/item/clothing/glasses/regular(src)
-	new /obj/item/clothing/glasses/regular(src)
+/obj/item/storage/box/rxglasses/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/clothing/glasses/regular(src)
 
 /obj/item/storage/box/drinkingglasses
 	name = "box of drinking glasses"
 	desc = "It has a picture of drinking glasses on it."
 
-/obj/item/storage/box/drinkingglasses/New()
-	..()
-	new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
-	new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
-	new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
-	new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
-	new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
-	new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
+/obj/item/storage/box/drinkingglasses/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/drinks/drinkingglass(src)
 
 /obj/item/storage/box/cdeathalarm_kit
 	name = "Death Alarm Kit"
 	desc = "Box of stuff used to implant death alarms."
-	icon_state = "implant"
-	item_state = "syringe_kit"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
-/obj/item/storage/box/cdeathalarm_kit/New()
-	..()
+/obj/item/storage/box/cdeathalarm_kit/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/implantcase/death_alarm(src)
 	new /obj/item/implanter(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
-	new /obj/item/implantcase/death_alarm(src)
 
 /obj/item/storage/box/condimentbottles
 	name = "box of condiment bottles"
 	desc = "It has a large ketchup smear on it."
 
-/obj/item/storage/box/condimentbottles/New()
-	..()
-	new /obj/item/reagent_containers/food/condiment(src)
-	new /obj/item/reagent_containers/food/condiment(src)
-	new /obj/item/reagent_containers/food/condiment(src)
-	new /obj/item/reagent_containers/food/condiment(src)
-	new /obj/item/reagent_containers/food/condiment(src)
-	new /obj/item/reagent_containers/food/condiment(src)
+/obj/item/storage/box/condimentbottles/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/condiment(src)
 
 /obj/item/storage/box/cups
 	name = "box of paper cups"
 	desc = "It has pictures of paper cups on the front."
+	icon_state = "box_cups"
 
-/obj/item/storage/box/cups/New()
-	..()
-	new /obj/item/reagent_containers/food/drinks/sillycup( src )
-	new /obj/item/reagent_containers/food/drinks/sillycup( src )
-	new /obj/item/reagent_containers/food/drinks/sillycup( src )
-	new /obj/item/reagent_containers/food/drinks/sillycup( src )
-	new /obj/item/reagent_containers/food/drinks/sillycup( src )
-	new /obj/item/reagent_containers/food/drinks/sillycup( src )
-	new /obj/item/reagent_containers/food/drinks/sillycup( src )
-
+/obj/item/storage/box/cups/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/reagent_containers/food/drinks/sillycup(src)
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
-	icon_state = "donk_kit"
+	desc = "<b>Инструкция:</b> <i>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</i>"
+	icon_state = "donkpocket_box"
+	item_state = "donks"
 
-/obj/item/storage/box/donkpockets/New()
-	..()
-	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+/obj/item/storage/box/donkpockets/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка с Донк-покетами",
+		GENITIVE = "коробки с Донк-покетами",
+		DATIVE = "коробке с Донк-покетами",
+		ACCUSATIVE = "коробку с Донк-покетами",
+		INSTRUMENTAL = "коробкой с Донк-покетами",
+		PREPOSITIONAL = "коробке с Донк-покетами",
+	)
+
+/obj/item/storage/box/donkpockets/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
+
+/obj/item/storage/box/warmdonkpockets
+	name = "box of warm donk-pockets"
+	desc = "Коробка с уже разогретыми Донк-покетами. Ням-ням!"
+	icon_state = "donkpocket_box"
+	item_state = "donks"
+
+/obj/item/storage/box/warmdonkpockets/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка с разогретыми Донк-покетами",
+		GENITIVE = "коробки с разогретыми Донк-покетами",
+		DATIVE = "коробке с разогретыми Донк-покетами",
+		ACCUSATIVE = "коробку с разогретыми Донк-покетами",
+		INSTRUMENTAL = "коробкой с разогретыми Донк-покетами",
+		PREPOSITIONAL = "коробке с разогретыми Донк-покетами",
+	)
+
+/obj/item/storage/box/warmdonkpockets/populate_contents()
+	for(var/i in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/warmdonkpocket(src)
+
 
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
-	icon_state = "donk_kit"
+	desc = "Эта коробка кажется немного тёплой на ощупь."
+	icon_state = "donkpocket_box"
+	item_state = "donks"
 
-/obj/item/storage/box/syndidonkpockets/New()
-	..()
-	new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
-	new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
+/obj/item/storage/box/syndidonkpockets/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка с Донк-покетами",
+		GENITIVE = "коробки с Донк-покетами",
+		DATIVE = "коробке с Донк-покетами",
+		ACCUSATIVE = "коробку с Донк-покетами",
+		INSTRUMENTAL = "коробкой с Донк-покетами",
+		PREPOSITIONAL = "коробке с Донк-покетами",
+	)
+
+/obj/item/storage/box/syndidonkpockets/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
 
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
-	storage_slots = 7
+	item_state = "mcube"
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
 	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
-/obj/item/storage/box/monkeycubes/New()
-	..()
+/obj/item/storage/box/monkeycubes/populate_contents()
 	for(var/i in 1 to 5)
 		new monkey_cube_type(src)
 
@@ -587,56 +387,37 @@
 /obj/item/storage/box/permits
 	name = "box of construction permits"
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
-	icon_state = "id"
+	icon_state = "box_id"
 
-/obj/item/storage/box/permits/New()
-	..()
-	new /obj/item/areaeditor/permit(src)
-	new /obj/item/areaeditor/permit(src)
-	new /obj/item/areaeditor/permit(src)
-	new /obj/item/areaeditor/permit(src)
-	new /obj/item/areaeditor/permit(src)
-	new /obj/item/areaeditor/permit(src)
-	new /obj/item/areaeditor/permit(src)
+/obj/item/storage/box/permits/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/areaeditor/permit(src)
 
 /obj/item/storage/box/syndicate_permits
 	name = "box of syndicate construction permits"
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
 	icon_state = "syndie_id"
+	item_state = "syndie"
 
-/obj/item/storage/box/syndicate_permits/New()
-	..()
-	new /obj/item/areaeditor/permit/syndicate(src)
-	new /obj/item/areaeditor/permit/syndicate(src)
-	new /obj/item/areaeditor/permit/syndicate(src)
-	new /obj/item/areaeditor/permit/syndicate(src)
-	new /obj/item/areaeditor/permit/syndicate(src)
-	new /obj/item/areaeditor/permit/syndicate(src)
-	new /obj/item/areaeditor/permit/syndicate(src)
-
+/obj/item/storage/box/syndicate_permits/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/areaeditor/permit/syndicate(src)
 
 /obj/item/storage/box/ids
 	name = "spare IDs"
 	desc = "Has so many empty IDs."
-	icon_state = "id"
+	icon_state = "box_id"
 
-/obj/item/storage/box/ids/New()
-	..()
-	new /obj/item/card/id(src)
-	new /obj/item/card/id(src)
-	new /obj/item/card/id(src)
-	new /obj/item/card/id(src)
-	new /obj/item/card/id(src)
-	new /obj/item/card/id(src)
-	new /obj/item/card/id(src)
+/obj/item/storage/box/ids/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/card/id(src)
 
 /obj/item/storage/box/prisoner
 	name = "prisoner IDs"
 	desc = "Take away their last shred of dignity, their name."
-	icon_state = "id"
+	icon_state = "box_id"
 
-/obj/item/storage/box/prisoner/New()
-	..()
+/obj/item/storage/box/prisoner/populate_contents()
 	new /obj/item/card/id/prisoner/one(src)
 	new /obj/item/card/id/prisoner/two(src)
 	new /obj/item/card/id/prisoner/three(src)
@@ -648,29 +429,22 @@
 /obj/item/storage/box/seccarts
 	name = "spare R.O.B.U.S.T. Cartridges"
 	desc = "A box full of R.O.B.U.S.T. Cartridges, used by Security."
-	icon_state = "pda"
+	icon_state = "box_security"
+	item_state = "sec"
 
-/obj/item/storage/box/seccarts/New()
-	..()
-	new /obj/item/cartridge/security(src)
-	new /obj/item/cartridge/security(src)
-	new /obj/item/cartridge/security(src)
-	new /obj/item/cartridge/security(src)
-	new /obj/item/cartridge/security(src)
-	new /obj/item/cartridge/security(src)
-	new /obj/item/cartridge/security(src)
+/obj/item/storage/box/seccarts/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/cartridge/security(src)
 
 /obj/item/storage/box/holobadge
 	name = "holobadge box"
 	icon_state = "box_badge"
+	item_state = "sec"
 	desc = "A box claiming to contain holobadges."
 
-/obj/item/storage/box/holobadge/New()
-	..()
-	new /obj/item/clothing/accessory/holobadge(src)
-	new /obj/item/clothing/accessory/holobadge(src)
-	new /obj/item/clothing/accessory/holobadge(src)
-	new /obj/item/clothing/accessory/holobadge(src)
+/obj/item/storage/box/holobadge/populate_contents()
+	for(var/I in 1 to 4)
+		new /obj/item/clothing/accessory/holobadge(src)
 	new /obj/item/clothing/accessory/holobadge/cord(src)
 	new /obj/item/clothing/accessory/holobadge/cord(src)
 
@@ -678,64 +452,49 @@
 	name = "evidence bag box"
 	desc = "A box claiming to contain evidence bags."
 	icon_state = "box_evidence"
+	item_state = "sec"
 
-/obj/item/storage/box/evidence/New()
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	new /obj/item/evidencebag(src)
-	..()
+/obj/item/storage/box/evidence/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/evidencebag(src)
 
 /obj/item/storage/box/handcuffs
 	name = "spare handcuffs"
 	desc = "A box full of handcuffs."
-	icon_state = "handcuff"
+	icon_state = "box_handcuff"
+	item_state = "sec"
 
-/obj/item/storage/box/handcuffs/New()
-	..()
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs(src)
-	new /obj/item/restraints/handcuffs(src)
+/obj/item/storage/box/handcuffs/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/restraints/handcuffs(src)
 
 /obj/item/storage/box/zipties
 	name = "box of spare zipties"
 	desc = "A box full of zipties."
-	icon_state = "handcuff"
+	icon_state = "box_handcuff"
+	item_state = "sec"
 
-/obj/item/storage/box/zipties/New()
-	..()
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
+/obj/item/storage/box/zipties/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/restraints/handcuffs/cable/zipties(src)
 
 /obj/item/storage/box/alienhandcuffs
 	name = "box of spare handcuffs"
 	desc = "A box full of handcuffs."
-	icon_state = "alienboxCuffs"
+	icon_state = "box_abductor_handcuffs"
+	item_state = "abductor"
 
-/obj/item/storage/box/alienhandcuffs/New()
-	..()
+/obj/item/storage/box/alienhandcuffs/populate_contents()
 	for(var/i in 1 to 7)
 		new	/obj/item/restraints/handcuffs/alien(src)
 
 /obj/item/storage/box/manacles
 	name = "box of spare manacles"
 	desc = "A box full of manacles. Old but gold."
-	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "box_manacle"
+	item_state = "ninja"
 
-/obj/item/storage/box/manacles/New()
-	..()
+/obj/item/storage/box/manacles/populate_contents()
 	for(var/i in 1 to 7)
 		new	/obj/item/restraints/handcuffs/manacles(src)
 
@@ -743,9 +502,9 @@
 	name = "boxed space suit and helmet"
 	desc = "A sleek, sturdy box used to hold replica spacesuits."
 	icon_state = "box_of_doom"
+	item_state = "syndie"
 
-/obj/item/storage/box/fakesyndiesuit/New()
-	..()
+/obj/item/storage/box/fakesyndiesuit/populate_contents()
 	new /obj/item/clothing/head/syndicatefake(src)
 	new /obj/item/clothing/suit/syndicatefake(src)
 
@@ -753,9 +512,9 @@
 	name = "enforcer pistol kit (rubber)"
 	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
 	icon_state = "box_ert"
+	item_state = "ert"
 
-/obj/item/storage/box/enforcer_rubber/New()
-	..()
+/obj/item/storage/box/enforcer_rubber/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
@@ -764,9 +523,9 @@
 	name = "enforcer pistol kit (lethal)"
 	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'LETHAL'."
 	icon_state = "box_ert"
+	item_state = "ert"
 
-/obj/item/storage/box/enforcer_lethal/New()
-	..()
+/obj/item/storage/box/enforcer_lethal/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
 	new /obj/item/ammo_box/magazine/enforcer/lethal(src)
@@ -775,9 +534,9 @@
 	name = "enforcer pistol kit (rubber)"
 	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
 	icon_state = "box_ert"
+	item_state = "ert"
 
-/obj/item/storage/box/enforcer/security/New()
-	..()
+/obj/item/storage/box/enforcer/security/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src) // loaded with rubber by default
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/ammo_box/magazine/enforcer(src)
@@ -786,8 +545,7 @@
 	name = "bartender rare reagents kit"
 	desc = "A box intended for experienced bartenders."
 
-/obj/item/storage/box/bartender_rare_ingredients_kit/New()
-	..()
+/obj/item/storage/box/bartender_rare_ingredients_kit/populate_contents()
 	var/list/reagent_list = list("sacid", "radium", "ether", "methamphetamine", "plasma", "gold", "silver", "capsaicin", "psilocybin")
 	for(var/reag in reagent_list)
 		var/obj/item/reagent_containers/glass/bottle/B = new(src)
@@ -797,9 +555,10 @@
 /obj/item/storage/box/chef_rare_ingredients_kit
 	name = "chef rare reagents kit"
 	desc = "A box intended for experienced chefs."
+	icon_state = "box_of_doom"
+	item_state = "syndie"
 
-/obj/item/storage/box/chef_rare_ingredients_kit/New()
-	..()
+/obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
 	new /obj/item/reagent_containers/food/condiment/soysauce(src)
 	new /obj/item/reagent_containers/food/condiment/enzyme(src)
 	new /obj/item/reagent_containers/food/condiment/pack/hotsauce(src)
@@ -812,60 +571,48 @@
 
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
-	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
-	icon_state = "mousetraps"
+	desc = "<b><span style='color: red;'>WARNING:</span></b> <i>Keep out of reach of children</i>."
+	icon_state = "box_mousetraps"
 
-/obj/item/storage/box/mousetraps/New()
-	..()
-	new /obj/item/assembly/mousetrap( src )
-	new /obj/item/assembly/mousetrap( src )
-	new /obj/item/assembly/mousetrap( src )
-	new /obj/item/assembly/mousetrap( src )
-	new /obj/item/assembly/mousetrap( src )
-	new /obj/item/assembly/mousetrap( src )
+/obj/item/storage/box/mousetraps/populate_contents()
+	for(var/I in 1 to 6)
+		new /obj/item/assembly/mousetrap(src)
 
 /obj/item/storage/box/pillbottles
 	name = "box of pill bottles"
 	desc = "It has pictures of pill bottles on its front."
+	icon_state = "box_pillpacks"
 
-/obj/item/storage/box/pillbottles/New()
-	..()
-	new /obj/item/storage/pill_bottle( src )
-	new /obj/item/storage/pill_bottle( src )
-	new /obj/item/storage/pill_bottle( src )
-	new /obj/item/storage/pill_bottle( src )
-	new /obj/item/storage/pill_bottle( src )
-	new /obj/item/storage/pill_bottle( src )
-	new /obj/item/storage/pill_bottle( src )
+/obj/item/storage/box/pillbottles/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/pill_bottle(src)
 
 /obj/item/storage/box/patch_packs
 	name = "box of patch packs"
 	desc = "It has pictures of patch packs on its front."
 
-/obj/item/storage/box/patch_packs/New()
-	..()
-	new /obj/item/storage/pill_bottle/patch_pack(src)
-	new /obj/item/storage/pill_bottle/patch_pack(src)
-	new /obj/item/storage/pill_bottle/patch_pack(src)
-	new /obj/item/storage/pill_bottle/patch_pack(src)
-	new /obj/item/storage/pill_bottle/patch_pack(src)
-	new /obj/item/storage/pill_bottle/patch_pack(src)
-	new /obj/item/storage/pill_bottle/patch_pack(src)
+/obj/item/storage/box/patch_packs/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/storage/pill_bottle/patch_pack(src)
 
 /obj/item/storage/box/bodybags
 	name = "body bags"
 	desc = "This box contains body bags."
-	icon_state = "bodybags"
+	icon_state = "box_bodybags"
 
-/obj/item/storage/box/bodybags/New()
-	..()
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
-	new /obj/item/bodybag(src)
+/obj/item/storage/box/bodybags/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/bodybag(src)
+
+/obj/item/storage/box/bodybags/biohazard
+	name = "biohazard body bags"
+	desc = "This box contains biohazard body bags."
+	icon_state = "biohazard_bodybags"
+	item_state = "biohazard_bodybags"
+
+/obj/item/storage/box/bodybags/biohazard/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/bodybag/biohazard(src)
 
 /obj/item/storage/box/snappops
 	name = "snap pop box"
@@ -875,51 +622,79 @@
 	storage_slots = 8
 	can_hold = list(/obj/item/toy/snappop)
 
-/obj/item/storage/box/snappops/New()
-	..()
-	for(var/i=1; i <= storage_slots; i++)
+/obj/item/storage/box/snappops/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new /obj/item/toy/snappop(src)
 
 /obj/item/storage/box/matches
 	name = "matchbox"
-	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
+	desc = "Маленький коробок плазменных спичек почти премиум-класса."
+	gender = MALE
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"
+	base_icon_state = "matchbox"
 	storage_slots = 10
 	w_class = WEIGHT_CLASS_TINY
 	max_w_class = WEIGHT_CLASS_TINY
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
+	drop_sound = 'sound/items/handling/drop/matchbox_drop.ogg'
+	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
+	use_sound = SFX_PATCHPACK
+	custom_price = PAYCHECK_MIN * 0.5
 
-/obj/item/storage/box/matches/New()
-	..()
+/obj/item/storage/box/matches/get_ru_names()
+	return list(
+		NOMINATIVE = "коробок спичек",
+		GENITIVE = "коробка спичек",
+		DATIVE = "коробку спичек",
+		ACCUSATIVE = "коробок спичек",
+		INSTRUMENTAL = "коробком спичек",
+		PREPOSITIONAL = "коробке спичек",
+	)
+
+/obj/item/storage/box/matches/populate_contents()
 	for(var/i in 1 to storage_slots)
 		new /obj/item/match(src)
 
-/obj/item/storage/box/matches/attackby(obj/item/match/W, mob/user, params)
-	if(istype(W, /obj/item/match) && !W.lit)
-		W.matchignite()
-		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, 1)
-	return
+/obj/item/storage/box/matches/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/match))
+		var/obj/item/match/match = I
+		if(match.lit)
+			return ..()
+		add_fingerprint(user)
+		match.matchignite()
+		playsound(user.loc, 'sound/goonstation/misc/matchstick_light.ogg', 50, TRUE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
+
+/obj/item/storage/box/matches/update_icon_state()
+	switch(length(contents))
+		if(10 to INFINITY)
+			icon_state = base_icon_state
+		if(5 to 9)
+			icon_state = "[base_icon_state]_almostfull"
+		if(1 to 4)
+			icon_state = "[base_icon_state]_almostempty"
+		else
+			icon_state = "[base_icon_state]_e"
 
 /obj/item/storage/box/autoinjectors
 	name = "box of injectors"
 	desc = "Contains autoinjectors."
-	icon_state = "syringe"
+	icon_state = "box_syringe"
 
-/obj/item/storage/box/autoinjectors/New()
-	..()
-	for(var/i; i < storage_slots; i++)
+/obj/item/storage/box/autoinjectors/populate_contents()
+	for(var/I in 1 to storage_slots)
 		new /obj/item/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/storage/box/autoinjector/utility
 	name = "autoinjector kit"
 	desc = "A box with several utility autoinjectors for the economical miner."
-	icon_state = "syringe"
+	icon_state = "box_syringe"
 
-/obj/item/storage/box/autoinjector/utility/New()
-	..()
+/obj/item/storage/box/autoinjector/utility/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/teporone(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/stimpack(src)
@@ -928,47 +703,41 @@
 
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
-	icon = 'icons/obj/storage.dmi'
-	icon_state = "light"
+	icon_state = "box_lamps"
+	item_state = "eng"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
-	item_state = "syringe_kit"
 	storage_slots=21
 	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
 	max_combined_w_class = 21
 	use_to_pickup = 1 // for picking up broken bulbs, not that most people will try
 
-/obj/item/storage/box/lights/bulbs/New()
-	..()
-	for(var/i = 0; i < 21; i++)
+/obj/item/storage/box/lights/bulbs/populate_contents()
+	for(var/I in 1 to 21)
 		new /obj/item/light/bulb(src)
 
 /obj/item/storage/box/lights/tubes
 	name = "replacement tubes"
-	icon_state = "lighttube"
+	icon_state = "box_tubes"
 
-/obj/item/storage/box/lights/tubes/New()
-	..()
-	for(var/i = 0; i < 21; i++)
+/obj/item/storage/box/lights/tubes/populate_contents()
+	for(var/I in 1 to 21)
 		new /obj/item/light/tube(src)
 
 /obj/item/storage/box/lights/mixed
 	name = "replacement lights"
-	icon_state = "lightmixed"
+	icon_state = "box_mixed"
 
-/obj/item/storage/box/lights/mixed/New()
-	..()
-	for(var/i = 0; i < 14; i++)
+/obj/item/storage/box/lights/mixed/populate_contents()
+	for(var/I in 1 to 14)
 		new /obj/item/light/tube(src)
-	for(var/i = 0; i < 7; i++)
+	for(var/I in 1 to 7)
 		new /obj/item/light/bulb(src)
 
 /obj/item/storage/box/barber
 	name = "Barber Starter Kit"
 	desc = "For all hairstyling needs."
-	icon_state = "implant"
 
-/obj/item/storage/box/barber/New()
-	..()
+/obj/item/storage/box/barber/populate_contents()
 	new /obj/item/scissors/barber(src)
 	new /obj/item/hair_dye_bottle(src)
 	new /obj/item/reagent_containers/glass/bottle/reagent/hairgrownium(src)
@@ -980,10 +749,8 @@
 /obj/item/storage/box/lip_stick
 	name = "Lipstick Kit"
 	desc = "For all your lip coloring needs."
-	icon_state = "implant"
 
-/obj/item/storage/box/lip_stick/New()
-	..()
+/obj/item/storage/box/lip_stick/populate_contents()
 	new /obj/item/lipstick(src)
 	new /obj/item/lipstick/purple(src)
 	new /obj/item/lipstick/jade(src)
@@ -1000,129 +767,131 @@
 
 /obj/item/storage/box/papersack
 	name = "paper sack"
-	desc = "A sack neatly crafted out of paper."
+	desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
-	resistance_flags = FLAMMABLE
 	foldable = null
 	var/design = NODESIGN
+	var/apply_paper_bag_delay = BAG_PUTTING_DELAY
 
-/obj/item/storage/box/papersack/update_icon()
-	if(!contents.len)
-		icon_state = "[item_state]"
-	else icon_state = "[item_state]_closed"
+/obj/item/storage/box/papersack/get_ru_names()
+	return list(
+		NOMINATIVE = "бумажный пакет",
+		GENITIVE = "бумажного пакета",
+		DATIVE = "бумажному пакету",
+		ACCUSATIVE = "бумажный пакет",
+		INSTRUMENTAL = "бумажным пакетом",
+		PREPOSITIONAL = "бумажном пакете",
+	)
 
-/obj/item/storage/box/papersack/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/pen))
+/obj/item/storage/box/papersack/update_desc(updates = ALL)
+	. = ..()
+	switch(design)
+		if(NODESIGN)
+			desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
+		if(NANOTRASEN)
+			desc = "Стандартный пакет НТ для завтраков для самых верных работников"
+		if(SYNDI)
+			desc = "Дизайн этого бумажного пакета — секретнейшая разработка Синдиката"
+		if(HEART)
+			desc = "Бумажный пакет с нарисованным сердечком. Как мило!"
+		if(SMILE)
+			desc = "Бумажный пакет с улыбкой. Чутка жуткий."
+
+/obj/item/storage/box/papersack/update_icon_state()
+	item_state = "paperbag_[design]"
+	icon_state = length(contents) ? "[item_state]_closed" : "[item_state]"
+
+/obj/item/storage/box/papersack/attackby(obj/item/I, mob/user, params)
+	if(is_pen(I))
+		add_fingerprint(user)
 		//if a pen is used on the sack, dialogue to change its design appears
-		if(contents.len)
-			to_chat(user, "<span class='warning'>You can't modify [src] with items still inside!</span>")
-			return
-		var/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
-		var/switchDesign = input("Select a Design:", "Paper Sack Design", designs[1]) as null|anything in designs
-		if(!switchDesign)
-			return
-		if(get_dist(usr, src) > 1 && !usr.incapacitated())
-			to_chat(usr, "<span class='warning'>You have moved too far away!</span>")
-			return
+		if(length(contents))
+			to_chat(user, span_warning("You cannot modify [src] with the items inside!"))
+			return ATTACK_CHAIN_PROCEED
+		var/static/list/designs = list(NODESIGN, NANOTRASEN, SYNDI, HEART, SMILE)
+		var/switchDesign = tgui_input_list(user, "Select a Design:", "Paper Sack Design", designs)
+		if(!switchDesign || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+			return ATTACK_CHAIN_BLOCKED_ALL
 		if(design == switchDesign)
-			return
-		to_chat(usr, "<span class='notice'>You make some modifications to [src] using your pen.</span>")
+			return ATTACK_CHAIN_PROCEED
+		to_chat(user, span_notice("You make some modifications to [src] using your pen."))
 		design = switchDesign
-		icon_state = "paperbag_[design]"
-		item_state = "paperbag_[design]"
-		switch(design)
-			if(NODESIGN)
-				desc = "A sack neatly crafted out of paper."
-			if(NANOTRASEN)
-				desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
-			if(SYNDI)
-				desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
-			if(HEART)
-				desc = "A paper sack with a heart etched onto the side."
-			if(SMILE)
-				desc = "A paper sack with a crude smile etched onto the side."
-		return
-	else if(is_sharp(W))
-		if(!contents.len)
-			if(item_state == "paperbag_None")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src].</span>")
-				new /obj/item/clothing/head/papersack(user.loc)
-				qdel(src)
-				return
-			else if(item_state == "paperbag_SmileyFace")
-				to_chat(user, "<span class='notice'>You cut eyeholes into [src] and modify the design.</span>")
-				new /obj/item/clothing/head/papersack/smiley(user.loc)
-				qdel(src)
-				return
+		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(I.sharp)
+		add_fingerprint(user)
+		if(length(contents))
+			to_chat(user, span_warning("You cannot modify [src] with the items inside!"))
+			return ATTACK_CHAIN_PROCEED
+		var/obj/item/clothing/head/papersack/papersack
+		if(design == SMILE)
+			papersack = new /obj/item/clothing/head/papersack/smiley(drop_location())
+		else
+			papersack = new /obj/item/clothing/head/papersack(drop_location())
+		papersack.add_fingerprint(user)
+		to_chat(user, span_notice("You cut eyeholes into [src] and modify the design."))
+		if(loc == user)
+			user.temporarily_remove_item_from_inventory(src)
+		user.put_in_hands(papersack, ignore_anim = FALSE)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
+/obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
 
-/obj/item/storage/box/centcomofficer
-	name = "officer kit"
-	icon_state = "box_ert"
-	storage_slots = 14
-	max_combined_w_class = 20
+	if(!ishuman(target))
+		return .
 
-/obj/item/storage/box/centcomofficer/New()
-	..()
-	contents = list()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/double(src)
-	new /obj/item/flashlight/seclite(src)
-	new /obj/item/kitchen/knife/combat(src)
+	if(length(contents))
+		to_chat(user, span_notice("Пакет должен быть пуст!"))
+		return .
 
-	new /obj/item/radio/centcom(src)
-	new /obj/item/door_remote/omni(src)
-	new /obj/item/implanter/death_alarm(src)
+	user.visible_message(
+		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
+		span_italics("Вы слышите шелест плотной бумаги."),
+	)
 
-	new /obj/item/reagent_containers/hypospray/combat/nanites(src)
-	new /obj/item/pinpointer(src)
-	new /obj/item/pinpointer/crew/centcom(src)
+	if(!do_after(user, apply_paper_bag_delay, target))
+		return .
 
-/obj/item/storage/box/responseteam
-	name = "boxed survival kit"
-	icon_state = "box_ert"
+	if(!user || !target || QDELETED(src))
+		return .
 
-/obj/item/storage/box/responseteam/New()
-	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
-	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/radio/centcom(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	if(target.head)
+		var/obj/item/head_item_to_drop = target.head
+		target.drop_item_ground(head_item_to_drop)
+		if(!target.drop_item_ground(target.head))
+			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя надеть пакет!"))
+			return .
 
-/obj/item/storage/box/soviet
-	name = "boxed survival kit"
-	desc = "A standard issue Soviet military survival kit."
-	icon_state = "box_soviet"
+	. |= ATTACK_CHAIN_SUCCESS
+	user.visible_message(
+		span_warning("[user] надел [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надели [target == user ? "[src.declent_ru(ACCUSATIVE)] себе на голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
+	)
 
-/obj/item/storage/box/soviet/New()
-	..()
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/tank/internals/emergency_oxygen/engi(src)
-	new /obj/item/reagent_containers/hypospray/autoinjector
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/crowbar/red(src)
-	new /obj/item/kitchen/knife/combat(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
-	new /obj/item/reagent_containers/food/pill/patch/synthflesh(src)
+	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
+	on_head.add_fingerprint(user)
+	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
+	playsound(loc, 'sound/items/handling/pickup/paper_pickup.ogg', 50, TRUE, -5)
+	qdel(src)
 
 /obj/item/storage/box/clown
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
-	var/robot_arm // This exists for bot construction
+	item_state = "clown"
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
 
-/obj/item/storage/box/emptysandbags/New()
-	..()
-	contents = list()
+/obj/item/storage/box/emptysandbags/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/emptysandbag(src)
 
@@ -1130,9 +899,7 @@
 	name = "the Liberator's legacy"
 	desc = "A box containing a gift for worthy golems."
 
-/obj/item/storage/box/rndboards/New()
-	..()
-	contents = list()
+/obj/item/storage/box/rndboards/populate_contents()
 	new /obj/item/circuitboard/protolathe(src)
 	new /obj/item/circuitboard/destructive_analyzer(src)
 	new /obj/item/circuitboard/circuit_imprinter(src)
@@ -1142,8 +909,7 @@
 	name = "box of stock parts"
 	desc = "Contains a variety of basic stock parts."
 
-/obj/item/storage/box/stockparts/basic/New()
-	..()
+/obj/item/storage/box/stockparts/basic/populate_contents()
 	for(var/i in 1 to 3)
 		new /obj/item/stock_parts/capacitor(src)
 		new /obj/item/stock_parts/scanning_module(src)
@@ -1154,9 +920,10 @@
 /obj/item/storage/box/stockparts/deluxe
 	name = "box of deluxe stock parts"
 	desc = "Contains a variety of deluxe stock parts."
+	icon_state = "t4_parts"
+	item_state = "tier4"
 
-/obj/item/storage/box/stockparts/deluxe/New()
-	..()
+/obj/item/storage/box/stockparts/deluxe/populate_contents()
 	for(var/i in 1 to 3)
 		new /obj/item/stock_parts/capacitor/quadratic(src)
 		new /obj/item/stock_parts/scanning_module/triphasic(src)
@@ -1164,82 +931,381 @@
 		new /obj/item/stock_parts/micro_laser/quadultra(src)
 		new /obj/item/stock_parts/matter_bin/bluespace(src)
 
+/obj/item/storage/box/stockparts/experimental_parts
+	name = "box of experimental stock parts"
+	desc = "Contains some strange looking parts. Looks like it has some bluespace matter and something red."
+	icon_state = "t5_parts"
+	item_state = "tier5"
+
+/obj/item/storage/box/stockparts/experimental_parts/populate_contents()
+	new /obj/item/stock_parts/capacitor/purple(src)
+	new /obj/item/stock_parts/scanning_module/purple(src)
+	new /obj/item/stock_parts/manipulator/purple(src)
+	new /obj/item/stock_parts/micro_laser/purple(src)
+	new /obj/item/stock_parts/matter_bin/purple(src)
+
 /obj/item/storage/box/flare
 	name = "Flare box"
 	desc = "For emergency use."
 
-/obj/item/storage/box/flare/New()
-	..()
-	contents = list()
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
-	new /obj/item/flashlight/flare(src)
+/obj/item/storage/box/flare/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/flashlight/flare(src)
 
 /obj/item/storage/box/bola
 	name = "Energy bola box"
 	desc = "Бола для самых быстрых из быстрых"
+	icon_state = "box_security"
+	item_state = "sec"
 
-/obj/item/storage/box/bola/New()
-	..()
-	contents = list()
-	new /obj/item/restraints/legcuffs/bola/energy(src)
-	new /obj/item/restraints/legcuffs/bola/energy(src)
-	new /obj/item/restraints/legcuffs/bola/energy(src)
-	new /obj/item/restraints/legcuffs/bola/energy(src)
-	new /obj/item/restraints/legcuffs/bola/energy(src)
-	new /obj/item/restraints/legcuffs/bola/energy(src)
-	new /obj/item/restraints/legcuffs/bola/energy(src)
-
+/obj/item/storage/box/bola/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/restraints/legcuffs/bola/energy(src)
 
 /obj/item/storage/box/hug
 	name = "box of hugs"
 	desc = "A special box for sensitive people."
 	icon_state = "hugbox"
+	item_state = "hugbox"
 	foldable = null
 
 /obj/item/storage/box/hug/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all..</span>")
+	user.visible_message(span_suicide("[user] clamps the box of hugs on [user.p_their()] jugular! Guess it wasn't such a hugbox after all.."))
 	return (BRUTELOSS)
 
 /obj/item/storage/box/hug/attack_self(mob/user)
 	..()
 	user.changeNext_move(CLICK_CD_MELEE)
-	playsound(loc, "rustle", 50, 1, -5)
-	user.visible_message("<span class='notice'>[user] hugs \the [src].</span>","<span class='notice'>You hug \the [src].</span>")
+	playsound(loc, SFX_RUSTLE, 50, TRUE, -5)
+	user.visible_message(span_notice("[user] hugs \the [src]."),span_notice("You hug \the [src]."))
 
 /obj/item/storage/box/wizard
 	name = "magical box"
 	desc = "It's just an ordinary magical box."
-	icon_state = "box_wizard"
+	icon_state = "box_wiz"
+	item_state = "wizard"
 
 /obj/item/storage/box/wizard/hardsuit
 	name = "Battlemage Armour Bundle"
 	desc = "This box contains a bundle of Battlemage Armour"
-	icon_state = "box_wizard"
 
-/obj/item/storage/box/wizard/hardsuit/New()
-	. = ..()
-	contents = list()
+/obj/item/storage/box/wizard/hardsuit/populate_contents()
 	new /obj/item/clothing/suit/space/hardsuit/wizard/shielded(src)
 	new /obj/item/clothing/shoes/magboots/wizard(src)
+
+/obj/item/storage/box/wizard/recharge
+	name = "Armour Recharge Bundle"
+	desc = "This box contains a bundle of Battlemage Armour Recharges"
+
+/obj/item/storage/box/wizard/recharge/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/wizard_armour_charge(src)
+
+/obj/item/storage/box/wizard/kit_spell_book
+	name = "набор волшебных книг"
+	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
+
+/obj/item/storage/box/wizard/kit_spell_book/populate_contents()
+	for(var/i in 1 to 4)
+		new /obj/item/spellbook/oneuse/random(src)
+
+/obj/item/storage/box/hardsuit
+	icon_state = "box_ert"
+	item_state = "ert"
+	storage_slots = 3
+
+/obj/item/storage/box/hardsuit/engineering/response_team
+	name = "Boxed engineer response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/engineering/response_team/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/engineer (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/engineering
+	name = "Boxed engineering hardsuit kit"
+
+/obj/item/storage/box/hardsuit/engineering/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/engine (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/medical/responseteam
+	name = "Boxed medical response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/medical/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/medical (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/medical
+	name = "Boxed medical hardsuit kit"
+
+/obj/item/storage/box/medical/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/medical (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
+
+/obj/item/storage/box/hardsuit/janitor/response_team
+	name = "Boxed janitor response team hardsuit kit"
+
+/obj/item/storage/box/hardsuit/janitor/response_team/populate_contents()
+	new /obj/item/clothing/mask/breath (src)
+	new /obj/item/clothing/suit/space/hardsuit/ert/janitor (src)
+	new /obj/item/tank/internals/emergency_oxygen (src)
 
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
 	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
-	icon_state = "box_thief"
+	icon_state = "box_clown"
+	item_state = "clown"
 
-/obj/item/storage/box/candythief/New()
-	..()
+/obj/item/storage/box/candythief/populate_contents()
 	for(var/i in 0 to 5)
 		new /obj/item/reagent_containers/food/snacks/candy/gummybear/wtf(src)
 		new /obj/item/reagent_containers/food/snacks/candy/gummyworm/wtf(src)
 		new /obj/item/reagent_containers/food/snacks/candy/jellybean/wtf(src)
 	new /obj/item/reagent_containers/food/snacks/candy/sucker(src)
 
+/obj/item/storage/pouch
+	name = "pouch"
+	desc = "Подсумок на два магазина."
+	icon_state = "pouch"
+	item_state = "pouch"
+	storage_slots = 2
+	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_BELT
+	can_hold = list(/obj/item/ammo_box/magazine)
+
+/obj/item/storage/pouch/fast
+	name = "fast pouch"
+	desc = "Подсумок на два магазина, модифицированный для быстрой перезарядки."
+	icon_state = "pouch_fast"
+	item_state = "pouch_fast"
+
+/obj/item/storage/pouch/fast/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/gun/projectile/automatic))
+		add_fingerprint(user)
+		var/obj/item/gun/projectile/automatic/gun = I
+		for(var/obj/item/ammo_box/magazine/magazine in contents)
+			if(!istype(magazine, gun.mag_type))
+				continue
+			var/obj/item/ammo_box/magazine/gun_magazine = gun.magazine
+			gun.attackby(magazine, user, params)
+			var/mag_changed = (gun_magazine && gun_magazine.loc != gun)
+			var/success = mag_changed || (!gun_magazine && gun.magazine)
+			if(mag_changed && can_be_inserted(gun_magazine))
+				handle_item_insertion(gun_magazine)
+				gun_magazine.update_appearance()
+			if(success)
+				break
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	return ..()
+
+/obj/item/storage/box/sec
+	name = "officer starter kit"
+	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
+	icon_state = "box_security"
+	item_state = "sec"
+
+/obj/item/storage/box/sec/populate_contents()
+	new /obj/item/clothing/head/helmet(src)
+	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/shoes/jackboots(src)
+	new /obj/item/clothing/gloves/combat(src)
+	new /obj/item/storage/backpack/security(src)
+	new /obj/item/clothing/suit/armor/vest/security(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/security_voucher(src)
+	new /obj/item/restraints/handcuffs(src)
+	new /obj/item/flash(src)
+	new /obj/item/implanter/mindshield(src)
+
+/obj/item/storage/box/dominator_kit
+	name = "Набор энергитического пистолета \"Доминатор\""
+	icon_state = "box_dominator"
+	item_state = "sec"
+
+/obj/item/storage/box/dominator_kit/populate_contents()
+	new /obj/item/gun/energy/dominator/sibyl(src)
+	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/enforcer_kit
+	name = "Набор пистолета \"Блюститель\""
+	icon_state = "box_enforcer"
+	item_state = "sec"
+
+/obj/item/storage/box/enforcer_kit/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/ammo_box/magazine/enforcer(src)
+	new /obj/item/clothing/accessory/holster(src)
+
+/obj/item/storage/box/specter_kit
+	name = "Набор энергитического пистолета \"Спектр\""
+	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 аккумулятора."
+	icon_state = "box_specter"
+	item_state = "sec"
+
+/obj/item/storage/box/specter_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "набор Спектр",
+		GENITIVE = "набора Спектр",
+		DATIVE = "набору Спектр",
+		ACCUSATIVE = "набор Спектр",
+		INSTRUMENTAL = "набором Спектр",
+		PREPOSITIONAL = "наборе Спектр",
+	)
+
+/obj/item/storage/box/specter_kit/populate_contents()
+	new /obj/item/gun/energy/specter/sibyl(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/weapon_cell/specter(src)
+	new /obj/item/weapon_cell/specter(src)
+
+/obj/item/storage/box/taurus_kit
+	name = "Набор револьвера \"Таурус\""
+	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
+	icon_state = "box_colt"
+	item_state = "sec"
+
+/obj/item/storage/box/taurus_kit/get_ru_names()
+	return list(
+		NOMINATIVE = "набор \"Таурус\"",
+		GENITIVE = "набора \"Таурус\"",
+		DATIVE = "набору \"Таурус\"",
+		ACCUSATIVE = "набор \"Таурус\"",
+		INSTRUMENTAL = "набором \"Таурус\"",
+		PREPOSITIONAL = "наборе \"Таурус\"",
+	)
+
+/obj/item/storage/box/taurus_kit/populate_contents()
+	new /obj/item/gun/projectile/revolver/taurus(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/ammo_box/speedloader/rubber45colt(src)
+	new /obj/item/ammo_box/speedloader/rubber45colt(src)
+
+/obj/item/storage/box/revolver_kit
+	name = "Набор револьвера \".38 Mars Special\""
+	icon_state = "box_revolver"
+	item_state = "sec"
+
+/obj/item/storage/box/revolver_kit/populate_contents()
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/ammo_box/speedloader/c38(src)
+	new /obj/item/gun/projectile/revolver/detective(src)
+	new /obj/item/clothing/accessory/holster/armpit(src)
+
+/obj/item/storage/box/hardmode_box
+	name = "box of HRD-MDE project box"
+	desc = "Contains everything needed to get yourself killed for a medal."
+
+/obj/item/storage/box/hardmode_box/populate_contents()
+	for(var/I in 1 to 7)
+		new /obj/item/grenade/megafauna_hardmode(src)
+	new /obj/item/storage/lockbox/medal/hardmode_box(src)
+	new /obj/item/paper/hardmode(src)
+
+/obj/item/storage/box/random_syndi
+	icon_state = "box_of_doom"
+	item_state = "syndie"
+	var/static/list/allowed_uplink_items
+
+/obj/item/storage/box/random_syndi/populate_contents()
+	if(!allowed_uplink_items)
+		allowed_uplink_items = list()
+		for(var/datum/uplink_item/uplink_item as anything in GLOB.uplink_items)
+			if(istype(uplink_item, /datum/uplink_item/racial) || uplink_item.hijack_only || uplink_item.cost > 20)
+				continue
+			allowed_uplink_items += uplink_item.item
+
+	if(!length(allowed_uplink_items))
+		return
+
+	for(var/item_path in pick_multiple_unique(allowed_uplink_items, 3))
+		new item_path(src)
+
+/obj/item/storage/box/crayfish_bucket
+	name = "Mr. Chang's Spicy Lobsters"
+	desc = "Supply of lobsters from Mr. Chang. Crayfish instead of lobsters, super discount, great rating!"
+	icon = 'icons/obj/food/food.dmi'
+	icon_state = "crayfish_bucket"
+	item_state = "chinese2"
+	storage_slots = 3
+	display_contents_with_number = TRUE
+	can_hold = list(
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang,
+		/obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang,
+		/obj/item/reagent_containers/food/drinks/cans/beer,
+	)
+
+/obj/item/storage/box/crayfish_bucket/populate_contents()
+	var/big_ones = rand(2, 4)
+	var/small_ones = 5 - big_ones
+	for(var/i in 1 to big_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked/mr_chang(src)
+	for(var/i in 1 to small_ones)
+		new /obj/item/reagent_containers/food/snacks/crayfish_cooked_small/mr_chang(src)
+	new /obj/item/reagent_containers/food/drinks/cans/beer(src)
+
+/obj/item/storage/box/mr_cheng
+	name = "Mr. Cheng ad agent kit"
+	desc = "Contains essential advertising agent kit for Mr. Cheng"
+	icon_state = "box_chang"
+	item_state = "chang"
+
+/obj/item/storage/box/mr_cheng/populate_contents()
+	new /obj/item/clothing/suit/mr_chang_coat(src)
+	new /obj/item/clothing/shoes/mr_chang_sandals(src)
+	new /obj/item/clothing/head/mr_chang_band(src)
+
+/obj/item/storage/box/bombsecurity
+	name = "Security Bombsuit"
+	desc = "It's a box with explosion-protective suit."
+
+/obj/item/storage/box/bombsecurity/populate_contents()
+	new /obj/item/clothing/suit/bomb_suit/security(src)
+	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/shoes/color/brown(src)
+	new /obj/item/clothing/head/bomb_hood/security(src)
+
+/*
+ *  Plant DNA Disks Box
+ */
+/obj/item/storage/box/disks_plantgene
+	name = "plant data disks box"
+	icon_state = "box_disc"
+
+/obj/item/storage/box/disks_plantgene/New()
+	..()
+	for(var/i in 1 to 7)
+		new /obj/item/disk/plantgene(src)
+
+/*
+ *  Tech Disks Box
+ */
+/obj/item/storage/box/disks_tech
+	name = "tech data disks box"
+	icon_state = "box_disc"
+
+/obj/item/storage/box/disks_tech/populate_contents()
+	..()
+	for(var/i in 1 to 11)
+		new /obj/item/disk/tech_disk(src)
+/*
+ * Unica kit box
+ */
+/obj/item/storage/box/unica_kit
+	icon_state = "box_hos"
+
+/obj/item/storage/box/unica_kit/populate_contents()
+	new /obj/item/gun/projectile/revolver/mateba(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/clothing/accessory/holster(src)
+
+#undef BAG_PUTTING_DELAY
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

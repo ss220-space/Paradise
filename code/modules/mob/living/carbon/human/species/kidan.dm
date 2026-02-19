@@ -1,50 +1,56 @@
+#define PHEROMONES_LIFESPAN 15 MINUTES
+#define PHEROMONES_MAX 3
+
 /datum/species/kidan
-	name = "Kidan"
+	name = SPECIES_KIDAN
 	name_plural = "Kidan"
 	icobase = 'icons/mob/human_races/r_kidan.dmi'
 	deform = 'icons/mob/human_races/r_def_kidan.dmi'
-	language = "Chittin"
+	language = LANGUAGE_KIDAN
 	unarmed_type = /datum/unarmed_attack/claws
 
-	brute_mod = 0.8
-	tox_mod = 1.7
-
-	species_traits = list(IS_WHITELISTED)
+	inherent_traits = list(
+		TRAIT_HAS_REGENERATION,
+	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS
+	fingers_count = 6
 	eyes = "kidan_eyes_s"
 	flesh_color = "#ba7814"
 	blood_species = "Kidan"
 	blood_color = "#FB9800"
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	//Default styles for created mobs.
 	default_headacc = "Normal Antennae"
 	butt_sprite = "kidan"
 
 	has_organ = list(
-		"heart" =    /obj/item/organ/internal/heart/kidan,
-		"lungs" =    /obj/item/organ/internal/lungs/kidan,
-		"liver" =    /obj/item/organ/internal/liver/kidan,
-		"kidneys" =  /obj/item/organ/internal/kidneys/kidan,
-		"brain" =    /obj/item/organ/internal/brain/kidan,
-		"appendix" = /obj/item/organ/internal/appendix,
-		"eyes" =     /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
-		"lantern" =  /obj/item/organ/internal/lantern
-		)
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/kidan,
+		INTERNAL_ORGAN_LUNGS = /obj/item/organ/internal/lungs/kidan,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/kidan,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/kidan,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/kidan,
+		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/kidan,
+		INTERNAL_ORGAN_LANTERN = /obj/item/organ/internal/lantern,
+	)
+
+	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/kidan
 
 	has_limbs = list(
-		"chest" =  list("path" = /obj/item/organ/external/chest),
-		"groin" =  list("path" = /obj/item/organ/external/groin),
-		"head" =   list("path" = /obj/item/organ/external/head/kidan),
-		"l_arm" =  list("path" = /obj/item/organ/external/arm),
-		"r_arm" =  list("path" = /obj/item/organ/external/arm/right),
-		"l_leg" =  list("path" = /obj/item/organ/external/leg),
-		"r_leg" =  list("path" = /obj/item/organ/external/leg/right),
-		"l_hand" = list("path" = /obj/item/organ/external/hand),
-		"r_hand" = list("path" = /obj/item/organ/external/hand/right),
-		"l_foot" = list("path" = /obj/item/organ/external/foot),
-		"r_foot" = list("path" = /obj/item/organ/external/foot/right)
-		)
+		BODY_ZONE_CHEST = list("path" = /obj/item/organ/external/chest/kidan),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/kidan),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/kidan),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right),
+	)
 
 	allowed_consumed_mobs = list(/mob/living/simple_animal/diona)
 
@@ -56,20 +62,256 @@
 		"протыкает себя челюстями!",
 		"задерживает дыхание!")
 
+	speech_sounds = list('sound/voice/kidan/speak1.ogg', 'sound/voice/kidan/speak2.ogg', 'sound/voice/kidan/speak3.ogg' )
+	speech_chance = 35
+	scream_verb = "визж%(ит,ат)%"
+	female_giggle_sound = list('sound/voice/kidan/giggles1.ogg', 'sound/voice/kidan/giggles2.ogg')
+	male_giggle_sound = list('sound/voice/kidan/giggles1.ogg', 'sound/voice/kidan/giggles2.ogg')
+	male_scream_sound = list('sound/voice/kidan/scream1.ogg', 'sound/voice/kidan/scream2.ogg', 'sound/voice/kidan/scream3.ogg')
+	female_scream_sound = list('sound/voice/kidan/scream1.ogg', 'sound/voice/kidan/scream2.ogg', 'sound/voice/kidan/scream3.ogg')
+	female_laugh_sound = list('sound/voice/kidan/laugh1.ogg', 'sound/voice/kidan/laugh2.ogg', 'sound/voice/kidan/laugh3.ogg', 'sound/voice/kidan/laugh4.ogg')
+	male_laugh_sound = list('sound/voice/kidan/laugh1.ogg', 'sound/voice/kidan/laugh2.ogg', 'sound/voice/kidan/laugh3.ogg', 'sound/voice/kidan/laugh4.ogg')
+	death_sounds = list('sound/voice/kidan/deathgasp1.ogg', 'sound/voice/kidan/deathgasp2.ogg')
+	male_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	female_dying_gasp_sounds = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	male_cough_sounds = list('sound/voice/kidan/cough1.ogg')
+	female_cough_sounds = list('sound/voice/kidan/cough1.ogg')
+	male_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg', 'sound/voice/kidan/sneeze4.ogg')
+	female_sneeze_sound = list('sound/voice/kidan/sneeze1.ogg', 'sound/voice/kidan/sneeze2.ogg', 'sound/voice/kidan/sneeze3.ogg', 'sound/voice/kidan/sneeze4.ogg')
+	female_cry_sound = list('sound/voice/kidan/cry1.ogg', 'sound/voice/kidan/cry2.ogg')
+	male_cry_sound = list('sound/voice/kidan/cry1.ogg', 'sound/voice/kidan/cry2.ogg')
+	female_grumble_sound = list('sound/voice/kidan/grumble1.ogg', 'sound/voice/kidan/grumble2.ogg', 'sound/voice/kidan/grumble3.ogg')
+	male_grumble_sound = list('sound/voice/kidan/grumble1.ogg', 'sound/voice/kidan/grumble2.ogg', 'sound/voice/kidan/grumble3.ogg')
+	male_moan_sound = list('sound/voice/kidan/moan1.ogg')
+	female_moan_sound = list('sound/voice/kidan/moan1.ogg')
+	female_sigh_sound = list('sound/voice/kidan/sigh1.ogg', 'sound/voice/kidan/sigh2.ogg')
+	male_sigh_sound = list('sound/voice/kidan/sigh1.ogg', 'sound/voice/kidan/sigh2.ogg')
+	female_choke_sound = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+	male_choke_sound = list('sound/voice/kidan/dying_gasp1.ogg', 'sound/voice/kidan/dying_gasp2.ogg', 'sound/voice/kidan/dying_gasp3.ogg')
+
 	disliked_food = FRIED | DAIRY
 	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT
+
+	age_sheet = list(
+		SPECIES_AGE_MIN = 12,
+		SPECIES_AGE_MAX = 45,
+		JOB_MIN_AGE_HIGH_ED = 20,
+		JOB_MIN_AGE_COMMAND = 20,
+	)
+
+	autohiss_basic_map = list(
+		"z" = list("zz", "zzz", "zzzz"),
+		"v" = list("vv", "vvv", "vvvv"),
+		"з" = list("зз", "ззз", "зззз"),
+		"в" = list("вв", "ввв", "вввв"),
+	)
+	autohiss_extra_map = list(
+		"s" = list("z", "zs", "zzz", "zzsz"),
+		"с" = list("з", "зс", "ззз", "ззсз"),
+	)
+	autohiss_exempt = list("Хитин")
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour
 
 /datum/species/kidan/on_species_gain(mob/living/carbon/human/H)
-	..()
-	H.verbs |= /mob/living/carbon/human/proc/emote_click
-	H.verbs |= /mob/living/carbon/human/proc/emote_clack
+	. = ..()
+	add_verb(H, list(
+		/mob/living/carbon/human/proc/emote_click,
+		/mob/living/carbon/human/proc/emote_clack,
+		/mob/living/carbon/human/proc/emote_wiggle,
+		/mob/living/carbon/human/proc/emote_wave_k
+	))
+	remove_verb(H, list(
+		/mob/living/carbon/human/verb/emote_pale,
+		/mob/living/carbon/human/verb/emote_blink,
+		/mob/living/carbon/human/verb/emote_blink_r,
+		/mob/living/carbon/human/verb/emote_blush,
+		/mob/living/carbon/human/verb/emote_wink,
+		/mob/living/carbon/human/verb/emote_smile,
+		/mob/living/carbon/human/verb/emote_snuffle,
+		/mob/living/carbon/human/verb/emote_grin,
+		/mob/living/carbon/human/verb/emote_eyebrow,
+		/mob/living/carbon/human/verb/emote_frown,
+		/mob/living/carbon/human/verb/emote_sniff,
+		/mob/living/carbon/human/verb/emote_glare
+	))
+	// HUD for detecting pheromones
+	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
+	kidan_hud.show_to(H)
+
+	// Action for creating pheromones
+	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
+	if(!produce_pheromones)
+		produce_pheromones = new
+		produce_pheromones.Grant(H)
 
 /datum/species/kidan/on_species_loss(mob/living/carbon/human/H)
-	..()
-	H.verbs -= /mob/living/carbon/human/proc/emote_click
-	H.verbs -= /mob/living/carbon/human/proc/emote_clack
+	. = ..()
+	remove_verb(H, list(
+		/mob/living/carbon/human/proc/emote_click,
+		/mob/living/carbon/human/proc/emote_clack,
+		/mob/living/carbon/human/proc/emote_wiggle,
+		/mob/living/carbon/human/proc/emote_wave_k))
+	add_verb(H, list(
+		/mob/living/carbon/human/verb/emote_pale,
+		/mob/living/carbon/human/verb/emote_blink,
+		/mob/living/carbon/human/verb/emote_blink_r,
+		/mob/living/carbon/human/verb/emote_blush,
+		/mob/living/carbon/human/verb/emote_wink,
+		/mob/living/carbon/human/verb/emote_smile,
+		/mob/living/carbon/human/verb/emote_snuffle,
+		/mob/living/carbon/human/verb/emote_grin,
+		/mob/living/carbon/human/verb/emote_eyebrow,
+		/mob/living/carbon/human/verb/emote_frown,
+		/mob/living/carbon/human/verb/emote_sniff,
+		/mob/living/carbon/human/verb/emote_glare))
 
+	// Removing the HUD for detecting pheromones
+	var/datum/atom_hud/kidan_hud = GLOB.huds[DATA_HUD_KIDAN_PHEROMONES]
+	kidan_hud.hide_from(H)
+
+	// Removing the action for creating pheromones
+	var/datum/action/innate/produce_pheromones/produce_pheromones = locate() in H.actions
+	produce_pheromones?.Remove(H)
+
+/// Pheromones spawnable by kida, only perceivable by other kida
+/obj/effect/kidan_pheromones
+	name = "Феромоны киданов"
+	desc = "Особые феромоны, выделяемые киданами."
+	gender = PLURAL
+	hud_possible = list(KIDAN_PHEROMONES_HUD)
+
+	// This is to make it visible for observers and mappers at the same time
+	invisibility = INVISIBILITY_OBSERVER
+	icon_state = "kidan_pheromones"
+	alpha = 220
+
+	var/lifespan = PHEROMONES_LIFESPAN
+
+	/// The message added by its creator, visible upon examine
+	var/encoded_message
+
+/obj/effect/kidan_pheromones/Initialize(mapload)
+	. = ..()
+
+	// Add itself to the kidan hud
+	prepare_huds()
+	for(var/datum/atom_hud/kidan_pheromones/kidan_hud in GLOB.huds)
+		kidan_hud.add_atom_to_hud(src)
+	var/image/holder = hud_list[KIDAN_PHEROMONES_HUD]
+	holder.icon = icon
+	holder.icon_state = icon_state
+	holder.alpha = 220
+
+	// Delete itself after some time if it is not permanent variant
+	if(lifespan)
+		QDEL_IN(src, lifespan)
+
+/obj/effect/kidan_pheromones/examine(mob/user)
+	. = ..()
+	if(encoded_message)
+		. += "Оно содержит сообщение: \"[encoded_message]\""
+	// Failsafe for mappers/adminspawns if they forgot to add a message
+	else
+		. += "Его значение непостижимо."
+
+// For mappers/adminspawns, this one does not self-delete
+/obj/effect/kidan_pheromones/permanent
+	lifespan = null
+
+// Innate action for creating pheromones and destroying current ones, owned by all kida
+/datum/action/innate/produce_pheromones
+	name = "Создать феромоны"
+	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
+	button_icon = 'icons/effects/effects.dmi'
+	button_icon_state = "kidan_pheromones_static"
+
+	/// How long our message can be (characters)
+	var/maximum_message_length = 30
+
+	/// How many active pheromones we can have
+	var/active_pheromones_maximum = PHEROMONES_MAX
+
+	/// Which currently existing pheromones belong to us
+	var/list/active_pheromones_current
+
+/datum/action/innate/produce_pheromones/Activate()
+	var/mob/living/carbon/human/H = owner
+
+	// Do we want to make or destroy them?
+	switch(alert(H, "Вы хотите создать или рассеять феромоны поблизости?", "Феромоны киданов", "Создать", "Рассеять", "Отмена"))
+		// We look for nearby pheromones, if they belong to us, we can destroy them
+		if("Рассеять")
+			var/obj/effect/kidan_pheromones/pheromones_to_destroy = locate(/obj/effect/kidan_pheromones) in range(1, H)
+			// No pheromones nearby
+			if(!pheromones_to_destroy)
+				H.balloon_alert(H, "нет феромонов поблизости!")
+				return
+			// These are not ours, do not touch them
+			if(!(pheromones_to_destroy in active_pheromones_current))
+				to_chat(H, span_warning("Эти феромоны созданы кем-то другим, вы не можете их рассеять."))
+				return
+			// These are ours and we now destroy them
+			if(do_after(H, 3 SECONDS, pheromones_to_destroy, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+				// Log the action
+				H.create_log(MISC_LOG, "destroyed pheromones that had the message of \"[pheromones_to_destroy.encoded_message]\"")
+
+				// Destroy it; the pheromones remove themselves from our list via signals
+				H.balloon_alert(H, "рассеяно!")
+				qdel(pheromones_to_destroy)
+
+		// We decide to produce new ones
+		if("Создать")
+			// Can we create more pheromones?
+			if(length(active_pheromones_current) >= active_pheromones_maximum)
+				to_chat(H, span_warning("У вас уже [length(active_pheromones_current)] [declension_ru(length(active_pheromones_current),"активный феромон","активных феромона","активных феромонов")], нельзя создать больше."))
+				return
+
+			// Encode the message
+			var/message_to_encode = tgui_input_text(H, "Какое сообщение вы хотите закодировать? (макс. [maximum_message_length] символов). Оставьте пустым, чтобы отменить.", "Создать феромоны")
+			if(!message_to_encode)
+				H.balloon_alert(H, "отменено")
+				return
+			if(length(message_to_encode) > maximum_message_length)
+				H.balloon_alert(H, "превышен предел символов")
+				return
+			// Strip the message now so it does not mess with the length
+			message_to_encode = strip_html(message_to_encode)
+
+			// One batch of pheromones per tile
+			if(locate(/obj/effect/kidan_pheromones) in get_turf(H))
+				H.balloon_alert(H, "здесь уже есть феромоны!")
+				return
+
+			// Create the pheromones
+			if(do_after(H, 3 SECONDS, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+				to_chat(H, span_notice("Вы создали феромоны с сообщением: \"[message_to_encode]\"."))
+				H.balloon_alert(H, "создано!")
+				var/obj/effect/kidan_pheromones/pheromones_to_create = new get_turf(H)
+				pheromones_to_create.encoded_message = message_to_encode
+				LAZYADD(active_pheromones_current, pheromones_to_create)
+
+				// Add a signal to the new pheromones so it clears its own references when it gets destroyed
+				RegisterSignal(pheromones_to_create, COMSIG_QDELETING, PROC_REF(remove_pheromones_from_list))
+
+				// Log the action
+				H.create_log(MISC_LOG, "produced pheromones with the message of \"[message_to_encode]\"")
+		if("Отмена")
+			return
+
+// This handles proper GCing whether we destroyed the pheromones or something else did
+/datum/action/innate/produce_pheromones/proc/remove_pheromones_from_list(obj/effect/kidan_pheromones/pheromones)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(pheromones, COMSIG_QDELETING)
+	LAZYREMOVE(active_pheromones_current, pheromones)
+
+// Clear references if the holder gets destroyed
+/datum/action/innate/produce_pheromones/Destroy()
+	active_pheromones_current = null
+	..()
+
+#undef PHEROMONES_LIFESPAN
+#undef PHEROMONES_MAX

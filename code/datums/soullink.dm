@@ -1,20 +1,3 @@
-/mob/living
-	var/list/ownedSoullinks //soullinks we are the owner of
-	var/list/sharedSoullinks //soullinks we are a/the sharer of
-
-/mob/living/Destroy()
-	for(var/s in ownedSoullinks)
-		var/datum/soullink/S = s
-		S.ownerDies(FALSE)
-		qdel(s) //If the owner is destroy()'d, the soullink is destroy()'d
-	ownedSoullinks = null
-	for(var/s in sharedSoullinks)
-		var/datum/soullink/S = s
-		S.sharerDies(FALSE)
-		S.removeSoulsharer(src) //If a sharer is destroy()'d, they are simply removed
-	sharedSoullinks = null
-	return ..()
-
 //Keeps track of a Mob->Mob (potentially Player->Player) connection
 //Can be used to trigger actions on one party when events happen to another
 //Eg: shared deaths
@@ -54,26 +37,28 @@
 //Runs after /living death()
 //Override this for content
 /datum/soullink/proc/ownerDies(gibbed, mob/living/owner)
+	return
 
 //Runs after /living death()
 //Override this for content
 /datum/soullink/proc/sharerDies(gibbed, mob/living/owner)
+	return
 
 //Runs after /living update_revive()
 //Override this for content
 /datum/soullink/proc/ownerRevives(mob/living/owner)
+	return
 
 //Runs after /living update_revive()
 //Override this for content
 /datum/soullink/proc/sharerRevives(mob/living/owner)
+	return
 
 //Quick-use helper
 /proc/soullink(typepath, ...)
 	var/datum/soullink/S = new typepath()
 	if(S.parseArgs(arglist(args.Copy(2, 0))))
 		return S
-
-
 
 /////////////////
 // MULTISHARER //
@@ -95,8 +80,6 @@
 
 /datum/soullink/multisharer/removeSoulsharer(mob/living/sharer)
 	LAZYREMOVE(soulsharers, sharer)
-
-
 
 /////////////////
 // SHARED FATE //
@@ -138,10 +121,8 @@
 		soulsharer.death(gibbed)
 
 /datum/soullink/sharedbody/sharerDies(gibbed, mob/living/sharer)
-	if(soulowner && soulsharer && soulsharer.mind)
+	if(soulowner && soulsharer?.mind)
 		soulsharer.mind.transfer_to(soulowner)
-
-
 
 //////////////////////
 // REPLACEMENT POOL //

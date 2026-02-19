@@ -8,14 +8,12 @@
 	origin_tech = "combat=4;magnets=4"
 	w_class = WEIGHT_CLASS_HUGE
 	can_holster = FALSE
-	flags =  CONDUCT
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	zoomable = TRUE
 	zoom_amt = 7
 	ammo_type = list(/obj/item/ammo_casing/energy/ion)
 	ammo_x_offset = 3
-	flight_x_offset = 17
-	flight_y_offset = 9
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/ionrifle/emp_act(severity)
 	return
@@ -25,11 +23,15 @@
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
 	icon_state = "ioncarbine"
 	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	zoomable = FALSE
 	ammo_x_offset = 2
-	flight_x_offset = 18
-	flight_y_offset = 11
+	accuracy = GUN_ACCURACY_RIFLE_LASER
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL | GUN_MODULE_CLASS_RIFLE_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 9, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -4),
+	)
 
 // Decloner //
 /obj/item/gun/energy/decloner
@@ -39,39 +41,64 @@
 	origin_tech = "combat=4;materials=4;biotech=5;plasmatech=6"
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	ammo_x_offset = 1
+	accuracy = GUN_ACCURACY_MINIMAL
 
-/obj/item/gun/energy/decloner/update_icon()
-	..()
+/obj/item/gun/energy/decloner/update_icon_state()
+	return
+
+/obj/item/gun/energy/decloner/update_overlays()
+	. = list()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(cell.charge > shot.e_cost)
-		overlays += "decloner_spin"
+		. += "decloner_spin"
 
 // Flora Gun //
 /obj/item/gun/energy/floragun
 	name = "floral somatoray"
 	desc = "A tool that discharges controlled radiation which induces mutation in plant cells."
 	icon_state = "flora"
-	item_state = "gun"
 	fire_sound = 'sound/effects/stealthoff.ogg'
-	ammo_type = list(/obj/item/ammo_casing/energy/flora/yield, /obj/item/ammo_casing/energy/flora/mut)
-	origin_tech = "materials=2;biotech=4"
-	modifystate = 1
+	materials = list(MAT_GOLD = 2000, MAT_BLUESPACE = 1500, MAT_DIAMOND = 800, MAT_URANIUM = 500, MAT_GLASS = 500)
+	origin_tech = "materials=5;biotech=6;powerstorage=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
+	modifystate = TRUE
 	ammo_x_offset = 1
-	selfcharge = 1
+	can_charge = FALSE
+	selfcharge = TRUE
+	accuracy = GUN_ACCURACY_SNIPER
+
+/obj/item/gun/energy/floragun/emag_act(mob/user)
+	. = ..()
+
+	if(emagged)
+		return
+
+	if(user)
+		balloon_alert(user, "протоколы защиты сняты!")
+
+	emagged = TRUE
+	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
+	update_ammo_types()
+
+/obj/item/gun/energy/floragun/examine(mob/user)
+	. = ..()
+	. += span_notice("Mode: [ammo_type[select]]\nCharge: [cell.percent()]%")
 
 // Meteor Gun //
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
 	desc = "For the love of god, make sure you're aiming this the right way!"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	icon_state = "riotgun"
 	item_state = "c20r"
 	fire_sound = 'sound/weapons/gunshots/gunshot_shotgun.ogg'
 	w_class = WEIGHT_CLASS_BULKY
 	ammo_type = list(/obj/item/ammo_casing/energy/meteor)
 	cell_type = /obj/item/stock_parts/cell/potato
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
+	recoil = GUN_RECOIL_MEDIUM
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -85,17 +112,18 @@
 
 // Mind Flayer //
 /obj/item/gun/energy/mindflayer
-	name = "\improper Mind Flayer"
+	name = "Mind Flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."
 	icon_state = "xray"
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
-	ammo_x_offset = 2
+	accuracy = GUN_ACCURACY_PISTOL
 
 // Energy Crossbows //
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
-	desc = "A weapon favored by syndicate stealth specialists."
+	desc = "Компактное энергооружие, ценимое агентами \"Синдиката\" за бесшумность. \
+			Заряжается автоматически, идеально для точечных устранений."
 	icon_state = "crossbow"
 	item_state = "crossbow"
 	w_class = WEIGHT_CLASS_SMALL
@@ -103,139 +131,274 @@
 	origin_tech = "combat=4;magnets=4;syndicate=4"
 	suppressed = 1
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt)
-	weapon_weight = WEAPON_LIGHT
 	unique_rename = 0
 	overheat_time = 20
 	holds_charge = TRUE
 	unique_frequency = TRUE
-	can_flashlight = 0
 	max_mod_capacity = 0
 	empty_state = null
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/get_ru_names()
+	return list(
+		NOMINATIVE = "мини энерго-арбалет",
+		GENITIVE = "мини энерго-арбалета",
+		DATIVE = "мини энерго-арбалету",
+		ACCUSATIVE = "мини энерго-арбалет",
+		INSTRUMENTAL = "мини энерго-арбалетом",
+		PREPOSITIONAL = "мини энерго-арбалете"
+)
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/old
+	name = "old mini energy crossbow"
+	desc = "A weapon favored by syndicate stealth specialists. It looks very old."
+	accuracy = new /datum/gun_accuracy/minimal/old()
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large
 	name = "energy crossbow"
-	desc = "A reverse engineered weapon using syndicate technology."
+	desc = "Полноразмерная реплика арбалета \"Синдиката\", воссозданная методом обратной инженерии. \
+			Более громоздкий по сравнению с оригиналом."
 	icon_state = "crossbowlarge"
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=4000)
-	origin_tech = "combat=4;magnets=4;syndicate=2"
+	origin_tech = "combat=4;magnets=4;syndicate=3"
 	suppressed = 0
 	ammo_type = list(/obj/item/ammo_casing/energy/bolt/large)
+	accuracy = GUN_ACCURACY_RIFLE
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/large/get_ru_names()
+	return list(
+		NOMINATIVE = "энергетический арбалет",
+		GENITIVE = "энергетического арбалета",
+		DATIVE = "энергетическому арбалету",
+		ACCUSATIVE = "энергетический арбалет",
+		INSTRUMENTAL = "энергетическим арбалетом",
+		PREPOSITIONAL = "энергетическом арбалете"
+	)
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/toy
+	name = "toy energy crossbow"
+	desc = "Игрушечное оружие, сделанное из тагерного пистолета со стильным дизайном контрабандного арбалета."
+	icon_state = "crossbowtoy"
+	materials = list(MAT_METAL=4000)
+	origin_tech = "combat=4;magnets=4"
+	suppressed = 0
+	overheat_time = 8 SECONDS
+	ammo_type = list(/obj/item/ammo_casing/energy/bolt/bolttoy)
+	accuracy = GUN_ACCURACY_DEFAULT
+
+/obj/item/gun/energy/kinetic_accelerator/crossbow/toy/get_ru_names()
+	return list(
+		NOMINATIVE = "игрушечный энерго-арбалет",
+		GENITIVE = "игрушечного энерго-арбалета",
+		DATIVE = "игрушечному энерго-арбалету",
+		ACCUSATIVE = "игрушечный энерго-арбалет",
+		INSTRUMENTAL = "игрушечным энерго-арбалетом",
+		PREPOSITIONAL = "игрушечном энерго-арбалете"
+	)
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/large/cyborg
 	desc = "One and done!"
-	icon_state = "crossbowlarge"
 	origin_tech = null
 	materials = list()
+	accuracy = GUN_ACCURACY_RIFLE
 
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
-		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, TRUE)
+	user.visible_message(span_suicide("[user] взводит [declent_ru(ACCUSATIVE)] и приставляет его к своему виску! Это похоже на попытку самоубийства!</b>"))
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
 // Plasma Cutters //
 /obj/item/gun/energy/plasmacutter
 	name = "plasma cutter"
-	desc = "A mining tool capable of expelling concentrated plasma bursts. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
+	desc = "Шахтёрский инструмент, стреляющий сконцентрированной плазмой. Можете отрезать конечности ксеносам! Или, ну там... руду добывать."
 	icon_state = "plasmacutter"
 	item_state = "plasmacutter"
-	modifystate = -1
 	origin_tech = "combat=1;materials=3;magnets=2;plasmatech=3;engineering=1"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma)
 	usesound = 'sound/items/welder.ogg'
-	toolspeed = 1
 	container_type = OPENCONTAINER
-	flags = CONDUCT
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb = list("атаковал", "полоснул", "порезал")
 	force = 12
 	sharp = 1
-	can_charge = 0
+	can_charge = FALSE
+	accuracy = GUN_ACCURACY_RIFLE
+
+/obj/item/gun/energy/plasmacutter/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменный резак",
+		GENITIVE = "плазменного резака",
+		DATIVE = "плазменному резаку",
+		ACCUSATIVE = "плазменный резак",
+		INSTRUMENTAL = "плазменным резаком",
+		PREPOSITIONAL = "плазменном резаке",
+	)
 
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
+		. += span_notice("Заряд [icon2html(src, user)] [declent_ru(GENITIVE)] [round(cell.percent())]%")
 
-/obj/item/gun/energy/plasmacutter/attackby(obj/item/A, mob/user)
-	if(istype(A, /obj/item/stack/sheet/mineral/plasma))
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
+
+/obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/sheet/mineral/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
-			return
-		var/obj/item/stack/sheet/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(1000)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else if(istype(A, /obj/item/stack/ore/plasma))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/stack/ore/plasma))
+		add_fingerprint(user)
+		var/obj/item/stack/ore/plasma/plasma = I
 		if(cell.charge >= cell.maxcharge)
-			to_chat(user,"<span class='notice'>[src] is already fully charged.")
-			return
-		var/obj/item/stack/ore/S = A
-		S.use(1)
+			balloon_alert(user, "заряд на максимуме!")
+			return ATTACK_CHAIN_PROCEED
+		if(!plasma.use(1))
+			balloon_alert(user, "недостаточно плазмы!")
+			return ATTACK_CHAIN_PROCEED
+		balloon_alert(user, "заряд увеличен")
 		cell.give(500)
 		on_recharge()
-		to_chat(user, "<span class='notice'>You insert [A] in [src], recharging it.</span>")
-	else
-		return ..()
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-/obj/item/gun/energy/plasmacutter/update_icon()
-	return
+	return ..()
+
+/obj/item/gun/energy/plasmacutter/update_overlays()
+	return list()
 
 /obj/item/gun/energy/plasmacutter/adv
 	name = "advanced plasma cutter"
 	icon_state = "adv_plasmacutter"
-	modifystate = "adv_plasmacutter"
+	item_state = "adv_plasmacutter"
 	origin_tech = "combat=3;materials=4;magnets=3;plasmatech=4;engineering=2"
 	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv)
 	force = 15
+	accuracy = GUN_ACCURACY_SNIPER
+
+/obj/item/gun/energy/plasmacutter/adv/get_ru_names()
+	return list(
+		NOMINATIVE = "продвинутый плазменный резак",
+		GENITIVE = "продвинутого плазменного резака",
+		DATIVE = "продвинутому плазменному резаку",
+		ACCUSATIVE = "продвинутый плазменный резак",
+		INSTRUMENTAL = "продвинутым плазменным резаком",
+		PREPOSITIONAL = "продвинутом плазменном резаке",
+	)
+
+/obj/item/gun/energy/plasmacutter/adv/mega
+	name = "magmite plasma cutter"
+	icon_state = "adv_plasmacutter_m"
+	item_state = "plasmacutter_mega"
+	desc = "Улучшенная версия плазменного резака с использованием плазменного магмита. Режет ксеносов вдвое эффективнее! И руду тоже."
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/adv/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+
+/obj/item/gun/energy/plasmacutter/adv/mega/get_ru_names()
+	return list(
+		NOMINATIVE = "магмитовый плазменный резак",
+		GENITIVE = "магмитового плазменного резака",
+		DATIVE = "магмитовому плазменному резаку",
+		ACCUSATIVE = "магмитовый плазменный резак",
+		INSTRUMENTAL = "магмитовым плазменным резаком",
+		PREPOSITIONAL = "магмитовом плазменном резаке",
+	)
+
+/obj/item/gun/energy/plasmacutter/shotgun
+	name = "plasma cutter shotgun"
+	desc = "Промышленный тяжелый дробовик для шахтёрских работ."
+	icon_state = "miningshotgun"
+	item_state = "miningshotgun"
+	origin_tech = "combat=5;materials=5;magnets=5;plasmatech=6;engineering=5"
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun)
+	force = 10
+	accuracy = GUN_ACCURACY_SHOTGUN
+
+/obj/item/gun/energy/plasmacutter/shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "плазменный дробовик",
+		GENITIVE = "плазменного дробовика",
+		DATIVE = "плазменному дробовику",
+		ACCUSATIVE = "плазменный дробовик",
+		INSTRUMENTAL = "плазменным дробовиком",
+		PREPOSITIONAL = "плазменном дробовике",
+	)
+
+/obj/item/gun/energy/plasmacutter/shotgun/mega
+	name = "magmite plasma cutter shotgun"
+	icon_state = "miningshotgun_mega"
+	item_state = "miningshotgun_mega"
+	desc = "Улучшенный промышленный дробовик с плазменным магмитом. Разрезает... значит добывает."
+	ammo_type = list(/obj/item/ammo_casing/energy/plasma/shotgun/mega)
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+
+/obj/item/gun/energy/plasmacutter/shotgun/mega/get_ru_names()
+	return list(
+		NOMINATIVE = "магмитовый плазменный дробовик",
+		GENITIVE = "магмитового плазменного дробовика",
+		DATIVE = "магмитовому плазменному дробовику",
+		ACCUSATIVE = "магмитовый плазменный дробовик",
+		INSTRUMENTAL = "магмитовым плазменным дробовиком",
+		PREPOSITIONAL = "магмитовом плазменном дробовике",
+	)
 
 // Wormhole Projectors //
 /obj/item/gun/energy/wormhole_projector
 	name = "bluespace wormhole projector"
 	desc = "A projector that emits high density quantum-coupled bluespace beams."
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
-	item_state = null
+	item_state = "wormhole_projector1"
 	icon_state = "wormhole_projector1"
 	origin_tech = "combat=4;bluespace=6;plasmatech=4;engineering=4"
 	charge_delay = 5
 	selfcharge = TRUE
-	var/obj/effect/portal/blue
-	var/obj/effect/portal/orange
+	var/obj/effect/portal/wormhole_projector/blue
+	var/obj/effect/portal/wormhole_projector/orange
+	accuracy = GUN_ACCURACY_DEFAULT
 
-
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_icon_state()
 	icon_state = "wormhole_projector[select]"
 	item_state = icon_state
-	return
 
-/obj/item/gun/energy/wormhole_projector/process_chamber()
+/obj/item/gun/energy/wormhole_projector/handle_chamber()
 	..()
 	select_fire(usr)
 
-/obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/P)
-	if(P.icon_state == "portal")
-		blue = null
-		if(orange)
-			orange.target = null
-	else
+/obj/item/gun/energy/wormhole_projector/portal_destroyed(obj/effect/portal/wormhole_projector/portal)
+	if(portal.is_orange)
 		orange = null
-		if(blue)
-			blue.target = null
-
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/W)
-	var/obj/effect/portal/P = new /obj/effect/portal(get_turf(W), null, src)
-	P.precision = 0
-	P.failchance = 0
-	P.can_multitool_to_remove = 1
-	if(W.name == "bluespace beam")
-		qdel(blue)
-		blue = P
+		blue?.target = null
 	else
-		qdel(orange)
-		P.icon_state = "portal1"
-		orange = P
+		blue = null
+		orange?.target = null
+
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/wormhole_beam, turf/target)
+	var/obj/effect/portal/wormhole_projector/new_portal = new(get_turf(wormhole_beam), null, src)
+	if(wormhole_beam.is_orange)
+		if(!QDELETED(orange))
+			qdel(orange)
+		orange = new_portal
+		new_portal.is_orange = TRUE
+		new_portal.update_icon(UPDATE_ICON_STATE)
+		new_portal.set_light_color(COLOR_MOSTLY_PURE_ORANGE)
+		new_portal.update_light()
+	else
+		if(!QDELETED(blue))
+			qdel(blue)
+		blue = new_portal
+
 	if(orange && blue)
 		blue.target = get_turf(orange)
 		orange.target = get_turf(blue)
@@ -245,13 +408,14 @@
 	name = "cyborg lmg"
 	desc = "A machinegun that fires 3d-printed flachettes slowly regenerated using a cyborg's internal power source."
 	icon_state = "l6closed0"
-	icon = 'icons/obj/guns/projectile.dmi'
+	icon = 'icons/obj/weapons/projectile.dmi'
 	cell_type = /obj/item/stock_parts/cell/secborg
 	ammo_type = list(/obj/item/ammo_casing/energy/c3dbullet)
-	can_charge = 0
+	can_charge = FALSE
+	accuracy = GUN_ACCURACY_DEFAULT
 
-/obj/item/gun/energy/printer/update_icon()
-	return
+/obj/item/gun/energy/printer/update_overlays()
+	return list()
 
 /obj/item/gun/energy/printer/emp_act()
 	return
@@ -265,6 +429,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/instakill)
 	force = 60
 	origin_tech = "combat=7;magnets=6"
+	accuracy = GUN_ACCURACY_RIFLE
+	attachable_allowed = GUN_MODULE_CLASS_NONE
 
 /obj/item/gun/energy/laser/instakill/emp_act() //implying you could stop the instagib
 	return
@@ -288,18 +454,19 @@
 	icon_state = "honkrifle"
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/clown)
-	clumsy_check = 0
-	selfcharge = 1
+	clumsy_check = FALSE
+	selfcharge = TRUE
 	ammo_x_offset = 3
+	accuracy = GUN_ACCURACY_MINIMAL
 
 /obj/item/gun/energy/toxgun
-	name = "plasma pistol"
+	name = "toxin pistol"
 	desc = "A specialized firearm designed to fire lethal bolts of toxins."
 	icon_state = "toxgun"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=4;magnets=4;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/toxplasma)
-	shaded_charge = 1
+	shaded_charge = TRUE
+	accuracy = GUN_ACCURACY_RIFLE
 
 // Energy Sniper //
 /obj/item/gun/energy/sniperrifle
@@ -310,40 +477,55 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/sniper)
 	item_state = null
 	weapon_weight = WEAPON_HEAVY
-	slot_flags = SLOT_BACK
-	w_class = WEIGHT_CLASS_BULKY
+	slot_flags = ITEM_SLOT_BACK
 	can_holster = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
-	shaded_charge = 1
+	shaded_charge = TRUE
+	accuracy = GUN_ACCURACY_SNIPER
+
+/obj/item/gun/energy/sniperrifle/pod_pilot
+	name = "LSR-39 Queen blade"
+	desc = "Прототип компактной лазерной снайперской винтовки с парализующим и летальным режимом стрельбы, оснащена большим оптическим прицелом для эффективной работы в открытом космосе."
+	icon_state = "LSR-39"
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/podsniper/disabler,
+		/obj/item/ammo_casing/energy/podsniper/laser,
+	)
+	item_state = null
+	weapon_weight = WEAPON_MEDIUM
+	w_class = WEIGHT_CLASS_BULKY
+	charge_sections = 3
+	modifystate = TRUE
+	accuracy = GUN_ACCURACY_SNIPER
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature
 	name = "temperature gun"
-	icon = 'icons/obj/guns/gun_temperature.dmi'
+	icon = 'icons/obj/weapons/gun_temperature.dmi'
 	icon_state = "tempgun_4"
 	item_state = "tempgun_4"
-	slot_flags = SLOT_BACK
+	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
 	desc = "A gun that changes the body temperature of its targets."
+	fire_delay = 1.5 SECONDS
 	var/temperature = 300
 	var/target_temperature = 300
 	origin_tech = "combat=4;materials=4;powerstorage=3;magnets=2"
 
 	ammo_type = list(/obj/item/ammo_casing/energy/temp)
-	selfcharge = 1
+	selfcharge = TRUE
 
 	var/powercost = ""
 	var/powercostcolor = ""
 
-	var/emagged = 0			//ups the temperature cap from 500 to 1000, targets hit by beams over 500 Kelvin will burst into flames
 	var/dat = ""
+	accuracy = GUN_ACCURACY_RIFLE_LASER
 
 /obj/item/gun/energy/temperature/Initialize(mapload, ...)
 	. = ..()
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 	START_PROCESSING(SSobj, src)
-
 
 /obj/item/gun/energy/temperature/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -352,17 +534,20 @@
 /obj/item/gun/energy/temperature/newshot()
 	..()
 
-/obj/item/gun/energy/temperature/attack_self(mob/living/user as mob)
+/obj/item/gun/energy/temperature/attack_self(mob/living/user)
 	user.set_machine(src)
 	update_dat()
-	user << browse({"<meta charset="UTF-8"><TITLE>Temperature Gun Configuration</TITLE><HR>[dat]"}, "window=tempgun;size=510x120")
+	var/datum/browser/popup = new(user, "tempgun", "Temperature Gun Configuration", 510, 120)
+	popup.set_content("<hr>[dat]")
+	popup.open(TRUE)
 	onclose(user, "tempgun")
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
 	if(!emagged)
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
-		to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+		if(user)
+			to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/gun/energy/temperature/Topic(href, href_list)
@@ -376,8 +561,8 @@
 		if(amount > 0)
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
-			target_temperature = max(0, target_temperature+amount)
-	if(istype(loc, /mob))
+			target_temperature = max(TCMB, target_temperature+amount)
+	if(ismob(loc))
 		attack_self(loc)
 	add_fingerprint(usr)
 	return
@@ -420,39 +605,41 @@
 			temperature = target_temperature
 		update_icon()
 
-		if(istype(loc, /mob/living/carbon))
+		if(iscarbon(loc))
 			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
-				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
+				var/datum/browser/popup = new(M, "tempgun", "Temperature Gun Configuration", 510, 120)
+				popup.set_content("<hr>[dat]")
+				popup.open(FALSE)
 	return
 
 /obj/item/gun/energy/temperature/proc/update_dat()
 	dat = ""
 	dat += "Current output temperature: "
 	if(temperature > 500)
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-		dat += "<FONT color=red><B> SEARING!</B></FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += "<span style='color: red;'><b> SEARING!</b></span>"
 	else if(temperature > (T0C + 50))
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else if(temperature > (T0C - 50))
-		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: black;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else
-		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	dat += "<BR>"
+		dat += "<span style='color: blue;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+	dat += "<br>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<A href='?src=[UID()];temp=-100'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-10'>-</A> "
-	dat += "<A href='?src=[UID()];temp=-1'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-100'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-10'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-1'>-</a> "
 	dat += "[target_temperature] "
-	dat += "<A href='?src=[UID()];temp=1'>+</A> "
-	dat += "<A href='?src=[UID()];temp=10'>+</A> "
-	dat += "<A href='?src=[UID()];temp=100'>+</A>"
-	dat += "<BR>"
+	dat += "<a href='byond://?src=[UID()];temp=1'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=10'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=100'>+</a>"
+	dat += "<br>"
 	dat += "Power cost: "
-	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
+	dat += "<span style='color: [powercostcolor];'><b>[powercost]</b></span>"
 
-/obj/item/gun/energy/temperature/proc/update_temperature()
+/obj/item/gun/energy/temperature/update_icon_state()
 	switch(temperature)
 		if(501 to INFINITY)
 			item_state = "tempgun_8"
@@ -472,34 +659,32 @@
 			item_state = "tempgun_1"
 		if(-INFINITY to 120)
 			item_state = "tempgun_0"
+
 	icon_state = item_state
 
-/obj/item/gun/energy/temperature/update_icon()
-	overlays = 0
-	update_temperature()
-	update_user()
-	update_charge()
-
-/obj/item/gun/energy/temperature/proc/update_user()
-	if(istype(loc,/mob/living/carbon))
-		var/mob/living/carbon/M = loc
-		M.update_inv_back()
-		M.update_inv_l_hand()
-		M.update_inv_r_hand()
-
-/obj/item/gun/energy/temperature/proc/update_charge()
-	var/charge = cell.charge
-	switch(charge)
-		if(900 to INFINITY)		overlays += "900"
-		if(800 to 900)			overlays += "800"
-		if(700 to 800)			overlays += "700"
-		if(600 to 700)			overlays += "600"
-		if(500 to 600)			overlays += "500"
-		if(400 to 500)			overlays += "400"
-		if(300 to 400)			overlays += "300"
-		if(200 to 300)			overlays += "200"
-		if(100 to 202)			overlays += "100"
-		if(-INFINITY to 100)	overlays += "0"
+/obj/item/gun/energy/temperature/update_overlays()
+	. = ..()
+	switch(cell.charge)
+		if(900 to INFINITY)
+			. += "900"
+		if(800 to 900)
+			. += "800"
+		if(700 to 800)
+			. += "700"
+		if(600 to 700)
+			. += "600"
+		if(500 to 600)
+			. += "500"
+		if(400 to 500)
+			. += "400"
+		if(300 to 400)
+			. += "300"
+		if(200 to 300)
+			. += "200"
+		if(100 to 202)
+			. += "100"
+		if(-INFINITY to 100)
+			. += "0"
 
 // Mimic Gun //
 /obj/item/gun/energy/mimicgun
@@ -507,10 +692,11 @@
 	desc = "A self-defense weapon that exhausts organic targets, weakening them until they collapse. Why does this one have teeth?"
 	icon_state = "disabler"
 	ammo_type = list(/obj/item/ammo_casing/energy/mimic)
-	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
-	selfcharge = 1
+	clumsy_check = FALSE //Admin spawn only, might as well let clowns use it.
+	selfcharge = TRUE
 	ammo_x_offset = 3
 	var/mimic_type = /obj/item/gun/projectile/automatic/pistol //Setting this to the mimicgun type does exactly what you think it will.
+	accuracy = GUN_ACCURACY_DEFAULT
 
 /obj/item/gun/energy/mimicgun/newshot()
 	var/obj/item/ammo_casing/energy/mimic/M = ammo_type[select]
@@ -521,102 +707,391 @@
 /obj/item/gun/energy/dominator
 	name = "Доминатор"
 	desc = "Проприетарное высокотехнологичное оружие правоохранительной организации Sibyl System, произведённое специально для борьбы с преступностью."
-	icon = 'icons/obj/guns/sibyl.dmi'
+	icon = 'icons/obj/weapons/dominator.dmi'
 	icon_state = "dominator"
+	base_icon_state = "dominator"
 	item_state = null
-
-	w_class = WEIGHT_CLASS_NORMAL
-	slot_flags = SLOT_BELT
 	force = 10
-	flags =  CONDUCT
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	resistance_flags = INDESTRUCTIBLE|LAVA_PROOF|FIRE_PROOF|ACID_PROOF
 	origin_tech = "combat=4;magnets=4"
-
-	ammo_type = list(/obj/item/ammo_casing/energy/dominator/stun, /obj/item/ammo_casing/energy/dominator/paralyzer, /obj/item/ammo_casing/energy/dominator/eliminator)
-	var/sound_voice = list(null, 'sound/voice/dominator/nonlethal-paralyzer.ogg','sound/voice/dominator/lethal-eliminator.ogg','sound/voice/dominator/execution-slaughter.ogg')
-	var/sound_cd = null
 	cell_type = /obj/item/stock_parts/cell/dominator
-	can_charge = TRUE
+	modifystate = TRUE
+	shaded_charge = TRUE
 	charge_sections = 3
-
-	can_flashlight = TRUE
-	flight_x_offset = 27
-	flight_y_offset = 12
-
+	ammo_type = list(
+		/obj/item/ammo_casing/energy/dominator/stun,
+		/obj/item/ammo_casing/energy/dominator/paralyzer,
+		/obj/item/ammo_casing/energy/dominator/eliminator,
+	)
+	/// Sounds played after selecting the firemode, must be in the same order as ammo_type
+	var/sound_voice = list(
+		null,
+		'sound/voice/dominator/nonlethal-paralyzer.ogg',
+		'sound/voice/dominator/lethal-eliminator.ogg',
+		'sound/voice/dominator/execution-slaughter.ogg',
+	)
+	/// Whether we are currently equipped or not.
+	/// Its rather this variable or delayed icon update on dropped.
 	var/is_equipped = FALSE
+	/// Timestamp used for sound effects
+	COOLDOWN_DECLARE(last_sound_effect)
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = -3, "y" = 7),
+		ATTACHMENT_SLOT_UNDER = list("x" = 7, "y" = -8),
+	)
 
 /obj/item/gun/energy/dominator/select_fire(mob/living/user)
-	..()
-	if(sibyl_mod && sibyl_mod.voice_is_enabled && !sound_cd)
-		var/temp_select = select
-		if(sound_voice[select] && select == temp_select)
-			sound_cd = addtimer(CALLBACK(src, .proc/select_playvoice, user, temp_select), 2 SECONDS)
-	return
+	. = ..()
+	if(sibyl_mod?.voice_is_enabled && sound_voice[select] && COOLDOWN_FINISHED(src, last_sound_effect))
+		user.playsound_local(user, sound_voice[select], 50, FALSE)
+		COOLDOWN_START(src, last_sound_effect, 2 SECONDS)
 
-/obj/item/gun/energy/dominator/proc/select_playvoice(mob/living/user, temp_select)
-	user.playsound_local(get_turf(src), sound_voice[select], 50, FALSE)
-	sound_cd = null
-
-/obj/item/gun/energy/dominator/update_icon()
-	if(isnull(cell))
-		set_drop_icon()
-		return
-
-	overlays.Cut()
-	var/ratio = CEILING((cell.charge / cell.maxcharge) * charge_sections, 1)
+/obj/item/gun/energy/dominator/update_icon_state()
+	. = ..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
-	var/shot_name = shot.alt_select_name
-	var/iconState = initial(icon_state)
-
 	if(cell.charge < shot.e_cost)
-		icon_state = "empty"
-		item_state = "[iconState]_empty"
+		item_state = "[base_icon_state]_empty"
 	else
-		item_state = "[iconState][shot_name]"
-		if(!is_equipped && is_equipped != ismob(loc))
-			spawn(1)
-				for(var/i = 1, i <= ratio, i++)
-					if(!ismob(loc))
-						break
-					icon_state = "[shot_name][i]"
-					sleep(1)
-		else if(is_equipped && is_equipped != ismob(loc))
-			spawn(2)
-				for(var/i = ratio, i >= 0, i--)
-					if(ismob(loc))
-						break
-					if(i)
-						icon_state = "[shot_name][i]"
-					else
-						set_drop_icon()
-					sleep(1)
-		else if(!is_equipped && is_equipped == ismob(loc))
-			set_drop_icon()
-		else
-			icon_state = "[shot_name][ratio]"
-	if(gun_light && can_flashlight)
-		var/iconF = "flight"
-		if(gun_light.on)
-			iconF = "flight_on"
-		overlays += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
-	is_equipped = ismob(loc)
-	return
+		item_state = "[base_icon_state]_[shot.select_name]"
 
-/obj/item/gun/energy/dominator/equipped(mob/user)
+/obj/item/gun/energy/dominator/equipped(mob/user, slot, initial = FALSE)
 	. = ..()
+	is_equipped = TRUE
 	update_icon()
-	return .
 
-/obj/item/gun/energy/dominator/dropped(mob/user)
+/obj/item/gun/energy/dominator/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
+	is_equipped = FALSE
 	update_icon()
-	return .
 
-/obj/item/gun/energy/dominator/proc/set_drop_icon()
-	icon_state = initial(icon_state)
-	if(!sibyl_mod)
+//Specter//
+/obj/item/gun/energy/specter
+	name = "Specter"
+	desc = "Современный пистолет \"Спектр\", работающий на съёмных аккумуляторах, имеет магнитные приводы для быстрой перезарядки. Поставляется только силовым структурам \"Нанотрейзен\"."
+	icon_state = "specter"
+	item_state = "specter"
+	force = 10
+	origin_tech = "combat=4;materials=2"
+	cell_type = /obj/item/stock_parts/cell/specter
+	var/obj/item/weapon_cell/magazine = new /obj/item/weapon_cell/specter()
+	ammo_type = list(/obj/item/ammo_casing/energy/specter/disable, /obj/item/ammo_casing/energy/specter/laser)
+	materials = list(MAT_METAL = 1000)
+	accuracy = GUN_ACCURACY_PISTOL
+	attachable_allowed = GUN_MODULE_CLASS_PISTOL_RAIL | GUN_MODULE_CLASS_PISTOL_UNDER
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 8),
+		ATTACHMENT_SLOT_UNDER = list("x" = 8, "y" = -3),
+	)
+	ammo_x_offset = 0
+	actions_types = list(/datum/action/item_action/toggle_firemode)
+
+/obj/item/gun/energy/specter/get_ru_names()
+	return list(
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре",
+	)
+
+/obj/item/gun/energy/specter/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/ammo_alarm, 'sound/weapons/gun_interactions/spec_magout.ogg')
+	AddElement(/datum/element/item_skins, item_path = /obj/item/gun/energy/specter)
+
+/obj/item/gun/energy/specter/update_icon_state()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(current_skin)
+		icon_state = "[current_skin][magazine && magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
+	else
+		icon_state = "[initial(icon_state)][magazine && magazine.is_available_shot(shot.e_cost) ? "" : "-e"]"
+
+/obj/item/gun/energy/specter/can_shoot(mob/living/user, silent)
+	if(!magazine)
+		return FALSE
+	return ..()
+
+/obj/item/gun/energy/specter/attackby(obj/item/item, mob/user, params)
+	if(!is_spectercell(item))
+		return ..()
+	add_fingerprint(user)
+	if(!user.drop_transfer_item_to_loc(item, src))
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
+	if(magazine)
+		magazine.update_icon(UPDATE_OVERLAYS)
+		user.put_in_hands(magazine)
+	cell = item.get_cell()
+	cell_type = cell.type
+	magazine = item
+	balloon_alert(user, "батарейка заменена")
+	update_icon(UPDATE_ICON_STATE)
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(magazine.is_available_shot(shot.e_cost))
+		playsound(loc, 'sound/weapons/gun_interactions/spec_magin.ogg', 50, TRUE)
+	return ATTACK_CHAIN_PROCEED
+
+/obj/item/gun/energy/specter/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_firemode))
+		if(length(ammo_type) > 1)
+			select_fire(user)
+			update_icon()
+		return TRUE
+	return ..()
+
+/obj/item/gun/energy/specter/attack_self(mob/living/user)
+	if(!magazine)
+		return ..()
+	magazine.update_icon(UPDATE_OVERLAYS)
+	user.put_in_hands(magazine)
+	cell = null
+	magazine = null
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/item/gun/energy/emittergun
+	name = "Handicraft Emitter Rifle"
+	desc = "A rifle constructed of some trash materials. Looks rough but very powerful."
+	icon_state = "emittercannonvgovne"
+	item_state = null
+	origin_tech = "combat=3;materials=3;powerstorage=2;magnets=2"
+	weapon_weight = WEAPON_HEAVY
+	slot_flags = ITEM_SLOT_BACK
+	w_class = WEIGHT_CLASS_BULKY
+	can_holster = FALSE
+	cell_type = /obj/item/stock_parts/cell/emittergun
+	ammo_type = list(/obj/item/ammo_casing/energy/emittergun)
+	accuracy = GUN_ACCURACY_MINIMAL
+	attachable_allowed = GUN_MODULE_CLASS_RIFLE_RAIL
+	attachable_offset = list(
+		ATTACHMENT_SLOT_RAIL = list("x" = 0, "y" = 7),
+	)
+
+/obj/item/gun/energy/vortex_shotgun
+	name = "reality vortex wrist mounted shotgun"
+	desc = "Это оружие использует силу вихревой аномалии для локального разрушения ткани реальности."
+	icon_state = "flayer" //Sorta wrist mounted? Sorta? Not really but we work with what we got.
+	ammo_type = list(/obj/item/ammo_casing/energy/vortex_blast)
+	fire_sound = 'sound/weapons/bladeslice.ogg'
+	cell_type = /obj/item/stock_parts/cell/infinite
+
+/obj/item/gun/energy/vortex_shotgun/get_ru_names()
+	return list(
+		NOMINATIVE = "вортекс-дробовик",
+		GENITIVE = "вортекс-дробовика",
+		DATIVE = "вортекс-дробовику",
+		ACCUSATIVE = "вортекс-дробовик",
+		INSTRUMENTAL = "вортекс-дробовиком",
+		PREPOSITIONAL = "вортекс-дробовике",
+	)
+
+/obj/item/ammo_casing/energy/vortex_blast
+	projectile_type = /obj/projectile/energy/vortex_blast
+	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	variance = 70
+	pellets = 8
+	delay = 1.2 SECONDS //and delay has to be stored here on energy guns
+	select_name = "vortex blast"
+	fire_sound = 'sound/weapons/wave.ogg'
+
+/obj/projectile/energy/vortex_blast
+	name = "vortex blast"
+	damage = 2
+	range = 5
+	icon_state = "magspear"
+	hitsound = 'sound/weapons/sear.ogg' //Gets a bit spamy, suppressed is needed to suffer less
+	hitsound_wall = null
+	suppressed = TRUE
+
+/obj/projectile/energy/vortex_blast/get_ru_names()
+	return list(
+		NOMINATIVE = "вортекс-выстрел",
+		GENITIVE = "вортекс-выстрела",
+		DATIVE = "вортекс-выстрелу",
+		ACCUSATIVE = "вортекс-выстрел",
+		INSTRUMENTAL = "вортекс-выстрелом",
+		PREPOSITIONAL = "вортекс-выстреле",
+	)
+
+/obj/projectile/energy/vortex_blast/prehit(atom/target)
+	. = ..()
+	if(ishuman(target))
 		return
-	if(sibyl_mod.auth_id)
-		icon_state += "_unlock"
+	if(isliving(target))
+		damage *= 6 //Up damage if not a human as we are not doing shenanigins
+		return
+	damage *= 15 //objects tend to fall apart as atoms are ripped up
+
+/obj/projectile/energy/vortex_blast/on_hit(atom/target, blocked = 0)
+	if(blocked >= 100)
+		return ..()
+	if(ishuman(target))
+		var/mob/living/carbon/human/livivng_target = target
+		var/obj/item/organ/external/affecting = livivng_target.get_organ(ran_zone(def_zone))
+		livivng_target.apply_damage(2, BRUTE, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.apply_damage(2, TOX, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.apply_damage(2, CLONE, affecting, livivng_target.run_armor_check(affecting, ENERGY))
+		livivng_target.adjustBrainLoss(3)
+	..()
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast
+	invisibility = INVISIBILITY_ABSTRACT // visual is from effect
+
+/obj/effect/temp_visual/target_angled/muzzle_flash/vortex_blast/Initialize(mapload, atom/target, duration_override)
+	. = ..()
+	if(target)
+		new /obj/effect/warp_effect/vortex_blast(loc, target)
+
+/obj/effect/warp_effect/vortex_blast
+	icon = 'icons/effects/64x64.dmi'
+	icon_state = "vortex_shotgun"
+
+/obj/effect/warp_effect/vortex_blast/Initialize(mapload, target)
+	. = ..()
+	var/matrix/our_matrix = matrix() * 0.5
+	our_matrix.Turn(get_angle(src, target) - 45)
+	transform = our_matrix
+	animate(src, transform = our_matrix * 10, time = 0.3 SECONDS, alpha = 0)
+	QDEL_IN(src, 0.3 SECONDS)
+
+// Shield breaker //
+#define PLASMA_CHARGE_USE_PER_SECOND 2.5
+#define PLASMA_DISCHARGE_LIMIT 5
+
+// MARK: Plasma pistol
+/obj/item/gun/energy/plasma_pistol
+	name = "plasma pistol"
+	desc = "A specialized firearm designed to fire superheated bolts of plasma. Can be overloaded for a high damage, shield-breaking shot."
+	icon_state = "plasmagun"
+	item_state = "plasmagun"
+	origin_tech = "combat=6;magnets=5;powerstorage=3"
+	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
+	shaded_charge = TRUE
+	atom_say_verb = list("бупает", "бипает")
+	bubble_icon = "swarmer"
+	light_color = "#89078E"
+	light_power = 4
+	accuracy = GUN_ACCURACY_PISTOL
+	var/overloaded = FALSE
+	var/warned = FALSE
+	var/charging = FALSE
+	var/charge_failure = FALSE
+	var/mob/living/carbon/holder = null
+
+/obj/item/gun/energy/plasma_pistol/examine(mob/user)
+	. = ..()
+	. += span_warning("Beware! Improper handling of [src] may release a cloud of highly flammable plasma gas!")
+
+/obj/item/gun/energy/plasma_pistol/Initialize(mapload)
+	. = ..()
+	START_PROCESSING(SSfastprocess, src)
+
+/obj/item/gun/energy/plasma_pistol/Destroy()
+	STOP_PROCESSING(SSfastprocess, src)
+	holder = null
+	return ..()
+
+/obj/item/gun/energy/plasma_pistol/process()
+	..()
+	if(overloaded)
+		cell.charge -= PLASMA_CHARGE_USE_PER_SECOND / 5 //2.5 per second, 25 every 10 seconds
+		if(cell.charge <= PLASMA_CHARGE_USE_PER_SECOND * 10 && !warned)
+			warned = TRUE
+			playsound(loc, 'sound/weapons/smg_empty_alarm.ogg', 75, TRUE)
+			atom_say("Caution, charge low. Forced discharge in under 10 seconds.", use_tts = FALSE)
+		if(cell.charge <= PLASMA_DISCHARGE_LIMIT)
+			discharge()
+
+/obj/item/gun/energy/plasma_pistol/attack_self(mob/living/user)
+	if(overloaded)
+		to_chat(user, span_warning("[src] is already overloaded!"))
+		return
+	if(cell.charge <= 140) // at least 6 seconds of charge time
+		to_chat(user, span_warning("[src] does not have enough charge to be overloaded."))
+		return
+	if(charging)
+		to_chat(user, span_warning("[src] is already charging!"))
+		return
+	to_chat(user, span_notice("You begin to overload [src]."))
+	charging = TRUE
+	charge_failure = FALSE
+	holder = user
+	RegisterSignal(holder, COMSIG_MOB_SWAP_HANDS, PROC_REF(fail_charge))
+	addtimer(CALLBACK(src, PROC_REF(overload)), 2.5 SECONDS)
+
+/obj/item/gun/energy/plasma_pistol/proc/fail_charge()
+	SIGNAL_HANDLER // COMSIG_MOB_SWAP_HANDS
+	charge_failure = TRUE // No charging 2 guns at once.
+	UnregisterSignal(holder, COMSIG_MOB_SWAP_HANDS)
+
+/obj/item/gun/energy/plasma_pistol/proc/overload()
+	UnregisterSignal(holder, COMSIG_MOB_SWAP_HANDS)
+	if(ishuman(loc) && !charge_failure)
+		var/mob/living/carbon/carbon = loc
+		select_fire(carbon)
+		overloaded = TRUE
+		cell.use(125)
+		playsound(carbon.loc, 'sound/machines/terminal_prompt_confirm.ogg', 75, TRUE)
+		atom_say("Overloading failure.", use_tts = FALSE)
+		set_light(3) // extra visual effect to make it more noticable to user and victims alike
+		holder = carbon
+		RegisterSignal(holder, COMSIG_MOB_SWAP_HANDS, PROC_REF(discharge))
 	else
-		icon_state += "_lock"
+		balloon_alert_to_viewers("overloading failure")
+		playsound(loc, 'sound/machines/buzz-sigh.ogg', 75, TRUE)
+	charging = FALSE
+	charge_failure = FALSE
+
+/obj/item/gun/energy/plasma_pistol/proc/reset_overloaded()
+	select_fire()
+	set_light(0)
+	overloaded = FALSE
+	warned = FALSE
+	UnregisterSignal(holder, COMSIG_MOB_SWAP_HANDS)
+	holder = null
+
+/obj/item/gun/energy/plasma_pistol/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
+	if(charging)
+		return
+	return ..()
+
+/obj/item/gun/energy/plasma_pistol/handle_chamber()
+	if(overloaded)
+		do_sparks(2, TRUE, src)
+		reset_overloaded()
+	..()
+	update_icon()
+
+/obj/item/gun/energy/plasma_pistol/emp_act(severity)
+	..()
+	charge_failure = TRUE
+	if(prob(100 / severity) && overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/dropped(mob/user)
+	. = ..()
+	charge_failure = TRUE
+	if(overloaded)
+		discharge()
+
+/obj/item/gun/energy/plasma_pistol/equipped(mob/user, slot, initial)
+	. = ..()
+	charge_failure = TRUE
+	if(overloaded)
+		discharge()
+
+//25% of the time, plasma leak. Otherwise, shoot at a random mob / turf nearby. If no proper mob is found when mob is picked, fire at a turf instead
+/obj/item/gun/energy/plasma_pistol/proc/discharge()
+	SIGNAL_HANDLER
+	reset_overloaded()
+	do_sparks(2, TRUE, src)
+	update_icon()
+	visible_message(span_danger("[src] vents heated plasma!"))
+	var/turf/simulated/turf = get_turf(src)
+	if(istype(turf))
+		turf.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
+
+#undef PLASMA_CHARGE_USE_PER_SECOND
+#undef PLASMA_DISCHARGE_LIMIT

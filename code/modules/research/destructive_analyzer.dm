@@ -7,14 +7,24 @@ Note: Must be placed within 3 tiles of the R&D Console
 */
 /obj/machinery/r_n_d/destructive_analyzer
 	name = "Destructive Analyzer"
-	desc = "Изучайте науку, разрушая предметы!"
+	desc = "Оборудование, предназначенное для проведения научных исследований методом обратной инженерии \
+			путём разборки различных объектов. Управление происходит с помощью подключаемой консоли."
 	icon_state = "d_analyzer"
-	icon_open = "d_analyzer_t"
-	icon_closed = "d_analyzer"
+	base_icon_state = "d_analyzer"
 	var/decon_mod = 0
 
-/obj/machinery/r_n_d/destructive_analyzer/New()
-	..()
+/obj/machinery/r_n_d/destructive_analyzer/get_ru_names()
+	return list(
+		NOMINATIVE = "деструктивный анализатор",
+		GENITIVE = "деструктивного анализатора",
+		DATIVE = "деструктивному анализатору",
+		ACCUSATIVE = "деструктивный анализатор",
+		INSTRUMENTAL = "деструктивным анализатором",
+		PREPOSITIONAL = "деструктивном анализаторе",
+	)
+
+/obj/machinery/r_n_d/destructive_analyzer/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module(null)
@@ -23,11 +33,10 @@ Note: Must be placed within 3 tiles of the R&D Console
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_d_analyzer"
-		icon_open = "syndie_d_analyzer_t"
-		icon_closed = "syndie_d_analyzer"
+		base_icon_state = "syndie_d_analyzer"
 
-/obj/machinery/r_n_d/destructive_analyzer/upgraded/New()
-	..()
+/obj/machinery/r_n_d/destructive_analyzer/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/destructive_analyzer(null)
 	component_parts += new /obj/item/stock_parts/scanning_module/phasic(null)
@@ -36,8 +45,7 @@ Note: Must be placed within 3 tiles of the R&D Console
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_d_analyzer"
-		icon_open = "syndie_d_analyzer_t"
-		icon_closed = "syndie_d_analyzer"
+		base_icon_state = "syndie_d_analyzer"
 
 /obj/machinery/r_n_d/destructive_analyzer/RefreshParts()
 	var/T = 0
@@ -45,58 +53,79 @@ Note: Must be placed within 3 tiles of the R&D Console
 		T += S.rating
 	decon_mod = T
 
-
-/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(var/list/source_list)
+/obj/machinery/r_n_d/destructive_analyzer/proc/ConvertReqString2List(list/source_list)
 	var/list/temp_list = params2list(source_list)
 	for(var/O in temp_list)
 		temp_list[O] = text2num(temp_list[O])
 	return temp_list
 
+/obj/machinery/r_n_d/destructive_analyzer/attackby(obj/item/I, mob/user, params)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/machinery/r_n_d/destructive_analyzer/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(shocked)
-		if(shock(user,50))
-			return TRUE
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
-		if(linked_console)
-			linked_console.linked_destroy = null
-			linked_console = null
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
 
-	if(exchange_parts(user, O))
-		return
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(default_deconstruction_crowbar(user, O))
-		return
-
+	add_fingerprint(user)
 	if(disabled)
-		return
+		balloon_alert(user, "отключено!")
+		return ATTACK_CHAIN_PROCEED
 	if(!linked_console)
-		to_chat(user, "<span class='warning'>[src.name] сперва требуется подключить к R&D консоли!</span>")
-		return
+		balloon_alert(user, "не подключено к консоли НИО!")
+		return ATTACK_CHAIN_PROCEED
 	if(busy)
-		to_chat(user, "<span class='warning'>[src.name] сейчас занят.</span>")
-		return
-	if(istype(O, /obj/item) && !loaded_item)
-//Ядра аномалий можно разобрать только при улучшеном автомате. 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
-		if(istype(O,/obj/item/assembly/signaler/anomaly) && (decon_mod < 12))
-			to_chat(user, "<span class='warning'>[src.name] не может обработать такой сложный предмет!</span>")
-			return
-		if(!O.origin_tech)
-			to_chat(user, "<span class='warning'>Предмет не имеет технологического происхождения!</span>")
-			return
-		var/list/temp_tech = ConvertReqString2List(O.origin_tech)
-		if(temp_tech.len == 0)
-			to_chat(user, "<span class='warning'>Вы не можете разобрать этот предмет!</span>")
-			return
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[O] прилип к вашей руке и вы не можете поместить его в [src.name]!</span>")
-			return
-		busy = 1
-		loaded_item = O
-		O.loc = src
-		to_chat(user, "<span class='notice'>[O.name] установлен в [src.name]!</span>")
-		flick("[icon_state]_la", src)
-		spawn(10)
-			icon_state = "[icon_state]_l"
-			busy = 0
+		balloon_alert(user, "в процессе разборки!")
+		return ATTACK_CHAIN_PROCEED
+	if(loaded_item)
+		balloon_alert(user, "камера разборки занята!")
+		return ATTACK_CHAIN_PROCEED
+	// anomaly cores are only disassembed in the upgraded machine.
+	// 3x4(femto-manipulator,quad-ultra micro-laser,triphasic scanning module)
+	if(istype(I, /obj/item/assembly/signaler/core) && (decon_mod < 12))
+		balloon_alert(user, "слишком сложный объект!")
+		return ATTACK_CHAIN_PROCEED
+	if(!I.origin_tech)
+		balloon_alert(user, "не подходит для анализа!")
+		return ATTACK_CHAIN_PROCEED
+	var/list/temp_tech = ConvertReqString2List(I.origin_tech)
+	if(!length(temp_tech))
+		balloon_alert(user, "не подходит для анализа!")
+		return ATTACK_CHAIN_PROCEED
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+	busy = TRUE
+	flick("[base_icon_state]_insert", src)
+	loaded_item = I
+	balloon_alert(user, "помещено в камеру разбора")
+	addtimer(CALLBACK(src, PROC_REF(reset_processing)), 1 SECONDS)
+	return ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/machinery/r_n_d/destructive_analyzer/screwdriver_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	if(. && linked_console)
+		linked_console.linked_destroy = null
+		linked_console = null
+
+/obj/machinery/r_n_d/destructive_analyzer/crowbar_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	return default_deconstruction_crowbar(user, I)
+
+/obj/machinery/r_n_d/destructive_analyzer/proc/reset_processing()
+	busy = FALSE
+	update_icon(UPDATE_ICON_STATE)
+
+/obj/machinery/r_n_d/destructive_analyzer/update_icon_state()
+	if(loaded_item)
+		icon_state = "[base_icon_state]_inserted"
+	else
+		icon_state = base_icon_state
+

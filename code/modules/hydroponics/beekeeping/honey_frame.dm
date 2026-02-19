@@ -6,7 +6,6 @@
 	icon_state = "honey_frame"
 	var/honeycomb_capacity = 10 //10 Honeycomb per frame by default, researchable frames perhaps?
 
-
 /obj/item/honey_frame/New()
 	. = ..()
 	pixel_x = rand(8,-8)

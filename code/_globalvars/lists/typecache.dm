@@ -10,3 +10,15 @@ GLOBAL_LIST_INIT(typecache_living, typecacheof(/mob/living))
 GLOBAL_LIST_INIT(typecache_stack, typecacheof(/obj/item/stack))
 
 GLOBAL_LIST_INIT(typecache_machine_or_structure, typecacheof(list(/obj/machinery, /obj/structure)))
+
+GLOBAL_LIST_INIT(typecache_clothing, typecacheof(/obj/item/clothing))
+
+GLOBAL_LIST_INIT(typecache_hostile, typecacheof(/mob/living/simple_animal/hostile))
+
+GLOBAL_LIST_INIT(typecache_reagent, typecacheof(/datum/reagent))
+
+GLOBAL_LIST_INIT(typecache_machinery, typecacheof(/obj/machinery))
+
+GLOBAL_LIST_INIT(typecache_vending, typecacheof(/obj/machinery/vending))
+
+GLOBAL_LIST_INIT(typecache_virus, typecacheof(/datum/disease/virus))

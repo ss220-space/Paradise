@@ -1,32 +1,32 @@
 //Preferences stuff
 	//Head accessory styles
-GLOBAL_LIST_INIT(head_accessory_styles_list, list()) //stores /datum/sprite_accessory/head_accessory indexed by name
+GLOBAL_LIST_EMPTY(head_accessory_styles_list) //stores /datum/sprite_accessory/head_accessory indexed by name
 	//Marking styles
-GLOBAL_LIST_INIT(marking_styles_list, list()) //stores /datum/sprite_accessory/body_markings indexed by name
+GLOBAL_LIST_EMPTY(marking_styles_list) //stores /datum/sprite_accessory/body_markings indexed by name
 	//Hairstyles
-GLOBAL_LIST_INIT(hair_styles_public_list, list())			//stores /datum/sprite_accessory/hair indexed by name
-GLOBAL_LIST_INIT(hair_styles_male_list, list())
-GLOBAL_LIST_INIT(hair_styles_female_list, list())
-GLOBAL_LIST_INIT(hair_styles_full_list, list()) //fluff hair styles
-GLOBAL_LIST_INIT(facial_hair_styles_list, list())	//stores /datum/sprite_accessory/facial_hair indexed by name
-GLOBAL_LIST_INIT(facial_hair_styles_male_list, list())
-GLOBAL_LIST_INIT(facial_hair_styles_female_list, list())
-GLOBAL_LIST_INIT(skin_styles_female_list, list())		//unused
+GLOBAL_LIST_EMPTY(hair_styles_public_list)			//stores /datum/sprite_accessory/hair indexed by name
+GLOBAL_LIST_EMPTY(hair_styles_male_list)
+GLOBAL_LIST_EMPTY(hair_styles_female_list)
+GLOBAL_LIST_EMPTY(hair_styles_full_list) //fluff hair styles
+GLOBAL_LIST_EMPTY(facial_hair_styles_list)	//stores /datum/sprite_accessory/facial_hair indexed by name
+GLOBAL_LIST_EMPTY(facial_hair_styles_male_list)
+GLOBAL_LIST_EMPTY(facial_hair_styles_female_list)
+GLOBAL_LIST_EMPTY(skin_styles_female_list)		//unused
 GLOBAL_LIST_EMPTY(hair_gradients_list) //stores /datum/sprite_accessory/hair_gradient indexed by name
 	//Underwear
-GLOBAL_LIST_INIT(underwear_list, list())		//stores /datum/sprite_accessory/underwear indexed by name
-GLOBAL_LIST_INIT(underwear_m, list())	//stores only underwear name
-GLOBAL_LIST_INIT(underwear_f, list())	//stores only underwear name
+GLOBAL_LIST_EMPTY(underwear_list)		//stores /datum/sprite_accessory/underwear indexed by name
+GLOBAL_LIST_EMPTY(underwear_m)	//stores only underwear name
+GLOBAL_LIST_EMPTY(underwear_f)	//stores only underwear name
 	//Undershirts
-GLOBAL_LIST_INIT(undershirt_list, list()) 	//stores /datum/sprite_accessory/undershirt indexed by name
-GLOBAL_LIST_INIT(undershirt_m, list())	 //stores only undershirt name
-GLOBAL_LIST_INIT(undershirt_f, list())	 //stores only undershirt name
+GLOBAL_LIST_EMPTY(undershirt_list)	//stores /datum/sprite_accessory/undershirt indexed by name
+GLOBAL_LIST_EMPTY(undershirt_m)	 //stores only undershirt name
+GLOBAL_LIST_EMPTY(undershirt_f)	 //stores only undershirt name
 	//Socks
-GLOBAL_LIST_INIT(socks_list, list())		//stores /datum/sprite_accessory/socks indexed by name
-GLOBAL_LIST_INIT(socks_m, list())	 //stores only socks name
-GLOBAL_LIST_INIT(socks_f, list())	 //stores only socks name
+GLOBAL_LIST_EMPTY(socks_list)		//stores /datum/sprite_accessory/socks indexed by name
+GLOBAL_LIST_EMPTY(socks_m)	 //stores only socks name
+GLOBAL_LIST_EMPTY(socks_f)	 //stores only socks name
 	//Alt Heads
-GLOBAL_LIST_INIT(alt_heads_list, list())	//stores /datum/sprite_accessory/alt_heads indexed by name
+GLOBAL_LIST_EMPTY(alt_heads_list)	//stores /datum/sprite_accessory/alt_heads indexed by name
 
 GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons/taser.ogg','sound/weapons/armbomb.ogg','sound/voice/hiss1.ogg','sound/voice/hiss2.ogg', \
 'sound/voice/hiss3.ogg','sound/voice/hiss4.ogg','sound/voice/hiss5.ogg','sound/voice/hiss6.ogg','sound/effects/glassbr1.ogg','sound/effects/glassbr2.ogg','sound/effects/glassbr3.ogg', \
@@ -38,13 +38,17 @@ GLOBAL_LIST_INIT(scarySounds, list('sound/weapons/thudswoosh.ogg','sound/weapons
 
 //If you don't want to fuck up disposals, add to this list, and don't change the order.
 //If you insist on changing the order, you'll have to change every sort junction to reflect the new order. --Pete
+//keep the number comments so it would be easy for you and others to set correct sortype -Beeb
 
-GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals",
-	"Cargo Bay", "QM Office", "Engineering", "CE Office",
-	"Atmospherics", "HoS Office", "Security", "Medbay",
-	"CMO Office", "Chemistry", "Research", "RD Office",
-	"Robotics", "HoP Office", "Library", "Chapel", "Captain's Office",
-	"Bar", "Kitchen", "Hydroponics", "Janitor Closet","Genetics","Brig Physician"))
+GLOBAL_LIST_INIT(TAGGERLOCATIONS, list("Disposals", //1
+	"Cargo Bay", "QM Office", "Engineering", "CE Office", //2, 3, 4, 5
+	"Atmospherics", "HoS Office", "Security", "Medbay", //6, 7, 8, 9
+	"CMO Office", "Chemistry", "Research", "RD Office", //10, 11, 12 ,13
+	"Robotics", "HoP Office", "Library", "Chapel", //14, 15, 16, 17
+	"Captain's Office", "Bar", "Kitchen", "Hydroponics", //18, 19, 20, 21
+	"Janitor Closet","Genetics","Brig Physician", "Morgue", //22, 23, 24, 25
+	"NTRep Office", "Detective", "Magistrate's Office", "IAA Office", //26, 27, 28, 29
+	"Mechanic")) // 30
 
 GLOBAL_LIST_INIT(hit_appends, list("-OOF", "-ACK", "-UGH", "-HRNK", "-HURGH", "-GLORF"))
 

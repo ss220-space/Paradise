@@ -3,7 +3,7 @@
 	desc = "A wooden musical instrument with four strings and a bow. \"The devil went down to space, he was looking for an assistant to grief.\""
 	icon_state = "violin"
 	item_state = "violin"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	allowed_instrument_ids = "violin"
 
 /obj/item/instrument/violin/golden
@@ -13,23 +13,11 @@
 	item_state = "golden_violin"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
-/obj/item/instrument/piano_synth
-	name = "synthesizer"
-	desc = "An advanced electronic synthesizer that can be used as various instruments."
-	icon_state = "synth"
-	item_state = "synth"
-	allowed_instrument_ids = "piano"
-
-/obj/item/instrument/piano_synth/Initialize(mapload)
-	. = ..()
-	song.allowed_instrument_ids = SSinstruments.synthesizer_instrument_ids
-
 /obj/item/instrument/banjo
 	name = "banjo"
 	desc = "A 'Mura' brand banjo. It's pretty much just a drum with a neck and strings."
 	icon_state = "banjo"
 	item_state = "banjo"
-	attack_verb = list("scruggs-styled", "hum-diggitied", "shin-digged", "clawhammered")
 	hitsound = 'sound/weapons/banjoslap.ogg'
 	allowed_instrument_ids = "banjo"
 
@@ -38,9 +26,9 @@
 	desc = "It's made of wood and has bronze strings."
 	icon_state = "guitar"
 	item_state = "guitar"
-	attack_verb = list("played metal on", "serenaded", "crashed", "smashed")
+	attack_verb = list("заметалил", "засеренадил", "грохнул")
 	hitsound = 'sound/weapons/guitarslam.ogg'
-	allowed_instrument_ids = "guitar"
+	allowed_instrument_ids = list("guitar", "csteelgt", "cnylongt", "ccleangt", "cmutedgt", "sleggt", "piclgt")
 
 /obj/item/instrument/eguitar
 	name = "electric guitar"
@@ -48,7 +36,7 @@
 	icon_state = "eguitar"
 	item_state = "eguitar"
 	force = 12
-	attack_verb = list("played metal on", "shredded", "crashed", "smashed")
+	attack_verb = list("заметалил", "изничтожил", "грохнул")
 	hitsound = 'sound/weapons/stringsmash.ogg'
 	allowed_instrument_ids = "eguitar"
 
@@ -79,15 +67,16 @@
 	icon_state = "spectral_trumpet"
 	item_state = "spectral_trumpet"
 	force = 0
-	attack_verb = list("played", "jazzed", "trumpeted", "mourned", "dooted", "spooked")
+	attack_verb = list("заджазил", "затрубил")
 
-/obj/item/instrument/trumpet/spectral/Initialize()
+/obj/item/instrument/trumpet/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trumpet/spectral/attack(mob/living/carbon/C, mob/user)
-	playsound(src, 'sound/instruments/trombone/En4.mid', 100, 1, -1)
-	..()
+/obj/item/instrument/trumpet/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		playsound(loc, 'sound/instruments/trombone/En4.mid', 100, TRUE, -1)
 
 /obj/item/instrument/saxophone
 	name = "saxophone"
@@ -99,18 +88,17 @@
 /obj/item/instrument/saxophone/spectral
 	name = "spectral saxophone"
 	desc = "This spooky sound will be sure to leave mortals in bones."
-	icon_state = "saxophone"
-	item_state = "saxophone"
 	force = 0
-	attack_verb = list("played", "jazzed", "saxxed", "mourned", "dooted", "spooked")
+	attack_verb = list("заджазил", "засаксил")
 
-/obj/item/instrument/saxophone/spectral/Initialize()
+/obj/item/instrument/saxophone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/saxophone/spectral/attack(mob/living/carbon/C, mob/user)
-	playsound(src, 'sound/instruments/saxophone/En4.mid', 100,1,-1)
-	..()
+/obj/item/instrument/saxophone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		playsound(loc, 'sound/instruments/saxophone/En4.mid', 100, TRUE, -1)
 
 /obj/item/instrument/trombone
 	name = "trombone"
@@ -122,18 +110,16 @@
 /obj/item/instrument/trombone/spectral
 	name = "spectral trombone"
 	desc = "A skeleton's favorite instrument. Apply directly on the mortals."
-	icon_state = "trombone"
-	item_state = "trombone"
 	force = 0
-	attack_verb = list("played", "jazzed", "tromboned", "mourned", "dooted", "spooked")
 
-/obj/item/instrument/trombone/spectral/Initialize()
+/obj/item/instrument/trombone/spectral/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/spooky)
 
-/obj/item/instrument/trombone/spectral/attack(mob/living/carbon/C, mob/user)
-	playsound (src, 'sound/instruments/trombone/Cn4.mid', 100,1,-1)
-	..()
+/obj/item/instrument/trombone/spectral/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ..()
+	if(ATTACK_CHAIN_SUCCESS_CHECK(.))
+		playsound(loc, 'sound/instruments/trombone/Cn4.mid', 100, TRUE, -1)
 
 /obj/item/instrument/recorder
 	name = "recorder"
@@ -157,7 +143,7 @@
 	desc = "A percussion instrument with a bright tone."
 	icon_state = "xylophone"
 	item_state = "xylophone"
-	allowed_instrument_ids = "bikehorn"
+	allowed_instrument_ids = "xylophone"
 
 /obj/item/instrument/bikehorn
 	name = "gilded bike horn"
@@ -166,11 +152,10 @@
 	item_state = "bike_horn"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-	attack_verb = list("beautifully honks")
+	attack_verb = list("мелодично хонкнул")
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	throw_speed = 3
-	throw_range = 7
 	hitsound = 'sound/items/bikehorn.ogg'
 	allowed_instrument_ids = "bikehorn"
 
@@ -178,9 +163,11 @@
 /datum/crafting_recipe/violin
 	name = "Violin"
 	result = /obj/item/instrument/violin
-	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC
@@ -188,9 +175,11 @@
 /datum/crafting_recipe/guitar
 	name = "Guitar"
 	result = /obj/item/instrument/guitar
-	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC
@@ -198,9 +187,11 @@
 /datum/crafting_recipe/eguitar
 	name = "Electric Guitar"
 	result = /obj/item/instrument/eguitar
-	reqs = list(/obj/item/stack/sheet/metal = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/metal = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC
@@ -208,9 +199,11 @@
 /datum/crafting_recipe/banjo
 	name = "Banjo"
 	result = /obj/item/instrument/banjo
-	reqs = list(/obj/item/stack/sheet/wood = 5,
-				/obj/item/stack/cable_coil = 6,
-				/obj/item/stack/tape_roll = 5)
+	reqs = list(
+		/obj/item/stack/sheet/wood = 5,
+		/obj/item/stack/cable_coil = 6,
+		/obj/item/stack/tape_roll = 5,
+	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	time = 8 SECONDS
 	category = CAT_MISC

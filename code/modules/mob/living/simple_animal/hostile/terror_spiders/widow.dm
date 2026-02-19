@@ -10,67 +10,82 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow
 	name = "Widow of Terror"
-	desc = "An ominous-looking spider, black as the darkest night. It has merciless eyes, and a blood-red hourglass pattern on its back."
+	desc = "Зловещий паук, черный, как самая темная ночь. У него безжалостные глаза и кроваво-красный узор в виде песочных часов на спине."
 	ai_target_method = TS_DAMAGE_POISON
 	icon_state = "terror_widow"
 	icon_living = "terror_widow"
 	icon_dead = "terror_widow_dead"
 	speed = -0.1
-	maxHealth = 130
-	health = 130
 	death_sound = 'sound/creatures/terrorspiders/death2.ogg'
 	ranged = 1
 	rapid = 2
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
-	projectiletype = /obj/item/projectile/terrorspider/widow
-	ranged_cooldown_time = 20
-	melee_damage_lower = 15
-	melee_damage_upper = 20
-	melee_damage_type = TOX
+	projectiletype = /obj/projectile/terrorspider/widow
+	ranged_cooldown_time = 25
+	melee_damage_lower = 10
+	melee_damage_upper = 15
 	web_type = /obj/structure/spider/terrorweb/widow
-	special_abillity = list(/obj/effect/proc_holder/spell/targeted/click/fireball/terror/smoke,
-							/obj/effect/proc_holder/spell/targeted/click/fireball/terror)
+	special_abillity = list(
+		/obj/effect/proc_holder/spell/fireball/smoke_spit,
+		/obj/effect/proc_holder/spell/fireball/venom_spit,
+	)
 	stat_attack = UNCONSCIOUS // ensures they will target people in crit, too!
 	spider_tier = TS_TIER_2
-	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель - внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
+	tts_seed = "Karastamper"
+	spider_intro_text = "Будучи Вдовой Ужаса, ваша цель — внести хаос на поле боя при помощи своих плевков, вы также смертоносны вблизи и с каждым укусом вводите в противников опасный яд. Несмотря на скорость и смертоносность, вы довольно хрупки, поэтому не стоит атаковать тяжело вооружённых противников!"
+
+/mob/living/simple_animal/hostile/poison/terror_spider/widow/get_ru_names()
+	return list(
+		NOMINATIVE = "Вдова Ужаса",
+		GENITIVE = "Вдовы Ужаса",
+		DATIVE = "Вдове Ужаса",
+		ACCUSATIVE = "Вдову Ужаса",
+		INSTRUMENTAL = "Вдовой Ужаса",
+		PREPOSITIONAL = "Вдове Ужаса",
+	)
+
+/mob/living/simple_animal/hostile/poison/terror_spider/widow/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/reagent_attack/widow)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/widow/spider_specialattack(mob/living/carbon/human/L, poisonable)
-	L.AdjustSilence(5)
-	L.adjustStaminaLoss(25) //4 hits for stamcrit
+	. = ..()
+	if(!.)
+		return FALSE
+	L.AdjustSilence(10 SECONDS)
 	if(!poisonable)
-		return ..()
-	if(L.reagents.has_reagent("terror_black_toxin", 100))
-		return ..()
-	var/inject_target = pick("chest", "head")
-	if(L.stunned || L.can_inject(null, FALSE, inject_target, FALSE))
-		L.reagents.add_reagent("terror_black_toxin", 33)
-		visible_message("<span class='danger'>[src] buries its long fangs deep into the [inject_target] of [target]!</span>")
-	else
-		L.reagents.add_reagent("terror_black_toxin", 20)
-		visible_message("<span class='danger'>[src] pierces armour and buries its long fangs deep into the [inject_target] of [target]!</span>")
-	L.attack_animal(src)
+		return TRUE
 	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
 		step_away(src, L)
 		step_away(src, L)
-		LoseTarget()
+		lose_target()
 		step_away(src, L)
-		visible_message("<span class='notice'>[src] jumps away from [L]!</span>")
-
+		visible_message(span_notice("[src] jumps away from [L]!"))
 
 /obj/structure/spider/terrorweb/widow
 	name = "sinister web"
-	desc = "This web has beads of a dark fluid on its strands."
+	desc = "На нитях этой паутины сверкают капли тёмной жидкости."
 
-/obj/structure/spider/terrorweb/black/web_special_ability(mob/living/carbon/C)
+/obj/structure/spider/terrorweb/widow/get_ru_names()
+	return list(
+		NOMINATIVE = "зловещая паутина",
+		GENITIVE = "зловещей паутины",
+		DATIVE = "зловещей паутине",
+		ACCUSATIVE = "зловещую паутину",
+		INSTRUMENTAL = "зловещей паутиной",
+		PREPOSITIONAL = "зловещей паутине",
+	)
+
+/obj/structure/spider/terrorweb/widow/web_special_ability(mob/living/carbon/C)
 	if(istype(C))
 		if(!C.reagents.has_reagent("terror_black_toxin", 60))
-			var/inject_target = pick("chest","head")
+			var/inject_target = pick(BODY_ZONE_CHEST, BODY_ZONE_HEAD)
 			if(C.can_inject(null, FALSE, inject_target, FALSE))
-				to_chat(C, "<span class='danger'>[src] slices into you!</span>")
+				to_chat(C, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] врезается в тебя!"))
 				C.reagents.add_reagent("terror_black_toxin", 45)
 
-/obj/item/projectile/terrorspider/widow
+/obj/projectile/terrorspider/widow
 	name = "widow venom"
 	icon_state = "toxin5"
 	damage = 15
-	stamina = 25
+	stamina = 24

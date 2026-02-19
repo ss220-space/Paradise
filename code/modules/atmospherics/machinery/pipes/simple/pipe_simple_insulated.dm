@@ -1,0 +1,10 @@
+/obj/machinery/atmospherics/pipe/simple/insulated
+	icon = 'icons/obj/pipes_and_stuff/atmospherics/red_pipe.dmi'
+	icon_state = "intact"
+
+	minimum_temperature_difference = 10000
+	maximum_pressure = 1000*ONE_ATMOSPHERE
+	fatigue_pressure = 900*ONE_ATMOSPHERE
+	alert_pressure = 900*ONE_ATMOSPHERE
+
+	level = 2

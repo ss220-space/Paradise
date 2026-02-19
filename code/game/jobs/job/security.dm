@@ -1,36 +1,35 @@
-/datum/job/hos
-	title = "Head of Security"
-	flag = JOB_HOS
+/datum/job/head_of_staff/hos
+	title = JOB_TITLE_HOS
+	flag = JOB_FLAG_HOS
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
-	total_positions = 1
-	spawn_positions = 1
 	is_security = 1
-	supervisors = "the captain"
-	department_head = list("Captain")
-	selection_color = "#ffdddd"
-	req_admin_notify = 1
-	access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS)
-	minimal_player_age = 21
-	min_age_allowed = 30
-	exp_requirements = 3000
+	selection_color = "#c25656"
+	access = list(
+		ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+		ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS
+	)
+	minimal_access = list(
+		ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+		ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+		ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+		ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_PILOT, ACCESS_WEAPONS
+	)
+	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
+	law_level = LAW_LEVEL_HOS
 	exp_type = EXP_TYPE_SECURITY
-	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/hos
 
 /datum/outfit/job/hos
-	name = "Head of Security"
-	jobtype = /datum/job/hos
+	name = JOB_TITLE_HOS
+	jobtype = /datum/job/head_of_staff/hos
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
 	suit = /obj/item/clothing/suit/armor/hos
-	gloves = /obj/item/clothing/gloves/color/black/hos
+	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/HoS
 	l_ear = /obj/item/radio/headset/heads/hos/alt
@@ -42,7 +41,8 @@
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
 		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
+		/obj/item/security_voucher = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield/ert)
@@ -50,30 +50,40 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/survival/survival_security/hos
 
-
-
-/datum/job/warden
-	title = "Warden"
-	flag = JOB_WARDEN
+/datum/job/security
+	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
+	is_security = 1
+	supervisors = "Главой службы безопасности"
+	department_head = list(JOB_TITLE_HOS)
+	selection_color = "#edcdcd"
+	minimal_player_age = 14
+	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
+	exp_requirements = 900
+	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
+	insurance_type = INSURANCE_TYPE_DELUXE
+	paycheck = PAYCHECK_CREW
+
+/datum/job/security/warden
+	title = JOB_TITLE_WARDEN
+	flag = JOB_FLAG_WARDEN
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_GATEWAY, ACCESS_WEAPONS)
+	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_PILOT, ACCESS_FORENSICS_LOCKERS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_GATEWAY, ACCESS_WEAPONS)
+	law_level = LAW_LEVEL_WARDEN
+	alt_titles = list("Brig Sergeant")
 	minimal_player_age = 21
-	min_age_allowed = 30
 	exp_requirements = 2100
-	exp_type = EXP_TYPE_SECURITY
 	outfit = /datum/outfit/job/warden
 
 /datum/outfit/job/warden
-	name = "Warden"
-	jobtype = /datum/job/warden
+	name = JOB_TITLE_WARDEN
+	jobtype = /datum/job/security/warden
 
 	uniform = /obj/item/clothing/under/rank/warden
 	suit = /obj/item/clothing/suit/armor/vest/warden
@@ -84,11 +94,12 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/warden
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/dominator/sibyl
+	suit_store = /obj/item/gun/energy/gun/advtaser
 	pda = /obj/item/pda/warden
 	l_hand = /obj/item/storage/lockbox/sibyl_system_mod
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/security_voucher = 1,
 	)
 
 	implants = list(/obj/item/implant/mindshield)
@@ -96,30 +107,23 @@
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
+	box = /obj/item/storage/box/survival/survival_security/warden
 
-
-
-/datum/job/detective
-	title = "Detective"
-	flag = JOB_DETECTIVE
-	department_flag = JOBCAT_ENGSEC
-	total_positions = 1
-	spawn_positions = 1
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+/datum/job/security/detective
+	title = JOB_TITLE_DETECTIVE
+	flag = JOB_FLAG_DETECTIVE
+	total_positions = 2
+	spawn_positions = 2
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
+	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
+	law_level = LAW_LEVEL_SEC
 	alt_titles = list("Forensic Technician")
-	minimal_player_age = 14
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_SECURITY
+	blocked_race_for_job = list(SPECIES_VOX)
 	outfit = /datum/outfit/job/detective
 
 /datum/outfit/job/detective
-	name = "Detective"
-	jobtype = /datum/job/detective
+	name = JOB_TITLE_DETECTIVE
+	jobtype = /datum/job/security/detective
 
 	uniform = /obj/item/clothing/under/det
 	suit = /obj/item/clothing/suit/storage/det_suit
@@ -130,14 +134,16 @@
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/toy/crayon/white
-	r_pocket = /obj/item/lighter/zippo
+	r_pocket = /obj/item/lighter/zippo/detective
 	pda = /obj/item/pda/detective
 	l_hand = /obj/item/storage/briefcase/crimekit
 	backpack_contents = list(
 		/obj/item/storage/box/evidence = 1,
-		/obj/item/melee/classic_baton/telescopic = 1
+		/obj/item/melee/baton/telescopic = 1,
+		/obj/item/security_voucher/detective = 1,
 	)
 	satchel = /obj/item/storage/backpack/satchel_detective
+	box = /obj/item/storage/box/survival/survival_security/detective
 
 	implants = list(/obj/item/implant/mindshield)
 
@@ -154,31 +160,22 @@
 	if(visualsOnly)
 		return
 
-	H.dna.SetSEState(GLOB.soberblock,1)
-	H.mutations += SOBER
-	H.check_mutations = 1
+	H.force_gene_block(GLOB.soberblock, TRUE, TRUE)
 
-/datum/job/officer
-	title = "Security Officer"
-	flag = JOB_OFFICER
-	department_flag = JOBCAT_ENGSEC
-	total_positions = 7
-	spawn_positions = 7
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
+/datum/job/security/officer
+	title = JOB_TITLE_OFFICER
+	flag = JOB_FLAG_OFFICER
+	total_positions = 6
+	spawn_positions = 6
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS)
-	alt_titles = list("Security Trainer")
-	minimal_player_age = 14
-	exp_requirements = 600
-	exp_type = EXP_TYPE_SECURITY
+	law_level = LAW_LEVEL_SEC
+	alt_titles = list("Security Trainer", "Patrol Officer", "Security Cadet")
 	outfit = /datum/outfit/job/officer
 
 /datum/outfit/job/officer
-	name = "Security Officer"
-	jobtype = /datum/job/officer
+	name = JOB_TITLE_OFFICER
+	jobtype = /datum/job/security/officer
 	uniform = /obj/item/clothing/under/rank/security
 	suit = /obj/item/clothing/suit/armor/vest/security
 	gloves = /obj/item/clothing/gloves/color/black
@@ -187,41 +184,25 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/dominator/sibyl
+	suit_store = /obj/item/gun/energy/gun/advtaser
 	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/security_voucher = 1,
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-
-
-/datum/job/officer/cadet
-	title = "Security Cadet"
-	flag = JOB_CADET
-	total_positions = 3
-	spawn_positions = 3
-	department_head = list("Head of Security", "Security Officer")
-	selection_color = "#ffeeee"
-	alt_titles = list("Security Assistant", "Security Graduate")
-	exp_requirements = 180
-	exp_type = EXP_TYPE_CREW
-	exp_max	= 600
-	exp_type_max = EXP_TYPE_SECURITY
-	is_novice = TRUE
-	outfit = /datum/outfit/job/officer/cadet
+	box = /obj/item/storage/box/survival/survival_security
 
 /datum/outfit/job/officer/cadet
 	name = "Security Cadet"
-	jobtype = /datum/job/officer/cadet
 	uniform = /obj/item/clothing/under/rank/security/cadet
 	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet
 	l_pocket = /obj/item/reagent_containers/spray/pepper
-	r_pocket = /obj/item/paper/deltainfo
-	suit_store = /obj/item/gun/energy/gun/advtaser
+	box = /obj/item/storage/box/survival/survival_security/cadet
 
 /datum/outfit/job/officer/cadet/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -236,28 +217,26 @@
 			if("Security Graduate")
 				head = /obj/item/clothing/head/beret/sec
 
-/datum/job/brigdoc
-	title = "Brig Physician"
-	flag = JOB_BRIGDOC
+/datum/job/security/brigdoc
+	title = JOB_TITLE_BRIGDOC
+	flag = JOB_FLAG_BRIGDOC
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
+	selection_color = "#cee6ef"
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
-	exp_requirements = 1800
+	alt_titles = list("Security Medic")
+	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_MEDICAL
 	outfit = /datum/outfit/job/brigdoc
 
 /datum/outfit/job/brigdoc
-	name = "Brig Physician"
-	jobtype = /datum/job/brigdoc
+	name = JOB_TITLE_BRIGDOC
+	jobtype = /datum/job/security/brigdoc
 	uniform = /obj/item/clothing/under/rank/security/brigphys
 	suit = /obj/item/clothing/suit/storage/fr_jacket
-	shoes = /obj/item/clothing/shoes/white
+	shoes = /obj/item/clothing/shoes/color/white
 	l_ear = /obj/item/radio/headset/headset_brigphys
 	glasses = /obj/item/clothing/glasses/hud/health/sunglasses
 	id = /obj/item/card/id/security
@@ -268,28 +247,22 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	box = /obj/item/storage/box/survival/brigphys
 
-
-/datum/job/pilot
-	title = "Security Pod Pilot"
-	flag = JOB_PILOT
+/datum/job/security/pilot
+	title = JOB_TITLE_PILOT
+	flag = JOB_FLAG_PILOT
 	department_flag = JOBCAT_KARMA
 	total_positions = 1
 	spawn_positions = 1
-	is_security = 1
-	supervisors = "the head of security"
-	department_head = list("Head of Security")
-	selection_color = "#ffeeee"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_WEAPONS, ACCESS_PILOT, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_player_age = 7
-	exp_requirements = 1200
-	exp_type = EXP_TYPE_SECURITY
+	law_level = LAW_LEVEL_SEC
 	outfit = /datum/outfit/job/pilot
 
 /datum/outfit/job/pilot
-	name = "Security Pod Pilot"
-	jobtype = /datum/job/pilot
+	name = JOB_TITLE_PILOT
+	jobtype = /datum/job/security/pilot
 	uniform = /obj/item/clothing/under/rank/security/pod_pilot
 	suit = /obj/item/clothing/suit/jacket/pilot
 	gloves = /obj/item/clothing/gloves/color/black
@@ -297,13 +270,14 @@
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
-	suit_store = /obj/item/gun/energy/dominator/sibyl
+	suit_store = /obj/item/gun/energy/gun/advtaser
 	pda = /obj/item/pda/security
 	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/security_voucher = 1,
 	)
 	implants = list(/obj/item/implant/mindshield)
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
-	box = /obj/item/storage/box/engineer
+	box = /obj/item/storage/box/survival/survival_security/pilot

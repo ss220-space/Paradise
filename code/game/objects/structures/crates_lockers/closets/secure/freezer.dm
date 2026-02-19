@@ -1,21 +1,7 @@
 /obj/structure/closet/secure_closet/freezer
 	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
 
-/obj/structure/closet/secure_closet/freezer/update_icon()
-	if(broken)
-		icon_state = icon_broken
-	else
-		if(!opened)
-			if(locked)
-				icon_state = icon_locked
-			else
-				icon_state = icon_closed
-			if(welded)
-				overlays += "welded"
-		else
-			icon_state = icon_opened
-
-/obj/structure/closet/secure_closet/freezer/ex_act(var/severity)
+/obj/structure/closet/secure_closet/freezer/ex_act(severity)
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
 
 	// Bomb in here? (using same search as space transits searching for nuke disk)
@@ -23,17 +9,16 @@
 	if(!isemptylist(bombs)) // You're fucked.
 		..(severity)
 
-
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
 	req_access = list(ACCESS_KITCHEN)
+	icon_state = "kitchen"
 
 /obj/structure/closet/secure_closet/freezer/kitchen/populate_contents()
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/condiment/flour(src)
 	new /obj/item/reagent_containers/food/condiment/rice(src)
 	new /obj/item/reagent_containers/food/condiment/sugar(src)
-
 
 /obj/structure/closet/secure_closet/freezer/kitchen/mining
 	req_access = list()
@@ -53,16 +38,16 @@
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
-	icon_state = "fridge1"
-	icon_closed = "fridge"
-	icon_locked = "fridge1"
-	icon_opened = "fridgeopen"
-	icon_broken = "fridgebroken"
-	icon_off = "fridge1"
+	icon_state = "fridge"
+	overlay_unlocked = "f_unlocked"
+	overlay_locked = "f_locked"
 
 /obj/structure/closet/secure_closet/freezer/meat/populate_contents()
 	for(var/i in 1 to 4)
-		new /obj/item/reagent_containers/food/snacks/meat/monkey(src)
+		new /obj/item/reagent_containers/food/snacks/meat/humanoid/monkey(src)
+
+/obj/structure/closet/secure_closet/freezer/meat/empty/populate_contents()
+	return
 
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
@@ -70,12 +55,10 @@
 
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"
-	icon_state = "fridge1"
-	icon_closed = "fridge"
-	icon_locked = "fridge1"
-	icon_opened = "fridgeopen"
-	icon_broken = "fridgebroken"
-	icon_off = "fridge1"
+	icon_state = "fridge"
+
+	overlay_unlocked = "f_unlocked"
+	overlay_locked = "f_locked"
 
 /obj/structure/closet/secure_closet/freezer/fridge/populate_contents()
 	for(var/i in 1 to 5)
@@ -84,21 +67,20 @@
 	for(var/i in 1 to 2)
 		new /obj/item/storage/fancy/egg_box(src)
 
+/obj/structure/closet/secure_closet/freezer/fridge/empty/populate_contents()
+	return
+
 /obj/structure/closet/secure_closet/freezer/fridge/open
 	req_access = null
 	locked = FALSE
 
-/obj/structure/closet/secure_closet/freezer/money
-	name = "freezer"
-	icon_state = "fridge1"
-	icon_closed = "fridge"
-	icon_locked = "fridge1"
-	icon_opened = "fridgeopen"
-	icon_broken = "fridgebroken"
-	icon_off = "fridge1"
+/obj/structure/closet/secure_closet/freezer/vault
+	name = "vault locker"
+	icon_state = "vault"
+	desc = "It's a card-locked storage unit. This one is lead-lined."
 	req_access = list(ACCESS_HEADS_VAULT)
 
-/obj/structure/closet/secure_closet/freezer/money/populate_contents()
+/obj/structure/closet/secure_closet/freezer/vault/populate_contents()
 	for(var/i in 1 to 3)
 		new /obj/item/stack/spacecash/c1000(src)
 	for(var/i in 1 to 5)

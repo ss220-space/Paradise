@@ -6,7 +6,7 @@
 	item_state = "pen"
 	var/pointer_icon_state
 	flags = CONDUCT
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	w_class = WEIGHT_CLASS_SMALL //Increased to 2, because diodes are w_class 2. Conservation of matter.
 	origin_tech = "combat=1;magnets=2"
@@ -16,7 +16,7 @@
 	var/recharging = 0
 	var/recharge_locked = 0
 	var/obj/item/stock_parts/micro_laser/diode //used for upgrading!
-
+	var/is_pointing = FALSE
 
 /obj/item/laser_pointer/red
 	pointer_icon_state = "red_laser"
@@ -41,121 +41,117 @@
 	..()
 	diode = new /obj/item/stock_parts/micro_laser/ultra
 
+/obj/item/laser_pointer/update_icon_state()
+	icon_state = "pointer[is_pointing ? "_[pointer_icon_state]" : ""]"
 
+/obj/item/laser_pointer/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(laser_act(target, user))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
 
-/obj/item/laser_pointer/attack(mob/living/M, mob/user)
-	laser_act(M, user)
-
-/obj/item/laser_pointer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stock_parts/micro_laser))
-		if(!diode)
-			user.drop_item()
-			W.loc = src
-			diode = W
-			to_chat(user, "<span class='notice'>You install a [diode.name] in [src].</span>")
-		else
-			to_chat(user, "<span class='notice'>[src] already has a cell.</span>")
-
-	else if(istype(W, /obj/item/screwdriver))
+/obj/item/laser_pointer/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stock_parts/micro_laser))
+		add_fingerprint(user)
 		if(diode)
-			to_chat(user, "<span class='notice'>You remove the [diode.name] from the [src].</span>")
-			diode.loc = get_turf(src.loc)
-			diode = null
-			return
-		..()
-	return
+			user.balloon_alert(user, "уже установлено!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		diode = I
+		user.balloon_alert(user, "установлено")
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-/obj/item/laser_pointer/afterattack(var/atom/target, var/mob/living/user, flag, params)
+	return ..()
+
+/obj/item/laser_pointer/screwdriver_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(diode)
+		user.balloon_alert(user, "микролазер извлечён")
+		diode.forceMove(get_turf(loc))
+		diode = null
+
+/obj/item/laser_pointer/afterattack(atom/target, mob/living/user, flag, params)
 	if(flag)	//we're placing the object on a table or in backpack
 		return
 	laser_act(target, user, params)
 
-/obj/item/laser_pointer/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
-	if( !(user in (viewers(7,target))) )
-		return
+/obj/item/laser_pointer/proc/laser_act(atom/target, mob/living/user, params)
+	if(!(user in (viewers(7,target))))
+		return FALSE
 	if(!diode)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but nothing happens!</span>")
-		return
+		user.balloon_alert(user, "не функционирует!")
+		return FALSE
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
-		return
+		user.balloon_alert(user, "вы недостаточно ловки!")
+		return FALSE
 	add_fingerprint(user)
 
 	//nothing happens if the battery is drained
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
-		return
+		user.balloon_alert(user, "идёт перезарядка")
+		return FALSE
 
+	. = TRUE
 	var/outmsg
-	var/turf/targloc = get_turf(target)
 
 	//human/alien mobs
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
-		if(user.zone_selected == "eyes")
+		if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 			add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 
-			var/severity = 1
-			if(prob(33))
-				severity = 2
-			else if(prob(50))
-				severity = 0
-
 			//20% chance to actually hit the eyes
-			if(prob(effectchance * diode.rating) && C.flash_eyes(severity))
-				outmsg = "<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>"
+			if(prob(effectchance * diode.rating) && C.flash_eyes(intensity = rand(0, 2)))
+				outmsg = span_notice("You blind [C] by shining [src] in [C.p_their()] eyes.")
 				if(C.weakeyes)
-					C.Stun(1)
+					C.Stun(2 SECONDS)
 			else
-				outmsg = "<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>"
+				outmsg = span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!")
 
 	//robots and AI
 	else if(issilicon(target))
 		var/mob/living/silicon/S = target
 		//20% chance to actually hit the sensors
-		if(prob(effectchance * diode.rating))
-			S.flash_eyes(affect_silicon = 1)
-			S.Weaken(rand(5,10))
-			to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+		if(prob(effectchance * diode.rating) && S.flash_eyes(affect_silicon = TRUE))
+			S.Weaken(rand(10 SECONDS, 20 SECONDS))
+			to_chat(S, span_warning("Your sensors were overloaded by a [src]!"))
+			outmsg = span_notice("You overload [S] by shining [src] at [S.p_their()] sensors.")
 
 			add_attack_logs(user, S, "shone [src] in their eyes")
 		else
-			outmsg = "<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>"
+			outmsg = span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors.")
 
 	//cameras
 	else if(istype(target, /obj/machinery/camera))
 		var/obj/machinery/camera/C = target
 		if(prob(effectchance * diode.rating))
 			C.emp_act(1)
-			outmsg = "<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>"
+			outmsg = span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!")
 
 			log_admin("[key_name(user)] EMPd a camera with a laser pointer")
 			add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 		else
-			outmsg = "<span class='info'>You missed the lens of [C] with [src].</span>"
+			outmsg = span_notice("You missed the lens of [C] with [src].")
 
 	//laser pointer image
-	icon_state = "pointer_[pointer_icon_state]"
-	var/list/showto = list()
-	for(var/mob/M in viewers(7,targloc))
-		if(M.client)
-			showto.Add(M.client)
-	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
-	var/list/click_params = params2list(params)
-	if(click_params)
-		if(click_params["icon-x"])
-			I.pixel_x = (text2num(click_params["icon-x"]) - 16)
-		if(click_params["icon-y"])
-			I.pixel_y = (text2num(click_params["icon-y"]) - 16)
+	is_pointing = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(stop_pointing)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE|TIMER_NO_HASH_WAIT)
+	var/mutable_appearance/laser = mutable_appearance('icons/obj/weapons/guns/projectiles.dmi', pointer_icon_state, target.layer + 0.01)
+	var/list/modifiers = params2list(params)
+	if(modifiers)
+		if(LAZYACCESS(modifiers, ICON_X))
+			laser.pixel_w = (text2num(LAZYACCESS(modifiers, ICON_X)) - 16)
+		if(LAZYACCESS(modifiers, ICON_Y))
+			laser.pixel_z = (text2num(LAZYACCESS(modifiers, ICON_Y)) - 16)
 	else
-		I.pixel_x = target.pixel_x + rand(-5,5)
-		I.pixel_y = target.pixel_y + rand(-5,5)
+		laser.pixel_w = target.pixel_w + rand(-5,5)
+		laser.pixel_z = target.pixel_z + rand(-5,5)
 
 	if(outmsg)
 		to_chat(user, outmsg)
 	else
-		to_chat(user, "<span class='info'>You point [src] at [target].</span>")
+		to_chat(user, span_notice("You point [src] at [target]."))
 
 	energy -= 1
 	if(energy <= max_energy)
@@ -163,11 +159,14 @@
 			recharging = 1
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
-			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			to_chat(user, span_warning("You've overused the battery of [src], now it needs time to recharge!"))
 			recharge_locked = 1
 
-	flick_overlay(I, showto, 10)
-	icon_state = "pointer"
+	target.flick_overlay_view(laser, 1 SECONDS)
+
+/obj/item/laser_pointer/proc/stop_pointing()
+	is_pointing = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/laser_pointer/process()
 	if(prob(20 - recharge_locked*5))

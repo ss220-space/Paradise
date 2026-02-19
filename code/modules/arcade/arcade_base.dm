@@ -2,11 +2,10 @@
 /obj/machinery/arcade
 	name = "Arcade Game"
 	desc = "One of the most generic arcade games ever."
-	icon = 'icons/obj/arcade.dmi'
-	icon_state = "clawmachine_on"
-	density = 1
-	anchored = 1
-	use_power = IDLE_POWER_USE
+	icon = 'icons/obj/machines/arcade.dmi'
+	icon_state = "clawmachine_1_on"
+	density = TRUE
+	anchored = TRUE
 	idle_power_usage = 40
 	var/tokens = 0
 	var/freeplay = 0				//for debugging and admin kindness
@@ -14,28 +13,28 @@
 	var/last_winner = null			//for letting people who to hunt down and steal prizes from
 	var/window_name = "arcade"		//in case you want to change the window name for certain machines
 
-/obj/machinery/arcade/New()
-	..()
+/obj/machinery/arcade/Initialize(mapload)
+	. = ..()
 	if(type == /obj/machinery/arcade)		//if you spawn the base-type, it will replace itself with a random subtype for randomness
 		var/choice = pick(subtypesof(/obj/machinery/arcade))
 		new choice(loc)
-		qdel(src)
+		return INITIALIZE_HINT_QDEL
 
 /obj/machinery/arcade/examine(mob/user)
 	. = ..()
 	if(freeplay)
-		. += "<span class='notice'>Someone enabled freeplay on this machine!</span>"
+		. += span_notice("Someone enabled freeplay on this machine!")
 	else
 		if(token_price)
-			. += "<span class='notice'>\The [src.name] costs [token_price] credits per play.</span>"
+			. += "[src] costs [token_price] credits per play."
 		if(!tokens)
-			. += "<span class='notice'>\The [src.name] has no available play credits. Better feed the machine!</span>"
+			. += "[src] has no available play credits. Better feed the machine!"
 		else if(tokens == 1)
-			. += "<span class='notice'>\The [src.name] has only 1 play credit left!</span>"
+			. += "[src] has only 1 play credit left!"
 		else
-			. += "<span class='notice'>\The [src.name] has [tokens] play credits!</span>"
+			. += "[src] has [tokens] play credits!"
 
-/obj/machinery/arcade/attack_hand(mob/user as mob)
+/obj/machinery/arcade/attack_hand(mob/user)
 	if(..())
 		if(in_use && src == user.machine)	//this one checks if they fell down/died and closes the game
 			src.close_game()
@@ -44,11 +43,11 @@
 		return
 	interact(user)
 
-/obj/machinery/arcade/interact(mob/user as mob)
+/obj/machinery/arcade/interact(mob/user)
 	if(stat & BROKEN || panel_open)
 		return
 	if(!tokens && !freeplay)
-		to_chat(user, "\The [src.name] doesn't have enough credits to play! Pay first!")
+		balloon_alert(user, "недостаточно кредитов!")
 		return
 	if(!in_use && (tokens || freeplay))
 		in_use = 1
@@ -56,35 +55,43 @@
 		return
 	if(in_use)
 		if(src != user.machine)
-			to_chat(user, "Someone else is already playing this machine, please wait your turn!")
+			balloon_alert(user, "автомат занят!")
 		return
 
 /obj/machinery/arcade/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/screwdriver) && anchored)
-		playsound(src.loc, I.usesound, 50, 1)
-		panel_open = !panel_open
-		to_chat(user, "You [panel_open ? "open" : "close"] the maintenance panel.")
-		update_icon()
-		return
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+
 	if(!freeplay)
+		add_fingerprint(user)
 		if(I.GetID())
 			if(pay_with_card(user, token_price, name))
 				tokens += 1
-			return
-		else if(istype(I, /obj/item/stack/spacecash))
-			var/obj/item/stack/spacecash/cash = I
-			if(pay_with_cash(cash, user, token_price, name))
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			return ATTACK_CHAIN_PROCEED
+
+		if(istype(I, /obj/item/stack/spacecash))
+			if(pay_with_cash(I, user, token_price, name))
 				tokens += 1
-		return
-	if(panel_open && component_parts && istype(I, /obj/item/crowbar))
-		default_deconstruction_crowbar(user, I)
-		return
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+		return ATTACK_CHAIN_PROCEED
+
 	return ..()
 
-/obj/machinery/arcade/update_icon()
-	return
+/obj/machinery/arcade/screwdriver_act(mob/living/user, obj/item/I)
+	if(!anchored)
+		return FALSE
+	default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
-/obj/machinery/arcade/proc/start_play(mob/user as mob)
+/obj/machinery/arcade/crowbar_act(mob/living/user, obj/item/I)
+	if(!component_parts || !panel_open)
+		return FALSE
+	default_deconstruction_crowbar(user, I)
+	return TRUE
+
+/obj/machinery/arcade/proc/start_play(mob/user)
 	user.set_machine(src)
 	if(!freeplay)
 		tokens -= 1
@@ -94,7 +101,7 @@
 	for(var/mob/user in viewers(world.view, src))			// I don't know who you are.
 		if(user.client && user.machine == src)				// I will look for you,
 			user.unset_machine()							// I will find you,
-			user << browse(null, "window=[window_name]")	// And I will kill you.
+			close_window(user, window_name)			// And I will kill you.
 	return
 
 /obj/machinery/arcade/proc/win()

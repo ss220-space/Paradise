@@ -101,7 +101,7 @@
 			A.autoclose = mend
 			if(mend)
 				if(!A.density)
-					INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/close)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close))
 
 		if(WIRE_BOLT_LIGHT)
 			A.lights = mend
@@ -115,7 +115,7 @@
 		if(WIRE_IDSCAN)
 			//Sending a pulse through flashes the red light on the door (if the door has power).
 			if(A.arePowerSystemsOn() && A.density)
-				A.do_animate("deny")
+				INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door, do_animate), "deny")
 				if(A.emergency)
 					A.emergency = 0
 					A.update_icon()
@@ -129,9 +129,9 @@
 			//raises them if they are down (only if power's on)
 			if(!A.locked)
 				if(A.lock())
-					A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", hearing_distance =  1)
+					A.audible_message(span_italics("You hear a click from the bottom of the door."), hearing_distance =  1)
 			else if(A.unlock())
-				A.audible_message("<span class='italics'>You hear a click from the bottom of the door.</span>", hearing_distance =  1)
+				A.audible_message(span_italics("You hear a click from the bottom of the door."), hearing_distance =  1)
 
 		if(WIRE_BACKUP_POWER1)
 			//two wires for backup power. Sending a pulse through either one causes a breaker to trip, but this does not disable it unless main power is down too (in which case it is disabled for 1 minute or however long it takes main power to come back, whichever is shorter).
@@ -143,7 +143,7 @@
 			else if(A.aiControlDisabled == AICONTROLDISABLED_PERMA)
 				A.aiControlDisabled = AICONTROLDISABLED_BYPASS
 
-			addtimer(CALLBACK(A, /obj/machinery/door/airlock/.proc/ai_control_callback), 1 SECONDS)
+			addtimer(CALLBACK(A, TYPE_PROC_REF(/obj/machinery/door/airlock, ai_control_callback)), 1 SECONDS)
 
 		if(WIRE_ELECTRIFY)
 			//one wire for electrifying the door. Sending a pulse through this electrifies the door for 30 seconds.
@@ -155,14 +155,14 @@
 			if(A.emagged)	return
 			if(!A.requiresID() || A.check_access(null))
 				if(A.density)
-					INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/open)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, open))
 				else
-					INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/close)
+					INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close))
 
 		if(WIRE_SAFETY)
 			A.safe = !A.safe
 			if(!A.density)
-				INVOKE_ASYNC(A, /obj/machinery/door/airlock/.proc/close)
+				INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door/airlock, close))
 
 		if(WIRE_SPEED)
 			A.normalspeed = !A.normalspeed

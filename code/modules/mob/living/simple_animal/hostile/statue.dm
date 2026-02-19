@@ -8,7 +8,6 @@
 	icon_living = "angel"
 	icon_dead = "angel"
 	gender = NEUTER
-	a_intent = INTENT_HARM
 	sentience_type = SENTIENCE_OTHER
 
 	response_help = "touches"
@@ -17,7 +16,7 @@
 	speed = -1
 	maxHealth = 50000
 	health = 50000
-	healable = 0
+	healable = FALSE
 
 	harm_intent_damage = 35
 	obj_damage = 100
@@ -27,14 +26,13 @@
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
 
 	faction = list("statue")
 	move_to_delay = 0 // Very fast
 
 	animate_movement = NO_STEPS // Do not animate movement, you jump around as you're a scary statue.
 
-	see_in_dark = 8
+	nightvision = 8
 	vision_range = 12
 	aggro_vision_range = 12
 
@@ -45,31 +43,41 @@
 	move_force = MOVE_FORCE_EXTREMELY_STRONG
 	move_resist = MOVE_FORCE_EXTREMELY_STRONG
 	pull_force = MOVE_FORCE_EXTREMELY_STRONG
-	status_flags = GODMODE // Cannot push also
+	status_flags = NONE
+	AI_delay_max = 0 SECONDS
 
 	var/cannot_be_seen = 1
 	var/mob/living/creator = null
 
+/mob/living/simple_animal/hostile/statue/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_GODMODE, INNATE_TRAIT)
 
 // No movement while seen code.
 
-/mob/living/simple_animal/hostile/statue/New(loc, var/mob/living/creator)
+/mob/living/simple_animal/hostile/statue/New(loc, mob/living/creator)
 	..()
 	// Give spells
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/flicker_lights(null))
-	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/blindness(null))
-	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe/flicker_lights(null))
+	AddSpell(new /obj/effect/proc_holder/spell/aoe/blindness(null))
+	AddSpell(new /obj/effect/proc_holder/spell/night_vision(null))
 
 	// Set creator
 	if(creator)
 		src.creator = creator
 
-/mob/living/simple_animal/hostile/statue/Move(turf/NewLoc)
-	if(can_be_seen(NewLoc))
+/mob/living/simple_animal/hostile/statue/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
+
+/mob/living/simple_animal/hostile/statue/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+	if(can_be_seen(newloc))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot move, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot move, there are eyes on you!"))
 		return 0
-	return ..()
+	. = ..()
 
 /mob/living/simple_animal/hostile/statue/handle_automated_action()
 	if(!..())
@@ -80,13 +88,13 @@
 		if(watching && watching != target)
 			// This one is closer.
 			if(get_dist(watching, src) > get_dist(target, src))
-				LoseTarget()
+				lose_target()
 				GiveTarget(watching)
 
 /mob/living/simple_animal/hostile/statue/AttackingTarget()
 	if(can_be_seen(get_turf(loc)))
 		if(client)
-			to_chat(src, "<span class='warning'>You cannot attack, there are eyes on you!</span>")
+			to_chat(src, span_warning("You cannot attack, there are eyes on you!"))
 		return FALSE
 	else
 		return ..()
@@ -129,14 +137,13 @@
 
 // Cannot talk
 
-/mob/living/simple_animal/hostile/statue/say()
-	return 0
+/mob/living/simple_animal/hostile/statue/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+	return
 
 // Turn to dust when gibbed
 
 /mob/living/simple_animal/hostile/statue/gib()
 	dust()
-
 
 // Stop attacking clientless mobs
 
@@ -156,43 +163,49 @@
 // Statue powers
 
 // Flicker lights
-/obj/effect/proc_holder/spell/aoe_turf/flicker_lights
+/obj/effect/proc_holder/spell/aoe/flicker_lights
 	name = "Flicker Lights"
 	desc = "You will trigger a large amount of lights around you to flicker."
 
-	charge_max = 300
-	clothes_req = 0
-	range = 14
+	base_cooldown = 30 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	aoe_range = 14
 
-/obj/effect/proc_holder/spell/aoe_turf/flicker_lights/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe/flicker_lights/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = aoe_range
+	return T
+
+/obj/effect/proc_holder/spell/aoe/flicker_lights/cast(list/targets, mob/user = usr)
 	for(var/turf/T in targets)
 		for(var/obj/machinery/light/L in T)
 			L.flicker()
-	return
 
 //Blind AOE
-/obj/effect/proc_holder/spell/aoe_turf/blindness
+/obj/effect/proc_holder/spell/aoe/blindness
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
-	message = "<span class='notice'>You glare your eyes.</span>"
-	charge_max = 600
-	clothes_req = 0
-	range = 10
+	message = span_notice("You glare your eyes.")
+	base_cooldown = 60 SECONDS
+	clothes_req = FALSE
+	human_req = FALSE
+	aoe_range = 10
 
-/obj/effect/proc_holder/spell/aoe_turf/blindness/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/aoe/blindness/create_new_targeting()
+	var/datum/spell_targeting/aoe/turf/T = new()
+	T.range = aoe_range
+	return T
+
+/obj/effect/proc_holder/spell/aoe/blindness/cast(list/targets, mob/user = usr)
 	for(var/mob/living/L in GLOB.alive_mob_list)
 		if(L == user)
 			continue
 		var/turf/T = get_turf(L.loc)
 		if(T && (T in targets))
-			L.EyeBlind(4)
-	return
+			L.EyeBlind(8 SECONDS)
 
 /mob/living/simple_animal/hostile/statue/sentience_act()
 	faction -= "neutral"
 
-/mob/living/simple_animal/hostile/statue/restrained()
-	. = ..()
-	if(can_be_seen(loc))
-		return 1

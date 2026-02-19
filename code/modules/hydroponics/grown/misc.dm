@@ -10,7 +10,6 @@
 	maturation = 5
 	production = 1
 	yield = 2
-	potency = 10
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
@@ -56,7 +55,6 @@
 	tastes = list("cabbage" = 1)
 	wine_power = 0.2
 
-
 // Sugarcane
 /obj/item/seeds/sugarcane
 	name = "pack of sugarcane seeds"
@@ -84,11 +82,10 @@
 	tastes = list("sugarcane" = 1)
 	distill_reagent = "rum"
 
-
 // Gatfruit
 /obj/item/seeds/gatfruit
 	name = "pack of gatfruit seeds"
-	desc = "These seeds grow into .357 revolvers."
+	desc = "These seeds grow into .36 revolvers."
 	icon_state = "seed-gatfruit"
 	species = "gatfruit"
 	plantname = "Gatfruit Tree"
@@ -111,7 +108,7 @@
 	desc = "It smells like burning."
 	icon_state = "gatfruit"
 	origin_tech = "combat=6"
-	trash = /obj/item/gun/projectile/revolver
+	trash = /obj/item/gun/projectile/revolver/c36
 	tastes = list("2nd amendment" = 1, "freedom" = 1)
 	bitesize_mod = 2
 	wine_power = 0.9 //It burns going down, too.
@@ -141,7 +138,7 @@
 	wine_power = 0.8
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/attack_self(mob/living/user)
-	user.visible_message("<span class='warning'>[user] plucks the stem from [src]!</span>", "<span class='userdanger'>You pluck the stem from [src], which begins to hiss loudly!</span>")
+	user.visible_message(span_warning("[user] plucks the stem from [src]!"), span_userdanger("You pluck the stem from [src], which begins to hiss loudly!"))
 	message_admins("[ADMIN_LOOKUPFLW(user)] primed a cherry bomb for detonation at [ADMIN_COORDJMP(user)]")
 	add_attack_logs(user, src, "primed cherry bomb")
 	prime()
@@ -155,10 +152,10 @@
 	if(!QDELETED(src))
 		qdel(src)
 
-/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity)
+/obj/item/reagent_containers/food/snacks/grown/cherry_bomb/ex_act(severity, target)
 	qdel(src) //Ensuring that it's deleted by its own explosion. Also prevents mass chain reaction with piles of cherry bombs
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb/proc/prime()
 	icon_state = "cherry_bomb_lit"
-	playsound(src, 'sound/goonstation/misc/fuse.ogg', seed.potency, 0)
+	playsound(src, 'sound/goonstation/misc/fuse.ogg', seed.potency, FALSE)
 	reagents.set_reagent_temp(1000) //Sets off the black powder

@@ -29,9 +29,10 @@
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
 		/obj/item/instrument/bikehorn = 1,
-		/obj/item/clothing/head/beret/sec = 1
+		/obj/item/clown_recorder = 1,
+		/obj/item/clothing/head/beret/sec = 1,
 	)
-	implants = list(/obj/item/implant/mindshield)
+	implants = list(/obj/item/implant/mindshield, /obj/item/implant/sad_trombone)
 
 	var/is_warden = FALSE
 	var/is_physician = FALSE
@@ -68,6 +69,7 @@
 		/obj/item/storage/fancy/crayons = 1,
 		/obj/item/reagent_containers/spray/waterflower = 1,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofbanana = 1,
+		/obj/item/clown_recorder = 1,
 		/obj/item/instrument/bikehorn = 1,
 
 		/obj/item/cartridge/medical = 1,
@@ -100,17 +102,13 @@
 		var/obj/item/organ/internal/cyberimp/brain/clown_voice/implant = new
 		implant.insert(H)
 
-	if(!ismachineperson(H))
-		H.dna.SetSEState(GLOB.comicblock, TRUE)
-		genemutcheck(H, GLOB.comicblock, null, MUTCHK_FORCED)
-		H.dna.default_blocks.Add(GLOB.comicblock)
-	H.check_mutations = TRUE
-	H.add_language("Clownish")
+	H.force_gene_block(GLOB.comicblock, TRUE, TRUE)
+	H.add_language(LANGUAGE_CLOWN)
 
 	var/clownsecurity_rank = pick("Офицер", "Кадет", "Новобранец", "Рядовой", "Ефрейтор", "Сержант", "Детектив", "Оперуполномоченный", "Расследователь", "Охранник", "Полевой офицер")
 	if(is_physician)
 		clownsecurity_rank = pick("Интерн", "Медик", "Врач", "Лекарь", "Хирург", "Консультант", "Лечащий врач", "Парамедик", "Патологоанатом", "Гробовщик", "Биотехник", "Сборщик трупов", "Сборщик органов")
-	if (is_warden)
+	if(is_warden)
 		clownsecurity_rank = pick("Надзиратель", "Смотритель", "Старший Офицер", "Старший Сержант", "Старшина", "Старший оперуполномоченный", "Комиссар", "Командор")
 	var/clownsecurity_name = pick(GLOB.clown_names)
 	H.real_name = "[clownsecurity_rank] [clownsecurity_name]"
@@ -121,30 +119,30 @@
 		var/new_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 		if(is_physician)
 			new_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS)
-		if (is_warden)
-			new_access = list(ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
-		apply_to_card(I, H, new_access, name, "Clown Security")
+		if(is_warden)
+			new_access = list(
+				ACCESS_EVA, ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
+				ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+				ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+				ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS
+			)
+		apply_to_card(I, H, new_access, "Clown Security", "clownsecurity")
 		I.access.Add(ACCESS_CLOWN, ACCESS_MIME, ACCESS_THEATRE)
-		I.rank = "Clown Security"
-		I.icon_state = "clownsecurity"
-		H.sec_hud_set_ID()
-
+		I.assignment = name
+	H.update_hud_set()
+	H.grant_mimicking()
 
 //=========== security clown equipment ===========
 /obj/item/pda/clown/security
-	default_cartridge = /obj/item/cartridge/clown
+	default_request_console_cartridge = /obj/item/cartridge/request_console/clown_security
 	icon_state = "pda-security-clown"
 	desc = "Переносной микрокомпьютер от Синктроник Системс, LTD. Этот КПК разработан по заказу тайного покупателя, пожелавшего хонкнуться нераскрытым. Поверхность покрыта политетрафторэтиленом и банановым налётом."
-	ttone = "honk"
 
 /obj/item/card/id/security/clown
 	name = "Security-Clown ID"
 	registered_name = "Officer Clown"
-	icon_state = "security_clown"
-	desc = "Смотря на эту карту, вы понимаете что центральное командование обладает специфичным чувством юмора."
+	icon_state = "clownsecurity"
+	desc = "Смотря на эту карту, вы понимаете что Центральное командование обладает специфичным чувством юмора."
 	access = list(ACCESS_SECURITY, ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_WEAPONS)
 
 /obj/item/radio/headset/headset_sec/clown
@@ -159,7 +157,6 @@
 	desc = "Костюм из прочного материала со следами бананового сока, обеспечивает надежную защиту своему владельцу. Когда-то вселенская федерация клоунов и Центрального Коммандование вело ожесточенные споры о введении этой униформы для надзирателя службы безопасности. По итогу споров было выдвинуто решение о запрете этой униформы в рядах НТ, а федерация клоунов забрала все экземпляры себе и пустило их в ход на личные нужды. HONK!"
 	name = "warden clown jumpsuit"
 	icon_state = "security_clown"
-	item_state = "r_suit"
 	item_color = "security_clown"
 
 /obj/item/gun/energy/clown/security

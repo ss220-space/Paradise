@@ -1,9 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/turf/simulated/wall/indestructible{
-	icon_state = "rock";
-	name = "rock"
-	},
+/turf/simulated/wall/indestructible/rock,
 /area/awaymission/UO45/caves)
 "ac" = (
 /turf/simulated/mineral/random/labormineral,
@@ -13,7 +10,7 @@
 /area/awaymission/UO45/central_hall)
 "ai" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -28,7 +25,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "ak" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -55,7 +52,7 @@
 	pixel_x = 6;
 	pixel_y = -34
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "am" = (
@@ -70,7 +67,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "ao" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue";
 	tag = "icon-darkblue";
@@ -97,7 +94,7 @@
 	id_tag = "UO45_Elevator";
 	name = "Elevator Door"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "as" = (
@@ -109,7 +106,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "at" = (
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "au" = (
@@ -120,7 +117,7 @@
 	},
 /area/awaymission/UO45/central_hall)
 "ax" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "ay" = (
@@ -253,9 +250,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "aT" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "aU" = (
@@ -263,17 +258,13 @@
 	dir = 4;
 	tag = "icon-comfychair (EAST)"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
 /area/awaymission/UO45/central_hall)
 "aV" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -315,9 +306,7 @@
 	icon_state = "beacon";
 	name = "tracking beacon"
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -351,15 +340,11 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "bf" = (
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -368,9 +353,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	on = 1
 	},
-/obj/effect/landmark{
-	name = "awaystart"
-	},
+/obj/effect/landmark/awaystart,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "neutral"
@@ -721,7 +704,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cc" = (
@@ -740,7 +723,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cf" = (
@@ -789,7 +772,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cm" = (
@@ -797,12 +780,12 @@
 	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "co" = (
@@ -876,18 +859,7 @@
 /area/awaymission/UO45/central_hall)
 "cz" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/blue,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
@@ -897,18 +869,7 @@
 	initialize_directions = 7;
 	tag = "icon-manifold-b-f (WEST)"
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/female,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/central_hall)
@@ -941,7 +902,7 @@
 "cD" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/grille,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cE" = (
@@ -953,7 +914,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cG" = (
@@ -964,7 +925,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cI" = (
@@ -1040,7 +1001,7 @@
 	initialize_directions = 14;
 	tag = "icon-manifold-b-f (NORTH)"
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cQ" = (
@@ -1073,7 +1034,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "cU" = (
@@ -1154,7 +1115,7 @@
 	pixel_x = -23;
 	req_access = null
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "df" = (
@@ -1186,7 +1147,7 @@
 "dj" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dk" = (
@@ -1194,7 +1155,7 @@
 	dir = 8;
 	on = 1
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dl" = (
@@ -1246,7 +1207,7 @@
 /obj/structure/disposalpipe/trunk,
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = 32
 	},
 /turf/simulated/floor/plasteel{
@@ -1291,18 +1252,15 @@
 /area/awaymission/UO45/central_hall)
 "dy" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dz" = (
@@ -1344,8 +1302,7 @@
 /area/awaymission/UO45/central_hall)
 "dE" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/decal/cleanable/dirt,
@@ -1382,10 +1339,8 @@
 	},
 /area/awaymission/UO45/central_hall)
 "dH" = (
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1414,8 +1369,7 @@
 /area/awaymission/UO45/central_hall)
 "dK" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/sink{
@@ -1443,15 +1397,10 @@
 /area/awaymission/UO45/central_hall)
 "dM" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
+	icon_state = "hydro";
 	locked = 0;
 	name = "botanist's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/plant_analyzer,
 /obj/item/clothing/mask/bandana,
@@ -1469,14 +1418,12 @@
 /area/awaymission/UO45/central_hall)
 "dO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "dP" = (
@@ -1496,14 +1443,9 @@
 /area/awaymission/UO45/central_hall)
 "dQ" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/storage/belt/security,
 /obj/item/flash,
@@ -1516,7 +1458,7 @@
 "dR" = (
 /obj/machinery/door/airlock/security{
 	name = "Security Checkpoint";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -1571,8 +1513,7 @@
 /area/awaymission/UO45/central_hall)
 "dY" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -1589,14 +1530,13 @@
 	},
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
 "eb" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -1618,15 +1558,10 @@
 /area/awaymission/UO45/central_hall)
 "ee" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "hydrosecurebroken";
-	icon_closed = "hydrosecure";
-	icon_locked = "hydrosecure1";
-	icon_off = "hydrosecureoff";
-	icon_opened = "hydrosecureopen";
-	icon_state = "hydrosecure";
+	icon_state = "hydro";
 	locked = 0;
 	name = "botanist's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/clothing/suit/apron,
 /obj/item/clothing/mask/bandana,
@@ -1642,7 +1577,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Checkpoint Maintenance";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
@@ -1710,7 +1645,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Hydroponics";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -1747,16 +1682,13 @@
 /area/awaymission/UO45/central_hall)
 "eu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "ev" = (
@@ -1796,7 +1728,7 @@
 	dir = 8;
 	icon_state = "right";
 	name = "Security Checkpoint";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -1913,7 +1845,7 @@
 /obj/machinery/door/window/southleft{
 	dir = 8;
 	name = "Security Checkpoint";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -1953,7 +1885,7 @@
 /obj/machinery/door/window/southleft{
 	dir = 4;
 	name = "Hydroponics Desk";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -2063,7 +1995,7 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Hydroponics Desk";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -2096,7 +2028,7 @@
 	locked = 0;
 	name = "Hydroponics APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/cable{
@@ -2109,8 +2041,6 @@
 /area/awaymission/UO45/central_hall)
 "fi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2121,8 +2051,6 @@
 /area/awaymission/UO45/central_hall)
 "fj" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2136,8 +2064,6 @@
 "fk" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2147,8 +2073,6 @@
 /area/awaymission/UO45/central_hall)
 "fl" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2158,8 +2082,6 @@
 /area/awaymission/UO45/central_hall)
 "fm" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -2230,8 +2152,7 @@
 /area/awaymission/UO45/central_hall)
 "fv" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -2246,8 +2167,6 @@
 /area/awaymission/UO45/central_hall)
 "fx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2256,7 +2175,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Hydroponics Maintenance";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
@@ -2265,8 +2184,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -2276,13 +2193,11 @@
 /area/awaymission/UO45/central_hall)
 "fz" = (
 /obj/machinery/portable_atmospherics/scrubber,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/gateaway)
 "fA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -2352,8 +2267,7 @@
 /area/awaymission/UO45/central_hall)
 "fI" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/structure/sign/poster/contraband/eat{
 	pixel_x = 32
@@ -2366,8 +2280,7 @@
 /area/awaymission/UO45/central_hall)
 "fJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/central_hall)
@@ -2395,7 +2308,7 @@
 /obj/machinery/door/window/eastleft{
 	dir = 1;
 	name = "Hydroponics Desk";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -2409,14 +2322,12 @@
 /area/awaymission/UO45/crew_quarters)
 "fQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "fR" = (
@@ -2483,7 +2394,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -2511,8 +2422,6 @@
 /area/awaymission/UO45/crew_quarters)
 "gc" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2558,14 +2467,12 @@
 "gj" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Kitchen Maintenance";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "gk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2597,20 +2504,15 @@
 /area/awaymission/UO45/crew_quarters)
 "go" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "meat fridge";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
-/obj/item/reagent_containers/food/snacks/meat/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
+/obj/item/reagent_containers/food/snacks/meat/humanoid/monkey,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -2619,7 +2521,7 @@
 /obj/structure/table,
 /obj/item/radio/off,
 /obj/item/radio/off,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "gq" = (
@@ -2629,14 +2531,11 @@
 /area/awaymission/UO45/central_hall)
 "gr" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plating,
@@ -2659,7 +2558,7 @@
 "gv" = (
 /obj/machinery/door/airlock{
 	name = "Kitchen Cold Room";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
@@ -2745,8 +2644,6 @@
 /area/awaymission/UO45/crew_quarters)
 "gI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2814,8 +2711,6 @@
 /area/awaymission/UO45/crew_quarters)
 "gR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -2824,7 +2719,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "gS" = (
@@ -3124,7 +3019,7 @@
 /obj/structure/sign/poster/official/safety_internals{
 	pixel_y = 32
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/crew_quarters)
 "hA" = (
@@ -3183,8 +3078,7 @@
 /area/awaymission/UO45/research)
 "hG" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -3261,8 +3155,7 @@
 "hP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3272,7 +3165,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/public/glass{
 	name = "Kitchen";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -3297,8 +3190,7 @@
 /area/awaymission/UO45/crew_quarters)
 "hS" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3356,8 +3248,6 @@
 /area/awaymission/UO45/central_hall)
 "hY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3555,15 +3445,13 @@
 /area/awaymission/UO45/gateaway)
 "iw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/machinery/door/window{
 	dir = 2;
 	name = "Gateway Chamber";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -3691,8 +3579,7 @@
 	on = 1
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3702,8 +3589,7 @@
 /area/awaymission/UO45/crew_quarters)
 "iL" = (
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -3713,15 +3599,10 @@
 /area/awaymission/UO45/crew_quarters)
 "iM" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "fridgebroken";
-	icon_closed = "fridge";
-	icon_locked = "fridge1";
-	icon_off = "fridgeoff";
-	icon_opened = "fridgeopen";
 	icon_state = "fridge";
 	locked = 0;
 	name = "refrigerator";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/reagent_containers/food/condiment/milk,
 /obj/item/reagent_containers/food/condiment/milk,
@@ -3736,8 +3617,6 @@
 /area/awaymission/UO45/crew_quarters)
 "iN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -3747,13 +3626,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "iO" = (
 /obj/structure/closet/emcloset,
 /obj/item/clothing/mask/breath,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/central_hall)
 "iP" = (
@@ -3778,8 +3657,6 @@
 /area/awaymission/UO45/gateaway)
 "iR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -3905,7 +3782,9 @@
 /area/awaymission/UO45/crew_quarters)
 "je" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -3919,7 +3798,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -3930,10 +3809,9 @@
 /area/awaymission/UO45/crew_quarters)
 "jg" = (
 /obj/structure/closet/secure_closet{
-	icon_state = "secure";
 	locked = 0;
 	name = "kitchen Cabinet";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/reagent_containers/food/condiment/flour,
 /obj/item/reagent_containers/food/condiment/flour,
@@ -3966,8 +3844,6 @@
 /area/awaymission/UO45/gateaway)
 "jk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4019,7 +3895,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Gateway Observation";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -4085,7 +3961,7 @@
 "jy" = (
 /obj/machinery/door/window/southright{
 	name = "Bar Door";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -4120,7 +3996,7 @@
 	},
 /obj/machinery/door/airlock{
 	name = "Kitchen";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -4139,7 +4015,7 @@
 /turf/simulated/wall/rust,
 /area/awaymission/UO45/crew_quarters)
 "jE" = (
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "jF" = (
@@ -4150,15 +4026,10 @@
 /area/awaymission/UO45/central_hall)
 "jG" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
+	icon_state = "sec";
 	locked = 0;
 	name = "scientist's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/tank/internals/air,
 /obj/item/clothing/mask/gas,
@@ -4172,15 +4043,10 @@
 	dir = 1
 	},
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureresbroken";
-	icon_closed = "secureres";
-	icon_locked = "secureres1";
-	icon_off = "secureresoff";
-	icon_opened = "secureresopen";
-	icon_state = "secureres";
+	icon_state = "res";
 	locked = 0;
 	name = "scientist's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
@@ -4245,7 +4111,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/research{
 	name = "Research Lab";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -4264,8 +4130,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4275,7 +4139,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "jT" = (
@@ -4313,7 +4177,7 @@
 	locked = 0;
 	name = "UO45 Bar APC";
 	pixel_y = 25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /turf/simulated/floor/plasteel{
@@ -4322,20 +4186,15 @@
 /area/awaymission/UO45/crew_quarters)
 "jX" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-j2"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -4347,8 +4206,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jY" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4365,8 +4222,6 @@
 /area/awaymission/UO45/crew_quarters)
 "jZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4380,8 +4235,6 @@
 /area/awaymission/UO45/central_hall)
 "ka" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4396,20 +4249,16 @@
 /area/awaymission/UO45/crew_quarters)
 "kb" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "kc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -4424,14 +4273,11 @@
 /area/awaymission/UO45/central_hall)
 "kd" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -4442,15 +4288,13 @@
 "ke" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/machinery/door/airlock/command{
 	icon_state = "door_closed";
 	name = "Gateway Chamber";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
@@ -4564,8 +4408,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ku" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -4595,18 +4437,15 @@
 /area/awaymission/UO45/crew_quarters)
 "kw" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "kx" = (
@@ -4701,7 +4540,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -4785,7 +4624,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -4916,8 +4755,6 @@
 /area/awaymission/UO45/research)
 "kZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5035,8 +4872,7 @@
 /area/awaymission/UO45/crew_quarters)
 "ll" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -5048,12 +4884,12 @@
 /area/awaymission/UO45/crew_quarters)
 "lm" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/disposalpipe/junction,
+/obj/structure/disposalpipe/junction{
+	dir = 2
+	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -5096,8 +4932,6 @@
 /area/awaymission/UO45/gateaway)
 "lq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5109,8 +4943,6 @@
 /area/awaymission/UO45/gateaway)
 "lr" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -5118,8 +4950,6 @@
 /area/awaymission/UO45/gateaway)
 "ls" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5130,14 +4960,10 @@
 /area/awaymission/UO45/gateaway)
 "lt" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -5157,8 +4983,6 @@
 /area/awaymission/UO45/gateaway)
 "lu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5170,8 +4994,6 @@
 /area/awaymission/UO45/gateaway)
 "lv" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5183,8 +5005,6 @@
 "lw" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5194,15 +5014,13 @@
 /obj/machinery/door/airlock/command{
 	icon_state = "door_closed";
 	name = "Gateway Ready Room";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/gateaway)
 "lx" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5211,7 +5029,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5219,8 +5037,6 @@
 /area/awaymission/UO45/gateaway)
 "ly" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5235,8 +5051,6 @@
 /area/awaymission/UO45/gateaway)
 "lz" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5249,8 +5063,6 @@
 /area/awaymission/UO45/gateaway)
 "lA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5261,8 +5073,6 @@
 /area/awaymission/UO45/gateaway)
 "lB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5284,8 +5094,6 @@
 /area/awaymission/UO45/gateaway)
 "lC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5303,8 +5111,6 @@
 "lD" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5313,7 +5119,7 @@
 	},
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
@@ -5321,8 +5127,6 @@
 /area/awaymission/UO45/gateaway)
 "lE" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5336,20 +5140,15 @@
 /area/awaymission/UO45/gateaway)
 "lF" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -5363,8 +5162,6 @@
 /area/awaymission/UO45/research)
 "lG" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5386,7 +5183,7 @@
 	locked = 0;
 	name = "UO45 Research Division APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/structure/disposalpipe/segment{
@@ -5401,15 +5198,12 @@
 /area/awaymission/UO45/research)
 "lI" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/machinery/light,
 /obj/structure/disposalpipe/junction{
-	dir = 8;
-	tag = "icon-pipe-j1 (EAST)"
+	dir = 8
 	},
 /obj/machinery/firealarm/no_alarm{
 	dir = 1;
@@ -5422,8 +5216,7 @@
 /area/awaymission/UO45/research)
 "lJ" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -5486,7 +5279,7 @@
 "lP" = (
 /obj/machinery/door/airlock/research{
 	name = "Research Division Access";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -5542,7 +5335,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -5552,8 +5345,6 @@
 "lW" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5624,15 +5415,13 @@
 /area/awaymission/UO45/gateaway)
 "md" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "me" = (
@@ -5672,7 +5461,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/command{
 	name = "Research Director's Office";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -5743,8 +5532,6 @@
 /area/awaymission/UO45/crew_quarters)
 "mq" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -5798,18 +5585,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mw" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
@@ -5829,8 +5605,6 @@
 /area/awaymission/UO45/crew_quarters)
 "my" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5902,7 +5676,7 @@
 	locked = 0;
 	name = "UO45 Gateway APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/machinery/light/small,
@@ -5923,19 +5697,15 @@
 /area/awaymission/UO45/gateaway)
 "mI" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "rdsecurebroken";
-	icon_closed = "rdsecure";
-	icon_locked = "rdsecure1";
-	icon_off = "rdsecureoff";
-	icon_opened = "rdsecureopen";
-	icon_state = "rdsecure1";
+	icon_state = "rd";
 	name = "research director's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/suit/storage/labcoat/science,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paicard_upgrade,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -5954,8 +5724,6 @@
 /area/awaymission/UO45/research)
 "mL" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -5963,14 +5731,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/maintenance{
 	name = "Research Maintenance";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "mM" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -5981,8 +5748,7 @@
 /area/awaymission/UO45/research)
 "mN" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -6099,18 +5865,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
 "mZ" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/under/suit_jacket/navy,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/crew_quarters)
@@ -6201,8 +5956,6 @@
 /area/awaymission/UO45/engineering)
 "nk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6271,7 +6024,7 @@
 "nr" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "ns" = (
@@ -6286,14 +6039,11 @@
 /area/awaymission/UO45/research)
 "nt" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -6302,8 +6052,6 @@
 /area/awaymission/UO45/research)
 "nu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6317,14 +6065,11 @@
 /area/awaymission/UO45/research)
 "nv" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -6335,8 +6080,6 @@
 /area/awaymission/UO45/crew_quarters)
 "nw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6351,8 +6094,6 @@
 /area/awaymission/UO45/research)
 "nx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6437,8 +6178,6 @@
 /area/awaymission/UO45/crew_quarters)
 "nH" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -6446,8 +6185,6 @@
 /area/awaymission/UO45/engineering)
 "nI" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6468,20 +6205,14 @@
 /area/awaymission/UO45/crew_quarters)
 "nK" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6489,8 +6220,6 @@
 /area/awaymission/UO45/engineering)
 "nL" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -6521,8 +6250,6 @@
 /area/awaymission/UO45/research)
 "nO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6632,14 +6359,11 @@
 /area/awaymission/UO45/research)
 "nW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
@@ -6686,8 +6410,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ob" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6704,8 +6426,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oc" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6723,8 +6443,6 @@
 /area/awaymission/UO45/crew_quarters)
 "od" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6744,8 +6462,6 @@
 "oe" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6762,8 +6478,6 @@
 /area/awaymission/UO45/crew_quarters)
 "of" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6786,8 +6500,6 @@
 /area/awaymission/UO45/crew_quarters)
 "og" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6802,8 +6514,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oh" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6818,8 +6528,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oi" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6844,8 +6552,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oj" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6863,8 +6569,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ok" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6881,8 +6585,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ol" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6907,8 +6609,6 @@
 /area/awaymission/UO45/engineering)
 "on" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6922,14 +6622,11 @@
 /area/awaymission/UO45/crew_quarters)
 "oo" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 2;
-	icon_state = "pipe-y"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -6942,8 +6639,6 @@
 "op" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -6960,8 +6655,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oq" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -6969,21 +6662,15 @@
 /area/awaymission/UO45/engineering)
 "or" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 8;
-	icon_state = "pipe-y";
-	tag = "icon-pipe-y (WEST)"
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/decal/cleanable/dirt,
@@ -6991,8 +6678,6 @@
 /area/awaymission/UO45/crew_quarters)
 "os" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -7008,14 +6693,12 @@
 /area/awaymission/UO45/crew_quarters)
 "ot" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ou" = (
@@ -7056,14 +6739,14 @@
 	id = "UO45_biohazard";
 	name = "Biohazard Door Control";
 	pixel_y = 8;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch that controls the privacy shutters.";
 	id = "UO45_rdprivacy";
 	name = "Privacy Shutter Control";
 	pixel_y = -2;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -7112,7 +6795,7 @@
 "oC" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -7209,8 +6892,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oN" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7252,8 +6933,6 @@
 /area/awaymission/UO45/crew_quarters)
 "oR" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7265,8 +6944,6 @@
 /area/awaymission/UO45/engineering)
 "oS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7277,8 +6954,6 @@
 /area/awaymission/UO45/engineering)
 "oT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7310,14 +6985,12 @@
 /area/awaymission/UO45/crew_quarters)
 "oV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "oW" = (
@@ -7360,7 +7033,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -7388,17 +7061,16 @@
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
 "pb" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	frequency = 1443;
 	id_tag = "UO45_air_sensor";
-	output = 7
+	output = 23
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
 "pc" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7409,14 +7081,11 @@
 /area/awaymission/UO45/research)
 "pd" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -7450,7 +7119,7 @@
 	id = "UO45_biohazard";
 	name = "Biohazard Door Control";
 	pixel_y = -24;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -7466,14 +7135,9 @@
 /area/awaymission/UO45/research)
 "pi" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	on = 1
@@ -7494,7 +7158,7 @@
 	dir = 8;
 	pixel_x = -24
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -7564,8 +7228,6 @@
 /area/awaymission/UO45/crew_quarters)
 "ps" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -7582,14 +7244,10 @@
 /area/awaymission/UO45/crew_quarters)
 "pu" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -7626,8 +7284,6 @@
 /area/awaymission/UO45/engineering)
 "pA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -7638,8 +7294,6 @@
 /area/awaymission/UO45/engineering)
 "pB" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -7647,8 +7301,6 @@
 /area/awaymission/UO45/engineering)
 "pC" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -7657,7 +7309,7 @@
 "pD" = (
 /obj/machinery/door/airlock/command{
 	name = "Server Room";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7680,7 +7332,7 @@
 	internal_pressure_bound = 2000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/air,
 /area/awaymission/UO45/engineering)
@@ -7693,8 +7345,6 @@
 /area/awaymission/UO45/engineering)
 "pH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -7710,7 +7360,7 @@
 "pJ" = (
 /obj/machinery/door/airlock/research/glass{
 	name = "Research Storage";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -7834,26 +7484,22 @@
 /area/awaymission/UO45/crew_quarters)
 "pY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "pZ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/machinery/door/airlock/engineering/glass{
 	name = "SMES Room";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/purple,
 /turf/simulated/floor/plating,
@@ -7863,7 +7509,7 @@
 /obj/item/storage/box/lights/mixed,
 /obj/item/poster/random_contraband,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "qb" = (
@@ -7886,7 +7532,7 @@
 "qe" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_out_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank Out"
@@ -7898,7 +7544,7 @@
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_mair_in_meter";
 	layer = 3.3;
 	name = "Mixed Air Tank In"
@@ -7906,10 +7552,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/engineering)
 "qg" = (
-/obj/machinery/atmospherics/unary/cold_sink/freezer{
-	current_temperature = 80;
-	on = 1
-	},
+/obj/machinery/atmospherics/unary/thermomachine/freezer/on/server,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7926,7 +7569,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/bluegrid{
 	name = "Server Base";
@@ -7992,7 +7635,7 @@
 /area/awaymission/UO45/research)
 "qo" = (
 /obj/machinery/vending/medical{
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -8129,14 +7772,10 @@
 /area/awaymission/UO45/engineering)
 "qE" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -8148,8 +7787,7 @@
 /area/awaymission/UO45/engineering)
 "qF" = (
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
 	req_access = list(201)
@@ -8165,8 +7803,6 @@
 /area/awaymission/UO45/engineering)
 "qG" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -8178,14 +7814,9 @@
 /area/awaymission/UO45/engineering)
 "qH" = (
 /obj/structure/closet/secure_closet{
-	icon_broken = "secureengbroken";
-	icon_closed = "secureeng";
-	icon_locked = "secureeng1";
-	icon_off = "secureengoff";
-	icon_opened = "secureengopen";
-	icon_state = "secureeng1";
+	icon_state = "eng";
 	name = "engineer's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/structure/window/reinforced{
 	dir = 8
@@ -8256,7 +7887,7 @@
 	node1_concentration = 0.8;
 	node2_concentration = 0.2;
 	on = 1;
-	req_access = null;
+	req_access = list();
 	target_pressure = 4500
 	},
 /turf/simulated/floor/plasteel{
@@ -8280,7 +7911,7 @@
 "qO" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Server Room";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/atmospherics/pipe/simple/visible{
 	dir = 4
@@ -8291,8 +7922,6 @@
 /area/awaymission/UO45/research)
 "qP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -8384,7 +8013,7 @@
 /area/awaymission/UO45/research)
 "qW" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "qX" = (
@@ -8454,8 +8083,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rf" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8465,7 +8092,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rg" = (
@@ -8601,14 +8228,10 @@
 /area/awaymission/UO45/engineering)
 "rs" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -8655,7 +8278,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "ry" = (
@@ -8686,21 +8309,17 @@
 /area/awaymission/UO45/research)
 "rB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j2";
-	tag = "icon-pipe-j1 (WEST)"
+/obj/structure/disposalpipe/junction/reversed{
+	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rC" = (
@@ -8715,8 +8334,7 @@
 /area/awaymission/UO45/research)
 "rD" = (
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
@@ -8728,8 +8346,7 @@
 /area/awaymission/UO45/research)
 "rE" = (
 /obj/structure/disposalpipe/segment{
-	dir = 4;
-	icon_state = "pipe-c"
+	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -8764,7 +8381,7 @@
 	},
 /obj/machinery/door/airlock/maintenance{
 	name = "Research Maintenance";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
@@ -8780,8 +8397,6 @@
 /area/awaymission/UO45/research)
 "rJ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8791,7 +8406,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rK" = (
@@ -8804,8 +8419,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rL" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8816,13 +8429,11 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "rM" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8839,8 +8450,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rN" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8858,20 +8467,15 @@
 /area/awaymission/UO45/crew_quarters)
 "rO" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -8894,8 +8498,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rQ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8920,8 +8522,6 @@
 	dir = 4
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8930,8 +8530,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8953,8 +8551,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rT" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8972,8 +8568,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rU" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -8993,8 +8587,6 @@
 /area/awaymission/UO45/crew_quarters)
 "rV" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9022,8 +8614,6 @@
 "rX" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9052,8 +8642,6 @@
 /area/awaymission/UO45/engineering)
 "rZ" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9065,8 +8653,6 @@
 /area/awaymission/UO45/engineering)
 "sa" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9092,14 +8678,11 @@
 /area/awaymission/UO45/engineering)
 "sc" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9129,7 +8712,7 @@
 /obj/machinery/door/window/southleft{
 	dir = 4;
 	name = "Engineering Reception";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/paper_bin{
 	pixel_x = 1;
@@ -9163,7 +8746,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
@@ -9191,12 +8774,10 @@
 /area/awaymission/UO45/engineering)
 "sk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_dloop_atm_meter";
 	name = "Distribution Loop"
 	},
@@ -9240,7 +8821,7 @@
 /obj/machinery/atmospherics/pipe/simple/visible/yellow{
 	dir = 4
 	},
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /turf/simulated/floor/plating,
@@ -9263,7 +8844,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -9376,8 +8957,6 @@
 /area/awaymission/UO45/crew_quarters)
 "sE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9494,8 +9073,6 @@
 /area/awaymission/UO45/engineering)
 "sP" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9528,7 +9105,7 @@
 	dir = 4;
 	icon_state = "right";
 	name = "Engineering Reception";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/folder/red,
 /turf/simulated/floor/plasteel,
@@ -9559,7 +9136,7 @@
 "sU" = (
 /obj/structure/closet,
 /obj/item/storage/belt/utility,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "sV" = (
@@ -9571,8 +9148,6 @@
 /area/awaymission/UO45/engineering)
 "sW" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9620,7 +9195,7 @@
 "td" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -9638,7 +9213,7 @@
 	name = "EXTERNAL AIRLOCK";
 	pixel_x = -32
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tf" = (
@@ -9653,9 +9228,9 @@
 	},
 /area/awaymission/UO45/engineering)
 "tg" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_waste_sensor";
-	output = 63
+	output = 127
 	},
 /turf/simulated/floor/engine{
 	name = "vacuum floor";
@@ -9665,8 +9240,6 @@
 /area/awaymission/UO45/engineering)
 "th" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -9682,14 +9255,11 @@
 /area/awaymission/UO45/research)
 "ti" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plating,
@@ -9710,14 +9280,11 @@
 /area/awaymission/UO45/research)
 "tl" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -9734,8 +9301,7 @@
 /obj/machinery/light/small,
 /obj/machinery/atmospherics/unary/portables_connector,
 /obj/structure/window/reinforced{
-	dir = 4;
-	layer = 2.9
+	dir = 4
 	},
 /obj/machinery/portable_atmospherics/scrubber,
 /turf/simulated/floor/plasteel{
@@ -9773,8 +9339,6 @@
 /area/awaymission/UO45/research)
 "ts" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9794,8 +9358,6 @@
 /area/awaymission/UO45/engineering)
 "tu" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9832,8 +9394,6 @@
 /area/awaymission/UO45/engineering)
 "tx" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9853,7 +9413,7 @@
 	name = "Privacy Shutters";
 	pixel_x = -24;
 	pixel_y = 6;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -9886,7 +9446,7 @@
 	on = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/research)
 "tC" = (
@@ -9917,8 +9477,6 @@
 /area/awaymission/UO45/engineering)
 "tF" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -9936,7 +9494,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "tH" = (
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	id = "UO45_wloop_atm_meter";
 	name = "Waste Loop"
 	},
@@ -9967,7 +9525,7 @@
 	dir = 8;
 	tag = "icon-chair (WEST)"
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "tL" = (
@@ -9982,7 +9540,7 @@
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Maintenance";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plating,
@@ -10001,8 +9559,6 @@
 /area/awaymission/UO45/research)
 "tP" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10016,14 +9572,11 @@
 /area/awaymission/UO45/research)
 "tQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -10033,13 +9586,11 @@
 /area/awaymission/UO45/research)
 "tR" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "tS" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10069,14 +9620,11 @@
 /area/awaymission/UO45/crew_quarters)
 "tV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1;
@@ -10088,8 +9636,6 @@
 /area/awaymission/UO45/research)
 "tW" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10110,8 +9656,6 @@
 /area/awaymission/UO45/research)
 "tY" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10148,17 +9692,12 @@
 	name = "Engineering Lockdown";
 	pixel_x = 24;
 	pixel_y = 6;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/structure/closet/secure_closet{
-	icon_broken = "secbroken";
-	icon_closed = "sec";
-	icon_locked = "sec1";
-	icon_off = "secoff";
-	icon_opened = "secopen";
-	icon_state = "sec1";
+	icon_state = "sec";
 	name = "security officer's locker";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/item/clothing/suit/armor/vest,
 /obj/item/clothing/head/helmet,
@@ -10173,19 +9712,17 @@
 /area/awaymission/UO45/caves)
 "ud" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "ue" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/machinery/meter,
+/obj/machinery/atmospherics/meter,
 /turf/simulated/wall/r_wall,
 /area/awaymission/UO45/engineering)
 "uf" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10193,7 +9730,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering Foyer";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -10215,8 +9752,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 2;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -10242,8 +9778,6 @@
 /area/awaymission/UO45/engineering)
 "ul" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10299,8 +9833,7 @@
 /obj/machinery/atmospherics/trinary/filter{
 	dir = 4;
 	filter_type = 1;
-	on = 1;
-	req_access = null
+	on = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -10351,7 +9884,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/damageturf,
+/obj/effect/mapping_helpers/turfs/damage,
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
 "uv" = (
@@ -10380,8 +9913,6 @@
 "uz" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10423,8 +9954,6 @@
 /area/awaymission/UO45/research)
 "uE" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10442,21 +9971,19 @@
 "uG" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "uH" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/universal,
 /turf/simulated/floor/plasteel,
@@ -10468,7 +9995,7 @@
 "uJ" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/green,
@@ -10477,7 +10004,7 @@
 "uK" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced,
-/obj/machinery/meter{
+/obj/machinery/atmospherics/meter{
 	layer = 3.3
 	},
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
@@ -10505,8 +10032,6 @@
 /area/awaymission/UO45/research)
 "uO" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10591,8 +10116,6 @@
 /area/awaymission/UO45/engineering)
 "uX" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10681,7 +10204,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
@@ -10702,7 +10225,7 @@
 	internal_pressure_bound = 4000;
 	on = 1;
 	pressure_checks = 2;
-	pump_direction = 0
+	releasing = 0
 	},
 /turf/simulated/floor/engine/o2,
 /area/awaymission/UO45/engineering)
@@ -10718,14 +10241,12 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "vk" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10769,8 +10290,7 @@
 /area/awaymission/UO45/crew_quarters)
 "vq" = (
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/crew_quarters)
@@ -10784,8 +10304,6 @@
 /area/awaymission/UO45/engineering)
 "vs" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10810,8 +10328,6 @@
 /area/awaymission/UO45/mining)
 "vu" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10826,22 +10342,17 @@
 /area/awaymission/UO45/engineering)
 "vv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 1;
-	icon_state = "pipe-c"
+	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "vw" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10852,20 +10363,15 @@
 /area/awaymission/UO45/engineering)
 "vx" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 2;
-	icon_state = "pipe-c"
+	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1;
@@ -10886,15 +10392,11 @@
 /area/awaymission/UO45/mining)
 "vz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -10903,8 +10405,6 @@
 /area/awaymission/UO45/mining)
 "vA" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -10912,14 +10412,12 @@
 /area/awaymission/UO45/engineering)
 "vB" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
 /obj/machinery/door/airlock/engineering{
 	name = "Engineering";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
@@ -10936,15 +10434,13 @@
 /area/awaymission/UO45/engineering)
 "vD" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/engineering)
 "vE" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_n2_sensor"
 	},
 /obj/machinery/light/small,
@@ -10955,7 +10451,7 @@
 /turf/simulated/floor/engine/n2,
 /area/awaymission/UO45/engineering)
 "vG" = (
-/obj/machinery/air_sensor{
+/obj/machinery/atmospherics/air_sensor{
 	id_tag = "UO45_o2_sensor"
 	},
 /obj/machinery/light/small,
@@ -10986,22 +10482,20 @@
 "vN" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Mining Maintenance";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plating,
 /area/awaymission/UO45/mining)
 "vO" = (
 /obj/machinery/door/firedoor,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Foyer";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
@@ -11010,15 +10504,13 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Foyer";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "vQ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11068,8 +10560,6 @@
 /area/awaymission/UO45/mining)
 "vV" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11114,8 +10604,6 @@
 	req_access = null
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11172,21 +10660,17 @@
 /area/awaymission/UO45/mining)
 "wh" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -11195,8 +10679,6 @@
 /area/awaymission/UO45/engineering)
 "wi" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11214,7 +10696,7 @@
 	},
 /obj/structure/sign/deathsposal{
 	desc = "A warning sign which reads 'DISPOSAL: LEADS TO EXTERIOR'";
-	name = "\improper DISPOSAL: LEADS TO EXTERIOR";
+	name = "DISPOSAL: LEADS TO EXTERIOR";
 	pixel_x = -32
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -11270,18 +10752,7 @@
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wq" = (
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wr" = (
@@ -11322,8 +10793,6 @@
 /area/awaymission/UO45/mining)
 "wv" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11358,14 +10827,11 @@
 /area/awaymission/UO45/engineering)
 "wz" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
 /obj/structure/disposalpipe/segment{
-	dir = 8;
-	icon_state = "pipe-c"
+	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
@@ -11407,8 +10873,6 @@
 /area/awaymission/UO45/mining)
 "wD" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -11428,8 +10892,6 @@
 /area/awaymission/UO45/engineering)
 "wG" = (
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -11453,8 +10915,6 @@
 /area/awaymission/UO45/engineering)
 "wJ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11527,8 +10987,6 @@
 /area/awaymission/UO45/mining)
 "wQ" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11558,8 +11016,6 @@
 /area/awaymission/UO45/engineering)
 "wT" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11584,7 +11040,7 @@
 	locked = 0;
 	name = "UO45 Mining APC";
 	pixel_y = -25;
-	req_access = null;
+	req_access = list();
 	start_charge = 100
 	},
 /obj/machinery/light/small,
@@ -11592,12 +11048,7 @@
 	dir = 4
 	},
 /obj/structure/closet/secure_closet/engineering_personal{
-	icon_broken = "miningsecbroken";
-	icon_closed = "miningsec";
-	icon_locked = "miningsec1";
-	icon_off = "miningsecoff";
-	icon_opened = "miningsecopen";
-	icon_state = "miningsec";
+	icon_state = "mining";
 	locked = 0;
 	name = "miner's equipment";
 	req_access = list(201)
@@ -11628,18 +11079,7 @@
 	dir = 4;
 	on = 1
 	},
-/obj/structure/closet/secure_closet{
-	desc = "It's a secure locker for personnel. The first card swiped gains control.";
-	icon_broken = "cabinetdetective_broken";
-	icon_closed = "cabinetdetective";
-	icon_locked = "cabinetdetective_locked";
-	icon_off = "cabinetdetective_broken";
-	icon_opened = "cabinetdetective_open";
-	icon_state = "cabinetdetective";
-	locked = 0;
-	name = "personal closet";
-	req_access_txt = "201"
-	},
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/simulated/floor/carpet,
 /area/awaymission/UO45/mining)
 "wY" = (
@@ -11650,8 +11090,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11682,8 +11120,6 @@
 /area/awaymission/UO45/engineering)
 "xb" = (
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 4;
 	icon_state = "2-4";
 	tag = ""
 	},
@@ -11715,8 +11151,6 @@
 	pixel_y = -28
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -11745,12 +11179,10 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/door/airlock/mining{
 	name = "Processing Area";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11761,7 +11193,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/mining{
 	name = "Processing Area";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
@@ -11774,7 +11206,7 @@
 	name = "Engineering Lockdown";
 	pixel_x = -6;
 	pixel_y = -24;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/machinery/door_control{
 	desc = "A remote control-switch for secure storage.";
@@ -11782,7 +11214,7 @@
 	name = "Engineering Secure Storage";
 	pixel_x = 6;
 	pixel_y = -24;
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -11841,7 +11273,7 @@
 /obj/item/stack/sheet/mineral/plasma{
 	amount = 6
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
@@ -11853,7 +11285,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/door/airlock/external{
 	name = "Mining External Airlock";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -11874,8 +11306,6 @@
 "xu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11918,7 +11348,7 @@
 	dir = 1;
 	on = 1
 	},
-/obj/effect/landmark/burnturf,
+/obj/effect/mapping_helpers/turfs/burn,
 /turf/simulated/floor/plasteel,
 /area/awaymission/UO45/mining)
 "xA" = (
@@ -11928,8 +11358,6 @@
 	tag = "icon-manifold-r-f (WEST)"
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 2;
 	icon_state = "1-2";
 	tag = ""
 	},
@@ -11981,8 +11409,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
@@ -12002,8 +11428,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -12015,11 +11439,9 @@
 	},
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining EVA";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /obj/structure/cable{
-	d1 = 4;
-	d2 = 8;
 	icon_state = "4-8";
 	tag = ""
 	},
@@ -12031,8 +11453,6 @@
 	on = 1
 	},
 /obj/structure/cable{
-	d1 = 2;
-	d2 = 8;
 	icon_state = "2-8";
 	tag = ""
 	},
@@ -12069,14 +11489,10 @@
 /area/awaymission/UO45/mining)
 "xS" = (
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 4;
 	icon_state = "1-4";
 	tag = ""
 	},
 /obj/structure/cable{
-	d1 = 1;
-	d2 = 8;
 	icon_state = "1-8";
 	tag = ""
 	},
@@ -12102,7 +11518,7 @@
 "ye" = (
 /obj/machinery/door/airlock/external{
 	name = "Mining External Airlock";
-	req_access_txt = "201"
+	req_access = list(201)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroidfloor";
@@ -13543,12 +12959,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13693,12 +13109,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13843,12 +13259,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -13993,12 +13409,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -14143,12 +13559,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -14293,12 +13709,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
+ac
+ac
+ac
+ac
+ac
+ac
 aa
 aa
 aa
@@ -14443,15 +13859,15 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
 ac
 ac
 ac
+ac
+ac
+ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14593,15 +14009,15 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
-aa
-aa
-aa
 ac
 ac
 ac
+ac
+ac
+ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14746,12 +14162,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -14896,12 +14312,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15046,12 +14462,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15196,12 +14612,12 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
 ac
 ac
 ac
+aa
+aa
+aa
 aa
 aa
 aa
@@ -15346,15 +14762,15 @@ ac
 ac
 ac
 ac
+ac
+ac
+ac
 aa
 aa
 aa
-ac
-ac
-ac
-ac
-ac
-ac
+aa
+aa
+aa
 aa
 "}
 (21,1,1) = {"
@@ -15496,9 +14912,9 @@ ac
 ac
 ac
 ac
-aa
-aa
-aa
+ac
+ac
+ac
 aa
 aa
 aa

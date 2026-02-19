@@ -1,3 +1,6 @@
+#define MAX_HEALTH_ACTIVATE 0
+#define MIN_HEALTH_ACTIVATE -90
+
 /obj/item/assembly/health
 	name = "health sensor"
 	desc = "Used for scanning and monitoring health."
@@ -6,11 +9,12 @@
 	origin_tech = "magnets=1;biotech=1"
 	secured = FALSE
 
+	/// Are we scanning our user's health?
 	var/scanning = FALSE
-	var/health_scan
-	var/alarm_health = 0
-
-
+	/// Our user's health
+	var/user_health
+	/// The health amount on which to activate
+	var/alarm_health = MAX_HEALTH_ACTIVATE
 
 /obj/item/assembly/health/activate()
 	if(!..())
@@ -24,6 +28,7 @@
 		START_PROCESSING(SSobj, src)
 	else
 		scanning = FALSE
+		user_health = null // Clear out the user data, we're no longer scanning
 		STOP_PROCESSING(SSobj, src)
 	update_icon()
 	return secured
@@ -32,33 +37,28 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	if(alarm_health == 0)
-		alarm_health = -90
+	if(alarm_health == MAX_HEALTH_ACTIVATE)
+		alarm_health = MIN_HEALTH_ACTIVATE
 		user.show_message("You toggle [src] to \"detect death\" mode.")
 	else
-		alarm_health = 0
+		alarm_health = MAX_HEALTH_ACTIVATE
 		user.show_message("You toggle [src] to \"detect critical state\" mode.")
 
 /obj/item/assembly/health/process()
 	if(!scanning || !secured)
+		return PROCESS_KILL	// It should never reach here, but if it somehow does stop processing
+
+	var/mob/living/user = get(loc, /mob/living)
+	if(!user)
+		user_health = null // We aint on a living thing, remove the previous data
 		return
 
-	var/atom/A = src
-	if(connected && connected.holder)
-		A = connected.holder
-
-	for(A, A && !ismob(A), A=A.loc);
-	// like get_turf(), but for mobs.
-	var/mob/living/M = A
-
-	if(M)
-		health_scan = M.health
-		if(health_scan <= alarm_health)
-			pulse(FALSE, M)
-			audible_message("[bicon(src)] *beep* *beep*")
-			toggle_scan()
-		return
-	return
+	user_health = user.health
+	if(user_health <= alarm_health) // Its a health detector, not a death detector
+		pulse(FALSE, user)
+		user.audible_message("[icon2html(src, hearers(loc))] *beep* *beep* *beep*")
+		playsound(src, 'sound/machines/triple_beep.ogg', 40, extrarange = SHORT_RANGE_SOUND_EXTRARANGE)
+		toggle_scan()
 
 /obj/item/assembly/health/proc/toggle_scan()
 	if(!secured)
@@ -67,41 +67,41 @@
 	if(scanning)
 		START_PROCESSING(SSobj, src)
 	else
+		user_health = null // Clear out the user data, we're no longer scanning
 		STOP_PROCESSING(SSobj, src)
-	return
 
 /obj/item/assembly/health/interact(mob/user)//TODO: Change this to the wires thingy
 	if(!secured)
-		user.show_message("<span class='warning'>The [name] is unsecured!</span>")
+		user.show_message(span_warning("The [name] is unsecured!"))
 		return FALSE
-	var/dat = text({"<meta charset="UTF-8"><TT><B>Health Sensor</B> <A href='?src=[UID()];scanning=1'>[scanning?"On":"Off"]</A>"})
-	if(scanning && health_scan)
-		dat += "<BR>Health: [health_scan]"
-	var/datum/browser/popup = new(user, "hscan", name, 400, 400)
+	var/dat = {"<tt><b>Health Sensor</b> <a href='byond://?src=[UID()];scanning=1'>[scanning?"On":"Off"]</a></tt>"}
+	if(scanning && !isnull(user_health))
+		dat += "<br>Health: [user_health]"
+	var/datum/browser/popup = new(user, "hscan", name, 400, 400, src)
 	popup.set_content(dat)
-	popup.open(0)
-	onclose(user, "hscan")
-	return
-
+	popup.open()
 
 /obj/item/assembly/health/Topic(href, href_list)
 	..()
-	if(!ismob(usr))
+	if(!isliving(usr))
 		return
 
-	var/mob/user = usr
+	var/mob/living/user = usr
 
-	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
-		usr << browse(null, "window=hscan")
-		onclose(usr, "hscan")
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(loc, user))
+		close_window(user, "hscan")
+		onclose(user, "hscan")
 		return
 
 	if(href_list["scanning"])
 		toggle_scan()
 
 	if(href_list["close"])
-		usr << browse(null, "window=hscan")
+		close_window(user, "hscan")
 		return
 
 	attack_self(user)
-	return
+
+#undef MAX_HEALTH_ACTIVATE
+#undef MIN_HEALTH_ACTIVATE
+

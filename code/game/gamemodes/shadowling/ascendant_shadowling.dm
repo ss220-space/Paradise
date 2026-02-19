@@ -5,14 +5,14 @@
 	icon_state = "shadowling_ascended"
 	icon_living = "shadowling_ascended"
 	speak = list("Azima'dox", "Mahz'kavek", "N'ildzak", "Kaz'vadosh")
-	speak_emote = list("telepathically thunders", "telepathically booms")
+	speak_emote = list("телепатически грохочет", "телепатически гудит")
 	force_threshold = INFINITY //Can't die by normal means
+	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	health = 100000
 	maxHealth = 100000
 	speed = 0
 	var/phasing = 0
-	flying = TRUE
-	see_in_dark = 8
+	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
 	universal_speak = 1
@@ -27,31 +27,44 @@
 	attacktext = "кромсает"
 	attack_sound = 'sound/weapons/slash.ogg'
 
-	minbodytemp = 0
-	maxbodytemp = INFINITY
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 
 	faction = list("faithless")
 
-/mob/living/simple_animal/ascendant_shadowling/New()
-	..()
+/mob/living/simple_animal/ascendant_shadowling/Initialize(mapload)
+	. = ..()
+
+	AddElement(/datum/element/simple_flying)
 	if(prob(35))
 		icon_state = "NurnKal"
 		icon_living = "NurnKal"
+	update_icon(UPDATE_OVERLAYS)
 
-/mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(var/movement_dir = 0)
-	return 1 //copypasta from carp code
+/mob/living/simple_animal/ascendant_shadowling/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		maxbodytemp = INFINITY, \
+		minbodytemp = 0, \
+	)
 
-/mob/living/simple_animal/ascendant_shadowling/ex_act(severity)
+/mob/living/simple_animal/ascendant_shadowling/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
+	return TRUE //copypasta from carp code
+
+/mob/living/simple_animal/ascendant_shadowling/ex_act(severity, target)
 	return //You think an ascendant can be hurt by bombs? HA
 
 /mob/living/simple_animal/ascendant_shadowling/singularity_act()
 	return 0 //Well hi, fellow god! How are you today?
 
-/mob/living/simple_animal/ascendant_shadowling/proc/announce(var/text, var/size = 4, var/new_sound = null)
-	var/message = "<font size=[size]><span class='shadowling'><b>\"[text]\"</font></span>"
+/mob/living/simple_animal/ascendant_shadowling/update_overlays()
+	. = ..()
+	. += "shadowling_ascended_ms"
+
+/mob/living/simple_animal/ascendant_shadowling/proc/announce(text, size = 4, new_sound = null)
+	var/message = "<font size=[size]>[span_shadowling("<b>\"[text]\"</font>")]"
 	for(var/mob/M in GLOB.player_list)
+		M.hear_say()
 		if(!isnewplayer(M) && M.client)
 			to_chat(M, message)
 			if(new_sound)
-				M << new_sound
+				SEND_SOUND(M, sound(new_sound))

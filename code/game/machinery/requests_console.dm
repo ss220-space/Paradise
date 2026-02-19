@@ -1,32 +1,6 @@
 /******************** Requests Console ********************/
 /** Originally written by errorage, updated by: Carn, needs more work though. I just added some security fixes */
 
-//Request Console Department Types
-#define RC_ASSIST 1		//Request Assistance
-#define RC_SUPPLY 2		//Request Supplies
-#define RC_INFO   4		//Relay Info
-
-//Request Console Screens
-#define RCS_MAINMENU 0	// Main menu
-#define RCS_RQSUPPLY 1	// Request supplies
-#define RCS_RQASSIST 2	// Request assistance
-#define RCS_SENDINFO 3	// Relay information
-#define RCS_SENTPASS 4	// Message sent successfully
-#define RCS_SENTFAIL 5	// Message sent unsuccessfully
-#define RCS_VIEWMSGS 6	// View messages
-#define RCS_MESSAUTH 7	// Authentication before sending
-#define RCS_ANNOUNCE 8	// Send announcement
-#define RCS_SHIPPING 9	// Print Shipping Labels/Packages
-#define RCS_SHIP_LOG 10	// View Shipping Label Log
-
-//Radio list
-#define ENGI_ROLES list("Atmospherics","Mechanic","Engineering","Chief Engineer's Desk","Telecoms Admin")
-#define SEC_ROLES list("Warden","Security","Brig Medbay","Head of Security's Desk")
-#define MISC_ROLES list("Bar","Chapel","Kitchen","Hydroponics","Janitorial")
-#define MED_ROLES list("Virology","Chief Medical Officer's Desk","Medbay")
-#define COM_ROLES list("Blueshield","NT Representative","Head of Personnel's Desk","Captain's Desk","Bridge")
-#define SCI_ROLES list("Robotics","Science","Research Director's Desk")
-
 #define RQ_NONEW_MESSAGES 0
 #define RQ_NORMALPRIORITY 1
 #define RQ_HIGHPRIORITY 2
@@ -40,13 +14,13 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	name = "Requests Console"
 	desc = "A console intended to send requests to different departments on the station."
 	anchored = TRUE
-	icon = 'icons/obj/terminals.dmi'
-	icon_state = "req_comp0"
+	icon = 'icons/obj/machines/terminals.dmi'
+	icon_state = "req_comp_off"
 	max_integrity = 300
-	armor = list("melee" = 70, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 90)
-	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
+	armor = list(MELEE = 70, BULLET = 30, LASER = 30, ENERGY = 30, BOMB = 0, BIO = 0, RAD = 0, FIRE = 90, ACID = 90)
+	var/department = UNKNOWN_STATUS_RUS //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/message_log = list() //List of all messages
-	var/departmentType = 0 		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
+	var/departmentType = 0		//Bitflag. Zero is reply-only. Map currently uses raw numbers instead of defines.
 	var/newmessagepriority = RQ_NONEW_MESSAGES
 		// RQ_NONEWMESSAGES = no new message
 		// RQ_NORMALPRIORITY = normal priority
@@ -62,36 +36,18 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	light_range = 0
-	var/datum/announcement/announcement = new
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
 	var/print_cooldown = 0	//cooldown on shipping label printer, stores the  in-game time of when the printer will next be ready
-	var/obj/item/radio/Radio
-	var/radiochannel = ""
-
-/obj/machinery/requests_console/power_change()
-	..()
-	update_icon()
-
-/obj/machinery/requests_console/update_icon()
-	if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
-	else
-		icon_state = "req_comp[newmessagepriority]"
+	var/radiochannel = PUB_FREQ
 
 /obj/machinery/requests_console/Initialize(mapload)
-	Radio = new /obj/item/radio(src)
-	Radio.listening = TRUE
-	Radio.config(list("Engineering", "Medical", "Supply", "Command", "Science", "Service", "Security", "AI Private" = FALSE))
-	Radio.follow_target = src
 	. = ..()
 
-	announcement.title = "[department] announcement"
-	announcement.newscast = FALSE
-	announcement.log = TRUE
+	announcer.config.default_title = "[department] объявление."
+	announcer.config.add_log = TRUE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -101,9 +57,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		GLOB.req_console_supplies |= department
 	if(departmentType & RC_INFO)
 		GLOB.req_console_information |= department
-
-	// NOT BOOLEAN. DO NOT CONVERT.
-	set_light(1)
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
@@ -119,7 +73,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			GLOB.req_console_supplies -= department
 		if(departmentType & RC_INFO)
 			GLOB.req_console_information -= department
-	QDEL_NULL(Radio)
 	return ..()
 
 /obj/machinery/requests_console/attack_ghost(user as mob)
@@ -131,13 +84,27 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/attack_hand(user as mob)
 	if(..(user))
 		return
-
 	ui_interact(user)
 
-/obj/machinery/requests_console/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.default_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/obj/machinery/requests_console/power_change(forced = FALSE)
+	. = ..()
+	if(.)
+		update_icon(UPDATE_OVERLAYS)
+
+/obj/machinery/requests_console/update_overlays()
+	. = ..()
+	underlays.Cut()
+
+	if(stat & NOPOWER)
+		return
+
+	. += "req_comp[newmessagepriority]"
+	underlays += emissive_appearance(icon, "req_comp_lightmask", src)
+
+/obj/machinery/requests_console/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "RequestConsole", "[department] Request Console", 520, 410, master_ui, state)
+		ui = new(user, src, "RequestConsole", "[department] Request Console")
 		ui.open()
 
 /obj/machinery/requests_console/ui_data(mob/user)
@@ -179,31 +146,32 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(reject_bad_text(params["write"]))
 				recipient = params["write"] //write contains the string of the receiving department's name
 
-				var/new_message = sanitize(input("Write your message:", "Awaiting Input", ""))
-				if(new_message)
-					message = new_message
-					screen = RCS_MESSAUTH
-					switch(params["priority"])
-						if("1")
-							priority = RQ_NORMALPRIORITY
-						if("2")
-							priority = RQ_HIGHPRIORITY
-						else
-							priority = RQ_NONEW_MESSAGES
-				else
-					reset_message(TRUE)
+				var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE)
+				if(isnull(new_message))
+					reset_message(FALSE)
+					return
+				message = new_message
+				screen = RCS_MESSAUTH
+				switch(params["priority"])
+					if(1)
+						priority = RQ_NORMALPRIORITY
+					if(2)
+						priority = RQ_HIGHPRIORITY
+					else
+						priority = RQ_NONEW_MESSAGES
 
 		if("writeAnnouncement")
-			var/new_message = sanitize(input("Write your message:", "Awaiting Input", "") as message|null)
-			if(new_message)
-				message = new_message
-			else
-				reset_message(TRUE)
+			var/new_message = tgui_input_text(usr, "Write your message:", "Awaiting Input", encode = FALSE, multiline = TRUE)
+			if(isnull(new_message))
+				return
+			message = new_message
 
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message, msg_sanitized = TRUE)
+			if(!announceAuth) // No you don't
+				return
+			announcer.announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -221,23 +189,23 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(pass)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
-					radiochannel = "Engineering"
+					radiochannel = ENG_FREQ
 				else if(recipient in SEC_ROLES)
-					radiochannel = "Security"
+					radiochannel = SEC_FREQ
 				else if(recipient in MISC_ROLES)
-					radiochannel = "Service"
+					radiochannel = SRV_FREQ
 				else if(recipient in MED_ROLES)
-					radiochannel = "Medical"
+					radiochannel = MED_FREQ
 				else if(recipient in COM_ROLES)
-					radiochannel = "Command"
+					radiochannel = COMM_FREQ
 				else if(recipient in SCI_ROLES)
-					radiochannel = "Science"
-				else if(recipient == "AI")
-					radiochannel = "AI Private"
-				else if(recipient == "Cargo Bay")
-					radiochannel = "Supply"
+					radiochannel = SCI_FREQ
+				else if(recipient == RC_AI)
+					radiochannel = AI_FREQ
+				else if(recipient == RC_CARGO_BAY)
+					radiochannel = SUP_FREQ
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
-				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
+				radio_announce("Alert; a new requests console message received for [recipient] from [department]", null, radiochannel, src)
 			else
 				atom_say("Сервер не обнаружен!")
 
@@ -251,8 +219,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 				for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 					if(Console.department == department)
 						Console.newmessagepriority = RQ_NONEW_MESSAGES
-						Console.icon_state = "req_comp0"
-						Console.set_light(1)
+						Console.update_icon(UPDATE_OVERLAYS)
 			if(tempScreen == RCS_MAINMENU)
 				reset_message()
 			screen = tempScreen
@@ -281,36 +248,49 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("toggleSilent")
 			silent = !silent
 
+/obj/machinery/requests_console/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM || inoperable(MAINT))
+		return ..()
 
-/obj/machinery/requests_console/attackby(obj/item/I, mob/user)
-	if(I.GetID())
-		if(inoperable(MAINT))
-			return
-		var/obj/item/card/id/id = I.GetID()
-		if(screen == RCS_MESSAUTH)
-			msgVerified = "Verified by [id.registered_name] ([id.assignment])"
-			SStgui.update_uis(src)
-		if(screen == RCS_ANNOUNCE)
-			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
-				announceAuth = 1
-				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
-			else
-				reset_message()
-				to_chat(user, "<span class='warning'>You are not authorized to send announcements.</span>")
-			SStgui.update_uis(src)
-		if(screen == RCS_SHIPPING)
-			msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
-			SStgui.update_uis(src)
-		return
+	if(istype(I, /obj/item/card/id))
+		add_fingerprint(user)
+		return login_console(screen, I, src)
+
 	if(istype(I, /obj/item/stamp))
-		if(inoperable(MAINT))
-			return
-		if(screen == RCS_MESSAUTH)
-			var/obj/item/stamp/T = I
-			msgStamped = "Stamped with the [T.name]"
-			SStgui.update_uis(src)
-		return
+		return stamp_messauth(screen, I, src, user)
+
 	return ..()
+
+/obj/machinery/requests_console/proc/stamp_messauth(screen, obj/item/stamp/stamp, obj/ui_object, mob/user, is_distant=FALSE)
+	if(screen == RCS_MESSAUTH)
+		if(!is_distant)
+			add_fingerprint(user)
+		msgStamped = "Stamped with the [stamp.name]"
+		SStgui.update_uis(ui_object)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
+
+/obj/machinery/requests_console/proc/login_console(screen, obj/item/card/id/id, obj/ui_object, mob/user)
+	switch(screen)
+		if(RCS_MESSAUTH)
+			msgVerified = "Verified by [id.registered_name] ([id.assignment])"
+			SStgui.update_uis(ui_object)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(RCS_ANNOUNCE)
+			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
+				announceAuth = TRUE
+				announcer.author = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
+				SStgui.update_uis(ui_object)
+				return ATTACK_CHAIN_PROCEED_SUCCESS
+			reset_message()
+			to_chat(user, span_warning("You are not authorized to send announcements."))
+			SStgui.update_uis(ui_object)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(RCS_SHIPPING)
+			msgVerified = "Sender verified as [id.registered_name] ([id.assignment])"
+			SStgui.update_uis(ui_object)
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ATTACK_CHAIN_PROCEED
 
 /obj/machinery/requests_console/proc/reset_message(mainmenu = FALSE)
 	message = ""
@@ -319,7 +299,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	msgVerified = ""
 	msgStamped = ""
 	announceAuth = FALSE
-	announcement.announcer = ""
+	announcer.author = ""
 	ship_tag_name = ""
 	ship_tag_index = FALSE
 	if(mainmenu)
@@ -336,25 +316,29 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	capitalize(title)
 	if(newmessagepriority < priority)
 		newmessagepriority = priority
-		update_icon()
+		update_icon(UPDATE_OVERLAYS)
 	if(!silent)
 		playsound(loc, 'sound/machines/twobeep.ogg', 50, TRUE)
 		atom_say(title)
 
+	var/rendered_message
 	switch(priority)
 		if(RQ_HIGHPRIORITY) // High
-			write_to_message_log("Высокий приоритет - От: [linkedSender] - [message]")
+			rendered_message = "Высокий приоритет — От: [linkedSender] - [message]"
 		else // Normal
-			write_to_message_log("От: [linkedSender] - [message]")
-	set_light(2)
+			rendered_message = "От: [linkedSender] - [message]"
 
-/obj/machinery/requests_console/proc/write_to_message_log(message)
+	if(!isnull(rendered_message))
+		write_to_message_log(rendered_message, source == ORE_REDEMPTION)
+
+/obj/machinery/requests_console/proc/write_to_message_log(message, ore_message = FALSE)
+	SEND_SIGNAL(src, COMSIG_REQUEST_CONSOLE_MESSAGE, message, ore_message)
 	message_log = list(message) + message_log
 
 /obj/machinery/requests_console/proc/print_label(tag_name, tag_index)
 	var/obj/item/shippingPackage/sp = new /obj/item/shippingPackage(get_turf(src))
 	sp.sortTag = tag_index
-	sp.update_desc()
+	sp.update_appearance(UPDATE_DESC)
 	print_cooldown = world.time + 600	//1 minute cooldown before you can print another label, but you can still configure the next one during this time
 
 #undef RQ_NONEW_MESSAGES

@@ -1,0 +1,148 @@
+SUBSYSTEM_DEF(radio)
+	name = "Radio"
+	flags = SS_NO_FIRE
+	ss_id = "radio"
+
+	var/list/radiochannels = list(
+		PUB_FREQ_NAME = PUB_FREQ,
+		SCI_FREQ_NAME = SCI_FREQ,
+		COMM_FREQ_NAME = COMM_FREQ,
+		PROC_FREQ_NAME = PROC_FREQ,
+		MED_FREQ_NAME = MED_FREQ,
+		ENG_FREQ_NAME = ENG_FREQ,
+		SEC_FREQ_NAME = SEC_FREQ,
+		PRS_FREQ_NAME = PRS_FREQ,
+		ERT_FREQ_NAME = ERT_FREQ,
+		DTH_FREQ_NAME = DTH_FREQ,
+		SYND_FREQ_NAME = SYND_FREQ,
+		SYND_TAIPAN_FREQ_NAME = SYND_TAIPAN_FREQ,
+		SYNDTEAM_FREQ_NAME = SYNDTEAM_FREQ,
+		SOV_FREQ_NAME = SOV_FREQ,
+		SUP_FREQ_NAME = SUP_FREQ,
+		SRV_FREQ_NAME = SRV_FREQ,
+		AI_FREQ_NAME = AI_FREQ,
+		MED_I_FREQ_NAME = MED_I_FREQ,
+		SEC_I_FREQ_NAME = SEC_I_FREQ,
+		SPY_SPIDER_FREQ_NAME = SPY_SPIDER_FREQ,
+		NINJA_FREQ_NAME = NINJA_FREQ,
+		EVENT_ALPHA_FREQ_NAME = EVENT_ALPHA_FREQ,
+		EVENT_BETA_FREQ_NAME = EVENT_BETA_FREQ,
+		EVENT_GAMMA_FREQ_NAME = EVENT_GAMMA_FREQ,
+		T1_FREQ_NAME = T1_FREQ,
+		T2_FREQ_NAME = T2_FREQ,
+		T3_FREQ_NAME = T3_FREQ,
+	)
+	var/list/CENT_FREQS = list(ERT_FREQ, DTH_FREQ)
+	var/list/ANTAG_FREQS = list(SYND_FREQ, SYNDTEAM_FREQ, SYND_TAIPAN_FREQ)
+	var/list/DEPT_FREQS = list(AI_FREQ, COMM_FREQ, ENG_FREQ, MED_FREQ, SEC_FREQ, PRS_FREQ, SCI_FREQ, SRV_FREQ, SUP_FREQ, PROC_FREQ, T1_FREQ, T2_FREQ, T3_FREQ)
+	var/list/syndicate_blacklist = list(SPY_SPIDER_FREQ, EVENT_ALPHA_FREQ, EVENT_BETA_FREQ, EVENT_GAMMA_FREQ)	//list of frequencies syndicate headset can't hear
+	var/list/datum/radio_frequency/frequencies = list()
+
+// This is a disgusting hack to stop this tripping CI when this thing needs to FUCKING DIE
+/datum/controller/subsystem/radio/Initialize()
+	return SS_INIT_SUCCESS
+
+// This is fucking disgusting and needs to die
+/datum/controller/subsystem/radio/proc/frequency_span_class(frequency)
+	// Taipan!
+	if(frequency == SYND_TAIPAN_FREQ)
+		return "taipan"
+	// Antags!
+	if(frequency in ANTAG_FREQS)
+		return "syndradio"
+	// centcomm channels (deathsquid and ert)
+	if(frequency in CENT_FREQS)
+		return "centradio"
+	// This switch used to be a shit tonne of if statements. I am gonna find who made this and give them a kind talking to
+	switch(frequency)
+		if(COMM_FREQ)
+			return "comradio"
+		if(AI_FREQ)
+			return "airadio"
+		if(SEC_FREQ)
+			return "secradio"
+		if(PRS_FREQ)
+			return "prisradio"
+		if(ENG_FREQ)
+			return "engradio"
+		if(SCI_FREQ)
+			return "sciradio"
+		if(MED_FREQ)
+			return "medradio"
+		if(SUP_FREQ)
+			return "supradio"
+		if(SRV_FREQ)
+			return "srvradio"
+		if(PROC_FREQ)
+			return "proradio"
+		if(SOV_FREQ)
+			return "sovradio"
+		if(SPY_SPIDER_FREQ)
+			return "spyradio"
+		if(NINJA_FREQ)
+			return "spider_clan"
+		if(EVENT_ALPHA_FREQ)
+			return "event_alpha"
+		if(EVENT_BETA_FREQ)
+			return "event_beta"
+		if(EVENT_GAMMA_FREQ)
+			return "event_gamma"
+		if(T1_FREQ)
+			return "t1radio"
+		if(T2_FREQ)
+			return "t2radio"
+		if(T3_FREQ)
+			return "t3radio"
+
+	// If the above switch somehow failed. And it needs the SSradio. part otherwise it fails to compile
+	if(frequency in DEPT_FREQS)
+		return "deptradio"
+
+	// If its none of the others
+	return "radio"
+
+/datum/controller/subsystem/radio/proc/add_object(obj/device, new_frequency, filter = null)
+	var/f_text = num2text(new_frequency)
+	var/datum/radio_frequency/frequency = frequencies[f_text]
+
+	if(!frequency)
+		frequency = new
+		frequency.frequency = new_frequency
+		frequencies[f_text] = frequency
+
+	frequency.add_listener(device, filter)
+	add_radio(device, new_frequency)
+	return frequency
+
+/datum/controller/subsystem/radio/proc/remove_object(obj/device, old_frequency)
+	var/f_text = num2text(old_frequency)
+	return remove_object_str_freq(device, f_text)
+
+/datum/controller/subsystem/radio/proc/remove_object_str_freq(obj/device, old_frequency)
+	var/datum/radio_frequency/frequency = frequencies[old_frequency]
+	if(!frequency)
+		return 1
+
+	frequency.remove_listener(device)
+	remove_radio(device, old_frequency)
+	if(length(frequency.devices) != 0)
+		return 1
+
+	qdel(frequency)
+	frequencies -= old_frequency
+	return 1
+
+/datum/controller/subsystem/radio/proc/remove_object_all(obj/device)
+	for(var/frequency in frequencies)
+		remove_object_str_freq(device, frequency)
+
+/datum/controller/subsystem/radio/proc/return_frequency(new_frequency as num)
+	var/f_text = num2text(new_frequency)
+	var/datum/radio_frequency/frequency = frequencies[f_text]
+
+	if(!frequency)
+		frequency = new
+		frequency.frequency = new_frequency
+		frequencies[f_text] = frequency
+
+	return frequency

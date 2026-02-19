@@ -14,7 +14,7 @@
 <!-- /TOC -->
 
  # Important note:
-The following readme was last updated during Late 2015. The changes between Paradise & TG's shuttle system has diverged greatly since then. Do not take the documentation here's description of differences between tg & paradise seriously without double checking. 
+The following readme was last updated during Late 2015. The changes between Paradise & TG's shuttle system has diverged greatly since then. Do not take the documentation here's description of differences between tg & paradise seriously without double checking.
 
 # Shuttle system
 ## Introduction
@@ -44,6 +44,12 @@ Docking ports are split into two main types: `/obj/docking_port/stationary`, and
 #### Variables
 `id`: This variable is used for any plain-text references to the docking port. It should
 always be lowercase.
+
+У мобильных стыковочных портов `/obj/docking_port/mobile` есть две важные переменные которые указывают куда и каким образом будет двигаться шаттл.
+`preferred_direction`: в какую сторону будет двигаться шатл. Рекомендуется ставить в ту стороны, в позиции которой шаттл вылетает от стыковки,
+чтобы игре не требовалось крутить его и всех игроков на нём.
+`port_direction`: указатель, с какой стороны стоит сам порт. Если поставить неправильно, то шаттл перевернёться и будет летать боком или задом.
+По умолчанию если порт стоит в передней части, то север (1), с левой запад (8), с правой восток (4), сзади юг (2).
 
 `width`, `height`: The width and height variables are **absolute** value variables which
 define the bounding box of the docking port. It is very important to note that these are
@@ -84,9 +90,9 @@ The "bottom left corner" changes depending on the direction of the docking port 
 so a docking port **facing north** that looks something like this:
 
 ```
-|||  
-|||  
-|||D|  
+|||
+|||
+|||D|
 |||||
 ```
 

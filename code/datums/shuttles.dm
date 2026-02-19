@@ -30,8 +30,6 @@
 	port_id = "admin"
 	name = "Base Shuttle Template (Admin)"
 
-
-
 // Shuttles start here:
 
 /datum/map_template/shuttle/emergency/bar
@@ -39,7 +37,6 @@
 	name = "The Emergency Escape Bar"
 	description = "Features include a bathroom, a quality lounge for the heads, and a \
 		small gambling table."
-
 
 /datum/map_template/shuttle/emergency/cyb
 	suffix = "cyb"
@@ -56,7 +53,6 @@
 	name = "emergency shuttle (military)"
 	description = "Troop transport with point defense turrets."
 	admin_notes = "Designed to ensure a safe evacuation during xeno outbreaks."
-
 
 /datum/map_template/shuttle/emergency/clown
 	suffix = "clown"
@@ -102,7 +98,6 @@
 		constructs. Put players in constructs if you want them to move. \
 		Cloning pods in 'medbay' area are showcases and nonfunctional."
 
-
 /datum/map_template/shuttle/emergency/old
 	suffix = "old"
 	name = "Retired Station shuttle."
@@ -125,6 +120,95 @@
 	admin_notes = "Meat currently contains no zombifying reagents, people on \
 		meatspike must be spawned in."
 
+//Комплекс неполноferrности калеки
+
+/datum/map_template/shuttle/ferry/cargo
+	suffix = "cargo"
+	name = "Cargo ferry"
+	description = "Грузовой малый шаттл, снабженный всем по немногу"
+
+/datum/map_template/shuttle/ferry/chem
+	suffix = "chem"
+	name = "Chemical ferry"
+	description = "Грузовой малый шаттл, оснащенный хим. лабораторией на 2 рабочих места"
+
+/datum/map_template/shuttle/ferry/clown
+	suffix = "clown"
+	name = "Clown ferry"
+	description = "Клоунская делегация! МЫ ИДЕМ К ВАМ, ХОНК!"
+
+/datum/map_template/shuttle/ferry/cult
+	suffix = "cult"
+	name = "Cult ferry"
+	description = "Малый шаттл делегации неизвестного культа"
+
+/datum/map_template/shuttle/ferry/deepdarkdungeon
+	suffix = "deepdarkdungeon"
+	name = "3D ferry"
+	description = "3D - deep dark dungeon for deep dark fantasy"
+
+/datum/map_template/shuttle/ferry/doomsday
+	suffix = "doomsday"
+	name = "\"DeathSquad\" ferry"
+	description = "Особенный груз для зачистки.\
+	После подготовки, НЕМЕДЛЕННО ОТПРАВИТЬ во избежания несчастных случаев. \
+	Пассажиры крайне агрессивны"
+
+/datum/map_template/shuttle/ferry/medical
+	suffix = "medical"
+	name = "Medical ferry"
+	description = "Небольшой шаттл медицинской помощи, оснащенный базовым \
+	комплектом и операционной"
+
+/datum/map_template/shuttle/ferry/meteorshelp
+	suffix = "meteorshelp"
+	name = "Meteors help ferry"
+	description = "Корабль, расчитанный на инженерную команду \
+	Рассчитан на 5 гуманоидов и 2 киборга максимум"
+
+/datum/map_template/shuttle/ferry/mime
+	suffix = "mime"
+	name = "Mime ferry"
+	description = "..."
+
+/datum/map_template/shuttle/ferry/prisoner
+	suffix = "prisoner"
+	name = "For prisoner ferry"
+	description = "Шаттл, оснащенный просторной камерой для транспортировки \
+	особенных заключенных"
+
+/datum/map_template/shuttle/ferry/slave
+	suffix = "slave"
+	name = "Slave trade ferry"
+	description = "Шаттл, оснащенный шестью камерами для транспортировки рабов \
+	С целью дальнейшей продажи"
+
+/datum/map_template/shuttle/ferry/SMgen
+	suffix = "SMgen"
+	name = "Generator ferry"
+	description = "Шаттл экстренной подпидки станции. \
+	ВНИМАНИЕ! Содержит мобильный двигатель на СУПЕРМАТЕРИИ"
+
+/datum/map_template/shuttle/ferry/theatrehelp
+	suffix = "theatrehelp"
+	name = "\"Theatre\" ferry"
+	description = "Делегация помощи в организации мероприятий"
+
+/datum/map_template/shuttle/ferry/ussp
+	suffix = "ussp"
+	name = "Челнок СССП"
+	description = "Делегационный челнок СССП, для дип. и не очень миссий"
+
+/datum/map_template/shuttle/ferry/vip
+	suffix = "vip"
+	name = "\"VIP\" ferry"
+	description = "Шаттл для транспортировки VIP-персон"
+
+/datum/map_template/shuttle/ferry/zoo
+	suffix = "zoo"
+	name = "ZOO ferry"
+	description = "Шаттл для транспортировки различных форм жизни"
+
 /datum/map_template/shuttle/admin/hospital
 	suffix = "hospital"
 	name = "NHV Asclepius"
@@ -139,3 +223,18 @@
 	suffix = "armory"
 	name = "NRV Sparta"
 	description = "Armory Shuttle, with plenty of guns to hand out and some general supplies."
+
+/datum/map_template/shuttle/admin/club
+	suffix = "club"
+	name = "NKV Parnassus"
+	description = "Коммерческий шаттл \"Нанотрейзен\", направленный на получение прибыли при помощи сферы развлечений"
+
+/datum/map_template/shuttle/admin/interview
+	suffix = "interview"
+	name = "NAV Aphens"
+	description = "Административный шаттл \"Нанотрейзен\". Используется для проведения опросов и бесед."
+
+/datum/map_template/shuttle/admin/alien
+	suffix = "alien"
+	name = "NTV Troy"
+	description = "Некогда транспортный шаттл \"Нанотрейзен\", ныне охваченный выделениями чужих."

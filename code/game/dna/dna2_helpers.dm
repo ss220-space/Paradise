@@ -20,6 +20,37 @@
 		return DNA_DEFAULT_BOUNDS
 	return BOUNDS
 
+/proc/GetInjectorTechs(obj/item/dnainjector/I)
+	var/id = I.block
+	var/list/BOUNDS = GetDNABounds(id)
+	if(I.buf.dna.SE[id] < BOUNDS[DNA_ON_LOWERBOUND])
+		return I.origin_tech
+	if(id == GLOB.hulkblock)
+		return "combat=6"
+	if(id == GLOB.xrayblock)
+		return "biotech=6"
+	if(id == GLOB.teleblock)
+		return "magnets=5"
+	if(id == GLOB.breathlessblock)
+		return "biotech=5"
+	if(id == GLOB.shadowblock)
+		return "biotech=6"
+	if(id == GLOB.chameleonblock)
+		return "biotech=6"
+	return I.origin_tech
+
+///Gives random mutation
+/proc/randmut(mob/living/M, include_monkey = TRUE)
+	if(!M || !M.dna)
+		return
+	M.dna.check_integrity()
+	var/possible_mutations = GLOB.bad_blocks + GLOB.good_blocks
+	if(include_monkey)
+		possible_mutations += GLOB.monkeyblock
+
+	var/block = pick(possible_mutations)
+	M.dna.SetSEState(block, 1)
+
 // Give Random Bad Mutation to M
 /proc/randmutb(mob/living/M)
 	if(!M || !M.dna)
@@ -60,7 +91,7 @@
 			if(prob(prob))
 				M.dna.SetSEValue(i, rand(1, 4095), 1)
 		M.dna.UpdateSE()
-		domutcheck(M, null)
+		M.check_genes()
 
 // I haven't yet figured out what the fuck this is supposed to do.
 /proc/miniscramble(input, rs, rd)
@@ -127,75 +158,82 @@
 // Use mob.UpdateAppearance() instead.
 
 // Simpler. Don't specify UI in order for the mob to use its own.
-/mob/proc/UpdateAppearance(list/UI = null)
-	if(istype(src, /mob/living/carbon/human)) // WHY?!
-		if(UI!=null)
-			dna.UI = UI
-			dna.UpdateUI()
-		dna.check_integrity()
-		var/mob/living/carbon/human/H = src
-		var/obj/item/organ/external/head/head_organ = H.get_organ("head")
-		var/obj/item/organ/internal/eyes/eye_organ = H.get_int_organ(/obj/item/organ/internal/eyes)
-		if(istype(head_organ))
-			dna.write_head_attributes(head_organ)
-		if(istype(eye_organ))
-			dna.write_eyes_attributes(eye_organ)
-		H.update_eyes()
+/mob/proc/UpdateAppearance(list/UI)
+	. = FALSE
 
-		H.skin_colour = rgb(dna.GetUIValueRange(DNA_UI_SKIN_R, 255), dna.GetUIValueRange(DNA_UI_SKIN_G, 255), dna.GetUIValueRange(DNA_UI_SKIN_B, 255))
+/mob/living/carbon/human/UpdateAppearance(list/UI)
+	. = TRUE
+	if(!isnull(UI))
+		dna.UI = UI
+		dna.UpdateUI()
 
-		H.m_colours["head"] = rgb(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_G, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_B, 255))
-		H.m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
-		H.m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
+	dna.check_integrity()
 
-		H.s_tone   = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
+	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
+	var/obj/item/organ/internal/eyes/eye_organ = get_int_organ(/obj/item/organ/internal/eyes)
 
-		switch(dna.GetUITriState(DNA_UI_GENDER))
-			if(DNA_GENDER_FEMALE)
-				H.change_gender(FEMALE, FALSE)
-			if(DNA_GENDER_MALE)
-				H.change_gender(MALE, FALSE)
-			if(DNA_GENDER_PLURAL)
-				H.change_gender(PLURAL, FALSE)
+	if(istype(head_organ))
+		dna.write_head_attributes(head_organ)
 
-		//Head Markings
-		var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((head_marks > 0) && (head_marks <= GLOB.marking_styles_list.len))
-			H.m_styles["head"] = GLOB.marking_styles_list[head_marks]
-		//Body Markings
-		var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((body_marks > 0) && (body_marks <= GLOB.marking_styles_list.len))
-			H.m_styles["body"] = GLOB.marking_styles_list[body_marks]
-		//Body Accessory
-		var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, GLOB.body_accessory_by_name.len)
-		if((bodyacc > 0) && (bodyacc <= GLOB.body_accessory_by_name.len))
-			var/datum/body_accessory/body_acc = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
-			if(!body_acc)
-				H.body_accessory = null
-				H.bodypart_tail?.body_accessory = null
-				H.bodypart_wing?.body_accessory = null
-			else if(H.dna.species.name in body_acc.allowed_species)
-				H.body_accessory = body_acc
-				H.bodypart_tail?.body_accessory = body_acc
-				H.bodypart_wing?.body_accessory = body_acc
-		//Tail Markings
-		var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, GLOB.marking_styles_list.len)
-		if((tail_marks > 0) && (tail_marks <= GLOB.marking_styles_list.len))
-			H.m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
-		if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
-			H.body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+	if(istype(eye_organ))
+		dna.write_eyes_attributes(eye_organ)
 
+	skin_colour = rgb(dna.GetUIValueRange(DNA_UI_SKIN_R, 255), dna.GetUIValueRange(DNA_UI_SKIN_G, 255), dna.GetUIValueRange(DNA_UI_SKIN_B, 255))
 
-		H.regenerate_icons()
+	m_colours["head"] = rgb(dna.GetUIValueRange(DNA_UI_HEAD_MARK_R, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_G, 255), dna.GetUIValueRange(DNA_UI_HEAD_MARK_B, 255))
 
-		return TRUE
-	else
-		return FALSE
+	m_colours["body"] = rgb(dna.GetUIValueRange(DNA_UI_BODY_MARK_R, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_G, 255), dna.GetUIValueRange(DNA_UI_BODY_MARK_B, 255))
+
+	m_colours["tail"] = rgb(dna.GetUIValueRange(DNA_UI_TAIL_MARK_R, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_G, 255), dna.GetUIValueRange(DNA_UI_TAIL_MARK_B, 255))
+
+	s_tone = 35 - dna.GetUIValueRange(DNA_UI_SKIN_TONE, 220) // Value can be negative.
+
+	switch(dna.GetUITriState(DNA_UI_GENDER))
+		if(DNA_GENDER_FEMALE)
+			change_gender(FEMALE, FALSE)
+		if(DNA_GENDER_MALE)
+			change_gender(MALE, FALSE)
+		if(DNA_GENDER_PLURAL)
+			change_gender(PLURAL, FALSE)
+
+	//Head Markings
+	var/head_marks = dna.GetUIValueRange(DNA_UI_HEAD_MARK_STYLE, length(GLOB.marking_styles_list))
+	if((head_marks > 0) && (head_marks <= length(GLOB.marking_styles_list)))
+		m_styles["head"] = GLOB.marking_styles_list[head_marks]
+
+	//Body Markings
+	var/body_marks = dna.GetUIValueRange(DNA_UI_BODY_MARK_STYLE, length(GLOB.marking_styles_list))
+	if((body_marks > 0) && (body_marks <= length(GLOB.marking_styles_list)))
+		m_styles["body"] = GLOB.marking_styles_list[body_marks]
+
+	//Body Accessory
+	var/bodyacc = dna.GetUIValueRange(DNA_UI_BACC_STYLE, length(GLOB.body_accessory_by_name))
+	if((bodyacc > 0) && (bodyacc <= length(GLOB.body_accessory_by_name)))
+		var/datum/body_accessory/body_acc = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+		var/obj/item/organ/external/tail/bodypart_tail = get_organ(BODY_ZONE_TAIL)
+		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
+		if(!body_acc)
+			body_accessory = null
+			bodypart_tail?.body_accessory = null
+			bodypart_wing?.body_accessory = null
+		else if(dna.species.name in body_acc.allowed_species)
+			body_accessory = body_acc
+			bodypart_tail?.body_accessory = body_acc
+			bodypart_wing?.body_accessory = body_acc
+
+	//Tail Markings
+	var/tail_marks = dna.GetUIValueRange(DNA_UI_TAIL_MARK_STYLE, length(GLOB.marking_styles_list))
+	if((tail_marks > 0) && (tail_marks <= length(GLOB.marking_styles_list)))
+		m_styles["tail"] = GLOB.marking_styles_list[tail_marks]
+
+	if(bodyacc > 0 && bodyacc <= length(GLOB.body_accessory_by_name))
+		body_accessory = GLOB.body_accessory_by_name[GLOB.body_accessory_by_name[bodyacc]]
+
+	regenerate_icons()
 
 /*
 	ORGAN WRITING PROCS
 */
-
 
 // I'm putting this here because nothing outside the DNA module should ever have
 // to directly mess with the guts of DNA code
@@ -204,16 +242,16 @@
 /datum/dna/proc/write_head_attributes(obj/item/organ/external/head/head_organ)
 
 	//Hair
-	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,GLOB.hair_styles_full_list.len)
-	if((hair > 0) && (hair <= GLOB.hair_styles_full_list.len))
+	var/hair = GetUIValueRange(DNA_UI_HAIR_STYLE,length(GLOB.hair_styles_full_list))
+	if((hair > 0) && (hair <= length(GLOB.hair_styles_full_list)))
 		head_organ.h_style = GLOB.hair_styles_full_list[hair]
 
 	head_organ.hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR_B, 255))
 	head_organ.sec_hair_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_HAIR2_B, 255))
 
 	//Facial Hair
-	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,GLOB.facial_hair_styles_list.len)
-	if((beard > 0) && (beard <= GLOB.facial_hair_styles_list.len))
+	var/beard = GetUIValueRange(DNA_UI_BEARD_STYLE,length(GLOB.facial_hair_styles_list))
+	if((beard > 0) && (beard <= length(GLOB.facial_hair_styles_list)))
 		head_organ.f_style = GLOB.facial_hair_styles_list[beard]
 
 	head_organ.facial_colour = rgb(head_organ.dna.GetUIValueRange(DNA_UI_BEARD_R, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD_G, 255), head_organ.dna.GetUIValueRange(DNA_UI_BEARD_B, 255))
@@ -226,7 +264,7 @@
 		if(!(head_organ.dna.species.name in S.species_allowed)) //If the user's head is not of a species the head accessory style allows, skip it. Otherwise, add it to the list.
 			continue
 		available.Add(head_accessory)
-	var/list/sorted = sortTim(available, /proc/cmp_text_asc)
+	var/list/sorted = sortTim(available, cmp = /proc/cmp_text_asc)
 
 	var/headacc = GetUIValueRange(DNA_UI_HACC_STYLE, length(sorted))
 	if(headacc > 0 && headacc <= length(sorted))
@@ -252,7 +290,6 @@
 
 /datum/dna/proc/head_traits_to_dna(mob/living/carbon/human/character, obj/item/organ/external/head/head_organ)
 	if(!head_organ)
-		log_runtime(EXCEPTION("Attempting to reset DNA from a missing head!"), src)
 		return
 	if(!head_organ.h_style)
 		head_organ.h_style = "Skinhead"
@@ -287,8 +324,8 @@
 	SetUIValueRange(DNA_UI_HACC_G,		color2G(head_organ.headacc_colour),		255,	 1)
 	SetUIValueRange(DNA_UI_HACC_B,		color2B(head_organ.headacc_colour),		255,	 1)
 
-	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		GLOB.hair_styles_full_list.len,		 1)
-	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		GLOB.facial_hair_styles_list.len,	 1)
+	SetUIValueRange(DNA_UI_HAIR_STYLE,	hair,		length(GLOB.hair_styles_full_list),		 1)
+	SetUIValueRange(DNA_UI_BEARD_STYLE,	beard,		length(GLOB.facial_hair_styles_list),	 1)
 
 	var/list/available = character.generate_valid_head_accessories()
 	SetUIValueRange(DNA_UI_HACC_STYLE, available.Find(head_organ.ha_style), max(length(available), 1), 1)

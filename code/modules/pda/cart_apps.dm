@@ -16,45 +16,27 @@
 	if(..())
 		return
 
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
+
 	. = TRUE
 	switch(action)
 		if("Status")
 			switch(params["statdisp"])
 				if("message")
-					post_status("message", message1, message2)
+					post_status(STATUS_DISPLAY_MESSAGE, message1, message2)
 				if("alert")
-					post_status("alert", params["alert"])
+					post_status(STATUS_DISPLAY_ALERT, params["alert"])
 				if("setmsg1")
-					message1 = clean_input("Line 1", "Enter Message Text", message1)
+					message1 = tgui_input_text(usr, "Line 1", "Enter Message Text", message1, encode = FALSE)
+					if(isnull(message1))
+						return
 				if("setmsg2")
-					message2 = clean_input("Line 2", "Enter Message Text", message2)
+					message2 = tgui_input_text(usr, "Line 2", "Enter Message Text", message2, encode = FALSE)
+					if(isnull(message2))
+						return
 				else
 					post_status(params["statdisp"])
-
-/datum/data/pda/app/status_display/proc/post_status(var/command, var/data1, var/data2)
-	var/datum/radio_frequency/frequency = SSradio.return_frequency(DISPLAY_FREQ)
-	if(!frequency)
-		return
-
-	var/datum/signal/status_signal = new
-	status_signal.source = src
-	status_signal.transmission_method = 1
-	status_signal.data["command"] = command
-
-	switch(command)
-		if("message")
-			status_signal.data["msg1"] = data1
-			status_signal.data["msg2"] = data2
-			if(istype(pda.loc, /mob/living))
-				log_admin("STATUS: [key_name_log(pda.loc)] set status screen with [pda]. Message: [data1] [data2]")
-				message_admins("STATUS: [key_name_admin(pda.loc)] set status screen with [pda]. Message: [data1] [data2]")
-
-		if("alert")
-			status_signal.data["picture_state"] = data1
-
-	spawn(0)
-		frequency.post_signal(src, status_signal)
-
 
 /datum/data/pda/app/signaller
 	name = "Signaler System"
@@ -75,6 +57,9 @@
 		return
 
 	. = TRUE
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
 		var/obj/item/integrated_radio/signal/R = pda.cartridge.radio
@@ -101,12 +86,15 @@
 	var/datum/ui_module/power_monitor/digital/pm = new
 
 /datum/data/pda/app/power/update_ui(mob/user as mob, list/data)
-	data.Add(pm.ui_data())
+	data.Add(pm.ui_data(user))
 
 // All 4 args are important here because proxying matters
 /datum/data/pda/app/power/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 	// Observe
@@ -136,6 +124,9 @@
 		return
 
 	. = TRUE
+
+	if(pda && !pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	switch(action)
 		if("Records")
@@ -224,13 +215,13 @@
 		else
 			beepskyData["botstatus"] = list("loca" = null, "mode" = -1)
 		var/botsCount=0
-		if(SC.botlist && SC.botlist.len)
+		if(SC.botlist && length(SC.botlist))
 			for(var/mob/living/simple_animal/bot/B in SC.botlist)
 				botsCount++
 				if(B.loc)
 					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
-		if(!botsData.len)
+		if(!length(botsData))
 			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		beepskyData["bots"] = botsData
@@ -249,6 +240,9 @@
 /datum/data/pda/app/secbot_control/ui_act(action, list/params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 
@@ -304,14 +298,13 @@
 		else
 			muleData["botstatus"] = list("loca" = null, "mode" = -1,"home"=null,"powr" = null,"retn" =null, "pick"=null, "load" = null, "dest" = null)
 
-
 		var/mulebotsCount=0
 		for(var/mob/living/simple_animal/bot/B in QC.botlist)
 			mulebotsCount++
 			if(B.loc)
 				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
-		if(!mulebotsData.len)
+		if(!length(mulebotsData))
 			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
 
 		muleData["bots"] = mulebotsData
@@ -330,6 +323,9 @@
 /datum/data/pda/app/mule_control/ui_act(action, list/params)
 	if(..())
 		return
+
+	if(!pda.silent)
+		playsound(pda, 'sound/machines/terminal_select.ogg', 15, TRUE)
 
 	. = TRUE
 
@@ -395,7 +391,7 @@
 		supplyOrderCount++
 		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
-	if(!supplyOrderData.len)
+	if(!length(supplyOrderData))
 		supplyOrderData[++supplyOrderData.len] = list("Number" = null, "Name" = null, "OrderedBy"=null)
 
 	supplyData["approved"] = supplyOrderData
@@ -408,7 +404,7 @@
 		requestCount++
 		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
 
-	if(!requestData.len)
+	if(!length(requestData))
 		requestData[++requestData.len] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)
 
 	supplyData["requests"] = requestData
@@ -468,8 +464,8 @@
 			var/direction = get_dir(pda,B)
 			CartData[++CartData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "volume" = B.reagents.total_volume, "max_volume" = B.reagents.maximum_volume)
 
-	JaniData["mops"] = MopData.len ? MopData : null
-	JaniData["buckets"] = BucketData.len ? BucketData : null
-	JaniData["cleanbots"] = CbotData.len ? CbotData : null
-	JaniData["carts"] = CartData.len ? CartData : null
+	JaniData["mops"] = length(MopData) ? MopData : null
+	JaniData["buckets"] = length(BucketData) ? BucketData : null
+	JaniData["cleanbots"] = length(CbotData) ? CbotData : null
+	JaniData["carts"] = length(CartData) ? CartData : null
 	data["janitor"] = JaniData

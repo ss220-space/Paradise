@@ -4,12 +4,12 @@
 	icon_state = "empty_blastcannon"
 	var/icon_state_loaded = "loaded_blastcannon"
 	item_state = "blastcannon_empty"
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 10
 	fire_sound = 'sound/weapons/blastcannon.ogg'
 	needs_permit = FALSE
 	clumsy_check = FALSE
 	randomspread = FALSE
+	accuracy = GUN_ACCURACY_MINIMAL
 
 	var/obj/item/transfer_valve/bomb
 
@@ -21,35 +21,51 @@
 	if(bomb)
 		bomb.forceMove(user.loc)
 		user.put_in_hands(bomb)
-		user.visible_message("<span class='warning'>[user] detaches [bomb] from [src].</span>")
+		user.visible_message(span_warning("[user] detaches [bomb] from [src]."))
 		bomb = null
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	return ..()
 
-/obj/item/gun/blastcannon/update_icon()
+/obj/item/gun/blastcannon/update_name(updates = ALL)
+	. = ..()
 	if(bomb)
-		icon_state = icon_state_loaded
 		name = "blast cannon"
+	else
+		name = initial(name)
+
+/obj/item/gun/blastcannon/update_desc(updates = ALL)
+	. = ..()
+	if(bomb)
 		desc = "A makeshift device used to concentrate a bomb's blast energy to a narrow wave."
 	else
-		icon_state = initial(icon_state)
-		name = initial(name)
 		desc = initial(desc)
 
-/obj/item/gun/blastcannon/attackby(obj/O, mob/user)
-	if(istype(O, /obj/item/transfer_valve))
-		var/obj/item/transfer_valve/T = O
-		if(!T.tank_one || !T.tank_two)
-			to_chat(user, "<span class='warning'>What good would an incomplete bomb do?</span>")
-			return FALSE
-		if(!user.drop_item())
-			to_chat(user, "<span class='warning'>[T] seems to be stuck to your hand!</span>")
-			return FALSE
-		user.visible_message("<span class='warning'>[user] attaches [T] to [src]!</span>")
-		T.forceMove(src)
-		bomb = T
-		update_icon()
-		return TRUE
+/obj/item/gun/blastcannon/update_icon_state()
+	if(bomb)
+		icon_state = icon_state_loaded
+	else
+		icon_state = initial(icon_state)
+
+/obj/item/gun/blastcannon/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/transfer_valve))
+		add_fingerprint(user)
+		var/obj/item/transfer_valve/valve = I
+		if(bomb)
+			to_chat(user, span_warning("The [name] already has [bomb] attached."))
+			return ATTACK_CHAIN_PROCEED
+		if(!valve.tank_one || !valve.tank_two)
+			to_chat(user, span_warning("What good would an incomplete bomb do?"))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(valve, src))
+			return ..()
+		user.visible_message(
+			span_warning("[user] has attached [valve] to [src]."),
+			span_notice("You have attached [valve] to [src]."),
+		)
+		bomb = valve
+		update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 /obj/item/gun/blastcannon/proc/calculate_bomb()
@@ -72,35 +88,36 @@
 		return ..()
 	var/power = calculate_bomb()
 	QDEL_NULL(bomb)
-	update_icon()
+	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_ICON_STATE)
 	var/heavy = power * 0.2
 	var/medium = power * 0.5
 	var/light = power
-	user.visible_message("<span class='danger'>[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!</span>","<span class='danger'>You open [bomb] on your [name] and fire a blast wave at [target]!</span>")
-	playsound(user, "explosion", 100, 1)
+	user.visible_message(span_danger("[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!"),span_danger("You open [bomb] on your [name] and fire a blast wave at [target]!"))
+	playsound(user, SFX_EXPLOSION, 100, TRUE)
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
-	var/obj/item/projectile/blastwave/BW = new(loc, heavy, medium, light)
-	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
+	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
+	BW.preparePixelProjectile(target, get_turf(src), params2list(params), 0)
+	BW.firer = user
+	BW.firer_source_atom = src
 	BW.fire()
 
-/obj/item/projectile/blastwave
+/obj/projectile/blastwave
 	name = "blast wave"
 	icon_state = "blastwave"
 	damage = 0
-	nodamage = FALSE
-	forcedodge = TRUE
+	forcedodge = -1
 	range = 150
 	var/heavyr = 0
 	var/mediumr = 0
 	var/lightr = 0
 
-/obj/item/projectile/blastwave/New(loc, _h, _m, _l)
+/obj/projectile/blastwave/New(loc, _h, _m, _l)
 	..()
 	heavyr = _h
 	mediumr = _m
 	lightr = _l
 
-/obj/item/projectile/blastwave/Range()
+/obj/projectile/blastwave/Range()
 	..()
 	var/amount_destruction = 0
 	if(heavyr)
@@ -113,7 +130,7 @@
 		var/turf/T = loc
 		for(var/thing in T.contents)
 			var/atom/AM = thing
-			if(AM && AM.simulated)
+			if(AM?.simulated)
 				AM.ex_act(amount_destruction)
 				CHECK_TICK
 		T.ex_act(amount_destruction)
@@ -123,5 +140,5 @@
 	mediumr = max(mediumr - 1, 0)
 	lightr = max(lightr - 1, 0)
 
-/obj/item/projectile/blastwave/ex_act()
+/obj/projectile/blastwave/ex_act()
 	return

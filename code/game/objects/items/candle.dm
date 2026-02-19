@@ -1,3 +1,9 @@
+#define TALL_CANDLE 1
+#define MID_CANDLE 2
+#define SHORT_CANDLE 3
+/// For how bright candles are
+#define CANDLE_LUM 3
+
 /obj/item/candle
 	name = "red candle"
 	desc = "In Greek myth, Prometheus stole fire from the Gods and gave it to humankind. The jewelry he kept for himself."
@@ -6,13 +12,19 @@
 	item_state = "candle1"
 	w_class = WEIGHT_CLASS_TINY
 	var/wax = 200
-	var/lit = 0
-	var/infinite = 0
-	var/start_lit = 0
+	/// Index for the icon state
+	var/wax_index = TALL_CANDLE
+	var/lit = FALSE
+	var/infinite = FALSE
+	var/start_lit = FALSE
+	var/flickering = FALSE
 	light_color = "#E09D37"
+	light_system = MOVABLE_LIGHT
+	light_range = CANDLE_LUM
+	light_on = FALSE
 
-/obj/item/candle/New()
-	..()
+/obj/item/candle/Initialize(mapload)
+	. = ..()
 	if(start_lit)
 		// No visible message
 		light(show_message = 0)
@@ -21,72 +33,121 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/candle/update_icon()
-	var/i
-	if(wax>150)
-		i = 1
-	else if(wax>80)
-		i = 2
-	else i = 3
-	icon_state = "candle[i][lit ? "_lit" : ""]"
+/obj/item/candle/update_icon_state()
+	if(flickering)
+		icon_state = "candle[wax_index]_flicker"
+	else
+		icon_state = "candle[wax_index][lit ? "_lit" : ""]"
 
 /obj/item/candle/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, span_warning("[S] can't hold [src] while it's lit!"))
 		return FALSE
-	else
-		return TRUE
+	return TRUE
 
-/obj/item/candle/attackby(obj/item/W, mob/user, params)
-	if(is_hot(W))
-		light("<span class='notice'>[user] lights [src] with [W].</span>")
-		return
+/obj/item/candle/get_heat()
+	return lit * 1000
+
+/obj/item/candle/attackby(obj/item/I, mob/user, params)
+	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
 /obj/item/candle/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
+		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
-/obj/item/candle/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/candle/fire_act(exposed_temperature, exposed_volume)
 	if(!lit)
 		light() //honk
 	return ..()
 
 /obj/item/candle/proc/light(show_message)
-	if(!lit)
-		lit = 1
-		if(show_message)
-			usr.visible_message(show_message)
-		set_light(CANDLE_LUM)
-		START_PROCESSING(SSobj, src)
-		update_icon()
+	if(lit)
+		return FALSE
+	lit = 1
+	if(show_message)
+		usr?.visible_message(show_message)
+	set_light_on(TRUE)
+	START_PROCESSING(SSobj, src)
+	update_icon(UPDATE_ICON_STATE)
+	return TRUE
 
+/obj/item/candle/proc/update_wax_index()
+	var/new_wax_index
+	if(wax > 150)
+		new_wax_index = TALL_CANDLE
+	else if(wax > 80)
+		new_wax_index = MID_CANDLE
+	else
+		new_wax_index = SHORT_CANDLE
+	if(wax_index != new_wax_index)
+		wax_index = new_wax_index
+		return TRUE
+	return FALSE
+
+/obj/item/candle/proc/start_flickering()
+	flickering = TRUE
+	update_icon(UPDATE_ICON_STATE)
+	addtimer(CALLBACK(src, PROC_REF(stop_flickering)), 4 SECONDS, TIMER_UNIQUE)
+
+/obj/item/candle/proc/stop_flickering()
+	flickering = FALSE
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/candle/process()
 	if(!lit)
 		return
 	if(!infinite)
 		wax--
+		if(wax_index != SHORT_CANDLE) // It's not at its shortest
+			if(update_wax_index())
+				update_icon(UPDATE_ICON_STATE)
 	if(!wax)
-		new/obj/item/trash/candle(src.loc)
-		if(istype(src.loc, /mob))
-			var/mob/M = src.loc
-			M.unEquip(src, 1) //src is being deleted anyway
+		new/obj/item/trash/candle(loc)
+		if(ismob(loc))
+			var/mob/holder = loc
+			holder.drop_item_ground(src, force = TRUE) //src is being deleted anyway
 		qdel(src)
-	update_icon()
 	if(isturf(loc)) //start a fire if possible
 		var/turf/T = loc
-		T.hotspot_expose(700, 5)
+		T.hotspot_expose(700, 1)
 
+/obj/item/candle/proc/unlight()
+	if(lit)
+		lit = FALSE
+		update_icon(UPDATE_ICON_STATE)
+		set_light_on(FALSE)
 
 /obj/item/candle/attack_self(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] snuffs out [src].</span>")
-		lit = 0
-		update_icon()
-		set_light(0)
+		user.visible_message(span_notice("[user] snuffs out [src]."))
+		unlight()
+
+/obj/item/candle/get_spooked()
+	if(lit)
+		start_flickering()
+		playsound(src, 'sound/effects/candle_flicker.ogg', 15, TRUE)
+		return TRUE
+	return FALSE
 
 /obj/item/candle/eternal
 	desc = "A candle. This one seems to have an odd quality about the wax."
-	infinite = 1
+	infinite = TRUE
+
+/obj/item/candle/eternal/wizard
+	desc = "A candle. It smells like magic, so that would explain why it burns brighter."
+	start_lit = TRUE
+
+/obj/item/candle/extinguish_light(force = FALSE)
+	if(!force)
+		return
+	infinite = FALSE
+	wax = 1 // next process will burn it out
+
+#undef TALL_CANDLE
+#undef MID_CANDLE
+#undef SHORT_CANDLE
+#undef CANDLE_LUM

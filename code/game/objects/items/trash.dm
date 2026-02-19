@@ -16,8 +16,8 @@
 	return TRUE
 
 /obj/item/trash/raisins
-	name = "4no raisins"
-	icon_state= "4no_raisins"
+	name = "raisins 1984"
+	icon_state = "1984_raisins"
 
 /obj/item/trash/candy
 	name = "Candy"
@@ -64,17 +64,17 @@
 	name = "Kentucky Fried Vox"
 	icon_state = "fried_vox_empty"
 	item_state = "fried_vox_empty"
-	slot_flags = SLOT_HEAD
+	slot_flags = ITEM_SLOT_HEAD
 	dog_fashion = /datum/dog_fashion/head/fried_vox_empty
 	sprite_sheets = list(
-		"Skrell" = 'icons/mob/species/skrell/head.dmi',
-		"Drask" = 'icons/mob/species/drask/head.dmi',
-		"Kidan" = 'icons/mob/species/kidan/head.dmi',
-		"Monkey" = 'icons/mob/species/monkey/head.dmi',
-		"Farwa" = 'icons/mob/species/monkey/head.dmi',
-		"Wolpin" = 'icons/mob/species/monkey/head.dmi',
-		"Neara" = 'icons/mob/species/monkey/head.dmi',
-		"Stok" = 'icons/mob/species/monkey/head.dmi'
+		SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
 /obj/item/trash/pistachios
@@ -96,7 +96,7 @@
 	icon_state = "candle4"
 
 /obj/item/trash/liquidfood
-	name = "\improper \"LiquidFood\" ration"
+	name = "\"LiquidFood\" ration"
 	icon_state = "liquidfood"
 
 /obj/item/trash/can
@@ -116,10 +116,10 @@
 	icon_state = "tastybread"
 
 /obj/item/trash/spentcasing
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'icons/obj/weapons/ammo.dmi'
 	name = "bullet casing"
 	desc = "A spent bullet casing. Smells like cordite."
-	icon_state = "gshell"
+	icon_state = "buckshotshell"
 
 /obj/item/trash/tapetrash
 	name = "old duct tape"
@@ -127,14 +127,68 @@
 	desc = "Not sticky anymore."
 	throw_range = 1
 
-/obj/item/trash/attack(mob/M as mob, mob/living/user as mob)
-	return
+/obj/item/trash/tapetrash/thick
+	icon_state = "thicktape"
+	desc = "Still sticky a bit."
+
+/obj/item/trash/doshik
+	name = "packaging from doshik"
+	icon_state = "doshik"
+	desc = "Still has a delicious smell."
+
+/obj/item/trash/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/trash/broken_ashtray
 	name = "ashtray shards"
-	icon = 'icons/ashtray.dmi'
+	icon = 'icons/obj/ashtray.dmi'
 	icon_state = "ashtray_bork_bl"
 
 /obj/item/trash/broken_ashtray/Initialize(mapload)
 	. = ..()
 	icon_state = "ashtray_bork_" + pick(list("bl","br","gl"))
+
+/obj/item/spentcasing
+	icon = 'icons/obj/weapons/ammo.dmi'
+	icon_state = "buckshotshell"
+	name = "Old bullet casing"
+	desc = "A spent bullet casing. Smells like rusty metal."
+
+	flags = CONDUCT
+	slot_flags = ITEM_SLOT_BELT
+	throwforce = 1
+	w_class = WEIGHT_CLASS_TINY
+	materials = list(MAT_METAL = 100)
+
+/obj/item/spentcasing/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
+	dir = pick(GLOB.alldirs)
+
+/obj/effect/spawner/lootdrop/spentcasing
+	name = "Old 12 gauge spent casings"
+	icon_state ="spentcasing_12"
+	lootcount = 2
+
+	loot = list(/obj/item/spentcasing)
+
+/obj/item/spentcasing/pistol
+	icon_state = "s-casing"
+
+/obj/effect/spawner/lootdrop/spentcasing/pistol
+	name = "Old pistol spent casings"
+	icon_state ="spentcasing_9"
+	lootcount = 3
+
+	loot = list(/obj/item/spentcasing/pistol)
+
+/obj/item/spentcasing/rifle
+	icon_state = "762-casing"
+
+/obj/effect/spawner/lootdrop/spentcasing/rifle
+	name = "Old rifle spent casings"
+	icon_state ="spentcasing_762"
+	lootcount = 5
+
+	loot = list(/obj/item/spentcasing/rifle)

@@ -12,7 +12,6 @@
 	tastes = list("raw potatoes" = 1)
 	foodtype = VEGETABLES | RAW | GROSS
 
-
 //////////////////////
 //		Fried		//
 //////////////////////
@@ -20,6 +19,7 @@
 /obj/item/reagent_containers/food/snacks/fries
 	name = "space fries"
 	desc = "AKA: French Fries, Freedom Fries, etc."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "fries"
 	trash = /obj/item/trash/plate
 	filling_color = "#EDDD00"
@@ -30,6 +30,7 @@
 /obj/item/reagent_containers/food/snacks/cheesyfries
 	name = "cheesy fries"
 	desc = "Fries. Covered in cheese. Duh."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "cheesyfries"
 	trash = /obj/item/trash/plate
 	filling_color = "#EDDD00"
@@ -59,13 +60,13 @@
 /obj/item/reagent_containers/food/snacks/carrotfries
 	name = "carrot fries"
 	desc = "Tasty fries from fresh carrots."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "carrotfries"
 	trash = /obj/item/trash/plate
 	filling_color = "#FAA005"
 	list_reagents = list("plantmatter" = 3, "oculine" = 3, "vitamin" = 2)
 	tastes = list("carrots" = 3, "salt" = 1)
 	foodtype = VEGETABLES | FRIED
-
 
 //////////////////////
 //		Misc		//
@@ -101,6 +102,7 @@
 /obj/item/reagent_containers/food/snacks/loadedbakedpotato
 	name = "loaded baked potato"
 	desc = "Totally baked."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "loadedbakedpotato"
 	filling_color = "#9C7A68"
 	list_reagents = list("nutriment" = 6)
@@ -110,6 +112,7 @@
 /obj/item/reagent_containers/food/snacks/boiledrice
 	name = "boiled rice"
 	desc = "A boring dish of boring rice."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "boiledrice"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#FFFBDB"
@@ -120,6 +123,7 @@
 /obj/item/reagent_containers/food/snacks/roastparsnip
 	name = "roast parsnip"
 	desc = "Sweet and crunchy."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "roastparsnip"
 	trash = /obj/item/trash/plate
 	list_reagents = list("nutriment" = 3, "vitamin" = 4)
@@ -127,3 +131,12 @@
 	tastes = list("parsnip" = 1)
 	foodtype = VEGETABLES
 
+/obj/item/reagent_containers/food/snacks/plov
+	name = "Plov"
+	desc = "Mix of rice and vegetables."
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "plov"
+	trash = /obj/item/trash/plate
+	list_reagents = list("nutriment" = 6, "protein" = 6, "plantmatter" = 6)
+	tastes = list("boiledrice"= 1, "rawcutlet" = 1, "onion" = 1)
+	foodtype = VEGETABLES | MEAT | GRAIN

@@ -11,84 +11,136 @@
 		return FALSE
 	clock_status = RATVAR_DEMANDS_POWER
 	//power_goal in gamemode/clockwork_threshold_check
-	beacon_goal = 3 + round(length(GLOB.player_list)*0.1) // 3 + all crew* 0.1
-	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
+	beacon_goal = round(1.5 + round(length(GLOB.player_list)*0.05)) // 1.5 + all crew* 0.05
+	obj_summon.owner = SSticker.mode
+	obj_demand.owner = SSticker.mode
+	set_clocker_goal()
 	if(obj_demand.check_completion())
-		ratvar_is_ready()
+		need_heart()
+
+/datum/clockwork_objectives/proc/set_clocker_goal()
+	var/players = length(GLOB.player_list)
+	var/clockers = SSticker.mode.get_clockers()
+	var/reveal_percent = CLOCK_CREW_REVEAL_LOW / 2
+	if(players >= CLOCK_POPULATION_THRESHOLD)
+		reveal_percent = CLOCK_CREW_REVEAL_HIGH / 2
+	clocker_goal = round(reveal_percent * (players - clockers),1)
 
 /**
-  * Called by cultists/cult constructs checking their objectives
-  *
-  * to_chats mob/living/M the currents status.
-  *
-  * * display_members set FALSE - additionally how many cult members.
-  */
+ * Called by cultists/cult constructs checking their objectives
+ *
+ * to_chats mob/living/M the currents status.
+ *
+ * * display_members set FALSE - additionally how many cult members.
+ */
 /datum/clockwork_objectives/proc/study(mob/living/M, display_members = FALSE)
 	if(!M)
 		return FALSE
 
 	switch(clock_status)
 		if(RATVAR_IS_ASLEEP)
-			to_chat(M, "<span class='clock'>Ratvar is asleep.</span>")
+			to_chat(M, span_clock("Ratvar is asleep."))
 		if(RATVAR_DEMANDS_POWER)
-			to_chat(M, "<span class='clock'>The Ratvar seeks the power throught the station. Help him to overcome the mighty Veil!</span>")
-			to_chat(M, "<span class='clock'>Current goal: </span>")
+			to_chat(M, span_clock("The Ratvar seeks the power throught the station. Help him to overcome the mighty Veil!"))
+			to_chat(M, span_clock("Current goal: "))
 			if(!obj_demand.power_get)
-				to_chat(M, "<span class='clock'>We need to fulfill the power. Power needed: [GLOB.clockwork_power]/[power_goal]</span>")
+				to_chat(M, span_clock("We need to fulfill the power. Power needed: [GLOB.clockwork_power]/[power_goal]"))
 			if(!obj_demand.beacon_get)
-				to_chat(M, "<span class='clock'>The beacons will mark the soft spots of the Veil. Beacons needed: [length(GLOB.clockwork_beacons)]/[beacon_goal]</span>")
+				to_chat(M, span_clock("The beacons will mark the soft spots of the Veil. Beacons needed: [length(GLOB.clockwork_beacons)]/[beacon_goal]"))
 			if(!obj_demand.clockers_get)
-				to_chat(M, "<span class='clock'>Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [SSticker.mode.get_clockers()]/[clocker_goal]</span>")
+				to_chat(M, span_clock("Let the power from our clockers assemble the path for our Ratvar! Clockers needed: [SSticker.mode.get_clockers()]/[clocker_goal]"))
+		if(RATVAR_NEED_HEART)
+			to_chat(M, span_clock("Завеса ослаблена! Однако, на сердце Ратвара все еще наложены печати, сковывающие нашего Повелителя. Нам необходимо призвать его сердце в наш мир и починить его!"))
+			to_chat(M, span_clock("Текущая цель: [obj_summon.explanation_text]"))
+		if(RATVAR_BREAK_SEALS)
+			to_chat(M, span_clock("Необходимо починить сердце, сломав наложенные на него печати. Для этого необходимо найти детали и прикрепить их к сердцу!"))
+			to_chat(M, span_clock("Осталось ещё [GLOB.total_curses] печат[declension_ru(GLOB.total_curses, "ь", "и", "ей")]."))
 		if(RATVAR_NEEDS_SUMMONING)
-			to_chat(M, "<span class='clock'>Ratvar is strong enough! It's time to point his power on weak point of the Veil!</span>")
-			to_chat(M, "<span class='clock'>Current goal: [obj_summon.explanation_text]</span>")
+			to_chat(M, span_clock("Печати разрушены! Время вернуть сердце Ратвару, дабы он смог пройти сквозь Завесу!"))
+			to_chat(M, span_clock("Текущая цель: Пронзите сердце осколком, чтобы вернуть его Ратвару, так он сможет прорвать барьер"))
 		if(RATVAR_HAS_RISEN)
-			to_chat(M, "<span class='clocklarge'>\"I am here.\"</span>")
-			to_chat(M, "<span class='clock'>Current goal:</span> <span class='clocklarge'>\"Bring me unclocked ones.\"</span>")
+			to_chat(M, span_clocklarge("\"I am here.\""))
+			to_chat(M, "[span_clock("Current goal:")] [span_clocklarge("\"Bring me unclocked ones.\"")]")
 		if(RATVAR_HAS_FALLEN)
-			to_chat(M, "<span class='clocklarge'>Ratvar has been banished!</span>")
-			to_chat(M, "<span class='clock'>Current goal: Slaughter the unbelievers!</span>")
+			to_chat(M, span_clocklarge("Ratvar has been banished!"))
+			to_chat(M, span_clock("Current goal: Slaughter the unbelievers!"))
 		else
-			to_chat(M, "<span class='danger'>Error: Clock cult objective status currently unknown. Something went wrong. Oof.</span>")
+			to_chat(M, span_danger("Error: Clock cult objective status currently unknown. Something went wrong. Oof."))
 
 	if(display_members)
 		var/list/clock_cult = SSticker.mode.get_clockers(TRUE)
 		var/total_clockers = clock_cult[1] + clock_cult[2]
 
-		to_chat(M, "<span class='clockitalic'><br><b>Current cult members: [total_clockers]</b></span>")
+		to_chat(M, span_clockitalic("<br><b>Current cult members: [total_clockers]</b>"))
 
 		if(clock_cult[2]) // If there are any constructs, separate them out
-			to_chat(M, "<span class='clockitalic'><b>Clockers:</b> [clock_cult[1]]")
-			to_chat(M, "<span class='clockitalic'><b>Constructs:</b> [clock_cult[2]]")
+			to_chat(M, span_clockitalic("<b>Clockers:</b> [clock_cult[1]]"))
+			to_chat(M, span_clockitalic("<b>Constructs:</b> [clock_cult[2]]"))
 
 /*
- * Makes a check if power or beacon has been completed.
- *
- * The clockers check is in check_clock_size
+ * Makes a check if power, clockers or beacon has been completed.
  */
 /datum/clockwork_objectives/proc/power_check()
-	if(GLOB.clockwork_power >= power_goal && !obj_demand.power_get)
-		obj_demand.power_get = TRUE
-		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'>Yes! That's enough power i need! Well done...</span>")
-				if(!obj_demand.check_completion())
-					to_chat(clock_mind.current, "<span class='clock'>But there's still more tasks to do.</span>")
-				else
-					ratvar_is_ready()
+	if(GLOB.clockwork_power < power_goal || obj_demand.power_get)
+		return
+	obj_demand.power_get = TRUE
+	var/check = obj_demand.check_completion()
+	var/message = span_clocklarge("Yes! That's enough power i need! Well done...\n")
+	if(!check)
+		message += span_clock("But there's still more tasks to do.")
+	else
+		need_heart()
 		adjust_clockwork_power(-0.6*power_goal)
+	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, message)
 
 /datum/clockwork_objectives/proc/beacon_check()
-	if(length(GLOB.clockwork_beacons) >= beacon_goal && !obj_demand.beacon_get)
-		obj_demand.beacon_get = TRUE
-		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'>Now i see the weak points of the Veil. You have done well...</span>")
-				if(!obj_demand.check_completion())
-					to_chat(clock_mind.current, "<span class='clock'>But there's still more tasks to do.</span>")
-				else
-					ratvar_is_ready()
+	if(length(GLOB.clockwork_beacons) < beacon_goal || obj_demand.beacon_get)
+		return
+	obj_demand.beacon_get = TRUE
+	var/check = obj_demand.check_completion()
+	var/message = span_clocklarge("Now i see the weak points of the Veil. You have done well...\n")
+	if(!check)
+		message += span_clock("But there's still more tasks to do.")
+	else
+		need_heart()
+	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, message)
 
+/datum/clockwork_objectives/proc/clockers_check()
+	var/clockers =SSticker.mode.get_clockers()
+	if(clockers < clocker_goal)
+		return
+	obj_demand.clockers_get = TRUE
+	var/check = obj_demand.check_completion()
+	var/message = span_clocklarge("The army of my servants have grown. Now it will be easier...\n")
+	if(!check)
+		message += span_clock("But there's still more tasks to do.")
+	else
+		need_heart()
+	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, message)
+
+/datum/clockwork_objectives/proc/need_heart()
+	clock_status = RATVAR_NEED_HEART
+
+/datum/clockwork_objectives/proc/check_heart()
+	for(var/datum/mind/clock_mind as anything in SSticker.mode.clockwork_cult)
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, span_clocklarge("Сердце призвано, теперь необходимо сломать печати. Да воссияет же Ратвар!"))
+	clock_status = RATVAR_BREAK_SEALS
+
+/datum/clockwork_objectives/proc/update_seals()
+	if(GLOB.total_curses != 0)
+		return
+	ratvar_is_ready()
 
 // After all goals 've completed check this proc for start summoning
 /datum/clockwork_objectives/proc/ratvar_is_ready()
@@ -96,9 +148,9 @@
 		return
 	clock_status = RATVAR_NEEDS_SUMMONING
 	for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
-		if(clock_mind && clock_mind.current)
-			to_chat(clock_mind.current, "<span class='clock'>You and your acolytes have succeeded in preparing the station for the ultimate ritual!</span>")
-			to_chat(clock_mind.current, "<span class='clock'>Current goal: [obj_summon.explanation_text]</span>")
+		if(!clock_mind || !clock_mind.current)
+			continue
+		to_chat(clock_mind.current, span_clock("Вам и другим аколитам удалось подготовить станцию к финальному ритуалу!"))
 
 /datum/clockwork_objectives/proc/succesful_summon()
 	clock_status = RATVAR_HAS_RISEN
@@ -111,20 +163,28 @@
 //Objectives
 
 /datum/objective/serveclock //Given to clockers on conversion/roundstart
-	explanation_text = "Assist your fellow clockwork associates and Power Ratvar to Tear the Veil! (Use the Study Veil action to check your progress.)"
+	explanation_text = "Помогите своим коллегам-культистам и Могучему Ратвару разорвать завесу! (Используйте действие «Изучение вуали», чтобы проверить свой прогресс.)"
 	completed = TRUE
+	needs_target = FALSE
+	antag_menu_name = "Помогать культу Ратвара"
 
 /datum/objective/demand_power
 	var/power_get = FALSE
 	var/beacon_get = FALSE
 	var/clockers_get = FALSE
-	explanation_text = "The Ratvar demands power in order to prepare the summoning."
+	needs_target = FALSE
+	explanation_text = "Ратвару требуется сила, чтобы подготовить призыв"
+	antag_menu_name = "Набрать силу"
+
+/datum/objective/demand_power/check_anatag_menu_ability()
+	return SSticker?.mode.clocker_objs.clock_status != RATVAR_IS_ASLEEP
 
 /datum/objective/demand_power/check_completion()
 	return (power_get && beacon_get && clockers_get) || completed
 
-
 /datum/objective/clockgod
+	needs_target = FALSE
+	antag_menu_name = "Призвать Ратвара"
 	var/summoned = FALSE
 	var/killed = FALSE
 	var/list/ritual_spots = list()
@@ -133,12 +193,15 @@
 	..()
 	find_summon_locations()
 
+/datum/objective/clockgod/check_anatag_menu_ability()
+	return SSticker.mode.clocker_objs.clock_status != RATVAR_IS_ASLEEP
+
 /datum/objective/clockgod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)
 		ritual_spots = new()
 	var/sanity = 0
 	while(length(ritual_spots) < RATVAR_SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon = pick(return_sorted_areas() - ritual_spots)
+		var/area/summon = pick(get_sorted_areas() - ritual_spots)
 		var/valid_spot = FALSE
 		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
 			for(var/turf/T as anything in get_area_turfs(summon))
@@ -154,8 +217,8 @@
 		if(valid_spot)
 			ritual_spots += summon
 		sanity++
-	explanation_text = "Summon Ratvar by setting up the credence and power it.\
-	\nThe summoning can only be accomplished in [english_list(ritual_spots)] - where the veil is weak enough for the ritual to begin."
+	explanation_text = "Призовите Сердце Ратвара, установив и укрепив свою веру.\
+		\nПризыв может быть осуществлен только в [russian_list(ritual_spots)] — где Завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/clockgod/check_completion()
 	if(killed)

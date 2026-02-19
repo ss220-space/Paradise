@@ -11,17 +11,16 @@
 	icon_dead = "panther_dead"
 	icon_resting = "panther_rest"
 	icon_gib = "panther_dead"
-	speak_chance = 0
 	turns_per_move = 3
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat = 3)
 	response_help = "pets the"
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
-	stop_automated_movement_when_pulled = 0
 	maxHealth = 50
 	health = 50
 	pixel_x = -16
-	see_in_dark = 8
+	nightvision = 8
 
 	emote_taunt = list("nashes")
 	taunt_chance = 20
@@ -41,5 +40,5 @@
 	if(.)
 		if(prob(15) && iscarbon(target))
 			var/mob/living/carbon/C = target
-			C.Weaken(3)
-			C.visible_message("<span class='danger'>\the [src] knocks down \the [C]!</span>")
+			C.Weaken(6 SECONDS)
+			C.visible_message(span_danger("\the [src] knocks down \the [C]!"))

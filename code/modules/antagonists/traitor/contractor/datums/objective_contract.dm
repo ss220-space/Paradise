@@ -1,13 +1,14 @@
 /**
-  * # Contract Objective
-  *
-  * Describes the target to kidnap and the extraction area of a [/datum/syndicate_contract].
-  */
+ * # Contract Objective
+ *
+ * Describes the target to kidnap and the extraction area of a [/datum/syndicate_contract].
+ */
 /datum/objective/contract
+	antag_menu_name = "Контракт"
 	// Settings
 	/// Jobs that cannot be the kidnapping target.
 	var/static/list/forbidden_jobs = list(
-		"Captain",
+		JOB_TITLE_CAPTAIN,
 	)
 	/// Static whitelist of area names that can be used as an extraction zone, structured by difficulty.
 	/// An area's difficulty should be measured in how crowded it generally is, how out of the way it is and so on.
@@ -16,10 +17,21 @@
 	var/static/list/possible_zone_names = list(
 		EXTRACTION_DIFFICULTY_EASY = list(
 			// Rooms
+			"Arrival Commercial West Hallway",
+			"Arrival Additional West Hallway", //the most unvisited hallways, used only for explorers and if traders arrives
 			"Alternate Construction Area",
 			"Barber Shop",
+			"Trading area",
+			"Abandoned Casino",
+			"Abandoned Banya",
+			"Hangar Expedition",
+			"Abandoned Tradiders Room",
+			"Old Restaurant",
+			"Abandoned Detective's Office",
 			"Escape Shuttle Hallway Podbay",
+			"Theatre",
 			"Garden",
+			"Old Garden",
 			"Incinerator",
 			"Locker Room",
 			"Locker Toilets",
@@ -33,6 +45,10 @@
 			"Turbine",
 			"Virology",
 			"Waste Disposal",
+			"Abandoned Escape Shuttle Hallway",
+			"Abandoned Library",
+			"RnD Restroom",
+			"Abandoned Teleporter",
 			// Maintenance
 			"South-West Solar Maintenance",
 			"South-East Solar Maintenance",
@@ -43,17 +59,27 @@
 			"Electrical Maintenance",
 			"EVA Maintenance",
 			"Engineering Maintenance",
+			"North-West Maintenance",
 			"North-West Solar Maintenance",
 			"North-East Solar Maintenance",
 			"Genetics Maintenance",
 			"Locker Room Maintenance",
 			"Medbay Maintenance",
 			"Science Maintenance",
+			"North Maintenance",
+			"East Maintenance",
+			"Virology Maintenance",
+			"Virology Maintenance Construction Area",
+			"Research Maintenance",
 		),
 		EXTRACTION_DIFFICULTY_MEDIUM = list(
 			// Rooms
+			"Mr Chang's", //new location on delta makes it unvisited enough
+			"Research Testing Chamber",
+			"Custodial Closet",
 			"South Primary Hallway",
 			"Atmospherics",
+			"Hangаr Bay",
 			"Arcade",
 			"Assembly Line",
 			"Auxiliary Tool Storage",
@@ -99,6 +125,8 @@
 			"AI Satellite Service",
 			"AI Satellite Hallway",
 			"Bar",
+			"Cargo Delivery",
+			"Delivery Office",
 			"Cargo Office",
 			"Central Primary Hallway",
 			"Chemistry",
@@ -123,7 +151,7 @@
 			"Medical Treatment Center",
 			"Medbay Patient Ward",
 			"Messaging Server Room",
-			"Mr Chang's",
+			"Server Room",
 			"Nanotrasen Representative's Office",
 			"Paramedic",
 			"West Primary Hallway",
@@ -135,6 +163,11 @@
 			"Surgery 2",
 			"Telecoms Central Compartment",
 			"Secure Storage",
+			"Arrivals Lounge",
+			"Atrium",
+			"Service Yard",
+			"RnD North Hallway",
+			"Engineering Hardsuit Storage",
 		),
 	)
 	// Variables
@@ -160,8 +193,7 @@
 	if(!possible_zones)
 		// Compute the list of all zones by their name first
 		var/list/all_areas_by_name = list()
-		for(var/a in GLOB.all_areas)
-			var/area/A = a
+		for(var/area/A in GLOB.areas)
 			if(A.outdoors || !is_station_level(A.z))
 				continue
 			var/i = findtext(A.map_name, name_fixer)
@@ -196,23 +228,23 @@
 	owning_contract.invalidate()
 
 /**
-  * Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.
-  *
-  * Arguments:
-  * * difficulty - The difficulty to assign.
-  */
+ * Assigns a randomly selected zone to the contract's selectable zone at the given difficulty.
+ *
+ * Arguments:
+ * * difficulty - The difficulty to assign.
+ */
 /datum/objective/contract/proc/pick_candidate_zone(difficulty = EXTRACTION_DIFFICULTY_EASY)
 	if(!candidate_zones)
 		candidate_zones = list(null, null, null)
 	candidate_zones[difficulty] = pick(possible_zones[difficulty])
 
 /**
-  * Updates the objective's information with the given difficulty.
-  *
-  * Arguments:
-  * * difficulty - The chosen difficulty.
-  * * S - The parent [/datum/syndicate_contract].
-  */
+ * Updates the objective's information with the given difficulty.
+ *
+ * Arguments:
+ * * difficulty - The chosen difficulty.
+ * * S - The parent [/datum/syndicate_contract].
+ */
 /datum/objective/contract/proc/choose_difficulty(difficulty = EXTRACTION_DIFFICULTY_EASY, datum/syndicate_contract/S)
 	. = FALSE
 	if(!ISINDEXSAFE(candidate_zones, difficulty))
@@ -221,15 +253,14 @@
 	var/area/A = candidate_zones[difficulty]
 	extraction_zone = A
 	chosen_difficulty = difficulty
-	explanation_text = "Kidnap [S.target_name] by any means and extract them in [A.map_name] using your Contractor Uplink. You will earn [S.reward_tc[difficulty]] telecrystals and [S.reward_credits] credits upon completion. Your reward will be severely reduced if your target is dead."
+	explanation_text = "Похитьте [S.target_name] любым способом и экспортируйте его в локацию \"[A.map_name]\" с помощью аплинка. По завершении контракта вы заработаете [S.reward_tc[difficulty]] телекристалл[DECL_CREDIT(S.reward_tc[difficulty])] и [S.reward_credits] кредит[DECL_CREDIT(S.reward_credits)]. Награда будет значительно уменьшена, если ваша цель окажется мёртвой."
 	return TRUE
 
 /**
-  * Returns whether the extraction process can be started.
-  *
-  * Arguments:
-  * * M - The contractor.
-  * * target - The target.
-  */
-/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/M, mob/living/carbon/human/target)
-	return get_area(M) == extraction_zone && get_area(target) == extraction_zone
+ * Returns whether the extraction process can be started.
+ *
+ * Arguments:
+ * * requester - The person trying to call the extraction.
+ */
+/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/requester)
+	return get_area(requester) == extraction_zone && get_area(target.current) == extraction_zone

@@ -1,0 +1,361 @@
+'2024-02-01':
+  Arceniu:
+  - tweak: Death Squad with advanced syndicate magboots (#4319)
+  Nerrol:
+  - bugfix: hotfix implants and huds (#4324)
+  NightDawnFox:
+  - bugfix: no more real cryopod in lavaland ruins (#4331)
+  SAAD:
+  - tweak: disable syndiebase griefsky autopatrol (#4333)
+  Valtor:
+  - add: Borer health scan (#4300)
+  Vladisvell:
+  - refactor: Optimized timed events CPU usage (#4332)
+  - bugfix: Fixed ninja's impossibility to initialize properly (#4328)
+  - refactor: Optimized ancient goliath tendrils spawning (#4329)
+  - refactor: Allowed usage of GLOB.all_areas before atoms subsystem initialize (#4316)
+  Zwei:
+  - bugfix: Crematorium IDs (#4327)
+  - bugfix: Temporaty Shieldgen Fix (#4330)
+  - bugfix: HUD Zone Select Fixes (#4325)
+'2024-02-06':
+  ArtemDerp:
+  - bugfix: Gorkiy17 reduced number of active turfs (#4253)
+  - bugfix: fixed missed floor tiles (#4368)
+  Daeberdir:
+  - bugfix: pet vanishing in pet carrier. (#4355)
+  - tweak: job updating for PDA messenger receiver. (#4338)
+  - add: Nucleation racial implant for uplink. (#4335)
+  - add: cucumber mask craft. (#4277)
+  - bugfix: AI can't see roundstart `restricted_camera_networks` and normal borg accessability
+      for malf hacked APC. (#4239)
+  - refactor: mecha `Actions` and `Radial Menu` not only for selecting modules. (#4219)
+  - add: delayed examine. (#4080)
+  Dimach:
+  - bugfix: fixed cqc runtime (#4363)
+  KriegThunder:
+  - add: Black ops kit and black ops coverall (#4295)
+  LiquidPotroh:
+  - bugfix: afterattacks is not called (#4356)
+  - tweak: Vampires can eat creatures that their race allows, but they don't get any
+      nutrients (#4293)
+  MadGRaf:
+  - add: add wrench action to raise bolt on unpowered airlock (#4288)
+  MataVsn:
+  - add: Kidan's Pheromones (#4043)
+  MeowEmiya:
+  - tweak: Ashwalkers guaranteed spawn (#4275)
+  Nerrol:
+  - bugfix: reload huds issues (#4367)
+  Pavel Poltaves:
+  - qol: add the ability to animals to ask to be picked up. (#4164)
+  ROdenFL:
+  - add: highlight list for ghosts (#3870)
+  Renascitur:
+  - add: New spell and suit for hardmode Blood-Drunk miner (#4262)
+  Rerik007:
+  - bugfix: circuits of mapping vendors with custom names broken (#4357)
+  - bugfix: cable healing roboparts runtime (#4351)
+  - tweak: add some cargo tweaks (#4286)
+  - refactor: martials now use a weight system to determine which one is active (#4265)
+  RuinaRuiner:
+  - bugfix: small-syndicate-fix (#4226)
+  SAAD:
+  - bugfix: February Delta patch (#4334)
+  - bugfix: delta feb patch (#4366)
+  TimChi:
+  - qol: add pestspray for jani borg (#4283)
+  Valtor:
+  - bugfix: fixed devil`s powers (#4350)
+  VasilevAY:
+  - bugfix: medical gown unathi sprite (#4353)
+  Vladisvell:
+  - refactor: Optimized announcement reciever getting (#4349)
+  - bugfix: Fixed meson vision for cyborgs (#4344)
+  - tweak: Allowed view timer's info in View Variables (#4347)
+  - tweak: added Show/Hide MC Tabs for people with access to runtimes view (#4348)
+  - add: Added pagination for View Flagged Books Admin tool (#4345)
+  - refactor: Optimized cables performance (#4342)
+  - bugfix: Fixed runtime on unequipping clothing with accessories attached (#4358)
+  - refactor: Optimized turrets target search algorithm (#4323)
+  - bugfix: Robots now can't be stunned by watcher's beam (#4364)
+  - bugfix: Fixed turrets runtime (#4365)
+  WolfLox:
+  - tweak: some bugfix and minor changes based on feedback (#4337)
+  Zwei:
+  - bugfix: Animate Projectile Fix (#4339)
+  - bugfix: Extinguish Light Fixes (#4340)
+'2024-02-07':
+  BeebBeebBoob:
+  - bugfix: Corrects costs of ammo casings and ammo box itself (#4370)
+  - bugfix: making ai from clocked mmi + fabricator building (#4369)
+  dontbetank:
+  - bugfix: PAI HUD fix (#4360)
+'2024-02-09':
+  Aziz Chynaliev:
+  - unknown: bump byond version to 515.1630 and add CI trigger on merge queue
+  - unknown: enable BETA byond CI
+  - unknown: bump dmjit version
+  BeebBeebBoob:
+  - bugfix: AI core playtime requirement (#4380)
+'2024-02-10':
+  Aziz Chynaliev:
+  - unknown: bump stable byond and dmjit versions
+  Rerik007:
+  - add: (added) new cargo packs (#4383)
+  - bugfix: two small typo fixes (#4385)
+  Valtor:
+  - bugfix: returns mage-simplemob spells (#4378)
+  Vladisvell:
+  - bugfix: Fixed wrong machinery cache initialization (#4376)
+  Zwei:
+  - bugfix: Morgue Label Return (#4382)
+  - tweak: Pointing With Gun Spelling (#4374)
+  dontbetank:
+  - add: Remove Mr.Cheng Technique from melee thunderdome (#4359)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4372)
+'2024-02-11':
+  ArtemDerp:
+  - bugfix: reconstruction of the disposal pipe system (#4375)
+'2024-02-12':
+  ArtemDerp:
+  - bugfix: added missed sprites for sec bundles (#4268)
+  - bugfix: fixed overlap of wall objects (#4398)
+  - add: security drip update (#4371)
+  - add: Updated Wizard Clothing (#4252)
+  - add: laser gun reskin (#4278)
+  - add: new species meat (#4259)
+  BeebBeebBoob:
+  - refactor: Define bitflags (#4181)
+  Daeberdir:
+  - bugfix: correct view range calculating and examine corrections. (#4400)
+  - add: Zaza drink. (#4318)
+  Darkest08:
+  - imageadd: added sst hardsuit skins (#4120)
+  Den109G:
+  - add: Added adds a popup window with suggested version (#4386)
+  Etrnlmelancholy:
+  - tweak: ipc and pai wire sprite update (#4391)
+  Renascitur:
+  - add: Hierophant Talisman from hardmode Hierophant (#4314)
+  Rerik007:
+  - bugfix: fix null.len runtime (#4388)
+  - bugfix: mecha cargomodule for lockermech broken (#4396)
+  - bugfix: fix runtime to_chat called with invalid message (#4387)
+  SAAD:
+  - tweak: Remove extra atmos different turfes and useless dirs and tags (#4394)
+  Vladisvell:
+  - bugfix: Removed incorrect winsets for dark and light themes (#4392)
+  Zwei:
+  - refactor: Icon Updates Rework Part2 (#4170)
+  - bugfix: Paper Fix (#4407)
+  - add: Added Adidas Uniform (#4381)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4399)
+  xTrogwaRx:
+  - bugfix: show panel virology fridge after screw act (#4321)
+  - qol: keybinds for tail and wings (#4320)
+'2024-02-13':
+  ArtemDerp:
+  - bugfix: correct naming for tasers locker (#4415)
+  - bugfix: fixed missed cheks for sec scarf and googles (#4409)
+  BeebBeebBoob:
+  - bugfix: inflatable barrier box could fit anything (#4408)
+  Daeberdir:
+  - bugfix: outfit inhand items disappearing. (#4401)
+  Valtor:
+  - qol: Borer QoL update (#4343)
+  Zwei:
+  - bugfix: Laser Weapons In Hands Fix (#4410)
+  - bugfix: ChemDispenser Overlays Fix (#4418)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4412)
+'2024-02-14':
+  ArtemDerp:
+  - bugfix: security gas mask removed extra cover flags (#4426)
+  - add: new meat steak recipes (#4425)
+  - add: removed meatwheat mutation and syntiflesh reaction (#4417)
+  - add: new meat pie recipes (#4416)
+  BeebBeebBoob:
+  - refactor: Update CONTRIBUTING.md (#4402)
+  Daeberdir:
+  - tweak: progressbar for examining and possibility to examine items in storages.
+      (#4427)
+  ROdenFL:
+  - bugfix: pain hunter late game fix (#4424)
+  Rerik007:
+  - bugfix: glands names was the same (#4421)
+  - qol: bindable action buttons (#4420)
+  Zwei:
+  - bugfix: Inflatable Door Vision Fix (#4429)
+  - bugfix: Falsewall Opacity Fix (#4431)
+  - bugfix: Multicolored Pen Overlay Fix (#4430)
+  - bugfix: Taperecorder Fix (#4419)
+  - tweak: Vision And Emotes Fixes (#4233)
+'2024-02-15':
+  ArtemDerp:
+  - add: Resprited Stoks (#4322)
+'2024-02-16':
+  Den109G:
+  - bugfix: Construction bag from cloth craft (#4433)
+  Etrnlmelancholy:
+  - tweak: seccie webbing to sectech (#4437)
+'2024-02-17':
+  ARZUMATA:
+  - bugfix: airlock electronics null fix (#4397)
+  ArtemDerp:
+  - bugfix: humans have human meat (#4457)
+  Aziz Chynaliev:
+  - server: auto review requests for maps
+  Mindfri:
+  - add: NT Mecha PaintKit (#4438)
+  NightDawnFox:
+  - refactor: moving almost all tool checks to "tool_behaviour" (#4434)
+  - add: frosty breath effect in low-temperature rooms (#3385)
+  Pavel Lysenko:
+  - spellcheck: Исправлены опечатки и мелкие ошибки в описаниях ролей Тайпана (#2310)
+  ROdenFL:
+  - experiment: dark theme, colors, font-awesome, blob update (#4354)
+  WolfLox:
+  - tweak: lots of small, varied and not too noticeable changes ERT loadout (#4154)
+  Zwei:
+  - bugfix: Welding Mask Overlays (#4448)
+  mrWhiteFox365:
+  - unknown: Kerberos R&D Cafeteria (#4285)
+  xTrogwaRx:
+  - qol: Recolor "Set Occupation Preferences" menu (#4428)
+'2024-02-18':
+  ArtemDerp:
+  - bugfix: fixed glasses over mask layer position (#4449)
+  Aziz Chynaliev:
+  - server: ensure security via CODEOWNERS file
+  - server: check user permission on deploy action
+  - server: fix action permission checks
+  BeebBeebBoob:
+  - tweak: Change locator on GPS-sec in implant-tracking boxes. (#4454)
+  - bugfix: runtime machinery.ui_act null.tool_behaviour (#4461)
+  Daeberdir:
+  - bugfix: alphabet sorting for chem dispensers on spawn. (#4453)
+  - bugfix: silicon PDA UI working properly. (#4445)
+  - bugfix: '`update_equipped_item()` correct updating clothing sprites. (#4456)'
+  Den109G:
+  - bugfix: adds area to AI's cams (#4452)
+  LiquidPotroh:
+  - tweak: Amomaly extract cooldown & cost (#4447)
+  - bugfix: invincibility machinepersons to neurotoxin spit (#4225)
+  ROdenFL:
+  - bugfix: darkmode runtime (#4455)
+  - balance: pulse demon only shitspawn and mage pet (#4440)
+  - unknown: NULL crate (#4422)
+  - add: exploit records for uplink and pick darkness for ghosts (#3909)
+  Rerik007:
+  - add: alt-click on the damage zone will be equivalent to clicking on itself (#4384)
+  - bugfix: flashbangs can permanently break your hearing (#4439)
+  - bugfix: t-ray scanner can make you invisible (#4414)
+  - bugfix: base pai can toggle apc (#4459)
+  SAAD:
+  - refactor: Transit tubes (#4443)
+  Vladisvell:
+  - bugfix: bootstrap.min.css CRLF -> LF (#4463)
+  - add: New Thunderdome items (#4460)
+  Zwei:
+  - bugfix: Matchbox Icons Fix (#4441)
+  - bugfix: Barrel Icon State Fix (#4451)
+  - tweak: Tables Flip Hotkey Change (#4423)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4458)
+'2024-02-20':
+  Daeberdir:
+  - bugfix: Autopsy scanner can scan different "Unknown" bodies. (#4442)
+  Den109G:
+  - bugfix: Standardization and action desc fix (#4470)
+  LiquidPotroh:
+  - bugfix: holster examine (#4467)
+  - bugfix: Vampire position after bestia transform resets normally (#4468)
+  Rerik007:
+  - tweak: cargo few orders and change access for cargo quest console (#4472)
+  - refactor: move defib code to component (#4406)
+  Valtor:
+  - bugfix: autoimplanter missing limb (#4466)
+  Vladisvell:
+  - bugfix: Fixed Chef's and Machinery errors (#4462)
+  - add: Added book flag tracking and view flagged books does not crash server (#4191)
+  Zwei:
+  - refactor: Icon Updates Rework Part3 (#4221)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4469)
+'2024-02-21':
+  Daeberdir:
+  - bugfix: examine through the camera console. (#4476)
+  - add: makeshift MOD-revolver. (#4131)
+  - bugfix: multipulling. (#4205)
+  - refactor: two-character keys for languages. (#4215)
+  LiquidPotroh:
+  - add: Lavaland Apprentice (#4413)
+  Rafnik02:
+  - tweak: Oldstation update (#4346)
+  Rerik007:
+  - bugfix: xenobioconsole can make monkeys out of the limit. (#4473)
+'2024-02-22':
+  BeebBeebBoob:
+  - bugfix: fax discord (#4483)
+  Daeberdir:
+  - bugfix: arrival shuttle zone. (#4484)
+  Valtor:
+  - bugfix: autoimplanter v2 (#4485)
+'2024-02-24':
+  ArtemDerp:
+  - bugfix: safe spot for criminal garbage (#4490)
+  - bugfix: added missed pipe connector in lavaland camp (#4491)
+  Vladisvell:
+  - balance: added scalable antags from alive players count for paradise_antag game
+      mode (#4450)
+  - bugfix: Antag Paradise hotfix (#4500)
+  - bugfix: Fixed turrets breaking on cross Z-level move (#4487)
+  Zwei:
+  - bugfix: Scrubber Icons Fix (#4497)
+  aeternaclose:
+  - bugfix: Cyberiad minor fixes (#4480)
+  - bugfix: Delta missing firelock & Sprite (#4482)
+'2024-02-25':
+  Vladisvell:
+  - bugfix: Antag Paradise hotfix 2 (#4502)
+  - bugfix: Antag Paradise hotfix 3 (#4503)
+'2024-02-28':
+  Daeberdir:
+  - bugfix: APC usability again. (#4486)
+  LiquidPotroh:
+  - bugfix: Eye of god isn't deleting when improving (#4517)
+  ROdenFL:
+  - add: loadout icons (#4507)
+  Rerik007:
+  - bugfix: fix ashwalker & ashwalker runtime (#4518)
+  - bugfix: broken loadout of cargo items (#4509)
+  - bugfix: Keycard Authentication Devices are broken (#4516)
+  - bugfix: 3 -> 4 for CALTROP_BYPASS_ROBOTIC_LEGS (#4505)
+  Valtor:
+  - bugfix: borer respawn from "Respawn as NPC" (#4494)
+  Vladisvell:
+  - bugfix: Toggling thunderdome enrolling state no longer causes runtimes (#4514)
+  Zwei:
+  - bugfix: Library Computer Icons Fix (#4512)
+  - bugfix: Canister Overlays Fix (#4510)
+  - bugfix: Hardsuit Fixes (#4496)
+  - bugfix: Monkey Emotes Fix (#4511)
+  - add: Gorillas! OOGA! OOGA! OOGA! (#3969)
+  aeternaclose:
+  - bugfix: ShelterCapsuleFix (#4121)
+'2024-02-29':
+  Ksaikok46:
+  - bugfix: ichorium now correctly costs 10 TC  (#4531)
+  Rerik007:
+  - bugfix: now hideheadseat for mask really hide headseats (#4519)
+  - bugfix: fix some give runtimes (#4528)
+  - bugfix: fix runtime in spacebattle (#4522)
+  SAAD:
+  - bugfix: Spacehotel shard steal (#4506)
+  aeternaclose:
+  - add: CereImprovement-pt9 (#4178)
+  github-actions[bot]:
+  - server: Automatic NanoMap Update (#4501)

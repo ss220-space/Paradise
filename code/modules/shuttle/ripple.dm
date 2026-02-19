@@ -5,9 +5,10 @@
 		when whatever is tunneling comes through."
 	icon = 'icons/turf/floors/ripple.dmi'
 	icon_state = "ripple"
-	anchored = TRUE
-	density = FALSE
-	smooth = SMOOTH_TRUE
+	base_icon_state = "ripple"
+	smooth = SMOOTH_BITMASK
+	canSmoothWith = SMOOTH_GROUP_RIPPLE
+	smoothing_groups = SMOOTH_GROUP_RIPPLE
 	layer = RIPPLE_LAYER
 	alpha = 0
 	duration = 3 * SHUTTLE_RIPPLE_TIME
@@ -15,5 +16,5 @@
 
 /obj/effect/temp_visual/ripple/New()
 	. = ..()
-	queue_smooth(src)
+	QUEUE_SMOOTH(src)
 	animate(src, alpha=255, time=SHUTTLE_RIPPLE_TIME)

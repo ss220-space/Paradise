@@ -2,19 +2,19 @@
 	. = ..()
 	var/msg = "<span class='notice'>"
 	if(src.stat == DEAD)
-		msg += "<span class='deadsay'>It appears to be powered-down.</span>\n"
+		msg += "[span_deadsay("It appears to be powered-down.")]\n"
 	else
 		msg += "<span class='warning'>"
 		if(src.getBruteLoss())
 			if(src.getBruteLoss() < 30)
 				msg += "It looks slightly dented.\n"
 			else
-				msg += "<B>It looks severely dented!</B>\n"
+				msg += "<b>It looks severely dented!</b>\n"
 		if(src.getFireLoss())
 			if(src.getFireLoss() < 30)
 				msg += "It looks slightly charred.\n"
 			else
-				msg += "<B>Its casing is melted and heat-warped!</B>\n"
+				msg += "<b>Its casing is melted and heat-warped!</b>\n"
 		if(src.stat == UNCONSCIOUS)
 			msg += "It is non-responsive and displaying the text: \"RUNTIME: Sensory Overload, stack 26/3\".\n"
 		if(!shunted && !client)
@@ -25,10 +25,9 @@
 	. += msg
 	user.showLaws(src)
 
-
-/mob/proc/showLaws(var/mob/living/silicon/S)
+/mob/proc/showLaws(mob/living/silicon/S)
 	return
 
-/mob/dead/observer/showLaws(var/mob/living/silicon/S)
-	if(antagHUD || check_rights(R_ADMIN, 0, src))
+/mob/dead/observer/showLaws(mob/living/silicon/S)
+	if(antagHUD || check_rights(R_ADMIN, FALSE, src))
 		S.laws.show_laws(src)

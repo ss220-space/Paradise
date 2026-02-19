@@ -1,12 +1,35 @@
 /obj/structure/closet/critter
 	name = "critter crate"
-	desc = "A crate designed for safe transport of animals. Only openable from the the outside."
+	desc = "A crate designed for safe transport of animals. Only openable from the outside."
 	icon_state = "critter"
-	icon_opened = "critteropen"
-	icon_closed = "critter"
+	open_sound = 'sound/machines/wooden_closet_open.ogg'
+	close_sound = 'sound/machines/wooden_closet_close.ogg'
 	var/already_opened = 0
 	var/content_mob = null
 	var/amount = 1
+	var/datum/gas_mixture/env
+
+/obj/structure/closet/critter/proc/updateEnv()
+	if(!env)
+		env = new/datum/gas_mixture()
+	env.set_oxygen(MOLES_O2STANDARD)
+	env.set_nitrogen(MOLES_N2STANDARD)
+	env.set_carbon_dioxide(0)
+	env.set_temperature(T20C)
+
+/obj/structure/closet/critter/Initialize(mapload)
+	. = ..()
+	updateEnv()
+
+/obj/structure/closet/critter/Destroy()
+	. = ..()
+	QDEL_NULL(env)
+
+/obj/structure/closet/critter/return_obj_air()
+	return env
+
+/obj/structure/closet/critter/return_analyzable_air()
+	return env
 
 /obj/structure/closet/critter/can_open()
 	if(welded)
@@ -31,8 +54,12 @@
 	. = ..()
 
 /obj/structure/closet/critter/close()
+	updateEnv()
 	..()
 	return 1
+
+/obj/structure/closet/critter/shove_impact(mob/living/target, mob/living/attacker)
+	return FALSE
 
 /obj/structure/closet/critter/corgi
 	name = "dog corgi crate"
@@ -73,6 +100,10 @@
 /obj/structure/closet/critter/goat
 	name = "goat crate"
 	content_mob = /mob/living/simple_animal/hostile/retaliate/goat
+
+/obj/structure/closet/critter/goat/populate_contents()
+	if(prob(30))
+		content_mob = /mob/living/simple_animal/hostile/retaliate/goat/hump
 
 /obj/structure/closet/critter/turkey
 	name = "turkey crate"
@@ -138,11 +169,11 @@
 /obj/structure/closet/critter/gosling/populate_contents()
 	amount = rand(1, 3)
 
-/obj/structure/closet/critter/hamster
-	name = "hamster crate"
-	content_mob = /mob/living/simple_animal/mouse/hamster
+/obj/structure/closet/critter/wooly_mouse
+	name = "wolly mice crate"
+	content_mob = /mob/living/simple_animal/mouse/wooly
 
-/obj/structure/closet/critter/hamster/populate_contents()
+/obj/structure/closet/critter/wooly_mouse/populate_contents()
 	amount = rand(1, 5)
 
 /obj/structure/closet/critter/frog
@@ -153,7 +184,6 @@
 	amount = rand(1, 3)
 
 /obj/structure/closet/critter/frog/toxic
-	name = "frog crate"
 	content_mob = /mob/living/simple_animal/frog/toxic
 
 /obj/structure/closet/critter/snail
@@ -178,3 +208,20 @@
 /obj/structure/closet/critter/croco
 	name = "croco crate"
 	content_mob = /mob/living/simple_animal/hostile/lizard/croco
+
+/obj/structure/closet/critter/snake
+	name = "snake crate"
+	content_mob = /mob/living/simple_animal/hostile/retaliate/poison/snake
+
+/obj/structure/closet/critter/slime
+	name = "slime crate"
+	content_mob = /mob/living/simple_animal/slime
+
+/obj/structure/closet/critter/gorilla
+	name = "gorilla crate"
+	content_mob = /mob/living/simple_animal/hostile/gorilla
+
+/obj/structure/closet/critter/cargorilla
+	name = "cargorilla crate"
+	content_mob = /mob/living/simple_animal/hostile/gorilla/cargo_domestic
+

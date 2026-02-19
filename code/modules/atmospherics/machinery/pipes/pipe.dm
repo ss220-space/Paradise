@@ -1,0 +1,91 @@
+/obj/machinery/atmospherics/pipe
+	var/datum/gas_mixture/air_temporary //used when reconstructing a pipeline that broke
+	var/datum/pipeline/parent
+	var/volume = 0
+	force = 20
+	use_power = NO_POWER_USE
+	can_unwrench = TRUE
+	damage_deflection = 12
+	var/alert_pressure = 80*ONE_ATMOSPHERE //minimum pressure before check_pressure(...) should be called
+	resistance_flags = NO_MALF_EFFECT
+	can_be_undertile = TRUE
+
+	//Buckling
+	can_buckle = TRUE
+	buckle_requires_restraints = TRUE
+	buckle_lying = 90
+
+/obj/machinery/atmospherics/pipe/Initialize(mapload)
+	. = ..()
+	//so pipes under walls are hidden
+	if(istype(get_turf(src), /turf/simulated/wall) || istype(get_turf(src), /turf/simulated/wall/shuttle))
+		level = 1
+
+/obj/machinery/atmospherics/pipe/Destroy()
+	var/turf/turf = get_turf(src)
+	turf.blind_release_air(air_temporary)
+
+	for(var/obj/machinery/atmospherics/meter/meter in turf)
+		if(meter.target == src)
+			var/obj/item/pipe_meter/pipe_meter = new (turf)
+			meter.transfer_fingerprints_to(pipe_meter)
+			qdel(meter)
+	parent?.members.RemoveAll(src)
+	. = ..()
+	// if we're somehow by ourself
+	if(!QDELETED(parent) && length(parent?.members) == 0)
+		qdel(parent)
+	parent = null
+
+/obj/machinery/atmospherics/pipe/proc/clear_parent()
+	parent?.members.RemoveAll(src)
+
+/obj/machinery/atmospherics/pipe/returnPipenet(obj/machinery/atmospherics/A)
+	return parent
+
+/obj/machinery/atmospherics/pipe/return_pipenets()
+	return list(parent)
+
+/obj/machinery/atmospherics/proc/pipeline_expansion()
+	return null
+
+/obj/machinery/atmospherics/pipe/proc/check_pressure(pressure)
+	//Return 1 if parent should continue checking other pipes
+	//Return null if parent should stop checking other pipes. Recall: qdel(src) will by default return null
+
+	return 1
+
+/obj/machinery/atmospherics/pipe/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(!parent)
+		return 0
+	return parent.air
+
+/obj/machinery/atmospherics/pipe/return_analyzable_air()
+	if(!parent)
+		return 0
+	return parent.air
+
+/obj/machinery/atmospherics/pipe/build_network(remove_deferral = FALSE)
+	if(!parent)
+		parent = new /datum/pipeline()
+		parent.build_pipeline(src)
+	..()
+
+/obj/machinery/atmospherics/pipe/setPipenet(datum/pipeline/P)
+	parent = P
+
+/obj/machinery/atmospherics/pipe/color_cache_name(obj/machinery/atmospherics/node)
+	if(istype(node, /obj/machinery/atmospherics/pipe/manifold) || istype(node, /obj/machinery/atmospherics/pipe/manifold4w))
+		if(pipe_color == node.pipe_color)
+			return node.pipe_color
+		else
+			return null
+	else if(istype(node, /obj/machinery/atmospherics/pipe/simple))
+		return node.pipe_color
+	else
+		return pipe_color
+
+// A check to make sure both nodes exist - self-delete if they aren't present
+/obj/machinery/atmospherics/pipe/proc/check_nodes_exist()
+	return

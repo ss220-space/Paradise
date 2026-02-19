@@ -8,31 +8,42 @@ Note: Must be placed west/left of and R&D console to function.
 
 */
 /obj/machinery/r_n_d/protolathe
-	name = "Protolathe"
-	desc = "Converts raw materials into useful objects."
+	name = "protolathe"
+	desc = "Оборудование, предназначенное для печати изделий высокого уровня сложности \
+			на основе шаблонов для печати. Использует широкий спектр материалов в качестве сырья. \
+			Управление происходит с помощью подключаемой консоли."
 	icon_state = "protolathe"
-	icon_open = "protolathe_t"
-	icon_closed = "protolathe"
+	base_icon_state = "protolathe"
 	container_type = OPENCONTAINER
 
 	categories = list(
-								"Bluespace",
-								"Equipment",
-								"Janitorial",
-								"Medical",
-								"Mining",
-								"Miscellaneous",
-								"Power",
-								"Stock Parts",
-								"Weapons",
-								"ILLEGAL",
-								)
+		PROTOLATHE_CATEGORY_BLUESPACE,
+		PROTOLATHE_CATEGORY_EQUIPMENT,
+		PROTOLATHE_CATEGORY_JANITORIAL,
+		PROTOLATHE_CATEGORY_MEDICAL,
+		PROTOLATHE_CATEGORY_MINING,
+		PROTOLATHE_CATEGORY_POWER,
+		PROTOLATHE_CATEGORY_STOCK_PARTS,
+		PROTOLATHE_CATEGORY_WEAPON,
+		PROTOLATHE_CATEGORY_MISC,
+		PROTOLATHE_CATEGORY_ILLEGAL,
+		PROTOLATHE_CATEGORY_CIRCUITRY,
+	)
 
 	reagents = new()
 
+/obj/machinery/r_n_d/protolathe/get_ru_names()
+	return list(
+		NOMINATIVE = "протолат",
+		GENITIVE = "протолата",
+		DATIVE = "протолату",
+		ACCUSATIVE = "протолат",
+		INSTRUMENTAL = "протолатом",
+		PREPOSITIONAL = "протолате",
+	)
 
-/obj/machinery/r_n_d/protolathe/New()
-	..()
+/obj/machinery/r_n_d/protolathe/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin(null)
@@ -44,12 +55,11 @@ Note: Must be placed west/left of and R&D console to function.
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"
-		icon_open = "syndie_protolathe_t"
-		icon_closed = "syndie_protolathe"
+		base_icon_state = "syndie_protolathe"
 	reagents.my_atom = src
 
-/obj/machinery/r_n_d/protolathe/upgraded/New()
-	..()
+/obj/machinery/r_n_d/protolathe/upgraded/Initialize(mapload)
+	. = ..()
 	component_parts = list()
 	component_parts += new /obj/item/circuitboard/protolathe(null)
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
@@ -61,8 +71,7 @@ Note: Must be placed west/left of and R&D console to function.
 	RefreshParts()
 	if(is_taipan(z))
 		icon_state = "syndie_protolathe"
-		icon_open = "syndie_protolathe_t"
-		icon_closed = "syndie_protolathe"
+		base_icon_state = "syndie_protolathe"
 	reagents.my_atom = src
 
 /obj/machinery/r_n_d/protolathe/RefreshParts()
@@ -77,43 +86,60 @@ Note: Must be placed west/left of and R&D console to function.
 		T -= M.rating/10
 	efficiency_coeff = min(max(0, T), 1)
 
-/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, var/M)	// now returns how many times the item can be built with the material
+/obj/machinery/r_n_d/protolathe/check_mat(datum/design/being_built, M)	// now returns how many times the item can be built with the material
 	var/A = materials.amount(M)
 	if(!A)
 		A = reagents.get_reagent_amount(M)
-		A = A / max(1, (being_built.reagents_list[M]))
+		A = A / max(1, (being_built.reagents_list[M] * efficiency_coeff))
 	else
-		A = A / max(1, (being_built.materials[M]))
+		A = A / max(1, (being_built.materials[M] * efficiency_coeff))
 	return A
 
-/obj/machinery/r_n_d/protolathe/attackby(var/obj/item/O as obj, var/mob/user as mob, params)
-	if(shocked)
-		if(shock(user,50))
-			return TRUE
-	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, O))
-		if(linked_console)
-			linked_console.linked_lathe = null
-			linked_console = null
-		return
+/obj/machinery/r_n_d/protolathe/attackby(obj/item/I, mob/user, params)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(exchange_parts(user, O))
-		return
-
-	if(panel_open)
-		if(istype(O, /obj/item/crowbar))
-			for(var/obj/I in component_parts)
-				if(istype(I, /obj/item/reagent_containers/glass/beaker))
-					reagents.trans_to(I, reagents.total_volume)
-				I.loc = src.loc
-			for(var/obj/item/reagent_containers/glass/G in component_parts)
-				reagents.trans_to(G, G.reagents.maximum_volume)
-			materials.retrieve_all()
-			default_deconstruction_crowbar(user, O)
-			return 1
-		else
-			to_chat(user, "<span class='warning'>You can't load the [src.name] while it's opened.</span>")
-			return 1
-	if(O.is_open_container())
-		return FALSE
-	else
+	var/is_open_container = I.is_open_container()
+	if(user.a_intent == INTENT_HARM)
+		if(is_open_container)
+			return ..() | ATTACK_CHAIN_NO_AFTERATTACK
 		return ..()
+
+	if(exchange_parts(user, I))
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(is_open_container)
+		if(panel_open)
+			balloon_alert(user, "техпанель открыта!")
+			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
+		return ATTACK_CHAIN_PROCEED	// afterattack will handle this
+
+	return ..()
+
+/obj/machinery/r_n_d/protolathe/screwdriver_act(mob/living/user, obj/item/I)
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return TRUE
+	. = default_deconstruction_screwdriver(user, "[base_icon_state]_unscrewed", base_icon_state, I)
+	if(. && linked_console)
+		linked_console.linked_lathe = null
+		linked_console = null
+
+/obj/machinery/r_n_d/protolathe/crowbar_act(mob/living/user, obj/item/I)
+	. = TRUE
+	if(shocked && shock(user, 50))
+		add_fingerprint(user)
+		return .
+	if(!panel_open)
+		add_fingerprint(user)
+		balloon_alert(user, "техпанель закрыта!")
+		return .
+	var/atom/drop_loc = drop_location()
+	for(var/obj/component as anything in component_parts)
+		if(istype(component, /obj/item/reagent_containers/glass/beaker))
+			reagents.trans_to(component, reagents.total_volume)
+		component.forceMove(drop_loc)
+	materials.retrieve_all()
+	default_deconstruction_crowbar(user, I)
+

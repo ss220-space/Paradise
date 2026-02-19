@@ -5,11 +5,14 @@
 	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on a completed airlock to change its paintjob."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "airlock_painter"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "airlock_painter"
-	flags = CONDUCT | NOBLUDGEON
+	flags = CONDUCT
+	item_flags = NOBLUDGEON
 	usesound = 'sound/effects/spray2.ogg'
 	w_class = WEIGHT_CLASS_SMALL
-	slot_flags = SLOT_BELT
+	slot_flags = ITEM_SLOT_BELT
 	materials = list(MAT_METAL = 3000, MAT_GLASS = 1000)
 	var/paint_setting
 
@@ -38,18 +41,18 @@
 	return TRUE
 
 /obj/item/airlock_painter/attack_self(mob/user)
-	paint_setting = input(user, "Please select a paintjob for this airlock.") as null|anything in available_paint_jobs
+	paint_setting = tgui_input_list(user, "Please select a paintjob for this airlock", "Airlock painter", available_paint_jobs)
 	if(!paint_setting)
 		return
-	to_chat(user, "<span class='notice'>The [paint_setting] paint setting has been selected.</span>")
+	to_chat(user, span_notice("The [paint_setting] paint setting has been selected."))
 
 /obj/item/airlock_painter/suicide_act(mob/user)
 
-	var/obj/item/organ/internal/lungs/L = user.get_organ_slot("lungs")
-	var/lungs_name = "\improper[L.name]"
+	var/obj/item/organ/internal/lungs/L = user.get_organ_slot(INTERNAL_ORGAN_LUNGS)
+	var/lungs_name = "[L.name]"
 
 	if(L)
-		user.visible_message("<span class='suicide'>[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+		user.visible_message(span_suicide("[user] is inhaling toner from [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 		// Once you've inhaled the toner, you throw up your lungs
 		// and then die.
 
@@ -65,7 +68,7 @@
 		L.reagents.reaction(L, REAGENT_TOUCH, 1)
 
 		user.emote("scream")
-		user.visible_message("<span class='suicide'>[user] vomits out [user.p_their()] [lungs_name]!</span>")
+		user.visible_message(span_suicide("[user] vomits out [user.p_their()] [lungs_name]!"))
 		playsound(user.loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 		// make some vomit under the player, and apply colorful reagent

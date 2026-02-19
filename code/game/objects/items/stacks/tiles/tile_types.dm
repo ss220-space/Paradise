@@ -5,41 +5,46 @@
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
 	item_state = "tile"
-	w_class = WEIGHT_CLASS_NORMAL
 	force = 1
 	throwforce = 1
 	throw_speed = 5
 	throw_range = 20
 	max_amount = 60
 	flags = CONDUCT
-	origin_tech = "materials=1"
 	var/turf_type = null
 	var/mineralType = null
 
-/obj/item/stack/tile/New(loc, amount)
-	..()
+/obj/item/stack/tile/Initialize(mapload, new_amount, merge)
+	. = ..()
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little
+	AddElement(/datum/element/openspace_item_click_handler)
 
 /obj/item/stack/tile/welder_act(mob/user, obj/item/I)
 	if(get_amount() < 4)
-		to_chat(user, "<span class='warning'>You need at least four tiles to do this!</span>")
+		to_chat(user, span_warning("You need at least four tiles to do this!"))
 		return
 	. = TRUE
 	if(!I.use_tool(src, user, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>You can not reform this!</span>")
+		to_chat(user, span_warning("You can not reform this!"))
 		return
-	if (mineralType == "metal")
+	if(mineralType == "metal")
 		var/obj/item/stack/sheet/metal/new_item = new(user.loc)
-		user.visible_message("[user.name] shaped [src] into metal with the welding tool.", \
-					 "<span class='notice'>You shaped [src] into metal with the welding tool.</span>", \
-					 "<span class='italics'>You hear welding.</span>")
+		user.visible_message(
+			"[user.name] shaped [src] into metal with the welding tool.", \
+			span_notice("You shaped [src] into metal with the welding tool."), \
+			span_italics("You hear welding.")
+		)
 		var/obj/item/stack/rods/R = src
 		src = null
 		var/replace = (user.get_inactive_hand()==R)
 		R.use(4)
 		if(!R && replace)
 			user.put_in_hands(new_item)
+
+/obj/item/stack/tile/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
+	if(proximity_flag)
+		melee_attack_chain(user, target, click_parameters)
 
 // GRASS
 /obj/item/stack/tile/grass
@@ -62,6 +67,13 @@
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
+	energy_type = /datum/robot_energy_storage/wood
+
+/obj/item/stack/tile/wood/dark
+	name = "dark wood floor tiles"
+	singular_name = "dark wood floor tile"
+	icon_state = "tile-wood-dark"
+	turf_type = /turf/simulated/floor/wood/dark
 
 /obj/item/stack/tile/wood/oak
 	name = "oak wood floor tiles"
@@ -104,9 +116,6 @@
 	singular_name = "fancy light oak wood floor tile"
 	icon_state = "tile-wood-fancy-light"
 	turf_type = /turf/simulated/floor/wood/fancy/light
-
-/obj/item/stack/tile/wood/cyborg
-	is_cyborg = 1
 
 // CARPETS
 /obj/item/stack/tile/carpet
@@ -214,21 +223,16 @@
 	gender = PLURAL
 	singular_name = "floor tile"
 	desc = "Those could work as a pretty decent throwing weapon."
-	icon_state = "tile"
 	force = 6
 	materials = list(MAT_METAL=500)
 	throwforce = 10
 	throw_speed = 3
 	throw_range = 7
-	flags = CONDUCT
 	turf_type = /turf/simulated/floor/plasteel
 	mineralType = "metal"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
-
-/obj/item/stack/tile/plasteel/cyborg
-	is_cyborg = 1
-
+	energy_type = /datum/robot_energy_storage/metal
 // LIGHT
 /obj/item/stack/tile/light
 	name = "light tiles"
@@ -238,7 +242,7 @@
 	icon_state = "tile_light blue"
 	force = 3
 	throwforce = 5
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
+	attack_verb = list("ударил", "долбанул")
 	turf_type = /turf/simulated/floor/light
 
 // FAKESPACE
@@ -280,7 +284,6 @@
 	singular_name = "light pod floor tile"
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
-	turf_type = /turf/simulated/floor/pod
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"
@@ -300,3 +303,22 @@
 
 /obj/item/stack/tile/arcade_carpet/loaded
 	amount = 20
+
+//Cult tiles
+/obj/item/stack/tile/clockwork
+	name = "clockwork floor tile"
+	singular_name = "clockwork floor tile"
+	desc = "Tightly-pressed brass tiles. They emit minute vibration in your hand."
+	icon_state = "tile_goldfancy"
+	turf_type = /turf/simulated/floor/clockwork
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF
+
+/obj/item/stack/tile/harsie
+	name = "engraved floor tile"
+	singular_name = "engraved floor tile"
+	desc = "dark tiles. You dont feel good about this."
+	icon_state = "tile_basalt"
+	turf_type = /turf/simulated/floor/engine/cult
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	resistance_flags = FIRE_PROOF

@@ -3,66 +3,97 @@
 	caste = "s"
 	maxHealth = 250
 	health = 250
+	attack_damage = 25
+	time_to_open_doors = 0.2 SECONDS
 	icon_state = "aliens_s"
-	var/datum/action/innate/xeno_action/plant/plant_action = new
-
-/mob/living/carbon/alien/humanoid/sentinel/GrantAlienActions()
-	. = ..()
-	plant_action.Grant(src)
-
-/mob/living/carbon/alien/humanoid/sentinel/large
-	name = "alien praetorian"
-	icon = 'icons/mob/alienlarge.dmi'
-	icon_state = "prat_s"
-	pixel_x = -16
-	maxHealth = 300
-	health = 300
-	large = 1
-
-/mob/living/carbon/alien/humanoid/sentinel/praetorian
-	name = "alien praetorian"
-	maxHealth = 300
-	health = 300
-	large = 1
-
-/mob/living/carbon/alien/humanoid/sentinel/large/update_icons()
-	overlays.Cut()
-	if(stat == DEAD)
-		icon_state = "prat_dead"
-	else if(stat == UNCONSCIOUS || lying || resting)
-		icon_state = "prat_sleep"
-	else
-		icon_state = "prat_s"
-
-	for(var/image/I in overlays_standing)
-		overlays += I
+	role_text = "Вы — Часовой. Ваша основная задача — защита гнезда от непрошенных гостей."
+	can_evolve = TRUE
 
 /mob/living/carbon/alien/humanoid/sentinel/New()
 	if(name == "alien sentinel")
 		name = text("alien sentinel ([rand(1, 1000)])")
 	real_name = name
-	alien_organs += new /obj/item/organ/internal/xenos/plasmavessel
-	alien_organs += new /obj/item/organ/internal/xenos/acidgland
-	alien_organs += new /obj/item/organ/internal/xenos/neurotoxin
 	..()
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/evolve/praetorian)
 
-/*
-/mob/living/carbon/alien/humanoid/sentinel/verb/evolve() // -- TLE
-	set name = "Evolve (250)"
-	set desc = "Become a Praetorian, Royal Guard to the Queen."
-	set category = "Alien"
+/mob/living/carbon/alien/humanoid/sentinel/get_caste_organs()
+	. = ..()
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel/sentinel,
+		/obj/item/organ/internal/xenos/acidgland/sentinel,
+		/obj/item/organ/internal/xenos/neurotoxin/sentinel
+	)
 
-	if(plasmacheck(250))
-		adjustToxLoss(-250)
-		to_chat(src, "<span class=notice'>You begin to evolve!</span>")
-		for(var/mob/O in viewers(src, null))
-			O.show_message(text("<span class='alertalien'>[src] begins to twist and contort!</span>"), 1)
-		var/mob/living/carbon/alien/humanoid/sentinel/praetorian/new_xeno = new(loc)
-		if(mind)
-			mind.transfer_to(new_xeno)
-		else
-			new_xeno.key = key
-		new_xeno.mind.name = new_xeno.name
-		qdel(src)
-	return
-*/
+/mob/living/carbon/alien/humanoid/praetorian
+	name = "alien praetorian"
+	icon = 'icons/mob/alienlarge.dmi'
+	icon_state = "aliens_s"
+	caste = "s"
+	pixel_x = -16
+	maxHealth = 420
+	health = 420
+	status_flags = CANPARALYSE
+	large = TRUE
+	move_resist = MOVE_FORCE_STRONG
+	caste_movement_delay = 1
+	ventcrawler_trait = null
+	attack_damage = 30
+	disarm_stamina_damage = 34
+	armour_penetration = 30
+	obj_damage = 80
+	time_to_open_doors = 0.2 SECONDS
+	environment_smash = ENVIRONMENT_SMASH_WALLS
+	role_text = "Вы — Преторианец. Вы являетесь более сильной и неповоротливой версией Часового. Ваша основная задача — защита гнезда от непрошенных гостей."
+	var/datum/action/innate/small_sprite_alien/praetorian/action_sprite
+
+/mob/living/carbon/alien/humanoid/praetorian/New()
+	if(name == "alien praetorian")
+		name = text("alien praetorian ([rand(1, 1000)])")
+	real_name = name
+	action_sprite = new
+	action_sprite.Grant(src)
+	..()
+	AddSpell(new /obj/effect/proc_holder/spell/alien_spell/break_vents)
+	praetorian_count++
+
+/mob/living/carbon/alien/humanoid/praetorian/Destroy()
+	if(action_sprite)
+		action_sprite.Remove(src)
+		action_sprite = null
+	return ..()
+
+/mob/living/carbon/alien/humanoid/praetorian/death(gibbed)
+	// Only execute the below if we successfully died
+	. = ..(gibbed)
+	if(.)
+		praetorian_count--
+
+/mob/living/carbon/alien/humanoid/praetorian/is_strong()
+	return TRUE
+
+/mob/living/carbon/alien/humanoid/praetorian/get_caste_organs()
+	. = ..()
+	. += list(
+		/obj/item/organ/internal/xenos/plasmavessel/praetorian,
+		/obj/item/organ/internal/xenos/acidgland/praetorian,
+		/obj/item/organ/internal/xenos/neurotoxin
+	)
+
+/mob/living/carbon/alien/humanoid/praetorian/update_icons()
+	cut_overlays()
+
+	if(stat == DEAD)
+		icon_state = "alien[caste]_dead"
+	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
+		icon_state = "alien[caste]_sleep"
+	else
+		icon_state = "alien[caste]_s"
+
+	update_held_items()
+	update_pockets()
+	update_fire()
+
+	if(blocks_emissive)
+		add_overlay(get_emissive_block())
+

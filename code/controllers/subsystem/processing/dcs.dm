@@ -1,6 +1,7 @@
 PROCESSING_SUBSYSTEM_DEF(dcs)
 	name = "Datum Component System"
 	flags = SS_NO_INIT
+	ss_id = "datum_component_system"
 
 	var/list/elements_by_type = list()
 	// Update this if you add in components which actually use this as a processor
@@ -9,7 +10,7 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 /datum/controller/subsystem/processing/dcs/Recover()
 	comp_lookup = SSdcs.comp_lookup
 
-/datum/controller/subsystem/processing/dcs/proc/GetElement(list/arguments)
+/datum/controller/subsystem/processing/dcs/proc/GetElement(list/arguments, init_element = TRUE)
 	var/datum/element/eletype = arguments[1]
 	var/element_id = eletype
 
@@ -17,11 +18,11 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 		CRASH("Attempted to instantiate [eletype] as a /datum/element")
 
 	if(initial(eletype.element_flags) & ELEMENT_BESPOKE)
-		element_id = GetIdFromArguments(arguments)
+		element_id = length(arguments) == 1 ? "[arguments[1]]" : GetIdFromArguments(arguments)
 
 	. = elements_by_type[element_id]
-	if(.)
-		return
+	if(. || !init_element)
+		return .
 	. = elements_by_type[element_id] = new eletype
 
 /****
@@ -32,24 +33,33 @@ PROCESSING_SUBSYSTEM_DEF(dcs)
 	**/
 /datum/controller/subsystem/processing/dcs/proc/GetIdFromArguments(list/arguments)
 	var/datum/element/eletype = arguments[1]
-	var/list/fullid = list("[eletype]")
-	var/list/named_arguments = list()
-	for(var/i in initial(eletype.id_arg_index) to length(arguments))
+	var/list/fullid = list(eletype)
+	var/list/named_arguments
+	for(var/i in initial(eletype.argument_hash_start_idx) to length(arguments))
 		var/key = arguments[i]
-		var/value
-		if(istext(key))
-			value = arguments[key]
-		if(!(istext(key) || isnum(key)))
-			key = "\ref[key]"
-		key = "[key]" // Key is stringified so numbers dont break things
-		if(!isnull(value))
-			if(!(istext(value) || isnum(value)))
-				value = "\ref[value]"
-			named_arguments["[key]"] = value
-		else
-			fullid += "[key]"
 
-	if(length(named_arguments))
-		named_arguments = sortList(named_arguments)
+		if(istext(key))
+			var/value = arguments[key]
+			if(isnull(value))
+				fullid += key
+			else
+				if(!istext(value) && !isnum(value))
+					value = isdatum(value)? UID_of(value) : "\ref[value]"
+
+				if(!named_arguments)
+					named_arguments = list()
+
+				named_arguments[key] = value
+			continue
+
+		if(isnum(key))
+			fullid += key
+		else if(isdatum(key))
+			fullid += UID_of(key)
+		else
+			fullid += "\ref[key]"
+
+	if(named_arguments)
+		named_arguments = sortTim(named_arguments, GLOBAL_PROC_REF(cmp_text_asc))
 		fullid += named_arguments
 	return list2params(fullid)

@@ -1,10 +1,8 @@
-/obj/item/projectile/hivebotbullet
-	damage = 10
-	damage_type = BRUTE
+/obj/projectile/hivebotbullet
 
 /mob/living/simple_animal/hostile/hivebot
 	name = "Hivebot"
-	desc = "A small robot"
+	desc = "A small robot."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
@@ -16,21 +14,26 @@
 	attacktext = "рвёт"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
-	projectiletype = /obj/item/projectile/hivebotbullet
+	projectiletype = /obj/projectile/hivebotbullet
 	faction = list("hivebot")
 	check_friendly_fire = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	minbodytemp = 0
-	speak_emote = list("states")
+	speak_emote = list("констатирует")
 	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
 	deathmessage = "blows apart!"
 	bubble_icon = "machine"
 	del_on_death = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
+	AI_delay_max = 0.5 SECONDS
+
+/mob/living/simple_animal/hostile/hivebot/ComponentInitialize()
+	AddComponent( \
+		/datum/component/animal_temperature, \
+		minbodytemp = 0, \
+	)
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "Hivebot"
 	desc = "A smallish robot, this one is armed!"
 	ranged = 1
 	retreat_distance = 5
@@ -54,18 +57,17 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	do_sparks(3, 1, src)
+	do_sparks(3, TRUE, src)
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
 	name = "Beacon"
 	desc = "Some odd beacon thing"
-	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "def_radar-off"
 	icon_living = "def_radar-off"
 	health = 200
 	maxHealth = 200
 	status_flags = 0
-	anchored = 1
+	anchored = TRUE
 	stop_automated_movement = 1
 	var/bot_type = "norm"
 	var/bot_amt = 10
@@ -73,17 +75,17 @@
 	var/turn_on = 0
 	var/auto_spawn = 1
 
-/mob/living/simple_animal/hostile/hivebot/tele/New()
-	..()
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, src.loc)
+/mob/living/simple_animal/hostile/hivebot/tele/Initialize(mapload)
+	. = ..()
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 5, location = src.loc)
 	smoke.start()
-	visible_message("<span class='danger'>The [src] warps in!</span>")
-	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
+	visible_message(span_danger("The [src] warps in!"))
+	playsound(src.loc, 'sound/effects/empulse.ogg', 25, TRUE)
 
 /mob/living/simple_animal/hostile/hivebot/tele/proc/warpbots()
 	icon_state = "def_radar"
-	visible_message("<span class='warning'>The [src] turns on!</span>")
+	visible_message(span_warning("The [src] turns on!"))
 	while(bot_amt > 0)
 		bot_amt--
 		switch(bot_type)

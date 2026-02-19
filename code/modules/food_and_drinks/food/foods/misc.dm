@@ -64,7 +64,6 @@
 	tastes = list("tofu" = 1)
 	foodtype = VEGETABLES
 
-
 //////////////////////
 //		Salads		//
 //////////////////////
@@ -72,6 +71,7 @@
 /obj/item/reagent_containers/food/snacks/aesirsalad
 	name = "aesir salad"
 	desc = "Probably too incredible for mortal men to fully enjoy."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "aesirsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#468C00"
@@ -83,6 +83,7 @@
 /obj/item/reagent_containers/food/snacks/herbsalad
 	name = "herb salad"
 	desc = "A tasty salad with apples on top."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "herbsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
@@ -95,6 +96,7 @@
 	name = "valid salad"
 	desc = "It's just an herb salad with meatballs and fried potato slices. Nothing suspicious about it."
 	icon_state = "validsalad"
+	w_class = WEIGHT_CLASS_SMALL
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#76B87F"
 	bitesize = 3
@@ -105,6 +107,7 @@
 /obj/item/reagent_containers/food/snacks/oliviersalad
 	name = "olivier salad"
 	desc = "Don't touch this, its for the New Year!"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "oliviersalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
@@ -115,6 +118,7 @@
 /obj/item/reagent_containers/food/snacks/vegisalad
 	name = "vegetable salad"
 	desc = "A perfect combination of tomatoes and cucumbers."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "validsalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
@@ -126,12 +130,47 @@
 /obj/item/reagent_containers/food/snacks/weirdoliviersalad
 	name = "weird olivier salad"
 	desc = "What have you done to this salad, you monster?"
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "oliviersalad"
 	trash = /obj/item/trash/snack_bowl
 	filling_color = "#C2CFAB"
 	bitesize = 3
 	list_reagents = list("nutriment" = 12, "kelotane" = 2, "vitamin" = 3)
 	tastes = list("boiled potato" = 1, "pickles" = 1, "carrots" = 1, "egg" = 1, "weirdness" = 3, "New Year" = 3)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/fruitcup
+	name = "Dina's fruit cup"
+	desc = "Single salad with edible plate"
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "fruitcup"
+	filling_color = "#C2CFAB"
+	list_reagents = list("nutriment" = 3, "watermelonjuice" = 5, "orangejuice" = 5, "vitamin" = 4)
+	tastes = list("apple" = 2, "banana" = 2, "waterlemon" = 2, "lemon" = 1, "ambrosia" = 1)
+	bitesize = 4
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/junglesalad
+	name = "Jungle salad"
+	desc = "From the depths of the jungle."
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "junglesalad"
+	filling_color = "#C2CFAB"
+	list_reagents = list("nutriment" = 6, "watermelonjuice" = 3, "vitamin" = 4)
+	tastes = list("apple" = 1, "banana" = 2, "waterlemon" = 1)
+	foodtype = VEGETABLES
+
+/obj/item/reagent_containers/food/snacks/delightsalad
+	name = "Delight salad"
+	desc = "Truly citrus delight."
+	w_class = WEIGHT_CLASS_SMALL
+	icon_state = "delightsalad"
+	filling_color = "#C2CFAB"
+	trash = /obj/item/trash/snack_bowl
+	list_reagents = list("nutriment" = 3, "lemonjuice" = 4, "orangejuice" = 4, "vitamin" = 4, "limejuice" = 4)
+	tastes = list("lemon" = 1, "lime" = 2, "orange" = 1)
+	bitesize = 4
+	foodtype = VEGETABLES
 
 //////////////////////
 //	Donk Pockets	//
@@ -190,6 +229,7 @@
 /obj/item/reagent_containers/food/snacks/boiledbuckwheat
 	name = "boiled buckwheat"
 	desc = "'Grechka', or boiled buckwheat. Motherland would be proud of you."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "boiledbuckwheat"
 	trash = /obj/item/trash/plate
 	filling_color = "#8E633C"
@@ -200,6 +240,7 @@
 /obj/item/reagent_containers/food/snacks/buckwheat_merchant
 	name = "merchant's buckwheat porridge"
 	desc = "Hot and steamy, soviet spies are involved. No doubt."
+	w_class = WEIGHT_CLASS_SMALL
 	icon_state = "buckwheat_merchant"
 	trash = /obj/item/trash/plate
 	filling_color = "#8E633C"
@@ -219,7 +260,7 @@
 	list_reagents = list("slimejelly" = 5)
 	tastes = list("jelly" = 3)
 	foodtype = MEAT | TOXIC
-	
+
 /obj/item/reagent_containers/food/snacks/pickles
 	name = "pickles"
 	desc = "Damn, that's a lot of brined cucumbers."
@@ -230,7 +271,7 @@
 	list_reagents = list("nutriment" = 2, "vitamin" = 1)
 	tastes = list("pickles" = 1)
 	foodtype = VEGETABLES
-	
+
 /obj/item/reagent_containers/food/snacks/brine
 	name = "brine"
 	desc = "For the night after."
@@ -259,12 +300,12 @@
 
 /obj/item/reagent_containers/food/snacks/popcorn/On_Consume(mob/M, mob/user)
 	if(prob(unpopped))	//lol ...what's the point?
-		to_chat(user, "<span class='userdanger'>You bite down on an un-popped kernel!</span>")
+		to_chat(user, span_userdanger("You bite down on an un-popped kernel!"))
 		unpopped = max(0, unpopped-1)
 	..()
 
 /obj/item/reagent_containers/food/snacks/liquidfood
-	name = "\improper LiquidFood ration"
+	name = "LiquidFood ration"
 	desc = "A prepackaged grey slurry of all the essential nutrients for a spacefarer on the go. Should this be crunchy?"
 	icon_state = "liquidfood"
 	trash = /obj/item/trash/liquidfood

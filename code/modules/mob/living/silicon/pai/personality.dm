@@ -11,11 +11,13 @@
 	return "data/player_saves/[copytext(user.ckey, 1, 2)]/[user.ckey]/pai.sav"
 
 /datum/paiCandidate/proc/savefile_save(mob/user)
-	if(IsGuestKey(user.key))
-		return 0
+	if(is_guest_key(user.key))
+		return FALSE
+
+	if(!src.name)	//Preventing false savings
+		return FALSE
 
 	var/savefile/F = new /savefile(src.savefile_path(user))
-
 
 	F["name"] << src.name
 	F["description"] << src.description
@@ -24,15 +26,15 @@
 
 	F["version"] << 1
 
-	return 1
+	return TRUE
 
 // loads the savefile corresponding to the mob's ckey
 // if silent=true, report incompatible savefiles
 // returns 1 if loaded (or file was incompatible)
 // returns 0 if savefile did not exist
 
-/datum/paiCandidate/proc/savefile_load(mob/user, var/silent = 1)
-	if(IsGuestKey(user.key))
+/datum/paiCandidate/proc/savefile_load(mob/user, silent = 1)
+	if(is_guest_key(user.key))
 		return 0
 
 	var/path = savefile_path(user)

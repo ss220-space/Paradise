@@ -7,12 +7,9 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker_clown_off"
 	item_state = "signmaker_clown"
-	slot_flags = SLOT_BELT
-	force = 0
-	throwforce = 0
+	slot_flags = ITEM_SLOT_BELT
 	throw_speed = 3
-	throw_range = 7
-	flags = NOBLUDGEON
+	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 
 	var/pointer_busy = FALSE
@@ -29,34 +26,35 @@
 		return
 	qdel(sign)
 	sign = null
-	update_icon()
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/signmaker/proc/icon_flick()
 	set waitfor = FALSE
 
-	icon_state = "signmaker_clown_on"
 	pointer_busy = TRUE
-	sleep(10)
+	update_icon(UPDATE_ICON_STATE)
+	sleep(1 SECONDS)
 	pointer_busy = FALSE
-	icon_state = "signmaker_clown_off"
+	update_icon(UPDATE_ICON_STATE)
 
-/obj/item/signmaker/update_icon()
-	if(sign)
+/obj/item/signmaker/update_icon_state()
+	if(pointer_busy)
 		icon_state = "signmaker_clown_on"
-	else
-		icon_state = "signmaker_clown_off"
+		return
+	icon_state = "signmaker_clown_[sign ? "on" : "off"]"
 
 /obj/item/signmaker/emag_act(mob/user)
 	add_attack_logs(user, src, "emagged")
 	clear_holosign()
-	to_chat(user, "You broke the pointer, oh no")
+	if(user)
+		to_chat(user, "You broke the pointer, oh no")
 	holosign_type = /obj/structure/holosoap/holosoap_emagged
 
 /obj/item/signmaker/attack_self(mob/user)
 	clear_holosign()
-	to_chat(user, "<span class='notice'>You clear active hologram.</span>")
+	to_chat(user, span_notice("You clear active hologram."))
 
-/obj/item/signmaker/afterattack(var/atom/target, var/mob/living/user, params)
+/obj/item/signmaker/afterattack(atom/target, mob/living/user, proximity, params)
 	laser_act(target, user, params)
 
 /obj/item/signmaker/process()
@@ -69,14 +67,14 @@
 		recharge_locked = FALSE
 		return PROCESS_KILL
 
-/obj/item/signmaker/proc/laser_act(var/atom/target, var/mob/living/user, var/params)
-	if( !(target in view(user)))
+/obj/item/signmaker/proc/laser_act(atom/target, mob/living/user, params)
+	if(!(target in view(user)))
 		return
 	if(pointer_busy)
-		to_chat(user, "<span class='notice'>You already pointing at something.</span>")
+		to_chat(user, span_notice("You already pointing at something."))
 		return
 	if(recharge_locked)
-		to_chat(user, "<span class='notice'>You point [src] at [target], but it's still charging.</span>")
+		to_chat(user, span_notice("You point [src] at [target], but it's still charging."))
 		return
 	add_fingerprint(user)
 	var/target_type = 0
@@ -90,49 +88,48 @@
 
 	switch(target_type)
 		if(CARBON)
-			energy -= 1
+			energy--
 			icon_flick()
 			var/mob/living/carbon/C = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				add_attack_logs(user, C, "Shone a laser in the eyes with [src]")
 				//20% chance to actually hit the eyes
 				if(prob(20))
-					visible_message("<span class='notice'>You blind [C] by shining [src] in [C.p_their()] eyes.</span>")
+					visible_message(span_notice("You blind [C] by shining [src] in [C.p_their()] eyes."))
 					if(C.weakeyes)
-						C.Stun(1)
+						C.Stun(2 SECONDS)
 				else
-					visible_message("<span class='warning'>You fail to blind [C] by shining [src] at [C.p_their()] eyes!</span>")
+					visible_message(span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!"))
 			else
-				visible_message("<span class='info'>You missed the [C] with [src].</span>")
+				visible_message(span_notice("You missed the [C] with [src]."))
 		if(SILICON)
-			energy -= 1
+			energy--
 			icon_flick()
 			var/mob/living/silicon/S = target
-			if(user.zone_selected == "eyes")
+			if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 				//20% chance to actually hit the sensors
-				if(prob(20))
-					S.flash_eyes(affect_silicon = 1)
-					S.Weaken(rand(5,10))
-					to_chat(S, "<span class='warning'>Your sensors were overloaded by a laser!</span>")
-					visible_message("<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>")
+				if(prob(20) && S.flash_eyes(affect_silicon = TRUE))
+					S.Weaken(rand(10 SECONDS, 20 SECONDS))
+					to_chat(S, span_warning("Your sensors were overloaded by a laser!"))
+					visible_message(span_notice("You overload [S] by shining [src] at [S.p_their()] sensors."))
 
 					add_attack_logs(user, S, "shone [src] in their eyes")
 				else
-					visible_message("<span class='notice'>You fail to overload [S] by shining [src] at [S.p_their()] sensors.</span>")
+					visible_message(span_notice("You fail to overload [S] by shining [src] at [S.p_their()] sensors."))
 			else
-				visible_message("<span class='info'>You missed the [S] with [src].</span>")
+				visible_message(span_notice("You missed the [S] with [src]."))
 		if(CAMERA)
-			energy -= 1
+			energy--
 			icon_flick()
 			var/obj/machinery/camera/C = target
 			if(prob(20))
 				C.emp_act(1)
-				visible_message("<span class='notice'>You hit the lens of [C] with [src], temporarily disabling the camera!</span>")
+				visible_message(span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!"))
 
 				log_admin("[key_name(user)] EMPd a camera with a signmaker")
 				add_attack_logs(user, C, "EMPd with [src]", ATKLOG_ALL)
 			else
-				visible_message("<span class='info'>You missed the lens of [C] with [src].</span>")
+				visible_message(span_notice("You missed the lens of [C] with [src]."))
 		else
 			create_holosign(target, user)
 	//to make sure energy doesn't go below 0
@@ -143,7 +140,7 @@
 			recharging = TRUE
 			START_PROCESSING(SSobj, src)
 		if(energy <= 0)
-			to_chat(user, "<span class='warning'>You've overused the battery of [src], now it needs time to recharge!</span>")
+			to_chat(user, span_warning("You've overused the battery of [src], now it needs time to recharge!"))
 			recharge_locked = TRUE
 			clear_holosign()
 
@@ -152,23 +149,22 @@
 	var/obj/structure/holosign/found_holosoap = locate(holosign_type) in T
 	if(found_holosoap)
 		if(found_holosoap == sign)
-			to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
+			to_chat(user, span_notice("You use [src] to deactivate [sign]."))
 			clear_holosign()
 		return
-	if(is_blocked_turf(T, TRUE)) //can't put holograms on a tile that has dense stuff
+	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 		return
 	clear_holosign()
-	playsound(src, 'sound/machines/click.ogg', 20, 1)
+	playsound(src, 'sound/machines/click.ogg', 20, TRUE)
 	sign = new holosign_type(get_turf(target), src)
 	update_icon()
-	to_chat(user, "<span class='notice'>You create [sign.name] with [src].</span>")
+	to_chat(user, span_notice("You create [sign.name] with [src]."))
 
 /obj/structure/holosoap
 	name = "holographic soap"
-	desc = "looks like a real soap, but it's not."
+	desc = "Настоящее мыло, только не настоящее."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holo_soap"
-	density = FALSE
 	layer = ABOVE_MOB_LAYER
 	anchored = TRUE
 	pressure_resistance = ONE_ATMOSPHERE
@@ -176,13 +172,31 @@
 
 	var/obj/item/signmaker/projector = null
 
+/obj/structure/holosoap/get_ru_names()
+	return list(
+		NOMINATIVE = "голографическое мыло",
+		GENITIVE = "голографического мыла",
+		DATIVE = "голографическому мылу",
+		ACCUSATIVE = "голографическое мыло",
+		INSTRUMENTAL = "голографическим мылом",
+		PREPOSITIONAL = "голографическом мыле",
+	)
+
 /obj/structure/holosoap/Initialize(mapload, new_projector)
 	. = ..()
 	projector = new_projector
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/structure/holosoap/Destroy()
-	projector.sign = null
+	projector?.sign = null
+	projector?.update_icon(UPDATE_ICON_STATE)
 	return ..()
+
+/obj/structure/holosoap/has_prints()
+	return FALSE
 
 /obj/structure/holosoap/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -191,9 +205,10 @@
 		if(BURN)
 			playsound(loc, 'sound/items/squeaktoy.ogg', 80, TRUE)
 
-/obj/structure/holosoap/Crossed(atom/movable/AM, oldloc)
+/obj/structure/holosoap/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+
 	playsound(loc, 'sound/misc/slip.ogg', 80, TRUE)
-	. = ..()
 
 /obj/structure/holosoap/attack_hand(mob/living/user)
 	. = ..()
@@ -201,11 +216,11 @@
 		return
 	user.do_attack_animation(src)
 	user.changeNext_move(CLICK_CD_MELEE)
-	take_damage(5 , BRUTE, "melee", 1)
+	take_damage(5 , BRUTE, MELEE, 1)
 
 /obj/structure/holosoap/holosoap_emagged
 	name = "solid holographic soap"
-	desc = "looks like a real soap, but it's blocking your path now."
+	desc = "Настоящее мыло, только теперь оно преграждает вам путь."
 	density = TRUE
 
 #undef CARBON

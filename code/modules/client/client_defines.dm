@@ -1,26 +1,32 @@
 /client
-		//////////////////////
-		//BLACK MAGIC THINGS//
-		//////////////////////
+	/// Client is casted to /datum so that we're able to use datum variables, search for clients through datums, and not need to duplicate code for GCing
 	parent_type = /datum
 		////////////////
 		//ADMIN THINGS//
 		////////////////
+
+	/// Hides the byond verb panel as we use our own custom version.
+	show_verb_panel = FALSE
 	var/datum/admins/holder = null
 
-	var/last_message	= "" //contains the last message sent by this client - used to protect against copy-paste spamming.
-	var/last_message_count = 0 //contains a number of how many times a message identical to last_message was sent.
-	var/last_message_time = 0 //holds the last time (based on world.time) a message was sent
-	var/datum/pm_tracker/pm_tracker = new()
+	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
+	var/last_message = ""
+	/// Contains a number of how many times a message identical to last_message was sent.
+	var/last_message_count = 0
+	/// Holds the last time (based on world.time) a message was sent.
+	var/last_message_time = 0
+	var/datum/pm_tracker/pm_tracker
 
 		/////////
 		//OTHER//
 		/////////
 	var/datum/preferences/prefs = null
-	var/skip_antag = FALSE //TRUE when a player declines to be included for the selection process of game mode antagonists.
-	var/move_delay		= 1
-	var/current_move_delay = 0
-	var/moving			= null
+
+	///Move delay of controlled mob, any keypresses inside this period will persist until the next proper move
+	var/move_delay = 0
+	///The visual delay to use for the current client.Move(), mostly used for making a client based move look like it came from some other slower source
+	var/visual_delay = 0
+
 	var/area			= null
 	var/time_joined_as_mouse = null //when the client last spawned as a mouse
 
@@ -31,8 +37,8 @@
 		///////////////
 		//SOUND STUFF//
 		///////////////
-	var/ambience_playing = 0
-	var/played			= 0
+
+	var/white_noise_playing = FALSE
 
 		////////////
 		//SECURITY//
@@ -40,6 +46,8 @@
 
 	///Used for limiting the rate of topic sends by the client to avoid abuse
 	var/list/topiclimiter
+	///Used for limiting the rate of clicks sends by the client to avoid abuse
+	var/list/clicklimiter
 
 	// comment out the line below when debugging locally to enable the options & messages menu
 	control_freak = CONTROL_FREAK_ALL
@@ -53,27 +61,36 @@
 	var/list/related_accounts_ip = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this ip
 	var/list/related_accounts_cid = list()	//So admins know why it isn't working - Used to determine what other accounts previously logged in from this computer id
 
-	preload_rsc = 0 // This is 0 so we can set it to an URL once the player logs in and have them download the resources from a different server.
+	preload_rsc = PRELOAD_RSC
 
-	var/global/obj/screen/click_catcher/void
+	/**
+	 * Assoc list with all the active maps - when a screen obj is added to
+	 * a map, it's put in here as well.
+	 *
+	 * Format: list(<mapname> = list(/atom/movable/screen))
+	 */
+	var/list/screen_maps = list()
+
+	var/atom/movable/screen/click_catcher/void
 
 	var/karma = 0
 	var/karma_spent = 0
 	var/karma_tab = 0
 
-
 	var/ip_intel = "Disabled"
 
 	var/datum/click_intercept/click_intercept = null
+
+	///Time when the click was intercepted
+	var/click_intercept_time = 0
+
+	/// Overlay for showing debug info
+	var/atom/movable/screen/debugtextholder/debug_text_overlay
 
 	var/datum/geoip_data/geoip = null
 
 	//datum that controls the displaying and hiding of tooltips
 	var/datum/tooltip/tooltips
-
-	// Their chat window, sort of important.
-	// See /goon/code/datums/browserOutput.dm
-	var/datum/chatOutput/chatOutput
 
 	// Donator stuff.
 	var/donator_level = 0
@@ -89,6 +106,18 @@
 	/// Messages currently seen by this client
 	var/list/seen_messages
 
+	/// list of tabs containing spells and abilities //TODO vakons actions: remove if not used
+	var/list/spell_tabs = list()
+
+	/// datum wrapper for client view
+	var/datum/view_data/view_size
+
+	/// our current tab
+	var/stat_tab
+
+	/// list of all tabs
+	var/list/panel_tabs = list()
+
 	var/fullscreen = FALSE
 
 	// Last world.time that the player tried to request their resources.
@@ -102,7 +131,16 @@
 	/// Days since the client's BYOND account was created
 	var/byondacc_age = 0
 
-	var/last_ping_duration = 0
+	///Last ping of the client
+	var/lastping = 0
+	///Average ping of the client
+	var/avgping = 0
+	///world.time they connected
+	var/connection_time
+	///world.realtime they connected
+	var/connection_realtime
+	///world.timeofday they connected
+	var/connection_timeofday
 
 	// Do not attempt to merge these vars together. They are for different things
 	/// Last world.time that a PM was send to discord by a player
@@ -116,17 +154,109 @@
 
 	var/url
 
-	/// Input datum, what the client is pressing.
-	var/datum/input_data/input_data = new()
 	/// The client's active keybindings, depending on their active mob.
-	var/list/active_keybindings = list()
-	/// The client's movement keybindings to directions, which work regardless of modifiers.
-	var/list/movement_kb_dirs = list()
+	var/list/active_keybindings = list()	// will be removed later
+
+	/// A buffer of currently held keys.
+	var/list/keys_held = list()
+	/// A buffer for combinations such of modifiers + keys (ex: CtrlD, AltE, ShiftT). Format: `"key"` -> `"combo"` (ex: `"D"` -> `"CtrlD"`)
+	var/list/key_combos_held = list()
+	///custom movement keys for this client
+	var/list/movement_keys = list()
+	/// The direction we WANT to move, based off our keybinds
+	/// Will be udpated to be the actual direction later on
+	var/intended_direction = NONE
+	///Are we locking our movement input?
+	var/movement_locked = FALSE
+	/*
+	** These next two vars are to apply movement for keypresses and releases made while move delayed.
+	** Because discarding that input makes the game less responsive.
+	*/
+	/// On next move, add this dir to the move that would otherwise be done
+	var/next_move_dir_add
+	/// On next move, subtract this dir from the move that would otherwise be done
+	var/next_move_dir_sub
+
+	/// When to next alert admins that mouse macro use was attempted
+	var/next_mouse_macro_warning
+
+	/// Assigned say modal of the client
+	var/datum/tgui_say/tgui_say
+
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_up_icon = null
+	///used to make a special mouse cursor, this one for mouse up icon
+	var/mouse_down_icon = null
+	///used to override the mouse cursor so it doesnt get reset
+	var/mouse_override_icon = null
+
+	///Autoclick list of two elements, first being the clicked thing, second being the parameters.
+	var/list/atom/selected_target[2]
+	///Used in MouseDrag to preserve the original mouse click parameters
+	var/mouseParams = ""
+	///Used in MouseDrag to preserve the last mouse-entered location.
+	var/mouse_location_UID
+	///Used in MouseDrag to preserve the last mouse-entered object.
+	var/mouse_object_UID
+	///When we started the currently active drag
+	var/drag_start = 0
+	//The params we were passed at the start of the drag, in list form
+	var/list/drag_details
+
+	/// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
+	var/list/sent_assets = list()
+	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
+	var/list/completed_asset_jobs = list()
+
+	/// If this client has any windows scaling applied
+	var/window_scaling
+
+	/*
+	ASSET SENDING
+	*/
+	/// The ID of the last asset job
+	var/last_asset_job = 0
+	/// The ID of the last asset job that was properly finished
+	var/last_completed_asset_job = 0
+
+	/// Loot panel for the client
+	var/datum/lootpanel/loot_panel
+
+	var/tgui_panel_theme = "dark"
+
+	var/list/parallax_layers
+	var/list/parallax_layers_cached
+	var/atom/movable/screen/parallax_home/parallax_rock
+	var/atom/movable/movingmob
+	var/turf/previous_turf
+	/// world.time of when we can state animate()ing parallax again
+	var/dont_animate_parallax
+	/// Direction our current area wants to move parallax
+	var/parallax_movedir = 0
+	/// How many parallax layers to show our client
+	var/parallax_layers_max = 4
+	/// Timers for the area directional animation, one for each layer
+	var/list/parallax_animate_timers
+	/// Do we want to do parallax animations at all?
+	/// Exists to prevent laptop fires
+	var/do_parallax_animations = TRUE
+
+	var/list/ViewMods = list()
+	var/ViewModsActive = FALSE
+	var/ViewPreferedIconSize = 0
+
+	///these persist between logins/logouts during the same round.
+	var/datum/persistent_client/persistent_client
+
+	// This is needed to hold the selected player ckey for moving to and from pp/vuap
+	/// This is used to hold the ckey of the selected player for moving to and from the player panel and vuap
+	var/selectedPlayerCkey = ""
+	/// This is used to hold the mob of the selected player in case the ckey can't be found (this enables pp'ing soulless mobs)
+	var/VUAP_selected_mob = null
 
 /client/vv_edit_var(var_name, var_value)
-	switch(var_name)
+	if(var_name == NAMEOF(src, tos_consent))
 		// I know we will never be in a world where admins are editing client vars to let people bypass TOS
 		// But guess what, if I have the ability to overengineer something, I am going to do it
-		if("tos_consent")
-			return FALSE
+		return FALSE
 	return ..()

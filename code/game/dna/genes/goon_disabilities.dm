@@ -8,12 +8,12 @@
 
 // WAS: /datum/bioEffect/mute
 /datum/dna/gene/disability/mute
-	name = "Mute"
-	desc = "Completely shuts down the speech center of the subject's brain."
-	activation_message   = "You feel unable to express yourself at all."
-	deactivation_message = "You feel able to speak freely again."
+	name = "Немота"
+	desc = "Полностью отключает речевой центр у мозга субъекта."
+	activation_message = list("Вы чувствуете, что потеряли способность к самовыражению.")
+	deactivation_message = list("Вы чувствуете, что вновь можете говорить свободно.")
 	instability = -GENE_INSTABILITY_MODERATE
-	mutation = MUTE
+	traits_to_add = list(TRAIT_MUTE)
 
 /datum/dna/gene/disability/mute/New()
 	..()
@@ -27,35 +27,27 @@
 ////////////////////////////////////////
 
 /datum/dna/gene/disability/radioactive
-	name = "Radioactive"
-	desc = "The subject suffers from constant radiation sickness and causes the same on nearby organics."
-	activation_message = "You feel a strange sickness permeate your whole body."
-	deactivation_message = "You no longer feel awful and sick all over."
+	name = "Радиоактивность"
+	desc = "Субъект страдает от постоянной лучевой болезни и вызывает такую же у близлежащей органики."
+	activation_message = list("Вы чувствуете, как странное недомогание пронизывает всё ваше тело.")
+	deactivation_message = list("Вы больше не чувствуете себя ужасно больным.")
 	instability = -GENE_INSTABILITY_MAJOR
-	mutation = RADIOACTIVE
 
 /datum/dna/gene/disability/radioactive/New()
 	..()
 	block = GLOB.radblock
 
-
-/datum/dna/gene/disability/radioactive/can_activate(mob/M, flags)
-	if(!..())
+/datum/dna/gene/disability/radioactive/can_activate(mob/living/mutant, flags)
+	if(HAS_TRAIT(mutant, TRAIT_RADIMMUNE) && !(flags & MUTCHK_FORCED))
 		return FALSE
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if((RADIMMUNE in H.dna.species.species_traits) && !(flags & MUTCHK_FORCED))
-			return FALSE
 	return TRUE
 
-/datum/dna/gene/disability/radioactive/OnMobLife(mob/living/carbon/human/H)
-	var/radiation_amount = abs(min(H.radiation - 20,0))
-	H.apply_effect(radiation_amount, IRRADIATE)
-	for(var/mob/living/L in range(1, H))
-		if(L == H)
-			continue
-		to_chat(L, "<span class='danger'>You are enveloped by a soft green glow emanating from [H].</span>")
-		L.apply_effect(5, IRRADIATE)
+/datum/dna/gene/disability/radioactive/OnMobLife(mob/living/mutant)
+	var/radiation_amount = abs(min(mutant.radiation - 20, 0))
+	mutant.apply_effect(radiation_amount, IRRADIATE)
+	for(var/mob/living/victim in (view(1, get_turf(src)) - src))
+		to_chat(victim, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [mutant]."))
+		victim.apply_effect(5, IRRADIATE)
 
 /datum/dna/gene/disability/radioactive/OnDrawUnderlays(mob/M, g)
 	return "rads_s"
@@ -65,26 +57,25 @@
 ////////////////////////////////////////
 
 // WAS: /datum/bioEffect/fat
-/datum/dna/gene/disability/fat
-	name = "Obesity"
-	desc = "Greatly slows the subject's metabolism, enabling greater buildup of lipid tissue."
-	activation_message = "You feel blubbery and lethargic!"
-	deactivation_message = "You feel fit!"
+/datum/dna/gene/disability/obesity
+	name = "Полнота"
+	desc = "Сильно замедляет метаболизм, способствуя ожирению."
+	activation_message = list("Вы чувствуете себя толстым и ленивым!")
+	deactivation_message = list("Вы чувствуете себя в хорошей форме!")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = OBESITY
+	traits_to_add = list(TRAIT_OBESITY)
 
-/datum/dna/gene/disability/fat/New()
+/datum/dna/gene/disability/obesity/New()
 	..()
-	block = GLOB.fatblock
+	block = GLOB.obesityblock
 
 // WAS: /datum/bioEffect/chav
 // WAS: /datum/dna/gene/disability/speech/chav
 /datum/dna/gene/disability/speech/auld_imperial
-	name = "Староимпѣрская рѣчь"
+	name = "Староимперская речь"
 	desc = "Заставляет языковой центра мозга субъекта произносить слова на староимперский манер."
-	activation_message = "Охъ, где бы отвѣдать мягкихъ ѳранцузскихъ булокъ, да выпить ароматнаго чаю глоточекъ?"
-	deactivation_message = "Изысканность вашей речи улетучивается, как запах дорогих духов… Блядь."
-	mutation = AULD_IMPERIAL
+	activation_message = list("Охъ, где бы отвѣдать мягкихъ ѳранцузскихъ булокъ, да выпить ароматнаго чаю глоточекъ?")
+	deactivation_message = list("Изысканность вашей речи улетучивается, как запах дорогих духов… Блядь.")
 	// Слова для замены
 	var/static/list/low_cultural_words = list(
 		"бля"="ох", "блядь"="ох", "башка"="голова", "башке"="голове", "башку"="голову", "бошка"="голова", "бошке"="голове", "бошку"="голову", "дебил"="остолоп", "ёбаный"="проклятый", "ёбаные"="проклятые", "ёбаных"="проклятых", "ёбаная"="проклятая", "ёбаное"="проклятое", "ебаный"="проклятый", "ебаные"="проклятые", "ебаных"="проклятых", "ебаная"="проклятая", "ебаное"="проклятое", "ебучий"="проклятый", "ебучие"="проклятые", "ебучих"="проклятых", "ебучая"="проклятая", "ебучее"="проклятое", "до пизды"="всё равно", "до жопы"="много", "дохуя"="очень много", "дура"="глупышка", "дуре"="глупышке", "дурой"="глупышкой", "дуру"="глупышку", "дурак"="болван", "жопа"="попа", "жопы"="попы", "идиот"="шельмец", "мразь"="мерзавец", "мудак"="подлец", "нахуй"="к чёрту", "нахуя"="зачем", "наёбщик"="плут", "наёбывать"="плутовать", "нихуя"="ничего", "охуел"="поражён", "охуела"="поражена", "охуевать"="поражаться", "охуеваю"="поражаюсь", "охуеваешь"="поражаетесь", "охуеваете"="поражаетесь", "охуевает"="поражается", "охуевают"="поражаются", "пидарас"="безобразник", "пидараса"="безобразника", "пидарасе"="безобразнике", "пидарасу"="безобразнику", "пидарасом"="безобразником", "пидарасы"="безобразники", "пидор"="безобразник", "пидора"="безобразника", "пидоре"="безобразнике", "пидору"="безобразнику", "пидором"="безобразником", "пидоры"="безобразники", "пидар"="безобразник", "пидара"="безобразника", "пидаре"="безобразнике", "пидару"="безобразнику", "пидаром"="безобразником", "пидары"="безобразники", "пиздец"="провал", "срочник"="недотёпа", "срочники"="недотёпы", "срочникам"="недотёпам", "срочников"="недотёп", "пиздеца"="провала", "пиздеце"="провале", "пиздецом"="провалом", "писец"="провал", "сдох"="погиб", "сдыхать"="погибать", "сдыхаю"="гибну", "сдыхает"="гибнет", "сдыхают"="гибнут", "сдохну"="погибну", "сдохнуть"="погибнуть", "сдохла"="погибла", "сдохло"="погибло", "сдохли"="погибли", "говно"="дрянь", "похуй"="жаль", "СБ"="охрана", "АВД"="агент", "ПНТ"="представитель", "НТР"="представитель", "варден"="смотритель", "КМ"="квартирмейстер", "кэп"="капитан", "кэпа"="капитана", "кэпе"="капитане", "кэпу"="капитану", "кэпом"="капитаном", "сука"="шельма", "суке"="шельме", "суки"="шельмы", "сукой"="шельмой", "схуяли"="почему", "твое"="Ваше", "твои"="Ваши", "твоими"="Вашими", "твоих"="Ваших", "твой"="Ваш", "твоя"="Ваша", "твоё"="Ваше", "тебе"="Вам", "тебя"="Вас", "тобой"="Вами", "тупой"="недоумок", "тупого"="недоумка", "тупому"="недоумку", "тупом"="недоумке", "тупым"="недоумком", "ты"="Вы", "урод"="голубчик", "урода"="голубчика", "уроду"="голубчику", "уроде"="голубчике", "уродом"="голубчиком", "хуй там"="отнюдь", "срочно"="поскорее", "отпиздить"="побить", "пиздить"="избивать", "пиздят"="избивают", "ебут"="избивают", "ебать"="бить", "заебало"="опротивело", "чел"="сударь", "чела"="сударя", "челе"="сударе", "челу"="сударю", "челом"="сударем", "челам"="сударям", "челы"="судари", "челик"="сударь", "челика"="сударя", "челике"="сударе", "челику"="сударю", "челиком"="сударем", "челикам"="сударям", "челики"="судари", "мужик"="мещанин", "мужика"="мещанина", "мужике"="мещанине", "мужику"="мещанину", "мужиком"="мещанином", "мужикам"="мещанам", "мужики"="мещане", "бомж"="юродивый", "бомжа"="юродивого", "бомже"="юродивом", "бомжу"="юродивому", "бомжом"="юродивым", "бомжам"="юродивым", "бомжи"="юродивые", "шлюха"="куртизанка", "даун"="глупыш",
@@ -175,8 +166,10 @@
 
 /datum/dna/gene/disability/speech/auld_imperial/proc/add_slovoers(matched)
 	return "[matched]-съ"
+
 /datum/dna/gene/disability/speech/auld_imperial/proc/add_er(matched)
 	return "[matched]ъ"
+
 /datum/dna/gene/disability/speech/auld_imperial/proc/replace_speech(matched, first, second)
 	return "[first][low_cultural_words[second]]"
 
@@ -184,9 +177,8 @@
 /datum/dna/gene/disability/speech/swedish
 	name = "Шведский акцент"
 	desc = "Заставляет языковой центра мозга субъекта произносить слова на скандинавский манер."
-	activation_message = "Вы ощущаете внутреннюю шведскость. Кажется, сработало."
-	deactivation_message = "Внутреннее ощущение шведскости проходит."
-	mutation = SWEDISH
+	activation_message = list("Вы ощущаете внутреннюю шведскость. Кажется, сработало.")
+	deactivation_message = list("Внутреннее ощущение шведскости проходит.")
 
 /datum/dna/gene/disability/speech/swedish/New()
 	..()
@@ -233,12 +225,11 @@
 
 // WAS: /datum/bioEffect/unintelligable
 /datum/dna/gene/disability/unintelligable
-	name = "Unintelligable"
-	desc = "Heavily corrupts the part of the brain responsible for forming spoken sentences."
-	activation_message = "You can't seem to form any coherent thoughts!"
-	deactivation_message = "Your mind feels more clear."
+	name = "Косноязычие"
+	desc = "Сильно повреждает часть мозга, отвечающую за формирование разговорных предложений."
+	activation_message = list("Мысли чувствуете что не вы можете формулировать ясно!")
+	deactivation_message = list("Ваши мысли становятся более ясными.")
 	instability = -GENE_INSTABILITY_MINOR
-	mutation = SCRAMBLED
 
 /datum/dna/gene/disability/unintelligable/New()
 	..()
@@ -256,7 +247,7 @@
 
 	var/list/words = splittext(message," ")
 	var/list/rearranged = list()
-	for(var/i=1;i<=words.len;i++)
+	for(var/i=1;i<=length(words);i++)
 		var/cword = pick(words)
 		words.Remove(cword)
 		var/suffix = copytext(cword,length(cword)-1,length(cword))
@@ -271,26 +262,12 @@
 // USELESS SHIT //
 //////////////////
 
-// WAS: /datum/bioEffect/strong
-/datum/dna/gene/disability/strong
-	// pretty sure this doesn't do jack shit, putting it here until it does
-	name = "Strong"
-	desc = "Enhances the subject's ability to build and retain heavy muscles."
-	activation_message = "You feel buff!"
-	deactivation_message = "You feel wimpy and weak."
-	mutation = STRONG
-
-/datum/dna/gene/disability/strong/New()
-	..()
-	block = GLOB.strongblock
-
 // WAS: /datum/bioEffect/horns
 /datum/dna/gene/disability/horns
-	name = "Horns"
-	desc = "Enables the growth of a compacted keratin formation on the subject's head."
-	activation_message = "A pair of horns erupt from your head."
-	deactivation_message = "Your horns crumble away into nothing."
-	mutation = HORNS
+	name = "Рога"
+	desc = "Обеспечивает рост уплотнённого кератинового образования на голове субъекта."
+	activation_message = list("Из вашей головы вырываются рога.")
+	deactivation_message = list("Ваши рога рассыпаются в прах.")
 
 /datum/dna/gene/disability/horns/New()
 	..()
@@ -302,39 +279,31 @@
 ////////////////////////////////////////////////////////////////////////
 // WAS: /datum/bioEffect/immolate
 /datum/dna/gene/basic/grant_spell/immolate
-	name = "Incendiary Mitochondria"
-	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
-	activation_messages = list("You suddenly feel rather hot.")
-	deactivation_messages = list("You no longer feel uncomfortably hot.")
-	mutation = IMMOLATE
-
-	spelltype = /obj/effect/proc_holder/spell/targeted/immolate
+	name = "Зажигательные митохондрии"
+	desc = "Субъект приобретает способность преобразовывать избыточную клеточную энергию в тепловую."
+	activation_messages = list("Вам вдруг становится очень жарко.")
+	deactivation_messages = list("Вы больше не чувствуете дискомфортного жара.")
+	spelltype = /obj/effect/proc_holder/spell/immolate
 
 /datum/dna/gene/basic/grant_spell/immolate/New()
 	..()
 	block = GLOB.immolateblock
 
-/obj/effect/proc_holder/spell/targeted/immolate
+/obj/effect/proc_holder/spell/immolate
 	name = "Incendiary Mitochondria"
-	desc = "The subject becomes able to convert excess cellular energy into thermal energy."
-	panel = "Abilities"
-
-	charge_type = "recharge"
-	charge_max = 600
-
-	clothes_req = 0
-	stat_allowed = 0
-	invocation_type = "none"
-	range = -1
-	selection_type = "range"
+	desc = "Субъект приобретает способность преобразовывать избыточную клеточную энергию в тепловую."
+	base_cooldown = 60 SECONDS
+	clothes_req = FALSE
 	var/list/compatible_mobs = list(/mob/living/carbon/human)
-	include_user = 1
-
 	action_icon_state = "genetic_incendiary"
 
-/obj/effect/proc_holder/spell/targeted/immolate/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/immolate/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/immolate/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/L = user
 	L.adjust_fire_stacks(0.5)
-	L.visible_message("<span class='danger'>[L.name]</b> suddenly bursts into flames!</span>")
+	L.visible_message(span_danger("[L.name] внезапно вспыхива[PLUR_ET_YUT(L)] пламенем!"))
 	L.IgniteMob()
-	playsound(L.loc, 'sound/effects/bamf.ogg', 50, 0)
+	playsound(L.loc, 'sound/effects/bamf.ogg', 50, FALSE)
+

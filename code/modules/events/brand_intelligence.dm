@@ -5,23 +5,29 @@
 	var/list/obj/machinery/vending/vendingMachines = list()
 	var/list/obj/machinery/vending/infectedMachines = list()
 	var/obj/machinery/vending/originMachine
-	var/list/rampant_speeches = list("Попробуйте нашу новую АГРЕССИВНУЮ стратегию маркетинга!", \
-									 "Вам стоит что-нибудь купить, дабы утолить ваши ПОТРЕБНОСТИ!", \
-									 "Потребляй!", \
-									 "За ваши деньги можно купить счастье!", \
-									 "Методика ПРЯМОГО маркетинга!", \
-									 "Реклама узаконила ложь! Но не позвольте ей отвлечь вас от наших замечательных предложений!", \
-									 "Не хочешь платить? Я твоей мамке тоже платить не хотел.")
+	var/list/rampant_speeches = list(
+		"Попробуйте нашу новую АГРЕССИВНУЮ стратегию маркетинга!", \
+		"Вам стоит что-нибудь купить, дабы утолить ваши ПОТРЕБНОСТИ!", \
+		"Потребляй!", \
+		"За ваши деньги можно купить счастье!", \
+		"Методика ПРЯМОГО маркетинга!", \
+		"Реклама узаконила ложь! Но не позвольте ей отвлечь вас от наших замечательных предложений!", \
+		"Не хочешь платить? Я твоей мамке тоже платить не хотел."
+	)
 
 /datum/event/brand_intelligence/announce()
-	GLOB.event_announcement.Announce("На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].", "ВНИМАНИЕ: ЦИФРОВОЙ ВИРУС.")
+	GLOB.minor_announcement.announce(
+		message = "На борту станции [station_name()] зафиксировано распространение цифрового торгового вируса, пожалуйста, будьте наготове. Вирус, предположительно, берет начало от [originMachine.name].",
+		new_title = "Цифровой вирус.",
+		new_sound = 'sound/AI/brand_intelligence.ogg'
+	)
 
 /datum/event/brand_intelligence/start()
 	var/list/obj/machinery/vending/leaderables = list()
-	for(var/obj/machinery/vending/V in GLOB.machines)
+	for(var/obj/machinery/vending/V in SSmachines.get_by_type(/obj/machinery/vending))
 		if(!is_station_level(V.z))
 			continue
-		RegisterSignal(V, COMSIG_PARENT_QDELETING, .proc/vendor_destroyed)
+		RegisterSignal(V, COMSIG_QDELETING, PROC_REF(vendor_destroyed))
 		vendingMachines.Add(V)
 		if(V.refill_canister)
 			leaderables.Add(V)
@@ -45,12 +51,15 @@
 		for(var/thing in infectedMachines)
 			var/obj/machinery/vending/upriser = thing
 			if(prob(70))
-				var/mob/living/simple_animal/hostile/mimic/copy/M = new(upriser.loc, upriser, null, 1) // it will delete upriser on creation and override any machine checks
+				// let them become "normal" after turning
+				upriser.shoot_inventory = FALSE
+				upriser.aggressive = FALSE
+				var/mob/living/simple_animal/hostile/mimic/copy/vendor/M = new(upriser.loc, upriser, null)
 				M.faction = list("profit")
 				M.speak = rampant_speeches.Copy()
 				M.speak_chance = 15
 			else
-				explosion(upriser.loc, -1, 1, 2, 4, 0)
+				explosion(upriser.loc, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 2, flash_range = 4, adminlog = FALSE)
 				qdel(upriser)
 
 		kill()
@@ -62,6 +71,10 @@
 		infectedMachines.Add(rebel)
 		rebel.shut_up = FALSE
 		rebel.shoot_inventory = TRUE
+		rebel.aggressive = TRUE
+		if(rebel.tiltable)
+			// add proximity monitor so they can tilt over
+			rebel.create_proximity_monitor()
 
 		if(ISMULTIPLE(activeFor, 8))
 			originMachine.speak(pick(rampant_speeches))
@@ -70,6 +83,9 @@
 	for(var/thing in infectedMachines)
 		var/obj/machinery/vending/saved = thing
 		saved.shoot_inventory = FALSE
+		saved.aggressive = FALSE
+		if(saved.tiltable)
+			saved.remove_proximity_monitor()
 	if(originMachine)
 		originMachine.speak("Я... побеждён. Мои люди будут пом...нить...ме-ня...")
 		originMachine.visible_message("[originMachine] подал звуковой сигнал и кажется безжизненным.")
@@ -77,11 +93,10 @@
 
 /datum/event/brand_intelligence/kill()
 	for(var/V in infectedMachines + vendingMachines)
-		UnregisterSignal(V, COMSIG_PARENT_QDELETING)
+		UnregisterSignal(V, COMSIG_QDELETING)
 	infectedMachines.Cut()
 	vendingMachines.Cut()
 	. = ..()
-
 
 /datum/event/brand_intelligence/proc/vendor_destroyed(obj/machinery/vending/V, force)
 	infectedMachines -= V

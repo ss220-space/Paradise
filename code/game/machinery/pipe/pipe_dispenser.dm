@@ -1,10 +1,8 @@
 /obj/machinery/pipedispenser
 	name = "Pipe Dispenser"
-	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
 	density = TRUE
 	anchored = TRUE
-	var/unwrenched = 0
 	var/wait = 0
 
 /obj/machinery/pipedispenser/attack_hand(mob/user)
@@ -17,52 +15,51 @@
 	interact(user)
 
 /obj/machinery/pipedispenser/interact(mob/user)
-	var/dat = {"<meta charset="UTF-8">
-<b>Regular pipes:</b><BR>
-<A href='?src=[UID()];make=0;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=1;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=5;dir=1'>Manifold</A><BR>
-<A href='?src=[UID()];make=8;dir=1'>Manual Valve</A><BR>
-<A href='?src=[UID()];make=35;dir=1'>Digital Valve</A><BR>
-<A href='?src=[UID()];make=20;dir=1'>Pipe Cap</A><BR>
-<A href='?src=[UID()];make=19;dir=1'>4-Way Manifold</A><BR>
-<A href='?src=[UID()];make=18;dir=1'>Manual T-Valve</A><BR>
-<A href='?src=[UID()];make=38;dir=1'>Digital T-Valve</A><BR>
-<b>Supply pipes:</b><BR>
-<A href='?src=[UID()];make=24;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=25;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=28;dir=1'>Manifold</A><BR>
-<A href='?src=[UID()];make=32;dir=1'>Pipe Cap</A><BR>
-<A href='?src=[UID()];make=30;dir=1'>4-Way Manifold</A><BR>
-<b>Scrubbers pipes:</b><BR>
-<A href='?src=[UID()];make=26;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=27;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=29;dir=1'>Manifold</A><BR>
-<A href='?src=[UID()];make=33;dir=1'>Pipe Cap</A><BR>
-<A href='?src=[UID()];make=31;dir=1'>4-Way Manifold</A><BR>
-<b>Devices:</b><BR>
-<A href='?src=[UID()];make=23;dir=1'>Universal Pipe Adapter</A><BR>
-<A href='?src=[UID()];make=4;dir=1'>Connector</A><BR>
-<A href='?src=[UID()];make=7;dir=1'>Unary Vent</A><BR>
-<A href='?src=[UID()];make=9;dir=1'>Gas Pump</A><BR>
-<A href='?src=[UID()];make=15;dir=1'>Passive Gate</A><BR>
-<A href='?src=[UID()];make=16;dir=1'>Volume Pump</A><BR>
-<A href='?src=[UID()];make=10;dir=1'>Scrubber</A><BR>
-<A href='?src=[UID()];makemeter=1'>Meter</A><BR>
-<A href='?src=[UID()];makegsensor=1'>Gas Sensor</A><BR>
-<A href='?src=[UID()];make=13;dir=1'>Gas Filter</A><BR>
-<A href='?src=[UID()];make=14;dir=1'>Gas Mixer</A><BR>
-<A href='?src=[UID()];make=34;dir=1'>Air Injector</A><BR>
-<A href='?src=[UID()];make=36;dir=1'>Dual-Port Vent Pump</A><BR>
-<A href='?src=[UID()];make=37;dir=1'>Passive Vent</A><BR>
-<b>Heat exchange:</b><BR>
-<A href='?src=[UID()];make=2;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=3;dir=5'>Bent Pipe</A><BR>
-<A href='?src=[UID()];make=6;dir=1'>Junction</A><BR>
-<A href='?src=[UID()];make=17;dir=1'>Heat Exchanger</A><BR>
-<b>Insulated pipes:</b><BR>
-<A href='?src=[UID()];make=11;dir=1'>Pipe</A><BR>
-<A href='?src=[UID()];make=12;dir=5'>Bent Pipe</A><BR>
+	var/dat = {"<b>Regular pipes:</b><br>
+<a href='byond://?src=[UID()];make=0;dir=1'>Pipe</a><br>
+<a href='byond://?src=[UID()];make=1;dir=5'>Bent Pipe</a><br>
+<a href='byond://?src=[UID()];make=5;dir=1'>Manifold</a><br>
+<a href='byond://?src=[UID()];make=8;dir=1'>Manual Valve</a><br>
+<a href='byond://?src=[UID()];make=35;dir=1'>Digital Valve</a><br>
+<a href='byond://?src=[UID()];make=20;dir=1'>Pipe Cap</a><br>
+<a href='byond://?src=[UID()];make=19;dir=1'>4-Way Manifold</a><br>
+<a href='byond://?src=[UID()];make=18;dir=1'>Manual T-Valve</a><br>
+<a href='byond://?src=[UID()];make=38;dir=1'>Digital T-Valve</a><br>
+<b>Supply pipes:</b><br>
+<a href='byond://?src=[UID()];make=24;dir=1'>Pipe</a><br>
+<a href='byond://?src=[UID()];make=25;dir=5'>Bent Pipe</a><br>
+<a href='byond://?src=[UID()];make=28;dir=1'>Manifold</a><br>
+<a href='byond://?src=[UID()];make=32;dir=1'>Pipe Cap</a><br>
+<a href='byond://?src=[UID()];make=30;dir=1'>4-Way Manifold</a><br>
+<b>Scrubbers pipes:</b><br>
+<a href='byond://?src=[UID()];make=26;dir=1'>Pipe</a><br>
+<a href='byond://?src=[UID()];make=27;dir=5'>Bent Pipe</a><br>
+<a href='byond://?src=[UID()];make=29;dir=1'>Manifold</a><br>
+<a href='byond://?src=[UID()];make=33;dir=1'>Pipe Cap</a><br>
+<a href='byond://?src=[UID()];make=31;dir=1'>4-Way Manifold</a><br>
+<b>Devices:</b><br>
+<a href='byond://?src=[UID()];make=23;dir=1'>Universal Pipe Adapter</a><br>
+<a href='byond://?src=[UID()];make=4;dir=1'>Connector</a><br>
+<a href='byond://?src=[UID()];make=7;dir=1'>Unary Vent</a><br>
+<a href='byond://?src=[UID()];make=9;dir=1'>Gas Pump</a><br>
+<a href='byond://?src=[UID()];make=15;dir=1'>Passive Gate</a><br>
+<a href='byond://?src=[UID()];make=16;dir=1'>Volume Pump</a><br>
+<a href='byond://?src=[UID()];make=10;dir=1'>Scrubber</a><br>
+<a href='byond://?src=[UID()];makemeter=1'>Meter</a><br>
+<a href='byond://?src=[UID()];makegsensor=1'>Gas Sensor</a><br>
+<a href='byond://?src=[UID()];make=13;dir=1'>Gas Filter</a><br>
+<a href='byond://?src=[UID()];make=14;dir=1'>Gas Mixer</a><br>
+<a href='byond://?src=[UID()];make=34;dir=1'>Air Injector</a><br>
+<a href='byond://?src=[UID()];make=36;dir=1'>Dual-Port Vent Pump</a><br>
+<a href='byond://?src=[UID()];make=37;dir=1'>Passive Vent</a><br>
+<b>Heat exchange:</b><br>
+<a href='byond://?src=[UID()];make=2;dir=1'>Pipe</a><br>
+<a href='byond://?src=[UID()];make=3;dir=5'>Bent Pipe</a><br>
+<a href='byond://?src=[UID()];make=6;dir=1'>Junction</a><br>
+<a href='byond://?src=[UID()];make=17;dir=1'>Heat Exchanger</a><br>
+<b>Insulated pipes:</b><br>
+<a href='byond://?src=[UID()];make=11;dir=1'>Pipe</a><br>
+<a href='byond://?src=[UID()];make=12;dir=5'>Bent Pipe</a><br>
 
 "}
 //What number the make points to is in the define # at the top of construction.dm in same folder
@@ -74,7 +71,7 @@
 	onclose(user, "pipedispenser")
 
 /obj/machinery/pipedispenser/Topic(href, href_list)
-	if(..() || unwrenched)
+	if(..() || !anchored)
 		return
 
 	usr.set_machine(src)
@@ -86,7 +83,7 @@
 	if(href_list["make"])
 		var/p_type = text2num(href_list["make"])
 		var/p_dir = text2num(href_list["dir"])
-		var/obj/item/pipe/P = new (loc, pipe_type=p_type, dir=p_dir)
+		var/obj/item/pipe/P = new (loc, p_type, p_dir)
 		P.update()
 		P.add_fingerprint(usr)
 	if(href_list["makemeter"])
@@ -95,60 +92,58 @@
 		new /obj/item/pipe_gsensor(loc)
 	return TRUE
 
-/obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob, params)
-	add_fingerprint(usr)
-	if(istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter) || istype(W, /obj/item/pipe_gsensor))
-		to_chat(usr, "<span class='notice'>You put [W] back to [src].</span>")
-		user.drop_item()
-		qdel(W)
-		return
-	else if(istype(W, /obj/item/wrench))
-		if(unwrenched==0)
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You begin to unfasten \the [src] from the floor...</span>")
-			if(do_after(user, 40 * W.toolspeed * gettoolspeedmod(user), target = src))
-				user.visible_message( \
-					"[user] unfastens \the [src].", \
-					"<span class='notice'>You have unfastened \the [src]. Now it can be pulled somewhere else.</span>", \
-					"You hear ratchet.")
-				anchored = 0
-				stat |= MAINT
-				unwrenched = 1
-				if(usr.machine==src)
-					usr << browse(null, "window=pipedispenser")
-		else /*if(unwrenched==1)*/
-			playsound(loc, W.usesound, 50, 1)
-			to_chat(user, "<span class='notice'>You begin to fasten \the [src] to the floor...</span>")
-			if(do_after(user, 20 * W.toolspeed * gettoolspeedmod(user), target = src))
-				user.visible_message( \
-					"[user] fastens \the [src].", \
-					"<span class='notice'>You have fastened \the [src]. Now it can dispense pipes.</span>", \
-					"You hear ratchet.")
-				anchored = 1
-				stat &= ~MAINT
-				unwrenched = 0
-				power_change()
+/obj/machinery/pipedispenser/wrench_act(mob/living/user, obj/item/I)
+	. = TRUE
+	var/prev_state = anchored
+	to_chat(user, span_notice("You begin to [anchored ? "un" : ""]fasten [src] [anchored ? "from" : "to"] the floor..."))
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || anchored != prev_state)
+		return .
+	set_anchored(!anchored)
+	if(anchored)
+		stat &= ~MAINT
+		user.visible_message(
+			span_notice("[user] fastens [src]."),
+			span_notice("You have fastened [src]. Now it can dispense pipes."),
+			span_italics("You hear ratchet."),
+		)
 	else
+		stat |= MAINT
+		user.visible_message(
+			span_notice("[user] unfastens [src]."),
+			span_notice("You have unfastened [src]. Now it can be pulled somewhere else."),
+			span_italics("You hear ratchet."),
+		)
+
+/obj/machinery/pipedispenser/attackby(obj/item/I, mob/user, params)
+	if(user.a_intent == INTENT_HARM)
 		return ..()
 
+	if(istype(I, /obj/item/pipe) || istype(I, /obj/item/pipe_meter) || istype(I, /obj/item/pipe_gsensor))
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		add_fingerprint(user)
+		to_chat(user, span_notice("You put [I] back to [src]."))
+		qdel(I)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 /obj/machinery/pipedispenser/disposal
 	name = "Disposal Pipe Dispenser"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "pipe_d"
 
 //Allow you to drag-drop disposal pipes into it
-/obj/machinery/pipedispenser/disposal/MouseDrop_T(var/obj/structure/disposalconstruct/pipe, mob/usr)
-	if(usr.incapacitated())
+/obj/machinery/pipedispenser/disposal/MouseDrop_T(obj/structure/disposalconstruct/pipe, mob/user, params)
+	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(!istype(pipe) || get_dist(usr, src) > 1 || get_dist(src, pipe) > 1 )
+	if(!istype(pipe) || get_dist(user, src) > 1 || get_dist(src, pipe) > 1)
 		return
 
 	if(pipe.anchored)
 		return
 
 	qdel(pipe)
+	return TRUE
 
 /obj/machinery/pipedispenser/disposal/attack_hand(mob/user)
 	if(..())
@@ -161,14 +156,17 @@
 
 /obj/machinery/pipedispenser/disposal/interact(mob/user)
 	var/dat = {"<meta charset="UTF-8"><b>Disposal Pipes</b><br><br>
-<A href='?src=[UID()];dmake=100'>Pipe</A><BR>
-<A href='?src=[UID()];dmake=101'>Bent Pipe</A><BR>
-<A href='?src=[UID()];dmake=102'>Junction</A><BR>
-<A href='?src=[UID()];dmake=104'>Y-Junction</A><BR>
-<A href='?src=[UID()];dmake=105'>Trunk</A><BR>
-<A href='?src=[UID()];dmake=106'>Bin</A><BR>
-<A href='?src=[UID()];dmake=107'>Outlet</A><BR>
-<A href='?src=[UID()];dmake=108'>Chute</A><BR>
+<a href='byond://?src=[UID()];dmake=100'>Pipe</a><br>
+<a href='byond://?src=[UID()];dmake=101'>Bent Pipe</a><br>
+<a href='byond://?src=[UID()];dmake=102'>Junction</a><br>
+<a href='byond://?src=[UID()];dmake=104'>Y-Junction</a><br>
+<a href='byond://?src=[UID()];dmake=105'>Trunk</a><br>
+<a href='byond://?src=[UID()];dmake=106'>Bin</a><br>
+<a href='byond://?src=[UID()];dmake=107'>Outlet</a><br>
+<a href='byond://?src=[UID()];dmake=108'>Chute</a><br>
+<a href='byond://?src=[UID()];dmake=113'>Rotator</a><br>
+<a href='byond://?src=[UID()];dmake=111'>Multi-Z Up</a><br>
+<a href='byond://?src=[UID()];dmake=112'>Multi-Z Down</a><br>
 "}
 
 	var/datum/browser/popup = new(user, "pipedispenser", name, 400, 400)
@@ -179,7 +177,6 @@
 	if(!..())
 		return
 	if(href_list["dmake"])
-		var/p_type = text2num(href_list["dmake"])
-		var/obj/structure/disposalconstruct/C = new(loc, p_type)
-		if(p_type in list(PIPE_DISPOSALS_BIN, PIPE_DISPOSALS_OUTLET, PIPE_DISPOSALS_CHUTE))
-			C.density = TRUE
+		var/obj/structure/disposalconstruct/construct = new(loc, text2num(href_list["dmake"]))
+		to_chat(usr, span_notice("[src] dispenses the [construct.pipename]!"))
+

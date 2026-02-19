@@ -1,6 +1,7 @@
 /mob/living/silicon/robot/Life(seconds, times_fired)
 	set invisibility = 0
-	if(notransform)
+
+	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
 		return
 
 	. = ..()
@@ -12,8 +13,6 @@
 		handle_robot_hud_updates()
 		handle_robot_cell()
 		process_locks()
-		update_items()
-
 
 /mob/living/silicon/robot/proc/handle_robot_cell()
 	if(stat != DEAD)
@@ -55,15 +54,15 @@
 		uneq_all()
 
 	if(!is_component_functioning("radio") || stat == UNCONSCIOUS)
-		radio.on = 0
+		radio.set_on(FALSE)
 	else
-		radio.on = 1
+		radio.set_on(TRUE)
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state
 	update_icons()
 	if(emagged)
-		throw_alert("hacked", /obj/screen/alert/hacked)
+		throw_alert("hacked", /atom/movable/screen/alert/hacked)
 	else
 		clear_alert("hacked")
 
@@ -95,32 +94,18 @@
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)
-			if(0.75 to INFINITY)
+			if(CELL_CHARGE_HIGH to CELL_CHARGE_UPPER_BORDER)
 				clear_alert("charge")
-			if(0.5 to 0.75)
-				throw_alert("charge", /obj/screen/alert/lowcell, 1)
-			if(0.25 to 0.5)
-				throw_alert("charge", /obj/screen/alert/lowcell, 2)
-			if(0.01 to 0.25)
-				throw_alert("charge", /obj/screen/alert/lowcell, 3)
+			if(CELL_CHARGE_MEDIUM to CELL_CHARGE_HIGH)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 1)
+			if(CELL_CHARGE_LOW to CELL_CHARGE_MEDIUM)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 2)
+			if(CELL_CHARGE_LOWER_BORDER to CELL_CHARGE_LOW)
+				throw_alert("charge", /atom/movable/screen/alert/lowcell, 3)
 			else
-				throw_alert("charge", /obj/screen/alert/emptycell)
+				throw_alert("charge", /atom/movable/screen/alert/emptycell)
 	else
-		throw_alert("charge", /obj/screen/alert/nocell)
-
-
-
-/mob/living/silicon/robot/proc/update_items() // What in the Sam hell is this?
-	if(client)
-		for(var/obj/I in get_all_slots())
-			client.screen |= I
-	if(module_state_1)
-		module_state_1:screen_loc = ui_inv1
-	if(module_state_2)
-		module_state_2:screen_loc = ui_inv2
-	if(module_state_3)
-		module_state_3:screen_loc = ui_inv3
-	update_icons()
+		throw_alert("charge", /atom/movable/screen/alert/nocell)
 
 /mob/living/silicon/robot/proc/process_locks()
 	if(weapon_lock)
@@ -128,19 +113,9 @@
 		weaponlock_time --
 		if(weaponlock_time <= 0)
 			if(src.client)
-				to_chat(src, "<span class='warning'><B>Weapon Lock Timed Out!</span>")
+				to_chat(src, span_warning("<b>Weapon Lock Timed Out!"))
 			weapon_lock = 0
 			weaponlock_time = 120
-
-/mob/living/silicon/robot/update_canmove(delay_action_updates = 0)
-	if(paralysis || stunned || IsWeakened() || buckled || lockcharge || stat)
-		canmove = 0
-	else
-		canmove = 1
-	update_transform()
-	if(!delay_action_updates)
-		update_action_buttons_icon()
-	return canmove
 
 //Robots on fire
 /mob/living/silicon/robot/handle_fire()
@@ -153,13 +128,13 @@
 	else
 		ExtinguishMob()
 
-
 /mob/living/silicon/robot/update_fire()
-	overlays -= image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+	var/static/robot_fire_olay = mutable_appearance('icons/mob/OnFire.dmi', "human_generic_burn")
+	cut_overlay(robot_fire_olay)
 	if(on_fire)
-		overlays += image("icon"='icons/mob/OnFire.dmi', "icon_state"="Generic_mob_burning")
+		add_overlay(robot_fire_olay)
 
-/mob/living/silicon/robot/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/mob/living/silicon/robot/fire_act(exposed_temperature, exposed_volume)
 	if(!on_fire) //Silicons don't gain stacks from hotspots, but hotspots can ignite them
 		IgniteMob()
 

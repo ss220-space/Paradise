@@ -1,6 +1,5 @@
 /area/awaymission/UO45
 	name = "UO45"
-	report_alerts = FALSE
 
 /area/awaymission/UO45/gateaway
 	name = "UO45 Gateway"

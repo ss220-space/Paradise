@@ -7,19 +7,22 @@
 		"Поставьте свою подпись.",
 		"Пора за работу.",
 		"Дело сделано.",
-		"Станция Нанотрейзен.",
+		"Слава \"Нанотрейзен\"!",
 		"Офицер СБ.",
 		"Капитан.",
 		"Вульпканин.",
 		"Съешь же ещё этих мягких французских булок, да выпей чаю.",
 		"Клоун, прекрати разбрасывать банановые кожурки офицерам под ноги!",
-		"Капитан, вы уверены что хотите назначить клоуна на должность главы персонала?",
+		"Капитан, вы уверены, что хотите назначить клоуна на должность главы персонала?",
 	)
 
-/datum/ui_module/tts_seeds_explorer/ui_interact(mob/user, ui_key = "main", datum/tgui/ui = null, force_open = FALSE, datum/tgui/master_ui = null, datum/ui_state/state = GLOB.always_state)
-	ui = SStgui.try_update_ui(user, src, ui_key, ui, force_open)
+/datum/ui_module/tts_seeds_explorer/ui_state(mob/user)
+	return GLOB.always_state
+
+/datum/ui_module/tts_seeds_explorer/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, ui_key, "TTSSeedsExplorer", name, 550, 800, master_ui, state)
+		ui = new(user, src, "TTSSeedsExplorer", name)
 		ui.set_autoupdate(FALSE)
 		ui.open()
 

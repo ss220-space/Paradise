@@ -3,9 +3,7 @@
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance."
 	icon_state = "syringegun"
 	item_state = "syringegun"
-	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=2;biotech=3"
-	throw_speed = 3
 	throw_range = 7
 	force = 4
 	materials = list(MAT_METAL=2000)
@@ -14,11 +12,11 @@
 	var/list/syringes = list()
 	var/max_syringes = 1
 
-/obj/item/gun/syringe/New()
-	..()
+/obj/item/gun/syringe/Initialize(mapload)
+	. = ..()
 	chambered = new /obj/item/ammo_casing/syringegun(src)
 
-/obj/item/gun/syringe/process_chamber()
+/obj/item/gun/syringe/handle_chamber()
 	if(!length(syringes) || chambered.BB)
 		return
 
@@ -40,12 +38,12 @@
 
 /obj/item/gun/syringe/examine(mob/user)
 	. = ..()
-	var/num_syringes = syringes.len + (chambered.BB ? 1 : 0)
-	. += "<span class='notice'>Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining.</span>"
+	var/num_syringes = length(syringes) + (chambered.BB ? 1 : 0)
+	. += span_notice("Can hold [max_syringes] syringe\s. Has [num_syringes] syringe\s remaining.")
 
 /obj/item/gun/syringe/attack_self(mob/living/user)
 	if(!length(syringes) && !chambered.BB)
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		balloon_alert(user, "уже разряжено!")
 		return FALSE
 
 	var/obj/item/reagent_containers/syringe/S
@@ -60,30 +58,39 @@
 	user.put_in_hands(S)
 	syringes.Remove(S)
 	process_chamber()
-	to_chat(user, "<span class='notice'>You unload [S] from \the [src]!</span>")
+	balloon_alert(user, "шприц разряжен!")
 	return TRUE
 
-/obj/item/gun/syringe/attackby(obj/item/A, mob/user, params, show_msg = TRUE)
-	if(istype(A, /obj/item/reagent_containers/syringe))
+/obj/item/gun/syringe/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/reagent_containers/syringe))
+		add_fingerprint(user)
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
-		if(in_clip < max_syringes)
-			if(!user.unEquip(A))
-				return
-			to_chat(user, "<span class='notice'>You load [A] into \the [src]!</span>")
-			syringes.Add(A)
-			A.loc = src
-			process_chamber() // Chamber the syringe if none is already
-			return TRUE
-		else
-			to_chat(user, "<span class='notice'>[src] cannot hold more syringes.</span>")
-	else
-		return ..()
+		if(in_clip >= max_syringes)
+			balloon_alert(user, "недостаточно места!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		balloon_alert(user, "заряжено!")
+		syringes += I
+		process_chamber() // chamber the syringe if none is already
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	return ..()
 
 /obj/item/gun/syringe/rapidsyringe
 	name = "rapid syringe gun"
 	desc = "A modification of the syringe gun design, using a rotating cylinder to store up to six syringes."
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
+
+/obj/item/gun/syringe/rapidsyringe/syndicate
+	var/syringes_load = 6
+
+/obj/item/gun/syringe/rapidsyringe/syndicate/Initialize(mapload)
+	. = ..()
+	for(var/i = 0, i < syringes_load, i++)
+		syringes += new /obj/item/reagent_containers/syringe/traitor_random(src)
+	process_chamber()
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"
@@ -104,9 +111,8 @@
 	fire_sound = 'sound/items/blowgunproj.ogg'
 
 /obj/item/gun/syringe/blowgun/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	visible_message("<span class='danger'>[user] starts aiming with a blowgun!</span>")
-	if(do_after(user, 15, target = src))
-		user.adjustStaminaLoss(20)
-		user.adjustOxyLoss(20)
+	visible_message(span_danger("[user] starts aiming with a blowgun!"))
+	if(do_after(user, 1.5 SECONDS, src))
+		user.apply_damages(oxy = 20, stamina = 20)
 		..()
 

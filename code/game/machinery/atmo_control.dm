@@ -1,63 +1,62 @@
-/obj/machinery/air_sensor
-	icon = 'icons/obj/stationobjs.dmi'
+/obj/machinery/atmospherics/air_sensor
 	icon_state = "gsensor1"
-	resistance_flags = FIRE_PROOF
 	name = "gas sensor"
-	req_one_access_txt = "24;10"
 
-	anchored = 1
-	var/state = 0
-	var/bolts = 1
-
-	var/id_tag
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/air_sensor
 	frequency = ATMOS_TANKS_FREQ
+	on = TRUE
 
-	var/on = 1
-	var/output = 3
-	//Flags:
-	// 1 for pressure
-	// 2 for temperature
-	// Output >= 4 includes gas composition
-	// 4 for oxygen concentration
-	// 8 for toxins concentration
-	// 16 for nitrogen concentration
-	// 32 for carbon dioxide concentration
+	var/bolts = TRUE
+	var/id_tag
+	/// 1 - Pressure. 2 - Temperature.
+	/// 4 - Oxygen. 8 - Toxins. 16 - Nitrogen. 32 - Carbon Dioxide. 64 - Nitrous Oxide.
+	var/output = SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE
 
-/obj/machinery/air_sensor/update_icon()
+/obj/machinery/atmospherics/air_sensor/update_icon_state()
 	icon_state = "gsensor[on]"
 
-/obj/machinery/air_sensor/proc/toggle_out_flag(bitflag_value)
-	if(!(bitflag_value in list(1, 2, 4, 8, 16, 32)))
-		return 0
+/obj/machinery/atmospherics/air_sensor/proc/toggle_out_flag(bitflag_value)
+	if(!(bitflag_value in list(
+								SENSOR_SCAN_PRESSURE,
+								SENSOR_SCAN_TEMPERATURE,
+								SENSOR_COMPOSITION_OXYGEN,
+								SENSOR_COMPOSITION_TOXINS,
+								SENSOR_COMPOSITION_NITROGEN,
+								SENSOR_COMPOSITION_CO2,
+								SENSOR_COMPOSITION_N2O,
+								SENSOR_COMPOSITION_H2,
+								SENSOR_COMPOSITION_H2O,
+							)))
+		return
 	if(output & bitflag_value)
 		output &= ~bitflag_value
 	else
 		output |= bitflag_value
 
-/obj/machinery/air_sensor/proc/toggle_bolts()
+/obj/machinery/atmospherics/air_sensor/proc/toggle_bolts()
 	bolts = !bolts
 	if(bolts)
 		visible_message("You hear a quite click as the [src] bolts to the floor", "You hear a quite click")
 	else
 		visible_message("You hear a quite click as the [src]'s floor bolts raise", "You hear a quite click")
 
-/obj/machinery/air_sensor/multitool_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/air_sensor/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
-/obj/machinery/air_sensor/wrench_act(mob/user, obj/item/I)
+/obj/machinery/atmospherics/air_sensor/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(bolts)
 		to_chat(user, "[src] is bolted to the floor! You can't detach it like this.")
-		return
-	playsound(loc, I.usesound, 50, 1)
-	to_chat(user, "<span class='notice'>You begin to unfasten [src]...</span>")
-	if(do_after(user, 40 * I.toolspeed * gettoolspeedmod(user), target = src))
-		user.visible_message("[user] unfastens [src].", "<span class='notice'>You have unfastened [src].</span>", "You hear ratchet.")
-		new /obj/item/pipe_gsensor(loc)
-		qdel(src)
+		return .
+	to_chat(user, span_notice("You begin to unfasten [src]..."))
+	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume) || bolts)
+		return .
+	user.visible_message("[user] unfastens [src].", span_notice("You have unfastened [src]."), "You hear ratchet.")
+	new /obj/item/pipe_gsensor(loc)
+	qdel(src)
 
-/obj/machinery/air_sensor/process_atmos()
+/obj/machinery/atmospherics/air_sensor/process_atmos()
 	if(on)
 		if(!radio_connection)
 			return
@@ -66,59 +65,69 @@
 		signal.data["tag"] = id_tag
 		signal.data["timestamp"] = world.time
 
-		var/datum/gas_mixture/air_sample = return_air()
+		var/turf/location = get_turf(src)
 
-		if(output&1)
-			signal.data["pressure"] = num2text(round(air_sample.return_pressure(),0.1),)
-		if(output&2)
-			signal.data["temperature"] = round(air_sample.temperature,0.1)
+		var/datum/gas_mixture/air_sample = location.get_readonly_air()
 
-		if(output>4)
+		if(output & SENSOR_SCAN_PRESSURE)
+			signal.data["pressure"] = num2text(round(air_sample.return_pressure(), 0.1))
+		if(output & SENSOR_SCAN_TEMPERATURE)
+			signal.data["temperature"] = round(air_sample.temperature(), 0.1)
+
+		if(output > (SENSOR_SCAN_PRESSURE|SENSOR_SCAN_TEMPERATURE))
 			var/total_moles = air_sample.total_moles()
 			if(total_moles > 0)
-				if(output&4)
-					signal.data["oxygen"] = round(100*air_sample.oxygen/total_moles,0.1)
-				if(output&8)
-					signal.data["toxins"] = round(100*air_sample.toxins/total_moles,0.1)
-				if(output&16)
-					signal.data["nitrogen"] = round(100*air_sample.nitrogen/total_moles,0.1)
-				if(output&32)
-					signal.data["carbon_dioxide"] = round(100*air_sample.carbon_dioxide/total_moles,0.1)
+				if(output & SENSOR_COMPOSITION_OXYGEN)
+					signal.data[TLV_O2] = round(100 * air_sample.oxygen() / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_TOXINS)
+					signal.data[TLV_PL] = round(100 * air_sample.toxins() / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_NITROGEN)
+					signal.data[TLV_N2] = round(100 * air_sample.nitrogen() / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_CO2)
+					signal.data[TLV_CO2] = round(100 * air_sample.carbon_dioxide() / total_moles, 0.1)
+				if(output & SENSOR_COMPOSITION_N2O)
+					signal.data[TLV_N2O] = round(100 * air_sample.sleeping_agent() / total_moles, 0.1)
+				if(output &  SENSOR_COMPOSITION_H2)
+					signal.data[TLV_H2] = round(100 * air_sample.hydrogen() / total_moles, 0.1)
+				if(output &  SENSOR_COMPOSITION_H2O)
+					signal.data[TLV_H2O] = round(100 * air_sample.water_vapor() / total_moles, 0.1)
 			else
-				signal.data["oxygen"] = 0
-				signal.data["toxins"] = 0
-				signal.data["nitrogen"] = 0
-				signal.data["carbon_dioxide"] = 0
-		signal.data["sigtype"]="status"
+				signal.data[TLV_O2] = 0
+				signal.data[TLV_PL] = 0
+				signal.data[TLV_N2] = 0
+				signal.data[TLV_CO2] = 0
+				signal.data[TLV_N2O] = 0
+				signal.data[TLV_H2] = 0
+				signal.data[TLV_H2O] = 0
+
+		signal.data["sigtype"] = "status"
 		radio_connection.post_signal(src, signal, filter = RADIO_ATMOSIA)
 
-/obj/machinery/air_sensor/set_frequency(new_frequency)
+/obj/machinery/atmospherics/air_sensor/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	if(frequency)
 		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
 
-/obj/machinery/air_sensor/Initialize()
+/obj/machinery/atmospherics/air_sensor/Initialize(mapload)
 	. = ..()
+	GLOB.gas_sensors += src
 	SSair.atmos_machinery += src
 	set_frequency(frequency)
 
-/obj/machinery/air_sensor/Destroy()
+/obj/machinery/atmospherics/air_sensor/Destroy()
+	GLOB.gas_sensors -= src
 	SSair.atmos_machinery -= src
 	if(SSradio)
 		SSradio.remove_object(src, frequency)
 	radio_connection = null
 	return ..()
 
-/obj/machinery/air_sensor/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/air_sensor(src)
-
 /obj/machinery/computer/general_air_control
-	icon = 'icons/obj/computer.dmi'
 	icon_screen = "tank"
 	icon_keyboard = "atmos_key"
 	circuit = /obj/item/circuitboard/air_management
-	req_one_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	name = "Computer"
 
@@ -127,16 +136,15 @@
 	var/list/sensors
 	var/list/sensor_information
 
-/obj/machinery/computer/general_air_control/Initialize()
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control
+
+/obj/machinery/computer/general_air_control/Initialize(mapload)
 	. = ..()
 	if(!sensors)
 		sensors = list()
 	if(!sensor_information)
 		sensor_information = list()
 	set_frequency(frequency)
-
-/obj/machinery/computer/general_air_control/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/general_air_control(src)
 
 /obj/machinery/computer/general_air_control/Destroy()
 	if(SSradio)
@@ -163,7 +171,7 @@
 
 /obj/machinery/computer/general_air_control/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/computer/general_air_control/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption) return
@@ -176,7 +184,7 @@
 /obj/machinery/computer/general_air_control/proc/return_text()
 	var/sensor_data
 	if(show_sensors)
-		if(sensors.len)
+		if(length(sensors))
 			for(var/id_tag in sensors)
 				var/long_name = sensors[id_tag]
 				var/list/data = sensor_information[id_tag]
@@ -188,21 +196,27 @@
 						sensor_part += "<tr><th>Pressure:</th><td>[data["pressure"]] kPa</td></tr>"
 					if(data["temperature"])
 						sensor_part += "<tr><th>Temperature:</th><td>[data["temperature"]] K</td></tr>"
-					if(data["oxygen"]||data["toxins"]||data["nitrogen"]||data["carbon_dioxide"])
+					if(data[TLV_O2] || data[TLV_PL] || data[TLV_PL] || data[TLV_CO2] || data[TLV_N2O] || data[TLV_H2] || data[TLV_H2O])
 						sensor_part += "<tr><th>Gas Composition :</th><td><ul>"
-						if(data["oxygen"])
-							sensor_part += "<li>[data["oxygen"]]% O<sub>2</sub></li>"
-						if(data["nitrogen"])
-							sensor_part += "<li>[data["nitrogen"]]% N</li>"
-						if(data["carbon_dioxide"])
-							sensor_part += "<li>[data["carbon_dioxide"]]% CO<sub>2</sub></li>"
-						if(data["toxins"])
-							sensor_part += "<li>[data["toxins"]]% Plasma</li>"
+						if(data[TLV_O2])
+							sensor_part += "<li>[data[TLV_O2]]% O<sub>2</sub></li>"
+						if(data[TLV_N2])
+							sensor_part += "<li>[data[TLV_N2]]% N<sub>2</sub></li>"
+						if(data[TLV_CO2])
+							sensor_part += "<li>[data[TLV_CO2]]% CO<sub>2</sub></li>"
+						if(data[TLV_N2O])
+							sensor_part += "<li>[data[TLV_N2O]]% N<sub>2</sub>O</li>"
+						if(data[TLV_PL])
+							sensor_part += "<li>[data[TLV_PL]]% Plasma</li>"
+						if(data[TLV_H2])
+							sensor_part += "<li>[data[TLV_H2]]% H<sub>2</sub></li>"
+						if(data[TLV_H2O])
+							sensor_part += "<li>[data[TLV_H2O]]% H<sub>2</sub>O</li>"
 						sensor_part += "</ul></td></tr>"
 					sensor_part += "</table>"
 
 				else
-					sensor_part += "<FONT color='red'>[long_name] can not be found!</FONT><BR>"
+					sensor_part += "<span style='color: red;'>[long_name] can not be found!</span><br>"
 				sensor_part += "</fieldset>"
 				sensor_data += sensor_part
 
@@ -255,7 +269,7 @@
 
 /obj/machinery/computer/general_air_control/large_tank_control
 	circuit = /obj/item/circuitboard/large_tank_control
-	req_one_access_txt = "24;10"
+	req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 
 	var/input_tag
 	var/output_tag
@@ -268,7 +282,9 @@
 
 	var/pressure_setting = ONE_ATMOSPHERE * 45
 
-/obj/machinery/computer/general_air_control/large_tank_control/Initialize()
+	multitool_menu_type = /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control
+
+/obj/machinery/computer/general_air_control/large_tank_control/Initialize(mapload)
 	. = ..()
 	input_linkable = list(
 		/obj/machinery/atmospherics/unary/outlet_injector,
@@ -278,12 +294,9 @@
 		/obj/machinery/atmospherics/unary/vent_pump,
 	)
 
-/obj/machinery/computer/general_air_control/large_tank_control/init_multitool_menu()
-	multitool_menu = new /datum/multitool_menu/idtag/freq/general_air_control/large_tank_control(src)
-
 /obj/machinery/computer/general_air_control/large_tank_control/multitool_act(mob/user, obj/item/I)
 	. = TRUE
-	multitool_menu.interact(user, I)
+	multitool_menu_interact(user, I)
 
 /obj/machinery/computer/general_air_control/large_tank_control/proc/can_link_to_input(obj/device_to_link)
 	if(is_type_in_list(device_to_link, input_linkable))
@@ -346,18 +359,18 @@
 	//if(signal.data)
 	//	input_info = signal.data // Attempting to fix intake control -- TLE
 
-	output += "<h2>Tank Control System</h2><BR>"
+	output += "<h2>Tank Control System</h2><br>"
 	if(input_tag)
 		if(input_info)
 			var/power = (input_info["power"])
 			var/volume_rate = input_info["volume_rate"]
 			output += {"
 <fieldset>
-	<legend>Input (<A href='?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Input (<a href='byond://?src=[UID()];in_refresh_status=1'>Refresh</a>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</a></td>
 		</tr>
 		<tr>
 			<th>Rate:</th>
@@ -367,28 +380,28 @@
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find input port</FONT> <A href='?src=[UID()];in_refresh_status=1'>Search</A><BR>"
+			output += "<span style='color: red;'>ERROR: Can not find input port</span> <a href='byond://?src=[UID()];in_refresh_status=1'>Search</a><br>"
 	if(output_tag)
 		if(output_info)
 			var/power = (output_info["power"])
 			var/output_pressure = output_info["internal"]
 			output += {"
 <fieldset>
-	<legend>Output (<A href='?src=[UID()];out_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Output (<a href='byond://?src=[UID()];out_refresh_status=1'>Refresh</a>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><A href='?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</a></td>
 		</tr>
 		<tr>
 			<th>Max Output Pressure:</th>
-			<td><A href='?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
+			<td><a href='byond://?src=[UID()];out_set_pressure=1'>[output_pressure]</a> kPa</td>
 		</tr>
 	</table>
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <A href='?src=[UID()];out_refresh_status=1'>Search</A><BR>"
+			output += "<span style='color: red;'>ERROR: Can not find output port</span> <a href='byond://?src=[UID()];out_refresh_status=1'>Search</a><br>"
 
 	return output
 
@@ -426,7 +439,7 @@
 	add_fingerprint(usr)
 
 	if(href_list["out_set_pressure"])
-		var/response=input(usr,"Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]") as num
+		var/response = tgui_input_number(usr, "Set new pressure, in kPa. \[0-[50*ONE_ATMOSPHERE]\]")
 		pressure_setting = text2num(response)
 		pressure_setting = between(0, pressure_setting, 50*ONE_ATMOSPHERE)
 
@@ -463,7 +476,6 @@
 	src.updateUsrDialog()
 
 /obj/machinery/computer/general_air_control/fuel_injection
-	icon = 'icons/obj/computer.dmi'
 	icon_screen = "atmos"
 	circuit = /obj/item/circuitboard/injector_control
 
@@ -506,7 +518,7 @@
 
 /obj/machinery/computer/general_air_control/fuel_injection/return_text()
 	var/output = ..()
-	output += "<fieldset><legend>Fuel Injection System (<A href='?src=[UID()];refresh_status=1'>Refresh</A>)</legend>"
+	output += "<fieldset><legend>Fuel Injection System (<a href='byond://?src=[UID()];refresh_status=1'>Refresh</a>)</legend>"
 	if(device_info)
 		var/power = device_info["power"]
 		var/volume_rate = device_info["volume_rate"]
@@ -521,13 +533,13 @@
 		</tr>
 		<tr>
 			<th>Automated Fuel Injection:</th>
-			<td><A href='?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</A></td>
+			<td><a href='byond://?src=[UID()];toggle_automation=1'>[automation?"Engaged":"Disengaged"]</a></td>
 		</tr>"}
 
 		if(automation)
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Engaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Engaged</a><br>"
 			output += {"
 			<tr>
 				<td colspan="2">Injector Controls Locked Out</td>
@@ -536,16 +548,16 @@
 		else
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <A href='?src=[UID()];toggle_automation=1'>Disengaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Disengaged</a><br>"
 			output += {"
 			<tr>
 				<th>Injector:</th>
-				<td><A href='?src=[UID()];toggle_injector=1'>Toggle Power</A> <A href='?src=[UID()];injection=1'>Inject (1 Cycle)</A></td>
+				<td><a href='byond://?src=[UID()];toggle_injector=1'>Toggle Power</a> <a href='byond://?src=[UID()];injection=1'>Inject (1 Cycle)</a></td>
 			</td>"}
 			// END AUTOFIX
 		output += "</table>"
 	else
-		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <A href='?src=[UID()];refresh_status=1'>Search</A></p>"}
+		output += {"<p style="color:red"><b>ERROR:</b> Can not find device. <a href='byond://?src=[UID()];refresh_status=1'>Search</a></p>"}
 	output += "</fieldset>"
 
 	return output

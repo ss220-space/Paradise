@@ -1,23 +1,22 @@
 /mob/living/silicon/gib()
 	death(1)
 	var/atom/movable/overlay/animation = null
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 
 	animation = new(loc)
 	animation.icon_state = "blank"
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
-	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, 1)
+	playsound(src.loc, 'sound/goonstation/effects/robogib.ogg', 50, TRUE)
 
 	robogibs(loc)
 
 	drop_hat()
 
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 	spawn(15)
 		if(animation)	qdel(animation)
 		if(src)			qdel(src)
@@ -25,12 +24,11 @@
 /mob/living/silicon/dust()
 	if(!death(TRUE) && stat != DEAD)
 		return FALSE
-	notransform = 1
-	canmove = 0
+	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
 	icon = null
-	invisibility = 101
+	invisibility = INVISIBILITY_ABSTRACT
 	dust_animation()
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 	QDEL_IN(src, 15)
 	return TRUE
 
@@ -48,4 +46,4 @@
 	. = ..()
 	if(!gibbed)
 		if(death_sound)
-			playsound(get_turf(src), death_sound, 200, 1)
+			playsound(get_turf(src), death_sound, 200, TRUE)

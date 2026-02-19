@@ -20,7 +20,7 @@
 /datum/chemical_reaction/crank/on_reaction(datum/reagents/holder, created_volume)
 	var/turf/T = get_turf(holder.my_atom)
 	fireflash(holder.my_atom, 1)
-	explosion(T, 0, 0, 2, cause = src)
+	explosion(T, devastation_range = 0, heavy_impact_range = 0, light_impact_range = 2, cause = src)
 
 /datum/chemical_reaction/krokodil
 	name = "Krokodil"
@@ -40,15 +40,8 @@
 	result_amount = 4
 	min_temp = T0C + 100
 
-/datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.emote("gasp")
-			C.AdjustLoseBreath(1)
-			C.reagents.add_reagent("toxin", 10)
-			C.reagents.add_reagent("neurotoxin2", 20)
+/datum/chemical_reaction/methamphetamine/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("toxin","neurotoxin2"), holder, created_volume, 1)
 
 /datum/chemical_reaction/bath_salts
 	name = "bath_salts"
@@ -69,12 +62,8 @@
 	mix_message = "The mixture ferments into a filthy morass."
 	mix_sound = 'sound/effects/blobattack.ogg'
 
-/datum/chemical_reaction/jenkem/on_reaction(datum/reagents/holder)
-	var/turf/T = get_turf(holder.my_atom)
-	T.visible_message("<span class='warning'>The solution generates a strong vapor!</span>")
-	for(var/mob/living/carbon/C in range(T, 1))
-		if(C.can_breathe_gas())
-			C.reagents.add_reagent("jenkem", 25)
+/datum/chemical_reaction/jenkem/on_reaction(datum/reagents/holder, created_volume)
+	make_vaporation(list("jenkem"), holder, created_volume, 1)
 
 /datum/chemical_reaction/aranesp
 	name = "Aranesp"
@@ -114,3 +103,25 @@
 	required_reagents = list("thermite" = 3, "uranium" = 1, "fluorosurfactant" = 1, "sacid" = 1)
 	result_amount = 6
 	mix_message = "The mixture congeals into a metallic green gel that crackles with electrical activity."
+
+/datum/chemical_reaction/crack
+	name = "Crack"
+	id = "crack"
+	result = "crack"
+	required_reagents = list("cocaextract" = 5, "ammonia" = 3, "fuel" = 2, "water" = 5)
+	result_amount = 5
+
+/datum/chemical_reaction/cocaine
+	name = "Cocaine"
+	id = "cocaine"
+	result = "cocaine"
+	required_reagents = list("crack" = 1, "diethylamine"=1)
+	result_amount = 1
+
+/datum/chemical_reaction/matedecoca
+	name = "Mate de Coca"
+	id = "matedecoca"
+	result = "matedecoca"
+	required_reagents = list("cocaextract" = 1, "water"=5)
+	result_amount = 5
+	min_temp = 400
