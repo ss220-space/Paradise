@@ -53,7 +53,6 @@
 	name = "tacticool skirt"
 	icon_state = "tactifoolf"
 	item_color = "tactifoolf"
-	has_sensor = 1
 
 /obj/item/clothing/under/syndicate/tacticool/skirt/get_ru_names()
 	return list(
