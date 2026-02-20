@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/necromorph
 	name = "necromorph leaper"
 	desc = "Это... Человек? Почему его кости так неестественно торчат?"
-	icon = 'icons\necromobs\64x64necros.dmi'
+	icon = 'icons/necromobs/64x64necros.dmi'
 	icon_state = "leaper"
 	icon_living = "leaper"
 	icon_gib = "syndicate_gib"
@@ -49,7 +49,7 @@
 	melee_damage_lower = 60
 	melee_damage_upper = 60
 	attacktext = "крушит с силой"
-		attack_sound = 'sound/necromobs/brute_attack_1.ogg'
+	attack_sound = 'sound/necromobs/brute_attack_1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	nightvision = 10
@@ -63,7 +63,7 @@
 /mob/living/simple_animal/hostile/necromorph/ubermorph
 	name = "ubermorph"
 	desc = "Кажется или эта тварь смотрит на меня осмысленно?"
-	icon_state = "brute"
+	icon_state = "ubermorph"
 	icon_state = "ubermorph"
 	icon_living = "ubermorph"
 	health = 3000
@@ -74,7 +74,7 @@
 	move_to_delay = 4
 	status_flags = 0
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_slam)
-		attack_sound = 'sound/necromobs/ubermorph_attack_1.ogg'
+	attack_sound = 'sound/necromobs/ubermorph_attack_1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	nightvision = 10

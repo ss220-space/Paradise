@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/spitter
 	name = "necromorph spitter"
 	desc = "Чёрт возьми, это ещё что за чертовщина!? У него изо рта бежит какая-то кислота..."
-	icon = 'icons\necromobs\slasher_enhanced.dmi'
+	icon = 'icons/necromobs/slasher_enhanced.dmi'
 	icon_gib = "syndicate_gib"
 	response_help = "pokes"
 	response_disarm = "shoves"
@@ -27,7 +27,7 @@
 	AI_delay_max = 0.5 SECONDS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	gold_core_spawnable = HOSTILE_SPAWN
-	death_sound = 'sound\necromobs\slasher_death_1.ogg'
+	death_sound = 'sound/necromobs/slasher_death_1.ogg'
 	deathmessage = "lets out a waning guttural screech, blood splattering everywhere..."
 	footstep_type = FOOTSTEP_MOB_CLAW
 
