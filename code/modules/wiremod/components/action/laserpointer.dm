@@ -18,10 +18,12 @@
 
 	var/datum/port/input/option/lasercolour_option
 
+	var/laser_cooldown = 1 SECONDS
 
 /obj/item/circuit_component/laserpointer/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
+	. += create_ui_notice("Перезарядка: [DisplayTimeText(laser_cooldown)]", "orange", "stopwatch")
 
 /obj/item/circuit_component/laserpointer/populate_options()
 	var/static/component_options = list(
@@ -32,19 +34,18 @@
 	)
 	lasercolour_option = add_option_port("Цвет лазера", component_options)
 
-
 /obj/item/circuit_component/laserpointer/populate_ports()
 	target_input = add_input_port("Цель", PORT_TYPE_ATOM)
 	image_pixel_x = add_input_port("X", PORT_TYPE_NUMBER)
 	image_pixel_y = add_input_port("Y", PORT_TYPE_NUMBER)
 
-
 /obj/item/circuit_component/laserpointer/input_received(datum/port/input/port)
+	if(TIMER_COOLDOWN_RUNNING(parent.shell, COOLDOWN_CIRCUIT_LASER))
+		return
 
 	var/atom/target = target_input.value
 	var/atom/movable/shell = parent.shell
 	var/turf/target_location = get_turf(target)
-
 
 	var/pointer_icon_state = lasercolour_option.value
 
@@ -65,3 +66,5 @@
 	laser_location.pixel_z = clamp(target.pixel_y + image_pixel_y.value, -15, 15)
 
 	target_location.flick_overlay_view(laser_location, 1 SECONDS)
+
+	TIMER_COOLDOWN_START(shell, COOLDOWN_CIRCUIT_LASER, laser_cooldown)

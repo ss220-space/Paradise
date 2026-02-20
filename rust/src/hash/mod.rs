@@ -24,7 +24,6 @@ fn hash_string(algorithm: ByondValue, string: ByondValue) -> eyre::Result<ByondV
 fn decode_base64(string: ByondValue) -> eyre::Result<ByondValue> {
     let decoded_bytes = base64::prelude::BASE64_STANDARD.decode(&string.get_string()?)?;
 
-    // Создаем список и заполняем его числами
     let mut list = ByondValue::new_list()?;
     for &byte in decoded_bytes.iter() {
         let _ = list.push_list(ByondValue::from(byte as f32))?;

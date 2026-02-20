@@ -15,16 +15,6 @@
 	var/refined_type = null //What this ore defaults to being refined into
 	var/list/stack_overlays
 
-/obj/item/stack/ore/get_ru_names()
-	return list(
-		NOMINATIVE = "камень",
-		GENITIVE = "камня",
-		DATIVE = "камню",
-		ACCUSATIVE = "камень",
-		INSTRUMENTAL = "камнем",
-		PREPOSITIONAL = "камне",
-	)
-
 /obj/item/stack/ore/update_overlays()
 	. = ..()
 
