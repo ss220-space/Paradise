@@ -27,6 +27,10 @@ static SPRITES_TO_JSON: Lazy<Arc<Mutex<SpriteJsonMap>>> = Lazy::new(|| {
     >::default())))
 });
 
+pub fn sprites_to_json_clear() {
+    SPRITES_TO_JSON.lock().unwrap().clear();
+}
+
 #[derive(Serialize)]
 struct SpritesheetResult {
     sizes: Vec<String>,

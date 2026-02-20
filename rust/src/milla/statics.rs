@@ -1,6 +1,6 @@
-use crate::milla::model::*;
-use std::sync::{atomic::AtomicUsize, Mutex, OnceLock};
-
+use crate::milla::{constants::MAX_Z_LEVELS, model::*};
+use rayon::{ThreadPool, ThreadPoolBuilder};
+use std::sync::{atomic::AtomicUsize, LazyLock, Mutex, OnceLock};
 /// The buffers that contain the atmos model.
 /// OnceLock means we only ever set this once, and it's read-only after that.
 /// (The RwLocks inside it are what let us modify the model anyway.)
@@ -17,3 +17,15 @@ pub(crate) static TRACKED_PRESSURE_TILES: Mutex<Vec<(i32, i32, usize)>> = Mutex:
 
 /// How long the last tick took, in milliseconds.
 pub(crate) static TICK_TIME: AtomicUsize = AtomicUsize::new(0);
+
+pub(crate) static THREAD_POOL: LazyLock<ThreadPool> = LazyLock::new(|| {
+    ThreadPoolBuilder::new()
+        .num_threads(MAX_Z_LEVELS as usize)
+        .stack_size(512 * 1024)
+        .thread_name(|i| format!("milla-worker-{}", i))
+        .start_handler(|_| {
+            let _ = thread_priority::ThreadPriority::Min.set_for_current();
+        })
+        .build()
+        .unwrap()
+});

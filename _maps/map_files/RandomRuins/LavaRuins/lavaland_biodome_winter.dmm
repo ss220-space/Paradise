@@ -113,7 +113,7 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
 "ax" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "ay" = (

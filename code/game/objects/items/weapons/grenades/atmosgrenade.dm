@@ -10,7 +10,7 @@
 	. = ..()
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
-		target_turf.atmos_spawn_air(spawn_contents, spawn_amount)
+		src.release_air(target_turf)
 
 /obj/item/grenade/gas/proc/release_air(turf/simulated/target_turf)
 	// Any proc that wants MILLA to be synchronous should not sleep.

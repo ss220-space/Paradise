@@ -401,6 +401,9 @@
 	name = "vetus speculator HRD-MDE award"
 	desc = "An award which represents major contributions to the HRD-MDE project in the form of analysing the Vetus Speculator."
 
+/obj/item/clothing/accessory/medal/gold/nothing_award
+	name = "награда \"Ничего Не Произошло\""
+	desc = "Всегда ставьте на то, что ничего не случится."
 /*
 	Holobadges are worn on the belt or neck, and can be used to show that the holder is an authorized
 	Security agent - the user details can be imprinted on the badge with a Security-access ID card,
