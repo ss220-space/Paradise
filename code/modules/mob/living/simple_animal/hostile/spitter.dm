@@ -16,11 +16,11 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectiletype = /obj/projectile/neurotox
-	projectilesound = 'sound\necromobs\slasher_shout_2.ogg'
+	projectilesound = 'sound/necromobs/slasher_shout_2.ogg'
 	attacktext = "кромсает"
 	speak_emote = list("булькает")
 	tts_seed = "Ladyvashj"
-	attack_sound = 'sound\necromobs\slasher_attack_1.ogg'
+	attack_sound = 'sound/necromobs/slasher_attack_1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
 	nightvision = 10
