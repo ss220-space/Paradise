@@ -30,8 +30,3 @@
 	death_sound = 'sound/necromobs/slasher_death_1.ogg'
 	deathmessage = "lets out a waning guttural screech, blood splattering everywhere..."
 	footstep_type = FOOTSTEP_MOB_CLAW
-
-/obj/projectile/neurotox
-	name = "neurotoxin"
-	damage = 30
-	icon_state = "toxin"

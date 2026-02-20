@@ -45,20 +45,11 @@
 	cached_multiplicative_slowdown = 4
 	maxHealth = 800
 	health = 800
-	obj_damage = 60
 	melee_damage_lower = 60
 	melee_damage_upper = 60
 	attacktext = "крушит с силой"
 	attack_sound = 'sound/necromobs/brute_attack_1.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 15
-	nightvision = 10
-	AI_delay_max = 0.5 SECONDS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	gold_core_spawnable = HOSTILE_SPAWN
 	death_sound = 'sound/necromobs/brute_death.ogg'
-	deathmessage = "испускает жуткий крик тысячами голосов..."
-	footstep_type = FOOTSTEP_MOB_CLAW
 
 /mob/living/simple_animal/hostile/necromorph/ubermorph
 	name = "ubermorph"
@@ -71,16 +62,8 @@
 	cached_multiplicative_slowdown = 3
 	melee_damage_lower = 40
 	melee_damage_upper = 40
-	move_to_delay = 4
 	status_flags = 0
 	attack_sound = 'sound/necromobs/ubermorph_attack_1.ogg'
-	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
-	unsuitable_atmos_damage = 15
-	nightvision = 10
-	AI_delay_max = 0.5 SECONDS
-	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
-	gold_core_spawnable = HOSTILE_SPAWN
 	death_sound = 'sound/necromobs/ubermorph_pain_5.ogg'
-	deathmessage = "испускает жуткий крик тысячами голосов..."
-	footstep_type = FOOTSTEP_MOB_CLAW
+
 
