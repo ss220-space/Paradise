@@ -73,7 +73,6 @@
 	melee_damage_upper = 40
 	move_to_delay = 4
 	status_flags = 0
-	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_slam)
 	attack_sound = 'sound/necromobs/ubermorph_attack_1.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
