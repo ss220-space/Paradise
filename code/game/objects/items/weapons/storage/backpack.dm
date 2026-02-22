@@ -53,7 +53,7 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
+	desc = "Очень большой и технологичный рюкзак, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Избегайте рекурсивного хранения\"."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
@@ -80,7 +80,7 @@
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
+	var/response = tgui_alert(user, "Это создаст сингулярность, которая уничтожит вас и большую часть станции. Вы уверены?", "НЕИЗБЕЖНАЯ СМЕРТЬ!", list("Нет", "Да"))
 	if(response != "Yes")
 		return .
 
@@ -121,7 +121,7 @@
 
 /obj/item/storage/backpack/holding/satchel
 	name = "Satchel of holding"
-	desc = "A satchel that opens into a localized pocket of Blue Space."
+	desc = "Очень большая и технологичная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Избегайте рекурсивного хранения\"."
 	icon_state = "holdingsat"
 	item_state = "holdingsat"
 
