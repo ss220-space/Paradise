@@ -64,15 +64,15 @@
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
-	/obj/item/storage/backpack/holding/get_ru_names()
+/obj/item/storage/backpack/holding/get_ru_names()
 	return list(
-		NOMINATIVE = "бс рюкзак",
-		GENITIVE = "бс рюкзака",
-		DATIVE = "бс рюкзаку",
-		ACCUSATIVE = "бс рюкзак",
-		INSTRUMENTAL = "бс рюкзаком",
-		PREPOSITIONAL = "бс рюкзаке", 
-		)
+		NOMINATIVE = "блюспейс рюкзак",
+		GENITIVE = "блюспейс рюкзака",
+		DATIVE = "блюспейс рюкзаку",
+		ACCUSATIVE = "блюспейс рюкзак",
+		INSTRUMENTAL = "блюспейс рюкзаком",
+		PREPOSITIONAL = "блюспейс рюкзаке",
+	)
 
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/storage/backpack/holding))
@@ -125,6 +125,16 @@
 	icon_state = "holdingsat"
 	item_state = "holdingsat"
 
+/obj/item/storage/backpack/holding/satchel/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сумка",
+		GENITIVE = "блюспейс сумки",
+		DATIVE = "блюспейс сумке",
+		ACCUSATIVE = "блюспейс сумку",
+		INSTRUMENTAL = "блюспейс сумкой",
+		PREPOSITIONAL = "блюспейс сумке",
+	)
+
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2), 1)
 	explosion(loc, devastation_range = (dist), heavy_impact_range = (dist*2), light_impact_range = (dist*4), cause = "into singularity")
@@ -136,14 +146,14 @@
 	item_state = "holdingduffelba"
 	max_combined_w_class = 40
 
-/obj/item/storage/backpack/duffelbag/get_ru_names()
+/obj/item/storage/backpack/holding/satchel/duffelbag/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс сумка хранения",
-		GENITIVE = "блюспейс сумки храненияя",
-		DATIVE = "блюспейс сумке хранения",
-		ACCUSATIVE = "блюспейс сумку хранения",
-		INSTRUMENTAL = "блюспейс сумкой хранения",
-		PREPOSITIONAL = "блюспейс сумке хранения"
+		NOMINATIVE = "блюспейс спорт-сумка ",
+		GENITIVE = "блюспейс спорт-сумки ",
+		DATIVE = "блюспейс спорт-сумке ",
+		ACCUSATIVE = "блюспейс спорт-сумку ",
+		INSTRUMENTAL = "блюспейс спорт-сумкой ",
+		PREPOSITIONAL = "блюспейс спорт-сумке "
 	)
 
 /obj/item/storage/backpack/santabag
