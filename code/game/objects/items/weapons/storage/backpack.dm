@@ -64,6 +64,16 @@
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
+	/obj/item/storage/backpack/holding/get_ru_names()
+	return list(
+		NOMINATIVE = "бс рюкзак",
+		GENITIVE = "бс рюкзака",
+		DATIVE = "бс рюкзаку",
+		ACCUSATIVE = "бс рюкзак",
+		INSTRUMENTAL = "бс рюкзаком",
+		PREPOSITIONAL = "бс рюкзаке", 
+		)
+
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/storage/backpack/holding))
 		return ..()
