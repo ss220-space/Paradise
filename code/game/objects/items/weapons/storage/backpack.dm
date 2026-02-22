@@ -81,7 +81,7 @@
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
 	var/response = tgui_alert(user, "Это создаст сингулярность, которая уничтожит вас и большую часть станции. Вы уверены?", "НЕИЗБЕЖНАЯ СМЕРТЬ!", list("Нет", "Да"))
-	if(response != "Yes")
+	if(response != "Да")
 		return .
 
 	user.visible_message(
