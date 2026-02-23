@@ -78,6 +78,8 @@
 /obj/item/organ/internal/cyberimp/arm/emp_act(severity)
 	if(emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 	if(prob(15/severity) && owner)
 		to_chat(owner, span_warning("[declent_ru(NOMINATIVE)] поражён ЭМИ импульсом!"))
 		// give the owner an idea about why his implant is glitching
@@ -189,6 +191,8 @@
 
 /obj/item/organ/internal/cyberimp/arm/gun/emp_act(severity)
 	if(emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	if(prob(30/severity) && owner && !crit_fail)
 		Retract()
@@ -360,6 +364,8 @@
 	parent_organ_zone = BODY_ZONE_L_ARM
 
 /obj/item/organ/internal/cyberimp/arm/toolset/mantisblade/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 
 	if(crit_fail || emp_proof)
@@ -422,6 +428,8 @@
 	// To allow repair via nanopaste/screwdriver
 	// also so IPCs don't also catch on fire and fall even more apart upon EMP
 	if(emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	damage = 1
 	crit_fail = TRUE

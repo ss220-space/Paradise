@@ -223,6 +223,8 @@
 #define TRAIT_CYBERIMP_IMPROVED "cyberimp_improved"
 /// This item will not be cloned in the experimentator
 #define TRAIT_NO_CLONE_IN_EXPERIMENTATOR "no_clone_in_experimentator"
+/// Combat exoframe EMP nutrition shield flag
+#define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 

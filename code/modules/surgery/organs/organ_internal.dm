@@ -129,6 +129,8 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 
 	switch(severity)
 		if(1)

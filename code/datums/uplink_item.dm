@@ -689,7 +689,7 @@
 			Благодаря усовершенствованной гидравлической системе повышает мобильность пользователя без потери боевых характеристик. \
 			Поставляется с одноразовым автоимплантером для установки на месте."
 	item = /obj/item/storage/box/syndie_kit/combat_exoframe
-	cost = 22
+	cost = 28
 	race = list(SPECIES_MACNINEPERSON)
 
 //Slime People

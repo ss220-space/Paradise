@@ -18,7 +18,9 @@
 		overlay.color = implant_color
 		overlays |= overlay
 
-/obj/item/organ/internal/cyberimp/emp_act()
+/obj/item/organ/internal/cyberimp/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	return // These shouldn't be hurt by EMPs in the standard way
 
 /obj/item/organ/internal/cyberimp/can_insert(mob/living/user, mob/living/carbon/target, fail_message = "Данное устройство не предусмотрено для существ с подобной анатомией.")
@@ -35,6 +37,8 @@
 
 /obj/item/organ/internal/cyberimp/brain/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	var/stun_amount = (5 + (severity-1 ? 0 : 5)) STATUS_EFFECT_CONSTANT
 	owner.Stun(stun_amount)
@@ -114,6 +118,8 @@
 /obj/item/organ/internal/cyberimp/brain/anti_drop/emp_act(severity)
 	if(!owner || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 	var/range = severity ? 10 : 5
 	var/atom/A
 	var/obj/item/L_item = owner.l_hand
@@ -170,6 +176,8 @@
 		owner.adjustStaminaLoss(-9)
 
 /obj/item/organ/internal/cyberimp/brain/anti_stun/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(crit_fail || emp_proof)
 		return
@@ -203,6 +211,8 @@
 		to_chat(owner, span_notice("You hear a small beep in your head as your Neural Jumpstarter finishes recharging."))
 
 /obj/item/organ/internal/cyberimp/brain/anti_sleep/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	. = ..()
 	if(crit_fail || emp_proof)
 		return
@@ -247,6 +257,8 @@
 /obj/item/organ/internal/cyberimp/mouth/breathing_tube/emp_act(severity)
 	if(emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 	if(prob(60/severity) && owner)
 		to_chat(owner, span_warning("Your breathing tube suddenly closes!"))
 		owner.AdjustLoseBreath(4 SECONDS)
@@ -280,6 +292,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/nutriment/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
@@ -338,6 +352,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/nutriment_old/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	owner.reagents.add_reagent("????",poison_amount / severity) //food poisoning
 	to_chat(owner, span_warning("You feel like your insides are burning."))
@@ -407,6 +423,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/reviver/emp_act(severity)
 	if(!owner || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 	if(reviving)
 		revive_cost += 200
@@ -485,6 +503,8 @@
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/emp_act(severity)
 	if(emp_proof || crit_fail)
+		return
+	if(emp_shielded(severity))
 		return
 
 	if(!ishuman(owner))
@@ -587,15 +607,33 @@
 		PREPOSITIONAL = "боевом каркасе экзоскелета",
 	)
 
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/insert(mob/living/carbon/human/target)
+	. = ..()
+	if(.)
+		ADD_TRAIT(target, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
+	return .
+
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/remove(mob/living/carbon/human/target)
 	if(active)
 		ui_action_click()
+	REMOVE_TRAIT(target, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	if(active)
 		ui_action_click()
-	return ..()
+	. = ..()
+	if(owner && crit_fail)
+		REMOVE_TRAIT(owner, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
+	return .
+
+/obj/item/organ/internal/cyberimp/chest/exoframe/combat/surgeryize()
+	. = ..()
+	if(owner)
+		ADD_TRAIT(owner, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD, UNIQUE_TRAIT_SOURCE(src))
+	return .
 
 /obj/item/organ/internal/cyberimp/chest/exoframe/combat/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(crit_fail)
