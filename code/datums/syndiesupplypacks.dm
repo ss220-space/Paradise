@@ -2108,7 +2108,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		PREPOSITIONAL = "ящике плотных изолент",
 	)
 
-/datum/syndie_supply_packs/contraband/powerfist
+/datum/syndie_supply_packs/misc/powerfist
 	name = "Реверсивные карты"
 	contains = list(
 		/obj/item/syndicate_reverse_card,
