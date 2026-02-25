@@ -98,7 +98,7 @@
 	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
-	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY // At least some usefull function
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY // So it can trigger again after being canceled.
 	weak = 16
 	medium = 8
 	heavy = 4
