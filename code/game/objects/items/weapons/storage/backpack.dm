@@ -726,7 +726,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/bodyanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	new /obj/item/stack/medical/splint(src)
-	new /obj/item/reagent_containers/bottle/atropine(src)
+	new /obj/item/reagent_containers/glass/bottle/atropine(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/populate_contents()
 	for(var/i in 1 to 10)
