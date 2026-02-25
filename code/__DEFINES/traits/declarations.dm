@@ -425,3 +425,6 @@
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 
 #define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"
+
+// prevents explosion implants from auto activating upon death
+#define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"

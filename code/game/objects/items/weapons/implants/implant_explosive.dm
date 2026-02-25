@@ -14,7 +14,8 @@
 	var/delay = (0.7 SECONDS)
 
 /obj/item/implant/explosive/death_trigger(mob/source, gibbed)
-	activate("death")
+	if(!HAS_TRAIT(imp_in, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION))
+		activate("death")
 
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || QDELETED(imp_in))
