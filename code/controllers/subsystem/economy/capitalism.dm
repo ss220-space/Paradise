@@ -1,3 +1,7 @@
+// Core Economy class
+// Defines for this subsystem - [code/_DEFINES/economy.dm]
+//
+
 #define FREQUENCY_SALARY 5 MINUTES
 #define EXTRA_MONEY 10000
 
