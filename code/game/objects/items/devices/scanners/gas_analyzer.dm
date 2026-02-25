@@ -5,7 +5,7 @@
 #define ANALYZER_HISTORY_MODE_MOL "mol"
 
 /obj/item/analyzer
-	desc = "A hand-held environmental scanner which reports current gas levels."
+	desc = "Ручной сканер, предназначенный для измерения уровня газа в окружающей среде."
 	name = "analyzer"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "atmos"
@@ -33,18 +33,28 @@
 	var/target_mode = ANALYZER_MODE_SURROUNDINGS
 	var/atom/scan_target
 
+/obj/item/analyzer/get_ru_names()
+	return list(
+		NOMINATIVE = "Газоанализатор",
+		GENITIVE = "Газоанализатора",
+		DATIVE = "Газоанализатору",
+		ACCUSATIVE = "Газоанализатор",
+		INSTRUMENTAL = "Газоанализатором",
+		PREPOSITIONAL = "Газоанализаторе",
+	)
+
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
-	. += span_notice("Right-click [src] to open the gas reference.")
-	. += span_notice("Alt-click [src] to activate the barometer function.")
+	. += span_notice("Right-click по [DECLENT_RU_CAP(src, DATIVE)] чтобы открыть справку по газам.")
+	. += span_notice("Alt-click по [DECLENT_RU_CAP(src, DATIVE)] чтобы включить функции барометра.")
 
 /obj/item/analyzer/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
+	user.visible_message(span_suicide("[user] начинает сканировать [user.p_them()]себя [DECLENT_RU_CAP(src, ACCUSATIVE)]! Дисплей показывает что [user.p_theyre()] мёртв!"))
 	return BRUTELOSS
 
 /obj/item/analyzer/click_alt(mob/living/user) //Barometer output for measuring when the next storm happens
 	if(cooldown)
-		to_chat(user, span_warning("[src]'s barometer function is prepraring itself."))
+		to_chat(user, span_warning("Функция барометра готовится к работе."))
 		return CLICK_ACTION_BLOCKING
 
 	var/turf/T = get_turf(user)
@@ -56,7 +66,7 @@
 	var/datum/weather/ongoing_weather = null
 
 	if(!user_area.outdoors)
-		to_chat(user, span_warning("[src]'s barometer function won't work indoors!"))
+		to_chat(user, span_warning("Функция барометра не будет работать в помещении!"))
 		return CLICK_ACTION_BLOCKING
 
 	for(var/V in SSweather.processing)
@@ -67,20 +77,20 @@
 
 	if(ongoing_weather)
 		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-			to_chat(user, span_warning("[src]'s barometer function can't trace anything while the storm is [ongoing_weather.stage == MAIN_STAGE ? "already here!" : "winding down."]"))
+			to_chat(user, span_warning("Функция барометра не может ничего отследить, пока буря. [ongoing_weather.stage == MAIN_STAGE ? "идёт!" : "стихает."]"))
 			return CLICK_ACTION_BLOCKING
 
-		to_chat(user, span_warning("The next [ongoing_weather] will hit in [butchertime(ongoing_weather.next_hit_time - world.time)]."))
+		to_chat(user, span_warning("Следующая [ongoing_weather] начнется [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 		if(ongoing_weather.aesthetic)
-			to_chat(user, span_warning("[src]'s barometer function says that the next storm will breeze on by."))
+			to_chat(user, span_warning("Функция барометра пришет, что следующая буря пройдёт мимо."))
 
 	else
 		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
 		var/fixed = next_hit ? next_hit - world.time : -1
 		if(fixed < 0)
-			to_chat(user, span_warning("[src]'s barometer function was unable to trace any weather patterns."))
+			to_chat(user, span_warning("Функция барометра не смогла отследить какие-либо погодные условия."))
 		else
-			to_chat(user, span_warning("[src]'s barometer function says a storm will land in approximately [butchertime(fixed)]."))
+			to_chat(user, span_warning("Функция барометра пишет, что буря будет через [butchertime(fixed)]."))
 
 	cooldown = TRUE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
@@ -89,7 +99,7 @@
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
 		var/mob/living/L = loc
-		to_chat(L, span_notice("[src]'s barometer function is ready!"))
+		to_chat(L, span_notice("Функция барометра готова!"))
 	playsound(src, 'sound/machines/click.ogg', 100)
 	cooldown = FALSE
 
@@ -242,10 +252,10 @@
 	if(!silent && isliving(user))
 		playsound(user, SFX_INDUSTRIAL_SCAN, 20, TRUE, -2, TRUE, FALSE)
 		user.visible_message(
-			span_notice("[user] uses the analyzer on [icon2html(icon, viewers(icon))] [target]."),
-			span_notice("You use the analyzer on [icon2html(icon, user)] [target]"),
+			span_notice("[user] использует Газоанализатор на [icon2html(icon, viewers(icon))] [target]."),
+			span_notice("Вы используете Газоанализатор на [icon2html(icon, user)] [target]"),
 		)
-	message += span_boldnotice("Results of analysis of [icon2html(icon, user)] [target].")
+	message += span_boldnotice("Результаты сканирования [icon2html(icon, user)] [target].")
 
 	if(!print)
 		return TRUE
