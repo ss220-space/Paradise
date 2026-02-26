@@ -331,7 +331,7 @@
 
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
-	desc = "Уникальная золотая медаль от Центрального Командования. Высшая награда, чья редкость говорит сама за себя."
+	desc = "Невероятно редкая золотая медаль от Центрального Командования. Высшая награда, чья редкость говорит сама за себя."
 	icon_state = "ion"
 
 /obj/item/clothing/accessory/medal/gold/heroism/get_ru_names()
