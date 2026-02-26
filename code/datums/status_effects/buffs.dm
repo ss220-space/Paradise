@@ -997,3 +997,24 @@
 
 /datum/status_effect/jump_jet/on_remove()
 	owner.RemoveElement(/datum/element/forced_gravity, 0)
+
+/atom/movable/screen/alert/status_effect/borer_regen
+	name = "Регенерация"
+	desc = "Симбионт ускоряет заживление ваших ран."
+	icon_state = "fleshmend"  // замените на существующий спрайт или добавьте свой
+
+/datum/status_effect/borer_regen
+	id = "borer_regen"
+	duration = 10 SECONDS               // длительность эффекта
+	tick_interval = 1 SECONDS            // интервал между тиками (лечение каждые 2 секунды)
+	alert_type = /atom/movable/screen/alert/status_effect/borer_regen
+
+/datum/status_effect/borer_regen/tick()
+	// Периодическое лечение во время действия эффекта
+	if(!istype(owner, /mob/living/carbon))
+		return
+	var/mob/living/carbon/C = owner
+	C.adjustBruteLoss(-2)
+	C.adjustFireLoss(-2)
+	C.adjustToxLoss(-1)
+	C.adjustOxyLoss(-5)

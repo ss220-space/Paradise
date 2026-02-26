@@ -121,6 +121,7 @@
 	var/sneaking = FALSE
 	var/hiding = FALSE
 	var/talk_inside_host = FALSE			// So that borers don't accidentally give themselves away on a botched message
+	var/parasitism = FALSE
 
 	var/datum/antagonist/borer/antag_datum = new
 
@@ -136,6 +137,8 @@
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
+	var/datum/action/innate/borer/heal_over_time/heal_over_time = new
+	var/datum/action/innate/borer/parasitism/parasitism_mode_action = new
 
 	var/obj/effect/proc_holder/spell/borer_infest/infest_spell = new
 	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
@@ -160,6 +163,10 @@
 	real_name = "Мозговой червь [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, length(borer_names))]] [rand(1000,9999)]"
 	GrantBorerActions()
+
+/mob/living/simple_animal/borer/Login()
+    ..()
+    enable_med_hud() // Включаем медхуд при входе игрока
 
 /mob/living/simple_animal/borer/death(gibbed)
 	. = ..()
@@ -653,6 +660,10 @@
 
 		controlling = TRUE
 
+		if(host && host.has_status_effect(/datum/status_effect/parasitism))
+			host.remove_status_effect(/datum/status_effect/parasitism)
+			to_chat(src, span_notice("Вы прекращаете питание, чтобы сконцентрироваться на контроле."))
+
 		RemoveInfestActions()
 		GrantControlActions()
 
@@ -810,6 +821,8 @@
 	make_chems_action.Grant(src)
 	focus_menu_action.Grant(src)
 	torment_action.Grant(src)
+	heal_over_time.Grant(src)
+	parasitism_mode_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
@@ -819,6 +832,8 @@
 	make_chems_action.Remove(src)
 	focus_menu_action.Remove(src)
 	torment_action.Remove(src)
+	heal_over_time.Remove(src)
+	parasitism_mode_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
@@ -826,6 +841,7 @@
 	make_larvae_action.Grant(host)
 	sneak_mode_action.Grant(host)
 	torment_action.Grant(host)
+	heal_over_time.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
 	talk_to_brain_action.Remove(host)
@@ -833,6 +849,7 @@
 	give_back_control_action.Remove(host)
 	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
+	heal_over_time.Remove(host)
 
 /mob/living/carbon/human/proc/get_real_mind()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
@@ -841,3 +858,15 @@
 /mob/living/carbon/human/proc/get_real_ckey()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 	return (borer?.controlling) ? borer.host_brain.ckey : ckey
+
+// Прок для включения медхуда
+/mob/living/simple_animal/proc/enable_med_hud(hud_type = DATA_HUD_MEDICAL_ADVANCED)
+    var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
+    if(med_hud)
+        med_hud.show_to(src)
+
+// Прок для выключения медхуда
+/mob/living/simple_animal/proc/disable_med_hud(hud_type = DATA_HUD_MEDICAL_ADVANCED)
+    var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
+    if(med_hud)
+        med_hud.hide_from(src)

@@ -1475,7 +1475,8 @@
 #define COMSIG_BORER_EARLY_LEFT_HOST "borer_early_leave"
 /// From /datum/action/innate/borer/make_larvae/Activate (turf/turf)
 #define COMSIG_BORER_REPRODUCE "borer_reproduced"
-
+/// From /datum/status_effect/parasitism
+#define COMSIG_BORER_EVOLUTION_TICK "borer_evolution_tick"
 ///from /datum/spawners_menu/ui_act(): (mob/user)
 #define COMSIG_IS_GHOST_CONTROLABLE "is_ghost_controllable"
 	/// Return this to signal that the mob can be controlled by ghosts

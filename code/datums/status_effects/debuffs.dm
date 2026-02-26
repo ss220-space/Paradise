@@ -1535,3 +1535,72 @@
 	name = "Unbalanced"
 	desc = "You're being shoved around by airflow! You can resist this by moving, but moving against the wind will be slow."
 	icon_state = "unbalanced"
+
+
+/datum/status_effect/parasitism
+	id = "parasitism"
+	duration = 60 SECONDS
+	tick_interval = 6 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/parasitism
+	var/evolution_gain = 0.15
+	var/chemical_gain = 10
+	var/host_damage = 2.5
+
+/atom/movable/screen/alert/status_effect/parasitism
+	name = "Паразит"
+	desc = "Симбионт ускоренно развивается, истощая ваше тело."
+	icon_state = "blooddrunk"
+
+/datum/status_effect/parasitism/on_apply()
+	. = ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/host = owner
+		host.med_hud_set_status()   // показываем иконку паразитизма
+	return TRUE
+
+/datum/status_effect/parasitism/tick()
+	var/mob/living/carbon/host = owner
+	if(!istype(host))
+		return
+
+	// Если хост мёртв или в критическом состоянии (здоровье <= 0) — прекращаем эффект
+	if(host.stat == DEAD || host.health <= HEALTH_THRESHOLD_CRIT) // можно использовать HEALTH_THRESHOLD_CRIT, если есть
+		qdel(src)
+		return
+
+	// Ищем борера в хозяине
+	var/mob/living/simple_animal/borer/borer = host.has_brain_worms()
+	if(!borer)
+		qdel(src)
+		return
+
+	borer.parasitism = TRUE
+
+	// Начисление очков эволюции через сигнал антаг-датуму
+	if(borer.antag_datum)
+		SEND_SIGNAL(borer.antag_datum, COMSIG_BORER_EVOLUTION_TICK, evolution_gain)
+
+	// Восстановление химикатов
+	borer.chemicals += chemical_gain
+	if(borer.chemicals > borer.max_chems)
+		borer.chemicals = borer.max_chems
+
+	// Нанесение урона носителю
+	host.adjustBruteLoss(host_damage)
+	host.adjustToxLoss(host_damage)
+
+	// Сообщения для атмосферы
+	if(prob(30))
+		to_chat(host, span_danger( "Паразит высасывает ваши жизненные силы"))
+		host.AdjustKnockdown(2 SECONDS)
+		host.AdjustConfused(3 SECONDS)
+
+	// Если носитель умер, эффект прекращается (qdel вызовет on_remove)
+	if(host.stat == DEAD)
+		qdel(src)
+
+/datum/status_effect/parasitism/on_remove()
+    if(iscarbon(owner))
+        var/mob/living/carbon/host = owner
+        host.med_hud_set_status()   // убираем иконку или переключаем на обычную
+    return ..()

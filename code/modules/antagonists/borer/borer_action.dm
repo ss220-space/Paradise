@@ -157,3 +157,73 @@
 /datum/action/innate/borer/focus_menu/Activate()
 	var/mob/living/simple_animal/borer/borer = owner
 	borer.focus_menu()
+
+/datum/action/innate/borer/heal_over_time
+	name = "Лечение"
+	desc = "Стоимость - 60, лечит хозяина в течении 10 секунд"
+	button_icon_state = "revive"
+	cost = 60
+
+/datum/action/innate/borer/heal_over_time/Activate()
+	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
+	var/mob/living/carbon/host = borer.host
+
+	if(borer.chemicals < cost)
+		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для запуска регенерации!")
+		return
+
+	// Проверяем, нет ли уже такого эффекта (чтобы не стакался)
+	if(host.has_status_effect(/datum/status_effect/borer_regen))
+		to_chat(owner, "Ваш носитель уже регенерирует!")
+		return
+
+	// Списываем химикаты и накладываем статус-эффект
+	borer.chemicals -= cost
+	host.apply_status_effect(/datum/status_effect/borer_regen)
+
+	// Оповещения
+	to_chat(owner, "Вы помогаете телу носителя регенерировать.")
+
+
+/datum/action/innate/borer/parasitism
+	name = "Паразитоидизм"
+	desc = "Стоимость - 50, В течении 60 секунд вы будете получать очки эволюции и химикаты за счёт хозяина."
+	button_icon_state = "fake_death"
+	cost = 50                     // стоимость активации в химикатах
+
+/datum/action/innate/borer/parasitism/Activate()
+	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
+	if(!borer || !borer.host)
+		to_chat(owner, "Вы не находитесь внутри носителя!")
+		return
+
+	var/mob/living/carbon/host = borer.host
+
+	// Проверка на смерть
+	if(host.stat == DEAD)
+		to_chat(owner, "Носитель мёртв!")
+		return
+
+	// Проверка на критическое состояние (здоровье ≤ 0, но не мёртв)
+	if(host.health <= HEALTH_THRESHOLD_CRIT)  // можно заменить на host.health <= HEALTH_THRESHOLD_CRIT, если есть такой define
+		to_chat(owner, "Носитель слишком слаб для активации режима эволюции!")
+		return
+
+	if(borer.chemicals < cost)
+		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для активации режима эволюции!")
+		return
+
+	// Проверяем, не активен ли уже режим
+	if(host.has_status_effect(/datum/status_effect/parasitism))
+		to_chat(owner, "вы уже питаетесь")
+		return
+
+	// Списываем химикаты
+	borer.chemicals -= cost
+
+	// Накладываем статус-эффект на носителя
+	host.apply_status_effect(/datum/status_effect/parasitism)
+
+	// Оповещения
+	to_chat(owner, span_danger("Носитель будет ослаблен в ближайшее время."))
+	to_chat(host, span_danger("Паразит питается за вас счёт. Вы чувствуете истощение."))
