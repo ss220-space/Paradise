@@ -13,7 +13,7 @@
 	max_amount = MAXCOIL
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = CABLE_HEX_COLOR_RED
-	desc = "A coil of power cable."
+	desc = "Моток силового кабеля"
 	w_class = WEIGHT_CLASS_SMALL
 	full_w_class = WEIGHT_CLASS_SMALL
 	throw_range = 5
@@ -35,6 +35,15 @@
 		CABLE_HEX_COLOR_YELLOW = "yellow"
 	)
 
+/obj/item/stack/cable_coil/get_ru_names()
+	return list(
+		NOMINATIVE = "Проводка",
+		GENITIVE = "Проводки",
+		DATIVE = "Проводке",
+		ACCUSATIVE = "Проводку",
+		INSTRUMENTAL = "Проводкой",
+		PREPOSITIONAL = "Проводке",
+	)
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
 	. = ..()
 	if(cable_color)
@@ -79,22 +88,22 @@
 	if(is_cyborg || !in_range(user, src))
 		return
 	if(get_amount() == 1)
-		. += span_notice("A short piece of power cable.")
+		. += span_notice("Короткий отрезок силового кабеля")
 	else if(get_amount() == 2)
-		. += span_notice("A piece of power cable.")
+		. += span_notice("Отрезок силового кабеля")
 	else
-		. += span_notice("A coil of power cable. There are [get_amount()] lengths of cable in the coil.")
+		. += span_notice("Моток силового кабеля. Здесь [get_amount()] отрезков кабеля.")
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)
-		user.visible_message(span_suicide("[user] is making a noose with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
+		user.visible_message(span_suicide("[user] делает петлю из [DECLENT_RU_CAP(src, GENITIVE)]! Похоже что [GEND_HE_SHE_CAP(user)] пытается совершить самоубийство."))
 	else
-		user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
+		user.visible_message(span_suicide("[user] душит себя [DECLENT_RU_CAP(src, INSTRUMENTAL)]!Похоже что [GEND_HE_SHE_CAP(user)] пытается совершить самоубийство."))
 	return OXYLOSS
 
 
-#define CABLE_CRAFT_RESTRAINS "cable restraints (15)"
-#define CABLE_CRAFT_TOURNIQUET "самодельный жгут (20)"
+#define CABLE_CRAFT_RESTRAINS "Самодельные стяжки (15)"
+#define CABLE_CRAFT_TOURNIQUET "Самодельный жгут (20)"
 #define CABLE_CRAFT_MULTIZ_CABLE_HUB "multi z cable hub (10)"
 
 ///////////////////////////////////
@@ -117,7 +126,7 @@
 	switch(choice)
 		if(CABLE_CRAFT_RESTRAINS)
 			if(get_amount() < 15)
-				to_chat(user, span_warning("You don't have enough [src] to make cable restraints!"))
+				to_chat(user, span_warning("У вас мало [DECLENT_RU_CAP(src, GENITIVE)] чтобы сделать самодельные стяжки!"))
 
 			if(use(15))
 				var/obj/item/restraints/handcuffs/cable/cablecuff = new(T)
@@ -196,11 +205,11 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(target_organ.burn_dam > ROBOLIMB_SELF_REPAIR_CAP)
-		to_chat(user, span_danger("The damage is far too severe to patch over externally."))
+		to_chat(user, span_danger("Повреждения слишком серьёзные, чтобы их можно было исправить снаружи."))
 		return .
 
 	if(!target_organ.burn_dam)
-		to_chat(user, span_notice("Nothing to fix!"))
+		to_chat(user, span_notice("Чинить нечего!"))
 		return .
 
 	ADD_TRAIT(target, TRAIT_REPAIRING_LIMB, UNIQUE_TRAIT_SOURCE(src))
@@ -237,7 +246,7 @@
 			update_damage_icon |= current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
 		if(current_organ.burn_dam != burn_was)
 			should_update_health = TRUE
-		user.visible_message(span_alert("[user] repairs some burn damage on [target]'s [current_organ.name] with [src]."))
+		user.visible_message(span_alert("[user] чинит некоторый урон от ожогов у [target] [current_organ.name] с помощью [DECLENT_RU_CAP(src, GENITIVE)]."))
 	if(should_update_health)
 		target.updatehealth("cable repair")
 	if(update_damage_icon)
@@ -269,15 +278,15 @@
 		return
 
 	if(!isturf(T) || !T.can_lay_cable())
-		to_chat(user, span_warning("You can only lay cables on catwalks and plating!"))
+		to_chat(user, span_warning("Вы можете прокладывать проводку только по обшивке и мосткам!"))
 		return
 
 	if(get_amount() < 1) // Out of cable
-		to_chat(user, span_warning("There is no cable left!"))
+		to_chat(user, span_warning("Проводки больше не осталось!"))
 		return
 
 	if(get_dist(T,user.loc) > 1) // Too far
-		to_chat(user, span_warning("You can't lay cable at a place that far away!"))
+		to_chat(user, span_warning("Вы не можете проложить проводку так далеко!"))
 		return
 
 	var/dirn
@@ -291,7 +300,7 @@
 
 	for(var/obj/structure/cable/LC in T)
 		if(LC.d2 == dirn && LC.d1 == 0)
-			to_chat(user, span_warning("There's already a cable at that position!"))
+			to_chat(user, span_warning("В этом месте уже есть проводка!"))
 			return
 
 	var/obj/structure/cable/C = get_new_cable(T)
@@ -337,7 +346,7 @@
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
-		to_chat(user, span_warning("You can't lay cable at a place that far away!"))
+		to_chat(user, span_warning("Вы не можете проложить проводку так далеко!"))
 		return
 
 	if(U == T) //if clicked on the turf we're standing on, try to put a cable in the direction we're facing
@@ -350,7 +359,7 @@
 	// one end of the clicked cable is pointing towards us
 	if(C.d1 == dirn || C.d2 == dirn)
 		if(U.intact || (U.transparent_floor == TURF_TRANSPARENT))						// can't place a cable if the floor is complete
-			to_chat(user, span_warning("You can't lay cable there unless the floor tiles are removed!"))
+			to_chat(user, span_warning("Вы не сможете проложить кабель, пока не снимите плитку с пола!"))
 			return
 		// cable is pointing at us, we're standing on an open tile
 		// so create a stub pointing at the clicked cable on our tile
@@ -359,7 +368,7 @@
 
 		for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
 			if(LC.d1 == fdirn || LC.d2 == fdirn)
-				to_chat(user, span_warning("There's already a cable at that position!"))
+				to_chat(user, span_warning("В этом месте уже есть проводка!"))
 				return
 
 		var/obj/structure/cable/NC = get_new_cable (U)
@@ -400,7 +409,7 @@
 			if(LC == C)			// skip the cable we're interacting with
 				continue
 			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1))	// make sure no cable matches either direction
-				to_chat(user, span_warning("There's already a cable at that position!"))
+				to_chat(user, span_warning("В этом месте уже есть проводка!"))
 				return
 
 		C.cable_color(color)

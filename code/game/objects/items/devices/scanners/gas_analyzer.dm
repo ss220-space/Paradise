@@ -82,7 +82,7 @@
 
 		to_chat(user, span_warning("Следующая [ongoing_weather] начнется [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 		if(ongoing_weather.aesthetic)
-			to_chat(user, span_warning("Функция барометра пришет, что следующая буря пройдёт мимо."))
+			to_chat(user, span_warning("Функция барометра пишет, что следующая буря пройдёт мимо."))
 
 	else
 		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
