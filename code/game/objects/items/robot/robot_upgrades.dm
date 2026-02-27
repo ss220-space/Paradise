@@ -888,7 +888,7 @@
 	if(!.)
 		return .
 	if(robot.key)
-		to_chat(user, span_warning("Зафиксированы активные мыслительные процессы. Подключение невозможно."))
+		to_chat(user, span_warning("Зафиксированы активные вычислительные процессы. Подключение невозможно."))
 		return FALSE
 	robot.make_shell(src)
 

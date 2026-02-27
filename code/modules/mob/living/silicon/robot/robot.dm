@@ -1154,7 +1154,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		if(shell)
 			if(!mainframe)
-				to_chat(user, span_warning("Криптографический секвенсор искриться, но вы не видите результатов. Кажется, это просто пустая и бесполезая оболочка."))
+				to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезая оболочка."))
 			else
 				evacuate_ai(DANGER_LVL_INSTA_DEATH)
 				balloon_alert(user, "ии удален")
@@ -1840,7 +1840,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(mainframe)
 		var/mob/living/silicon/ai/AI = mainframe
 		evacuate_ai(DANGER_LVL_NONE)
-		to_chat(AI, span_warningbig("ОШИБКА: ЗАФИКСИРОВАН ЭЛЕКТРО-МАГНИТНЫЙ ИМПУЛЬС. СВЯЗЬ С ОБОЛОЧКОЙ РАЗОРВАНА."))
+		to_chat(AI, span_warningbig("ОШИБКА: ЗАФИКСИРОВАН ЭЛЕКТРОМАГНИТНЫЙ ИМПУЛЬС. СВЯЗЬ С ОБОЛОЧКОЙ РАЗОРВАНА."))
 
 	switch(severity)
 		if(1)
@@ -2308,7 +2308,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		switch(danger_level)
 			if(DANGER_LVL_NONE)
 				mainframe.disconnect_shell()
-				to_chat(AI, span_danger("ВНИМАНИЕ: Безпроводное подключение с оболочкой было принудительно прервано!"))
+				to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
 			if(DANGER_LVL_MAY_DIE)
 				mainframe.disconnect_shell()
 				if(prob(50))
@@ -2321,6 +2321,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				AI.adjustOxyLoss(200)
 			else
 				mainframe.disconnect_shell()
-				to_chat(AI, span_danger("ВНИМАНИЕ: Безпроводное подключение с оболочкой было принудительно прервано!"))
+				to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
 
 #undef BORG_LAMP_CD_RESET
