@@ -1,6 +1,6 @@
 /datum/map/olegmongol
 	name = "Mongolian fields"
-	map_path = "_maps/map_files/tests/olegmongol.dmm"
+	map_path = "_maps/map_files/event/olegmongol.dmm"
 
 	station_name = "Монгольские поля"
 	english_station_name = "Mongolian fields"

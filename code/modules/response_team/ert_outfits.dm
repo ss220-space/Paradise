@@ -336,15 +336,10 @@
 		/obj/item/implant/death_alarm,
 	)
 
-/datum/outfit/job/centcom/response_team/engineer/stoyka
+/datum/outfit/job/centcom/response_team/engineer/gamma/stoyka
 	name = "Stroitel"
-	shoes = /obj/item/clothing/shoes/magboots/advance
-	gloves = /obj/item/clothing/gloves/combat/swat
-	belt = /obj/item/storage/belt/utility/chief/full
-	back = /obj/item/mod/control/pre_equipped/responsory/engineer
-	glasses = /obj/item/clothing/glasses/meson/night
-	mask = /obj/item/clothing/mask/gas/sechailer/swat
-	l_pocket = /obj/item/t_scanner/extended_range
+	r_pocket = null
+	hours_dif = 0
 	ranks = list(
 		"Min" = "Мелкий строитель",
 		"Med" = "Крутой строитель",
@@ -354,17 +349,6 @@
 		/obj/item/rcd/combat = 1,
 		/obj/item/rcd_ammo/large = 3,
 		/obj/item/rpd/bluespace = 1,
-	)
-	cybernetic_implants = list(
-		/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-		/obj/item/organ/internal/cyberimp/eyes/hud/security,
-		/obj/item/organ/internal/cyberimp/brain/anti_stun/hardened,
-		/obj/item/organ/internal/cyberimp/eyes/shield,
-		/obj/item/organ/internal/cyberimp/arm/toolset,
-	)
-	implants = list(
-		/obj/item/implant/mindshield/ert,
-		/obj/item/implant/death_alarm,
 	)
 
 //////////////////// MEDIC ///////////////////
