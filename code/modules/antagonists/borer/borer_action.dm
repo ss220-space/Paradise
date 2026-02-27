@@ -209,6 +209,12 @@
 		to_chat(owner, "Носитель слишком слаб для активации режима эволюции!")
 		return
 
+	// Проверка на сахар
+	if(host.reagents.has_reagent("sugar"))
+		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком вялым, питание прервано."))
+		qdel(src)
+		return
+
 	if(borer.chemicals < cost)
 		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для активации режима эволюции!")
 		return

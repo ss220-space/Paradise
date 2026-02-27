@@ -1537,6 +1537,9 @@
 	icon_state = "unbalanced"
 
 
+
+// MARK: effect borer
+
 /datum/status_effect/parasitism
 	id = "parasitism"
 	duration = 60 SECONDS
@@ -1561,22 +1564,31 @@
 /datum/status_effect/parasitism/tick()
 	var/mob/living/carbon/host = owner
 	if(!istype(host))
-		return
-
-	// Если хост мёртв или в критическом состоянии (здоровье <= 0) — прекращаем эффект
-	if(host.stat == DEAD || host.health <= HEALTH_THRESHOLD_CRIT) // можно использовать HEALTH_THRESHOLD_CRIT, если есть
 		qdel(src)
 		return
 
-	// Ищем борера в хозяине
+	// Если хост мёртв или в критическом состоянии — прекращаем эффект
+	if(host.stat == DEAD || host.health <= HEALTH_THRESHOLD_CRIT)	// замени HEALTH_THRESHOLD_CRIT при необходимости
+		qdel(src)
+		return
+
 	var/mob/living/simple_animal/borer/borer = host.has_brain_worms()
 	if(!borer)
 		qdel(src)
 		return
 
+	// Проверка на сахар
+	if(host.reagents.has_reagent("sugar"))
+		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком вялым, питание прервано."))
+		qdel(src)
+		return
+
+	if(borer.controlling)
+		qdel(src)
+		return
+
 	borer.parasitism = TRUE
 
-	// Начисление очков эволюции через сигнал антаг-датуму
 	if(borer.antag_datum)
 		SEND_SIGNAL(borer.antag_datum, COMSIG_BORER_EVOLUTION_TICK, evolution_gain)
 
@@ -1600,7 +1612,7 @@
 		qdel(src)
 
 /datum/status_effect/parasitism/on_remove()
-    if(iscarbon(owner))
-        var/mob/living/carbon/host = owner
-        host.med_hud_set_status()   // убираем иконку или переключаем на обычную
-    return ..()
+	if(iscarbon(owner))
+		var/mob/living/carbon/host = owner
+		host.med_hud_set_status()   // убираем иконку или переключаем на обычную
+	return ..()
