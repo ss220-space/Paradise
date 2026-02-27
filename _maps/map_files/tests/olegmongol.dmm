@@ -148,7 +148,7 @@
 /area/event_zone)
 "wM" = (
 /obj/effect/bump_teleporter{
-	id = stroyka;
+	id = "stroyka";
 	density = 0
 	},
 /turf/simulated/floor/grass,
@@ -170,7 +170,7 @@
 /area/event_zone)
 "Ot" = (
 /obj/effect/bump_teleporter{
-	id_target = stroyka
+	id_target = "stroyka"
 	},
 /turf/simulated/floor/indestructible/grass,
 /area/event_zone)
