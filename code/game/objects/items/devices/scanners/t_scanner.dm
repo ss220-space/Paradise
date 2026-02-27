@@ -1,6 +1,6 @@
 /obj/item/t_scanner
 	name = "T-ray scanner"
-	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
+	desc = "Излучатель терагерцового излучения, а так же сканер, используемый для обнаружения проводки и труб под полом."
 	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "t-ray0"
@@ -15,6 +15,15 @@
 	var/scan_range = 1
 	var/pulse_duration = 1 SECONDS
 
+/obj/item/t_scanner/get_ru_names()
+	return list(
+		NOMINATIVE = "T-ray сканер",
+		GENITIVE = "T-ray сканера",
+		DATIVE = "T-ray сканеру",
+		ACCUSATIVE = "T-ray сканер",
+		INSTRUMENTAL = "T-ray сканером",
+		PREPOSITIONAL = "T-ray сканере",
+	)
 /obj/item/t_scanner/extended_range
 	name = "T-ray сканер расширенной дальности"
 	desc = "Излучатель и сканер терагерцевого излучения, используемый для обнаружения скрытых объектов и объектов под полом, таких как кабели и трубы. \
