@@ -15,7 +15,7 @@
  */
 /obj/item/clothing/head/welding
 	name = "welding helmet"
-	desc = "A head-mounted face cover designed to protect the wearer completely from space-arc eye."
+	desc = "Крепящаяся на голову маска, предназначенная для защиты лица от искр при сварке"
 	icon_state = "welding"
 	base_icon_state = "welding"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
@@ -50,29 +50,39 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
 	)
 
+/obj/item/clothing/head/welding/get_ru_names()
+	return list(
+		NOMINATIVE = "Сварочный шлем",
+		GENITIVE = "Сварочного шлема",
+		DATIVE = "Сварочному шлему",
+		ACCUSATIVE = "Сварочный шлем",
+		INSTRUMENTAL = "Сварочным шлемом",
+		PREPOSITIONAL = "Сварочном шлеме",
+	)
+
 /obj/item/clothing/head/welding/flamedecal
-	name = "flame decal welding helmet"
-	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility."
+	name = "flame decal welding helmet."
+	desc = "Сварочный шлем, украшенный огненной наклейкой и надписями с различной степенью читаемости."
 	icon_state = "welding_redflame"
 
 /obj/item/clothing/head/welding/flamedecal/blue
-	name = "blue flame decal welding helmet"
-	desc = "A welding helmet with blue flame decals on it."
+	name = "Blue flame decal welding helmet"
+	desc = "Сварочный шлем с наклейкой синего пламени."
 	icon_state = "welding_blueflame"
 
 /obj/item/clothing/head/welding/flamedecal/white
 	name = "white decal welding helmet"
-	desc = "A white welding helmet with a character written across it."
+	desc = "Белый сварочный шлем с нанесенным поперёк символом."
 	icon_state = "welding_white"
 
 /obj/item/clothing/head/welding/bigbrother
 	name = "big brother decal welding helmet"
-	desc = "A welding helmet with lines and red protective glass."
+	desc = "Сварочный шлем с линиями и красным защитным стеклом."
 	icon_state = "welding_bigbrother"
 
 /obj/item/clothing/head/welding/slavic
 	name = "slavic decal welding helmet"
-	desc = "A welding helmet with lines and yellow protective glass."
+	desc = "Сварочный шлем с линиями и жёлтым защитным стеклом."
 	icon_state = "welding_slavic"
 
 /obj/item/clothing/head/welding/attack_self(mob/user)
