@@ -87,16 +87,16 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, span_notice("You start drawing a [temp] on the [target.name]."))
+		to_chat(user, span_notice("Вы начали рисовать [temp] на [target.name]."))
 		busy = TRUE
 		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
-			to_chat(user, span_notice("You finish drawing [temp]."))
+			to_chat(user, span_notice("Вы закончили рисовать [temp]."))
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, span_danger("You used up your [name]!"))
+					to_chat(user, span_danger("Вы израсходовали свой [name]!"))
 					qdel(src)
 		busy = FALSE
 
@@ -276,7 +276,7 @@
 /obj/item/toy/crayon/spraycan
 	name = "Nanotrasen-brand Rapid Paint Applicator"
 	icon_state = "spraycan"
-	desc = "A metallic container containing tasty paint."
+	desc = "Металлическая банка с вкусной краской внутри. Произведено Nanotrasen."
 	/// Current state of the cap
 	var/capped = 1
 	/// List of icon_state and names for paint welding mask
@@ -286,6 +286,16 @@
 	instant = 1
 	validSurfaces = list(/turf/simulated/floor,/turf/simulated/wall)
 
+/obj/item/toy/crayon/spraycan/get_ru_names()
+	return list(
+		NOMINATIVE = "Баллончик с краской",
+		GENITIVE = "Баллончика с краской",
+		DATIVE = "Баллончику с краской",
+		ACCUSATIVE = "Баллончика с краской",
+		INSTRUMENTAL = "Баллончиком с краской",
+		PREPOSITIONAL = "Баллончике с краской",
+	)
+
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -294,7 +304,7 @@
 	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, span_notice("You [capped ? "Remove" : "Replace"] the cap of the [src]"))
+			to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] крышку у  [DECLENT_RU_CAP(src, ACCUSATIVE)]"))
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
@@ -316,7 +326,7 @@
 			if(uses-10 > 0)
 				uses = uses - 10
 				var/mob/living/carbon/human/C = target
-				user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
+				user.visible_message(span_danger(" [user] распыляет [DECLENT_RU_CAP(src, INSTRUMENTAL)] на лицо [target]!"))
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)
@@ -339,7 +349,7 @@
 /obj/item/toy/crayon/spraycan/proc/draw_paint(mob/living/user)
 	uses--
 	if(!uses)
-		to_chat(user, span_warning("Вы израсходовали [name]!"))
+		to_chat(user, span_warning("Вы израсходовали [DECLENT_RU_CAP(src, DATIVE)]!"))
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		qdel(src)
 
