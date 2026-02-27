@@ -172,6 +172,10 @@
 		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для запуска регенерации!")
 		return
 
+	if(host.reagents.has_reagent("sugar"))
+		to_chat(borer, span_warning("Сахар в крови носителя"))
+		return
+
 	// Проверяем, нет ли уже такого эффекта (чтобы не стакался)
 	if(host.has_status_effect(/datum/status_effect/borer_regen))
 		to_chat(owner, "Ваш носитель уже регенерирует!")
@@ -211,8 +215,7 @@
 
 	// Проверка на сахар
 	if(host.reagents.has_reagent("sugar"))
-		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком вялым, питание прервано."))
-		qdel(src)
+		to_chat(borer, span_warning("Сахар в крови носителя"))
 		return
 
 	if(borer.chemicals < cost)
