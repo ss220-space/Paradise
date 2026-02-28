@@ -860,7 +860,7 @@ GLOBAL_LIST_INIT(aalarm_modes, list(
 		return TRUE
 	if(user.can_admin_interact())
 		return TRUE
-	else if(isAI(user) || (isrobot(user) || emagged || user.has_unlimited_silicon_privilege) && !iscogscarab(user))
+	else if(isAI(user) || (isrobot(user) || emagged || user.has_unlimited_silicon_privilege))
 		return TRUE
 	else
 		return !locked

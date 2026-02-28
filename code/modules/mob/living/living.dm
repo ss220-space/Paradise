@@ -1336,7 +1336,7 @@
 	if(weak)
 		return //It's too weak to break a flesh!
 	if(client)
-		switch(rand(1,3))
+		switch(rand(1,2))
 			if(1)
 				var/mob/living/simple_animal/hostile/clockwork/marauder/cog = new (get_turf(src))
 				if(mind)
@@ -1344,14 +1344,9 @@
 					mind.transfer_to(cog)
 				else
 					cog.possess_by_player(client.key)
-			if(2)
-				var/mob/living/silicon/robot/cogscarab/cog = new (get_turf(src))
-				if(mind)
-					SSticker.mode.add_clocker(mind)
-					mind.transfer_to(cog)
 				else
 					cog.possess_by_player(client.key)
-			if(3)
+			if(2)
 				var/mob/living/silicon/robot/cog = new (get_turf(src))
 				if(mind)
 					SSticker.mode.add_clocker(mind)

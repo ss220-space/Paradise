@@ -1063,18 +1063,10 @@
 	if(G)
 		G.drop_gripped_item(silent = TRUE)
 
-/obj/item/robot_module/cogscarab
-	name = "Cogscarab"
-	module_type = "Cogscarab"
-
-/obj/item/robot_module/cogscarab/on_apply(mob/living/silicon/robot/robot)
-	var/mob/living/silicon/robot/cogscarab/cogscarab = new(get_turf(robot))
-	robot.mind?.transfer_to(cogscarab)
-	qdel(robot)
 
 	return TRUE
 
-/obj/item/robot_module/cogscarab/Initialize(mapload)
+/obj/item/robot_module/clockwork/Initialize(mapload)
 	. = ..()
 	modules += new /obj/item/screwdriver/brass(src)
 	modules += new /obj/item/wirecutters/brass(src)
@@ -1082,7 +1074,7 @@
 	modules += new /obj/item/wrench/brass(src)
 	modules += new /obj/item/weldingtool/experimental/brass(src)
 	modules += new /obj/item/multitool/brass(src)
-	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/gripper/clockwork(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
 	modules += new /obj/item/clockwork/brassmaker(src)
 	modules += new /obj/item/extinguisher(src)
@@ -1091,14 +1083,14 @@
 	fix_modules()
 	handle_storages()
 
-/obj/item/robot_module/cogscarab/add_default_robot_items()
+/obj/item/robot_module/clockwork/add_default_robot_items()
 	return
 
-/obj/item/robot_module/cogscarab/respawn_consumable(mob/living/silicon/robot/R)
+/obj/item/robot_module/clockwork/respawn_consumable(mob/living/silicon/robot/R)
 	return
 
-/obj/item/robot_module/cogscarab/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/cogscarab/G = locate(/obj/item/gripper/cogscarab) in modules
+/obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
+	var/obj/item/gripper/clockwork/G = locate(/obj/item/gripper/clockwork) in modules
 	G?.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/clockwork
@@ -1129,7 +1121,7 @@
 	modules += new /obj/item/crowbar/brass(src)
 	modules += new /obj/item/wirecutters/brass(src)
 	modules += new /obj/item/multitool/brass(src)
-	modules += new /obj/item/gripper/cogscarab(src)
+	modules += new /obj/item/gripper/clockwork(src)
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/stack/sheet/brass/cyborg(src)
 	modules += new /obj/item/clockwork/brassmaker(src)
@@ -1146,7 +1138,7 @@
 	return
 
 /obj/item/robot_module/clockwork/handle_death(mob/living/silicon/robot/R, gibbed)
-	var/obj/item/gripper/cogscarab/G = locate() in modules
+	var/obj/item/gripper/clockwork/G = locate() in modules
 	G?.drop_gripped_item(silent = TRUE)
 
 /obj/item/robot_module/ninja

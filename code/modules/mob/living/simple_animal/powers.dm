@@ -43,9 +43,6 @@
 	desc = "Позволяет прятаться под столами и некоторыми объектами. В скрытом состоянии можно пролезать под незаболтированными шлюзами."
 	button_icon_state = "repairbot"
 
-/datum/action/innate/hide/drone/cogscarab
-	layer_to_change_to = LOW_OBJ_LAYER
-
 /datum/action/innate/hide/alien_larva
 	background_icon_state = "bg_alien"
 	button_icon_state = "alien_hide"

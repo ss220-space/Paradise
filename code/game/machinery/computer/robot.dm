@@ -43,10 +43,6 @@
 		return FALSE
 	if(isdrone(R))
 		return FALSE
-	if(iscogscarab(R))
-		return FALSE
-	if(iscogscarab(R))
-		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
 	if(!are_zs_connected(src, R))

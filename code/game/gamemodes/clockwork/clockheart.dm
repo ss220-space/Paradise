@@ -282,21 +282,6 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	to_chat(affected, span_userdanger("Неведомая сила отталкивает вас!"))
 	affected.Knockdown(6 SECONDS)
 
-/obj/structure/clockwork/functional/heart/proc/give_blessing(mob/living/user)
-	var/bless_to_give
-	var/chosen_blessing
-	if(isnull(blessings))
-		bless_to_give = new /obj/item/gun/energy/gun/minigun/clockwork
-		user.put_in_hands(bless_to_give)
-		return
-	chosen_blessing = pick(blessings)
-	bless_to_give = new chosen_blessing(user.loc)
-	user.put_in_hands(bless_to_give)
-	LAZYREMOVE(blessings, chosen_blessing)
-	to_chat(user, span_clockitalic("Благодарю тебя, сын мой. Прими же этот дар!"))
-	chosen_blessing = null
-	bless_to_give = null
-
 /obj/structure/clockwork/functional/heart/proc/spawn_parts()
 	var/first_part_loc = get_safe_random_station_turf()
 	var/second_part_loc = get_safe_random_station_turf()

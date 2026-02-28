@@ -115,11 +115,6 @@
 			return
 		if(item.enchant_type)
 			to_chat(owner, span_clockitalic("There is already prepared spell in [item]! If you choose another spell it will overwrite old one!"))
-		if(istype(item, /obj/item/gun/energy/gun/minigun/clockwork))
-			var/obj/item/gun/energy/gun/minigun/clockwork/gun = item
-			if(gun.overheat)
-				to_chat(owner, span_warning("Вы не можете зачаровать [gun.declent_ru(ACCUSATIVE)] пока он перегрет!"))
-				return
 		var/entered_spell_name
 		var/list/possible_enchants = list()
 		var/list/possible_enchant_icons = list()

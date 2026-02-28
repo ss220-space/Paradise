@@ -758,7 +758,7 @@
 	for(var/mob/living/S in GLOB.alive_mob_list)
 		if(!S.binarycheck())
 			continue
-		else if(drone_only && !(isdrone(S) || iscogscarab(S)))
+		else if(drone_only && !(isdrone(S) ))
 			continue
 		else if(isAI(S))
 			message_start = list("<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=[speaker.UID()]'>[span_name("[speaker.name]")]</a>")
