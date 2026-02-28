@@ -53,6 +53,7 @@
 #define COOLDOWN_CIRCUIT_PATHFIND_DIF "circuit_pathfind_different"
 #define COOLDOWN_CIRCUIT_TARGET_INTERCEPT "circuit_target_intercept"
 #define COOLDOWN_CIRCUIT_VIEW_SENSOR "circuit_view_sensor"
+#define COOLDOWN_CIRCUIT_LASER "circuit_laser"
 
 // mob cooldowns
 #define COOLDOWN_YAWN_PROPAGATION "yawn_propagation_cooldown"

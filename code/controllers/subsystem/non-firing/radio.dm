@@ -40,6 +40,11 @@ SUBSYSTEM_DEF(radio)
 
 // This is a disgusting hack to stop this tripping CI when this thing needs to FUCKING DIE
 /datum/controller/subsystem/radio/Initialize()
+	for(var/name,new_frequency in radiochannels)
+		var/f_text = num2text(new_frequency)
+		var/datum/radio_frequency/frequency = new
+		frequency.frequency = new_frequency
+		frequencies[f_text] = frequency
 	return SS_INIT_SUCCESS
 
 // This is fucking disgusting and needs to die
@@ -107,6 +112,7 @@ SUBSYSTEM_DEF(radio)
 
 	if(!frequency)
 		frequency = new
+		frequency.custom = TRUE
 		frequency.frequency = new_frequency
 		frequencies[f_text] = frequency
 
@@ -125,7 +131,7 @@ SUBSYSTEM_DEF(radio)
 
 	frequency.remove_listener(device)
 	remove_radio(device, old_frequency)
-	if(length(frequency.devices) != 0)
+	if(!frequency.custom || length(frequency.devices) != 0)
 		return 1
 
 	qdel(frequency)

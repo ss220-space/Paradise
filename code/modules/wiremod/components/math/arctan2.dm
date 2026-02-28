@@ -17,6 +17,12 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/arctan2/Destroy()
+	input_port_x = null
+	input_port_y = null
+	output = null
+	. = ..()
+
 /obj/item/circuit_component/arctan2/populate_ports()
 	input_port_x = add_input_port("X", PORT_TYPE_NUMBER)
 	input_port_y = add_input_port("Y", PORT_TYPE_NUMBER)

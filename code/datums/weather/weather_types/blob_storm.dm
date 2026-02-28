@@ -4,9 +4,9 @@
 	desc = "Плотное облако из мельчайших спор блоба, проникающих через любую одежду."
 
 	telegraph_duration = 2 SECONDS
-	telegraph_message = span_danger("Вы замечаете мелкие частицы в воздухе")
+	telegraph_message = span_danger_alt("Вы замечаете мелкие частицы в воздухе")
 
-	weather_message = span_userdanger("<i>Вы ощущаете поток неизвестных мелких частиц, которые проникают сквозь любую одежду. Спасти вас может только чудо.</i>")
+	weather_message = span_userdanger_alt("<i>Вы ощущаете поток неизвестных мелких частиц, которые проникают сквозь любую одежду. Спасти вас может только чудо.</i>")
 	weather_overlay = "blob_storm"
 	weather_duration_lower = 30 SECONDS
 	weather_duration_upper = 1 MINUTES
@@ -16,7 +16,7 @@
 	weather_sound = 'sound/magic/mutate.ogg'
 
 	end_duration = 10 SECONDS
-	end_message = span_notice("Поток частиц осел.")
+	end_message = span_notice_alt("Поток частиц осел.")
 
 	area_type = /area
 	protected_areas = list(/area/space, /area/crew_quarters/sleep)

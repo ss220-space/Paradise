@@ -51,8 +51,8 @@
 	invocation_type = "whisper"
 	invocation = "Iustus signum in linea punctata."
 
-	selection_activated_message = span_notice("Вы приготавливаете подробный контракт. ЛКМ по цели, чтобы призвать контракт ей в руку.")
-	selection_deactivated_message = span_notice("Вы сохраняете контракт до лучших времен.")
+	selection_activated_message = span_notice_alt("Вы приготавливаете подробный контракт. ЛКМ по цели, чтобы призвать контракт ей в руку.")
+	selection_deactivated_message = span_notice_alt("Вы сохраняете контракт до лучших времен.")
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -104,8 +104,8 @@
 	invocation_type = "shout"
 	invocation = "Ille porcus est meus!"
 
-	selection_activated_message = span_notice("Вы готовы забрать душу. Просто клините на свою жертву.")
-	selection_deactivated_message = span_notice("Вы передумали забирать чью-то душу.")
+	selection_activated_message = span_notice_alt("Вы готовы забрать душу. Просто клините на свою жертву.")
+	selection_deactivated_message = span_notice_alt("Вы передумали забирать чью-то душу.")
 
 	clothes_req = FALSE
 	human_req = FALSE

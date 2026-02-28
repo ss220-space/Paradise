@@ -145,7 +145,7 @@
 
 /obj/item/mecha_parts/mecha_equipment/rcd/Initialize(mapload)
 	GLOB.rcd_list += src
-	rcd_holder = new(rcd_holder)
+	rcd_holder = new(loc)
 	rcd_holder.power_use_multiplier = energy_drain
 	rcd_holder.canRwall = TRUE
 	. = ..()
@@ -153,7 +153,7 @@
 /obj/item/mecha_parts/mecha_equipment/rcd/Destroy()
 	GLOB.rcd_list -= src
 	rcd_holder.chassis = null
-	qdel(rcd_holder)
+	QDEL_NULL(rcd_holder)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/rcd/attach_act(obj/mecha/M)
@@ -283,6 +283,15 @@
 		var/obj/item/mecha_parts/mecha_equipment/new_module = new module(src)
 		modules[module] = new_module
 
+/obj/item/mecha_parts/mecha_equipment/multimodule/Destroy()
+	for(var/key, value in modules)
+		if(!value)
+			return
+		qdel(value)
+		modules -= key
+	targeted_module = null
+	. = ..()
+
 /obj/item/mecha_parts/mecha_equipment/multimodule/is_ranged()//add a distance restricted equipment. Why not?
 	return targeted_module?.is_ranged()
 
@@ -382,14 +391,17 @@
 	name = "cable layer"
 	desc = "Equipment for engineering exosuits. Lays cable along the exosuit's path."
 	icon_state = "mecha_wire"
-	var/datum/event/event
-	var/turf/old_turf
 	var/obj/structure/cable/last_piece
 	var/obj/item/stack/cable_coil/cable
 	var/max_cable = 1000
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/Initialize(mapload)
 	cable = new(src, 0)
+	. = ..()
+
+/obj/item/mecha_parts/mecha_equipment/cable_layer/Destroy()
+	QDEL_NULL(cable)
+	last_piece = null
 	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/cable_layer/can_attach(obj/mecha/M)
@@ -540,35 +552,46 @@
 			var/turf/T1 = get_step(T,turn(direction, 90))
 			var/turf/T2 = get_step(T,turn(direction, -90))
 
-			var/list/the_targets = list(T,T1,T2)
+			var/list/the_targets = list(T, T1, T2)
 			start_cooldown()
-			spawn(0)
-				for(var/a = 0 to 5)
-					var/obj/effect/particle_effect/water/W = new (get_turf(chassis))
-					if(!W)
-						return
-					var/turf/my_target = pick(the_targets)
-					var/datum/reagents/R = new/datum/reagents(5)
-					W.reagents = R
-					R.my_atom = W
-					reagents.trans_to(W,1)
-					for(var/b=0, b<4, b++)
-						if(!W)
-							return
-						step_towards(W,my_target)
-						if(!W)
-							return
-						var/turf/W_turf = get_turf(W)
-						W.reagents.reaction(W_turf)
-						for(var/atom/atm in W_turf)
-							W.reagents.reaction(atm)
-							if(isliving(atm)) //For extinguishing mobs on fire
-								var/mob/living/M = atm
-								M.ExtinguishMob()
+			water_effect(the_targets)
 
-						if(W.loc == my_target)
-							break
-						sleep(2)
+/obj/item/mecha_parts/mecha_equipment/extinguisher/proc/water_effect(list/the_targets)
+	set waitfor = FALSE
+
+	for(var/i in 0 to 5)
+		var/obj/effect/particle_effect/water/water_effect = new (get_turf(chassis))
+
+		if(!water_effect)
+			return
+
+		var/turf/my_target = pick(the_targets)
+		var/datum/reagents/reagents = new (5)
+		water_effect.reagents = reagents
+		reagents.my_atom = water_effect
+		reagents.trans_to(water_effect, 1)
+
+		for(var/j in 0 to 3)
+			if(!water_effect)
+				return
+
+			step_towards(water_effect, my_target)
+
+			if(!water_effect)
+				return
+
+			var/turf/water_turf = get_turf(water_effect)
+			water_effect.reagents.reaction(water_turf)
+			for(var/atom/atom in water_turf)
+				water_effect.reagents.reaction(atom)
+				if(isliving(atom)) //For extinguishing mobs on fire
+					var/mob/living/living_mob = atom
+					living_mob.ExtinguishMob()
+
+			if(water_effect.loc == my_target)
+				break
+
+			sleep(2)
 
 /obj/item/mecha_parts/mecha_equipment/extinguisher/on_reagent_change()
 	return
@@ -597,6 +620,10 @@
 	var/list/barriers = list()
 	var/creation_time = 0 //time to create a holosbarriers in deciseconds.
 	var/holocreator_busy = FALSE //to prevent placing multiple holo barriers at once
+
+/obj/item/mecha_parts/mecha_equipment/holowall/Destroy()
+	QDEL_LIST(barriers)
+	. = ..()
 
 /obj/item/mecha_parts/mecha_equipment/holowall/action(atom/target) //copypasted from extinguisher. TODO: Rewrite from scratch.
 	if(!action_checks(target) || get_dist(chassis, target) > 5)

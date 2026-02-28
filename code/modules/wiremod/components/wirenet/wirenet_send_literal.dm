@@ -11,6 +11,11 @@
 	/// Encryption key
 	var/datum/port/input/enc_key
 
+/obj/item/circuit_component/list_literal/wirenet_send/Destroy()
+	connected_powernet = null
+	enc_key = null
+	. = ..()
+
 /obj/item/circuit_component/list_literal/wirenet_send/Initialize(mapload)
 	. = ..()
 	AddComponent(\
@@ -18,10 +23,6 @@
 		connection_callback = CALLBACK(src, PROC_REF(on_powernet_connection)),\
 		disconnection_callback = CALLBACK(src, PROC_REF(on_powernet_disconnection)),\
 	)
-
-/obj/item/circuit_component/list_literal/wirenet_send/Destroy()
-	. = ..()
-	connected_powernet = null
 
 /obj/item/circuit_component/list_literal/wirenet_send/proc/on_powernet_connection(datum/powernet/new_powernet)
 	connected_powernet = new_powernet

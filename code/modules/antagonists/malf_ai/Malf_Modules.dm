@@ -73,8 +73,8 @@
 
 //The actual ranged proc holder.
 /obj/effect/proc_holder/ranged_ai
-	var/enable_text = span_notice("Hello World!") //Appears when the user activates the ability
-	var/disable_text = span_danger("Goodbye Cruel World!") //Context clues!
+	var/enable_text = span_notice_alt("Hello World!") //Appears when the user activates the ability
+	var/disable_text = span_danger_alt("Goodbye Cruel World!") //Context clues!
 	var/datum/action/innate/ai/ranged/attached_action
 
 /obj/effect/proc_holder/ranged_ai/proc/toggle(mob/user)
@@ -206,7 +206,7 @@
 	var/one_purchase = FALSE //If this module can only be purchased once. This always applies to upgrades, even if the variable is set to false.
 	var/power_type = /datum/action/innate/ai //If the module gives an active ability, use this. Mutually exclusive with upgrade.
 	var/upgrade //If the module gives a passive upgrade, use this. Mutually exclusive with power_type.
-	var/unlock_text = span_notice("Hello World!") //Text shown when an ability is unlocked
+	var/unlock_text = span_notice_alt("Hello World!") //Text shown when an ability is unlocked
 	var/unlock_sound //Sound played when an ability is unlocked
 	var/uses
 
@@ -225,7 +225,7 @@
 	cost = 130
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/nuke_station
-	unlock_text = span_notice("You slowly, carefully, establish a connection with the on-station self-destruct. You can now activate it at any time.")
+	unlock_text = span_notice_alt("You slowly, carefully, establish a connection with the on-station self-destruct. You can now activate it at any time.")
 	unlock_sound = 'sound/items/timer.ogg'
 
 /datum/action/innate/ai/nuke_station
@@ -337,7 +337,7 @@
 	description = "Improves the power and health of all AI turrets. This effect is permanent."
 	cost = 30
 	upgrade = TRUE
-	unlock_text = span_notice("You establish a power diversion to your turrets, upgrading their health and damage.")
+	unlock_text = span_notice_alt("You establish a power diversion to your turrets, upgrading their health and damage.")
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_turrets/upgrade(mob/living/silicon/ai/AI)
@@ -357,7 +357,7 @@
 	cost = 30
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/lockdown
-	unlock_text = span_notice("You upload a sleeper trojan into the door control systems. You can send a signal to set it off at any time.")
+	unlock_text = span_notice_alt("You upload a sleeper trojan into the door control systems. You can send a signal to set it off at any time.")
 
 /datum/action/innate/ai/lockdown
 	name = "Lockdown"
@@ -377,7 +377,7 @@
 	cost = 25
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/destroy_rcds
-	unlock_text = span_notice("After some improvisation, you rig your onboard radio to be able to send a signal to detonate all RCDs.")
+	unlock_text = span_notice_alt("After some improvisation, you rig your onboard radio to be able to send a signal to detonate all RCDs.")
 
 /datum/action/innate/ai/destroy_rcds
 	name = "Destroy RCDs"
@@ -402,7 +402,7 @@
 	Do not allow the mech to leave the station's vicinity or allow it to be destroyed."
 	cost = 30
 	upgrade = TRUE
-	unlock_text = span_notice("Virus package compiled. Select a target mech at any time. <b>You must remain on the station at all times. Loss of signal will result in total system lockout.</b>")
+	unlock_text = span_notice_alt("Virus package compiled. Select a target mech at any time. <b>You must remain on the station at all times. Loss of signal will result in total system lockout.</b>")
 	unlock_sound = 'sound/mecha/nominal.ogg'
 
 /datum/AI_Module/large/mecha_domination/upgrade(mob/living/silicon/ai/AI)
@@ -417,7 +417,7 @@
 	one_purchase = TRUE
 	cost = 25
 	power_type = /datum/action/innate/ai/break_fire_alarms
-	unlock_text = span_notice("You replace the thermal sensing capabilities of all fire alarms with a manual override, allowing you to turn them off at will.")
+	unlock_text = span_notice_alt("You replace the thermal sensing capabilities of all fire alarms with a manual override, allowing you to turn them off at will.")
 
 /datum/action/innate/ai/break_fire_alarms
 	name = "Override Thermal Sensors"
@@ -442,7 +442,7 @@
 	one_purchase = TRUE
 	cost = 50
 	power_type = /datum/action/innate/ai/break_air_alarms
-	unlock_text = span_notice("You remove the safety overrides on all air alarms, but you leave the confirm prompts open. You can hit 'Yes' at any time... you bastard.")
+	unlock_text = span_notice_alt("You remove the safety overrides on all air alarms, but you leave the confirm prompts open. You can hit 'Yes' at any time... you bastard.")
 
 /datum/action/innate/ai/break_air_alarms
 	name = "Override Air Alarm Safeties"
@@ -465,7 +465,7 @@
 	description = "Overheats an electrical machine, causing a small explosion and destroying it. Two uses per purchase."
 	cost = 20
 	power_type = /datum/action/innate/ai/ranged/overload_machine
-	unlock_text = span_notice("You enable the ability for the station's APCs to direct intense energy into machinery.")
+	unlock_text = span_notice_alt("You enable the ability for the station's APCs to direct intense energy into machinery.")
 
 /datum/action/innate/ai/ranged/overload_machine
 	name = "Overload Machine"
@@ -486,8 +486,8 @@
 
 /obj/effect/proc_holder/ranged_ai/overload_machine
 	ranged_mousepointer = 'icons/effects/overload_machine_target.dmi'
-	enable_text = span_notice("You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.")
-	disable_text = span_notice("You release your hold on the powernet.")
+	enable_text = span_notice_alt("You tap into the station's powernet. Click on a machine to detonate it, or use the ability again to cancel.")
+	disable_text = span_notice_alt("You release your hold on the powernet.")
 
 /obj/effect/proc_holder/ranged_ai/overload_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
 	if(..())
@@ -519,7 +519,7 @@
 	description = "Overrides a machine's programming, causing it to rise up and attack everyone except other machines. Four uses."
 	cost = 30
 	power_type = /datum/action/innate/ai/ranged/override_machine
-	unlock_text = span_notice("You procure a virus from the Space Dark Web and distribute it to the station's machines.")
+	unlock_text = span_notice_alt("You procure a virus from the Space Dark Web and distribute it to the station's machines.")
 
 /datum/action/innate/ai/ranged/override_machine
 	name = "Override Machine"
@@ -538,8 +538,8 @@
 
 /obj/effect/proc_holder/ranged_ai/override_machine
 	ranged_mousepointer = 'icons/effects/override_machine_target.dmi'
-	enable_text = span_notice("You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.")
-	disable_text = span_notice("You release your hold on the powernet.")
+	enable_text = span_notice_alt("You tap into the station's powernet. Click on a machine to animate it, or use the ability again to cancel.")
+	disable_text = span_notice_alt("You release your hold on the powernet.")
 
 /obj/effect/proc_holder/ranged_ai/override_machine/InterceptClickOn(mob/living/requester, params, obj/machinery/target)
 	if(..())
@@ -572,7 +572,7 @@
 	cost = 100
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/place_transformer
-	unlock_text = span_notice("You prepare a robotics factory for deployment.")
+	unlock_text = span_notice_alt("You prepare a robotics factory for deployment.")
 	unlock_sound = 'sound/machines/ping.ogg'
 
 /datum/action/innate/ai/place_transformer
@@ -645,7 +645,7 @@
 	description = "Attempts to overload the lighting circuits on the station, destroying some bulbs. Three uses."
 	cost = 15
 	power_type = /datum/action/innate/ai/blackout
-	unlock_text = span_notice("You hook into the powernet and route bonus power towards the station's lighting.")
+	unlock_text = span_notice_alt("You hook into the powernet and route bonus power towards the station's lighting.")
 
 /datum/action/innate/ai/blackout
 	name = "Blackout"
@@ -680,7 +680,7 @@
 	cost = 10
 	one_purchase = TRUE
 	power_type = /datum/action/innate/ai/reactivate_cameras
-	unlock_text = span_notice("You deploy nanomachines to the cameranet.")
+	unlock_text = span_notice_alt("You deploy nanomachines to the cameranet.")
 
 /datum/action/innate/ai/reactivate_cameras
 	name = "Reactivate Cameras"
@@ -721,7 +721,7 @@
 	one_purchase = TRUE
 	cost = 35 //Decent price for omniscience!
 	upgrade = TRUE
-	unlock_text = span_notice("OTA firmware distribution complete! Cameras upgraded: CAMSUPGRADED. Light amplification system online.")
+	unlock_text = span_notice_alt("OTA firmware distribution complete! Cameras upgraded: CAMSUPGRADED. Light amplification system online.")
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/upgrade_cameras/upgrade(mob/living/silicon/ai/AI)
@@ -753,7 +753,7 @@
 	cost = 30
 	one_purchase = TRUE
 	upgrade = TRUE
-	unlock_text = span_notice("OTA firmware distribution complete! Cameras upgraded: Enhanced surveillance package online.")
+	unlock_text = span_notice_alt("OTA firmware distribution complete! Cameras upgraded: Enhanced surveillance package online.")
 	unlock_sound = 'sound/items/rped.ogg'
 
 /datum/AI_Module/large/eavesdrop/upgrade(mob/living/silicon/ai/AI)
@@ -767,7 +767,7 @@
 	cost = 10
 	one_purchase = TRUE
 	upgrade = TRUE
-	unlock_text = span_notice("Network chip short circuited. Internal camera disconected from network. Minimal damage to other internal components.")
+	unlock_text = span_notice_alt("Network chip short circuited. Internal camera disconected from network. Minimal damage to other internal components.")
 	unlock_sound = 'sound/items/wirecutter.ogg'
 
 /datum/AI_Module/large/cameracrack/upgrade(mob/living/silicon/ai/AI)
