@@ -1689,9 +1689,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
 		if(!GLOB.all_robot_skins_permited)
-			if((new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit])) \
-				|| (new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level)))
+			var/has_permit = !new_skin.required_permit || (mmi?.skin_permissions[new_skin.required_permit])
+			var/has_donator = !new_skin.donator_tier || (usr.client && new_skin.donator_tier <= usr.client.donator_level)
+
+			if(!has_permit && !has_donator)
 				continue
+
 		var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
 		skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
 		choices[new_skin.name] = skin_image
