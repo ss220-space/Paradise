@@ -1704,9 +1704,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(!GLOB.all_robot_skins_permited)
-			var/has_permit = !new_skin.required_permit || (mmi?.skin_permissions[new_skin.required_permit])
-			var/has_donator = !new_skin.donator_tier || (usr.client && new_skin.donator_tier <= usr.client.donator_level)
+		var/permit_required = !isnull(new_skin.required_permit)
+		var/donator_tier_required = !isnull(new_skin.donator_tier)
+		if(!GLOB.all_robot_skins_permited && (permit_required || donator_tier_required))
+			var/has_permit = permit_required && mmi?.skin_permissions[new_skin.required_permit]
+			var/has_donator = donator_tier_required && usr.client && (new_skin.donator_tier <= usr.client.donator_level)
 
 			if(!has_permit && !has_donator)
 				continue
