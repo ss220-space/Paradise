@@ -27,11 +27,11 @@
 
 	else
 		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
-	for(var/obj/item/implant/implant in imp_in)
-		if(istype(implant, /obj/item/implant/fake_mindshield))
-			var/obj/item/implant/fake_mindshield/fake_mindshield = implant
-			to_chat(target, span_warning("Вы чувствуете, что [fake_mindshield.declent_ru(ACCUSATIVE)] перегружен и вышел из строя!"))
-			qdel(fake_mindshield)
+
+	var/obj/item/implant/fake_mindshield/fake_shield = locate(/obj/item/implant/fake_mindshield) in imp_in
+	if(fake_shield)
+		to_chat(target, span_warning("Вы чувствуете, что [fake_shield.declent_ru(ACCUSATIVE)] перегружен и вышел из строя!"))
+		qdel(fake_shield)
 
 /obj/item/implant/mindshield/removed(mob/target, silent = FALSE)
 	. = ..()
@@ -91,10 +91,10 @@
 	if(!.)
 		return .
 
-	for(var/obj/item/implant/implant in imp_in)
-		if(istype(implant, /obj/item/implant/mindshield))
-			to_chat(target, span_warning("Вы чувствуете, что [declent_ru(ACCUSATIVE)] сразу же был перегружен и вышел из строя!"))
-			qdel(src)
+	var/obj/item/implant/mindshield/real_mindshield = locate(/obj/item/implant/mindshield) in imp_in
+	if(real_mindshield)
+		to_chat(target, span_warning("Вы чувствуете, что [declent_ru(ACCUSATIVE)] сразу же был перегружен и вышел из строя!"))
+		qdel(src)
 
 /obj/item/implant/fake_mindshield/activate()
 	if(!imp_in)
