@@ -72,7 +72,6 @@
 	desc = "Имитирует имплант защиты разума, управляя его отображением на ИЛС службы безопасности. Может быть включён и выключен владельцем."
 	origin_tech = "materials=3;biotech=5;syndicate=2"
 	implant_state = "implant-syndicate"
-	activated = BIOCHIP_ACTIVATED_ACTIVE
 	implant_data = /datum/implant_fluff/fake_mindshield
 	icon_state = "fake_mindshield0"
 	var/hud_visible = FALSE
