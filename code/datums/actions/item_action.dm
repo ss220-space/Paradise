@@ -86,6 +86,9 @@
 /datum/action/item_action/set_internals
 	name = "Переключить баллон"
 
+/datum/action/item_action/sving_medal
+	name = "Щегольнуть медалью"
+
 /datum/action/item_action/set_internals/is_action_active(atom/movable/screen/movable/action_button/current_button)
 	if(iscarbon(owner))
 		var/mob/living/carbon/carbon_owner = owner

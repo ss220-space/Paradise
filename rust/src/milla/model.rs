@@ -220,32 +220,31 @@ bitflags! {
 }
 
 /// A single tile in the atmos model.
-#[repr(align(64))]
 #[derive(Debug, Clone)]
 pub(crate) struct Tile {
-    /// Which directions this tile cannot transmit gases in.
-    pub(crate) airtight_directions: AirtightDirections,
+    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// The gases this tile holds.
     pub(crate) gases: GasSet,
-    /// How much thermal energy this tile has, in joules.
-    pub(crate) thermal_energy: f32,
-    /// The general behavior of this tile.
-    pub(crate) mode: AtmosMode,
     /// How well this tile conducts heat in each direction
     pub(crate) superconductivity: Superconductivity,
+    /// How much thermal energy this tile has, in joules.
+    pub(crate) thermal_energy: f32,
+    /// How strongly the air in this tile is flowing towards +axis.
+    pub(crate) wind: [f32; AXES.len()],
     /// How much heat capacity the tile itself has, in joules per kelvin.
     pub(crate) innate_heat_capacity: f32,
     /// How hot the tile's hotspot is. A hotspot is a sub-tile reagion that's caught fire.
     pub(crate) hotspot_temperature: f32,
     /// How much of the tile the hotspot covers. 1.0 would be the entire tile.
     pub(crate) hotspot_volume: f32,
-    /// How strongly the air in this tile is flowing towards +axis.
-    pub(crate) wind: [f32; AXES.len()],
-    /// Is there a wall in this direction?
-    pub(crate) wall: [bool; AXES.len()],
-    pub(crate) gas_flow: [[[f32; 2]; GAS_COUNT]; AXES.len()],
     /// How much fuel was burnt this tick?
     pub(crate) fuel_burnt: f32,
+    /// The general behavior of this tile.
+    pub(crate) mode: AtmosMode,
+    /// Which directions this tile cannot transmit gases in.
+    pub(crate) airtight_directions: AirtightDirections,
+    /// Is there a wall in this direction?
+    pub(crate) wall: [bool; AXES.len()],
 }
 
 impl Tile {
@@ -560,6 +559,17 @@ impl Buffers {
         tile.gases.recalculate();
         environments.push(tile);
         id
+    }
+
+    pub(crate) fn clear_and_free_z_levels(&self) {
+        let mut active = self.buffer_a.write().unwrap();
+        let mut inactive = self.buffer_b.write().unwrap();
+
+        active.0.clear();
+        inactive.0.clear();
+
+        active.0.shrink_to_fit();
+        inactive.0.shrink_to_fit();
     }
 }
 
