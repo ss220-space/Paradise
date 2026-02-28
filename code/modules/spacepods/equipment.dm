@@ -83,7 +83,7 @@
 /obj/item/spacepod_equipment/weaponry
 	name = "pod weapon"
 	desc = "You shouldn't be seeing this"
-	icon_state = "blank"
+	icon_state = null
 	var/obj/projectile/projectile_type
 	var/shot_cost = 0
 	var/shots_per = 1
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	name = "pod misc"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/goonstation/pods/ship.dmi'
-	icon_state = "blank"
+	icon_state = null
 
 /obj/item/spacepod_equipment/misc/tracker
 	name = "spacepod tracking system"
@@ -227,7 +227,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/sec_cargo
 	name = "secondary cargo"
 	desc = "you shouldn't be seeing this"
-	icon_state = "blank"
+	icon_state = null
 
 // Passenger Seat
 /obj/item/spacepod_equipment/sec_cargo/chair
@@ -252,7 +252,7 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 /obj/item/spacepod_equipment/lock
 	name = "pod lock"
 	desc = "You shouldn't be seeing this"
-	icon_state = "blank"
+	icon_state = null
 	var/mode = 0
 	var/id = null
 
@@ -289,18 +289,12 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 
 	return ..()
 
-/*
-///////////////////////////////////////
-/////////Locator System///////////////////
-///////////////////////////////////////
-*/
-
+// Locator System
 /obj/item/spacepod_equipment/locators
 	name = "Locator system"
 	desc = "You shouldn't be seeing this"
 	icon = 'icons/spacepods_paradise/locator.dmi'
-	icon_state = "blank"
-
+	icon_state = null
 	var/can_ignore_z = FALSE
 	var/can_found_all = FALSE
 
@@ -336,4 +330,3 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	desc = "Улучшеный модуль поиска способный обнаружить любой объект в секторе"
 	icon_state = "pod_locator"
 	can_found_all = TRUE
-

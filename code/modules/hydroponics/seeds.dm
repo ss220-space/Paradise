@@ -14,6 +14,7 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	icon_state = "seed"				// Unknown plant seed - these shouldn't exist in-game.
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
+	abstract_type = /obj/item/seeds
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/product						// A type path. The thing that is created when the plant is harvested.
 	var/species = ""				// Used to update icons. Should match the name in the sprites unless all icon_* are overriden.
@@ -43,6 +44,11 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 	var/weed_rate = 1 //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5 //Percentage chance per tray update to grow weeds
 	var/nogenes = FALSE
+
+/obj/item/seeds/get_short_name()
+	if(!plantname)
+		return declent_ru(NOMINATIVE)
+	return plantname
 
 /obj/item/seeds/New(loc, nogenes = FALSE)
 	..()

@@ -298,7 +298,7 @@
 						if(istype(O, /obj/structure/closet))
 							var/obj/structure/closet/locker = O
 							locker.bust_open()
-						if(O.density || istype(O, /obj/machinery/door/airlock))
+						if(O.density || is_airlock(O))
 							forceMove(H.loc)
 					if(T.density)
 						forceMove(H.loc)

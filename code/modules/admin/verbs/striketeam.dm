@@ -83,9 +83,9 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				SSticker.mode.deathsquad |= R.mind
 				R.possess_by_player(ghost_mob.key)
 				if(nuke_code)
-					R.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code].</span>")
-				R.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
-				to_chat(R, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
+					R.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code].")]")
+				R.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
+				to_chat(R, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: [span_danger("[input]")]"))
 			else
 				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
 				new_commando.mind.key = ghost_mob.key
@@ -94,9 +94,9 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				new_commando.update_action_buttons_icon()
 				new_commando.change_voice()
 				if(nuke_code)
-					new_commando.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code].</span>")
-				new_commando.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
-				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<b>КОМАНДИР</b>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
+					new_commando.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code].")]")
+				new_commando.mind.store_memory("<b>Миссия:</b> [span_warning("[input].")]")
+				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<b>КОМАНДИР</b>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: [span_danger("[input]")]"))
 
 			is_leader = FALSE
 			commando_number--

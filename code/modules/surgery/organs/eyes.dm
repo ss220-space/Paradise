@@ -1,3 +1,17 @@
+/// Pure Black and white colorblindness. Every species except Vulpkanins and Tajarans will have this.
+#define GREYSCALE_COLOR_REPLACE list( \
+	"red" = "grey", \
+	"blue" = "grey", \
+	"green" = "grey", \
+	"orange" = "light grey", \
+	"yellow" = "light grey", \
+	"brown" = "grey", \
+	"gold" = "light grey", \
+	"cyan" = "silver", \
+	"magenta" = "grey", \
+	"purple" = "grey", \
+	"pink" = "light grey" \
+)
 
 /obj/item/organ/internal/eyes
 	name = "eyeballs"
@@ -13,6 +27,7 @@
 	/// Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/list/dependent_disabilities
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
+	min_broken_damage = EYE_BROKEN_THRESHOLD // for a smoother transition from blur to blindness
 
 	var/vision_flags = 0
 	var/see_in_dark = 2
@@ -128,3 +143,5 @@
 				E.heal_internal_damage(G.heal_rate)
 				owner.AdjustEyeBlurry(-2 SECONDS)
 	return ..() | update_flags
+
+#undef GREYSCALE_COLOR_REPLACE

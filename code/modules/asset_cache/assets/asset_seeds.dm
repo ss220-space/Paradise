@@ -1,9 +1,9 @@
 /// Cargo quest items sprites for UIs
-/datum/asset/spritesheet/seeds
+/datum/asset/spritesheet_batched/seeds
 	name = "seeds"
 
-/datum/asset/spritesheet/seeds/create_spritesheets()
+/datum/asset/spritesheet_batched/seeds/create_spritesheets()
 	for(var/path in subtypesof(/obj/item/seeds))
 		var/obj/item/seeds = new path
-		Insert(path2assetID(seeds.type), seeds.icon, seeds.icon_state)
+		insert_icon(path2assetID(seeds.type), uni_icon(seeds.icon, seeds.icon_state))
 

@@ -25,6 +25,22 @@
 	density = TRUE
 	anchored = FALSE
 
+/obj/effect/spresent/relaymove(mob/user)
+	if(user.stat)
+		return
+	to_chat(user, span_notice("Вы не можете двигаться."))
+
+/obj/effect/spresent/wirecutter_act(mob/living/user, obj/item/item)
+	. = TRUE
+	if(!item.use_tool(src, user, volume = item.tool_volume))
+		return
+
+	user.balloon_alert(user, "подарок открыт!")
+	for(var/atom/movable/thing as anything in contents) //Should only be one but whatever.
+		thing.forceMove(loc)
+
+	qdel(src)
+
 /obj/effect/mark
 		var/mark = ""
 		icon = 'icons/misc/mark.dmi'
@@ -41,14 +57,9 @@
 /obj/effect/laser
 	name = "laser"
 	desc = "IT BURNS!!!"
-	icon = 'icons/obj/weapons/projectiles.dmi'
-	var/damage = 0.0
-	var/range = 10.0
-
-/obj/effect/begin
-	name = "begin"
-	icon = 'icons/obj/stationobjs.dmi'
-	icon_state = "begin"
+	icon = 'icons/obj/weapons/guns/projectiles.dmi'
+	var/damage = 0
+	var/range = 10
 
 /obj/effect/projection
 	name = "Projection"
@@ -76,7 +87,6 @@
 /obj/effect/list_container/mobl
 	name = "mobl"
 	var/master = null
-
 	var/list/container = list()
 
 /obj/structure/showcase/horrific_experiment
@@ -84,10 +94,6 @@
 	desc = "Some sort of pod filled with blood and vicerea. You swear you can see it moving..."
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "pod_mess"
-
-/obj/effect/supplypod_selector
-	icon_state = "supplypod_selector"
-	layer = FLY_LAYER
 
 //Makes a tile fully lit no matter what
 /obj/effect/fullbright

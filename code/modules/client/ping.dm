@@ -18,5 +18,5 @@
 
 /client/verb/ping()
 	set name = "Пинг"
-	set category = STATPANEL_OOC
+	set category = VERB_CATEGORY_OOC
 	winset(src, null, "command=.display_ping+[num2text(world.time+world.tick_lag*TICK_USAGE_REAL/100, 32)]")

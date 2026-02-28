@@ -6,7 +6,7 @@
 	max_stages = 4
 	spread_flags = CONTACT
 	cures = list("ethanol")
-	severity = MEDIUM
+	severity = DISEASE_SEVERITY_MEDIUM
 	possible_mutations = list(/datum/disease/virus/beesease)
 
 /datum/disease/virus/anxiety/stage_act()

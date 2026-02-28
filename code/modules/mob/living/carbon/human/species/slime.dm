@@ -42,7 +42,7 @@ GLOBAL_LIST_EMPTY(slime_actions)
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | NO_EYES
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	flesh_color = "#5fe8b1"
 	blood_color = "#0064C8"

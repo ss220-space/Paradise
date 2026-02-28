@@ -8,7 +8,6 @@
 	flags = CONDUCT
 
 	var/spamcheck = 0
-	var/emagged = 0
 	var/insults = 0
 	var/span = ""
 	var/list/insultmsg = list("ИДИТЕ НАХУЙ!", "Я АГЕНТ \"Синдиката\"!", "СБ, ЗАСТРЕЛИТЕ МЕНЯ НЕМЕДЛЕННО!", "У МЕНЯ БОМБА!", "КАПИТАН ГАНДОН!", "ЗА Синдикат!")

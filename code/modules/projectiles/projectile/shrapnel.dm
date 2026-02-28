@@ -1,6 +1,7 @@
 /obj/projectile/shrapnel
 	name = "shrapnel"
 	icon = 'icons/obj/shards.dmi'
+	icon_state = null
 	throw_speed =  EMBED_THROWSPEED_THRESHOLD
 	sharp = TRUE
 	range = 20

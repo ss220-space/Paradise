@@ -9,7 +9,7 @@
 	discovery_threshold = 0.9
 	spread_flags = CONTACT
 	cures = list("sugar")
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_HARMFUL
 	possible_mutations = list(/datum/disease/virus/lycan)
 	var/bees_spawned = 0
 

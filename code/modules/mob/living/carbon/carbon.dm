@@ -3,6 +3,11 @@
 	GLOB.carbon_list += src
 
 /mob/living/carbon/Destroy()
+	// We need to delete the back slot first, for modsuits. Otherwise, we have issues.
+	if(back)
+		var/obj/item = back
+		temporarily_remove_item_from_inventory(item)
+		qdel(item)
 	// This clause is here due to items falling off from limb deletion
 	for(var/obj/item in get_all_slots())
 		temporarily_remove_item_from_inventory(item)
@@ -316,11 +321,12 @@
 		if(bodypart.bleeding_amount)
 			if(brutedamage > 0 && burndamage > 0)
 				status += ", "
-			var/high_bleeding = bodypart.bleeding_amount > HIGH_BLEEDING_VALUE
 			var/suppressed = bodypart.bleeding_amount <= bodypart.bleedsuppress
 			if(suppressed)
 				status += " перевязан[GEND_A_O_Y(bodypart)] чем-то окровавленным"
-			else if(high_bleeding)
+			else if(bodypart.has_arterial_bleeding())
+				status += " хлещет кровь"
+			else if(bodypart.has_heavy_bleeding())
 				status += " обильно кровоточ[PLUR_IT_AT(bodypart)]"
 			else
 				status += " кровоточ[PLUR_IT_AT(bodypart)]"
@@ -340,6 +346,9 @@
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
 			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[GEND_EM_EI_EM_IH(bodypart)] [bodypart.declent_ru(GENITIVE)] застрял[GEND_A_O_I(embedded)] [icon2html(embedded, src)] [embedded.declent_ru(NOMINATIVE)]!</a>"
+
+		if(bodypart.tourniquet && bodypart == bodypart.tourniquet.applied_bodypart)
+			status_list += "\t <a href='byond://?src=[UID()];tourniquet_object=[bodypart.tourniquet.UID()];limb=[bodypart.UID()]' class='warning'>Ваш[GEND_A_E_I(bodypart)] [bodypart.declent_ru(NOMINATIVE)] пережат[GEND_A_O_Y(bodypart)] [icon2html(bodypart.tourniquet, src)] [bodypart.tourniquet.declent_ru(INSTRUMENTAL)]!</a>"
 
 	for(var/t in missing)
 		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
@@ -397,9 +406,10 @@
 				to_chat(src, span_danger("Ваши глаза сильно болят от яркого света!"))
 				E.internal_receive_damage(rand(12, 16) + extra_damage, silent = TRUE)
 
-		if(E.damage > E.min_bruised_damage)
-			AdjustEyeBlind(damage STATUS_EFFECT_CONSTANT)
-			AdjustEyeBlurry(damage * rand(6 SECONDS, 12 SECONDS))
+		if(E.damage >= E.min_bruised_damage)
+			if(E.damage >= E.min_broken_damage)
+				EyeBlind(E.damage STATUS_EFFECT_CONSTANT)
+			EyeBlurry(clamp(floor((E.damage - E.min_bruised_damage) / 5) * 5 + EYE_BLUR_SCALE_STEP, 0, EYE_BLUR_SCALE_MAX_DURATION))
 
 			if(E.damage > (E.min_bruised_damage + E.min_broken_damage) / 2)
 				if(!E.is_robotic())
@@ -488,18 +498,21 @@
 
 		return
 
-	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
-	hit_atom.hit_by_thrown_carbon(src, throwingdatum, damage, FALSE, FALSE)
+	if(has_status_effect(STATUS_EFFECT_IMPACT_IMMUNE))
+		return
 
-/mob/living/carbon/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	var/damage = 10 + 1.5 * speed // speed while thrower is standing still is 2, while walking with an aggressive grab is 2.4, highest speed is 14
+	hit_atom.hit_by_thrown_mob(src, throwingdatum, damage, FALSE, FALSE)
+
+/mob/living/carbon/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	/*
 	for(var/obj/item/twohanded/dualsaber/D in contents)
-		if(D.wielded?.force)
-			visible_message(span_danger("[name] impales [C] with [D], before dropping them on the ground!"))
-			C.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
-			C.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
-			C.Weaken(2 SECONDS)
-			D.melee_attack_chain(src, C) //attack animation / jedi spin
+		if(D.wielded && D.force)
+			visible_message(span_danger("[name] impales [throwned_mob] with [D], before dropping them on the ground!"))
+			throwned_mob.apply_damage(100, BRUTE, BODY_ZONE_CHEST, sharp = TRUE, used_weapon = "Impaled on [D].")
+			throwned_mob.Stun(2 SECONDS) //Punishment. This could also be used by a traitor to throw someone into a dsword to kill them, but hey, teamwork!
+			throwned_mob.Weaken(2 SECONDS)
+			D.melee_attack_chain(src, throwned_mob) //attack animation / jedi spin
 			C.emote("scream")
 			return
 	*/
@@ -918,7 +931,19 @@ so that different stomachs can handle things in different ways VB*/
 		add_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
-	..()
+	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
+		add_sight(SEE_MOBS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_MESON_VISION))
+		add_sight(SEE_TURFS)
+		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE)
+
+	if(HAS_TRAIT(src, TRAIT_NIGHT_VISION))
+		nightvision = max(nightvision, 8)
+		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+
+	return ..()
 
 /mob/living/carbon/ExtinguishMob()
 	for(var/X in get_equipped_items())
@@ -959,7 +984,7 @@ so that different stomachs can handle things in different ways VB*/
 
 /mob/living/carbon/lying_angle_on_lying_down(new_lying_angle)
 	if(!new_lying_angle)
-		set_lying_angle(pick(90, 270))
+		set_lying_angle(pick(LYING_ANGLE_EAST, LYING_ANGLE_WEST))
 	else
 		set_lying_angle(new_lying_angle)
 

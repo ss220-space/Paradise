@@ -1,8 +1,10 @@
 /obj/item/paper_bin
 	name = "paper bin"
 	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "paper_bin1"
-	item_state = "sheet-metal"
+	icon_state = "paper_bin"
+	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/storage_lefthand.dmi'
+	item_state = "paper_bin"
 	throwforce = 1
 	throw_speed = 3
 	pressure_resistance = 8
@@ -11,7 +13,7 @@
 	var/letterhead_type
 	var/purple_bin = FALSE
 
-/obj/item/paper_bin/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/item/paper_bin/fire_act(exposed_temperature, exposed_volume)
 	if(amount)
 		amount = 0
 		update_icon(UPDATE_ICON_STATE)
@@ -108,14 +110,17 @@
 			. += span_notice("There are no papers in the bin.")
 
 /obj/item/paper_bin/update_icon_state()
+	icon_state = "paper_bin"
 	if(amount < 1)
-		icon_state = "paper_bin0"
+		icon_state += "_empty"
 	else
-		icon_state = "paper_bin[purple_bin ? "2" : "1"]"
+		icon_state += "[purple_bin ? "_carbon" : ""]"
+	item_state = icon_state
 
 /obj/item/paper_bin/carbon
 	name = "carbonless paper bin"
-	icon_state = "paper_bin2"
+	icon_state = "paper_bin_carbon"
+	item_state = "paper_bin_carbon"
 	purple_bin = TRUE
 
 /obj/item/paper_bin/carbon/attack_hand(mob/user)

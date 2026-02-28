@@ -38,3 +38,7 @@
 
 // Shit from a moron, delete and redo the Cut()
 #define SUPPLY_CONTRABAND 10
+
+#define MANIFEST_ERROR_NAME 1
+#define MANIFEST_ERROR_COUNT 2
+#define MANIFEST_ERROR_ITEM 4

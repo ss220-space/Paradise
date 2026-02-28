@@ -1,5 +1,5 @@
 /client/verb/adminhelp()
-	set category = STATPANEL_ADMIN_TICKETS
+	set category = ADMIN_CATEGORY_TICKETS
 	set name = "Запрос помощи"
 
 	//handle muting and automuting

@@ -48,7 +48,6 @@
 	force = 8
 	toolbox_radial_menu_compatibility = TRUE
 
-	var/emagged = FALSE
 	var/max_uses = 20
 	var/uses = 10
 	// How much to increase per each glass?

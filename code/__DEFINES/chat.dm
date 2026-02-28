@@ -66,3 +66,6 @@
 #define UNKNOWN_STATUS_RUS "Неизвестно"
 /// Replaces job's name of someone if they don't have one
 #define NOJOB_STATUS_RUS "Без должности"
+
+/// The cooldown on OOC messages such as OOC, LOOC, praying and adminhelps
+#define OOC_COOLDOWN 5

@@ -1,7 +1,3 @@
-#define MUSICIAN_HEARCHECK_MINDELAY 4
-#define MUSIC_MAXLINES 1000
-#define MUSIC_MAXLINECHARS 300
-
 /**
  * # Song datum
  *
@@ -78,8 +74,8 @@
 	var/list/channels_playing
 	/// List of channels that aren't being used, as text. This is to prevent unnecessary freeing and reallocations from SSsounds/SSinstruments.
 	var/list/channels_idle
-	/// Person playing us
-	var/mob/user_playing
+	/// Who or what's playing us
+	var/atom/music_player
 	//////////////////////////////////////////////////////
 
 	/// Last world.time we checked for who can hear us
@@ -228,11 +224,11 @@
 	//we can not afford to runtime, since we are going to be doing sound channel reservations and if we runtime it means we have a channel allocation leak.
 	//wrap the rest of the stuff to ensure stop_playing() is called.
 	do_hearcheck()
-	SEND_SIGNAL(parent, COMSIG_SONG_START)
+	SEND_SIGNAL(parent, COMSIG_INSTRUMENT_START)
 	elapsed_delay = 0
 	delay_by = 0
 	current_chord = 1
-	user_playing = user
+	music_player = user
 	START_PROCESSING(SSinstruments, src)
 
 /**
@@ -245,17 +241,17 @@
 	if(!debug_mode)
 		compiled_chords = null
 	STOP_PROCESSING(SSinstruments, src)
-	SEND_SIGNAL(parent, COMSIG_SONG_END)
+	SEND_SIGNAL(parent, COMSIG_INSTRUMENT_END)
 	terminate_all_sounds(TRUE)
 	hearing_mobs.Cut()
 	SStgui.update_uis(parent)
-	user_playing = null
+	music_player = null
 
 /**
  * Processes our song.
  */
 /datum/song/proc/process_song(wait)
-	if(!length(compiled_chords) || should_stop_playing(user_playing))
+	if(!length(compiled_chords) || should_stop_playing(music_player) == STOP_PLAYING)
 		stop_playing()
 		return
 	if(++elapsed_delay >= delay_by)
@@ -296,13 +292,25 @@
 /datum/song/proc/play_chord(list/chord)
 	// last value is timing information
 	for(var/i in 1 to (length(chord) - 1))
-		legacy? playkey_legacy(chord[i][1], chord[i][2], chord[i][3], user_playing) : playkey_synth(chord[i], user_playing)
+		legacy? playkey_legacy(chord[i][1], chord[i][2], chord[i][3], music_player) : playkey_synth(chord[i], music_player)
 
 /**
  * Checks if we should halt playback.
  */
-/datum/song/proc/should_stop_playing(mob/user)
-	return QDELETED(parent) || !using_instrument || !playing
+/datum/song/proc/should_stop_playing(atom/player)
+	if(QDELETED(player) || !using_instrument || !playing)
+		return STOP_PLAYING
+	return SEND_SIGNAL(parent, COMSIG_INSTRUMENT_SHOULD_STOP_PLAYING, player)
+
+/// Sets and sanitizes the repeats variable.
+/datum/song/proc/set_repeats(new_repeats_value)
+	if(playing)
+		return //So that people cant keep adding to repeat. If the do it intentionally, it could result in the server crashing.
+	repeat = round(new_repeats_value)
+	if(repeat < 0)
+		repeat = 0
+	if(repeat > max_repeats)
+		repeat = max_repeats
 
 /**
  * Sanitizes tempo to a value that makes sense and fits the current world.tick_lag.
@@ -396,29 +404,29 @@
 // subtype for handheld instruments, like violin
 /datum/song/handheld
 
-/datum/song/handheld/should_stop_playing(mob/user)
+/datum/song/handheld/should_stop_playing(atom/player)
 	. = ..()
-	if(.)
-		return TRUE
+	if(. == STOP_PLAYING || . == IGNORE_INSTRUMENT_CHECKS)
+		return
 	var/obj/item/instrument/I = parent
-	return I.should_stop_playing(user)
+	return I.should_stop_playing(player)
 
 // subtype for stationary structures, like pianos
 /datum/song/stationary
 
-/datum/song/stationary/should_stop_playing(mob/user)
+/datum/song/stationary/should_stop_playing(atom/player)
 	. = ..()
-	if(.)
+	if(. == STOP_PLAYING || . == IGNORE_INSTRUMENT_CHECKS)
 		return TRUE
 	var/obj/structure/musician/M = parent
-	return M.should_stop_playing(user)
+	return M.should_stop_playing(player)
 
 // Subtype for thermal drills.
 /datum/song/thermal_drill
 
-/datum/song/thermal_drill/should_stop_playing(mob/user)
+/datum/song/thermal_drill/should_stop_playing(atom/player)
 	. = ..()
 	if(.)
 		return TRUE
 	var/obj/item/thermal_drill/D = parent
-	return D.should_stop_playing(user)
+	return D.should_stop_playing(player)

@@ -7,6 +7,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "programming=3;materials=3;magnets=3"
+	custom_price = PAYCHECK_CREW
 	var/datum/ui_module/crew_monitor/crew_monitor
 
 /obj/item/sensor_device/get_ru_names()

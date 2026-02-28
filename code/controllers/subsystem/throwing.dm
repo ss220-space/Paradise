@@ -19,6 +19,12 @@ SUBSYSTEM_DEF(throwing)
 /datum/controller/subsystem/throwing/get_stat_details()
 	return "P:[length(processing)]"
 
+/datum/controller/subsystem/throwing/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["processing"] = length(processing)
+	.["custom"] = custom_data
+
 /datum/controller/subsystem/throwing/fire(resumed = 0)
 	if(!resumed)
 		src.currentrun = processing.Copy()
@@ -92,8 +98,10 @@ SUBSYSTEM_DEF(throwing)
 	var/last_move = 0
 	///When this variable is `FALSE`, non dense mobs will be hit by a thrown thing.
 	var/dodgeable = TRUE
+	/// Can a thrown mob move themselves to stop the throw?
+	var/block_movement = TRUE
 
-/datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone, dodgeable)
+/datum/thrownthing/New(thrownthing, target, init_dir, maxrange, speed, thrower, diagonals_first, force, callback, target_zone, dodgeable, block_movement)
 	. = ..()
 	src.thrownthing = thrownthing
 	RegisterSignal(thrownthing, COMSIG_QDELETING, PROC_REF(on_thrownthing_qdel))
@@ -111,11 +119,11 @@ SUBSYSTEM_DEF(throwing)
 	src.callback = callback
 	src.target_zone = target_zone
 	src.dodgeable = dodgeable
+	src.block_movement = block_movement
 
 /datum/thrownthing/Destroy()
-	if(SSthrowing)
-		SSthrowing.processing -= thrownthing
-		SSthrowing.currentrun -= thrownthing
+	SSthrowing.processing -= thrownthing
+	SSthrowing.currentrun -= thrownthing
 	thrownthing.throwing = null
 	thrownthing = null
 	thrower = null

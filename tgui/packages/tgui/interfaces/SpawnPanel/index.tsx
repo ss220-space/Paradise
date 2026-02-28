@@ -46,18 +46,22 @@ export const SpawnPanel = () => {
   };
 
   return (
-    <Window height={550} title="Spawn Panel" width={500} theme="admin">
+    <Window
+      height={550}
+      title="Панель создания объектов"
+      width={575}
+      theme="admin"
+    >
       <Window.Content>
         {advancedSettings && (
           <Modal
             style={{
               padding: '6px',
-              width: '30em',
               marginTop: '-15em',
             }}
           >
             <Section
-              title="Advanced settings"
+              title="Продвинутые настройки"
               buttons={
                 <Button
                   color="transparent"

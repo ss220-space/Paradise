@@ -134,7 +134,7 @@
 		to_chat(player, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
 	for(var/mob/ghost in GLOB.dead_mob_list)
-		to_chat(ghost, span_gamesay("<i>Рабская телепатия, [span_name("[title]")] ([ghost_follow_link(user, ghost)]) телепатезирует, [message]<i>"))
+		to_chat(ghost, span_gamesay("([ghost_follow_link(user, ghost)]) <i>Рабская телепатия, [span_name("[title]")] телепатезирует, [message]<i>"))
 
 	log_say("(DANTALION) [input]", user)
 	user.create_log(SAY_LOG, "(DANTALION) [input]")
@@ -189,6 +189,10 @@
 
 /obj/effect/proc_holder/spell/vampire/switch_places/cast(list/targets, mob/user)
 	var/mob/living/target = targets[1]
+	if(isAI(target))
+		to_chat(user, span_warning("Заклинание не действует на ядро ИИ!"))
+		revert_cast()
+		return
 	var/turf/user_turf = get_turf(user)
 	var/turf/target_turf = get_turf(target)
 	target.forceMove(user_turf)

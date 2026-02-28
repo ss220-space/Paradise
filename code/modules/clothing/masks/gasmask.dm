@@ -55,6 +55,7 @@
 	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
 	origin_tech = "materials=2;engineering=3"
 	actions_types = list(/datum/action/item_action/toggle)
+	visor_flags_cover = MASKCOVERSEYES
 	visor_flags_inv = HIDEGLASSES
 	resistance_flags = FIRE_PROOF
 
@@ -543,6 +544,23 @@
 		PREPOSITIONAL = "сексуальной маске мима",
 	)
 
+/obj/item/clothing/mask/gas/mime/old
+
+	name = "classic mime mask"
+	desc = "Маска мима прямиком из 2568."
+	icon_state = "mime_old"
+	item_state = "mime_old"
+
+/obj/item/clothing/mask/gas/mime/old/get_ru_names()
+	return list(
+		NOMINATIVE = "классическая маска мима",
+		GENITIVE = "классической маски мима",
+		DATIVE = "классической маске мима",
+		ACCUSATIVE = "классическую маску мима",
+		INSTRUMENTAL = "классической маской мима",
+		PREPOSITIONAL = "классической маске мима",
+	)
+
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"
 	desc = "Бип буп."
@@ -610,6 +628,7 @@
 	var/safety = 1
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
+	custom_price = PAYCHECK_CREW
 	var/static/list/phrase_list = list(
 
 								"halt"			= "HALT! HALT! HALT! HALT!",
@@ -664,6 +683,7 @@
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	custom_price = PAYCHECK_COMMAND
 
 /obj/item/clothing/mask/gas/sechailer/tactical/get_ru_names()
 	return list(

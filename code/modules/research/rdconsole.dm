@@ -86,6 +86,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	/// Flag for Syndicate base
 	var/syndicate = 0
+	/// Flag for simplified console
+	var/disk_only = FALSE
 
 	/// ID of the computer (for server restrictions).
 	var/id = 0
@@ -156,6 +158,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			if(linked_imprinter == null)
 				linked_imprinter = D
 				D.linked_console = src
+				linked_imprinter.update_components_list()
 
 /// Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
@@ -229,6 +232,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			return ..()
 		if(tech_disk)
 			t_disk = I
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_disk", TECH_UPDATE_DELAY)
 		else
 			d_disk = I
 		SStgui.update_uis(src)
@@ -305,12 +310,18 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			server_processed = TRUE
 		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
 			S.produce_heat(100)
+
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
+
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/reset_research()
 	qdel(files)
 	files = new /datum/research(src)
 	clear_wait_message()
+	if(linked_imprinter)
+		linked_imprinter.update_components_list()
 	SStgui.update_uis(src)
 
 /obj/machinery/computer/rdconsole/proc/find_devices()
@@ -323,11 +334,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_destroy.busy)
-		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] в работе!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] в работе!"))
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -346,6 +357,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
+	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
@@ -369,7 +381,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
+			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		else
 			var/tech_log
 			for(var/T in temp_tech)
@@ -415,7 +427,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(machine.busy)
-		to_chat(usr, span_danger("[capitalize(machine.declent_ru(NOMINATIVE))] занят!"))
+		to_chat(usr, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
@@ -453,6 +465,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else
 		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
+		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	machine.busy = TRUE
 	use_power(power)
@@ -507,7 +520,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(machine.loc)
 					real_item.forceMove(lockbox)
 					lockbox.name += " ([real_item.name])"
-					var/real_item_ru_name = capitalize(real_item.declent_ru(NOMINATIVE))
+					var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
 					lockbox.ru_names = list(
 						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 						GENITIVE = "защищённого кейса ([real_item_ru_name])",
@@ -528,6 +541,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					new_item.loc = machine.loc
 
 		machine.busy = FALSE
+	if(istype(machine, /obj/machinery/r_n_d/protolathe))
+		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	clear_wait_message()
 	SStgui.update_uis(src)
@@ -581,6 +596,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_tech") //Update the research holder with information from the technology disk.
 			add_wait_message("Обновление базы данных...", TECH_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", TECH_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), TECH_UPDATE_DELAY)
 
 		if("clear_tech") //Erase data on the technology disk.
@@ -617,6 +634,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("updt_design") //Updates the research holder with design data from the design disk.
 			add_wait_message("Обновление базы данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 			addtimer(CALLBACK(src, PROC_REF(update_from_disk)), DESIGN_UPDATE_DELAY)
 
 		if("clear_design") //Erases data on the design disk.
@@ -634,6 +653,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if("copy_design") //Copy design data from the research holder to the design disk.
 			// This href ALSO makes me very nervous
+			add_wait_message("Загрузка данных...", DESIGN_UPDATE_DELAY)
+			if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+				flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 			var/datum/design/design = files.known_designs[params["id"]]
 			if(design && d_disk && can_copy_design(design))
 				d_disk.blueprint = design
@@ -643,7 +665,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] занят!"))
+					to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] занят!"))
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
@@ -669,6 +691,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 				to_chat(usr, span_danger("Консоль не подключена к сети НИО!"))
 			else
 				add_wait_message("Синхронизация базы данных...", SYNC_RESEARCH_DELAY)
+				if(istype(src, /obj/machinery/computer/rdconsole/cargo))
+					flick_overlay_view("cargocomp_screen_loading", DESIGN_UPDATE_DELAY)
 				griefProtection() //Putting this here because I dont trust the sync process
 				addtimer(CALLBACK(src, PROC_REF(sync_research)), SYNC_RESEARCH_DELAY)
 
@@ -766,7 +790,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RndConsole", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "RndConsole", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)
@@ -874,6 +898,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	data["src_ref"] = UID()
 	data["ui_theme"] = ui_theme
 
+	data["disk_only"] = disk_only
 	data["linked_destroy"] = linked_destroy ? 1 : 0
 	data["linked_lathe"] = linked_lathe ? 1 : 0
 	data["linked_imprinter"] = linked_imprinter ? 1 : 0
@@ -1001,7 +1026,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		wait_message_timer = null
 	SStgui.update_uis(src)
 
-
 /obj/machinery/computer/rdconsole/core
 	name = "core R&D console"
 	desc = "Компьютер, обеспечивающий доступ к базе данных технологий и \
@@ -1104,6 +1128,29 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		ACCUSATIVE = "публичную консоль НИО",
 		INSTRUMENTAL = "публичной консолью НИО",
 		PREPOSITIONAL = "публичной консоли НИО",
+	)
+
+/obj/machinery/computer/rdconsole/cargo
+	name = "cargo R&D console"
+	desc = "Компьютер, обеспечивающий доступ к базе данных технологий. Специализированная версия, используемая в отделе Снабжения."
+	id = 6
+	req_access = list(ACCESS_CARGO)
+	circuit = /obj/item/circuitboard/rdconsole/cargo
+	frame = /obj/structure/computerframe/cargo
+	disk_only = TRUE
+	ui_theme = "cargo"
+	icon_state = "cargocomp"
+	icon_screen = "cargocomp_screen_passive"
+	icon_keyboard = null
+
+/obj/machinery/computer/rdconsole/cargo/get_ru_names()
+	return list(
+		NOMINATIVE = "консоль НИО отдела Снабжения",
+		GENITIVE = "консоли НИО отдела Снабжения",
+		DATIVE = "консоли НИО отдела Снабжения",
+		ACCUSATIVE = "консоль НИО отдела Снабжения",
+		INSTRUMENTAL = "консолью НИО отдела Снабжения",
+		PREPOSITIONAL = "консоли НИО отдела Снабжения"
 	)
 
 #undef TECH_UPDATE_DELAY

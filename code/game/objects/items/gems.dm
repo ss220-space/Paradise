@@ -134,7 +134,7 @@
 
 /obj/item/gem/rupee/attackby(obj/item/I, mob/living/user, params)
 	. = ..()
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !is_sharp(I) || !HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
+	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !I.sharp || !HAS_TRAIT(src, TRAIT_BLOCK_RADIATION))
 		return .
 
 	to_chat(user, span_notice("Вы начали распиливать кристалл! Это явно плохая идея..."))

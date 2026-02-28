@@ -1,3 +1,22 @@
+/// Red colorblindness. Vulpkanins/Wolpins have this.
+#define PROTANOPIA_COLOR_REPLACE list( \
+	"red" = "darkolivegreen", \
+	"green" = "darkslategrey", \
+	"orange" = "goldenrod", \
+	"yellow" = "goldenrod", \
+	"brown" = "darkolivegreen", \
+	"gold" = "goldenrod", \
+	"cyan" = "steelblue", \
+	"magenta" = "blue", \
+	"purple" = "darkslategrey", \
+	"pink" = "beige" \
+)
+
+#define MATRIX_VULP_CBLIND list(\
+	0.51, 0.4, 0.12,\
+	0.49, 0.41, 0.12,\
+	0, 0.2, 0.76)
+
 /obj/item/organ/external/head/vulpkanin
 	species_type = /datum/species/vulpkanin
 
@@ -159,3 +178,6 @@
 		INSTRUMENTAL = "хвостом вульпканина",
 		PREPOSITIONAL = "хвосте вульпканина",
 	)
+
+#undef PROTANOPIA_COLOR_REPLACE
+#undef MATRIX_VULP_CBLIND

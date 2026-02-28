@@ -259,6 +259,9 @@
 	else if(hand_id == ITEM_SLOT_HAND_RIGHT && !has_right_hand())
 		return FALSE
 
+	if((hand_id == ITEM_SLOT_HAND_RIGHT && right_hand_bleed_suppress_lib) || (hand_id == ITEM_SLOT_HAND_LEFT && left_hand_bleed_suppress_lib))
+		return FALSE
+
 	if(!isnull(pull_hand) && pull_hand != PULL_WITHOUT_HANDS && ((hand_id == ITEM_SLOT_HAND_LEFT && pull_hand == PULL_HAND_LEFT) || (hand_id == ITEM_SLOT_HAND_RIGHT && pull_hand == PULL_HAND_RIGHT)))
 		return FALSE
 
@@ -389,6 +392,17 @@
 		. |= ITEM_SLOT_CLOTH_OUTER
 	if(head)
 		. |= ITEM_SLOT_HEAD
+
+// Returns items which are currently visible on the mob
+/mob/living/carbon/proc/get_visible_items()
+	var/list/obscured = check_obscured_slots()
+	var/list/visible_items = list()
+
+	for(var/obj/item/thing in get_equipped_items(INCLUDE_HELD))
+		if(!(get_slot_by_item(thing) & obscured))
+			visible_items += thing
+
+	return visible_items
 
 /mob/living/carbon/update_equipment_speed_mods()
 	. = ..()

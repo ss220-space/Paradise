@@ -218,7 +218,7 @@
 				if(prob(30))
 					do_sparks(2, TRUE, T)
 				T.ex_act(EXPLODE_LIGHT)
-				T.hotspot_expose(1000,500,1)
+				T.hotspot_expose(1000, 500)
 
 /obj/machinery/computer/HolodeckControl/proc/derez(obj/obj , silent = 1)
 	holographic_items.Remove(obj)
@@ -407,7 +407,7 @@
 	name = "Holographic Energy Sword"
 	desc = "This looks like a real energy sword!"
 	icon_state = "sword0"
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	force = 3.0
 	throw_speed = 1
 	throw_range = 5
@@ -447,7 +447,7 @@
 		to_chat(user, span_notice("[src] is now active."))
 	else
 		force = 3
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 		w_class = WEIGHT_CLASS_SMALL
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, TRUE)
 		to_chat(user, span_notice("[src] can now be concealed."))
@@ -528,7 +528,7 @@
 		return
 
 	if(prob(50))
-		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	mover.forceMove(loc)
@@ -540,7 +540,7 @@
 		return ..()
 
 	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
-		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
+		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
 		return ..()
 
 	AM.forceMove(get_turf(src))

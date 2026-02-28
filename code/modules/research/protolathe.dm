@@ -27,6 +27,7 @@ Note: Must be placed west/left of and R&D console to function.
 		PROTOLATHE_CATEGORY_WEAPON,
 		PROTOLATHE_CATEGORY_MISC,
 		PROTOLATHE_CATEGORY_ILLEGAL,
+		PROTOLATHE_CATEGORY_CIRCUITRY,
 	)
 
 	reagents = new()

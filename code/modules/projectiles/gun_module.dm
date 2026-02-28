@@ -164,7 +164,8 @@
 /obj/item/gun_module/muzzle/suppressor/handmade
 	name = "handmade suppressor"
 	desc = "Сделан из банки, скотча и куска металла. Неплохо глушит звук выстрела, но может в любой момент развалиться на части."
-	icon_state = "handmade_supp_"
+	icon_state = null
+	base_icon_state = "handmade_supp_"
 	overlay_state = "handmade_supp_1_o"
 	overlay_offset = list("x" = 0, "y" = 0)
 	var/variant = 1
@@ -177,8 +178,8 @@
 	update_icon()
 
 /obj/item/gun_module/muzzle/suppressor/handmade/update_icon_state()
-	icon_state = "[initial(icon_state)][variant]"
-	overlay_state = "[icon_state]_o"
+	icon_state = "[initial(base_icon_state)][variant]"
+	overlay_state = "[base_icon_state]_o"
 
 /obj/item/gun_module/muzzle/suppressor/handmade/get_ru_names()
 	return list(

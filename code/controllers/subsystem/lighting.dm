@@ -6,12 +6,23 @@ SUBSYSTEM_DEF(lighting)
 	offline_implications = "Lighting will no longer update. Shuttle call recommended."
 	cpu_display = SS_CPUDISPLAY_HIGH
 	ss_id = "lighting"
-	var/static/list/sources_queue = list() // List of lighting sources queued for update.
-	var/static/list/corners_queue = list() // List of lighting corners queued for update.
-	var/static/list/objects_queue = list() // List of lighting objects queued for update.
+	/// List of lighting sources queued for update.
+	var/static/list/sources_queue = list()
+	/// List of lighting corners queued for update.
+	var/static/list/corners_queue = list()
+	/// List of lighting objects queued for update.
+	var/static/list/objects_queue = list()
 
 /datum/controller/subsystem/lighting/get_stat_details()
 	return "L:[length(sources_queue)]|C:[length(corners_queue)]|O:[length(objects_queue)]"
+
+/datum/controller/subsystem/lighting/get_metrics()
+	. = ..()
+	var/list/custom_data = list()
+	custom_data["sources_queue"] = length(sources_queue)
+	custom_data["corners_queue"] = length(corners_queue)
+	custom_data["objects_queue"] = length(objects_queue)
+	.["custom"] = custom_data
 
 /datum/controller/subsystem/lighting/Initialize()
 	if(!initialized)

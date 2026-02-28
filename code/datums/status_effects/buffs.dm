@@ -383,6 +383,7 @@
 		if(is_mining_level(H.z) || istype(get_area(H), /area/ruin/space/bubblegum_arena))
 			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 				bodypart.stop_internal_bleeding()
+				bodypart.stop_arterial_bleeding()
 				bodypart.mend_fracture()
 		else
 			to_chat(owner, span_warning("...Но ядро ослаблено, оно не достаточно близко к остальным легионам некрополя."))
@@ -842,9 +843,10 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/hum = owner
 		for(var/obj/item/organ/external/bodypart as anything in hum.bodyparts)
-			if(bodypart.has_internal_bleeding() && prob(7))
+			if((bodypart.has_internal_bleeding() || bodypart.has_arterial_bleeding()) && prob(7))
 				to_chat(hum, span_notice("Вы чувствуете сильное жжение в [bodypart.declent_ru(PREPOSITIONAL)], а затем облегчение. Судя по всему, ваши повреждённые кровеносные сосуды восстанавливаются!"))
 				bodypart.stop_internal_bleeding()
+				bodypart.stop_arterial_bleeding()
 
 /atom/movable/screen/alert/status_effect/lavaland_night_vision
 	name = "Ксено-сетчатка"
@@ -932,7 +934,7 @@
 
 /atom/movable/screen/alert/status_effect/adrenaline
 	name = "Прилив адреналина"
-	desc = "Твоя стамина полностью восстановлена. Регенерация увеличена, а длительность станов уменьшена."
+	desc = "Твоя стамина полностью восстановлена. Длительность станов уменьшена."
 	icon_state = "adrenaline"
 
 /datum/status_effect/adrenaline
@@ -940,19 +942,58 @@
 	duration = 5 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/adrenaline
 
-	var/heal_amount = 15
-
 /datum/status_effect/adrenaline/on_apply()
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= owner.setStaminaLoss(0, FALSE)
 	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
 	return TRUE | update_flags
 
-/datum/status_effect/adrenaline/tick(seconds_between_ticks)
+/datum/status_effect/adrenaline/on_remove()
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+/atom/movable/screen/alert/status_effect/adrenaline/prototype
+	desc = "Твоя стамина полностью восстановлена. Регенерация увеличена, а длительность станов уменьшена."
+
+/datum/status_effect/adrenaline/prototype
+	alert_type = /atom/movable/screen/alert/status_effect/adrenaline/prototype
+	var/heal_amount = 15
+
+/datum/status_effect/adrenaline/prototype/tick(seconds_between_ticks)
 	var/update = NONE
 	update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 	if(update)
 		owner.updatehealth("adrenaline")
 
+
+/atom/movable/screen/alert/status_effect/heal
+	name = "Лечение нанитами"
+	desc = "Регенерация увеличена."
+	icon_state = "fleshmend"
+
+/datum/status_effect/heal
+	id = "heal"
+	duration = 8 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/heal
+	var/heal_amount = 10
+
+/datum/status_effect/heal/tick(seconds_between_ticks)
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+	if(update)
+		owner.updatehealth("heal")
+
 /datum/status_effect/adrenaline/on_remove()
 	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+/// Gives you a brief period of anti-gravity
+/datum/status_effect/jump_jet
+	id = "jump_jet"
+	alert_type = null
+	duration = 5 SECONDS
+
+/datum/status_effect/jump_jet/on_apply()
+	owner.AddElement(/datum/element/forced_gravity, 0)
+	return TRUE
+
+/datum/status_effect/jump_jet/on_remove()
+	owner.RemoveElement(/datum/element/forced_gravity, 0)

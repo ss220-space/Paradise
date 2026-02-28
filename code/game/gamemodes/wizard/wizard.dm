@@ -264,7 +264,7 @@
 			continue
 		if(wizard.current.stat==DEAD)
 			continue
-		if(istype(wizard.current, /obj/item/mmi)) // wizard is in an MMI, don't count them as alive
+		if(is_mmi(wizard.current)) // wizard is in an MMI, don't count them as alive
 			continue
 		wizards_alive++
 
@@ -275,7 +275,7 @@
 				continue
 			if(apprentice.current.stat==DEAD)
 				continue
-			if(istype(apprentice.current, /obj/item/mmi)) // apprentice is in an MMI, don't count them as alive
+			if(is_mmi(apprentice.current)) // apprentice is in an MMI, don't count them as alive
 				continue
 			apprentices_alive++
 

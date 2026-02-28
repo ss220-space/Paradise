@@ -148,3 +148,8 @@ GLOBAL_VAR_INIT(glide_size_multiplier, 1.0)
 		Moved(arglist(__move_args)); \
 	}
 
+//Diagonal movement is split into two cardinal moves
+/// The first step of the diagnonal movement
+#define FIRST_DIAG_STEP 1
+/// The second step of the diagnonal movement
+#define SECOND_DIAG_STEP 2

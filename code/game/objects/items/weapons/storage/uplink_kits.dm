@@ -634,6 +634,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	name = "Mr. Chang's aggressive marketing technique"
 	desc = "Коробка с товарами, предназначенными для увеличения прибыли через агрессивный маркетинг. Предоставлена корпорацией Мистера Чанга."
 	icon_state = "box_chang"
+	item_state = "chang"
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique/get_ru_names()
 	return list(
@@ -673,6 +674,7 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	name = "knife fight kit"
 	desc = "Коробка, наполненная ароматами пороха, напалма и дешёвого виски, хранит в себе всё необходимое для выживания в суровых условиях."
 	icon_state = "commando_kit"
+	item_state = "green"
 
 /obj/item/storage/box/syndie_kit/commando_kit/get_ru_names()
 	return list(

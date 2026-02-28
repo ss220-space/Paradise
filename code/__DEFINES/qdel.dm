@@ -64,3 +64,6 @@
 #define QDEL_LIST_IN(L, time) addtimer(CALLBACK(GLOBAL_PROC, /proc/______qdel_list_wrapper, L), time, TIMER_STOPPABLE)
 #define QDEL_LIST_ASSOC(L) if(L) { for(var/___I in L) { qdel(L[___I]); qdel(___I); } L.Cut(); }
 #define QDEL_LIST_ASSOC_VAL(L) if(L) { for(var/___I in L) qdel(L[___I]); L.Cut(); }
+
+///Sleep check QDEL. Like sleep check death, but checks deleting. Good for non mobs.
+#define SLEEP_CHECK_QDEL(X) sleep(X); if(QDELETED(src)) return;

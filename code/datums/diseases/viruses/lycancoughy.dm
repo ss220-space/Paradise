@@ -6,7 +6,7 @@
 	max_stages = 4
 	spread_flags = CONTACT
 	cures = list("ethanol")
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_MEDIUM
 	var/barklimit = 0
 
 /datum/disease/virus/lycan/stage_act()

@@ -20,7 +20,7 @@
 
 /obj/vehicle/ridden/ambulance/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	AddElement(/datum/element/ridable, /datum/component/riding/vehicle/ambulance)
 
 /obj/vehicle/ridden/ambulance/Destroy()

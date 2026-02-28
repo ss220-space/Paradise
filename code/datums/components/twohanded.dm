@@ -136,6 +136,7 @@
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_icon))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 	RegisterSignal(parent, COMSIG_ITEM_SHARPEN_ACT, PROC_REF(on_sharpen))
+	RegisterSignal(parent, COMSIG_UPDATE_TWOHANDED_DAMAGE, PROC_REF(on_update_damage))
 
 // Remove all siginals registered to the parent item
 /datum/component/two_handed/UnregisterFromParent()
@@ -147,6 +148,7 @@
 		COMSIG_ATOM_UPDATE_ICON,
 		COMSIG_MOVABLE_MOVED,
 		COMSIG_ITEM_SHARPEN_ACT,
+		COMSIG_UPDATE_TWOHANDED_DAMAGE,
 	))
 
 /// Triggered on equip of the item containing the component
@@ -195,10 +197,11 @@
 /datum/component/two_handed/proc/wield(mob/living/carbon/user)
 	SIGNAL_HANDLER
 
+	if(wielded || HAS_TRAIT(parent, TRAIT_TWOHANDED_BLOCKED))
+		return
+
 	var/obj/item/check = parent
 	var/abstract_check = !(check.item_flags & ABSTRACT)
-	if(wielded)
-		return
 
 	if(is_monkeybasic(user))
 		if(require_twohands)
@@ -259,7 +262,7 @@
 	if(istype(item))
 		item.wielded = TRUE
 
-	ADD_TRAIT(parent, TRAIT_WIELDED, ref(src))
+	ADD_TRAIT(parent, TRAIT_WIELDED, UNIQUE_TRAIT_SOURCE(src))
 	RegisterSignal(user, COMSIG_MOB_SWAPPING_HANDS, PROC_REF(on_swapping_hands))
 	wield_callback?.Invoke(parent, user)
 
@@ -275,7 +278,7 @@
 	if(sharp_when_wielded)
 		parent_item.set_sharpness(TRUE)
 
-	var/original_name = parent_item.name
+	var/original_name = parent_item.declent_ru(ACCUSATIVE)
 	parent_item.name = "[original_name] (Wielded)"
 	parent_item.update_appearance()
 	if(user)
@@ -284,11 +287,11 @@
 	if(isrobot(user))
 		if(world.time > antispam_timer + 0.1 SECONDS)
 			antispam_timer = world.time
-			to_chat(user, span_notice("Вы сконцентировались на поддержании [original_name]."))
+			to_chat(user, span_notice("Вы сконцентировались на поддержании [parent_item.declent_ru(GENITIVE)]."))
 	else
 		if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 			antispam_timer = world.time
-			to_chat(user, span_notice("Вы взяли [original_name] в обе руки."))
+			to_chat(user, span_notice("Вы взяли [parent_item.declent_ru(ACCUSATIVE)] в обе руки."))
 
 	// Play sound if one is set
 	if(wieldsound)
@@ -314,7 +317,7 @@
 /datum/component/two_handed/proc/unwield(mob/living/carbon/user, show_message = TRUE, can_drop = TRUE)
 	SIGNAL_HANDLER
 
-	if(!wielded)
+	if(!wielded || HAS_TRAIT(parent, TRAIT_TWOHANDED_BLOCKED))
 		return
 
 	//Dont ask
@@ -326,7 +329,7 @@
 	wielded = FALSE
 	UnregisterSignal(user, COMSIG_MOB_SWAPPING_HANDS)
 	SEND_SIGNAL(parent, COMSIG_TWOHANDED_UNWIELD, user)
-	REMOVE_TRAIT(parent, TRAIT_WIELDED, ref(src))
+	REMOVE_TRAIT(parent, TRAIT_WIELDED, UNIQUE_TRAIT_SOURCE(src))
 	unwield_callback?.Invoke(parent, user)
 
 	// update item stats
@@ -362,20 +365,20 @@
 		if(show_message)
 			var/abstract_check = !(item.item_flags & ABSTRACT)
 			if(isrobot(parent))
-				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item]."))
+				to_chat(user, span_notice("Вы снизили нагрузку на [parent_item.declent_ru(ACCUSATIVE)]."))
 			else
 				if(require_twohands || parent_item.loc != user)
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Вы уронили [parent_item]."))
+						to_chat(user, span_notice("Вы уронили [parent_item.declent_ru(ACCUSATIVE)]."))
 				if(parent_item.loc == user && user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Теперь вы держите [parent_item] одной рукой."))
+						to_chat(user, span_notice("Теперь вы держите [parent_item.declent_ru(ACCUSATIVE)] одной рукой."))
 				if(parent_item.loc == user && !user.is_in_hands(parent_item))
 					if(abstract_check && (world.time > antispam_timer + 0.1 SECONDS))
 						antispam_timer = world.time
-						to_chat(user, span_notice("Вы экипировали [parent_item]."))
+						to_chat(user, span_notice("Вы экипировали [parent_item.declent_ru(ACCUSATIVE)]."))
 
 	// Play sound if set
 	if(unwieldsound)
@@ -454,6 +457,19 @@
 		return COMPONENT_BLOCK_SHARPEN_MAXED
 	sharpened_increase = min(amount, (max_amount - wielded_val))
 	return COMPONENT_BLOCK_SHARPEN_APPLIED
+
+/datum/component/two_handed/proc/on_update_damage(obj/item/item, force_wielded = 0, force_unwielded = 0, force_multiplier = 0)
+	SIGNAL_HANDLER
+	if(force_multiplier)
+		src.force_multiplier = force_multiplier
+
+	if(force_wielded)
+		src.force_wielded = force_wielded
+
+	if(!force_unwielded)
+		return
+
+	src.force_unwielded = force_unwielded
 
 /**
  * The offhand dummy item for two handed items

@@ -1,5 +1,6 @@
 /obj/structure/closet/loot_crate
 	icon = 'icons/obj/supplypods.dmi'
+	icon_state = null
 	locked = TRUE
 	pixel_x = -16
 	ignore_shoves = TRUE

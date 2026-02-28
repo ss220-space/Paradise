@@ -16,7 +16,6 @@
 	var/region_access = list()
 	var/additional_access = list()
 	var/obj/item/card/id/ID
-	var/emagged = FALSE
 	var/z_cross = TRUE //Allows using remoters cross-sectory
 
 /obj/item/door_remote/New()
@@ -25,7 +24,7 @@
 	for(var/region in region_access)
 		ID.access += get_region_accesses(region)
 	ID.access += additional_access
-	ID.access = uniquelist(ID.access)
+	ID.access = unique_list(ID.access)
 
 /obj/item/door_remote/Destroy()
 	QDEL_NULL(ID)

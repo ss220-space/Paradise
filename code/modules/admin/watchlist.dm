@@ -12,13 +12,13 @@
 			qdel(query_watchfind)
 			return
 		if(!query_watchfind.NextRow())
-			to_chat(usr, "<span class='redtext'>[new_ckey] has not been seen before, you can only add known players.</span>")
+			to_chat(usr, span_redtext("[new_ckey] has not been seen before, you can only add known players."))
 			qdel(query_watchfind)
 			return
 		else
 			target_ckey = new_ckey
 	if(check_watchlist(target_ckey))
-		to_chat(usr, "<span class='redtext'>[target_ckey] is already on the watchlist.</span>")
+		to_chat(usr, span_redtext("[target_ckey] is already on the watchlist."))
 		return
 	var/reason = tgui_input_text(usr, "Please state the reason", "Reason", multiline = TRUE, encode = FALSE)
 	if(!reason)
@@ -95,7 +95,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	var/output = ""
-	output += "<form method='GET' name='search' action='?'>\
+	output += "<form method='get' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"

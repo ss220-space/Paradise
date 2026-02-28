@@ -104,3 +104,20 @@
 /// Turf has lube on the floor and mobs will slip
 #define TURF_WET_LUBE (1<<3)
 #define TURF_WET_ALL ALL
+
+/**
+ * Get the turf that `A` resides in, regardless of any containers.
+ *
+ * Use in favor of `A.loc` or `src.loc` so that things work correctly when
+ * stored inside an inventory, locker, or other container.
+ */
+#define get_turf(A) (get_step(A, 0))
+
+/**
+ * Get the ultimate area of `A`, similarly to [get_turf].
+ *
+ * Use instead of `A.loc.loc`.
+ */
+#define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
+
+#define ATOM_COORDS(A) list(A.x, A.y, A.z)

@@ -61,8 +61,10 @@
 	SEND_SIGNAL(src, COMSIG_PAUSE_FLOATING_ANIM, 0.3 SECONDS)
 
 	//if true, we want to avoid any animation time, it'll tween and not rotate at all otherwise.
-	var/is_opposite_angle = SIMPLIFY_DEGREES(lying_angle + 180) == lying_prev
-	animate(src, transform = ntransform, time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+	var/is_opposite_angle = REVERSE_ANGLE(lying_angle) == lying_prev
+	var/animate_time = is_opposite_angle ? 0 : UPDATE_TRANSFORM_ANIMATION_TIME
+	animate(src, transform = ntransform, time = animate_time, pixel_y = final_pixel_y, dir = final_dir, easing = (EASE_IN|EASE_OUT))
+
 	handle_transform_change()
 
 	SEND_SIGNAL(src, COMSIG_LIVING_POST_UPDATE_TRANSFORM, resize, lying_angle, is_opposite_angle)

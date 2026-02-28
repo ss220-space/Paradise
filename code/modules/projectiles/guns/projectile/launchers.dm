@@ -43,7 +43,7 @@
 	accuracy = GUN_ACCURACY_MINIMAL
 	fire_modes = GUN_MODE_SINGLE_ONLY
 
-/obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = 0, empty_chamber = 1)
+/obj/item/gun/projectile/automatic/gyropistol/process_chamber(eject_casing = FALSE, empty_chamber = TRUE)
 	..()
 
 /obj/item/gun/projectile/automatic/gyropistol/update_icon_state()

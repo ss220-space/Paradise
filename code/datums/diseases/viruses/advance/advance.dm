@@ -188,54 +188,41 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 // Assign the properties that are in the list.
 /datum/disease/virus/advance/proc/AssignProperties(list/properties = list())
-	if(properties && length(properties))
-		// stealth
-		switch(properties["stealth"])
-			if(1)
-				visibility_flags = HIDDEN_HUD
-			if(2)
-				visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
-			if(3 to INFINITY)
-				visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER|HIDDEN_PANDEMIC
-			else
-				visibility_flags = VISIBLE
-
-		// transmittable
-		switch(properties["transmittable"] - round(length(symptoms)/2))
-			if(-INFINITY to 1)
-				spread_flags = BLOOD
-			if(2 to 3)
-				spread_flags = CONTACT
-			if(4 to INFINITY)
-				spread_flags = AIRBORNE
-		additional_info = spread_text()
-		permeability_mod = clamp((0.25 * properties["transmittable"]), 0.2, 2)
-
-		//stage speed
-		stage_prob = clamp(max(1.3 * sqrtor0(properties["stage_speed"] + 11), properties["stage_speed"]), 1, 40)
-
-		//severity
-		switch(properties["severity"])
-			if(-INFINITY to 0)
-				severity = NONTHREAT
-			if(1)
-				severity = MINOR
-			if(2)
-				severity = MEDIUM
-			if(3)
-				severity = HARMFUL
-			if(4)
-				severity = DANGEROUS
-			if(5 to INFINITY)
-				severity = BIOHAZARD
-
-		//resistance
-		cure_prob = clamp(15 - properties["resistance"], 5, 40)
-		GenerateCure(properties["resistance"])
-	else
+	if(!length(properties))
 		CRASH("Our properties were empty or null!")
 
-//TODO: доделать эту хуйню
+	// stealth
+	switch(properties["stealth"])
+		if(1)
+			visibility_flags = HIDDEN_HUD
+		if(2)
+			visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER
+		if(3 to INFINITY)
+			visibility_flags = HIDDEN_HUD|HIDDEN_SCANNER|HIDDEN_PANDEMIC
+		else
+			visibility_flags = VISIBLE
+
+	// transmittable
+	switch(properties["transmittable"] - round(length(symptoms)/2))
+		if(-INFINITY to 1)
+			spread_flags = BLOOD
+		if(2 to 3)
+			spread_flags = CONTACT
+		if(4 to INFINITY)
+			spread_flags = AIRBORNE
+	additional_info = spread_text()
+	permeability_mod = clamp((0.25 * properties["transmittable"]), 0.2, 2)
+
+	//stage speed
+	stage_prob = clamp(max(1.3 * sqrtor0(properties["stage_speed"] + 11), properties["stage_speed"]), 1, 40)
+
+	set_severity(properties["severity"])
+
+	//resistance
+	cure_prob = clamp(15 - properties["resistance"], 5, 40)
+	GenerateCure(properties["resistance"])
+
+// TODO: доделать эту хуйню
 // Will generate a random cure, the less resistance the symptoms have, the harder the cure.
 /datum/disease/virus/advance/proc/GenerateCure(resistance)
 	var/res = round(clamp(resistance - (length(symptoms) / 2), 1, length(GLOB.advance_cures)))

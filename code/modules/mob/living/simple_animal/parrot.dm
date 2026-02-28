@@ -388,7 +388,7 @@
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
 					try_grab_item(parrot_interest)
 					visible_message(
-						span_notice("[capitalize(declent_ru(NOMINATIVE))] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
+						span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
 						span_notice("Вы хватаете [held_item.declent_ru(ACCUSATIVE)]!"),
 						span_italics("Слышно яростное хлопанье крыльев.")
 					)
@@ -533,7 +533,7 @@
  */
 /mob/living/simple_animal/parrot/proc/steal_from_ground()
 	set name = "Схватить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Grabs a nearby item."
 
 	if(stat)
@@ -554,7 +554,7 @@
 
 			try_grab_item(I)
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
+				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
 				span_notice("Вы хватаете [held_item.declent_ru(ACCUSATIVE)]!"),
 				span_italics("Слышно яростное хлопанье крыльев.")
 			)
@@ -565,7 +565,7 @@
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
 	set name = "Украсть из рук"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Steals an item right out of a person's hand!"
 
 	if(stat)
@@ -587,7 +587,7 @@
 		if(stolen_item && C.drop_item_ground(stolen_item))
 			try_grab_item(stolen_item)
 			visible_message(
-				span_notice("[capitalize(declent_ru(NOMINATIVE))] выхватывает [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
+				span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] выхватывает [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
 				span_notice("Вы вырываете [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
 				span_italics("Слышно яростное хлопанье крыльев.")
 			)
@@ -598,7 +598,7 @@
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
 	set name = "Выбросить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -608,7 +608,7 @@
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
 	set name = "Выбросить предмет"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -639,7 +639,7 @@
 
 /mob/living/simple_animal/parrot/proc/perch_player()
 	set name = "Присесть"
-	set category = STATPANEL_PARROT
+	set category = VERB_CATEGORY_PARROT
 	set desc = "Sit on a nice comfy perch."
 
 	if(stat || !client)
@@ -890,7 +890,7 @@
 	var/matrix/m180 = matrix(held_item.transform)
 	m180.Turn(180)
 
-	var/held_item_icon = image(held_item, pixel_y = -8)
+	var/held_item_icon = image(held_item, pixel_z = -8)
 	animate(held_item_icon, transform = m180)
 	underlays += held_item_icon
 

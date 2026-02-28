@@ -1,0 +1,70 @@
+#define COMP_TIMEPIECE_TWENTYFOUR_HOUR "24-Часа"
+#define COMP_TIMEPIECE_TWELVE_HOUR "12-Часа"
+#define COMP_TIMEPIECE_SECONDS "Секунды"
+#define COMP_TIMEPIECE_MINUTES "Минуты"
+#define COMP_TIMEPIECE_HOURS "Часы"
+
+/**
+ * # Timepiece Component
+ *
+ * returns the current station time.
+ */
+/obj/item/circuit_component/timepiece
+	display_name = "Часы"
+	desc = "Компонент, выводящий текущее время объекта. \
+			Порт вывода текста используется для форматов времени, а порт вывода чисел — для единиц времени."
+	category = "Utility"
+	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
+
+	/// The time format of the text output
+	var/datum/port/input/option/format
+	/// The unit of time for the numerical output
+	var/datum/port/input/option/time_unit
+	/// The output for 24/12 hour formats
+	var/datum/port/output/text_output
+	/// seconds, minutes, hours.
+	var/datum/port/output/num_output
+
+/obj/item/circuit_component/timepiece/populate_ports()
+	text_output = add_output_port("Формат", PORT_TYPE_STRING)
+	num_output = add_output_port("Единица", PORT_TYPE_NUMBER)
+
+/obj/item/circuit_component/timepiece/populate_options()
+	var/static/format_options = list(
+		COMP_TIMEPIECE_TWENTYFOUR_HOUR, // Station time is expressed in 24-h in the status tab. So this is the default.
+		COMP_TIMEPIECE_TWELVE_HOUR,
+	)
+	format = add_option_port("Формат", format_options)
+	var/static/unit_options = list(
+		COMP_TIMEPIECE_HOURS,
+		COMP_TIMEPIECE_MINUTES,
+		COMP_TIMEPIECE_SECONDS,
+	)
+	time_unit = add_option_port("Единица", unit_options)
+
+/obj/item/circuit_component/timepiece/input_received(datum/port/input/port)
+	var/time
+
+	switch(format.value)
+		if(COMP_TIMEPIECE_TWENTYFOUR_HOUR)
+			time = station_time_timestamp()
+		if(COMP_TIMEPIECE_TWELVE_HOUR)
+			time = time_to_twelve_hour()
+
+	text_output.set_output(time)
+
+	switch(time_unit.value)
+		if(COMP_TIMEPIECE_HOURS)
+			time = round(station_time() / (1 HOURS))
+		if(COMP_TIMEPIECE_MINUTES)
+			time = round(station_time() / (1 MINUTES))
+		if(COMP_TIMEPIECE_SECONDS)
+			time = round(station_time() / (1 SECONDS))
+
+	num_output.set_output(time)
+
+#undef COMP_TIMEPIECE_TWENTYFOUR_HOUR
+#undef COMP_TIMEPIECE_TWELVE_HOUR
+#undef COMP_TIMEPIECE_SECONDS
+#undef COMP_TIMEPIECE_MINUTES
+#undef COMP_TIMEPIECE_HOURS

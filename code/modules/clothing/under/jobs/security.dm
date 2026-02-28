@@ -261,8 +261,8 @@
 
 /obj/item/clothing/suit/armor/hos/officernavyjacket
 	name = "officer's navy jacket"
-	icon_state = "officernavyjacket"
-	item_state = "officernavyjacket"
+	icon_state = "officerdnavyjacket"
+	item_state = "officerdnavyjacket"
 
 /obj/item/clothing/suit/armor/hos/officerbluejacket
 	name = "officer's blue jacket"

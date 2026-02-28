@@ -1,7 +1,7 @@
 
 /obj/machinery/kitchen_machine/candy_maker
 	name = "candy machine"
-	desc = "The stuff of nightmares for a dentist."
+	desc = "Мощный смеситель, предназначенный для производства кондитерских изделий. Настоящий кошмар дантиста и лучший друг диабета."
 	icon = 'icons/obj/machines/cooking_machines.dmi'
 	icon_state = "candymaker_off"
 	cook_verbs = list("Wonderizing", "Scrumpdiddlyumptiousification", "Miracle-coating", "Flavorifaction")
@@ -11,6 +11,16 @@
 	broken_icon = "candymaker_broke"
 	dirty_icon = "candymaker_dirty"
 	open_icon = "candymaker_open"
+
+/obj/machinery/kitchen_machine/candy_maker/get_ru_names()
+	return list(
+		NOMINATIVE = "конфетный автомат",
+		GENITIVE = "конфетного автомата",
+		DATIVE = "конфетному автомату",
+		ACCUSATIVE = "конфетный автомат",
+		INSTRUMENTAL = "конфетным автоматом",
+		PREPOSITIONAL = "конфетном автомате"
+	)
 
 // see code/modules/food/recipes_candy.dm for recipes
 

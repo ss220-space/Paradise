@@ -5,7 +5,7 @@
 		return FALSE
 	if(custom_sprite == 1)//check for custom AI sprite, defaulting to blue screen if no.
 		icon_state = "[ckey]-ai_dead"
-	else if("[icon_state]_dead" in icon_states(icon,1))
+	else if(icon_exists_or_scream(icon, "[icon_state]_dead"))
 		icon_state = "[icon_state]_dead"
 	else
 		icon_state = "ai_dead"
@@ -39,3 +39,5 @@
 
 	if(istype(loc, /obj/item/aicard))
 		loc.icon_state = "aicard-404"
+
+	send_ai_alarm("Обнаружена потеря сигнала ИИ.")

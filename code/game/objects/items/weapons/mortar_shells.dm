@@ -42,7 +42,7 @@
 	handle_fire()
 	return ..()
 
-/obj/item/mortar_shell/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/obj/item/mortar_shell/fire_act(exposed_temperature, exposed_volume)
 	if(sended)
 		return
 	handle_fire()
@@ -265,8 +265,7 @@
 /obj/effect/warning
 	name = "warning"
 	icon = 'icons/effects/alert.dmi'
-	icon_state = "alert_greyscale"
-
+	icon_state = "red" // "alert_greyscale"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	layer = ABOVE_OBJ_LAYER
 

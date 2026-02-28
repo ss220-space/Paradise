@@ -26,11 +26,6 @@
 	var/area_bypass = FALSE
 	var/cc_beacon = FALSE
 
-/obj/machinery/computer/teleporter/robotics //to do: limit targets to station only
-	desc = "Используется для управления привязанными телепортационными узлами и станциями. Только Директор Исследований может изменить точку назначения."
-	circuit = /obj/item/circuitboard/teleporter/robotics
-	req_access = list(ACCESS_RD)
-
 /obj/machinery/computer/teleporter/Initialize(mapload)
 	. = ..()
 	link_power_station()

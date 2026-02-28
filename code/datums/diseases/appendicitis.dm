@@ -5,7 +5,7 @@
 	desc = "Если не лечить это заболевание, то у пациента могут возникнуть серьёзные проблемы со здоровьем, включая общую слабость и частые приступы рвоты."
 	cure_text = "Хирургическое вмешательство"
 	stage_prob = 2
-	severity = DANGEROUS
+	severity = DISEASE_SEVERITY_MEDIUM
 	curable = FALSE
 	can_immunity = FALSE
 	visibility_flags = HIDDEN_PANDEMIC

@@ -225,6 +225,14 @@
 	summon_type = list(/obj/effect/timestop/wizard)
 	aoe_range = 0
 
+/obj/effect/proc_holder/spell/aoe/conjure/timestop/on_spell_gain(mob/grant_to)
+	if(isnull(grant_to))
+		return
+	ADD_TRAIT(grant_to, TRAIT_TIME_STOP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
+
+/obj/effect/proc_holder/spell/aoe/conjure/timestop/on_spell_removed(mob/remove_from)
+	REMOVE_TRAIT(remove_from, TRAIT_TIME_STOP_IMMUNE, UNIQUE_TRAIT_SOURCE(src))
+
 /obj/effect/proc_holder/spell/aoe/conjure/carp
 	name = "Summon Carp"
 	desc = "This spell conjures a simple carp."
@@ -315,7 +323,7 @@
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 
-	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b></span>"
+	selection_activated_message		= span_notice("Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message	= span_notice("You extinguish your fireball...for now.")
 
 	var/fireball_type = /obj/projectile/magic/fireball
@@ -345,7 +353,7 @@
 	FB.original = target
 	FB.firer = user
 	var/turf/target_turf = get_turf(target)
-	FB.preparePixelProjectile(target, target_turf, user, targeting.click_params)
+	FB.preparePixelProjectile(target, user)
 	FB.fire()
 	user.newtonian_move(get_dir(target_turf, T))
 

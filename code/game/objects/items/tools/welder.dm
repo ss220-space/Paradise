@@ -18,7 +18,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 5
-	hitsound = "swing_hit"
+	hitsound = SFX_SWING_HIT
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 30)
 	resistance_flags = FIRE_PROOF
 	materials = list(MAT_METAL=70, MAT_GLASS=30)
@@ -90,7 +90,7 @@
 	if(tool_enabled)
 		var/turf/T = get_turf(src)
 		if(T) // Implants for instance won't find a turf
-			T.hotspot_expose(2500, 5)
+			T.hotspot_expose(2500, 1)
 		if(prob(5))
 			remove_fuel(1)
 	if(refills_over_time)
@@ -143,7 +143,7 @@
 			STOP_PROCESSING(SSobj, src)
 		damtype = BRUTE
 		force = initial(force)
-		hitsound = "swing_hit"
+		hitsound = SFX_SWING_HIT
 		playsound(loc, deactivation_sound, 50, TRUE)
 		set_light_on(FALSE)
 	update_icon()
@@ -176,12 +176,20 @@
 	remove_fuel(amount)
 	return TRUE
 
-/obj/item/weldingtool/use_tool(target, user, delay, amount, volume, datum/callback/extra_checks)
+/obj/item/weldingtool/use_tool(atom/target, user, delay, amount, volume, datum/callback/extra_checks)
+	var/mutable_appearance/sparks = mutable_appearance('icons/effects/welding_effect.dmi', "welding_sparks", GASFIRE_LAYER, src, ABOVE_LIGHTING_PLANE)
+	target.add_overlay(sparks)
+	LAZYADD(target.update_overlays_on_z, sparks)
+
 	var/did_thing = ..()
 	if(did_thing)
 		remove_fuel(1) // Consume some fuel after we do a welding action
 	if(delay)
 		progress_flash_divisor = initial(progress_flash_divisor)
+
+	LAZYREMOVE(target.update_overlays_on_z, sparks)
+	target.cut_overlay(sparks)
+
 	return did_thing
 
 /obj/item/weldingtool/tool_check_callback(mob/living/user, amount, datum/callback/extra_checks)

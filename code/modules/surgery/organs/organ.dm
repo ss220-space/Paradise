@@ -5,6 +5,7 @@
 	pickup_sound = 'sound/items/handling/pickup/flesh_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/flesh_drop.ogg'
 	germ_level = 0
+	abstract_type = /obj/item/organ
 	var/dead_icon
 	/// Current organ holder
 	var/mob/living/carbon/human/owner
@@ -21,6 +22,8 @@
 	var/min_broken_damage = 30
 	/// Minimal threshold for internal bleeding to occure
 	var/min_internal_bleeding_damage = 30
+	/// Minimal threshold for arterial bleeding to occure
+	var/min_arterial_bleeding_damage = 30
 	/// Basically organ max health.
 	var/max_damage
 
@@ -225,7 +228,7 @@
 		if(is_found_within(typepath))
 			return TRUE
 
-	if(istype(loc,/obj/item/mmi))	// So a brain can slowly recover from being left out of an MMI
+	if(is_mmi(loc))	// So a brain can slowly recover from being left out of an MMI
 		germ_level = max(0, germ_level - 1)
 		return TRUE
 
@@ -284,6 +287,7 @@
 /obj/item/organ/proc/rejuvenate()
 	damage = 0
 	germ_level = 0
+	bleeding_amount = 0
 	surgeryize()
 	if(is_robotic())	//Robotic organs stay robotic.
 		status = ORGAN_ROBOT
@@ -292,7 +296,10 @@
 	if(!owner)
 		START_PROCESSING(SSobj, src)
 
-/obj/item/organ/proc/is_damaged()
+/obj/item/organ/proc/is_damaged(brute = TRUE, burn = TRUE)
+	if(isexternalorgan(src))
+		var/obj/item/organ/external/bodypart = src
+		return (brute && bodypart.brute_dam) || (burn && bodypart.burn_dam)
 	return damage > 0
 
 /obj/item/organ/proc/is_bruised()

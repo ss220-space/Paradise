@@ -175,6 +175,8 @@
 		mob.dna.struc_enzymes = mob.dna.struc_enzymes_original
 		for(var/obj/item/organ/external/organ as anything in mob.bodyparts)
 			organ.stop_internal_bleeding()
+			organ.stop_arterial_bleeding()
+			organ.stop_bleeding()
 			organ.mend_fracture()
 			organ.open = ORGAN_CLOSED
 			organ.germ_level = 0

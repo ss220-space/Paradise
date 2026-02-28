@@ -18,7 +18,7 @@
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
-
+#define BAG_PUTTING_DELAY 6 SECONDS
 /obj/item/storage/box
 	name = "box"
 	icon = 'icons/obj/storage/boxes.dmi'
@@ -38,6 +38,7 @@
 	name = "large box"
 	desc = "Это крайне вместительная коробка."
 	icon_state = "largebox"
+	item_state = "largebox"
 	w_class = 4 // Big, bulky.
 	foldable_amt = 4
 	storage_slots = 21
@@ -100,7 +101,7 @@
 /obj/item/storage/box/iv_bags
 	name = "IV Bags"
 	desc = "A box full of empty IV bags."
-	icon_state = "box_beaker"
+	icon_state = "box_cross1"
 
 /obj/item/storage/box/iv_bags/populate_contents()
 	for(var/i in 1 to 7)
@@ -109,6 +110,7 @@
 /obj/item/storage/box/injectors
 	name = "DNA injectors"
 	desc = "This box contains injectors it seems."
+	icon_state = "box_syringe"
 
 /obj/item/storage/box/injectors/populate_contents()
 	new /obj/item/dnainjector/h2m(src)
@@ -122,6 +124,7 @@
 	name = "box of flashbangs (WARNING)"
 	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</b>"
 	icon_state = "box_flashbang"
+	item_state = "sec"
 
 /obj/item/storage/box/flashbangs/populate_contents()
 	for(var/I in 1 to 7)
@@ -130,7 +133,8 @@
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
 	desc = "<b>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</b>"
-	icon_state = "box_flashbang"
+	icon_state = "box_security"
+	item_state = "sec"
 
 /obj/item/storage/box/flashes/populate_contents()
 	for(var/I in 1 to 6)
@@ -140,6 +144,7 @@
 	name = "box of tear gas grenades (WARNING)"
 	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</b>"
 	icon_state = "box_flashbang"
+	item_state = "sec"
 
 /obj/item/storage/box/teargas/populate_contents()
 	for(var/I in 1 to 7)
@@ -149,6 +154,7 @@
 	name = "box of barrier grenades"
 	desc = "Instant cover.</b>"
 	icon_state = "box_flashbang"
+	item_state = "sec"
 
 /obj/item/storage/box/barrier/populate_contents()
 	for(var/I in 1 to 7)
@@ -157,7 +163,8 @@
 /obj/item/storage/box/emps
 	name = "emp grenades"
 	desc = "A box with 5 emp grenades."
-	icon_state = "box_flashbang"
+	icon_state = "box_of_doom"
+	item_state = "syndie"
 
 /obj/item/storage/box/emps/populate_contents()
 	for(var/I in 1 to 5)
@@ -166,7 +173,8 @@
 /obj/item/storage/box/trackimp
 	name = "tracking implant kit"
 	desc = "Box full of scum-bag tracking utensils."
-	icon_state = "box_implants"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
 /obj/item/storage/box/trackimp/populate_contents()
 	for(var/I in 1 to 4)
@@ -178,7 +186,8 @@
 /obj/item/storage/box/minertracker
 	name = "boxed tracking implant kit"
 	desc = "For finding those who have died on the accursed lavaworld."
-	icon_state = "box_implants"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
 /obj/item/storage/box/minertracker/populate_contents()
 	for(var/I in 1 to 3)
@@ -190,7 +199,8 @@
 /obj/item/storage/box/chemimp
 	name = "chemical implant kit"
 	desc = "Box of stuff used to implant chemicals."
-	icon_state = "box_implants"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
 /obj/item/storage/box/chemimp/populate_contents()
 	for(var/I in 1 to 5)
@@ -201,8 +211,8 @@
 /obj/item/storage/box/exileimp
 	name = "boxed exile implant kit"
 	desc = "Box of exile implants. It has a picture of a clown being booted through the Gateway."
-	icon_state = "box_implants"
-	item_state = "clown"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
 /obj/item/storage/box/exileimp/populate_contents()
 	for(var/I in 1 to 5)
@@ -212,7 +222,8 @@
 /obj/item/storage/box/deathimp
 	name = "death alarm implant kit"
 	desc = "Box of life sign monitoring implants."
-	icon_state = "box_implants"
+	icon_state = "box_biochip"
+	item_state = "spec"
 	storage_slots = 8
 
 /obj/item/storage/box/deathimp/populate_contents()
@@ -223,6 +234,8 @@
 /obj/item/storage/box/tapes
 	name = "Tape Box"
 	desc = "A box of spare recording tapes"
+	icon_state = "box_security"
+	item_state = "sec"
 
 /obj/item/storage/box/tapes/populate_contents()
 	for(var/I in 1 to 6)
@@ -248,7 +261,8 @@
 /obj/item/storage/box/cdeathalarm_kit
 	name = "Death Alarm Kit"
 	desc = "Box of stuff used to implant death alarms."
-	icon_state = "box_implants"
+	icon_state = "box_biochip"
+	item_state = "spec"
 
 /obj/item/storage/box/cdeathalarm_kit/populate_contents()
 	for(var/I in 1 to 6)
@@ -292,6 +306,27 @@
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/donkpocket(src)
 
+/obj/item/storage/box/warmdonkpockets
+	name = "box of warm donk-pockets"
+	desc = "Коробка с уже разогретыми Донк-покетами. Ням-ням!"
+	icon_state = "donkpocket_box"
+	item_state = "donks"
+
+/obj/item/storage/box/warmdonkpockets/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка с разогретыми Донк-покетами",
+		GENITIVE = "коробки с разогретыми Донк-покетами",
+		DATIVE = "коробке с разогретыми Донк-покетами",
+		ACCUSATIVE = "коробку с разогретыми Донк-покетами",
+		INSTRUMENTAL = "коробкой с разогретыми Донк-покетами",
+		PREPOSITIONAL = "коробке с разогретыми Донк-покетами",
+	)
+
+/obj/item/storage/box/warmdonkpockets/populate_contents()
+	for(var/i in 1 to 6)
+		new /obj/item/reagent_containers/food/snacks/warmdonkpocket(src)
+
+
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
 	desc = "Эта коробка кажется немного тёплой на ощупь."
@@ -317,6 +352,7 @@
 	desc = "Drymate brand monkey cubes. Just add water!"
 	icon = 'icons/obj/food/food.dmi'
 	icon_state = "monkeycubebox"
+	item_state = "mcube"
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
 	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
@@ -361,6 +397,7 @@
 	name = "box of syndicate construction permits"
 	desc = "A box for containing construction permits, used to officially declare built rooms as additions to the station."
 	icon_state = "syndie_id"
+	item_state = "syndie"
 
 /obj/item/storage/box/syndicate_permits/populate_contents()
 	for(var/I in 1 to 7)
@@ -392,7 +429,8 @@
 /obj/item/storage/box/seccarts
 	name = "spare R.O.B.U.S.T. Cartridges"
 	desc = "A box full of R.O.B.U.S.T. Cartridges, used by Security."
-	icon_state = "box_pda"
+	icon_state = "box_security"
+	item_state = "sec"
 
 /obj/item/storage/box/seccarts/populate_contents()
 	for(var/I in 1 to 7)
@@ -401,6 +439,7 @@
 /obj/item/storage/box/holobadge
 	name = "holobadge box"
 	icon_state = "box_badge"
+	item_state = "sec"
 	desc = "A box claiming to contain holobadges."
 
 /obj/item/storage/box/holobadge/populate_contents()
@@ -413,6 +452,7 @@
 	name = "evidence bag box"
 	desc = "A box claiming to contain evidence bags."
 	icon_state = "box_evidence"
+	item_state = "sec"
 
 /obj/item/storage/box/evidence/populate_contents()
 	for(var/I in 1 to 6)
@@ -422,6 +462,7 @@
 	name = "spare handcuffs"
 	desc = "A box full of handcuffs."
 	icon_state = "box_handcuff"
+	item_state = "sec"
 
 /obj/item/storage/box/handcuffs/populate_contents()
 	for(var/I in 1 to 7)
@@ -431,6 +472,7 @@
 	name = "box of spare zipties"
 	desc = "A box full of zipties."
 	icon_state = "box_handcuff"
+	item_state = "sec"
 
 /obj/item/storage/box/zipties/populate_contents()
 	for(var/I in 1 to 7)
@@ -449,8 +491,8 @@
 /obj/item/storage/box/manacles
 	name = "box of spare manacles"
 	desc = "A box full of manacles. Old but gold."
-	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "box_manacle"
+	item_state = "ninja"
 
 /obj/item/storage/box/manacles/populate_contents()
 	for(var/i in 1 to 7)
@@ -470,6 +512,7 @@
 	name = "enforcer pistol kit (rubber)"
 	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
 	icon_state = "box_ert"
+	item_state = "ert"
 
 /obj/item/storage/box/enforcer_rubber/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/enforcer(src) // loaded with rubber by default
@@ -480,6 +523,7 @@
 	name = "enforcer pistol kit (lethal)"
 	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'LETHAL'."
 	icon_state = "box_ert"
+	item_state = "ert"
 
 /obj/item/storage/box/enforcer_lethal/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/enforcer/lethal(src)
@@ -490,6 +534,7 @@
 	name = "enforcer pistol kit (rubber)"
 	desc = "A box marked with pictures of an enforcer pistol, two ammo clips, and the word 'NON-LETHAL'."
 	icon_state = "box_ert"
+	item_state = "ert"
 
 /obj/item/storage/box/enforcer/security/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src) // loaded with rubber by default
@@ -510,6 +555,8 @@
 /obj/item/storage/box/chef_rare_ingredients_kit
 	name = "chef rare reagents kit"
 	desc = "A box intended for experienced chefs."
+	icon_state = "box_of_doom"
+	item_state = "syndie"
 
 /obj/item/storage/box/chef_rare_ingredients_kit/populate_contents()
 	new /obj/item/reagent_containers/food/condiment/soysauce(src)
@@ -595,6 +642,7 @@
 	pickup_sound =  'sound/items/handling/pickup/matchbox_pickup.ogg'
 	can_hold = list(/obj/item/match)
 	use_sound = SFX_PATCHPACK
+	custom_price = PAYCHECK_MIN * 0.5
 
 /obj/item/storage/box/matches/get_ru_names()
 	return list(
@@ -656,6 +704,7 @@
 /obj/item/storage/box/lights
 	name = "replacement bulbs"
 	icon_state = "box_lamps"
+	item_state = "eng"
 	desc = "This box is shaped on the inside so that only light tubes and bulbs fit."
 	storage_slots=21
 	can_hold = list(/obj/item/light/tube, /obj/item/light/bulb)
@@ -700,7 +749,6 @@
 /obj/item/storage/box/lip_stick
 	name = "Lipstick Kit"
 	desc = "For all your lip coloring needs."
-	icon_state = "box_implants"
 
 /obj/item/storage/box/lip_stick/populate_contents()
 	new /obj/item/lipstick(src)
@@ -719,26 +767,37 @@
 
 /obj/item/storage/box/papersack
 	name = "paper sack"
-	desc = "A sack neatly crafted out of paper."
+	desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "paperbag_None"
 	item_state = "paperbag_None"
 	foldable = null
 	var/design = NODESIGN
+	var/apply_paper_bag_delay = BAG_PUTTING_DELAY
+
+/obj/item/storage/box/papersack/get_ru_names()
+	return list(
+		NOMINATIVE = "бумажный пакет",
+		GENITIVE = "бумажного пакета",
+		DATIVE = "бумажному пакету",
+		ACCUSATIVE = "бумажный пакет",
+		INSTRUMENTAL = "бумажным пакетом",
+		PREPOSITIONAL = "бумажном пакете",
+	)
 
 /obj/item/storage/box/papersack/update_desc(updates = ALL)
 	. = ..()
 	switch(design)
 		if(NODESIGN)
-			desc = "A sack neatly crafted out of paper."
+			desc = "Пакет, сложенный из бумаги. Идеально подходит, чтобы надеть на голову недруга."
 		if(NANOTRASEN)
-			desc = "A standard Nanotrasen paper lunch sack for loyal employees on the go."
+			desc = "Стандартный пакет НТ для завтраков для самых верных работников"
 		if(SYNDI)
-			desc = "The design on this paper sack is a remnant of the notorious 'SyndieSnacks' program."
+			desc = "Дизайн этого бумажного пакета — секретнейшая разработка Синдиката"
 		if(HEART)
-			desc = "A paper sack with a heart etched onto the side."
+			desc = "Бумажный пакет с нарисованным сердечком. Как мило!"
 		if(SMILE)
-			desc = "A paper sack with a crude smile etched onto the side."
+			desc = "Бумажный пакет с улыбкой. Чутка жуткий."
 
 /obj/item/storage/box/papersack/update_icon_state()
 	item_state = "paperbag_[design]"
@@ -762,7 +821,7 @@
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(is_sharp(I))
+	if(I.sharp)
 		add_fingerprint(user)
 		if(length(contents))
 			to_chat(user, span_warning("You cannot modify [src] with the items inside!"))
@@ -782,10 +841,52 @@
 
 	return ..()
 
+/obj/item/storage/box/papersack/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	. = ATTACK_CHAIN_PROCEED
+
+	if(!ishuman(target))
+		return .
+
+	if(length(contents))
+		to_chat(user, span_notice("Пакет должен быть пуст!"))
+		return .
+
+	user.visible_message(
+		span_warning("[user] надевает [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надеваете [target == user ? "[src.declent_ru(ACCUSATIVE)] на свою голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
+		span_italics("Вы слышите шелест плотной бумаги."),
+	)
+
+	if(!do_after(user, apply_paper_bag_delay, target))
+		return .
+
+	if(!user || !target || QDELETED(src))
+		return .
+
+	if(target.head)
+		var/obj/item/head_item_to_drop = target.head
+		target.drop_item_ground(head_item_to_drop)
+		if(!target.drop_item_ground(target.head))
+			to_chat(user, span_notice("На [target == user ? "вашу голову" : "голову [target]"] нельзя надеть пакет!"))
+			return .
+
+	. |= ATTACK_CHAIN_SUCCESS
+	user.visible_message(
+		span_warning("[user] надел [src.declent_ru(ACCUSATIVE)] на голову [target]!"),
+		span_notice("Вы надели [target == user ? "[src.declent_ru(ACCUSATIVE)] себе на голову" : "[src.declent_ru(ACCUSATIVE)] на голову [target]"]!"),
+	)
+
+	var/obj/item/clothing/head/paper_bag/on_head = new /obj/item/clothing/head/paper_bag
+	on_head.add_fingerprint(user)
+	target.equip_to_slot_if_possible(on_head, ITEM_SLOT_HEAD, qdel_on_fail = TRUE)
+	playsound(loc, 'sound/items/handling/pickup/paper_pickup.ogg', 50, TRUE, -5)
+	qdel(src)
+
 /obj/item/storage/box/clown
 	name = "clown box"
 	desc = "A colorful cardboard box for the clown"
 	icon_state = "box_clown"
+	item_state = "clown"
 
 /obj/item/storage/box/emptysandbags
 	name = "box of empty sandbags"
@@ -854,6 +955,8 @@
 /obj/item/storage/box/bola
 	name = "Energy bola box"
 	desc = "Бола для самых быстрых из быстрых"
+	icon_state = "box_security"
+	item_state = "sec"
 
 /obj/item/storage/box/bola/populate_contents()
 	for(var/I in 1 to 7)
@@ -903,11 +1006,12 @@
 	desc = "Набор волшебных книг, купленных в волшебной книге, для волшебников, чтобы делать волшебство! ЗВУЧИТ ПРОСТО ВОЛШЕБНО!"
 
 /obj/item/storage/box/wizard/kit_spell_book/populate_contents()
-		for(var/i = 1 to 4)
-				new /obj/item/spellbook/oneuse/random(src)
+	for(var/i in 1 to 4)
+		new /obj/item/spellbook/oneuse/random(src)
 
 /obj/item/storage/box/hardsuit
 	icon_state = "box_ert"
+	item_state = "ert"
 	storage_slots = 3
 
 /obj/item/storage/box/hardsuit/engineering/response_team
@@ -953,7 +1057,8 @@
 /obj/item/storage/box/candythief
 	name = "набор радужных конфет"
 	desc = "Набор для самых маленьких и не уверенных в себе работников, обожающих простые пути, смешивая всевозможные в один. Поставляется с сосательной конфетой. Удобный набор если нужно где-то засесть и не выходить. Производитель не отвечает за возникающие акне и галлюцинации от вашего времяпровождения."
-	icon_state = "box_thief"
+	icon_state = "box_clown"
+	item_state = "clown"
 
 /obj/item/storage/box/candythief/populate_contents()
 	for(var/i in 0 to 5)
@@ -1002,6 +1107,7 @@
 	name = "officer starter kit"
 	desc = "Коробка, что вмещает в себе все нужное дабы стать офицером! Мелким шрифтом вы можете разобрать: Не включает действительно все."
 	icon_state = "box_security"
+	item_state = "sec"
 
 /obj/item/storage/box/sec/populate_contents()
 	new /obj/item/clothing/head/helmet(src)
@@ -1017,16 +1123,18 @@
 	new /obj/item/implanter/mindshield(src)
 
 /obj/item/storage/box/dominator_kit
-	name = "Dominator kit"
+	name = "Набор энергитического пистолета \"Доминатор\""
 	icon_state = "box_dominator"
+	item_state = "sec"
 
 /obj/item/storage/box/dominator_kit/populate_contents()
 	new /obj/item/gun/energy/dominator/sibyl(src)
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/enforcer_kit
-	name = "Enforcer kit"
+	name = "Набор пистолета \"Блюститель\""
 	icon_state = "box_enforcer"
+	item_state = "sec"
 
 /obj/item/storage/box/enforcer_kit/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/enforcer/security(src)
@@ -1035,9 +1143,10 @@
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/specter_kit
-	name = "набор Спектр"
+	name = "Набор энергитического пистолета \"Спектр\""
 	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 аккумулятора."
 	icon_state = "box_specter"
+	item_state = "sec"
 
 /obj/item/storage/box/specter_kit/get_ru_names()
 	return list(
@@ -1056,9 +1165,10 @@
 	new /obj/item/weapon_cell/specter(src)
 
 /obj/item/storage/box/taurus_kit
-	name = "taurus revolver kit (rubber)"
+	name = "Набор револьвера \"Таурус\""
 	desc = "Коробка с изображением револьвера \"Таурус\", двух патронных обойм и надписью \"Нелетальное оружие\"."
 	icon_state = "box_colt"
+	item_state = "sec"
 
 /obj/item/storage/box/taurus_kit/get_ru_names()
 	return list(
@@ -1077,8 +1187,9 @@
 	new /obj/item/ammo_box/speedloader/rubber45colt(src)
 
 /obj/item/storage/box/revolver_kit
-	name = "Revolver kit"
+	name = "Набор револьвера \".38 Mars Special\""
 	icon_state = "box_revolver"
+	item_state = "sec"
 
 /obj/item/storage/box/revolver_kit/populate_contents()
 	new /obj/item/ammo_box/speedloader/c38(src)
@@ -1156,7 +1267,7 @@
 /obj/item/storage/box/bombsecurity/populate_contents()
 	new /obj/item/clothing/suit/bomb_suit/security(src)
 	new /obj/item/clothing/under/rank/security(src)
-	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/color/brown(src)
 	new /obj/item/clothing/head/bomb_hood/security(src)
 
 /*
@@ -1171,6 +1282,30 @@
 	for(var/i in 1 to 7)
 		new /obj/item/disk/plantgene(src)
 
+/*
+ *  Tech Disks Box
+ */
+/obj/item/storage/box/disks_tech
+	name = "tech data disks box"
+	icon_state = "box_disc"
+
+/obj/item/storage/box/disks_tech/populate_contents()
+	..()
+	for(var/i in 1 to 11)
+		new /obj/item/disk/tech_disk(src)
+/*
+ * Unica kit box
+ */
+/obj/item/storage/box/unica_kit
+	icon_state = "box_hos"
+
+/obj/item/storage/box/unica_kit/populate_contents()
+	new /obj/item/gun/projectile/revolver/mateba(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/ammo_box/speedloader/a357(src)
+	new /obj/item/clothing/accessory/holster(src)
+
+#undef BAG_PUTTING_DELAY
 #undef NODESIGN
 #undef NANOTRASEN
 #undef SYNDI

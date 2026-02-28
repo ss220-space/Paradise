@@ -677,7 +677,6 @@
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
 	var/obj/item/selected_item
 	var/emag_item = /obj/item/kitchen/knife/combat/cyborg/mecha
-	var/emagged = FALSE
 
 /obj/item/mecha_parts/mecha_equipment/eng_toolset/Initialize(mapload)
 	. = ..()

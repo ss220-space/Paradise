@@ -41,7 +41,7 @@
 	if(left_click && ismachinery(object))
 		link_obj = object
 	if(right_click && ismachinery(object))
-		if(istype(link_obj, /obj/machinery/door_control) && istype(object, /obj/machinery/door/airlock))
+		if(istype(link_obj, /obj/machinery/door_control) && is_airlock(object))
 			var/obj/machinery/door_control/M = link_obj
 			var/obj/machinery/door/airlock/P = object
 			if(!M.id || M.id == "")
