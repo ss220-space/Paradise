@@ -31,6 +31,8 @@
 	)
 
 /obj/item/organ/external/chest/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!is_robotic() || emp_proof || !tough) // Augmented chest suffocates the user on EMP.
 		return
@@ -90,6 +92,8 @@
 	)
 
 /obj/item/organ/external/arm/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
@@ -176,6 +180,8 @@
 	owner.update_fractures_slowdown()
 
 /obj/item/organ/external/leg/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
@@ -312,6 +318,8 @@
 		owner.set_usable_legs(owner.usable_legs + 1)
 
 /obj/item/organ/external/foot/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented legs and feet make the user drop to the floor on EMP.
 		return
@@ -423,6 +431,8 @@
 		owner.set_usable_hands(owner.usable_hands + 1, hand_index = limb_zone)
 
 /obj/item/organ/external/hand/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!owner || !is_robotic() || emp_proof || !tough) // Augmented arms and hands drop whatever they are holding on EMP.
 		return
@@ -565,6 +575,8 @@
 	new_dna?.write_head_attributes(src)
 
 /obj/item/organ/external/head/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	..()
 	if(!is_robotic() || emp_proof || !tough || !owner) // Augmented head confuses the user on EMP.
 		return

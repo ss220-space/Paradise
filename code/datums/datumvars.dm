@@ -837,7 +837,7 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(debug_variables, R_ADMIN|R_VIEWRUNTIMES, "View Vari
 		offer_control(M)
 
 	else if(href_list["delete"])
-		if(!check_rights(R_DEBUG, FALSE))
+		if(!check_rights(R_ADMIN|R_DEBUG))
 			return
 
 		var/datum/D = locateUID(href_list["delete"])

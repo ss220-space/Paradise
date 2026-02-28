@@ -674,7 +674,7 @@ The _flatIcons list is a cache for generated icon files.
 	var/render_icon = curicon
 
 	if(render_icon)
-		var/curstates = icon_states(curicon)
+		var/curstates = icon_states_fast(curicon)
 		if(!(icon_exists(curicon, curstate)))
 			if("" in curstates)
 				curstate = ""
@@ -687,9 +687,9 @@ The _flatIcons list is a cache for generated icon files.
 	//Determines if there's directionals.
 	if(render_icon && curdir != SOUTH)
 		if(
-			!length(icon_states(icon(curicon, curstate, NORTH))) \
-			&& !length(icon_states(icon(curicon, curstate, EAST))) \
-			&& !length(icon_states(icon(curicon, curstate, WEST))) \
+			!length(icon_states_fast(icon(curicon, curstate, NORTH))) \
+			&& !length(icon_states_fast(icon(curicon, curstate, EAST))) \
+			&& !length(icon_states_fast(icon(curicon, curstate, WEST))) \
 		)
 			base_icon_dir = SOUTH
 
@@ -829,8 +829,8 @@ The _flatIcons list is a cache for generated icon files.
 /proc/rand_hex_color()
 	var/list/colors = list("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f")
 	var/color=""
-	for(var/i=0;i<6;i++)
-		color = color+pick(colors)
+	for(var/i in 1 to 6)
+		color = color + pick(colors)
 	return "#[color]"
 
 //Imagine removing pixels from the main icon that are covered by pixels from the mask icon.
@@ -1209,8 +1209,34 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 	if(isicon(thing))
 		return icon2html(thing, target)
 
+	return flat_icon2html(thing, target, sourceonly = FALSE)
+
+/proc/flat_icon2html(thing, target, sourceonly = FALSE, name = md5("[thing]"))
+	if(!thing)
+		return
 	var/icon/flat_icon = getFlatIcon(thing)
 	return icon2html(flat_icon, target, sourceonly = sourceonly)
+
+/proc/get_icon_from_uni_icon(datum/universal_icon/flat_icon, name, dmi_icon = FALSE)
+	var/entries_json = json_encode(list(name = flat_icon.to_list()))
+	var/data_out = rustlib_iconforge_generate("tmp/icons/", name, entries_json, FALSE, dmi_icon, TRUE)
+	if(data_out == RUSTLIBS_JOB_ERROR)
+		CRASH("Icon [name] JOB PANIC")
+	else if(!findtext(data_out, "{", 1, 2))
+		rustlib_file_write(entries_json, "[GLOB.log_directory]/spritesheet_debug_[name].json")
+		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
+	var/data = json_decode(data_out)
+	var/list/sizes = data["sizes"]
+	if(!length(sizes))
+		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
+	var/size = sizes[1]
+	if(!size)
+		CRASH("Icon [name] UNKNOWN ERROR: [data_out]")
+
+	var/png_name = "[name]_[size].png"
+	var/file_directory = "tmp/icons/[png_name]"
+	return file(file_directory)
+
 
 #define CACHED_WIDTH_INDEX "width"
 #define CACHED_HEIGHT_INDEX "height"

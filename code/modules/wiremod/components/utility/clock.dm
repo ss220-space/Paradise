@@ -14,6 +14,12 @@
 	/// The signal from this clock component
 	var/datum/port/output/signal
 
+/obj/item/circuit_component/clock/Destroy()
+	stop_process()
+	on = null
+	signal = null
+	. = ..()
+
 /obj/item/circuit_component/clock/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Интервал часов: [DisplayTimeText(COMP_CLOCK_DELAY)]", "orange", "clock")
@@ -29,10 +35,6 @@
 		start_process()
 	else
 		stop_process()
-
-/obj/item/circuit_component/clock/Destroy()
-	stop_process()
-	return ..()
 
 /obj/item/circuit_component/clock/process(seconds_per_tick)
 	signal.set_output(COMPONENT_SIGNAL)

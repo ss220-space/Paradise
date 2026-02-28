@@ -59,7 +59,7 @@
 		span_notice("You rub some dust off from the [name]'s surface.")
 	)
 
-/obj/structure/statue/CanAtmosPass(turf/T, vertical)
+/obj/structure/statue/CanAtmosPass(direction)
 	return !density
 
 /obj/structure/statue/deconstruct(disassembled = TRUE)
