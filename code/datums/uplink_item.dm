@@ -2299,6 +2299,13 @@
 	cost = 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
+/datum/uplink_item/implants/fake_mindshield
+	name = "Фальшивый имплант защиты разума"
+	desc = "Имплант, который можно вживить в организм для имитации импланта защиты разума. Активируется по желанию владельца и позволяет включать или отключать своё отображение на ИЛС службы безопасности. \
+            Однако не обладает функционалом настоящего импланта защиты разума."
+	item = /obj/item/implanter/fake_mindshield
+	cost = 5
+
 /**
  * MARK: Cybernetic Implants
  */
