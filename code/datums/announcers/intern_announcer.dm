@@ -44,7 +44,7 @@
 		ANNOUNCER_SPANOMALIES = 'sound/announcer/intern_ru/spanomalies.ogg',
 	)
 
-	custom_alert_message = span_alert("Ожидайте сообщение от нашего интерна.<br>")
+	custom_alert_message = span_alert_alt("Ожидайте сообщение от нашего интерна.<br>")
 
 /datum/centcom_announcer/intern
 	welcome_sounds = list(
@@ -99,5 +99,5 @@
 		ANNOUNCER_SPANOMALIES = 'sound/announcer/intern/spanomalies.ogg',
 	)
 
-	custom_alert_message = span_alert("Ожидайте сообщение от нашего интерна.<br>")
+	custom_alert_message = span_alert_alt("Ожидайте сообщение от нашего интерна.<br>")
 
