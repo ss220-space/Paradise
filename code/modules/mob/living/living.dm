@@ -1344,8 +1344,6 @@
 					mind.transfer_to(cog)
 				else
 					cog.possess_by_player(client.key)
-				else
-					cog.possess_by_player(client.key)
 			if(2)
 				var/mob/living/silicon/robot/cog = new (get_turf(src))
 				if(mind)

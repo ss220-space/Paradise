@@ -94,10 +94,6 @@ GLOBAL_LIST_INIT(gun_and_heart_spells, list(
 	new /datum/spell_enchant("Heal", HEAL_G_SPELL, time = 1),
 	new /datum/spell_enchant("Stun", STUN_G_SPELL, time = 1)
 ))
-GLOBAL_LIST_INIT(minigun_spells, list(
-	new /datum/spell_enchant("Attack sphere", MINIGUN_ATTACK, time = 3),
-	new /datum/spell_enchant("Heal sphere", MINIGUN_HEAL, time = 3),
-))
 
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200

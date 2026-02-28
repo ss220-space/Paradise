@@ -25,7 +25,7 @@
 	else if(iscarbon(speaker)) // Nonhuman carbon mob
 		jobname = "Без ID"
 	else if(isAI(speaker))
-		jobname = JOB_TITLE_AIS
+		jobname = JOB_TITLE_AI
 	else if(isrobot(speaker))
 		var/mob/living/silicon/robot/R = speaker
 		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG
