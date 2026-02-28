@@ -279,3 +279,4 @@
 		PREPOSITIONAL = "заряженном плазменном импульсе",
 	)
 
+#undef ELECTRODE_BUCKLED_WEAKEN_MULTIPLIER
