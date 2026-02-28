@@ -6,6 +6,7 @@
 	var/eye_prefix = "robot"
 	var/required_permit
 	var/donator_tier
+	var/move_x = 0
 
 /datum/robot_skin/tall
 	icon_file = 'icons/mob/tallrobot.dmi'
@@ -909,3 +910,42 @@
 	icon_base_prefix = "ninja_medical"
 	eye_prefix = "ninja_medical"
 	required_permit = NINJA_ALT_PERMISSION
+
+/datum/robot_skin/wide
+	icon_file = 'icons/mob/64x32robots.dmi'
+	name = "Drake"
+	panelprefix = "ov-drake"
+	required_permit = DRAKE_PERMISSION
+	move_x = -16
+
+/datum/robot_skin/wide/drake/std
+	icon_base_prefix = "drakestd"
+	eye_prefix = "drakestd"
+
+/datum/robot_skin/wide/drake/medical
+	icon_base_prefix = "drakemedical"
+	eye_prefix = "drakemedical"
+
+/datum/robot_skin/wide/drake/eng
+	icon_base_prefix = "drakeeng"
+	eye_prefix = "drakeeng"
+
+/datum/robot_skin/wide/drake/sec
+	icon_base_prefix = "drakesec"
+	eye_prefix = "drakesec"
+
+/datum/robot_skin/wide/drake/jan
+	icon_base_prefix = "drakejan"
+	eye_prefix = "drakejan"
+
+/datum/robot_skin/wide/drake/srv
+	icon_base_prefix = "drakesrv"
+	eye_prefix = "drakesrv"
+
+/datum/robot_skin/wide/drake/mnr
+	icon_base_prefix = "drakemnr"
+	eye_prefix = "drakemnr"
+
+/datum/robot_skin/wide/drake/syn
+	icon_base_prefix = "drakesyn"
+	eye_prefix = "drakesyn"

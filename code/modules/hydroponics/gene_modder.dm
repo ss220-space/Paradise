@@ -53,12 +53,13 @@
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
-		if(M.rating > 4)
+		var/rating = M.rating
+		if(rating > 4)
 			max_potency = 100
-		else if(M.rating > 3)
+		else if(rating > 3)
 			max_potency = 95
 		else
-			max_potency = initial(max_potency) + (M.rating**3) // 51,58,77,95,100	 Clamps at 100
+			max_potency = initial(max_potency) + (POW3(rating)) // 51,58,77,95,100	 Clamps at 100
 
 		max_yield = min(initial(max_yield) + (M.rating*2), 10) // 4,6,8,10	Clamps at 10
 

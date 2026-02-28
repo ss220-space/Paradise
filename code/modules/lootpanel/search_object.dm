@@ -14,11 +14,16 @@
 	/// Typepath of the original object for ui grouping
 	var/path
 
+	var/looting_icon_mode
+
+	var/static/alist/icon_cache = alist()
+
 /datum/search_object/New(client/owner, atom/item)
 	. = ..()
 
 	src.item = item
 	name = item.declent_ru(NOMINATIVE)
+	looting_icon_mode = item.looting_icon_mode
 	if(isobj(item))
 		path = item.type
 
@@ -31,9 +36,13 @@
 			COMSIG_QDELETING,
 			), PROC_REF(on_item_moved))
 
+	if(looting_icon_mode)
+		return
+
 	// Icon generation conditions //////////////
 	// Condition 1: Icon is complex
-	if(ismob(item) || length(item.overlays) > 2)
+	if(length(item.overlays) > 1)
+		looting_icon_mode = LOOT_ICON_FLAT_ICON_TYPE_CACHABLE
 		return
 
 	// Condition 2: Can't get icon path
@@ -45,13 +54,6 @@
 	return
 #endif
 
-	// Condition 4: Using older byond version
-	var/build = owner.byond_build
-	var/version = owner.byond_version
-	if(build < 515 || (build == 515 && version < 1635))
-		icon = "n/a"
-		return
-
 	icon = "[item.icon]"
 	icon_state = item.icon_state
 
@@ -62,7 +64,18 @@
 
 /// Generates the icon for the search object. This is the expensive part.
 /datum/search_object/proc/generate_icon(client/owner)
-	icon = costly_icon2html(item, owner, sourceonly = TRUE)
+	switch(looting_icon_mode)
+		if(LOOT_ICON_ICON_TO_HTML)
+			icon = icon2html(item, owner, sourceonly = TRUE)
+
+		if(LOOT_ICON_FLAT_ICON_TYPE_CACHABLE)
+			var/hash = md5("[item.type]")
+			if(!(hash in icon_cache))
+				icon_cache[hash] = flat_icon2html(item, owner, sourceonly = TRUE, name = hash)
+			icon = icon_cache[hash]
+
+		if(LOOT_ICON_FLAT_ICON)
+			icon = flat_icon2html(item, owner, sourceonly = TRUE)
 
 /// Parent item has been altered, search object no longer valid
 /datum/search_object/proc/on_item_moved(atom/source)

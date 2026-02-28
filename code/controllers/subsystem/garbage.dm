@@ -446,14 +446,13 @@ SUBSYSTEM_DEF(garbage)
 #define REFSEARCH_RECURSE_LIMIT 64
 
 /datum/proc/find_references(references_to_clear = INFINITY)
-	running_find_references = type
-	if(usr?.client)
+	if(usr && usr.client)
 		if(tgui_alert(usr,"Running this will lock everything up for about 5 minutes.  Would you like to begin the search?", "Find References", list("Yes", "No")) != "Yes")
 			return
 
 	src.references_to_clear = references_to_clear
 	//this keeps the garbage collector from failing to collect objects being searched for in here
-	SSgarbage.can_fire = 0
+	SSgarbage.can_fire = FALSE
 
 	_search_references()
 	//restart the garbage collector
@@ -461,13 +460,13 @@ SUBSYSTEM_DEF(garbage)
 	SSgarbage.update_nextfire(reset_time = TRUE)
 
 /datum/proc/_search_references()
-	log_gc("Beginning search for references to a [type], looking for [references_to_clear] refs.")
+	log_reftracker("Beginning search for references to a [type], looking for [references_to_clear] refs.")
 
 	var/starting_time = world.time
-
+	//Time to search the whole game for our ref
 	DoSearchVar(GLOB, "GLOB", starting_time) //globals
-	log_gc("Finished searching globals")
-	if(references_to_clear == 0)
+	log_reftracker("Finished searching globals")
+	if(src.references_to_clear == 0)
 		return
 
 	//Yes we do actually need to do this. The searcher refuses to read weird lists
@@ -477,43 +476,42 @@ SUBSYSTEM_DEF(garbage)
 		global_vars[key] = global.vars[key]
 
 	DoSearchVar(global_vars, "Native Global", starting_time)
-	log_gc("Finished searching native globals")
-
-	if(references_to_clear == 0)
+	log_reftracker("Finished searching native globals")
+	if(src.references_to_clear == 0)
 		return
 
-	for(var/datum/thing in world) //atoms (don't beleive it's lies)
+	for(var/datum/thing in world) //atoms (don't beleive its lies)
 		DoSearchVar(thing, "World -> [thing.type]", starting_time)
-		if(references_to_clear == 0)
+		if(src.references_to_clear == 0)
 			break
-
-	log_gc("Finished searching atoms")
-	if(references_to_clear == 0)
+	log_reftracker("Finished searching atoms")
+	if(src.references_to_clear == 0)
 		return
 
 	for(var/datum/thing) //datums
 		DoSearchVar(thing, "Datums -> [thing.type]", starting_time)
-		if(references_to_clear == 0)
+		if(src.references_to_clear == 0)
 			break
-
-	log_gc("Finished searching datums")
-	if(references_to_clear == 0)
+	log_reftracker("Finished searching datums")
+	if(src.references_to_clear == 0)
 		return
 
+	//Warning, attempting to search clients like this will cause crashes if done on live. Watch yourself
+#ifndef REFERENCE_DOING_IT_LIVE
 	for(var/client/thing) //clients
 		DoSearchVar(thing, "Clients -> [thing.type]", starting_time)
-		if(references_to_clear == 0)
+		if(src.references_to_clear == 0)
 			break
-
-	log_gc("Finished searching clients")
-	if(references_to_clear == 0)
+	log_reftracker("Finished searching clients")
+	if(src.references_to_clear == 0)
 		return
+#endif
 
-	log_gc("Completed search for references to a [type].")
+	log_reftracker("Completed search for references to a [type].")
 
 /datum/proc/DoSearchVar(potential_container, container_name, search_time, recursion_count, is_special_list)
 	if(recursion_count >= REFSEARCH_RECURSE_LIMIT)
-		log_gc("Recursion limit reached. [container_name]")
+		log_reftracker("Recursion limit reached. [container_name]")
 		return
 
 	if(references_to_clear == 0)
@@ -531,6 +529,7 @@ SUBSYSTEM_DEF(garbage)
 
 		datum_container.last_find_references = search_time
 		var/list/vars_list = datum_container.vars
+
 		var/is_atom = FALSE
 		var/is_area = FALSE
 		if(isatom(datum_container))
@@ -538,9 +537,7 @@ SUBSYSTEM_DEF(garbage)
 			if(isarea(datum_container))
 				is_area = TRUE
 		for(var/varname in vars_list)
-
 			var/variable = vars_list[varname]
-
 			if(islist(variable))
 				//Fun fact, vis_locs don't count for references
 				if(varname == "vars" || (is_atom && (varname == "vis_locs" || varname == "overlays" || varname == "underlays" || varname == "filters" || varname == "verbs" || (is_area && varname == "contents"))))
@@ -561,18 +558,15 @@ SUBSYSTEM_DEF(garbage)
 					found_refs[varname] = TRUE
 					continue //End early, don't want these logging
 				else
-					log_gc("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
+					log_reftracker("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
 				#else
-				log_gc("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
+				log_reftracker("Found [type] [text_ref(src)] in [datum_container.type]'s [datum_container.ref_search_details()] [varname] var. [container_name]")
 				#endif
 				references_to_clear -= 1
 				if(references_to_clear == 0)
-					log_gc("All references to [type] [text_ref(src)] found, exiting.")
+					log_reftracker("All references to [type] [text_ref(src)] found, exiting.")
 					return
 				continue
-
-			if(islist(variable))
-				DoSearchVar(variable, "[container_name] \ref[datum_container] -> [varname] (list)", recursive_limit - 1, search_time)
 
 	else if(islist(potential_container))
 		var/list/potential_cache = potential_container
@@ -582,7 +576,7 @@ SUBSYSTEM_DEF(garbage)
 				if(length(element_in_list))
 					DoSearchVar(element_in_list, "[container_name] -> [element_in_list] (list)", search_time, recursion_count + 1)
 			//Check normal entrys
-			if(element_in_list == src)
+			else if(element_in_list == src)
 				#ifdef REFERENCE_TRACKING_DEBUG
 				if(SSgarbage.should_save_refs)
 					if(!found_refs)
@@ -590,10 +584,11 @@ SUBSYSTEM_DEF(garbage)
 					found_refs[potential_cache] = TRUE
 					continue
 				else
-					log_gc("Found [type] [text_ref(src)] in list [container_name].")
+					log_reftracker("Found [type] [text_ref(src)] in list [container_name].")
 				#else
-				log_gc("Found [type] [text_ref(src)] in list [container_name].")
+				log_reftracker("Found [type] [text_ref(src)] in list [container_name].")
 				#endif
+
 				// This is dumb as hell I'm sorry
 				// I don't want the garbage subsystem to count as a ref for the purposes of this number
 				// If we find all other refs before it I want to early exit, and if we don't I want to keep searching past it
@@ -604,11 +599,11 @@ SUBSYSTEM_DEF(garbage)
 						ignore_ref = TRUE
 						break
 				if(ignore_ref)
-					log_gc("[container_name] does not count as a ref for our count")
+					log_reftracker("[container_name] does not count as a ref for our count")
 				else
 					references_to_clear -= 1
 				if(references_to_clear == 0)
-					log_gc("All references to [type] [text_ref(src)] found, exiting.")
+					log_reftracker("All references to [type] [text_ref(src)] found, exiting.")
 					return
 
 			if(!isnum(element_in_list) && !is_special_list)
@@ -629,18 +624,18 @@ SUBSYSTEM_DEF(garbage)
 							found_refs[potential_cache] = TRUE
 							continue
 						else
-							log_gc("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
+							log_reftracker("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
 						#else
-						log_gc("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
+						log_reftracker("Found [type] [text_ref(src)] in list [container_name]\[[element_in_list]\]")
 						#endif
 						references_to_clear -= 1
 						if(references_to_clear == 0)
-							log_gc("All references to [type] [text_ref(src)] found, exiting.")
+							log_reftracker("All references to [type] [text_ref(src)] found, exiting.")
 							return
 				catch
 					// So if it goes wrong we kill it
 					is_special_list = TRUE
-					log_gc("Curiosity: [container_name] lead to an error when acessing [element_in_list], what is it?")
+					log_reftracker("Curiosity: [container_name] lead to an error when acessing [element_in_list], what is it?")
 
 #undef REFSEARCH_RECURSE_LIMIT
 
@@ -655,4 +650,13 @@ ADMIN_VERB(qdel_then_find_references, R_DEBUG, "qdel() then Find References", "q
 ADMIN_VERB(qdel_then_if_fail_find_references, R_DEBUG, "qdel() then Find References if GC failure", "qdel() then Find References if GC failure", ADMIN_CATEGORY_DEBUG, datum/target in world)
 	qdel_and_find_ref_if_fail(target, TRUE)
 
+// Kept outside the ifdef so overrides are easy to implement
+
+/// Return info about us for reference searching purposes
+/// Will be logged as a representation of this datum if it's a part of a search chain
+/datum/proc/ref_search_details()
+	return text_ref(src)
+
+/datum/callback/ref_search_details()
+	return "[text_ref(src)] (obj: [object] proc: [delegate] args: [json_encode(arguments)] user: [user?.resolve() || "null"])"
 #endif

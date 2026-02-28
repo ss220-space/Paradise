@@ -612,7 +612,8 @@
 	// 1 mutativeness at 10 potency
 	// 4 mutativeness at 100 potency
 	if(potency)
-		mutativeness = log(10, potency) ** 2
+		var/potency_log10 = log(10, potency)
+		mutativeness = POW2(potency_log10)
 
 	if(production != null)
 		// 1 production is crazy powerful

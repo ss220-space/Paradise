@@ -14,7 +14,8 @@
 	var/delay = (0.7 SECONDS)
 
 /obj/item/implant/explosive/death_trigger(mob/source, gibbed)
-	activate("death")
+	if(!HAS_TRAIT(imp_in, TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION))
+		activate("death")
 
 /obj/item/implant/explosive/activate(cause)
 	if(!cause || QDELETED(imp_in))
@@ -97,6 +98,7 @@
 	name = "macrobomb bio-chip"
 	desc = "And boom goes the weasel. And everything else nearby."
 	origin_tech = "materials=3;combat=5;biotech=4;syndicate=5"
+	trigger_causes = BIOCHIP_TRIGGER_DEATH_ANY // So it can trigger again after being canceled.
 	weak = 16
 	medium = 8
 	heavy = 4

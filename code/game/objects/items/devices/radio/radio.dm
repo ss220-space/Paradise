@@ -152,6 +152,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	set_on(FALSE)
 	SSradio?.remove_object_all(src)
 	LAZYCLEARLIST(secure_radio_connections)
+	radio_connection = null
 	GLOB.global_radios -= src
 	return ..()
 

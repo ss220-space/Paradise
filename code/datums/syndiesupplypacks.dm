@@ -1409,6 +1409,27 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 	containername = "robotics assembly crate"
 	access = ACCESS_ROBOTICS
 
+/datum/syndie_supply_packs/science/modcore
+	name = "Ящик ядер МЭК"
+	contains = list(
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+		/obj/item/mod/core/standard,
+	)
+	cost = 5000
+	access = ACCESS_ROBOTICS
+	containertype = /obj/structure/closet/crate/secure/scisec
+	containername = "ящик с ядрами МЭК"
+	container_ru_names = list(
+		NOMINATIVE = "ящик с ядрами МЭК",
+		GENITIVE = "ящика с ядрами МЭК",
+		DATIVE = "ящику с ядрами МЭК",
+		ACCUSATIVE = "ящик с ядрами МЭК",
+		INSTRUMENTAL = "ящиком с ядрами МЭК",
+		PREPOSITIONAL = "ящике с ядрами МЭК",
+	)
+
 /datum/syndie_supply_packs/science/syndie_exosuit_fabricator_circuit
 	name = "Syndicate Exosuit Fabricator Crate"
 	contains = list(
@@ -2108,7 +2129,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		PREPOSITIONAL = "ящике плотных изолент",
 	)
 
-/datum/syndie_supply_packs/contraband/powerfist
+/datum/syndie_supply_packs/misc/powerfist
 	name = "Реверсивные карты"
 	contains = list(
 		/obj/item/syndicate_reverse_card,

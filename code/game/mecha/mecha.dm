@@ -196,6 +196,48 @@
 
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
 
+/obj/mecha/Destroy()
+
+	for(var/atom/movable/cargo_thing as anything in cargo)
+		cargo -= cargo_thing
+		cargo_thing.forceMove(drop_location())
+		step_rand(cargo_thing)
+
+	if(occupant)
+		occupant.SetSleeping(destruction_sleep_duration)
+	go_out()
+	var/mob/living/silicon/ai/AI
+	for(var/mob/M in src) //Let's just be ultra sure
+		if(isAI(M))
+			occupant = null
+			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+		else
+			M.forceMove(loc)
+	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+		E.detach(loc)
+		qdel(E)
+	equipment.Cut()
+	QDEL_NULL(cell)
+	QDEL_NULL(internal_tank)
+	if(AI)
+		AI.gib() //No wreck, no AI to recover
+	STOP_PROCESSING(SSobj, src)
+	GLOB.poi_list.Remove(src)
+	var/turf/location = get_turf(src)
+	if(location)
+		location.blind_release_air(cabin_air)
+	else
+		qdel(cabin_air)
+	cabin_air = null
+	QDEL_NULL(spark_system)
+	QDEL_NULL(smoke_system)
+	QDEL_LIST(trackers)
+	QDEL_NULL(ui_view)
+	QDEL_NULL(radio)
+	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
+	GLOB.mechas_list -= src //global mech list
+	return ..()
+
 ////////////////////////
 ////// Helpers /////////
 ////////////////////////
@@ -814,46 +856,6 @@
 		setDir(dir_in)
 	if(A in trackers)
 		trackers -= A
-
-/obj/mecha/Destroy()
-
-	for(var/atom/movable/cargo_thing as anything in cargo)
-		cargo -= cargo_thing
-		cargo_thing.forceMove(drop_location())
-		step_rand(cargo_thing)
-
-	if(occupant)
-		occupant.SetSleeping(destruction_sleep_duration)
-	go_out()
-	var/mob/living/silicon/ai/AI
-	for(var/mob/M in src) //Let's just be ultra sure
-		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
-		else
-			M.forceMove(loc)
-	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-		E.detach(loc)
-		qdel(E)
-	equipment.Cut()
-	QDEL_NULL(cell)
-	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
-	GLOB.poi_list.Remove(src)
-	var/turf/location = get_turf(src)
-	if(location)
-		location.blind_release_air(cabin_air)
-	else
-		qdel(cabin_air)
-	cabin_air = null
-	QDEL_NULL(spark_system)
-	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
-	QDEL_NULL(ui_view)
-	GLOB.mechas_list -= src //global mech list
-	return ..()
 
 //TODO
 /obj/mecha/emp_act(severity)

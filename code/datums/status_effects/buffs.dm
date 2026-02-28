@@ -268,7 +268,7 @@
 /datum/status_effect/hippocraticOath
 	id = "Hippocratic Oath"
 	tick_interval = 25
-	examine_text = span_notice("Кажется, они окружены аурой исцеления и доброжелательности.")
+	examine_text = span_notice_alt("Кажется, они окружены аурой исцеления и доброжелательности.")
 	alert_type = null
 
 	var/datum/component/aura_healing/aura_healing

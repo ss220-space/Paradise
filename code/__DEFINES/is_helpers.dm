@@ -87,6 +87,8 @@
 
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
 
+#define isammobox(A) (istype(A, /obj/item/ammo_box))
+
 #define ismachinery(A) (istype(A, /obj/machinery))
 
 #define isapc(A) (istype(A, /obj/machinery/power/apc))

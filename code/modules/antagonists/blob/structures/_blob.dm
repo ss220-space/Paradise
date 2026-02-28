@@ -90,7 +90,7 @@
 						result++
 		. -= result - 1
 
-/obj/structure/blob/CanAtmosPass(turf/T, vertical)
+/obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
 
 /obj/structure/blob/get_superconductivity(direction)

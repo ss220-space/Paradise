@@ -403,6 +403,8 @@
 
 	// We just changed our composition
 	gas_heat_capacity = compressor_gas.heat_capacity()
+	
+	var/bearing_damage_ratio = (1 - compressor.bearing_damage / BEARING_DAMAGE_MAX)
 
 	// The portion of the thermal energy of the gas converted to kinetic energy
 	compressor.thermal_efficiency = (compressor_gas.return_pressure() + output_side.return_pressure()) <= 0 ? 0 : \
@@ -411,7 +413,7 @@
 	((THERMAL_EFF_PART_BASE + compressor.efficiency) / (THERMAL_EFF_PART_BASE + 4)) * \
 	(compressor_gas.temperature() / (compressor_gas.temperature() + THERMAL_EFF_TEMP_CURVE)) * \
 	(compressor_gas.return_pressure() / (compressor_gas.return_pressure() + output_side.return_pressure())) * \
-	((1 - compressor.bearing_damage / BEARING_DAMAGE_MAX) ** 3)
+	(POW3(bearing_damage_ratio))
 
 	var/kinetic_energy_gain = compressor_gas.thermal_energy() * compressor.thermal_efficiency
 

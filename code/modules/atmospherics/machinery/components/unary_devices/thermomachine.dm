@@ -67,7 +67,8 @@
 	var/calculated_bin_rating
 	for(var/obj/item/stock_parts/matter_bin/bin in component_parts)
 		calculated_bin_rating += bin.rating
-	heat_capacity = 5000 * ((calculated_bin_rating - 1) ** 2)
+	var/bin_rating_fixed = (calculated_bin_rating - 1)
+	heat_capacity = 5000 * POW2(bin_rating_fixed)
 	min_temperature = T20C
 	max_temperature = T20C
 	if(cooling)
