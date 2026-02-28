@@ -96,7 +96,7 @@
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, span_danger("Вы израсходовали свой [name]!"))
+					to_chat(user, span_danger("Вы израсходовали [DECLENT_RU_CAP(src, ACCUSATIVE)]!"))
 					qdel(src)
 		busy = FALSE
 
@@ -291,7 +291,7 @@
 		NOMINATIVE = "Баллончик с краской",
 		GENITIVE = "Баллончика с краской",
 		DATIVE = "Баллончику с краской",
-		ACCUSATIVE = "Баллончика с краской",
+		ACCUSATIVE = "Баллончик с краской",
 		INSTRUMENTAL = "Баллончиком с краской",
 		PREPOSITIONAL = "Баллончике с краской",
 	)
@@ -304,7 +304,7 @@
 	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] крышку у  [DECLENT_RU_CAP(src, ACCUSATIVE)]"))
+			to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] крышку у  [DECLENT_RU_CAP(src, GENITIVE)]"))
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
@@ -349,7 +349,7 @@
 /obj/item/toy/crayon/spraycan/proc/draw_paint(mob/living/user)
 	uses--
 	if(!uses)
-		to_chat(user, span_warning("Вы израсходовали [DECLENT_RU_CAP(src, DATIVE)]!"))
+		to_chat(user, span_warning("Вы израсходовали [DECLENT_RU_CAP(src, ACCUSATIVE)]!"))
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		qdel(src)
 

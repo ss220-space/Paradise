@@ -104,7 +104,7 @@
 
 #define CABLE_CRAFT_RESTRAINS "Самодельные стяжки (15)"
 #define CABLE_CRAFT_TOURNIQUET "Самодельный жгут (20)"
-#define CABLE_CRAFT_MULTIZ_CABLE_HUB "multi z cable hub (10)"
+#define CABLE_CRAFT_MULTIZ_CABLE_HUB "Многоуровневый кабельный узел (10)"
 
 ///////////////////////////////////
 // General procedures
@@ -246,7 +246,7 @@
 			update_damage_icon |= current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
 		if(current_organ.burn_dam != burn_was)
 			should_update_health = TRUE
-		user.visible_message(span_alert("[user] чинит некоторый урон от ожогов у [target] [current_organ.name] с помощью [DECLENT_RU_CAP(src, GENITIVE)]."))
+		user.visible_message(span_alert("[user] чинит некоторый урон от ожогов у [target] [current_organ.name] [DECLENT_RU_CAP(src, INSTRUMENTAL)]."))
 	if(should_update_health)
 		target.updatehealth("cable repair")
 	if(update_damage_icon)

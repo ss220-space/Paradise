@@ -61,7 +61,7 @@
 	)
 
 /obj/item/clothing/head/welding/flamedecal
-	name = "flame decal welding helmet."
+	name = "flame decal welding helmet"
 	desc = "Сварочный шлем, украшенный огненной наклейкой и надписями с различной степенью читаемости."
 	icon_state = "welding_redflame"
 
