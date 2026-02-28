@@ -1064,8 +1064,6 @@
 		G.drop_gripped_item(silent = TRUE)
 
 
-	return TRUE
-
 /obj/item/robot_module/clockwork/Initialize(mapload)
 	. = ..()
 	modules += new /obj/item/screwdriver/brass(src)
