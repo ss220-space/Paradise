@@ -19,6 +19,13 @@
 
 	var/max_range = 1
 
+/obj/item/circuit_component/id_info_reader/Destroy()
+	target = null
+	name_port = null
+	rank_port = null
+	age_port = null
+	. = ..()
+
 /obj/item/circuit_component/id_info_reader/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)].", "orange", "info")

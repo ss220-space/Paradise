@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// Whether an ability should start cooldown after cast or not.
 	var/should_recharge_after_cast = TRUE
 	/// Messace user get when clicks on rechargins spell button.
-	var/still_recharging_msg = span_notice("The spell is still recharging.")
+	var/still_recharging_msg = span_notice_alt("The spell is still recharging.")
 
 	/// Spell can only be cast with special wizard garb, equipped in appropriete slots.
 	var/clothes_req = TRUE
@@ -163,9 +163,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/gain_desc = null
 
 	/// The message displayed when a click based spell gets activated
-	var/selection_activated_message	= span_notice("Click on a target to cast the spell.")
+	var/selection_activated_message	= span_notice_alt("Click on a target to cast the spell.")
 	/// The message displayed when a click based spell gets deactivated
-	var/selection_deactivated_message = span_notice("You choose to not cast this spell.")
+	var/selection_deactivated_message = span_notice_alt("You choose to not cast this spell.")
 
 	/// does this spell generate attack logs?
 	var/create_attack_logs = TRUE

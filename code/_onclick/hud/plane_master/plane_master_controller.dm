@@ -12,6 +12,10 @@
 	. = ..()
 	owner_hud = hud
 
+/atom/movable/plane_master_controller/Destroy(force)
+	owner_hud = null
+	. = ..()
+
 /atom/movable/plane_master_controller/proc/get_planes()
 	var/returned_planes = list()
 	for(var/true_plane in controlled_planes)

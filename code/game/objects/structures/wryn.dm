@@ -48,7 +48,7 @@
 	. = ..()
 	move_update_air(T)
 
-/obj/structure/wryn/wax/CanAtmosPass(turf/T, vertical)
+/obj/structure/wryn/wax/CanAtmosPass(direction)
 	return !density
 
 // Structure themself
