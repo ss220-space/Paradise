@@ -23,7 +23,6 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	/mob/living/silicon/ai/proc/change_arrival_message,
 	/mob/living/silicon/ai/proc/arrivals_announcement,
 	/mob/living/silicon/ai/proc/ai_change_voice,
-	/mob/living/silicon/ai/verb/deploy_to_shell,
 ))
 
 //Not sure why this is necessary...
@@ -66,7 +65,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
 	//AI SHELL CONTROL
-	var/mob/living/silicon/robot/deployed_shell
+	var/mob/living/silicon/robot/deployed_shell = null
 
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
@@ -338,22 +337,40 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	popup.open(FALSE)
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
-	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
-	for(var/mob/living/silicon/robot/R in connected_robots)
+	var/list/robot_list = list()
+	var/list/aishell_list = list()
+	for(var/mob/living/silicon/robot/robot in connected_robots)
+		if(robot.shell)
+			aishell_list += robot
+		else
+			robot_list += robot
+
+	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(robot_list)]")
+	// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+	for(var/mob/living/silicon/robot/robot in robot_list)
 		var/robot_status
-		if(R.stat || (!R.client && !R.shell))
+		if(robot.stat || !robot.client)
 			robot_status = "OFFLINE"
-		else if(!R.cell || R.cell.charge <= 0)
+		else if(!robot.cell || robot.cell.charge <= 0)
 			robot_status = "DEPOWERED"
-		else if(R.shell)
-			robot_status = "AI SHELL"
 		else
 			robot_status = "Nominal"
-		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
-		var/area/A = get_area(R)
+		var/area/A = get_area(robot)
 		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
-		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
-		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
+		status_tab_data[++status_tab_data.len] = list("[robot.name]:", "S.Integrity: [robot.health]% | Cell: [robot.cell ? "[robot.cell.charge] / [robot.cell.maxcharge]" : "Empty"] | \
+		Module: [robot.designation] | Loc: [area_name] | Status: [robot_status]")
+
+	status_tab_data[++status_tab_data.len] = list("Detected AI shell beacons:", "[length(aishell_list)]")
+	for(var/mob/living/silicon/robot/robot in aishell_list)
+		var/robot_status
+		if(!can_connect_to(robot))
+			robot_status = "UNABLE TO CONNECT"
+		else
+			robot_status = "Ready to connect"
+		var/area/A = get_area(robot)
+		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
+		status_tab_data[++status_tab_data.len] = list("Shell-[num2text(robot.ident)]:", "S.Integrity: [robot.health]% | Cell: [robot.cell ? "[robot.cell.charge] / [robot.cell.maxcharge]" : "Empty"] | \
+		Module: [robot.designation] | Loc: [area_name] | Status: [robot_status]")
 	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
@@ -1587,21 +1604,17 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	return TRUE
 
-/mob/living/silicon/ai/verb/deploy_to_shell(mob/living/silicon/robot/target)
-	set name = "Подключиться к оболочке"
-	set desc = "Подключитесь к роботу-оболочке по безпроводной связи."
-	set category = VERB_CATEGORY_AICOMMANDS
-
+/mob/living/silicon/ai/proc/deploy_to_shell(mob/living/silicon/robot/target)
 	if(control_disabled)
-		to_chat(src, span_warning("Подсистема безпроводного подключения не отвечает."))
+		to_chat(src, span_warning("Подсистема беcпроводного подключения не отвечает."))
 		return
 
 	var/list/possible = list()
 
 	for(var/shell in GLOB.available_ai_shells)
-		var/mob/living/silicon/robot/R = shell
-		if(can_connect_to(R))
-			possible += R
+		var/mob/living/silicon/robot/robot = shell
+		if(can_connect_to(robot))
+			possible += robot
 
 	if(!LAZYLEN(possible))
 		to_chat(src, "Активных передатчиков сигнала не обнаружено.")
@@ -1616,7 +1629,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, span_warning("Во время установки cоеденения с оболочкой произошла ошибка."))
 		return
 
-	else if(mind)
+	else
+		if(!mind)
+			return
 		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
 		deployed_shell = target
 		target.deploy_init(src)

@@ -165,9 +165,10 @@
 	icon_state = "AIshell"
 
 /atom/movable/screen/ai/connect_to_shell/Click()
-	if(isAI(usr))
-		var/mob/living/silicon/ai/AI = usr
-		AI.deploy_to_shell()
+	if(!isAI(usr))
+		return
+	var/mob/living/silicon/ai/AI = usr
+	AI.deploy_to_shell()
 
 /datum/hud/ai/New(mob/owner)
 	..()

@@ -138,8 +138,8 @@
 		if(l_leg && r_leg)
 			if(chest && head)
 				SSblackbox.record_feedback("amount", "cyborg_frames_built", 1)
-				return 1
-	return 0
+				return TRUE
+	return FALSE
 
 /obj/item/robot_parts/robot_suit/proc/install_cell(mob/living/silicon/robot/target)
 	chest.cell.forceMove(target)
@@ -154,6 +154,58 @@
 	if(!locomotion)
 		target.set_lockcharge(TRUE)
 		to_chat(target, span_warning("Error: Servo motors unresponsive."))
+
+/obj/item/robot_parts/robot_suit/proc/check_lawsync()
+	if(!aisync)
+		lawsync = FALSE
+	if(sabotaged)
+		aisync = FALSE
+		lawsync = FALSE
+
+/obj/item/robot_parts/robot_suit/proc/get_new_laws(obj/item/mmi/new_mmi)
+	if(new_mmi.syndicate)	// ffs
+		aisync = FALSE
+		lawsync = FALSE
+		return new /datum/ai_laws/syndicate_override
+	if(new_mmi.ninja)
+		aisync = FALSE
+		lawsync = FALSE
+		return new /datum/ai_laws/ninja_override
+	if(new_mmi.clock)
+		aisync = FALSE
+		lawsync = FALSE
+		return new /datum/ai_laws/ratvar
+
+/obj/item/robot_parts/robot_suit/proc/apply_debug_stats(mob/living/silicon/robot/target)
+		target.custom_name = created_name
+		target.rename_character(target.real_name, target.get_default_name())
+		target.locked = panel_locked
+
+/obj/item/robot_parts/robot_suit/proc/give_new_laws(mob/living/silicon/robot/target, datum/ai_laws/laws_to_give)
+	if(laws_to_give)
+		target.laws = laws_to_give
+	else if(!lawsync)
+		target.lawupdate = FALSE
+		target.make_laws()
+
+/obj/item/robot_parts/robot_suit/proc/check_special_role(obj/item/mmi/mmi, mob/living/silicon/robot/target, mob/living/user)
+	if(mmi.greet(target) && !target.mind.special_role)
+		return
+	target.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
+	to_chat(target, span_userdanger("You have been robotized!"))
+	to_chat(target, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
+
+/obj/item/robot_parts/robot_suit/proc/process_clocker_cyborg(mob/living/silicon/robot/target)
+	if(!target.mmi.clock) // so robots created from vessel have magic
+		return
+	target.UnlinkSelf()
+	SSticker.mode.add_clock_actions(target.mind)
+
+/obj/item/robot_parts/robot_suit/proc/process_job_task(mob/living/target)
+	var/datum/job_objective/make_cyborg/task = target.mind.findJobTask(/datum/job_objective/make_cyborg)
+	if(!istype(task))
+		return
+	task.unit_completed()
 
 /obj/item/robot_parts/robot_suit/multitool_act(mob/living/user, obj/item/I)
 	. = TRUE
@@ -271,12 +323,7 @@
 			to_chat(user, span_warning("You can't put [module] in, the frame has to be standing on the ground to be perfectly precise."))
 			return .
 
-		if(!aisync)
-			lawsync = FALSE
-
-		if(sabotaged)
-			aisync = FALSE
-			lawsync = FALSE
+		check_lawsync()
 
 		if(iscarbon(user))
 			var/mob/living/carbon/carbon = user
@@ -288,20 +335,12 @@
 
 		. = ATTACK_CHAIN_BLOCKED_ALL
 
-		var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
-		if(istype(task))
-			task.unit_completed()
-
-		new_shell.invisibility = 0
-		new_shell.locked = panel_locked
-
+		process_job_task(user)
+		apply_debug_stats(new_shell)
 		new_shell.job = JOB_TITLE_CYBORG
-
 		install_cell(new_shell)
-
 		forceMove(new_shell)
 		new_shell.robot_suit = src
-
 		check_locomotion(new_shell)
 		return .
 
@@ -357,27 +396,8 @@
 			return .
 
 		var/datum/ai_laws/laws_to_give
-		if(!aisync)
-			lawsync = FALSE
-
-		if(sabotaged)
-			aisync = FALSE
-			lawsync = FALSE
-
-		if(new_mmi.syndicate)	// ffs
-			aisync = FALSE
-			lawsync = FALSE
-			laws_to_give = new /datum/ai_laws/syndicate_override
-
-		if(new_mmi.ninja)
-			aisync = FALSE
-			lawsync = FALSE
-			laws_to_give = new /datum/ai_laws/ninja_override
-
-		if(new_mmi.clock)
-			aisync = FALSE
-			lawsync = FALSE
-			laws_to_give = new /datum/ai_laws/ratvar
+		check_lawsync()
+		laws_to_give = get_new_laws(new_mmi)
 
 		var/mob/living/silicon/robot/new_borg = new(loc, syndie = sabotaged, unfinished = TRUE, ai_to_sync_to = forced_ai, connect_to_AI = aisync)
 		if(QDELETED(new_borg))	// somehow??? jesus fucking christ
@@ -388,34 +408,18 @@
 
 		. = ATTACK_CHAIN_BLOCKED_ALL
 
-		var/datum/job_objective/make_cyborg/task = user.mind.findJobTask(/datum/job_objective/make_cyborg)
-		if(istype(task))
-			task.unit_completed()
-
+		process_job_task(user)
 		new_borg.invisibility = 0
 		new_mmi.forceMove(new_borg) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
 		//Transfer debug settings to new mob
-		new_borg.custom_name = created_name
-		new_borg.rename_character(new_borg.real_name, new_borg.get_default_name())
-		new_borg.locked = panel_locked
-
-		if(laws_to_give)
-			new_borg.laws = laws_to_give
-		else if(!lawsync)
-			new_borg.lawupdate = FALSE
-			new_borg.make_laws()
-
+		apply_debug_stats(new_borg)
+		give_new_laws(new_borg, laws_to_give)
 		new_mmi.brainmob.mind.transfer_to(new_borg)
 
 		SSticker?.score?.save_silicon_laws(new_borg, user, "robot construction", log_all_laws = TRUE)
 
-		if(!new_mmi.greet(new_borg) && new_borg.mind?.special_role)
-			new_borg.mind.store_memory("As a cyborg, you must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead.")
-			to_chat(new_borg, span_userdanger("You have been robotized!"))
-			to_chat(new_borg, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
-
+		check_special_role(new_mmi, new_borg, user)
 		new_borg.job = JOB_TITLE_CYBORG
-
 		install_cell(new_borg)
 		new_borg.mmi = new_mmi
 		new_borg.Namepick()
@@ -424,13 +428,8 @@
 
 		forceMove(new_borg)
 		new_borg.robot_suit = src
-
 		new_borg.mmi.apply_effects(new_borg)
-
-		if(new_borg.mmi.clock) // so robots created from vessel have magic
-			new_borg.UnlinkSelf()
-			SSticker.mode.add_clock_actions(new_borg.mind)
-
+		process_clocker_cyborg(new_borg)
 		check_locomotion(new_borg)
 		return .
 

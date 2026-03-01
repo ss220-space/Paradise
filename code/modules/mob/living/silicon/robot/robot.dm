@@ -406,6 +406,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(self_diagnosis)
 	QDEL_NULL(ion_trail)
 
+	QDEL_NULL(undeployment_action)
+
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module(forced_module = null)
@@ -2351,7 +2353,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(connected_ai != user)
 			to_chat(user, span_warning("Отказано в доступе. Подключение невозможно."))
 			return
-	if(tgui_alert(user, "Подключиться к [name]?", "Подключение к оболочке", list("Подключиться", "Отмена")) != "Подключиться")
+	if(tgui_alert(user, "Подключиться к [name]?", "Подключение к оболочке", list(AISHELL_CONNECT_POSITIVE, AISHELL_CONNECT_NEGATIVE)) != AISHELL_CONNECT_POSITIVE)
 		return
 	if(shell && (!connected_ai || connected_ai == user))
 		var/mob/living/silicon/ai/AI = user
@@ -2360,25 +2362,33 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 //Just kicks AI-mainframe from cyborg
 //Can kill him if 'danger_level' suggests it.
 /mob/living/silicon/robot/proc/evacuate_ai(danger_level = DANGER_LVL_NONE)
-	if(mainframe)
-		var/mob/living/silicon/ai/AI = mainframe
-		switch(danger_level)
-			if(DANGER_LVL_NONE)
-				mainframe.disconnect_shell()
-				to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
-			if(DANGER_LVL_MAY_DIE)
-				mainframe.disconnect_shell()
-				if(prob(50))
-					to_chat(AI, span_alert("ОШИБКА: ВО $#%ВРЕ$#@МЯ ПЕ$#GHРЕН#@$ОСА СИ2С$#@@Т#ЕМН%$@ЫХ Ф#$%АЙЛ#$#!ОВ ПРОИЗО#$%^@#^&$$@^&---"))
-					AI.adjustOxyLoss(200)
-
-			if(DANGER_LVL_INSTA_DEATH)
-				mainframe.disconnect_shell()
+	if(!mainframe)
+		return
+	var/mob/living/silicon/ai/AI = mainframe
+	if(danger_level && DANGER_LVL_NONE)
+		mainframe.disconnect_shell()
+		to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
+		return
+	else
+		mainframe.disconnect_shell()
+		if(danger_level && DANGER_LVL_MAY_DIE)
+			if(prob(50))
+				to_chat(AI, span_alert("ОШИБКА: ВО $#%ВРЕ$#@МЯ ПЕ$#GHРЕН#@$ОСА СИ2С$#@@Т#ЕМН%$@ЫХ Ф#$%АЙЛ#$#!ОВ ПРОИЗО#$%^@#^&$$@^&---"))
+				AI.adjustOxyLoss(200)
+				return
+			if(danger_level && DANGER_LVL_INSTA_DEATH)
 				to_chat(AI, span_alert("$%@#!$%##!!$$#---"))
 				AI.adjustOxyLoss(200)
-			else
-				mainframe.disconnect_shell()
-				to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
+				return
+	if(danger_level && DANGER_LVL_INSTA_DEATH)
+		mainframe.disconnect_shell()
+		to_chat(AI, span_alert("$%@#!$%##!!$$#---"))
+		AI.adjustOxyLoss(200)
+		return
+	else
+		mainframe.disconnect_shell()
+		to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
+		return
 
 #undef BORG_LAMP_CD_RESET
 

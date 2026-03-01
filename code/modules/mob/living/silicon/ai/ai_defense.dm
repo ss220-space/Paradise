@@ -18,17 +18,19 @@
 
 /mob/living/silicon/ai/adjustBruteLoss(amount = 0, updating_health = TRUE, def_zone = null, blocked = 0, forced = FALSE, used_weapon = null, sharp = FALSE, silent = FALSE, affect_robotic = TRUE,)
 	. = ..()
-	if(amount > 0)
-		if(deployed_shell)
-			to_chat(deployed_shell, span_warningbig("ТРЕВОГА: ЗАФИКСИРОВАНО ПОВРЕЖДЕНИЕ ЯДРА"))
-			SEND_SOUND(deployed_shell, 'sound/machines/engine_alert1.ogg')
+	if(amount < 0)
+		return
+	if(deployed_shell)
+		to_chat(deployed_shell, span_warningbig("ТРЕВОГА: ЗАФИКСИРОВАНО ПОВРЕЖДЕНИЕ ЯДРА"))
+		SEND_SOUND(deployed_shell, 'sound/machines/engine_alert1.ogg')
 
 /mob/living/silicon/ai/adjustFireLoss(amount, updating_health = TRUE, def_zone = null, blocked = 0, forced = FALSE, used_weapon = null, sharp = FALSE, silent = FALSE, affect_robotic = TRUE,)
 	. = ..()
-	if(amount > 0)
-		if(deployed_shell)
-			to_chat(deployed_shell, span_warningbig("ТРЕВОГА: ЗАФИКСИРОВАНО ПОВРЕЖДЕНИЕ ЯДРА"))
-			SEND_SOUND(deployed_shell, 'sound/machines/engine_alert1.ogg')
+	if(amount < 0)
+		return
+	if(deployed_shell)
+		to_chat(deployed_shell, span_warningbig("ТРЕВОГА: ЗАФИКСИРОВАНО ПОВРЕЖДЕНИЕ ЯДРА"))
+		SEND_SOUND(deployed_shell, 'sound/machines/engine_alert1.ogg')
 
 /mob/living/silicon/ai/emp_act(severity)
 	. = ..()
