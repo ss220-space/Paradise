@@ -151,9 +151,10 @@
 	cell_component.installed = TRUE
 
 /obj/item/robot_parts/robot_suit/proc/check_locomotion(mob/living/silicon/robot/target)
-	if(!locomotion)
-		target.set_lockcharge(TRUE)
-		to_chat(target, span_warning("Error: Servo motors unresponsive."))
+	if(locomotion)
+		return
+	target.set_lockcharge(TRUE)
+	to_chat(target, span_warning("Error: Servo motors unresponsive."))
 
 /obj/item/robot_parts/robot_suit/proc/check_lawsync()
 	if(!aisync)
