@@ -4277,7 +4277,6 @@
 /area/event_zone)
 "jx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
 	name = "Event Zone Air Scrubber #12"
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -4846,7 +4845,6 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
 	name = "Event Zone Vent Pump #14"
 	},
 /obj/item/storage/fancy/cigarettes/syndicate{
@@ -5808,7 +5806,6 @@
 /area/event_zone)
 "lp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
 	name = "Event Zone Air Scrubber #13"
 	},
 /turf/simulated/floor/plasteel{
@@ -6194,7 +6191,6 @@
 /area/event_zone)
 "md" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
 	name = "Event Zone Air Scrubber #9"
 	},
 /turf/simulated/floor/plasteel{
@@ -6237,7 +6233,6 @@
 	pixel_y = -3
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
 	name = "Event Zone Air Scrubber #10"
 	},
 /turf/simulated/floor/plating{
@@ -7135,7 +7130,6 @@
 /area/event_zone)
 "nJ" = (
 /obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
 	name = "Event Zone Vent Pump #8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7144,7 +7138,6 @@
 /area/event_zone)
 "nK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
 	name = "Event Zone Air Scrubber #8"
 	},
 /turf/simulated/floor/plating{
@@ -11768,7 +11761,6 @@
 /area/event_zone)
 "td" = (
 /obj/structure/chair/comfy/shuttle{
-	 = ;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -12670,7 +12662,6 @@
 /area/event_zone)
 "uF" = (
 /obj/structure/chair/comfy/shuttle/dark{
-	 = ;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -18123,7 +18114,6 @@
 /area/event_zone)
 "Dm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
 	name = "Event Zone Air Scrubber #5"
 	},
 /turf/simulated/floor/plasteel{
@@ -18132,7 +18122,6 @@
 /area/event_zone)
 "Dn" = (
 /obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
 	name = "Event Zone Vent Pump #5"
 	},
 /turf/simulated/floor/plasteel{
@@ -19917,7 +19906,6 @@
 /area/event_zone)
 "GC" = (
 /obj/machinery/atmospherics/pipe/manifold{
-	 = ;
 	layer = 2.47
 	},
 /turf/simulated/floor/plasteel{
@@ -23067,7 +23055,6 @@
 /area/event_zone)
 "Ls" = (
 /obj/machinery/atmospherics/pipe/manifold4w{
-	 = ;
 	layer = 2.47
 	},
 /obj/item/rcd/combat{
