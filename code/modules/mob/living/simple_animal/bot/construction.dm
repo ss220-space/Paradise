@@ -1039,17 +1039,17 @@
 	req_access = list()
 
 /obj/item/bot_assembly/ui_interact(mob/user, datum/tgui/ui)
-    ui = SStgui.try_update_ui(user, src, ui)
-    if(!ui)
-        ui = new(user, src, "Bots", name)
-        ui.open()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Bots", name)
+		ui.open()
 
 /obj/item/bot_assembly/ui_data(mob/user)
-    var/list/data = list()
-    var/list/user_accesses = user.get_access()
-    data["accesses"] = req_access
-    data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
-    return data
+	var/list/data = list()
+	var/list/user_accesses = user.get_access()
+	data["accesses"] = req_access
+	data["regions"] = length(user_accesses) ? get_accesslist_static_data(REGION_GENERAL, REGION_COMMAND, user_accesses) : null
+	return data
 
 /obj/item/bot_assembly/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
