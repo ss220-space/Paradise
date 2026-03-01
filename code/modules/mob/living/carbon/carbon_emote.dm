@@ -216,12 +216,14 @@
 /datum/emote/living/carbon/twirl
 	key = "twirl"
 	key_third_person = "twirls"
-	//message = "верт%(ит,ят)% что-то в руках."
 	hands_use_check = TRUE
 
 #define BUBBLE_TIME (4 SECONDS)
+#define TWIRL_SPIN_PARAMS 6, 1, TRUE, 6
 
 /atom/movable/proc/spinning_item_in_bubble(atom/displayed_atom)
+	if(!displayed_atom)
+		return
 	var/obj/effect/thought_bubble_effect = new
 	var/mutable_appearance/thought_bubble = mutable_appearance(
 		'icons/effects/effects.dmi',
@@ -245,7 +247,7 @@
 	spinner.plane = FLOAT_PLANE
 	spinner.layer = FLOAT_LAYER
 
-	spinner.SpinAnimation(6, 1, TRUE, 6)
+	spinner.SpinAnimation(TWIRL_SPIN_PARAMS)
 	thought_bubble_effect.vis_contents += spinner
 
 	addtimer(CALLBACK(src, PROC_REF(clear_point_bubble), thought_bubble_effect), BUBBLE_TIME)
@@ -274,7 +276,7 @@
 		if(held_item.item_flags & ABSTRACT)
 			user.balloon_alert(user, "неподходящий предмет!")
 			return TRUE
-		held_item.SpinAnimation(6, 1, TRUE, 6)
+		held_item.SpinAnimation(TWIRL_SPIN_PARAMS)
 		user.spinning_item_in_bubble(held_item)
 
 	else if(grabbed_mob)
@@ -285,3 +287,4 @@
 	message = initial(message)
 
 #undef BUBBLE_TIME
+#undef TWIRL_SPIN_PARAMS
