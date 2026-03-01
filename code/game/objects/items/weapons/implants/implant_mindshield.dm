@@ -102,14 +102,17 @@
 
 	if(!hud_visible)
 		hud_visible = TRUE
-		icon_state = "fake_mindshield1"
 	else
 		hud_visible = FALSE
-		icon_state = "fake_mindshield0"
+
+	update_icon()
 
 	if(ishuman(imp_in))
-		var/mob/living/carbon/human/H = imp_in
-		H.sec_hud_set_implants()
+		var/mob/living/carbon/human/human = imp_in
+		human.sec_hud_set_implants()
+
+/obj/item/implant/fake_mindshield/update_icon_state()
+	icon_state = "fake_mindshield[hud_visible ? 1 : 0]"
 
 /obj/item/implanter/fake_mindshield
 	name = "bio-chip implanter (fake mindshield)"
