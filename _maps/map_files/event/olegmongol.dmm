@@ -4406,7 +4406,6 @@
 "jJ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	= ;
 	name = "Event Zone Air Scrubber #14"
 	},
 /turf/simulated/floor/plasteel{
@@ -4926,7 +4925,6 @@
 "kn" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Event Zone Vent Pump #11"
 	},
 /obj/item/stack/tile/wood/fancy/light{
@@ -5139,7 +5137,6 @@
 "kw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	= ;
 	name = "Event Zone Air Scrubber #11"
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -6127,7 +6124,6 @@
 "lY" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Event Zone Vent Pump #13"
 	},
 /obj/structure/closet/chefcloset{
@@ -6316,7 +6312,6 @@
 "mq" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Event Zone Vent Pump #9"
 	},
 /turf/simulated/floor/plasteel{
@@ -6440,7 +6435,6 @@
 "mz" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
-	= ;
 	name = "Event Zone Vent Pump #10"
 	},
 /turf/simulated/floor/plating{
@@ -6805,7 +6799,6 @@
 "nl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	= ;
 	name = "Event Zone Air Scrubber #1"
 	},
 /obj/machinery/hydroponics/constructable{
@@ -6858,7 +6851,6 @@
 "np" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
-	= ;
 	name = "Event Zone Vent Pump #1"
 	},
 /turf/simulated/floor/plasteel{
@@ -8060,7 +8052,6 @@
 "pm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	= ;
 	name = "Event Zone Air Scrubber #4"
 	},
 /obj/machinery/light/built{
@@ -8140,7 +8131,6 @@
 "pv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	= ;
 	name = "Event Zone Air Scrubber #2"
 	},
 /obj/machinery/hydroponics/constructable{
@@ -8186,7 +8176,6 @@
 "px" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
-	= ;
 	name = "Event Zone Vent Pump #2"
 	},
 /obj/machinery/hydroponics/constructable{
@@ -8359,7 +8348,6 @@
 "pL" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
-	= ;
 	name = "Event Zone Vent Pump #4"
 	},
 /obj/machinery/reagentgrinder{
@@ -9853,7 +9841,6 @@
 "rs" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 6;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/grass{
@@ -10518,7 +10505,6 @@
 "rL" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9;
-	= ;
 	layer = 2.47
 	},
 /obj/item/clothing/gloves/color/yellow{
@@ -17101,7 +17087,6 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "test Vent Pump #1"
 	},
 /turf/simulated/floor/plating{
@@ -17290,7 +17275,6 @@
 "Cc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	= ;
 	name = "test Air Scrubber #1"
 	},
 /turf/simulated/floor/plating{
@@ -17907,7 +17891,6 @@
 "CR" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Atmos Vent Pump #10"
 	},
 /turf/simulated/floor/plating{
@@ -18057,7 +18040,6 @@
 "Dg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
-	= ;
 	name = "Event Zone Air Scrubber #3"
 	},
 /turf/simulated/floor/plasteel{
@@ -18105,7 +18087,6 @@
 "Dl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	= ;
 	name = "Event Zone Air Scrubber #7"
 	},
 /turf/simulated/floor/plasteel{
@@ -18131,7 +18112,6 @@
 "Dp" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Atmos Vent Pump #11"
 	},
 /turf/simulated/floor/plating{
@@ -18588,7 +18568,6 @@
 "Eh" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Atmos Vent Pump #9"
 	},
 /turf/simulated/floor/plating{
@@ -18624,7 +18603,6 @@
 "Ek" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
-	= ;
 	name = "Atmos Vent Pump #1"
 	},
 /turf/simulated/floor/plating{
@@ -18693,7 +18671,6 @@
 "Er" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Event Zone Vent Pump #3"
 	},
 /turf/simulated/floor/plasteel{
@@ -18785,7 +18762,6 @@
 "Ey" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
-	= ;
 	name = "Event Zone Vent Pump #7"
 	},
 /turf/simulated/floor/plasteel{
@@ -18795,7 +18771,6 @@
 "Ez" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Atmos-mapperdebil Vent Pump #1"
 	},
 /turf/simulated/floor/plating{
@@ -19071,7 +19046,6 @@
 "EY" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
-	= ;
 	name = "Atmos Vent Pump #2"
 	},
 /turf/simulated/floor/plating{
@@ -19149,7 +19123,6 @@
 "Fg" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Atmos Vent Pump #7"
 	},
 /turf/simulated/floor/plating{
@@ -19344,7 +19317,6 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Event Zone Vent Pump #7"
 	},
 /turf/simulated/floor/plasteel{
@@ -19373,7 +19345,6 @@
 "FA" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
-	= ;
 	name = "Atmos Vent Pump #6"
 	},
 /turf/simulated/floor/plating{
@@ -19435,7 +19406,6 @@
 "FG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
-	= ;
 	name = "Event Zone Air Scrubber #7"
 	},
 /obj/structure/cable{
@@ -19685,7 +19655,6 @@
 "Gd" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
-	= ;
 	name = "Atmos Vent Pump #4"
 	},
 /obj/machinery/atmospherics/pipe/simple{
@@ -19698,7 +19667,6 @@
 "Ge" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
-	= ;
 	name = "Зона2 Vent Pump #2"
 	},
 /turf/simulated/floor/plating{
@@ -19718,7 +19686,6 @@
 "Gg" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
-	= ;
 	name = "Atmos Vent Pump #3"
 	},
 /turf/simulated/floor/plating{
@@ -19896,7 +19863,6 @@
 "GB" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 5;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/plasteel{
@@ -19916,7 +19882,6 @@
 "GD" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/plasteel{
@@ -22369,7 +22334,6 @@
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "#aa1010";
 	dir = 8;
-	= ;
 	icon_state = "gib1"
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -22405,7 +22369,6 @@
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "#aa1010";
 	dir = 4;
-	= ;
 	icon_state = "gib3"
 	},
 /obj/effect/decal/cleanable/blood/gibs{
@@ -22573,7 +22536,6 @@
 /obj/item/organ/external/leg,
 /obj/effect/decal/cleanable/blood/gibs/core{
 	color = "#780000";
-	= ;
 	icon_state = "gibmid1";
 	name = "dried blood"
 	},
@@ -22651,14 +22613,12 @@
 /obj/effect/decal/cleanable/blood/gibs/down{
 	color = "#780000";
 	dir = 4;
-	= ;
 	icon_state = "gibdown1";
 	name = "dried blood"
 	},
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "#aa1010";
 	dir = 4;
-	= ;
 	icon_state = "gib5"
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -23005,7 +22965,6 @@
 "Lo" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 6;
-	= ;
 	layer = 2.47
 	},
 /obj/item/rcd/combat{
@@ -23019,7 +22978,6 @@
 "Lp" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -23045,7 +23003,6 @@
 "Lr" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -23068,7 +23025,6 @@
 "Lt" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 10;
-	= ;
 	layer = 2.47
 	},
 /obj/effect/decal/cleanable/shreds{
@@ -23113,7 +23069,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -23123,7 +23078,6 @@
 "Lx" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -23134,7 +23088,6 @@
 "Ly" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 1;
-	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
