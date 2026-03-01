@@ -53,7 +53,7 @@
 
 /obj/item/storage/backpack/holding
 	name = "Bag of Holding"
-	desc = "A backpack that opens into a localized pocket of Blue Space."
+	desc = "Технологичный рюкзак, в сравнении с обычными, вмещает чрезмерно большое количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Не совмещать с технологиями телепортации\"."
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	icon_state = "holdingpack"
 	item_state = "holdingpack"
@@ -64,14 +64,24 @@
 	cant_hold = list(/obj/item/storage/backpack/holding)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 60, ACID = 50)
 
+/obj/item/storage/backpack/holding/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс рюкзак",
+		GENITIVE = "блюспейс рюкзака",
+		DATIVE = "блюспейс рюкзаку",
+		ACCUSATIVE = "блюспейс рюкзак",
+		INSTRUMENTAL = "блюспейс рюкзаком",
+		PREPOSITIONAL = "блюспейс рюкзаке",
+	)
+
 /obj/item/storage/backpack/holding/attackby(obj/item/I, mob/user, params)
 	if(!istype(I, /obj/item/storage/backpack/holding))
 		return ..()
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
 	add_fingerprint(user)
-	var/response = tgui_alert(user, "This creates a singularity, destroying you and much of the station. Are you SURE?", "IMMINENT DEATH!", list("No", "Yes"))
-	if(response != "Yes")
+	var/response = tgui_alert(user, "Это создаст сингулярность, которая уничтожит вас и большую часть станции. Вы уверены?", "НЕИЗБЕЖНАЯ СМЕРТЬ!", list("Нет", "Да"))
+	if(response != "Да")
 		return .
 
 	user.visible_message(
@@ -111,9 +121,19 @@
 
 /obj/item/storage/backpack/holding/satchel
 	name = "Satchel of holding"
-	desc = "A satchel that opens into a localized pocket of Blue Space."
+	desc = "Технологичная сумка, в сравнении с обычными, вмещает чрезмерно большое количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Не совмещать с технологиями телепортации\"."
 	icon_state = "holdingsat"
 	item_state = "holdingsat"
+
+/obj/item/storage/backpack/holding/satchel/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс сумка",
+		GENITIVE = "блюспейс сумки",
+		DATIVE = "блюспейс сумке",
+		ACCUSATIVE = "блюспейс сумку",
+		INSTRUMENTAL = "блюспейс сумкой",
+		PREPOSITIONAL = "блюспейс сумке",
+	)
 
 /obj/item/storage/backpack/holding/singularity_act(current_size)
 	var/dist = max((current_size - 2), 1)
@@ -121,19 +141,19 @@
 
 /obj/item/storage/backpack/holding/satchel/duffelbag
 	name = "Duffelbag of holding"
-	desc = "Очень большая и технологичная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Избегайте рекурсивного хранения\"."
+	desc = "Очень большая и технологичная спортивная сумка, вмещает невероятное количество предметов благодаря подпространственной компрессии. Этикетка предупреждает \"Не совмещать с технологиями телепортации\"."
 	icon_state = "holdingduffelba"
 	item_state = "holdingduffelba"
 	max_combined_w_class = 40
 
-/obj/item/storage/backpack/duffelbag/get_ru_names()
+/obj/item/storage/backpack/holding/satchel/duffelbag/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс сумка хранения",
-		GENITIVE = "блюспейс сумки храненияя",
-		DATIVE = "блюспейс сумке хранения",
-		ACCUSATIVE = "блюспейс сумку хранения",
-		INSTRUMENTAL = "блюспейс сумкой хранения",
-		PREPOSITIONAL = "блюспейс сумке хранения"
+		NOMINATIVE = "блюспейс спортивная сумка",
+		GENITIVE = "блюспейс спортивная сумки",
+		DATIVE = "блюспейс спортивная сумке",
+		ACCUSATIVE = "блюспейс спортивная сумку",
+		INSTRUMENTAL = "блюспейс спортивная сумкой",
+		PREPOSITIONAL = "блюспейс спортивная сумке"
 	)
 
 /obj/item/storage/backpack/santabag
@@ -726,6 +746,7 @@ TODO Use this name and desc for localisation*/
 	new /obj/item/bodyanalyzer/advanced(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	new /obj/item/stack/medical/splint(src)
+	new /obj/item/reagent_containers/glass/bottle/atropine(src)
 
 /obj/item/storage/backpack/duffel/syndie/c4/populate_contents()
 	for(var/i in 1 to 10)

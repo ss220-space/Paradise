@@ -20,6 +20,8 @@
 	var/opened = TRUE // FALSE if it needed to be opened first
 
 /obj/item/reagent_containers/food/snacks/add_initial_reagents()
+	if(tastes)
+		tastes = string_assoc_list(tastes)
 	if(tastes && length(tastes))
 		if(list_reagents)
 			for(var/rid in list_reagents)

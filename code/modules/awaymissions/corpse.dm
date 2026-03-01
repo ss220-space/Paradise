@@ -175,7 +175,7 @@ GLOBAL_VAR_INIT(off_mob_spawns, FALSE)
 		mob.gender = mob_gender
 
 	if(faction)
-		mob.faction = list(faction)
+		mob.faction = string_list(list(faction))
 
 	if(disease)
 		var/datum/disease/D = new disease

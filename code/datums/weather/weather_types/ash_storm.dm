@@ -3,15 +3,15 @@
 	name = "ash storm"
 	desc = "Мощная атмосферная буря поднимает пепел с поверхности планеты, обрушивая его на землю и нанося сильные ожоги незащищённым существам."
 
-	telegraph_message = span_boldwarning("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
+	telegraph_message = span_boldwarning_alt("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
 	telegraph_overlay = "light_ash"
 
-	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью — прячьтесь в убежище!</i>")
+	weather_message = span_userdanger_alt("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью — прячьтесь в убежище!</i>")
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"
 
-	end_message = span_boldannounceic("Буря отступила, оставив после себя лишь опалённую тишину. Можно выходить...")
+	end_message = span_boldannounceic_alt("Буря отступила, оставив после себя лишь опалённую тишину. Можно выходить...")
 	end_overlay = "light_ash"
 
 	area_type = /area/lavaland/surface/outdoors
@@ -123,10 +123,10 @@
 	name = "emberfall"
 	desc = "Проходящая пепельная буря покрывает землю безвредными угольками."
 
-	weather_message = span_notice("Мягкие угольки опадают вокруг, словно уродливый снег. Кажется, буря обошла вас стороной...")
+	weather_message = span_notice_alt("Мягкие угольки опадают вокруг, словно уродливый снег. Кажется, буря обошла вас стороной...")
 	weather_overlay = "light_ash"
 
-	end_message = span_notice("Пеплопад ослабевает и прекращается. Ещё один слой затвердевшей сажи ложится на базальт под ногами.")
+	end_message = span_notice_alt("Пеплопад ослабевает и прекращается. Ещё один слой затвердевшей сажи ложится на базальт под ногами.")
 	end_sound = null
 
 	aesthetic = TRUE

@@ -10,6 +10,10 @@
 	/// The input to store
 	var/datum/port/input/input_port
 
+/obj/item/circuit_component/variable/setter/Destroy()
+	input_port = null
+	. = ..()
+
 /obj/item/circuit_component/variable/setter/trigger
 	display_name = "Установщик переменной вызова"
 	desc = "Компонент, который задаёт переменную глобально в схеме. \

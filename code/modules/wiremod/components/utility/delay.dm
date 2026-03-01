@@ -24,6 +24,13 @@
 	/// The output of the signal
 	var/datum/port/output/output
 
+/obj/item/circuit_component/delay/Destroy()
+	delay_amount = null
+	trigger = null
+	output = null
+	interrupt = null
+	. = ..()
+
 /obj/item/circuit_component/delay/populate_ports()
 	delay_amount = add_input_port("Задержка", PORT_TYPE_NUMBER, trigger = null)
 	trigger = add_input_port("Вызов", PORT_TYPE_SIGNAL, trigger = PROC_REF(trigger_delay))

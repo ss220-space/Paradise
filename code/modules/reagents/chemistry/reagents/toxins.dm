@@ -341,7 +341,7 @@
 	reagent_state = LIQUID
 	color = "#00FF32"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = span_userdanger("РАЗЪЕДАЮЩЕЙ КИСЛОТЫ")
+	taste_description = span_userdanger_alt("РАЗЪЕДАЮЩЕЙ КИСЛОТЫ")
 	//acid is not using permeability_coefficient to calculate protection, but armour["acid"]
 	clothing_penetration = 1
 	var/acidpwr = 10 //the amount of protection removed from the armour
@@ -1335,7 +1335,7 @@
 	description = "Образец потерянной породы космических муравьёв (Formicidae bastardium tyrannus). Они известны тем, что способны поглотить практически всё."
 	color = "#993333"
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = span_warning("МУРАВЬЁВ")
+	taste_description = span_warning_alt("МУРАВЬЁВ")
 
 /datum/reagent/ants/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1450,7 +1450,7 @@
 	color = "#353434"
 	process_flags = ORGANIC | SYNTHETIC
 	metabolization_rate = 5
-	taste_description = span_warning("МЕТАЛЛИЧЕСКОЙ ПЫЛИ И МАСЛА, БЛЯДЬ!")
+	taste_description = span_warning_alt("МЕТАЛЛИЧЕСКОЙ ПЫЛИ И МАСЛА, БЛЯДЬ!")
 
 /datum/reagent/metalic_dust/on_mob_life(mob/living/M)
 	M.emote("scream")
