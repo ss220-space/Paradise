@@ -4256,7 +4256,6 @@
 /area/event_zone)
 "ju" = (
 /obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
 	name = "Event Zone Vent Pump #12"
 	},
 /obj/structure/chair/sofa/right,
