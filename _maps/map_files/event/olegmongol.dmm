@@ -4607,7 +4607,6 @@
 	},
 /obj/item/circuitboard/vendor{
 	dir = 8;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_y = -2
 	},
@@ -4682,7 +4681,6 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/under/color/random{
-	icon = 'tmp/gags/icons/gags-jumpsuit-#6eb6ff.dmi';
 	icon_state = "jumpsuit";
 	name = "light blue jumpsuit"
 	},
@@ -5539,7 +5537,6 @@
 /obj/machinery/door/firedoor,
 /obj/item/circuitboard/large_tank_control{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)";
 	pixel_x = 5;
 	pixel_y = 4
@@ -7720,7 +7717,6 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 1;
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -2;
 	pixel_y = -4
@@ -10400,14 +10396,12 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 5
 	},
 /obj/item/clothing/under/color/random{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-jumpsuit-#6eb6ff.dmi';
 	icon_state = "jumpsuit";
 	name = "light blue jumpsuit";
 	pixel_x = -6;
@@ -10554,7 +10548,6 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 8;
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 3
@@ -11276,14 +11269,12 @@
 "sr" = (
 /obj/item/clothing/under/color/random{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-jumpsuit-#3f3f3f.dmi';
 	icon_state = "jumpsuit";
 	name = "black jumpsuit";
 	pixel_y = -1
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -2;
 	pixel_y = -4
@@ -11666,7 +11657,6 @@
 	},
 /obj/item/clothing/under/color/random{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-jumpsuit-#ff8c19.dmi';
 	icon_state = "jumpsuit";
 	name = "orange jumpsuit";
 	pixel_x = 5;
@@ -11674,7 +11664,6 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = 3;
 	pixel_y = 5
@@ -12257,89 +12246,76 @@
 /area/event_zone)
 "tZ" = (
 /obj/item/circuitboard/vendor{
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -6;
 	pixel_y = 2
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 5;
 	pixel_y = 4
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -2;
 	pixel_y = -5
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -6;
 	pixel_y = 3
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_y = -3
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 5;
 	pixel_y = -2
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 2;
 	pixel_y = 6
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -6;
 	pixel_y = -5
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_y = -2
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 5;
 	pixel_y = 6
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -4;
 	pixel_y = -4
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -1;
 	pixel_y = -4
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -5;
 	pixel_y = -2
@@ -13541,14 +13517,12 @@
 "wl" = (
 /obj/item/circuitboard/reagentgrinder{
 	dir = 8;
-	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (All-In-One Grinder)";
 	pixel_x = 1;
 	pixel_y = 4
 	},
 /obj/item/circuitboard/reagentgrinder{
 	dir = 8;
-	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (All-In-One Grinder)";
 	pixel_x = -2;
 	pixel_y = -6
@@ -13560,7 +13534,6 @@
 "wm" = (
 /obj/item/circuitboard/chem_dispenser{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#9a151e.dmi';
 	name = "circuit board (Chem Dispenser)";
 	pixel_x = -5;
 	pixel_y = 4
@@ -13572,13 +13545,11 @@
 "wn" = (
 /obj/item/circuitboard/chem_master{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (ChemMaster 3000)";
 	pixel_x = 4
 	},
 /obj/item/circuitboard/chem_master{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (ChemMaster 3000)";
 	pixel_x = -6;
 	pixel_y = 3
@@ -15537,7 +15508,6 @@
 "zQ" = (
 /obj/item/clothing/under/color/random{
 	dir = 1;
-	icon = 'tmp/gags/icons/gags-jumpsuit-#b3b3b3.dmi';
 	icon_state = "jumpsuit";
 	name = "grey jumpsuit";
 	pixel_x = -6;
@@ -17073,14 +17043,12 @@
 "BI" = (
 /obj/item/circuitboard/air_management{
 	dir = 8;
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Monitor)";
 	pixel_x = -1;
 	pixel_y = -5
 	},
 /obj/item/circuitboard/air_management{
 	dir = 8;
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Monitor)";
 	pixel_x = 3;
 	pixel_y = -6
@@ -18136,7 +18104,6 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/meter{
-	icon = 'tmp/gags/icons/gags-meter-#808080.dmi';
 	icon_state = "meter0"
 	},
 /turf/simulated/floor/plating{
@@ -18425,7 +18392,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/meter{
-	icon = 'tmp/gags/icons/gags-meter-#808080.dmi';
 	icon_state = "meter0"
 	},
 /turf/simulated/floor/plating{
@@ -18790,7 +18756,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/meter{
-	icon = 'tmp/gags/icons/gags-meter-#00ff00.dmi';
 	icon_state = "meter1_1"
 	},
 /turf/simulated/floor/plating{
@@ -19793,7 +19758,6 @@
 /area/event_zone)
 "Gu" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
-	icon = 'tmp/gags/icons/gags-thermomachine-#00ff00.dmi';
 	icon_state = "thermo_base";
 	layer = 2.47
 	},
@@ -19808,7 +19772,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister{
 	dir = 8;
-	icon = 'tmp/gags/icons/gags-canister-hazard-#00b1ff#000000.dmi'
+	
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull";
@@ -19843,7 +19807,6 @@
 "Gz" = (
 /obj/item/circuitboard/mech_recharger{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#bc4a9b.dmi';
 	name = "circuit board (Mech Bay Recharger)";
 	pixel_x = 6;
 	pixel_y = -6
@@ -19980,7 +19943,6 @@
 "GM" = (
 /obj/item/circuitboard/clonescanner{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (DNA Scanner)";
 	pixel_x = -6;
 	pixel_y = -1
@@ -20796,7 +20758,6 @@
 /area/event_zone)
 "Im" = (
 /obj/item/circuitboard/large_tank_control{
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -20824,13 +20785,11 @@
 "Ip" = (
 /obj/item/circuitboard/large_tank_control{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)";
 	pixel_x = 6;
 	pixel_y = -6
 	},
 /obj/item/circuitboard/large_tank_control{
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -20840,7 +20799,6 @@
 /area/event_zone)
 "Iq" = (
 /obj/item/circuitboard/large_tank_control{
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -20909,7 +20867,6 @@
 /area/event_zone)
 "Iv" = (
 /obj/item/circuitboard/large_tank_control{
-	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -21252,7 +21209,6 @@
 "Jc" = (
 /obj/item/clothing/shoes/color/black{
 	dir = 1;
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 2
@@ -22398,13 +22354,11 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/shoes/color/black{
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = 5;
 	pixel_y = 2
 	},
 /obj/item/clothing/under/color/random{
-	icon = 'tmp/gags/icons/gags-jumpsuit-#3f3f3f.dmi';
 	icon_state = "jumpsuit";
 	name = "black jumpsuit";
 	pixel_x = 4;
@@ -22824,7 +22778,6 @@
 	},
 /obj/item/clothing/under/color/random{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-jumpsuit-#3f3f3f.dmi';
 	icon_state = "jumpsuit";
 	name = "black jumpsuit";
 	pixel_x = -3;
@@ -22832,7 +22785,6 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 4
@@ -22912,12 +22864,10 @@
 	},
 /obj/item/storage/backpack/satchel_norm,
 /obj/item/clothing/under/color/random{
-	icon = 'tmp/gags/icons/gags-jumpsuit-#c59431.dmi';
 	icon_state = "jumpsuit";
 	name = "light brown jumpsuit"
 	},
 /obj/item/clothing/shoes/color/black{
-	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers"
 	},
 /obj/item/radio/headset,
