@@ -169,35 +169,37 @@
 	var/list/martyrs = list()
 
 	var/self_harm_radius_mult = 3
+	var/cached_radius = radius
 
 	if(punishable_triggerer && prob(60))
 		to_chat(punishable_triggerer, span_userdanger("Your plan to whack someone with a grenade on a stick backfires on you, literally!"))
-		self_harm_radius_mult = 1 // we'll still give the guy who got hit some extra shredding, but not 3*radius
-		pellet_delta += radius
-		for(var/i in 1 to radius)
+		self_harm_radius_mult = 1 // we'll still give the guy who got hit some extra shredding, but not 3*cached_radius
+		pellet_delta += cached_radius
+		for(var/i in 1 to cached_radius)
 			pew(punishable_triggerer) // thought you could be tricky and lance someone with no ill effects!!
 
 	for(var/mob/living/body in get_turf(parent))
 		if(body == shooter)
-			pellet_delta += radius * self_harm_radius_mult
-			for(var/i in 1 to radius * self_harm_radius_mult)
+			pellet_delta += cached_radius * self_harm_radius_mult
+			for(var/i in 1 to cached_radius * self_harm_radius_mult)
 				pew(body) // free shrapnel if it goes off in your hand, and it doesn't even count towards the absorbed. fun!
 		else if(!(body in bodies))
 			martyrs += body // promoted from a corpse to a hero
 
 	for(var/M in martyrs)
 		var/mob/living/martyr = M
-		if(radius > 4)
+		if(cached_radius > 4)
 			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing a load of the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, absorbing a load of the shrapnel!"))
-			magnitude_absorbed += round(radius * 0.5)
-		else if(radius >= 2)
+			magnitude_absorbed += round(cached_radius * 0.5)
+		else if(cached_radius >= 2)
 			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, absorbing some of the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, absorbing some of the shrapnel!"))
 			magnitude_absorbed += 2
 		else
 			martyr.visible_message("<b>[span_danger("[martyr] heroically covers \the [parent] with [martyr.p_their()] body, snuffing out the shrapnel!")]</b>", span_userdanger("You heroically cover \the [parent] with your body, snuffing out the shrapnel!"))
-			magnitude_absorbed = radius
-
-		var/pellets_absorbed = (radius ** 2) - ((radius - magnitude_absorbed - 1) ** 2)
+			magnitude_absorbed = cached_radius
+		
+		var/remaining_buffer = cached_radius - magnitude_absorbed - 1
+		var/pellets_absorbed = (POW2(cached_radius)) - POW2(remaining_buffer)
 		radius -= magnitude_absorbed
 		pellet_delta -= round(pellets_absorbed * 0.5)
 

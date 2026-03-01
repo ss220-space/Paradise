@@ -223,6 +223,8 @@
 #define TRAIT_CYBERIMP_IMPROVED "cyberimp_improved"
 /// This item will not be cloned in the experimentator
 #define TRAIT_NO_CLONE_IN_EXPERIMENTATOR "no_clone_in_experimentator"
+/// Combat exoframe EMP nutrition shield flag
+#define TRAIT_COMBAT_EXOFRAME_EMP_SHIELD "combat_exoframe_emp_shield"
 
 #define TRAIT_SHRAPNEL "shrapnel"
 
@@ -425,3 +427,6 @@
 #define TRAIT_TIME_STOP_IMMUNE "time_stop_immune"
 
 #define TRAIT_LUNGE_HAS_ATTACKED "trait_lunge_has_attacked"
+
+// prevents explosion implants from auto activating upon death
+#define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"

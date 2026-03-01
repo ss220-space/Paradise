@@ -127,6 +127,7 @@
 		/obj/item/clothing/head/helmet/biker = 2,
 		/obj/item/mod/construction/broken_core = 4,
 		/obj/effect/spawner/random_spawners/mod/maint = 10,
+		/obj/item/tripod/camera = 15,
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,

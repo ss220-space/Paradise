@@ -22,6 +22,13 @@
 
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 
+/obj/item/circuit_component/vox/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	type_option = null
+	word_list = null
+	. = ..()
+
 /obj/item/circuit_component/vox/populate_options()
 	type_option = add_option_port("тип ВОКС-а", list(PORT_TYPE_LIST(PORT_TYPE_STRING), PORT_TYPE_STRING))
 
