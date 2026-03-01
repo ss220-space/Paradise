@@ -6,8 +6,8 @@
 	desc = "Болезнь, вызывающая острую массовую одержимость определённым человеком, а также различные навязчивые идеи."
 	spread_flags = CONTACT
 	permeability_mod = 0.8
-	cure_text = "Галоперидол и Эфир"
-	cures = list("haloperidol", "ether")
+	cure_text = "Галоперидол"
+	cures = list("haloperidol")
 	visibility_flags = HIDDEN_HUD
 	severity = DISEASE_SEVERITY_BIOHAZARD
 	no_vaccine = TRUE
