@@ -756,7 +756,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	flags = PREVENT_CLICK_UNDER | NO_SCREENTIPS
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
-/obj/structure/window/full/CanAtmosPass(turf/T, vertical)
+/obj/structure/window/full/CanAtmosPass(direction)
 	if(!anchored || !density)
 		return TRUE
 	return FALSE

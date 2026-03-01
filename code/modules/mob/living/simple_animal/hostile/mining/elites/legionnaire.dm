@@ -72,26 +72,26 @@
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Рывок"
 	button_icon_state = "legionnaire_charge"
-	chosen_message = span_boldwarning("Вы попытаетесь схватить противника и отбросить его.")
+	chosen_message = span_boldwarning_alt("Вы попытаетесь схватить противника и отбросить его.")
 	chosen_attack_num = LEGIONNAIRE_CHARGE
 
 /datum/action/innate/elite_attack/head_detach
 	name = "Освободить череп"
 	button_icon_state = "head_detach"
-	chosen_message = span_boldwarning("Вы теперь можете отделить свою голову или уничтожить её, если она уже отделена.")
+	chosen_message = span_boldwarning_alt("Вы теперь можете отделить свою голову или уничтожить её, если она уже отделена.")
 	chosen_attack_num = HEAD_DETACH
 
 /datum/action/innate/elite_attack/bonfire_teleport
 	name = "Костяное кострище"
 	button_icon_state = "bonfire_teleport"
-	chosen_message = span_boldwarning("Вы оставите костёр. Повторное использование позволит бесконечно меняться с ним местами. Использование на той же клетке, что и активный костёр, уберёт его.")
+	chosen_message = span_boldwarning_alt("Вы оставите костёр. Повторное использование позволит бесконечно меняться с ним местами. Использование на той же клетке, что и активный костёр, уберёт его.")
 	chosen_attack_num = BONFIRE_TELEPORT
 
 /datum/action/innate/elite_attack/throw_bone
 	name = "Бросок кости"
 	button_icon = 'icons/obj/mining.dmi'
 	button_icon_state = "bone"
-	chosen_message = span_boldwarning("Вы бросаете тяжёлую кость.")
+	chosen_message = span_boldwarning_alt("Вы бросаете тяжёлую кость.")
 	chosen_attack_num = THROW_BONE
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Destroy()

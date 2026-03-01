@@ -16,6 +16,12 @@
 		"id-card" = "access",
 	)
 
+/obj/item/circuit_component/compare/access/Destroy()
+	subject_accesses = null
+	required_accesses = null
+	check_any = null
+	. = ..()
+
 /obj/item/circuit_component/compare/access/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Когда поле \"Любой\" истинно, возвращает истину если поле \"ID-карта\" содержит любой доступ из поля \"Доступ\".", "orange", "info")

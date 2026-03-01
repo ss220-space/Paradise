@@ -614,7 +614,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival
 	name = "survival medipen"
-	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу веществ для спасения во время экстренных ситуаций, которые могут произойти на пустошах Лазиса.\n" + span_boldwarning("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
+	desc = "Маленький инъектор в форме ручки, содержащий внутри дозу веществ для спасения во время экстренных ситуаций, которые могут произойти на пустошах Лазиса.\n" + span_boldwarning_alt("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
 	icon_state = "stimpen"
 	belt_icon = "survival_medipen"
 	volume = 42
@@ -633,7 +633,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/survival/luxury
 	name = "luxury medipen"
-	desc = "Улучшенная версия стандартного автоинъектора выживания, вмещающая в себя до 40 единиц мощных медикаментов." + span_boldwarning("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
+	desc = "Улучшенная версия стандартного автоинъектора выживания, вмещающая в себя до 40 единиц мощных медикаментов." + span_boldwarning_alt("ПРЕДУПРЕЖДЕНИЕ: Не используйте более одного за раз!")
 	icon_state = "redinjector"
 	volume = 40
 	amount_per_transfer_from_this = 40

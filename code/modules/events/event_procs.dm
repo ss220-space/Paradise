@@ -8,7 +8,7 @@ ADMIN_VERB(trigger_event, R_EVENT, "Trigger Event", "Trigger Event.", ADMIN_CATE
 
 ADMIN_VERB(event_manager_panel, R_EVENT, "Event Manager Panel", "Event Manager Panel.", ADMIN_CATEGORY_EVENTS)
 	if(SSevents)
-		SSevents.Interact(user)
+		SSevents.Interact(user.mob)
 	BLACKBOX_LOG_ADMIN_VERB("Event Manager")
 	return
 

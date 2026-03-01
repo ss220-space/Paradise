@@ -28,6 +28,16 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL
 
+/obj/item/circuit_component/listin/Destroy()
+	list_type = null
+	list_to_check = null
+	to_check = null
+	found = null
+	not_found = null
+	result = null
+	index = null
+	. = ..()
+
 /obj/item/circuit_component/listin/populate_options()
 	list_type = add_option_port("Тип", GLOB.wiremod_basic_types)
 

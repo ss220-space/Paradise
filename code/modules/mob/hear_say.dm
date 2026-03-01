@@ -164,13 +164,10 @@
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
 			create_chat_message(speaker, message_clean, italics ? list("italics") : null, get_runechat_language(message_pieces))
 
-		var/effect = SOUND_EFFECT_NONE
-		if(isrobot(speaker))
-			effect = SOUND_EFFECT_ROBOT
 		var/traits = TTS_TRAIT_RATE_FASTER
 		if(is_whisper)
 			traits |= TTS_TRAIT_PITCH_WHISPER
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, effect, traits)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, SOUND_EFFECT_NONE, traits)
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
@@ -231,22 +228,14 @@
 			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
 		if(track)
-			// The track already contains a name, so we don't print speaker_name
-			// But we need part_a before the name, which already exists in the track
-			// We split the track into a label and a name
-			var/prefix = copytext(track, 1, findtext(track, speaker_name))
-			var/rest = copytext(track, findtext(track, speaker_name))
-			to_chat(src, "[prefix][part_a][rest][part_b][message]</span></span>")
+			to_chat(src, "[part_a][track][message]</span></span>")
 		else
 			to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))
 		if(src != speaker || isrobot(src) || isAI(src))
-			var/effect = SOUND_EFFECT_RADIO
-			if(isrobot(speaker))
-				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, SOUND_EFFECT_RADIO, null, null, 'sound/effects/radio_chatter.ogg', speaker)
 
 /mob/proc/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "неизвестный"
@@ -310,10 +299,7 @@
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_clean, list("radio"))
 
-	var/effect = SOUND_EFFECT_RADIO
-	if(isrobot(speaker))
-		effect = SOUND_EFFECT_RADIO_ROBOT
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, effect)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, SOUND_EFFECT_RADIO)
 
 	var/rendered = span_gamesay("[span_name(name)] [message]")
 	to_chat(src, rendered)

@@ -176,21 +176,21 @@ Difficulty: Medium
 	name = "Рывок к цели"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("Вы рывком движетесь к цели.")
+	chosen_message = span_colossus_alt("Вы рывком движетесь к цели.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/kinetic_accelerator
 	name = "Стрелять из кинетического ускорителя"
 	button_icon = 'icons/obj/weapons/energy.dmi'
 	button_icon_state = "kineticgun"
-	chosen_message = span_colossus("Вы стреляете из кинетического ускорителя.")
+	chosen_message = span_colossus_alt("Вы стреляете из кинетического ускорителя.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/transform_weapon
 	name = "Трансформировать оружие"
 	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "cleaving_saw"
-	chosen_message = span_colossus("Вы трансформируете своё оружие.")
+	chosen_message = span_colossus_alt("Вы трансформируете своё оружие.")
 	chosen_attack_num = 3
 
 /mob/living/simple_animal/hostile/megafauna/blood_drunk_miner/OpenFire()
