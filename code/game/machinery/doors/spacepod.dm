@@ -4,14 +4,14 @@
 	icon = 'icons/effects/beam.dmi'
 	icon_state = "n_beam"
 	anchored = TRUE
-	var/id = 1.0
+	var/id = 1
 
 /obj/structure/spacepoddoor/Initialize(mapload)
 	. = ..()
 	recalculate_atmos_connectivity()
 
-/obj/structure/spacepoddoor/CanAtmosPass(turf/T, vertical)
-	return 0
+/obj/structure/spacepoddoor/CanAtmosPass(direction)
+	return FALSE
 
 /obj/structure/spacepoddoor/Destroy()
 	var/turf/T = get_turf(src)

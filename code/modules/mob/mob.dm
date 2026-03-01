@@ -10,6 +10,7 @@
 		observe.stop_orbit()
 		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
+	lose_hearing_sensitivity()
 	if(mind && mind.current == src)
 		spellremove(src)
 	mobspellremove(src)
@@ -17,8 +18,7 @@
 	for(var/alert in alerts)
 		clear_alert(alert)
 	if(client)
-		var/client/client_ = client
-		client_.movingmob = null
+		clear_client_in_contents()
 	ghostize()
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
@@ -30,8 +30,9 @@
 	if(mind?.current == src)
 		mind.current = null
 
+	key = null
+	ckey = null
 	tts_effect_override_source = null
-
 	return ..()
 
 /mob/Initialize(mapload)

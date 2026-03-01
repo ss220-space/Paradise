@@ -135,8 +135,10 @@
 		if(!attachments_by_slot[attachment])
 			continue
 		qdel(attachments_by_slot[attachment])
-	attachments_by_slot.Cut()
-	attachment_overlays.Cut()
+	LAZYCLEARLIST(attachments_by_slot)
+	LAZYCLEARLIST(attachment_overlays)
+	QDEL_NULL(azoom)
+	QDEL_NULL(chambered)
 	if(accuracy)
 		QDEL_NULL(accuracy)
 	if(recoil)
@@ -687,7 +689,8 @@
 		gun.zoom(owner, FALSE)
 
 /datum/action/toggle_scope_zoom/Remove(mob/living/L)
-	gun.zoom(L, FALSE)
+	if(gun)
+		gun.zoom(L, FALSE)
 	..()
 
 /datum/action/toggle_scope_zoom/Destroy()

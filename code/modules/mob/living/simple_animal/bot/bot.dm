@@ -151,6 +151,32 @@
 		minbodytemp = 0, \
 	)
 
+/mob/living/simple_animal/bot/Destroy()
+	if(paicard)
+		ejectpai()
+	set_path(null)
+
+	if(path_hud)
+		QDEL_NULL(path_hud)
+		path_hud = null
+
+	GLOB.bots_list -= src
+
+	QDEL_NULL(path)
+	QDEL_NULL(Radio)
+	QDEL_NULL(access_card)
+
+	if(reset_access_timer_id)
+		deltimer(reset_access_timer_id)
+		reset_access_timer_id = null
+
+	if(SSradio && bot_filter)
+		SSradio.remove_object(bot_core, control_freq)
+
+	QDEL_NULL(bot_core)
+
+	. = ..()
+
 /obj/item/radio/headset/bot
 	requires_tcomms = FALSE
 
@@ -253,32 +279,6 @@
 
 /mob/living/simple_animal/bot/med_hud_set_status()
 	return diag_hud_set_botstat() //we use a different hud
-
-/mob/living/simple_animal/bot/Destroy()
-	if(paicard)
-		ejectpai()
-	set_path(null)
-
-	if(path_hud)
-		QDEL_NULL(path_hud)
-		path_hud = null
-
-	GLOB.bots_list -= src
-
-	QDEL_NULL(path)
-	QDEL_NULL(Radio)
-	QDEL_NULL(access_card)
-
-	if(reset_access_timer_id)
-		deltimer(reset_access_timer_id)
-		reset_access_timer_id = null
-
-	if(SSradio && bot_filter)
-		SSradio.remove_object(bot_core, control_freq)
-
-	QDEL_NULL(bot_core)
-
-	return ..()
 
 /mob/living/simple_animal/bot/death(gibbed)
 	// Only execute the below if we successfully died
@@ -1079,11 +1079,15 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 	use_power = NO_POWER_USE
 	var/mob/living/simple_animal/bot/owner = null
 
-/obj/machinery/bot_core/New(loc)
-	..()
+/obj/machinery/bot_core/Initialize(mapload)
+	. = ..()
 	owner = loc
 	if(!istype(owner))
 		qdel(src)
+
+/obj/machinery/bot_core/Destroy()
+	owner = null
+	. = ..()
 
 /**
  * Access check proc for bot topics! Remember to place in a bot's individual Topic if desired.

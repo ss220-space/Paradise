@@ -640,7 +640,7 @@ SUBSYSTEM_DEF(spatial_grid)
 	var/x_cell_count = world.maxx / SPATIAL_GRID_CELLSIZE
 	var/y_cell_count = world.maxy / SPATIAL_GRID_CELLSIZE
 
-	var/total_cells = x_cell_count ** 2
+	var/total_cells = POW2(x_cell_count)
 
 	var/average_clients_per_cell = 0
 	var/average_hearables_per_cell = 0

@@ -88,6 +88,8 @@
 	return pocket.contents
 
 /obj/item/organ/internal/headpocket/emp_act(severity)
+	if(emp_shielded(severity))
+		return
 	pocket.emp_act(severity)
 	..()
 

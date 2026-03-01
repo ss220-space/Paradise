@@ -636,6 +636,7 @@
 	var/safety = 1
 	can_toggle = TRUE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/adjust, /datum/action/item_action/selectphrase)
+	custom_price = PAYCHECK_CREW
 	var/static/list/phrase_list = list(
 
 								"halt"			= "HALT! HALT! HALT! HALT!",
@@ -696,6 +697,7 @@
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+	custom_price = PAYCHECK_COMMAND
 
 /obj/item/clothing/mask/gas/sechailer/tactical/get_ru_names()
 	return list(

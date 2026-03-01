@@ -633,37 +633,6 @@
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
 		qdel(slot)
 
-/mob/living/carbon/human/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
-	var/list/items = ..()
-	if(belt)
-		items += belt
-	if(l_ear)
-		items += l_ear
-	if(r_ear)
-		items += r_ear
-	if(glasses)
-		items += glasses
-	if(gloves)
-		items += gloves
-	if(neck)
-		items += neck
-	if(shoes)
-		items += shoes
-	if(wear_id)
-		items += wear_id
-	if(wear_pda)
-		items += wear_pda
-	if(w_uniform)
-		items += w_uniform
-	if(include_pockets)
-		if(l_store)
-			items += l_store
-		if(r_store)
-			items += r_store
-		if(s_store)
-			items += s_store
-	return items
-
 /**
  * Used to return a list of equipped items on a human mob; does not by default include held items, see include_flags
  *
