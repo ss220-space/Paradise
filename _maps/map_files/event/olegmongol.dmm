@@ -4256,6 +4256,7 @@
 /area/event_zone)
 "ju" = (
 /obj/machinery/atmospherics/unary/vent_pump{
+	 = ;
 	name = "Event Zone Vent Pump #12"
 	},
 /obj/structure/chair/sofa/right,
@@ -4277,6 +4278,7 @@
 /area/event_zone)
 "jx" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
+	 = ;
 	name = "Event Zone Air Scrubber #12"
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -4406,6 +4408,7 @@
 "jJ" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
+	= ;
 	name = "Event Zone Air Scrubber #14"
 	},
 /turf/simulated/floor/plasteel{
@@ -4607,6 +4610,7 @@
 	},
 /obj/item/circuitboard/vendor{
 	dir = 8;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_y = -2
 	},
@@ -4681,6 +4685,7 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/under/color/random{
+	icon = 'tmp/gags/icons/gags-jumpsuit-#6eb6ff.dmi';
 	icon_state = "jumpsuit";
 	name = "light blue jumpsuit"
 	},
@@ -4842,6 +4847,7 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
+	 = ;
 	name = "Event Zone Vent Pump #14"
 	},
 /obj/item/storage/fancy/cigarettes/syndicate{
@@ -4923,6 +4929,7 @@
 "kn" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Event Zone Vent Pump #11"
 	},
 /obj/item/stack/tile/wood/fancy/light{
@@ -5135,6 +5142,7 @@
 "kw" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
+	= ;
 	name = "Event Zone Air Scrubber #11"
 	},
 /turf/simulated/floor/wood/fancy/light{
@@ -5537,6 +5545,7 @@
 /obj/machinery/door/firedoor,
 /obj/item/circuitboard/large_tank_control{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)";
 	pixel_x = 5;
 	pixel_y = 4
@@ -5800,6 +5809,7 @@
 /area/event_zone)
 "lp" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
+	 = ;
 	name = "Event Zone Air Scrubber #13"
 	},
 /turf/simulated/floor/plasteel{
@@ -6121,6 +6131,7 @@
 "lY" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Event Zone Vent Pump #13"
 	},
 /obj/structure/closet/chefcloset{
@@ -6184,6 +6195,7 @@
 /area/event_zone)
 "md" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
+	 = ;
 	name = "Event Zone Air Scrubber #9"
 	},
 /turf/simulated/floor/plasteel{
@@ -6226,6 +6238,7 @@
 	pixel_y = -3
 	},
 /obj/machinery/atmospherics/unary/vent_scrubber{
+	 = ;
 	name = "Event Zone Air Scrubber #10"
 	},
 /turf/simulated/floor/plating{
@@ -6309,6 +6322,7 @@
 "mq" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Event Zone Vent Pump #9"
 	},
 /turf/simulated/floor/plasteel{
@@ -6432,6 +6446,7 @@
 "mz" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
+	= ;
 	name = "Event Zone Vent Pump #10"
 	},
 /turf/simulated/floor/plating{
@@ -6796,6 +6811,7 @@
 "nl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
+	= ;
 	name = "Event Zone Air Scrubber #1"
 	},
 /obj/machinery/hydroponics/constructable{
@@ -6848,6 +6864,7 @@
 "np" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
+	= ;
 	name = "Event Zone Vent Pump #1"
 	},
 /turf/simulated/floor/plasteel{
@@ -7119,6 +7136,7 @@
 /area/event_zone)
 "nJ" = (
 /obj/machinery/atmospherics/unary/vent_pump{
+	 = ;
 	name = "Event Zone Vent Pump #8"
 	},
 /turf/simulated/floor/plasteel{
@@ -7127,6 +7145,7 @@
 /area/event_zone)
 "nK" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
+	 = ;
 	name = "Event Zone Air Scrubber #8"
 	},
 /turf/simulated/floor/plating{
@@ -7717,6 +7736,7 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 1;
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -2;
 	pixel_y = -4
@@ -8048,6 +8068,7 @@
 "pm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
+	= ;
 	name = "Event Zone Air Scrubber #4"
 	},
 /obj/machinery/light/built{
@@ -8127,6 +8148,7 @@
 "pv" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
+	= ;
 	name = "Event Zone Air Scrubber #2"
 	},
 /obj/machinery/hydroponics/constructable{
@@ -8172,6 +8194,7 @@
 "px" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
+	= ;
 	name = "Event Zone Vent Pump #2"
 	},
 /obj/machinery/hydroponics/constructable{
@@ -8344,6 +8367,7 @@
 "pL" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
+	= ;
 	name = "Event Zone Vent Pump #4"
 	},
 /obj/machinery/reagentgrinder{
@@ -9837,6 +9861,7 @@
 "rs" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 6;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/grass{
@@ -10396,12 +10421,14 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 5
 	},
 /obj/item/clothing/under/color/random{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-jumpsuit-#6eb6ff.dmi';
 	icon_state = "jumpsuit";
 	name = "light blue jumpsuit";
 	pixel_x = -6;
@@ -10499,6 +10526,7 @@
 "rL" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9;
+	= ;
 	layer = 2.47
 	},
 /obj/item/clothing/gloves/color/yellow{
@@ -10548,6 +10576,7 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 8;
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 3
@@ -11269,12 +11298,14 @@
 "sr" = (
 /obj/item/clothing/under/color/random{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-jumpsuit-#3f3f3f.dmi';
 	icon_state = "jumpsuit";
 	name = "black jumpsuit";
 	pixel_y = -1
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -2;
 	pixel_y = -4
@@ -11657,6 +11688,7 @@
 	},
 /obj/item/clothing/under/color/random{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-jumpsuit-#ff8c19.dmi';
 	icon_state = "jumpsuit";
 	name = "orange jumpsuit";
 	pixel_x = 5;
@@ -11664,6 +11696,7 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = 3;
 	pixel_y = 5
@@ -11736,6 +11769,7 @@
 /area/event_zone)
 "td" = (
 /obj/structure/chair/comfy/shuttle{
+	 = ;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -12246,76 +12280,89 @@
 /area/event_zone)
 "tZ" = (
 /obj/item/circuitboard/vendor{
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -6;
 	pixel_y = 2
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 5;
 	pixel_y = 4
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -2;
 	pixel_y = -5
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -6;
 	pixel_y = 3
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_y = -3
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 5;
 	pixel_y = -2
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 2;
 	pixel_y = 6
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -6;
 	pixel_y = -5
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_y = -2
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = 5;
 	pixel_y = 6
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -4;
 	pixel_y = -4
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -1;
 	pixel_y = -4
 	},
 /obj/item/circuitboard/vendor{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#92dcba.dmi';
 	name = "circuit board (Booze-O-Mat Vendor)";
 	pixel_x = -5;
 	pixel_y = -2
@@ -12624,6 +12671,7 @@
 /area/event_zone)
 "uF" = (
 /obj/structure/chair/comfy/shuttle/dark{
+	 = ;
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -13517,12 +13565,14 @@
 "wl" = (
 /obj/item/circuitboard/reagentgrinder{
 	dir = 8;
+	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (All-In-One Grinder)";
 	pixel_x = 1;
 	pixel_y = 4
 	},
 /obj/item/circuitboard/reagentgrinder{
 	dir = 8;
+	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (All-In-One Grinder)";
 	pixel_x = -2;
 	pixel_y = -6
@@ -13534,6 +13584,7 @@
 "wm" = (
 /obj/item/circuitboard/chem_dispenser{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#9a151e.dmi';
 	name = "circuit board (Chem Dispenser)";
 	pixel_x = -5;
 	pixel_y = 4
@@ -13545,11 +13596,13 @@
 "wn" = (
 /obj/item/circuitboard/chem_master{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (ChemMaster 3000)";
 	pixel_x = 4
 	},
 /obj/item/circuitboard/chem_master{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (ChemMaster 3000)";
 	pixel_x = -6;
 	pixel_y = 3
@@ -15508,6 +15561,7 @@
 "zQ" = (
 /obj/item/clothing/under/color/random{
 	dir = 1;
+	icon = 'tmp/gags/icons/gags-jumpsuit-#b3b3b3.dmi';
 	icon_state = "jumpsuit";
 	name = "grey jumpsuit";
 	pixel_x = -6;
@@ -17043,18 +17097,21 @@
 "BI" = (
 /obj/item/circuitboard/air_management{
 	dir = 8;
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Monitor)";
 	pixel_x = -1;
 	pixel_y = -5
 	},
 /obj/item/circuitboard/air_management{
 	dir = 8;
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Monitor)";
 	pixel_x = 3;
 	pixel_y = -6
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "test Vent Pump #1"
 	},
 /turf/simulated/floor/plating{
@@ -17243,6 +17300,7 @@
 "Cc" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
+	= ;
 	name = "test Air Scrubber #1"
 	},
 /turf/simulated/floor/plating{
@@ -17859,6 +17917,7 @@
 "CR" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Atmos Vent Pump #10"
 	},
 /turf/simulated/floor/plating{
@@ -18008,6 +18067,7 @@
 "Dg" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 4;
+	= ;
 	name = "Event Zone Air Scrubber #3"
 	},
 /turf/simulated/floor/plasteel{
@@ -18055,6 +18115,7 @@
 "Dl" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
+	= ;
 	name = "Event Zone Air Scrubber #7"
 	},
 /turf/simulated/floor/plasteel{
@@ -18063,6 +18124,7 @@
 /area/event_zone)
 "Dm" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
+	 = ;
 	name = "Event Zone Air Scrubber #5"
 	},
 /turf/simulated/floor/plasteel{
@@ -18071,6 +18133,7 @@
 /area/event_zone)
 "Dn" = (
 /obj/machinery/atmospherics/unary/vent_pump{
+	 = ;
 	name = "Event Zone Vent Pump #5"
 	},
 /turf/simulated/floor/plasteel{
@@ -18080,6 +18143,7 @@
 "Dp" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Atmos Vent Pump #11"
 	},
 /turf/simulated/floor/plating{
@@ -18104,6 +18168,7 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/meter{
+	icon = 'tmp/gags/icons/gags-meter-#808080.dmi';
 	icon_state = "meter0"
 	},
 /turf/simulated/floor/plating{
@@ -18392,6 +18457,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/meter{
+	icon = 'tmp/gags/icons/gags-meter-#808080.dmi';
 	icon_state = "meter0"
 	},
 /turf/simulated/floor/plating{
@@ -18534,6 +18600,7 @@
 "Eh" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Atmos Vent Pump #9"
 	},
 /turf/simulated/floor/plating{
@@ -18569,6 +18636,7 @@
 "Ek" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
+	= ;
 	name = "Atmos Vent Pump #1"
 	},
 /turf/simulated/floor/plating{
@@ -18637,6 +18705,7 @@
 "Er" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Event Zone Vent Pump #3"
 	},
 /turf/simulated/floor/plasteel{
@@ -18728,6 +18797,7 @@
 "Ey" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
+	= ;
 	name = "Event Zone Vent Pump #7"
 	},
 /turf/simulated/floor/plasteel{
@@ -18737,6 +18807,7 @@
 "Ez" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Atmos-mapperdebil Vent Pump #1"
 	},
 /turf/simulated/floor/plating{
@@ -18756,6 +18827,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/meter{
+	icon = 'tmp/gags/icons/gags-meter-#00ff00.dmi';
 	icon_state = "meter1_1"
 	},
 /turf/simulated/floor/plating{
@@ -19011,6 +19083,7 @@
 "EY" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
+	= ;
 	name = "Atmos Vent Pump #2"
 	},
 /turf/simulated/floor/plating{
@@ -19088,6 +19161,7 @@
 "Fg" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Atmos Vent Pump #7"
 	},
 /turf/simulated/floor/plating{
@@ -19282,6 +19356,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Event Zone Vent Pump #7"
 	},
 /turf/simulated/floor/plasteel{
@@ -19310,6 +19385,7 @@
 "FA" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 4;
+	= ;
 	name = "Atmos Vent Pump #6"
 	},
 /turf/simulated/floor/plating{
@@ -19371,6 +19447,7 @@
 "FG" = (
 /obj/machinery/atmospherics/unary/vent_scrubber{
 	dir = 8;
+	= ;
 	name = "Event Zone Air Scrubber #7"
 	},
 /obj/structure/cable{
@@ -19620,6 +19697,7 @@
 "Gd" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
+	= ;
 	name = "Atmos Vent Pump #4"
 	},
 /obj/machinery/atmospherics/pipe/simple{
@@ -19632,6 +19710,7 @@
 "Ge" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 8;
+	= ;
 	name = "Зона2 Vent Pump #2"
 	},
 /turf/simulated/floor/plating{
@@ -19651,6 +19730,7 @@
 "Gg" = (
 /obj/machinery/atmospherics/unary/vent_pump{
 	dir = 1;
+	= ;
 	name = "Atmos Vent Pump #3"
 	},
 /turf/simulated/floor/plating{
@@ -19758,6 +19838,7 @@
 /area/event_zone)
 "Gu" = (
 /obj/machinery/atmospherics/unary/thermomachine/freezer{
+	icon = 'tmp/gags/icons/gags-thermomachine-#00ff00.dmi';
 	icon_state = "thermo_base";
 	layer = 2.47
 	},
@@ -19772,7 +19853,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister{
 	dir = 8;
-	
+	icon = 'tmp/gags/icons/gags-canister-hazard-#00b1ff#000000.dmi'
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellowfull";
@@ -19807,6 +19888,7 @@
 "Gz" = (
 /obj/item/circuitboard/mech_recharger{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#bc4a9b.dmi';
 	name = "circuit board (Mech Bay Recharger)";
 	pixel_x = 6;
 	pixel_y = -6
@@ -19826,6 +19908,7 @@
 "GB" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 5;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/plasteel{
@@ -19835,6 +19918,7 @@
 /area/event_zone)
 "GC" = (
 /obj/machinery/atmospherics/pipe/manifold{
+	 = ;
 	layer = 2.47
 	},
 /turf/simulated/floor/plasteel{
@@ -19845,6 +19929,7 @@
 "GD" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/plasteel{
@@ -19943,6 +20028,7 @@
 "GM" = (
 /obj/item/circuitboard/clonescanner{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#00ccff.dmi';
 	name = "circuit board (DNA Scanner)";
 	pixel_x = -6;
 	pixel_y = -1
@@ -20758,6 +20844,7 @@
 /area/event_zone)
 "Im" = (
 /obj/item/circuitboard/large_tank_control{
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -20785,11 +20872,13 @@
 "Ip" = (
 /obj/item/circuitboard/large_tank_control{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)";
 	pixel_x = 6;
 	pixel_y = -6
 	},
 /obj/item/circuitboard/large_tank_control{
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -20799,6 +20888,7 @@
 /area/event_zone)
 "Iq" = (
 /obj/item/circuitboard/large_tank_control{
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -20867,6 +20957,7 @@
 /area/event_zone)
 "Iv" = (
 /obj/item/circuitboard/large_tank_control{
+	icon = 'tmp/gags/icons/gags-circuit-#f8d700.dmi';
 	name = "circuit board (Atmospheric Tank Control)"
 	},
 /turf/simulated/floor/grass{
@@ -21209,6 +21300,7 @@
 "Jc" = (
 /obj/item/clothing/shoes/color/black{
 	dir = 1;
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 2
@@ -21285,11 +21377,6 @@
 	},
 /area/event_zone)
 "Jm" = (
-/obj/item/phone{
-	icon = '/var/lib/byond/ParadiseSecondary/icons/obj/machines/pos.dmi';
-	icon_state = "pos";
-	name = "point of sale"
-	},
 /obj/structure/table/reinforced{
 	icon_state = "reinforced_table-2"
 	},
@@ -22290,6 +22377,7 @@
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "#aa1010";
 	dir = 8;
+	= ;
 	icon_state = "gib1"
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -22325,6 +22413,7 @@
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "#aa1010";
 	dir = 4;
+	= ;
 	icon_state = "gib3"
 	},
 /obj/effect/decal/cleanable/blood/gibs{
@@ -22354,11 +22443,13 @@
 	pixel_y = 5
 	},
 /obj/item/clothing/shoes/color/black{
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = 5;
 	pixel_y = 2
 	},
 /obj/item/clothing/under/color/random{
+	icon = 'tmp/gags/icons/gags-jumpsuit-#3f3f3f.dmi';
 	icon_state = "jumpsuit";
 	name = "black jumpsuit";
 	pixel_x = 4;
@@ -22490,6 +22581,7 @@
 /obj/item/organ/external/leg,
 /obj/effect/decal/cleanable/blood/gibs/core{
 	color = "#780000";
+	= ;
 	icon_state = "gibmid1";
 	name = "dried blood"
 	},
@@ -22567,12 +22659,14 @@
 /obj/effect/decal/cleanable/blood/gibs/down{
 	color = "#780000";
 	dir = 4;
+	= ;
 	icon_state = "gibdown1";
 	name = "dried blood"
 	},
 /obj/effect/decal/cleanable/blood/gibs{
 	color = "#aa1010";
 	dir = 4;
+	= ;
 	icon_state = "gib5"
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -22778,6 +22872,7 @@
 	},
 /obj/item/clothing/under/color/random{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-jumpsuit-#3f3f3f.dmi';
 	icon_state = "jumpsuit";
 	name = "black jumpsuit";
 	pixel_x = -3;
@@ -22785,6 +22880,7 @@
 	},
 /obj/item/clothing/shoes/color/black{
 	dir = 4;
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers";
 	pixel_x = -5;
 	pixel_y = 4
@@ -22864,10 +22960,12 @@
 	},
 /obj/item/storage/backpack/satchel_norm,
 /obj/item/clothing/under/color/random{
+	icon = 'tmp/gags/icons/gags-jumpsuit-#c59431.dmi';
 	icon_state = "jumpsuit";
 	name = "light brown jumpsuit"
 	},
 /obj/item/clothing/shoes/color/black{
+	icon = 'tmp/gags/icons/gags-sneakers-#545454#ffffff.dmi';
 	icon_state = "sneakers"
 	},
 /obj/item/radio/headset,
@@ -22915,6 +23013,7 @@
 "Lo" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 6;
+	= ;
 	layer = 2.47
 	},
 /obj/item/rcd/combat{
@@ -22928,6 +23027,7 @@
 "Lp" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -22953,6 +23053,7 @@
 "Lr" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -22962,6 +23063,7 @@
 /area/event_zone)
 "Ls" = (
 /obj/machinery/atmospherics/pipe/manifold4w{
+	 = ;
 	layer = 2.47
 	},
 /obj/item/rcd/combat{
@@ -22975,6 +23077,7 @@
 "Lt" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 10;
+	= ;
 	layer = 2.47
 	},
 /obj/effect/decal/cleanable/shreds{
@@ -23019,6 +23122,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 4;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -23028,6 +23132,7 @@
 "Lx" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 9;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -23038,6 +23143,7 @@
 "Ly" = (
 /obj/machinery/atmospherics/pipe/simple{
 	dir = 1;
+	= ;
 	layer = 2.47
 	},
 /turf/simulated/floor/indestructible/grass{
