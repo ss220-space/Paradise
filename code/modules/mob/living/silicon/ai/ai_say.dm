@@ -40,7 +40,6 @@
 
 	var/track = ""
 	var/mob/mob_to_track = null
-	speaker_name = html_encode(speaker_name)
 	jobname = html_encode(jobname)
 	if(changed_voice && impersonating)
 		mob_to_track = impersonating
