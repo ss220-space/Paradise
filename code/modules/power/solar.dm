@@ -131,8 +131,10 @@
 	if(p_angle > 90)			// if facing more than 90deg from sun, zero output
 		sunfrac = 0
 		return
+		
+	var/cos_p_angle = cos(p_angle)
 
-	sunfrac = cos(p_angle) ** 2
+	sunfrac = POW2(cos_p_angle)
 	//isn't the power received from the incoming light proportionnal to cos(p_angle) (Lambert's cosine law) rather than cos(p_angle)^2 ?
 
 /obj/machinery/power/solar/process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY

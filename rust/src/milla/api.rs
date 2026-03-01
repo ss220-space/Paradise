@@ -766,9 +766,9 @@ fn milla_set_zlevel_frozen(
 
 #[byondapi::bind]
 fn milla_reset() -> eyre::Result<ByondValue> {
-    let buffers = BUFFERS.get().ok_or(eyre!("BUFFERS not initialized."))?;
-    buffers.clear_and_free_z_levels();
-
+    if let Some(buffers) = BUFFERS.get() {
+        buffers.clear_and_free_z_levels();
+    }
     {
         let mut interesting = INTERESTING_TILES.lock().unwrap();
         interesting.clear();

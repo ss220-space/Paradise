@@ -5,8 +5,8 @@
 	school = "transmutation"
 	base_cooldown = 6 SECONDS
 	clothes_req = FALSE
-	selection_activated_message = span_notice("You prepare a blessing. Click on a target to start blessing.")
-	selection_deactivated_message = span_notice("The crew will be blessed another time.")
+	selection_activated_message = span_notice_alt("You prepare a blessing. Click on a target to start blessing.")
+	selection_deactivated_message = span_notice_alt("The crew will be blessed another time.")
 	cooldown_min = 2 SECONDS
 	action_icon_state = "shield"
 	need_active_overlay = TRUE

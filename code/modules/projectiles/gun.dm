@@ -135,8 +135,10 @@
 		if(!attachments_by_slot[attachment])
 			continue
 		qdel(attachments_by_slot[attachment])
-	attachments_by_slot.Cut()
-	attachment_overlays.Cut()
+	LAZYCLEARLIST(attachments_by_slot)
+	LAZYCLEARLIST(attachment_overlays)
+	QDEL_NULL(azoom)
+	QDEL_NULL(chambered)
 	if(accuracy)
 		QDEL_NULL(accuracy)
 	if(recoil)

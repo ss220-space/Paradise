@@ -149,9 +149,11 @@
 	stop_playing()
 	SSinstruments.on_song_del(src)
 	lines = null
-	using_instrument = null
+	set_instrument(null)
 	allowed_instrument_ids = null
 	parent = null
+	LAZYCLEARLIST(hearing_mobs)
+	music_player = null
 	return ..()
 
 /**

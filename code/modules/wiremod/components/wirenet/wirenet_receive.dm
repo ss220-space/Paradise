@@ -15,6 +15,12 @@
 	/// Encryption key
 	var/datum/port/input/enc_key
 
+/obj/item/circuit_component/wirenet_receive/Destroy()
+	list_options = null
+	data_package = null
+	enc_key = null
+	. = ..()
+
 /obj/item/circuit_component/wirenet_receive/Initialize(mapload)
 	. = ..()
 	AddComponent(\

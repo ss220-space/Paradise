@@ -503,6 +503,8 @@
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
 		switch(severity)
 			if(1)

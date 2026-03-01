@@ -130,7 +130,7 @@
 	result = "teslium"
 	required_reagents = list("plasma" = 1, "silver" = 1, "blackpowder" = 1)
 	result_amount = 3
-	mix_message = span_danger("A jet of sparks flies from the mixture as it merges into a flickering slurry.")
+	mix_message = span_danger_alt("A jet of sparks flies from the mixture as it merges into a flickering slurry.")
 	min_temp = T0C + 50
 	mix_sound = null
 
@@ -165,4 +165,4 @@
 	result = "rotatium"
 	required_reagents = list("lsd" = 1, "teslium" = 1, "methamphetamine" = 1)
 	result_amount = 3
-	mix_message = span_danger("After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.")
+	mix_message = span_danger_alt("After sparks, fire, and the smell of LSD, the mix is constantly spinning with no stop in sight.")

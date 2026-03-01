@@ -78,6 +78,21 @@
 	/// Called when the airlock is unbolted
 	var/datum/port/output/unbolted
 
+/obj/item/circuit_component/airlock/Destroy()
+	if(attached_airlock)
+		unregister_shell(attached_airlock)
+	bolt = null
+	unbolt = null
+	open = null
+	close = null
+	is_open = null
+	is_bolted = null
+	opened = null
+	closed = null
+	bolted = null
+	unbolted = null
+	. = ..()
+
 /obj/item/circuit_component/airlock/populate_ports()
 	// Input Signals
 	bolt = add_input_port("Болтировать", PORT_TYPE_SIGNAL)
@@ -164,6 +179,14 @@
 
 	/// The signal sent when this event is triggered
 	var/datum/port/output/event_triggered
+
+/obj/item/circuit_component/airlock_access_event/Destroy()
+	if(attached_airlock)
+		unregister_shell(attached_airlock)
+	open_airlock = null
+	accessing_entity = null
+	event_triggered = null
+	. = ..()
 
 /obj/item/circuit_component/airlock_access_event/register_shell(atom/movable/shell)
 	. = ..()

@@ -27,6 +27,16 @@
 	var/list/datum/port/input/ins
 	var/list/datum/port/output/outs
 
+/obj/item/circuit_component/router/Destroy()
+	input_selector = null
+	output_selector = null
+	LAZYCLEARLIST(ins)
+	ins = null
+	LAZYCLEARLIST(outs)
+	outs = null
+	router_options = null
+	return ..()
+
 /obj/item/circuit_component/router/populate_options()
 	router_options = add_option_port("Параметры", GLOB.wiremod_basic_types)
 
@@ -42,15 +52,6 @@
 	outs = list()
 	for(var/port_id in 1 to output_port_amount)
 		outs += add_output_port(output_port_amount > 1 ? "Вывод [port_id]" : "Вывод", current_type)
-
-/obj/item/circuit_component/router/Destroy()
-	input_selector = null
-	output_selector = null
-	ins.Cut()
-	ins = null
-	outs.Cut()
-	outs = null
-	return ..()
 
 
 // If I is in range, L[I]. If I is out of range, wrap around.

@@ -25,14 +25,6 @@
 		PREPOSITIONAL = "стакане",
 	)
 
-/obj/item/reagent_containers/food/drinks/set_APTFT()
-	set hidden = FALSE
-	..()
-
-/obj/item/reagent_containers/food/drinks/empty()
-	set hidden = FALSE
-	..()
-
 /obj/item/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/food/snacks/egg)) //breaking eggs
 		add_fingerprint(user)
