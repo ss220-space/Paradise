@@ -841,15 +841,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"cf" = (
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
-	name = "dried blood"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "cg" = (
 /obj/structure/weightmachine/weightlifter,
 /turf/simulated/floor/plasteel{
@@ -4254,16 +4245,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"ju" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
-	name = "Event Zone Vent Pump #12"
-	},
-/obj/structure/chair/sofa/right,
-/turf/simulated/floor/wood/fancy/light{
-	layer = 2
-	},
-/area/event_zone)
 "jv" = (
 /obj/structure/chair/sofa/left,
 /turf/simulated/floor/wood/fancy/light{
@@ -4272,15 +4253,6 @@
 /area/event_zone)
 "jw" = (
 /obj/structure/chair/sofa/right,
-/turf/simulated/floor/wood/fancy/light{
-	layer = 2
-	},
-/area/event_zone)
-"jx" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
-	name = "Event Zone Air Scrubber #12"
-	},
 /turf/simulated/floor/wood/fancy/light{
 	layer = 2
 	},
@@ -4400,16 +4372,6 @@
 	},
 /obj/structure/table/wood{
 	icon_state = "wood_table-2"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"jJ" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	= ;
-	name = "Event Zone Air Scrubber #14"
 	},
 /turf/simulated/floor/plasteel{
 	layer = 2
@@ -4835,10 +4797,6 @@
 	color = "#ff0000";
 	dir = 10
 	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
-	name = "Event Zone Vent Pump #14"
-	},
 /obj/item/storage/fancy/cigarettes/syndicate{
 	dir = 8
 	},
@@ -4916,11 +4874,6 @@
 	},
 /area/event_zone)
 "kn" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Event Zone Vent Pump #11"
-	},
 /obj/item/stack/tile/wood/fancy/light{
 	dir = 4;
 	pixel_x = -3;
@@ -5123,16 +5076,6 @@
 	dir = 1;
 	pixel_x = 4;
 	pixel_y = 6
-	},
-/turf/simulated/floor/wood/fancy/light{
-	layer = 2
-	},
-/area/event_zone)
-"kw" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	= ;
-	name = "Event Zone Air Scrubber #11"
 	},
 /turf/simulated/floor/wood/fancy/light{
 	layer = 2
@@ -5789,15 +5732,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"lp" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
-	name = "Event Zone Air Scrubber #13"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "lq" = (
 /obj/machinery/kitchen_machine/candy_maker{
 	dir = 8
@@ -6098,24 +6032,7 @@
 	layer = 2
 	},
 /area/event_zone)
-"lX" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 6;
-	pixel_y = 4
-	},
-/turf/simulated/floor/grass{
-	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
 "lY" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Event Zone Vent Pump #13"
-	},
 /obj/structure/closet/chefcloset{
 	dir = 1
 	},
@@ -6175,15 +6092,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"md" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
-	name = "Event Zone Air Scrubber #9"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "me" = (
 /obj/item/stack/tile/plasteel{
 	dir = 8;
@@ -6218,10 +6126,6 @@
 	dir = 4;
 	pixel_x = -6;
 	pixel_y = -3
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
-	name = "Event Zone Air Scrubber #10"
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -6296,16 +6200,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	color = "#ff0000";
 	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"mq" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Event Zone Vent Pump #9"
 	},
 /turf/simulated/floor/plasteel{
 	layer = 2
@@ -6420,16 +6314,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	color = "#ff0000";
 	dir = 9
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/event_zone)
-"mz" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	= ;
-	name = "Event Zone Vent Pump #10"
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -6790,21 +6674,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"nl" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	= ;
-	name = "Event Zone Air Scrubber #1"
-	},
-/obj/machinery/hydroponics/constructable{
-	dir = 8;
-	icon_state = "hoses-0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	layer = 2
-	},
-/area/event_zone)
 "nm" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	color = "#ff0000";
@@ -6837,17 +6706,6 @@
 /obj/machinery/hydroponics/constructable{
 	dir = 8;
 	icon_state = "hoses-0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	layer = 2
-	},
-/area/event_zone)
-"np" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	= ;
-	name = "Event Zone Vent Pump #1"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
@@ -7113,36 +6971,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark";
-	layer = 2
-	},
-/area/event_zone)
-"nJ" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
-	name = "Event Zone Vent Pump #8"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"nK" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
-	name = "Event Zone Air Scrubber #8"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/event_zone)
-"nL" = (
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#877c6a";
-	name = "dried blood"
-	},
-/obj/structure/kitchenspike{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
 	layer = 2
 	},
 /area/event_zone)
@@ -8041,11 +7869,6 @@
 	},
 /area/event_zone)
 "pm" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	= ;
-	name = "Event Zone Air Scrubber #4"
-	},
 /obj/machinery/light/built{
 	dir = 4
 	},
@@ -8120,21 +7943,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"pv" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	= ;
-	name = "Event Zone Air Scrubber #2"
-	},
-/obj/machinery/hydroponics/constructable{
-	dir = 8;
-	icon_state = "hoses-0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	layer = 2
-	},
-/area/event_zone)
 "pw" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	color = "#0000ff";
@@ -8164,21 +7972,6 @@
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
-	},
-/area/event_zone)
-"px" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	= ;
-	name = "Event Zone Vent Pump #2"
-	},
-/obj/machinery/hydroponics/constructable{
-	dir = 8;
-	icon_state = "hoses-0"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "dark";
-	layer = 2
 	},
 /area/event_zone)
 "py" = (
@@ -8340,11 +8133,6 @@
 	},
 /area/event_zone)
 "pL" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	= ;
-	name = "Event Zone Vent Pump #4"
-	},
 /obj/machinery/reagentgrinder{
 	dir = 1
 	},
@@ -8678,15 +8466,6 @@
 	},
 /turf/simulated/floor/grass{
 	layer = 2
-	},
-/area/event_zone)
-"qn" = (
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
-	name = "dried blood"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
 	},
 /area/event_zone)
 "qo" = (
@@ -9462,12 +9241,6 @@
 	},
 /area/event_zone)
 "qX" = (
-/obj/item/dnainjector/runfast{
-	dir = 8;
-	icon_state = "dnainjector0";
-	pixel_x = 4;
-	pixel_y = -6
-	},
 /obj/item/rcd/combat{
 	dir = 8;
 	pixel_x = -3;
@@ -9812,12 +9585,6 @@
 	dir = 1;
 	layer = 1.71
 	},
-/obj/item/dnainjector/runfast{
-	dir = 1;
-	icon_state = "dnainjector0";
-	pixel_x = -5;
-	pixel_y = 5
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkpurplefull";
 	layer = 2
@@ -9831,17 +9598,6 @@
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
-	},
-/area/event_zone)
-"rs" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 6;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/grass{
-	icon_state = "grass2";
-	layer = 2
 	},
 /area/event_zone)
 "rt" = (
@@ -10484,11 +10240,6 @@
 	},
 /area/event_zone)
 "rL" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 9;
-	= ;
-	layer = 2.47
-	},
 /obj/item/clothing/gloves/color/yellow{
 	dir = 8;
 	pixel_x = 6;
@@ -11237,17 +10988,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"sq" = (
-/obj/item/stack/spacecash/c1000000{
-	dir = 1;
-	icon_state = "cashpurp";
-	name = "555505 Credits";
-	pixel_y = 2
-	},
-/turf/simulated/floor/light{
-	layer = 2
-	},
-/area/event_zone)
 "sr" = (
 /obj/item/radio/headset{
 	dir = 4;
@@ -11583,18 +11323,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"sV" = (
-/obj/item/stack/spacecash/c1000000{
-	dir = 1;
-	icon_state = "cashpurp";
-	name = "990000 Credits";
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/turf/simulated/floor/light{
-	layer = 2
-	},
-/area/event_zone)
 "sW" = (
 /obj/item/storage/wallet{
 	dir = 4;
@@ -11685,17 +11413,6 @@
 /area/event_zone)
 "tc" = (
 /obj/machinery/r_n_d/protolathe,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "gcircuit";
-	layer = 2
-	},
-/area/event_zone)
-"td" = (
-/obj/structure/chair/comfy/shuttle{
-	 = ;
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "gcircuit";
@@ -12499,17 +12216,6 @@
 /area/event_zone)
 "uE" = (
 /obj/machinery/r_n_d/destructive_analyzer,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "rcircuit";
-	layer = 2
-	},
-/area/event_zone)
-"uF" = (
-/obj/structure/chair/comfy/shuttle/dark{
-	 = ;
-	dir = 8
-	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "rcircuit";
@@ -15226,16 +14932,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"zD" = (
-/obj/machinery/door/firedoor,
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
-	name = "dried blood"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "zE" = (
 /obj/machinery/door/firedoor,
 /obj/item/stack/tile/plasteel{
@@ -15246,10 +14942,6 @@
 /obj/effect/decal/cleanable/blood/splatter{
 	color = "#780000";
 	icon_state = "mgibbl3";
-	name = "dried blood"
-	},
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
 	name = "dried blood"
 	},
 /turf/simulated/floor/plasteel{
@@ -16710,15 +16402,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Bj" = (
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#877c6a";
-	name = "dried blood"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "Bk" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -16871,16 +16554,6 @@
 /turf/simulated/floor/grass{
 	icon_state = "grass2";
 	layer = 2
-	},
-/area/event_zone)
-"BI" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "test Vent Pump #1"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
 	},
 /area/event_zone)
 "BJ" = (
@@ -17060,16 +16733,6 @@
 /turf/simulated/floor/grass{
 	icon_state = "grass2";
 	layer = 2
-	},
-/area/event_zone)
-"Cc" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	= ;
-	name = "test Air Scrubber #1"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
 	},
 /area/event_zone)
 "Cd" = (
@@ -17556,9 +17219,6 @@
 	},
 /area/atmos)
 "CC" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	color = "#0000ff";
 	dir = 1
@@ -17679,20 +17339,7 @@
 	layer = 2
 	},
 /area/event_zone)
-"CR" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Atmos Vent Pump #10"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
 "CS" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
@@ -17707,17 +17354,11 @@
 	dir = 1;
 	icon_state = "tube0"
 	},
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 10
-	},
 /turf/simulated/floor/plating{
 	layer = 1.7
 	},
 /area/atmos)
 "CU" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	color = "#0000ff";
 	dir = 5
@@ -17752,9 +17393,6 @@
 	},
 /area/atmos)
 "CX" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 10
-	},
 /obj/machinery/alarm{
 	icon_state = "alarm2";
 	name = "Atmos-mapperdebil Air Alarm";
@@ -17829,17 +17467,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Dg" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 4;
-	= ;
-	name = "Event Zone Air Scrubber #3"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purplefull";
-	layer = 2
-	},
-/area/event_zone)
 "Dh" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -17877,48 +17504,7 @@
 	layer = 2
 	},
 /area/event_zone)
-"Dl" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	= ;
-	name = "Event Zone Air Scrubber #7"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"Dm" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	 = ;
-	name = "Event Zone Air Scrubber #5"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"Dn" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	 = ;
-	name = "Event Zone Vent Pump #5"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"Dp" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Atmos Vent Pump #11"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
 "Dq" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 10
-	},
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
@@ -17929,9 +17515,6 @@
 	},
 /area/atmos)
 "Ds" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
 /obj/machinery/atmospherics/binary/volume_pump{
 	dir = 1;
 	icon_state = "off"
@@ -17944,14 +17527,6 @@
 /obj/machinery/atmospherics/trinary/mixer{
 	dir = 4;
 	icon_state = "off"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Du" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 10
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -18013,11 +17588,6 @@
 	dir = 4;
 	pixel_x = 5;
 	pixel_y = -2
-	},
-/obj/item/organ/external/arm/right{
-	dir = 4;
-	pixel_x = -2;
-	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -18193,9 +17763,6 @@
 	},
 /area/atmos)
 "DS" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 5
-	},
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
@@ -18213,35 +17780,11 @@
 	layer = 1.7
 	},
 /area/atmos)
-"DV" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
 "DW" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
 	icon_state = "reinforced_window-6"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"DX" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced{
-	color = "#8fcf44";
-	icon_state = "reinforced_window-8"
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -18338,52 +17881,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Eh" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Atmos Vent Pump #9"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Ei" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced{
-	color = "#8fcf44";
-	icon_state = "reinforced_window-1"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Ej" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced{
-	color = "#8fcf44";
-	icon_state = "reinforced_window-3"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Ek" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	= ;
-	name = "Atmos Vent Pump #1"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
 "El" = (
 /obj/machinery/vending/coffee{
 	dir = 1
@@ -18441,17 +17938,6 @@
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
-	},
-/area/event_zone)
-"Er" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Event Zone Vent Pump #3"
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "purplefull";
-	layer = 2
 	},
 /area/event_zone)
 "Es" = (
@@ -18535,53 +18021,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Ey" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	= ;
-	name = "Event Zone Vent Pump #7"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"Ez" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Atmos-mapperdebil Vent Pump #1"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"EA" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"EC" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"ED" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 9
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
 "EE" = (
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -18788,37 +18227,6 @@
 	layer = 1.7
 	},
 /area/atmos)
-"EW" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 6
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"EX" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 5
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced{
-	color = "#8fcf44";
-	icon_state = "reinforced_window-3"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"EY" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	= ;
-	name = "Atmos Vent Pump #2"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
 "EZ" = (
 /obj/structure/chair/comfy/purp,
 /turf/simulated/floor/plasteel{
@@ -18887,29 +18295,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Fg" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Atmos Vent Pump #7"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Fh" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced{
-	color = "#8fcf44";
-	icon_state = "reinforced_window-3"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
 "Fi" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
@@ -19079,19 +18464,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Fx" = (
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Event Zone Vent Pump #7"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "Fy" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	color = "#ff0000";
@@ -19109,24 +18481,6 @@
 /turf/simulated/wall{
 	icon_state = "wall-11";
 	layer = 2
-	},
-/area/atmos)
-"FA" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 4;
-	= ;
-	name = "Atmos Vent Pump #6"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"FB" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 5
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
 	},
 /area/atmos)
 "FC" = (
@@ -19173,23 +18527,7 @@
 	layer = 2
 	},
 /area/event_zone)
-"FG" = (
-/obj/machinery/atmospherics/unary/vent_scrubber{
-	dir = 8;
-	= ;
-	name = "Event Zone Air Scrubber #7"
-	},
-/obj/structure/cable{
-	icon_state = "1-2-f"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "FI" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
@@ -19210,22 +18548,6 @@
 	},
 /area/atmos)
 "FK" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 6
-	},
-/obj/structure/grille,
-/obj/structure/window/full/reinforced{
-	color = "#8fcf44";
-	icon_state = "reinforced_window-12"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"FL" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 9
-	},
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
@@ -19236,9 +18558,6 @@
 	},
 /area/atmos)
 "FM" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1
-	},
 /obj/structure/holosign/barrier/atmos,
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -19412,35 +18731,9 @@
 	},
 /area/atmos)
 "Gc" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
 	icon_state = "reinforced_window-1"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Gd" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	= ;
-	name = "Atmos Vent Pump #4"
-	},
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Ge" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 8;
-	= ;
-	name = "Зона2 Vent Pump #2"
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -19451,16 +18744,6 @@
 /obj/structure/window/full/reinforced{
 	color = "#8fcf44";
 	icon_state = "reinforced_window-1"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/atmos)
-"Gg" = (
-/obj/machinery/atmospherics/unary/vent_pump{
-	dir = 1;
-	= ;
-	name = "Atmos Vent Pump #3"
 	},
 /turf/simulated/floor/plating{
 	layer = 1.7
@@ -19604,38 +18887,6 @@
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
-"GB" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 5;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowfull";
-	layer = 2
-	},
-/area/event_zone)
-"GC" = (
-/obj/machinery/atmospherics/pipe/manifold{
-	 = ;
-	layer = 2.47
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowfull";
-	layer = 2
-	},
-/area/event_zone)
-"GD" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 9;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/plasteel{
-	icon_state = "darkyellowfull";
 	layer = 2
 	},
 /area/event_zone)
@@ -21595,19 +20846,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Kj" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
-	name = "dried blood"
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
 "Kk" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -21616,11 +20854,6 @@
 	dir = 4;
 	name = "straight pipe fitting";
 	pixel_x = -6;
-	pixel_y = 5
-	},
-/obj/item/stack/spacecash/c1000000{
-	icon_state = "cashpurp";
-	name = "444445 Credits";
 	pixel_y = 5
 	},
 /turf/simulated/floor/indestructible/grass{
@@ -21930,38 +21163,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Kr" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/organ/internal/liver{
-	dir = 1
-	},
-/obj/item/organ/external/head{
-	dir = 1;
-	name = "Евгений Яблочкин’s head";
-	pixel_x = -1;
-	pixel_y = -10
-	},
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
-	name = "dried blood"
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass2";
-	layer = 2
-	},
-/area/event_zone)
-"Ks" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_y = -2
-	},
-/turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
 "Kt" = (
 /obj/structure/table/wood/fancy/red{
 	icon_state = "fancy_table_red-2"
@@ -22000,21 +21201,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Kx" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/gibs{
-	color = "#aa1010";
-	dir = 8;
-	= ;
-	icon_state = "gib1"
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass2";
-	layer = 2
-	},
-/area/event_zone)
 "Ky" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -22027,32 +21213,8 @@
 	dir = 1
 	},
 /obj/item/organ/external/leg/right,
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
-	name = "dried blood"
-	},
 /turf/simulated/floor/indestructible/grass{
 	icon_state = "grass2";
-	layer = 2
-	},
-/area/event_zone)
-"Kz" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/blood/gibs{
-	color = "#aa1010";
-	dir = 4;
-	= ;
-	icon_state = "gib3"
-	},
-/obj/effect/decal/cleanable/blood/gibs{
-	color = "#aa1010";
-	dir = 4
-	},
-/obj/item/storage/backpack/satchel_norm,
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
 	layer = 2
 	},
 /area/event_zone)
@@ -22142,30 +21304,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"KI" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/organ/internal/kidneys{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
-"KJ" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/organ/internal/cyberimp/eyes/shield{
-	dir = 8
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
 "KK" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -22196,16 +21334,6 @@
 	},
 /obj/item/organ/external/arm,
 /obj/item/organ/external/leg,
-/obj/effect/decal/cleanable/blood/gibs/core{
-	color = "#780000";
-	= ;
-	icon_state = "gibmid1";
-	name = "dried blood"
-	},
-/obj/effect/decal/cleanable/blood/footprints{
-	color = "#780000";
-	name = "dried blood"
-	},
 /turf/simulated/floor/indestructible/grass{
 	icon_state = "grass2";
 	layer = 2
@@ -22221,11 +21349,6 @@
 	},
 /area/event_zone)
 "KM" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_y = 1
-	},
 /obj/item/clothing/accessory/head_strip/syndicate{
 	dir = 1;
 	pixel_x = 1;
@@ -22251,59 +21374,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"KO" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/organ/internal/lungs,
-/obj/item/organ/internal/cyberimp/chest/nutriment_old/plus,
-/obj/item/organ/internal/cyberimp/arm/toolset,
-/obj/item/clothing/shoes/magboots/advance{
-	dir = 8;
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
-"KP" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/organ/internal/appendix,
-/obj/item/organ/internal/eyes,
-/obj/effect/decal/cleanable/blood/gibs/down{
-	color = "#780000";
-	dir = 4;
-	= ;
-	icon_state = "gibdown1";
-	name = "dried blood"
-	},
-/obj/effect/decal/cleanable/blood/gibs{
-	color = "#aa1010";
-	dir = 4;
-	= ;
-	icon_state = "gib5"
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass4";
-	layer = 2
-	},
-/area/event_zone)
-"KQ" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 4;
-	pixel_y = -2
-	},
-/obj/item/storage/backpack,
-/obj/item/storage/backpack/satchel,
-/turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
 "KR" = (
 /obj/item/rcd/combat{
 	dir = 1
@@ -22313,26 +21383,6 @@
 	},
 /turf/simulated/floor/indestructible/grass{
 	icon_state = "grass4";
-	layer = 2
-	},
-/area/event_zone)
-"KS" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 1;
-	pixel_y = -3
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
-"KT" = (
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible/grass{
 	layer = 2
 	},
 /area/event_zone)
@@ -22355,20 +21405,6 @@
 	icon_state = "5"
 	},
 /area/event_zone)
-"KW" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = -3;
-	pixel_y = -1
-	},
-/turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
 "KX" = (
 /obj/item/rcd/combat{
 	dir = 1
@@ -22383,24 +21419,6 @@
 	dir = 4;
 	name = "straight pipe fitting";
 	pixel_x = -1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 6;
-	pixel_y = 6
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
-"KZ" = (
-/obj/item/dnainjector/runfast{
-	dir = 1
 	},
 /turf/simulated/floor/indestructible/grass{
 	icon_state = "grass3";
@@ -22418,12 +21436,6 @@
 	},
 /area/event_zone)
 "Lb" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 6;
-	pixel_y = -12
-	},
 /obj/item/rcd/combat{
 	dir = 1
 	},
@@ -22434,27 +21446,6 @@
 	},
 /turf/simulated/floor/indestructible/grass{
 	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
-"Lc" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 4;
-	pixel_y = -3
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass2";
-	layer = 2
-	},
-/area/event_zone)
-"Ld" = (
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass4";
 	layer = 2
 	},
 /area/event_zone)
@@ -22496,45 +21487,7 @@
 	layer = 2
 	},
 /area/event_zone)
-"Lh" = (
-/obj/structure/chair/office{
-	dir = 4
-	},
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
 "Li" = (
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
-/obj/item/dnainjector/runfast{
-	dir = 1
-	},
 /obj/structure/chair/office,
 /obj/item/rcd/combat{
 	dir = 1
@@ -22573,12 +21526,6 @@
 	dir = 4
 	},
 /obj/item/storage/backpack,
-/obj/item/dnainjector/runfast{
-	dir = 8;
-	icon_state = "dnainjector0";
-	pixel_x = -4;
-	pixel_y = 4
-	},
 /turf/simulated/floor/indestructible/grass{
 	icon_state = "grass3";
 	layer = 2
@@ -22589,42 +21536,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
-"Ln" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 2;
-	pixel_y = -11
-	},
-/turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
-"Lo" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 6;
-	= ;
-	layer = 2.47
-	},
-/obj/item/rcd/combat{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass2";
-	layer = 2
-	},
-/area/event_zone)
-"Lp" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
 	layer = 2
 	},
 /area/event_zone)
@@ -22643,36 +21554,7 @@
 	layer = 2
 	},
 /area/event_zone)
-"Lr" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass4";
-	layer = 2
-	},
-/area/event_zone)
-"Ls" = (
-/obj/machinery/atmospherics/pipe/manifold4w{
-	 = ;
-	layer = 2.47
-	},
-/obj/item/rcd/combat{
-	dir = 1
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass4";
-	layer = 2
-	},
-/area/event_zone)
 "Lt" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 10;
-	= ;
-	layer = 2.47
-	},
 /obj/effect/decal/cleanable/shreds{
 	pixel_x = -3;
 	pixel_y = 8
@@ -22695,51 +21577,11 @@
 	},
 /area/event_zone)
 "Lv" = (
-/obj/item/dnainjector/runfast{
-	dir = 4;
-	icon_state = "dnainjector0";
-	pixel_x = 1;
-	pixel_y = -1
-	},
 /obj/item/rcd/combat{
 	dir = 1
 	},
 /turf/simulated/floor/indestructible/grass{
 	icon_state = "grass4";
-	layer = 2
-	},
-/area/event_zone)
-"Lw" = (
-/obj/item/rcd/combat{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 4;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/indestructible/grass{
-	layer = 2
-	},
-/area/event_zone)
-"Lx" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 9;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/indestructible/grass{
-	icon_state = "grass3";
-	layer = 2
-	},
-/area/event_zone)
-"Ly" = (
-/obj/machinery/atmospherics/pipe/simple{
-	dir = 1;
-	= ;
-	layer = 2.47
-	},
-/turf/simulated/floor/indestructible/grass{
 	layer = 2
 	},
 /area/event_zone)
@@ -24801,7 +23643,7 @@ IR
 IQ
 Kq
 Kw
-KI
+IR
 IQ
 IS
 La
@@ -25057,9 +23899,9 @@ IS
 IP
 IS
 IS
-Kx
-KJ
-KO
+IQ
+IR
+IS
 IQ
 IP
 IS
@@ -25312,8 +24154,8 @@ IP
 IS
 IS
 IR
-Kj
-Kr
+IR
+IQ
 Ky
 KK
 IS
@@ -25571,9 +24413,9 @@ IS
 IP
 IQ
 ad
-Kz
+JC
 KL
-KP
+IP
 IQ
 IR
 Lg
@@ -25827,13 +24669,13 @@ JK
 JZ
 Kd
 Kk
-Ks
+ag
 IP
 IS
-KQ
-KW
+ag
+IS
 IR
-Lh
+IS
 IP
 af
 ad
@@ -26347,8 +25189,8 @@ ag
 ae
 KY
 ae
-Ld
-Ld
+ae
+ae
 ag
 ae
 ae
@@ -26601,11 +25443,11 @@ Kn
 ae
 ag
 ae
-KS
+ad
 ag
-Lc
-KZ
-Ln
+af
+ad
+ag
 af
 af
 ag
@@ -26858,11 +25700,11 @@ Ko
 Kt
 KC
 KN
-KT
-KZ
-Ld
-KZ
-KT
+ag
+ad
+ae
+ad
+ag
 ad
 IR
 ag
@@ -27634,8 +26476,8 @@ ae
 ad
 ag
 af
-Lr
-Lw
+ae
+Lm
 af
 af
 ag
@@ -27890,9 +26732,9 @@ ae
 af
 Le
 Lj
-Lo
-Ls
-Lx
+KX
+Lv
+ad
 ad
 ag
 ad
@@ -28147,9 +26989,9 @@ ad
 ad
 ag
 ad
-Lp
+ad
 Lt
-Ly
+ag
 ag
 af
 ab
@@ -47793,7 +46635,7 @@ ar
 ar
 ao
 ap
-lX
+ao
 ar
 mG
 ap
@@ -50947,9 +49789,9 @@ an
 an
 an
 av
-BI
 an
-Cc
+an
+an
 av
 ao
 ao
@@ -51122,7 +49964,7 @@ ao
 ap
 js
 aw
-jJ
+ai
 ai
 jZ
 kl
@@ -51148,7 +49990,7 @@ gl
 gl
 pR
 at
-qn
+an
 qB
 qO
 ra
@@ -51158,11 +50000,11 @@ rU
 sm
 sw
 sN
-td
+tz
 tz
 tV
 up
-uF
+uZ
 uZ
 vn
 vu
@@ -51389,7 +50231,7 @@ kQ
 kX
 ai
 av
-lp
+ai
 lJ
 mb
 mp
@@ -51652,13 +50494,13 @@ ay
 cp
 aP
 mU
-nl
+mV
 nD
 nU
 nX
 gl
 gl
-pv
+mV
 mV
 pT
 bj
@@ -51847,7 +50689,7 @@ aP
 bH
 an
 bk
-cf
+ai
 ai
 cx
 ai
@@ -52163,7 +51005,7 @@ ai
 bp
 ai
 ai
-mq
+ai
 at
 mV
 gl
@@ -52405,7 +51247,7 @@ ao
 ar
 ai
 ai
-ju
+jw
 jB
 jL
 jU
@@ -52419,7 +51261,7 @@ ai
 ll
 lr
 lL
-md
+ai
 mr
 bj
 mV
@@ -52694,7 +51536,7 @@ kT
 qF
 an
 rc
-rs
+ar
 rL
 rY
 ao
@@ -52937,13 +51779,13 @@ ai
 mt
 mK
 gl
-np
+gl
 mV
 nZ
 an
 oQ
 ph
-px
+mV
 gl
 pY
 mL
@@ -53780,14 +52622,14 @@ ap
 aq
 ao
 CB
-CR
-Dp
+EE
+EE
 DR
-Eh
-Ez
+EE
+EE
 DR
-Fg
-FA
+EE
+EE
 DR
 EE
 Gn
@@ -53947,7 +52789,7 @@ aq
 ar
 jn
 jr
-jx
+jt
 jG
 jG
 jX
@@ -54040,10 +52882,10 @@ CB
 CS
 Dq
 DS
-Ei
-EA
+Gf
+EE
 EV
-Fh
+Dq
 Dq
 FI
 Gb
@@ -54209,7 +53051,7 @@ jt
 jt
 jt
 ke
-kw
+jt
 kH
 jt
 jt
@@ -54223,7 +53065,7 @@ mx
 aw
 ai
 an
-nJ
+ai
 oe
 aP
 oT
@@ -54295,12 +53137,12 @@ ap
 ao
 CB
 CT
-FB
-EA
-EA
-EA
-EW
-ED
+EE
+EE
+EE
+EE
+EE
+EE
 EE
 FJ
 Gc
@@ -54480,7 +53322,7 @@ my
 cp
 mX
 an
-nK
+an
 of
 aP
 oT
@@ -54555,12 +53397,12 @@ CU
 Ds
 DU
 DU
-EC
+EE
 DU
-DV
-FB
+EE
+EE
 FK
-Gd
+EE
 Gn
 ao
 ar
@@ -54733,11 +53575,11 @@ ai
 ai
 ai
 an
-mz
+an
 av
 mY
 mY
-nL
+mY
 og
 aP
 oT
@@ -54810,14 +53652,14 @@ ap
 CB
 CV
 Dt
-DV
-DV
-ED
+EE
+EE
+EE
 EE
 EE
 FC
-FL
-Ge
+FK
+EE
 Gn
 ao
 ar
@@ -55010,9 +53852,9 @@ rg
 rg
 rg
 qr
-sq
+qr
 qK
-sV
+qr
 ai
 au
 ue
@@ -55066,11 +53908,11 @@ aq
 ar
 CB
 CW
-Du
+EE
 DW
-Ej
-Ej
-EX
+Dq
+Dq
+Dq
 Fi
 FD
 EV
@@ -55324,14 +54166,14 @@ ao
 CD
 CX
 Dv
-DX
-Ek
-EE
-EY
 Fj
-Du
+EE
+EE
+EE
+Fj
+EE
 FM
-Gg
+EE
 Gn
 ao
 ar
@@ -61481,7 +60323,7 @@ ai
 ai
 ai
 ai
-Bj
+ai
 ai
 ai
 ai
@@ -62272,7 +61114,7 @@ ai
 ai
 Gj
 Gt
-GB
+Gw
 GJ
 aP
 an
@@ -62518,10 +61360,10 @@ ai
 BP
 bj
 CN
-Dg
+CN
 DI
 CN
-Er
+CN
 EO
 ai
 Fw
@@ -62529,7 +61371,7 @@ ai
 ai
 Gj
 Gt
-GC
+Gw
 GK
 aP
 an
@@ -62786,7 +61628,7 @@ ai
 ai
 Gj
 Gw
-GC
+Gw
 GL
 aP
 an
@@ -63043,7 +61885,7 @@ ai
 ai
 Gk
 Gv
-GD
+Gw
 Gw
 aP
 an
@@ -64066,8 +62908,8 @@ Ay
 Ev
 EQ
 Ay
-Fx
-FG
+Ay
+Ay
 FX
 ai
 ai
@@ -64831,10 +63673,10 @@ Ck
 Ct
 aP
 ul
-Dl
+ai
 DN
 Ef
-Ey
+ai
 ET
 ai
 ai
@@ -65584,7 +64426,7 @@ yW
 zc
 zi
 zz
-zD
+zF
 ai
 Ae
 ai
@@ -66116,7 +64958,7 @@ ar
 ao
 aP
 ai
-Dm
+ai
 DO
 Ef
 ai
@@ -66373,7 +65215,7 @@ ar
 ap
 aP
 ai
-Dn
+ai
 DP
 Eg
 ai
