@@ -1005,16 +1005,16 @@
 
 /datum/status_effect/borer_regen
 	id = "borer_regen"
-	duration = 10 SECONDS               // длительность эффекта
-	tick_interval = 1 SECONDS            // интервал между тиками (лечение каждые 2 секунды)
+	duration = 10 SECONDS               // длительность эффекта            // интервал между тиками (лечение каждые 2 секунды)
 	alert_type = /atom/movable/screen/alert/status_effect/borer_regen
+	var/heal_amount = -2
 
 /datum/status_effect/borer_regen/tick()
 	// Периодическое лечение во время действия эффекта
 	if(!istype(owner, /mob/living/carbon))
 		return
 	var/mob/living/carbon/C = owner
-	C.adjustBruteLoss(-2)
-	C.adjustFireLoss(-2)
-	C.adjustToxLoss(-1)
-	C.adjustOxyLoss(-5)
+	C.adjustBruteLoss(heal_amount)
+	C.adjustFireLoss(heal_amount)
+	C.adjustToxLoss(heal_amount / 2)
+	C.adjustOxyLoss(heal_amount * 2.5)

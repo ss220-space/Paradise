@@ -1543,11 +1543,11 @@
 /datum/status_effect/parasitism
 	id = "parasitism"
 	duration = 60 SECONDS
-	tick_interval = 6 SECONDS
+	tick_interval = 3 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/parasitism
-	var/evolution_gain = 0.15
-	var/chemical_gain = 10
-	var/host_damage = 2.5
+	var/evolution_gain = 0.75
+	var/chemical_gain = 5
+	var/host_damage = 1.25
 
 /atom/movable/screen/alert/status_effect/parasitism
 	name = "Паразит"
@@ -1606,10 +1606,7 @@
 		to_chat(host, span_danger( "Паразит высасывает ваши жизненные силы"))
 		host.AdjustKnockdown(2 SECONDS)
 		host.AdjustConfused(3 SECONDS)
-
-	// Если носитель умер, эффект прекращается (qdel вызовет on_remove)
-	if(host.stat == DEAD)
-		qdel(src)
+		host.AdjustJitter(10 SECONDS)
 
 /datum/status_effect/parasitism/on_remove()
 	if(iscarbon(owner))
