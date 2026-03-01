@@ -52,12 +52,12 @@
 
 /obj/item/clothing/head/welding/get_ru_names()
 	return list(
-		NOMINATIVE = "Сварочный шлем",
-		GENITIVE = "Сварочного шлема",
-		DATIVE = "Сварочному шлему",
-		ACCUSATIVE = "Сварочный шлем",
-		INSTRUMENTAL = "Сварочным шлемом",
-		PREPOSITIONAL = "Сварочном шлеме",
+		NOMINATIVE = "сварочный шлем",
+		GENITIVE = "сварочного шлема",
+		DATIVE = "сварочному шлему",
+		ACCUSATIVE = "сварочный шлем",
+		INSTRUMENTAL = "сварочным шлемом",
+		PREPOSITIONAL = "сварочном шлеме",
 	)
 
 /obj/item/clothing/head/welding/flamedecal

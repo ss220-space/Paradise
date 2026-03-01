@@ -37,12 +37,12 @@
 
 /obj/item/stack/cable_coil/get_ru_names()
 	return list(
-		NOMINATIVE = "Проводка",
-		GENITIVE = "Проводки",
-		DATIVE = "Проводке",
-		ACCUSATIVE = "Проводку",
-		INSTRUMENTAL = "Проводкой",
-		PREPOSITIONAL = "Проводке",
+		NOMINATIVE = "проводка",
+		GENITIVE = "проводки",
+		DATIVE = "проводке",
+		ACCUSATIVE = "проводку",
+		INSTRUMENTAL = "проводкой",
+		PREPOSITIONAL = "проводке",
 	)
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount, merge = TRUE, cable_color = null)
 	. = ..()

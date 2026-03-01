@@ -35,12 +35,12 @@
 
 /obj/item/analyzer/get_ru_names()
 	return list(
-		NOMINATIVE = "Газоанализатор",
-		GENITIVE = "Газоанализатора",
-		DATIVE = "Газоанализатору",
-		ACCUSATIVE = "Газоанализатор",
-		INSTRUMENTAL = "Газоанализатором",
-		PREPOSITIONAL = "Газоанализаторе",
+		NOMINATIVE = "газоанализатор",
+		GENITIVE = "газоанализатора",
+		DATIVE = "газоанализатору",
+		ACCUSATIVE = "газоанализатор",
+		INSTRUMENTAL = "газоанализатором",
+		PREPOSITIONAL = "газоанализаторе",
 	)
 
 /obj/item/analyzer/examine(mob/user)

@@ -288,12 +288,12 @@
 
 /obj/item/toy/crayon/spraycan/get_ru_names()
 	return list(
-		NOMINATIVE = "Баллончик с краской",
-		GENITIVE = "Баллончика с краской",
-		DATIVE = "Баллончику с краской",
-		ACCUSATIVE = "Баллончик с краской",
-		INSTRUMENTAL = "Баллончиком с краской",
-		PREPOSITIONAL = "Баллончике с краской",
+		NOMINATIVE = "баллончик с краской",
+		GENITIVE = "баллончика с краской",
+		DATIVE = "баллончику с краской",
+		ACCUSATIVE = "баллончик с краской",
+		INSTRUMENTAL = "баллончиком с краской",
+		PREPOSITIONAL = "баллончике с краской",
 	)
 
 /obj/item/toy/crayon/spraycan/Initialize(mapload)
