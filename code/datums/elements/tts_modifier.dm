@@ -30,10 +30,13 @@
 	if(is_active_mask)
 		wearer.tts_effect_override = effect
 		wearer.tts_effect_override_source = equipped_item
-	else
-		if(wearer.tts_effect_override_source == equipped_item)
-			wearer.tts_effect_override = SOUND_EFFECT_NONE
-			wearer.tts_effect_override_source = null
+		return
+
+	if(wearer.tts_effect_override_source != equipped_item)
+		return
+
+	wearer.tts_effect_override = SOUND_EFFECT_NONE
+	wearer.tts_effect_override_source = null
 
 /datum/element/tts_modifier/proc/on_item_equipped(obj/item/equipped_item, mob/wearer, slot)
 	SIGNAL_HANDLER

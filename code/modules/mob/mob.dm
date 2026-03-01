@@ -30,6 +30,8 @@
 	if(mind?.current == src)
 		mind.current = null
 
+	tts_effect_override_source = null
+
 	return ..()
 
 /mob/Initialize(mapload)
