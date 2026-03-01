@@ -10,7 +10,7 @@
 	. = ..()
 	var/turf/simulated/target_turf = get_turf(src)
 	if(istype(target_turf))
-		src.release_air(target_turf)
+		release_air(target_turf)
 
 /obj/item/grenade/gas/proc/release_air(turf/simulated/target_turf)
 	// Any proc that wants MILLA to be synchronous should not sleep.
@@ -46,12 +46,10 @@
 /obj/item/grenade/gluon/prime()
 	update_mob()
 	playsound(loc, 'sound/effects/empulse.ogg', 50, TRUE)
-	for(var/turf/T in view(range, loc))
-		if(isfloorturf(T))
-			var/turf/simulated/F = T
-			F.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
-			for(var/mob/living/carbon/L in T)
-				L.apply_damage(stamina_damage, STAMINA)
-				L.apply_effect(rad_damage, IRRADIATE)
-				L.adjust_bodytemperature(-230)
+	for(var/turf/simulated/floor/floor_turf in view(range, loc))
+		floor_turf.MakeSlippery(TURF_WET_PERMAFROST, 120 SECONDS)
+		for(var/mob/living/carbon/carbon in floor_turf)
+			carbon.apply_damage(stamina_damage, STAMINA)
+			carbon.apply_effect(rad_damage, IRRADIATE)
+			carbon.adjust_bodytemperature(-230)
 	qdel(src)

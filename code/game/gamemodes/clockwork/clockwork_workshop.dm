@@ -18,7 +18,7 @@
 	desc = "A workshop of elder god. Has unique brass tools to manipulate both power and metal to make fine clockwork pieces."
 	icon_state = "workshop"
 	max_integrity = 400
-	death_message = span_danger("The workshop begins to crumble in pieces as the tools and the gears on table starts to dust!")
+	death_message = span_danger_alt("The workshop begins to crumble in pieces as the tools and the gears on table starts to dust!")
 	var/temp_search
 	var/datum/clockwork_design/being_built = null
 	var/list/item_list

@@ -41,6 +41,11 @@
 	/// The entity being attacked
 	var/datum/port/output/attacking
 
+/obj/item/circuit_component/wiremod_scanner/Destroy()
+	signal = null
+	attacker = null
+	attacking = null
+	. = ..()
 
 /obj/item/circuit_component/wiremod_scanner/populate_ports()
 	attacker = add_output_port("Пользователь", PORT_TYPE_USER)

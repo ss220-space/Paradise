@@ -202,6 +202,56 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	add_strippable_element()
 
+//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
+//Improved /N
+/mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
+
+	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
+
+		if(T)
+			mmi.forceMove(T)
+
+		if(mmi.brainmob)
+			mind.transfer_to(mmi.brainmob)
+			mmi.update_icon()
+		else
+			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
+			ghostize()
+			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+
+		mmi = null
+
+	if(connected_ai)
+		connected_ai.connected_robots -= src
+		connected_ai = null
+
+	selected_skin = null
+
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
+	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
+	QDEL_NULL(ion_trail)
+	QDEL_NULL(scanner)
+	QDEL_NULL(rbPDA)
+	QDEL_NULL(radio)
+	QDEL_NULL(inv1)
+	QDEL_NULL(inv2)
+	QDEL_NULL(inv3)
+	QDEL_NULL(lamp_button)
+	QDEL_NULL(thruster_button)
+	QDEL_NULL(robot_modules_background)
+	QDEL_LIST(components)
+	QDEL_LIST(upgrades)
+	QDEL_LIST(module_actions)
+
+	return ..()
+
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
 
@@ -299,41 +349,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	return FALSE
-
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
-//Improved /N
-/mob/living/silicon/robot/Destroy()
-	SStgui.close_uis(wires)
-
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-
-		if(T)
-			mmi.loc = T
-
-		if(mmi.brainmob)
-			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
-		else
-			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
-			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
-
-		mmi = null
-
-	if(connected_ai)
-		connected_ai.connected_robots -= src
-
-	QDEL_NULL(wires)
-	QDEL_NULL(module)
-	QDEL_NULL(camera)
-	QDEL_NULL(cell)
-	QDEL_NULL(robot_suit)
-	QDEL_NULL(spark_system)
-	QDEL_NULL(self_diagnosis)
-	QDEL_NULL(ion_trail)
-
-	return ..()
 
 /mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
@@ -489,6 +504,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "robot"
 	base_icon = "robot"
 	module.remove_subsystems_and_actions(src)
+	transform = matrix()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
@@ -1688,12 +1704,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit]) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
-		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
+		var/permit_required = !isnull(new_skin.required_permit)
+		var/donator_tier_required = !isnull(new_skin.donator_tier)
+		if(!GLOB.all_robot_skins_permited && (permit_required || donator_tier_required))
+			var/has_permit = permit_required && mmi?.skin_permissions[new_skin.required_permit]
+			var/has_donator = donator_tier_required && usr.client && (new_skin.donator_tier <= usr.client.donator_level)
+
+			if(!has_permit && !has_donator)
+				continue
+
 		var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
 		skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
 		choices[new_skin.name] = skin_image
@@ -1712,6 +1731,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = skin.icon_base_prefix
 	base_icon = skin.icon_base_prefix
 	selected_skin = skin
+	transform = matrix(1,0,skin.move_x,0,1,0)
 	if(use_transformation)
 		transform_animation(skin.icon_base_prefix, default)
 		return
@@ -2135,3 +2155,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
 
 #undef BORG_LAMP_CD_RESET
+
+/mob/living/silicon/robot/vv_edit_var(var_name, var_value)
+	if(!check_rights(R_SKINS) && (var_name in list("icon", "icon_state")))
+		return FALSE
+	. = ..()
+

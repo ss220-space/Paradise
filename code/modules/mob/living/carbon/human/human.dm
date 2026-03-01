@@ -1840,14 +1840,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
 	if(!self_chest || !istype(self_chest))
 		return
-	if(brains.original_body == self_chest)
+	var/body = brains.original_body?.resolve()
+	if(body == self_chest)
 		return
-	if(brains.original_body)
+	if(body)
 		//this is not original body for brain, apply brain transplantation disease
 		var/datum/disease/brain_transplant_syndrome/disease = new
 		disease.Contract(src)
 	//now this body are original for brain
-	brains.original_body = self_chest
+	brains.original_body = WEAKREF(self_chest)
 
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100

@@ -33,14 +33,6 @@
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 
-/obj/item/reagent_containers/food/condiment/set_APTFT()
-	set hidden = FALSE
-	..()
-
-/obj/item/reagent_containers/food/condiment/empty()
-	set hidden = FALSE
-	..()
-
 /obj/item/reagent_containers/food/condiment/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!iscarbon(target))
 		return ..()

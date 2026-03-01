@@ -291,6 +291,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(isstorage(loc))
 		item_flags |= IN_STORAGE
 
+	var/list/attack_verb_cached = attack_verb
+
+	if(islist(attack_verb_cached))
+		attack_verb = string_list(attack_verb_cached)
+
 	if(!hitsound)
 		if(damtype == FIRE)
 			hitsound = 'sound/items/welder.ogg'

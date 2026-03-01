@@ -57,6 +57,8 @@
 /obj/item/organ/internal/cyberimp/tail/blade/emp_act(severity)
 	if(emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 
 	if(activated)
 		activated = FALSE

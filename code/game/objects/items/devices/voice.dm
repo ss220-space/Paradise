@@ -25,7 +25,7 @@
 /obj/item/voice_changer/Destroy()
 	if(isitem(parent))
 		LAZYREMOVE(parent.actions, actions)
-
+	parent = null
 	return ..()
 
 /obj/item/voice_changer/attack_self(mob/user)

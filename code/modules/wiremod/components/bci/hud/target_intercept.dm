@@ -18,6 +18,12 @@
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 	var/intercept_cooldown = 1 SECONDS
 
+/obj/item/circuit_component/target_intercept/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	clicked_atom = null
+	. = ..()
+
 /obj/item/circuit_component/target_intercept/populate_ports()
 	trigger_input = add_input_port("Вызов", PORT_TYPE_SIGNAL)
 	trigger_output = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
