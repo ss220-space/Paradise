@@ -9,12 +9,12 @@
 
 /obj/item/mining_satchel_upgrade/get_ru_names()
 	return list(
-		NOMINATIVE = "улучшение сумок для руды",
-		GENITIVE = "улучшения сумок для руды",
-		DATIVE = "улучшению сумок для руды",
-		ACCUSATIVE = "улучшение сумок для руды",
-		INSTRUMENTAL = "улучшением сумок для руды",
-		PREPOSITIONAL = "улучшении сумок для руды",
+		NOMINATIVE = "магнитное улучшение сумок для руды",
+		GENITIVE = "магнитного улучшения сумок для руды",
+		DATIVE = "магнитному улучшению сумок для руды",
+		ACCUSATIVE = "магнитное улучшение сумок для руды",
+		INSTRUMENTAL = "магнитным улучшением сумок для руды",
+		PREPOSITIONAL = "магнитном улучшении сумок для руды",
 	)
 
 /obj/item/storage/bag/ore/attackby(obj/item/item, mob/user, params)
