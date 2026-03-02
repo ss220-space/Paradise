@@ -48,7 +48,7 @@
 		link_to_overmind(owner_overmind)
 	setDir(pick(GLOB.cardinal))
 	if(atmosblock)
-		air_update_turf(TRUE)
+		recalculate_atmos_connectivity()
 	ConsumeTile()
 	update_blob()
 
@@ -60,7 +60,7 @@
 /obj/structure/blob/Destroy()
 	if(atmosblock)
 		atmosblock = FALSE
-		air_update_turf(1)
+		recalculate_atmos_connectivity()
 	GLOB.blobs -= src
 	SSticker?.mode?.legit_blobs -= src
 	if(overmind)
@@ -90,11 +90,13 @@
 						result++
 		. -= result - 1
 
-/obj/structure/blob/BlockSuperconductivity()
-	return atmosblock
-
-/obj/structure/blob/CanAtmosPass(turf/T, vertical)
+/obj/structure/blob/CanAtmosPass(direction)
 	return !atmosblock
+
+/obj/structure/blob/get_superconductivity(direction)
+	if(atmosblock)
+		return FALSE
+	return ..()
 
 /obj/structure/blob/update_icon() //Updates color based on overmind color if we have an overmind.
 	. = ..()
@@ -261,7 +263,7 @@
 	if(overmind)
 		overmind.blobstrain.extinguish_reaction(src)
 
-/obj/structure/blob/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+/obj/structure/blob/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
 	damage *= 0.25 // Lets not have sorium be too much of a blender / rapidly kill itself
 	return ..()
 

@@ -40,7 +40,7 @@
 				return FALSE
 
 			var/static/list/cardinal_directions = list("[NORTH]" = TRUE, "[EAST]" = TRUE, "[SOUTH]" = TRUE, "[WEST]" = TRUE)
-			if(!cardinal_directions["[direction]"] || adjacent_turf.blocks_air || !current_turf.CanAtmosPass(adjacent_turf))
+			if(!cardinal_directions["[direction]"] || adjacent_turf.blocks_air || !current_turf.CanAtmosPass(direction))
 				continue
 
 			turfs_to_process += adjacent_turf
@@ -80,7 +80,7 @@
 			continue
 		if(!isnull(place.apc))
 			apc_map[place.name] = place.apc
-		if(!LAZYLEN(the_turf.atmos_adjacent_turfs)) // No expanding areas on blocked turfs
+		if(!LAZYLEN(the_turf.GetAtmosAdjacentTurfs(TRUE))) // No expanding areas on blocked turfs
 			continue
 		if(length(apc_map) > 1) // When merging 2 or more areas make sure we arent merging their apc into 1 area
 			to_chat(creator, span_warning("Multiple APC's detected in the vicinity. only 1 is allowed."))
@@ -251,7 +251,7 @@
 						copiedobjs += DuplicateObject(M, perfect_copy, newloc = X)
 
 					for(var/V in T.vars)
-						if(!(V in list("type","loc","locs","vars", "parent", "parent_type","verbs","ckey","key","x","y","z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
+						if(!(V in list("type","loc","locs","vars", "parent", "parent_type", "pixloc", "verbs", "ckey", "key", "x", "y", "z","destination_z", "destination_x", "destination_y","contents", "luminosity", "group")))
 							X.vars[V] = T.vars[V]
 
 					toupdate += X
@@ -259,11 +259,6 @@
 					refined_src -= T
 					refined_trg -= B
 					continue moving
-
-	if(length(toupdate))
-		for(var/turf/simulated/T1 in toupdate)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
 
 	return copiedobjs
 

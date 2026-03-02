@@ -152,6 +152,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 	set_on(FALSE)
 	SSradio?.remove_object_all(src)
 	LAZYCLEARLIST(secure_radio_connections)
+	radio_connection = null
 	GLOB.global_radios -= src
 	return ..()
 
@@ -282,7 +283,7 @@ GLOBAL_LIST_INIT(default_pirate_channels, list(
 /obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Radio", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "Radio", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)

@@ -3,15 +3,15 @@
 	name = "ash storm"
 	desc = "Мощная атмосферная буря поднимает пепел с поверхности планеты, обрушивая его на землю и нанося сильные ожоги незащищённым существам."
 
-	telegraph_message = span_boldwarning("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
+	telegraph_message = span_boldwarning_alt("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
 	telegraph_overlay = "light_ash"
 
-	weather_message = span_userdanger("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью — прячьтесь в убежище!</i>")
+	weather_message = span_userdanger_alt("<i>Раскалённый пепел обжигает кожу! Воздух наполняется гарью — прячьтесь в убежище!</i>")
 	weather_duration_lower = 60 SECONDS
 	weather_duration_upper = 120 SECONDS
 	weather_overlay = "ash_storm"
 
-	end_message = span_boldannounceic("Буря отступила, оставив после себя лишь опалённую тишину. Можно выходить...")
+	end_message = span_boldannounceic_alt("Буря отступила, оставив после себя лишь опалённую тишину. Можно выходить...")
 	end_overlay = "light_ash"
 
 	area_type = /area/lavaland/surface/outdoors
@@ -47,9 +47,8 @@
 		else
 			weak_sounds[place] = /datum/looping_sound/weak_inside_ashstorm
 			strong_sounds[place] = /datum/looping_sound/active_inside_ashstorm
-		CHECK_TICK
 
-/datum/weather/ash_storm/proc/update_audio()
+/datum/weather/ash_storm/proc/update_audio(next_stage)
 	switch(stage)
 		if(STARTUP_STAGE)
 			GLOB.ash_storm_sounds += weak_sounds
@@ -69,19 +68,23 @@
 	. = ..()
 	if(.)
 		update_eligible_areas()
-		update_audio()
+		update_audio(STARTUP_STAGE)
+
+/datum/weather/ash_storm/start()
+	update_audio(MAIN_STAGE)
+	. = ..()
 
 /datum/weather/ash_storm/wind_down()
+	update_audio(WIND_DOWN_STAGE)
 	. = ..()
-	update_audio()
 
 /datum/weather/ash_storm/end()
+	update_audio(END_STAGE)
 	. = ..()
 	for(var/turf/simulated/floor/plating/asteroid/basalt/basalt as anything in GLOB.dug_up_basalt)
 		if(!(basalt.loc in impacted_areas) || !(basalt.z in impacted_z_levels))
 			continue
 		basalt.refill_dug()
-	update_audio()
 
 /datum/weather/ash_storm/can_weather_act(mob/living/mob_to_check)
 	. = ..()
@@ -120,10 +123,10 @@
 	name = "emberfall"
 	desc = "Проходящая пепельная буря покрывает землю безвредными угольками."
 
-	weather_message = span_notice("Мягкие угольки опадают вокруг, словно уродливый снег. Кажется, буря обошла вас стороной...")
+	weather_message = span_notice_alt("Мягкие угольки опадают вокруг, словно уродливый снег. Кажется, буря обошла вас стороной...")
 	weather_overlay = "light_ash"
 
-	end_message = span_notice("Пеплопад ослабевает и прекращается. Ещё один слой затвердевшей сажи ложится на базальт под ногами.")
+	end_message = span_notice_alt("Пеплопад ослабевает и прекращается. Ещё один слой затвердевшей сажи ложится на базальт под ногами.")
 	end_sound = null
 
 	aesthetic = TRUE

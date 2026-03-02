@@ -136,3 +136,13 @@
 
 /// rand() but for floats, returns a random floating point number between L and H
 #define randfloat(L, H) ((L) + rand() * ((H) - (L)))
+
+
+/// Tests if the value is in the given range.
+#define IS_IN_BOUNDS(val, lower, upper) ((val) >= (lower) && (val) <= (upper))
+
+#define POW2(x) ((x) * (x))
+
+#define POW3(x) ((x) * (x) * (x))
+
+#define MAGNITUDE(dx, dy) (sqrt(POW2(dx) + POW2(dy)))

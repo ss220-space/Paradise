@@ -1,16 +1,10 @@
-/client/proc/one_click_antag()
-	set name = "Create Antagonist"
-	set desc = "Auto-create an antagonist of your choice"
-	set category = STATPANEL_ADMIN_EVENT
+ADMIN_VERB(one_click_antag, R_SERVER|R_EVENT, "Create Antagonist", "Auto-create an antagonist of your choice.", ADMIN_CATEGORY_EVENTS)
+	if(!user.holder)
+		return
 
-	if(!check_rights(R_SERVER|R_EVENT))	return
-
-	if(holder)
-		holder.one_click_antag()
-	return
+	user.holder.one_click_antag()
 
 /datum/admins/proc/one_click_antag()
-
 	var/dat = {"<b>One-click Antagonist</b><br>
 		<a href='byond://?src=[UID()];makeAntag=1'>Make Traitors</a><br>
 		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>

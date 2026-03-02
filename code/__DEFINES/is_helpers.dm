@@ -37,6 +37,8 @@
 
 #define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
 
+#define iskrampus(A) (istype(A, /mob/living/carbon/true_devil/krampus))
+
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
 #define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
@@ -50,7 +52,7 @@
 #define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
 
 // Simple animals
-// #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
+#define is_simple_animal(A) (istype(A, /mob/living/simple_animal))
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
@@ -79,9 +81,13 @@
 
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
+#define iscloset(A) (istype(A, /obj/structure/closet))
+
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
 
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
+
+#define isammobox(A) (istype(A, /obj/item/ammo_box))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
@@ -118,6 +124,7 @@
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
 #define is_internal_organ(A) (istype(A, /obj/item/organ/internal))
+#define is_internal_organ_brain(A) (istype(A, /obj/item/organ/internal/brain))
 
 #define	is_organ(A) (istype((A), /obj/item/organ))
 
@@ -231,6 +238,21 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define isthrowingmatart(A) (istype(A, /datum/martial_art/throwing))
 
+// Modsuits
+#define ismodcontrol(A) istype(A, /obj/item/mod/control)
+
+#define ismodstorage(A) istype(A, /obj/item/storage/backpack/modstorage)
+
+#define ismodhelmet(A) istype(A, /obj/item/clothing/head/mod)
+
+#define ismodgloves(A) istype(A, /obj/item/clothing/gloves/mod)
+
+#define ismodshoes(A) istype(A, /obj/item/clothing/shoes/mod)
+
+#define ismodchestplate(A) istype(A, /obj/item/clothing/suit/mod)
+
+#define ismodcore(A) istype(A, /obj/item/mod/core)
+
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,
 	/turf/simulated/floor/chasm,
@@ -306,7 +328,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define isexternalorgan(A) (istype((A), /obj/item/organ/external))
 
-#define is_admin(user) (check_rights(R_ADMIN, 0, (user)) != 0)
+#define is_admin(user) (check_rights(R_ADMIN, FALSE, (user)) != 0)
 
 #define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user))
 
@@ -351,8 +373,12 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 
 #define ismultitool(A) (istype(A, /obj/item/multitool))
 
+#define iswrench(A) (istype(A, /obj/item/wrench))
+
 #define iscoil(A) (istype(A, /obj/item/stack/cable_coil))
 
 #define ispowertool(A) (istype(A, /obj/item/crowbar/power) || istype(A, /obj/item/mecha_parts/mecha_equipment/medical/rescue_jaw))
 
 #define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
+
+#define isspacearea(A)	(istype(A, /area/space))

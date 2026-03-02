@@ -14,6 +14,10 @@
 	/// The result from the output
 	var/datum/port/output/result
 
+/obj/item/circuit_component/tempsensor/Destroy()
+	result = null
+	. = ..()
+
 /obj/item/circuit_component/tempsensor/populate_ports()
 	result = add_output_port("Результат", PORT_TYPE_NUMBER)
 
@@ -24,11 +28,11 @@
 		result.set_output(null)
 		return
 	//Get environment info
-	var/datum/gas_mixture/environment = location.return_air()
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/total_moles = environment.total_moles()
 	if(total_moles)
 		//If there's atmos, return temperature
-		result.set_output(round(environment.temperature,1))
+		result.set_output(round(environment.temperature(), 1))
 	else
 		result.set_output(0)
 

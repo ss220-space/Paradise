@@ -1,7 +1,7 @@
 /*
  * Camera
  */
-/obj/item/camera
+/obj/item/camera //TODO: translate `/obj/item/flash/cameraflash` when this file getting translated
 	name = "camera"
 	desc = "A polaroid camera. 10 photos left."
 	icon_state = "camera"
@@ -28,6 +28,16 @@
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/neck.dmi',
 		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/neck.dmi',
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/neck.dmi',
+	)
+
+/obj/item/camera/get_ru_names()
+	return list(
+		NOMINATIVE = "фотоаппарат",
+		GENITIVE = "фотоаппарата",
+		DATIVE = "фотоаппарату",
+		ACCUSATIVE = "фотоаппарат",
+		INSTRUMENTAL = "фотоаппаратом",
+		PREPOSITIONAL = "фотоаппарате"
 	)
 
 /obj/item/camera/Initialize(mapload)
@@ -365,6 +375,17 @@
 
 	/// The camera this circut is attached to.
 	var/obj/item/camera/camera
+
+/obj/item/circuit_component/camera/Destroy()
+	if(camera)
+		unregister_usb_parent(camera)
+	photographed_atom = null
+	picture_taken = null
+	picture_target = null
+	picture_coord_x = null
+	picture_coord_y = null
+	adjust_size = null
+	. = ..()
 
 /obj/item/circuit_component/camera/populate_ports()
 	picture_taken = add_output_port("Снимок сделан", PORT_TYPE_SIGNAL)

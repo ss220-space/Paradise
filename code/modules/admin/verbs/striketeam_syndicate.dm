@@ -4,13 +4,11 @@
 
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
+ADMIN_VERB(syndicate_strike_team, R_ADMIN, "Отправить Ударный Отряд \"Синдиката\"", "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК.", ADMIN_CATEGORY_EVENTS)
+	if(user.holder)
+		user.syndicate_strike_team()
+
 /client/proc/syndicate_strike_team()
-	set category = STATPANEL_ADMIN_EVENT
-	set name = "Заспавнить Ударный Отряд \"Синдиката\""
-	set desc = "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК."
-	if(!src.holder)
-		to_chat(src, "Только администраторы могут использовать эту команду.")
-		return
 	if(!SSticker)
 		tgui_alert(src, "Игра ещё не началась!")
 		return
@@ -76,10 +74,10 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code]</span>.")
-			new_syndicate_commando.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input]</span>.")
+				new_syndicate_commando.mind.store_memory("<b>Коды от боеголовки:</b> [span_warning("[nuke_code]")].")
+			new_syndicate_commando.mind.store_memory("<b>Миссия:</b> [span_warning("[input]")].")
 
-			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<b>Лидер</b>" : "боец"] Элитного Отряда в подчинении \"Синдиката\". \nВаша миссия: <span class='userdanger'>[input]</span>"))
+			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<b>Лидер</b>" : "боец"] Элитного Отряда в подчинении \"Синдиката\". \nВаша миссия: [span_userdanger("[input]")]"))
 			new_syndicate_commando.faction += "syndicate"
 			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 			opshud.join_hud(new_syndicate_commando.mind.current)

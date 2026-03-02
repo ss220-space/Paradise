@@ -28,7 +28,7 @@
 
 /obj/item/gun/throw/crossbow/emp_act(severity)
 	if(cell && severity)
-		emp_act(severity)
+		cell.emp_act(severity)
 
 /obj/item/gun/throw/crossbow/update_icon_state()
 	if(!tension)
@@ -143,7 +143,7 @@
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
 	set name = "Регулировка натяжения"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -282,7 +282,7 @@
 		var/mob/living/carbon/human = A
 		human.fire_act()
 
-/obj/item/arrow/rod/fire/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+/obj/item/arrow/rod/fire/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	fire_up(user = null)
 

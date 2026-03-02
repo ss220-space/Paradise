@@ -21,6 +21,7 @@
 	icon = 'icons/obj/storage.dmi'
 	flags = BLOCKS_LIGHT
 	interaction_flags_click = ALLOW_RESTING | FORBID_TELEKINESIS_REACH
+	abstract_type = /obj/item/storage
 	/// No message on putting items in
 	var/silent = FALSE
 	/// List of objects which this item can store (if set, it can't store anything else)
@@ -186,7 +187,7 @@
 		L += F.contents
 	return L
 
-/obj/item/storage/proc/show_to(mob/user)
+/obj/item/storage/proc/show_to(mob/user, from_inv_observers = FALSE)
 	if(!user.client)
 		return
 	if(QDELETED(src))
@@ -214,13 +215,18 @@
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_mob_qdeleting), TRUE)
+
+	if(from_inv_observers)
+		return
+
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
-		show_to(observe)
+		show_to(observe, TRUE)
 
-/obj/item/storage/proc/hide_from(mob/user)
+/obj/item/storage/proc/hide_from(mob/user, from_inv_observers = FALSE)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
@@ -234,11 +240,20 @@
 	if(user.s_active == src)
 		user.s_active = null
 
+	UnregisterSignal(user, COMSIG_QDELETING)
+
+	if(from_inv_observers)
+		return
+
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
-		hide_from(observe)
+		hide_from(observe, TRUE)
+
+/obj/item/storage/proc/on_mob_qdeleting(mob/source, force)
+	SIGNAL_HANDLER
+	hide_from(source)
 
 /obj/item/storage/proc/hide_from_all_viewers()
 	if(!LAZYLEN(mobs_viewing))
@@ -612,12 +627,12 @@
 	if(length(can_hold))
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+				to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, span_warning("[capitalize(declent_ru(NOMINATIVE))] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
+			to_chat(usr, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] не подход[PLUR_IT_YAT(src)] для [W.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	if(W.w_class > max_w_class)
@@ -661,7 +676,7 @@
 			span_notice("[usr] начина[PLUR_ET_YUT(usr)] снимать [W.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете снимать [W.declent_ru(ACCUSATIVE)]."),
 		)
-		if(!do_after(usr, W.equip_delay_self, usr, max_interact_count = 1, cancel_on_max = TRUE))
+		if(!do_after(usr, W.equip_delay_self, usr, timed_action_flags = (DA_IGNORE_LYING|DA_IGNORE_USER_LOC_CHANGE), max_interact_count = 1, cancel_on_max = TRUE))
 			usr.balloon_alert(usr, "снятие прервано!")
 			return FALSE
 
@@ -836,18 +851,18 @@
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Режим сбора"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
 		if(TRUE)
-			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать все предметы с тайла за раз.")
+			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать все предметы с тайла за раз.")
 		if(FALSE)
-			to_chat(usr, "[capitalize(declent_ru(NOMINATIVE))] теперь будет собирать один предмет с тайла за раз")
+			to_chat(usr, "[DECLENT_RU_CAP(src, NOMINATIVE)] теперь будет собирать один предмет с тайла за раз")
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Выбросить содержимое"
-	set category = STATPANEL_OBJECT
+	set category = VERB_CATEGORY_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

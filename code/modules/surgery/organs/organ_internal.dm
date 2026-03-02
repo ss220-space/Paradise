@@ -129,6 +129,8 @@
 /obj/item/organ/internal/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 
 	switch(severity)
 		if(1)
@@ -185,15 +187,14 @@
 
 /obj/item/organ/internal/robotize(make_tough = FALSE)
 	if(!is_robotic())
-		var/list/states = icon_states('icons/obj/surgery.dmi') //Insensitive to specially-defined icon files for species like the Drask or whomever else. Everyone gets the same robotic heart.
-		if(slot == INTERNAL_ORGAN_HEART && ("[slot]-c-on" in states) && ("[slot]-c-off" in states)) //Give the robotic heart its robotic heart icons if they exist.
+		if(slot == INTERNAL_ORGAN_HEART && (icon_exists('icons/obj/surgery.dmi', "[slot]-c-on")) && (icon_exists('icons/obj/surgery.dmi', "[slot]-c-off"))) //Give the robotic heart its robotic heart icons if they exist.
 			var/obj/item/organ/internal/heart/H = src
 			H.icon = icon('icons/obj/surgery.dmi')
 			H.icon_base = "[slot]-c"
 			H.dead_icon = "[slot]-c-off"
 			H.update_icon()
 
-		else if("[slot]-c" in states) //Give the robotic organ its robotic organ icons if they exist.
+		else if(icon_exists('icons/obj/surgery.dmi', "[slot]-c")) //Give the robotic organ its robotic organ icons if they exist.
 			icon = icon('icons/obj/surgery.dmi')
 			icon_state = "[slot]-c"
 
@@ -282,7 +283,7 @@
 			repair_damage(1)
 
 		if(obj_integrity <= 0)
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] расслаивается и распадается на множество крошечных кусочков."))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] расслаивается и распадается на множество крошечных кусочков."))
 			qdel(src)
 
 //debug and adminbus....

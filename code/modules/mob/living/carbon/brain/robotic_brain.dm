@@ -24,6 +24,7 @@
 
 	dead_icon = "boris_blank"
 
+
 /obj/item/mmi/robotic_brain/syndicate
 	name = "suspicious robotic brain"
 	syndicate = 1
@@ -45,7 +46,8 @@
 
 /obj/item/mmi/robotic_brain/Destroy()
 	imprinted_master = null
-	return ..()
+	LAZYCLEARLIST(ghost_volunteers)
+	. = ..()
 
 /obj/item/mmi/robotic_brain/update_icon_state()
 	if(brainmob?.key)
@@ -94,7 +96,7 @@
 /obj/item/mmi/robotic_brain/proc/request_player()
 	for(var/mob/dead/observer/O in GLOB.player_list)
 		if(check_observer(O))
-			to_chat(O, span_boldnotice("[src] has been activated. (<a href='byond://?src=[O.UID()];jump=\ref[src]'>Teleport</a> | <a href='byond://?src=[UID()];signup=\ref[O]'>Sign Up</a>)"))
+			to_chat(O, span_boldnotice("[src] has been activated. (<a href='byond://?src=[O.UID()];jump=[src.UID()]'>Teleport</a> | <a href='byond://?src=[UID()];signup=[O.UID()]'>Sign Up</a>)"))
 
 /obj/item/mmi/robotic_brain/proc/check_observer(mob/dead/observer/O)
 	if(cannotPossess(O))
@@ -168,7 +170,7 @@
 
 /obj/item/mmi/robotic_brain/Topic(href, href_list)
 	if("signup" in href_list)
-		var/mob/dead/observer/O = locate(href_list["signup"])
+		var/mob/dead/observer/O = locateUID(href_list["signup"])
 		if(!O)
 			return
 		volunteer(O)

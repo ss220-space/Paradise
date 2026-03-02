@@ -1,4 +1,14 @@
 GLOBAL_LIST_INIT(map_transition_config, MAP_TRANSITION_CONFIG)
+#define CLEAR_RUST_CACHE \
+	log_world("Starting UUID clear", TRUE); \
+	var/uuid_start = world.timeofday; \
+	rustlib_clear_uuid_storage(); \
+	log_world("UUID clear took [world.timeofday - uuid_start]ms", TRUE); \
+	\
+	log_world("Starting icon cache clear", TRUE); \
+	var/icon_start = world.timeofday; \
+	rustlib_iconforge_cleanup_all(); \
+	log_world("Icon cache clear took [world.timeofday - icon_start]ms", TRUE); \
 
 #ifdef TEST_RUNNER
 GLOBAL_DATUM(test_runner, /datum/test_runner)
@@ -8,10 +18,6 @@ GLOBAL_DATUM(test_runner, /datum/test_runner)
 #ifdef USE_BYOND_TRACY
 	#warn USE_BYOND_TRACY is enabled
 	prof_init()
-#endif
-
-#ifndef OPENDREAM
-	dmjit_hook_main_init()
 #endif
 	// IMPORTANT
 	// If you do any SQL operations inside this proc, they must ***NOT*** be ran async. Otherwise players can join mid query
@@ -132,6 +138,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
 			to_chat(world, span_boldannounceooc("Rebooting world immediately due to host request"))
+		CLEAR_RUST_CACHE
 		rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 		// Now handle a reboot
 		if(config && CONFIG_GET(flag/shutdown_on_reboot))
@@ -167,6 +174,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 			C << link("byond://[CONFIG_GET(string/server)]")
 
 	// And begin the real shutdown
+	CLEAR_RUST_CACHE
 	rustg_log_close_all() // Past this point, no logging procs can be used, at risk of data loss.
 	if(config && CONFIG_GET(flag/shutdown_on_reboot))
 		sleep(0)
@@ -203,8 +211,8 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 
 	if(totalPlayersReady <= CONFIG_GET(number/auto_extended_players_num))
 		GLOB.master_mode = "extended"
-		to_chat(world, "<span class='boldnotice'>Due to the lowpop the mode has been changed.</span>")
-	to_chat(world, "<span class='boldnotice'>The mode is now: [GLOB.master_mode]</span>")
+		to_chat(world, span_boldnotice("Due to the lowpop the mode has been changed."))
+	to_chat(world, span_boldnotice("The mode is now: [GLOB.master_mode]"))
 
 /world/proc/load_motd()
 	GLOB.join_motd = file2text("config/motd.txt")
@@ -361,3 +369,5 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	maxz++
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
+
+#undef CLEAR_RUST_CACHE

@@ -62,25 +62,25 @@
 /datum/action/innate/elite_attack/tentacle_patch
 	name = "Поле из щупалец"
 	button_icon_state = "tentacle_patch"
-	chosen_message = span_boldwarning("Теперь вы атакуете щупальцами!")
+	chosen_message = span_boldwarning_alt("Теперь вы атакуете щупальцами!")
 	chosen_attack_num = TENTACLE_PATCH
 
 /datum/action/innate/elite_attack/spawn_children
 	name = "Выпуск выводка"
 	button_icon_state = "spawn_children"
-	chosen_message = span_boldwarning("Вы создаёте двух детёнышей для помощи в бою. Максимум – .")
+	chosen_message = span_boldwarning_alt("Вы создаёте двух детёнышей для помощи в бою. Максимум – .")
 	chosen_attack_num = SPAWN_CHILDREN
 
 /datum/action/innate/elite_attack/rage
 	name = "Бешенство"
 	button_icon_state = "rage"
-	chosen_message = span_boldwarning("Вы временно увеличиваете скорость передвижения.")
+	chosen_message = span_boldwarning_alt("Вы временно увеличиваете скорость передвижения.")
 	chosen_attack_num = RAGE
 
 /datum/action/innate/elite_attack/call_children
 	name = "Зов"
 	button_icon_state = "call_children"
-	chosen_message = span_boldwarning("Вы призываете своих детёнышей к себе.")
+	chosen_message = span_boldwarning_alt("Вы призываете своих детёнышей к себе.")
 	chosen_attack_num = CALL_CHILDREN
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/Destroy()
@@ -134,7 +134,7 @@
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] зарывает свои щупальца под [target]!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] зарывает свои щупальца под [target]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(tturf, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/spawn_children(target)
@@ -156,7 +156,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/rage()
 	ranged_cooldown = world.time + 10 SECONDS * revive_multiplier()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает набирать скорость!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает набирать скорость!"))
 	color = "#FF0000"
 	set_varspeed(0)
 	move_to_delay = 3
@@ -182,7 +182,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/AltShiftClickOn(atom/A)
 	if(isliving(A))
 		var/mob/living/mob = A
-		var/mobref = "\ref[mob]"
+		var/mobref = PERSONAL_FACTION(mob)
 		if(mob == reviver)
 			return
 		if(mobref in faction)
@@ -246,7 +246,7 @@
 	. = ..()
 	if(!QDELETED(mother))
 		mother.children_list -= src
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"))
 	explosion(src, flame_range = 3, adminlog = FALSE)
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
@@ -268,7 +268,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опутывает щупальцами [L.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] опутывает щупальцами [L.declent_ru(ACCUSATIVE)]!"))
 		L.Stun(stun_duration)
 		L.adjustBruteLoss(damage)
 		latched = TRUE

@@ -33,7 +33,7 @@
 	var/data[0]
 	data["occupant"] = (occupant ? occupant.name : null) // a null occupant isn't passed on if this is below the if.
 	if(occupant)
-		data["reference"] = "\ref[occupant]"
+		data["reference"] = occupant.UID()
 		data["integrity"] = (occupant.health+100)/2
 		data["stat"] = occupant.stat
 		data["active"] = active

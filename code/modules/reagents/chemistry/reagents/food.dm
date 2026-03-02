@@ -242,7 +242,7 @@
 	description = "Именно это делает чили острым."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = span_warning("ОСТРОТЫ")
+	taste_description = span_warning_alt("ОСТРОТЫ")
 	taste_mult = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
@@ -279,7 +279,7 @@
 	description = "Ещё острее."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = span_userdanger("НЕРЕАЛЬНОЙ ОСТРОТЫ")
+	taste_description = span_userdanger_alt("НЕРЕАЛЬНОЙ ОСТРОТЫ")
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)
@@ -524,13 +524,7 @@
 		return
 	if(volume >= 3)
 		T.MakeSlippery(TURF_WET_WATER, 80 SECONDS)
-	var/hotspot = (locate(/obj/effect/hotspot) in T)
-	if(hotspot)
-		var/datum/gas_mixture/lowertemp = T.remove_air( T.air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000, lowertemp.temperature / 2), TCMB)
-		lowertemp.react()
-		T.assume_air(lowertemp)
-		qdel(hotspot)
+	T.quench(1000, 2)
 
 /datum/reagent/consumable/cornoil/oliveoil
 	name = "Оливковое масло"

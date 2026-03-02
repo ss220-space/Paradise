@@ -86,6 +86,7 @@
 		/obj/item/poster/random_contraband = 10,
 		/obj/item/crowbar = 10,
 		/obj/item/crowbar/red = 10,
+		/obj/item/crowbar/small = 10,
 		/obj/item/restraints/handcuffs/toy = 5,
 		/obj/item/extinguisher = 90,
 		/obj/item/storage/box/fakesyndiesuit = 3,
@@ -116,7 +117,7 @@
 		/obj/item/ammo_box/magazine/internal/cylinder/improvised/steel = 2,
 		/obj/item/weaponcrafting/receiver = 2,
 		/obj/item/clothing/gloves/knuckles = 1,
-		/obj/item/clothing/shoes/brown = 30,
+		/obj/item/clothing/shoes/color/brown = 30,
 		/obj/item/seeds/ambrosia/deus = 10,
 		/obj/item/seeds/ambrosia = 20,
 		/obj/item/clothing/under/color/black = 30,
@@ -124,6 +125,9 @@
 		/obj/item/storage/bag/plasticbag = 20,
 		/obj/item/caution = 10,
 		/obj/item/clothing/head/helmet/biker = 2,
+		/obj/item/mod/construction/broken_core = 4,
+		/obj/effect/spawner/random_spawners/mod/maint = 10,
+		/obj/item/tripod/camera = 15,
 		////////////////CONTRABAND STUFF//////////////////
 		/obj/item/grenade/clown_grenade = 3,
 		/obj/item/seeds/ambrosia/cruciatus = 3,
@@ -152,7 +156,7 @@
 		/obj/item/storage/pill_bottle/fakedeath = 2,
 		/obj/item/storage/box/syndie_kit/mr_chang_technique = 1,
 		/obj/item/clothing/glasses/chameleon/meson = 7,
-		"" = 61,
+		"" = 70,
 	)
 
 /obj/effect/spawner/lootdrop/maintenance/double
@@ -293,6 +297,7 @@
 		/obj/item/assembly/signaler/core/gravitational/tier2 = 50,
 		/obj/item/assembly/signaler/core/atmospheric/tier2 = 50,
 		/obj/item/t_scanner/science = 50,
+		/obj/item/mod/construction/plating/research = 25,
 		/obj/item/t_scanner/experimental = 5,
 	)
 
@@ -321,6 +326,7 @@
 		/obj/item/reagent_containers/glass/bottle/reagent/strange_reagent = 50,
 		/obj/item/reagent_containers/glass/bottle/tuberculosiscure = 50,
 		/obj/item/reagent_containers/glass/bottle/gbs = 50,
+		/obj/item/mod/construction/plating/rescue = 25,
 		/obj/item/bodyanalyzer/advanced = 50,
 	)
 
@@ -347,6 +353,9 @@
 		/obj/item/ammo_box/speedloader/shotgun/buck = 100,
 		/obj/item/grenade/clusterbuster = 100,
 		/obj/item/grenade/clusterbuster/teargas = 50,
+		/obj/item/mod/construction/plating/safeguard_mk_one = 25,
+		/obj/item/mod/construction/plating/safeguard_mk_two = 25,
+		/obj/item/mod/module/power_kick = 50,
 		/obj/item/grenade/clusterbuster/n2o = 50,
 	)
 
@@ -368,6 +377,7 @@
 		/obj/item/crowbar/power = 50,
 		/obj/item/screwdriver/power = 50,
 		/obj/item/t_scanner/advanced = 50,
+		/obj/item/mod/construction/plating/advanced = 25,
 		/obj/item/borg/upgrade/abductor_engi = 50,
 	)
 

@@ -402,7 +402,7 @@
 	if(blocked >= 100)
 		return .
 	do_sparks(3, TRUE, target)
-	target.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
+	target.visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] взрывается!"))
 	playsound(target, 'sound/effects/snap.ogg', 50, TRUE)
 	if(isturf(target.loc) && !target.loc.density)
 		new /obj/effect/decal/cleanable/ash(target.loc)
@@ -520,10 +520,16 @@
 		forcedodge = 0
 
 /obj/projectile/plasma/adv
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/adv
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/adv
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/adv
 	damage = 7
 	range = 5
 
 /obj/projectile/plasma/adv/mega
+	muzzle_type = /obj/effect/projectile/muzzle/plasma_cutter/mega
+	tracer_type = /obj/effect/projectile/tracer/plasma_cutter/mega
+	impact_type = /obj/effect/projectile/impact/plasma_cutter/mega
 	icon_state = "plasmacutter_mega"
 	hitscan_light_color_override = COLOR_FIRE_LIGHT_RED
 	muzzle_flash_color_override = COLOR_FIRE_LIGHT_RED

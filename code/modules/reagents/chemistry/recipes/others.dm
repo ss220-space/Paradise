@@ -654,6 +654,26 @@
 	mix_message = "Water pools as the ice melts."
 	mix_sound = null
 
+/datum/chemical_reaction/water_vapor
+	name = "Water Evaporation"
+	id = "water_evaporation"
+	result = null
+	required_reagents = list("water" = 1)
+	result_amount = 1
+	min_temp = T100C
+	mix_message = "Вода стремительно испаряется."
+	mix_sound = null
+
+/datum/chemical_reaction/water_vapor/on_reaction(datum/reagents/holder, created_volume)
+	var/turf/location = get_turf(holder.my_atom)
+	if(!istype(location))
+		return
+
+	var/datum/gas_mixture/vapor = new()
+	vapor.set_water_vapor(created_volume)
+	vapor.set_temperature(T100C)
+	location.blind_release_air(vapor)
+
 /datum/chemical_reaction/virus_food
 	name = "Virus Food"
 	id = "virusfood"

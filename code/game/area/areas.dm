@@ -4,11 +4,7 @@
  * A grouping of tiles into a logical space, mostly used by map editors
  */
 /area
-	var/fire = null
-	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
-	var/atmosalm = ATMOS_ALARM_NONE
-	var/poweralm = TRUE
-	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
+	abstract_type = /area
 	level = null
 	name = "Space"
 	icon = 'icons/area/areas.dmi'
@@ -17,6 +13,12 @@
 	plane = AREA_PLANE //Keeping this on the default plane, GAME_PLANE, will make area overlays fail to render on FLOOR_PLANE.
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_LIGHTING
+
+	var/fire = null
+	var/area_emergency_mode = FALSE // When true, fire alarms cannot unset emergency lighting. Not to be confused with emergency_mode var on light objects.
+	var/atmosalm = ATMOS_ALARM_NONE
+	var/poweralm = TRUE
+	var/report_alerts = TRUE // Should atmos alerts notify the AI/computers
 
 	/// List of all turfs currently inside this area as nested lists indexed by zlevel.
 	/// Acts as a filtered bersion of area.contents For faster lookup
@@ -109,8 +111,8 @@
 	/// Whether the turfs in the area should be drawn onto the "base" holomap.
 	var/holomap_should_draw = TRUE
 
-	//all air alarms in area are connected via magic
-	var/obj/machinery/alarm/master_air_alarm
+	/// The air alarms present in this area.
+	var/list/air_alarms = list()
 	var/list/air_vent_names = list()
 	var/list/air_scrub_names = list()
 	var/list/air_vent_info = list()

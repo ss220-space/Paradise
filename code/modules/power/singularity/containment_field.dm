@@ -14,6 +14,7 @@
 
 /obj/machinery/field/containment/Initialize(mapload)
 	. = ..()
+	ADD_TRAIT(src, TRAIT_SUPERMATTER_IMMUNE, INNATE_TRAIT)
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)

@@ -46,7 +46,7 @@
 /obj/machinery/ninja_clonepod/proc/revive_ninja(datum/dna2/record/ninja_dna_record)
 	if(attempting)
 		return FALSE
-	clonemind = locate(ninja_dna_record.mind)
+	clonemind = ninja_dna_record.mind.resolve()
 	if(!istype(clonemind))	//not a mind
 		return FALSE
 	if(clonemind.current && clonemind.current.stat != DEAD)	//mind is associated with a non-dead body
@@ -167,10 +167,10 @@
 	if(!imp)
 		imp = new /obj/item/implant/health(subject)
 		imp.implant(subject)
-	ninja_dna_record.implant = "\ref[imp]"
+	ninja_dna_record.implant = imp.UID()
 
 	if(!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
-		ninja_dna_record.mind = "\ref[subject.mind]"
+		ninja_dna_record.mind = WEAKREF(subject.mind)
 
 	records += ninja_dna_record
 

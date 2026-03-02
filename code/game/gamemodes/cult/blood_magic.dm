@@ -893,10 +893,11 @@
 	if(T)
 		for(var/obj/effect/decal/cleanable/blood/B in view(T, 2))
 			if(B.blood_state == BLOOD_STATE_HUMAN && (B.can_bloodcrawl_in() || istype(B, /obj/effect/decal/cleanable/blood/slime) || istype(B, /obj/effect/decal/cleanable/blood/drask)))
-				if(B.bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
+				var/bloodiness = B.bloodiness
+				if(bloodiness == 100) //Bonus for "pristine" bloodpools, also to prevent cheese with footprint spam
 					temp += 30
 				else
-					temp += max((B.bloodiness ** 2) / 800, 1)
+					temp += max(POW2(bloodiness) / 800, 1)
 				new /obj/effect/temp_visual/cult/turf/open/floor(get_turf(B))
 				qdel(B)
 		for(var/obj/effect/decal/cleanable/trail_holder/TH in view(T, 2))

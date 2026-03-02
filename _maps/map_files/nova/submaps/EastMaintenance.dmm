@@ -512,12 +512,6 @@
 	},
 /turf/simulated/floor/wood,
 /area/maintenance/abandonedoffices)
-"fR" = (
-/obj/machinery/vending/chinese/free{
-	pixel_y = 0
-	},
-/turf/simulated/floor/plating,
-/area/maintenance/abandonedoffices)
 "fW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/autodrobe,
@@ -2306,6 +2300,12 @@
 	icon_state = "tranquillite"
 	},
 /area/maintenance/backstage)
+"Ac" = (
+/obj/machinery/vending/chinese{
+	pixel_y = 0
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/abandonedoffices)
 "Ad" = (
 /obj/effect/turf_decal/siding/blue,
 /turf/simulated/floor/carpet/black,
@@ -2801,6 +2801,14 @@
 /obj/structure/closet/crate/secure/loot,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"EV" = (
+/obj/item/radio/intercom/directional/east,
+/obj/structure/bed,
+/obj/item/bedsheet/captain{
+	name = "Blueshield's bedsheet."
+	},
+/turf/simulated/floor/carpet/royalblue,
+/area/blueshield)
 "Fb" = (
 /turf/template_noop,
 /area/template_noop)
@@ -3517,6 +3525,13 @@
 /obj/effect/spawner/random_spawners/blood_5,
 /turf/simulated/floor/plating,
 /area/maintenance/fore2)
+"LV" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/machinery/light_switch/directional/east,
+/turf/simulated/floor/wood,
+/area/maintenance/backstage)
 "LY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -3937,13 +3952,6 @@
 	},
 /turf/simulated/floor/carpet/royalblue,
 /area/blueshield)
-"Ri" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/machinery/light_switch/directional/east,
-/turf/simulated/floor/wood,
-/area/maintenance/backstage)
 "Rn" = (
 /obj/structure/window/plasmareinforced{
 	color = "#22aab7";
@@ -4039,14 +4047,6 @@
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plating,
 /area/maintenance/abandonedoffices)
-"Sp" = (
-/obj/item/radio/intercom/directional/east,
-/obj/structure/bed,
-/obj/item/bedsheet/captain{
-	name = "Blueshield's bedsheet."
-	},
-/turf/simulated/floor/carpet/royalblue,
-/area/blueshield)
 "Sr" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -7170,7 +7170,7 @@ Fb
 Fb
 KM
 FD
-Sp
+EV
 Nx
 Jp
 Sz
@@ -7194,7 +7194,7 @@ Fb
 Fb
 KM
 FD
-Sp
+EV
 Nx
 gT
 PQ
@@ -7248,7 +7248,7 @@ Nx
 Nx
 Ft
 Ft
-fR
+Ac
 tj
 Fj
 Jn
@@ -7612,7 +7612,7 @@ Fb
 Fb
 wb
 QE
-Ri
+LV
 Su
 Ft
 iy
@@ -7636,7 +7636,7 @@ Fb
 Fb
 wb
 QE
-Ri
+LV
 Su
 Ft
 iy

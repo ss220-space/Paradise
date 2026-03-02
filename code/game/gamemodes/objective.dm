@@ -213,6 +213,37 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	return TRUE
 
+/datum/objective/punish
+	name = "Punish"
+	antag_menu_name = "Наказать"
+
+/datum/objective/punish/find_target(list/target_blacklist)
+	. = ..()
+
+	if(!target?.current)
+		return
+
+	explanation_text = "[capitalize(target.current.real_name)], [target.assigned_role], очень плохо себя вел в этом году. Его нужно наказать. Избейте его до невозможности сопротивляться и поместите в мешок."
+
+	if(target in SSticker.mode.victims)
+		return
+
+	SSticker.mode.victims.Add(target)
+
+/datum/objective/punish/check_completion()
+	. = ..()
+	var/mob/living/carbon/true_devil/krampus/krampus = owner.current
+
+	if(!istype(krampus))
+		return
+
+	for(var/mob/mob as anything in krampus.bag_content)
+		if(mob.mind != target)
+			continue
+		return TRUE
+
+	return FALSE
+
 /datum/objective/mutiny
 	name = "Mutiny"
 	antag_menu_name = "Мятеж"
@@ -1705,3 +1736,15 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	name = "Геноцид разумной жизни"
 	needs_target = FALSE
 	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"
+
+/datum/objective/serve
+	name = "Служить"
+	antag_menu_name = "Служить"
+	explanation_text = "Вы должны служить... Кому-то..."
+	var/mob/living/serve_to
+
+/datum/objective/serve/New(mob/living/target_to_serve)
+	if(!istype(target_to_serve))
+		return
+	serve_to = target_to_serve
+	explanation_text = "Вы слуга [serve_to.real_name]. Вы должны сделать всё, что в ваших силах, чтобы выполнить [GEND_HIS_HER(serve_to)] приказы."

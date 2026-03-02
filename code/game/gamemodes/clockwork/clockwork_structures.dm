@@ -18,7 +18,7 @@
 /obj/structure/clockwork/functional
 	max_integrity = 100
 	var/cooldowntime = 0
-	var/death_message = span_danger("The structure falls apart.")
+	var/death_message = span_danger_alt("The structure falls apart.")
 	var/death_sound = 'sound/effects/forge_destroy.ogg'
 	var/canbehidden = FALSE
 	var/hidden = FALSE
@@ -130,7 +130,7 @@
 	desc = "An imposing spire formed of brass. It somewhat pulsates."
 	icon_state = "beacon"
 	max_integrity = 250 // A very important one
-	death_message = span_danger("The beacon crumbles and falls in parts to the ground relaesing it's power!")
+	death_message = span_danger_alt("The beacon crumbles and falls in parts to the ground relaesing it's power!")
 	death_sound = 'sound/effects/creepyshriek.ogg'
 	var/heal_delay = 6 SECONDS
 	var/last_heal = 0
@@ -199,7 +199,7 @@
 	desc = "A strange brass platform with spinning cogs inside. It demands something in exchange for goods..."
 	icon_state = "altar"
 	density = FALSE
-	death_message = span_danger("The credence breaks in pieces as it dusts into nothing!")
+	death_message = span_danger_alt("The credence breaks in pieces as it dusts into nothing!")
 	canbehidden = TRUE
 	choosable_items = list(
 		"potted plant" = /obj/item/twohanded/required/kirbyplants,
@@ -384,9 +384,9 @@
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
-		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар.",
-										ANNOUNCE_CCPARANORMAL_RU,
-										'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.announce("Был обнаружен аномально высокий выброс энергии. Вероятно появление неизвестного блюспейс-артефакта. Сканирование показывает, что артефакт принадлежит потустороннему божеству, известному как Ратвар. Служба безопасности получает право свободно применять летальную силу для уничтожения угрозы. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.",
+			ANNOUNCE_CCPARANORMAL_RU,
+			'sound/AI/commandreport.ogg')
 		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual(user)
@@ -440,7 +440,7 @@
 	name = "cogscarab fabricator"
 	desc = "House for a tons of little cogscarabs, self-producing and maintaining itself."
 	icon_state = "fabricator"
-	death_message = span_danger("Fabricator crumbles and dusts, leaving nothing behind!")
+	death_message = span_danger_alt("Fabricator crumbles and dusts, leaving nothing behind!")
 	var/list/cogscarab_list = list()
 	canbehidden = TRUE
 	var/cog_slots = 0

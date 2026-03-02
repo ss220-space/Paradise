@@ -67,16 +67,18 @@
 
 	viewer_client?.images += balloon_alert
 
-	for(var/mob/dead/observer/observe in viewer.inventory_observers)
+	var/list/inventory_observers = viewer.inventory_observers
+
+	for(var/mob/dead/observer/observe in inventory_observers)
 		if(!observe.client)
-			LAZYREMOVE(viewer, observe)
+			LAZYREMOVE(inventory_observers, observe)
 			continue
 		observe.client.images += balloon_alert
 
 	var/length_mult = 1 + max(0, length(strip_html_properly(text)) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN) * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 	animate(
 		balloon_alert,
-		pixel_y = ICON_SIZE_Y * 1.2,
+		pixel_z = ICON_SIZE_Y * 1.2,
 		time = BALLOON_TEXT_TOTAL_LIFETIME(length_mult),
 		easing = SINE_EASING | EASE_OUT,
 	)

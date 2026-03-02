@@ -14,6 +14,7 @@ GLOBAL_LIST_INIT(huds, list( \
 	DATA_HUD_DIAGNOSTIC = new/datum/atom_hud/data/diagnostic(), \
 	DATA_HUD_DIAGNOSTIC_ADVANCED = new/datum/atom_hud/data/diagnostic/advanced(), \
 	DATA_HUD_HYDROPONIC = new/datum/atom_hud/data/hydroponic(), \
+	DATA_HUD_PRESSURE = new/datum/atom_hud/data/pressure(), \
 	ANTAG_HUD_CULT = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_CLOCK = new/datum/atom_hud/antag(), \
 	ANTAG_HUD_REV = new/datum/atom_hud/antag(), \
@@ -80,6 +81,9 @@ GLOBAL_LIST_INIT(huds, list( \
 	for(var/z_level in 1 to world.maxz)
 		hud_atoms += list(list())
 		hud_users += list(list())
+
+	if(LAZYLEN(hud_icons))
+		hud_icons = string_list(hud_icons)
 
 	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_Z, PROC_REF(add_z_level_huds))
 
@@ -248,6 +252,9 @@ GLOBAL_LIST_INIT(huds, list( \
 
 	var/turf/atom_turf = get_turf(hud_atom_to_remove)
 	if(!atom_turf)
+		for(var/z, list in hud_atoms)
+			var/list/huds_list = list
+			LAZYREMOVE(huds_list, hud_atom_to_remove)
 		return TRUE
 
 	hud_atoms[atom_turf.z] -= hud_atom_to_remove

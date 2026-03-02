@@ -1,6 +1,7 @@
 /mob/living/simple_animal/hostile/megafauna
 	name = "megafauna"
 	desc = "Атакуйте слабое место для нанесения массивного урона."
+	abstract_type = /mob/living/simple_animal/hostile/megafauna
 	health = 1000
 	maxHealth = 1000
 	sentience_type = SENTIENCE_BOSS
@@ -60,6 +61,8 @@
 	. = ..()
 	if(internal_type && true_spawn)
 		internal = new internal_type(src)
+	if(islist(crusher_loot))
+		crusher_loot = string_list(crusher_loot)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)
@@ -141,7 +144,7 @@
 	if(!L)
 		return FALSE
 	visible_message(
-		span_danger("[capitalize(declent_ru(NOMINATIVE))] пожирает [L.declent_ru(ACCUSATIVE)]!"),
+		span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] пожирает [L.declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы пожираете [L.declent_ru(ACCUSATIVE)], восстанавливая своё здоровье!")
 	)
 	if(!is_station_level(z) || client) //NPC monsters won't heal while on station

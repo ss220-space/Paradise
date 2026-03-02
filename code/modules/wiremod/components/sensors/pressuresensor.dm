@@ -14,6 +14,10 @@
 	/// The result from the output
 	var/datum/port/output/result
 
+/obj/item/circuit_component/pressuresensor/Destroy()
+	result = null
+	. = ..()
+
 /obj/item/circuit_component/pressuresensor/populate_ports()
 	result = add_output_port("Результат", PORT_TYPE_NUMBER)
 
@@ -24,7 +28,7 @@
 		result.set_output(null)
 		return
 	//Get environment info
-	var/datum/gas_mixture/environment = location.return_air()
+	var/datum/gas_mixture/environment = location.get_readonly_air()
 	var/total_moles = environment.total_moles()
 	var/pressure = environment.return_pressure()
 	if(total_moles)

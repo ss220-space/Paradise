@@ -104,7 +104,7 @@
 /datum/outfit/oldstation/medic
 	name = "Old station medic"
 	uniform = /obj/item/clothing/under/retro/medical
-	shoes = /obj/item/clothing/shoes/black
+	shoes = /obj/item/clothing/shoes/color/black
 	id = /obj/item/card/id/away/old/med
 	l_pocket = /obj/item/stack/medical/ointment
 	r_pocket = /obj/item/stack/medical/ointment

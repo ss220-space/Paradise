@@ -54,7 +54,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(obj/projectile/P)
 	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
-		visible_message(span_danger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепкой шкуры [declent_ru(GENITIVE)]!"), span_userdanger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепой шкуры [declent_ru(GENITIVE)]!"), projectile_message = TRUE)
+		visible_message(span_danger("[DECLENT_RU_CAP(P, NOMINATIVE)] отскакивает от крепкой шкуры [declent_ru(GENITIVE)]!"), span_userdanger("[DECLENT_RU_CAP(P, NOMINATIVE)] отскакивает от крепой шкуры [declent_ru(GENITIVE)]!"), projectile_message = TRUE)
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
 		return -1 // complete projectile permutation
@@ -120,7 +120,7 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/melee_attack(list/dirs)
 	if(!islist(dirs))
 		dirs = GLOB.alldirs.Copy()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выпускает щупальца из-под земли вокруг себя!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выпускает щупальца из-под земли вокруг себя!"))
 	for(var/d in dirs)
 		var/turf/E = get_step(src, d)
 		new /obj/effect/temp_visual/goliath_tentacle(E, src)
@@ -128,7 +128,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/ranged_attack()
 	var/tturf = get_turf(target)
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] опутывает щупальцами [target.declent_ru(ACCUSATIVE)]!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] опутывает щупальцами [target.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	if(stat == DEAD)
@@ -340,7 +340,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] захватывает [L.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] захватывает [L.declent_ru(ACCUSATIVE)]!"))
 		if(!L.IsStunned())
 			L.Stun(10 SECONDS)
 			L.adjustBruteLoss(rand(10, 15))

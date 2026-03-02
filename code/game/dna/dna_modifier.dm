@@ -17,8 +17,13 @@
 	var/id = null
 	var/implant = null
 	var/ckey = null
-	var/mind = null
+	var/datum/weakref/mind = null
 	var/languages = null
+
+/datum/dna2/record/Destroy(force)
+	dna = null
+	mind = null
+	. = ..()
 
 /datum/dna2/record/proc/GetData()
 	var/list/ser=list("data" = null, "owner" = null, "label" = null, "type" = null, "ue" = 0)
@@ -649,9 +654,11 @@
 
 			irradiating = 0
 			connected.locked = lock_state
+			
+			var/precision_coeff = connected.precision_coeff
 
 			if(connected.occupant)
-				if(prob((80 + ((radiation_duration / 2) + (connected.precision_coeff ** 3)))))
+				if(prob((80 + ((radiation_duration / 2) + POW3(precision_coeff)))))
 					var/radiation = ((radiation_intensity + radiation_duration) / connected.damage_coeff)
 					connected.occupant.apply_effect(radiation, IRRADIATE, 0)
 

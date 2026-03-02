@@ -1077,6 +1077,7 @@
 
 	maxHealth = dna.species.total_health
 	max_stamina = dna.species.total_stamina
+	max_radiation = dna.species.max_radiation
 
 	if(dna.species.language)
 		add_language(dna.species.language)
@@ -1283,7 +1284,7 @@
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Рисовать кровью"
 	set desc = "Используйте кровь на ваших руках, чтобы рисовать ею на полу и на стенах."
 
@@ -1839,14 +1840,15 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/obj/item/organ/external/chest/self_chest = get_organ(BODY_ZONE_CHEST)
 	if(!self_chest || !istype(self_chest))
 		return
-	if(brains.original_body == self_chest)
+	var/body = brains.original_body?.resolve()
+	if(body == self_chest)
 		return
-	if(brains.original_body)
+	if(body)
 		//this is not original body for brain, apply brain transplantation disease
 		var/datum/disease/brain_transplant_syndrome/disease = new
 		disease.Contract(src)
 	//now this body are original for brain
-	brains.original_body = self_chest
+	brains.original_body = WEAKREF(self_chest)
 
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100
@@ -1899,14 +1901,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/verb/pose()
 	set name = "Задать позу"
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	pose = tgui_input_text(usr, "Это [declent_ru(NOMINATIVE)]. [capitalize(GEND_HE_SHE(src))]...", "Выбор позы", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
 	set name = "Описание внешности"
 	set desc = "Устанавливает подробное описание внешности вашего персонажа."
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 
 	update_flavor_text()
 
@@ -2010,3 +2012,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/monkeybrain
 	ai_controller = /datum/ai_controller/monkey
+
+/mob/living/carbon/human/compressor_grind()
+	dna.species.compressor_grind(loc)

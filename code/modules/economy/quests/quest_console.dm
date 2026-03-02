@@ -44,7 +44,7 @@
 /obj/machinery/computer/supplyquest/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "QuestConsole", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "QuestConsole", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 #define BASE_HIGHTECH_COST 40000
@@ -111,7 +111,7 @@
 	return data
 
 /obj/machinery/computer/supplyquest/ui_assets(mob/user)
-	return list(get_asset_datum(/datum/asset/spritesheet/cargo_quest))
+	return list(get_asset_datum(/datum/asset/spritesheet_batched/cargo_quest))
 
 /obj/machinery/computer/supplyquest/ui_act(action, list/params)
 	if(..())
@@ -368,7 +368,9 @@
 	integrated_console.parent = src
 
 /obj/item/qm_quest_tablet/Destroy()
-	QDEL_NULL(integrated_console)
+	if(integrated_console)
+		integrated_console.parent = null
+		QDEL_NULL(integrated_console)
 	return ..()
 
 /obj/item/qm_quest_tablet/attack_self(mob/user as mob)

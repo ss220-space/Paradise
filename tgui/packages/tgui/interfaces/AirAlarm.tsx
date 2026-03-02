@@ -45,8 +45,10 @@ type Danger = {
   pressure: number;
   oxygen: number;
   nitrogen: number;
-  co2: number;
-  n2o: number;
+  carbon_dioxide: number;
+  nitrous_oxide: number;
+  hydrogen: number;
+  water_vapor: number;
   plasma: number;
   other: number;
   temperature: number;
@@ -55,8 +57,10 @@ type Danger = {
 type AirContent = {
   oxygen: number;
   nitrogen: number;
-  co2: number;
-  n2o: number;
+  carbon_dioxide: number;
+  nitrous_oxide: number;
+  hydrogen: number;
+  water_vapor: number;
   plasma: number;
   other: number;
 };
@@ -81,6 +85,8 @@ type Scrubber = {
   filter_toxins: boolean;
   filter_o2: boolean;
   filter_n2: boolean;
+  filter_h2: boolean;
+  filter_h2o: boolean;
 } & AtmosMachine;
 
 type Mode = {
@@ -195,9 +201,9 @@ const AirStatus = (_props: unknown) => {
           </LabeledList.Item>
           <LabeledList.Item label="Carbon Dioxide">
             <ProgressBar
-              value={air.contents.co2 / 100}
+              value={air.contents.carbon_dioxide / 100}
               fractionDigits={1}
-              color={Danger2Colour(air.danger.co2)}
+              color={Danger2Colour(air.danger.carbon_dioxide)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Toxins">
@@ -207,12 +213,30 @@ const AirStatus = (_props: unknown) => {
               color={Danger2Colour(air.danger.plasma)}
             />
           </LabeledList.Item>
-          {air.contents.n2o > 0.1 && (
+          {air.contents.nitrous_oxide > 0.1 && (
             <LabeledList.Item label="Nitrous Oxide">
               <ProgressBar
-                value={air.contents.n2o / 100}
+                value={air.contents.nitrous_oxide / 100}
                 fractionDigits={1}
-                color={Danger2Colour(air.danger.n2o)}
+                color={Danger2Colour(air.danger.nitrous_oxide)}
+              />
+            </LabeledList.Item>
+          )}
+          {air.contents.hydrogen > 0.1 && (
+            <LabeledList.Item label="Hydrogen">
+              <ProgressBar
+                value={air.contents.hydrogen / 100}
+                fractionDigits={1}
+                color={Danger2Colour(air.danger.hydrogen)}
+              />
+            </LabeledList.Item>
+          )}
+          {air.contents.water_vapor > 0.1 && (
+            <LabeledList.Item label="Water Vapor">
+              <ProgressBar
+                value={air.contents.water_vapor / 100}
+                fractionDigits={1}
+                color={Danger2Colour(air.danger.water_vapor)}
               />
             </LabeledList.Item>
           )}
@@ -474,7 +498,7 @@ const AirAlarmScrubbersView = (props: unknown) => {
             selected={s.filter_co2}
             onClick={() =>
               act('command', {
-                cmd: 'co2_scrub',
+                cmd: 'scrub_co2',
                 val: !s.filter_co2 ? 1 : 0,
                 id_tag: s.id_tag,
               })
@@ -486,7 +510,7 @@ const AirAlarmScrubbersView = (props: unknown) => {
             selected={s.filter_toxins}
             onClick={() =>
               act('command', {
-                cmd: 'tox_scrub',
+                cmd: 'scrub_toxins',
                 val: !s.filter_toxins ? 1 : 0,
                 id_tag: s.id_tag,
               })
@@ -498,7 +522,7 @@ const AirAlarmScrubbersView = (props: unknown) => {
             selected={s.filter_n2o}
             onClick={() =>
               act('command', {
-                cmd: 'n2o_scrub',
+                cmd: 'scrub_n2o',
                 val: !s.filter_n2o ? 1 : 0,
                 id_tag: s.id_tag,
               })
@@ -510,7 +534,7 @@ const AirAlarmScrubbersView = (props: unknown) => {
             selected={s.filter_o2}
             onClick={() =>
               act('command', {
-                cmd: 'o2_scrub',
+                cmd: 'scrub_o2',
                 val: !s.filter_o2 ? 1 : 0,
                 id_tag: s.id_tag,
               })
@@ -522,13 +546,38 @@ const AirAlarmScrubbersView = (props: unknown) => {
             selected={s.filter_n2}
             onClick={() =>
               act('command', {
-                cmd: 'n2_scrub',
+                cmd: 'scrub_n2',
                 val: !s.filter_n2 ? 1 : 0,
                 id_tag: s.id_tag,
               })
             }
           >
             Nitrogen
+          </Button>
+          <Button
+            selected={s.filter_h2}
+            onClick={() =>
+              act('command', {
+                cmd: 'scrub_h2',
+                val: !s.filter_h2,
+                id_tag: s.id_tag,
+              })
+            }
+          >
+            Hydrogen
+          </Button>
+
+          <Button
+            selected={s.filter_h2o}
+            onClick={() =>
+              act('command', {
+                cmd: 'scrub_h2o',
+                val: !s.filter_h2o,
+                id_tag: s.id_tag,
+              })
+            }
+          >
+            Water Vapor
           </Button>
         </LabeledList.Item>
       </LabeledList>
@@ -548,9 +597,10 @@ const AirAlarmModesView = (props: unknown) => {
             borderSpacing: '0 1px',
           }}
         >
-          {modes.map(
-            (m) =>
-              (!m.emagonly || (m.emagonly && !!emagged)) && (
+          {Object.keys(modes).map((key) => {
+            let m = modes[key];
+            if (!m.emagonly || !!emagged) {
+              return (
                 <Table.Row key={m.name}>
                   <Table.Cell textAlign="right" width={1}>
                     <Button
@@ -563,8 +613,9 @@ const AirAlarmModesView = (props: unknown) => {
                   </Table.Cell>
                   <Table.Cell>{m.desc}</Table.Cell>
                 </Table.Row>
-              )
-          )}
+              );
+            }
+          })}
         </Table>
       </Section>
       <Section title="System Presets">

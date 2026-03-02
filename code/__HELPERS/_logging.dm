@@ -45,7 +45,7 @@ GLOBAL_PROTECT(log_end)
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG|R_VIEWRUNTIMES, FALSE, C.mob) && (C.prefs.toggles & PREFTOGGLE_CHAT_DEBUGLOGS))
-			to_chat(C, "<span class='debug'>DEBUG: [text]</span>", MESSAGE_TYPE_DEBUG, confidential = TRUE)
+			to_chat(C, span_debug("DEBUG: [text]"), MESSAGE_TYPE_DEBUG, confidential = TRUE)
 
 /proc/log_game(text)
 	if(CONFIG_GET(flag/log_game))
@@ -164,11 +164,11 @@ GLOBAL_PROTECT(log_end)
 			count++
 		WRITE_LOG(GLOB.world_game_log, "GAME: End objective log for [html_decode(Mind.key)]/[html_decode(Mind.name)][GLOB.log_end]")
 
-/proc/log_world(text)
+/proc/log_world(text, root_log = FALSE)
 	#if defined(GAME_TESTS) || defined(MAP_TESTS) || defined(TESTING)
 	SEND_TEXT(world.log, text)
 	#else
-	if(config && CONFIG_GET(flag/enable_root_log))
+	if(config && CONFIG_GET(flag/enable_root_log) || root_log)
 		SEND_TEXT(world.log, text)
 	#endif
 
@@ -221,7 +221,7 @@ GLOBAL_PROTECT(log_end)
  * Standardized method for tracking startup times.
  */
 /proc/log_startup_progress_global(prefix, message)
-	to_chat(world, span_danger("<small>\[[prefix]]</small> [message]"))
+	to_chat(world, span_danger("<small>\[[prefix]\]</small> [message]"))
 	log_world("\[[prefix]] [message]")
 
 // A logging proc that only outputs after setup is done, to
@@ -431,7 +431,7 @@ GLOBAL_PROTECT(log_end)
 		return "(UNKNOWN (?, ?, ?))"
 
 #if defined(REFERENCE_TRACKING) // Doing it locally
-#define log_reftracker(msg) log_world("## REF SEARCH [msg]")
+#define log_reftracker(msg) log_gc("## REF SEARCH [msg]")
 
 #else //Not tracking at all
 #define log_reftracker(msg)

@@ -22,8 +22,12 @@
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
-/obj/machinery/light_switch/Initialize(mapload)
+/obj/machinery/light_switch/Initialize(mapload, direction)
 	. = ..()
+	if(direction)
+		setDir(direction)
+		set_pixel_offsets_from_dir(26, -26, 26, -26)
+
 	if(istext(area))
 		area = text2path(area)
 
@@ -133,6 +137,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 	var/datum/port/output/is_on
 
 	var/obj/machinery/light_switch/attached_switch
+
+/obj/item/circuit_component/light_switch/Destroy()
+	if(attached_switch)
+		unregister_usb_parent(attached_switch)
+	on_setting = null
+	is_on = null
+	. = ..()
 
 /obj/item/circuit_component/light_switch/populate_ports()
 	on_setting = add_input_port("Вкл", PORT_TYPE_NUMBER)

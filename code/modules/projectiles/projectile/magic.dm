@@ -74,10 +74,9 @@
 	if(isliving(C))
 		if(ismachineperson(C)) //speshul snowfleks deserv speshul treetment
 			C.adjustFireLoss(6969)  //remember - slimes love fire
-		else
-			C.death()
+		C.death()
 
-		visible_message(span_danger("[capitalize(C.declent_ru(NOMINATIVE))] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
+		visible_message(span_danger("[DECLENT_RU_CAP(C, NOMINATIVE)] падает замертво, когда [GEND_HIS_HER(C)] поражает заряд смерти!"))
 
 /obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -436,7 +435,7 @@
 			for(var/mob/living/carbon/human/prisoner in target)
 				var/mob/living/simple_animal/hostile/statue/statue = new(target.loc, firer)
 				statue.name = "statue of [prisoner.real_name]"
-				statue.faction = list("\ref[firer]")
+				statue.faction = list(PERSONAL_FACTION(firer))
 				statue.icon = target.icon
 				if(prisoner.mind)
 					prisoner.mind.transfer_to(statue)

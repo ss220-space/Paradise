@@ -128,6 +128,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
+	tts_effect_override = SOUND_EFFECT_ROBOT
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 
@@ -202,6 +204,56 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	add_strippable_element()
 
+//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
+//Improved /N
+/mob/living/silicon/robot/Destroy()
+	SStgui.close_uis(wires)
+
+	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
+
+		if(T)
+			mmi.forceMove(T)
+
+		if(mmi.brainmob)
+			mind.transfer_to(mmi.brainmob)
+			mmi.update_icon()
+		else
+			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
+			ghostize()
+			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
+
+		mmi = null
+
+	if(connected_ai)
+		connected_ai.connected_robots -= src
+		connected_ai = null
+
+	selected_skin = null
+
+	QDEL_NULL(wires)
+	QDEL_NULL(module)
+	QDEL_NULL(camera)
+	QDEL_NULL(cell)
+	QDEL_NULL(robot_suit)
+	QDEL_NULL(spark_system)
+	QDEL_NULL(self_diagnosis)
+	QDEL_NULL(ion_trail)
+	QDEL_NULL(scanner)
+	QDEL_NULL(rbPDA)
+	QDEL_NULL(radio)
+	QDEL_NULL(inv1)
+	QDEL_NULL(inv2)
+	QDEL_NULL(inv3)
+	QDEL_NULL(lamp_button)
+	QDEL_NULL(thruster_button)
+	QDEL_NULL(robot_modules_background)
+	QDEL_LIST(components)
+	QDEL_LIST(upgrades)
+	QDEL_LIST(module_actions)
+
+	return ..()
+
 /mob/living/silicon/robot/proc/add_strippable_element()
 	AddElement(/datum/element/strippable, create_strippable_list(list(/datum/strippable_item/borg_head)))
 
@@ -257,7 +309,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
 
 /mob/living/silicon/robot/verb/Namepick()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Сменить имя"
 
 	if(custom_name)
@@ -272,7 +324,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/verb/Change_Voice()
 	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	change_voice()
 
 /mob/living/silicon/robot/proc/sync()
@@ -299,41 +351,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	return FALSE
-
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
-//Improved /N
-/mob/living/silicon/robot/Destroy()
-	SStgui.close_uis(wires)
-
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-
-		if(T)
-			mmi.loc = T
-
-		if(mmi.brainmob)
-			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
-		else
-			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
-			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
-
-		mmi = null
-
-	if(connected_ai)
-		connected_ai.connected_robots -= src
-
-	QDEL_NULL(wires)
-	QDEL_NULL(module)
-	QDEL_NULL(camera)
-	QDEL_NULL(cell)
-	QDEL_NULL(robot_suit)
-	QDEL_NULL(spark_system)
-	QDEL_NULL(self_diagnosis)
-	QDEL_NULL(ion_trail)
-
-	return ..()
 
 /mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
@@ -489,6 +506,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = "robot"
 	base_icon = "robot"
 	module.remove_subsystems_and_actions(src)
+	transform = matrix()
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
 		qdel(upgrade)
@@ -521,12 +539,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Манифест экипажа"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Компоненты"
 	set desc = "Toggle a component, conserving power."
 
@@ -548,7 +566,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Сенсоры камеры"
 	set desc = "Augment visual feed with internal sensor overlays."
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
@@ -560,7 +578,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Список тревог"
 
 	if(usr.stat == DEAD)
@@ -1205,7 +1223,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	laws = new /datum/ai_laws/ratvar
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Блокировку панели"
 	set desc = "Toggles the lock on your cover."
 
@@ -1332,9 +1350,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	<b>Activated Modules</b>
 	<br>
 	<table border='0'>
-	<tr><td>Module 1:</td><td>[module_state_1 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_1]'>[module_state_1]</a>" : "No Module"]</td></tr>
-	<tr><td>Module 2:</td><td>[module_state_2 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_2]'>[module_state_2]</a>" : "No Module"]</td></tr>
-	<tr><td>Module 3:</td><td>[module_state_3 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_3]'>[module_state_3]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 1:</td><td>[module_state_1 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_1)]'>[module_state_1]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 2:</td><td>[module_state_2 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_2)]'>[module_state_2]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 3:</td><td>[module_state_3 ? "<a href='byond://?src=[UID()];mod=[UID_of(module_state_3)]'>[module_state_3]</a>" : "No Module"]</td></tr>
 	</table><br>
 	<b>Installed Modules</b><br><br>
 
@@ -1347,21 +1365,21 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			dat += "<tr><td>[obj]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += "<tr><td>[obj]</td><td><a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a></td></tr>"
+			dat += "<tr><td>[obj]</td><td><a href='byond://?src=[UID()];act=[UID_of(obj)]'>Activate</a></td></tr>"
 
 	if(emagged || weapons_unlock)
 		if(activated(module.emag))
 			dat += "<tr><td>[module.emag]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += "<tr><td>[module.emag]</td><td><a href='byond://?src=[UID()];act=\ref[module.emag]'>Activate</a></td></tr>"
+			dat += "<tr><td>[module.emag]</td><td><a href='byond://?src=[UID()];act=[module.emag.UID()]'>Activate</a></td></tr>"
 
 	dat += "</table>"
 /*
 		if(activated(obj))
-			dat += "[obj]: \[<b>Activated</b> | <a href='byond://?src=[UID()];deact=\ref[obj]'>Deactivate</a>\]<br>"
+			dat += "[obj]: \[<b>Activated</b> | <a href='byond://?src=[UID()];deact=[obj.UID()]'>Deactivate</a>\]<br>"
 		else
-			dat += "[obj]: \[<a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a> | <b>Deactivated</b>\]<br>"
+			dat += "[obj]: \[<a href='byond://?src=[UID()];act=[obj.UID()]'>Activate</a> | <b>Deactivated</b>\]<br>"
 */
 	var/datum/browser/popup = new(src, "robotmod", "Modules")
 	popup.set_content(dat)
@@ -1399,13 +1417,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["mod"])
-		var/obj/item/O = locate(href_list["mod"])
+		var/obj/item/O = locateUID(href_list["mod"])
 		if(istype(O) && (O.loc == src))
 			O.attack_self(src)
 		return TRUE
 
 	if(href_list["act"])
-		var/obj/item/O = locate(href_list["act"])
+		var/obj/item/O = locateUID(href_list["act"])
 		if(!istype(O) || !(O.loc == src || O.loc == src.module))
 			return TRUE
 
@@ -1419,7 +1437,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["deact"])
-		var/obj/item/O = locate(href_list["deact"])
+		var/obj/item/O = locateUID(href_list["deact"])
 
 		if(activated(O))
 			if(module_state_1 == O)
@@ -1535,6 +1553,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		cell = null
 
 	drop_hat()
+	eject_riders()
 	qdel(src)
 
 /mob/living/silicon/robot/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
@@ -1612,7 +1631,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Сброс кодов идентификации"
 	set desc = "Scrambles your security and identification codes and resets your current buffers. \
 				Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
@@ -1625,7 +1644,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
-	set category = STATPANEL_IC
+	set category = VERB_CATEGORY_IC
 	set name = "Использовать объект"
 	set desc = "Использовать удерживаемый объект."
 	set src = usr
@@ -1687,12 +1706,15 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	for(var/skin in skins)
 		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit]) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
-		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
-			&& !GLOB.all_robot_skins_permited)
-			continue
+		var/permit_required = !isnull(new_skin.required_permit)
+		var/donator_tier_required = !isnull(new_skin.donator_tier)
+		if(!GLOB.all_robot_skins_permited && (permit_required || donator_tier_required))
+			var/has_permit = permit_required && mmi?.skin_permissions[new_skin.required_permit]
+			var/has_donator = donator_tier_required && usr.client && (new_skin.donator_tier <= usr.client.donator_level)
+
+			if(!has_permit && !has_donator)
+				continue
+
 		var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
 		skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
 		choices[new_skin.name] = skin_image
@@ -1711,6 +1733,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	icon_state = skin.icon_base_prefix
 	base_icon = skin.icon_base_prefix
 	selected_skin = skin
+	transform = matrix(1,0,skin.move_x,0,1,0)
 	if(use_transformation)
 		transform_animation(skin.icon_base_prefix, default)
 		return
@@ -1738,7 +1761,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	switch(notifytype)
 		if(ROBOT_NOTIFY_AI_CONNECTED) //New Cyborg
-			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=\ref[connected_ai];track=\ref[src]'>[name]</a>")]<br>")
+			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - New cyborg connection detected: <a href='byond://?src=[connected_ai.UID()];track2=[connected_ai.UID()];track=[UID()]'>[name]</a>")]<br>")
 		if(ROBOT_NOTIFY_AI_MODULE) //New Module
 			to_chat(connected_ai, "<br><br>[span_notice("NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.")]<br>")
 		if(ROBOT_NOTIFY_AI_NAME) //New Name
@@ -2084,11 +2107,41 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 						to_chat(src, span_userdanger("CRITICAL ERROR: All modules OFFLINE."))
 
+/mob/living/silicon/robot/proc/toggle_seat(/datum/action/innate/action)
+	can_buckle = !can_buckle
+	switch(can_buckle)
+		if(FALSE)
+			eject_riders()
+			balloon_alert(src, "сидение задвинуто")
+			playsound(loc, 'sound/machines/pda_button1.ogg', 50, TRUE)
+
+		if(TRUE)
+			balloon_alert(src, "сидение выдвинуто")
+			playsound(loc, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+
+/mob/living/silicon/robot/proc/eject_riders()
+	if(!length(buckled_mobs))
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		unbuckle_mob(buckled_mob)
+
+//use this type only if you need to simulate a road accident
+/mob/living/silicon/robot/proc/eject_riders_harmfull()
+	if(!length(buckled_mobs))
+		return
+	for(var/mob/living/buckled_mob as anything in buckled_mobs)
+		var/atom/target = get_edge_target_turf(src, dir)
+		var/mob/living/victim = buckled_mob //save him for future time
+		unbuckle_mob(buckled_mob)
+		victim.throw_at(target, 5, 10)
+		victim.visible_message(span_warning("[victim.declent_ru(NOMINATIVE)] вылета[PLUR_ET_YUT(victim)] из кресла [declent_ru(GENITIVE)]!"))
+	do_sparks(5, 0, src)
+
 /mob/living/silicon/robot/can_see_reagents()
 	return see_reagents
 
 /mob/living/silicon/robot/verb/powerwarn()
-	set category = STATPANEL_ROBOTCOMMANDS
+	set category = VERB_CATEGORY_ROBOTCOMMANDS
 	set name = "Состояние заряда"
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
@@ -2104,3 +2157,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
 
 #undef BORG_LAMP_CD_RESET
+
+/mob/living/silicon/robot/vv_edit_var(var_name, var_value)
+	if(!check_rights(R_SKINS) && (var_name in list("icon", "icon_state")))
+		return FALSE
+	. = ..()
+

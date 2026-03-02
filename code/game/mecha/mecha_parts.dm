@@ -17,7 +17,7 @@
 
 /obj/item/mecha_parts/chassis/Destroy()
 	QDEL_NULL(construct)
-	return ..()
+	. = ..()
 
 /obj/item/mecha_parts/chassis/attackby(obj/item/I, mob/user, params)
 	if(construct?.action(I, user))
@@ -479,6 +479,7 @@
 /obj/item/circuitboard/mecha
 	icon_state = "std_mod"
 	board_type = "other"
+	greyscale_config = null
 	flags = CONDUCT
 	force = 5
 	throwforce = 5

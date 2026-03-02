@@ -1,4 +1,4 @@
-#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%]"
+#define EMPHASIS_LETTERS_REGEX "\[^\\+\\|_%\]"
 // At minimum every mob has a hear_say proc.
 
 /mob/proc/combine_message(list/message_pieces, atom/movable/speaker, always_stars = FALSE)
@@ -35,7 +35,7 @@
 		if(SP.speaking)
 			piece = SP.speaking.format_message(piece, speaker)
 		else
-			piece = "<span class='message'><span class='body'>[piece]</span></span>"
+			piece = span_message(span_body("[piece]"))
 		msg += (piece + " ")
 
 	if(msg == "")
@@ -104,7 +104,7 @@
 	//make sure the air can transmit speech - hearer's side
 	var/turf/T = get_turf(src)
 	if(T && !isobserver(src))
-		var/datum/gas_mixture/environment = T.return_air()
+		var/datum/gas_mixture/environment = T.get_readonly_air()
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
@@ -137,7 +137,7 @@
 	if(isobserver(src))
 		if(speaker_name != speaker.real_name && speaker.real_name)
 			speaker_name = "[speaker.real_name] ([speaker_name])"
-		track = "([ghost_follow_link(speaker, ghost=src)]) "
+		track = "([ghost_follow_link(speaker, ghost = src)]) "
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
@@ -158,19 +158,16 @@
 		else
 			to_chat(src, "[span_name(speaker.name)] что-то говор[PLUR_IT_YAT(speaker)], но вы ничего не слышите!")
 	else
-		to_chat(src, span_gamesay("[span_name(speaker_name)][speaker.GetAltName()] [track][verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
+		to_chat(src, span_gamesay("[track][span_name(speaker_name)][speaker.GetAltName()] [verb_message(message_pieces, message, speaker, genderize_decode(speaker, verb))]"))
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
 			create_chat_message(speaker, message_clean, italics ? list("italics") : null, get_runechat_language(message_pieces))
 
-		var/effect = SOUND_EFFECT_NONE
-		if(isrobot(speaker))
-			effect = SOUND_EFFECT_ROBOT
 		var/traits = TTS_TRAIT_RATE_FASTER
 		if(is_whisper)
 			traits |= TTS_TRAIT_PITCH_WHISPER
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, effect, traits)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, speaker, src, message_tts, speaker.tts_seed, TRUE, SOUND_EFFECT_NONE, traits)
 
 		if(speech_sound && (get_dist(speaker, src) <= world.view && src.z == speaker.z))
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
@@ -230,14 +227,15 @@
 		if(prob(20))
 			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
-		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
+		if(track)
+			to_chat(src, "[part_a][track][message]</span></span>")
+		else
+			to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
+
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))
 		if(src != speaker || isrobot(src) || isAI(src))
-			var/effect = SOUND_EFFECT_RADIO
-			if(isrobot(speaker))
-				effect = SOUND_EFFECT_RADIO_ROBOT
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, SOUND_EFFECT_RADIO, null, null, 'sound/effects/radio_chatter.ogg', speaker)
 
 /mob/proc/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear)
 	var/speaker_name = "неизвестный"
@@ -301,10 +299,7 @@
 	if((client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) && can_hear())
 		create_chat_message(H, message_clean, list("radio"))
 
-	var/effect = SOUND_EFFECT_RADIO
-	if(isrobot(speaker))
-		effect = SOUND_EFFECT_RADIO_ROBOT
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, effect)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, SOUND_EFFECT_RADIO)
 
 	var/rendered = span_gamesay("[span_name(name)] [message]")
 	to_chat(src, rendered)

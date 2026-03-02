@@ -235,7 +235,7 @@
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "снимите это с себя!")
 	else
-		user.visible_message(span_warning("[user] начина[PLUR_ET_YUT(user)] возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
+		user.visible_message(span_warning("[user] начина[PLUR_ET_YUT(user)] возить [declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
 		if(do_after(user, cleanspeed, target))
 			to_chat(user, span_notice("Вы \"моете\" [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."))
 			if(issimulatedturf(target))

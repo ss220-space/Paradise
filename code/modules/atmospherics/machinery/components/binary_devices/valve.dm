@@ -13,6 +13,7 @@
 /obj/machinery/atmospherics/binary/valve/examine(mob/user)
 	. = ..()
 	. += "It is currently [open ? "open" : "closed"]."
+	. += span_notice("Click this to turn the valve. If perpendicular, the pipes on each end are separated. If parallel, they are connected.")
 
 /obj/machinery/atmospherics/binary/valve/open
 	open = 1
@@ -113,9 +114,10 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/machinery/atmospherics/binary/valve/digital/update_icon_state()
-	..()
 	if(!powered())
 		icon_state = "valve[open]nopower"
+		return
+	..()
 
 /obj/machinery/atmospherics/binary/valve/digital/atmos_init()
 	..()
@@ -165,6 +167,16 @@
 	var/datum/port/output/opened
 	/// Sent when the valve is closed
 	var/datum/port/output/closed
+
+/obj/item/circuit_component/digital_valve/Destroy()
+	if(attached_valve)
+		unregister_usb_parent(attached_valve)
+	open = null
+	close = null
+	is_open = null
+	opened = null
+	closed = null
+	. = ..()
 
 /obj/item/circuit_component/digital_valve/populate_ports()
 	open = add_input_port("Открыть", PORT_TYPE_SIGNAL)

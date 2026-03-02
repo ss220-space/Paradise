@@ -72,6 +72,7 @@
 
 /obj/item/circuitboard/computer/sat_control
 	board_name = "Контроллер сети спутников"
+	greyscale_colors = CIRCUIT_COLOR_ENGINEERING
 	build_path = /obj/machinery/computer/sat_control
 	origin_tech = "engineering=3"
 
@@ -171,6 +172,15 @@
 	/// A list of "proxy" objects used for multi-z coverage.
 	var/list/obj/effect/abstract/meteor_shield_proxy/proxies = list()
 
+/obj/machinery/satellite/meteor_shield/Destroy()
+	QDEL_NULL(proximity_monitor)
+	LAZYCLEARLIST(proxies)
+	if(!(active && emagged))
+		return ..()
+
+	change_meteor_chance(0.5)
+	return ..()
+
 /obj/machinery/satellite/meteor_shield/examine(mob/user)
 	. = ..()
 	if(active)
@@ -194,14 +204,6 @@
 	. = ..()
 	proximity_monitor = new(src, kill_range)
 	setup_proxies()
-
-/obj/machinery/satellite/meteor_shield/Destroy()
-	QDEL_NULL(proximity_monitor)
-	if(!(active && emagged))
-		return ..()
-
-	change_meteor_chance(0.5)
-	return ..()
 
 /obj/machinery/satellite/meteor_shield/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
@@ -302,9 +304,9 @@
 
 /obj/effect/abstract/meteor_shield_proxy/Destroy(force)
 	QDEL_NULL(proximity_monitor)
-	parent.proxies -= src
+	parent.proxies.RemoveAll(src)
 	parent = null
-	return ..()
+	. = ..()
 
 /obj/effect/abstract/meteor_shield_proxy/HasProximity(atom/movable/AM)
 	parent.shoot_meteor(AM)

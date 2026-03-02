@@ -12,31 +12,39 @@
 
 /datum/data/pda/app/request_console/New()
 	. = ..()
-	for(var/C in (GLOB.allRequestConsoles))
-		var/obj/machinery/requests_console/console = C
+	for(var/obj/machinery/requests_console/console as anything in GLOB.allRequestConsoles)
 		if(QDELETED(console) || !istype(console))
 			continue
-		if(console.department in department_list)
-			possible_consoles |= console
-			department_list -= console.department
-			console.connected_apps |= src
+
+		if(!(console.department in department_list))
+			continue
+
+		possible_consoles |= console
+		RegisterSignal(console, COMSIG_QDELETING, PROC_REF(on_rc_destroyed))
+		RegisterSignal(console, COMSIG_REQUEST_CONSOLE_MESSAGE, PROC_REF(on_rc_message_received))
+		department_list -= console.department
 
 /datum/data/pda/app/request_console/Destroy()
 	selected_console = null
 	for(var/obj/machinery/requests_console/console as anything in possible_consoles)
-		console.connected_apps -= src
+		UnregisterSignal(console, list(COMSIG_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
 	QDEL_NULL(possible_consoles)
 	QDEL_NULL(consoles_mute)
 	. = ..()
 
 /datum/data/pda/app/request_console/proc/on_rc_destroyed(datum/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(source, list(COMSIG_QDELETING, COMSIG_REQUEST_CONSOLE_MESSAGE))
 	possible_consoles -= source
 	SStgui.update_uis(pda)
 
 /datum/data/pda/app/request_console/proc/on_rc_message_received(obj/machinery/requests_console/source, message, isoremessage)
 	SIGNAL_HANDLER
+
 	if(isoremessage && source.department != ore_message_reciver_dep)
 		return
+
 	var/rendered_message = "Received on [source.name] : [message]"
 	if(!QDELETED(pda) && !consoles_mute[source])
 		notify(rendered_message)
