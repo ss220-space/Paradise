@@ -7838,16 +7838,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"qd" = (
-/obj/structure/grille,
-/obj/structure/window/full/reinforced{
-	color = "#49e46e";
-	icon_state = "reinforced_window-12"
-	},
-/turf/simulated/wall/r_wall{
-	layer = 2
-	},
-/area/event_zone)
 "qe" = (
 /obj/item/mounted/frame/apc_frame{
 	dir = 1;
@@ -14675,9 +14665,6 @@
 /obj/machinery/power/terminal{
 	dir = 1
 	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
 /turf/simulated/floor/plating{
 	layer = 1.7
 	},
@@ -15307,9 +15294,6 @@
 	dir = 1;
 	name = "Atmospherics APC";
 	pixel_y = 24
-	},
-/obj/machinery/power/terminal{
-	dir = 1
 	},
 /obj/machinery/power/terminal{
 	dir = 1
@@ -66673,7 +66657,7 @@ Ym
 DP
 gl
 fJ
-qd
+Ha
 Hd
 kP
 kP
