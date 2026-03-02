@@ -69,16 +69,15 @@
 
 	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 
-		if(bag.aoe)
-			for(var/turf/turf in range(1, arrived_mob))
-				for(var/obj/item/item as anything in turf)
-					if(!bag.can_be_inserted(item, stop_messages = TRUE))
-						continue
+		var/list/search_turfs
 
-					item.do_pickup_animation(arrived_mob)
-					bag.handle_item_insertion(item, prevent_warning = TRUE)
+		if(bag.aoe)
+			search_turfs = range(1, arrived_mob)
 		else
-			for(var/obj/item/item as anything in loc)
+			search_turfs = list(loc)
+
+		for(var/turf/turf in search_turfs)
+			for(var/obj/item/item as anything in turf)
 				if(!bag.can_be_inserted(item, stop_messages = TRUE))
 					continue
 
@@ -88,6 +87,7 @@
 		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
 			arrived_mob.pulling.attackby(bag, arrived)
 
+	return ..()
 
 /obj/item/stack/ore/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
