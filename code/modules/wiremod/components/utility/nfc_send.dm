@@ -25,6 +25,13 @@
 	/// Encryption key
 	var/datum/port/input/enc_key
 
+/obj/item/circuit_component/nfc_send/Destroy()
+	list_options = null
+	target = null
+	data_package = null
+	enc_key = null
+	. = ..()
+
 /obj/item/circuit_component/nfc_send/populate_options()
 	list_options = add_option_port("Тип списка", GLOB.wiremod_basic_types)
 

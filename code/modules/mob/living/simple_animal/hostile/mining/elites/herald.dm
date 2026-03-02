@@ -84,25 +84,25 @@
 /datum/action/innate/elite_attack/herald_trishot
 	name = "Тройной залп"
 	button_icon_state = "herald_trishot"
-	chosen_message = span_boldwarning("Теперь вы выпускаете три снаряда в выбранном направлении.")
+	chosen_message = span_boldwarning_alt("Теперь вы выпускаете три снаряда в выбранном направлении.")
 	chosen_attack_num = HERALD_TRISHOT
 
 /datum/action/innate/elite_attack/herald_directionalshot
 	name = "Круговой залп"
 	button_icon_state = "herald_directionalshot"
-	chosen_message = span_boldwarning("Вы выпускаете снаряды во всех направлениях.")
+	chosen_message = span_boldwarning_alt("Вы выпускаете снаряды во всех направлениях.")
 	chosen_attack_num = HERALD_DIRECTIONALSHOT
 
 /datum/action/innate/elite_attack/herald_teleshot
 	name = "Телепортирующий выстрел"
 	button_icon_state = "herald_teleshot"
-	chosen_message = span_boldwarning("Следующий снаряд телепортирует вас к месту попадания.")
+	chosen_message = span_boldwarning_alt("Следующий снаряд телепортирует вас к месту попадания.")
 	chosen_attack_num = HERALD_TELESHOT
 
 /datum/action/innate/elite_attack/herald_mirror
 	name = "Призыв зеркала"
 	button_icon_state = "herald_mirror"
-	chosen_message = span_boldwarning("Вы создадите зеркало, дублирующее ваши атаки.")
+	chosen_message = span_boldwarning_alt("Вы создадите зеркало, дублирующее ваши атаки.")
 	chosen_attack_num = HERALD_MIRROR
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/OpenFire()

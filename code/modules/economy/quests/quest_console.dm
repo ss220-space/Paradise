@@ -368,7 +368,9 @@
 	integrated_console.parent = src
 
 /obj/item/qm_quest_tablet/Destroy()
-	QDEL_NULL(integrated_console)
+	if(integrated_console)
+		integrated_console.parent = null
+		QDEL_NULL(integrated_console)
 	return ..()
 
 /obj/item/qm_quest_tablet/attack_self(mob/user as mob)

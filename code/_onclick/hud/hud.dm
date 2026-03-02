@@ -101,6 +101,61 @@
 	RegisterSignal(mymob, COMSIG_MOB_SIGHT_CHANGE, PROC_REF(update_sightflags), override = TRUE)
 	update_sightflags(mymob, mymob.sight, NONE)
 
+/datum/hud/Destroy()
+	if(mymob.hud_used == src)
+		mymob.hud_used = null
+
+	QDEL_NULL(toggle_palette)
+	QDEL_NULL(palette_down)
+	QDEL_NULL(palette_up)
+	QDEL_NULL(palette_actions)
+	QDEL_NULL(listed_actions)
+	QDEL_LIST(floating_actions)
+
+	QDEL_NULL(module_store_icon)
+
+	QDEL_LIST(static_inventory)
+
+	inv_slots.Cut()
+	action_intent = null
+	zone_select = null
+	move_intent = null
+	hand_slots.Cut()
+
+	QDEL_LIST(toggleable_inventory)
+
+	QDEL_LIST(hotkeybuttons)
+
+	QDEL_LIST(infodisplay)
+
+	//clear mob refs to screen objects
+	mymob.throw_icon = null
+	mymob.healths = null
+	mymob.healthdoll = null
+	mymob.pullin = null
+	mymob.stamina_bar = null
+	mymob.nutrition_bar = null
+
+	//clear the rest of our reload_fullscreen
+	QDEL_NULL(lingchemdisplay)
+	QDEL_NULL(lingstingdisplay)
+	QDEL_NULL(blobpwrdisplay)
+	QDEL_NULL(alien_plasma_display)
+	QDEL_NULL(vampire_blood_display)
+	QDEL_NULL(ninja_energy_display)
+	QDEL_NULL(ninja_focus_display)
+	QDEL_NULL(wind_up_timer)
+	QDEL_NULL(nightvisionicon)
+	QDEL_NULL(devilsouldisplay)
+	QDEL_NULL(combo_display)
+
+	QDEL_LIST_ASSOC_VAL(master_groups)
+	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
+
+	mymob = null
+	QDEL_NULL(screentip_text)
+	. = ..()
+
 /datum/hud/proc/client_refresh(datum/source)
 	SIGNAL_HANDLER
 	var/client/client = mymob.canon_client
@@ -157,61 +212,6 @@
 	for(var/group_key in master_groups)
 		var/datum/plane_master_group/group = master_groups[group_key]
 		group.build_planes_offset(src, new_offset)
-
-/datum/hud/Destroy()
-	if(mymob.hud_used == src)
-		mymob.hud_used = null
-
-	QDEL_NULL(toggle_palette)
-	QDEL_NULL(palette_down)
-	QDEL_NULL(palette_up)
-	QDEL_NULL(palette_actions)
-	QDEL_NULL(listed_actions)
-	QDEL_LIST(floating_actions)
-
-	QDEL_NULL(module_store_icon)
-
-	QDEL_LIST(static_inventory)
-
-	inv_slots.Cut()
-	action_intent = null
-	zone_select = null
-	move_intent = null
-	hand_slots.Cut()
-
-	QDEL_LIST(toggleable_inventory)
-
-	QDEL_LIST(hotkeybuttons)
-
-	QDEL_LIST(infodisplay)
-
-	//clear mob refs to screen objects
-	mymob.throw_icon = null
-	mymob.healths = null
-	mymob.healthdoll = null
-	mymob.pullin = null
-	mymob.stamina_bar = null
-	mymob.nutrition_bar = null
-
-	//clear the rest of our reload_fullscreen
-	lingchemdisplay = null
-	lingstingdisplay = null
-	blobpwrdisplay = null
-	alien_plasma_display = null
-	vampire_blood_display = null
-	ninja_energy_display = null
-	ninja_focus_display = null
-	wind_up_timer = null
-	nightvisionicon = null
-	devilsouldisplay = null
-	combo_display = null
-
-	QDEL_LIST_ASSOC_VAL(master_groups)
-	QDEL_LIST_ASSOC_VAL(plane_master_controllers)
-
-	mymob = null
-	QDEL_NULL(screentip_text)
-	return ..()
 
 /datum/hud/proc/on_plane_increase(datum/source, old_max_offset, new_max_offset)
 	SIGNAL_HANDLER

@@ -233,13 +233,14 @@ SUBSYSTEM_DEF(explosions)
 	watch = start_watch()
 
 /datum/explosion_data/Destroy()
-	qdel(affected_turfs_queue)
+	QDEL_NULL(affected_turfs_queue)
 	LAZYCLEARLIST(cached_exp_block)
 	LAZYNULL(cached_exp_block)
 	LAZYCLEARLIST(cached_turf_exp_block)
 	LAZYNULL(cached_turf_exp_block)
 	LAZYCLEARLIST(cached_turf_vert_exp_block)
 	LAZYNULL(cached_turf_vert_exp_block)
+	epicenter = null
 	. = ..()
 
 /datum/explosion_data/proc/clamp_ranges()

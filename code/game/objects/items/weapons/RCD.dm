@@ -480,6 +480,12 @@
 	power_use_multiplier = 250
 	var/obj/mecha/chassis = null
 
+/obj/item/rcd/mecha_ref/Destroy()
+	var/obj/item/mecha_parts/mecha_equipment/rcd/holder = loc
+	if(istype(holder))
+		holder.rcd_holder = null
+	. = ..()
+
 /obj/item/rcd/mecha_ref/useResource(amount, mob/user)
 	if(!chassis)
 		return

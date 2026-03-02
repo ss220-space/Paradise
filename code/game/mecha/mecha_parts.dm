@@ -17,7 +17,7 @@
 
 /obj/item/mecha_parts/chassis/Destroy()
 	QDEL_NULL(construct)
-	return ..()
+	. = ..()
 
 /obj/item/mecha_parts/chassis/attackby(obj/item/I, mob/user, params)
 	if(construct?.action(I, user))

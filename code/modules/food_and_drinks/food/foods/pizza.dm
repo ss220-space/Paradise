@@ -231,6 +231,11 @@
 	. = ..()
 	update_appearance(UPDATE_DESC|UPDATE_ICON)
 
+/obj/item/pizzabox/Destroy()
+	QDEL_NULL(pizza)
+	LAZYCLEARLIST(boxes)
+	. = ..()
+
 /obj/item/pizzabox/update_desc(updates = ALL)
 	. = ..()
 	if(open && pizza)
