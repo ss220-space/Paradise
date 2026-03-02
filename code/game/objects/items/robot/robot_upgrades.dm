@@ -270,7 +270,7 @@
 	var/is_orebag_upgraded
 
 	for(var/obj/item/storage/bag/ore/cyborg/orebag in robot.module.modules)
-		is_orebag_upgraded = orebag.aoe
+		is_orebag_upgraded |= orebag.aoe
 		qdel(orebag)
 
 	var/obj/item/storage/bag/ore/holding/cyborg/ore_soh = new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
@@ -895,20 +895,24 @@
 	if(!..())
 		return FALSE
 
+	var/changed = FALSE
+
 	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
 		mining_satchel.aoe = TRUE
 		mining_satchel.update_appearance(UPDATE_DESC)
-		return TRUE
+		changed = TRUE
 
-	return FALSE
+	return changed
 
 /obj/item/borg/upgrade/borg_mining_sat_upgr/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
 
+	var/changed = FALSE
+
 	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
 		mining_satchel.aoe = FALSE
 		mining_satchel.update_appearance(UPDATE_DESC)
-		return TRUE
+		changed = TRUE
 
-	return FALSE
+	return changed
