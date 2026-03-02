@@ -73112,7 +73112,7 @@
 /obj/item/radio/intercom/directional/north,
 /obj/item/storage/belt/utility,
 /obj/item/extinguisher,
-/obj/item/secbot_assembly{
+/obj/item/bot_assembly/secbot_assembly{
 	created_name = "Officer Podsky";
 	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
 	name = "Обломки офицера Подски";
@@ -117829,7 +117829,7 @@
 /area/turret_protected/ai)
 "wmH" = (
 /obj/structure/rack,
-/obj/item/toolbox_tiles,
+/obj/item/bot_assembly/toolbox_tiles,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "caution"

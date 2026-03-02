@@ -458,7 +458,7 @@
 		add_fingerprint(user)
 		balloon_alert(user, "прикреплено")
 		to_chat(user, span_notice("Вы прикрепили [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
-		var/obj/item/bucket_sensor/bucket_sensor = new(drop_location())
+		var/obj/item/bot_assembly/bucket_sensor/bucket_sensor = new(drop_location())
 		transfer_fingerprints_to(bucket_sensor)
 		I.transfer_fingerprints_to(bucket_sensor)
 		bucket_sensor.add_fingerprint(user)
