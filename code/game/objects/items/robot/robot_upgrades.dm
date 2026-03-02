@@ -276,7 +276,7 @@
 	var/obj/item/storage/bag/ore/holding/cyborg/ore_soh = new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
 	if(is_orebag_upgraded)
 		ore_soh.aoe = TRUE
-		ore_soh.desc += " Сумка улучшена."
+		ore_soh.update_appearance(UPDATE_DESC)
 
 	robot.module.modules += ore_soh
 	robot.module.rebuild()
@@ -887,7 +887,7 @@
 
 	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
 		mining_satchel.aoe = TRUE
-		mining_satchel.desc += " Сумка улучшена."
+		mining_satchel.update_appearance(UPDATE_DESC)
 		return TRUE
 
 	return FALSE
@@ -898,7 +898,7 @@
 
 	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
 		mining_satchel.aoe = FALSE
-		mining_satchel.desc = initial(mining_satchel.desc)
+		mining_satchel.update_appearance(UPDATE_DESC)
 		return TRUE
 
 	return FALSE

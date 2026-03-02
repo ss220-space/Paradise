@@ -2,7 +2,7 @@
 /obj/item/mining_satchel_upgrade
 	name = "mining satchel upgrade"
 	desc = "Магнитное улучшение сумок для руды, позволяющее собирать руду в области 3 на 3 вокруг пользователя."
-	icon = 'icons/obj/mining_satchel_upgrade.dmi' //НАЙТИ СПРАЙТЕРА И ПОПРОСИТЬ СПРАЙТ
+	icon = 'icons/obj/mining_satchel_upgrade.dmi'
 	icon_state = "mining_upgrade0"
 	origin_tech = "materials=3;engineering=2"
 	w_class = WEIGHT_CLASS_TINY
@@ -18,17 +18,24 @@
 	)
 
 /obj/item/storage/bag/ore/attackby(obj/item/item, mob/user, params)
-	. = ..()
-	if(istype(item, /obj/item/mining_satchel_upgrade) && aoe == 0)
+	if(istype(item, /obj/item/mining_satchel_upgrade))
 		if(aoe)
 			to_chat(user, span_notice("Сумка уже улучшена!"))
-			return .
+			return ATTACK_CHAIN_BLOCKED_ALL
 
 		add_fingerprint(user)
 		to_chat(user, span_notice("Вы улучшили сумку для руды!"))
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		aoe = TRUE
-		desc += " Сумка улучшена."
+		update_appearance(UPDATE_DESC)
 		qdel(item)
+
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-	return .
+	return ..()
+
+/obj/item/storage/bag/ore/update_desc(updates = ALL)
+	. = ..()
+	if(aoe)
+		desc = initial(desc) + " Сумка улучшена рудным магнитом."
+	else
+		desc = initial(desc)
