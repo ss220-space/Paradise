@@ -79,14 +79,14 @@
 
 	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		if(bag.aoe)
-			for(var/turf/T in range(1, arrived_mob))
-				for(var/obj/item/stack/ore/O in T)
+			for(var/turf/turf in range(1, arrived_mob))
+				for(var/obj/item/stack/ore/ore in turf)
 
-					if(!bag.can_be_inserted(O, stop_messages = TRUE))
+					if(!bag.can_be_inserted(ore, stop_messages = TRUE))
 						continue
 
-					O.do_pickup_animation(arrived_mob)
-					bag.handle_item_insertion(O, prevent_warning = TRUE)
+					ore.do_pickup_animation(arrived_mob)
+					bag.handle_item_insertion(ore, prevent_warning = TRUE)
 
 		else
 			for(var/obj/item/stack/ore/O in loc)
