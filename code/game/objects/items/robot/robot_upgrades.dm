@@ -881,6 +881,16 @@
 	require_module = TRUE
 	module_type = /obj/item/robot_module/miner
 
+/obj/item/borg/upgrade/borg_mining_sat_upgr/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль рудного магнита",
+		GENITIVE = "модуля рудного магнита",
+		DATIVE = "модулю рудного магнита",
+		ACCUSATIVE = "модуль рудного магнита",
+		INSTRUMENTAL = "модулем рудного магнита",
+		PREPOSITIONAL = "модуле рудного магнита",
+	)
+
 /obj/item/borg/upgrade/borg_mining_sat_upgr/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
