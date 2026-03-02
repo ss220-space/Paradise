@@ -145,7 +145,7 @@
 	mutant.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform)
 	mutant.change_eye_color("red", FALSE)
 	mutant.update_body(TRUE)
-	mutant.update_transform(hulk_humanbody_size/RESIZE_DEFAULT_SIZE)
+	mutant.update_transform(hulk_humanbody_size / RESIZE_DEFAULT_SIZE)
 
 /datum/dna/gene/basic/hulk/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
