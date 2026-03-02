@@ -1545,7 +1545,7 @@
 	duration = 60 SECONDS
 	tick_interval = 3 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/parasitism
-	var/evolution_gain = 0.75
+	var/evolution_gain = 0.075
 	var/chemical_gain = 5
 	var/host_damage = 1.25
 
@@ -1600,6 +1600,7 @@
 	// Нанесение урона носителю
 	host.adjustBruteLoss(host_damage)
 	host.adjustToxLoss(host_damage)
+	host.adjust_nutrition(host_damage * 4)
 
 	// Сообщения для атмосферы
 	if(prob(30))

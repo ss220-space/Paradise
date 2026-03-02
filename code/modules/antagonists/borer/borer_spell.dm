@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/borer_infest
-	name = "Infest"
-	desc = "Infest a suitable humanoid host."
+	name = "Заразить"
+	desc = "Заразить подходящего гуманоидного носителя."
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "infest"
@@ -62,8 +62,8 @@
 	SEND_SIGNAL(user, COMSIG_BORER_ENTERED_HOST)
 
 /obj/effect/proc_holder/spell/borer_dominate
-	name = "Dominate Victim"
-	desc = "Freeze the limbs of a potential host with supernatural fear."
+	name = "Оглушить жертву"
+	desc = "Заморозьте потенциального носителя сверхъестественным страхом."
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "genetic_cryo"
@@ -102,8 +102,8 @@
 	target.Weaken(weaken_time)
 
 /obj/effect/proc_holder/spell/borer_force_say
-	name = "Speak as host"
-	desc = "Force your host to say something."
+	name = "Говорить как хозяин"
+	desc = "Заставьте своего хозяина что-нибудь сказать.."
 
 	base_cooldown = 15
 

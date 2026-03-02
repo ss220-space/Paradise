@@ -3,8 +3,8 @@
 	var/cost
 
 /datum/action/innate/borer/talk_to_host
-	name = "Converse with Host"
-	desc = "Send a silent message to your host."
+	name = "Разговор с хозяином"
+	desc = "Отправьте тихое сообщение своему хозяину."
 	button_icon_state = "alien_whisper"
 
 /datum/action/innate/borer/talk_to_host/Activate()
@@ -12,8 +12,8 @@
 	borer.Communicate()
 
 /datum/action/innate/borer/toggle_hide
-	name = "Toggle Hide"
-	desc = "Become invisible to the common eye. Toggled on or off."
+	name = "Переключить Скрытность"
+	desc = "Спрячьтесь под предметами. Включается или выключается."
 	button_icon_state = "borer_hiding_false"
 
 /datum/action/innate/borer/toggle_hide/Activate()
@@ -23,8 +23,8 @@
 	UpdateButtonIcon()
 
 /datum/action/innate/borer/talk_to_borer
-	name = "Converse with Borer"
-	desc = "Communicate mentally with your borer."
+	name = "Пообщаться с Борером"
+	desc = "Мысленно пообщайтесь со своим паразитом."
 	button_icon_state = "alien_whisper"
 
 /datum/action/innate/borer/talk_to_borer/Activate()
@@ -33,8 +33,8 @@
 	borer.host.borer_comm()
 
 /datum/action/innate/borer/talk_to_brain
-	name = "Converse with Trapped Mind"
-	desc = "Communicate mentally with the trapped mind of your host."
+	name = "Беседа с запертым разумом"
+	desc = "Установите мысленную связь с порабощенным разумом вашего носителя."
 	button_icon_state = "alien_whisper"
 
 /datum/action/innate/borer/talk_to_brain/Activate()
@@ -43,8 +43,8 @@
 	borer.host.trapped_mind_comm()
 
 /datum/action/innate/borer/take_control
-	name = "Assume Control"
-	desc = "Fully connect to the brain of your host."
+	name = "Захватить контроль"
+	desc = "Установите полную связь с мозгом вашего хозяина."
 	button_icon_state = "borer_brain"
 
 /datum/action/innate/borer/take_control/Activate()
@@ -52,8 +52,8 @@
 	borer.bond_brain()
 
 /datum/action/innate/borer/give_back_control
-	name = "Release Control"
-	desc = "Release control of your host's body."
+	name = "Отдать контроль"
+	desc = "Отдать контроль своему хозяину."
 	button_icon_state = "borer_leave"
 
 /datum/action/innate/borer/give_back_control/Activate()
@@ -62,8 +62,8 @@
 	borer.host.release_control()
 
 /datum/action/innate/borer/leave_body
-	name = "Release Host"
-	desc = "Slither out of your host."
+	name = "Оставить носителя"
+	desc = "Оставьте своего хозяина одного."
 	button_icon_state = "borer_leave"
 
 /datum/action/innate/borer/leave_body/Activate()
@@ -71,8 +71,8 @@
 	borer.release_host()
 
 /datum/action/innate/borer/make_chems
-	name = "Secrete Chemicals"
-	desc = "Push some chemicals into your host's bloodstream."
+	name = "Выделить химикаты"
+	desc = "Введите в кровь хозяина химические вещества.."
 	button_icon_state = "fleshmend"
 
 /datum/action/innate/borer/make_chems/Activate()
@@ -80,8 +80,8 @@
 	borer.secrete_chemicals()
 
 /datum/action/innate/borer/make_larvae
-	name = "Reproduce"
-	desc = "Spawn several young."
+	name = "Оставить потомство"
+	desc = "Создайте молодых червей."
 	button_icon_state = "borer_reproduce"
 	cost = 100
 
@@ -111,8 +111,8 @@
 	return
 
 /datum/action/innate/borer/torment
-	name = "Torment Host"
-	desc = "Punish your host with agony."
+	name = "Агония"
+	desc = "Накажите своего хозяина."
 	button_icon_state = "blind"
 	cost = 70
 
@@ -140,8 +140,8 @@
 	host.adjustStaminaLoss(host.get_max_stamina())
 
 /datum/action/innate/borer/sneak_mode
-	name = "Sneak mode"
-	desc = "Hides your status from medical huds."
+	name = "Скрытный режим"
+	desc = "прячет твой статус на медецинских ИЛС."
 	button_icon_state = "chameleon_skin"
 
 /datum/action/innate/borer/sneak_mode/Activate()
@@ -150,8 +150,8 @@
 	borer.host.sneak_mode()
 
 /datum/action/innate/borer/focus_menu
-	name = "Focus menu"
-	desc = "Reinforce your host."
+	name = "Меню Фокусов"
+	desc = "Усиль своего хозяина."
 	button_icon_state = "human_form"
 
 /datum/action/innate/borer/focus_menu/Activate()
@@ -160,16 +160,18 @@
 
 /datum/action/innate/borer/heal_over_time
 	name = "Лечение"
-	desc = "Стоимость - 60, лечит хозяина в течении 10 секунд"
+	desc = "лечит хозяина в течении 10 секунд"
 	button_icon_state = "revive"
-	cost = 60
+	cost = 100
 
 /datum/action/innate/borer/heal_over_time/Activate()
 	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
 	var/mob/living/carbon/host = borer.host
 
-	if(borer.chemicals < cost)
-		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для запуска регенерации!")
+	var/total_cost = cost - (borer.antag_datum.borer_rank.rank_ability_amplifier * 15)
+
+	if(borer.chemicals < total_cost)
+		to_chat(owner, "Вам требуется [total_cost] химикат[DECL_CREDIT(total_cost)] для запуска регенерации!")
 		return
 
 	if(host.reagents.has_reagent("sugar"))
@@ -182,7 +184,7 @@
 		return
 
 	// Списываем химикаты и накладываем статус-эффект
-	borer.chemicals -= cost
+	borer.chemicals -= total_cost
 	host.apply_status_effect(/datum/status_effect/borer_regen)
 
 	// Оповещения
