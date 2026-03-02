@@ -166,6 +166,8 @@ SUBSYSTEM_DEF(tts)
 		"lavaland health officer" = "Медицинский работник Лазиса",
 	)
 
+	var/list/tts_effect_map
+
 /datum/controller/subsystem/tts/get_stat_details()
 	var/list/msg = list()
 	msg += "tRPS:[tts_trps] "
@@ -199,6 +201,19 @@ SUBSYSTEM_DEF(tts)
 		tts_seeds_names += seed.name
 		tts_seeds_names_by_donator_levels["[seed.donator_level]"] += list(seed.name)
 	tts_seeds_names = sortTim(tts_seeds_names, cmp = /proc/cmp_text_asc)
+
+	tts_effect_map = list(
+		"[SOUND_EFFECT_ROBOT]" = list(
+			"[SOUND_EFFECT_NONE]" = SOUND_EFFECT_ROBOT,
+			"[SOUND_EFFECT_RADIO]" = SOUND_EFFECT_RADIO_ROBOT,
+			"[SOUND_EFFECT_MEGAPHONE]" = SOUND_EFFECT_MEGAPHONE_ROBOT
+		),
+		"[SOUND_EFFECT_MASKFILTER]" = list(
+			"[SOUND_EFFECT_NONE]" = SOUND_EFFECT_MASKFILTER,
+			"[SOUND_EFFECT_RADIO]" = SOUND_EFFECT_RADIO_MASKFILTER,
+			"[SOUND_EFFECT_MEGAPHONE]" = SOUND_EFFECT_MEGAPHONE
+		),
+	)
 
 /datum/controller/subsystem/tts/Initialize()
 	is_enabled = CONFIG_GET(flag/tts_enabled)
@@ -382,6 +397,10 @@ SUBSYSTEM_DEF(tts)
 			voice = "[filename]_megaphone.ogg"
 		if(SOUND_EFFECT_MEGAPHONE_ROBOT)
 			voice = "[filename]_megaphone_robot.ogg"
+		if(SOUND_EFFECT_MASKFILTER)
+			voice = "[filename]_maskfilter.ogg"
+		if(SOUND_EFFECT_RADIO_MASKFILTER)
+			voice = "[filename]_radio_maskfilter.ogg"
 		else
 			CRASH("Invalid sound effect chosen.")
 	if(effect != SOUND_EFFECT_NONE)
@@ -497,7 +516,24 @@ SUBSYSTEM_DEF(tts)
 	if(sanitized_messages_caching)
 		sanitized_messages_cache[hash] = .
 
-/proc/tts_cast(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null)
+/proc/tts_cast(atom/speaker, mob/listener, message, seed_name, is_local = TRUE, effect = SOUND_EFFECT_NONE, traits = TTS_TRAIT_RATE_FASTER, preSFX = null, postSFX = null, atom/effect_owner = null)
+	var/override = SOUND_EFFECT_NONE
+	var/mob/living/speaker_mob = isliving(effect_owner) ? effect_owner : (isliving(speaker) ? speaker : null)
+
+	if(speaker_mob)
+		override = speaker_mob.tts_effect_override
+
+	if(override != SOUND_EFFECT_NONE)
+		var/list/sub_map = SStts.tts_effect_map["[override]"]
+
+		if(sub_map)
+			var/new_effect = sub_map["[effect]"]
+
+			if(!isnull(new_effect))
+				effect = new_effect
+			else
+				effect = override
+
 	SStts.get_tts(speaker, listener, message, seed_name, is_local, effect, traits, preSFX, postSFX)
 
 /proc/tts_word_replacer(word)

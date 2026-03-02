@@ -326,3 +326,7 @@
 
 	/// It's like a client, but persists! Persistent clients will stick to a mob until the client in question is logged into a different mob.
 	var/datum/persistent_client/persistent_client
+
+	var/tts_effect_override = SOUND_EFFECT_NONE
+	/// Item that set current tts_effect_override, used to avoid clobbering when(if) multiple sources exist
+	var/obj/item/tts_effect_override_source = null

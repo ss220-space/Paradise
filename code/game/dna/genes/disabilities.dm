@@ -211,7 +211,7 @@
 /datum/dna/gene/disability/comic
 	name = "Комик"
 	desc = "Это принесет только смерть и разрушение."
-	activation_message = list(span_sans("Ой-йо!"))
+	activation_message = list(span_sans_alt("Ой-йо!"))
 	deactivation_message = list("Слава Святой Хонкоматери, с этим покончено.")
 	traits_to_add = list(TRAIT_COMIC)
 
@@ -222,7 +222,7 @@
 /datum/dna/gene/disability/wingdings
 	name = "Голос инопланетян"
 	desc = "Искажает голос субъекта, превращая его в непонятную речь."
-	activation_message = list(span_wingdings("Vashi golosovyye svyazki kazhutsya chuzhimi."))
+	activation_message = list(span_wingdings_alt("Vashi golosovyye svyazki kazhutsya chuzhimi."))
 	deactivation_message = list("Ваши голосовые связки больше не кажутся инородными.")
 	instability = -GENE_INSTABILITY_MINOR
 	traits_to_add = list(TRAIT_WINGDINGS)

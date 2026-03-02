@@ -186,6 +186,8 @@
 	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
 	var/cares_about_temperature = FALSE
 
+	var/looting_icon_mode
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -249,6 +251,9 @@
 
 	ComponentInitialize()
 	InitializeAIController()
+
+	if(LAZYLEN(hud_possible))
+		hud_possible = string_assoc_list(hud_possible)
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -677,6 +682,7 @@
 /// Checks if this atom uses the GAS system and if so updates the icon
 /atom/proc/update_greyscale()
 	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()

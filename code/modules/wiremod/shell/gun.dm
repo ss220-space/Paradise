@@ -57,6 +57,12 @@
 	/// The entity being shot
 	var/datum/port/output/shot
 
+/obj/item/circuit_component/wiremod_gun/Destroy()
+	signal = null
+	shooter = null
+	shot = null
+	. = ..()
+
 /obj/item/circuit_component/wiremod_gun/Initialize(mapload)
 	. = ..()
 	shooter = add_output_port("Пользователь", PORT_TYPE_ATOM)

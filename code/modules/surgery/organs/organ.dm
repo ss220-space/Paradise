@@ -134,6 +134,15 @@
 /obj/item/organ/proc/update_health()
 	return
 
+/obj/item/organ/proc/emp_shielded(severity)
+	if(!owner || !HAS_TRAIT(owner, TRAIT_COMBAT_EXOFRAME_EMP_SHIELD))
+		return FALSE
+	var/nutrition_cost = (severity == 1) ? 5 : 2
+	if(owner.nutrition < nutrition_cost)
+		return FALSE
+	owner.adjust_nutrition(-nutrition_cost)
+	return TRUE
+
 /obj/item/organ/proc/necrotize(silent = FALSE)
 	if(status & (ORGAN_ROBOT|ORGAN_DEAD))
 		return FALSE
