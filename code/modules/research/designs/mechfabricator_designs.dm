@@ -1422,7 +1422,7 @@
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
 
-/datum/design/borg_upgrade_soh_magnet
+/datum/design/borg_upgrade_mining_satchel_magnet
 	id = "borg_upgrade_soh_magnet"
 	build_type = MECHFAB
 	build_path = /obj/item/borg/upgrade/borg_mining_sat_upgr
