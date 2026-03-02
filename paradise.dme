@@ -827,6 +827,7 @@
 #include "code\datums\elements\after_attack\_after_attack.dm"
 #include "code\datums\elements\after_attack\attack_effect_sleep.dm"
 #include "code\datums\elements\decals\_decal.dm"
+#include "code\datums\elements\tts_modifier.dm"
 #include "code\datums\emote\emote.dm"
 #include "code\datums\emote\emote_verbs.dm"
 #include "code\datums\greyscale\_greyscale_config.dm"
