@@ -269,7 +269,11 @@
 				gear_leftovers += G
 
 		for(var/datum/gear/G in normal_implants)
+			if(!G.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name))
+				continue
+
 			var/implant_path = G.get_spawn_path(name, H.client.prefs.get_gear_metadata(G))
+
 			if(!implant_path)
 				continue
 
