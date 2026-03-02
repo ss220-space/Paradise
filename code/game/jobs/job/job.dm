@@ -241,6 +241,9 @@
 				back = backpack //Department backpack
 
 	if(allow_loadout && H.client)
+		var/list/normal_implants = list()
+		var/list/universal_implants = list()
+
 		for(var/gear in H.client.prefs.choosen_gears)
 			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
 			if(!istype(G))
@@ -250,19 +253,38 @@
 				continue
 
 			if(G.implantable) //only works for organ-implants
-				var/obj/item/organ/internal/I = new G.path
-				I.insert(H)
-				to_chat(H, span_notice("Implanting you with [I.name]!"))
+				if(istype(G, /datum/gear/implant/universal))
+					universal_implants += G
+				else
+					normal_implants += G
 				continue
 
 			if(G.slot)
 				var/obj/item/placed_in = G.spawn_item(H, H.client.prefs.get_gear_metadata(G))
 				if(H.equip_to_slot_or_del(placed_in, G.slot, TRUE))
-					to_chat(H, span_notice("Equipping you with [placed_in.name]!"))
+					to_chat(H, span_notice("Вы получили [placed_in.declent_ru(ACCUSATIVE)]!"))
 				else
 					gear_leftovers += G
 			else
 				gear_leftovers += G
+
+		for(var/datum/gear/G in normal_implants)
+			var/implant_path = G.get_spawn_path(name, H.client.prefs.get_gear_metadata(G))
+			if(!implant_path)
+				continue
+
+			var/obj/item/organ/internal/I = new implant_path
+			if(I.insert(H))
+				to_chat(H, span_notice("Вам установлен [I.declent_ru(NOMINATIVE)]!"))
+
+		for(var/datum/gear/G in universal_implants)
+			var/implant_path = G.get_spawn_path(name, H.client.prefs.get_gear_metadata(G))
+			if(!implant_path)
+				continue
+
+			var/obj/item/organ/internal/I = new implant_path
+			if(I.insert(H))
+				to_chat(H, span_notice("Вам установлен [I.declent_ru(NOMINATIVE)]!"))
 
 	H.dna.species.job_pre_equip(H)
 

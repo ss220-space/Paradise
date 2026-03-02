@@ -174,3 +174,9 @@
 	if(emp_shielded(severity))
 		return
 	return
+
+/obj/item/organ/internal/cyberimp/eyes/hud/universal
+	name = "Universal HUD implant"
+	desc = "Устанавливает подходящий вашей должности ИЛС имплант. Менее приоритетный, чем выбранные вручную импланты."
+	icon_state = "universal_implant"
+	aug_message = "Этот имплант не имеет смысла..."
