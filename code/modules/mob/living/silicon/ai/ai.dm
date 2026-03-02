@@ -339,15 +339,16 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
 	var/list/robot_list = list()
 	var/list/aishell_list = list()
-	for(var/mob/living/silicon/robot/robot in connected_robots)
-		if(robot.shell)
+	for(var/mob/living/silicon/robot/robot as anything in GLOB.available_ai_shells)
+		if(robot.connected_ai == src || !robot.connected_ai)
 			aishell_list += robot
-		else
+	for(var/mob/living/silicon/robot/robot as anything in connected_robots)
+		if(!robot.shell)
 			robot_list += robot
 
 	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(robot_list)]")
 	// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
-	for(var/mob/living/silicon/robot/robot in robot_list)
+	for(var/mob/living/silicon/robot/robot as anything in robot_list)
 		var/robot_status
 		if(robot.stat || !robot.client)
 			robot_status = "OFFLINE"
@@ -355,22 +356,22 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			robot_status = "DEPOWERED"
 		else
 			robot_status = "Nominal"
-		var/area/A = get_area(robot)
-		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
+		var/area/robots_area = get_area(robot)
+		var/area_name = robots_area ? sanitize(robots_area.name) : UNKNOWN_STATUS_RUS
 		status_tab_data[++status_tab_data.len] = list("[robot.name]:", "S.Integrity: [robot.health]% | Cell: [robot.cell ? "[robot.cell.charge] / [robot.cell.maxcharge]" : "Empty"] | \
 		Module: [robot.designation] | Loc: [area_name] | Status: [robot_status]")
 
 	status_tab_data[++status_tab_data.len] = list("Detected AI shell beacons:", "[length(aishell_list)]")
-	for(var/mob/living/silicon/robot/robot in aishell_list)
-		var/robot_status
+	for(var/mob/living/silicon/robot/robot as anything in aishell_list)
+		var/shell_status
 		if(!can_connect_to(robot))
-			robot_status = "UNABLE TO CONNECT"
+			shell_status = "UNABLE TO CONNECT"
 		else
-			robot_status = "Ready to connect"
-		var/area/A = get_area(robot)
-		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
+			shell_status = "Ready to connect"
+		var/area/robots_area = get_area(robot)
+		var/area_name = robots_area ? sanitize(robots_area.name) : UNKNOWN_STATUS_RUS
 		status_tab_data[++status_tab_data.len] = list("Shell-[num2text(robot.ident)]:", "S.Integrity: [robot.health]% | Cell: [robot.cell ? "[robot.cell.charge] / [robot.cell.maxcharge]" : "Empty"] | \
-		Module: [robot.designation] | Loc: [area_name] | Status: [robot_status]")
+		Module: [robot.designation] | Loc: [area_name] | Status: [shell_status] [(robot.connected_ai == src? null : "| Occupier: [robot.mainframe? "[robot.mainframe.name]" : "NONE"]")]")
 	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)

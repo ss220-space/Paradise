@@ -185,9 +185,11 @@
 /obj/item/robot_parts/robot_suit/proc/give_new_laws(mob/living/silicon/robot/target, datum/ai_laws/laws_to_give)
 	if(laws_to_give)
 		target.laws = laws_to_give
-	else if(!lawsync)
-		target.lawupdate = FALSE
-		target.make_laws()
+		return
+	if(lawsync)
+		return
+	target.lawupdate = FALSE
+	target.make_laws()
 
 /obj/item/robot_parts/robot_suit/proc/check_special_role(obj/item/mmi/mmi, mob/living/silicon/robot/target, mob/living/user)
 	if(mmi.greet(target) && !target.mind.special_role)
