@@ -38,8 +38,8 @@
 	var/active = (user.wear_mask == source)
 	
 	if(active && istype(source, /obj/item/clothing/mask))
-		var/obj/item/clothing/mask/mask = source
-		if(mask.up)
+		var/obj/item/clothing/mask/mask_item = source
+		if(mask_item.up)
 			active = FALSE
 
 	if(!active)
