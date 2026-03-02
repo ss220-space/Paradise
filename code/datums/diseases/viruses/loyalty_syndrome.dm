@@ -6,11 +6,11 @@
 	desc = "Болезнь, вызывающая острую массовую одержимость определённым человеком, а также различные навязчивые идеи."
 	spread_flags = CONTACT
 	permeability_mod = 0.8
-	can_immunity = FALSE
 	cure_text = "Галоперидол"
 	cures = list("haloperidol")
 	visibility_flags = HIDDEN_HUD
 	severity = DISEASE_SEVERITY_BIOHAZARD
+	no_vaccine = TRUE
 	var/is_master = FALSE
 	var/mob/living/carbon/human/master
 	var/timer = 0
@@ -164,4 +164,5 @@
 	need_master_death_message = FALSE
 	affected_mob.adjustBrainLoss(50)
 	addtimer(CALLBACK(affected_mob, TYPE_PROC_REF(/mob/living/carbon/human, emote), "cry"), rand(3, 10) SECONDS)
+
 #undef STAGE_TIME

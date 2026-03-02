@@ -5219,7 +5219,7 @@
 	},
 /area/derelict/med)
 "nk" = (
-/obj/item/firstaid_arm_assembly,
+/obj/item/bot_assembly/firstaid_arm_assembly,
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "white"
 	},
