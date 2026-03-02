@@ -771,6 +771,30 @@
 		qdel(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	if(istype(I, /obj/item/storage/part_replacer))
+		add_fingerprint(user)
+		if(stat & BROKEN)
+			to_chat(user, span_warning("Для этого ЛКП должен быть цел."))
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		if(opened == APC_CLOSED)
+			playsound(loc, 'sound/items/crowbar.ogg', 30, TRUE)
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает открывать техническую панель ЛКП."),
+				span_notice("Вы начали открывать техническую панель ЛКП.."),
+			)
+			if(!do_after(user, 10 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || opened != APC_CLOSED)
+				return ATTACK_CHAIN_PROCEED
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] открыл техническую панель ЛКП."),
+				span_notice("Вы открыли техническую панель ЛКП."),
+			)
+			opened = APC_OPENED
+			update_icon()
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		cell_upgrade_by_rped(user, I)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
 	return ..()
 
 /obj/machinery/power/apc/examine(mob/user)
@@ -1735,6 +1759,33 @@
 	var/area/apc_area = get_area(src)
 	if(apc_area)
 		apc_area.power_change()
+
+/obj/machinery/power/apc/proc/cell_upgrade_by_rped(mob/user, obj/item/storage/part_replacer/rped)
+	var/obj/item/stock_parts/cell/best_cell
+	for(var/obj/item/stock_parts/cell/newcell in rped.contents)
+		if(!cell || newcell.maxcharge > cell.maxcharge || newcell.charge > cell.charge * 2)
+			if(!best_cell || newcell.maxcharge > best_cell.maxcharge)
+				best_cell = newcell
+
+	if(best_cell)
+		rped.remove_from_storage(best_cell, src)
+		rped.handle_item_insertion(cell, TRUE)
+		playsound(loc, 'sound/items/rped.ogg', 30, TRUE)
+		if(cell)
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] заменил [cell.declent_ru(ACCUSATIVE)] на [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+				span_notice("Вы заменили [cell.declent_ru(ACCUSATIVE)] на [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+			)
+		else
+			user.visible_message(
+				span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] установил [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+				span_notice("Вы установили [best_cell.declent_ru(ACCUSATIVE)] в ЛКП."),
+			)
+		cell = best_cell
+		update_icon()
+		return
+
+	to_chat(user, span_warning("Невозможно заменить батарею!"))
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1
