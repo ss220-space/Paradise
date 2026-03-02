@@ -16818,7 +16818,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
-/obj/item/toolbox_tiles,
+/obj/item/bot_assembly/toolbox_tiles,
 /turf/simulated/floor/plating,
 /area/maintenance/tourist)
 "cvL" = (
@@ -18852,7 +18852,7 @@
 /area/quartermaster/miningstorage)
 "cMC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/item/toolbox_tiles,
+/obj/item/bot_assembly/toolbox_tiles,
 /obj/structure/rack,
 /obj/effect/decal/warning_stripes/southwestcorner,
 /turf/simulated/floor/plating,
@@ -139521,7 +139521,7 @@
 /area/security/brig)
 "uFZ" = (
 /obj/structure/table,
-/obj/item/secbot_assembly{
+/obj/item/bot_assembly/secbot_assembly{
 	created_name = "Officer Podsky";
 	desc = "Ты не узнаешь ценность чего-либо, пока не потеряешь это...";
 	name = "Обломки офицера Подски";
