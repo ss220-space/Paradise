@@ -27,15 +27,12 @@
 		to_chat(user, span_notice("Вы улучшили сумку для руды!"))
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, vary = TRUE)
 		aoe = TRUE
-		update_appearance(UPDATE_DESC)
 		qdel(item)
 
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
-/obj/item/storage/bag/ore/update_desc(updates = ALL)
+/obj/item/storage/bag/ore/examine(mob/user)
 	. = ..()
 	if(aoe)
-		desc = initial(desc) + " Сумка улучшена рудным магнитом."
-	else
-		desc = initial(desc)
+		. += span_notice("Сумка улучшена рудным магнитом.")
