@@ -68,24 +68,25 @@
 	var/mob/arrived_mob = arrived
 
 	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
+
 		if(bag.aoe)
 			for(var/turf/turf in range(1, arrived_mob))
-				for(var/obj/item/stack/ore/ore in turf)
-
-					if(!bag.can_be_inserted(ore, stop_messages = TRUE))
+				for(var/obj/item/item as anything in turf)
+					if(!bag.can_be_inserted(item, stop_messages = TRUE))
 						continue
 
-					ore.do_pickup_animation(arrived_mob)
-					bag.handle_item_insertion(ore, prevent_warning = TRUE)
-
+					item.do_pickup_animation(arrived_mob)
+					bag.handle_item_insertion(item, prevent_warning = TRUE)
 		else
-			for(var/obj/item/stack/ore/O in loc)
-
-				if(!bag.can_be_inserted(O, stop_messages = TRUE))
+			for(var/obj/item/item as anything in loc)
+				if(!bag.can_be_inserted(item, stop_messages = TRUE))
 					continue
 
-				O.do_pickup_animation(arrived_mob)
-				bag.handle_item_insertion(O, prevent_warning = TRUE)
+				item.do_pickup_animation(arrived_mob)
+				bag.handle_item_insertion(item, prevent_warning = TRUE)
+
+		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
+			arrived_mob.pulling.attackby(bag, arrived)
 
 
 /obj/item/stack/ore/fire_act(exposed_temperature, exposed_volume)
