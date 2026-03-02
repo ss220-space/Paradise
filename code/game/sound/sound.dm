@@ -15,8 +15,9 @@ GLOBAL_LIST_EMPTY(cached_songs)
  * * pressure_affected - Whether or not difference in pressure affects the sound (E.g. if you can hear in space).
  * * ignore_walls - Whether or not the sound can pass through walls.
  * * falloff_distance - Distance at which falloff begins. Sound is at peak volume (in regards to falloff) aslong as it is in this range.
+ * * link_to_source - Whether or not the sound's position is linked to the source atom, so the sound will change it's matrix real time as the source or listener moves. Note that it check only the distance of client's eye and the atom.
  */
-/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE)
+/proc/playsound(atom/source, soundin, vol as num, vary, extrarange as num, falloff_exponent = SOUND_FALLOFF_EXPONENT, frequency = null, channel = 0, pressure_affected = TRUE, ignore_walls = TRUE, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, use_reverb = TRUE, link_to_source = TRUE)
 	if(isarea(source))
 		CRASH("playsound(): source is an area")
 
@@ -71,7 +72,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
 				listeners += listening_ghost
 
 	for(var/mob/listening_mob in listeners)//had nulls sneak in here, hence the typecheck
-		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb)
+		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb, source)
 
 	return listeners
 /**
@@ -93,7 +94,7 @@ GLOBAL_LIST_EMPTY(cached_songs)
  * * distance_multiplier - Default 1, multiplies the maximum distance of our sound
  * * use_reverb - bool default TRUE, determines if our sound has reverb
  */
-/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE)
+/mob/proc/playsound_local(turf/turf_source, soundin, vol as num, vary, frequency, falloff_exponent = SOUND_FALLOFF_EXPONENT, channel = 0, pressure_affected = TRUE, sound/sound_to_use, max_distance, falloff_distance = SOUND_DEFAULT_FALLOFF_DISTANCE, distance_multiplier = 1, use_reverb = TRUE, wait = FALSE, atom/source)
 	if(!client || !can_hear())
 		return
 
@@ -172,6 +173,9 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	sound_to_use.volume *= USER_VOLUME(src, CHANNEL_GENERAL)
 	if(channel)
 		sound_to_use.volume *= USER_VOLUME(src, channel)
+
+	if(get_turf(src) != turf_source) // simple check to not make double noise from walking
+		sound_to_use.atom = source ? source : turf_source
 
 	SEND_SOUND(src, sound_to_use)
 
