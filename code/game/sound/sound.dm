@@ -71,8 +71,9 @@ GLOBAL_LIST_EMPTY(cached_songs)
 			if(get_dist(listening_ghost, turf_source) <= audible_distance)
 				listeners += listening_ghost
 
+	var/atom/atom_source = link_to_source ? source : null
 	for(var/mob/listening_mob in listeners)//had nulls sneak in here, hence the typecheck
-		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb, source)
+		listening_mob.playsound_local(turf_source, soundin, vol, vary, frequency, falloff_exponent, channel, pressure_affected, sound, maxdistance, falloff_distance, 1, use_reverb, atom_source)
 
 	return listeners
 /**
@@ -174,8 +175,8 @@ GLOBAL_LIST_EMPTY(cached_songs)
 	if(channel)
 		sound_to_use.volume *= USER_VOLUME(src, channel)
 
-	if(get_turf(src) != turf_source) // simple check to not make double noise from walking
-		sound_to_use.atom = source ? source : turf_source
+	if(source && get_turf(src) != turf_source) // simple check to not make double noise from walking
+		sound_to_use.atom = source
 
 	SEND_SOUND(src, sound_to_use)
 
