@@ -152,7 +152,7 @@
 	mutant.RemoveSpell(/obj/effect/proc_holder/spell/hulk_transform)
 	mutant.change_eye_color(mutant.original_eye_color, FALSE)
 	mutant.update_body(TRUE)
-	mutant.update_transform(RESIZE_DEFAULT_SIZE/hulk_humanbody_size)
+	mutant.update_transform(RESIZE_DEFAULT_SIZE / hulk_humanbody_size)
 
 /datum/dna/gene/basic/xray
 	name = "Рентгеновское зрение"
