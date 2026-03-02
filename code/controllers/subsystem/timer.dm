@@ -437,7 +437,8 @@ SUBSYSTEM_DEF(timer)
 	if(callBack?.object && callBack.object != GLOBAL_PROC && callBack.object.active_timers)
 		callBack.object.active_timers -= src
 		UNSETEMPTY(callBack.object.active_timers)
-
+	callBack.object = null
+	LAZYCLEARLIST(callBack?.arguments)
 	callBack = null
 
 	if(flags & TIMER_STOPPABLE)

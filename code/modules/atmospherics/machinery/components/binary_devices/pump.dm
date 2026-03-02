@@ -282,6 +282,23 @@ Thus, the two variables affect pump operation are set in New():
 	///The component parent object
 	var/obj/machinery/atmospherics/binary/pump/connected_pump
 
+/obj/item/circuit_component/atmos_pump/Destroy()
+	if(connected_pump)
+		unregister_usb_parent(connected_pump)
+
+	pressure_value = null
+	on = null
+	off = null
+	request_data = null
+	input_pressure = null
+	output_pressure = null
+	input_temperature = null
+	output_temperature = null
+	is_active = null
+	turned_on = null
+	turned_off = null
+	. = ..()
+
 /obj/item/circuit_component/atmos_pump/populate_ports()
 	pressure_value = add_input_port("Новое давление", PORT_TYPE_NUMBER, trigger = PROC_REF(set_pump_pressure))
 	on = add_input_port("Включить", PORT_TYPE_SIGNAL, trigger = PROC_REF(set_pump_on))

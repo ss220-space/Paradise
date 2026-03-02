@@ -4,9 +4,9 @@
 	/// Link to the spawned item
 	var/obj/item/melee/touch_attack/attached_hand = null
 	/// Special message shown on item gain
-	var/on_gain_message = span_notice("You channel the power of the spell to your hand.")
+	var/on_gain_message = span_notice_alt("You channel the power of the spell to your hand.")
 	/// Special message shown on item withdrowal
-	var/on_withdraw_message = span_notice("You draw the power out of your hand.")
+	var/on_withdraw_message = span_notice_alt("You draw the power out of your hand.")
 
 /obj/effect/proc_holder/spell/touch/create_new_targeting()
 	return new /datum/spell_targeting/self

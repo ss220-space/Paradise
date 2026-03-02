@@ -483,7 +483,7 @@ ADMIN_VERB(cmd_controller_view_ui, R_SERVER|R_DEBUG|R_VIEWRUNTIMES, "Controller 
 	last_init_info = "([subsystem.name]): [message]"
 
 	if(result != SS_INIT_NO_MESSAGE)
-		to_chat(world, span_danger("<small>\[[subsystem.name]]</small> [chat_message]"))
+		to_chat(world, span_danger("<small>\[[subsystem.name]\]</small> [chat_message]"))
 
 	log_world("\[[subsystem.name]] [message]")
 

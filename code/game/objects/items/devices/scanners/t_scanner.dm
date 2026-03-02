@@ -154,6 +154,10 @@
 	spark_system.set_up(5, 0, src)
 	spark_system.attach(src)
 
+/obj/item/t_scanner/security/Destroy()
+	QDEL_NULL(spark_system)
+	. = ..()
+
 /obj/item/t_scanner/security/update_icon_state()
 	if(burnt)
 		icon_state = "[base_icon_state]_burnt"

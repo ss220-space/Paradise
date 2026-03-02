@@ -34,6 +34,11 @@
 		capacity = SHELL_CAPACITY_LARGE, \
 	)
 
+/obj/item/mod/module/circuit/Destroy()
+	shell = null
+	LAZYCLEARLIST(action_comps)
+	. = ..()
+
 /obj/item/mod/module/circuit/proc/override_power_usage(datum/source, amount)
 	SIGNAL_HANDLER
 	if(drain_power(amount))
@@ -199,6 +204,23 @@
 
 	/// The signal that is triggered when the suit has finished toggling itself after being activated by a signal
 	var/datum/port/output/on_toggle_finish
+
+/obj/item/circuit_component/mod_adapter_core/Destroy()
+	if(attached_module)
+		unregister_shell(attached_module)
+	module_to_select = null
+	toggle_deploy = null
+	toggle_suit = null
+	select_module = null
+	wearer = null
+	deployed = null
+	activated = null
+	selected_module = null
+	deployed_parts = null
+	on_module_selected = null
+	on_deploy = null
+	on_toggle_finish = null
+	. = ..()
 
 /obj/item/circuit_component/mod_adapter_core/populate_options()
 	module_to_select = add_option_port("Выбор модуля", list())

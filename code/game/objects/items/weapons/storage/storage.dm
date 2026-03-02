@@ -187,7 +187,7 @@
 		L += F.contents
 	return L
 
-/obj/item/storage/proc/show_to(mob/user)
+/obj/item/storage/proc/show_to(mob/user, from_inv_observers = FALSE)
 	if(!user.client)
 		return
 	if(QDELETED(src))
@@ -215,13 +215,18 @@
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
+	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_mob_qdeleting), TRUE)
+
+	if(from_inv_observers)
+		return
+
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
-		show_to(observe)
+		show_to(observe, TRUE)
 
-/obj/item/storage/proc/hide_from(mob/user)
+/obj/item/storage/proc/hide_from(mob/user, from_inv_observers = FALSE)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
 		return
@@ -235,11 +240,20 @@
 	if(user.s_active == src)
 		user.s_active = null
 
+	UnregisterSignal(user, COMSIG_QDELETING)
+
+	if(from_inv_observers)
+		return
+
 	for(var/mob/dead/observer/observe in user.inventory_observers)
 		if(!observe.client)
 			LAZYREMOVE(user.inventory_observers, observe)
 			continue
-		hide_from(observe)
+		hide_from(observe, TRUE)
+
+/obj/item/storage/proc/on_mob_qdeleting(mob/source, force)
+	SIGNAL_HANDLER
+	hide_from(source)
 
 /obj/item/storage/proc/hide_from_all_viewers()
 	if(!LAZYLEN(mobs_viewing))
