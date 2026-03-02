@@ -128,6 +128,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		/mob/living/silicon/proc/subsystem_law_manager,
 	)
 
+	tts_effect_override = SOUND_EFFECT_ROBOT
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 

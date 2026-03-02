@@ -190,6 +190,10 @@
 		PREPOSITIONAL = "маске спецназа",
 	)
 
+/obj/item/clothing/mask/gas/swat/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
+
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."
@@ -197,6 +201,10 @@
 	icon_state = "swat"
 	armor = list(MELEE = 15, BULLET = 15, LASER = 15, ENERGY = 15, BOMB = 15, BIO = 50, RAD = 0, FIRE = 100, ACID = 50)
 	strip_delay = 60
+
+/obj/item/clothing/mask/gas/syndicate/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
 
 /obj/item/clothing/mask/gas/syndicate/get_ru_names()
 	return list(
@@ -661,10 +669,16 @@
 		PREPOSITIONAL = "противогазе службы безопасности",
 	)
 
+/obj/item/clothing/mask/gas/sechailer/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/tts_modifier, SOUND_EFFECT_MASKFILTER)
+
 /obj/item/clothing/mask/gas/sechailer/adjustmask(user)
 	. = ..()
 	if(.)
 		w_class = up ? WEIGHT_CLASS_SMALL : WEIGHT_CLASS_NORMAL
+		if(user)
+			SEND_SIGNAL(src, COMSIG_MASKFILTER_UPDATE_STATE, user)
 
 /obj/item/clothing/mask/gas/sechailer/force_adjust_mask()
 	. = ..()
@@ -744,6 +758,7 @@
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
+
 /obj/item/clothing/mask/gas/sechailer/swat/get_ru_names()
 	return list(
 		NOMINATIVE = "тактический противогаз",
