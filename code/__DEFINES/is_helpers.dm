@@ -302,7 +302,6 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isrobot(A) (istype((A), /mob/living/silicon/robot))
 #define ispAI(A) (istype((A), /mob/living/silicon/pai))
 #define isdrone(A) (istype((A), /mob/living/silicon/robot/drone))
-#define iscogscarab(A) (istype((A), /mob/living/silicon/robot/cogscarab))
 
 // For the tcomms monitor
 #define ispathhuman(A) (ispath(A, /mob/living/carbon/human))

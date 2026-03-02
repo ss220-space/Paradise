@@ -116,9 +116,6 @@
 //aliens
 #define ui_alien_health "EAST-1:28,CENTER-1:15" //aliens have the health display where humans have the pressure damage indicator.
 
-//aliens
-#define ui_cogscarab_timer "EAST-1:27,CENTER+0:16" //Under health tab
-
 //constructs
 #define ui_construct_pull "EAST-1:28,SOUTH+1:10" //above the zone_sel icon
 #define ui_construct_health "EAST,CENTER:15" //same height as humans, hugging the right border

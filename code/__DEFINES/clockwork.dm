@@ -44,9 +44,6 @@
 #define EMP_G_SPELL 1
 #define HEAL_G_SPELL 2
 #define STUN_G_SPELL 3
-//minigun
-#define MINIGUN_ATTACK 1
-#define MINIGUN_HEAL 2
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
@@ -97,10 +94,6 @@ GLOBAL_LIST_INIT(gun_and_heart_spells, list(
 	new /datum/spell_enchant("Heal", HEAL_G_SPELL, time = 1),
 	new /datum/spell_enchant("Stun", STUN_G_SPELL, time = 1)
 ))
-GLOBAL_LIST_INIT(minigun_spells, list(
-	new /datum/spell_enchant("Attack sphere", MINIGUN_ATTACK, time = 3),
-	new /datum/spell_enchant("Heal sphere", MINIGUN_HEAL, time = 3),
-))
 
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200
@@ -112,14 +105,6 @@ GLOBAL_LIST_INIT(minigun_spells, list(
 #define COG_MAX_SIPHON_THRESHOLD 0.25 //The cog will not siphon power if the APC's cell is at this % of power
 // amount of metal per brass
 #define CLOCK_METAL_TO_BRASS 5
-//Cogscarab: a wind up timer of how long can droney live without beacon
-#define CLOCK_MAX_WIND_UP_TIMER 150
-//Cogscarab: Maximum amount of cogscarab on one fabricator.
-#define MAX_COGSCRAB_PER_FABRICATOR 2
-// Cogscarab: Maximum amount of fabricators for cult.
-#define MAX_COG_FABRICATORS 2
-//Cogscarab: Amount of time to wait until a new cogscrab is ready.
-#define TIME_NEW_COGSCRAB 120
 
 // Clockwork Status
 /// At what population does it switch to highpop values

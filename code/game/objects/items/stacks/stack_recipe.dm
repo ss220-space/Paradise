@@ -119,13 +119,7 @@
 		if(locate(/obj/structure/clockwork/functional/beacon) in A)
 			to_chat(usr, span_warning("This area already has beacon!"))
 			return FALSE
-	if(result_type == /obj/structure/clockwork/functional/cogscarab_fabricator)
-		if(length(GLOB.clockwork_fabricators) >= MAX_COG_FABRICATORS)
-			to_chat(usr, span_warning("You can't build more than [MAX_COG_FABRICATORS] fabricators!"))
-			return FALSE
-		if(usr.type == /mob/living/silicon/robot/cogscarab)
-			to_chat(usr, span_warning("You're too small to build this machinery."))
-			return FALSE
+
 
 	return TRUE
 

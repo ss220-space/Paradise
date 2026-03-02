@@ -22,7 +22,6 @@
 #define VERB_CATEGORY_MOUSE "Мышь"
 #define VERB_CATEGORY_PARROT "Попугай"
 #define VERB_CATEGORY_GUARDIAN "Страж"
-#define VERB_CATEGORY_COGSCARAB "Заводной скарабей"
 #define VERB_CATEGORY_BORER "Мозговой червь"
 #define VERB_CATEGORY_SWARMER "Свармер"
 #define VERB_CATEGORY_DOG "Пёс"

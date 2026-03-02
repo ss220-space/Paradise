@@ -144,9 +144,6 @@ GLOBAL_LIST(ui_logins)
 		state.name = usr.name
 		state.rank = JOB_TITLE_AI
 		state.law_level = LAW_LEVEL_BASE
-	else if(iscogscarab(usr))
-		to_chat(usr,  span_warning("Отказано в доступе."))
-		return
 	else if(login_type == LOGIN_TYPE_ROBOT && isrobot(usr))
 		var/mob/living/silicon/robot/R = usr
 		state.name = usr.name

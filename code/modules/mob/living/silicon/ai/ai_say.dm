@@ -26,8 +26,6 @@
 		jobname = "Без ID"
 	else if(isAI(speaker))
 		jobname = JOB_TITLE_AI
-	else if(iscogscarab(speaker))
-		jobname = UNKNOWN_STATUS_RUS
 	else if(isrobot(speaker))
 		var/mob/living/silicon/robot/R = speaker
 		jobname = R.mind.role_alt_title ? R.mind.role_alt_title : JOB_TITLE_CYBORG

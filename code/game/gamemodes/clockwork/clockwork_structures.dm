@@ -160,9 +160,6 @@
 			if(L.reagents?.has_reagent("holywater"))
 				to_chat(L, span_warning("You feel a terrible liquid disappearing from your body."))
 				L.reagents.del_reagent("holywater")
-			if(iscogscarab(L))
-				var/mob/living/silicon/robot/cogscarab/C = L
-				C.wind_up_timer = min(C.wind_up_timer + 60, CLOCK_MAX_WIND_UP_TIMER) //every 6 seconds gains 60 seconds. roughly, every second 10 to timer.
 			if(!(L.health < L.maxHealth))
 				continue
 			new /obj/effect/temp_visual/heal(get_turf(L), "#960000")
@@ -435,99 +432,3 @@
 	user.put_in_hands(clockpointer)
 	qdel(src)
 	return
-
-/obj/structure/clockwork/functional/cogscarab_fabricator
-	name = "cogscarab fabricator"
-	desc = "House for a tons of little cogscarabs, self-producing and maintaining itself."
-	icon_state = "fabricator"
-	death_message = span_danger_alt("Fabricator crumbles and dusts, leaving nothing behind!")
-	var/list/cogscarab_list = list()
-	canbehidden = TRUE
-	var/cog_slots = 0
-	var/timer_fabrictor = null
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/examine(mob/user)
-	. = ..()
-	if(!hidden && (isclocker(user) || isobserver(user)))
-		. += span_notice("There's [cog_slots - length(cogscarab_list)] cogscarab ready. [timer_fabrictor ? "And it's creating another one now" : "It stopped creating."].")
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/Initialize(mapload)
-	. = ..()
-	GLOB.clockwork_fabricators += src
-	timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-	notify_ghosts("[src] is created at [get_area(src)].", title = "New cogscarab fabricator!", source = src, flashwindow = FALSE, action = NOTIFY_JUMP)
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/obj_destruction()
-	. = ..()
-	GLOB.clockwork_fabricators -= src
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/proc/open_slot()
-	cog_slots += 1
-	notify_ghosts("[src] made a new shell at [get_area(src)]!", title = "Cogscarab ready!", source = src, action = NOTIFY_ATTACK)
-	if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
-		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-	else
-		timer_fabrictor = null
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/proc/close_slot(cogscarab)
-	cogscarab_list -= cogscarab
-	cog_slots -= 1
-	if(!timer_fabrictor)
-		timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user) && I.enchant_type != HIDE_SPELL && !hidden)
-		add_fingerprint(user)
-		if(!anchored && !isfloorturf(loc))
-			to_chat(user, span_warning("A floor must be present to secure [src]!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
-		if(locate(/obj/structure/clockwork) in (loc.contents-src))
-			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
-		if(locate(/obj/structure/falsewall) in loc)
-			to_chat(user, span_warning("There is a structure here!"))
-			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
-		set_anchored(!anchored)
-		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, span_notice("You [anchored ? "":"un"]secure [src] [anchored ? "to":"from"] the floor."))
-		if(!anchored)
-			if(timer_fabrictor)
-				deltimer(timer_fabrictor)
-				timer_fabrictor = null
-		else
-			if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
-				timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-		return ATTACK_CHAIN_BLOCKED_ALL
-	return ..()
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/toggle_hide(chosen_type)
-	. = ..()
-	if(. && timer_fabrictor) // hidden
-		deltimer(timer_fabrictor)
-		timer_fabrictor = null
-	else
-		if(cog_slots < MAX_COGSCRAB_PER_FABRICATOR)
-			timer_fabrictor = addtimer(CALLBACK(src, PROC_REF(open_slot)), TIME_NEW_COGSCRAB SECONDS)
-
-/obj/structure/clockwork/functional/cogscarab_fabricator/attack_ghost(mob/dead/observer/user)
-	if(hidden)
-		to_chat(user, span_warning("It's hidden and cannot produce you at this state!"))
-		return FALSE
-	if(!anchored)
-		to_chat(user, span_warning("It seems to be non-functional to produce a new shell!"))
-		return FALSE
-	if(length(cogscarab_list) >= cog_slots)
-		to_chat(user, span_notice("There's no empty shells to take!"))
-		return FALSE
-	if(alert(user, "Do you wish to become cogscarab?",,"Yes","No") == "Yes")
-		if(length(cogscarab_list) >= cog_slots) //Double check. No duplications
-			to_chat(user, span_notice("There's no empty shells to take!"))
-			return FALSE
-		var/mob/living/silicon/robot/cogscarab/cog = new(loc)
-		cog.possess_by_player(user.key)
-		if(SSticker.mode.add_clocker(cog.mind))
-			cog.create_log(CONVERSION_LOG, "[cog.mind] became clock drone")
-		cog.fabr = src
-		cogscarab_list += cog
-		return TRUE
-	return FALSE

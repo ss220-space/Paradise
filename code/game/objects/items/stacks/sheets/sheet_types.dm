@@ -535,7 +535,6 @@ GLOBAL_LIST_INIT(brass_recipes, list(
 		new /datum/stack_recipe("altar of credence", /obj/structure/clockwork/functional/altar, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe("eternal workshop", /obj/structure/clockwork/functional/workshop, 4, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe("herald's beacon", /obj/structure/clockwork/functional/beacon, 6, time = 8 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
-		new /datum/stack_recipe("cogscarab fabricator", /obj/structure/clockwork/functional/cogscarab_fabricator, 5, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe("wall gear", /obj/structure/clockwork/wall_gear, time = 1 SECONDS, one_per_turf = TRUE, on_floor = TRUE, cult_structure = TRUE),
 		new /datum/stack_recipe("brass table frame", /obj/structure/table_frame/brass, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 		new /datum/stack_recipe("clockwork floor tile", /obj/item/stack/tile/clockwork, res_amount = 4, max_res_amount = 20),

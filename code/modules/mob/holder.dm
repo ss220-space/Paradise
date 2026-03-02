@@ -148,12 +148,6 @@
 	icon_state = "drone-emagged"
 	origin_tech = "materials=3;programming=4;powerstorage=3;engineering=4;syndicate=3"
 
-/obj/item/holder/cogscarab
-	name = "cogscarab"
-	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
-	icon_state = "cogscarab"
-	origin_tech = "materials=3;magnets=4;powerstorage=9;bluespace=4"
-
 /obj/item/holder/pai
 	name = "pAI"
 	desc = "It's a little robot."
