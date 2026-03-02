@@ -2365,17 +2365,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!mainframe)
 		return
 	var/mob/living/silicon/ai/AI = mainframe
-	if(danger_level && DANGER_LVL_NONE)
+	if(danger_level == DANGER_LVL_NONE)
 		mainframe.disconnect_shell()
 		to_chat(AI, span_danger("ВНИМАНИЕ: Беcпроводное подключение с оболочкой было принудительно прервано!"))
 		return
 	mainframe.disconnect_shell()
-	if(danger_level && DANGER_LVL_MAY_DIE)
+	if(danger_level == DANGER_LVL_MAY_DIE)
 		if(prob(50))
 			to_chat(AI, span_alert("ОШИБКА: ВО $#%ВРЕ$#@МЯ ПЕ$#GHРЕН#@$ОСА СИ2С$#@@Т#ЕМН%$@ЫХ Ф#$%АЙЛ#$#!ОВ ПРОИЗО#$%^@#^&$$@^&---"))
 			AI.adjustOxyLoss(200)
 			return
-	if(danger_level && DANGER_LVL_INSTA_DEATH)
+	if(danger_level == DANGER_LVL_INSTA_DEATH)
 		to_chat(AI, span_alert("$%@#!$%##!!$$#---"))
 		AI.adjustOxyLoss(200)
 		return
