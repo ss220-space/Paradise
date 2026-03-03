@@ -334,4 +334,4 @@
 	else if(char_code > 31)
 		char_code -= 32
 
-	return char_code * 4 + 63
+	return char_code * 4 + 63 // base brightness
