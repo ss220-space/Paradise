@@ -295,7 +295,7 @@
 /datum/spacewalk_grid/proc/get_empty_node()
 	var/datum/point/P = pick(available_nodes)
 	if(isnull(P))
-		throw EXCEPTION("The `available_nodes` list was either empty or contained a null entry")
+		CRASH("The `available_nodes` list was either empty or contained a null entry")
 	consume_node(P)
 	return P
 
