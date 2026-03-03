@@ -3343,7 +3343,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		INSTRUMENTAL = "ящиком блюспейс-ранцев",
 		PREPOSITIONAL = "ящике блюспейс-ранцев",
 	)
-	
+
 /datum/supply_packs/science/soduffelbag
 	name = "Блюспейс сумки хранения"
 	contains = list(
@@ -4849,7 +4849,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/structure/reagent_dispensers/holywatertank,
 	)
 	cost = 40
-	containertype = /obj/structure/largecrate
+	containertype = /obj/structure/closet/crate/large
 	containername = "ящик с баком святой воды"
 	container_ru_names = list(
 		NOMINATIVE = "ящик с баком святой воды",
