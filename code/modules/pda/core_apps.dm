@@ -135,16 +135,34 @@
 
 	data["aircontents"] = results
 
-
-/datum/data/pda/app/raingor_interstellar_bank
+/datum/data/pda/app/bank
 	name = "Raingor Interstellar Banking" // this is the perfect name for a bank. (do not change)
 	title = "Raingor Interstellar Banking"
 	icon = "wallet"
 	template = "pda_bank"
 	category = "General"
+	update = PDA_APP_UPDATE_SLOW
 
-/datum/data/pda/app/raingor_interstellar_bank/update_ui(mob/user, list/data)
-	// test
-	data["balance"] = 0
-	data["transactions"] = list()
+/datum/data/pda/app/bank/update_ui(mob/user as mob, list/data)
+    var/datum/money_account/owner_bank_account = get_account_with_name(pda.owner)
 
+    if(owner_bank_account == null)
+        data["name"] = "unknow"
+        data["balance"] = 0
+        data["transactions"] = list()
+        return
+
+    var/list/transactions_list = list()
+    for(var/datum/transaction/T in owner_bank_account.transaction_log)
+        transactions_list.Add(list(list(
+            "date" = T.date,
+            "time" = T.time,
+            "target_name" = T.target_name,
+            "purpose" = T.purpose,
+            "amount" = T.amount,
+            "source_terminal" = T.source_terminal
+        )))
+
+    data["name"] = owner_bank_account.owner_name
+    data["balance"] = owner_bank_account.money
+    data["transactions"] = transactions_list

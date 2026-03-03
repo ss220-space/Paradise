@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		new/datum/data/pda/app/manifest,
 		new/datum/data/pda/app/atmos_scanner,
 		new/datum/data/pda/utility/flashlight,
-		new/datum/data/pda/app/raingor_interstellar_bank)
+		new/datum/data/pda/app/bank)
 	var/list/shortcut_cache = list()
 	var/list/shortcut_cat_order = list()
 	var/list/notifying_programs = list()
