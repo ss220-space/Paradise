@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(jobs)
 	/// List of jobs set to priority by HoP/Captain
 	var/list/prioritized_jobs = list()
 	/// List of all job transfer records
-	var/list/id_change_records = list()
+	var/alist/id_change_records = alist()
 	var/id_change_counter = 1
 	//Players who need jobs
 	var/list/unassigned = list()
@@ -826,7 +826,7 @@ SUBSYSTEM_DEF(jobs)
 	return jobs_to_formats
 
 /datum/controller/subsystem/jobs/proc/log_job_transfer(transferee, oldvalue, newvalue, whodidit, reason)
-	id_change_records["[id_change_counter]"] = list(
+	id_change_records[id_change_counter] = list(
 		"transferee" = transferee,
 		"oldvalue" = oldvalue,
 		"newvalue" = newvalue,
@@ -904,14 +904,14 @@ SUBSYSTEM_DEF(jobs)
 	. = 0
 	if(!sourceuser)
 		return
-	var/list/new_id_change_records = list()
+	var/alist/new_id_change_records = alist()
 	for(var/thisid in id_change_records)
 		var/thisrecord = id_change_records[thisid]
 		if(!thisrecord["deletedby"])
 			if(delete_all || thisrecord["whodidit"] == sourceuser)
 				thisrecord["deletedby"] = sourceuser
 				.++
-		new_id_change_records["[id_change_counter]"] = thisrecord
+		new_id_change_records[id_change_counter] = thisrecord
 		id_change_counter++
 	id_change_records = new_id_change_records
 

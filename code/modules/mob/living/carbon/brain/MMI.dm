@@ -29,6 +29,15 @@
 
 	var/list/skin_permissions = list()
 
+/obj/item/mmi/Destroy()
+	QDEL_NULL(brainmob)
+	robot = null
+	mecha = null
+	QDEL_NULL(radio)
+	QDEL_NULL(radio_action)
+	QDEL_NULL(held_brain)
+	. = ..()
+
 /obj/item/mmi/update_icon_state()
 	if(held_brain)
 		icon = held_brain.mmi_icon

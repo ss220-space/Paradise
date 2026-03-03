@@ -51,6 +51,21 @@
 
 	var/list/options_map
 
+/obj/item/circuit_component/object_overlay/Destroy()
+	QDEL_LIST_ASSOC_VAL(active_overlays)
+	if(bci)
+		unregister_shell(bci)
+	target = null
+	signal_on = null
+	signal_off = null
+	signal_off_all = null
+	image_pixel_x = null
+	image_pixel_y = null
+	image_rotation = null
+	object_overlay_options = null
+	LAZYCLEARLIST(options_map)
+	return ..()
+
 /obj/item/circuit_component/object_overlay/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM)
 
@@ -63,9 +78,6 @@
 	image_pixel_y = add_input_port("Y", PORT_TYPE_NUMBER)
 	image_rotation = add_input_port("Разворот", PORT_TYPE_NUMBER)
 
-/obj/item/circuit_component/object_overlay/Destroy()
-	QDEL_LIST_ASSOC_VAL(active_overlays)
-	return ..()
 
 /obj/item/circuit_component/object_overlay/populate_options()
 	var/static/component_options = list(
@@ -139,10 +151,10 @@
 	cool_overlay.appearance_flags = KEEP_APART|RESET_TRANSFORM|RESET_COLOR
 
 	if(image_pixel_x.value != null)
-		cool_overlay.pixel_x = image_pixel_x.value
+		cool_overlay.pixel_w = image_pixel_x.value
 
 	if(image_pixel_y.value != null)
-		cool_overlay.pixel_y = image_pixel_y.value
+		cool_overlay.pixel_z = image_pixel_y.value
 
 	if(image_rotation.value != null)
 		var/matrix/turn_matrix = cool_overlay.transform

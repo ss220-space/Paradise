@@ -3,6 +3,8 @@
 	is_supply = TRUE
 
 /obj/machinery/status_display/supply_display/update()
+	if(isnull(SSshuttle.supply)) //fastload stuff
+		return
 	if(SSshuttle.supply.mode == SHUTTLE_IDLE)
 		if(is_station_level(SSshuttle.supply.z))
 			message1 = "ГРУЗ"

@@ -14,9 +14,18 @@
 /obj/structure/holosign/barrier/atmos,
 /turf/space,
 /area/space)
+"bm" = (
+/obj/item/mod/control/pre_equipped/standard,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "bP" = (
 /turf/simulated/wall/r_wall,
 /area/fastload)
+"dY" = (
+/obj/effect/spawner/new_year/presents_tree,
+/obj/machinery/light/floor,
+/turf/simulated/floor/mineral/titanium/purple,
+/area/fastload/purple)
 "eW" = (
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -50,6 +59,13 @@
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/mineral/titanium/purple,
 /area/fastload/purple)
+"hG" = (
+/obj/machinery/light_switch/directional/west,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "jk" = (
 /turf/simulated/wall/indestructible/reinforced,
 /area/fastload/blue)
@@ -136,6 +152,13 @@
 /obj/machinery/vending/nta/ertarmory/engineer,
 /turf/simulated/floor/mineral/titanium/yellow,
 /area/fastload)
+"zn" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/item/storage/belt/utility/full/multitool,
+/turf/simulated/floor/mineral/titanium/blue,
+/area/fastload/blue)
 "zP" = (
 /obj/effect/decal/warning_stripes/northwest,
 /turf/simulated/floor/mineral/titanium/blue,
@@ -178,11 +201,6 @@
 /obj/machinery/door/airlock/engineering,
 /turf/simulated/floor/mineral/titanium/blue,
 /area/fastload/blue)
-"GE" = (
-/obj/effect/spawner/new_year/presents_tree,
-/obj/machinery/light/floor,
-/turf/simulated/floor/mineral/titanium/purple,
-/area/fastload/purple)
 "Hi" = (
 /obj/effect/decal/warning_stripes/northeast,
 /turf/simulated/floor/mineral/titanium/yellow,
@@ -2142,14 +2160,14 @@ jO
 HE
 HE
 HE
-HE
-HE
+hG
+bm
 Cd
 WA
 CV
 qp
 nx
-HE
+zn
 HE
 jk
 ay
@@ -2342,7 +2360,7 @@ HE
 HE
 HE
 HE
-HE
+aJ
 HE
 HE
 HE
@@ -2474,7 +2492,7 @@ HE
 HE
 HE
 HE
-HE
+aJ
 aJ
 HE
 HE
@@ -6765,7 +6783,7 @@ YB
 YB
 YB
 YB
-GE
+dY
 YB
 YB
 YB

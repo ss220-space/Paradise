@@ -117,8 +117,11 @@
 		)
 	else
 		to_chat(user, span_notice("You inject yourself with [src]."))
+		
+	var/cached_damage_coeff = damage_coeff
+	var/damage_coeff_squared = POW2(cached_damage_coeff)
 
-	target.apply_effect(rand(20 / (damage_coeff  ** 2), 50 / (damage_coeff  ** 2)), IRRADIATE, 0, 1)
+	target.apply_effect(rand(20 / damage_coeff_squared, 50 / damage_coeff_squared), IRRADIATE, 0, 1)
 
 	add_attack_logs(user, target, attack_log, ATKLOG_ALL)
 	used = TRUE

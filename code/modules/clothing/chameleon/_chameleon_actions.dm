@@ -186,6 +186,7 @@
 
 /datum/action/item_action/chameleon/change/Destroy()
 	STOP_PROCESSING(SSprocessing, src)
+	holder = null
 	return ..()
 
 /datum/action/item_action/chameleon/change/ui_host()

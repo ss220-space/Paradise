@@ -161,6 +161,8 @@
 	var/list/module_actions = list()
 
 	var/ratvarized = FALSE
+	///Just stop the mech from doing anything
+	var/completely_disabled = FALSE
 
 /obj/mecha/Initialize(mapload)
 	. = ..()
@@ -193,6 +195,48 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
+
+/obj/mecha/Destroy()
+
+	for(var/atom/movable/cargo_thing as anything in cargo)
+		cargo -= cargo_thing
+		cargo_thing.forceMove(drop_location())
+		step_rand(cargo_thing)
+
+	if(occupant)
+		occupant.SetSleeping(destruction_sleep_duration)
+	go_out()
+	var/mob/living/silicon/ai/AI
+	for(var/mob/M in src) //Let's just be ultra sure
+		if(isAI(M))
+			occupant = null
+			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+		else
+			M.forceMove(loc)
+	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+		E.detach(loc)
+		qdel(E)
+	equipment.Cut()
+	QDEL_NULL(cell)
+	QDEL_NULL(internal_tank)
+	if(AI)
+		AI.gib() //No wreck, no AI to recover
+	STOP_PROCESSING(SSobj, src)
+	GLOB.poi_list.Remove(src)
+	var/turf/location = get_turf(src)
+	if(location)
+		location.blind_release_air(cabin_air)
+	else
+		qdel(cabin_air)
+	cabin_air = null
+	QDEL_NULL(spark_system)
+	QDEL_NULL(smoke_system)
+	QDEL_LIST(trackers)
+	QDEL_NULL(ui_view)
+	QDEL_NULL(radio)
+	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
+	GLOB.mechas_list -= src //global mech list
+	return ..()
 
 ////////////////////////
 ////// Helpers /////////
@@ -252,6 +296,8 @@
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user)
+		return
+	if(completely_disabled)
 		return
 	if(user.incapacitated())
 		return
@@ -410,6 +456,8 @@
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
+		return FALSE
+	if(completely_disabled)
 		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -809,46 +857,6 @@
 	if(A in trackers)
 		trackers -= A
 
-/obj/mecha/Destroy()
-
-	for(var/atom/movable/cargo_thing as anything in cargo)
-		cargo -= cargo_thing
-		cargo_thing.forceMove(drop_location())
-		step_rand(cargo_thing)
-
-	if(occupant)
-		occupant.SetSleeping(destruction_sleep_duration)
-	go_out()
-	var/mob/living/silicon/ai/AI
-	for(var/mob/M in src) //Let's just be ultra sure
-		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
-		else
-			M.forceMove(loc)
-	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-		E.detach(loc)
-		qdel(E)
-	equipment.Cut()
-	QDEL_NULL(cell)
-	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
-	GLOB.poi_list.Remove(src)
-	var/turf/location = get_turf(src)
-	if(location)
-		location.blind_release_air(cabin_air)
-	else
-		qdel(cabin_air)
-	cabin_air = null
-	QDEL_NULL(spark_system)
-	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
-	QDEL_NULL(ui_view)
-	GLOB.mechas_list -= src //global mech list
-	return ..()
-
 //TODO
 /obj/mecha/emp_act(severity)
 	if(get_charge())
@@ -856,10 +864,10 @@
 		take_damage(30 / severity, BURN, ENERGY, 1)
 	check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL, MECHA_INT_CONTROL_LOST, MECHA_INT_SHORT_CIRCUIT), 1)
 
-/obj/mecha/temperature_expose(temperature, volume)
+/obj/mecha/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > max_temperature)
-		take_damage(5, BURN, 0, 1)
+	if(exposed_temperature > max_temperature)
+		take_damage(5, BURN, 0, TRUE)
 		check_for_internal_damage(list(MECHA_INT_FIRE, MECHA_INT_TEMP_CONTROL))
 
 //////////////////////
@@ -1626,15 +1634,15 @@
 	if(cell)
 		var/cellcharge = cell.charge/cell.maxcharge
 		switch(cellcharge)
-			if(0.75 to INFINITY)
+			if(CELL_CHARGE_HIGH to CELL_CHARGE_UPPER_BORDER)
 				occupant.clear_alert("charge")
-			if(0.5 to 0.75)
+			if(CELL_CHARGE_MEDIUM to CELL_CHARGE_HIGH)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 1)
-			if(0.25 to 0.5)
+			if(CELL_CHARGE_LOW to CELL_CHARGE_MEDIUM)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 2)
 				if(power_warned)
 					power_warned = FALSE
-			if(0.01 to 0.25)
+			if(CELL_CHARGE_LOWER_BORDER to CELL_CHARGE_LOW)
 				occupant.throw_alert("charge", /atom/movable/screen/alert/mech_lowcell, 3)
 				if(!power_warned)
 					SEND_SOUND(occupant, sound(lowpowersound, volume = 50))
@@ -1895,7 +1903,7 @@
 		var/datum/ratvar_mecha/converter = new rat_mecha
 		if(mech_type in converter.mech_types)
 			converter.convert(src)
-			visible_message(span_clocklarge("[capitalize(declent_ru(NOMINATIVE))] начинает громко грохотать, его механизмы заменяются шестернями!"))
+			visible_message(span_clocklarge("[DECLENT_RU_CAP(src, NOMINATIVE)] начинает громко грохотать, его механизмы заменяются шестернями!"))
 		QDEL_NULL(converter)
 
 #undef OCCUPANT_LOGGING

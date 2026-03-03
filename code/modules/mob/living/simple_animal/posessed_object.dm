@@ -90,7 +90,7 @@
 		drop_r_hand()
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
-		visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] разрывает оковы!"))
+		visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] разрывает оковы!"))
 		var/turf/source_turf = get_turf(src)
 		if(source_turf)
 			forceMove(source_turf)
@@ -101,7 +101,7 @@
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()
-	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя — почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
+	to_chat(src, span_shadowling("<b>Ваш дух вселился в [declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя — почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 /mob/living/simple_animal/possessed_object/New(atom/loc as obj)
 	..()
@@ -123,7 +123,7 @@
 
 	update_icon(1)
 
-	visible_message(span_shadowling("[capitalize(src.declent_ru(NOMINATIVE))] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
+	visible_message(span_shadowling("[DECLENT_RU_CAP(src, NOMINATIVE)] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src)
 
 /mob/living/simple_animal/possessed_object/get_active_hand() // So that our attacks count as attacking with the item we've possessed.

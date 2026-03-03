@@ -3,7 +3,7 @@
 	name = "Пройти через шлюз"
 	desc = "Изменяйте свою форму, чтобы пройти через незаблокированный шлюз. Это занимает некоторое время и может быть использовано только в вашей истинной форме."
 	action_icon_state = "morph_airlock"
-	selection_activated_message = span_sinister("ЛКМ на шлюз, чтобы попытаться пройти через него.")
+	selection_activated_message = span_sinister_alt("ЛКМ на шлюз, чтобы попытаться пройти через него.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/create_new_targeting()
@@ -30,7 +30,7 @@
 		user.balloon_alert(user, "шлюз заблокирован!")
 		revert_cast(user)
 		return
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начинает протискиваться в шлюз [airlock.declent_ru(GENITIVE)]!"))
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] начинает протискиваться в шлюз [airlock.declent_ru(GENITIVE)]!"))
 	user.balloon_alert(user, "попытка приоткрыть шлюз...")
 	if(!do_after(user, 6 SECONDS, user, timed_action_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED|DA_IGNORE_HELD_ITEM|DA_IGNORE_EMPTY_GRIPPER, extra_checks = CALLBACK(src, PROC_REF(pass_check), user, airlock)))
 		if(user.morphed)
@@ -42,7 +42,7 @@
 		revert_cast(user)
 		return
 
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] ненадолго приоткрывает шлюз [airlock.declent_ru(GENITIVE)] и проходит через него!"))
+	user.visible_message(span_warning("[DECLENT_RU_CAP(user, NOMINATIVE)] ненадолго приоткрывает шлюз [airlock.declent_ru(GENITIVE)] и проходит через него!"))
 	user.forceMove(airlock.loc) // Move into the turf of the airlock
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/proc/pass_check(mob/living/simple_animal/hostile/morph/user, obj/machinery/door/airlock/airlock)

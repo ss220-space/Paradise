@@ -153,20 +153,20 @@
 	. = ..()
 	spawn(0.5 SECONDS)
 		var/list/demon_candidates = SSghost_spawns.poll_candidates("Хотите сыграть за демона резни?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
-		
+
 		if(QDELETED(src))
 			return
-			
+
 		if(!length(demon_candidates))
 			log_game("[src] has failed to spawn, because no one enrolled.")
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает во вспышке красного света!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает во вспышке красного света!"))
 			qdel(src)
 			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/demon/slaughter/cult/S = src
 		if(!M || !M.client)
 			log_game("[src] has failed to spawn, because enrolled player is missing.")
-			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает во вспышке красного света!"))
+			visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] исчезает во вспышке красного света!"))
 			qdel(src)
 			return
 		var/client/C = M.client

@@ -247,7 +247,7 @@
 	//Robotic limbs explode if sabotaged.
 	if(is_robotic() && sabotaged && !special)
 		organ_owner.visible_message(
-			span_danger("[capitalize(declent_ru(NOMINATIVE))] [organ_owner] взрыва[PLUR_ET_YUT(src)]ся!"),
+			span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [organ_owner] взрыва[PLUR_ET_YUT(src)]ся!"),
 			span_danger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] взрыва[PLUR_ET_YUT(src)]ся!"),
 			span_danger("Вы слышите взрыв!"),
 		)
@@ -503,6 +503,8 @@
 /obj/item/organ/external/emp_act(severity)
 	if(!is_robotic() || emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 	if(tough) // Augmented limbs (remember they take -5 brute/-4 burn damage flat so any value below is compensated)
 		switch(severity)
 			if(1)
@@ -749,14 +751,14 @@ Note that amputating the affected organ does in fact remove the infection from t
 				if(!clean)
 					var/gore_sound = "[is_robotic() ? "скрежета металла" : "разрывающейся на куски плоти"]"
 					owner.visible_message(
-						span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] отрыва[PLUR_ET_YUT(src)]ся!"),
+						span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] отрыва[PLUR_ET_YUT(src)]ся!"),
 						span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] отрыва[PLUR_ET_YUT(src)]ся!"),
 						span_italics("Вы слышите звук [gore_sound]!"),
 					)
 			if(DROPLIMB_BURN)
 				var/gore_sound = "[is_robotic() ? "бульканья расплавленного металла" : "шипения горящей плоти"]"
 				owner.visible_message(
-					span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] испепеля[PLUR_ET_YUT(src)]ся!"),
+					span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] испепеля[PLUR_ET_YUT(src)]ся!"),
 					span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] испепеля[PLUR_ET_YUT(src)]ся!"),
 					span_italics("Вы слышите звук [gore_sound]!"),
 				)
@@ -764,7 +766,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 				var/gore = "[is_robotic() ? "брызги масла и куски скомканного металла": "брызги крови и ошмётки плоти"]"
 				var/gore_sound = "[is_robotic() ? "разламывающегося металла" : "отрываемой плоти"]"
 				owner.visible_message(
-					span_danger("[capitalize(declent_ru(NOMINATIVE))] [owner] отрыва[PLUR_ET_YUT(src)]ся, оставляя после себя [gore]!"),
+					span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] отрыва[PLUR_ET_YUT(src)]ся, оставляя после себя [gore]!"),
 					span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] отрыва[PLUR_ET_YUT(src)]ся, оставляя после себя [gore]!"),
 					span_italics("Вы слышите звук [gore_sound]!")
 				)
@@ -1239,7 +1241,7 @@ Note that amputating the affected organ does in fact remove the infection from t
 
 		if(!silent)
 			owner.visible_message(
-				span_warning("[capitalize(declent_ru(NOMINATIVE))] [owner] превраща[PLUR_ET_YUT(src)]ся в кровавую кашу, издавая тошнотворный звук!"),
+				span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] [owner] превраща[PLUR_ET_YUT(src)]ся в кровавую кашу, издавая тошнотворный звук!"),
 				span_userdanger("Ваш[GEND_A_E_I(src)] [declent_ru(NOMINATIVE)] превраща[PLUR_ET_YUT(src)]ся в кровавую кашу!"),
 				span_italics("Вы слышите тошнотворный звук.")
 			)

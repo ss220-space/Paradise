@@ -104,6 +104,7 @@
 		return
 
 	var/datum/radio_frequency/radio_connection = SSradio.return_frequency(frequency)
+
 	if(!radio_connection)
 		return
 
@@ -179,6 +180,14 @@
 
 	///The component parent object
 	var/obj/machinery/atmospherics/meter/connected_meter
+
+/obj/item/circuit_component/atmos_meter/Destroy()
+	if(connected_meter)
+		unregister_usb_parent(connected_meter)
+	request_data = null
+	pressure = null
+	temperature = null
+	. = ..()
 
 /obj/item/circuit_component/atmos_meter/populate_ports()
 	request_data = add_input_port("Запрос данных счётчика", PORT_TYPE_SIGNAL, trigger = PROC_REF(request_meter_data))

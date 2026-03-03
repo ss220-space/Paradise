@@ -449,3 +449,4 @@
 		if(length(vent.parent.other_atmosmch) <= min_network_size)
 			continue
 		. += vent
+

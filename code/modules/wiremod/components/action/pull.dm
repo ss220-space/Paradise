@@ -13,6 +13,10 @@
 	var/datum/port/input/target
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/pull/Destroy()
+	target = null
+	. = ..()
+
 /obj/item/circuit_component/pull/populate_ports()
 	target = add_input_port("Цель", PORT_TYPE_ATOM)
 

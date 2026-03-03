@@ -27,6 +27,7 @@
 	/// Gets set by eye-dependent disabilities such as colourblindness so the eyes can transfer the disability during transplantation.
 	var/list/dependent_disabilities
 	var/weld_proof = null //If set, the eyes will not take damage during welding. eg. IPC optical sensors do not take damage when they weld things while all other eyes will.
+	min_broken_damage = EYE_BROKEN_THRESHOLD // for a smoother transition from blur to blindness
 
 	var/vision_flags = 0
 	var/see_in_dark = 2

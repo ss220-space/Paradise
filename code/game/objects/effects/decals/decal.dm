@@ -3,6 +3,7 @@
 	name = "decal"
 	plane = FLOOR_PLANE
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	abstract_type = /obj/effect/decal
 	/// If it has this, don't let it be scooped up.
 	var/no_scoop = FALSE
 	/// If it has this, don't delete it when its' scooped up.
@@ -50,7 +51,7 @@
 			reagent.on_ex_act()
 	qdel(src)
 
-/obj/effect/decal/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
+/obj/effect/decal/fire_act(exposed_temperature, exposed_volume)
 	if(reagents)
 		reagents.temperature_reagents(exposed_temperature)
 	if(!(resistance_flags & FIRE_PROOF)) // Non fire proof decal or being burned by lava.

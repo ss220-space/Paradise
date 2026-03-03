@@ -215,10 +215,10 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
-/obj/structure/mineral_door/transparent/plasma/temperature_expose(temperature, volume)
+/obj/structure/mineral_door/transparent/plasma/temperature_expose(exposed_temperature, exposed_volume)
 	..()
-	if(temperature > 300)
-		TemperatureAct(temperature)
+	if(exposed_temperature > 300)
+		TemperatureAct(exposed_temperature)
 
 /obj/structure/mineral_door/transparent/plasma/proc/TemperatureAct(temperature)
 	atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, 500)

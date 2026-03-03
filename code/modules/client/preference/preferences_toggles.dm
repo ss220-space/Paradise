@@ -520,6 +520,15 @@
 	enable_message = "Теперь вы будете видеть анимации атаки."
 	disable_message = "Теперь вы не будете видеть анимации атаки."
 
+/datum/preference_toggle/toggle_auto_aim_medicine
+	name = "Автонаведение медицины"
+	description = "Переключает автонаведение медицины."
+	preftoggle_bitflag = PREFTOGGLE_2_AUTO_AIM_MEDICINE
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+	enable_message = "Теперь медицина будет применяться к максимально пострадавшей части тела."
+	disable_message = "Теперь медицина будет применена туда куда вы нацелены."
+
 /datum/preference_toggle/toggleprayers
 	name = "Молитвы"
 	description = "Включает видимость молитв в чате."

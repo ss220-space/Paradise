@@ -13,6 +13,10 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
+/obj/item/circuit_component/variable/assoc_list/list_remove/Destroy()
+	to_remove = null
+	. = ..()
+
 /obj/item/circuit_component/variable/assoc_list/list_remove/populate_ports()
 	to_remove = add_input_port("Удалить", PORT_TYPE_STRING)
 

@@ -22,7 +22,7 @@
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_TAIL | TAIL_WAGGING | TAIL_OVERLAPPED | HAS_HEAD_ACCESSORY | HAS_MARKINGS | HAS_SKIN_COLOR
 	taste_sensitivity = TASTE_SENSITIVITY_SHARP
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	blood_species = "Vulpkanin"
 	flesh_color = "#966464"

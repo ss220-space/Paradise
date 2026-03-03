@@ -25,6 +25,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	invisibility = INVISIBILITY_OBSERVER
 	pass_flags = PASSEVERYTHING
 	hud_type = /datum/hud/ghost
+	looting_icon_mode = LOOT_ICON_FLAT_ICON
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -120,6 +121,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
+		ghostimage.loc = null
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	if(orbit_menu)
@@ -532,7 +534,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
-	setDir(2)//reset dir so the right directional sprites show up
+	setDir(SOUTH)//reset dir so the right directional sprites show up
 	return ..()
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
@@ -629,19 +631,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(isAI(target)) // AI core/eye follow links
 		var/mob/living/silicon/ai/ai = target
-		. = FOLLOW_LINK_WITH_DISPLAY(ghost, ai, "ядро")
+		. = FOLLOW_LINK_WITH_DISPLAY(ghost, ai, "ЯДРО")
 		if(ai.client && ai.eyeobj) // No point following clientless AI eyes
-			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, ai.eyeobj, "глаз")]"
+			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, ai.eyeobj, "ОКО")]"
 		return
 
 	else if(isobserver(target))
 		var/mob/dead/observer/observer = target
-		. = FOLLOW_LINK_WITH_DISPLAY(ghost, target, "следовать")
+		. = FOLLOW_LINK_WITH_DISPLAY(ghost, target, "СЛЕД")
 		if(observer.mind && observer.mind.current)
-			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, observer.mind.current, "тело")]"
+			. += "|[FOLLOW_LINK_WITH_DISPLAY(ghost, observer.mind.current, "ТЕЛО")]"
 		return
 	else
-		return FOLLOW_LINK_WITH_DISPLAY(ghost, target, "следовать")
+		return FOLLOW_LINK_WITH_DISPLAY(ghost, target, "СЛЕД")
 
 //BEGIN TELEPORT HREF CODE
 /mob/dead/observer/Topic(href, href_list)
@@ -666,7 +668,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(target && target != usr)
 			spawn(0)
 				var/turf/pos = get_turf(A)
-				var/turf/T=get_turf(target)
+				var/turf/T = get_turf(target)
 				if(T != pos)
 					if(!T)
 						return

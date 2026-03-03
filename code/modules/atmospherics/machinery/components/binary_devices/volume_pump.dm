@@ -90,17 +90,16 @@ Thus, the two variables affect pump operation are set in New():
 		add_underlay(T, node1, turn(dir, -180))
 		add_underlay(T, node2, dir)
 
-/obj/machinery/atmospherics/binary/volume_pump/process_atmos()
-	..()
+/obj/machinery/atmospherics/binary/volume_pump/process_atmos(seconds)
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return 0
+		return FALSE
 
 	// Pump mechanism just won't do anything if the pressure is too high/too low
 	var/input_starting_pressure = air1.return_pressure()
 	var/output_starting_pressure = air2.return_pressure()
 
 	if((input_starting_pressure < 0.01) || (output_starting_pressure > 9000))
-		return 1
+		return TRUE
 
 	var/transfer_ratio = max(1, transfer_rate/air1.volume)
 
@@ -108,10 +107,10 @@ Thus, the two variables affect pump operation are set in New():
 
 	air2.merge(removed)
 
-	parent1.update = 1
-	parent2.update = 1
+	parent1.update = TRUE
+	parent2.update = TRUE
 
-	return 1
+	return FALSE
 
 /obj/machinery/atmospherics/binary/volume_pump/proc/broadcast_status()
 	if(!radio_connection)
@@ -262,6 +261,22 @@ Thus, the two variables affect pump operation are set in New():
 
 	///The component parent object
 	var/obj/machinery/atmospherics/binary/volume_pump/connected_pump
+
+/obj/item/circuit_component/atmos_volume_pump/Destroy()
+	if(connected_pump)
+		unregister_usb_parent(connected_pump)
+	transfer_rate = null
+	on = null
+	off = null
+	request_data = null
+	input_pressure = null
+	output_pressure = null
+	input_temperature = null
+	output_temperature = null
+	is_active = null
+	turned_on = null
+	turned_off = null
+	. = ..()
 
 /obj/item/circuit_component/atmos_volume_pump/populate_ports()
 	transfer_rate = add_input_port("Новая скорость передачи", PORT_TYPE_NUMBER, trigger = PROC_REF(set_transfer_rate))

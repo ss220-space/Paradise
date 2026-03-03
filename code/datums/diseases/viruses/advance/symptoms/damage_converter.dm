@@ -41,7 +41,7 @@ Bonus
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 
-		var/list/parts = H.get_damaged_organs(1, 1, AFFECT_ORGANIC_ORGAN) //1,1 because it needs inputs.
+		var/list/parts = H.get_damaged_organs(1, 1, AFFECT_ORGANIC_EXTERNAL_PARTS) //1,1 because it needs inputs.
 
 		if(!length(parts))
 			return

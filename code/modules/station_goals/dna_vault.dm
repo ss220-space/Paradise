@@ -319,7 +319,7 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 				uploaded++
 				dna[ui] = 1
 		if(!uploaded)
-			to_chat(user, span_warning("[capitalize(probe.declent_ru(NOMINATIVE))] не содержит релевантных данных."))
+			to_chat(user, span_warning("[DECLENT_RU_CAP(probe, NOMINATIVE)] не содержит релевантных данных."))
 			return ATTACK_CHAIN_PROCEED
 		check_goal()
 		to_chat(user, span_notice("Получены новые данные: <b>[uploaded]</b> [declension_ru(uploaded,"запись","записи","записей")]!"))

@@ -1,6 +1,7 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS
 #define COCOON_EMERGE_DELAY 15 SECONDS
 #define COCOON_HARM_AMOUNT 50
+#define COCON_HEAL_AMOUNT 20
 #define COCOON_NUTRITION_AMOUNT -200
 #define FLYSWATTER_DAMAGE_MULTIPLIER 10
 #define MOTH_PITCH_SHIFT 0.15 // a bit higher emotes
@@ -17,7 +18,7 @@
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT
 	bodyflags = HAS_HEAD_ACCESSORY | HAS_HEAD_MARKINGS | HAS_BODY_MARKINGS | HAS_WING | HAS_SKIN_COLOR
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 	tox_mod = 1.5
 	blood_species = "Nian"
 	blood_color = "#b9ae9c"
@@ -231,7 +232,7 @@
 		for(var/mob/living/carbon/human/H in contents)
 			H.forceMove(loc)
 			REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
-			H.heal_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
+			H.take_overall_damage(COCOON_HARM_AMOUNT, COCOON_HARM_AMOUNT)
 			H.AdjustWeakened(10 SECONDS)
 		return ..()
 
@@ -241,6 +242,7 @@
 		H.adjust_nutrition(COCOON_NUTRITION_AMOUNT)
 		H.remove_status_effect(STATUS_EFFECT_BURNT_WINGS)
 		REMOVE_TRAIT(H, TRAIT_KNOCKEDOUT, COCOONED_TRAIT)
+		H.heal_overall_damage(COCON_HEAL_AMOUNT, COCON_HEAL_AMOUNT)
 	return ..()
 
 /datum/status_effect/burnt_wings
@@ -265,6 +267,7 @@
 #undef COCOON_WEAVE_DELAY
 #undef COCOON_EMERGE_DELAY
 #undef COCOON_HARM_AMOUNT
+#undef COCON_HEAL_AMOUNT
 #undef COCOON_NUTRITION_AMOUNT
 #undef FLYSWATTER_DAMAGE_MULTIPLIER
 #undef MOTH_PITCH_SHIFT

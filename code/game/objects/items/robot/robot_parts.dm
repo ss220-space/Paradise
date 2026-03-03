@@ -161,7 +161,7 @@
 		if(!metal.use(1))
 			to_chat(user, span_warning("You need one sheet of metal to continue construction."))
 			return ATTACK_CHAIN_PROCEED
-		var/obj/item/ed209_assembly/ed209_assembly = new(drop_location())
+		var/obj/item/bot_assembly/ed209_assembly/ed209_assembly = new(drop_location())
 		qdel(src)
 		to_chat(user, span_notice("You armed the robot frame"))
 		user.put_in_hands(ed209_assembly, ignore_anim = FALSE)
