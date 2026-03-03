@@ -195,9 +195,14 @@ amount = 102
 
 Изменяет регистр первого символа строки на верхний – `capitalize(текст)`.
 
+**НЕ ИСПОЛЬЗУЙТЕ ЭТОТ ПРОК НАПРЯМУЮ С `declent_ru`!**
+Вместо этого используйте готовый макрос `DECLENT_RU_CAP(target, case_id)`, расположенный в файле `code/__HELPERS/localization.dm`.
+
 ```DM
 var/mob_name = "клоун"
 "[capitalize(mob_name)] убегает!" // "Клоун убегает!"
+
+"Вы думаете о [DECLENT_RU_CAP(mob_name, PREPOSITIONAL)]." // "Вы думаете о Клоуне."
 ```
 
 ### Балуны

@@ -276,7 +276,7 @@
 
 		if(health <= 0)
 			head_icon = DF.get_overlay(dir = EAST)
-			head_icon.pixel_y = -8
+			head_icon.pixel_z = -8
 			head_icon.transform = turn(head_icon.transform, 180)
 		else
 			head_icon = DF.get_overlay()
@@ -296,7 +296,7 @@
 
 		if(health <= 0)
 			back_icon = DF.get_overlay(dir = EAST)
-			back_icon.pixel_y = -11
+			back_icon.pixel_z = -11
 			back_icon.transform = turn(back_icon.transform, 180)
 		else
 			back_icon = DF.get_overlay()
@@ -332,13 +332,13 @@
 		inventory_head.forceMove(drop_location())
 		inventory_head = null
 	place_on_head(pick(possible_headwear))
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[PLUR_ET_YUT(src)] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] надева[PLUR_ET_YUT(src)] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
 
 ///Deadchat plays command that drops the current hat off Ian.
 /mob/living/simple_animal/pet/dog/corgi/proc/drop_hat()
 	if(!inventory_head)
 		return
-	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[PLUR_YOT_UT(src)] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] энергично тряс[PLUR_YOT_UT(src)] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
 	inventory_head.forceMove(drop_location())
 	inventory_head = null
 	update_dog_fluff()

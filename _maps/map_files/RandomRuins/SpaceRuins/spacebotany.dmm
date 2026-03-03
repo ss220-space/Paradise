@@ -141,13 +141,6 @@
 	},
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"ch" = (
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "arrival"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "cw" = (
 /obj/structure/spacevine,
 /obj/structure/spacevine,
@@ -1142,13 +1135,6 @@
 	icon_state = "green"
 	},
 /area/ruin/space/spacebotany/EastGarden)
-"oi" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "arrival"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "oj" = (
 /obj/structure/lattice/catwalk,
 /turf/space,
@@ -1297,6 +1283,13 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/spacebotany/GardenMaint)
+"pU" = (
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
 "pV" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "asteroid"
@@ -1367,26 +1360,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
-"rE" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet,
-/obj/item/clothing/mask/gas/syndicate,
-/obj/item/clothing/head/soft/green,
-/obj/item/clothing/suit/cyberpunk/white,
-/obj/item/clothing/under/color/white,
-/obj/item/clothing/shoes/color/brown{
-	pixel_y = -10
-	},
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/obj/item/seeds/random,
-/turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "arrival"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "rF" = (
 /obj/random/tool,
 /obj/structure/lattice,
@@ -1666,6 +1639,16 @@
 /obj/item/shard,
 /turf/space,
 /area/ruin/space/spacebotany/Chem)
+"vu" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/largecrate,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "green"
+	},
+/area/ruin/space/spacebotany/EastGarden)
 "vw" = (
 /obj/effect/spawner/random_spawners/grille_13,
 /turf/simulated/floor/plasteel/dark,
@@ -1711,6 +1694,24 @@
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
+"vV" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
+/obj/item/clothing/suit/jacket/miljacket/patch,
+/obj/item/clothing/under/retro/science,
+/obj/item/clothing/under/color/white,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/clothing/suit/cyberpunk,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/item/clothing/head/soft/purple,
+/obj/item/clothing/shoes/color/brown{
+	pixel_y = -10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 6;
 	icon_state = "arrival"
 	},
 /area/ruin/space/spacebotany/Dorm)
@@ -1905,6 +1906,26 @@
 	icon_state = "whiteblue"
 	},
 /area/ruin/space/spacebotany/Med)
+"yW" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/item/clothing/head/soft/green,
+/obj/item/clothing/suit/cyberpunk/white,
+/obj/item/clothing/under/color/white,
+/obj/item/clothing/shoes/color/brown{
+	pixel_y = -10
+	},
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
 "yZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dust,
@@ -2804,6 +2825,13 @@
 /obj/structure/flora/ausbushes/brflowers,
 /turf/simulated/floor/grass,
 /area/ruin/space/spacebotany/Garden)
+"Lp" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 9;
+	icon_state = "arrival"
+	},
+/area/ruin/space/spacebotany/Dorm)
 "Ls" = (
 /obj/structure/spacevine,
 /obj/machinery/light_switch/directional/west,
@@ -2881,24 +2909,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/spacebotany/Chem)
-"Mk" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet,
-/obj/item/clothing/suit/jacket/miljacket/patch,
-/obj/item/clothing/under/retro/science,
-/obj/item/clothing/under/color/white,
-/obj/effect/spawner/lootdrop/maintenance/tripple,
-/obj/item/clothing/suit/cyberpunk,
-/obj/item/clothing/mask/gas/syndicate,
-/obj/item/clothing/head/soft/purple,
-/obj/item/clothing/shoes/color/brown{
-	pixel_y = -10
-	},
-/turf/simulated/floor/plasteel{
-	dir = 6;
-	icon_state = "arrival"
-	},
-/area/ruin/space/spacebotany/Dorm)
 "Ms" = (
 /obj/item/cigbutt{
 	pixel_x = -10;
@@ -3160,16 +3170,6 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/plasteel/dark,
 /area/ruin/space/spacebotany/Vault)
-"PW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "green"
-	},
-/area/ruin/space/spacebotany/EastGarden)
 "Qg" = (
 /obj/structure/table,
 /obj/item/storage/box/pillbottles{
@@ -5406,7 +5406,7 @@ jR
 sZ
 pE
 jR
-Mk
+vV
 pE
 Os
 Os
@@ -5460,7 +5460,7 @@ Os
 Os
 Os
 Iu
-oi
+Lp
 po
 ME
 ir
@@ -5527,7 +5527,7 @@ TG
 DE
 DE
 BQ
-ch
+pU
 iF
 Lz
 Zc
@@ -5673,7 +5673,7 @@ yn
 SZ
 ut
 fh
-rE
+yW
 ia
 pE
 Os
@@ -6513,7 +6513,7 @@ Os
 Os
 Os
 IK
-PW
+vu
 Ap
 Ap
 Ap
@@ -6580,7 +6580,7 @@ Os
 Os
 Os
 IK
-PW
+vu
 Ap
 Ap
 nz
@@ -6647,7 +6647,7 @@ Os
 Os
 Os
 SR
-PW
+vu
 Ap
 Ap
 ne

@@ -561,7 +561,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 
 	use_power(400000)
-	audible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] с громким грохотом начинает кремацию!"))
+	audible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] с громким грохотом начинает кремацию!"))
 	cremating = TRUE
 	update_icon(UPDATE_OVERLAYS)
 

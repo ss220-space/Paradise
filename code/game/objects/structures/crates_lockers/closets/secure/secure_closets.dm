@@ -126,14 +126,15 @@
 		return
 
 	//okay, so the closet is either welded or locked... resist!!!
+	balloon_alert_to_viewers("начинает трястись!", "вы сопротивляетесь...")
 	visible_message(
 		span_danger("[src] begins to shake violently!"),
-		span_warning("You lean on the back of [src] and start pushing the door open. (this will take about [CLOSET_BREAKOUT_TIME / 10] minutes.)")
+		span_warning("Вы упираетесь спиной в внутреннюю стенку [declent_ru(ACCUSATIVE)] и начинаете толкать дверь...")
 	)
 	INVOKE_ASYNC(src, PROC_REF(resist_async), user)
 
 /obj/structure/closet/secure_closet/proc/resist_async(mob/living/user)
-	if(!do_after(user, CLOSET_BREAKOUT_TIME, src))
+	if(!do_after(user, breakout_time, src))
 		return
 
 	//closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
@@ -151,9 +152,9 @@
 	locked = FALSE
 	welded = FALSE
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
-	visible_message(
-		span_danger("[user] successfully broke out of [src]!"),
-		span_warning("You successfully break out!"),
+	user.visible_message(
+		span_danger("[user.declent_ru(NOMINATIVE)] успешно выбира[PLUR_ET_UT(user)]ся из [declent_ru(GENITIVE)]!"),
+		span_notice("Вы успешно выбираетесь из [declent_ru(GENITIVE)]!")
 	)
 
 	if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)

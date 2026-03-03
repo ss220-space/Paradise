@@ -334,11 +334,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(linked_destroy.busy)
-		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] в работе!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] в работе!"))
 		return
 
 	if(!linked_destroy.loaded_item)
-		to_chat(user, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
+		to_chat(user, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		return
 
 	var/list/temp_tech = linked_destroy.ConvertReqString2List(linked_destroy.loaded_item.origin_tech)
@@ -357,6 +357,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	linked_destroy.busy = TRUE
 	flick("[linked_destroy.base_icon_state]_process", linked_destroy)
 	add_wait_message("Разборка объекта и обновление базы данных...", DECONSTRUCT_DELAY)
+	playsound(loc, 'sound/machines/rnd_machines/destructor_scanning.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 	addtimer(CALLBACK(src, PROC_REF(finish_destroyer), temp_tech, user), DECONSTRUCT_DELAY)
 
 // Sends salvaged materials to a linked protolathe, if any.
@@ -380,7 +381,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	if(!linked_destroy.hacked)
 		if(!linked_destroy.loaded_item)
-			to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] пуст!"))
+			to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] пуст!"))
 		else
 			var/tech_log
 			for(var/T in temp_tech)
@@ -426,7 +427,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	if(machine.busy)
-		to_chat(usr, span_danger("[capitalize(machine.declent_ru(NOMINATIVE))] занят!"))
+		to_chat(usr, span_danger("[DECLENT_RU_CAP(machine, NOMINATIVE)] занят!"))
 		return
 
 	var/datum/design/being_built = files.known_designs[design_id]
@@ -464,6 +465,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	else
 		add_wait_message("Печать платы. Ожидайте...", time_to_construct)
 		flick("[machine.base_icon_state]_work", machine)
+		playsound(machine.loc, 'sound/machines/rnd_machines/circuitprinter_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	machine.busy = TRUE
 	use_power(power)
@@ -518,7 +520,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					var/obj/item/storage/lockbox/research/lockbox = new /obj/item/storage/lockbox/research(machine.loc)
 					real_item.forceMove(lockbox)
 					lockbox.name += " ([real_item.name])"
-					var/real_item_ru_name = capitalize(real_item.declent_ru(NOMINATIVE))
+					var/real_item_ru_name = DECLENT_RU_CAP(real_item, NOMINATIVE)
 					lockbox.ru_names = list(
 						NOMINATIVE = "защищённый кейс ([real_item_ru_name])",
 						GENITIVE = "защищённого кейса ([real_item_ru_name])",
@@ -539,6 +541,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 					new_item.loc = machine.loc
 
 		machine.busy = FALSE
+	if(istype(machine, /obj/machinery/r_n_d/protolathe))
+		playsound(machine.loc, 'sound/machines/rnd_machines/lathe_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	clear_wait_message()
 	SStgui.update_uis(src)
@@ -661,7 +665,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		if("eject_item") //Eject the item inside the destructive analyzer.
 			if(linked_destroy)
 				if(linked_destroy.busy)
-					to_chat(usr, span_danger("[capitalize(linked_destroy.declent_ru(NOMINATIVE))] занят!"))
+					to_chat(usr, span_danger("[DECLENT_RU_CAP(linked_destroy, NOMINATIVE)] занят!"))
 
 				else if(linked_destroy.loaded_item)
 					linked_destroy.loaded_item.forceMove(linked_destroy.loc)
@@ -786,7 +790,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 /obj/machinery/computer/rdconsole/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RndConsole", capitalize(declent_ru(NOMINATIVE)))
+		ui = new(user, src, "RndConsole", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/computer/rdconsole/proc/ui_machine_data(obj/machinery/r_n_d/machine, list/data)

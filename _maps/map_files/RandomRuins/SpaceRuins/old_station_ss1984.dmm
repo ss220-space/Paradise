@@ -1731,6 +1731,15 @@
 	icon_state = "yellowcorner"
 	},
 /area/ruin/space/ancientstation/charlie_corridor)
+"gi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/charlie_secrest)
 "gj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/alarm/old{
@@ -2312,15 +2321,6 @@
 	icon_state = "neutralfull"
 	},
 /area/ruin/space/ancientstation/charlie_cryo)
-"im" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_secrest)
 "in" = (
 /obj/machinery/door/poddoor{
 	id_tag = "ancient";
@@ -2446,11 +2446,6 @@
 	dir = 1
 	},
 /area/ruin/space/ancientstation/beta_surgery)
-"iH" = (
-/obj/item/clothing/shoes/color/black,
-/obj/item/clothing/under/color/grey,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/template_noop)
 "iI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump/on{
@@ -2468,15 +2463,6 @@
 	},
 /turf/template_noop,
 /area/ruin/space/ancientstation/charlie_recycler)
-"iL" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/stack/sheet/metal/fifty,
-/obj/structure/closet/crate/large,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/paintkit/firefighter_zairjah,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_storage)
 "iM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light_construct/small{
@@ -3136,6 +3122,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_corridor)
+"lb" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette,
+/obj/machinery/light/small,
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "blue"
+	},
+/area/ruin/space/ancientstation/charlie_comm)
 "lc" = (
 /obj/machinery/recharge_station,
 /obj/item/robot_parts/chest,
@@ -3659,6 +3654,15 @@
 /obj/effect/decal/warning_stripes/yellow/partial,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_docks)
+"mL" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/stack/sheet/metal/fifty,
+/obj/structure/largecrate,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/paintkit/firefighter_zairjah,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/theta_storage)
 "mM" = (
 /obj/machinery/recharge_station,
 /obj/item/robot_parts/chest,
@@ -3708,6 +3712,30 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
+"na" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet{
+	custom_door_overlay = "white";
+	name = "Medical gear";
+	opened = 1
+	},
+/obj/item/storage/belt/medical,
+/obj/item/clothing/under/retro/medical,
+/obj/item/clothing/under/retro/medical,
+/obj/item/clothing/suit/storage/labcoat/fluff,
+/obj/item/clothing/suit/storage/labcoat/fluff,
+/obj/item/clothing/suit/storage/labcoat/emt,
+/obj/item/clothing/accessory/armband/med,
+/obj/item/clothing/accessory/blue,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/head/helmet/space/nasavoid/ltblue,
+/obj/item/clothing/suit/space/nasavoid/ltblue,
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/ancientstation/beta_medstorage)
 "nb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -3903,6 +3931,10 @@
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/mug/serv,
 /obj/item/reagent_containers/food/drinks/mug,
+/turf/simulated/floor/wood,
+/area/ruin/space/ancientstation/charlie_dininghall)
+"nP" = (
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "nQ" = (
@@ -5300,6 +5332,14 @@
 	},
 /turf/template_noop,
 /area/template_noop)
+"sM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/warning_stripes/yellow/hollow,
+/obj/item/stack/sheet/metal/fifty,
+/obj/structure/largecrate,
+/obj/item/stack/sheet/glass/fifty,
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/theta_storage)
 "sO" = (
 /obj/machinery/door/airlock/highsecurity,
 /turf/simulated/floor/plating/airless,
@@ -5836,25 +5876,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_solar)
-"uG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet{
-	custom_door_overlay = "white";
-	name = "Medical gear";
-	opened = 1
-	},
-/obj/item/clothing/under/retro/medical,
-/obj/item/clothing/under/retro/medical,
-/obj/item/clothing/suit/storage/labcoat/fluff,
-/obj/item/clothing/suit/storage/labcoat/fluff,
-/obj/item/clothing/accessory/armband/med,
-/obj/item/clothing/shoes/color/white,
-/obj/item/clothing/shoes/color/white,
-/obj/item/storage/backpack/old,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/ruin/space/ancientstation/beta_medstorage)
 "uH" = (
 /obj/effect/decal/remains/mouse,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -7010,15 +7031,6 @@
 /obj/machinery/light_switch/directional/north,
 /turf/simulated/floor/plating/asteroid,
 /area/ruin/space/ancientstation/charlie_hydroroom)
-"yE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
-/obj/machinery/light/small,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "blue"
-	},
-/area/ruin/space/ancientstation/charlie_comm)
 "yF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/cap{
@@ -7091,10 +7103,6 @@
 /obj/structure/particle_accelerator/particle_emitter/left,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
-"yO" = (
-/obj/machinery/vending/coffee/free,
-/turf/simulated/floor/wood,
-/area/ruin/space/ancientstation/charlie_dininghall)
 "yP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/conveyor{
@@ -7942,7 +7950,7 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
 	},
-/obj/item/bucket_sensor,
+/obj/item/bot_assembly/bucket_sensor,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "greencorner"
@@ -8420,14 +8428,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_exit)
-"Dv" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/item/stack/sheet/metal/fifty,
-/obj/structure/closet/crate/large,
-/obj/item/stack/sheet/glass/fifty,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/theta_storage)
 "Dw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -8862,6 +8862,12 @@
 	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/charlie_prison)
+"ER" = (
+/obj/effect/decal/cleanable/blood/gibs,
+/obj/item/clothing/under/rank/janitor,
+/obj/item/clothing/shoes/color/black,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/template_noop)
 "EU" = (
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
@@ -10436,6 +10442,11 @@
 /obj/item/retractor,
 /turf/template_noop,
 /area/template_noop)
+"KG" = (
+/obj/item/clothing/shoes/color/black,
+/obj/item/clothing/under/color/grey,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/template_noop)
 "KH" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/hivebot/range,
@@ -10868,12 +10879,6 @@
 	icon_state = "green"
 	},
 /area/ruin/space/ancientstation/charlie_restroom)
-"Mg" = (
-/obj/effect/decal/cleanable/blood/gibs,
-/obj/item/clothing/under/rank/janitor,
-/obj/item/clothing/shoes/color/black,
-/turf/simulated/floor/plating/asteroid/airless,
-/area/template_noop)
 "Mh" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/charlie_cryo)
@@ -12583,6 +12588,25 @@
 /obj/machinery/door/airlock/command,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
+"RT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet{
+	custom_door_overlay = "white";
+	name = "Medical gear";
+	opened = 1
+	},
+/obj/item/clothing/under/retro/medical,
+/obj/item/clothing/under/retro/medical,
+/obj/item/clothing/suit/storage/labcoat/fluff,
+/obj/item/clothing/suit/storage/labcoat/fluff,
+/obj/item/clothing/accessory/armband/med,
+/obj/item/clothing/shoes/color/white,
+/obj/item/clothing/shoes/color/white,
+/obj/item/storage/backpack/old,
+/turf/simulated/floor/plasteel{
+	icon_state = "whiteblue"
+	},
+/area/ruin/space/ancientstation/beta_medstorage)
 "RU" = (
 /obj/machinery/firealarm{
 	dir = 1;
@@ -12868,30 +12892,6 @@
 	icon_state = "blue"
 	},
 /area/ruin/space/ancientstation/charlie_comm)
-"Td" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet{
-	custom_door_overlay = "white";
-	name = "Medical gear";
-	opened = 1
-	},
-/obj/item/storage/belt/medical,
-/obj/item/clothing/under/retro/medical,
-/obj/item/clothing/under/retro/medical,
-/obj/item/clothing/suit/storage/labcoat/fluff,
-/obj/item/clothing/suit/storage/labcoat/fluff,
-/obj/item/clothing/suit/storage/labcoat/emt,
-/obj/item/clothing/accessory/armband/med,
-/obj/item/clothing/accessory/blue,
-/obj/item/clothing/shoes/color/white,
-/obj/item/clothing/shoes/color/white,
-/obj/item/clothing/head/helmet/space/nasavoid/ltblue,
-/obj/item/clothing/suit/space/nasavoid/ltblue,
-/obj/machinery/light,
-/turf/simulated/floor/plasteel{
-	icon_state = "whiteblue"
-	},
-/area/ruin/space/ancientstation/beta_medstorage)
 "Te" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/circuitboard/smes/vintage,
@@ -16300,7 +16300,7 @@ RW
 sk
 ZM
 ry
-Td
+na
 ul
 WD
 wT
@@ -16422,7 +16422,7 @@ Zh
 Qk
 Vs
 mm
-uG
+RT
 iC
 lE
 wT
@@ -20477,7 +20477,7 @@ WD
 lE
 WD
 Ed
-im
+gi
 hO
 rb
 Yc
@@ -21316,7 +21316,7 @@ kY
 Nh
 HB
 yU
-yO
+nP
 RH
 cB
 EU
@@ -22136,7 +22136,7 @@ WZ
 zt
 fY
 fY
-yE
+lb
 KL
 WD
 WD
@@ -26678,8 +26678,8 @@ DR
 Ge
 pT
 uZ
-Dv
-iL
+sM
+mL
 Jp
 nS
 WW
@@ -27481,7 +27481,7 @@ dv
 WT
 wU
 Dj
-iH
+KG
 zK
 vm
 fx
@@ -28098,7 +28098,7 @@ WT
 WT
 RY
 Rk
-Mg
+ER
 sp
 vm
 RY

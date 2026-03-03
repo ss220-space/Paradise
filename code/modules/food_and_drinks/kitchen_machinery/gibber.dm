@@ -406,7 +406,7 @@
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает вещи [H.declent_ru(GENITIVE)]!"))
+	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выплевывает вещи [H.declent_ru(GENITIVE)]!"))
 
 /obj/machinery/gibber/autogibber/proc/cleanbay()
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
@@ -419,6 +419,6 @@
 			spats++
 			sleep(1)
 	if(spats)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выплевывает ещё больше вещей!"))
+		visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] выплевывает ещё больше вещей!"))
 
 #undef GIBBER_ANIMATION_DELAY

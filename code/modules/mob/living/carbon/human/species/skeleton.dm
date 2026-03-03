@@ -25,7 +25,7 @@
 
 	taste_sensitivity = TASTE_SENSITIVITY_NO_TASTE //skeletons can't taste anything
 
-	reagent_tag = PROCESS_ORG
+	reagent_tag = ORGANIC
 
 	warning_low_pressure = -INFINITY
 	hazard_low_pressure = -INFINITY

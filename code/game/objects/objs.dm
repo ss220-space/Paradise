@@ -1,4 +1,5 @@
 /obj
+	abstract_type = /obj
 	animate_movement = SLIDE_STEPS
 	var/obj_flags = NONE
 	/// Used by R&D to determine what research bonuses it grants.
@@ -24,8 +25,6 @@
 	var/integrity_failure = 0
 	/// Damage under this value will be completely ignored.
 	var/damage_deflection = 0
-	/// Flags that make this object harder to destroy, e.g. [ACID_PROOF], [FIRE_PROOF], [INDESTRUCTIBLE].
-	var/resistance_flags = NONE
 	/// If provided, a custom overlay representing being the object being on fire.
 	var/custom_fire_overlay
 	/// How much acid is on this object?
@@ -76,6 +75,16 @@
 
 	add_debris_element()
 
+/obj/Destroy(force)
+	if(!ismachinery(src))
+		if(!speed_process)
+			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+		else
+			STOP_PROCESSING(SSfastprocess, src)
+	SStgui.close_uis(src)
+	QDEL_NULL(multitool_menu)
+	return ..()
+
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
@@ -97,16 +106,6 @@
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
 	return
-
-/obj/Destroy(force)
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
-	QDEL_NULL(multitool_menu)
-	return ..()
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -334,23 +333,23 @@
 
 	return locate(/obj) in A
 
-#define CARBON_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
+#define MOB_DAMAGE_FROM_OBJECTS_MODIFIER 0.75
 
-/obj/hit_by_thrown_carbon(mob/living/carbon/human/C, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
-	damage *= CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+/obj/hit_by_thrown_mob(mob/living/throwned_mob, datum/thrownthing/throwingdatum, damage, mob_hurt, self_hurt)
+	damage *= MOB_DAMAGE_FROM_OBJECTS_MODIFIER
 	playsound(src, 'sound/weapons/punch1.ogg', 35, TRUE)
 	if(mob_hurt) //Density check probably not needed, one should only bump into something if it is dense, and blob tiles are not dense, because of course they are not.
 		return
-	C.visible_message(
-		span_danger("[capitalize(C.declent_ru(NOMINATIVE))] с размаху вреза[PLUR_ET_YUT(C)]ся в [declent_ru(ACCUSATIVE)]!"),
+	throwned_mob.visible_message(
+		span_danger("[DECLENT_RU_CAP(throwned_mob, NOMINATIVE)] с размаху вреза[PLUR_ET_UT(throwned_mob)]ся в [declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы с размаху врезаетесь в [declent_ru(ACCUSATIVE)]!")
 	)
-	C.take_organ_damage(damage)
+	throwned_mob.take_organ_damage(damage)
 	if(!self_hurt)
 		take_damage(damage, BRUTE)
-	C.Knockdown(3 SECONDS)
+	throwned_mob.Knockdown(3 SECONDS)
 
-#undef CARBON_DAMAGE_FROM_OBJECTS_MODIFIER
+#undef MOB_DAMAGE_FROM_OBJECTS_MODIFIER
 
 /obj/proc/return_obj_air()
 	RETURN_TYPE(/datum/gas_mixture)
@@ -359,3 +358,8 @@
 		return object.return_obj_air()
 	else
 		return null
+
+/// Use this proc if you need to get special shorter variations of item's name.
+/// ImageButton element in TGUI, for example
+/obj/proc/get_short_name()
+	return declent_ru(NOMINATIVE)

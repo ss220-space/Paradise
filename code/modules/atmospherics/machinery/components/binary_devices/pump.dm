@@ -95,20 +95,19 @@ Thus, the two variables affect pump operation are set in New():
 	add_underlay(pump_turf, node1, turn(dir, -180))
 	add_underlay(pump_turf, node2, dir)
 
-/obj/machinery/atmospherics/binary/pump/process_atmos()
-	..()
+/obj/machinery/atmospherics/binary/pump/process_atmos(seconds)
 	if((stat & (NOPOWER|BROKEN)) || !on)
-		return 0
+		return FALSE
 
 	var/output_starting_pressure = air2.return_pressure()
 
 	if((target_pressure - output_starting_pressure) < 0.01)
 		//No need to pump gas if target is already reached!
-		return 1
+		return TRUE
 
 	//Calculate necessary moles to transfer using PV=nRT
 	if(!(air1.total_moles() > 0) || !(air1.temperature() > 0))
-		return 1
+		return TRUE
 
 	var/pressure_delta = target_pressure - output_starting_pressure
 	var/transfer_moles = pressure_delta * air2.volume / (air1.temperature() * R_IDEAL_GAS_EQUATION)
@@ -117,10 +116,10 @@ Thus, the two variables affect pump operation are set in New():
 	var/datum/gas_mixture/removed = air1.remove(transfer_moles)
 	air2.merge(removed)
 
-	parent1.update = 1
-	parent2.update = 1
+	parent1.update = TRUE
+	parent2.update = TRUE
 
-	return 1
+	return TRUE
 
 /obj/machinery/atmospherics/binary/pump/proc/broadcast_status()
 	if(!radio_connection)
@@ -282,6 +281,23 @@ Thus, the two variables affect pump operation are set in New():
 
 	///The component parent object
 	var/obj/machinery/atmospherics/binary/pump/connected_pump
+
+/obj/item/circuit_component/atmos_pump/Destroy()
+	if(connected_pump)
+		unregister_usb_parent(connected_pump)
+
+	pressure_value = null
+	on = null
+	off = null
+	request_data = null
+	input_pressure = null
+	output_pressure = null
+	input_temperature = null
+	output_temperature = null
+	is_active = null
+	turned_on = null
+	turned_off = null
+	. = ..()
 
 /obj/item/circuit_component/atmos_pump/populate_ports()
 	pressure_value = add_input_port("Новое давление", PORT_TYPE_NUMBER, trigger = PROC_REF(set_pump_pressure))

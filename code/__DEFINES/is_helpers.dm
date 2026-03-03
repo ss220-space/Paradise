@@ -52,7 +52,7 @@
 #define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
 
 // Simple animals
-// #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
+#define is_simple_animal(A) (istype(A, /mob/living/simple_animal))
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
@@ -81,9 +81,13 @@
 
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
+#define iscloset(A) (istype(A, /obj/structure/closet))
+
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
 
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
+
+#define isammobox(A) (istype(A, /obj/item/ammo_box))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 
@@ -233,6 +237,21 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 #define ispill(A) (istype(A, /obj/item/reagent_containers/food/pill))
 
 #define isthrowingmatart(A) (istype(A, /datum/martial_art/throwing))
+
+// Modsuits
+#define ismodcontrol(A) istype(A, /obj/item/mod/control)
+
+#define ismodstorage(A) istype(A, /obj/item/storage/backpack/modstorage)
+
+#define ismodhelmet(A) istype(A, /obj/item/clothing/head/mod)
+
+#define ismodgloves(A) istype(A, /obj/item/clothing/gloves/mod)
+
+#define ismodshoes(A) istype(A, /obj/item/clothing/shoes/mod)
+
+#define ismodchestplate(A) istype(A, /obj/item/clothing/suit/mod)
+
+#define ismodcore(A) istype(A, /obj/item/mod/core)
 
 GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 	/turf/space,

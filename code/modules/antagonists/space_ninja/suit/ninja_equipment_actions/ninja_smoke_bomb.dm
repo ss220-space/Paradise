@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninja_smoke_bomb
-	name = "Integrated smoke bomb"
-	desc = "Generates a big cloud of smoke to hide yourself from enemies. Use with your mask's thermal mode for the killer combination. Energy cost: 1000"
+	name = "Встроенная дымовая завеса"
+	desc = "Генерирует большое облако дыма, ухудшающее видимость. Затраты энергии: 1000"
 	check_flags = AB_CHECK_CONSCIOUS
 	charge_max = 3 SECONDS
 	button_icon_state = "smoke"
@@ -9,8 +9,8 @@
 	action_initialisation_text = "Integrated Smoke Generator"
 
 /datum/action/item_action/advanced/ninja/ninja_smoke_bomb_toggle_auto
-	name = "Toggle smoke auto use"
-	desc = "Toggles if your other modules will try to use smoke automatically. Auto-use energy cost: 250"
+	name = "Переключение авто-использования дымовой завесы"
+	desc = "Переключает автоматическую активацию дымовой завесы другими модулями при использовании. Затраты энергии за каждое использование: 250."
 	check_flags = NONE
 	charge_type = ADV_ACTION_TYPE_TOGGLE
 	button_icon_state = "smoke_auto"

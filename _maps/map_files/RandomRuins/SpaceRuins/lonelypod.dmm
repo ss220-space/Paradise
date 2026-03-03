@@ -159,24 +159,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"AO" = (
-/obj/item/clothing/under/pants/blackjeans,
-/obj/item/clothing/shoes/color/black,
-/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
-/obj/item/clothing/head/cowboyhat/black,
-/obj/structure/closet{
-	anchored = 1
-	},
-/obj/effect/decal/cleanable/cobweb2,
-/obj/machinery/light_construct{
-	dir = 1
-	},
-/obj/effect/landmark/costume/random,
-/obj/item/poster/random_contraband,
-/turf/simulated/floor/carpet/black,
-/area/ruin/unpowered)
 "Bp" = (
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal,
+/area/ruin/unpowered)
+"BH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/snack,
+/turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Ch" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/cigarette,
+/turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
 "Cv" = (
 /obj/item/trash/tray,
@@ -211,11 +205,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/ruin/unpowered)
-"Fu" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/cigarette/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "Fy" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -225,6 +214,12 @@
 	tag = "icon-heater (WEST)"
 	},
 /turf/simulated/floor/plating/airless,
+/area/ruin/unpowered)
+"FI" = (
+/obj/structure/closet/walllocker/emerglocker/south{
+	pixel_y = 2
+	},
+/turf/simulated/wall/shuttle,
 /area/ruin/unpowered)
 "FU" = (
 /obj/structure/table/reinforced,
@@ -250,6 +245,22 @@
 /obj/effect/decal/cleanable/vomit,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
+/area/ruin/unpowered)
+"Gf" = (
+/obj/item/clothing/under/pants/blackjeans,
+/obj/item/clothing/shoes/color/black,
+/obj/item/clothing/accessory/cowboyshirt/short_sleeved,
+/obj/item/clothing/head/cowboyhat/black,
+/obj/structure/closet{
+	anchored = 1
+	},
+/obj/effect/decal/cleanable/cobweb2,
+/obj/machinery/light_construct{
+	dir = 1
+	},
+/obj/effect/landmark/costume/random,
+/obj/item/poster/random_contraband,
+/turf/simulated/floor/carpet/black,
 /area/ruin/unpowered)
 "GX" = (
 /obj/structure/rack,
@@ -289,10 +300,6 @@
 /obj/machinery/light_construct,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
-"IH" = (
-/obj/structure/closet/walllocker/emerglocker/directional/south,
-/turf/simulated/wall/shuttle,
 /area/ruin/unpowered)
 "Jg" = (
 /obj/item/flashlight{
@@ -434,11 +441,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/powered)
-"TU" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/snack/free,
-/turf/simulated/floor/plasteel,
-/area/ruin/unpowered)
 "TW" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -745,7 +747,7 @@ PO
 QF
 ua
 Sd
-IH
+FI
 GX
 TW
 PO
@@ -771,7 +773,7 @@ tz
 lI
 LN
 Yf
-TU
+BH
 Zf
 PO
 my
@@ -821,7 +823,7 @@ mE
 lI
 Zf
 Yf
-Fu
+Ch
 Zf
 PO
 my
@@ -864,7 +866,7 @@ my
 my
 my
 PO
-AO
+Gf
 Pc
 PO
 Yf

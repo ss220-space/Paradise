@@ -23,6 +23,12 @@
 		current_range = range
 	set_host(_host)
 
+/datum/proximity_monitor/Destroy()
+	host?.proximity_monitor = null
+	host = null
+	hasprox_receiver = null
+	return ..()
+
 /datum/proximity_monitor/proc/set_host(atom/new_host, atom/new_receiver)
 	if(new_host == host)
 		return
@@ -51,11 +57,6 @@
 	SIGNAL_HANDLER
 
 	qdel(src)
-
-/datum/proximity_monitor/Destroy()
-	host = null
-	hasprox_receiver = null
-	return ..()
 
 /datum/proximity_monitor/proc/set_range(range, force_rebuild = FALSE)
 	if(!force_rebuild && range == current_range)

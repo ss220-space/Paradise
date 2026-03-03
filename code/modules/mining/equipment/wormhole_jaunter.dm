@@ -55,7 +55,7 @@
 		if(user)
 			balloon_alert(user, "нет доступных маяков!")
 		else
-			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] не нашёл маяков для создания якоря!"))
+			visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не нашёл маяков для создания якоря!"))
 		return TRUE // used for chasm code
 
 	var/chosen_beacon = pick(destinations)

@@ -13,6 +13,7 @@
 	throw_speed = 3
 	materials = list(MAT_METAL=200)
 	origin_tech = "magnets=1;biotech=1"
+	custom_price = PAYCHECK_LOWER
 	var/mode = 1
 	var/advanced = FALSE
 	var/theme
@@ -48,7 +49,7 @@
 
 /obj/item/healthanalyzer/attack_self(mob/user)
 	if(!scan_data)
-		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] не содержит сохранённых данных."))
+		to_chat(user, span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] не содержит сохранённых данных."))
 		return
 	show_results(user)
 
@@ -239,7 +240,7 @@
 
 	if(in_range(user, src))
 		user.put_in_hands(P, ignore_anim = FALSE)
-		user.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
+		user.visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] дребезжит, после чего из окна печати выпадает лист бумаги."))
 	GLOB.copier_items_printed++
 	reports_printed++
 	isPrinting = FALSE
@@ -823,6 +824,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "magnets=2;biotech=2"
 	usesound = 'sound/items/deconstruct.ogg'
+	custom_price = PAYCHECK_LOWER / 1.5
 
 /obj/item/healthupgrade/get_ru_names()
 	return list(

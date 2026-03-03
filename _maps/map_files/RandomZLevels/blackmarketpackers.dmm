@@ -919,7 +919,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Armory)
 "cQ" = (
-/obj/machinery/vending/cigarette/free,
+/obj/machinery/vending/cigarette,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -1398,7 +1398,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "ec" = (
-/obj/machinery/vending/coffee/free,
+/obj/machinery/vending/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

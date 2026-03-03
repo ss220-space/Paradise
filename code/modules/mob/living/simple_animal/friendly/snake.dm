@@ -234,8 +234,8 @@
 		if(stat || resting) //без сознания или отдыхает
 			head_icon = SF.get_overlay()
 			if(stat)
-				head_icon.pixel_y = -2
-				head_icon.pixel_x = -2
+				head_icon.pixel_z = -2
+				head_icon.pixel_w = -2
 		else
 			head_icon = SF.get_overlay()
 
