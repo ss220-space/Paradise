@@ -20,6 +20,11 @@
 	/// The targeted circuit
 	var/datum/port/input/target
 
+/obj/item/circuit_component/list_literal/nfc_send/Destroy()
+	enc_key = null
+	target = null
+	. = ..()
+
 /obj/item/circuit_component/list_literal/nfc_send/populate_ports()
 	. = ..()
 	enc_key = add_input_port("Ключ", PORT_TYPE_STRING)

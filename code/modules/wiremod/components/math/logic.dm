@@ -22,6 +22,11 @@
 		"minus" = "remove",
 	)
 
+/obj/item/circuit_component/compare/logic/Destroy()
+	logic_options = null
+	LAZYCLEARLIST(comparison_ports)
+	. = ..()
+
 /obj/item/circuit_component/compare/logic/populate_options()
 	var/static/component_options = list(
 		COMP_LOGIC_AND,

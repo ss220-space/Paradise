@@ -509,7 +509,7 @@
 		qdel(projectile)
 		return
 
-	projectile_angle += angle_to_singulo / (distance_to_singulo ** 2)
+	projectile_angle += angle_to_singulo / POW2(distance_to_singulo)
 	projectile.damage += 10 / distance_to_singulo
 	projectile.set_angle(projectile_angle)
 

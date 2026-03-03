@@ -9,8 +9,8 @@
 	invocation = "KN'A FTAGHU, PUCK 'BTHNK!"
 	invocation_type = "shout"
 
-	selection_activated_message = span_notice("You start to quietly neigh an incantation. Click on or near a target to cast the spell.")
-	selection_deactivated_message = span_notice("You stop neighing to yourself.")
+	selection_activated_message = span_notice_alt("You start to quietly neigh an incantation. Click on or near a target to cast the spell.")
+	selection_deactivated_message = span_notice_alt("You stop neighing to yourself.")
 
 	action_icon_state = "barn"
 	sound = 'sound/magic/HorseHead_curse.ogg'

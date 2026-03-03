@@ -62,6 +62,13 @@
 	/// Attached shell
 	var/obj/structure/money_bot/attached_bot
 
+/obj/item/circuit_component/money_dispenser/Destroy()
+	if(attached_bot)
+		unregister_shell(attached_bot)
+	dispense_amount = null
+	on_fail = null
+	. = ..()
+
 /obj/item/circuit_component/money_dispenser/populate_ports()
 	dispense_amount = add_input_port("Количество", PORT_TYPE_NUMBER)
 	on_fail = add_output_port("Провал", PORT_TYPE_SIGNAL)
@@ -104,6 +111,15 @@
 	var/datum/port/output/entity
 	/// Attached shell
 	var/obj/structure/money_bot/attached_bot
+
+/obj/item/circuit_component/money_bot/Destroy()
+	if(attached_bot)
+		unregister_shell(attached_bot)
+	total_money = null
+	money_input = null
+	money_trigger = null
+	entity = null
+	. = ..()
 
 /obj/item/circuit_component/money_bot/populate_ports()
 	total_money = add_output_port("Всего денег", PORT_TYPE_NUMBER)

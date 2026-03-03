@@ -4,7 +4,7 @@
 
 	telegraph_message = null // handled via event announcement
 
-	weather_message = span_userdanger("<i>Началась солнечная вспышка! Найдите укрытие!</i>")
+	weather_message = span_userdanger_alt("<i>Началась солнечная вспышка! Найдите укрытие!</i>")
 	weather_overlay = "light_ash"
 	weather_duration_lower = 5 MINUTES
 	weather_duration_upper = 10 MINUTES

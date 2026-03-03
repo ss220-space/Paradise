@@ -197,8 +197,8 @@
 	invocation = null
 	sound = null
 	need_active_overlay = TRUE
-	selection_activated_message = span_notice("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
-	selection_deactivated_message = span_notice("Вы поглощаете энергию обратно... пока что.")
+	selection_activated_message = span_notice_alt("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
+	selection_deactivated_message = span_notice_alt("Вы поглощаете энергию обратно... пока что.")
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/projectile/magic/shadow_hand
 
