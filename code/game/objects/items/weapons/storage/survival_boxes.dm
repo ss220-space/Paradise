@@ -503,6 +503,9 @@
 /obj/item/storage/box/survival/species/machine/create_species_specific_items(obj/item/storage/box/place)
 	new /obj/item/weldingtool/mini(place)
 	new /obj/item/stack/cable_coil/random(place)
+	if(!HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
+		return
+	new /obj/item/stack/nanopaste(place)
 
 /obj/item/storage/box/survival/species/nucleation
 	icon_state = "box_nucleation"
