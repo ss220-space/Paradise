@@ -49,7 +49,7 @@
 	. += span_notice("Alt-click по [DECLENT_RU_CAP(src, DATIVE)] чтобы включить функции барометра.")
 
 /obj/item/analyzer/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] начинает сканировать [user.p_them()]себя [DECLENT_RU_CAP(src, ACCUSATIVE)]! Дисплей показывает что [user.p_theyre()] мёртв!"))
+	user.visible_message(span_suicide("[user] начинает сканировать [user.p_them()]себя [declent_ru(INSTRUMENTAL)]! Дисплей показывает что [user.p_theyre()] мёртв!"))
 	return BRUTELOSS
 
 /obj/item/analyzer/click_alt(mob/living/user) //Barometer output for measuring when the next storm happens
@@ -82,7 +82,7 @@
 
 		to_chat(user, span_warning("Следующая [ongoing_weather] начнется [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 		if(ongoing_weather.aesthetic)
-			to_chat(user, span_warning("Функция барометра пишет, что следующая буря пройдёт мимо."))
+			to_chat(user, span_warning("Функция барометра информирует, что следующая буря пройдёт мимо."))
 
 	else
 		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
@@ -90,7 +90,7 @@
 		if(fixed < 0)
 			to_chat(user, span_warning("Функция барометра не смогла отследить какие-либо погодные условия."))
 		else
-			to_chat(user, span_warning("Функция барометра пишет, что буря будет через [butchertime(fixed)]."))
+			to_chat(user, span_warning("Функция барометра информирует, что буря начнётся через [butchertime(fixed)]."))
 
 	cooldown = TRUE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)

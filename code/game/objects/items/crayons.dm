@@ -96,7 +96,7 @@
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, span_danger("Вы израсходовали [DECLENT_RU_CAP(src, ACCUSATIVE)]!"))
+					to_chat(user, span_danger("Вы израсходовали [declent_ru(ACCUSATIVE)]!"))
 					qdel(src)
 		busy = FALSE
 
@@ -304,7 +304,7 @@
 	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] крышку у  [DECLENT_RU_CAP(src, GENITIVE)]"))
+			to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] крышку у [declent_ru(GENITIVE)]"))
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
@@ -326,7 +326,7 @@
 			if(uses-10 > 0)
 				uses = uses - 10
 				var/mob/living/carbon/human/C = target
-				user.visible_message(span_danger(" [user] распыляет [DECLENT_RU_CAP(src, INSTRUMENTAL)] на лицо [target]!"))
+				user.visible_message(span_danger(" [user] распыляет [declent_ru(ACCUSATIVE)] на лицо [target]!"))
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)
@@ -349,7 +349,7 @@
 /obj/item/toy/crayon/spraycan/proc/draw_paint(mob/living/user)
 	uses--
 	if(!uses)
-		to_chat(user, span_warning("Вы израсходовали [DECLENT_RU_CAP(src, ACCUSATIVE)]!"))
+		to_chat(user, span_warning("Вы израсходовали [declent_ru(ACCUSATIVE)]!"))
 		playsound(user.loc, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		qdel(src)
 

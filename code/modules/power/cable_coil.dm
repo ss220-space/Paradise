@@ -96,9 +96,9 @@
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)
-		user.visible_message(span_suicide("[user] делает петлю из [DECLENT_RU_CAP(src, GENITIVE)]! Похоже что [GEND_HE_SHE_CAP(user)] пытается совершить самоубийство."))
+		user.visible_message(span_suicide("[user] делает петлю из [declent_ru(GENITIVE)]! Похоже что [GEND_HE_SHE(user)] пытается совершить самоубийство."))
 	else
-		user.visible_message(span_suicide("[user] душит себя [DECLENT_RU_CAP(src, INSTRUMENTAL)]!Похоже что [GEND_HE_SHE_CAP(user)] пытается совершить самоубийство."))
+		user.visible_message(span_suicide("[user] душит себя [declent_ru(INSTRUMENTAL)]!Похоже что [GEND_HE_SHE(user)] пытается совершить самоубийство."))
 	return OXYLOSS
 
 
@@ -126,7 +126,7 @@
 	switch(choice)
 		if(CABLE_CRAFT_RESTRAINS)
 			if(get_amount() < 15)
-				to_chat(user, span_warning("У вас мало [DECLENT_RU_CAP(src, GENITIVE)] чтобы сделать самодельные стяжки!"))
+				to_chat(user, span_warning("У вас мало [declent_ru(GENITIVE)] чтобы сделать самодельные стяжки!"))
 
 			if(use(15))
 				var/obj/item/restraints/handcuffs/cable/cablecuff = new(T)
@@ -170,7 +170,7 @@
 
 			if(do_after(user, 2 SECONDS, user))
 				if(!use(10))
-					to_chat(user, span_warning("You don't have enough [src] to make cable restraints!"))
+					to_chat(user, span_warning("You don't have enough [declent_ru(GENITIVE)] to make cable restraints!"))
 					return
 
 				playsound(T, usesound, 50, TRUE)
@@ -246,7 +246,7 @@
 			update_damage_icon |= current_organ.heal_damage(0, HEALPERCABLE, FALSE, TRUE, FALSE)
 		if(current_organ.burn_dam != burn_was)
 			should_update_health = TRUE
-		user.visible_message(span_alert("[user] чинит некоторый урон от ожогов у [target] [current_organ.name] [DECLENT_RU_CAP(src, INSTRUMENTAL)]."))
+		user.visible_message(span_alert("[user] чинит некоторый урон от ожогов у [target] [current_organ.name] [declent_ru(INSTRUMENTAL)]."))
 	if(should_update_health)
 		target.updatehealth("cable repair")
 	if(update_damage_icon)
