@@ -1096,7 +1096,7 @@
 				<li>Faxes are your main method of communicating with the АКН Трурль, better known as Central Command.</li>
 				<li>Faxes allow personnel on the station to maintain open lines of communication with the АКН Трурль, allowing for vital information to flow both ways.</li>
 				<li>Being written communications, proper grammar, syntax and typography is required, in addition to a signature and, if applicable, a stamp. Failure to sign faxes will lead to an automatic rejection.</li>
-				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, Nanotrasen Representative, and Internal Affairs Agents.</li>
+				<li>We at Nanotrasen provide Fax Machines to every Head of Staff, in addition to the Magistrate, Nanotrasen Representative, and Lawyers.</li>
 				<li>This means that we trust the recipients of these fax machines to only use them in the proper circumstances (see <b>When to Fax?</b>).</li>
 
 				<h1><a name="when"><b>When to Fax?</b></a></h1><br>

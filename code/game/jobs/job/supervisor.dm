@@ -246,7 +246,6 @@
 	selection_color = "#edccd7"
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING)
-	alt_titles = list("Human Resources Agent", "Lawyer", "Attorney")
 	minimal_player_age = 30
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_requirements = 3000
@@ -258,8 +257,8 @@
 /datum/outfit/job/lawyer
 	name = JOB_TITLE_LAWYER
 	jobtype = /datum/job/lawyer
-	uniform = /obj/item/clothing/under/rank/internalaffairs
-	suit = /obj/item/clothing/suit/storage/internalaffairs
+	uniform = /obj/item/clothing/under/rank/lawyer
+	suit = /obj/item/clothing/suit/storage/lawyer
 	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
@@ -271,7 +270,6 @@
 	backpack_contents = list(
 		/obj/item/flash = 1,
 	)
-	implants = list(/obj/item/implant/mindshield)
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_laws

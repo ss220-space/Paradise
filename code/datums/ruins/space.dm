@@ -94,7 +94,7 @@
 	name = "Derelict 4"
 	description = "Centcom ferries have never crashed, will never crash, \
 		there is no current investigation into a crashed ferry, and we \
-		will not let Internal Affairs trample over high security information \
+		will not let Lawyer trample over high security information \
 		in the name of this baseless witchhunt."
 	can_found = TRUE
 
