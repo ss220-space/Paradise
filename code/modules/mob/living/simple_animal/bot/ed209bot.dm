@@ -406,7 +406,7 @@
 	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
 
-	var/obj/item/ed209_assembly/Sa = new /obj/item/ed209_assembly(Tsec)
+	var/obj/item/bot_assembly/ed209_assembly/Sa = new /obj/item/bot_assembly/ed209_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay(image('icons/obj/aibots.dmi', "hs_hole"))
 	Sa.created_name = name
