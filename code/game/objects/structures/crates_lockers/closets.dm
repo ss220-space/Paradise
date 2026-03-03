@@ -228,8 +228,8 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/setClosed()
 	close()
 
-/obj/structure/closet/proc/toggle(mob/user)
-	if(!(opened ? close() : open()))
+/obj/structure/closet/proc/toggle(mob/user, by_hand = FALSE)
+	if(!(opened ? close() : open(by_hand)))
 		to_chat(user, span_notice("It won't budge!"))
 		return FALSE
 
@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(allowed(user))
 		locked = !locked
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
+		playsound(loc, SFX_CLOSET_TOGGLE_LOCK, 15, TRUE, -3)
 		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_UT(user)] замок", "замок [locked ? "за" : "от"]крыт")
 		update_icon()
 	else

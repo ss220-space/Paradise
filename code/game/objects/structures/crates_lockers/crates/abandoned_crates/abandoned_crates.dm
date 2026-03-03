@@ -258,11 +258,12 @@
 /obj/structure/closet/crate/secure/loot/emag_act(mob/user)
 	. = ..()
 
-	if(locked)
-		add_attack_logs(user, src, "emag-bombed")
-		boom(user) // No feedback since it just explodes, thats its own feedback
-		return TRUE
-	return
+	if(!locked)
+		return
+
+	add_attack_logs(user, src, "emag-bombed")
+	boom(user) // No feedback since it just explodes, thats its own feedback
+	return TRUE
 
 /obj/structure/closet/crate/secure/loot/togglelock(mob/user, silent = FALSE)
 	if(!locked)

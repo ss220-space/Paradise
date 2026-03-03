@@ -12,10 +12,12 @@
 /obj/effect/spawner/abandoned_crate/Initialize(mapload)
 	. = ..()
 
-	if(length(loot))
-		for(var/atom in loot)
-			for(var/i in 1 to loot[atom])
-				new atom(loc)
+	if(!length(loot))
+		return
+
+	for(var/atom in loot)
+		for(var/i in 1 to loot[atom])
+			new atom(loc)
 
 // MARK: Thematic spawners
 /obj/effect/spawner/abandoned_crate/booze
