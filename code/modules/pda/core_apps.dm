@@ -134,3 +134,17 @@
 		results = list(list("entry" = "pressure", "units" = "%", "val" = "0", "bad_high" = 120, "poor_high" = 110, "poor_low" = 95, "bad_low" = 80))
 
 	data["aircontents"] = results
+
+
+/datum/data/pda/app/raingor_interstellar_bank
+	name = "Raingor Interstellar Banking" // this is the perfect name for a bank. (do not change)
+	title = "Raingor Interstellar Banking"
+	icon = "wallet"
+	template = "pda_bank"
+	category = "General"
+
+/datum/data/pda/app/raingor_interstellar_bank/update_ui(mob/user, list/data)
+	// test
+	data["balance"] = 0
+	data["transactions"] = list()
+

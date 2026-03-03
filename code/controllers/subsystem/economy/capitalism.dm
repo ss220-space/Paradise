@@ -1,5 +1,7 @@
 // Core Economy class
-// Defines for this subsystem - [code/_DEFINES/economy.dm]
+// Defines for this subsystem - [code/_DEFINES/economy.dm] | here salary
+// Account terminal - [code/modules/economy/Accounts_DB.dm] | here heart of economy
+// Subs system - [code/controllers/subsystem/economy/subscriptions_subsystem.dm]
 //
 
 #define FREQUENCY_SALARY 5 MINUTES

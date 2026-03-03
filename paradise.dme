@@ -425,6 +425,7 @@
 #include "code\controllers\subsystem\asset_loading.dm"
 #include "code\controllers\subsystem\augury.dm"
 #include "code\controllers\subsystem\economy\capitalism.dm"
+#include "code\controllers\subsystem\economy\subscriptions_subsystem.dm"
 #include "code\controllers\subsystem\chat.dm"
 #include "code\controllers\subsystem\cleanup.dm"
 #include "code\controllers\subsystem\dbcore.dm"
