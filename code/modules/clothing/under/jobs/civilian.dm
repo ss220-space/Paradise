@@ -177,14 +177,14 @@
 		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
 	)
 
-/obj/item/clothing/under/rank/internalaffairs
+/obj/item/clothing/under/rank/lawyer
 	desc = "The plain, professional attire of an Lawyer. The collar is <i>immaculately</i> starched."
 	name = "Lawyer uniform"
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
 
-/obj/item/clothing/under/rank/internalaffairs/skirt
+/obj/item/clothing/under/rank/lawyer/skirt
 	name = "Lawyer uniform with skirt"
 	icon_state = "internalaffairsf"
 	item_state = "internalaffairsf"
