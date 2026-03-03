@@ -51756,6 +51756,9 @@
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -61578,6 +61581,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -74463,6 +74469,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -92552,13 +92561,6 @@
 	icon_state = "yellow"
 	},
 /area/maintenance/engineering)
-"xKp" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/hallway/secondary/entry)
 "xKt" = (
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
@@ -105246,15 +105248,15 @@ sWK
 sWK
 sWK
 kqQ
-xKp
-xKp
-xKp
+sWK
+sWK
+sWK
 fVp
-xKp
-xKp
-xKp
+sWK
+sWK
+sWK
 qaS
-xKp
+sWK
 ckq
 deS
 aSd
