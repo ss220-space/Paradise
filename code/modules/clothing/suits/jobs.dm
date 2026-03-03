@@ -439,7 +439,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi',
 	)
 
-//Lawyer ex Internal Affaits Agent
+//Lawyer ex Internal Affairs
 /obj/item/clothing/suit/storage/internalaffairs
 	name = "Lawyer jacket"
 	desc = "A smooth black jacket."

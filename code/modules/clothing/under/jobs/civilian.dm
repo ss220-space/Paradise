@@ -178,14 +178,14 @@
 	)
 
 /obj/item/clothing/under/rank/lawyer
-	desc = "The plain, professional attire of an Lawyer. The collar is <i>immaculately</i> starched."
-	name = "Lawyer uniform"
+	desc = "The plain, professional attire of a Lawyer. The collar is <i>immaculately</i> starched."
+	name = "lawyer uniform"
 	icon_state = "internalaffairs"
 	item_state = "internalaffairs"
 	item_color = "internalaffairs"
 
 /obj/item/clothing/under/rank/lawyer/skirt
-	name = "Lawyer uniform with skirt"
+	name = "lawyer uniform with skirt"
 	icon_state = "internalaffairsf"
 	item_state = "internalaffairsf"
 	item_color = "internalaffairsf"
