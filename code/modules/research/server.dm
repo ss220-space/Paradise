@@ -18,6 +18,7 @@
 	var/list/usage_logs
 	var/list/logs_for_logs_clearing
 	var/static/logs_decryption_key = null
+	var/list/design_blacklist = list()
 
 /obj/machinery/r_n_d/server/Initialize(mapload)
 	. = ..()
@@ -334,15 +335,13 @@
 					break
 		temp_server.files.RefreshResearch()
 
-	else if(href_list["reset_design"])
-		var/choice = tgui_alert(usr, "Design Data Deletion", "Are you sure you want to blacklist this design? Ensure you sync servers after this decision.", list("Continue", "Cancel"))
-		if(choice == "Continue")
-			for(var/I in temp_server.files.known_designs)
-				var/datum/design/D = temp_server.files.known_designs[I]
-				if(D.id == href_list["reset_design"])
-					temp_server.files.known_designs -= D.id
-					break
-		temp_server.files.RefreshResearch()
+	else if(href_list["blacklist_design"])
+		var/id = href_list["blacklist_design"]
+
+		if(!(id in temp_server.design_blacklist))
+			temp_server.design_blacklist += id
+
+			temp_server.sync_blacklist_to_consoles()
 
 	else if(href_list["clear_logs"])
 		temp_server.clear_logs(usr)
@@ -455,6 +454,9 @@
 		if(user)
 			to_chat(user, span_notice("You you disable the security protocols"))
 	src.updateUsrDialog()
+
+/obj/machinery/r_n_d/server/proc/is_design_blacklisted(design_id)
+    return (design_id in design_blacklist)
 
 /obj/machinery/r_n_d/server/core
 	name = "Core R&D Server"

@@ -435,6 +435,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return
 
+	if(connected_server?.is_design_blacklisted(being_built.id))
+		to_chat(usr, span_warning("Этот дизайн находится в чёрном списке сервера!"))
+		return
+
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
 		return
