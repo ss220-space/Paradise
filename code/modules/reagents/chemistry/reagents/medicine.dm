@@ -1507,6 +1507,8 @@
 	harmless = FALSE
 	taste_description = "предстоящих страданий"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "adrenaline")
+	chemuse = 250
+	quantity = 15
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
