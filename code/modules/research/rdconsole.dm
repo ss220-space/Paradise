@@ -104,6 +104,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	/// TGUI theme
 	var/ui_theme = "Nanotrasen"
+	/// List of connected servers
+	var/alist/connected_servers = alist()
 
 /// A simple helper proc to find the name of a tech with a given ID.
 /proc/CallTechName(ID)
@@ -295,7 +297,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!sync)
 		return
 	clear_wait_message()
-	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+	connected_servers = SSmachines.get_by_type(/obj/machinery/r_n_d/server)
+	for(var/obj/machinery/r_n_d/server/S in connected_servers)
 		var/server_processed = FALSE
 		if(S.disabled)
 			continue
@@ -435,9 +438,10 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return
 
-	if(connected_server?.is_design_blacklisted(being_built.id))
-		to_chat(usr, span_warning("Этот дизайн находится в чёрном списке сервера!"))
-		return
+	for(var/obj/machinery/r_n_d/server/rnd_server in connected_servers)
+		if(id in rnd_server.id_with_download && being_built in rnd_server.design_blacklist)
+			to_chat(usr, span_warning("Этот дизайн находится в чёрном списке сервера НИО!"))
+			return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
@@ -930,8 +934,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if(t_disk != null && t_disk.stored != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
+			var/display_name = d_disk.blueprint.build_object_name || d_disk.blueprint.name || "Неизвестный дизайн"
 			data["disk_data"] = disk_data
-			disk_data["name"] = t_disk.stored.name
+			disk_data["name"] = display_name
 			disk_data["level"] = t_disk.stored.level
 			disk_data["desc"] = t_disk.stored.desc
 

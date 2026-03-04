@@ -341,7 +341,9 @@
 		if(!(id in temp_server.design_blacklist))
 			temp_server.design_blacklist += id
 
-			temp_server.sync_blacklist_to_consoles()
+	else if(href_list["remove_design_from_blacklist"])
+		var/id = href_list["remove_design_from_blacklist"]
+		temp_server.design_blacklist -= id
 
 	else if(href_list["clear_logs"])
 		temp_server.clear_logs(usr)
@@ -411,8 +413,9 @@
 			dat += "Known Designs<br>"
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
-				dat += "* [D.name] "
-				dat += "<a href='byond://?src=[UID()];reset_design=[D.id]'>(Delete)</a><br>"
+				var/display_name = D.build_object_name || D.name || "Неизвестный дизайн"
+				dat += "* [display_name] "
+				dat += "<a href='byond://?src=[UID()];[temp_server.is_design_blacklisted(D.id) ? "remove_design_from_blacklist=[D.id]'>(Remove from blacklist)" : "blacklist_design=[D.id]'>(Blacklist)"]</a><br>"
 			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
 
 		if(3) //Logs menu
