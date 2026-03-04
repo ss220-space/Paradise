@@ -13,9 +13,12 @@
 	var/static/list/west_necropolisroom_templates
 	var/static/list/east_necropolisroom_templates
 	var/static/templates_loaded = FALSE
+	var/static/obj/effect/landmark/map_loader/lavaland_room/loader_landmark
 
 /obj/effect/landmark/map_loader/lavaland_room/Initialize(mapload)
 	. = ..()
+	if(!loader_landmark)
+		loader_landmark = src
 	INVOKE_ASYNC(src, PROC_REF(load_room_async))
 
 /obj/effect/landmark/map_loader/lavaland_room/proc/load_room_async()
@@ -23,7 +26,10 @@
 		return
 
 	if(!templates_loaded)
-		load_templates()
+		if(src == loader_landmark)
+			load_templates()
+		else
+			UNTIL(templates_loaded)
 
 	// Selecting a template in the direction of the landmark
 	var/list/room_list = get_room_list_by_dir(dir)
@@ -34,7 +40,8 @@
 		load(map_template)
 
 /obj/effect/landmark/map_loader/lavaland_room/proc/load_templates()
-	templates_loaded = TRUE
+	if(templates_loaded)
+		return
 
 	// Initializing the lists
 	south_necropolisroom_templates = list()
@@ -46,20 +53,23 @@
 	for(var/map in flist(path))
 		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
 			var/datum/map_template/map_template = new(path = "[path][map]", rename = "[map]")
-			if(copytext(map, 1, 3) == "n_")
-				north_necropolisroom_templates += map_template
-			else if(copytext(map, 1, 3) == "s_")
-				south_necropolisroom_templates += map_template
-			else if(copytext(map, 1, 3) == "e_")
-				east_necropolisroom_templates += map_template
-			else if(copytext(map, 1, 3) == "w_")
-				west_necropolisroom_templates += map_template
-			else
-				// Omnidirectional rooms are randomly distributed
-				if(prob(50))
+			switch(copytext(map, 1, 3))
+				if("n_")
 					north_necropolisroom_templates += map_template
-				else
+				if("s_")
 					south_necropolisroom_templates += map_template
+				if("e_")
+					east_necropolisroom_templates += map_template
+				if("w_")
+					west_necropolisroom_templates += map_template
+				else
+					// Files without a prefix are considered omnidirectional - we distribute them randomly
+					if(prob(50))
+						north_necropolisroom_templates += map_template
+					else
+						south_necropolisroom_templates += map_template
+
+	templates_loaded = TRUE
 
 /obj/effect/landmark/map_loader/lavaland_room/proc/get_room_list_by_dir(dir)
 	switch(dir)
