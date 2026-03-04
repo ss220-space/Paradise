@@ -137,8 +137,8 @@
 	var/datum/action/innate/borer/torment/torment_action = new
 	var/datum/action/innate/borer/sneak_mode/sneak_mode_action = new
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
-	var/datum/action/innate/borer/heal_over_time/heal_over_time = new
-	var/datum/action/innate/borer/parasitism/parasitism_mode_action = new
+	var/datum/action/innate/borer/mend_host/mend_host_action = new
+	var/datum/action/innate/borer/parasitism/parasitism_action = new
 
 	var/obj/effect/proc_holder/spell/borer_infest/infest_spell = new
 	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
@@ -821,8 +821,8 @@
 	make_chems_action.Grant(src)
 	focus_menu_action.Grant(src)
 	torment_action.Grant(src)
-	heal_over_time.Grant(src)
-	parasitism_mode_action.Grant(src)
+	mend_host_action.Grant(src)
+	parasitism_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
@@ -832,8 +832,8 @@
 	make_chems_action.Remove(src)
 	focus_menu_action.Remove(src)
 	torment_action.Remove(src)
-	heal_over_time.Remove(src)
-	parasitism_mode_action.Remove(src)
+	mend_host_action.Remove(src)
+	parasitism_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
@@ -841,7 +841,7 @@
 	make_larvae_action.Grant(host)
 	sneak_mode_action.Grant(host)
 	torment_action.Grant(host)
-	heal_over_time.Grant(host)
+	mend_host_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
 	talk_to_brain_action.Remove(host)
@@ -849,7 +849,7 @@
 	give_back_control_action.Remove(host)
 	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
-	heal_over_time.Remove(host)
+	mend_host_action.Remove(host)
 
 /mob/living/carbon/human/proc/get_real_mind()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()

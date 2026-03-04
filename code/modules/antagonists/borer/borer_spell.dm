@@ -103,7 +103,7 @@
 
 /obj/effect/proc_holder/spell/borer_force_say
 	name = "Говорить как хозяин"
-	desc = "Заставьте своего хозяина что-нибудь сказать.."
+	desc = "Заставьте своего хозяина что-нибудь сказать."
 
 	base_cooldown = 15
 

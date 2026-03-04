@@ -158,13 +158,13 @@
 	var/mob/living/simple_animal/borer/borer = owner
 	borer.focus_menu()
 
-/datum/action/innate/borer/heal_over_time
+/datum/action/innate/borer/mend_host
 	name = "Лечение"
 	desc = "лечит хозяина в течении 10 секунд"
 	button_icon_state = "revive"
 	cost = 100
 
-/datum/action/innate/borer/heal_over_time/Activate()
+/datum/action/innate/borer/mend_host/Activate()
 	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
 	var/mob/living/carbon/host = borer.host
 
@@ -178,16 +178,13 @@
 		to_chat(borer, span_warning("Сахар в крови носителя"))
 		return
 
-	// Проверяем, нет ли уже такого эффекта (чтобы не стакался)
-	if(host.has_status_effect(/datum/status_effect/borer_regen))
+	if(host.has_status_effect(/datum/status_effect/mend_host))
 		to_chat(owner, "Ваш носитель уже регенерирует!")
 		return
 
-	// Списываем химикаты и накладываем статус-эффект
 	borer.chemicals -= total_cost
-	host.apply_status_effect(/datum/status_effect/borer_regen)
+	host.apply_status_effect(/datum/status_effect/mend_host)
 
-	// Оповещения
 	to_chat(owner, "Вы помогаете телу носителя регенерировать.")
 
 
@@ -195,7 +192,7 @@
 	name = "Паразитоидизм"
 	desc = "Стоимость - 50, В течении 60 секунд вы будете получать очки эволюции и химикаты за счёт хозяина."
 	button_icon_state = "fake_death"
-	cost = 50                     // стоимость активации в химикатах
+	cost = 50
 
 /datum/action/innate/borer/parasitism/Activate()
 	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
@@ -205,17 +202,14 @@
 
 	var/mob/living/carbon/host = borer.host
 
-	// Проверка на смерть
 	if(host.stat == DEAD)
 		to_chat(owner, "Носитель мёртв!")
 		return
 
-	// Проверка на критическое состояние (здоровье ≤ 0, но не мёртв)
-	if(host.health <= HEALTH_THRESHOLD_CRIT)  // можно заменить на host.health <= HEALTH_THRESHOLD_CRIT, если есть такой define
+	if(host.health <= HEALTH_THRESHOLD_CRIT)
 		to_chat(owner, "Носитель слишком слаб для активации режима эволюции!")
 		return
 
-	// Проверка на сахар
 	if(host.reagents.has_reagent("sugar"))
 		to_chat(borer, span_warning("Сахар в крови носителя"))
 		return
@@ -224,17 +218,13 @@
 		to_chat(owner, "Вам требуется [cost] химикат[DECL_CREDIT(cost)] для активации режима эволюции!")
 		return
 
-	// Проверяем, не активен ли уже режим
 	if(host.has_status_effect(/datum/status_effect/parasitism))
 		to_chat(owner, "вы уже питаетесь")
 		return
 
-	// Списываем химикаты
 	borer.chemicals -= cost
 
-	// Накладываем статус-эффект на носителя
 	host.apply_status_effect(/datum/status_effect/parasitism)
 
-	// Оповещения
 	to_chat(owner, span_danger("Носитель будет ослаблен в ближайшее время."))
 	to_chat(host, span_danger("Паразит питается за вас счёт. Вы чувствуете истощение."))

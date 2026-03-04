@@ -1567,8 +1567,7 @@
 		qdel(src)
 		return
 
-	// Если хост мёртв или в критическом состоянии — прекращаем эффект
-	if(host.stat == DEAD || host.health <= HEALTH_THRESHOLD_CRIT)	// замени HEALTH_THRESHOLD_CRIT при необходимости
+	if(host.stat == DEAD || host.health <= HEALTH_THRESHOLD_CRIT)
 		qdel(src)
 		return
 
@@ -1577,7 +1576,6 @@
 		qdel(src)
 		return
 
-	// Проверка на сахар
 	if(host.reagents.has_reagent("sugar"))
 		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком вялым, питание прервано."))
 		qdel(src)
@@ -1592,17 +1590,14 @@
 	if(borer.antag_datum)
 		SEND_SIGNAL(borer.antag_datum, COMSIG_BORER_EVOLUTION_TICK, evolution_gain)
 
-	// Восстановление химикатов
 	borer.chemicals += chemical_gain
 	if(borer.chemicals > borer.max_chems)
 		borer.chemicals = borer.max_chems
 
-	// Нанесение урона носителю
 	host.adjustBruteLoss(host_damage)
 	host.adjustToxLoss(host_damage)
-	host.adjust_nutrition(host_damage * 4)
+	host.adjust_nutrition(-5)
 
-	// Сообщения для атмосферы
 	if(prob(30))
 		to_chat(host, span_danger( "Паразит высасывает ваши жизненные силы"))
 		host.AdjustKnockdown(2 SECONDS)
@@ -1612,5 +1607,5 @@
 /datum/status_effect/parasitism/on_remove()
 	if(iscarbon(owner))
 		var/mob/living/carbon/host = owner
-		host.med_hud_set_status()   // убираем иконку или переключаем на обычную
+		host.med_hud_set_status()
 	return ..()
