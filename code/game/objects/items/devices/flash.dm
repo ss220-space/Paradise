@@ -327,3 +327,41 @@
  */
 
 /obj/item/flash/synthetic //just a regular flash now
+
+
+/obj/item/flash/hypnotic
+	desc = "A modified flash device, programmed to emit a sequence of subliminal flashes that can send a vulnerable target into a hypnotic trance."
+
+	cooldown_duration = 2 SECONDS
+
+/obj/item/flash/hypnotic/burn_out()
+	return
+
+/obj/item/flash/hypnotic/flash_carbon(mob/living/flashed, mob/user, confusion_duration = 5 SECONDS, targeted = TRUE, generic_message = FALSE, extra_log =  null)
+	if(user)
+		add_attack_logs(user, flashed, "[targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"] [extra_log]", src)
+	else //caused by emp/remote signal
+		add_attack_logs("was [targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"] [extra_log]", ATTACK_CHAIN_PROCEED)
+
+	if(generic_message && flashed != user)
+		to_chat(flashed, span_notice("[src] emits a soothing light..."))
+
+	if(!flashed.flash_eyes(1, override_blindness_check = targeted, affect_silicon = TRUE))
+		if(targeted)
+			if(user)
+				user.visible_message(span_warning("[user] fails to blind [flashed] with the flash!"), span_warning("You fail to hypno-flash [flashed]!"))
+			else
+				to_chat(flashed, span_danger("[src] fails to blind you!"))
+		return FALSE
+
+	if(!targeted)
+		to_chat(flashed, span_notice("Such a pretty light..."))
+		flashed.AdjustConfused(confusion_duration, confusion_duration * 2)
+		flashed.AdjustDizzy(8 SECONDS, 40 SECONDS)
+		flashed.AdjustDrowsy(8 SECONDS, 40 SECONDS)
+		return TRUE
+
+	if(user)
+		user.visible_message(span_danger("[user] blinds [flashed] with the flash!"), span_danger("You hypno-flash [flashed]!"))
+	else
+		to_chat(flashed, "You're blinded by [src]!")
