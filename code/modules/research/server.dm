@@ -412,7 +412,7 @@
 			dat += "Known Designs<br>"
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
-				var/display_name = D.build_object_name || D.name
+				var/display_name = D.build_object_name || D.name || "Неизвестный дизайн"
 				dat += "* [display_name] "
 				dat += "<a href='byond://?src=[UID()];reset_design=[D.id]'>(Delete)</a><br>"
 			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
