@@ -945,8 +945,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		else if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
+			var/display_name = d_disk.blueprint.build_object_name || d_disk.blueprint.name || "Неизвестный дизайн"
 			data["disk_data"] = disk_data
-			disk_data["name"] = d_disk.blueprint.name
+			disk_data["name"] = display_name
 			var/b_type = d_disk.blueprint.build_type
 			var/list/lathe_types = list()
 			disk_data["lathe_types"] = lathe_types
