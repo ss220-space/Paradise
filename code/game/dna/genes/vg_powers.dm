@@ -315,9 +315,9 @@
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 
 		if(target.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			target.create_chat_message(target, "[say]", list("telepathy"), null)
+			target.create_chat_message(target, "<i>[say]</i>", list("telepathy"), null)
 		if(user.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
-			user.create_chat_message(target, "[say]", list("telepathy"), null)
+			user.create_chat_message(target, "<i>[say]</i>", list("telepathy"), null)
 
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message(span_abductor("Вы проецируете свой разум на [user.name]: [say]"))
