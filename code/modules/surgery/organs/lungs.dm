@@ -58,8 +58,10 @@
 		PREPOSITIONAL = "лёгких человека",
 	)
 
-/obj/item/organ/internal/lungs/emp_act()
+/obj/item/organ/internal/lungs/emp_act(severity)
 	if(!is_robotic() || emp_proof)
+		return
+	if(emp_shielded(severity))
 		return
 
 	if(owner)

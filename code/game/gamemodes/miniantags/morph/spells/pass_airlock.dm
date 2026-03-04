@@ -3,7 +3,7 @@
 	name = "Пройти через шлюз"
 	desc = "Изменяйте свою форму, чтобы пройти через незаблокированный шлюз. Это занимает некоторое время и может быть использовано только в вашей истинной форме."
 	action_icon_state = "morph_airlock"
-	selection_activated_message = span_sinister("ЛКМ на шлюз, чтобы попытаться пройти через него.")
+	selection_activated_message = span_sinister_alt("ЛКМ на шлюз, чтобы попытаться пройти через него.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/create_new_targeting()

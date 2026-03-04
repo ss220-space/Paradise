@@ -187,7 +187,7 @@
 	name = "Blindness"
 	desc = "Your prey will be momentarily blind for you to advance on them."
 
-	message = span_notice("You glare your eyes.")
+	message = span_notice_alt("You glare your eyes.")
 	base_cooldown = 60 SECONDS
 	clothes_req = FALSE
 	human_req = FALSE

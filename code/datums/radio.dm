@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(all_radios)
 /datum/radio_frequency
 	var/frequency as num
 	var/list/obj/devices = list()
+	var/custom = FALSE
 
 /datum/radio_frequency/proc/post_signal(obj/source as obj|null, datum/signal/signal, filter = null as text|null, range = null as num|null)
 	var/turf/start_point

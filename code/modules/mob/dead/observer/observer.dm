@@ -25,6 +25,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	invisibility = INVISIBILITY_OBSERVER
 	pass_flags = PASSEVERYTHING
 	hud_type = /datum/hud/ghost
+	looting_icon_mode = LOOT_ICON_FLAT_ICON
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -120,6 +121,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	UnregisterSignal(src, COMSIG_MOB_HUD_CREATED)
 	if(ghostimage)
 		GLOB.ghost_images -= ghostimage
+		ghostimage.loc = null
 		QDEL_NULL(ghostimage)
 		updateallghostimages()
 	if(orbit_menu)
@@ -666,7 +668,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(target && target != usr)
 			spawn(0)
 				var/turf/pos = get_turf(A)
-				var/turf/T=get_turf(target)
+				var/turf/T = get_turf(target)
 				if(T != pos)
 					if(!T)
 						return

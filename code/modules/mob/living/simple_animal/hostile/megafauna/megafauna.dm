@@ -61,6 +61,8 @@
 	. = ..()
 	if(internal_type && true_spawn)
 		internal = new internal_type(src)
+	if(islist(crusher_loot))
+		crusher_loot = string_list(crusher_loot)
 	for(var/action_type in attack_action_types)
 		var/datum/action/innate/megafauna_attack/attack_action = new action_type()
 		attack_action.Grant(src)

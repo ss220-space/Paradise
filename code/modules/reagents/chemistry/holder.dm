@@ -21,6 +21,16 @@
 	if(temperature_maximum)
 		temperature_max = temperature_maximum
 
+/datum/reagents/Destroy()
+	. = ..()
+	QDEL_LIST(reagent_list)
+	reagent_list = null
+	QDEL_LIST(addiction_list)
+	addiction_list = null
+	if(my_atom && my_atom.reagents == src)
+		my_atom.reagents = null
+		my_atom = null
+
 /datum/reagents/proc/remove_any(amount = 1)
 	var/list/cached_reagents = reagent_list
 	var/total_transfered = 0
@@ -939,15 +949,6 @@
 		clothing_pen += reagent.clothing_penetration * (reagent.volume / total_volume)
 
 	return clothing_pen
-
-/datum/reagents/Destroy()
-	. = ..()
-	QDEL_LIST(reagent_list)
-	reagent_list = null
-	QDEL_LIST(addiction_list)
-	addiction_list = null
-	if(my_atom && my_atom.reagents == src)
-		my_atom.reagents = null
 
 #undef ADDICTION_TIME
 #undef MINOR_ADDICTION_TIME
