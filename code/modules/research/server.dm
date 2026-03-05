@@ -402,6 +402,8 @@
 		var/list/design_list = list()
 		for(var/id in temp_server.files.known_designs)
 			var/datum/design/design = temp_server.files.known_designs[id]
+			if(!design)
+				continue
 			var/display_name = design.build_object_name || design.name || "Неизвестный дизайн"
 			design_list += list(list("name" = display_name, "id" = design.id, "blacklisted" = (design.id in temp_server.design_blacklist)))
 		data["designs"] = design_list
@@ -435,6 +437,8 @@
 		if("select_server")
 			var/target_id = text2num(params["id"])
 			for(var/obj/machinery/r_n_d/server/server as anything in servers)
+				if(!server || QDELETED(server))
+					continue
 				if(server.server_id == target_id)
 					if(server.syndicate != syndicate)
 						continue
@@ -446,7 +450,8 @@
 		if("set_screen")
 			var/new_screen = text2num(params["target"])
 			if(new_screen == RD_SERVER_SCREEN_LOGS)
-				if(!temp_server) return FALSE
+				if(!temp_server || QDELETED(temp_server))
+					return FALSE
 				var/key = tgui_input_text(usr, "Введите ключ дешифровки", "Проверка безопасности")
 				if(key != temp_server.logs_decryption_key)
 					to_chat(usr, span_danger("Неверный ключ!"))
@@ -459,7 +464,8 @@
 			return TRUE
 
 		if("reset_tech")
-			if(!temp_server) return
+			if(!temp_server || QDELETED(temp_server))
+				return
 			var/tech_id = params["tech_id"]
 			var/choice = tgui_alert(usr, "Сбросить технологию?", "Внимание", list("Да", "Нет"))
 			if(choice == "Да" && temp_server)
@@ -469,7 +475,8 @@
 			return TRUE
 
 		if("toggle_access")
-			if(!temp_server) return
+			if(!temp_server ||  QDELETED(temp_server))
+				return
 			var/c_id = text2num(params["console_id"])
 			var/type = params["type"]
 			var/list/target_list = (type == "upload") ? temp_server.id_with_upload : temp_server.id_with_download
@@ -480,12 +487,13 @@
 			return TRUE
 
 		if("clear_logs")
-			if(temp_server && screen == RD_SERVER_SCREEN_LOGS)
+			if(temp_server && !QDELETED(temp_server) && screen == RD_SERVER_SCREEN_LOGS)
 				temp_server.clear_logs(usr)
 				return TRUE
 
 		if("toggle_blacklist")
-			if(!temp_server) return
+			if(!temp_server || QDELETED(temp_server))
+				return
 			var/d_id = params["design_id"]
 			if(d_id in temp_server.design_blacklist)
 				temp_server.design_blacklist -= d_id

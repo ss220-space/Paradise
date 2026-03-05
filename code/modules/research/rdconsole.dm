@@ -439,8 +439,12 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
+		if(!rnd_server || QDELETED(rnd_server))
+			connected_servers -= rnd_server
+			continue
+
 		var/console_has_access = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
-		if(console_has_access && (rnd_server.is_design_blacklisted(being_built.id)))
+		if(being_built && console_has_access && (rnd_server.is_design_blacklisted(being_built.id)))
 			add_wait_message("Предмет в чёрном списке сервера НИО!", SYNC_RESEARCH_DELAY)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
 			balloon_alert_to_viewers("предмет в чёрном списке!", "этот предмет в чёрном списке!")
