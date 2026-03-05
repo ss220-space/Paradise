@@ -27,40 +27,40 @@
 	return ..()
 
 /datum/borer_focus/head
-	name = "Head focus"
+	name = "Фокус головы"
 	cost = HEAD_FOCUS_COST
 
 /datum/borer_focus/torso
-	name = "Body focus"
+	name = "Фокус тела"
 	cost = TORSO_FOCUS_COST
 	var/obj/item/organ/internal/heart/linked_organ
 
 /datum/borer_focus/hands
-	name = "Hands focus"
+	name = "Фокус рук"
 	cost = HANDS_FOCUS_COST
 
 /datum/borer_focus/legs
-	name = "Legs focus"
+	name = "Фокус ног"
 	cost = LEGS_FOCUS_COST
 
 /datum/borer_focus/sting
-	name = "Sting focus"
+	name = "Фокус жала"
 	cost = STING_FOCUS_COST
 
 /datum/borer_focus/reproductive
-	name = "Reproductive focus"
+	name = "Фокус репродукции"
 	cost = REPRODUCTION_FOCUS_COST
 
 /datum/borer_focus/abdomen
-	name = "Abdomen focus"
+	name = "Фокус брюшка"
 	cost = ABDOMEN_FOCUS_COST
 
 /datum/borer_focus/secretion
-	name = "Secretion focus"
+	name = "Фокус секреции"
 	cost = SECRETION_FOCUS_COST
 
 /datum/borer_focus/strength
-	name = "Сверхсила"
+	name = "Фокус мышц"
 	cost = STRENGHT_FOCUS_COST
 	var/datum/strength_level/backup_strength_level
 	var/backup_strength_points = 0
