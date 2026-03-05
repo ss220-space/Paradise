@@ -277,14 +277,19 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
   const { balance, transactions, name } = data;
 
   return (
-    <Box textAlign="center" mb={3}>
-      <Button
-        fluid
-        style={{ fontWeight: 'bold', fontSize: '16px' }}
-        onClick={() => setPage('main')}
-      >
-        <Icon name="step-backward" mr={1} />В меню
-      </Button>
+    <Box>
+      <Box textAlign="center" mb={3}>
+        <Button
+          fluid
+          style={{ fontWeight: 'bold', fontSize: '16px' }}
+          onClick={() => setPage('main')}
+        >
+          <Icon name="step-backward" mr={1} />В меню
+        </Button>
+      </Box>
+      <Box textAlign="center" mb={3}>
+        На данный момент нет никаких активных систем подписок.
+      </Box>
     </Box>
   );
 };
