@@ -1,6 +1,6 @@
 /obj/item/beacon
 	name = "tracking beacon"
-	desc = "Маяк, используемый стационарным телепортом."
+	desc = "Маяк, используемый стационарными телепортами."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
@@ -50,12 +50,12 @@
 // SINGULO BEACON SPAWNER
 /obj/item/beacon/syndicate
 	name = "suspicious beacon"
-	desc = "На нём написано: <i>Активируйте, чтобы маяк сингулярности был телепортирован к вам</i>."
+	desc = "На корпус приклеена наклейка, на которой написано: <i>Активируйте, чтобы маяк сингулярности был телепортирован к вам</i>."
 	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = TRUE
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
-/obj/item/storage/syndicate/get_ru_names()
+/obj/item/beacon/syndicate/get_ru_names()
 	return list(
 		NOMINATIVE = "подозрительный маяк",
 		GENITIVE = "подозрительного маяка",
