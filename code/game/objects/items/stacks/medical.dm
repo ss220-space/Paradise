@@ -869,6 +869,11 @@
 	var/selected_zone = get_priority_targeting(target, user, def_zone)
 	var/obj/item/organ/external/affecting = target.get_organ(selected_zone)
 
+	if(!affecting)
+		target.balloon_alert(user, "нет конечности!")
+		. &= ~ATTACK_CHAIN_SUCCESS
+		return .
+
 	if(affecting.bleeding_amount <= 0)
 		target.balloon_alert(user, "нечего зашивать!")
 		. &= ~ATTACK_CHAIN_SUCCESS
