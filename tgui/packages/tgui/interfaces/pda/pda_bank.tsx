@@ -197,9 +197,15 @@ const TransferMenuPage = ({ setPage, data }: PageProps) => {
 
   return (
     <Box>
-      <Button fluid onClick={() => setPage('main')}>
-        <Icon name="step-backward" mr={1} />В меню
-      </Button>
+      <Box textAlign="center" mb={3}>
+        <Button
+          fluid
+          style={{ fontWeight: 'bold', fontSize: '16px' }}
+          onClick={() => setPage('main')}
+        >
+          <Icon name="step-backward" mr={1} />В меню
+        </Button>
+      </Box>
 
       <Section
         title={
@@ -271,8 +277,12 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
   const { balance, transactions, name } = data;
 
   return (
-    <Box>
-      <Button fluid onClick={() => setPage('main')}>
+    <Box textAlign="center" mb={3}>
+      <Button
+        fluid
+        style={{ fontWeight: 'bold', fontSize: '16px' }}
+        onClick={() => setPage('main')}
+      >
         <Icon name="step-backward" mr={1} />В меню
       </Button>
     </Box>
@@ -284,50 +294,70 @@ const AboutMenuPage = ({ setPage, data }: PageProps) => {
 
   return (
     <Box>
-      <Button fluid onClick={() => setPage('main')}>
-        <Icon name="step-backward" mr={1} />В меню
-      </Button>
+      <Box textAlign="center" mb={3}>
+        <Button
+          fluid
+          style={{ fontWeight: 'bold', fontSize: '16px' }}
+          onClick={() => setPage('main')}
+        >
+          <Icon name="step-backward" mr={1} />В меню
+        </Button>
+      </Box>
 
       <Section
         title={
-          <Box fontSize="14px" bold>
-            <Icon name="university" mr={1} />
-            Raingor Interstellar Banking
-          </Box>
-        }
-      />
-
-      <LabeledList>
-        <LabeledList.Item label="Основан">2307 год</LabeledList.Item>
-
-        <LabeledList.Item label="Штаб-квартира">
-          Centauri Financial Ring
-        </LabeledList.Item>
-
-        <LabeledList.Item label="Тип">
-          Межзвёздный финансовый консорциум
-        </LabeledList.Item>
-      </LabeledList>
-
-      <Section
-        title={
-          <Box fontSize="14px" bold>
-            <Icon name="book" mr={1} />
-            История
+          <Box fontSize="16px" bold textAlign="center">
+            <Icon name="university" mr={1} />О Raingor Interstellar Banking
           </Box>
         }
       >
-        <Box>
-          Raingor Interstellar Banking был основан в начале XXIV века после
-          начала масштабной колонизации космоса. Корпорация предоставляет услуги
-          межзвёздных финансовых переводов, страхования экипажей и хранения
-          средств колоний.
+        {/* Основной текст лора */}
+        <Box fontSize="14px" mb={2} textAlign="center">
+          <b>Raingor Interstellar Banking</b> — корпорация, объединившая частное
+          кредитование и систему мгновенных переводов.
         </Box>
 
-        <Box mt={1}>
-          Благодаря квантовой сети транзакций RIB способен выполнять переводы
-          между системами практически мгновенно.
+        <Box fontSize="14px" mb={2} textAlign="center">
+          Основанная в 24 веке, <b>Raingor Interstellar Banking</b> стала
+          ведущим игроком в сфере частного финансирования межзвёздной экономики.
+          Благодаря
+          <i>
+            {' '}
+            беспрепятственному доступу ко всем ретрансляторам блюспейс-сети,
+            полученному по эксклюзивному контракту со всеми государственными
+            структурами, вошедшими в соглашение об использовании кредита в
+            качестве циркуляционной валюты
+          </i>
+          , корпорация может управлять транзакциями и капиталом{' '}
+          <b>с немыслимой скоростью</b> по всей галактике.
         </Box>
+
+        <Box fontSize="14px" mb={2} textAlign="center">
+          Наши клиенты — от частных предпринимателей до межзвёздных
+          исследовательских корпораций. <b>Raingor Bank</b> предоставляет
+          кредиты на развитие частных колонизационных проектов, инвестирует в
+          инфраструктуру планет и поддерживает финансовую экосистему новых
+          миров.
+        </Box>
+
+        <Box fontSize="14px" mb={2} textAlign="center">
+          Надёжность и инновации лежат в основе каждого нашего сервиса. Мы
+          обеспечиваем прозрачность операций, мгновенные переводы и сохранность
+          ваших средств даже в самых удалённых уголках космоса.
+        </Box>
+
+        <Section
+          title={
+            <Box fontSize="14px" bold color="good" textAlign="center">
+              <Icon name="star" mr={1} />
+              Наш слоган
+            </Box>
+          }
+        >
+          <Box fontSize="14px" italic textAlign="center">
+            «Доверие, проверенное временем и звёздами»
+          </Box>
+        </Section>
       </Section>
     </Box>
   );
@@ -337,9 +367,15 @@ const ErrorPage = ({ setPage }: PageBaseProps) => {
   return (
     <Box>
       <Section title={'ОШИБКА'} />
-      <Button fluid onClick={() => setPage('main')}>
-        <Icon name="step-backward" mr={1} />В меню
-      </Button>
+      <Box textAlign="center" mb={3}>
+        <Button
+          fluid
+          style={{ fontWeight: 'bold', fontSize: '16px' }}
+          onClick={() => setPage('main')}
+        >
+          <Icon name="step-backward" mr={1} />В меню
+        </Button>
+      </Box>
     </Box>
   );
 };
