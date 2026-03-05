@@ -126,7 +126,7 @@
 	switch(choice)
 		if(CABLE_CRAFT_RESTRAINS)
 			if(get_amount() < 15)
-				to_chat(user, span_warning("У вас мало [declent_ru(GENITIVE)] чтобы сделать самодельные стяжки!"))
+				balloon_alert(user, "недостаточно проводов!")
 
 			if(use(15))
 				var/obj/item/restraints/handcuffs/cable/cablecuff = new(T)
@@ -282,11 +282,11 @@
 		return
 
 	if(get_amount() < 1) // Out of cable
-		to_chat(user, span_warning("Проводки больше не осталось!"))
+		balloon_alert(user, ("проводка закончилась"))
 		return
 
 	if(get_dist(T,user.loc) > 1) // Too far
-		to_chat(user, span_warning("Вы не можете проложить проводку так далеко!"))
+		balloon_alert(user, ("слишком далеко"))
 		return
 
 	var/dirn
@@ -300,7 +300,7 @@
 
 	for(var/obj/structure/cable/LC in T)
 		if(LC.d2 == dirn && LC.d1 == 0)
-			to_chat(user, span_warning("В этом месте уже есть проводка!"))
+			balloon_alert(user, ("уже есть проводка"))
 			return
 
 	var/obj/structure/cable/C = get_new_cable(T)
@@ -346,7 +346,7 @@
 		return
 
 	if(get_dist(C, user) > 1)		// make sure it's close enough
-		to_chat(user, span_warning("Вы не можете проложить проводку так далеко!"))
+		balloon_alert(user, ("слишком далеко"))
 		return
 
 	if(U == T) //if clicked on the turf we're standing on, try to put a cable in the direction we're facing
@@ -368,7 +368,7 @@
 
 		for(var/obj/structure/cable/LC in U)		// check to make sure there's not a cable there already
 			if(LC.d1 == fdirn || LC.d2 == fdirn)
-				to_chat(user, span_warning("В этом месте уже есть проводка!"))
+				balloon_alert(user, ("уже есть проводка"))
 				return
 
 		var/obj/structure/cable/NC = get_new_cable (U)
@@ -409,7 +409,7 @@
 			if(LC == C)			// skip the cable we're interacting with
 				continue
 			if((LC.d1 == nd1 && LC.d2 == nd2) || (LC.d1 == nd2 && LC.d2 == nd1))	// make sure no cable matches either direction
-				to_chat(user, span_warning("В этом месте уже есть проводка!"))
+				balloon_alert(user, ("уже есть проводка"))
 				return
 
 		C.cable_color(color)

@@ -304,7 +304,7 @@
 	var/choice = tgui_input_list(user, "Spraycan options", , list("Toggle Cap", "Change Drawing", "Change Color"))
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, span_notice("Вы [capped ? "сняли" : "вернули"] крышку у [declent_ru(GENITIVE)]"))
+			balloon_alert(user, ("вы [capped ? "сняли" : "вернули"] крышку"))
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
