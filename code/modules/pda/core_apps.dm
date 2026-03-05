@@ -138,31 +138,75 @@
 /datum/data/pda/app/bank
 	name = "Raingor Interstellar Banking" // this is the perfect name for a bank. (do not change)
 	title = "Raingor Interstellar Banking"
-	icon = "wallet"
+	icon = "university"
 	template = "pda_bank"
 	category = "General"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/bank/update_ui(mob/user as mob, list/data)
-    var/datum/money_account/owner_bank_account = get_account_with_name(pda.owner)
+	var/datum/money_account/owner_bank_account = get_account_with_name(pda.owner)
+	var/list/transactions_list = list()
+	var/list/possible_targets = list()
+	if(owner_bank_account == null)
+		data["name"] = "unknow"
+		data["balance"] = 0
+		data["transactions"] = list()
+		return
 
-    if(owner_bank_account == null)
-        data["name"] = "unknow"
-        data["balance"] = 0
-        data["transactions"] = list()
-        return
+	for(var/datum/transaction/T in owner_bank_account.transaction_log)
+		transactions_list.Add(list(list(
+			"date" = T.date,
+			"time" = T.time,
+			"target_name" = T.target_name,
+			"purpose" = T.purpose,
+			"amount" = T.amount,
+			"source_terminal" = T.source_terminal
+		)))
 
-    var/list/transactions_list = list()
-    for(var/datum/transaction/T in owner_bank_account.transaction_log)
-        transactions_list.Add(list(list(
-            "date" = T.date,
-            "time" = T.time,
-            "target_name" = T.target_name,
-            "purpose" = T.purpose,
-            "amount" = T.amount,
-            "source_terminal" = T.source_terminal
-        )))
+	for(var/datum/money_account/Target_account in GLOB.all_money_accounts)
+		if(!Target_account.suspended && !(Target_account.owner_name == owner_bank_account.owner_name))
+			possible_targets.Add(Target_account.owner_name)
 
-    data["name"] = owner_bank_account.owner_name
-    data["balance"] = owner_bank_account.money
-    data["transactions"] = transactions_list
+	data["name"] = owner_bank_account.owner_name
+	data["balance"] = owner_bank_account.money
+	data["transactions"] = transactions_list
+	data["targets"] = possible_targets
+
+// добавь потом что бы в банк нужно было логиниться и потом ток
+/datum/data/pda/app/bank/ui_act(action, params)
+	if(action == "transfer")
+		var/target = params["target"]
+		var/amount = text2num(params["amount"])
+		var/purpose = params["purpose"]
+
+		var/datum/money_account/RecipientUser = get_account_with_name(target)
+		var/datum/money_account/SenderUser = get_account_with_name(pda.owner)
+
+		// antidurak protection
+		if(!SenderUser)
+			return
+
+		if(!RecipientUser)
+			return
+
+		if(SenderUser.suspended || RecipientUser.suspended)
+			return
+
+		if(amount <= 0)
+			return
+
+		if(SenderUser.money < amount)
+			return
+
+		// without this u cant use charge_to_account
+		var/obj/machinery/computer/account_database/linked_db
+
+		// search db account
+		for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
+			if(DB.stat & NOPOWER || !DB.activated)
+				continue
+			linked_db = DB
+			break
+
+		linked_db.charge_to_account(RecipientUser.account_number, SenderUser, purpose, "Терминал Raingor Interstellar Banking", amount)
+
