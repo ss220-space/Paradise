@@ -336,9 +336,10 @@
 	plane_masters_update()
 	// ensure observers get an accurate and up-to-date view
 	if(!viewmob)
-		for(var/M in mymob.inventory_observers)
-			show_hud(hud_version, M)
+		for(var/viewer in mymob.inventory_observers)
+			show_hud(hud_version, viewer)
 	else if(viewmob.hud_used)
+		viewmob.hide_other_mob_action_buttons(mymob)
 		viewmob.hud_used.plane_masters_update()
 		viewmob.show_other_mob_action_buttons(mymob)
 
