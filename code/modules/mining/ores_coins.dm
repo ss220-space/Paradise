@@ -62,32 +62,42 @@
 	qdel(src)
 
 /obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
-	if(!istype(loc, /turf/simulated/floor/plating/asteroid) || (!ishuman(arrived) && !isrobot(arrived)))
-		return ..()
+	. = ..()
+	if(QDELETED(src) || !ismob(arrived))
+		return
 
-	var/mob/arrived_mob = arrived
+	var/mob/living/living = arrived
+	if(!istype(get_turf(src), /turf/simulated/floor/plating/asteroid) || (!ishuman(living) && !isrobot(living)))
+		return
 
-	for(var/obj/item/storage/bag/ore/bag in arrived_mob.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
+	var/list/ore_bags = list()
+	for(var/obj/item/storage/bag/ore/ore_bag in living.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
+		ore_bags += ore_bag
 
-		var/list/search_turfs
+	if(!length(ore_bags))
+		return
 
-		if(bag.aoe)
-			search_turfs = range(1, arrived_mob)
-		else
-			search_turfs = list(loc)
+	var/list/search_turfs = list(get_turf(src))
+	for(var/obj/item/storage/bag/ore/ore_bag in ore_bags)
+		if(ore_bag.aoe)
+			search_turfs = range(1, living)
+			break
 
-		for(var/turf/turf in search_turfs)
-			for(var/obj/item/item as anything in turf)
-				if(!bag.can_be_inserted(item, stop_messages = TRUE))
-					continue
+	for(var/turf/turf in search_turfs)
+		for(var/obj/item/stack/ore/ore in turf)
+			if(QDELETED(ore))
+				continue
 
-				item.do_pickup_animation(arrived_mob)
-				bag.handle_item_insertion(item, prevent_warning = TRUE)
+			for(var/obj/item/storage/bag/ore/ore_bag in ore_bags)
+				if(ore_bag.can_be_inserted(ore, stop_messages = TRUE))
+					ore.do_pickup_animation(living)
+					ore_bag.handle_item_insertion(ore, prevent_warning = TRUE)
+					break
 
-		if(istype(arrived_mob.pulling, /obj/structure/ore_box))
-			arrived_mob.pulling.attackby(bag, arrived)
-
-	return ..()
+	if(istype(living.pulling, /obj/structure/ore_box))
+		var/obj/structure/ore_box/box = living.pulling
+		for(var/obj/item/storage/bag/ore/ore_bag in ore_bags)
+			box.attackby(ore_bag, living)
 
 /obj/item/stack/ore/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
