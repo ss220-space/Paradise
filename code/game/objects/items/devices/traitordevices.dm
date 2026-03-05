@@ -559,9 +559,15 @@ effective or pretty fucking useless.
 
 /obj/item/ranged_stasis_generator/attack_self(mob/user)
 	. = ..()
+	if(.)
+		return .
+	if(!aura_on && user && (isvampire(user) || ischangeling(user)))
+		to_chat(user, span_warning("Система безопасности [src.declent_ru(GENITIVE)] не позволяет вам активировать его."))
+		return
+
 	aura_on = !aura_on
+	SEND_SIGNAL(src, COMSIG_AURA_SET_ENABLED, aura_on)
 	update_icon(UPDATE_ICON_STATE)
-	return .
 
 /obj/item/ranged_stasis_generator/get_ru_names()
 	return list(

@@ -11,13 +11,13 @@
 	var/atom/atom_target = target
 	range_by_target[atom_target] = max(0, range)
 	active_by_target[atom_target] = enabled
-	RegisterSignal(atom_target, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_item_attack_self))
+	RegisterSignal(atom_target, COMSIG_AURA_SET_ENABLED, PROC_REF(on_set_enabled))
 	if(enabled)
 		var/datum/proximity_monitor/advanced/aura/mon = new(atom_target, range_by_target[atom_target], FALSE, src, atom_target)
 		monitor_by_target[atom_target] = mon
 
 /datum/element/effect_aura/Detach(datum/source, ...)
-	UnregisterSignal(source, COMSIG_ITEM_ATTACK_SELF)
+	UnregisterSignal(source, COMSIG_AURA_SET_ENABLED)
 	var/datum/proximity_monitor/advanced/aura/mon = monitor_by_target[source]
 	if(mon)
 		QDEL_NULL(mon)
@@ -48,9 +48,9 @@
 		return FALSE
 	return SetEnabled(target, !active_by_target[target])
 
-/datum/element/effect_aura/proc/on_item_attack_self(obj/item/source, mob/user)
+/datum/element/effect_aura/proc/on_set_enabled(atom/target, enabled)
 	SIGNAL_HANDLER
-	Toggle(source)
+	SetEnabled(target, enabled)
 
 /datum/element/effect_aura/proc/SetRange(atom/target, range)
 	if(!(target in range_by_target))
