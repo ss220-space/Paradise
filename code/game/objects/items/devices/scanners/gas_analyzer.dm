@@ -54,7 +54,7 @@
 
 /obj/item/analyzer/click_alt(mob/living/user) //Barometer output for measuring when the next storm happens
 	if(cooldown)
-		balloon_alert(user, ("перезарядка"))
+		balloon_alert(user, "перезарядка")
 		return CLICK_ACTION_BLOCKING
 
 	var/turf/T = get_turf(user)
@@ -66,7 +66,7 @@
 	var/datum/weather/ongoing_weather = null
 
 	if(!user_area.outdoors)
-		balloon_alert(user, ("не работает в помещении"))
+		balloon_alert(user, "не работает в помещении")
 		return CLICK_ACTION_BLOCKING
 
 	for(var/V in SSweather.processing)
@@ -77,20 +77,20 @@
 
 	if(ongoing_weather)
 		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-			balloon_alert(user, ("не работает во время бури"))
+			balloon_alert(user, "не работает во время бури")
 			return CLICK_ACTION_BLOCKING
 
-		balloon_alert(user, ("Следующая [ongoing_weather] начнется [butchertime(ongoing_weather.next_hit_time - world.time)]."))
+		balloon_alert(user, "Следующая [ongoing_weather] начнется [butchertime(ongoing_weather.next_hit_time - world.time)].")
 		if(ongoing_weather.aesthetic)
-			balloon_alert(user, ("буря пройдёт мимо"))
+			balloon_alert(user, "буря пройдёт мимо")
 
 	else
 		var/next_hit = SSweather.next_hit_by_zlevel["[T.z]"]
 		var/fixed = next_hit ? next_hit - world.time : -1
 		if(fixed < 0)
-			balloon_alert(user, ("не получилось отследить погоду"))
+			balloon_alert(user, "не получилось отследить погоду")
 		else
-			balloon_alert(user, ("буря начнётся через [butchertime(fixed)]."))
+			balloon_alert(user, "буря начнётся через [butchertime(fixed)].")
 
 	cooldown = TRUE
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/analyzer, ping)), cooldown_time)
@@ -99,7 +99,7 @@
 /obj/item/analyzer/proc/ping()
 	if(isliving(loc))
 		var/mob/living/L = loc
-		balloon_alert(L, ("Функция барометра готова!"))
+		balloon_alert(L, "Функция барометра готова!")
 	playsound(src, 'sound/machines/click.ogg', 100)
 	cooldown = FALSE
 
