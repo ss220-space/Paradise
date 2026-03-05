@@ -55,7 +55,7 @@
 	syndicate = TRUE
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
 
-/obj/item/storage/backpack/santabag/get_ru_names()
+/obj/item/storage/syndicate/get_ru_names()
 	return list(
 		NOMINATIVE = "подозрительный маяк",
 		GENITIVE = "подозрительного маяка",

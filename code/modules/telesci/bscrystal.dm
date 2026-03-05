@@ -99,7 +99,7 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	. = ..()
 	recipes = GLOB.bluespace_crystal_recipes
 
-/obj/item/stack/ore/bluespace_crystal/get_ru_names()
+/obj/item/stack/sheet/bluespace_crystal/get_ru_names()
 	return list(
 		NOMINATIVE = "блюспейс поликристалл",
 		GENITIVE = "блюспейс поликристалла",
