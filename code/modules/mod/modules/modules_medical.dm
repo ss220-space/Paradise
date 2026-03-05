@@ -387,7 +387,6 @@
 	projectile.original = target
 	projectile.firer = mod.wearer
 	projectile.preparePixelProjectile(target, mod.wearer)
-	projectile.fire()
 	playsound(src, 'sound/mecha/hydraulic.ogg', 25, TRUE)
 	INVOKE_ASYNC(projectile, TYPE_PROC_REF(/obj/projectile, fire))
 	drain_power(use_energy_cost)
