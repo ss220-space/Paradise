@@ -2065,6 +2065,14 @@
 	can_discount = FALSE
 	excludefrom = list(UPLINK_TYPE_NUCLEAR)
 
+/datum/uplink_item/device_tools/stasis_generator
+	name = "Боевой стазис-генератор «Пацифист»"
+	desc = "Высокотехнологичное устройство скрытого ношения, создающее вокруг пользователя невидимую зону подавления дистанционных атак. \
+			Любое огнестрельное или энергетическое оружие в радиусе действия будет давать осечку, вынуждая противников переходить в ближний бой."
+	item = /obj/item/ranged_stasis_generator
+	cost = 38
+	excludefrom = list(UPLINK_TYPE_NUCLEAR)
+
 /**
  * MARK: Space Suits & MODs
  */

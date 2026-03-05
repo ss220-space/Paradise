@@ -542,5 +542,36 @@ effective or pretty fucking useless.
 			new /datum/event/communications_blackout/syndicate(EM = meta_info)
 			log_and_message_admins("muted telecomms using a LOIC remote.")
 
+/obj/item/ranged_stasis_generator
+	name = "Combat Stasis Generator «Pacifist»"
+	desc = "Компактный стазис-генератор модели «Пацифист». Сводит на нет любые попытки дистанционного боя, превращая перестрелку в поножовщину. Издает едва заметный ультразвуковой писк, от которого сводит челюсть."
+	icon = 'icons/obj/device.dmi'
+	icon_state = "stasis_generator_0"
+	w_class = WEIGHT_CLASS_SMALL
+	var/aura_on = FALSE
+
+/obj/item/ranged_stasis_generator/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/effect_aura/no_ranged, 3, FALSE)
+
+/obj/item/ranged_stasis_generator/update_icon_state()
+	icon_state = aura_on ? "stasis_generator_1" : "stasis_generator_0"
+
+/obj/item/ranged_stasis_generator/attack_self(mob/user)
+	. = ..()
+	aura_on = !aura_on
+	update_icon(UPDATE_ICON_STATE)
+	return .
+
+/obj/item/ranged_stasis_generator/get_ru_names()
+	return list(
+		NOMINATIVE = "боевой стазис-генератор «Пацифист»",
+		GENITIVE = "боевого стазис-генератора «Пацифист»",
+		DATIVE = "боевому стазис-генератору «Пацифист»",
+		ACCUSATIVE = "боевой стазис-генератор «Пацифист»",
+		INSTRUMENTAL = "боевым стазис-генератором «Пацифист»",
+		PREPOSITIONAL = "боевом стазис-генераторе «Пацифист»",
+	)
+
 #undef ION_CALLER_AI_TARGETING
 #undef ION_CALLER_COMMS_TARGETING

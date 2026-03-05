@@ -795,6 +795,7 @@
 #include "code\datums\elements\devil_regen.dm"
 #include "code\datums\elements\diona_internals.dm"
 #include "code\datums\elements\direction_slowdown.dm"
+#include "code\datums\elements\effect_aura.dm"
 #include "code\datums\elements\falling_hazard.dm"
 #include "code\datums\elements\footstep.dm"
 #include "code\datums\elements\forced_gravity.dm"

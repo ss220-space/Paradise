@@ -81,6 +81,7 @@
 
 /// Means that you can't use weapons with normal trigger guards.
 #define TRAIT_NO_GUNS "no_guns"
+#define TRAIT_RANGED_MALFUNCTION "no_ranged"
 #define TRAIT_FORCE_DOORS "force_doors"
 #define TRAIT_EMOTE_MUTE "emote_mute"
 #define TRAIT_IGNORESLOWDOWN "ignoreslow"
