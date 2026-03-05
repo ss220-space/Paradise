@@ -439,8 +439,11 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 
 	for(var/obj/machinery/r_n_d/server/rnd_server in connected_servers)
-		if(id in rnd_server.id_with_download && being_built in rnd_server.design_blacklist)
-			to_chat(usr, span_warning("Этот дизайн находится в чёрном списке сервера НИО!"))
+		var/console_has_acces = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
+		if(console_has_acces && (rnd_server.is_design_blacklisted(being_built.id)))
+			add_wait_message("Предмет в чёрном списке сервера НИО!", SYNC_RESEARCH_DELAY)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
+			balloon_alert_to_viewers("предмет в чёрном списке!", "этот предмет в чёрном списке!")
 			return
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
@@ -954,8 +957,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		else if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
+			var/display_name = d_disk.blueprint.build_object_name || d_disk.blueprint.name || "Неизвестный дизайн"
 			data["disk_data"] = disk_data
-			disk_data["name"] = d_disk.blueprint.name
+			disk_data["name"] = display_name
 			var/b_type = d_disk.blueprint.build_type
 			var/list/lathe_types = list()
 			disk_data["lathe_types"] = lathe_types
