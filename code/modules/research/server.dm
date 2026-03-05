@@ -468,7 +468,7 @@
 				return
 			var/tech_id = params["tech_id"]
 			var/choice = tgui_alert(usr, "Сбросить технологию?", "Внимание", list("Да", "Нет"))
-			if(choice == "Да" && temp_server)
+			if(choice == "Да")
 				var/datum/tech/T = temp_server.files.known_tech[tech_id]
 				if(T) T.level = 1
 				temp_server.files.RefreshResearch()
