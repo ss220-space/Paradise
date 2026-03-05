@@ -46,7 +46,7 @@
 			conveyor.id = switch_construct.id
 			linked = TRUE
 		if(linked)
-			balloon_alert(user, span_notice("все ленты в [declent_ru(PREPOSITIONAL)] связаны с [switch_construct]."))
+			balloon_alert(user, ("все ленты в [declent_ru(PREPOSITIONAL)] связаны с [switch_construct]."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
