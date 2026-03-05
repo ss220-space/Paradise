@@ -29,6 +29,7 @@
 #define VAMPIRE_TRAIT "vampire"
 #define NINJA_TRAIT "space-ninja"
 #define REVENANT_TRAIT "revenant"
+#define BORER_TRAIT "borer"
 /// (B)admins only.
 #define ADMIN_TRAIT "admin"
 
