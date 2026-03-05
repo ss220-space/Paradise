@@ -361,6 +361,9 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 
+	if(!length(servers) || !length(consoles))
+		refresh_cache()
+
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "RdServerControl", "R&D Server Control")
@@ -369,13 +372,17 @@
 /obj/machinery/computer/rdservercontrol/ui_data(mob/user)
 	var/list/data = list()
 	data["screen"] = screen
-	var/list/all_servers = list()
-	for(var/obj/machinery/r_n_d/server/server in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-		if(server.syndicate != syndicate)
+	var/list/server_list = list()
+	for(var/obj/machinery/r_n_d/server/server as anything in servers)
+		if(!server || QDELETED(server))
 			continue
-		var/pretty_name = DECLENT_RU_CAP(server, NOMINATIVE)
-		all_servers += list(list("name" = pretty_name, "id" = server.server_id))
-	data["servers"] = all_servers
+
+		server_list += list(list(
+			"name" = DECLENT_RU_CAP(server, NOMINATIVE),
+			"id" = server.server_id
+		))
+
+	data["servers"] = server_list
 
 	if(temp_server)
 		data["temp_server_name"] = DECLENT_RU_CAP(temp_server, NOMINATIVE)
@@ -399,24 +406,24 @@
 			design_list += list(list("name" = display_name, "id" = design.id, "blacklisted" = (design.id in temp_server.design_blacklist)))
 		data["designs"] = design_list
 
-		var/list/console_list = list()
-		for(var/obj/machinery/computer/rdconsole/console in SSmachines.get_by_type(/obj/machinery/computer/rdconsole))
-			if(console.syndicate != syndicate || !console.sync)
-				continue
-			var/turf/console_turf = get_turf(console)
-			var/is_upload = (console.id in temp_server.id_with_upload)
-			var/is_download = (console.id in temp_server.id_with_download)
-
-			console_list += list(list(
+		var/list/console_data = list()
+		for(var/obj/machinery/computer/rdconsole/console as anything in consoles)
+			if(!console || QDELETED(console)) continue
+			var/turf/T = get_turf(console)
+			console_data += list(list(
 				"id" = console.id,
-				"loc" = (console_turf && console_turf.loc) ? console_turf.loc.name : "Неизвестно",
-				"upload" = is_upload ? 1 : 0,
-				"download" = is_download ? 1 : 0
+				"loc" = (T && T.loc) ? T.loc.name : "Неизвестно",
+				"upload" = (console.id in temp_server.id_with_upload) ? 1 : 0,
+				"download" = (console.id in temp_server.id_with_download) ? 1 : 0
 			))
-		data["consoles"] = console_list
+		data["consoles"] = console_data
 
-		data["usage_logs"] = temp_server.usage_logs || list()
-		data["clear_logs"] = temp_server.logs_for_logs_clearing || list()
+		if(screen == RD_SERVER_SCREEN_LOGS)
+			data["usage_logs"] = temp_server.usage_logs || list()
+			data["clear_logs"] = temp_server.logs_for_logs_clearing || list()
+		else
+			data["usage_logs"] = list()
+			data["clear_logs"] = list()
 
 	return data
 
@@ -427,32 +434,42 @@
 	switch(action)
 		if("select_server")
 			var/target_id = text2num(params["id"])
-			for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-				if(S.server_id == target_id)
-					temp_server = S
+			for(var/obj/machinery/r_n_d/server/server as anything in servers)
+				if(server.server_id == target_id)
+					if(server.syndicate != syndicate)
+						continue
+
+					temp_server = server
 					screen = RD_SERVER_SCREEN_DATA
 					return TRUE
 
 		if("set_screen")
-			var/new_screen = params["target"]
+			var/new_screen = text2num(params["target"])
 			if(new_screen == RD_SERVER_SCREEN_LOGS)
+				if(!temp_server) return FALSE
 				var/key = tgui_input_text(usr, "Введите ключ дешифровки", "Проверка безопасности")
 				if(key != temp_server.logs_decryption_key)
 					to_chat(usr, span_danger("Неверный ключ!"))
 					return FALSE
+
+			if(new_screen == RD_SERVER_SCREEN_MAIN)
+				temp_server = null
+
 			screen = new_screen
 			return TRUE
 
 		if("reset_tech")
+			if(!temp_server) return
 			var/tech_id = params["tech_id"]
 			var/choice = tgui_alert(usr, "Сбросить технологию?", "Внимание", list("Да", "Нет"))
-			if(choice == "Да")
+			if(choice == "Да" && temp_server)
 				var/datum/tech/T = temp_server.files.known_tech[tech_id]
 				if(T) T.level = 1
 				temp_server.files.RefreshResearch()
 			return TRUE
 
 		if("toggle_access")
+			if(!temp_server) return
 			var/c_id = text2num(params["console_id"])
 			var/type = params["type"]
 			var/list/target_list = (type == "upload") ? temp_server.id_with_upload : temp_server.id_with_download
@@ -463,8 +480,9 @@
 			return TRUE
 
 		if("clear_logs")
-			temp_server.clear_logs(usr)
-			return TRUE
+			if(temp_server && screen == RD_SERVER_SCREEN_LOGS)
+				temp_server.clear_logs(usr)
+				return TRUE
 
 		if("toggle_blacklist")
 			if(!temp_server) return
@@ -476,6 +494,17 @@
 			return TRUE
 
 	return ..()
+
+/obj/machinery/computer/rdservercontrol/proc/refresh_cache()
+	servers = list()
+	consoles = list()
+	for(var/obj/machinery/r_n_d/server/server as anything in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+		if(server.syndicate == syndicate)
+			servers += server
+
+	for(var/obj/machinery/computer/rdconsole/console as anything in SSmachines.get_by_type(/obj/machinery/computer/rdconsole))
+		if(console.syndicate == syndicate && console.sync)
+			consoles += console
 
 #undef RD_SERVER_SCREEN_MAIN
 #undef RD_SERVER_SCREEN_ACCESS

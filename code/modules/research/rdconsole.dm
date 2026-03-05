@@ -105,7 +105,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	/// TGUI theme
 	var/ui_theme = "Nanotrasen"
 	/// List of connected servers
-	var/alist/connected_servers = alist()
+	var/list/connected_servers = list()
 
 /// A simple helper proc to find the name of a tech with a given ID.
 /proc/CallTechName(ID)
@@ -298,21 +298,21 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		return
 	clear_wait_message()
 	connected_servers = SSmachines.get_by_type(/obj/machinery/r_n_d/server)
-	for(var/obj/machinery/r_n_d/server/S in connected_servers)
+	for(var/obj/machinery/r_n_d/server/serv as anything in connected_servers)
 		var/server_processed = FALSE
-		if(S.disabled)
+		if(serv.disabled)
 			continue
-		if(syndicate != S.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
-			log_debug("[name] ([COORD(src)]) and [S.name]([COORD(S)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
+		if(syndicate != serv.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
+			log_debug("[name] ([COORD(src)]) and [serv.name]([COORD(serv)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
 			continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
-		if((id in S.id_with_upload) || istype(S, /obj/machinery/r_n_d/server/centcom))
-			files.push_data(S.files)
+		if((id in serv.id_with_upload) || istype(serv, /obj/machinery/r_n_d/server/centcom))
+			files.push_data(serv.files)
 			server_processed = TRUE
-		if(((id in S.id_with_download) && !istype(S, /obj/machinery/r_n_d/server/centcom)) || S.hacked)
-			S.files.push_data(files)
+		if(((id in serv.id_with_download) && !istype(serv, /obj/machinery/r_n_d/server/centcom)) || serv.hacked)
+			serv.files.push_data(files)
 			server_processed = TRUE
-		if(!istype(S, /obj/machinery/r_n_d/server/centcom) && server_processed)
-			S.produce_heat(100)
+		if(!istype(serv, /obj/machinery/r_n_d/server/centcom) && server_processed)
+			serv.produce_heat(100)
 
 	if(linked_imprinter)
 		linked_imprinter.update_components_list()
@@ -438,9 +438,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		to_chat(usr, span_danger("Выбран неизвестный шаблон печати!"))
 		return
 
-	for(var/obj/machinery/r_n_d/server/rnd_server in connected_servers)
-		var/console_has_acces = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
-		if(console_has_acces && (rnd_server.is_design_blacklisted(being_built.id)))
+	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
+		var/console_has_access = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
+		if(console_has_access && (rnd_server.is_design_blacklisted(being_built.id)))
 			add_wait_message("Предмет в чёрном списке сервера НИО!", SYNC_RESEARCH_DELAY)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
 			balloon_alert_to_viewers("предмет в чёрном списке!", "этот предмет в чёрном списке!")

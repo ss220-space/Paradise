@@ -46,7 +46,7 @@ interface RdData {
   technologies: Technology[];
   consoles: Console[];
   usage_logs: [string, string, string, string, string][];
-  clear_logs: any[][];
+  clear_logs: [string, string, string][];
   temp_server_name: string;
 }
 
