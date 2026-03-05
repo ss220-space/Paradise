@@ -100,11 +100,21 @@
 ///TELEPAD CALLER///
 /obj/item/telepad_beacon
 	name = "telepad beacon"
-	desc = "Use to warp in a cargo telepad."
+	desc = "Используется для вызова телепада карго."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
 	origin_tech = "bluespace=3"
+
+/obj/item/telepad_beacon/get_ru_names()
+	return list(
+		NOMINATIVE = "маяк телепада",
+		GENITIVE = "маяка телепада",
+		DATIVE = "маяку телепада",
+		ACCUSATIVE = "маяк телепада",
+		INSTRUMENTAL = "маяком телепада",
+		PREPOSITIONAL = "маяке телепада"
+	)
 
 /obj/item/telepad_beacon/attack_self(mob/user as mob)
 	if(user)

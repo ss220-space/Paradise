@@ -976,7 +976,7 @@
 
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
-	desc = "The greatest in pants-supporting technology."
+	desc = "Пояс, вмещающий в себя порядком больше инструментов, чем обычный."
 	icon_state = "holdingbelt"
 	item_state = "holdingbelt"
 	storage_slots = 14
@@ -992,6 +992,16 @@
 		/obj/item/wrench,
 		/obj/item/multitool,
 		/obj/item/handheld_defibrillator,
+	)
+
+/obj/item/storage/belt/bluespace/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс пояс для инструментов",
+		GENITIVE = "блюспейс пояса для инструментов",
+		DATIVE = "блюспейс поясу для инструментов",
+		ACCUSATIVE = "блюспейс пояс для инструментов",
+		INSTRUMENTAL = "блюспейс поясом для инструментов",
+		PREPOSITIONAL = "блюспейс поясе для инструментов"
 	)
 
 /obj/item/storage/belt/bluespace/owlman

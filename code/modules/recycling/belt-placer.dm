@@ -19,13 +19,23 @@
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts. It utilises bluespace in order to hold many more belts than its regular counterpart."
+	desc = "Устройство, предназначенное для ускоренной укладки конвейерных лент. В отличие от обычного укладчика, оно вмещает гораздо больше лент."
 	icon_state = "bluespace_belt_placer"
 	item_state = "bs_conv"
 	w_class = WEIGHT_CLASS_NORMAL
 	storage_slots = 50
 	max_combined_w_class = 200 //50 belts
 	origin_tech = "engineering=2;bluespace=1"
+
+/obj/item/storage/conveyor/bluespace/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс укладчик конвейеров",
+		GENITIVE = "блюспейс укладчика конвейеров",
+		DATIVE = "блюспейс укладчику конвейеров",
+		ACCUSATIVE = "блюспейс укладчик конвейеров",
+		INSTRUMENTAL = "блюспейс укладчиком конвейеров",
+		PREPOSITIONAL = "блюспейс укладчике конвейеров"
+	)
 
 /obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
 	if(istype(I, /obj/item/conveyor_switch_construct))

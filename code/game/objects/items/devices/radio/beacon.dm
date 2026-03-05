@@ -1,6 +1,6 @@
 /obj/item/beacon
 	name = "tracking beacon"
-	desc = "A beacon used by a teleporter."
+	desc = "Маяк, используемый стационарным телепортом."
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
@@ -15,6 +15,16 @@
 	var/area_bypass = FALSE
 	/// Set if allowed to teleport to even if on zlevel2
 	var/cc_beacon = FALSE
+
+/obj/item/beacon/get_ru_names()
+	return list(
+		NOMINATIVE = "маяк отслеживания",
+		GENITIVE = "маяка отслеживания",
+		DATIVE = "маяку отслеживания",
+		ACCUSATIVE = "маяк отслеживания",
+		INSTRUMENTAL = "маяком отслеживания",
+		PREPOSITIONAL = "маяке отслеживания"
+	)
 
 /obj/item/beacon/Initialize(mapload)
 	. = ..()
@@ -40,10 +50,20 @@
 // SINGULO BEACON SPAWNER
 /obj/item/beacon/syndicate
 	name = "suspicious beacon"
-	desc = "A label on it reads: <i>Activate to have a singularity beacon teleported to your location</i>."
+	desc = "На нём написано: <i>Активируйте, чтобы маяк сингулярности был телепортирован к вам</i>."
 	origin_tech = "bluespace=6;syndicate=5"
 	syndicate = TRUE
 	var/obj/machinery/computer/syndicate_depot/teleporter/mycomputer
+
+/obj/item/storage/backpack/santabag/get_ru_names()
+	return list(
+		NOMINATIVE = "подозрительный маяк",
+		GENITIVE = "подозрительного маяка",
+		DATIVE = "подозрительному маяку",
+		ACCUSATIVE = "подозрительный маяк",
+		INSTRUMENTAL = "подозрительным маяком",
+		PREPOSITIONAL = "подозрительном маяке"
+	)
 
 /obj/item/beacon/syndicate/Destroy()
 	if(mycomputer)

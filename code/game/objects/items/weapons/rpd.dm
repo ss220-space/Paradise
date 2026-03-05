@@ -11,7 +11,7 @@
 
 /obj/item/rpd
 	name = "rapid pipe dispenser"
-	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
+	desc = "Устройство, позволяющее быстро прокладывать, передвигать и перерабатывать трубы любого типа на расстоянии."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -65,15 +65,35 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
+/obj/item/rpd/get_ru_names()
+	return list(
+		NOMINATIVE = "реактивный прокладчик труб",
+		GENITIVE = "реактивного прокладчика труб",
+		DATIVE = "реактивному прокладчику труб",
+		ACCUSATIVE = "реактивный прокладчик труб",
+		INSTRUMENTAL = "реактивным прокладчиком труб",
+		PREPOSITIONAL = "реактивном прокладчике труб"
+	)
+
 /obj/item/rpd/bluespace
 	name = "bluespace rapid pipe dispenser"
-	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to, at any range."
+	desc = "Устройство, позволяющее быстро прокладывать, передвигать и перерабатывать трубы любого типа на расстоянии, вмещает в разы больше стандартной модели."
 	icon_state = "brpd"
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
 	origin_tech = "engineering=4;materials=2;bluespace=3"
 	ranged = TRUE
 	primary_sound = 'sound/items/PSHOOM.ogg'
 	alt_sound = 'sound/items/PSHOOM_2.ogg'
+
+/obj/item/rpd/bluespace/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс реактивный прокладчик труб",
+		GENITIVE = "блюспейс реактивного прокладчика труб",
+		DATIVE = "блюспейс реактивному прокладчику труб",
+		ACCUSATIVE = "блюспейс реактивный прокладчик труб",
+		INSTRUMENTAL = "блюспейс реактивным прокладчиком труб",
+		PREPOSITIONAL = "блюспейс реактивном прокладчике труб"
+	)
 
 //Procs
 

@@ -1,7 +1,7 @@
 // Bluespace crystals, used in telescience and when crushed it will blink you to a random turf.
 /obj/item/stack/ore/bluespace_crystal
 	name = "bluespace crystal"
-	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
+	desc = "Светящийся блюспейс-кристалл. Принципы его работы неизвестны. Выглядит крайне хрупким."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
@@ -11,6 +11,16 @@
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
 	refined_type = /obj/item/stack/sheet/bluespace_crystal
 	usesound = 'sound/items/deconstruct.ogg'
+
+/obj/item/stack/ore/bluespace_crystal/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс кристалл",
+		GENITIVE = "блюспейс кристалла",
+		DATIVE = "блюспейс кристаллу",
+		ACCUSATIVE = "блюспейс кристалл",
+		INSTRUMENTAL = "блюспейс кристаллом",
+		PREPOSITIONAL = "блюспейс кристалле"
+	)
 
 /obj/item/stack/ore/bluespace_crystal/attack_self_tk(mob/user)
 	return
@@ -52,12 +62,22 @@
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
-	desc = "An artificially made bluespace crystal, it looks delicate."
+	desc = "Искусственно созданный блюспейс-кристалл, он выглядит хрупким."
 	origin_tech = "bluespace=3;plasmatech=4"
 	materials = list(MAT_BLUESPACE=MINERAL_MATERIAL_AMOUNT * 0.5)
 	blink_range = 4 // Not as good as the organic stuff!
 	points = 0 // nice try
 	refined_type = null
+
+/obj/item/stack/ore/bluespace_crystal/artificial/get_ru_names()
+	return list(
+		NOMINATIVE = "искусственный блюспейс кристалл",
+		GENITIVE = "искусственного блюспейс кристалла",
+		DATIVE = "искусственному блюспейс кристаллу",
+		ACCUSATIVE = "искусственный блюспейс кристалл",
+		INSTRUMENTAL = "искусственным блюспейс кристаллом",
+		PREPOSITIONAL = "искусственном блюспейс кристалле"
+	)
 
 // Polycrystals, aka stacks
 
@@ -68,7 +88,7 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "polycrystal"
 	protolathe_name = "bluespace_polycrystal"
-	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
+	desc = "Стабильный поликристалл, сплавленный из других блюспейс кристаллов. У вас, скорее всего, получится оторвать кусочек."
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
@@ -79,3 +99,12 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	. = ..()
 	recipes = GLOB.bluespace_crystal_recipes
 
+/obj/item/stack/ore/bluespace_crystal/get_ru_names()
+	return list(
+		NOMINATIVE = "блюспейс поликристалл",
+		GENITIVE = "блюспейс поликристалла",
+		DATIVE = "блюспейс поликристаллу",
+		ACCUSATIVE = "блюспейс поликристалл",
+		INSTRUMENTAL = "блюспейс поликристаллом",
+		PREPOSITIONAL = "блюспейс поликристалле"
+	)

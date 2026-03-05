@@ -32,6 +32,16 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	/// For GPS in pAI
 	var/atom/movable/parent
 
+/obj/item/gps/get_ru_names()
+	return list(
+		NOMINATIVE = "глобальная позиционирующая система",
+		GENITIVE = "глобальной позиционирующей системы",
+		DATIVE = "глобальной позиционирующей системе",
+		ACCUSATIVE = "глобальную позиционирующую систему",
+		INSTRUMENTAL = "глобальной позиционирующей системой",
+		PREPOSITIONAL = "глобальной позиционирующей системе"
+	)
+
 /obj/item/gps/Initialize(mapload)
 	. = ..()
 	GLOB.GPS_list.Add(src)
