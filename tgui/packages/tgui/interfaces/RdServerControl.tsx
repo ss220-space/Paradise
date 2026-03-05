@@ -1,23 +1,51 @@
-import { useState } from 'react';
 import { useBackend } from '../backend';
 import {
+  Box,
   Button,
+  LabeledList,
   Section,
   Stack,
   Table,
   Tabs,
-  LabeledList,
-  Box,
 } from '../components';
 import { Window } from '../layouts';
 
+const SCREEN_MAIN = 0;
+const SCREEN_ACCESS = 1;
+const SCREEN_DATA = 2;
+const SCREEN_LOGS = 3;
+
+interface Server {
+  id: number | string;
+  name: string;
+}
+
+interface Design {
+  id: string;
+  name: string;
+  blacklisted: boolean;
+}
+
+interface Technology {
+  id: string;
+  name: string;
+  level: number;
+}
+
+interface Console {
+  id: number;
+  loc: string;
+  upload: number;
+  download: number;
+}
+
 interface RdData {
   screen: number;
-  servers: any[];
-  designs: any[];
-  technologies: any[];
-  consoles: any[];
-  usage_logs: any[][];
+  servers: Server[];
+  designs: Design[];
+  technologies: Technology[];
+  consoles: Console[];
+  usage_logs: [string, string, string, string, string][];
   clear_logs: any[][];
   temp_server_name: string;
 }
@@ -31,11 +59,10 @@ export const RdServerControl = (props) => {
     technologies = [],
     consoles = [],
     usage_logs = [],
-    clear_logs = [],
     temp_server_name,
   } = data;
 
-  if (screen === 0) {
+  if (screen === SCREEN_MAIN) {
     return (
       <Window width={500} height={400} title="Управление серверами НИО">
         <Window.Content scrollable>
@@ -66,30 +93,32 @@ export const RdServerControl = (props) => {
           <Stack.Item>
             <Tabs>
               <Tabs.Tab
-                selected={screen === 2}
-                onClick={() => act('set_screen', { target: 2 })}
+                selected={screen === SCREEN_DATA}
+                onClick={() => act('set_screen', { target: SCREEN_DATA })}
               >
                 Данные
               </Tabs.Tab>
               <Tabs.Tab
-                selected={screen === 1}
-                onClick={() => act('set_screen', { target: 1 })}
+                selected={screen === SCREEN_ACCESS}
+                onClick={() => act('set_screen', { target: SCREEN_ACCESS })}
               >
                 Доступ
               </Tabs.Tab>
               <Tabs.Tab
-                selected={screen === 3}
-                onClick={() => act('set_screen', { target: 3 })}
+                selected={screen === SCREEN_LOGS}
+                onClick={() => act('set_screen', { target: SCREEN_LOGS })}
               >
                 Логи
               </Tabs.Tab>
-              <Tabs.Tab onClick={() => act('set_screen', { target: 0 })}>
+              <Tabs.Tab
+                onClick={() => act('set_screen', { target: SCREEN_MAIN })}
+              >
                 Выйти
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
           <Stack.Item grow>
-            {screen === 2 && (
+            {screen === SCREEN_DATA && (
               <Box>
                 <Section title="Изученные технологии">
                   <LabeledList>
@@ -132,7 +161,7 @@ export const RdServerControl = (props) => {
                 </Section>
               </Box>
             )}
-            {screen === 1 && (
+            {screen === SCREEN_ACCESS && (
               <Section title="Настройка доступа консолей НИО">
                 <Table>
                   <Table.Row header>
@@ -178,7 +207,7 @@ export const RdServerControl = (props) => {
                 )}
               </Section>
             )}
-            {screen === 3 && (
+            {screen === SCREEN_LOGS && (
               <Section
                 title="Логи печати"
                 buttons={
@@ -196,23 +225,22 @@ export const RdServerControl = (props) => {
                     <Table.Cell>Пользователь</Table.Cell>
                     <Table.Cell>Действие</Table.Cell>
                   </Table.Row>
-                  {usage_logs &&
-                    usage_logs.map((log, i) => (
-                      <Table.Row key={i}>
-                        <Table.Cell collapsing color="label">
-                          {log[0]}
-                        </Table.Cell>
-                        <Table.Cell collapsing>
-                          {log[1]} ({log[2]})
-                        </Table.Cell>
-                        <Table.Cell>
-                          Напечатал {log[3]} через {log[4]}
-                        </Table.Cell>
-                      </Table.Row>
-                    ))}
-                  {(!usage_logs || usage_logs.length === 0) && (
+                  {usage_logs.map((log, i) => (
+                    <Table.Row key={i}>
+                      <Table.Cell collapsing color="label">
+                        {log[0]}
+                      </Table.Cell>
+                      <Table.Cell collapsing>
+                        {log[1]} ({log[2]})
+                      </Table.Cell>
+                      <Table.Cell>
+                        Напечатал {log[3]} через {log[4]}
+                      </Table.Cell>
+                    </Table.Row>
+                  ))}
+                  {usage_logs.length === 0 && (
                     <Table.Row>
-                      <Table.Cell colSpan={3}>Logs are empty.</Table.Cell>
+                      <Table.Cell colSpan={3}>Логи пусты.</Table.Cell>
                     </Table.Row>
                   )}
                 </Table>

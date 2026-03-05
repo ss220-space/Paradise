@@ -937,9 +937,8 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		if(t_disk != null && t_disk.stored != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
-			var/display_name = d_disk.blueprint.build_object_name || d_disk.blueprint.name || "Неизвестный дизайн"
 			data["disk_data"] = disk_data
-			disk_data["name"] = display_name
+			disk_data["name"] = t_disk.stored.name
 			disk_data["level"] = t_disk.stored.level
 			disk_data["desc"] = t_disk.stored.desc
 

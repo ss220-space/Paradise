@@ -1,3 +1,7 @@
+#define RD_SERVER_SCREEN_MAIN 0
+#define RD_SERVER_SCREEN_ACCESS 1
+#define RD_SERVER_SCREEN_DATA 2
+#define RD_SERVER_SCREEN_LOGS 3
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
 	icon_state = "server"
@@ -309,7 +313,7 @@
 	return TRUE
 
 /obj/machinery/r_n_d/server/proc/is_design_blacklisted(design_id)
-    return (design_id in design_blacklist)
+	return (design_id in design_blacklist)
 
 /obj/machinery/r_n_d/server/core
 	name = "Core R&D Server"
@@ -426,12 +430,12 @@
 			for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 				if(S.server_id == target_id)
 					temp_server = S
-					screen = 2
+					screen = RD_SERVER_SCREEN_DATA
 					return TRUE
 
 		if("set_screen")
 			var/new_screen = params["target"]
-			if(new_screen == 3)
+			if(new_screen == RD_SERVER_SCREEN_LOGS)
 				var/key = tgui_input_text(usr, "Введите ключ дешифровки", "Проверка безопасности")
 				if(key != temp_server.logs_decryption_key)
 					to_chat(usr, span_danger("Неверный ключ!"))
@@ -472,3 +476,8 @@
 			return TRUE
 
 	return ..()
+
+#undef RD_SERVER_SCREEN_MAIN
+#undef RD_SERVER_SCREEN_ACCESS
+#undef RD_SERVER_SCREEN_DATA
+#undef RD_SERVER_SCREEN_LOGS
