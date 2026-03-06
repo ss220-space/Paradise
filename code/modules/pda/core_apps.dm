@@ -143,10 +143,14 @@
 	category = "General"
 	update = PDA_APP_UPDATE_SLOW
 
+// TODO: LOGIN
 /datum/data/pda/app/bank/update_ui(mob/user as mob, list/data)
 	var/datum/money_account/owner_bank_account = get_account_with_name(pda.owner)
 	var/list/transactions_list = list()
 	var/list/possible_targets = list()
+	var/list/subs_list = list()
+	var/list/available_sub_list = list()
+
 	if(owner_bank_account == null)
 		data["name"] = "unknow"
 		data["balance"] = 0
@@ -167,46 +171,150 @@
 		if(!Target_account.suspended && !(Target_account.owner_name == owner_bank_account.owner_name))
 			possible_targets.Add(Target_account.owner_name)
 
+	//This list will store the names of subscriptions to which a person has already subscribed
+	//or interacted, so as not to re-create the subscription.
+	var/list/active_sub_names = list()
+
+	// We collect all subscriptions that were registered in a person's name.
+	// We use this to create a separate list in TGUI.
+	for(var/datum/subscription/Ss in GLOB.all_subscriptions)
+		if(!Ss || !Ss.subscriber_account)
+			continue
+
+		if(Ss.subscriber_account == owner_bank_account)
+			active_sub_names.Add(Ss.subscription_name)
+			subs_list.Add(list(list(
+				"subscription_name" = Ss.subscription_name,
+				"recipient_name" = Ss.recipient_account.owner_name,
+				"cost" = Ss.cost,
+				"interval" = Ss.interval,
+				"status" = Ss.active,
+				"description" = Ss.description
+			)))
+
+	// subscriptions that can be purchased
+	for(var/datum/subscription/S in GLOB.available_subscriptions)
+		if(S && S.subscription_name && !(S.subscription_name in active_sub_names))
+		available_sub_list.Add(list(list(
+			"available_subscription_name" = S.subscription_name,
+			"description" = S.description,
+			"cost" = S.cost,
+			"interval" = S.interval,
+			"provider" = S.recipient_account.owner_name
+		)))
+
 	data["name"] = owner_bank_account.owner_name
 	data["balance"] = owner_bank_account.money
 	data["transactions"] = transactions_list
-	data["targets"] = possible_targets
+	data["targets"] = possible_targets // Here are the names of the people/terminals where you can transfer money
+	data["subscriptions"] = subs_list // Subscriptions that are already registered in the user's name
+	data["availableSubs"] = available_sub_list // Subscriptions that are NOT registered in the user's name and for them you will need to create a new one
 
-// добавь потом что бы в банк нужно было логиниться и потом ток
 /datum/data/pda/app/bank/ui_act(action, params)
-	if(action == "transfer")
-		var/target = params["target"]
-		var/amount = text2num(params["amount"])
-		var/purpose = params["purpose"]
+	switch(action)
+		if("transfer")
+			var/target = params["target"]
+			var/amount = text2num(params["amount"])
+			var/purpose = params["purpose"]
 
-		var/datum/money_account/RecipientUser = get_account_with_name(target)
-		var/datum/money_account/SenderUser = get_account_with_name(pda.owner)
+			var/datum/money_account/RecipientUser = get_account_with_name(target)
+			var/datum/money_account/SenderUser = get_account_with_name(pda.owner)
 
-		// antidurak protection
-		if(!SenderUser)
+			// without this u cant use charge_to_account
+			var/obj/machinery/computer/account_database/linked_db
+
+			// antidurak protection
+			if(!SenderUser)
+				return
+
+			if(!RecipientUser)
+				return
+
+			if(SenderUser.suspended || RecipientUser.suspended)
+				return
+
+			if(amount <= 0)
+				return
+
+			if(SenderUser.money < amount)
+				return
+
+			// search db account
+			// todo: refactor
+			for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
+				if(DB.stat & NOPOWER || !DB.activated)
+					continue
+				linked_db = DB
+				break
+
+			if(!linked_db)
+				return
+
+			linked_db.charge_to_account(RecipientUser.account_number, SenderUser, purpose, "Терминал Raingor Interstellar Banking", amount)
+
+		if("add_subscription")
+			var/available_subscription_name = params["available_subscription_name"]
+			var/subscriber_account_name = pda.owner
+			var/datum/subscription/existing = find_subscription_with_name(subscriber_account_name, available_subscription_name)
+			var/datum/subscription/template = null
+			var/datum/money_account/sub_acc = get_account_with_name(subscriber_account_name)
+
+			if(!sub_acc)
+				to_chat(usr, span_warning("Ошибка аккаунта."))
+				return
+
+			//Is this subscription already issued?
+			if(existing)
+				to_chat(usr, span_warning("У вас уже есть активная подписка на '[available_subscription_name]'."))
+				return
+
+			//Search for a template in available subscriptions
+			for(var/datum/subscription/S in GLOB.available_subscriptions)
+				if(S && S.subscription_name == available_subscription_name)
+					template = S
+					break
+
+			if(!template)
+				to_chat(usr, span_warning("Ошибка: подписка '[available_subscription_name]' не найдена в каталоге."))
+				return
+
+			var/datum/subscription/new_sub = new /datum/subscription(
+				sub_acc,           			  // subscriber
+				template.recipient_account,   // recipient
+				template.cost,                // cost
+				template.interval,            // interval
+				template.subscription_name,   // name
+				template.description          // description
+			)
+
+			GLOB.all_subscriptions += new_sub
+
+			to_chat(usr, span_notice("Подписка '[available_subscription_name]' успешно оформлена."))
 			return
 
-		if(!RecipientUser)
+		if("cancel_subscription")
+			var/available_subscription_name = params["available_subscription_name"]
+			var/subscriber_account_name = pda.owner
+			var/datum/subscription/target = find_subscription_with_name(subscriber_account_name, available_subscription_name)
+
+			if(!target)
+				to_chat(usr, span_warning("Ошибка: подписка '[available_subscription_name]' не найдена"))
+				return
+
+			target.cancel()
 			return
 
-		if(SenderUser.suspended || RecipientUser.suspended)
-			return
+		if("resume_subscription")
+			var/available_subscription_name = params["available_subscription_name"]
+			var/subscriber_account_name = pda.owner
 
-		if(amount <= 0)
-			return
 
-		if(SenderUser.money < amount)
-			return
+			if(available_subscription_name && subscriber_account_name)
+				var/datum/subscription/added_subscription = find_subscription_with_name(subscriber_account_name, available_subscription_name)
 
-		// without this u cant use charge_to_account
-		var/obj/machinery/computer/account_database/linked_db
+				if(!added_subscription)
+					to_chat(usr, span_warning("Ошибка: подписка '[available_subscription_name]' не найдена."))
+					return
 
-		// search db account
-		for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
-			if(DB.stat & NOPOWER || !DB.activated)
-				continue
-			linked_db = DB
-			break
-
-		linked_db.charge_to_account(RecipientUser.account_number, SenderUser, purpose, "Терминал Raingor Interstellar Banking", amount)
-
+				added_subscription.resub()
+				return

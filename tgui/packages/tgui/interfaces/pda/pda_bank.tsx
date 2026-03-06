@@ -24,11 +24,31 @@ type Transaction = {
   source_terminal: string;
 };
 
+type Subscription = {
+  subscription_name: string;
+  recipient_name: string;
+  cost: number;
+  interval: number;
+  status: boolean;
+  description: string;
+};
+
+type AvailableSubscription = {
+  available_subscription_name: string;
+  description: string;
+  cost: number;
+  interval: number;
+  provider: string;
+};
+
 type RaingorBankData = {
   balance: number;
   transactions: Transaction[];
   name: string;
   targets: string[];
+
+  subscriptions: Subscription[];
+  availableSubs: AvailableSubscription[];
 };
 
 type Page = 'main' | 'transfer' | 'subscriptions' | 'about';
@@ -274,7 +294,8 @@ const TransferMenuPage = ({ setPage, data }: PageProps) => {
 };
 
 const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
-  const { balance, transactions, name } = data;
+  const { subscriptions, availableSubs } = data;
+  const { act } = useBackend();
 
   return (
     <Box>
@@ -287,16 +308,113 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
           <Icon name="step-backward" mr={1} />В меню
         </Button>
       </Box>
-      <Box textAlign="center" mb={3}>
-        На данный момент нет никаких активных систем подписок.
-      </Box>
+
+      <Section
+        title={
+          <Box fontSize="14px" bold>
+            <Icon name="credit-card" mr={1} />
+            Доступные подписки
+          </Box>
+        }
+      >
+        {availableSubs.length === 0 && <Box italic>Нет доступных подписок</Box>}
+        {availableSubs.map((e) => (
+          <Section
+            key={e.available_subscription_name}
+            title={e.available_subscription_name}
+          >
+            <Box mb={1}>{e.description}</Box>
+
+            <LabeledList.Item label="Интервал">
+              {Math.round(e.interval / 600)} минут
+            </LabeledList.Item>
+
+            <Box mb={1}>Стоимость: {e.cost} кредитов</Box>
+
+            <Button
+              color="good"
+              onClick={() => {
+                act('add_subscription', {
+                  available_subscription_name: e.available_subscription_name,
+                });
+              }}
+            >
+              <Icon name="plus" mr={1} />
+              Подписаться
+            </Button>
+          </Section>
+        ))}
+      </Section>
+
+      <Section
+        title={
+          <Box fontSize="14px" bold>
+            <Icon name="credit-card-alt" mr={1} />
+            Ваши подписки
+          </Box>
+        }
+      >
+        {subscriptions.length === 0 && (
+          <Box italic>У вас нет оформленных подписок</Box>
+        )}
+
+        {subscriptions.map((e) => (
+          <Section key={e.subscription_name} title={e.subscription_name}>
+            <LabeledList>
+              <LabeledList.Item label="Поставщик">
+                {e.recipient_name}
+              </LabeledList.Item>
+
+              <LabeledList.Item>
+                <Box mb={1}>{e.description}</Box>
+              </LabeledList.Item>
+
+              <LabeledList.Item label="Цена">{e.cost}</LabeledList.Item>
+
+              <LabeledList.Item label="Интервал">
+                {Math.round(e.interval / 600)} минут
+              </LabeledList.Item>
+
+              <LabeledList.Item label="Статус">
+                <Box color={e.status ? 'good' : 'bad'}>
+                  {e.status ? 'Активна' : 'Остановлена'}
+                </Box>
+              </LabeledList.Item>
+            </LabeledList>
+
+            {e.status ? (
+              <Button
+                color="bad"
+                onClick={() =>
+                  act('cancel_subscription', {
+                    subscription_name: e.subscription_name,
+                  })
+                }
+              >
+                <Icon name="times" mr={1} />
+                Отменить подписку
+              </Button>
+            ) : (
+              <Button
+                color="good"
+                onClick={() =>
+                  act('resume_subscription', {
+                    subscription_name: e.subscription_name,
+                  })
+                }
+              >
+                <Icon name="redo" mr={1} />
+                Восстановить подписку
+              </Button>
+            )}
+          </Section>
+        ))}
+      </Section>
     </Box>
   );
 };
 
 const AboutMenuPage = ({ setPage, data }: PageProps) => {
-  const { balance, transactions, name } = data;
-
   return (
     <Box>
       <Box textAlign="center" mb={3}>
@@ -368,6 +486,8 @@ const AboutMenuPage = ({ setPage, data }: PageProps) => {
   );
 };
 
+// I don't know how, but if he gets an error, he can go to the main folder.
+// Last hope
 const ErrorPage = ({ setPage }: PageBaseProps) => {
   return (
     <Box>
