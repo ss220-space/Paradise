@@ -38,25 +38,34 @@
 	. = ..()
 
 /obj/effect/anomaly/energetic/collapse()
-	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
-		jump_to_machinery(collapse_shock_damage * 2)
-		do_shock_ex(collapse_shock_range, collapse_shock_damage, TRUE)
-		if(explosive)
-			explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = -1, flash_range = tier)
-		sleep(0.2 SECONDS)
+	var/jumps_left = rand(collapse_jumps_low, collapse_jumps_high)
+	if(jumps_left <= 0)
+		collapse_base()
+		return
+	energetic_collapse_step(jumps_left)
 
+/obj/effect/anomaly/energetic/proc/energetic_collapse_step(jumps_left)
+	jump_to_machinery(collapse_shock_damage * 2)
+	do_shock_ex(collapse_shock_range, collapse_shock_damage, TRUE)
+	if(explosive)
+		explosion(loc, devastation_range = -1, heavy_impact_range = -1, light_impact_range = -1, flash_range = tier)
+
+	jumps_left--
+	if(jumps_left > 0)
+		addtimer(CALLBACK(src, PROC_REF(energetic_collapse_step), jumps_left), 0.2 SECONDS)
+	else
+		addtimer(CALLBACK(src, PROC_REF(finish_energetic_collapse)), 0.2 SECONDS)
+
+/obj/effect/anomaly/energetic/proc/finish_energetic_collapse()
 	explosion(loc, devastation_range = max(-1, tier - 2), heavy_impact_range = max(-1, tier - 1), light_impact_range = max(-1, tier), flash_range = (tier + 2))
-	if(tier < 3)
-		return ..()
 
-	for(var/obj/effect/energy_ball/eball as anything in eballs)
-		if(!prob(50))
-			continue
+	if(tier >= 3)
+		for(var/obj/effect/energy_ball/eball as anything in eballs)
+			if(prob(50))
+				var/spawn_type = eball.spawn_type
+				new spawn_type(eball.loc)
 
-		var/spawn_type = eball.spawn_type
-		new spawn_type(eball.loc)
-
-	return ..()
+	collapse_base()
 
 /obj/effect/anomaly/energetic/process()
 	. = ..()
