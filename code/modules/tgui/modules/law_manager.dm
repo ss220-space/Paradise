@@ -272,6 +272,7 @@
 /datum/ui_module/law_manager/proc/notify_owner_shell()
 	if(!owner)
 		return
-	if(isAI(owner))
-		var/mob/living/silicon/ai/AI = owner
-		AI.notify_shell()
+	if(!isAI(owner))
+		return
+	var/mob/living/silicon/ai/AI = owner
+	AI.notify_shell()

@@ -223,10 +223,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SStgui.close_uis(wires)
 
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
+		var/turf/mmi_drop_location = get_turf(loc)//To hopefully prevent run time errors.
 
-		if(T)
-			mmi.forceMove(T)
+		if(mmi_drop_location)
+			mmi.forceMove(mmi_drop_location)
 
 		if(mmi.brainmob)
 			mind.transfer_to(mmi.brainmob)

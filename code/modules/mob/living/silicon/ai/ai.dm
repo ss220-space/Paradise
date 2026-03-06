@@ -1612,8 +1612,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/list/possible = list()
 
-	for(var/shell in GLOB.available_ai_shells)
-		var/mob/living/silicon/robot/robot = shell
+	for(var/mob/living/silicon/robot/robot as anything in GLOB.available_ai_shells)
 		if(can_connect_to(robot))
 			possible += robot
 
@@ -1630,15 +1629,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, span_warning("Во время установки cоеденения с оболочкой произошла ошибка."))
 		return
 
-	else
-		if(!mind)
-			return
-		RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
-		deployed_shell = target
-		target.deploy_init(src)
-		if(isclocker(src))
-			target.ratvar_act(TRUE, TRUE)
-		mind.transfer_to(target)
+	if(!mind)
+		return
+	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
+	deployed_shell = target
+	target.deploy_init(src)
+	if(isclocker(src))
+		target.ratvar_act(TRUE, TRUE)
+	mind.transfer_to(target)
 
 /mob/living/silicon/ai/proc/disconnect_shell()
 	SIGNAL_HANDLER
