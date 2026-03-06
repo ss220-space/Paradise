@@ -23,7 +23,7 @@
 	if(slot == ITEM_SLOT_MASK)
 		update_tts_filter(source, user)
 
-/datum/element/tts_modifier/proc/on_post_unequip(obj/item/source, mob/living/carbon/user)
+/datum/element/tts_modifier/proc/on_post_unequip(obj/item/source, force, newloc, no_move, invdrop, silent, mob/living/carbon/user)
 	SIGNAL_HANDLER
 	remove_tts_filter(source, user)
 
