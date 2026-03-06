@@ -130,6 +130,12 @@
 	LAZYCLEARLIST(total_worm_segments)
 	return ..()
 
+/mob/living/simple_animal/hostile/space_worm/worm_head/proc/check_fragments()
+	var/list/parts_list = total_worm_segments
+	for(var/mob/living/simple_animal/hostile/space_worm/part as anything in parts_list)
+		if(part.my_head != src)
+			parts_list -= part
+
 /mob/living/simple_animal/hostile/space_worm/worm_head/Move(atom/newloc, direct, glide_size_override, update_dir)
 	if(!QDELETED(previous_worm) && (direct == get_dir(src, previous_worm)))
 		return
@@ -219,6 +225,7 @@
 			span_notice("You eat \the [target_nom]!"),
 			span_userdanger("You hear gnashing.")
 		)
+		currently_eating = null
 		return
 
 	if(ismob(target_nom))
@@ -229,6 +236,7 @@
 			span_notice("You eat \the [target_nom]!"),
 			span_userdanger("You hear gnashing.")
 		)
+		currently_eating = null
 		return
 
 	if(isatom(target_nom))
@@ -341,6 +349,8 @@
 		else
 			current_previous_worm = null
 
+	my_head.check_fragments()
+
 	update_icons(UPDATE_ICON_STATE)
 
 //Remove a worm segment
@@ -365,6 +375,8 @@
 		new_head.death()
 
 	qdel(src)
+	my_head.check_fragments()
+	new_head.check_fragments()
 
 /mob/living/simple_animal/hostile/space_worm/death(gibbed)
 	// Only execute the below if we successfully died
@@ -382,7 +394,7 @@
 	if(QDELETED(src))
 		return
 
-	var/mob/living/simple_animal/hostile/space_worm/cached_head = my_head
+	var/mob/living/simple_animal/hostile/space_worm/worm_head/cached_head = my_head
 
 	for(var/atom/movable/stomach_content in contents)
 		if(!prob(digestion_probability))
