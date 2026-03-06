@@ -580,6 +580,16 @@ ADMIN_VERB_ONLY_CONTEXT_MENU(select_equipment, R_EVENT, "Select Equipment", mob/
 		H.equipOutfit(dresscode)
 	else	// We have regenerate_icons() proc in the end of equipOutfit(), so don't need to call it two times.
 		H.regenerate_icons()
+		// Grey translator fix for admin equip
+	if(istype(H.dna.species, /datum/species/grey))
+		var/obj/item/organ/internal/cyberimp/mouth/translator/grey_retraslator/retranslator = new
+		retranslator.insert(H)
+
+		if(HAS_TRAIT(H, TRAIT_WINGDINGS))
+			var/obj/item/translator_chip/wingdings/chip = new
+			retranslator.install_chip(H, chip, ignore_lid = TRUE)
+			to_chat(H, span_notice("В связи с вашим недугом, у вас уже установлен чип Вингдингс."))
+
 	log_and_message_admins(span_notice("changed the equipment of [key_name_admin(M)] to [dresscode]."))
 	BLACKBOX_LOG_ADMIN_VERB("Select Equipment")
 
