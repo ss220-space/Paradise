@@ -56,7 +56,7 @@
 			conveyor.id = switch_construct.id
 			linked = TRUE
 		if(linked)
-			user.balloon_alert(user, "привязано.")
+			user.balloon_alert(user, "привязано")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -66,7 +66,7 @@
 		return
 	var/obj/item/conveyor_construct/conveyor = locate() in contents
 	if(!conveyor)
-		user.balloon_alert(user, ("ленты закончились."))
+		user.balloon_alert(user, "ленты закончились")
 		return
 	conveyor.afterattack(target, user, proximity, params)
 
