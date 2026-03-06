@@ -24,11 +24,6 @@
 	name = "Undersea"
 	icon_state = "undersea"
 
-// "Directional" map template loader for N or S hotel room
-/obj/effect/landmark/map_loader/hotel_room
-	icon = 'icons/misc/Testing/turf_analysis.dmi'
-	icon_state = "arrow"
-
 /obj/item/paper/crumpled/hotel_scrap_1
 	info = "I can't believe this shitty hotel assigned me a purple-themed room. <i>Why does the shower dump grape drink everywhere??</i>"
 
