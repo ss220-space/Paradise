@@ -27,15 +27,18 @@
 	/// Is the anomaly exploding?
 	var/explosive = TRUE
 
-/obj/effect/anomaly/energetic/New()
+/obj/effect/anomaly/energetic/Initialize(mapload, spawn_strength, spawn_stability)
 	. = ..()
+	END_OF_TICK(CALLBACK(src, PROC_REF(spawn_energy_balls)))
+
+/obj/effect/anomaly/energetic/proc/spawn_energy_balls()
 	for(var/i = 1 to rand(eballs_num_low, eballs_num_high))
 		var/type = pick_weight_classic(eballs_types)
 		eballs.Add(new type(loc, src))
 
 /obj/effect/anomaly/energetic/Destroy()
 	QDEL_LAZYLIST(eballs)
-	. = ..()
+	return ..()
 
 /obj/effect/anomaly/energetic/collapse()
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
