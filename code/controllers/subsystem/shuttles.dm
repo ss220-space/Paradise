@@ -82,7 +82,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/Destroy()
 	UnregisterSignal(src, COMSIG_CRYOPOD_DESPAWN)
-	. = ..()
+	return ..()
 
 /datum/controller/subsystem/shuttle/get_stat_details()
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
@@ -528,17 +528,11 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	emergency_no_recall = FALSE
 
-// Allow admins to fix shuttles ports list.
-/client/proc/reregister_docks()
-	set category = "Debug"
-	set name = "Re-register Docking Ports"
-
-	if(!check_rights(R_DEBUG|R_ADMIN))
-		return
-
+ADMIN_VERB(reregister_docks, R_DEBUG|R_ADMIN, "Re-register Docking Ports", "Allow admins to fix shuttles ports list.", ADMIN_CATEGORY_DEBUG)
 	SSshuttle.initial_load()
 
-	log_and_message_admins(span_notice("[key_name(usr)] re-registered docking ports for SSshuttle."))
+	log_admin("[key_name(user)] re-registered docking ports for SSshuttle.")
+	message_admins(span_adminnotice("[key_name_admin(user)] re-registered docking ports for SSshuttle."))
 	BLACKBOX_LOG_ADMIN_VERB("Re-register Docking Ports")
 
 #undef CALL_SHUTTLE_REASON_LENGTH
