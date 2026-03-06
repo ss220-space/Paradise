@@ -1,3 +1,5 @@
+#define MAX_WORM_LENGTH 15
+
 //Worm Segments, Dummy, has no AI, relies on the head.
 /mob/living/simple_animal/hostile/space_worm
 	name = "space worm segment"
@@ -62,9 +64,11 @@
 		my_head = null
 
 	currently_eating = null
-	var/turf/location = get_turf(src)
+
+	var/turf/current_turf = get_turf(src)
 	for(var/atom/movable/stomach_content in contents)
-		stomach_content.forceMove(location)
+		stomach_content.forceMove(current_turf)
+
 	contents.Cut()
 	return ..()
 
@@ -90,6 +94,7 @@
 
 	melee_damage_lower = 10//was 20, dear god
 	melee_damage_upper = 15//was 25, dear god
+	obj_damage = 80
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
 
@@ -105,25 +110,30 @@
 	var/list/total_worm_segments = list() //doesn't contain src
 	var/catastrophic_death_prob = 15 //15% chance for the death of the head to kill the whole thing
 
-/mob/living/simple_animal/hostile/space_worm/worm_head/Initialize(mapload, segments = spawnWithSegments)
+/mob/living/simple_animal/hostile/space_worm/worm_head/Initialize(mapload, segments = spawn_with_segments)
 	. = ..()
 
 	my_head = src //It's it's own head.
 
 	//Used in the for to attach each worm segment to the next in the sequence, instead of all of them to src
-	var/mob/living/simple_animal/hostile/space_worm/current_worm_seg = src
+	var/mob/living/simple_animal/hostile/space_worm/current_worm_segment = src
 
-	for(var/i = 1 to segments)
-		var/mob/living/simple_animal/hostile/space_worm/new_segment = new /mob/living/simple_animal/hostile/space_worm(loc)
-		current_worm_seg.attach(new_segment)
-		current_worm_seg = new_segment
+	for(var/i in 1 to segments)
+		var/mob/living/simple_animal/hostile/space_worm/new_segment = new(loc)
+		current_worm_segment.attach(new_segment)
+		current_worm_segment = new_segment
 
-	for(var/mob/living/simple_animal/hostile/space_worm/space_worm in total_worm_segments)
-		space_worm.update_icon(UPDATE_ICON_STATE)
+	for(var/mob/living/simple_animal/hostile/space_worm/worm_segment in total_worm_segments)
+		worm_segment.update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/hostile/space_worm/worm_head/Destroy()
 	LAZYCLEARLIST(total_worm_segments)
 	return ..()
+
+/mob/living/simple_animal/hostile/space_worm/worm_head/Move(atom/newloc, direct, glide_size_override, update_dir)
+	if(!QDELETED(previous_worm) && (direct == get_dir(src, previous_worm)))
+		return
+	. = ..()
 
 /mob/living/simple_animal/hostile/space_worm/worm_head/update_icon_state()
 	if(stat == CONSCIOUS || stat == UNCONSCIOUS)
@@ -133,83 +143,104 @@
 	else
 		icon_state = "spacewormheaddead"
 
-	for(var/mob/living/simple_animal/hostile/space_worm/space_worm in total_worm_segments)
-		if(space_worm  == src || QDELETED(space_worm ))//incase src ends up in here we don't want an infinite loop
+	for(var/mob/living/simple_animal/hostile/space_worm/worm_segment in total_worm_segments)
+		if(worm_segment == src || QDELETED(worm_segment))//incase src ends up in here we don't want an infinite loop
 			continue
-		space_worm .update_icon(UPDATE_ICON_STATE)
+		worm_segment.update_icon(UPDATE_ICON_STATE)
 
 //Try to move onto target's turf and eat them
 /mob/living/simple_animal/hostile/space_worm/worm_head/AttackingTarget()
 	. = ..()
-	if(.)
-		attemptToEat(target)
+	if(!.)
+		attempt_to_eat(target)
 
 //Attempt to eat things we bump into, Mobs, Walls, Clowns
 /mob/living/simple_animal/hostile/space_worm/worm_head/Bump(atom/bumped_atom)
 	. = ..()
-	attemptToEat(bumped_atom)
+	if(!.)
+		attempt_to_eat(bumped_atom)
 
 //Attempt to eat things, only the head can eat
-/mob/living/simple_animal/hostile/space_worm/worm_head/proc/attemptToEat(atom/noms)
-	if(QDELETED(noms) || QDELETED(src))
+/mob/living/simple_animal/hostile/space_worm/worm_head/proc/attempt_to_eat(atom/target_nom)
+	if(QDELETED(target_nom) || QDELETED(src))
 		return
 
-	if(currently_eating == noms) //currently_eating is always undefined at the end, so don't eat the same thing twice
+	if(currently_eating == target_nom) //currently_eating is always undefined at the end, so don't eat the same thing twice
 		return
 
-	if(istype(noms, /obj/structure/window))
+	if(istype(target_nom, /obj/structure/window))
 		return
 
-	if(istype(noms, /obj/structure/grille)) //these three bug-out and won't work, so just ignore them
+	if(istype(target_nom, /obj/structure/grille)) //these three bug-out and won't work, so just ignore them
 		return
 
-	if(istype(noms, /obj/machinery/door/window))
+	if(istype(target_nom, /obj/machinery/door/window))
 		return
 
-	if(!noms)
+	if(target_nom in total_worm_segments) //Trying to eat part of self
 		return
 
-	currently_eating = noms
+	currently_eating = target_nom
 
-	var/nomDelay = 2.5 SECONDS
-	var/turf/simulated/wall/wall
+	var/nom_delay = 2.5 SECONDS
+	var/turf/simulated/wall/target_wall
 
-	if(noms in total_worm_segments || QDELETED(noms))
-		return //Trying to eat part of self.
-
-	if(isturf(noms))
-		if(!iswallturf(noms))
-			return
-		wall = noms
-		nomDelay *= 2
-		if(isreinforcedwallturf(wall))
-			nomDelay *= 2
-
-	var/ufnomDelay = nomDelay * 0.1
-
-	visible_message(span_userdanger("\the [src] starts to eat \the [noms]!"),span_notice("You start to eat \the [noms]. (This will take about [ufnomDelay] seconds.)"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
-
-	if(do_after(src, nomDelay, noms, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-
-		if(noms && !QDELETED(noms) && Adjacent(noms) && (currently_eating == noms))//It exists, were next to it, and it's still the thing were eating
-			if(wall)
-				wall.ChangeTurf(/turf/simulated/floor/plating)
-				new /obj/item/stack/sheet/metal(src, plasma_poop_potential)
-				currently_eating = null //ffs, unstore this
-				visible_message(span_userdanger("\the [src] eats \the [noms]!"),span_notice("You eat \the [noms]!"),span_userdanger("You hear gnashing.")) //inform everyone what the fucking worm is doing.
-			else
-				currently_eating = null
-				if(ismob(noms))
-					var/mob/mob = noms
-					mob.forceMove(src)
-				else
-					var/atom/movable/movable_noms = noms.astype(/atom/movable)
-					movable_noms?.forceMove(src)
-				visible_message(span_userdanger("\the [src] eats \the [noms]!"),span_notice("You eat \the [noms]!"),span_userdanger("You hear gnashing."))
-		else
+	if(isturf(target_nom))
+		if(!iswallturf(target_nom))
 			currently_eating = null
-	else
-		currently_eating = null //JIC
+			return
+		target_wall = target_nom
+		nom_delay *= 2
+		if(isreinforcedwallturf(target_wall))
+			nom_delay *= 2
+
+	var/readable_nom_delay = nom_delay * 0.1
+
+	visible_message(
+		span_userdanger("\the [src] starts to eat \the [target_nom]!"),
+		span_notice("You start to eat \the [target_nom]. (This will take about [readable_nom_delay] seconds.)"),
+		span_userdanger("You hear gnashing.")
+	)
+
+	if(!do_after(src, nom_delay, target_nom, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
+		currently_eating = null
+		return
+
+	// Check if target still exists and is valid
+	if(QDELETED(target_nom) || !Adjacent(target_nom) || (currently_eating != target_nom))
+		currently_eating = null
+		return
+
+	if(target_wall)
+		target_wall.ChangeTurf(/turf/simulated/floor/plating)
+		new /obj/item/stack/sheet/metal(src, plasma_poop_potential)
+		visible_message(
+			span_userdanger("\the [src] eats \the [target_nom]!"),
+			span_notice("You eat \the [target_nom]!"),
+			span_userdanger("You hear gnashing.")
+		)
+		return
+
+	if(ismob(target_nom))
+		var/mob/target_mob = target_nom
+		target_mob.forceMove(src)
+		visible_message(
+			span_userdanger("\the [src] eats \the [target_nom]!"),
+			span_notice("You eat \the [target_nom]!"),
+			span_userdanger("You hear gnashing.")
+		)
+		return
+
+	if(isatom(target_nom))
+		var/atom/movable/movable_target = target_nom
+		movable_target?.forceMove(src)
+		visible_message(
+			span_userdanger("\the [src] eats \the [target_nom]!"),
+			span_notice("You eat \the [target_nom]!"),
+			span_userdanger("You hear gnashing.")
+		)
+
+	currently_eating = null
 
 //Harder to kill the head, but it can kill off the whole worm
 /mob/living/simple_animal/hostile/space_worm/worm_head/death(gibbed)
@@ -217,13 +248,15 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	if(prob(catastrophic_death_prob))
-		for(var/mob/living/simple_animal/hostile/space_worm/SW in total_worm_segments)
-			if(!QDELETED(SW))
-				SW.death()
+
+	if(!prob(catastrophic_death_prob))
+		return
+
+	for(var/mob/living/simple_animal/hostile/space_worm/worm_segment in total_worm_segments)
+		if(!QDELETED(worm_segment))
+			worm_segment.death()
 
 /mob/living/simple_animal/hostile/space_worm/Life(seconds, times_fired)
-	// УЛУЧШЕНИЕ: Проверка на QDELETED в начале Life
 	if(QDELETED(src))
 		return
 
@@ -245,17 +278,16 @@
 	..() //Really high fuckin priority that this is at the bottom.
 
 //Move all segments if one piece moves.
-/mob/living/simple_animal/hostile/space_worm/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+/mob/living/simple_animal/hostile/space_worm/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
 	if(QDELETED(src))
 		return FALSE
-
-	var/segment_next_pos = loc
 	. = ..()
 	if(!.)
 		return
 
 	if(previous_worm && !QDELETED(previous_worm))
-		previous_worm.Move(segment_next_pos)
+		previous_worm.Move(old_loc)
+
 	update_icon(UPDATE_ICON_STATE)
 
 //Update the appearence of this big weird chain-worm-thingy
@@ -267,69 +299,70 @@
 		icon_state = "spacewormdead"
 		return
 
-	if(previous_worm && !QDELETED(previous_worm))
+	if(!QDELETED(previous_worm) && !QDELETED(next_worm))
 		icon_state = "spaceworm[get_dir(src, previous_worm) | get_dir(src, next_worm)]"
 		return
 
 	icon_state = "spacewormtail" //end of rine
-	if(next_worm && !QDELETED(next_worm))
+	if(!QDELETED(next_worm))
 		dir = get_dir(src, next_worm)
 
 //Add a new worm segment
-/mob/living/simple_animal/hostile/space_worm/proc/attach(mob/living/simple_animal/hostile/space_worm/to_attach)
-	if(!to_attach || QDELETED(to_attach) || QDELETED(src))
+/mob/living/simple_animal/hostile/space_worm/proc/attach(mob/living/simple_animal/hostile/space_worm/segment_to_attach)
+	if(!segment_to_attach || QDELETED(segment_to_attach) || QDELETED(src))
 		return
 
-	previous_worm = to_attach
-	to_attach.next_worm = src
+	previous_worm = segment_to_attach
+	segment_to_attach.next_worm = src
 
-	if(my_head)
-		if(to_attach.my_head)
-			to_attach.my_head.total_worm_segments -= src
+	if(!my_head)
+		update_icons(UPDATE_ICON_STATE)
+		return
 
-		to_attach.my_head = my_head
-		my_head.total_worm_segments |= to_attach
+	if(segment_to_attach.my_head)
+		segment_to_attach.my_head.total_worm_segments -= src
 
-		//if to_attach is part of another worm, disconnect all those parts and connect them to the new worm.
-		var/mob/living/simple_animal/hostile/space_worm/is_prev_worm
-		if(to_attach.previous_worm)
-			is_prev_worm = to_attach.previous_worm
+	segment_to_attach.my_head = my_head
+	my_head.total_worm_segments |= segment_to_attach
 
-		while(is_prev_worm)
-			if(QDELETED(is_prev_worm))
-				is_prev_worm = null
-				continue
+	//if segment_to_attach is part of another worm, disconnect all those parts and connect them to the new worm.
+	var/mob/living/simple_animal/hostile/space_worm/current_previous_worm = segment_to_attach.previous_worm
 
-			if(is_prev_worm.previous_worm && !QDELETED(is_prev_worm.previous_worm))
-				if(is_prev_worm.my_head)
-					is_prev_worm.my_head.total_worm_segments -= is_prev_worm.previous_worm
-					to_attach.my_head.total_worm_segments |= is_prev_worm.previous_worm
-				is_prev_worm = is_prev_worm.previous_worm
-			else
-				is_prev_worm = null
+	while(current_previous_worm)
+		if(QDELETED(current_previous_worm))
+			current_previous_worm = null
+			continue
 
-	update_icons()
+		if(current_previous_worm.previous_worm && !QDELETED(current_previous_worm.previous_worm))
+			if(current_previous_worm.my_head)
+				current_previous_worm.my_head.total_worm_segments -= current_previous_worm.previous_worm
+				segment_to_attach.my_head.total_worm_segments |= current_previous_worm.previous_worm
+			current_previous_worm = current_previous_worm.previous_worm
+		else
+			current_previous_worm = null
+
+	update_icons(UPDATE_ICON_STATE)
 
 //Remove a worm segment
 /mob/living/simple_animal/hostile/space_worm/proc/detach(die = FALSE)
 	if(QDELETED(src))
 		return
 
-	var/mob/living/simple_animal/hostile/space_worm/worm_head/newHead = new /mob/living/simple_animal/hostile/space_worm/worm_head(loc,0)
-	var/mob/living/simple_animal/hostile/space_worm/newHeadPrev
+	var/mob/living/simple_animal/hostile/space_worm/worm_head/new_head = new (loc, 0)
+	var/mob/living/simple_animal/hostile/space_worm/new_head_previous_segment
 
 	if(previous_worm)
-		newHeadPrev = previous_worm
+		new_head_previous_segment = previous_worm
 		previous_worm = null
 
-	if(newHeadPrev && !QDELETED(newHeadPrev))
-		newHead.attach(newHeadPrev)
+	if(new_head_previous_segment && !QDELETED(new_head_previous_segment))
+		new_head.attach(new_head_previous_segment)
 
 	if(my_head)
 		my_head.total_worm_segments -= src
 
 	if(die)
-		newHead.death()
+		new_head.death()
 
 	qdel(src)
 
@@ -338,6 +371,9 @@
 	. = ..()
 	if(!.)
 		return FALSE
+
+	qdel(src)
+
 	if(my_head)
 		my_head.total_worm_segments -= src
 
@@ -347,31 +383,42 @@
 		return
 
 	for(var/atom/movable/stomach_content in contents)
-		if(prob(digestion_probability))
-			new /obj/item/stack/sheet/mineral/plasma(src, plasma_poop_potential)
-			if(ismob(stomach_content))
-				var/mob/mob = stomach_content
-				mob.ghostize() //because qdelling an entire mob without ghosting it is BAD
-			qdel(stomach_content)
+		if(!prob(digestion_probability))
+			if(isliving(stomach_content))
+				var/mob/living/target_mob = stomach_content
+				target_mob.adjustBruteLoss(/mob/living/simple_animal/hostile/space_worm/worm_head::melee_damage_upper)
+			continue
+		new /obj/item/stack/sheet/mineral/plasma(src, plasma_poop_potential)
+		if(ismob(stomach_content))
+			var/mob/target_mob = stomach_content
+			target_mob.ghostize() //because qdelling an entire mob without ghosting it is BAD
+			if(length(total_worm_segments) <= MAX_WORM_LENGTH)
+				var/mob/living/simple_animal/hostile/space_worm/new_worm = new(get_turf(my_head))
+				var/mob/living/simple_animal/hostile/space_worm/old_worm = my_head.previous_worm
+				my_head.attach(new_worm)
+				if(old_worm)
+					new_worm.attach(old_worm)
+		qdel(stomach_content)
 
-	if(previous_worm && !QDELETED(previous_worm))
-		for(var/atom/movable/stomach_content in contents) //move it along the digestive tract
-			contents -= stomach_content
-			previous_worm.contents += stomach_content
-			if(ismob(stomach_content))
-				stomach_content.forceMove(previous_worm) //weird shit happens otherwise
+	if(!previous_worm || QDELETED(previous_worm))
+		var/turf/current_turf = get_turf(src)
+		if(current_turf && !QDELETED(current_turf))
+			for(var/atom/movable/stomach_content in contents)
+				contents -= stomach_content
+				stomach_content.forceMove(current_turf)
 		return
 
-	var/turf/location = get_turf(src)
-	if(location || QDELETED(location))
-		return
-
+	// Move contents to previous worm segment
 	for(var/atom/movable/stomach_content in contents)
 		contents -= stomach_content
-		stomach_content.forceMove(location)
+		previous_worm.contents += stomach_content
+		if(ismob(stomach_content))
+			stomach_content.forceMove(previous_worm) //weird shit happens otherwise
 
 //Jiggle the whole worm forwards towards the next segment
-/mob/living/simple_animal/hostile/space_worm/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
+/mob/living/simple_animal/hostile/space_worm/do_attack_animation(atom/target_atom, visual_effect_icon, used_item, no_effect)
 	..()
 	if(previous_worm && !QDELETED(previous_worm))
 		previous_worm.do_attack_animation(src)
+
+#undef MAX_WORM_LENGTH
