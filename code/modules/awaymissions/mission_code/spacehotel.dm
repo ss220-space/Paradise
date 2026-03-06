@@ -65,37 +65,60 @@
 	name = "space hotel pamphlet"
 	info = "<h3>Welcome to Deep Space Hotel 419!</h3>Thank you for choosing our hotel. Simply hand your credit or debit card to the concierge and get your room key! To check out, hand your credit card back.<small><h4>Conditions:</h4><ul><li>The hotel is not responsible for any losses due to time or space anomalies.<li>The hotel is not responsible for events that occur outside of the hotel station, including, but not limited to, events that occur inside of dimensional pockets.<li>The hotel is not responsible for overcharging your account.<li>The hotel is not responsible for missing persons.<li>The hotel is not responsible for mind-altering effects due to drugs, magic, demons, or space worms.</ul></small>"
 
+/obj/effect/landmark/map_loader/hotel_room
+	icon = 'icons/misc/Testing/turf_analysis.dmi'
+	icon_state = "arrow"
+
+	var/static/list/south_room_templates
+	var/static/list/north_room_templates
+	var/static/templates_loaded = FALSE
+	var/static/obj/effect/landmark/map_loader/hotel_room/loader_landmark
+
 /obj/effect/landmark/map_loader/hotel_room/Initialize(mapload)
 	. = ..()
-	// load and randomly assign rooms
-	var/global/list/south_room_templates = list()
-	var/global/list/north_room_templates = list()
-	var/static/path = "_maps/map_files/templates/spacehotel/"
-	var/global/loaded = 0
-	if(!loaded)
-		loaded = 1
-		for(var/map in flist(path))
-			if(cmptext(copytext(map, length(map) - 3), ".dmm"))
-				var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
-				if(copytext(map, 1, 3) == "n_")
-					north_room_templates += T
-				else if(copytext(map, 1, 3) == "s_")
-					south_room_templates += T
-				else
-					// omnidirectional rooms are randomly assigned
-					if(prob(50))
-						north_room_templates += T
-					else
-						south_room_templates += T
+	if(!loader_landmark)
+		loader_landmark = src
+	INVOKE_ASYNC(src, PROC_REF(load_room_async))
 
-	var/datum/map_template/M = safepick(dir == NORTH ? north_room_templates : south_room_templates)
-	if(M)
-		template = M
-		if(dir == NORTH)
-			north_room_templates -= M
+/obj/effect/landmark/map_loader/hotel_room/proc/load_room_async()
+	if(QDELETED(src))
+		return
+
+	if(!templates_loaded)
+		if(src == loader_landmark)
+			load_templates()
 		else
-			south_room_templates -= M
-		load(M)
+			UNTIL(templates_loaded)
+
+	var/list/room_list = (dir == NORTH) ? north_room_templates : south_room_templates
+	var/datum/map_template/map_template = safepick(room_list)
+	if(map_template)
+		room_list -= map_template
+		load(map_template)
+
+/obj/effect/landmark/map_loader/hotel_room/proc/load_templates()
+	if(templates_loaded)
+		return
+
+	south_room_templates = list()
+	north_room_templates = list()
+
+	var/path = "_maps/map_files/templates/spacehotel/"
+	for(var/map in flist(path))
+		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
+			var/datum/map_template/map_template = new(path = "[path][map]", rename = "[map]")
+			if(copytext(map, 1, 3) == "n_")
+				north_room_templates += map_template
+			else if(copytext(map, 1, 3) == "s_")
+				south_room_templates += map_template
+			else
+				// omnidirectional rooms are randomly assigned
+				if(prob(50))
+					north_room_templates += map_template
+				else
+					south_room_templates += map_template
+
+	templates_loaded = TRUE
 
 // The door to a hotel room, but also metadata for the room itself
 /obj/machinery/door/unpowered/hotel_door
