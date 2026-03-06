@@ -11,6 +11,7 @@
 	var/desc = "Если вы это увидели, пишите баг-репорт."
 	var/logmsg
 	var/category = SMITE_CATEGORY_GENERAL
+	var/permissions = R_ADMIN|R_EVENT
 
 /datum/smite/proc/activate(mob/living/target, reason = DEFAULT_SMITE_REASON)
 	apply_effect(target, reason)
@@ -416,6 +417,7 @@
 	desc = "Запустите по грешнику ракетой."
 	logmsg = "supply pod."
 	category = SMITE_CATEGORY_DEATH
+	permissions = R_EVENT
 
 /datum/smite/pod/activate(mob/living/target, reason)
 	var/datum/centcom_podlauncher/launcher = new(usr, reason)
@@ -631,6 +633,8 @@ ADMIN_VERB(admin_smite_in_list, R_ADMIN|R_EVENT, "Smite in List", "Smite a playe
 	var/list/categorized_smites = list()
 	for(var/name in all_smites)
 		var/datum/smite/smite_type = all_smites[name]
+		if(!check_rights(smite_type.permissions, FALSE, user))
+			continue
 		var/category = initial(smite_type.category)
 		if(!categorized_smites[category])
 			categorized_smites[category] = list()
