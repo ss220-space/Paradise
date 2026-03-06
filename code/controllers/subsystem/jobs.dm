@@ -754,6 +754,8 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", charyoung, list("[job.title]", "charyoung"))
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
+	if(!job)
+		return
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
 	if(human.client.donator_level > 0)
 		money_amount += human.client.donator_level * START_CREDITS_BY_DONATION_TIER
