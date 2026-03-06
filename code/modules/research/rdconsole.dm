@@ -797,7 +797,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!machine)
 		return
 
-	data["total_materials"] = machine.materials?.total_amount
+	data["total_materials"] = machine.materials.total_amount
 	data["max_materials"] = machine.materials.max_amount
 	data["total_chemicals"] = machine.reagents.total_volume
 	data["max_chemicals"] = machine.reagents.maximum_volume
