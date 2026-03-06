@@ -457,13 +457,13 @@
 /datum/action/item_action/voice_changer/toggle/Grant(mob/grant_to)
 	if(istype(target, /obj/item/voice_changer))
 		var/obj/item/voice_changer/changer = target
-		if(istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		if(changer.parent && istype(changer.parent, /obj/item/clothing/mask/chameleon))
 			var/obj/item/clothing/mask/chameleon/cham_mask = changer.parent
 			if(!cham_mask.chameleon_master && isliving(grant_to))
 				cham_mask.chameleon_master = grant_to
 
 			if(cham_mask.chameleon_master && grant_to != cham_mask.chameleon_master)
-				if(cham_mask.chameleon_master.stat != DEAD && !QDELETED(cham_mask.chameleon_master))
+				if(!QDELETED(cham_mask.chameleon_master) && cham_mask.chameleon_master.stat != DEAD)
 					return FALSE
 				else
 					cham_mask.chameleon_master = grant_to
@@ -473,12 +473,11 @@
 /datum/action/item_action/voice_changer/voice/Grant(mob/grant_to)
 	if(istype(target, /obj/item/voice_changer))
 		var/obj/item/voice_changer/changer = target
-		if(istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		if(changer.parent && istype(changer.parent, /obj/item/clothing/mask/chameleon))
 			var/obj/item/clothing/mask/chameleon/cham_mask = changer.parent
 			if(cham_mask.chameleon_master && grant_to != cham_mask.chameleon_master)
-				if(cham_mask.chameleon_master.stat != DEAD && !QDELETED(cham_mask.chameleon_master))
+				if(!QDELETED(cham_mask.chameleon_master) && cham_mask.chameleon_master.stat != DEAD)
 					return FALSE
-
 	return ..()
 
 // for clothing accessories like holsters
