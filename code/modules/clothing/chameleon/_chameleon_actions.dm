@@ -21,6 +21,8 @@
 	var/list/outfit_options
 	/// Assoc list of custom outfit names ("Custom outfit 1", "Custom outfit 2", etc) to list of all item typepaths saved in that outfit
 	var/list/custom_outfits
+	///First who changed outfit and only one who can see cham. actions later
+	var/mob/chameleon_master = null
 
 /datum/action/chameleon_outfit/New(Target)
 	. = ..()
@@ -47,6 +49,16 @@
 	else
 		. = select_outfit(usr)
 	currently_in_use = FALSE
+
+/datum/action/chameleon_outfit/Grant(mob/grant_to)
+	if(!chameleon_master && isliving(grant_to))
+		chameleon_master = grant_to
+
+	if(chameleon_master && grant_to != chameleon_master)
+		if(chameleon_master.stat != DEAD && !QDELETED(chameleon_master))
+			return FALSE
+
+	return ..()
 
 /datum/action/chameleon_outfit/AltTrigger(mob/clicker, trigger_flags)
 	if(currently_in_use || !IsAvailable() || usr != owner)
@@ -164,6 +176,8 @@
 	var/obj/item/holder
 	/// Cooldown from when we started being EMP'd
 	COOLDOWN_DECLARE(emp_timer)
+	///First who changed outfit and only one who can see cham. actions later
+	var/mob/chameleon_master = null
 
 /datum/action/item_action/chameleon/change/New(Target)
 	. = ..()
@@ -236,15 +250,25 @@
 		emp_randomise()
 
 /datum/action/item_action/chameleon/change/Grant(mob/grant_to)
+	if(!grant_to || QDELETED(grant_to) || !isliving(grant_to))
+		return FALSE
+
+	if(!chameleon_master || QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
+		chameleon_master = grant_to
+
+	if(chameleon_master != grant_to)
+		return FALSE
+
 	. = ..()
+
 	if(isnull(owner))
 		return
 
-	// Whenever a mob gains their first cham change action, they need to also gain the outfit action
 	if(locate(/datum/action/chameleon_outfit) in grant_to.actions)
 		return
 
 	var/datum/action/chameleon_outfit/outfit_action = new(owner)
+	outfit_action.chameleon_master = chameleon_master
 	outfit_action.Grant(owner)
 
 /datum/action/item_action/chameleon/change/Remove(mob/remove_from)

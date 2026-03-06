@@ -201,6 +201,7 @@ do { \
 		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi',
 	)
 	var/obj/item/voice_changer/voice_changer
+	var/mob/chameleon_master = null
 
 /obj/item/clothing/mask/chameleon/Initialize(mapload)
 	. = ..()
