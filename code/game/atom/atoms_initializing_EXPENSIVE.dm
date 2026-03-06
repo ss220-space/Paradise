@@ -116,7 +116,9 @@
  * code has been run
  */
 /atom/proc/LateInitialize()
-	return
+	set waitfor = FALSE
+	SHOULD_CALL_PARENT(FALSE)
+	stack_trace("[src] ([type]) called LateInitialize but has nothing on it!")
 
 // Put your AddComponent() calls here
 /atom/proc/ComponentInitialize()
