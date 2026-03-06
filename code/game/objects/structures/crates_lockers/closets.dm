@@ -40,11 +40,6 @@ GLOBAL_LIST_EMPTY(closets)
 	var/lastbang
 	var/open_sound = 'sound/machines/closet_open.ogg'
 	var/close_sound = 'sound/machines/closet_close.ogg'
-	var/list/togglelock_sound = list(
-		'sound/machines/lock_1.ogg',
-		'sound/machines/lock_2.ogg',
-		'sound/machines/lock_3.ogg',
-	)
 	var/open_sound_volume = 35
 	var/close_sound_volume = 50
 	var/sparking_duration = 1 SECONDS
@@ -233,11 +228,12 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/setClosed()
 	close()
 
-/obj/structure/closet/proc/toggle(mob/user)
-	. = TRUE
-	if(!(opened ? close() : open()))
-		. = FALSE
+/obj/structure/closet/proc/toggle(mob/user, by_hand = FALSE)
+	if(!(opened ? close() : open(by_hand)))
 		to_chat(user, span_notice("It won't budge!"))
+		return FALSE
+
+	return TRUE
 
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers
@@ -310,7 +306,7 @@ GLOBAL_LIST_EMPTY(closets)
 		return
 	if(allowed(user))
 		locked = !locked
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
+		playsound(loc, SFX_CLOSET_TOGGLE_LOCK, 15, TRUE, -3)
 		balloon_alert_to_viewers("[locked ? "за" : "от"]крыва[PLUR_ET_UT(user)] замок", "замок [locked ? "за" : "от"]крыт")
 		update_icon()
 	else
@@ -562,7 +558,7 @@ GLOBAL_LIST_EMPTY(closets)
 		locked = !locked
 		visible_message(span_danger("[attacker] shoves [target] against [src], knocking the lock [locked ? null : "un"]locked!"))
 		target.Knockdown(3 SECONDS)
-		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
+		playsound(loc, SFX_CLOSET_TOGGLE_LOCK, 15, TRUE, -3)
 		update_icon()
 		return TRUE
 
@@ -573,66 +569,3 @@ GLOBAL_LIST_EMPTY(closets)
 		return TRUE
 
 	return ..()
-
-/obj/structure/closet/bluespace
-	name = "bluespace closet"
-	desc = "A storage unit that moves and stores through the fourth dimension."
-	density = FALSE
-	icon_state = "bluespace"
-	storage_capacity = 60
-	ignore_density_closed = TRUE
-	pass_flags = PASSDOOR|PASSTABLE|PASSGRILLE|PASSBLOB|PASSMOB|PASSMACHINE|PASSSTRUCTURE|PASSFLAPS|PASSFENCE|PASSVEHICLE|PASSITEM
-	var/materials = list(MAT_METAL = 5000, MAT_PLASMA = 2500, MAT_TITANIUM = 500, MAT_BLUESPACE = 500)
-	var/transparent = FALSE
-
-/obj/structure/closet/bluespace/Initialize(mapload)
-	. = ..()
-	var/static/list/loc_connections = list(
-		COMSIG_ATOM_EXITED = PROC_REF(on_exited),
-		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
-	)
-	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/structure/closet/bluespace/proc/UpdateTransparency()
-	var/transparency = FALSE
-	for(var/atom/check as anything in loc)
-		if(check.density && check != src)
-			transparency = TRUE
-			break
-	transparent = transparency
-	update_icon()
-
-/obj/structure/closet/bluespace/update_icon_state()
-	icon_state = "[initial(icon_state)][transparent ? "_trans" : ""]"
-
-/obj/structure/closet/bluespace/update_overlays()
-	. = list()
-	if(!opened)
-		if(transparent)
-			. += mutable_appearance(icon, "[initial(icon_state)]_door_trans", CLOSET_OLAY_LAYER_DOOR)
-		else
-			. += mutable_appearance(icon, "[initial(icon_state)]_door", CLOSET_OLAY_LAYER_DOOR)
-		if(welded)
-			. += mutable_appearance(icon, "welded", CLOSET_OLAY_LAYER_WELDED)
-	else
-		if(transparent)
-			. += mutable_appearance(icon, "[initial(icon_state)]_open_trans", CLOSET_OLAY_LAYER_DOOR)
-		else
-			. += mutable_appearance(icon, "[initial(icon_state)]_open", CLOSET_OLAY_LAYER_DOOR)
-
-/obj/structure/closet/bluespace/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
-	SIGNAL_HANDLER
-
-	if(!transparent && arrived.density && arrived != src)
-		transparent = TRUE
-		update_icon()
-
-/obj/structure/closet/bluespace/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
-	SIGNAL_HANDLER
-
-	UpdateTransparency()
-
-/obj/structure/closet/bluespace/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
-	. = ..()
-	if(loc)
-		UpdateTransparency()
