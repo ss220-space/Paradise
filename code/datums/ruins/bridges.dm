@@ -75,7 +75,6 @@
 	var/turf/n1 = locate(x, y + 1, z)
 	var/turf/s1 = locate(x, y - 1, z)
 
-	var/datum/map_template/template_to_load
 	if((ismineralturf(east) || istype(east, /turf/simulated/floor/plating/asteroid)) && \
 			(ismineralturf(west) || istype(west, /turf/simulated/floor/plating/asteroid)) && \
 			!(ismineralturf(n1) || istype(n1, /turf/simulated/floor/plating/asteroid)) && \
@@ -97,8 +96,8 @@
 													"lavaland_bridge_vertical_5.dmm",
 													"lavaland_bridge_vertical_6.dmm")]
 
-	if(template_to_load)
-		template_to_load.load(loc, centered = TRUE)
+	if(template)
+		template.load(loc, centered = TRUE)
 
 	if(!QDELETED(src))
 		qdel(src)

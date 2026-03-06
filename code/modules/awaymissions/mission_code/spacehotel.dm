@@ -68,6 +68,7 @@
 	var/static/list/north_room_templates
 	var/static/templates_loaded = FALSE
 	var/static/obj/effect/landmark/map_loader/hotel_room/loader_landmark
+	var/static/list/pending_landmarks = list()
 
 /obj/effect/landmark/map_loader/hotel_room/Initialize(mapload)
 	. = ..()
@@ -82,8 +83,13 @@
 	if(!templates_loaded)
 		if(src == loader_landmark)
 			load_templates()
+			for(var/obj/effect/landmark/map_loader/hotel_room/room in pending_landmarks)
+				if(!QDELETED(room))
+					INVOKE_ASYNC(room, PROC_REF(load_room_async))
+			pending_landmarks.Cut()
 		else
-			UNTIL(templates_loaded)
+			pending_landmarks |= src
+		return
 
 	var/list/room_list = (dir == NORTH) ? north_room_templates : south_room_templates
 	var/datum/map_template/map_template = safepick(room_list)
@@ -102,16 +108,17 @@
 	for(var/map in flist(path))
 		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
 			var/datum/map_template/map_template = new(path = "[path][map]", rename = "[map]")
-			if(copytext(map, 1, 3) == "n_")
-				north_room_templates += map_template
-			else if(copytext(map, 1, 3) == "s_")
-				south_room_templates += map_template
-			else
-				// omnidirectional rooms are randomly assigned
-				if(prob(50))
+			var/prefix = copytext(map, 1, 3)
+			switch(prefix)
+				if("n_")
 					north_room_templates += map_template
-				else
+				if("s_")
 					south_room_templates += map_template
+				else
+					if(prob(50))
+						north_room_templates += map_template
+					else
+						south_room_templates += map_template
 
 	templates_loaded = TRUE
 
