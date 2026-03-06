@@ -636,7 +636,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(isstorage(src)) //Don't tape the bag if we can put the duct tape inside it instead
 			var/obj/item/storage/bag = src
 			if(bag.can_be_inserted(I))
-				return ..()
+				return
 		var/obj/item/stack/tape_roll/tape = I
 		var/list/modifiers = params2list(params)
 		var/x_offset = text2num(LAZYACCESS(modifiers, ICON_X))
@@ -651,8 +651,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		to_chat(user, span_notice("Вы прикрепляете изоленту к [declent_ru(DATIVE)]."))
 		AddComponent(/datum/component/ducttape, x_offset, y_offset)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..()
 
 /obj/item/proc/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!block_type || !(block_type & attack_type))
