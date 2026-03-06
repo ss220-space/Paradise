@@ -440,7 +440,6 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	for(var/obj/machinery/r_n_d/server/rnd_server as anything in connected_servers)
 		if(!rnd_server || QDELETED(rnd_server))
-			connected_servers -= rnd_server
 			continue
 
 		var/console_has_access = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
@@ -449,6 +448,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
 			balloon_alert_to_viewers("предмет в чёрном списке!", "этот предмет в чёрном списке!")
 			return
+	connected_servers -= null
 
 	if(!(being_built.build_type & (is_lathe ? PROTOLATHE : IMPRINTER)))
 		message_admins("[machine] exploit attempted by [ADMIN_LOOKUPFLW(usr)]!")
