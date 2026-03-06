@@ -21,27 +21,42 @@
 	icon_closed = "emerg"
 	icon_opened = "emerg_open"
 
+#define EMERGENCY_CONTENTS_SMALL "small"
+#define EMERGENCY_CONTENTS_AID "aid"
+#define EMERGENCY_CONTENTS_TANK "tank"
+#define EMERGENCY_CONTENTS_BOTH "both"
+
 /obj/structure/closet/walllocker/emerglocker/populate_contents()
-	switch(pickweight(list("small" = 55, "aid" = 25, "tank" = 10, "both" = 10)))
-		if("small")
+	switch(pickweight(list(
+		EMERGENCY_CONTENTS_SMALL = 55,
+		EMERGENCY_CONTENTS_AID   = 25,
+		EMERGENCY_CONTENTS_TANK  = 10,
+		EMERGENCY_CONTENTS_BOTH  = 10
+	)))
+		if(EMERGENCY_CONTENTS_SMALL)
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/clothing/mask/breath(src)
-		if("aid")
+		if(EMERGENCY_CONTENTS_AID)
 			new /obj/item/tank/internals/emergency_oxygen(src)
 			new /obj/item/storage/toolbox/emergency(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/storage/firstaid/o2(src)
-		if("tank")
+		if(EMERGENCY_CONTENTS_TANK)
 			new /obj/item/tank/internals/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/tank/internals/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
-		if("both")
+		if(EMERGENCY_CONTENTS_BOTH)
 			new /obj/item/storage/toolbox/emergency(src)
 			new /obj/item/tank/internals/emergency_oxygen/engi(src)
 			new /obj/item/clothing/mask/breath(src)
 			new /obj/item/storage/firstaid/o2(src)
+
+#undef EMERGENCY_CONTENTS_SMALL
+#undef EMERGENCY_CONTENTS_AID
+#undef EMERGENCY_CONTENTS_TANK
+#undef EMERGENCY_CONTENTS_BOTH
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/closet/walllocker/emerglocker, 32)

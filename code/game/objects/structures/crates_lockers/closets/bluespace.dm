@@ -17,7 +17,7 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-/obj/structure/closet/bluespace/proc/UpdateTransparency()
+/obj/structure/closet/bluespace/proc/update_transparency()
 	var/transparency = FALSE
 	for(var/atom/check as anything in loc)
 		if(check.density && check != src)
@@ -54,9 +54,9 @@
 /obj/structure/closet/bluespace/proc/on_exited(datum/source, atom/movable/departed, atom/newLoc)
 	SIGNAL_HANDLER
 
-	UpdateTransparency()
+	update_transparency()
 
 /obj/structure/closet/bluespace/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
 	if(loc)
-		UpdateTransparency()
+		update_transparency()

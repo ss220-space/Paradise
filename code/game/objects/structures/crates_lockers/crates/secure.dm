@@ -42,8 +42,8 @@
 		to_chat(user, span_danger("The crate's anti-tamper system activates!"))
 		investigate_log("[key_name_log(user)] has detonated a [src]", INVESTIGATE_BOMB)
 		add_attack_logs(user, src, "has detonated", ATKLOG_MOST)
-	for(var/atom/movable/AM in src)
-		qdel(AM)
+	for(var/atom/movable/movable in src)
+		qdel(movable)
 	explosion(get_turf(src), devastation_range = 0, heavy_impact_range = 1, light_impact_range = 5, flash_range = 5, cause = src)
 	qdel(src)
 
