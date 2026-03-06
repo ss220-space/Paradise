@@ -351,16 +351,18 @@
 /obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)
 	if(stat & (BROKEN|NOPOWER))
 		return
+
+	if(!allowed(user) && !isobserver(user))
+		to_chat(user, span_warning("У вас нет необходимого уровня доступа."))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		balloon_alert(user, "отказано в доступе!")
+		return
+
 	if(..())
 		return TRUE
 	ui_interact(user)
 
 /obj/machinery/computer/rdservercontrol/ui_interact(mob/user, datum/tgui/ui)
-	if(!allowed(user))
-		to_chat(user, span_warning("У вас нет необходимого уровня доступа."))
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-		return
-
 	if(!length(servers) || !length(consoles))
 		refresh_cache()
 
@@ -431,6 +433,10 @@
 
 /obj/machinery/computer/rdservercontrol/ui_act(action, list/params)
 	if(..())
+		return
+
+	if(!allowed(usr) && !isobserver(usr))
+		to_chat(usr, span_warning("У вас нет необходимого уровня доступа."))
 		return
 
 	switch(action)
