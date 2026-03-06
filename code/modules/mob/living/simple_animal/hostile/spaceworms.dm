@@ -382,6 +382,8 @@
 	if(QDELETED(src))
 		return
 
+	var/mob/living/simple_animal/hostile/space_worm/cached_head = my_head
+
 	for(var/atom/movable/stomach_content in contents)
 		if(!prob(digestion_probability))
 			if(isliving(stomach_content))
@@ -392,10 +394,10 @@
 		if(ismob(stomach_content))
 			var/mob/target_mob = stomach_content
 			target_mob.ghostize() //because qdelling an entire mob without ghosting it is BAD
-			if(length(total_worm_segments) <= MAX_WORM_LENGTH)
-				var/mob/living/simple_animal/hostile/space_worm/new_worm = new(get_turf(my_head))
-				var/mob/living/simple_animal/hostile/space_worm/old_worm = my_head.previous_worm
-				my_head.attach(new_worm)
+			if(length(cached_head.total_worm_segments) <= MAX_WORM_LENGTH)
+				var/mob/living/simple_animal/hostile/space_worm/new_worm = new(get_turf(cached_head))
+				var/mob/living/simple_animal/hostile/space_worm/old_worm = cached_head.previous_worm
+				cached_head.attach(new_worm)
 				if(old_worm)
 					new_worm.attach(old_worm)
 		qdel(stomach_content)
