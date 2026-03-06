@@ -271,7 +271,7 @@
 	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
 	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
-	new/pill_bottle/patch_pack/filled(src)
+	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
