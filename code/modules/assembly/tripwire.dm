@@ -1,6 +1,6 @@
 /obj/structure/tripwire_bridge
 	name = "tripwire"
-	desc = "Тонкий кабель. Похоже, он соединен с чем-то опасным."
+	desc = "Тонкий провод. Похоже, он соединен с чем-то опасным."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "tripwire_wire"
 	anchored = TRUE
@@ -8,6 +8,16 @@
 	layer = LOW_OBJ_LAYER
 	mouse_opacity = MOUSE_OPACITY_ICON
 	var/obj/item/assembly/tripwire/master_base = null
+
+/obj/structure/tripwire_bridge/get_ru_names()
+	return list(
+		NOMINATIVE = "провод растяжки",
+		GENITIVE = "провода растяжки",
+		DATIVE = "проводу растяжки",
+		ACCUSATIVE = "провод растяжки",
+		INSTRUMENTAL = "проводом растяжки",
+		PREPOSITIONAL = "провде растяжки",
+	)
 
 /obj/structure/tripwire_bridge/Initialize(mapload)
 	. = ..()
@@ -52,9 +62,19 @@
 	var/wall_dir = 0
 	var/creator_key = null
 
+/obj/item/assembly/tripwire/get_ru_names()
+	return list(
+		NOMINATIVE = "растяжка",
+		GENITIVE = "растяжки",
+		DATIVE = "растяжке",
+		ACCUSATIVE = "растяжку",
+		INSTRUMENTAL = "растяжкой",
+		PREPOSITIONAL = "растяжке",
+	)
+
 /obj/item/assembly/tripwire/attack_hand(mob/user)
 	if(anchored_to_wall)
-		to_chat(user, span_warning("[src] крепко привинчен к стене! Воспользуйтесь ломом."))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] крепко привинчена к стене! Воспользуйтесь ломом."))
 		return
 	return ..()
 
@@ -62,7 +82,7 @@
 	if(!is_active || QDELETED(src))
 		return FALSE
 
-	to_chat(user, span_notice("Вы начали осторожно перерезать провод растяжки..."))
+	to_chat(user, span_notice("Вы начали осторожно перерезать провод [declent_ru(GENITIVE)]..."))
 
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return TRUE
@@ -70,7 +90,7 @@
 	if(QDELETED(src) || !is_active)
 		return TRUE
 
-	to_chat(user, span_notice("Вы успешно перерезали провод растяжки."))
+	to_chat(user, span_notice("Вы успешно перерезали провод [declent_ru(GENITIVE)]."))
 	break_wire()
 	return TRUE
 
@@ -78,7 +98,7 @@
 	if(!attached_item)
 		return FALSE
 
-	to_chat(user, span_notice("Вы начали извлекать [attached_item] из [src]..."))
+	to_chat(user, span_notice("Вы начали извлекать [attached_item.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]..."))
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return TRUE
 
@@ -86,7 +106,7 @@
 		return TRUE
 
 	var/obj/item/extracted_item = attached_item
-	to_chat(user, span_notice("Вы успешно извлекли [extracted_item] из [src]."))
+	to_chat(user, span_notice("Вы успешно извлекли [attached_item.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	extracted_item.forceMove(drop_location())
 	attached_item = null
 	update_appearance()
@@ -121,22 +141,29 @@
 				if(EAST)  pixel_x = 14
 				if(WEST)  pixel_x = -14
 
-			to_chat(user, span_notice("Вы закрепили [src] на стене."))
-			playsound(src, 'sound/items/screwdriver.ogg', 50, TRUE)
+			to_chat(user, span_notice("Вы закрепили [declent_ru(ACCUSATIVE)] на стене."))
+			playsound(src, 'sound/effects/stamp1.ogg', 50, TRUE)
 			update_appearance()
 
 /obj/item/assembly/tripwire/attackby(obj/item/I, mob/user, params)
 	. = ..()
+	if(ATTACK_CHAIN_CANCEL_CHECK(.))
+		return .
 
 	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/assembly) || istype(I, /obj/item/flash))
+		if(istype(I, /obj/item/assembly/tripwire))
+			to_chat(user, span_warning("Вы не можете закрепить [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]. Это не имеет смысла!"))
+			return . | ATTACK_CHAIN_BLOCKED_ALL
+
 		if(attached_item || (linked_to && linked_to.attached_item))
-			to_chat(user, span_warning("Тут уже установлена ловушка!"))
+			to_chat(user, span_warning("Ловушка уже установлена!"))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
 		if(user.transfer_item_to_loc(I, src))
 			attached_item = I
-			to_chat(user, span_notice("Вы закрепили [I] на [src]."))
+			to_chat(user, span_notice("Вы закрепили [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
 			update_appearance()
+
 		return . | ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stack/cable_coil))
@@ -156,21 +183,32 @@
 			var/is_valid_alignment = FALSE
 			var/distance_to_base = get_dist(src, nearby_base)
 
+			if(distance_to_base > 0)
+				var/turf/check_step = get_turf(src)
+				var/dir_to_target = get_dir(src, nearby_base)
+				var/path_blocked = FALSE
+				for(var/i in 1 to distance_to_base)
+					check_step = get_step(check_step, dir_to_target)
+					if(check_step.density && check_step != get_turf(nearby_base))
+						path_blocked = TRUE
+						break
+				if(path_blocked)
+					continue
+
 			if(distance_to_base == 0)
 				if(src.wall_dir == turn(nearby_base.wall_dir, 180))
 					is_valid_alignment = TRUE
-
 			else if(src.x == nearby_base.x || src.y == nearby_base.y)
-				var/direction_to_target = get_dir(src, nearby_base)
-				var/direction_to_source = get_dir(nearby_base, src)
-				if(src.wall_dir == turn(direction_to_target, 180) && nearby_base.wall_dir == turn(direction_to_source, 180))
+				var/dir_to_target = get_dir(src, nearby_base)
+				var/dir_to_source = get_dir(nearby_base, src)
+				if(src.wall_dir == turn(dir_to_target, 180) && nearby_base.wall_dir == turn(dir_to_source, 180))
 					is_valid_alignment = TRUE
 
 			if(is_valid_alignment)
 				valid_targets += nearby_base
 
 		if(!valid_targets.len)
-			to_chat(user, span_warning("Напротив нет подходящей основы."))
+			to_chat(user, span_warning("Напротив нет подходящей основы или путь заблокирован."))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
 		var/obj/item/assembly/tripwire/target_base = valid_targets[1]
@@ -182,25 +220,21 @@
 		var/needed_cable = max(get_dist(src, target_base), 1)
 		var/obj/item/stack/cable_coil/cable_stack = I
 		if(cable_stack.amount < needed_cable)
-			to_chat(user, span_warning("Вам нужно [needed_cable] ед. кабеля для такой дистанции!"))
+			to_chat(user, span_warning("Вам нужен кабель длинной [needed_cable] для такой дистанции!"))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
-		to_chat(user, span_notice("Вы начинаете протягивать кабель к [target_base]..."))
+		to_chat(user, span_notice("Вы начинаете протягивать кабель к [target_base.declent_ru(DATIVE)]..."))
 
 		if(!do_after(user, 3 SECONDS, src))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
-		if(src.z != target_base.z)
-			return . | ATTACK_CHAIN_BLOCKED_ALL
-
-		if(cable_stack.amount < needed_cable)
-			to_chat(user, span_warning("Кабель внезапно закончился!"))
+		if(QDELETED(src) || QDELETED(target_base) || src.z != target_base.z || is_active || target_base.is_active || QDELETED(cable_stack) || cable_stack.amount < needed_cable)
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
 		if(connect_to(target_base, cable_stack))
 			src.creator_key = user.ckey
 			target_base.creator_key = user.ckey
-			to_chat(user, span_notice("Вы успешно натянули провод между [src] и [target_base]."))
+			to_chat(user, span_notice("Вы успешно натянули провод между растяжками."))
 			cable_stack.use(needed_cable)
 
 		return . | ATTACK_CHAIN_BLOCKED_ALL
@@ -214,7 +248,7 @@
 		to_chat(user, span_warning("Сначала нужно перерезать натянутый провод!"))
 		return TRUE
 
-	to_chat(user, span_notice("Вы начали откручивать [src] от стены..."))
+	to_chat(user, span_notice("Вы начали откручивать [declent_ru(ACCUSATIVE)] от стены..."))
 
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return TRUE
@@ -222,7 +256,7 @@
 	if(QDELETED(src) || !anchored_to_wall || is_active)
 		return TRUE
 
-	to_chat(user, span_notice("Вы успешно открутили [src] от стены."))
+	to_chat(user, span_notice("Вы успешно открутили [declent_ru(ACCUSATIVE)] от стены."))
 	unanchor_base()
 	return TRUE
 
@@ -243,38 +277,40 @@
 	target.update_appearance()
 	return TRUE
 
-/obj/item/assembly/tripwire/proc/draw_wire(obj/item/assembly/tripwire/target, wire_color)
+/obj/item/assembly/tripwire/proc/draw_wire(obj/item/assembly/tripwire/target_base, wire_color)
 	var/turf/current_turf = get_turf(src)
-	var/turf/end_turf = get_turf(target)
+	var/turf/end_turf = get_turf(target_base)
 
 	if(current_turf == end_turf)
-		var/obj/structure/tripwire_bridge/W = new(current_turf)
-		W.color = wire_color
-		W.master_base = src
-		W.setDir((src.wall_dir == WEST || src.wall_dir == EAST) ? EAST : NORTH)
+		var/obj/structure/tripwire_bridge/bridge_segment = new(current_turf)
+		bridge_segment.color = wire_color
+		bridge_segment.master_base = src
+		bridge_segment.setDir((src.wall_dir == WEST || src.wall_dir == EAST) ? EAST : NORTH)
 
-		LAZYADD(src.wire_segments, W)
-		LAZYADD(target.wire_segments, W)
-
+		LAZYADD(src.wire_segments, bridge_segment)
+		LAZYADD(target_base.wire_segments, bridge_segment)
 	else
-		var/dir_to = get_dir(current_turf, end_turf)
-		var/sanity = 0
-		while(current_turf && sanity < 4)
-			var/obj/structure/tripwire_bridge/W = new(current_turf)
-			W.color = wire_color
-			W.master_base = src
-			W.setDir(dir_to)
+		var/direction_to_target = get_dir(current_turf, end_turf)
+		var/loop_sanity = 0
+		while(current_turf && loop_sanity < 4)
+			if(current_turf.density && current_turf != get_turf(src) && current_turf != get_turf(target_base))
+				break
 
-			LAZYADD(src.wire_segments, W)
-			LAZYADD(target.wire_segments, W)
+			var/obj/structure/tripwire_bridge/bridge_segment = new(current_turf)
+			bridge_segment.color = wire_color
+			bridge_segment.master_base = src
+			bridge_segment.setDir(direction_to_target)
+
+			LAZYADD(src.wire_segments, bridge_segment)
+			LAZYADD(target_base.wire_segments, bridge_segment)
 
 			if(current_turf == end_turf)
 				break
 
-			current_turf = get_step(current_turf, dir_to)
-			sanity++
+			current_turf = get_step(current_turf, direction_to_target)
+			loop_sanity++
 
-	playsound(src, 'sound/effects/servostep.ogg', 40, TRUE)
+	playsound(src, 'sound/effects/stamp2.ogg', 40, TRUE)
 
 /obj/item/assembly/tripwire/proc/trigger_tripwire(mob/user)
 	if(!is_active || QDELETED(src))
@@ -288,8 +324,8 @@
 		payload = linked_to.attached_item
 		owner = linked_to
 
-	var/payload_name = payload ? payload.name : "пустая растяжка"
-	investigate_log("[key_name(user)] активировал растяжку ([payload_name]) на [ADMIN_COORDJMP(trigger_turf)]. Создатель: [creator_key ? creator_key : "неизвестен"].", INVESTIGATE_BOMB)
+	var/payload_name = payload ? payload.name : "blank tripwire"
+	investigate_log("[key_name(user)] activated ([payload_name]) at [ADMIN_COORDJMP(trigger_turf)]. Tripwire's creator: [creator_key ? creator_key : "unknown"].", INVESTIGATE_BOMB)
 
 	if(!QDELETED(payload))
 		if(istype(payload, /obj/item/grenade))
