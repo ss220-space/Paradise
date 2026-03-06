@@ -629,9 +629,9 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
 /obj/item/storage/pill_bottle/filled/populate_contents()
-	for(var/I in 1 to 5)
+	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/mannitol(src)
-	for(var/I in 1 to 5)
+	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/food/pill/salbutamol(src)
 
 /obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
