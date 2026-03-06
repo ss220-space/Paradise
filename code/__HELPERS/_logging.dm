@@ -359,8 +359,7 @@ GLOBAL_PROTECT(log_end)
 	else if(ismob(user))
 		actor = user
 	else
-		log_runtime(EXCEPTION("Got non-mob variable [user] with arguments [what_said] [language] [target]"))
-		return
+		CRASH("Got non-mob variable [user] with arguments [what_said] [language] [target]")
 	actor.create_log(SAY_LOG, "[language ? "([language]) " : ""][what_said]", target)
 	log_say("[language ? "([language]) " : ""][what_said][target ? " to [target]" : null]", actor)
 

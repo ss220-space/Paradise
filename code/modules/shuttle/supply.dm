@@ -114,7 +114,7 @@
 
 	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
 		if(!SO.object)
-			throw EXCEPTION("Supply Order [SO] has no object associated with it.")
+			stack_trace("Supply Order [SO] has no object associated with it.")
 			continue
 
 		var/turf/T = pick_n_take(emptyTurfs)		//turf we will place it in

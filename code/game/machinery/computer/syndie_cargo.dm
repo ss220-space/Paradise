@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 	for(var/datum/syndie_supply_order/SO in data_storage.shoppinglist)
 		if(!SO.object)
-			throw EXCEPTION("Supply Order [SO] has no object associated with it.")
+			stack_trace("Supply Order [SO] has no object associated with it.")
 			continue
 
 		var/turf/T = pick_n_take(spawnTurfs)		//turf we will place it in

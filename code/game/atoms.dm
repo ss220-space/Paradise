@@ -1455,7 +1455,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		datum_flags |= DF_VAR_EDITED
 		return .
 
-	if(!GLOB.debug2)
+	if(!GLOB.debugging_enabled)
 		flags |= ADMIN_SPAWNED
 
 	. = ..()
