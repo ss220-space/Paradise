@@ -8,58 +8,79 @@
 	icon = 'icons/misc/Testing/turf_analysis.dmi'
 	icon_state = "arrow"
 
+	var/static/list/south_necropolisroom_templates
+	var/static/list/north_necropolisroom_templates
+	var/static/list/west_necropolisroom_templates
+	var/static/list/east_necropolisroom_templates
+	var/static/templates_loaded = FALSE
+	var/static/obj/effect/landmark/map_loader/lavaland_room/loader_landmark
+
 /obj/effect/landmark/map_loader/lavaland_room/Initialize(mapload)
 	. = ..()
-	// load and randomly assign rooms
-	var/global/list/south_necropolisroom_templates = list()
-	var/global/list/north_necropolisroom_templates = list()
-	var/global/list/west_necropolisroom_templates = list()
-	var/global/list/east_necropolisroom_templates = list()
-	var/static/path = "_maps/map_files/templates/lavaland/"
-	var/global/loaded = 0
-	if(!loaded)
-		loaded = 1
-		for(var/map in flist(path))
-			if(cmptext(copytext(map, length(map) - 3), ".dmm"))
-				var/datum/map_template/T = new(path = "[path][map]", rename = "[map]")
-				if(copytext(map, 1, 3) == "n_")
-					north_necropolisroom_templates += T
-				else if(copytext(map, 1, 3) == "s_")
-					south_necropolisroom_templates += T
-				else if(copytext(map, 1, 3) == "e_")
-					east_necropolisroom_templates += T
-				else if(copytext(map, 1, 3) == "w_")
-					west_necropolisroom_templates += T
-				else
-					// omnidirectional rooms are randomly assigned
-					if(prob(50))
-						north_necropolisroom_templates += T
-					else
-						south_necropolisroom_templates += T
+	if(!loader_landmark)
+		loader_landmark = src
+	INVOKE_ASYNC(src, PROC_REF(load_room_async))
 
-	var/list/room
+/obj/effect/landmark/map_loader/lavaland_room/proc/load_room_async()
+	if(QDELETED(src))
+		return
+
+	if(!templates_loaded)
+		if(src == loader_landmark)
+			load_templates()
+		else
+			UNTIL(templates_loaded)
+
+	// Selecting a template in the direction of the landmark
+	var/list/room_list = get_room_list_by_dir(dir)
+	var/datum/map_template/map_template = safepick(room_list)
+	if(map_template)
+		// Removing the selected template from the list so as not to repeat
+		room_list -= map_template
+		load(map_template)
+
+/obj/effect/landmark/map_loader/lavaland_room/proc/load_templates()
+	if(templates_loaded)
+		return
+
+	// Initializing the lists
+	south_necropolisroom_templates = list()
+	north_necropolisroom_templates = list()
+	west_necropolisroom_templates = list()
+	east_necropolisroom_templates = list()
+
+	var/path = "_maps/map_files/templates/lavaland/"
+	for(var/map in flist(path))
+		if(cmptext(copytext(map, length(map) - 3), ".dmm"))
+			var/datum/map_template/map_template = new(path = "[path][map]", rename = "[map]")
+			switch(copytext(map, 1, 3))
+				if("n_")
+					north_necropolisroom_templates += map_template
+				if("s_")
+					south_necropolisroom_templates += map_template
+				if("e_")
+					east_necropolisroom_templates += map_template
+				if("w_")
+					west_necropolisroom_templates += map_template
+				else
+					// Files without a prefix are considered omnidirectional - we distribute them randomly
+					if(prob(50))
+						north_necropolisroom_templates += map_template
+					else
+						south_necropolisroom_templates += map_template
+
+	templates_loaded = TRUE
+
+/obj/effect/landmark/map_loader/lavaland_room/proc/get_room_list_by_dir(dir)
 	switch(dir)
 		if(NORTH)
-			room = north_necropolisroom_templates
+			return north_necropolisroom_templates
 		if(SOUTH)
-			room = south_necropolisroom_templates
+			return south_necropolisroom_templates
 		if(WEST)
-			room = west_necropolisroom_templates
+			return west_necropolisroom_templates
 		else
-			room = east_necropolisroom_templates
-
-	var/datum/map_template/M = safepick(room)
-	if(M)
-		switch(dir)
-			if(NORTH)
-				north_necropolisroom_templates -= M
-			if(SOUTH)
-				south_necropolisroom_templates -= M
-			if(WEST)
-				west_necropolisroom_templates -= M
-			else
-				east_necropolisroom_templates -= M
-	load(M)
+			return east_necropolisroom_templates
 
 //----------------------------------------------------------------------------------------------------------------------
 //-------------------------------------------door-------------------------------------------------------------
