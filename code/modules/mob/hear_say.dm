@@ -173,31 +173,6 @@
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
-/mob/proc/colorize_name(atom/movable/speaker = null, speaker_name)
-	if(!client)
-		return speaker_name
-
-	if(!speaker.chat_color || speaker.chat_color_name != speaker.name)
-
-		var/step = round(length_char(speaker_name)/3)
-		var/rgb[3]
-		for(var/i = 1 to 3)
-			rgb[i] = text2ascii_char(speaker_name, step*i)
-			if(rgb[i] > 1071) rgb[i] -= 1072
-			if(rgb[i] > 1039) rgb[i] -= 1040
-			if(rgb[i] > 96) rgb[i] -= 97
-			if(rgb[i] > 64) rgb[i] -= 65
-			if(rgb[i] > 31) rgb[i] -= 32
-			rgb[i] = rgb[i]*4 + 63 // base brightness
-
-		speaker.chat_color = rgb(rgb[1],rgb[2],rgb[3])
-		speaker.chat_color_darkened = rgb(rgb[1]-23,rgb[2]-23,rgb[3]-23)
-		speaker.chat_color_name = speaker_name
-
-		return "<span style='color:[rgb(rgb[1],rgb[2],rgb[3])];'>[speaker_name]</span>"
-	else
-		return "<span style='color:[speaker.chat_color];'>[speaker_name]</span>"
-
 /mob/proc/hear_radio(list/message_pieces, verb = "говор%(ит,ят)%", part_a, part_b, atom/movable/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
 	if(!client)
 		return
@@ -223,22 +198,21 @@
 	speaker_name = colorize_name(speaker, speaker_name)
 	track = handle_track(message, genderize_decode(speaker, verb), speaker, speaker_name, follow_target, hard_to_hear)
 
-	if(!can_hear())
-		if(prob(20))
-			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
+	if(!can_hear() && prob(20))
+		to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
+	else if(track)
+		to_chat(src, "[track] [part_a][speaker_name][part_b][message]</span></span>")
 	else
-		if(track)
-			to_chat(src, "[part_a][track][message]</span></span>")
-		else
-			to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
+		to_chat(src, "[part_a][speaker_name][part_b][message]</span></span>")
 
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))
+
 		if(src != speaker || isrobot(src) || isAI(src))
 			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, SOUND_EFFECT_RADIO, null, null, 'sound/effects/radio_chatter.ogg', speaker)
 
 /mob/proc/handle_speaker_name(atom/movable/speaker = null, vname, hard_to_hear)
-	var/speaker_name = "неизвестный"
+	var/speaker_name = UNKNOWN_NAME_RUS
 	if(speaker)
 		speaker_name = speaker.name
 
@@ -246,7 +220,7 @@
 		speaker_name = vname
 
 	if(hard_to_hear)
-		speaker_name = "неизвестный"
+		speaker_name = UNKNOWN_NAME_RUS
 
 	return speaker_name
 
@@ -266,7 +240,7 @@
 				heardword = copytext(heardword,2)
 			if(copytext(heardword,-1) in punctuation)
 				heardword = copytext(heardword,1,length(heardword))
-			heard = span_gamesay("...<i>Вы слышите что-то про<i>... \"[heardword]\"...")
+			heard = span_gamesay("...<i>Вы слышите что-то про</i>... \"[heardword]\"...")
 		else
 			heard = span_gamesay("...<i>Вы почти что смогли расслышать что-то</i>...")
 	else
@@ -312,3 +286,52 @@
 			continue
 		if(piece.speaking?.runechat_span)
 			return piece.speaking
+
+/**
+ * Returns speaker's name colored based on a hash of the name.
+ *
+ * Arguments:
+ * * speaker - atom whose name to color
+ * * speaker_name - display name
+ */
+/mob/proc/colorize_name(atom/movable/speaker = null, speaker_name)
+	if(!speaker)
+		return speaker_name
+
+	if(!speaker.chat_color || speaker.chat_color_name != speaker.name)
+		var/list/components = generate_color_components(speaker_name)
+		speaker.chat_color = rgb(components[1], components[2], components[3])
+		speaker.chat_color_darkened = rgb(
+			max(components[1] - 23, 0),
+			max(components[2] - 23, 0),
+			max(components[3] - 23, 0)
+		)
+		speaker.chat_color_name = speaker.name
+
+	return "<span style='color:[speaker.chat_color];'>[speaker_name]</span>"
+
+/// Generates RGB components from a name by sampling three characters.
+/atom/movable/proc/generate_color_components(name)
+	var/step = round(length_char(name) / 3)
+	var/list/components = list(0, 0, 0)
+
+	for(var/i in 1 to 3)
+		var/char_code = text2ascii_char(name, step * i)
+		components[i] = normalize_char_code(char_code)
+
+	return components
+
+/// Normalizes character code to a color component (0–255).
+/proc/normalize_char_code(char_code)
+	if(char_code > 1071)
+		char_code -= 1072
+	else if(char_code > 1039)
+		char_code -= 1040
+	else if(char_code > 96)
+		char_code -= 97
+	else if(char_code > 64)
+		char_code -= 65
+	else if(char_code > 31)
+		char_code -= 32
+
+	return char_code * 4 + 63 // base brightness
