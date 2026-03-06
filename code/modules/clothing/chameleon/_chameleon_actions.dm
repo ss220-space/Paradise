@@ -52,7 +52,10 @@
 
 /datum/action/chameleon_outfit/Grant(mob/grant_to)
 	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
-		chameleon_master = grant_to
+		if(isliving(grant_to))
+			chameleon_master = grant_to
+		else
+			return FALSE
 
 	if(chameleon_master != grant_to)
 		return FALSE
@@ -245,8 +248,29 @@
 /datum/action/item_action/chameleon/change/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER
 
+	chameleon_master = null
+	if(owner)
+		var/datum/action/chameleon_outfit/outfit = locate() in owner.actions
+		if(outfit)
+			outfit.chameleon_master = null
+
+		to_chat(owner, span_warning("Биометрическая защита [holder.declent_ru(GENITIVE)] была сброшена электромагнитным импульсом!"))
+
 	if(COOLDOWN_FINISHED(src, emp_timer))
 		emp_randomise()
+
+
+/datum/action/item_action/chameleon/change/proc/check_chameleon_access(mob/grant_to)
+	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
+		if(isliving(grant_to))
+			chameleon_master = grant_to
+			return TRUE
+		return FALSE
+
+	if(chameleon_master != grant_to)
+		return FALSE
+
+	return TRUE
 
 /datum/action/item_action/chameleon/change/Grant(mob/grant_to)
 	if(!check_chameleon_access(grant_to))

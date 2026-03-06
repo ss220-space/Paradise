@@ -454,18 +454,6 @@
 	var/obj/item/voice_changer/V = target
 	V.set_voice(usr)
 
-/datum/action/item_action/chameleon/change/proc/check_chameleon_access(mob/grant_to)
-	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
-		if(isliving(grant_to))
-			chameleon_master = grant_to
-			return TRUE
-		return FALSE
-
-	if(chameleon_master != grant_to)
-		return FALSE
-
-	return TRUE
-
 /datum/action/item_action/voice_changer/toggle/Grant(mob/grant_to)
 	var/obj/item/voice_changer/changer = target
 	if(istype(changer) && istype(changer.parent, /obj/item/clothing/mask/chameleon))
