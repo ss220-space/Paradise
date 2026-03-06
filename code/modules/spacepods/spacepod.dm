@@ -107,6 +107,12 @@
 		PREPOSITIONAL = "космическом челноке",
 	)
 
+/obj/spacepod/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(!use_internal_tank)
+		return null
+	return cabin_air
+
 /obj/spacepod/proc/apply_paint(mob/user)
 	var/part_type
 	if(!can_paint)

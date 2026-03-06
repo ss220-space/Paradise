@@ -5,11 +5,6 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-// OK. code\modules\ruins\lavalandruin_code\necropolis_lavalend.dm
-// There is UNREAL SHIT along this path. It is the only reason for the commented initialization.
-// I'm not sure if this is a good thing, but I'm not going to refactor it.
-//INITIALIZE_IMMEDIATE(/obj/effect/landmark)
-
 /obj/effect/landmark/Initialize(mapload)
 	. = ..()
 	set_tag()
