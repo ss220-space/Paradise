@@ -51,10 +51,7 @@
 	currently_in_use = FALSE
 
 /datum/action/chameleon_outfit/Grant(mob/grant_to)
-	if(!grant_to || QDELETED(grant_to) || !isliving(grant_to))
-		return FALSE
-
-	if(!chameleon_master || QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
+	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
 		chameleon_master = grant_to
 
 	if(chameleon_master != grant_to)
@@ -252,19 +249,10 @@
 		emp_randomise()
 
 /datum/action/item_action/chameleon/change/Grant(mob/grant_to)
-	if(QDELETED(grant_to) || !isliving(grant_to))
-		return FALSE
-
-	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
-		chameleon_master = grant_to
-
-	if(chameleon_master != grant_to)
+	if(!check_chameleon_access(grant_to))
 		return FALSE
 
 	. = ..()
-
-	if(isnull(owner))
-		return
 
 	if(locate(/datum/action/chameleon_outfit) in grant_to.actions)
 		return

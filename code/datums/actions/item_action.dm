@@ -454,30 +454,37 @@
 	var/obj/item/voice_changer/V = target
 	V.set_voice(usr)
 
-/datum/action/item_action/voice_changer/toggle/Grant(mob/grant_to)
-	if(istype(target, /obj/item/voice_changer))
-		var/obj/item/voice_changer/changer = target
-		if(changer.parent && istype(changer.parent, /obj/item/clothing/mask/chameleon))
-			var/obj/item/clothing/mask/chameleon/cham_mask = changer.parent
-			if(!cham_mask.chameleon_master && isliving(grant_to))
-				cham_mask.chameleon_master = grant_to
+/datum/action/item_action/chameleon/change/proc/check_chameleon_access(mob/grant_to)
+	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
+		if(isliving(grant_to))
+			chameleon_master = grant_to
+			return TRUE
+		return FALSE
 
-			if(cham_mask.chameleon_master && grant_to != cham_mask.chameleon_master)
-				if(!QDELETED(cham_mask.chameleon_master) && cham_mask.chameleon_master.stat != DEAD)
-					return FALSE
-				else
-					cham_mask.chameleon_master = grant_to
+	if(chameleon_master != grant_to)
+		return FALSE
+
+	return TRUE
+
+/datum/action/item_action/voice_changer/toggle/Grant(mob/grant_to)
+	var/obj/item/voice_changer/changer = target
+	if(istype(changer) && istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		var/obj/item/clothing/mask/chameleon/mask = changer.parent
+		var/datum/action/item_action/chameleon/change/mask_action = locate() in mask.actions
+		if(mask_action)
+			if(!mask_action.check_chameleon_access(grant_to))
+				return FALSE
 
 	return ..()
 
 /datum/action/item_action/voice_changer/voice/Grant(mob/grant_to)
-	if(istype(target, /obj/item/voice_changer))
-		var/obj/item/voice_changer/changer = target
-		if(changer.parent && istype(changer.parent, /obj/item/clothing/mask/chameleon))
-			var/obj/item/clothing/mask/chameleon/cham_mask = changer.parent
-			if(cham_mask.chameleon_master && grant_to != cham_mask.chameleon_master)
-				if(!QDELETED(cham_mask.chameleon_master) && cham_mask.chameleon_master.stat != DEAD)
-					return FALSE
+	var/obj/item/voice_changer/changer = target
+	if(istype(changer) && istype(changer.parent, /obj/item/clothing/mask/chameleon))
+		var/obj/item/clothing/mask/chameleon/mask = changer.parent
+		var/datum/action/item_action/chameleon/change/mask_action = locate() in mask.actions
+		if(mask_action && !mask_action.check_chameleon_access(grant_to))
+			return FALSE
+
 	return ..()
 
 // for clothing accessories like holsters
