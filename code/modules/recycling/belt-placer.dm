@@ -1,6 +1,6 @@
 /obj/item/storage/conveyor //Stores conveyor belts, click floor to make belt, use a conveyor switch on this to link all belts to that lever.
 	name = "conveyor belt placer"
-	desc = "This device facilitates the rapid deployment of conveyor belts."
+	desc = "Устройство, предназначенное для ускоренной прокладки конвейерных лент."
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "belt_placer"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
@@ -17,9 +17,19 @@
 	use_to_pickup = TRUE
 	origin_tech = "engineering=1"
 
+/obj/item/storage/conveyor/get_ru_names()
+	return list(
+		NOMINATIVE = "укладчик конвейеров",
+		GENITIVE = "укладчика конвейеров",
+		DATIVE = "укладчику конвейеров",
+		ACCUSATIVE = "укладчик конвейеров",
+		INSTRUMENTAL = "укладчиком конвейеров",
+		PREPOSITIONAL = "укладчике конвейеров"
+	)
+
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
-	desc = "Устройство, предназначенное для ускоренной укладки конвейерных лент. В отличие от обычного укладчика, оно вмещает гораздо больше лент."
+	desc = "Устройство, предназначенное для ускоренной прокладки конвейерных лент. Эта модель позволяет работать на дистанции."
 	icon_state = "bluespace_belt_placer"
 	item_state = "bs_conv"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -46,7 +56,7 @@
 			conveyor.id = switch_construct.id
 			linked = TRUE
 		if(linked)
-			balloon_alert(user, ("все ленты в [declent_ru(PREPOSITIONAL)] привязан к [switch_construct]."))
+			user.balloon_alert(user, "привязано.")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -56,7 +66,7 @@
 		return
 	var/obj/item/conveyor_construct/conveyor = locate() in contents
 	if(!conveyor)
-		to_chat(user, span_warning("There are no belts in [src]."))
+		user.balloon_alert(user, ("ленты закончились."))
 		return
 	conveyor.afterattack(target, user, proximity, params)
 

@@ -996,12 +996,12 @@
 
 /obj/item/storage/belt/bluespace/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс пояс для инструментов",
-		GENITIVE = "блюспейс пояса для инструментов",
-		DATIVE = "блюспейс поясу для инструментов",
-		ACCUSATIVE = "блюспейс пояс для инструментов",
-		INSTRUMENTAL = "блюспейс поясом для инструментов",
-		PREPOSITIONAL = "блюспейс поясе для инструментов"
+		NOMINATIVE = "блюспейс пояс",
+		GENITIVE = "блюспейс пояса",
+		DATIVE = "блюспейс поясу",
+		ACCUSATIVE = "блюспейс пояс",
+		INSTRUMENTAL = "блюспейс поясом",
+		PREPOSITIONAL = "блюспейс поясе"
 	)
 
 /obj/item/storage/belt/bluespace/owlman

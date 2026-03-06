@@ -34,12 +34,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/get_ru_names()
 	return list(
-		NOMINATIVE = "глобальная позиционирующая система",
-		GENITIVE = "глобальной позиционирующей системы",
-		DATIVE = "глобальной позиционирующей системе",
-		ACCUSATIVE = "глобальную позиционирующую систему",
-		INSTRUMENTAL = "глобальной позиционирующей системой",
-		PREPOSITIONAL = "глобальной позиционирующей системе"
+		NOMINATIVE = "глобальная позиционирующая система (GPS)",
+		GENITIVE = "глобальной позиционирующей системы (GPS)",
+		DATIVE = "глобальной позиционирующей системе (GPS)",
+		ACCUSATIVE = "глобальную позиционирующую систему (GPS)",
+		INSTRUMENTAL = "глобальной позиционирующей системой (GPS)",
+		PREPOSITIONAL = "глобальной позиционирующей системе (GPS)"
 	)
 
 /obj/item/gps/Initialize(mapload)

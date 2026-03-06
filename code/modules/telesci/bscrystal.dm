@@ -62,7 +62,7 @@
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
-	desc = "Искусственно созданный блюспейс-кристалл, он выглядит хрупким."
+	desc = "Искусственно созданный блюспейс-кристалл. Выглядит хрупким."
 	origin_tech = "bluespace=3;plasmatech=4"
 	materials = list(MAT_BLUESPACE=MINERAL_MATERIAL_AMOUNT * 0.5)
 	blink_range = 4 // Not as good as the organic stuff!

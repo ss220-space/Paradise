@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor
 	name = "conveyor belt"
-	desc = "It's a conveyor belt, commonly used to transport large numbers of items elsewhere quite quickly."
+	desc = "Конвейерная лента, используется для быстрой транспортировки большого количества предметов."
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor_map"
 	base_icon_state = "conveyor"
@@ -362,7 +362,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "A conveyor control switch."
+	desc = "Переключатель направления конвейерных лент."
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "switch-off"
 	base_icon_state = "switch"
@@ -562,7 +562,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor_switch/oneway
 	icon_state = "conveyor_switch_oneway"
-	desc = "A conveyor control switch. It appears to only go in one direction."
+	desc = "Переключатель направления конвейерных лент. Переключается только в одном направлении."
 	one_way = TRUE
 
 /obj/machinery/conveyor_switch/oneway/Initialize(mapload, new_id)
@@ -576,10 +576,20 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor_construct"
 	name = "conveyor belt assembly"
-	desc = "A conveyor belt assembly, used for the assembly of conveyor belt systems."
+	desc = "Используется для создания конвейерных систем."
 	w_class = WEIGHT_CLASS_BULKY
 	/// ID for linking a belt to one or more switches, all conveyors with the same ID will be controlled the same switch(es).
 	var/id = ""
+
+/obj/item/conveyor_construct/get_ru_names()
+	return list(
+		NOMINATIVE = "конвейерная лента",
+		GENITIVE = "конвейерной ленты",
+		DATIVE = "конвейерной ленте",
+		ACCUSATIVE = "конвейерную ленту",
+		INSTRUMENTAL = "конвейерной лентой",
+		PREPOSITIONAL = "конвейерной ленте"
+	)
 
 /obj/item/conveyor_construct/Initialize(mapload, new_id)
 	. = ..()
@@ -620,12 +630,22 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "A conveyor control switch assembly. When set up, it'll control any and all conveyor belts it is linked to."
+	desc = "Переключатель направления конвейерных лент. После установки позволяет управлять всеми лентами, с которыми он связан."
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "switch-off"
 	w_class = WEIGHT_CLASS_BULKY
 	/// ID of the switch-in-the-making, to link conveyor belts to it.
 	var/id = ""
+
+/obj/item/conveyor_switch_construct/get_ru_names()
+	return list(
+		NOMINATIVE = "рычаг",
+		GENITIVE = "рычага",
+		DATIVE = "рычагу",
+		ACCUSATIVE = "рычаг",
+		INSTRUMENTAL = "рычагом",
+		PREPOSITIONAL = "рычаге"
+	)
 
 /obj/item/conveyor_switch_construct/Initialize(mapload, new_id)
 	. = ..()

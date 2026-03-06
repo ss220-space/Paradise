@@ -11,7 +11,7 @@
 
 /obj/item/rpd
 	name = "rapid pipe dispenser"
-	desc = "Устройство, позволяющее быстро прокладывать, перемещать и разбирать трубы на дистанции."
+	desc = "Устройство, позволяющее быстро прокладывать, перемещать и разбирать трубы, а так же другие атмосферные конструкции."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -67,17 +67,17 @@
 
 /obj/item/rpd/get_ru_names()
 	return list(
-		NOMINATIVE = "реактивный прокладчик труб",
-		GENITIVE = "реактивного прокладчика труб",
-		DATIVE = "реактивному прокладчику труб",
-		ACCUSATIVE = "реактивный прокладчик труб",
-		INSTRUMENTAL = "реактивным прокладчиком труб",
-		PREPOSITIONAL = "реактивном прокладчике труб"
+		NOMINATIVE = "турбовинтовой прокладчик труб",
+		GENITIVE = "турбовинтового прокладчика труб",
+		DATIVE = "турбовинтовому прокладчику труб",
+		ACCUSATIVE = "турбовинтовой прокладчик труб",
+		INSTRUMENTAL = "турбовинтовым прокладчиком труб",
+		PREPOSITIONAL = "турбовинтовом прокладчике труб"
 	)
 
 /obj/item/rpd/bluespace
 	name = "bluespace rapid pipe dispenser"
-	desc = "Устройство, позволяющее быстро прокладывать, перемещать и разбирать трубы на дистанции, вмещает в разы больше стандартной модели."
+	desc = "Устройство, позволяющее быстро прокладывать, перемещать и разбирать трубы, а так же другие атмосферные конструкции. В отличие от стандартной модели позволяет, работать на дистанции."
 	icon_state = "brpd"
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
 	origin_tech = "engineering=4;materials=2;bluespace=3"
@@ -85,14 +85,14 @@
 	primary_sound = 'sound/items/PSHOOM.ogg'
 	alt_sound = 'sound/items/PSHOOM_2.ogg'
 
-/obj/item/rpd/bluespace/get_ru_names()
+/obj/item/rpd/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс реактивный прокладчик труб",
-		GENITIVE = "блюспейс реактивного прокладчика труб",
-		DATIVE = "блюспейс реактивному прокладчику труб",
-		ACCUSATIVE = "блюспейс реактивный прокладчик труб",
-		INSTRUMENTAL = "блюспейс реактивным прокладчиком труб",
-		PREPOSITIONAL = "блюспейс реактивном прокладчике труб"
+		NOMINATIVE = "блюспейс турбовинтовой прокладчик труб",
+		GENITIVE = "блюспейс турбовинтового прокладчика труб",
+		DATIVE = "блюспейс турбовинтовому прокладчику труб",
+		ACCUSATIVE = "блюспейс турбовинтовой прокладчик труб",
+		INSTRUMENTAL = "блюспейс турбовинтовым прокладчиком труб",
+		PREPOSITIONAL = "блюспейс турбовинтовом прокладчике труб"
 	)
 
 //Procs
