@@ -666,7 +666,7 @@
 
 /atom/movable/screen/alert/notify_action/proc/update_candidates_number_overlay()
 	cut_overlay(candidates_num_overlay)
-	if(!length(poll.signed_up))
+	if(!poll || !length(poll.signed_up))
 		return
 	candidates_num_overlay = new
 	candidates_num_overlay.maptext = MAPTEXT("<span style='text-align: right; color: aqua'>[length(poll.signed_up)]</span>")

@@ -232,6 +232,10 @@ SUBSYSTEM_DEF(ghost_spawns)
 	hash = copytext(md5("[question]_[role ? role : "0"]"), 1, 7)
 	return ..()
 
+/datum/candidate_poll/proc/update_buttons_overlays()
+	for(var/atom/movable/screen/alert/notify_action/linked_button as anything in alert_buttons)
+		linked_button.update_candidates_number_overlay()
+
 /**
  * Attempts to sign a (controlled) mob up
  *
@@ -265,8 +269,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(src != P && hash == P.hash && !(M in P.signed_up))
 				P.sign_up(M, TRUE)
 
-	for(var/atom/movable/screen/alert/notify_action/linked_button as anything in alert_buttons)
-		linked_button.update_candidates_number_overlay()
+	update_buttons_overlays()
 
 	return TRUE
 
@@ -300,8 +303,7 @@ SUBSYSTEM_DEF(ghost_spawns)
 			if(src != P && hash == P.hash && (M in P.signed_up))
 				P.remove_candidate(M, TRUE)
 
-	for(var/atom/movable/screen/alert/notify_action/linked_button as anything in alert_buttons)
-		linked_button.update_candidates_number_overlay()
+	update_buttons_overlays()
 
 	return TRUE
 
