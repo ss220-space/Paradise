@@ -267,7 +267,7 @@
 /datum/antagonist/ninja/proc/get_dash_charge()
 	if(!my_katana)
 		return "ERROR!"
-	return "[my_katana.jaunt.current_charges]/[my_katana.jaunt.max_charges]"
+	return "[my_katana.jaunt?.current_charges]/[my_katana.jaunt.max_charges]"
 
 /datum/antagonist/ninja/proc/pick_antags()
 	if(ninja_type == NINJA_TYPE_GENERIC)

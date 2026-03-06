@@ -494,15 +494,6 @@
 	icon_state = "titanium_blue"
 	},
 /area/shuttle/administration)
-"dK" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 4
-	},
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "titanium_blue"
-	},
-/area/shuttle/administration)
 "ec" = (
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/dropper,
@@ -568,13 +559,6 @@
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "titanium_blue"
-	},
-/area/shuttle/administration)
-"jm" = (
-/obj/structure/closet/walllocker/emerglocker/west,
-/turf/simulated/floor/shuttle{
-	icon = 'icons/turf/floors.dmi';
-	icon_state = "dark"
 	},
 /area/shuttle/administration)
 "kd" = (
@@ -778,6 +762,15 @@
 	icon_state = "titanium_blue"
 	},
 /area/shuttle/administration)
+"Ay" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 4
+	},
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "titanium_blue"
+	},
+/area/shuttle/administration)
 "AE" = (
 /obj/machinery/door/airlock/shuttle/glass{
 	name = "Operating Room";
@@ -790,6 +783,13 @@
 /area/shuttle/administration)
 "BQ" = (
 /obj/machinery/light/small,
+/turf/simulated/floor/shuttle{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "dark"
+	},
+/area/shuttle/administration)
+"BY" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/shuttle{
 	icon = 'icons/turf/floors.dmi';
 	icon_state = "dark"
@@ -1049,7 +1049,7 @@ aq
 aX
 aS
 aS
-dK
+Ay
 ct
 cj
 bp
@@ -1172,7 +1172,7 @@ av
 av
 bc
 bl
-jm
+BY
 ck
 gX
 OK
