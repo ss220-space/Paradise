@@ -73,7 +73,7 @@
 	if(!get_area(src))
 		return INITIALIZE_HINT_QDEL
 
-	set_strength(spawn_strength, do_anim =  FALSE, skip_check = TRUE)
+	set_strength(spawn_strength, do_anim =  FALSE)
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/obj/effect/anomaly, init_animation))
 	stability = spawn_stability
 
@@ -122,15 +122,14 @@
 	popup.open(no_focus = 1)
 
 // It is in function because the size will change depending on the strength of the anomaly.
-/obj/effect/anomaly/proc/set_strength(new_strength, do_anim = TRUE, skip_check = FALSE)
+/obj/effect/anomaly/proc/set_strength(new_strength, do_anim = TRUE)
 	if(do_anim)
 		var/mult = size_by_strength(new_strength) / size_by_strength(strength)
 		matr.Scale(mult, mult)
 		animate(src, transform = matr, time = 0.1 SECONDS, flags = ANIMATION_PARALLEL)
 
 	strength = clamp(new_strength, 0, 100)
-	if(!skip_check)
-		check_size_change()
+	check_size_change()
 
 /obj/effect/anomaly/proc/collapse_base()
 	visible_message(span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] достигает критической массы и распадается!"))
