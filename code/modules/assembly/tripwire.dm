@@ -72,6 +72,21 @@
 		PREPOSITIONAL = "растяжке",
 	)
 
+/obj/item/assembly/tripwire/proc/trigger_flash(mob/user, obj/item/flash/flasher)
+	if(QDELETED(flasher) || !flasher.try_use_flash(user))
+		return FALSE
+
+	playsound(src.loc, 'sound/weapons/flash.ogg', 100, TRUE)
+	flick("[flasher.icon_state]_flash", flasher)
+	set_light(2, 1, COLOR_WHITE)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
+
+	for(var/mob/living/living in viewers(3, get_turf(src)))
+		if(living.flash_eyes(affect_silicon = TRUE))
+			living.AdjustConfused(6 SECONDS)
+			living.visible_message(span_disarm("<b>[living]</b> ахает и пытается прикрыть глаза!"))
+	return TRUE
+
 /obj/item/assembly/tripwire/attack_hand(mob/user)
 	if(anchored_to_wall)
 		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] крепко привинчена к стене! Воспользуйтесь ломом."))
@@ -341,16 +356,11 @@
 				addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime), user), final_det_time)
 
 		else if(istype(payload, /obj/item/flash))
-			var/obj/item/flash/F = payload
-			if(F.try_use_flash(user))
-				playsound(src.loc, 'sound/weapons/flash.ogg', 100, TRUE)
-				flick("[F.icon_state]_flash", F)
-				for(var/mob/living/carbon/target in oviewers(3, get_turf(src)))
-					F.flash_carbon(target, user, 6 SECONDS)
+			trigger_flash(user, payload)
 
 		else if(istype(payload, /obj/item/assembly))
-			var/obj/item/assembly/A = payload
-			A.activate()
+			var/obj/item/assembly/assembly = payload
+			assembly.activate()
 
 	break_wire()
 
