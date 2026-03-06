@@ -28,21 +28,38 @@
 		countdown.start()
 
 /obj/structure/clockwork/functional/celestial_gateway/Destroy()
+	if(QDELETED(src))
+		return ..()
+
 	STOP_PROCESSING(SSprocessing, src)
+
 	if(SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind?.current)
 				to_chat(clock_mind.current, span_clocklarge("The Ark has fallen!"))
 				SSticker.mode.clocker_objs.need_heart()
+
 	if(countdown)
 		qdel(countdown)
 		countdown = null
+
 	GLOB.ark_of_the_clockwork_justiciar = null
-	for(var/mob/M as anything in GLOB.mob_list)
-		M.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
-	qdel(heart)
-	QDEL_LIST(fillers)
-	. = ..()
+
+	for(var/mob/mob as anything in GLOB.mob_list)
+		mob.stop_sound_channel(CHANNEL_JUSTICAR_ARK)
+
+	if(heart)
+		heart.gateway = null
+		qdel(heart)
+		heart = null
+
+	for(var/obj/structure/filler in fillers)
+		if(filler)
+			filler = null
+			qdel(filler)
+	fillers.Cut()
+
+	return ..()
 
 /obj/structure/clockwork/functional/celestial_gateway/deconstruct(disassembled)
 	if(!disassembled)
