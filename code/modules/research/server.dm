@@ -104,11 +104,11 @@
 		var/updateRD = 0
 		files.known_designs = list()
 		for(var/v in files.known_tech)
-			var/datum/tech/T = files.known_tech[v]
+			var/datum/tech/tech = files.known_tech[v]
 			// Slowly decrease research if health drops below 0
 			if(prob(1))
 				updateRD++
-				T.level--
+				tech.level--
 		if(updateRD)
 			files.RefreshResearch()
 	if(delay)
@@ -244,24 +244,24 @@
 	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
-	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-		switch(S.server_id)
+	for(var/obj/machinery/r_n_d/server/server in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+		switch(server.server_id)
 			if(-1)
 				continue
 			if(0)
-				no_id_servers += S
+				no_id_servers += server
 			else
-				server_ids += S.server_id
+				server_ids += server.server_id
 
-	for(var/obj/machinery/r_n_d/server/S in no_id_servers)
+	for(var/obj/machinery/r_n_d/server/server in no_id_servers)
 		var/num = 1
-		while(!S.server_id)
+		while(!server.server_id)
 			if(num in server_ids)
 				num++
 			else
-				S.server_id = num
+				server.server_id = num
 				server_ids += num
-		no_id_servers -= S
+		no_id_servers -= server
 
 /obj/machinery/r_n_d/server/centcom/process()
 	return PROCESS_KILL	//don't need process()
@@ -476,8 +476,9 @@
 			var/tech_id = params["tech_id"]
 			var/choice = tgui_alert(usr, "Сбросить технологию?", "Внимание", list("Да", "Нет"))
 			if(choice == "Да")
-				var/datum/tech/T = temp_server.files.known_tech[tech_id]
-				if(T) T.level = 1
+				var/datum/tech/tech = temp_server.files.known_tech[tech_id]
+				if(tech)
+					tech.level = 1
 				temp_server.files.RefreshResearch()
 			return TRUE
 
