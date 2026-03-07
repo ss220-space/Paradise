@@ -976,7 +976,7 @@
 
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
-	desc = "Пояс, вмещающий в себя порядком больше инструментов, чем обычный. Возможно, в него вместится секира и дюжина зелий."
+	desc = "Пояс, вмещающий в себя порядком больше вещей, чем обычный. Возможно, в него вместится секира и дюжина зелий."
 	icon_state = "holdingbelt"
 	item_state = "holdingbelt"
 	storage_slots = 14

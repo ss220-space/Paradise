@@ -19,12 +19,12 @@
 
 /obj/item/storage/conveyor/get_ru_names()
 	return list(
-		NOMINATIVE = "укладчик конвейеров",
-		GENITIVE = "укладчика конвейеров",
-		DATIVE = "укладчику конвейеров",
-		ACCUSATIVE = "укладчик конвейеров",
-		INSTRUMENTAL = "укладчиком конвейеров",
-		PREPOSITIONAL = "укладчике конвейеров"
+		NOMINATIVE = "прокладчик конвейеров",
+		GENITIVE = "прокладчика конвейеров",
+		DATIVE = "прокладчику конвейеров",
+		ACCUSATIVE = "прокладчик конвейеров",
+		INSTRUMENTAL = "прокладчиком конвейеров",
+		PREPOSITIONAL = "прокладчике конвейеров"
 	)
 
 /obj/item/storage/conveyor/bluespace
@@ -39,12 +39,12 @@
 
 /obj/item/storage/conveyor/bluespace/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс укладчик конвейеров",
-		GENITIVE = "блюспейс укладчика конвейеров",
-		DATIVE = "блюспейс укладчику конвейеров",
-		ACCUSATIVE = "блюспейс укладчик конвейеров",
-		INSTRUMENTAL = "блюспейс укладчиком конвейеров",
-		PREPOSITIONAL = "блюспейс укладчике конвейеров"
+		NOMINATIVE = "блюспейс прокладчик конвейеров",
+		GENITIVE = "блюспейс прокладчика конвейеров",
+		DATIVE = "блюспейс прокладчику конвейеров",
+		ACCUSATIVE = "блюспейс прокладчик конвейеров",
+		INSTRUMENTAL = "блюспейс прокладчиком конвейеров",
+		PREPOSITIONAL = "блюспейс прокладчике конвейеров"
 	)
 
 /obj/item/storage/conveyor/attackby(obj/item/I, mob/user, params) //So we can link belts en masse
