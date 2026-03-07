@@ -431,7 +431,7 @@
 		fly_trail.transform = fly_trail.transform.Turn((flight_dir == NORTHEAST || flight_dir == SOUTHWEST) ? 135 : 45)
 	fly_trail.icon_state = pick("trails_1", "trails_2")
 	//fly_trail.adjust_bloodiness(fly_trail.bloodiness * -0.66)
-	fly_trail.update_appearance()
+	fly_trail.update_appearance(UPDATE_ICON)
 
 /obj/effect/decal/cleanable/blood/hitsplatter/proc/loop_done(datum/source)
 	SIGNAL_HANDLER
@@ -460,7 +460,6 @@
 	skip = TRUE
 	//Adjust pixel offset to make splatters appear on the wall
 	if(is_window(bumped_atom))
-	if(is_organ())
 		if(land_on_window(bumped_atom))
 			return
 
