@@ -202,7 +202,8 @@
 
 /datum/team/xenomorph/declare_completion()
 	if(length(members))
-		var/list/text = declare_results()
+		var/list/text = list()
+		text += declare_results()
 		if(length(queens))
 			text += span_fontsize2("<br/><b>Королев[(length(queens) > 1 ? "ами были" : "ой была")]:</b>")
 			for(var/datum/mind/queen in queens)

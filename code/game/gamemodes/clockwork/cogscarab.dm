@@ -79,9 +79,14 @@
 	hide.Grant(src)
 
 	if(!isclocker(src))
-		SSticker.mode.add_clocker(mind)
+		INVOKE_ASYNC(src, PROC_REF(async_add_clocker))
 
 	update_icons()
+
+/mob/living/silicon/robot/cogscarab/proc/async_add_clocker()
+	if(QDELETED(src) || !mind)
+		return
+	SSticker.mode.add_clocker(mind)
 
 /mob/living/silicon/robot/drone/Destroy()
 	for(var/datum/action/innate/hide/drone/cogscarab/hide in actions)

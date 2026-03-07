@@ -108,13 +108,13 @@
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
 		message_admins(span_adminnotice("Posessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
-		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
+		stack_trace("[src] spawned manually, no object to assign attributes to.")
 		qdel(src)
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
 		message_admins(span_adminnotice("Posessed object could not find turf, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
-		log_runtime(EXCEPTION("[src] attempted to find a turf to spawn on, and could not."), src)
+		stack_trace("[src] attempted to find a turf to spawn on, and could not.")
 		qdel(src)
 
 	possessed_item = loc

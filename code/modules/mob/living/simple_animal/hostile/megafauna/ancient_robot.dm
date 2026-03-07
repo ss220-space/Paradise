@@ -226,7 +226,7 @@ Difficulty: Very Hard
 	. = ..()
 	var/newcolor = rgb(241, 137, 172)
 	add_atom_colour(newcolor, TEMPORARY_COLOUR_PRIORITY)
-	beam_it_up()
+	END_OF_TICK(CALLBACK(src, PROC_REF(beam_it_up)))
 
 /obj/effect/vetus_laser/ex_act(severity, target)
 	return

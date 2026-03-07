@@ -140,6 +140,9 @@
 		else if(istype(player,/mob/dead) || (LAZYIN(player.languages, src) && check_special_condition(player, speaker)))
 			to_chat(player, msg)
 
+			if(player.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+				player.create_chat_message(speaker, "<i>[message]</i>", list("telepathy"), null)
+
 /datum/language/proc/check_special_condition(mob/other, mob/living/speaker)
 	return TRUE
 

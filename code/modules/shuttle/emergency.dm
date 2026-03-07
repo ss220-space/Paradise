@@ -352,7 +352,7 @@
 /obj/docking_port/mobile/pod/Initialize(mapload)
 	. = ..()
 	if(id == "pod")
-		log_runtime(EXCEPTION("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc."))
+		WARNING("[type] id has not been changed from the default. Use the id convention \"pod1\" \"pod2\" etc.")
 
 /obj/docking_port/mobile/pod/cancel()
 	return
