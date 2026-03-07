@@ -107,6 +107,12 @@
 		PREPOSITIONAL = "космическом челноке",
 	)
 
+/obj/spacepod/return_obj_air()
+	RETURN_TYPE(/datum/gas_mixture)
+	if(!use_internal_tank)
+		return null
+	return cabin_air
+
 /obj/spacepod/proc/apply_paint(mob/user)
 	var/part_type
 	if(!can_paint)
@@ -174,6 +180,12 @@
 	QDEL_NULL(cabin_air)
 	QDEL_NULL(internal_tank)
 	QDEL_NULL(ion_trail)
+	QDEL_NULL(eject_action)
+	QDEL_NULL(passanger_eject)
+	QDEL_NULL(internals_action)
+	QDEL_NULL(lights_action)
+	QDEL_NULL(fire_action)
+	QDEL_NULL(misc_action)
 	occupant_sanity_check()
 	if(pilot)
 		eject_pilot()

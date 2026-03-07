@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(capitalism)
 	var/income_vedromat = 0		//Income from vending machines
 	var/default_counter = 0		//The counter for the number of defaults, I definitely won't make a joke
 
-	var/list/complited_goals = list()	//It is necessary not to pay again for the goal, gagaga
+	var/list/completed_goals = list()	//It is necessary not to pay again for the goal, gagaga
 	var/default_status = FALSE			//TRUE if the default is in effect at the station, you can do it in the future, for example, as a cargo modifier
 
 /datum/controller/subsystem/capitalism/Initialize()
@@ -35,33 +35,35 @@ SUBSYSTEM_DEF(capitalism)
 	//If there is enough money to pay salaries at least twice before the default is lifted
 	if(default_status && (payment_account.money > (potential_salary_payments() + EXTRA_MONEY)))
 		default_status = FALSE
-		default_annonce()
+		default_announce()
 		payment_process() //Pay the beggars immediately after the announcement
 	else if(!payment_process() && !default_status)
 		default_status = TRUE
-		default_annonce()
+		default_announce()
 
 	var/total_station_goal_bounty = 0
-	var/s_ex_personal_bounry = list() //Extended staff rewards
+	var/list/s_ex_personal_bounty = list() //Extended staff rewards
 	//personal_reward
 	for(var/datum/station_goal/goal in SSticker.mode.station_goals)
 		if(!goal)
 			continue
-		if(goal.check_completion() && !(goal in complited_goals))
-			total_station_goal_bounty += goal.station_bounty
-			for(var/prom in goal.personal_reward)
-				if(s_ex_personal_bounry?[prom])
-					s_ex_personal_bounry[prom] += goal.personal_reward[prom]
-				else
-					s_ex_personal_bounry[prom] = goal.personal_reward[prom]
-			complited_goals += goal
+		if(!goal.check_completion() || (goal in completed_goals))
+			continue
+
+		completed_goals += goal
+		total_station_goal_bounty += goal.station_bounty
+		for(var/prom in goal.personal_reward)
+			if(s_ex_personal_bounty[prom])
+				s_ex_personal_bounty[prom] += goal.personal_reward[prom]
+			else
+				s_ex_personal_bounty[prom] = goal.personal_reward[prom]
 
 	if(total_station_goal_bounty)
 		base_account.credit(total_station_goal_bounty, "Начисление награды за выполнение цели.", "Отдел развития \"Нанотрейзен\"", base_account.owner_name)
-		smart_job_payment(s_ex_personal_bounry)
+		smart_job_payment(s_ex_personal_bounty)
 
 //status - TRUE/FALSE
-/datum/controller/subsystem/capitalism/proc/default_annonce()
+/datum/controller/subsystem/capitalism/proc/default_announce()
 	if(default_status)
 		// Both announcements are Minor because it happens all the time, because the system of capitalism is shit.
 		GLOB.minor_announcement.announce(
@@ -78,9 +80,10 @@ SUBSYSTEM_DEF(capitalism)
 
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
 	var/total_salary = 0
-	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
-			total_salary += account.linked_job.paycheck
+	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
+		if(!account.salary_payment_active || !account.linked_job.paycheck || account.suspended)
+			continue
+		total_salary += account.linked_job.paycheck
 	return total_salary
 
 /datum/controller/subsystem/capitalism/proc/accounts_init()
@@ -90,7 +93,7 @@ SUBSYSTEM_DEF(capitalism)
 	if(!GLOB.station_account)
 		create_station_account()
 
-	if(length(GLOB.department_accounts) == 0)
+	if(!length(GLOB.department_accounts))
 		for(var/department in GLOB.station_departments)
 			create_department_account(department)
 
@@ -103,66 +106,81 @@ SUBSYSTEM_DEF(capitalism)
 
 /datum/controller/subsystem/capitalism/proc/payment_process()
 	. = TRUE
-	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(account.salary_payment_active && account.linked_job.paycheck && !account.suspended)
-			if(payment_account.charge(account.linked_job.paycheck, account, "Выплата зарплаты персоналу.", "Отдел финансов \"Нанотрейзен\"" , "Поступление зарплаты.", "Поступление зарплаты" ,"Терминал Бизель №[rand(111,333)]"))
-				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.paycheck] кредитов\" (Невозможно Ответить)", FALSE)
-				total_salary_payment += account.linked_job.paycheck
-			else
-				return FALSE
+	var/list/to_be_paid_accounts = list()
+	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
+		if(!account.salary_payment_active || !account.linked_job.paycheck || account.suspended)
+			continue
+		to_be_paid_accounts[account] = TRUE
+
+	while(length(to_be_paid_accounts))
+		var/datum/money_account/account = to_be_paid_accounts[length(to_be_paid_accounts)]
+		to_be_paid_accounts.len--
+		if(!payment_account.charge(account.linked_job.paycheck, account, "Выплата зарплаты персоналу.", "Отдел финансов \"Нанотрейзен\"" , "Поступление зарплаты.", "Поступление зарплаты" ,"Терминал Бизель №[rand(111,333)]"))
+			return FALSE // If we somehow failed the payment (likely to not enough money), immediately return
+		account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.paycheck] кредитов\" (Невозможно Ответить)", FALSE)
+		total_salary_payment += account.linked_job.paycheck
 
 /datum/controller/subsystem/capitalism/proc/smart_bounty_payment(list/jobs_payment, money)
-	. = FALSE //If nothing is paid to anyone
-	var/list_payment_account = list() //which people should I pay
-	var/bounty = 0 //What kind of money for each person
-	total_personal_bounty += money
-	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(jobs_payment.Find(account.linked_job.title) && account.salary_payment_active && !account.suspended)
-			list_payment_account += account
-			. = TRUE
-
-	if(money == 0 || length(list_payment_account) == 0)
+	if(!length(jobs_payment) || !money)
 		return FALSE
-	bounty = round(money / length(list_payment_account))
-	for(var/datum/money_account/account in list_payment_account)
-		//It may be worth doing a type from the customer's company... But I'm too lazy
+
+	var/list/list_payment_accounts = list()
+	var/bounty
+	total_personal_bounty += money
+	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
+		if(!jobs_payment.Find(account.linked_job.title) || !account.salary_payment_active || account.suspended)
+			continue
+		list_payment_accounts[account] = TRUE
+
+	if(!length(list_payment_accounts))
+		return FALSE
+
+	. = TRUE
+	bounty = floor(money / length(list_payment_accounts))
+	while(length(list_payment_accounts))
+		var/datum/money_account/account = list_payment_accounts[length(list_payment_accounts)]
+		list_payment_accounts.len--
 		if(account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name))
 			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
-	return
 
 /datum/controller/subsystem/capitalism/proc/smart_job_payment(list/jobs_payment)
+	if(!length(jobs_payment))
+		return FALSE
+
 	. = FALSE //If nothing is paid to anyone
-	for(var/datum/money_account/account in GLOB.all_money_accounts)
-		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
-			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Терминал Бизель №[rand(111,333)]", account.owner_name))
-				total_personal_bounty += jobs_payment[account.linked_job.title]
-				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
-				. = TRUE
-	return
+	for(var/datum/money_account/account as anything in GLOB.all_money_accounts)
+		if(!jobs_payment[account.linked_job.title] || !account.salary_payment_active || account.suspended)
+			continue
+		if(!account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Терминал Бизель №[rand(111,333)]", account.owner_name))
+			continue
+		total_personal_bounty += jobs_payment[account.linked_job.title]
+		account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
+		. = TRUE
 
 // In short, as for beggars, but for departments
-/datum/controller/subsystem/capitalism/proc/smart_departament_payment(list/keys_departament, money)
-	. = FALSE							//If nothing is paid to anyone
-	var/list_payment_account = list()	//which people should I pay
-	var/bounty = 0						//What kind of money for each department
+/datum/controller/subsystem/capitalism/proc/smart_department_payment(list/keys_department, money)
+	if(!length(keys_department) || !money)
+		return FALSE
+
+	var/list/list_payment_accounts = list()
+	var/bounty
 	total_personal_bounty += money
-	var/datum/money_account/account = base_account
 
-	for(var/key_account_departament in  keys_departament)
-		account = GLOB.department_accounts?[key_account_departament]
-		if(!account)
-			list_payment_account += account
-			. = TRUE
+	for(var/key_account_department in keys_department)
+		if(GLOB.department_accounts[key_account_department])
+			list_payment_accounts[GLOB.department_accounts[key_account_department]] = TRUE
 
-	if(!length(list_payment_account))
-		base_account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
+	if(!length(list_payment_accounts))
+		bounty = money // We are paying only one account
+		base_account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", base_account.owner_name)
 		return TRUE
 
-	bounty = round(money / length(list_payment_account))
-	//If it did not find that, the payment of the station (well, or what is indicated in the base_account)
-	for(var/datum/money_account/account_pay in list_payment_account)
-		account_pay.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
-	return
+	bounty = floor(money / length(list_payment_accounts))
+	while(length(list_payment_accounts))
+		var/datum/money_account/account = list_payment_accounts[length(list_payment_accounts)]
+		list_payment_accounts.len--
+		account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
+	return TRUE
 
 #undef FREQUENCY_SALARY
 #undef EXTRA_MONEY

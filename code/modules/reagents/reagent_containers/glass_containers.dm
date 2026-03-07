@@ -118,8 +118,10 @@
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
-								("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"))
+			user.visible_message(
+				span_danger("[user] облива[PLUR_ET_YUT(user)] [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!"), \
+				span_danger("Вы обливаете [target.declent_ru(ACCUSATIVE)] содержимым [declent_ru(GENITIVE)]!")
+			)
 			make_splashes(target)
 
 /obj/item/reagent_containers/glass/attackby(obj/item/I, mob/user, params)
@@ -137,6 +139,7 @@
 	item_state = "beaker"
 	belt_icon = "beaker"
 	materials = list(MAT_GLASS=500)
+	custom_price = PAYCHECK_MIN / 5
 	var/obj/item/assembly_holder/assembly = null
 	var/can_assembly = TRUE
 
@@ -264,6 +267,7 @@
 	icon_state = "beakerlarge"
 	belt_icon = "large_beaker"
 	materials = list(MAT_GLASS=2500)
+	custom_price = PAYCHECK_MIN / 2
 	volume = 100
 	possible_transfer_amounts = list(5,10,15,25,30,50,100)
 
@@ -454,7 +458,7 @@
 		add_fingerprint(user)
 		balloon_alert(user, "прикреплено")
 		to_chat(user, span_notice("Вы прикрепили [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
-		var/obj/item/bucket_sensor/bucket_sensor = new(drop_location())
+		var/obj/item/bot_assembly/bucket_sensor/bucket_sensor = new(drop_location())
 		transfer_fingerprints_to(bucket_sensor)
 		I.transfer_fingerprints_to(bucket_sensor)
 		bucket_sensor.add_fingerprint(user)

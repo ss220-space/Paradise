@@ -393,7 +393,7 @@
 
 /datum/reagent/methamphetamine/on_mob_add(mob/living/user)
 	. = ..()
-	if(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG))
+	if(user.dna && (user.dna.species.reagent_tag & ORGANIC))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 
 /datum/reagent/methamphetamine/on_mob_life(mob/living/user)
@@ -411,7 +411,7 @@
 	user.SetSleeping(0)
 	if(prob(50))
 		update_flags |= user.adjustBrainLoss(1, FALSE)
-	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_ORG)))
+	if(!(user.dna && (user.dna.species.reagent_tag & ORGANIC)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 	return ..() | update_flags
 
@@ -866,7 +866,7 @@
 
 /datum/reagent/lube/ultra/on_mob_add(mob/living/user)
 	. = ..()
-	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
+	if(user.dna && (user.dna.species.reagent_tag & SYNTHETIC))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
 
 /datum/reagent/lube/ultra/on_mob_life(mob/living/user)
@@ -885,7 +885,7 @@
 	update_flags |= user.adjustBrainLoss(0.5, FALSE)
 	if(prob(5))
 		user.emote(pick("twitch", "shiver"))
-	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN)))
+	if(!(user.dna && (user.dna.species.reagent_tag & SYNTHETIC)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/ultra_lube)
 	return ..() | update_flags
 
@@ -1017,7 +1017,7 @@
 
 /datum/reagent/lube/combat/on_mob_add(mob/living/user)
 	. = ..()
-	if(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN))
+	if(user.dna && (user.dna.species.reagent_tag & SYNTHETIC))
 		user.add_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
 
 /datum/reagent/lube/combat/on_mob_life(mob/living/user)
@@ -1029,7 +1029,7 @@
 		high_message = "0100011101001111010101000101010001000001010001110100111101000110010000010101001101010100!"
 	if(prob(5))
 		to_chat(user, span_notice("[high_message]"))
-	if(!(user.dna && (user.dna.species.reagent_tag & PROCESS_SYN)))
+	if(!(user.dna && (user.dna.species.reagent_tag & SYNTHETIC)))
 		user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/combat_lube)
 	return ..()
 

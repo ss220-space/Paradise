@@ -52,7 +52,7 @@
 #define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
 
 // Simple animals
-// #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
+#define is_simple_animal(A) (istype(A, /mob/living/simple_animal))
 
 #define isshade(A) (istype(A, /mob/living/simple_animal/shade))
 
@@ -86,6 +86,8 @@
 #define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
 
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
+
+#define isammobox(A) (istype(A, /obj/item/ammo_box))
 
 #define ismachinery(A) (istype(A, /obj/machinery))
 

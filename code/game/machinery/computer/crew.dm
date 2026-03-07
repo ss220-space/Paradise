@@ -78,6 +78,12 @@
 
 	var/obj/machinery/computer/crew/attached_console
 
+/obj/item/circuit_component/medical_console_data/Destroy()
+	if(attached_console)
+		unregister_usb_parent(attached_console)
+	records = null
+	. = ..()
+
 /obj/item/circuit_component/medical_console_data/populate_ports()
 	records = add_output_port("Данные мониторинга экипажа", PORT_TYPE_TABLE)
 

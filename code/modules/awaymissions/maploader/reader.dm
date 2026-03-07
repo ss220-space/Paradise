@@ -46,7 +46,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 			map_data = wrap_file2text(dmm_file)
 
 		if(!LAZYLEN(map_data))
-			throw EXCEPTION("Map path '[fname]' does not exist!")
+			CRASH("Map path '[fname]' does not exist!")
 
 	if(!x_offset)
 		x_offset = 1
@@ -79,14 +79,14 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 					if(!key_len)
 						key_len = LAZYLEN(key)
 					else
-						throw EXCEPTION("Inconsistent key length in DMM")
+						CRASH("Inconsistent key length in DMM")
 				if(!measureOnly)
 					grid_models[key] = dmmRegex.group[2]
 
 			// (1,1,1) = {"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
 			else if(dmmRegex.group[3]) // Coords
 				if(!key_len)
-					throw EXCEPTION("Coords before model definition in DMM")
+					CRASH("Coords before model definition in DMM")
 
 				var/xcrdStart = text2num(dmmRegex.group[3]) + x_offset - 1
 				// position of the currently processed square
@@ -148,7 +148,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 								if(xcrd >= 1)
 									var/model_key = copytext(line, tpos, tpos + key_len)
 									if(!grid_models[model_key])
-										throw EXCEPTION("Undefined model key in DMM: [model_key]. Map file: [fname].")
+										CRASH("Undefined model key in DMM: [model_key]. Map file: [fname].")
 									parse_grid(grid_models[model_key], xcrd, ycrd, zcrd, LM, new_z)
 									// After this call, it is NOT safe to reference `dmmRegex` without another call to
 									// "Find" - we might've hit a map loader here and changed its state
@@ -272,7 +272,7 @@ GLOBAL_DATUM_INIT(_preloader, /datum/dmm_suite/preloader, new())
 		// We assume `members[index]` is an area path, as above, yes? I will operate
 		// on that assumption.
 		if(!ispath(members[index], /area))
-			throw EXCEPTION("Oh no, I thought this was an area!")
+			CRASH("Oh no, I thought this was an area!")
 
 		GLOB._preloader.setup(members_attributes[index]) // preloader for assigning  set variables on atom creation
 		// If this parsed map doesn't have that area already, we check the global cache

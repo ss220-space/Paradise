@@ -137,17 +137,20 @@
 
 	var/obj/item/card/id/guest/guest_pass = null // Guest pass attached to the ID
 
+
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT, PROC_REF(freeze_linked_account))
-	spawn(30)
-		if(ishuman(loc) && blood_type == "\[UNSET\]")
-			var/mob/living/carbon/human/H = loc
-			SetOwnerInfo(H)
+	addtimer(CALLBACK(src, PROC_REF(set_info)), 3 SECONDS)
 
 /obj/item/card/id/Destroy()
 	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
 	. = ..()
+
+/obj/item/card/id/proc/set_info()
+	if(ishuman(loc) && blood_type == "\[UNSET\]")
+		var/mob/living/carbon/human/human = loc
+		SetOwnerInfo(human)
 
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER

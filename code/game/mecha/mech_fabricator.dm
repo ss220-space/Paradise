@@ -240,6 +240,7 @@
 				PREPOSITIONAL = "защищённом кейсе ([real_item_ru_name])"
 			)
 			lockbox.origin_tech = real_item.origin_tech
+	playsound(loc, 'sound/machines/rnd_machines/exofab_print.ogg', HALFWAY_SOUND_VOLUME, TRUE, -1, use_reverb = TRUE)
 
 	// Clean up
 	being_built = null
@@ -328,7 +329,7 @@
 		return
 	if(!allowed(user) && !isobserver(user))
 		balloon_alert(user, "отказано в доступе!")
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return
 	ui_interact(user)
 

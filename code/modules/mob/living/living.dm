@@ -53,6 +53,7 @@
 			else
 				S.be_replaced()
 	GLOB.mob_living_list -= src
+	GLOB.respawnable_list -= src
 	return ..()
 
 // Used to determine the forces dependend on the mob size
@@ -1379,7 +1380,7 @@
 	animate(pixel_x = -pixel_x_diff, pixel_y = -pixel_y_diff, time = 0.2 SECONDS)
 
 /mob/living/proc/get_temperature(datum/gas_mixture/environment)
-	if(istype(loc, /obj/structure/closet/critter))
+	if(istype(loc, /obj/structure/closet/crate/critter))
 		return environment.temperature()
 	if(ismecha(loc))
 		var/obj/mecha/mecha = loc
@@ -1668,7 +1669,7 @@
 	return
 
 /mob/living/extinguish_light(force = FALSE)
-	for(var/obj/item/item as anything in get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/item as anything in get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		item.extinguish_light(force)
 
 /mob/living/vv_edit_var(var_name, var_value)

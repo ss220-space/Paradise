@@ -51,6 +51,26 @@
 	/// The synthesizer this circut is attached to.
 	var/obj/item/instrument/piano_synth/synth
 
+/obj/item/circuit_component/synth/Destroy()
+	if(synth)
+		unregister_usb_parent(synth)
+	song = null
+	play = null
+	stop = null
+	repetitions = null
+	beats_per_min = null
+	volume = null
+	volume_dropoff = null
+	note_shift = null
+	sustain_mode = null
+	sustain_value = null
+	note_decay = null
+	selected_instrument = null
+	is_playing = null
+	started_playing = null
+	stopped_playing = null
+	. = ..()
+
 /obj/item/circuit_component/synth/populate_ports()
 	song = add_input_port("Песня", PORT_TYPE_LIST(PORT_TYPE_STRING), trigger = PROC_REF(import_song))
 	play = add_input_port("Играть", PORT_TYPE_SIGNAL, trigger = PROC_REF(start_playing))

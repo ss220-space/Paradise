@@ -161,6 +161,8 @@
 	var/list/module_actions = list()
 
 	var/ratvarized = FALSE
+	///Just stop the mech from doing anything
+	var/completely_disabled = FALSE
 
 /obj/mecha/Initialize(mapload)
 	. = ..()
@@ -193,6 +195,48 @@
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 
 	AddElement(/datum/element/falling_hazard, damage = 100, hardhat_safety = FALSE, crushes = TRUE)
+
+/obj/mecha/Destroy()
+
+	for(var/atom/movable/cargo_thing as anything in cargo)
+		cargo -= cargo_thing
+		cargo_thing.forceMove(drop_location())
+		step_rand(cargo_thing)
+
+	if(occupant)
+		occupant.SetSleeping(destruction_sleep_duration)
+	go_out()
+	var/mob/living/silicon/ai/AI
+	for(var/mob/M in src) //Let's just be ultra sure
+		if(isAI(M))
+			occupant = null
+			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
+		else
+			M.forceMove(loc)
+	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
+		E.detach(loc)
+		qdel(E)
+	equipment.Cut()
+	QDEL_NULL(cell)
+	QDEL_NULL(internal_tank)
+	if(AI)
+		AI.gib() //No wreck, no AI to recover
+	STOP_PROCESSING(SSobj, src)
+	GLOB.poi_list.Remove(src)
+	var/turf/location = get_turf(src)
+	if(location)
+		location.blind_release_air(cabin_air)
+	else
+		qdel(cabin_air)
+	cabin_air = null
+	QDEL_NULL(spark_system)
+	QDEL_NULL(smoke_system)
+	QDEL_LIST(trackers)
+	QDEL_NULL(ui_view)
+	QDEL_NULL(radio)
+	lose_hearing_sensitivity(trait_source = ROUNDSTART_TRAIT)
+	GLOB.mechas_list -= src //global mech list
+	return ..()
 
 ////////////////////////
 ////// Helpers /////////
@@ -252,6 +296,8 @@
 
 /obj/mecha/proc/click_action(atom/target, mob/user, params)
 	if(!occupant || occupant != user)
+		return
+	if(completely_disabled)
 		return
 	if(user.incapacitated())
 		return
@@ -410,6 +456,8 @@
 
 /obj/mecha/relaymove(mob/user, direction)
 	if(!direction || frozen)
+		return FALSE
+	if(completely_disabled)
 		return FALSE
 	if(user != occupant) //While not "realistic", this piece is player friendly.
 		user.forceMove(get_turf(src))
@@ -808,46 +856,6 @@
 		setDir(dir_in)
 	if(A in trackers)
 		trackers -= A
-
-/obj/mecha/Destroy()
-
-	for(var/atom/movable/cargo_thing as anything in cargo)
-		cargo -= cargo_thing
-		cargo_thing.forceMove(drop_location())
-		step_rand(cargo_thing)
-
-	if(occupant)
-		occupant.SetSleeping(destruction_sleep_duration)
-	go_out()
-	var/mob/living/silicon/ai/AI
-	for(var/mob/M in src) //Let's just be ultra sure
-		if(isAI(M))
-			occupant = null
-			AI = M //AIs are loaded into the mech computer itself. When the mech dies, so does the AI. They can be recovered with an AI card from the wreck.
-		else
-			M.forceMove(loc)
-	for(var/obj/item/mecha_parts/mecha_equipment/E in equipment)
-		E.detach(loc)
-		qdel(E)
-	equipment.Cut()
-	QDEL_NULL(cell)
-	QDEL_NULL(internal_tank)
-	if(AI)
-		AI.gib() //No wreck, no AI to recover
-	STOP_PROCESSING(SSobj, src)
-	GLOB.poi_list.Remove(src)
-	var/turf/location = get_turf(src)
-	if(location)
-		location.blind_release_air(cabin_air)
-	else
-		qdel(cabin_air)
-	cabin_air = null
-	QDEL_NULL(spark_system)
-	QDEL_NULL(smoke_system)
-	QDEL_LIST(trackers)
-	QDEL_NULL(ui_view)
-	GLOB.mechas_list -= src //global mech list
-	return ..()
 
 //TODO
 /obj/mecha/emp_act(severity)
@@ -1846,11 +1854,11 @@
 /obj/mecha/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 
-	if(!phasing || is_teleport_allowed(new_turf.z))
+	if(!new_turf || !phasing || is_teleport_allowed(new_turf.z))
 		return
 
 	phasing = FALSE
-	occupant_message("<font color='#f00'>Phasing is malfunctioning.</font>")
+	occupant_message(span_warning("Phasing is malfunctioning."))
 
 	if(!phasing_action.owner)
 		return

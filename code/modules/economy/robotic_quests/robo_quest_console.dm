@@ -425,7 +425,7 @@
 	do_sparks(5, TRUE, get_turf(src))
 	var/obj/mecha/M = (locate(/obj/mecha) in get_turf(src))
 	if(istype(M))
-		var/obj/structure/closet/critter/mecha/box = new(get_turf(src), quest, console, penalty)
+		var/obj/structure/closet/crate/critter/mecha/box = new(get_turf(src), quest, console, penalty)
 		M.forceMove(box)
 		if(destination)
 			do_teleport(box, destination)
@@ -470,8 +470,9 @@
 // mecha box //
 ///////////////
 
-/obj/structure/closet/critter/mecha
+/obj/structure/closet/crate/critter/mecha
 	name = "mecha box"
+	icon = 'icons/obj/closet.dmi'
 	icon_state = "mecha_box"
 	desc = "Special crate for transporting mechas. Compressed by bluespace. Will be discarded by openning."
 	req_access = list(ACCESS_ROBOTICS)
@@ -482,23 +483,23 @@
 	/// Penalty, given by console check
 	var/penalty = 0
 
-/obj/structure/closet/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
+/obj/structure/closet/crate/critter/mecha/New(loc, datum/roboquest/quest, obj/machinery/computer/roboquest/console, penalty)
 	. = ..()
 	src.quest = quest
 	src.console = console
 	src.penalty = penalty
 
-/obj/structure/closet/critter/mecha/toggle(mob/user)
+/obj/structure/closet/crate/critter/mecha/toggle(mob/user)
 	if(!allowed(user))
 		to_chat(user, span_notice("You don`t have required access."))
-		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+		playsound(src, SFX_BUTTON_DENIED, 20)
 		return FALSE
 	var/response = alert(user, "This crate has been packed with bluespace compression, opening will destroy container. Are you sure you want to open it?","Bluespace Compression Warning", "Yes", "No")
 	if(response == "No" || !Adjacent(user))
 		return FALSE
 	. = ..()
 
-/obj/structure/closet/critter/mecha/after_open(mob/living/user, force)
+/obj/structure/closet/crate/critter/mecha/after_open(mob/living/user, force)
 	qdel(src)
 
 #undef NO_SUCCESS
