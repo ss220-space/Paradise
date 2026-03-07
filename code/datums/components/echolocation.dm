@@ -116,9 +116,11 @@
 	UnregisterSignal(echolocator, COMSIG_MOB_HUD_CREATED)
 	echolocator.update_sight()
 
-	for(var/time, image_list in active_images)
-		for(var/atom_ref, echo_image in image_list)
-			echolocator.client?.images -= echo_image
+	var/client/client = echolocator.client
+	if(client)
+		for(var/time, image_list in active_images)
+			for(var/atom_ref, echo_image in image_list)
+				client.images -= echo_image
 
 	return ..()
 
@@ -150,12 +152,16 @@
 
 /datum/component/echolocation/proc/echolocate()
 	var/mob/living/echolocator = parent
+	var/client/client = echolocator.client
+	var/atom/eye = client?.eye || echolocator
 	var/list/filtered = list()
+	var/list/combined_filter_cached = combined_filter
+	var/list/highlighted_paths_cached = highlighted_paths
 
-	for(var/atom/seen_atom as anything in dview(echo_range, get_turf(echolocator.client?.eye || echolocator), invis_flags = echolocator.see_invisible))
+	for(var/atom/seen_atom as anything in dview(echo_range, get_turf(eye), invis_flags = echolocator.see_invisible))
 		if(!seen_atom.alpha)
 			continue
-		if(!is_type_in_typecache(seen_atom, combined_filter) && !is_type_in_typecache(seen_atom, highlighted_paths))
+		if(!is_type_in_typecache(seen_atom, combined_filter_cached) && !is_type_in_typecache(seen_atom, highlighted_paths_cached))
 			continue
 		filtered += seen_atom
 
@@ -163,60 +169,70 @@
 		return
 
 	var/list/known_refs = list()
-	for(var/time, image_list in active_images)
+	var/list/active_images_cached = active_images
+	for(var/time, image_list in active_images_cached)
 		for(var/atom_ref, echo_image in image_list)
 			known_refs[atom_ref] = time
 
 	var/current_time = "[world.time]"
-	active_images[current_time] = list()
+	var/list/current_images = active_images_cached[current_time]
+	if(!current_images)
+		current_images = list()
+		active_images_cached[current_time] = current_images
+
+	var/list/saved_appearances_cached = saved_appearances
+	var/list/overlay_states_cached = overlay_states
+	var/list/background_paths_cached = background_paths
+	var/fade_in_time_cached = fade_in_time
 
 	for(var/atom/filtered_atom as anything in filtered)
 		// if we are already showing an image for this atom, just update its time so it sticks around longer
 		var/atom_ref = filtered_atom.UID()
 		if(known_refs[atom_ref])
 			var/old_time = known_refs[atom_ref]
-			var/image/old_image = active_images[old_time][atom_ref]
-			active_images[old_time] -= atom_ref
-			active_images[current_time][atom_ref] = old_image
-			if(!length(active_images[old_time]))
-				active_images -= old_time
 			// if they are mid fade, cancel it
+			var/image/old_image = active_images_cached[old_time][atom_ref]
+			active_images_cached[old_time] -= atom_ref
+			current_images[atom_ref] = old_image
+			if(!length(active_images_cached[old_time]))
+				active_images_cached -= old_time
 			animate(old_image, time = 0, alpha = 255)
 			continue
-
 
 		var/image/final_image
 
 		// check for special overlays first
-		for(var/overlay_state, overlay_typecache in overlay_states)
+		for(var/overlay_state, overlay_typecache in overlay_states_cached)
 			if(!is_type_in_typecache(filtered_atom, overlay_typecache))
 				continue
 
-			var/image/special_overlay = saved_appearances[overlay_state]
+			var/image/special_overlay = saved_appearances_cached[overlay_state]
 			if(!special_overlay)
 				special_overlay = image('icons/effects/echolocate.dmi', null, overlay_state)
 				special_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-				saved_appearances[overlay_state] = special_overlay
+				saved_appearances_cached[overlay_state] = special_overlay
 
 			final_image = image(special_overlay)
 			break
 
 		// or generate a new image for this atom
 		if(isnull(final_image))
-			var/image/found_appearance = saved_appearances["[filtered_atom.icon]-[filtered_atom.icon_state]"]
+			var/cache_key = "[filtered_atom.icon]-[filtered_atom.icon_state]"
+			var/image/found_appearance = saved_appearances_cached[cache_key]
 			if(isnull(found_appearance))
 				found_appearance = new(filtered_atom)
 				if(filtered_atom.icon && filtered_atom.icon_state)
-					saved_appearances["[filtered_atom.icon]-[filtered_atom.icon_state]"] = found_appearance
+					saved_appearances_cached[cache_key] = found_appearance
 				found_appearance.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 			final_image = image(found_appearance)
 			final_image.dir = filtered_atom.dir
 
+		// plane handling
 		if(isturf(filtered_atom))
 			// We don't want to mess with you, you can stay on floor or wall plane or whatever
 			SET_PLANE(final_image, filtered_atom.plane, filtered_atom)
-		else if(is_type_in_typecache(filtered_atom, background_paths) || PLANE_TO_TRUE(final_image.plane) == FLOOR_PLANE)
+		else if(is_type_in_typecache(filtered_atom, background_paths_cached) || PLANE_TO_TRUE(final_image.plane) == FLOOR_PLANE)
 			// I am being evil here and using wall plane due to being in-between of game plane and floor plane
 			// Why? Because we need background/floor objects to have their own layering, otherwise the effect is blended in wrong
 			// These objects will scarcely interact with real walls so it's... fine
@@ -232,15 +248,16 @@
 		final_image.pixel_y = 0
 		final_image.pixel_z = 0
 		final_image.loc = filtered_atom
+
 		// fade in
-		if(fade_in_time > 0)
+		if(fade_in_time_cached > 0)
 			final_image.alpha = 0
-			animate(final_image, alpha = 255, time = fade_in_time)
+			animate(final_image, alpha = 255, time = fade_in_time_cached)
 
-		active_images[current_time] ||= list()
-		active_images[current_time][atom_ref] = final_image
+		current_images[atom_ref] = final_image
 
-		echolocator.client?.images += final_image
+		if(client)
+			client.images += final_image
 
 	addtimer(CALLBACK(src, PROC_REF(fade_images), current_time), image_expiry_time)
 
@@ -256,8 +273,16 @@
 
 /datum/component/echolocation/proc/cleanup_images(from_time)
 	var/mob/living/echolocator = parent
-	for(var/atom_ref, echo_image in active_images[from_time])
-		echolocator.client?.images -= echo_image
+	var/client/client = echolocator.client
+	if(!client)
+		active_images -= from_time
+		return
+
+	var/list/images_to_remove = active_images[from_time]
+	if(images_to_remove)
+		for(var/atom_ref, echo_image in images_to_remove)
+			client.images -= echo_image
+
 	active_images -= from_time
 
 /atom/movable/screen/fullscreen/echo
@@ -302,9 +327,11 @@
 
 /datum/action/echolocation_focus/proc/update_echocomp()
 	var/datum/component/echolocation/echo_comp = target
-	echo_comp.highlighted_paths.Cut()
+	var/list/highlighted = echo_comp.highlighted_paths
+	var/list/options_cached = options
+	highlighted.Cut()
 	for(var/option_name in selected_options)
-		echo_comp.highlighted_paths |= options[option_name]
+		highlighted |= options_cached[option_name]
 
 /datum/action/echolocation_focus/Trigger(mob/clicker, trigger_flags)
 	. = ..()
