@@ -412,11 +412,12 @@
 
 		var/list/console_data = list()
 		for(var/obj/machinery/computer/rdconsole/console as anything in consoles)
-			if(!console || QDELETED(console)) continue
-			var/turf/T = get_turf(console)
+			if(!console || QDELETED(console))
+				continue
+			var/turf/console_turf = get_turf(console)
 			console_data += list(list(
 				"id" = console.id,
-				"loc" = (T && T.loc) ? T.loc.name : "Неизвестно",
+				"loc" = (console_turf && console_turf.loc) ? console_turf.loc.name : "Неизвестно",
 				"upload" = (console.id in temp_server.id_with_upload) ? 1 : 0,
 				"download" = (console.id in temp_server.id_with_download) ? 1 : 0
 			))
