@@ -135,6 +135,7 @@
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/stack/ore)
 	var/aoe = FALSE
+	var/mob/listening_to = null
 
 /obj/item/storage/bag/ore/get_ru_names()
 	return list(
@@ -221,6 +222,54 @@
 /obj/item/storage/bag/gem/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
+/obj/item/storage/bag/ore/equipped(mob/user, slot)
+	. = ..()
+	if(listening_to)
+		return
+
+	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_user_moved))
+	listening_to = user
+
+/obj/item/storage/bag/ore/dropped(mob/user)
+	. = ..()
+	if(listening_to)
+		UnregisterSignal(listening_to, COMSIG_MOVABLE_MOVED)
+		listening_to = null
+
+/obj/item/storage/bag/ore/proc/on_user_moved(mob/living/user, atom/old_loc, dir, forced)
+	SIGNAL_HANDLER
+	handle_move(user)
+
+/obj/item/storage/bag/ore/proc/handle_move(mob/living/user)
+	if(user.stat != CONSCIOUS)
+		return
+
+	var/turf/tile = get_turf(user)
+	if(!tile)
+		return
+
+	var/obj/structure/ore_box/box = (istype(user.pulling, /obj/structure/ore_box)) ? user.pulling : null
+	var/list/target_turfs = aoe ? range(1, tile) : list(tile)
+
+	for(var/turf/T in target_turfs)
+		if(!istype(T, /turf/simulated/floor/plating/asteroid))
+			continue
+
+		for(var/obj/item/stack/ore/O in T)
+			O.do_pickup_animation(user)
+			if(pickup_ore(O, user, box))
+				continue
+
+/obj/item/storage/bag/ore/proc/pickup_ore(obj/item/stack/ore/ore, mob/user, obj/structure/ore_box/box)
+	if(box)
+		ore.forceMove(box)
+		return TRUE
+
+	if(can_be_inserted(ore, stop_messages = TRUE))
+		handle_item_insertion(ore, prevent_warning = TRUE)
+		return TRUE
+	return FALSE
 
 ////////////////////////////////////////
 // MARK:	Bombs bag

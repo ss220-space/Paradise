@@ -61,44 +61,6 @@
 	balloon_alert(usr, "переплавлено!")
 	qdel(src)
 
-/obj/item/stack/ore/on_movable_entered_occupied_turf(atom/movable/arrived)
-	. = ..()
-	if(QDELETED(src) || !ismob(arrived))
-		return
-
-	var/mob/living/living = arrived
-	if(!istype(get_turf(src), /turf/simulated/floor/plating/asteroid) || (!ishuman(living) && !isrobot(living)))
-		return
-
-	var/list/ore_bags = list()
-	for(var/obj/item/storage/bag/ore/ore_bag in living.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
-		ore_bags += ore_bag
-
-	if(!length(ore_bags))
-		return
-
-	var/list/search_turfs = list(get_turf(src))
-	for(var/obj/item/storage/bag/ore/ore_bag in ore_bags)
-		if(ore_bag.aoe)
-			search_turfs = range(1, living)
-			break
-
-	for(var/turf/turf in search_turfs)
-		for(var/obj/item/stack/ore/ore in turf)
-			if(QDELETED(ore))
-				continue
-
-			for(var/obj/item/storage/bag/ore/ore_bag in ore_bags)
-				if(ore_bag.can_be_inserted(ore, stop_messages = TRUE))
-					ore.do_pickup_animation(living)
-					ore_bag.handle_item_insertion(ore, prevent_warning = TRUE)
-					break
-
-	if(istype(living.pulling, /obj/structure/ore_box))
-		var/obj/structure/ore_box/box = living.pulling
-		for(var/obj/item/storage/bag/ore/ore_bag in ore_bags)
-			box.attackby(ore_bag, living)
-
 /obj/item/stack/ore/fire_act(exposed_temperature, exposed_volume)
 	. = ..()
 	if(isnull(refined_type))
