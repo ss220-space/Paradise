@@ -2,7 +2,7 @@
 	name = "clockwork bolt"
 	desc = "Древний механизм из часового металла, пульсирующий тусклым оранжевым светом. При установке на оружие позволяет использовать его только слугам Ратвара."
 	icon = 'icons/obj/clockwork.dmi'
-	icon_state = "clock_pointer"
+	icon_state = "clockwork_bolt"
 	w_class = WEIGHT_CLASS_TINY
 
 	var/obj/item/gun/weapon = null
