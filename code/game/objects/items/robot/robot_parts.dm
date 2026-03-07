@@ -412,7 +412,7 @@
 		. = ATTACK_CHAIN_BLOCKED_ALL
 
 		process_job_task(user)
-		new_borg.invisibility = 0
+		new_borg.invisibility = INVISIBILITY_NONE
 		new_mmi.forceMove(new_borg) //Should fix cybros run time erroring when blown up. It got deleted before, along with the frame.
 		//Transfer debug settings to new mob
 		apply_debug_stats(new_borg)

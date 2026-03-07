@@ -2295,9 +2295,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!shell)
 		return
 	undeploy()
+	var/list/installed_upgardes = upgrades
 	for(var/obj/item/borg/upgrade/ai/boris in src)
-		if(boris in upgrades)
-			upgrades -= boris
+		if(boris in installed_upgardes)
+			installed_upgardes -= boris
 		qdel(boris)
 	shell = FALSE
 	GLOB.available_ai_shells -= src

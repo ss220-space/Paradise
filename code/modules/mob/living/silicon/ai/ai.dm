@@ -350,6 +350,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 	for(var/mob/living/silicon/robot/robot as anything in robot_list)
 		var/robot_status
+		var/obj/item/stock_parts/cell/cell = robot.cell
 		if(robot.stat || !robot.client)
 			robot_status = "OFFLINE"
 		else if(!robot.cell || robot.cell.charge <= 0)
@@ -358,19 +359,20 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 			robot_status = "Nominal"
 		var/area/robots_area = get_area(robot)
 		var/area_name = robots_area ? sanitize(robots_area.name) : UNKNOWN_STATUS_RUS
-		status_tab_data[++status_tab_data.len] = list("[robot.name]:", "S.Integrity: [robot.health]% | Cell: [robot.cell ? "[robot.cell.charge] / [robot.cell.maxcharge]" : "Empty"] | \
+		status_tab_data[++status_tab_data.len] = list("[robot.name]:", "S.Integrity: [robot.health]% | Cell: [cell ? "[cell.charge] / [cell.maxcharge]" : "Empty"] | \
 		Module: [robot.designation] | Loc: [area_name] | Status: [robot_status]")
 
 	status_tab_data[++status_tab_data.len] = list("Detected AI shell beacons:", "[length(aishell_list)]")
 	for(var/mob/living/silicon/robot/robot as anything in aishell_list)
 		var/shell_status
+		var/obj/item/stock_parts/cell/cell = robot.cell
 		if(!can_connect_to(robot))
 			shell_status = "UNABLE TO CONNECT"
 		else
 			shell_status = "Ready to connect"
 		var/area/robots_area = get_area(robot)
 		var/area_name = robots_area ? sanitize(robots_area.name) : UNKNOWN_STATUS_RUS
-		status_tab_data[++status_tab_data.len] = list("Shell-[num2text(robot.ident)]:", "S.Integrity: [robot.health]% | Cell: [robot.cell ? "[robot.cell.charge] / [robot.cell.maxcharge]" : "Empty"] | \
+		status_tab_data[++status_tab_data.len] = list("Shell-[num2text(robot.ident)]:", "S.Integrity: [robot.health]% | Cell: [cell ? "[cell.charge] / [cell.maxcharge]" : "Empty"] | \
 		Module: [robot.designation] | Loc: [area_name] | Status: [shell_status] [(robot.connected_ai == src? null : "| Occupier: [robot.mainframe? "[robot.mainframe.name]" : "NONE"]")]")
 	return status_tab_data
 
