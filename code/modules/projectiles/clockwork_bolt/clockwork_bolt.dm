@@ -8,10 +8,6 @@
 	var/obj/item/gun/weapon = null
 	var/state = CLOCKWORK_BOLT_STATE_UNINSTALLED
 
-/obj/item/clockwork_bolt/Initialize(mapload)
-	. = ..()
-	enchants = GLOB.gun_and_heart_spells
-
 /obj/item/clockwork_bolt/get_ru_names()
 	return list(
 		NOMINATIVE = "часовой затвор",
@@ -22,14 +18,16 @@
 		PREPOSITIONAL = "часовом затворе"
 	)
 
-/obj/item/clockwork_bolt/examine(mob/user)
+/obj/item/clockwork_bolt/deplete_spell()
 	. = ..()
-	if(state == CLOCKWORK_BOLT_STATE_INSTALLED && weapon)
-		. += span_clock("Затвор синхронизирован с оружием. Слышен тихий тикающий звук.")
-		. += span_clock("Только избранные Ратваром могут использовать это оружие.")
+	if(weapon)
+		weapon.clockwork_enchant = NO_SPELL
 
 /obj/item/clockwork_bolt/proc/install(obj/item/gun/W, mob/user = null)
 	if(!W)
+		return FALSE
+
+	if(istype(W, /obj/item/gun/energy/clockwork))
 		return FALSE
 
 	if(istype(W, /obj/item/gun/energy))
@@ -55,8 +53,6 @@
 		var/obj/item/gun/energy/E = W
 		E.isclockwork = TRUE
 
-	W.update_icon()
-
 	if(user)
 		to_chat(user, span_clock("Вы установили [DECLENT_RU_CAP(src, ACCUSATIVE)] на [DECLENT_RU_CAP(W, ACCUSATIVE)]. Теперь только слуги Ратвара могут использовать это оружие."))
 
@@ -70,6 +66,7 @@
 
 	state = 0
 	W.clockwork_bolt = null
+	enchant_type = NO_SPELL
 
 	if(istype(W, /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = W

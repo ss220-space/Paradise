@@ -35,6 +35,11 @@
 		BB.def_zone = user.zone_selected
 	BB.suppressed = quiet
 
+	if(istype(firer_source_atom, /obj/item/gun))
+		var/obj/item/gun/G = firer_source_atom
+		if(G.clockwork_enchant != NO_SPELL)
+			BB.clockwork_enchant = G.clockwork_enchant
+
 	if(reagents && BB.reagents)
 		reagents.trans_to(BB, reagents.total_volume) //For chemical darts/bullets
 		qdel(reagents)

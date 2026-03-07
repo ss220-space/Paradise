@@ -38,7 +38,7 @@
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
 	if(clockwork_bolt)
-		. += span_clock("На [DECLENT_RU_CAP(src, ACCUSATIVE)] установлен часовой затвор. Слышен тихий тикающий звук.")
+		. += span_clock("Установлен часовой затвор. Слышен тихий тикающий звук.")
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/sibyl_system_mod))
@@ -68,7 +68,7 @@
 		add_fingerprint(user)
 		var/obj/item/clockwork_bolt/bolt = I
 		if(clockwork_bolt)
-			to_chat(user, span_clock("На [DECLENT_RU_CAP(src, ACCUSATIVE)] уже установлен часовой затвор."))
+			to_chat(user, span_clock("На [DECLENT_RU_CAP(src, PREPOSITIONAL)] уже установлен часовой затвор."))
 			return ATTACK_CHAIN_PROCEED
 
 		bolt.install(src, user)

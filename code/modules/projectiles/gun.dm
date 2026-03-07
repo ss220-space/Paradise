@@ -117,6 +117,7 @@
 	var/shots_counter = 0
 	/// Clockwork bolt attachment
 	var/obj/item/clockwork_bolt/clockwork_bolt = null
+	var/clockwork_enchant = NO_SPELL
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()

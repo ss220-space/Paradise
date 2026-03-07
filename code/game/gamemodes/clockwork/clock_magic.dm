@@ -37,6 +37,7 @@
 	if(istype(item, /obj/item/gripper)) // cogs gripper
 		var/obj/item/gripper/G = item
 		item = G.gripped_item
+
 	// If we having something in hand. Check if it can be enchanted. Else skip.
 	if(!item) // Maybe we want to enchant our armor
 		var/list/items = list()
@@ -53,7 +54,13 @@
 
 				I = gripper.gripped_item
 
-			if(!I.enchants)
+			var/obj/item/clockwork_bolt/I_bolt = null
+			if(istype(I, /obj/item/gun))
+				var/obj/item/gun/G = I
+				if(G.clockwork_bolt)
+					I_bolt = G.clockwork_bolt
+
+			if(!I.enchants && !I_bolt)
 				continue
 
 			if(I.name in items) // in case there are doubles clockslabs
@@ -61,7 +68,7 @@
 				possible_items["[I.name] ([duplicates[I.name]])"] = I
 				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
 
-				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
+				if(I.enchant_type && I.enchant_type > NO_SPELL)
 					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
 
 				possible_icons += list("[I.name] ([duplicates[I.name]])" = item_image)
@@ -72,7 +79,7 @@
 				possible_items[I.name] = I
 				var/image/item_image = image(icon = I.icon, icon_state = I.icon_state)
 
-				if(I.enchant_type > NO_SPELL) //cause casting spell is -1
+				if(I.enchant_type && I.enchant_type > NO_SPELL)
 					item_image.add_overlay("[initial(I.icon_state)]_overlay_[I.enchant_type]")
 
 				possible_icons += list(I.name = item_image)
@@ -109,6 +116,58 @@
 					return
 		if(QDELETED(src) || owner.incapacitated())
 			return
+
+	if(istype(item, /obj/item/gun))
+		var/obj/item/gun/weapon = item
+		if(!weapon.clockwork_bolt)
+			return
+
+		if(weapon.clockwork_enchant == CASTING_SPELL)
+			to_chat(owner, span_warning("Вы не можете зачаровать это оружие прямо сейчас, пока заклинание действует!"))
+			return
+		if(weapon.clockwork_enchant)
+			to_chat(owner, span_clockitalic("В [DECLENT_RU_CAP(item, PREPOSITIONAL)] уже подготовлено заклинание! Если вы выберете другое заклинание, оно перезапишет старое!"))
+
+		var/entered_spell_name
+		var/list/possible_enchants = list()
+		var/list/possible_enchant_icons = list()
+		for(var/datum/spell_enchant/S in GLOB.gun_and_heart_spells)
+			if(S.enchantment == weapon.clockwork_enchant)
+				continue
+			possible_enchants[S.name] = S
+			var/overlay_num = get_overlay_weapon_number(S.enchantment)
+			var/image/I = image('icons/obj/clockwork.dmi', icon_state = "clock_slab")
+			I.add_overlay("clock_slab_overlay_[overlay_num]")
+			possible_enchant_icons += list(S.name = I)
+		entered_spell_name = show_radial_menu(owner, owner, possible_enchant_icons, require_near = TRUE)
+		var/datum/spell_enchant/spell_enchant = possible_enchants[entered_spell_name]
+		if(QDELETED(src) || owner.incapacitated() || !spell_enchant)
+			return
+		if(!(item in owner.contents))
+			var/obj/item/gripper/G = locate() in owner
+			if(item != G?.gripped_item)
+				return
+			return
+
+		if(!channeling)
+			channeling = TRUE
+			to_chat(owner, span_clockitalic("Вы начинаете концентрироваться на своей силе, чтобы запечатать магию в [DECLENT_RU_CAP(item, ACCUSATIVE)]."))
+		else
+			to_chat(owner, span_warning("Вы уже используете часовую магию!"))
+			return
+
+		var/clock_structure_in_range = locate(/obj/structure/clockwork/functional) in range(1, usr)
+		var/time_cast = spell_enchant.time SECONDS
+		if(clock_structure_in_range)
+			time_cast /= 2
+
+		if(do_after(owner, time_cast, owner, DA_IGNORE_TARGET_LOC_CHANGE))
+			weapon.clockwork_enchant = spell_enchant.enchantment
+			to_chat(owner, span_clock("Вы запечатали заклинание [spell_enchant.name] в [DECLENT_RU_CAP(item, PREPOSITIONAL)]."))
+
+		channeling = FALSE
+		return
+
 	if(length(item?.enchants)) // it just works
 		if(item.enchant_type == CASTING_SPELL)
 			to_chat(owner, span_warning(" You can't enchant [item] right now while spell is working!"))
@@ -398,6 +457,16 @@
 	user.whisper("Rqu-en qy'qby!")
 	source.used = TRUE
 	qdel(src)
+
+/datum/action/innate/clockwork/clock_magic/proc/get_overlay_weapon_number(enchantment)
+	switch(enchantment)
+		if(STUN_G_SPELL)
+			return 1
+		if(EMP_G_SPELL)
+			return 2
+		if(HEAL_G_SPELL)
+			return 5
+	return 1
 
 #undef SPELL_HAND
 #undef SPELL_HEART

@@ -78,6 +78,10 @@
 	/// Determines the reflectability level of a projectile, either REFLECTABILITY_NEVER, REFLECTABILITY_PHYSICAL, REFLECTABILITY_ENERGY in order of ease to reflect.
 	var/reflectability = REFLECTABILITY_PHYSICAL
 	/// Full log text. gets filled in fire() type, damage, reagents e.t.c.
+
+	// Clockwork enchantment
+	var/clockwork_enchant = NO_SPELL
+
 	var/fire_log_text
 	/// Whether print to admin attack logs or just keep it in the diary. example: laser tag or practice lasers
 	var/log_override = FALSE
@@ -210,6 +214,32 @@
 	qdel(src)
 
 /obj/projectile/proc/prehit(atom/target)
+	if(clockwork_enchant != NO_SPELL)
+		switch(clockwork_enchant)
+			if(HEAL_G_SPELL)
+				if(isclocker(target))
+					damage = 0
+					if(isliving(target))
+						var/mob/living/to_heal = target
+						to_heal.heal_overall_damage(25, 25, TRUE)
+						to_chat(to_heal, span_clock("Ратвар исцеляет вас!"))
+				return TRUE
+			if(STUN_G_SPELL)
+				if(!isclocker(target))
+					weaken = 10 SECONDS
+				else if(issilicon(target))
+					target.emp_act(EMP_HEAVY)
+					new /obj/effect/temp_visual/emp/clock(get_turf(target))
+				return TRUE
+			if(EMP_G_SPELL)
+				if(!isclocker(target))
+					if(iscarbon(target))
+						target.emp_act(EMP_LIGHT)
+					if(ismecha(target) || issilicon(target))
+						target.emp_act(EMP_HEAVY)
+					new /obj/effect/temp_visual/emp/clock(get_turf(target))
+				return TRUE
+
 	return TRUE
 
 /obj/projectile/proc/on_hit(atom/target, blocked = 0, hit_zone)

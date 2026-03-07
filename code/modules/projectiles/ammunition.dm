@@ -160,7 +160,10 @@
 		H.gunshot_residue = caliber
 
 /obj/item/ammo_casing/proc/after_fire()
-	return
+	if(istype(loc, /obj/item/gun))
+		var/obj/item/gun/G = loc
+		if(G.clockwork_enchant != NO_SPELL)
+			G.clockwork_enchant = NO_SPELL
 
 //Boxes of ammo
 /obj/item/ammo_box
