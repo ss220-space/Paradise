@@ -1643,7 +1643,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plasteel{
 	dir = 0;
 	icon_state = "green"
