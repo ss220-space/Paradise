@@ -2737,6 +2737,13 @@
 	layer = 2
 	},
 /area/event_zone)
+"fV" = (
+/obj/effect/landmark/spawner/late/crew,
+/turf/simulated/floor/indestructible/grass{
+	icon_state = "grass2";
+	layer = 2
+	},
+/area/event_zone)
 "fX" = (
 /obj/structure/grille,
 /obj/structure/window/full/reinforced{
@@ -3339,13 +3346,6 @@
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkred";
-	layer = 2
-	},
-/area/event_zone)
-"hk" = (
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/simulated/floor/grass{
 	layer = 2
 	},
 /area/event_zone)
@@ -8385,15 +8385,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"rg" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1;
-	icon_state = "open"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "rh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner";
@@ -8796,6 +8787,12 @@
 "sd" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "orange";
+	layer = 2
+	},
+/area/event_zone)
+"se" = (
+/obj/effect/landmark/spawner/late/crew,
+/turf/simulated/floor/indestructible/grass{
 	layer = 2
 	},
 /area/event_zone)
@@ -12337,17 +12334,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"zv" = (
-/obj/structure/table/reinforced{
-	icon_state = "reinforced_table-6"
-	},
-/obj/structure/table/reinforced{
-	icon_state = "reinforced_table-6"
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "zw" = (
 /obj/structure/window/reinforced{
 	color = "#49e46e";
@@ -14153,14 +14139,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Cu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 1
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/event_zone)
 "Cv" = (
 /obj/structure/windoor_assembly,
 /obj/machinery/autolathe,
@@ -14400,20 +14378,6 @@
 	},
 /turf/simulated/floor/engine{
 	layer = 2
-	},
-/area/event_zone)
-"CW" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/universal{
-	dir = 4
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/obj/machinery/power/terminal{
-	dir = 1
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
 	},
 /area/event_zone)
 "CX" = (
@@ -14798,6 +14762,13 @@
 /turf/simulated/floor/carpet/royalblack{
 	dir = 0;
 	icon_state = "carpet_royalblack-9";
+	layer = 2
+	},
+/area/event_zone)
+"DT" = (
+/obj/effect/landmark/spawner/late/cyborg,
+/turf/simulated/floor/indestructible/grass{
+	icon_state = "grass2";
 	layer = 2
 	},
 /area/event_zone)
@@ -15387,15 +15358,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Fj" = (
-/obj/item/stack/rods{
-	dir = 4;
-	icon_state = "rods-5"
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
-	},
-/area/event_zone)
 "Fk" = (
 /obj/machinery/vending/cigarette{
 	dir = 1
@@ -15822,19 +15784,6 @@
 	dir = 8;
 	icon_state = "warning";
 	layer = 2
-	},
-/area/event_zone)
-"Gb" = (
-/obj/machinery/atmospherics/pipe/cap{
-	dir = 1;
-	layer = 2.47
-	},
-/obj/machinery/atmospherics/pipe/cap{
-	dir = 4;
-	layer = 2.47
-	},
-/turf/simulated/floor/plating{
-	layer = 1.7
 	},
 /area/event_zone)
 "Gc" = (
@@ -19496,14 +19445,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Ov" = (
-/obj/structure/grille,
-/obj/structure/grille,
-/turf/simulated/floor/grass{
-	icon_state = "grass4";
-	layer = 2
-	},
-/area/event_zone)
 "Ox" = (
 /obj/structure/chair/sofa/corp/right,
 /turf/simulated/floor/plasteel{
@@ -19529,6 +19470,13 @@
 /turf/simulated/floor/carpet/purple{
 	dir = 0;
 	icon_state = "carpet_purple-12";
+	layer = 2
+	},
+/area/event_zone)
+"OB" = (
+/obj/effect/landmark/spawner/late/cyborg,
+/turf/simulated/floor/indestructible/grass{
+	icon_state = "grass4";
 	layer = 2
 	},
 /area/event_zone)
@@ -19812,6 +19760,12 @@
 /turf/simulated/floor/carpet/purple{
 	dir = 0;
 	icon_state = "carpet_purple-3";
+	layer = 2
+	},
+/area/event_zone)
+"Pl" = (
+/obj/effect/landmark/spawner/late/cyborg,
+/turf/simulated/floor/indestructible/grass{
 	layer = 2
 	},
 /area/event_zone)
@@ -20303,19 +20257,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "black";
-	layer = 2
-	},
-/area/event_zone)
-"Qv" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1;
-	layer = 3.1
-	},
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1;
-	icon_state = "open"
-	},
-/turf/simulated/floor/plasteel{
 	layer = 2
 	},
 /area/event_zone)
@@ -21087,15 +21028,6 @@
 	layer = 2
 	},
 /area/event_zone)
-"Sc" = (
-/obj/machinery/door/airlock/multi_tile/glass{
-	dir = 1;
-	layer = 3.1
-	},
-/turf/simulated/floor/plasteel{
-	layer = 2
-	},
-/area/event_zone)
 "Sd" = (
 /obj/item/twohanded/fireaxe{
 	dir = 1;
@@ -21758,6 +21690,13 @@
 	layer = 2
 	},
 /area/event_zone)
+"TI" = (
+/obj/effect/landmark/spawner/late/crew,
+/turf/simulated/floor/indestructible/grass{
+	icon_state = "grass3";
+	layer = 2
+	},
+/area/event_zone)
 "TJ" = (
 /obj/machinery/field/generator{
 	dir = 1
@@ -22369,6 +22308,13 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "purple";
+	layer = 2
+	},
+/area/event_zone)
+"Vf" = (
+/obj/effect/landmark/spawner/late/cyborg,
+/turf/simulated/floor/indestructible/grass{
+	icon_state = "grass3";
 	layer = 2
 	},
 /area/event_zone)
@@ -23686,6 +23632,13 @@
 	},
 /turf/simulated/floor/grass{
 	icon_state = "grass3";
+	layer = 2
+	},
+/area/event_zone)
+"XT" = (
+/obj/effect/landmark/spawner/late/crew,
+/turf/simulated/floor/indestructible/grass{
+	icon_state = "grass4";
 	layer = 2
 	},
 /area/event_zone)
@@ -27842,22 +27795,22 @@ ae
 ae
 af
 af
-ag
-ae
-af
-ag
-ae
-ag
-ad
-ad
-af
-ae
-ag
-ag
-ag
-ae
-af
-ad
+se
+XT
+fV
+se
+XT
+se
+TI
+TI
+fV
+XT
+se
+se
+se
+XT
+fV
+TI
 ae
 af
 ag
@@ -28105,10 +28058,10 @@ ag
 af
 af
 ad
-ad
-ag
-af
-ae
+Vf
+Pl
+DT
+OB
 ad
 ad
 ae
@@ -45778,7 +45731,7 @@ Fw
 Fw
 bZ
 ku
-Ov
+BJ
 ku
 bZ
 xM
@@ -47312,7 +47265,7 @@ aq
 aq
 ao
 cb
-Ov
+BJ
 an
 ar
 ap
@@ -49368,7 +49321,7 @@ ar
 ap
 ao
 cb
-hk
+xM
 an
 ap
 aq
@@ -55812,7 +55765,7 @@ an
 an
 an
 an
-Gb
+an
 ai
 ai
 ai
@@ -56073,7 +56026,7 @@ an
 ai
 ai
 ai
-zv
+lr
 Yg
 Ua
 ai
@@ -56315,7 +56268,7 @@ an
 an
 an
 an
-Cu
+an
 an
 an
 an
@@ -56831,7 +56784,7 @@ an
 an
 an
 ai
-CW
+an
 an
 an
 an
@@ -57005,9 +56958,9 @@ ai
 ai
 ai
 aP
-Sc
-Qv
-rg
+ai
+ai
+ai
 ai
 ai
 ai
@@ -57090,7 +57043,7 @@ an
 ai
 an
 an
-Fj
+an
 an
 an
 an
