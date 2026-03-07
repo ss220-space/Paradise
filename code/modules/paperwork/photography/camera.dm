@@ -376,6 +376,17 @@
 	/// The camera this circut is attached to.
 	var/obj/item/camera/camera
 
+/obj/item/circuit_component/camera/Destroy()
+	if(camera)
+		unregister_usb_parent(camera)
+	photographed_atom = null
+	picture_taken = null
+	picture_target = null
+	picture_coord_x = null
+	picture_coord_y = null
+	adjust_size = null
+	. = ..()
+
 /obj/item/circuit_component/camera/populate_ports()
 	picture_taken = add_output_port("Снимок сделан", PORT_TYPE_SIGNAL)
 	photographed_atom = add_output_port("Цель", PORT_TYPE_ATOM)

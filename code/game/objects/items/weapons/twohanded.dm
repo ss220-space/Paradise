@@ -701,7 +701,7 @@
 
 /obj/item/twohanded/chainsaw_handmade/doomslayer
 	name = "OOOH BABY"
-	desc = span_warning("VRRRRRRR!!!")
+	desc = span_warning_alt("VRRRRRRR!!!")
 	armour_penetration = 100
 	force_wielded = 30
 

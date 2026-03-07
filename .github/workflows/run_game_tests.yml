@@ -21,7 +21,7 @@ jobs:
           release: ${{ matrix.byondtype }}
 
       - name: Download build outputs
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: build-artifact-game
           path: ./

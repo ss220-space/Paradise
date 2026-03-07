@@ -138,6 +138,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, 26)
 
 	var/obj/machinery/light_switch/attached_switch
 
+/obj/item/circuit_component/light_switch/Destroy()
+	if(attached_switch)
+		unregister_usb_parent(attached_switch)
+	on_setting = null
+	is_on = null
+	. = ..()
+
 /obj/item/circuit_component/light_switch/populate_ports()
 	on_setting = add_input_port("Вкл", PORT_TYPE_NUMBER)
 	is_on = add_output_port("Включено", PORT_TYPE_NUMBER)

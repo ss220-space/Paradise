@@ -53,6 +53,16 @@
 	/// Used to store the last string used for the camera network
 	var/current_camera_network = ""
 
+/obj/item/circuit_component/remotecam/Destroy()
+	stop_process()
+	remove_camera()
+	shell_parent = null
+	start = null
+	stop = null
+	camera_range = null
+	network = null
+	return ..()
+
 /obj/item/circuit_component/remotecam/get_ui_notices()
 	. = ..()
 	if(camera_range_settable)
@@ -84,12 +94,6 @@
 	stop_process()
 	remove_camera()
 	shell_parent = null
-
-/obj/item/circuit_component/remotecam/Destroy()
-	stop_process()
-	remove_camera()
-	shell_parent = null
-	return ..()
 
 /obj/item/circuit_component/remotecam/input_received(datum/port/input/port)
 	if(!shell_parent || !shell_camera)

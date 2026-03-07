@@ -535,7 +535,7 @@
 	GLOB.move_manager.stop_looping(src)
 	visible_message(span_userdanger("[DECLENT_RU_CAP(src, NOMINATIVE)] разлетается на части!"))
 	var/turf/Tsec = get_turf(src)
-	var/obj/item/secbot_assembly/Sa = new /obj/item/secbot_assembly(Tsec)
+	var/obj/item/bot_assembly/secbot_assembly/Sa = new /obj/item/bot_assembly/secbot_assembly(Tsec)
 	Sa.build_step = 1
 	Sa.add_overlay("hs_hole")
 	Sa.created_name = name

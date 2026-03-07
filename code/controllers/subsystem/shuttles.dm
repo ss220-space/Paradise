@@ -60,12 +60,13 @@ SUBSYSTEM_DEF(shuttle)
 	cargo_money_account = GLOB.department_accounts[STATION_DEPARTMENT_SUPPLY]
 
 	if(!emergency)
-		log_runtime(EXCEPTION("No /obj/docking_port/mobile/emergency placed on the map!"))
-		if(!backup_shuttle)
-			message_admins("There's no emergency docking ports on the map! The game will be unresolvable. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
-			log_runtime(EXCEPTION("AND NO /obj/docking_port/mobile/emergency/backup placed on the map!"))
+		WARNING("No /obj/docking_port/mobile/emergency placed on the map!")
+	if(!backup_shuttle)
+		WARNING("AND NO /obj/docking_port/mobile/emergency/backup placed on the map!")
 	if(!supply)
-		log_runtime(EXCEPTION("No /obj/docking_port/mobile/supply placed on the map!"))
+		WARNING("No /obj/docking_port/mobile/supply placed on the map!")
+	if(!emergency && !backup_shuttle)
+		message_admins("There's no emergency docking ports on the map! The game will be unresolvable. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
 
 	initial_load()
 
@@ -82,7 +83,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/Destroy()
 	UnregisterSignal(src, COMSIG_CRYOPOD_DESPAWN)
-	. = ..()
+	return ..()
 
 /datum/controller/subsystem/shuttle/get_stat_details()
 	return "M:[length(mobile)] S:[length(stationary)] T:[length(transit)]"
@@ -134,13 +135,13 @@ SUBSYSTEM_DEF(shuttle)
 	for(var/obj/docking_port/mobile/M in mobile)
 		if(M.id == id)
 			return M
-	log_runtime(EXCEPTION("couldn't find shuttle with id: [id]"))
+	WARNING("couldn't find shuttle with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/getDock(id)
 	for(var/obj/docking_port/stationary/S in stationary)
 		if(S.id == id)
 			return S
-	log_runtime(EXCEPTION("couldn't find dock with id: [id]"))
+	WARNING("couldn't find dock with id: [id]")
 
 /datum/controller/subsystem/shuttle/proc/secondsToRefuel()
 	var/elapsed = world.time - SSticker.round_start_time
@@ -149,7 +150,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/requestEvac(mob/user, call_reason)
 	if(!emergency)
-		log_runtime(EXCEPTION("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead."))
+		WARNING("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
 		message_admins("requestEvac(): There is no emergency shuttle, but the shuttle was called. Using the backup shuttle instead.")
 		if(!backup_shuttle)
 			message_admins("requestEvac(): There is no emergency shuttle, or backup shuttle! The game will be unresolvable. This is possibly a mapping error. To resolve this problem load emergency shuttle template manually, and call register() on the mobile docking port.")
@@ -302,7 +303,7 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/proc/request_transit_dock(obj/docking_port/mobile/M)
 	if(!istype(M))
-		throw EXCEPTION("[M] is not a mobile docking port")
+		CRASH("[M] is not a mobile docking port")
 
 	if(M.assigned_transit)
 		return
@@ -528,17 +529,11 @@ SUBSYSTEM_DEF(shuttle)
 		return
 	emergency_no_recall = FALSE
 
-// Allow admins to fix shuttles ports list.
-/client/proc/reregister_docks()
-	set category = "Debug"
-	set name = "Re-register Docking Ports"
-
-	if(!check_rights(R_DEBUG|R_ADMIN))
-		return
-
+ADMIN_VERB(reregister_docks, R_DEBUG|R_ADMIN, "Re-register Docking Ports", "Allow admins to fix shuttles ports list.", ADMIN_CATEGORY_DEBUG)
 	SSshuttle.initial_load()
 
-	log_and_message_admins(span_notice("[key_name(usr)] re-registered docking ports for SSshuttle."))
+	log_admin("[key_name(user)] re-registered docking ports for SSshuttle.")
+	message_admins(span_adminnotice("[key_name_admin(user)] re-registered docking ports for SSshuttle."))
 	BLACKBOX_LOG_ADMIN_VERB("Re-register Docking Ports")
 
 #undef CALL_SHUTTLE_REASON_LENGTH

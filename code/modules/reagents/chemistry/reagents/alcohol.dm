@@ -1096,7 +1096,7 @@
 	description = "Производство этого напитка вероятно, нарушает Женевскую конвенцию."
 	color = "#DC0000"
 	can_synth = FALSE
-	taste_description = span_userdanger("ЖИДКОЙ БЛЯДЬ СМЕРТИ СУКА ПИЗДЕЦ НАХУЙ КАКОГО ХУЯ")
+	taste_description = span_userdanger_alt("ЖИДКОЙ БЛЯДЬ СМЕРТИ СУКА ПИЗДЕЦ НАХУЙ КАКОГО ХУЯ")
 
 /datum/reagent/consumable/ethanol/dragons_breath/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST && prob(20))

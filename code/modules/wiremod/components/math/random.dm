@@ -18,6 +18,13 @@
 	/// The result from the output
 	var/datum/port/output/output
 
+/obj/item/circuit_component/random/Destroy()
+	minimum = null
+	maximum = null
+	output = null
+	. = ..()
+
+
 /obj/item/circuit_component/random/populate_ports()
 	minimum = add_input_port("Минимум", PORT_TYPE_NUMBER, trigger = null)
 	maximum = add_input_port("Максимум", PORT_TYPE_NUMBER, trigger = null)
