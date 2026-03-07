@@ -239,7 +239,7 @@
 
 /obj/item/storage/bag/ore/proc/on_user_moved(mob/living/user, atom/old_loc, dir, forced)
 	SIGNAL_HANDLER
-	handle_move(user)
+	INVOKE_ASYNC(src, PROC_REF(handle_move), user)
 
 /obj/item/storage/bag/ore/proc/handle_move(mob/living/user)
 	if(user.stat != CONSCIOUS)
