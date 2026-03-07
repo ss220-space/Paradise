@@ -56,8 +56,7 @@
 	var/list/possible_spawners = params["ID"]
 	var/obj/MS = locateUID(pick(possible_spawners))
 	if(!MS || !MS.is_mob_spawnable())
-		log_runtime(EXCEPTION("A ghost tried to interact with an invalid mini_game, or the mini_game didn't exist."))
-		return
+		CRASH("A ghost tried to interact with an invalid mini_game, or the mini_game didn't exist.")
 	switch(action)
 		if("jump")
 			owner.forceMove(get_turf(MS))

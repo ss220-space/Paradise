@@ -69,12 +69,12 @@ in their list
 
 /proc/list_to_object(list/data, loc)
 	if(!islist(data))
-		throw EXCEPTION("You didn't give me a list, bucko")
+		CRASH("You didn't give me a list, bucko")
 	if(!("type" in data))
-		throw EXCEPTION("No 'type' field in the data")
+		CRASH("No 'type' field in the data")
 	var/path = text2path(data["type"])
 	if(!path)
-		throw EXCEPTION("Path not found: [path]")
+		CRASH("Path not found: [path]")
 
 	var/atom/movable/thing = new path(loc)
 	thing.deserialize(data)

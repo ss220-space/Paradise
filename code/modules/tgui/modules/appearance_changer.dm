@@ -322,10 +322,10 @@
 
 /datum/ui_module/appearance_changer/proc/can_change_head_accessory()
 	if(!head_organ)
-		log_runtime(EXCEPTION("Missing head!"), owner)
+		stack_trace("[owner] Missing head!")
 		return FALSE
 	if(!head_organ.dna)
-		log_runtime(EXCEPTION("Missing head DNA!"), owner)
+		stack_trace("[owner] Missing head DNA!")
 		return FALSE
 	return owner && (flags & APPEARANCE_HEAD_ACCESSORY) && (head_organ.dna.species.bodyflags & HAS_HEAD_ACCESSORY)
 
