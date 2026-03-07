@@ -7,7 +7,39 @@
 	permeability_coefficient = 0.5
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
-	allowed = list(/obj/item/analyzer,/obj/item/stack/medical,/obj/item/dnainjector,/obj/item/reagent_containers/dropper,/obj/item/reagent_containers/syringe,/obj/item/reagent_containers/hypospray,/obj/item/reagent_containers/applicator,/obj/item/healthanalyzer,/obj/item/flashlight/pen,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/food/pill,/obj/item/storage/pill_bottle,/obj/item/paper,/obj/item/rad_laser)
+	allowed = list(
+		/obj/item/analyzer,
+		/obj/item/autopsy_scanner,
+		/obj/item/bodyanalyzer,
+		/obj/item/dnainjector,
+		/obj/item/dna_notepad,
+		/obj/item/flashlight/pen,
+		/obj/item/gun/syringe,
+		/obj/item/handheld_defibrillator,
+		/obj/item/healthanalyzer,
+		/obj/item/paper,
+		/obj/item/pinpointer/crew,
+		/obj/item/rad_laser,
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/dropper,
+		/obj/item/reagent_containers/food/pill,
+		/obj/item/reagent_containers/glass/beaker,
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/hypospray,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/reagent_containers/spray/cleaner,
+		/obj/item/reagent_containers/syringe,
+		/obj/item/reagent_scanner,
+		/obj/item/roller/holo,
+		/obj/item/sensor_device,
+		/obj/item/soap,
+		/obj/item/stack/medical,
+		/obj/item/storage/bag/bio,
+		/obj/item/storage/bag/chemistry,
+		/obj/item/storage/pill_bottle,
+		/obj/item/tank/internals/emergency_oxygen,
+		/obj/item/tourniquet,
+	)
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 50, RAD = 0, FIRE = 50, ACID = 50)
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',

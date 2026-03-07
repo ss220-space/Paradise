@@ -3658,7 +3658,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/stack/sheet/metal/fifty,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/paintkit/firefighter_zairjah,
 /turf/simulated/floor/plasteel,
@@ -5336,7 +5336,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/item/stack/sheet/metal/fifty,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/item/stack/sheet/glass/fifty,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_storage)
