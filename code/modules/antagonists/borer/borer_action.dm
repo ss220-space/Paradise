@@ -166,6 +166,8 @@
 
 /datum/action/innate/borer/mend_host/Activate()
 	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
+	if(!borer || !borer.host)
+		return
 	var/mob/living/carbon/host = borer.host
 
 	var/total_cost = cost - (borer.antag_datum.borer_rank.rank_ability_amplifier * 15)

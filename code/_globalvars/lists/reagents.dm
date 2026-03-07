@@ -61,5 +61,5 @@ GLOBAL_LIST_INIT(safe_chem_applicator_list, list("silver_sulfadiazine", "styptic
 GLOBAL_LIST_INIT(borer_reagents, list( \
 	"charcoal", "epinephrine", "salbutamol", "mannitol", "capulettium_plus",
 	"spaceacillin", "salglu_solution", "hydrocodone",
-	"methamphetamine", "mitocholide", "fliptonium", "insulin", "nanocalcium"
+	"methamphetamine", "mitocholide", "ephedrine.", "insulin", "nanocalcium"
 ))

@@ -183,7 +183,8 @@
 	return ..()
 
 /datum/borer_focus/abdomen/apply()
-	parent.user.update_transform(0.8) // 20%
+	parent.user.transform = parent.user.transform.Scale(0.8)
+	parent.user.pixel_y = 0
 
 /datum/borer_focus/secretion/apply()
 	parent.user.chem_gain += 0.5

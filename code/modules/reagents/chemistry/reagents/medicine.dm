@@ -696,6 +696,7 @@
 	harmless = FALSE
 	taste_description = "стимуляции"
 	tags = REAGENT_TAG_ANTI_STUN
+	chemuse = 50 //for borer
 
 /datum/reagent/medicine/ephedrine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1148,7 +1149,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "усталости"
-	chemuse = 50
+	chemuse = 50 //for borer
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
@@ -1507,8 +1508,8 @@
 	harmless = FALSE
 	taste_description = "предстоящих страданий"
 	var/list/stimulant_list = list("methamphetamine", "crank", "bath_salts", "stimulative_agent", "stimulants", "adrenaline")
-	chemuse = 250
-	quantity = 15
+	chemuse = 250 //for borer
+	quantity = 15 //for borer
 
 /datum/reagent/medicine/nanocalcium/on_mob_life(mob/living/carbon/human/M)
 	var/update_flags = STATUS_UPDATE_NONE
