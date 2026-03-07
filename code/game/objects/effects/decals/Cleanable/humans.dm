@@ -167,7 +167,7 @@
 	alpha = 180
 	//is_mopped = FALSE
 
-/obj/effect/decal/cleanable/blood/splatter/over_window/NeverShouldHaveComeHere(turf/here_turf)
+/obj/effect/decal/cleanable/blood/splatter/over_window/never_should_have_come_here(turf/here_turf)
 	return isgroundlessturf(here_turf)
 
 /obj/effect/decal/cleanable/blood/drip
@@ -403,12 +403,14 @@
 	if(loc == prev_loc || !isturf(loc))
 		return
 
+	var/hit_endpoint_cached = hit_endpoint
+	var/splatter_strength_cached = splatter_strength
 	for(var/atom/movable/iter_atom in loc)
-		if(hit_endpoint)
+		if(hit_endpoint_cached)
 			return
 		if(iter_atom == src || iter_atom.invisibility || iter_atom.alpha <= 0 || (isobj(iter_atom) && !iter_atom.density))
 			continue
-		if(splatter_strength <= 0)
+		if(splatter_strength_cached <= 0)
 			break
 		iter_atom.add_blood(blood_dna_info)
 
@@ -437,11 +439,11 @@
 		expire()
 
 /obj/effect/decal/cleanable/blood/hitsplatter/Bump(atom/bumped_atom)
-	if(!iswallturf(bumped_atom) && !istype(bumped_atom, /obj/structure/window))
+	if(!iswallturf(bumped_atom) && !is_window(bumped_atom))
 		expire()
 		return
 
-	if(istype(bumped_atom, /obj/structure/window))
+	if(is_window(bumped_atom))
 		var/obj/structure/window/bumped_window = bumped_atom
 		if(!bumped_window.fulltile)
 			hit_endpoint = TRUE
@@ -457,7 +459,8 @@
 	abstract_move(bumped_atom)
 	skip = TRUE
 	//Adjust pixel offset to make splatters appear on the wall
-	if(istype(bumped_atom, /obj/structure/window))
+	if(is_window(bumped_atom))
+	if(is_organ())
 		if(land_on_window(bumped_atom))
 			return
 

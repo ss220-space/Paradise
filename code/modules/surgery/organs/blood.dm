@@ -462,6 +462,11 @@
 		if("O+")
 			return list("O-", "O+")
 
+/// Minimum amount of blood to create a drop
+#define BLOOD_AMOUNT_DRIP_THRESHOLD 2
+/// The amount of blood above which a large spot (blood) is created, not a splatter
+#define BLOOD_AMOUNT_SPLATTER_THRESHOLD 4
+
 //to add a splatter of blood or other mob liquid.
 /mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
@@ -490,7 +495,7 @@
 				temp_blood_DNA = list()
 				temp_blood_DNA |= drop.blood_DNA.Copy() //we transfer the dna from the drip to the splatter
 				qdel(drop)
-		else if(amt < 2)
+		else if(amt < BLOOD_AMOUNT_DRIP_THRESHOLD)
 			drop = new(T)
 			drop.transfer_mob_blood_dna(src)
 			drop.basecolor = b_data["blood_color"]
@@ -504,7 +509,7 @@
 		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
 		B = locate() in bloods
 	if(!B)
-		if(amt > 4)
+		if(amt > BLOOD_AMOUNT_SPLATTER_THRESHOLD)
 			B = new /obj/effect/decal/cleanable/blood(T)
 		else
 			B = new /obj/effect/decal/cleanable/blood/splatter(T)
@@ -519,6 +524,9 @@
 	if(shift_x || shift_y)
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
+
+#undef BLOOD_AMOUNT_DRIP_THRESHOLD
+#undef BLOOD_AMOUNT_SPLATTER_THRESHOLD
 
 /mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
