@@ -244,7 +244,7 @@
 	. = ..()
 	var/list/no_id_servers = list()
 	var/list/server_ids = list()
-	for(var/obj/machinery/r_n_d/server/server in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
+	for(var/obj/machinery/r_n_d/server/server as anything in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		switch(server.server_id)
 			if(-1)
 				continue
@@ -253,7 +253,7 @@
 			else
 				server_ids += server.server_id
 
-	for(var/obj/machinery/r_n_d/server/server in no_id_servers)
+	for(var/obj/machinery/r_n_d/server/server as anything in no_id_servers)
 		var/num = 1
 		while(!server.server_id)
 			if(num in server_ids)
@@ -389,25 +389,28 @@
 	if(temp_server)
 		data["temp_server_name"] = DECLENT_RU_CAP(temp_server, NOMINATIVE)
 		var/list/tech_list = list()
-		if(temp_server.files && temp_server.files.known_tech)
-			for(var/tech_id in temp_server.files.known_tech)
-				var/datum/tech/tech = temp_server.files.known_tech[tech_id]
-				if(!tech || tech.level < 1)
-					continue
-				tech_list += list(list(
-					"name" = tech.name,
-					"id" = tech.id,
-					"level" = tech.level
-				))
+		for(var/tech_id, tech in temp_server.files.known_tech)
+			var/datum/tech/T = tech // Вот здесь мы объясняем компилятору тип
+			if(!T || T.level < 1)
+				continue
+			tech_list += list(list(
+				"name" = T.name,
+				"id" = T.id,
+				"level" = T.level
+			))
 		data["technologies"] = tech_list
 
 		var/list/design_list = list()
-		for(var/id in temp_server.files.known_designs)
-			var/datum/design/design = temp_server.files.known_designs[id]
-			if(!design)
+		for(var/id, design in temp_server.files.known_designs)
+			var/datum/design/D = design // Объясняем тип
+			if(!D)
 				continue
-			var/display_name = design.build_object_name || design.name || "Неизвестный дизайн"
-			design_list += list(list("name" = display_name, "id" = design.id, "blacklisted" = (design.id in temp_server.design_blacklist)))
+			var/display_name = D.build_object_name || D.name || "Неизвестный дизайн"
+			design_list += list(list(
+				"name" = display_name,
+				"id" = D.id,
+				"blacklisted" = (D.id in temp_server.design_blacklist)
+			))
 		data["designs"] = design_list
 
 		var/list/console_data = list()
@@ -440,6 +443,8 @@
 		to_chat(usr, span_warning("У вас нет необходимого уровня доступа."))
 		return
 
+	var/is_syndicate = syndicate
+
 	switch(action)
 		if("select_server")
 			var/target_id = text2num(params["id"])
@@ -447,7 +452,7 @@
 				if(!server || QDELETED(server))
 					continue
 				if(server.server_id == target_id)
-					if(server.syndicate != syndicate)
+					if(server.syndicate != is_syndicate)
 						continue
 
 					temp_server = server
@@ -514,12 +519,14 @@
 /obj/machinery/computer/rdservercontrol/proc/refresh_cache()
 	servers = list()
 	consoles = list()
+	var/is_syndicate = syndicate
+
 	for(var/obj/machinery/r_n_d/server/server as anything in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
-		if(server.syndicate == syndicate)
+		if(server.syndicate == is_syndicate)
 			servers += server
 
 	for(var/obj/machinery/computer/rdconsole/console as anything in SSmachines.get_by_type(/obj/machinery/computer/rdconsole))
-		if(console.syndicate == syndicate && console.sync)
+		if(console.syndicate == is_syndicate)
 			consoles += console
 
 #undef RD_SERVER_SCREEN_MAIN
