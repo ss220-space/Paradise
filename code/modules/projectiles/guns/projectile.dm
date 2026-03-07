@@ -257,7 +257,7 @@
 			else
 				if(ishuman(user))
 					var/mob/living/carbon/human/H = user
-					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 					user.apply_damage(5, BRUTE, affecting)
 					user.emote("scream")
 					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
