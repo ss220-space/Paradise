@@ -1,8 +1,8 @@
+#define DATA_NOT_SPECIFIED "НЕ ЗАДАНО"
+
 /**
  * ID-card base object
  */
-
-#define NOT_SPECIFIED "НЕ ЗАДАНО"
 
 /obj/item/card
 	name = "card"
@@ -77,14 +77,16 @@
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT, PROC_REF(freeze_linked_account))
-	spawn(30)
-		if(ishuman(loc) && blood_type == "\[[NOT_SPECIFIED]\]")
-			var/mob/living/carbon/human/H = loc
-			SetOwnerInfo(H)
+	addtimer(CALLBACK(src, PROC_REF(set_info)), 3 SECONDS)
 
 /obj/item/card/id/Destroy()
 	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
 	. = ..()
+
+/obj/item/card/id/proc/set_info()
+	if(ishuman(loc) && blood_type == "\[[DATA_NOT_SPECIFIED]\]")
+		var/mob/living/carbon/human/human = loc
+		SetOwnerInfo(human)
 
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
@@ -257,8 +259,8 @@
 		if(world.time > guest_id.expiration_time)
 			balloon_alert(user, "гостевой пропуск уже истёк!")
 			return ATTACK_CHAIN_PROCEED
-		if(guest_id.registered_name != registered_name && guest_id.registered_name != NOT_SPECIFIED)
-			balloon_alert(user, "несовместимо с данной картой!")
+		if(guest_id.registered_name != registered_name && guest_id.registered_name != DATA_NOT_SPECIFIED)
+			balloon_alert(user, "несовместимая ID-карта!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))
 			return ..()
@@ -317,4 +319,4 @@
 	RebuildHTML()
 	..()
 
-#undef NOT_SPECIFIED
+#undef DATA_NOT_SPECIFIED
