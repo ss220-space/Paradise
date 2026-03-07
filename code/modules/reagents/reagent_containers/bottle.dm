@@ -6,9 +6,10 @@
 	gender = FEMALE
 	icon_state = "bottle"
 	item_state = "bottle"
-	possible_transfer_amounts = list(5,10,15,25,30)
+	possible_transfer_amounts = list(5,10,15,30)
 	volume = 30
 	materials = list(MAT_GLASS = 1000)
+	custom_price = PAYCHECK_MIN * 0.6
 
 /obj/item/reagent_containers/glass/bottle/get_ru_names()
 	return list(
@@ -78,6 +79,7 @@
 	name = "atropine bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится атропин."
 	list_reagents = list("atropine" = 30)
+	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/atropine/get_ru_names()
 	return list(
@@ -94,6 +96,9 @@
 	desc = "Небольшая стеклянная бутылочка, внутри находится физиологический раствор."
 	list_reagents = list("salglu_solution" = 30)
 
+/obj/item/reagent_containers/glass/bottle/saline/get_short_name()
+	return "Физраствор"
+
 /obj/item/reagent_containers/glass/bottle/saline/get_ru_names()
 	return list(
 		NOMINATIVE = "бутылка (Физраствор)",
@@ -108,6 +113,9 @@
 	name = "salicylic acid bottle"
 	desc = "Небольшая стеклянная бутылочка, внутри находится салициловая кислота."
 	list_reagents = list("sal_acid" = 30)
+
+/obj/item/reagent_containers/glass/bottle/salicylic/get_short_name()
+	return "Сал. кислота"
 
 /obj/item/reagent_containers/glass/bottle/salicylic/get_ru_names()
 	return list(
@@ -140,6 +148,9 @@
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
 	list_reagents = list("mutagen" = 30)
+
+/obj/item/reagent_containers/glass/bottle/mutagen/get_short_name()
+	return "Нестаб. мутаген"
 
 /obj/item/reagent_containers/glass/bottle/mutagen/get_ru_names()
 	return list(
@@ -192,6 +203,9 @@
 	item_state = "round_bottle"
 	list_reagents = list("facid" = 30)
 
+/obj/item/reagent_containers/glass/bottle/facid/get_short_name()
+	return "Фторсер. кислота"
+
 /obj/item/reagent_containers/glass/bottle/facid/get_ru_names()
 	return list(
 		NOMINATIVE = "бутылка (Фторсерная кислота)",
@@ -243,6 +257,9 @@
 	item_state = "round_bottle"
 	list_reagents = list("frostoil" = 30)
 
+/obj/item/reagent_containers/glass/bottle/frostoil/get_short_name()
+	return "Лед. масло"
+
 /obj/item/reagent_containers/glass/bottle/frostoil/get_ru_names()
 	return list(
 		NOMINATIVE = "бутылка (Ледяное масло)",
@@ -259,6 +276,7 @@
 	icon_state = "round_bottle"
 	item_state = "round_bottle"
 	list_reagents = list("morphine" = 30)
+	custom_price = PAYCHECK_MIN
 
 /obj/item/reagent_containers/glass/bottle/morphine/get_ru_names()
 	return list(
@@ -293,6 +311,9 @@
 	icon_state = "wide_bottle"
 	item_state = "wide_bottle"
 	list_reagents = list("charcoal" = 30)
+
+/obj/item/reagent_containers/glass/bottle/charcoal/get_short_name()
+	return "Акт. уголь"
 
 /obj/item/reagent_containers/glass/bottle/charcoal/get_ru_names()
 	return list(
@@ -355,12 +376,87 @@
 		PREPOSITIONAL = "бутылке (Сульфонал)",
 	)
 
-//Reagent bottles
+/obj/item/reagent_containers/glass/bottle/plasma
+	name = "plasma dust bottle"
+	desc = "Небольшая стеклянная бутылочка, внутри находится плазменная пыль."
+	icon_state = "wide_bottle"
+	item_state = "wide_bottle"
+	list_reagents = list("plasma_dust" = 30)
+
+/obj/item/reagent_containers/glass/bottle/plasma/get_short_name()
+	return "Плазм. пыль"
+
+/obj/item/reagent_containers/glass/bottle/plasma/get_ru_names()
+	return list(
+		NOMINATIVE = "бутылка (Плазменная пыль)",
+		GENITIVE = "бутылки (Плазменная пыль)",
+		DATIVE = "бутылке (Плазменная пыль)",
+		ACCUSATIVE = "бутылку (Плазменная пыль)",
+		INSTRUMENTAL = "бутылкой (Плазменная пыль)",
+		PREPOSITIONAL = "бутылке (Плазменная пыль)",
+	)
+
+/obj/item/reagent_containers/glass/bottle/diphenhydramine
+	name = "diphenhydramine bottle"
+	desc = "Небольшая стеклянная бутылочка, внутри находится дифенгидрамин."
+	icon_state = "round_bottle"
+	item_state = "round_bottle"
+	list_reagents = list("diphenhydramine" = 30)
+
+/obj/item/reagent_containers/glass/bottle/diphenhydramine/get_ru_names()
+	return list(
+		NOMINATIVE = "бутылка (Дифенгидрамин)",
+		GENITIVE = "бутылки (Дифенгидрамин)",
+		DATIVE = "бутылке (Дифенгидрамин)",
+		ACCUSATIVE = "бутылку (Дифенгидрамин)",
+		INSTRUMENTAL = "бутылкой (Дифенгидрамин)",
+		PREPOSITIONAL = "бутылке (Дифенгидрамин)",
+	)
+
+/obj/item/reagent_containers/glass/bottle/oculine
+	name = "oculine bottle"
+	desc = "Небольшая стеклянная бутылочка, внутри находится окулин."
+	icon_state = "round_bottle"
+	item_state = "round_bottle"
+	list_reagents = list("oculine" = 30)
+	custom_price = PAYCHECK_MIN * 2
+
+/obj/item/reagent_containers/glass/bottle/oculine/get_ru_names()
+	return list(
+		NOMINATIVE = "бутылка (Окулин)",
+		GENITIVE = "бутылки (Окулин)",
+		DATIVE = "бутылке (Окулин)",
+		ACCUSATIVE = "бутылку (Окулин)",
+		INSTRUMENTAL = "бутылкой (Окулин)",
+		PREPOSITIONAL = "бутылке (Окулин)",
+	)
+
+/obj/item/reagent_containers/glass/bottle/potassium_iodide
+	name = "potassium iodide bottle"
+	desc = "Небольшая стеклянная бутылочка, внутри находится иодид калия."
+	icon_state = "wide_bottle"
+	item_state = "wide_bottle"
+	list_reagents = list("potass_iodide" = 30)
+
+/obj/item/reagent_containers/glass/bottle/potassium_iodide/get_ru_names()
+	return list(
+		NOMINATIVE = "бутылка (Иодид калия)",
+		GENITIVE = "бутылки (Иодид калия)",
+		DATIVE = "бутылке (Иодид калия)",
+		ACCUSATIVE = "бутылку (Иодид калия)",
+		INSTRUMENTAL = "бутылкой (Иодид калия)",
+		PREPOSITIONAL = "бутылке (Иодид калия)",
+	)
+
+/**
+ * MARK: Reagent bottle
+ */
 
 /obj/item/reagent_containers/glass/bottle/reagent
 	name = "Reagent Bottle"
 	icon_state = "reagent_bottle"
 	item_state = "reagent_bottle"
+	possible_transfer_amounts = list(5,10,15,25,50)
 	volume = 50
 
 /obj/item/reagent_containers/glass/bottle/reagent/oil
@@ -583,7 +679,9 @@
 		PREPOSITIONAL = "бутылке (Странный реагент)",
 	)
 
-////////////////////Traitor Poison Bottle//////////////////////////////
+/**
+ * MARK: Traitor poison bottle
+ */
 
 /obj/item/reagent_containers/glass/bottle/traitor
 	desc = "На ней изображён маленький череп и скрещённые кости. О-о-о!"
@@ -594,73 +692,9 @@
 	reagents.add_reagent(pick_list(CHEMISTRY_TOOLS_FILE, "traitor_poison_bottle"), 40)
 	. = ..()
 
-/obj/item/reagent_containers/glass/bottle/plasma
-	name = "plasma dust bottle"
-	desc = "Небольшая стеклянная бутылочка, внутри находится плазменная пыль."
-	icon_state = "wide_bottle"
-	item_state = "wide_bottle"
-	list_reagents = list("plasma_dust" = 30)
-
-/obj/item/reagent_containers/glass/bottle/plasma/get_ru_names()
-	return list(
-		NOMINATIVE = "бутылка (Плазменная пыль)",
-		GENITIVE = "бутылки (Плазменная пыль)",
-		DATIVE = "бутылке (Плазменная пыль)",
-		ACCUSATIVE = "бутылку (Плазменная пыль)",
-		INSTRUMENTAL = "бутылкой (Плазменная пыль)",
-		PREPOSITIONAL = "бутылке (Плазменная пыль)",
-	)
-
-/obj/item/reagent_containers/glass/bottle/diphenhydramine
-	name = "diphenhydramine bottle"
-	desc = "Небольшая стеклянная бутылочка, внутри находится дифенгидрамин."
-	icon_state = "round_bottle"
-	item_state = "round_bottle"
-	list_reagents = list("diphenhydramine" = 30)
-
-/obj/item/reagent_containers/glass/bottle/diphenhydramine/get_ru_names()
-	return list(
-		NOMINATIVE = "бутылка (Дифенгидрамин)",
-		GENITIVE = "бутылки (Дифенгидрамин)",
-		DATIVE = "бутылке (Дифенгидрамин)",
-		ACCUSATIVE = "бутылку (Дифенгидрамин)",
-		INSTRUMENTAL = "бутылкой (Дифенгидрамин)",
-		PREPOSITIONAL = "бутылке (Дифенгидрамин)",
-	)
-
-/obj/item/reagent_containers/glass/bottle/oculine
-	name = "oculine bottle"
-	desc = "Небольшая стеклянная бутылочка, внутри находится окулин."
-	icon_state = "round_bottle"
-	item_state = "round_bottle"
-	list_reagents = list("oculine" = 30)
-
-/obj/item/reagent_containers/glass/bottle/oculine/get_ru_names()
-	return list(
-		NOMINATIVE = "бутылка (Окулин)",
-		GENITIVE = "бутылки (Окулин)",
-		DATIVE = "бутылке (Окулин)",
-		ACCUSATIVE = "бутылку (Окулин)",
-		INSTRUMENTAL = "бутылкой (Окулин)",
-		PREPOSITIONAL = "бутылке (Окулин)",
-	)
-
-/obj/item/reagent_containers/glass/bottle/potassium_iodide
-	name = "potassium iodide bottle"
-	desc = "Небольшая стеклянная бутылочка, внутри находится иодид калия."
-	icon_state = "wide_bottle"
-	item_state = "wide_bottle"
-	list_reagents = list("potass_iodide" = 30)
-
-/obj/item/reagent_containers/glass/bottle/potassium_iodide/get_ru_names()
-	return list(
-		NOMINATIVE = "бутылка (Иодид калия)",
-		GENITIVE = "бутылки (Иодид калия)",
-		DATIVE = "бутылке (Иодид калия)",
-		ACCUSATIVE = "бутылку (Иодид калия)",
-		INSTRUMENTAL = "бутылкой (Иодид калия)",
-		PREPOSITIONAL = "бутылке (Иодид калия)",
-	)
+/**
+ * MARK: Vuric cultures
+ */
 
 /obj/item/reagent_containers/glass/bottle/cold
 	name = "Rhinovirus culture bottle"
@@ -1264,6 +1298,9 @@
 	icon_state = "wide_bottle"
 	item_state = "wide_bottle"
 	list_reagents = list("atropine" = 5, "epinephrine" = 5, "salbutamol" = 10, "spaceacillin" = 10)
+
+/obj/item/reagent_containers/glass/bottle/tuberculosiscure/get_short_name()
+	return "Антидот"
 
 /obj/item/reagent_containers/glass/bottle/tuberculosiscure/get_ru_names()
 	return list(
