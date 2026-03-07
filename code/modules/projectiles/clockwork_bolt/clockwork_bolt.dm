@@ -62,7 +62,6 @@
 	if(!weapon)
 		return 0
 
-	// Сбрасываем зачарование если оно есть
 	if(W.clockwork_enchant && W.clockwork_enchant != NO_SPELL)
 		W.clockwork_enchant = NO_SPELL
 
