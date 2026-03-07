@@ -22,7 +22,7 @@
 	/// Assoc list of custom outfit names ("Custom outfit 1", "Custom outfit 2", etc) to list of all item typepaths saved in that outfit
 	var/list/custom_outfits
 	///First who changed outfit and only one who can see cham. actions later
-	var/mob/chameleon_master = null
+	var/datum/weakref/chameleon_master_ref = null
 
 /datum/action/chameleon_outfit/New(Target)
 	. = ..()
@@ -51,13 +51,15 @@
 	currently_in_use = FALSE
 
 /datum/action/chameleon_outfit/Grant(mob/grant_to)
-	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
+	var/mob/master = chameleon_master_ref?.resolve()
+	if(!master || QDELETED(master) || master.stat == DEAD)
 		if(isliving(grant_to))
-			chameleon_master = grant_to
+			chameleon_master_ref = WEAKREF(grant_to)
 		else
 			return FALSE
 
-	if(chameleon_master != grant_to)
+	master = chameleon_master_ref?.resolve()
+	if(master != grant_to)
 		return FALSE
 
 	return ..()
@@ -179,7 +181,7 @@
 	/// Cooldown from when we started being EMP'd
 	COOLDOWN_DECLARE(emp_timer)
 	///First who changed outfit and only one who can see cham. actions later
-	var/mob/chameleon_master = null
+	var/datum/weakref/chameleon_master_ref = null
 
 /datum/action/item_action/chameleon/change/New(Target)
 	. = ..()
@@ -248,26 +250,28 @@
 /datum/action/item_action/chameleon/change/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER
 
-	chameleon_master = null
+	chameleon_master_ref = null
+
 	if(owner)
 		var/datum/action/chameleon_outfit/outfit = locate() in owner.actions
 		if(outfit)
-			outfit.chameleon_master = null
+			outfit.chameleon_master_ref = null
 
 		to_chat(owner, span_warning("Биометрическая защита [holder.declent_ru(GENITIVE)] была сброшена электромагнитным импульсом!"))
 
 	if(COOLDOWN_FINISHED(src, emp_timer))
 		emp_randomise()
 
-
 /datum/action/item_action/chameleon/change/proc/check_chameleon_access(mob/grant_to)
-	if(QDELETED(chameleon_master) || chameleon_master.stat == DEAD)
+	var/mob/master = chameleon_master_ref?.resolve()
+
+	if(!master || QDELETED(master) || master.stat == DEAD)
 		if(isliving(grant_to))
-			chameleon_master = grant_to
+			chameleon_master_ref = WEAKREF(grant_to)
 			return TRUE
 		return FALSE
 
-	if(chameleon_master != grant_to)
+	if(master != grant_to)
 		return FALSE
 
 	return TRUE
@@ -282,7 +286,7 @@
 		return
 
 	var/datum/action/chameleon_outfit/outfit_action = new(owner)
-	outfit_action.chameleon_master = chameleon_master
+	outfit_action.chameleon_master_ref = chameleon_master_ref
 	outfit_action.Grant(owner)
 
 /datum/action/item_action/chameleon/change/Remove(mob/remove_from)
