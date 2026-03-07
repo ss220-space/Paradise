@@ -2909,7 +2909,7 @@
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "xK" = (
-/obj/structure/largecrate/evil{
+/obj/structure/closet/crate/large/evil{
 	desc = "A hefty wooden crate.";
 	name = "large crate"
 	},
@@ -5133,7 +5133,7 @@
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
 "Rv" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
 "Rw" = (

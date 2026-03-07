@@ -159,17 +159,21 @@
 	if(!watching_mob)
 		return
 
-	UnregisterSignal(moving_mob, COMSIG_AI_EYE_MOVED)
+	if(moving_mob)
+		UnregisterSignal(moving_mob, COMSIG_AI_EYE_MOVED)
+
 	UnregisterSignal(watching_mob, COMSIG_MOVABLE_MOVED)
 	playsound(src, 'sound/effects/holomap_close.ogg', 125)
 	icon_state = initial(icon_state)
+
 	if(watching_mob?.client)
 		animate(holomap_datum.base_map, alpha = 0, time = 5, easing = LINEAR_EASING)
-		spawn(5) //we give it time to fade out
-			watching_mob.client?.screen -= watching_mob.hud_used.holomap
-			watching_mob.client?.images -= holomap_datum.base_map
-			watching_mob.hud_used.holomap.used_station_map = null
-			watching_mob.hud_used.holomap.used_base_map = null
+		spawn(5)
+			if(watching_mob?.client)
+				watching_mob.client.screen -= watching_mob.hud_used.holomap
+				watching_mob.client.images -= holomap_datum.base_map
+				watching_mob.hud_used.holomap.used_station_map = null
+				watching_mob.hud_used.holomap.used_base_map = null
 			watching_mob = null
 			set_light(HOLOMAP_LOW_LIGHT)
 

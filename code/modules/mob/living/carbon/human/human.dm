@@ -1711,7 +1711,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	var/list/equip_list = data["equip"]
 	var/turf/T = get_turf(src)
 	if(!islist(data["limbs"]))
-		throw EXCEPTION("Expected a limbs list, but found none")
+		CRASH("Expected a limbs list, but found none")
 
 	if(islist(data["dna"]))
 		dna.deserialize(data["dna"])

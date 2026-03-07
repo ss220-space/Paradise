@@ -765,7 +765,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 /obj/effect/landmark/ruin/Destroy()
 	GLOB.ruin_landmarks -= src
 	ruin_template = null
-	. = ..()
+	return ..()
 
 // MARK: OVERRIDE (shit)
 /obj/effect/landmark/start_override
