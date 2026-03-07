@@ -34,8 +34,8 @@
 	var/mob/living/simple_animal/borer/B = loc
 
 	if(!istype(B))
-		log_runtime(EXCEPTION("Trapped mind found without a borer!"), src)
-		return FALSE
+		. = FALSE
+		CRASH("Trapped mind found without a borer!")
 
 	return B.host.say_understands(other, speaking)
 
@@ -673,8 +673,7 @@
 		borer.detach()
 		return
 
-	log_runtime(EXCEPTION("Missing borer or missing host brain upon borer release."), src)
-	return
+	CRASH("Missing borer or missing host brain upon borer release.")
 
 //Check for brain worms in head.
 /mob/proc/has_brain_worms()

@@ -3084,7 +3084,7 @@
 	},
 /area/awaymission/spacebattle/syndicate6)
 "iS" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/server)
 "iT" = (
@@ -16715,7 +16715,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/spacebattle/syndicate1)
 "Uy" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -18180,7 +18180,7 @@
 /turf/simulated/floor/plasteel,
 /area/awaymission/spacebattle/sec_storage)
 "YE" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/item/ammo_box/shotgun/buck{
 	pixel_y = 3
 	},
