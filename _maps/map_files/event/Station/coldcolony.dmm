@@ -3159,18 +3159,14 @@
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "bdG" = (
-/obj/effect/decal/warning_stripes/yellow/partial{
-	dir = 8
-	},
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/machinery/vending/coffee{
 	obj_integrity = 95;
 	stat = 1
 	},
 /obj/effect/decal/warning_stripes/yellow/partial{
+	dir = 8
+	},
+/obj/machinery/light{
 	dir = 8
 	},
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
@@ -43905,13 +43901,6 @@
 /area/coldcolony/malta/research)
 "qcw" = (
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/structure/table,
-/obj/merge_conflict_marker{
-	name = "---Merge Conflict Marker---";
-	
-	desc = "A best-effort merge was performed. You must resolve this conflict yourself (manually) and remove this object once complete."
-	},
-/obj/item/reagent_containers/food/drinks/coffee,
 /obj/structure/table/wood,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
