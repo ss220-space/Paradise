@@ -384,7 +384,7 @@ effective or pretty fucking useless.
 	playsound(destination, SFX_SPARKS, 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	playsound(destination, 'sound/magic/disintegrate.ogg', 50, TRUE)
 	destination.ex_act(rand(EXPLODE_DEVASTATE, EXPLODE_HEAVY))
-	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
+	for(var/obj/item/thing as anything in user.get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
 	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))

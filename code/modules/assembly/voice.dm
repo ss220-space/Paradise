@@ -14,6 +14,10 @@
 	. = ..()
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
+/obj/item/assembly/voice/Destroy()
+	lose_hearing_sensitivity(ROUNDSTART_TRAIT)
+	. = ..()
+
 /obj/item/assembly/voice/examine(mob/user)
 	. = ..()
 	if(recorded || listening)

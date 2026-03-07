@@ -211,12 +211,6 @@
 	tag = "icon-whiteblue (NORTHEAST)"
 	},
 /area/shuttle/escape)
-"aN" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = -28
-	},
-/turf/simulated/floor/shuttle/objective_check,
-/area/shuttle/escape)
 "aO" = (
 /turf/simulated/floor/shuttle/objective_check,
 /area/shuttle/escape)
@@ -287,16 +281,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/shuttle/objective_check,
-/area/shuttle/escape)
-"aY" = (
-/obj/machinery/atmospherics/unary/thermomachine/freezer{
-	dir = 1
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
-	},
 /area/shuttle/escape)
 "aZ" = (
 /obj/structure/table,
@@ -394,15 +378,6 @@
 	hackProof = 1;
 	id_tag = "s_docking_airlock";
 	name = "Shuttle Hatch"
-	},
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/shuttle/escape)
-"bi" = (
-/obj/structure/closet/walllocker/emerglocker{
-	pixel_x = 28
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -622,6 +597,16 @@
 	icon_state = "navybluefull"
 	},
 /area/shuttle/escape)
+"pT" = (
+/obj/machinery/atmospherics/unary/thermomachine/freezer{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "whiteblue";
+	tag = "icon-whiteblue (SOUTHWEST)"
+	},
+/area/shuttle/escape)
 "qo" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -674,12 +659,23 @@
 	icon_state = "navyblue"
 	},
 /area/shuttle/escape)
+"Px" = (
+/obj/structure/closet/walllocker/emerglocker/directional/west,
+/turf/simulated/floor/shuttle/objective_check,
+/area/shuttle/escape)
 "Tm" = (
 /obj/structure/lattice/catwalk,
 /turf/simulated/floor/shuttle/transparent_floor{
 	dir = 9;
 	icon = 'icons/turf/shuttle/misc.dmi';
 	icon_state = "router_dir"
+	},
+/area/shuttle/escape)
+"XP" = (
+/obj/structure/closet/walllocker/emerglocker/directional/east,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
 	},
 /area/shuttle/escape)
 
@@ -717,7 +713,7 @@ as
 Lj
 aE
 aF
-aN
+Px
 aO
 aO
 aE
@@ -901,7 +897,7 @@ aE
 aJ
 aQ
 aU
-aY
+pT
 GI
 jn
 bk
@@ -981,13 +977,13 @@ aT
 aV
 bb
 GI
-bi
+XP
 bm
 bk
 bk
 bk
 bm
-bi
+XP
 mf
 br
 bk

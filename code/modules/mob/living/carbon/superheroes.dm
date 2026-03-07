@@ -140,8 +140,8 @@
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	selection_activated_message		= span_notice("You start preparing a mindblowing monologue. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("You decide to save your brilliance for another day.")
+	selection_activated_message = span_notice_alt("You start preparing a mindblowing monologue. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("You decide to save your brilliance for another day.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/recruit/create_new_targeting()

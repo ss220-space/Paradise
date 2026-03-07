@@ -17,6 +17,11 @@
 
 	var/max_range = 5
 
+/obj/item/circuit_component/reagentscanner/Destroy()
+	input_port = null
+	result = null
+	. = ..()
+
 /obj/item/circuit_component/reagentscanner/get_ui_notices()
 	. = ..()
 	. += create_ui_notice("Максимальная дальность: [max_range] тайл[DECL_CREDIT(max_range)]", "orange", "info")
