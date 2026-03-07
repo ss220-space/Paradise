@@ -43,26 +43,31 @@ GLOBAL_LIST_EMPTY(shared_particles)
 /atom/proc/add_shared_particles(particle_type, custom_key = null, particle_flags = NONE, pool_size = 3)
 	var/atom/movable/play_pretend = src
 	var/particle_key = custom_key || "[particle_type]"
-	if(!GLOB.shared_particles[particle_key])
-		GLOB.shared_particles[particle_key] = list(list(new /obj/effect/abstract/shared_particle_holder(null, particle_type, particle_flags)), 1)
-		play_pretend.vis_contents += GLOB.shared_particles[particle_key][SHARED_PARTICLE_HOLDER_INDEX][1]
-		return GLOB.shared_particles[particle_key][SHARED_PARTICLE_HOLDER_INDEX][1]
+	var/list/shared_particles = GLOB.shared_particles
 
-	var/list/type_holders = GLOB.shared_particles[particle_key][SHARED_PARTICLE_HOLDER_INDEX]
+	if(!shared_particles[particle_key])
+		shared_particles[particle_key] = list(list(new /obj/effect/abstract/shared_particle_holder(null, particle_type, particle_flags)), 1)
+		play_pretend.vis_contents += shared_particles[particle_key][SHARED_PARTICLE_HOLDER_INDEX][1]
+		return shared_particles[particle_key][SHARED_PARTICLE_HOLDER_INDEX][1]
+
+	var/list/particle_entry = shared_particles[particle_key]
+	var/list/type_holders = particle_entry[SHARED_PARTICLE_HOLDER_INDEX]
+	var/list/vis = play_pretend.vis_contents
+
 	for(var/obj/effect/abstract/shared_particle_holder/particle_holder as anything in type_holders)
-		if(particle_holder in play_pretend.vis_contents)
+		if(particle_holder in vis)
 			return particle_holder
 
 	if(length(type_holders) < pool_size)
 		var/obj/effect/abstract/shared_particle_holder/new_holder = new(null, particle_type, particle_flags)
 		type_holders += new_holder
 		play_pretend.vis_contents += new_holder
-		GLOB.shared_particles[particle_key][SHARED_PARTICLE_USER_NUM_INDEX] += 1
+		particle_entry[SHARED_PARTICLE_USER_NUM_INDEX] += 1
 		return new_holder
 
 	var/obj/effect/abstract/shared_particle_holder/particle_holder = pick(type_holders)
 	play_pretend.vis_contents += particle_holder
-	GLOB.shared_particles[particle_key][SHARED_PARTICLE_USER_NUM_INDEX] += 1
+	particle_entry[SHARED_PARTICLE_USER_NUM_INDEX] += 1
 	return particle_holder
 
 /area/add_shared_particles(particle_type, custom_key = null, particle_flags = NONE, pool_size = 3)
@@ -79,21 +84,25 @@ GLOBAL_LIST_EMPTY(shared_particles)
 	if(ispath(particle_key))
 		particle_key = "[particle_key]"
 
-	if(!GLOB.shared_particles[particle_key])
+	var/list/shared_particles = GLOB.shared_particles
+	if(!shared_particles[particle_key])
 		return
 
+	var/list/particle_entry = shared_particles[particle_key]
+	var/list/type_holders = particle_entry[SHARED_PARTICLE_HOLDER_INDEX]
 	var/atom/movable/play_pretend = src
-	var/list/type_holders = GLOB.shared_particles[particle_key][SHARED_PARTICLE_HOLDER_INDEX]
+	var/list/vis = play_pretend.vis_contents
+
 	for(var/obj/effect/abstract/shared_particle_holder/particle_holder as anything in type_holders)
-		if(!(particle_holder in play_pretend.vis_contents))
+		if(!(particle_holder in vis))
 			continue
 
-		play_pretend.vis_contents -= particle_holder
-		GLOB.shared_particles[particle_key][SHARED_PARTICLE_USER_NUM_INDEX] -= 1
+		vis -= particle_holder
+		particle_entry[SHARED_PARTICLE_USER_NUM_INDEX] -= 1
 
-		if(delete_on_empty && GLOB.shared_particles[particle_key][SHARED_PARTICLE_USER_NUM_INDEX] <= 0)
+		if(delete_on_empty && particle_entry[SHARED_PARTICLE_USER_NUM_INDEX] <= 0)
 			QDEL_LIST(type_holders)
-			GLOB.shared_particles -= particle_key
+			shared_particles -= particle_key
 		return
 
 /area/remove_shared_particles(particle_key, delete_on_empty = TRUE)

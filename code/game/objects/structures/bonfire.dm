@@ -104,10 +104,10 @@
 		return
 
 	if(!has_buckled_mobs() && do_after(user, 5 SECONDS, src))
-		for(var/I in 1 to 5)
+		for(var/i in 1 to 5)
 			var/obj/item/grown/log/log = new(loc)
-			log.set_base_pixel_x(rand(1,4))
-			log.set_base_pixel_y(rand(1,4))
+			log.set_base_pixel_x(rand(1, 4))
+			log.set_base_pixel_y(rand(1, 4))
 			log.add_fingerprint(user)
 			transfer_fingerprints_to(log)
 
@@ -172,13 +172,13 @@
 	for(var/burn_target in current_location)
 		if(burn_target == src)
 			continue
-		else if(isliving(burn_target))
+		if(isliving(burn_target))
 			var/mob/living/burn_victim = burn_target
 			burn_victim.adjust_fire_stacks(BONFIRE_FIRE_STACK_STRENGTH * 0.5 * seconds_per_tick)
 			burn_victim.IgniteMob()
-		else
-			var/atom/movable/burned_movable = burn_target
-			burned_movable.fire_act(1000, 250 * seconds_per_tick)
+			continue
+		var/atom/movable/burned_movable = burn_target
+		burned_movable.fire_act(1000, 250 * seconds_per_tick)
 
 /obj/structure/bonfire/process(seconds_per_tick)
 	if(!check_oxygen())

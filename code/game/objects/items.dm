@@ -1487,6 +1487,4 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /// If an object can successfully be used as a fire starter it will return a message
 /obj/item/proc/ignition_effect(atom/target, mob/user)
 	if(get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-		. = span_notice("[user] lights [target] with [src].")
-	else
-		. = ""
+		return span_notice("[user] lights [target] with [src].")

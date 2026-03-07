@@ -110,6 +110,10 @@
 	)
 	ignite()
 
+/obj/structure/fireplace/update_desc()
+	. = ..()
+	desc = lit ? "Большой каменный камин, тёплый и уютный." : initial(desc)
+
 /obj/structure/fireplace/update_overlays()
 	. = ..()
 	if(!lit)
@@ -154,7 +158,7 @@
 
 	var/turf/turf = get_turf(src)
 	turf.hotspot_expose(700, 2.5 * seconds_per_tick)
-	update_appearance()
+	update_icon(UPDATE_OVERLAYS)
 	adjust_light()
 
 /obj/structure/fireplace/extinguish()
@@ -184,10 +188,9 @@
 	START_PROCESSING(SSobj, src)
 	burning_loop.start()
 	lit = TRUE
-	desc = "Большой каменный камин, теплый и уютный."
 	flame_expiry_timer = world.time + fuel_added
 	fuel_added = 0
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS|UPDATE_DESC)
 	adjust_light()
 	var/obj/effect/abstract/shared_particle_holder/smoke_particles = add_shared_particles(/particles/smoke/burning, "fireplace_[dir]")
 
@@ -208,9 +211,8 @@
 	STOP_PROCESSING(SSobj, src)
 	burning_loop.stop()
 	lit = FALSE
-	update_appearance()
+	update_appearance(UPDATE_OVERLAYS|UPDATE_DESC)
 	adjust_light()
-	desc = initial(desc)
 	remove_shared_particles(/particles/smoke/burning)
 
 #undef LOG_BURN_TIMER
