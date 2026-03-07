@@ -3141,7 +3141,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutralcorner"
@@ -6838,7 +6838,7 @@
 "aZE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -7289,7 +7289,7 @@
 	},
 /area/security/permabrig)
 "bdd" = (
-/obj/structure/closet/critter,
+/obj/structure/closet/crate/critter,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/sign/poster/contraband/random{
 	pixel_y = 32
@@ -7370,7 +7370,7 @@
 "bdO" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/commercial)
 "bdQ" = (
@@ -10629,7 +10629,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkyellow"
@@ -25084,7 +25084,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -26307,7 +26307,7 @@
 "cXQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/coatrack,
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /obj/item/radio{
 	pixel_x = 5
 	},
@@ -39635,7 +39635,7 @@
 	pixel_x = -12;
 	pixel_y = 2
 	},
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -47195,7 +47195,7 @@
 /area/maintenance/starboard)
 "gjf" = (
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/engine/insulated,
 /area/maintenance/asmaint4)
 "gjh" = (
@@ -52521,7 +52521,7 @@
 	},
 /area/crew_quarters/fitness)
 "hqS" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"
@@ -63499,10 +63499,7 @@
 "jWR" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -70573,7 +70570,7 @@
 	},
 /area/security/checkpoint/south)
 "lLn" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whiteblue"
@@ -79630,7 +79627,7 @@
 /turf/simulated/floor/plating,
 /area/security/visiting_room)
 "nKr" = (
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitegreencorner"
@@ -87161,7 +87158,7 @@
 /area/crew_quarters/fitness)
 "pwH" = (
 /obj/effect/decal/warning_stripes/southeast,
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plasteel,
 /area/toxins/launch)
 "pwN" = (
@@ -87900,7 +87897,7 @@
 	},
 /area/security/securehallway)
 "pEd" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -88695,7 +88692,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
 	},
-/obj/structure/closet/walllocker/emerglocker/south,
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/floor/plating,
 /area/hallway/secondary/exit)
 "pMx" = (
@@ -90669,10 +90666,7 @@
 "qjp" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel,
 /area/engineering/gravitygenerator)
 "qjq" = (
@@ -114156,7 +114150,7 @@
 	},
 /area/security/hos)
 "vur" = (
-/obj/structure/closet/walllocker/emerglocker/east,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -114472,7 +114466,7 @@
 /turf/space,
 /area/space)
 "vxP" = (
-/obj/structure/closet/walllocker/emerglocker/north,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "vault"
@@ -121727,7 +121721,7 @@
 /area/quartermaster/storage)
 "xfo" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/west,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "xfr" = (
@@ -124494,10 +124488,7 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_x = -30;
-	pixel_y = 0
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"

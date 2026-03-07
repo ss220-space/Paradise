@@ -4,7 +4,7 @@
 
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
-ADMIN_VERB(syndicate_strike_team, R_ADMIN, "Отправить Ударный Отряд \"Синдиката\"", "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК.", ADMIN_CATEGORY_EVENTS)
+ADMIN_VERB(syndicate_strike_team, R_EVENT, "Отправить Ударный Отряд \"Синдиката\"", "Спавнит Ударный Отряд \"Синдиката\" в месте их дислокации на СЦК.", ADMIN_CATEGORY_EVENTS)
 	if(user.holder)
 		user.syndicate_strike_team()
 

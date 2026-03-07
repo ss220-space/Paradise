@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(jobs)
 			J.total_positions += (J.positions_highpop - positions_lowpop)
 
 /datum/controller/subsystem/jobs/proc/Debug(text)
-	if(GLOB.debug2)
+	if(GLOB.debugging_enabled)
 		job_debug.Add(text)
 
 /datum/controller/subsystem/jobs/proc/GetJob(rank)
@@ -566,7 +566,7 @@ SUBSYSTEM_DEF(jobs)
 		mark_spawn = locate("start*[rank]") // use old stype
 
 	if(!mark_spawn || SSticker.shuttle_start) // No spawn, then spawn on latejoin mark
-		log_runtime(EXCEPTION("No landmark start for [rank]."))
+		stack_trace("No landmark start for [rank].")
 		if(rank == JOB_TITLE_PRISONER)
 			mark_spawn = pick(GLOB.latejoin_prisoner)
 		else
@@ -754,6 +754,8 @@ SUBSYSTEM_DEF(jobs)
 		SSblackbox.record_feedback("nested tally", "job_preferences", charyoung, list("[job.title]", "charyoung"))
 
 /datum/controller/subsystem/jobs/proc/CreateMoneyAccount(mob/living/human, rank, datum/job/job)
+	if(!job)
+		return
 	var/money_amount = rand(job.min_start_money, job.max_start_money)
 	if(human.client.donator_level > 0)
 		money_amount += human.client.donator_level * START_CREDITS_BY_DONATION_TIER
