@@ -28,10 +28,13 @@
 	else
 		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
 
-	var/obj/item/implant/fake_mindshield/fake_shield = locate(/obj/item/implant/fake_mindshield) in imp_in
-	if(fake_shield)
-		to_chat(target, span_warning("Вы чувствуете, что [fake_shield.declent_ru(ACCUSATIVE)] перегружен и вышел из строя!"))
-		qdel(fake_shield)
+	var/obj/item/implant/fake_mindshield/fake_shield = locate() in imp_in
+
+	if(!fake_shield)
+		return .
+
+	to_chat(target, span_warning("Вы чувствуете, что [fake_shield.declent_ru(ACCUSATIVE)] перегружен и вышел из строя!"))
+	qdel(fake_shield)
 
 /obj/item/implant/mindshield/removed(mob/target, silent = FALSE)
 	. = ..()
@@ -91,10 +94,12 @@
 	if(!.)
 		return .
 
-	var/obj/item/implant/mindshield/real_mindshield = locate(/obj/item/implant/mindshield) in imp_in
-	if(real_mindshield)
-		to_chat(target, span_warning("Вы чувствуете, что [declent_ru(ACCUSATIVE)] сразу же был перегружен и вышел из строя!"))
-		qdel(src)
+	var/obj/item/implant/mindshield/real_mindshield = locate() in imp_in
+	if(!real_mindshield)
+		return .
+
+	to_chat(target, span_warning("Вы чувствуете, что [declent_ru(ACCUSATIVE)] сразу же был перегружен и вышел из строя!"))
+	qdel(src)
 
 /obj/item/implant/fake_mindshield/activate()
 	if(!imp_in)
@@ -107,9 +112,11 @@
 
 	update_icon()
 
-	if(ishuman(imp_in))
-		var/mob/living/carbon/human/human = imp_in
-		human.sec_hud_set_implants()
+	if(!ishuman(imp_in))
+		return
+
+	var/mob/living/carbon/human/human = imp_in
+	human.sec_hud_set_implants()
 
 /obj/item/implant/fake_mindshield/update_icon_state()
 	icon_state = "fake_mindshield[hud_visible ? 1 : 0]"
