@@ -62,11 +62,14 @@
 	if(!weapon)
 		return 0
 
+	// Сбрасываем зачарование если оно есть
+	if(W.clockwork_enchant && W.clockwork_enchant != NO_SPELL)
+		W.clockwork_enchant = NO_SPELL
+
 	forceMove(get_turf(src))
 
 	state = 0
 	W.clockwork_bolt = null
-	enchant_type = NO_SPELL
 
 	if(istype(W, /obj/item/gun/energy))
 		var/obj/item/gun/energy/E = W
@@ -79,6 +82,31 @@
 		to_chat(user, span_notice("Вы сняли [DECLENT_RU_CAP(src, ACCUSATIVE)] с [DECLENT_RU_CAP(W, GENITIVE)]."))
 
 	return state
+
+/obj/item/clockwork_bolt/proc/bible_removal(mob/living/user)
+	to_chat(user, span_notice("Вы начинаете изгонять скверну из [DECLENT_RU_CAP(weapon, GENITIVE)]..."))
+	if(!do_after(user, 5 SECONDS, weapon))
+		return
+
+	if(!weapon || !weapon.clockwork_bolt)
+		to_chat(user, span_warning("Затвор уже снят!"))
+		return
+
+	uninstall(weapon, user)
+	to_chat(user, span_notice("Скверна изгнана! [DECLENT_RU_CAP(src, NOMINATIVE)] падает на пол."))
+
+	if(prob(2))
+		playsound(user.loc, 'sound/magic/cult_spell.ogg', 100, TRUE)
+	else
+		playsound(user.loc, 'sound/weapons/magic.ogg', 50, TRUE)
+
+/obj/item/clockwork_bolt/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(istype(I, /obj/item/storage/bible) && istype(weapon, /obj/item/gun))
+		if(user.mind && user.mind.isholy)
+			bible_removal(user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/clockwork_bolt/screwdriver_act(mob/living/user, obj/item/I)
 	if(!weapon)
@@ -131,7 +159,7 @@
 		to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
 
 /obj/item/clockwork_bolt/Destroy()
-	if(weapon)
-		uninstall(weapon)
+	if(weapon && !QDELETED(weapon))
+		weapon.clockwork_bolt = null
 	weapon = null
 	return ..()

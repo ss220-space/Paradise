@@ -74,6 +74,12 @@
 		bolt.install(src, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	// Проверка на удар библией по оружию с затвором (для священников)
+	if(istype(I, /obj/item/storage/bible) && clockwork_bolt)
+		if(user.mind && user.mind.isholy)
+			clockwork_bolt.bible_removal(user)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 /obj/item/gun/energy/proc/toggle_voice()
