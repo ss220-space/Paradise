@@ -613,8 +613,8 @@
 			return ATTACK_CHAIN_PROCEED
 		var/turf/host_turf = get_turf(src)
 		if(!host_turf)
-			throw EXCEPTION("attackby on APC when it's not on a turf")
-			return ATTACK_CHAIN_PROCEED
+			. = ATTACK_CHAIN_PROCEED
+			CRASH("attackby on APC when it's not on a turf")
 		if(!host_turf.can_have_cabling() || host_turf.intact)
 			to_chat(user, span_warning("You should remove the floor plating in front of the APC first."))
 			return ATTACK_CHAIN_PROCEED

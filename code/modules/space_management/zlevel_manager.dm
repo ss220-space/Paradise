@@ -43,10 +43,15 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
 	initialized = 1
 
 /datum/zlev_manager/proc/get_zlev(z)
-	return z_list["[z]"] == null ? log_runtime(EXCEPTION("Unmanaged z level: '[z]'")) : z_list["[z]"]
+	if(!("[z]" in z_list))
+		CRASH("Unmanaged z level: '[z]' maxz = [world.maxz], z_list.len = [z_list ? z_list.len : "null"]")
+	else
+		return z_list["[z]"]
 
 /datum/zlev_manager/proc/get_zlev_by_name(A)
-	return levels_by_name[A] == null ? log_runtime(EXCEPTION("Non-existent z level: '[A]'")) : levels_by_name[A]
+	if(!(A in levels_by_name))
+		CRASH("Non-existent z level: '[A]'")
+	return levels_by_name[A]
 
 /*
 * "Dirt" management
@@ -108,7 +113,7 @@ GLOBAL_DATUM_INIT(space_manager, /datum/zlev_manager, new())
  */
 /datum/zlev_manager/proc/add_new_zlevel(name, linkage = SELFLOOPING, traits = list(BLOCK_TELEPORT))
 	if(name in levels_by_name)
-		throw EXCEPTION("Name already in use: [name]")
+		CRASH("Name already in use: [name]")
 	world.incrementMaxZ()
 	var/our_z = world.maxz
 	milla_init_z(our_z)

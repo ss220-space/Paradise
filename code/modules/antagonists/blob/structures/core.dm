@@ -32,7 +32,7 @@
 	GLOB.poi_list |= src
 	update_blob() //so it atleast appears
 	if(!overmind)
-		create_overmind(new_overmind)
+		END_OF_TICK(CALLBACK(src, PROC_REF(create_overmind), new_overmind))
 	is_offspring = offspring
 	if(overmind)
 		overmind.blobstrain.on_gain()

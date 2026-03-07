@@ -332,3 +332,5 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_DROP "drop"
 #define SFX_EQUIP "equip"
 #define SFX_FART "fart"
+#define SFX_CLOSET_TOGGLE_LOCK "closet_toggle_lock"
+#define SFX_BUTTON_DENIED "button_denied"
