@@ -136,9 +136,9 @@
 				continue
 			possible_enchants[S.name] = S
 			var/overlay_num = get_overlay_weapon_number(S.enchantment)
-			var/image/I = image('icons/obj/clockwork.dmi', icon_state = "clock_slab")
-			I.add_overlay("clock_slab_overlay_[overlay_num]")
-			possible_enchant_icons += list(S.name = I)
+			var/image/spell_icon = image('icons/obj/clockwork.dmi', icon_state = "clock_slab")
+			spell_icon.add_overlay("clock_slab_overlay_[overlay_num]")
+			possible_enchant_icons += list(S.name = spell_icon)
 		entered_spell_name = show_radial_menu(owner, owner, possible_enchant_icons, require_near = TRUE)
 		var/datum/spell_enchant/spell_enchant = possible_enchants[entered_spell_name]
 		if(QDELETED(src) || owner.incapacitated() || !spell_enchant)
@@ -147,7 +147,6 @@
 			var/obj/item/gripper/G = locate() in owner
 			if(item != G?.gripped_item)
 				return
-			return
 
 		if(!channeling)
 			channeling = TRUE
@@ -170,10 +169,10 @@
 
 	if(length(item?.enchants)) // it just works
 		if(item.enchant_type == CASTING_SPELL)
-			to_chat(owner, span_warning(" You can't enchant [item] right now while spell is working!"))
+			to_chat(owner, span_warning("Вы не можете зачаровать [DECLENT_RU_CAP(item, ACCUSATIVE)] прямо сейчас, пока заклинание действует!"))
 			return
 		if(item.enchant_type)
-			to_chat(owner, span_clockitalic("There is already prepared spell in [item]! If you choose another spell it will overwrite old one!"))
+			to_chat(owner, span_clockitalic("В [DECLENT_RU_CAP(item, PREPOSITIONAL)] уже подготовлено заклинание! Если вы выберете другое заклинание, оно перезапишет старое!"))
 		if(istype(item, /obj/item/gun/energy/gun/minigun/clockwork))
 			var/obj/item/gun/energy/gun/minigun/clockwork/gun = item
 			if(gun.overheat)

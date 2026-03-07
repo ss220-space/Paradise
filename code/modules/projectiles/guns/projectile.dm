@@ -136,21 +136,6 @@
 		reload(new_magazine, user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/clockwork_bolt))
-		add_fingerprint(user)
-		var/obj/item/clockwork_bolt/bolt = I
-		if(clockwork_bolt)
-			to_chat(user, span_clock("На [DECLENT_RU_CAP(src, PREPOSITIONAL)] уже установлен часовой затвор."))
-			return ATTACK_CHAIN_PROCEED
-
-		bolt.install(src, user)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(I, /obj/item/storage/bible) && clockwork_bolt)
-		if(user.mind && user.mind.isholy)
-			clockwork_bolt.bible_removal(user)
-			return ATTACK_CHAIN_BLOCKED_ALL
-
 	return ..()
 
 /obj/item/gun/projectile/proc/speedloader_reload(obj/item/item, mob/user)
@@ -270,11 +255,16 @@
 				clockwork_bolt.state = CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT
 				to_chat(user, span_notice("Вы открутили винты [DECLENT_RU_CAP(clockwork_bolt, GENITIVE)] от [DECLENT_RU_CAP(src, GENITIVE)]."))
 			else
-				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-				user.apply_damage(5, BRUTE, affecting)
-				user.emote("scream")
-				to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
+				if(ishuman(user))
+					var/mob/living/carbon/human/H = user
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+					user.apply_damage(5, BRUTE, affecting)
+					user.emote("scream")
+					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
+				else
+					user.apply_damage(5, BRUTE)
+					user.emote("scream")
+					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила вам руку!"))
 			return
 
 /obj/item/gun/projectile/welder_act(mob/living/user, obj/item/I)
@@ -298,11 +288,16 @@
 				clockwork_bolt.uninstall(src, user)
 				to_chat(user, span_notice("Вы успешно сняли [DECLENT_RU_CAP(clockwork_bolt, ACCUSATIVE)]."))
 			else
-				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-				user.apply_damage(5, BRUTE, affecting)
-				user.emote("scream")
-				to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
+				if(ishuman(user))
+					var/mob/living/carbon/human/H = user
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+					user.apply_damage(5, BRUTE, affecting)
+					user.emote("scream")
+					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
+				else
+					user.apply_damage(5, BRUTE)
+					user.emote("scream")
+					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила вам руку!"))
 			return
 
 // Sawing guns related proc

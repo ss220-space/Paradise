@@ -123,11 +123,16 @@
 				state = CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT
 				to_chat(user, span_notice("Вы открутили винты [DECLENT_RU_CAP(src, GENITIVE)]."))
 			else
-				var/mob/living/carbon/human/H = user
-				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-				user.apply_damage(5, BRUTE, affecting)
-				user.emote("scream")
-				to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
+				if(ishuman(user))
+					var/mob/living/carbon/human/H = user
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+					user.apply_damage(5, BRUTE, affecting)
+					user.emote("scream")
+					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
+				else
+					user.apply_damage(5, BRUTE)
+					user.emote("scream")
+					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила вам руку!"))
 		return
 
 /obj/item/clockwork_bolt/welder_act(mob/living/user, obj/item/I)
@@ -151,11 +156,16 @@
 		uninstall(weapon, user)
 		to_chat(user, span_notice("Вы успешно сняли [DECLENT_RU_CAP(src, ACCUSATIVE)]."))
 	else
-		var/mob/living/carbon/human/H = user
-		var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-		user.apply_damage(5, BRUTE, affecting)
-		user.emote("scream")
-		to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+			user.apply_damage(5, BRUTE, affecting)
+			user.emote("scream")
+			to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
+		else
+			user.apply_damage(5, BRUTE)
+			user.emote("scream")
+			to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила вам руку!"))
 
 /obj/item/clockwork_bolt/Destroy()
 	if(weapon && !QDELETED(weapon))
