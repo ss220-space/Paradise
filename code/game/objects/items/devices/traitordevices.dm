@@ -561,7 +561,7 @@ effective or pretty fucking useless.
 	. = ..()
 	if(.)
 		return .
-	if(!aura_on && user && (isvampire(user) || ischangeling(user)))
+	if(!aura_on && user && HAS_TRAIT(user, TRAIT_NO_AURA_ACTIVATION))
 		to_chat(user, span_warning("Система безопасности [src.declent_ru(GENITIVE)] не позволяет вам активировать его."))
 		return
 

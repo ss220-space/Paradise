@@ -121,6 +121,7 @@
 	aura_hud.show_to(user)
 
 	ADD_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+	ADD_TRAIT(user, TRAIT_NO_AURA_ACTIVATION, INNATE_TRAIT)
 
 	user.AddElement( \
 		/datum/element/pref_viewer, \
@@ -138,6 +139,7 @@
 		remove_all_powers()
 
 	REMOVE_TRAIT(owner, TRAIT_BAD_SOUL, INNATE_TRAIT)
+	REMOVE_TRAIT(user, TRAIT_NO_AURA_ACTIVATION, INNATE_TRAIT)
 
 	if(!transformation)
 		user.faction -= ROLE_VAMPIRE
