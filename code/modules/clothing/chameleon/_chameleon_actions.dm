@@ -52,7 +52,7 @@
 
 /datum/action/chameleon_outfit/Grant(mob/grant_to)
 	var/mob/master = chameleon_master_ref?.resolve()
-	if(!master || QDELETED(master) || master.stat == DEAD)
+	if(!master || master.stat == DEAD)
 		if(isliving(grant_to))
 			chameleon_master_ref = WEAKREF(grant_to)
 		else
@@ -265,7 +265,7 @@
 /datum/action/item_action/chameleon/change/proc/check_chameleon_access(mob/grant_to)
 	var/mob/master = chameleon_master_ref?.resolve()
 
-	if(!master || QDELETED(master) || master.stat == DEAD)
+	if(!master || master.stat == DEAD)
 		if(isliving(grant_to))
 			chameleon_master_ref = WEAKREF(grant_to)
 			return TRUE
