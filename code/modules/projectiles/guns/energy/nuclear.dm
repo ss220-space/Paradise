@@ -74,6 +74,8 @@
 /obj/item/gun/energy/gun/blueshield/can_shoot(mob/user)
 	. = ..()
 	if(. && !isertmindshielded(user))
+		if(clockwork_bolt && isclocker(user))
+			return TRUE
 		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
 
@@ -94,6 +96,8 @@
 /obj/item/gun/energy/gun/pdw9/ert/can_shoot(mob/user)
 	. = ..()
 	if(. && !isertmindshielded(user))
+		if(clockwork_bolt && isclocker(user))
+			return TRUE
 		balloon_alert(usr, "имплант \"ERT Mindshield\" не обнаружен!")
 		return FALSE
 

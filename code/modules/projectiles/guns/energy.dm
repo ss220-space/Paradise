@@ -37,6 +37,8 @@
 	. = ..()
 	if(sibyl_mod)
 		. += span_notice("Вы видите индикаторы модуля Sibyl System.")
+	if(clockwork_bolt)
+		. += span_clock("На [DECLENT_RU_CAP(src, ACCUSATIVE)] установлен часовой затвор. Слышен тихий тикающий звук.")
 
 /obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/sibyl_system_mod))
@@ -44,6 +46,10 @@
 		var/obj/item/sibyl_system_mod/new_sibyl = I
 		if(!can_add_sibyl_system)
 			to_chat(user, span_warning("The [name] is incompatible with the sibyl systems module."))
+			return ATTACK_CHAIN_PROCEED
+
+		if(clockwork_bolt)
+			to_chat(user, span_clock("[capitalize(DECLENT_RU_CAP(src, ACCUSATIVE))] блокирует попытку установки Sibyl System."))
 			return ATTACK_CHAIN_PROCEED
 
 		if(sibyl_mod)
@@ -57,6 +63,16 @@
 		add_fingerprint(user)
 		sibyl_mod.toggleAuthorization(I, user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/clockwork_bolt))
+		add_fingerprint(user)
+		var/obj/item/clockwork_bolt/bolt = I
+		if(clockwork_bolt)
+			to_chat(user, span_clock("На [DECLENT_RU_CAP(src, ACCUSATIVE)] уже установлен часовой затвор."))
+			return ATTACK_CHAIN_PROCEED
+
+		bolt.install(src, user)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
 
@@ -87,6 +103,23 @@
 				to_chat(user, span_warning("Проклятье! [I] сорвалась и повредила [affecting.name]!"))
 			return
 
+	if(clockwork_bolt && user.a_intent != INTENT_HARM)
+		if(clockwork_bolt.state == CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT)
+			clockwork_bolt.state = CLOCKWORK_BOLT_STATE_INSTALLED
+			to_chat(user, span_clock("Вы закрутили винты [DECLENT_RU_CAP(clockwork_bolt, GENITIVE)] в [DECLENT_RU_CAP(src, PREPOSITIONAL)]."))
+			return
+		else
+			if(prob(90))
+				clockwork_bolt.state = CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT
+				to_chat(user, span_notice("Вы открутили винты [DECLENT_RU_CAP(clockwork_bolt, GENITIVE)] от [DECLENT_RU_CAP(src, GENITIVE)]."))
+			else
+				var/mob/living/carbon/human/H = user
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				user.apply_damage(5, BRUTE , affecting)
+				user.emote("scream")
+				to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
+			return
+
 /obj/item/gun/energy/welder_act(mob/living/user, obj/item/I)
 	..()
 	if(sibyl_mod && user.a_intent != INTENT_HARM)
@@ -110,6 +143,14 @@
 					to_chat(user, span_warning("Проклятье! [I] дёрнулась и прожгла [affecting.name]!"))
 			return
 
+	if(clockwork_bolt && user.a_intent != INTENT_HARM)
+		if(clockwork_bolt.state == CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT)
+			to_chat(user, span_clock("Вы начинаете заваривать болты [DECLENT_RU_CAP(clockwork_bolt, GENITIVE)] в [DECLENT_RU_CAP(src, PREPOSITIONAL)]..."))
+			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+				clockwork_bolt.state = CLOCKWORK_BOLT_STATE_INSTALLED
+				to_chat(user, span_clock("Болты [DECLENT_RU_CAP(clockwork_bolt, GENITIVE)] заварены."))
+			return
+
 /obj/item/gun/energy/crowbar_act(mob/living/user, obj/item/I)
 	..()
 	if(sibyl_mod && user.a_intent != INTENT_HARM)
@@ -127,6 +168,22 @@
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
 				to_chat(user, span_warning("Проклятье! [I] соскальзнула и повредила [affecting.name]!"))
+			return
+
+	if(clockwork_bolt && user.a_intent != INTENT_HARM)
+		if(clockwork_bolt.state == CLOCKWORK_BOLT_STATE_INSTALLED)
+			to_chat(user, span_clock("Вы начинаете поддевать [DECLENT_RU_CAP(clockwork_bolt, ACCUSATIVE)] из [DECLENT_RU_CAP(src, GENITIVE)]..."))
+			if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
+				return
+			if(prob(95))
+				clockwork_bolt.uninstall(src, user)
+				to_chat(user, span_notice("Вы успешно сняли [DECLENT_RU_CAP(clockwork_bolt, ACCUSATIVE)]."))
+			else
+				var/mob/living/carbon/human/H = user
+				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+				user.apply_damage(5, BRUTE , affecting)
+				user.emote("scream")
+				to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
 			return
 
 /obj/item/gun/energy/emag_act(mob/user)

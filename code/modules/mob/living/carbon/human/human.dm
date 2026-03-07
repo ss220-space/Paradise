@@ -1647,6 +1647,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/can_use_guns(obj/item/gun/check_gun)
 	. = ..()
 
+	if(check_gun.clockwork_bolt && isclocker(src))
+		return TRUE
+
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
 		balloon_alert(src, "слишком толстые пальцы!")
 		return FALSE

@@ -115,6 +115,8 @@
 	var/pb_knockback = 0
 	/// Shots counter
 	var/shots_counter = 0
+	/// Clockwork bolt attachment
+	var/obj/item/clockwork_bolt/clockwork_bolt = null
 
 /obj/item/gun/Initialize(mapload)
 	. = ..()
@@ -341,6 +343,11 @@
 
 		if(restricted_species && length(restricted_species) && !is_type_in_list(user.dna.species, restricted_species))
 			to_chat(user, span_danger("[DECLENT_RU_CAP(src, NOMINATIVE)] несовместим с вашей биологией!"))
+			return FALSE
+
+		if(src.clockwork_bolt && !isclocker(user))
+			to_chat(user, span_danger("*клик*"))
+			playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 			return FALSE
 
 	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
