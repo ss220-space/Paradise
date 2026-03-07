@@ -13,7 +13,6 @@
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "bonfire"
 	light_color = LIGHT_COLOR_FIRE
-	density = FALSE
 	anchored = TRUE
 	buckle_lying = 0
 	pass_flags_self = PASSTABLE | LETPASSTHROW

@@ -42,7 +42,6 @@
 	spawning = 2
 	gradient = list("#FBAF4D", "#FCE6B6", "#FFFFFF")
 	lifespan = 1.5 SECONDS
-	fade = 1 SECONDS
 	fadein = 0.1 SECONDS
 	grow = -0.1
 	velocity = generator(GEN_CIRCLE, 3, 3, SQUARE_RAND)

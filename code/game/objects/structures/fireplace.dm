@@ -7,7 +7,6 @@
 	desc = "Большой камин из каменного кирпича."
 	icon = 'icons/obj/fireplace.dmi'
 	icon_state = "fireplace"
-	density = FALSE
 	anchored = TRUE
 	pixel_x = -16
 	resistance_flags = FIRE_PROOF

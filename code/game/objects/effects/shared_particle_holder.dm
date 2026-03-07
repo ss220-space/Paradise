@@ -13,7 +13,6 @@ GLOBAL_LIST_EMPTY(shared_particles)
 	vis_flags = VIS_INHERIT_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	anchored = TRUE
 	/// Holds info about how this particle emitter works
 	/// See \code\__DEFINES\particles.dm
 	var/particle_flags = NONE
