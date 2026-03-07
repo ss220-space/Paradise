@@ -137,7 +137,7 @@
 	burning_loop.start()
 	burning = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	set_light(6, l_color = LIGHT_COLOR_FIRE, l_on = TRUE)
+	set_light(6, l_on = TRUE)
 	bonfire_burn()
 	particles = new /particles/bonfire()
 	START_PROCESSING(SSobj, src)
