@@ -213,7 +213,6 @@
 	law_level = LAW_LEVEL_MAGISTRATE
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_JUDGE,
-		ALT_JOB_TITLE_RU_HIGH_ARBITRATOR,
 	)
 	outfit = /datum/outfit/job/judge
 	paycheck = PAYCHECK_MAX

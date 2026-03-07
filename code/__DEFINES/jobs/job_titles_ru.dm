@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_CMO "Главный врач"
 #define JOB_TITLE_RU_DOCTOR "Врач"
 #define JOB_TITLE_RU_CORONER "Патологоанатом"
-#define JOB_TITLE_RU_CHEMIST "Химик"
+#define JOB_TITLE_RU_CHEMIST "Фармацевт"
 #define JOB_TITLE_RU_GENETICIST "Генетик"
 #define JOB_TITLE_RU_VIROLOGIST "Вирусолог"
 #define JOB_TITLE_RU_PSYCHIATRIST "Психиатр"
@@ -53,12 +53,12 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_SCIENCE_ASSISTANT "Научный ассистент"
 
 // Security
-#define JOB_TITLE_RU_HOS "Глава СБ"
+#define JOB_TITLE_RU_HOS "Глава Службы Безопасности"
 #define JOB_TITLE_RU_WARDEN "Смотритель"
 #define JOB_TITLE_RU_DETECTIVE "Детектив"
-#define JOB_TITLE_RU_OFFICER "Офицер СБ"
+#define JOB_TITLE_RU_OFFICER "Офицер Службы Безопасности"
 #define JOB_TITLE_RU_BRIGDOC "Бриг-медик"
-#define JOB_TITLE_RU_PILOT "Пилот СБ"
+#define JOB_TITLE_RU_PILOT "Пилот Службы Безопасности"
 
 // Legal
 #define JOB_TITLE_RU_MAGISTRATE "Магистрат"
@@ -129,8 +129,8 @@ GLOBAL_LIST_EMPTY(job_titles_ru_to_en)
 #define JOB_TITLE_RU_TAIPAN_CARGO "Грузчик \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_CHEF "Повар \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_ENGINEER "Инженер \"Синдиката\""
-#define JOB_TITLE_RU_TAIPAN_COMMS "Офицер связи \"Синдиката\""
-#define JOB_TITLE_RU_TAIPAN_RD "Научный руководитель \"Синдиката\""
+#define JOB_TITLE_RU_TAIPAN_COMMS "Офицер коммуникаций \"Синдиката\""
+#define JOB_TITLE_RU_TAIPAN_RD "Директор исследований \"Синдиката\""
 #define JOB_TITLE_RU_TAIPAN_CYBORG "Киборг"
 
 // Special ones
@@ -267,14 +267,11 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_TRAUMATOLOGIST "Травматолог"
 #define ALT_JOB_TITLE_RU_RESUSCITATOR "Реаниматолог"
 #define ALT_JOB_TITLE_RU_THERAPIST "Терапевт"
-#define ALT_JOB_TITLE_RU_FELDSHER "Фельдшер"
+#define ALT_JOB_TITLE_RU_ORDERLY "Санитар"
 // Coroner
-#define ALT_JOB_TITLE_RU_PATHOLOGIST "Патолог"
 #define ALT_JOB_TITLE_RU_THANATOLOGIST "Танатолог"
 // Chemist
-#define ALT_JOB_TITLE_RU_PHARMACIST "Фармацевт"
 #define ALT_JOB_TITLE_RU_PROVISOR "Провизор"
-#define ALT_JOB_TITLE_RU_BIOCHEMIST "Биохимик"
 // Geneticist
 #define ALT_JOB_TITLE_RU_GENETIC_ENGINEER "Генный инженер"
 #define ALT_JOB_TITLE_RU_BIOENGINEER "Биоинженер"
@@ -291,8 +288,7 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_PSYCHONEURO "Психоневролог"
 // Paramedic
 #define ALT_JOB_TITLE_RU_FIELD_MEDIC "Полевой медик"
-#define ALT_JOB_TITLE_RU_RESCUER "Врач-спасатель"
-#define ALT_JOB_TITLE_RU_EMERGENCY_DOC "Врач скорой помощи"
+#define ALT_JOB_TITLE_RU_FELDSHER "Фельдшер"
 // Medical assistant
 #define ALT_JOB_TITLE_RU_MEDICAL_STUDENT "Студент-врач"
 #define ALT_JOB_TITLE_RU_MEDICAL_TRAINEE "Врач-стажёр"
@@ -304,12 +300,9 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_ANOMALIST "Аномалист"
 #define ALT_JOB_TITLE_RU_PLASMOLOGIST "Плазмолог"
 #define ALT_JOB_TITLE_RU_XENOBIOLOGIST "Ксенобиолог"
-#define ALT_JOB_TITLE_RU_PHARMACOLOGIST "Фармаколог"
 #define ALT_JOB_TITLE_RU_RESEARCH_ASSOCIATE "Научный сотрудник"
-#define ALT_JOB_TITLE_RU_LAB_TECHNICIAN "Исследователь-лаборант"
-#define ALT_JOB_TITLE_RU_LOGIC_ARCHITECT "Архитектор логических систем"
 // Roboticist
-#define ALT_JOB_TITLE_RU_BIONICS_SPECIALIST "Бионический специалист"
+#define ALT_JOB_TITLE_RU_BIONICS_SPECIALIST "Специалист по бионике"
 #define ALT_JOB_TITLE_RU_CYBERNETIC_ENGINEER "Кибернетический инженер"
 // Student scientist
 #define ALT_JOB_TITLE_RU_SCIENCE_STUDENT "Студент-учёный"
@@ -318,31 +311,28 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER "Младший научный сотрудник"
 
 // Warden
-#define ALT_JOB_TITLE_RU_BRIG_SERGEANT "Бриг-сержант"
 #define ALT_JOB_TITLE_RU_OVERSEER "Надзиратель"
 #define ALT_JOB_TITLE_RU_BRIG_COMMANDANT "Комендант брига"
 // Detective
 #define ALT_JOB_TITLE_RU_INVESTIGATOR "Следователь"
 #define ALT_JOB_TITLE_RU_CRIMINOLOGIST "Криминалист"
 // Security officer
-#define ALT_JOB_TITLE_RU_PATROL_OFFICER "Патрульный СБ"
-#define ALT_JOB_TITLE_RU_SECURITY_OPERATOR "Оперативник СБ"
+#define ALT_JOB_TITLE_RU_PATROL_OFFICER "Патрульный"
+#define ALT_JOB_TITLE_RU_SECURITY_OPERATOR "Оперативник"
 // Brig medic
-#define ALT_JOB_TITLE_RU_SECURITY_MEDIC "Врач СБ"
+#define ALT_JOB_TITLE_RU_SECURITY_MEDIC "Врач Службы Безопасности"
 #define ALT_JOB_TITLE_RU_TACTICAL_MEDIC "Тактический медик"
 // Pod pilot
-#define ALT_JOB_TITLE_RU_POD_OPERATOR "Оператор челнока СБ"
+#define ALT_JOB_TITLE_RU_POD_OPERATOR "Оператор челнока Службы Безопасности"
 
 // Head of Personnel
 #define ALT_JOB_TITLE_RU_HR_DIRECTOR "Директор по персоналу"
 #define ALT_JOB_TITLE_RU_PERSONNEL_MANAGER "Кадровый менеджер"
 // Bartender
-#define ALT_JOB_TITLE_RU_DRINK_ARTIST "Мастер коктейлей"
-#define ALT_JOB_TITLE_RU_MIXOLOGIST "Миксолог"
+#define ALT_JOB_TITLE_RU_BARISTA "Бариста"
 // Chef
 #define ALT_JOB_TITLE_RU_SOUS_CHEF "Су-шеф"
 #define ALT_JOB_TITLE_RU_NUTRITION_EXPERT "Специалист по питанию"
-#define ALT_JOB_TITLE_RU_CANTEEN_HEAD "Заведующий пищеблоком"
 // Botanist
 #define ALT_JOB_TITLE_RU_HYDROPONICS_TECH "Специалист по гидропонике"
 #define ALT_JOB_TITLE_RU_BOTANICAL_RESEARCHER "Ботанический исследователь"
@@ -354,7 +344,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_COMEDIANT "Комедиант"
 // Mime
 #define ALT_JOB_TITLE_RU_PANTHOMIMIST "Пантомимист"
-#define ALT_JOB_TITLE_RU_ILLUSIONIST "Иллюзионист"
 // Janitor
 #define ALT_JOB_TITLE_RU_CLEANING_SPECIALIST "Клининг-специалист"
 // Librarian
@@ -382,7 +371,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 #define ALT_JOB_TITLE_RU_NT_CONSULTANT "Консультант \"Нанотрейзен\""
 // Magistrate
 #define ALT_JOB_TITLE_RU_JUDGE "Судья"
-#define ALT_JOB_TITLE_RU_HIGH_ARBITRATOR "Верховный арбитр"
 // Internal affairs agent
 #define ALT_JOB_TITLE_RU_LAWYER "Юрист"
 #define ALT_JOB_TITLE_RU_ATTORNEY "Адвокат"
@@ -392,7 +380,6 @@ GLOBAL_LIST_INIT(job_titles_ru, list(
 
 // Civilian
 #define ALT_JOB_TITLE_RU_TOURIST "Турист"
-#define ALT_JOB_TITLE_RU_ENTERPRENEUR "Предприниматель"
 #define ALT_JOB_TITLE_RU_ASSISTANT "Ассистент"
 #define ALT_JOB_TITLE_RU_WORKER "Разнорабочий"
 #define ALT_JOB_TITLE_RU_GENERAL_INTERN "Стажёр общего профиля"
