@@ -67,7 +67,7 @@
 
 	forceMove(get_turf(src))
 
-	state = 0
+	state = CLOCKWORK_BOLT_STATE_UNINSTALLED
 	W.clockwork_bolt = null
 
 	if(istype(W, /obj/item/gun/energy))
@@ -101,7 +101,7 @@
 
 /obj/item/clockwork_bolt/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/storage/bible) && istype(weapon, /obj/item/gun))
+	if(istype(I, /obj/item/storage/bible) && weapon)
 		if(user.mind && user.mind.isholy)
 			bible_removal(user)
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -125,7 +125,7 @@
 			else
 				if(ishuman(user))
 					var/mob/living/carbon/human/H = user
-					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 					user.apply_damage(5, BRUTE, affecting)
 					user.emote("scream")
 					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
@@ -158,7 +158,7 @@
 	else
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
-			var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+			var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 			user.apply_damage(5, BRUTE, affecting)
 			user.emote("scream")
 			to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))

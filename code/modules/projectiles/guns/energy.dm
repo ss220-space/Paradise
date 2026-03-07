@@ -132,7 +132,7 @@
 					to_chat(user, span_notice("Вы успешно разварили болты мода Sibyl System от [src]."))
 				else
 					var/mob/living/carbon/human/H = user
-					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
+					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
 					user.apply_damage(10, BURN , affecting)
 					user.emote("scream")
 					to_chat(user, span_warning("Проклятье! [I] дёрнулась и прожгла [affecting.name]!"))

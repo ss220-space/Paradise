@@ -57,8 +57,7 @@
 			var/obj/item/clockwork_bolt/I_bolt = null
 			if(istype(I, /obj/item/gun))
 				var/obj/item/gun/G = I
-				if(G.clockwork_bolt)
-					I_bolt = G.clockwork_bolt
+				I_bolt = G.clockwork_bolt
 
 			if(!I.enchants && !I_bolt)
 				continue
