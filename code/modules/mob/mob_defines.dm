@@ -1,3 +1,11 @@
+/**
+ * The mob, usually meant to be a creature of some type
+ *
+ * Has a client attached that is a living person (most of the time), although I have to admit
+ * sometimes it's hard to tell they're sentient
+ *
+ * Has a lot of the creature game world logic, such as health etc
+ */
 /mob
 	density = TRUE
 	layer = MOB_LAYER
@@ -330,3 +338,6 @@
 	var/tts_effect_override = SOUND_EFFECT_NONE
 	/// Item that set current tts_effect_override, used to avoid clobbering when(if) multiple sources exist
 	var/obj/item/tts_effect_override_source = null
+
+	/// Mob bitflags
+	var/mob_flags = NONE

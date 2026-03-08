@@ -35,6 +35,8 @@
 #define NO_SCREENTIPS (1<<11)
 /// This atom does not need to generate its own preview icon for GAGS
 #define NO_NEW_GAGS_PREVIEW (1<<12)
+/// Whether or not this atom has contextual screentips when hovered OVER
+#define HAS_CONTEXTUAL_SCREENTIPS (1<<13)
 
 // Bypass all adjacency checks for mouse drop
 #define INTERACT_ATOM_MOUSEDROP_IGNORE_ADJACENT (1<<12)
