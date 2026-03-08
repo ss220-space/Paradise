@@ -19,11 +19,11 @@
 	. = ..()
 	if(ispath(cell))
 		cell = new cell(src)
-	update_appearance()
+	update_icon()
 
 	var/static/list/tool_behaviors = list(
 		TOOL_SCREWDRIVER = list(
-			SCREENTIP_CONTEXT_LMB = "Открытый люк",
+			SCREENTIP_CONTEXT_LMB = "Открыть/закрыть люк",
 		),
 
 		TOOL_WRENCH = list(

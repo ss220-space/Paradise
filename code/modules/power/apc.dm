@@ -304,7 +304,7 @@
 
 	cog = null // Or you can't put it in
 
-	update_appearance()
+	update_icon()
 
 	make_terminal()
 
