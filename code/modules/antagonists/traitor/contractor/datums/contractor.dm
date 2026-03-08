@@ -68,5 +68,11 @@
 	if(is_banned(owner.current) && replace_banned)
 		INVOKE_ASYNC(src, PROC_REF(replace_banned_player))
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
+
+	if(!HASBIT(SEND_SIGNAL(owner.current, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return TRUE
+
+	SEND_SIGNAL(owner.current, COMSIG_STRENGTH_LEVEL_UP, 4)
+
 	return TRUE
 

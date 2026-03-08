@@ -52,6 +52,16 @@
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/hos
 
+/datum/outfit/job/hos/post_equip(mob/living/carbon/human/human, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly || !.)
+		return
+
+	if(!HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return
+
+	SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 4)
+
 /datum/job/security
 	department = STATION_DEPARTMENT_SECURITY
 	department_flag = JOBCAT_ENGSEC
@@ -195,6 +205,16 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security
+
+/datum/outfit/job/officer/post_equip(mob/living/carbon/human/human, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly || !.)
+		return
+
+	if(!HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return
+
+	SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 3)
 
 /datum/outfit/job/officer/cadet
 	name = "Security Cadet"

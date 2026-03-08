@@ -180,6 +180,16 @@
 	satchel = /obj/item/storage/backpack/satchel_blueshield
 	dufflebag = /obj/item/storage/backpack/duffel/blueshield
 
+/datum/outfit/job/blueshield/post_equip(mob/living/carbon/human/human, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly || !.)
+		return
+
+	if(!HASBIT(SEND_SIGNAL(human, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return
+
+	SEND_SIGNAL(human, COMSIG_STRENGTH_LEVEL_UP, 4)
+
 /datum/job/head_of_staff/judge
 	title = JOB_TITLE_JUDGE
 	flag = JOB_FLAG_JUDGE

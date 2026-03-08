@@ -367,6 +367,11 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	. = ..()
 	to_chat(H, special_message)
 
+	if(!HASBIT(SEND_SIGNAL(H, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return
+
+	SEND_SIGNAL(H, COMSIG_STRENGTH_LEVEL_UP, 4)
+
 /obj/item/radio/centcom
 	name = "centcomm bounced radio"
 	icon_state = "radio"

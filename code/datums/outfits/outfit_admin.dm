@@ -414,6 +414,11 @@
 		I.photo = get_id_photo(H, custom_job = JOB_TITLE_REPRESENTATIVE) // They should go die with a good photo instead of assistants grey shorts xD
 	H.update_hud_set()
 
+	if(!HASBIT(SEND_SIGNAL(H, COMSIG_CAN_CHANGE_STRENGTH), COMPONENT_CAN_CHANGE_STRENGTH))
+		return
+
+	SEND_SIGNAL(H, COMSIG_STRENGTH_LEVEL_UP, 5)
+
 /datum/outfit/admin/death_commando/officer
 	name = "NT Death Commando officer"
 	can_be_admin_equipped = FALSE
