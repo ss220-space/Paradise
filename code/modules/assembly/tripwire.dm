@@ -156,11 +156,10 @@
 	if(!(dir_to_wall in list(NORTH, SOUTH, EAST, WEST)))
 		return
 
-	// Самый стабильный способ в Paradise 1984 выкинуть предмет из рук на пол
 	if(!user.transfer_item_to_loc(src, user_turf))
 		return
 
-	src.anchored = TRUE // Чтобы нельзя было двигать гравипушкой/толкать
+	src.anchored = TRUE
 	src.anchored_to_wall = TRUE
 	src.wall_dir = dir_to_wall
 	src.setDir(src.wall_dir)
