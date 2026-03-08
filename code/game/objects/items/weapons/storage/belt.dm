@@ -1065,7 +1065,10 @@
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
 
-/obj/item/storage/belt/bluespace/owlman
+/obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	return ATTACK_CHAIN_PROCEED
+
+/obj/item/storage/belt/bluespace/owlman/get_ru_names()
 	return list(
 		NOMINATIVE = "пояс человека-совы",
 		GENITIVE = "пояса человека-совы",
@@ -1075,12 +1078,9 @@
 		PREPOSITIONAL = "поясе человека-совы"
 	)
 
-/obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	return ATTACK_CHAIN_PROCEED
-
-/obj/item/storage/belt/bluespace/admin
+/obj/item/storage/belt/bluespace/admin/
 	name = "Admin's Tool-belt"
-	desc = "Holds everything for those that run everything."
+	desc = "Здесь всё для тех, кто всем управляет."
 	icon_state = "soulstonebelt"
 	item_state = "soulstonebelt"
 	w_class = 10 // permit holding other storage items
@@ -1104,14 +1104,34 @@
 	new /obj/item/dnainjector/telemut(src)
 	new /obj/item/dnainjector/hulkmut(src)
 
-/obj/item/storage/belt/bluespace/sandbox
+/obj/item/storage/belt/bluespace/admin/get_ru_names()
+	return list(
+		NOMINATIVE = "админский пояс для инструментов",
+		GENITIVE = "админского пояса для инструментов",
+		DATIVE = "админскому поясу для инструментов",
+		ACCUSATIVE = "админский пояс для инструментов",
+		INSTRUMENTAL = "админским поясом для инструментов",
+		PREPOSITIONAL = "админском поясе для инструментов",
+	)
+
+/obj/item/storage/belt/bluespace/sandbox/
 	name = "Sandbox Mode Toolbelt"
-	desc = "Holds whatever, you can spawn your own damn stuff."
+	desc = "Вмещает все что угодно, так что спавните свой хлам."
 	w_class = 10 // permit holding other storage items
 	storage_slots = 28
 	max_w_class = 10
 	max_combined_w_class = 280
 	can_hold = list()
+
+/obj/item/storage/belt/bluespace/sandbox/get_ru_names()
+	return list(
+		NOMINATIVE = "сэндбокс-пояс для инструментов",
+		GENITIVE = "сэндбокс-пояса для инструментов",
+		DATIVE = "сэндбокс-поясу для инструментов",
+		ACCUSATIVE = "сэндбокс-пояс для инструментов",
+		INSTRUMENTAL = "сэндбокс-поясом для инструментов",
+		PREPOSITIONAL = "сэндбокс-поясе для инструментов",
+	)
 
 /obj/item/storage/belt/bluespace/sandbox/populate_contents()
 	new /obj/item/crowbar(src)
@@ -1244,7 +1264,7 @@
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"
-	desc = "An apron with various pockets for holding all your cooking tools and equipment."
+	desc = "Фартук с карманами для хранения кухонных принадлежностей."
 	icon_state = "chefbelt"
 	item_state = "chefbelt"
 	storage_slots = 10
@@ -1271,17 +1291,47 @@
 	)
 	custom_price = PAYCHECK_LOWER
 
+/obj/item/storage/belt/chef/get_ru_names()
+	return list(
+		NOMINATIVE = "фартук",
+		GENITIVE = "фартука",
+		DATIVE = "фартуку",
+		ACCUSATIVE = " фартук",
+		INSTRUMENTAL = "фартуком",
+		PREPOSITIONAL = "фартуке",
+	)
+
 /obj/item/storage/belt/chef/artist
 	name = "delicate apron"
-	desc = "Apron with pockets. Ideal for the best butchers!"
+	desc = "Фартук с карманами. Идеал для лучших поваров!"
 	icon_state = "cabelt"
 	item_state = "cabelt"
 
-/obj/item/storage/belt/chef/artistred
+/obj/item/storage/belt/chef/artistred/get_ru_names()
+	return list(
+		NOMINATIVE = "изящный фартук",
+		GENITIVE = "изящного фартука",
+		DATIVE = "изящному фартуку",
+		ACCUSATIVE = "изящный фартук",
+		INSTRUMENTAL = "изящным фартуком",
+		PREPOSITIONAL = "изящном фартуке",
+	)
+
+/obj/item/storage/belt/chef/artistred/
 	name = "red delicate apron"
-	desc = "Red apron with pockets. Ideal for the best butchers!"
+	desc = "Красный фартук с карманами. Идеал для лучших поваров!"
 	icon_state = "cabeltred"
 	item_state = "cabeltred"
+
+/obj/item/storage/belt/chef/artistred/get_ru_names()
+	return list(
+		NOMINATIVE = "красный фартук",
+		GENITIVE = "красного фартука",
+		DATIVE = "красному фартуку",
+		ACCUSATIVE = "красный фартук",
+		INSTRUMENTAL = "красным фартуком",
+		PREPOSITIONAL = "красном фартуке",
+	)
 
 /obj/item/storage/belt/claymore
 	name = "holy claymore sheath"
