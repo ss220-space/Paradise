@@ -221,6 +221,7 @@
 	box = /obj/item/storage/box/survival
 
 	var/tmp/list/gear_leftovers = list()
+	var/implant_variant = null
 
 /datum/outfit/job/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(allow_backbag_choice)
@@ -245,34 +246,34 @@
 		var/list/universal_implants = list()
 
 		for(var/gear in H.client.prefs.choosen_gears)
-			var/datum/gear/G = H.client.prefs.choosen_gears[gear]
-			if(!istype(G))
+			var/datum/gear/gear_datum = H.client.prefs.choosen_gears[gear]
+			if(!istype(gear_datum))
 				continue
 
-			if(!G.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name)) // some checks
+			if(!gear_datum.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name)) // some checks
 				continue
 
-			if(G.implantable) //only works for organ-implants
-				if(istype(G, /datum/gear/implant/universal))
-					universal_implants += G
+			if(gear_datum.implantable) //only works for organ-implants
+				if(istype(gear_datum, /datum/gear/implant/universal))
+					universal_implants += gear_datum
 				else
-					normal_implants += G
+					normal_implants += gear_datum
 				continue
 
-			if(G.slot)
-				var/obj/item/placed_in = G.spawn_item(H, H.client.prefs.get_gear_metadata(G))
-				if(H.equip_to_slot_or_del(placed_in, G.slot, TRUE))
+			if(gear_datum.slot)
+				var/obj/item/placed_in = gear_datum.spawn_item(H, H.client.prefs.get_gear_metadata(gear_datum))
+				if(H.equip_to_slot_or_del(placed_in, gear_datum.slot, TRUE))
 					to_chat(H, span_notice("Вы получили [placed_in.declent_ru(ACCUSATIVE)]!"))
 				else
-					gear_leftovers += G
+					gear_leftovers += gear_datum
 			else
-				gear_leftovers += G
+				gear_leftovers += gear_datum
 
-		for(var/datum/gear/G in normal_implants)
-			if(!G.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name))
+		for(var/datum/gear/gear_datum in normal_implants)
+			if(!gear_datum.can_select(cl = H.client, job_name = name, species_name = H.dna.species.name))
 				continue
 
-			var/implant_path = G.get_spawn_path(name, H.client.prefs.get_gear_metadata(G))
+			var/implant_path = gear_datum.get_spawn_path(name, H.client.prefs.get_gear_metadata(gear_datum))
 
 			if(!implant_path)
 				continue
@@ -281,14 +282,14 @@
 			if(I.insert(H))
 				to_chat(H, span_notice("Вам установлен [I.declent_ru(NOMINATIVE)]!"))
 
-		for(var/datum/gear/G in universal_implants)
-			var/implant_path = G.get_spawn_path(name, H.client.prefs.get_gear_metadata(G))
+		for(var/datum/gear/gear_datum in universal_implants)
+			var/implant_path = gear_datum.get_spawn_path(name, H.client.prefs.get_gear_metadata(gear_datum))
 			if(!implant_path)
 				continue
 
-			var/obj/item/organ/internal/I = new implant_path
-			if(I.insert(H))
-				to_chat(H, span_notice("Вам установлен [I.declent_ru(NOMINATIVE)]!"))
+			var/obj/item/organ/internal/internal_gear = new implant_path
+			if(internal_gear.insert(H))
+				to_chat(H, span_notice("Вам установлен [internal_gear.declent_ru(NOMINATIVE)]!"))
 
 	H.dna.species.job_pre_equip(H)
 
