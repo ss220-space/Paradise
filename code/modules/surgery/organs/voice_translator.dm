@@ -289,6 +289,8 @@
 /obj/item/organ/internal/cyberimp/mouth/translator/emp_act(severity)
 	if(emp_proof)
 		return
+	if(emp_shielded(severity))
+		return
 
 	if(!owner)
 		return

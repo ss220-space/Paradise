@@ -55,9 +55,20 @@
 	var/obj/item/spacepod_equipment/weaponry/weapon_system // weapons system
 	var/obj/item/spacepod_equipment/misc/misc_system // misc system
 	var/obj/item/spacepod_equipment/cargo/cargo_system // cargo system
-	var/obj/item/spacepod_equipment/cargo/sec_cargo_system // secondary cargo system
+	var/obj/item/spacepod_equipment/sec_cargo/sec_cargo_system // secondary cargo system
 	var/obj/item/spacepod_equipment/lock/lock_system // lock system
 	var/obj/item/spacepod_equipment/locators/locator_system //locator_system
+
+/datum/spacepod/equipment/Destroy(force)
+	my_atom = null
+	QDEL_LIST(installed_modules)
+	weapon_system = null
+	misc_system = null
+	cargo_system = null
+	sec_cargo_system = null
+	lock_system = null
+	locator_system = null
+	. = ..()
 
 /datum/spacepod/equipment/New(obj/spacepod/SP)
 	..()
@@ -70,6 +81,11 @@
 	var/obj/spacepod/my_atom
 	var/occupant_mod = 0	// so any module can modify occupancy
 	var/list/storage_mod = list("slots" = 0, "w_class" = 0)		// so any module can modify storage slots
+
+/obj/item/spacepod_equipment/Destroy()
+	my_atom?.equipment_system?.installed_modules -= src
+	my_atom = null
+	. = ..()
 
 /obj/item/spacepod_equipment/proc/removed(mob/user) // So that you can unload cargo when you remove the module
 	return
@@ -90,6 +106,11 @@
 	var/fire_sound
 	var/fire_delay = 15
 	var/harmful = TRUE
+
+/obj/item/spacepod_equipment/weaponry/Destroy()
+	if(my_atom?.equipment_system?.weapon_system == src)
+		my_atom.equipment_system.weapon_system = null
+	. = ..()
 
 /obj/item/spacepod_equipment/weaponry/taser
 	name = "disabler system"
@@ -176,6 +197,8 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 
 /obj/item/spacepod_equipment/misc/tracker/Destroy()
 	GLOB.pod_trackers -= src
+	if(my_atom?.equipment_system?.misc_system == src)
+		my_atom.equipment_system.misc_system = null
 	return ..()
 
 /*
@@ -189,6 +212,12 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	desc = "You shouldn't be seeing this"
 	icon_state = "cargo_blank"
 	var/obj/storage = null
+
+/obj/item/spacepod_equipment/cargo/Destroy()
+	if(my_atom?.equipment_system?.cargo_system == src)
+		my_atom.equipment_system.cargo_system = null
+	QDEL_NULL(storage)
+	. = ..()
 
 /obj/item/spacepod_equipment/cargo/proc/passover(obj/item/I)
 	return
@@ -229,6 +258,11 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	desc = "you shouldn't be seeing this"
 	icon_state = null
 
+/obj/item/spacepod_equipment/sec_cargo/Destroy()
+	if(my_atom?.equipment_system?.sec_cargo_system == src)
+		my_atom.equipment_system.sec_cargo_system = null
+	. = ..()
+
 // Passenger Seat
 /obj/item/spacepod_equipment/sec_cargo/chair
 	name = "passenger seat"
@@ -255,6 +289,11 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	icon_state = null
 	var/mode = 0
 	var/id = null
+
+/obj/item/spacepod_equipment/lock/Destroy()
+	if(my_atom?.equipment_system?.lock_system == src)
+		my_atom.equipment_system.lock_system = null
+	. = ..()
 
 // Key and Tumbler System
 /obj/item/spacepod_equipment/lock/keyed
@@ -297,6 +336,11 @@ GLOBAL_LIST_EMPTY(pod_trackers)
 	icon_state = null
 	var/can_ignore_z = FALSE
 	var/can_found_all = FALSE
+
+/obj/item/spacepod_equipment/locators/Destroy()
+	if(my_atom?.equipment_system?.locator_system == src)
+		my_atom.equipment_system.locator_system = null
+	. = ..()
 
 /obj/item/spacepod_equipment/locators/proc/scan(mob/user)
 	var/message_user = ""

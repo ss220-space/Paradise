@@ -576,7 +576,7 @@
 				I.forceMove(newloc)
 		I.dropped(src, slot, silent, newloc)
 
-	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
+	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent, src)
 	SEND_SIGNAL(src, COMSIG_MOB_UNEQUIPPED_ITEM, I, force, newloc, no_move, invdrop, silent)
 	if(!not_handled)
 		update_equipment_speed_mods()
@@ -629,7 +629,7 @@
 
 //get_all_contents that is reasonable and not stupid
 /mob/living/proc/get_all_gear(recursive = TRUE)
-	var/list/processing_list = get_equipped_items(TRUE, TRUE)
+	var/list/processing_list = get_equipped_items(INCLUDE_POCKETS | INCLUDE_HELD)
 	list_clear_nulls(processing_list) // handles empty hands
 	var/i = 0
 	while(i < length(processing_list))

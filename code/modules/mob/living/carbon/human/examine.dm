@@ -216,15 +216,17 @@
 	if(wear_id)
 		msg += "[GEND_HE_SHE_CAP(src)] нос[PLUR_IT_YAT(src)] [icon2html(wear_id, user)] <b>[wear_id.declent_ru(ACCUSATIVE)]</b> на креплении ID-карты.\n"
 
-	var/rolled_down = FALSE
-	if(w_uniform && istype(w_uniform, /obj/item/clothing/under))
-		var/obj/item/clothing/under/jumpsuit = w_uniform
-		rolled_down = jumpsuit.rolled_down
-
 	var/list/strength_list = list()
 	SEND_SIGNAL(src, COMSIG_GET_STRENGTH, strength_list)
 	var/datum/strength_level/strength_level = !length(strength_list) ? STRENGTH_LEVEL_DEFAULT : strength_list[1]
-	if((rolled_down || !w_uniform || (w_uniform.item_flags & ABSTRACT)) && (!wear_suit || (wear_suit.item_flags & ABSTRACT)) && strength_level != STRENGTH_LEVEL_DEFAULT)
+
+	// Check if the clothes hide the uniform
+	var/hides_uniform = FALSE
+	if(wear_suit && (wear_suit.flags_inv & HIDEJUMPSUIT))
+		hides_uniform = TRUE
+
+	// Show strength if clothing does not hide the uniform
+	if(!hides_uniform && strength_level != STRENGTH_LEVEL_DEFAULT)
 		msg += span_notice("[GEND_HE_SHE_CAP(src)] выгляд[PLUR_IT_YAT(src)] [strength_level.strength_examine][GEND_YM_OI_YM_YMI(src)].\n")
 
 	//Status effects

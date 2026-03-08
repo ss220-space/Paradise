@@ -316,6 +316,16 @@
 	disable_message = "Теперь вы не будете видеть Runechat облака с сообщениями."
 	blackbox_message = "Toggle Runechat"
 
+/datum/preference_toggle/toggle_runechat_looc
+	name = "Runechat-LOOC"
+	description = "Переключает видимость Runechat облаков с LOOC-сообщениями."
+	preftoggle_bitflag = PREFTOGGLE_3_RUNECHAT_LOOC
+	preftoggle_toggle = PREFTOGGLE_TOGGLE3
+	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+	enable_message = "Теперь вы будете видеть Runechat облака с LOOC-сообщениями."
+	disable_message = "Теперь вы не будете видеть Runechat облака с LOOC-сообщениями."
+	blackbox_message = "Toggle Runechat LOOC"
+
 /datum/preference_toggle/toggle_ghost_death_notifs
 	name = "Уведомление о смерти — Призрак"
 	description = "Включает уведомления о смерти игроков."
