@@ -1537,9 +1537,7 @@
 	icon_state = "unbalanced"
 
 
-
 // MARK: effect borer
-
 /datum/status_effect/parasitism
 	id = "parasitism"
 	duration = 60 SECONDS
