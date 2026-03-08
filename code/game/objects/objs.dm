@@ -75,6 +75,16 @@
 
 	add_debris_element()
 
+/obj/Destroy(force)
+	if(!ismachinery(src))
+		if(!speed_process)
+			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
+		else
+			STOP_PROCESSING(SSfastprocess, src)
+	SStgui.close_uis(src)
+	QDEL_NULL(multitool_menu)
+	return ..()
+
 /obj/Topic(href, href_list, nowindow = FALSE, datum/ui_state/state = GLOB.default_state)
 	// Calling Topic without a corresponding window open causes runtime errors
 	if(!nowindow && ..())
@@ -96,16 +106,6 @@
 /obj/proc/CouldNotUseTopic(mob/user)
 	// Nada
 	return
-
-/obj/Destroy(force)
-	if(!ismachinery(src))
-		if(!speed_process)
-			STOP_PROCESSING(SSobj, src) // TODO: Have a processing bitflag to reduce on unnecessary loops through the processing lists
-		else
-			STOP_PROCESSING(SSfastprocess, src)
-	SStgui.close_uis(src)
-	QDEL_NULL(multitool_menu)
-	return ..()
 
 //user: The mob that is suiciding
 //damagetype: The type of damage the item will inflict on the user
@@ -358,3 +358,8 @@
 		return object.return_obj_air()
 	else
 		return null
+
+/// Use this proc if you need to get special shorter variations of item's name.
+/// ImageButton element in TGUI, for example
+/obj/proc/get_short_name()
+	return declent_ru(NOMINATIVE)

@@ -455,8 +455,8 @@
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
-	selection_activated_message	= span_notice("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
-	selection_deactivated_message = span_notice("You swallow your spit...for now.")
+	selection_activated_message	= span_notice_alt("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
+	selection_deactivated_message = span_notice_alt("You swallow your spit...for now.")
 	fireball_type = /obj/projectile/energy/hulkspit
 	base_cooldown = 25 SECONDS
 	need_active_overlay = TRUE
@@ -475,8 +475,8 @@
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	action_icon_state = "lazer_hulk"
-	selection_activated_message	= span_notice("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
-	selection_deactivated_message = span_notice("You relax your eyes...for now.")
+	selection_activated_message	= span_notice_alt("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
+	selection_deactivated_message = span_notice_alt("You relax your eyes...for now.")
 	fireball_type = /obj/projectile/beam
 	base_cooldown = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'

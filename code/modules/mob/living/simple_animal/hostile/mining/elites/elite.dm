@@ -332,6 +332,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 /obj/structure/elite_tumor/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
+	potentialspawns = string_list(potentialspawns)
 
 /obj/structure/elite_tumor/Destroy()
 	STOP_PROCESSING(SSobj, src)

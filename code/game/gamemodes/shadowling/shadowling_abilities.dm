@@ -33,8 +33,8 @@
 
 	action_icon_state = "glare"
 
-	selection_activated_message		= span_notice("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваши глаза расслабляются... пока что.")
+	selection_activated_message = span_notice_alt("Вы приготовились к тому, что ваши глаза станут ослепительно яркими! <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваши глаза расслабляются... пока что.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/shadowling_glare/create_new_targeting()
@@ -253,8 +253,8 @@
 	base_cooldown = 3 SECONDS
 	clothes_req = FALSE
 	action_icon_state = "enthrall"
-	selection_activated_message		= span_notice("Вы готовите свой разум к тому, чтобы проникнуть в чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы проникнуть в чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 	var/enthralling = FALSE
 
@@ -638,8 +638,8 @@
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "revive_thrall"
-	selection_activated_message		= span_notice("Вы начинаете направлять свои силы на заживление ран ваших союзников. ")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы начинаете направлять свои силы на заживление ран ваших союзников. ")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 	/// Whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
 	var/ignore_prer = FALSE
@@ -755,8 +755,8 @@
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	clothes_req = FALSE
 	base_cooldown = 3 SECONDS
-	selection_activated_message		= span_notice("Вы начинаете накапливать силы, чтобы задержать шаттл. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы начинаете накапливать силы, чтобы задержать шаттл. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	action_icon_state = "extend_shuttle"
 	need_active_overlay = TRUE
 	var/global/extend_limit_pressed = FALSE
@@ -829,8 +829,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "annihilate"
-	selection_activated_message		= span_notice("Вы готовите свой разум к разрушительной атаке. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы готовите свой разум к разрушительной атаке. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/ascendant_annihilate/create_new_targeting()
@@ -881,8 +881,8 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "enthrall"
-	selection_activated_message		= span_notice("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
-	selection_deactivated_message	= span_notice("Ваш разум расслабляется.")
+	selection_activated_message = span_notice_alt("Вы готовите свой разум к тому, чтобы промыть чужое сознание. <b>ЛКМ по цели, чтобы применить!</b>")
+	selection_deactivated_message = span_notice_alt("Ваш разум расслабляется.")
 	need_active_overlay = TRUE
 
 /obj/effect/proc_holder/spell/ascendant_hypnosis/create_new_targeting()

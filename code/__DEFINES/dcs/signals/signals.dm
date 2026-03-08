@@ -1609,3 +1609,7 @@
 #define COMSIG_REQUEST_CONSOLE_MESSAGE "request_console_message"
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
+
+#define COMSIG_LUNGE_DUAL_STRIKE "lunge_dual_strike"
+
+#define COMSIG_MASKFILTER_UPDATE_STATE "ttsfilter_update_state"

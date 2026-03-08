@@ -136,7 +136,7 @@
 		return PROCESS_KILL
 
 	var/turf/cake_turf = loc
-	if(is_equipped(include_pockets = TRUE, include_hands = TRUE))
+	if(is_equipped(INCLUDE_POCKETS | INCLUDE_HELD))
 		cake_turf = loc.loc
 
 	if(isturf(cake_turf))

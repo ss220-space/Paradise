@@ -30,6 +30,20 @@
 
 	var/max_range = 60
 
+/obj/item/circuit_component/pathfind/Destroy()
+	input_X = null
+	input_Y = null
+	id_card = null
+	output = null
+	finished = null
+	failed = null
+	reason_failed = null
+	LAZYCLEARLIST(path)
+	path = null
+	old_dest = null
+	next_turf = null
+	. = ..()
+
 /obj/item/circuit_component/pathfind/get_ui_notices()
 	. = ..()
 	// Not necessary to show the same path cooldown, since it doesn't change much for the player

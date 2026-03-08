@@ -58,6 +58,9 @@
 
 /obj/item/ammo_casing/Destroy()
 	QDEL_NULL(BB)
+	if(isammobox(loc))
+		var/obj/item/ammo_box/box = loc
+		box.stored_ammo?.RemoveAll(src)
 	if(!isgun(loc))
 		return ..()
 	var/obj/item/gun/gun = loc

@@ -24,6 +24,7 @@
 
 	dead_icon = "boris_blank"
 
+
 /obj/item/mmi/robotic_brain/syndicate
 	name = "suspicious robotic brain"
 	syndicate = 1
@@ -45,7 +46,8 @@
 
 /obj/item/mmi/robotic_brain/Destroy()
 	imprinted_master = null
-	return ..()
+	LAZYCLEARLIST(ghost_volunteers)
+	. = ..()
 
 /obj/item/mmi/robotic_brain/update_icon_state()
 	if(brainmob?.key)
@@ -121,7 +123,7 @@
 
 // This should not ever happen, but let's be safe
 /obj/item/mmi/robotic_brain/dropbrain(turf/dropspot)
-	log_runtime(EXCEPTION("[src] at [loc] attempted to drop brain without a contained brain."), src)
+	CRASH("[src] at [loc] attempted to drop brain without a contained brain.")
 
 /obj/item/mmi/robotic_brain/transfer_identity(mob/living/carbon/H)
 	brainmob.dna = H.dna.Clone()

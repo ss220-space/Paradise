@@ -4,7 +4,7 @@
 	var/name = "space wind"
 	var/desc = "Heavy gusts of wind blanket the area, periodically knocking down anyone caught in the open."
 
-	var/telegraph_message = span_warning("The wind begins to pick up.") //The message displayed in chat to foreshadow the weather's beginning
+	var/telegraph_message = span_warning_alt("The wind begins to pick up.") //The message displayed in chat to foreshadow the weather's beginning
 	var/telegraph_duration = 30 SECONDS //In deciseconds, how long from the beginning of the telegraph until the weather begins
 	/// The sound file played to everyone on an affected z-level
 	var/telegraph_sound
@@ -12,7 +12,7 @@
 	var/telegraph_sound_vol
 	var/telegraph_overlay //The overlay applied to all tiles on the z-level
 
-	var/weather_message = span_userdanger("The wind begins to blow ferociously!") //Displayed in chat once the weather begins in earnest
+	var/weather_message = span_userdanger_alt("The wind begins to blow ferociously!") //Displayed in chat once the weather begins in earnest
 	var/weather_duration = 120 SECONDS //In deciseconds, how long the weather lasts once it begins
 	var/weather_duration_lower = 120 SECONDS //See above - this is the lowest possible duration
 	var/weather_duration_upper = 150 SECONDS //See above - this is the highest possible duration
@@ -20,7 +20,7 @@
 	var/weather_overlay
 	var/weather_color = null
 
-	var/end_message = span_danger("The wind relents its assault.") //Displayed once the wather is over
+	var/end_message = span_danger_alt("The wind relents its assault.") //Displayed once the wather is over
 	var/end_duration = 30 SECONDS //In deciseconds, how long the "wind-down" graphic will appear before vanishing entirely
 	var/end_sound
 	/// Volume of the sound that plays while weather is ending

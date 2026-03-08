@@ -1475,7 +1475,7 @@
 	if(isapc(loc))
 		apc = loc
 	else
-		log_runtime(EXCEPTION("Invalid location for Integration cog"))
+		stack_trace("Invalid location for Integration cog")
 
 /obj/machinery/integration_cog/emp_act(severity)
 	return
@@ -1643,9 +1643,7 @@
 			if(TIME_SPELL)
 				add_attack_logs(user, user, "Time stopped with [src]")
 				qdel(src)
-				var/obj/effect/timestop/clockwork/timestop = new /obj/effect/timestop/clockwork(get_turf(user))
-				timestop.immune |= user
-				timestop.timestop()
+				new /obj/effect/timestop/clockwork(get_turf(user), null, null, list(user))
 			if(RECONSTRUCT_SPELL)
 				add_attack_logs(user, user, "Reconstructed with [src]")
 				qdel(src)

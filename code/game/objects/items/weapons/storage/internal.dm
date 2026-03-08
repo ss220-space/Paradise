@@ -5,15 +5,17 @@
 /obj/item/storage/internal
 	var/obj/item/master_item
 
-/obj/item/storage/internal/New(obj/item/MI)
-	master_item = MI
-	loc = master_item
+/obj/item/storage/internal/Initialize(mapload)
+	. = ..()
+	var/obj/item/master_item = loc
+	if(!istype(master_item))
+		return
+	src.master_item = master_item
 	name = master_item.name
-	..()
 
 /obj/item/storage/internal/Destroy()
 	master_item = null
-	return ..()
+	. = ..()
 
 /obj/item/storage/internal/attack_hand()
 	return		//make sure this is never picked up

@@ -370,6 +370,16 @@ Just a object used in constructing fire alarms
 
 	var/obj/machinery/firealarm/attached_alarm
 
+/obj/item/circuit_component/firealarm/Destroy()
+	if(attached_alarm)
+		unregister_usb_parent(attached_alarm)
+	alarm_trigger = null
+	reset_trigger = null
+	is_on = null
+	triggered = null
+	reset = null
+	. = ..()
+
 /obj/item/circuit_component/firealarm/populate_ports()
 	alarm_trigger = add_input_port("Тревога", PORT_TYPE_SIGNAL)
 	reset_trigger = add_input_port("Отбой", PORT_TYPE_SIGNAL)

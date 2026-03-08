@@ -4,7 +4,7 @@
 	school = "mime"
 	summon_type = list(/obj/effect/forcefield/mime)
 	invocation_type = "emote"
-	invocation_emote_self = span_notice("Вы создаёте стену перед cобой.")
+	invocation_emote_self = span_notice_alt("Вы создаёте стену перед cобой.")
 	summon_lifespan = 30 SECONDS
 	base_cooldown = 30 SECONDS
 	clothes_req = FALSE
@@ -77,7 +77,7 @@
 	school = "mime"
 	wall_type = /obj/effect/forcefield/mime/advanced
 	invocation_type = "emote"
-	invocation_emote_self = span_notice("Вы создаёте стену перед cобой.")
+	invocation_emote_self = span_notice_alt("Вы создаёте стену перед cобой.")
 	base_cooldown = 60 SECONDS
 	sound =  null
 

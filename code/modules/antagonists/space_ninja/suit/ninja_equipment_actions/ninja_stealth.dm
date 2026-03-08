@@ -1,6 +1,6 @@
 /datum/action/item_action/advanced/ninja/ninja_stealth
-	name = "Toggle Stealth"
-	desc = "Toggles stealth mode on and off. Passively encrease suit energy consumption."
+	name = "Переключение невидимости"
+	desc = "Переключает режим невидимости. Использование режима нагревает костюм и постепенно увеличивает его энергопотребление."
 	charge_type = ADV_ACTION_TYPE_TOGGLE_RECHARGE
 	charge_max = 15 SECONDS
 	button_icon_state = "ninja_cloak"
@@ -22,12 +22,12 @@
 		cancel_stealth()
 	else
 		if(cell.charge <= 0)
-			to_chat(ninja, span_warning("Вы не можете применить невидимость без энергии!"))
+			balloon_alert(ninja, "недостаточно энергии!")
 			return
 		if(!s_busy)
 			s_busy = TRUE
 			if(!do_after(ninja, 2 SECONDS, ninja, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-				to_chat(ninja, span_warning("Вы прервали невидимость!"))
+				balloon_alert(ninja, "невидимость прервана!")
 				s_busy = FALSE
 				return
 			stealth = !stealth

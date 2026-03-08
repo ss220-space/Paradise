@@ -259,7 +259,7 @@ GLOBAL_DATUM(heart, /obj/structure/clockwork/functional/heart)
 	if(istype(did_not_stand_back, /obj/structure/clockwork/functional/heart) || istype(did_not_stand_back, /obj/structure/heart_filler) || istype(did_not_stand_back, /obj/effect/temp_visual/ratvar/reconstruct/heart))
 		return -1
 	if(ISDIAGONALDIR(dir_to_center))
-		throw_dist = ceil(sqrt(base_x_throw_distance ** 2 + base_y_throw_distance ** 2) - (sqrt(x_component ** 2 + y_component ** 2)))
+		throw_dist = ceil(MAGNITUDE(base_x_throw_distance, base_y_throw_distance) - MAGNITUDE(x_component, y_component))
 		did_not_stand_back.forceMove(get_ranged_target_turf(loc, dir_to_center, throw_dist))
 	else if(dir_to_center & (NORTH|SOUTH))
 		throw_dist = base_y_throw_distance - y_component + 1
