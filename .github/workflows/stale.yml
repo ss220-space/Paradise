@@ -1,4 +1,4 @@
-name: Mark stale pull requests
+name: Mark stale issues and pull requests
 on:
   schedule:
     - cron: "0 0 * * *" # Runs at midnight UTC every day
@@ -19,8 +19,8 @@ jobs:
       - uses: actions/stale@v10
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          stale-pr-message: 'Данный PR считается устаревшим, так как не обновлялся достаточно долгое время. Это означает, что он будет автоматически закрыт в течении 7 дней. Если это ошибка и PR в разработке, то сообщите об этом @Ревьювер в Discord.'
-          close-pr-message: 'Этот PR не получил обновлений после того, как был помечен как устаревший, и поэтому автоматически закрыт. Вы можете переоткрыть этот PR или создать новый, когда у вас появятся новые обновления.'
+          stale-pr-message: "Данный PR считается устаревшим, так как не обновлялся достаточно долгое время. Это означает, что он будет автоматически закрыт в течении 7 дней. Если это ошибка и PR в разработке, то сообщите об этом @Ревьювер в Discord."
+          close-pr-message: "Этот PR не получил обновлений после того, как был помечен как устаревший, и поэтому автоматически закрыт. Вы можете переоткрыть этот PR или создать новый, когда у вас появятся новые обновления."
           days-before-stale: 14
           days-before-close: 7
           #days-before-issue-stale: 14
@@ -35,13 +35,13 @@ jobs:
 
       - name: Filter staled pull requests for announcement
         id: filter-prs
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             return JSON.parse(context.job.steps.stale.outputs.staled-issues-prs).filter(issue => !!issue.pull_request)
 
   announce:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     needs: stale
     if: ${{ needs.stale.outputs.staled_prs != '[]' }}
     matrix:
