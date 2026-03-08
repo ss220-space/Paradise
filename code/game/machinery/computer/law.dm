@@ -19,21 +19,22 @@
 	var/timer_id = null
 	var/reg_name = null
 
-/obj/machinery/computer/aiupload/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/aiupload/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/ai_module))
+	if(istype(item, /obj/item/ai_module))
 		add_fingerprint(user)
-		insert_module(user, I)
+		insert_module(user, item)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/card/id))
+	if(istype(item, /obj/item/card/id))
 		add_fingerprint(user)
-		check_id(user, I)
+		check_id(user, item)
 		ui_interact(user)
-		return
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	return ..()
 
 /obj/machinery/computer/aiupload/attack_hand(mob/user)

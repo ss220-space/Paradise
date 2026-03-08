@@ -884,7 +884,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/d
 	var/area/bot_area
-	var/bot_uid = UID_of(Bot)
+	var/bot_uid = Bot.UID()
 	d += "<a href='byond://?src=[UID()];botrefresh=[bot_uid]'>Query network status</a><br>"
 	d += "<table width='100%'><tr><td width='40%'><h3>Name</h3></td><td width='20%'><h3>Status</h3></td><td width='30%'><h3>Location</h3></td><td width='10%'><h3>Control</h3></td></tr>"
 
