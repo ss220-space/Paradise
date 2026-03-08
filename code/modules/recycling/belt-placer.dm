@@ -1,6 +1,7 @@
 /obj/item/storage/conveyor //Stores conveyor belts, click floor to make belt, use a conveyor switch on this to link all belts to that lever.
 	name = "conveyor belt placer"
 	desc = "Устройство, предназначенное для ускоренной прокладки конвейерных лент."
+	gender = MALE
 	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "belt_placer"
 	righthand_file = 'icons/mob/inhands/storage_righthand.dmi'
@@ -29,7 +30,8 @@
 
 /obj/item/storage/conveyor/bluespace
 	name = "bluespace conveyor belt placer"
-	desc = "Устройство, предназначенное для ускоренной прокладки конвейерных лент. Эта модель позволяет работать на дистанции."
+	desc = "Устройство, предназначенное для ускоренной прокладки конвейерных лент. \
+			Благодаря использованию блюспейс-технологий, данная модель может работать на дистанции."
 	icon_state = "bluespace_belt_placer"
 	item_state = "bs_conv"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -56,7 +58,7 @@
 			conveyor.id = switch_construct.id
 			linked = TRUE
 		if(linked)
-			user.balloon_alert(user, "привязано")
+			balloon_alert(user, "привязано")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -66,7 +68,7 @@
 		return
 	var/obj/item/conveyor_construct/conveyor = locate() in contents
 	if(!conveyor)
-		user.balloon_alert(user, "ленты закончились")
+		balloon_alert(user, "ленты закончились!")
 		return
 	conveyor.afterattack(target, user, proximity, params)
 

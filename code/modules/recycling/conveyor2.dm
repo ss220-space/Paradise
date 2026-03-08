@@ -9,7 +9,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor
 	name = "conveyor belt"
-	desc = "Конвейерная лента, используется для быстрой транспортировки большого количества предметов."
+	desc = "Конвейерная лента, используемая для быстрой транспортировки объектов."
+	gender = FEMALE
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "conveyor_map"
 	base_icon_state = "conveyor"
@@ -38,6 +39,16 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/list/neighbors
 	/// Timestamp used for multitool switch checks
 	COOLDOWN_DECLARE(multitool_cooldown)
+
+/obj/machinery/conveyor/get_ru_names()
+	return list(
+		NOMINATIVE = "конвейерная лента",
+		GENITIVE = "конвейерной ленты",
+		DATIVE = "конвейерной ленте",
+		ACCUSATIVE = "конвейерную ленту",
+		INSTRUMENTAL = "конвейерной лентой",
+		PREPOSITIONAL = "конвейерной ленте"
+	)
 
 /obj/machinery/conveyor/Initialize(mapload, new_dir, new_id)
 	. = ..()
@@ -362,7 +373,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor_switch
 	name = "conveyor switch"
-	desc = "Переключатель направления конвейерных лент."
+	desc = "Рычаг, предназначенный для управления работой привязанного конвейера."
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "switch-off"
 	base_icon_state = "switch"
@@ -382,6 +393,16 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/conveyor_min_speed = 0.3 SECONDS
 	/// Maximum speed delay this switch can provide to linked conveyors
 	var/conveyor_max_speed = 3 SECONDS
+
+/obj/machinery/conveyor_switch/get_ru_names()
+	return list(
+		NOMINATIVE = "переключатель конвейерной ленты",
+		GENITIVE = "переключателя конвейерной ленты",
+		DATIVE = "переключателю конвейерной ленты",
+		ACCUSATIVE = "переключатель конвейерной ленты",
+		INSTRUMENTAL = "переключателем конвейерной ленты",
+		PREPOSITIONAL = "переключателе конвейерной ленты"
+	)
 
 /obj/machinery/conveyor_switch/Initialize(mapload, new_id)
 	. = ..()
@@ -561,8 +582,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 // subtypes
 
 /obj/machinery/conveyor_switch/oneway
+	desc = "Рычаг, предназначенный для управления работой привязанного конвейера. \
+			Переключает только в одном направлении."
 	icon_state = "conveyor_switch_oneway"
-	desc = "Переключатель направления конвейерных лент. Переключается только в одном направлении."
 	one_way = TRUE
 
 /obj/machinery/conveyor_switch/oneway/Initialize(mapload, new_id)
@@ -573,22 +595,23 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 // CONVEYOR CONSTRUCTION STARTS HERE
 
 /obj/item/conveyor_construct
-	icon = 'icons/obj/machines/recycling.dmi'
-	icon_state = "conveyor_construct"
 	name = "conveyor belt assembly"
 	desc = "Используется для создания конвейерных систем."
+	gender = MALE
+	icon = 'icons/obj/machines/recycling.dmi'
+	icon_state = "conveyor_construct"
 	w_class = WEIGHT_CLASS_BULKY
 	/// ID for linking a belt to one or more switches, all conveyors with the same ID will be controlled the same switch(es).
 	var/id = ""
 
 /obj/item/conveyor_construct/get_ru_names()
 	return list(
-		NOMINATIVE = "конвейерная лента",
-		GENITIVE = "конвейерной ленты",
-		DATIVE = "конвейерной ленте",
-		ACCUSATIVE = "конвейерную ленту",
-		INSTRUMENTAL = "конвейерной лентой",
-		PREPOSITIONAL = "конвейерной ленте"
+		NOMINATIVE = "каркас конвейерной ленты",
+		GENITIVE = "каркаса конвейерной ленты",
+		DATIVE = "каркасу конвейерной ленты",
+		ACCUSATIVE = "каркас конвейерной ленты",
+		INSTRUMENTAL = "каркасом конвейерной ленты",
+		PREPOSITIONAL = "каркасе конвейерной ленты"
 	)
 
 /obj/item/conveyor_construct/Initialize(mapload, new_id)
@@ -630,7 +653,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/conveyor_switch_construct
 	name = "conveyor switch assembly"
-	desc = "Переключатель направления конвейерных лент. После установки позволяет управлять всеми лентами, с которыми он связан."
+	desc = "Рычаг, предназначенный для управления работой привязанного конвейера. \
+			Переключает только в одном направлении."
+	gender = MALE
 	icon = 'icons/obj/machines/recycling.dmi'
 	icon_state = "switch-off"
 	w_class = WEIGHT_CLASS_BULKY
@@ -639,12 +664,12 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/item/conveyor_switch_construct/get_ru_names()
 	return list(
-		NOMINATIVE = "рычаг",
-		GENITIVE = "рычага",
-		DATIVE = "рычагу",
-		ACCUSATIVE = "рычаг",
-		INSTRUMENTAL = "рычагом",
-		PREPOSITIONAL = "рычаге"
+		NOMINATIVE = "каркас конвейерного контроллера",
+		GENITIVE = "каркаса конвейерного контроллера",
+		DATIVE = "каркасу конвейерного контроллера",
+		ACCUSATIVE = "каркас конвейерного контроллера",
+		INSTRUMENTAL = "каркасом конвейерного контроллера",
+		PREPOSITIONAL = "каркасе конвейерного контроллера"
 	)
 
 /obj/item/conveyor_switch_construct/Initialize(mapload, new_id)

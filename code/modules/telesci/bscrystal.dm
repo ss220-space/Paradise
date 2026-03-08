@@ -1,25 +1,26 @@
 // Bluespace crystals, used in telescience and when crushed it will blink you to a random turf.
 /obj/item/stack/ore/bluespace_crystal
 	name = "bluespace crystal"
-	desc = "Светящийся блюспейс-кристалл. Принципы его работы неизвестны. Выглядит крайне хрупким."
+	desc = "Светящийся кристалл синего цвета, полный блюспейс-энергии. Принципы его работы неизвестны современной науке."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "bluespace_crystal"
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	origin_tech = "bluespace=6;materials=3"
 	points = 50
-	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
+	/// The teleport range when crushed/thrown at someone
+	var/blink_range = 8 
 	refined_type = /obj/item/stack/sheet/bluespace_crystal
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/ore/bluespace_crystal/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс кристалл",
-		GENITIVE = "блюспейс кристалла",
-		DATIVE = "блюспейс кристаллу",
-		ACCUSATIVE = "блюспейс кристалл",
-		INSTRUMENTAL = "блюспейс кристаллом",
-		PREPOSITIONAL = "блюспейс кристалле"
+		NOMINATIVE = "блюспейс-кристалл",
+		GENITIVE = "блюспейс-кристалла",
+		DATIVE = "блюспейс-кристаллу",
+		ACCUSATIVE = "блюспейс-кристалл",
+		INSTRUMENTAL = "блюспейс-кристаллом",
+		PREPOSITIONAL = "блюспейс-кристалле"
 	)
 
 /obj/item/stack/ore/bluespace_crystal/attack_self_tk(mob/user)
@@ -62,7 +63,7 @@
 // Artifical bluespace crystal, doesn't give you much research.
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
-	desc = "Искусственно созданный блюспейс-кристалл. Выглядит хрупким."
+	desc = "Светящийся кристалл синего цвета, полный блюспейс-энергии. Создан искусственным путём. Очень хрупкий."
 	origin_tech = "bluespace=3;plasmatech=4"
 	materials = list(MAT_BLUESPACE=MINERAL_MATERIAL_AMOUNT * 0.5)
 	blink_range = 4 // Not as good as the organic stuff!
@@ -71,12 +72,12 @@
 
 /obj/item/stack/ore/bluespace_crystal/artificial/get_ru_names()
 	return list(
-		NOMINATIVE = "искусственный блюспейс кристалл",
-		GENITIVE = "искусственного блюспейс кристалла",
-		DATIVE = "искусственному блюспейс кристаллу",
-		ACCUSATIVE = "искусственный блюспейс кристалл",
-		INSTRUMENTAL = "искусственным блюспейс кристаллом",
-		PREPOSITIONAL = "искусственном блюспейс кристалле"
+		NOMINATIVE = "искусственный блюспейс-кристалл",
+		GENITIVE = "искусственного блюспейс-кристалла",
+		DATIVE = "искусственному блюспейс-кристаллу",
+		ACCUSATIVE = "искусственный блюспейс-кристалл",
+		INSTRUMENTAL = "искусственным блюспейс-кристаллом",
+		PREPOSITIONAL = "искусственном блюспейс-кристалле"
 	)
 
 // Polycrystals, aka stacks
@@ -85,19 +86,16 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 
 /obj/item/stack/sheet/bluespace_crystal
 	name = "bluespace polycrystal"
+	desc = "Стабильный поликристалл, сплавленный из других блюспейс-кристаллов. \
+			Может быть разделён руками."
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "polycrystal"
 	protolathe_name = "bluespace_polycrystal"
-	desc = "Стабильный поликристалл, сплавленный из других блюспейс кристаллов. У вас, скорее всего, получится оторвать кусочек."
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
 	attack_verb = list("блюспейс полиударил", "блюспейс полиогрел", "блюспейс полистукнул", "блюспейс полисокрушил")
 	point_value = 30
-
-/obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.bluespace_crystal_recipes
 
 /obj/item/stack/sheet/bluespace_crystal/get_ru_names()
 	return list(
@@ -108,3 +106,7 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 		INSTRUMENTAL = "блюспейс поликристаллом",
 		PREPOSITIONAL = "блюспейс поликристалле"
 	)
+
+/obj/item/stack/sheet/bluespace_crystal/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.bluespace_crystal_recipes

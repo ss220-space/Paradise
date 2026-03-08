@@ -1,6 +1,7 @@
 /obj/item/beacon
 	name = "tracking beacon"
-	desc = "Маяк, используемый стационарными телепортами."
+	desc = "Навигационный маячок, используемый стационарными телепортами."
+	gender = MALE
 	icon = 'icons/obj/radio.dmi'
 	icon_state = "beacon"
 	item_state = "signaler"
