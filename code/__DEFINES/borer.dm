@@ -10,7 +10,7 @@
 #define ABDOMEN_FOCUS_COST 4.5
 #define REPRODUCTION_FOCUS_COST 5
 #define SECRETION_FOCUS_COST 7.5
-#define STRENGHT_FOCUS_COST 4
+#define STRENGTH_FOCUS_COST 4
 
 #define SCALING_MAX_CHEM 355
 #define SCALING_CHEM_GAIN 15
@@ -19,3 +19,8 @@
 #define BORER_RANK_MATURE /datum/borer_rank/mature
 #define BORER_RANK_ADULT /datum/borer_rank/adult
 #define BORER_RANK_ELDER /datum/borer_rank/elder
+
+#define MEND_HOST_HEAL_AMOUNT -2
+#define PARASITISM_CHEMICAL_GAIN 5
+#define PARASITISM_EVOLUTION_GAIN 0.075
+#define PARASITISM_HOST_DAMAGE 1.25

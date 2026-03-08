@@ -61,7 +61,7 @@
 
 /datum/borer_focus/strength
 	name = "Фокус мышц"
-	cost = STRENGHT_FOCUS_COST
+	cost = STRENGTH_FOCUS_COST
 	var/datum/strength_level/backup_strength_level
 	var/backup_strength_points = 0
 
@@ -196,20 +196,17 @@
 	if(!istype(host))
 		return FALSE
 
-	// Получаем или создаём компонент мышц
 	var/datum/component/muscles/muscles = host.GetComponent(/datum/component/muscles)
 	if(!muscles)
 		muscles = host.AddComponent(/datum/component/muscles)
 		if(!muscles)
 			return FALSE
 
-	// Запоминаем текущие значения
 	backup_strength_level = muscles.real_strength_level
 	backup_strength_points = muscles.strength_points
 
-	// Устанавливаем максимальную силу (5 уровень)
 	ADD_TRAIT(host, TRAIT_STRONG_MUSCLES, BORER_TRAIT)
-	muscles.real_strength_level = new STRENGTH_LEVEL_SUPERHUMAN()	// Предполагается, что это максимальный уровень
+	muscles.real_strength_level = new STRENGTH_LEVEL_SUPERHUMAN()
 	muscles.strength_points = 0
 
 	host.update_body(TRUE)
@@ -225,11 +222,9 @@
 	var/datum/component/muscles/muscles = host.GetComponent(/datum/component/muscles)
 	if(muscles)
 		if(backup_strength_level)
-			// Восстанавливаем сохранённый уровень
 			muscles.real_strength_level = backup_strength_level
 			muscles.strength_points = backup_strength_points
 		else
-			// Если по какой-то причине нет сохранённых данных — ставим стандартный уровень
 			muscles.real_strength_level = new STRENGTH_LEVEL_DEFAULT()
 			muscles.strength_points = 0
 

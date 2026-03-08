@@ -213,7 +213,7 @@
 		return
 
 	if(host.reagents.has_reagent("sugar"))
-		to_chat(borer, span_warning("Сахар в крови носителя"))
+		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком вялым"))
 		return
 
 	if(borer.chemicals < cost)
@@ -251,7 +251,7 @@
 		return
 
 	if(host.reagents.has_reagent("sugar"))
-		to_chat(borer, span_warning("Сахар в крови носителя"))
+		to_chat(borer, span_warning("Сахар в крови носителя делает вас слишком вялым"))
 		return
 
 	if(borer.chemicals < total_cost)
@@ -267,4 +267,5 @@
 	host.SetSleeping(0)
 	host.SetConfused(0)
 	host.setStaminaLoss(0)
+	host.get_up(instant = TRUE)
 

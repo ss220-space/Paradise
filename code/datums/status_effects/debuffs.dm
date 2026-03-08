@@ -1543,9 +1543,6 @@
 	duration = 60 SECONDS
 	tick_interval = 3 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/parasitism
-	var/evolution_gain = 0.075
-	var/chemical_gain = 5
-	var/host_damage = 1.25
 
 /atom/movable/screen/alert/status_effect/parasitism
 	name = "Паразит"
@@ -1556,7 +1553,7 @@
 	. = ..()
 	if(iscarbon(owner))
 		var/mob/living/carbon/host = owner
-		host.med_hud_set_status()   // показываем иконку паразитизма
+		host.med_hud_set_status()
 	return TRUE
 
 /datum/status_effect/parasitism/tick()
@@ -1586,14 +1583,14 @@
 	borer.parasitism = TRUE
 
 	if(borer.antag_datum)
-		SEND_SIGNAL(borer.antag_datum, COMSIG_BORER_EVOLUTION_TICK, evolution_gain)
+		SEND_SIGNAL(borer.antag_datum, COMSIG_BORER_EVOLUTION_TICK, PARASITISM_EVOLUTION_GAIN)
 
-	borer.chemicals += chemical_gain
+	borer.chemicals += PARASITISM_CHEMICAL_GAIN
 	if(borer.chemicals > borer.max_chems)
 		borer.chemicals = borer.max_chems
 
-	host.adjustBruteLoss(host_damage)
-	host.adjustToxLoss(host_damage)
+	host.adjustBruteLoss(PARASITISM_HOST_DAMAGE)
+	host.adjustToxLoss(PARASITISM_HOST_DAMAGE)
 	host.adjust_nutrition(-5)
 
 	if(prob(30))

@@ -1007,13 +1007,12 @@
 	id = "mend_host"
 	duration = 10 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/mend_host
-	var/heal_amount = -2
 
 /datum/status_effect/mend_host/tick()
 	if(!istype(owner, /mob/living/carbon))
 		return
 	var/mob/living/carbon/C = owner
-	C.adjustBruteLoss(heal_amount)
-	C.adjustFireLoss(heal_amount)
-	C.adjustToxLoss(heal_amount / 2)
-	C.adjustOxyLoss(heal_amount * 2.5)
+	C.adjustBruteLoss(MEND_HOST_HEAL_AMOUNT)
+	C.adjustFireLoss(MEND_HOST_HEAL_AMOUNT)
+	C.adjustToxLoss(MEND_HOST_HEAL_AMOUNT / 2)
+	C.adjustOxyLoss(MEND_HOST_HEAL_AMOUNT * 2.5)
