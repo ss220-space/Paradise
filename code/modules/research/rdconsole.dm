@@ -304,7 +304,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 			continue
 		if(syndicate != serv.syndicate) // То самое злосчастное место куда я не добавила проверку сразу!
 			log_debug("[name] ([COORD(src)]) and [serv.name]([COORD(serv)]) don't have the same\"Syndicate\" flag. Skipped synchronizing data.")	//На всякий
-			continue	//По идее должно блочить скачивание и загрузку на синди/не синди сервера в зависимости от того синди или не синди эта консоль @_@
+			continue	//По идее должно блочить скачивание и загрузку на синди/не синди серверы в зависимости от того синди или не синди эта консоль @_@
 		if((id in serv.id_with_upload) || istype(serv, /obj/machinery/r_n_d/server/centcom))
 			files.push_data(serv.files)
 			server_processed = TRUE
@@ -444,9 +444,9 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		var/console_has_access = (id in rnd_server.id_with_download) || (id in rnd_server.id_with_upload)
 		if(being_built && console_has_access && (rnd_server.is_design_blacklisted(being_built.id)))
-			add_wait_message("Предмет в чёрном списке сервера НИО!", SYNC_RESEARCH_DELAY)
+			add_wait_message("Шаблон печати находится в чёрном списке!", SYNC_RESEARCH_DELAY)
 			playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE, -1)
-			balloon_alert_to_viewers("предмет в чёрном списке!", "этот предмет в чёрном списке!")
+			to_chat(usr, span_danger("Шаблон \"[being_built.build_object_name]\" находится в чёрном списке печати!"))
 			return
 	connected_servers -= null
 
@@ -960,7 +960,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 		else if(d_disk != null && d_disk.blueprint != null && submenu == SUBMENU_MAIN)
 			var/list/disk_data = list()
-			var/display_name = d_disk.blueprint.build_object_name || d_disk.blueprint.name || "Неизвестный дизайн"
+			var/display_name = d_disk.blueprint.build_object_name || d_disk.blueprint.name || "Неизвестный шаблон"
 			data["disk_data"] = disk_data
 			disk_data["name"] = display_name
 			var/b_type = d_disk.blueprint.build_type

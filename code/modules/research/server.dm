@@ -4,6 +4,8 @@
 #define RD_SERVER_SCREEN_LOGS 3
 /obj/machinery/r_n_d/server
 	name = "R&D Server"
+	desc = "Центральный сервер отдела НИО. Предназначен для хранения и управления базой данных шаблонов печати. \
+			Обеспечивает синхронизацию данных между подключёнными консолями и научным оборудованием."
 	icon_state = "server"
 	base_icon_state = "server"
 	var/datum/research/files
@@ -207,12 +209,12 @@
 /obj/machinery/r_n_d/server/proc/add_usage_log(mob/user, datum/design/built_design, obj/machinery/r_n_d/machine)
 	var/time_created = station_time_timestamp()
 	var/user_name = user.name
-	var/user_job = "нет должности"
+	var/user_job = NOJOB_STATUS_RUS
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		user_name = human_user.get_authentification_name()
 		user_job = human_user.get_assignment()
-	var/blueprint_name = built_design.build_object_name || built_design.name || "Неизвестный дизайн"
+	var/blueprint_name = built_design.build_object_name || built_design.name || "Неизвестный шаблон"
 	var/used_machine = machine.declent_ru(ACCUSATIVE)
 
 	LAZYINITLIST(usage_logs)
@@ -224,7 +226,7 @@
 		return
 	var/time_cleared = station_time_timestamp()
 	var/user_name = user.name
-	var/user_job = "нет должности"
+	var/user_job = NOJOB_STATUS_RUS
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		user_name = human_user.get_authentification_name()
@@ -236,9 +238,59 @@
 
 	LAZYCLEARLIST(usage_logs)
 
+/obj/machinery/r_n_d/server/proc/is_design_blacklisted(design_id)
+	return (design_id in design_blacklist)
+
+/**
+ * MARK: R&D Server variations
+ */
+
+/obj/machinery/r_n_d/server/core
+	name = "Core R&D Server"
+	id_with_upload_string = "1;3"
+	id_with_download_string = "1;3"
+	server_id = 1
+	plays_sound = 1
+
+/obj/machinery/r_n_d/server/core/get_ru_names()
+	return list(
+		NOMINATIVE = "центральный сервер НИО",
+		GENITIVE = "центрального сервера НИО",
+		DATIVE = "центральному серверу НИО",
+		ACCUSATIVE = "центральный сервер НИО",
+		INSTRUMENTAL = "центральным сервером НИО",
+		PREPOSITIONAL = "центральном сервере НИО",
+	)
+
+/obj/machinery/r_n_d/server/robotics
+	name = "Robotics and Mechanic R&D Server"
+	id_with_upload_string = "1;2;4;6"
+	id_with_download_string = "1;2;4;6"
+	server_id = 2
+
+/obj/machinery/r_n_d/server/robotics/get_ru_names()
+	return list(
+		NOMINATIVE = "сервер робототехники и механики НИО",
+		GENITIVE = "сервера робототехники и механики НИО",
+		DATIVE = "серверу робототехники и механики НИО",
+		ACCUSATIVE = "сервер робототехники и механики НИО",
+		INSTRUMENTAL = "сервером робототехники и механики НИО",
+		PREPOSITIONAL = "сервере робототехники и механики НИО",
+	)
+
 /obj/machinery/r_n_d/server/centcom
 	name = "CentComm. Central R&D Database"
 	server_id = -1
+
+/obj/machinery/r_n_d/server/centcom/get_ru_names()
+	return list(
+		NOMINATIVE = "сервер НИО ЦК",
+		GENITIVE = "сервера НИО ЦК",
+		DATIVE = "серверу НИО ЦК",
+		ACCUSATIVE = "сервер НИО ЦК",
+		INSTRUMENTAL = "сервером НИО ЦК",
+		PREPOSITIONAL = "сервере НИО ЦК",
+	)
 
 /obj/machinery/r_n_d/server/centcom/Initialize(mapload)
 	. = ..()
@@ -266,8 +318,13 @@
 /obj/machinery/r_n_d/server/centcom/process()
 	return PROCESS_KILL	//don't need process()
 
+/**
+ * MARK: R&D Server Controller
+ */
+
 /obj/machinery/computer/rdservercontrol
 	name = "R&D server controller"
+	desc = "Комьютер, предназначенный для администрирования системы серверов НИО."
 	icon_screen = "rdcomp"
 	icon_keyboard = "rd_key"
 	light_color = LIGHT_COLOR_LAVENDER
@@ -306,54 +363,16 @@
 	req_access = list()
 
 	if(user)
-		to_chat(user, span_warning("Вы выжигаете чип авторизации. Протоколы безопасности отключены."))
-		balloon_alert(user, "безопасность отключена")
+		balloon_alert(user, "протоколы безопасности взломаны")
 
 	SStgui.update_uis(src)
 	return TRUE
-
-/obj/machinery/r_n_d/server/proc/is_design_blacklisted(design_id)
-	return (design_id in design_blacklist)
-
-/obj/machinery/r_n_d/server/core
-	name = "Core R&D Server"
-	id_with_upload_string = "1;3"
-	id_with_download_string = "1;3"
-	server_id = 1
-	plays_sound = 1
-
-/obj/machinery/r_n_d/server/core/get_ru_names()
-	return list(
-		NOMINATIVE = "центральный сервер НИО",
-		GENITIVE = "центрального сервера НИО",
-		DATIVE = "центральному серверу НИО",
-		ACCUSATIVE = "центральный сервер НИО",
-		INSTRUMENTAL = "центральным сервером НИО",
-		PREPOSITIONAL = "центральном сервере НИО",
-	)
-
-/obj/machinery/r_n_d/server/robotics
-	name = "Robotics and Mechanic R&D Server"
-	id_with_upload_string = "1;2;4;6"
-	id_with_download_string = "1;2;4;6"
-	server_id = 2
-
-/obj/machinery/r_n_d/server/robotics/get_ru_names()
-	return list(
-		NOMINATIVE = "сервер робототехники и механики НИО",
-		GENITIVE = "сервера робототехники и механики НИО",
-		DATIVE = "серверу робототехники и механики НИО",
-		ACCUSATIVE = "сервер робототехники и механики НИО",
-		INSTRUMENTAL = "сервером робототехники и механики НИО",
-		PREPOSITIONAL = "сервере робототехники и механики НИО",
-	)
 
 /obj/machinery/computer/rdservercontrol/attack_hand(mob/user as mob)
 	if(stat & (BROKEN|NOPOWER))
 		return
 
 	if(!allowed(user) && !isobserver(user))
-		to_chat(user, span_warning("У вас нет необходимого уровня доступа."))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		balloon_alert(user, "отказано в доступе!")
 		return
@@ -368,7 +387,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "RdServerControl", "R&D Server Control")
+		ui = new(user, src, "RdServerControl", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/machinery/computer/rdservercontrol/ui_data(mob/user)
@@ -405,7 +424,7 @@
 			var/datum/design/D = design // Объясняем тип
 			if(!D)
 				continue
-			var/display_name = D.build_object_name || D.name || "Неизвестный дизайн"
+			var/display_name = D.build_object_name || D.name || "Неизвестный шаблон"
 			design_list += list(list(
 				"name" = display_name,
 				"id" = D.id,
@@ -440,7 +459,7 @@
 		return
 
 	if(!allowed(usr) && !isobserver(usr))
-		to_chat(usr, span_warning("У вас нет необходимого уровня доступа."))
+		to_chat(usr, span_warning("Отказано в доступе!"))
 		return
 
 	var/is_syndicate = syndicate
@@ -479,7 +498,7 @@
 			if(!temp_server || QDELETED(temp_server))
 				return
 			var/tech_id = params["tech_id"]
-			var/choice = tgui_alert(usr, "Сбросить технологию?", "Внимание", list("Да", "Нет"))
+			var/choice = tgui_alert(usr, "Сбросить уровень технологии?", "Внимание", list("Да", "Нет"))
 			if(choice == "Да")
 				var/datum/tech/tech = temp_server.files.known_tech[tech_id]
 				if(tech)

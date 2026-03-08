@@ -66,7 +66,7 @@ export const RdServerControl = (props) => {
     return (
       <Window width={500} height={400} title="Управление серверами НИО">
         <Window.Content scrollable>
-          <Section title="Подключённые сервера">
+          <Section title="Подключённые серверы">
             <Stack vertical>
               {servers.map((s) => (
                 <Stack.Item key={s.id}>
@@ -78,7 +78,7 @@ export const RdServerControl = (props) => {
                   />
                 </Stack.Item>
               ))}
-              {servers.length === 0 && 'Сервера не найдены.'}
+              {servers.length === 0 && 'Серверы не найдены.'}
             </Stack>
           </Section>
         </Window.Content>
@@ -134,10 +134,10 @@ export const RdServerControl = (props) => {
                     ))}
                   </LabeledList>
                 </Section>
-                <Section title="Список дизайнов">
+                <Section title="Список шаблонов">
                   <Table>
                     <Table.Row header>
-                      <Table.Cell>Название дизайна</Table.Cell>
+                      <Table.Cell>Название шаблона</Table.Cell>
                       <Table.Cell collapsing>Статус</Table.Cell>
                     </Table.Row>
                     {designs.map((d) => (
