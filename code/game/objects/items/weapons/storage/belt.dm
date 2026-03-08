@@ -976,7 +976,8 @@
 
 /obj/item/storage/belt/bluespace
 	name = "Belt of Holding"
-	desc = "Пояс, вмещающий в себя порядком больше вещей, чем обычный. Возможно, в него вместится секира и дюжина зелий."
+	desc = "Пояс, созданный с использованием блюспейс-технологий. Хранит содержимое в подпространственном кармане, \
+			что значительно увеличивает его вместимость."
 	icon_state = "holdingbelt"
 	item_state = "holdingbelt"
 	storage_slots = 14
@@ -996,12 +997,12 @@
 
 /obj/item/storage/belt/bluespace/get_ru_names()
 	return list(
-		NOMINATIVE = "блюспейс пояс",
-		GENITIVE = "блюспейс пояса",
-		DATIVE = "блюспейс поясу",
-		ACCUSATIVE = "блюспейс пояс",
-		INSTRUMENTAL = "блюспейс поясом",
-		PREPOSITIONAL = "блюспейс поясе"
+		NOMINATIVE = "блюспейс-пояс",
+		GENITIVE = "блюспейс-пояса",
+		DATIVE = "блюспейс-поясу",
+		ACCUSATIVE = "блюспейс-пояс",
+		INSTRUMENTAL = "блюспейс-поясом",
+		PREPOSITIONAL = "блюспейс-поясе"
 	)
 
 /obj/item/storage/belt/bluespace/owlman

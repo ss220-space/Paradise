@@ -12,6 +12,7 @@
 /obj/item/rpd
 	name = "rapid pipe dispenser"
 	desc = "Устройство, позволяющее быстро прокладывать, перемещать и разбирать трубы, а так же другие атмосферные конструкции."
+	gender = MALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -77,7 +78,8 @@
 
 /obj/item/rpd/bluespace
 	name = "bluespace rapid pipe dispenser"
-	desc = "Устройство, позволяющее быстро прокладывать, перемещать и разбирать трубы, а так же другие атмосферные конструкции. В отличие от стандартной модели позволяет, работать на дистанции."
+	desc = "Устройство, позволяющее быстро прокладывать, перемещать и разбирать трубы, а так же другие атмосферные конструкции. \
+			Благодаря использованию блюспейс-технологий, данная модель может работать на дистанции."
 	icon_state = "brpd"
 	materials = list(MAT_METAL = 75000, MAT_GLASS = 37500, MAT_SILVER = 3000)
 	origin_tech = "engineering=4;materials=2;bluespace=3"

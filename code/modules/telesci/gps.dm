@@ -9,7 +9,8 @@ GLOBAL_LIST_EMPTY(GPS_list)
  */
 /obj/item/gps
 	name = "default gps"
-	desc = "Помогает потерявшимся космонавтам не заблудиться на просторах планет с 2016 года."
+	desc = "Компактное устройство, предназначенное для определения местоположения с помощью GPS-технологий."
+	gender = MALE
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "gps-c"
 	w_class = WEIGHT_CLASS_SMALL
@@ -34,12 +35,12 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/get_ru_names()
 	return list(
-		NOMINATIVE = "глобальная позиционирующая система (GPS)",
-		GENITIVE = "глобальной позиционирующей системы (GPS)",
-		DATIVE = "глобальной позиционирующей системе (GPS)",
-		ACCUSATIVE = "глобальную позиционирующую систему (GPS)",
-		INSTRUMENTAL = "глобальной позиционирующей системой (GPS)",
-		PREPOSITIONAL = "глобальной позиционирующей системе (GPS)"
+		NOMINATIVE = "GPS-навигатор",
+		GENITIVE = "GPS-навигатора",
+		DATIVE = "GPS-навигатору",
+		ACCUSATIVE = "GPS-навигатор",
+		INSTRUMENTAL = "GPS-навигатором",
+		PREPOSITIONAL = "GPS-навигаторе"
 	)
 
 /obj/item/gps/Initialize(mapload)
@@ -47,7 +48,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	GLOB.GPS_list.Add(src)
 	GLOB.poi_list.Add(src)
 	if(name == initial(name))
-		name = "global positioning system ([gpstag])"
+		update_names()
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/gps/Destroy()
@@ -56,6 +57,21 @@ GLOBAL_LIST_EMPTY(GPS_list)
 	locked_location = null
 	parent = null
 	return ..()
+
+/**
+ * Updates the `name` and `ru_names` of the GPS.
+ * Takes optional newtag parameter to set custom value.
+ */
+/obj/item/gps/proc/update_names(newtag)
+	var/list/names = get_ru_names_cached()
+	ru_names = names ? names.Copy() : new /list(6)
+
+	if(!newtag)
+		newtag = gpstag
+	
+	name = "global positioning system ([newtag])"
+	for(var/i = 1; i <= 6; i++)
+		ru_names[i] = "[names ? names[i] : initial(name)][newtag ? " ([newtag])" : ""]"
 
 /obj/item/gps/update_overlays()
 	. = ..()
@@ -149,7 +165,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 /obj/item/gps/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "GPS", "GPS")
+		ui = new(user, src, "GPS", DECLENT_RU_CAP(src, NOMINATIVE))
 		ui.open()
 
 /obj/item/gps/ui_act(action, list/params)
@@ -164,7 +180,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 			if(!length(newtag) || gpstag == newtag)
 				return
 			gpstag = newtag
-			name = "global positioning system ([gpstag])"
+			update_names()
 		if("toggle")
 			toggle_gps(usr)
 			return FALSE
