@@ -178,7 +178,7 @@
 	// We collect all subscriptions that were registered in a person's name.
 	// We use this to create a separate list in TGUI.
 	for(var/datum/subscription/Ss in GLOB.all_subscriptions)
-		if(!Ss || !Ss.subscriber_account)
+		if(!Ss || !Ss.subscriber_account || !Ss.subscriber_account)
 			continue
 
 		if(Ss.subscriber_account == owner_bank_account)
@@ -194,13 +194,15 @@
 
 	// subscriptions that can be purchased
 	for(var/datum/subscription/S in GLOB.available_subscriptions)
-		if(S && S.subscription_name && !(S.subscription_name in active_sub_names))
+		if(S.subscription_name in active_sub_names)
+			continue
+
 		available_sub_list.Add(list(list(
 			"available_subscription_name" = S.subscription_name,
 			"description" = S.description,
 			"cost" = S.cost,
 			"interval" = S.interval,
-			"provider" = S.recipient_account.owner_name
+			"provider" = "Нет доступа"
 		)))
 
 	data["name"] = owner_bank_account.owner_name
@@ -286,8 +288,6 @@
 				template.subscription_name,   // name
 				template.description          // description
 			)
-
-			GLOB.all_subscriptions += new_sub
 
 			to_chat(usr, span_notice("Подписка '[available_subscription_name]' успешно оформлена."))
 			return
