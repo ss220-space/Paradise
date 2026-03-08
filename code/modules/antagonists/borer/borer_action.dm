@@ -230,3 +230,41 @@
 
 	to_chat(owner, span_danger("Носитель будет ослаблен в ближайшее время."))
 	to_chat(host, span_danger("Паразит питается за вас счёт. Вы чувствуете истощение."))
+
+/datum/action/innate/borer/adrenaline
+	name = "Всплеск адреналина"
+	desc = "Помогает носителю моментально востоновить свои силы"
+	button_icon_state = "adrenaline"
+	cost = 100
+
+/datum/action/innate/borer/adrenaline/Activate()
+	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
+	if(!borer || !borer.host)
+		return
+
+	var/mob/living/carbon/host = borer.host
+
+	var/total_cost = cost - (borer.antag_datum.borer_rank.rank_ability_amplifier * 15)
+
+	if(host.stat == DEAD)
+		to_chat(owner, "Носитель мёртв!")
+		return
+
+	if(host.reagents.has_reagent("sugar"))
+		to_chat(borer, span_warning("Сахар в крови носителя"))
+		return
+
+	if(borer.chemicals < total_cost)
+		to_chat(owner, "Вам требуется [total_cost] химикат[DECL_CREDIT(total_cost)] для активации адреналина")
+		return
+
+	borer.chemicals -= total_cost
+
+	host.SetWeakened(0)
+	host.SetStunned(0)
+	host.SetKnockdown(0)
+	host.SetParalysis(0)
+	host.SetSleeping(0)
+	host.SetConfused(0)
+	host.setStaminaLoss(0)
+

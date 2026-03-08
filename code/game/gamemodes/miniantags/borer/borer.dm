@@ -139,6 +139,7 @@
 	var/datum/action/innate/borer/focus_menu/focus_menu_action = new
 	var/datum/action/innate/borer/mend_host/mend_host_action = new
 	var/datum/action/innate/borer/parasitism/parasitism_action = new
+	var/datum/action/innate/borer/adrenaline/adrenaline_action = new
 
 	var/obj/effect/proc_holder/spell/borer_infest/infest_spell = new
 	var/obj/effect/proc_holder/spell/borer_dominate/dominate_spell = new
@@ -165,8 +166,8 @@
 	GrantBorerActions()
 
 /mob/living/simple_animal/borer/Login()
-    ..()
-    enable_med_hud() // Включаем медхуд при входе игрока
+	..()
+	enable_med_hud() // Включаем медхуд при входе игрока
 
 /mob/living/simple_animal/borer/death(gibbed)
 	. = ..()
@@ -823,6 +824,7 @@
 	torment_action.Grant(src)
 	mend_host_action.Grant(src)
 	parasitism_action.Grant(src)
+	adrenaline_action.Grant(src)
 
 /mob/living/simple_animal/borer/proc/RemoveInfestActions()
 	mind?.RemoveSpell(/obj/effect/proc_holder/spell/borer_force_say)
@@ -834,6 +836,7 @@
 	torment_action.Remove(src)
 	mend_host_action.Remove(src)
 	parasitism_action.Remove(src)
+	adrenaline_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantControlActions()
 	talk_to_brain_action.Grant(host)
@@ -842,6 +845,7 @@
 	sneak_mode_action.Grant(host)
 	torment_action.Grant(host)
 	mend_host_action.Grant(host)
+	adrenaline_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
 	talk_to_brain_action.Remove(host)
@@ -850,6 +854,7 @@
 	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
 	mend_host_action.Remove(host)
+	adrenaline_action.Remove(host)
 
 /mob/living/carbon/human/proc/get_real_mind()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
@@ -861,12 +866,13 @@
 
 // Прок для включения медхуда
 /mob/living/simple_animal/proc/enable_med_hud(hud_type = DATA_HUD_MEDICAL_ADVANCED)
-    var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
-    if(med_hud)
-        med_hud.show_to(src)
+	var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
+	if(med_hud)
+		med_hud.show_to(src)
 
 // Прок для выключения медхуда
 /mob/living/simple_animal/proc/disable_med_hud(hud_type = DATA_HUD_MEDICAL_ADVANCED)
-    var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
-    if(med_hud)
-        med_hud.hide_from(src)
+	var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
+	if(med_hud)
+		med_hud.hide_from(src)
+
