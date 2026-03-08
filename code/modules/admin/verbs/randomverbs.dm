@@ -1085,3 +1085,27 @@ ADMIN_VERB(polymorph_all, R_EVENT, "Polymorph All", "Applies the effects of the 
 			new_mob.real_name = real_name
 
 	message_admins("Mass polymorph started by [who_did_it] is complete.")
+
+ADMIN_VERB(play_fax_spam_fun, R_EVENT, "Play Fax Spam Sound", "Воспроизвести звук оповещения ЦК на всю станцию.", ADMIN_CATEGORY_FUN)
+	if(SSticker.fax_spam_used)
+		to_chat(user, span_warning("Звук оповещения ЦК уже был воспроизведён в этом раунде!"), confidential = TRUE)
+		return
+
+	var/confirm = tgui_alert(user, "Воспроизвести звук оповещения Центрального Командования на всю станцию?", "Оповещение ЦК", list("Да", "Нет"))
+	if(confirm != "Да")
+		return
+
+	var/sound/fax_sound = sound('sound/misc/fax_spam.ogg', repeat = 0, wait = 1, channel = CHANNEL_ADMIN)
+	fax_sound.priority = 250
+
+	SSticker.fax_spam_used = TRUE
+
+	log_and_message_admins("воспроизвели звук оповещения ЦК (fax_spam.ogg)")
+
+	for(var/mob/M in GLOB.player_list)
+		if(M.client.prefs.sound & SOUND_MIDI)
+			if(!isnewplayer(M) || (M.client.prefs.sound & SOUND_LOBBY))
+				fax_sound.volume = 100 * M.client.prefs.get_channel_volume(CHANNEL_ADMIN)
+				SEND_SOUND(M, fax_sound)
+
+	BLACKBOX_LOG_ADMIN_VERB("Play Fax Spam Fun")

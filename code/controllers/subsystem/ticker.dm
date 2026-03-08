@@ -82,6 +82,8 @@ SUBSYSTEM_DEF(ticker)
 
 	var/music_available = 0
 
+	var/fax_spam_used = FALSE
+
 /datum/controller/subsystem/ticker/Initialize()
 	login_music_data = list()
 
@@ -184,6 +186,8 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/setup()
 	cultdat = setupcult()
 	score = new()
+
+	fax_spam_used = FALSE
 
 	// Create and announce mode
 	if(GLOB.master_mode == "secret")

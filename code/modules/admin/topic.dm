@@ -2654,6 +2654,22 @@
 		else
 			log_admin("[key_name(src.owner)] sent a fax message to [destination]: [input]")
 			message_admins("[key_name_admin(src.owner)] sent a fax message to [destination] (<a href='byond://?_src_=holder;AdminFaxView=[P.UID()]'>VIEW</a>).")
+
+			var/announce_type = tgui_alert(src.owner, "Отправить оповещение на всю станцию?", "Оповещение ЦК", list("Без оповещения", "Стандартное", "Уникальное (fax_spam)"))
+			if(announce_type == "Стандартное")
+				GLOB.major_announcement.announce(
+					message = input,
+					new_title = ANNOUNCE_CCMSG_RU,
+					new_sound = 'sound/AI/commandreport.ogg',
+					new_subtitle = customname
+				)
+			else if(announce_type == "Уникальное (fax_spam)")
+				GLOB.major_announcement.announce(
+					message = input,
+					new_title = ANNOUNCE_CCMSG_RU,
+					new_sound = 'sound/misc/fax_spam.ogg',
+					new_subtitle = customname
+				)
 		return
 
 	else if(href_list["AdminFaxNotify"])
