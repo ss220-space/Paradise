@@ -245,7 +245,7 @@
 		H.dna.species.job_pre_equip(H)
 		return
 
-	for(var/gear as anything in H.client.prefs.choosen_gears)
+	for(var/gear in H.client.prefs.choosen_gears)
 		var/datum/gear/gear_datum = H.client.prefs.choosen_gears[gear]
 
 		if(!istype(gear_datum))
