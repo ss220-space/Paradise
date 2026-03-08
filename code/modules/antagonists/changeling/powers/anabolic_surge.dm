@@ -2,7 +2,7 @@
 	name = "Анаболический всплеск"
 	desc = "Значительно увеличивает силу пользователя, за счёт уменьшения выроботки химикатов на 50%."
 	helptext = "Увеличивает силу до сверхчеловеческого уровня."
-	button_icon_state = "blood_swell"
+	button_icon_state = "anabolic_surge"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
 	var/chem_reduction = 0.5
@@ -61,7 +61,7 @@
 		changeling.chem_recharge_rate -= chem_reduction
 
 	active = TRUE
-	button_icon_state = "blood_swell" //жду спрайты, но можно и так мёржануть
+	button_icon_state = "anabolic_surge_active"
 	UpdateButtonIcon()
 
 	return TRUE
@@ -97,7 +97,7 @@
 		changeling.chem_recharge_rate += chem_reduction
 
 	active = FALSE
-	button_icon_state = "blood_swell" //жду спрайты, но можно и так мёржануть
+	button_icon_state = "anabolic_surge"
 	UpdateButtonIcon()
 
 	return TRUE
