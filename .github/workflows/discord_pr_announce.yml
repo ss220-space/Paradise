@@ -16,14 +16,26 @@ jobs:
           if [ -n "$ENABLER_SECRET" ]; then SECRET_EXISTS=true ; fi
           echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
 
+      - name: Clean PR body
+        id: clean_body
+        uses: actions/github-script@v8
+        if: ${{ steps.secrets_set.outputs.SECRETS_ENABLED }}
+        with:
+          script: |
+            const body = context.payload.pull_request.body || '';
+            let cleaned = body.replace(/<img[^>]*src="([^"]*)"[^>]*>/gi, '$1');
+            cleaned = cleaned.replace(/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/gi, '[$2]($1)');
+            cleaned = cleaned.replace(/<[^>]*>/g, '');
+            if (cleaned.length > 1500) cleaned = cleaned.substring(0, 1500) + '…';
+            core.setOutput('cleaned_body', cleaned);
+
       - name: Send Discord notification
         uses: tgstation/discord-notify@v3
-        if: >
-          steps.secrets_set.outputs.SECRETS_ENABLED
+        if: ${{ steps.secrets_set.outputs.SECRETS_ENABLED }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
-          message: ${{ github.event.pull_request.body }}
+          message: "GET_ACTION\n${{ steps.clean_body.outputs.cleaned_body }}"
           include_image: false
           show_author: true
           avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403077083076366546/1984.png?ex=68963cdc&is=6894eb5c&hm=7f654bcb85dec940417a6e393b461382e7284d545f8336807bc753a38b040e01&
