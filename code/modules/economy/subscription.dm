@@ -20,6 +20,7 @@
 	var/creation_time = 0
 
 	var/active = TRUE
+	var/secure = FALSE
 
 /datum/subscription/New(subscriber, recipient, cost_val, interval_val, name_val, description_t)
 	if(!subscriber || !istype(subscriber, /datum/money_account))
@@ -61,27 +62,27 @@
 		return
 
 	// check can start and safe check for charge (he can joke)
-	if(!can_process() || !subscriber_account.charge(cost, recipient_account, subscription_name, subscriber_account.owner_name, subscription_name, "Оплата подписки", "Терминал Raingor Interstellar Banking №[rand(111,333)]"))
+	if(!can_process() || !subscriber_account.charge(cost, recipient_account, "Оплата подписки [subscription_name]", "Терминал Raingor Interstellar Banking №[rand(111,333)]", recipient_account.owner_name , "Оплата подписки [subscription_name]", subscriber_account.owner_name))
 		cancel()
 	else
 		next_payment_time = world.time + interval
 		//pda
-		subscriber_account.notify_pda_owner("<b>Уведомление о проведении планового платежа</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки продлено. Доступ к сервису подтверждён.\" (Невозможно Ответить)", FALSE)
-		recipient_account.notify_pda_owner("<b>Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций.\" (Невозможно Ответить)", FALSE)
+		subscriber_account.notify_pda_owner("<b> Уведомление о проведении планового платежа</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки продлено. \" (Невозможно Ответить)", FALSE)
+		recipient_account.notify_pda_owner("<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)", FALSE)
 
 /datum/subscription/proc/cancel()
 	active = FALSE
 	if(subscriber_account)
-		subscriber_account.notify_pda_owner("<b>Уведомление о приостановке действия подписки</b>\"Абонентская плата за услугу '[subscription_name]' в размере [cost] кредитов не поступила. Действие подписки приостановлено. Доступ к сервису деактивирован.\" (Невозможно Ответить)", FALSE)
+		subscriber_account.notify_pda_owner("<b> Уведомление о приостановке действия подписки</b>\"Абонентская плата за услугу '[subscription_name]' в размере [cost] кредитов не поступила. Действие подписки приостановлено. \" (Невозможно Ответить)", FALSE)
 	if(recipient_account)
-		recipient_account.notify_pda_owner("<b>Уведомление о прекращении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] прекратил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов более не производятся. Мониторинг транзакций приостановлен.\" (Невозможно Ответить)", FALSE)
+		recipient_account.notify_pda_owner("<b> Уведомление о прекращении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] прекратил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов более не производятся. Мониторинг транзакций приостановлен.\" (Невозможно Ответить)", FALSE)
 
 /datum/subscription/proc/resub()
 	active = TRUE
 	if(subscriber_account)
-		subscriber_account.notify_pda_owner("<b>Уведомление о возобновлении действия подписки</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки восстановлено. Доступ к сервису активирован.\" (Невозможно Ответить)", FALSE)
+		subscriber_account.notify_pda_owner("<b> Уведомление о возобновлении действия подписки</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки восстановлено. \" (Невозможно Ответить)", FALSE)
 	if(recipient_account)
-		recipient_account.notify_pda_owner("<b>Уведомление о возобновлении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] возобновил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов активированы. Мониторинг транзакций возобновлен.\" (Невозможно Ответить)", FALSE)
+		recipient_account.notify_pda_owner("<b> Уведомление о возобновлении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] возобновил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов активированы. Мониторинг транзакций возобновлен.\" (Невозможно Ответить)", FALSE)
 
 // This process is one of the basic ones; if you don’t add your subscription
 // as a test one, it won’t be displayed!
@@ -101,11 +102,10 @@
 
 // An example of a station donation subscription
 /datum/subscription/station_donations
-	subscription_name = "Пожертвование в счёт станции"
-	description = "Тестовая подписка для проверки системы."
+	subscription_name = "Фонд развития станции"
+	description = " Регулярное перечисление средств на модернизацию систем жизнеобеспечения. Поощряется руководством НТ и отделом кадров."
 	cost = 199
-	interval = 1 MINUTES
+	interval = 5 MINUTES
 
 /datum/subscription/station_donations/New(subscriber)
 	..(subscriber, GLOB.station_account, cost, interval, subscription_name, description)
-

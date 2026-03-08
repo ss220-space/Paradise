@@ -329,7 +329,9 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
               {Math.round(e.interval / 600)} минут
             </LabeledList.Item>
 
-            <Box mb={1}>Стоимость: {e.cost} кредитов</Box>
+            <LabeledList.Item label="Стоимость">
+              <Box> {e.cost} кредитов</Box>
+            </LabeledList.Item>
 
             <Button
               color="good"
@@ -365,7 +367,7 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                 {e.recipient_name}
               </LabeledList.Item>
 
-              <LabeledList.Item>
+              <LabeledList.Item label="Описание">
                 <Box mb={1}>{e.description}</Box>
               </LabeledList.Item>
 

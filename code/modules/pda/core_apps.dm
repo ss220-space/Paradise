@@ -222,39 +222,19 @@
 			var/datum/money_account/RecipientUser = get_account_with_name(target)
 			var/datum/money_account/SenderUser = get_account_with_name(pda.owner)
 
-			// without this u cant use charge_to_account
-			var/obj/machinery/computer/account_database/linked_db
-
-			// antidurak protection
-			if(!SenderUser)
+			if(!SenderUser || !RecipientUser || amount <= 0)
+				to_chat(usr, span_warning("Ошибка: не удалось выполнить перевод."))
 				return
 
-			if(!RecipientUser)
+			if(!SenderUser.charge(amount, RecipientUser, purpose, "Терминал Raingor Interstellar Banking №[rand(111,333)]", target, purpose, pda.owner))
+				to_chat(usr, span_warning("Ошибка: не удалось выполнить перевод."))
 				return
-
-			if(SenderUser.suspended || RecipientUser.suspended)
-				return
-
-			if(amount <= 0)
-				return
-
-			if(SenderUser.money < amount)
-				return
-
-			// search db account
-			// todo: refactor
-			for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
-				if(DB.stat & NOPOWER || !DB.activated)
-					continue
-				linked_db = DB
-				break
-
-			if(!linked_db)
-				return
-
-			linked_db.charge_to_account(RecipientUser.account_number, SenderUser, purpose, "Терминал Raingor Interstellar Banking", amount)
 
 		if("add_subscription")
+			// NOTE: What happens if I make one variable name? And then create a
+			// variable with that name every time? Will it overwrite it?
+			// Will it report it at compile time? No. It'll make a duplicate and add a number.
+			// What a mess.
 			var/available_subscription_name = params["available_subscription_name"]
 			var/subscriber_account_name = pda.owner
 			var/datum/subscription/existing = find_subscription_with_name(subscriber_account_name, available_subscription_name)
@@ -293,27 +273,26 @@
 			return
 
 		if("cancel_subscription")
-			var/available_subscription_name = params["available_subscription_name"]
-			var/subscriber_account_name = pda.owner
-			var/datum/subscription/target = find_subscription_with_name(subscriber_account_name, available_subscription_name)
+			var/available_sub_name = params["subscription_name"]
+			var/sub_account_name = pda.owner
+			var/datum/subscription/target = find_subscription_with_name(sub_account_name, available_sub_name)
 
 			if(!target)
-				to_chat(usr, span_warning("Ошибка: подписка '[available_subscription_name]' не найдена"))
+				to_chat(usr, span_warning("Ошибка: подписка '[available_sub_name]' не найдена"))
 				return
 
 			target.cancel()
 			return
 
 		if("resume_subscription")
-			var/available_subscription_name = params["available_subscription_name"]
-			var/subscriber_account_name = pda.owner
+			var/available_subscrip_name = params["subscription_name"]
+			var/subscriber_acc_name = pda.owner
 
-
-			if(available_subscription_name && subscriber_account_name)
-				var/datum/subscription/added_subscription = find_subscription_with_name(subscriber_account_name, available_subscription_name)
+			if(available_subscrip_name && subscriber_acc_name)
+				var/datum/subscription/added_subscription = find_subscription_with_name(subscriber_acc_name, available_subscrip_name)
 
 				if(!added_subscription)
-					to_chat(usr, span_warning("Ошибка: подписка '[available_subscription_name]' не найдена."))
+					to_chat(usr, span_warning("Ошибка: подписка '[available_subscrip_name]' не найдена."))
 					return
 
 				added_subscription.resub()
