@@ -216,9 +216,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/unpowered)
 "FI" = (
-/obj/structure/closet/walllocker/emerglocker/south{
-	pixel_y = 2
-	},
+/obj/structure/closet/walllocker/emerglocker/directional/south,
 /turf/simulated/wall/shuttle,
 /area/ruin/unpowered)
 "FU" = (

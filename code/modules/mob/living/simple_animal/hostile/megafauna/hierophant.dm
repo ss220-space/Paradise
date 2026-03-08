@@ -109,28 +109,28 @@ Difficulty: Hard
 	name = "Прыжок к цели"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = span_colossus("Вы мгновенно переместитесь к цели.")
+	chosen_message = span_colossus_alt("Вы мгновенно переместитесь к цели.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/chaser_swarm
 	name = "Рой преследователей"
 	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "hierophant_squares_indefinite"
-	chosen_message = span_colossus("Вы выпустите рой энергетических преследователей в цель.")
+	chosen_message = span_colossus_alt("Вы выпустите рой энергетических преследователей в цель.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/cross_blasts
 	name = "Перекрёстные взрывы"
 	button_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "hierophant_blast_indefinite"
-	chosen_message = span_colossus("Вы атакуете цель перекрёстными взрывами.")
+	chosen_message = span_colossus_alt("Вы атакуете цель перекрёстными взрывами.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blink_spam
 	name = "Преследующий прыжок"
 	button_icon = 'icons/obj/lavaland/artefacts.dmi'
 	button_icon_state = "hierophant_club_ready_beacon"
-	chosen_message = span_colossus("Вы многократно телепортируетесь к цели.")
+	chosen_message = span_colossus_alt("Вы многократно телепортируетесь к цели.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/enrage()
@@ -584,6 +584,10 @@ Difficulty: Hard
 	if(new_caster)
 		caster = new_caster
 
+/obj/effect/temp_visual/hierophant/Destroy()
+	caster = null
+	. = ..()
+
 /obj/effect/temp_visual/hierophant/squares
 	icon_state = "hierophant_squares"
 	duration = 3
@@ -664,6 +668,11 @@ Difficulty: Hard
 	if(new_speed)
 		speed = new_speed
 	addtimer(CALLBACK(src, PROC_REF(seek_target)), 1)
+
+/obj/effect/temp_visual/hierophant/chaser/Destroy()
+	target = null
+	targetturf = null
+	. = ..()
 
 /obj/effect/temp_visual/hierophant/chaser/proc/get_target_dir()
 	. = get_cardinal_dir(src, targetturf)
@@ -762,6 +771,10 @@ Difficulty: Hard
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/effect/temp_visual/hierophant/blast/Destroy()
+	LAZYCLEARLIST(hit_things)
+	. = ..()
 
 /obj/effect/temp_visual/hierophant/blast/proc/blast()
 	var/turf/T = get_turf(src)

@@ -69,6 +69,11 @@
 
 /obj/item/circuit_component/equipment_action/Destroy()
 	QDEL_LIST_ASSOC_VAL(granted_to)
+	icon_options = null
+	button_name = null
+	user = null
+	signal = null
+	options_map = null
 	return ..()
 
 /obj/item/circuit_component/equipment_action/populate_options()

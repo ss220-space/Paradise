@@ -996,7 +996,7 @@ ADMIN_VERB(modify_goals, R_EVENT, "Modify Goals", "Modify the station goals for 
 		to_chat(usr, span_warning("This verb can only be used if the round has started."), confidential = TRUE)
 		return
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
 		dat += "[S.name] - <a href='byond://?src=[S.UID()];announce=1'>Announce</a> | <a href='byond://?src=[S.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='byond://?src=[UID()];add_station_goal=1'>Add New Goal</a>"
@@ -1055,7 +1055,7 @@ ADMIN_VERB(change_command_name, R_EVENT, "Change Command Name", "Change the name
 	change_command_name(input)
 	log_and_message_admins("has changed Central Command's name to [input]")
 
-ADMIN_VERB(polymorph_all, R_ADMIN, "Polymorph All", "Applies the effects of the bolt of change to every single mob.", ADMIN_CATEGORY_FUN)
+ADMIN_VERB(polymorph_all, R_EVENT, "Polymorph All", "Applies the effects of the bolt of change to every single mob.", ADMIN_CATEGORY_FUN)
 	var/confirm = tgui_alert(user, "Пожалуйста, подтвердите, что вы хотите полиморфировать всех?", "Подтверждение", list("Да", "Нет"))
 	if(confirm != "Да")
 		return

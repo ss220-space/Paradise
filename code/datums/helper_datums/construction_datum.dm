@@ -10,10 +10,14 @@
 	..()
 	holder = atom
 	if(!holder) //don't want this without a holder
-		spawn
-			qdel(src)
+		qdel(src)
+		return
 	set_desc(length(steps))
 	return
+
+/datum/construction/Destroy(force)
+	holder = null
+	. = ..()
 
 /datum/construction/proc/next_step(mob/user as mob)
 	steps.len--
@@ -64,7 +68,7 @@
 	return 1
 
 /datum/construction/proc/check_all_steps(atom/used_atom,mob/user as mob) //check all steps, remove matching one.
-	for(var/i=1;i<=length(steps);i++)
+	for(var/i in 1 to length(steps))
 		var/list/L = steps[i]
 		if(do_tool_or_atom_check(used_atom, L["key"]) && custom_action(i, used_atom, user))
 			steps[i]=null;//stupid byond list from list removal...

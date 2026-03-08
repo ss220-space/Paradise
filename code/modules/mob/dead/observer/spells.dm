@@ -16,8 +16,8 @@ GLOBAL_LIST_INIT(boo_phrases, list(
 /obj/effect/proc_holder/spell/boo
 	name = "Буу!"
 	desc = "К черту живых."
-	selection_deactivated_message	= span_shadowling("Ваше присутствие останется незамеченным. Пока что.")
-	selection_activated_message		= span_shadowling("Вы готовы протянуть руку сквозь завесу. <b>ЛКМ по цели для воздействия!</b>")
+	selection_deactivated_message = span_shadowling_alt("Ваше присутствие останется незамеченным. Пока что.")
+	selection_activated_message = span_shadowling_alt("Вы готовы протянуть руку сквозь завесу. <b>ЛКМ по цели для воздействия!</b>")
 
 	ghost = TRUE
 
