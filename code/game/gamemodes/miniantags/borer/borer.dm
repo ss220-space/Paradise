@@ -167,7 +167,7 @@
 
 /mob/living/simple_animal/borer/Login()
 	..()
-	enable_med_hud() // Включаем медхуд при входе игрока
+	enable_med_hud() // Enable medhud on player login
 
 /mob/living/simple_animal/borer/death(gibbed)
 	. = ..()
@@ -863,13 +863,11 @@
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 	return (borer?.controlling) ? borer.host_brain.ckey : ckey
 
-// Прок для включения медхуда
 /mob/living/simple_animal/proc/enable_med_hud(hud_type = DATA_HUD_MEDICAL_ADVANCED)
 	var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
 	if(med_hud)
 		med_hud.show_to(src)
 
-// Прок для выключения медхуда
 /mob/living/simple_animal/proc/disable_med_hud(hud_type = DATA_HUD_MEDICAL_ADVANCED)
 	var/datum/atom_hud/med_hud = GLOB.huds[hud_type]
 	if(med_hud)

@@ -141,7 +141,7 @@
 
 /datum/action/innate/borer/sneak_mode
 	name = "Скрытный режим"
-	desc = "прячет твой статус на медецинских ИЛС."
+	desc = "Прячет Ваш статус на медицинских ИЛС."
 	button_icon_state = "chameleon_skin"
 
 /datum/action/innate/borer/sneak_mode/Activate()
@@ -221,7 +221,7 @@
 		return
 
 	if(host.has_status_effect(/datum/status_effect/parasitism))
-		to_chat(owner, "вы уже питаетесь")
+		to_chat(owner, "Вы уже питаетесь")
 		return
 
 	borer.chemicals -= cost
@@ -269,3 +269,4 @@
 	host.setStaminaLoss(0)
 	host.get_up(instant = TRUE)
 
+	to_chat(owner, "Вы помогли Носителю")
