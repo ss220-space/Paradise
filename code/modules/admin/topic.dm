@@ -3321,7 +3321,7 @@
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Chinese Cartoons")
 				log_and_message_admins("made everything kawaii.")
 				for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
-					SEND_SOUND(human, sound(ANNOUNCER_ANIMES))
+					SEND_SOUND(human, sound(ANNOUNCER_ANIMES, channel = CHANNEL_ANNOUNCER))
 					if(!human.dna.species.nojumpsuit && !isvox(human) && !isplasmaman(human) \
 						&& !isshadowling(human) && !isvoxarmalis(human) && !is_space_or_openspace(get_turf(human)))
 
