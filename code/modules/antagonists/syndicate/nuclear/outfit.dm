@@ -31,8 +31,11 @@
 
 /datum/outfit/admin/syndicate/operative/loneop
 	name = "Syndicate Nuclear Operative (Loneop)"
+	suit = null
+	l_hand = null
 	r_pocket = /obj/item/radio/uplink/nuclear/loneop
 	uplink_uses = null
+	back = /obj/item/mod/control/pre_equipped/nuclear
 
 /datum/outfit/admin/syndicate/operative/nuclear
 	name = "Syndicate Nuclear Operative"

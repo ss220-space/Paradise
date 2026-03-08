@@ -42,6 +42,13 @@
 	/// The entity output
 	var/datum/port/output/entity
 
+/obj/item/circuit_component/controller/Destroy()
+	signal = null
+	alt = null
+	ctrl = null
+	entity = null
+	. = ..()
+
 /obj/item/circuit_component/controller/examine(mob/user)
 	. = ..()
 	. += "Используйте <b>ALT+ЛКМ</b> для подачи альтернативного сигнала, <b>CTRL+ЛКМ</b> для дополнительного."

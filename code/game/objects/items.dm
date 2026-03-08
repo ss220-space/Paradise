@@ -291,6 +291,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(isstorage(loc))
 		item_flags |= IN_STORAGE
 
+	var/list/attack_verb_cached = attack_verb
+
+	if(islist(attack_verb_cached))
+		attack_verb = string_list(attack_verb_cached)
+
 	if(!hitsound)
 		if(damtype == FIRE)
 			hitsound = 'sound/items/welder.ogg'
@@ -816,12 +821,12 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
  * Returns `TRUE` if the item is equipped by a mob, `FALSE` otherwise.
  * This might need some error trapping, not sure if get_equipped_items() is safe for non-human mobs.
  */
-/obj/item/proc/is_equipped(include_pockets = FALSE, include_hands = FALSE)
+/obj/item/proc/is_equipped(include_flags = NONE)
 	if(!ismob(loc))
 		return FALSE
 
 	var/mob/M = loc
-	if(src in M.get_equipped_items(include_pockets, include_hands))
+	if(src in M.get_equipped_items(include_flags))
 		return TRUE
 	else
 		return FALSE

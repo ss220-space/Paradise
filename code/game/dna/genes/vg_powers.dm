@@ -239,6 +239,11 @@
 		log_say("(TPATH to [key_name(target)]) [say]", user)
 		user.create_log(SAY_LOG, "Telepathically said '[say]' using [src]", target)
 
+		if(user.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			user.create_chat_message(user, "<i>[say]</i>", list("telepathy"), null)
+		if(target.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			target.create_chat_message(user, "<i>[say]</i>", list("telepathy"), null)
+
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message(span_abductor("Вы слышите голос [user.real_name]: [say]"))
 
@@ -308,6 +313,11 @@
 		say = pencode_to_html(say, target, enable_formatting = FALSE, enable_fields = FALSE)
 		user.create_log(SAY_LOG, "Telepathically responded '[say]' using [src]", target)
 		log_say("(TPATH to [key_name(target)]) [say]", user)
+
+		if(target.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			target.create_chat_message(target, "<i>[say]</i>", list("telepathy"), null)
+		if(user.client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
+			user.create_chat_message(target, "<i>[say]</i>", list("telepathy"), null)
 
 		if(target.dna?.GetSEState(GLOB.remotetalkblock))
 			target.show_message(span_abductor("Вы проецируете свой разум на [user.name]: [say]"))

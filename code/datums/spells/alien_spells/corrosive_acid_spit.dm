@@ -3,8 +3,8 @@
 	desc = "Spit acid on someone in range, this acid melts through nearly anything and heavily damages anyone lacking proper safety equipment."
 	hand_path = "/obj/item/melee/touch_attack/alien/corrosive_acid"
 	action_icon_state = "alien_acid"
-	on_gain_message = span_noticealien("You vomit acid in your hand and prepare to use it.")
-	on_withdraw_message = span_noticealien("You decide not to use acid for now...")
+	on_gain_message = span_noticealien_alt("You vomit acid in your hand and prepare to use it.")
+	on_withdraw_message = span_noticealien_alt("You decide not to use acid for now...")
 	plasma_cost = 200
 
 /obj/effect/proc_holder/spell/touch/alien_spell/corrosive_acid/sentinel

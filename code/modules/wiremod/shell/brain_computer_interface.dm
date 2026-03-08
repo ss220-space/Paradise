@@ -99,6 +99,16 @@
 
 	var/obj/item/organ/internal/cyberimp/brain/bci/bci
 
+/obj/item/circuit_component/bci_core/Destroy()
+	if(bci)
+		unregister_shell(bci)
+	QDEL_NULL(charge_action)
+	message = null
+	send_message_signal = null
+	show_charge_meter = null
+	user_port = null
+	return ..()
+
 /obj/item/circuit_component/bci_core/populate_ports()
 
 	message = add_input_port("Сообщение", PORT_TYPE_STRING, trigger = null)
@@ -107,9 +117,6 @@
 
 	user_port = add_output_port("Пользователь", PORT_TYPE_USER)
 
-/obj/item/circuit_component/bci_core/Destroy()
-	QDEL_NULL(charge_action)
-	return ..()
 
 /obj/item/circuit_component/bci_core/proc/update_charge_action()
 	CIRCUIT_TRIGGER
@@ -263,9 +270,12 @@
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
 
 	if(isnull(cell))
-		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] не име[PLUR_ET_UT(circuit_component.parent)] элемента питания."))
+		to_chat(owner, span_boldwarning("[circuit_component.parent.declent_ru(NOMINATIVE)] \
+		не име[PLUR_ET_UT(circuit_component.parent)] элемента питания."))
 	else
-		to_chat(owner, span_notice("В [cell.declent_ru(PREPOSITIONAL)] [circuit_component.parent.declent_ru(GENITIVE)] осталось <b>[cell.percent()]%</b> заряда."))
+		to_chat(owner, span_notice("В [cell.declent_ru(PREPOSITIONAL)] \
+		[circuit_component.parent.declent_ru(GENITIVE)] \
+		осталось <b>[round(cell.percent(), 1)]%</b> заряда."))
 
 /datum/action/innate/bci_charge_action/process(seconds_per_tick)
 	build_all_button_icons(UPDATE_BUTTON_STATUS)
@@ -273,7 +283,7 @@
 /datum/action/innate/bci_charge_action/update_button_status(atom/movable/screen/movable/action_button/button, force = FALSE)
 	. = ..()
 	var/obj/item/stock_parts/cell/cell = circuit_component.parent.cell
-	button.maptext = cell ? MAPTEXT("[cell.percent()]%") : ""
+	button.maptext = cell ? MAPTEXT("[round(cell.percent(), 1)]%") : ""
 
 /obj/machinery/bci_implanter
 	name = "brain-computer interface manipulation chamber"

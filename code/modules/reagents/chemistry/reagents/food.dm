@@ -242,7 +242,7 @@
 	description = "Именно это делает чили острым."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = span_warning("ОСТРОТЫ")
+	taste_description = span_warning_alt("ОСТРОТЫ")
 	taste_mult = 1.5
 
 /datum/reagent/consumable/capsaicin/on_mob_life(mob/living/M)
@@ -279,7 +279,7 @@
 	description = "Ещё острее."
 	reagent_state = LIQUID
 	color = "#B31008" // rgb: 179, 16, 8
-	taste_description = span_userdanger("НЕРЕАЛЬНОЙ ОСТРОТЫ")
+	taste_description = span_userdanger_alt("НЕРЕАЛЬНОЙ ОСТРОТЫ")
 
 /datum/reagent/consumable/condensedcapsaicin/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_TOUCH)

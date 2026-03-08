@@ -274,10 +274,10 @@
 		var/mob/user = throwingdatum.thrower
 		add_attack_logs(user, victim, "[victim] consumed by [src] thrown by [user] ")
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)], thrown by [key_name_admin(user)].")
-		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", "supermatter")
+		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", INVESTIGATE_ENGINE)
 	else
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)] via throw impact.")
-		investigate_log("has consumed [key_name(victim)] via throw impact.", "supermatter")
+		investigate_log("has consumed [key_name(victim)] via throw impact.", INVESTIGATE_ENGINE)
 	victim.visible_message(
 		span_danger("[DECLENT_RU_CAP(victim, NOMINATIVE)], поражённый [declent_ru(INSTRUMENTAL)], вспыхивает пламенем, в комнате воцаряется тишина..."),
 		span_userdanger("Вас поражает [declent_ru(NOMINATIVE)], и всё вокруг замирает.\n[declent_ru(NOMINATIVE)] вспыхивает, и прежде чем вы осознаёте это, вы тоже горите."),
@@ -408,7 +408,7 @@
 			L.apply_effect(80, IRRADIATE)
 		playsound(src, 'sound/effects/supermatter.ogg', 50, TRUE)
 		message_admins("[sliver] has consumed [key_name_admin(user)] [ADMIN_JMP(src)].")
-		investigate_log("has consumed [key_name(user)].", "supermatter")
+		investigate_log("has consumed [key_name(user)].", INVESTIGATE_ENGINE)
 		user.gib()
 		QDEL_NULL(sliver)
 		update_icon(UPDATE_ICON_STATE)
@@ -500,7 +500,7 @@
 			return
 		victim.gib()
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)].")
-		investigate_log("has irradiated [key_name(victim)].", "supermatter")
+		investigate_log("has irradiated [key_name(victim)].", INVESTIGATE_ENGINE)
 	else if(istype(AM, /obj/singularity))
 		return
 	else if(istype(AM, /obj/item/nuke_core_container))
@@ -508,7 +508,7 @@
 	else if(istype(AM, /obj/machinery/atmospherics/supermatter_crystal))
 		return
 	else
-		investigate_log("has consumed [AM].", "supermatter")
+		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 	if(user)
 		add_attack_logs(user, AM, "[AM] and [user] consumed by melee attack with [src] by [user]")

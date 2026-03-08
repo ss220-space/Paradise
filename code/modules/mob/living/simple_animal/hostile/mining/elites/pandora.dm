@@ -66,25 +66,25 @@
 /datum/action/innate/elite_attack/chaser_burst
 	name = "Преследователь"
 	button_icon_state = "singular_shot"
-	chosen_message = span_boldwarning("Вы выпускаете преследующий снаряд за всеми мобами в поле зрения.")
+	chosen_message = span_boldwarning_alt("Вы выпускаете преследующий снаряд за всеми мобами в поле зрения.")
 	chosen_attack_num = CHASER_BURST
 
 /datum/action/innate/elite_attack/magic_box
 	name = "Волшебная клетка"
 	button_icon_state = "magic_box"
-	chosen_message = span_boldwarning("Теперь вы атакуете магическими квадратами.")
+	chosen_message = span_boldwarning_alt("Теперь вы атакуете магическими квадратами.")
 	chosen_attack_num = MAGIC_BOX
 
 /datum/action/innate/elite_attack/pandora_teleport
 	name = "Телепорт"
 	button_icon_state = "pandora_teleport"
-	chosen_message = span_boldwarning("Теперь вы будете телепортироваться к цели.")
+	chosen_message = span_boldwarning_alt("Теперь вы будете телепортироваться к цели.")
 	chosen_attack_num = PANDORA_TELEPORT
 
 /datum/action/innate/elite_attack/aoe_squares
 	name = "Взрыв по площади"
 	button_icon_state = "aoe_squares"
-	chosen_message = span_boldwarning("Ваши атаки будут создавать взрыв по области в месте попадания.")
+	chosen_message = span_boldwarning_alt("Ваши атаки будут создавать взрыв по области в месте попадания.")
 	chosen_attack_num = AOE_SQUARES
 
 /mob/living/simple_animal/hostile/asteroid/elite/pandora/OpenFire()
