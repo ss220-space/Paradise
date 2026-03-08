@@ -2,7 +2,7 @@
 	name = "Химический синтез"
 	desc = "Мы оптимизируем наши внутренние химические процессы для ускоренного производства реагентов."
 	helptext = "Постоянно увеличивает скорость химического синтеза на 50%."
-	button_icon_state = "pd_upgrade"
+	button_icon_state = "chemical_synthesis"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 2
 	var/recharge_bonus = 0.5
