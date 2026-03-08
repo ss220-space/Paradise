@@ -1006,7 +1006,7 @@
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
-	desc = "Sometimes people choose justice.  Sometimes, justice chooses you..."
+	desc = "Иногда люди выбирают справедливость. Иногда справедливость выбирает тебя..."
 	icon_state = "securitybelt"
 	item_state = "security"
 	storage_slots = 6
@@ -1063,6 +1063,16 @@
 			if(H.belt && H.belt == src)
 				if(H.s_active && H.s_active == src)
 					H.s_active.show_to(H)
+
+/obj/item/storage/belt/bluespace/owlman
+	return list(
+		NOMINATIVE = "пояс человека-совы",
+		GENITIVE = "пояса человека-совы",
+		DATIVE = "поясу человека-совы",
+		ACCUSATIVE = "пояс человека-совы",
+		INSTRUMENTAL = "поясом человека-совы",
+		PREPOSITIONAL = "поясе человека-совы"
+	)
 
 /obj/item/storage/belt/bluespace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	return ATTACK_CHAIN_PROCEED
