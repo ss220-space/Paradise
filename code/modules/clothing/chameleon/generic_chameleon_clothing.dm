@@ -208,7 +208,7 @@ do { \
 
 /obj/item/clothing/mask/chameleon/Destroy()
 	QDEL_NULL(voice_changer)
-	return ..()
+	. = ..()
 
 /obj/item/clothing/mask/chameleon/broken
 

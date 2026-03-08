@@ -61,11 +61,11 @@
 
 /obj/item/reagent_containers/food/set_APTFT()
 	set hidden = TRUE
-	..()
+	return
 
 /obj/item/reagent_containers/food/empty()
 	set hidden = TRUE
-	..()
+	return
 
 /obj/item/reagent_containers/food/proc/check_for_ants()
 	var/turf/T = get_turf(src)

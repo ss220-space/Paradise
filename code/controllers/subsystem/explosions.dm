@@ -109,7 +109,7 @@ SUBSYSTEM_DEF(explosions)
 
 		var/took = stop_watch(data.watch)
 		//You need to press the DebugGame verb to see these now....they were getting annoying and we've collected a fair bit of data. Just -test- changes  to explosion code using this please so we can compare
-		log_world("## DEBUG: Explosion([data.x0],[data.y0],[data.z0])(d[data.devastation_range],h[data.heavy_impact_range],l[data.light_impact_range]): Took [took] seconds.")
+		debug_world("Explosion([data.x0],[data.y0],[data.z0])(d[data.devastation_range],h[data.heavy_impact_range],l[data.light_impact_range]): Took [took] seconds.")
 		data.log_explosions_machines(took)
 		qdel(explosion_queue.dequeue())
 		if(MC_TICK_CHECK)
@@ -233,13 +233,14 @@ SUBSYSTEM_DEF(explosions)
 	watch = start_watch()
 
 /datum/explosion_data/Destroy()
-	qdel(affected_turfs_queue)
+	QDEL_NULL(affected_turfs_queue)
 	LAZYCLEARLIST(cached_exp_block)
 	LAZYNULL(cached_exp_block)
 	LAZYCLEARLIST(cached_turf_exp_block)
 	LAZYNULL(cached_turf_exp_block)
 	LAZYCLEARLIST(cached_turf_vert_exp_block)
 	LAZYNULL(cached_turf_vert_exp_block)
+	epicenter = null
 	. = ..()
 
 /datum/explosion_data/proc/clamp_ranges()

@@ -206,14 +206,15 @@ What are the archived variables for?
 
 /datum/gas_mixture/proc/return_visuals(z)
 	var/list/result = list()
+	var/z_plane_offset = GET_Z_PLANE_OFFSET(z)
 	if(private_toxins > MOLES_PLASMA_VISIBLE)
-		result += GLOB.plmaster["[GET_Z_PLANE_OFFSET(z)]"]
+		result += GLOB.plmaster["[z_plane_offset]"]
 
 	if(private_sleeping_agent > 1)
-		result += GLOB.slmaster["[GET_Z_PLANE_OFFSET(z)]"]
+		result += GLOB.slmaster["[z_plane_offset]"]
 
 	if(private_water_vapor > MOLES_WATER_VAPOR_VISIBLE)
-		result += GLOB.wvmaster["[GET_Z_PLANE_OFFSET(z)]"]
+		result += GLOB.wvmaster["[z_plane_offset]"]
 	return result
 
 //Procedures used for very specific events
@@ -236,7 +237,8 @@ What are the archived variables for?
 		var/energy_released = 0
 		var/old_heat_capacity = heat_capacity()
 		var/burned_fuel = 0
-		burned_fuel = min((1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / ((private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C) ** 2))) * private_sleeping_agent, private_sleeping_agent)
+		var/temperature_no2_decompression = private_temperature + N2O_DECOMPOSITION_COEFFICIENT_C
+		burned_fuel = min((1 - (N2O_DECOMPOSITION_COEFFICIENT_A  / POW2(temperature_no2_decompression))) * private_sleeping_agent, private_sleeping_agent)
 		private_sleeping_agent -= burned_fuel
 		if(burned_fuel)
 			energy_released += (N2O_DECOMPOSITION_ENERGY_RELEASED * burned_fuel)

@@ -836,6 +836,7 @@
 	overdose_threshold = 25
 	harmless = FALSE
 	taste_description = "передышки"
+	metabolized_traits = list(TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION)
 
 /datum/reagent/medicine/atropine/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
@@ -1064,7 +1065,7 @@
 	color = "#C8A5DC"
 	harmless = FALSE
 	can_synth = FALSE
-	taste_description = span_userdanger("нереальной бодрости")
+	taste_description = span_userdanger_alt("нереальной бодрости")
 	var/absorption_applied = FALSE
 
 /datum/reagent/medicine/stimulants/on_mob_life(mob/living/M)

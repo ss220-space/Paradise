@@ -38,6 +38,11 @@
 	/// The user who used the bot
 	var/datum/port/output/entity
 
+/obj/item/circuit_component/compact_remote/Destroy()
+	signal = null
+	entity = null
+	. = ..()
+
 /obj/item/circuit_component/compact_remote/populate_ports()
 	entity = add_output_port("Пользователь", PORT_TYPE_USER)
 	signal = add_output_port("Вызвано", PORT_TYPE_SIGNAL)
