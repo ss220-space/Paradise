@@ -1,7 +1,7 @@
 name: "Discord PR Notification"
 on:
   pull_request_target:
-    types: [opened, closed]
+    types: [opened, reopened, closed]
 
 jobs:
   notify:
@@ -23,7 +23,7 @@ jobs:
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
-          message: "GET_ACTION"
+          message: ${{ github.event.pull_request.body }}
           include_image: false
           show_author: true
           avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403077083076366546/1984.png?ex=68963cdc&is=6894eb5c&hm=7f654bcb85dec940417a6e393b461382e7284d545f8336807bc753a38b040e01&
