@@ -471,6 +471,8 @@
 	if(!organ.is_robotic())
 		user.balloon_alert(user, "орган не кибернетический!")
 		return SURGERY_BEGINSTEP_SKIP
+	if(!organ.can_insert(user, target))
+		return SURGERY_BEGINSTEP_SKIP
 
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
 		user.balloon_alert(user, "нет места под орган!")
