@@ -304,11 +304,20 @@
 
 	cog = null // Or you can't put it in
 
-	update_icon()
+	update_appearance()
 
 	make_terminal()
 
 	addtimer(CALLBACK(src, PROC_REF(update)), 5)
+
+	var/static/list/hovering_mob_typechecks = list(
+		/mob/living/silicon = list(
+			SCREENTIP_CONTEXT_ALT_LMB = "Вкл/выкл блокировку",
+			SCREENTIP_CONTEXT_CTRL_LMB = "Вкл/выкл питание",
+		)
+	)
+
+	AddElement(/datum/element/contextual_screentip_mob_typechecks, hovering_mob_typechecks)
 
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
