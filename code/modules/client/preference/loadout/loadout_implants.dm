@@ -4,6 +4,9 @@
 	sort_category = "Импланты"
 	implantable = TRUE
 
+/datum/gear/implant/proc/resolve_implant_path(datum/outfit/job/job)
+	return path
+
 /datum/gear/implant/
 
 //Eye implants
@@ -43,7 +46,7 @@
 	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/universal
 
-/datum/gear/implant/universal/proc/resolve_implant_path(datum/outfit/job/job)
+/datum/gear/implant/universal/resolve_implant_path(datum/outfit/job/job)
 	if(!istype(job) || !job.implant_variant)
 		return null
 	return job.implant_variant

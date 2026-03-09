@@ -255,11 +255,8 @@
 			continue
 
 		if(gear_datum.implantable)
-			var/implant_path = gear_datum.path
-
-			if(istype(gear_datum, /datum/gear/implant/universal))
-				var/datum/gear/implant/universal/universal_implant = gear_datum
-				implant_path = universal_implant.resolve_implant_path(src)
+			var/datum/gear/implant/implant_datum = gear_datum
+			var/implant_path = implant_datum.resolve_implant_path(src)
 
 			if(!implant_path)
 				continue
