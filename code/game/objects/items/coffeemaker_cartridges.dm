@@ -80,7 +80,7 @@
 		DATIVE = "кофейному картриджу \"[type_name]\"",
 		ACCUSATIVE = "кофейный картридж \"[type_name]\"",
 		INSTRUMENTAL = "кофейным картриджем \"[type_name]\"",
-		PREPOSITIONAL = "кофейном картридже \"[type_name]\""
+		PREPOSITIONAL = "кофейном картридже \"[type_name]\"",
 	)
 	icon_state = cartridge_type.icon_state
 
