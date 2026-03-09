@@ -22,7 +22,7 @@
 				to_chat(src, "<b>Получен новый пакет законов от подключенного ИИ. Синхронизация...</b>")
 				// TODO: Update to new antagonist system.
 				if(mind && mind.special_role == SPECIAL_ROLE_TRAITOR && mind.is_original_mob(src))
-					to_chat(src, "<b>И помните: Ваш ИИ-мастер и не знает ни о ваших целях, ни о вашем нулевом законе.")
+					to_chat(src, "<b>И помните: Ваш ИИ-мастер не знает ни о ваших целях, ни о вашем нулевом законе.")
 		else
 			to_chat(src, "<b>Подключенных ИИ не обнаружено. Протокол синхронизации законов отключен.</b>")
 			lawupdate = 0
