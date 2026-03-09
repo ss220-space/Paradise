@@ -1,7 +1,10 @@
+/**
+ * MARK: Base cartridge
+ */
+
 /obj/item/coffee_cartridge
 	name = "coffeemaker cartridge – Caffè Generico"
-	desc = "Картридж, содержащий перемолотые кофейные зёрна. \
-			Совместим с кофемашиной \"Моделло 3\". \
+	desc = "Картридж, содержащий перемолотые кофейные зёрна. Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
 	gender = MALE
 	icon = 'icons/obj/food/cartridges.dmi'
@@ -31,83 +34,65 @@
 	else
 		. += span_notice("<b>Пусто</b>.")
 
+/**
+ * MARK: Fancy cartridge
+ */
+
 /obj/item/coffee_cartridge/fancy
 	name = "coffeemaker cartridge – Caffè Fantasioso"
 	desc = "Преимального качества картридж, содержащий перемолотые кофейные зёрна. \
 			Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
 	icon_state = "cartridge_blend"
+	/// Associated cartridge datum
+	var/datum/coffee_cartridge_type/cartridge_type
 
 /obj/item/coffee_cartridge/fancy/get_ru_names()
 	return list(
-		NOMINATIVE = "премиальный кофе-картридж \"Каффе Фантазиосо\"",
-		GENITIVE = "премиального кофе-картриджа \"Каффе Фантазиосо\"",
-		DATIVE = "премиальному кофе-картриджу \"Каффе Фантазиосо\"",
-		ACCUSATIVE = "премиальный кофе-картридж \"Каффе Фантазиосо\"",
-		INSTRUMENTAL = "премиальным кофе-картриджем \"Каффе Фантазиосо\"",
-		PREPOSITIONAL = "премиальном кофе-картридже \"Каффе Фантазиосо\"",
+		NOMINATIVE = "кофе-картридж \"Каффе Фантазиосо\"",
+		GENITIVE = "кофе-картриджа \"Каффе Фантазиосо\"",
+		DATIVE = "кофе-картриджу \"Каффе Фантазиосо\"",
+		ACCUSATIVE = "кофе-картридж \"Каффе Фантазиосо\"",
+		INSTRUMENTAL = "кофе-картриджем \"Каффе Фантазиосо\"",
+		PREPOSITIONAL = "кофе-картридже \"Каффе Фантазиосо\"",
 	)
-
-/obj/item/coffee_cartridge/fancy/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/coffeemaker_item_loader)
 
 // Yep, same reagent for every cartridge – that's intentional
 /obj/item/coffee_cartridge/fancy/Initialize(mapload)
 	. = ..()
-	var/coffee_type = pick("blend", "blue_mountain", "kilimanjaro", "mocha")
-	switch(coffee_type)
-		if("blend")
-			name = "coffeemaker cartridge – Miscela di Piccione"
-			ru_names = list(
-				NOMINATIVE = "премиальный кофе-картридж \"Миццела Де Пиччионе\"",
-				GENITIVE = "премиального кофе-картриджа \"Миццела Де Пиччионе\"",
-				DATIVE = "премиальному кофе-картриджу \"Миццела Де Пиччионе\"",
-				ACCUSATIVE = "премиальный кофе-картридж \"Миццела Де Пиччионе\"",
-				INSTRUMENTAL = "премиальным кофе-картриджем \"Миццела Де Пиччионе\"",
-				PREPOSITIONAL = "премиальном кофе-картридже \"Миццела Де Пиччионе\""
-			)
-			icon_state = "cartridge_blend"
-		if("blue_mountain")
-			name = "coffeemaker cartridge – Montagna Blu"
-			ru_names = list(
-				NOMINATIVE = "премиальный кофе-картридж \"Монтанна Блю\"",
-				GENITIVE = "премиального кофе-картриджа \"Монтанна Блю\"",
-				DATIVE = "премиальному кофе-картриджу \"Монтанна Блю\"",
-				ACCUSATIVE = "премиальный кофе-картридж \"Монтанна Блю\"",
-				INSTRUMENTAL = "премиальным кофе-картриджем \"Монтанна Блю\"",
-				PREPOSITIONAL = "премиальном кофе-картридже \"Монтанна Блю\""
-			)
-			icon_state = "cartridge_blue_mtn"
-		if("kilimanjaro")
-			name = "coffeemaker cartridge – Kilimangiaro"
-			ru_names = list(
-				NOMINATIVE = "премиальный кофе-картридж \"Килиманджаро\"",
-				GENITIVE = "премиального кофе-картриджа \"Килиманджаро\"",
-				DATIVE = "премиальному кофе-картриджу \"Килиманджаро\"",
-				ACCUSATIVE = "премиальный кофе-картридж \"Килиманджаро\"",
-				INSTRUMENTAL = "премиальным кофе-картриджем \"Килиманджаро\"",
-				PREPOSITIONAL = "премиальном кофе-картридже \"Килиманджаро\""
-			)
-			icon_state = "cartridge_kilimanjaro"
-		if("mocha")
-			name = "coffeemaker cartridge – Moka Arabica"
-			ru_names = list(
-				NOMINATIVE = "премиальный кофе-картридж \"Моккачино Арабика\"",
-				GENITIVE = "премиального кофе-картриджа \"Моккачино Арабика\"",
-				DATIVE = "премиальному кофе-картриджу \"Моккачино Арабика\"",
-				ACCUSATIVE = "премиальный кофе-картридж \"Моккачино Арабика\"",
-				INSTRUMENTAL = "премиальным кофе-картриджем \"Моккачино Арабика\"",
-				PREPOSITIONAL = "премиальном кофе-картридже \"Моккачино Арабика\""
-			)
-			icon_state = "cartridge_mocha"
 
+	// Picking a random type
+	var/list/types = list(
+		/datum/coffee_cartridge_type/blend,
+		/datum/coffee_cartridge_type/blue_mountain,
+		/datum/coffee_cartridge_type/kilimanjaro,
+		/datum/coffee_cartridge_type/mocha,
+	)
+	var/chosen_type = pick(types)
+	cartridge_type = new chosen_type()
+
+	// Applying parameters from the datum
+	name = "coffeemaker cartridge – [cartridge_type.name_en]"
+	var/type_name = cartridge_type.ru_name_base
+	ru_names = list(
+		NOMINATIVE = "кофейный картридж \"[type_name]\"",
+		GENITIVE = "кофейного картриджа \"[type_name]\"",
+		DATIVE = "кофейному картриджу \"[type_name]\"",
+		ACCUSATIVE = "кофейный картридж \"[type_name]\"",
+		INSTRUMENTAL = "кофейным картриджем \"[type_name]\"",
+		PREPOSITIONAL = "кофейном картридже \"[type_name]\""
+	)
+	icon_state = cartridge_type.icon_state
+
+/**
+ * MARK: Decaf cartridge
+ */
+
+//TODO: make it actually decaf, maybe by adding a reagent that reduces caffeine's effects or sum?
 /obj/item/coffee_cartridge/decaf
 	name = "coffeemaker cartridge – Caffè Decaffeinato"
-	desc = "Картридж, содержащий перемолотые кофейные зёрна, \
-			из которых был искусственно удалён кофеин. \
-			Совместим с кофемашиной \"Моделло 3\". \
-			Произведён компанией \"Бытовая Техника Пиччонайя\"."
+	desc = "Картридж, содержащий перемолотые кофейные зёрна, из которых был искусственно удалён кофеин. \
+			Совместим с кофемашиной \"Моделло 3\". Произведён компанией \"Бытовая Техника Пиччонайя\"."
 	icon_state = "cartridge_decaf"
 
 /obj/item/coffee_cartridge/decaf/get_ru_names()
@@ -120,15 +105,14 @@
 		PREPOSITIONAL = "кофе-картридже \"Каффе Декаффинато\""
 	)
 
-/obj/item/coffee_cartridge/decaf/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/coffeemaker_item_loader)
+/**
+ * MARK: Bootleg cartridge
+ */
 
 // no you can't just squeeze the juice bag into a glass!
 /obj/item/coffee_cartridge/bootleg
 	name = "coffeemaker cartridge – Botany Blend"
-	desc = "Самодельный картридж, содержащий перемолотые кофейные зёрна. \
-			Теоретически совместим с кофемашиной \"Моделло 3\", \
+	desc = "Самодельный картридж, содержащий перемолотые кофейные зёрна. Теоретически совместим с кофемашиной \"Моделло 3\", \
 			но никто этого не гарантирует."
 	icon_state = "cartridge_bootleg"
 
@@ -142,14 +126,13 @@
 		PREPOSITIONAL = "кофе-картридже \"Ботанический специальный\""
 	)
 
-/obj/item/coffee_cartridge/bootleg/ComponentInitialize()
-	. = ..()
-	AddElement(/datum/element/coffeemaker_item_loader)
+/**
+ * MARK: Blank cartridge
+ */
 
 /obj/item/blank_coffee_cartridge
 	name = "blank coffee cartridge"
-	desc = "Пустой картридж для перемолотых кофейных зёрен. \
-			Совместим с кофемашиной \"Моделло 3\"."
+	desc = "Пустой картридж для перемолотых кофейных зёрен. Совместим с кофемашиной \"Моделло 3\"."
 	gender = MALE
 	icon = 'icons/obj/food/cartridges.dmi'
 	icon_state = "cartridge_blank"
