@@ -225,6 +225,38 @@
 	list_reagents = list("coffee" = 30)
 	resistance_flags = FREEZE_PROOF
 
+/obj/item/reagent_containers/food/drinks/coffee/experimentor
+	name = "Cup of Suspicious Liquid"
+	desc = "It has a large hazard symbol printed on the side in fading ink."
+	var/selected_reagent
+
+/obj/item/reagent_containers/food/drinks/coffee/experimentor/Initialize(mapload)
+	. = ..()
+	spawn_reagent()
+
+/obj/item/reagent_containers/food/drinks/coffee/experimentor/proc/spawn_reagent()
+	var/chosenchem = pick_reagent()
+	selected_reagent = chosenchem
+	reagents.remove_all(25)
+	reagents.add_reagent(chosenchem, 50)
+
+/obj/item/reagent_containers/food/drinks/coffee/experimentor/proc/pick_reagent()
+	return /datum/reagent/consumable/drink/coffee
+
+/obj/item/reagent_containers/food/drinks/coffee/experimentor/heat/pick_reagent()
+	return pick(
+		/datum/reagent/plasma,
+		/datum/reagent/consumable/capsaicin,
+		/datum/reagent/consumable/ethanol,
+	)
+
+/obj/item/reagent_containers/food/drinks/coffee/experimentor/cold/pick_reagent()
+	return pick(
+		/datum/reagent/uranium,
+		/datum/reagent/consumable/frostoil,
+		/datum/reagent/medicine/ephedrine,
+	)
+
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
 	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
