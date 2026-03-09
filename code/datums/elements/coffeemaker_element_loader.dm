@@ -40,11 +40,10 @@
 	// Determine mode based on current item and arguments
 	if(resource_id)
 		return handle_resource(source, machine, user)
-	else if(istype(source, /obj/item/coffee_cartridge))
+	if(istype(source, /obj/item/coffee_cartridge))
 		return handle_cartridge(source, machine, user)
-	else if(istype(source, /obj/item/reagent_containers/food/snacks/grown/coffee) || istype(source, /obj/item/storage/box/coffeepack))
+	if(istype(source, /obj/item/reagent_containers/food/snacks/grown/coffee) || istype(source, /obj/item/storage/box/coffeepack))
 		return handle_bean(source, machine, user)
-	return 
 
 /datum/element/coffeemaker_item_loader/proc/handle_resource(obj/item/source, obj/machinery/coffeemaker/machine, mob/user)
 	if(!machine.resources)

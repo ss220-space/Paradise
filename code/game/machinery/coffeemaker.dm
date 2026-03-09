@@ -3,6 +3,12 @@
 #define RADIAL_MENU_EJECT_POT "Извлечь кофейник"
 #define RADIAL_MENU_EJECT_CARTRIDGE "Извлечь картридж"
 
+// Resource IDs
+#define RESOURCE_ID_CUPS "cups"
+#define RESOURCE_ID_SUGAR "sugar"
+#define RESOURCE_ID_ASPARTAME "aspartame"
+#define RESOURCE_ID_CREAMER "creamer"
+
 // MARK: Base coffeemaker
 /obj/machinery/coffeemaker
 	name = "coffeemaker"
@@ -285,10 +291,10 @@
 	. = ..()
 
 	// Initialize resources
-	resources["cups"] = new /datum/coffeemaker_resource/cups/small()
-	resources["sugar"] = new /datum/coffeemaker_resource/sugar()
-	resources["aspartame"] = new /datum/coffeemaker_resource/aspartame()
-	resources["creamer"] = new /datum/coffeemaker_resource/creamer()
+	resources[RESOURCE_ID_CUPS] = new /datum/coffeemaker_resource/cups/small()
+	resources[RESOURCE_ID_SUGAR] = new /datum/coffeemaker_resource/sugar()
+	resources[RESOURCE_ID_ASPARTAME] = new /datum/coffeemaker_resource/aspartame()
+	resources[RESOURCE_ID_CREAMER] = new /datum/coffeemaker_resource/creamer()
 
 	if(mapload)
 		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
@@ -322,9 +328,11 @@
 
 /obj/machinery/coffeemaker/standard/toggle_steam()
 	QDEL_NULL(particles)
-	if(brewing)
-		particles = new /particles/smoke/steam/mild()
-		particles.position = list(-6, 0, 0)
+	if(!brewing)
+		return
+
+	particles = new /particles/smoke/steam/mild()
+	particles.position = list(-6, 0, 0)
 
 /obj/machinery/coffeemaker/standard/brew(mob/user)
 	power_change()
@@ -528,10 +536,7 @@
 	. = ..()
 
 	// Initialize resources
-	resources["cups"] = new /datum/coffeemaker_resource/cups/normal()
-	resources["sugar"] = new /datum/coffeemaker_resource/sugar()
-	resources["aspartame"] = new /datum/coffeemaker_resource/aspartame()
-	resources["creamer"] = new /datum/coffeemaker_resource/creamer()
+	resources[RESOURCE_ID_CUPS] = new /datum/coffeemaker_resource/cups/normal()
 
 	if(mapload)
 		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
@@ -552,7 +557,7 @@
 	if(coffeepot)
 		. += "pot_[coffeepot.reagents.total_volume ? "full" : "empty"]"
 
-	var/datum/coffeemaker_resource/cups_resource = resources["cups"]
+	var/datum/coffeemaker_resource/cups_resource = resources[RESOURCE_ID_CUPS]
 	if(cups_resource?.current_amount > 0)
 		if(cups_resource.current_amount > cups_resource.max_amount / 1.5)
 			. += "cups_3"
@@ -561,15 +566,15 @@
 		else
 			. += "cups_1"
 
-	var/datum/coffeemaker_resource/sugar_resource = resources["sugar"]
+	var/datum/coffeemaker_resource/sugar_resource = resources[RESOURCE_ID_SUGAR]
 	if(sugar_resource?.current_amount > 0)
 		. += "extras_1"
 
-	var/datum/coffeemaker_resource/creamer_resource = resources["creamer"]
+	var/datum/coffeemaker_resource/creamer_resource = resources[RESOURCE_ID_CREAMER]
 	if(creamer_resource?.current_amount > 0)
 		. += "extras_2"
 
-	var/datum/coffeemaker_resource/aspartame_resource = resources["aspartame"]
+	var/datum/coffeemaker_resource/aspartame_resource = resources[RESOURCE_ID_ASPARTAME]
 	if(aspartame_resource?.current_amount > 0)
 		. += "extras_3"
 
@@ -617,19 +622,19 @@
 	var/list/reagent_delta = list()
 	var/obj/item/reagent_containers/food/snacks/grown/coffee/bean = coffee[coffee_amount]
 	for(var/datum/reagent/substance as anything in bean.reagents.reagent_list)
-		if(!(reference_bean_reagents.Find(substance.name))) // we only add the reagent if it's a non-standard for coffee beans
+		if(!(substance.name in reference_bean_reagents)) // we only add the reagent if it's a non-standard for coffee beans
 			reagent_delta += list(substance.type = substance.volume)
 	coffeepot.reagents.add_reagent_list(reagent_delta)
 
 	qdel(reference_bean)
 
 	// remove the coffee beans from the machine
-	coffee.Cut(1,2)
+	coffee.Cut(1, 2)
 	coffee_amount--
 
 	// fill the rest of the pot with coffee
-	if(coffeepot.reagents.total_volume < 150)
-		var/extra_coffee_amount = 150 - coffeepot.reagents.total_volume
+	if(coffeepot.reagents.total_volume < coffeepot.volume)
+		var/extra_coffee_amount = coffeepot.volume - coffeepot.reagents.total_volume
 		coffeepot.reagents.add_reagent("coffee", extra_coffee_amount)
 
 	update_appearance(UPDATE_OVERLAYS)
@@ -637,3 +642,8 @@
 #undef RADIAL_MENU_BREW
 #undef RADIAL_MENU_EJECT_POT
 #undef RADIAL_MENU_EJECT_CARTRIDGE
+
+#undef RESOURCE_ID_CUPS
+#undef RESOURCE_ID_SUGAR
+#undef RESOURCE_ID_ASPARTAME
+#undef RESOURCE_ID_CREAMER

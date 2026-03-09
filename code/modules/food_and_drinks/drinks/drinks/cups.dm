@@ -20,7 +20,7 @@
 // MARK: Coffee cup
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal
 	name = "coffee cup"
-	desc = "Удобный бумажный стакан со снимаемой крышкой. Предназначен для питья кофе."
+	desc = "Удобный бумажный стакан со снимающейся крышкой. Предназначен для питья кофе."
 	icon_state = "coffeecup"
 	base_icon_state = "coffeecup"
 	amount_per_transfer_from_this = 10
@@ -37,10 +37,14 @@
 		PREPOSITIONAL = "стакане кофе"
 	)
 
+#define COFFEE_CUP_EXAMINE_RANGE 2
+
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/examine(mob/user)
 	. = ..()
-	if(get_dist(user, src) <= 2 && cap_on)
+	if(get_dist(user, src) <= COFFEE_CUP_EXAMINE_RANGE && cap_on)
 		. += span_boldnotice("Крышка надета.")
+
+#undef COFFEE_CUP_EXAMINE_RANGE
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/normal/update_icon_state()
 	. = ..()
@@ -76,7 +80,7 @@
 
 	cap_on = !cap_on
 	user.balloon_alert(user, "крышка [cap_on ? "надета" : "снята"]")
-	update_appearance()
+	update_icon()
 
 // MARK: Small coffee cup
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small
@@ -100,21 +104,23 @@
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', "[base_icon_state]")
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(20 to 40)
-				filling.icon_state = "[base_icon_state]40"
-			if(40 to 60)
-				filling.icon_state = "[base_icon_state]60"
-			if(60 to 80)
-				filling.icon_state = "[base_icon_state]80"
-			if(80 to INFINITY)
-				filling.icon_state = "[base_icon_state]100"
+	if(!reagents.total_volume)
+		return
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		. += filling
+	var/image/filling = image('icons/obj/reagentfillings.dmi', "[base_icon_state]")
+	var/percent = round((reagents.total_volume / volume) * 100)
+	switch(percent)
+		if(20 to 40)
+			filling.icon_state = "[base_icon_state]40"
+		if(40 to 60)
+			filling.icon_state = "[base_icon_state]60"
+		if(60 to 80)
+			filling.icon_state = "[base_icon_state]80"
+		if(80 to INFINITY)
+			filling.icon_state = "[base_icon_state]100"
+
+	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	. += filling
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
 	list_reagents = list("coffee" = 30)

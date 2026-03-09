@@ -175,11 +175,16 @@
 	taste_mult = 8
 	taste_description = "сладости"
 
+#define ASPARTAME_DISGUST_THRESHOLD 80
+
 /datum/reagent/consumable/aspartame/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
 	. = ..()
-	if(affected_mob.AmountDisgust() >= 80)
+	if(affected_mob.AmountDisgust() >= ASPARTAME_DISGUST_THRESHOLD)
 		return
+
 	affected_mob.AdjustDisgust(10 * REM * seconds_per_tick)
+
+#undef ASPARTAME_DISGUST_THRESHOLD
 
 /datum/reagent/consumable/soysauce
 	name = "Соевый соус"

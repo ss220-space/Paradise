@@ -642,7 +642,7 @@
 	gender = MALE
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 15
-	possible_transfer_amounts = list(10,15,30,50,100)
+	possible_transfer_amounts = list(10, 15, 30, 50, 100)
 	volume = 150
 	has_lid = FALSE
 	icon = 'icons/obj/drinks.dmi'
@@ -664,17 +664,18 @@
 
 /obj/item/reagent_containers/glass/coffeepot/update_overlays()
 	. = ..()
-	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]30")
+	if(!reagents.total_volume)
+		return
 
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 30)
-				filling.icon_state = "[icon_state]30"
-			if(30 to 60)
-				filling.icon_state = "[icon_state]60"
-			if(60 to INFINITY)
-				filling.icon_state = "[icon_state]100"
+	var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]30")
+	var/percent = round((reagents.total_volume / volume) * 100)
+	switch(percent)
+		if(0 to 30)
+			filling.icon_state = "[icon_state]30"
+		if(30 to 60)
+			filling.icon_state = "[icon_state]60"
+		if(60 to INFINITY)
+			filling.icon_state = "[icon_state]100"
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		. += filling
+	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	. += filling

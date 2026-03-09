@@ -1358,23 +1358,25 @@
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/update_overlays()
 	. = ..()
 	underlays.Cut()
-	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[base_icon_state]20")
-		var/percent = round((reagents.total_volume / volume) * 100)
-		switch(percent)
-			if(0 to 20)
-				filling.icon_state = "[base_icon_state]20"
-			if(20 to 40)
-				filling.icon_state = "[base_icon_state]40"
-			if(40 to 60)
-				filling.icon_state = "[base_icon_state]60"
-			if(60 to 80)
-				filling.icon_state = "[base_icon_state]80"
-			if(80 to INFINITY)
-				filling.icon_state = "[base_icon_state]100"
+	if(!reagents.total_volume)
+		return
 
-		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		. += filling
+	var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[base_icon_state]20")
+	var/percent = round((reagents.total_volume / volume) * 100)
+	switch(percent)
+		if(0 to 20)
+			filling.icon_state = "[base_icon_state]20"
+		if(20 to 40)
+			filling.icon_state = "[base_icon_state]40"
+		if(40 to 60)
+			filling.icon_state = "[base_icon_state]60"
+		if(60 to 80)
+			filling.icon_state = "[base_icon_state]80"
+		if(80 to INFINITY)
+			filling.icon_state = "[base_icon_state]100"
+
+	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	. += filling
 
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/examine(mob/user)
@@ -1393,7 +1395,7 @@
 		icon_state = "syrup_open"
 		container_type |= OPENCONTAINER
 		user.balloon_alert(user, "крышка-дозатор снята")
-	update_appearance()
+	update_icon()
 
 //when you attack the syrup bottle with a container it refills it
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, params)
@@ -1401,7 +1403,7 @@
 	if(is_open_container())
 		return ..()
 
-	if(!check_allowed_items(attacking_item,target_self = TRUE))
+	if(!check_allowed_items(attacking_item, target_self = TRUE))
 		return ATTACK_CHAIN_PROCEED
 
 	if(attacking_item.is_refillable())
@@ -1414,10 +1416,10 @@
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		var/transfer_amount = reagents.trans_to(attacking_item, amount_per_transfer_from_this)
 		balloon_alert(user, "перемещено [transfer_amount] единиц[declension_ru(transfer_amount, "а", "ы", "")] вещества")
-		flick("syrup_anim",src)
+		flick("syrup_anim", src)
 
-	attacking_item.update_appearance()
-	update_appearance()
+	attacking_item.update_icon()
+	update_icon()
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
