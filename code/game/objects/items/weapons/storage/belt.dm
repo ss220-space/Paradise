@@ -258,6 +258,23 @@
 		PREPOSITIONAL = "медицинском поясе",
 	)
 
+/obj/item/storage/belt/medical/filled/populate_contents()
+	new /obj/item/reagent_containers/applicator/brute(src)
+	new /obj/item/reagent_containers/applicator/burn(src)
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
+	new /obj/item/storage/pill_bottle/filled(src)
+
+/obj/item/storage/belt/medical/filled/paramed/populate_contents()
+	new /obj/item/reagent_containers/hypospray/autoinjector(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/salbutamol(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/charcoal(src)
+	new /obj/item/reagent_containers/hypospray/autoinjector/traneksam(src)
+	new /obj/item/storage/pill_bottle/patch_pack/filled(src)
+	new /obj/item/stack/medical/bruise_pack(src)
+	new /obj/item/stack/medical/ointment(src)
+
 /obj/item/storage/belt/medical/surgery
 	name = "surgical belt"
 	desc = "Универсальный хирургический пояс, предназначенный для размещения и переноски хирургических инструментов. \
