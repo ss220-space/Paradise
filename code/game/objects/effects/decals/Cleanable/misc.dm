@@ -15,6 +15,11 @@
 	scoop_reagents = list("ash" = 10)
 	mergeable_decal = FALSE
 
+/obj/effect/decal/cleanable/ash/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5, 5)
+	pixel_y = base_pixel_y + rand(-5, 5)
+
 /obj/effect/decal/cleanable/dirt
 	name = "dirt"
 	desc = "Someone should clean that up."

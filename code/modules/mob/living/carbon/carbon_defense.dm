@@ -99,3 +99,14 @@
 	if(!affecting) //bruh where's your chest
 		return FALSE
 	apply_damage(damage, BRUTE, affecting)
+
+/mob/living/carbon/bullet_act(obj/projectile/proj, def_zone)
+	//Armor
+	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
+	if(!proj.nodamage && !QDELETED(src))
+		apply_damage(proj.damage, proj.damage_type, def_zone, armor)
+		if(proj.damage_type == BRUTE && (!armor || prob(30) || proj.damage - armor >= 25))
+			spray_blood(get_dir(proj.starting, src), rand(1, max(1, floor((proj.damage - armor) / 10))))
+		if(proj.dismemberment)
+			check_projectile_dismemberment(proj, def_zone)
+	return proj.on_hit(src, armor, def_zone)

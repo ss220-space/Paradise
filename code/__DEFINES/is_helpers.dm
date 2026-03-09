@@ -384,3 +384,5 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define isspacearea(A)	(istype(A, /area/space))
 
 #define isrelic(A) (istype(A, /obj/item/relic))
+
+#define is_window(A) (istype(A, /obj/structure/window))
