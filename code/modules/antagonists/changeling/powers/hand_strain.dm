@@ -2,7 +2,7 @@
 	name = "Перенапряжение руки"
 	desc = "Позволяет намертво вцепиться в предмет активной руки. Стоимость 10 химикатов."
 	helptext = "Повторное использование отпускает предмет."
-	button_icon_state = "limb_throw"
+	button_icon_state = "hand_strain"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
 	chemical_cost = 10
