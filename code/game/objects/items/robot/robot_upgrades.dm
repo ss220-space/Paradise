@@ -270,10 +270,17 @@
 	if(!..())
 		return FALSE
 
+	var/is_orebag_upgraded
+
 	for(var/obj/item/storage/bag/ore/cyborg/orebag in robot.module.modules)
+		is_orebag_upgraded |= orebag.aoe
 		qdel(orebag)
 
-	robot.module.modules += new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
+	var/obj/item/storage/bag/ore/holding/cyborg/ore_soh = new /obj/item/storage/bag/ore/holding/cyborg(robot.module)
+	if(is_orebag_upgraded)
+		ore_soh.aoe = TRUE
+
+	robot.module.modules += ore_soh
 	robot.module.rebuild()
 	return TRUE
 
@@ -899,3 +906,45 @@
 	robot.undeploy()
 	robot.revert_shell()
 	return TRUE
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr
+	name = "mining cyborg satchel upgrade"
+	desc = "Магнитное улучшение сумки для руды, позволяющее собирать руду в области 3 на 3."
+	icon_state = "cyborg_upgrade3"
+	origin_tech = "magnets=3,materials=3;engineering=2"
+	require_module = TRUE
+	module_type = /obj/item/robot_module/miner
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/get_ru_names()
+	return list(
+		NOMINATIVE = "модуль рудного магнита",
+		GENITIVE = "модуля рудного магнита",
+		DATIVE = "модулю рудного магнита",
+		ACCUSATIVE = "модуль рудного магнита",
+		INSTRUMENTAL = "модулем рудного магнита",
+		PREPOSITIONAL = "модуле рудного магнита",
+	)
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/action(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/changed = FALSE
+
+	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
+		mining_satchel.aoe = TRUE
+		changed = TRUE
+
+	return changed
+
+/obj/item/borg/upgrade/borg_mining_sat_upgr/deactivate(mob/living/silicon/robot/robot, mob/user)
+	if(!..())
+		return FALSE
+
+	var/changed = FALSE
+
+	for(var/obj/item/storage/bag/ore/mining_satchel in robot.module.modules)
+		mining_satchel.aoe = FALSE
+		changed = TRUE
+
+	return changed
