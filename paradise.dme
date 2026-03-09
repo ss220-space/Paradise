@@ -801,6 +801,7 @@
 #include "code\datums\elements\direction_slowdown.dm"
 #include "code\datums\elements\falling_hazard.dm"
 #include "code\datums\elements\footstep.dm"
+#include "code\datums\elements\force_move_pulled.dm"
 #include "code\datums\elements\forced_gravity.dm"
 #include "code\datums\elements\gags_recolorable.dm"
 #include "code\datums\elements\give_turf_traits.dm"
