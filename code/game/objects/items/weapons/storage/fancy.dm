@@ -648,3 +648,99 @@
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)
+
+/*
+ * MARK: Coffee condiments
+ */
+/obj/item/storage/fancy/coffee_condi_display
+	name = "coffee condiments display"
+	desc = "Небольшая деревянная коробка, предназначенная для хранения и демонстрации добавок к кофе."
+	gender = MALE
+	icon_state = "coffee_condi_display"
+	icon_type = "condiment pack"
+	pixel_y = 4
+	storage_slots = 14
+	can_hold = list(
+		/obj/item/reagent_containers/food/condiment/pack/sugar,
+		/obj/item/reagent_containers/food/condiment/pack/creamer,
+		/obj/item/reagent_containers/food/condiment/pack/aspartame,
+		/obj/item/reagent_containers/food/condiment/pack/chocolate,
+	)
+
+/obj/item/storage/fancy/coffee_condi_display/get_ru_names()
+	return list(
+		NOMINATIVE = "шоу-бокс для добавок к кофе",
+		GENITIVE = "шоу-бокса для добавок к кофе",
+		DATIVE = "шоу-боксу для добавок к кофе",
+		ACCUSATIVE = "шоу-бокс для добавок к кофе",
+		INSTRUMENTAL = "шоу-боксом для добавок к кофе",
+		PREPOSITIONAL = "шоу-боксе для добавок к кофе"
+	)
+
+/obj/item/storage/fancy/coffee_condi_display/update_icon_state()
+	return
+
+/obj/item/storage/fancy/coffee_condi_display/update_overlays()
+	. = list()
+	var/list/added_overlays = list()
+
+	for(var/obj/item/reagent_containers/food/condiment/pack/pack in contents)
+		var/overlay_name
+		if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/sugar))
+			overlay_name = "condi_display_sugar"
+		else if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/aspartame))
+			overlay_name = "condi_display_sweetener"
+		else if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/creamer))
+			overlay_name = "condi_display_creamer"
+		else if(istype(pack, /obj/item/reagent_containers/food/condiment/pack/chocolate))
+			overlay_name = "condi_display_chocolate"
+
+		if(overlay_name && !(overlay_name in added_overlays))
+			. += mutable_appearance(icon, overlay_name)
+			added_overlays += overlay_name
+
+/obj/item/storage/fancy/coffee_condi_display/populate_contents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/food/condiment/pack/sugar(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/condiment/pack/aspartame(src)
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/food/condiment/pack/creamer(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/condiment/pack/chocolate(src)
+	update_appearance()
+
+/*
+ * MARK: Coffee cartridge rack
+ */
+/obj/item/storage/fancy/coffee_cart_rack
+	name = "coffeemaker cartridge rack"
+	desc = "Небольшая стойка для хранения кофе-картриджей, совместимых с кофемашиной \"Моделло 3\"."
+	gender = FEMALE
+	icon_state = "coffee_cartrack0"
+	icon_type = "coffee cartridge"
+	pixel_y = 2
+	storage_slots = 4
+	can_hold = list(
+		/obj/item/coffee_cartridge,
+		/obj/item/blank_coffee_cartridge,
+	)
+
+/obj/item/storage/fancy/coffee_cart_rack/get_ru_names()
+	return list(
+		NOMINATIVE = "стойка для кофе-картриджей",
+		GENITIVE = "стойки для кофе-картриджей",
+		DATIVE = "стойке для кофе-картриджей",
+		ACCUSATIVE = "стойку для кофе-картриджей",
+		INSTRUMENTAL = "стойкой для кофе-картриджей",
+		PREPOSITIONAL = "стойке для кофе-картриджей",
+	)
+
+/obj/item/storage/fancy/coffee_cart_rack/populate_contents()
+	var/cartridges = rand(1, storage_slots)
+	for(var/I in 1 to cartridges)
+		new /obj/item/coffee_cartridge(src)
+	update_appearance()
+
+/obj/item/storage/fancy/coffee_cart_rack/update_icon_state()
+	icon_state = "coffee_cartrack[length(contents)]"

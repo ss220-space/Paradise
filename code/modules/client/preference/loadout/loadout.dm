@@ -81,3 +81,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/gear/proc/get_header_tips()
 	return
+
+/datum/gear/proc/get_spawn_path(job_name, metadata)
+	return path

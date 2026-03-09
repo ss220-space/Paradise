@@ -316,6 +316,20 @@
 	build_path = /obj/item/reagent_containers/food/drinks/shaker
 	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
 
+/datum/design/coffeepot
+	id = "coffeepot"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+	build_path = /obj/item/reagent_containers/glass/coffeepot
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
+
+/datum/design/syrup_bottle
+	id = "syrup_bottle"
+	build_type = AUTOLATHE
+	materials = list(MAT_METAL = 150, MAT_GLASS = 500)
+	build_path = /obj/item/reagent_containers/glass/bottle/syrup_bottle
+	category = list(PRINTER_CATEGORY_INITIAL, AUTOLATHE_CATEGORY_DINNERWARE)
+
 /datum/design/cultivator
 	id = "cultivator"
 	build_type = AUTOLATHE

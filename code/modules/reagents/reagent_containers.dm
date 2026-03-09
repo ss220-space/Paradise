@@ -180,4 +180,7 @@
 
 	if(possible_transfer_amounts)
 		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы изменить объём перемещения содержимого.")
+	if(!has_lid)
+		return
+	. += span_notice("Используйте в руке, чтобы надеть/снять крышку.")
 
