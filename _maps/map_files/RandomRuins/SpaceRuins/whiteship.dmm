@@ -94,14 +94,6 @@
 	tag = "icon-whitebluefull"
 	},
 /area/shuttle/abandoned)
-"bE" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/blood,
-/obj/structure/closet/walllocker/emerglocker/north{
-	pixel_y = -32
-	},
-/turf/simulated/floor/plating,
-/area/shuttle/abandoned)
 "bQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
@@ -772,6 +764,14 @@
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
+"qG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 8;
+	icon_state = "darkbluefull"
+	},
+/area/shuttle/abandoned)
 "qH" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/surgery{
@@ -934,14 +934,6 @@
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "barber"
-	},
-/area/shuttle/abandoned)
-"sT" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/walllocker/emerglocker/north,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "darkbluefull"
 	},
 /area/shuttle/abandoned)
 "sU" = (
@@ -1244,26 +1236,6 @@
 "yI" = (
 /turf/simulated/wall/shuttle{
 	dir = 1
-	},
-/area/shuttle/abandoned)
-"yK" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/structure/table,
-/obj/item/trash/plate,
-/obj/item/reagent_containers/food/drinks/coffee{
-	desc = "It's cold as dead body.";
-	pixel_x = 8;
-	pixel_y = 8;
-	volume = 15
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_x = -28
-	},
-/turf/simulated/floor/plasteel{
-	dir = 10;
-	icon_state = "darkblue"
 	},
 /area/shuttle/abandoned)
 "yU" = (
@@ -2035,19 +2007,6 @@
 	icon_state = "darkblue"
 	},
 /area/shuttle/abandoned)
-"Pa" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/drinks/coffee{
-	desc = "It's cold as dead body.";
-	pixel_x = 8;
-	pixel_y = 8;
-	volume = 15
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkblue"
-	},
-/area/shuttle/abandoned)
 "PB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/under/retro/medical{
@@ -2210,6 +2169,14 @@
 	icon_state = "barber"
 	},
 /area/shuttle/abandoned)
+"Ur" = (
+/obj/structure/table/reinforced,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/plasteel{
+	dir = 4;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
 "Uv" = (
 /obj/machinery/computer{
 	desc = "A computer long since rendered non-functional due to lack of maintenance. Spitting out error messages.";
@@ -2243,6 +2210,21 @@
 	icon_state = "freezerfloor"
 	},
 /area/shuttle/abandoned)
+"Vg" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/trash/plate,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -28
+	},
+/turf/simulated/floor/plasteel{
+	dir = 10;
+	icon_state = "darkblue"
+	},
+/area/shuttle/abandoned)
 "VD" = (
 /obj/item/kitchen/utensil/spoon,
 /turf/simulated/floor/plasteel{
@@ -2265,6 +2247,12 @@
 	dir = 8;
 	icon_state = "darkbluefull"
 	},
+/area/shuttle/abandoned)
+"Wu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood,
+/obj/structure/closet/walllocker/emerglocker/directional/north,
+/turf/simulated/floor/plating,
 /area/shuttle/abandoned)
 "WD" = (
 /obj/item/tank/internals/emergency_oxygen/nitrogen{
@@ -2668,11 +2656,11 @@ GK
 TW
 TW
 ys
-bE
+Wu
 oL
 GK
 oL
-sT
+qG
 fJ
 TW
 TW
@@ -2894,7 +2882,7 @@ IA
 MY
 es
 Og
-yK
+Vg
 sn
 TW
 XX
@@ -3031,7 +3019,7 @@ ij
 ij
 Dc
 St
-Pa
+Ur
 NX
 Uv
 ij

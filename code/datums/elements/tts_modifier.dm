@@ -10,45 +10,51 @@
 
 	effect = req_effect
 
-	RegisterSignal(target, COMSIG_ITEM_EQUIPPED, PROC_REF(on_item_equipped))
+	RegisterSignal(target, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped))
+	RegisterSignal(target, COMSIG_ITEM_POST_UNEQUIP, PROC_REF(on_post_unequip))
 	RegisterSignal(target, COMSIG_MASKFILTER_UPDATE_STATE, PROC_REF(on_update_state))
 
 /datum/element/tts_modifier/Detach(datum/target)
-	. = ..()
-	UnregisterSignal(target, list(COMSIG_ITEM_EQUIPPED, COMSIG_MASKFILTER_UPDATE_STATE))
+	UnregisterSignal(target, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_POST_UNEQUIP, COMSIG_MASKFILTER_UPDATE_STATE))
+	return ..()
 
-/datum/element/tts_modifier/proc/apply_effect(obj/item/equipped_item, mob/living/carbon/wearer)
-	if(!istype(wearer) || !istype(equipped_item))
+/datum/element/tts_modifier/proc/on_equipped(obj/item/source, mob/living/carbon/user, slot)
+	SIGNAL_HANDLER
+	if(slot == ITEM_SLOT_MASK)
+		update_tts_filter(source, user)
+
+/datum/element/tts_modifier/proc/on_post_unequip(obj/item/source, force, newloc, no_move, invdrop, silent, mob/living/carbon/user)
+	SIGNAL_HANDLER
+	remove_tts_filter(source, user)
+
+/datum/element/tts_modifier/proc/on_update_state(obj/item/source, mob/living/carbon/user)
+	SIGNAL_HANDLER
+	update_tts_filter(source, user)
+
+/datum/element/tts_modifier/proc/update_tts_filter(obj/item/source, mob/living/carbon/user)
+	if(!istype(user))
 		return
 
-	var/is_active_mask = (wearer.wear_mask == equipped_item)
-	if(istype(equipped_item, /obj/item/clothing/mask))
-		var/obj/item/clothing/mask/mask_item = equipped_item
+	var/active = (user.wear_mask == source)
+	
+	if(active && istype(source, /obj/item/clothing/mask))
+		var/obj/item/clothing/mask/mask_item = source
 		if(mask_item.up)
-			is_active_mask = FALSE
+			active = FALSE
 
-	if(is_active_mask)
-		wearer.tts_effect_override = effect
-		wearer.tts_effect_override_source = equipped_item
+	if(!active)
+		remove_tts_filter(source, user)
 		return
 
-	if(wearer.tts_effect_override_source != equipped_item)
+	if(user.tts_effect_override_source && user.tts_effect_override_source != source)
 		return
 
-	wearer.tts_effect_override = SOUND_EFFECT_NONE
-	wearer.tts_effect_override_source = null
+	user.tts_effect_override = effect
+	user.tts_effect_override_source = source
 
-/datum/element/tts_modifier/proc/on_item_equipped(obj/item/equipped_item, mob/wearer, slot)
-	SIGNAL_HANDLER
-	RegisterSignal(wearer, COMSIG_MOB_UNEQUIPPED_ITEM, PROC_REF(on_mob_unequipped_item), override = TRUE)
-	apply_effect(equipped_item, wearer)
+/datum/element/tts_modifier/proc/remove_tts_filter(obj/item/source, mob/living/carbon/user)
+	if(!istype(user) || user.tts_effect_override_source != source)
+		return
 
-/datum/element/tts_modifier/proc/on_mob_unequipped_item(mob/wearer, obj/item/equipped_item, force, atom/newloc)
-	SIGNAL_HANDLER
-	apply_effect(equipped_item, wearer)
-	UnregisterSignal(wearer, COMSIG_MOB_UNEQUIPPED_ITEM)
-
-/datum/element/tts_modifier/proc/on_update_state(obj/item/equipped_item, mob/wearer)
-	SIGNAL_HANDLER
-	if(wearer)
-		apply_effect(equipped_item, wearer)
+	user.tts_effect_override = SOUND_EFFECT_NONE
+	user.tts_effect_override_source = null

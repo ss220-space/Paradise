@@ -285,7 +285,7 @@
 /area/awaymission/BMPship/MedBay)
 "bh" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bi" = (
@@ -368,7 +368,7 @@
 "br" = (
 /obj/machinery/light/small,
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/largecrate/goat,
+/obj/structure/closet/crate/large/goat,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "bs" = (
@@ -491,7 +491,7 @@
 	icon_state = "2-8";
 	tag = ""
 	},
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -1189,7 +1189,7 @@
 /area/awaymission/BMPship/Kitchen)
 "dC" = (
 /obj/effect/decal/warning_stripes/southwest,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dD" = (
@@ -1233,7 +1233,7 @@
 /area/awaymission/BMPship/Kitchen)
 "dG" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/largecrate/lisa,
+/obj/structure/closet/crate/large/lisa,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dH" = (
@@ -1323,7 +1323,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "dP" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /mob/living/simple_animal/hostile/feral_cat,
@@ -1367,7 +1367,7 @@
 "dX" = (
 /obj/effect/decal/warning_stripes/east,
 /obj/effect/decal/warning_stripes/red,
-/obj/structure/largecrate/evil,
+/obj/structure/closet/crate/large/evil,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "dY" = (
@@ -1459,7 +1459,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "el" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
@@ -2121,7 +2121,7 @@
 "fP" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/retaliate/kangaroo,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -3003,7 +3003,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "iB" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -3196,7 +3196,7 @@
 	icon_state = "4-8";
 	tag = ""
 	},
-/obj/structure/largecrate/schrodinger,
+/obj/structure/closet/crate/large/schrodinger,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "jl" = (
@@ -3556,7 +3556,7 @@
 "lK" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/bear,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/item/reagent_containers/food/snacks/meat,
@@ -4144,7 +4144,7 @@
 /area/awaymission/BMPship/Bath)
 "pV" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/spider/stickyweb,
@@ -5029,7 +5029,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/alien/weeds,
@@ -5272,7 +5272,7 @@
 /turf/simulated/floor/mineral/plastitanium/red,
 /area/awaymission/BMPship/Containment)
 "zt" = (
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/spider/stickyweb,
@@ -5297,7 +5297,7 @@
 /obj/effect/gibspawner/generic,
 /obj/structure/alien/weeds,
 /obj/effect/decal/remains/human,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -5493,7 +5493,7 @@
 /area/space)
 "BI" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /obj/structure/spider/stickyweb,
@@ -5560,7 +5560,7 @@
 /turf/simulated/floor/plating/airless,
 /area/awaymission/BMPship/Gate)
 "Cb" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
@@ -6128,7 +6128,7 @@
 	},
 /area/awaymission/BMPship/Kitchen)
 "GV" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/structure/cable{
 	icon_state = "1-2";
 	tag = ""
@@ -6478,7 +6478,7 @@
 /area/awaymission/BMPship/Engines)
 "Ky" = (
 /obj/effect/decal/warning_stripes/south,
-/obj/structure/largecrate/cow,
+/obj/structure/closet/crate/large/cow,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "KD" = (
@@ -6499,7 +6499,7 @@
 "KG" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/bear,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -6690,7 +6690,7 @@
 "MY" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/carp,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -6795,7 +6795,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/head/helmet/skull,
 /obj/structure/alien/weeds/node,
-/obj/structure/closet/critter{
+/obj/structure/closet/crate/critter{
 	opened = 1
 	},
 /turf/simulated/floor/engine,
@@ -6946,7 +6946,7 @@
 /area/awaymission/BMPship/Containment)
 "PR" = (
 /obj/effect/decal/warning_stripes/west,
-/obj/structure/largecrate/cat,
+/obj/structure/closet/crate/large/cat,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -7453,7 +7453,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/BMPship/Fore)
 "Vo" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)
 "Vt" = (
@@ -7517,7 +7517,7 @@
 /area/awaymission/BMPship/Kitchen)
 "VL" = (
 /obj/effect/decal/warning_stripes/east,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /obj/effect/decal/warning_stripes/red,
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Gate)

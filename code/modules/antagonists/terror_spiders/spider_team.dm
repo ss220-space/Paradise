@@ -240,7 +240,8 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/list/terror_defilers = main_spiders[TERROR_DEFILER]
 
 	if(length(terror_queens) || length(terror_princes) || length(terror_princesses) || length(terror_defilers))
-		var/list/text= declare_results()
+		var/list/text = list()
+		text += declare_results()
 		text += span_fontsize2("<br/><b>Основа гнезда:</b>")
 		if(length(terror_queens))
 			text += span_fontsize1("<br/><b>Королев[(length(terror_queens)> 1 ? "ами были" : "ой был")]:</b>")
