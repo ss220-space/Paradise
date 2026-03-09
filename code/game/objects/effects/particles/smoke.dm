@@ -1,4 +1,8 @@
 // All the smoke variant particles.
+
+/**
+ * MARK: Base Smoke
+ */
 /particles/smoke
 	icon = 'icons/effects/particles/smoke.dmi'
 	icon_state = list("smoke_1" = 1, "smoke_2" = 1, "smoke_3" = 2)
@@ -15,6 +19,9 @@
 	gravity = list(0, 0.95)
 	grow = 0.05
 
+/**
+ * MARK: Burning
+ */
 /particles/smoke/burning
 	position = list(0, 0, 0)
 
@@ -23,6 +30,9 @@
 	scale = list(0.8, 0.8)
 	velocity = list(0, 0.4, 0)
 
+/**
+ * MARK: Steam
+ */
 /particles/smoke/steam
 	icon_state = list("steam_1" = 1, "steam_2" = 1, "steam_3" = 2)
 	fade = 1.5 SECONDS
@@ -49,6 +59,9 @@
 	fade = 0.5 SECONDS
 	position = list(-1, 12, 0)
 
+/**
+ * MARK: Cig
+ */
 /particles/smoke/cig
 	icon_state = list("steam_1" = 2, "steam_2" = 1, "steam_3" = 1)
 	count = 1
@@ -74,6 +87,9 @@
 	spawning = 1
 	friction = 0.75
 
+/**
+ * MARK: Ash
+ */
 /particles/smoke/ash
 	icon_state = list("ash_1" = 2, "ash_2" = 2, "ash_3" = 1, "smoke_1" = 3, "smoke_2" = 2)
 	count = 500
@@ -84,6 +100,9 @@
 	position = generator(GEN_VECTOR, list(-3, 5, 0), list(3, 6.5, 0), NORMAL_RAND)
 	velocity = generator(GEN_VECTOR, list(-0.1, 0.4, 0), list(0.1, 0.5, 0), NORMAL_RAND)
 
+/**
+ * MARK: Fog
+ */
 /particles/fog
 	icon = 'icons/effects/particles/smoke.dmi'
 	icon_state = list("chill_1" = 2, "chill_2" = 2, "chill_3" = 1)
@@ -97,6 +116,9 @@
 	spin = 2
 	color = "#fcffff77"
 
+/**
+ * MARK: Cyborg
+ */
 /particles/smoke/cyborg
 	count = 5
 	spawning = 1
@@ -110,6 +132,9 @@
 	lifespan = 0.8 SECONDS
 	fade = 0.8 SECONDS
 
+/**
+ * MARK: Hotspring steam
+ */
 /particles/hotspring_steam
 	icon = 'icons/effects/particles/smoke.dmi'
 	icon_state = list(
@@ -119,7 +144,7 @@
 		"steam_cloud_4" = 1,
 		"steam_cloud_5" = 1,
 	)
-	color = "#FFFFFF8A"
+	color = "#ffffff8a"
 	count = 5
 	spawning = 0.3
 	lifespan = 3 SECONDS

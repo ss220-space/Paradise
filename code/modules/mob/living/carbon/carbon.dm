@@ -149,10 +149,10 @@
 			if(isturf(thing.loc))
 				thing.throw_at(get_edge_target_turf(src, pick(GLOB.alldirs)), rand(1, 3), 5)
 
-	for(var/mob/M in src)
-		LAZYREMOVE(stomach_contents, M)
-		M.forceMove(drop_loc)
-		visible_message(span_danger("[M] вырыва[PLUR_ET_YUT(M)]ся из нутра [name]!"))
+	for(var/mob/target in src)
+		LAZYREMOVE(stomach_contents, target)
+		target.forceMove(drop_loc)
+		visible_message(span_danger("[target] вырыва[PLUR_ET_YUT(target)]ся из нутра [name]!"))
 
 /// Adds to the parent by also adding functionality to propagate shocks through pulling and doing some fluff effects.
 /mob/living/carbon/electrocute_act(shock_damage, atom/source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)

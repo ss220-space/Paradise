@@ -28,10 +28,11 @@
 	jobtype = /datum/job/head_of_staff/hos
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
-	suit = /obj/item/clothing/suit/armor/hos
+	suit = /obj/item/clothing/suit/armor/hos/alt
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/HoS
+	head = /obj/item/clothing/head/HoS/beret
+	belt = /obj/item/storage/belt/security/sec
 	l_ear = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/hos
@@ -90,6 +91,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/warden
+	belt = /obj/item/storage/belt/security/sec
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/warden
@@ -130,6 +132,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/det_hat
+	belt = /obj/item/storage/belt/security/detective
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	id = /obj/item/card/id/security
@@ -181,6 +184,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet
+	belt = /obj/item/storage/belt/security/sec
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
@@ -266,6 +270,7 @@
 	uniform = /obj/item/clothing/under/rank/security/pod_pilot
 	suit = /obj/item/clothing/suit/jacket/pilot
 	gloves = /obj/item/clothing/gloves/color/black
+	belt = /obj/item/storage/belt/security/sec
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
