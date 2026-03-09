@@ -407,7 +407,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Engi"
 
 /obj/effect/landmark/start/trainee_engineer
-	name = JOB_TITLE_ENGINEERING_ASSISTANT
+	name = JOB_TITLE_ENGINEER_TRAINEE
 	icon_state = "Trainee_Engi"
 
 /obj/effect/landmark/start/atmospheric
@@ -427,7 +427,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "MD"
 
 /obj/effect/landmark/start/intern
-	name = JOB_TITLE_MEDICAL_ASSISTANT
+	name = JOB_TITLE_MEDICAL_INTERN
 	icon_state = "Intern"
 
 /obj/effect/landmark/start/coroner
@@ -463,7 +463,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark/awaystart)
 	icon_state = "Sci"
 
 /obj/effect/landmark/start/student_sientist
-	name = JOB_TITLE_SCIENCE_ASSISTANT
+	name = JOB_TITLE_SCIENCE_STUDENT
 	icon_state = "Student_Sci"
 
 /obj/effect/landmark/start/roboticist

@@ -117,13 +117,11 @@
 	box = /obj/item/storage/box/survival/engineer
 
 /datum/job/engineering/engineer/trainee
-	title = JOB_TITLE_ENGINEERING_ASSISTANT
+	title = JOB_TITLE_ENGINEER_TRAINEE
 	flag = JOB_FLAG_ENGINEER_TRAINEE
 	spawn_positions = 3
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_ENGINEERING_STUDENT,
-		ALT_JOB_TITLE_RU_ENGINEERING_TRAINEE,
-		ALT_JOB_TITLE_RU_ENGINEERING_INTERN,
+		ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT,
 	)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -134,7 +132,7 @@
 	paycheck = PAYCHECK_LOWER
 
 /datum/outfit/job/engineer/trainee
-	name = JOB_TITLE_RU_ENGINEERING_ASSISTANT
+	name = JOB_TITLE_RU_ENGINEER_TRAINEE
 	jobtype = /datum/job/engineering/engineer/trainee
 
 	uniform = /obj/item/clothing/under/rank/engineer/trainee
@@ -147,9 +145,7 @@
 		uniform = /obj/item/clothing/under/rank/engineer/trainee/skirt
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_ENGINEERING_TRAINEE)
+			if(ALT_JOB_TITLE_RU_ENGINEER_ASSISTANT)
 				uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant
 				if(H.gender == FEMALE)
 					uniform = /obj/item/clothing/under/rank/engineer/trainee/assistant/skirt
-			if(ALT_JOB_TITLE_RU_ENGINEERING_INTERN)
-				head = /obj/item/clothing/head/soft/orange

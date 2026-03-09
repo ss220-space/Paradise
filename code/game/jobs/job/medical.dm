@@ -59,7 +59,6 @@
 		ALT_JOB_TITLE_RU_TRAUMATOLOGIST,
 		ALT_JOB_TITLE_RU_RESUSCITATOR,
 		ALT_JOB_TITLE_RU_THERAPIST,
-		ALT_JOB_TITLE_RU_ORDERLY,
 	)
 	outfit = /datum/outfit/job/doctor
 
@@ -92,12 +91,10 @@
 			head = /obj/item/clothing/head/surgery/blue
 
 /datum/job/medical/doctor/intern
-	title = JOB_TITLE_MEDICAL_ASSISTANT
+	title = JOB_TITLE_MEDICAL_INTERN
 	flag = JOB_FLAG_INTERN
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_MEDICAL_STUDENT,
 		ALT_JOB_TITLE_RU_MEDICAL_TRAINEE,
-		ALT_JOB_TITLE_RU_MEDICAL_INTERN,
 	)
 	exp_requirements = 180
 	exp_type = EXP_TYPE_CREW
@@ -108,7 +105,7 @@
 	paycheck = PAYCHECK_LOWER
 
 /datum/outfit/job/doctor/intern
-	name = JOB_TITLE_RU_MEDICAL_ASSISTANT
+	name = JOB_TITLE_RU_MEDICAL_INTERN
 	jobtype = /datum/job/medical/doctor/intern
 
 	uniform = /obj/item/clothing/under/rank/medical/intern
@@ -123,15 +120,6 @@
 	. = ..()
 	if(H.gender == FEMALE)
 		uniform = /obj/item/clothing/under/rank/medical/intern/skirt
-	if(H.mind && H.mind.role_alt_title)
-		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_MEDICAL_TRAINEE)
-				uniform = /obj/item/clothing/under/rank/medical/intern/assistant
-				if(H.gender == FEMALE)
-					uniform = /obj/item/clothing/under/rank/medical/intern/assistant/skirt
-			if(ALT_JOB_TITLE_RU_MEDICAL_STUDENT)
-				head = /obj/item/clothing/head/surgery/lightgreen
-				uniform = /obj/item/clothing/under/rank/medical/lightgreen
 
 /datum/job/medical/coroner
 	title = JOB_TITLE_CORONER
@@ -178,6 +166,7 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_CHEMISTRY, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_PROVISOR,
+		ALT_JOB_TITLE_RU_PHARMACIST,
 	)
 	outfit = /datum/outfit/job/chemist
 
@@ -308,7 +297,6 @@
 	access = list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	minimal_access=list(ACCESS_PARAMEDIC, ACCESS_MEDICAL, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_MORGUE, ACCESS_SURGERY)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_FIELD_MEDIC,
 		ALT_JOB_TITLE_RU_FELDSHER,
 	)
 	outfit = /datum/outfit/job/paramedic

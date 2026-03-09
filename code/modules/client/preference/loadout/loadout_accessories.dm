@@ -72,7 +72,7 @@
 /datum/gear/accessory/stethoscope
 	index_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_ASSISTANT, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/accessory/armguard
 	index_name = "armguard"
@@ -155,7 +155,7 @@
 /datum/gear/accessory/armband_job/medical
 	index_name = "armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_ASSISTANT, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/accessory/armband_job/emt
 	index_name = "armband, EMT"
@@ -165,7 +165,7 @@
 /datum/gear/accessory/armband_job/engineering
 	index_name = "armband, engineering"
 	path = /obj/item/clothing/accessory/armband/engine
-	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEERING_ASSISTANT)
+	allowed_roles = list(JOB_TITLE_CHIEF_ENGINEER, JOB_TITLE_ENGINEER, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER_TRAINEE)
 
 /datum/gear/accessory/armband_job/hydro
 	index_name = "armband, hydroponics"
@@ -175,7 +175,7 @@
 /datum/gear/accessory/armband_job/sci
 	index_name = "armband, science"
 	path = /obj/item/clothing/accessory/armband/science
-	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_ASSISTANT, JOB_TITLE_ROBOTICIST)
+	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/gear/accessory/holsters
 	index_name = "holster, select"

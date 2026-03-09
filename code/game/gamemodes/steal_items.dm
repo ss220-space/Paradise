@@ -490,7 +490,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_borgi"
 	typepath = /mob/living/simple_animal/pet/dog/corgi/borgi
 	name = "собаку по кличке E-N"
-	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_ASSISTANT, JOB_TITLE_ROBOTICIST)
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/theft_objective/animal/psycho
 	id = "animal_psycho"
@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	id = "animal_slugcat"
 	typepath = /mob/living/simple_animal/pet/slugcat/monk
 	name = "слизнекота-монаха"
-	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_ASSISTANT, JOB_TITLE_ROBOTICIST)
+	protected_jobs = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT, JOB_TITLE_ROBOTICIST)
 
 /datum/theft_objective/animal/poly
 	id = "animal_poly"

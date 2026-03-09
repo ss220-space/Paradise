@@ -71,6 +71,7 @@
 		ALT_JOB_TITLE_RU_PLASMOLOGIST,
 		ALT_JOB_TITLE_RU_XENOBIOLOGIST,
 		ALT_JOB_TITLE_RU_RESEARCH_ASSOCIATE,
+		ALT_JOB_TITLE_RU_CHEMICAL_RESEARCHER,
 	)
 	outfit = /datum/outfit/job/scientist
 
@@ -90,15 +91,12 @@
 	dufflebag = /obj/item/storage/backpack/duffel/science
 
 /datum/job/science/scientist/student
-	title = JOB_TITLE_SCIENCE_ASSISTANT
+	title = JOB_TITLE_SCIENCE_STUDENT
 	flag = JOB_FLAG_SCIENTIST_STUDENT
 	total_positions = 5
 	spawn_positions = 3
 	department_head = list(JOB_TITLE_RD, JOB_TITLE_SCIENTIST)
 	alt_titles = list(
-		ALT_JOB_TITLE_RU_SCIENCE_STUDENT,
-		ALT_JOB_TITLE_RU_SCIENCE_TRAINEE,
-		ALT_JOB_TITLE_RU_SCIENCE_INTERN,
 		ALT_JOB_TITLE_RU_JUNIOR_RESEARCHER,
 	)
 	exp_requirements = 180
@@ -110,7 +108,7 @@
 	paycheck = PAYCHECK_LOWER
 
 /datum/outfit/job/scientist/student
-	name = JOB_TITLE_RU_SCIENCE_ASSISTANT
+	name = JOB_TITLE_RU_SCIENCE_STUDENT
 	jobtype = /datum/job/science/scientist/student
 
 	uniform = /obj/item/clothing/under/rank/scientist/student

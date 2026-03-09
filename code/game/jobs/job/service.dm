@@ -101,7 +101,8 @@
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MAINT_TUNNELS)
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_SOUS_CHEF,
-		ALT_JOB_TITLE_RU_NUTRITION_EXPERT,
+		ALT_JOB_TITLE_RU_CHEF,
+		ALT_JOB_TITLE_RU_ART_CHEF,
 	)
 	outfit = /datum/outfit/job/chef
 
@@ -130,7 +131,7 @@
 	. = ..()
 	if(H.mind && H.mind.role_alt_title)
 		switch(H.mind.role_alt_title)
-			if(ALT_JOB_TITLE_RU_NUTRITION_EXPERT)
+			if(ALT_JOB_TITLE_RU_ART_CHEF)
 				uniform = /obj/item/clothing/under/artist
 				belt = /obj/item/storage/belt/chef/artistred
 				head = /obj/item/clothing/head/chefcap

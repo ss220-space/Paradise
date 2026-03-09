@@ -154,7 +154,7 @@
 		if(JOB_TITLE_MINING_MEDIC)
 			O = new /datum/outfit/plasmaman/mining_medic
 
-		if(JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_ASSISTANT)
+		if(JOB_TITLE_DOCTOR, JOB_TITLE_MEDICAL_INTERN)
 			O = new /datum/outfit/plasmaman/medical
 
 		if(JOB_TITLE_BRIGDOC)
@@ -181,7 +181,7 @@
 		if(JOB_TITLE_VIROLOGIST)
 			O = new /datum/outfit/plasmaman/viro
 
-		if(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_ASSISTANT)
+		if(JOB_TITLE_SCIENTIST, JOB_TITLE_SCIENCE_STUDENT)
 			O = new /datum/outfit/plasmaman/science
 
 		if("Xenobiologist")
@@ -190,7 +190,7 @@
 		if(JOB_TITLE_RD)
 			O = new /datum/outfit/plasmaman/rd
 
-		if(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEERING_ASSISTANT)
+		if(JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE)
 			O = new /datum/outfit/plasmaman/engineering
 
 		if(JOB_TITLE_MECHANIC)

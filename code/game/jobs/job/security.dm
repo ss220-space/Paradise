@@ -178,7 +178,6 @@
 	law_level = LAW_LEVEL_SEC
 	alt_titles = list(
 		ALT_JOB_TITLE_RU_PATROL_OFFICER,
-		ALT_JOB_TITLE_RU_SECURITY_OPERATOR,
 	)
 	outfit = /datum/outfit/job/officer
 

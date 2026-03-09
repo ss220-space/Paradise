@@ -40,7 +40,7 @@
 		JOB_TITLE_ATMOSTECH = "engradio",
 		JOB_TITLE_MECHANIC = "engradio",
 		JOB_TITLE_ENGINEER = "engradio",
-		JOB_TITLE_ENGINEERING_ASSISTANT = "engradio",
+		JOB_TITLE_ENGINEER_TRAINEE = "engradio",
 		// Central Command
 		"Custodian" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Deathsquad Commando" = "dsquadradio",
@@ -62,7 +62,7 @@
 		JOB_TITLE_CMO = "medradio",
 		JOB_TITLE_CORONER = "medradio",
 		JOB_TITLE_DOCTOR = "medradio",
-		JOB_TITLE_MEDICAL_ASSISTANT = "medradio",
+		JOB_TITLE_MEDICAL_INTERN = "medradio",
 		JOB_TITLE_PARAMEDIC = "medradio",
 		JOB_TITLE_PSYCHIATRIST = "medradio",
 		JOB_TITLE_VIROLOGIST = "medradio",
@@ -71,7 +71,7 @@
 		JOB_TITLE_RD = "sciradio",
 		JOB_TITLE_ROBOTICIST = "sciradio",
 		JOB_TITLE_SCIENTIST = "sciradio",
-		JOB_TITLE_SCIENCE_ASSISTANT = "sciradio",
+		JOB_TITLE_SCIENCE_STUDENT = "sciradio",
 		// Security
 		JOB_TITLE_BRIGDOC = "secradio",
 		JOB_TITLE_DETECTIVE = "secradio",
