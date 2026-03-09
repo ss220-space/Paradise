@@ -23,7 +23,7 @@ type Data = {
 };
 
 type Experiment = {
-  id: number;
+  id: string;
   name: string;
   fa_icon: string;
 };
@@ -95,7 +95,7 @@ type ExperimentScreenProps = {
   isOnCooldown: BooleanLike;
   isCloning: BooleanLike;
   onEject: () => void;
-  onExperiment: (id: number) => void;
+  onExperiment: (id: string) => void;
 };
 
 const ExperimentScreen = (props: ExperimentScreenProps) => {
@@ -214,7 +214,7 @@ const NodePreview = (props: NodePreviewProps) => {
 type ExperimentButtonsProps = {
   disabled: BooleanLike;
   experiments: Experiment[];
-  onExperiment: (id: number) => void;
+  onExperiment: (id: string) => void;
 };
 
 const ExperimentButtons = (props: ExperimentButtonsProps) => {

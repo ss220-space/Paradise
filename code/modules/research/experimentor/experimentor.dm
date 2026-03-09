@@ -93,7 +93,6 @@
 		malfunction_probability_coeff += scanning_module.rating * 2
 	for(var/obj/item/stock_parts/micro_laser/micro_laser in component_parts)
 		malfunction_probability_coeff += micro_laser.rating
-	malfunction_probability_coeff = malfunction_probability_coeff
 
 /obj/machinery/r_n_d/experimentor/examine(mob/user)
 	. = ..()
@@ -144,7 +143,7 @@
 	else
 		fail_experiment()
 
-	handle_global_reactions(loaded_item)
+	handle_global_reactions()
 	update_appearance()
 	COOLDOWN_START(src, run_experiment, cooldown)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), cooldown)
@@ -216,7 +215,7 @@
 
 	data["availableExperiments"] = available_experiments
 
-	if(!isnull(loaded_item))
+	if(!isnull(loaded_item) && !isnull(linked_console.files))
 		var/list/item_data = list()
 
 		item_data["name"] = loaded_item.name
@@ -225,7 +224,7 @@
 
 		item_data["associatedNodes"] = list()
 		var/list/temp_tech = convert_req_string_to_list(loaded_item.origin_tech)
-		var/datum/research/research_data = linked_console.files
+		var/datum/research/research_data = linked_console?.files
 		for(var/tech_id, value in temp_tech)
 			var/datum/tech/current_tech = research_data.known_tech[tech_id]
 			var/added_tech
