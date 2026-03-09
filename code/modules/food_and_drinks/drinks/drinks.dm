@@ -4,6 +4,7 @@
 /obj/item/reagent_containers/food/drinks
 	name = "drink"
 	desc = "Вкусняшка."
+	gender = MALE
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
@@ -218,13 +219,6 @@
 //	rather then having to add it to something else first. They should only contain liquids. They have a default container size of 50.
 //	Formatting is the same as food.
 
-/obj/item/reagent_containers/food/drinks/coffee
-	name = "Robust Coffee"
-	desc = "Careful, the beverage you're about to enjoy is extremely hot."
-	icon_state = "coffee"
-	list_reagents = list("coffee" = 30)
-	resistance_flags = FREEZE_PROOF
-
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
 	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
@@ -438,8 +432,8 @@
 /obj/item/reagent_containers/food/drinks/zaza/attack_self(mob/user)
 	if(!is_open_container())
 		container_type |= OPENCONTAINER
-		to_chat(user, span_notice("You put the lid on [src]."))
+		to_chat(user, span_notice("Вы сняли крышку с [src]."))
 	else
-		to_chat(user, span_notice("You take the lid off [src]."))
+		to_chat(user, span_notice("Вы надели крышку на [src]."))
 		container_type &= ~OPENCONTAINER
 	update_icon(UPDATE_OVERLAYS)

@@ -42,16 +42,6 @@
 /obj/item/reagent_containers/food/snacks/beans,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"am" = (
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
-	icon = 'icons/obj/doors/mineral_doors.dmi';
-	icon_state = "gingerbread";
-	name = "Lift door"
-	},
-/area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "au" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/firstaid/aquatic_kit/full,
@@ -145,6 +135,10 @@
 /obj/item/gift,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
+"be" = (
+/obj/structure/closet/crate/large,
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "bf" = (
 /obj/effect/decal/snow/clean/edge{
 	dir = 4
@@ -463,6 +457,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
+"ed" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	desc = "For authorized personnel only. Looks locked and bolted.";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "el" = (
 /obj/structure/firepit{
 	active = 1
@@ -517,12 +520,6 @@
 	icon_state = "wood-broken3"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"eI" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/carpet,
-/area/vision_change_area/awaymission/evil_santa/hut_n)
 "eP" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/cane,
 /turf/simulated/floor/wood/oak,
@@ -723,16 +720,6 @@
 	tag = "icon-wood-broken7"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_w)
-"gj" = (
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	desc = "Looks locked and bolted.";
-	description_info = null;
-	icon = 'icons/obj/doors/mineral_doors.dmi';
-	icon_state = "gingerbread";
-	name = "Security room"
-	},
-/area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "gk" = (
 /obj/structure/window/full/reinforced/ice,
 /turf/simulated/floor/wood/cold,
@@ -762,6 +749,12 @@
 /obj/item/stack/ore/glass/basalt,
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
+"gq" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/carpet,
+/area/vision_change_area/awaymission/evil_santa/hut_n)
 "gu" = (
 /obj/item/ammo_box/shotgun/buck,
 /obj/item/storage/firstaid/fire,
@@ -840,6 +833,15 @@
 	icon_state = "freezerfloor"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"gO" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	desc = "For authorized personnel only. Looks locked and bolted.";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
+	},
+/area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "gT" = (
 /obj/structure/decorative_structures/garland{
 	dir = 1
@@ -945,6 +947,14 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
+"hJ" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/obj/item/storage/box/matches,
+/turf/simulated/floor/wood{
+	icon_state = "wood-broken3"
+	},
+/area/vision_change_area/awaymission/evil_santa/hut_e)
 "hK" = (
 /obj/item/clothing/head/bearpelt/fluff,
 /turf/simulated/floor/plating/asteroid/snow/atmosphere{
@@ -1321,6 +1331,13 @@
 	icon_state = "white"
 	},
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"ku" = (
+/obj/structure/closet/crate/large/evil{
+	desc = "A hefty wooden crate.";
+	name = "large crate"
+	},
+/turf/simulated/floor/wood/oak,
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "kw" = (
 /obj/effect/baseturf_helper/asteroid/snow,
 /turf/simulated/floor/carpet/red,
@@ -1684,6 +1701,15 @@
 /obj/structure/closet/cabinet,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
+"nC" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	desc = "For authorized personnel only. Looks locked and bolted.";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
+	},
+/area/vision_change_area/awaymission/evil_santa/mine/labyrinth_m)
 "nD" = (
 /obj/structure/chair/stool/bar/dark,
 /turf/simulated/floor/wood/fancy,
@@ -1756,16 +1782,6 @@
 	},
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"of" = (
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
-	icon = 'icons/obj/doors/mineral_doors.dmi';
-	icon_state = "gingerbread";
-	name = "Lift door"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/lounge)
 "oi" = (
 /mob/living/simple_animal/hostile/zombie{
 	faction = list("hostile","syndicate","winter");
@@ -2312,16 +2328,6 @@
 	slowdown = 0
 	},
 /area/vision_change_area/awaymission/evil_santa/spawn_ne)
-"sw" = (
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
-	icon = 'icons/obj/doors/mineral_doors.dmi';
-	icon_state = "gingerbread";
-	name = "Lift door"
-	},
-/area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
 "sy" = (
 /obj/structure/chair/comfy/brown{
 	dir = 1
@@ -2908,13 +2914,6 @@
 /obj/item/reagent_containers/food/drinks/mug/comms,
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
-"xK" = (
-/obj/structure/closet/crate/large/evil{
-	desc = "A hefty wooden crate.";
-	name = "large crate"
-	},
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
 "xN" = (
 /turf/simulated/wall/shuttle,
 /area/vision_change_area/awaymission/evil_santa/end/hall)
@@ -2972,16 +2971,6 @@
 	},
 /turf/simulated/floor/carpet/green,
 /area/vision_change_area/awaymission/evil_santa/end/santa)
-"yp" = (
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	desc = "Looks locked and bolted.";
-	description_info = null;
-	icon = 'icons/obj/doors/mineral_doors.dmi';
-	icon_state = "gingerbread";
-	name = "Security room"
-	},
-/area/vision_change_area/awaymission/evil_santa/end/hall)
 "ys" = (
 /obj/item/stack/sheet/animalhide/monkey,
 /obj/machinery/conveyor{
@@ -4407,6 +4396,15 @@
 /obj/machinery/hydroponics/constructable,
 /turf/simulated/floor/wood/fancy,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"LB" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	desc = "Looks locked and bolted.";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Security room"
+	},
+/area/vision_change_area/awaymission/evil_santa/mine/labyrinth_l)
 "LC" = (
 /obj/item/clothing/suit/snowman,
 /obj/structure/window/basic{
@@ -4603,14 +4601,6 @@
 	tag = "icon-wood-broken6"
 	},
 /area/vision_change_area/awaymission/evil_santa/hut_e)
-"Nh" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
-/obj/item/storage/box/matches,
-/turf/simulated/floor/wood{
-	icon_state = "wood-broken3"
-	},
-/area/vision_change_area/awaymission/evil_santa/hut_e)
 "Ni" = (
 /turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
 /area/vision_change_area/awaymission/evil_santa/mine)
@@ -4630,6 +4620,15 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/vision_change_area/awaymission/evil_santa/end/lounge)
+"No" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	desc = "For authorized personnel only. Looks locked and bolted.";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Lift door"
+	},
+/area/vision_change_area/awaymission/evil_santa/mine)
 "Nu" = (
 /obj/item/toy/xmas_cracker,
 /obj/machinery/conveyor{
@@ -5132,10 +5131,6 @@
 /obj/item/clothing/head/helmet/space/santahat,
 /turf/simulated/floor/wood,
 /area/vision_change_area/awaymission/evil_santa/end/exit)
-"Rv" = (
-/obj/structure/closet/crate/large,
-/turf/simulated/floor/wood/oak,
-/area/vision_change_area/awaymission/evil_santa/end/hall)
 "Rw" = (
 /obj/effect/decal/snow/clean/edge,
 /turf/simulated/floor/carpet/green,
@@ -5313,6 +5308,15 @@
 	},
 /turf/simulated/floor/wood/oak,
 /area/vision_change_area/awaymission/evil_santa/mine/labyrinth_r)
+"SZ" = (
+/turf/simulated/wall/indestructible{
+	color = "#91857C";
+	desc = "Looks locked and bolted.";
+	icon = 'icons/obj/doors/mineral_doors.dmi';
+	icon_state = "gingerbread";
+	name = "Security room"
+	},
+/area/vision_change_area/awaymission/evil_santa/end/hall)
 "Tb" = (
 /obj/effect/decal/cleanable/confetti,
 /turf/simulated/floor/wood/fancy,
@@ -6122,16 +6126,6 @@
 "ZR" = (
 /turf/simulated/wall/mineral/wood,
 /area/vision_change_area/awaymission/evil_santa/hut_w)
-"ZS" = (
-/turf/simulated/wall/indestructible{
-	color = "#91857C";
-	desc = "For authorized personnel only. Looks locked and bolted.";
-	description_info = null;
-	icon = 'icons/obj/doors/mineral_doors.dmi';
-	icon_state = "gingerbread";
-	name = "Lift door"
-	},
-/area/vision_change_area/awaymission/evil_santa/mine)
 "ZV" = (
 /obj/item/reagent_containers/food/snacks/gingercookie/tree,
 /turf/simulated/floor/wood/oak,
@@ -20124,7 +20118,7 @@ Pc
 Pc
 ch
 Qg
-gj
+LB
 Pc
 nX
 NN
@@ -24198,8 +24192,8 @@ mj
 mj
 mj
 mj
-Rv
-xK
+be
+ku
 xN
 Gn
 Gn
@@ -27540,7 +27534,7 @@ mj
 mj
 mj
 mj
-yp
+SZ
 mj
 Vt
 ds
@@ -29082,7 +29076,7 @@ mj
 mj
 mj
 mj
-yp
+SZ
 mj
 xJ
 Ew
@@ -30419,7 +30413,7 @@ Sp
 Sp
 TR
 rK
-eI
+gq
 wZ
 Lm
 MJ
@@ -30661,7 +30655,7 @@ zj
 zj
 zj
 Jj
-am
+nC
 zj
 nX
 NN
@@ -33485,7 +33479,7 @@ YU
 YU
 YU
 YU
-sw
+gO
 YU
 YU
 YU
@@ -41792,7 +41786,7 @@ Sp
 Sp
 EY
 kB
-Nh
+hJ
 ah
 od
 aJ
@@ -57997,7 +57991,7 @@ Zx
 vv
 vv
 Bv
-ZS
+No
 WT
 Zx
 Zx
@@ -58254,7 +58248,7 @@ Zx
 vv
 vv
 Bv
-ZS
+No
 WT
 dW
 Zx
@@ -64814,8 +64808,8 @@ ZB
 ZB
 jl
 jl
-of
-of
+ed
+ed
 jl
 jl
 ZB
