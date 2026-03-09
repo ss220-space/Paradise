@@ -183,7 +183,7 @@
 /obj/machinery/r_n_d/experimentor/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new (user, src, "Experimentator", "E.X.P.E.R.I-MENTOR")
+		ui = new(user, src, "Experimentator", "E.X.P.E.R.I-MENTOR")
 		ui.open()
 
 /obj/machinery/r_n_d/experimentor/ui_static_data(mob/user)
