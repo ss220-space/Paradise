@@ -148,7 +148,7 @@
 	handle_global_reactions(loaded_item)
 	update_appearance()
 	COOLDOWN_START(src, run_experiment, cooldown)
-	addtimer(CALLBACK(src, PROC_REF(update_icon), UPDATE_ICON_STATE), cooldown)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_ICON_STATE), cooldown)
 
 /obj/machinery/r_n_d/experimentor/proc/show_start_message(message, type)
 	switch(type)

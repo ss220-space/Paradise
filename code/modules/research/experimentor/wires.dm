@@ -1,6 +1,7 @@
 /datum/wires/experimentor
 	holder_type = /obj/machinery/r_n_d/experimentor
 	proper_name = "E.X.P.E.R.I-MENTOR"
+	randomize = TRUE
 
 /datum/wires/experimentor/New(atom/holder)
 	wires = list(
