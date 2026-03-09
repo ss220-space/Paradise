@@ -66,6 +66,15 @@
 	build_path = /obj/item/flash/synthetic
 	category = list(MECH_FAB_CATEGORY_CYBORG)
 
+/datum/design/aishell_module
+	id = "aishellmod"
+	build_type = MECHFAB
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 5, RESEARCH_TREE_PROGRAMMING = 6, RESEARCH_TREE_BLUESPACE = 6)
+	materials = list(MAT_METAL = 2000, MAT_GLASS = 1000, MAT_GOLD = 500, MAT_PLASMA = 1000, MAT_DIAMOND = 100, MAT_BLUESPACE = 100, )
+	construction_time = 5 SECONDS
+	build_path = /obj/item/borg/upgrade/ai
+	category = list(MECH_FAB_CATEGORY_CYBORG)
+
 //Robot repair
 /datum/design/borg_binary_communication
 	id = "borg_binary_communication"

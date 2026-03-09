@@ -237,18 +237,17 @@
 	if(!blood_volume)
 		return FALSE
 
-	. = TRUE
-
 	AdjustBlood(-amt)
-
-	if(!isturf(loc)) //Blood loss still happens in locker, floor stays clean
-		return .
+	//Blood loss still happens in locker, floor stays clean
+	if(!isturf(loc))
+		return TRUE
 
 	if(amt >= 10)
 		add_splatter_floor(loc)
-
 	else
 		add_splatter_floor(loc, small_drip = TRUE)
+
+	return TRUE
 
 /mob/living/carbon/human/bleed(amt)
 	if(HAS_TRAIT(src, TRAIT_NO_BLOOD))
@@ -463,8 +462,13 @@
 		if("O+")
 			return list("O-", "O+")
 
+/// Minimum amount of blood to create a drop
+#define BLOOD_AMOUNT_DRIP_THRESHOLD 2
+/// The amount of blood above which a large spot (blood) is created, not a splatter
+#define BLOOD_AMOUNT_SPLATTER_THRESHOLD 4
+
 //to add a splatter of blood or other mob liquid.
-/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/proc/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	var/static/list/acceptable_blood = list("blood", "cryoxadone", "slimejelly")
 	var/check_blood = get_blood_id()
 	if(!check_blood || !(check_blood in acceptable_blood))//is it blood or welding fuel?
@@ -491,7 +495,7 @@
 				temp_blood_DNA = list()
 				temp_blood_DNA |= drop.blood_DNA.Copy() //we transfer the dna from the drip to the splatter
 				qdel(drop)
-		else
+		else if(amt < BLOOD_AMOUNT_DRIP_THRESHOLD)
 			drop = new(T)
 			drop.transfer_mob_blood_dna(src)
 			drop.basecolor = b_data["blood_color"]
@@ -505,7 +509,10 @@
 		bloods = get_atoms_of_type(T, B, TRUE, shift_x, shift_y) //Get all the projectile-splattered blood at these pixels on this turf (pixel-shifted).
 		B = locate() in bloods
 	if(!B)
-		B = new(T)
+		if(amt > BLOOD_AMOUNT_SPLATTER_THRESHOLD)
+			B = new /obj/effect/decal/cleanable/blood(T)
+		else
+			B = new /obj/effect/decal/cleanable/blood/splatter(T)
 	if(B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
 		B.bloodiness += BLOOD_AMOUNT_PER_DECAL
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
@@ -518,7 +525,10 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER //So the blood lands ontop of things like posters, windows, etc.
 
-/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+#undef BLOOD_AMOUNT_DRIP_THRESHOLD
+#undef BLOOD_AMOUNT_SPLATTER_THRESHOLD
+
+/mob/living/carbon/alien/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -537,7 +547,7 @@
 		B.off_floor = TRUE
 		B.layer = BELOW_MOB_LAYER
 
-/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/silicon/robot/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -555,7 +565,7 @@
 		O.off_floor = TRUE
 		O.layer = BELOW_MOB_LAYER
 
-/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y)
+/mob/living/silicon/robot/cogscarab/add_splatter_floor(turf/T, small_drip, shift_x, shift_y, amt)
 	if(!T)
 		T = get_turf(src)
 
@@ -572,6 +582,25 @@
 	if(shift_x || shift_y)
 		oil.off_floor = TRUE
 		oil.layer = BELOW_MOB_LAYER
+
+/**
+ * This proc is a helper for spraying blood for things like slashing/piercing wounds and dismemberment.
+ *
+ * The strength of the splatter in the second argument determines how much it can dirty and how far it can go
+ *
+ * Arguments:
+ * * splatter_direction: Which direction the blood is flying
+ * * splatter_strength: How many tiles it can go, and how many items it can pass over and dirty
+ */
+/mob/living/carbon/proc/spray_blood(splatter_direction, splatter_strength = 3)
+	if(!isturf(loc))
+		return
+	var/obj/effect/decal/cleanable/blood/hitsplatter/our_splatter = new(loc, splatter_strength)
+
+	our_splatter.blood_dna_info = get_blood_dna_list()
+	our_splatter.transfer_mob_blood_dna(src)
+	var/turf/target_turf = get_ranged_target_turf(src, splatter_direction, splatter_strength)
+	our_splatter.fly_towards(target_turf, splatter_strength)
 
 #undef EXOTIC_BLEED_MULTIPLIER
 #undef BLOOD_REGENERATION

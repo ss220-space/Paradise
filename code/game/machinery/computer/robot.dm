@@ -45,8 +45,6 @@
 		return FALSE
 	if(iscogscarab(R))
 		return FALSE
-	if(iscogscarab(R))
-		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
 	if(!are_zs_connected(src, R))
@@ -162,6 +160,8 @@
 			synchronization = R.connected_ai,
 			is_hacked =  R.connected_ai && R.emagged,
 			hackable = can_hack(user, R),
+			is_shell = R.shell,
+			occupier = R.mainframe? R.mainframe.name : "None",
 		)
 		data["cyborgs"] += list(cyborg_data)
 	data["show_detonate_all"] = (data["auth"] && length(data["cyborgs"]) > 0 && ishuman(user))
