@@ -293,6 +293,9 @@
 		"cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
 		"oliveoil" = list("condi_oliveoil", "Olive Oil", "A delicious oil used in cooking. Made from olives"),
 		"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
+		"aspartame" = list("condi_aspartame", "Aspartame", "The sweetness of a thousand sugars but none of the calories."),
+		"cream" = list("condi_creamer", "Creamer", "Better not think about what they're making this from."),
+		"chocolate_sprinkle" = list("condi_chocolate", "Chocolate sprinkle", "The amount of sugar that's already there wasn't enough for you?"),
 	)
 
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -303,7 +306,7 @@
 		return
 
 	//You can tear the bag open above food to put the condiments on it, obviously.
-	if(istype(target, /obj/item/reagent_containers/food/snacks))
+	if(istype(target, /obj/item/reagent_containers/food))
 		if(!reagents.total_volume)
 			to_chat(user, span_warning("You tear open [src], but there's nothing in it."))
 			qdel(src)
@@ -344,18 +347,37 @@
 /obj/item/reagent_containers/food/condiment/pack/on_reagent_change()
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
-//Ketchup
 /obj/item/reagent_containers/food/condiment/pack/ketchup
 	name = "ketchup pack"
 	originalname = "ketchup"
 	list_reagents = list("ketchup" = 10)
 
-//Hot sauce
+/obj/item/reagent_containers/food/condiment/pack/ketchup/get_ru_names()
+	return list(
+		NOMINATIVE = "пакетик кетчупа",
+		GENITIVE = "пакетика кетчупа",
+		DATIVE = "пакетику кетчупа",
+		ACCUSATIVE = "пакетик кетчупа",
+		INSTRUMENTAL = "пакетиком кетчупа",
+		PREPOSITIONAL = "пакетике кетчупа"
+	)
+
 /obj/item/reagent_containers/food/condiment/pack/hotsauce
 	name = "hotsauce pack"
 	originalname = "hotsauce"
 	list_reagents = list("capsaicin" = 10)
 
+/obj/item/reagent_containers/food/condiment/pack/hotsauce/get_ru_names()
+	return list(
+		NOMINATIVE = "пакетик острого соуса",
+		GENITIVE = "пакетика острого соуса",
+		DATIVE = "пакетику острого соуса",
+		ACCUSATIVE = "пакетик острого соуса",
+		INSTRUMENTAL = "пакетиком острого соуса",
+		PREPOSITIONAL = "пакетике острого соуса"
+	)
+
+// Animal feed
 /obj/item/reagent_containers/food/condiment/animalfeed
 	name = "pet food package"
 	desc = "Корм для домашних животных. Вы же точно не хотите это пробовать?.."
@@ -366,3 +388,79 @@
 
 /obj/item/reagent_containers/food/condiment/animalfeed/on_reagent_change()
 	return
+
+// MARK: Creamer pack
+/obj/item/reagent_containers/food/condiment/pack/creamer
+	name = "creamer pack"
+	originalname = "creamer"
+	list_reagents = list("cream" = 10)
+
+/obj/item/reagent_containers/food/condiment/pack/creamer/get_ru_names()
+	return list(
+		NOMINATIVE = "пакетик сливок",
+		GENITIVE = "пакетика сливок",
+		DATIVE = "пакетику сливок",
+		ACCUSATIVE = "пакетик сливок",
+		INSTRUMENTAL = "пакетиком сливок",
+		PREPOSITIONAL = "пакетике сливок"
+	)
+
+/obj/item/reagent_containers/food/condiment/pack/creamer/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "creamer")
+
+// MARK: Sugar pack
+/obj/item/reagent_containers/food/condiment/pack/sugar
+	name = "sugar pack"
+	originalname = "sugar"
+	list_reagents = list("sugar" = 10)
+
+/obj/item/reagent_containers/food/condiment/pack/sugar/get_ru_names()
+	return list(
+		NOMINATIVE = "пакетик сахара",
+		GENITIVE = "пакетика сахара",
+		DATIVE = "пакетику сахара",
+		ACCUSATIVE = "пакетик сахара",
+		INSTRUMENTAL = "пакетиком сахара",
+		PREPOSITIONAL = "пакетике сахара"
+	)
+
+/obj/item/reagent_containers/food/condiment/pack/sugar/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "sugar")
+
+// MARK: Aspartame pack
+/obj/item/reagent_containers/food/condiment/pack/aspartame
+	name = "aspartame pack"
+	originalname = "aspartame"
+	list_reagents = list("aspartame" = 10)
+
+/obj/item/reagent_containers/food/condiment/pack/aspartame/get_ru_names()
+	return list(
+		NOMINATIVE = "пакетик аспартама",
+		GENITIVE = "пакетика аспартама",
+		DATIVE = "пакетику аспартама",
+		ACCUSATIVE = "пакетик аспартама",
+		INSTRUMENTAL = "пакетиком аспартама",
+		PREPOSITIONAL = "пакетике аспартама"
+	)
+
+/obj/item/reagent_containers/food/condiment/pack/aspartame/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/coffeemaker_item_loader, "aspartame")
+
+// MARK: Chocolate sprinkle
+/obj/item/reagent_containers/food/condiment/pack/chocolate
+	name = "chocolate sprinkle pack"
+	originalname = "chocolate sprikle"
+	list_reagents = list("chocolate_sprinkle" = 10)
+
+/obj/item/reagent_containers/food/condiment/pack/chocolate/get_ru_names()
+	return list(
+		NOMINATIVE = "пакетик шоколадной посыпки",
+		GENITIVE = "пакетика шоколадной посыпки",
+		DATIVE = "пакетику шоколадной посыпки",
+		ACCUSATIVE = "пакетик шоколадной посыпки",
+		INSTRUMENTAL = "пакетиком шоколадной посыпки",
+		PREPOSITIONAL = "пакетике шоколадной посыпки"
+	)
