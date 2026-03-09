@@ -906,7 +906,7 @@
 	robot.undeploy()
 	robot.revert_shell()
 	return TRUE
->>>>>>> master220
+
 /obj/item/borg/upgrade/borg_mining_sat_upgr
 	name = "mining cyborg satchel upgrade"
 	desc = "Магнитное улучшение сумки для руды, позволяющее собирать руду в области 3 на 3."
