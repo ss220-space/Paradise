@@ -331,7 +331,7 @@ ADMIN_VERB(dispatch_ert, R_EVENT, "Dispatch CentComm Response Team", "Send an Ce
 	/// Unstrict job name. Used just for display purposes, not the logic, so it can be anything.
 	var/ert_assignment = JOB_TITLE_RU_ERT_MEMBER
 	/// The level of ERT. Used for the assignment on ID-card.
-	/// Should be "ЭМБЕР", "РЕД" or "ГАММА", in Russian.
+	/// Should be "Эмбер", "Ред" or "Гамма", in Russian.
 	var/division
 	var/special_message = "Вы подчиняетесь непосредственно <span class='red'>вашему Командиру</span>. \n Исключения составляют случаи, когда ваш командир открыто действует против интересов НТ, или случаев, когда это требуется согласно приказаниям члена Защиты Активов более высокого звания, чем у вашего командира — в том числе переданного через Офицера Специальных Операций. \n В случае отсутствия командира или на время его недееспособности, командование отрядом за обычных условий переходит к старшему по званию среди вашего отряда."
 	/// Subtracted from the total number of hours. Needs to be done that Gamma ERT/individual roles will require more hours
