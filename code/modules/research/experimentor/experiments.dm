@@ -60,7 +60,6 @@
 	scantype = SCANTYPE_POKE
 	start_message_template = "prods at %ITEM% with mechanical arms."
 	critical_prob = EFFECT_PROB_LOW
-	relic_prob = EFFECT_PROB_VERYLOW
 	critical_message_template = "%ITEM% is gripped in just the right way, enhancing its focus."
 
 /datum/experimentor_result_handler/scan/poke/handle_critical(obj/machinery/r_n_d/experimentor/machine, obj/item/exp_on)
@@ -119,7 +118,6 @@
 	start_message_template = "reflects radioactive rays at %ITEM%!"
 	start_message_type = MSG_TYPE_DANGER
 	critical_prob = EFFECT_PROB_LOW
-	relic_prob = EFFECT_PROB_VERYLOW
 	critical_message_template = "%ITEM% has activated an unknown subroutine!"
 
 /datum/experimentor_result_handler/scan/irradiate/handle_critical(obj/machinery/r_n_d/experimentor/machine, obj/item/exp_on)
@@ -265,7 +263,6 @@
 	fa_icon = "fire"
 	scantype = SCANTYPE_HEAT
 	start_message_template = "raises %ITEM%'s temperature."
-	start_message_type = MSG_TYPE_NOTICE
 	critical_prob = EFFECT_PROB_LOW
 	relic_prob = EFFECT_PROB_LOW
 	critical_message_template = "%ITEM%'s emergency coolant system gives off a small ding!"
@@ -340,7 +337,6 @@
 	fa_icon = "snowflake"
 	scantype = SCANTYPE_COLD
 	start_message_template = "lowers %ITEM%'s temperature."
-	start_message_type = MSG_TYPE_NOTICE
 	critical_prob = EFFECT_PROB_LOW
 	relic_prob = EFFECT_PROB_LOW
 	critical_message_template = "%ITEM%'s emergency coolant system gives off a small ding!"

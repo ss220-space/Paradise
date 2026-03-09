@@ -4,7 +4,6 @@
 	icon = 'icons/obj/machines/heavy_lathe.dmi'
 	icon_state = "h_lathe"
 	base_icon_state = "h_lathe"
-	density = TRUE
 
 	/// Weakref to the station Ian the corgi (or whichever we can find)
 	var/datum/weakref/tracked_ian_ref
@@ -184,7 +183,7 @@
 /obj/machinery/r_n_d/experimentor/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new (user, src, "Experimentator")
+		ui = new (user, src, "Experimentator", "E.X.P.E.R.I-MENTOR")
 		ui.open()
 
 /obj/machinery/r_n_d/experimentor/ui_static_data(mob/user)
