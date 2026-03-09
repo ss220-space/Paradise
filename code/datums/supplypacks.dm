@@ -3885,6 +3885,108 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	)
 	announce_beacons = list("Bar" = list("Bar"))
 
+/datum/supply_packs/organic/coffee_syrups
+	name = "Ящик кофейных сиропов"
+	contains = list(
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
+		/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur,
+	)
+	cost = 20
+	containername = "ящик кофейных сиропов"
+	container_ru_names = list(
+		NOMINATIVE = "ящик кофейных сиропов",
+		GENITIVE = "ящика кофейных сиропов",
+		DATIVE = "ящику кофейных сиропов",
+		ACCUSATIVE = "ящик кофейных сиропов",
+		INSTRUMENTAL = "ящиком кофейных сиропов",
+		PREPOSITIONAL = "ящике кофейных сиропов",
+	)
+
+/datum/supply_packs/organic/standard_coffeemachine
+	name = "Плата кофемашины \"Моделло 3\""
+	contains = list(/obj/item/circuitboard/coffeemaker/standard)
+	cost = 35
+	containername = "ящик с кофемашиной \"Моделло 3\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кофемашиной \"Моделло 3\"",
+		GENITIVE = "ящика с кофемашиной \"Моделло 3\"",
+		DATIVE = "ящику с кофемашиной \"Моделло 3\"",
+		ACCUSATIVE = "ящик с кофемашиной \"Моделло 3\"",
+		INSTRUMENTAL = "ящиком с кофемашиной \"Моделло 3\"",
+		PREPOSITIONAL = "ящике с кофемашиной \"Моделло 3\"",
+	)
+
+/datum/supply_packs/organic/impressa_coffeemachine
+	name = "Плата кофемашины \"Импресса Моделло 5\""
+	contains = list(/obj/item/circuitboard/coffeemaker/impressa)
+	cost = 60
+	containername = "ящик с кофемашиной \"Импресса Моделло 5\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с кофемашиной \"Импресса Моделло 5\"",
+		GENITIVE = "ящика с кофемашиной \"Импресса Моделло 5\"",
+		DATIVE = "ящику с кофемашиной \"Импресса Моделло 5\"",
+		ACCUSATIVE = "ящик с кофемашиной \"Импресса Моделло 5\"",
+		INSTRUMENTAL = "ящиком с кофемашиной \"Импресса Моделло 5\"",
+		PREPOSITIONAL = "ящике с кофемашиной \"Импресса Моделло 5\"",
+	)
+
+/datum/supply_packs/organic/coffee_cartridges
+	name = "Набор кофейных картриджей"
+	contains = list(
+		/obj/item/coffee_cartridge,
+		/obj/item/coffee_cartridge,
+		/obj/item/coffee_cartridge,
+	)
+	cost = 25
+	containername = "ящик кофейных картриджей"
+	container_ru_names = list(
+		NOMINATIVE = "ящик кофейных картриджей",
+		GENITIVE = "ящика кофейных картриджей",
+		DATIVE = "ящику кофейных картриджей",
+		ACCUSATIVE = "ящик кофейных картриджей",
+		INSTRUMENTAL = "ящиком кофейных картриджей",
+		PREPOSITIONAL = "ящике кофейных картриджей",
+	)
+
+/datum/supply_packs/organic/coffee_cartridges_premium
+	name = "Набор премиальных кофейных картриджей"
+	contains = list(
+		/obj/item/coffee_cartridge/fancy,
+		/obj/item/coffee_cartridge/fancy,
+		/obj/item/coffee_cartridge/fancy,
+	)
+	cost = 35
+	containername = "ящик премиальных кофейных картриджей"
+	container_ru_names = list(
+		NOMINATIVE = "ящик премиальных кофейных картриджей",
+		GENITIVE = "ящика премиальных кофейных картриджей",
+		DATIVE = "ящику премиальных кофейных картриджей",
+		ACCUSATIVE = "ящик премиальных кофейных картриджей",
+		INSTRUMENTAL = "ящиком премиальных кофейных картриджей",
+		PREPOSITIONAL = "ящике премиальных кофейных картриджей",
+	)
+
+/datum/supply_packs/organic/coffee_packs
+	name = "Набор пакетов кофе"
+	contains = list(
+		/obj/item/storage/box/coffeepack,
+		/obj/item/storage/box/coffeepack,
+		/obj/item/storage/box/coffeepack/robusta,
+		/obj/item/storage/box/coffeepack/robusta,
+	)
+	cost = 30
+	containername = "ящик пакетов кофе"
+	container_ru_names = list(
+		NOMINATIVE = "ящик пакетов кофе",
+		GENITIVE = "ящика пакетов кофе",
+		DATIVE = "ящику пакетов кофе",
+		ACCUSATIVE = "ящик пакетов кофе",
+		INSTRUMENTAL = "ящиком пакетов кофе",
+		PREPOSITIONAL = "ящике пакетов кофе",
+	)
+
 //////// livestock
 /datum/supply_packs/organic/cow
 	name = "Корова"

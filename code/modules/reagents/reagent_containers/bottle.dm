@@ -8,6 +8,7 @@
 	item_state = "bottle"
 	possible_transfer_amounts = list(5,10,15,30)
 	volume = 30
+	materials = list(MAT_GLASS = 1000)
 	custom_price = PAYCHECK_MIN * 0.6
 
 /obj/item/reagent_containers/glass/bottle/get_ru_names()
@@ -1326,4 +1327,132 @@
 		ACCUSATIVE = "бутылку (Обезьяний язык)",
 		INSTRUMENTAL = "бутылкой (Обезьяний язык)",
 		PREPOSITIONAL = "бутылке (Обезьяний язык)",
+	)
+
+/*
+ *	Syrup bottles, basically a unspillable cup that transfers reagents upon clicking on it with a cup
+ */
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle
+	name = "syrup bottle"
+	desc = "Стеклянная бутылка для сиропа, предназначенного для добавления в кофе. Оснащена удобным дозатором."
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "syrup"
+	base_icon_state = "syrup"
+	possible_transfer_amounts = list(5, 10)
+	volume = 50
+	amount_per_transfer_from_this = 5
+	container_type = NONE
+	var/cap_on = TRUE
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/get_ru_names()
+	return list(
+		NOMINATIVE = "бутылка для сиропа",
+		GENITIVE = "бутылки для сиропа",
+		DATIVE = "бутылке для сиропа",
+		ACCUSATIVE = "бутылку для сиропа",
+		INSTRUMENTAL = "бутылкой для сиропа",
+		PREPOSITIONAL = "бутылке для сиропа"
+	)
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/update_overlays()
+	. = ..()
+	underlays.Cut()
+	if(!reagents.total_volume)
+		return
+
+	var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[base_icon_state]20")
+	var/percent = round((reagents.total_volume / volume) * 100)
+	switch(percent)
+		if(0 to 20)
+			filling.icon_state = "[base_icon_state]20"
+		if(20 to 40)
+			filling.icon_state = "[base_icon_state]40"
+		if(40 to 60)
+			filling.icon_state = "[base_icon_state]60"
+		if(60 to 80)
+			filling.icon_state = "[base_icon_state]80"
+		if(80 to INFINITY)
+			filling.icon_state = "[base_icon_state]100"
+
+	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	. += filling
+
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/examine(mob/user)
+	. = ..()
+	. += span_notice("Используйте контейнер на [declent_ru(PREPOSITIONAL)], чтобы переместить в него содержимое бутылки.")
+	return
+
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/attack_self(mob/user)
+	cap_on = !cap_on
+	if(cap_on)
+		icon_state = "syrup"
+		container_type &= ~OPENCONTAINER
+		user.balloon_alert(user, "крышка-дозатор надета")
+	else
+		icon_state = "syrup_open"
+		container_type |= OPENCONTAINER
+		user.balloon_alert(user, "крышка-дозатор снята")
+	update_icon()
+
+//when you attack the syrup bottle with a container it refills it
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, params)
+
+	if(is_open_container())
+		return ..()
+
+	if(!check_allowed_items(attacking_item, target_self = TRUE))
+		return ATTACK_CHAIN_PROCEED
+
+	if(attacking_item.is_refillable())
+		if(!reagents.total_volume)
+			user.balloon_alert(user, "пусто!")
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+
+		if(attacking_item.reagents.holder_full())
+			user.balloon_alert(user, "контейнер полон!")
+			return ATTACK_CHAIN_PROCEED_SUCCESS
+		var/transfer_amount = reagents.trans_to(attacking_item, amount_per_transfer_from_this)
+		balloon_alert(user, "перемещено [transfer_amount] единиц[declension_ru(transfer_amount, "а", "ы", "")] вещества")
+		flick("syrup_anim", src)
+
+	attacking_item.update_icon()
+	update_icon()
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+
+//types of syrups
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel
+	name = "bottle of caramel syrup"
+	desc = "Стеклянная бутылка для сиропа, предназначенного для добавления в кофе. Оснащена удобным дозатором. \
+			Содержит карамелизированный сахар, также известный как карамель. Очень липкий."
+	list_reagents = list("caramel" = 50)
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/caramel/get_ru_names()
+	return list(
+		NOMINATIVE = "бутылка для сиропа (Карамель)",
+		GENITIVE = "бутылки для сиропа (Карамель)",
+		DATIVE = "бутылке для сиропа (Карамель)",
+		ACCUSATIVE = "бутылку для сиропа (Карамель)",
+		INSTRUMENTAL = "бутылкой для сиропа (Карамель)",
+		PREPOSITIONAL = "бутылке для сиропа (Карамель)"
+	)
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur
+	name = "bottle of coffee liqueur syrup"
+	desc = "Стеклянная бутылка для сиропа, предназначенного для добавления в кофе. Оснащена удобным дозатором. \
+			Содержит мексиканский ликёр \"Калуа\". В производстве с 1936 года!"
+	list_reagents = list("kahlua" = 50)
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/liqueur/get_ru_names()
+	return list(
+		NOMINATIVE = "бутылка для сиропа (Калуа)",
+		GENITIVE = "бутылки для сиропа (Калуа)",
+		DATIVE = "бутылке для сиропа (Калуа)",
+		ACCUSATIVE = "бутылку для сиропа (Калуа)",
+		INSTRUMENTAL = "бутылкой для сиропа (Калуа)",
+		PREPOSITIONAL = "бутылке для сиропа (Калуа)"
 	)

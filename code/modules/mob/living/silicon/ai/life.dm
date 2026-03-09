@@ -28,6 +28,8 @@
 
 	if(aiRestorePowerRoutine)
 		adjustOxyLoss(1)
+		if(deployed_shell)
+			disconnect_shell()
 	else
 		adjustOxyLoss(-1)
 
