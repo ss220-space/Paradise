@@ -134,7 +134,7 @@
 
 //////////////////// SECURITY ///////////////////
 /datum/outfit/job/centcom/response_team/security
-	name = "Оперативник ОБР"
+	name = "Штурмовик ОБР"
 	ert_job = JOB_TITLE_ERT_OFFICER
 	uniform = /obj/item/clothing/under/rank/security/sensor
 	back = /obj/item/storage/backpack/ert/security
@@ -144,7 +144,7 @@
 	exp_type = EXP_TYPE_SECURITY
 
 /datum/outfit/job/centcom/response_team/security/amber
-	name = "Оперативник ОБР \"Эмбер\""
+	name = "Штурмовик ОБР \"Эмбер\""
 	division = "Эмбер"
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat/swat
@@ -161,7 +161,7 @@
 	)
 
 /datum/outfit/job/centcom/response_team/security/red
-	name = "Оперативник ОБР \"Ред\""
+	name = "Штурмовик ОБР \"Ред\""
 	division = "Ред"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots
@@ -194,7 +194,7 @@
 	)
 
 /datum/outfit/job/centcom/response_team/security/gamma
-	name = "Оперативник ОБР \"Гамма\""
+	name = "Штурмовик ОБР \"Гамма\""
 	division = "Гамма"
 	toggle_helmet = TRUE
 	shoes = /obj/item/clothing/shoes/magboots/advance
