@@ -1,0 +1,2 @@
+/obj/item/reagent_containers/food/drinks/coffee : /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee : /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
