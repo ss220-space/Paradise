@@ -21,22 +21,25 @@
 	. = ..()
 	RegisterSignal(loc, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 
-/obj/structure/tripwire_bridge/proc/on_entered(datum/source, atom/movable/AM)
+/obj/structure/tripwire_bridge/proc/on_entered(datum/source, atom/movable/movable_atom)
 	SIGNAL_HANDLER
 
-	if(!master_base || !master_base.is_active || !isliving(AM))
+	if(!master_base || QDELETED(master_base))
+		qdel(src)
 		return
 
-	var/mob/living/entered_living = AM
-
-	if(entered_living.incorporeal_move || (entered_living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+	if(!master_base.is_active || !isliving(movable_atom))
 		return
 
-	if(entered_living.m_intent == MOVE_INTENT_WALK || (entered_living.pulledby && entered_living.pulledby.m_intent == MOVE_INTENT_WALK))
+	var/mob/living/living = movable_atom
+	if(living.incorporeal_move || (living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	if(living.m_intent == MOVE_INTENT_WALK || (living.pulledby && living.pulledby.m_intent == MOVE_INTENT_WALK))
 		return
 
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-	master_base.trigger_tripwire(entered_living)
+	master_base.trigger_tripwire(living)
 
 /obj/structure/tripwire_bridge/wirecutter_act(mob/living/user, obj/item/I)
 	if(!master_base || !master_base.is_active || QDELETED(master_base))
@@ -57,6 +60,10 @@
 
 /obj/structure/tripwire_bridge/Destroy()
 	UnregisterSignal(loc, COMSIG_ATOM_ENTERED)
+
+	if(master_base && master_base.is_active && !master_base.breaking)
+		master_base.break_wire()
+
 	master_base = null
 	return ..()
 
@@ -70,10 +77,12 @@
 	var/obj/item/attached_item = null
 	var/is_active = FALSE
 	var/anchored_to_wall = FALSE
-	var/list/wire_segments = list()
+	var/list/wire_segments
 	var/wall_dir = 0
-	var/creator_key = null
 	var/breaking = FALSE
+
+	var/creator_key = null
+	var/payload_deployer_key = null
 
 /obj/item/tripwire/get_ru_names()
 	return list(
@@ -89,9 +98,21 @@
 	if(is_active)
 		break_wire()
 
-	if(attached_item)
-		qdel(attached_item)
-		attached_item = null
+	if(linked_to && !QDELETED(linked_to))
+		var/obj/item/tripwire/other = linked_to
+		other.linked_to = null
+		other.is_active = FALSE
+
+		if(LAZYLEN(other.wire_segments))
+			for(var/obj/structure/tripwire_bridge/S in other.wire_segments)
+				qdel(S)
+
+			LAZYCLEARLIST(other.wire_segments)
+
+		other.update_appearance()
+
+	linked_to = null
+	attached_item = null
 
 	return ..()
 
@@ -102,7 +123,7 @@
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, TRUE)
 	flick("[flasher.icon_state]_flash", flasher)
 	set_light(2, 1, COLOR_WHITE)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light_on), FALSE), 2 SECONDS)
 
 	for(var/mob/living/living in viewers(3, get_turf(src)))
 		if(living.flash_eyes(affect_silicon = TRUE))
@@ -175,7 +196,7 @@
 		if(setup_wire(I, user))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/flash) || istype(I, /obj/item/assembly))
+	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/flash) || istype(I, /obj/item/assembly) || istype(I, /obj/item/reagent_containers/food/drinks/drinkingglass) || istype(I, /obj/item/camera))
 		if(install_payload(I, user))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
@@ -191,6 +212,7 @@
 
 	attached_item = installing_item
 	to_chat(user, span_notice("Вы закрепили [installing_item.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
+	payload_deployer_key = user.ckey
 	update_appearance()
 
 /obj/item/tripwire/proc/setup_wire(obj/item/stack/cable_coil/cable, mob/user)
@@ -248,11 +270,14 @@
 		return
 
 	to_chat(user, span_notice("Вы начинаете протягивать кабель к [target_base.declent_ru(DATIVE)]..."))
+	var/initial_target_loc = target_base.loc
 
 	if(!cable.use_tool(src, user, 3 SECONDS, volume = 50))
 		return
 
-	if(src.z != target_base.z || is_active || target_base.is_active || QDELETED(cable) || cable.amount < needed_cable)
+	var/new_target_loc = target_base.loc
+
+	if(QDELETED(target_base) || initial_target_loc != new_target_loc || src.z != target_base.z || is_active || target_base.is_active || QDELETED(cable) || cable.amount < needed_cable)
 		return
 
 	if(connect_to(target_base, cable))
@@ -357,26 +382,20 @@
 
 	playsound(src, 'sound/effects/stamp2.ogg', 40, TRUE)
 
-/obj/item/tripwire/proc/create_bridge(turf/T, wire_color, obj/item/tripwire/target_base, dir_to_set)
-	var/obj/structure/tripwire_bridge/bridge = new(T)
+/obj/item/tripwire/proc/create_bridge(turf/tripwire_turf, wire_color, obj/item/tripwire/target_base, dir_to_set)
+	var/obj/structure/tripwire_bridge/bridge = new(tripwire_turf)
 	bridge.color = wire_color
 	bridge.master_base = src
 	bridge.setDir(dir_to_set)
 
-	if(!wire_segments)
-		wire_segments = list()
-	wire_segments += bridge
-
-	if(!target_base.wire_segments)
-		target_base.wire_segments = list()
-
-	target_base.wire_segments += bridge
+	LAZYADD(wire_segments, bridge)
+	LAZYADD(target_base.wire_segments, bridge)
 
 /obj/item/tripwire/proc/trigger_tripwire(mob/user)
 	if(!is_active || QDELETED(src))
 		return
 
-	var/turf/T = get_turf(src)
+	var/turf/trigger_turf = get_turf(src)
 	var/obj/item/payload = attached_item
 	var/obj/item/tripwire/owner = src
 
@@ -384,10 +403,12 @@
 		payload = linked_to.attached_item
 		owner = linked_to
 
-	var/payload_name = payload ? payload.name : "empty tripwire"
-	investigate_log("[key_name(user)] задел растяжку ([payload_name]) на [ADMIN_COORDJMP(T)]. Создатель: [creator_key || "неизвестен"].", INVESTIGATE_BOMB)
 
 	if(payload)
+
+		var/payload_info = "[payload.name] ([payload.type])"
+		investigate_log("[key_name(user)] armed tripwire with [payload_info] at [ADMIN_COORDJMP(trigger_turf)]. Tripwire creator: [creator_key || "unknown"], payload deployer: [payload_deployer_key || "unknown"]", INVESTIGATE_BOMB)
+
 		if(istype(payload, /obj/item/grenade))
 			var/obj/item/grenade/grenade = payload
 			owner.attached_item = null
@@ -403,6 +424,42 @@
 		else if(istype(payload, /obj/item/assembly))
 			var/obj/item/assembly/attached_assembly = payload
 			attached_assembly.activate()
+
+		else if(istype(payload, /obj/item/reagent_containers/food/drinks/drinkingglass))
+			var/obj/item/reagent_containers/food/drinks/drinkingglass/drink_glass = payload
+			var/turf/payload_turf = get_turf(owner)
+
+			if(drink_glass.reagents && drink_glass.reagents.total_volume)
+				drink_glass.reagents.reaction(payload_turf, REAGENT_TOUCH)
+
+				for(var/mob/living/living in payload_turf)
+					drink_glass.reagents.reaction(living, REAGENT_TOUCH)
+
+				drink_glass.reagents.clear_reagents()
+
+			playsound(payload_turf, 'sound/effects/glass_step.ogg', 60, TRUE)
+			new /obj/item/shard(payload_turf)
+			owner.attached_item = null
+			qdel(drink_glass)
+
+		else if(istype(payload, /obj/item/camera))
+			var/obj/item/camera/camera = payload
+			if(!camera.on || !camera.pictures_left)
+				return
+
+			var/turf/camera_turf = get_turf(owner)
+			camera.captureimage(camera_turf, owner)
+			playsound(camera_turf, pick('sound/items/polaroid1.ogg', 'sound/items/polaroid2.ogg'), 75, TRUE, -3)
+
+			if(camera.flashing_lights)
+				camera_turf.set_light(3, 2, LIGHT_COLOR_TUNGSTEN)
+				addtimer(CALLBACK(camera_turf, TYPE_PROC_REF(/atom, set_light), 0), 2 SECONDS)
+
+			camera.pictures_left--
+			camera.on = FALSE
+			camera.update_icon()
+
+			addtimer(CALLBACK(camera, TYPE_PROC_REF(/obj/item/camera, delayed_turn_on)), 6.4 SECONDS)
 
 	owner.update_appearance()
 	break_wire()
@@ -421,15 +478,26 @@
 			if(!QDELETED(segment))
 				qdel(segment)
 
-	if(QDELETED(linked_to) || !linked_to)
-		return
-
 	var/obj/item/tripwire/other = linked_to
 	linked_to = null
-	other.break_wire()
+
+	if(other && !QDELETED(other))
+		other.break_wire()
 
 	update_appearance()
 	breaking = FALSE
+
+/obj/item/tripwire/proc/get_linked_base()
+	if(!linked_to)
+		return null
+
+	if(QDELETED(linked_to))
+		linked_to = null
+		is_active = FALSE
+		update_appearance()
+		return null
+
+	return linked_to
 
 /obj/item/tripwire/update_overlays()
 	. = ..()
