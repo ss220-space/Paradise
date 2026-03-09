@@ -86,7 +86,7 @@
 /// Get examine string for this resource
 /datum/coffeemaker_resource/proc/get_examine_string()
 	if(current_amount >= 1)
-		return span_notice("Отсек для [section_name] содержит <b>[current_amount]</b> предметов.")
+		return span_notice("Отсек для [section_name] содержит <b>[current_amount]</b> предмет[DECL_CREDIT(current_amount)].")
 	else
 		return span_notice("Отсек для [section_name] <b>пуст</b>.")
 

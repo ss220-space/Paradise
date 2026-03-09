@@ -369,6 +369,9 @@
 
 	// Initialize resources
 	resources[RESOURCE_ID_CUPS] = new /datum/coffeemaker_resource/cups/normal()
+	resources[RESOURCE_ID_SUGAR] = new /datum/coffeemaker_resource/sugar()
+	resources[RESOURCE_ID_ASPARTAME] = new /datum/coffeemaker_resource/aspartame()
+	resources[RESOURCE_ID_CREAMER] = new /datum/coffeemaker_resource/creamer()
 
 	if(mapload)
 		coffeepot = new /obj/item/reagent_containers/glass/coffeepot(src)
