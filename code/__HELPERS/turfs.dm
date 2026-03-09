@@ -228,7 +228,7 @@
 	else if(direction & WEST) //if you have both EAST and WEST in the provided direction, then you're gonna have issues
 		x = max(1, x - range)
 
-	return locate(x,y,target_atom.z)
+	return locate(x, y, target_atom.z)
 
 /// Returns the turf located at the map edge in the specified direction relative to target_atom used for mass driver
 /proc/get_edge_target_turf(atom/target_atom, direction)

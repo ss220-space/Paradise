@@ -21,11 +21,11 @@
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
 	suit = /obj/item/clothing/suit/storage/labcoat/cmo
 	shoes = /obj/item/clothing/shoes/color/brown
+	belt = /obj/item/storage/belt/medical/filled
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
 	l_pocket = /obj/item/lighter/zippo/cmo
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
 		/obj/item/melee/baton/telescopic = 1,
@@ -60,14 +60,13 @@
 /datum/outfit/job/doctor
 	name = JOB_TITLE_DOCTOR
 	jobtype = /datum/job/medical/doctor
-
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/color/white
+	belt = /obj/item/storage/belt/medical/filled
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/medical
 
 	backpack = /obj/item/storage/backpack/medic
@@ -294,10 +293,10 @@
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	head = /obj/item/clothing/head/soft/paramedic
+	belt = /obj/item/storage/belt/medical/filled/paramed
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
-	l_hand = /obj/item/storage/firstaid/paramed
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(
