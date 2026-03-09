@@ -273,7 +273,7 @@
 /datum/experimentor_result_handler/scan/heat/handle_critical(obj/machinery/r_n_d/experimentor/machine, obj/item/exp_on)
 	..()
 	playsound(machine, 'sound/machines/ding.ogg', 50, TRUE)
-	var/obj/item/reagent_containers/food/drinks/coffee/experimentor/heat/cup = new (get_turf(pick(oview(1, machine))))
+	var/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/heat/cup = new (get_turf(pick(oview(1, machine))))
 	machine.investigate_log("Experimentor has made a cup of [cup.selected_reagent] coffee.", INVESTIGATE_EXPERIMENTOR)
 
 /datum/experimentor_result_handler/scan/heat/handle_malfunctions(obj/machinery/r_n_d/experimentor/machine, obj/item/exp_on)
@@ -348,8 +348,7 @@
 /datum/experimentor_result_handler/scan/cold/handle_critical(obj/machinery/r_n_d/experimentor/machine, obj/item/exp_on)
 	..()
 	playsound(machine, 'sound/machines/ding.ogg', 50, TRUE)
-
-	var/obj/item/reagent_containers/food/drinks/coffee/experimentor/cold/cup = new (get_turf(pick(oview(1, machine))))
+	var/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/cold/cup = new (get_turf(pick(oview(1, machine))))
 	machine.investigate_log("Experimentor has made a cup of [cup.selected_reagent] coffee.", INVESTIGATE_EXPERIMENTOR)
 
 /datum/experimentor_result_handler/scan/cold/handle_malfunctions(obj/machinery/r_n_d/experimentor/machine, obj/item/exp_on)
