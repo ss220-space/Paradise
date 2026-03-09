@@ -1,13 +1,11 @@
 /obj/structure/tripwire_bridge
 	name = "tripwire"
 	desc = "Тонкий провод. Похоже, он соединен с чем-то опасным."
-	icon = 'icons/obj/assemblies/new_assemblies.dmi'
+	icon = 'icons/obj/tripwire.dmi'
 	icon_state = "tripwire_wire"
 	anchored = TRUE
-	density = FALSE
 	layer = LOW_OBJ_LAYER
-	mouse_opacity = MOUSE_OPACITY_ICON
-	var/obj/item/assembly/tripwire/master_base = null
+	var/obj/item/tripwire/master_base = null
 
 /obj/structure/tripwire_bridge/get_ru_names()
 	return list(
@@ -16,12 +14,12 @@
 		DATIVE = "проводу растяжки",
 		ACCUSATIVE = "провод растяжки",
 		INSTRUMENTAL = "проводом растяжки",
-		PREPOSITIONAL = "провде растяжки",
+		PREPOSITIONAL = "проводе растяжки",
 	)
 
 /obj/structure/tripwire_bridge/Initialize(mapload)
 	. = ..()
-	RegisterSignal(loc, COMSIG_ATOM_ENTERED, .proc/on_entered)
+	RegisterSignal(loc, COMSIG_ATOM_ENTERED, PROC_REF(on_entered))
 
 /obj/structure/tripwire_bridge/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
@@ -49,37 +47,35 @@
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return
 
-	if(!master_base || !master_base.is_active)
+	if(QDELETED(src) || !master_base || !master_base.is_active)
 		return
 
 	to_chat(user, span_notice("Вы успешно перерезали провод растяжки."))
+
 	master_base.break_wire()
+	return TRUE
 
 /obj/structure/tripwire_bridge/Destroy()
 	UnregisterSignal(loc, COMSIG_ATOM_ENTERED)
-	if(!master_base)
-		return ..()
-
-	var/obj/item/assembly/tripwire/M = master_base
 	master_base = null
-	M.break_wire()
 	return ..()
 
 // Base of tripwire
-/obj/item/assembly/tripwire
+/obj/item/tripwire
 	name = "tripwire base"
 	desc = "Металлическое основание для растяжки. Закрепите на стене, добавьте детонатор и протяните кабель."
-	icon = 'icons/obj/assemblies/new_assemblies.dmi'
+	icon = 'icons/obj/tripwire.dmi'
 	icon_state = "tripwire_base"
-	var/obj/item/assembly/tripwire/linked_to = null
+	var/obj/item/tripwire/linked_to = null
 	var/obj/item/attached_item = null
 	var/is_active = FALSE
 	var/anchored_to_wall = FALSE
 	var/list/wire_segments = list()
 	var/wall_dir = 0
 	var/creator_key = null
+	var/breaking = FALSE
 
-/obj/item/assembly/tripwire/get_ru_names()
+/obj/item/tripwire/get_ru_names()
 	return list(
 		NOMINATIVE = "растяжка",
 		GENITIVE = "растяжки",
@@ -89,7 +85,7 @@
 		PREPOSITIONAL = "растяжке",
 	)
 
-/obj/item/assembly/tripwire/Destroy()
+/obj/item/tripwire/Destroy()
 	if(is_active)
 		break_wire()
 
@@ -99,7 +95,7 @@
 
 	return ..()
 
-/obj/item/assembly/tripwire/proc/trigger_flash(mob/user, obj/item/flash/flasher)
+/obj/item/tripwire/proc/trigger_flash(mob/user, obj/item/flash/flasher)
 	if(QDELETED(flasher) || !flasher.try_use_flash(user))
 		return
 
@@ -113,22 +109,22 @@
 			living.AdjustConfused(6 SECONDS)
 			living.visible_message(span_disarm("<b>[living]</b> ахает и пытается прикрыть глаза!"))
 
-/obj/item/assembly/tripwire/attack_hand(mob/user)
+/obj/item/tripwire/attack_hand(mob/user)
 	if(anchored_to_wall)
-		to_chat(user, span_warning("[DECLENT_RU_CAP(src, NOMINATIVE)] нужно открепить ломом!"))
+		to_chat(user, span_warning("[DECLENT_RU_CAP(src, ACCUSATIVE)] нужно открепить ломом!"))
 		return
 
 	unanchor_base()
 	return ..()
 
-/obj/item/assembly/tripwire/forceMove(atom/dest)
+/obj/item/tripwire/forceMove(atom/dest)
 	pixel_x = 0
 	pixel_y = 0
 	anchored = FALSE
 	anchored_to_wall = FALSE
 	return ..()
 
-/obj/item/assembly/tripwire/proc/apply_wall_offset()
+/obj/item/tripwire/proc/apply_wall_offset()
 	pixel_x = 0
 	pixel_y = 0
 	switch(wall_dir)
@@ -143,7 +139,7 @@
 			pixel_x = -14
 			pixel_y = -7
 
-/obj/item/assembly/tripwire/afterattack(atom/target, mob/user, proximity)
+/obj/item/tripwire/afterattack(atom/target, mob/user, proximity)
 	if(!proximity || anchored_to_wall || is_active)
 		return
 
@@ -170,7 +166,7 @@
 	playsound(src, 'sound/effects/stamp1.ogg', 50, TRUE)
 	update_appearance()
 
-/obj/item/assembly/tripwire/attackby(obj/item/I, mob/user, params)
+/obj/item/tripwire/attackby(obj/item/I, mob/user, params)
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
@@ -180,16 +176,12 @@
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/grenade) || istype(I, /obj/item/flash) || istype(I, /obj/item/assembly))
-		if(istype(I, /obj/item/assembly/tripwire))
-			to_chat(user, span_warning("Вы не можете закрепить [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
-			return . | ATTACK_CHAIN_BLOCKED_ALL
-
 		if(install_payload(I, user))
 			return . | ATTACK_CHAIN_BLOCKED_ALL
 
 	return .
 
-/obj/item/assembly/tripwire/proc/install_payload(obj/item/installing_item, mob/user)
+/obj/item/tripwire/proc/install_payload(obj/item/installing_item, mob/user)
 	if(attached_item || (linked_to && linked_to.attached_item))
 		to_chat(user, span_warning("На этой растяжке уже что-то установлено!"))
 		return
@@ -201,13 +193,13 @@
 	to_chat(user, span_notice("Вы закрепили [installing_item.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
 	update_appearance()
 
-/obj/item/assembly/tripwire/proc/setup_wire(obj/item/stack/cable_coil/cable, mob/user)
+/obj/item/tripwire/proc/setup_wire(obj/item/stack/cable_coil/cable, mob/user)
 	if(is_active)
 		to_chat(user, span_warning("Провод уже натянут!"))
 		return
 
 	var/list/valid_targets = list()
-	for(var/obj/item/assembly/tripwire/nearby_base in range(2, src))
+	for(var/obj/item/tripwire/nearby_base in range(2, src))
 		if(QDELETED(nearby_base) || nearby_base == src || nearby_base.is_active || !nearby_base.anchored_to_wall)
 			continue
 
@@ -244,13 +236,13 @@
 		to_chat(user, span_warning("Напротив нет подходящей основы или путь заблокирован."))
 		return
 
-	var/obj/item/assembly/tripwire/target_base = valid_targets[1]
+	var/obj/item/tripwire/target_base = valid_targets[1]
 	if(valid_targets.len > 1)
-		for(var/obj/item/assembly/tripwire/potential_base in valid_targets)
+		for(var/obj/item/tripwire/potential_base in valid_targets)
 			if(get_dist(src, potential_base) < get_dist(src, target_base))
 				target_base = potential_base
 
-	var/needed_cable = max(get_dist(src, target_base), 1)
+	var/needed_cable = max(get_dist(src, target_base) + 1, 1)
 	if(cable.amount < needed_cable)
 		to_chat(user, span_warning("Вам нужен кабель длиной [needed_cable] для такой дистанции!"))
 		return
@@ -269,7 +261,7 @@
 		to_chat(user, span_notice("Вы успешно натянули провод между растяжками."))
 		cable.use(needed_cable)
 
-/obj/item/assembly/tripwire/wirecutter_act(mob/living/user, obj/item/I)
+/obj/item/tripwire/wirecutter_act(mob/living/user, obj/item/I)
 	if(!is_active || QDELETED(src))
 		return
 
@@ -284,7 +276,7 @@
 	to_chat(user, span_notice("Вы успешно перерезали провод [declent_ru(GENITIVE)]."))
 	break_wire()
 
-/obj/item/assembly/tripwire/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/tripwire/screwdriver_act(mob/living/user, obj/item/I)
 	if(!attached_item)
 		return
 
@@ -301,7 +293,7 @@
 	attached_item = null
 	update_appearance()
 
-/obj/item/assembly/tripwire/crowbar_act(mob/living/user, obj/item/I)
+/obj/item/tripwire/crowbar_act(mob/living/user, obj/item/I)
 	if(!anchored)
 		return
 
@@ -309,7 +301,7 @@
 		to_chat(user, span_warning("Сначала нужно перерезать натянутый провод!"))
 		return
 
-	to_chat(user, span_notice("Вы начали откручивать [declent_ru(ACCUSATIVE)] от стены..."))
+	to_chat(user, span_notice("Вы начали откреплять [declent_ru(ACCUSATIVE)] от стены..."))
 	if(!I.use_tool(src, user, 2 SECONDS, volume = 50))
 		return
 
@@ -317,14 +309,14 @@
 	unanchor_base()
 	return TRUE
 
-/obj/item/assembly/tripwire/proc/unanchor_base()
+/obj/item/tripwire/proc/unanchor_base()
 	anchored = FALSE
 	anchored_to_wall = FALSE
 	pixel_x = 0
 	pixel_y = 0
 	update_appearance()
 
-/obj/item/assembly/tripwire/proc/connect_to(obj/item/assembly/tripwire/target, obj/item/stack/cable_coil/cable)
+/obj/item/tripwire/proc/connect_to(obj/item/tripwire/target, obj/item/stack/cable_coil/cable)
 	linked_to = target
 	is_active = TRUE
 
@@ -334,8 +326,9 @@
 	draw_wire(target, cable.color)
 	update_appearance()
 	target.update_appearance()
+	return TRUE
 
-/obj/item/assembly/tripwire/proc/draw_wire(obj/item/assembly/tripwire/target_base, wire_color)
+/obj/item/tripwire/proc/draw_wire(obj/item/tripwire/target_base, wire_color)
 	var/turf/current_turf = get_turf(src)
 	var/turf/end_turf = get_turf(target_base)
 
@@ -364,7 +357,7 @@
 
 	playsound(src, 'sound/effects/stamp2.ogg', 40, TRUE)
 
-/obj/item/assembly/tripwire/proc/create_bridge(turf/T, wire_color, obj/item/assembly/tripwire/target_base, dir_to_set)
+/obj/item/tripwire/proc/create_bridge(turf/T, wire_color, obj/item/tripwire/target_base, dir_to_set)
 	var/obj/structure/tripwire_bridge/bridge = new(T)
 	bridge.color = wire_color
 	bridge.master_base = src
@@ -376,15 +369,16 @@
 
 	if(!target_base.wire_segments)
 		target_base.wire_segments = list()
+
 	target_base.wire_segments += bridge
 
-/obj/item/assembly/tripwire/proc/trigger_tripwire(mob/user)
+/obj/item/tripwire/proc/trigger_tripwire(mob/user)
 	if(!is_active || QDELETED(src))
 		return
 
 	var/turf/T = get_turf(src)
 	var/obj/item/payload = attached_item
-	var/obj/item/assembly/tripwire/owner = src
+	var/obj/item/tripwire/owner = src
 
 	if(!payload && !QDELETED(linked_to) && linked_to.attached_item)
 		payload = linked_to.attached_item
@@ -401,8 +395,7 @@
 			grenade.active = TRUE
 			grenade.update_appearance()
 			playsound(grenade.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
-			var/det_time = round(grenade.det_time * 0.5)
-			addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime)), det_time)
+			addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime)), 1 SECONDS)
 
 		else if(istype(payload, /obj/item/flash))
 			trigger_flash(user, payload)
@@ -414,32 +407,31 @@
 	owner.update_appearance()
 	break_wire()
 
-/obj/item/assembly/tripwire/proc/break_wire()
-	if(!is_active)
+/obj/item/tripwire/proc/break_wire()
+	if(!is_active || breaking)
 		return
+
+	breaking = TRUE
 	is_active = FALSE
 
 	if(LAZYLEN(wire_segments))
 		var/list/segments = wire_segments.Copy()
 		LAZYCLEARLIST(wire_segments)
 		for(var/obj/structure/tripwire_bridge/segment in segments)
-			qdel(segment)
+			if(!QDELETED(segment))
+				qdel(segment)
 
-	if(!QDELETED(linked_to))
-		var/obj/item/assembly/tripwire/other = linked_to
-		linked_to = null
-		other.break_wire()
+	if(QDELETED(linked_to) || !linked_to)
+		return
 
-	update_appearance()
-
-	if(!QDELETED(linked_to))
-		var/obj/item/assembly/tripwire/other_base = linked_to
-		linked_to = null
-		other_base.break_wire()
+	var/obj/item/tripwire/other = linked_to
+	linked_to = null
+	other.break_wire()
 
 	update_appearance()
+	breaking = FALSE
 
-/obj/item/assembly/tripwire/update_overlays()
+/obj/item/tripwire/update_overlays()
 	. = ..()
 	if(attached_item)
 		var/mutable_appearance/MA = mutable_appearance(attached_item.icon, attached_item.icon_state)
