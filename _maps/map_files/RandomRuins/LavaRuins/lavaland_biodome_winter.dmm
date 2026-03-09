@@ -112,10 +112,6 @@
 /obj/item/storage/toolbox/electrical,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"ax" = (
-/obj/machinery/vending/coffee,
-/turf/simulated/floor/wood,
-/area/ruin/powered/snow_cabin)
 "ay" = (
 /obj/structure/railing{
 	dir = 8
@@ -361,6 +357,11 @@
 	},
 /turf/simulated/floor/carpet,
 /area/ruin/powered/snow_cabin)
+"xO" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
+/turf/simulated/floor/carpet,
+/area/ruin/powered/snow_cabin)
 "xU" = (
 /obj/item/storage/toolbox/mechanical,
 /turf/simulated/floor/pod/dark,
@@ -411,11 +412,6 @@
 /obj/structure/reagent_dispensers/fueltank,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
-"Ep" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
-/turf/simulated/floor/carpet,
-/area/ruin/powered/snow_cabin)
 "Ez" = (
 /obj/structure/fans/tiny,
 /obj/machinery/door/airlock/multi_tile/glass,
@@ -582,6 +578,10 @@
 /obj/effect/decal/cleanable/blood/oil,
 /turf/simulated/floor/pod/dark,
 /area/ruin/powered/snow_biodome)
+"Sv" = (
+/obj/machinery/vending/coffee,
+/turf/simulated/floor/wood,
+/area/ruin/powered/snow_cabin)
 "To" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/wood,
@@ -1238,7 +1238,7 @@ Wg
 ah
 af
 aq
-ax
+Sv
 aH
 av
 av
@@ -1404,7 +1404,7 @@ Wg
 af
 aq
 Ko
-Ep
+xO
 QJ
 VW
 at

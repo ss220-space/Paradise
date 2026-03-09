@@ -23,7 +23,7 @@
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && !is_open_container())
-		. += span_notice("Закрыто герметичной крышкой.")
+		. += span_boldnotice("Крышка надета.")
 
 	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
 
@@ -41,7 +41,7 @@
 	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
 		transferred += reagent.name
 
-	var/contained = english_list(transferred)
+	var/contained = russian_list(transferred)
 
 	if(user.a_intent == INTENT_HARM)
 		target.visible_message(
@@ -322,7 +322,7 @@
 
 /obj/item/reagent_containers/glass/beaker/thermite
 	name = "Thermite load"
-	desc = "Пластиковый пакетик, надпись на этикетке - \"Термит\"."
+	desc = "Пластиковый пакетик, надпись на этикетке – \"Термит\"."
 	icon_state = "baggie"
 	amount_per_transfer_from_this = 25
 	possible_transfer_amounts = null
@@ -634,3 +634,48 @@
 		reagents.remove_any(1)
 		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
 
+//Coffeepot: for reference, a standard cup is 30u, to allow 20u for sugar/sweetener/milk/creamer
+/obj/item/reagent_containers/glass/coffeepot
+	name = "coffeepot"
+	desc = "Термостойкий контейнер, предназначенный для приготовления и разлива кофе. \
+			Такие поставляются в комплекте с кофемашинами. Достаточно хрупкий."
+	gender = MALE
+	w_class = WEIGHT_CLASS_NORMAL
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = list(10, 15, 30, 50, 100)
+	volume = 150
+	has_lid = FALSE
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "coffeepot"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+
+/obj/item/reagent_containers/glass/coffeepot/get_ru_names()
+	return list(
+		NOMINATIVE = "кофейник",
+		GENITIVE = "кофейника",
+		DATIVE = "кофейнику",
+		ACCUSATIVE = "кофейник",
+		INSTRUMENTAL = "кофейником",
+		PREPOSITIONAL = "кофейнике"
+	)
+
+/obj/item/reagent_containers/glass/coffeepot/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/glass/coffeepot/update_overlays()
+	. = ..()
+	if(!reagents.total_volume)
+		return
+
+	var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]30")
+	var/percent = round((reagents.total_volume / volume) * 100)
+	switch(percent)
+		if(0 to 30)
+			filling.icon_state = "[icon_state]30"
+		if(30 to 60)
+			filling.icon_state = "[icon_state]60"
+		if(60 to INFINITY)
+			filling.icon_state = "[icon_state]100"
+
+	filling.icon += mix_color_from_reagents(reagents.reagent_list)
+	. += filling
