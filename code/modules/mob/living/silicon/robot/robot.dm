@@ -1209,7 +1209,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		if(shell)
 			if(!mainframe)
-				to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезая оболочка."))
+				to_chat(user, span_warning("Криптографический секвенсор искрится, но вы не видите результатов. Кажется, это просто пустая и бесполезная оболочка."))
 			else
 				evacuate_ai(DANGER_LVL_INSTA_DEATH)
 				balloon_alert(user, "ии удален")
