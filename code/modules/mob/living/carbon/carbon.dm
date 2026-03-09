@@ -945,6 +945,10 @@ so that different stomachs can handle things in different ways VB*/
 		nightvision = max(nightvision, 8)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 
+	if(HAS_TRAIT(src, TRAIT_ECHOLOCATOR))
+		add_sight(SEE_MOBS|SEE_TURFS)
+		lighting_alpha = max(lighting_alpha, LIGHTING_PLANE_ALPHA_INVISIBLE)
+
 	return ..()
 
 /mob/living/carbon/ExtinguishMob()
