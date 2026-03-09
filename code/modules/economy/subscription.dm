@@ -20,6 +20,9 @@
 	var/creation_time = 0
 
 	var/active = TRUE
+	// This flag determines whether the subscriber can remove it
+	// Ideally, this is used to add salary "modifiers" or similar items, like fines. || forced subscription
+	// If it is enabled, do not add it to available_subscriptions
 	var/secure = FALSE
 
 /datum/subscription/New(subscriber, recipient, cost_val, interval_val, name_val, description_t)

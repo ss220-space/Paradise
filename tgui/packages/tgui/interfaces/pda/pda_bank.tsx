@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Dropdown,
-  Grid,
   Icon,
   LabeledList,
   NumberInput,
@@ -12,6 +11,8 @@ import {
   Stack,
   TextArea,
 } from '../../components';
+
+import { Window } from '../../layouts';
 
 const DEFAULT_PURPOSE = 'Перевод через RIB';
 
@@ -31,6 +32,7 @@ type Subscription = {
   interval: number;
   status: boolean;
   description: string;
+  secure: boolean;
 };
 
 type AvailableSubscription = {
@@ -49,6 +51,8 @@ type RaingorBankData = {
 
   subscriptions: Subscription[];
   availableSubs: AvailableSubscription[];
+
+  loginState: LoginState;
 };
 
 type Page = 'main' | 'transfer' | 'subscriptions' | 'about';
@@ -67,26 +71,92 @@ type PageBaseProps = {
 export const pda_bank = (props: unknown) => {
   const [page, setPage] = useState<Page>('main');
   const { data } = useBackend<RaingorBankData>();
+  const { loginState } = data;
 
+  if (!loginState.logged_in) {
+    return (
+      <Window width={600} height={650}>
+        <Window.Content>
+          <Stack fill vertical>
+            <Section
+              title={
+                <Box fontSize="22px" bold textAlign="center">
+                  <Icon name="university" color="blue" mr={1} />
+                  Raingor Interstellar Banking
+                </Box>
+              }
+            >
+              <Box fontSize="20px" bold mb={1} textAlign="center">
+                {data?.name && data.name !== '' && data.name !== 'unknown'
+                  ? `Добрый день, ${data.name}!`
+                  : 'Добро пожаловать'}
+              </Box>
+              <Stack fill vertical align="center" justify="center">
+                <Box textAlign="center" color="label" fontSize="18px" bold>
+                  Для доступа к банковским операциям
+                  <br />
+                  вставьте ID-карту в слот КПК.
+                </Box>
+              </Stack>
+            </Section>
+          </Stack>
+        </Window.Content>
+      </Window>
+    );
+  }
+  let PageContent;
   switch (page) {
     case 'main':
-      return <MainMenuPage setPage={setPage} data={data} />;
+      PageContent = <UMainMenuPage setPage={setPage} data={data} />;
+      break;
     case 'transfer':
-      return <TransferMenuPage setPage={setPage} data={data} />;
+      PageContent = <TransferMenuPage setPage={setPage} data={data} />;
+      break;
     case 'subscriptions':
-      return <SubscriptionsMenuPage setPage={setPage} data={data} />;
+      PageContent = <SubscriptionsMenuPage setPage={setPage} data={data} />;
+      break;
     case 'about':
-      return <AboutMenuPage setPage={setPage} data={data} />;
+      PageContent = <AboutMenuPage setPage={setPage} data={data} />;
+      break;
     default:
-      return <ErrorPage setPage={setPage} />;
+      PageContent = <ErrorPage setPage={setPage} />;
   }
+  return (
+    <Window width={600} height={650}>
+      <Window.Content scrollable>
+        <Stack fill vertical>
+          <Section fill scrollable>
+            {PageContent}
+          </Section>
+        </Stack>
+      </Window.Content>
+    </Window>
+  );
 };
 
 const MainMenuPage = ({ setPage, data }: PageProps) => {
   const { balance, transactions, name } = data;
+  const { act } = useBackend();
+  const handleLogout = () => {
+    act('login_logout');
+  };
 
   return (
     <Box>
+      <Box textAlign="center" mb={3}>
+        <Button
+          fluid
+          style={{ fontWeight: 'bold', fontSize: '16px' }}
+          onClick={handleLogout}
+        >
+          <Icon name="step-backward" mr={1} /> Выйти с аккаунта
+        </Button>
+        <Box color="bad" fontSize={0.85} mt={1} textAlign="center">
+          <Icon name="exclamation-triangle" mr={0.5} />
+          Для выхода из аккаунта сначала извлеките ID-карту из КПК
+        </Box>
+      </Box>
+
       <Section
         title={
           <Box fontSize="14px" bold>
@@ -182,6 +252,227 @@ const MainMenuPage = ({ setPage, data }: PageProps) => {
 
               <LabeledList.Item label="Сумма">
                 <Box color={t.amount >= 0 ? 'good' : 'bad'}>
+                  {t.amount} кредитов
+                </Box>
+              </LabeledList.Item>
+            </LabeledList>
+          </Section>
+        ))}
+      </Section>
+    </Box>
+  );
+};
+
+// Update design
+const UMainMenuPage = ({ setPage, data }: PageProps) => {
+  const { balance, transactions, name } = data;
+  const { act } = useBackend();
+
+  const handleLogout = () => {
+    act('login_logout');
+  };
+
+  return (
+    <Box>
+      <Section
+        fill
+        mb={2}
+        style={{
+          background:
+            'linear-gradient(135deg, #722F37 0%, #800020 50%, #9B2335 100%)',
+          borderRadius: '8px',
+          border: '2px solid #B8860B',
+        }}
+      >
+        <Stack vertical align="center" justify="center" p={3}>
+          <Icon name="university" color="yellow" size={4} mb={1} />
+          <Box
+            fontSize="16px"
+            bold
+            color="yellow"
+            mb={2}
+            style={{ letterSpacing: '1px' }}
+          >
+            RAINGOR INTERSTELLAR BANKING
+          </Box>
+
+          <Box
+            fontSize="14px"
+            color="white"
+            mb={1}
+            style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}
+          >
+            <Icon name="user-circle" mr={0.5} />
+            Клиент: {name || 'Неизвестно'}
+          </Box>
+
+          <Box
+            fontSize="42px"
+            bold
+            color="yellow"
+            mb={1}
+            style={{
+              textShadow: '3px 3px 6px rgba(0,0,0,0.9)',
+              letterSpacing: '2px',
+            }}
+          >
+            {balance.toLocaleString()} кредитов
+          </Box>
+
+          <Box
+            fontSize="12px"
+            color="white"
+            style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}
+          >
+            <Icon name="shield-alt" mr={0.5} />
+            Защищённый счёт
+          </Box>
+        </Stack>
+      </Section>
+
+      <Box fontSize="16px" bold mb={1} color="red">
+        <Icon name="bolt" mr={0.5} />
+        Быстрые операции
+      </Box>
+
+      <Stack mb={1}>
+        <Stack.Item grow>
+          <Button
+            fluid
+            color="bad"
+            onClick={() => setPage('transfer')}
+            p={3}
+            style={{
+              height: '100px',
+              borderRadius: '8px',
+              border: '2px solid #800020',
+              background: 'linear-gradient(180deg, #800020 0%, #500000 100%)',
+            }}
+          >
+            <Stack vertical align="center" justify="center">
+              <Icon name="exchange-alt" color="yellow" size={4} mb={1} />
+              <Box fontSize="14px" bold color="white">
+                Переводы
+              </Box>
+            </Stack>
+          </Button>
+        </Stack.Item>
+
+        <Stack.Item grow ml={1}>
+          <Button
+            fluid
+            color="bad"
+            onClick={() => setPage('subscriptions')}
+            p={3}
+            style={{
+              height: '100px',
+              borderRadius: '8px',
+              border: '2px solid #800020',
+              background: 'linear-gradient(180deg, #800020 0%, #500000 100%)',
+            }}
+          >
+            <Stack vertical align="center" justify="center">
+              <Icon name="credit-card" color="yellow" size={4} mb={1} />
+              <Box fontSize="14px" bold color="white">
+                Подписки
+              </Box>
+            </Stack>
+          </Button>
+        </Stack.Item>
+      </Stack>
+
+      <Stack mb={2}>
+        <Stack.Item grow>
+          <Button
+            fluid
+            color="bad"
+            onClick={() => setPage('about')}
+            p={2}
+            style={{
+              borderRadius: '6px',
+              border: '1px solid #800020',
+              background: 'linear-gradient(180deg, #800020 0%, #600015 100%)',
+            }}
+          >
+            <Icon name="info-circle" color="yellow" mr={1} />
+            <Box fontSize="13px" bold color="white">
+              О банке
+            </Box>
+          </Button>
+        </Stack.Item>
+
+        <Stack.Item grow ml={1}>
+          <Button
+            fluid
+            color="bad"
+            onClick={handleLogout}
+            p={2}
+            style={{
+              borderRadius: '6px',
+              border: '1px solid #800020',
+              background: 'linear-gradient(180deg, #800020 0%, #600015 100%)',
+            }}
+          >
+            <Icon name="sign-out-alt" color="yellow" mr={1} />
+            <Box fontSize="13px" bold color="white">
+              Выйти из аккаунта
+            </Box>
+          </Button>
+        </Stack.Item>
+      </Stack>
+
+      <Section
+        p={2}
+        style={{
+          borderRadius: '6px',
+          border: '2px solid #800020',
+          background: 'linear-gradient(180deg, #500000 0%, #400000 100%)',
+        }}
+      >
+        <Box textAlign="center" color="yellow" fontSize={1} bold>
+          <Icon name="exclamation-triangle" mr={0.5} />
+          Для выхода из аккаунта сначала извлеките ID-карту из КПК
+        </Box>
+      </Section>
+
+      <Section title="История операций" mt={2}>
+        {transactions.length === 0 && (
+          <Box italic color="label" textAlign="center" p={2}>
+            <Icon name="inbox" size={2} mb={1} />
+            Операции отсутствуют
+          </Box>
+        )}
+
+        {transactions.map((t, i) => (
+          <Section
+            key={i}
+            title={`${t.date} ${t.time}`}
+            mb={1}
+            style={{
+              borderLeft: `3px solid ${t.amount >= 0 ? '#28a745' : '#dc3545'}`,
+              paddingLeft: '8px',
+            }}
+          >
+            <LabeledList>
+              <LabeledList.Item label="Назначение">
+                {t.purpose}
+              </LabeledList.Item>
+
+              <LabeledList.Item label="Контрагент">
+                {t.target_name}
+              </LabeledList.Item>
+
+              <LabeledList.Item label="Терминал">
+                {t.source_terminal}
+              </LabeledList.Item>
+
+              <LabeledList.Item label="Сумма">
+                <Box
+                  fontSize="16px"
+                  bold
+                  color={t.amount >= 0 ? 'good' : 'bad'}
+                >
+                  {t.amount >= 0 ? '+' : ''}
                   {t.amount} кредитов
                 </Box>
               </LabeledList.Item>
@@ -385,17 +676,29 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
             </LabeledList>
 
             {e.status ? (
-              <Button
-                color="bad"
-                onClick={() =>
-                  act('cancel_subscription', {
-                    subscription_name: e.subscription_name,
-                  })
-                }
-              >
-                <Icon name="times" mr={1} />
-                Отменить подписку
-              </Button>
+              e.secure ? (
+                <Box color="grey" fontSize={0.8}>
+                  Не подлежит изменению. <br />
+                  По вопросам обратитесь к Главе Персонала.
+                </Box>
+              ) : (
+                <Button
+                  color="bad"
+                  onClick={() =>
+                    act('cancel_subscription', {
+                      subscription_name: e.subscription_name,
+                    })
+                  }
+                >
+                  <Icon name="times" mr={1} />
+                  Отменить подписку
+                </Button>
+              )
+            ) : e.secure ? (
+              <Box color="grey" fontSize={0.8}>
+                Не подлежит изменению. <br />
+                По вопросам обратитесь к Главе Персонала.
+              </Box>
             ) : (
               <Button
                 color="good"

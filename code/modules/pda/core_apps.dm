@@ -143,7 +143,9 @@
 	category = "General"
 	update = PDA_APP_UPDATE_SLOW
 
-// TODO: LOGIN
+	// Snapshot
+	var/last_login_card_id
+
 /datum/data/pda/app/bank/update_ui(mob/user as mob, list/data)
 	var/datum/money_account/owner_bank_account = get_account_with_name(pda.owner)
 	var/list/transactions_list = list()
@@ -151,10 +153,49 @@
 	var/list/subs_list = list()
 	var/list/available_sub_list = list()
 
+	// note for posterity: The ancestors' crappy code doesn't allow
+	// using ui_login_act without an object reference,
+	// which is pretty sad. I won't take responsibility
+	// for the refactor, so we'll rely on pda.
+
 	if(owner_bank_account == null)
-		data["name"] = "unknow"
+		data["name"] = "unknown"
 		data["balance"] = 0
 		data["transactions"] = list()
+		return
+
+	data["name"] = owner_bank_account.owner_name
+
+	// Login and get access
+	pda.ui_login_data(data, user)
+	var/datum/ui_login/L = pda.ui_login_get()
+
+	if(!pda.id && !(data["loginState"]["logged_in"]))
+		return
+	else
+		var/obj/item/card/id/card = pda.id
+
+		if(card)
+			last_login_card_id = pda.id
+
+		var/obj/item/card/id/checked_card
+
+		if(!card)
+			checked_card = last_login_card_id
+		else
+			checked_card = card
+
+		if(!checked_card)
+			return
+
+		L.id = checked_card
+		L.name = checked_card.registered_name
+		L.rank = checked_card.assignment
+		L.access = checked_card.access
+		L.law_level = checked_card.law_level
+		L.logged_in = TRUE
+
+	if(!data["loginState"]["logged_in"])
 		return
 
 	for(var/datum/transaction/T in owner_bank_account.transaction_log)
@@ -171,8 +212,8 @@
 		if(!Target_account.suspended && !(Target_account.owner_name == owner_bank_account.owner_name))
 			possible_targets.Add(Target_account.owner_name)
 
-	//This list will store the names of subscriptions to which a person has already subscribed
-	//or interacted, so as not to re-create the subscription.
+	// This list will store the names of subscriptions to which a person has already subscribed
+	// or interacted, so as not to re-create the subscription.
 	var/list/active_sub_names = list()
 
 	// We collect all subscriptions that were registered in a person's name.
@@ -189,12 +230,17 @@
 				"cost" = Ss.cost,
 				"interval" = Ss.interval,
 				"status" = Ss.active,
-				"description" = Ss.description
+				"description" = Ss.description,
+				"secure" = Ss.secure
 			)))
 
 	// subscriptions that can be purchased
 	for(var/datum/subscription/S in GLOB.available_subscriptions)
 		if(S.subscription_name in active_sub_names)
+			continue
+
+		// check for "forced subscription"
+		if(S.secure)
 			continue
 
 		available_sub_list.Add(list(list(
@@ -205,14 +251,22 @@
 			"provider" = "Нет доступа"
 		)))
 
-	data["name"] = owner_bank_account.owner_name
 	data["balance"] = owner_bank_account.money
 	data["transactions"] = transactions_list
-	data["targets"] = possible_targets // Here are the names of the people/terminals where you can transfer money
-	data["subscriptions"] = subs_list // Subscriptions that are already registered in the user's name
-	data["availableSubs"] = available_sub_list // Subscriptions that are NOT registered in the user's name and for them you will need to create a new one
+	// Here are the names of the people/terminals where you can transfer money
+	data["targets"] = possible_targets
+	// Subscriptions that are already registered in the user's name
+	data["subscriptions"] = subs_list
+	// Subscriptions that are NOT registered in the user's name and for them
+	// you will need to create a new one
+	data["availableSubs"] = available_sub_list
 
 /datum/data/pda/app/bank/ui_act(action, params)
+	if(pda.ui_login_act(action, params))
+		if(action == "login_logout")
+			last_login_card_id = null
+		return
+
 	switch(action)
 		if("transfer")
 			var/target = params["target"]
@@ -260,7 +314,7 @@
 				to_chat(usr, span_warning("Ошибка: подписка '[available_subscription_name]' не найдена в каталоге."))
 				return
 
-			var/datum/subscription/new_sub = new /datum/subscription(
+			new /datum/subscription(
 				sub_acc,           			  // subscriber
 				template.recipient_account,   // recipient
 				template.cost,                // cost
@@ -297,3 +351,5 @@
 
 				added_subscription.resub()
 				return
+
+
