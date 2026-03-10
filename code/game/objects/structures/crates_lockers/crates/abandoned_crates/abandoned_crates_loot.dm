@@ -327,12 +327,19 @@
 		/obj/item/card/emag_broken = 1,
 	)
 
-// MARK: Dynamic spawners
-/obj/effect/spawner/abandoned_crate/random_toy_prize
-	name = "random toy prize spawner"
+/obj/effect/spawner/abandoned_crate/random_seeds
+	name = "random seeds spawner"
+	loot = list(
+		/obj/item/seeds/random = 1,
+		/obj/item/seeds/firelemon = 1,
+	)
 
-/obj/effect/spawner/abandoned_crate/random_toy_prize/Initialize(mapload)
-	var/prize = pick(subtypesof(/obj/item/toy/prize))
+// MARK: Dynamic spawners
+/obj/effect/spawner/abandoned_crate/random_toy
+	name = "random toy spawner"
+
+/obj/effect/spawner/abandoned_crate/random_toy/Initialize(mapload)
+	var/prize = pick(subtypesof(/obj/item/toy))
 	loot[prize] = 1
 	return ..()
 
@@ -365,13 +372,6 @@
 		var/part_type = pick(subtypesof(/obj/item/stock_parts))
 		loot[part_type] = (loot[part_type] || 0) + 1
 	return ..()
-
-/obj/effect/spawner/abandoned_crate/random_seeds
-	name = "random seeds spawner"
-	loot = list(
-		/obj/item/seeds/random = 1,
-		/obj/item/seeds/firelemon = 1,
-	)
 
 /obj/effect/spawner/abandoned_crate/bombarda
 	name = "bombarda spawner"

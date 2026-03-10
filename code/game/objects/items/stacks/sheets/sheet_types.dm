@@ -248,15 +248,18 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 0)
 	merge_type = /obj/item/stack/sheet/wood
 
+/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.wood_recipes
+
+/obj/item/stack/sheet/wood/fifty
+	amount = 50
+
 /obj/item/stack/sheet/wood/cyborg
 	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/wood
 	energy_type = /datum/robot_energy_storage/wood
 	cost = 4
-
-/obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.wood_recipes
 
 // MARK: CLOTH
 GLOBAL_LIST_INIT(cloth_recipes, list(
@@ -328,6 +331,9 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 /obj/item/stack/sheet/cloth/ten
 	amount = 10
 
+/obj/item/stack/sheet/cloth/fifty
+	amount = 50
+
 // MARK: DURATHREAD
 GLOBAL_LIST_INIT(durathread_recipes, list(
 	new/datum/stack_recipe("durathread bandana", /obj/item/clothing/mask/bandana/durathread, time = 2.5 SECONDS),
@@ -352,6 +358,9 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 /obj/item/stack/sheet/durathread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.durathread_recipes
+
+/obj/item/stack/sheet/durathread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/cotton
 	name = "raw cotton bundle"
@@ -400,6 +409,19 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 	null,
 ))
 
+/obj/item/stack/sheet/cardboard
+	name = "cardboard"
+	desc = "Large sheets of card, like boxes folded flat."
+	singular_name = "cardboard sheet"
+	icon_state = "sheet-card"
+	item_state = "sheet-card"
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/sheet/cardboard
+
+/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
+	. = ..()
+	recipes = GLOB.cardboard_recipes
+
 /obj/item/stack/sheet/cardboard/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stamp/clown) && !isstorage(loc))
 		add_fingerprint(user)
@@ -415,18 +437,8 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 
 	return ..()
 
-/obj/item/stack/sheet/cardboard	//BubbleWrap
-	name = "cardboard"
-	desc = "Large sheets of card, like boxes folded flat."
-	singular_name = "cardboard sheet"
-	icon_state = "sheet-card"
-	item_state = "sheet-card"
-	resistance_flags = FLAMMABLE
-	merge_type = /obj/item/stack/sheet/cardboard
-
-/obj/item/stack/sheet/cardboard/Initialize(mapload, new_amount, merge = TRUE)
-	. = ..()
-	recipes = GLOB.cardboard_recipes
+/obj/item/stack/sheet/cardboard/fifty
+	amount = 50
 
 // MARK: RUNED METAL
 GLOBAL_LIST_INIT(cult_recipes, list(
@@ -513,6 +525,9 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 
 /obj/item/stack/sheet/runed_metal/fifty
 	amount = 50
+
+/obj/item/stack/sheet/runed_metal_fake/ten
+	amount = 10
 
 /obj/item/stack/sheet/runed_metal_fake/fifty
 	amount = 50
@@ -611,7 +626,7 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/brass/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
 	energy_type = /datum/robot_energy_storage/brass
 
@@ -783,11 +798,14 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	. = ..()
 	recipes = GLOB.plastic_recipes
 
-/obj/item/stack/sheet/plastic/fifty
-	amount = 50
-
 /obj/item/stack/sheet/plastic/five
 	amount = 5
+
+/obj/item/stack/sheet/plastic/ten
+	amount = 10
+
+/obj/item/stack/sheet/plastic/fifty
+	amount = 50
 
 // MARK: BAMBOO
 GLOBAL_LIST_INIT(bamboo_recipes, list(
@@ -854,11 +872,11 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/gingerbread
 
-/obj/item/stack/sheet/gingerbread/fifty
-	amount = 50
-
 /obj/item/stack/sheet/gingerbread/five
 	amount = 5
+
+/obj/item/stack/sheet/gingerbread/fifty
+	amount = 50
 
 /obj/item/stack/sheet/gingerbread/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()

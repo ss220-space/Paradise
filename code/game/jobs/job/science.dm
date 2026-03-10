@@ -39,6 +39,7 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/science
 
 /datum/job/science
 	department = STATION_DEPARTMENT_SCIENCE
@@ -80,6 +81,7 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel_tox
 	dufflebag = /obj/item/storage/backpack/duffel/science
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/science
 
 /datum/job/science/scientist/student
 	title = JOB_TITLE_SCIENTIST_STUDENT
@@ -139,6 +141,7 @@
 	l_ear = /obj/item/radio/headset/headset_sci
 	id = /obj/item/card/id/research
 	pda = /obj/item/pda/roboticist
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 
 /datum/job/science/mechanic
 	title = JOB_TITLE_MECHANIC
@@ -169,3 +172,4 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson

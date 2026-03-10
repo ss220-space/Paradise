@@ -174,3 +174,19 @@
 	if(emp_shielded(severity))
 		return
 	return
+
+/obj/item/organ/internal/cyberimp/eyes/hud/universal
+	name = "universal HUD implant"
+	desc = "Устанавливает подходящий вашей должности ИЛС имплант. Менее приоритетный, чем выбранные вручную импланты."
+	icon_state = "universal_implant"
+	aug_message = "Этот имплант не имеет смысла..."
+
+/obj/item/organ/internal/cyberimp/eyes/hud/universal/get_ru_names()
+		return list(
+		NOMINATIVE = "универсальный ИЛС имплант",
+		GENITIVE = "универсального ИЛС импланта",
+		DATIVE = "универсальному ИЛС импланту",
+		ACCUSATIVE = "универсальный ИЛС имплант",
+		INSTRUMENTAL = "универсальным ИЛС имплантом",
+		PREPOSITIONAL = "универсальном ИЛС импланте",
+	)

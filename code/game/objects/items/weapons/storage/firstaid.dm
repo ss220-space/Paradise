@@ -628,6 +628,12 @@
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 	new /obj/item/reagent_containers/food/pill/charcoal(src)
 
+/obj/item/storage/pill_bottle/filled/populate_contents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/food/pill/mannitol(src)
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/food/pill/salbutamol(src)
+
 /obj/item/storage/pill_bottle/mouse_drop_dragged(atom/over_object, mob/user, src_location, over_location, params) // Best utilized if you're a cantankerous doctor with a Vicodin habit.
 	if(iscarbon(user) && src == user.get_active_hand() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && over_object == user)
 		if(!length(contents))

@@ -238,7 +238,8 @@
 
 /datum/reagent/radium/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/greenglow(T)
+		var/obj/effect/decal/cleanable/greenglow/reagentdecal = new (T)
+		reagentdecal.reagents?.add_reagent(type, volume)
 
 /datum/reagent/mutagen
 	name = "Нестабильный мутаген"
@@ -318,7 +319,8 @@
 
 /datum/reagent/uranium/reaction_turf(turf/T, volume)
 	if(volume >= 3 && !isspaceturf(T))
-		new /obj/effect/decal/cleanable/greenglow(T)
+		var/obj/effect/decal/cleanable/greenglow/reagentdecal = new (T)
+		reagentdecal.reagents?.add_reagent(type, volume)
 
 /datum/reagent/lexorin
 	name = "Лексорин"
