@@ -39,7 +39,7 @@
 			/obj/effect/spawner/abandoned_crate/toy_balloon = 5,
 			/obj/effect/spawner/abandoned_crate/toy_weapons = 8,
 			/obj/effect/spawner/abandoned_crate/toy_pistols = 8,
-			/obj/effect/spawner/abandoned_crate/random_toy_prize = 3,
+			/obj/effect/spawner/abandoned_crate/random_toy = 3,
 			) = 49,
 
 		// Tools and equipment
