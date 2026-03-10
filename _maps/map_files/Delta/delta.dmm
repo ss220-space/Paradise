@@ -63509,11 +63509,11 @@
 "jWR" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light{
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/green/hollow,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
