@@ -59,7 +59,7 @@
 ////////////////////////////////////
 /obj/item/camera_bug/syndicate
 	name = "camera bug"
-	desc = "Продвинутая версия жучка с модулем прямого нейронного интерфейса. Позволяет."
+	desc = "Переносной монитор с чипом удалённого доступа. Позволяет свободно перемещать обзор по всей сети камер."
 	var/obj/machinery/computer/camera_advanced/portable/advanced_console
 	var/is_eye_active = FALSE
 
