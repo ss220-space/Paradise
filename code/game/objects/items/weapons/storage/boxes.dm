@@ -404,7 +404,6 @@
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Кубы шимпанзе фирмы «Драймейт». Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
-	icon = 'icons/obj/storage/boxes.dmi'
 	icon_state = "monkey_box"
 	item_state = "mcube"
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
