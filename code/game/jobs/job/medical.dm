@@ -34,6 +34,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical
 	department = STATION_DEPARTMENT_MEDICAL
@@ -72,6 +73,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -163,6 +165,7 @@
 		/obj/item/reagent_scanner = 1,
 		/obj/item/storage/box/bodybags = 1,
 	)
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/chemist
 	title = JOB_TITLE_CHEMIST
@@ -189,6 +192,7 @@
 	backpack = /obj/item/storage/backpack/chemistry
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/geneticist
 	title = JOB_TITLE_GENETICIST
@@ -217,6 +221,7 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/virologist
 	title = JOB_TITLE_VIROLOGIST
@@ -244,6 +249,7 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
@@ -266,6 +272,7 @@
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -307,6 +314,7 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/outfit/job/paramedic/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

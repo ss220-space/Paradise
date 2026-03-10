@@ -1431,6 +1431,15 @@
 	construction_time = 12 SECONDS
 	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
 
+/datum/design/borg_upgrade_mining_satchel_magnet
+	id = "borg_upgrade_mining_satchel_magnet"
+	build_type = MECHFAB
+	build_path = /obj/item/borg/upgrade/borg_mining_sat_upgr
+	req_tech = list(RESEARCH_TREE_ENGINEERING = 3, RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_MAGNETS = 4)
+	materials = list(MAT_METAL = 15000, MAT_GOLD = 100, MAT_URANIUM = 300)
+	construction_time = 12 SECONDS
+	category = list(MECH_FAB_CATEGORY_CYBORG_EQUIPMENT)
+
 //IPC
 
 /datum/design/integrated_robotic_chassis

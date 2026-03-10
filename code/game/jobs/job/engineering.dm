@@ -42,6 +42,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/engineering
 	department = STATION_DEPARTMENT_ENGINEERING
@@ -84,6 +85,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/engineering/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
@@ -152,3 +154,4 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson

@@ -507,7 +507,7 @@
 		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
-		var/list/new_overlays = update_overlays()
+		var/list/new_overlays = update_overlays(updates)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
 
 		// Ok, so its rather this or required inheritance in every [update_overlays()]
@@ -556,6 +556,8 @@
 
 			switch(length(new_overlays))
 				if(0)
+					if(full_control)
+						POST_OVERLAY_CHANGE(src)
 					managed_overlays = null
 				if(1)
 					add_overlay(new_overlays)
