@@ -403,7 +403,7 @@
 
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
-	desc = "Кубы шимпанзе фирмы «Драймейт». Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	desc = "Кубы шимпанзе фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
 	icon_state = "monkey_box"
 	item_state = "mcube"
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
@@ -429,7 +429,7 @@
 
 /obj/item/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
-	desc = "Кубы фарв фирмы «Драймейт». Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	desc = "Кубы фарв фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
 	icon_state = "farwa_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
 
@@ -445,7 +445,7 @@
 
 /obj/item/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
-	desc = "Кубы стоков фирмы «Драймейт». Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	desc = "Кубы стоков фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
 	icon_state = "stok_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
 
@@ -461,7 +461,7 @@
 
 /obj/item/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
-	desc = "Кубы неар фирмы «Драймейт». Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	desc = "Кубы неар фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
 	icon_state = "neaera_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
 
@@ -478,7 +478,7 @@
 
 /obj/item/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
-	desc = "Кубы вульпинов фирмы «Драймейт». Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	desc = "Кубы вульпинов фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
 	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
 
