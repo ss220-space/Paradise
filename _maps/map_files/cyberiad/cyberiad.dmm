@@ -24379,12 +24379,27 @@
 	},
 /area/medical/cloning)
 "bRd" = (
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
+/obj/item/storage/box/monkeycubes{
+	pixel_x = -12;
+	pixel_y = 10
+	},
+/obj/item/storage/box/monkeycubes/stokcubes{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/storage/box/monkeycubes/neaeracubes{
+	pixel_x = 14;
+	pixel_y = 10
+	},
 /obj/structure/table/glass,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
+/obj/item/storage/box/monkeycubes/wolpincubes{
+	pixel_x = -12;
+	pixel_y = -2
+	},
+/obj/item/storage/box/monkeycubes/farwacubes{
+	pixel_y = -2;
+	pixel_x = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1
 	},
@@ -31949,18 +31964,33 @@
 /turf/simulated/floor/wood,
 /area/clownoffice)
 "crT" = (
-/obj/item/storage/box/monkeycubes,
-/obj/item/storage/box/monkeycubes/stokcubes,
-/obj/item/storage/box/monkeycubes/neaeracubes,
 /obj/structure/table/glass,
-/obj/item/storage/box/monkeycubes/wolpincubes,
-/obj/item/storage/box/monkeycubes/farwacubes,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -24
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/item/storage/box/monkeycubes{
+	pixel_x = -12;
+	pixel_y = 10
+	},
+/obj/item/storage/box/monkeycubes/stokcubes{
+	pixel_x = 1;
+	pixel_y = 10
+	},
+/obj/item/storage/box/monkeycubes/neaeracubes{
+	pixel_x = 14;
+	pixel_y = 10
+	},
+/obj/item/storage/box/monkeycubes/wolpincubes{
+	pixel_x = -12;
+	pixel_y = -2
+	},
+/obj/item/storage/box/monkeycubes/farwacubes{
+	pixel_y = -2;
+	pixel_x = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
