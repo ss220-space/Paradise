@@ -97,7 +97,7 @@
 								/obj/item/pen/edagger = 1,													// 10 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/clothing/shoes/chameleon/noslip = 1,								// 10 TK
-								/obj/item/camera_bug = 1,													// 5 TK
+								/obj/item/camera_bug/syndicate = 1,													// 5 TK
 								/obj/item/multitool/ai_detect = 1,											// 5 TK
 								/obj/item/encryptionkey/syndicate = 1,										// 0-2 TK
 								/obj/item/twohanded/garrote = 1,											// 20 TK
@@ -136,7 +136,7 @@
 			"Sabotage" = list("Name" = "'Sabotage' bundle",	// 195-197 TK
 								"Desc" = "Wreak havoc and destruction on the station with this kit.",
 								/obj/item/grenade/plastic/c4 = 2,											// 10 TK
-								/obj/item/camera_bug = 1,													// 5 TK
+								/obj/item/camera_bug/syndicate = 1,													// 5 TK
 								/obj/item/powersink = 1,													// 40 TK
 								/obj/item/cartridge/syndicate = 1,											// 30 TK
 								/obj/item/rcd/preloaded = 1,												// 0 TK
@@ -176,7 +176,7 @@
 								/obj/item/melee/energy/sword/saber = 1,										// 40 TK
 								/obj/item/card/id/syndicate = 1,											// 10 TK
 								/obj/item/storage/box/syndie_kit/emp = 1,									// 10 TK
-								/obj/item/camera_bug = 1,													// 5 TK
+								/obj/item/camera_bug/syndicate = 1,													// 5 TK
 								/obj/item/door_remote/omni/access_tuner = 1,								// 30 TK
 								/obj/item/implanter/freedom/prototype = 1,									// 6.6 TK
 								/obj/item/ai_module/syndicate = 1,											// 40 TK

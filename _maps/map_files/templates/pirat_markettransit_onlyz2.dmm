@@ -1194,7 +1194,7 @@
 	pixel_y = -5;
 	pixel_x = 2
 	},
-/obj/item/camera_bug,
+/obj/item/camera_bug/syndicate,
 /turf/simulated/floor/indestructible/plating{
 	icon_state = "dark";
 	icon = 'icons/turf/floors.dmi'
