@@ -73,15 +73,23 @@
 	desc = "Jeez. I hope that's not for lunch."
 	gender = PLURAL
 	layer = TURF_LAYER
-	light_range = 1
+	light_power = 3
+	light_range = 2
+	light_color = LIGHT_COLOR_GREEN
 	icon_state = "greenglow"
 
-/obj/effect/decal/cleanable/greenglow/Initialize(mapload)
+/obj/effect/decal/cleanable/greenglow/temp/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, 2 MINUTES)
 
 /obj/effect/decal/cleanable/greenglow/ex_act()
 	return
+
+/obj/effect/decal/cleanable/greenglow/filled/Initialize(mapload)
+	var/decal_reagent = pick(/datum/reagent/uranium, /datum/reagent/radium)
+	scoop_reagents = list()
+	scoop_reagents[decal_reagent] = 5
+	. = ..()
 
 /obj/effect/decal/cleanable/cobweb
 	name = "cobweb"

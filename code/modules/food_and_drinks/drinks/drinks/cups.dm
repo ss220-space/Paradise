@@ -124,3 +124,45 @@
 
 /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee
 	list_reagents = list("coffee" = 30)
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor
+	name = "cup of suspicious liquid"
+	desc = "На боковой стороне крупными, едва заметными, чернилами напечатан символ химической опасности."
+	var/selected_reagent
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/small/get_ru_names()
+	return list(
+		NOMINATIVE = "стаканчик подозрительной жидкости",
+		GENITIVE = "стаканчика подозрительной жидкости",
+		DATIVE = "стаканчику подозрительной жидкости",
+		ACCUSATIVE = "стаканчик подозрительной жидкости",
+		INSTRUMENTAL = "стаканчиком подозрительной жидкости",
+		PREPOSITIONAL = "стаканчике подозрительной жидкости"
+	)
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/Initialize(mapload)
+	. = ..()
+	spawn_reagent()
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/proc/spawn_reagent()
+	var/chosenchem = pick_reagent()
+	selected_reagent = chosenchem
+	reagents.remove_all(25)
+	reagents.add_reagent(chosenchem, 50)
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/proc/pick_reagent()
+	return /datum/reagent/consumable/drink/coffee
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/heat/pick_reagent()
+	return pick(
+		/datum/reagent/plasma,
+		/datum/reagent/consumable/capsaicin,
+		/datum/reagent/consumable/ethanol,
+	)
+
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee/experimentor/cold/pick_reagent()
+	return pick(
+		/datum/reagent/uranium,
+		/datum/reagent/consumable/frostoil,
+		/datum/reagent/medicine/ephedrine,
+	)
