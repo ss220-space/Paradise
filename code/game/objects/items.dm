@@ -1483,3 +1483,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(colored_belt_appearance)
 		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
+
+/// If an object can successfully be used as a fire starter it will return a message
+/obj/item/proc/ignition_effect(atom/target, mob/user)
+	if(get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+		return span_notice("[user] lights [target] with [src].")
