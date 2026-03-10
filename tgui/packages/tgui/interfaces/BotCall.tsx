@@ -160,15 +160,11 @@ const MapBot: React.FC<{ model: string }> = ({ model }) => {
               </Table.Cell>
               <Table.Cell>{bot.location}</Table.Cell>
               <Table.Cell>
-                <Button
-                  onClick={() => act('interface', { botref: bot.UID })}
-                />
+                <Button onClick={() => act('interface', { botref: bot.UID })} />
                 Interface
               </Table.Cell>
               <Table.Cell>
-                <Button
-                  onClick={() => act('call', { botref: bot.UID })}
-                />
+                <Button onClick={() => act('call', { botref: bot.UID })} />
                 Call
               </Table.Cell>
             </Table.Row>
