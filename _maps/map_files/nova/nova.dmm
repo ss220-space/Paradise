@@ -88189,10 +88189,10 @@
 /area/medical/morgue)
 "njd" = (
 /obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/carpet/red,
 /area/lawoffice)
 "nje" = (
@@ -97967,15 +97967,14 @@
 /obj/effect/turf_decal/stripes/gold{
 	dir = 8
 	},
-/obj/item/book/manual/sop_command,
-/obj/item/book/manual/sop_legal,
-/obj/item/book/manual/sop_general,
-/obj/item/book/manual/sop_supply,
-/obj/item/book/manual/sop_service,
-/obj/item/book/manual/sop_security,
-/obj/item/book/manual/sop_science,
-/obj/item/book/manual/sop_medical,
-/obj/item/book/manual/sop_engineering,
+/obj/item/storage/fancy/coffee_condi_display{
+	pixel_x = -4;
+	pixel_y = 7
+	},
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_x = 9;
+	pixel_y = 2
+	},
 /turf/simulated/floor/carpet/red,
 /area/lawoffice)
 "oIC" = (
@@ -115262,7 +115261,6 @@
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
 "riu" = (
-/obj/machinery/photocopier,
 /obj/machinery/camera{
 	c_tag = "Lawyer Office North";
 	network = list("SS13","Security")
@@ -132676,12 +132674,6 @@
 /obj/item/clothing/gloves/color/fyellow,
 /turf/simulated/floor/plating,
 /area/maintenance/apmaint)
-"tGI" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/turf/simulated/floor/wood/fancy/cherry,
-/area/lawoffice)
 "tGQ" = (
 /obj/structure/table/reinforced,
 /obj/item/assembly/signaler,
@@ -141802,7 +141794,6 @@
 /turf/space/openspace,
 /area/turret_protected/ai)
 "uYV" = (
-/obj/machinery/photocopier,
 /obj/machinery/alarm{
 	dir = 1;
 	pixel_y = -24
@@ -141812,6 +141803,7 @@
 	dir = 1;
 	network = list("SS13","Security")
 	},
+/obj/machinery/photocopier,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "uYZ" = (
@@ -149892,7 +149884,17 @@
 	},
 /area/solar/auxport)
 "wkE" = (
-/obj/machinery/vending/coffee,
+/obj/structure/bookcase,
+/obj/item/book/manual/sop_engineering,
+/obj/item/book/manual/sop_medical,
+/obj/item/book/manual/sop_security,
+/obj/item/book/manual/sop_service,
+/obj/item/book/manual/sop_supply,
+/obj/item/book/manual/sop_general,
+/obj/item/book/manual/sop_legal,
+/obj/item/book/manual/sop_command,
+/obj/item/book/manual/sop_science,
+/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "wkK" = (
@@ -253407,12 +253409,12 @@ bkc
 sBr
 jKH
 qgW
-tGI
+pEA
 bFC
 xmH
 hXA
 cqI
-tGI
+pEA
 qgW
 wkE
 sBr

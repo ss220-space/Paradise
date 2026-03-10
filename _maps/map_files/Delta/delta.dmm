@@ -55901,6 +55901,10 @@
 /obj/effect/landmark/spawner/ninja_teleport,
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
+"iiQ" = (
+/obj/machinery/photocopier,
+/turf/simulated/floor/wood/fancy/cherry,
+/area/lawoffice)
 "iiS" = (
 /obj/effect/spawner/window/reinforced,
 /obj/structure/cable{
@@ -57972,11 +57976,11 @@
 	},
 /area/security/main)
 "iHx" = (
-/obj/item/flashlight/lamp,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /obj/structure/table/wood,
+/obj/item/book/manual/security_space_law,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "iHE" = (
@@ -69113,11 +69117,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/incinerator)
-"lrf" = (
-/obj/structure/table/wood,
-/obj/item/book/manual/security_space_law,
-/turf/simulated/floor/carpet,
-/area/lawoffice)
 "lrs" = (
 /obj/structure/lattice,
 /obj/structure/holosign/barrier/atmos,
@@ -79983,7 +79982,6 @@
 /turf/simulated/floor/carpet,
 /area/crew_quarters/cabin4)
 "nPr" = (
-/obj/machinery/photocopier,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -82705,7 +82703,10 @@
 /area/library)
 "owg" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug,
+/obj/item/storage/ashtray/bronze{
+	pixel_x = -6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "owl" = (
@@ -89501,7 +89502,6 @@
 /area/atmos)
 "pVV" = (
 /obj/machinery/light,
-/obj/machinery/vending/coffee,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -103240,6 +103240,9 @@
 /obj/machinery/newscaster/security_unit{
 	pixel_x = 28
 	},
+/obj/structure/table/wood,
+/obj/structure/table/wood,
+/obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
 "sZC" = (
@@ -115287,13 +115290,20 @@
 	},
 /area/hallway/primary/central/se)
 "vFG" = (
-/obj/structure/chair/comfy/brown{
-	dir = 8
-	},
 /obj/machinery/requests_console{
 	department = "Lawyer Office";
 	name = "Lawyer Requests Console";
 	pixel_x = 30
+	},
+/obj/structure/table/wood,
+/obj/item/storage/fancy/coffee_cart_rack{
+	pixel_x = -7;
+	pixel_y = 3
+	},
+/obj/structure/table/wood,
+/obj/item/storage/fancy/coffee_condi_display{
+	pixel_x = 6;
+	pixel_y = 5
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -122955,14 +122965,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/aisat/maintenance)
-"xtO" = (
-/obj/structure/table/wood,
-/obj/item/storage/ashtray/bronze{
-	pixel_x = -1;
-	pixel_y = 1
-	},
-/turf/simulated/floor/carpet,
-/area/lawoffice)
 "xtQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -170332,7 +170334,7 @@ suV
 xiu
 tQe
 jun
-jun
+iiQ
 jun
 wxT
 qcA
@@ -171359,8 +171361,8 @@ coE
 suV
 sVC
 vvG
-xtO
-sWs
+ygD
+gNR
 gKP
 nPr
 uSv
@@ -171615,9 +171617,9 @@ btL
 coE
 stV
 sWs
-lrf
-ygD
-gNR
+sWs
+sWs
+sWs
 jun
 sZj
 bhl
