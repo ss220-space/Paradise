@@ -14,6 +14,7 @@
 	var/static/list/east_necropolisroom_templates
 	var/static/templates_loaded = FALSE
 	var/static/obj/effect/landmark/map_loader/lavaland_room/loader_landmark
+	var/static/list/pending_landmarks = list()
 
 /obj/effect/landmark/map_loader/lavaland_room/Initialize(mapload)
 	. = ..()
@@ -28,8 +29,13 @@
 	if(!templates_loaded)
 		if(src == loader_landmark)
 			load_templates()
+			for(var/obj/effect/landmark/map_loader/lavaland_room/room in pending_landmarks)
+				if(!QDELETED(room))
+					INVOKE_ASYNC(room, PROC_REF(load_room_async))
+			pending_landmarks.Cut()
 		else
-			UNTIL(templates_loaded)
+			pending_landmarks |= src
+			return
 
 	// Selecting a template in the direction of the landmark
 	var/list/room_list = get_room_list_by_dir(dir)

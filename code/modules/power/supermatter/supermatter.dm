@@ -724,7 +724,7 @@
 					radio_announce(span_big("[emergency_alert] Целостность: [get_integrity_percent()]%"), name, PUB_FREQ, radio)
 					lastwarning = REALTIMEOFDAY
 					if(!has_reached_emergency)
-						investigate_log("has reached the emergency point for the first time.", "supermatter")
+						investigate_log("has reached the emergency point for the first time.", INVESTIGATE_ENGINE)
 						message_admins("[src] has reached the emergency point [ADMIN_JMP(src)].")
 						has_reached_emergency = TRUE
 				else // The damage is still going up but not yet super high

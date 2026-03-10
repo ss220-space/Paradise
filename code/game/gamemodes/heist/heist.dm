@@ -174,7 +174,8 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /datum/game_mode/heist/declare_completion()
 	//No objectives, go straight to the feedback.
-	if(!(length(raid_objectives))) return ..()
+	if(!(length(raid_objectives)))
+		return ..()
 
 	var/win_type = "Major"
 	var/win_group = "Crew"

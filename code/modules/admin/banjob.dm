@@ -57,7 +57,7 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 			if(GLOB.jobban_regex.Find(s))
 				jobban_assoc_insert(GLOB.jobban_regex.group[1], GLOB.jobban_regex.group[2], GLOB.jobban_regex.group[3])
 			else
-				log_runtime(EXCEPTION("Skipping malformed job ban: [s]"))
+				stack_trace("Skipping malformed job ban: [s]")
 	else
 		if(!SSdbcore.IsConnected())
 			log_world("Database connection failed. Reverting to the legacy ban system.")
@@ -118,9 +118,9 @@ GLOBAL_DATUM_INIT(jobban_regex, /regex, regex("(\[\\S]+) - (\[^#]+\[^# ])(?: ## 
 				if(GLOB.jobban_assoclist[ckey] && GLOB.jobban_assoclist[ckey][rank])
 					GLOB.jobban_assoclist[ckey] -= rank
 				else
-					log_runtime(EXCEPTION("Attempted to remove non-existent job ban: [X]"))
+					stack_trace("Attempted to remove non-existent job ban: [X]")
 			else
-				log_runtime(EXCEPTION("Failed to remove malformed job ban from associative list: [X]"))
+				stack_trace("Failed to remove malformed job ban from associative list: [X]")
 			GLOB.jobban_keylist.Remove(GLOB.jobban_keylist[i])
 			if(CONFIG_GET(flag/ban_legacy_system))
 				jobban_savebanfile()

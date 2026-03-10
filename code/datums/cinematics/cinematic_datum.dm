@@ -194,7 +194,7 @@
 	UnregisterSignal(no_longer_watching, COMSIG_QDELETING)
 	// We'll clear the cinematic if they have a mob which has one,
 	// but we won't remove TRAIT_NO_TRANSFORM. Wait for the cinematic end to do that.
-	no_longer_watching.mob?.clear_fullscreen("cinematic")
+	no_longer_watching?.mob?.clear_fullscreen("cinematic")
 	no_longer_watching.screen -= screen
 
 	watching -= no_longer_watching

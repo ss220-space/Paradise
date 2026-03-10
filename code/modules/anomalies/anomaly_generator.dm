@@ -72,7 +72,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator
 	component_parts += new /obj/item/stock_parts/capacitor
 	component_parts += new /obj/item/stock_parts/capacitor
-	RefreshParts()
+	END_OF_TICK(CALLBACK(src, PROC_REF(RefreshParts)))
 
 /obj/machinery/power/anomaly_generator/upgraded/Initialize(mapload)
 	. = ..()
@@ -84,7 +84,7 @@
 	component_parts += new /obj/item/stock_parts/manipulator/femto
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic
 	component_parts += new /obj/item/stock_parts/capacitor/quadratic
-	RefreshParts()
+	END_OF_TICK(CALLBACK(src, PROC_REF(RefreshParts)))
 
 /obj/machinery/power/anomaly_generator/Destroy()
 	qdel(beacon)

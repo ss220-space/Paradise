@@ -43,14 +43,14 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(obj/projectile/P, def_zone)
+/mob/living/bullet_act(obj/projectile/proj, def_zone)
 	//Armor
-	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
-	if(!P.nodamage)
-		apply_damage(P.damage, P.damage_type, def_zone, armor)
-		if(P.dismemberment)
-			check_projectile_dismemberment(P, def_zone)
-	return P.on_hit(src, armor, def_zone)
+	var/armor = run_armor_check(def_zone, proj.flag, armour_penetration = proj.armour_penetration)
+	if(!proj.nodamage)
+		apply_damage(proj.damage, proj.damage_type, def_zone, armor)
+		if(proj.dismemberment)
+			check_projectile_dismemberment(proj, def_zone)
+	return proj.on_hit(src, armor, def_zone)
 
 /mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
