@@ -2169,7 +2169,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
-/obj/structure/closet/walllocker/emerglocker/directional/west,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "blue"
@@ -86976,11 +86976,11 @@
 /area/maintenance/starboardaux)
 "nas" = (
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "nav" = (
@@ -100396,13 +100396,13 @@
 	},
 /area/medical/biostorage)
 "oZQ" = (
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutral"
@@ -142801,7 +142801,7 @@
 	scrub_Toxins = 1
 	},
 /obj/item/radio/intercom/directional/north,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
+/obj/structure/closet/walllocker/emerglocker/directional/east,
 /turf/simulated/floor/plasteel{
 	icon_state = "purplefull"
 	},
@@ -151680,10 +151680,10 @@
 /area/medical/research)
 "wwo" = (
 /obj/machinery/light/small,
-/obj/structure/closet/walllocker/emerglocker/directional/north,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/structure/closet/walllocker/emerglocker/directional/west,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkyellowfull"
