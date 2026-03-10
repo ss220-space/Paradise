@@ -508,12 +508,12 @@
 
 /obj/item/radio/headset/headset_iaa/get_ru_names()
 	return list(
-		NOMINATIVE = "радиочастотная гарнитура адвоката",
-		GENITIVE = "радиочастотную гарнитуру адвоката",
-		DATIVE = "радиочастотной гарнитуры адвоката",
-		ACCUSATIVE = "радиочастотную гарнитуру адвоката",
-		INSTRUMENTAL = "радиочастотной гарнитурой адвоката",
-		PREPOSITIONAL = "радиочастотной гарнитуре адвоката",
+		NOMINATIVE = "радиочастотная гарнитура Адвоката",
+		GENITIVE = "радиочастотную гарнитуру Адвоката",
+		DATIVE = "радиочастотной гарнитуры Адвоката",
+		ACCUSATIVE = "радиочастотную гарнитуру Адвоката",
+		INSTRUMENTAL = "радиочастотной гарнитурой Адвоката",
+		PREPOSITIONAL = "радиочастотной гарнитуре Адвоката",
 	)
 
 /obj/item/radio/headset/headset_iaa/alt
@@ -528,12 +528,12 @@
 
 /obj/item/radio/headset/headset_iaa/alt/get_ru_names()
 	return list(
-		NOMINATIVE = "тактическая гарнитура адвоката",
-		GENITIVE = "тактическую гарнитуру адвоката",
-		DATIVE = "тактической гарнитуры адвоката",
-		ACCUSATIVE = "тактическую гарнитуру адвоката",
-		INSTRUMENTAL = "тактической гарнитурой адвоката",
-		PREPOSITIONAL = "тактической гарнитуре адвоката",
+		NOMINATIVE = "тактическая гарнитура Адвоката",
+		GENITIVE = "тактическую гарнитуру Адвоката",
+		DATIVE = "тактической гарнитуры Адвоката",
+		ACCUSATIVE = "тактическую гарнитуру Адвоката",
+		INSTRUMENTAL = "тактической гарнитурой Адвоката",
+		PREPOSITIONAL = "тактической гарнитуре Адвоката",
 	)
 
 /obj/item/radio/headset/headset_eng
