@@ -838,7 +838,6 @@
 #include "code\datums\elements\after_attack\_after_attack.dm"
 #include "code\datums\elements\after_attack\attack_effect_sleep.dm"
 #include "code\datums\elements\decals\_decal.dm"
-#include "code\datums\elements\tts_modifier.dm"
 #include "code\datums\elements\screentips\contextual_screentip_bare_hands.dm"
 #include "code\datums\elements\screentips\contextual_screentip_item_typechecks.dm"
 #include "code\datums\elements\screentips\contextual_screentip_mob_typechecks.dm"
