@@ -231,7 +231,8 @@
 				"interval" = Ss.interval,
 				"status" = Ss.active,
 				"description" = Ss.description,
-				"secure" = Ss.secure
+				"secure" = Ss.secure,
+				"subscription_type" = Ss.subscription_type_path
 			)))
 
 	// subscriptions that can be purchased
@@ -248,7 +249,9 @@
 			"description" = S.description,
 			"cost" = S.cost,
 			"interval" = S.interval,
-			"provider" = "Нет доступа"
+			"provider" = "Нет доступа",
+			"secure" = S.secure,
+			"subscription_type" = S.subscription_type_path
 		)))
 
 	data["balance"] = owner_bank_account.money
@@ -285,45 +288,26 @@
 				return
 
 		if("add_subscription")
-			// NOTE: What happens if I make one variable name? And then create a
-			// variable with that name every time? Will it overwrite it?
-			// Will it report it at compile time? No. It'll make a duplicate and add a number.
-			// What a mess.
-			var/available_subscription_name = params["available_subscription_name"]
-			var/subscriber_account_name = pda.owner
-			var/datum/subscription/existing = find_subscription_with_name(subscriber_account_name, available_subscription_name)
-			var/datum/subscription/template = null
-			var/datum/money_account/sub_acc = get_account_with_name(subscriber_account_name)
+			var/sub_type = params["subscription_type"]
+			sub_type = text2path(sub_type)
+			if(!sub_type)
+				to_chat(usr, span_warning("Ошибка: не указан тип подписки."))
+				return
 
+			var/datum/money_account/sub_acc = get_account_with_name(pda.owner)
 			if(!sub_acc)
 				to_chat(usr, span_warning("Ошибка аккаунта."))
 				return
 
-			//Is this subscription already issued?
-			if(existing)
-				to_chat(usr, span_warning("У вас уже есть активная подписка на '[available_subscription_name]'."))
-				return
+			// additional options for your subscriptions
+			var/list/extra_params = list()
 
-			//Search for a template in available subscriptions
-			for(var/datum/subscription/S in GLOB.available_subscriptions)
-				if(S && S.subscription_name == available_subscription_name)
-					template = S
-					break
+			//If you have additional parameters, write them something like this:
+			// if(sub_type == /datum/subscription/salary_modifier)
+			//	    body
+			//	    extra_params["modifier"] = modifier
 
-			if(!template)
-				to_chat(usr, span_warning("Ошибка: подписка '[available_subscription_name]' не найдена в каталоге."))
-				return
-
-			new /datum/subscription(
-				sub_acc,           			  // subscriber
-				template.recipient_account,   // recipient
-				template.cost,                // cost
-				template.interval,            // interval
-				template.subscription_name,   // name
-				template.description          // description
-			)
-
-			to_chat(usr, span_notice("Подписка '[available_subscription_name]' успешно оформлена."))
+			create_subscription(sub_acc, sub_type, extra_params)
 			return
 
 		if("cancel_subscription")

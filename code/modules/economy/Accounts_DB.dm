@@ -96,6 +96,14 @@ GLOBAL_VAR(current_date_string)
 				data["money"] = detailed_account_view.money
 				data["suspended"] = detailed_account_view.suspended
 
+				var/salary_mod = 0;
+				var/datum/subscription/salary_modifier/this_modifier = find_subscription_salary_modifier_spec(detailed_account_view.owner_name, /datum/subscription/salary_modifier)
+
+				if(this_modifier)
+					salary_mod = this_modifier.modifier;
+
+				data["salary_modifier"] = salary_mod
+
 				var/list/transactions = list()
 				for(var/datum/transaction/T in detailed_account_view.transaction_log)
 					transactions.Add(list(list(
@@ -248,6 +256,39 @@ GLOBAL_VAR(current_date_string)
 			P.info = text
 			visible_message(span_notice("[src] prints out a report."))
 			next_print = world.time + 30 SECONDS
+
+		if("set_salary_modifier")
+			var/sub_type = /datum/subscription/salary_modifier
+			var/owner_name = params["owner_name"]
+			var/datum/money_account/sub_acc = get_account_with_name(owner_name)
+			var/list/extra_params = list()
+			var/salary_modifier = text2num(params["modifier"])
+
+			extra_params["modifier"] = salary_modifier
+
+			var/datum/subscription/salary_modifier/target = find_subscription_salary_modifier_spec(owner_name, sub_type)
+
+			if(target)
+				if(salary_modifier == 0)
+					target.cancel()
+					to_chat(usr, span_notice("Модификатор сброшен."))
+				else
+					target.modifier = salary_modifier
+					var/datum/job/J = sub_acc.linked_job
+					var/base_paycheck = J.paycheck
+					target.cost = abs(base_paycheck * salary_modifier / 100)
+					if(salary_modifier < 0)
+						target.recipient_account = GLOB.station_account
+						target.subscriber_account = sub_acc
+					else
+						target.recipient_account = sub_acc
+						target.subscriber_account = GLOB.station_account
+					to_chat(usr, span_notice("Модификатор обновлён: [salary_modifier]%."))
+			else
+				create_subscription(sub_acc, sub_type, extra_params)
+
+			ui_interact(usr)
+			return
 
 #undef AUT_ACCLST
 #undef AUT_ACCINF

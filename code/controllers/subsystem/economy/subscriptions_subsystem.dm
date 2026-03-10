@@ -15,7 +15,7 @@ GLOBAL_LIST_EMPTY(all_subscriptions)
 // The subscription placement check is performed using the following process:
 // interval / BASE_FREQUENCY_SUBSYSTEM and rounded down.
 // So, if you use 7 minutes, it will be counted as 5, 12 minutes as 10, and so on.
-#define BASE_FREQUENCY_SUBSYSTEM 5 MINUTES
+#define BASE_FREQUENCY_SUBSYSTEM (5 MINUTES)
 // for your test uncommit this
 // #define BASE_FREQUENCY_SUBSYSTEM 1 MINUTES
 
@@ -59,8 +59,10 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 
 	// Get a list of subscriptions that should be executed now.
 	var/list/current_list = buckets[current_bucket]
+	var/list/process_list = list() // snapshot for ANTI-DEBIL-DM-LIST
+	process_list += current_list
 
-	for(var/datum/subscription/S in current_list)
+	for(var/datum/subscription/S in process_list)
 		// Fool check and gifts The subscription can be deactivated at any time and
 		// we somehow missed it
 		if(S.active)
@@ -76,6 +78,7 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 
 /datum/controller/subsystem/subscriptions_subsystem/proc/add_subscription(datum/subscription/S)
 	// Convert the subscription interval to the number of subsystem ticks
+
 	var/ticks = round(S.interval / BASE_FREQUENCY_SUBSYSTEM)
 
 	if(ticks < 1)

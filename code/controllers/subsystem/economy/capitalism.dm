@@ -2,10 +2,6 @@
 // Defines for this subsystem - [code/_DEFINES/economy.dm] | here salary
 // Account terminal - [code/modules/economy/Accounts_DB.dm] | here heart of economy
 // Subs system - [code/controllers/subsystem/economy/subscriptions_subsystem.dm]
-//
-
-#define FREQUENCY_SALARY 5 MINUTES
-#define EXTRA_MONEY 10000
 
 SUBSYSTEM_DEF(capitalism)
 	name = "Capitalism"
@@ -187,6 +183,3 @@ SUBSYSTEM_DEF(capitalism)
 		list_payment_accounts.len--
 		account.credit(bounty, "Начисление награды за выполнение заказа.", "Терминал Бизель №[rand(111,333)]", account.owner_name)
 	return TRUE
-
-#undef FREQUENCY_SALARY
-#undef EXTRA_MONEY

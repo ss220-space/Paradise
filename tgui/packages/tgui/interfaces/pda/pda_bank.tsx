@@ -12,6 +12,8 @@ import {
   TextArea,
 } from '../../components';
 
+// TODO добавить задний фон
+
 import { Window } from '../../layouts';
 
 const DEFAULT_PURPOSE = 'Перевод через RIB';
@@ -33,6 +35,7 @@ type Subscription = {
   status: boolean;
   description: string;
   secure: boolean;
+  subscription_type: string;
 };
 
 type AvailableSubscription = {
@@ -41,6 +44,8 @@ type AvailableSubscription = {
   cost: number;
   interval: number;
   provider: string;
+  secure: boolean;
+  subscription_type: string;
 };
 
 type RaingorBankData = {
@@ -107,7 +112,7 @@ export const pda_bank = (props: unknown) => {
   let PageContent;
   switch (page) {
     case 'main':
-      PageContent = <UMainMenuPage setPage={setPage} data={data} />;
+      PageContent = <UUMainMenuPage setPage={setPage} data={data} />;
       break;
     case 'transfer':
       PageContent = <TransferMenuPage setPage={setPage} data={data} />;
@@ -134,137 +139,7 @@ export const pda_bank = (props: unknown) => {
   );
 };
 
-const MainMenuPage = ({ setPage, data }: PageProps) => {
-  const { balance, transactions, name } = data;
-  const { act } = useBackend();
-  const handleLogout = () => {
-    act('login_logout');
-  };
-
-  return (
-    <Box>
-      <Box textAlign="center" mb={3}>
-        <Button
-          fluid
-          style={{ fontWeight: 'bold', fontSize: '16px' }}
-          onClick={handleLogout}
-        >
-          <Icon name="step-backward" mr={1} /> Выйти с аккаунта
-        </Button>
-        <Box color="bad" fontSize={0.85} mt={1} textAlign="center">
-          <Icon name="exclamation-triangle" mr={0.5} />
-          Для выхода из аккаунта сначала извлеките ID-карту из КПК
-        </Box>
-      </Box>
-
-      <Section
-        title={
-          <Box fontSize="14px" bold>
-            <Icon name="wallet" mr={1} />
-            Владелец счёта
-          </Box>
-        }
-      >
-        <Box>{name}</Box>
-      </Section>
-
-      <Section
-        title={
-          <Box fontSize="14px" bold>
-            <Icon name="money-bill" mr={1} />
-            Текущий баланс
-          </Box>
-        }
-      >
-        <Box fontSize="20px" bold color={balance >= 0 ? 'good' : 'bad'}>
-          {balance} кредитов
-        </Box>
-      </Section>
-
-      <Section
-        title={
-          <Box fontSize="14px" bold>
-            <Icon name="bars" mr={1} />
-            Меню банка
-          </Box>
-        }
-      >
-        <Stack>
-          <Stack.Item grow>
-            <Button fluid onClick={() => setPage('transfer')}>
-              <Stack vertical align="center">
-                <Stack.Item>
-                  <Icon name="exchange-alt" mx="auto" size={3} />
-                </Stack.Item>
-                <Stack.Item>Транзакции и переводы</Stack.Item>
-              </Stack>
-            </Button>
-          </Stack.Item>
-
-          <Stack.Item grow>
-            <Button fluid onClick={() => setPage('subscriptions')}>
-              <Stack vertical align="center">
-                <Stack.Item>
-                  <Icon name="credit-card" mx="auto" size={3} />
-                </Stack.Item>
-                <Stack.Item>Подписки</Stack.Item>
-              </Stack>
-            </Button>
-          </Stack.Item>
-
-          <Stack.Item grow>
-            <Button fluid onClick={() => setPage('about')}>
-              <Stack vertical align="center">
-                <Stack.Item>
-                  <Icon name="info-circle" mx="auto" size={3} />
-                </Stack.Item>
-                <Stack.Item>О банке</Stack.Item>
-              </Stack>
-            </Button>
-          </Stack.Item>
-        </Stack>
-      </Section>
-
-      <Section
-        title={
-          <Box fontSize="14px" bold>
-            <Icon name="history" mr={1} />
-            История операций
-          </Box>
-        }
-      >
-        {transactions.length === 0 && <Box italic>Операции отсутствуют.</Box>}
-
-        {transactions.map((t, i) => (
-          <Section key={i} title={`${t.date} ${t.time}`}>
-            <LabeledList>
-              <LabeledList.Item label="Назначение">
-                {t.purpose}
-              </LabeledList.Item>
-
-              <LabeledList.Item label="Контрагент">
-                {t.target_name}
-              </LabeledList.Item>
-
-              <LabeledList.Item label="Терминал">
-                {t.source_terminal}
-              </LabeledList.Item>
-
-              <LabeledList.Item label="Сумма">
-                <Box color={t.amount >= 0 ? 'good' : 'bad'}>
-                  {t.amount} кредитов
-                </Box>
-              </LabeledList.Item>
-            </LabeledList>
-          </Section>
-        ))}
-      </Section>
-    </Box>
-  );
-};
-
-// Update design
-const UMainMenuPage = ({ setPage, data }: PageProps) => {
+const UUMainMenuPage = ({ setPage, data }: PageProps) => {
   const { balance, transactions, name } = data;
   const { act } = useBackend();
 
@@ -279,13 +154,14 @@ const UMainMenuPage = ({ setPage, data }: PageProps) => {
         mb={2}
         style={{
           background:
-            'linear-gradient(135deg, #722F37 0%, #800020 50%, #9B2335 100%)',
+            'linear-gradient(135deg, rgba(114, 47, 55, 0.9) 0%, rgba(128, 0, 32, 0.9) 50%, rgba(155, 35, 53, 0.9) 100%)',
           borderRadius: '8px',
           border: '2px solid #B8860B',
         }}
       >
         <Stack vertical align="center" justify="center" p={3}>
           <Icon name="university" color="yellow" size={4} mb={1} />
+
           <Box
             fontSize="16px"
             bold
@@ -339,14 +215,14 @@ const UMainMenuPage = ({ setPage, data }: PageProps) => {
         <Stack.Item grow>
           <Button
             fluid
-            color="bad"
             onClick={() => setPage('transfer')}
             p={3}
             style={{
               height: '100px',
               borderRadius: '8px',
               border: '2px solid #800020',
-              background: 'linear-gradient(180deg, #800020 0%, #500000 100%)',
+              background:
+                'linear-gradient(180deg, rgba(128, 0, 32, 0.8) 0%, rgba(80, 0, 0, 0.9) 100%)',
             }}
           >
             <Stack vertical align="center" justify="center">
@@ -361,14 +237,14 @@ const UMainMenuPage = ({ setPage, data }: PageProps) => {
         <Stack.Item grow ml={1}>
           <Button
             fluid
-            color="bad"
             onClick={() => setPage('subscriptions')}
             p={3}
             style={{
               height: '100px',
               borderRadius: '8px',
               border: '2px solid #800020',
-              background: 'linear-gradient(180deg, #800020 0%, #500000 100%)',
+              background:
+                'linear-gradient(180deg, rgba(128, 0, 32, 0.8) 0%, rgba(80, 0, 0, 0.9) 100%)',
             }}
           >
             <Stack vertical align="center" justify="center">
@@ -385,17 +261,16 @@ const UMainMenuPage = ({ setPage, data }: PageProps) => {
         <Stack.Item grow>
           <Button
             fluid
-            color="bad"
             onClick={() => setPage('about')}
             p={2}
             style={{
               borderRadius: '6px',
               border: '1px solid #800020',
-              background: 'linear-gradient(180deg, #800020 0%, #600015 100%)',
+              background: 'rgba(128, 0, 32, 0.6)',
             }}
           >
-            <Icon name="info-circle" color="yellow" mr={1} />
-            <Box fontSize="13px" bold color="white">
+            <Icon name="info-circle" color="red" mr={1} />
+            <Box fontSize="13px" bold color="red">
               О банке
             </Box>
           </Button>
@@ -404,17 +279,16 @@ const UMainMenuPage = ({ setPage, data }: PageProps) => {
         <Stack.Item grow ml={1}>
           <Button
             fluid
-            color="bad"
             onClick={handleLogout}
             p={2}
             style={{
               borderRadius: '6px',
               border: '1px solid #800020',
-              background: 'linear-gradient(180deg, #800020 0%, #600015 100%)',
+              background: 'rgba(128, 0, 32, 0.6)',
             }}
           >
-            <Icon name="sign-out-alt" color="yellow" mr={1} />
-            <Box fontSize="13px" bold color="white">
+            <Icon name="sign-out-alt" color="red" mr={1} />
+            <Box fontSize="13px" bold color="red">
               Выйти из аккаунта
             </Box>
           </Button>
@@ -426,12 +300,12 @@ const UMainMenuPage = ({ setPage, data }: PageProps) => {
         style={{
           borderRadius: '6px',
           border: '2px solid #800020',
-          background: 'linear-gradient(180deg, #500000 0%, #400000 100%)',
+          background: 'rgba(80, 0, 0, 0.7)',
         }}
       >
         <Box textAlign="center" color="yellow" fontSize={1} bold>
           <Icon name="exclamation-triangle" mr={0.5} />
-          Для выхода из аккаунта сначала извлеките ID-карту из КПК
+          Для полного выхода извлеките ID-карту из КПК
         </Box>
       </Section>
 
@@ -451,6 +325,8 @@ const UMainMenuPage = ({ setPage, data }: PageProps) => {
             style={{
               borderLeft: `3px solid ${t.amount >= 0 ? '#28a745' : '#dc3545'}`,
               paddingLeft: '8px',
+              background: 'rgba(0, 0, 0, 0.2)',
+              borderRadius: '4px',
             }}
           >
             <LabeledList>
@@ -609,34 +485,37 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
         }
       >
         {availableSubs.length === 0 && <Box italic>Нет доступных подписок</Box>}
-        {availableSubs.map((e) => (
-          <Section
-            key={e.available_subscription_name}
-            title={e.available_subscription_name}
-          >
-            <Box mb={1}>{e.description}</Box>
-
-            <LabeledList.Item label="Интервал">
-              {Math.round(e.interval / 600)} минут
-            </LabeledList.Item>
-
-            <LabeledList.Item label="Стоимость">
-              <Box> {e.cost} кредитов</Box>
-            </LabeledList.Item>
-
-            <Button
-              color="good"
-              onClick={() => {
-                act('add_subscription', {
-                  available_subscription_name: e.available_subscription_name,
-                });
-              }}
+        {availableSubs
+          .filter((e) => !e.secure) // We do not show secure subscriptions in the catalog
+          .map((e) => (
+            <Section
+              key={e.available_subscription_name}
+              title={e.available_subscription_name}
             >
-              <Icon name="plus" mr={1} />
-              Подписаться
-            </Button>
-          </Section>
-        ))}
+              <Box mb={1}>{e.description}</Box>
+
+              <LabeledList.Item label="Интервал">
+                {Math.round(e.interval / 600)} минут
+              </LabeledList.Item>
+
+              <LabeledList.Item label="Стоимость">
+                <Box> {e.cost} кредитов</Box>
+              </LabeledList.Item>
+
+              <Button
+                color="good"
+                onClick={() => {
+                  act('add_subscription', {
+                    available_subscription_name: e.available_subscription_name,
+                    subscription_type: e.subscription_type,
+                  });
+                }}
+              >
+                <Icon name="plus" mr={1} />
+                Подписаться
+              </Button>
+            </Section>
+          ))}
       </Section>
 
       <Section
@@ -687,6 +566,7 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                   onClick={() =>
                     act('cancel_subscription', {
                       subscription_name: e.subscription_name,
+                      subscription_type: e.subscription_type,
                     })
                   }
                 >
@@ -705,6 +585,7 @@ const SubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                 onClick={() =>
                   act('resume_subscription', {
                     subscription_name: e.subscription_name,
+                    subscription_type: e.subscription_type,
                   })
                 }
               >

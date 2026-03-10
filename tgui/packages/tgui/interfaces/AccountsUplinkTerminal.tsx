@@ -3,6 +3,8 @@ import { useBackend } from '../backend';
 import { Key, ReactNode, useState } from 'react';
 import {
   Button,
+  Box,
+  Dropdown,
   Icon,
   Input,
   LabeledList,
@@ -28,6 +30,7 @@ type Account = {
   suspended: boolean;
   money: number;
   transactions: Transaction[];
+  salary_modifier?: number;
 };
 
 export type Transaction = {
@@ -239,7 +242,26 @@ const AccountsActions = (properties: AccountsActionsProps) => {
 
 const DetailedAccountInfo = (_properties) => {
   const { act, data } = useBackend<Account>();
-  const { account_number, owner_name, money, suspended, transactions } = data;
+  const {
+    account_number,
+    owner_name,
+    money,
+    suspended,
+    transactions,
+    salary_modifier,
+  } = data;
+
+  const isModified = salary_modifier !== undefined && salary_modifier !== 0;
+  const [selectedValue, setSelectedValue] = useState<string>(
+    String(salary_modifier || 0)
+  );
+  const color =
+    (salary_modifier || 0) > 0
+      ? 'good'
+      : (salary_modifier || 0) < 0
+        ? 'bad'
+        : 'transparent';
+
   return (
     <Stack fill vertical>
       <Stack.Item>
@@ -272,6 +294,70 @@ const DetailedAccountInfo = (_properties) => {
                 {suspended ? 'Unsuspend' : 'Suspend'}
               </Button>
             </LabeledList.Item>
+            <LabeledList.Item label="Корректировка зарплаты">
+              <Box>
+                Впишите столько процентов, на сколько вы хотите изменить
+                зарплату (-50 до 50)
+              </Box>
+              <Stack>
+                <Stack.Item grow>
+                  <Input
+                    value={selectedValue}
+                    onChange={(val) => {
+                      const num = parseInt(val, 10);
+                      if (!isNaN(num)) {
+                        setSelectedValue(
+                          String(Math.max(-50, Math.min(50, num)))
+                        );
+                      } else {
+                        setSelectedValue(val);
+                      }
+                    }}
+                    placeholder="Введите процент (-50 до 50)..."
+                    width="100%"
+                  />
+                </Stack.Item>
+                <Stack.Item>
+                  <Button
+                    icon="save"
+                    color="good"
+                    onClick={() =>
+                      act('set_salary_modifier', {
+                        modifier: selectedValue,
+                        owner_name: owner_name,
+                      })
+                    }
+                  >
+                    Применить
+                  </Button>
+                </Stack.Item>
+              </Stack>
+
+              {isModified && (
+                <Box mt={0.5} fontSize="0.9rem">
+                  <Icon name="info-circle" color={color} />{' '}
+                  <Box color={color} inline>
+                    Текущий модификатор: {salary_modifier > 0 ? '+' : ''}
+                    {salary_modifier}%
+                  </Box>
+                  <Button
+                    ml={1}
+                    icon="undo"
+                    color="transparent"
+                    fontSize="0.8rem"
+                    onClick={() => {
+                      setSelectedValue('0');
+                      act('set_salary_modifier', {
+                        modifier: 0,
+                        owner_name: owner_name,
+                      });
+                    }}
+                  >
+                    Сбросить
+                  </Button>
+                </Box>
+              )}
+            </LabeledList.Item>
           </LabeledList>
         </Section>
       </Stack.Item>
@@ -288,7 +374,7 @@ const DetailedAccountInfo = (_properties) => {
               <Table.Row key={t}>
                 <Table.Cell>{t.time}</Table.Cell>
                 <Table.Cell>{t.purpose}</Table.Cell>
-                <Table.Cell color={t.is_deposit ? 'green' : 'red'}>
+                <Table.Cell color={t.amount >= 0 ? 'green' : 'red'}>
                   ${t.amount}
                 </Table.Cell>
                 <Table.Cell>{t.target_name}</Table.Cell>
