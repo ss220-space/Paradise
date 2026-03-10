@@ -430,3 +430,9 @@
 
 // prevents explosion implants from auto activating upon death
 #define TRAIT_PREVENT_IMPLANT_AUTO_EXPLOSION "prevent_implant_auto_explosion"
+
+/// Mob is an echolocator
+#define TRAIT_ECHOLOCATOR "echolocator"
+
+/// eignore blindness or blurriness or nearsightedness
+#define TRAIT_SIGHT_BYPASS "perfect_sight"

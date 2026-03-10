@@ -484,7 +484,7 @@
 	var/obj/item/mecha_parts/mecha_equipment/rcd/holder = loc
 	if(istype(holder))
 		holder.rcd_holder = null
-	. = ..()
+	return ..()
 
 /obj/item/rcd/mecha_ref/useResource(amount, mob/user)
 	if(!chassis)
@@ -493,6 +493,6 @@
 	return chassis.use_power(power_use_multiplier)
 
 /obj/item/rcd/mecha_ref/checkResource(amount, mob/user)
-	if(!chassis)
-		return
+	if(!chassis || !chassis.cell)
+		return 0
 	return chassis.cell.charge >= power_use_multiplier

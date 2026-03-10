@@ -208,6 +208,10 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			if(send)
 				to_chat(target, span_ooc(span_looc("LOOC[span_prefix("[prefix]: ")]<em>[display_name][admin_stuff]:</em> [span_message(msg)]")))
 
+				if(target.mob && target.prefs.toggles3 & PREFTOGGLE_3_RUNECHAT_LOOC)
+					var/mob/source_mob = mob.get_looc_source()
+					target.mob.create_chat_message(source_mob, "<b>LOOC:</b> [msg]", list("looc"), null)
+
 /mob/proc/get_looc_source()
 	return src
 

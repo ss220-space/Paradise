@@ -1,0 +1,374 @@
+/datum/component/echolocation
+	/// Radius of our echolocation.
+	var/echo_range = 5
+	/// Time for the image to start fading out.
+	var/image_expiry_time = 0.7 SECONDS
+	/// Time for the image to fade in.
+	var/fade_in_time = 0.2 SECONDS
+	/// Time for the image to fade out and delete itself.
+	var/fade_out_time = 0.3 SECONDS
+
+	/// Assoc list of world.time to atom ref to active image
+	VAR_PRIVATE/list/active_images = list()
+	/// All the saved appearances, keyed by icon-icon_state.
+	VAR_PRIVATE/static/list/saved_appearances = list()
+
+	/// Typepache of atom types that will be highlighted with an image on ABOVE_GAME_PLANE.
+	var/list/highlighted_paths
+	/// Typepache of atom types that will have an image generated on WALL_PLANE,
+	/// so they stick out from the floor but they don't obstruct game objects.
+	var/list/background_paths
+	/// Typecache of overlay icon states to the typecache of types that get that overlay.
+	var/list/overlay_states
+
+	/// Combined typecache of all (UNCHANGING) types we want to echolocate, for faster checking.
+	VAR_PRIVATE/list/combined_filter
+
+	/// The focus action for adjusting echolocation settings.
+	var/datum/action/echolocation_focus/focus
+
+	/// A matrix that turns everything except #ffffff into pure blackness, used for our images (the outlines are #ffffff).
+	VAR_PRIVATE/list/black_white_matrix
+	/// List of planes we apply our filters to.
+	VAR_PRIVATE/list/planes
+
+	/// Check every few seconds if we lost our hearing, disable sight_bypass if so (turning us really blind).
+	COOLDOWN_DECLARE(deafness_check)
+
+/datum/component/echolocation/Initialize(
+	echo_range = src.echo_range,
+	image_expiry_time = src.image_expiry_time,
+	fade_in_time = src.fade_in_time,
+	fade_out_time = src.fade_out_time,
+	echo_icon,
+)
+	. = ..()
+	var/mob/living/echolocator = parent
+	if(!istype(echolocator))
+		return COMPONENT_INCOMPATIBLE
+
+	overlay_states = list(
+		"danger" = typecacheof(
+			list(
+				/turf/simulated/floor/chasm,
+				/turf/simulated/floor/fakespace,
+				/turf/simulated/floor/lava,
+				/turf/simulated/openspace,
+				/turf/space,
+			),
+		),
+		"door" = typecacheof(
+			list(
+				/obj/machinery/door,
+				/obj/structure/mineral_door,
+			),
+		)
+	)
+	highlighted_paths = list()
+	background_paths = typecacheof(list(/obj/structure/bed, /obj/structure/table))
+
+	combined_filter = list()
+	for(var/state, typecache in overlay_states)
+		combined_filter |= typecache
+	combined_filter |= background_paths
+
+	black_white_matrix = list(85, 85, 85, 0, 85, 85, 85, 0, 85, 85, 85, 0, 0, 0, 0, 1, -254, -254, -254, 0)
+	planes = list(ABOVE_GAME_PLANE, FLOOR_PLANE, GAME_PLANE, WALL_PLANE)
+
+	focus = new(src)
+	focus.Grant(parent)
+
+	src.echo_range = echo_range
+	src.image_expiry_time = image_expiry_time
+	src.fade_in_time = fade_in_time
+	src.fade_out_time = fade_out_time
+
+	ADD_TRAIT(echolocator, TRAIT_ECHOLOCATOR, ECHOLOCATION_TRAIT)
+	deafness_check()
+	RegisterSignal(echolocator, list(SIGNAL_ADDTRAIT(TRAIT_DEAF), SIGNAL_REMOVETRAIT(TRAIT_DEAF)), PROC_REF(deafness_check))
+	echolocator.become_blind(ECHOLOCATION_TRAIT)
+	echolocator.overlay_fullscreen(ECHOLOCATION_TRAIT, /atom/movable/screen/fullscreen/echo, echo_icon)
+	//echolocator.apply_status_effect(/datum/status_effect/grouped/see_no_names, ECHOLOCATION_TRAIT)
+	START_PROCESSING(SSfastprocess, src)
+
+	if(echolocator.hud_used)
+		hud_created()
+	RegisterSignal(echolocator, COMSIG_MOB_HUD_CREATED, PROC_REF(hud_created))
+	echolocator.update_sight()
+
+/datum/component/echolocation/Destroy(force)
+	STOP_PROCESSING(SSfastprocess, src)
+	var/mob/living/echolocator = parent
+
+	REMOVE_TRAIT(echolocator, TRAIT_ECHOLOCATOR, ECHOLOCATION_TRAIT)
+	REMOVE_TRAIT(echolocator, TRAIT_SIGHT_BYPASS, ECHOLOCATION_TRAIT)
+	UnregisterSignal(echolocator, list(SIGNAL_ADDTRAIT(TRAIT_DEAF), SIGNAL_REMOVETRAIT(TRAIT_DEAF)))
+	echolocator.cure_blind(ECHOLOCATION_TRAIT)
+	echolocator.clear_fullscreen(ECHOLOCATION_TRAIT)
+	//echolocator.remove_status_effect(/datum/status_effect/grouped/see_no_names, ECHOLOCATION_TRAIT)
+	QDEL_NULL(focus)
+
+	for(var/tplane in planes)
+		for(var/atom/movable/screen/plane_master/game_plane as anything in echolocator.hud_used?.get_true_plane_masters(tplane))
+			game_plane.remove_filter("[ECHOLOCATION_TRAIT]_color")
+			game_plane.remove_filter("[ECHOLOCATION_TRAIT]_outline")
+
+	UnregisterSignal(echolocator, COMSIG_MOB_HUD_CREATED)
+	echolocator.update_sight()
+
+	var/client/client = echolocator.client
+	if(client)
+		for(var/time, image_list in active_images)
+			for(var/atom_ref, echo_image in image_list)
+				client.images -= echo_image
+
+	return ..()
+
+/// Add or remove SIGHT_BYPASS depending on if we are deaf or not
+/datum/component/echolocation/proc/deafness_check(...)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(parent, TRAIT_DEAF))
+		REMOVE_TRAIT(parent, TRAIT_SIGHT_BYPASS, ECHOLOCATION_TRAIT)
+	else
+		ADD_TRAIT(parent, TRAIT_SIGHT_BYPASS, ECHOLOCATION_TRAIT)
+
+/// If the mob had no hud when they gained echolocation we need to apply the effect now
+/datum/component/echolocation/proc/hud_created(...)
+	SIGNAL_HANDLER
+
+	var/mob/living/echolocator = parent
+	for(var/tplane in planes)
+		for(var/atom/movable/screen/plane_master/game_plane as anything in echolocator.hud_used.get_true_plane_masters(tplane))
+			game_plane.add_filter("[ECHOLOCATION_TRAIT]_color", 1, color_matrix_filter(black_white_matrix))
+			game_plane.add_filter("[ECHOLOCATION_TRAIT]_outline", 1, outline_filter(size = 1, color = COLOR_WHITE))
+
+/datum/component/echolocation/process()
+	var/mob/living/echolocator = parent
+	if(echolocator.stat == DEAD)
+		return
+	COOLDOWN_START(src, deafness_check, 0. SECONDS)
+	echolocate()
+
+/datum/component/echolocation/proc/echolocate()
+	var/mob/living/echolocator = parent
+	var/client/client = echolocator.client
+	var/atom/eye = client?.eye || echolocator
+	var/list/filtered = list()
+	var/list/combined_filter_cached = combined_filter
+	var/list/highlighted_paths_cached = highlighted_paths
+
+	for(var/atom/seen_atom as anything in dview(echo_range, get_turf(eye), invis_flags = echolocator.see_invisible))
+		if(!seen_atom.alpha)
+			continue
+		if(!is_type_in_typecache(seen_atom, combined_filter_cached) && !is_type_in_typecache(seen_atom, highlighted_paths_cached))
+			continue
+		filtered += seen_atom
+
+	if(!length(filtered))
+		return
+
+	var/list/known_refs = list()
+	var/list/active_images_cached = active_images
+	for(var/time, image_list in active_images_cached)
+		for(var/atom_ref, echo_image in image_list)
+			known_refs[atom_ref] = time
+
+	var/current_time = "[world.time]"
+	var/list/current_images = active_images_cached[current_time]
+	if(!current_images)
+		current_images = list()
+		active_images_cached[current_time] = current_images
+
+	var/list/saved_appearances_cached = saved_appearances
+	var/list/overlay_states_cached = overlay_states
+	var/list/background_paths_cached = background_paths
+	var/fade_in_time_cached = fade_in_time
+
+	for(var/atom/filtered_atom as anything in filtered)
+		// if we are already showing an image for this atom, just update its time so it sticks around longer
+		var/atom_ref = filtered_atom.UID()
+		if(known_refs[atom_ref])
+			var/old_time = known_refs[atom_ref]
+			// if they are mid fade, cancel it
+			var/image/old_image = active_images_cached[old_time][atom_ref]
+			active_images_cached[old_time] -= atom_ref
+			current_images[atom_ref] = old_image
+			if(!length(active_images_cached[old_time]))
+				active_images_cached -= old_time
+			animate(old_image, time = 0, alpha = 255)
+			continue
+
+		var/image/final_image
+
+		// check for special overlays first
+		for(var/overlay_state, overlay_typecache in overlay_states_cached)
+			if(!is_type_in_typecache(filtered_atom, overlay_typecache))
+				continue
+
+			var/image/special_overlay = saved_appearances_cached[overlay_state]
+			if(!special_overlay)
+				special_overlay = image('icons/effects/echolocate.dmi', null, overlay_state)
+				special_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+				saved_appearances_cached[overlay_state] = special_overlay
+
+			final_image = image(special_overlay)
+			break
+
+		// or generate a new image for this atom
+		if(isnull(final_image))
+			var/cache_key = "[filtered_atom.icon]-[filtered_atom.icon_state]"
+			var/image/found_appearance = saved_appearances_cached[cache_key]
+			if(isnull(found_appearance))
+				found_appearance = new(filtered_atom)
+				if(filtered_atom.icon && filtered_atom.icon_state)
+					saved_appearances_cached[cache_key] = found_appearance
+				found_appearance.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
+			final_image = image(found_appearance)
+			final_image.dir = filtered_atom.dir
+
+		// plane handling
+		if(isturf(filtered_atom))
+			// We don't want to mess with you, you can stay on floor or wall plane or whatever
+			SET_PLANE(final_image, filtered_atom.plane, filtered_atom)
+		else if(is_type_in_typecache(filtered_atom, background_paths_cached) || PLANE_TO_TRUE(final_image.plane) == FLOOR_PLANE)
+			// I am being evil here and using wall plane due to being in-between of game plane and floor plane
+			// Why? Because we need background/floor objects to have their own layering, otherwise the effect is blended in wrong
+			// These objects will scarcely interact with real walls so it's... fine
+			final_image.layer = ABOVE_NORMAL_TURF_LAYER
+			SET_PLANE(final_image, WALL_PLANE, filtered_atom)
+		else
+			// Must be on above game plane to separate the effects from game objects
+			SET_PLANE(final_image, ABOVE_GAME_PLANE, filtered_atom)
+
+		// Setting loc so we should disregard pixel offsets
+		final_image.pixel_w = 0
+		final_image.pixel_x = 0
+		final_image.pixel_y = 0
+		final_image.pixel_z = 0
+		final_image.loc = filtered_atom
+
+		// fade in
+		if(fade_in_time_cached > 0)
+			final_image.alpha = 0
+			animate(final_image, alpha = 255, time = fade_in_time_cached)
+
+		current_images[atom_ref] = final_image
+
+		if(client)
+			client.images += final_image
+
+	addtimer(CALLBACK(src, PROC_REF(fade_images), current_time), image_expiry_time)
+
+/datum/component/echolocation/proc/fade_images(from_time)
+	if(fade_out_time <= 0)
+		cleanup_images(from_time)
+		return
+
+	for(var/atom_ref, echo_image in active_images[from_time])
+		animate(echo_image, alpha = 0, time = fade_out_time)
+
+	addtimer(CALLBACK(src, PROC_REF(cleanup_images), from_time), fade_out_time + 0.5 SECONDS)
+
+/datum/component/echolocation/proc/cleanup_images(from_time)
+	var/mob/living/echolocator = parent
+	var/client/client = echolocator.client
+	if(!client)
+		active_images -= from_time
+		return
+
+	var/list/images_to_remove = active_images[from_time]
+	if(images_to_remove)
+		for(var/atom_ref, echo_image in images_to_remove)
+			client.images -= echo_image
+
+	active_images -= from_time
+
+/atom/movable/screen/fullscreen/echo
+	icon_state = "echo"
+	layer = 30
+	plane = PLANE_SPACE_PARALLAX
+	show_when_dead = TRUE
+
+/atom/movable/screen/fullscreen/echo/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	particles = new /particles/echo()
+
+/atom/movable/screen/fullscreen/echo/Destroy()
+	QDEL_NULL(particles)
+	return ..()
+
+
+/datum/action/echolocation_focus
+	name = "Echolocation Focus"
+	desc = "Focus your echolocation to reveal more details or ignore certain objects."
+
+	/// Assoc list of option name to typecache list
+	var/static/list/options
+	/// List of currently selected option names
+	var/list/selected_options
+
+/datum/action/echolocation_focus/New(Target)
+	. = ..()
+	if(!options)
+		var/list/all_floor_objects = list(/obj/machinery/atmospherics)
+		for(var/obj/floor_type as anything in typesof(/obj/machinery, /obj/structure))
+			if(initial(floor_type.plane) == FLOOR_PLANE)
+				all_floor_objects += floor_type
+
+		options = list()
+		options["Blood"] = typecacheof(/obj/effect/decal/cleanable/blood)
+		options["Items"] = typecacheof(/obj/item)
+		options["Floor Objects"] = typecacheof(all_floor_objects)
+
+	selected_options = list(options[1], options[2])
+	update_echocomp()
+
+/datum/action/echolocation_focus/proc/update_echocomp()
+	var/datum/component/echolocation/echo_comp = target
+	var/list/highlighted = echo_comp.highlighted_paths
+	var/list/options_cached = options
+	highlighted.Cut()
+	for(var/option_name in selected_options)
+		highlighted |= options_cached[option_name]
+
+/datum/action/echolocation_focus/Trigger(mob/clicker, trigger_flags)
+	. = ..()
+	if(!.)
+		return
+
+	ui_interact(clicker)
+
+/datum/action/echolocation_focus/ui_status(mob/user, datum/ui_state/state)
+	return IsAvailable() ? UI_INTERACTIVE : UI_CLOSE
+
+/datum/action/echolocation_focus/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(isnull(ui))
+		ui = new(user, src, "EcholocationFocus")
+		ui.open()
+
+/datum/action/echolocation_focus/ui_data(mob/user)
+	var/list/data = list()
+
+	data["selected_options"] = selected_options
+	data["all_options"] = assoc_to_keys(options)
+
+	return data
+
+/datum/action/echolocation_focus/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+
+	if(action != "toggle")
+		return
+
+	var/toggled_option = params["option"]
+	if(toggled_option in selected_options)
+		selected_options -= toggled_option
+	else
+		selected_options += toggled_option
+	update_echocomp()
+	return TRUE

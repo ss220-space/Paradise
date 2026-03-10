@@ -575,6 +575,7 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 			if(unlock_content)
 				dat += "<b>Публичность членства BYOND:</b> <a href='byond://?_src_=prefs;preference=publicity'><b>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
 			dat += "<b>Runechat облака с сообщениями:</b> <a href='byond://?_src_=prefs;preference=chat_on_map'>[toggles2 & PREFTOGGLE_2_RUNECHAT ? "Включить" : "Выключить"]</a><br>"
+			dat += "<b>Runechat для LOOC:</b> <a href='byond://?_src_=prefs;preference=runechat_looc'>[toggles3 & PREFTOGGLE_3_RUNECHAT_LOOC ? "Включить" : "Выключить"]</a><br>"
 			dat += "<b>Анонимность CKEY:</b> <a href='byond://?_src_=prefs;preference=anonmode'><b>[toggles2 & PREFTOGGLE_2_ANON ? "Анонимный" : "Не анонимный"]</b></a><br>"
 			if(user.client.donator_level > 0)
 				dat += "<b>Публичность донат-статуса:</b> <a href='byond://?_src_=prefs;preference=donor_public'><b>[(toggles & PREFTOGGLE_DONATOR_PUBLIC) ? "Показать" : "Спрятать"]</b></a><br>"
@@ -2444,6 +2445,9 @@ GLOBAL_LIST_INIT(special_role_times, list(//minimum age (in days) for accounts t
 
 				if("chat_on_map")
 					toggles2 ^= PREFTOGGLE_2_RUNECHAT
+
+				if("runechat_looc")
+					toggles3 ^= PREFTOGGLE_3_RUNECHAT_LOOC
 
 				if("tgui")
 					toggles2 ^= PREFTOGGLE_2_FANCYUI

@@ -1854,11 +1854,11 @@
 /obj/mecha/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()
 
-	if(!phasing || is_teleport_allowed(new_turf.z))
+	if(!new_turf || !phasing || is_teleport_allowed(new_turf.z))
 		return
 
 	phasing = FALSE
-	occupant_message("<font color='#f00'>Phasing is malfunctioning.</font>")
+	occupant_message(span_warning("Phasing is malfunctioning."))
 
 	if(!phasing_action.owner)
 		return
