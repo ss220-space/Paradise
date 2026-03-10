@@ -111,8 +111,8 @@
 		other.is_active = FALSE
 
 		if(LAZYLEN(other.wire_segments))
-			for(var/obj/structure/tripwire_bridge/S in other.wire_segments)
-				qdel(S)
+			for(var/obj/structure/tripwire_bridge/segment in other.wire_segments)
+				qdel(segment)
 
 			LAZYCLEARLIST(other.wire_segments)
 
