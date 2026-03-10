@@ -103241,7 +103241,6 @@
 	pixel_x = 28
 	},
 /obj/structure/table/wood,
-/obj/structure/table/wood,
 /obj/machinery/coffeemaker/standard,
 /turf/simulated/floor/carpet,
 /area/lawoffice)
@@ -115300,7 +115299,6 @@
 	pixel_x = -7;
 	pixel_y = 3
 	},
-/obj/structure/table/wood,
 /obj/item/storage/fancy/coffee_condi_display{
 	pixel_x = 6;
 	pixel_y = 5
