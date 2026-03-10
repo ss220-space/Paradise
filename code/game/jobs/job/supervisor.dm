@@ -258,7 +258,7 @@
 	name = JOB_TITLE_LAWYER
 	jobtype = /datum/job/lawyer
 	uniform = /obj/item/clothing/under/rank/lawyer
-	suit = /obj/item/clothing/suit/storage/lawyer
+	suit = /obj/item/clothing/suit/storage/internalaffairs
 	shoes = /obj/item/clothing/shoes/color/brown
 	l_ear = /obj/item/radio/headset/headset_iaa/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/read_only
