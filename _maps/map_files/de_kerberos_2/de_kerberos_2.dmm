@@ -104308,7 +104308,7 @@
 /area/crew_quarters/fitness)
 "sHp" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/lawoffice)
 "sHq" = (
@@ -109769,7 +109769,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /obj/structure/cable{
 	icon_state = "1-4"
 	},
@@ -121807,7 +121807,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},

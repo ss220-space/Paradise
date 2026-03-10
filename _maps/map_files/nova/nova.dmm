@@ -1898,7 +1898,7 @@
 /area/crew_quarters/serviceyard)
 "apb" = (
 /obj/structure/chair/office/light,
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/carpet/blue,
 /area/crew_quarters/courtroom)
 "apc" = (
@@ -28191,7 +28191,7 @@
 /area/hallway/primary/command/west)
 "ehJ" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/courtroom)
 "ehK" = (
@@ -75012,7 +75012,7 @@
 /obj/structure/chair/comfy/brown{
 	dir = 1
 	},
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -151111,7 +151111,7 @@
 /area/crew_quarters/captain)
 "wsB" = (
 /obj/structure/chair/comfy/brown,
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},

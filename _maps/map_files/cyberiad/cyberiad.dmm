@@ -9478,7 +9478,7 @@
 /area/crew_quarters/arcade)
 "aIo" = (
 /obj/structure/chair/office/dark,
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "aIp" = (
@@ -15698,7 +15698,7 @@
 /obj/structure/chair/office/dark{
 	dir = 1
 	},
-/obj/effect/landmark/start/internal_affairs,
+/obj/effect/landmark/start/lawyer,
 /turf/simulated/floor/wood,
 /area/lawoffice)
 "bhq" = (
