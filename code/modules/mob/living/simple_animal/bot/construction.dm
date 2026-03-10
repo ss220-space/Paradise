@@ -18,7 +18,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -116,7 +116,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -378,7 +378,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -421,7 +421,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -535,7 +535,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -660,7 +660,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -821,7 +821,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -975,7 +975,7 @@
 		return ..()
 
 	if(is_id_card(I))
-		set_agent_access(I)
+		try_set_agent_access(I)
 		ui_interact(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -1049,10 +1049,15 @@
 /obj/item/bot_assembly
 	req_access = list()
 
-/obj/item/bot_assembly/proc/set_agent_access(obj/item/card/id/card)
-	if(card.access.Find(ACCESS_SYNDICATE) && !req_access.Find(ACCESS_SYNDICATE))
-		req_access += ACCESS_SYNDICATE
-		to_chat(usr, span_alert("Вы скрытно проводите картой по каркасу. Доступ агента синдиката добавлен."))
+/obj/item/bot_assembly/proc/try_set_agent_access(obj/item/card/id/card)
+	if(!(ACCESS_SYNDICATE in card.access))
+		return
+
+	if(ACCESS_SYNDICATE in req_access)
+		return
+
+	req_access += ACCESS_SYNDICATE
+	to_chat(usr, span_alert("Вы скрытно проводите картой по каркасу. Доступ агента синдиката добавлен."))
 
 /obj/item/bot_assembly/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
