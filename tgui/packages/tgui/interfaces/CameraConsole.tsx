@@ -274,7 +274,7 @@ const CameraControls = (props: { searchText: string }) => {
                   tooltip="Перейти в продвинутый режим слежения"
                   onClick={() => act('toggle_advanced')}
                 >
-                  Advanced
+                  Продвинутый
                 </Button>
               </Stack.Item>
             )}
