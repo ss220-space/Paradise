@@ -5,7 +5,7 @@ on:
 
 jobs:
   notify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: "Check for DISCORD_WEBHOOK"
         id: secrets_set
@@ -39,13 +39,13 @@ jobs:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
           message: ${{ format('{0}{1}',
-              (github.event.action == 'closed' &&
-                (github.event.pull_request.merged == true && format('**Изменения из пулл-реквеста №{0} добавлены в билд.**', github.event.pull_request.number) ||
-                format('**Пулл-реквест №{0} закрыт.**', github.event.pull_request.number)
-              ) ||
-              github.event.action == ('opened' || 'reopened') &&
-                format('**Пулл-реквест №{0} открыт.**', github.event.pull_request.number)
-              ),
+            (github.event.action == 'closed' &&
+            (github.event.pull_request.merged == true && format('**Изменения из пулл-реквеста №{0} добавлены в билд.**', github.event.pull_request.number) ||
+            format('**Пулл-реквест №{0} закрыт.**', github.event.pull_request.number)
+            ) ||
+            github.event.action == ('opened' || 'reopened') &&
+            format('**Пулл-реквест №{0} открыт.**', github.event.pull_request.number)
+            ),
             (steps.process_body.outputs.CLEAN_BODY) || ''
             )}}
           include_image: false
