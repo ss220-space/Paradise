@@ -226,6 +226,10 @@ jobs:
             git commit -m "Automatic changelog generation for testmerge"
           fi
           git push --force-with-lease origin ${{ env.TESTMERGE_BRANCH }}
+          if [ ${{ inputs.apply_to_stable }} ] ; then
+            git fetch origin ${{ env.STABLE_BRANCH }}
+            git push --force-with-lease --set-upstream origin ${{ env.TESTMERGE_BRANCH }}:${{ env.STABLE_BRANCH}}
+          fi
 
       #- name: Comment on merged PRs
       #  uses: actions/github-script@v8
