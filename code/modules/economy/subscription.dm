@@ -52,9 +52,10 @@
 	creation_time = world.time
 	next_payment_time = world.time + interval
 
-	// need for subsystem
-	GLOB.all_subscriptions += src
-	SSsubscriptions_subsystem.add_subscription(src)
+	// check that it is a subscription - template
+	if(!(subscriber_account == recipient_account))
+		GLOB.all_subscriptions += src
+		SSsubscriptions_subsystem.add_subscription(src)
 
 /datum/subscription/proc/subscription_process()
 	if(!active)
@@ -66,7 +67,9 @@
 		return
 
 	// check can start and safe check for charge (he can joke)
-	if(!can_process() || !subscriber_account.charge(cost, recipient_account, "Оплата подписки [subscription_name]", "Терминал Raingor Interstellar Banking №[rand(111,333)]", recipient_account.owner_name , "Поступление по подписке [subscription_name]", subscriber_account.owner_name))
+	if(!can_process())
+		cancel()
+	else if(!subscriber_account.charge(cost, recipient_account, "Оплата подписки [subscription_name]", "Терминал Raingor Interstellar Banking №[rand(111,333)]", recipient_account.owner_name , "Поступление по подписке [subscription_name]", subscriber_account.owner_name))
 		cancel()
 	else
 		next_payment_time = world.time + interval
@@ -207,6 +210,7 @@
 		if(/datum/subscription/salary_modifier)
 			modifier = extra_params ? extra_params["modifier"] : 0
 			modifier = text2num(modifier)
+			modifier = clamp(modifier, -50, 50)
 
 	// FABRIC PATTERN
 	var/datum/subscription/new_sub = null

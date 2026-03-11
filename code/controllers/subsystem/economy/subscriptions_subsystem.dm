@@ -70,7 +70,7 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 		if(S.active)
 			add_subscription(S)
 
-	current_list.Cut()
+	buckets[current_bucket] = list()
 	current_bucket++
 
 	if(current_bucket > BUCKET_COUNT)
@@ -78,18 +78,10 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 
 /datum/controller/subsystem/subscriptions_subsystem/proc/add_subscription(datum/subscription/S)
 	// Convert the subscription interval to the number of subsystem ticks
-
-	var/ticks = round(S.interval / BASE_FREQUENCY_SUBSYSTEM)
-
-	if(ticks < 1)
-		ticks = 1
+	var/ticks = max(1, floor(S.interval / BASE_FREQUENCY_SUBSYSTEM))
 
 	// Calculate the bucket in which the subscription should be performed.
-	var/target_bucket = (current_bucket + ticks) % BUCKET_COUNT
-
-	// If the remainder of the division is 0, then this is the last bucket.
-	if(target_bucket == 0)
-		target_bucket = BUCKET_COUNT
+	var/target_bucket = ((current_bucket - 1 + ticks) % BUCKET_COUNT) + 1
 
 	buckets[target_bucket] += S
 

@@ -12,7 +12,7 @@ GLOBAL_LIST_EMPTY(active_salary_system)
 GLOBAL_VAR_INIT(next_account_number, 0)
 GLOBAL_DATUM(centcomm_account_db, /obj/machinery/computer/account_database) // this being an object hurts me deeply on the inside
 GLOBAL_DATUM(vendor_account, /datum/money_account)
-GLOBAL_LIST_EMPTY(all_money_accounts) // list with mone accounts
+GLOBAL_LIST_EMPTY(all_money_accounts) // list with money accounts
 GLOBAL_LIST_EMPTY(dna2account)
 
 GLOBAL_DATUM(CC_account, /datum/money_account)
