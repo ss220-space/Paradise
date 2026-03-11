@@ -60,7 +60,6 @@
 /obj/item/camera_bug/syndicate
 	desc = "Переносной монитор с чипом удалённого доступа. Позволяет свободно перемещать обзор по всей сети камер."
 	var/obj/machinery/computer/camera_advanced/portable/advanced_console
-	var/is_eye_active = FALSE
 
 /obj/item/camera_bug/syndicate/Initialize(mapload)
 	. = ..()
@@ -80,7 +79,7 @@
 		return
 
 	var/mob/living/living_user = advanced_console.current_user
-	if(!(src in living_user.contents) || living_user.incapacitated() || living_user.stat != CONSCIOUS)
+	if(src.loc != living_user || living_user.incapacitated() || living_user.stat != CONSCIOUS)
 		advanced_console.remove_eye_control(living_user)
 
 /obj/machinery/computer/security/camera_bug/ui_data(mob/user)
@@ -101,7 +100,7 @@
 
 		var/obj/item/camera_bug/syndicate/cam_bug = parent
 
-		if(cam_bug && isliving(usr))
+		if(isliving(usr))
 			var/datum/tgui/ui = SStgui.get_open_ui(usr, src)
 			if(ui)
 				ui.close()
@@ -117,7 +116,7 @@
 	var/obj/item/camera_bug/syndicate/parent_item
 
 /obj/machinery/computer/camera_advanced/portable/check_eye(mob/user)
-	if(!parent_item || !(parent_item in user.contents) || user.incapacitated() || user.stat != CONSCIOUS)
+	if(!parent_item || parent_item.loc != user || user.incapacitated() || user.stat != CONSCIOUS)
 		user.unset_machine()
 		return
 
@@ -128,7 +127,7 @@
 		parent_item.ui_interact(M)
 
 /obj/machinery/computer/camera_advanced/portable/attack_hand(mob/user)
-	if(current_user || !iscarbon(user))
+	if(current_user || !isliving(user))
 		return
 
 	user.set_machine(src)
