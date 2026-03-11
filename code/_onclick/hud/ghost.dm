@@ -139,7 +139,7 @@
 
 	var/mob/screenmob = viewmob || mymob
 
-	screenmob.client.clear_screen()
+	screenmob.client.screen = list()
 	screenmob.client.screen += static_inventory
 
 	..()

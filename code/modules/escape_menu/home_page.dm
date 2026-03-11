@@ -181,7 +181,7 @@
 			"Карта",
 			"Посмотреть текущую карту",
 			/* button_screen_loc */ "BOTTOM:30,RIGHT:-20",
-			CALLBACK(client, TYPE_VERB_REF(/client, wiki)),
+			CALLBACK(client, TYPE_VERB_REF(/client, webmap)),
 			/* button_overlay = */ "map",
 			/* end_point */ offset_order[1],
 		))

@@ -72,4 +72,4 @@
 			return
 		src << link(CONFIG_GET(string/discordbugreporturl))
 	else
-		to_chat(src, span_danger("В вашем веб-браузере откроется страница для перехода в дискорд канал с баг репортами. Продолжить?"))
+		to_chat(src, span_danger("В конфигурации сервера отсутствует URL-адрес для баг-репортов"))

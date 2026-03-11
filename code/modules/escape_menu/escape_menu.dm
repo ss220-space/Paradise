@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(escape_menus)
 	set hidden = TRUE
 
 	var/current_escape_menu = GLOB.escape_menus[ckey]
-	if (!isnull(current_escape_menu))
+	if(!isnull(current_escape_menu))
 		qdel(current_escape_menu)
 		return
 
@@ -65,7 +65,7 @@ GLOBAL_LIST_EMPTY(escape_menus)
 	var/sound/esc_middle = sound('sound/misc/escape_menu/esc_middle.ogg', repeat = FALSE, channel = CHANNEL_ESCAPEMENU, volume = 80)
 	SEND_SOUND(client, esc_middle)
 
-	if (!isnull(ckey))
+	if(!isnull(ckey))
 		GLOB.escape_menus[ckey] = src
 
 /datum/escape_menu/Destroy(force)
@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(escape_menus)
 	SIGNAL_HANDLER
 	PRIVATE_PROC(TRUE)
 
-	if (menu_page != PAGE_HOME)
+	if(menu_page != PAGE_HOME)
 		qdel(src)
 	else
 		// Otherwise our client just switched bodies, let's update our hud
@@ -129,9 +129,9 @@ GLOBAL_LIST_EMPTY(escape_menus)
 	page_holder.clear()
 
 	switch (menu_page)
-		if (PAGE_HOME)
+		if(PAGE_HOME)
 			show_home_page()
-		if (PAGE_LEAVE_BODY)
+		if(PAGE_LEAVE_BODY)
 			show_leave_body_page()
 		if(PAGE_QUIT_GAME)
 			show_quit_game_page()

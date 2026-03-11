@@ -23,20 +23,20 @@
 	RegisterSignal(escape_menu.client, list(COMSIG_CLIENT_VERB_ADDED, COMSIG_CLIENT_VERB_REMOVED), PROC_REF(on_client_verb_changed))
 
 	var/datum/admin_help/current_ticket = escape_menu.client?.current_ticket
-	if (!isnull(current_ticket))
+	if(!isnull(current_ticket))
 		connect_ticket(current_ticket)
-		if (!current_ticket?.player_replied)
+		if(!current_ticket?.player_replied)
 			begin_processing()
 */
 /atom/movable/screen/escape_menu/text/clickable/admin_help/Click(location, control, params)
-	if (!enabled())
+	if(!enabled())
 		return
 
 	QDEL_IN(escape_menu, 0)
 
 	var/client/client = escape_menu.client
 	/*
-	if (has_open_adminhelp())
+	if(has_open_adminhelp())
 		client?.view_latest_ticket()
 	else*/
 	client?.adminhelp()
@@ -48,12 +48,12 @@
 
 	// This is null with a closed ticket.
 	// This is okay since the View Latest Ticket panel already tells you if your ticket is closed,  intentionally.
-	if (isnull(current_ticket))
+	if(isnull(current_ticket))
 		return FALSE
 
 	// If we sent a ticket, but nobody has responded, send another one instead.
 	// Not worth opening a menu when there's nothing to read, you're only going to want to send.
-	if (length(current_ticket.admins_involved - client?.ckey) == 0)
+	if(length(current_ticket.admins_involved - client?.ckey) == 0)
 		return FALSE
 
 	return TRUE
@@ -66,11 +66,11 @@
 /atom/movable/screen/escape_menu/text/clickable/admin_help/proc/on_client_verb_changed(client/source, list/verbs_changed)
 	SIGNAL_HANDLER
 
-	if (/client/verb/adminhelp in verbs_changed)
+	if(/client/verb/adminhelp in verbs_changed)
 		update_text()
 
 /atom/movable/screen/escape_menu/text/clickable/admin_help/proc/begin_processing()
-	if (is_blinking)
+	if(is_blinking)
 		return
 
 	is_blinking = TRUE
@@ -79,7 +79,7 @@
 	update_text()
 
 /atom/movable/screen/escape_menu/text/clickable/admin_help/proc/end_processing()
-	if (!is_blinking)
+	if(!is_blinking)
 		return
 
 	is_blinking = FALSE
@@ -98,16 +98,16 @@
 	end_processing()
 
 /atom/movable/screen/escape_menu/text/clickable/admin_help/enabled()
-	if (!..())
+	if(!..())
 		return FALSE
 
-	if (!has_open_adminhelp())
+	if(!has_open_adminhelp())
 		return /client/verb/adminhelp in escape_menu.client?.verbs
 
 	return TRUE
 
 /atom/movable/screen/escape_menu/text/clickable/admin_help/process(seconds_per_tick)
-	if (world.time - last_blink_time < blink_interval)
+	if(world.time - last_blink_time < blink_interval)
 		return
 
 	current_blink = !current_blink
@@ -115,7 +115,7 @@
 	update_text()
 
 /atom/movable/screen/escape_menu/text/clickable/admin_help/text_color()
-	if (!enabled())
+	if(!enabled())
 		return ..()
 
 	return current_blink ? "red" : ..()

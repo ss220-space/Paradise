@@ -3,7 +3,7 @@ GLOBAL_DATUM(escape_menu_details, /atom/movable/screen/escape_menu/details)
 
 /// Provides a singleton for the escape menu details screen.
 /proc/give_escape_menu_details()
-	if (isnull(GLOB.escape_menu_details))
+	if(isnull(GLOB.escape_menu_details))
 		GLOB.escape_menu_details = new
 
 	return GLOB.escape_menu_details
@@ -20,7 +20,7 @@ GLOBAL_DATUM(escape_menu_details, /atom/movable/screen/escape_menu/details)
 	START_PROCESSING(SSescape_menu, src)
 
 /atom/movable/screen/escape_menu/details/Destroy()
-	if (GLOB.escape_menu_details == src)
+	if(GLOB.escape_menu_details == src)
 		stack_trace("Something tried to delete the escape menu details screen")
 		return QDEL_HINT_LETMELIVE
 

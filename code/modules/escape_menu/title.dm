@@ -3,7 +3,7 @@ GLOBAL_DATUM(escape_menu_title, /atom/movable/screen/escape_menu/title)
 
 /// Provides a singleton for the escape menu details screen.
 /proc/give_escape_menu_title()
-	if (isnull(GLOB.escape_menu_title))
+	if(isnull(GLOB.escape_menu_title))
 		GLOB.escape_menu_title = new
 
 	return GLOB.escape_menu_title
@@ -21,7 +21,7 @@ GLOBAL_DATUM(escape_menu_title, /atom/movable/screen/escape_menu/title)
 	RegisterSignal(SSdcs, COMSIG_GLOB_STATION_NAME_CHANGED, PROC_REF(on_station_name_changed))
 
 /atom/movable/screen/escape_menu/title/Destroy()
-	if (GLOB.escape_menu_title == src)
+	if(GLOB.escape_menu_title == src)
 		stack_trace("Something tried to delete the escape menu details screen")
 		return QDEL_HINT_LETMELIVE
 

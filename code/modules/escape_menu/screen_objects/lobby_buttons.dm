@@ -40,7 +40,7 @@
 	on_click_callback?.InvokeAsync()
 
 /atom/movable/screen/escape_menu/lobby_button/MouseEntered(location, control, params)
-	if (hovered || isnull(tooltip_text))
+	if(hovered || isnull(tooltip_text))
 		return
 
 	hovered = TRUE
@@ -50,7 +50,7 @@
 	openToolTip(usr, src, params, content = tooltip_text)
 
 /atom/movable/screen/escape_menu/lobby_button/MouseExited(location, control, params)
-	if (!hovered)
+	if(!hovered)
 		return
 
 	hovered = FALSE

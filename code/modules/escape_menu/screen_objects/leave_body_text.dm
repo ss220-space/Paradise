@@ -11,7 +11,7 @@
 	RegisterSignal(escape_menu.client, COMSIG_CLIENT_MOB_LOGIN, PROC_REF(on_client_mob_login))
 
 /atom/movable/screen/escape_menu/text/clickable/leave_body/enabled()
-	if (!..())
+	if(!..())
 		return FALSE
 
 	return isliving(escape_menu.client?.mob)

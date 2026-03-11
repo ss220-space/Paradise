@@ -63,11 +63,11 @@
 
 /atom/movable/screen/escape_menu/text/clickable/update_text()
 	. = ..()
-	if (hovered)
+	if(hovered)
 		maptext = "<u>[maptext]</u>"
 
 /atom/movable/screen/escape_menu/text/clickable/Click(location, control, params)
-	if (!enabled())
+	if(!enabled())
 		return
 	on_click_callback.InvokeAsync(src)
 
@@ -79,7 +79,7 @@
 
 /// Sets the hovered state of the button, and updates the text
 /atom/movable/screen/escape_menu/text/clickable/proc/set_hovered(hovered)
-	if (src.hovered == hovered)
+	if(src.hovered == hovered)
 		return
 
 	src.hovered = hovered
