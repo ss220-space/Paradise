@@ -206,7 +206,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/convert_to_other_ticket(ticketId)
 	if(!check_rights(rights_needed))
 		return
-	if(alert("Вы уверены, что хотите перевести тикет в '[other_ticket_name]' тикет?", "Уверены?", "Да", "Нет") != "Да")
+	if(tgui_alert(usr, "Вы уверены, что хотите перевести тикет в '[other_ticket_name]' тикет?", "Уверены?", list("Да", "Нет")) != "Да")
 		return
 	if(!other_ticket_system_staff_check())
 		return
@@ -220,7 +220,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/other_ticket_system_staff_check()
 	var/list/staff = staff_countup(other_ticket_permission)
 	if(!staff[1])
-		if(alert("Нет активных администраторов, чтобы ответить на тикет. Вы уверены что хотите перевести тикет?", "Уверены?", "Да", "Нет") != "Да")
+		if(tgui_alert(usr, "Нет активных администраторов, чтобы ответить на тикет. Вы уверены что хотите перевести тикет?", "Уверены?", list("Да", "Нет")) != "Да")
 			return FALSE
 	return TRUE
 
@@ -250,7 +250,7 @@ SUBSYSTEM_DEF(tickets)
 	var/datum/ticket/T = allTickets[N]
 	var/client/C = usr.client
 	if((T.staffAssigned && T.staffAssigned != C) || (T.lastStaffResponse && T.lastStaffResponse != C) || ((T.ticketState != TICKET_OPEN) && (T.ticketState != TICKET_STALE))) //if someone took this ticket, is it the same admin who is autoresponding? if so, then skip the warning
-		if(alert(usr, "[T.ticketState == TICKET_OPEN ? "Другой администратор уже разбирает этот тикет." : "Этот тикет уже закрыт или решён."] Вы точно хотите продолжить?", "Подтверждение", "Да", "Нет") != "Да")
+		if(tgui_alert(usr, "[T.ticketState == TICKET_OPEN ? "Другой администратор уже разбирает этот тикет." : "Этот тикет уже закрыт или решён."] Вы точно хотите продолжить?", "Подтверждение", list("Да", "Нет")) != "Да")
 			return
 	T.assignStaff(C)
 
@@ -337,7 +337,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/assignStaffToTicket(client/C, N)
 	var/datum/ticket/T = allTickets[N]
-	if(T.staffAssigned != null && T.staffAssigned != C && alert("Тикет уже взят [T.staffAssigned.ckey]. Вы уверены, что хотите забрать его?", "Забрать тикет?", "Да", "Нет") != "Да")
+	if(T.staffAssigned != null && T.staffAssigned != C && tgui_alert(usr, "Тикет уже взят [T.staffAssigned.ckey]. Вы уверены, что хотите забрать его?", "Забрать тикет?", list("Да", "Нет")) != "Да")
 		return FALSE
 	T.assignStaff(C)
 	return TRUE
@@ -683,7 +683,7 @@ SUBSYSTEM_DEF(tickets)
 		if(!check_rights(close_rights))
 			to_chat(usr, span_warning("Недостаточно прав чтобы закрыть тикет."), confidential = TRUE)
 			return
-		if(alert("Вы уверены? Это отправит отрицательное сообщение.", "Уверены?", "Да","Нет") != "Да")
+		if(tgui_alert(usr, "Вы уверены? Это отправит отрицательное сообщение.", "Уверены?", list("Да", "Нет")) != "Да")
 			return
 		if(closeTicket(indexNum))
 			showDetailUI(usr, indexNum)
@@ -730,7 +730,7 @@ SUBSYSTEM_DEF(tickets)
 
 /datum/controller/subsystem/tickets/proc/unassignTicket(index)
 	var/datum/ticket/T = allTickets[index]
-	if(T.staffAssigned != null && (T.staffAssigned == usr.client || alert("Тикет уже назначен [T.staffAssigned]. Вы хотите снять с тикета?","Снять с тикета","Нет","Да") == "Да"))
+	if(T.staffAssigned != null && (T.staffAssigned == usr.client || tgui_alert(usr, "Тикет уже назначен [T.staffAssigned]. Вы хотите снять с тикета?", "Снять с тикета", list("Нет", "Да")) == "Да"))
 		T.staffAssigned = null
 		to_chat_safe(returnClient(index), "<span class='[span_class]'>Ваш [ticket_name] больше не обрабатывают. Другой сотрудник скоро вам поможет.</span>", confidential = TRUE)
 		if(span_class == "mentorhelp")

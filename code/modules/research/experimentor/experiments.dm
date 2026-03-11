@@ -131,7 +131,7 @@
 	if(prob(EFFECT_PROB_VERYLOW * malf_chance))
 		machine.visible_message(span_danger("[machine] malfunctions, melting [exp_on] and leaking radiation!"))
 		playsound(machine, 'sound/effects/supermatter.ogg', 50, TRUE, -3)
-		for(var/mob/living/mob in oview(1, src))
+		for(var/mob/living/mob in oview(1, machine))
 			mob.apply_effect(25, IRRADIATE)
 		QDEL_NULL(machine.loaded_item)
 		return
@@ -370,7 +370,6 @@
 		return
 
 	machine.visible_message(span_warning("[machine] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!"))
-	do_smoke(range = 1, holder = machine, location = get_turf(machine), smoke_type = /datum/effect_system/fluid_spread/smoke/freezing)
 	var/datum/effect_system/fluid_spread/smoke/freezing/smoke = new
 	smoke.set_up(range = 1, holder = machine, location = get_turf(machine))
 	smoke.start()
@@ -424,7 +423,7 @@
 /datum/experimentor_result_handler/scan/obliterate/handle_malfunctions(obj/machinery/r_n_d/experimentor/machine, obj/item/exp_on)
 	var/malf_chance = machine.get_malfunction_chance()
 
-	var/obj/machinery/r_n_d/protolathe/linked_lathe = machine.linked_console.linked_lathe
+	var/obj/machinery/r_n_d/protolathe/linked_lathe = machine?.linked_console?.linked_lathe
 
 	if(linked_lathe)
 		var/datum/component/material_container/linked_materials = linked_lathe.GetComponent(/datum/component/material_container)
@@ -463,7 +462,7 @@
 	if(!.)
 		return
 
-	machine.visible_message(span_warning("[src]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!"))
+	machine.visible_message(span_warning("[machine]'s crushing mechanism slowly and smoothly descends, flattening the [exp_on]!"))
 	machine.item_eject()
 	machine.critical_malfunction_counter++
 	var/static/list/obj/item/stack/sheet/mineral/minreals
