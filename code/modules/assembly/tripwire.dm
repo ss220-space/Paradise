@@ -35,15 +35,19 @@
 	if(!master_base.is_active || !isliving(movable_atom))
 		return
 
-	var/mob/living/entere_living = movable_atom
-	if(entere_living.incorporeal_move || (entere_living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+	var/mob/living/entered_living = movable_atom
+
+	if(!entered_living)
 		return
 
-	if(entere_living.m_intent == MOVE_INTENT_WALK || (entere_living.pulledby && entere_living.pulledby.m_intent == MOVE_INTENT_WALK))
+	if(entered_living.incorporeal_move || (entered_living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
+		return
+
+	if(entered_living.m_intent == MOVE_INTENT_WALK || (entered_living.pulledby && entered_living.pulledby.m_intent == MOVE_INTENT_WALK))
 		return
 
 	playsound(src, 'sound/machines/click.ogg', 50, TRUE)
-	INVOKE_ASYNC(master_base, TYPE_PROC_REF(/obj/item/tripwire, trigger_tripwire), entere_living, src)
+	INVOKE_ASYNC(master_base, TYPE_PROC_REF(/obj/item/tripwire, trigger_tripwire), entered_living, src)
 
 /obj/structure/tripwire_bridge/wirecutter_act(mob/living/user, obj/item/I)
 	if(!master_base || !master_base.is_active || QDELETED(master_base))
@@ -442,7 +446,7 @@
 	for(var/mob/living/living in viewers(3, get_turf(src)))
 		if(living.flash_eyes(affect_silicon = TRUE))
 			living.AdjustConfused(6 SECONDS)
-			living.visible_message(span_disarm("<b>[living]</b> ахает и пытается прикрыть глаза!"))
+			living.visible_message(span_disarm("<b>[html_encode(living.name)]</b> ахает и пытается прикрыть глаза!"))
 
 /obj/item/tripwire/proc/trigger_camera(obj/item/camera/camera, turf/trigger_turf)
 	if(QDELETED(camera) || !camera.on || !camera.pictures_left)
@@ -477,7 +481,8 @@
 
 	if(payload)
 		var/payload_info = "[payload.name] ([payload.type])"
-		investigate_log("[key_name(user)] activated tripwire with [payload_info] at [ADMIN_COORDJMP(trigger_turf)]. Creator: [creator_key || "unknown"], Deployer: [payload_deployer_key || "unknown"]", INVESTIGATE_BOMB)
+		var/payload_info = "[html_encode(payload.name)] ([payload.type])"
+		investigate_log("[html_encode(key_name(user))] activated tripwire with [payload_info] at [ADMIN_COORDJMP(trigger_turf)]. Creator: [creator_key || "unknown"], Deployer: [payload_deployer_key || "unknown"]", INVESTIGATE_BOMB)
 
 		if(istype(payload, /obj/item/grenade))
 			var/obj/item/grenade/grenade = payload
