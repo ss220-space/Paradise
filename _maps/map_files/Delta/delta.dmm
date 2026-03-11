@@ -29836,26 +29836,11 @@
 	},
 /area/medical/genetics)
 "dnE" = (
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -6;
-	pixel_y = 18
-	},
-/obj/item/storage/box/monkeycubes/stokcubes{
-	pixel_x = 7;
-	pixel_y = 18
-	},
-/obj/item/storage/box/monkeycubes/neaeracubes{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/storage/box/monkeycubes/wolpincubes{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/item/storage/box/monkeycubes/farwacubes{
-	pixel_y = -6;
-	pixel_x = -6
-	},
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes/stokcubes,
+/obj/item/storage/box/monkeycubes/neaeracubes,
+/obj/item/storage/box/monkeycubes/wolpincubes,
+/obj/item/storage/box/monkeycubes/farwacubes,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -39455,20 +39440,11 @@
 /area/library)
 "epA" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -10;
-	pixel_y = 5
-	},
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -1;
-	pixel_y = 5
-	},
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
 /obj/machinery/light{
 	dir = 1
-	},
-/obj/item/storage/box/monkeycubes{
-	pixel_y = 5;
-	pixel_x = 9
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -45804,6 +45780,11 @@
 	},
 /area/crew_quarters/bar)
 "fRH" = (
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes/farwacubes,
+/obj/item/storage/box/monkeycubes/neaeracubes,
+/obj/item/storage/box/monkeycubes/stokcubes,
+/obj/item/storage/box/monkeycubes/wolpincubes,
 /obj/structure/table/reinforced,
 /obj/machinery/light{
 	dir = 8
@@ -45817,26 +45798,6 @@
 	id = "Virology";
 	name = "Virology Shutters";
 	pixel_x = -24
-	},
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -6;
-	pixel_y = 18
-	},
-/obj/item/storage/box/monkeycubes/neaeracubes{
-	pixel_x = -6;
-	pixel_y = 6
-	},
-/obj/item/storage/box/monkeycubes/stokcubes{
-	pixel_x = 7;
-	pixel_y = 18
-	},
-/obj/item/storage/box/monkeycubes/wolpincubes{
-	pixel_x = 7;
-	pixel_y = 6
-	},
-/obj/item/storage/box/monkeycubes/farwacubes{
-	pixel_y = -6;
-	pixel_x = -6
 	},
 /turf/simulated/floor/plasteel,
 /area/medical/virology/lab)
@@ -50114,14 +50075,8 @@
 /area/maintenance/tourist)
 "gNZ" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/box/monkeycubes{
-	pixel_x = -8;
-	pixel_y = 9
-	},
-/obj/item/storage/box/monkeycubes{
-	pixel_x = 6;
-	pixel_y = 9
-	},
+/obj/item/storage/box/monkeycubes,
+/obj/item/storage/box/monkeycubes,
 /obj/effect/decal/warning_stripes/west,
 /obj/item/clothing/glasses/hud/health,
 /obj/item/clothing/glasses/hud/health,
