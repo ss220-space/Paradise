@@ -28,10 +28,11 @@
 	jobtype = /datum/job/head_of_staff/hos
 
 	uniform = /obj/item/clothing/under/rank/head_of_security
-	suit = /obj/item/clothing/suit/armor/hos
+	suit = /obj/item/clothing/suit/armor/hos/alt
 	gloves = /obj/item/clothing/gloves/combat/swat
 	shoes = /obj/item/clothing/shoes/jackboots
-	head = /obj/item/clothing/head/HoS
+	head = /obj/item/clothing/head/HoS/beret
+	belt = /obj/item/storage/belt/security/sec
 	l_ear = /obj/item/radio/headset/heads/hos/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/hos
@@ -51,6 +52,7 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/hos
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
 
 /datum/job/security
 	department = STATION_DEPARTMENT_SECURITY
@@ -90,6 +92,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/warden
+	belt = /obj/item/storage/belt/security/sec
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses
 	id = /obj/item/card/id/warden
@@ -108,6 +111,7 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/warden
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
 
 /datum/job/security/detective
 	title = JOB_TITLE_DETECTIVE
@@ -130,6 +134,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/laceup
 	head = /obj/item/clothing/head/det_hat
+	belt = /obj/item/storage/belt/security/detective
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	glasses = /obj/item/clothing/glasses/hud/security/sunglasses/aviators
 	id = /obj/item/card/id/security
@@ -146,6 +151,7 @@
 	box = /obj/item/storage/box/survival/survival_security/detective
 
 	implants = list(/obj/item/implant/mindshield)
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
 
 /datum/outfit/job/detective/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -181,6 +187,7 @@
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/helmet
+	belt = /obj/item/storage/belt/security/sec
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
 	l_pocket = /obj/item/flash
@@ -195,6 +202,7 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security
 
 /datum/outfit/job/officer/cadet
 	name = "Security Cadet"
@@ -248,6 +256,7 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/survival/brigphys
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/security/pilot
 	title = JOB_TITLE_PILOT
@@ -266,6 +275,7 @@
 	uniform = /obj/item/clothing/under/rank/security/pod_pilot
 	suit = /obj/item/clothing/suit/jacket/pilot
 	gloves = /obj/item/clothing/gloves/color/black
+	belt = /obj/item/storage/belt/security/sec
 	shoes = /obj/item/clothing/shoes/jackboots
 	l_ear = /obj/item/radio/headset/headset_sec/alt
 	id = /obj/item/card/id/security
@@ -281,3 +291,4 @@
 	satchel = /obj/item/storage/backpack/satchel_sec
 	dufflebag = /obj/item/storage/backpack/duffel/security
 	box = /obj/item/storage/box/survival/survival_security/pilot
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/security

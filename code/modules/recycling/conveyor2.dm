@@ -692,6 +692,15 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	/// The switch this conveyor switch component is attached to.
 	var/obj/machinery/conveyor_switch/attached_switch
 
+/obj/item/circuit_component/conveyor_switch/Destroy()
+	if(attached_switch)
+		unregister_usb_parent(attached_switch)
+	stop = null
+	active = null
+	reverse = null
+	direction = null
+	. = ..()
+
 /obj/item/circuit_component/conveyor_switch/populate_ports()
 	active = add_input_port("Старт", PORT_TYPE_SIGNAL, trigger = PROC_REF(activate))
 	stop = add_input_port("Стоп", PORT_TYPE_SIGNAL, trigger = PROC_REF(stop))

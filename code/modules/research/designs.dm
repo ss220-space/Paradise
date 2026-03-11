@@ -75,6 +75,10 @@ other types of metals and chemistry for reagents).
 		build_object_name = design_name
 		return
 
+	var/list/category_cached = category
+	if(islist(category_cached))
+		category = string_list(category_cached)
+
 	var/obj/item/design_item = new build_path
 	design_name = DECLENT_RU_CAP(design_item, NOMINATIVE)
 	qdel(design_item)

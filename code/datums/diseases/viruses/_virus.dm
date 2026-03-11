@@ -9,6 +9,7 @@
 	var/infectivity = 65
 	///affects how well the virus will pass through the protection. The more the better. In range (0-2]
 	var/permeability_mod = 1
+	var/no_vaccine = FALSE //is pandemic can make vaccine for virus
 
 /datum/disease/virus/New()
 	..()

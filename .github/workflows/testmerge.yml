@@ -1,4 +1,4 @@
-name: 'Testmerge Worker'
+name: "Testmerge Worker"
 
 concurrency:
   group: testmerge
@@ -13,7 +13,7 @@ env:
 
 jobs:
   process:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Get pull requests with required label and check for merge conflicts
         id: get_labeled_prs
@@ -65,13 +65,13 @@ jobs:
 
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
-          cache: 'pip'
+          python-version: "3.x"
+          cache: "pip"
 
       - uses: actions/setup-node@v6
         with:
           node-version: 22.11.0
-          cache: 'yarn'
+          cache: "yarn"
           cache-dependency-path: ./tgui/yarn.lock
 
       - name: Install python packages
@@ -140,16 +140,6 @@ jobs:
             MERGED_PRS+=("$PR_NUMBER")
           done
 
-          # Generate changelog
-          python3 tools/changelog/gen_changelog.py
-          git add html/changelogs/archive/\*.yml
-          CHANGES=$(git diff --name-only --cached | wc -l)
-          if [ "$CHANGES" -gt 0 ] ; then
-            git config --local user.email "action@github.com"
-            git config --local user.name "Changelog Generation"
-            git commit -m "Automatic changelog generation"
-          fi
-
           # Generate TGUI bundle
           ./tgui/bin/tgui
           CHANGES=$(git diff --name-only --cached | wc -l)
@@ -163,6 +153,46 @@ jobs:
 
           # Output the list of merged PRs
           echo "merged_prs=${MERGED_PRS[*]}" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog YAML for merged PRs
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require('fs');
+            const { parseChangelog } = await import('${{ github.workspace }}/tools/pull_request_hooks/changelogParser.js');
+            const { changelogToYml } = await import('${{ github.workspace }}/tools/pull_request_hooks/autoChangelog.js');
+
+            const mergedPRs = '${{ steps.prepare_testmerge_branch.outputs.merged_prs }}'.split(' ').filter(Boolean);
+            for (const prNumber of mergedPRs) {
+              console.log(`Processing PR #${prNumber}`);
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: parseInt(prNumber)
+              });
+              const changelog = parseChangelog(pr.body);
+              if (changelog && changelog.changes.length > 0) {
+                const yml = changelogToYml(changelog, pr.user.login);
+                fs.writeFileSync(`html/changelogs/AutoChangeLog-pr-${prNumber}.yml`, yml, 'utf8');
+                console.log(`Generated html/changelogs/AutoChangeLog-pr-${prNumber}.yml`);
+              } else {
+                console.log(`No changelog found for PR #${prNumber}`);
+              }
+            }
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compile changelog
+        run: python3 tools/ss13_genchangelog.py html/changelogs
+
+      - name: Commit and push changelog updates
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "Changelog Generation"
+          git add html/changelogs
+          if ! git diff --cached --quiet; then
+            git commit -m "Automatic changelog generation for testmerge"
+          fi
+          git push --force-with-lease origin ${{ env.TESTMERGE_BRANCH }}
 
       - name: Comment on merged PRs
         uses: actions/github-script@v8

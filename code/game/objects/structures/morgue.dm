@@ -546,7 +546,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		return
 
 	balloon_alert(user, "отказано в доступе!")
-	playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
+	playsound(src, SFX_BUTTON_DENIED, 20)
 
 /obj/machinery/crematorium/proc/cremate(mob/user)
 	// we are saving our prescious cap lazor

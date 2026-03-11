@@ -329,7 +329,7 @@
 			qdel(A)
 		else
 			visible_message(span_userdanger("Rat'var strikes down [src]!"))
-			investigate_log("has been destroyed by Ratvar","singulo")
+			investigate_log("has been destroyed by Ratvar", INVESTIGATE_ENGINE)
 			qdel(src)
 
 	return
@@ -509,7 +509,7 @@
 		qdel(projectile)
 		return
 
-	projectile_angle += angle_to_singulo / (distance_to_singulo ** 2)
+	projectile_angle += angle_to_singulo / POW2(distance_to_singulo)
 	projectile.damage += 10 / distance_to_singulo
 	projectile.set_angle(projectile_angle)
 

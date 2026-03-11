@@ -14,6 +14,8 @@ SUBSYSTEM_DEF(http)
 	var/logging_errors_only = TRUE
 	/// Total requests the SS has processed in a round
 	var/total_requests
+	var/list/current_run
+	var/current_index
 
 /datum/controller/subsystem/http/PreInit()
 	. = ..()
@@ -23,8 +25,15 @@ SUBSYSTEM_DEF(http)
 	return "P: [length(active_async_requests)] | T: [total_requests]"
 
 /datum/controller/subsystem/http/fire(resumed)
-	for(var/r in active_async_requests)
-		var/datum/http_request/req = r
+	if(!resumed)
+		current_run = active_async_requests.Copy()
+		current_index = 1
+
+	var/list/cached_current_run = current_run
+	var/length = length(cached_current_run)
+	var/index = current_index
+	while(index <= length)
+		var/datum/http_request/req = cached_current_run[index]
 		// Check if we are complete
 		if(req.is_complete())
 			// If so, take it out the processing list
@@ -38,7 +47,8 @@ SUBSYSTEM_DEF(http)
 			// And log the result
 			if(logging_enabled)
 				if(logging_errors_only && (!res.errored || res.status_code != 200))
-					return
+					index++
+					continue
 				var/list/log_data = list()
 				log_data += "BEGIN ASYNC REQUEST (ID: [req.id])"
 				log_data += "\t[uppertext(req.method)] [req.url]"
@@ -56,6 +66,10 @@ SUBSYSTEM_DEF(http)
 					log_data += "\tResponse headers: [json_encode(res.headers)]"
 				log_data += "END ASYNC RESPONSE (ID: [req.id])"
 				WRITE_LOG(GLOB.http_log, replacetext_char(log_data.Join("\n[GLOB.log_end]"), CONFIG_GET(string/tts_token_silero), "TOKEN"))
+		index++
+		if(MC_TICK_CHECK)
+			current_index = index
+			return
 
 /**
  * Async request creator

@@ -1852,7 +1852,7 @@
 	},
 /area/ae13/medbay)
 "OE" = (
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/plasteel{
 	icon_state = "sepia"
 	},
@@ -2142,7 +2142,7 @@
 /area/ae13/epicenter)
 "Tk" = (
 /obj/effect/mapping_helpers/turfs/damage,
-/obj/structure/largecrate,
+/obj/structure/closet/crate/large,
 /turf/simulated/floor/indestructible/plating,
 /area/ae13/epicenter)
 "To" = (

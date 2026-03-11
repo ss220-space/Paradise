@@ -149,6 +149,8 @@
 #define SOUND_EFFECT_RADIO_ROBOT 3
 #define SOUND_EFFECT_MEGAPHONE 4
 #define SOUND_EFFECT_MEGAPHONE_ROBOT 5
+#define SOUND_EFFECT_MASKFILTER 6
+#define SOUND_EFFECT_RADIO_MASKFILTER 7
 
 /// This is the lowest volume that can be used by playsound otherwise it gets ignored
 /// Most sounds around 10 volume can barely be heard. Almost all sounds at 5 volume or below are inaudible
@@ -330,3 +332,5 @@ GLOBAL_LIST_EMPTY(sfx_datum_by_key)
 #define SFX_DROP "drop"
 #define SFX_EQUIP "equip"
 #define SFX_FART "fart"
+#define SFX_CLOSET_TOGGLE_LOCK "closet_toggle_lock"
+#define SFX_BUTTON_DENIED "button_denied"

@@ -126,8 +126,8 @@
 	var/area_of_affect = 1
 	need_active_overlay = TRUE
 
-	selection_activated_message		= span_notice("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
-	selection_deactivated_message	= span_notice("Ваша магия ослабевает.")
+	selection_activated_message = span_notice_alt("Вы используете магию крови, чтобы ослабить завесу блюспейса.")
+	selection_deactivated_message = span_notice_alt("Ваша магия ослабевает.")
 
 /obj/effect/proc_holder/spell/vampire/blood_tendrils/create_new_targeting()
 	var/datum/spell_targeting/click/T = new

@@ -1,12 +1,11 @@
 name: "Discord PR Notification"
 on:
   pull_request_target:
-    types: [opened, closed, labeled]
+    types: [opened, reopened, closed]
 
 jobs:
   notify:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.action != 'labeled' || github.event.label.name == 'Stale' }}
+    runs-on: ubuntu-24.04
     steps:
       - name: "Check for DISCORD_WEBHOOK"
         id: secrets_set
@@ -35,19 +34,18 @@ jobs:
 
       - name: Send Discord notification
         uses: tgstation/discord-notify@v3
-        if: >
-          steps.secrets_set.outputs.SECRETS_ENABLED
+        if: ${{ steps.secrets_set.outputs.SECRETS_ENABLED }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
           message: ${{ format('{0}{1}',
-              (github.event.action == 'closed' &&
-                (github.event.pull_request.merged == true && format('**Изменения из пулл-реквеста №{0} добавлены в билд.**', github.event.pull_request.number) ||
-                format('**Пулл-реквест №{0} закрыт.**', github.event.pull_request.number)
-              ) ||
-              github.event.action == 'opened' &&
-                format('**Пулл-реквест №{0} открыт.**', github.event.pull_request.number)
-              ),
+            (github.event.action == 'closed' &&
+            (github.event.pull_request.merged == true && format('**Изменения из пулл-реквеста №{0} добавлены в билд.**', github.event.pull_request.number) ||
+            format('**Пулл-реквест №{0} закрыт.**', github.event.pull_request.number)
+            ) ||
+            github.event.action == ('opened' || 'reopened') &&
+            format('**Пулл-реквест №{0} открыт.**', github.event.pull_request.number)
+            ),
             (steps.process_body.outputs.CLEAN_BODY) || ''
             )}}
           include_image: false

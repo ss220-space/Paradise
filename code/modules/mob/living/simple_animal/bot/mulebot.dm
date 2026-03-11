@@ -89,6 +89,8 @@
 	unload(0)
 	QDEL_NULL(wires)
 	QDEL_NULL(cell)
+	passenger = null
+	target = null
 	return ..()
 
 /mob/living/simple_animal/bot/mulebot/get_cell()

@@ -267,6 +267,10 @@ GLOBAL_LIST_EMPTY(cached_songs)
 			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
 		if(SOUND_EFFECT_MEGAPHONE_ROBOT)
 			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "afftfilt=real='hypot(re,im)*sin(0)':imag='hypot(re,im)*cos(0)':win_size=1024:overlap=0.5, deesser=i=0.4, highpass=f=500, lowpass=f=4000, volume=volume=10, acrusher=1:1:45:0:log" [filename_output]"})
+		if(SOUND_EFFECT_MASKFILTER)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "rubberband=pitch=0.8, highpass=f=450, lowpass=f=3600, equalizer=f=180:t=q:w=1.0:g=3, equalizer=f=1100:t=q:w=1.2:g=4, equalizer=f=2400:t=q:w=1.0:g=2, acompressor=threshold=-22dB:ratio=5:attack=3:release=90, alimiter=level_in=1.4, acrusher=bits=12:mix=0.3, volume=2.0" [filename_output]"})
+		if(SOUND_EFFECT_RADIO_MASKFILTER)
+			output = world.shelleo({"[taskset] ffmpeg -y -hide_banner -loglevel error -i [filename_input] -filter:a "rubberband=pitch=0.8, highpass=f=1000, lowpass=f=3000, equalizer=f=180:t=q:w=1.0:g=3, equalizer=f=1100:t=q:w=1.2:g=4, acompressor=threshold=-22dB:ratio=5:attack=3:release=90, acrusher=1:1:50:0:log, volume=2.0" [filename_output]"})
 		else
 			CRASH("Invalid sound effect chosen.")
 	var/errorlevel = output[SHELLEO_ERRORLEVEL]

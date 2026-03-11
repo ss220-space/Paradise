@@ -18,7 +18,7 @@
 /obj/effect/landmark/map_loader/Initialize(mapload)
 	. = ..()
 	if(template)
-		load(template)
+		END_OF_TICK(CALLBACK(src, PROC_REF(load), template))
 
 /obj/effect/landmark/map_loader/set_tag()
 	return
@@ -44,4 +44,4 @@
 	if(template_list)
 		template_name = safepick(splittext(template_list, ";"))
 		template = GLOB.map_templates[template_name]
-		load(template)
+		END_OF_TICK(CALLBACK(src, PROC_REF(load), template))

@@ -5,7 +5,7 @@
 	human_req = FALSE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "genetic_morph"
-	selection_activated_message = span_sinister("Кликните на цель, чтобы запомнить её форму. Кликните на себя, чтобы изменить свою форму.")
+	selection_activated_message = span_sinister_alt("Кликните на цель, чтобы запомнить её форму. Кликните на себя, чтобы изменить свою форму.")
 	create_attack_logs = FALSE
 	action_icon_state = "morph_mimic"
 	need_active_overlay = TRUE

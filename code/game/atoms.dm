@@ -186,79 +186,7 @@
 	/// Do we care about temperature at all? Saves us a ton of proc calls during big fires.
 	var/cares_about_temperature = FALSE
 
-/atom/New(loc, ...)
-	SHOULD_CALL_PARENT(TRUE)
-	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
-		GLOB._preloader.load(src)
-	. = ..()
-	attempt_init(arglist(args))
-	if(SSdemo?.initialized)
-		SSdemo.mark_new(src)
-
-// This is distinct from /tg/ because of our space management system
-// This is overriden in /atom/movable and the parent isn't called if the SMS wants to deal with it's init
-/atom/proc/attempt_init(...)
-	var/do_initialize = SSatoms.initialized
-	if(do_initialize != INITIALIZATION_INSSATOMS)
-		args[1] = do_initialize == INITIALIZATION_INNEW_MAPLOAD
-		if(SSatoms.InitAtom(src, args))
-			// we were deleted
-			return
-
-//Called after New if the map is being loaded. mapload = TRUE
-//Called from base of New if the map is not being loaded. mapload = FALSE
-//This base must be called or derivatives must set initialized to TRUE
-//must not sleep
-//Other parameters are passed from New (excluding loc), this does not happen if mapload is TRUE
-//Must return an Initialize hint. Defined in __DEFINES/subsystems.dm
-
-//Note: the following functions don't call the base for optimization and must copypasta:
-// /turf/Initialize
-// /turf/simulated/space/Initialize
-
-/atom/proc/Initialize(mapload, ...)
-	SHOULD_CALL_PARENT(TRUE)
-
-	var/list/names = ru_names
-	if(names && !GLOB.cached_ru_names[type])
-		GLOB.cached_ru_names[type] = names
-	ru_names = null
-
-	if(flags & INITIALIZED)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
-	flags |= INITIALIZED
-
-	SET_PLANE_IMPLICIT(src, plane)
-
-	if(greyscale_config && greyscale_colors)
-		update_greyscale()
-
-	if(color)
-		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
-
-	if(light_system == STATIC_LIGHT && light_power && light_range)
-		update_light()
-
-	if(loc)
-		SEND_SIGNAL(loc, COMSIG_ATOM_INITIALIZED_ON, src) // Used for poolcontroller / pool to improve performance greatly. However it also open up path to other usage of observer pattern on turfs.
-
-	if(post_init_icon_state)
-		icon_state = post_init_icon_state
-
-	SETUP_SMOOTHING()
-
-	ComponentInitialize()
-	InitializeAIController()
-
-	return INITIALIZE_HINT_NORMAL
-
-//called if Initialize returns INITIALIZE_HINT_LATELOAD
-/atom/proc/LateInitialize()
-	return
-
-// Put your AddComponent() calls here
-/atom/proc/ComponentInitialize()
-	return
+	var/looting_icon_mode
 
 /atom/proc/onCentcom()
 	. = FALSE
@@ -579,7 +507,7 @@
 		. |= UPDATE_ICON_STATE
 
 	if(updates & UPDATE_OVERLAYS)
-		var/list/new_overlays = update_overlays()
+		var/list/new_overlays = update_overlays(updates)
 		SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_OVERLAYS, new_overlays)
 
 		// Ok, so its rather this or required inheritance in every [update_overlays()]
@@ -628,6 +556,8 @@
 
 			switch(length(new_overlays))
 				if(0)
+					if(full_control)
+						POST_OVERLAY_CHANGE(src)
 					managed_overlays = null
 				if(1)
 					add_overlay(new_overlays)
@@ -677,6 +607,7 @@
 /// Checks if this atom uses the GAS system and if so updates the icon
 /atom/proc/update_greyscale()
 	icon = SSgreyscale.get_colored_icon_by_type(greyscale_config, greyscale_colors)
+	looting_icon_mode = LOOT_ICON_ICON_TO_HTML
 
 /// Updates atom's emissive block if present.
 /atom/proc/get_emissive_block()
@@ -1449,7 +1380,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		datum_flags |= DF_VAR_EDITED
 		return .
 
-	if(!GLOB.debug2)
+	if(!GLOB.debugging_enabled)
 		flags |= ADMIN_SPAWNED
 
 	. = ..()

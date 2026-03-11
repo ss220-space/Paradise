@@ -4,6 +4,7 @@
 	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	abstract_type = /mob/living/silicon
+	looting_icon_mode = LOOT_ICON_FLAT_ICON
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
 	var/const/MAIN_CHANNEL = "Main Frequency"
@@ -27,7 +28,7 @@
 
 	//var/sensor_mode = 0 //Determines the current HUD.
 
-	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD)
+	hud_possible = list(SPECIALROLE_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_AISHELL_STAT_HUD)
 
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use

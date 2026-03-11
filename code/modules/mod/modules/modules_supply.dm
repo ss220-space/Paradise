@@ -63,7 +63,7 @@
 		return
 	if(!mod.wearer.Adjacent(target))
 		return
-	if(istype(target, /obj/structure/closet/crate) || istype(target, /obj/structure/closet/critter/mecha))
+	if(istype(target, /obj/structure/closet/crate) || istype(target, /obj/structure/closet/crate/critter/mecha))
 		var/obj/structure/closet/picked_crate = target
 		if(!check_crate_pickup(picked_crate))
 			return
@@ -478,7 +478,7 @@
 		if(traveled_tiles == max_traveled_tiles - 1) // Just lost our speed buff
 			mod.update_speed()
 		for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-			part.armor = part.armor.detachArmor(armor_mod_1.armor)
+			part.armor = part.armor?.detachArmor(armor_mod_1.armor)
 		if(traveled_tiles <= 0)
 			balloon_alert(mod.wearer, "недостаточно пепла!")
 		return
@@ -487,7 +487,7 @@
 		return
 	traveled_tiles++
 	for(var/obj/item/part as anything in mod.get_parts(all = TRUE))
-		part.armor = part.armor.attachArmor(armor_mod_1.armor)
+		part.armor = part.armor?.attachArmor(armor_mod_1.armor)
 	if(traveled_tiles < max_traveled_tiles)
 		return
 	balloon_alert(mod.wearer, "полное покрытие пеплом")
