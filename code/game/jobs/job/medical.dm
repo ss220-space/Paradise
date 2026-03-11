@@ -21,11 +21,11 @@
 	uniform = /obj/item/clothing/under/rank/chief_medical_officer
 	suit = /obj/item/clothing/suit/storage/labcoat/cmo
 	shoes = /obj/item/clothing/shoes/color/brown
+	belt = /obj/item/storage/belt/medical/filled
 	l_ear = /obj/item/radio/headset/heads/cmo
 	id = /obj/item/card/id/cmo
 	l_pocket = /obj/item/lighter/zippo/cmo
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/heads/cmo
 	backpack_contents = list(
 		/obj/item/melee/baton/telescopic = 1,
@@ -34,6 +34,7 @@
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical
 	department = STATION_DEPARTMENT_MEDICAL
@@ -60,19 +61,19 @@
 /datum/outfit/job/doctor
 	name = JOB_TITLE_DOCTOR
 	jobtype = /datum/job/medical/doctor
-
 	uniform = /obj/item/clothing/under/rank/medical
 	suit = /obj/item/clothing/suit/storage/labcoat
 	shoes = /obj/item/clothing/shoes/color/white
+	belt = /obj/item/storage/belt/medical/filled
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
-	l_hand = /obj/item/storage/firstaid/doctor
 	pda = /obj/item/pda/medical
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/outfit/job/doctor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -164,6 +165,7 @@
 		/obj/item/reagent_scanner = 1,
 		/obj/item/storage/box/bodybags = 1,
 	)
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/chemist
 	title = JOB_TITLE_CHEMIST
@@ -190,6 +192,7 @@
 	backpack = /obj/item/storage/backpack/chemistry
 	satchel = /obj/item/storage/backpack/satchel_chem
 	dufflebag = /obj/item/storage/backpack/duffel/chemistry
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/geneticist
 	title = JOB_TITLE_GENETICIST
@@ -218,6 +221,7 @@
 	backpack = /obj/item/storage/backpack/genetics
 	satchel = /obj/item/storage/backpack/satchel_gen
 	dufflebag = /obj/item/storage/backpack/duffel/genetics
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/virologist
 	title = JOB_TITLE_VIROLOGIST
@@ -245,6 +249,7 @@
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel_vir
 	dufflebag = /obj/item/storage/backpack/duffel/virology
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/job/medical/psychiatrist
 	title = JOB_TITLE_PSYCHIATRIST
@@ -267,6 +272,7 @@
 	id = /obj/item/card/id/medical
 	suit_store = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/outfit/job/psychiatrist/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
@@ -294,10 +300,10 @@
 
 	uniform = /obj/item/clothing/under/rank/medical/paramedic
 	head = /obj/item/clothing/head/soft/paramedic
+	belt = /obj/item/storage/belt/medical/filled/paramed
 	mask = /obj/item/clothing/mask/cigarette
 	l_ear = /obj/item/radio/headset/headset_med
 	id = /obj/item/card/id/medical
-	l_hand = /obj/item/storage/firstaid/paramed
 	l_pocket = /obj/item/flashlight/pen
 	pda = /obj/item/pda/medical
 	backpack_contents = list(
@@ -308,6 +314,7 @@
 	satchel = /obj/item/storage/backpack/satchel_med
 	dufflebag = /obj/item/storage/backpack/duffel/medical
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 
 /datum/outfit/job/paramedic/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()

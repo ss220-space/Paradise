@@ -257,8 +257,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Width in space oriented storages
 	var/storage_display_width = 32
 
-	var/embed_disarm = FALSE
-
 	/// Available skins list (empty for default)
 	var/list/skins = null
 	/// The skin choice if we had a reskin
@@ -310,10 +308,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(!move_resist)
 		determine_move_resist()
-
-	// temp disable reason: pelmen
-	//if(embed_disarm)
-		//AddComponent(/datum/component/stick_it_in)
 
 	add_eatable_component()
 	scatter_item()
@@ -1483,3 +1477,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	if(colored_belt_appearance)
 		return mutable_appearance(colored_belt_appearance, icon_state_to_use)
 	return mutable_appearance('icons/obj/clothing/belt_overlays.dmi', icon_state_to_use)
+
+/// If an object can successfully be used as a fire starter it will return a message
+/obj/item/proc/ignition_effect(atom/target, mob/user)
+	if(get_heat() >= FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+		return span_notice("[user] lights [target] with [src].")

@@ -64,6 +64,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	var/obj/item/radio/headset/heads/ai_integrated/aiRadio = null
 
+	//AI SHELL CONTROL
+	var/mob/living/silicon/robot/deployed_shell = null
+
 	//MALFUNCTION
 	var/datum/module_picker/malf_picker
 	var/datum/action/innate/ai/choose_modules/modules_action
@@ -334,18 +337,43 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	popup.open(FALSE)
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
-	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
-	for(var/mob/living/silicon/robot/R in connected_robots)
-		var/robot_status = "Nominal"
-		if(R.stat || !R.client)
+	var/list/robot_list = list()
+	var/list/aishell_list = list()
+	for(var/mob/living/silicon/robot/robot as anything in GLOB.available_ai_shells)
+		if(robot.connected_ai == src || !robot.connected_ai)
+			aishell_list += robot
+	for(var/mob/living/silicon/robot/robot as anything in connected_robots)
+		if(!robot.shell)
+			robot_list += robot
+
+	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(robot_list)]")
+	// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
+	for(var/mob/living/silicon/robot/robot as anything in robot_list)
+		var/robot_status
+		var/obj/item/stock_parts/cell/cell = robot.cell
+		if(robot.stat || !robot.client)
 			robot_status = "OFFLINE"
-		else if(!R.cell || R.cell.charge <= 0)
+		else if(!robot.cell || robot.cell.charge <= 0)
 			robot_status = "DEPOWERED"
-		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
-		var/area/A = get_area(R)
-		var/area_name = A ? sanitize(A.name) : UNKNOWN_STATUS_RUS
-		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
-		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
+		else
+			robot_status = "Nominal"
+		var/area/robots_area = get_area(robot)
+		var/area_name = robots_area ? sanitize(robots_area.name) : UNKNOWN_STATUS_RUS
+		status_tab_data[++status_tab_data.len] = list("[robot.name]:", "S.Integrity: [robot.health]% | Cell: [cell ? "[cell.charge] / [cell.maxcharge]" : "Empty"] | \
+		Module: [robot.designation] | Loc: [area_name] | Status: [robot_status]")
+
+	status_tab_data[++status_tab_data.len] = list("Detected AI shell beacons:", "[length(aishell_list)]")
+	for(var/mob/living/silicon/robot/robot as anything in aishell_list)
+		var/shell_status
+		var/obj/item/stock_parts/cell/cell = robot.cell
+		if(!can_connect_to(robot))
+			shell_status = "UNABLE TO CONNECT"
+		else
+			shell_status = "Ready to connect"
+		var/area/robots_area = get_area(robot)
+		var/area_name = robots_area ? sanitize(robots_area.name) : UNKNOWN_STATUS_RUS
+		status_tab_data[++status_tab_data.len] = list("Shell-[num2text(robot.ident)]:", "S.Integrity: [robot.health]% | Cell: [cell ? "[cell.charge] / [cell.maxcharge]" : "Empty"] | \
+		Module: [robot.designation] | Loc: [area_name] | Status: [shell_status] [(robot.connected_ai == src? null : "| Occupier: [robot.mainframe? "[robot.mainframe.name]" : "NONE"]")]")
 	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
@@ -718,7 +746,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	for(var/mob/living/silicon/robot/R in connected_robots)
 		to_chat(R, span_danger("ERROR: Master AI has be&# &#@)!-"))
 		to_chat(R, span_clocklarge("\"Your master is under my control, so do you\""))
-		R.ratvar_act(TRUE)
+		R.ratvar_act(TRUE, TRUE)
 		SSticker?.score?.save_silicon_laws(R, additional_info = "Ratvar act via master AI conversion", log_all_laws = TRUE)
 
 /mob/living/silicon/ai/Topic(href, href_list)
@@ -1360,6 +1388,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		update_sight()
 		control_disabled = TRUE//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = TRUE	//No talking on the built-in radio for you either!
+		if(deployed_shell)
+			disconnect_shell()
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "[span_boldnotice("Transfer successful")]: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
@@ -1552,6 +1582,68 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(isobserver(.))
 		var/mob/dead/observer/ghost = .
 		ghost.forceMove(old_turf)
+
+//Notifies controlled shell about law change
+/mob/living/silicon/ai/proc/notify_shell()
+	if(deployed_shell)
+		deployed_shell.show_laws()
+
+/mob/living/silicon/ai/proc/can_connect_to(mob/living/silicon/robot/target)
+	if(isclocker(target) && !isclocker(src))
+		return FALSE
+	if(target.key)
+		return FALSE
+	if(!target.shell || target.deployed)
+		return FALSE
+	if((target.stat == DEAD) || (target.stat == UNCONSCIOUS))
+		return FALSE
+	if(target.connected_ai)
+		if(target.connected_ai != src)
+			return FALSE
+	if(!target.cell)
+		return FALSE
+	if(target.cell.charge <= 0)
+		return FALSE
+
+	return TRUE
+
+/mob/living/silicon/ai/proc/deploy_to_shell(mob/living/silicon/robot/target)
+	if(control_disabled)
+		to_chat(src, span_warning("Подсистема беcпроводного подключения не отвечает."))
+		return
+
+	var/list/possible = list()
+
+	for(var/mob/living/silicon/robot/robot as anything in GLOB.available_ai_shells)
+		if(can_connect_to(robot))
+			possible += robot
+
+	if(!LAZYLEN(possible))
+		to_chat(src, "Активных передатчиков сигнала не обнаружено.")
+		return
+
+	if(!target || !(target in possible))
+		target = tgui_input_list(src, "К какой оболочке подключиться?", "Подключиться", sort_names(possible))
+
+	if(isnull(target))
+		return
+	if(!can_connect_to(target))
+		to_chat(src, span_warning("Во время установки cоеденения с оболочкой произошла ошибка."))
+		return
+
+	if(!mind)
+		return
+	RegisterSignal(target, COMSIG_LIVING_DEATH, PROC_REF(disconnect_shell))
+	deployed_shell = target
+	target.deploy_init(src)
+	if(isclocker(src))
+		target.ratvar_act(TRUE, TRUE)
+	mind.transfer_to(target)
+
+/mob/living/silicon/ai/proc/disconnect_shell()
+	SIGNAL_HANDLER
+	if(deployed_shell)
+		deployed_shell.undeploy()
 
 /mob/living/silicon/ai/vv_edit_var(var_name, var_value)
 	if(!..())

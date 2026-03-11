@@ -382,3 +382,7 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_surgery_tool(W) (istype(W, /obj/item) && (W.tool_behaviour in GLOB.surgery_tool_behaviors))
 
 #define isspacearea(A)	(istype(A, /area/space))
+
+#define isrelic(A) (istype(A, /obj/item/relic))
+
+#define is_window(A) (istype(A, /obj/structure/window))

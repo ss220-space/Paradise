@@ -134,6 +134,10 @@
 	installed_module.transmit_instructions(current, user, reg_name)
 	to_chat(current, "These are your laws now:")
 	current.show_laws()
+	if(isAI(current))
+		var/mob/living/silicon/ai/AI = current
+		if(AI.deployed_shell)
+			AI.deployed_shell.show_laws()
 	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(R.lawupdate && (R.connected_ai == current))
 			to_chat(R, "These are your laws now:")
