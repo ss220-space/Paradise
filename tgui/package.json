@@ -24,7 +24,7 @@
     "common": "workspace:*",
     "css-loader": "^7.1.2",
     "esbuild-loader": "^4.2.2",
-    "eslint": "^9.7.0",
+    "eslint": "^10.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-react": "^7.35.0",
