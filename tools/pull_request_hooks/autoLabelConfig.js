@@ -8,41 +8,41 @@
  * the label will not be removed
  */
 export const file_labels = {
-	':octopus: GitHub': {
+	'GitHub': {
 		filepaths: ['.github/'],
 	},
-	':cd: SQL': {
+	'SQL': {
 		filepaths: ['SQL/'],
 	},
-	':crab: Rust': {
+	'Rust': {
 		filepaths: ['rust/'],
 	},
-	':world_map: Изменение карты': {
+	'Изменение карты': {
 		filepaths: ['_maps/'],
 		file_extensions: ['.dmm'],
 	},
-	':hammer_and_wrench: Инструменты': {
+	'Инструменты': {
 		filepaths: ['tools/', '.vscode/', '.bin/', '.gemini/'],
 	},
-	':gear: Изменение конфига': {
+	'Изменение конфига': {
 		filepaths: ['config/', 'code/controllers/configuration/entries/'],
 		add_only: true,
 	},
-	':art: Спрайты': {
+	'Спрайты': {
 		filepaths: ['icons/'],
 		file_extensions: ['.dmi'],
 		add_only: true,
 	},
-	':sound: Звук': {
+	'Звук': {
 		filepaths: ['sound/'],
 		file_extensions: ['.ogg'],
 		add_only: true,
 	},
-	':computer: TGUI': {
+	'TGUI': {
 		filepaths: ['tgui/'],
 		add_only: true,
 	},
-	':book: Документация': {
+	'Документация': {
 		file_extensions: ['.md'],
 	},
 };
@@ -62,7 +62,7 @@ export const title_labels = {
 	'Refactor': {
 		keywords: ['refactor', 'рефактор'],
 	},
-	':scroll: Локализация': {
+	'Локализация': {
 		keywords: ['local', 'локализация', 'перевод'],
 	},
 	//  "Unit Tests": {
@@ -71,13 +71,13 @@ export const title_labels = {
 	//  "April Fools": {
 	//    keywords: ["[april fools]"],
 	//  },
-	':no_entry: Do Not Merge': {
+	'Do Not Merge': {
 		keywords: ['[dnm]', '[do not merge]'],
 	},
 	//  "GBP: No Update": {
 	//    keywords: ["[no gbp]"],
 	//  },
-	':construction: Test Merge Only': {
+	'Test Merge Only': {
 		keywords: ['[tm only]', '[test merge only]'],
 	},
 };
@@ -122,21 +122,21 @@ export const changelog_labels = {
 		default_text: 'Изменено что-то связанное с администрацией.',
 		keywords: ['admin'],
 	},
-	':sound: Звук': {
+	'Звук': {
 		default_text:
 			'Добавлены/изменены/удалены какие-то аудио или звуковые эффекты.',
 		keywords: ['sound'],
 	},
-	':art: Спрайты': {
+	'Спрайты': {
 		default_text:
 			'Добавлены/изменены/удалены какие-то спрайты или изображения.',
 		keywords: ['image'],
 	},
-	':scroll: Локализация': {
+	'Локализация': {
 		default_text: 'Исправлена какая-то очепятка.',
 		keywords: ['typo', 'spellcheck', 'local'],
 	},
-	':gear: Изменение конфига': {
+	'Изменение конфига': {
 		default_text: 'Изменены какие-то настройки в конфиге.',
 		keywords: ['config'],
 	},
