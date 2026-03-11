@@ -5895,12 +5895,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^15.0.11":
-  version: 15.0.12
-  resolution: "marked@npm:15.0.12"
+"marked@npm:^17.0.4":
+  version: 17.0.4
+  resolution: "marked@npm:17.0.4"
   bin:
     marked: bin/marked.js
-  checksum: 10/deeb619405c0c46af00c99b18b3365450abeb309104b24e3658f46142344f6b7c4117608c3b5834084d8738e92f81240c19f596e6ee369260f96e52b3457eaee
+  checksum: 10/a26c24db0882be6301d3947cee6e9fa70350ab9593cdf0c8c301ce64bb6125db158729fd5c7073106d0f176db6cb04749db19a0752637b071d5ec318d266f928
   languageName: node
   linkType: hard
 
@@ -7918,7 +7918,7 @@ __metadata:
     highlight.js: "npm:^11.10.0"
     jest: "npm:^29.7.0"
     js-yaml: "npm:^4.1.0"
-    marked: "npm:^15.0.11"
+    marked: "npm:^17.0.4"
     marked-base-url: "npm:^1.1.6"
     marked-smartypants: "npm:^1.1.9"
     prop-types: "npm:^15.8.1"
