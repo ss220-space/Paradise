@@ -134,7 +134,6 @@
 	sharp = TRUE
 	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 50, ACID = 50)
 	embedded_ignore_throwspeed_threshold = TRUE
-	embed_disarm = TRUE
 	/// Can this item be attached as a bayonet to the gun?
 	var/bayonet_suitable = FALSE
 	/// Used in combination with throwing martial art, to avoid sharpening checks overhead
@@ -153,9 +152,13 @@
 	default_throwforce = throwforce
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
-	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
-						span_suicide("[user] is slitting [user.p_their()] throat with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
-						span_suicide("[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.")))
+	user.visible_message(
+		pick(\
+			span_suicide("[user] вскрыва[PLUR_ET_YUT(user)] себе вены на запястьях с помощью [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство."),
+			span_suicide("[user] перереза[PLUR_ET_YUT(user)] себе горло с помощью [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство."),
+			span_suicide("[user] вспарыва[PLUR_ET_YUT(user)] себе живот с помощью [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить сэппуку."),
+		)
+	)
 	return BRUTELOSS
 
 /obj/item/kitchen/knife/throw_at(atom/target, range, speed, mob/thrower, spin = TRUE, diagonals_first = FALSE, datum/callback/callback, force = INFINITY, dodgeable = TRUE)
@@ -253,7 +256,6 @@
 	sharp = 0
 	pickup_sound = 'sound/items/handling/pickup/bone_pickup.ogg'
 	drop_sound = 'sound/items/handling/drop/bone_drop.ogg'
-	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/ritual
 	name = "ritual knife"
@@ -261,7 +263,6 @@
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "render"
 	w_class = WEIGHT_CLASS_NORMAL
-	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
@@ -403,7 +404,6 @@
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "eel_sharpened_tail"
-	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/survival/bone/eel/get_ru_names()
 	return list(
@@ -421,7 +421,6 @@
 	icon_state = "knife"
 	desc = "A cyborg-mounted plasteel knife. Extremely sharp and durable."
 	origin_tech = null
-	embed_disarm = FALSE
 
 /obj/item/kitchen/knife/combat/cyborg/mecha
 	force = 25

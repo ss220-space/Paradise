@@ -257,8 +257,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Width in space oriented storages
 	var/storage_display_width = 32
 
-	var/embed_disarm = FALSE
-
 	/// Available skins list (empty for default)
 	var/list/skins = null
 	/// The skin choice if we had a reskin
@@ -310,10 +308,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(!move_resist)
 		determine_move_resist()
-
-	// temp disable reason: pelmen
-	//if(embed_disarm)
-		//AddComponent(/datum/component/stick_it_in)
 
 	add_eatable_component()
 	scatter_item()
