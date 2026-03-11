@@ -15,7 +15,7 @@
     "@swc/jest": "^0.2.29",
     "@types/jest": "^29.5.14",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.9.0",
+    "@types/node": "^25.4.0",
     "@types/webpack": "^5.28.5",
     "@types/webpack-env": "^1.18.5",
     "@types/wicg-file-system-access": "^2023.10.5",

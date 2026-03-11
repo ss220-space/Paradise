@@ -3,7 +3,7 @@
   "name": "tgui-panel",
   "version": "5.0.0",
   "dependencies": {
-    "@types/node": "^22.9.0",
+    "@types/node": "^25.4.0",
     "@types/react": "^18.3.12",
     "common": "workspace:*",
     "dompurify": "^2.5.7",
