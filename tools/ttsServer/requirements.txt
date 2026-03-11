@@ -1,4 +1,4 @@
-torch==2.0.1
+torch==2.10.0
 torchaudio==2.10.0
 torchvision==0.25.0
 soundfile==0.12.1
