@@ -5875,12 +5875,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked-base-url@npm:^1.1.6":
-  version: 1.1.6
-  resolution: "marked-base-url@npm:1.1.6"
+"marked-base-url@npm:^1.1.8":
+  version: 1.1.8
+  resolution: "marked-base-url@npm:1.1.8"
   peerDependencies:
-    marked: ">= 4 < 16"
-  checksum: 10/226fa3aa48b0be33c99acd2b21261e491fd641911942be613d505fa531cb2e0044179d80ce73e55392f33901ca400ad6698d504058b6951c3a9284707d8b6a4d
+    marked: ">= 4 < 18"
+  checksum: 10/38d57b5d1e07d259acd3c336ac61f50ee83a03e8192bd7c27565d85465881bc1a655d87631b0687e2921aca5a3807241854b8f57110796eeac7f852ca986371d
   languageName: node
   linkType: hard
 
@@ -7919,7 +7919,7 @@ __metadata:
     jest: "npm:^29.7.0"
     js-yaml: "npm:^4.1.0"
     marked: "npm:^15.0.11"
-    marked-base-url: "npm:^1.1.6"
+    marked-base-url: "npm:^1.1.8"
     marked-smartypants: "npm:^1.1.9"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.3.1"
