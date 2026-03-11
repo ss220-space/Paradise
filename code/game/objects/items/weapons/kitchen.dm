@@ -154,9 +154,9 @@
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(
 		pick(\
-			span_suicide("[user] is slitting [user.p_their()] wrists with the [name]! It looks like [user.p_theyre()] trying to commit suicide."),
-			span_suicide("[user] is slitting [user.p_their()] throat with the [name]! It looks like [user.p_theyre()] trying to commit suicide."),
-			span_suicide("[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku."),
+			span_suicide("[user] вскрыва[PLUR_ET_YUT(user)] себе вены на запястьях с помощью [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство."),
+			span_suicide("[user] перереза[PLUR_ET_YUT(user)] себе горло с помощью [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить самоубийство."),
+			span_suicide("[user] вспарыва[PLUR_ET_YUT(user)] себе живот с помощью [declent_ru(INSTRUMENTAL)]! Похоже, [GEND_HE_SHE(user)] пыта[PLUR_ET_YUT(user)]ся совершить сэппуку."),
 		)
 	)
 	return BRUTELOSS
