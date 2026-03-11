@@ -35,7 +35,7 @@ export const CHANGELOG_ENTRIES = [
 	[
 		['qol'],
 		{
-			placeholders: ['Сделалано что-то более простым в использовании.'],
+			placeholders: ['Сделано что-то более простым в использовании.'],
 		},
 	],
 
@@ -69,7 +69,10 @@ export const CHANGELOG_ENTRIES = [
 	[
 		['spellcheck', 'typo', 'local'],
 		{
-			placeholders: ['Исправлена какая-то очепятка.'],
+			placeholders: [
+				'Исправлена какая-то очепятка.',
+				'Произошла локализация на русский язык.',
+			],
 		},
 	],
 

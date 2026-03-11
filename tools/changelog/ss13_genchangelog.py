@@ -28,7 +28,6 @@ THE SOFTWARE.
 from __future__ import print_function
 import yaml, os, glob, sys, argparse
 from datetime import date
-import yaml
 
 today = date.today()
 

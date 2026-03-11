@@ -57,7 +57,7 @@ export const title_labels = {
 	//    keywords: ["log", "logging"],
 	//  },
 	'Removal': {
-		keywords: ['remove', 'delete', 'удалет', 'удалил'],
+		keywords: ['remove', 'delete', 'удаляет', 'удалил'],
 	},
 	'Refactor': {
 		keywords: ['refactor', 'рефактор'],
@@ -94,7 +94,7 @@ export const changelog_labels = {
 		keywords: ['fix', 'fixes', 'bugfix'],
 	},
 	'Quality of Life': {
-		default_text: 'Сделалано что-то более простым в использовании.',
+		default_text: 'Сделано что-то более простым в использовании.',
 		keywords: ['qol', 'tweak'],
 	},
 	'Feature': {
@@ -134,6 +134,7 @@ export const changelog_labels = {
 	},
 	'Локализация': {
 		default_text: 'Исправлена какая-то очепятка.',
+		alt_default_text: 'Произошла локализация на русский язык.',
 		keywords: ['typo', 'spellcheck', 'local'],
 	},
 	'Изменение конфига': {
