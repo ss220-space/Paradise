@@ -128,7 +128,7 @@ GLOBAL_LIST_EMPTY(escape_menus)
 
 	page_holder.clear()
 
-	switch (menu_page)
+	switch(menu_page)
 		if(PAGE_HOME)
 			show_home_page()
 		if(PAGE_LEAVE_BODY)

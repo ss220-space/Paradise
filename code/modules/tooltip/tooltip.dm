@@ -54,7 +54,7 @@ Notes:
 	if(!thing || !params || (!title && !content) || !owner || !isnum(ICON_SIZE_ALL))
 		return FALSE
 
-	if (!isnull(last_target))
+	if(!isnull(last_target))
 		UnregisterSignal(last_target, COMSIG_QDELETING)
 
 	RegisterSignal(thing, COMSIG_QDELETING, PROC_REF(on_target_qdel))
