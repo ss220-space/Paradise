@@ -870,16 +870,11 @@
 	drop_inventory(usr)
 
 /obj/item/storage/proc/drop_inventory(user)
-	var/turf/T = get_turf(src)
+	var/turf/turf = get_turf(src)
 	hide_from(user)
-	for(var/obj/item/I in contents)
-		remove_from_storage(I, T)
+	for(var/obj/item/item in contents)
+		remove_from_storage(item, turf)
 		CHECK_TICK
-
-/obj/item/storage/proc/force_drop_inventory()
-	var/turf/T = get_turf(src)
-	for(var/obj/item/I in contents)
-		remove_from_storage(I, T)
 
 /**
  * Populates the container with items

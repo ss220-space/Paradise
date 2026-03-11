@@ -66,8 +66,6 @@
 #define COMSIG_QDELETING "parent_qdeleting"
 /// generic topic handler (usr, href_list)
 #define COMSIG_TOPIC "handle_topic"
-/// Forces you to equip a hood
-#define COMSIG_EQUIP_HOOD "force_hood_equip"
 
 /// fires on the target datum when an element is attached to it (/datum/element)
 #define COMSIG_ELEMENT_ATTACH "element_attach"
@@ -1502,8 +1500,6 @@
 
 /// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
 #define COMSIG_POSSESSED_MOVEMENT "possessed_movement"
-/// from base of atom/obj/item/death_book
-#define COMSIG_PHANTOM_DELETE "phantom_delete"
 /// from base of atom/on_teleported(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
 

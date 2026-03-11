@@ -223,7 +223,6 @@
 		/obj/item/twohanded/spear/bonespear/chitinspear,
 		/obj/item/twohanded/bamboospear,
 		/obj/item/fauna_bomb/preloaded/t3,
-		/obj/item/kitchen/knife/butcher/sharped,
 		/obj/item/melee/baton/security/loaded,
 		/obj/item/melee/energy/blade,
 		/obj/item/twohanded/sechammer,
