@@ -423,6 +423,11 @@
 	for(var/i in 1 to 7)
 		new monkey_cube_type(src)
 
+/obj/item/storage/box/monkeycubes/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5,5)
+	pixel_y = base_pixel_y + rand(-5,5)
+
 /obj/item/storage/box/monkeycubes/syndicate
 	desc = "Кубы шимпанзе фирмы \"Waffle Co.\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды и щепотку обмана!"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
