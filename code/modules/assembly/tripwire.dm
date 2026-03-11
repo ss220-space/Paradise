@@ -433,6 +433,7 @@
 ////////////////////////////////////////
 // MARK:	Trigger & payloads
 ////////////////////////////////////////
+#define TRIPWIRE_GRENADE_DETONATION_TIME 1 SECONDS
 
 /obj/item/tripwire/proc/trigger_flash(mob/user, obj/item/flash/flasher)
 	if(QDELETED(flasher) || !flasher.try_use_flash(user))
@@ -480,7 +481,6 @@
 		owner = linked_to
 
 	if(payload)
-		var/payload_info = "[payload.name] ([payload.type])"
 		var/payload_info = "[html_encode(payload.name)] ([payload.type])"
 		investigate_log("[html_encode(key_name(user))] activated tripwire with [payload_info] at [ADMIN_COORDJMP(trigger_turf)]. Creator: [creator_key || "unknown"], Deployer: [payload_deployer_key || "unknown"]", INVESTIGATE_BOMB)
 
@@ -491,7 +491,7 @@
 			grenade.active = TRUE
 			grenade.update_appearance()
 			playsound(grenade.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
-			addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime)), 1 SECONDS)
+			addtimer(CALLBACK(grenade, TYPE_PROC_REF(/obj/item/grenade, prime)), TRIPWIRE_GRENADE_DETONATION_TIME)
 
 		else if(istype(payload, /obj/item/flash))
 			trigger_flash(user, payload)
@@ -520,3 +520,5 @@
 
 	owner.update_appearance()
 	break_wire()
+
+#undef TRIPWIRE_GRENADE_DETONATION_TIME
