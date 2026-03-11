@@ -26,7 +26,7 @@
 
 	uniform = /obj/item/clothing/under/rank/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
-	gloves = /obj/item/clothing/gloves/color/black/ce
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/color/brown
 	head = /obj/item/clothing/head/hardhat/white
 	l_ear = /obj/item/radio/headset/heads/ce
@@ -42,6 +42,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/engineering
 	department = STATION_DEPARTMENT_ENGINEERING
@@ -72,6 +73,7 @@
 	uniform = /obj/item/clothing/under/rank/engineer
 	suit = /obj/item/clothing/suit/storage/hazardvest
 	belt = /obj/item/storage/belt/utility/full/multitool
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/workboots
 	head = /obj/item/clothing/head/hardhat/orange
 	l_ear = /obj/item/radio/headset/headset_eng
@@ -83,6 +85,7 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/engineering
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
 
 /datum/job/engineering/engineer/trainee
 	title = JOB_TITLE_ENGINEER_TRAINEE
@@ -141,6 +144,7 @@
 
 	uniform = /obj/item/clothing/under/rank/atmospheric_technician
 	belt = /obj/item/storage/belt/utility/atmostech
+	gloves = /obj/item/clothing/gloves/color/yellow
 	shoes = /obj/item/clothing/shoes/workboots
 	l_ear = /obj/item/radio/headset/headset_eng
 	id = /obj/item/card/id/engineering
@@ -150,3 +154,4 @@
 	satchel = /obj/item/storage/backpack/satchel_eng
 	dufflebag = /obj/item/storage/backpack/duffel/atmos
 	box = /obj/item/storage/box/survival/engineer
+	implant_variant = /obj/item/organ/internal/cyberimp/eyes/meson
