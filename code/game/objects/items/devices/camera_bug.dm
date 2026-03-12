@@ -67,10 +67,7 @@
 	advanced_console.parent_item = src
 	advanced_console.networks = list("SS13")
 
-	START_PROCESSING(SSobj, src)
-
 /obj/item/camera_bug/syndicate/Destroy()
-	STOP_PROCESSING(SSobj, src)
 	QDEL_NULL(advanced_console)
 	return ..()
 
@@ -79,6 +76,10 @@
 		return
 
 	var/mob/living/living_user = advanced_console.current_user
+
+	if(!isliving(living_user))
+		return
+
 	if(src.loc != living_user || living_user.incapacitated() || living_user.stat != CONSCIOUS)
 		advanced_console.remove_eye_control(living_user)
 
@@ -116,15 +117,15 @@
 	var/obj/item/camera_bug/syndicate/parent_item
 
 /obj/machinery/computer/camera_advanced/portable/check_eye(mob/user)
-	if(!parent_item || parent_item.loc != user || user.incapacitated() || user.stat != CONSCIOUS)
+	if(!parent_item || QDELETED(parent_item) || parent_item.loc != user || user.incapacitated() || user.stat != CONSCIOUS)
 		user.unset_machine()
 		return
 
-/obj/machinery/computer/camera_advanced/portable/on_unset_machine(mob/M)
+/obj/machinery/computer/camera_advanced/portable/on_unset_machine(mob/used_mob)
 	..()
 
-	if(parent_item && !QDELETED(parent_item) && M && M.stat == CONSCIOUS)
-		parent_item.ui_interact(M)
+	if(parent_item && !QDELETED(parent_item) && used_mob && used_mob.stat == CONSCIOUS)
+		parent_item.ui_interact(used_mob)
 
 /obj/machinery/computer/camera_advanced/portable/attack_hand(mob/user)
 	if(current_user || !isliving(user))
