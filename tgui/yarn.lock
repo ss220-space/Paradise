@@ -5884,14 +5884,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked-smartypants@npm:^1.1.9":
-  version: 1.1.9
-  resolution: "marked-smartypants@npm:1.1.9"
+"marked-smartypants@npm:^1.1.11":
+  version: 1.1.11
+  resolution: "marked-smartypants@npm:1.1.11"
   dependencies:
     smartypants: "npm:^0.2.2"
   peerDependencies:
-    marked: ">=4 <16"
-  checksum: 10/a53ccf745cdc626af7ed217d143f722a0512645547f825f0c968e1d67c3bed89a8806b72a516239eea9ac50b9078f269fe1400385e1ef8a929ca05370f1959d0
+    marked: ">=4 <18"
+  checksum: 10/6f191dd87f7941d359041f1d4d19b8798f9830cd140e90c6e187e436b4d2f308e1ff3a1e90a7bbe64479db913fc87377f9c205257661ca69d90be51355c07e7e
   languageName: node
   linkType: hard
 
@@ -7920,7 +7920,7 @@ __metadata:
     js-yaml: "npm:^4.1.0"
     marked: "npm:^15.0.11"
     marked-base-url: "npm:^1.1.6"
-    marked-smartypants: "npm:^1.1.9"
+    marked-smartypants: "npm:^1.1.11"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
