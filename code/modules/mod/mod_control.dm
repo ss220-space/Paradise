@@ -217,7 +217,7 @@
 				return
 		if(!carbon_mob.temporarily_remove_item_from_inventory(src, silent = TRUE))
 			return
-		carbon_mob.put_in_active_hand(src)
+		carbon_mob.put_in_any_hand_if_possible(src, TRUE)
 	else if(bag)
 		bag.forceMove(usr)
 		bag.show_to(usr)
