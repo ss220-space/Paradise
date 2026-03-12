@@ -94,7 +94,6 @@
 	if(recipient_account)
 		recipient_account.notify_pda_owner("<b> Уведомление о прекращении поступлений по подписке</b>\"Контрагент [subscriber_account.owner_name] прекратил действие соглашения на услугу '[subscription_name]'. Ожидаемые периодические поступления в размере [cost] кредитов более не производятся. Мониторинг транзакций приостановлен.\" (Невозможно Ответить)", FALSE)
 
-// TODO : check update
 /datum/subscription/proc/resub()
 	active = TRUE
 

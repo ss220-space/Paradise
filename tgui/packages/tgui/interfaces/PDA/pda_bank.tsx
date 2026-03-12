@@ -672,14 +672,12 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                   </Button>
                 )
               ) : e.secure ? (
-                // Не активна + защищена
                 <Box className="secure-notice">
                   <Icon name="shield-alt" mr={0.5} />
                   Не подлежит изменению. По вопросам обратитесь к Главе
                   Персонала.
                 </Box>
               ) : (
-                // Не активна + НЕ защищена
                 <Button
                   className="btn-bank"
                   onClick={() =>
@@ -714,7 +712,6 @@ const UUAboutMenuPage = ({ setPage, data }: PageProps) => {
 
       {/* Main Section */}
       <Section>
-        {/* Заголовок — ПО ЦЕНТРУ */}
         <Box className="lore-section-title" textAlign="center" mb={3}>
           <Icon name="university" className="text-gold" size={2} mr={1} />
           <Box as="span">О Raingor Interstellar Banking</Box>
