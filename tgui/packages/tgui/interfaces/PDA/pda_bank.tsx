@@ -126,7 +126,7 @@ export const pda_bank = (props: unknown) => {
       PageContent = <UUErrorPage setPage={setPage} />;
   }
   return (
-    <Window width={600} height={650}>
+    <Window width={600} height={950}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>
@@ -563,6 +563,40 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
           <Box as="span">Ваши подписки</Box>
         </Box>
 
+        <Box
+          className="secure-notice"
+          mb={2}
+          style={{
+            background: 'rgba(184, 134, 11, 0.15)',
+            borderLeftColor: '#FFD700',
+            fontSize: '12px',
+          }}
+        >
+          <Icon name="info-circle" className="text-gold" mr={1} />
+          <Box className="text-white">
+            <Box mb={0.5}>
+              <Box as="span" bold>
+                Плательщик
+              </Box>{' '}
+              — аккаунт, который перечисляет средства{' '}
+              <Box as="span" bold className="text-gold">
+                вам
+              </Box>
+              .
+            </Box>
+            <Box>
+              <Box as="span" bold>
+                Получатель
+              </Box>{' '}
+              — аккаунт, который получает средства{' '}
+              <Box as="span" bold className="text-gold">
+                от вас
+              </Box>
+              .
+            </Box>
+          </Box>
+        </Box>
+
         {subscriptions.length === 0 ? (
           <Box italic className="text-muted" textAlign="center" p={3}>
             <Icon name="credit-card" size={2} mb={2} />У вас нет оформленных
@@ -578,7 +612,7 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
 
               <Box className="text-muted" mb={1}>
                 <Box as="span" className="field-label">
-                  {e.direction === 'outgoing' ? 'Поставщик:' : 'Плательщик:'}
+                  {e.direction === 'outgoing' ? 'Получатель: ' : 'Плательщик: '}
                 </Box>
                 {e.recipient_name}
               </Box>
@@ -611,13 +645,10 @@ const UUSubscriptionsMenuPage = ({ setPage, data }: PageProps) => {
                     e.status ? 'status-badge--active' : 'status-badge--paused'
                   } ${e.secure ? 'status-badge--secure' : ''}`}
                 >
-                  {e.secure && <Icon name="lock" mr={0.5} size={0.8} />}
                   {e.status ? ' Активна ' : ' Остановлена '}
-                  {e.secure && ' • Защищена'}
                 </Box>
               </Box>
 
-              {/* Кнопки действий — ИСПРАВЛЕННАЯ ЛОГИКА */}
               {e.status ? (
                 // Активна
                 e.secure ? (
