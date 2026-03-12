@@ -218,20 +218,32 @@
 	// We collect all subscriptions that were registered in a person's name.
 	// We use this to create a separate list in TGUI.
 	for(var/datum/subscription/Ss in GLOB.all_subscriptions)
-		if(!Ss || !Ss.subscriber_account || !Ss.subscriber_account)
+		if(!Ss || !Ss.subscriber_account || !Ss.recipient_account)
 			continue
 
-		if(Ss.subscriber_account == owner_bank_account)
+		// Check if the player is either a subscriber or a recipient
+		var/is_player_involved = (Ss.subscriber_account == owner_bank_account) || (Ss.recipient_account == owner_bank_account)
+
+		if(is_player_involved)
 			active_sub_names.Add(Ss.subscription_name)
+
+			var/counterpart_name = "Неизвестно"
+
+			if(Ss.subscriber_account == owner_bank_account)
+				counterpart_name = Ss.recipient_account.owner_name
+			else
+				counterpart_name = Ss.subscriber_account.owner_name
+
 			subs_list.Add(list(list(
 				"subscription_name" = Ss.subscription_name,
-				"recipient_name" = Ss.recipient_account.owner_name,
+				"recipient_name" = counterpart_name,
 				"cost" = Ss.cost,
 				"interval" = Ss.interval,
 				"status" = Ss.active,
 				"description" = Ss.description,
 				"secure" = Ss.secure,
-				"subscription_type" = Ss.subscription_type_path
+				"subscription_type" = Ss.subscription_type_path,
+				"direction" = (Ss.subscriber_account == owner_bank_account) ? "outgoing" : "incoming"
 			)))
 
 	// subscriptions that can be purchased

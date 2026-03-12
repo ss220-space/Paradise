@@ -22,7 +22,7 @@ GLOBAL_LIST_EMPTY(all_subscriptions)
 // It's designed for an hour. I hope we won't have subscriptions longer than an hour.
 // If we do, we'll need to increase this number proportionally. We're calculating 12 buckets
 // for every 5 minutes, which will be enough for 60 minutes.
-#define BUCKET_COUNT  12
+#define BUCKET_COUNT 12
 
 SUBSYSTEM_DEF(subscriptions_subsystem)
 	name = "Subscription"
@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
 	. = ..()
 	buckets = list()
 
-	for(var/i in 1 to BUCKET_COUNT )
+	for(var/i in 1 to BUCKET_COUNT)
 		buckets += list(list())
 
 	return SS_INIT_SUCCESS

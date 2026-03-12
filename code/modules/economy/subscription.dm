@@ -240,8 +240,8 @@
 /datum/subscription/station_donations
 	subscription_name = "Фонд развития станции"
 	description = " Регулярное перечисление средств на модернизацию систем жизнеобеспечения. Поощряется руководством НТ и отделом кадров."
-	cost = 199
-	interval = 5 MINUTES
+	cost = 100
+	interval = 10 MINUTES
 
 /datum/subscription/station_donations/New(subscriber)
 	..(subscriber, GLOB.station_account, cost, interval, subscription_name, description)
