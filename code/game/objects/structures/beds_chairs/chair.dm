@@ -304,10 +304,6 @@
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/bar
 
-/obj/structure/chair/stool/bar/dark
-	icon_state = "bar_dark"
-	item_chair = /obj/item/chair/stool/bar/dark
-
 /obj/structure/chair/stool/handle_layer()
 	return
 
@@ -342,11 +338,6 @@
 	icon_state = "bar_toppled"
 	item_state = "stool_bar"
 	origin_type = /obj/structure/chair/stool/bar
-
-/obj/item/chair/stool/bar/dark
-	icon_state = "bar_toppled_dark"
-	item_state = "stool_bar_dark"
-	origin_type = /obj/structure/chair/stool/bar/dark
 
 /obj/item/chair/attack_self(mob/user)
 	plant(user)
@@ -425,14 +416,6 @@
 /obj/item/chair/wood/wings
 	icon_state = "wooden_chair_wings_toppled"
 	origin_type = /obj/structure/chair/wood/wings
-
-/obj/structure/chair/old
-	name = "strange chair"
-	desc = "You sit in this. Either by will or force. Looks REALLY uncomfortable."
-	icon_state = "chairold"
-	item_chair = null
-	comfort = 0
-	flip_on_buckled_move = FALSE
 
 // Brass chair
 /obj/structure/chair/brass
