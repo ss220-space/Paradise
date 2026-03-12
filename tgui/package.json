@@ -36,7 +36,7 @@
     "jest-circus": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^25.0.1",
-    "mini-css-extract-plugin": "^2.9.2",
+    "mini-css-extract-plugin": "^2.10.1",
     "prettier": "3.3.3",
     "sass": "^1.80.6",
     "sass-loader": "^16.0.3",
