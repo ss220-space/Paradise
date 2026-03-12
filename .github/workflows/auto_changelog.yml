@@ -35,19 +35,19 @@ jobs:
             await processAutoChangelog({ github, context })
           github-token: ${{ steps.app-token-generation.outputs.token || secrets.CHANGELOGBOT_TOKEN }}
 
-      - name: "Check for DISCORD_WEBHOOK secret"
-        id: check_discord_webhook
+      - name: "Check for CHANGELOG_DISCORD_WEBHOOK secret"
+        id: check_changelog_discord_webhook
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
         run: |
           unset SECRET_EXISTS
-          if [ -n "$DISCORD_WEBHOOK" ]; then SECRET_EXISTS=true ; fi
+          if [ -n "$CHANGELOG_DISCORD_WEBHOOK" ]; then SECRET_EXISTS=true ; fi
           echo "DISCORD_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
 
       - name: Send Discord notification
-        if: steps.check_discord_webhook.outputs.DISCORD_ENABLED == 'true'
+        if: steps.check_changelog_discord_webhook.outputs.DISCORD_ENABLED == 'true'
         env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
         uses: actions/github-script@v8
         with:
           script: |

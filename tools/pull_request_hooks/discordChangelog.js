@@ -1,6 +1,6 @@
 import { parseChangelog } from "./changelogParser.js";
 
-export async function sendDiscordChangelog({ github, context }) {
+export async function sendDiscordChangelog({ context }) {
   const { pull_request } = context.payload;
   if (!pull_request) return;
 
@@ -10,9 +10,9 @@ export async function sendDiscordChangelog({ github, context }) {
     return;
   }
 
-  const webhookUrl = process.env.DISCORD_WEBHOOK;
+  const webhookUrl = process.env.CHANGELOG_DISCORD_WEBHOOK;
   if (!webhookUrl) {
-    console.log("DISCORD_WEBHOOK not set, skipping.");
+    console.log("CHANGELOG_DISCORD_WEBHOOK not set, skipping.");
     return;
   }
 
