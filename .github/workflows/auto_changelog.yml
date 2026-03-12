@@ -52,4 +52,4 @@ jobs:
         with:
           script: |
             const { sendDiscordChangelog } = await import('${{ github.workspace }}/tools/pull_request_hooks/discordChangelog.js')
-            await sendDiscordChangelog({ github, context })
+            await sendDiscordChangelog({ context })
