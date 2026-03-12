@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(title)
  * Show the title screen to specific client.
  */
 /datum/controller/subsystem/title/proc/show_title_screen_to(client/viewer)
-	if(!viewer || !current_title_screen)
+	if(!viewer || !current_title_screen || SEND_SIGNAL(viewer, COMSIG_TILE_MENU_OPEN) & COMPONENT_BLOCK_OPEN)
 		return
 
 	INVOKE_ASYNC(current_title_screen, TYPE_PROC_REF(/datum/title_screen, show_to), viewer)

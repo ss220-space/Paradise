@@ -9,7 +9,7 @@
  */
 export const CHANGELOG_ENTRIES = [
 	[
-		['rscadd', 'add', 'adds'],
+		['add', 'rscadd', 'adds'],
 		{
 			placeholders: [
 				'Добавлены новые механики или изменения в игровом процессе.',
@@ -26,7 +26,7 @@ export const CHANGELOG_ENTRIES = [
 	],
 
 	[
-		['rscdel', 'del', 'dels'],
+		['del', 'rscdel', 'dels'],
 		{
 			placeholders: ['Удалено что-то старое.'],
 		},
@@ -40,7 +40,7 @@ export const CHANGELOG_ENTRIES = [
 	],
 
 	[
-		['sound'],
+		['sound', 'soundadd', 'sounddel'],
 		{
 			placeholders: [
 				'Добавлены/изменены/удалены какие-то аудио или звуковые эффекты.',
@@ -49,7 +49,14 @@ export const CHANGELOG_ENTRIES = [
 	],
 
 	[
-		['image'],
+		['tgs'],
+		{
+			placeholders: ['Изменения, связанные с TGS.'],
+		},
+	],
+
+	[
+		['image', 'imageadd', 'imagedel'],
 		{
 			placeholders: [
 				'Добавлены/изменены/удалены какие-то спрайты или изображения.',
@@ -58,7 +65,7 @@ export const CHANGELOG_ENTRIES = [
 	],
 
 	[
-		['map'],
+		['map', 'mapping'],
 		{
 			placeholders: [
 				'Добавлены/изменены/удалены какие-то карты или их содержимое.',
@@ -67,12 +74,16 @@ export const CHANGELOG_ENTRIES = [
 	],
 
 	[
-		['spellcheck', 'typo', 'local'],
+		['spellcheck', 'typo'],
 		{
-			placeholders: [
-				'Исправлена какая-то очепятка.',
-				'Произошла локализация на русский язык.',
-			],
+			placeholders: ['Исправлена какая-то очепятка.'],
+		},
+	],
+
+	[
+		['local'],
+		{
+			placeholders: ['Произошла локализация на русский язык.'],
 		},
 	],
 
@@ -84,9 +95,18 @@ export const CHANGELOG_ENTRIES = [
 	],
 
 	[
+		['expansion'],
+		{
+			placeholders: ['Крупное расширение существующего контента.'],
+		},
+	],
+
+	[
 		['code_imp', 'code'],
 		{
-			placeholders: ['Изменён какой-то код.'],
+			placeholders: [
+				'Что-то добавлено в код, без изменения имеющихся механик.',
+			],
 		},
 	],
 
@@ -108,6 +128,24 @@ export const CHANGELOG_ENTRIES = [
 		['admin'],
 		{
 			placeholders: ['Изменено что-то связанное с администрацией.'],
+		},
+	],
+
+	[
+		['tweak'],
+		{
+			placeholders: [
+				'Незначительно изменены или настроены существующие механики.',
+			],
+		},
+	],
+
+	[
+		['experiment', 'experimental'],
+		{
+			placeholders: [
+				'Экспериментальные изменения, которые могут повлиять на стабильность.',
+			],
 		},
 	],
 

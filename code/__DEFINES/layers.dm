@@ -101,7 +101,10 @@
 //-------------------- Rendering ---------------------
 #define RENDER_PLANE_GAME 100
 #define RENDER_PLANE_NON_GAME 101
-#define RENDER_PLANE_MASTER 102
+/// Plane related to the menu when pressing Escape.
+/// Needed so that we can apply a blur effect to EVERYTHING, and guarantee we are above all UI.
+#define ESCAPE_MENU_PLANE 102
+#define RENDER_PLANE_MASTER 103
 
 // NOTE! You can only ever have planes greater then -10000, if you add too many with large offsets you will brick multiz
 // Same can be said for large multiz maps. Tread carefully mappers
@@ -111,6 +114,7 @@
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
+#define PLANE_MASTERS_NON_MASTER "plane_masters_non_master"
 
 //Plane master critical flags
 //Describes how different plane masters behave when they are being culled for performance reasons
