@@ -1740,10 +1740,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/wicg-file-system-access@npm:^2023.10.5":
-  version: 2023.10.6
-  resolution: "@types/wicg-file-system-access@npm:2023.10.6"
-  checksum: 10/500ea4874dad6902b5a529b53b65b73f72c75b93b5b1593176d3e3679a35bcd17120a863a4eb5ec1e33ad583708eff7b2e6a92cb42b0bd66242281b322fb03be
+"@types/wicg-file-system-access@npm:^2023.10.7":
+  version: 2023.10.7
+  resolution: "@types/wicg-file-system-access@npm:2023.10.7"
+  checksum: 10/25c1249d2714de2fa16ad3203e3748debd66451bd785405623847da0174abd7196955caf821869c54fed254174076a69173b80b26206794a01d5d53946c6107c
   languageName: node
   linkType: hard
 
@@ -7870,7 +7870,7 @@ __metadata:
     "@types/node": "npm:^22.9.0"
     "@types/webpack": "npm:^5.28.5"
     "@types/webpack-env": "npm:^1.18.5"
-    "@types/wicg-file-system-access": "npm:^2023.10.5"
+    "@types/wicg-file-system-access": "npm:^2023.10.7"
     "@typescript-eslint/parser": "npm:^8.13.0"
     "@typescript-eslint/utils": "npm:^8.13.0"
     common: "workspace:*"
