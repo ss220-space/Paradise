@@ -128,7 +128,7 @@ export const pda_bank = (props: unknown) => {
   }
   return (
     <Window width={600} height={650}>
-      <Window.Content scrollable>
+      <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>
             {PageContent}

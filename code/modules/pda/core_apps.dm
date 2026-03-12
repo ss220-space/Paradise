@@ -140,7 +140,6 @@
 	title = "Raingor Interstellar Banking"
 	icon = "university"
 	template = "pda_bank"
-	category = "General"
 	update = PDA_APP_UPDATE_SLOW
 
 	// Snapshot
