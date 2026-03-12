@@ -37,7 +37,7 @@ VERB_MANAGER_SUBSYSTEM_DEF(input)
 			"Any+UP" = "\"KeyUp \[\[*\]\]\"", // Passes any key up to the rebindable input system
 			"Tab" = "\".winset \\\"mainwindow.macro=legacy input.focus=true input.border=sunken\\\"\"", // Swaps us to legacy mode, forces input to the input bar, sets the input bar colour to salmon pink
 			"Back" = "\".winset \\\"input.focus=true ? input.text=\\\"\"", // This makes it so backspace can remove default inputs
-			"Escape" = "Reset-Held-Keys",
+			"Escape" = "Open-Escape-Menu",
 		),
 		"legacy" = list(
 			"Tab" = "\".winset \\\"mainwindow.macro=default map.focus=true input.border=line\\\"\"", // Swaps us to rebind mode, moves input away from input bar, sets input bar to white

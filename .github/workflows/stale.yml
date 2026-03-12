@@ -11,7 +11,7 @@ jobs:
     permissions:
       issues: write # for actions/stale to close stale issues
       pull-requests: write # for actions/stale to close stale PRs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       staled_prs: ${{ steps.filter-prs.outputs.result }}
 
@@ -41,7 +41,7 @@ jobs:
             return JSON.parse(context.job.steps.stale.outputs.staled-issues-prs).filter(issue => !!issue.pull_request)
 
   announce:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: stale
     if: ${{ needs.stale.outputs.staled_prs != '[]' }}
     matrix:
