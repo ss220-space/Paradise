@@ -403,40 +403,99 @@
 
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
-	desc = "Drymate brand monkey cubes. Just add water!"
-	icon = 'icons/obj/food/food.dmi'
-	icon_state = "monkeycubebox"
+	desc = "Кубы шимпанзе фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "monkey_box"
 	item_state = "mcube"
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
 	var/monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube
 
+/obj/item/storage/box/monkeycubes/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка кубов шимпанзе",
+		GENITIVE = "коробки кубов шимпанзе",
+		DATIVE = "коробке кубов шимпанзе",
+		ACCUSATIVE = "коробку кубов шимпанзе",
+		INSTRUMENTAL = "коробкой кубов шимпанзе",
+		PREPOSITIONAL = "коробке кубов шимпанзе"
+	)
+
 /obj/item/storage/box/monkeycubes/populate_contents()
-	for(var/i in 1 to 5)
+	for(var/i in 1 to 7)
 		new monkey_cube_type(src)
 
+/obj/item/storage/box/monkeycubes/Initialize(mapload)
+	. = ..()
+	pixel_x = base_pixel_x + rand(-5,5)
+	pixel_y = base_pixel_y + rand(-5,5)
+
 /obj/item/storage/box/monkeycubes/syndicate
-	desc = "Waffle Co. brand monkey cubes. Just add water and a dash of subterfuge!"
+	desc = "Кубы шимпанзе фирмы \"Waffle Co.\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды и щепотку обмана!"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/syndicate
 
 /obj/item/storage/box/monkeycubes/farwacubes
 	name = "farwa cube box"
-	desc = "Drymate brand farwa cubes. Just add water!"
+	desc = "Кубы фарв фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "farwa_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/farwacube
+
+/obj/item/storage/box/monkeycubes/farwacubes/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка кубов фарв",
+		GENITIVE = "коробки кубов фарв",
+		DATIVE = "коробке кубов фарв",
+		ACCUSATIVE = "коробку кубов фарв",
+		INSTRUMENTAL = "коробкой кубов фарв",
+		PREPOSITIONAL = "коробке кубов фарв"
+	)
 
 /obj/item/storage/box/monkeycubes/stokcubes
 	name = "stok cube box"
-	desc = "Drymate brand stok cubes. Just add water!"
+	desc = "Кубы стоков фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "stok_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/stokcube
+
+/obj/item/storage/box/monkeycubes/stokcubes/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка кубов стоков",
+		GENITIVE = "коробки кубов стоков",
+		DATIVE = "коробке кубов стоков",
+		ACCUSATIVE = "коробку кубов стоков",
+		INSTRUMENTAL = "коробкой кубов стоков",
+		PREPOSITIONAL = "коробке кубов стоков"
+	)
 
 /obj/item/storage/box/monkeycubes/neaeracubes
 	name = "neaera cube box"
-	desc = "Drymate brand neaera cubes. Just add water!"
+	desc = "Кубы неар фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "neaera_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/neaeracube
+
+
+/obj/item/storage/box/monkeycubes/neaeracubes/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка кубов неар",
+		GENITIVE = "коробки кубов неар",
+		DATIVE = "коробке кубов неар",
+		ACCUSATIVE = "коробку кубов неар",
+		INSTRUMENTAL = "коробкой кубов неар",
+		PREPOSITIONAL = "коробке кубов неар"
+	)
 
 /obj/item/storage/box/monkeycubes/wolpincubes
 	name = "wolpin cube box"
-	desc = "Drymate brand wolpin cubes. Just add water!"
+	desc = "Кубы вульпинов фирмы \"Драймейт\". Коробка содержит высушенных и сжатых существ, удобных для транспортировки. Просто добавь воды!"
+	icon_state = "wolpin_box"
 	monkey_cube_type = /obj/item/reagent_containers/food/snacks/monkeycube/wolpincube
+
+/obj/item/storage/box/monkeycubes/wolpincubes/get_ru_names()
+	return list(
+		NOMINATIVE = "коробка кубов вульпинов",
+		GENITIVE = "коробки кубов вульпинов",
+		DATIVE = "коробке кубов вульпинов",
+		ACCUSATIVE = "коробку кубов вульпинов",
+		INSTRUMENTAL = "коробкой кубов вульпинов",
+		PREPOSITIONAL = "коробке кубов вульпинов"
+	)
 
 /obj/item/storage/box/permits
 	name = "box of construction permits"

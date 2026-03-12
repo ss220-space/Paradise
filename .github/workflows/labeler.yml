@@ -1,14 +1,28 @@
-name: "Pull Request Labeler"
+name: Pull Request Labeler
 on:
-- pull_request_target
-
+  pull_request_target:
+    types: [closed, opened, synchronize]
 jobs:
+  # labeler must run before gbp because gbp calculates itself based on labels
   labeler:
+    runs-on: ubuntu-24.04
+    if: github.event.action == 'opened' || github.event.action == 'synchronize'
     permissions:
-      contents: read
-      pull-requests: write
-    runs-on: ubuntu-latest
+      pull-requests: write # to apply labels
+      issues: write # to apply labels
     steps:
-    - uses: actions/labeler@v6
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Run Auto Labeler
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { get_updated_label_set } = await import('${{ github.workspace }}/tools/pull_request_hooks/autoLabel.js');
+            const new_labels = await get_updated_label_set({ github, context });
+            github.rest.issues.setLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: new_labels,
+            });
+            console.log(`Labels updated: ${new_labels}`);
