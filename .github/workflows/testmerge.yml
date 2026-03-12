@@ -194,6 +194,81 @@ jobs:
           fi
           git push --force-with-lease origin ${{ env.TESTMERGE_BRANCH }}
 
+      - name: "Check for CHANGELOG_DISCORD_WEBHOOK secret"
+        id: check_CHANGELOG_DISCORD_WEBHOOK
+        env:
+          CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
+        run: |
+          unset SECRET_EXISTS
+          if [ -n "$CHANGELOG_DISCORD_WEBHOOK" ]; then SECRET_EXISTS=true ; fi
+          echo "DISCORD_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
+
+      - name: Send Discord notifications for merged PRs
+        if: steps.check_CHANGELOG_DISCORD_WEBHOOK.outputs.DISCORD_ENABLED == 'true'
+        env:
+          CHANGELOG_DISCORD_WEBHOOK: ${{ secrets.CHANGELOG_DISCORD_WEBHOOK }}
+          MERGED_PRS: ${{ steps.prepare_testmerge_branch.outputs.merged_prs }}
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const { parseChangelog } = await import('${{ github.workspace }}/tools/pull_request_hooks/changelogParser.js');
+
+            const webhookUrl = process.env.CHANGELOG_DISCORD_WEBHOOK;
+            const mergedPRs = process.env.MERGED_PRS.split(' ').filter(Boolean);
+
+            async function sendDiscordMessage(pr, changelog) {
+              if (!changelog || changelog.changes.length === 0) return;
+
+              const prNumber = pr.number;
+              const prTitle = pr.title;
+              const author = pr.user.login;
+              const now = new Date().toISOString();
+
+              const changesText = changelog.changes
+                .map((change) => `${change.type.changelogKey}: ${change.description}`)
+                .join("\n");
+
+              const embed = {
+                title: `PR #${prNumber}: ${prTitle}`,
+                url: pull_request.html_url,
+                color: 0x00ff00,
+                fields: [
+                  {
+                    name: "Список изменений",
+                    value: `\`\`\`\n${changesText}\n\`\`\``,
+                  },
+                ],
+                footer: {
+                  text: `Автор: ${author} • Добавлен: ${new Date(now).toUTCString()}`,
+                },
+                timestamp: now,
+              };
+
+              const payload = { embeds: [embed] };
+
+              const response = await fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+              });
+
+              if (!response.ok) {
+                throw new Error(`Discord webhook failed for PR #${prNumber}: ${response.statusText}`);
+              }
+              console.log(`Sent Discord notification for PR #${prNumber}`);
+            }
+
+            for (const prNumber of mergedPRs) {
+              console.log(`Fetching PR #${prNumber}`);
+              const { data: pr } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: parseInt(prNumber)
+              });
+              const changelog = parseChangelog(pr.body);
+              await sendDiscordMessage(pr, changelog);
+            }
+
       - name: Comment on merged PRs
         uses: actions/github-script@v8
         with:
