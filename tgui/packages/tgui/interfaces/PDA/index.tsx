@@ -7,6 +7,10 @@ import { routingError } from '../../routes';
 
 const RequirePDAInterface = require.context('.', false, /\.tsx$/);
 
+const THEME_MAP: Record<string, string> = {
+  'pda_bank': 'raingor_company',
+};
+
 const GetApp = (name) => {
   if (name === 'index') {
     return routingError('notFound', name);
@@ -62,9 +66,10 @@ export const PDA = (_props: unknown) => {
   }
 
   const App = GetApp(app.template);
+  const theme = THEME_MAP[app.template] || 'nanotrasen';
 
   return (
-    <Window width={600} height={650}>
+    <Window width={600} height={650} theme={theme}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
