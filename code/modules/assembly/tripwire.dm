@@ -37,9 +37,6 @@
 
 	var/mob/living/entered_living = movable_atom
 
-	if(!entered_living)
-		return
-
 	if(entered_living.incorporeal_move || (entered_living.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return
 
@@ -115,7 +112,8 @@
 		other.is_active = FALSE
 
 		if(LAZYLEN(other.wire_segments))
-			for(var/obj/structure/tripwire_bridge/segment in other.wire_segments)
+			var/list/segments_to_del = other.wire_segments.Copy()
+			for(var/obj/structure/tripwire_bridge/segment in segments_to_del)
 				qdel(segment)
 
 			LAZYCLEARLIST(other.wire_segments)
@@ -418,8 +416,7 @@
 		var/list/segments = wire_segments.Copy()
 		LAZYCLEARLIST(wire_segments)
 		for(var/obj/structure/tripwire_bridge/segment in segments)
-			if(!QDELETED(segment))
-				qdel(segment)
+			qdel(segment)
 
 	var/obj/item/tripwire/other = linked_to
 	linked_to = null
