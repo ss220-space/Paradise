@@ -112,11 +112,11 @@
 
 	update_icon()
 
-	if(!iscarbon(imp_in))
+	if(!ishuman(imp_in))
 		return
 
-	var/mob/living/carbon/carbon = imp_in
-	carbon.sec_hud_set_implants()
+	var/mob/living/carbon/human/human = imp_in
+	human.sec_hud_set_implants()
 
 /obj/item/implant/fake_mindshield/update_icon_state()
 	icon_state = "fake_mindshield[hud_visible ? 1 : 0]"
