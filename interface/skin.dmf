@@ -319,40 +319,6 @@ window "infobuttons"
 		group = "rpanemode"
 		button-type = pushbox
 
-	elem "webmap"
-		type = BUTTON
-		pos = 270,5
-		size = 85x35
-		anchor1 = 42,0
-		anchor2 = 55,100
-		background-color = none
-		saved-params = "is-checked"
-		text = "Карта"
-		command = "webmap"
-
-	elem "wikib"
-		type = BUTTON
-		pos = 360,5
-		size = 85x35
-		anchor1 = 56,0
-		anchor2 = 69,100
-		background-color = none
-		saved-params = "is-checked"
-		text = "Вики"
-		command = "wiki"
-
-	elem "discordb"
-		type = BUTTON
-		pos = 450,5
-		size = 85x35
-		anchor1 = 70,0
-		anchor2 = 83,100
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #7289da
-		saved-params = "is-checked"
-		text = "Discord"
-		command = "discord"
 
 window "infowindow"
 	elem "infowindow"

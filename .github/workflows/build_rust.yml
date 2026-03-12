@@ -120,10 +120,19 @@ jobs:
           export RUSTFLAGS='-C target-cpu=raptorlake'
           cargo build --release --target=$LINUX_TARGET
           cp target/$LINUX_TARGET/release/librustlibs.so ../librustlibs_prod.so
-
+      - name: Generate App Token
+        id: app-token-generation
+        uses: actions/create-github-app-token@v2
+        if: env.APP_PRIVATE_KEY != '' && env.APP_ID != ''
+        with:
+          app-id: ${{ secrets.CHANGELOGBOT_APPID }}
+          private-key: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
+        env:
+          APP_PRIVATE_KEY: ${{ secrets.CHANGELOGBOT_PRIVATEKEY }}
+          APP_ID: ${{ secrets.CHANGELOGBOT_APPID }}
       - name: Commit and push changes
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ steps.app-token-generation.outputs.token || secrets.CHANGELOGBOT_TOKEN }}
         run: |
           git add --force librustlibs.so rustlibs.dll librustlibs_prod.so ./tools/ci/librustlibs.so
           git commit -m "Build Rust library"
