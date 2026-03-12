@@ -16,38 +16,13 @@ jobs:
           if [ -n "$ENABLER_SECRET" ]; then SECRET_EXISTS=true ; fi
           echo "SECRETS_ENABLED=$SECRET_EXISTS" >> $GITHUB_OUTPUT
 
-      - name: Process PR body
-        id: process_body
-        env:
-          PR_BODY: ${{ github.event.pull_request.body }}
-        run: |
-          CLEAN_BODY=$(echo "$PR_BODY" | sed 's/^"//; s/"$//' | sed '/<!--/,/-->/d')
-          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed '/^[[:space:]]*$/d')
-          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed -E 's/<img[^>]*src="([^"]*)"[^>]*>/\1/g')
-          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed -E 's/<a[^>]*href="([^"]*)"[^>]*>([^<]*)<\/a>/[\2](\1)/g')
-          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed 's/<[^>]*>//g')
-          CLEAN_BODY=$(echo "$CLEAN_BODY" | sed '/^[[:space:]]*$/d')
-          CLEAN_BODY=$'\n'"$CLEAN_BODY"
-          echo "CLEAN_BODY<<EOF" >> $GITHUB_OUTPUT
-          echo "$CLEAN_BODY" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-
       - name: Send Discord notification
-        uses: tgstation/discord-notify@v3
+        uses: MiraHell/discord-notify@v3.3
         if: ${{ steps.secrets_set.outputs.SECRETS_ENABLED }}
         with:
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           title: ${{ github.event.pull_request.user.login }} - ${{ github.event.pull_request.title }}
-          message: ${{ format('{0}{1}',
-            (github.event.action == 'closed' &&
-            (github.event.pull_request.merged == true && format('**Изменения из пулл-реквеста №{0} добавлены в билд.**', github.event.pull_request.number) ||
-            format('**Пулл-реквест №{0} закрыт.**', github.event.pull_request.number)
-            ) ||
-            github.event.action == ('opened' || 'reopened') &&
-            format('**Пулл-реквест №{0} открыт.**', github.event.pull_request.number)
-            ),
-            (steps.process_body.outputs.CLEAN_BODY) || ''
-            )}}
+          message: GET_ACTION
           include_image: false
           show_author: true
           avatar_url: https://cdn.discordapp.com/attachments/1284433984666734603/1403077083076366546/1984.png?ex=68963cdc&is=6894eb5c&hm=7f654bcb85dec940417a6e393b461382e7284d545f8336807bc753a38b040e01&
