@@ -3615,16 +3615,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-unused-imports@npm:^4.0.0":
-  version: 4.1.4
-  resolution: "eslint-plugin-unused-imports@npm:4.1.4"
+"eslint-plugin-unused-imports@npm:^4.4.1":
+  version: 4.4.1
+  resolution: "eslint-plugin-unused-imports@npm:4.4.1"
   peerDependencies:
     "@typescript-eslint/eslint-plugin": ^8.0.0-0 || ^7.0.0 || ^6.0.0 || ^5.0.0
-    eslint: ^9.0.0 || ^8.0.0
+    eslint: ^10.0.0 || ^9.0.0 || ^8.0.0
   peerDependenciesMeta:
     "@typescript-eslint/eslint-plugin":
       optional: true
-  checksum: 10/8e987028ad925ce1e04c01dcae70adbf44c2878a8b15c4327b33a2861e471d7fe00f6fe213fbd2b936f3fcefc8ccabb0d778aa1d6e0e0387a3dc7fe150cd4ed4
+  checksum: 10/b420fd55c393a6fdacfdbd0d1adf4cd44bed9a6584f05245091a6716272c57f38154d04b76f253619d8bf22823c0b9d630ef6b5b09edad6e51b8a1f7aec56c22
   languageName: node
   linkType: hard
 
@@ -7881,7 +7881,7 @@ __metadata:
     eslint-plugin-prettier: "npm:5.2.1"
     eslint-plugin-react: "npm:^7.35.0"
     eslint-plugin-simple-import-sort: "npm:^12.0.0"
-    eslint-plugin-unused-imports: "npm:^4.0.0"
+    eslint-plugin-unused-imports: "npm:^4.4.1"
     file-loader: "npm:^6.2.0"
     globals: "npm:^15.8.0"
     jest: "npm:^29.7.0"
