@@ -4,19 +4,24 @@
 	activated = BIOCHIP_ACTIVATED_PASSIVE
 	implant_state = "implant-nanotrasen"
 	implant_data = /datum/implant_fluff/suppression
-	allow_multiple = FALSE
 
-/obj/item/implant/suppression/implant(mob/living/target, mob/user, force = FALSE)
+/obj/item/implant/suppression/implant(mob/living/carbon/human/target, mob/user, force = FALSE)
 	. = ..()
 	if(.)
 		ADD_TRAIT(target, TRAIT_MARTIAL_ARTS_SUPPRESSED, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(target, span_warning("Ваши навыки боевых искусств кажутся... подавленными."))
 
-/obj/item/implant/suppression/removed(mob/living/target)
+		if(target.mind && LAZYLEN(target.mind.known_martial_arts))
+			to_chat(target, span_warning("Ваши навыки боевых искусств кажутся... подавленными."))
+		else
+			to_chat(target, span_warning("Вы чувствуете лёгкое покалывание в затылке, но ничего не происходит."))
+/obj/item/implant/suppression/removed(mob/living/carbon/human/target)
 	. = ..()
 	if(.)
 		REMOVE_TRAIT(target, TRAIT_MARTIAL_ARTS_SUPPRESSED, UNIQUE_TRAIT_SOURCE(src))
-		to_chat(target, span_notice("Ваши навыки боевых искусств возвращаются в норму."))
+		if(target.mind && LAZYLEN(target.mind.known_martial_arts))
+			to_chat(target, span_notice("Ваши навыки боевых искусств возвращаются в норму."))
+		else
+			to_chat(target, span_notice("Вы чувствуете лёгкость в груди, словно что-то исчезло."))
 
 /obj/item/implanter/suppression
 	name = "bio-chip implanter (suppression)"

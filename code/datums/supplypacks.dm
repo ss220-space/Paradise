@@ -1378,21 +1378,21 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	required_tech = list(RESEARCH_TREE_MATERIALS = 2, RESEARCH_TREE_BIOTECH = 4, RESEARCH_TREE_PROGRAMMING = 4)
 
 /datum/supply_packs/security/armory/suppression
-    name = "Имплант \"Подавления\""
-    contains = list(
-        /obj/item/storage/lockbox/suppression,
-    )
-    cost = 200
-    containername = "ящик с имплантом \"Подавления\""
-    container_ru_names = list(
-        NOMINATIVE = "ящик с имплантом \"Подавления\"",
-        GENITIVE = "ящика с имплантом \"Подавления\"",
-        DATIVE = "ящику с имплантом \"Подавления\"",
-        ACCUSATIVE = "ящик с имплантом \"Подавления\"",
-        INSTRUMENTAL = "ящиком с имплантом \"Подавления\"",
-        PREPOSITIONAL = "ящике с имплантом \"Подавления\"",
-    )
-    required_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_BIOTECH = 7)
+	name = "Имплант \"Подавления\""
+	contains = list(
+		/obj/item/storage/lockbox/suppression,
+	)
+	cost = 200
+	containername = "ящик с имплантом \"Подавления\""
+	container_ru_names = list(
+		NOMINATIVE = "ящик с имплантом \"Подавления\"",
+		GENITIVE = "ящика с имплантом \"Подавления\"",
+		DATIVE = "ящику с имплантом \"Подавления\"",
+		ACCUSATIVE = "ящик с имплантом \"Подавления\"",
+		INSTRUMENTAL = "ящиком с имплантом \"Подавления\"",
+		PREPOSITIONAL = "ящике с имплантом \"Подавления\"",
+	)
+	required_tech = list(RESEARCH_TREE_COMBAT = 7, RESEARCH_TREE_BIOTECH = 7)
 
 /datum/supply_packs/security/armory/trackingimp
 	name = "Имплант слежения"
