@@ -1303,7 +1303,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = VERB_CATEGORY_ROBOTCOMMANDS
-	set name = "Блокировку панели"
+	set name = "Блокировка панели"
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
