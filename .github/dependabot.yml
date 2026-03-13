@@ -9,21 +9,3 @@ updates:
     labels:
       - "GitHub"
     open-pull-requests-limit: 10
-
-  - package-ecosystem: npm
-    directory: /tgui
-    target-branch: master220
-    schedule:
-      interval: daily
-    labels:
-      - "GitHub"
-    open-pull-requests-limit: 10
-
-  - package-ecosystem: pip
-    directory: /tools/ttsServer
-    target-branch: master220
-    schedule:
-      interval: daily
-    labels:
-      - "GitHub"
-    open-pull-requests-limit: 10
