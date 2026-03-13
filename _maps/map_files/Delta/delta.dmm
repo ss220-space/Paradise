@@ -2695,8 +2695,7 @@
 	dir = 1;
 	pixel_y = -26
 	},
-/obj/structure/table,
-/obj/random/toolbox,
+/obj/machinery/vending/artvend,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "neutral"
@@ -10966,7 +10965,6 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -11307,7 +11305,7 @@
 /turf/simulated/wall/rust,
 /area/maintenance/garden)
 "bAl" = (
-/obj/machinery/vending/sustenance/additional,
+/obj/structure/chair/sofa/bench/right,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -16193,9 +16191,6 @@
 /turf/simulated/floor/plasteel,
 /area/security/processing)
 "bZH" = (
-/obj/structure/disposalpipe/junction{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -16210,6 +16205,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/entry/lounge)
@@ -17778,7 +17776,7 @@
 	},
 /area/security/permabrig)
 "chC" = (
-/obj/item/twohanded/required/kirbyplants,
+/obj/machinery/vending/sustenance/additional,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "neutral"
@@ -24556,8 +24554,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/banya)
 "cQc" = (
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal,
+/obj/structure/chair/sofa/bench,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -37036,9 +37033,10 @@
 	},
 /area/quartermaster/storage)
 "dWH" = (
-/obj/structure/chair{
+/obj/structure/chair/sofa/bench/left{
 	dir = 4
 	},
+/obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "brown"
@@ -54342,13 +54340,6 @@
 /obj/effect/spawner/new_year/garland/west,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/crew_quarters/bar/atrium)
-"hNt" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
 "hNA" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Holding Area";
@@ -55722,8 +55713,6 @@
 /area/turret_protected/ai)
 "ifa" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/pen,
 /obj/machinery/door/window/westleft{
 	dir = 4;
 	name = "Mining Desk";
@@ -55733,6 +55722,14 @@
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "Biohazard_cargo";
 	name = "Cargo Lockdown"
+	},
+/obj/item/paper_bin{
+	pixel_x = 0;
+	pixel_y = 2
+	},
+/obj/item/pen{
+	pixel_x = 0;
+	pixel_y = 3
 	},
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -56838,16 +56835,6 @@
 /obj/structure/lattice/catwalk,
 /turf/space,
 /area/space)
-"iso" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/effect/landmark/start/civilian,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "brown"
-	},
-/area/quartermaster/office)
 "isq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
@@ -59999,7 +59986,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/obj/machinery/vending/artvend,
+/obj/structure/chair/sofa/bench/left,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "neutral"
@@ -69822,9 +69809,9 @@
 /turf/simulated/floor/carpet,
 /area/library)
 "lyi" = (
-/obj/structure/table,
-/obj/item/stack/packageWrap,
-/obj/item/hand_labeler,
+/obj/structure/chair/sofa/bench/corner{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "brown"
@@ -70017,10 +70004,10 @@
 	},
 /area/crew_quarters/fitness)
 "lAA" = (
-/obj/structure/chair{
+/obj/effect/landmark/start/civilian,
+/obj/structure/chair/sofa/bench/right{
 	dir = 1
 	},
-/obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -70210,9 +70197,8 @@
 	},
 /area/quartermaster/office)
 "lCV" = (
-/obj/machinery/vending/cart{
-	pixel_x = -1;
-	pixel_y = 1
+/obj/machinery/computer/merch{
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -70255,8 +70241,9 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/theatre)
 "lDx" = (
-/obj/machinery/computer/merch{
-	dir = 1
+/obj/machinery/vending/cart{
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -92742,7 +92729,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
 	},
@@ -109495,9 +109481,9 @@
 /area/maintenance/asmaint)
 "unV" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen,
 /obj/item/radio/intercom/directional/west,
+/obj/item/stack/packageWrap,
+/obj/item/hand_labeler,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "brown"
@@ -165682,7 +165668,7 @@ dyd
 gDV
 grq
 unV
-iso
+dPk
 dPk
 jEJ
 dWH
@@ -165938,7 +165924,7 @@ bVd
 rrr
 gEq
 fUj
-hNt
+dmp
 qaz
 dLX
 fVO

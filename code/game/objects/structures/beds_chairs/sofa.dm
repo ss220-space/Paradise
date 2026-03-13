@@ -143,7 +143,6 @@
 
 /obj/structure/chair/sofa/bench/corner/science_pink
 	icon_state = "/obj/structure/chair/sofa/bench/corner/science_pink"
-
 	greyscale_colors = COLOR_SCIENCE_PINK
 
 // Solo section color variations
