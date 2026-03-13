@@ -89,6 +89,7 @@
 /obj/structure/chair/sofa/bench/solo
 	icon_state = "/obj/structure/chair/sofa/bench/solo"
 	greyscale_config = /datum/greyscale_config/bench_solo
+	post_init_icon_state = "bench_solo"
 
 // Color variations for each geometry type
 
