@@ -15,7 +15,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 	/datum/hud = list(
 		"TRAIT_ESCAPE_MENU_OPEN" = TRAIT_ESCAPE_MENU_OPEN,
 	),
-  
+
 	// MARK: /atom
 	/atom = list(
 		"TRAIT_AI_PAUSED" = TRAIT_AI_PAUSED,
