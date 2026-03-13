@@ -79,30 +79,23 @@
 	var/suit_type = /obj/item
 	var/suit_name_simple = "    "
 	var/helmet_name_simple = "     "
-	var/recharge_slowdown = 0
+	var/chemical_synthesis_modifier = 0
 	var/blood_on_castoff = FALSE
+
+
+/datum/action/changeling/suit/Remove(mob/user)
+	if(active)
+		deactivate(user)
+	return ..()
 
 /datum/action/changeling/suit/try_to_sting(mob/living/carbon/human/user, mob/target)
 	if(!istype(user))
 		return FALSE
 
 	if(istype(user.wear_suit, suit_type) || istype(user.head, helmet_type))
-		user.visible_message(span_warning("[user] casts off [user.p_their()] [suit_name_simple]!"), span_warning("We cast off our [suit_name_simple][genetic_damage > 0 ? ", temporarily weakening our genomes." : "."]"), span_warning("You hear the organic matter ripping and tearing!"))
-		playsound(owner.loc, 'sound/effects/bone_break_2.ogg', 100, TRUE)
-		qdel(user.wear_suit)
-		qdel(user.head)
-		user.update_worn_oversuit()
-		user.update_worn_head()
-		user.update_hair()
-		user.update_fhair()
-
-		if(blood_on_castoff)
-			user.add_splatter_floor()
-			playsound(user.loc, 'sound/effects/splat.ogg', 50, TRUE) //So real sounds
-
-		cling.chem_recharge_slowdown -= recharge_slowdown
+		deactivate(user)
 		return FALSE
-	..(user, target)
+	return ..(user, target)
 
 /datum/action/changeling/suit/sting_action(mob/living/carbon/human/user)
 	if(!user.can_unEquip(user.wear_suit))
@@ -113,14 +106,50 @@
 		to_chat(user, "\the [user.head] is stuck on your head, you cannot grow a [helmet_name_simple] over it!")
 		return FALSE
 
+// Drop clothes
 	user.drop_item_ground(user.head)
 	user.drop_item_ground(user.wear_suit)
 
+// Equip new clothes
 	user.equip_to_slot_or_del(new suit_type(user), ITEM_SLOT_CLOTH_OUTER)
 	user.equip_to_slot_or_del(new helmet_type(user), ITEM_SLOT_HEAD)
 
-	cling.chem_recharge_slowdown += recharge_slowdown
+	activate(user)
 	return TRUE
+
+/datum/action/changeling/suit/proc/activate(mob/living/carbon/human/user)
+	var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(changeling && chemical_synthesis_modifier != 0)
+		changeling.add_chem_rate_modifier(src, chemical_synthesis_modifier)
+	active = TRUE
+
+/datum/action/changeling/suit/proc/deactivate(mob/living/carbon/human/user)
+	// Remove the chemical modifier
+	var/datum/antagonist/changeling/changeling = user.mind?.has_antag_datum(/datum/antagonist/changeling)
+	if(changeling && chemical_synthesis_modifier != 0)
+		changeling.remove_chem_rate_modifier(src)
+
+	// Delуte item
+	if(istype(user.wear_suit, suit_type))
+		qdel(user.wear_suit)
+	if(istype(user.head, helmet_type))
+		qdel(user.head)
+
+	// Updating the appearance
+	user.update_worn_oversuit()
+	user.update_worn_head()
+	user.update_hair()
+	user.update_fhair()
+
+	// Call custom removal effects (overridden in successors)
+	on_deactivate(user)
+
+	active = FALSE
+
+/// Virtual proc for additional effects when removing (blood, sounds, etc.)
+/datum/action/changeling/suit/proc/on_deactivate(mob/living/carbon/human/user)
+	// By default we do nothing
+	return
 
 //fancy headers yo
 /***************************************\
@@ -653,8 +682,13 @@
 	helmet_type = /obj/item/clothing/head/helmet/space/changeling
 	suit_name_simple = "flesh shell"
 	helmet_name_simple = "space helmet"
-	recharge_slowdown = 0.5
+	chemical_synthesis_modifier = -0.5
 	blood_on_castoff = TRUE
+
+/datum/action/changeling/suit/organic_space_suit/on_deactivate(mob/living/carbon/human/user)
+	if(blood_on_castoff)
+		user.add_splatter_floor()
+		playsound(user.loc, 'sound/effects/splat.ogg', 50, TRUE)
 
 /obj/item/clothing/suit/space/changeling
 	name = "flesh mass"
@@ -726,7 +760,7 @@
 	helmet_type = /obj/item/clothing/head/helmet/changeling
 	suit_name_simple = "armor"
 	helmet_name_simple = "helmet"
-	recharge_slowdown = 0.25
+	chemical_synthesis_modifier = -0.25
 
 /obj/item/clothing/suit/armor/changeling
 	name = "chitinous mass"

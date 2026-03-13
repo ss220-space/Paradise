@@ -5,7 +5,7 @@
 	button_icon_state = "anabolic_surge"
 	power_type = CHANGELING_PURCHASABLE_POWER
 	dna_cost = 1
-	var/chem_reduction = 0.5
+	var/chemical_synthesis_modifier = -0.5
 	/// Maintain the original level of strength
 	var/datum/strength_level/backup_strength_level
 	/// We save the original strength points
@@ -58,7 +58,8 @@
 // Apply the chemical synthesis modifier
 	var/datum/antagonist/changeling/changeling = human.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
-		changeling.chem_recharge_rate -= chem_reduction
+		changeling.add_chem_rate_modifier(src, chemical_synthesis_modifier)
+
 
 	active = TRUE
 	button_icon_state = "anabolic_surge_active"
@@ -90,11 +91,10 @@
 
 		human.update_body(TRUE)
 
-// Restore normal chemical synthesis
+// Remove the chemical modifier
 	var/datum/antagonist/changeling/changeling = human.mind?.has_antag_datum(/datum/antagonist/changeling)
 	if(changeling)
-		// Restore the original synthesis speed
-		changeling.chem_recharge_rate += chem_reduction
+		changeling.remove_chem_rate_modifier(src)
 
 	active = FALSE
 	button_icon_state = "anabolic_surge"
