@@ -1,0 +1,4 @@
+author: "dageavtobusnick"
+delete-after: True
+changes:
+  - server: "Донастройка прав для ченджлог генераторов + эксперемент с правами растбилдера"
