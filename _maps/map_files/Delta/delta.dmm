@@ -306,9 +306,13 @@
 /area/assembly/robotics)
 "aaL" = (
 /obj/structure/table/reinforced,
-/obj/item/taperecorder,
+/obj/item/taperecorder{
+	pixel_x = -10;
+	pixel_y = 4
+	},
 /obj/item/folder/red{
-	pixel_y = 3
+	pixel_y = 3;
+	pixel_x = 5
 	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
@@ -5687,9 +5691,7 @@
 	},
 /area/crew_quarters/kitchen)
 "aRU" = (
-/obj/structure/chair/sofa/bench/security_red/right{
-	dir = 4
-	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -7211,7 +7213,7 @@
 /area/crew_quarters/mrchangs)
 "bcq" = (
 /obj/effect/landmark/start/security_officer,
-/obj/structure/chair/sofa/bench/security_red/left,
+/obj/structure/chair/sofa/bench/left/security_red,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "bct" = (
@@ -19442,7 +19444,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/chair/sofa/bench/security_red{
+/obj/structure/chair/sofa/bench/right/security_red{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -21635,14 +21637,6 @@
 	icon_state = "neutralcorner"
 	},
 /area/hallway/primary/central/south)
-"cCL" = (
-/obj/item/twohanded/required/kirbyplants,
-/obj/effect/decal/warning_stripes/yellow/hollow,
-/turf/simulated/floor/plasteel{
-	dir = 8;
-	icon_state = "neutralcorner"
-	},
-/area/bridge/vip)
 "cCM" = (
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -22687,10 +22681,14 @@
 "cGW" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/sheet/metal{
-	amount = 10
+	amount = 10;
+	pixel_x = -3;
+	pixel_y = 1
 	},
 /obj/item/stack/sheet/glass{
-	amount = 10
+	amount = 10;
+	pixel_x = 4;
+	pixel_y = 2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -26904,7 +26902,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "daX" = (
-/obj/structure/chair/sofa/bench/medical_blue/left,
+/obj/structure/chair/sofa/bench/left/medical_blue,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitegreen"
@@ -44496,7 +44494,7 @@
 	},
 /area/security/warden)
 "fzC" = (
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 4
 	},
 /obj/effect/landmark/start/doctor,
@@ -47084,7 +47082,7 @@
 /obj/structure/sign/nosmoking_2{
 	pixel_y = -32
 	},
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -48178,7 +48176,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "gtx" = (
-/obj/structure/chair/sofa/bench/medical_blue/left{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -49131,10 +49129,14 @@
 "gEA" = (
 /obj/structure/table,
 /obj/item/stack/sheet/metal{
-	amount = 50
+	amount = 50;
+	pixel_x = -4;
+	pixel_y = 0
 	},
 /obj/item/stack/sheet/glass{
-	amount = 50
+	amount = 50;
+	pixel_x = 4;
+	pixel_y = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
@@ -54695,6 +54697,15 @@
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/security/processing)
+"hQZ" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/landmark/start/trainee_engineer,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/engineering/break_room)
 "hRd" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -56975,7 +56986,7 @@
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain)
 "iuj" = (
-/obj/structure/chair/sofa/bench/medical_blue/left{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 4
 	},
 /obj/effect/landmark/start/intern,
@@ -58027,7 +58038,7 @@
 	},
 /area/bridge/vip)
 "iGL" = (
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -58045,7 +58056,7 @@
 	},
 /area/turret_protected/ai)
 "iGN" = (
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -64159,6 +64170,15 @@
 /obj/structure/barricade/wooden,
 /turf/simulated/floor/plating,
 /area/teleporter/abandoned)
+"kds" = (
+/obj/structure/chair/office/dark{
+	dir = 8
+	},
+/obj/effect/landmark/start/cargo_technician,
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/quartermaster/storage)
 "kdM" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
@@ -68426,7 +68446,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/chair/sofa/bench/medical_blue/corner{
+/obj/structure/chair/sofa/bench/corner/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -72166,8 +72186,14 @@
 "mbM" = (
 /obj/effect/decal/warning_stripes/southeast,
 /obj/structure/table/reinforced,
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
-/obj/item/lighter,
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = 6;
+	pixel_y = 2
+	},
+/obj/item/lighter{
+	pixel_x = -5;
+	pixel_y = 3
+	},
 /turf/simulated/floor/engine,
 /area/security/execution)
 "mbR" = (
@@ -77488,21 +77514,31 @@
 /area/maintenance/engineering)
 "njj" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/mug/hos,
 /obj/item/spacepod_equipment/key{
-	id = 100000
+	id = 100000;
+	pixel_x = 5;
+	pixel_y = 11
 	},
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
 	},
+/obj/item/reagent_containers/food/drinks/mug/hos{
+	pixel_x = -5;
+	pixel_y = -2
+	},
 /obj/item/paper/safe_code{
-	owner = "hos"
+	owner = "hos";
+	pixel_x = -6;
+	pixel_y = 7
 	},
 /obj/structure/sign/poster/secret/lady{
 	pixel_x = 32
 	},
-/obj/item/lighter/zippo/hos,
+/obj/item/lighter/zippo/hos{
+	pixel_x = 10;
+	pixel_y = -3
+	},
 /turf/simulated/floor/wood,
 /area/security/hos)
 "njk" = (
@@ -91353,6 +91389,7 @@
 /area/toxins/sm_test_chamber)
 "qop" = (
 /obj/machinery/light,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -92404,7 +92441,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair/sofa/bench/science_pink/corner,
+/obj/structure/chair/sofa/bench/corner/science_pink,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"
@@ -96245,12 +96282,6 @@
 	icon_state = "neutralfull"
 	},
 /area/crew_quarters/fitness)
-"rqz" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
-/turf/simulated/floor/carpet/purple,
-/area/hallway/secondary/exit)
 "rqF" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -98773,6 +98804,12 @@
 	icon_state = "darkblue"
 	},
 /area/crew_quarters/theatre)
+"rUT" = (
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/simulated/floor/carpet/red,
+/area/crew_quarters/bar/atrium)
 "rVb" = (
 /obj/structure/table/reinforced,
 /obj/item/stack/rods{
@@ -99820,7 +99857,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -28
 	},
-/obj/structure/chair/sofa/bench/security_red/left{
+/obj/structure/chair/sofa/bench/left/security_red{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -101946,7 +101983,9 @@
 /turf/simulated/floor/engine,
 /area/toxins/misc_lab)
 "sEQ" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/simulated/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
 "sEV" = (
@@ -103289,8 +103328,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/detectives_office)
 "sWX" = (
-/obj/structure/chair/stool,
 /obj/effect/landmark/start/engineer,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -108230,7 +108271,7 @@
 	},
 /area/quartermaster/sorting)
 "tZL" = (
-/obj/structure/chair/sofa/bench/science_pink/right,
+/obj/structure/chair/sofa/bench/right/science_pink,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -111875,10 +111916,13 @@
 "uQq" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/ashtray/bronze{
-	pixel_x = -1;
-	pixel_y = 1
+	pixel_x = 5;
+	pixel_y = -4
 	},
-/obj/item/storage/fancy/cigarettes/cigpack_robust,
+/obj/item/storage/fancy/cigarettes/cigpack_robust{
+	pixel_x = -6;
+	pixel_y = 6
+	},
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "uQr" = (
@@ -112516,6 +112560,7 @@
 "uYh" = (
 /obj/item/radio/intercom/directional/south,
 /obj/machinery/light,
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralcorner"
@@ -114390,7 +114435,7 @@
 /area/lawoffice)
 "vvI" = (
 /obj/item/radio/intercom/directional/west,
-/obj/structure/chair/sofa/bench/medical_blue/left{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -118532,7 +118577,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/customs)
 "wrJ" = (
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 8
 	},
 /obj/effect/landmark/start/doctor,
@@ -119635,7 +119680,7 @@
 /turf/simulated/wall,
 /area/medical/medbay)
 "wDD" = (
-/obj/structure/chair/sofa/bench/medical_blue/left{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 8
 	},
 /obj/effect/landmark/start/doctor,
@@ -121298,7 +121343,7 @@
 /area/bridge/vip)
 "wWO" = (
 /obj/effect/landmark/start/security_officer,
-/obj/structure/chair/sofa/bench/security_red/right,
+/obj/structure/chair/sofa/bench/right/security_red,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "wWW" = (
@@ -124080,7 +124125,7 @@
 	},
 /area/security/execution)
 "xCC" = (
-/obj/structure/chair/sofa/bench/science_pink/left{
+/obj/structure/chair/sofa/bench/left/science_pink{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -125250,7 +125295,7 @@
 /turf/simulated/floor/plasteel,
 /area/security/brigstaff)
 "xOu" = (
-/obj/structure/chair/sofa/bench/science_pink/left,
+/obj/structure/chair/sofa/bench/left/science_pink,
 /obj/effect/landmark/start/civilian,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -151528,7 +151573,7 @@ byo
 cIA
 sXr
 cRf
-bER
+hQZ
 psk
 wiM
 cYf
@@ -161316,7 +161361,7 @@ sZn
 mfs
 qDm
 lRu
-cCL
+wrB
 csK
 mnN
 jme
@@ -162290,10 +162335,10 @@ fZj
 fbp
 xeI
 uGn
-sEQ
-sEQ
-sEQ
-sEQ
+rUT
+rUT
+rUT
+rUT
 ydD
 lAL
 aWd
@@ -163372,7 +163417,7 @@ ygC
 jPB
 cOf
 lRu
-cCL
+wrB
 csK
 mYX
 rnJ
@@ -163700,7 +163745,7 @@ sdl
 dRO
 dSj
 dSP
-rqz
+dSP
 dIO
 coE
 coE
@@ -168978,7 +169023,7 @@ djV
 cSh
 daa
 dgE
-aRO
+kds
 dqd
 aUQ
 dzh

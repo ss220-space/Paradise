@@ -4953,7 +4953,7 @@
 	dir = 5
 	},
 /obj/effect/landmark/start/security_officer,
-/obj/structure/chair/sofa/bench/security_red/right{
+/obj/structure/chair/sofa/bench/right/security_red{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -18755,7 +18755,7 @@
 "cLj" = (
 /obj/machinery/door/firedoor,
 /obj/effect/decal/warning_stripes/yellow,
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -27604,7 +27604,7 @@
 	id_tag = "CMO Shutters";
 	name = "CMO Privacy Shutters"
 	},
-/obj/structure/chair/sofa/bench/medical_blue/corner,
+/obj/structure/chair/sofa/bench/corner/medical_blue,
 /turf/simulated/floor/plating,
 /area/medical/cmo)
 "edt" = (
@@ -31813,7 +31813,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/sofa/bench/security_red/left{
+/obj/structure/chair/sofa/bench/left/security_red{
 	dir = 8
 	},
 /obj/effect/landmark/start/security_officer,
@@ -34256,7 +34256,7 @@
 	},
 /area/security/main)
 "fce" = (
-/obj/structure/chair/sofa/bench/medical_blue/left{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -37097,7 +37097,7 @@
 /area/atmos)
 "fya" = (
 /obj/effect/landmark/start/brig_physician,
-/obj/structure/chair/sofa/bench/security_red/left{
+/obj/structure/chair/sofa/bench/left/security_red{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -47616,7 +47616,7 @@
 	},
 /area/quartermaster/office)
 "hbV" = (
-/obj/structure/chair/sofa/bench/medical_blue/left{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 1
 	},
 /turf/simulated/floor/plasteel{
@@ -51883,7 +51883,7 @@
 "hLq" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/start/security_officer,
-/obj/structure/chair/sofa/bench/security_red/left{
+/obj/structure/chair/sofa/bench/left/security_red{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -64049,7 +64049,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "jzY" = (
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -81499,7 +81499,7 @@
 	},
 /area/hallway/primary/central/north)
 "miO" = (
-/obj/structure/chair/sofa/bench/security_red/left{
+/obj/structure/chair/sofa/bench/left/security_red{
 	dir = 8
 	},
 /obj/effect/landmark/start/security_officer,
@@ -91172,7 +91172,7 @@
 	dir = 9
 	},
 /obj/effect/landmark/start/detective,
-/obj/structure/chair/sofa/bench/security_red/right{
+/obj/structure/chair/sofa/bench/right/security_red{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
@@ -106394,7 +106394,7 @@
 	},
 /area/security/permahallway)
 "pSv" = (
-/obj/structure/chair/sofa/bench/security_red/right{
+/obj/structure/chair/sofa/bench/right/security_red{
 	dir = 8
 	},
 /obj/effect/landmark/start/security_officer,
@@ -112139,7 +112139,7 @@
 	},
 /area/maintenance/trading)
 "qKc" = (
-/obj/structure/chair/sofa/bench/medical_blue/left{
+/obj/structure/chair/sofa/bench/left/medical_blue{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
@@ -159408,7 +159408,7 @@
 /area/magistrateoffice)
 "xFh" = (
 /obj/structure/disposalpipe/segment,
-/obj/structure/chair/sofa/bench/security_red/right{
+/obj/structure/chair/sofa/bench/right/security_red{
 	dir = 8
 	},
 /obj/effect/landmark/start/security_officer,
@@ -161276,7 +161276,7 @@
 	},
 /area/maintenance/fsmaint3)
 "xTt" = (
-/obj/structure/chair/sofa/bench/medical_blue/right{
+/obj/structure/chair/sofa/bench/right/medical_blue{
 	dir = 8
 	},
 /turf/simulated/floor/plasteel{
