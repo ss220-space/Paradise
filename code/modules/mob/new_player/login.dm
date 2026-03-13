@@ -24,7 +24,7 @@
 
 	lastarea = loc
 
-	client.screen = list() // Remove HUD items just in case.
+	client.clear_screen() // Remove HUD items just in case.
 	client.images = list()
 	if(!hud_used)
 		create_mob_hud()	 // creating a hud will add it to the client's screen, which can process a disconnect

@@ -26,8 +26,9 @@ THE SOFTWARE.
 '''
 
 from __future__ import print_function
-import yaml, os, glob, sys, argparse
-from datetime import date
+import yaml, os, glob, sys, re, time, argparse
+from datetime import datetime, date, timedelta
+from time import time
 
 today = date.today()
 
@@ -75,6 +76,20 @@ validPrefixes = [
 def dictToTuples(inp):
     return [(k, v) for k, v in inp.items()]
 
+def normalize_prefix(prefix):
+    prefix = prefix.lower()
+    if prefix.startswith("fix") or prefix == "hotfix":
+        return "bugfix"
+    elif prefix == "buff":
+        return "tweak"
+    elif prefix == "feat":
+        return "add"
+    elif prefix.startswith("ref"):
+        return "refactor"
+    elif prefix.startswith("revert"):
+        return "del"
+    return prefix
+
 old_changelog_cache = os.path.join(args.ymlDir, '.all_changelog.yml')
 
 if os.path.isfile(old_changelog_cache):
@@ -98,7 +113,7 @@ if os.path.isfile(old_changelog_cache):
                     os.makedirs(archiveDir)
                 currentFile = os.path.join(archiveDir, month + '.yml')
                 with open(currentFile, 'w', encoding='utf-8') as f:
-                    yaml.dump(data[month], f, default_flow_style=False)
+                    yaml.dump(data[month], f, default_flow_style=False, allow_unicode=True)
         # Remove the old changelog cache, as we won't use it anymore
         print("Removing old changelog cache...")
         os.remove(old_changelog_cache)
@@ -133,12 +148,22 @@ for fileName in glob.glob(os.path.join(args.ymlDir, "*.yml")):
         new = 0
         for change in cl['changes']:
             if change not in author_entries:
-                (change_type, _) = dictToTuples(change)[0]
-                if change_type not in validPrefixes:
-                    print('  {0}: Invalid prefix {1}'.format(fileName, change_type), file=sys.stderr)
-                    sys.exit(1)
-                author_entries += [change]
-                new += 1
+                if isinstance(change, dict):
+                    change_type, change_desc = dictToTuples(change)[0]
+                    original_type = change_type
+                    change_type = normalize_prefix(change_type)
+
+                    if change_type not in validPrefixes:
+                        print(f'  Warning: {original_type} -> {change_type} is not valid', file=sys.stderr)
+                        change_type = "unknown"
+
+                    normalized_change = {change_type: change_desc}
+                    author_entries += [normalized_change]
+                    new += 1
+                else:
+                    author_entries += [{"server": str(change)}]
+                    new += 1
+
         currentEntries[today][cl['author']] = author_entries
         if new > 0:
             print('  Added {0} new changelog entries.'.format(new))
@@ -149,4 +174,4 @@ for fileName in glob.glob(os.path.join(args.ymlDir, "*.yml")):
             os.remove(fileName)
 
     with open(monthFile, 'w', encoding='utf-8') as f:
-        yaml.dump(currentEntries, f, default_flow_style=False)
+        yaml.dump(currentEntries, f, default_flow_style=False, allow_unicode=True)
