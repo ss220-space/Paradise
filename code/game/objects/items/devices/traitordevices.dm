@@ -543,8 +543,8 @@ effective or pretty fucking useless.
 			log_and_message_admins("muted telecomms using a LOIC remote.")
 
 /obj/item/ranged_stasis_generator
-	name = "Combat Stasis Generator «Pacifist»"
-	desc = "Компактный стазис-генератор модели «Пацифист». Сводит на нет любые попытки дистанционного боя, превращая перестрелку в поножовщину. Издает едва заметный ультразвуковой писк, от которого сводит челюсть."
+	name = "Combat Stasis Generator «Pacifier»"
+	desc = "Компактный стазис-генератор модели «Усмиритель». Сводит на нет любые попытки дистанционного боя, превращая перестрелку в поножовщину. Издает едва заметный ультразвуковой писк, от которого сводит челюсть."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "stasis_generator_0"
 	w_class = WEIGHT_CLASS_SMALL
@@ -571,12 +571,12 @@ effective or pretty fucking useless.
 
 /obj/item/ranged_stasis_generator/get_ru_names()
 	return list(
-		NOMINATIVE = "боевой стазис-генератор «Пацифист»",
-		GENITIVE = "боевого стазис-генератора «Пацифист»",
-		DATIVE = "боевому стазис-генератору «Пацифист»",
-		ACCUSATIVE = "боевой стазис-генератор «Пацифист»",
-		INSTRUMENTAL = "боевым стазис-генератором «Пацифист»",
-		PREPOSITIONAL = "боевом стазис-генераторе «Пацифист»",
+		NOMINATIVE = "боевой стазис-генератор «Усмиритель»",
+		GENITIVE = "боевого стазис-генератора «Усмиритель»",
+		DATIVE = "боевому стазис-генератору «Усмиритель»",
+		ACCUSATIVE = "боевой стазис-генератор «Усмиритель»",
+		INSTRUMENTAL = "боевым стазис-генератором «Усмиритель»",
+		PREPOSITIONAL = "боевом стазис-генераторе «Усмиритель»",
 	)
 
 #undef ION_CALLER_AI_TARGETING
