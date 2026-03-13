@@ -1380,7 +1380,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 /datum/supply_packs/security/armory/suppression
 	name = "Имплант \"Подавления\""
 	contains = list(
-		/obj/item/storage/lockbox/suppression,
+		/obj/item/storage/lockbox/suppression/cargo,
 	)
 	cost = 200
 	containername = "ящик с имплантом \"Подавления\""
