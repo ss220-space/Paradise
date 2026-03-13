@@ -240,7 +240,7 @@
 		if(cling)
 			status_tab_data[++status_tab_data.len] = list("Объём химикатов:", "[cling.chem_charges]/[cling.chem_storage]")
 			status_tab_data[++status_tab_data.len] = list("ДНК поглощено:", "[cling.absorbed_count]")
-			status_tab_data[++status_tab_data.len] = list("Скорость восстановления химикатов:", "[cling.chem_recharge_rate]")
+			status_tab_data[++status_tab_data.len] = list("Скорость восстановления:", "[cling.chem_recharge_rate]")
 
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp)
