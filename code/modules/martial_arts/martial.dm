@@ -74,7 +74,7 @@
 	return act(MARTIAL_COMBO_STEP_HELP, A, D)
 
 /datum/martial_art/proc/can_use(mob/living/carbon/human/human)
-	return !HAS_TRAIT(human, TRAIT_PACIFISM)
+	return !HAS_TRAIT(human, TRAIT_PACIFISM) && !HAS_TRAIT(human, TRAIT_MARTIAL_ARTS_SUPPRESSED)
 
 /datum/martial_art/proc/act(step, mob/living/carbon/human/user, mob/living/carbon/human/target, could_start_new_combo = TRUE)
 	if(!can_use(user))
@@ -303,6 +303,8 @@
 	return
 
 /datum/martial_art/proc/try_deflect(mob/user)
+	if(HAS_TRAIT(user, TRAIT_MARTIAL_ARTS_SUPPRESSED))
+		return FALSE
 	return prob(deflection_chance)
 
 /datum/martial_art/proc/explaination_notice(user)

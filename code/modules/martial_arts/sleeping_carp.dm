@@ -46,6 +46,10 @@
 	H.faction -= "carp"// :C
 
 /datum/martial_art/the_sleeping_carp/try_deflect(mob/living/carbon/human/user)
+	. = ..()
+	if(.)
+		return .
+
 	if(user.is_hands_free())
 		deflection_chance = initial(deflection_chance)
 	else if(!user.l_hand || !user.r_hand)

@@ -173,3 +173,9 @@
 	life = "Lasts 2-12 months. Known to fail at the worst possible time, space radation may be a factor."
 	notes = "By use of an internal private GPS signal, allows the pathfinder module to have the MODsuit find the user. Also wirelessly transfers ID information to the suit, to allow doors to open."
 	function = "Allows for the recall of a Modular Outerwear Device by the implant owner at any time."
+
+/datum/implant_fluff/suppression
+	name = "NanoTrasen Security MA-SUPP Bio-chip"
+	life = "Indefinite."
+	notes = "Developed following Incident Report 1984-MA-003. Recommended for use on personnel trained in hostile martial arts techniques."
+	function = "Neural inhibitor that blocks motor patterns associated with martial arts combos and defensive maneuvers while preserving learned weapon restrictions."
