@@ -95,50 +95,66 @@
 
 // Middle section color variations
 /obj/structure/chair/sofa/bench/security_red
+	icon_state = "/obj/structure/chair/sofa/bench/security_red"
 	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/medical_blue
+	icon_state = "/obj/structure/chair/sofa/bench/medical_blue"
 	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/science_pink
+	icon_state = "/obj/structure/chair/sofa/bench/science_pink"
 	greyscale_colors = COLOR_SCIENCE_PINK
 
 // Left section color variations
 /obj/structure/chair/sofa/bench/left/security_red
+	icon_state = "/obj/structure/chair/sofa/bench/left/security_red"
 	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/left/medical_blue
+	icon_state = "/obj/structure/chair/sofa/bench/left/medical_blue"
 	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/left/science_pink
+	icon_state = "/obj/structure/chair/sofa/bench/left/science_pink"
 	greyscale_colors = COLOR_SCIENCE_PINK
 
 // Right section color variations
 /obj/structure/chair/sofa/bench/right/security_red
+	icon_state = "/obj/structure/chair/sofa/bench/right/security_red"
 	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/right/medical_blue
+	icon_state = "/obj/structure/chair/sofa/bench/right/medical_blue"
 	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/right/science_pink
+	icon_state = "/obj/structure/chair/sofa/bench/right/science_pink"
 	greyscale_colors = COLOR_SCIENCE_PINK
 
 // Corner section color variations
 /obj/structure/chair/sofa/bench/corner/security_red
+	icon_state = "/obj/structure/chair/sofa/bench/corner/security_red"
 	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/corner/medical_blue
+	icon_state = "/obj/structure/chair/sofa/bench/corner/medical_blue"
 	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/corner/science_pink
+	icon_state = "/obj/structure/chair/sofa/bench/corner/science_pink"
+
 	greyscale_colors = COLOR_SCIENCE_PINK
 
 // Solo section color variations
 /obj/structure/chair/sofa/bench/solo/security_red
+	icon_state = "/obj/structure/chair/sofa/bench/solo/security_red"
 	greyscale_colors = COLOR_SECURITY_RED
 
 /obj/structure/chair/sofa/bench/solo/medical_blue
+	icon_state = "/obj/structure/chair/sofa/bench/solo/medical_blue"
 	greyscale_colors = COLOR_MEDICAL_BLUE
 
 /obj/structure/chair/sofa/bench/solo/science_pink
+	icon_state = "/obj/structure/chair/sofa/bench/solo/science_pink"
 	greyscale_colors = COLOR_SCIENCE_PINK
