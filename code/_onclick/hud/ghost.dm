@@ -133,7 +133,7 @@
 /datum/hud/ghost/show_hud(version = 0, mob/viewmob)
 	// don't show this HUD if observing; show the HUD of the observee
 	var/mob/dead/observer/observer = mymob
-	if (istype(observer) && observer.orbiting)
+	if(istype(observer) && observer.orbiting)
 		plane_masters_update()
 		return FALSE
 
