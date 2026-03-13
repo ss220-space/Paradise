@@ -128,6 +128,17 @@
 /obj/item/storage/lockbox/clusterbang/populate_contents()
 	new /obj/item/grenade/clusterbuster(src)
 
+/obj/item/storage/lockbox/suppression
+	name = "Lockbox (Suppression Implants)"
+	desc = "Contains suppression bio-chips for martial arts control."
+	req_access = list(ACCESS_SECURITY)
+
+/obj/item/storage/lockbox/suppression/populate_contents()
+	new /obj/item/implantcase/suppression(src)
+	new /obj/item/implantcase/suppression(src)
+	new /obj/item/implantcase/suppression(src)
+	new /obj/item/implanter/suppression(src)
+
 /obj/item/storage/lockbox/medal
 	name = "medal box"
 	desc = "A locked box used to store medals of honor."
