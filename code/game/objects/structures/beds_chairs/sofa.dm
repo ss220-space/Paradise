@@ -63,13 +63,24 @@
 // Base bench types by geometry
 /obj/structure/chair/sofa/bench
 	name = "bench"
-	desc = "Perfectly designed to be comfortable to sit on, and hellish to sleep on."
+	desc = "Спроектирована таким образом, чтобы на ней было удобно сидеть, но невозможно спать."
+	gender = FEMALE
 	icon = 'icons/map_icons/objects.dmi'
 	icon_state = "/obj/structure/chair/sofa/bench"
 	greyscale_config = /datum/greyscale_config/bench_middle
 	greyscale_colors = "#af7d28"
 	post_init_icon_state = "bench_middle"
 	comfort = 0.1
+
+/obj/structure/chair/sofa/bench/get_ru_names()
+	return list(
+		NOMINATIVE = "скамья",
+		GENITIVE = "скамьи",
+		DATIVE = "скамье",
+		ACCUSATIVE = "скамью",
+		INSTRUMENTAL = "скамьёй",
+		PREPOSITIONAL = "скамье"
+	)
 
 /obj/structure/chair/sofa/bench/left
 	icon_state = "/obj/structure/chair/sofa/bench/left"
