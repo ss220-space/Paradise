@@ -5,8 +5,11 @@
 	icon_state = "clockwork_bolt"
 	w_class = WEIGHT_CLASS_TINY
 
-	var/obj/item/gun/weapon = null
-	var/state = CLOCKWORK_BOLT_STATE_UNINSTALLED
+	var/datum/clockwork_bolt_module/module
+
+/obj/item/clockwork_bolt/Initialize(mapload)
+	. = ..()
+	module = new(src)
 
 /obj/item/clockwork_bolt/get_ru_names()
 	return list(
@@ -20,155 +23,30 @@
 
 /obj/item/clockwork_bolt/deplete_spell()
 	. = ..()
-	if(weapon)
-		weapon.clockwork_enchant = NO_SPELL
+	module.deplete_spell()
 
 /obj/item/clockwork_bolt/proc/install(obj/item/gun/W, mob/user = null)
-	if(!W)
-		return FALSE
-
-	if(istype(W, /obj/item/gun/energy/clockwork))
-		return FALSE
-
-	if(istype(W, /obj/item/gun/energy))
-		var/obj/item/gun/energy/E = W
-		if(E.sibyl_mod)
-			var/obj/item/sibyl_system_mod/sibyl = E.sibyl_mod
-			sibyl.uninstall(W)
-			qdel(sibyl)
-
-	if(user)
-		if(!user.drop_transfer_item_to_loc(src, W))
-			return FALSE
-	else
-		forceMove(W)
-
-	weapon = W
-	W.clockwork_bolt = src
-	state = CLOCKWORK_BOLT_STATE_INSTALLED
-
-	W.needs_permit = FALSE
-
-	if(istype(W, /obj/item/gun/energy))
-		var/obj/item/gun/energy/E = W
-		E.isclockwork = TRUE
-
-	if(user)
-		to_chat(user, span_clock("Вы установили [DECLENT_RU_CAP(src, ACCUSATIVE)] на [DECLENT_RU_CAP(W, ACCUSATIVE)]. Теперь только слуги Ратвара могут использовать это оружие."))
-
-	return TRUE
+	return module.install(W, user)
 
 /obj/item/clockwork_bolt/proc/uninstall(obj/item/gun/W, mob/user = null)
-	if(!weapon)
-		return 0
-
-	if(W.clockwork_enchant && W.clockwork_enchant != NO_SPELL)
-		W.clockwork_enchant = NO_SPELL
-
-	forceMove(get_turf(src))
-
-	state = CLOCKWORK_BOLT_STATE_UNINSTALLED
-	W.clockwork_bolt = null
-
-	if(istype(W, /obj/item/gun/energy))
-		var/obj/item/gun/energy/E = W
-		E.isclockwork = FALSE
-
-	W.update_icon()
-	weapon = null
-
-	if(user)
-		to_chat(user, span_notice("Вы сняли [DECLENT_RU_CAP(src, ACCUSATIVE)] с [DECLENT_RU_CAP(W, GENITIVE)]."))
-
-	return state
+	return module.uninstall(W, user)
 
 /obj/item/clockwork_bolt/proc/bible_removal(mob/living/user)
-	to_chat(user, span_notice("Вы начинаете изгонять скверну из [DECLENT_RU_CAP(weapon, GENITIVE)]..."))
-	if(!do_after(user, 5 SECONDS, weapon))
-		return
-
-	if(!weapon || !weapon.clockwork_bolt)
-		to_chat(user, span_warning("Затвор уже снят!"))
-		return
-
-	uninstall(weapon, user)
-	to_chat(user, span_notice("Скверна изгнана! [DECLENT_RU_CAP(src, NOMINATIVE)] падает на пол."))
-
-	if(prob(2))
-		playsound(user.loc, 'sound/magic/cult_spell.ogg', 100, TRUE)
-	else
-		playsound(user.loc, 'sound/weapons/magic.ogg', 50, TRUE)
+	module.bible_removal(user)
 
 /obj/item/clockwork_bolt/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/storage/bible) && weapon)
-		if(user.mind && user.mind.isholy)
-			bible_removal(user)
-			return ATTACK_CHAIN_BLOCKED_ALL
-	return ATTACK_CHAIN_PROCEED
+	return module.handle_attackby(I, user, params)
 
 /obj/item/clockwork_bolt/screwdriver_act(mob/living/user, obj/item/I)
-	if(!weapon)
-		return
-
-	if(state == CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT)
-		state = CLOCKWORK_BOLT_STATE_INSTALLED
-		to_chat(user, span_notice("Вы закрутили винты [DECLENT_RU_CAP(src, GENITIVE)] в [DECLENT_RU_CAP(weapon, PREPOSITIONAL)]."))
-		return
-
-	if(state == CLOCKWORK_BOLT_STATE_INSTALLED)
-		to_chat(user, span_notice("Вы начинаете откручивать винты [DECLENT_RU_CAP(src, GENITIVE)] от [DECLENT_RU_CAP(weapon, GENITIVE)]..."))
-		if(I.use_tool(src, user, 2 SECONDS, volume = I.tool_volume))
-			if(prob(90))
-				state = CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT
-				to_chat(user, span_notice("Вы открутили винты [DECLENT_RU_CAP(src, GENITIVE)]."))
-			else
-				if(ishuman(user))
-					var/mob/living/carbon/human/H = user
-					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
-					user.apply_damage(5, BRUTE, affecting)
-					user.emote("scream")
-					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила [affecting.name]!"))
-				else
-					user.apply_damage(5, BRUTE)
-					user.emote("scream")
-					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] сорвалась и повредила вам руку!"))
-		return
+	return module.handle_screwdriver(user, I)
 
 /obj/item/clockwork_bolt/welder_act(mob/living/user, obj/item/I)
-	if(!weapon || state != CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT)
-		return
-
-	to_chat(user, span_notice("Вы начинаете заваривать болты [DECLENT_RU_CAP(src, GENITIVE)] в [DECLENT_RU_CAP(weapon, PREPOSITIONAL)]..."))
-	if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-		state = CLOCKWORK_BOLT_STATE_INSTALLED
-		to_chat(user, span_notice("Болты [DECLENT_RU_CAP(src, GENITIVE)] заварены. Теперь только слуги Ратвара могут использовать это оружие."))
+	return module.handle_welder(user, I)
 
 /obj/item/clockwork_bolt/crowbar_act(mob/living/user, obj/item/I)
-	if(!weapon || state != CLOCKWORK_BOLT_STATE_INSTALLED)
-		return
-
-	to_chat(user, span_notice("Вы начинаете поддевать [DECLENT_RU_CAP(src, ACCUSATIVE)] из [DECLENT_RU_CAP(weapon, GENITIVE)]..."))
-	if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-		return
-
-	if(prob(95))
-		uninstall(weapon, user)
-		to_chat(user, span_notice("Вы успешно сняли [DECLENT_RU_CAP(src, ACCUSATIVE)]."))
-	else
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
-			user.apply_damage(5, BRUTE, affecting)
-			user.emote("scream")
-			to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
-		else
-			user.apply_damage(5, BRUTE)
-			user.emote("scream")
-			to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила вам руку!"))
+	return module.handle_crowbar(user, I)
 
 /obj/item/clockwork_bolt/Destroy()
-	if(weapon && !QDELETED(weapon))
-		weapon.clockwork_bolt = null
-	weapon = null
+	QDEL_NULL(module)
 	return ..()

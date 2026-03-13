@@ -3435,6 +3435,7 @@
 #include "code\modules\projectiles\projectile\special.dm"
 #include "code\modules\projectiles\sibyl\sibyl_system_mod.dm"
 #include "code\modules\projectiles\sibyl\sibyl_weapons.dm"
+#include "code\modules\projectiles\clockwork_bolt\clockwork_bolt_module.dm"
 #include "code\modules\projectiles\clockwork_bolt\clockwork_bolt.dm"
 #include "code\modules\reagents\chem_splash.dm"
 #include "code\modules\reagents\reagent_containers.dm"

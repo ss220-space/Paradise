@@ -99,6 +99,7 @@
 			return
 
 	if(clockwork_bolt && user.a_intent != INTENT_HARM)
+		clockwork_bolt.module.handle_screwdriver(user, I)
 
 /obj/item/gun/energy/welder_act(mob/living/user, obj/item/I)
 	..()
@@ -124,12 +125,7 @@
 			return
 
 	if(clockwork_bolt && user.a_intent != INTENT_HARM)
-		if(clockwork_bolt.state == CLOCKWORK_BOLT_STATE_SCREWDRIVER_ACT)
-			to_chat(user, span_clock("Вы начинаете заваривать болты [DECLENT_RU_CAP(clockwork_bolt, GENITIVE)] в [DECLENT_RU_CAP(src, PREPOSITIONAL)]..."))
-			if(I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-				clockwork_bolt.state = CLOCKWORK_BOLT_STATE_INSTALLED
-				to_chat(user, span_clock("Болты [DECLENT_RU_CAP(clockwork_bolt, GENITIVE)] заварены."))
-			return
+		clockwork_bolt.module.handle_welder(user, I)
 
 /obj/item/gun/energy/crowbar_act(mob/living/user, obj/item/I)
 	..()
@@ -156,25 +152,7 @@
 			return
 
 	if(clockwork_bolt && user.a_intent != INTENT_HARM)
-		if(clockwork_bolt.state == CLOCKWORK_BOLT_STATE_INSTALLED)
-			to_chat(user, span_clock("Вы начинаете поддевать [DECLENT_RU_CAP(clockwork_bolt, ACCUSATIVE)] из [DECLENT_RU_CAP(src, GENITIVE)]..."))
-			if(!I.use_tool(src, user, 4 SECONDS, volume = I.tool_volume))
-				return
-			if(prob(95))
-				clockwork_bolt.uninstall(src, user)
-				to_chat(user, span_notice("Вы успешно сняли [DECLENT_RU_CAP(clockwork_bolt, ACCUSATIVE)]."))
-			else
-				if(ishuman(user))
-					var/mob/living/carbon/human/H = user
-					var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_R_HAND : BODY_ZONE_PRECISE_L_HAND)
-					user.apply_damage(5, BRUTE , affecting)
-					user.emote("scream")
-					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила [affecting.name]!"))
-				else
-					user.apply_damage(5, BRUTE)
-					user.emote("scream")
-					to_chat(user, span_warning("Проклятье! [capitalize(DECLENT_RU_CAP(I, NOMINATIVE))] соскользнула и повредила вам руку!"))
-			return
+		clockwork_bolt.module.handle_crowbar(user, I)
 
 /obj/item/gun/energy/emag_act(mob/user)
 	if(!sibyl_mod?.emagged)
