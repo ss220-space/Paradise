@@ -316,9 +316,18 @@
 //Lifted from Unity stasis.dm and refactored. ~Zuhayr
 /obj/machinery/cryopod/process()
 	if(occupant)
-		// Eject dead people
+		// Eject dead people and cyborgs if they are AI shells
+		if(isrobot(occupant))
+			var/mob/living/silicon/robot/robot = occupant
+			if(robot.shell)
+				playsound(src, 'sound/machines/buzz-sigh.ogg', HALFWAY_SOUND_VOLUME, use_reverb = TRUE)
+				go_out()
+				balloon_alert_to_viewers("субьект отклонен")
+				return
 		if(occupant.stat == DEAD)
+			playsound(src, 'sound/machines/buzz-sigh.ogg', HALFWAY_SOUND_VOLUME, use_reverb = TRUE)
 			go_out()
+			balloon_alert_to_viewers("субьект отклонен")
 			return
 
 		// Allow a gap between entering the pod and actually despawning.

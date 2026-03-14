@@ -364,6 +364,8 @@
 /obj/item/robot_module/engineering/on_apply(mob/living/silicon/robot/robot)
 	if(robot.camera && ("Robots" in robot.camera.network))
 		LAZYADD(robot.camera.network, "Engineering")
+	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
+	robot.install_upgrade(upgrade)
 
 	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
@@ -748,6 +750,8 @@
 	var/mob/living/silicon/robot/deathsquad/death = new(get_turf(robot))
 	robot.mind?.transfer_to(death)
 	qdel(robot)
+	var/obj/item/borg/upgrade/magboots/upgrade = new(death)
+	death.install_upgrade(upgrade)
 
 	return TRUE
 
@@ -928,6 +932,8 @@
 	var/mob/living/silicon/robot/destroyer/destroy = new(get_turf(robot))
 	robot.mind?.transfer_to(destroy)
 	qdel(robot)
+	var/obj/item/borg/upgrade/magboots/upgrade = new(destroy)
+	destroy.install_upgrade(upgrade)
 
 	return TRUE
 
@@ -965,6 +971,8 @@
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
 	robot.status_flags &= ~CANPUSH
+	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
+	robot.install_upgrade(upgrade)
 
 	return TRUE
 

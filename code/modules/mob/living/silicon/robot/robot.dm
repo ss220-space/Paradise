@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(shell)
 		var/obj/item/borg/upgrade/ai/board = new(src)
 		make_shell(board)
-		upgrades += board
+		install_upgrade(board)
 
 	else if(mmi == null)
 		mmi = new /obj/item/mmi/robotic_brain(src)	//Give the borg an MMI if he spawns without for some reason. (probably not the correct way to spawn a robotic brain, but it works)
@@ -222,6 +222,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/Destroy()
 	SStgui.close_uis(wires)
 
+	evacuate_ai(DANGER_LVL_MAY_DIE)
+
 	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
 		var/turf/mmi_drop_location = get_turf(loc)//To hopefully prevent run time errors.
 
@@ -237,6 +239,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
 
 		mmi = null
+
+	if(connected_ai)
+		connected_ai.connected_robots -= src
+	if(shell)
+		GLOB.available_ai_shells -= src
 
 	if(connected_ai)
 		connected_ai.connected_robots -= src
@@ -261,6 +268,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	QDEL_NULL(lamp_button)
 	QDEL_NULL(thruster_button)
 	QDEL_NULL(robot_modules_background)
+	QDEL_NULL(undeployment_action)
 	QDEL_LIST(components)
 	QDEL_LIST(upgrades)
 	QDEL_LIST(module_actions)
@@ -367,48 +375,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	return FALSE
-
-//If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
-//Improved /N
-/mob/living/silicon/robot/Destroy()
-	SStgui.close_uis(wires)
-
-	evacuate_ai(DANGER_LVL_MAY_DIE)
-
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
-		var/turf/T = get_turf(loc)//To hopefully prevent run time errors.
-
-		if(T)
-			mmi.loc = T
-
-		if(mmi.brainmob)
-			mind.transfer_to(mmi.brainmob)
-			mmi.update_icon()
-		else
-			to_chat(src, span_boldannounceooc("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
-			ghostize()
-			error("A borg has been destroyed, but its MMI lacked a brainmob, so the mind could not be transferred. Player: [ckey].")
-
-		mmi = null
-
-	if(connected_ai)
-		connected_ai.connected_robots -= src
-	if(shell)
-		GLOB.available_ai_shells -= src
-
-
-	QDEL_NULL(wires)
-	QDEL_NULL(module)
-	QDEL_NULL(camera)
-	QDEL_NULL(cell)
-	QDEL_NULL(robot_suit)
-	QDEL_NULL(spark_system)
-	QDEL_NULL(self_diagnosis)
-	QDEL_NULL(ion_trail)
-
-	QDEL_NULL(undeployment_action)
-
-	return ..()
 
 /mob/living/silicon/robot/proc/pick_module(forced_module = null)
 	if(module)
@@ -2019,10 +1985,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 
-/mob/living/silicon/robot/ert/gamma/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 /mob/living/silicon/robot/destroyer
 	// admin-only borg, the seraph / special ops officer of borgs
 	base_icon = "droidcombat"
@@ -2047,10 +2009,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	default_cell_type = /obj/item/stock_parts/cell/infinite/abductor
 	see_reagents = TRUE
 	drain_act_protected = TRUE
-
-/mob/living/silicon/robot/destroyer/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
 
 /mob/living/silicon/robot/destroyer/init(alien = FALSE, connect_to_AI = TRUE, mob/living/silicon/ai/ai_to_sync_to = null)
 	aiCamera = new/obj/item/camera/siliconcam/robot_camera(src)
@@ -2249,6 +2207,23 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	else
 		to_chat(src, span_warning("You can only use this emote when you're out of charge."))
 
+// Checks for making a bold message in cyborg's binary channel
+/mob/living/silicon/robot/proc/check_binary_master(mob/living/speaker)
+	if(shell)
+		return FALSE
+	if(isAI(speaker))
+		var/mob/living/silicon/AI = speaker
+		if(connected_ai)
+			if(connected_ai == AI)
+				return TRUE
+	if(isrobot(speaker))
+		var/mob/living/silicon/robot/robot = speaker
+		if(connected_ai)
+			if(connected_ai == robot.mainframe)
+				return TRUE
+	else
+		return FALSE
+
 /mob/living/silicon/robot/proc/update_camera_name()
 	if(!QDELETED(camera))
 		camera.c_tag = real_name
@@ -2315,7 +2290,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	mainframe = AI
 	deployed = TRUE
 	lawupdate = 0
-	undeployment_action.Grant(src)
 	grant_shell_actions()
 	lawsync()
 
