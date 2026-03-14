@@ -148,10 +148,9 @@
 		else
 			. += span_notice("Слот для ядра пуст.")
 
-/obj/item/mod/control/get_description_info()
-	if(extended_desc)
-		return extended_desc
-	return
+/obj/item/mod/control/examine_more(mob/user)
+	. = ..()
+	. += "<i>[extended_desc]</i>"
 
 /obj/item/mod/control/process()
 	if(seconds_electrified > 0)

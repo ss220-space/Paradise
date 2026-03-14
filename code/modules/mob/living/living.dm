@@ -1753,6 +1753,7 @@
 /mob/proc/has_nightvision()
 	return nightvision >= 4
 
+/**
 /mob/living/run_examinate(atom/target)
 	var/datum/status_effect/staring/user_staring_effect = has_status_effect(STATUS_EFFECT_STARING)
 
@@ -1799,6 +1800,7 @@
 			..()
 	else
 		..()
+*/
 
 /mob/living/proc/examine_distance_check(atom/target)
 	if(target in view(client.maxview(), client.eye))

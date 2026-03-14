@@ -81,7 +81,7 @@
 		var/obj/item/clothing/suit = wear_suit
 		var/obj/item/clothing/helmet = head
 		// Complete set of pressure-proof suit worn, assume fully sealed.
-		if((suit.clothing_flags & STOPSPRESSUREDMAGE) && (helmet.clothing_flags & STOPSPRESSUREDMAGE))
+		if((suit.clothing_flags & STOPSPRESSUREDAMAGE) && (helmet.clothing_flags & STOPSPRESSUREDAMAGE))
 			return ONE_ATMOSPHERE
 
 	if(ismovable(loc))

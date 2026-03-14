@@ -420,24 +420,26 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	forceMove(voring_core)
 
 /obj/item/examine(mob/user)
-	var/size
-	switch(src.w_class)
-		if(WEIGHT_CLASS_TINY)
-			size = "крохотного"
-		if(WEIGHT_CLASS_SMALL)
-			size = "маленького"
-		if(WEIGHT_CLASS_NORMAL)
-			size = "среднего"
-		if(WEIGHT_CLASS_BULKY)
-			size = "большого"
-		if(WEIGHT_CLASS_HUGE)
-			size = "огромного"
-		if(WEIGHT_CLASS_GIGANTIC)
-			size = "гигантского"
+	//TODO: Имлементировать /datum/element/weapon_description
+	return ..()
 
-	. = ..(user, "", "Предмет <b>[size]</b> размера.")
+/obj/item/examine_tags(mob/user)
+	var/list/parent_tags = ..()
+	parent_tags.Insert(1, weight_class_to_text(w_class)) // To make size display first, otherwise it looks goofy
+	. = parent_tags
+	.[weight_class_to_text(w_class)] = weight_class_to_tooltip(w_class)
 
-	/// Mob has a research scanner active.
+	if (siemens_coefficient == 0)
+		.["изолирующий"] = "Сделано из хорошо изолированного материала, блокирующего прохождение любого электрического тока."
+	else if (siemens_coefficient <= 0.5)
+		.["частично изолирующий"] = "Сделано из плохо изолированного материала, который лишь ослабит, но не заблокирует прохождение электрического тока."
+
+/obj/item/examine_descriptor(mob/user)
+	return "предмет"
+
+/obj/item/examine_more(mob/user)
+	. = ..()
+
 	if(user.research_scanner || user.check_smart_brain())
 		var/msg = "*--------* <br>"
 
@@ -470,7 +472,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 	if(exists_skin_change)
 		. += span_notice("Используйте <b>Alt+ЛКМ</b>, чтобы выбрать скин.")
-
 
 /obj/item/burn()
 	if(!QDELETED(src))

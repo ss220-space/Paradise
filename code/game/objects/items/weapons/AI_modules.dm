@@ -428,4 +428,4 @@ AI MODULES
 	ion_law = generate_ion_law()
 	to_chat(user, span_notice("You press the button on [src]."))
 	playsound(user, 'sound/machines/click.ogg', 20, TRUE)
-	audible_message(span_warning("[icon2html(src, hearers(user))] [ion_law]"))
+	audible_message(span_warning("[get_examine_icon(hearers(user))] [ion_law]"))

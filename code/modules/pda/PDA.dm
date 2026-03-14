@@ -546,7 +546,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	else
 		sound = 'sound/machines/twobeep_high.ogg'
 	playsound(loc, sound, 50, TRUE)
-	audible_message("[icon2html(src, hearers(3, loc))] *[ttone]*", hearing_distance = 3)
+	audible_message("[get_examine_icon(hearers(3, loc))] *[ttone]*", hearing_distance = 3)
 
 /obj/item/pda/proc/set_ringtone(mob/user)
 	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)

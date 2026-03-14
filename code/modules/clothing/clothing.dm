@@ -64,6 +64,44 @@
 		if(0 to 25)
 			. +=  span_warning("Да [GEND_HE_SHE(src)] развалива[PLUR_ET_YUT(src)][GEND_SYA_AS_OS_IS(src)] на глазах!")
 
+/obj/item/clothing/examine_tags(mob/user)
+	. = ..()
+	if(clothing_flags & THICKMATERIAL)
+		.["плотный"] = "Выполнен из плотного материала, защищающего от уколов."
+	if((clothing_flags & STOPSPRESSUREDAMAGE) || (visor_flags & STOPSPRESSUREDAMAGE))
+		.["устойчивый к давлению"] = "Способен защитить носителя от экстремального давления."
+	if(flags_cover & PEPPERPROOF)
+		.["перцестойкий"] = "Способен защитить носителя от эффектов перцового спрея и аэрозольного капсаицина."
+	if(heat_protection || cold_protection)
+		var/heat_desc
+		var/cold_desc
+		switch (max_heat_protection_temperature)
+			if(400 to 1000)
+				heat_desc = "высоких"
+			if(1001 to 1600)
+				heat_desc = "очень высоких"
+			if(1601 to 35000)
+				heat_desc = "экстремально высоких"
+		switch (min_cold_protection_temperature)
+			if(160 to 272)
+				cold_desc = "низких"
+			if(72 to 159)
+				cold_desc = "очень низких"
+			if(0 to 71)
+				cold_desc = "экстремально низких"
+		.["термоизолированный"] = "Защищает носителя от [jointext(list(heat_desc, cold_desc) - null, " и ")] температур."
+	if((clothing_traits & TRAIT_QUICK_CARRY) || (clothing_traits & TRAIT_QUICKER_CARRY))
+		.["тактильный"] = "Уменьшает время для поднятия существ в пожарный захват на [(clothing_traits & TRAIT_QUICKER_CARRY) ? "две секунды" : "одну секунду"]."
+	if(clothing_traits & FINGERS_COVERED)
+		.["закрывающий пальцы"] = "Пальцы носителя закрыты."
+	if(clothing_traits & TRAIT_FAST_CUFFING)
+		.["сдерживающий"] = "Позволяет носителю заковывать существ в наручники быстрее."
+	if((clothing_traits & BANGPROTECT_MINOR) || (clothing_traits & BANGPROTECT_TOTAL))
+		.["защищающий слух"] = "Защищает органы слуха носителя от громких звуков."
+
+/obj/item/clothing/examine_descriptor(mob/user)
+	return "предмет одежды"
+
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
 		return FALSE
@@ -980,7 +1018,7 @@
 	name = "Space helmet"
 	icon_state = "space"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment."
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL|STACKABLE_HELMET_EXEMPT
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
 	flags_inv = parent_type::flags_inv|HIDEHAIR|HIDENAME|HIDEMASK
 	item_state = "s_helmet"
@@ -1005,7 +1043,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
-	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDAMAGE|THICKMATERIAL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1

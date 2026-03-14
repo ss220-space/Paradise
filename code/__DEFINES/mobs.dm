@@ -407,6 +407,17 @@
 /// Eyes examine time mod
 #define EXAMINE_INSTANT 0 // 0 seconds
 
+// recent examine defines
+/// How long it takes for an examined atom to be removed from recent_examines. Should be the max of the below time windows
+#define RECENT_EXAMINE_MAX_WINDOW (2 SECONDS)
+/// If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()
+#define EXAMINE_MORE_WINDOW (1 SECONDS)
+/// If you yawn while someone nearby has examined you within this time frame, it will force them to yawn as well. Tradecraft!
+#define YAWN_PROPAGATION_EXAMINE_WINDOW (2 SECONDS)
+
+/// How far away you can be to make eye contact with someone while examining
+#define EYE_CONTACT_RANGE 5
+
 // Incapacitated ignore flags for [/proc/incapacitated()].
 // They also used at interaction_flags_c var.
 /// If the incapacitated will ignore a mob in restraints
