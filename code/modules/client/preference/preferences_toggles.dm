@@ -1,10 +1,3 @@
-/client/verb/setup_character()
-	set name = "Игровые настройки"
-	set category = VERB_CATEGORY_SPECIALVERBS
-	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения — незамедлительно."
-	prefs.current_tab = 1
-	prefs.ShowChoices(usr)
-
 // Preference toggles
 /datum/preference_toggle
 	/// Name of the preference toggle. Don't set this if you don't want it to appear in game
