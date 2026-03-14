@@ -1648,7 +1648,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	SIGNAL_HANDLER
 	if(deployed_shell)
 		var/area/area = get_area(deployed_shell)
-		log_game("[ckey] has leaved AI shell \"[deployed_shell.name]\" in [sanitize(area.name)]([COORD(deployed_shell)])")
+		log_game("[ckey] has left AI shell \"[deployed_shell.name]\" in [sanitize(area.name)]([COORD(deployed_shell)])")
 		deployed_shell.undeploy()
 
 /mob/living/silicon/ai/vv_edit_var(var_name, var_value)

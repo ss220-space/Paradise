@@ -262,7 +262,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				robot.evacuate_ai(DANGER_LVL_NONE)
 				AI.view_core()
 				to_chat(AI, span_warningbig("Для выгрузки вам нужно находиться в своем ядре."))
-				to_chat(AI, span_warningbig("Используйте команнду \"Выгрузить ядро ИИ\" в категории \"OOC\" для этого."))
+				to_chat(AI, span_warningbig("Используйте команду \"Выгрузить ядро ИИ\" в категории \"OOC\" для этого."))
 		if(isAI(src))
 			warningmsg = "Вы живой ИИ! Вам, вероятно, следует использовать \"OOC\" -> \"Выгрузить ядро ИИ\"."
 	else if(GLOB.non_respawnable_keys[ckey])

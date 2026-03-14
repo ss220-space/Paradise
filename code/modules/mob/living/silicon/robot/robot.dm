@@ -240,11 +240,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		mmi = null
 
-	if(connected_ai)
-		connected_ai.connected_robots -= src
 	if(shell)
 		GLOB.available_ai_shells -= src
-
 	if(connected_ai)
 		connected_ai.connected_robots -= src
 		connected_ai = null
@@ -2216,13 +2213,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(connected_ai)
 			if(connected_ai == AI)
 				return TRUE
-	if(isrobot(speaker))
+	else if(isrobot(speaker))
 		var/mob/living/silicon/robot/robot = speaker
-		if(connected_ai)
-			if(connected_ai == robot.mainframe)
-				return TRUE
-	else
-		return FALSE
+		if(connected_ai == robot.mainframe)
+			return TRUE
+	return FALSE
 
 /mob/living/silicon/robot/proc/update_camera_name()
 	if(!QDELETED(camera))

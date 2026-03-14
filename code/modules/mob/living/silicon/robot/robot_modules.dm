@@ -367,8 +367,6 @@
 	var/obj/item/borg/upgrade/magboots/upgrade = new(robot)
 	robot.install_upgrade(upgrade)
 
-	ADD_TRAIT(robot, TRAIT_NEGATES_GRAVITY, ROBOT_TRAIT)
-
 	return TRUE
 
 /obj/item/robot_module/engineering/Initialize(mapload)
