@@ -177,7 +177,7 @@
 		return
 
 	if(host.reagents.has_reagent("sugar"))
-		to_chat(borer, span_warning("Сахар в крови носителя"))
+		to_chat(borer, span_warning("Сахар в крови носителя блокирует эту способность."))
 		return
 
 	if(host.has_status_effect(/datum/status_effect/mend_host))
@@ -233,7 +233,8 @@
 
 /datum/action/innate/borer/adrenaline
 	name = "Всплеск адреналина"
-	desc = "Помогает носителю моментально востоновить свои силы"
+	desc = "Помогает носителю моментально восстановить свои силы"
+
 	button_icon_state = "adrenaline"
 	cost = 100
 
