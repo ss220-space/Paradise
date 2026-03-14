@@ -424,7 +424,7 @@
 	for(var/key in do_afters)
 		count += do_afters[key]
 	return count
-	
+
 /proc/is_species(A, species_datum)
 	. = FALSE
 	if(ishuman(A))

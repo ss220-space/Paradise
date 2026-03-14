@@ -460,7 +460,6 @@
 			if(!length(result))
 				result += span_notice("<i>Вы внимательно осматриваете [examinify.declent_ru(ACCUSATIVE)], но не замечаете новых деталей...</i>")
 			result_combined = chat_box_examine(jointext(result, "<br>"))
-
 		else
 			client.recent_examines[ref_to_atom] = world.time // set to when we last normal examine'd them
 			addtimer(CALLBACK(src, PROC_REF(clear_from_recent_examines), ref_to_atom), RECENT_EXAMINE_MAX_WINDOW)
@@ -471,7 +470,7 @@
 		var/atom_title = examinify.examine_title(src, thats = TRUE)
 		examining(examinify, result)
 		SEND_SIGNAL(src, COMSIG_MOB_EXAMINING, examinify, result)
-		result += span_notice("<i>Вы можете <a href=byond://?src=[UID()];run_examinate=[examinify.UID()]>осмотреть</a> [examinify.declent_ru(ACCUSATIVE)] более тщательно...</i>")
+		result += span_notice("<i>Вы можете <a href='byond://?src=[UID()];run_examinate=[examinify.UID()]'>осмотреть</a> [examinify.declent_ru(ACCUSATIVE)] более тщательно...</i>")
 		result_combined = (atom_title ? fieldset_block("[atom_title].", jointext(result, "<br>"), "boxed_message left_align_text") : chat_box_examine(jointext(result, "<br>")))
 
 	to_chat(src, span_infoplain(result_combined))
@@ -487,7 +486,7 @@
 	if(.)
 		return
 	if(href_list["run_examinate"])
-		var/atom/examined_atom = locate(href_list["run_examinate"])
+		var/atom/examined_atom = locateUID(href_list["run_examinate"])
 		//run_examinate only early returns this check for turfs for some reason.
 		if(examined_atom in view(client ? client.view : world.view, src))
 			run_examinate(examined_atom, force_examinate_more = TRUE)
@@ -524,13 +523,13 @@
 		return FALSE
 
 	examined_thing.balloon_alert(src, "попытка нащупать объект...")
-	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] шар[PLUR_IT_YAT(src)] вокруг руками в поисках [examined_thing.declent_ru(GENITIVE)]."))
+	visible_message(span_notice("[DECLENT_RU_CAP(src, NOMINATIVE)] шар[PLUR_IT_YAT(src)]ся вокруг руками в поисках [examined_thing.declent_ru(GENITIVE)]."))
 
 	/// how long it takes for the blind person to find the thing they're examining
 	var/examine_delay_length = rand(1 SECONDS, 2 SECONDS)
 	if(boosted)
 		examine_delay_length = 0.5 SECONDS
-	if(client?.recent_examines && client?.recent_examines[ref(examined_thing)]) //easier to find things we just touched
+	if(client?.recent_examines && client?.recent_examines[examined_thing.UID()]) //easier to find things we just touched
 		examine_delay_length = 0.33 SECONDS
 	else if(isobj(examined_thing))
 		examine_delay_length *= 1.5
