@@ -39,7 +39,6 @@ interface DroneData {
   charge: number;
   location: string;
   sync_cd: boolean;
-  pathfinding: boolean;
 }
 
 export const DroneConsole = (props) => {
@@ -195,7 +194,7 @@ const DroneList = (props) => {
               <Stack.Item>
                 <Button.Confirm
                   icon="power-off"
-                  disabled={drone.stat === 2 || drone.pathfinding}
+                  disabled={drone.stat === 2}
                   color="bad"
                   onClick={() =>
                     act('shutdown', {
