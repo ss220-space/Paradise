@@ -2286,6 +2286,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	deployed = TRUE
 	lawupdate = 0
 	grant_shell_actions()
+	tts_seed = AI.tts_seed
 	lawsync()
 
 	set_hud_image_state(DIAG_AISHELL_STAT_HUD, "hudtrackingai-active")

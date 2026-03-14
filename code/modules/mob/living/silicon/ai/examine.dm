@@ -21,6 +21,11 @@
 			msg += "[src]Core.exe has stopped responding! NTOS is searching for a solution to the problem...\n"
 		msg += "</span>"
 	msg += "</span>"
+	if(isobserver(user))
+		msg += "The laws it serves:\n"
+		laws.sort_laws()
+		for(var/datum/ai_law/law in laws.sorted_laws)
+			msg += "[law.get_index()]. [law.law]\n"
 
 	. += msg
 	user.showLaws(src)
