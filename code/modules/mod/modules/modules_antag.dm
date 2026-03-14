@@ -1030,15 +1030,16 @@ please, keep this up to date
 			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [choosed_name]",
 			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [choosed_name]"
 			)
+
 	mod.theme.default_skin = choosed_skin
 	mod.theme.set_only_visual_skin(mod, choosed_skin)
+	// our little trick
+	mod.theme.default_skin = cached_default_skin
+	cached_default_skin = null
 
 /obj/item/mod/module/active_chameleon/on_deactivation(display_message = TRUE, deleting = FALSE)
 	playsound(loc, 'sound/items/screwdriver2.ogg', 50, TRUE)
 	balloon_alert_to_viewers("костюм преображается!", "маскировка снята")
-
-	mod.theme.default_skin = cached_default_skin
-	cached_default_skin = null
 
 	mod.theme.set_skin(mod, mod.theme.default_skin)
 	var/list/parts = mod.get_parts()
