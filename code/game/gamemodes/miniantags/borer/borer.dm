@@ -215,9 +215,9 @@
 /mob/living/simple_animal/borer/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
-	status_tab_data[++status_tab_data.len] = list("Rank", antag_datum.borer_rank?.rankname)
-	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
+	status_tab_data[++status_tab_data.len] = list("Объём химикатов:", "[chemicals]/[max_chems]")
+	status_tab_data[++status_tab_data.len] = list("Ранг", "[antag_datum.borer_rank?.rankname] до повышения ранга [antag_datum.borer_rank.required_reproductions - antag_datum.reproductions]")
+	status_tab_data[++status_tab_data.len] = list("Очки эволюции", antag_datum.evo_points)
 
 /mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	var/list/message_pieces = parse_languages(message)
@@ -844,7 +844,6 @@
 	sneak_mode_action.Grant(host)
 	torment_action.Grant(host)
 	mend_host_action.Grant(host)
-	adrenaline_action.Grant(host)
 
 /mob/living/simple_animal/borer/proc/RemoveControlActions()
 	talk_to_brain_action.Remove(host)
@@ -853,7 +852,6 @@
 	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
 	mend_host_action.Remove(host)
-	adrenaline_action.Remove(host)
 
 /mob/living/carbon/human/proc/get_real_mind()
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()

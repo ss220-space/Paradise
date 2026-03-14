@@ -231,8 +231,8 @@
 	// I REALLY need to split up status panel things into datums
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 	if(borer?.controlling)
-		status_tab_data[++status_tab_data.len] = list("Объём химикатов:", borer.chemicals)
-		status_tab_data[++status_tab_data.len] = list("Стадия:", borer.antag_datum.borer_rank.rankname)
+		status_tab_data[++status_tab_data.len] = list("Объём химикатов:", "[borer.chemicals]/[borer.max_chems]")
+		status_tab_data[++status_tab_data.len] = list("Ранг", "[borer.antag_datum.borer_rank?.rankname] до повышения ранга [borer.antag_datum.borer_rank.required_reproductions - borer.antag_datum.reproductions]")
 		status_tab_data[++status_tab_data.len] = list("Очки эволюции:", borer.antag_datum.evo_points)
 
 	if(mind)
