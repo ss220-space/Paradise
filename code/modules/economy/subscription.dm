@@ -1,44 +1,45 @@
-// If you want to know how your subscription will be included in
-// the "Possible Subscriptions Section of PDA Bank,"
-// follow this path: code/modules/pda/core_apps.dm
-
-// To create your subscription correctly, please read this file in its entirety.
-// All documentation is available for this subsystem.
-// If anything is unclear, please contact the Raingor Discord.
-
-// ======================================================================================
-//								Parent Subscription Class
-// ======================================================================================
-
-// class for subscription
-// This is the subscription parent class.
-// To create your own subscription, take it as a parent and extend it.
-// !!!!!Don't forget to register it in available_subscriptions !!!!
-// !!!!via the process in this file called "initialize_catalog" !!!!
+/**
+ * If you want to know how your subscription will be included in
+ * the "Possible Subscriptions Section of PDA Bank,"
+ * follow this path: code/modules/pda/core_apps.dm
+ *
+ * To create your subscription correctly, please read this file in its entirety.
+ * All documentation is available for this subsystem.
+ * If anything is unclear, please contact the Raingor Discord.
+ *
+ * ======================================================================================
+ *								Parent Subscription Class
+ * ======================================================================================
+ * This is the subscription parent class.
+ * To create your own subscription, take it as a parent and extend it.
+ *
+ * Don't forget to register it in available_subscriptions
+ * via the process in this file called "initialize_catalog"
+*/
 /datum/subscription
-	var/subscription_name = "" // this like primary key!!! Don't create multiple subscriptions with the same name.
+	var/subscription_name = "" /// this like primary key!!! Don't create multiple subscriptions with the same name.
 	var/datum/money_account/subscriber_account
-	var/datum/money_account/recipient_account //recipient (product owner)
+	var/datum/money_account/recipient_account /// recipient (product owner)
 	var/cost = 0
 	var/description = ""
-	// Path to class / Each subscription knows who it is / for creation
+	/// Path to class / Each subscription knows who it is / for creation
 	var/subscription_type_path
 
-	// time logic
+	/// time logic
 	var/interval = 0 // must be a multiple of 5 minutes
 	var/next_payment_time = 0
 	var/creation_time = 0
 
 	var/active = TRUE
-	// This flag determines whether the subscriber can remove it
-	// Ideally, this is used to add salary "modifiers" or similar items, like fines. || forced subscription
-	// If it is enabled, do not add it to available_subscriptions
+	/// This flag determines whether the subscriber can remove it
+	/// Ideally, this is used to add salary "modifiers" or similar items, like fines. || forced subscription
+	/// If it is enabled, do not add it to available_subscriptions
 	var/secure = FALSE
 
 /datum/subscription/New(subscriber, recipient, cost_val, interval_val, name_val, description_t)
 	if(!subscriber || !istype(subscriber, /datum/money_account))
 		return
-	. = ..()
+	..()
 	subscriber_account = subscriber
 	recipient_account = recipient
 	cost = cost_val
@@ -48,11 +49,9 @@
 	description = description_t
 	subscription_type_path = type
 
-	//logs
-	creation_time = world.time
-	next_payment_time = world.time + interval
-
-	// check that it is a subscription - template
+	/**
+	 * check that it is a subscription - template
+	*/
 	if(!(subscriber_account == recipient_account))
 		GLOB.all_subscriptions += src
 		SSsubscriptions_subsystem.add_subscription(src)
@@ -61,23 +60,41 @@
 	if(!active)
 		return
 
-	// If the account is deleted, delete the subscription from the global and log out.
+	/**
+	 * If the account is deleted, delete the subscription from the global and log out.
+	*/
 	if(!subscriber_account || !recipient_account)
 		GLOB.all_subscriptions -= src
 		return
 
-	// check can start and safe check for charge (he can joke)
+	/**
+	 * check can start and safe check for charge (he can joke)
+	*/
 	if(!can_process())
 		cancel()
-	else if(!subscriber_account.charge(cost, recipient_account, "Оплата подписки [subscription_name]", "Терминал Raingor Interstellar Banking №[rand(111,333)]", recipient_account.owner_name , "Поступление по подписке [subscription_name]", subscriber_account.owner_name))
-		cancel()
-	else
-		next_payment_time = world.time + interval
-		//pda
-		subscriber_account.notify_pda_owner("<b> Уведомление о проведении планового платежа</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки продлено. \" (Невозможно Ответить)", FALSE)
-		recipient_account.notify_pda_owner("<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)", FALSE)
+		return
 
-// protection
+	if(!subscriber_account.charge(
+		cost,
+		recipient_account,
+		"Оплата подписки [subscription_name]",
+		"Терминал Raingor Interstellar Banking №[rand(111,333)]",
+		recipient_account.owner_name ,
+		"Поступление по подписке [subscription_name]",
+		subscriber_account.owner_name)
+		)
+		cancel()
+		return
+
+	var/noti = FALSE
+
+	subscriber_account.notify_pda_owner(
+		"<b> Уведомление о проведении планового платежа</b>\"Произведено списание абонентской платы за услугу '[subscription_name]' в размере [cost] кредитов. Действие подписки продлено. \" (Невозможно Ответить)",
+		noti)
+	recipient_account.notify_pda_owner(
+		"<b> Уведомление о поступлении средств по подписке</b>\"От контрагента [subscriber_account.owner_name] получены периодические платежи по соглашению на услугу '[subscription_name]' в размере [cost] кредитов. Поступление отражено в реестре транзакций. \" (Невозможно Ответить)",
+		noti)
+
 /datum/subscription/proc/can_process()
 	if(!subscriber_account || !recipient_account)
 		return FALSE
@@ -109,12 +126,14 @@
 //								    Additional Tools
 // ======================================================================================
 
-// This process is one of the basic ones; if you don’t add your subscription
-// as a test one, it won’t be displayed!
+/**
+ * This process is one of the basic ones; if you don’t add your subscription
+ * as a test one, it won’t be displayed!
+*/
 /datum/controller/subsystem/subscriptions_subsystem/proc/initialize_catalog()
 	GLOB.available_subscriptions.Cut()
-	// Because this is a DEMONSTRATION SUBSCRIPTION (the one that is not active, but which shows what subscriptions exist),
-	// you must make sure that this subscription has sender and recipient accounts GLOB.station_account
+	/// Because this is a DEMONSTRATION SUBSCRIPTION (the one that is not active, but which shows what subscriptions exist),
+	/// you must make sure that this subscription has sender and recipient accounts GLOB.station_account
 	GLOB.available_subscriptions += new /datum/subscription/station_donations(GLOB.station_account)
 	GLOB.available_subscriptions += new /datum/subscription/salary_modifier(GLOB.station_account)
 
@@ -167,7 +186,7 @@
 		to_chat(usr, span_warning("Ошибка: аккаунт #[subscriber_account.account_number] заблокирован."))
 		return FALSE
 
-	// Find a template in the catalog of available subscriptions
+	/// Find a template in the catalog of available subscriptions
 	var/datum/subscription/template = null
 
 	for(var/datum/subscription/S in GLOB.available_subscriptions)
@@ -235,7 +254,9 @@
 //								    subscriptions
 // ======================================================================================
 
-// An example of a station donation subscription
+/**
+ * An example of a station donation subscription
+*/
 /datum/subscription/station_donations
 	subscription_name = "Фонд развития станции"
 	description = " Регулярное перечисление средств на модернизацию систем жизнеобеспечения. Поощряется руководством НТ и отделом кадров."
@@ -246,7 +267,7 @@
 	..(subscriber, GLOB.station_account, cost, interval, subscription_name, description)
 
 /datum/subscription/salary_modifier
-	// Percentage change in salary
+	/// Percentage change in salary
 	subscription_name = "Персональная надбавка / удержание"
 	description = "Изменение коэффициента оплаты труда в соответствии с должностными инструкциями. За разъяснениями, согласованием или отменой параметра обращайтесь к Главе Персонала."
 	interval = FREQUENCY_SALARY

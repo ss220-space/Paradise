@@ -9,7 +9,7 @@
 #define PAYCHECK_COMMAND 400
 /// Paygrade for Captain and some high-tier VIPs.
 #define PAYCHECK_MAX 750
-// interval at which salaries are paid
+/// interval at which salaries are paid
 #define FREQUENCY_SALARY (5 MINUTES)
-// start-up capital
+/// start-up capital
 #define EXTRA_MONEY 10000

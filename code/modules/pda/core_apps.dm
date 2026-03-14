@@ -60,7 +60,7 @@
 		note = "Congratulations, your station has chosen the [pda.model_name]!"
 
 /datum/data/pda/app/notekeeper/update_ui(mob/user as mob, list/data)
-	data["note"] = html_decode(note)	// current pda notes
+	data["note"] = html_decode(note)	/// current pda notes
 
 /datum/data/pda/app/notekeeper/ui_act(action, params)
 	if(..())
@@ -136,16 +136,16 @@
 	data["aircontents"] = results
 
 /datum/data/pda/app/bank
-	name = "Raingor Interstellar Banking" // this is the perfect name for a bank. (do not change)
+	name = "Raingor Interstellar Banking" /// this is the perfect name for a bank. (do not change)
 	title = "Raingor Interstellar Banking"
 	icon = "university"
 	template = "pda_bank"
 	update = PDA_APP_UPDATE_SLOW
 
-	// Snapshot
+	/// Snapshot
 	var/last_login_card_id
 
-/datum/data/pda/app/bank/update_ui(mob/user as mob, list/data)
+/datum/data/pda/app/bank/update_ui(mob/user, list/data)
 	var/datum/money_account/owner_bank_account = get_account_with_name(pda.owner)
 	var/list/transactions_list = list()
 	var/list/possible_targets = list()
@@ -171,57 +171,52 @@
 
 	if(!pda.id && !(data["loginState"]["logged_in"]))
 		return
-	else
-		var/obj/item/card/id/card = pda.id
 
-		if(card)
-			last_login_card_id = pda.id
+	if(pda.id)
+		last_login_card_id = pda.id
 
-		var/obj/item/card/id/checked_card
+	var/obj/item/card/id/checked_card = pda.id || last_login_card_id
 
-		if(!card)
-			checked_card = last_login_card_id
-		else
-			checked_card = card
+	if(!checked_card)
+		return
 
-		if(!checked_card)
-			return
-
-		L.id = checked_card
-		L.name = checked_card.registered_name
-		L.rank = checked_card.assignment
-		L.access = checked_card.access
-		L.law_level = checked_card.law_level
-		L.logged_in = TRUE
+	L.id = checked_card
+	L.name = checked_card.registered_name
+	L.rank = checked_card.assignment
+	L.access = checked_card.access
+	L.law_level = checked_card.law_level
+	L.logged_in = TRUE
 
 	if(!data["loginState"]["logged_in"])
 		return
 
-	for(var/datum/transaction/T in owner_bank_account.transaction_log)
+	for(var/datum/transaction/Transaction in owner_bank_account.transaction_log)
 		transactions_list.Add(list(list(
-			"date" = T.date,
-			"time" = T.time,
-			"target_name" = T.target_name,
-			"purpose" = T.purpose,
-			"amount" = T.amount,
-			"source_terminal" = T.source_terminal
+			"date" = Transaction.date,
+			"time" = Transaction.time,
+			"target_name" = Transaction.target_name,
+			"purpose" = Transaction.purpose,
+			"amount" = Transaction.amount,
+			"source_terminal" = Transaction.source_terminal
 		)))
 
-	for(var/datum/money_account/Target_account in GLOB.all_money_accounts)
+	for(var/datum/money_account/Target_account as anything in GLOB.all_money_accounts)
 		if(!Target_account.suspended && !(Target_account.owner_name == owner_bank_account.owner_name))
 			possible_targets.Add(Target_account.owner_name)
 
-	// This list will store the names of subscriptions to which a person has already subscribed
-	// or interacted, so as not to re-create the subscription.
+	/// This list will store the names of subscriptions to which a person has already subscribed
+	/// or interacted, so as not to re-create the subscription.
 	var/list/active_sub_names = list()
 
-	// We collect all subscriptions that were registered in a person's name.
-	// We use this to create a separate list in TGUI.
+	/**
+	 * We collect all subscriptions that were registered in a person's name.
+	 * We use this to create a separate list in TGUI.
+	*/
 	for(var/datum/subscription/Ss in GLOB.all_subscriptions)
 		if(!Ss || !Ss.subscriber_account || !Ss.recipient_account)
 			continue
 
-		// Check if the player is either a subscriber or a recipient
+		/// Check if the player is either a subscriber or a recipient
 		var/is_player_involved = (Ss.subscriber_account == owner_bank_account) || (Ss.recipient_account == owner_bank_account)
 
 		if(is_player_involved)
@@ -246,7 +241,9 @@
 				"direction" = (Ss.subscriber_account == owner_bank_account) ? "outgoing" : "incoming"
 			)))
 
-	// subscriptions that can be purchased
+	/**
+	 * subscriptions that can be purchased
+	*/
 	for(var/datum/subscription/S in GLOB.available_subscriptions)
 		if(S.subscription_name in active_sub_names)
 			continue
@@ -267,12 +264,12 @@
 
 	data["balance"] = owner_bank_account.money
 	data["transactions"] = transactions_list
-	// Here are the names of the people/terminals where you can transfer money
+	/// Here are the names of the people/terminals where you can transfer money
 	data["targets"] = possible_targets
-	// Subscriptions that are already registered in the user's name
+	/// Subscriptions that are already registered in the user's name
 	data["subscriptions"] = subs_list
-	// Subscriptions that are NOT registered in the user's name and for them
-	// you will need to create a new one
+	/// Subscriptions that are NOT registered in the user's name and for them
+	/// you will need to create a new one
 	data["availableSubs"] = available_sub_list
 
 /datum/data/pda/app/bank/ui_act(action, params)
@@ -310,7 +307,7 @@
 				to_chat(usr, span_warning("Ошибка аккаунта."))
 				return
 
-			// additional options for your subscriptions
+			/// additional options for your subscriptions
 			var/list/extra_params = list()
 
 			//If you have additional parameters, write them something like this:
