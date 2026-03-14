@@ -10,7 +10,9 @@
 	var/list/loot
 
 /obj/effect/spawner/abandoned_crate/Initialize(mapload)
-	. = ..()
+	..()
+
+	. = INITIALIZE_HINT_QDEL
 
 	if(!length(loot))
 		return
