@@ -344,7 +344,6 @@
 	pixel_x = 1;
 	pixel_y = 9;
 	desc = "An Urn of unknown Venturer. ";
-	description_info = "It says: \"It's tempting to linger in this moment, while every possibility still exists. But unless they are collapsed by an observer, they will never be more than possibilities.\" - S.";
 	name = "An Explorer's Urn"
 	},
 /turf/simulated/floor/grass,
@@ -2410,7 +2409,7 @@
 	pixel_x = 1;
 	pixel_y = 9;
 	desc = "Dark ceramic urn filled with someone's ashes. You better don't look inside. It can bite back.";
-	description_info = "In memory of our friend Dae. His favorite phrase was: \" I will eat you!\" "
+	
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/graveyard/graves)

@@ -15,12 +15,16 @@
 	. = ..()
 	if(can_air_shoot)
 		RegisterSignal(src, COMSIG_ITEM_ATTACK_SELF, PROC_REF(try_air_fire))
-		description_info += "\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание."
 	if(!magazine && mag_type)
 		magazine = new mag_type(src)
 	chamber_round()
 	update_weight()
 	update_icon()
+
+/obj/item/gun/projectile/examine_more(mob/user)
+	. = ..()
+	if(can_air_shoot)
+		. += span_notice("\nНаходясь в интенте GRAB вы можете нажать кнопку использования вещи в руке (по стандарту Z), чтобы выстрелить в воздух. Это потратит патрон, но привлечет к вам внимание.")
 
 /obj/item/gun/projectile/Destroy()
 	QDEL_NULL(magazine)

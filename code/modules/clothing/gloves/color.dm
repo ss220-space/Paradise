@@ -23,12 +23,16 @@
 	)
 
 /obj/item/clothing/gloves/color/yellow/power
-	description_antag = "These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables."
 	var/old_mclick_override
 	var/datum/middleClickOverride/power_gloves/mclick_override = new /datum/middleClickOverride/power_gloves
 	var/last_shocked = 0
 	var/shock_delay = 40
 	var/unlimited_power = FALSE // Does this really need explanation?
+
+/obj/item/clothing/gloves/color/yellow/power/examine_more(mob/user)
+	. = ..()
+	if(Adjacent(user))
+		. += span_warning("These are a pair of power gloves, and can be used to fire bolts of electricity while standing over powered power cables.")
 
 /obj/item/clothing/gloves/color/yellow/power/equipped(mob/living/carbon/human/user, slot, initial)
 	. = ..()

@@ -195,7 +195,10 @@
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
 	var/charges = 6
-	description_antag = "Это устройство имеет дополнительный порт, который позволяет обойти меры безопасности шахтёрских зарядов."
+
+/obj/item/t_scanner/adv_mining_scanner/syndicate/examine_more(mob/user)
+	. = ..()
+	. += span_warning("Имеет дополнительный порт, который позволяет обойти меры безопасности шахтёрских зарядов.")
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(istype(target,/obj/item/grenade/plastic/miningcharge))
