@@ -13,7 +13,7 @@
 	. = ..()
 
 	if(!length(loot))
-		return
+		return INITIALIZE_HINT_QDEL
 
 	for(var/atom in loot)
 		for(var/i in 1 to loot[atom])
