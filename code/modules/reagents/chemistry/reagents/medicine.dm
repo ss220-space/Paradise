@@ -1787,7 +1787,6 @@
 	harmless = FALSE
 	overdose_threshold = 15
 
-
 /datum/reagent/medicine/sanguinius/on_mob_life(mob/living/user)
 	. = list(0, STATUS_UPDATE_NONE)
 
