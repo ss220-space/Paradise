@@ -246,6 +246,8 @@
 	var/ticks_per_run = 5
 	/// How long has it been since we processed the crystal?
 	var/tick_counter = 0
+	/// Datum, that handles all effects on station when sm explodes
+	var/datum/supermatter_explosive_effects/supermatter_explosive_effects
 
 /obj/machinery/atmospherics/supermatter_crystal/get_ru_names()
 	return list(
@@ -274,6 +276,9 @@
 
 	if(!moveable)
 		move_resist = MOVE_FORCE_OVERPOWERING // Avoid being moved by statues or other memes
+
+	supermatter_explosive_effects = new()
+	supermatter_explosive_effects.z = src.z
 
 /obj/machinery/atmospherics/supermatter_crystal/Destroy()
 	if(warp)
@@ -408,6 +413,8 @@
 
 /obj/machinery/atmospherics/supermatter_crystal/proc/explode(forced_combined_gas = 0, forced_power = 0, forced_gasmix_power_ratio = 0)
 	SSblackbox.record_feedback("amount", "supermatter_delaminations", 1)
+	supermatter_explosive_effects.z = src.z
+	supermatter_explosive_effects.handle_special_effects()
 	for(var/mob/living/living_mob as anything in GLOB.alive_mob_list)
 		if(istype(living_mob) && are_zs_connected(living_mob, src))
 			if(ishuman(living_mob))
