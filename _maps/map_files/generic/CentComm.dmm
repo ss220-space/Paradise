@@ -197,10 +197,6 @@
 	underlay_floor_icon_state = "floor13"
 	},
 /area/shuttle/ninja)
-"acN" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/iron,
-/area/syndicate_mothership)
 "acQ" = (
 /obj/structure/chair/office/light{
 	dir = 8
@@ -2435,8 +2431,7 @@
 "bfH" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	pixel_y = 2
+	department = "Central Command"
 	},
 /turf/simulated/floor/carpet/cyan,
 /area/centcom/zone2)
@@ -8096,8 +8091,7 @@
 "dMM" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	pixel_y = 2
+	department = "Central Command"
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/centcom/specops)
@@ -16645,9 +16639,7 @@
 /area/abductor_ship)
 "igq" = (
 /obj/structure/flora/junglebush,
-/obj/structure/flora/rock/pile/largejungle{
-	icon_state = "rocks1"
-	},
+/obj/structure/flora/rock/pile/largejungle,
 /obj/structure/flora/tree/jungle/small,
 /turf/simulated/floor/indestructible/grass,
 /area/ninja/outside)
@@ -21065,8 +21057,7 @@
 "kfl" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	pixel_y = 2
+	department = "Central Command"
 	},
 /obj/machinery/status_display{
 	layer = 4;
@@ -33804,8 +33795,7 @@
 "pJr" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	pixel_y = 2
+	department = "Central Command"
 	},
 /turf/simulated/floor/bluegrid,
 /area/centcom/bridge)
@@ -35530,8 +35520,7 @@
 "quT" = (
 /obj/structure/table/wood/fancy/black,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	pixel_y = 2
+	department = "Central Command"
 	},
 /turf/simulated/floor/carpet/red,
 /area/centcom/bridge)
@@ -36778,8 +36767,7 @@
 "raf" = (
 /obj/structure/table/glass,
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	pixel_y = 2
+	department = "Central Command"
 	},
 /obj/effect/landmark/spawner/commando_manual,
 /obj/machinery/status_display{
@@ -47151,8 +47139,7 @@
 	dir = 8
 	},
 /obj/machinery/photocopier/faxmachine/longrange{
-	department = "Central Command";
-	pixel_y = 2
+	department = "Central Command"
 	},
 /obj/effect/turf_decal/siding{
 	color = "#444444";
@@ -52430,13 +52417,6 @@
 	icon_state = "dark"
 	},
 /area/syndicate_mothership/outside)
-"ykF" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall/indestructible/fakeglass{
-	base_icon_state = "fake_plastitanium_glass";
-	icon = 'icons/turf/walls/fake_plastitanium_glass.dmi'
-	},
-/area/syndicate_mothership)
 "ykH" = (
 /obj/structure/shuttle/engine/platform{
 	dir = 8;
@@ -62991,7 +62971,7 @@ keo
 nra
 bGz
 keo
-acN
+keo
 keo
 wXZ
 wXZ
@@ -71207,7 +71187,7 @@ keo
 keo
 keo
 wGu
-ykF
+wGu
 vnN
 wlI
 roL

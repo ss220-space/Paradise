@@ -15,8 +15,11 @@
 	. = ..()
 
 	if(never_should_have_come_here(loc))
-		if(mapload)
-			stack_trace("[name] spawned in a bad turf ([loc]) at [AREACOORD(src)] in \the [get_area(src)]. Please remove it or allow it to pass never_should_have_come_here if it's intended.")
+		/**
+		 * Someday, someone will definitely clean it up to the end.
+		 */
+		//if(mapload)
+		//	stack_trace("[name] spawned in a bad turf ([loc]) at [AREACOORD(src)] in [get_area(src)]. Please remove it or allow it to pass never_should_have_come_here if it's intended.")
 		return INITIALIZE_HINT_QDEL
 
 	var/static/list/loc_connections = list(
