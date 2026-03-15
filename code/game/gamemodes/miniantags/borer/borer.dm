@@ -216,7 +216,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	status_tab_data[++status_tab_data.len] = list("Объём химикатов:", "[chemicals]/[max_chems]")
-	status_tab_data[++status_tab_data.len] = list("Ранг", "[antag_datum.borer_rank?.rankname] до повышения ранга [antag_datum.borer_rank.required_reproductions - antag_datum.reproductions]")
+	status_tab_data[++status_tab_data.len] = list("Ранг", antag_datum.borer_rank?.rankname)
 	status_tab_data[++status_tab_data.len] = list("Очки эволюции", antag_datum.evo_points)
 
 /mob/living/simple_animal/borer/say(message, verb = "говор%(ит,ят)%", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
