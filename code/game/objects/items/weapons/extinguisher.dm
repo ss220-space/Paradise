@@ -203,7 +203,7 @@
 
 		reagents.clear_reagents()
 
-	else if(tep >= EXTINGUISHER_TEMP_HIGH && temp < EXTINGUISHER_TEMP_ULTRA)
+	else if(temp >= EXTINGUISHER_TEMP_HIGH && temp < EXTINGUISHER_TEMP_ULTRA)
 		temp = EXTINGUISHER_TEMP_MED
 
 	else
