@@ -189,8 +189,9 @@
 		return
 
 	reagents.set_reacting(TRUE)
+	var/temp = reagents.chem_temp
 
-	if(reagents.chem_temp >= EXTINGUISHER_TEMP_ULTRA)
+	if(temp >= EXTINGUISHER_TEMP_ULTRA)
 		to_chat(user, span_userdanger("Как только вы вытаскиваете чеку, [declent_ru(NOMINATIVE)] ошпаривает вас паром!"))
 		playsound(src, 'sound/effects/refill.ogg', 50, TRUE)
 
@@ -198,15 +199,15 @@
 			var/mob/living/living_user = user
 			living_user.apply_damage(30, BURN, spread_damage = TRUE)
 			living_user.emote("scream")
-			reagents.chem_temp = T20C
+			temp = T20C
 
 		reagents.clear_reagents()
 
-	else if(reagents.chem_temp >= EXTINGUISHER_TEMP_HIGH && reagents.chem_temp < EXTINGUISHER_TEMP_ULTRA)
-		reagents.chem_temp = EXTINGUISHER_TEMP_MED
+	else if(tep >= EXTINGUISHER_TEMP_HIGH && temp < EXTINGUISHER_TEMP_ULTRA)
+		temp = EXTINGUISHER_TEMP_MED
 
 	else
-		reagents.chem_temp = T20C
+		temp = T20C
 
 	update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 
