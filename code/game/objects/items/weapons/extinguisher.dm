@@ -325,7 +325,7 @@
 		if(1 to 3)
 			source.delay = 3
 
-/obj/item/extinguisher/proc/steam_explosion(datum/source, datum/thrown_thing/throwing_datum)
+/obj/item/extinguisher/proc/steam_explosion()
 	SIGNAL_HANDLER
 
 	if(type != /obj/item/extinguisher || blowing_up || !reagents || (reagents && !reagents.reagent_list) || !safety)
