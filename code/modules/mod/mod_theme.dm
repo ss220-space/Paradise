@@ -120,7 +120,7 @@
 		parts += mod_part
 
 	for(var/obj/item/part as anything in parts)
-		part.name = "[name] [part.name]"
+		part.name = "[part.name] [name]"
 		if(!part.ru_names)
 			part.ru_names = part.get_ru_names_cached()
 		part.ru_names = list(
@@ -131,7 +131,7 @@
 			INSTRUMENTAL = part.ru_names[INSTRUMENTAL] + " [name]",
 			PREPOSITIONAL = part.ru_names[PREPOSITIONAL] + " [name]"
 			)
-		part.desc = "[part.desc] </p> [desc]"
+		part.desc = "[part.desc] </p><i>[desc]</i>"
 		part.set_armor(armor_type)
 		part.resistance_flags = resistance_flags
 		part.flags |= atom_flags //flags like initialization or admin spawning are here, so we cant set, have to add
