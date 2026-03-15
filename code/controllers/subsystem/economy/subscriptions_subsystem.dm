@@ -79,7 +79,8 @@ SUBSYSTEM_DEF(subscriptions_subsystem)
  */
 /datum/controller/subsystem/subscriptions_subsystem/proc/fire_buckets(resumed)
 	if(!resumed)
-		current_bucket = buckets[current_bucket_index].Copy()
+		var/list/source_bucket = buckets[current_bucket_index]
+		current_bucket = source_bucket.Copy()
 
 	var/list/cached_current_bucket = current_bucket
 	var/index_bucket = length(cached_current_bucket)
