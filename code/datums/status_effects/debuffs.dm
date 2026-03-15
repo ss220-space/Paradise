@@ -1585,16 +1585,14 @@
 	if(borer.antag_datum)
 		SEND_SIGNAL(borer.antag_datum, COMSIG_BORER_EVOLUTION_TICK, PARASITISM_EVOLUTION_GAIN)
 
-	borer.chemicals += PARASITISM_CHEMICAL_GAIN
-	if(borer.chemicals > borer.max_chems)
-		borer.chemicals = borer.max_chems
+	borer.chemicals = min(borer.chemicals + PARASITISM_CHEMICAL_GAIN, borer.max_chems)
 
 	host.adjustBruteLoss(PARASITISM_HOST_DAMAGE)
 	host.adjustToxLoss(PARASITISM_HOST_DAMAGE)
 	host.adjust_nutrition(-5)
 
 	if(prob(30))
-		to_chat(host, span_danger( "Паразит высасывает ваши жизненные силы"))
+		to_chat(host, span_danger("Паразит высасывает ваши жизненные силы"))
 		host.AdjustKnockdown(2 SECONDS)
 		host.AdjustConfused(3 SECONDS)
 		host.AdjustJitter(10 SECONDS)

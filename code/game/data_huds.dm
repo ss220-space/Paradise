@@ -138,6 +138,9 @@
 
 	return severity
 
+/mob/living/proc/has_parasitism()
+	return has_status_effect(/datum/status_effect/parasitism)
+
 /// Helper for getting the appropriate health status
 /proc/RoundHealth(mob/living/M)
 	if(M.stat == DEAD || HAS_TRAIT(M, TRAIT_FAKEDEATH))
@@ -254,7 +257,7 @@
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_XENO)
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_TUMOUR)
-	else if(B?.controlling && !B.sneaking || has_status_effect(/datum/status_effect/parasitism))
+	else if(B?.controlling && !B.sneaking || has_parasitism())
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_BRAINWORM)
 	else if(is_in_crit())
 		set_hud_image_state(STATUS_HUD, STATUS_HUD_DEFIB)

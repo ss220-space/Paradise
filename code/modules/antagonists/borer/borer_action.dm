@@ -141,7 +141,7 @@
 
 /datum/action/innate/borer/sneak_mode
 	name = "Скрытный режим"
-	desc = "Прячет Ваш статус на медицинских ИЛС."
+	desc = "Прячет ваш статус на медицинских ИЛС."
 	button_icon_state = "chameleon_skin"
 
 /datum/action/innate/borer/sneak_mode/Activate()
